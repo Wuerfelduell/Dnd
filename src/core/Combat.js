@@ -165,6 +165,10 @@ export class Combat {
     this.armor = enc.practice ? 0 : enc.armor ?? (enc.boss ? Math.min(ARMOR.boss, tier) : enc.elite ? Math.min(ARMOR.elite, tier - 1) : 0);
     this.enemy = { name: enc.name, hp, maxHp: hp, occult: !!enc.occult };
     this.rng = state.rng ?? Math.random;
+    // BQ: Haupt einer Sekte wechselt bei halben Leben einmal die Angriffe (`phase2`: attacks, meldung), ohne Heilung oder Extra-Beute
+    this.phase2 = enc.phase2 ?? null;
+    this.phased = false;
+    this.phaseNote = null;
     // Die härteste Einzelattacke kann man nicht parieren, nur ausweichen (außer die Daten sagen es anders)
     const flagged = enc.attacks.some((a) => a.unparryable !== undefined);
     const heavy = enc.attacks.filter((a) => a.hits?.length === 1).sort((a, b) => b.damage - a.damage)[0];
@@ -510,6 +514,12 @@ export class Combat {
     }
     this.enemy.hp = Math.max(0, this.enemy.hp - dmg);
     if (this.enemy.hp === 0) this.outcome = 'won';
+    if (this.phase2 && !this.phased && this.enemy.hp > 0 && this.enemy.hp <= this.enemy.maxHp * 0.5) {
+      this.phased = true;
+      this.enc = { ...this.enc, attacks: this.phase2.attacks };
+      this.attackIndex = 0;
+      this.phaseNote = this.phase2.meldung ?? `${this.enemy.name} wechselt die Haltung.`;
+    }
     return dmg;
   }
 
@@ -766,7 +776,7 @@ export class Combat {
    * - Niederlage: Ohnmacht, du wachst mit wenig Leben auf (lose_to: anderer Ort).
    * - Übungskämpfe: Leben wie vorher, keine Folgen.
    */
-  finish({ deferLoot = false } = {}) {
+  finish({ deferLoot = false, noLoot = false } = {}) {
     const s = this.state;
     const enc = this.enc;
     const firstFlag = `won_${this.id}`;
@@ -782,9 +792,9 @@ export class Combat {
       s.applyEffects({ ...enc.on_win, sets_flags: [...(enc.on_win?.sets_flags ?? []), firstFlag] });
       if (first && enc.first_win) s.applyEffects(enc.first_win);
       if (!enc.practice) {
-        loot = this.rollLoot(first);
+        loot = noLoot ? null : this.rollLoot(first); // BQ: Schreinwachen geben keine eigene Beute, erst der Abbau
         // Bei Gegnern auf der Karte landet die Beute in einem Behälter am Boden (WorldScene)
-        if (!deferLoot) takeLoot(s, loot, enc.name);
+        if (!deferLoot && loot) takeLoot(s, loot, enc.name);
         s.act('combat_win');
         if (enc.occult) s.act('occult_win');
       }

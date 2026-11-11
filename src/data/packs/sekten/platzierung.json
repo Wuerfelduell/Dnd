@@ -1,0 +1,293 @@
+[
+ {
+  "map": "giesserei",
+  "tile": [
+   13,
+   15
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "sk_asche_kette"
+   ],
+   "requires_flags": []
+  },
+  "interactable": {
+   "id": "sk_asche_lese_1",
+   "kind": "dialogue",
+   "title": "die ausgekühlte Aktenmulde an der Gießerei",
+   "role": "Spur",
+   "prompt": "Spur prüfen",
+   "dialogue": "sk_asche_schritt_1",
+   "marker": true
+  }
+ },
+ {
+  "map": "wx_torfstich",
+  "tile": [
+   13,
+   10
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "sk_asche_kette"
+   ],
+   "requires_flags": [
+    "sk_asche_schritt_1"
+   ]
+  },
+  "interactable": {
+   "id": "sk_asche_lese_2",
+   "kind": "dialogue",
+   "title": "die Schichtkerben am Torfstich",
+   "role": "Spur",
+   "prompt": "Spur prüfen",
+   "dialogue": "sk_asche_schritt_2",
+   "marker": true
+  }
+ },
+ {
+  "map": "ds_lohnbuero",
+  "tile": [
+   21,
+   7
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "sk_asche_kette"
+   ],
+   "requires_flags": [
+    "sk_asche_schritt_1",
+    "sk_asche_schritt_2"
+   ]
+  },
+  "interactable": {
+   "id": "sk_asche_lese_3",
+   "kind": "dialogue",
+   "title": "den fehlenden Namen im Lohnbüro",
+   "role": "Spur",
+   "prompt": "Spur prüfen",
+   "dialogue": "sk_asche_schritt_3",
+   "marker": true
+  }
+ },
+ {
+  "map": "docks",
+  "tile": [
+   8,
+   7
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "sk_asche_kette"
+   ],
+   "requires_flags": [
+    "sk_asche_schritt_1",
+    "sk_asche_schritt_2",
+    "sk_asche_schritt_3"
+   ]
+  },
+  "interactable": {
+   "id": "sk_asche_lese_4",
+   "kind": "dialogue",
+   "title": "den leeren Kohlesäcken zum Kanalhafen",
+   "role": "Spur",
+   "prompt": "Spur prüfen",
+   "dialogue": "sk_asche_schritt_4",
+   "marker": true
+  }
+ },
+ {
+  "map": "wx_bojenhafen",
+  "tile": [
+   14,
+   3
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "sk_flut_kette"
+   ],
+   "requires_flags": []
+  },
+  "interactable": {
+   "id": "sk_flut_lese_1",
+   "kind": "dialogue",
+   "title": "die Bojenkerben am Hafen",
+   "role": "Spur",
+   "prompt": "Spur prüfen",
+   "dialogue": "sk_flut_schritt_1",
+   "marker": true
+  }
+ },
+ {
+  "map": "gaskanaele",
+  "tile": [
+   28,
+   5
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "sk_flut_kette"
+   ],
+   "requires_flags": [
+    "sk_flut_schritt_1"
+   ]
+  },
+  "interactable": {
+   "id": "sk_flut_lese_2",
+   "kind": "dialogue",
+   "title": "den trockenen Seilrest in den Gaskanälen",
+   "role": "Spur",
+   "prompt": "Spur prüfen",
+   "dialogue": "sk_flut_schritt_2",
+   "marker": true
+  }
+ },
+ {
+  "map": "ds_endbahnhof",
+  "tile": [
+   40,
+   3
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "sk_flut_kette"
+   ],
+   "requires_flags": [
+    "sk_flut_schritt_1",
+    "sk_flut_schritt_2"
+   ]
+  },
+  "interactable": {
+   "id": "sk_flut_lese_3",
+   "kind": "dialogue",
+   "title": "die Bündelmarken am Endbahnhof",
+   "role": "Spur",
+   "prompt": "Spur prüfen",
+   "dialogue": "sk_flut_schritt_3",
+   "marker": true
+  }
+ },
+ {
+  "map": "wx_pfahldorf",
+  "tile": [
+   32,
+   10
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "sk_flut_kette"
+   ],
+   "requires_flags": [
+    "sk_flut_schritt_1",
+    "sk_flut_schritt_2",
+    "sk_flut_schritt_3"
+   ]
+  },
+  "interactable": {
+   "id": "sk_flut_lese_4",
+   "kind": "dialogue",
+   "title": "Löse die falsche Rettungsleine im Pfahldorf",
+   "role": "Spur",
+   "prompt": "Spur prüfen",
+   "dialogue": "sk_flut_schritt_4",
+   "marker": true
+  }
+ },
+ {
+  "map": "ds_pruefhaus",
+  "tile": [
+   18,
+   7
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "sk_chor_kette"
+   ],
+   "requires_flags": []
+  },
+  "interactable": {
+   "id": "sk_chor_lese_1",
+   "kind": "dialogue",
+   "title": "die Wachsmulde vor dem Klangprüfhaus",
+   "role": "Spur",
+   "prompt": "Spur prüfen",
+   "dialogue": "sk_chor_schritt_1",
+   "marker": true
+  }
+ },
+ {
+  "map": "theater",
+  "tile": [
+   3,
+   12
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "sk_chor_kette"
+   ],
+   "requires_flags": [
+    "sk_chor_schritt_1"
+   ]
+  },
+  "interactable": {
+   "id": "sk_chor_lese_2",
+   "kind": "dialogue",
+   "title": "die stummen Einsätze am Theater",
+   "role": "Spur",
+   "prompt": "Spur prüfen",
+   "dialogue": "sk_chor_schritt_2",
+   "marker": true
+  }
+ },
+ {
+  "map": "wx_lichtamt",
+  "tile": [
+   6,
+   12
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "sk_chor_kette"
+   ],
+   "requires_flags": [
+    "sk_chor_schritt_1",
+    "sk_chor_schritt_2"
+   ]
+  },
+  "interactable": {
+   "id": "sk_chor_lese_3",
+   "kind": "dialogue",
+   "title": "die Empfangsfolge im Lichtamt",
+   "role": "Spur",
+   "prompt": "Spur prüfen",
+   "dialogue": "sk_chor_schritt_3",
+   "marker": true
+  }
+ },
+ {
+  "map": "ds_signalhang",
+  "tile": [
+   39,
+   7
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "sk_chor_kette"
+   ],
+   "requires_flags": [
+    "sk_chor_schritt_1",
+    "sk_chor_schritt_2",
+    "sk_chor_schritt_3"
+   ]
+  },
+  "interactable": {
+   "id": "sk_chor_lese_4",
+   "kind": "dialogue",
+   "title": "Trenne die falschen Rufe am Signalhang",
+   "role": "Spur",
+   "prompt": "Spur prüfen",
+   "dialogue": "sk_chor_schritt_4",
+   "marker": true
+  }
+ }
+]

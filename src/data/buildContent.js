@@ -257,6 +257,10 @@ function withPackTreffen(packs, gatherings, pathways, wexmoor) {
         if (Object.keys(own).length) wexmoor = { ...wexmoor, cities: { ...wexmoor.cities, [cid]: { ...c, pins: { ...(c.pins ?? {}), ...own } } } };
       }
     }
+    // BO: weitere Rezepte und der Textvorrat der Fasserin hängen sich an treffen.json → artisan
+    if (gatherings?.artisan && (pack.rezepte || pack.fasserin_texte)) {
+      gatherings = { ...gatherings, artisan: { ...gatherings.artisan, recipes: [...(gatherings.artisan.recipes ?? []), ...(pack.rezepte ?? [])], texte: pack.fasserin_texte ?? gatherings.artisan.texte } };
+    }
     const arts = pack.artefakte ?? pack.artifacts?.list;
     if (arts && pathways?.artifacts) {
       pathways = { ...pathways, artifacts: { ...pathways.artifacts, list: { ...pathways.artifacts.list, ...arts } } };

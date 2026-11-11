@@ -1,0 +1,320 @@
+{
+  "recipes": [
+    {
+      "id": "fass_aschenlicht",
+      "needs": {
+        "fremdlicht_phiole": 1,
+        "torfasche": 2,
+        "reetfaser": 2
+      },
+      "fee": 100,
+      "line": "Das Reet hält das Licht; die Asche hält es davon ab, Sie zu mögen."
+    },
+    {
+      "id": "fass_salzspange",
+      "needs": {
+        "moewenglas": 1,
+        "salzkristall": 2,
+        "krebspanzer": 1
+      },
+      "fee": 110,
+      "line": "Die Feder hört den Schlag, der Panzer bezahlt die Landung."
+    },
+    {
+      "id": "fass_pfahlherz",
+      "needs": {
+        "laternenoel_alt": 1,
+        "pfahlholz": 2,
+        "torfasche": 1
+      },
+      "fee": 120,
+      "line": "Das Holz ist längst ertrunken; Ihren Puls wird es trotzdem stützen."
+    },
+    {
+      "id": "fass_kerbhuelse",
+      "needs": {
+        "madenwachs": 1,
+        "reetfaser": 2,
+        "pfahlholz": 1
+      },
+      "fee": 140,
+      "line": "Ich verschließe das Wachs, nicht den Mund dessen, der darin spricht."
+    },
+    {
+      "id": "fass_wattpendel",
+      "needs": {
+        "schlickperle": 1,
+        "salzkristall": 2
+      },
+      "fee": 130,
+      "line": "Die Perle sucht jede Lücke; Sie werden ihr Gepäck dafür selbst tragen."
+    },
+    {
+      "id": "fass_pausendose",
+      "needs": {
+        "spieldose_klein": 1,
+        "zahnrad_klein": 2,
+        "notenblatt_zerrissen": 1
+      },
+      "fee": 150,
+      "line": "Ich nehme eine Note heraus; die Ruhe müssen Sie selber aushalten."
+    },
+    {
+      "id": "fass_regenzeuge",
+      "needs": {
+        "wachszylinder": 1,
+        "papierfeder": 2
+      },
+      "fee": 110,
+      "line": "Das Rauschen bekommt eine Feder, damit es wenigstens bei der Sache bleibt."
+    },
+    {
+      "id": "fass_gassenfuchs",
+      "needs": {
+        "landkarte_alt": 1,
+        "fuchsfell": 1,
+        "fahrkarte": 2
+      },
+      "fee": 160,
+      "line": "Der Fuchs kennt die billigen Wege; für verlorenes Geld interessiert er sich nicht."
+    },
+    {
+      "id": "fass_schalenfunke",
+      "needs": {
+        "irrlichtfunke": 1,
+        "brutschale": 1
+      },
+      "fee": 100,
+      "line": "Unter der Schale erkennt der Funke Verwandte, leider auch Feinde."
+    },
+    {
+      "id": "fass_knochenkiel",
+      "needs": {
+        "schaedelsplitter": 1,
+        "schnabelfeder": 2,
+        "knochenmehl": 2
+      },
+      "fee": 90,
+      "line": "Die Spitze wird halten; über Ihre Rippen kann ich nichts versprechen."
+    }
+  ],
+  "artifacts": {
+    "list": {
+      "fass_aschenlicht": {
+        "name": "Aschenlicht in Reet",
+        "source": "artisan",
+        "price": 140,
+        "icon": "fremdlicht_phiole",
+        "desc": "Eine Phiole in einem aschegrauen Reetgeflecht. Das Licht zeigt fremde Umrisse, bis auch der eigene Schatten unbekannt wirkt.",
+        "boons": [
+          {
+            "key": "vision_cost",
+            "value": 0.8,
+            "text": "Geistsicht kostet 20 % weniger Nerven."
+          }
+        ],
+        "curses": [
+          {
+            "key": "max_nerves",
+            "value": -10,
+            "text": "10 weniger maximale Nerven."
+          }
+        ]
+      },
+      "fass_salzspange": {
+        "name": "Salzspange",
+        "source": "artisan",
+        "price": 150,
+        "icon": "moewenglas",
+        "desc": "Möwenglas sitzt in einem Stück Krebspanzer. Salz knirscht in der Fassung, lange bevor sich eine Hand zum Schlag hebt.",
+        "boons": [
+          {
+            "key": "dodge_window",
+            "value": 1.15,
+            "text": "Ausweichfenster 15 % größer."
+          }
+        ],
+        "curses": [
+          {
+            "key": "heal_bonus",
+            "value": 0.75,
+            "text": "Heilmittel wirken 25 % schwächer."
+          }
+        ]
+      },
+      "fass_pfahlherz": {
+        "name": "Pfahlherz",
+        "source": "artisan",
+        "price": 160,
+        "icon": "laternenoel_alt",
+        "desc": "Altes Laternenöl zieht durch ein kleines Stück Pfahlholz. Es wärmt den Brustkorb und lässt die Gedanken nach kaltem Wasser schmecken.",
+        "boons": [
+          {
+            "key": "max_hp",
+            "value": 12,
+            "text": "12 zusätzliche maximale Leben."
+          }
+        ],
+        "curses": [
+          {
+            "key": "max_nerves",
+            "value": -12,
+            "text": "12 weniger maximale Nerven."
+          }
+        ]
+      },
+      "fass_kerbhuelse": {
+        "name": "Hülse für einen fremden Namen",
+        "source": "artisan",
+        "price": 180,
+        "icon": "madenwachs",
+        "desc": "Eine hölzerne Hülse hält Madenwachs zwischen Reetfasern. Im Bauch wird alles rascher still; eine Kränkung bleibt dafür länger haften.",
+        "boons": [
+          {
+            "key": "digest_mult",
+            "value": 1.15,
+            "text": "Tränke verdauen 15 % schneller."
+          }
+        ],
+        "curses": [
+          {
+            "key": "honor_loss",
+            "value": 1.35,
+            "text": "Ansehensverluste fallen 35 % höher aus."
+          }
+        ]
+      },
+      "fass_wattpendel": {
+        "name": "Wattpendel",
+        "source": "artisan",
+        "price": 170,
+        "icon": "schlickperle",
+        "desc": "Eine graue Perle schwingt zwischen zwei Salzkanten. Sie zieht zur schwächsten Stelle eines Schlosses und hängt schwerer am Rucksack, als sie sollte.",
+        "boons": [
+          {
+            "key": "lock_bonus",
+            "value": 12,
+            "text": "Schlösser verlangen 12 Ansehen weniger."
+          }
+        ],
+        "curses": [
+          {
+            "key": "carry",
+            "value": -5,
+            "text": "5 Pfund weniger Tragkraft."
+          }
+        ]
+      },
+      "fass_pausendose": {
+        "name": "Dose mit einer fehlenden Note",
+        "source": "artisan",
+        "price": 190,
+        "icon": "spieldose_klein",
+        "desc": "Eine versetzte Walze lässt im Wiegenlied eine Lücke. In ihr findet der Atem seinen Takt, doch jede Fähigkeit verlangt einen längeren Anlauf.",
+        "boons": [
+          {
+            "key": "composure_regen",
+            "value": 1.25,
+            "text": "Nerven erholen sich 25 % schneller."
+          }
+        ],
+        "curses": [
+          {
+            "key": "skill_composure",
+            "value": 1.3,
+            "text": "Fähigkeiten kosten 30 % mehr Nerven."
+          }
+        ]
+      },
+      "fass_regenzeuge": {
+        "name": "Regenzeuge",
+        "source": "artisan",
+        "price": 150,
+        "icon": "wachszylinder",
+        "desc": "Papierfedern umschließen einen Wachszylinder. Beobachtungen ordnen sich im Regenrauschen; danach klingt selbst Schweigen wie eine Aussage.",
+        "boons": [
+          {
+            "key": "conclusion_honor",
+            "value": 1,
+            "text": "Schlussfolgerungen bringen 1 zusätzliches Ansehen."
+          }
+        ],
+        "curses": [
+          {
+            "key": "max_nerves",
+            "value": -15,
+            "text": "15 weniger maximale Nerven."
+          }
+        ]
+      },
+      "fass_gassenfuchs": {
+        "name": "Gassenfuchs",
+        "source": "artisan",
+        "price": 200,
+        "icon": "landkarte_alt",
+        "desc": "Ein Streifen alter Landkarte steckt im Fuchsfell. Händler werden nachgiebig, während Münzen in verlassenen Taschen seltsam schwer zu finden sind.",
+        "boons": [
+          {
+            "key": "price",
+            "value": 0.93,
+            "text": "Einkaufen kostet 7 % weniger."
+          },
+          {
+            "key": "sell",
+            "value": 1.08,
+            "text": "Verkaufen bringt 8 % mehr."
+          }
+        ],
+        "curses": [
+          {
+            "key": "money_bonus",
+            "value": 0.7,
+            "text": "Geldbeute fällt 30 % geringer aus."
+          }
+        ]
+      },
+      "fass_schalenfunke": {
+        "name": "Funke unter Perlmutt",
+        "source": "artisan",
+        "price": 140,
+        "icon": "irrlichtfunke",
+        "desc": "Ein Irrlicht sitzt unter einer Perlmuttwölbung. Es erkennt okkulte Wesen am fremden Leuchten und weist ihnen zugleich den Weg zu dir.",
+        "boons": [
+          {
+            "key": "occult_mult",
+            "value": 1.2,
+            "text": "20 % mehr Schaden gegen Okkultes."
+          }
+        ],
+        "curses": [
+          {
+            "key": "damage_taken",
+            "value": 1.15,
+            "text": "Du erleidest 15 % mehr Schaden."
+          }
+        ]
+      },
+      "fass_knochenkiel": {
+        "name": "Knochenkiel",
+        "source": "artisan",
+        "price": 130,
+        "icon": "schaedelsplitter",
+        "desc": "Ein Knochensplitter sitzt zwischen zwei dunklen Federn. Jeder Griff fällt entschlossener aus, als die eigenen Knochen vertragen.",
+        "boons": [
+          {
+            "key": "atk",
+            "value": 2,
+            "text": "2 zusätzlicher Angriff."
+          }
+        ],
+        "curses": [
+          {
+            "key": "max_hp",
+            "value": -8,
+            "text": "8 weniger maximale Leben."
+          }
+        ]
+      }
+    }
+  }
+}

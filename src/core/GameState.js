@@ -10,7 +10,7 @@ import { signalMethods } from './Signals.js';
 import { claimMethods } from './Claims.js';
 import { signalRouteMethods } from './SignalRoutes.js';
 import { claimEinbauMethods } from './ClaimsEinbau.js';
-import { clockMethods, NIGHT_FLAG } from './Clock.js';
+import { clockMethods, NIGHT_FLAG, VOLATILE_FLAGS } from './Clock.js';
 import { bondMethods } from './Bonds.js';
 import { relationMethods } from './Relations.js';
 import { artifactMethods } from './Artifacts.js';
@@ -18,6 +18,7 @@ import { partyMethods } from './Party.js';
 import { gearMethods } from './Gear.js';
 import { corruptionMethods } from './Corruption.js';
 import { talentMethods } from './Talents.js';
+import { sektenMethods } from './Sekten.js';
 
 /** Tragkraft in Pfund. Gegenstände ohne eigenes "weight" wiegen je nach Art so viel. */
 export const BASE_CARRY = 40;
@@ -82,6 +83,7 @@ export class GameState {
     this.resetTalents(); // Welt-Fähigkeiten: Abklingzeiten, Buffs, Sichtbarkeit
     this.resetGatherings();
     this.resetWanted();
+    this.resetSekten(); // BQ: Sekten-Umtriebe
     this.resetBonds();
     this.resetRelations();
     this.resetParty();
@@ -624,7 +626,7 @@ export class GameState {
   /** Wirkung eines Verbrauchsguts (auch im Kampf). Gibt Textteile zurück. */
   applyConsumable(it) {
     const parts = [];
-    if (it.heal) parts.push(`+${this.heal(Math.round(it.heal * this.passive('heal_bonus')))} Leben`);
+    if (it.heal) parts.push(`+${this.heal(Math.max(1, Math.round(it.heal * this.passive('heal_bonus') * (this.sektenHeilFaktor?.() ?? 1))))} Leben`); // BQ: vergifteter Brunnen halbiert Tränke vor Ort
     if (it.composure) { this.setComposure(this.composure + it.composure); parts.push(`+${it.composure} Nerven`); }
     const calm = (it.calm ?? 0) + (it.heal ? this.passive('use_calm') : 0);
     if (calm && this.unruhe > 0) { this.setUnruhe(this.unruhe - calm); parts.push(`-${calm} Unruhe`); }
@@ -673,6 +675,7 @@ export class GameState {
 
   tick(dtSeconds) {
     this.tickTalents(dtSeconds);
+    this.tickSekten(); // BQ: Fristen und per Dialog aufgelöste Ereignisse
     const before = this.composure;
     if (this.spiritVision) {
       this.composure = Math.max(0, this.composure - VISION_DRAIN_PER_SEC * this.passive('vision_cost') * dtSeconds);
@@ -701,7 +704,7 @@ export class GameState {
       position: position ?? null,
       clues: this.clues,
       conclusions: this.conclusions,
-      flags: [...this.flags].filter((f) => f !== NIGHT_FLAG),
+      flags: [...this.flags].filter((f) => !VOLATILE_FLAGS(f)),
       quests: this.quests,
       honor: this.honor,
       honorCarry: this.honorCarry,
@@ -725,6 +728,7 @@ export class GameState {
       ...this.serializeSignal(),
       ...this.serializeSignalRoutes(),
       ...this.serializeClaims(),
+      ...this.serializeSekten(),
     };
   }
 
@@ -775,6 +779,7 @@ export class GameState {
     this.loadPapers(data);
     this.loadSignal(data);
     this.loadSignalRoutes(data); // BN: nach loadSignal, Ladungen bleiben
+    this.loadSekten(data); // BQ: Umtriebe-Stufen und laufende Ereignisse
     this.syncClock(); // Tag/Nacht folgt der Spielzeit, nicht dem Spielstand
     if (!this.content.maps[this.map]) { this.map = this.content.start.map; this.position = null; }
     return true;
@@ -784,4 +789,4 @@ export class GameState {
 /** Fortschrittsflags der verlängerten Akt-V-Fassung (AP), in Spielreihenfolge. */
 export const K2_AKT5_STEPS = ['k2v_boot_bereit', 'k2v_keller_passiert', 'k2v_aufstieg_passiert', 'k2v_abschied_done'];
 
-Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods);
+Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods);

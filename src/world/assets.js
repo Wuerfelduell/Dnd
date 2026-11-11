@@ -80,15 +80,18 @@ export const SHEETS = {
   k_atelier: 'tilesets/K_atelier_tiles.png', k_ballsaal: 'tilesets/K_ballsaal_tiles.png',
   k_spiegelkabinett: 'tilesets/K_spiegelkabinett_tiles.png',
   m_kontor: 'tilesets/M_kontor_tiles.png', m_waisenhaus: 'tilesets/M_waisenhaus_tiles.png', m_traumkeller: 'tilesets/M_traumkeller_tiles.png',
-  q_kajuete: 'tilesets/Q_kajuete_tiles.png',
-  r_wexmoor: 'tilesets/R_wexmoor_tiles.png', r_innen: 'tilesets/R_innen_tiles.png', r_vergessmoor: 'tilesets/R_vergessmoor_tiles.png',
-  r_leuchtturm: 'tilesets/R_leuchtturm_tiles.png',
+  q_kajuete: 'tilesets/Q_kajuete_tiles_v2.png',
+  r_wexmoor: 'tilesets/R_wexmoor_tiles_v2.png', r_innen: 'tilesets/R_innen_wexmoor_v2.png', r_vergessmoor: 'tilesets/R_vergessmoor_tiles_v2.png',
+  // Paket BT: eigene Blätter für Oberstadt, Salzmarkt, Torfstich und den Güterbahnhof (nur Wexmoor), gleiches Zellenraster
+  r_oberstadt_boden: 'tilesets/R_oberstadt_tiles_v2.png', r_salzmarkt_boden: 'tilesets/R_salzmarkt_tiles_v2.png', r_torf_boden: 'tilesets/R_torf_tiles_v2.png',
+  c_bahnhof_wx: 'tilesets/C_bahnhof_wexmoor_v2.png',
+  r_leuchtturm: 'tilesets/R_leuchtturm_tiles_v2.png',
   // Paket AV (Kapitel 3, Dunscar): Straßen, Bahn, Steinbruch, Schlucht, Innenräume, Zug (8 Spalten à 16 px)
   ds_stadt: 'tilesets/ds_stadt.png', ds_bahn: 'tilesets/ds_bahn.png', ds_bruch: 'tilesets/ds_bruch.png', ds_schlucht: 'tilesets/ds_schlucht.png',
   ds_innen: 'tilesets/ds_innen.png', ds_zug: 'tilesets/ds_zug.png',
   v_glocke: 'tilesets/V_01_glocke_tiles.png',
   w_altstadt: 'tilesets/W_01_altstadt_tiles.png',
-  s_salzwatt: 'tilesets/S_salzwatt_tiles.png', s_lichtlose: 'tilesets/S_lichtlose_tiles.png', s_salz: 'tilesets/S_salz_tiles.png',
+  s_salzwatt: 'tilesets/S_salzwatt_tiles_v2.png', s_lichtlose: 'tilesets/S_lichtlose_tiles.png', s_salz: 'tilesets/S_salz_tiles.png',
   // Grundpaket und Paket D: bisher ungenutzte Innenraum-Tilesets (8 Spalten à 16 px)
   d_wohnung_tiles: 'tilesets/D_08_wohnung_tiles.png', b_interieur: 'tilesets/02_07_interiors.png', b_keller: 'tilesets/02_08_occult_basement.png',
   b_auktion: 'tilesets/13_02_auction_tiles.png', b_sanatorium: 'tilesets/13_03_sanatorium_tiles.png', c_bahnhof: 'tilesets/C_06_bahnhof_tiles.png',
@@ -150,6 +153,8 @@ export const THEME_TILES = {
   // Bisher ungenutzte Innenräume: Mietwohnung (D_08), Haus Morrow (02_07), Schleierhaus-Keller (02_08),
   // Pfandhaus (13_02), Bestatter (13_03)
   c_bahnhof: { sheet: 'c_bahnhof', fallback: 'stone', floor: [0, 1, 2, 3, 24, 25, 26], edge: [4, 5, 6, 7], rails: [8, 9, 10, 11] },
+  // Paket BT: Güterbahnhof auf Pfählen (nur Wexmoor-Karten), Zellen wie c_bahnhof
+  c_bahnhof_wx: { sheet: 'c_bahnhof_wx', fallback: 'stone', floor: [0, 1, 2, 3, 24, 25, 26], edge: [4, 5, 6, 7], rails: [8, 9, 10, 11] },
   d_nachtmarkt: { sheet: 'd_nachtmarkt_boden', fallback: 'stone', floor: [0, 1, 2, 3, 22, 23], accent: [4, 5, 6, 7, 8, 9] },
   d_wohnung: { sheet: 'd_wohnung_tiles', fallback: 'wood0', floor: [0, 1], carpet: [12, 13], wallTop: [48, 49, 50], wallFace: [16, 17, 18, 24, 25, 26] },
   b_interieur: { sheet: 'b_interieur', fallback: 'wood0', floor: [8, 9, 10], wallTop: [24, 25, 26], wallFace: [16, 17, 18, 19, 20, 21] },
@@ -189,9 +194,9 @@ export const THEME_TILES = {
     water: [20, 22, 24, 26], reeds: [28, 29], mud: [42, 43, 44, 45], wet: [46, 47], path: [48, 49, 50, 51], bridge: [52, 53],
     sand: [56, 57], quayN: [58], quayE: [59], quayS: [60], quayW: [61] },
   // Varianten auf demselben Blatt: Oberstadt-Pflaster, Salzkruste am Markt, Torfschlamm
-  r_oberstadt: { sheet: 'r_wexmoor', fallback: 'cobble0', floor: [48, 49, 50, 51] },
-  r_salzmarkt: { sheet: 'r_wexmoor', fallback: 'wood0', floor: [0, 1, 2, 3], sand: [56, 57] },
-  r_torf: { sheet: 'r_wexmoor', fallback: 'path', floor: [42, 43, 44, 45], wet: [46, 47] },
+  r_oberstadt: { sheet: 'r_oberstadt_boden', fallback: 'cobble0', floor: [48, 49, 50, 51] },
+  r_salzmarkt: { sheet: 'r_salzmarkt_boden', fallback: 'wood0', floor: [0, 1, 2, 3], sand: [56, 57] },
+  r_torf: { sheet: 'r_torf_boden', fallback: 'path', floor: [42, 43, 44, 45], wet: [46, 47] },
   // Innenräume: Akademie, Haus Lucent, Wachhaus, Zelle (je Boden 4, Wand oben/vorn/links/rechts)
   r_akademie: { sheet: 'r_innen', fallback: 'wood0', floor: [0, 1, 2, 3], wallTop: [4], wallFace: [5], wallSide: [6, 7] },
   r_lucent: { sheet: 'r_innen', fallback: 'wood0', floor: [8, 9, 10, 11], wallTop: [12], wallFace: [13], wallSide: [14, 15] },
@@ -842,18 +847,64 @@ export const CASE_SHEETS = {
 
 /** Hausfassaden aus D_03 (gleiches 8x6-Raster für alle Materialien). Map-Feld "facade": putz|holz|stein|slum|fabrik. */
 export const FACADES = ['putz', 'holz', 'stein', 'slum', 'fabrik'];
+/** Paket BT: Wexmoor-Fassaden (facades/wexmoor_v2_<name>.png, gleiches 8x6-Raster); sechs davon mit beleuchteter Nachtvariante. */
+export const WX_FACADES = ['pfahlhaus', 'fischerhaus', 'seilerhaus', 'schilfhuette', 'bojenwart', 'torfschuppen', 'oberstadt', 'ratshaus', 'apotheke',
+  'salzspeicher', 'fischhalle', 'wachhaus', 'akademie', 'lucent', 'glocke', 'altstadt', 'leuchtturm', 'bahnhof'].map((n) => `wx_${n}`);
+export const WX_FACADE_NIGHT = ['pfahlhaus', 'oberstadt', 'salzspeicher', 'wachhaus', 'akademie', 'lucent'].map((n) => `wx_${n}`);
+const ALL_FACADES = [...FACADES, ...WX_FACADES, ...WX_FACADE_NIGHT.map((m) => `${m}_nacht`)];
+/** Fassade bei Nacht: beleuchtete Variante, falls es eine gibt. */
+export const facadeAtNight = (m) => (WX_FACADE_NIGHT.includes(m) ? `${m}_nacht` : m);
+/**
+ * Paket BT: mehrere Fassaden auf einer Karte. Zusammenhängende Gebäudeflächen (#, W, D, R) werden gesucht;
+ * eine Häuserzeile mit mehreren Türen wird zwischen den Türen in einzelne Häuser geteilt, sonst in Bänder von
+ * zehn Feldern. Jedes Haus bekommt der Reihe nach eine Fassade aus `facades`; Rückgabe "x,y" → Fassade.
+ */
+export function buildingFacades(rows, facades) {
+  const out = new Map();
+  if (!facades?.length) return out;
+  const isHouse = (x, y) => '#WDR'.includes(rows[y]?.[x] ?? ' ');
+  const seen = new Set();
+  let n = 0;
+  rows.forEach((row, y0) => [...row].forEach((_, x0) => {
+    if (!isHouse(x0, y0) || seen.has(`${x0},${y0}`)) return;
+    const cells = [];
+    const doors = new Set();
+    const q = [[x0, y0]];
+    while (q.length) {
+      const [x, y] = q.pop();
+      const key = `${x},${y}`;
+      if (seen.has(key) || !isHouse(x, y)) continue;
+      seen.add(key);
+      cells.push([x, y]);
+      if (rows[y][x] === 'D') doors.add(x);
+      q.push([x + 1, y], [x - 1, y], [x, y + 1], [x, y - 1]);
+    }
+    const minX = Math.min(...cells.map(([x]) => x));
+    const d = [...doors].sort((a, b) => a - b);
+    // Grenzen zwischen den Häusern: Mitte zwischen zwei Türen, sonst alle zehn Felder
+    const bounds = d.length >= 2 ? d.slice(1).map((x, i) => Math.ceil((d[i] + x) / 2)) : [];
+    const segment = (x) => (bounds.length ? bounds.filter((b) => x >= b).length : Math.floor((x - minX) / 10));
+    const first = n;
+    let used = 0;
+    for (const [x, y] of cells) { const sgm = segment(x); used = Math.max(used, sgm + 1); out.set(`${x},${y}`, facades[(first + sgm) % facades.length]); }
+    n += used;
+  }));
+  return out;
+}
+
 const FACADE_CELLS = { wall: [0, 0, 0, 0, 1, 2], window: [8, 8, 12, 12, 9, 10, 13], door: [16, 17], eave: [24, 25], roof: [32, 33, 34, 35] };
 const FACADE_FALLBACK = { wall: 'brick', window: 'window', door: 'door', eave: 'roofEaveBottom', roof: 'roofEaveTop' };
 /** [{ key, sheet, cell, group, fallback }] – Tile-Key `fac_<material>_<gruppe>_<n>`. */
 /** Abweichungen je Material: In Elendsvierteln und Fabriken brennt kaum Licht, viele Fenster sind vernagelt. */
 const FACADE_OVERRIDES = { slum: { window: [9, 11, 11, 13, 9, 15, 8] }, fabrik: { window: [9, 13, 9, 8, 12] } };
 const facadeCells = (m, group) => FACADE_OVERRIDES[m]?.[group] ?? FACADE_CELLS[group];
-export const FACADE_TILE_LIST = FACADES.flatMap((m) => Object.keys(FACADE_CELLS).flatMap((group) => facadeCells(m, group).map((cell, n) => ({
+export const FACADE_TILE_LIST = ALL_FACADES.flatMap((m) => Object.keys(FACADE_CELLS).flatMap((group) => facadeCells(m, group).map((cell, n) => ({
   key: `fac_${m}_${group}_${n}`, sheet: `fac_${m}`, cell, group, fallback: FACADE_FALLBACK[group],
 }))));
 /** Tile-Keys einer Fassadengruppe. */
 export const facadeKeys = (m, group) => facadeCells(m, group).map((_, n) => `fac_${m}_${group}_${n}`);
 for (const m of FACADES) SHEETS[`fac_${m}`] = `tilesets/D_03_fassade_${m}.png`;
+for (const m of ALL_FACADES) if (m.startsWith('wx_')) SHEETS[`fac_${m}`] = `facades/wexmoor_v2_${m.slice(3)}.png`;
 for (const t of FACADE_TILE_LIST) TILE_CELLS[t.key] = [t.sheet, t.cell];
 
 /** Paket E: 16 Auftragsfiguren mit Lauf-Sheet und Portrait (gameId aus manifest-faelle.json). */
@@ -920,7 +971,7 @@ export const M_SCENES = ['kanal', 'finch', 'schlafsaal', 'molly', 'webstuhl', 'm
 export const CHAPTER_CARDS = ['kapitel1_karte', 'kapitel2_karte', 'kapitel3_karte', 'kapitel_ende'];
 /** Kontrollverlust: Tentakel-Bild (240x135, Platzhalter bis Codex-Paket BP liefert). */
 export const FX_SCENES = ['kontrollverlust'];
-export const sceneUrl = (id) => (CHAPTER_CARDS.includes(id) || FX_SCENES.includes(id) ? `${BASE}ui/scenes/${id}.png` : SCENES.includes(id) ? `${BASE}ui/scenes/E_szene_${id}.png`
+export const sceneUrl = (id) => (id?.startsWith('fest_') ? `${BASE}sequences/${id}.png` : CHAPTER_CARDS.includes(id) || FX_SCENES.includes(id) ? `${BASE}ui/scenes/${id}.png` : SCENES.includes(id) ? `${BASE}ui/scenes/E_szene_${id}.png`
   : TRAVEL_SCENES.includes(id) ? `${BASE}ui/scenes/I_${id}.png`
     : J_SCENES.includes(id) ? `${BASE}ui/scenes/J_szene_${id}.png`
       : K_SCENES.includes(id) ? `${BASE}ui/scenes/K_szene_${id}.png`
@@ -1083,7 +1134,7 @@ export function preloadSprites(scene) {
   for (const [key, [path, w, h = w]] of Object.entries(BATTLE_SHEETS)) {
     if (!scene.textures.exists(key)) scene.load.spritesheet(key, BASE + path, { frameWidth: w, frameHeight: h });
   }
-  for (const key of new Set([...Object.values(BATTLE_BACKGROUNDS), ...Object.values(ENCOUNTER_BACKGROUNDS)])) {
+  for (const key of new Set([...Object.values(BATTLE_BACKGROUNDS), ...Object.values(BATTLE_BACKGROUNDS_NIGHT), ...Object.values(ENCOUNTER_BACKGROUNDS)])) {
     if (!scene.textures.exists(key)) scene.load.image(key, `${BASE}battle/${key}.png`);
   }
   for (const [key, [path, w, h]] of Object.entries(ANIM_SHEETS)) {
@@ -1125,6 +1176,8 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestDunscar1')) scene.load.json('manifestDunscar1', `${BASE}manifest-dunscar1.json`);
   if (!scene.cache.json.exists('manifestDunscar3')) scene.load.json('manifestDunscar3', `${BASE}manifest-dunscar3.json`);
   if (!scene.cache.json.exists('manifestDunscar5')) scene.load.json('manifestDunscar5', `${BASE}manifest-dunscar5.json`);
+  if (!scene.cache.json.exists('manifestStarling2')) scene.load.json('manifestStarling2', `${BASE}manifest-starling2.json`);
+  if (!scene.cache.json.exists('manifestSekten')) scene.load.json('manifestSekten', `${BASE}manifest-sekten.json`);
   if (!scene.cache.json.exists('manifestNebenquests')) scene.load.json('manifestNebenquests', `${BASE}manifest-nebenquests.json`);
   if (!scene.cache.json.exists('manifestSpieler2')) scene.load.json('manifestSpieler2', `${BASE}manifest-spieler2.json`);
   if (!scene.cache.json.exists('manifestWexmoor')) scene.load.json('manifestWexmoor', `${BASE}manifest-wexmoor.json`);
@@ -1150,7 +1203,7 @@ export function playSheetAnim(sprite, sheet, name, then) {
   const key = `${sheet}-${name}`;
   if (!scene.anims.exists(key)) {
     const id = MANIFEST_IDS[sheet] ?? sheet;
-    const def = ['manifestPfade', 'manifestWelt', 'manifestJournal', 'manifestSpieler2', 'manifestSequenzen3', 'manifestKontrollverlust'].map((m) => scene.cache.json.get(m)?.assets?.find((a) => a.id === id)?.animations?.[name]).find(Boolean);
+    const def = ['manifestPfade', 'manifestWelt', 'manifestJournal', 'manifestSpieler2', 'manifestSequenzen3', 'manifestKontrollverlust', 'manifestSekten'].map((m) => scene.cache.json.get(m)?.assets?.find((a) => a.id === id)?.animations?.[name]).find(Boolean);
     if (!def) return false;
     scene.anims.create({ key, frames: def.frames.map((frame) => ({ key: sheet, frame })), frameRate: def.frameRate, repeat: def.repeat });
   }
@@ -1169,7 +1222,7 @@ function battleAnimDef(scene, sheet, name) {
   return null;
 }
 /** Manifeste mit Kampf-Sheets; spätere Pakete nennen ihre Einträge nicht nach dem Sheet, darum auch über die Datei. */
-export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3', 'manifestDunscar5'];
+export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3', 'manifestDunscar5', 'manifestStarling2', 'manifestSekten'];
 export function battleSheetDef(scene, sheet) {
   const file = BATTLE_SHEETS[sheet]?.[0];
   for (const m of BATTLE_MANIFESTS) {
@@ -1937,6 +1990,47 @@ ICON32.push(...X_ITEMS);
 /** Artefakte der Fasserin (geheime Treffen) haben seit BO eigene Bilder in 16 und 32px. */
 export const ARTISAN_ARTEFAKTE = ['krone_der_sieben', 'sternlicht_gespinst', 'glaskielfeder', 'herzkerze', 'perlenpaar', 'geisterspindel', 'leuchtturmmonokel', 'namenssiegel', 'gluehglocke', 'doppelsiegel'];
 ICON32.push(...ARTISAN_ARTEFAKTE);
+// --- BW: Innenräume (manifest-innen2.json): 19 animierte Props (32x32, 4 Frames), 6 Möbel-Sets, 10 Lesestellen-Bilder ----------
+SHEETS.i2_anim = 'props/innen2_anim.png';
+/** Zeile im Sheet = Reihenfolge hier; Wert = Bilder je Sekunde. */
+export const I2_ANIMS = { kamin_klein: 6, kamin_mittel: 6, kamin_gross: 6, kerze: 6, leuchter: 6, petroleumlampe: 6, pendeluhr: 3, kanarienkaefig: 6, schreibmaschine: 6, kessel: 6,
+  wasserhahn: 6, lampenfliegen: 6, katze: 3, hund: 3, schaukelstuhl: 6, zugvorhang: 6, ventilator: 6, grammophon: 6, fernschreiber: 6 };
+Object.keys(I2_ANIMS).forEach((name, row) => { PROP_ANIMS[`i2_${name}`] = ['i2_anim', [0, 1, 2, 3].map((f) => [f * 32, row * 32, 32, 32]), I2_ANIMS[name]]; });
+/** Möbel-Sets: je Sheet 4 x 2 Stücke à 32x32 (das letzte Feld sind Boden-/Wandkacheln und bleibt frei). */
+export const I2_SETS = {
+  buero: ['aktenregal', 'aktenregal_breit', 'pinnwand', 'schreibtisch', 'garderobe', 'waschtisch', 'sessel', null],
+  revier: ['zelle', 'pult', 'asservatenschrank', 'wartebank', 'aktenschrank', 'garderobe_uniform', 'regal_asservaten', null],
+  laden: ['theke', 'regal_waren', 'regal_flaschen', 'vitrine', 'kasse', 'waage', 'regal_klein', null],
+  akademie: ['sternglobus', 'fernrohr', 'lesepult', 'karten_tisch', 'lesepult_lampe', 'buecherregal', 'regal_karten', null],
+  speisewagen: ['polsterbank', 'polsterbank2', 'samowar_theke', 'gepaecknetz', 'zugtuer', 'klapptisch', 'klapptisch2', null],
+  lohnbuero: ['schalter', 'tafel', 'aushang', 'pinnwand', 'schreibtisch', 'kartei', 'pult', null],
+};
+for (const [set, names] of Object.entries(I2_SETS)) {
+  SHEETS[`i2_${set}`] = `props/innen2_moebel_${set}.png`;
+  names.forEach((n, i) => { if (n) PROP_CELLS[`i2_${set}_${n}`] = [`i2_${set}`, (i % 4) * 32, Math.floor(i / 4) * 32, 32, 32]; });
+}
+/** Lesestellen-Bilder (240x135) für das Lesefenster: aus Titel oder Aufforderung geraten, wenn die Lesestelle kein eigenes Bild hat. */
+export const LESE_SCENES = ['lese_brief', 'lese_kassenbuch', 'lese_zeitung', 'lese_wandanschlag', 'lese_kalkbrett', 'lese_telegramm', 'lese_sternkarte', 'lese_lohnzettel', 'lese_kinderzeichnung', 'lese_tagebuch'];
+FX_SCENES.push(...LESE_SCENES);
+const LESE_RULES = [
+  [/telegramm|depesche/i, 'lese_telegramm'], [/sternkarte|himmelskarte|sternen/i, 'lese_sternkarte'], [/lohnzettel|lohnliste|lohnbuch|gehalt/i, 'lese_lohnzettel'],
+  [/zeichnung|gemalt|kritzel/i, 'lese_kinderzeichnung'], [/tagebuch|notizbuch|journal/i, 'lese_tagebuch'], [/kalkbrett|kreidetafel|tafel|kreide/i, 'lese_kalkbrett'],
+  [/zeitung|kurier|bote|kalkblatt|ausgabe/i, 'lese_zeitung'], [/anschlag|aushang|plakat|zettel|warnschild|schild|steckbrief|befehl|bekanntmachung/i, 'lese_wandanschlag'],
+  [/brief|schreiben|nachricht|karte an|kuvert/i, 'lese_brief'], [/buch|register|akte|rechnung|quittung|beleg|liste|ordnung|vorschrift|protokoll|kehrbuch|verzeichnis/i, 'lese_kassenbuch'],
+];
+export const leseSceneOf = (text) => LESE_RULES.find(([re]) => re.test(text ?? ''))?.[1] ?? null;
+
+/** BO: Oda Kessel selbst (Laufbild, Sitzbild mit Werkbank, Portraits, Kopf) und ihre Werkbank als Requisiten. */
+SHEETS.fasserin = 'characters/fasserin_walk.png';
+CHARACTER_SHEETS.npc_fasserin = 'fasserin';
+PORTRAITS.fasserin = 'fasserin_emotions.png';
+HEADS.push('fasserin');
+ANIM_SHEETS.fasserin_sit = ['characters/fasserin_sit.png', 16, 32];
+for (const id of ['fasserin_werkbank', 'fasserin_zangen']) { WHOLE_PROPS[id] = `props/${id}.png`; SHEETS[id] = `props/${id}.png`; }
+/** Die zehn Vorrats-Rezepte (fass_*) zeigen laut BO weiter das Bild ihres Hauptbeutestücks. */
+export const FASS_ICONS = { fass_aschenlicht: 'fremdlicht_phiole', fass_salzspange: 'moewenglas', fass_pfahlherz: 'laternenoel_alt', fass_kerbhuelse: 'madenwachs', fass_wattpendel: 'schlickperle',
+  fass_pausendose: 'spieldose_klein', fass_regenzeuge: 'wachszylinder', fass_gassenfuchs: 'landkarte_alt', fass_schalenfunke: 'irrlichtfunke', fass_knochenkiel: 'schaedelsplitter' };
+Object.assign(ITEM_ICON_ALIASES, FASS_ICONS);
 /** Nerven-Artefakte (BY) und Konzentrations-Artefakte (BX) haben eigene Icons; die 14 Nerven-Artefakte auch in 32px (items/32/). */
 export const NERVEN_ARTEFAKTE = ['taktgeber_uhrturm', 'kerze_der_nachtwache', 'zahnrad_schlafwandlerin', 'atemperle', 'fiebermuenze', 'blutsalz_phiole', 'knoechelring_preisboxer',
   'metronom_komponist', 'trommelfell_ausrufer', 'glasnerv', 'nervenfaden_weberin', 'moorzunder'];
@@ -1944,7 +2038,7 @@ ICON32.push(...NERVEN_ARTEFAKTE);
 export const KONZENTRATION_ARTEFAKTE = ['siebter_fingerring', 'metronom_ohne_feder', 'schlagzaehler', 'hohle_krone', 'tickender_zahn', 'nadel_der_naeherin', 'gedankenkaefig', 'stummer_chor',
   'zweites_herz', 'rangierlinse', 'kreidezirkel', 'sanduhr_voll_asche', 'uhrwerkherz', 'knoechelrosenkranz', 'kerzenkrone', 'aschestundenglas'];
 /** Fall 9: eigene Kampf-Sheets für Pratt, den Gesangbuchgeist, das Sternlicht und Starling. */
-export const X_FIGHTS = { pratt_fight: ['pratt', 48], gesangbuchgeist: ['gesangbuchgeist', 64], sternlicht: ['sternlicht', 64], starling_fight: ['starling', 96], starling_stern: ['starling', 96] };
+export const X_FIGHTS = { pratt_fight: ['pratt', 48], gesangbuchgeist: ['gesangbuchgeist', 64], sternlicht: ['sternlicht', 64], starling_fight: ['starling', 96] }; // Phase 2 (starling_stern): BS-Sheet, siehe unten
 for (const [enc, [id, w]] of Object.entries(X_FIGHTS)) {
   BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, w];
   ENCOUNTER_SHEETS[enc] = `enemy_${id}`;
@@ -1973,6 +2067,33 @@ for (const [file, ids] of Object.entries({
 // Phase 2 des Finales nutzt Starlings Zug-Portrait
 TURN_PORTRAITS.starling_stern = TURN_PORTRAITS.starling_fight;
 TURN_PORTRAIT_URLS.starling_stern = TURN_PORTRAIT_URLS.starling_fight;
+/**
+ * BS: Starlings zweite Phase (`starling_stern`) als Sternsammler. 128x96-Kampf-Sheet (idle, attack, special, cast, hit,
+ * phase_in beim Auftritt, defeat ohne Tod), aufgerissene Sternwarte als Kulisse, eigene Büste, Effekte (starling2_fx),
+ * die Sterne der acht Fälle über einer HUD-Leiste (ein Stern je Runde, weil er mit jeder Runde heller wird),
+ * pulsierende Kuppel und Bodenstreifen, Koop-Marken, Portraits und das Sequenzbild vor dem Kampf (manifest-starling2.json).
+ */
+BATTLE_SHEETS.enemy_starling2 = ['battle/starling2.png', 128, 96];
+ENCOUNTER_SHEETS.starling_stern = 'enemy_starling2';
+ANIM_ALIASES.enemy_starling2 = { hurt: 'hit', defeated: 'defeat', phase2: 'phase_in' };
+ENCOUNTER_BACKGROUNDS.starling_stern = 'bg_sternwarte2';
+BOSS_INTRO_IMAGES.starling_stern_x = ['X_08_boss_starling2', 'battle/X_08_boss_starling2.png'];
+/** Zusatz-Sheets der zweiten Phase: Effekte, Sterne, Kuppel, Boden, HUD, Koop-Marken. */
+export const STARLING2_SHEETS = { starling2_fx: ['fx/starling2_fx.png', 48, 48], starling2_sterne: ['fx/starling2_sterne.png', 16, 16], starling2_kuppel: ['fx/starling2_kuppel.png', 480, 135],
+  starling2_boden: ['battle/starling2_boden.png', 480, 64], starling2_hud: ['ui/starling2_hud.png', 192, 48], starling2_koop: ['ui/starling2_koop.png', 48, 48] };
+Object.assign(BATTLE_SHEETS, STARLING2_SHEETS);
+/** Sternsammler-HUD (ui/starling2_hud.png): Leiste 192x16 (leer Zeile 0, gefüllt Zeile 1), acht Sockel je 12x9, Sterne der Fälle 1..8 = Frames 0..7 in starling2_sterne. */
+export const STARLING2_HUD = { bar: [0, 0, 192, 16], barFull: [0, 16, 192, 16], sockets: [25, 45, 64, 83, 102, 120, 139, 158].map((x) => [x, 4, 12, 9]), stars: 8 };
+ENCOUNTER_FX.starling_stern = { attack: 'starling2_fx:linse', multi: 'starling2_fx:stern_fall', heavy: 'starling2_fx:lanze_treffer', won: 'starling2_fx:glas_bruch', after: 'starling2_fx:ernte_aufstieg' };
+/** Große Sheets behalten ihre Grundgröße (kein Boss-Zuschlag), sonst ragen sie aus dem Bild. */
+export const BATTLE_SHEET_SCALE = { enemy_starling2: 1.8 };
+/** Auftrittsanimation beim Kampfbeginn (statt sofort idle). */
+export const ENTER_ANIMS = { enemy_starling2: 'phase2' };
+/** Kulissen-Zusätze je Begegnung: Kuppel-Overlay (Animation), Bodenstreifen, Sternen-HUD, Koop-Marken. */
+export const ENCOUNTER_STAGE = { starling_stern: { dome: ['starling2_kuppel', 'puls'], ground: 'starling2_boden', hud: 'starling2_hud', koop: 'starling2_koop' } };
+PORTRAITS.starling2 = 'starling2_emotions.png';
+PORTRAIT_SPECIAL.starling2 = ['starling2_emotions.png', { neutral: 0, triumphierend: 1, zweifelnd: 2, erloschen: 3 }];
+FX_SCENES.push('starling_phase2');
 /** Bestiarium-Karten (ui/bestiary/X_<id>.png). */
 for (const id of ['pratt_fight', 'gesangbuchgeist', 'sternlicht', 'starling_fight', 'rost_schlaeger', 'rost_werfer', 'rost_schmied', 'rost_vater',
   'schleier_novizin', 'schleier_messerin', 'schleier_seherin', 'schleier_mutter']) {
@@ -2289,3 +2410,152 @@ export const BA_TIERE = {
   ds_schwalbe_fliegen: [0, 192, 16, 16, 4, 8], ds_schwalbe_sitzen: [0, 208, 16, 16, 2, 4],
 };
 export const BA_WETTER = { kalkstaub: [0, 0, 240, 135, 4, 5], nachtnebel_1: [0, 144, 240, 135, 1, 1], nachtnebel_2: [0, 288, 240, 135, 1, 1], wind_grasbueschel: [0, 432, 16, 16, 4, 5] };
+
+// --- BQ/BR: Sekten (Aschenbund, Flutkinder, Stummer Chor) aus manifest-sekten.json --------------------------------
+export const SK_KULTE = ['sk_asche', 'sk_flut', 'sk_chor'];
+export const SK_KURZ = { sk_asche: 'asche', sk_flut: 'flut', sk_chor: 'chor' };
+export const SK_RAENGE = ['novize', 'sprecher', 'hand', 'haupt'];
+export const SK_FIGUREN = ['sk_asche_sprecher_ida', 'sk_asche_aussteiger_tobin', 'sk_asche_opfer_wenz', 'sk_flut_sprecher_maren', 'sk_flut_aussteiger_pell', 'sk_flut_opfer_lotte',
+  'sk_chor_sprecher_ansgar', 'sk_chor_aussteiger_rike', 'sk_chor_opfer_jost'];
+export const SK_ITEMS = ['ski_aschensiegel', 'ski_glutkohle', 'ski_flutknoten', 'ski_bojenoel', 'ski_chorkreide', 'ski_stimmwachs', 'ski_laeuterwasser', 'ski_seilschnitt', 'ski_stimmwachs_rein',
+  'ski_art_aschenring', 'ski_art_flutkompass', 'ski_art_chorstimmgabel'];
+const SK_MOODS = { neutral: 0, misstrauisch: 1, suspicious: 1, skeptical: 1, erschrocken: 2, shocked: 2, leichtes_laecheln: 3, smile: 3, faint_smile: 3, friendly: 3 };
+/** Kampf-Sheets: Novize 48, Sprecher/Hand 64, Haupt 96 (Reihen idle/attack/hit/end, Haupt dazu phase2). */
+export const SK_ENEMY_SIZE = { novize: 48, sprecher: 64, hand: 64, haupt: 96 };
+for (const k of SK_KULTE) {
+  for (const r of SK_RAENGE) {
+    const id = `${k}_${r}`;
+    SHEETS[id] = `characters/${id}.png`;
+    CHARACTER_SHEETS[`npc_${id}`] = id;
+    BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, SK_ENEMY_SIZE[r]];
+    ENCOUNTER_SHEETS[`enemy_${id}`] = `enemy_${id}`;
+    ANIM_ALIASES[`enemy_${id}`] = { hurt: 'hit', defeated: 'end', special: 'attack', cast: 'attack' };
+    BESTIARY_FILES[`enemy_${id}`] = `enemy_${id}`;
+    if (!BESTIARY.includes(`enemy_${id}`)) BESTIARY.push(`enemy_${id}`);
+  }
+  ANIM_SHEETS[`${k}_haupt_aura`] = [`characters/${k}_haupt_aura.png`, 32, 48];
+  SHEETS[`sk_schrein_${SK_KURZ[k]}`] = `props/sk_schrein_${SK_KURZ[k]}.png`;
+  PROP_CELLS[`sk_schrein_${SK_KURZ[k]}_base`] = [`sk_schrein_${SK_KURZ[k]}`, 0, 0, 48, 48];
+  PROP_ANIMS[`sk_schrein_${SK_KURZ[k]}_effekt`] = [`sk_schrein_${SK_KURZ[k]}`, [0, 1, 2, 3].map((f) => [f * 16, 48, 16, 16]), 7];
+}
+for (const id of SK_FIGUREN) {
+  SHEETS[id] = `characters/${id}_walk.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = id;
+  PORTRAITS[id] = `${id}_emotions.png`;
+  PORTRAIT_SPECIAL[id] = [`${id}_emotions.png`, SK_MOODS];
+  HEADS.push(id);
+}
+ICON32.push(...SK_ITEMS);
+SHEETS.sk_zeichen = 'props/sk_zeichen.png';
+SHEETS.sk_sabotage = 'props/sk_sabotage.png';
+/** Erkennungszeichen je Kult (Spur, Türmarkierung, Hausmarke, entfernt) und Sabotageobjekte, 16x16 aus den Bögen. */
+export const SK_ZEICHEN = { asche: ['kreis', 'tuerrahmen', 'russhand', 'entfernt'], flut: ['knoten', 'fussspur', 'bojenmarke', 'entfernt'], chor: ['kreidemund', 'notenlinie', 'lippen', 'entfernt'] };
+Object.entries(SK_ZEICHEN).forEach(([k, names], row) => names.forEach((n, i) => { PROP_CELLS[`sk_zeichen_${k}_${n}`] = ['sk_zeichen', i * 16, row * 16, 16, 16]; }));
+export const SK_SABOTAGE = ['brunnen', 'laterne', 'faehre', 'bahnhebel', 'briefkasten', 'boje', 'chorplatz', 'haus'];
+SK_SABOTAGE.forEach((n, i) => { PROP_CELLS[`sk_sabotage_${n}`] = ['sk_sabotage', (i % 4) * 16, Math.floor(i / 4) * 16, 16, 16]; });
+ANIM_SHEETS.sk_ereignis = ['fx/sk_ereignis.png', 32, 32]; // Ereignis-Effekt je Kult: Reihen asche/flut/chor (manifest-sekten)
+UI_SHEETS.skumtriebe = ['ui/sk_umtriebe.png', 80, 48];
+UI_REGIONS.skumtriebe = Object.fromEntries(SK_KULTE.flatMap((k, row) => [...[0, 1, 2, 3].map((s) => [`${SK_KURZ[k]}_${s}`, [s * 16, row * 16, 16, 16]]), [`${SK_KURZ[k]}_niedergeschlagen`, [64, row * 16, 16, 16]]]));
+UI_SHEETS.skpins = ['ui/sk_karte_pins.png', 36, 24];
+UI_REGIONS.skpins = Object.fromEntries(SK_KULTE.flatMap((k, col) => [[`${SK_KURZ[k]}_normal`, [col * 12, 0, 12, 12]], [`${SK_KURZ[k]}_aktiv`, [col * 12, 12, 12, 12]]]));
+export const SK_PINS_URL = `${BASE}ui/sk_karte_pins.png`;
+
+// --- Paket BT: Wexmoor sieht nach Wexmoor aus (props/wexmoor_v2_*.png, fx/wexmoor_v2_tileanim.png) ---
+SHEETS.wx2_props = 'props/wexmoor_v2_props.png';
+SHEETS.wx2_gross = 'props/wexmoor_v2_gross.png';
+SHEETS.wx2_anim = 'props/wexmoor_v2_anim.png';
+SHEETS.wx2_tileanim = 'fx/wexmoor_v2_tileanim.png';
+/** Straßenmöbel 16x16 (8x6-Raster), Texture-Key wx2_<name>. */
+export const WX2_PROPS = ['bojenlaterne_an', 'bojenlaterne_aus', 'pfahlpoller', 'taurolle', 'salzfass', 'torfkarre', 'netz', 'reuse',
+  'fischkiste', 'gelaender_h', 'gelaender_v', 'gangway_h', 'gangway_v', 'pricke', 'nebelhorn', 'boje',
+  'anker', 'haken', 'eimer', 'salzsack', 'torfsode', 'wollgras', 'schilf', 'treibholz',
+  'seilpfahl', 'muschelkorb', 'aalkorb', 'fischfass', 'rettungsring', 'stiefel', 'reusenleine', 'pegelpfahl',
+  'kalktopf', 'teereimer', 'paddel', 'ruder', 'klappbruecke', 'schleusenhebel', 'kleiner_kran', 'ankerwinde',
+  'kistenstapel', 'salzlampe', 'schuppenplane', 'fischgestell', 'briefkasten', 'wasserpumpe', 'bojenstange', 'moorpflanze'];
+WX2_PROPS.forEach((n, i) => { PROP_CELLS[`wx2_${n}`] = ['wx2_props', (i % 8) * 16, Math.floor(i / 8) * 16, 16, 16]; });
+/** Große Props 32x32 (4x4-Raster), Texture-Key wx2g_<name>. */
+export const WX2_GROSS = ['kahn', 'torfstapel', 'kran', 'schleusenrad', 'fischkutter', 'salzwagen', 'netzgestell', 'torfkarre',
+  'gangway', 'schleusentor', 'bojenmast', 'holzstapel', 'salzberg', 'reusengruppe', 'nebelhorn', 'rettungsboot'];
+WX2_GROSS.forEach((n, i) => { PROP_CELLS[`wx2g_${n}`] = ['wx2_gross', (i % 4) * 32, Math.floor(i / 4) * 32, 32, 32]; PROP_ORIGINS[`wx2g_${n}`] = 0.85; });
+/** Animierte Props (4 Frames je Zeile), Anim-Key wx2a_<name>. */
+export const WX2_ANIMS = ['laterne', 'netz', 'reuse', 'boje', 'schilf', 'nebelhorn'];
+WX2_ANIMS.forEach((n, row) => { PROP_ANIMS[`wx2a_${n}`] = ['wx2_anim', [0, 1, 2, 3].map((f) => [f * 16, row * 16, 16, 16]), 6]; });
+/** Güterbahnhof Wexmoor: Bank, Karren, Kiosk, Säule und Uhr aus dem neuen Blatt (gleiche Plätze wie c_bahn_*). */
+Object.entries({ bank: [0, 64, 32, 16], karren: [32, 64, 32, 16], kiosk: [64, 64, 32, 32], dach: [96, 64, 16, 16], dachecke: [112, 64, 16, 16], saeule: [0, 80, 16, 48], uhr: [16, 80, 16, 48] })
+  .forEach(([n, c]) => { PROP_CELLS[`wx2_bahn_${n}`] = ['c_bahnhof_wx', ...c]; });
+/** Vier-Phasen-Animationen für Wasser, Geisterlicht, Nebel, Lichtrisse und Salzschimmer (4 Spalten x 9 Zeilen). */
+export const WX2_TILE_ANIM_NAMES = ['water_0', 'water_1', 'water_2', 'water_3', 'ghost_reflection', 'mist', 'cracks_1', 'cracks_2', 'shimmer'];
+export const WX2_TILE_ANIM_KEYS = WX2_TILE_ANIM_NAMES.flatMap((n, row) => [0, 1, 2, 3].map((f) => `wx2anim_${n}_${f}`));
+WX2_TILE_ANIM_NAMES.forEach((n, row) => [0, 1, 2, 3].forEach((f) => { TILE_CELLS[`wx2anim_${n}_${f}`] = ['wx2_tileanim', row * 4 + f]; }));
+/** Welche Themen-Tiles animiert werden: Thema → Gruppe → Animationsname je Zelle (Reihenfolge wie in THEME_TILES). */
+export const WX2_TILE_ANIMS = {
+  r_wexmoor: { water: ['water_0', 'water_1', 'water_2', 'water_3'] },
+  r_vergessmoor: { water: ['water_0', 'water_1', 'water_2', 'water_3'], ghost: ['ghost_reflection'] },
+  r_leuchtturm: { ring: ['cracks_1', 'cracks_2'] },
+  s_salzwatt: { water: ['shimmer', 'shimmer'] },
+};
+/** Begehbar bleiben nur die Lichtrisse im Leuchtturm. */
+export const WX2_TILE_ANIM_WALKABLE = ['cracks_1', 'cracks_2'];
+
+// --- Paket BU: sichtbare Ausrüstung, Kampfkulissen, Koop-Oberfläche (manifest-ausruestung2.json) ---
+/** Figuren mit Overlay-Sheets: Ermittler und die beiden Gesichter von Spieler 2. */
+export const GEAR_FIGURES = ['player', 'p2a', 'p2b'];
+/** Slot → Items mit Overlay (characters/gear/<figur>_<slot>_<item>.png, 64x128 wie das Lauf-Sheet). */
+export const GEAR_ITEMS = {
+  weapon: ['spazierstock', 'schlagstock', 'stockdegen', 'glockenzunge', 'silberschere', 'messingschlagring', 'brecheisen', 'laterne_kampf', 'regenschirmdegen',
+    'revolver', 'knochenmesser', 'kette_rauchfass', 'taktstock_silber', 'stimmgabel_gross', 'sternglasdolch', 'taktstock_vey'],
+  hut: ['hut_schirmmuetze', 'hut_melone', 'hut_zylinder', 'hut_helm', 'hut_kapuze', 'hut_schutzbrille', 'hut_witwenschleier', 'hut_maske', 'hut_schnabel', 'hut_chor', 'hut_maskenball', 'geweihreif'],
+  mantel: ['mantel_wolle', 'mantel_gewachst', 'mantel_flicken', 'mantel_samt', 'mantel_polizei', 'mantel_leder', 'mantel_chor', 'mantel_nebel', 'mantel_moor', 'mantel_giesser', 'mantel_frack'],
+};
+const GEAR_SLOT_EN = { weapon: 'weapon', hut: 'hat', mantel: 'coat' };
+/** Reihenfolge von unten nach oben: Mantel, Amulett, Waffe, Hut, Korruptionsfaden. */
+export const GEAR_ORDER = { mantel: 0.2, amulett: 0.3, weapon: 0.4, hut: 0.5, korruption: 0.6 };
+/** Datei eines Overlays (relativ zu sprites/), null wenn es keins gibt. */
+export function gearFile(figure, slot, item) {
+  if (!GEAR_FIGURES.includes(figure)) return null;
+  if (slot === 'amulett') return item ? `characters/gear/${figure}_amulet.png` : null;
+  if (slot === 'korruption') return 'characters/gear/korruption_overlay.png';
+  return GEAR_ITEMS[slot]?.includes(item) ? `characters/gear/${figure}_${GEAR_SLOT_EN[slot]}_${item}.png` : null;
+}
+export const gearKey = (file) => `gear_${file.slice('characters/gear/'.length, -4)}`;
+
+/** Kampfkulissen aus BU; vier davon mit Nachtfassung (BATTLE_BACKGROUNDS_NIGHT, CombatScene wählt nach der Uhr). */
+Object.assign(BATTLE_BACKGROUNDS, {
+  ds_schwellenring: 'bg_ds_schwellenring_bu', ds_rangierwueste: 'bg_ds_rangierwueste_bu', ds_lohnbuero: 'bg_ds_lohnbuero', ds_signalhang: 'bg_ds_bruch',
+  ds_rufschlucht: 'bg_ds_schlucht', ds_speisewagen: 'bg_ds_speisewagen', ds_unterschicht: 'bg_ds_unterschicht_bu',
+  wx_torfstich: 'bg_wx_torfstich', wx_flossfriedhof: 'bg_wx_torfstich', wx_torfbrueche: 'bg_wx_torfstich', wx_pfahldorf: 'bg_wx_pfahldorf',
+  wx_salzmarkt: 'bg_wx_salzmarkt_nacht', wx_leuchtturm: 'bg_wx_leuchtturm_sturm',
+});
+// Die versunkene Altstadt behält ihre Kulisse aus Paket W; bg_wx_altstadt_versunken bleibt für Begegnungen im Flutwasser
+for (const id of ['enemy_sk_flut_novize', 'enemy_sk_flut_sprecher', 'enemy_sk_flut_hand', 'enemy_sk_flut_haupt']) ENCOUNTER_BACKGROUNDS[id] = 'bg_wx_altstadt_versunken';
+export const BATTLE_BACKGROUNDS_NIGHT = {
+  ds_schwellenring: 'bg_ds_schwellenring_night', ds_rangierwueste: 'bg_ds_rangierwueste_night',
+  wx_salzmarkt: 'bg_wx_salzmarkt_nacht_night', wx_leuchtturm: 'bg_wx_leuchtturm_sturm_night',
+};
+/** Kulisse einer Karte zur Tageszeit. */
+export const battleBackgroundFor = (mapId, night = false) => (night && BATTLE_BACKGROUNDS_NIGHT[mapId]) || BATTLE_BACKGROUNDS[mapId];
+
+/** Koop-Oberfläche: Rahmen (9-Slice) je Spieler, 24 Zustandssymbole, Gesichter von Spieler 2 für Dialoge, Trennungsbild. */
+UI_SHEETS.koop2 = ['ui/koop2_symbole.png', 192, 32];
+export const KOOP2_SYMBOLE = ['am_zug', 'wartet', 'gebunden', 'anspruch_offen', 'trinkt', 'liest', 'im_kampf', 'zurueckgelassen', 'gibt_weiter', 'trennung', 'wiedersehen', 'geplauder'];
+UI_REGIONS.koop2 = Object.fromEntries([1, 2].flatMap((p) => KOOP2_SYMBOLE.map((n, i) => [`p${p}_${n}`, [i * 16, (p - 1) * 16, 16, 16]])));
+export const KOOP2_RAHMEN_URL = `${BASE}ui/koop2_rahmen.png`;
+export const KOOP2_TRENNUNG_URL = `${BASE}ui/koop2_trennung.png`;
+const P2_MOODS = { neutral: 0, misstrauisch: 1, erschrocken: 2, laecheln: 3, leichtes_laecheln: 3, suspicious: 1, scared: 2, smile: 3 };
+PORTRAIT_SPECIAL.p2a = ['p2a_emotions_bu.png', P2_MOODS];
+PORTRAIT_SPECIAL.p2b = ['p2b_emotions_bu.png', P2_MOODS];
+
+// --- Paket BV: Jahreszeiten und Feste (manifest-feste.json; Laufzeit in world/Feste.js) ---
+export const festBannerUrl = (id) => `${BASE}ui/fest_${id}_banner.png`;
+export const FEST_GEREDE = ['musik', 'trinken', 'lachen', 'streit', 'kuss', 'schlaf'];
+/** Welche Karten je Fest geschmückt werden (Außenkarten der drei Städte). */
+export const FEST_MAPS = {
+  laternennacht: ['altmarkt', 'docks', 'ashgrove', 'nordtor', 'ankerhof'],
+  salzsegen: ['wx_salzmarkt', 'wx_bojenhafen', 'wx_pfahldorf', 'wx_oberstadt', 'wx_bahnhof'],
+  schichtwechsel: ['ds_schwellenring', 'ds_arbeiterbogen', 'ds_kalkmarkt', 'ds_endbahnhof', 'ds_bruchstufen'],
+};
+/** Außenkarten ohne Dächer, Gras oder Wasser (Dunscar: Stadt, Bahn, Bruch, Schlucht). */
+export const OUTDOOR_THEMES = ['ds_stadt', 'ds_bahn', 'ds_bruch', 'ds_schlucht'];
+export const isOutdoorMap = (m) => /[Rg~]/.test((m.rows ?? []).join('')) || OUTDOOR_THEMES.includes(m.tiles) || !!m.outdoor;
+/** Fassadenaufsatz je Jahreszeit (Spalten der saison_<s>_fassaden-Blätter). */
+export const SEASON_FACADE = { herbst: 'girlande', winter: 'haube', fruehling: 'blumenkasten', sommer: 'sonnensegel' };

@@ -22,23 +22,35 @@ const TIERE = {
 };
 const WETTER = { nieselregen: [0, 16, 240, 135, 4, 10], nebelbank_1: [0, 151, 240, 135, 1, 1], nebelbank_2: [240, 151, 240, 135, 1, 1] };
 
+// Paket BT: Wexmoor-Wetter (fx/wexmoor_v2_wetter.png, 64x64, 6 Frames je Zeile) und Tiere (fx/wexmoor_v2_tiere.png, 16x16, 4 Frames)
+export const WX2_WEATHER_KEY = 'wx2_wetter';
+export const WX2_LIFE_KEY = 'wx2_tiere';
+const WETTER2 = { nebelbank: [0, 0, 64, 64, 6, 6], nieselregen: [0, 64, 64, 64, 6, 6], seewind: [0, 128, 64, 64, 6, 6], irrlicht: [0, 192, 64, 64, 6, 6] };
+const TIERE2 = { moewe: [0, 0, 16, 16, 4, 6], reiher: [0, 16, 16, 16, 4, 6], moorfrosch: [0, 32, 16, 16, 4, 6], wasserratte: [0, 48, 16, 16, 4, 6],
+  nebelkraehe: [0, 64, 16, 16, 4, 6], aal: [0, 80, 16, 16, 4, 6] };
+/** Tiere, die nur im Wasser sitzen. */
+const IM_WASSER = ['aal'];
+
 /** Karte → Wetter und Tiere. Innenräume und die versunkene Altstadt bleiben ruhig. */
 export const WEXMOOR_LIFE = {
-  wx_bahnhof: { weather: ['niesel'], animals: { kraehe_sitzen: 2, moewe_sitzen: 1 }, gulls: true },
-  wx_torfstich: { weather: ['niesel'], animals: { moorfrosch_sitzen: 3, graureiher_stehen: 1, motten_kreisen: 1 } },
-  wx_salzmarkt: { animals: { moewe_sitzen: 2, kraehe_sitzen: 1 }, gulls: true },
-  wx_bojenhafen: { weather: ['niesel'], animals: { moewe_sitzen: 3, schlickkrabbe_laufen: 2 }, gulls: true },
-  wx_oberstadt: { animals: { kraehe_sitzen: 2, motten_kreisen: 1 } },
-  wx_pfahldorf: { weather: ['niesel', 'nebel'], animals: { moorfrosch_sitzen: 3, graureiher_stehen: 1 }, gulls: true },
-  wx_vergessmoor: { weather: ['nebel'], animals: { irrlicht_schweben: 4, moorfrosch_sitzen: 3, graureiher_stehen: 1 } },
-  wx_salzwatt: { weather: ['nebel'], animals: { schlickkrabbe_laufen: 5, moewe_sitzen: 3 }, gulls: true },
-  wx_leuchtturm: { weather: ['niesel'], animals: { moewe_sitzen: 3 }, gulls: true },
+  wx_bahnhof: { weather: ['niesel'], animals: { nebelkraehe: 2, moewe: 1, wasserratte: 1 }, gulls: true },
+  wx_torfstich: { weather: ['niesel'], animals: { moorfrosch: 3, reiher: 1, motten_kreisen: 1 } },
+  wx_salzmarkt: { weather: ['seewind'], animals: { moewe: 2, nebelkraehe: 1 }, gulls: true },
+  wx_bojenhafen: { weather: ['niesel', 'seewind'], animals: { moewe: 3, wasserratte: 2, aal: 2 }, gulls: true },
+  wx_oberstadt: { animals: { nebelkraehe: 2, motten_kreisen: 1 } },
+  wx_pfahldorf: { weather: ['niesel', 'nebel'], animals: { moorfrosch: 3, reiher: 1, aal: 2 }, gulls: true },
+  wx_vergessmoor: { weather: ['nebel', 'irrlicht'], animals: { irrlicht_schweben: 4, moorfrosch: 3, reiher: 1, aal: 2 } },
+  wx_salzwatt: { weather: ['nebel', 'seewind'], animals: { wasserratte: 4, moewe: 3, reiher: 1 }, gulls: true },
+  wx_leuchtturm: { weather: ['niesel', 'seewind'], animals: { moewe: 3 }, gulls: true },
+  wx_flossfriedhof: { weather: ['nebel'], animals: { moorfrosch: 2, nebelkraehe: 2 } },
 };
 
 export function preloadWexmoorLife(scene) {
   if (!scene.textures.exists(AE_LIFE_KEY)) scene.load.image(AE_LIFE_KEY, `${BASE}fx/AE_wexmoor_tiere.png`);
   if (!scene.textures.exists(AE_WEATHER_KEY)) scene.load.image(AE_WEATHER_KEY, `${BASE}fx/AE_wexmoor_wetter.png`);
   if (!scene.textures.exists(AE_BUBBLE_KEY)) scene.load.image(AE_BUBBLE_KEY, `${BASE}ui/AE_zeitung.png`);
+  if (!scene.textures.exists(WX2_WEATHER_KEY)) scene.load.image(WX2_WEATHER_KEY, `${BASE}fx/wexmoor_v2_wetter.png`);
+  if (!scene.textures.exists(WX2_LIFE_KEY)) scene.load.image(WX2_LIFE_KEY, `${BASE}fx/wexmoor_v2_tiere.png`);
 }
 
 /** Sprechblase für Gerede: 9-Slice-Blase mit Zipfel zur Figur, sonst schlichtes Papierschild. */
@@ -77,7 +89,30 @@ export class WexmoorLife {
     this.scene = scene;
     this.def = WEXMOOR_LIFE[scene.mapDef.id] ?? null;
     this.fog = [];
+    this.drift = []; // Paket BT: Nebel- und Gischtraster, die über das Bild ziehen
     this.gullT = 4000;
+  }
+
+  /**
+   * Paket BT: ein 64x64-Raster aus animierten Wetterkacheln über dem ganzen Bild (eine Spalte und Zeile mehr,
+   * damit es beim Verschieben nahtlos umläuft). Rückgabe: Container, dessen x/y pro Frame wandern.
+   */
+  weatherGrid(name, { alpha = 0.3, depth = DEPTH.fog + 1, speed = 8, blend = null } = {}) {
+    const s = this.scene;
+    const kids = [];
+    for (let gy = 0; gy < 6; gy++) {
+      for (let gx = 0; gx < 9; gx++) {
+        const spr = s.add.sprite(gx * 64 - 64, gy * 64 - 64, WX2_WEATHER_KEY, `${name}_0`).setOrigin(0);
+        spr.play(`${WX2_WEATHER_KEY}-${name}`);
+        spr.anims.setProgress(((gx * 7 + gy * 3) % 6) / 6);
+        if (blend) spr.setBlendMode(blend);
+        kids.push(spr);
+      }
+    }
+    const c = s.add.container(0, 0, kids).setScrollFactor(0).setDepth(depth).setAlpha(alpha);
+    c.speed = speed;
+    this.drift.push(c);
+    return c;
   }
 
   build() {
@@ -85,7 +120,23 @@ export class WexmoorLife {
     const s = this.scene;
     const W = 480;
     const H = 270;
-    if (this.def.weather && ensureFrames(s, AE_WEATHER_KEY, WETTER)) {
+    const wx2 = this.def.weather && ensureFrames(s, WX2_WEATHER_KEY, WETTER2);
+    if (wx2) {
+      // Paket BT: Nebelbank kriecht, Nieselregen fällt, Seewind trägt Gischtfetzen, Irrlichter schweben (sparsam)
+      if (this.def.weather.includes('nebel')) { this.weatherGrid('nebelbank', { alpha: 0.34, speed: 9 }); this.weatherGrid('nebelbank', { alpha: 0.2, speed: -5 }); }
+      if (this.def.weather.includes('niesel')) this.weatherGrid('nieselregen', { alpha: 0.38, depth: DEPTH.dark + 2, speed: 0 });
+      if (this.def.weather.includes('seewind')) this.weatherGrid('seewind', { alpha: 0.28, depth: DEPTH.dark + 2, speed: 26 });
+      if (this.def.weather.includes('irrlicht')) {
+        for (let i = 0; i < 3; i++) {
+          const x = 40 + Math.random() * (s.mapW - 80);
+          const y = 40 + Math.random() * (s.mapH - 80);
+          const spr = s.add.sprite(x, y, WX2_WEATHER_KEY, 'irrlicht_0').setDepth(DEPTH.dark + 1).setAlpha(0.55).setBlendMode(Phaser.BlendModes.ADD);
+          spr.play(`${WX2_WEATHER_KEY}-irrlicht`);
+          s.tweens.add({ targets: spr, x: x + (Math.random() * 60 - 30), y: y - 10 - Math.random() * 14, duration: 4000 + Math.random() * 3000, yoyo: true, repeat: -1, ease: 'Sine.inOut' });
+        }
+      }
+    }
+    if (this.def.weather && !wx2 && ensureFrames(s, AE_WEATHER_KEY, WETTER)) {
       if (this.def.weather.includes('nebel')) {
         // Zwei Nebelbänke, unabhängig verschoben (beide kachelbar)
         for (const [i, name] of ['nebelbank_1', 'nebelbank_2'].entries()) {
@@ -106,12 +157,18 @@ export class WexmoorLife {
         }
       }
     }
-    if (this.def.animals && ensureFrames(s, AE_LIFE_KEY, TIERE)) {
+    if (this.def.animals) {
+      ensureFrames(s, AE_LIFE_KEY, TIERE);
+      ensureFrames(s, WX2_LIFE_KEY, TIERE2);
       for (const [name, count] of Object.entries(this.def.animals)) {
+        if (!s.textures.get(this.sheetOf(name))?.has(`${name}_0`)) continue;
         for (let i = 0; i < count; i++) this.place(name);
       }
     }
   }
+
+  /** Paket BT: Wexmoor-Tiere liegen auf dem neuen Blatt, Irrlichter und Motten weiter auf AE. */
+  sheetOf(name) { return TIERE2[name] ? WX2_LIFE_KEY : AE_LIFE_KEY; }
 
   /** Setzt ein Tier auf ein zufälliges freies Feld (bis zu 30 Versuche). */
   place(name) {
@@ -119,10 +176,13 @@ export class WexmoorLife {
     for (let tries = 0; tries < 30; tries++) {
       const x = 16 + Math.random() * (s.mapW - 32);
       const y = 24 + Math.random() * (s.mapH - 32);
-      if (!s.critters?.free(x, y)) continue;
-      const spr = s.add.sprite(x, y, AE_LIFE_KEY, `${name}_0`).setOrigin(0.5, 1).setDepth(100 + y);
-      if (s.anims.exists(`${AE_LIFE_KEY}-${name}`)) {
-        spr.play(`${AE_LIFE_KEY}-${name}`);
+      const key = this.sheetOf(name);
+      if (IM_WASSER.includes(name)) {
+        if (s.mapDef.rows[Math.floor(y / 16)]?.[Math.floor(x / 16)] !== '~') continue;
+      } else if (!s.critters?.free(x, y)) continue;
+      const spr = s.add.sprite(x, y, key, `${name}_0`).setOrigin(0.5, 1).setDepth(IM_WASSER.includes(name) ? 1 : 100 + y);
+      if (s.anims.exists(`${key}-${name}`)) {
+        spr.play(`${key}-${name}`);
         spr.anims.setProgress(Math.random());
       }
       if (name === 'irrlicht_schweben') {
@@ -141,6 +201,10 @@ export class WexmoorLife {
       f.tilePositionX += (f.speed * delta) / 1000;
       f.tilePositionY = cam.scrollY * 0.3;
     }
+    for (const d of this.drift) {
+      d.x = ((d.x + (d.speed * delta) / 1000) % 64 + 64) % 64;
+      d.y = ((-cam.scrollY * 0.3) % 64 + 64) % 64;
+    }
     if (!this.def.gulls) return;
     this.gullT -= delta;
     if (this.gullT > 0) return;
@@ -151,11 +215,13 @@ export class WexmoorLife {
   /** Eine Möwe zieht hoch über dem Bild von einer Seite zur anderen. */
   flyOver() {
     const s = this.scene;
-    if (!s.anims.exists(`${AE_LIFE_KEY}-moewe_fliegen`)) return;
+    const wx2 = s.anims.exists(`${WX2_LIFE_KEY}-moewe`);
+    if (!wx2 && !s.anims.exists(`${AE_LIFE_KEY}-moewe_fliegen`)) return;
     const left = Math.random() < 0.5;
     const y = 20 + Math.random() * 90;
-    const g = s.add.sprite(left ? -16 : 496, y, AE_LIFE_KEY, 'moewe_fliegen_0').setScrollFactor(0).setDepth(DEPTH.dark + 1).setFlipX(!left);
-    g.play(`${AE_LIFE_KEY}-moewe_fliegen`);
+    const [key, frame] = wx2 ? [WX2_LIFE_KEY, 'moewe'] : [AE_LIFE_KEY, 'moewe_fliegen'];
+    const g = s.add.sprite(left ? -16 : 496, y, key, `${frame}_0`).setScrollFactor(0).setDepth(DEPTH.dark + 1).setFlipX(!left);
+    g.play(`${key}-${frame}`);
     s.tweens.add({ targets: g, x: left ? 496 : -16, y: y + (Math.random() * 30 - 15), duration: 7000 + Math.random() * 3000, onComplete: () => g.destroy() });
   }
 }

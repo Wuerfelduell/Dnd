@@ -494,7 +494,7 @@ test('Paket R: Wexmoor hat eigene Böden, Figuren, Bosse, Verkleidungen und Szen
   const themes = new Set(THEME_TILE_LIST.map((t) => t.theme));
   for (const id of ['wx_bahnhof', 'wx_salzmarkt', 'wx_bojenhafen', 'wx_oberstadt', 'wx_pfahldorf', 'wx_torfstich', 'wx_akademie', 'wx_lucent',
     'wx_wachhaus', 'wx_zelle', 'wx_vergessmoor', 'wx_leuchtturm']) {
-    assert.match(content.maps[id].tiles, /^(r_|c_bahnhof$)/, id);
+    assert.match(content.maps[id].tiles, /^(r_|c_bahnhof(_wx)?$)/, id);
     assert.ok(themes.has(content.maps[id].tiles), id);
     assert.ok(!content.maps[id].decor.some((d) => /^d_(gaswerk|nordtor|bruecken_winch|strassenmoebel)/.test(d.sprite)), `${id}: Platzhalter-Deko`);
   }
@@ -571,12 +571,13 @@ test('Liegengebliebene Bögen: Oberflächen-Ausschnitte liegen im Bild, Fundstü
 });
 
 test('Liegengebliebene Tiles und Requisiten: Räume nutzen ihre Bögen, Deko liegt auf freiem Boden', () => {
-  const tiles = { mietskaserne: 'd_wohnung', haus_morrow: 'b_interieur', schleierhaus: 'b_keller', pfandhaus: 'b_auktion', bestatter: 'b_sanatorium', wx_bahnhof: 'c_bahnhof' };
+  const tiles = { mietskaserne: 'd_wohnung', haus_morrow: 'b_interieur', schleierhaus: 'b_keller', pfandhaus: 'b_auktion', bestatter: 'b_sanatorium', wx_bahnhof: 'c_bahnhof_wx' };
   for (const [map, theme] of Object.entries(tiles)) assert.equal(content.maps[map].tiles, theme, map);
   const used = new Set(Object.values(content.maps).flatMap((m) => (m.decor ?? []).map((d) => d.sprite)));
-  for (const key of Object.keys(PROP_CELLS).filter((k) => /^(b|c_bahn)_/.test(k))) assert.ok(used.has(key), `${key} wird nirgends gezeigt`);
+  // Paket BT: der Bahnhof Wexmoor zeigt die Möbel vom Wexmoor-Blatt (wx2_bahn_*), die Kettlegate-Zellen bleiben für den Koffer
+  for (const key of Object.keys(PROP_CELLS).filter((k) => /^(b|wx2_bahn)_/.test(k) && !/_dach/.test(k))) assert.ok(used.has(key), `${key} wird nirgends gezeigt`);
   for (const m of Object.values(content.maps)) for (const d of m.decor ?? []) {
-    if (!/^(b|c_bahn)_/.test(d.sprite)) continue;
+    if (!/^(b|c_bahn|wx2_bahn)_/.test(d.sprite)) continue;
     const [x, y] = d.tile;
     assert.ok(!'I#E'.includes(m.rows[y][x]), `${m.id}: ${d.sprite} steht in der Wand`);
   }
@@ -655,4 +656,232 @@ test('Runde 7: Nerven-, Konzentrations-, Fasserin- und Dunscar-Gegenstände nutz
     assert.equal(itemIcon32Url(id), `./sprites/items/32/${id}.png`, id);
     assert.ok(existsSync(file(itemIcon32Url(id))), id);
   }
+});
+
+test('BO: Oda Kessel hat Laufbild, Sitzbild, Portrait, Kopf und Werkbank; die Vorrats-Rezepte zeigen ihr Hauptbeutestück', async () => {
+  const A = await import('../src/world/assets.js');
+  assert.equal(SHEETS[CHARACTER_SHEETS.npc_fasserin], 'characters/fasserin_walk.png');
+  assert.ok(existsSync(sprite(`portraits/${PORTRAITS.fasserin}`)));
+  assert.ok(existsSync(file(A.headUrl('fasserin'))));
+  for (const key of ['fasserin_sit']) assert.ok(existsSync(sprite(ANIM_SHEETS[key][0])), key);
+  for (const id of ['fasserin_werkbank', 'fasserin_zangen']) assert.ok(existsSync(sprite(A.WHOLE_PROPS[id])), id);
+  for (const [id, icon] of Object.entries(A.FASS_ICONS)) {
+    assert.ok(content.items[id]?.kind === 'artifact', id);
+    assert.equal(itemIconUrl(id), `./sprites/items/${icon}.png`);
+    assert.ok(existsSync(file(itemIconUrl(id))), id);
+  }
+});
+
+test('BS: Starlings zweite Phase nutzt Sheet, Kulisse, Büste, Effekte, Sterne, HUD und Sequenzbild aus manifest-starling2', async () => {
+  const A = await import('../src/world/assets.js');
+  const m = manifest('starling2');
+  for (const a of m.assets) assert.ok(existsSync(sprite(a.file)), a.file);
+  assert.equal(ENCOUNTER_SHEETS.starling_stern, 'enemy_starling2');
+  assert.equal(content.encounters.starling_stern.sheet, 'enemy_starling2');
+  assert.deepEqual(BATTLE_SHEETS.enemy_starling2, ['battle/starling2.png', 128, 96]);
+  const def = m.assets.find((a) => a.id === 'starling2');
+  for (const anim of ['idle', 'attack', 'special', 'cast', 'hit', 'phase_in', 'defeat']) assert.ok(def.animations[anim], anim);
+  assert.equal(ENCOUNTER_BACKGROUNDS.starling_stern, 'bg_sternwarte2');
+  assert.ok(existsSync(sprite(bossIntroImage('starling_stern_x')[1])));
+  for (const [key, [path]] of Object.entries(A.STARLING2_SHEETS)) assert.ok(existsSync(sprite(path)), key);
+  const fx = m.assets.find((a) => a.id === 'starling2_fx').animations;
+  for (const v of Object.values(A.ENCOUNTER_FX.starling_stern)) assert.ok(fx[v.split(':')[1]], v);
+  const hud = m.assets.find((a) => a.id === 'starling2_hud').regions;
+  A.STARLING2_HUD.sockets.forEach(([x, y, w, h], i) => assert.deepEqual([hud[`sockel_${i + 1}_leer`].x, hud[`sockel_${i + 1}_leer`].y, hud[`sockel_${i + 1}_leer`].width, hud[`sockel_${i + 1}_leer`].height], [x, y, w, h]));
+  assert.equal(content.encounters.starling_stern.scene, 'starling_phase2');
+  assert.ok(existsSync(file(A.sceneUrl('starling_phase2'))));
+  assert.ok(existsSync(sprite(`portraits/${PORTRAITS.starling2}`)));
+});
+
+test('BW: Innenraum-Möbelsets, animierte Innen-Props und Lesebilder aus manifest-innen2 liegen vor und stehen in den Räumen', async () => {
+  const A = await import('../src/world/assets.js');
+  assert.ok(existsSync(sprite(SHEETS.i2_anim)));
+  for (const name of Object.keys(A.I2_ANIMS)) assert.ok(PROP_ANIMS[`i2_${name}`]?.[1].length === 4, name);
+  for (const [set, names] of Object.entries(A.I2_SETS)) {
+    assert.ok(existsSync(sprite(SHEETS[`i2_${set}`])), set);
+    for (const name of names.filter(Boolean)) assert.ok(PROP_CELLS[`i2_${set}_${name}`], `${set}/${name}`);
+  }
+  for (const id of A.LESE_SCENES) assert.ok(existsSync(file(A.sceneUrl(id))), id);
+  assert.equal(A.leseSceneOf('Ein Brief an die Witwe'), 'lese_brief');
+  assert.equal(A.leseSceneOf('Lohnzettel der Schicht 3'), 'lese_lohnzettel');
+  assert.equal(A.leseSceneOf('Ein Hebel'), null);
+  const placed = new Set();
+  for (const m of Object.values(content.maps)) for (const d of m.decor ?? []) {
+    if (!d.bw) continue;
+    assert.ok(PROP_CELLS[d.sprite] || PROP_ANIMS[d.sprite], `${m.id}: ${d.sprite}`);
+    placed.add(m.id);
+  }
+  for (const id of ['buero', 'revier', 'schleierhaus', 'wx_akademie', 'ds_speisewagen', 'ds_lohnbuero']) assert.ok(placed.has(id), id);
+});
+
+test('BR: Sekten-Grafik aus manifest-sekten – Laufbilder, Portraits, Köpfe, Kampf-Sheets, Bestiarium, Zeichen, Schreine, Sabotage, Items, HUD und Pins', async () => {
+  const A = await import('../src/world/assets.js');
+  const m = manifest('sekten');
+  assert.equal(m.assets.length, 98);
+  for (const a of m.assets) assert.ok(existsSync(sprite(a.file)), a.file);
+  for (const id of A.SK_FIGUREN) {
+    assert.equal(SHEETS[CHARACTER_SHEETS[`npc_${id}`]], `characters/${id}_walk.png`);
+    assert.ok(existsSync(sprite(`portraits/${PORTRAITS[id]}`)), id);
+    assert.ok(existsSync(file(A.headUrl(id))), id);
+    assert.equal(A.portraitFor(id, 'misstrauisch').col, 1);
+  }
+  for (const k of A.SK_KULTE) for (const r of A.SK_RAENGE) {
+    const id = `${k}_${r}`;
+    assert.ok(existsSync(sprite(SHEETS[CHARACTER_SHEETS[`npc_${id}`]])), id);
+    const def = m.assets.find((a) => a.id === `enemy_${id}`);
+    assert.deepEqual(BATTLE_SHEETS[`enemy_${id}`], [`battle/enemy_${id}.png`, def.frameWidth]);
+    assert.equal(def.frameHeight, def.frameWidth);
+    for (const anim of ['idle', 'attack', 'hit', 'end', ...(r === 'haupt' ? ['phase2'] : [])]) assert.ok(def.animations[anim], `${id} ${anim}`);
+    assert.equal(ENCOUNTER_SHEETS[`enemy_${id}`], `enemy_${id}`);
+    assert.ok(existsSync(file(A.bestiaryUrl(`enemy_${id}`))), id);
+    assert.ok(content.encounters[`enemy_${id}`], id);
+  }
+  for (const [k, names] of Object.entries(A.SK_ZEICHEN)) for (const n of names) assert.ok(PROP_CELLS[`sk_zeichen_${k}_${n}`], `${k}/${n}`);
+  for (const n of A.SK_SABOTAGE) assert.ok(PROP_CELLS[`sk_sabotage_${n}`], n);
+  for (const k of ['asche', 'flut', 'chor']) {
+    assert.ok(existsSync(sprite(SHEETS[`sk_schrein_${k}`])), k);
+    assert.ok(PROP_CELLS[`sk_schrein_${k}_base`] && PROP_ANIMS[`sk_schrein_${k}_effekt`], k);
+  }
+  for (const id of A.SK_ITEMS) {
+    assert.ok(content.items[id], id);
+    assert.ok(existsSync(file(itemIconUrl(id))), id);
+    assert.equal(itemIcon32Url(id), `./sprites/items/32/${id}.png`);
+    assert.ok(existsSync(file(itemIcon32Url(id))), id);
+  }
+  assert.ok(existsSync(sprite(A.UI_SHEETS.skumtriebe[0])) && existsSync(sprite(A.UI_SHEETS.skpins[0])));
+  assert.deepEqual(A.UI_REGIONS.skumtriebe.chor_niedergeschlagen, [64, 32, 16, 16]);
+  assert.deepEqual(A.UI_REGIONS.skpins.flut_aktiv, [12, 12, 12, 12]);
+  assert.ok(existsSync(sprite(ANIM_SHEETS.sk_ereignis[0])));
+});
+
+test('BT: Wexmoor-Look – v2-Tilesets, 18 Fassaden mit Nachtvarianten, Props, Wetter, Tiere, Stadtkarte und Wasserphasen aus manifest-wexmoor8', async () => {
+  const A = await import('../src/world/assets.js');
+  const m = manifest('wexmoor8');
+  assert.equal(m.assets.length, 42);
+  for (const a of m.assets) assert.ok(existsSync(sprite(a.file)), a.file);
+  // Themen zeigen auf die neuen Blätter; Zellen bleiben, deshalb gleiche Indizes
+  for (const [theme, f] of Object.entries({ r_wexmoor: 'R_wexmoor_tiles_v2', r_oberstadt: 'R_oberstadt_tiles_v2', r_salzmarkt: 'R_salzmarkt_tiles_v2', r_torf: 'R_torf_tiles_v2',
+    r_akademie: 'R_innen_wexmoor_v2', r_zelle: 'R_innen_wexmoor_v2', r_leuchtturm: 'R_leuchtturm_tiles_v2', r_vergessmoor: 'R_vergessmoor_tiles_v2',
+    q_kajuete: 'Q_kajuete_tiles_v2', s_salzwatt: 'S_salzwatt_tiles_v2', c_bahnhof_wx: 'C_bahnhof_wexmoor_v2' })) {
+    assert.equal(SHEETS[A.THEME_TILES[theme].sheet], `tilesets/${f}.png`, theme);
+  }
+  assert.equal(SHEETS[A.THEME_TILES.c_bahnhof.sheet], 'tilesets/C_06_bahnhof_tiles.png'); // Kettlegate unverändert
+  assert.deepEqual(A.THEME_TILES.c_bahnhof_wx.rails, A.THEME_TILES.c_bahnhof.rails);
+  // Fassaden: alle 18 plus sechs Nachtvarianten, gleiche Zellgruppen wie D_03
+  assert.equal(A.WX_FACADES.length, 18);
+  for (const f of [...A.WX_FACADES, ...A.WX_FACADE_NIGHT.map((x) => `${x}_nacht`)]) {
+    assert.ok(existsSync(sprite(SHEETS[`fac_${f}`])), f);
+    for (const g of ['wall', 'window', 'door', 'eave', 'roof']) assert.ok(A.facadeKeys(f, g).every((k) => TILE_KEYS.includes(k)), `${f} ${g}`);
+  }
+  assert.equal(A.facadeAtNight('wx_pfahlhaus'), 'wx_pfahlhaus_nacht');
+  assert.equal(A.facadeAtNight('wx_glocke'), 'wx_glocke');
+  const nacht = m.assets.find((a) => a.id === 'wexmoor_v2_pfahlhaus_nacht');
+  assert.deepEqual(nacht.changedCells, [8, 9, 10, 11, 12, 13, 14, 15]);
+  // Häuserzeile mit drei Türen → drei Fassaden, Dach folgt dem Haus darunter
+  const rows = ['RRRRRRRRRRRR', '#D##W#D#WW#D', '............'];
+  const fac = A.buildingFacades(rows, ['a', 'b', 'c', 'd']);
+  assert.equal(fac.get('0,1'), 'a');
+  assert.equal(fac.get('6,1'), 'b');
+  assert.equal(fac.get('11,1'), 'c');
+  assert.equal(fac.get('11,0'), 'c');
+  assert.equal(fac.size, 24);
+  // Props, große Props, animierte Props, Bahnhofsmöbel
+  for (const n of A.WX2_PROPS) assert.ok(PROP_CELLS[`wx2_${n}`], n);
+  for (const n of A.WX2_GROSS) assert.deepEqual(PROP_CELLS[`wx2g_${n}`].slice(3), [32, 32], n);
+  for (const n of A.WX2_ANIMS) assert.equal(PROP_ANIMS[`wx2a_${n}`][1].length, 4, n);
+  assert.deepEqual(PROP_CELLS.wx2_bahn_uhr, ['c_bahnhof_wx', 16, 80, 16, 48]);
+  // Wasserphasen: 9 Animationen x 4 Frames, Wasser blockiert weiter, Lichtrisse bleiben begehbar
+  assert.equal(A.WX2_TILE_ANIM_KEYS.length, 36);
+  for (const k of A.WX2_TILE_ANIM_KEYS) assert.ok(TILE_KEYS.includes(k), k);
+  const { SOLID_KEYS } = await import('../src/world/textures.js');
+  assert.ok(SOLID_KEYS.includes('wx2anim_water_0_0') && !SOLID_KEYS.includes('wx2anim_cracks_1_0'));
+  // Karten: Stadtkarte, Bahnhof auf dem Wexmoor-Blatt, Fassaden je Haus, neue Deko steht auf freiem Boden oder im Wasser
+  assert.equal(content.travelRules.cities.wexmoor.map_image, 'ui/wexmoor_v2_stadtkarte.png');
+  assert.equal(content.travelRules.cities.wexmoor.fog_image, 'ui/wexmoor_v2_nebel.png');
+  assert.equal(content.maps.wx_bahnhof.tiles, 'c_bahnhof_wx');
+  assert.ok(content.maps.wx_bahnhof.decor.some((d) => d.sprite === 'wx2_bahn_uhr'));
+  for (const id of ['wx_bahnhof', 'wx_salzmarkt', 'wx_bojenhafen', 'wx_oberstadt', 'wx_pfahldorf']) {
+    const map = content.maps[id];
+    assert.ok(map.facades.length >= 3 && map.facades.every((f) => A.WX_FACADES.includes(f)), id);
+    assert.ok(map.decor.some((d) => d.sprite.startsWith('wx2')), id);
+  }
+  for (const map of Object.values(content.maps)) {
+    for (const d of map.decor ?? []) {
+      if (!d.sprite.startsWith('wx2')) continue;
+      assert.ok(PROP_CELLS[d.sprite] || PROP_ANIMS[d.sprite], d.sprite);
+      const ch = map.rows[d.tile[1]][d.tile[0]];
+      assert.ok(d.depth === 6 ? ch === '~' : '.,gpcsPw'.includes(ch), `${map.id} ${d.sprite} auf '${ch}'`);
+    }
+  }
+});
+
+test('BU: Ausrüstungs-Overlays für drei Figuren, Kampfkulissen mit Nachtfassung, Koop-Rahmen, Symbole und Spieler-2-Gesichter aus manifest-ausruestung2', async () => {
+  const A = await import('../src/world/assets.js');
+  const { gearFilesFor } = await import('../src/world/GearOverlay.js');
+  const m = manifest('ausruestung2');
+  assert.equal(m.assets.length, 144);
+  for (const a of m.assets) assert.ok(existsSync(sprite(a.file)), a.file);
+  // Jedes Overlay im Manifest ist über gearFile erreichbar und umgekehrt
+  const overlays = m.assets.filter((a) => a.file.startsWith('characters/gear/') && a.id !== 'korruption_overlay');
+  assert.equal(overlays.length, 120);
+  for (const a of overlays) {
+    const slot = { weapon: 'weapon', hat: 'hut', coat: 'mantel', amulet: 'amulett' }[a.slot];
+    assert.equal(A.gearFile(a.figure, slot, a.itemId ?? (slot === 'amulett' ? 'amulett_laterne' : null)), a.file, a.id);
+    if (a.itemId) assert.ok(content.items[a.itemId], a.itemId);
+  }
+  assert.equal(A.gearFile('player', 'korruption', true), 'characters/gear/korruption_overlay.png');
+  assert.equal(A.gearFile('player', 'weapon', 'egelhaken'), null); // ohne Overlay: Figur bleibt bloß
+  assert.equal(A.gearFile('npc_x', 'hut', 'hut_melone'), null);
+  for (const [slot, ids] of Object.entries(A.GEAR_ITEMS)) for (const id of ids) assert.equal(content.items[id].kind === 'weapon' ? 'weapon' : content.items[id].slot, slot, id);
+  // Zusammenstellung aus dem Spielstand: Mantel unter Waffe unter Hut, Korruption obenauf
+  const { GameState } = await import('../src/core/GameState.js');
+  const s = new GameState(content);
+  s.addItem('mantel_wolle'); s.addItem('hut_melone'); s.addItem('revolver'); s.addItem('amulett_laterne');
+  s.gear = { hut: 'hut_melone', mantel: 'mantel_wolle', amulett: 'amulett_laterne' }; s.weapon = 'revolver';
+  let files = gearFilesFor(s, 1, 'player');
+  assert.deepEqual(files.map((f) => f.slot), ['mantel', 'amulett', 'weapon', 'hut']);
+  assert.ok(files.every((f, i) => i === 0 || f.order > files[i - 1].order));
+  assert.equal(files[2].key, 'gear_player_weapon_revolver');
+  s.corrupted = { revolver: 1 };
+  files = gearFilesFor(s, 1, 'player');
+  assert.equal(files.at(-1).slot, 'korruption');
+  assert.deepEqual(gearFilesFor(s, 1, null), []);
+  // Kulissen: Tag/Nacht
+  assert.equal(A.battleBackgroundFor('ds_schwellenring', false), 'bg_ds_schwellenring_bu');
+  assert.equal(A.battleBackgroundFor('ds_schwellenring', true), 'bg_ds_schwellenring_night');
+  assert.equal(A.battleBackgroundFor('wx_leuchtturm', true), 'bg_wx_leuchtturm_sturm_night');
+  assert.equal(A.battleBackgroundFor('wx_pfahldorf', true), 'bg_wx_pfahldorf');
+  for (const k of [...Object.values(A.BATTLE_BACKGROUNDS), ...Object.values(A.BATTLE_BACKGROUNDS_NIGHT)]) assert.ok(existsSync(sprite(`battle/${k}.png`)), k);
+  // Koop-Oberfläche
+  assert.equal(Object.keys(A.UI_REGIONS.koop2).length, 24);
+  assert.deepEqual(A.UI_REGIONS.koop2.p2_trennung, [144, 16, 16, 16]);
+  for (const f of ['koop2_rahmen_p1', 'koop2_rahmen_p2', 'koop2_trennung']) assert.ok(existsSync(sprite(`ui/${f}.png`)), f);
+  assert.equal(A.portraitFor('p2a', 'misstrauisch').col, 1);
+  assert.equal(A.portraitFor('p2b', 'leichtes_laecheln').url, './sprites/portraits/p2b_emotions_bu.png');
+});
+
+test('BV: Jahreszeiten- und Festgrafik aus manifest-feste – Boden-Deko, Partikel, Fassadenaufsätze, Fest-Props, Gäste, Gerede, Banner, Sequenzbilder', async () => {
+  const A = await import('../src/world/assets.js');
+  const m = manifest('feste');
+  assert.equal(m.assets.length, 41);
+  for (const a of m.assets) assert.ok(existsSync(sprite(a.file)), a.file);
+  const byId = Object.fromEntries(m.assets.map((a) => [a.id, a]));
+  for (const s of ['herbst', 'winter', 'fruehling', 'sommer']) {
+    assert.equal(Object.keys(byId[`feste_saison_${s}`].regions).length, 12, s);
+    assert.equal(byId[`feste_saison_${s}_partikel`].animations.loop.frames.length, 6, s);
+    for (const city of ['kettlegate', 'wexmoor', 'dunscar']) assert.ok(byId[`feste_saison_${s}_fassaden`].regions[`${city}_${A.SEASON_FACADE[s]}`], `${s} ${city}`);
+  }
+  assert.equal(byId.feste_winter_atem.animations.loop.frames.length, 4);
+  assert.deepEqual([byId.feste_sommer_hitzeflimmern.frameWidth, byId.feste_sommer_hitzeflimmern.frameHeight], [480, 270]);
+  for (const f of ['laternennacht', 'salzsegen', 'schichtwechsel']) {
+    assert.ok(Object.keys(byId[`feste_${f}_props`].regions).length >= 14, f);
+    assert.equal(Object.keys(byId[`feste_${f}_gross`].regions).length, 6, f);
+    for (const g of A.FEST_GEREDE) assert.ok(byId[`feste_${f}_gerede`].regions[g], `${f} ${g}`);
+    for (let n = 1; n <= 4; n++) assert.deepEqual(Object.keys(byId[`feste_${f}_gast_${n}`].animations), ['down', 'left', 'right', 'up'], `${f} Gast ${n}`);
+    assert.deepEqual(byId[`feste_${f}_banner`].textSafeRect, { x: 58, y: 8, width: 96, height: 16 });
+    assert.equal(A.sceneUrl(`fest_${f}`), `./sprites/sequences/fest_${f}.png`);
+    assert.ok(existsSync(file(A.sceneUrl(`fest_${f}`))) && existsSync(file(A.festBannerUrl(f))), f);
+  }
+  // Laternen der Laternennacht: vier Farben mit zwei Frames
+  assert.deepEqual(Object.keys(byId.feste_laternennacht_props.regions).filter((n) => /^laterne_/.test(n)).length, 8);
 });

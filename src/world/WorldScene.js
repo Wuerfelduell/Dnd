@@ -3,9 +3,12 @@ import { questTarget, leadTarget, nextHop } from '../core/Guide.js';
 import { createTextures, createCharacterSheet, hash2, TILE, TILE_INDEX, SOLID_KEYS } from './textures.js';
 import { Lighting, DEPTH } from './Lighting.js';
 import { WexmoorLife, preloadWexmoorLife, speechBubble } from './WexmoorLife.js';
+import { GearOverlay, preloadGear } from './GearOverlay.js';
+import { Feste, preloadFeste } from './Feste.js';
 import { DunscarLife, preloadDunscarLife } from './DunscarLife.js';
 import { KoopLife } from './Koop.js';
-import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, PROP_ORIGINS, MAP_WEATHER, DISGUISE_SHEETS, pathwayArt, P2_LOOKS, skinKeyOf } from './assets.js';
+import { SektenLife } from './SektenLife.js';
+import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, facadeAtNight, buildingFacades, WX2_TILE_ANIMS, PROP_ORIGINS, MAP_WEATHER, DISGUISE_SHEETS, pathwayArt, P2_LOOKS, skinKeyOf , leseSceneOf } from './assets.js';
 import { Roamers } from './Roamers.js';
 import { Critters } from './Critters.js';
 import { Patrols } from './Patrols.js';
@@ -62,6 +65,15 @@ const runOf = (at, ch) => {
  * Paket R (Wexmoor): Stege auf Pfählen über schwarzem Wasser. `ground` liefert den Belag für
  * Straße ('.') und Gehweg (','), Wasser bekommt an Stegen eine Kante mit Pfählen, der Kai eine Steinkante.
  */
+function cBahnhof(theme, ch, at, v, x, y) {
+  const k = (g, seed) => pickKey(themeKeys(theme, g), x, y, seed);
+  const water = (c) => '~Q='.includes(c ?? '~');
+  if (ch === 'P' && !water(at(0, 1)) && !water(at(0, -1))) return k('rails', 7);
+  if (ch === '.' && at(0, 1) === 'P') return k('edge', 8);
+  if (ch === '.' || ch === ',') return k('floor', 9);
+  return THEMES.r_wexmoor(ch, at, v, x, y);
+}
+
 function rWexmoor(ground) {
   const deck = 'P.,L=CV';
   return (ch, at, v, x, y) => {
@@ -354,14 +366,9 @@ const THEMES = {
   },
   // Paket R (Wexmoor): Stege, Markt, Oberstadt, Torfstich, Innenräume, Vergessmoor, Leuchtturm
   // Paket C: Bahnhof Wexmoor mit Bahnsteig, Gleisen und Bahnsteigkante; Brücke und Kai bleiben Wexmoor
-  c_bahnhof: (ch, at, v, x, y) => {
-    const k = (g, seed) => pickKey(themeKeys('c_bahnhof', g), x, y, seed);
-    const water = (c) => '~Q='.includes(c ?? '~');
-    if (ch === 'P' && !water(at(0, 1)) && !water(at(0, -1))) return k('rails', 7);
-    if (ch === '.' && at(0, 1) === 'P') return k('edge', 8);
-    if (ch === '.' || ch === ',') return k('floor', 9);
-    return THEMES.r_wexmoor(ch, at, v, x, y);
-  },
+  c_bahnhof: (ch, at, v, x, y) => cBahnhof('c_bahnhof', ch, at, v, x, y),
+  // Paket BT: derselbe Bahnhof auf dem Wexmoor-Blatt (Holzrampen, nasse Kohle)
+  c_bahnhof_wx: (ch, at, v, x, y) => cBahnhof('c_bahnhof_wx', ch, at, v, x, y),
   r_wexmoor: rWexmoor((ch, k) => (ch === '.' ? k('floor') : k('wood', 2))),
   r_salzmarkt: rWexmoor((ch, k, x, y) => (ch === '.' ? (hash2(x, y, 62) > 0.8 ? k('sand', 2, 'r_salzmarkt') : k('floor')) : k('wood', 2))),
   r_oberstadt(ch, at, v, x, y) {
@@ -615,6 +622,8 @@ export class WorldScene extends Phaser.Scene {
   preload() {
     preloadSprites(this);
     preloadWexmoorLife(this); // Paket AE
+    preloadGear(this, this.registry.get('state')); // Paket BU: sichtbare Ausrüstung
+    preloadFeste(this); // Paket BV: Jahreszeiten und Feste
     preloadDunscarLife(this); // Paket BA/BD
     this.registry.get('audio')?.preload(this);
   }
@@ -688,6 +697,7 @@ export class WorldScene extends Phaser.Scene {
     this.cracks = null;
 
     createTextures(this);
+    this.freshVisit = !this.state.position; // Reise oder Start (kein geladener Stand): zählt als echter Kartenbesuch (BQ)
     this.buildMap();
     const amb = this.mapDef.ambient ?? {};
     this.lighting = new Lighting(this, { width: VIEW_W, height: VIEW_H });
@@ -707,6 +717,7 @@ export class WorldScene extends Phaser.Scene {
     this.patrols.build();
     this.buildAtmosphere(amb);
     this.buildWeather();
+    this.gearOverlay = new GearOverlay(this); // Paket BU: Hut, Mantel, Waffe, Amulett über der Figur
     this.wexLife = new WexmoorLife(this); // Paket AE: Nieselregen, Nebelbänke und Tiere in Wexmoor
     this.wexLife.build();
     this.dsLife = new DunscarLife(this); // Paket BA/BD: Kalkstaub, Nachtnebel, Krähen, Ziegen, Motten in Dunscar
@@ -714,6 +725,10 @@ export class WorldScene extends Phaser.Scene {
     // Paket AI: Koop-Rätsel, Platz-Flags und Geplauder zu zweit (Platz-Flags fallen beim Kartenwechsel weg)
     this.state.syncKoop?.();
     this.koop = new KoopLife(this);
+    this.sekten = new SektenLife(this); // BQ/BR: Sekten-Ereignisse, abgeworbene Figuren, Sabotage
+    this.sekten.build(this.freshVisit);
+    this.feste = new Feste(this); // BV: Jahreszeit draußen, Fest in der Stadt
+    this.feste.build();
     this.bindInput();
     this.bindState();
     this.refreshVisibility();
@@ -730,12 +745,39 @@ export class WorldScene extends Phaser.Scene {
     const rows = this.mapDef.rows;
     this.mapW = rows[0].length * TILE;
     this.mapH = rows.length * TILE;
-    const data = rows.map((row, y) => [...row].map((_, x) => tileIndexFor(rows, x, y, this.mapDef.tiles, this.mapDef.facade)));
+    // Paket BT: mehrere Fassaden je Karte, nachts die beleuchtete Variante
+    const night = this.state?.isNight?.() ?? false;
+    const perHouse = buildingFacades(rows, this.mapDef.facades);
+    const facadeAt = (x, y) => { const f = perHouse.get(`${x},${y}`) ?? this.mapDef.facade; return f && night ? facadeAtNight(f) : f; };
+    const data = rows.map((row, y) => [...row].map((_, x) => tileIndexFor(rows, x, y, this.mapDef.tiles, facadeAt(x, y))));
     const map = this.make.tilemap({ data, tileWidth: TILE, tileHeight: TILE });
     const tileset = map.addTilesetImage('tiles', 'tiles', TILE, TILE, 0, 0);
     this.groundLayer = map.createLayer(0, tileset, 0, 0).setDepth(0);
     this.groundLayer.setCollision(SOLID_KEYS.map((k) => TILE_INDEX[k]));
     this.physics.world.setBounds(0, 0, this.mapW, this.mapH);
+    this.animateTiles();
+  }
+
+  /** Paket BT: Wasser, Geisterlicht und Lichtrisse in Wexmoor wechseln alle 260 ms zwischen vier Phasen (fx/wexmoor_v2_tileanim.png). */
+  animateTiles() {
+    const theme = this.mapDef.tiles;
+    const spec = WX2_TILE_ANIMS[theme] ?? (theme?.startsWith('r_') || theme === 'c_bahnhof_wx' ? WX2_TILE_ANIMS.r_wexmoor : null);
+    if (!spec || !this.textures.exists('tiles')) return;
+    const animOf = {};
+    for (const [t, groups] of Object.entries(WX2_TILE_ANIMS)) {
+      if (t !== theme && t !== 'r_wexmoor') continue; // Oberstadt, Salzmarkt, Torf, Bahnhof nutzen die Wasserzellen von r_wexmoor
+      for (const [g, names] of Object.entries(groups)) themeKeys(t, g).forEach((k, i) => { if (names[i]) animOf[TILE_INDEX[k]] = names[i]; });
+    }
+    const cells = [];
+    this.groundLayer.forEachTile((tile) => { const a = animOf[tile.index]; if (a && TILE_INDEX[`wx2anim_${a}_0`] !== undefined) cells.push([tile.x, tile.y, a]); });
+    if (!cells.length) return;
+    let phase = 0;
+    const step = () => {
+      phase = (phase + 1) % 4;
+      for (const [x, y, a] of cells) this.groundLayer.putTileAt(TILE_INDEX[`wx2anim_${a}_${(phase + x + y) % 4}`], x, y, false);
+    };
+    step();
+    this.time.addEvent({ delay: 260, loop: true, callback: step });
   }
 
   forEachTile(chars, fn) {
@@ -1168,6 +1210,7 @@ export class WorldScene extends Phaser.Scene {
     this.dsLife?.update(delta);
     if (this.clockDirty && !blocked) this.applyClock();
     this.koop?.update(delta, blocked);
+    this.feste?.update(delta, blocked);
     if (!blocked) this.checkLocks(delta); // BN: Schallschleusen an den Ausgängen
     this.updateFocus(blocked);
     this.checkAuto(blocked);
@@ -1226,6 +1269,7 @@ export class WorldScene extends Phaser.Scene {
       this.player.setFrame(DIRS.indexOf(this.facing) * 4);
     }
     this.player.setDepth(100 + this.player.y);
+    this.gearOverlay?.sync();
     if (this.aura) {
       this.aura.setPosition(this.player.x, this.player.y + 2);
     }
@@ -1485,7 +1529,7 @@ export class WorldScene extends Phaser.Scene {
         this.ui.showCaseWall();
         break;
       case 'combat':
-        this.startCombat(def.encounter);
+        this.startCombat(def.encounter, def.after ?? null, { noLoot: !!def.no_loot }); // BQ: Schreinwachen ohne Beute, mit Folge
         break;
       case 'loot':
         this.playPlayerAction('pickup');
@@ -1509,7 +1553,7 @@ export class WorldScene extends Phaser.Scene {
       case 'read': {
         this.playPlayerAction('read');
         const isNew = !def.done_flag || !this.state.flags.has(def.done_flag);
-        this.ui.showMessage(def.title, def.text, { footer: def.footer ?? '', scene: def.scene });
+        this.ui.showMessage(def.title, def.text, { footer: def.footer ?? '', scene: def.scene ?? leseSceneOf(`${def.title ?? ''} ${def.prompt ?? ''}`) }); // BW: Lesestellen-Bild
         if (isNew) this.state.applyEffects({ ...def.effects, sets_flags: [...(def.effects?.sets_flags ?? []), ...(def.done_flag ? [def.done_flag] : [])] });
         if (isNew && def.lock && def.done_flag) this.state.act('lock');
         break;
@@ -1600,7 +1644,7 @@ export class WorldScene extends Phaser.Scene {
   }
 
   /** Pausiert die Welt und startet den Kampfbildschirm. `after(result)` läuft nach dem Kampf, `roamer` ist ein Gegner auf der Karte. */
-  startCombat(id, after = null, { roamer = null } = {}) {
+  startCombat(id, after = null, { roamer = null, noLoot = false } = {}) {
     if (this.leaving || this.scene.isActive('combat')) return;
     if (!this.state.pendingCombat) this.state.combatBy = this.state.acting;
     this.state.pendingCombat = null;
@@ -1613,6 +1657,7 @@ export class WorldScene extends Phaser.Scene {
     this.scene.launch('combat', {
       id,
       deferLoot: !!roamer,
+      noLoot,
       onDone: (result) => {
         this.scene.resume();
         if (roamer) this.roamers.afterCombat(roamer, result);

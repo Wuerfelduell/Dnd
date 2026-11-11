@@ -7,7 +7,7 @@ import { isPrecise } from '../core/Combat.js';
 import { lootList, itemRarity, RARITY_NAMES, lootPreview, chanceWord } from '../core/Loot.js';
 import {
   itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, moneyIconUrl, UI_SKINS, UI_SHEETS, UI_REGIONS, DAMAGE_FONT, STATUS_ICONS, STATUS_ICONS_URL,
-  portraitUrl, portraitFor, AK_FIGURES, P2_LOOKS, P2_CHOICE_URL, p2HeadUrl, p2PortraitUrl, mapMarkerOf, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
+  portraitUrl, portraitFor, AK_FIGURES, P2_LOOKS, P2_CHOICE_URL, p2HeadUrl, p2PortraitUrl, KOOP2_TRENNUNG_URL, festBannerUrl, mapMarkerOf, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
   endingImageUrl, caseFileUrl, sceneUrl, wantedUrl, wantedSingle, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
   TURN_PORTRAITS, TURN_PORTRAITS_URL, TURN_PORTRAIT_URLS, BESTIARY, bestiaryUrl, TITLE_LAYERS,
   headUrl, ritualCardUrl, ZIRKEL_URL, ZIRKEL_ICONS, AUKTION_URL, AUKTION_REGIONS, LONER_UI_URL, LONER_UI, LONER_SEALS, S_ZIRKEL_URL, S_ZIRKEL, skillIconOf, talentIconOf, PULSE_ICONS, ARTIFACT_UI_URL, sourceKind, sourceKindUrl, inspectUrl, RISK_ICONS, RISK_ICONS_URL, JOURNAL_FRAME, JOURNAL_FRAME_URL, choiceRisk, riskOf,
@@ -267,7 +267,7 @@ function cropSkins(root) {
   }
 }
 /** Notizbuch-Reiter → Symbol aus 07_03_icons.png (Fallakten: Lupe). */
-const TAB_ICONS = { quests: 'ausruf', items: 'schluessel', pfad: 'auge', personen: 'sprechen', bestiar: 'spuren', archiv: 'notebook' };
+const TAB_ICONS = { quests: 'ausruf', items: 'schluessel', pfad: 'auge', personen: 'sprechen', bestiar: 'spuren', archiv: 'notebook', kulte: 'spuren' };
 const pctStep = (frac, n) => Math.max(0, Math.min(n - 1, Math.round((1 - Math.max(0, Math.min(1, frac))) * (n - 1))));
 const moneyIcon = (n) => `<img class="coin" src="${moneyIconUrl(n)}" alt="" width="16" height="16" onerror="this.remove()">`;
 /** Beute als Liste mit Icon, Anzahl und Seltenheit (Farbe). */
@@ -349,7 +349,7 @@ export class Ui {
             <button class="hudbtn" data-hud="menu">${setIcon('zahnrad', 'touch-only')}<span class="key">Esc</span> Menü</button>
           </div>
           <div class="hud-p2 hidden">
-            <div class="p2name"><img class="p2head" alt="" width="12" height="12">Spieler 2 <span class="muted p2weapon"></span></div>
+            <div class="p2name"><img class="p2head" alt="" width="12" height="12">Spieler 2 <span class="p2state"></span><span class="muted p2weapon"></span></div>
             <div class="meter life"><span>Leben</span><div class="bar"><div class="p2hp"></div></div><em class="p2hpnum"></em></div>
             <div class="meter"><span>Nerven</span><div class="bar"><div class="p2nv"></div></div></div>
             <div class="p2path hidden"></div>
@@ -702,6 +702,7 @@ export class Ui {
     if (!el) return;
     const on = this.state.hasP2();
     el.classList.toggle('hidden', !on);
+    this.root.classList.toggle('koop', on);
     if (!on) return;
     const v = this.state.playerView(2);
     const head = this.$('.p2head');
@@ -713,6 +714,12 @@ export class Ui {
     this.$('.p2hpnum').textContent = `${v.hp}/${v.maxHp}`;
     this.$('.p2nv').style.width = `${(v.composure / v.maxComposure) * 100}%`;
     this.$('.p2weapon').textContent = v.weapon.name;
+    // Paket BU: Zustand als Symbol (im Kampf, gebunden, Anspruch offen, sonst wartet/geht mit)
+    const anspruch = Object.values(this.state.claims ?? {}).some((e) => e?.[2] === 'offen');
+    const zustand = this.combatScene ? 'im_kampf' : anspruch ? 'anspruch_offen' : this.isBlocking() ? 'wartet' : null;
+    const st = this.$('.p2state');
+    if (st && st.dataset.z !== (zustand ?? '')) { st.dataset.z = zustand ?? ''; st.innerHTML = zustand ? uiSprite('koop2', `p2_${zustand}`, 1 / 12, 'p2sym', zustand.replace('_', ' ')) : ''; }
+
     const path = this.$('.p2path');
     path.classList.toggle('hidden', !v.pathway && v.unruhe <= 0);
     if (v.pathway) path.innerHTML = `<span style="color:${v.pathway.color}">Seq ${v.pathway.seq} ${esc(v.pathway.seqName)}</span> · ${Math.floor(v.pathway.digestion)} % · <span class="${v.unruhe >= 60 ? 'curse' : ''}">Unruhe ${Math.round(v.unruhe)}</span>`;
@@ -750,6 +757,19 @@ export class Ui {
       el.innerHTML = `${uiSprite('interact', `${icon}0`, 1 / 16, 'promptico')}<span class="key">${esc(key)}</span> ${esc(text)}`;
     }
     el.classList.remove('hidden');
+  }
+
+  /** Paket BV: Ankündigungsbanner eines Festes (ui/fest_<id>_banner.png, freie Mitte 96x16 für den Text). */
+  festBanner(id, name) {
+    const old = this.$('.festbanner');
+    old?.remove();
+    const el = document.createElement('div');
+    el.className = 'festbanner';
+    el.style.backgroundImage = `url(${festBannerUrl(id)})`;
+    el.innerHTML = `<span>${esc(name)}</span>`;
+    this.root.appendChild(el);
+    setTimeout(() => el.classList.add('out'), 4200);
+    setTimeout(() => el.remove(), 4900);
   }
 
   toast(text, kind = '', banner = null) {
@@ -1152,6 +1172,8 @@ export class Ui {
       else if (map === goalMap) { cls += ' goal'; inner += `${questUi('qpin', QUEST_PINS.amber)}<span class="goaltag">Ziel</span>`; }
       const there = who.filter((p) => p.district === map);
       if (there.length) inner += `<span class="who${there.some((p) => p.now) ? ' now' : ''}">${whoFace}</span>`;
+      const sk = s.sektenAktiveAuf?.(map)[0]; // BQ: laufendes Sektenereignis in diesem Viertel
+      if (sk) inner += `<span class="skpin">${uiSprite('skpins', `${{ sk_asche: 'asche', sk_flut: 'flut', sk_chor: 'chor' }[sk.kult]}_aktiv`, 1 / 6, '', sk.titel)}</span>`;
       return this.mapPin(pins, map, cls, inner, attrs);
     };
     const here = pins[current] ? pin(current, 'here', `<span class="youmark" style="background-image:url(${TRAVEL_MARKER_URL})"></span><span class="tag">Du bist hier</span>`, 'disabled') : '';
@@ -1321,6 +1343,8 @@ export class Ui {
         <span class="muted">${esc(safe.desc)}</span><span class="gain">+${Math.round(s.maxHp * safe.heal_pct)} Leben · +${safe.nerves} Nerven · Journal</span></button>
       <button class="mode fast" data-mode="schnell" ${hurry ? '' : 'disabled'}>${modeIcon('schnell')}<b><span class="key">2</span> ${esc(fast.name)}</b>
         <span class="muted">${esc(fast.desc)}</span><span class="cost">${hurry ? `−${hurryCost(s)} Nerven · Monster · Beute` : s.isOverloaded() ? `Zu schwer beladen (${s.carryText()})` : `Zu wenig Nerven (mind. ${hurryCost(s)})`}</span></button>`;
+    const fee = s.sektenReiseAufschlag?.(this.travelFrom) ?? 0; // BQ: gesperrte Fähre/Bahn
+    if (fee) modes.insertAdjacentHTML('beforeend', `<p class="muted skfee">Die Überfahrt ist gestört: ${fee} Schilling Aufschlag, bis jemand die Sperre löst.</p>`);
     modes.querySelectorAll('[data-mode]').forEach((b) => {
       b.onclick = () => this.travelMode(b.dataset.mode);
       b.onmouseenter = () => el.querySelector('.route')?.classList.toggle('schnell', b.dataset.mode === 'schnell');
@@ -1332,6 +1356,8 @@ export class Ui {
     const d = this.travelPick;
     if (!d) return;
     const s = this.state;
+    const fee = s.sektenReiseAufschlag?.(this.travelFrom) ?? 0;
+    if (fee) { s.addMoney(-fee); this.toast(`Aufschlag an der Sperre: −${fee} Schilling`, 'warn'); }
     const go = () => this.scene.travelTo(d.map, d.spawn);
     if (mode === 'sicher') {
       const r = travelSafe(s);
@@ -1387,7 +1413,8 @@ export class Ui {
     const cases = all.filter((c) => !solved.includes(c));
     const beasts = this.knownBeasts();
     const papers = this.state.paperArchive();
-    const fixed = ['quests', 'items', 'pfad', 'personen', 'bestiar', 'zeitung', 'archiv'];
+    const fixed = ['quests', 'items', 'pfad', 'personen', 'kulte', 'bestiar', 'zeitung', 'archiv'];
+    if (this.tab === 'kulte' && !this.state.sektenFrei?.()) this.tab = 'quests';
     if (this.tab === 'zeitung' && !papers.length) this.tab = 'quests';
     if (this.tab === 'archiv' && !solved.length) this.tab = 'quests';
     if (this.tab === 'bestiar' && !beasts.length) this.tab = 'quests';
@@ -1396,12 +1423,13 @@ export class Ui {
     if (!fixed.includes(this.tab) && !cases.some((c) => c.id === this.tab)) this.tab = 'quests';
     if (this.tab === 'archiv' && !solved.some((c) => c.id === this.archiveCase)) this.archiveCase = solved.at(-1)?.id;
     const tabs = [{ id: 'quests', title: 'Aufträge' }, { id: 'items', title: 'Inventar' }, { id: 'pfad', title: 'Pfad' }, { id: 'personen', title: 'Personen' },
+      ...(this.state.sektenFrei?.() ? [{ id: 'kulte', title: 'Kulte' }] : []), // BQ: Umtriebe der drei Sekten
       ...(beasts.length ? [{ id: 'bestiar', title: 'Bestiarium' }] : []),
       ...(papers.length ? [{ id: 'zeitung', title: 'Zeitung' }] : []),
       ...cases.map((c) => ({ id: c.id, title: c.title.replace(/:.*/, '') })), ...(solved.length ? [{ id: 'archiv', title: `Archiv (${solved.length})` }] : [])];
     const caseId = this.currentCase();
     const body = this.tab === 'quests' ? this.questsHtml() + this.signalJournalHtml() : this.tab === 'items' ? this.itemsHtml() : this.tab === 'pfad' ? this.pathwayTabHtml()
-      : this.tab === 'personen' ? this.peopleHtml() : this.tab === 'bestiar' ? this.bestiaryHtml(beasts) : this.tab === 'zeitung' ? this.papersHtml(papers)
+      : this.tab === 'personen' ? this.peopleHtml() : this.tab === 'kulte' ? this.kulteHtml() : this.tab === 'bestiar' ? this.bestiaryHtml(beasts) : this.tab === 'zeitung' ? this.papersHtml(papers)
       : this.tab === 'archiv' ? this.archiveHtml(solved) : this.caseHtml(this.tab);
     const isCase = !!caseId;
     const el = this.open('notebook', `
@@ -1822,6 +1850,25 @@ export class Ui {
     return rows ? `<h4>Sekten</h4><ul class="people factions">${rows}</ul><h4>Personen</h4>` : '';
   }
 
+  /** BQ: Steckbrief je Kult, wächst mit der Umtriebe-Stufe; laufende Ereignisse und der Wegweiser der Stufe. */
+  kulteHtml() {
+    const s = this.state;
+    const kurz = { sk_asche: 'asche', sk_flut: 'flut', sk_chor: 'chor' };
+    const aktiv = s.sektenAlleAktiven();
+    const cards = s.sektenKulte().map((k) => {
+      const st = s.sektenStufe(k.id);
+      const text = s.sektenStufeText(k.id);
+      const mine = aktiv.filter((e) => e.kult === k.id);
+      return `<li class="kult"><div class="kulthead">${uiSprite('skumtriebe', `${kurz[k.id]}_${st}`, 1 / 6, 'kulticon', `Stufe ${st}`)}<strong>${esc(k.name)}</strong> <span class="muted">${esc(k.beiname)}</span>
+        <span class="badge ${st >= 2 ? 'refuted' : st === 1 ? 'suspected' : 'likely'}">${esc(s.sektenStufeName(k.id))}</span></div>
+        <p class="desc">${esc(k.glaube[0])} Erkennungszeichen: ${esc(k.erkennungszeichen)}.</p>
+        ${s.sektenSteckbrief(k.id).map((p) => `<p>${esc(p)}</p>`).join('')}
+        ${mine.length ? `<p><b>Gerade:</b> ${mine.map((e) => `${esc(e.titel)} (${esc(s.content.maps[e.map]?.name ?? e.map)})`).join(' · ')}</p>` : ''}
+        ${text?.wegweiser ? `<p class="muted">Wegweiser: ${esc(text.wegweiser)}</p>` : ''}</li>`;
+    }).join('');
+    return `<h4>Wandernde Kulte</h4><p class="muted">Drei Sekten treiben sich durch Kettlegate, Wexmoor und Dunscar. Spuren lesen, Einladungen ablehnen, Brunnen reinigen, Kultplätze abbauen: Jede Hilfe senkt ihre Umtriebe, jedes übersehene Zeichen stärkt sie.</p><ul class="kulte">${cards}</ul>`;
+  }
+
   peopleHtml() {
     const people = knownPeople(this.state);
     if (!people.length) return `${this.factionsHtml()}<p class="empty">Du hast noch mit niemandem gesprochen.</p>`;
@@ -2150,7 +2197,7 @@ export class Ui {
         return `<li class="recipe ${c.ok ? 'ready' : ''}">${itemIconBig(c.artifact)}<strong>${esc(it?.name ?? c.artifact)}</strong> <span class="muted">Lohn ${c.fee} Sch.</span>${artifactEffectsHtml(it ?? {})}<span class="needs">Braucht: ${needs}</span></li>`;
       }).join('');
       stage = `${portrait(s.artisanId())}<div class="speaker">${esc(s.artisanName())} <span class="role">${esc(s.content.npcs[s.artisanId()]?.role ?? 'Fasserin')}</span></div>
-        <p class="lead">„Ich fasse, was andere wegwerfen. Der Lohn ist fest, die Beute ist danach weg.“</p>
+        <p class="lead">„${esc(s.artisanGreeting(a.circle, a.cycle))}“ <span class="muted">Der Lohn ist fest, die Beute ist danach weg.</span></p>
         <ul class="recipes">${rows || '<li class="muted">Heute hat sie nichts auf dem Tisch.</li>'}</ul>`;
       for (const r of recipes) {
         const c = s.recipeCheck(r);
@@ -2299,11 +2346,12 @@ export class Ui {
     const wx = cityOf(s, s.map) === 'wexmoor';
     if (s.hasP2()) {
       s.removeP2();
-      this.openPause(`${koopGreeting('leave', s.p2Look(), wx)}<br><span class="muted">Spieler 2 behält seine Sachen für das nächste Mal.</span>`);
+      // Paket BU: Trennungsbild zur Verabschiedung
+      this.openPause(`<img class="scene koop2trennung" src="${KOOP2_TRENNUNG_URL}" alt="">${uiSprite('koop2', 'p2_trennung', 1 / 12)} ${koopGreeting('leave', s.p2Look(), wx)}<br><span class="muted">Spieler 2 behält seine Sachen für das nächste Mal.</span>`);
     } else {
       const back = !!s.p2;
       s.addP2();
-      this.openPause(`${koopGreeting('join', s.p2Look(), wx)}<br><span class="muted">${back ? 'Spieler 2 ist wieder dabei, mit seinen alten Sachen.' : 'Spieler 2 ist dabei: Spazierstock und zwei Verbände in der Tasche.'}</span>`);
+      this.openPause(`${uiSprite('koop2', back ? 'p2_wiedersehen' : 'p2_am_zug', 1 / 12)} ${koopGreeting('join', s.p2Look(), wx)}<br><span class="muted">${back ? 'Spieler 2 ist wieder dabei, mit seinen alten Sachen.' : 'Spieler 2 ist dabei: Spazierstock und zwei Verbände in der Tasche.'}</span>`);
     }
   }
 
@@ -2410,7 +2458,7 @@ export class Ui {
     return `<span class="cb-loot">Beute: ${ids.map((id) => `<span class="loot-ico rar-${itemRarity(items[id])}" title="${esc(items[id]?.name ?? id)}">${itemIcon(id)}</span>`).join('')}</span>`;
   }
 
-  combatMessage(text, help = '') {
+  combatMessage(text, help = '', scene = null) {
     const el = this.layer.querySelector('.cb-text');
     if (!el) return;
     if (this.touch) {
@@ -2420,7 +2468,7 @@ export class Ui {
       text = t(text);
       help = t(help);
     }
-    el.innerHTML = paragraphs(text);
+    el.innerHTML = (scene ? sceneImg(scene) : '') + paragraphs(text); // BS: Sequenzbild vor dem Kampfbeginn
     this.layer.querySelector('.cb-help').textContent = help;
     this.layer.querySelector('.cb-menu').innerHTML = '';
     this.layer.querySelector('.cb-target')?.classList.add('hidden');
@@ -2512,7 +2560,9 @@ export class Ui {
   combatTurn(who) {
     const el = this.layer.querySelector('.cb-turn');
     if (!el) return;
-    el.innerHTML = `${uiSprite('hud', who === 'enemy' ? 'enemy_turn' : 'your_turn', 1 / 10)}<span>${who === 'enemy' ? 'Gegner am Zug' : this.combatScene?.combat?.duo ? `Spieler ${this.combatScene.combat.actor} am Zug` : 'Du bist am Zug'}</span>`;
+    const duo = who !== 'enemy' && this.combatScene?.combat?.duo ? this.combatScene.combat.actor : 0;
+    // Paket BU: zu zweit zeigt das Banner das Symbol des Spielers, der dran ist
+    el.innerHTML = `${duo ? uiSprite('koop2', `p${duo}_am_zug`, 1 / 12) : uiSprite('hud', who === 'enemy' ? 'enemy_turn' : 'your_turn', 1 / 10)}<span>${who === 'enemy' ? 'Gegner am Zug' : duo ? `Spieler ${duo} am Zug` : 'Du bist am Zug'}</span>`;
     el.classList.toggle('enemy', who === 'enemy');
     el.classList.remove('show');
     void el.offsetWidth; // Animation neu starten

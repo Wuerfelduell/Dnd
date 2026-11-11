@@ -2,8 +2,8 @@
   "city": {
     "id": "wexmoor",
     "title": "Stadtkarte von Wexmoor",
-    "map_image": "ui/Q_wexmoor_karte.png",
-    "fog_image": "ui/Q_wexmoor_nebel.png",
+    "map_image": "ui/wexmoor_v2_stadtkarte.png",
+    "fog_image": "ui/wexmoor_v2_nebel.png",
     "pins": {
       "wx_bahnhof": [
         110,
@@ -2652,7 +2652,7 @@
           ]
         },
         {
-          "sprite": "c_bahn_uhr",
+          "sprite": "wx2_bahn_uhr",
           "tile": [
             7,
             2
@@ -2675,7 +2675,7 @@
           ]
         },
         {
-          "sprite": "c_bahn_bank",
+          "sprite": "wx2_bahn_bank",
           "tile": [
             20,
             2
@@ -2698,7 +2698,7 @@
           ]
         },
         {
-          "sprite": "c_bahn_kiosk",
+          "sprite": "wx2_bahn_kiosk",
           "tile": [
             32,
             2
@@ -2721,7 +2721,7 @@
           ]
         },
         {
-          "sprite": "c_bahn_bank",
+          "sprite": "wx2_bahn_bank",
           "tile": [
             38,
             2
@@ -2767,7 +2767,7 @@
           ]
         },
         {
-          "sprite": "c_bahn_saeule",
+          "sprite": "wx2_bahn_saeule",
           "tile": [
             12,
             4
@@ -2790,7 +2790,7 @@
           ]
         },
         {
-          "sprite": "c_bahn_karren",
+          "sprite": "wx2_bahn_karren",
           "tile": [
             9,
             15
@@ -2811,6 +2811,114 @@
             0,
             -4
           ]
+        },
+        {
+          "sprite": "wx2g_kran",
+          "tile": [
+            34,
+            2
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            26,
+            10,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2g_holzstapel",
+          "tile": [
+            6,
+            9
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            26,
+            10,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_salzfass",
+          "tile": [
+            20,
+            4
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_salzfass",
+          "tile": [
+            13,
+            9
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_kistenstapel",
+          "tile": [
+            4,
+            9
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_torfkarre",
+          "tile": [
+            10,
+            5
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2a_laterne",
+          "tile": [
+            30,
+            5
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "wx2a_laterne",
+          "tile": [
+            33,
+            9
+          ],
+          "alpha": 1,
+          "ysort": true
         }
       ],
       "police": true,
@@ -2872,7 +2980,12 @@
           }
         }
       ],
-      "tiles": "c_bahnhof"
+      "tiles": "c_bahnhof_wx",
+      "facades": [
+        "wx_bahnhof",
+        "wx_salzspeicher",
+        "wx_fischhalle"
+      ]
     },
     {
       "id": "wx_torfstich",
@@ -3298,6 +3411,174 @@
           ],
           "alpha": 1,
           "depth": 1
+        },
+        {
+          "sprite": "wx2g_torfstapel",
+          "tile": [
+            20,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            26,
+            10,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2g_torfstapel",
+          "tile": [
+            19,
+            11
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            26,
+            10,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_torfkarre",
+          "tile": [
+            28,
+            6
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_torfsode",
+          "tile": [
+            15,
+            10
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_torfsode",
+          "tile": [
+            8,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_wollgras",
+          "tile": [
+            2,
+            15
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_wollgras",
+          "tile": [
+            17,
+            13
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_wollgras",
+          "tile": [
+            1,
+            12
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2a_schilf",
+          "tile": [
+            23,
+            14
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "wx2a_schilf",
+          "tile": [
+            29,
+            8
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "wx2_moorpflanze",
+          "tile": [
+            22,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_moorpflanze",
+          "tile": [
+            14,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
         }
       ],
       "npcs": [
@@ -3888,6 +4169,24 @@
           ],
           "alpha": 1,
           "depth": 3
+        },
+        {
+          "sprite": "i2_wasserhahn",
+          "tile": [
+            5,
+            2
+          ],
+          "offset": [
+            8,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "bw": true
         }
       ],
       "tiles": "r_zelle"
@@ -4288,9 +4587,170 @@
           ],
           "alpha": 1,
           "depth": 40
+        },
+        {
+          "sprite": "wx2g_salzberg",
+          "tile": [
+            24,
+            3
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            26,
+            10,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2g_salzwagen",
+          "tile": [
+            10,
+            12
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            26,
+            10,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_salzsack",
+          "tile": [
+            5,
+            10
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_salzsack",
+          "tile": [
+            18,
+            12
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_salzfass",
+          "tile": [
+            12,
+            12
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_fischkiste",
+          "tile": [
+            22,
+            12
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_fischkiste",
+          "tile": [
+            26,
+            12
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_fischgestell",
+          "tile": [
+            3,
+            3
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_salzlampe",
+          "tile": [
+            29,
+            10
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2a_laterne",
+          "tile": [
+            16,
+            11
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "wx2a_laterne",
+          "tile": [
+            35,
+            12
+          ],
+          "alpha": 1,
+          "ysort": true
         }
       ],
-      "tiles": "r_salzmarkt"
+      "tiles": "r_salzmarkt",
+      "facades": [
+        "wx_fischerhaus",
+        "wx_seilerhaus",
+        "wx_apotheke",
+        "wx_salzspeicher",
+        "wx_fischhalle",
+        "wx_pfahlhaus"
+      ]
     },
     {
       "id": "wx_bojenhafen",
@@ -4732,9 +5192,160 @@
           ],
           "alpha": 0.85,
           "depth": 4
+        },
+        {
+          "sprite": "wx2g_kahn",
+          "tile": [
+            5,
+            8
+          ],
+          "alpha": 1,
+          "depth": 6
+        },
+        {
+          "sprite": "wx2g_fischkutter",
+          "tile": [
+            26,
+            8
+          ],
+          "alpha": 1,
+          "depth": 6
+        },
+        {
+          "sprite": "wx2g_netzgestell",
+          "tile": [
+            28,
+            2
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            26,
+            10,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_pfahlpoller",
+          "tile": [
+            25,
+            3
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_pfahlpoller",
+          "tile": [
+            8,
+            2
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_taurolle",
+          "tile": [
+            38,
+            2
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2a_netz",
+          "tile": [
+            33,
+            4
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "wx2a_reuse",
+          "tile": [
+            6,
+            2
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "wx2a_boje",
+          "tile": [
+            22,
+            10
+          ],
+          "alpha": 1,
+          "depth": 6
+        },
+        {
+          "sprite": "wx2a_boje",
+          "tile": [
+            7,
+            10
+          ],
+          "alpha": 1,
+          "depth": 6
+        },
+        {
+          "sprite": "wx2_anker",
+          "tile": [
+            11,
+            3
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_rettungsring",
+          "tile": [
+            4,
+            2
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
         }
       ],
-      "tiles": "r_wexmoor"
+      "tiles": "r_wexmoor",
+      "facades": [
+        "wx_bojenwart",
+        "wx_fischhalle",
+        "wx_pfahlhaus",
+        "wx_salzspeicher",
+        "wx_seilerhaus"
+      ]
     },
     {
       "id": "wx_oberstadt",
@@ -5462,9 +6073,111 @@
             0,
             -2
           ]
+        },
+        {
+          "sprite": "wx2_briefkasten",
+          "tile": [
+            4,
+            6
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_wasserpumpe",
+          "tile": [
+            18,
+            9
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_salzlampe",
+          "tile": [
+            13,
+            8
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_salzlampe",
+          "tile": [
+            26,
+            9
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2a_laterne",
+          "tile": [
+            32,
+            9
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "wx2a_laterne",
+          "tile": [
+            20,
+            9
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "wx2_kalktopf",
+          "tile": [
+            11,
+            9
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
         }
       ],
-      "tiles": "r_oberstadt"
+      "tiles": "r_oberstadt",
+      "facades": [
+        "wx_oberstadt",
+        "wx_ratshaus",
+        "wx_akademie",
+        "wx_lucent",
+        "wx_wachhaus",
+        "wx_glocke",
+        "wx_apotheke"
+      ]
     },
     {
       "id": "wx_pfahldorf",
@@ -5720,9 +6433,132 @@
           ],
           "alpha": 1,
           "depth": 5
+        },
+        {
+          "sprite": "wx2g_reusengruppe",
+          "tile": [
+            18,
+            4
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            26,
+            10,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_reuse",
+          "tile": [
+            28,
+            7
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2a_reuse",
+          "tile": [
+            10,
+            5
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "wx2_pfahlpoller",
+          "tile": [
+            7,
+            4
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_fischfass",
+          "tile": [
+            33,
+            9
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2a_boje",
+          "tile": [
+            34,
+            7
+          ],
+          "alpha": 1,
+          "depth": 6
+        },
+        {
+          "sprite": "wx2a_boje",
+          "tile": [
+            3,
+            9
+          ],
+          "alpha": 1,
+          "depth": 6
+        },
+        {
+          "sprite": "wx2_stiefel",
+          "tile": [
+            5,
+            4
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_paddel",
+          "tile": [
+            25,
+            5
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
         }
       ],
-      "tiles": "r_wexmoor"
+      "tiles": "r_wexmoor",
+      "facades": [
+        "wx_pfahlhaus",
+        "wx_schilfhuette",
+        "wx_fischerhaus",
+        "wx_torfschuppen"
+      ]
     },
     {
       "id": "wx_akademie",
@@ -6048,6 +6884,144 @@
           ],
           "alpha": 1,
           "depth": 1
+        },
+        {
+          "sprite": "i2_akademie_sternglobus",
+          "tile": [
+            11,
+            4
+          ],
+          "offset": [
+            8,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "bw": true,
+          "solid": [
+            28,
+            8,
+            0,
+            -4
+          ]
+        },
+        {
+          "sprite": "i2_akademie_fernrohr",
+          "tile": [
+            8,
+            6
+          ],
+          "offset": [
+            8,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "bw": true,
+          "solid": [
+            28,
+            8,
+            0,
+            -4
+          ]
+        },
+        {
+          "sprite": "i2_akademie_buecherregal",
+          "tile": [
+            3,
+            7
+          ],
+          "offset": [
+            8,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "bw": true,
+          "solid": [
+            28,
+            8,
+            0,
+            -4
+          ]
+        },
+        {
+          "sprite": "i2_akademie_karten_tisch",
+          "tile": [
+            14,
+            8
+          ],
+          "offset": [
+            8,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "bw": true,
+          "solid": [
+            28,
+            8,
+            0,
+            -4
+          ]
+        },
+        {
+          "sprite": "i2_leuchter",
+          "tile": [
+            8,
+            8
+          ],
+          "offset": [
+            8,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "bw": true,
+          "light": {
+            "dy": -10,
+            "radius": 60,
+            "intensity": 0.6,
+            "flicker": 0.2
+          }
+        },
+        {
+          "sprite": "i2_kanarienkaefig",
+          "tile": [
+            18,
+            3
+          ],
+          "offset": [
+            8,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "bw": true
         }
       ],
       "tiles": "r_akademie"
@@ -6262,6 +7236,72 @@
             0,
             -2
           ]
+        },
+        {
+          "sprite": "i2_schaukelstuhl",
+          "tile": [
+            7,
+            3
+          ],
+          "offset": [
+            8,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "bw": true,
+          "solid": [
+            28,
+            8,
+            0,
+            -4
+          ]
+        },
+        {
+          "sprite": "i2_grammophon",
+          "tile": [
+            3,
+            4
+          ],
+          "offset": [
+            8,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "bw": true
+        },
+        {
+          "sprite": "i2_leuchter",
+          "tile": [
+            5,
+            2
+          ],
+          "offset": [
+            8,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "bw": true,
+          "light": {
+            "dy": -10,
+            "radius": 60,
+            "intensity": 0.6,
+            "flicker": 0.2
+          }
         }
       ],
       "tiles": "r_lucent"
@@ -6873,6 +7913,78 @@
           ],
           "alpha": 1,
           "depth": 5
+        },
+        {
+          "sprite": "wx2a_schilf",
+          "tile": [
+            20,
+            25
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "wx2a_schilf",
+          "tile": [
+            26,
+            18
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "wx2a_schilf",
+          "tile": [
+            43,
+            26
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "wx2_treibholz",
+          "tile": [
+            14,
+            4
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_moorpflanze",
+          "tile": [
+            19,
+            23
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_moorpflanze",
+          "tile": [
+            11,
+            18
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
         }
       ],
       "elite_chance": 0.3
@@ -7245,6 +8357,138 @@
           ],
           "alpha": 1,
           "ysort": true
+        },
+        {
+          "sprite": "i2_revier_zelle",
+          "tile": [
+            13,
+            2
+          ],
+          "offset": [
+            8,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "bw": true,
+          "solid": [
+            28,
+            8,
+            0,
+            -4
+          ]
+        },
+        {
+          "sprite": "i2_revier_wartebank",
+          "tile": [
+            15,
+            5
+          ],
+          "offset": [
+            8,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "bw": true,
+          "solid": [
+            28,
+            8,
+            0,
+            -4
+          ]
+        },
+        {
+          "sprite": "i2_revier_garderobe_uniform",
+          "tile": [
+            8,
+            5
+          ],
+          "offset": [
+            8,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "bw": true,
+          "solid": [
+            28,
+            8,
+            0,
+            -4
+          ]
+        },
+        {
+          "sprite": "i2_kessel",
+          "tile": [
+            4,
+            2
+          ],
+          "offset": [
+            8,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "bw": true
+        },
+        {
+          "sprite": "i2_petroleumlampe",
+          "tile": [
+            20,
+            5
+          ],
+          "offset": [
+            8,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "bw": true,
+          "light": {
+            "dy": -10,
+            "radius": 60,
+            "intensity": 0.6,
+            "flicker": 0.2
+          }
+        },
+        {
+          "sprite": "i2_katze",
+          "tile": [
+            16,
+            7
+          ],
+          "offset": [
+            8,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "bw": true
         }
       ],
       "tiles": "r_wachhaus"
@@ -7883,6 +9127,66 @@
           ],
           "alpha": 1,
           "depth": 3
+        },
+        {
+          "sprite": "wx2g_nebelhorn",
+          "tile": [
+            2,
+            7
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            26,
+            10,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2g_rettungsboot",
+          "tile": [
+            41,
+            18
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            26,
+            10,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_treibholz",
+          "tile": [
+            3,
+            9
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_treibholz",
+          "tile": [
+            2,
+            24
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
         }
       ],
       "elite_chance": 0.3
@@ -8621,6 +9925,96 @@
           ],
           "alpha": 0.6,
           "depth": 3000
+        },
+        {
+          "sprite": "wx2_pricke",
+          "tile": [
+            36,
+            24
+          ],
+          "alpha": 1,
+          "depth": 6
+        },
+        {
+          "sprite": "wx2_pricke",
+          "tile": [
+            1,
+            17
+          ],
+          "alpha": 1,
+          "depth": 6
+        },
+        {
+          "sprite": "wx2_pricke",
+          "tile": [
+            40,
+            26
+          ],
+          "alpha": 1,
+          "depth": 6
+        },
+        {
+          "sprite": "wx2_pegelpfahl",
+          "tile": [
+            43,
+            15
+          ],
+          "alpha": 1,
+          "depth": 6
+        },
+        {
+          "sprite": "wx2_pegelpfahl",
+          "tile": [
+            35,
+            2
+          ],
+          "alpha": 1,
+          "depth": 6
+        },
+        {
+          "sprite": "wx2_muschelkorb",
+          "tile": [
+            40,
+            12
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_treibholz",
+          "tile": [
+            14,
+            13
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_treibholz",
+          "tile": [
+            21,
+            23
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
         }
       ],
       "elite_chance": 0.3
@@ -9622,6 +11016,63 @@
           ],
           "alpha": 1,
           "depth": 40
+        },
+        {
+          "sprite": "wx2_treibholz",
+          "tile": [
+            37,
+            3
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_treibholz",
+          "tile": [
+            36,
+            17
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            2
+          ]
+        },
+        {
+          "sprite": "wx2_pegelpfahl",
+          "tile": [
+            1,
+            10
+          ],
+          "alpha": 1,
+          "depth": 6
+        },
+        {
+          "sprite": "wx2a_schilf",
+          "tile": [
+            50,
+            15
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "wx2a_schilf",
+          "tile": [
+            28,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
         }
       ],
       "interactables": [

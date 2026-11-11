@@ -81,6 +81,9 @@ export function applyQuestPack(content, pack) {
     m.interactables.push({ id: flag, kind: 'read', tile: spot.tile, sprite: flag, prompt: k.name, title: k.name, text: k.deko, footer: k.wirkung,
       visible_if: { requires_flags: [flag] }, ...(spot.effects ? { effects: spot.effects, done_flag: spot.done } : {}) });
   }
+  // BQ: Beutetabellen je Kampf und der Sekten-Datenvorrat (Kulte, Ereignisse, Stufentexte) für core/Sekten.js
+  if (pack.loot) content.loot = { ...(content.loot ?? {}), ...pack.loot };
+  if (pack.sekten) content.sekten = pack.sekten;
   // Paket BN: Horchstellen, Klangzuordnung, Bindungen und Texte (core/SignalRoutes.js)
   if (pack.signalRoutes) content.signalRoutes = pack.signalRoutes;
   // Paket BG: Anspruchsquellen, Ersatzzeilen und Kurztexte (core/Claims.js)

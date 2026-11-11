@@ -1,0 +1,4214 @@
+{
+ "npcs": {
+  "sk_asche_sprecher_ida": {
+   "name": "Ida Dorn",
+   "role": "Heizerin",
+   "dialogue": "sk_asche_sprecher_ida",
+   "palette": {
+    "coat": "#585352",
+    "hat": "#34343d",
+    "skin": "#b59c87",
+    "hair": "#68615b",
+    "legs": "#45434d"
+   }
+  },
+  "sk_asche_aussteiger_tobin": {
+   "name": "Tobin Mott",
+   "role": "Ehemaliger Schornsteinfeger",
+   "dialogue": "sk_asche_aussteiger_tobin",
+   "palette": {
+    "coat": "#585352",
+    "hat": "#34343d",
+    "skin": "#b59c87",
+    "hair": "#68615b",
+    "legs": "#45434d"
+   }
+  },
+  "sk_asche_opfer_wenz": {
+   "name": "Wenz Albrecht",
+   "role": "Kesselputzer und Bruder eines Vermissten",
+   "dialogue": "sk_asche_opfer_wenz",
+   "palette": {
+    "coat": "#585352",
+    "hat": "#34343d",
+    "skin": "#b59c87",
+    "hair": "#68615b",
+    "legs": "#45434d"
+   }
+  },
+  "sk_flut_sprecher_maren": {
+   "name": "Maren Keel",
+   "role": "Fährfrau",
+   "dialogue": "sk_flut_sprecher_maren",
+   "palette": {
+    "coat": "#66756b",
+    "hat": "#34343d",
+    "skin": "#b59c87",
+    "hair": "#68615b",
+    "legs": "#45434d"
+   }
+  },
+  "sk_flut_aussteiger_pell": {
+   "name": "Pell Norr",
+   "role": "Seiler auf Wanderschaft",
+   "dialogue": "sk_flut_aussteiger_pell",
+   "palette": {
+    "coat": "#66756b",
+    "hat": "#34343d",
+    "skin": "#b59c87",
+    "hair": "#68615b",
+    "legs": "#45434d"
+   }
+  },
+  "sk_flut_opfer_lotte": {
+   "name": "Lotte Marr",
+   "role": "Netzflickerin und Angehörige",
+   "dialogue": "sk_flut_opfer_lotte",
+   "palette": {
+    "coat": "#66756b",
+    "hat": "#34343d",
+    "skin": "#b59c87",
+    "hair": "#68615b",
+    "legs": "#45434d"
+   }
+  },
+  "sk_chor_sprecher_ansgar": {
+   "name": "Ansgar Venn",
+   "role": "Vorarbeiter",
+   "dialogue": "sk_chor_sprecher_ansgar",
+   "palette": {
+    "coat": "#777787",
+    "hat": "#34343d",
+    "skin": "#b59c87",
+    "hair": "#68615b",
+    "legs": "#45434d"
+   }
+  },
+  "sk_chor_aussteiger_rike": {
+   "name": "Rike Sorn",
+   "role": "Ehemalige Rufprüferin",
+   "dialogue": "sk_chor_aussteiger_rike",
+   "palette": {
+    "coat": "#777787",
+    "hat": "#34343d",
+    "skin": "#b59c87",
+    "hair": "#68615b",
+    "legs": "#45434d"
+   }
+  },
+  "sk_chor_opfer_jost": {
+   "name": "Jost Ell",
+   "role": "Signalträger",
+   "dialogue": "sk_chor_opfer_jost",
+   "palette": {
+    "coat": "#777787",
+    "hat": "#34343d",
+    "skin": "#b59c87",
+    "hair": "#68615b",
+    "legs": "#45434d"
+   }
+  },
+  "sk_asche_novize": {
+   "name": "Novize des Aschenbunds",
+   "role": "Kultist",
+   "kult": "sk_asche",
+   "rang": "novize",
+   "sheet": "sk_asche_novize"
+  },
+  "sk_asche_sprecher": {
+   "name": "Sprecher des Aschenbunds",
+   "role": "Kultistin",
+   "kult": "sk_asche",
+   "rang": "sprecher",
+   "sheet": "sk_asche_sprecher"
+  },
+  "sk_asche_hand": {
+   "name": "Hand des Aschenbunds",
+   "role": "Kultistin",
+   "kult": "sk_asche",
+   "rang": "hand",
+   "sheet": "sk_asche_hand"
+  },
+  "sk_asche_haupt": {
+   "name": "Haupt des Aschenbunds",
+   "role": "Kultistin",
+   "kult": "sk_asche",
+   "rang": "haupt",
+   "sheet": "sk_asche_haupt"
+  },
+  "sk_flut_novize": {
+   "name": "Novize der Flutkinder",
+   "role": "Kultist",
+   "kult": "sk_flut",
+   "rang": "novize",
+   "sheet": "sk_flut_novize"
+  },
+  "sk_flut_sprecher": {
+   "name": "Sprecher der Flutkinder",
+   "role": "Kultistin",
+   "kult": "sk_flut",
+   "rang": "sprecher",
+   "sheet": "sk_flut_sprecher"
+  },
+  "sk_flut_hand": {
+   "name": "Hand der Flutkinder",
+   "role": "Kultistin",
+   "kult": "sk_flut",
+   "rang": "hand",
+   "sheet": "sk_flut_hand"
+  },
+  "sk_flut_haupt": {
+   "name": "Haupt der Flutkinder",
+   "role": "Kultistin",
+   "kult": "sk_flut",
+   "rang": "haupt",
+   "sheet": "sk_flut_haupt"
+  },
+  "sk_chor_novize": {
+   "name": "Novize des Stummen Chors",
+   "role": "Kultist",
+   "kult": "sk_chor",
+   "rang": "novize",
+   "sheet": "sk_chor_novize"
+  },
+  "sk_chor_sprecher": {
+   "name": "Sprecher des Stummen Chors",
+   "role": "Kultistin",
+   "kult": "sk_chor",
+   "rang": "sprecher",
+   "sheet": "sk_chor_sprecher"
+  },
+  "sk_chor_hand": {
+   "name": "Hand des Stummen Chors",
+   "role": "Kultistin",
+   "kult": "sk_chor",
+   "rang": "hand",
+   "sheet": "sk_chor_hand"
+  },
+  "sk_chor_haupt": {
+   "name": "Haupt des Stummen Chors",
+   "role": "Kultistin",
+   "kult": "sk_chor",
+   "rang": "haupt",
+   "sheet": "sk_chor_haupt"
+  }
+ },
+ "dialogues": {
+  "sk_asche_sprecher_ida": {
+   "start": [
+    {
+     "node": "gruss_hoch",
+     "requires_honor": 40
+    },
+    {
+     "node": "gruss_mittel",
+     "requires_honor": 10
+    },
+    {
+     "node": "gruss_niedrig"
+    }
+   ],
+   "nodes": {
+    "gruss_niedrig": {
+     "text": "„Du kommst spät. Für deine Akte ist vielleicht noch Platz.“",
+     "choices": [
+      {
+       "text": "Ich möchte etwas wissen.",
+       "next": "hub"
+      },
+      {
+       "text": "Später.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "gruss_mittel": {
+     "text": "„Man kennt dich. Das muss nicht immer ein Vorteil sein.“",
+     "choices": [
+      {
+       "text": "Ich möchte etwas wissen.",
+       "next": "hub"
+      },
+      {
+       "text": "Später.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "gruss_hoch": {
+     "text": "„So viel Ansehen, und doch trägst du noch deinen Namen.“",
+     "choices": [
+      {
+       "text": "Ich möchte etwas wissen.",
+       "next": "hub"
+      },
+      {
+       "text": "Später.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "hub": {
+     "text": "Was möchtest du ansprechen?",
+     "choices": [
+      {
+       "text": "Deine Arbeit.",
+       "next": "thema"
+      },
+      {
+       "text": "Mein Pfad.",
+       "next": "pfad",
+       "requires_pathway": [
+        "eisen",
+        9
+       ]
+      },
+      {
+       "text": "Was kann ich tun?",
+       "next": "hilfe"
+      },
+      {
+       "text": "Ich gehe.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "thema": {
+     "text": "„Ich halte die Feuer gleichmäßig. Namen brennen ungleich; manche brauchen Hilfe.“",
+     "choices": [
+      {
+       "text": "Noch etwas.",
+       "next": "hub"
+      },
+      {
+       "text": "Leb wohl.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "pfad": {
+     "text": "„Eisen hält einen Ofen zusammen. Es hält auch Menschen dort, wo andere sie haben wollen.“",
+     "choices": [
+      {
+       "text": "Noch etwas.",
+       "next": "hub"
+      },
+      {
+       "text": "Leb wohl.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "hilfe": {
+     "text": "„Tobin kennt die kalten Stellen unserer Arbeit. Wenn du zweifelst, geh zu ihm.“",
+     "choices": [
+      {
+       "text": "Danke.",
+       "next": "hub"
+      },
+      {
+       "text": "Ich mache mich auf den Weg.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "abschied": {
+     "text": "„Achte auf den Rückweg.“",
+     "choices": [
+      {
+       "text": "Gespräch beenden."
+      }
+     ]
+    }
+   }
+  },
+  "sk_asche_aussteiger_tobin": {
+   "start": [
+    {
+     "node": "gruss_hoch",
+     "requires_honor": 40
+    },
+    {
+     "node": "gruss_mittel",
+     "requires_honor": 10
+    },
+    {
+     "node": "gruss_niedrig"
+    }
+   ],
+   "nodes": {
+    "gruss_niedrig": {
+     "text": "„Bleib im Licht. Ich sehe deine Hände nicht.“",
+     "choices": [
+      {
+       "text": "Ich möchte etwas wissen.",
+       "next": "hub"
+      },
+      {
+       "text": "Später.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "gruss_mittel": {
+     "text": "„Du fragst erst. Das haben sie sich abgewöhnt.“",
+     "choices": [
+      {
+       "text": "Ich möchte etwas wissen.",
+       "next": "hub"
+      },
+      {
+       "text": "Später.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "gruss_hoch": {
+     "text": "„Wenn dein Wort etwas gilt, versprich niemandem Reinigung.“",
+     "choices": [
+      {
+       "text": "Ich möchte etwas wissen.",
+       "next": "hub"
+      },
+      {
+       "text": "Später.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "hub": {
+     "text": "Was möchtest du ansprechen?",
+     "choices": [
+      {
+       "text": "Deine Arbeit.",
+       "next": "thema"
+      },
+      {
+       "text": "Mein Pfad.",
+       "next": "pfad",
+       "requires_pathway": [
+        "eisen",
+        9
+       ]
+      },
+      {
+       "text": "Was kann ich tun?",
+       "next": "hilfe"
+      },
+      {
+       "text": "Gegenmaßnahme vorbereiten.",
+       "next": "sk_aktion_sk_asche_herstellen"
+      },
+      {
+       "text": "Ich gehe.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "thema": {
+     "text": "„Ich habe meinen Namen verbrannt. Die Schulden fanden mich trotzdem. Nur meine Freunde suchten länger.“",
+     "choices": [
+      {
+       "text": "Noch etwas.",
+       "next": "hub"
+      },
+      {
+       "text": "Leb wohl.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "pfad": {
+     "text": "„Eisen kann die Glut halten. Aber zum Löschen brauchst du etwas, das du auch wieder loslassen kannst.“",
+     "choices": [
+      {
+       "text": "Noch etwas.",
+       "next": "hub"
+      },
+      {
+       "text": "Leb wohl.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "hilfe": {
+     "text": "„Für Läuterwasser breche ich das Siegel über einer kalten Glutkohle. Das Wasser bindet nur ihre falsche Hitze. Gegen gewöhnliches Feuer hilft es nicht.“",
+     "sets_flags": [
+      "sk_asche_rezept"
+     ],
+     "choices": [
+      {
+       "text": "Danke.",
+       "next": "hub"
+      },
+      {
+       "text": "Ich mache mich auf den Weg.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "abschied": {
+     "text": "„Achte auf den Rückweg.“",
+     "choices": [
+      {
+       "text": "Gespräch beenden."
+      }
+     ]
+    },
+    "sk_aktion_sk_asche_herstellen": {
+     "text": "Du legst die beiden Kultreste bereit. Erst mit deiner Zustimmung werden sie verbraucht.",
+     "choices": [
+      {
+       "text": "Eine Gegenmaßnahme herstellen.",
+       "next": "sk_aktion_sk_asche_herstellen_fertig",
+       "requires_flags": [
+        "sk_asche_rezept"
+       ],
+       "requires_items": [
+        "ski_aschensiegel",
+        "ski_glutkohle"
+       ]
+      },
+      {
+       "text": "Die Sachen behalten."
+      }
+     ]
+    },
+    "sk_aktion_sk_asche_herstellen_fertig": {
+     "text": "Die Kultreste sind gebunden. Du verstaust die vorbereitete Gegenmaßnahme.",
+     "takes_items": {
+      "ski_aschensiegel": 1,
+      "ski_glutkohle": 1
+     },
+     "gives_items": {
+      "ski_laeuterwasser": 1
+     },
+     "choices": [
+      {
+       "text": "Noch eine vorbereiten.",
+       "next": "sk_aktion_sk_asche_herstellen"
+      },
+      {
+       "text": "Fertig."
+      }
+     ]
+    }
+   }
+  },
+  "sk_asche_opfer_wenz": {
+   "start": [
+    {
+     "node": "gruss_hoch",
+     "requires_honor": 40
+    },
+    {
+     "node": "gruss_mittel",
+     "requires_honor": 10
+    },
+    {
+     "node": "gruss_niedrig"
+    }
+   ],
+   "nodes": {
+    "gruss_niedrig": {
+     "text": "„Noch jemand, der nach meinem Bruder fragt und dann fortgeht?“",
+     "choices": [
+      {
+       "text": "Ich möchte etwas wissen.",
+       "next": "hub"
+      },
+      {
+       "text": "Später.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "gruss_mittel": {
+     "text": "„Du hast wenigstens zugehört. Hier ist seine letzte Nachricht.“",
+     "choices": [
+      {
+       "text": "Ich möchte etwas wissen.",
+       "next": "hub"
+      },
+      {
+       "text": "Später.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "gruss_hoch": {
+     "text": "„Wenn man dir Türen öffnet, such bitte hinter der warmen.“",
+     "choices": [
+      {
+       "text": "Ich möchte etwas wissen.",
+       "next": "hub"
+      },
+      {
+       "text": "Später.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "hub": {
+     "text": "Was möchtest du ansprechen?",
+     "choices": [
+      {
+       "text": "Deine Arbeit.",
+       "next": "thema"
+      },
+      {
+       "text": "Mein Pfad.",
+       "next": "pfad",
+       "requires_pathway": [
+        "eisen",
+        9
+       ]
+      },
+      {
+       "text": "Was kann ich tun?",
+       "next": "hilfe"
+      },
+      {
+       "text": "Fortschritt besprechen.",
+       "next": "sk_aktion_sk_asche_schritt_1"
+      },
+      {
+       "text": "Ich gehe.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "thema": {
+     "text": "„Mein Bruder sollte seine Schande loswerden. Seitdem bekommt ein anderer seinen Lohn.“",
+     "choices": [
+      {
+       "text": "Noch etwas.",
+       "next": "hub"
+      },
+      {
+       "text": "Leb wohl.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "pfad": {
+     "text": "„Eisen hört nicht zu. Du schon, hoffe ich.“",
+     "choices": [
+      {
+       "text": "Noch etwas.",
+       "next": "hub"
+      },
+      {
+       "text": "Leb wohl.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "hilfe": {
+     "text": "„Fang bei der kalten Aktenmulde an. Ich will ihn zurück, nicht eine saubere Geschichte.“",
+     "start_quests": [
+      "sk_asche_kette"
+     ],
+     "choices": [
+      {
+       "text": "Danke.",
+       "next": "hub"
+      },
+      {
+       "text": "Ich mache mich auf den Weg.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "abschied": {
+     "text": "„Achte auf den Rückweg.“",
+     "choices": [
+      {
+       "text": "Gespräch beenden."
+      }
+     ]
+    },
+    "sk_aktion_sk_asche_schritt_1": {
+     "text": "In der kalten Aktenmulde liegt der Rand einer Lohnliste. Nur die Beträge sind verbrannt; die Abholkerben blieben erhalten.",
+     "choices": [
+      {
+       "text": "Spur sichern.",
+       "next": "sk_aktion_sk_asche_schritt_1_sichern",
+       "requires_quests_active": [
+        "sk_asche_kette"
+       ],
+       "requires_flags": [],
+       "hide_if_flags": [
+        "sk_asche_schritt_1"
+       ]
+      },
+      {
+       "text": "Später weiter."
+      }
+     ]
+    },
+    "sk_aktion_sk_asche_schritt_1_sichern": {
+     "text": "Du hältst das Ergebnis fest.",
+     "sets_flags": [
+      "sk_asche_schritt_1"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    },
+    "sk_aktion_sk_asche_schritt_1_abschluss": {
+     "text": "Wenz legt die Abschrift neben den Brief seines Bruders. „Jetzt schuldet er denen nichts mehr. Nicht einmal seinen Namen.“",
+     "choices": [
+      {
+       "text": "Die Untersuchung abschließen.",
+       "next": "sk_aktion_sk_asche_schritt_1_auszahlen",
+       "requires_quests_active": [
+        "sk_asche_kette"
+       ],
+       "requires_flags": [
+        "sk_asche_schritt_1",
+        "sk_asche_schritt_2",
+        "sk_asche_schritt_3",
+        "sk_asche_schritt_4"
+       ],
+       "hide_if_flags": [
+        "sk_asche_schritt_5"
+       ]
+      },
+      {
+       "text": "Später weiter."
+      }
+     ]
+    },
+    "sk_aktion_sk_asche_schritt_1_auszahlen": {
+     "text": "Die Abschrift bleibt bei der Familie. Die zugesagte Entschädigung und das verwahrbare Fundstück gehören dir.",
+     "sets_flags": [
+      "sk_asche_schritt_5"
+     ],
+     "complete_quests": [
+      "sk_asche_kette"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_flut_sprecher_maren": {
+   "start": [
+    {
+     "node": "gruss_hoch",
+     "requires_honor": 40
+    },
+    {
+     "node": "gruss_mittel",
+     "requires_honor": 10
+    },
+    {
+     "node": "gruss_niedrig"
+    }
+   ],
+   "nodes": {
+    "gruss_niedrig": {
+     "text": "„Du hältst dich sehr fest am Ufer.“",
+     "choices": [
+      {
+       "text": "Ich möchte etwas wissen.",
+       "next": "hub"
+      },
+      {
+       "text": "Später.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "gruss_mittel": {
+     "text": "„Du kennst die Überfahrt. Den Rückweg zeigen wir später.“",
+     "choices": [
+      {
+       "text": "Ich möchte etwas wissen.",
+       "next": "hub"
+      },
+      {
+       "text": "Später.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "gruss_hoch": {
+     "text": "„Auch ein guter Name kann schwer auf den Grund sinken.“",
+     "choices": [
+      {
+       "text": "Ich möchte etwas wissen.",
+       "next": "hub"
+      },
+      {
+       "text": "Später.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "hub": {
+     "text": "Was möchtest du ansprechen?",
+     "choices": [
+      {
+       "text": "Deine Arbeit.",
+       "next": "thema"
+      },
+      {
+       "text": "Mein Pfad.",
+       "next": "pfad",
+       "requires_pathway": [
+        "schluessel",
+        9
+       ]
+      },
+      {
+       "text": "Was kann ich tun?",
+       "next": "hilfe"
+      },
+      {
+       "text": "Ich gehe.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "thema": {
+     "text": "„Ich bringe Leute hinüber. Manche wollen mehr ablegen als ihren Mantel.“",
+     "choices": [
+      {
+       "text": "Noch etwas.",
+       "next": "hub"
+      },
+      {
+       "text": "Leb wohl.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "pfad": {
+     "text": "„Jedes Schloss hat einen Schlüssel. Unter Wasser fragst du rascher, wer ihn hält.“",
+     "choices": [
+      {
+       "text": "Noch etwas.",
+       "next": "hub"
+      },
+      {
+       "text": "Leb wohl.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "hilfe": {
+     "text": "„Pell hat unser Seil verlassen. Er wird behaupten, es sei eine Schlinge gewesen.“",
+     "choices": [
+      {
+       "text": "Danke.",
+       "next": "hub"
+      },
+      {
+       "text": "Ich mache mich auf den Weg.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "abschied": {
+     "text": "„Achte auf den Rückweg.“",
+     "choices": [
+      {
+       "text": "Gespräch beenden."
+      }
+     ]
+    }
+   }
+  },
+  "sk_flut_aussteiger_pell": {
+   "start": [
+    {
+     "node": "gruss_hoch",
+     "requires_honor": 40
+    },
+    {
+     "node": "gruss_mittel",
+     "requires_honor": 10
+    },
+    {
+     "node": "gruss_niedrig"
+    }
+   ],
+   "nodes": {
+    "gruss_niedrig": {
+     "text": "„Nicht hinter mich. Da stand der Mann mit dem Seil.“",
+     "choices": [
+      {
+       "text": "Ich möchte etwas wissen.",
+       "next": "hub"
+      },
+      {
+       "text": "Später.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "gruss_mittel": {
+     "text": "„Du kannst näher kommen. Lass die Schlaufe liegen.“",
+     "choices": [
+      {
+       "text": "Ich möchte etwas wissen.",
+       "next": "hub"
+      },
+      {
+       "text": "Später.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "gruss_hoch": {
+     "text": "„Wenn du helfen willst, halte den Rückweg offen.“",
+     "choices": [
+      {
+       "text": "Ich möchte etwas wissen.",
+       "next": "hub"
+      },
+      {
+       "text": "Später.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "hub": {
+     "text": "Was möchtest du ansprechen?",
+     "choices": [
+      {
+       "text": "Deine Arbeit.",
+       "next": "thema"
+      },
+      {
+       "text": "Mein Pfad.",
+       "next": "pfad",
+       "requires_pathway": [
+        "schluessel",
+        9
+       ]
+      },
+      {
+       "text": "Was kann ich tun?",
+       "next": "hilfe"
+      },
+      {
+       "text": "Gegenmaßnahme vorbereiten.",
+       "next": "sk_aktion_sk_flut_herstellen"
+      },
+      {
+       "text": "Ich gehe.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "thema": {
+     "text": "„Sie zogen mich dreimal heraus. Beim vierten Mal sollte ich für die anderen bezahlen.“",
+     "choices": [
+      {
+       "text": "Noch etwas.",
+       "next": "hub"
+      },
+      {
+       "text": "Leb wohl.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "pfad": {
+     "text": "„Ein Schlüssel am Ufer hilft nicht, wenn du ihn unten brauchst.“",
+     "choices": [
+      {
+       "text": "Noch etwas.",
+       "next": "hub"
+      },
+      {
+       "text": "Leb wohl.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "hilfe": {
+     "text": "„Aus Flutknoten und Bojenöl mache ich einen Seilschnitt: ein gelöstes Gegenstück für ihre Bindung. Es trennt den Kultknoten, nicht fremde Halteleinen.“",
+     "sets_flags": [
+      "sk_flut_rezept"
+     ],
+     "choices": [
+      {
+       "text": "Danke.",
+       "next": "hub"
+      },
+      {
+       "text": "Ich mache mich auf den Weg.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "abschied": {
+     "text": "„Achte auf den Rückweg.“",
+     "choices": [
+      {
+       "text": "Gespräch beenden."
+      }
+     ]
+    },
+    "sk_aktion_sk_flut_herstellen": {
+     "text": "Du legst die beiden Kultreste bereit. Erst mit deiner Zustimmung werden sie verbraucht.",
+     "choices": [
+      {
+       "text": "Eine Gegenmaßnahme herstellen.",
+       "next": "sk_aktion_sk_flut_herstellen_fertig",
+       "requires_flags": [
+        "sk_flut_rezept"
+       ],
+       "requires_items": [
+        "ski_flutknoten",
+        "ski_bojenoel"
+       ]
+      },
+      {
+       "text": "Die Sachen behalten."
+      }
+     ]
+    },
+    "sk_aktion_sk_flut_herstellen_fertig": {
+     "text": "Die Kultreste sind gebunden. Du verstaust die vorbereitete Gegenmaßnahme.",
+     "takes_items": {
+      "ski_flutknoten": 1,
+      "ski_bojenoel": 1
+     },
+     "gives_items": {
+      "ski_seilschnitt": 1
+     },
+     "choices": [
+      {
+       "text": "Noch eine vorbereiten.",
+       "next": "sk_aktion_sk_flut_herstellen"
+      },
+      {
+       "text": "Fertig."
+      }
+     ]
+    }
+   }
+  },
+  "sk_flut_opfer_lotte": {
+   "start": [
+    {
+     "node": "gruss_hoch",
+     "requires_honor": 40
+    },
+    {
+     "node": "gruss_mittel",
+     "requires_honor": 10
+    },
+    {
+     "node": "gruss_niedrig"
+    }
+   ],
+   "nodes": {
+    "gruss_niedrig": {
+     "text": "„Meine Schwester schuldet dir nichts.“",
+     "choices": [
+      {
+       "text": "Ich möchte etwas wissen.",
+       "next": "hub"
+      },
+      {
+       "text": "Später.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "gruss_mittel": {
+     "text": "„Wenn du sie findest, sag, dass ihr Bett noch da ist.“",
+     "choices": [
+      {
+       "text": "Ich möchte etwas wissen.",
+       "next": "hub"
+      },
+      {
+       "text": "Später.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "gruss_hoch": {
+     "text": "„Bitte bring ihr keine Rede mit. Bring sie nach Hause.“",
+     "choices": [
+      {
+       "text": "Ich möchte etwas wissen.",
+       "next": "hub"
+      },
+      {
+       "text": "Später.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "hub": {
+     "text": "Was möchtest du ansprechen?",
+     "choices": [
+      {
+       "text": "Deine Arbeit.",
+       "next": "thema"
+      },
+      {
+       "text": "Mein Pfad.",
+       "next": "pfad",
+       "requires_pathway": [
+        "schluessel",
+        9
+       ]
+      },
+      {
+       "text": "Was kann ich tun?",
+       "next": "hilfe"
+      },
+      {
+       "text": "Fortschritt besprechen.",
+       "next": "sk_aktion_sk_flut_schritt_1"
+      },
+      {
+       "text": "Ich gehe.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "thema": {
+     "text": "„Maren nannte es eine Taufe. Danach sollte meine Schwester erst ihre Überfahrt abarbeiten.“",
+     "choices": [
+      {
+       "text": "Noch etwas.",
+       "next": "hub"
+      },
+      {
+       "text": "Leb wohl.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "pfad": {
+     "text": "„Schlüssel sind gut. Eine Tür ohne Wächter wäre mir lieber.“",
+     "choices": [
+      {
+       "text": "Noch etwas.",
+       "next": "hub"
+      },
+      {
+       "text": "Leb wohl.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "hilfe": {
+     "text": "„Sie haben ihre Plätze an der Boje eingekerbt. Schau dort nach, ehe das nächste Boot kommt.“",
+     "start_quests": [
+      "sk_flut_kette"
+     ],
+     "choices": [
+      {
+       "text": "Danke.",
+       "next": "hub"
+      },
+      {
+       "text": "Ich mache mich auf den Weg.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "abschied": {
+     "text": "„Achte auf den Rückweg.“",
+     "choices": [
+      {
+       "text": "Gespräch beenden."
+      }
+     ]
+    },
+    "sk_aktion_sk_flut_schritt_1": {
+     "text": "Unter der Bojenlaterne sind Kerben für bezahlte Plätze. Die Taufe wird wie eine Überfahrt verkauft.",
+     "choices": [
+      {
+       "text": "Spur sichern.",
+       "next": "sk_aktion_sk_flut_schritt_1_sichern",
+       "requires_quests_active": [
+        "sk_flut_kette"
+       ],
+       "requires_flags": [],
+       "hide_if_flags": [
+        "sk_flut_schritt_1"
+       ]
+      },
+      {
+       "text": "Später weiter."
+      }
+     ]
+    },
+    "sk_aktion_sk_flut_schritt_1_sichern": {
+     "text": "Du hältst das Ergebnis fest.",
+     "sets_flags": [
+      "sk_flut_schritt_1"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    },
+    "sk_aktion_sk_flut_schritt_1_abschluss": {
+     "text": "Lotte zählt die offenen Schlaufen. „Man hat uns gesagt, das Seil sei unsere Sicherheit. Jetzt behalten wir das Ende selbst.“",
+     "choices": [
+      {
+       "text": "Die Untersuchung abschließen.",
+       "next": "sk_aktion_sk_flut_schritt_1_auszahlen",
+       "requires_quests_active": [
+        "sk_flut_kette"
+       ],
+       "requires_flags": [
+        "sk_flut_schritt_1",
+        "sk_flut_schritt_2",
+        "sk_flut_schritt_3",
+        "sk_flut_schritt_4"
+       ],
+       "hide_if_flags": [
+        "sk_flut_schritt_5"
+       ]
+      },
+      {
+       "text": "Später weiter."
+      }
+     ]
+    },
+    "sk_aktion_sk_flut_schritt_1_auszahlen": {
+     "text": "Die Abschrift bleibt bei der Familie. Die zugesagte Entschädigung und das verwahrbare Fundstück gehören dir.",
+     "sets_flags": [
+      "sk_flut_schritt_5"
+     ],
+     "complete_quests": [
+      "sk_flut_kette"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_chor_sprecher_ansgar": {
+   "start": [
+    {
+     "node": "gruss_hoch",
+     "requires_honor": 40
+    },
+    {
+     "node": "gruss_mittel",
+     "requires_honor": 10
+    },
+    {
+     "node": "gruss_niedrig"
+    }
+   ],
+   "nodes": {
+    "gruss_niedrig": {
+     "text": "„Du bist außerhalb des Taktes.“",
+     "choices": [
+      {
+       "text": "Ich möchte etwas wissen.",
+       "next": "hub"
+      },
+      {
+       "text": "Später.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "gruss_mittel": {
+     "text": "„Dein Schritt ist bekannt. Deine Stimme fehlt noch.“",
+     "choices": [
+      {
+       "text": "Ich möchte etwas wissen.",
+       "next": "hub"
+      },
+      {
+       "text": "Später.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "gruss_hoch": {
+     "text": "„Eine angesehene Stimme erreicht viele Türen. Denk darüber nach.“",
+     "choices": [
+      {
+       "text": "Ich möchte etwas wissen.",
+       "next": "hub"
+      },
+      {
+       "text": "Später.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "hub": {
+     "text": "Was möchtest du ansprechen?",
+     "choices": [
+      {
+       "text": "Deine Arbeit.",
+       "next": "thema"
+      },
+      {
+       "text": "Mein Pfad.",
+       "next": "pfad",
+       "requires_pathway": [
+        "echo",
+        9
+       ]
+      },
+      {
+       "text": "Was kann ich tun?",
+       "next": "hilfe"
+      },
+      {
+       "text": "Ich gehe.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "thema": {
+     "text": "„Ich prüfe, ob eine Schicht gemeinsam antworten kann. Einzelne Rufe gehen im Lärm verloren.“",
+     "choices": [
+      {
+       "text": "Noch etwas.",
+       "next": "hub"
+      },
+      {
+       "text": "Leb wohl.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "pfad": {
+     "text": "„Ein Echo kennt keinen Widerspruch. Vielleicht ist das seine beste Eigenschaft.“",
+     "choices": [
+      {
+       "text": "Noch etwas.",
+       "next": "hub"
+      },
+      {
+       "text": "Leb wohl.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "hilfe": {
+     "text": "„Rike hat den Einsatz verweigert. Hör dir an, was sie damit gewonnen hat.“",
+     "choices": [
+      {
+       "text": "Danke.",
+       "next": "hub"
+      },
+      {
+       "text": "Ich mache mich auf den Weg.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "abschied": {
+     "text": "„Achte auf den Rückweg.“",
+     "choices": [
+      {
+       "text": "Gespräch beenden."
+      }
+     ]
+    }
+   }
+  },
+  "sk_chor_aussteiger_rike": {
+   "start": [
+    {
+     "node": "gruss_hoch",
+     "requires_honor": 40
+    },
+    {
+     "node": "gruss_mittel",
+     "requires_honor": 10
+    },
+    {
+     "node": "gruss_niedrig"
+    }
+   ],
+   "nodes": {
+    "gruss_niedrig": {
+     "text": "„Sag nichts nach, das du nicht selbst sagen willst.“",
+     "choices": [
+      {
+       "text": "Ich möchte etwas wissen.",
+       "next": "hub"
+      },
+      {
+       "text": "Später.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "gruss_mittel": {
+     "text": "„Ich erkenne deine Stimme. Das beruhigt mich noch nicht.“",
+     "choices": [
+      {
+       "text": "Ich möchte etwas wissen.",
+       "next": "hub"
+      },
+      {
+       "text": "Später.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "gruss_hoch": {
+     "text": "„Wenn die Leute dir glauben, lass sie trotzdem selbst sprechen.“",
+     "choices": [
+      {
+       "text": "Ich möchte etwas wissen.",
+       "next": "hub"
+      },
+      {
+       "text": "Später.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "hub": {
+     "text": "Was möchtest du ansprechen?",
+     "choices": [
+      {
+       "text": "Deine Arbeit.",
+       "next": "thema"
+      },
+      {
+       "text": "Mein Pfad.",
+       "next": "pfad",
+       "requires_pathway": [
+        "echo",
+        9
+       ]
+      },
+      {
+       "text": "Was kann ich tun?",
+       "next": "hilfe"
+      },
+      {
+       "text": "Gegenmaßnahme vorbereiten.",
+       "next": "sk_aktion_sk_chor_herstellen"
+      },
+      {
+       "text": "Ich gehe.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "thema": {
+     "text": "„Sie sagten, meine Pause gehöre dem Chor. Also bin ich mitten in ihr gegangen.“",
+     "choices": [
+      {
+       "text": "Noch etwas.",
+       "next": "hub"
+      },
+      {
+       "text": "Leb wohl.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "pfad": {
+     "text": "„Du kennst das Echo. Eine Wiederholung ist noch keine Zustimmung.“",
+     "choices": [
+      {
+       "text": "Noch etwas.",
+       "next": "hub"
+      },
+      {
+       "text": "Leb wohl.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "hilfe": {
+     "text": "„Chorkreide bindet fremdes Stimmwachs. Das reine Wachs legt sich auf ihr Nebenrohr; deine eigene Stimme bleibt frei.“",
+     "sets_flags": [
+      "sk_chor_rezept"
+     ],
+     "choices": [
+      {
+       "text": "Danke.",
+       "next": "hub"
+      },
+      {
+       "text": "Ich mache mich auf den Weg.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "abschied": {
+     "text": "„Achte auf den Rückweg.“",
+     "choices": [
+      {
+       "text": "Gespräch beenden."
+      }
+     ]
+    },
+    "sk_aktion_sk_chor_herstellen": {
+     "text": "Du legst die beiden Kultreste bereit. Erst mit deiner Zustimmung werden sie verbraucht.",
+     "choices": [
+      {
+       "text": "Eine Gegenmaßnahme herstellen.",
+       "next": "sk_aktion_sk_chor_herstellen_fertig",
+       "requires_flags": [
+        "sk_chor_rezept"
+       ],
+       "requires_items": [
+        "ski_chorkreide",
+        "ski_stimmwachs"
+       ]
+      },
+      {
+       "text": "Die Sachen behalten."
+      }
+     ]
+    },
+    "sk_aktion_sk_chor_herstellen_fertig": {
+     "text": "Die Kultreste sind gebunden. Du verstaust die vorbereitete Gegenmaßnahme.",
+     "takes_items": {
+      "ski_chorkreide": 1,
+      "ski_stimmwachs": 1
+     },
+     "gives_items": {
+      "ski_stimmwachs_rein": 1
+     },
+     "choices": [
+      {
+       "text": "Noch eine vorbereiten.",
+       "next": "sk_aktion_sk_chor_herstellen"
+      },
+      {
+       "text": "Fertig."
+      }
+     ]
+    }
+   }
+  },
+  "sk_chor_opfer_jost": {
+   "start": [
+    {
+     "node": "gruss_hoch",
+     "requires_honor": 40
+    },
+    {
+     "node": "gruss_mittel",
+     "requires_honor": 10
+    },
+    {
+     "node": "gruss_niedrig"
+    }
+   ],
+   "nodes": {
+    "gruss_niedrig": {
+     "text": "„Wenn du mich rufen hörst, sieh erst nach, ob ich es bin.“",
+     "choices": [
+      {
+       "text": "Ich möchte etwas wissen.",
+       "next": "hub"
+      },
+      {
+       "text": "Später.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "gruss_mittel": {
+     "text": "„Du sprichst mich selbst an. Gut.“",
+     "choices": [
+      {
+       "text": "Ich möchte etwas wissen.",
+       "next": "hub"
+      },
+      {
+       "text": "Später.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "gruss_hoch": {
+     "text": "„Man glaubt dir. Mir glaubt man inzwischen zu oft.“",
+     "choices": [
+      {
+       "text": "Ich möchte etwas wissen.",
+       "next": "hub"
+      },
+      {
+       "text": "Später.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "hub": {
+     "text": "Was möchtest du ansprechen?",
+     "choices": [
+      {
+       "text": "Deine Arbeit.",
+       "next": "thema"
+      },
+      {
+       "text": "Mein Pfad.",
+       "next": "pfad",
+       "requires_pathway": [
+        "echo",
+        9
+       ]
+      },
+      {
+       "text": "Was kann ich tun?",
+       "next": "hilfe"
+      },
+      {
+       "text": "Fortschritt besprechen.",
+       "next": "sk_aktion_sk_chor_schritt_1"
+      },
+      {
+       "text": "Ich gehe.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "thema": {
+     "text": "„Ein Nachbar folgte meiner Stimme. Ich war zu dieser Zeit bei ihm am Tisch.“",
+     "choices": [
+      {
+       "text": "Noch etwas.",
+       "next": "hub"
+      },
+      {
+       "text": "Leb wohl.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "pfad": {
+     "text": "„Ein Echo kann meinen Ton treffen. Nicht den Grund, aus dem ich etwas sage.“",
+     "choices": [
+      {
+       "text": "Noch etwas.",
+       "next": "hub"
+      },
+      {
+       "text": "Leb wohl.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "hilfe": {
+     "text": "„Die Wachsmulde vor dem Prüfhaus war öffentlich. Dort habe ich meine Probe abgegeben.“",
+     "start_quests": [
+      "sk_chor_kette"
+     ],
+     "choices": [
+      {
+       "text": "Danke.",
+       "next": "hub"
+      },
+      {
+       "text": "Ich mache mich auf den Weg.",
+       "next": "abschied"
+      }
+     ]
+    },
+    "abschied": {
+     "text": "„Achte auf den Rückweg.“",
+     "choices": [
+      {
+       "text": "Gespräch beenden."
+      }
+     ]
+    },
+    "sk_aktion_sk_chor_schritt_1": {
+     "text": "Die Wachsmulde enthält keine Prüfungsergebnisse, sondern ausgeschnittene Anreden. Jemand hat die Stimmen nach ihrer Verwendbarkeit sortiert.",
+     "choices": [
+      {
+       "text": "Spur sichern.",
+       "next": "sk_aktion_sk_chor_schritt_1_sichern",
+       "requires_quests_active": [
+        "sk_chor_kette"
+       ],
+       "requires_flags": [],
+       "hide_if_flags": [
+        "sk_chor_schritt_1"
+       ]
+      },
+      {
+       "text": "Später weiter."
+      }
+     ]
+    },
+    "sk_aktion_sk_chor_schritt_1_sichern": {
+     "text": "Du hältst das Ergebnis fest.",
+     "sets_flags": [
+      "sk_chor_schritt_1"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    },
+    "sk_aktion_sk_chor_schritt_1_abschluss": {
+     "text": "Jost hält seine Probe ans Ohr, ohne sie abzuspielen. „Ich wollte wissen, ob sie noch mir gehört. Das reicht mir.“",
+     "choices": [
+      {
+       "text": "Die Untersuchung abschließen.",
+       "next": "sk_aktion_sk_chor_schritt_1_auszahlen",
+       "requires_quests_active": [
+        "sk_chor_kette"
+       ],
+       "requires_flags": [
+        "sk_chor_schritt_1",
+        "sk_chor_schritt_2",
+        "sk_chor_schritt_3",
+        "sk_chor_schritt_4"
+       ],
+       "hide_if_flags": [
+        "sk_chor_schritt_5"
+       ]
+      },
+      {
+       "text": "Später weiter."
+      }
+     ]
+    },
+    "sk_aktion_sk_chor_schritt_1_auszahlen": {
+     "text": "Die Abschrift bleibt bei der Familie. Die zugesagte Entschädigung und das verwahrbare Fundstück gehören dir.",
+     "sets_flags": [
+      "sk_chor_schritt_5"
+     ],
+     "complete_quests": [
+      "sk_chor_kette"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_asche_herstellen": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Du legst die beiden Kultreste bereit. Erst mit deiner Zustimmung werden sie verbraucht.",
+     "choices": [
+      {
+       "text": "Eine Gegenmaßnahme herstellen.",
+       "next": "fertig",
+       "requires_flags": [
+        "sk_asche_rezept"
+       ],
+       "requires_items": [
+        "ski_aschensiegel",
+        "ski_glutkohle"
+       ]
+      },
+      {
+       "text": "Die Sachen behalten."
+      }
+     ]
+    },
+    "fertig": {
+     "text": "Die Kultreste sind gebunden. Du verstaust die vorbereitete Gegenmaßnahme.",
+     "takes_items": {
+      "ski_aschensiegel": 1,
+      "ski_glutkohle": 1
+     },
+     "gives_items": {
+      "ski_laeuterwasser": 1
+     },
+     "choices": [
+      {
+       "text": "Noch eine vorbereiten.",
+       "next": "start"
+      },
+      {
+       "text": "Fertig."
+      }
+     ]
+    }
+   }
+  },
+  "sk_flut_herstellen": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Du legst die beiden Kultreste bereit. Erst mit deiner Zustimmung werden sie verbraucht.",
+     "choices": [
+      {
+       "text": "Eine Gegenmaßnahme herstellen.",
+       "next": "fertig",
+       "requires_flags": [
+        "sk_flut_rezept"
+       ],
+       "requires_items": [
+        "ski_flutknoten",
+        "ski_bojenoel"
+       ]
+      },
+      {
+       "text": "Die Sachen behalten."
+      }
+     ]
+    },
+    "fertig": {
+     "text": "Die Kultreste sind gebunden. Du verstaust die vorbereitete Gegenmaßnahme.",
+     "takes_items": {
+      "ski_flutknoten": 1,
+      "ski_bojenoel": 1
+     },
+     "gives_items": {
+      "ski_seilschnitt": 1
+     },
+     "choices": [
+      {
+       "text": "Noch eine vorbereiten.",
+       "next": "start"
+      },
+      {
+       "text": "Fertig."
+      }
+     ]
+    }
+   }
+  },
+  "sk_chor_herstellen": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Du legst die beiden Kultreste bereit. Erst mit deiner Zustimmung werden sie verbraucht.",
+     "choices": [
+      {
+       "text": "Eine Gegenmaßnahme herstellen.",
+       "next": "fertig",
+       "requires_flags": [
+        "sk_chor_rezept"
+       ],
+       "requires_items": [
+        "ski_chorkreide",
+        "ski_stimmwachs"
+       ]
+      },
+      {
+       "text": "Die Sachen behalten."
+      }
+     ]
+    },
+    "fertig": {
+     "text": "Die Kultreste sind gebunden. Du verstaust die vorbereitete Gegenmaßnahme.",
+     "takes_items": {
+      "ski_chorkreide": 1,
+      "ski_stimmwachs": 1
+     },
+     "gives_items": {
+      "ski_stimmwachs_rein": 1
+     },
+     "choices": [
+      {
+       "text": "Noch eine vorbereiten.",
+       "next": "start"
+      },
+      {
+       "text": "Fertig."
+      }
+     ]
+    }
+   }
+  },
+  "sk_asche_ereignis_02": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "„Bring den Namen mit, den du nicht mehr tragen willst. Für den Rest haben wir Feuer.“",
+     "choices": [
+      {
+       "text": "Ablehnen.",
+       "next": "ablehnen"
+      },
+      {
+       "text": "Zuhören.",
+       "next": "zuhoeren"
+      },
+      {
+       "text": "Mitgehen (−5 Nerven).",
+       "next": "mitgehen",
+       "requires_flags": [
+        "sk_asche_ereignis_02_aktiv"
+       ],
+       "hide_if_flags": [
+        "sk_asche_ereignis_02_mitgegangen"
+       ]
+      }
+     ]
+    },
+    "ablehnen": {
+     "text": "Du lehnst ab. Der Kultist lässt den Weg frei.",
+     "clears_flags": [
+      "sk_asche_ereignis_02_aktiv"
+     ],
+     "sets_flags": [
+      "sk_asche_ereignis_02_erledigt"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    },
+    "zuhoeren": {
+     "text": "Du hörst das Versprechen zu Ende. Weder Geld noch Namen musst du abgeben.",
+     "choices": [
+      {
+       "text": "Es bleibt beim Nein.",
+       "next": "ablehnen"
+      },
+      {
+       "text": "Mitgehen (−5 Nerven).",
+       "next": "mitgehen",
+       "requires_flags": [
+        "sk_asche_ereignis_02_aktiv"
+       ],
+       "hide_if_flags": [
+        "sk_asche_ereignis_02_mitgegangen"
+       ]
+      },
+      {
+       "text": "Noch nicht entscheiden."
+      }
+     ]
+    },
+    "mitgehen": {
+     "text": "Du gehst bis zum offenen Vorplatz und kehrst erschöpft zurück. Der Kult hat weder dein Gepäck noch deinen Rückweg.",
+     "nerves": -5,
+     "sets_flags": [
+      "sk_asche_ereignis_02_mitgegangen",
+      "sk_asche_ereignis_02_erledigt"
+     ],
+     "clears_flags": [
+      "sk_asche_ereignis_02_aktiv"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_asche_ereignis_03": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "„Sie haben die Tür markiert, während ich drinnen war. Frag mich, bevor du das Zeichen anfasst.“",
+     "choices": [
+      {
+       "text": "Mit Einverständnis übermalen.",
+       "next": "entfernen",
+       "requires_flags": [
+        "sk_asche_ereignis_03_aktiv"
+       ]
+      },
+      {
+       "text": "Die Person zuerst in Ruhe lassen."
+      }
+     ]
+    },
+    "entfernen": {
+     "text": "Die Person nickt. Du entfernst die Markierung, ohne die Tür zu versperren.",
+     "clears_flags": [
+      "sk_asche_ereignis_03_aktiv"
+     ],
+     "sets_flags": [
+      "sk_asche_ereignis_03_erledigt"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_asche_ereignis_05": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Pimm sitzt hinter einem losen Ofengitter. „Die Akte war erfunden. Die Rechnung leider nicht.“",
+     "choices": [
+      {
+       "text": "Die Person hinausbegleiten.",
+       "next": "frei",
+       "requires_flags": [
+        "sk_asche_ereignis_05_aktiv"
+       ]
+      },
+      {
+       "text": "Zuerst den Rückweg prüfen."
+      }
+     ]
+    },
+    "frei": {
+     "text": "Die Person geht auf dem freien Weg zurück. Ihr gewohnter Platz ist wieder zugänglich.",
+     "sets_flags": [
+      "sk_asche_ereignis_05_erledigt",
+      "sk_asche_gerettet"
+     ],
+     "clears_flags": [
+      "sk_asche_ereignis_05_aktiv"
+     ],
+     "complete_quests": [
+      "sk_asche_rueckholung"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_asche_ereignis_06": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Ein kalter Rußfilm liegt auf dem örtlichen Wasser. Du kannst den Nebenlauf reinigen, ohne den Brunnen zu betreten.",
+     "choices": [
+      {
+       "text": "Gegenmaßnahme bewusst einsetzen.",
+       "next": "item",
+       "requires_flags": [
+        "sk_asche_ereignis_06_aktiv"
+       ],
+       "requires_items": [
+        "ski_laeuterwasser"
+       ]
+      },
+      {
+       "text": "Von Hand beheben (kostenlos).",
+       "next": "handarbeit",
+       "requires_flags": [
+        "sk_asche_ereignis_06_aktiv"
+       ]
+      },
+      {
+       "text": "Die Frist abwarten."
+      }
+     ]
+    },
+    "item": {
+     "text": "Du setzt die vorbereitete Gegenmaßnahme ein. Die örtliche Störung endet.",
+     "takes_items": {
+      "ski_laeuterwasser": 1
+     },
+     "clears_flags": [
+      "sk_asche_ereignis_06_aktiv"
+     ],
+     "sets_flags": [
+      "sk_asche_ereignis_06_erledigt"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    },
+    "handarbeit": {
+     "text": "Du schöpfst den fremden Belag aus dem zugänglichen Seitenbecken. Das örtliche Wasser ist wieder klar.",
+     "clears_flags": [
+      "sk_asche_ereignis_06_aktiv"
+     ],
+     "sets_flags": [
+      "sk_asche_ereignis_06_erledigt"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_asche_ereignis_07": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Ned tastet nach seinem Stock. „Die Stimme war freundlich. Die Hand an meinem Kragen weniger.“",
+     "choices": [
+      {
+       "text": "Die Person hinausbegleiten.",
+       "next": "frei",
+       "requires_flags": [
+        "sk_asche_ereignis_07_aktiv"
+       ]
+      },
+      {
+       "text": "Zuerst den Rückweg prüfen."
+      }
+     ]
+    },
+    "frei": {
+     "text": "Die Person geht auf dem freien Weg zurück. Ihr gewohnter Platz ist wieder zugänglich.",
+     "sets_flags": [
+      "sk_asche_ereignis_07_erledigt",
+      "sk_asche_gerettet"
+     ],
+     "clears_flags": [
+      "sk_asche_ereignis_07_aktiv"
+     ],
+     "complete_quests": [
+      "sk_asche_rueckholung"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_asche_ereignis_08": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Unter dem Becken liegen leere Umschläge. Zwei Wachen halten Passanten auf Abstand.",
+     "choices": [
+      {
+       "text": "Die Wachen ablenken (kein Kampf).",
+       "next": "ablenken",
+       "requires_flags": [
+        "sk_asche_ereignis_08_aktiv"
+       ],
+       "hide_if_flags": [
+        "sk_asche_ereignis_08_gesichert"
+       ]
+      },
+      {
+       "text": "Den Kultplatz abbauen.",
+       "next": "abbauen",
+       "requires_flags": [
+        "sk_asche_ereignis_08_aktiv",
+        "sk_asche_ereignis_08_gesichert"
+       ]
+      },
+      {
+       "text": "Zurück auf die Straße."
+      }
+     ]
+    },
+    "ablenken": {
+     "text": "Du rufst die Nachbarn an die beleuchtete Straßenseite. Die Wachen folgen dem vermeintlichen Auflauf; der Kultplatz liegt frei.",
+     "sets_flags": [
+      "sk_asche_ereignis_08_gesichert"
+     ],
+     "choices": [
+      {
+       "text": "Jetzt abbauen.",
+       "next": "abbauen",
+       "requires_flags": [
+        "sk_asche_ereignis_08_aktiv",
+        "sk_asche_ereignis_08_gesichert"
+       ]
+      },
+      {
+       "text": "Zurück."
+      }
+     ]
+    },
+    "abbauen": {
+     "text": "Du zerlegst den Kultplatz. Die Wachen ziehen ab; niemand braucht hier seinen Namen oder seine Luft zu lassen.",
+     "clears_flags": [
+      "sk_asche_ereignis_08_aktiv"
+     ],
+     "sets_flags": [
+      "sk_asche_ereignis_08_erledigt",
+      "sk_asche_hilfe_done"
+     ],
+     "complete_quests": [
+      "sk_asche_schrein_auftrag"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_asche_ereignis_09": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Drei Schritte hinter dir bleibt der Durchgang frei. Du kannst ausweichen oder die Angreifer stellen.",
+     "choices": [
+      {
+       "text": "Die freie Gasse nehmen.",
+       "next": "ausweichen",
+       "requires_flags": [
+        "sk_asche_ereignis_09_aktiv"
+       ]
+      },
+      {
+       "text": "Erst die Lage ansehen."
+      }
+     ]
+    },
+    "ausweichen": {
+     "text": "Du weichst auf die helle Straße aus. Die Gestalten verlieren dich im Verkehr.",
+     "clears_flags": [
+      "sk_asche_ereignis_09_aktiv"
+     ],
+     "sets_flags": [
+      "sk_asche_ereignis_09_erledigt"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_asche_ereignis_10": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Die Ventile wurden nur geschlossen, nicht zerstört. Die Dunkelheit endet mit der Reinigung oder von selbst.",
+     "choices": [
+      {
+       "text": "Gegenmaßnahme bewusst einsetzen.",
+       "next": "item",
+       "requires_flags": [
+        "sk_asche_ereignis_10_aktiv"
+       ],
+       "requires_items": [
+        "ski_laeuterwasser"
+       ]
+      },
+      {
+       "text": "Von Hand beheben (kostenlos).",
+       "next": "handarbeit",
+       "requires_flags": [
+        "sk_asche_ereignis_10_aktiv"
+       ]
+      },
+      {
+       "text": "Die Frist abwarten."
+      }
+     ]
+    },
+    "item": {
+     "text": "Du setzt die vorbereitete Gegenmaßnahme ein. Die örtliche Störung endet.",
+     "takes_items": {
+      "ski_laeuterwasser": 1
+     },
+     "clears_flags": [
+      "sk_asche_ereignis_10_aktiv",
+      "sk_asche_ereignis_10_dunkel"
+     ],
+     "sets_flags": [
+      "sk_asche_ereignis_10_erledigt"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    },
+    "handarbeit": {
+     "text": "Du löst die Kultauflage und öffnest die unverletzten Lampen. Das normale Licht kehrt zurück.",
+     "clears_flags": [
+      "sk_asche_ereignis_10_aktiv",
+      "sk_asche_ereignis_10_dunkel"
+     ],
+     "sets_flags": [
+      "sk_asche_ereignis_10_erledigt"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_asche_ereignis_11": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Drei Kultisten bewachen den Rand. Neben dem Becken bleibt genug Platz, die Glut gefahrlos abzulöschen.",
+     "choices": [
+      {
+       "text": "Die Wachen ablenken (kein Kampf).",
+       "next": "ablenken",
+       "requires_flags": [
+        "sk_asche_ereignis_11_aktiv"
+       ],
+       "hide_if_flags": [
+        "sk_asche_ereignis_11_gesichert"
+       ]
+      },
+      {
+       "text": "Den Kultplatz abbauen.",
+       "next": "abbauen",
+       "requires_flags": [
+        "sk_asche_ereignis_11_aktiv",
+        "sk_asche_ereignis_11_gesichert"
+       ]
+      },
+      {
+       "text": "Zurück auf die Straße."
+      }
+     ]
+    },
+    "ablenken": {
+     "text": "Du rufst die Nachbarn an die beleuchtete Straßenseite. Die Wachen folgen dem vermeintlichen Auflauf; der Kultplatz liegt frei.",
+     "sets_flags": [
+      "sk_asche_ereignis_11_gesichert"
+     ],
+     "choices": [
+      {
+       "text": "Jetzt abbauen.",
+       "next": "abbauen",
+       "requires_flags": [
+        "sk_asche_ereignis_11_aktiv",
+        "sk_asche_ereignis_11_gesichert"
+       ]
+      },
+      {
+       "text": "Zurück."
+      }
+     ]
+    },
+    "abbauen": {
+     "text": "Du zerlegst den Kultplatz. Die Wachen ziehen ab; niemand braucht hier seinen Namen oder seine Luft zu lassen.",
+     "clears_flags": [
+      "sk_asche_ereignis_11_aktiv"
+     ],
+     "sets_flags": [
+      "sk_asche_ereignis_11_erledigt",
+      "sk_asche_hilfe_done"
+     ],
+     "complete_quests": [
+      "sk_asche_schrein_auftrag"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_asche_ereignis_12": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Eine freie Gasse führt zurück ins Licht. Niemand muss bleiben, um eine Akte zu retten.",
+     "choices": [
+      {
+       "text": "Die freie Gasse nehmen.",
+       "next": "ausweichen",
+       "requires_flags": [
+        "sk_asche_ereignis_12_aktiv"
+       ]
+      },
+      {
+       "text": "Erst die Lage ansehen."
+      }
+     ]
+    },
+    "ausweichen": {
+     "text": "Du weichst auf die helle Straße aus. Die Gestalten verlieren dich im Verkehr.",
+     "clears_flags": [
+      "sk_asche_ereignis_12_aktiv"
+     ],
+     "sets_flags": [
+      "sk_asche_ereignis_12_erledigt"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_flut_ereignis_02": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "„Ein Atemzug unter Wasser, und du darfst alles zurücklassen. Wir halten das Seil.“",
+     "choices": [
+      {
+       "text": "Ablehnen.",
+       "next": "ablehnen"
+      },
+      {
+       "text": "Zuhören.",
+       "next": "zuhoeren"
+      },
+      {
+       "text": "Mitgehen (−5 Nerven).",
+       "next": "mitgehen",
+       "requires_flags": [
+        "sk_flut_ereignis_02_aktiv"
+       ],
+       "hide_if_flags": [
+        "sk_flut_ereignis_02_mitgegangen"
+       ]
+      }
+     ]
+    },
+    "ablehnen": {
+     "text": "Du lehnst ab. Der Kultist lässt den Weg frei.",
+     "clears_flags": [
+      "sk_flut_ereignis_02_aktiv"
+     ],
+     "sets_flags": [
+      "sk_flut_ereignis_02_erledigt"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    },
+    "zuhoeren": {
+     "text": "Du hörst das Versprechen zu Ende. Weder Geld noch Namen musst du abgeben.",
+     "choices": [
+      {
+       "text": "Es bleibt beim Nein.",
+       "next": "ablehnen"
+      },
+      {
+       "text": "Mitgehen (−5 Nerven).",
+       "next": "mitgehen",
+       "requires_flags": [
+        "sk_flut_ereignis_02_aktiv"
+       ],
+       "hide_if_flags": [
+        "sk_flut_ereignis_02_mitgegangen"
+       ]
+      },
+      {
+       "text": "Noch nicht entscheiden."
+      }
+     ]
+    },
+    "mitgehen": {
+     "text": "Du gehst bis zum offenen Vorplatz und kehrst erschöpft zurück. Der Kult hat weder dein Gepäck noch deinen Rückweg.",
+     "nerves": -5,
+     "sets_flags": [
+      "sk_flut_ereignis_02_mitgegangen",
+      "sk_flut_ereignis_02_erledigt"
+     ],
+     "clears_flags": [
+      "sk_flut_ereignis_02_aktiv"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_flut_ereignis_03": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "„Sie wollen, dass ich meine Schwester mitbringe. Ich habe ihnen nicht einmal meine Tür gezeigt.“",
+     "choices": [
+      {
+       "text": "Mit Einverständnis übermalen.",
+       "next": "entfernen",
+       "requires_flags": [
+        "sk_flut_ereignis_03_aktiv"
+       ]
+      },
+      {
+       "text": "Die Person zuerst in Ruhe lassen."
+      }
+     ]
+    },
+    "entfernen": {
+     "text": "Die Person nickt. Du entfernst die Markierung, ohne die Tür zu versperren.",
+     "clears_flags": [
+      "sk_flut_ereignis_03_aktiv"
+     ],
+     "sets_flags": [
+      "sk_flut_ereignis_03_erledigt",
+      "sk_flut_hilfe_done"
+     ],
+     "complete_quests": [
+      "sk_flut_zeichen_auftrag"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_flut_ereignis_05": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Sedge sitzt am trockenen Rand einer Taufstelle. „Das Kind gab es nicht. Diese Schlinge dagegen schon.“",
+     "choices": [
+      {
+       "text": "Die Person hinausbegleiten.",
+       "next": "frei",
+       "requires_flags": [
+        "sk_flut_ereignis_05_aktiv"
+       ]
+      },
+      {
+       "text": "Zuerst den Rückweg prüfen."
+      }
+     ]
+    },
+    "frei": {
+     "text": "Die Person geht auf dem freien Weg zurück. Ihr gewohnter Platz ist wieder zugänglich.",
+     "sets_flags": [
+      "sk_flut_ereignis_05_erledigt",
+      "sk_flut_gerettet"
+     ],
+     "clears_flags": [
+      "sk_flut_ereignis_05_aktiv"
+     ],
+     "complete_quests": [
+      "sk_flut_rueckholung"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_flut_ereignis_06": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Ein privater Umweg kostet höchstens fünf Schilling mehr. Die Hauptverbindung und ihre Notpassage bleiben offen.",
+     "choices": [
+      {
+       "text": "Gegenmaßnahme bewusst einsetzen.",
+       "next": "item",
+       "requires_flags": [
+        "sk_flut_ereignis_06_aktiv"
+       ],
+       "requires_items": [
+        "ski_seilschnitt"
+       ]
+      },
+      {
+       "text": "Von Hand beheben (kostenlos).",
+       "next": "handarbeit",
+       "requires_flags": [
+        "sk_flut_ereignis_06_aktiv"
+       ]
+      },
+      {
+       "text": "Die Frist abwarten."
+      }
+     ]
+    },
+    "item": {
+     "text": "Du setzt die vorbereitete Gegenmaßnahme ein. Die örtliche Störung endet.",
+     "takes_items": {
+      "ski_seilschnitt": 1
+     },
+     "clears_flags": [
+      "sk_flut_ereignis_06_aktiv"
+     ],
+     "sets_flags": [
+      "sk_flut_ereignis_06_erledigt"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    },
+    "handarbeit": {
+     "text": "Du löst die fremde Sperre am Nebenweg. Die örtlichen Zusatzkosten entfallen.",
+     "clears_flags": [
+      "sk_flut_ereignis_06_aktiv"
+     ],
+     "sets_flags": [
+      "sk_flut_ereignis_06_erledigt"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_flut_ereignis_07": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Brack hält den Knoten mit einer Hand offen. „Ich wusste, dass er falsch war. Ich wollte nur sehen, für wen.“",
+     "choices": [
+      {
+       "text": "Die Person hinausbegleiten.",
+       "next": "frei",
+       "requires_flags": [
+        "sk_flut_ereignis_07_aktiv"
+       ]
+      },
+      {
+       "text": "Zuerst den Rückweg prüfen."
+      }
+     ]
+    },
+    "frei": {
+     "text": "Die Person geht auf dem freien Weg zurück. Ihr gewohnter Platz ist wieder zugänglich.",
+     "sets_flags": [
+      "sk_flut_ereignis_07_erledigt",
+      "sk_flut_gerettet"
+     ],
+     "clears_flags": [
+      "sk_flut_ereignis_07_aktiv"
+     ],
+     "complete_quests": [
+      "sk_flut_rueckholung"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_flut_ereignis_08": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Zwei Kultisten bewachen das Seil. Unter der Laterne liegen Münzen, nicht Gebete.",
+     "choices": [
+      {
+       "text": "Die Wachen ablenken (kein Kampf).",
+       "next": "ablenken",
+       "requires_flags": [
+        "sk_flut_ereignis_08_aktiv"
+       ],
+       "hide_if_flags": [
+        "sk_flut_ereignis_08_gesichert"
+       ]
+      },
+      {
+       "text": "Den Kultplatz abbauen.",
+       "next": "abbauen",
+       "requires_flags": [
+        "sk_flut_ereignis_08_aktiv",
+        "sk_flut_ereignis_08_gesichert"
+       ]
+      },
+      {
+       "text": "Zurück auf die Straße."
+      }
+     ]
+    },
+    "ablenken": {
+     "text": "Du rufst die Nachbarn an die beleuchtete Straßenseite. Die Wachen folgen dem vermeintlichen Auflauf; der Kultplatz liegt frei.",
+     "sets_flags": [
+      "sk_flut_ereignis_08_gesichert"
+     ],
+     "choices": [
+      {
+       "text": "Jetzt abbauen.",
+       "next": "abbauen",
+       "requires_flags": [
+        "sk_flut_ereignis_08_aktiv",
+        "sk_flut_ereignis_08_gesichert"
+       ]
+      },
+      {
+       "text": "Zurück."
+      }
+     ]
+    },
+    "abbauen": {
+     "text": "Du zerlegst den Kultplatz. Die Wachen ziehen ab; niemand braucht hier seinen Namen oder seine Luft zu lassen.",
+     "clears_flags": [
+      "sk_flut_ereignis_08_aktiv"
+     ],
+     "sets_flags": [
+      "sk_flut_ereignis_08_erledigt"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_flut_ereignis_09": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Der Weg am Geländer ist frei. Du musst weder ins Wasser steigen noch den Angreifern folgen.",
+     "choices": [
+      {
+       "text": "Die freie Gasse nehmen.",
+       "next": "ausweichen",
+       "requires_flags": [
+        "sk_flut_ereignis_09_aktiv"
+       ]
+      },
+      {
+       "text": "Erst die Lage ansehen."
+      }
+     ]
+    },
+    "ausweichen": {
+     "text": "Du weichst auf die helle Straße aus. Die Gestalten verlieren dich im Verkehr.",
+     "clears_flags": [
+      "sk_flut_ereignis_09_aktiv"
+     ],
+     "sets_flags": [
+      "sk_flut_ereignis_09_erledigt"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_flut_ereignis_10": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Der Schaum sammelt sich im Seitenbecken. Du kannst ihn abschöpfen; bis dahin wirken Heiltränke hier nur halb.",
+     "choices": [
+      {
+       "text": "Gegenmaßnahme bewusst einsetzen.",
+       "next": "item",
+       "requires_flags": [
+        "sk_flut_ereignis_10_aktiv"
+       ],
+       "requires_items": [
+        "ski_seilschnitt"
+       ]
+      },
+      {
+       "text": "Von Hand beheben (kostenlos).",
+       "next": "handarbeit",
+       "requires_flags": [
+        "sk_flut_ereignis_10_aktiv"
+       ]
+      },
+      {
+       "text": "Die Frist abwarten."
+      }
+     ]
+    },
+    "item": {
+     "text": "Du setzt die vorbereitete Gegenmaßnahme ein. Die örtliche Störung endet.",
+     "takes_items": {
+      "ski_seilschnitt": 1
+     },
+     "clears_flags": [
+      "sk_flut_ereignis_10_aktiv"
+     ],
+     "sets_flags": [
+      "sk_flut_ereignis_10_erledigt"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    },
+    "handarbeit": {
+     "text": "Du schöpfst den fremden Belag aus dem zugänglichen Seitenbecken. Das örtliche Wasser ist wieder klar.",
+     "clears_flags": [
+      "sk_flut_ereignis_10_aktiv"
+     ],
+     "sets_flags": [
+      "sk_flut_ereignis_10_erledigt"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_flut_ereignis_11": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Die Taufschlinge ist leer. Löse sie vom Kultpfahl, nicht von den sicheren Halteleinen des Stegs.",
+     "choices": [
+      {
+       "text": "Die Wachen ablenken (kein Kampf).",
+       "next": "ablenken",
+       "requires_flags": [
+        "sk_flut_ereignis_11_aktiv"
+       ],
+       "hide_if_flags": [
+        "sk_flut_ereignis_11_gesichert"
+       ]
+      },
+      {
+       "text": "Den Kultplatz abbauen.",
+       "next": "abbauen",
+       "requires_flags": [
+        "sk_flut_ereignis_11_aktiv",
+        "sk_flut_ereignis_11_gesichert"
+       ]
+      },
+      {
+       "text": "Zurück auf die Straße."
+      }
+     ]
+    },
+    "ablenken": {
+     "text": "Du rufst die Nachbarn an die beleuchtete Straßenseite. Die Wachen folgen dem vermeintlichen Auflauf; der Kultplatz liegt frei.",
+     "sets_flags": [
+      "sk_flut_ereignis_11_gesichert"
+     ],
+     "choices": [
+      {
+       "text": "Jetzt abbauen.",
+       "next": "abbauen",
+       "requires_flags": [
+        "sk_flut_ereignis_11_aktiv",
+        "sk_flut_ereignis_11_gesichert"
+       ]
+      },
+      {
+       "text": "Zurück."
+      }
+     ]
+    },
+    "abbauen": {
+     "text": "Du zerlegst den Kultplatz. Die Wachen ziehen ab; niemand braucht hier seinen Namen oder seine Luft zu lassen.",
+     "clears_flags": [
+      "sk_flut_ereignis_11_aktiv"
+     ],
+     "sets_flags": [
+      "sk_flut_ereignis_11_erledigt"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_flut_ereignis_12": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Die breite Gasse bleibt offen. Du kannst sie verlassen, ohne etwas abzugeben.",
+     "choices": [
+      {
+       "text": "Die freie Gasse nehmen.",
+       "next": "ausweichen",
+       "requires_flags": [
+        "sk_flut_ereignis_12_aktiv"
+       ]
+      },
+      {
+       "text": "Erst die Lage ansehen."
+      }
+     ]
+    },
+    "ausweichen": {
+     "text": "Du weichst auf die helle Straße aus. Die Gestalten verlieren dich im Verkehr.",
+     "clears_flags": [
+      "sk_flut_ereignis_12_aktiv"
+     ],
+     "sets_flags": [
+      "sk_flut_ereignis_12_erledigt"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_chor_ereignis_02": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "„Nur eine Anrede. Wir brauchen deinen Namen nicht, wenn wir deinen Klang haben.“",
+     "choices": [
+      {
+       "text": "Ablehnen.",
+       "next": "ablehnen"
+      },
+      {
+       "text": "Zuhören.",
+       "next": "zuhoeren"
+      },
+      {
+       "text": "Mitgehen (−5 Nerven).",
+       "next": "mitgehen",
+       "requires_flags": [
+        "sk_chor_ereignis_02_aktiv"
+       ],
+       "hide_if_flags": [
+        "sk_chor_ereignis_02_mitgegangen"
+       ]
+      }
+     ]
+    },
+    "ablehnen": {
+     "text": "Du lehnst ab. Der Kultist lässt den Weg frei.",
+     "clears_flags": [
+      "sk_chor_ereignis_02_aktiv"
+     ],
+     "sets_flags": [
+      "sk_chor_ereignis_02_erledigt"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    },
+    "zuhoeren": {
+     "text": "Du hörst das Versprechen zu Ende. Weder Geld noch Namen musst du abgeben.",
+     "choices": [
+      {
+       "text": "Es bleibt beim Nein.",
+       "next": "ablehnen"
+      },
+      {
+       "text": "Mitgehen (−5 Nerven).",
+       "next": "mitgehen",
+       "requires_flags": [
+        "sk_chor_ereignis_02_aktiv"
+       ],
+       "hide_if_flags": [
+        "sk_chor_ereignis_02_mitgegangen"
+       ]
+      },
+      {
+       "text": "Noch nicht entscheiden."
+      }
+     ]
+    },
+    "mitgehen": {
+     "text": "Du gehst bis zum offenen Vorplatz und kehrst erschöpft zurück. Der Kult hat weder dein Gepäck noch deinen Rückweg.",
+     "nerves": -5,
+     "sets_flags": [
+      "sk_chor_ereignis_02_mitgegangen",
+      "sk_chor_ereignis_02_erledigt"
+     ],
+     "clears_flags": [
+      "sk_chor_ereignis_02_aktiv"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_chor_ereignis_03": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "„Gestern rief meine eigene Stimme von draußen. Ich habe das Fenster nicht geöffnet.“",
+     "choices": [
+      {
+       "text": "Mit Einverständnis übermalen.",
+       "next": "entfernen",
+       "requires_flags": [
+        "sk_chor_ereignis_03_aktiv"
+       ]
+      },
+      {
+       "text": "Die Person zuerst in Ruhe lassen."
+      }
+     ]
+    },
+    "entfernen": {
+     "text": "Die Person nickt. Du entfernst die Markierung, ohne die Tür zu versperren.",
+     "clears_flags": [
+      "sk_chor_ereignis_03_aktiv"
+     ],
+     "sets_flags": [
+      "sk_chor_ereignis_03_erledigt"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_chor_ereignis_05": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Ruth hält sich ein Ohr zu. „Die Stimme kannte meinen Preis. Den Namen ihres Besitzers wusste sie nicht.“",
+     "choices": [
+      {
+       "text": "Die Person hinausbegleiten.",
+       "next": "frei",
+       "requires_flags": [
+        "sk_chor_ereignis_05_aktiv"
+       ]
+      },
+      {
+       "text": "Zuerst den Rückweg prüfen."
+      }
+     ]
+    },
+    "frei": {
+     "text": "Die Person geht auf dem freien Weg zurück. Ihr gewohnter Platz ist wieder zugänglich.",
+     "sets_flags": [
+      "sk_chor_ereignis_05_erledigt",
+      "sk_chor_gerettet"
+     ],
+     "clears_flags": [
+      "sk_chor_ereignis_05_aktiv"
+     ],
+     "complete_quests": [
+      "sk_chor_rueckholung"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_chor_ereignis_06": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Die Lampen sind unverletzt. Nur die Kultauflage dämpft das Licht; der öffentliche Schalter bleibt erreichbar.",
+     "choices": [
+      {
+       "text": "Gegenmaßnahme bewusst einsetzen.",
+       "next": "item",
+       "requires_flags": [
+        "sk_chor_ereignis_06_aktiv"
+       ],
+       "requires_items": [
+        "ski_stimmwachs_rein"
+       ]
+      },
+      {
+       "text": "Von Hand beheben (kostenlos).",
+       "next": "handarbeit",
+       "requires_flags": [
+        "sk_chor_ereignis_06_aktiv"
+       ]
+      },
+      {
+       "text": "Die Frist abwarten."
+      }
+     ]
+    },
+    "item": {
+     "text": "Du setzt die vorbereitete Gegenmaßnahme ein. Die örtliche Störung endet.",
+     "takes_items": {
+      "ski_stimmwachs_rein": 1
+     },
+     "clears_flags": [
+      "sk_chor_ereignis_06_aktiv",
+      "sk_chor_ereignis_06_dunkel"
+     ],
+     "sets_flags": [
+      "sk_chor_ereignis_06_erledigt"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    },
+    "handarbeit": {
+     "text": "Du löst die Kultauflage und öffnest die unverletzten Lampen. Das normale Licht kehrt zurück.",
+     "clears_flags": [
+      "sk_chor_ereignis_06_aktiv",
+      "sk_chor_ereignis_06_dunkel"
+     ],
+     "sets_flags": [
+      "sk_chor_ereignis_06_erledigt"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_chor_ereignis_07": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Lotte klopft gegen ein loses Brett. „Wenn ihr meine Stimme hört, fragt nach der heutigen Schlagzeile.“",
+     "choices": [
+      {
+       "text": "Die Person hinausbegleiten.",
+       "next": "frei",
+       "requires_flags": [
+        "sk_chor_ereignis_07_aktiv"
+       ]
+      },
+      {
+       "text": "Zuerst den Rückweg prüfen."
+      }
+     ]
+    },
+    "frei": {
+     "text": "Die Person geht auf dem freien Weg zurück. Ihr gewohnter Platz ist wieder zugänglich.",
+     "sets_flags": [
+      "sk_chor_ereignis_07_erledigt",
+      "sk_chor_gerettet"
+     ],
+     "clears_flags": [
+      "sk_chor_ereignis_07_aktiv"
+     ],
+     "complete_quests": [
+      "sk_chor_rueckholung"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_chor_ereignis_08": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Zwei Wachen halten den Takt mit den Händen. Das Summen kommt aus einem Nebenrohr.",
+     "choices": [
+      {
+       "text": "Die Wachen ablenken (kein Kampf).",
+       "next": "ablenken",
+       "requires_flags": [
+        "sk_chor_ereignis_08_aktiv"
+       ],
+       "hide_if_flags": [
+        "sk_chor_ereignis_08_gesichert"
+       ]
+      },
+      {
+       "text": "Den Kultplatz abbauen.",
+       "next": "abbauen",
+       "requires_flags": [
+        "sk_chor_ereignis_08_aktiv",
+        "sk_chor_ereignis_08_gesichert"
+       ]
+      },
+      {
+       "text": "Zurück auf die Straße."
+      }
+     ]
+    },
+    "ablenken": {
+     "text": "Du rufst die Nachbarn an die beleuchtete Straßenseite. Die Wachen folgen dem vermeintlichen Auflauf; der Kultplatz liegt frei.",
+     "sets_flags": [
+      "sk_chor_ereignis_08_gesichert"
+     ],
+     "choices": [
+      {
+       "text": "Jetzt abbauen.",
+       "next": "abbauen",
+       "requires_flags": [
+        "sk_chor_ereignis_08_aktiv",
+        "sk_chor_ereignis_08_gesichert"
+       ]
+      },
+      {
+       "text": "Zurück."
+      }
+     ]
+    },
+    "abbauen": {
+     "text": "Du zerlegst den Kultplatz. Die Wachen ziehen ab; niemand braucht hier seinen Namen oder seine Luft zu lassen.",
+     "clears_flags": [
+      "sk_chor_ereignis_08_aktiv"
+     ],
+     "sets_flags": [
+      "sk_chor_ereignis_08_erledigt",
+      "sk_chor_hilfe_done"
+     ],
+     "complete_quests": [
+      "sk_chor_schrein_auftrag"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_chor_ereignis_09": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Du siehst den offenen Ausgang noch. Hinter der Stimme stehen Kultisten, keine Bekannten.",
+     "choices": [
+      {
+       "text": "Die freie Gasse nehmen.",
+       "next": "ausweichen",
+       "requires_flags": [
+        "sk_chor_ereignis_09_aktiv"
+       ]
+      },
+      {
+       "text": "Erst die Lage ansehen."
+      }
+     ]
+    },
+    "ausweichen": {
+     "text": "Du weichst auf die helle Straße aus. Die Gestalten verlieren dich im Verkehr.",
+     "clears_flags": [
+      "sk_chor_ereignis_09_aktiv"
+     ],
+     "sets_flags": [
+      "sk_chor_ereignis_09_erledigt"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_chor_ereignis_10": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Die Umleitung kostet höchstens fünf Schilling mehr. Der Hauptfahrweg bleibt frei; du kannst den Aufsatz lösen.",
+     "choices": [
+      {
+       "text": "Gegenmaßnahme bewusst einsetzen.",
+       "next": "item",
+       "requires_flags": [
+        "sk_chor_ereignis_10_aktiv"
+       ],
+       "requires_items": [
+        "ski_stimmwachs_rein"
+       ]
+      },
+      {
+       "text": "Von Hand beheben (kostenlos).",
+       "next": "handarbeit",
+       "requires_flags": [
+        "sk_chor_ereignis_10_aktiv"
+       ]
+      },
+      {
+       "text": "Die Frist abwarten."
+      }
+     ]
+    },
+    "item": {
+     "text": "Du setzt die vorbereitete Gegenmaßnahme ein. Die örtliche Störung endet.",
+     "takes_items": {
+      "ski_stimmwachs_rein": 1
+     },
+     "clears_flags": [
+      "sk_chor_ereignis_10_aktiv"
+     ],
+     "sets_flags": [
+      "sk_chor_ereignis_10_erledigt"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    },
+    "handarbeit": {
+     "text": "Du löst die fremde Sperre am Nebenweg. Die örtlichen Zusatzkosten entfallen.",
+     "clears_flags": [
+      "sk_chor_ereignis_10_aktiv"
+     ],
+     "sets_flags": [
+      "sk_chor_ereignis_10_erledigt"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_chor_ereignis_11": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Die Stimmgabel steht frei im Kreis. Wenn der Kultplatz gesichert ist, lässt sich das Nebenrohr dämpfen.",
+     "choices": [
+      {
+       "text": "Die Wachen ablenken (kein Kampf).",
+       "next": "ablenken",
+       "requires_flags": [
+        "sk_chor_ereignis_11_aktiv"
+       ],
+       "hide_if_flags": [
+        "sk_chor_ereignis_11_gesichert"
+       ]
+      },
+      {
+       "text": "Den Kultplatz abbauen.",
+       "next": "abbauen",
+       "requires_flags": [
+        "sk_chor_ereignis_11_aktiv",
+        "sk_chor_ereignis_11_gesichert"
+       ]
+      },
+      {
+       "text": "Zurück auf die Straße."
+      }
+     ]
+    },
+    "ablenken": {
+     "text": "Du rufst die Nachbarn an die beleuchtete Straßenseite. Die Wachen folgen dem vermeintlichen Auflauf; der Kultplatz liegt frei.",
+     "sets_flags": [
+      "sk_chor_ereignis_11_gesichert"
+     ],
+     "choices": [
+      {
+       "text": "Jetzt abbauen.",
+       "next": "abbauen",
+       "requires_flags": [
+        "sk_chor_ereignis_11_aktiv",
+        "sk_chor_ereignis_11_gesichert"
+       ]
+      },
+      {
+       "text": "Zurück."
+      }
+     ]
+    },
+    "abbauen": {
+     "text": "Du zerlegst den Kultplatz. Die Wachen ziehen ab; niemand braucht hier seinen Namen oder seine Luft zu lassen.",
+     "clears_flags": [
+      "sk_chor_ereignis_11_aktiv"
+     ],
+     "sets_flags": [
+      "sk_chor_ereignis_11_erledigt",
+      "sk_chor_hilfe_done"
+     ],
+     "complete_quests": [
+      "sk_chor_schrein_auftrag"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_chor_ereignis_12": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Die breite Straße hinter dir bleibt offen. Du kannst die Stimmen unbeantwortet lassen.",
+     "choices": [
+      {
+       "text": "Die freie Gasse nehmen.",
+       "next": "ausweichen",
+       "requires_flags": [
+        "sk_chor_ereignis_12_aktiv"
+       ]
+      },
+      {
+       "text": "Erst die Lage ansehen."
+      }
+     ]
+    },
+    "ausweichen": {
+     "text": "Du weichst auf die helle Straße aus. Die Gestalten verlieren dich im Verkehr.",
+     "clears_flags": [
+      "sk_chor_ereignis_12_aktiv"
+     ],
+     "sets_flags": [
+      "sk_chor_ereignis_12_erledigt"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_asche_schritt_1": {
+   "start": [
+    {
+     "node": "abschluss",
+     "requires_flags": [
+      "sk_asche_schritt_1",
+      "sk_asche_schritt_2",
+      "sk_asche_schritt_3",
+      "sk_asche_schritt_4"
+     ],
+     "requires_quests_active": [
+      "sk_asche_kette"
+     ]
+    },
+    {
+     "node": "start"
+    }
+   ],
+   "nodes": {
+    "start": {
+     "text": "In der kalten Aktenmulde liegt der Rand einer Lohnliste. Nur die Beträge sind verbrannt; die Abholkerben blieben erhalten.",
+     "choices": [
+      {
+       "text": "Spur sichern.",
+       "next": "sichern",
+       "requires_quests_active": [
+        "sk_asche_kette"
+       ],
+       "requires_flags": [],
+       "hide_if_flags": [
+        "sk_asche_schritt_1"
+       ]
+      },
+      {
+       "text": "Später weiter."
+      }
+     ]
+    },
+    "sichern": {
+     "text": "Du hältst das Ergebnis fest.",
+     "sets_flags": [
+      "sk_asche_schritt_1"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    },
+    "abschluss": {
+     "text": "Wenz legt die Abschrift neben den Brief seines Bruders. „Jetzt schuldet er denen nichts mehr. Nicht einmal seinen Namen.“",
+     "choices": [
+      {
+       "text": "Die Untersuchung abschließen.",
+       "next": "auszahlen",
+       "requires_quests_active": [
+        "sk_asche_kette"
+       ],
+       "requires_flags": [
+        "sk_asche_schritt_1",
+        "sk_asche_schritt_2",
+        "sk_asche_schritt_3",
+        "sk_asche_schritt_4"
+       ],
+       "hide_if_flags": [
+        "sk_asche_schritt_5"
+       ]
+      },
+      {
+       "text": "Später weiter."
+      }
+     ]
+    },
+    "auszahlen": {
+     "text": "Die Abschrift bleibt bei der Familie. Die zugesagte Entschädigung und das verwahrbare Fundstück gehören dir.",
+     "sets_flags": [
+      "sk_asche_schritt_5"
+     ],
+     "complete_quests": [
+      "sk_asche_kette"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_asche_schritt_2": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Die Kerben bezeichnen Nachtladungen nach Dunscar. Daneben steht ein Lohnstrich für einen Arbeiter, den niemand auszahlen konnte.",
+     "choices": [
+      {
+       "text": "Spur sichern.",
+       "next": "sichern",
+       "requires_quests_active": [
+        "sk_asche_kette"
+       ],
+       "requires_flags": [
+        "sk_asche_schritt_1"
+       ],
+       "hide_if_flags": [
+        "sk_asche_schritt_2"
+       ]
+      },
+      {
+       "text": "Später weiter."
+      }
+     ]
+    },
+    "sichern": {
+     "text": "Du hältst das Ergebnis fest.",
+     "sets_flags": [
+      "sk_asche_schritt_2"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_asche_schritt_3": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Ein Mann wurde als abgereist vermerkt, während sein Lohn weiter an den Bund floss. Du sicherst die Belege, ohne andere Namen zu veröffentlichen.",
+     "choices": [
+      {
+       "text": "Spur sichern.",
+       "next": "sichern",
+       "requires_quests_active": [
+        "sk_asche_kette"
+       ],
+       "requires_flags": [
+        "sk_asche_schritt_1",
+        "sk_asche_schritt_2"
+       ],
+       "hide_if_flags": [
+        "sk_asche_schritt_3"
+       ]
+      },
+      {
+       "text": "Später weiter."
+      }
+     ]
+    },
+    "sichern": {
+     "text": "Du hältst das Ergebnis fest.",
+     "sets_flags": [
+      "sk_asche_schritt_3"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_asche_schritt_4": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Die Säcke führen zu einem offenen Lagerplatz. Dort wartet Wenz’ Bruder: erschöpft, aber lebend. Er will selbst zur Gießerei zurück.",
+     "choices": [
+      {
+       "text": "Spur sichern.",
+       "next": "sichern",
+       "requires_quests_active": [
+        "sk_asche_kette"
+       ],
+       "requires_flags": [
+        "sk_asche_schritt_1",
+        "sk_asche_schritt_2",
+        "sk_asche_schritt_3"
+       ],
+       "hide_if_flags": [
+        "sk_asche_schritt_4"
+       ]
+      },
+      {
+       "text": "Später weiter."
+      }
+     ]
+    },
+    "sichern": {
+     "text": "Du hältst das Ergebnis fest.",
+     "sets_flags": [
+      "sk_asche_schritt_4"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_flut_schritt_1": {
+   "start": [
+    {
+     "node": "abschluss",
+     "requires_flags": [
+      "sk_flut_schritt_1",
+      "sk_flut_schritt_2",
+      "sk_flut_schritt_3",
+      "sk_flut_schritt_4"
+     ],
+     "requires_quests_active": [
+      "sk_flut_kette"
+     ]
+    },
+    {
+     "node": "start"
+    }
+   ],
+   "nodes": {
+    "start": {
+     "text": "Unter der Bojenlaterne sind Kerben für bezahlte Plätze. Die Taufe wird wie eine Überfahrt verkauft.",
+     "choices": [
+      {
+       "text": "Spur sichern.",
+       "next": "sichern",
+       "requires_quests_active": [
+        "sk_flut_kette"
+       ],
+       "requires_flags": [],
+       "hide_if_flags": [
+        "sk_flut_schritt_1"
+       ]
+      },
+      {
+       "text": "Später weiter."
+      }
+     ]
+    },
+    "sichern": {
+     "text": "Du hältst das Ergebnis fest.",
+     "sets_flags": [
+      "sk_flut_schritt_1"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    },
+    "abschluss": {
+     "text": "Lotte zählt die offenen Schlaufen. „Man hat uns gesagt, das Seil sei unsere Sicherheit. Jetzt behalten wir das Ende selbst.“",
+     "choices": [
+      {
+       "text": "Die Untersuchung abschließen.",
+       "next": "auszahlen",
+       "requires_quests_active": [
+        "sk_flut_kette"
+       ],
+       "requires_flags": [
+        "sk_flut_schritt_1",
+        "sk_flut_schritt_2",
+        "sk_flut_schritt_3",
+        "sk_flut_schritt_4"
+       ],
+       "hide_if_flags": [
+        "sk_flut_schritt_5"
+       ]
+      },
+      {
+       "text": "Später weiter."
+      }
+     ]
+    },
+    "auszahlen": {
+     "text": "Die Abschrift bleibt bei der Familie. Die zugesagte Entschädigung und das verwahrbare Fundstück gehören dir.",
+     "sets_flags": [
+      "sk_flut_schritt_5"
+     ],
+     "complete_quests": [
+      "sk_flut_kette"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_flut_schritt_2": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Der Seilrest wurde im Trockenen vorbereitet. Seine Schlaufe lässt sich nur vom Ufer aus öffnen.",
+     "choices": [
+      {
+       "text": "Spur sichern.",
+       "next": "sichern",
+       "requires_quests_active": [
+        "sk_flut_kette"
+       ],
+       "requires_flags": [
+        "sk_flut_schritt_1"
+       ],
+       "hide_if_flags": [
+        "sk_flut_schritt_2"
+       ]
+      },
+      {
+       "text": "Später weiter."
+      }
+     ]
+    },
+    "sichern": {
+     "text": "Du hältst das Ergebnis fest.",
+     "sets_flags": [
+      "sk_flut_schritt_2"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_flut_schritt_3": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Die gleichen Bündelmarken kleben an Kisten aus Wexmoor. Zwischen ihnen liegt eine Liste der Geldgeber, keine Liste freiwilliger Täuflinge.",
+     "choices": [
+      {
+       "text": "Spur sichern.",
+       "next": "sichern",
+       "requires_quests_active": [
+        "sk_flut_kette"
+       ],
+       "requires_flags": [
+        "sk_flut_schritt_1",
+        "sk_flut_schritt_2"
+       ],
+       "hide_if_flags": [
+        "sk_flut_schritt_3"
+       ]
+      },
+      {
+       "text": "Später weiter."
+      }
+     ]
+    },
+    "sichern": {
+     "text": "Du hältst das Ergebnis fest.",
+     "sets_flags": [
+      "sk_flut_schritt_3"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_flut_schritt_4": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Am Pfahl wartet Lottes Schwester auf eine neue Überfahrt. Du zeigst ihr den verschlossenen Rückweg; sie steigt mit dir auf den öffentlichen Steg.",
+     "choices": [
+      {
+       "text": "Spur sichern.",
+       "next": "sichern",
+       "requires_quests_active": [
+        "sk_flut_kette"
+       ],
+       "requires_flags": [
+        "sk_flut_schritt_1",
+        "sk_flut_schritt_2",
+        "sk_flut_schritt_3"
+       ],
+       "hide_if_flags": [
+        "sk_flut_schritt_4"
+       ]
+      },
+      {
+       "text": "Später weiter."
+      }
+     ]
+    },
+    "sichern": {
+     "text": "Du hältst das Ergebnis fest.",
+     "sets_flags": [
+      "sk_flut_schritt_4"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_chor_schritt_1": {
+   "start": [
+    {
+     "node": "abschluss",
+     "requires_flags": [
+      "sk_chor_schritt_1",
+      "sk_chor_schritt_2",
+      "sk_chor_schritt_3",
+      "sk_chor_schritt_4"
+     ],
+     "requires_quests_active": [
+      "sk_chor_kette"
+     ]
+    },
+    {
+     "node": "start"
+    }
+   ],
+   "nodes": {
+    "start": {
+     "text": "Die Wachsmulde enthält keine Prüfungsergebnisse, sondern ausgeschnittene Anreden. Jemand hat die Stimmen nach ihrer Verwendbarkeit sortiert.",
+     "choices": [
+      {
+       "text": "Spur sichern.",
+       "next": "sichern",
+       "requires_quests_active": [
+        "sk_chor_kette"
+       ],
+       "requires_flags": [],
+       "hide_if_flags": [
+        "sk_chor_schritt_1"
+       ]
+      },
+      {
+       "text": "Später weiter."
+      }
+     ]
+    },
+    "sichern": {
+     "text": "Du hältst das Ergebnis fest.",
+     "sets_flags": [
+      "sk_chor_schritt_1"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    },
+    "abschluss": {
+     "text": "Jost hält seine Probe ans Ohr, ohne sie abzuspielen. „Ich wollte wissen, ob sie noch mir gehört. Das reicht mir.“",
+     "choices": [
+      {
+       "text": "Die Untersuchung abschließen.",
+       "next": "auszahlen",
+       "requires_quests_active": [
+        "sk_chor_kette"
+       ],
+       "requires_flags": [
+        "sk_chor_schritt_1",
+        "sk_chor_schritt_2",
+        "sk_chor_schritt_3",
+        "sk_chor_schritt_4"
+       ],
+       "hide_if_flags": [
+        "sk_chor_schritt_5"
+       ]
+      },
+      {
+       "text": "Später weiter."
+      }
+     ]
+    },
+    "auszahlen": {
+     "text": "Die Abschrift bleibt bei der Familie. Die zugesagte Entschädigung und das verwahrbare Fundstück gehören dir.",
+     "sets_flags": [
+      "sk_chor_schritt_5"
+     ],
+     "complete_quests": [
+      "sk_chor_kette"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_chor_schritt_2": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Hinter einem zugänglichen Aushang stehen Einsätze für fremde Anreden. Die Pausen sind für Antworten gedacht, die niemand freiwillig gegeben hat.",
+     "choices": [
+      {
+       "text": "Spur sichern.",
+       "next": "sichern",
+       "requires_quests_active": [
+        "sk_chor_kette"
+       ],
+       "requires_flags": [
+        "sk_chor_schritt_1"
+       ],
+       "hide_if_flags": [
+        "sk_chor_schritt_2"
+       ]
+      },
+      {
+       "text": "Später weiter."
+      }
+     ]
+    },
+    "sichern": {
+     "text": "Du hältst das Ergebnis fest.",
+     "sets_flags": [
+      "sk_chor_schritt_2"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_chor_schritt_3": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Die Empfangsfolge belegt wiederholte Sendungen nach Dunscar. Die Lichtamtskopie nennt die Quelle, nicht die vermeintlichen Sprecher.",
+     "choices": [
+      {
+       "text": "Spur sichern.",
+       "next": "sichern",
+       "requires_quests_active": [
+        "sk_chor_kette"
+       ],
+       "requires_flags": [
+        "sk_chor_schritt_1",
+        "sk_chor_schritt_2"
+       ],
+       "hide_if_flags": [
+        "sk_chor_schritt_3"
+       ]
+      },
+      {
+       "text": "Später weiter."
+      }
+     ]
+    },
+    "sichern": {
+     "text": "Du hältst das Ergebnis fest.",
+     "sets_flags": [
+      "sk_chor_schritt_3"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  },
+  "sk_chor_schritt_4": {
+   "start": "start",
+   "nodes": {
+    "start": {
+     "text": "Du löst den fremden Wachsaufsatz vom stillgelegten Nebenrohr. Josts Anrede verstummt; der öffentliche Rufweg bleibt unberührt.",
+     "choices": [
+      {
+       "text": "Spur sichern.",
+       "next": "sichern",
+       "requires_quests_active": [
+        "sk_chor_kette"
+       ],
+       "requires_flags": [
+        "sk_chor_schritt_1",
+        "sk_chor_schritt_2",
+        "sk_chor_schritt_3"
+       ],
+       "hide_if_flags": [
+        "sk_chor_schritt_4"
+       ]
+      },
+      {
+       "text": "Später weiter."
+      }
+     ]
+    },
+    "sichern": {
+     "text": "Du hältst das Ergebnis fest.",
+     "sets_flags": [
+      "sk_chor_schritt_4"
+     ],
+     "choices": [
+      {
+       "text": "Weiter."
+      }
+     ]
+    }
+   }
+  }
+ },
+ "einwohner": [
+  {
+   "id": "sk_asche_sprecher_ida",
+   "zeit": {
+    "tag": {
+     "map": "giesserei",
+     "tile": [
+      24,
+      15
+     ]
+    },
+    "nacht": {
+     "map": "wx_torfstich",
+     "tile": [
+      9,
+      10
+     ]
+    }
+   },
+   "visible_if": {
+    "requires_flags": [
+     "sk_freigegeben"
+    ]
+   }
+  },
+  {
+   "id": "sk_asche_aussteiger_tobin",
+   "zeit": {
+    "tag": {
+     "map": "giesserei",
+     "tile": [
+      26,
+      4
+     ]
+    },
+    "nacht": {
+     "map": "wx_torfstich",
+     "tile": [
+      13,
+      2
+     ]
+    }
+   },
+   "visible_if": {
+    "requires_flags": [
+     "sk_freigegeben"
+    ]
+   }
+  },
+  {
+   "id": "sk_asche_opfer_wenz",
+   "zeit": {
+    "tag": {
+     "map": "giesserei",
+     "tile": [
+      9,
+      3
+     ]
+    },
+    "nacht": {
+     "map": "wx_torfstich",
+     "tile": [
+      9,
+      2
+     ]
+    }
+   },
+   "visible_if": {
+    "requires_flags": [
+     "sk_freigegeben"
+    ]
+   }
+  },
+  {
+   "id": "sk_flut_sprecher_maren",
+   "zeit": {
+    "tag": {
+     "map": "wx_bojenhafen",
+     "tile": [
+      32,
+      4
+     ]
+    },
+    "nacht": {
+     "map": "gaskanaele",
+     "tile": [
+      39,
+      5
+     ]
+    }
+   },
+   "visible_if": {
+    "requires_flags": [
+     "sk_freigegeben"
+    ]
+   }
+  },
+  {
+   "id": "sk_flut_aussteiger_pell",
+   "zeit": {
+    "tag": {
+     "map": "wx_bojenhafen",
+     "tile": [
+      38,
+      4
+     ]
+    },
+    "nacht": {
+     "map": "gaskanaele",
+     "tile": [
+      18,
+      5
+     ]
+    }
+   },
+   "visible_if": {
+    "requires_flags": [
+     "sk_freigegeben"
+    ]
+   }
+  },
+  {
+   "id": "sk_flut_opfer_lotte",
+   "zeit": {
+    "tag": {
+     "map": "wx_bojenhafen",
+     "tile": [
+      27,
+      3
+     ]
+    },
+    "nacht": {
+     "map": "gaskanaele",
+     "tile": [
+      11,
+      5
+     ]
+    }
+   },
+   "visible_if": {
+    "requires_flags": [
+     "sk_freigegeben"
+    ]
+   }
+  },
+  {
+   "id": "sk_chor_sprecher_ansgar",
+   "zeit": {
+    "tag": {
+     "map": "ds_pruefhaus",
+     "tile": [
+      18,
+      11
+     ]
+    },
+    "nacht": {
+     "map": "theater",
+     "tile": [
+      10,
+      16
+     ]
+    }
+   },
+   "visible_if": {
+    "requires_flags": [
+     "sk_freigegeben"
+    ]
+   }
+  },
+  {
+   "id": "sk_chor_aussteiger_rike",
+   "zeit": {
+    "tag": {
+     "map": "ds_pruefhaus",
+     "tile": [
+      6,
+      10
+     ]
+    },
+    "nacht": {
+     "map": "theater",
+     "tile": [
+      30,
+      9
+     ]
+    }
+   },
+   "visible_if": {
+    "requires_flags": [
+     "sk_freigegeben"
+    ]
+   }
+  },
+  {
+   "id": "sk_chor_opfer_jost",
+   "zeit": {
+    "tag": {
+     "map": "ds_pruefhaus",
+     "tile": [
+      21,
+      10
+     ]
+    },
+    "nacht": {
+     "map": "theater",
+     "tile": [
+      10,
+      5
+     ]
+    }
+   },
+   "visible_if": {
+    "requires_flags": [
+     "sk_freigegeben"
+    ]
+   }
+  }
+ ]
+}
