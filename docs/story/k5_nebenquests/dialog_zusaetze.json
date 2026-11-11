@@ -1,0 +1,2971 @@
+{
+  "bj_bh_felix_fencrest": {
+    "choices_add": [
+      {
+        "text": "Der Koffer ohne Einweisung",
+        "next": "bhn_gepaeckschein_angebot",
+        "requires_flags": [
+          "k5_arrived"
+        ],
+        "hide_if_quests": [
+          "bhn_gepaeckschein"
+        ],
+        "hide_if_flags": [
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Der Koffer ohne Einweisung: Stand besprechen.",
+        "next": "bhn_gepaeckschein_stand",
+        "requires_quests_active": [
+          "bhn_gepaeckschein"
+        ]
+      },
+      {
+        "text": "Der Koffer ohne Einweisung: Was blieb?",
+        "next": "bhn_gepaeckschein_nachher",
+        "requires_quests_done": [
+          "bhn_gepaeckschein"
+        ]
+      },
+      {
+        "text": "Die Arbeit mit der Begleitung absprechen.",
+        "next": "bhn_gepaeckschein_koop",
+        "requires_flags": [
+          "koop_aktiv"
+        ],
+        "requires_quests_active": [
+          "bhn_gepaeckschein"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "bhn_gepaeckschein_angebot": {
+        "text": "Felix legt drei unabgeholte Scheine auf den Tisch. „Der mittlere Gast steht nicht im Klinikbuch. Du sollst ihm trotzdem nichts hinterhertragen, was er nicht haben will.“ Auf der Rückseite hat jemand ausdrücklich um eine Nachricht gebeten.",
+        "choices": [
+          {
+            "text": "Ich prüfe das.",
+            "next": "bhn_gepaeckschein_annahme",
+            "hide_if_quests": [
+              "bhn_gepaeckschein"
+            ]
+          },
+          {
+            "text": "Heute nicht."
+          }
+        ]
+      },
+      "bhn_gepaeckschein_annahme": {
+        "text": "Du hältst den Auftrag „Der Koffer ohne Einweisung“ getrennt von der Hauptuntersuchung fest. Die beiden Vergleichsstellen sind im Journal vermerkt; eine Entscheidung kannst du später bestätigen.",
+        "start_quests": [
+          "bhn_gepaeckschein"
+        ],
+        "sets_flags": [
+          "bhn_gepaeckschein_angenommen"
+        ],
+        "choices": [
+          {
+            "text": "Die Fundorte im Journal ansehen."
+          }
+        ]
+      },
+      "bhn_gepaeckschein_stand": {
+        "text": "Du hältst an zwei Vergleichsstellen fest: Doppelter Gepäckschein und Antwort aus dem Wärmesaal. Erst wenn du beide Befunde verbunden hast, lässt sich eine begründete Folge bestätigen. Nach der Entscheidung kannst du hier die Ausführung quittieren.",
+        "choices": [
+          {
+            "text": "Die belegten Möglichkeiten abwägen.",
+            "next": "bhn_gepaeckschein_wahl",
+            "requires_conclusions": [
+              "bhn_gepaeckschein_schluss"
+            ],
+            "hide_if_flags": [
+              "bhn_gepaeckschein_entschieden"
+            ]
+          },
+          {
+            "text": "Die vereinbarte Folge quittieren.",
+            "next": "bhn_gepaeckschein_quittung",
+            "requires_flags": [
+              "bhn_gepaeckschein_entschieden"
+            ],
+            "hide_if_flags": [
+              "bhn_gepaeckschein_bezahlt"
+            ]
+          },
+          {
+            "text": "Ich prüfe die Fundorte weiter."
+          }
+        ]
+      },
+      "bhn_gepaeckschein_wahl": {
+        "text": "Versiegelt zustellen lassen. Bis zum Frühjahr verwahren. Beide Wege lassen die vorhandenen Belege bestehen. Deine Entscheidung gilt für diesen Auftrag, nicht als Einwilligung in eine Behandlung.",
+        "choices": [
+          {
+            "text": "Versiegelt zustellen lassen.",
+            "next": "bhn_gepaeckschein_a",
+            "hide_if_flags": [
+              "bhn_gepaeckschein_entschieden"
+            ]
+          },
+          {
+            "text": "Bis zum Frühjahr verwahren.",
+            "next": "bhn_gepaeckschein_b",
+            "hide_if_flags": [
+              "bhn_gepaeckschein_entschieden"
+            ]
+          },
+          {
+            "text": "Noch nichts bestätigen."
+          }
+        ]
+      },
+      "bhn_gepaeckschein_a": {
+        "text": "Felix quittiert die Übergabe an Edmunds bevollmächtigte Nachbarin. Das Fach wird frei, aber der Ankunftsbeleg bleibt erhalten. „Ein Koffer ist weniger beleidigt, wenn man ihn nicht für eine Akte hält.“",
+        "sets_flags": [
+          "bhn_gepaeckschein_entschieden",
+          "bhn_gepaeckschein_a_gewaehlt"
+        ],
+        "choices": [
+          {
+            "text": "Die Ausführung später quittieren."
+          }
+        ],
+        "honor": 1
+      },
+      "bhn_gepaeckschein_b": {
+        "text": "Felix versieht das Fach mit Edmunds ausdrücklichem Wunsch. Die Klinik darf den Koffer nicht mehr als herrenlos verkaufen. Der freie Platz kostet ihn eine Zusatzschicht, die du auf dem Beleg mitzeichnest.",
+        "sets_flags": [
+          "bhn_gepaeckschein_entschieden",
+          "bhn_gepaeckschein_b_gewaehlt"
+        ],
+        "choices": [
+          {
+            "text": "Die Ausführung später quittieren."
+          }
+        ],
+        "bond": {
+          "bh_felix_fencrest": 1
+        }
+      },
+      "bhn_gepaeckschein_quittung": {
+        "text": "Die ausgeführte Vereinbarung zu „Der Koffer ohne Einweisung“ ist quittiert. Du erhältst deinen Lohn genau einmal; die Herkunft der Unterlagen bleibt im Journal erhalten.",
+        "sets_flags": [
+          "bhn_gepaeckschein_bezahlt"
+        ],
+        "complete_quests": [
+          "bhn_gepaeckschein"
+        ],
+        "gives_money": 12,
+        "choices": [
+          {
+            "text": "Die Quittung behalten."
+          }
+        ]
+      },
+      "bhn_gepaeckschein_nachher": {
+        "text": "Du fragst nach der tatsächlich gewählten Lösung. Die Antwort ersetzt keine spätere Entscheidung der Betroffenen.",
+        "choices": [
+          {
+            "text": "Wie steht es um die erste Vereinbarung?",
+            "next": "bhn_gepaeckschein_folge_a",
+            "requires_flags": [
+              "bhn_gepaeckschein_a_gewaehlt"
+            ]
+          },
+          {
+            "text": "Wie steht es um die zweite Vereinbarung?",
+            "next": "bhn_gepaeckschein_folge_b",
+            "requires_flags": [
+              "bhn_gepaeckschein_b_gewaehlt"
+            ]
+          },
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "bhn_gepaeckschein_folge_a": {
+        "text": "Felix quittiert die Übergabe an Edmunds bevollmächtigte Nachbarin. Das Fach wird frei, aber der Ankunftsbeleg bleibt erhalten. „Ein Koffer ist weniger beleidigt, wenn man ihn nicht für eine Akte hält.“ Die Quittung bleibt gültig; es gibt keine zweite Auszahlung.",
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_gepaeckschein_folge_b": {
+        "text": "Felix versieht das Fach mit Edmunds ausdrücklichem Wunsch. Die Klinik darf den Koffer nicht mehr als herrenlos verkaufen. Der freie Platz kostet ihn eine Zusatzschicht, die du auf dem Beleg mitzeichnest. Die Quittung bleibt gültig; es gibt keine zweite Auszahlung.",
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_gepaeckschein_koop": {
+        "text": "Eine Person liest die äußere Gepäckbeschreibung vor, die andere prüft nur die genannten Merkmale. Der Koffer bleibt geschlossen. Allein kannst du dieselbe Prüfung nacheinander vornehmen.",
+        "choices": [
+          {
+            "text": "So vorgehen.",
+            "next": "bhn_gepaeckschein_koop_ja",
+            "hide_if_flags": [
+              "bhn_gepaeckschein_koop_besprochen"
+            ]
+          },
+          {
+            "text": "Vorerst allein weiterprüfen."
+          }
+        ]
+      },
+      "bhn_gepaeckschein_koop_ja": {
+        "text": "Du bestätigst die sichere Arbeitsteilung. Sie ändert weder die Beweislage noch den Lohn; jede Entscheidung bleibt ausdrücklich bei der betroffenen Person.",
+        "sets_flags": [
+          "bhn_gepaeckschein_koop_besprochen"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "bj_bh_henshall": {
+    "choices_add": [
+      {
+        "text": "Eine Adresse ohne fremden Namen",
+        "next": "bhn_postkarten_angebot",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt1_done"
+        ],
+        "hide_if_quests": [
+          "bhn_postkarten"
+        ],
+        "hide_if_flags": [
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Eine Adresse ohne fremden Namen: Stand besprechen.",
+        "next": "bhn_postkarten_stand",
+        "requires_quests_active": [
+          "bhn_postkarten"
+        ]
+      },
+      {
+        "text": "Eine Adresse ohne fremden Namen: Was blieb?",
+        "next": "bhn_postkarten_nachher",
+        "requires_quests_done": [
+          "bhn_postkarten"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "bhn_postkarten_angebot": {
+        "text": "Beatrice zeigt auf den Schatten neben dem Pavillon. Erst als du die lose Bank dort sicherst, holt sie ihre Karten hervor. „Jede Woche derselbe Satz. Ich weiß nicht, welches Kind ihn lesen soll. Eine Adresse würde vorerst reichen.“",
+        "choices": [
+          {
+            "text": "Ich prüfe das.",
+            "next": "bhn_postkarten_annahme",
+            "hide_if_quests": [
+              "bhn_postkarten"
+            ]
+          },
+          {
+            "text": "Heute nicht."
+          }
+        ]
+      },
+      "bhn_postkarten_annahme": {
+        "text": "Du hältst den Auftrag „Eine Adresse ohne fremden Namen“ getrennt von der Hauptuntersuchung fest. Die beiden Vergleichsstellen sind im Journal vermerkt; eine Entscheidung kannst du später bestätigen.",
+        "start_quests": [
+          "bhn_postkarten"
+        ],
+        "sets_flags": [
+          "bhn_postkarten_angenommen"
+        ],
+        "choices": [
+          {
+            "text": "Die Fundorte im Journal ansehen."
+          }
+        ]
+      },
+      "bhn_postkarten_stand": {
+        "text": "Du hältst an zwei Vergleichsstellen fest: Abdruck unter der Schreibunterlage und Postfachantwort vom Mühlenhof. Erst wenn du beide Befunde verbunden hast, lässt sich eine begründete Folge bestätigen. Nach der Entscheidung kannst du hier die Ausführung quittieren.",
+        "choices": [
+          {
+            "text": "Die belegten Möglichkeiten abwägen.",
+            "next": "bhn_postkarten_wahl",
+            "requires_conclusions": [
+              "bhn_postkarten_schluss"
+            ],
+            "hide_if_flags": [
+              "bhn_postkarten_entschieden"
+            ]
+          },
+          {
+            "text": "Die vereinbarte Folge quittieren.",
+            "next": "bhn_postkarten_quittung",
+            "requires_flags": [
+              "bhn_postkarten_entschieden"
+            ],
+            "hide_if_flags": [
+              "bhn_postkarten_bezahlt"
+            ]
+          },
+          {
+            "text": "Ich prüfe die Fundorte weiter."
+          }
+        ]
+      },
+      "bhn_postkarten_wahl": {
+        "text": "Eine eigene Frage ohne vorgedruckten Gruß senden. Die Anschrift verschlossen bei Beatrice lassen. Beide Wege lassen die vorhandenen Belege bestehen. Deine Entscheidung gilt für diesen Auftrag, nicht als Einwilligung in eine Behandlung.",
+        "choices": [
+          {
+            "text": "Eine eigene Frage ohne vorgedruckten Gruß senden.",
+            "next": "bhn_postkarten_a",
+            "hide_if_flags": [
+              "bhn_postkarten_entschieden"
+            ]
+          },
+          {
+            "text": "Die Anschrift verschlossen bei Beatrice lassen.",
+            "next": "bhn_postkarten_b",
+            "hide_if_flags": [
+              "bhn_postkarten_entschieden"
+            ]
+          },
+          {
+            "text": "Noch nichts bestätigen."
+          }
+        ]
+      },
+      "bhn_postkarten_a": {
+        "text": "Beatrice schreibt: „Möchte jemand von euch mir antworten?“ Du gibst die Karte mit ihrer Zustimmung auf. Der Name bleibt offen, doch die nächste Nachricht muss nicht mehr aus Briarholts Vordruck kommen.",
+        "sets_flags": [
+          "bhn_postkarten_entschieden",
+          "bhn_postkarten_a_gewaehlt"
+        ],
+        "choices": [
+          {
+            "text": "Die Ausführung später quittieren."
+          }
+        ],
+        "bond": {
+          "bh_henshall": 2
+        }
+      },
+      "bhn_postkarten_b": {
+        "text": "Beatrice steckt den Umschlag unter die Banklatte, dann nimmt sie ihn doch an sich. „Heute möchte ich sitzen.“ Die Adresse ist gesichert, ohne dass eine Antwort eingefordert wird.",
+        "sets_flags": [
+          "bhn_postkarten_entschieden",
+          "bhn_postkarten_b_gewaehlt"
+        ],
+        "choices": [
+          {
+            "text": "Die Ausführung später quittieren."
+          }
+        ],
+        "honor": 1
+      },
+      "bhn_postkarten_quittung": {
+        "text": "Die ausgeführte Vereinbarung zu „Eine Adresse ohne fremden Namen“ ist quittiert. Du erhältst deinen Lohn genau einmal; die Herkunft der Unterlagen bleibt im Journal erhalten.",
+        "sets_flags": [
+          "bhn_postkarten_bezahlt"
+        ],
+        "complete_quests": [
+          "bhn_postkarten"
+        ],
+        "gives_money": 14,
+        "choices": [
+          {
+            "text": "Die Quittung behalten."
+          }
+        ]
+      },
+      "bhn_postkarten_nachher": {
+        "text": "Du fragst nach der tatsächlich gewählten Lösung. Die Antwort ersetzt keine spätere Entscheidung der Betroffenen.",
+        "choices": [
+          {
+            "text": "Wie steht es um die erste Vereinbarung?",
+            "next": "bhn_postkarten_folge_a",
+            "requires_flags": [
+              "bhn_postkarten_a_gewaehlt"
+            ]
+          },
+          {
+            "text": "Wie steht es um die zweite Vereinbarung?",
+            "next": "bhn_postkarten_folge_b",
+            "requires_flags": [
+              "bhn_postkarten_b_gewaehlt"
+            ]
+          },
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "bhn_postkarten_folge_a": {
+        "text": "Beatrice schreibt: „Möchte jemand von euch mir antworten?“ Du gibst die Karte mit ihrer Zustimmung auf. Der Name bleibt offen, doch die nächste Nachricht muss nicht mehr aus Briarholts Vordruck kommen. Die Quittung bleibt gültig; es gibt keine zweite Auszahlung.",
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_postkarten_folge_b": {
+        "text": "Beatrice steckt den Umschlag unter die Banklatte, dann nimmt sie ihn doch an sich. „Heute möchte ich sitzen.“ Die Adresse ist gesichert, ohne dass eine Antwort eingefordert wird. Die Quittung bleibt gültig; es gibt keine zweite Auszahlung.",
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      }
+    }
+  },
+  "bj_bh_vellish": {
+    "choices_add": [
+      {
+        "text": "Die Rückseite der Beete",
+        "next": "bhn_umgedrehte_schilder_angebot",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt1_done"
+        ],
+        "hide_if_quests": [
+          "bhn_umgedrehte_schilder"
+        ],
+        "hide_if_flags": [
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Die Rückseite der Beete: Stand besprechen.",
+        "next": "bhn_umgedrehte_schilder_stand",
+        "requires_quests_active": [
+          "bhn_umgedrehte_schilder"
+        ]
+      },
+      {
+        "text": "Die Rückseite der Beete: Was blieb?",
+        "next": "bhn_umgedrehte_schilder_nachher",
+        "requires_quests_done": [
+          "bhn_umgedrehte_schilder"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "bhn_umgedrehte_schilder_angebot": {
+        "text": "Adeline hat den gewöhnlichen Steckling mit seiner Besitzerin aus dem Zug gerückt. Im freien Topf lag die Ankündigung einer Inspektion. „Die geschlossenen Beete sprechen. Wenn sie die Schilder lesen, nehmen sie die Zuordnungen mit. Hilfst du mir beim Verbergen oder beim Melden?“",
+        "choices": [
+          {
+            "text": "Ich prüfe das.",
+            "next": "bhn_umgedrehte_schilder_annahme",
+            "hide_if_quests": [
+              "bhn_umgedrehte_schilder"
+            ]
+          },
+          {
+            "text": "Heute nicht."
+          }
+        ]
+      },
+      "bhn_umgedrehte_schilder_annahme": {
+        "text": "Du hältst den Auftrag „Die Rückseite der Beete“ getrennt von der Hauptuntersuchung fest. Die beiden Vergleichsstellen sind im Journal vermerkt; eine Entscheidung kannst du später bestätigen.",
+        "start_quests": [
+          "bhn_umgedrehte_schilder"
+        ],
+        "sets_flags": [
+          "bhn_umgedrehte_schilder_angenommen"
+        ],
+        "choices": [
+          {
+            "text": "Die Fundorte im Journal ansehen."
+          }
+        ]
+      },
+      "bhn_umgedrehte_schilder_stand": {
+        "text": "Du hältst an zwei Vergleichsstellen fest: Schildervergleich am freien Beet und Auftrag der Inspektionsstelle. Erst wenn du beide Befunde verbunden hast, lässt sich eine begründete Folge bestätigen. Nach der Entscheidung kannst du hier die Ausführung quittieren.",
+        "choices": [
+          {
+            "text": "Die belegten Möglichkeiten abwägen.",
+            "next": "bhn_umgedrehte_schilder_wahl",
+            "requires_conclusions": [
+              "bhn_umgedrehte_schilder_schluss"
+            ],
+            "hide_if_flags": [
+              "bhn_umgedrehte_schilder_entschieden"
+            ]
+          },
+          {
+            "text": "Die vereinbarte Folge quittieren.",
+            "next": "bhn_umgedrehte_schilder_quittung",
+            "requires_flags": [
+              "bhn_umgedrehte_schilder_entschieden"
+            ],
+            "hide_if_flags": [
+              "bhn_umgedrehte_schilder_bezahlt"
+            ]
+          },
+          {
+            "text": "Ich prüfe die Fundorte weiter."
+          }
+        ]
+      },
+      "bhn_umgedrehte_schilder_wahl": {
+        "text": "Schilder verdecken und Zuordnungen getrennt sichern. Den Zusatz ohne Patientennamen öffentlich melden. Beide Wege lassen die vorhandenen Belege bestehen. Deine Entscheidung gilt für diesen Auftrag, nicht als Einwilligung in eine Behandlung.",
+        "choices": [
+          {
+            "text": "Schilder verdecken und Zuordnungen getrennt sichern.",
+            "next": "bhn_umgedrehte_schilder_a",
+            "hide_if_flags": [
+              "bhn_umgedrehte_schilder_entschieden"
+            ]
+          },
+          {
+            "text": "Den Zusatz ohne Patientennamen öffentlich melden.",
+            "next": "bhn_umgedrehte_schilder_b",
+            "hide_if_flags": [
+              "bhn_umgedrehte_schilder_entschieden"
+            ]
+          },
+          {
+            "text": "Noch nichts bestätigen."
+          }
+        ]
+      },
+      "bhn_umgedrehte_schilder_a": {
+        "text": "Adeline deckt die Schrift mit leeren Hauben ab. Die Nummernliste bleibt versiegelt bei ihr; die Pflanzen werden weder versetzt noch als namenlos erklärt. Der Einkauf erhält keine Probe, die öffentliche Prüfung aber auch keinen Beleg.",
+        "sets_flags": [
+          "bhn_umgedrehte_schilder_entschieden",
+          "bhn_umgedrehte_schilder_a_gewaehlt"
+        ],
+        "choices": [
+          {
+            "text": "Die Ausführung später quittieren."
+          }
+        ],
+        "bond": {
+          "bh_vellish": 2
+        }
+      },
+      "bhn_umgedrehte_schilder_b": {
+        "text": "Du legst der Inspektionsstelle nur Auftrag und Einkaufsnachtrag vor. Adeline führt die Namenliste nicht mit. Die Beete werden als strittige Ware gesperrt; ihr freier Zugang bleibt unter Aufsicht.",
+        "sets_flags": [
+          "bhn_umgedrehte_schilder_entschieden",
+          "bhn_umgedrehte_schilder_b_gewaehlt"
+        ],
+        "choices": [
+          {
+            "text": "Die Ausführung später quittieren."
+          }
+        ],
+        "honor": 2
+      },
+      "bhn_umgedrehte_schilder_quittung": {
+        "text": "Die ausgeführte Vereinbarung zu „Die Rückseite der Beete“ ist quittiert. Du erhältst deinen Lohn genau einmal; die Herkunft der Unterlagen bleibt im Journal erhalten.",
+        "sets_flags": [
+          "bhn_umgedrehte_schilder_bezahlt"
+        ],
+        "complete_quests": [
+          "bhn_umgedrehte_schilder"
+        ],
+        "gives_money": 16,
+        "choices": [
+          {
+            "text": "Die Quittung behalten."
+          }
+        ]
+      },
+      "bhn_umgedrehte_schilder_nachher": {
+        "text": "Du fragst nach der tatsächlich gewählten Lösung. Die Antwort ersetzt keine spätere Entscheidung der Betroffenen.",
+        "choices": [
+          {
+            "text": "Wie steht es um die erste Vereinbarung?",
+            "next": "bhn_umgedrehte_schilder_folge_a",
+            "requires_flags": [
+              "bhn_umgedrehte_schilder_a_gewaehlt"
+            ]
+          },
+          {
+            "text": "Wie steht es um die zweite Vereinbarung?",
+            "next": "bhn_umgedrehte_schilder_folge_b",
+            "requires_flags": [
+              "bhn_umgedrehte_schilder_b_gewaehlt"
+            ]
+          },
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "bhn_umgedrehte_schilder_folge_a": {
+        "text": "Adeline deckt die Schrift mit leeren Hauben ab. Die Nummernliste bleibt versiegelt bei ihr; die Pflanzen werden weder versetzt noch als namenlos erklärt. Der Einkauf erhält keine Probe, die öffentliche Prüfung aber auch keinen Beleg. Die Quittung bleibt gültig; es gibt keine zweite Auszahlung.",
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_umgedrehte_schilder_folge_b": {
+        "text": "Du legst der Inspektionsstelle nur Auftrag und Einkaufsnachtrag vor. Adeline führt die Namenliste nicht mit. Die Beete werden als strittige Ware gesperrt; ihr freier Zugang bleibt unter Aufsicht. Die Quittung bleibt gültig; es gibt keine zweite Auszahlung.",
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      }
+    }
+  },
+  "bj_bh_malkin": {
+    "choices_add": [
+      {
+        "text": "Armenwärme im Nebenrohr",
+        "next": "bhn_waermeschwarz_angebot",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt1_done"
+        ],
+        "hide_if_quests": [
+          "bhn_waermeschwarz"
+        ],
+        "hide_if_flags": [
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Armenwärme im Nebenrohr: Stand besprechen.",
+        "next": "bhn_waermeschwarz_stand",
+        "requires_quests_active": [
+          "bhn_waermeschwarz"
+        ]
+      },
+      {
+        "text": "Armenwärme im Nebenrohr: Was blieb?",
+        "next": "bhn_waermeschwarz_nachher",
+        "requires_quests_done": [
+          "bhn_waermeschwarz"
+        ]
+      },
+      {
+        "text": "Die Arbeit mit der Begleitung absprechen.",
+        "next": "bhn_waermeschwarz_koop",
+        "requires_flags": [
+          "koop_aktiv"
+        ],
+        "requires_quests_active": [
+          "bhn_waermeschwarz"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "bhn_waermeschwarz_angebot": {
+        "text": "Malkin hört das pfeifende Ventil ab. Hinter der defekten Dichtung sitzt eine heimliche Abzweigung. „Ich habe dafür Geld genommen. Die Wärmestube hätte ich auch ohne Bezahlung behalten müssen.“ Er verlangt keine Entschuldigung, sondern einen überprüfbaren Plan.",
+        "choices": [
+          {
+            "text": "Ich prüfe das.",
+            "next": "bhn_waermeschwarz_annahme",
+            "hide_if_quests": [
+              "bhn_waermeschwarz"
+            ]
+          },
+          {
+            "text": "Heute nicht."
+          }
+        ]
+      },
+      "bhn_waermeschwarz_annahme": {
+        "text": "Du hältst den Auftrag „Armenwärme im Nebenrohr“ getrennt von der Hauptuntersuchung fest. Die beiden Vergleichsstellen sind im Journal vermerkt; eine Entscheidung kannst du später bestätigen.",
+        "start_quests": [
+          "bhn_waermeschwarz"
+        ],
+        "sets_flags": [
+          "bhn_waermeschwarz_angenommen"
+        ],
+        "choices": [
+          {
+            "text": "Die Fundorte im Journal ansehen."
+          }
+        ]
+      },
+      "bhn_waermeschwarz_stand": {
+        "text": "Du hältst an zwei Vergleichsstellen fest: Getrennter Wartungsplan und Quittungen der Wärmestube. Erst wenn du beide Befunde verbunden hast, lässt sich eine begründete Folge bestätigen. Nach der Entscheidung kannst du hier die Ausführung quittieren.",
+        "choices": [
+          {
+            "text": "Die belegten Möglichkeiten abwägen.",
+            "next": "bhn_waermeschwarz_wahl",
+            "requires_conclusions": [
+              "bhn_waermeschwarz_schluss"
+            ],
+            "hide_if_flags": [
+              "bhn_waermeschwarz_entschieden"
+            ]
+          },
+          {
+            "text": "Die vereinbarte Folge quittieren.",
+            "next": "bhn_waermeschwarz_quittung",
+            "requires_flags": [
+              "bhn_waermeschwarz_entschieden"
+            ],
+            "hide_if_flags": [
+              "bhn_waermeschwarz_bezahlt"
+            ]
+          },
+          {
+            "text": "Ich prüfe die Fundorte weiter."
+          }
+        ]
+      },
+      "bhn_waermeschwarz_wahl": {
+        "text": "Gemeinschaftliche Verwaltung mit offener Kasse vereinbaren. Die Aufschläge melden, die Reserve ausdrücklich schützen. Beide Wege lassen die vorhandenen Belege bestehen. Deine Entscheidung gilt für diesen Auftrag, nicht als Einwilligung in eine Behandlung.",
+        "choices": [
+          {
+            "text": "Gemeinschaftliche Verwaltung mit offener Kasse vereinbaren.",
+            "next": "bhn_waermeschwarz_a",
+            "hide_if_flags": [
+              "bhn_waermeschwarz_entschieden"
+            ]
+          },
+          {
+            "text": "Die Aufschläge melden, die Reserve ausdrücklich schützen.",
+            "next": "bhn_waermeschwarz_b",
+            "hide_if_flags": [
+              "bhn_waermeschwarz_entschieden"
+            ]
+          },
+          {
+            "text": "Noch nichts bestätigen."
+          }
+        ]
+      },
+      "bhn_waermeschwarz_a": {
+        "text": "Malkin übergibt die Zusatzreserve an die Wärmestube und lässt seine Aufschläge auflisten. Die Bewohner führen die Kasse selbst. Du bestätigst nur die sichere Wartung, nicht eine Änderung des städtischen Heiznetzes.",
+        "sets_flags": [
+          "bhn_waermeschwarz_entschieden",
+          "bhn_waermeschwarz_a_gewaehlt"
+        ],
+        "choices": [
+          {
+            "text": "Die Ausführung später quittieren."
+          }
+        ],
+        "bond": {
+          "bh_malkin": 2
+        }
+      },
+      "bhn_waermeschwarz_b": {
+        "text": "Du legst die Quittungen vor und schreibst die Grundversorgung als unantastbar hinzu. Malkin muss seine Einnahmen erklären. Bis die Aufsicht entscheidet, bleibt die vorhandene Reserve bei den Bewohnern.",
+        "sets_flags": [
+          "bhn_waermeschwarz_entschieden",
+          "bhn_waermeschwarz_b_gewaehlt"
+        ],
+        "choices": [
+          {
+            "text": "Die Ausführung später quittieren."
+          }
+        ],
+        "honor": 2
+      },
+      "bhn_waermeschwarz_quittung": {
+        "text": "Die ausgeführte Vereinbarung zu „Armenwärme im Nebenrohr“ ist quittiert. Du erhältst deinen Lohn genau einmal; die Herkunft der Unterlagen bleibt im Journal erhalten.",
+        "sets_flags": [
+          "bhn_waermeschwarz_bezahlt"
+        ],
+        "complete_quests": [
+          "bhn_waermeschwarz"
+        ],
+        "gives_money": 18,
+        "choices": [
+          {
+            "text": "Die Quittung behalten."
+          }
+        ]
+      },
+      "bhn_waermeschwarz_nachher": {
+        "text": "Du fragst nach der tatsächlich gewählten Lösung. Die Antwort ersetzt keine spätere Entscheidung der Betroffenen.",
+        "choices": [
+          {
+            "text": "Wie steht es um die erste Vereinbarung?",
+            "next": "bhn_waermeschwarz_folge_a",
+            "requires_flags": [
+              "bhn_waermeschwarz_a_gewaehlt"
+            ]
+          },
+          {
+            "text": "Wie steht es um die zweite Vereinbarung?",
+            "next": "bhn_waermeschwarz_folge_b",
+            "requires_flags": [
+              "bhn_waermeschwarz_b_gewaehlt"
+            ]
+          },
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "bhn_waermeschwarz_folge_a": {
+        "text": "Malkin übergibt die Zusatzreserve an die Wärmestube und lässt seine Aufschläge auflisten. Die Bewohner führen die Kasse selbst. Du bestätigst nur die sichere Wartung, nicht eine Änderung des städtischen Heiznetzes. Die Quittung bleibt gültig; es gibt keine zweite Auszahlung.",
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_waermeschwarz_folge_b": {
+        "text": "Du legst die Quittungen vor und schreibst die Grundversorgung als unantastbar hinzu. Malkin muss seine Einnahmen erklären. Bis die Aufsicht entscheidet, bleibt die vorhandene Reserve bei den Bewohnern. Die Quittung bleibt gültig; es gibt keine zweite Auszahlung.",
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_waermeschwarz_koop": {
+        "text": "Eine Person hält die Lampe, die andere liest die getrennte Wartungsstrecke ab. Niemand dreht ohne Bestätigung ein Ventil. Allein steht die Lampe auf dem vorhandenen Haken.",
+        "choices": [
+          {
+            "text": "So vorgehen.",
+            "next": "bhn_waermeschwarz_koop_ja",
+            "hide_if_flags": [
+              "bhn_waermeschwarz_koop_besprochen"
+            ]
+          },
+          {
+            "text": "Vorerst allein weiterprüfen."
+          }
+        ]
+      },
+      "bhn_waermeschwarz_koop_ja": {
+        "text": "Du bestätigst die sichere Arbeitsteilung. Sie ändert weder die Beweislage noch den Lohn; jede Entscheidung bleibt ausdrücklich bei der betroffenen Person.",
+        "sets_flags": [
+          "bhn_waermeschwarz_koop_besprochen"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "bj_bh_rookwell": {
+    "choices_add": [
+      {
+        "text": "Ein Heft in Reichweite",
+        "next": "bhn_namensheft_angebot",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt2_done"
+        ],
+        "hide_if_quests": [
+          "bhn_namensheft"
+        ],
+        "hide_if_flags": [
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Ein Heft in Reichweite: Stand besprechen.",
+        "next": "bhn_namensheft_stand",
+        "requires_quests_active": [
+          "bhn_namensheft"
+        ]
+      },
+      {
+        "text": "Ein Heft in Reichweite: Was blieb?",
+        "next": "bhn_namensheft_nachher",
+        "requires_quests_done": [
+          "bhn_namensheft"
+        ]
+      },
+      {
+        "text": "Wie hilft das Heft jetzt den Patienten?",
+        "next": "bhn_heft_akt5_a",
+        "requires_flags": [
+          "bha_akt4_done",
+          "bhn_namensheft_a_gewaehlt"
+        ]
+      },
+      {
+        "text": "Wie hilft das Heft jetzt den Patienten?",
+        "next": "bhn_heft_akt5_b",
+        "requires_flags": [
+          "bha_akt4_done",
+          "bhn_namensheft_b_gewaehlt"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "bhn_namensheft_angebot": {
+        "text": "Enna hat die Rufglocke auf Wunsch eines Gastes tiefer gehängt. Beim Prüfen der Schnur findest du eine Nachricht: Die Klinik sucht ihr Namensheft. „Es gehört den Menschen darin mehr als mir. Öffentlichkeit schützt manchmal, und manchmal liefert sie nur eine bequemere Liste.“",
+        "choices": [
+          {
+            "text": "Ich prüfe das.",
+            "next": "bhn_namensheft_annahme",
+            "hide_if_quests": [
+              "bhn_namensheft"
+            ]
+          },
+          {
+            "text": "Heute nicht."
+          }
+        ]
+      },
+      "bhn_namensheft_annahme": {
+        "text": "Du hältst den Auftrag „Ein Heft in Reichweite“ getrennt von der Hauptuntersuchung fest. Die beiden Vergleichsstellen sind im Journal vermerkt; eine Entscheidung kannst du später bestätigen.",
+        "start_quests": [
+          "bhn_namensheft"
+        ],
+        "sets_flags": [
+          "bhn_namensheft_angenommen"
+        ],
+        "choices": [
+          {
+            "text": "Die Fundorte im Journal ansehen."
+          }
+        ]
+      },
+      "bhn_namensheft_stand": {
+        "text": "Du hältst an zwei Vergleichsstellen fest: Deckblatt ohne Abschrift und Vordruck zur Einsicht. Erst wenn du beide Befunde verbunden hast, lässt sich eine begründete Folge bestätigen. Nach der Entscheidung kannst du hier die Ausführung quittieren.",
+        "choices": [
+          {
+            "text": "Die belegten Möglichkeiten abwägen.",
+            "next": "bhn_namensheft_wahl",
+            "requires_conclusions": [
+              "bhn_namensheft_schluss"
+            ],
+            "hide_if_flags": [
+              "bhn_namensheft_entschieden"
+            ]
+          },
+          {
+            "text": "Die vereinbarte Folge quittieren.",
+            "next": "bhn_namensheft_quittung",
+            "requires_flags": [
+              "bhn_namensheft_entschieden"
+            ],
+            "hide_if_flags": [
+              "bhn_namensheft_bezahlt"
+            ]
+          },
+          {
+            "text": "Ich prüfe die Fundorte weiter."
+          }
+        ]
+      },
+      "bhn_namensheft_wahl": {
+        "text": "Den Aufbewahrungsort nur Enna und den Betroffenen nennen. Das Verfahren offenlegen, Namen nur einzeln zeigen. Beide Wege lassen die vorhandenen Belege bestehen. Deine Entscheidung gilt für diesen Auftrag, nicht als Einwilligung in eine Behandlung.",
+        "choices": [
+          {
+            "text": "Den Aufbewahrungsort nur Enna und den Betroffenen nennen.",
+            "next": "bhn_namensheft_a",
+            "hide_if_flags": [
+              "bhn_namensheft_entschieden"
+            ]
+          },
+          {
+            "text": "Das Verfahren offenlegen, Namen nur einzeln zeigen.",
+            "next": "bhn_namensheft_b",
+            "hide_if_flags": [
+              "bhn_namensheft_entschieden"
+            ]
+          },
+          {
+            "text": "Noch nichts bestätigen."
+          }
+        ]
+      },
+      "bhn_namensheft_a": {
+        "text": "Enna verwahrt das Heft in einem zugänglichen, verschlossenen Pflegefach. Patienten erreichen es über ihre Rufglocke. Für Akt V bleibt eine persönliche Einsicht möglich, aber keine öffentliche Namensliste.",
+        "sets_flags": [
+          "bhn_namensheft_entschieden",
+          "bhn_namensheft_a_gewaehlt"
+        ],
+        "choices": [
+          {
+            "text": "Die Ausführung später quittieren."
+          }
+        ],
+        "bond": {
+          "bh_rookwell": 2
+        }
+      },
+      "bhn_namensheft_b": {
+        "text": "Enna erklärt öffentlich ihre Trennung von Beobachtung und Vermutung. Jede Einsicht in einen Namen braucht die jeweilige Zustimmung. In Akt V kann eine Zeugin das Verfahren bestätigen, keine Entscheidung stellvertretend treffen.",
+        "sets_flags": [
+          "bhn_namensheft_entschieden",
+          "bhn_namensheft_b_gewaehlt"
+        ],
+        "choices": [
+          {
+            "text": "Die Ausführung später quittieren."
+          }
+        ],
+        "honor": 2
+      },
+      "bhn_namensheft_quittung": {
+        "text": "Die ausgeführte Vereinbarung zu „Ein Heft in Reichweite“ ist quittiert. Du erhältst deinen Lohn genau einmal; die Herkunft der Unterlagen bleibt im Journal erhalten.",
+        "sets_flags": [
+          "bhn_namensheft_bezahlt"
+        ],
+        "complete_quests": [
+          "bhn_namensheft"
+        ],
+        "gives_money": 20,
+        "choices": [
+          {
+            "text": "Die Quittung behalten."
+          }
+        ]
+      },
+      "bhn_namensheft_nachher": {
+        "text": "Du fragst nach der tatsächlich gewählten Lösung. Die Antwort ersetzt keine spätere Entscheidung der Betroffenen.",
+        "choices": [
+          {
+            "text": "Wie steht es um die erste Vereinbarung?",
+            "next": "bhn_namensheft_folge_a",
+            "requires_flags": [
+              "bhn_namensheft_a_gewaehlt"
+            ]
+          },
+          {
+            "text": "Wie steht es um die zweite Vereinbarung?",
+            "next": "bhn_namensheft_folge_b",
+            "requires_flags": [
+              "bhn_namensheft_b_gewaehlt"
+            ]
+          },
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "bhn_namensheft_folge_a": {
+        "text": "Enna verwahrt das Heft in einem zugänglichen, verschlossenen Pflegefach. Patienten erreichen es über ihre Rufglocke. Für Akt V bleibt eine persönliche Einsicht möglich, aber keine öffentliche Namensliste. Die Quittung bleibt gültig; es gibt keine zweite Auszahlung.",
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_namensheft_folge_b": {
+        "text": "Enna erklärt öffentlich ihre Trennung von Beobachtung und Vermutung. Jede Einsicht in einen Namen braucht die jeweilige Zustimmung. In Akt V kann eine Zeugin das Verfahren bestätigen, keine Entscheidung stellvertretend treffen. Die Quittung bleibt gültig; es gibt keine zweite Auszahlung.",
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_heft_akt5_a": {
+        "text": "Enna holt das Heft einzeln für die Betroffenen aus dem Fach. „Auch ein verborgenes Heft muss für seine Menschen erreichbar bleiben.“ Jeder wird neu gefragt; keine damalige Verwahrung gilt als Zustimmung zur Rückführung.",
+        "choices": [
+          {
+            "text": "Die eigene Entscheidung jedes Patienten abwarten."
+          }
+        ]
+      },
+      "bhn_heft_akt5_b": {
+        "text": "Die Zeugin bestätigt Ennas offenes Verfahren, dann verlässt sie auf Wunsch das Zimmer. „Aufsicht ist kein Chor“, sagt Enna. Patienten entscheiden einzeln, unabhängig von der früheren Veröffentlichung des Verfahrens.",
+        "choices": [
+          {
+            "text": "Die eigene Entscheidung jedes Patienten abwarten."
+          }
+        ]
+      }
+    }
+  },
+  "bj_bh_crowther": {
+    "choices_add": [
+      {
+        "text": "Der Preis einer leeren Kiste",
+        "next": "bhn_frachtbelege_angebot",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt2_done"
+        ],
+        "hide_if_quests": [
+          "bhn_frachtbelege"
+        ],
+        "hide_if_flags": [
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Der Preis einer leeren Kiste: Stand besprechen.",
+        "next": "bhn_frachtbelege_stand",
+        "requires_quests_active": [
+          "bhn_frachtbelege"
+        ]
+      },
+      {
+        "text": "Der Preis einer leeren Kiste: Was blieb?",
+        "next": "bhn_frachtbelege_nachher",
+        "requires_quests_done": [
+          "bhn_frachtbelege"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "bhn_frachtbelege_angebot": {
+        "text": "Crowthers doppelt berechnete Leihkiste hat ältere Frachtmarken unter den Nägeln. Er bietet dir einen Anteil, wenn du nur die letzte Rechnung prüfst. „Ich will aussteigen. Das sollte doch auch etwas wert sein.“ Du kannst den Ausstieg sichern, ohne seine Vergangenheit umzudatieren.",
+        "choices": [
+          {
+            "text": "Ich prüfe das.",
+            "next": "bhn_frachtbelege_annahme",
+            "hide_if_quests": [
+              "bhn_frachtbelege"
+            ]
+          },
+          {
+            "text": "Heute nicht."
+          }
+        ]
+      },
+      "bhn_frachtbelege_annahme": {
+        "text": "Du hältst den Auftrag „Der Preis einer leeren Kiste“ getrennt von der Hauptuntersuchung fest. Die beiden Vergleichsstellen sind im Journal vermerkt; eine Entscheidung kannst du später bestätigen.",
+        "start_quests": [
+          "bhn_frachtbelege"
+        ],
+        "sets_flags": [
+          "bhn_frachtbelege_angenommen"
+        ],
+        "choices": [
+          {
+            "text": "Die Fundorte im Journal ansehen."
+          }
+        ]
+      },
+      "bhn_frachtbelege_stand": {
+        "text": "Du hältst an zwei Vergleichsstellen fest: Nägel über dem alten Siegel und Gegenbuch der Leihkisten. Erst wenn du beide Befunde verbunden hast, lässt sich eine begründete Folge bestätigen. Nach der Entscheidung kannst du hier die Ausführung quittieren.",
+        "choices": [
+          {
+            "text": "Die belegten Möglichkeiten abwägen.",
+            "next": "bhn_frachtbelege_wahl",
+            "requires_conclusions": [
+              "bhn_frachtbelege_schluss"
+            ],
+            "hide_if_flags": [
+              "bhn_frachtbelege_entschieden"
+            ]
+          },
+          {
+            "text": "Die vereinbarte Folge quittieren.",
+            "next": "bhn_frachtbelege_quittung",
+            "requires_flags": [
+              "bhn_frachtbelege_entschieden"
+            ],
+            "hide_if_flags": [
+              "bhn_frachtbelege_bezahlt"
+            ]
+          },
+          {
+            "text": "Ich prüfe die Fundorte weiter."
+          }
+        ]
+      },
+      "bhn_frachtbelege_wahl": {
+        "text": "Ausstieg nur mit offener Rückzahlung vermitteln. Belege unabhängig sichern und sein Angebot ablehnen. Beide Wege lassen die vorhandenen Belege bestehen. Deine Entscheidung gilt für diesen Auftrag, nicht als Einwilligung in eine Behandlung.",
+        "choices": [
+          {
+            "text": "Ausstieg nur mit offener Rückzahlung vermitteln.",
+            "next": "bhn_frachtbelege_a",
+            "hide_if_flags": [
+              "bhn_frachtbelege_entschieden"
+            ]
+          },
+          {
+            "text": "Belege unabhängig sichern und sein Angebot ablehnen.",
+            "next": "bhn_frachtbelege_b",
+            "hide_if_flags": [
+              "bhn_frachtbelege_entschieden"
+            ]
+          },
+          {
+            "text": "Noch nichts bestätigen."
+          }
+        ]
+      },
+      "bhn_frachtbelege_a": {
+        "text": "Crowther gibt die doppelte Gebühr zurück und bestätigt seine Provision schriftlich. Seine letzte Leerfahrt nimmt nur Verpackungen mit. Du erhältst eine kleine Vermittlungszahlung, die auf derselben Abrechnung steht.",
+        "sets_flags": [
+          "bhn_frachtbelege_entschieden",
+          "bhn_frachtbelege_a_gewaehlt"
+        ],
+        "choices": [
+          {
+            "text": "Die Ausführung später quittieren."
+          }
+        ],
+        "gives_money": 10
+      },
+      "bhn_frachtbelege_b": {
+        "text": "Du lehnst den Anteil ab und übergibst die Abschriften getrennt an die Betroffenen. Crowther kann trotzdem aussteigen, aber nicht gegen Schweigen. Enna quittiert deine Auslagen aus der gemeinsamen Kasse.",
+        "sets_flags": [
+          "bhn_frachtbelege_entschieden",
+          "bhn_frachtbelege_b_gewaehlt"
+        ],
+        "choices": [
+          {
+            "text": "Die Ausführung später quittieren."
+          }
+        ],
+        "honor": 2
+      },
+      "bhn_frachtbelege_quittung": {
+        "text": "Die ausgeführte Vereinbarung zu „Der Preis einer leeren Kiste“ ist quittiert. Du erhältst deinen Lohn genau einmal; die Herkunft der Unterlagen bleibt im Journal erhalten.",
+        "sets_flags": [
+          "bhn_frachtbelege_bezahlt"
+        ],
+        "complete_quests": [
+          "bhn_frachtbelege"
+        ],
+        "gives_money": 22,
+        "choices": [
+          {
+            "text": "Die Quittung behalten."
+          }
+        ]
+      },
+      "bhn_frachtbelege_nachher": {
+        "text": "Du fragst nach der tatsächlich gewählten Lösung. Die Antwort ersetzt keine spätere Entscheidung der Betroffenen.",
+        "choices": [
+          {
+            "text": "Wie steht es um die erste Vereinbarung?",
+            "next": "bhn_frachtbelege_folge_a",
+            "requires_flags": [
+              "bhn_frachtbelege_a_gewaehlt"
+            ]
+          },
+          {
+            "text": "Wie steht es um die zweite Vereinbarung?",
+            "next": "bhn_frachtbelege_folge_b",
+            "requires_flags": [
+              "bhn_frachtbelege_b_gewaehlt"
+            ]
+          },
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "bhn_frachtbelege_folge_a": {
+        "text": "Crowther gibt die doppelte Gebühr zurück und bestätigt seine Provision schriftlich. Seine letzte Leerfahrt nimmt nur Verpackungen mit. Du erhältst eine kleine Vermittlungszahlung, die auf derselben Abrechnung steht. Die Quittung bleibt gültig; es gibt keine zweite Auszahlung.",
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_frachtbelege_folge_b": {
+        "text": "Du lehnst den Anteil ab und übergibst die Abschriften getrennt an die Betroffenen. Crowther kann trotzdem aussteigen, aber nicht gegen Schweigen. Enna quittiert deine Auslagen aus der gemeinsamen Kasse. Die Quittung bleibt gültig; es gibt keine zweite Auszahlung.",
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      }
+    }
+  },
+  "bj_bh_dipple": {
+    "choices_add": [
+      {
+        "text": "Zwei Kanten, zwei Zeiten",
+        "next": "bhn_wurzelzeichnungen_angebot",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt3_done"
+        ],
+        "hide_if_quests": [
+          "bhn_wurzelzeichnungen"
+        ],
+        "hide_if_flags": [
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Zwei Kanten, zwei Zeiten: Stand besprechen.",
+        "next": "bhn_wurzelzeichnungen_stand",
+        "requires_quests_active": [
+          "bhn_wurzelzeichnungen"
+        ]
+      },
+      {
+        "text": "Zwei Kanten, zwei Zeiten: Was blieb?",
+        "next": "bhn_wurzelzeichnungen_nachher",
+        "requires_quests_done": [
+          "bhn_wurzelzeichnungen"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "bhn_wurzelzeichnungen_angebot": {
+        "text": "Dipples Schülerin hat den Blattschatten inzwischen richtig eingezeichnet. Beim Aufbewahren beider Fassungen findet sie ältere Wurzelblätter. Dipple hält die Rentenquittung darüber. „Wenn du das Datum liest, liest die Verwaltung meinen Namen mit.“",
+        "choices": [
+          {
+            "text": "Ich prüfe das.",
+            "next": "bhn_wurzelzeichnungen_annahme",
+            "hide_if_quests": [
+              "bhn_wurzelzeichnungen"
+            ]
+          },
+          {
+            "text": "Heute nicht."
+          }
+        ]
+      },
+      "bhn_wurzelzeichnungen_annahme": {
+        "text": "Du hältst den Auftrag „Zwei Kanten, zwei Zeiten“ getrennt von der Hauptuntersuchung fest. Die beiden Vergleichsstellen sind im Journal vermerkt; eine Entscheidung kannst du später bestätigen.",
+        "start_quests": [
+          "bhn_wurzelzeichnungen"
+        ],
+        "sets_flags": [
+          "bhn_wurzelzeichnungen_angenommen"
+        ],
+        "choices": [
+          {
+            "text": "Die Fundorte im Journal ansehen."
+          }
+        ]
+      },
+      "bhn_wurzelzeichnungen_stand": {
+        "text": "Du hältst an zwei Vergleichsstellen fest: Blattstudie mit Lichtwechsel und Rentenumschlag und Zeichenliste. Erst wenn du beide Befunde verbunden hast, lässt sich eine begründete Folge bestätigen. Nach der Entscheidung kannst du hier die Ausführung quittieren.",
+        "choices": [
+          {
+            "text": "Die belegten Möglichkeiten abwägen.",
+            "next": "bhn_wurzelzeichnungen_wahl",
+            "requires_conclusions": [
+              "bhn_wurzelzeichnungen_schluss"
+            ],
+            "hide_if_flags": [
+              "bhn_wurzelzeichnungen_entschieden"
+            ]
+          },
+          {
+            "text": "Die vereinbarte Folge quittieren.",
+            "next": "bhn_wurzelzeichnungen_quittung",
+            "requires_flags": [
+              "bhn_wurzelzeichnungen_entschieden"
+            ],
+            "hide_if_flags": [
+              "bhn_wurzelzeichnungen_bezahlt"
+            ]
+          },
+          {
+            "text": "Ich prüfe die Fundorte weiter."
+          }
+        ]
+      },
+      "bhn_wurzelzeichnungen_wahl": {
+        "text": "Originale mit unterschriebener Berichtigung abgeben. Versiegelte Verwahrung mit späterer Aussage vereinbaren. Beide Wege lassen die vorhandenen Belege bestehen. Deine Entscheidung gilt für diesen Auftrag, nicht als Einwilligung in eine Behandlung.",
+        "choices": [
+          {
+            "text": "Originale mit unterschriebener Berichtigung abgeben.",
+            "next": "bhn_wurzelzeichnungen_a",
+            "hide_if_flags": [
+              "bhn_wurzelzeichnungen_entschieden"
+            ]
+          },
+          {
+            "text": "Versiegelte Verwahrung mit späterer Aussage vereinbaren.",
+            "next": "bhn_wurzelzeichnungen_b",
+            "hide_if_flags": [
+              "bhn_wurzelzeichnungen_entschieden"
+            ]
+          },
+          {
+            "text": "Noch nichts bestätigen."
+          }
+        ]
+      },
+      "bhn_wurzelzeichnungen_a": {
+        "text": "Dipple unterschreibt die Datierung und die spätere Schweigeklausel. Die Schülerin legt ihre eigene Korrektur daneben. Seine Rente wird überprüft; seine Verantwortung bleibt auf dem Blatt sichtbar.",
+        "sets_flags": [
+          "bhn_wurzelzeichnungen_entschieden",
+          "bhn_wurzelzeichnungen_a_gewaehlt"
+        ],
+        "choices": [
+          {
+            "text": "Die Ausführung später quittieren."
+          }
+        ],
+        "honor": 2
+      },
+      "bhn_wurzelzeichnungen_b": {
+        "text": "Dipple hinterlegt die Originale, nennt aber vorerst keinen öffentlichen Zeugen. Du erhältst eine Empfangsbestätigung, kein Blankozeugnis für seine Unschuld. Die Schülerin behält Zugang zu ihrer eigenen Studie.",
+        "sets_flags": [
+          "bhn_wurzelzeichnungen_entschieden",
+          "bhn_wurzelzeichnungen_b_gewaehlt"
+        ],
+        "choices": [
+          {
+            "text": "Die Ausführung später quittieren."
+          }
+        ],
+        "bond": {
+          "bh_dipple": 2
+        }
+      },
+      "bhn_wurzelzeichnungen_quittung": {
+        "text": "Die ausgeführte Vereinbarung zu „Zwei Kanten, zwei Zeiten“ ist quittiert. Du erhältst deinen Lohn genau einmal; die Herkunft der Unterlagen bleibt im Journal erhalten.",
+        "sets_flags": [
+          "bhn_wurzelzeichnungen_bezahlt"
+        ],
+        "complete_quests": [
+          "bhn_wurzelzeichnungen"
+        ],
+        "gives_money": 24,
+        "choices": [
+          {
+            "text": "Die Quittung behalten."
+          }
+        ]
+      },
+      "bhn_wurzelzeichnungen_nachher": {
+        "text": "Du fragst nach der tatsächlich gewählten Lösung. Die Antwort ersetzt keine spätere Entscheidung der Betroffenen.",
+        "choices": [
+          {
+            "text": "Wie steht es um die erste Vereinbarung?",
+            "next": "bhn_wurzelzeichnungen_folge_a",
+            "requires_flags": [
+              "bhn_wurzelzeichnungen_a_gewaehlt"
+            ]
+          },
+          {
+            "text": "Wie steht es um die zweite Vereinbarung?",
+            "next": "bhn_wurzelzeichnungen_folge_b",
+            "requires_flags": [
+              "bhn_wurzelzeichnungen_b_gewaehlt"
+            ]
+          },
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "bhn_wurzelzeichnungen_folge_a": {
+        "text": "Dipple unterschreibt die Datierung und die spätere Schweigeklausel. Die Schülerin legt ihre eigene Korrektur daneben. Seine Rente wird überprüft; seine Verantwortung bleibt auf dem Blatt sichtbar. Die Quittung bleibt gültig; es gibt keine zweite Auszahlung.",
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_wurzelzeichnungen_folge_b": {
+        "text": "Dipple hinterlegt die Originale, nennt aber vorerst keinen öffentlichen Zeugen. Du erhältst eine Empfangsbestätigung, kein Blankozeugnis für seine Unschuld. Die Schülerin behält Zugang zu ihrer eigenen Studie. Die Quittung bleibt gültig; es gibt keine zweite Auszahlung.",
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      }
+    }
+  },
+  "bj_bh_bellweather": {
+    "choices_add": [
+      {
+        "text": "Der gute Schlüssel",
+        "next": "bhn_schraubenschluessel_angebot",
+        "requires_flags": [
+          "k5_arrived"
+        ],
+        "hide_if_quests": [
+          "bhn_schraubenschluessel"
+        ],
+        "hide_if_flags": [
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Der gute Schlüssel: Stand besprechen.",
+        "next": "bhn_schraubenschluessel_stand",
+        "requires_quests_active": [
+          "bhn_schraubenschluessel"
+        ]
+      },
+      {
+        "text": "Der gute Schlüssel: Was blieb?",
+        "next": "bhn_schraubenschluessel_nachher",
+        "requires_quests_done": [
+          "bhn_schraubenschluessel"
+        ]
+      },
+      {
+        "text": "Ein Paket ohne Vorladung",
+        "next": "bhn_brief_aus_calderwick_angebot",
+        "requires_flags": [
+          "k5_arrived"
+        ],
+        "hide_if_quests": [
+          "bhn_brief_aus_calderwick"
+        ],
+        "hide_if_flags": [
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Ein Paket ohne Vorladung: Stand besprechen.",
+        "next": "bhn_brief_aus_calderwick_stand",
+        "requires_quests_active": [
+          "bhn_brief_aus_calderwick"
+        ]
+      },
+      {
+        "text": "Ein Paket ohne Vorladung: Was blieb?",
+        "next": "bhn_brief_aus_calderwick_nachher",
+        "requires_quests_done": [
+          "bhn_brief_aus_calderwick"
+        ]
+      },
+      {
+        "text": "Vier Türen vor dem Winter",
+        "next": "bhn_wintervorrat_angebot",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt4_done"
+        ],
+        "hide_if_quests": [
+          "bhn_wintervorrat"
+        ],
+        "hide_if_flags": [
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Vier Türen vor dem Winter: Stand besprechen.",
+        "next": "bhn_wintervorrat_stand",
+        "requires_quests_active": [
+          "bhn_wintervorrat"
+        ]
+      },
+      {
+        "text": "Vier Türen vor dem Winter: Was blieb?",
+        "next": "bhn_wintervorrat_nachher",
+        "requires_quests_done": [
+          "bhn_wintervorrat"
+        ]
+      },
+      {
+        "text": "Die Arbeit mit der Begleitung absprechen.",
+        "next": "bhn_schraubenschluessel_koop",
+        "requires_flags": [
+          "koop_aktiv"
+        ],
+        "requires_quests_active": [
+          "bhn_schraubenschluessel"
+        ]
+      },
+      {
+        "text": "Die Arbeit mit der Begleitung absprechen.",
+        "next": "bhn_wintervorrat_koop",
+        "requires_flags": [
+          "koop_aktiv"
+        ],
+        "requires_quests_active": [
+          "bhn_wintervorrat"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "bhn_schraubenschluessel_angebot": {
+        "text": "Frost möchte die Zugluft unter der Tür messen. Zum Befestigen der Türrolle fehlt der gute Schraubenschlüssel seines Bruders. „Ich erkenne die Kerbe am Griff. Ein Bild brauche ich dafür nicht.“ Er sagt das früh, bevor jemand einen Vorschlag machen kann.",
+        "choices": [
+          {
+            "text": "Ich prüfe das.",
+            "next": "bhn_schraubenschluessel_annahme",
+            "hide_if_quests": [
+              "bhn_schraubenschluessel"
+            ]
+          },
+          {
+            "text": "Heute nicht."
+          }
+        ]
+      },
+      "bhn_schraubenschluessel_annahme": {
+        "text": "Du hältst den Auftrag „Der gute Schlüssel“ getrennt von der Hauptuntersuchung fest. Die beiden Vergleichsstellen sind im Journal vermerkt; eine Entscheidung kannst du später bestätigen.",
+        "start_quests": [
+          "bhn_schraubenschluessel"
+        ],
+        "sets_flags": [
+          "bhn_schraubenschluessel_angenommen"
+        ],
+        "choices": [
+          {
+            "text": "Die Fundorte im Journal ansehen."
+          }
+        ]
+      },
+      "bhn_schraubenschluessel_stand": {
+        "text": "Du hältst an zwei Vergleichsstellen fest: Ausgemusterte Türrolle und Kerbe und Reparaturnotiz. Erst wenn du beide Befunde verbunden hast, lässt sich eine begründete Folge bestätigen. Nach der Entscheidung kannst du hier die Ausführung quittieren.",
+        "choices": [
+          {
+            "text": "Die belegten Möglichkeiten abwägen.",
+            "next": "bhn_schraubenschluessel_wahl",
+            "requires_conclusions": [
+              "bhn_schraubenschluessel_schluss"
+            ],
+            "hide_if_flags": [
+              "bhn_schraubenschluessel_entschieden"
+            ]
+          },
+          {
+            "text": "Die vereinbarte Folge quittieren.",
+            "next": "bhn_schraubenschluessel_quittung",
+            "requires_flags": [
+              "bhn_schraubenschluessel_entschieden"
+            ],
+            "hide_if_flags": [
+              "bhn_schraubenschluessel_bezahlt"
+            ]
+          },
+          {
+            "text": "Ich prüfe die Fundorte weiter."
+          }
+        ]
+      },
+      "bhn_schraubenschluessel_wahl": {
+        "text": "Den Schlüssel reichen und schweigend mitarbeiten. Fragen, ob er darüber reden möchte; sein Nein stehen lassen. Beide Wege lassen die vorhandenen Belege bestehen. Deine Entscheidung gilt für diesen Auftrag, nicht als Einwilligung in eine Behandlung.",
+        "choices": [
+          {
+            "text": "Den Schlüssel reichen und schweigend mitarbeiten.",
+            "next": "bhn_schraubenschluessel_a",
+            "hide_if_flags": [
+              "bhn_schraubenschluessel_entschieden"
+            ]
+          },
+          {
+            "text": "Fragen, ob er darüber reden möchte; sein Nein stehen lassen.",
+            "next": "bhn_schraubenschluessel_b",
+            "hide_if_flags": [
+              "bhn_schraubenschluessel_entschieden"
+            ]
+          },
+          {
+            "text": "Noch nichts bestätigen."
+          }
+        ]
+      },
+      "bhn_schraubenschluessel_a": {
+        "text": "Frost befestigt die Türrolle. Die Lüftung bleibt offen, der Stuhl steht weniger im Zug. Er hängt den Schlüssel in deine Reichweite und sagt: „Morgen darfst du ihn wieder nehmen.“",
+        "sets_flags": [
+          "bhn_schraubenschluessel_entschieden",
+          "bhn_schraubenschluessel_a_gewaehlt"
+        ],
+        "choices": [
+          {
+            "text": "Die Ausführung später quittieren."
+          }
+        ],
+        "bond": {
+          "bh_bellweather": 1
+        }
+      },
+      "bhn_schraubenschluessel_b": {
+        "text": "„Nicht heute“, sagt Frost. Du stellst keine zweite Frage und hältst die Rolle, während er schraubt. Der Schlüssel bleibt an seinem eigenen Haken; später wird er dich selbst ansprechen dürfen.",
+        "sets_flags": [
+          "bhn_schraubenschluessel_entschieden",
+          "bhn_schraubenschluessel_b_gewaehlt"
+        ],
+        "choices": [
+          {
+            "text": "Die Ausführung später quittieren."
+          }
+        ],
+        "honor": 1
+      },
+      "bhn_schraubenschluessel_quittung": {
+        "text": "Die ausgeführte Vereinbarung zu „Der gute Schlüssel“ ist quittiert. Du erhältst deinen Lohn genau einmal; die Herkunft der Unterlagen bleibt im Journal erhalten.",
+        "sets_flags": [
+          "bhn_schraubenschluessel_bezahlt"
+        ],
+        "complete_quests": [
+          "bhn_schraubenschluessel"
+        ],
+        "gives_money": 26,
+        "choices": [
+          {
+            "text": "Die Quittung behalten."
+          }
+        ],
+        "bond": {
+          "bh_bellweather": 2
+        }
+      },
+      "bhn_schraubenschluessel_nachher": {
+        "text": "Du fragst nach der tatsächlich gewählten Lösung. Die Antwort ersetzt keine spätere Entscheidung der Betroffenen.",
+        "choices": [
+          {
+            "text": "Wie steht es um die erste Vereinbarung?",
+            "next": "bhn_schraubenschluessel_folge_a",
+            "requires_flags": [
+              "bhn_schraubenschluessel_a_gewaehlt"
+            ]
+          },
+          {
+            "text": "Wie steht es um die zweite Vereinbarung?",
+            "next": "bhn_schraubenschluessel_folge_b",
+            "requires_flags": [
+              "bhn_schraubenschluessel_b_gewaehlt"
+            ]
+          },
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "bhn_schraubenschluessel_folge_a": {
+        "text": "Frost befestigt die Türrolle. Die Lüftung bleibt offen, der Stuhl steht weniger im Zug. Er hängt den Schlüssel in deine Reichweite und sagt: „Morgen darfst du ihn wieder nehmen.“ Die Quittung bleibt gültig; es gibt keine zweite Auszahlung.",
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_schraubenschluessel_folge_b": {
+        "text": "„Nicht heute“, sagt Frost. Du stellst keine zweite Frage und hältst die Rolle, während er schraubt. Der Schlüssel bleibt an seinem eigenen Haken; später wird er dich selbst ansprechen dürfen. Die Quittung bleibt gültig; es gibt keine zweite Auszahlung.",
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_brief_aus_calderwick_angebot": {
+        "text": "Frost hat ein trockenes Paket aus der Kutschenhalle übernommen. „Es wartet, bis du es öffnest. Darin unterscheidet es sich von den meisten Behörden.“ Die Absenderprüfung entscheidet, welchen Brief du lesen darfst; niemand aus der früheren Stadt reist mit.",
+        "choices": [
+          {
+            "text": "Ich prüfe das.",
+            "next": "bhn_brief_aus_calderwick_annahme",
+            "hide_if_quests": [
+              "bhn_brief_aus_calderwick"
+            ]
+          },
+          {
+            "text": "Heute nicht."
+          }
+        ]
+      },
+      "bhn_brief_aus_calderwick_annahme": {
+        "text": "Du hältst den Auftrag „Ein Paket ohne Vorladung“ getrennt von der Hauptuntersuchung fest. Die beiden Vergleichsstellen sind im Journal vermerkt; eine Entscheidung kannst du später bestätigen.",
+        "start_quests": [
+          "bhn_brief_aus_calderwick"
+        ],
+        "sets_flags": [
+          "bhn_brief_aus_calderwick_angenommen"
+        ],
+        "choices": [
+          {
+            "text": "Die Fundorte im Journal ansehen."
+          }
+        ]
+      },
+      "bhn_brief_aus_calderwick_stand": {
+        "text": "Du hältst an zwei Vergleichsstellen fest: Zustellnachweis und Inventar unter dem Deckel. Erst wenn du beide Befunde verbunden hast, lässt sich eine begründete Folge bestätigen. Nach der Entscheidung kannst du hier die Ausführung quittieren.",
+        "choices": [
+          {
+            "text": "Pfiff: Ein trockenes Fach",
+            "next": "bhn_brief_dunscar",
+            "requires_flags": [
+              "kapitel3_done",
+              "bhn_brief_aus_calderwick_angenommen"
+            ],
+            "hide_if_flags": [
+              "bhn_brief_gelesen",
+              "cwa_end_widerspruch",
+              "cwa_end_amtsinhaber",
+              "cwa_end_buecher",
+              "cwa_end_ordnung",
+              "kapitel4_done"
+            ],
+            "requires_clues": [
+              "bhn_brief_aus_calderwick_c1"
+            ]
+          },
+          {
+            "text": "Klammer: Ein ungeprüfter Rand",
+            "next": "bhn_brief_ordnung",
+            "requires_flags": [
+              "cwa_end_ordnung",
+              "bhn_brief_aus_calderwick_angenommen"
+            ],
+            "hide_if_flags": [
+              "bhn_brief_gelesen"
+            ],
+            "requires_clues": [
+              "bhn_brief_aus_calderwick_c1"
+            ]
+          },
+          {
+            "text": "Klammer: Die verwahrten Blätter",
+            "next": "bhn_brief_buecher",
+            "requires_flags": [
+              "cwa_end_buecher",
+              "bhn_brief_aus_calderwick_angenommen"
+            ],
+            "hide_if_flags": [
+              "bhn_brief_gelesen"
+            ],
+            "requires_clues": [
+              "bhn_brief_aus_calderwick_c1"
+            ]
+          },
+          {
+            "text": "Klammer: Keine Quittung für dein Amt",
+            "next": "bhn_brief_amtsinhaber",
+            "requires_flags": [
+              "cwa_end_amtsinhaber",
+              "bhn_brief_aus_calderwick_angenommen"
+            ],
+            "hide_if_flags": [
+              "bhn_brief_gelesen"
+            ],
+            "requires_clues": [
+              "bhn_brief_aus_calderwick_c1"
+            ]
+          },
+          {
+            "text": "Klammer: Ein Rand bleibt frei",
+            "next": "bhn_brief_widerspruch",
+            "requires_flags": [
+              "cwa_end_widerspruch",
+              "bhn_brief_aus_calderwick_angenommen"
+            ],
+            "hide_if_flags": [
+              "bhn_brief_gelesen"
+            ],
+            "requires_clues": [
+              "bhn_brief_aus_calderwick_c1"
+            ]
+          },
+          {
+            "text": "Die belegten Möglichkeiten abwägen.",
+            "next": "bhn_brief_aus_calderwick_wahl",
+            "requires_conclusions": [
+              "bhn_brief_aus_calderwick_schluss"
+            ],
+            "hide_if_flags": [
+              "bhn_brief_aus_calderwick_entschieden"
+            ],
+            "requires_flags": [
+              "bhn_brief_gelesen"
+            ]
+          },
+          {
+            "text": "Die vereinbarte Folge quittieren.",
+            "next": "bhn_brief_aus_calderwick_quittung",
+            "requires_flags": [
+              "bhn_brief_aus_calderwick_entschieden"
+            ],
+            "hide_if_flags": [
+              "bhn_brief_aus_calderwick_bezahlt"
+            ]
+          },
+          {
+            "text": "Ich prüfe die Fundorte weiter."
+          }
+        ]
+      },
+      "bhn_brief_aus_calderwick_wahl": {
+        "text": "Hilfsmittel dem gemeinsamen Bügelraum überlassen. Hilfsmittel für die eigene Reise behalten. Beide Wege lassen die vorhandenen Belege bestehen. Deine Entscheidung gilt für diesen Auftrag, nicht als Einwilligung in eine Behandlung.",
+        "choices": [
+          {
+            "text": "Hilfsmittel dem gemeinsamen Bügelraum überlassen.",
+            "next": "bhn_brief_aus_calderwick_a",
+            "hide_if_flags": [
+              "bhn_brief_aus_calderwick_entschieden"
+            ]
+          },
+          {
+            "text": "Das verzeichnete Paket für die Reise behalten.",
+            "next": "bhn_paket_widerspruch",
+            "requires_flags": [
+              "bhn_brief_variante_widerspruch"
+            ],
+            "hide_if_flags": [
+              "bhn_brief_aus_calderwick_entschieden"
+            ]
+          },
+          {
+            "text": "Das verzeichnete Paket für die Reise behalten.",
+            "next": "bhn_paket_amtsinhaber",
+            "requires_flags": [
+              "bhn_brief_variante_amtsinhaber"
+            ],
+            "hide_if_flags": [
+              "bhn_brief_aus_calderwick_entschieden"
+            ]
+          },
+          {
+            "text": "Das verzeichnete Paket für die Reise behalten.",
+            "next": "bhn_paket_buecher",
+            "requires_flags": [
+              "bhn_brief_variante_buecher"
+            ],
+            "hide_if_flags": [
+              "bhn_brief_aus_calderwick_entschieden"
+            ]
+          },
+          {
+            "text": "Das verzeichnete Paket für die Reise behalten.",
+            "next": "bhn_paket_ordnung",
+            "requires_flags": [
+              "bhn_brief_variante_ordnung"
+            ],
+            "hide_if_flags": [
+              "bhn_brief_aus_calderwick_entschieden"
+            ]
+          },
+          {
+            "text": "Das verzeichnete Paket für die Reise behalten.",
+            "next": "bhn_paket_dunscar",
+            "requires_flags": [
+              "bhn_brief_variante_dunscar"
+            ],
+            "hide_if_flags": [
+              "bhn_brief_aus_calderwick_entschieden"
+            ]
+          },
+          {
+            "text": "Noch nichts bestätigen."
+          }
+        ]
+      },
+      "bhn_brief_aus_calderwick_a": {
+        "text": "Frost verstaut die Hilfsmittel im trockenen Fach und quittiert die gemeinschaftliche Verwendung. Der Brief bleibt bei dir. Die Hilfe bindet niemanden an die politische Entscheidung des Absenders.",
+        "sets_flags": [
+          "bhn_brief_aus_calderwick_entschieden",
+          "bhn_brief_aus_calderwick_a_gewaehlt"
+        ],
+        "choices": [
+          {
+            "text": "Die Ausführung später quittieren."
+          }
+        ],
+        "bond": {
+          "bh_bellweather": 2
+        }
+      },
+      "bhn_brief_aus_calderwick_quittung": {
+        "text": "Die ausgeführte Vereinbarung zu „Ein Paket ohne Vorladung“ ist quittiert. Du erhältst deinen Lohn genau einmal; die Herkunft der Unterlagen bleibt im Journal erhalten.",
+        "sets_flags": [
+          "bhn_brief_aus_calderwick_bezahlt"
+        ],
+        "complete_quests": [
+          "bhn_brief_aus_calderwick"
+        ],
+        "gives_money": 30,
+        "choices": [
+          {
+            "text": "Die Quittung behalten."
+          }
+        ]
+      },
+      "bhn_brief_aus_calderwick_nachher": {
+        "text": "Du fragst nach der tatsächlich gewählten Lösung. Die Antwort ersetzt keine spätere Entscheidung der Betroffenen.",
+        "choices": [
+          {
+            "text": "Wie steht es um die erste Vereinbarung?",
+            "next": "bhn_brief_aus_calderwick_folge_a",
+            "requires_flags": [
+              "bhn_brief_aus_calderwick_a_gewaehlt"
+            ]
+          },
+          {
+            "text": "Wie steht es um die zweite Vereinbarung?",
+            "next": "bhn_brief_aus_calderwick_folge_b",
+            "requires_flags": [
+              "bhn_brief_aus_calderwick_b_gewaehlt"
+            ]
+          },
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "bhn_brief_aus_calderwick_folge_a": {
+        "text": "Frost verstaut die Hilfsmittel im trockenen Fach und quittiert die gemeinschaftliche Verwendung. Der Brief bleibt bei dir. Die Hilfe bindet niemanden an die politische Entscheidung des Absenders. Die Quittung bleibt gültig; es gibt keine zweite Auszahlung.",
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_brief_aus_calderwick_folge_b": {
+        "text": "Du nimmst die verzeichneten Hilfsmittel mit. Frost bewahrt nur die leere Verpackung für spätere Sendungen auf. Er macht aus einer privaten Gabe keine Eintrittsgebühr für sein Zimmer. Die Quittung bleibt gültig; es gibt keine zweite Auszahlung.",
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_wintervorrat_angebot": {
+        "text": "Frost zeigt auf vier Haushaltskarten. „Die Reserve ist eine Rechnung, bis jemand an den Türen war.“ Du prüfst Zusatzbedarf und Ersatzwege. Die Wohnräume bleiben grundversorgt; kein Haushalt muss Kälte ertragen, um deine Messung zu beweisen.",
+        "choices": [
+          {
+            "text": "Ich prüfe das.",
+            "next": "bhn_wintervorrat_annahme",
+            "hide_if_quests": [
+              "bhn_wintervorrat"
+            ]
+          },
+          {
+            "text": "Heute nicht."
+          }
+        ]
+      },
+      "bhn_wintervorrat_annahme": {
+        "text": "Du hältst den Auftrag „Vier Türen vor dem Winter“ getrennt von der Hauptuntersuchung fest. Die beiden Vergleichsstellen sind im Journal vermerkt; eine Entscheidung kannst du später bestätigen.",
+        "start_quests": [
+          "bhn_wintervorrat"
+        ],
+        "sets_flags": [
+          "bhn_wintervorrat_angenommen"
+        ],
+        "choices": [
+          {
+            "text": "Die Fundorte im Journal ansehen."
+          }
+        ]
+      },
+      "bhn_wintervorrat_stand": {
+        "text": "Frost legt das Blatt „Vier Bedarfe“ im Bügelraum bereit; den Ersatzweg zeigt „Reserve ohne Aussaat“ im Kesselgrund. Verbinde beide Befunde und frage Mara, Tobin, Iva und Ada einzeln nach ihrem Bedarf. Erst dann kannst du eine Empfehlung bestätigen und hier quittieren.",
+        "choices": [
+          {
+            "text": "Die belegten Möglichkeiten abwägen.",
+            "next": "bhn_wintervorrat_wahl",
+            "requires_conclusions": [
+              "bhn_wintervorrat_schluss"
+            ],
+            "hide_if_flags": [
+              "bhn_wintervorrat_entschieden"
+            ],
+            "requires_flags": [
+              "bhn_reserve_haushalt1",
+              "bhn_reserve_haushalt2",
+              "bhn_reserve_haushalt3",
+              "bhn_reserve_haushalt4"
+            ]
+          },
+          {
+            "text": "Die vereinbarte Folge quittieren.",
+            "next": "bhn_wintervorrat_quittung",
+            "requires_flags": [
+              "bhn_wintervorrat_entschieden"
+            ],
+            "hide_if_flags": [
+              "bhn_wintervorrat_bezahlt"
+            ]
+          },
+          {
+            "text": "Ich prüfe die Fundorte weiter."
+          }
+        ]
+      },
+      "bhn_wintervorrat_wahl": {
+        "text": "Reserve nach den bestätigten Bedarfen bereithalten. Mobile Wärmestube als freiwillige Ergänzung vorbereiten. Beide Wege lassen die vorhandenen Belege bestehen. Deine Entscheidung gilt für diesen Auftrag, nicht als Einwilligung in eine Behandlung.",
+        "choices": [
+          {
+            "text": "Reserve nach den bestätigten Bedarfen bereithalten.",
+            "next": "bhn_wintervorrat_a",
+            "hide_if_flags": [
+              "bhn_wintervorrat_entschieden"
+            ]
+          },
+          {
+            "text": "Mobile Wärmestube als freiwillige Ergänzung vorbereiten.",
+            "next": "bhn_wintervorrat_b",
+            "hide_if_flags": [
+              "bhn_wintervorrat_entschieden"
+            ]
+          },
+          {
+            "text": "Noch nichts bestätigen."
+          }
+        ]
+      },
+      "bhn_wintervorrat_a": {
+        "text": "Frost notiert die unterschiedlichen Bedarfe neben dem Ersatzweg. Niemand erhält dadurch das Recht auf die Erinnerungsreste eines anderen. Der Hauptplan kann deine Prüfung später als zusätzliche Absicherung nutzen.",
+        "sets_flags": [
+          "bhn_wintervorrat_entschieden",
+          "bhn_wintervorrat_a_gewaehlt"
+        ],
+        "choices": [
+          {
+            "text": "Die Ausführung später quittieren."
+          }
+        ],
+        "honor": 2
+      },
+      "bhn_wintervorrat_b": {
+        "text": "Frost hält Tragkessel für freiwillige Besuche bereit. Niemand muss sein Zimmer verlassen, und die Grundversorgung bleibt bestehen. Die Haushaltsprüfung liegt dem Hauptplan bei, nicht an seiner Stelle.",
+        "sets_flags": [
+          "bhn_wintervorrat_entschieden",
+          "bhn_wintervorrat_b_gewaehlt"
+        ],
+        "choices": [
+          {
+            "text": "Die Ausführung später quittieren."
+          }
+        ],
+        "bond": {
+          "bh_bellweather": 2
+        }
+      },
+      "bhn_wintervorrat_quittung": {
+        "text": "Die ausgeführte Vereinbarung zu „Vier Türen vor dem Winter“ ist quittiert. Du erhältst deinen Lohn genau einmal; die Herkunft der Unterlagen bleibt im Journal erhalten.",
+        "sets_flags": [
+          "bhn_wintervorrat_bezahlt",
+          "bhn_reserve_geprueft"
+        ],
+        "complete_quests": [
+          "bhn_wintervorrat"
+        ],
+        "gives_money": 34,
+        "choices": [
+          {
+            "text": "Die Quittung behalten."
+          }
+        ]
+      },
+      "bhn_wintervorrat_nachher": {
+        "text": "Du fragst nach der tatsächlich gewählten Lösung. Die Antwort ersetzt keine spätere Entscheidung der Betroffenen.",
+        "choices": [
+          {
+            "text": "Wie steht es um die erste Vereinbarung?",
+            "next": "bhn_wintervorrat_folge_a",
+            "requires_flags": [
+              "bhn_wintervorrat_a_gewaehlt"
+            ]
+          },
+          {
+            "text": "Wie steht es um die zweite Vereinbarung?",
+            "next": "bhn_wintervorrat_folge_b",
+            "requires_flags": [
+              "bhn_wintervorrat_b_gewaehlt"
+            ]
+          },
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "bhn_wintervorrat_folge_a": {
+        "text": "Frost notiert die unterschiedlichen Bedarfe neben dem Ersatzweg. Niemand erhält dadurch das Recht auf die Erinnerungsreste eines anderen. Der Hauptplan kann deine Prüfung später als zusätzliche Absicherung nutzen. Die Quittung bleibt gültig; es gibt keine zweite Auszahlung.",
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_wintervorrat_folge_b": {
+        "text": "Frost hält Tragkessel für freiwillige Besuche bereit. Niemand muss sein Zimmer verlassen, und die Grundversorgung bleibt bestehen. Die Haushaltsprüfung liegt dem Hauptplan bei, nicht an seiner Stelle. Die Quittung bleibt gültig; es gibt keine zweite Auszahlung.",
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_brief_widerspruch": {
+        "text": "„Wir lassen die strittigen Zeilen sichtbar. Im Paket liegt Registerband für lose Blätter, nicht zum Zubinden eines Mundes. Frage in Briarholt, wer seine Zustimmung zurücknehmen darf.“ Du liest die Gabe erst nach der Absenderprüfung.",
+        "sets_flags": [
+          "bhn_brief_gelesen",
+          "bhn_brief_variante_widerspruch"
+        ],
+        "choices": [
+          {
+            "text": "Den Brief einstecken."
+          }
+        ]
+      },
+      "bhn_paket_widerspruch": {
+        "text": "Du nimmst die verzeichneten Hilfsmittel mit. Frost bewahrt nur die leere Verpackung für spätere Sendungen auf. Er macht aus einer privaten Gabe keine Eintrittsgebühr für sein Zimmer.",
+        "sets_flags": [
+          "bhn_brief_aus_calderwick_entschieden",
+          "bhn_brief_aus_calderwick_b_gewaehlt"
+        ],
+        "choices": [
+          {
+            "text": "Die Ausführung später quittieren."
+          }
+        ],
+        "gives_items": {
+          "vi_m_registerband": 1
+        }
+      },
+      "bhn_brief_amtsinhaber": {
+        "text": "„Du sitzt jetzt dort, wo andere warten. Ich schicke dir Papier, keinen Freispruch. Eine unterschriebene Einweisung ersetzt nicht das eigene Wort eines Patienten.“ Du liest die Gabe erst nach der Absenderprüfung.",
+        "sets_flags": [
+          "bhn_brief_gelesen",
+          "bhn_brief_variante_amtsinhaber"
+        ],
+        "choices": [
+          {
+            "text": "Den Brief einstecken."
+          }
+        ]
+      },
+      "bhn_paket_amtsinhaber": {
+        "text": "Du nimmst die verzeichneten Hilfsmittel mit. Frost bewahrt nur die leere Verpackung für spätere Sendungen auf. Er macht aus einer privaten Gabe keine Eintrittsgebühr für sein Zimmer.",
+        "sets_flags": [
+          "bhn_brief_aus_calderwick_entschieden",
+          "bhn_brief_aus_calderwick_b_gewaehlt"
+        ],
+        "choices": [
+          {
+            "text": "Die Ausführung später quittieren."
+          }
+        ],
+        "gives_items": {
+          "vi_v_durchschlagpapier": 1
+        }
+      },
+      "bhn_brief_buecher": {
+        "text": "„Die Bücher bleiben erreichbar, auch für Menschen, die ihren Eintrag bestreiten. Das Band hält Blätter zusammen, keine Schuldner. Verwahrung braucht eine Tür nach draußen.“ Du liest die Gabe erst nach der Absenderprüfung.",
+        "sets_flags": [
+          "bhn_brief_gelesen",
+          "bhn_brief_variante_buecher"
+        ],
+        "choices": [
+          {
+            "text": "Den Brief einstecken."
+          }
+        ]
+      },
+      "bhn_paket_buecher": {
+        "text": "Du nimmst die verzeichneten Hilfsmittel mit. Frost bewahrt nur die leere Verpackung für spätere Sendungen auf. Er macht aus einer privaten Gabe keine Eintrittsgebühr für sein Zimmer.",
+        "sets_flags": [
+          "bhn_brief_aus_calderwick_entschieden",
+          "bhn_brief_aus_calderwick_b_gewaehlt"
+        ],
+        "choices": [
+          {
+            "text": "Die Ausführung später quittieren."
+          }
+        ],
+        "gives_items": {
+          "vi_m_registerband": 2
+        }
+      },
+      "bhn_brief_ordnung": {
+        "text": "„Die Formulare laufen wieder glatt. Das ist nicht dasselbe wie ein gutes Ende. Heb die unbedruckte Rückseite auf. Vielleicht lässt du dort jemanden einen eigenen Satz schreiben.“ Du liest die Gabe erst nach der Absenderprüfung.",
+        "sets_flags": [
+          "bhn_brief_gelesen",
+          "bhn_brief_variante_ordnung"
+        ],
+        "choices": [
+          {
+            "text": "Den Brief einstecken."
+          }
+        ]
+      },
+      "bhn_paket_ordnung": {
+        "text": "Du nimmst die verzeichneten Hilfsmittel mit. Frost bewahrt nur die leere Verpackung für spätere Sendungen auf. Er macht aus einer privaten Gabe keine Eintrittsgebühr für sein Zimmer.",
+        "sets_flags": [
+          "bhn_brief_aus_calderwick_entschieden",
+          "bhn_brief_aus_calderwick_b_gewaehlt"
+        ],
+        "choices": [
+          {
+            "text": "Die Ausführung später quittieren."
+          }
+        ],
+        "gives_items": {
+          "vi_v_durchschlagpapier": 2
+        }
+      },
+      "bhn_brief_dunscar": {
+        "text": "„Ich weiß nicht, welche Antworten du in Dunscar mitgenommen hast. Im Paket liegt Wegzehrung. Hör in Briarholt erst zu, bevor du eine fremde Stimme für eine Lösung hältst.“ Du liest die Gabe erst nach der Absenderprüfung.",
+        "sets_flags": [
+          "bhn_brief_gelesen",
+          "bhn_brief_variante_dunscar"
+        ],
+        "choices": [
+          {
+            "text": "Den Brief einstecken."
+          }
+        ]
+      },
+      "bhn_paket_dunscar": {
+        "text": "Du nimmst die verzeichneten Hilfsmittel mit. Frost bewahrt nur die leere Verpackung für spätere Sendungen auf. Er macht aus einer privaten Gabe keine Eintrittsgebühr für sein Zimmer.",
+        "sets_flags": [
+          "bhn_brief_aus_calderwick_entschieden",
+          "bhn_brief_aus_calderwick_b_gewaehlt"
+        ],
+        "choices": [
+          {
+            "text": "Die Ausführung später quittieren."
+          }
+        ],
+        "gives_items": {
+          "vi_v_wegzehrung": 1
+        }
+      },
+      "bhn_schraubenschluessel_koop": {
+        "text": "Eine Person hält die Türrolle, die andere prüft den offenen Lüftungsspalt. Frost gibt das Werkzeug erst auf Nachfrage weiter. Allein fixiert eine Klemme die Rolle.",
+        "choices": [
+          {
+            "text": "So vorgehen.",
+            "next": "bhn_schraubenschluessel_koop_ja",
+            "hide_if_flags": [
+              "bhn_schraubenschluessel_koop_besprochen"
+            ]
+          },
+          {
+            "text": "Vorerst allein weiterprüfen."
+          }
+        ]
+      },
+      "bhn_schraubenschluessel_koop_ja": {
+        "text": "Du bestätigst die sichere Arbeitsteilung. Sie ändert weder die Beweislage noch den Lohn; jede Entscheidung bleibt ausdrücklich bei der betroffenen Person.",
+        "sets_flags": [
+          "bhn_schraubenschluessel_koop_besprochen"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "bhn_wintervorrat_koop": {
+        "text": "Eine Person liest den Bedarf vor, die andere fragt nach, ob die Formulierung stimmt. Beide hören die Antwort des Haushalts ab. Allein wird der Zettel laut gegengelesen.",
+        "choices": [
+          {
+            "text": "So vorgehen.",
+            "next": "bhn_wintervorrat_koop_ja",
+            "hide_if_flags": [
+              "bhn_wintervorrat_koop_besprochen"
+            ]
+          },
+          {
+            "text": "Vorerst allein weiterprüfen."
+          }
+        ]
+      },
+      "bhn_wintervorrat_koop_ja": {
+        "text": "Du bestätigst die sichere Arbeitsteilung. Sie ändert weder die Beweislage noch den Lohn; jede Entscheidung bleibt ausdrücklich bei der betroffenen Person.",
+        "sets_flags": [
+          "bhn_wintervorrat_koop_besprochen"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "bhn_e_kapellmeister": {
+    "choices_add": [
+      {
+        "text": "Die ungeschriebene Zeile",
+        "next": "bhn_kurkonzert_angebot",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt1_done"
+        ],
+        "hide_if_quests": [
+          "bhn_kurkonzert"
+        ],
+        "hide_if_flags": [
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Die ungeschriebene Zeile: Stand besprechen.",
+        "next": "bhn_kurkonzert_stand",
+        "requires_quests_active": [
+          "bhn_kurkonzert"
+        ]
+      },
+      {
+        "text": "Die ungeschriebene Zeile: Was blieb?",
+        "next": "bhn_kurkonzert_nachher",
+        "requires_quests_done": [
+          "bhn_kurkonzert"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "bhn_kurkonzert_angebot": {
+        "text": "Kapellmeister Orenna Pike hält den Taktstock quer über die Noten. „Wir spielen dasselbe Stück, damit niemand erschrickt. Die Gäste summen trotzdem eine zusätzliche Zeile.“ Sie möchte wissen, ob die Kapelle jemanden übertönt, nicht wer eine falsche Note verdient hat.",
+        "choices": [
+          {
+            "text": "Ich prüfe das.",
+            "next": "bhn_kurkonzert_annahme",
+            "hide_if_quests": [
+              "bhn_kurkonzert"
+            ]
+          },
+          {
+            "text": "Heute nicht."
+          }
+        ]
+      },
+      "bhn_kurkonzert_annahme": {
+        "text": "Du hältst den Auftrag „Die ungeschriebene Zeile“ getrennt von der Hauptuntersuchung fest. Die beiden Vergleichsstellen sind im Journal vermerkt; eine Entscheidung kannst du später bestätigen.",
+        "start_quests": [
+          "bhn_kurkonzert"
+        ],
+        "sets_flags": [
+          "bhn_kurkonzert_angenommen"
+        ],
+        "choices": [
+          {
+            "text": "Die Fundorte im Journal ansehen."
+          }
+        ]
+      },
+      "bhn_kurkonzert_stand": {
+        "text": "Du hältst an zwei Vergleichsstellen fest: Partitur mit unberührter Pause und Zettel aus der Teeküche. Erst wenn du beide Befunde verbunden hast, lässt sich eine begründete Folge bestätigen. Nach der Entscheidung kannst du hier die Ausführung quittieren.",
+        "choices": [
+          {
+            "text": "Die belegten Möglichkeiten abwägen.",
+            "next": "bhn_kurkonzert_wahl",
+            "requires_conclusions": [
+              "bhn_kurkonzert_schluss"
+            ],
+            "hide_if_flags": [
+              "bhn_kurkonzert_entschieden"
+            ]
+          },
+          {
+            "text": "Die vereinbarte Folge quittieren.",
+            "next": "bhn_kurkonzert_quittung",
+            "requires_flags": [
+              "bhn_kurkonzert_entschieden"
+            ],
+            "hide_if_flags": [
+              "bhn_kurkonzert_bezahlt"
+            ]
+          },
+          {
+            "text": "Ich prüfe die Fundorte weiter."
+          }
+        ]
+      },
+      "bhn_kurkonzert_wahl": {
+        "text": "Eine freiwillige Pause im Konzert einrichten. Das Stück absetzen und einen wortlosen Tanz spielen. Beide Wege lassen die vorhandenen Belege bestehen. Deine Entscheidung gilt für diesen Auftrag, nicht als Einwilligung in eine Behandlung.",
+        "choices": [
+          {
+            "text": "Eine freiwillige Pause im Konzert einrichten.",
+            "next": "bhn_kurkonzert_a",
+            "hide_if_flags": [
+              "bhn_kurkonzert_entschieden"
+            ]
+          },
+          {
+            "text": "Das Stück absetzen und einen wortlosen Tanz spielen.",
+            "next": "bhn_kurkonzert_b",
+            "hide_if_flags": [
+              "bhn_kurkonzert_entschieden"
+            ]
+          },
+          {
+            "text": "Noch nichts bestätigen."
+          }
+        ]
+      },
+      "bhn_kurkonzert_a": {
+        "text": "Orenna lässt den zusätzlichen Takt still. Wer summen möchte, darf es tun; wer schweigt, wird nicht aufgerufen. Zum ersten Mal endet das Konzert nicht für alle zugleich.",
+        "sets_flags": [
+          "bhn_kurkonzert_entschieden",
+          "bhn_kurkonzert_a_gewaehlt"
+        ],
+        "choices": [
+          {
+            "text": "Die Ausführung später quittieren."
+          }
+        ],
+        "bond": {
+          "bhn_e_kapellmeister": 2
+        }
+      },
+      "bhn_kurkonzert_b": {
+        "text": "Die Kapelle legt die alte Partitur ins Archiv und spielt einen gewöhnlichen Tanz. Einige Gäste vermissen den vertrauten Takt. Ihre Zettel bleiben verfügbar, ohne dass die Aufführung ihre Deutung festlegt.",
+        "sets_flags": [
+          "bhn_kurkonzert_entschieden",
+          "bhn_kurkonzert_b_gewaehlt"
+        ],
+        "choices": [
+          {
+            "text": "Die Ausführung später quittieren."
+          }
+        ],
+        "honor": 1
+      },
+      "bhn_kurkonzert_quittung": {
+        "text": "Die ausgeführte Vereinbarung zu „Die ungeschriebene Zeile“ ist quittiert. Du erhältst deinen Lohn genau einmal; die Herkunft der Unterlagen bleibt im Journal erhalten.",
+        "sets_flags": [
+          "bhn_kurkonzert_bezahlt"
+        ],
+        "complete_quests": [
+          "bhn_kurkonzert"
+        ],
+        "gives_money": 28,
+        "choices": [
+          {
+            "text": "Die Quittung behalten."
+          }
+        ]
+      },
+      "bhn_kurkonzert_nachher": {
+        "text": "Du fragst nach der tatsächlich gewählten Lösung. Die Antwort ersetzt keine spätere Entscheidung der Betroffenen.",
+        "choices": [
+          {
+            "text": "Wie steht es um die erste Vereinbarung?",
+            "next": "bhn_kurkonzert_folge_a",
+            "requires_flags": [
+              "bhn_kurkonzert_a_gewaehlt"
+            ]
+          },
+          {
+            "text": "Wie steht es um die zweite Vereinbarung?",
+            "next": "bhn_kurkonzert_folge_b",
+            "requires_flags": [
+              "bhn_kurkonzert_b_gewaehlt"
+            ]
+          },
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "bhn_kurkonzert_folge_a": {
+        "text": "Orenna lässt den zusätzlichen Takt still. Wer summen möchte, darf es tun; wer schweigt, wird nicht aufgerufen. Zum ersten Mal endet das Konzert nicht für alle zugleich. Die Quittung bleibt gültig; es gibt keine zweite Auszahlung.",
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_kurkonzert_folge_b": {
+        "text": "Die Kapelle legt die alte Partitur ins Archiv und spielt einen gewöhnlichen Tanz. Einige Gäste vermissen den vertrauten Takt. Ihre Zettel bleiben verfügbar, ohne dass die Aufführung ihre Deutung festlegt. Die Quittung bleibt gültig; es gibt keine zweite Auszahlung.",
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      }
+    }
+  },
+  "bhn_e_patientin": {
+    "choices_add": [
+      {
+        "text": "Keine Unterschrift für die Werbung",
+        "next": "bhn_elsbeth_angebot",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt2_done"
+        ],
+        "hide_if_quests": [
+          "bhn_elsbeth"
+        ],
+        "hide_if_flags": [
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Keine Unterschrift für die Werbung: Stand besprechen.",
+        "next": "bhn_elsbeth_stand",
+        "requires_quests_active": [
+          "bhn_elsbeth"
+        ]
+      },
+      {
+        "text": "Keine Unterschrift für die Werbung: Was blieb?",
+        "next": "bhn_elsbeth_nachher",
+        "requires_quests_done": [
+          "bhn_elsbeth"
+        ]
+      },
+      {
+        "text": "Deinen Winterbedarf getrennt prüfen.",
+        "next": "bhn_reserve_haushalt1_frage",
+        "requires_quests_active": [
+          "bhn_wintervorrat"
+        ],
+        "hide_if_flags": [
+          "bhn_reserve_haushalt1"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "bhn_elsbeth_angebot": {
+        "text": "Mara Sill legt den Werbeentwurf der Klinik mit dem Gesicht nach unten. „Ein wiedergefundener Name gehört nicht auf eine Preisliste.“ Du prüfst zuerst, ob der Vergleich aus Elsbeths freiwilligem Brief stammt oder aus Maras eigener örtlicher Erfahrung.",
+        "choices": [
+          {
+            "text": "Ich prüfe das.",
+            "next": "bhn_elsbeth_annahme",
+            "hide_if_quests": [
+              "bhn_elsbeth"
+            ]
+          },
+          {
+            "text": "Heute nicht."
+          }
+        ]
+      },
+      "bhn_elsbeth_annahme": {
+        "text": "Du hältst den Auftrag „Keine Unterschrift für die Werbung“ getrennt von der Hauptuntersuchung fest. Die beiden Vergleichsstellen sind im Journal vermerkt; eine Entscheidung kannst du später bestätigen.",
+        "start_quests": [
+          "bhn_elsbeth"
+        ],
+        "sets_flags": [
+          "bhn_elsbeth_angenommen"
+        ],
+        "choices": [
+          {
+            "text": "Die Fundorte im Journal ansehen."
+          }
+        ]
+      },
+      "bhn_elsbeth_stand": {
+        "text": "Du hältst an zwei Vergleichsstellen fest: Werbeabzug ohne Einwilligung und Grenze des Vergleichs. Erst wenn du beide Befunde verbunden hast, lässt sich eine begründete Folge bestätigen. Nach der Entscheidung kannst du hier die Ausführung quittieren.",
+        "choices": [
+          {
+            "text": "Den erlaubten persönlichen Vergleich anhören.",
+            "next": "bhn_elsbeth_quelle_ort",
+            "hide_if_flags": [
+              "k2_rowe_frei",
+              "bhn_elsbeth_quelle_gehoert"
+            ]
+          },
+          {
+            "text": "Den erlaubten persönlichen Vergleich anhören.",
+            "next": "bhn_elsbeth_quelle_brief",
+            "requires_flags": [
+              "k2_rowe_frei"
+            ],
+            "hide_if_flags": [
+              "bhn_elsbeth_quelle_gehoert"
+            ]
+          },
+          {
+            "text": "Die belegten Möglichkeiten abwägen.",
+            "next": "bhn_elsbeth_wahl",
+            "requires_conclusions": [
+              "bhn_elsbeth_schluss"
+            ],
+            "hide_if_flags": [
+              "bhn_elsbeth_entschieden"
+            ],
+            "requires_flags": [
+              "bhn_elsbeth_quelle_gehoert"
+            ]
+          },
+          {
+            "text": "Die vereinbarte Folge quittieren.",
+            "next": "bhn_elsbeth_quittung",
+            "requires_flags": [
+              "bhn_elsbeth_entschieden"
+            ],
+            "hide_if_flags": [
+              "bhn_elsbeth_bezahlt"
+            ]
+          },
+          {
+            "text": "Ich prüfe die Fundorte weiter."
+          }
+        ]
+      },
+      "bhn_elsbeth_wahl": {
+        "text": "Den persönlichen Vergleich aus der Werbung zurückziehen. Eine sachliche Berichtigung ohne Namen aushängen. Beide Wege lassen die vorhandenen Belege bestehen. Deine Entscheidung gilt für diesen Auftrag, nicht als Einwilligung in eine Behandlung.",
+        "choices": [
+          {
+            "text": "Den persönlichen Vergleich aus der Werbung zurückziehen.",
+            "next": "bhn_elsbeth_a",
+            "hide_if_flags": [
+              "bhn_elsbeth_entschieden"
+            ]
+          },
+          {
+            "text": "Eine sachliche Berichtigung ohne Namen aushängen.",
+            "next": "bhn_elsbeth_b",
+            "hide_if_flags": [
+              "bhn_elsbeth_entschieden"
+            ]
+          },
+          {
+            "text": "Noch nichts bestätigen."
+          }
+        ]
+      },
+      "bhn_elsbeth_a": {
+        "text": "Mara lässt den Abzug ohne Namen und Bild durchstreichen. Der persönliche Vergleich bleibt privat. Die Klinik kann mit dieser Seite keinen Erfolg mehr behaupten, muss aber noch nicht öffentlich antworten.",
+        "sets_flags": [
+          "bhn_elsbeth_entschieden",
+          "bhn_elsbeth_a_gewaehlt"
+        ],
+        "choices": [
+          {
+            "text": "Die Ausführung später quittieren."
+          }
+        ],
+        "bond": {
+          "bhn_e_patientin": 2
+        }
+      },
+      "bhn_elsbeth_b": {
+        "text": "Der neue Aushang unterscheidet persönliche Erfahrung und Heilversprechen. Keine private Zeile wird zitiert. Mara bleibt neben dem Blatt stehen, bis die Klinik den alten Abzug eingezogen hat.",
+        "sets_flags": [
+          "bhn_elsbeth_entschieden",
+          "bhn_elsbeth_b_gewaehlt"
+        ],
+        "choices": [
+          {
+            "text": "Die Ausführung später quittieren."
+          }
+        ],
+        "honor": 2
+      },
+      "bhn_elsbeth_quittung": {
+        "text": "Die ausgeführte Vereinbarung zu „Keine Unterschrift für die Werbung“ ist quittiert. Du erhältst deinen Lohn genau einmal; die Herkunft der Unterlagen bleibt im Journal erhalten.",
+        "sets_flags": [
+          "bhn_elsbeth_bezahlt"
+        ],
+        "complete_quests": [
+          "bhn_elsbeth"
+        ],
+        "gives_money": 32,
+        "choices": [
+          {
+            "text": "Die Quittung behalten."
+          }
+        ]
+      },
+      "bhn_elsbeth_nachher": {
+        "text": "Du fragst nach der tatsächlich gewählten Lösung. Die Antwort ersetzt keine spätere Entscheidung der Betroffenen.",
+        "choices": [
+          {
+            "text": "Wie steht es um die erste Vereinbarung?",
+            "next": "bhn_elsbeth_folge_a",
+            "requires_flags": [
+              "bhn_elsbeth_a_gewaehlt"
+            ]
+          },
+          {
+            "text": "Wie steht es um die zweite Vereinbarung?",
+            "next": "bhn_elsbeth_folge_b",
+            "requires_flags": [
+              "bhn_elsbeth_b_gewaehlt"
+            ]
+          },
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "bhn_elsbeth_folge_a": {
+        "text": "Mara lässt den Abzug ohne Namen und Bild durchstreichen. Der persönliche Vergleich bleibt privat. Die Klinik kann mit dieser Seite keinen Erfolg mehr behaupten, muss aber noch nicht öffentlich antworten. Die Quittung bleibt gültig; es gibt keine zweite Auszahlung.",
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_elsbeth_folge_b": {
+        "text": "Der neue Aushang unterscheidet persönliche Erfahrung und Heilversprechen. Keine private Zeile wird zitiert. Mara bleibt neben dem Blatt stehen, bis die Klinik den alten Abzug eingezogen hat. Die Quittung bleibt gültig; es gibt keine zweite Auszahlung.",
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_elsbeth_quelle_brief": {
+        "text": "Elsbeth schreibt: „Ich kann meinen Namen wieder sagen. Nicht jeder verlorene Tag ist deshalb zurück. Wenn du davon erzählst, gib meinen Brief nicht der Klinik.“ Mara liest nur die von Elsbeth freigegebene Vergleichszeile.",
+        "sets_flags": [
+          "bhn_elsbeth_quelle_gehoert",
+          "bhn_elsbeth_quelle_brief_da"
+        ],
+        "choices": [
+          {
+            "text": "Keine Werbeerlaubnis daraus machen."
+          }
+        ]
+      },
+      "bhn_elsbeth_quelle_ort": {
+        "text": "Mara sagt: „Meine Schwester schrieb meinen Namen auf die Tasse, und ich übte ihn jeden Morgen. Das hat mir geholfen, aber niemand hat mir verlorene Tage zurückgegeben.“ Ihre Erfahrung stammt aus Briarholt und handelt nicht von Elsbeth.",
+        "sets_flags": [
+          "bhn_elsbeth_quelle_gehoert",
+          "bhn_elsbeth_quelle_ort_da"
+        ],
+        "choices": [
+          {
+            "text": "Keine Werbeerlaubnis daraus machen."
+          }
+        ]
+      },
+      "bhn_reserve_haushalt1_frage": {
+        "text": "Mara möchte Besuch nur nach Klopfen. Sie erlaubt eine Messung am äußeren Heizkörper und möchte ihre Zusatzdecke behalten. Die Grundversorgung bleibt während der Prüfung unangetastet.",
+        "choices": [
+          {
+            "text": "Genau diesen Bedarf bestätigen.",
+            "next": "bhn_reserve_haushalt1_ja",
+            "hide_if_flags": [
+              "bhn_reserve_haushalt1"
+            ]
+          },
+          {
+            "text": "Noch nichts eintragen."
+          }
+        ]
+      },
+      "bhn_reserve_haushalt1_ja": {
+        "text": "Du vermerkst die Antwort dieses Haushalts einzeln. Der nächste Haushalt wird erneut gefragt; niemand unterschreibt für andere.",
+        "sets_flags": [
+          "bhn_reserve_haushalt1"
+        ],
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      }
+    }
+  },
+  "bhn_e_kiosk": {
+    "choices_add": [
+      {
+        "text": "Den freigegebenen Gartenbedarf ansehen.",
+        "next": "bhn_kiosk_handel",
+        "requires_flags": [
+          "k5_arrived"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "bhn_kiosk_handel": {
+        "text": "Nell legt die vorhandene Gartenliste auf den Tresen. „Nur gewöhnliche Ware. Für verschlossene Kapseln gibt es hier keinen Preis.“",
+        "shop": "vi_handel_garten",
+        "choices": [
+          {
+            "text": "Die Liste wieder schließen."
+          }
+        ]
+      }
+    }
+  },
+  "bhn_e_lehrer": {
+    "choices_add": [
+      {
+        "text": "Deinen Winterbedarf getrennt prüfen.",
+        "next": "bhn_reserve_haushalt2_frage",
+        "requires_quests_active": [
+          "bhn_wintervorrat"
+        ],
+        "hide_if_flags": [
+          "bhn_reserve_haushalt2"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "bhn_reserve_haushalt2_frage": {
+        "text": "Tobin möchte die Zahlen selbst ablesen. Er schlägt einen gemeinsamen Lesetermin vor, lehnt aber eine Unterschrift für seine Nachbarn ab. Die Grundversorgung bleibt während der Prüfung unangetastet.",
+        "choices": [
+          {
+            "text": "Genau diesen Bedarf bestätigen.",
+            "next": "bhn_reserve_haushalt2_ja",
+            "hide_if_flags": [
+              "bhn_reserve_haushalt2"
+            ]
+          },
+          {
+            "text": "Noch nichts eintragen."
+          }
+        ]
+      },
+      "bhn_reserve_haushalt2_ja": {
+        "text": "Du vermerkst die Antwort dieses Haushalts einzeln. Der nächste Haushalt wird erneut gefragt; niemand unterschreibt für andere.",
+        "sets_flags": [
+          "bhn_reserve_haushalt2"
+        ],
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      }
+    }
+  },
+  "bhn_e_naeherin": {
+    "choices_add": [
+      {
+        "text": "Deinen Winterbedarf getrennt prüfen.",
+        "next": "bhn_reserve_haushalt3_frage",
+        "requires_quests_active": [
+          "bhn_wintervorrat"
+        ],
+        "hide_if_flags": [
+          "bhn_reserve_haushalt3"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "bhn_reserve_haushalt3_frage": {
+        "text": "Iva braucht einen trockenen Arbeitswinkel statt höherer Raumwärme. Sie zeigt dir den offenen Lüftungsspalt und die freigegebene Türrolle. Die Grundversorgung bleibt während der Prüfung unangetastet.",
+        "choices": [
+          {
+            "text": "Genau diesen Bedarf bestätigen.",
+            "next": "bhn_reserve_haushalt3_ja",
+            "hide_if_flags": [
+              "bhn_reserve_haushalt3"
+            ]
+          },
+          {
+            "text": "Noch nichts eintragen."
+          }
+        ]
+      },
+      "bhn_reserve_haushalt3_ja": {
+        "text": "Du vermerkst die Antwort dieses Haushalts einzeln. Der nächste Haushalt wird erneut gefragt; niemand unterschreibt für andere.",
+        "sets_flags": [
+          "bhn_reserve_haushalt3"
+        ],
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      }
+    }
+  },
+  "bhn_e_koechin": {
+    "choices_add": [
+      {
+        "text": "Deinen Winterbedarf getrennt prüfen.",
+        "next": "bhn_reserve_haushalt4_frage",
+        "requires_quests_active": [
+          "bhn_wintervorrat"
+        ],
+        "hide_if_flags": [
+          "bhn_reserve_haushalt4"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "bhn_reserve_haushalt4_frage": {
+        "text": "Ada braucht Zusatzwärme nur während der Essensausgabe. Sie bietet danach den Speisesaal als freiwillige Wärmestube an, nicht als Ersatz für Wohnungen. Die Grundversorgung bleibt während der Prüfung unangetastet.",
+        "choices": [
+          {
+            "text": "Genau diesen Bedarf bestätigen.",
+            "next": "bhn_reserve_haushalt4_ja",
+            "hide_if_flags": [
+              "bhn_reserve_haushalt4"
+            ]
+          },
+          {
+            "text": "Noch nichts eintragen."
+          }
+        ]
+      },
+      "bhn_reserve_haushalt4_ja": {
+        "text": "Du vermerkst die Antwort dieses Haushalts einzeln. Der nächste Haushalt wird erneut gefragt; niemand unterschreibt für andere.",
+        "sets_flags": [
+          "bhn_reserve_haushalt4"
+        ],
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      }
+    }
+  }
+}

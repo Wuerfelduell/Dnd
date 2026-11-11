@@ -1,0 +1,746 @@
+{
+  "bhn_e_patientin": {
+    "start": "bhn_e_patientin_start",
+    "nodes": {
+      "bhn_e_patientin_start": {
+        "text": "Mara Sill hält inne, als du näherkommst. Du kannst eine Frage stellen oder weitergehen.",
+        "choices": [
+          {
+            "text": "Wie möchtest du angesprochen werden?",
+            "next": "bhn_e_patientin_thema1"
+          },
+          {
+            "text": "Was fehlt dir?",
+            "next": "bhn_e_patientin_thema2"
+          },
+          {
+            "text": "Was hilft dir im Alltag?",
+            "next": "bhn_e_patientin_thema3"
+          },
+          {
+            "text": "Möchtest du etwas zurückhaben?",
+            "next": "bhn_e_patientin_thema4"
+          },
+          {
+            "text": "Was soll in der Zeitung stehen?",
+            "next": "bhn_e_patientin_thema5"
+          },
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "bhn_e_patientin_thema1": {
+        "text": "„Mara reicht. Den Familiennamen kenne ich, aber heute möchte ich ihn nicht überall hören.“ Sie rückt einen zweiten Stuhl heran, ohne dich zum Sitzen zu verpflichten.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_patientin_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_patientin_thema2": {
+        "text": "„Ich weiß, dass ich gern gerechnet habe. Nur nicht mehr, wem ich die erste Lohntüte zeigen wollte.“ Mara bittet dich, keine passende Familie für diese Lücke zu suchen.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_patientin_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_patientin_thema3": {
+        "text": "„Eine Kanne, deren Griff ich erkenne. Und Leute, die warten, wenn ich den Satz neu beginne.“ Der Tee ist gewöhnlich, versichert sie; sie hat die Blätter selbst gekauft.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_patientin_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_patientin_thema4": {
+        "text": "„Erkläre mir erst, was überhaupt erhalten ist. Danach entscheide ich.“ Dieses Gespräch vermerkt weder Rückgabe noch Verwahrung als Zustimmung.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_patientin_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_patientin_thema5": {
+        "text": "„Dass ich meinen Brief selbst falte. Ein Heilbericht ist das nicht.“ Sie streicht die vorgedruckte Dankeszeile aus.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_patientin_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      }
+    }
+  },
+  "bhn_e_kapellmeister": {
+    "start": "bhn_e_kapellmeister_start",
+    "nodes": {
+      "bhn_e_kapellmeister_start": {
+        "text": "Orenna Pike hält inne, als du näherkommst. Du kannst eine Frage stellen oder weitergehen.",
+        "choices": [
+          {
+            "text": "Warum immer dasselbe Stück?",
+            "next": "bhn_e_kapellmeister_thema1"
+          },
+          {
+            "text": "Ist die Kapelle vollständig?",
+            "next": "bhn_e_kapellmeister_thema2"
+          },
+          {
+            "text": "Was hörst du zwischen den Takten?",
+            "next": "bhn_e_kapellmeister_thema3"
+          },
+          {
+            "text": "Spielst du draußen bei Frost?",
+            "next": "bhn_e_kapellmeister_thema4"
+          },
+          {
+            "text": "Was wäre dein nächstes Konzert?",
+            "next": "bhn_e_kapellmeister_thema5"
+          },
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "bhn_e_kapellmeister_thema1": {
+        "text": "„Die Verwaltung bestellt Wiedererkennbarkeit. Ich liefere Musik und bekomme gelegentlich beides verwechselt.“ Orenna hebt die Noten erst auf, nachdem die Gäste gegangen sind.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_kapellmeister_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_kapellmeister_thema2": {
+        "text": "„Heute fehlt ein Horn, weil sein Besitzer schlafen möchte. Das ist kein musikalisches Verbrechen.“ Sein Stuhl bleibt frei, sein Lohnzettel liegt bereit.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_kapellmeister_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_kapellmeister_thema3": {
+        "text": "„Schritte, Husten, manchmal eine eigene Melodie. Ich schreibe nicht alles ab, bloß weil ich Notenpapier habe.“ Sie schließt ihr privates Heft.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_kapellmeister_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_kapellmeister_thema4": {
+        "text": "„Die Bläser bekommen Pausen, die Instrumente Tücher. Das Publikum darf früher gehen.“ Eine volle Bank ist für sie kein Beweis guter Gesundheit.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_kapellmeister_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_kapellmeister_thema5": {
+        "text": "„Eines, dessen Ende nicht vorher im Kurplan steht.“ Sie lächelt über die Unverschämtheit dieses Wunsches.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_kapellmeister_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      }
+    }
+  },
+  "bhn_e_kiosk": {
+    "start": "bhn_e_kiosk_start",
+    "nodes": {
+      "bhn_e_kiosk_start": {
+        "text": "Nell Rusk hält inne, als du näherkommst. Du kannst eine Frage stellen oder weitergehen.",
+        "choices": [
+          {
+            "text": "Was verkaufst du?",
+            "next": "bhn_e_kiosk_thema1"
+          },
+          {
+            "text": "Wer liefert die Waren?",
+            "next": "bhn_e_kiosk_thema2"
+          },
+          {
+            "text": "Sind die Postkarten vorgeschrieben?",
+            "next": "bhn_e_kiosk_thema3"
+          },
+          {
+            "text": "Warum schließt du nachts?",
+            "next": "bhn_e_kiosk_thema4"
+          },
+          {
+            "text": "Was schuldet dir die Klinik?",
+            "next": "bhn_e_kiosk_thema5"
+          },
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "bhn_e_kiosk_thema1": {
+        "text": "„Gewöhnlichen Gartenbedarf aus freigegebenen Kisten. Für Wunder fehlt mir die Preisliste.“ Nell legt Schnur, leere Flaschen und trockene Stoffreste nebeneinander.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_kiosk_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_kiosk_thema2": {
+        "text": "„Die Gartenrolle der Lieferliste. Eine eigene Kioskrolle hat noch niemand angelegt.“ Sie verkauft keine versiegelten Patientenproben.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_kiosk_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_kiosk_thema3": {
+        "text": "„Die Sätze darauf schon. Die Rückseite nicht.“ Nell gibt jedem Käufer eine freie Ecke zum Schreiben.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_kiosk_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_kiosk_thema4": {
+        "text": "„Weil auch eine Kasse schlafen darf. Die Kutsche zählt ihre Fahrgäste allein.“ Ihren Stand schiebt sie unter das Gepäckdach.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_kiosk_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_kiosk_thema5": {
+        "text": "„Drei leere Körbe. Ich nehme keine dankbaren Patienten als Ersatz.“ Sie deutet auf drei deutlich beschriftete Haken.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_kiosk_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      }
+    }
+  },
+  "bhn_e_lehrer": {
+    "start": "bhn_e_lehrer_start",
+    "nodes": {
+      "bhn_e_lehrer_start": {
+        "text": "Tobin Yew hält inne, als du näherkommst. Du kannst eine Frage stellen oder weitergehen.",
+        "choices": [
+          {
+            "text": "Was unterrichtest du noch?",
+            "next": "bhn_e_lehrer_thema1"
+          },
+          {
+            "text": "Warum bist du hier?",
+            "next": "bhn_e_lehrer_thema2"
+          },
+          {
+            "text": "Was möchtest du behalten?",
+            "next": "bhn_e_lehrer_thema3"
+          },
+          {
+            "text": "Darf Enna mit dir sprechen?",
+            "next": "bhn_e_lehrer_thema4"
+          },
+          {
+            "text": "Was steht in deinem Heft?",
+            "next": "bhn_e_lehrer_thema5"
+          },
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "bhn_e_lehrer_thema1": {
+        "text": "„Niemanden ohne Nachfrage. Nach vierzig Jahren ist das eine neue Unterrichtsform.“ Tobin trägt ein Rechenheft ohne Schülernamen.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_lehrer_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_lehrer_thema2": {
+        "text": "„Ich wollte wieder schlafen. Jetzt kenne ich die Stunden, aber nicht mehr alle Gründe, morgens aufzustehen.“ Er bittet um einen gewöhnlichen Spaziergang.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_lehrer_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_lehrer_thema3": {
+        "text": "„Dass ich widersprechen darf. Auch wenn ich gestern etwas anderes gesagt habe.“ Er sieht zur Klinik, ohne eine Behandlung zu bestellen.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_lehrer_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_lehrer_thema4": {
+        "text": "„Ja, wenn sie erklärt, welche Reste wirklich meine sind. Eine Antwort kann ich erst dann geben.“ Noch ist keine Patientenentscheidung getroffen.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_lehrer_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_lehrer_thema5": {
+        "text": "„Das Wetter. Es hat bisher keine Beschwerde über meine Handschrift eingelegt.“ Zwischen den Einträgen bleiben absichtlich freie Tage.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_lehrer_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      }
+    }
+  },
+  "bhn_e_naeherin": {
+    "start": "bhn_e_naeherin_start",
+    "nodes": {
+      "bhn_e_naeherin_start": {
+        "text": "Iva Quill hält inne, als du näherkommst. Du kannst eine Frage stellen oder weitergehen.",
+        "choices": [
+          {
+            "text": "Welche Naht hält hier?",
+            "next": "bhn_e_naeherin_thema1"
+          },
+          {
+            "text": "Ist diese Wäsche frei?",
+            "next": "bhn_e_naeherin_thema2"
+          },
+          {
+            "text": "Hörst du die Wäscherei?",
+            "next": "bhn_e_naeherin_thema3"
+          },
+          {
+            "text": "Wie hältst du den Winter aus?",
+            "next": "bhn_e_naeherin_thema4"
+          },
+          {
+            "text": "Was wünschst du dir?",
+            "next": "bhn_e_naeherin_thema5"
+          },
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "bhn_e_naeherin_thema1": {
+        "text": "„Die, die man wieder öffnen kann. Für Bettwäsche und Verträge eine brauchbare Regel.“ Iva schneidet nur einen losen Faden ab.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_naeherin_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_naeherin_thema2": {
+        "text": "„Die trockenen Reste im rechten Korb. Der linke gehört Gästen.“ Sie erlaubt keine Suche in den Taschen fremder Mäntel.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_naeherin_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_naeherin_thema3": {
+        "text": "„Manchmal. Ich arbeite deshalb oben und lasse den Keller zu.“ Der sichere Bügelraum hat einen anderen Eingang.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_naeherin_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_naeherin_thema4": {
+        "text": "„Mit einer Türrolle und freier Lüftung. Wer beides verwechselt, braucht keine Gespenster.“ Sie prüft die trockene Füllung.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_naeherin_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_naeherin_thema5": {
+        "text": "„Eine Rechnung, auf der meine Hände nicht als Klinikgerät stehen.“ Sie nennt dir ihren Lohn, ohne ein Geheimnis daraus zu machen.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_naeherin_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      }
+    }
+  },
+  "bhn_e_koechin": {
+    "start": "bhn_e_koechin_start",
+    "nodes": {
+      "bhn_e_koechin_start": {
+        "text": "Ada Brindle hält inne, als du näherkommst. Du kannst eine Frage stellen oder weitergehen.",
+        "choices": [
+          {
+            "text": "Was ist im Topf?",
+            "next": "bhn_e_koechin_thema1"
+          },
+          {
+            "text": "Wer darf essen?",
+            "next": "bhn_e_koechin_thema2"
+          },
+          {
+            "text": "Wie führst du die Kasse?",
+            "next": "bhn_e_koechin_thema3"
+          },
+          {
+            "text": "Was kostet Zusatzwärme?",
+            "next": "bhn_e_koechin_thema4"
+          },
+          {
+            "text": "Was soll bleiben?",
+            "next": "bhn_e_koechin_thema5"
+          },
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "bhn_e_koechin_thema1": {
+        "text": "„Rüben, Wasser, Salz. Die Erinnerung an Fleisch ist meine, nicht deine.“ Ada hebt den Deckel für dich.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_koechin_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_koechin_thema2": {
+        "text": "„Wer hungrig ist. Die Klinik darf ihre Listen gern selbst kauen.“ Es gibt gewöhnliche Portionen, keine Behandlung im Essen.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_koechin_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_koechin_thema3": {
+        "text": "„Getrennt vom Rezeptbuch. Geld erklärt selten, wann eine Suppe anbrennt.“ Jede Zahlung kann am offenen Tisch geprüft werden.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_koechin_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_koechin_thema4": {
+        "text": "„Unterschiedlich, behauptet Jasper. Meine Töpfe haben davon nichts gewusst.“ Sie hebt die Quittungen für die Prüfung auf.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_koechin_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_koechin_thema5": {
+        "text": "„Ein Tisch, an dem eine Ablehnung keine Entlassung bedeutet.“ Ada stellt einen leeren Teller zurück, ohne einen Namen zu verlangen.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_koechin_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      }
+    }
+  },
+  "bhn_e_bote": {
+    "start": "bhn_e_bote_start",
+    "nodes": {
+      "bhn_e_bote_start": {
+        "text": "Perrin Tuck hält inne, als du näherkommst. Du kannst eine Frage stellen oder weitergehen.",
+        "choices": [
+          {
+            "text": "Liest du die Karten?",
+            "next": "bhn_e_bote_thema1"
+          },
+          {
+            "text": "Was ist eine fehlende Anrede?",
+            "next": "bhn_e_bote_thema2"
+          },
+          {
+            "text": "Kann eine Antwort warten?",
+            "next": "bhn_e_bote_thema3"
+          },
+          {
+            "text": "Wer kam aus Calderwick?",
+            "next": "bhn_e_bote_thema4"
+          },
+          {
+            "text": "Was bleibt im Winter offen?",
+            "next": "bhn_e_bote_thema5"
+          },
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "bhn_e_bote_thema1": {
+        "text": "„Nur die Anschriften. Den Rest sehe ich manchmal, aber ich nehme ihn nicht in Dienst.“ Perrin wendet einen offenen Gruß nach unten.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_bote_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_bote_thema2": {
+        "text": "„Für die Zustellung ein Problem. Für die Klinik offenbar ein Erfolg.“ Er trennt unzustellbare Post von nicht gewünschter Post.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_bote_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_bote_thema3": {
+        "text": "„Eine Antwort darf sogar ausbleiben. Ich transportiere keine Verpflichtungen.“ Ein Rückschein belegt nur den Empfang.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_bote_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_bote_thema4": {
+        "text": "„Ein Paket. Menschen sind keine Beilagen.“ Er verweist auf das Absendersiegel, bevor er einen Namen nennt.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_bote_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_bote_thema5": {
+        "text": "„Der öffentliche Weg. Die Glastüren können zufrieren, mein Dienstzettel leider nicht.“ Er zeigt auf seine mit Draht reparierten Sohlen.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_bote_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      }
+    }
+  },
+  "bhn_e_wart": {
+    "start": "bhn_e_wart_start",
+    "nodes": {
+      "bhn_e_wart_start": {
+        "text": "Edric Loam hält inne, als du näherkommst. Du kannst eine Frage stellen oder weitergehen.",
+        "choices": [
+          {
+            "text": "Was wächst ohne Behandlung?",
+            "next": "bhn_e_wart_thema1"
+          },
+          {
+            "text": "Warum die umgedrehten Schilder?",
+            "next": "bhn_e_wart_thema2"
+          },
+          {
+            "text": "Was machen die Nachtfalter?",
+            "next": "bhn_e_wart_thema3"
+          },
+          {
+            "text": "Wem gehört ein Name im Beet?",
+            "next": "bhn_e_wart_thema4"
+          },
+          {
+            "text": "Was ist dein Feierabend?",
+            "next": "bhn_e_wart_thema5"
+          },
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "bhn_e_wart_thema1": {
+        "text": "„Kresse, wenn man sie lässt. Sie braucht keine Abschiedsrede.“ Edric hält die gewöhnlichen Töpfe von den versiegelten Beeten fern.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_wart_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_wart_thema2": {
+        "text": "„Frag Adeline. Ich drehe nichts zurück, nur weil ich neugierig bin.“ Er prüft stattdessen den Verschluss der leeren Gießkanne.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_wart_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_wart_thema3": {
+        "text": "„Sie kommen bei Wärme. Das Kalenderblatt interessiert sie weniger.“ Die gewöhnlichen Falter sind keine Glasmotten.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_wart_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_wart_thema4": {
+        "text": "„Jedenfalls nicht dem Gärtner.“ Edric nennt keine Zuordnung, die er nur gehört hat.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_wart_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bhn_e_wart_thema5": {
+        "text": "„Werkzeug zählen, Hände waschen, niemanden mit der Schere wecken.“ Er lässt den Ausgang zwischen den Kübeln frei.",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "bhn_e_wart_start"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      }
+    }
+  }
+}

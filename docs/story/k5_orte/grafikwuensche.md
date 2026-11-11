@@ -1,0 +1,18 @@
+# Zusätzliche Grafikwünsche CH
+
+Nur neue CH-Objekte und der reservierte Aussaatschwarm. CI übernimmt Orte, BI die bestehenden BH-Gegner und BM die vorhandenen Vorratsobjekte. `platzhalter` ist ausschließlich eine Vorschauzuordnung in dieser Liste, kein Feld der Spieldaten.
+
+| ID | Art | Beschreibung | Englischer Prompt | platzhalter |
+|---|---|---|---|---|
+| `bho_ventilschluessel` | Item-Icon 16×16 | Vierkant-Ventilschlüssel: Ein kurzer Schlüssel für die Handräder des Überschussnetzes. Er passt nicht zur versiegelten Wohnungsleitung. | A short brass square socket valve key, worn handle, no lettering. | `public/sprites/items/vi_m_kupferrohrstueck.png` |
+| `bho_kondensatglas` | Item-Icon 16×16 | Kondensatglas: Ein schmales Glas mit klarer Innenfläche. Beschlag zeigt seinen Verlauf, aber keinen Namen von selbst. | A narrow clear glass slide with a pale condensation patch and crisp brass rim. | `public/sprites/items/vi_m_glasscherbe_beschlagen.png` |
+| `bho_kurgastmarke` | Item-Icon 16×16 | Ungelochte Kurgast-Marke: Eine Messingmarke ohne Lochung. Sie belegt weder eine Einweisung noch eine Zustimmung. | An unpunched brass spa token, blank face, a small leaf notch. | `public/sprites/items/vi_m_wegzoll_marke.png` |
+| `bho_palmhausdattel` | Item-Icon 16×16 | Palmhaus-Dattel: Eine gewöhnliche Dattel aus dem unmarkierten Lebensmittelkorb. Keine Erinnerung steckt darin. | One ordinary dried date with a folded brown palm leaf, no supernatural glow. | `public/sprites/items/vi_m_pfirsichholz.png` |
+| `bho_ruecklaufplombe` | Item-Icon 16×16 | Geteilte Rücklaufplombe: Eine aufgebrochene Plombe, deren zwei Hälften noch zusammenpassen. | Two matching halves of a broken copper return pipe seal. | `public/sprites/items/vi_m_rohrpostkapsel_leer.png` |
+| `bho_porzellanschieber` | Item-Icon 16×16 | Porzellanschieber: Ein kühler kleiner Schieber aus dem Ventilgehäuse. Sein Anschlag ist von Hand nachgefeilt. | A small bone-colored porcelain slide with a hand-filed stop. | `public/sprites/items/vi_m_kupferrohrstueck.png` |
+| `bho_reifkamm` | Item-Icon 16×16 | Reifkamm: Ein stumpfer Messingkamm zum Abnehmen von Reif, ohne die Scheibe zu zerkratzen. | A blunt brass frost comb with four widely spaced teeth. | `public/sprites/items/vi_m_kupferrohrstueck.png` |
+| `bho_ventilrose` | Item-Icon 16×16 | Ventilrose: Die abgelöste Blende eines Handrads, mit drei fühlbaren Kerben statt einer Farbcodierung. | A detached circular valve escutcheon with three tactile notches. | `public/sprites/items/vi_m_kupferrohrstueck.png` |
+| `bho_kuehlfilz` | Item-Icon 16×16 | Trockener Kühlfilz: Dichter Filz einer außer Betrieb genommenen Transporthülle. Keine neue Opferprobe. | A small folded piece of dense slate-blue insulating felt. | `public/sprites/items/vi_m_kurwaesche.png` |
+| `bho_ruecklaufstreifen` | Item-Icon 16×16 | Rücklauf-Prüfstreifen: Ein sauber abgezeichneter Messstreifen. Die Skala unterscheidet Wärme und Belastung. | A thin folded diagnostic strip with two distinct abstract traces, no writing. | `public/sprites/items/vi_m_registerband.png` |
+| `bho_kalte_handhabe` | Item-Icon 16×16 | Die kalte Handhabe: Eine kalte Handhabe macht den kommenden Stoß leichter lesbar, lässt aber jedes Geräusch näher erscheinen. | A cold brass handgrip with a restrained turquoise reflection and dark cloth wrap. | `public/sprites/items/vi_amulett_pfirsichkern.png` |
+| `bha_aussaat_schwarm` | Kampf-Gegner, 64×64 je Frame, 6 Spalten | Ein lockerer Schwarm aufgeplatzter Samenschoten über einer leeren Auffangwanne, ohne menschliche Körperteile. | A compact cloud of split seed pods and pale root fibers escaping a brass distribution pipe. Six readable combat poses, no human body parts, no writing. | `public/sprites/battle/enemy_vg_bh_bluetenkopf.png` |

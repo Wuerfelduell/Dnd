@@ -1,0 +1,81 @@
+{
+  "format": "nebel-musik-1",
+  "id": "bh_greavesend",
+  "titel": "Walzer ohne Mitgefühl",
+  "art": "musik",
+  "bpm": 56,
+  "takt": [
+    3,
+    4
+  ],
+  "loop": true,
+  "lautstaerke": 0.62,
+  "hall": 0.32,
+  "spuren": {
+    "s0": {
+      "instrument": "klavier",
+      "lautstaerke": 0.48,
+      "pan": 0
+    },
+    "s1": {
+      "instrument": "streicher",
+      "lautstaerke": 0.24,
+      "pan": -0.2
+    }
+  },
+  "muster": {
+    "intro_s0": {
+      "spur": "s0",
+      "takte": 2,
+      "noten": "r:6 d4:6 | r:12"
+    },
+    "A_s0": {
+      "spur": "s0",
+      "takte": 10,
+      "noten": "d5:2 a4:2 r:8 | r:12 | e5:2 b4:2 r:8 | r:12 | d5:2 a4:2 r:8 | r:12 | e5:2 b4:2 r:8 | r:12 | d5:2 a4:2 r:8 | r:12"
+    },
+    "B_s0": {
+      "spur": "s0",
+      "takte": 9,
+      "noten": "f5:2 e5:2 r:8 | r:12 | d#5:2 d5:2 r:8 | r:12 | f5:2 e5:2 r:8 | r:12 | d#5:2 d5:2 r:8 | r:12 | f5:2 e5:2 r:8"
+    },
+    "B_s1": {
+      "spur": "s1",
+      "takte": 9,
+      "noten": "[a#2,c#3,f3]:12@0.35 | [a#2,c#3,f3]:12@0.35 | [a#2,c#3,f3]:12@0.35 | [a#2,c#3,f3]:12@0.35 | [a#2,c#3,f3]:12@0.35 | [a#2,c#3,f3]:12@0.35 | [a#2,c#3,f3]:12@0.35 | [a#2,c#3,f3]:12@0.35 | [a#2,c#3,f3]:12@0.35"
+    },
+    "C_s0": {
+      "spur": "s0",
+      "takte": 9,
+      "noten": "d5:2 a4:2 r:8 | r:12 | e5:2 b4:2 r:8 | r:12 | d5:2 a4:2 r:8 | r:12 | e5:2 b4:2 r:8 | r:12 | d5:2 a4:2 r:8"
+    },
+    "C_s1": {
+      "spur": "s1",
+      "takte": 9,
+      "noten": "[g3,a#3,d4]:12@0.35 | [g3,a#3,d4]:12@0.35 | [g3,a#3,d4]:12@0.35 | [g3,a#3,d4]:12@0.35 | [g3,a#3,d4]:12@0.35 | [g3,a#3,d4]:12@0.35 | [g3,a#3,d4]:12@0.35 | [g3,a#3,d4]:12@0.35 | [g3,a#3,d4]:12@0.35"
+    }
+  },
+  "abschnitte": {
+    "intro": [
+      "intro_s0"
+    ],
+    "A": [
+      "A_s0"
+    ],
+    "B": [
+      "B_s0",
+      "B_s1"
+    ],
+    "C": [
+      "C_s0",
+      "C_s1"
+    ]
+  },
+  "ablauf": [
+    "intro",
+    "A",
+    "B",
+    "C"
+  ],
+  "loop_ab": 1
+}

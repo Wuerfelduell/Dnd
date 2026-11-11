@@ -1,0 +1,618 @@
+{
+  "bj_bh_bellweather": {
+    "choices_add": [
+      {
+        "text": "Akt 1: Die Fährten besprechen.",
+        "next": "bha_abschluss1",
+        "requires_flags": [
+          "bha_11_geschlossen",
+          "bha_12_geschlossen",
+          "bha_13_geschlossen",
+          "bha_14_geschlossen"
+        ],
+        "hide_if_flags": [
+          "bha_akt1_done"
+        ]
+      },
+      {
+        "text": "Akt 2: Die Fährten besprechen.",
+        "next": "bha_abschluss2",
+        "requires_flags": [
+          "bha_21_geschlossen",
+          "bha_22_geschlossen",
+          "bha_23_geschlossen",
+          "bha_24_geschlossen"
+        ],
+        "hide_if_flags": [
+          "bha_akt2_done"
+        ]
+      },
+      {
+        "text": "Akt 3: Die Fährten besprechen.",
+        "next": "bha_abschluss3",
+        "requires_flags": [
+          "bha_31_geschlossen",
+          "bha_32_geschlossen",
+          "bha_33_geschlossen",
+          "bha_34_geschlossen"
+        ],
+        "hide_if_flags": [
+          "bha_akt3_done"
+        ]
+      },
+      {
+        "text": "Akt 4: Die Fährten besprechen.",
+        "next": "bha_abschluss4",
+        "requires_flags": [
+          "bha_41_geschlossen",
+          "bha_42_geschlossen",
+          "bha_43_geschlossen",
+          "bha_44_geschlossen"
+        ],
+        "hide_if_flags": [
+          "bha_akt4_done"
+        ]
+      },
+      {
+        "text": "Akt 5: Die Fährten besprechen.",
+        "next": "bha_abschluss5",
+        "requires_flags": [
+          "bha_51_geschlossen",
+          "bha_52_geschlossen",
+          "bha_53_geschlossen",
+          "bha_54_geschlossen"
+        ],
+        "hide_if_flags": [
+          "bha_bilanz5"
+        ]
+      },
+      {
+        "text": "Über das Bild deines Bruders sprechen.",
+        "next": "bha_bruder",
+        "requires_flags": [
+          "bha_32_geschlossen"
+        ],
+        "hide_if_flags": [
+          "bha_bruder_entschieden"
+        ]
+      },
+      {
+        "text": "Neben dem Ofen warten.",
+        "next": "bha_bruder_spaeter",
+        "requires_flags": [
+          "bha_bruder_abstand",
+          "bha_akt4_done"
+        ],
+        "hide_if_flags": [
+          "bha_bruder_spaeter"
+        ]
+      },
+      {
+        "text": "Den Reservebogen reparieren.",
+        "next": "bha_reserve",
+        "requires_flags": [
+          "bha_ventil_reserve_offen"
+        ],
+        "hide_if_flags": [
+          "bha_reserve_repariert"
+        ]
+      },
+      {
+        "text": "Die Kühlstrecke abdichten.",
+        "next": "bha_kuehlung",
+        "requires_flags": [
+          "bha_ventil_kuehlung_offen"
+        ],
+        "hide_if_flags": [
+          "bha_kuehlung_intakt"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "bha_abschluss1": {
+        "text": "„Der Ofen hier gehört uns. Drei Vorräte reichen für den Anfang.“ Frost legt sie neben den trockenen Schlüssel.",
+        "sets_flags": [
+          "bha_akt1_done"
+        ],
+        "complete_quests": [
+          "bha_akt1"
+        ],
+        "start_quests": [
+          "bha_akt2"
+        ],
+        "gives_items": {
+          "bha_heizvorrat": 3
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_abschluss2": {
+        "text": "„Den Halter kannst du wieder verwenden. Nur die Zuordnung nicht ersetzen.“ Frost prüft jede Kerbe, bevor er ihn einpackt.",
+        "sets_flags": [
+          "bha_akt2_done"
+        ],
+        "complete_quests": [
+          "bha_akt2"
+        ],
+        "start_quests": [
+          "bha_akt3"
+        ],
+        "gives_items": {
+          "bha_kapselhalter": 1
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_abschluss3": {
+        "text": "„Orla bleibt keine Fracht.“ Frost rückt einen zweiten Stuhl an den Tisch; die Kapsel bekommt keinen Ehrenplatz.",
+        "sets_flags": [
+          "bha_akt3_done"
+        ],
+        "complete_quests": [
+          "bha_akt3"
+        ],
+        "start_quests": [
+          "bha_akt4"
+        ],
+        "bond": {
+          "bh_orla_fencrest": 1
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_abschluss4": {
+        "text": "„Ein Beleg, kein Rezept.“ Frost wickelt die Anleitung in trockenes Papier und lässt das Siegel sichtbar.",
+        "sets_flags": [
+          "bha_akt4_done"
+        ],
+        "complete_quests": [
+          "bha_akt4"
+        ],
+        "start_quests": [
+          "bha_akt5"
+        ],
+        "gives_items": {
+          "bha_formelbeleg": 1
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_abschluss5": {
+        "text": "„Die Leitungen sind geprüft. Was du mit ihnen tust, entscheidet kein Manometer.“ Frost wartet auf deine Rückkehr von der Verteilanlage.",
+        "sets_flags": [
+          "bha_bilanz5"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_bruder": {
+        "text": "Frost erkennt den guten Schlüssel auf dem Bild. „Nicht heute“, sagt er, bevor du die Kapseln erwähnst.",
+        "choices": [
+          {
+            "text": "Dann heute nicht.",
+            "next": "bha_bruder_abstand"
+          },
+          {
+            "text": "Versuch es trotzdem.",
+            "next": "bha_bruder_druck"
+          }
+        ]
+      },
+      "bha_bruder_abstand": {
+        "text": "„Gut. Dann gib mir den Schlüssel.“ Du lässt das Bild liegen, und Frost macht Platz neben dem Ofen.",
+        "sets_flags": [
+          "bha_bruder_entschieden",
+          "bha_bruder_abstand"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_bruder_druck": {
+        "text": "Frost legt das Bild mit dem Gesicht nach unten. „Du hast mich gehört. Mehr gibt es heute nicht.“",
+        "sets_flags": [
+          "bha_bruder_entschieden"
+        ],
+        "bond": {
+          "bh_bellweather": -1
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_bruder_spaeter": {
+        "text": "Frost stellt das Bild wieder auf. „Ich will vielleicht nachsehen, aber ich verspreche dir nichts.“ Du sagst ihm, dass das genügt.",
+        "sets_flags": [
+          "bha_bruder_spaeter"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_reserve": {
+        "text": "Du setzt die Dichtung aus dem Wartungsschrank ein. Frost prüft den unabhängigen Wohnungsbogen bei gesperrter Klinikleitung.",
+        "sets_flags": [
+          "bha_reserve_repariert",
+          "bha_evakuierung_offen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_kuehlung": {
+        "text": "Die verschlossenen Kammern passen in die getrennte Kühlstrecke. Frost prüft das Siegel, ohne eine Probe zu öffnen.",
+        "sets_flags": [
+          "bha_kuehlung_intakt"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bj_bh_felix_fencrest": {
+    "choices_add": [
+      {
+        "text": "Über die widersprüchlichen Angaben sprechen.",
+        "next": "bha_verhoer_11",
+        "requires_flags": [
+          "k5_arrived"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "bha_verhoer_11": {
+        "text": "„Sie ist abgereist. Eigentlich müsste ich ihren Koffer längst verladen haben.“ Die Antwort klingt vorbereitet; du kannst sie an den Quellen prüfen.",
+        "choices": [
+          {
+            "text": "Die Belege vorlegen.",
+            "next": "bha_verhoer_11_belegt",
+            "requires_clues": [
+              "bha_11_c1",
+              "bha_11_c2"
+            ]
+          },
+          {
+            "text": "Du verschweigst etwas.",
+            "next": "bha_verhoer_11_druck"
+          },
+          {
+            "text": "Ich prüfe erst die Unterlagen."
+          }
+        ]
+      },
+      "bha_verhoer_11_belegt": {
+        "text": "Du zeigst den unbenutzten Schein. Felix zieht den Kofferriemen langsam aus der Hand. „Ich habe nur gesagt, was auf der Meldung stand. Orla ist noch hier.“",
+        "sets_flags": [
+          "bha_verhoer_11_geklaert"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_verhoer_11_druck": {
+        "text": "„Eine Behauptung ist noch kein Beleg.“ Du kannst weiterfragen, aber die Quelle liegt nicht in der Lautstärke.",
+        "choices": [
+          {
+            "text": "Zu den Angaben zurück.",
+            "next": "bha_verhoer_11"
+          },
+          {
+            "text": "Die Quellen suchen."
+          }
+        ]
+      }
+    }
+  },
+  "bj_bh_rookwell": {
+    "choices_add": [
+      {
+        "text": "Über die widersprüchlichen Angaben sprechen.",
+        "next": "bha_verhoer_13",
+        "requires_flags": [
+          "k5_arrived"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "bha_verhoer_13": {
+        "text": "„Es gibt keine zweite Liste. Die Tafeln reichen für unsere Arbeit.“ Die Antwort klingt vorbereitet; du kannst sie an den Quellen prüfen.",
+        "choices": [
+          {
+            "text": "Die Belege vorlegen.",
+            "next": "bha_verhoer_13_belegt",
+            "requires_clues": [
+              "bha_13_c1",
+              "bha_13_c2"
+            ]
+          },
+          {
+            "text": "Du verschweigst etwas.",
+            "next": "bha_verhoer_13_druck"
+          },
+          {
+            "text": "Ich prüfe erst die Unterlagen."
+          }
+        ]
+      },
+      "bha_verhoer_13_belegt": {
+        "text": "Enna betrachtet die radierte Zeile. „Mein Heft liegt unter den sauberen Tüchern. Ich habe die Namen notiert, weil die Tafeln sie nicht behalten durften.“",
+        "sets_flags": [
+          "bha_verhoer_13_geklaert"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_verhoer_13_druck": {
+        "text": "„Eine Behauptung ist noch kein Beleg.“ Du kannst weiterfragen, aber die Quelle liegt nicht in der Lautstärke.",
+        "choices": [
+          {
+            "text": "Zu den Angaben zurück.",
+            "next": "bha_verhoer_13"
+          },
+          {
+            "text": "Die Quellen suchen."
+          }
+        ]
+      }
+    }
+  },
+  "bj_bh_crowther": {
+    "choices_add": [
+      {
+        "text": "Über die widersprüchlichen Angaben sprechen.",
+        "next": "bha_verhoer_22",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt1_done"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "bha_verhoer_22": {
+        "text": "„Diese Lieferungen begannen erst nach deiner Reise. Was davor geschah, liegt außerhalb meiner Vereinbarung.“ Die Antwort klingt vorbereitet; du kannst sie an den Quellen prüfen.",
+        "choices": [
+          {
+            "text": "Die Belege vorlegen.",
+            "next": "bha_verhoer_22_belegt",
+            "requires_clues": [
+              "bha_22_c1",
+              "bha_22_c2"
+            ]
+          },
+          {
+            "text": "Du verschweigst etwas.",
+            "next": "bha_verhoer_22_druck"
+          },
+          {
+            "text": "Ich prüfe erst die Unterlagen."
+          }
+        ]
+      },
+      "bha_verhoer_22_belegt": {
+        "text": "Crowther lässt das datierte Siegel liegen. „Der Auftrag ist älter. Ich habe Rückstände verkauft und ihre Herkunft für nebensächlich erklärt.“",
+        "sets_flags": [
+          "bha_verhoer_22_geklaert"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_verhoer_22_druck": {
+        "text": "„Eine Behauptung ist noch kein Beleg.“ Du kannst weiterfragen, aber die Quelle liegt nicht in der Lautstärke.",
+        "choices": [
+          {
+            "text": "Zu den Angaben zurück.",
+            "next": "bha_verhoer_22"
+          },
+          {
+            "text": "Die Quellen suchen."
+          }
+        ]
+      }
+    }
+  },
+  "bj_bh_malkin": {
+    "choices_add": [
+      {
+        "text": "Über die widersprüchlichen Angaben sprechen.",
+        "next": "bha_verhoer_33",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt2_done"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "bha_verhoer_33": {
+        "text": "„Das ist Restwärme. Ein großer Kessel braucht lange, bis er auskühlt.“ Die Antwort klingt vorbereitet; du kannst sie an den Quellen prüfen.",
+        "choices": [
+          {
+            "text": "Die Belege vorlegen.",
+            "next": "bha_verhoer_33_belegt",
+            "requires_clues": [
+              "bha_33_c1",
+              "bha_33_c2"
+            ]
+          },
+          {
+            "text": "Du verschweigst etwas.",
+            "next": "bha_verhoer_33_druck"
+          },
+          {
+            "text": "Ich prüfe erst die Unterlagen."
+          }
+        ]
+      },
+      "bha_verhoer_33_belegt": {
+        "text": "Malkin vergleicht die Kurven. „Für jede Entnahme mehr Druck. Dafür bekam ich Geld; den Reservebogen habe ich trotzdem nicht zugemacht.“",
+        "sets_flags": [
+          "bha_verhoer_33_geklaert"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_verhoer_33_druck": {
+        "text": "„Eine Behauptung ist noch kein Beleg.“ Du kannst weiterfragen, aber die Quelle liegt nicht in der Lautstärke.",
+        "choices": [
+          {
+            "text": "Zu den Angaben zurück.",
+            "next": "bha_verhoer_33"
+          },
+          {
+            "text": "Die Quellen suchen."
+          }
+        ]
+      }
+    }
+  },
+  "bj_bh_dipple": {
+    "choices_add": [
+      {
+        "text": "Über die widersprüchlichen Angaben sprechen.",
+        "next": "bha_verhoer_41",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt3_done"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "bha_verhoer_41": {
+        "text": "„Die Wurzeln kamen mit der Klinik. Meine früheren Blätter sind bloße Studien.“ Die Antwort klingt vorbereitet; du kannst sie an den Quellen prüfen.",
+        "choices": [
+          {
+            "text": "Die Belege vorlegen.",
+            "next": "bha_verhoer_41_belegt",
+            "requires_clues": [
+              "bha_41_c1",
+              "bha_41_c2"
+            ]
+          },
+          {
+            "text": "Du verschweigst etwas.",
+            "next": "bha_verhoer_41_druck"
+          },
+          {
+            "text": "Ich prüfe erst die Unterlagen."
+          }
+        ]
+      },
+      "bha_verhoer_41_belegt": {
+        "text": "Dipple richtet die Höhenmarke an seiner Zeichnung aus. „Ich habe den Hang gezeichnet, bevor hier ein Stein lag. Die Rente bezahlte mein Schweigen.“",
+        "sets_flags": [
+          "bha_verhoer_41_geklaert"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_verhoer_41_druck": {
+        "text": "„Eine Behauptung ist noch kein Beleg.“ Du kannst weiterfragen, aber die Quelle liegt nicht in der Lautstärke.",
+        "choices": [
+          {
+            "text": "Zu den Angaben zurück.",
+            "next": "bha_verhoer_41"
+          },
+          {
+            "text": "Die Quellen suchen."
+          }
+        ]
+      }
+    }
+  },
+  "bj_bh_greavesend": {
+    "choices_add": [
+      {
+        "text": "Über die widersprüchlichen Angaben sprechen.",
+        "next": "bha_verhoer_53",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt4_done"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "bha_verhoer_53": {
+        "text": "„Jede fortgesetzte Behandlung war gebilligt. Die Akten enthalten keinen wirksamen Widerspruch.“ Die Antwort klingt vorbereitet; du kannst sie an den Quellen prüfen.",
+        "choices": [
+          {
+            "text": "Die Belege vorlegen.",
+            "next": "bha_verhoer_53_belegt",
+            "requires_clues": [
+              "bha_53_c1",
+              "bha_53_c2"
+            ]
+          },
+          {
+            "text": "Du verschweigst etwas.",
+            "next": "bha_verhoer_53_druck"
+          },
+          {
+            "text": "Ich prüfe erst die Unterlagen."
+          }
+        ]
+      },
+      "bha_verhoer_53_belegt": {
+        "text": "Greavesend liest ihre eigenen Empfangszeichen. „Ich hielt die Linderung für wichtiger als den Widerruf.“ Die Unterschriften bleiben neben ihrer Hand liegen.",
+        "sets_flags": [
+          "bha_verhoer_53_geklaert"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_verhoer_53_druck": {
+        "text": "„Eine Behauptung ist noch kein Beleg.“ Du kannst weiterfragen, aber die Quelle liegt nicht in der Lautstärke.",
+        "choices": [
+          {
+            "text": "Zu den Angaben zurück.",
+            "next": "bha_verhoer_53"
+          },
+          {
+            "text": "Die Quellen suchen."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,3400 @@
+[
+  {
+    "map": "cw_gepaeckhalle",
+    "tile": [
+      3,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_11_obj1",
+      "kind": "read",
+      "title": "Ungestempelter Durchschlag",
+      "prompt": "Ungestempelter Durchschlag",
+      "text": "Unter dem fehlenden Namen stehen ein besetzter Sitz und die Übergabe an die Warenbahn. Die ursprüngliche Druckspur ist älter als die glatte Löschfläche.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_11_obj1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_11_c1"
+        ],
+        "sets_flags": [
+          "cwa_11_lupe1",
+          "cwa_anker_gleisfuss_durchschlag"
+        ],
+        "gives_items": {
+          "vi_k_cw_ungestempelter_durchschlag": 1
+        }
+      }
+    }
+  },
+  {
+    "map": "cw_gepaeckhalle",
+    "tile": [
+      5,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_11_obj2",
+      "kind": "read",
+      "title": "Frische Tragespur",
+      "prompt": "Frische Tragespur",
+      "text": "Zwei Sohlen rutschten über den Kalk, dann setzen nur noch die schweren Trägerschuhe fort. An der Kante hängt ein lebendfrischer Wollfaden, kein Gepäckriemen.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_11_obj2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_11_c2"
+        ],
+        "sets_flags": [
+          "cwa_11_lupe2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_gepaeckhalle",
+    "tile": [
+      7,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_11_obj3",
+      "kind": "read",
+      "title": "Schabkante im Fahrgastbuch",
+      "prompt": "Schabkante im Fahrgastbuch",
+      "text": "Die Blattfasern sind unter der leeren Zeile aufgerichtet. Der Bereinigungsstempel liegt auf der Schabkante, nicht darunter.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_11_obj3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_11_c3"
+        ],
+        "sets_flags": [
+          "cwa_11_lupe3"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_gepaeckhalle",
+    "tile": [
+      9,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_11_obj4",
+      "kind": "read",
+      "title": "Durchgedrückte Übergabezeit",
+      "prompt": "Durchgedrückte Übergabezeit",
+      "text": "Auf der Pappe ist die Übergabe eine Viertelstunde vor der Bereinigung eingedrückt. Die Pappe stammt vom Schalter, nicht aus derselben Aktenkopie.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_11_obj4_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_11_c4"
+        ],
+        "sets_flags": [
+          "cwa_11_lupe4"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_gepaeckhalle",
+    "tile": [
+      6,
+      11
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_11_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_11_dialog",
+      "prompt": "Die leere Ankunft"
+    }
+  },
+  {
+    "map": "cw_kueche",
+    "tile": [
+      3,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_12_obj1",
+      "kind": "read",
+      "title": "Essensrechnung vom falschen Hochzeitstag",
+      "prompt": "Essensrechnung vom falschen Hochzeitstag",
+      "text": "Die alte Rechnung nennt einen Februartag. Noel erklärt, dass erst damals Geld für einen zweiten Teller übrig war; geheiratet hätten sie im Juli.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_12_obj1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_12_c1"
+        ],
+        "sets_flags": [
+          "cwa_12_lupe1",
+          "cwa_anker_kueche_noel"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_kueche",
+    "tile": [
+      5,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_12_obj2",
+      "kind": "read",
+      "title": "Reparierte Schürze",
+      "prompt": "Reparierte Schürze",
+      "text": "Im Saum sitzt Idas Knoten neben einem absichtlich schiefen Februarzeichen. Der Faden ist durch viele Wäschen heller geworden, nicht frisch eingesetzt.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_12_obj2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_12_c2"
+        ],
+        "sets_flags": [
+          "cwa_12_lupe2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_kueche",
+    "tile": [
+      7,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_12_obj3",
+      "kind": "read",
+      "title": "Zwei eingelaufene Teller",
+      "prompt": "Zwei eingelaufene Teller",
+      "text": "Ein großer und ein kleiner Teller tragen verschiedene Kratzspuren. Ihre Stellplätze sind in die weiche Herdablage gedrückt.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_12_obj3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_12_c3"
+        ],
+        "sets_flags": [
+          "cwa_12_lupe3",
+          "cwa_anker_kueche_teller"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_kueche",
+    "tile": [
+      9,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_12_obj4",
+      "kind": "read",
+      "title": "Bexleys Rohrprobe",
+      "prompt": "Bexleys Rohrprobe",
+      "text": "Bexley klopft zwei verschiedene Antworten aus den alten Küchenrohren nach. Er kann die Sprecher nicht sicher benennen, aber die zweite Anschlussstelle ist nicht verschwunden.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_12_obj4_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_12_c4"
+        ],
+        "sets_flags": [
+          "cwa_12_lupe4"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_kueche",
+    "tile": [
+      6,
+      11
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_12_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_12_dialog",
+      "prompt": "Eine Frau ohne Vertrag"
+    }
+  },
+  {
+    "map": "cw_roehrenhof",
+    "tile": [
+      3,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_13_obj1",
+      "kind": "read",
+      "title": "Waagennadel im Rücklauf",
+      "prompt": "Waagennadel im Rücklauf",
+      "text": "Die eingeritzte Kontrollmarke zeigt ein Zusatzgewicht in der Größenordnung einer erwachsenen Person. Werkzeug und Rahmen wurden vorher einzeln gewogen.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_13_obj1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_13_c1"
+        ],
+        "sets_flags": [
+          "cwa_13_lupe1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_roehrenhof",
+    "tile": [
+      5,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_13_obj2",
+      "kind": "read",
+      "title": "Niedergedrückte Sitzfeder",
+      "prompt": "Niedergedrückte Sitzfeder",
+      "text": "Die Feder unter der abgedeckten Bank hängt tiefer als die unbelastete Gegenseite. Ein Handabdruck liegt innen auf dem beschlagenen Glas.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_13_obj2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_13_c2"
+        ],
+        "sets_flags": [
+          "cwa_13_lupe2",
+          "cwa_anker_roehrenhof_sitzfeder"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_roehrenhof",
+    "tile": [
+      7,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_13_obj3",
+      "kind": "read",
+      "title": "Leerer Rahmendurchschlag",
+      "prompt": "Leerer Rahmendurchschlag",
+      "text": "Die Quittung nennt nur leere Druckrahmen. Der eingedrückte Weichenhaken bezeichnet trotzdem die Sortiergrube.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_13_obj3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_13_c3"
+        ],
+        "sets_flags": [
+          "cwa_13_lupe3"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_roehrenhof",
+    "tile": [
+      9,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_13_obj4",
+      "kind": "read",
+      "title": "Abgeklebte Fenster",
+      "prompt": "Abgeklebte Fenster",
+      "text": "Vom Klebeband hängt ein Streifen über der inneren Tür. Hesk musste die Fenster verdecken, bevor er den Wagen auf das nach oben führende Gleis schob.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_13_obj4_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_13_c4"
+        ],
+        "sets_flags": [
+          "cwa_13_lupe4"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_roehrenhof",
+    "tile": [
+      6,
+      11
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_13_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_13_dialog",
+      "prompt": "Leerfracht"
+    }
+  },
+  {
+    "map": "cw_alte_setzerei",
+    "tile": [
+      3,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_14_obj1",
+      "kind": "read",
+      "title": "Korrekturfahne im Schutzrahmen",
+      "prompt": "Korrekturfahne im Schutzrahmen",
+      "text": "Ida hat das gemeinsame Subjekt der Sammelurkunde rot getrennt. Ihr Randhaken verlangt einzelne Zeilen, bevor der letzte Satz in Druck geht.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_14_obj1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_14_c1"
+        ],
+        "sets_flags": [
+          "cwa_14_lupe1"
+        ],
+        "gives_items": {
+          "vi_k_cw_randkorrektur": 1
+        }
+      }
+    }
+  },
+  {
+    "map": "cw_alte_setzerei",
+    "tile": [
+      5,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_14_obj2",
+      "kind": "read",
+      "title": "Blindabdruck im Setzkasten",
+      "prompt": "Blindabdruck im Setzkasten",
+      "text": "Der gespiegelte Satz zeigt denselben gemeinsamen Adressaten. Die Spuren stammen von einer älteren Probeplatte und bestätigen die Korrektur unabhängig vom Papier.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_14_obj2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_14_c2"
+        ],
+        "sets_flags": [
+          "cwa_14_lupe2",
+          "cwa_anker_setzerei_probeplatte"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_alte_setzerei",
+    "tile": [
+      7,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_14_obj3",
+      "kind": "read",
+      "title": "Fehlende Letter",
+      "prompt": "Fehlende Letter",
+      "text": "Eine ausgeschlagene Letter fehlt genau an der Stelle, an der aus mehreren Personen ein Empfänger wird. Die Walze hat sie in ihre Führung gezogen.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_14_obj3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_14_c3"
+        ],
+        "sets_flags": [
+          "cwa_14_lupe3"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_alte_setzerei",
+    "tile": [
+      9,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_14_obj4",
+      "kind": "read",
+      "title": "Abgleichbefehl am Seitentor",
+      "prompt": "Abgleichbefehl am Seitentor",
+      "text": "Im Archivbefehl ist dieselbe Letter unvollständig. Der Befehl ordnet eine gezielte Bereinigung dieser einen Setzerin an, keine allgemeine Papiervernichtung.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_14_obj4_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_14_c4"
+        ],
+        "sets_flags": [
+          "cwa_14_lupe4"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_alte_setzerei",
+    "tile": [
+      6,
+      11
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_14_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_14_dialog",
+      "prompt": "Der erste Abdruck"
+    }
+  },
+  {
+    "map": "cw_pfandhaus",
+    "tile": [
+      3,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_21_obj1",
+      "kind": "read",
+      "title": "Drei Schuldscheine",
+      "prompt": "Drei Schuldscheine",
+      "text": "Drei Hände schreiben denselben Namen. Die verschieden gesetzten Druckpunkte passen nicht zu drei Kopien einer einzigen Unterschrift.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_21_obj1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_21_c1"
+        ],
+        "sets_flags": [
+          "cwa_21_lupe1"
+        ],
+        "gives_items": {
+          "vi_k_cw_pfandzettel": 1
+        }
+      }
+    }
+  },
+  {
+    "map": "cw_pfandhaus",
+    "tile": [
+      5,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_21_obj2",
+      "kind": "read",
+      "title": "Herkunft der Pfänder",
+      "prompt": "Herkunft der Pfänder",
+      "text": "Ein verbogener Topfhenkel, eine Kinderjacke und ein Türschlüssel stammen nach den Reparaturspuren aus drei Haushalten. Keiner beansprucht die anderen beiden Stücke.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_21_obj2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_21_c2"
+        ],
+        "sets_flags": [
+          "cwa_21_lupe2",
+          "cwa_anker_pfandhaus_herkunft"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_pfandhaus",
+    "tile": [
+      7,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_21_obj3",
+      "kind": "read",
+      "title": "Rückforderung am Markttor",
+      "prompt": "Rückforderung am Markttor",
+      "text": "Eine Kundin erhält die Schuld eines anderen Haushalts zurück. Die Beträge wurden gemeinsam verbucht, obwohl sie ihren eigenen Zettel vorlegt.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_21_obj3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_21_c3"
+        ],
+        "sets_flags": [
+          "cwa_21_lupe3"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_pfandhaus",
+    "tile": [
+      9,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_21_obj4",
+      "kind": "read",
+      "title": "Abgleichklappe im Pfandregal",
+      "prompt": "Abgleichklappe im Pfandregal",
+      "text": "Ein mechanischer Prüfstreifen führt die drei Fächer bereits zu einem gemeinsamen Konto. Der Test läuft mit echten Forderungen, nicht nur mit Musterpapier.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_21_obj4_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_21_c4"
+        ],
+        "sets_flags": [
+          "cwa_21_lupe4"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_pfandhaus",
+    "tile": [
+      6,
+      12
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_21_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_21_dialog",
+      "prompt": "Namen im Pfand"
+    }
+  },
+  {
+    "map": "cw_setzergasse",
+    "tile": [
+      3,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_22_obj1",
+      "kind": "read",
+      "title": "Datiertes Postquittungsbuch",
+      "prompt": "Datiertes Postquittungsbuch",
+      "text": "Die Empfangsquittungen tragen Daten nach den abgeschlossenen Kettlegater Fällen. Als Empfänger steht das Kronenarchiv, nicht ein früherer Tatort.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_22_obj1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_22_c1"
+        ],
+        "sets_flags": [
+          "cwa_22_lupe1",
+          "cwa_anker_setzergasse_postbuch"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_setzergasse",
+    "tile": [
+      5,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_22_obj2",
+      "kind": "read",
+      "title": "Marlowes Brief",
+      "prompt": "Marlowes Brief",
+      "text": "Marlowe bestätigt unabhängig die damaligen Ablagedaten. Sie kennt das Gesicht der verkaufenden Schleierschwester nicht und behauptet keine Festnahme aus der Ferne.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_22_obj2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_22_c2"
+        ],
+        "sets_flags": [
+          "cwa_22_lupe2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_setzergasse",
+    "tile": [
+      7,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_22_obj3",
+      "kind": "read",
+      "title": "Handelszeichen auf den Umschlägen",
+      "prompt": "Handelszeichen auf den Umschlägen",
+      "text": "Das Zeichen derselben Schleierschwester verbindet die Revierauszüge mit einer Sendung an den Direktor. Unter der äußeren Lasche steht Idas alte Werkadresse.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_22_obj3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_22_c3"
+        ],
+        "sets_flags": [
+          "cwa_22_lupe3"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_setzergasse",
+    "tile": [
+      9,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_22_obj4",
+      "kind": "read",
+      "title": "Streiktopf-Auszug",
+      "prompt": "Streiktopf-Auszug",
+      "text": "Die Einnahme für Abschriften bezahlte Mahlzeiten für Entlassene. Die verkürzte verkaufte Fassung enthielt eine Adresse, die mit dem Lagerumschlag übereinstimmt.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_22_obj4_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_22_c4"
+        ],
+        "sets_flags": [
+          "cwa_22_lupe4"
+        ],
+        "gives_items": {
+          "vi_k_cw_streiktopf_auszug": 1
+        }
+      }
+    }
+  },
+  {
+    "map": "cw_setzergasse",
+    "tile": [
+      6,
+      12
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_22_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_22_dialog",
+      "prompt": "Der Käufer der Abschriften"
+    }
+  },
+  {
+    "map": "cw_sortierhalle",
+    "tile": [
+      3,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_23_obj1",
+      "kind": "read",
+      "title": "Falsche Zielquittung",
+      "prompt": "Falsche Zielquittung",
+      "text": "Hesk quittierte den Ausgang, obwohl der Achsabrieb zur Kabine passt. Die Korrektur steht unter der Druckfarbe und ist keine spätere Entlastung.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_23_obj1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_23_c1"
+        ],
+        "sets_flags": [
+          "cwa_23_lupe1"
+        ],
+        "gives_items": {
+          "vi_k_cw_falsche_quittung": 1
+        }
+      }
+    }
+  },
+  {
+    "map": "cw_sortierhalle",
+    "tile": [
+      5,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_23_obj2",
+      "kind": "read",
+      "title": "Abgelegter Trageriemen",
+      "prompt": "Abgelegter Trageriemen",
+      "text": "Die letzte Last wurde vor der Kabine abgesetzt. Danach läuft eine einzelne leichte Spur zum geschützten Seitentritt.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_23_obj2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_23_c2"
+        ],
+        "sets_flags": [
+          "cwa_23_lupe2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_sortierhalle",
+    "tile": [
+      7,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_23_obj3",
+      "kind": "read",
+      "title": "Idas Handzeichen",
+      "prompt": "Idas Handzeichen",
+      "text": "Ein nach innen gesetzter Randhaken bedeutet in der Setzerarbeit: noch nicht weitergeben. Er liegt auf der Höhe einer sitzenden Person.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_23_obj3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_23_c3"
+        ],
+        "sets_flags": [
+          "cwa_23_lupe3",
+          "cwa_anker_sortierhalle_handzeichen"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_sortierhalle",
+    "tile": [
+      9,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_23_obj4",
+      "kind": "read",
+      "title": "Verdeckte Wasserportion",
+      "prompt": "Verdeckte Wasserportion",
+      "text": "Hinter der Wartungsklappe steht ein benutzter Becher. Im weichen Staub hat Ida den gleichen Randhaken gezogen und einen zweiten für den Rückweg ergänzt.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_23_obj4_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_23_c4"
+        ],
+        "sets_flags": [
+          "cwa_23_lupe4"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_sortierhalle",
+    "tile": [
+      6,
+      12
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_23_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_23_dialog",
+      "prompt": "Idas Umweg"
+    }
+  },
+  {
+    "map": "cw_sortiergrube",
+    "tile": [
+      3,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_24_obj1",
+      "kind": "read",
+      "title": "Drei echte Empfangszeichen",
+      "prompt": "Drei echte Empfangszeichen",
+      "text": "Drei Haushalte bestätigen verschiedene Lieferungen mit ihren eigenen Gebrauchsspuren. Keines der Zeichen wurde aus dem Sammelregister kopiert.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_24_obj1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_24_c1"
+        ],
+        "sets_flags": [
+          "cwa_24_lupe1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_sortiergrube",
+    "tile": [
+      5,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_24_obj2",
+      "kind": "read",
+      "title": "Eigene Löschkante",
+      "prompt": "Eigene Löschkante",
+      "text": "Ida zeigt die Richtung ihres Schabers. Sie strich ihren Namen, als unter derselben Zeile schon ein anderer erschien; die gebrochene Kante passt zu ihrem Werkzeug.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_24_obj2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_24_c2"
+        ],
+        "sets_flags": [
+          "cwa_24_lupe2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_sortiergrube",
+    "tile": [
+      7,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_24_obj3",
+      "kind": "read",
+      "title": "Sichtfenster der Kabine",
+      "prompt": "Sichtfenster der Kabine",
+      "text": "Ida antwortet auf Noels erfundenes Februardatum mit dem Julitag. „Im Februar hatte er Geld für den zweiten Teller. Genauer: erst dann.“",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_24_obj3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_24_c3"
+        ],
+        "sets_flags": [
+          "cwa_24_lupe3",
+          "cwa_anker_sortiergrube_ida"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_sortiergrube",
+    "tile": [
+      9,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_24_obj4",
+      "kind": "read",
+      "title": "Rückweisung der Kabinentür",
+      "prompt": "Rückweisung der Kabinentür",
+      "text": "Die Tür reagiert auf einen korrekt beschriebenen Menschen mit leerem Ausgabefeld. Zwei getrennte Bestätigungen lassen die Sperre kurz nachgeben, eine Aktenkopie nicht.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_24_obj4_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_24_c4"
+        ],
+        "sets_flags": [
+          "cwa_24_lupe4"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_sortiergrube",
+    "tile": [
+      6,
+      12
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_24_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_24_dialog",
+      "prompt": "Der Blinde Zusteller"
+    }
+  },
+  {
+    "map": "cw_archivsaal",
+    "tile": [
+      3,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_31_obj1",
+      "kind": "read",
+      "title": "Alte Gehaltslisten",
+      "prompt": "Alte Gehaltslisten",
+      "text": "Mehrere Jahrgänge lassen dieselbe Namensspalte leer. Der Bruch beginnt lange vor deiner Ankunft und vor Idas Verhaftung.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_31_obj1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_31_c1"
+        ],
+        "sets_flags": [
+          "cwa_31_lupe1",
+          "cwa_anker_archiv_gehaltsliste"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_archivsaal",
+    "tile": [
+      5,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_31_obj2",
+      "kind": "read",
+      "title": "Frühe Lohnquittung",
+      "prompt": "Frühe Lohnquittung",
+      "text": "Ein von einem ehemaligen Kassierer gegengezeichneter Durchschlag trägt nur noch den Titel. Seine Papiersorte ist älter als die aktuellen Bereinigungsbögen.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_31_obj2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_31_c2"
+        ],
+        "sets_flags": [
+          "cwa_31_lupe2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_archivsaal",
+    "tile": [
+      7,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_31_obj3",
+      "kind": "read",
+      "title": "Unveränderter Amtsstempel",
+      "prompt": "Unveränderter Amtsstempel",
+      "text": "Alte und neue Unterschriften enden in derselben Amtsprägung. Nur die Personenspur fehlt, die Zuständigkeit bleibt lesbar.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_31_obj3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_31_c3"
+        ],
+        "sets_flags": [
+          "cwa_31_lupe3"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_archivsaal",
+    "tile": [
+      9,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_31_obj4",
+      "kind": "read",
+      "title": "Antwort aus der Rohrpost",
+      "prompt": "Antwort aus der Rohrpost",
+      "text": "Auf die Frage nach seinem Namen bleibt die Kapsel leer. Die Ansprache als Direktor löst eine vollständige Antwort und einen frischen Ausgabestempel aus.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_31_obj4_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_31_c4"
+        ],
+        "sets_flags": [
+          "cwa_31_lupe4"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_archivsaal",
+    "tile": [
+      6,
+      13
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_31_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_31_dialog",
+      "prompt": "Der namenlose Direktor"
+    }
+  },
+  {
+    "map": "cw_archivsaal",
+    "tile": [
+      3,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_32_obj1",
+      "kind": "read",
+      "title": "Laborprotokoll mit Randbedingungen",
+      "prompt": "Laborprotokoll mit Randbedingungen",
+      "text": "Eine beschriebene Probe verliert ihre Zuordnung, während ein unbeschriebener Stein unverändert bleibt. Der Versuch enthält keine lebende Versuchsperson.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_32_obj1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_32_c1"
+        ],
+        "sets_flags": [
+          "cwa_32_lupe1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_archivsaal",
+    "tile": [
+      5,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_32_obj2",
+      "kind": "read",
+      "title": "Örtliche Kontrollprobe",
+      "prompt": "Örtliche Kontrollprobe",
+      "text": "Du vergleichst eine zugeordnete Papierkopie mit blankem Kalkstein bei gleicher Feuchtigkeit. Nur die Zuordnung verblasst, nicht das Material selbst.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_32_obj2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_32_c2"
+        ],
+        "sets_flags": [
+          "cwa_32_lupe2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_archivsaal",
+    "tile": [
+      7,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_32_obj3",
+      "kind": "read",
+      "title": "Namensnischen-Skizze",
+      "prompt": "Namensnischen-Skizze",
+      "text": "Die Nischen halten einzelne Zuordnungsränder in derselben Folge wie das Laborprotokoll. Die Skizze wurde vor Idas Transport aufgenommen.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_32_obj3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_32_c3"
+        ],
+        "sets_flags": [
+          "cwa_32_lupe3"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_archivsaal",
+    "tile": [
+      9,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_32_obj4",
+      "kind": "read",
+      "title": "Wexmoorer Vergleichsblatt",
+      "prompt": "Wexmoorer Vergleichsblatt",
+      "text": "Eine hier vollständig lesbare Abschrift dokumentiert Täfelchen, Herkunft und Aufnahmefolge. Du brauchst keinen mitgebrachten Nebenauftragsbeweis, um das Muster zu vergleichen.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_32_obj4_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_32_c4"
+        ],
+        "sets_flags": [
+          "cwa_32_lupe4",
+          "cwa_anker_archiv_malliver"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_archivsaal",
+    "tile": [
+      6,
+      13
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_32_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_32_dialog",
+      "prompt": "Der Versuchskeller"
+    }
+  },
+  {
+    "map": "cw_villa",
+    "tile": [
+      3,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_33_obj1",
+      "kind": "read",
+      "title": "Rechenblatt des Direktors",
+      "prompt": "Rechenblatt des Direktors",
+      "text": "Wetherby hat gleichzeitige Ausfälle unter einer Klammer addiert. Die Gesamtsumme sinkt nicht, obwohl seine Zusammenfassung weniger einzelne Namen zählt.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_33_obj1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_33_c1"
+        ],
+        "sets_flags": [
+          "cwa_33_lupe1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_villa",
+    "tile": [
+      5,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_33_obj2",
+      "kind": "read",
+      "title": "Getrennte Küchenrechnungen",
+      "prompt": "Getrennte Küchenrechnungen",
+      "text": "Drei Haushalte meldeten am selben Morgen fehlende Portionen. Die Rechnungen haben verschiedene Schreiber und wurden nicht gemeinsam ausgestellt.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_33_obj2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_33_c2"
+        ],
+        "sets_flags": [
+          "cwa_33_lupe2",
+          "cwa_anker_villa_kuechenrechnung"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_villa",
+    "tile": [
+      7,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_33_obj3",
+      "kind": "read",
+      "title": "Zusammenfassungszeile",
+      "prompt": "Zusammenfassungszeile",
+      "text": "Vor jedem gebündelten Ausfall steht die Umstellung auf denselben Adressaten. Die Reihenfolge ist auf dem ursprünglichen Rechenpapier eingedrückt.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_33_obj3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_33_c3"
+        ],
+        "sets_flags": [
+          "cwa_33_lupe3"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_villa",
+    "tile": [
+      9,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_33_obj4",
+      "kind": "read",
+      "title": "Druckmessstreifen der Hauptleitung",
+      "prompt": "Druckmessstreifen der Hauptleitung",
+      "text": "Nach dem Sammelbefehl antworten mehrere Eingänge zugleich. Der mechanische Streifen bestätigt den Zeitpunkt unabhängig von Wetherbys Zahlen.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_33_obj4_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_33_c4"
+        ],
+        "sets_flags": [
+          "cwa_33_lupe4"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_villa",
+    "tile": [
+      6,
+      13
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_33_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_33_dialog",
+      "prompt": "Die ganze Portion"
+    }
+  },
+  {
+    "map": "cw_buchbinderei",
+    "tile": [
+      3,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_34_obj1",
+      "kind": "read",
+      "title": "Zurückgehaltene Warnung",
+      "prompt": "Zurückgehaltene Warnung",
+      "text": "Idas Brief beschreibt den Sammelfehler und bittet um einen sicheren Druckplatz. Der innere Falz wurde nie für eine Weiterleitung neu geschlossen.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_34_obj1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_34_c1"
+        ],
+        "sets_flags": [
+          "cwa_34_lupe1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_buchbinderei",
+    "tile": [
+      5,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_34_obj2",
+      "kind": "read",
+      "title": "Poststempel vor der Verhaftung",
+      "prompt": "Poststempel vor der Verhaftung",
+      "text": "Der Zugangsstempel liegt zwei Tage vor dem Transport. Der Absender ist vollständig erhalten; Klammer hat den Namen nicht weggekratzt.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_34_obj2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_34_c2"
+        ],
+        "sets_flags": [
+          "cwa_34_lupe2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_buchbinderei",
+    "tile": [
+      7,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_34_obj3",
+      "kind": "read",
+      "title": "Staubspur des unbenutzten Ausgangsfachs",
+      "prompt": "Staubspur des unbenutzten Ausgangsfachs",
+      "text": "Im Fach für zurückgesandte Briefe liegt ungebrochener Leimstaub. Der Umschlag hat die Werkstatt seit seiner Öffnung nicht verlassen.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_34_obj3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_34_c3"
+        ],
+        "sets_flags": [
+          "cwa_34_lupe3"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_buchbinderei",
+    "tile": [
+      9,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_34_obj4",
+      "kind": "read",
+      "title": "Klammers Eingeständnis",
+      "prompt": "Klammers Eingeständnis",
+      "text": "Klammer bestätigt, dass der Brief in ihrer Schublade lag. Sie nennt die Tage, an denen sie Hilfe hätte leisten können, und verlangt keine Entlastung durch ihre spätere Rettung.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_34_obj4_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_34_c4"
+        ],
+        "sets_flags": [
+          "cwa_34_lupe4",
+          "cwa_anker_werkstatt_klammer"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_buchbinderei",
+    "tile": [
+      6,
+      13
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_34_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_34_dialog",
+      "prompt": "Klammer öffnet die Schublade"
+    }
+  },
+  {
+    "map": "cw_archivsaal",
+    "tile": [
+      3,
+      8
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt3_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_41_obj1",
+      "kind": "read",
+      "title": "Satzproben hinter Glas",
+      "prompt": "Satzproben hinter Glas",
+      "text": "Ida hat jede fehlerfreie Zeile neben eine absichtlich unvollständige gelegt. Nur die vollständige Probe öffnet den nächsten Drucklauf.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_41_obj1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_41_c1"
+        ],
+        "sets_flags": [
+          "cwa_41_lupe1",
+          "cwa_anker_archiv_satzprobe"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_archivsaal",
+    "tile": [
+      5,
+      8
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt3_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_41_obj2",
+      "kind": "read",
+      "title": "Persönlicher Korrekturbefehl",
+      "prompt": "Persönlicher Korrekturbefehl",
+      "text": "Wetherby verlangt ausdrücklich Idas Prüfung. Eine gewöhnliche Abschrift wird zurückgewiesen, obwohl sie äußerlich dieselben Worte zeigt.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_41_obj2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_41_c2"
+        ],
+        "sets_flags": [
+          "cwa_41_lupe2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_archivsaal",
+    "tile": [
+      7,
+      8
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt3_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_41_obj3",
+      "kind": "read",
+      "title": "Gezählter Leerlauf",
+      "prompt": "Gezählter Leerlauf",
+      "text": "Nach der falschen Schlusszeile hält die Walze an und beginnt dann einen erneuten Versuch. Der Druck sammelt sich weiter in der Hauptleitung.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_41_obj3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_41_c3"
+        ],
+        "sets_flags": [
+          "cwa_41_lupe3"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_archivsaal",
+    "tile": [
+      9,
+      8
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt3_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_41_obj4",
+      "kind": "read",
+      "title": "Idas Zeitmarken",
+      "prompt": "Idas Zeitmarken",
+      "text": "Ida hat die Abstände der Leerlaufversuche eingeritzt. „Eine Lücke ist Zeit. Genauer: Zeit für einen Eingriff, nicht schon der Eingriff.“",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_41_obj4_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_41_c4"
+        ],
+        "sets_flags": [
+          "cwa_41_lupe4"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_archivsaal",
+    "tile": [
+      6,
+      14
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt3_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_41_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_41_dialog",
+      "prompt": "Die Setzerin im Schaukasten"
+    }
+  },
+  {
+    "map": "cw_quittungsmarkt",
+    "tile": [
+      3,
+      8
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt3_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_42_obj1",
+      "kind": "read",
+      "title": "Marktzeugnis mit falscher Farbe",
+      "prompt": "Marktzeugnis mit falscher Farbe",
+      "text": "Lottie erinnert sich an einen blauen Schurz, obwohl Noel ihn grau nennt. Beide erkennen dieselbe reparierte Tasche und beanspruchen keine perfekte Erinnerung.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_42_obj1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_42_c1"
+        ],
+        "sets_flags": [
+          "cwa_42_lupe1",
+          "cwa_anker_markt_lottie"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_quittungsmarkt",
+    "tile": [
+      5,
+      8
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt3_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_42_obj2",
+      "kind": "read",
+      "title": "Küchenzeugnis mit falschem Monat",
+      "prompt": "Küchenzeugnis mit falschem Monat",
+      "text": "Noel erzählt den Februar mit dem zweiten Teller. Bexley erinnert sich an Sommerhitze; keiner hat den anderen vor seiner Aussage gehört.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_42_obj2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_42_c2"
+        ],
+        "sets_flags": [
+          "cwa_42_lupe2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_quittungsmarkt",
+    "tile": [
+      7,
+      8
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt3_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_42_obj3",
+      "kind": "read",
+      "title": "Bahnhofszeugnis mit anderer Uhrzeit",
+      "prompt": "Bahnhofszeugnis mit anderer Uhrzeit",
+      "text": "Vera nennt ihre eigene Schalterzeit und unterscheidet sie von der falsch gehenden Hallenuhr. Die Tätigkeit stimmt mit den anderen Zeugen überein, die Uhrzeit nicht.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_42_obj3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_42_c3"
+        ],
+        "sets_flags": [
+          "cwa_42_lupe3",
+          "cwa_anker_gleisfuss_vera"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_quittungsmarkt",
+    "tile": [
+      9,
+      8
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt3_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_42_obj4",
+      "kind": "read",
+      "title": "Ungeteilte Aufnahmebögen",
+      "prompt": "Ungeteilte Aufnahmebögen",
+      "text": "Die Zeugnisse liegen auf drei verschiedenen Papieren mit eigener Herkunft. Die Abweichungen wurden vor dem Vergleich aufgeschrieben und nicht nachträglich vereinbart.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_42_obj4_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_42_c4"
+        ],
+        "sets_flags": [
+          "cwa_42_lupe4"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_quittungsmarkt",
+    "tile": [
+      6,
+      14
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt3_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_42_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_42_dialog",
+      "prompt": "Drei verschiedene Erinnerungen"
+    }
+  },
+  {
+    "map": "cw_archivsaal",
+    "tile": [
+      3,
+      8
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt3_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_43_obj1",
+      "kind": "read",
+      "title": "Unvollständiger Formelnachweis",
+      "prompt": "Unvollständiger Formelnachweis",
+      "text": "Im Herkunftsblatt fehlt die Schlussbedingung, nicht eine Zutatenmenge. Der erhaltene Satz spricht davon, dass die handelnde Person ihre eigene Bindung trägt.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_43_obj1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_43_c1"
+        ],
+        "sets_flags": [
+          "cwa_43_lupe1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_archivsaal",
+    "tile": [
+      5,
+      8
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt3_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_43_obj2",
+      "kind": "read",
+      "title": "Datierter Einbandvermerk",
+      "prompt": "Datierter Einbandvermerk",
+      "text": "Der Einbandvermerk nennt dieselbe Herkunft vor Wetherbys Eingriff. Er enthält keine neue Formel und keine Anweisung, andere Namen einzusetzen.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_43_obj2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_43_c2"
+        ],
+        "sets_flags": [
+          "cwa_43_lupe2",
+          "cwa_anker_archiv_einband"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_archivsaal",
+    "tile": [
+      7,
+      8
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt3_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_43_obj3",
+      "kind": "read",
+      "title": "Verifizierter Zirkelkatalog",
+      "prompt": "Verifizierter Zirkelkatalog",
+      "text": "Die zehn Pfadabschnitte unterscheiden ihre Bildsprache, verlangen aber jeweils eine selbst verantwortete Bindung. Der Gegenbeleg ist ohne Mitgliedschaft lesbar.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_43_obj3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_43_c3"
+        ],
+        "sets_flags": [
+          "cwa_43_lupe3"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_archivsaal",
+    "tile": [
+      9,
+      8
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt3_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_43_obj4",
+      "kind": "read",
+      "title": "Mallivers Randvergleich",
+      "prompt": "Mallivers Randvergleich",
+      "text": "Die Opferbehauptung steht auf einem jüngeren fremden Blatt. Faser und Satz passen nicht zum erhaltenen Herkunftsnachweis; die fehlende Ritualausarbeitung wird dadurch nicht ersetzt.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_43_obj4_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_43_c4"
+        ],
+        "sets_flags": [
+          "cwa_43_lupe4"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_archivsaal",
+    "tile": [
+      6,
+      14
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt3_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_43_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_43_dialog",
+      "prompt": "Der vierte Satz"
+    }
+  },
+  {
+    "map": "cw_archivsaal",
+    "tile": [
+      3,
+      8
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt3_done",
+        "cwa_41_geschlossen",
+        "cwa_42_geschlossen",
+        "cwa_43_geschlossen"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_44_obj1",
+      "kind": "read",
+      "title": "Idas ausgeschmuggelter Probedruck",
+      "prompt": "Idas ausgeschmuggelter Probedruck",
+      "text": "Unter dem Satzspiegel ist die kürzere Rohrpostleitung als Blindlinie eingedrückt. Ida hat sie mit einer trockenen Randkerbe markiert.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_44_obj1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_44_c1"
+        ],
+        "sets_flags": [
+          "cwa_44_lupe1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_archivsaal",
+    "tile": [
+      5,
+      8
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt3_done",
+        "cwa_41_geschlossen",
+        "cwa_42_geschlossen",
+        "cwa_43_geschlossen"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_44_obj2",
+      "kind": "read",
+      "title": "Bexleys Heizungsrohr-Skizze",
+      "prompt": "Bexleys Heizungsrohr-Skizze",
+      "text": "Die alte Skizze führt dieselbe Nebenleitung am Schaukasten vorbei. Bexley verwechselt Stimmen, nicht die sichtbaren Rohrverbindungen.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_44_obj2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_44_c2"
+        ],
+        "sets_flags": [
+          "cwa_44_lupe2",
+          "cwa_anker_archiv_rohrskizze"
+        ],
+        "gives_items": {
+          "vi_k_cw_heizungsrohr_skizze": 1
+        }
+      }
+    }
+  },
+  {
+    "map": "cw_archivsaal",
+    "tile": [
+      7,
+      8
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt3_done",
+        "cwa_41_geschlossen",
+        "cwa_42_geschlossen",
+        "cwa_43_geschlossen"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_44_obj3",
+      "kind": "read",
+      "title": "Vorlauf an der Prüfklappe",
+      "prompt": "Vorlauf an der Prüfklappe",
+      "text": "Eine leere Probekapsel erreicht die Klappe vor dem Hauptdruck. Du prüfst nur den Transport und gibst keinen Abgleichbefehl frei.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_44_obj3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_44_c3"
+        ],
+        "sets_flags": [
+          "cwa_44_lupe3"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_archivsaal",
+    "tile": [
+      9,
+      8
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt3_done",
+        "cwa_41_geschlossen",
+        "cwa_42_geschlossen",
+        "cwa_43_geschlossen"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_44_obj4",
+      "kind": "read",
+      "title": "Zwei Ausgänge der Korrekturfahne",
+      "prompt": "Zwei Ausgänge der Korrekturfahne",
+      "text": "Ein Rand öffnet das Personenschloss, der andere erreicht die Satzaufnahme. Ida kann hinaus, während Originaltausch und Leitungsisolierung beide vorbereitet bleiben.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_44_obj4_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_44_c4"
+        ],
+        "sets_flags": [
+          "cwa_44_lupe4"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_archivsaal",
+    "tile": [
+      6,
+      14
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt3_done",
+        "cwa_41_geschlossen",
+        "cwa_42_geschlossen",
+        "cwa_43_geschlossen"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_44_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_44_dialog",
+      "prompt": "Die Ausgangsfahne"
+    }
+  },
+  {
+    "map": "cw_roehrenhof",
+    "tile": [
+      3,
+      9
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt4_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_51_obj1",
+      "kind": "read",
+      "title": "Unbenannte Zeilen im Schlussbogen",
+      "prompt": "Unbenannte Zeilen im Schlussbogen",
+      "text": "Neben den Wohnadressen stehen offene Essensstellen. Der Druck greift nach den Personen, obwohl ihre Meldespalten leer bleiben.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_51_obj1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_51_c1"
+        ],
+        "sets_flags": [
+          "cwa_51_lupe1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_roehrenhof",
+    "tile": [
+      5,
+      9
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt4_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_51_obj2",
+      "kind": "read",
+      "title": "Liste der Suppenküche",
+      "prompt": "Liste der Suppenküche",
+      "text": "Noel zählt Portionen für Menschen ohne gemeldete Tür. Die Anzahl passt zu den offenen Zeilen, ohne die Menschen auf ihre Portionen zu reduzieren.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_51_obj2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_51_c2"
+        ],
+        "sets_flags": [
+          "cwa_51_lupe2",
+          "cwa_anker_roehrenhof_noel"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_roehrenhof",
+    "tile": [
+      7,
+      9
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt4_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_51_obj3",
+      "kind": "read",
+      "title": "Getrennte Essensmarken",
+      "prompt": "Getrennte Essensmarken",
+      "text": "Unterschiedlich abgenutzte Marken belegen regelmäßige Wege ohne Mietadresse. Ihre Träger stimmen einer einzelnen Bestätigung zu, keiner gemeinsamen Ersatzperson.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_51_obj3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_51_c3"
+        ],
+        "sets_flags": [
+          "cwa_51_lupe3"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_roehrenhof",
+    "tile": [
+      9,
+      9
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt4_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_51_obj4",
+      "kind": "read",
+      "title": "Freie Gegenzeichnung",
+      "prompt": "Freie Gegenzeichnung",
+      "text": "Noel lässt Zeilen offen für spätere Rückfragen. Jede aktuelle Zustimmung wird einzeln festgehalten; niemand unterschreibt für Abwesende.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_51_obj4_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_51_c4"
+        ],
+        "sets_flags": [
+          "cwa_51_lupe4"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_roehrenhof",
+    "tile": [
+      6,
+      15
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt4_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_51_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_51_dialog",
+      "prompt": "Der letzte Haushalt"
+    }
+  },
+  {
+    "map": "cw_nullfundament",
+    "tile": [
+      3,
+      9
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt4_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_52_obj1",
+      "kind": "read",
+      "title": "Getrennte Registerränder",
+      "prompt": "Getrennte Registerränder",
+      "text": "Drei einzeln geführte Ränder lassen zwischen den Bündelungen Raum. Die Reaktion passt zur örtlichen Kontrollprobe aus Mallivers Wanne.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_52_obj1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_52_c1"
+        ],
+        "sets_flags": [
+          "cwa_52_lupe1",
+          "cwa_anker_fundament_register"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_nullfundament",
+    "tile": [
+      5,
+      9
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt4_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_52_obj2",
+      "kind": "read",
+      "title": "Messung am stillen Spalt",
+      "prompt": "Messung am stillen Spalt",
+      "text": "Eine einzelne Zuordnung belastet nur ihren eigenen Rand. Beim Sammelmuster antworten alle Ränder zusammen; die Messung ist vor dem Kampf ablesbar.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_52_obj2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_52_c2"
+        ],
+        "sets_flags": [
+          "cwa_52_lupe2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_nullfundament",
+    "tile": [
+      7,
+      9
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt4_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_52_obj3",
+      "kind": "read",
+      "title": "Bauakte mit älterem Stein",
+      "prompt": "Bauakte mit älterem Stein",
+      "text": "Das Fundament ist älter als Wetherbys Presse. Die örtliche Öffnung wurde angeschlossen, nicht vom Direktor aus dem Nichts geschaffen.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_52_obj3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_52_c3"
+        ],
+        "sets_flags": [
+          "cwa_52_lupe3"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_nullfundament",
+    "tile": [
+      9,
+      9
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt4_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_52_obj4",
+      "kind": "read",
+      "title": "Abgehende Druckspur",
+      "prompt": "Abgehende Druckspur",
+      "text": "Nach dem Eingriff fällt hier der Sammeldruck. Ein fernes unzuordenbares Klopfen bleibt messbar und verhindert die Behauptung eines Sieges über alle Städte.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_52_obj4_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_52_c4"
+        ],
+        "sets_flags": [
+          "cwa_52_lupe4"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_nullfundament",
+    "tile": [
+      6,
+      15
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt4_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_52_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_52_dialog",
+      "prompt": "Das offene Fundament"
+    }
+  },
+  {
+    "map": "cw_druckkammer",
+    "tile": [
+      3,
+      9
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt4_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_53_obj1",
+      "kind": "read",
+      "title": "Eigenhändig korrigierte Verlustspalte",
+      "prompt": "Eigenhändig korrigierte Verlustspalte",
+      "text": "Wetherbys Korrekturen stehen unter der späteren Reinabschrift. Er hat die gleichzeitigen Ausfälle nicht bloß übersehen.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_53_obj1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_53_c1"
+        ],
+        "sets_flags": [
+          "cwa_53_lupe1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_druckkammer",
+    "tile": [
+      5,
+      9
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt4_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_53_obj2",
+      "kind": "read",
+      "title": "Leere private Unterschrift",
+      "prompt": "Leere private Unterschrift",
+      "text": "Auf die Bitte um einen privaten Namen stockt seine Hand. Als Direktor unterschreibt er sofort und hält sich dabei an der Kette fest.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_53_obj2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_53_c2"
+        ],
+        "sets_flags": [
+          "cwa_53_lupe2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_druckkammer",
+    "tile": [
+      7,
+      9
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt4_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_53_obj3",
+      "kind": "read",
+      "title": "Mallivers persönliche Erinnerung",
+      "prompt": "Mallivers persönliche Erinnerung",
+      "text": "Malliver beschreibt einen gemeinsamen Arbeitstag vor der ersten Löschung. Sie stimmt einer persönlichen Aussage zu, ohne seine Entscheidungen zu billigen.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_53_obj3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_53_c3"
+        ],
+        "sets_flags": [
+          "cwa_53_lupe3",
+          "cwa_anker_druckkammer_malliver"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_druckkammer",
+    "tile": [
+      9,
+      9
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt4_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_53_obj4",
+      "kind": "read",
+      "title": "Antwort ohne Titel",
+      "prompt": "Antwort ohne Titel",
+      "text": "Bei einer freiwilligen persönlichen Ansprache bleibt Wetherbys Kontur lesbar. Die Amtsprägung wird dabei abgedeckt, die Prüfung aber nicht gegen seinen Willen fortgesetzt.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_53_obj4_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_53_c4"
+        ],
+        "sets_flags": [
+          "cwa_53_lupe4"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_druckkammer",
+    "tile": [
+      6,
+      15
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt4_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_53_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_53_dialog",
+      "prompt": "Wetherbys Unterschrift"
+    }
+  },
+  {
+    "map": "cw_druckkammer",
+    "tile": [
+      3,
+      9
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt4_done",
+        "cwa_51_geschlossen",
+        "cwa_52_geschlossen",
+        "cwa_53_geschlossen"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_54_obj1",
+      "kind": "read",
+      "title": "Austrittsliste mit offenen Wegen",
+      "prompt": "Austrittsliste mit offenen Wegen",
+      "text": "Neben jedem Weg steht entweder eine persönliche Bestätigung, eine offene Stelle oder eine Etappe zur Frachtbahn. Keine dieser Spalten ist als gleichwertiger Erfolg vorgedruckt.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_54_obj1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_54_c1"
+        ],
+        "sets_flags": [
+          "cwa_54_lupe1",
+          "cwa_anker_druckkammer_austritt"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_druckkammer",
+    "tile": [
+      5,
+      9
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt4_done",
+        "cwa_51_geschlossen",
+        "cwa_52_geschlossen",
+        "cwa_53_geschlossen"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_54_obj2",
+      "kind": "read",
+      "title": "Idas Gegenlesung",
+      "prompt": "Idas Gegenlesung",
+      "text": "Ida benennt getrennt gerettete Personen, erhaltene Bindungen und den fortbestehenden Ort. Sie weigert sich, eine fehlende Zustimmung stillschweigend nachzutragen.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_54_obj2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_54_c2"
+        ],
+        "sets_flags": [
+          "cwa_54_lupe2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_druckkammer",
+    "tile": [
+      7,
+      9
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt4_done",
+        "cwa_51_geschlossen",
+        "cwa_52_geschlossen",
+        "cwa_53_geschlossen"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_54_obj3",
+      "kind": "read",
+      "title": "Manuelle Leitungsprobe",
+      "prompt": "Manuelle Leitungsprobe",
+      "text": "Du kannst die Leitung trennen, den Satz tauschen oder die Sammelfassung übernehmen. Noch ist keine dieser Handlungen ausgelöst.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_54_obj3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_54_c3"
+        ],
+        "sets_flags": [
+          "cwa_54_lupe3"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_druckkammer",
+    "tile": [
+      9,
+      9
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt4_done",
+        "cwa_51_geschlossen",
+        "cwa_52_geschlossen",
+        "cwa_53_geschlossen"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_54_obj4",
+      "kind": "read",
+      "title": "Frachtbahn-Freigabe",
+      "prompt": "Frachtbahn-Freigabe",
+      "text": "Die gesicherte Bahn kann mehrere Etappen ohne zurückgelassene Menschen fahren. Bei Evakuierung bleiben ungesicherte Beziehungen verloren; beim Amt bleibt die nächste Opferentscheidung offen.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_54_obj4_gelesen",
+      "effects": {
+        "gives_clues": [
+          "cwa_54_c4"
+        ],
+        "sets_flags": [
+          "cwa_54_lupe4"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_druckkammer",
+    "tile": [
+      6,
+      15
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt4_done",
+        "cwa_51_geschlossen",
+        "cwa_52_geschlossen",
+        "cwa_53_geschlossen"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_54_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_54_dialog",
+      "prompt": "Ein Name nach dem anderen"
+    }
+  },
+  {
+    "map": "cw_alte_setzerei",
+    "tile": [
+      12,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_abgleich1_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_abgleich1_dialog",
+      "prompt": "Abgleich 1: betroffene Wege vorher prüfen"
+    }
+  },
+  {
+    "map": "cw_setzergasse",
+    "tile": [
+      12,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_abgleich2_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_abgleich2_dialog",
+      "prompt": "Abgleich 2: betroffene Wege vorher prüfen"
+    }
+  },
+  {
+    "map": "cw_villa",
+    "tile": [
+      12,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_abgleich3_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_abgleich3_dialog",
+      "prompt": "Abgleich 3: betroffene Wege vorher prüfen"
+    }
+  },
+  {
+    "map": "cw_quittungsmarkt",
+    "tile": [
+      12,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt3_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_abgleich4_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_abgleich4_dialog",
+      "prompt": "Abgleich 4: betroffene Wege vorher prüfen"
+    }
+  },
+  {
+    "map": "cw_roehrenhof",
+    "tile": [
+      12,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt4_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_abgleich5_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_abgleich5_dialog",
+      "prompt": "Abgleich 5: betroffene Wege vorher prüfen"
+    }
+  },
+  {
+    "map": "cw_druckkammer",
+    "tile": [
+      12,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt4_done",
+        "cwa_51_geschlossen",
+        "cwa_52_geschlossen",
+        "cwa_53_geschlossen"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_abgleich6_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_abgleich6_dialog",
+      "prompt": "Abgleich 6: betroffene Wege vorher prüfen"
+    }
+  },
+  {
+    "map": "cw_alte_setzerei",
+    "tile": [
+      12,
+      9
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_bleisammler_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_bleisammler_dialog",
+      "prompt": "Eingriff prüfen: bleisammler"
+    }
+  },
+  {
+    "map": "cw_alte_setzerei",
+    "tile": [
+      12,
+      11
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_bleisammler_passiert"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_bleisammler_kern_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_bleisammler_kern_dialog",
+      "prompt": "Kernzutat: Ersatzquelle prüfen"
+    }
+  },
+  {
+    "map": "cw_sortiergrube",
+    "tile": [
+      12,
+      9
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_blinder_zusteller_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_blinder_zusteller_dialog",
+      "prompt": "Eingriff prüfen: blinder zusteller"
+    }
+  },
+  {
+    "map": "cw_sortiergrube",
+    "tile": [
+      12,
+      11
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_blinder_zusteller_passiert"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_blinder_zusteller_kern_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_blinder_zusteller_kern_dialog",
+      "prompt": "Kernzutat: Ersatzquelle prüfen"
+    }
+  },
+  {
+    "map": "cw_nullfundament",
+    "tile": [
+      12,
+      9
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt4_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_nullfundament_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_nullfundament_dialog",
+      "prompt": "Eingriff prüfen: nullfundament"
+    }
+  },
+  {
+    "map": "cw_nullfundament",
+    "tile": [
+      12,
+      11
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_nullfundament_passiert"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_nullfundament_kern_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_nullfundament_kern_dialog",
+      "prompt": "Kernzutat: Ersatzquelle prüfen"
+    }
+  },
+  {
+    "map": "ds_speisewagen",
+    "tile": [
+      9,
+      4
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "kapitel3_done",
+        "k3a_end_feierabend"
+      ],
+      "hide_if_flags": [
+        "k4_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_anreise_feierabend_papier",
+      "kind": "read",
+      "title": "Eine Fahrkarte ohne Fahrgast",
+      "prompt": "Eine Fahrkarte ohne Fahrgast",
+      "text": "Pfiff legt eine Fahrkarte der Frachtbahn neben deinen Teller. Der Fahrgastname wurde nachträglich herausgeschabt; an der rauen Stelle bleibt eine Setzerkorrektur lesbar: „Calderwick, Setzergasse“. Idas Handschrift steht auf dem Rand, nicht auf einer neuen Dienstliste.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_anreise_feierabend_papier_gelesen",
+      "effects": {
+        "sets_flags": [
+          "cwa_anreise_feierabend_gelesen"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_speisewagen",
+    "tile": [
+      9,
+      4
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "kapitel3_done",
+        "k3a_end_stilllegung"
+      ],
+      "hide_if_flags": [
+        "k4_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_anreise_stilllegung_papier",
+      "kind": "read",
+      "title": "Rücklauf ohne Empfänger",
+      "prompt": "Rücklauf ohne Empfänger",
+      "text": "Die Lohnlisten der Verschollenen kommen an Esther zurück. Auf dem Umschlag steht „wegen nicht existenter Empfänger“. Zwischen den Stempeln hat Ida das Korrekturzeichen für eine ausgelassene Zeile gesetzt und Calderwicks Setzergasse genannt. Die abgeschaltete Rufanlage hat diese Rücksendung nicht befördert.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_anreise_stilllegung_papier_gelesen",
+      "effects": {
+        "sets_flags": [
+          "cwa_anreise_stilllegung_gelesen"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_speisewagen",
+    "tile": [
+      9,
+      4
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "kapitel3_done",
+        "k3a_end_gegenstimme"
+      ],
+      "hide_if_flags": [
+        "k4_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_anreise_gegenstimme_papier",
+      "kind": "read",
+      "title": "Die angeforderte Zusammenfassung",
+      "prompt": "Die angeforderte Zusammenfassung",
+      "text": "Eine fremde Verwaltung fordert deinen eigenen Anker-Eintrag „zur Zusammenfassung“ an. Absender ist das Kronenarchiv Calderwick. Im Rücklauf liegt Idas Randwarnung, dass unter einer gemeinsamen Zeile nicht weniger Menschen verschwinden. Dein Namenstäfelchen liegt unversehrt daneben.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_anreise_gegenstimme_papier_gelesen",
+      "effects": {
+        "sets_flags": [
+          "cwa_anreise_gegenstimme_gelesen"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_speisewagen",
+    "tile": [
+      9,
+      4
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "kapitel3_done",
+        "k3a_end_vollzaehlig"
+      ],
+      "hide_if_flags": [
+        "k4_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_anreise_vollzaehlig_papier",
+      "kind": "read",
+      "title": "Eine Einladung mit leerer Zeile",
+      "prompt": "Eine Einladung mit leerer Zeile",
+      "text": "Ein Direktor gratuliert dir zum „gelungenen Rundruf“ und lädt dich zur Vorführung seiner Sammelurkunde ein. Das Feld für die betroffenen Personen ist leer. Unter der höflichen Einladung hat Ida geschrieben, dass ein gemeinsamer Adressat dem Hunger eine gemeinsame Tür gibt.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_anreise_vollzaehlig_papier_gelesen",
+      "effects": {
+        "sets_flags": [
+          "cwa_anreise_vollzaehlig_gelesen"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_gleisfuss",
+    "tile": [
+      5,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_reise_freigegeben"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_ankunft_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_ankunft",
+      "prompt": "Ankommen: den sicheren Rand erreichen"
+    }
+  },
+  {
+    "map": "cw_buchbinderei",
+    "tile": [
+      10,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_44_geschlossen"
+      ],
+      "hide_if_flags": [
+        "kapitel4_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_planbrett_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_planbrett",
+      "prompt": "Bürgenbrett: Plan ohne Kosten ändern"
+    }
+  },
+  {
+    "map": "cw_druckkammer",
+    "tile": [
+      9,
+      12
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_abschlussbereitschaft"
+      ],
+      "hide_if_flags": [
+        "kapitel4_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_finale_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_finale",
+      "prompt": "Hauptpresse: Kosten prüfen und Ende ausdrücklich wählen"
+    }
+  },
+  {
+    "map": "cw_buchbinderei",
+    "tile": [
+      10,
+      8
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt4_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_kontaktpruefung_station",
+      "kind": "dialogue",
+      "dialogue": "cwa_kontaktpruefung",
+      "prompt": "Vor dem letzten Abgleich: verratene Kontakte prüfen"
+    }
+  },
+  {
+    "map": "cw_gepaeckhalle",
+    "npc": "cw_darnell",
+    "tile": [
+      5,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    }
+  },
+  {
+    "map": "cw_buchbinderei",
+    "npc": "cw_crayford",
+    "tile": [
+      5,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    }
+  },
+  {
+    "map": "cw_quittungsmarkt",
+    "npc": "cw_pritch",
+    "tile": [
+      5,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    }
+  },
+  {
+    "map": "cw_pfandhaus",
+    "npc": "cw_wicksend",
+    "tile": [
+      5,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    }
+  },
+  {
+    "map": "cw_roehrenhof",
+    "npc": "cw_hesk",
+    "tile": [
+      5,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    }
+  },
+  {
+    "map": "cw_archivsaal",
+    "npc": "cw_malliver",
+    "tile": [
+      5,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    }
+  },
+  {
+    "map": "cw_kueche",
+    "npc": "cw_noel_bellcross",
+    "tile": [
+      5,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    }
+  },
+  {
+    "map": "cw_witwenterrasse",
+    "npc": "cw_bexley",
+    "tile": [
+      5,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    }
+  },
+  {
+    "map": "cw_sortierhalle",
+    "npc": "cw_ida_bellcross",
+    "tile": [
+      13,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt1_done"
+      ],
+      "hide_if_flags": [
+        "cwa_ida_im_archiv",
+        "cwa_ida_frei"
+      ]
+    }
+  },
+  {
+    "map": "cw_archivsaal",
+    "npc": "cw_ida_bellcross",
+    "tile": [
+      13,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_ida_im_archiv"
+      ],
+      "hide_if_flags": [
+        "cwa_ida_frei"
+      ]
+    }
+  },
+  {
+    "map": "cw_buchbinderei",
+    "npc": "cw_ida_bellcross",
+    "tile": [
+      7,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_ida_frei"
+      ]
+    }
+  },
+  {
+    "map": "cw_villa",
+    "npc": "cw_wetherby",
+    "tile": [
+      7,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt2_done"
+      ],
+      "hide_if_flags": [
+        "cwa_akt4_done"
+      ]
+    }
+  },
+  {
+    "map": "cw_druckkammer",
+    "npc": "cw_wetherby",
+    "tile": [
+      7,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt4_done"
+      ]
+    }
+  },
+  {
+    "map": "cw_buchbinderei",
+    "tile": [
+      4,
+      8
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_brief_marlowe",
+      "kind": "read",
+      "title": "Ein später Kauf",
+      "prompt": "Ein später Kauf",
+      "text": "Marlowe bestätigt die Ablagedaten der Revierabschriften. „Prüfe Empfänger und Zeitpunkt. Ein Käufer kann verantwortlich sein, ohne rückwirkend jede Tat veranlasst zu haben.“ Das Gesicht der Schleierschwester bleibt unbekannt.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_brief_marlowe_gelesen",
+      "effects": {
+        "sets_flags": [
+          "cwa_marlowe_gelesen"
+        ]
+      }
+    }
+  },
+  {
+    "map": "cw_buchbinderei",
+    "tile": [
+      4,
+      9
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwa_telegramm_zunder",
+      "kind": "read",
+      "title": "Ein kurzer Werkstattrat",
+      "prompt": "Ein kurzer Werkstattrat",
+      "text": "Zunders Telegramm nennt keinen geheimen Rettungsplan. „Wenn du eine Werkstatt betrittst, frag, wo du nicht stehen sollst.“ Darunter hat Klammer einen Pfeil zum Rückweg gezeichnet. Zunder bleibt in ihrer eigenen Stadt.",
+      "footer": "Die Aufzeichnung bleibt im Notizbuch erhalten.",
+      "done_flag": "cwa_telegramm_zunder_gelesen",
+      "effects": {
+        "sets_flags": [
+          "cwa_zunder_gelesen"
+        ]
+      }
+    }
+  }
+]

@@ -1,0 +1,63 @@
+{
+  "format": "nebel-musik-1",
+  "id": "bh_ende_verwahrt",
+  "titel": "Die letzte Umdrehung",
+  "art": "musik",
+  "bpm": 60,
+  "takt": [
+    3,
+    4
+  ],
+  "loop": false,
+  "lautstaerke": 0.62,
+  "hall": 0.32,
+  "spuren": {
+    "s0": {
+      "instrument": "spieluhr",
+      "lautstaerke": 0.48,
+      "pan": 0
+    }
+  },
+  "muster": {
+    "intro_s0": {
+      "spur": "s0",
+      "takte": 1,
+      "noten": "r:6 d4:6"
+    },
+    "A_s0": {
+      "spur": "s0",
+      "takte": 4,
+      "noten": "d5:4 a4:4 r:4 | d5:4 a4:4 r:4 | e5:4 b4:4 r:4 | f5:4 e5:4 r:4"
+    },
+    "B_s0": {
+      "spur": "s0",
+      "takte": 4,
+      "noten": "f5:4 e5:4 r:4 | f5:4 e5:4 r:4 | d#5:4 d5:4 r:4 | f5:4 e5:4 r:4"
+    },
+    "C_s0": {
+      "spur": "s0",
+      "takte": 4,
+      "noten": "d5:4 a4:4 r:4 | d5:4 a4:4 r:4 | r:12 | r:12"
+    }
+  },
+  "abschnitte": {
+    "intro": [
+      "intro_s0"
+    ],
+    "A": [
+      "A_s0"
+    ],
+    "B": [
+      "B_s0"
+    ],
+    "C": [
+      "C_s0"
+    ]
+  },
+  "ablauf": [
+    "intro",
+    "A",
+    "B",
+    "C"
+  ]
+}
