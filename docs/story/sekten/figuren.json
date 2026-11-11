@@ -1,0 +1,1505 @@
+{
+  "npcs": {
+    "sk_asche_sprecher_ida": {
+      "name": "Ida Dorn",
+      "role": "Heizerin",
+      "dialogue": "sk_asche_sprecher_ida",
+      "palette": {
+        "coat": "#585352",
+        "hat": "#34343d",
+        "skin": "#b59c87",
+        "hair": "#68615b",
+        "legs": "#45434d"
+      }
+    },
+    "sk_asche_aussteiger_tobin": {
+      "name": "Tobin Mott",
+      "role": "Ehemaliger Schornsteinfeger",
+      "dialogue": "sk_asche_aussteiger_tobin",
+      "palette": {
+        "coat": "#585352",
+        "hat": "#34343d",
+        "skin": "#b59c87",
+        "hair": "#68615b",
+        "legs": "#45434d"
+      }
+    },
+    "sk_asche_opfer_wenz": {
+      "name": "Wenz Albrecht",
+      "role": "Kesselputzer und Bruder eines Vermissten",
+      "dialogue": "sk_asche_opfer_wenz",
+      "palette": {
+        "coat": "#585352",
+        "hat": "#34343d",
+        "skin": "#b59c87",
+        "hair": "#68615b",
+        "legs": "#45434d"
+      }
+    },
+    "sk_flut_sprecher_maren": {
+      "name": "Maren Keel",
+      "role": "Fährfrau",
+      "dialogue": "sk_flut_sprecher_maren",
+      "palette": {
+        "coat": "#66756b",
+        "hat": "#34343d",
+        "skin": "#b59c87",
+        "hair": "#68615b",
+        "legs": "#45434d"
+      }
+    },
+    "sk_flut_aussteiger_pell": {
+      "name": "Pell Norr",
+      "role": "Seiler auf Wanderschaft",
+      "dialogue": "sk_flut_aussteiger_pell",
+      "palette": {
+        "coat": "#66756b",
+        "hat": "#34343d",
+        "skin": "#b59c87",
+        "hair": "#68615b",
+        "legs": "#45434d"
+      }
+    },
+    "sk_flut_opfer_lotte": {
+      "name": "Lotte Marr",
+      "role": "Netzflickerin und Angehörige",
+      "dialogue": "sk_flut_opfer_lotte",
+      "palette": {
+        "coat": "#66756b",
+        "hat": "#34343d",
+        "skin": "#b59c87",
+        "hair": "#68615b",
+        "legs": "#45434d"
+      }
+    },
+    "sk_chor_sprecher_ansgar": {
+      "name": "Ansgar Venn",
+      "role": "Vorarbeiter",
+      "dialogue": "sk_chor_sprecher_ansgar",
+      "palette": {
+        "coat": "#777787",
+        "hat": "#34343d",
+        "skin": "#b59c87",
+        "hair": "#68615b",
+        "legs": "#45434d"
+      }
+    },
+    "sk_chor_aussteiger_rike": {
+      "name": "Rike Sorn",
+      "role": "Ehemalige Rufprüferin",
+      "dialogue": "sk_chor_aussteiger_rike",
+      "palette": {
+        "coat": "#777787",
+        "hat": "#34343d",
+        "skin": "#b59c87",
+        "hair": "#68615b",
+        "legs": "#45434d"
+      }
+    },
+    "sk_chor_opfer_jost": {
+      "name": "Jost Ell",
+      "role": "Signalträger",
+      "dialogue": "sk_chor_opfer_jost",
+      "palette": {
+        "coat": "#777787",
+        "hat": "#34343d",
+        "skin": "#b59c87",
+        "hair": "#68615b",
+        "legs": "#45434d"
+      }
+    }
+  },
+  "dialogues": {
+    "sk_asche_sprecher_ida": {
+      "start": [
+        {
+          "node": "gruss_hoch",
+          "requires_honor": 40
+        },
+        {
+          "node": "gruss_mittel",
+          "requires_honor": 10
+        },
+        {
+          "node": "gruss_niedrig"
+        }
+      ],
+      "nodes": {
+        "gruss_niedrig": {
+          "text": "„Du kommst spät. Für deine Akte ist vielleicht noch Platz.“",
+          "choices": [
+            {
+              "text": "Ich möchte etwas wissen.",
+              "next": "hub"
+            },
+            {
+              "text": "Später.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "gruss_mittel": {
+          "text": "„Man kennt dich. Das muss nicht immer ein Vorteil sein.“",
+          "choices": [
+            {
+              "text": "Ich möchte etwas wissen.",
+              "next": "hub"
+            },
+            {
+              "text": "Später.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "gruss_hoch": {
+          "text": "„So viel Ansehen, und doch trägst du noch deinen Namen.“",
+          "choices": [
+            {
+              "text": "Ich möchte etwas wissen.",
+              "next": "hub"
+            },
+            {
+              "text": "Später.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "hub": {
+          "text": "Was möchtest du ansprechen?",
+          "choices": [
+            {
+              "text": "Deine Arbeit.",
+              "next": "thema"
+            },
+            {
+              "text": "Mein Pfad.",
+              "next": "pfad",
+              "requires_pathway": [
+                "eisen",
+                9
+              ]
+            },
+            {
+              "text": "Was kann ich tun?",
+              "next": "hilfe"
+            },
+            {
+              "text": "Ich gehe.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "thema": {
+          "text": "„Ich halte die Feuer gleichmäßig. Namen brennen ungleich; manche brauchen Hilfe.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "hub"
+            },
+            {
+              "text": "Leb wohl.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "pfad": {
+          "text": "„Eisen hält einen Ofen zusammen. Es hält auch Menschen dort, wo andere sie haben wollen.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "hub"
+            },
+            {
+              "text": "Leb wohl.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "hilfe": {
+          "text": "„Tobin kennt die kalten Stellen unserer Arbeit. Wenn du zweifelst, geh zu ihm.“",
+          "choices": [
+            {
+              "text": "Danke.",
+              "next": "hub"
+            },
+            {
+              "text": "Ich mache mich auf den Weg.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "abschied": {
+          "text": "„Achte auf den Rückweg.“",
+          "choices": [
+            {
+              "text": "Gespräch beenden."
+            }
+          ]
+        }
+      }
+    },
+    "sk_asche_aussteiger_tobin": {
+      "start": [
+        {
+          "node": "gruss_hoch",
+          "requires_honor": 40
+        },
+        {
+          "node": "gruss_mittel",
+          "requires_honor": 10
+        },
+        {
+          "node": "gruss_niedrig"
+        }
+      ],
+      "nodes": {
+        "gruss_niedrig": {
+          "text": "„Bleib im Licht. Ich sehe deine Hände nicht.“",
+          "choices": [
+            {
+              "text": "Ich möchte etwas wissen.",
+              "next": "hub"
+            },
+            {
+              "text": "Später.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "gruss_mittel": {
+          "text": "„Du fragst erst. Das haben sie sich abgewöhnt.“",
+          "choices": [
+            {
+              "text": "Ich möchte etwas wissen.",
+              "next": "hub"
+            },
+            {
+              "text": "Später.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "gruss_hoch": {
+          "text": "„Wenn dein Wort etwas gilt, versprich niemandem Reinigung.“",
+          "choices": [
+            {
+              "text": "Ich möchte etwas wissen.",
+              "next": "hub"
+            },
+            {
+              "text": "Später.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "hub": {
+          "text": "Was möchtest du ansprechen?",
+          "choices": [
+            {
+              "text": "Deine Arbeit.",
+              "next": "thema"
+            },
+            {
+              "text": "Mein Pfad.",
+              "next": "pfad",
+              "requires_pathway": [
+                "eisen",
+                9
+              ]
+            },
+            {
+              "text": "Was kann ich tun?",
+              "next": "hilfe"
+            },
+            {
+              "text": "Ich gehe.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "thema": {
+          "text": "„Ich habe meinen Namen verbrannt. Die Schulden fanden mich trotzdem. Nur meine Freunde suchten länger.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "hub"
+            },
+            {
+              "text": "Leb wohl.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "pfad": {
+          "text": "„Eisen kann die Glut halten. Aber zum Löschen brauchst du etwas, das du auch wieder loslassen kannst.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "hub"
+            },
+            {
+              "text": "Leb wohl.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "hilfe": {
+          "text": "„Für Läuterwasser breche ich das Siegel über einer kalten Glutkohle. Das Wasser bindet nur ihre falsche Hitze. Gegen gewöhnliches Feuer hilft es nicht.“",
+          "sets_flags": [
+            "sk_asche_rezept"
+          ],
+          "choices": [
+            {
+              "text": "Danke.",
+              "next": "hub"
+            },
+            {
+              "text": "Ich mache mich auf den Weg.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "abschied": {
+          "text": "„Achte auf den Rückweg.“",
+          "choices": [
+            {
+              "text": "Gespräch beenden."
+            }
+          ]
+        }
+      }
+    },
+    "sk_asche_opfer_wenz": {
+      "start": [
+        {
+          "node": "gruss_hoch",
+          "requires_honor": 40
+        },
+        {
+          "node": "gruss_mittel",
+          "requires_honor": 10
+        },
+        {
+          "node": "gruss_niedrig"
+        }
+      ],
+      "nodes": {
+        "gruss_niedrig": {
+          "text": "„Noch jemand, der nach meinem Bruder fragt und dann fortgeht?“",
+          "choices": [
+            {
+              "text": "Ich möchte etwas wissen.",
+              "next": "hub"
+            },
+            {
+              "text": "Später.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "gruss_mittel": {
+          "text": "„Du hast wenigstens zugehört. Hier ist seine letzte Nachricht.“",
+          "choices": [
+            {
+              "text": "Ich möchte etwas wissen.",
+              "next": "hub"
+            },
+            {
+              "text": "Später.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "gruss_hoch": {
+          "text": "„Wenn man dir Türen öffnet, such bitte hinter der warmen.“",
+          "choices": [
+            {
+              "text": "Ich möchte etwas wissen.",
+              "next": "hub"
+            },
+            {
+              "text": "Später.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "hub": {
+          "text": "Was möchtest du ansprechen?",
+          "choices": [
+            {
+              "text": "Deine Arbeit.",
+              "next": "thema"
+            },
+            {
+              "text": "Mein Pfad.",
+              "next": "pfad",
+              "requires_pathway": [
+                "eisen",
+                9
+              ]
+            },
+            {
+              "text": "Was kann ich tun?",
+              "next": "hilfe"
+            },
+            {
+              "text": "Ich gehe.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "thema": {
+          "text": "„Mein Bruder sollte seine Schande loswerden. Seitdem bekommt ein anderer seinen Lohn.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "hub"
+            },
+            {
+              "text": "Leb wohl.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "pfad": {
+          "text": "„Eisen hört nicht zu. Du schon, hoffe ich.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "hub"
+            },
+            {
+              "text": "Leb wohl.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "hilfe": {
+          "text": "„Fang bei der kalten Aktenmulde an. Ich will ihn zurück, nicht eine saubere Geschichte.“",
+          "start_quests": [
+            "sk_asche_kette"
+          ],
+          "choices": [
+            {
+              "text": "Danke.",
+              "next": "hub"
+            },
+            {
+              "text": "Ich mache mich auf den Weg.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "abschied": {
+          "text": "„Achte auf den Rückweg.“",
+          "choices": [
+            {
+              "text": "Gespräch beenden."
+            }
+          ]
+        }
+      }
+    },
+    "sk_flut_sprecher_maren": {
+      "start": [
+        {
+          "node": "gruss_hoch",
+          "requires_honor": 40
+        },
+        {
+          "node": "gruss_mittel",
+          "requires_honor": 10
+        },
+        {
+          "node": "gruss_niedrig"
+        }
+      ],
+      "nodes": {
+        "gruss_niedrig": {
+          "text": "„Du hältst dich sehr fest am Ufer.“",
+          "choices": [
+            {
+              "text": "Ich möchte etwas wissen.",
+              "next": "hub"
+            },
+            {
+              "text": "Später.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "gruss_mittel": {
+          "text": "„Du kennst die Überfahrt. Den Rückweg zeigen wir später.“",
+          "choices": [
+            {
+              "text": "Ich möchte etwas wissen.",
+              "next": "hub"
+            },
+            {
+              "text": "Später.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "gruss_hoch": {
+          "text": "„Auch ein guter Name kann schwer auf den Grund sinken.“",
+          "choices": [
+            {
+              "text": "Ich möchte etwas wissen.",
+              "next": "hub"
+            },
+            {
+              "text": "Später.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "hub": {
+          "text": "Was möchtest du ansprechen?",
+          "choices": [
+            {
+              "text": "Deine Arbeit.",
+              "next": "thema"
+            },
+            {
+              "text": "Mein Pfad.",
+              "next": "pfad",
+              "requires_pathway": [
+                "schluessel",
+                9
+              ]
+            },
+            {
+              "text": "Was kann ich tun?",
+              "next": "hilfe"
+            },
+            {
+              "text": "Ich gehe.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "thema": {
+          "text": "„Ich bringe Leute hinüber. Manche wollen mehr ablegen als ihren Mantel.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "hub"
+            },
+            {
+              "text": "Leb wohl.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "pfad": {
+          "text": "„Jedes Schloss hat einen Schlüssel. Unter Wasser fragst du rascher, wer ihn hält.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "hub"
+            },
+            {
+              "text": "Leb wohl.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "hilfe": {
+          "text": "„Pell hat unser Seil verlassen. Er wird behaupten, es sei eine Schlinge gewesen.“",
+          "choices": [
+            {
+              "text": "Danke.",
+              "next": "hub"
+            },
+            {
+              "text": "Ich mache mich auf den Weg.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "abschied": {
+          "text": "„Achte auf den Rückweg.“",
+          "choices": [
+            {
+              "text": "Gespräch beenden."
+            }
+          ]
+        }
+      }
+    },
+    "sk_flut_aussteiger_pell": {
+      "start": [
+        {
+          "node": "gruss_hoch",
+          "requires_honor": 40
+        },
+        {
+          "node": "gruss_mittel",
+          "requires_honor": 10
+        },
+        {
+          "node": "gruss_niedrig"
+        }
+      ],
+      "nodes": {
+        "gruss_niedrig": {
+          "text": "„Nicht hinter mich. Da stand der Mann mit dem Seil.“",
+          "choices": [
+            {
+              "text": "Ich möchte etwas wissen.",
+              "next": "hub"
+            },
+            {
+              "text": "Später.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "gruss_mittel": {
+          "text": "„Du kannst näher kommen. Lass die Schlaufe liegen.“",
+          "choices": [
+            {
+              "text": "Ich möchte etwas wissen.",
+              "next": "hub"
+            },
+            {
+              "text": "Später.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "gruss_hoch": {
+          "text": "„Wenn du helfen willst, halte den Rückweg offen.“",
+          "choices": [
+            {
+              "text": "Ich möchte etwas wissen.",
+              "next": "hub"
+            },
+            {
+              "text": "Später.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "hub": {
+          "text": "Was möchtest du ansprechen?",
+          "choices": [
+            {
+              "text": "Deine Arbeit.",
+              "next": "thema"
+            },
+            {
+              "text": "Mein Pfad.",
+              "next": "pfad",
+              "requires_pathway": [
+                "schluessel",
+                9
+              ]
+            },
+            {
+              "text": "Was kann ich tun?",
+              "next": "hilfe"
+            },
+            {
+              "text": "Ich gehe.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "thema": {
+          "text": "„Sie zogen mich dreimal heraus. Beim vierten Mal sollte ich für die anderen bezahlen.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "hub"
+            },
+            {
+              "text": "Leb wohl.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "pfad": {
+          "text": "„Ein Schlüssel am Ufer hilft nicht, wenn du ihn unten brauchst.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "hub"
+            },
+            {
+              "text": "Leb wohl.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "hilfe": {
+          "text": "„Aus Flutknoten und Bojenöl mache ich einen Seilschnitt: ein gelöstes Gegenstück für ihre Bindung. Es trennt den Kultknoten, nicht fremde Halteleinen.“",
+          "sets_flags": [
+            "sk_flut_rezept"
+          ],
+          "choices": [
+            {
+              "text": "Danke.",
+              "next": "hub"
+            },
+            {
+              "text": "Ich mache mich auf den Weg.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "abschied": {
+          "text": "„Achte auf den Rückweg.“",
+          "choices": [
+            {
+              "text": "Gespräch beenden."
+            }
+          ]
+        }
+      }
+    },
+    "sk_flut_opfer_lotte": {
+      "start": [
+        {
+          "node": "gruss_hoch",
+          "requires_honor": 40
+        },
+        {
+          "node": "gruss_mittel",
+          "requires_honor": 10
+        },
+        {
+          "node": "gruss_niedrig"
+        }
+      ],
+      "nodes": {
+        "gruss_niedrig": {
+          "text": "„Meine Schwester schuldet dir nichts.“",
+          "choices": [
+            {
+              "text": "Ich möchte etwas wissen.",
+              "next": "hub"
+            },
+            {
+              "text": "Später.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "gruss_mittel": {
+          "text": "„Wenn du sie findest, sag, dass ihr Bett noch da ist.“",
+          "choices": [
+            {
+              "text": "Ich möchte etwas wissen.",
+              "next": "hub"
+            },
+            {
+              "text": "Später.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "gruss_hoch": {
+          "text": "„Bitte bring ihr keine Rede mit. Bring sie nach Hause.“",
+          "choices": [
+            {
+              "text": "Ich möchte etwas wissen.",
+              "next": "hub"
+            },
+            {
+              "text": "Später.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "hub": {
+          "text": "Was möchtest du ansprechen?",
+          "choices": [
+            {
+              "text": "Deine Arbeit.",
+              "next": "thema"
+            },
+            {
+              "text": "Mein Pfad.",
+              "next": "pfad",
+              "requires_pathway": [
+                "schluessel",
+                9
+              ]
+            },
+            {
+              "text": "Was kann ich tun?",
+              "next": "hilfe"
+            },
+            {
+              "text": "Ich gehe.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "thema": {
+          "text": "„Maren nannte es eine Taufe. Danach sollte meine Schwester erst ihre Überfahrt abarbeiten.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "hub"
+            },
+            {
+              "text": "Leb wohl.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "pfad": {
+          "text": "„Schlüssel sind gut. Eine Tür ohne Wächter wäre mir lieber.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "hub"
+            },
+            {
+              "text": "Leb wohl.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "hilfe": {
+          "text": "„Sie haben ihre Plätze an der Boje eingekerbt. Schau dort nach, ehe das nächste Boot kommt.“",
+          "start_quests": [
+            "sk_flut_kette"
+          ],
+          "choices": [
+            {
+              "text": "Danke.",
+              "next": "hub"
+            },
+            {
+              "text": "Ich mache mich auf den Weg.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "abschied": {
+          "text": "„Achte auf den Rückweg.“",
+          "choices": [
+            {
+              "text": "Gespräch beenden."
+            }
+          ]
+        }
+      }
+    },
+    "sk_chor_sprecher_ansgar": {
+      "start": [
+        {
+          "node": "gruss_hoch",
+          "requires_honor": 40
+        },
+        {
+          "node": "gruss_mittel",
+          "requires_honor": 10
+        },
+        {
+          "node": "gruss_niedrig"
+        }
+      ],
+      "nodes": {
+        "gruss_niedrig": {
+          "text": "„Du bist außerhalb des Taktes.“",
+          "choices": [
+            {
+              "text": "Ich möchte etwas wissen.",
+              "next": "hub"
+            },
+            {
+              "text": "Später.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "gruss_mittel": {
+          "text": "„Dein Schritt ist bekannt. Deine Stimme fehlt noch.“",
+          "choices": [
+            {
+              "text": "Ich möchte etwas wissen.",
+              "next": "hub"
+            },
+            {
+              "text": "Später.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "gruss_hoch": {
+          "text": "„Eine angesehene Stimme erreicht viele Türen. Denk darüber nach.“",
+          "choices": [
+            {
+              "text": "Ich möchte etwas wissen.",
+              "next": "hub"
+            },
+            {
+              "text": "Später.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "hub": {
+          "text": "Was möchtest du ansprechen?",
+          "choices": [
+            {
+              "text": "Deine Arbeit.",
+              "next": "thema"
+            },
+            {
+              "text": "Mein Pfad.",
+              "next": "pfad",
+              "requires_pathway": [
+                "echo",
+                9
+              ]
+            },
+            {
+              "text": "Was kann ich tun?",
+              "next": "hilfe"
+            },
+            {
+              "text": "Ich gehe.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "thema": {
+          "text": "„Ich prüfe, ob eine Schicht gemeinsam antworten kann. Einzelne Rufe gehen im Lärm verloren.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "hub"
+            },
+            {
+              "text": "Leb wohl.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "pfad": {
+          "text": "„Ein Echo kennt keinen Widerspruch. Vielleicht ist das seine beste Eigenschaft.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "hub"
+            },
+            {
+              "text": "Leb wohl.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "hilfe": {
+          "text": "„Rike hat den Einsatz verweigert. Hör dir an, was sie damit gewonnen hat.“",
+          "choices": [
+            {
+              "text": "Danke.",
+              "next": "hub"
+            },
+            {
+              "text": "Ich mache mich auf den Weg.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "abschied": {
+          "text": "„Achte auf den Rückweg.“",
+          "choices": [
+            {
+              "text": "Gespräch beenden."
+            }
+          ]
+        }
+      }
+    },
+    "sk_chor_aussteiger_rike": {
+      "start": [
+        {
+          "node": "gruss_hoch",
+          "requires_honor": 40
+        },
+        {
+          "node": "gruss_mittel",
+          "requires_honor": 10
+        },
+        {
+          "node": "gruss_niedrig"
+        }
+      ],
+      "nodes": {
+        "gruss_niedrig": {
+          "text": "„Sag nichts nach, das du nicht selbst sagen willst.“",
+          "choices": [
+            {
+              "text": "Ich möchte etwas wissen.",
+              "next": "hub"
+            },
+            {
+              "text": "Später.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "gruss_mittel": {
+          "text": "„Ich erkenne deine Stimme. Das beruhigt mich noch nicht.“",
+          "choices": [
+            {
+              "text": "Ich möchte etwas wissen.",
+              "next": "hub"
+            },
+            {
+              "text": "Später.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "gruss_hoch": {
+          "text": "„Wenn die Leute dir glauben, lass sie trotzdem selbst sprechen.“",
+          "choices": [
+            {
+              "text": "Ich möchte etwas wissen.",
+              "next": "hub"
+            },
+            {
+              "text": "Später.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "hub": {
+          "text": "Was möchtest du ansprechen?",
+          "choices": [
+            {
+              "text": "Deine Arbeit.",
+              "next": "thema"
+            },
+            {
+              "text": "Mein Pfad.",
+              "next": "pfad",
+              "requires_pathway": [
+                "echo",
+                9
+              ]
+            },
+            {
+              "text": "Was kann ich tun?",
+              "next": "hilfe"
+            },
+            {
+              "text": "Ich gehe.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "thema": {
+          "text": "„Sie sagten, meine Pause gehöre dem Chor. Also bin ich mitten in ihr gegangen.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "hub"
+            },
+            {
+              "text": "Leb wohl.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "pfad": {
+          "text": "„Du kennst das Echo. Eine Wiederholung ist noch keine Zustimmung.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "hub"
+            },
+            {
+              "text": "Leb wohl.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "hilfe": {
+          "text": "„Chorkreide bindet fremdes Stimmwachs. Das reine Wachs legt sich auf ihr Nebenrohr; deine eigene Stimme bleibt frei.“",
+          "sets_flags": [
+            "sk_chor_rezept"
+          ],
+          "choices": [
+            {
+              "text": "Danke.",
+              "next": "hub"
+            },
+            {
+              "text": "Ich mache mich auf den Weg.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "abschied": {
+          "text": "„Achte auf den Rückweg.“",
+          "choices": [
+            {
+              "text": "Gespräch beenden."
+            }
+          ]
+        }
+      }
+    },
+    "sk_chor_opfer_jost": {
+      "start": [
+        {
+          "node": "gruss_hoch",
+          "requires_honor": 40
+        },
+        {
+          "node": "gruss_mittel",
+          "requires_honor": 10
+        },
+        {
+          "node": "gruss_niedrig"
+        }
+      ],
+      "nodes": {
+        "gruss_niedrig": {
+          "text": "„Wenn du mich rufen hörst, sieh erst nach, ob ich es bin.“",
+          "choices": [
+            {
+              "text": "Ich möchte etwas wissen.",
+              "next": "hub"
+            },
+            {
+              "text": "Später.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "gruss_mittel": {
+          "text": "„Du sprichst mich selbst an. Gut.“",
+          "choices": [
+            {
+              "text": "Ich möchte etwas wissen.",
+              "next": "hub"
+            },
+            {
+              "text": "Später.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "gruss_hoch": {
+          "text": "„Man glaubt dir. Mir glaubt man inzwischen zu oft.“",
+          "choices": [
+            {
+              "text": "Ich möchte etwas wissen.",
+              "next": "hub"
+            },
+            {
+              "text": "Später.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "hub": {
+          "text": "Was möchtest du ansprechen?",
+          "choices": [
+            {
+              "text": "Deine Arbeit.",
+              "next": "thema"
+            },
+            {
+              "text": "Mein Pfad.",
+              "next": "pfad",
+              "requires_pathway": [
+                "echo",
+                9
+              ]
+            },
+            {
+              "text": "Was kann ich tun?",
+              "next": "hilfe"
+            },
+            {
+              "text": "Ich gehe.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "thema": {
+          "text": "„Ein Nachbar folgte meiner Stimme. Ich war zu dieser Zeit bei ihm am Tisch.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "hub"
+            },
+            {
+              "text": "Leb wohl.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "pfad": {
+          "text": "„Ein Echo kann meinen Ton treffen. Nicht den Grund, aus dem ich etwas sage.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "hub"
+            },
+            {
+              "text": "Leb wohl.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "hilfe": {
+          "text": "„Die Wachsmulde vor dem Prüfhaus war öffentlich. Dort habe ich meine Probe abgegeben.“",
+          "start_quests": [
+            "sk_chor_kette"
+          ],
+          "choices": [
+            {
+              "text": "Danke.",
+              "next": "hub"
+            },
+            {
+              "text": "Ich mache mich auf den Weg.",
+              "next": "abschied"
+            }
+          ]
+        },
+        "abschied": {
+          "text": "„Achte auf den Rückweg.“",
+          "choices": [
+            {
+              "text": "Gespräch beenden."
+            }
+          ]
+        }
+      }
+    }
+  },
+  "einsatz": {
+    "sk_asche_sprecher_ida": {
+      "sheet": "sk_asche_sprecher_ida",
+      "kult": "sk_asche",
+      "rolle": "sprecher",
+      "platzierung": "Vorschlag; freie Randposition erst beim Einbau bestimmen, keine Fallobjekte überdecken.",
+      "zeit": {
+        "tag": {
+          "map": "giesserei"
+        },
+        "nacht": {
+          "map": "wx_torfstich"
+        }
+      },
+      "visible_if": {
+        "requires_flags": [
+          "sk_freigegeben"
+        ]
+      }
+    },
+    "sk_asche_aussteiger_tobin": {
+      "sheet": "sk_asche_aussteiger_tobin",
+      "kult": "sk_asche",
+      "rolle": "aussteiger",
+      "platzierung": "Vorschlag; freie Randposition erst beim Einbau bestimmen, keine Fallobjekte überdecken.",
+      "aktionen": [
+        {
+          "title": "Gegenmaßnahme vorbereiten",
+          "dialogue": "sk_asche_herstellen"
+        }
+      ],
+      "zeit": {
+        "tag": {
+          "map": "giesserei"
+        },
+        "nacht": {
+          "map": "wx_torfstich"
+        }
+      },
+      "visible_if": {
+        "requires_flags": [
+          "sk_freigegeben"
+        ]
+      }
+    },
+    "sk_asche_opfer_wenz": {
+      "sheet": "sk_asche_opfer_wenz",
+      "kult": "sk_asche",
+      "rolle": "opfer",
+      "platzierung": "Vorschlag; freie Randposition erst beim Einbau bestimmen, keine Fallobjekte überdecken.",
+      "rueckkehrdialog": {
+        "id": "sk_asche_schritt_1",
+        "node": "abschluss"
+      },
+      "aktionen": [
+        {
+          "title": "Fortschritt besprechen",
+          "dialogue": "sk_asche_schritt_1"
+        }
+      ],
+      "zeit": {
+        "tag": {
+          "map": "giesserei"
+        },
+        "nacht": {
+          "map": "wx_torfstich"
+        }
+      },
+      "visible_if": {
+        "requires_flags": [
+          "sk_freigegeben"
+        ]
+      }
+    },
+    "sk_flut_sprecher_maren": {
+      "sheet": "sk_flut_sprecher_maren",
+      "kult": "sk_flut",
+      "rolle": "sprecher",
+      "platzierung": "Vorschlag; freie Randposition erst beim Einbau bestimmen, keine Fallobjekte überdecken.",
+      "zeit": {
+        "tag": {
+          "map": "wx_bojenhafen"
+        },
+        "nacht": {
+          "map": "gaskanaele"
+        }
+      },
+      "visible_if": {
+        "requires_flags": [
+          "sk_freigegeben"
+        ]
+      }
+    },
+    "sk_flut_aussteiger_pell": {
+      "sheet": "sk_flut_aussteiger_pell",
+      "kult": "sk_flut",
+      "rolle": "aussteiger",
+      "platzierung": "Vorschlag; freie Randposition erst beim Einbau bestimmen, keine Fallobjekte überdecken.",
+      "aktionen": [
+        {
+          "title": "Gegenmaßnahme vorbereiten",
+          "dialogue": "sk_flut_herstellen"
+        }
+      ],
+      "zeit": {
+        "tag": {
+          "map": "wx_bojenhafen"
+        },
+        "nacht": {
+          "map": "gaskanaele"
+        }
+      },
+      "visible_if": {
+        "requires_flags": [
+          "sk_freigegeben"
+        ]
+      }
+    },
+    "sk_flut_opfer_lotte": {
+      "sheet": "sk_flut_opfer_lotte",
+      "kult": "sk_flut",
+      "rolle": "opfer",
+      "platzierung": "Vorschlag; freie Randposition erst beim Einbau bestimmen, keine Fallobjekte überdecken.",
+      "rueckkehrdialog": {
+        "id": "sk_flut_schritt_1",
+        "node": "abschluss"
+      },
+      "aktionen": [
+        {
+          "title": "Fortschritt besprechen",
+          "dialogue": "sk_flut_schritt_1"
+        }
+      ],
+      "zeit": {
+        "tag": {
+          "map": "wx_bojenhafen"
+        },
+        "nacht": {
+          "map": "gaskanaele"
+        }
+      },
+      "visible_if": {
+        "requires_flags": [
+          "sk_freigegeben"
+        ]
+      }
+    },
+    "sk_chor_sprecher_ansgar": {
+      "sheet": "sk_chor_sprecher_ansgar",
+      "kult": "sk_chor",
+      "rolle": "sprecher",
+      "platzierung": "Vorschlag; freie Randposition erst beim Einbau bestimmen, keine Fallobjekte überdecken.",
+      "zeit": {
+        "tag": {
+          "map": "ds_pruefhaus"
+        },
+        "nacht": {
+          "map": "theater"
+        }
+      },
+      "visible_if": {
+        "requires_flags": [
+          "sk_freigegeben"
+        ]
+      }
+    },
+    "sk_chor_aussteiger_rike": {
+      "sheet": "sk_chor_aussteiger_rike",
+      "kult": "sk_chor",
+      "rolle": "aussteiger",
+      "platzierung": "Vorschlag; freie Randposition erst beim Einbau bestimmen, keine Fallobjekte überdecken.",
+      "aktionen": [
+        {
+          "title": "Gegenmaßnahme vorbereiten",
+          "dialogue": "sk_chor_herstellen"
+        }
+      ],
+      "zeit": {
+        "tag": {
+          "map": "ds_pruefhaus"
+        },
+        "nacht": {
+          "map": "theater"
+        }
+      },
+      "visible_if": {
+        "requires_flags": [
+          "sk_freigegeben"
+        ]
+      }
+    },
+    "sk_chor_opfer_jost": {
+      "sheet": "sk_chor_opfer_jost",
+      "kult": "sk_chor",
+      "rolle": "opfer",
+      "platzierung": "Vorschlag; freie Randposition erst beim Einbau bestimmen, keine Fallobjekte überdecken.",
+      "rueckkehrdialog": {
+        "id": "sk_chor_schritt_1",
+        "node": "abschluss"
+      },
+      "aktionen": [
+        {
+          "title": "Fortschritt besprechen",
+          "dialogue": "sk_chor_schritt_1"
+        }
+      ],
+      "zeit": {
+        "tag": {
+          "map": "ds_pruefhaus"
+        },
+        "nacht": {
+          "map": "theater"
+        }
+      },
+      "visible_if": {
+        "requires_flags": [
+          "sk_freigegeben"
+        ]
+      }
+    }
+  }
+}
