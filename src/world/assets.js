@@ -1134,7 +1134,7 @@ export function preloadSprites(scene) {
   for (const [key, [path, w, h = w]] of Object.entries(BATTLE_SHEETS)) {
     if (!scene.textures.exists(key)) scene.load.spritesheet(key, BASE + path, { frameWidth: w, frameHeight: h });
   }
-  for (const key of new Set([...Object.values(BATTLE_BACKGROUNDS), ...Object.values(ENCOUNTER_BACKGROUNDS)])) {
+  for (const key of new Set([...Object.values(BATTLE_BACKGROUNDS), ...Object.values(BATTLE_BACKGROUNDS_NIGHT), ...Object.values(ENCOUNTER_BACKGROUNDS)])) {
     if (!scene.textures.exists(key)) scene.load.image(key, `${BASE}battle/${key}.png`);
   }
   for (const [key, [path, w, h]] of Object.entries(ANIM_SHEETS)) {
@@ -2496,3 +2496,51 @@ export const WX2_TILE_ANIMS = {
 };
 /** Begehbar bleiben nur die Lichtrisse im Leuchtturm. */
 export const WX2_TILE_ANIM_WALKABLE = ['cracks_1', 'cracks_2'];
+
+// --- Paket BU: sichtbare Ausrüstung, Kampfkulissen, Koop-Oberfläche (manifest-ausruestung2.json) ---
+/** Figuren mit Overlay-Sheets: Ermittler und die beiden Gesichter von Spieler 2. */
+export const GEAR_FIGURES = ['player', 'p2a', 'p2b'];
+/** Slot → Items mit Overlay (characters/gear/<figur>_<slot>_<item>.png, 64x128 wie das Lauf-Sheet). */
+export const GEAR_ITEMS = {
+  weapon: ['spazierstock', 'schlagstock', 'stockdegen', 'glockenzunge', 'silberschere', 'messingschlagring', 'brecheisen', 'laterne_kampf', 'regenschirmdegen',
+    'revolver', 'knochenmesser', 'kette_rauchfass', 'taktstock_silber', 'stimmgabel_gross', 'sternglasdolch', 'taktstock_vey'],
+  hut: ['hut_schirmmuetze', 'hut_melone', 'hut_zylinder', 'hut_helm', 'hut_kapuze', 'hut_schutzbrille', 'hut_witwenschleier', 'hut_maske', 'hut_schnabel', 'hut_chor', 'hut_maskenball', 'geweihreif'],
+  mantel: ['mantel_wolle', 'mantel_gewachst', 'mantel_flicken', 'mantel_samt', 'mantel_polizei', 'mantel_leder', 'mantel_chor', 'mantel_nebel', 'mantel_moor', 'mantel_giesser', 'mantel_frack'],
+};
+const GEAR_SLOT_EN = { weapon: 'weapon', hut: 'hat', mantel: 'coat' };
+/** Reihenfolge von unten nach oben: Mantel, Amulett, Waffe, Hut, Korruptionsfaden. */
+export const GEAR_ORDER = { mantel: 0.2, amulett: 0.3, weapon: 0.4, hut: 0.5, korruption: 0.6 };
+/** Datei eines Overlays (relativ zu sprites/), null wenn es keins gibt. */
+export function gearFile(figure, slot, item) {
+  if (!GEAR_FIGURES.includes(figure)) return null;
+  if (slot === 'amulett') return item ? `characters/gear/${figure}_amulet.png` : null;
+  if (slot === 'korruption') return 'characters/gear/korruption_overlay.png';
+  return GEAR_ITEMS[slot]?.includes(item) ? `characters/gear/${figure}_${GEAR_SLOT_EN[slot]}_${item}.png` : null;
+}
+export const gearKey = (file) => `gear_${file.slice('characters/gear/'.length, -4)}`;
+
+/** Kampfkulissen aus BU; vier davon mit Nachtfassung (BATTLE_BACKGROUNDS_NIGHT, CombatScene wählt nach der Uhr). */
+Object.assign(BATTLE_BACKGROUNDS, {
+  ds_schwellenring: 'bg_ds_schwellenring_bu', ds_rangierwueste: 'bg_ds_rangierwueste_bu', ds_lohnbuero: 'bg_ds_lohnbuero', ds_signalhang: 'bg_ds_bruch',
+  ds_rufschlucht: 'bg_ds_schlucht', ds_speisewagen: 'bg_ds_speisewagen', ds_unterschicht: 'bg_ds_unterschicht_bu',
+  wx_torfstich: 'bg_wx_torfstich', wx_flossfriedhof: 'bg_wx_torfstich', wx_torfbrueche: 'bg_wx_torfstich', wx_pfahldorf: 'bg_wx_pfahldorf',
+  wx_salzmarkt: 'bg_wx_salzmarkt_nacht', wx_leuchtturm: 'bg_wx_leuchtturm_sturm',
+});
+// Die versunkene Altstadt behält ihre Kulisse aus Paket W; bg_wx_altstadt_versunken bleibt für Begegnungen im Flutwasser
+for (const id of ['enemy_sk_flut_novize', 'enemy_sk_flut_sprecher', 'enemy_sk_flut_hand', 'enemy_sk_flut_haupt']) ENCOUNTER_BACKGROUNDS[id] = 'bg_wx_altstadt_versunken';
+export const BATTLE_BACKGROUNDS_NIGHT = {
+  ds_schwellenring: 'bg_ds_schwellenring_night', ds_rangierwueste: 'bg_ds_rangierwueste_night',
+  wx_salzmarkt: 'bg_wx_salzmarkt_nacht_night', wx_leuchtturm: 'bg_wx_leuchtturm_sturm_night',
+};
+/** Kulisse einer Karte zur Tageszeit. */
+export const battleBackgroundFor = (mapId, night = false) => (night && BATTLE_BACKGROUNDS_NIGHT[mapId]) || BATTLE_BACKGROUNDS[mapId];
+
+/** Koop-Oberfläche: Rahmen (9-Slice) je Spieler, 24 Zustandssymbole, Gesichter von Spieler 2 für Dialoge, Trennungsbild. */
+UI_SHEETS.koop2 = ['ui/koop2_symbole.png', 192, 32];
+export const KOOP2_SYMBOLE = ['am_zug', 'wartet', 'gebunden', 'anspruch_offen', 'trinkt', 'liest', 'im_kampf', 'zurueckgelassen', 'gibt_weiter', 'trennung', 'wiedersehen', 'geplauder'];
+UI_REGIONS.koop2 = Object.fromEntries([1, 2].flatMap((p) => KOOP2_SYMBOLE.map((n, i) => [`p${p}_${n}`, [i * 16, (p - 1) * 16, 16, 16]])));
+export const KOOP2_RAHMEN_URL = `${BASE}ui/koop2_rahmen.png`;
+export const KOOP2_TRENNUNG_URL = `${BASE}ui/koop2_trennung.png`;
+const P2_MOODS = { neutral: 0, misstrauisch: 1, erschrocken: 2, laecheln: 3, leichtes_laecheln: 3, suspicious: 1, scared: 2, smile: 3 };
+PORTRAIT_SPECIAL.p2a = ['p2a_emotions_bu.png', P2_MOODS];
+PORTRAIT_SPECIAL.p2b = ['p2b_emotions_bu.png', P2_MOODS];

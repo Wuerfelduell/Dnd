@@ -3,6 +3,7 @@ import { questTarget, leadTarget, nextHop } from '../core/Guide.js';
 import { createTextures, createCharacterSheet, hash2, TILE, TILE_INDEX, SOLID_KEYS } from './textures.js';
 import { Lighting, DEPTH } from './Lighting.js';
 import { WexmoorLife, preloadWexmoorLife, speechBubble } from './WexmoorLife.js';
+import { GearOverlay, preloadGear } from './GearOverlay.js';
 import { DunscarLife, preloadDunscarLife } from './DunscarLife.js';
 import { KoopLife } from './Koop.js';
 import { SektenLife } from './SektenLife.js';
@@ -620,6 +621,7 @@ export class WorldScene extends Phaser.Scene {
   preload() {
     preloadSprites(this);
     preloadWexmoorLife(this); // Paket AE
+    preloadGear(this, this.registry.get('state')); // Paket BU: sichtbare Ausrüstung
     preloadDunscarLife(this); // Paket BA/BD
     this.registry.get('audio')?.preload(this);
   }
@@ -713,6 +715,7 @@ export class WorldScene extends Phaser.Scene {
     this.patrols.build();
     this.buildAtmosphere(amb);
     this.buildWeather();
+    this.gearOverlay = new GearOverlay(this); // Paket BU: Hut, Mantel, Waffe, Amulett über der Figur
     this.wexLife = new WexmoorLife(this); // Paket AE: Nieselregen, Nebelbänke und Tiere in Wexmoor
     this.wexLife.build();
     this.dsLife = new DunscarLife(this); // Paket BA/BD: Kalkstaub, Nachtnebel, Krähen, Ziegen, Motten in Dunscar
@@ -1261,6 +1264,7 @@ export class WorldScene extends Phaser.Scene {
       this.player.setFrame(DIRS.indexOf(this.facing) * 4);
     }
     this.player.setDepth(100 + this.player.y);
+    this.gearOverlay?.sync();
     if (this.aura) {
       this.aura.setPosition(this.player.x, this.player.y + 2);
     }

@@ -964,3 +964,9 @@ html.touch .cb-def .aeicon { display: block; margin: 0 auto 0.2em; font-size: 16
 .notebook li.kult p { margin: 0.35em 0 0; }
 .citymap .pin .skpin { position: absolute; right: -0.9em; bottom: 1.4em; pointer-events: none; animation: whopulse 1s ease-in-out infinite alternate; }
 .modes .skfee { grid-column: 1 / -1; margin: 0.2em 0 0; }
+
+/* Paket BU: Koop-Rahmen (ui/koop2_rahmen.png, 9-Slice 8px; je Spieler eine Hälfte) um beide HUD-Felder, Zustandssymbol von Spieler 2, Trennungsbild */
+.koop .hud-left, .koop .hud-p2 { border: 0.5em solid transparent; border-image: url("./sprites/ui/koop2_rahmen_p1.png") 8 fill / 0.5em stretch; padding: 0.25em 0.4em; image-rendering: pixelated; }
+.koop .hud-p2 { border-image-source: url("./sprites/ui/koop2_rahmen_p2.png"); background: none; }
+.p2state { display: inline-block; vertical-align: middle; margin: 0 0.3em; }
+img.scene.koop2trennung { display: block; width: 15em; height: auto; margin: 0 auto 0.5em; image-rendering: pixelated; }

@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { Combat, WINDOW, EARLY_LIMIT, DODGE_COST, RING_CURVES, judgeDefense, judgeTiming, isPrecise, skillBars, PRECISE_WINDOW } from '../core/Combat.js';
 import { createTextures, createCharacterSheet } from './textures.js';
 import {
-  BATTLE_BACKGROUNDS, ENCOUNTER_BACKGROUNDS, ENEMY_BATTLE_SHEETS, ENCOUNTER_SHEETS, FADING_SHEETS,
+  BATTLE_BACKGROUNDS, battleBackgroundFor, ENCOUNTER_BACKGROUNDS, ENEMY_BATTLE_SHEETS, ENCOUNTER_SHEETS, FADING_SHEETS,
   SKILL_FX, SELF_FX, AG_SKILL_FX, PATHWAY_POSES, WEAPON_POSES, battleSheetsOf, ENCOUNTER_FX, BOSS_INTROS, bossIntroImage, BOSS_FORMS, BOSS_FORM_BACKGROUNDS, BOSS_FORM_INTROS, battleSheetDef, CASE_SHEETS, playBattleAnim, playCaseAnim,
   BATTLE_SHEET_SCALE, ENTER_ANIMS, ENCOUNTER_STAGE, STARLING2_HUD,
 } from './assets.js';
@@ -200,7 +200,8 @@ export class CombatScene extends Phaser.Scene {
 
   buildStage() {
     const map = this.state.content.maps[this.state.map];
-    const bg = [ENCOUNTER_BACKGROUNDS[this.encounterId], BATTLE_BACKGROUNDS[map.id]].find((k) => k && this.textures.exists(k));
+    // Paket BU: vier Kulissen haben eine Nachtfassung
+    const bg = [ENCOUNTER_BACKGROUNDS[this.encounterId], battleBackgroundFor(map.id, this.state.isNight?.() ?? false), BATTLE_BACKGROUNDS[map.id]].find((k) => k && this.textures.exists(k));
     this.bgImage = null;
     if (bg && this.textures.exists(bg)) {
       this.bgImage = this.add.image(0, 0, bg).setOrigin(0);

@@ -814,3 +814,48 @@ test('BT: Wexmoor-Look – v2-Tilesets, 18 Fassaden mit Nachtvarianten, Props, W
     }
   }
 });
+
+test('BU: Ausrüstungs-Overlays für drei Figuren, Kampfkulissen mit Nachtfassung, Koop-Rahmen, Symbole und Spieler-2-Gesichter aus manifest-ausruestung2', async () => {
+  const A = await import('../src/world/assets.js');
+  const { gearFilesFor } = await import('../src/world/GearOverlay.js');
+  const m = manifest('ausruestung2');
+  assert.equal(m.assets.length, 144);
+  for (const a of m.assets) assert.ok(existsSync(sprite(a.file)), a.file);
+  // Jedes Overlay im Manifest ist über gearFile erreichbar und umgekehrt
+  const overlays = m.assets.filter((a) => a.file.startsWith('characters/gear/') && a.id !== 'korruption_overlay');
+  assert.equal(overlays.length, 120);
+  for (const a of overlays) {
+    const slot = { weapon: 'weapon', hat: 'hut', coat: 'mantel', amulet: 'amulett' }[a.slot];
+    assert.equal(A.gearFile(a.figure, slot, a.itemId ?? (slot === 'amulett' ? 'amulett_laterne' : null)), a.file, a.id);
+    if (a.itemId) assert.ok(content.items[a.itemId], a.itemId);
+  }
+  assert.equal(A.gearFile('player', 'korruption', true), 'characters/gear/korruption_overlay.png');
+  assert.equal(A.gearFile('player', 'weapon', 'egelhaken'), null); // ohne Overlay: Figur bleibt bloß
+  assert.equal(A.gearFile('npc_x', 'hut', 'hut_melone'), null);
+  for (const [slot, ids] of Object.entries(A.GEAR_ITEMS)) for (const id of ids) assert.equal(content.items[id].kind === 'weapon' ? 'weapon' : content.items[id].slot, slot, id);
+  // Zusammenstellung aus dem Spielstand: Mantel unter Waffe unter Hut, Korruption obenauf
+  const { GameState } = await import('../src/core/GameState.js');
+  const s = new GameState(content);
+  s.addItem('mantel_wolle'); s.addItem('hut_melone'); s.addItem('revolver'); s.addItem('amulett_laterne');
+  s.gear = { hut: 'hut_melone', mantel: 'mantel_wolle', amulett: 'amulett_laterne' }; s.weapon = 'revolver';
+  let files = gearFilesFor(s, 1, 'player');
+  assert.deepEqual(files.map((f) => f.slot), ['mantel', 'amulett', 'weapon', 'hut']);
+  assert.ok(files.every((f, i) => i === 0 || f.order > files[i - 1].order));
+  assert.equal(files[2].key, 'gear_player_weapon_revolver');
+  s.corrupted = { revolver: 1 };
+  files = gearFilesFor(s, 1, 'player');
+  assert.equal(files.at(-1).slot, 'korruption');
+  assert.deepEqual(gearFilesFor(s, 1, null), []);
+  // Kulissen: Tag/Nacht
+  assert.equal(A.battleBackgroundFor('ds_schwellenring', false), 'bg_ds_schwellenring_bu');
+  assert.equal(A.battleBackgroundFor('ds_schwellenring', true), 'bg_ds_schwellenring_night');
+  assert.equal(A.battleBackgroundFor('wx_leuchtturm', true), 'bg_wx_leuchtturm_sturm_night');
+  assert.equal(A.battleBackgroundFor('wx_pfahldorf', true), 'bg_wx_pfahldorf');
+  for (const k of [...Object.values(A.BATTLE_BACKGROUNDS), ...Object.values(A.BATTLE_BACKGROUNDS_NIGHT)]) assert.ok(existsSync(sprite(`battle/${k}.png`)), k);
+  // Koop-Oberfläche
+  assert.equal(Object.keys(A.UI_REGIONS.koop2).length, 24);
+  assert.deepEqual(A.UI_REGIONS.koop2.p2_trennung, [144, 16, 16, 16]);
+  for (const f of ['koop2_rahmen_p1', 'koop2_rahmen_p2', 'koop2_trennung']) assert.ok(existsSync(sprite(`ui/${f}.png`)), f);
+  assert.equal(A.portraitFor('p2a', 'misstrauisch').col, 1);
+  assert.equal(A.portraitFor('p2b', 'leichtes_laecheln').url, './sprites/portraits/p2b_emotions_bu.png');
+});

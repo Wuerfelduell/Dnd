@@ -7,7 +7,7 @@ import { isPrecise } from '../core/Combat.js';
 import { lootList, itemRarity, RARITY_NAMES, lootPreview, chanceWord } from '../core/Loot.js';
 import {
   itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, moneyIconUrl, UI_SKINS, UI_SHEETS, UI_REGIONS, DAMAGE_FONT, STATUS_ICONS, STATUS_ICONS_URL,
-  portraitUrl, portraitFor, AK_FIGURES, P2_LOOKS, P2_CHOICE_URL, p2HeadUrl, p2PortraitUrl, mapMarkerOf, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
+  portraitUrl, portraitFor, AK_FIGURES, P2_LOOKS, P2_CHOICE_URL, p2HeadUrl, p2PortraitUrl, KOOP2_TRENNUNG_URL, mapMarkerOf, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
   endingImageUrl, caseFileUrl, sceneUrl, wantedUrl, wantedSingle, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
   TURN_PORTRAITS, TURN_PORTRAITS_URL, TURN_PORTRAIT_URLS, BESTIARY, bestiaryUrl, TITLE_LAYERS,
   headUrl, ritualCardUrl, ZIRKEL_URL, ZIRKEL_ICONS, AUKTION_URL, AUKTION_REGIONS, LONER_UI_URL, LONER_UI, LONER_SEALS, S_ZIRKEL_URL, S_ZIRKEL, skillIconOf, talentIconOf, PULSE_ICONS, ARTIFACT_UI_URL, sourceKind, sourceKindUrl, inspectUrl, RISK_ICONS, RISK_ICONS_URL, JOURNAL_FRAME, JOURNAL_FRAME_URL, choiceRisk, riskOf,
@@ -349,7 +349,7 @@ export class Ui {
             <button class="hudbtn" data-hud="menu">${setIcon('zahnrad', 'touch-only')}<span class="key">Esc</span> Menü</button>
           </div>
           <div class="hud-p2 hidden">
-            <div class="p2name"><img class="p2head" alt="" width="12" height="12">Spieler 2 <span class="muted p2weapon"></span></div>
+            <div class="p2name"><img class="p2head" alt="" width="12" height="12">Spieler 2 <span class="p2state"></span><span class="muted p2weapon"></span></div>
             <div class="meter life"><span>Leben</span><div class="bar"><div class="p2hp"></div></div><em class="p2hpnum"></em></div>
             <div class="meter"><span>Nerven</span><div class="bar"><div class="p2nv"></div></div></div>
             <div class="p2path hidden"></div>
@@ -702,6 +702,7 @@ export class Ui {
     if (!el) return;
     const on = this.state.hasP2();
     el.classList.toggle('hidden', !on);
+    this.root.classList.toggle('koop', on);
     if (!on) return;
     const v = this.state.playerView(2);
     const head = this.$('.p2head');
@@ -713,6 +714,12 @@ export class Ui {
     this.$('.p2hpnum').textContent = `${v.hp}/${v.maxHp}`;
     this.$('.p2nv').style.width = `${(v.composure / v.maxComposure) * 100}%`;
     this.$('.p2weapon').textContent = v.weapon.name;
+    // Paket BU: Zustand als Symbol (im Kampf, gebunden, Anspruch offen, sonst wartet/geht mit)
+    const anspruch = Object.values(this.state.claims ?? {}).some((e) => e?.[2] === 'offen');
+    const zustand = this.combatScene ? 'im_kampf' : anspruch ? 'anspruch_offen' : this.isBlocking() ? 'wartet' : null;
+    const st = this.$('.p2state');
+    if (st && st.dataset.z !== (zustand ?? '')) { st.dataset.z = zustand ?? ''; st.innerHTML = zustand ? uiSprite('koop2', `p2_${zustand}`, 1 / 12, 'p2sym', zustand.replace('_', ' ')) : ''; }
+
     const path = this.$('.p2path');
     path.classList.toggle('hidden', !v.pathway && v.unruhe <= 0);
     if (v.pathway) path.innerHTML = `<span style="color:${v.pathway.color}">Seq ${v.pathway.seq} ${esc(v.pathway.seqName)}</span> · ${Math.floor(v.pathway.digestion)} % · <span class="${v.unruhe >= 60 ? 'curse' : ''}">Unruhe ${Math.round(v.unruhe)}</span>`;
@@ -2326,11 +2333,12 @@ export class Ui {
     const wx = cityOf(s, s.map) === 'wexmoor';
     if (s.hasP2()) {
       s.removeP2();
-      this.openPause(`${koopGreeting('leave', s.p2Look(), wx)}<br><span class="muted">Spieler 2 behält seine Sachen für das nächste Mal.</span>`);
+      // Paket BU: Trennungsbild zur Verabschiedung
+      this.openPause(`<img class="scene koop2trennung" src="${KOOP2_TRENNUNG_URL}" alt="">${uiSprite('koop2', 'p2_trennung', 1 / 12)} ${koopGreeting('leave', s.p2Look(), wx)}<br><span class="muted">Spieler 2 behält seine Sachen für das nächste Mal.</span>`);
     } else {
       const back = !!s.p2;
       s.addP2();
-      this.openPause(`${koopGreeting('join', s.p2Look(), wx)}<br><span class="muted">${back ? 'Spieler 2 ist wieder dabei, mit seinen alten Sachen.' : 'Spieler 2 ist dabei: Spazierstock und zwei Verbände in der Tasche.'}</span>`);
+      this.openPause(`${uiSprite('koop2', back ? 'p2_wiedersehen' : 'p2_am_zug', 1 / 12)} ${koopGreeting('join', s.p2Look(), wx)}<br><span class="muted">${back ? 'Spieler 2 ist wieder dabei, mit seinen alten Sachen.' : 'Spieler 2 ist dabei: Spazierstock und zwei Verbände in der Tasche.'}</span>`);
     }
   }
 
@@ -2539,7 +2547,9 @@ export class Ui {
   combatTurn(who) {
     const el = this.layer.querySelector('.cb-turn');
     if (!el) return;
-    el.innerHTML = `${uiSprite('hud', who === 'enemy' ? 'enemy_turn' : 'your_turn', 1 / 10)}<span>${who === 'enemy' ? 'Gegner am Zug' : this.combatScene?.combat?.duo ? `Spieler ${this.combatScene.combat.actor} am Zug` : 'Du bist am Zug'}</span>`;
+    const duo = who !== 'enemy' && this.combatScene?.combat?.duo ? this.combatScene.combat.actor : 0;
+    // Paket BU: zu zweit zeigt das Banner das Symbol des Spielers, der dran ist
+    el.innerHTML = `${duo ? uiSprite('koop2', `p${duo}_am_zug`, 1 / 12) : uiSprite('hud', who === 'enemy' ? 'enemy_turn' : 'your_turn', 1 / 10)}<span>${who === 'enemy' ? 'Gegner am Zug' : duo ? `Spieler ${duo} am Zug` : 'Du bist am Zug'}</span>`;
     el.classList.toggle('enemy', who === 'enemy');
     el.classList.remove('show');
     void el.offsetWidth; // Animation neu starten
