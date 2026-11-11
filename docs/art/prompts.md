@@ -2,8 +2,18 @@
 
 Jede Datei ist **eigenständig** (Regeln, Formate, Ablage stehen drin). Codex braucht immer nur **eine** Datei. Alle Pakete schreiben in getrennte Ordner und können **gleichzeitig** laufen. Jedes Paket endet mit einem eigenen Pull Request.
 
+## Runde 9 (2026-11-11, Nachzügler am letzten Codex-Tag): Halbgott/Engel und Fasserin-Aufträge; parallel startbar
+CO und CP teilen die Eckdaten „Halbgott und Engel“ (zehn Kreaturformen `hg_form_<pfad>`, Wächter `hg_schwellenwaechter`/`hg_grenzwaechter`, neue Karte `hg_grenzbezirk`), CQ und CR die Eckdaten „Fasserin-Aufträge“ (Zustände, 20 Artefakte `fa_<stueck>`, Zirkel inkl. `schichtbund`). Die Spiellogik dazu entsteht parallel in eigenen Threads (Seq 4 als Halbgott, Fasserin-Umbau); die Pakete liefern nur Grafik und Texte. Nächster freier Buchstabe danach: CS.
+
+| Datei | Art | Inhalt | schreibt nach |
+|---|---|---|---|
+| `codex_CO_halbgott_grafik.md` | Grafik | Trink-Bilder Seq 4/Seq 2 für Spieler 1, p2a, p2b; Aufstiegs-Vollbilder; 10 Kreaturformen als Karten-Sheet 32x48 und Kampf-Sheet 96x96; Furcht/Ohnmacht/Zögern-Effekte; Auren; Wächter Schwellenring (128x96) und Grenzbezirk (128x128) mit 10 Pfadsiegeln und 2 Kulissen; 20 Sequenzbilder; HUD | Batch `halbgott` |
+| `codex_CP_halbgott_texte.md` | Texte/Daten | 30 Trink- und Stufentexte (Seq 4–2 x 10 Pfade), Kreaturformen mit Wechsel-Meldungen, Furcht-Reaktionen je Klasse und Folgen, 20 Wächter-Rituale mit Vorbereitung und friedlicher Lösung, Kampfwerte und Phasen beider Wächter, Dialoge, Zeitung, 60 Gerede, 10 Lesestücke, Koop | `docs/story/halbgott/` |
+| `codex_CQ_fasserin_auftrag_grafik.md` | Grafik | Auftragszettel in 5 Zuständen (16+32), Chance-Marken, Zirkel-Marken, HUD, Einladungskarte, Rahmen; Oda-Posen (prüfen, hämmern, Übergabe, Kopfschütteln, abwesend) und 4 Stimmungen; Werkbank-Zustände, Auftragsbrett, Erfolg/Misserfolg/Würfel-Effekte; 20 Artefakt-Icons `fa_*` (16+32) | Batch `fasserin2` |
+| `codex_CR_fasserin_auftrag_texte.md` | Texte | Odas Zeilen in jedem Zustand (Prüfen je Stück, Annehmen, Warten, Übergabe, Misserfolg), Gastgeber-Übergabe ohne Oda je Zirkel, Einladungszusätze, Oberflächen-Wörter, Notizbuch-Hinweise, 20 Artefakt-Beschreibungen mit Haken, Gerede, Zeitung, Lesestücke | `docs/story/fasserin_auftrag/` |
+
 ## Runde 8 (2026-11-11, letzter Codex-Tag): Kapitel 4 und 5 aus dem Vorrat, Feste, Musik, Sounds, Kettlegate-Leben; parallel startbar
-Nach Wert sortiert. CC bis CF teilen die Calderwick-Eckdaten (Präfixe `cwa_`/`cwo_`/`cwn_`, Karten `cw_*`), CG bis CJ die Briarholt-Eckdaten (`bha_`/`bho_`/`bhn_`, Karten `bh_*`); beide bauen auf dem Vorrat BH bis BM auf, nichts wird doppelt erfunden. Grafikpakete dürfen vor den Datenpaketen starten. Nächster freier Buchstabe danach: CO.
+Nach Wert sortiert. CC bis CF teilen die Calderwick-Eckdaten (Präfixe `cwa_`/`cwo_`/`cwn_`, Karten `cw_*`), CG bis CJ die Briarholt-Eckdaten (`bha_`/`bho_`/`bhn_`, Karten `bh_*`); beide bauen auf dem Vorrat BH bis BM auf, nichts wird doppelt erfunden. Grafikpakete dürfen vor den Datenpaketen starten. Nächster freier Buchstabe danach: CO (vergeben in Runde 9).
 
 **Stand:** CC, CD, CF, CG, CH, CJ, CK, CL und CM sind eingebaut (`src/data/runde8.js`, Abgleich über `tools/packs/runde8_sync.mjs`, das die JSON aus `docs/story/` nach `src/data/packs/` kopiert und korrigiert). CI (Briarholt-Grafik) kam von Grok statt Codex (Batch `briarholt1`, Tilesets in der zweiten Fassung Zelle für Zelle gezeichnet) und ist eingebaut: eigene Themen `bh_*_kalt/_warm`, Props als Deko, Kulissen, Stadtkarte mit Nebel und Leitungsplan, Marker, Kapitelkarte, Szenen und Schlussbilder (`tests/briarholt_grafik.test.js`). Offen: CE (Calderwick-Grafik), CN (Kettlegate-Leben); Calderwick leiht sich bis dahin Tilesets und Kartenmarker von Dunscar und die Kampf-Hintergründe des Vorrats.
 
