@@ -1684,6 +1684,9 @@ export class WorldScene extends Phaser.Scene {
   /** Pausiert die Welt und startet den Kampfbildschirm. `after(result)` läuft nach dem Kampf, `roamer` ist ein Gegner auf der Karte. */
   startCombat(id, after = null, { roamer = null, noLoot = false } = {}) {
     if (this.leaving || this.scene.isActive('combat')) return;
+    // Ein vorgemerkter Kampf aus einem Gespräch (z. B. Widerstand gegen die Streife) kann sich eine Nacharbeit wünschen
+    if (!after && this.combatHook) { after = this.combatHook; }
+    this.combatHook = null;
     if (!this.state.pendingCombat) this.state.combatBy = this.state.acting;
     this.state.pendingCombat = null;
     this.state.setSpiritVision(false);

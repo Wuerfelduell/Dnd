@@ -4,6 +4,8 @@
 // Die Grauspäher (world/Patrols.js) melden Sichtungen; hier steht nur die Spiellogik, damit Tests sie direkt prüfen.
 // - Fahndungsstufe 0..max: jede Sichtung, der man entkommt, +1. Sinkt mit der Zeit und beim Schlafen im Unterschlupf.
 // - Festnahme: Zelle im Wachhaus, ein Teil der Schillinge wird beschlagnahmt. Zunder holt dich zweimal umsonst raus, danach kostet es.
+// - Widerstand (Regel `resist`, Wexmoor): Wer gestellt wird, darf kämpfen (Gespräch `resist_dialogue`). Die Grauspäher sind
+//   Beyonder mit min_seq 4: unter Sequenz 4 verliert man den Kampf auch zu zweit und landet mit doppelter Beschlagnahme in der Zelle.
 
 export const wantedMethods = {
   resetWanted() {
@@ -84,11 +86,12 @@ export const wantedMethods = {
    * Festnahme. Ergebnis: { map, spawn, seized, text }. Setzt Flags für die Zelle (Regel `cell_flag`, Wexmoor:
    * k2_in_cell bis man raus ist) und `bail_flag` (k2_bail_due: ab der dritten Festnahme kostet Zunders Hilfe).
    * Kettlegate hat keine Zelle: Marlowe schmuggelt dich nachts hinaus, du wachst am Nachtmarkt auf.
+   * `seize_mult`: Wer sich der Streife widersetzt hat und verliert, dem wird entsprechend mehr abgenommen.
    */
-  arrest() {
+  arrest({ seize_mult = 1 } = {}) {
     const r = this.policeRules();
     this.arrests += 1;
-    const seized = Math.floor(this.money * r.seize_pct);
+    const seized = Math.floor(this.money * Math.min(1, r.seize_pct * seize_mult));
     if (seized > 0) this.addMoney(-seized, { reason: 'Beschlagnahmt' });
     const cellFlag = r.cell_flag === undefined ? 'k2_in_cell' : r.cell_flag;
     const bailFlag = r.bail_flag === undefined ? 'k2_bail_due' : r.bail_flag;
