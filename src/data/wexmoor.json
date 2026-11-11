@@ -1513,16 +1513,6 @@
       "city": "wexmoor"
     },
     {
-      "map": "docks",
-      "spawn": "default",
-      "name": "Nachtzug nach Kettlegate",
-      "desc": "Zurück nach Kettlegate, wo Nebenaufträge und Kopfgelder warten. Auch dort sucht man dich.",
-      "requires_flags": [
-        "k2_hideout"
-      ],
-      "city": "wexmoor"
-    },
-    {
       "map": "wx_salzmarkt",
       "spawn": "default",
       "name": "Salzmarkt",
@@ -3696,6 +3686,27 @@
           "reach": 24
         },
         {
+          "id": "kessel",
+          "kind": "brew",
+          "tile": [
+            10,
+            3
+          ],
+          "prompt": "Am Braukessel brauen",
+          "sprite": "cauldron",
+          "marker": false,
+          "solid": [
+            14,
+            10
+          ],
+          "title": "Zunders Kessel",
+          "anim": [
+            "cauldron_bubble",
+            "bubble"
+          ],
+          "reach": 24
+        },
+        {
           "id": "fallwand",
           "kind": "casewall",
           "tile": [
@@ -3721,8 +3732,8 @@
             ]
           },
           "title": "Ein Kahn als Zuhause",
-          "text": "Der Torfkahn liegt halb im Moor, schief wie ein müder Hund. Innen ist es überraschend trocken: eine Koje, ein Tisch, ein Ofen aus einem alten Ölfass und eine Kiste, auf der in Ruß „deins“ steht.\n\n„Die Ruß-Leute in Kettlegate haben deine Sachen aus dem Büro geholt, bevor die Wache drankam“, sagt Zunder. „Frag nicht, wie.“",
-          "footer": "Koje: ausruhen. Kiste: dein Lager (dasselbe wie im Büro). Fallwand: deine Fälle.",
+          "text": "Der Torfkahn liegt halb im Moor, schief wie ein müder Hund. Innen ist es überraschend trocken: eine Koje, ein Tisch, ein Ofen aus einem alten Ölfass, ein verbeulter Kessel über Kohlen und eine Kiste, auf der in Ruß „deins“ steht.\n\n„Die Ruß-Leute in Kettlegate haben deine Sachen aus dem Büro geholt, bevor die Wache drankam“, sagt Zunder. „Frag nicht, wie.“",
+          "footer": "Koje: ausruhen. Kiste: dein Lager (dasselbe wie im Büro). Kessel: Tränke brauen. Fallwand: deine Fälle.",
           "done_flag": "k2_hideout",
           "effects": {
             "sets_flags": [
