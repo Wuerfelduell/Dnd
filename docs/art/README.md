@@ -1624,6 +1624,18 @@ Built-in Bildgenerator mit vorhandener Sprite-Referenz; Nearest-Neighbor-Export,
 ## BO – Fasserin (`fasserin`)
 
 26 PNGs: Oda Kessels Lauf- und Sitzanimation, vier Portraitstimmungen, 24×24-Kopf, Werkbank und Zangen sowie zehn bestehende Artefakte in 16×16 und 32×32. Gemeinsame Wexmoor7-Palette mit höchstens 32 sichtbaren Farben, indizierte PNGs, binäres Alpha. Manifest: `public/sprites/manifest-fasserin.json`; tatsächliche Bildprompts und Quellenprüfsummen: `docs/art/batch-fasserin-generation.json`. Export und Prüfung: `tools/art/fasserin/`. Texte, zehn weitere Rezepte und Integrationshinweise: `docs/story/fasserin/`. Spielcode und aktive Spieldaten bleiben unverändert.
+## Batch BV — Jahreszeiten und Feste (`feste`)
+
+Vier Jahreszeiten mit Boden-Deko, Partikeln und Fassadenaufsätzen für drei Städte;
+dazu Laternennacht, Salzsegen und Schichtwechsel mit Props, Sequenzbildern,
+zwölf laufenden Festgästen, Gerede-Symbolen und Ankündigungsbannern.
+**41 Pflicht-Sheets, 408 Frames**, ohne Spielcode oder Kartenänderungen.
+
+- [Manifest](../../public/sprites/manifest-feste.json), [Einbau und Formate](feste-README.md).
+- [Prompts und Herkunft](batch-feste-generation.json), [Vorschau](preview-feste.png).
+- Reproduktion: `python tools/art/feste/export.py`; Prüfung: `python tools/art/feste/check.py`.
+- Built-in-Bildgenerator, Nearest-Neighbor-Export, 31 gemeinsame sichtbare Farben plus Transparenz, binäres Alpha; normalisierte Quellen unter `docs/art/feste-sources/`.
+
 ## Konzentrations-Artefakte: Platzhalter-Icons (2026-11-10)
 
 - 16 neue Artefakte (`pathways.json` → `artifacts.list`, `konzentration: true`) nutzen Kopien bestehender Item-Icons als Platzhalter (`items/<id>.png`).
@@ -1728,3 +1740,5 @@ Duplikate und Herkunfts-Hashes. Generiert mit dem eingebauten Bildgenerator.
 - Gemeinsame Palette aus `props/05_03_furniture.png`, ergänzt um drei passende Farbtöne: 31 sichtbare Farben plus transparenter Index. Alpha nur 0/255, keine weißen/schwarzen Freistellränder. Referenzbild wurde jedem Bildgenerator-Aufruf mitgegeben. Lichtkegel/Staub waren optional und sind nicht Teil dieser Lieferung.
 - Verwendete Prompts, Quellnamen und SHA-256: [`batch-innen2-generation.json`](batch-innen2-generation.json). Erstellt mit integriertem Bildgenerator; Pillow verarbeitet nur Raster, Zuschnitte, Palette und Alpha. `tools/art/innen2/export.py --sources <json>` reproduziert den Export aus den ursprünglichen Generatorbildern; diese großen Zwischenbilder gehören nicht zum Laufzeitpaket. Die JSON-Liste benötigt `id`, `prompt` und lokalen `source`-Pfad je Eintrag.
 - Vorschau: [`preview-innen2.png`](preview-innen2.png). Prüfung: `python tools/art/innen2/check.py` (Pillow). Technische Tests prüfen keine semantische Richtigkeit oder Bewegung im laufenden Spiel; Motive und Lesbarkeit wurden zusätzlich in der Kontaktvorschau gesichtet.
+
+- **BU / ausruestung2:** 120 Ausrüstungs-Overlays plus Korruption, 16 Kampfkulissen und 7 Koop-/Portraitgrafiken; Manifest `public/sprites/manifest-ausruestung2.json`, Vorschau `preview-ausruestung2.png`, Prüfung und Zuordnungen in `tools/art/ausruestung2/`.
