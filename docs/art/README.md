@@ -1629,6 +1629,45 @@ Built-in Bildgenerator mit vorhandener Sprite-Referenz; Nearest-Neighbor-Export,
 - 16 neue Artefakte (`pathways.json` → `artifacts.list`, `konzentration: true`) nutzen Kopien bestehender Item-Icons als Platzhalter (`items/<id>.png`).
 - Echte Icons: Prompt-Paket `codex_BX_konzentration_artefakte.md` (Tabelle mit Id, Platzhalter und Prompt-Kern). Nach Lieferung die Dateien 1:1 ersetzen.
 
+## Batch wexmoor8 – Paket BT: Wexmoor auf Pfählen und Torf
+
+42 PNGs für den separaten Einbau: 10 kompatible Austausch-Tilesets, 18 modulare
+Fassaden plus 6 beleuchtete Fensterzustände, 48 kleine und 16 große Props,
+6 Prop-Animationen, 4 Wettereffekte, 6 Tiere, Seekarte/Nebel und ein zusätzliches
+Vier-Phasen-Tileanimationsblatt. Gemeinsame Palette mit 32 sichtbaren Farben,
+binäres Alpha, Nearest-Neighbor-Zielraster. Spielcode und Originalgrafiken bleiben
+unverändert.
+
+- Manifest: `public/sprites/manifest-wexmoor8.json` (Zellen, Regionen, Animationen,
+  Originaldateien, Themen und Wexmoor-Beschränkung).
+- Prompts und Ausgabe-Hashes: `docs/art/batch-wexmoor8-generation.json`.
+- Vorschau der tatsächlichen Exporte, bei Austausch-Sheets mit Original daneben:
+  `docs/art/preview-wexmoor8.png`.
+- Prüfung: `python tools/art/wexmoor8/check.py` (Pillow erforderlich).
+
+**Kompatibilität:** `q_kajuete` nutzt 8×3 Zellen mit anderen Bedeutungen als
+`R_innen` (8×5); `s_salzwatt` nutzt 8×4 statt des Vergessmoor-Rasters 8×6.
+Deshalb gibt es zusätzlich `Q_kajuete_tiles_v2.png` und `S_salzwatt_tiles_v2.png`.
+Die acht angeforderten Hauptdateien behalten ihre jeweiligen Originalmaße.
+`r_innen` ist im aktuellen Code ein Sheet-Schlüssel, kein eigenständiges
+Kartenthema. Die vier Innenraum-Themen behalten ihre bisherigen Zellbereiche.
+
+**Fassaden:** `FACADES` besteht aktuell aus modularen 128×96-Blättern (8×6
+16er-Zellen), nicht aus 18 fertigen Gebäudesprites. Alle 18 neuen Varianten
+verwenden dieses Raster; `tileGroups` und `regions` halten Wand, Fenster, Tür,
+Traufe und Dach fest. Nachtdateien ändern ausschließlich die Fensterzellen
+8–15; die übrigen Pixel bleiben identisch zum Tagesblatt.
+
+**Übergänge und Animationen:** Topologisch wichtige Ufer-, Steg- und
+Geländerzellen behalten die Originalkontur, werden auf die gemeinsame Palette
+gebracht und sind als `retainedTransitionCells` dokumentiert. Die originalen
+Zellpositionen und Alpha-Masken bleiben erhalten. Für vier unterschiedliche
+Wasser-/Nebelphasen verweist `animationOverrides` auf
+`fx/wexmoor_v2_tileanim.png`; die bisherigen Zwei-Frame-Belegungen im
+Austauschblatt bleiben kompatibel. Diese Verweise sind Einbaudaten und werden
+noch nicht automatisch vom Spiel geladen. Den Bahnhof nur auf Wexmoor-Karten
+ersetzen; die Kettlegate-Zuordnung bleibt bestehen. Die Seekarte übernimmt die
+sieben unveränderten Pin-Koordinaten aus `src/data/wexmoor.json`.
 ## Batch BS – Starling, zweite Phase (`starling2`)
 
 Elf Grafik-Atlanten für das Kapitel-1-Finale: alle acht Pflichtdateien und die drei optionalen Ebenen/Symbole. Starling verwandelt sich in den Sternsammler; nach der Niederlage kniet er lebend am Boden. Phase 1 bleibt erhalten. Der Einbau und die Kampfwerte folgen separat.

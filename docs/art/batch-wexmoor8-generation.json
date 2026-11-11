@@ -1,0 +1,441 @@
+{
+  "batch": "wexmoor8",
+  "generator": "image_gen",
+  "postprocess": [
+    "nearest-neighbor exact target dimensions",
+    "shared 32-color palette, no dithering",
+    "binary alpha; original alpha footprint for replacements",
+    "preserve topology-critical transition cells",
+    "night variants replace window row only"
+  ],
+  "jobs": [
+    {
+      "id": "R_wexmoor_tiles_v2",
+      "mode": "edit",
+      "reference": "tilesets/R_wexmoor_tiles.png",
+      "prompt": "Create an edited replacement of the provided game tileset. Preserve EXACT 8 columns x8 rows layout, each logical tile16x16, same cell meaning and all empty/transparent areas. Output full sheet, no margins or labels. STYLE GUIDE: top-down 3/4 crisp pixel art for melancholic Victorian mystery town Wexmoor, limited32 muted colors, no blur antialias gradients, top-left light, terrain no outlines, props1px deepbluegrey #1a1c2c outline, no text. Wexmoor is a salt-crusted city on stilts over black peat water. Redesign materials with tarred slate-grey wooden planks, salt rims, wattle, mossy pale limestone, reed beds. NO brown bricks or cobblestones. Layout row-major:0-3 horizontal planks,4-7 verticalplanks;8-11 edgeN E S W;12-15 outercorners NW NE SW SE;16-19 innercorners same order;20-27 blackwater four pairs shimmerframes;28 reeds29 duckweed;30-33 reededges N E S W;34-37 reedoutercorners;38-41 reedinnercorners;42-45 darkpeat;46-47 peatpuddles;48-51 pale limestone;52-53 plankbridges H V;54-55 roperails H V transparent;56-57 saltedplanks;58-61 quay N E S W;62-63 quay corners. No decorative borders between cells. Final intended128x128 pixel sprite sheet, can enlarge by integer nearest-neighbor only.",
+      "steps": [],
+      "sourceSha256": "7beef1042a16864ac9ac709c6d326df583f75ae1d33ebdf72a0b466e08ab78d1",
+      "output": "tilesets/R_wexmoor_tiles_v2.png",
+      "outputSha256": "568805fdb6ad71c5ce3a0313dd00af97490f2e313437918000a01ed062469506"
+    },
+    {
+      "id": "R_oberstadt_tiles_v2",
+      "mode": "edit",
+      "reference": "tilesets/R_wexmoor_tiles.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nKeep EXACT same64cells,8columns8rows and original semantic cell layout. Redesign as bright wet upper town, moosy pale LIMESTONE slabs at indices48-51; salt whitewashed stone quays58-63, iron rails54-55, stairs and drains subtly in floor variants. Preserve wooden walkways0-19 and reed/peat/water cells20-47 in same exact place. Full-sheet128x128 logicalpixels.",
+      "steps": [],
+      "sourceSha256": "040945f7b8cc56b63bd4bc9305b6960a682061e9e9c055878b97c9993021dc1e",
+      "output": "tilesets/R_oberstadt_tiles_v2.png",
+      "outputSha256": "0965ac127de51ac9e5508de0164251d5c6a243a306f931f6a67daa215e7628d0"
+    },
+    {
+      "id": "R_salzmarkt_tiles_v2",
+      "mode": "edit",
+      "reference": "tilesets/R_wexmoor_tiles.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nKeep EXACT same64cells8columns8rows and semantic cell layout. Redesign as salt market: salted tarred timber floors0-7, cart tracks, saltcrust and fishscale small glints; water20-27, reeds28-41, peat42-47, pale limestone48-51, bridges52-53, rails54-55, salt56-57,quays58-63.128x128logicalpixels.",
+      "steps": [],
+      "sourceSha256": "76f58ba668d0ef042e7aa7b20b53b992c473c9e9216fe2a2ab46d41be492141b",
+      "output": "tilesets/R_salzmarkt_tiles_v2.png",
+      "outputSha256": "9933108fc964a946d0441118e854aa732957f34a57968dae4bde18b8fd310732"
+    },
+    {
+      "id": "R_torf_tiles_v2",
+      "mode": "edit",
+      "reference": "tilesets/R_wexmoor_tiles.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nKeep EXACT same64cells8columns8rows and semantic cell layout. Redesign as peat excavation: tarred plank boardwalk0-19, black water20-27, cottongrass reeds28-41, stepped blackpeat sods42-45,puddles46-47; lightgrey stone48-51; timber rail boardwalks52-53,rails54-55,salt56-57,quays58-63.128x128logicalpixels.",
+      "steps": [],
+      "sourceSha256": "cd56ee5be96a234ff49b5d5d054a6727995e30c0d8ecf56f8732142d270e2615",
+      "output": "tilesets/R_torf_tiles_v2.png",
+      "outputSha256": "e5fe110eecf99481c11294424596ac1b32b6af880a0be5374e19f16031ac457f"
+    },
+    {
+      "id": "R_innen_wexmoor_v2",
+      "mode": "edit",
+      "reference": "tilesets/R_innen_tiles.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nKeep EXACT8columns5rows, only cells0-33 occupied;34-39 completely transparent. Row0 academy shipwood parquet floors0-3 brass star chart walls4-7 top/front/left/right. Row1 Lucent tarred shipfloor8-11, lime panelling walls12-15 top/front/left/right. Row2 watchhouse damp whitewashed stone16-19floors20-23walls. Row3 cell wetstone24-27floor28-31walls. Row4 iron cell door closed32 open33, remaining6cells empty.128x80logicalpixels.",
+      "steps": [],
+      "sourceSha256": "9f894a9cda6187f99d429affae6459c105631a9ba6c746dfb8d9e45826a0801b",
+      "output": "tilesets/R_innen_wexmoor_v2.png",
+      "outputSha256": "46fad584869fa15212b6d13aaf88926f3b2e7e024211198fe7fbe68c0da16167"
+    },
+    {
+      "id": "R_leuchtturm_tiles_v2",
+      "mode": "edit",
+      "reference": "tilesets/R_leuchtturm_tiles.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nKeep EXACT8columns4rows32cells and exact original layout:0-3whitewashed roundtower limestonefloor;4-7 paired lightcracks;8-15curved walls top,front,left,right,NW NE SW SE;16-19wallniches;20-23spiral stairs up/down;24-27brassfloor grating;28-31entrance saltcrusted blackrock. White lighthouse, coolwet light.128x64logicalpixels.",
+      "steps": [],
+      "sourceSha256": "e1c9179c92c74413c088369e2581d48cb767a763bb0372f0af36afc87ccfb72a",
+      "output": "tilesets/R_leuchtturm_tiles_v2.png",
+      "outputSha256": "32340cadec99a9b984d63225badf7557408a69887c35469c1f150712dc3a7611"
+    },
+    {
+      "id": "R_vergessmoor_tiles_v2",
+      "mode": "edit",
+      "reference": "tilesets/R_vergessmoor_tiles.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nKeep EXACT8columns6rows and original cell semantics and silhouettes.0-3blackwater with skyreflection;4-5faint wisp reflection;6-9submergedwalkway;10-13walkwayedgesNESW;14-17reededgesNESW;18-21outercorners;22-25innercorners;26-29mossislandedgesNESW;30-33outercorners34-37innercorners;38-40checker mist transparent overlays;41-47empty transparent.128x96logicalpixels.",
+      "steps": [],
+      "sourceSha256": "5bc89eabf9d353428d13d0aae725369f0911bc6dd4075f453b8a08bdf5c875cf",
+      "output": "tilesets/R_vergessmoor_tiles_v2.png",
+      "outputSha256": "d7232a0de83df15f4b9051c4d1c046b580d681d9277f67689fb65b308a0e3a4e"
+    },
+    {
+      "id": "C_bahnhof_wexmoor_v2",
+      "mode": "edit",
+      "reference": "tilesets/C_06_bahnhof_tiles.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nKeep EXACT8x8 tiles grid and same existing objects in same cells. Transform station into stilt freightstation: topfloor row0 wooden ramps salted planks instead brown brick, row1 original railtrack directions on wet embankment, row2 platforms/timber structures, remaining objects retain silhouettes and originalcell positions but saltwood,wetcoal,sluicegates. Preserve all transparent empty cells.128x128logicalpixels.",
+      "steps": [],
+      "sourceSha256": "59783b593030469bc25081ce77953ca64cae7719ae50aa7f6add3fd12ccb63b1",
+      "output": "tilesets/C_bahnhof_wexmoor_v2.png",
+      "outputSha256": "35b20b490003a440f17bedf23ef6756f91897f39d891d050b70bbefa9efa0e50"
+    },
+    {
+      "id": "Q_kajuete_tiles_v2",
+      "mode": "edit",
+      "reference": "tilesets/Q_kajuete_tiles.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nKeep EXACT8columns3rows24cells.0-3tarred cabin floor;4hatchclosed5open6-7dampfloor;8hulltop9hullfront10leftcorner11rightcorner12porthole13wallleft14wallright15ribwall16lowwall17doorclosed18open19ladder20-23corners. Whitewashed shipwood, saltlamp brass porthole rope, same raster128x48.",
+      "steps": [],
+      "sourceSha256": "0212d002ae3ebe387fe324291e40abf9aeb92a0bbe7319fc12a1c17bd2923eb4",
+      "output": "tilesets/Q_kajuete_tiles_v2.png",
+      "outputSha256": "cf97f18b715bdbdd717bd9f457ec2e8265d40fb50da8436ee5864683228ea683"
+    },
+    {
+      "id": "S_salzwatt_tiles_v2",
+      "mode": "edit",
+      "reference": "tilesets/S_salzwatt_tiles.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nKeep EXACT8columns4rows32cells and all original cell semantics.0-3tidal mudfloors;4-7salt;8-19waterbank transitions samepositions;20-21deepwater;22shellbankdebris23navigationstakes24-27raised saltwood dam path28-29original shore details30-31shimmerwater. Peat blackwater reflects sky, pale shells, submerged stakes.128x64.",
+      "steps": [],
+      "sourceSha256": "ddc9069945ba40f0614bd5e6508d5964a3b4d4bf8f640606d67d319cd78f7f4f",
+      "output": "tilesets/S_salzwatt_tiles_v2.png",
+      "outputSha256": "5c023da802487ca21d5c0941ad74c645d0aba559c9c00ffb0eae9fe2e675028d"
+    },
+    {
+      "id": "wexmoor_v2_pfahlhaus",
+      "mode": "edit",
+      "reference": "tilesets/D_03_fassade_holz.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nEDIT the reference modular facade TILE SHEET. Keep EXACT 8columns by6rows, final logical128x96pixels, each cell16x16. Preserve every existing tile silhouette, location and emptyarea. Not a whole building illustration: these are reusable building segments. Rows0wall segments; row1window segments; row2doors; row3eave/roofedge; row4roof surfaces; row5base/plinth. Specific runtimecells walls0,1,2; windows8,9,10,11,12,13,15; doors16,17; eaves24,25; roofs32,33,34,35 MUST retain their roles. No gutters,margins,labels,gridlines. Daytime ambient light, windows unlit unless nightrequested. Translate original materials and architectural details into: tarred timber stilt house, thatched roof, shutters, buoy lantern on gable",
+      "steps": [],
+      "sourceSha256": "871efab9a9206636d11efac5cba2b2501790c7ef0da97ef21c91412d81ba7f52",
+      "output": "facades/wexmoor_v2_pfahlhaus.png",
+      "outputSha256": "43ff385c0da01f35d6d160c9e099fe5e126f36b519ca645eb8177a1ab1474095"
+    },
+    {
+      "id": "wexmoor_v2_fischerhaus",
+      "mode": "edit",
+      "reference": "tilesets/D_03_fassade_holz.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nEDIT the reference modular facade TILE SHEET. Keep EXACT 8columns by6rows, final logical128x96pixels, each cell16x16. Preserve every existing tile silhouette, location and emptyarea. Not a whole building illustration: these are reusable building segments. Rows0wall segments; row1window segments; row2doors; row3eave/roofedge; row4roof surfaces; row5base/plinth. Specific runtimecells walls0,1,2; windows8,9,10,11,12,13,15; doors16,17; eaves24,25; roofs32,33,34,35 MUST retain their roles. No gutters,margins,labels,gridlines. Daytime ambient light, windows unlit unless nightrequested. Translate original materials and architectural details into: fisherman's stilt house, weathered bluegrey tarredboards, reedthatch, net onwall",
+      "steps": [],
+      "sourceSha256": "79e91078aeb7becaaee1ce45954757f12849f6adbdf013e0e0f3efa4eb09927f",
+      "output": "facades/wexmoor_v2_fischerhaus.png",
+      "outputSha256": "c5ffcf34e0d624e61aa86478eb1b6f44927b6d11a0bb4aa8aad83597da6a9081"
+    },
+    {
+      "id": "wexmoor_v2_seilerhaus",
+      "mode": "edit",
+      "reference": "tilesets/D_03_fassade_holz.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nEDIT the reference modular facade TILE SHEET. Keep EXACT 8columns by6rows, final logical128x96pixels, each cell16x16. Preserve every existing tile silhouette, location and emptyarea. Not a whole building illustration: these are reusable building segments. Rows0wall segments; row1window segments; row2doors; row3eave/roofedge; row4roof surfaces; row5base/plinth. Specific runtimecells walls0,1,2; windows8,9,10,11,12,13,15; doors16,17; eaves24,25; roofs32,33,34,35 MUST retain their roles. No gutters,margins,labels,gridlines. Daytime ambient light, windows unlit unless nightrequested. Translate original materials and architectural details into: rope maker stilt workshop, wattle infill, coiled ropes by doors, thatchedroof",
+      "steps": [],
+      "sourceSha256": "97cebf44084baffe50ba8ba30d4a3fd150a752196ce11f97ecb0e111051f2cfd",
+      "output": "facades/wexmoor_v2_seilerhaus.png",
+      "outputSha256": "1bc3c412c1cab7d1b40c0636ffbddf0a8c30cd925fedb03e0ebd898469519543"
+    },
+    {
+      "id": "wexmoor_v2_schilfhuette",
+      "mode": "edit",
+      "reference": "tilesets/D_03_fassade_slum.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nEDIT the reference modular facade TILE SHEET. Keep EXACT 8columns by6rows, final logical128x96pixels, each cell16x16. Preserve every existing tile silhouette, location and emptyarea. Not a whole building illustration: these are reusable building segments. Rows0wall segments; row1window segments; row2doors; row3eave/roofedge; row4roof surfaces; row5base/plinth. Specific runtimecells walls0,1,2; windows8,9,10,11,12,13,15; doors16,17; eaves24,25; roofs32,33,34,35 MUST retain their roles. No gutters,margins,labels,gridlines. Daytime ambient light, windows unlit unless nightrequested. Translate original materials and architectural details into: small stilt hut woven reeds and darkwood, crooked shutters, reedroof",
+      "steps": [],
+      "sourceSha256": "4cde95abe13fd1b38ecdf081eaa3eea7d40073ce4db6deb179c787a8e7d69643",
+      "output": "facades/wexmoor_v2_schilfhuette.png",
+      "outputSha256": "6c273841a1e2dc0ee52555b7c7add2d2b172c5ed01ff939f60b1972216ffb737"
+    },
+    {
+      "id": "wexmoor_v2_bojenwart",
+      "mode": "edit",
+      "reference": "tilesets/D_03_fassade_holz.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nEDIT the reference modular facade TILE SHEET. Keep EXACT 8columns by6rows, final logical128x96pixels, each cell16x16. Preserve every existing tile silhouette, location and emptyarea. Not a whole building illustration: these are reusable building segments. Rows0wall segments; row1window segments; row2doors; row3eave/roofedge; row4roof surfaces; row5base/plinth. Specific runtimecells walls0,1,2; windows8,9,10,11,12,13,15; doors16,17; eaves24,25; roofs32,33,34,35 MUST retain their roles. No gutters,margins,labels,gridlines. Daytime ambient light, windows unlit unless nightrequested. Translate original materials and architectural details into: buoy keeper house, salted grey boards, roundbuoy lantern, slategreyroof",
+      "steps": [],
+      "sourceSha256": "f3bb69c091be52081d1b60655523ecb194aac0fcaa4930608335eda5a97df4a9",
+      "output": "facades/wexmoor_v2_bojenwart.png",
+      "outputSha256": "47acde792db16eaf1c4b51b8ee87202231ba5cab2bb2ee23e2a6e31fe20c3857"
+    },
+    {
+      "id": "wexmoor_v2_torfschuppen",
+      "mode": "edit",
+      "reference": "tilesets/D_03_fassade_slum.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nEDIT the reference modular facade TILE SHEET. Keep EXACT 8columns by6rows, final logical128x96pixels, each cell16x16. Preserve every existing tile silhouette, location and emptyarea. Not a whole building illustration: these are reusable building segments. Rows0wall segments; row1window segments; row2doors; row3eave/roofedge; row4roof surfaces; row5base/plinth. Specific runtimecells walls0,1,2; windows8,9,10,11,12,13,15; doors16,17; eaves24,25; roofs32,33,34,35 MUST retain their roles. No gutters,margins,labels,gridlines. Daytime ambient light, windows unlit unless nightrequested. Translate original materials and architectural details into: peat storehouse, stacked blackpeat at base, tarred clapboards roughroof",
+      "steps": [],
+      "sourceSha256": "0e63060273873031afce58ff74b547b7b181117e786bb84d6d67d4f886725af4",
+      "output": "facades/wexmoor_v2_torfschuppen.png",
+      "outputSha256": "58027ea3c83721a7a31703d563058ffe25f7a3a7ecbfa5d3a1827651ae502fbd"
+    },
+    {
+      "id": "wexmoor_v2_oberstadt",
+      "mode": "edit",
+      "reference": "tilesets/D_03_fassade_stein.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nEDIT the reference modular facade TILE SHEET. Keep EXACT 8columns by6rows, final logical128x96pixels, each cell16x16. Preserve every existing tile silhouette, location and emptyarea. Not a whole building illustration: these are reusable building segments. Rows0wall segments; row1window segments; row2doors; row3eave/roofedge; row4roof surfaces; row5base/plinth. Specific runtimecells walls0,1,2; windows8,9,10,11,12,13,15; doors16,17; eaves24,25; roofs32,33,34,35 MUST retain their roles. No gutters,margins,labels,gridlines. Daytime ambient light, windows unlit unless nightrequested. Translate original materials and architectural details into: pale limestone upper town house, wet moss joints, whitewashedwalls, wroughtiron trim",
+      "steps": [],
+      "sourceSha256": "26d6cdbca1fae76d00c52fa6b0f6a7176f51341a1295eb26b89beeac147e3334",
+      "output": "facades/wexmoor_v2_oberstadt.png",
+      "outputSha256": "2016432ec18cb71e0f9974312b669ca3c90c84b710b8150d9210e14a1a984b95"
+    },
+    {
+      "id": "wexmoor_v2_ratshaus",
+      "mode": "edit",
+      "reference": "tilesets/D_03_fassade_putz.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nEDIT the reference modular facade TILE SHEET. Keep EXACT 8columns by6rows, final logical128x96pixels, each cell16x16. Preserve every existing tile silhouette, location and emptyarea. Not a whole building illustration: these are reusable building segments. Rows0wall segments; row1window segments; row2doors; row3eave/roofedge; row4roof surfaces; row5base/plinth. Specific runtimecells walls0,1,2; windows8,9,10,11,12,13,15; doors16,17; eaves24,25; roofs32,33,34,35 MUST retain their roles. No gutters,margins,labels,gridlines. Daytime ambient light, windows unlit unless nightrequested. Translate original materials and architectural details into: civic limestone house, salt stained whitewash, severe symmetric windows, pale stonecornice",
+      "steps": [],
+      "sourceSha256": "d4216c9731776f4ea17f8181d3c994b2e00964ed05762f81764a321476225191",
+      "output": "facades/wexmoor_v2_ratshaus.png",
+      "outputSha256": "7870a0afbeaad0d8123d458de770d66b8c5c3ac74fbc1f7c6c1a67a3439f37c3"
+    },
+    {
+      "id": "wexmoor_v2_apotheke",
+      "mode": "edit",
+      "reference": "tilesets/D_03_fassade_putz.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nEDIT the reference modular facade TILE SHEET. Keep EXACT 8columns by6rows, final logical128x96pixels, each cell16x16. Preserve every existing tile silhouette, location and emptyarea. Not a whole building illustration: these are reusable building segments. Rows0wall segments; row1window segments; row2doors; row3eave/roofedge; row4roof surfaces; row5base/plinth. Specific runtimecells walls0,1,2; windows8,9,10,11,12,13,15; doors16,17; eaves24,25; roofs32,33,34,35 MUST retain their roles. No gutters,margins,labels,gridlines. Daytime ambient light, windows unlit unless nightrequested. Translate original materials and architectural details into: saltlamp apothecary whitewashed plasterhouse, pale shutters and brass lantern",
+      "steps": [],
+      "sourceSha256": "321d4df51ceb17601abc782b39243c311fccab7596ba404a36ec07d7564d549d",
+      "output": "facades/wexmoor_v2_apotheke.png",
+      "outputSha256": "09b9d75ae50582e2b6beaa2e2ea6984a8dfa7c72925e52c29d5b34805f38ce8d"
+    },
+    {
+      "id": "wexmoor_v2_salzspeicher",
+      "mode": "edit",
+      "reference": "tilesets/D_03_fassade_fabrik.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nEDIT the reference modular facade TILE SHEET. Keep EXACT 8columns by6rows, final logical128x96pixels, each cell16x16. Preserve every existing tile silhouette, location and emptyarea. Not a whole building illustration: these are reusable building segments. Rows0wall segments; row1window segments; row2doors; row3eave/roofedge; row4roof surfaces; row5base/plinth. Specific runtimecells walls0,1,2; windows8,9,10,11,12,13,15; doors16,17; eaves24,25; roofs32,33,34,35 MUST retain their roles. No gutters,margins,labels,gridlines. Daytime ambient light, windows unlit unless nightrequested. Translate original materials and architectural details into: salt warehouse tarredwood, salt encrusted doors, hoisting beam, timberroof",
+      "steps": [],
+      "sourceSha256": "3001f4a8e5f9bcd8f25a96dac387359cda99290b6dc21bbb93473cb3f7a8bd5f",
+      "output": "facades/wexmoor_v2_salzspeicher.png",
+      "outputSha256": "0b1ff5427fd003f709a8f055beec8050db1349c15d91f8dc02ef95d14e5c785e"
+    },
+    {
+      "id": "wexmoor_v2_fischhalle",
+      "mode": "edit",
+      "reference": "tilesets/D_03_fassade_fabrik.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nEDIT the reference modular facade TILE SHEET. Keep EXACT 8columns by6rows, final logical128x96pixels, each cell16x16. Preserve every existing tile silhouette, location and emptyarea. Not a whole building illustration: these are reusable building segments. Rows0wall segments; row1window segments; row2doors; row3eave/roofedge; row4roof surfaces; row5base/plinth. Specific runtimecells walls0,1,2; windows8,9,10,11,12,13,15; doors16,17; eaves24,25; roofs32,33,34,35 MUST retain their roles. No gutters,margins,labels,gridlines. Daytime ambient light, windows unlit unless nightrequested. Translate original materials and architectural details into: fish market hall, tarred clapboards, canvasroof pieces and fish drying racks",
+      "steps": [],
+      "sourceSha256": "d19e7b0bab3c996665a5cc5e04e62b459cb561735134996be96554299f76318c",
+      "output": "facades/wexmoor_v2_fischhalle.png",
+      "outputSha256": "fa7cde376f10a7a3ae571e2cf5fdbe92d9827e2a4fa92d3e047c3019186b2d37"
+    },
+    {
+      "id": "wexmoor_v2_wachhaus",
+      "mode": "edit",
+      "reference": "tilesets/D_03_fassade_stein.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nEDIT the reference modular facade TILE SHEET. Keep EXACT 8columns by6rows, final logical128x96pixels, each cell16x16. Preserve every existing tile silhouette, location and emptyarea. Not a whole building illustration: these are reusable building segments. Rows0wall segments; row1window segments; row2doors; row3eave/roofedge; row4roof surfaces; row5base/plinth. Specific runtimecells walls0,1,2; windows8,9,10,11,12,13,15; doors16,17; eaves24,25; roofs32,33,34,35 MUST retain their roles. No gutters,margins,labels,gridlines. Daytime ambient light, windows unlit unless nightrequested. Translate original materials and architectural details into: watchhouse pale limestone whitewash, lantern tower motifs at roof, wroughtiron grate",
+      "steps": [],
+      "sourceSha256": "35b6340895844c3be999d62076e63875ecccbb94650e1587739773a30e96680a",
+      "output": "facades/wexmoor_v2_wachhaus.png",
+      "outputSha256": "2b1d9e7ce3c5d67d91720a11bab9313a6fd95ece4b42e52f5d0900d9498ca02f"
+    },
+    {
+      "id": "wexmoor_v2_akademie",
+      "mode": "edit",
+      "reference": "tilesets/D_03_fassade_stein.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nEDIT the reference modular facade TILE SHEET. Keep EXACT 8columns by6rows, final logical128x96pixels, each cell16x16. Preserve every existing tile silhouette, location and emptyarea. Not a whole building illustration: these are reusable building segments. Rows0wall segments; row1window segments; row2doors; row3eave/roofedge; row4roof surfaces; row5base/plinth. Specific runtimecells walls0,1,2; windows8,9,10,11,12,13,15; doors16,17; eaves24,25; roofs32,33,34,35 MUST retain their roles. No gutters,margins,labels,gridlines. Daytime ambient light, windows unlit unless nightrequested. Translate original materials and architectural details into: academy pale limestone and saltwashedplaster, verdigris copper dome roofpieces, brass celestial ornaments no letters",
+      "steps": [],
+      "sourceSha256": "5c72ef20f90ff26476aa4f78d10bc90e8f2182140db597daff01c49b76234c74",
+      "output": "facades/wexmoor_v2_akademie.png",
+      "outputSha256": "6a8dd929b797212ab87832c84980f50686f2cdc42ae0a648cfbed4ad54ed4744"
+    },
+    {
+      "id": "wexmoor_v2_lucent",
+      "mode": "edit",
+      "reference": "tilesets/D_03_fassade_putz.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nEDIT the reference modular facade TILE SHEET. Keep EXACT 8columns by6rows, final logical128x96pixels, each cell16x16. Preserve every existing tile silhouette, location and emptyarea. Not a whole building illustration: these are reusable building segments. Rows0wall segments; row1window segments; row2doors; row3eave/roofedge; row4roof surfaces; row5base/plinth. Specific runtimecells walls0,1,2; windows8,9,10,11,12,13,15; doors16,17; eaves24,25; roofs32,33,34,35 MUST retain their roles. No gutters,margins,labels,gridlines. Daytime ambient light, windows unlit unless nightrequested. Translate original materials and architectural details into: Lucent rich shipwood home with glassveranda windowmodules and coppergreenroof",
+      "steps": [],
+      "sourceSha256": "8ff5f8fd4c9706b986b8a8f2b6f1bf34fdc46e3fb5333d18d20f3595a3160972",
+      "output": "facades/wexmoor_v2_lucent.png",
+      "outputSha256": "801399fea5c0804760dc3374ff4a8ade981c1f2240ea9948995d142ad4b2611e"
+    },
+    {
+      "id": "wexmoor_v2_glocke",
+      "mode": "edit",
+      "reference": "tilesets/D_03_fassade_stein.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nEDIT the reference modular facade TILE SHEET. Keep EXACT 8columns by6rows, final logical128x96pixels, each cell16x16. Preserve every existing tile silhouette, location and emptyarea. Not a whole building illustration: these are reusable building segments. Rows0wall segments; row1window segments; row2doors; row3eave/roofedge; row4roof surfaces; row5base/plinth. Specific runtimecells walls0,1,2; windows8,9,10,11,12,13,15; doors16,17; eaves24,25; roofs32,33,34,35 MUST retain their roles. No gutters,margins,labels,gridlines. Daytime ambient light, windows unlit unless nightrequested. Translate original materials and architectural details into: half drowned church bell tower wet whitewashedstone, arched dark windows, waterline bottomwall, coppergreensteeproof",
+      "steps": [],
+      "sourceSha256": "318c5b33d9f429900b7eb4fffb801706b589cbe0b9718ec845088afba3a255d7",
+      "output": "facades/wexmoor_v2_glocke.png",
+      "outputSha256": "e4ad14d85fdcf6f91340bfd7822261c6a97ed1b3d3553e756485df60929a8966"
+    },
+    {
+      "id": "wexmoor_v2_altstadt",
+      "mode": "edit",
+      "reference": "tilesets/D_03_fassade_slum.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nEDIT the reference modular facade TILE SHEET. Keep EXACT 8columns by6rows, final logical128x96pixels, each cell16x16. Preserve every existing tile silhouette, location and emptyarea. Not a whole building illustration: these are reusable building segments. Rows0wall segments; row1window segments; row2doors; row3eave/roofedge; row4roof surfaces; row5base/plinth. Specific runtimecells walls0,1,2; windows8,9,10,11,12,13,15; doors16,17; eaves24,25; roofs32,33,34,35 MUST retain their roles. No gutters,margins,labels,gridlines. Daytime ambient light, windows unlit unless nightrequested. Translate original materials and architectural details into: ruined old town stone house saltwaterline on walls, missing shutters, collapsed coppergreenroof",
+      "steps": [],
+      "sourceSha256": "50a41d844c4afd581f1fb2407dcc57120c075cf04d9fb50950eef3a22a6bfb97",
+      "output": "facades/wexmoor_v2_altstadt.png",
+      "outputSha256": "3aa3a3e66492d14a5debde3394e678f26bba1be392ac919eaf1847021c9ca8d1"
+    },
+    {
+      "id": "wexmoor_v2_leuchtturm",
+      "mode": "edit",
+      "reference": "tilesets/D_03_fassade_stein.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nEDIT the reference modular facade TILE SHEET. Keep EXACT 8columns by6rows, final logical128x96pixels, each cell16x16. Preserve every existing tile silhouette, location and emptyarea. Not a whole building illustration: these are reusable building segments. Rows0wall segments; row1window segments; row2doors; row3eave/roofedge; row4roof surfaces; row5base/plinth. Specific runtimecells walls0,1,2; windows8,9,10,11,12,13,15; doors16,17; eaves24,25; roofs32,33,34,35 MUST retain their roles. No gutters,margins,labels,gridlines. Daytime ambient light, windows unlit unless nightrequested. Translate original materials and architectural details into: whitewashed lighthouse, curved limestonewall modules, salt stains, lanternroomwindow modules, verdigriscaproof",
+      "steps": [],
+      "sourceSha256": "2a8917bc9bdc67dd06b7b98e8a8e7c10d97b0e4f6159dcaa0a903c44b80e1fc1",
+      "output": "facades/wexmoor_v2_leuchtturm.png",
+      "outputSha256": "e7f0ed1a627c7d5b76c5ed8e41d6fca1c48cb43b61e6e7753bb7691c0ac0a35a"
+    },
+    {
+      "id": "wexmoor_v2_bahnhof",
+      "mode": "edit",
+      "reference": "tilesets/D_03_fassade_fabrik.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nEDIT the reference modular facade TILE SHEET. Keep EXACT 8columns by6rows, final logical128x96pixels, each cell16x16. Preserve every existing tile silhouette, location and emptyarea. Not a whole building illustration: these are reusable building segments. Rows0wall segments; row1window segments; row2doors; row3eave/roofedge; row4roof surfaces; row5base/plinth. Specific runtimecells walls0,1,2; windows8,9,10,11,12,13,15; doors16,17; eaves24,25; roofs32,33,34,35 MUST retain their roles. No gutters,margins,labels,gridlines. Daytime ambient light, windows unlit unless nightrequested. Translate original materials and architectural details into: freightstation on timberstilts, grey tarredboards, glass platformcanopy, salt crust and ironrail trim",
+      "steps": [],
+      "sourceSha256": "b2f4575b875b12ac0557b5e38974401cab0b2ee55b4dba23a39eac8525e0a75f",
+      "output": "facades/wexmoor_v2_bahnhof.png",
+      "outputSha256": "7f78edac8919069fa5a3126bce3c6e80712520500837fe2d6376cc6471d88f04"
+    },
+    {
+      "id": "wexmoor_v2_props",
+      "mode": "generate",
+      "reference": null,
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nTransparent prop ATLAS exactly8columns6rows,48 separate objects centered in equally sized squarecells, oneobjectpercell, final128x96 logicalpixels (eachcell16x16), no objects crossing boundaries. Row-major items: bojenlaterne_an, bojenlaterne_aus, pfahlpoller, taurolle, salzfass, torfkarre, netz, reuse, fischkiste, gelaender_h, gelaender_v, gangway_h, gangway_v, pricke, nebelhorn, boje, anker, haken, eimer, salzsack, torfsode, wollgras, schilf, treibholz, seilpfahl, muschelkorb, aalkorb, fischfass, rettungsring, stiefel, reusenleine, pegelpfahl, kalktopf, teereimer, paddel, ruder, klappbruecke, schleusenhebel, kleiner_kran, ankerwinde, kistenstapel, salzlampe, schuppenplane, fischgestell, briefkasten, wasserpumpe, bojenstange, moorpflanze",
+      "steps": [],
+      "sourceSha256": "077951c7deb53ee313a8b735bccf8668fd1a7c14cae1c1b860dbd25182411fd3",
+      "output": "props/wexmoor_v2_props.png",
+      "outputSha256": "e4760df27d152711b77968e4d471a0a3a3c1d2ccf0bc2fd2ad864c233725a100"
+    },
+    {
+      "id": "wexmoor_v2_gross",
+      "mode": "generate",
+      "reference": null,
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nTransparent prop ATLAS exactly4columns4rows,16 separate objects centered in equally sized squarecells, final128x128 logicalpixels eachcell32x32. Row-majoritems:kahn, torfstapel, kran, schleusenrad, fischkutter, salzwagen, netzgestell, torfkarre, gangway, schleusentor, bojenmast, holzstapel, salzberg, reusengruppe, nebelhorn, rettungsboot",
+      "steps": [],
+      "sourceSha256": "d49085991c01861a363871d33577b0f00eecc2d62bcb97fa69b3a5f772e74412",
+      "output": "props/wexmoor_v2_gross.png",
+      "outputSha256": "912d0f41d3feffe290ae6563adcff0c4cb42adb1c529228a6ad1811265ba2219"
+    },
+    {
+      "id": "wexmoor_v2_anim",
+      "mode": "generate",
+      "reference": null,
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nTransparent animation spriteatlas exactly4columns6rows, final64x96 logicalpixels eachframe16x16. Four distinct consecutive frames left to right for each row; same object anchor/scale. Row0 lit buoy lantern flickering amber;row1 hangingfishingnet swaying;row2 fishtrapbasket with splashing water;row3 buoy bobbing;row4 reeds swaying;row5 foghorn puff. Everyframe isolated centered, NO labels or margins.",
+      "steps": [
+        {
+          "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nTransparent animation spriteatlas exactly4columns6rows, final64x96 logicalpixels eachframe16x16. Four distinct consecutive frames left to right for each row; same object anchor/scale. Row0 lit buoy lantern flickering amber;row1 hangingfishingnet swaying;row2 fishtrapbasket with splashing water;row3 buoy bobbing;row4 reeds swaying;row5 foghorn puff. Everyframe isolated centered, NO labels or margins."
+        },
+        {
+          "prompt": "Remove ALL grey background and ambient haze from this sprite atlas. Keep ONLY the 24 crisp objects in EXACT same4columns6rows positions, shapes, colors and animationframes. Background must be truly transparent alpha, including gaps inside nets and around reeds. No backdrop, no checkerboard drawn behind, no shadows except isolated small water ripples. Preserve all sprites. This is a technical background removal, not redesign.",
+          "purpose": "alpha cleanup"
+        }
+      ],
+      "sourceSha256": "7b4fa2ea8f139445a1700abc38e3c466118b85ae7c9b8c978855cea450a9e721",
+      "output": "props/wexmoor_v2_anim.png",
+      "outputSha256": "ff68e131763d1f2a05bfe639035a3608e16b7c5fae3a8130c0f543db37c4359d"
+    },
+    {
+      "id": "wexmoor_v2_wetter",
+      "mode": "generate",
+      "reference": null,
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nTransparent weather spriteatlas exactly6columns4rows,final384x256logicalpixels,eachframe64x64. SIX distinct consecutive animation phases lefttoright perrow. Row0 creeping horizontal greyfogbank (checker-dither transparency);row1 diagonal lightdrizzle;row2 saltsea wind spray fragments;row3 one faint turquoise will-o-wisp. Sparse readable effects, no scenery, no ground, no labels, all24frames isolated on transparentbackground.",
+      "steps": [],
+      "sourceSha256": "abe484eb7f6030dcc6f9fee6365fe98ed5bdc23d67fd8ef3a208c1a5a2997f1a",
+      "output": "fx/wexmoor_v2_wetter.png",
+      "outputSha256": "56d76e5d9ef71a444876ee5b36a938c2e98f4fd224e23b93a569fdfabe4f2a41"
+    },
+    {
+      "id": "wexmoor_v2_tiere",
+      "mode": "generate",
+      "reference": null,
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nTransparent animal spriteatlas exactly4columns6rows, final64x96 logicalpixels eachframe16x16. Four distinct consecutive movementframes lefttoright eachrow. Row0 gull flapping;row1 heron walking;row2 moorfrog hopping;row3 water rat swimming;row4 fog crow flapping;row5 eel in water onlyback visible undulating. Same anchor andscale eachrow,6rows,24distinctsprites total,no labels.",
+      "steps": [],
+      "sourceSha256": "efa0054b0f3fb2c3bed9d1e29c5ffacc9d83c67896319893a9da1b6539f86431",
+      "output": "fx/wexmoor_v2_tiere.png",
+      "outputSha256": "59479594fa2c1f242f98b78c392e321a64e479ed5b971525490dd15336985fa2"
+    },
+    {
+      "id": "wexmoor_v2_stadtkarte",
+      "mode": "edit",
+      "reference": "ui/Q_wexmoor_karte.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nEDIT provided citymap retaining EXACT district positions/boundaries/coastline and composition. Final480x270logicalpixels. Opaque parchment NAUTICAL CHART Wexmoor. City on tarredwoodstilts, peat, black canals, buoy lanterns, plankroads and reedfields, limestone only upperdistrict, whitewashed lighthouse. NO letters/text/numbers. Pin anchors at original coordinates (do not shift):railway110,125;peat83,209;saltmarket254,123;buoyharbour254,188;uppercity252,42;stilts383,209;lighthouse405,140. Keep existing ring markerpositions exactly. Render quiet empty land behind pincentres for clarity. Watercontours,buoys,nautical compass without text.",
+      "steps": [],
+      "sourceSha256": "0c8e816e4e6442b1719578047ab5cf628e839a9f33022334e251cce218745d87",
+      "output": "ui/wexmoor_v2_stadtkarte.png",
+      "outputSha256": "f74330db4a1c9607809135c970dde7aba4e08e428f1387cf9a006b56485b72b2"
+    },
+    {
+      "id": "wexmoor_v2_nebel",
+      "mode": "edit",
+      "reference": "ui/Q_wexmoor_karte.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nCreate a separate TRANSPARENT fog overlay registered to exact reference map480x270logicalpixels. ONLY grey fog banks covering seven district areas; no actual buildings/map underneath, transparent spaces between banks following waterchannels. Dense checker-dither opaquegrey pixels alternating transparent for mist, no semitransparency. District banks centered railway110,125;peat83,209;saltmarket254,123;harbor254,188;uppercity252,42;stilts383,209;lighthouse405,140. Organic mist edges, no text.",
+      "steps": [],
+      "sourceSha256": "02b95bed5aaa04e9d18ce468099ea2323534eab2bcb62c3a50e43913c0671aae",
+      "output": "ui/wexmoor_v2_nebel.png",
+      "outputSha256": "04b064f3d75d074223ef40b5a05007c24e2531544ac7f24c9ada8d2b39f5e0cc"
+    },
+    {
+      "id": "wexmoor_v2_tileanim",
+      "mode": "generate",
+      "reference": null,
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nTransparent animation ATLAS exactly4columns9rows,final64x144logicalpixels,16x16eachframe. Four DISTINCT consecutive animation phases lefttoright; fixed same scale for eachrow. Rows0-3 four variations of seamless BLACK moorwater surface with subtle moving sky-reflection, fullopaque tiles. Row4 pale occult reflection on black moorwater. Row5 sparse checker-dither creeping fog on transparent. Row6 lighthouse limestonefloor with coldwhite crack pulse. Row7 second variation same cracks. Row8 saltflat tidalwater shimmering. No margins labels separators.",
+      "steps": [],
+      "sourceSha256": "405432e478025991492877ab2a2350df9ac08b52c87e9954f5e2d6978edf6139",
+      "output": "fx/wexmoor_v2_tileanim.png",
+      "outputSha256": "386569ce022b570660a9db68d946f5e9983a22a5581d3dc15314e61ace27d060"
+    },
+    {
+      "id": "wexmoor_v2_pfahlhaus_nacht",
+      "mode": "edit",
+      "reference": "facades/wexmoor_v2_pfahlhaus.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nCreate the illuminated-window variant of the supplied exact8columns6rows modular facade sprite sheet. Keep ALL building geometry, palette and ambient daytime brightness unchanged. Change ONLY the 8 window cells in SECOND row (indices8-15) so window interiors glow warm amber/yellow with hardpixel highlights. Do NOT darken the rest, do not add lanterns or change shapes. Same128x96logicalpixel raster, samealpha. This is a NIGHT WINDOW STATE for engine lighting.",
+      "steps": [],
+      "sourceSha256": "fab1a008570da48aee245bbba4fb27df627d064a255579696104dbdbcf60512f",
+      "output": "facades/wexmoor_v2_pfahlhaus_nacht.png",
+      "outputSha256": "aedba60d226af56d349cc26c60b2218adebe75a8702355edb92c258921b27cc0"
+    },
+    {
+      "id": "wexmoor_v2_oberstadt_nacht",
+      "mode": "edit",
+      "reference": "facades/wexmoor_v2_oberstadt.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nCreate the illuminated-window variant of the supplied exact8columns6rows modular facade sprite sheet. Keep ALL building geometry, palette and ambient daytime brightness unchanged. Change ONLY the 8 window cells in SECOND row (indices8-15) so window interiors glow warm amber/yellow with hardpixel highlights. Do NOT darken the rest, do not add lanterns or change shapes. Same128x96logicalpixel raster, samealpha. This is a NIGHT WINDOW STATE for engine lighting.",
+      "steps": [],
+      "sourceSha256": "71cf3653d1af9a817c7b95fe8450af207c12bbbcf02f3dcead1033772b7c542e",
+      "output": "facades/wexmoor_v2_oberstadt_nacht.png",
+      "outputSha256": "69eb5d5086c548319170392da63a086cb79a538c6d018102d41f844e0708fac4"
+    },
+    {
+      "id": "wexmoor_v2_salzspeicher_nacht",
+      "mode": "edit",
+      "reference": "facades/wexmoor_v2_salzspeicher.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nCreate the illuminated-window variant of the supplied exact8columns6rows modular facade sprite sheet. Keep ALL building geometry, palette and ambient daytime brightness unchanged. Change ONLY the 8 window cells in SECOND row (indices8-15) so window interiors glow warm amber/yellow with hardpixel highlights. Do NOT darken the rest, do not add lanterns or change shapes. Same128x96logicalpixel raster, samealpha. This is a NIGHT WINDOW STATE for engine lighting.",
+      "steps": [],
+      "sourceSha256": "6c52467bb75af7a5af3f0e996113516624350d189e83bad60c6fc8c65595cff3",
+      "output": "facades/wexmoor_v2_salzspeicher_nacht.png",
+      "outputSha256": "2bd109e19217985e0e0aa6568950f69bea38aa7c15b0973a13bb108f02d84dd9"
+    },
+    {
+      "id": "wexmoor_v2_wachhaus_nacht",
+      "mode": "edit",
+      "reference": "facades/wexmoor_v2_wachhaus.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nCreate the illuminated-window variant of the supplied exact8columns6rows modular facade sprite sheet. Keep ALL building geometry, palette and ambient daytime brightness unchanged. Change ONLY the 8 window cells in SECOND row (indices8-15) so window interiors glow warm amber/yellow with hardpixel highlights. Do NOT darken the rest, do not add lanterns or change shapes. Same128x96logicalpixel raster, samealpha. This is a NIGHT WINDOW STATE for engine lighting.",
+      "steps": [],
+      "sourceSha256": "a11ada4b97ed771212536c5ae53ba0936cb350e1216da5bd12d3be0cab06c0ff",
+      "output": "facades/wexmoor_v2_wachhaus_nacht.png",
+      "outputSha256": "05ce3f99ce5480ab2d9ab53b71eebc5fd39f1eb864f210e86a34efdaee18c7c3"
+    },
+    {
+      "id": "wexmoor_v2_akademie_nacht",
+      "mode": "edit",
+      "reference": "facades/wexmoor_v2_akademie.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nCreate the illuminated-window variant of the supplied exact8columns6rows modular facade sprite sheet. Keep ALL building geometry, palette and ambient daytime brightness unchanged. Change ONLY the 8 window cells in SECOND row (indices8-15) so window interiors glow warm amber/yellow with hardpixel highlights. Do NOT darken the rest, do not add lanterns or change shapes. Same128x96logicalpixel raster, samealpha. This is a NIGHT WINDOW STATE for engine lighting.",
+      "steps": [],
+      "sourceSha256": "d5377c33ca84f0af09b4e6ec44bf733d6479dafaa5da74a287154601431abdde",
+      "output": "facades/wexmoor_v2_akademie_nacht.png",
+      "outputSha256": "c615e80f7051f83e7d27f682ed1b320357994b7167090e626a8b226f8dc1d29f"
+    },
+    {
+      "id": "wexmoor_v2_lucent_nacht",
+      "mode": "edit",
+      "reference": "facades/wexmoor_v2_lucent.png",
+      "prompt": "STYLE GUIDE (apply to every asset): Top-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable cozy-clean but dark and atmospheric. Original foggy Victorian industrial city WEXMOOR built on salt-crusted tarred wood stilts and peat, wattle and pale limestone, black moorwater, buoy lanterns, reeds, lighthouse. Strict 16x16 logical pixel tiles; crisp hard edged pixels, NO anti-aliasing, blur, gradients, no subpixel detail. 2-tone checker dithering only on large surfaces or transparency. 1px deep bluegrey #1a1c2c outlines on objects, no outline terrain. Shared max32 muted slateblue, foggrey, mossgreen, grey timber, bonewhite, brass palette. No reddish brown bricks. Warm amber only lamps/windows. Turquoise #6fe0d0 only occult. Top-left flat light 2-3 shades, melancholy not gory. No text, letters, numbers, watermark, margins, labels, or gridlines.\nCreate the illuminated-window variant of the supplied exact8columns6rows modular facade sprite sheet. Keep ALL building geometry, palette and ambient daytime brightness unchanged. Change ONLY the 8 window cells in SECOND row (indices8-15) so window interiors glow warm amber/yellow with hardpixel highlights. Do NOT darken the rest, do not add lanterns or change shapes. Same128x96logicalpixel raster, samealpha. This is a NIGHT WINDOW STATE for engine lighting.",
+      "steps": [],
+      "sourceSha256": "c3ca11e16e925477a6786fcef71aa13abf3ae01434804b154c0d4fa996de62b4",
+      "output": "facades/wexmoor_v2_lucent_nacht.png",
+      "outputSha256": "326377eaf77b72d5af839064023c399a402c7c26d17a3b3dc377b91a133cf0c8"
+    }
+  ]
+}
