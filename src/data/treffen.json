@@ -1,9 +1,8 @@
 {
   "_info": "Geheime Treffen ab Fall 4. Alle interval_min Spielminuten beginnt reihum (order) das Treffen eines Zirkels und bleibt open_min Minuten offen. Händler mit 'gathering' würfeln je Treffen ihr Angebot ('chance' pro Eintrag, 'limit' Stück pro Treffen). Zutaten ab Sequenz 7 (auch 6 und 5) gibt es nur hier oder als Beute, nie auf dem normalen Markt. Ab Version Auktion: Jeder Zirkel hat 4 bis 5 Mitglieder (circles.*.members). Reihum bietet jedes Mitglied ein Los an (offers, 'chance' je Eintrag), die anderen bieten mit; danach ein Gesuch nach einer Zutat (wants). Zum Schluss kann man eigene Artefakte oder Formeln versteigern.",
   "rules": {
-    "interval_min": 20,
-    "open_min": 6,
-    "sleep_skip_min": 2,
+    "interval_min": 5,
+    "open_min": 4,
     "order": [
       "waage",
       "kreide",
@@ -1928,7 +1927,7 @@
           ]
         },
         "when": {
-          "text": "„Jede Glockenrunde trifft sich ein Zirkel, reihum. Etwa alle zwanzig Minuten. Ein Treffen dauert nicht lange, sechs Minuten, dann sind alle wieder fort. Wer dazugehört, wird gerufen. Sie werden es merken.“\n\nOben links unter deiner Börse siehst du, wann dein nächstes Treffen ist.",
+          "text": "„Jede Glockenrunde trifft sich ein Zirkel, reihum. Etwa alle fünf Minuten. Ein Treffen dauert nicht lange, vier Minuten, dann sind alle wieder fort. Wer dazugehört, wird gerufen. Sie werden es merken.“\n\nOben links unter deiner Börse siehst du, wann dein nächstes Treffen ist.",
           "choices": [
             {
               "text": "Verstanden.",

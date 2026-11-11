@@ -98,13 +98,15 @@ test('Beitreten: Waage für Geld, Kreidezirkel nur mit Pfad, Ruß gegen Geistere
   assert.deepEqual(s.memberships().sort(), ['kreide', 'russ', 'waage']);
 });
 
-test('Uhr: alle 20 Minuten ein Treffen, reihum, nur kurz offen', () => {
+test('Uhr: alle 5 Minuten ein Treffen, reihum, nur kurz offen', () => {
   const s = fall4();
   talk(s, 'schleierbote', ['Stillen Waage']);
   const notes = [];
   s.on('gathering', (e) => notes.push(e));
   const order = rules.order;
-  assert.equal(rules.interval_min, 20);
+  assert.equal(rules.interval_min, 5);
+  assert.ok(rules.open_min < rules.interval_min, 'ein Treffen endet, bevor das nächste beginnt');
+  assert.equal(rules.sleep_skip_min, undefined, 'Schlafen verkürzt die Wartezeit nicht mehr');
   for (let c = 0; c < order.length * 2; c++) assert.equal(s.gatheringSlot(c).id, order[c % order.length]);
   // Eine ganze Stunde spielen: genau ein Waage-Treffen öffnet und schließt wieder
   s.playTime = s.gatheringSlot(1).start; // nach der ersten Runde einsteigen
@@ -442,26 +444,4 @@ test('offerInfo: Formeln sagen, ob sie zum eigenen Pfad passen', () => {
   assert.match(s.offerInfo(fid).notes[0], /hinter dir/);
   s.pathway = { id: 'faden', seq: 9 };
   assert.match(s.offerInfo(fid).notes[0], /Nicht dein Pfad/);
-});
-
-test('Schlafen in der Koje spult die Zirkel-Uhr um sleep_skip_min (2) Minuten vor', () => {
-  const s = fall4();
-  s.flags.add(content.gatherings.circles.waage.member_flag);
-  const before = s.playTime;
-  assert.equal(s.sleepGatherings(), 2 * MIN);
-  assert.equal(s.playTime, before + 2 * MIN);
-  assert.equal(rules.sleep_skip_min, 2);
-  // Direkt vor einem eigenen Treffen schlafen: das Treffen wird wie beim normalen Tick angekündigt
-  const events = [];
-  s.on('gathering', (e) => events.push(e));
-  const c = jumpTo(s, 'waage');
-  s.playTime = s.gatheringSlot(c).start - 30;
-  s.lastGatheringCycle = null;
-  s.sleepGatherings();
-  assert.equal(s.currentGathering()?.id, 'waage');
-  assert.ok(events.some((e) => e.id === 'waage' && e.open));
-  // Ohne Treffen (vor Fall 4) vergeht trotzdem Zeit, die Uhr läuft ja immer
-  const fresh = new GameState(content);
-  assert.equal(fresh.sleepGatherings(), 2 * MIN);
-  assert.equal(fresh.playTime, 2 * MIN);
 });
