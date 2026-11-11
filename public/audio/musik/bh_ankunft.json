@@ -1,0 +1,115 @@
+{
+  "format": "nebel-musik-1",
+  "id": "bh_ankunft",
+  "titel": "Unter dem niedrigen Dach",
+  "art": "musik",
+  "bpm": 72,
+  "takt": [
+    3,
+    4
+  ],
+  "loop": false,
+  "lautstaerke": 0.62,
+  "hall": 0.32,
+  "spuren": {
+    "s0": {
+      "instrument": "celesta",
+      "lautstaerke": 0.48,
+      "pan": 0
+    },
+    "s1": {
+      "instrument": "streicher",
+      "lautstaerke": 0.24,
+      "pan": -0.2
+    },
+    "s2": {
+      "instrument": "wind",
+      "lautstaerke": 0.12,
+      "pan": 0.2
+    }
+  },
+  "muster": {
+    "intro_s0": {
+      "spur": "s0",
+      "takte": 1,
+      "noten": "r:6 d4:6"
+    },
+    "intro_s1": {
+      "spur": "s1",
+      "takte": 1,
+      "noten": "[d3,f3,a3]:12@0.35"
+    },
+    "A_s0": {
+      "spur": "s0",
+      "takte": 5,
+      "noten": "d5:4 a4:4 r:4 | d5:4 a4:4 r:4 | e5:4 b4:4 r:4 | f5:4 e5:4 r:4 | d5:4 a4:4 r:4"
+    },
+    "A_s1": {
+      "spur": "s1",
+      "takte": 5,
+      "noten": "[d3,f3,a3]:12@0.35 | [d3,f3,a3]:12@0.35 | [d3,f3,a3]:12@0.35 | [d3,f3,a3]:12@0.35 | [d3,f3,a3]:12@0.35"
+    },
+    "A_s2": {
+      "spur": "s2",
+      "takte": 5,
+      "noten": "x:6 r:6 | r:12 | x:6 r:6 | r:12 | x:6 r:6"
+    },
+    "B_s0": {
+      "spur": "s0",
+      "takte": 5,
+      "noten": "f5:4 e5:4 r:4 | f5:4 e5:4 r:4 | d#5:4 d5:4 r:4 | f5:4 e5:4 r:4 | f5:4 e5:4 r:4"
+    },
+    "B_s1": {
+      "spur": "s1",
+      "takte": 5,
+      "noten": "[a#2,c#3,f3]:12@0.35 | [a#2,c#3,f3]:12@0.35 | [a#2,c#3,f3]:12@0.35 | [a#2,c#3,f3]:12@0.35 | [a#2,c#3,f3]:12@0.35"
+    },
+    "B_s2": {
+      "spur": "s2",
+      "takte": 5,
+      "noten": "x:6 r:6 | r:12 | x:6 r:6 | r:12 | x:6 r:6"
+    },
+    "C_s0": {
+      "spur": "s0",
+      "takte": 5,
+      "noten": "d5:4 a4:4 r:4 | d5:4 a4:4 r:4 | e5:4 b4:4 r:4 | f5:4 e5:4 r:4 | d5:4 a4:4 r:4"
+    },
+    "C_s1": {
+      "spur": "s1",
+      "takte": 5,
+      "noten": "[g3,a#3,d4]:12@0.35 | [g3,a#3,d4]:12@0.35 | [g3,a#3,d4]:12@0.35 | [g3,a#3,d4]:12@0.35 | [g3,a#3,d4]:12@0.35"
+    },
+    "C_s2": {
+      "spur": "s2",
+      "takte": 5,
+      "noten": "x:6 r:6 | r:12 | x:6 r:6 | r:12 | x:6 r:6"
+    }
+  },
+  "abschnitte": {
+    "intro": [
+      "intro_s0",
+      "intro_s1"
+    ],
+    "A": [
+      "A_s0",
+      "A_s1",
+      "A_s2"
+    ],
+    "B": [
+      "B_s0",
+      "B_s1",
+      "B_s2"
+    ],
+    "C": [
+      "C_s0",
+      "C_s1",
+      "C_s2"
+    ]
+  },
+  "ablauf": [
+    "intro",
+    "A",
+    "B",
+    "C"
+  ]
+}

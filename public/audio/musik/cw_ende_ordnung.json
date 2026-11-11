@@ -1,0 +1,63 @@
+{
+  "format": "nebel-musik-1",
+  "id": "cw_ende_ordnung",
+  "titel": "Reinschrift",
+  "art": "musik",
+  "bpm": 60,
+  "takt": [
+    4,
+    4
+  ],
+  "loop": false,
+  "lautstaerke": 0.62,
+  "hall": 0.32,
+  "spuren": {
+    "s0": {
+      "instrument": "harmonium",
+      "lautstaerke": 0.48,
+      "pan": 0
+    }
+  },
+  "muster": {
+    "intro_s0": {
+      "spur": "s0",
+      "takte": 1,
+      "noten": "[c3,e3,g3]:16@0.35"
+    },
+    "A_s0": {
+      "spur": "s0",
+      "takte": 3,
+      "noten": "[c3,e3,g3]:16@0.35 | [c3,e3,g3]:16@0.35 | [c3,e3,g3]:16@0.35"
+    },
+    "B_s0": {
+      "spur": "s0",
+      "takte": 3,
+      "noten": "[c3,e3,g3]:16@0.35 | [c3,e3,g3]:16@0.35 | [c3,e3,g3]:16@0.35"
+    },
+    "C_s0": {
+      "spur": "s0",
+      "takte": 3,
+      "noten": "[c3,e3,g3]:16@0.35 | [c3,e3,g3]:16@0.35 | [c3,e3,g3]:16@0.35"
+    }
+  },
+  "abschnitte": {
+    "intro": [
+      "intro_s0"
+    ],
+    "A": [
+      "A_s0"
+    ],
+    "B": [
+      "B_s0"
+    ],
+    "C": [
+      "C_s0"
+    ]
+  },
+  "ablauf": [
+    "intro",
+    "A",
+    "B",
+    "C"
+  ]
+}
