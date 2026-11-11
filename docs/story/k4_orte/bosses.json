@@ -1,0 +1,67 @@
+{
+  "cwa_registerleib_rest": {
+    "name": "Registerleib: verbliebener Druck",
+    "sprite": "wild",
+    "sheet": "enemy_vg_cw_boss_nullfundament",
+    "boss": true,
+    "fleeable": true,
+    "hp": 200,
+    "armor": 2,
+    "occult": true,
+    "chapter": 4,
+    "intro": "Ein Rest des Registers stellt sich zwischen die getrennten Spalten. Wetherby selbst ist kein Angriffsziel.",
+    "attacks": [
+      {
+        "name": "Registergriff: klappt zwei schwere deckel auf",
+        "damage": 15,
+        "hits": [
+          1400,
+          2150
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Sammeldruck: presst alle rücken zusammen – ausweichen",
+        "damage": 18,
+        "hits": [
+          2600
+        ],
+        "unparryable": true
+      },
+      {
+        "name": "Spaltenhieb: lässt drei spalten nacheinander ausschlagen",
+        "damage": 15,
+        "hits": [
+          1300,
+          2050,
+          2850
+        ],
+        "unparryable": false
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "cwo_registerrest_geloest"
+      ]
+    },
+    "win_text": "Der verbliebene Druck sinkt in sich zusammen. Das Endgespräch bleibt offen.",
+    "lose_text": "Du weichst zur gesicherten Schwelle zurück. Die Entscheidung über die Stadt bleibt möglich.",
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": []
+    },
+    "roam": {
+      "speed": 0,
+      "chase": 40,
+      "aggro": 72
+    },
+    "on_lose": {},
+    "lose_to": {
+      "map": "cw_buchbinderei",
+      "spawn": "default"
+    }
+  }
+}
