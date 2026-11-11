@@ -1,0 +1,61 @@
+{
+  "bha_aussaat_schwarm": {
+    "name": "Aussaatschwarm",
+    "sprite": "wild",
+    "boss": true,
+    "fleeable": true,
+    "chapter": 5,
+    "hp": 200,
+    "armor": 2,
+    "occult": true,
+    "intro": "Die geöffneten Schoten treiben zwischen dich und die Sperrklappe. Greavesend bleibt am Bedienpult; sie ist kein Kampfboss.",
+    "attacks": [
+      {
+        "name": "Wurzelbogen: hebt zwei wurzelarme aus dem trockenen boden",
+        "damage": 15,
+        "hits": [
+          1400,
+          2150
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Blütenverschluss: schließt den blütenmund bis auf einen spalt – ausweichen",
+        "damage": 18,
+        "hits": [
+          2600
+        ],
+        "unparryable": true
+      },
+      {
+        "name": "Kelchfolge: neigt drei kelche nacheinander zum weg",
+        "damage": 15,
+        "hits": [
+          1300,
+          2050,
+          2850
+        ],
+        "unparryable": false
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "bho_aussaat_gesichert"
+      ]
+    },
+    "win_text": "Du hältst die Klappe frei. Die Kapsel und die Entscheidung bleiben bei dir.",
+    "lose_to": {
+      "map": "bh_buegelraum",
+      "spawn": "default"
+    },
+    "lose_money": 0,
+    "lose_text": "Frost zieht dich in den Bügelraum zurück. Die Aussaat wartet weiter auf deine ausdrückliche Entscheidung.",
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": []
+    }
+  }
+}

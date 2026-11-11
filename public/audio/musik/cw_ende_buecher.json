@@ -1,0 +1,115 @@
+{
+  "format": "nebel-musik-1",
+  "id": "cw_ende_buecher",
+  "titel": "Ungebundene Seiten",
+  "art": "musik",
+  "bpm": 72,
+  "takt": [
+    4,
+    4
+  ],
+  "loop": false,
+  "lautstaerke": 0.62,
+  "hall": 0.32,
+  "spuren": {
+    "s0": {
+      "instrument": "klavier",
+      "lautstaerke": 0.48,
+      "pan": 0
+    },
+    "s1": {
+      "instrument": "holzblock",
+      "lautstaerke": 0.24,
+      "pan": -0.2
+    },
+    "s2": {
+      "instrument": "streicher",
+      "lautstaerke": 0.24,
+      "pan": 0.2
+    }
+  },
+  "muster": {
+    "intro_s0": {
+      "spur": "s0",
+      "takte": 1,
+      "noten": "r:8 e4:8"
+    },
+    "intro_s1": {
+      "spur": "s1",
+      "takte": 1,
+      "noten": "x:4@0.35 r:4@0.35 x:4@0.35 r:4@0.35"
+    },
+    "A_s0": {
+      "spur": "s0",
+      "takte": 4,
+      "noten": "e5:4 c5:4 r:4 g4:4 | e5:4 c5:4 r:4 g4:4 | f#5:4 d5:4 r:4 a4:4 | g4:2 a4:2 c5:4 b4:8"
+    },
+    "A_s1": {
+      "spur": "s1",
+      "takte": 4,
+      "noten": "x:4@0.35 r:4@0.35 x:4@0.35 r:4@0.35 | x:4@0.35 r:4@0.35 x:4@0.35 r:4@0.35 | x:4@0.35 r:4@0.35 x:4@0.35 r:4@0.35 | x:4@0.35 r:4@0.35 x:4@0.35 r:4@0.35"
+    },
+    "A_s2": {
+      "spur": "s2",
+      "takte": 4,
+      "noten": "[c3,d#3,g3]:16@0.35 | [c3,d#3,g3]:16@0.35 | [c3,d#3,g3]:16@0.35 | [c3,d#3,g3]:16@0.35"
+    },
+    "B_s0": {
+      "spur": "s0",
+      "takte": 4,
+      "noten": "a4:4 g4:4 b4:4 c5:4 | a4:4 g4:4 b4:4 c5:4 | g4:4 f4:4 a4:4 a#4:4 | g4:2 a4:2 c5:4 b4:8"
+    },
+    "B_s1": {
+      "spur": "s1",
+      "takte": 4,
+      "noten": "x:4@0.35 r:4@0.35 x:4@0.35 r:4@0.35 | x:4@0.35 r:4@0.35 x:4@0.35 r:4@0.35 | x:4@0.35 r:4@0.35 x:4@0.35 r:4@0.35 | x:4@0.35 r:4@0.35 x:4@0.35 r:4@0.35"
+    },
+    "B_s2": {
+      "spur": "s2",
+      "takte": 4,
+      "noten": "[a2,c3,e3]:16@0.35 | [a2,c3,e3]:16@0.35 | [a2,c3,e3]:16@0.35 | [a2,c3,e3]:16@0.35"
+    },
+    "C_s0": {
+      "spur": "s0",
+      "takte": 3,
+      "noten": "e5:4 c5:4 r:4 g4:4 | e5:4 c5:4 r:4 g4:4 | f#5:4 d5:4 r:4 a4:4"
+    },
+    "C_s1": {
+      "spur": "s1",
+      "takte": 3,
+      "noten": "x:4@0.35 x:4@0.35 x:4@0.35 x:4@0.35 | x:4@0.35 x:4@0.35 x:4@0.35 x:4@0.35 | x:4@0.35 x:4@0.35 x:4@0.35 x:4@0.35"
+    },
+    "C_s2": {
+      "spur": "s2",
+      "takte": 3,
+      "noten": "[f3,g#3,c4]:16@0.35 | [f3,g#3,c4]:16@0.35 | [f3,g#3,c4]:16@0.35"
+    }
+  },
+  "abschnitte": {
+    "intro": [
+      "intro_s0",
+      "intro_s1"
+    ],
+    "A": [
+      "A_s0",
+      "A_s1",
+      "A_s2"
+    ],
+    "B": [
+      "B_s0",
+      "B_s1",
+      "B_s2"
+    ],
+    "C": [
+      "C_s0",
+      "C_s1",
+      "C_s2"
+    ]
+  },
+  "ablauf": [
+    "intro",
+    "A",
+    "B",
+    "C"
+  ]
+}

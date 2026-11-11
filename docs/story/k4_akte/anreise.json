@@ -1,0 +1,74 @@
+[
+  {
+    "id": "cwa_anreise_feierabend",
+    "requires_flags": [
+      "kapitel3_done",
+      "k3a_end_feierabend"
+    ],
+    "papier": {
+      "map": "ds_speisewagen",
+      "id": "cwa_anreise_feierabend_papier"
+    },
+    "dialogue": "k3a_pfiff",
+    "node": "cwa_anreise_feierabend",
+    "arrival": {
+      "map": "cw_gleisfuss",
+      "spawn": "aufzug"
+    },
+    "reisegebiet": "reise_landstrasse"
+  },
+  {
+    "id": "cwa_anreise_stilllegung",
+    "requires_flags": [
+      "kapitel3_done",
+      "k3a_end_stilllegung"
+    ],
+    "papier": {
+      "map": "ds_speisewagen",
+      "id": "cwa_anreise_stilllegung_papier"
+    },
+    "dialogue": "k3a_pfiff",
+    "node": "cwa_anreise_stilllegung",
+    "arrival": {
+      "map": "cw_gleisfuss",
+      "spawn": "aufzug"
+    },
+    "reisegebiet": "reise_landstrasse"
+  },
+  {
+    "id": "cwa_anreise_gegenstimme",
+    "requires_flags": [
+      "kapitel3_done",
+      "k3a_end_gegenstimme"
+    ],
+    "papier": {
+      "map": "ds_speisewagen",
+      "id": "cwa_anreise_gegenstimme_papier"
+    },
+    "dialogue": "k3a_pfiff",
+    "node": "cwa_anreise_gegenstimme",
+    "arrival": {
+      "map": "cw_gleisfuss",
+      "spawn": "aufzug"
+    },
+    "reisegebiet": "reise_landstrasse"
+  },
+  {
+    "id": "cwa_anreise_vollzaehlig",
+    "requires_flags": [
+      "kapitel3_done",
+      "k3a_end_vollzaehlig"
+    ],
+    "papier": {
+      "map": "ds_speisewagen",
+      "id": "cwa_anreise_vollzaehlig_papier"
+    },
+    "dialogue": "k3a_pfiff",
+    "node": "cwa_anreise_vollzaehlig",
+    "arrival": {
+      "map": "cw_gleisfuss",
+      "spawn": "aufzug"
+    },
+    "reisegebiet": "reise_landstrasse"
+  }
+]

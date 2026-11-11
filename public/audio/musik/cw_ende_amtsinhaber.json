@@ -1,0 +1,63 @@
+{
+  "format": "nebel-musik-1",
+  "id": "cw_ende_amtsinhaber",
+  "titel": "Der Stuhl bleibt besetzt",
+  "art": "musik",
+  "bpm": 60,
+  "takt": [
+    4,
+    4
+  ],
+  "loop": false,
+  "lautstaerke": 0.62,
+  "hall": 0.32,
+  "spuren": {
+    "s0": {
+      "instrument": "harmonium",
+      "lautstaerke": 0.48,
+      "pan": 0
+    }
+  },
+  "muster": {
+    "intro_s0": {
+      "spur": "s0",
+      "takte": 1,
+      "noten": "r:8 e4:8"
+    },
+    "A_s0": {
+      "spur": "s0",
+      "takte": 3,
+      "noten": "e5:4 c5:4 r:4 g4:4 | e5:4 c5:4 r:4 g4:4 | f#5:4 d5:4 r:4 a4:4"
+    },
+    "B_s0": {
+      "spur": "s0",
+      "takte": 3,
+      "noten": "a4:4 g4:4 b4:4 c5:4 | a4:4 g4:4 b4:4 c5:4 | g4:4 f4:4 a4:4 a#4:4"
+    },
+    "C_s0": {
+      "spur": "s0",
+      "takte": 3,
+      "noten": "e5:4 c5:4 r:4 g4:4 | e5:4 c5:4 r:4 g4:4 | f#5:4 d5:4 r:4 a4:4"
+    }
+  },
+  "abschnitte": {
+    "intro": [
+      "intro_s0"
+    ],
+    "A": [
+      "A_s0"
+    ],
+    "B": [
+      "B_s0"
+    ],
+    "C": [
+      "C_s0"
+    ]
+  },
+  "ablauf": [
+    "intro",
+    "A",
+    "B",
+    "C"
+  ]
+}

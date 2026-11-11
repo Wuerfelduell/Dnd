@@ -1,0 +1,769 @@
+{
+  "batch": "sfx2",
+  "base": "audio/sfx/",
+  "formats": [
+    "ogg",
+    "mp3"
+  ],
+  "sounds": {
+    "ds_zug_fern": {
+      "group": "dunscar",
+      "volume": 0.45,
+      "duration": 3,
+      "note": "Tiefes fernes Rollen und ein Messingpfiff."
+    },
+    "ds_zug_einfahrt": {
+      "group": "dunscar",
+      "volume": 0.45,
+      "duration": 3.95,
+      "note": "Bremsen, Rollen, Dampf; 3,95 s erfüllt die globale Grenze unter 4 s."
+    },
+    "ds_zug_innen": {
+      "group": "dunscar",
+      "volume": 0.2,
+      "duration": 4,
+      "note": "Gedämpftes Wagenrattern mit Holzknarren, nahtlos.",
+      "loop": true
+    },
+    "ds_ruf_senden": {
+      "group": "dunscar",
+      "volume": 0.45,
+      "duration": 0.85,
+      "note": "Drei klar unterscheidbare Messing-Signalpfiffe: D, Fis, A.",
+      "variants": 3
+    },
+    "ds_nachhall": {
+      "group": "dunscar",
+      "volume": 0.32,
+      "duration": 2.4,
+      "note": "Antwort des D-Pfiffs mit genau 1,5 s maximaler Echo-Verzögerung."
+    },
+    "ds_ruf_falsch": {
+      "group": "dunscar",
+      "volume": 0.45,
+      "duration": 0.85,
+      "note": "Verstimmte absinkende Rufantwort."
+    },
+    "ds_horchstelle_an": {
+      "group": "dunscar",
+      "volume": 0.45,
+      "duration": 1,
+      "note": "Drei gläserne Trichterpulse."
+    },
+    "ds_drehscheibe": {
+      "group": "dunscar",
+      "volume": 0.23,
+      "duration": 3,
+      "note": "Langsames Zahnrad und Holzknarren, nahtlos.",
+      "loop": true
+    },
+    "ds_kalk_rieseln": {
+      "group": "dunscar",
+      "volume": 0.25,
+      "duration": 0.75,
+      "note": "Trockener feiner Kalkstaub rieselt.",
+      "variants": 2
+    },
+    "ds_lohntuete": {
+      "group": "dunscar",
+      "volume": 0.45,
+      "duration": 0.8,
+      "note": "Papierumschlag und wenige Münzen."
+    },
+    "ds_schichtglocke": {
+      "group": "dunscar",
+      "volume": 0.45,
+      "duration": 1.35,
+      "note": "Ein trockener eiserner Schichtglockenschlag."
+    },
+    "ds_schichtgaenger_fall": {
+      "group": "dunscar",
+      "volume": 0.32,
+      "duration": 0.95,
+      "note": "Stoff sinkt weich zusammen; kein Schlag und keine Stimme."
+    },
+    "ds_schallschleuse": {
+      "group": "dunscar",
+      "volume": 0.45,
+      "duration": 0.45,
+      "note": "Filztür schließt mit gedämpftem Luftpolster."
+    },
+    "ds_wachswalze": {
+      "group": "dunscar",
+      "volume": 0.13,
+      "duration": 4,
+      "note": "Leises periodisches Walzenkratzen und Knistern.",
+      "loop": true
+    },
+    "schritt_kalk": {
+      "group": "dunscar",
+      "volume": 0.3,
+      "duration": 0.28,
+      "note": "Knirschender trockener Kalktritt.",
+      "variants": 3
+    },
+    "atmo_hochebene": {
+      "group": "dunscar",
+      "volume": 0.18,
+      "duration": 6,
+      "note": "Wind über offener Kalkhochebene, nahtlos.",
+      "loop": true
+    },
+    "sk_asche_kreis": {
+      "group": "sekten",
+      "volume": 0.45,
+      "duration": 1.4,
+      "note": "Asche knistert über einem tiefen Fundton."
+    },
+    "sk_asche_werbung": {
+      "group": "sekten",
+      "volume": 0.45,
+      "duration": 0.9,
+      "note": "Zunder reibt, eine kleine Flamme fängt."
+    },
+    "sk_flut_knoten": {
+      "group": "sekten",
+      "volume": 0.45,
+      "duration": 0.85,
+      "note": "Nasses Seil spannt und knarrt."
+    },
+    "sk_flut_taufe": {
+      "group": "sekten",
+      "volume": 0.45,
+      "duration": 1.5,
+      "note": "Untertauchen und Blubbern, ohne Schrei."
+    },
+    "sk_chor_summen": {
+      "group": "sekten",
+      "volume": 0.18,
+      "duration": 4,
+      "note": "Wortloser synthetischer Mehrklang in drei Tonlagen: C, Es, G.",
+      "variants": 3,
+      "loop": true
+    },
+    "sk_kreidemund": {
+      "group": "sekten",
+      "volume": 0.45,
+      "duration": 0.42,
+      "note": "Kurzer trockener Kreidestrich."
+    },
+    "sk_schrein_abbau": {
+      "group": "sekten",
+      "volume": 0.45,
+      "duration": 1.5,
+      "note": "Holz bricht; kleine Glocke fällt danach."
+    },
+    "sk_stufe_hoch": {
+      "group": "sekten",
+      "volume": 0.45,
+      "duration": 1.7,
+      "note": "Drei dumpfe Schläge, dahinter eine ferne Pfeife."
+    },
+    "sk_stufe_runter": {
+      "group": "sekten",
+      "volume": 0.45,
+      "duration": 1.2,
+      "note": "Absteigende weiche Spannungslösung."
+    },
+    "sk_sabotage_brunnen": {
+      "group": "sekten",
+      "volume": 0.45,
+      "duration": 1.6,
+      "note": "Wasser kippt mit tiefem bitterem Gurgeln."
+    },
+    "sk_laternen_aus": {
+      "group": "sekten",
+      "volume": 0.45,
+      "duration": 0.8,
+      "note": "Gas zischt aus und fällt in Stille."
+    },
+    "sk_ueberfall": {
+      "group": "sekten",
+      "volume": 0.45,
+      "duration": 1.35,
+      "note": "Y-Kampfstart-Motiv aus neuer Synthese: Rückwärtsglas, Schlag, synthetischer Chor-Stich."
+    },
+    "sk_abgewoben": {
+      "group": "sekten",
+      "volume": 0.45,
+      "duration": 1.2,
+      "note": "Stoff zieht weg, entfernter Türschluss."
+    },
+    "fest_laterne_an": {
+      "group": "feste",
+      "volume": 0.45,
+      "duration": 0.65,
+      "note": "Papier raschelt, kleiner Docht zündet.",
+      "variants": 2
+    },
+    "fest_kerzenboot": {
+      "group": "feste",
+      "volume": 0.45,
+      "duration": 0.95,
+      "note": "Kleines Holzboot wird auf Wasser gesetzt."
+    },
+    "fest_menge": {
+      "group": "feste",
+      "volume": 0.16,
+      "duration": 6,
+      "note": "Wortloses Festgemurmel aus moduliertem Bandrauschen, ohne Stimmen.",
+      "loop": true
+    },
+    "fest_lachen": {
+      "group": "feste",
+      "volume": 0.16,
+      "duration": 4,
+      "note": "Abstraktes fernes Lach-Rhythmusmotiv aus Luftstößen und Holzresonatoren, dazu Gläser; keine menschlichen Stimmen.",
+      "loop": true
+    },
+    "fest_drehorgel_start": {
+      "group": "feste",
+      "volume": 0.45,
+      "duration": 2,
+      "note": "Kurzes original komponiertes Drehorgel-Anheben."
+    },
+    "fest_boxring_gong": {
+      "group": "feste",
+      "volume": 0.45,
+      "duration": 1.6,
+      "note": "Ein trockener kleiner Boxringgong."
+    },
+    "fest_boxring_treffer": {
+      "group": "feste",
+      "volume": 0.45,
+      "duration": 0.35,
+      "note": "Gepolsterter Stofftreffer.",
+      "variants": 3
+    },
+    "fest_feuerwerk_start": {
+      "group": "feste",
+      "volume": 0.45,
+      "duration": 1.25,
+      "note": "Gedämpft aufsteigendes Zischen."
+    },
+    "fest_feuerwerk_knall": {
+      "group": "feste",
+      "volume": 0.32,
+      "duration": 1.15,
+      "note": "Weicher ferner Feuerwerksknall, ohne harte Spitze.",
+      "variants": 3
+    },
+    "fest_kahn_horn": {
+      "group": "feste",
+      "volume": 0.45,
+      "duration": 1.5,
+      "note": "Tiefes Bojenhorn für die Prozession."
+    },
+    "fest_salzkranz": {
+      "group": "feste",
+      "volume": 0.45,
+      "duration": 0.65,
+      "note": "Salzkranz knirscht fein und trocken."
+    },
+    "saison_wechsel": {
+      "group": "feste",
+      "volume": 0.45,
+      "duration": 2,
+      "note": "Windzug und einzelner saisonaler Glockenton."
+    },
+    "saison_regen": {
+      "group": "feste",
+      "volume": 0.17,
+      "duration": 6,
+      "note": "Regen auf Pflaster, nahtlos.",
+      "loop": true
+    },
+    "saison_schnee": {
+      "group": "feste",
+      "volume": 0.13,
+      "duration": 6,
+      "note": "Gedämpftes Schneetreiben mit feinen Körnern.",
+      "loop": true
+    },
+    "saison_hitze": {
+      "group": "feste",
+      "volume": 0.1,
+      "duration": 6,
+      "note": "Fliegen und leises Luftflimmern, nahtlos.",
+      "loop": true
+    },
+    "saison_laub": {
+      "group": "feste",
+      "volume": 0.25,
+      "duration": 0.65,
+      "note": "Blätter rascheln im Vorbeigehen.",
+      "variants": 3
+    },
+    "schritt_schnee": {
+      "group": "feste",
+      "volume": 0.3,
+      "duration": 0.3,
+      "note": "Kompakter knirschender Schneetritt.",
+      "variants": 3
+    },
+    "schritt_laub": {
+      "group": "feste",
+      "volume": 0.3,
+      "duration": 0.32,
+      "note": "Tritt in trockenes Laub.",
+      "variants": 3
+    },
+    "fasserin_werkbank": {
+      "group": "okkult2",
+      "volume": 0.2,
+      "duration": 3,
+      "note": "Kleine Hämmer und Feile im ruhigen Arbeitsrhythmus.",
+      "loop": true
+    },
+    "fasserin_fassung": {
+      "group": "okkult2",
+      "volume": 0.45,
+      "duration": 1.2,
+      "note": "Fassung klickt zu und glänzt gläsern."
+    },
+    "kontrolle_tentakel": {
+      "group": "okkult2",
+      "volume": 0.45,
+      "duration": 2,
+      "note": "Tiefes nasses Dehnen beim Wachstum."
+    },
+    "kontrolle_zurueck": {
+      "group": "okkult2",
+      "volume": 0.45,
+      "duration": 1.6,
+      "note": "Nasses Dehnen zieht rückwärts zusammen."
+    },
+    "kontrolle_laeutersalz": {
+      "group": "okkult2",
+      "volume": 0.45,
+      "duration": 1.2,
+      "note": "Läutersalz zischt und löst sich gläsern."
+    },
+    "korruption_tick": {
+      "group": "okkult2",
+      "volume": 0.3,
+      "duration": 0.65,
+      "note": "Ein Herzschlag mit kleinem gläsernem Splitter."
+    },
+    "starling_verwandlung": {
+      "group": "okkult2",
+      "volume": 0.45,
+      "duration": 3,
+      "note": "Glas zieht nach innen; synthetischer Sternenchor steigt auf."
+    },
+    "starling_stern": {
+      "group": "okkult2",
+      "volume": 0.45,
+      "duration": 0.9,
+      "note": "Acht Fall-Sterne, aufsteigend D4 E4 Fis4 G4 A4 H4 Cis5 D5.",
+      "variants": 8
+    },
+    "starling_ende": {
+      "group": "okkult2",
+      "volume": 0.45,
+      "duration": 2.4,
+      "note": "Synthetischer Atem-Luftstrom und sich setzende Glasstücke; nicht tödlich."
+    },
+    "geheimtreffen_glocke": {
+      "group": "okkult2",
+      "volume": 0.3,
+      "duration": 1.1,
+      "note": "Ein leiser dunkler Glockenschlag eröffnet das Treffen."
+    },
+    "auktion_hammer": {
+      "group": "okkult2",
+      "volume": 0.45,
+      "duration": 0.3,
+      "note": "Trockener Holzhammer auf Holzplatte.",
+      "variants": 2
+    },
+    "auktion_gebot": {
+      "group": "okkult2",
+      "volume": 0.45,
+      "duration": 0.6,
+      "note": "Papier und hölzerner Räusper-Ersatz; keine Stimme."
+    },
+    "beziehung_hoch": {
+      "group": "sozial",
+      "volume": 0.45,
+      "duration": 0.9,
+      "note": "Warmer kurzer Durakkord."
+    },
+    "beziehung_runter": {
+      "group": "sozial",
+      "volume": 0.45,
+      "duration": 0.85,
+      "note": "Kühler abfallender Zweiklang."
+    },
+    "geschenk_geben": {
+      "group": "sozial",
+      "volume": 0.45,
+      "duration": 0.7,
+      "note": "Geschenkpapier und gezogene Stoffschleife."
+    },
+    "geschenk_falsch": {
+      "group": "sozial",
+      "volume": 0.45,
+      "duration": 0.45,
+      "note": "Höfliches Räuspern ausschließlich als trockener Holz-Doppelton."
+    },
+    "koop_anspruch": {
+      "group": "sozial",
+      "volume": 0.45,
+      "duration": 0.25,
+      "note": "Kleiner Beutestempel."
+    },
+    "koop_anspruch_streit": {
+      "group": "sozial",
+      "volume": 0.45,
+      "duration": 0.5,
+      "note": "Schräger Doppelstempel zweier Ansprüche."
+    },
+    "koop_beitritt": {
+      "group": "sozial",
+      "volume": 0.45,
+      "duration": 1,
+      "note": "Zwei Glas-Töne finden im Unisono zusammen."
+    },
+    "koop_rufen_zu_zweit": {
+      "group": "sozial",
+      "volume": 0.45,
+      "duration": 1.4,
+      "note": "Zwei Messing-Signalpfiffe mit deutlichem zeitlichem Abstand."
+    },
+    "ausruestung_hut": {
+      "group": "sozial",
+      "volume": 0.45,
+      "duration": 0.35,
+      "note": "Filzhut mit weichem Stoffzug."
+    },
+    "ausruestung_mantel": {
+      "group": "sozial",
+      "volume": 0.45,
+      "duration": 0.7,
+      "note": "Mantelstoff und zwei Knöpfe."
+    },
+    "ausruestung_waffe": {
+      "group": "sozial",
+      "volume": 0.45,
+      "duration": 0.65,
+      "note": "Holzgriff und Metall werden aus dem Gürtel gezogen."
+    },
+    "ausruestung_amulett": {
+      "group": "sozial",
+      "volume": 0.45,
+      "duration": 0.4,
+      "note": "Feine Kette mit kleinem Verschlussklick."
+    },
+    "tragkraft_voll": {
+      "group": "sozial",
+      "volume": 0.45,
+      "duration": 0.65,
+      "note": "Überfüllte Tasche ächzt aus Leder und Holzresonanz."
+    },
+    "notizbuch_wegweiser": {
+      "group": "sozial",
+      "volume": 0.45,
+      "duration": 0.7,
+      "note": "Bleistift und aufgefaltetes Kartenpapier."
+    },
+    "scroll_tick": {
+      "group": "sozial",
+      "volume": 0.07,
+      "duration": 0.06,
+      "note": "Sehr leise Einzelraste des Scrollbalkens."
+    },
+    "cw_presse": {
+      "group": "calderwick",
+      "volume": 0.22,
+      "duration": 3,
+      "note": "Walzen, Papier und Druckplatten im mechanischen Dreiertakt.",
+      "loop": true
+    },
+    "cw_rohrpost_senden": {
+      "group": "calderwick",
+      "volume": 0.45,
+      "duration": 1,
+      "note": "Klappe klickt, Kapsel zischt davon."
+    },
+    "cw_rohrpost_ankunft": {
+      "group": "calderwick",
+      "volume": 0.45,
+      "duration": 0.8,
+      "note": "Kapsel plumpst ins Fach, Klappe schlägt nach."
+    },
+    "cw_schraegaufzug": {
+      "group": "calderwick",
+      "volume": 0.2,
+      "duration": 4,
+      "note": "Standseilbahn mit tiefer Seilspannung und Rollen.",
+      "loop": true
+    },
+    "cw_aufzug_halt": {
+      "group": "calderwick",
+      "volume": 0.45,
+      "duration": 0.85,
+      "note": "Kabine setzt sich, schwere Sperrklinke rastet ein."
+    },
+    "cw_stempel": {
+      "group": "calderwick",
+      "volume": 0.45,
+      "duration": 0.25,
+      "note": "Trockener schwerer Amtsstempel.",
+      "variants": 3
+    },
+    "cw_letter_fall": {
+      "group": "calderwick",
+      "volume": 0.3,
+      "duration": 0.55,
+      "note": "Eine Bleiletter fällt und kippt kurz nach.",
+      "variants": 3
+    },
+    "cw_abgleich_start": {
+      "group": "calderwick",
+      "volume": 0.45,
+      "duration": 1.8,
+      "note": "Rückwärts reißendes Papier über tiefem Abgleichton."
+    },
+    "cw_abgleich_rueckweg": {
+      "group": "calderwick",
+      "volume": 0.45,
+      "duration": 1.6,
+      "note": "Verblassender Straßen-Rauschzug."
+    },
+    "cw_anker_setzen": {
+      "group": "calderwick",
+      "volume": 0.45,
+      "duration": 0.8,
+      "note": "Nadel sitzt, Bürgenfaden spannt sich."
+    },
+    "cw_anker_verbunden": {
+      "group": "calderwick",
+      "volume": 0.45,
+      "duration": 1.3,
+      "note": "Drei Fäden halten: drei helle, originale aufsteigende Töne."
+    },
+    "cw_tuerschild_leer": {
+      "group": "calderwick",
+      "volume": 0.45,
+      "duration": 0.85,
+      "note": "Metallisches Schild klingt kurz und verschwindet in Stille."
+    },
+    "atmo_rohrpost": {
+      "group": "calderwick",
+      "volume": 0.15,
+      "duration": 6,
+      "note": "Periodisches leises Zischen in den Wänden.",
+      "loop": true
+    },
+    "schritt_terrasse": {
+      "group": "calderwick",
+      "volume": 0.3,
+      "duration": 0.38,
+      "note": "Trockener Kalkpflastertritt mit kurzem Rückwurf.",
+      "variants": 3
+    },
+    "bh_ventil_drehen": {
+      "group": "briarholt",
+      "volume": 0.25,
+      "duration": 2,
+      "note": "Ventilrad dreht mit rostigen Rasten.",
+      "loop": true
+    },
+    "bh_ventil_rast": {
+      "group": "briarholt",
+      "volume": 0.45,
+      "duration": 0.55,
+      "note": "Drei feste Zustände: 1 zu (tief), 2 kalt (mittel), 3 warm (hoch).",
+      "variants": 3
+    },
+    "bh_dampf_austritt": {
+      "group": "briarholt",
+      "volume": 0.35,
+      "duration": 1.1,
+      "note": "Kurzer trockener Dampfaustritt.",
+      "variants": 2
+    },
+    "bh_dampf_entladung": {
+      "group": "briarholt",
+      "volume": 0.4,
+      "duration": 3,
+      "note": "Große kontrollierte Dampfentladung."
+    },
+    "bh_kondensat": {
+      "group": "briarholt",
+      "volume": 0.15,
+      "duration": 4,
+      "note": "Einzelne Kondensattropfen auf Glas.",
+      "loop": true
+    },
+    "bh_scheibe_beschlag": {
+      "group": "briarholt",
+      "volume": 0.45,
+      "duration": 0.85,
+      "note": "Finger fährt langsam über feuchtes Glas."
+    },
+    "bh_reif": {
+      "group": "briarholt",
+      "volume": 0.45,
+      "duration": 1.2,
+      "note": "Feines Knistern und sich bildender Frost."
+    },
+    "bh_pflanze_oeffnet": {
+      "group": "briarholt",
+      "volume": 0.45,
+      "duration": 1.4,
+      "note": "Nasses Entfalten einer Blüte, gläserner türkis gedachter Kern."
+    },
+    "bh_pflanze_spricht": {
+      "group": "briarholt",
+      "volume": 0.13,
+      "duration": 3,
+      "note": "Wortloser Pflanzen-Luftstrom aus Bandrauschen; keine Stimme.",
+      "loop": true
+    },
+    "bh_kapsel": {
+      "group": "briarholt",
+      "volume": 0.45,
+      "duration": 0.4,
+      "note": "Pflanzenkapsel klickt in einen Halter."
+    },
+    "bh_ruecklauf": {
+      "group": "briarholt",
+      "volume": 0.45,
+      "duration": 1.8,
+      "note": "Tiefer belasteter Rücklauf, violett gedachtes Gurgeln."
+    },
+    "bh_sperrklappe": {
+      "group": "briarholt",
+      "volume": 0.45,
+      "duration": 0.9,
+      "note": "Schwerer Riegel und eiserne Sperrklappe."
+    },
+    "bh_kurglocke": {
+      "group": "briarholt",
+      "volume": 0.45,
+      "duration": 1.6,
+      "note": "Zwei helle trockene Kurglockenschläge."
+    },
+    "bh_postkarte": {
+      "group": "briarholt",
+      "volume": 0.45,
+      "duration": 0.9,
+      "note": "Feder schreibt über Karton."
+    },
+    "atmo_glashaus": {
+      "group": "briarholt",
+      "volume": 0.16,
+      "duration": 6,
+      "note": "Glasdach-Tropfen und ferne Pumpe.",
+      "loop": true
+    },
+    "atmo_frost": {
+      "group": "briarholt",
+      "volume": 0.15,
+      "duration": 6,
+      "note": "Kalter tiefer Wind im Talkessel.",
+      "loop": true
+    },
+    "schritt_glas": {
+      "group": "briarholt",
+      "volume": 0.3,
+      "duration": 0.35,
+      "note": "Schuh auf Metallgitter im Glashaus, kein zerbrechendes Glas.",
+      "variants": 3
+    },
+    "ls_kutsche_halt": {
+      "group": "reise2",
+      "volume": 0.45,
+      "duration": 1.8,
+      "note": "Räder stoppen; synthetisches Luft-Schnauben ohne Aufnahme."
+    },
+    "ls_zoll_schranke": {
+      "group": "reise2",
+      "volume": 0.45,
+      "duration": 0.95,
+      "note": "Holzschranke hebt sich mit Klinke."
+    },
+    "ls_grenzstein": {
+      "group": "reise2",
+      "volume": 0.2,
+      "duration": 1.1,
+      "note": "Stein summt leise okkult."
+    },
+    "ls_peitsche": {
+      "group": "reise2",
+      "volume": 0.32,
+      "duration": 0.35,
+      "note": "Kurze trockene Kutschpeitsche."
+    },
+    "ls_schlafkutsche": {
+      "group": "reise2",
+      "volume": 0.18,
+      "duration": 4,
+      "note": "Spieluhrartige Radresonanzen zwischen Holzknarren.",
+      "loop": true
+    },
+    "ls_landvermesser_tick": {
+      "group": "reise2",
+      "volume": 0.25,
+      "duration": 0.3,
+      "note": "Messkette und kleiner Metallanschlag.",
+      "variants": 3
+    },
+    "ui_kapitel": {
+      "group": "ui2",
+      "volume": 0.45,
+      "duration": 2,
+      "note": "Papier entrollt sich, ferne Glocke."
+    },
+    "ui_epilog": {
+      "group": "ui2",
+      "volume": 0.45,
+      "duration": 1.8,
+      "note": "Feder setzt an; kurzer warmer gläserner Nachklang."
+    },
+    "ui_ende_hell": {
+      "group": "ui2",
+      "volume": 0.45,
+      "duration": 2.2,
+      "note": "Originaler warmer Dreiklang mit heller Glocke."
+    },
+    "ui_ende_dunkel": {
+      "group": "ui2",
+      "volume": 0.45,
+      "duration": 1.5,
+      "note": "Ein tiefer Schlag verklingt in Stille."
+    },
+    "ui_bestiarium_neu": {
+      "group": "ui2",
+      "volume": 0.45,
+      "duration": 0.8,
+      "note": "Federstrich und abstraktes tierisches Rascheln."
+    },
+    "ui_personen_karte": {
+      "group": "ui2",
+      "volume": 0.45,
+      "duration": 0.95,
+      "note": "Kartenpapier und drei Nadeln."
+    },
+    "ui_zeitung": {
+      "group": "ui2",
+      "volume": 0.45,
+      "duration": 0.7,
+      "note": "Zeitung wird breit aufgeschlagen."
+    },
+    "ui_fest_banner": {
+      "group": "ui2",
+      "volume": 0.45,
+      "duration": 1.3,
+      "note": "Kurzer eigener Drehorgeltusch."
+    },
+    "ui_saison_banner": {
+      "group": "ui2",
+      "volume": 0.45,
+      "duration": 1.25,
+      "note": "Leichter Windzug mit Glöckchen."
+    }
+  }
+}
