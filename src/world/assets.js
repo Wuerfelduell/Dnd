@@ -1892,8 +1892,8 @@ export const ARTISAN_ICONS = { krone_der_sieben: 'rattenkrone', sternlicht_gespi
   geisterspindel: 'geisterkern', leuchtturmmonokel: 'linsenscherbe', namenssiegel: 'madenwachs', gluehglocke: 'bronzeglocke_klein', doppelsiegel: 'ratssiegel' };
 Object.assign(ITEM_ICON_ALIASES, ARTISAN_ICONS);
 /** Nerven- und Konzentrations-Artefakte: Platzhalter aus Beute- und Fundstücken, bis Codex eigene Bilder liefert. */
-export const NERVEN_ARTEFAKT_ICONS = { taktgeber_uhrturm: 'taschenuhr', kerze_der_nachtwache: 'kerze_schwarz', zahnrad_schlafwandlerin: 'taschenuhr', zweites_herz: 'wachsherz',
-  atemperle: 'moorperle', fiebermuenze: 'falschgeld', blutsalz_phiole: 'salzkristall', nadel_der_naeherin: 'glasfeder', knoechelring_preisboxer: 'siegelring',
+export const NERVEN_ARTEFAKT_ICONS = { taktgeber_uhrturm: 'taschenuhr', kerze_der_nachtwache: 'kerze_schwarz', zahnrad_schlafwandlerin: 'taschenuhr',
+  atemperle: 'moorperle', fiebermuenze: 'falschgeld', blutsalz_phiole: 'salzkristall', knoechelring_preisboxer: 'siegelring',
   metronom_komponist: 'taschenuhr', trommelfell_ausrufer: 'bronzeglocke_klein', glasnerv: 'glasfeder', nervenfaden_weberin: 'wachsdocht', moorzunder: 'irrlichtfunke' };
 Object.assign(ITEM_ICON_ALIASES, NERVEN_ARTEFAKT_ICONS);
 /** Fall 9: eigene Kampf-Sheets für Pratt, den Gesangbuchgeist, das Sternlicht und Starling. */
