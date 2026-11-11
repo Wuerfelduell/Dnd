@@ -670,3 +670,24 @@ test('BO: Oda Kessel hat Laufbild, Sitzbild, Portrait, Kopf und Werkbank; die Vo
     assert.ok(existsSync(file(itemIconUrl(id))), id);
   }
 });
+
+test('BS: Starlings zweite Phase nutzt Sheet, Kulisse, Büste, Effekte, Sterne, HUD und Sequenzbild aus manifest-starling2', async () => {
+  const A = await import('../src/world/assets.js');
+  const m = manifest('starling2');
+  for (const a of m.assets) assert.ok(existsSync(sprite(a.file)), a.file);
+  assert.equal(ENCOUNTER_SHEETS.starling_stern, 'enemy_starling2');
+  assert.equal(content.encounters.starling_stern.sheet, 'enemy_starling2');
+  assert.deepEqual(BATTLE_SHEETS.enemy_starling2, ['battle/starling2.png', 128, 96]);
+  const def = m.assets.find((a) => a.id === 'starling2');
+  for (const anim of ['idle', 'attack', 'special', 'cast', 'hit', 'phase_in', 'defeat']) assert.ok(def.animations[anim], anim);
+  assert.equal(ENCOUNTER_BACKGROUNDS.starling_stern, 'bg_sternwarte2');
+  assert.ok(existsSync(sprite(bossIntroImage('starling_stern_x')[1])));
+  for (const [key, [path]] of Object.entries(A.STARLING2_SHEETS)) assert.ok(existsSync(sprite(path)), key);
+  const fx = m.assets.find((a) => a.id === 'starling2_fx').animations;
+  for (const v of Object.values(A.ENCOUNTER_FX.starling_stern)) assert.ok(fx[v.split(':')[1]], v);
+  const hud = m.assets.find((a) => a.id === 'starling2_hud').regions;
+  A.STARLING2_HUD.sockets.forEach(([x, y, w, h], i) => assert.deepEqual([hud[`sockel_${i + 1}_leer`].x, hud[`sockel_${i + 1}_leer`].y, hud[`sockel_${i + 1}_leer`].width, hud[`sockel_${i + 1}_leer`].height], [x, y, w, h]));
+  assert.equal(content.encounters.starling_stern.scene, 'starling_phase2');
+  assert.ok(existsSync(file(A.sceneUrl('starling_phase2'))));
+  assert.ok(existsSync(sprite(`portraits/${PORTRAITS.starling2}`)));
+});

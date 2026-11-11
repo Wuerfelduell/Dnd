@@ -1125,6 +1125,7 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestDunscar1')) scene.load.json('manifestDunscar1', `${BASE}manifest-dunscar1.json`);
   if (!scene.cache.json.exists('manifestDunscar3')) scene.load.json('manifestDunscar3', `${BASE}manifest-dunscar3.json`);
   if (!scene.cache.json.exists('manifestDunscar5')) scene.load.json('manifestDunscar5', `${BASE}manifest-dunscar5.json`);
+  if (!scene.cache.json.exists('manifestStarling2')) scene.load.json('manifestStarling2', `${BASE}manifest-starling2.json`);
   if (!scene.cache.json.exists('manifestNebenquests')) scene.load.json('manifestNebenquests', `${BASE}manifest-nebenquests.json`);
   if (!scene.cache.json.exists('manifestSpieler2')) scene.load.json('manifestSpieler2', `${BASE}manifest-spieler2.json`);
   if (!scene.cache.json.exists('manifestWexmoor')) scene.load.json('manifestWexmoor', `${BASE}manifest-wexmoor.json`);
@@ -1169,7 +1170,7 @@ function battleAnimDef(scene, sheet, name) {
   return null;
 }
 /** Manifeste mit Kampf-Sheets; spätere Pakete nennen ihre Einträge nicht nach dem Sheet, darum auch über die Datei. */
-export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3', 'manifestDunscar5'];
+export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3', 'manifestDunscar5', 'manifestStarling2'];
 export function battleSheetDef(scene, sheet) {
   const file = BATTLE_SHEETS[sheet]?.[0];
   for (const m of BATTLE_MANIFESTS) {
@@ -1955,7 +1956,7 @@ ICON32.push(...NERVEN_ARTEFAKTE);
 export const KONZENTRATION_ARTEFAKTE = ['siebter_fingerring', 'metronom_ohne_feder', 'schlagzaehler', 'hohle_krone', 'tickender_zahn', 'nadel_der_naeherin', 'gedankenkaefig', 'stummer_chor',
   'zweites_herz', 'rangierlinse', 'kreidezirkel', 'sanduhr_voll_asche', 'uhrwerkherz', 'knoechelrosenkranz', 'kerzenkrone', 'aschestundenglas'];
 /** Fall 9: eigene Kampf-Sheets für Pratt, den Gesangbuchgeist, das Sternlicht und Starling. */
-export const X_FIGHTS = { pratt_fight: ['pratt', 48], gesangbuchgeist: ['gesangbuchgeist', 64], sternlicht: ['sternlicht', 64], starling_fight: ['starling', 96], starling_stern: ['starling', 96] };
+export const X_FIGHTS = { pratt_fight: ['pratt', 48], gesangbuchgeist: ['gesangbuchgeist', 64], sternlicht: ['sternlicht', 64], starling_fight: ['starling', 96] }; // Phase 2 (starling_stern): BS-Sheet, siehe unten
 for (const [enc, [id, w]] of Object.entries(X_FIGHTS)) {
   BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, w];
   ENCOUNTER_SHEETS[enc] = `enemy_${id}`;
@@ -1984,6 +1985,33 @@ for (const [file, ids] of Object.entries({
 // Phase 2 des Finales nutzt Starlings Zug-Portrait
 TURN_PORTRAITS.starling_stern = TURN_PORTRAITS.starling_fight;
 TURN_PORTRAIT_URLS.starling_stern = TURN_PORTRAIT_URLS.starling_fight;
+/**
+ * BS: Starlings zweite Phase (`starling_stern`) als Sternsammler. 128x96-Kampf-Sheet (idle, attack, special, cast, hit,
+ * phase_in beim Auftritt, defeat ohne Tod), aufgerissene Sternwarte als Kulisse, eigene Büste, Effekte (starling2_fx),
+ * die Sterne der acht Fälle über einer HUD-Leiste (ein Stern je Runde, weil er mit jeder Runde heller wird),
+ * pulsierende Kuppel und Bodenstreifen, Koop-Marken, Portraits und das Sequenzbild vor dem Kampf (manifest-starling2.json).
+ */
+BATTLE_SHEETS.enemy_starling2 = ['battle/starling2.png', 128, 96];
+ENCOUNTER_SHEETS.starling_stern = 'enemy_starling2';
+ANIM_ALIASES.enemy_starling2 = { hurt: 'hit', defeated: 'defeat', phase2: 'phase_in' };
+ENCOUNTER_BACKGROUNDS.starling_stern = 'bg_sternwarte2';
+BOSS_INTRO_IMAGES.starling_stern_x = ['X_08_boss_starling2', 'battle/X_08_boss_starling2.png'];
+/** Zusatz-Sheets der zweiten Phase: Effekte, Sterne, Kuppel, Boden, HUD, Koop-Marken. */
+export const STARLING2_SHEETS = { starling2_fx: ['fx/starling2_fx.png', 48, 48], starling2_sterne: ['fx/starling2_sterne.png', 16, 16], starling2_kuppel: ['fx/starling2_kuppel.png', 480, 135],
+  starling2_boden: ['battle/starling2_boden.png', 480, 64], starling2_hud: ['ui/starling2_hud.png', 192, 48], starling2_koop: ['ui/starling2_koop.png', 48, 48] };
+Object.assign(BATTLE_SHEETS, STARLING2_SHEETS);
+/** Sternsammler-HUD (ui/starling2_hud.png): Leiste 192x16 (leer Zeile 0, gefüllt Zeile 1), acht Sockel je 12x9, Sterne der Fälle 1..8 = Frames 0..7 in starling2_sterne. */
+export const STARLING2_HUD = { bar: [0, 0, 192, 16], barFull: [0, 16, 192, 16], sockets: [25, 45, 64, 83, 102, 120, 139, 158].map((x) => [x, 4, 12, 9]), stars: 8 };
+ENCOUNTER_FX.starling_stern = { attack: 'starling2_fx:linse', multi: 'starling2_fx:stern_fall', heavy: 'starling2_fx:lanze_treffer', won: 'starling2_fx:glas_bruch', after: 'starling2_fx:ernte_aufstieg' };
+/** Große Sheets behalten ihre Grundgröße (kein Boss-Zuschlag), sonst ragen sie aus dem Bild. */
+export const BATTLE_SHEET_SCALE = { enemy_starling2: 1.8 };
+/** Auftrittsanimation beim Kampfbeginn (statt sofort idle). */
+export const ENTER_ANIMS = { enemy_starling2: 'phase2' };
+/** Kulissen-Zusätze je Begegnung: Kuppel-Overlay (Animation), Bodenstreifen, Sternen-HUD, Koop-Marken. */
+export const ENCOUNTER_STAGE = { starling_stern: { dome: ['starling2_kuppel', 'puls'], ground: 'starling2_boden', hud: 'starling2_hud', koop: 'starling2_koop' } };
+PORTRAITS.starling2 = 'starling2_emotions.png';
+PORTRAIT_SPECIAL.starling2 = ['starling2_emotions.png', { neutral: 0, triumphierend: 1, zweifelnd: 2, erloschen: 3 }];
+FX_SCENES.push('starling_phase2');
 /** Bestiarium-Karten (ui/bestiary/X_<id>.png). */
 for (const id of ['pratt_fight', 'gesangbuchgeist', 'sternlicht', 'starling_fight', 'rost_schlaeger', 'rost_werfer', 'rost_schmied', 'rost_vater',
   'schleier_novizin', 'schleier_messerin', 'schleier_seherin', 'schleier_mutter']) {

@@ -4,6 +4,7 @@ import { createTextures, createCharacterSheet } from './textures.js';
 import {
   BATTLE_BACKGROUNDS, ENCOUNTER_BACKGROUNDS, ENEMY_BATTLE_SHEETS, ENCOUNTER_SHEETS, FADING_SHEETS,
   SKILL_FX, SELF_FX, AG_SKILL_FX, PATHWAY_POSES, WEAPON_POSES, battleSheetsOf, ENCOUNTER_FX, BOSS_INTROS, bossIntroImage, BOSS_FORMS, BOSS_FORM_BACKGROUNDS, BOSS_FORM_INTROS, battleSheetDef, CASE_SHEETS, playBattleAnim, playCaseAnim,
+  BATTLE_SHEET_SCALE, ENTER_ANIMS, ENCOUNTER_STAGE, STARLING2_HUD,
 } from './assets.js';
 import { VIEW_W, VIEW_H, PLAYER_PALETTE } from './WorldScene.js';
 import { koopBark, koopStartEvent } from '../core/Koop.js';
@@ -59,7 +60,7 @@ export class CombatScene extends Phaser.Scene {
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.input.gamepad?.off('down', this.padHandler));
     this.ui.openCombat(this);
     const ward = this.combat.wardMult() < 1 ? `\n\n${this.combat.log[0]}` : ''; // Sequenz-Schranke
-    this.ui.combatMessage(this.combat.enc.intro + (this.combat.weak ? `\n\n${this.combat.enc.weak_text}` : '') + ward, 'Weiter mit E');
+    this.ui.combatMessage(this.combat.enc.intro + (this.combat.weak ? `\n\n${this.combat.enc.weak_text}` : '') + ward, 'Weiter mit E', this.combat.enc.scene);
     // transition_out deckt auf (Schwarz → Bild), transition_in deckt zu
     this.playTransition('transition_out', () => this.bossIntro()) || (this.cameras.main.fadeIn(250, 0, 0, 0), this.bossIntro());
   }
@@ -142,7 +143,7 @@ export class CombatScene extends Phaser.Scene {
   caseFx(sheet, who, scale = 1.5) {
     if (!sheet) return;
     const p = who === 'enemy' ? this.enemyCenter() : this.playerCenter();
-    if (!CASE_SHEETS[sheet]) { this.playFx(sheet, 'play', p.x, p.y, scale); return; } // Paket-F-Effekt
+    if (!CASE_SHEETS[sheet]) { const [sh, anim = 'play'] = sheet.split(':'); this.playFx(sh, anim, p.x, p.y, scale); return; } // Paket-F-Effekt, BS: "sheet:animation"
     const fx = this.add.sprite(p.x, p.y, sheet, 0).setScale(scale).setDepth(30);
     if (!playCaseAnim(fx, sheet, () => fx.destroy())) fx.destroy();
   }
@@ -264,12 +265,59 @@ export class CombatScene extends Phaser.Scene {
     this.enemyTint = enc.elite ? 0xff9080 : enc.tint ? Number.parseInt(enc.tint.slice(1), 16) : null;
     if (this.enemyTint !== null) this.enemy.setTint(this.enemyTint);
     if (enc.elite || enc.boss) this.enemy.setScale(this.enemy.scaleX * (enc.boss ? 1.35 : 1.18));
+    if (battleSheet && BATTLE_SHEET_SCALE[battleSheet]) this.enemy.setScale(BATTLE_SHEET_SCALE[battleSheet]);
+    if (battleSheet && ENTER_ANIMS[battleSheet]) this.anim(this.enemy, ENTER_ANIMS[battleSheet]); // BS: Starling fährt als Sternsammler ein
+    this.buildStageExtras();
     this.add.ellipse(ENEMY_X, GROUND_Y + 14, 50, 10, 0x000000, 0.35).setDepth(9);
     if (this.combat.enemy.occult) {
       const aura = this.add.image(ENEMY_X, GROUND_Y - 30, 'glow').setScale(2.5).setTint(0x6fe0d0).setAlpha(0.25).setDepth(8);
       aura.setBlendMode(Phaser.BlendModes.ADD);
       this.tweens.add({ targets: aura, alpha: 0.4, duration: 900, yoyo: true, repeat: -1 });
     }
+  }
+
+  /** BS: Kuppel-Overlay, Bodenstreifen, Sternen-HUD und Koop-Marken für Begegnungen mit eigener Bühne (ENCOUNTER_STAGE). */
+  buildStageExtras() {
+    const st = ENCOUNTER_STAGE[this.encounterId];
+    this.stars = null;
+    if (!st) return;
+    if (st.dome && this.textures.exists(st.dome[0])) {
+      const dome = this.add.sprite(0, 0, st.dome[0], 0).setOrigin(0).setDepth(5).setAlpha(0.9);
+      playBattleAnim(dome, st.dome[1], null, st.dome[0]);
+    }
+    if (st.ground && this.textures.exists(st.ground)) this.add.image(0, VIEW_H, st.ground).setOrigin(0, 1).setDepth(12);
+    if (st.hud && this.textures.exists(st.hud) && this.textures.exists('starling2_sterne')) {
+      const H = STARLING2_HUD;
+      // Die Leiste liegt auf dem Boden zwischen den Kämpfern, wo weder Meldung noch Gegnerkarte sie verdecken
+      const x0 = Math.round(VIEW_W / 2 - H.bar[2] / 2);
+      const y0 = GROUND_Y - 46;
+      this.add.image(x0, y0, st.hud).setOrigin(0).setCrop(...H.bar).setDepth(60).setAlpha(0.9);
+      this.stars = H.sockets.map(([sx, sy, sw], i) => {
+        const star = this.add.sprite(x0 + sx + sw / 2, y0 + sy + 2, 'starling2_sterne', i).setDepth(61).setAlpha(0);
+        return star;
+      });
+      this.starRound = 0;
+      this.updateStars();
+    }
+    if (st.koop && this.combat.duo && this.textures.exists(st.koop)) {
+      for (const n of Object.keys(this.players).map(Number)) {
+        const p = this.players[n];
+        const mark = this.add.image(p.homeX, p.homeY - 70, st.koop, n === 2 ? 1 : 0).setDepth(12).setScale(0.5).setAlpha(0.85);
+        this.tweens.add({ targets: mark, y: p.homeY - 74, duration: 900, yoyo: true, repeat: -1, ease: 'Sine.inOut' });
+      }
+    }
+  }
+
+  /** Ein Stern je Kampfrunde leuchtet auf: Starling sammelt die acht Fälle in sich, je länger der Kampf dauert. */
+  updateStars() {
+    if (!this.stars) return;
+    const lit = Math.min(this.stars.length, this.combat.round);
+    this.starRound = this.combat.round;
+    this.stars.forEach((star, i) => {
+      if (i >= lit || star.lit) return;
+      star.lit = true;
+      this.tweens.add({ targets: star, alpha: 1, scale: { from: 1.6, to: 1 }, duration: 400, ease: 'Back.out' });
+    });
   }
 
   /** Kampfanimation abspielen, danach zurück in die Idle-Schleife. Ohne Kampf-Sheet: nichts. */
@@ -761,6 +809,7 @@ export class CombatScene extends Phaser.Scene {
     const g = this.gfx;
     g.clear();
     this.fog.tilePositionX += 0.15;
+    if (this.stars && this.combat.round !== this.starRound) this.updateStars();
 
     if (this.phase === 'qte' && this.qte?.bar) {
       const b = this.qte.bar;

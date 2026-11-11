@@ -2410,7 +2410,7 @@ export class Ui {
     return `<span class="cb-loot">Beute: ${ids.map((id) => `<span class="loot-ico rar-${itemRarity(items[id])}" title="${esc(items[id]?.name ?? id)}">${itemIcon(id)}</span>`).join('')}</span>`;
   }
 
-  combatMessage(text, help = '') {
+  combatMessage(text, help = '', scene = null) {
     const el = this.layer.querySelector('.cb-text');
     if (!el) return;
     if (this.touch) {
@@ -2420,7 +2420,7 @@ export class Ui {
       text = t(text);
       help = t(help);
     }
-    el.innerHTML = paragraphs(text);
+    el.innerHTML = (scene ? sceneImg(scene) : '') + paragraphs(text); // BS: Sequenzbild vor dem Kampfbeginn
     this.layer.querySelector('.cb-help').textContent = help;
     this.layer.querySelector('.cb-menu').innerHTML = '';
     this.layer.querySelector('.cb-target')?.classList.add('hidden');
