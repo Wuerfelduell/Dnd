@@ -1625,3 +1625,7 @@ Built-in Bildgenerator mit vorhandener Sprite-Referenz; Nearest-Neighbor-Export,
 
 - 16 neue Artefakte (`pathways.json` → `artifacts.list`, `konzentration: true`) nutzen Kopien bestehender Item-Icons als Platzhalter (`items/<id>.png`).
 - Echte Icons: Prompt-Paket `codex_BX_konzentration_artefakte.md` (Tabelle mit Id, Platzhalter und Prompt-Kern). Nach Lieferung die Dateien 1:1 ersetzen.
+
+## BZ – Icons für zweite Fähigkeiten (`faehigkeiten2`)
+
+180 neue Icons: je 90 zweite Kampf- und Welt-Fähigkeiten in `ui/skill_icons_3.png` und `ui/talent_icons.png` (160×144; zehn Pfade, Sequenz 9 bis 1), zusätzlich jedes Icon als 16×16-PNG in `ui/skills3/` beziehungsweise `ui/talents/`. Welt-Icons tragen einen hellen Innenring; beide Atlanten teilen eine Palette mit höchstens 32 sichtbaren Farben und binärem Alpha. Zuordnung: `public/sprites/manifest-faehigkeiten2.json`; Vierfachvorschau: `docs/art/preview-faehigkeiten2.png`; Prompts: `docs/art/batch-faehigkeiten2-generation.json`; Export und Prüfung: `tools/art/faehigkeiten2/`. Keine Laufzeitintegration und keine Änderungen an Hauptfertigkeits-Icons.
