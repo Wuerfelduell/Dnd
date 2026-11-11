@@ -486,7 +486,7 @@ export const pathwayMethods = {
   },
 
   // --- Rituale ---------------------------------------------------------------------------
-  // Ab Sequenz 6 verlangt jeder Trank ein Ritual: an einem bestimmten Ort, mit Zutaten, die dabei
+  // Ab Sequenz 6 verlangt jeder Trank ein ortsunabhängiges Ritual mit Zutaten, die dabei
   // verbraucht werden, und einer Bedingung (Geistsicht, Nerven, Wunden, Schlussfolgerungen, Siege, Tribut).
   // Danach darf genau dieser Trank getrunken werden (Flag ritual_<pfad>_<seq>).
 
@@ -508,8 +508,6 @@ export const pathwayMethods = {
     const r = this.ritualDef(pid, seq);
     if (!r) return null;
     const steps = [];
-    const mapName = this.content.maps[r.map]?.name ?? r.map;
-    steps.push({ text: `Ort: ${mapName}${r.also_maps?.length ? ' (auch drinnen)' : ''}`, done: this.map === r.map || (r.also_maps ?? []).includes(this.map) });
     for (const [id, n] of Object.entries(r.consumes ?? {})) steps.push({ text: `${this.item(id).name} ×${n} (wird verbraucht)`, done: this.itemCount(id) >= n });
     if (r.vision) steps.push({ text: 'Geistsicht ist aktiv', done: !!this.spiritVision });
     if (r.min_nerves) steps.push({ text: `Mindestens ${r.min_nerves} Nerven`, done: this.composure >= r.min_nerves });
