@@ -20,7 +20,8 @@ function hero(seq = 7, pathway = 'eisen') {
 }
 
 // Die Konzentrations-Artefakte (ap_round, ap_max, ap_blood ...) kamen mit PR #227; hier die Nerven-Seite dazu.
-const NERVEN_ARTEFAKTE = ['atemperle', 'blutsalz_phiole', 'knoechelring_preisboxer', 'trommelfell_ausrufer', 'glasnerv', 'nervenfaden_weberin', 'moorzunder'];
+const NERVEN_ARTEFAKTE = ['atemperle', 'blutsalz_phiole', 'knoechelring_preisboxer', 'trommelfell_ausrufer', 'glasnerv', 'nervenfaden_weberin', 'moorzunder',
+  'taktgeber_uhrturm', 'kerze_der_nachtwache', 'zahnrad_schlafwandlerin', 'fiebermuenze', 'metronom_komponist']; // die letzten fünf kamen mit den BY-Icons
 
 test('Jede Fertigkeit mit Konzentrationskosten kostet Nerven, je dicker, desto mehr; der einfache Angriff nie', () => {
   const s = hero(7);
