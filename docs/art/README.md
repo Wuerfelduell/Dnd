@@ -1816,3 +1816,7 @@ Prüfung: `python tools/art/calderwick2/check.py` (Pillow, aus jedem Arbeitsverz
 - Prüfung: `python tools/art/kettlegate_leben/check.py`.
 
 Keine Laufzeitintegration in diesem Paket.
+
+## Batch DG – haus
+
+Eigenes Haus: acht PNG-Atlanten, 40 Möbel mit Ofenanimation/Welkzustand, 32 Boss-Trophäen (46 Kampf-/Phasen-IDs), sechs Stadtwände und Türen, Umzugsbilder, Staub und Einrichtungs-UI. Siehe `../story/eigenes_haus/README.md`, `../../public/sprites/manifest-haus.json` und `batch-haus-preview.png`. Generierung: `batch-haus-generation.json`; Prüfung: `python tools/art/haus/check.py` und `node docs/story/eigenes_haus/pruefen.mjs`. Einbau separat; keine Tiermöbel aus DF enthalten.
