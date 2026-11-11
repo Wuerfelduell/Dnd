@@ -45,6 +45,7 @@ lesbar machen, Panzer brechen, Schutz und Heilung für beide Spieler. Daten: `sr
 | `I` | Inventar: Gegenstände benutzen, Waffe ausrüsten, Tränke trinken |
 | `P` | Pfad: Sequenz, Verdauung, Unruhe, Fähigkeiten und Formeln. Welt-Fähigkeiten (☉) werden hier eingesetzt |
 | Kampf: `1`–`4` | Aktion wählen (Angriff, Fertigkeiten, Gegenstände, Flucht) |
+| Kampf: Flucht | vor normalen Gegnern sofort. Eliten, Bosse und die Grauspäher halten dich fest: „Fliehen“ beendet den Zug, danach noch 2 Gegnerrunden durchhalten (zu zweit gemeinsam, das Zeichen eines Spielers gilt für beide) |
 | Kampf: `E` / `Leertaste` | beim Angriff im goldenen Bereich drücken |
 | Kampf: `Leertaste` / `F` | beim gegnerischen Schlag ausweichen / parieren |
 | `R` | nach einem Ende neu starten |

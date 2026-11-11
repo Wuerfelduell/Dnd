@@ -467,7 +467,13 @@ export class CombatScene extends Phaser.Scene {
       this.afterPlayer();
     } else if (action.type === 'flee') {
       if (!c.flee()) { this.ui.combatMessage('Kein Entkommen. Der Weg nach oben ist versperrt.'); return; }
-      this.over();
+      if (c.outcome) { this.over(); return; }
+      // Starker Gegner: der Rückzug läuft, der Zug ist vorbei, der Gegner setzt nach
+      this.float('Rückzug!', 'player', 'good');
+      this.ui.combatMessage(c.fleeStartText());
+      this.ui.combatRefresh();
+      this.phase = 'anim';
+      this.time.delayedCall(900, () => this.afterPlayer());
     }
   }
 
@@ -757,6 +763,7 @@ export class CombatScene extends Phaser.Scene {
     this.ui.combatRefresh();
     if (this.combat.outcome) { this.over(); return; }
     const dot = this.combat.endRound();
+    if (this.combat.outcome === 'fled') { this.ui.combatRefresh(); this.over(); return; } // Rückzug durchgehalten
     const bleed = this.combat.bleedTick;
     if (this.combat.drainTick) { this.focusPlayer(this.combat.actor); this.float(`-${this.combat.drainTick} Nerven`, 'player', 'hurt'); }
     if (this.combat.regenTick) { this.focusPlayer(this.combat.actor); this.float(`+${this.combat.regenTick} Nerven`, 'player', 'good'); }

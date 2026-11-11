@@ -82,6 +82,12 @@ export const WEAK_MULT = 1.5;
  * Wer eine schwächere Sequenz hat (oder gar keinen Pfad), richtet nur einen Bruchteil seines Schadens an.
  */
 export const SEQ_WARD_MULT = 0.08;
+/**
+ * Flucht vor starken Gegnern: Eliten, Bosse und die Grauspäher lassen dich nicht einfach gehen. Wer „Fliehen“ wählt,
+ * beendet seinen Zug und muss noch so viele Gegnerrunden durchhalten, erst dann ist er weg. Normale Gegner: sofort.
+ * In den Daten je Gegner `flee_rounds` (0 = sofort) oder je Gebiet als Zahl bzw. { normal, elite, boss }.
+ */
+export const FLEE_ROUNDS_TOUGH = 2;
 // Zweite Pfadfertigkeiten (faehigkeiten2.json): `slow` dehnt den nächsten gegnerischen Angriff (Ringe laufen langsamer),
 // `weaken` [mult, rounds] dämpft seinen Schaden, `focus` hebt die Bewertung der nächsten eigenen Fertigkeit um eine Stufe.
 export const SLOW_MULT = 1.35;
@@ -166,6 +172,9 @@ export class Combat {
     // Schadensgrenze je Runde: am Gegner `max_round_dmg` (Anteil der Leben), sonst am Gebiet je Rang.
     // In Wexmoor nicht mehr gesetzt: dort tanken die Gegner über mehr Leben (hp_mult), der Spieler macht vollen Schaden.
     this.maxRoundDmg = enc.practice ? 0 : enc.max_round_dmg ?? byRank(zone?.max_round_dmg) ?? 0;
+    // Flucht: starke Gegner (Elite, Boss) halten dich noch FLEE_ROUNDS_TOUGH Runden fest, Daten können es überschreiben
+    this.fleeRounds = enc.practice ? 0 : enc.flee_rounds ?? byRank(zone?.flee_rounds) ?? (enc.boss || enc.elite ? FLEE_ROUNDS_TOUGH : 0);
+    this.fleeing = null; // { left, by }: Rückzug läuft, noch so viele Runden durchhalten (zu zweit gemeinsam)
     const hp = enc.practice ? enc.hp : Math.round(enc.hp * ENEMY_HP_MULT * (enc.elite ? ELITE_HP_MULT : 1) * this.hpMult * this.duoHpMult);
     // Panzer wächst mit der Gefahrenstufe des Gebiets (Marsch 1, ...), Bosse eine Stufe mehr
     const tier = zone?.tier ?? 2;
@@ -478,14 +487,37 @@ export class Combat {
   }
 
   canFlee() {
+    if (this.fleeing) return false; // der Rückzug läuft schon
     if (this.standing().some((n) => this.state.withPlayer(n, () => this.state.passive('no_flee'), { quiet: true }))) return false;
     return !!this.enc.fleeable || !!this.state.passive('always_flee');
   }
 
+  /**
+   * Fliehen. Normale Gegner: sofort vorbei (outcome 'fled'). Starke Gegner (fleeRounds > 0): der Rückzug beginnt,
+   * der Zug des Spielers ist zu Ende, und erst nach so vielen überstandenen Gegnerrunden (endRound) ist man weg.
+   * Zu zweit gilt das Zeichen für beide: der andere handelt in dieser Runde noch, dann hält man gemeinsam durch.
+   */
   flee() {
     if (!this.canFlee()) return false;
-    this.outcome = 'fled';
+    if (this.fleeRounds <= 0) { this.outcome = 'fled'; return true; }
+    this.fleeing = { left: this.fleeRounds, by: this.actor };
+    this.actions += 1;
+    this.log.push(`Rückzug: noch ${this.fleeRounds} Runden durchhalten`);
     return true;
+  }
+
+  /** Meldung beim Beginn des Rückzugs (Oberfläche). */
+  fleeStartText() {
+    const n = this.fleeing?.left ?? this.fleeRounds;
+    const rounds = n === 1 ? 'eine Runde' : `${n} Runden`;
+    if (this.duo) return `Spieler ${this.fleeing?.by ?? this.actor} gibt das Zeichen zum Rückzug. ${this.enemy.name} lässt euch nicht einfach gehen: Haltet noch ${rounds} durch, dann seid ihr weg.`;
+    return `Du suchst den Rückzug. ${this.enemy.name} lässt dich nicht einfach gehen: Halte noch ${rounds} durch, dann bist du weg.`;
+  }
+
+  /** Kurzer Stand des Rückzugs („noch 2 Runden“) oder null. */
+  fleeStatus() {
+    if (!this.fleeing) return null;
+    return this.fleeing.left === 1 ? 'noch 1 Runde' : `noch ${this.fleeing.left} Runden`;
   }
 
   gainAp(n) {
@@ -730,6 +762,8 @@ export class Combat {
     this.capped = 0;
     for (const f of Object.values(this.fighters)) { f.bleedTick = 0; f.focusTick = 0; f.focusGain = 0; }
     if (this.weakened && --this.weakened.rounds <= 0) this.weakened = null;
+    // Rückzug vor einem starken Gegner: eine Runde überstanden, nach der letzten ist man weg
+    if (!this.outcome && this.fleeing && --this.fleeing.left <= 0) this.outcome = 'fled';
     // BD: Gegner mit `flees_after` entziehen sich nach so vielen vollständigen Runden ohne Spielersieg (kein Sieg, keine Beute)
     if (!this.outcome && this.enc.flees_after && this.round > this.enc.flees_after) this.outcome = 'escaped';
     if (this.outcome) { this.startTurn(); return 0; }
@@ -837,6 +871,7 @@ export class Combat {
         text += `\n\nAls du zu dir kommst, fehlen dir ${lost} Schilling.`;
       }
     } else if (this.outcome === 'fled') {
+      if (!enc.practice && enc.on_flee) s.applyEffects(enc.on_flee); // z. B. Grauspäher: Fahndung steigt
       text = enc.flee_text ?? 'Du ziehst dich zurück.';
     } else if (this.outcome === 'escaped') {
       text = enc.escape_text ?? `${enc.name} entzieht sich dir.`;
