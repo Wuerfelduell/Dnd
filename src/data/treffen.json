@@ -1,9 +1,8 @@
 {
   "_info": "Geheime Treffen ab Fall 4. Alle interval_min Spielminuten beginnt reihum (order) das Treffen eines Zirkels und bleibt open_min Minuten offen. Händler mit 'gathering' würfeln je Treffen ihr Angebot ('chance' pro Eintrag, 'limit' Stück pro Treffen). Zutaten ab Sequenz 7 (auch 6 und 5) gibt es nur hier oder als Beute, nie auf dem normalen Markt. Ab Version Auktion: Jeder Zirkel hat 4 bis 5 Mitglieder (circles.*.members). Reihum bietet jedes Mitglied ein Los an (offers, 'chance' je Eintrag), die anderen bieten mit; danach ein Gesuch nach einer Zutat (wants). Zum Schluss kann man eigene Artefakte oder Formeln versteigern.",
   "rules": {
-    "interval_min": 20,
-    "open_min": 6,
-    "sleep_skip_min": 2,
+    "interval_min": 5,
+    "open_min": 4,
     "order": [
       "waage",
       "kreide",
@@ -1928,7 +1927,7 @@
           ]
         },
         "when": {
-          "text": "„Jede Glockenrunde trifft sich ein Zirkel, reihum. Etwa alle zwanzig Minuten. Ein Treffen dauert nicht lange, sechs Minuten, dann sind alle wieder fort. Wer dazugehört, wird gerufen. Sie werden es merken.“\n\nOben links unter deiner Börse siehst du, wann dein nächstes Treffen ist.",
+          "text": "„Jede Glockenrunde trifft sich ein Zirkel, reihum. Etwa alle fünf Minuten. Ein Treffen dauert nicht lange, vier Minuten, dann sind alle wieder fort. Wer dazugehört, wird gerufen. Sie werden es merken.“\n\nOben links unter deiner Börse siehst du, wann dein nächstes Treffen ist.",
           "choices": [
             {
               "text": "Verstanden.",
@@ -4399,16 +4398,22 @@
     }
   ],
   "artisan": {
-    "_info": "Die Fasserin (PR Artisan): Mit 30 % Chance sitzt sie bei einem geheimen Treffen dabei und fasst ungewöhnliche, seltene und okkulte Beutestücke zu Artefakten. Pro Treffen bietet sie `offers` Rezepte aus dem Pool an (Würfel mit festem Startwert je Runde und Zirkel). Jedes Rezept braucht die Beutestücke (`needs`) und ein Fasserlohn in Schilling (`fee`).",
+    "_info": "Die Fasserin: Mit `chance` (30 %) sitzt sie bei einem geheimen Treffen dabei. Sie nimmt ein einzelnes starkes Beutestück (`needs`, genau ein Stück) und den Fasserlohn (`fee`) in Auftrag; das Artefakt liegt erst beim nächsten Treffen desselben Zirkels bereit (der Gastgeber übergibt es, auch ohne sie). Ob die Fassung gelingt, entscheidet `erfolg`: lineare Chance von `max` (schwächstes Artefakt, Preis `price_min`) bis `min` (stärkstes, `price_max`), auf 5 % gerundet; bei Misserfolg ist das Stück hin und `erstattung` des Lohns kommt zurück. Pro Treffen bietet sie `offers` Rezepte aus dem Pool an.",
     "npc": "fasserin",
     "chance": 0.3,
     "offers": 4,
+    "erfolg": {
+      "min": 0.4,
+      "max": 0.8,
+      "price_min": 120,
+      "price_max": 200,
+      "erstattung": 0.5
+    },
     "recipes": [
       {
         "id": "krone_der_sieben",
         "needs": {
-          "rattenkrone": 1,
-          "rattenschwanz": 3
+          "rattenkrone": 1
         },
         "fee": 120,
         "line": "Sieben Schwänze, drei dazu. Ein Reif, der Geld riecht."
@@ -4416,8 +4421,7 @@
       {
         "id": "sternlicht_gespinst",
         "needs": {
-          "sternhirschgeweih": 1,
-          "brutschale": 1
+          "sternhirschgeweih": 1
         },
         "fee": 160,
         "line": "Licht spinnt sich nur um Perlmutt. Halten Sie still, es blendet."
@@ -4425,9 +4429,7 @@
       {
         "id": "glaskielfeder",
         "needs": {
-          "glasfeder": 1,
-          "moewenglas": 1,
-          "schnabelfeder": 2
+          "glasfeder": 1
         },
         "fee": 110,
         "line": "Zwei Glasfedern, zwei echte dazwischen. So schneidet sie den Wind."
@@ -4435,9 +4437,7 @@
       {
         "id": "herzkerze",
         "needs": {
-          "wachsherz": 1,
-          "wachsdocht": 1,
-          "kerze_schwarz": 2
+          "wachsherz": 1
         },
         "fee": 100,
         "line": "Ein Herz, ein Docht, der nicht kürzer wird. Sie wird schlagen, nicht brennen."
@@ -4445,8 +4445,7 @@
       {
         "id": "perlenpaar",
         "needs": {
-          "moorperle": 1,
-          "schlickperle": 1
+          "moorperle": 1
         },
         "fee": 130,
         "line": "Zwei Perlen aus zwei Wassern. Sie erzählen sich vom Ertrinken."
@@ -4454,8 +4453,7 @@
       {
         "id": "geisterspindel",
         "needs": {
-          "geisterkern": 1,
-          "spinnfaden_lila": 1
+          "geisterkern": 1
         },
         "fee": 120,
         "line": "Den Kern auf den Faden gespult. Was da wohnt, wird wach."
@@ -4463,7 +4461,6 @@
       {
         "id": "leuchtturmmonokel",
         "needs": {
-          "linsenscherbe": 1,
           "fernrohr_messing": 1
         },
         "fee": 150,
@@ -4472,9 +4469,7 @@
       {
         "id": "namenssiegel",
         "needs": {
-          "madenwachs": 1,
-          "schaedelsplitter": 1,
-          "knochenmehl": 2
+          "madenwachs": 1
         },
         "fee": 100,
         "line": "Der Name auf dem Splitter kommt ins Wachs. Dann gehört er Ihnen."
@@ -4482,7 +4477,6 @@
       {
         "id": "gluehglocke",
         "needs": {
-          "russklumpen": 1,
           "bronzeglocke_klein": 1
         },
         "fee": 110,
@@ -4491,7 +4485,6 @@
       {
         "id": "doppelsiegel",
         "needs": {
-          "ratssiegel": 1,
           "medaille_polizei": 1
         },
         "fee": 90,
@@ -4500,7 +4493,6 @@
       {
         "id": "glasnerv",
         "needs": {
-          "glasfeder": 2,
           "geisterkern": 1
         },
         "fee": 170,
@@ -4509,9 +4501,7 @@
       {
         "id": "nervenfaden_weberin",
         "needs": {
-          "wachsdocht": 1,
-          "madenwachs": 1,
-          "rattenschwanz": 2
+          "madenwachs": 1
         },
         "fee": 140,
         "line": "Straff gespult. Wenn er singt, sind Sie zu lange im Kampf."
@@ -4519,8 +4509,7 @@
       {
         "id": "moorzunder",
         "needs": {
-          "irrlichtfunke": 2,
-          "kerze_schwarz": 2
+          "irrlichtfunke": 1
         },
         "fee": 120,
         "line": "Funken ins Wachs, Wachs in den Kopf. Löschen kann ich ihn nicht."

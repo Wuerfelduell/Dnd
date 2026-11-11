@@ -31,6 +31,7 @@ export const gatheringMethods = {
     this.lastGatheringCycle = null;
     this.auction = null; // laufende Runde (core/Auction.js), wird nicht gespeichert
     this.sessionsHeld = []; // "zirkel:runde" – pro Treffen nur eine Runde
+    this.resetArtisan?.();
   },
 
   gatheringRules() {
@@ -114,7 +115,11 @@ export const gatheringMethods = {
     // Gesuche vorher ankündigen, damit man weiß, was man mitnehmen sollte
     const wants = this.sessionRequests ? [...new Set(this.sessionRequests(next.id, next.cycle).map((q) => this.item(q.item)?.name))] : [];
     const artisan = !!this.artisanPresent?.(next.id, next.cycle);
-    return { next, wants, artisan, text: `${this.gatheringDef(next.id).name} in ${fmt(next.start - this.playTime)}${wants.length ? ` · gesucht: ${wants.join(', ')}` : ''}${artisan ? ' · Fasserin dabei' : ''}` };
+    // Aufträge bei der Fasserin: beim nächsten Treffen dieses Zirkels abholen (Gastgeber übergibt)
+    const orders = this.readyOrders?.(next.id, next.cycle) ?? [];
+    const waiting = [...new Set((this.pendingOrders?.() ?? []).filter((o) => !orders.includes(o)).map((o) => this.gatheringDef(o.circle)?.name ?? o.circle))];
+    const orderText = orders.length ? ` · ${orders.length === 1 ? 'Fassung' : `${orders.length} Fassungen`} abholen` : waiting.length ? ` · Fassung wartet: ${waiting.join(', ')}` : '';
+    return { next, wants, artisan, orders, text: `${this.gatheringDef(next.id).name} in ${fmt(next.start - this.playTime)}${wants.length ? ` · gesucht: ${wants.join(', ')}` : ''}${artisan ? ' · Fasserin dabei' : ''}${orderText}` };
   },
 
   /**
@@ -152,7 +157,9 @@ export const gatheringMethods = {
       const g = this.gatheringDef(cur.id);
       const wants = this.sessionRequests ? [...new Set(this.sessionRequests(cur.id, cur.cycle).map((q) => this.item(q.item)?.name))] : [];
       const artisan = this.artisanPresent?.(cur.id, cur.cycle) ? ` ${this.artisanName()} ist dabei und fasst Beute zu Artefakten.` : '';
-      this.emit('gathering', { id: cur.id, open: true, text: `${g.invite}${wants.length ? ` Gesucht wird: ${wants.join(', ')}.` : ''}${artisan}` });
+      const ready = this.readyOrders?.(cur.id, cur.cycle) ?? [];
+      const orders = ready.length ? ` Deine Fassung${ready.length > 1 ? 'en' : ''} (${ready.map((o) => this.item(o.artifact)?.name ?? o.artifact).join(', ')}) liegt beim Gastgeber bereit.` : '';
+      this.emit('gathering', { id: cur.id, open: true, text: `${g.invite}${wants.length ? ` Gesucht wird: ${wants.join(', ')}.` : ''}${artisan}${orders}` });
       this.emit('changed');
     } else if (!cur && prev !== null) {
       const slot = this.gatheringSlot(prev);
@@ -161,19 +168,6 @@ export const gatheringMethods = {
         this.emit('changed');
       }
     }
-  },
-
-  /**
-   * Schlafen (Koje/Pritsche) lässt Spielzeit vergehen: `rules.sleep_skip_min` Minuten (2) springen auf
-   * der Zirkel-Uhr vor, so wie die Zeit auf der Karte auch vergehen würde (Ankündigungen inklusive).
-   * Ergebnis: übersprungene Sekunden (0, wenn es noch keine Treffen gibt).
-   */
-  sleepGatherings() {
-    const r = this.gatheringRules();
-    const sec = r ? (r.sleep_skip_min ?? 0) * 60 : 0;
-    if (sec <= 0) return 0;
-    this.tickGatherings(sec);
-    return sec;
   },
 
   /**
@@ -210,7 +204,7 @@ export const gatheringMethods = {
   },
 
   serializeGatherings() {
-    return { playTime: Math.round(this.playTime), gatheringBought: this.gatheringBought, sessionsHeld: this.sessionsHeld };
+    return { playTime: Math.round(this.playTime), gatheringBought: this.gatheringBought, sessionsHeld: this.sessionsHeld, ...(this.serializeArtisan?.() ?? {}) };
   },
 
   loadGatherings(data) {
@@ -218,6 +212,7 @@ export const gatheringMethods = {
     const b = data.gatheringBought;
     this.gatheringBought = b && typeof b.cycle === 'number' ? { cycle: b.cycle, items: { ...b.items } } : { cycle: -1, items: {} };
     this.sessionsHeld = Array.isArray(data.sessionsHeld) ? data.sessionsHeld.filter((k) => typeof k === 'string') : [];
+    this.loadArtisan?.(data);
     // Ein beim Speichern laufendes Treffen nicht noch einmal ankündigen
     this.lastGatheringCycle = this.currentGathering()?.cycle ?? null;
   },
