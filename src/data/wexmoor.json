@@ -1465,6 +1465,19 @@
         "hair": "#4a3426",
         "legs": "#1f2538"
       }
+    },
+    "wx_pfandleiherin": {
+      "name": "Pfandleiherin Maud Keel",
+      "role": "An- und Verkauf, Salzmarkt",
+      "dialogue": "wx_pfandleiherin",
+      "palette": {
+        "coat": "#4e7484",
+        "hat": "#2a3440",
+        "skin": "#d8b89a",
+        "hair": "#8a8e96",
+        "legs": "#2a3440",
+        "scarf": "#c9c2ad"
+      }
     }
   },
   "travel": [
@@ -4340,6 +4353,14 @@
               "ez_maskenwirt_besiegt"
             ]
           }
+        },
+        {
+          "id": "wx_pfandleiherin",
+          "tile": [
+            16,
+            4
+          ],
+          "facing": "down"
         }
       ],
       "patrols": [
@@ -15423,6 +15444,45 @@
           ]
         }
       }
+    },
+    "wx_pfandleiherin": {
+      "start": "start",
+      "nodes": {
+        "start": {
+          "text": "Ein Tisch aus zwei Salzfässern und einer Tür, dahinter eine Frau mit Lupe am Band und Fingern voller Ringe, die sie alle nicht trägt, sondern verwahrt. „Keel. Pfand, Ankauf, Verkauf. Was die Moorleute aus dem Watt ziehen, kaufe ich. Was die Fischer liegen lassen, verkaufe ich. Fragen stelle ich keine, Namen brauche ich nicht.“",
+          "choices": [
+            {
+              "text": "Kram verkaufen (Beute, Trophäen, was du nicht brauchst).",
+              "shop": "wx_pfandleiherin",
+              "shop_mode": "sell"
+            },
+            {
+              "text": "Waren ansehen.",
+              "shop": "wx_pfandleiherin"
+            },
+            {
+              "text": "Was nehmen Sie an?",
+              "next": "ankauf"
+            },
+            {
+              "text": "Auf Wiedersehen."
+            }
+          ]
+        },
+        "ankauf": {
+          "text": "„Alles, was ein Gewicht hat und keinen Besitzer, der danach fragt. Panzer, Zähne, Wachs, Knochen, Salzkristalle, alte Münzen aus dem Moor. Die Hälfte vom Wert, bar auf den Tisch. Wer mehr will, soll es nach Kettlegate tragen.“ Sie lächelt dünn. „Ach nein. Das geht ja nicht mehr.“",
+          "choices": [
+            {
+              "text": "Dann her damit.",
+              "shop": "wx_pfandleiherin",
+              "shop_mode": "sell"
+            },
+            {
+              "text": "Später."
+            }
+          ]
+        }
+      }
     }
   },
   "police": {
@@ -17771,6 +17831,48 @@
         "map": "wx_bahnhof",
         "circle": "lichtlose"
       }
+    }
+  },
+  "merchants": {
+    "wx_pfandleiherin": {
+      "name": "Pfandleiherin Maud Keel",
+      "title": "Pfand, An- und Verkauf",
+      "buys": true,
+      "greeting": "Die Hälfte vom Wert, bar auf den Tisch. Fragen stelle ich keine.",
+      "stock": [
+        {
+          "item": "verband",
+          "price": 9
+        },
+        {
+          "item": "tonikum",
+          "price": 20
+        },
+        {
+          "item": "riechsalz",
+          "price": 13
+        },
+        {
+          "item": "ruhetee",
+          "price": 11
+        },
+        {
+          "item": "lampenoel",
+          "price": 9
+        },
+        {
+          "item": "bannsalz",
+          "price": 16
+        },
+        {
+          "item": "salzbrot",
+          "price": 10
+        },
+        {
+          "item": "moortee",
+          "price": 14
+        }
+      ]
     }
   }
 }
