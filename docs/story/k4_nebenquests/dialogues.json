@@ -1,0 +1,1055 @@
+{
+  "cwn_e_griffmacherin": {
+    "start": "cwn_start",
+    "nodes": {
+      "cwn_start": {
+        "text": "„Du suchst jemanden? Hier stehen mehr Menschen als Namen an den Türen.“",
+        "choices": [
+          {
+            "text": "Deine Arbeit.",
+            "next": "cwn_arbeit"
+          },
+          {
+            "text": "Diese Terrasse.",
+            "next": "cwn_ort"
+          },
+          {
+            "text": "Was kannst du bezeugen?",
+            "next": "cwn_zeugnis",
+            "requires_quests_active": [
+              "cwn_zwei_teller"
+            ],
+            "hide_if_flags": [
+              "cwn_zwei_teller_done"
+            ]
+          },
+          {
+            "text": "Gibt es einen Aushang?",
+            "next": "cwn_aushang"
+          },
+          {
+            "text": "Auf Wiedersehen.",
+            "next": "cwn_ende"
+          }
+        ]
+      },
+      "cwn_arbeit": {
+        "text": "„Ein Topfgriff muss zwei Hände aushalten. Eine trägt, die andere weiß es besser.“",
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_ort": {
+        "text": "„Die Setzer lassen Lettern fallen. Ich hebe lieber Dinge auf, die niemandem einen Namen nehmen.“",
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_zeugnis": {
+        "text": "„Ich brachte den hitzefesten Griff. Ida hielt den Topf, obwohl ich ihr sagte, sie solle ein Tuch nehmen. Sie fluchte über meine Zange und aß danach aus dem kleinen Teller.“",
+        "sets_flags": [
+          "cwn_zwei_teller_spur1"
+        ],
+        "gives_clues": [
+          "cwn_zwei_teller_spur1_hinweis"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_aushang": {
+        "text": "„Die neuesten Vorschriften hängen am Weg. Das Wetter liest sie ebenfalls, meist gründlicher als wir.“",
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_ende": {
+        "text": "„Geh vorsichtig. Nicht jede Stufe trägt ihre Nummer.“",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwn_e_waescherin": {
+    "start": "cwn_start",
+    "nodes": {
+      "cwn_start": {
+        "text": "„Du suchst jemanden? Hier stehen mehr Menschen als Namen an den Türen.“",
+        "choices": [
+          {
+            "text": "Deine Arbeit.",
+            "next": "cwn_arbeit"
+          },
+          {
+            "text": "Diese Terrasse.",
+            "next": "cwn_ort"
+          },
+          {
+            "text": "Was kannst du bezeugen?",
+            "next": "cwn_zeugnis",
+            "requires_quests_active": [
+              "cwn_zwei_teller"
+            ],
+            "hide_if_flags": [
+              "cwn_zwei_teller_done"
+            ]
+          },
+          {
+            "text": "Gibt es einen Aushang?",
+            "next": "cwn_aushang"
+          },
+          {
+            "text": "Auf Wiedersehen.",
+            "next": "cwn_ende"
+          }
+        ]
+      },
+      "cwn_arbeit": {
+        "text": "„Ich erkenne einen Haushalt an seinen Flecken. Die Miete kann darüber anderer Meinung sein.“",
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_ort": {
+        "text": "„Die Rohre klopfen auch bei offenem Fenster. Der Wind hat hier offenbar einen Hausschlüssel.“",
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_zeugnis": {
+        "text": "„Ich lieh Noel das gestreifte Tuch. Ida kleckerte die dunkle Soße darauf und wollte es noch selbst auswaschen. Das Tuch blieb bei mir, der Fleck auch.“",
+        "sets_flags": [
+          "cwn_zwei_teller_spur2"
+        ],
+        "gives_clues": [
+          "cwn_zwei_teller_spur2_hinweis"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_aushang": {
+        "text": "„Die neuesten Vorschriften hängen am Weg. Das Wetter liest sie ebenfalls, meist gründlicher als wir.“",
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_ende": {
+        "text": "„Geh vorsichtig. Nicht jede Stufe trägt ihre Nummer.“",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwn_e_bote": {
+    "start": "cwn_start",
+    "nodes": {
+      "cwn_start": {
+        "text": "„Du suchst jemanden? Hier stehen mehr Menschen als Namen an den Türen.“",
+        "choices": [
+          {
+            "text": "Deine Arbeit.",
+            "next": "cwn_arbeit"
+          },
+          {
+            "text": "Diese Terrasse.",
+            "next": "cwn_ort"
+          },
+          {
+            "text": "Was kannst du bezeugen?",
+            "next": "cwn_zeugnis",
+            "requires_quests_active": [
+              "cwn_zwei_teller"
+            ],
+            "hide_if_flags": [
+              "cwn_zwei_teller_done"
+            ]
+          },
+          {
+            "text": "Gibt es einen Aushang?",
+            "next": "cwn_aushang"
+          },
+          {
+            "text": "Auf Wiedersehen.",
+            "next": "cwn_ende"
+          }
+        ]
+      },
+      "cwn_arbeit": {
+        "text": "„Ich bin siebzehn. Die Rohrpost hält mich für drei Schichten älter.“",
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_ort": {
+        "text": "„Eine leere Kapsel kommt immer an. Bei einer vollen wird zuerst die Zuständigkeit geprüft.“",
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_zeugnis": {
+        "text": "„Ich lieferte die Kapsel kurz vor Schluss. Ida schob mir den Rest ihres Brots hin. Noel schimpfte, ich hätte nun ebenfalls eine Portion, die niemand bestellt hatte.“",
+        "sets_flags": [
+          "cwn_zwei_teller_spur3"
+        ],
+        "gives_clues": [
+          "cwn_zwei_teller_spur3_hinweis"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_aushang": {
+        "text": "„Die neuesten Vorschriften hängen am Weg. Das Wetter liest sie ebenfalls, meist gründlicher als wir.“",
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_ende": {
+        "text": "„Geh vorsichtig. Nicht jede Stufe trägt ihre Nummer.“",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwn_e_marktfrau": {
+    "start": "cwn_start",
+    "nodes": {
+      "cwn_start": {
+        "text": "„Du suchst jemanden? Hier stehen mehr Menschen als Namen an den Türen.“",
+        "choices": [
+          {
+            "text": "Deine Arbeit.",
+            "next": "cwn_arbeit"
+          },
+          {
+            "text": "Diese Terrasse.",
+            "next": "cwn_ort"
+          },
+          {
+            "text": "Was kannst du bezeugen?",
+            "next": "cwn_zeugnis"
+          },
+          {
+            "text": "Gibt es einen Aushang?",
+            "next": "cwn_aushang"
+          },
+          {
+            "text": "Auf Wiedersehen.",
+            "next": "cwn_ende"
+          }
+        ]
+      },
+      "cwn_arbeit": {
+        "text": "„Bei mir wechseln die Waren mit der Jahreszeit. Die Schulden haben leider das ganze Jahr geöffnet.“",
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_ort": {
+        "text": "„Drei Haushalte unter einem Namen kaufen billiger. Sie streiten dafür teurer.“",
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_zeugnis": {
+        "text": "„Ich erzähle, was ich selbst gesehen habe. Was andere wissen, fragst du besser bei ihnen.“",
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_aushang": {
+        "text": "„Die neuesten Vorschriften hängen am Weg. Das Wetter liest sie ebenfalls, meist gründlicher als wir.“",
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_ende": {
+        "text": "„Geh vorsichtig. Nicht jede Stufe trägt ihre Nummer.“",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwn_e_nachtsetzer": {
+    "start": "cwn_start",
+    "nodes": {
+      "cwn_start": {
+        "text": "„Du suchst jemanden? Hier stehen mehr Menschen als Namen an den Türen.“",
+        "choices": [
+          {
+            "text": "Deine Arbeit.",
+            "next": "cwn_arbeit"
+          },
+          {
+            "text": "Diese Terrasse.",
+            "next": "cwn_ort"
+          },
+          {
+            "text": "Was kannst du bezeugen?",
+            "next": "cwn_zeugnis",
+            "requires_quests_active": [
+              "cwn_letzte_terrasse"
+            ],
+            "hide_if_flags": [
+              "cwn_letzte_terrasse_done"
+            ]
+          },
+          {
+            "text": "Gibt es einen Aushang?",
+            "next": "cwn_aushang"
+          },
+          {
+            "text": "Auf Wiedersehen.",
+            "next": "cwn_ende"
+          }
+        ]
+      },
+      "cwn_arbeit": {
+        "text": "„Ich setze nachts fremde Namen. Für meinen eigenen fehlt tagsüber das Formular.“",
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_ort": {
+        "text": "„Wir schlafen über der Presse. Sie nennt das Lagerraum, wir nennen es Dienstag.“",
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_zeugnis": {
+        "text": "Arvo stellt zwei Stühle aus dem Lagerraum auf den Gang. „Schreib unseren Namen dazu. Meine Tochter soll sehen, dass wir nicht zwischen zwei Zeilen schlafen.“",
+        "sets_flags": [
+          "cwn_letzte_terrasse_spur1"
+        ],
+        "gives_clues": [
+          "cwn_letzte_terrasse_spur1_hinweis"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_aushang": {
+        "text": "„Die neuesten Vorschriften hängen am Weg. Das Wetter liest sie ebenfalls, meist gründlicher als wir.“",
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_ende": {
+        "text": "„Geh vorsichtig. Nicht jede Stufe trägt ihre Nummer.“",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwn_e_fensterputzerin": {
+    "start": "cwn_start",
+    "nodes": {
+      "cwn_start": {
+        "text": "„Du suchst jemanden? Hier stehen mehr Menschen als Namen an den Türen.“",
+        "choices": [
+          {
+            "text": "Deine Arbeit.",
+            "next": "cwn_arbeit"
+          },
+          {
+            "text": "Diese Terrasse.",
+            "next": "cwn_ort"
+          },
+          {
+            "text": "Was kannst du bezeugen?",
+            "next": "cwn_zeugnis",
+            "requires_quests_active": [
+              "cwn_letzte_terrasse"
+            ],
+            "hide_if_flags": [
+              "cwn_letzte_terrasse_done"
+            ]
+          },
+          {
+            "text": "Gibt es einen Aushang?",
+            "next": "cwn_aushang"
+          },
+          {
+            "text": "Auf Wiedersehen.",
+            "next": "cwn_ende"
+          }
+        ]
+      },
+      "cwn_arbeit": {
+        "text": "„Von draußen sehe ich mehr Wohnungen als das Hausbuch. Ich werde dafür nach Fläche bezahlt, nicht nach Wahrheit.“",
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_ort": {
+        "text": "„Mein Sohn möchte einen eigenen Namen an der Tür. Ich möchte erst wissen, wer ihn liest.“",
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_zeugnis": {
+        "text": "Mira schließt die Fensterläden nur halb. „Wir stimmen einer persönlichen Küchenbürgschaft zu. Unsere Namen gehören nicht an die Hauswand.“",
+        "sets_flags": [
+          "cwn_letzte_terrasse_spur2"
+        ],
+        "gives_clues": [
+          "cwn_letzte_terrasse_spur2_hinweis"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_aushang": {
+        "text": "„Die neuesten Vorschriften hängen am Weg. Das Wetter liest sie ebenfalls, meist gründlicher als wir.“",
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_ende": {
+        "text": "„Geh vorsichtig. Nicht jede Stufe trägt ihre Nummer.“",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwn_e_laternenwart": {
+    "start": "cwn_start",
+    "nodes": {
+      "cwn_start": {
+        "text": "„Du suchst jemanden? Hier stehen mehr Menschen als Namen an den Türen.“",
+        "choices": [
+          {
+            "text": "Deine Arbeit.",
+            "next": "cwn_arbeit"
+          },
+          {
+            "text": "Diese Terrasse.",
+            "next": "cwn_ort"
+          },
+          {
+            "text": "Was kannst du bezeugen?",
+            "next": "cwn_zeugnis",
+            "requires_quests_active": [
+              "cwn_letzte_terrasse"
+            ],
+            "hide_if_flags": [
+              "cwn_letzte_terrasse_done"
+            ]
+          },
+          {
+            "text": "Gibt es einen Aushang?",
+            "next": "cwn_aushang"
+          },
+          {
+            "text": "Auf Wiedersehen.",
+            "next": "cwn_ende"
+          }
+        ]
+      },
+      "cwn_arbeit": {
+        "text": "„Die Laterne braucht einen festen Ort. Ich bekomme für denselben Wunsch eine Ablehnung.“",
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_ort": {
+        "text": "„Unsere Betten stehen bei Verwandten. Die wollen helfen, aber nicht noch eine amtliche Wohnung werden.“",
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_zeugnis": {
+        "text": "Enno nennt drei wechselnde Gastgeber. „Zähl die Menschen, nicht drei Wohnungen für dieselben Menschen. Wer für uns bürgt, muss uns auch antreffen können.“",
+        "sets_flags": [
+          "cwn_letzte_terrasse_spur3"
+        ],
+        "gives_clues": [
+          "cwn_letzte_terrasse_spur3_hinweis"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_aushang": {
+        "text": "„Die neuesten Vorschriften hängen am Weg. Das Wetter liest sie ebenfalls, meist gründlicher als wir.“",
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_ende": {
+        "text": "„Geh vorsichtig. Nicht jede Stufe trägt ihre Nummer.“",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwn_e_archivdienerin": {
+    "start": "cwn_start",
+    "nodes": {
+      "cwn_start": {
+        "text": "„Du suchst jemanden? Hier stehen mehr Menschen als Namen an den Türen.“",
+        "choices": [
+          {
+            "text": "Deine Arbeit.",
+            "next": "cwn_arbeit"
+          },
+          {
+            "text": "Diese Terrasse.",
+            "next": "cwn_ort"
+          },
+          {
+            "text": "Was kannst du bezeugen?",
+            "next": "cwn_zeugnis",
+            "requires_quests_active": [
+              "cwn_letzte_terrasse"
+            ],
+            "hide_if_flags": [
+              "cwn_letzte_terrasse_done"
+            ]
+          },
+          {
+            "text": "Gibt es einen Aushang?",
+            "next": "cwn_aushang"
+          },
+          {
+            "text": "Auf Wiedersehen.",
+            "next": "cwn_ende"
+          }
+        ]
+      },
+      "cwn_arbeit": {
+        "text": "„Ich staube Wohnregister ab. Auf meinen eigenen Eintrag warte ich seit dem letzten Besen.“",
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_ort": {
+        "text": "„Meine Mutter kann die Treppe nicht mehr zählen. Sie erkennt aber noch jede Hand, die ihr hilft.“",
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_zeugnis": {
+        "text": "Berta bittet dich, langsam zu sprechen. Ihre Mutter nennt selbst die vertraute Küchenfrau und lehnt eine Unterschrift ab; du hältst ihre mündliche Zustimmung mit Berta als Zeugin fest.",
+        "sets_flags": [
+          "cwn_letzte_terrasse_spur4"
+        ],
+        "gives_clues": [
+          "cwn_letzte_terrasse_spur4_hinweis"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_aushang": {
+        "text": "„Die neuesten Vorschriften hängen am Weg. Das Wetter liest sie ebenfalls, meist gründlicher als wir.“",
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "cwn_start"
+          }
+        ]
+      },
+      "cwn_ende": {
+        "text": "„Geh vorsichtig. Nicht jede Stufe trägt ihre Nummer.“",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwn_aufzugswaerter": {
+    "start": "cwn_start",
+    "nodes": {
+      "cwn_start": {
+        "text": "Silas hält die Bremskurbel mit beiden Händen. „Der Fahrplan kennt weniger Halte als mein Knie.“",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwn_brief_aus_dunscar_spur1": {
+    "start": [
+      {
+        "node": "cwn_brief_aus_dunscar_spur1_feierabend",
+        "requires_flags": [
+          "k3a_end_feierabend"
+        ],
+        "hide_if_flags": [
+          "cwn_brief_aus_dunscar_spur1"
+        ]
+      },
+      {
+        "node": "cwn_brief_aus_dunscar_spur1_stilllegung",
+        "requires_flags": [
+          "k3a_end_stilllegung"
+        ],
+        "hide_if_flags": [
+          "cwn_brief_aus_dunscar_spur1"
+        ]
+      },
+      {
+        "node": "cwn_brief_aus_dunscar_spur1_gegenstimme",
+        "requires_flags": [
+          "k3a_end_gegenstimme"
+        ],
+        "hide_if_flags": [
+          "cwn_brief_aus_dunscar_spur1"
+        ]
+      },
+      {
+        "node": "cwn_brief_aus_dunscar_spur1_vollzaehlig",
+        "requires_flags": [
+          "k3a_end_vollzaehlig"
+        ],
+        "hide_if_flags": [
+          "cwn_brief_aus_dunscar_spur1"
+        ]
+      },
+      {
+        "node": "cwn_brief_aus_dunscar_spur1_gelesen",
+        "requires_flags": [
+          "cwn_brief_aus_dunscar_spur1"
+        ]
+      },
+      {
+        "node": "cwn_brief_aus_dunscar_spur1_offen"
+      }
+    ],
+    "nodes": {
+      "cwn_brief_aus_dunscar_spur1_feierabend": {
+        "text": "Pfiff legt einen Brief zum Brot. „Unsere eigenen Walzen liegen sicher. Die freien Abende muss man trotzdem erst lernen. Schreib, ob die Suppe dort nach einer Stadt schmeckt, die dich kennt.“",
+        "sets_flags": [
+          "cwn_brief_aus_dunscar_spur1"
+        ],
+        "gives_clues": [
+          "cwn_brief_aus_dunscar_spur1_hinweis"
+        ],
+        "gives_items": {
+          "vi_v_setzerbrot": 1
+        },
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_brief_aus_dunscar_spur1_stilllegung": {
+        "text": "Pfiff hat Seilbahnfett beigelegt. „Die Anlage steht. Was sie festhielt, ist fort, und nicht jede Stimme ließ sich retten. Unsere Familienwalzen waren vorher draußen. Hier hilft jetzt brauchbares Werkzeug.“",
+        "sets_flags": [
+          "cwn_brief_aus_dunscar_spur1"
+        ],
+        "gives_clues": [
+          "cwn_brief_aus_dunscar_spur1_hinweis"
+        ],
+        "gives_items": {
+          "vi_m_seilbahnfett": 1
+        },
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_brief_aus_dunscar_spur1_gegenstimme": {
+        "text": "Pfiff schickt eine leere Kapsel. „Die Anlage bleibt aus, bis jemand bewusst zurückkehrt. Keiner wird für einen Fahrplan hineingezogen. Ich verwahre die Schlüssel und lerne, eine offene Möglichkeit nicht mit einer Pflicht zu verwechseln.“",
+        "sets_flags": [
+          "cwn_brief_aus_dunscar_spur1"
+        ],
+        "gives_clues": [
+          "cwn_brief_aus_dunscar_spur1_hinweis"
+        ],
+        "gives_items": {
+          "vi_m_rohrpostkapsel_leer": 1
+        },
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_brief_aus_dunscar_spur1_vollzaehlig": {
+        "text": "Pfiff hat ein Registerband eingewickelt. „Der Takt läuft weiter. Das ist kein Glückwunsch und kein Freispruch. Ich schicke dir etwas Brauchbares, weil Menschen auch nach einer falschen Entscheidung Post brauchen.“",
+        "sets_flags": [
+          "cwn_brief_aus_dunscar_spur1"
+        ],
+        "gives_clues": [
+          "cwn_brief_aus_dunscar_spur1_hinweis"
+        ],
+        "gives_items": {
+          "vi_m_registerband": 1
+        },
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_brief_aus_dunscar_spur1_gelesen": {
+        "text": "Pfiffs Brief liegt wieder im Umschlag. Das Paket hast du bereits entgegengenommen.",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_brief_aus_dunscar_spur1_offen": {
+        "text": "Der Absendervermerk ist unvollständig. Ohne Dunscars Abschlusssiegel wird das Paket noch nicht geöffnet.",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwn_saisonmarkt": {
+    "start": "cwn_saisonmarkt_start",
+    "nodes": {
+      "cwn_saisonmarkt_herbst_preis": {
+        "text": "Selma zählt die Münzen vor deinen Augen ab. Die Ware legt sie daneben, damit die Rechnung nicht schwerer aussieht als der Einkauf.",
+        "takes_money": 14,
+        "gives_items": {
+          "vi_m_bleiletter": 1
+        },
+        "sets_flags": [
+          "cwn_saisonmarkt_herbst_gekauft"
+        ],
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_saisonmarkt_herbst_nachlass": {
+        "text": "Selma zählt die Münzen vor deinen Augen ab. Die Ware legt sie daneben, damit die Rechnung nicht schwerer aussieht als der Einkauf.",
+        "takes_money": 11,
+        "gives_items": {
+          "vi_m_bleiletter": 1
+        },
+        "sets_flags": [
+          "cwn_saisonmarkt_herbst_gekauft"
+        ],
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_saisonmarkt_winter_preis": {
+        "text": "Selma zählt die Münzen vor deinen Augen ab. Die Ware legt sie daneben, damit die Rechnung nicht schwerer aussieht als der Einkauf.",
+        "takes_money": 20,
+        "gives_items": {
+          "vi_m_seilbahnfett": 1
+        },
+        "sets_flags": [
+          "cwn_saisonmarkt_winter_gekauft"
+        ],
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_saisonmarkt_winter_nachlass": {
+        "text": "Selma zählt die Münzen vor deinen Augen ab. Die Ware legt sie daneben, damit die Rechnung nicht schwerer aussieht als der Einkauf.",
+        "takes_money": 16,
+        "gives_items": {
+          "vi_m_seilbahnfett": 1
+        },
+        "sets_flags": [
+          "cwn_saisonmarkt_winter_gekauft"
+        ],
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_saisonmarkt_fruehling_preis": {
+        "text": "Selma zählt die Münzen vor deinen Augen ab. Die Ware legt sie daneben, damit die Rechnung nicht schwerer aussieht als der Einkauf.",
+        "takes_money": 10,
+        "gives_items": {
+          "vi_m_registerband": 1
+        },
+        "sets_flags": [
+          "cwn_saisonmarkt_fruehling_gekauft"
+        ],
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_saisonmarkt_fruehling_nachlass": {
+        "text": "Selma zählt die Münzen vor deinen Augen ab. Die Ware legt sie daneben, damit die Rechnung nicht schwerer aussieht als der Einkauf.",
+        "takes_money": 8,
+        "gives_items": {
+          "vi_m_registerband": 1
+        },
+        "sets_flags": [
+          "cwn_saisonmarkt_fruehling_gekauft"
+        ],
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_saisonmarkt_sommer_preis": {
+        "text": "Selma zählt die Münzen vor deinen Augen ab. Die Ware legt sie daneben, damit die Rechnung nicht schwerer aussieht als der Einkauf.",
+        "takes_money": 18,
+        "gives_items": {
+          "vi_m_rohrpostkapsel_leer": 1
+        },
+        "sets_flags": [
+          "cwn_saisonmarkt_sommer_gekauft"
+        ],
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_saisonmarkt_sommer_nachlass": {
+        "text": "Selma zählt die Münzen vor deinen Augen ab. Die Ware legt sie daneben, damit die Rechnung nicht schwerer aussieht als der Einkauf.",
+        "takes_money": 14,
+        "gives_items": {
+          "vi_m_rohrpostkapsel_leer": 1
+        },
+        "sets_flags": [
+          "cwn_saisonmarkt_sommer_gekauft"
+        ],
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_saisonmarkt_start": {
+        "text": "Selma öffnet ihren Warenkasten. „Ein Saisonstück je Jahreszeit kann ich dir zurücklegen. Die Sammelrechnung gilt, solange du sie bestehen lässt.“",
+        "choices": [
+          {
+            "text": "Ausgesonderte Bleilettern für 14 Schilling.",
+            "next": "cwn_saisonmarkt_herbst_preis",
+            "requires_flags": [
+              "saison_herbst"
+            ],
+            "hide_if_flags": [
+              "cwn_saisonmarkt_herbst_gekauft",
+              "cwn_falscher_pfand_sammel"
+            ],
+            "requires_money": 14
+          },
+          {
+            "text": "Ausgesonderte Bleilettern für 11 Schilling.",
+            "next": "cwn_saisonmarkt_herbst_nachlass",
+            "requires_flags": [
+              "saison_herbst",
+              "cwn_falscher_pfand_sammel"
+            ],
+            "hide_if_flags": [
+              "cwn_saisonmarkt_herbst_gekauft"
+            ],
+            "requires_money": 11
+          },
+          {
+            "text": "Seilbahnfett für 20 Schilling.",
+            "next": "cwn_saisonmarkt_winter_preis",
+            "requires_flags": [
+              "saison_winter"
+            ],
+            "hide_if_flags": [
+              "cwn_saisonmarkt_winter_gekauft",
+              "cwn_falscher_pfand_sammel"
+            ],
+            "requires_money": 20
+          },
+          {
+            "text": "Seilbahnfett für 16 Schilling.",
+            "next": "cwn_saisonmarkt_winter_nachlass",
+            "requires_flags": [
+              "saison_winter",
+              "cwn_falscher_pfand_sammel"
+            ],
+            "hide_if_flags": [
+              "cwn_saisonmarkt_winter_gekauft"
+            ],
+            "requires_money": 16
+          },
+          {
+            "text": "Registerband für 10 Schilling.",
+            "next": "cwn_saisonmarkt_fruehling_preis",
+            "requires_flags": [
+              "saison_fruehling"
+            ],
+            "hide_if_flags": [
+              "cwn_saisonmarkt_fruehling_gekauft",
+              "cwn_falscher_pfand_sammel"
+            ],
+            "requires_money": 10
+          },
+          {
+            "text": "Registerband für 8 Schilling.",
+            "next": "cwn_saisonmarkt_fruehling_nachlass",
+            "requires_flags": [
+              "saison_fruehling",
+              "cwn_falscher_pfand_sammel"
+            ],
+            "hide_if_flags": [
+              "cwn_saisonmarkt_fruehling_gekauft"
+            ],
+            "requires_money": 8
+          },
+          {
+            "text": "Leere Rohrpostkapsel für 18 Schilling.",
+            "next": "cwn_saisonmarkt_sommer_preis",
+            "requires_flags": [
+              "saison_sommer"
+            ],
+            "hide_if_flags": [
+              "cwn_saisonmarkt_sommer_gekauft",
+              "cwn_falscher_pfand_sammel"
+            ],
+            "requires_money": 18
+          },
+          {
+            "text": "Leere Rohrpostkapsel für 14 Schilling.",
+            "next": "cwn_saisonmarkt_sommer_nachlass",
+            "requires_flags": [
+              "saison_sommer",
+              "cwn_falscher_pfand_sammel"
+            ],
+            "hide_if_flags": [
+              "cwn_saisonmarkt_sommer_gekauft"
+            ],
+            "requires_money": 14
+          },
+          {
+            "text": "Heute nichts."
+          }
+        ]
+      }
+    }
+  }
+}
