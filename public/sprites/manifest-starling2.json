@@ -1,0 +1,682 @@
+{
+  "version": 1,
+  "batch": "starling2",
+  "status": "exported; runtime integration pending",
+  "paletteMaxVisibleColors": 31,
+  "palette": [
+    "#173d40",
+    "#1a1c2c",
+    "#245b59",
+    "#252b38",
+    "#2d2629",
+    "#303b49",
+    "#36817a",
+    "#425360",
+    "#494b3a",
+    "#4eafa2",
+    "#58433c",
+    "#586c78",
+    "#5c426a",
+    "#686850",
+    "#6fe0d0",
+    "#715648",
+    "#71858b",
+    "#886332",
+    "#8b8870",
+    "#8c7295",
+    "#92745a",
+    "#95a5a5",
+    "#a8b4c0",
+    "#b3946e",
+    "#c8b0e8",
+    "#cfb18a",
+    "#d0a050",
+    "#e0c9a1",
+    "#e8b860",
+    "#eee2c5",
+    "#f0ce80"
+  ],
+  "alpha": "binary 0/255",
+  "grid": "integer pixels; frame rectangles documented per asset",
+  "assets": [
+    {
+      "id": "starling2",
+      "file": "battle/starling2.png",
+      "width": 1024,
+      "height": 672,
+      "transparent": true,
+      "frameWidth": 128,
+      "frameHeight": 96,
+      "columns": 8,
+      "rows": 7,
+      "sha256": "9214a8f530ad51d463fc1b1c14789a02af02bf5a2c5e134ae2ecbd33a8769de8",
+      "source": "tools/art/starling2/sources/starling2.png",
+      "sourceSha256": "a4df5b045f1495439df0ed9922734889cd574f9da004b065c35756719e373b80",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            13
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            16,
+            17,
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "cast": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hit": {
+          "frames": [
+            32,
+            33,
+            34
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "phase_in": {
+          "frames": [
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        },
+        "defeat": {
+          "frames": [
+            48,
+            49,
+            50,
+            51,
+            52,
+            53
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "gameId": "starling_fight",
+      "phase": 2,
+      "facing": "left",
+      "anchor": {
+        "x": 64,
+        "y": 94,
+        "space": "frame pixels"
+      },
+      "origin": {
+        "x": 0.5,
+        "y": 0.9791666666666666
+      },
+      "blankFrames": [
+        4,
+        5,
+        6,
+        7,
+        14,
+        15,
+        22,
+        23,
+        30,
+        31,
+        35,
+        36,
+        37,
+        38,
+        39,
+        54,
+        55
+      ],
+      "nonlethalDefeat": true,
+      "notes": "Phase 1 remains intact. Attack frames 8 and 9 are identical. The final defeat frame is a living kneeling man."
+    },
+    {
+      "id": "X_08_boss_starling2",
+      "file": "battle/X_08_boss_starling2.png",
+      "width": 160,
+      "height": 160,
+      "transparent": true,
+      "frameWidth": 160,
+      "frameHeight": 160,
+      "columns": 1,
+      "rows": 1,
+      "sha256": "d1edf1efe3452942b5e63356e7c1377f9a52be0729f2ff2853cd931304d28dfc",
+      "source": "tools/art/starling2/sources/X_08_boss_starling2.png",
+      "sourceSha256": "f4ca731145dc0ccf5fc212cf9d73ddc8e0393c1ff23b2ff7329dd2659d8064a3"
+    },
+    {
+      "id": "bg_sternwarte2",
+      "file": "battle/bg_sternwarte2.png",
+      "width": 480,
+      "height": 270,
+      "transparent": false,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "sha256": "98749019a39b703e966d982d30f53924b117ac53babb28d672a08eb288d9fc10",
+      "source": "tools/art/starling2/sources/bg_sternwarte2.png",
+      "sourceSha256": "f264863a7b37a90460efb72f21ebf279ace505bb65d1b91ed631386a34c1b0d4",
+      "regions": {
+        "licht_sternkarte": {
+          "x": 48,
+          "y": 45,
+          "width": 112,
+          "height": 110,
+          "color": "#6fe0d0",
+          "kind": "lightZone"
+        },
+        "licht_kuppelriss": {
+          "x": 250,
+          "y": 0,
+          "width": 210,
+          "height": 100,
+          "color": "#8c7295",
+          "kind": "lightZone"
+        }
+      }
+    },
+    {
+      "id": "starling2_fx",
+      "file": "fx/starling2_fx.png",
+      "width": 288,
+      "height": 240,
+      "transparent": true,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 5,
+      "sha256": "4b2da3a27ff36fad4b8b4975fe0b9349fb7ce449098f6122f02ce649a1f2a7c4",
+      "source": "tools/art/starling2/sources/starling2_fx.png",
+      "sourceSha256": "5ff001eaee558493509463861762a01ca3507eec09cbc475454de7e57431ae4d",
+      "animations": {
+        "stern_fall": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "linse": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "lanze_treffer": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "ernte_aufstieg": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "glas_bruch": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "starling2_sterne",
+      "file": "fx/starling2_sterne.png",
+      "width": 192,
+      "height": 16,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 12,
+      "rows": 1,
+      "sha256": "f739ec7dd29a121e7bd101e5a90c55161c55a6301877a49cfa89b74c33cd4182",
+      "source": "tools/art/starling2/sources/starling2_sterne.png",
+      "sourceSha256": "f829ddeffec9e753d10f6dfa7003e520db0742c033f2584fd210b1d8110462df",
+      "regions": {
+        "glocke": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16,
+          "frame": 0,
+          "caseNumber": 1
+        },
+        "glasauge": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16,
+          "frame": 1,
+          "caseNumber": 2
+        },
+        "theatermaske": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16,
+          "frame": 2,
+          "caseNumber": 3
+        },
+        "uhrzeiger": {
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16,
+          "frame": 3,
+          "caseNumber": 4
+        },
+        "nordtorschluessel": {
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16,
+          "frame": 4,
+          "caseNumber": 5
+        },
+        "gaswerkflamme": {
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16,
+          "frame": 5,
+          "caseNumber": 6
+        },
+        "villa_spiegel": {
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16,
+          "frame": 6,
+          "caseNumber": 7
+        },
+        "elend_kerze": {
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16,
+          "frame": 7,
+          "caseNumber": 8
+        }
+      },
+      "animations": {
+        "funkeln": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "starling2_hud",
+      "file": "ui/starling2_hud.png",
+      "width": 192,
+      "height": 48,
+      "transparent": true,
+      "frameWidth": 192,
+      "frameHeight": 48,
+      "columns": 1,
+      "rows": 1,
+      "sha256": "d8c60d0c8811de1777e7f6dcd297e8585414fd9c4c7b0e12683d84bb73a9f90d",
+      "source": "tools/art/starling2/sources/starling2_hud.png",
+      "sourceSha256": "2d55b0588f3c0bda3d530da906e065f078691e36acbb1ccd55ae0dca475f4d24",
+      "regions": {
+        "leiste_leer": {
+          "x": 0,
+          "y": 0,
+          "width": 192,
+          "height": 16
+        },
+        "leiste_gefuellt": {
+          "x": 0,
+          "y": 16,
+          "width": 192,
+          "height": 16
+        },
+        "linsenwand_aktiv": {
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "stern_verbraucht": {
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "sockel_1_leer": {
+          "x": 25,
+          "y": 4,
+          "width": 12,
+          "height": 9,
+          "caseNumber": 1
+        },
+        "sockel_2_leer": {
+          "x": 45,
+          "y": 4,
+          "width": 12,
+          "height": 9,
+          "caseNumber": 2
+        },
+        "sockel_3_leer": {
+          "x": 64,
+          "y": 4,
+          "width": 12,
+          "height": 9,
+          "caseNumber": 3
+        },
+        "sockel_4_leer": {
+          "x": 83,
+          "y": 4,
+          "width": 12,
+          "height": 9,
+          "caseNumber": 4
+        },
+        "sockel_5_leer": {
+          "x": 102,
+          "y": 4,
+          "width": 12,
+          "height": 9,
+          "caseNumber": 5
+        },
+        "sockel_6_leer": {
+          "x": 120,
+          "y": 4,
+          "width": 12,
+          "height": 9,
+          "caseNumber": 6
+        },
+        "sockel_7_leer": {
+          "x": 139,
+          "y": 4,
+          "width": 12,
+          "height": 9,
+          "caseNumber": 7
+        },
+        "sockel_8_leer": {
+          "x": 158,
+          "y": 4,
+          "width": 12,
+          "height": 9,
+          "caseNumber": 8
+        },
+        "sockel_1_gefuellt": {
+          "x": 25,
+          "y": 20,
+          "width": 12,
+          "height": 9,
+          "caseNumber": 1
+        },
+        "sockel_2_gefuellt": {
+          "x": 45,
+          "y": 20,
+          "width": 12,
+          "height": 9,
+          "caseNumber": 2
+        },
+        "sockel_3_gefuellt": {
+          "x": 64,
+          "y": 20,
+          "width": 12,
+          "height": 9,
+          "caseNumber": 3
+        },
+        "sockel_4_gefuellt": {
+          "x": 83,
+          "y": 20,
+          "width": 12,
+          "height": 9,
+          "caseNumber": 4
+        },
+        "sockel_5_gefuellt": {
+          "x": 102,
+          "y": 20,
+          "width": 12,
+          "height": 9,
+          "caseNumber": 5
+        },
+        "sockel_6_gefuellt": {
+          "x": 120,
+          "y": 20,
+          "width": 12,
+          "height": 9,
+          "caseNumber": 6
+        },
+        "sockel_7_gefuellt": {
+          "x": 139,
+          "y": 20,
+          "width": 12,
+          "height": 9,
+          "caseNumber": 7
+        },
+        "sockel_8_gefuellt": {
+          "x": 158,
+          "y": 20,
+          "width": 12,
+          "height": 9,
+          "caseNumber": 8
+        }
+      }
+    },
+    {
+      "id": "starling2_emotions",
+      "file": "portraits/starling2_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "sha256": "d79e5df59e658803d598bb7854ed8a36c9fea6872237ce7001078f1e3ecf4b6b",
+      "source": "tools/art/starling2/sources/starling2_emotions.png",
+      "sourceSha256": "f3eba3c6606b83571efddcfbda58f89ba8f49ad04cc2970c1af814b6003aa7f2",
+      "regions": {
+        "neutral": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64,
+          "frame": 0
+        },
+        "triumphierend": {
+          "x": 64,
+          "y": 0,
+          "width": 64,
+          "height": 64,
+          "frame": 1
+        },
+        "zweifelnd": {
+          "x": 128,
+          "y": 0,
+          "width": 64,
+          "height": 64,
+          "frame": 2
+        },
+        "erloschen": {
+          "x": 192,
+          "y": 0,
+          "width": 64,
+          "height": 64,
+          "frame": 3
+        }
+      }
+    },
+    {
+      "id": "starling_phase2",
+      "file": "ui/scenes/starling_phase2.png",
+      "width": 240,
+      "height": 135,
+      "transparent": false,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "sha256": "5c7a3a29f59f3f37f28aeaf2e7a97e969c9713c1e0336dd9ee96d7e282dc0141",
+      "source": "tools/art/starling2/sources/starling_phase2.png",
+      "sourceSha256": "2c99f3e0b451d37fe890ba002d55497417bacdbbe6509260c140c78e729eea9b"
+    },
+    {
+      "id": "starling2_boden",
+      "file": "battle/starling2_boden.png",
+      "width": 480,
+      "height": 64,
+      "transparent": true,
+      "frameWidth": 480,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "sha256": "00124be14b7cbe7b63a1e5636ed233e08fbb35c7eab351645cf16db2f4539d70",
+      "source": "tools/art/starling2/sources/starling2_boden.png",
+      "sourceSha256": "c080fe72fec6a5a5c22b4b8c6562df2de759addd68168dec69433445e0463f59",
+      "optional": true,
+      "layer": "foreground",
+      "origin": {
+        "x": 0,
+        "y": 1
+      }
+    },
+    {
+      "id": "starling2_kuppel",
+      "file": "fx/starling2_kuppel.png",
+      "width": 2880,
+      "height": 135,
+      "transparent": true,
+      "frameWidth": 480,
+      "frameHeight": 135,
+      "columns": 6,
+      "rows": 1,
+      "sha256": "b599503d4a051e0100fe05fc6ec3fbc205fbe68778dc420f4857bbcf3599ab3c",
+      "source": "tools/art/starling2/sources/starling2_kuppel.png",
+      "sourceSha256": "77270a338bb6b805eba33cd9fe7b706709e095a267e0c4f048d595015543be77",
+      "optional": true,
+      "layer": "dome overlay",
+      "animations": {
+        "puls": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "starling2_koop",
+      "file": "ui/starling2_koop.png",
+      "width": 96,
+      "height": 48,
+      "transparent": true,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 2,
+      "rows": 1,
+      "sha256": "fd4bdbf9258a83384127dc33259443c74c674bafa7d56a2579929b47c1ee0bb7",
+      "source": "tools/art/starling2/sources/starling2_koop.png",
+      "sourceSha256": "f1791192a94e5259db89b7fda3a157a7787c40d756ab5662b3ce5abe461e88e7",
+      "optional": true,
+      "regions": {
+        "spieler1": {
+          "x": 0,
+          "y": 0,
+          "width": 48,
+          "height": 48,
+          "player": 1,
+          "shape": "round",
+          "color": "turquoise"
+        },
+        "spieler2": {
+          "x": 48,
+          "y": 0,
+          "width": 48,
+          "height": 48,
+          "player": 2,
+          "shape": "diamond",
+          "color": "violet"
+        }
+      }
+    }
+  ]
+}

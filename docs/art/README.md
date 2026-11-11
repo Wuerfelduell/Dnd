@@ -1629,6 +1629,18 @@ Built-in Bildgenerator mit vorhandener Sprite-Referenz; Nearest-Neighbor-Export,
 - 16 neue Artefakte (`pathways.json` → `artifacts.list`, `konzentration: true`) nutzen Kopien bestehender Item-Icons als Platzhalter (`items/<id>.png`).
 - Echte Icons: Prompt-Paket `codex_BX_konzentration_artefakte.md` (Tabelle mit Id, Platzhalter und Prompt-Kern). Nach Lieferung die Dateien 1:1 ersetzen.
 
+## Batch BS – Starling, zweite Phase (`starling2`)
+
+Elf Grafik-Atlanten für das Kapitel-1-Finale: alle acht Pflichtdateien und die drei optionalen Ebenen/Symbole. Starling verwandelt sich in den Sternsammler; nach der Niederlage kniet er lebend am Boden. Phase 1 bleibt erhalten. Der Einbau und die Kampfwerte folgen separat.
+
+- [Manifest](../../public/sprites/manifest-starling2.json), [Vorschau](preview-starling2.png), [vollständige Generator-Prompts und Herkunft](batch-starling2-generation.json).
+- Kampfblatt: 128×96 je Zelle, 8 Spalten × 7 Reihen; 39 belegte und 17 leere Zellen. Reihen: `idle`, `attack`, `special`, `cast`, `hit`, `phase_in`, `defeat`. Nur `idle` wiederholt sich; `idle` und `phase_in` laufen mit 6 fps, die übrigen mit 8 fps. Die beiden ersten Angriffsframes sind identisch. Bodenanker: (64, 94).
+- Effekte: 48×48, 6 Spalten × 5 Reihen. `linse` beginnt mit einer bewusst unsichtbaren Zelle; anschließend erscheint und zersplittert die Scheibe. Die Aufstiegsfolge erhält ihre vertikale Bewegung.
+- Fall-Sterne: zwölf 16×16-Zellen in einer Zeile; Zellen 0–7 sind die Fälle 1–8, Zellen 8–11 die Funkelschleife. HUD: leere/gefüllte Leiste in den ersten beiden 16px-Zeilen, zwei Statussymbole links in der dritten. Alle Ausschnitte sind im Manifest benannt.
+- Zwei Lichtzonen für die Kulisse; vier Portraitstimmungen. Optional: 480×64-Bodenstreifen, sechs 480×135-Kuppelframes in einer Zeile und zwei 48×48-Koop-Symbole (Kreis/türkis, Raute/violett).
+- Tatsächliche Referenzen im aktuellen Repo: `battle/enemy_starling.png`, `ui/X_08_boss_starling.png`, `battle/bg_sternwarte.png`, `portraits/C_astronom_emotions.png` und `portraits/R_lichtmann_verblassend_emotions.png`. Die abweichenden Namen aus dem Auftrag sind in der Herkunftsdatei zugeordnet.
+- Gemeinsame 31-Farben-Palette aus den vorhandenen Referenzen, binäres Alpha; Kulisse und Szene deckend. Normalisierte Generator-Atlanten liegen unter `tools/art/starling2/sources/`. Größenanpassung ausschließlich per Nearest Neighbor, keine prozeduralen Ersatzzeichnungen.
+- Reproduzieren: `python tools/art/starling2/export.py`. Prüfen: `python tools/art/starling2/check.py` (Pillow). Prüft Maße/Raster, Palette/Alpha, Quellen- und Export-Hashes, Referenzerhalt, Animationen, leere Zellen, Ausholpose, Aufstiegsbewegung und Regionen. Zusätzlich bestehen alle 35 vorhandenen Sprite-Tests.
 ## BZ – Icons für zweite Fähigkeiten (`faehigkeiten2`)
 
 180 neue Icons: je 90 zweite Kampf- und Welt-Fähigkeiten in `ui/skill_icons_3.png` und `ui/talent_icons.png` (160×144; zehn Pfade, Sequenz 9 bis 1), zusätzlich jedes Icon als 16×16-PNG in `ui/skills3/` beziehungsweise `ui/talents/`. Welt-Icons tragen einen hellen Innenring; beide Atlanten teilen eine Palette mit höchstens 32 sichtbaren Farben und binärem Alpha. Zuordnung: `public/sprites/manifest-faehigkeiten2.json`; Vierfachvorschau: `docs/art/preview-faehigkeiten2.png`; Prompts: `docs/art/batch-faehigkeiten2-generation.json`; Export und Prüfung: `tools/art/faehigkeiten2/`. Keine Laufzeitintegration und keine Änderungen an Hauptfertigkeits-Icons.
