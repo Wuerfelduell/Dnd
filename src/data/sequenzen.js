@@ -68,11 +68,11 @@ const KITTERING = {
   9: { price: 30 }, 8: { price: 70 }, 7: { price: 160, honor: 35, rare: 0.15, rank: 'Ermittler' },
   6: { price: 260, honor: 50, rare: 0.08, rank: 'Vertrauter des Reviers' }, 5: { price: 420, honor: 70, rare: 0.05, rank: 'Geachteter Ermittler' },
 };
-const TREFFEN = { 6: 640, 5: 900 };
-/** Kapitel 3: Formeln für Sequenz 4 bis 1 aller Pfade bei Kittering (Preise und Ehre nach AF, einmaliger Kauf). */
-const KITTERING_HOCH = { 4: { price: 180, honor: 90 }, 3: { price: 260, honor: 110 }, 2: { price: 380, honor: 135 }, 1: { price: 560, honor: 160 } };
+const TREFFEN = { 6: 640, 5: 900, 4: 4000 };
+/** Kapitel 3: Formeln für Sequenz 4 bis 1 aller Pfade bei Kittering (Ehre nach AF, einmaliger Kauf). Seb (2026-11-11): die Halbgott-Formel kostet 4000. */
+const KITTERING_HOCH = { 4: { price: 4000, honor: 90 }, 3: { price: 260, honor: 110 }, 2: { price: 380, honor: 135 }, 1: { price: 560, honor: 160 } };
 /** Knapper Markt: Zutaten ab Sequenz 7 nur auf geheimen Treffen (7 und 6 in Kettlegate, der Kern für 5 in Wexmoor). */
-const ZUTAT_TREFFEN = { 7: { price: 120, chance: 0.45 }, 6: { price: 200, chance: 0.3 }, 5: { price: 320, chance: 0.3 } };
+const ZUTAT_TREFFEN = { 7: { price: 120, chance: 0.45 }, 6: { price: 200, chance: 0.3 }, 5: { price: 320, chance: 0.45 } };
 /** Wer auf den Treffen Zutaten und Formeln der neuen Pfade anbietet: Kettlegate [Zirkel, Mitglied], Wexmoor [Zirkel, Mitglied]. */
 const TREFFEN_MEMBER = {
   sq_waage: { kg: ['waage', 'tm_ferro'], wx: ['salz', 'tm_tam'] },
@@ -182,6 +182,16 @@ export function applySequenzen(content, sq, { highSeqs = {}, highItems = {} } = 
       offer(at.kg, [ing(7), ing(6)]);
       offer(at.wx, [ing(5), ...[6, 5].map((seq) => ({ item: `formel_${pid}_${seq}`, price: TREFFEN[seq], once: true, chance: 0.4,
         requires_pathway: [pid, seq + 1], locked_text: `Erst ab Sequenz ${seq + 1} dieses Pfades` }))]);
+    }
+    // Seb (2026-11-11): die Halbgott-Formel (Sequenz 4) jedes Pfades liegt auch als Los auf den Wexmoorer Treffen,
+    // beim Mitglied, das schon die Formel 5 dieses Pfades anbietet. Teuer (TREFFEN[4]), aber öfter da als bei Kittering.
+    for (const pid of Object.keys(content.pathways)) {
+      const id = `formel_${pid}_4`;
+      if (!content.items[id]) continue;
+      const seat = Object.entries(copy).flatMap(([cid, c]) => (c.city === 'wexmoor' ? c.members.map((mem) => [cid, mem.id, mem.offers]) : []))
+        .find(([, , offers]) => offers.some((e) => e.item === `formel_${pid}_5`));
+      if (!seat) continue;
+      offer([seat[0], seat[1]], [{ item: id, price: TREFFEN[4], once: true, chance: 0.3, requires_pathway: [pid, 5], locked_text: 'Erst ab Sequenz 5 dieses Pfades' }]);
     }
     content.gatherings = { ...content.gatherings, circles: copy };
   }

@@ -42,6 +42,21 @@ test('Paket AF: Grundzutat und Formel 9 für jeden kaufbar, ab 7 nur auf Treffen
   }
 });
 
+// Seb (2026-11-11): Die Halbgott-Formel (Sequenz 4) kostet 4000 bei Kittering und liegt dafür auch als Los auf den Wexmoorer Treffen.
+test('Sequenz 4: Formel aller Pfade teuer bei Kittering und als Los bei Lichtlosen oder Salzbrüdern', () => {
+  const lots = ['lichtlose', 'salz'].flatMap((id) => content.gatherings.circles[id].members.flatMap((m) => m.offers));
+  for (const pid of Object.keys(content.pathways)) {
+    const kit = content.market.merchants.kittering.stock.find((e) => e.item === `formel_${pid}_4`);
+    assert.equal(kit?.price, 4000, pid);
+    const lot = lots.find((e) => e.item === `formel_${pid}_4`);
+    assert.ok(lot && lot.price === 4000 && lot.chance >= 0.3, pid);
+  }
+  // Jede Kernzutat der Stufe 5 ist in Wexmoor zu haben, seit Kettlegate gesperrt ist
+  for (const core of ['lichtperle', 'spindelknochen', 'schminkasche', 'atemglas', 'goldschimmel', 'schwertsplitter', 'schattenseide', 'nebelherz']) {
+    assert.ok(lots.some((e) => e.item === core && e.chance >= 0.25), core);
+  }
+});
+
 test('Paket AF: Waage schützt, Moor heilt, die Uhr trifft sicher', () => {
   const sk = (pid) => Object.values(content.pathways[pid].seqs).map((s) => s.skill);
   assert.ok(sk('sq_waage').every((k) => k.shield > 0));
