@@ -1,0 +1,324 @@
+{
+ "fs_herbst": [
+  {
+   "id": "fs_herbst_wirkung_1",
+   "title": "Kastanienfund",
+   "text": "Ein Fund am sicheren Wegrand, einmal je Saison.",
+   "visible_if": {
+    "requires_flags": [
+     "fs_herbst"
+    ],
+    "hide_if_flags": [
+     "fs_herbst_wirkung_1_genutzt"
+    ]
+   },
+   "effects": {
+    "gives_items": {
+     "fs_laternennacht_kastanien": 1
+    },
+    "sets_flags": [
+     "fs_herbst_wirkung_1_genutzt"
+    ]
+   }
+  },
+  {
+   "id": "fs_herbst_wirkung_2",
+   "title": "Pilzprüfung",
+   "text": "Ein geprüfter Pilzbeutel wird als Festtee getauscht, keine unbekannten Pilze essen.",
+   "visible_if": {
+    "requires_flags": [
+     "fs_herbst"
+    ],
+    "hide_if_flags": [
+     "fs_herbst_wirkung_2_genutzt"
+    ]
+   },
+   "effects": {
+    "gives_items": {
+     "fs_laternennacht_tee": 1
+    },
+    "sets_flags": [
+     "fs_herbst_wirkung_2_genutzt"
+    ]
+   }
+  },
+  {
+   "id": "fs_herbst_wirkung_3",
+   "title": "Trockener Unterstand",
+   "text": "Eine kurze trockene Pause am Markt.",
+   "visible_if": {
+    "requires_flags": [
+     "fs_herbst"
+    ],
+    "hide_if_flags": [
+     "fs_herbst_wirkung_3_genutzt"
+    ]
+   },
+   "effects": {
+    "nerves": 2,
+    "sets_flags": [
+     "fs_herbst_wirkung_3_genutzt"
+    ]
+   }
+  },
+  {
+   "id": "fs_herbst_wirkung_4",
+   "title": "Warmer Teller",
+   "text": "Eine kostenlose Kostprobe am sicheren Tisch.",
+   "visible_if": {
+    "requires_flags": [
+     "fs_herbst"
+    ],
+    "hide_if_flags": [
+     "fs_herbst_wirkung_4_genutzt"
+    ]
+   },
+   "effects": {
+    "heal": 3,
+    "sets_flags": [
+     "fs_herbst_wirkung_4_genutzt"
+    ]
+   }
+  }
+ ],
+ "fs_winter": [
+  {
+   "id": "fs_winter_wirkung_1",
+   "title": "Wärmestube",
+   "text": "Eine gewöhnliche warme Pause, unabhängig vom Stillen Abend.",
+   "visible_if": {
+    "requires_flags": [
+     "fs_winter"
+    ],
+    "hide_if_flags": [
+     "fs_winter_wirkung_1_genutzt"
+    ]
+   },
+   "effects": {
+    "nerves": 2,
+    "sets_flags": [
+     "fs_winter_wirkung_1_genutzt"
+    ]
+   }
+  },
+  {
+   "id": "fs_winter_wirkung_2",
+   "title": "Trockene Wickel",
+   "text": "Kostenlose trockene Wickel am Markt.",
+   "visible_if": {
+    "requires_flags": [
+     "fs_winter"
+    ],
+    "hide_if_flags": [
+     "fs_winter_wirkung_2_genutzt"
+    ]
+   },
+   "effects": {
+    "heal": 3,
+    "sets_flags": [
+     "fs_winter_wirkung_2_genutzt"
+    ]
+   }
+  },
+  {
+   "id": "fs_winter_wirkung_3",
+   "title": "Heißes Wasser",
+   "text": "Ein warmes Getränk ohne Kaufpflicht.",
+   "visible_if": {
+    "requires_flags": [
+     "fs_winter"
+    ],
+    "hide_if_flags": [
+     "fs_winter_wirkung_3_genutzt"
+    ]
+   },
+   "effects": {
+    "gives_items": {
+     "fs_laternennacht_tee": 1
+    },
+    "sets_flags": [
+     "fs_winter_wirkung_3_genutzt"
+    ]
+   }
+  },
+  {
+   "id": "fs_winter_wirkung_4",
+   "title": "Nachbarschaftshilfe",
+   "text": "Ein ausgeliehenes Tuch kommt zurück.",
+   "visible_if": {
+    "requires_flags": [
+     "fs_winter"
+    ],
+    "hide_if_flags": [
+     "fs_winter_wirkung_4_genutzt"
+    ]
+   },
+   "effects": {
+    "nerves": 2,
+    "sets_flags": [
+     "fs_winter_wirkung_4_genutzt"
+    ]
+   }
+  }
+ ],
+ "fs_fruehling": [
+  {
+   "id": "fs_fruehling_wirkung_1",
+   "title": "Regenpause",
+   "text": "Unter dem Vordach trocknest du die Hände.",
+   "visible_if": {
+    "requires_flags": [
+     "fs_fruehling"
+    ],
+    "hide_if_flags": [
+     "fs_fruehling_wirkung_1_genutzt"
+    ]
+   },
+   "effects": {
+    "nerves": 2,
+    "sets_flags": [
+     "fs_fruehling_wirkung_1_genutzt"
+    ]
+   }
+  },
+  {
+   "id": "fs_fruehling_wirkung_2",
+   "title": "Frische Kräuter",
+   "text": "Eine kleine milde Kostprobe.",
+   "visible_if": {
+    "requires_flags": [
+     "fs_fruehling"
+    ],
+    "hide_if_flags": [
+     "fs_fruehling_wirkung_2_genutzt"
+    ]
+   },
+   "effects": {
+    "heal": 3,
+    "sets_flags": [
+     "fs_fruehling_wirkung_2_genutzt"
+    ]
+   }
+  },
+  {
+   "id": "fs_fruehling_wirkung_3",
+   "title": "Erste Ruderfahrt",
+   "text": "Vom Ufer aus beim ruhigen Ablegen zusehen.",
+   "visible_if": {
+    "requires_flags": [
+     "fs_fruehling"
+    ],
+    "hide_if_flags": [
+     "fs_fruehling_wirkung_3_genutzt"
+    ]
+   },
+   "effects": {
+    "nerves": 2,
+    "sets_flags": [
+     "fs_fruehling_wirkung_3_genutzt"
+    ]
+   }
+  },
+  {
+   "id": "fs_fruehling_wirkung_4",
+   "title": "Marktprobe",
+   "text": "Ein kostenloses Salzbonbon.",
+   "visible_if": {
+    "requires_flags": [
+     "fs_fruehling"
+    ],
+    "hide_if_flags": [
+     "fs_fruehling_wirkung_4_genutzt"
+    ]
+   },
+   "effects": {
+    "gives_items": {
+     "fs_salzsegen_bonbon": 1
+    },
+    "sets_flags": [
+     "fs_fruehling_wirkung_4_genutzt"
+    ]
+   }
+  }
+ ],
+ "fs_sommer": [
+  {
+   "id": "fs_sommer_wirkung_1",
+   "title": "Schattenbank",
+   "text": "Eine Pause im Schatten ohne Eintritt.",
+   "visible_if": {
+    "requires_flags": [
+     "fs_sommer"
+    ],
+    "hide_if_flags": [
+     "fs_sommer_wirkung_1_genutzt"
+    ]
+   },
+   "effects": {
+    "nerves": 2,
+    "sets_flags": [
+     "fs_sommer_wirkung_1_genutzt"
+    ]
+   }
+  },
+  {
+   "id": "fs_sommer_wirkung_2",
+   "title": "Wasserstelle",
+   "text": "Sauberes Wasser steht kostenlos bereit.",
+   "visible_if": {
+    "requires_flags": [
+     "fs_sommer"
+    ],
+    "hide_if_flags": [
+     "fs_sommer_wirkung_2_genutzt"
+    ]
+   },
+   "effects": {
+    "heal": 3,
+    "sets_flags": [
+     "fs_sommer_wirkung_2_genutzt"
+    ]
+   }
+  },
+  {
+   "id": "fs_sommer_wirkung_3",
+   "title": "Kühler Krug",
+   "text": "Eine kostenlose verschlossene Flasche.",
+   "visible_if": {
+    "requires_flags": [
+     "fs_sommer"
+    ],
+    "hide_if_flags": [
+     "fs_sommer_wirkung_3_genutzt"
+    ]
+   },
+   "effects": {
+    "gives_items": {
+     "fs_schichtwechsel_wasser": 1
+    },
+    "sets_flags": [
+     "fs_sommer_wirkung_3_genutzt"
+    ]
+   }
+  },
+  {
+   "id": "fs_sommer_wirkung_4",
+   "title": "Offenes Fenster",
+   "text": "Du trittst aus dem Kanalgeruch in frische Luft.",
+   "visible_if": {
+    "requires_flags": [
+     "fs_sommer"
+    ],
+    "hide_if_flags": [
+     "fs_sommer_wirkung_4_genutzt"
+    ]
+   },
+   "effects": {
+    "nerves": 2,
+    "sets_flags": [
+     "fs_sommer_wirkung_4_genutzt"
+    ]
+   }
+  }
+ ]
+}

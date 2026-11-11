@@ -1,0 +1,677 @@
+[
+ {
+  "map": "bh_kutschenhof",
+  "tile": [
+   3,
+   3
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_lese_01",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Kurplan für den ersten Tag lesen",
+   "title": "Kurplan für den ersten Tag",
+   "text": "Ankunft, Gepäckprüfung, freie Mahlzeit. Das Gespräch über eine Behandlung findet erst danach statt. Die Unterschrift beim Gepäckempfang bestätigt keine Einweisung.",
+   "footer": "Ein Blatt aus dem gewöhnlichen Kuralltag.",
+   "done_flag": "bhn_lese_01_gelesen",
+   "effects": {
+    "sets_flags": [
+     "bhn_lese_01_gelesen"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_kutschenhalle",
+  "tile": [
+   7,
+   3
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_lese_02",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Abholordnung lesen",
+   "title": "Abholordnung",
+   "text": "Eine zutreffende Gepäckbeschreibung berechtigt nicht zum Lesen privater Briefe. Will der Besitzer warten, bleibt sein Fach belegt. Die Verwaltung bedauert den Platzbedarf selbstbestimmter Menschen.",
+   "footer": "Ein Blatt aus dem gewöhnlichen Kuralltag.",
+   "done_flag": "bhn_lese_02_gelesen",
+   "effects": {
+    "sets_flags": [
+     "bhn_lese_02_gelesen"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_kutschenhalle",
+  "tile": [
+   8,
+   3
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_lese_03",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Nicht eingewiesen lesen",
+   "title": "Nicht eingewiesen",
+   "text": "Untersucht und wieder abgereist ist nicht dasselbe wie aufgenommen und entlassen. Bitte die beiden Bücher nicht zusammenbinden. Der Buchbinder wurde bereits zweimal bestellt.",
+   "footer": "Ein Blatt aus dem gewöhnlichen Kuralltag.",
+   "done_flag": "bhn_lese_03_gelesen",
+   "effects": {
+    "sets_flags": [
+     "bhn_lese_03_gelesen"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_kesselgrund",
+  "tile": [
+   6,
+   3
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_lese_04",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Ventilschild am Nebenrohr lesen",
+   "title": "Ventilschild am Nebenrohr",
+   "text": "Zusatzwärme zur Wärmestube. Das Wohnnetz verläuft getrennt. Vor Wartung den Plan prüfen; eine ruhige Anzeige beweist keine geschlossene Verbindung.",
+   "footer": "Ein Blatt aus dem gewöhnlichen Kuralltag.",
+   "done_flag": "bhn_lese_04_gelesen",
+   "effects": {
+    "sets_flags": [
+     "bhn_lese_04_gelesen"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_buegelraum",
+  "tile": [
+   5,
+   3
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_lese_05",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Türrolle und Lüftung lesen",
+   "title": "Türrolle und Lüftung",
+   "text": "Die Rolle schließt nur den Spalt am Boden. Die obere Lüftung bleibt frei. Wenn es zieht, erst nachsehen; nicht alles zustopfen, was man nicht versteht.",
+   "footer": "Ein Blatt aus dem gewöhnlichen Kuralltag.",
+   "done_flag": "bhn_lese_05_gelesen",
+   "effects": {
+    "sets_flags": [
+     "bhn_lese_05_gelesen"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_kesselgrund",
+  "tile": [
+   7,
+   3
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_lese_06",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Wartung ohne Frist lesen",
+   "title": "Wartung ohne Frist",
+   "text": "Lesen unterbricht keine Prüfung. Der Zustand ändert sich erst durch eine bestätigte Handlung. Wer beim Lesen einen Hahn dreht, liest am falschen Gegenstand.",
+   "footer": "Ein Blatt aus dem gewöhnlichen Kuralltag.",
+   "done_flag": "bhn_lese_06_gelesen",
+   "effects": {
+    "sets_flags": [
+     "bhn_lese_06_gelesen"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_winterpromenade",
+  "tile": [
+   4,
+   3
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_lese_07",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Die erste Grußkarte lesen",
+   "title": "Die erste Grußkarte",
+   "text": "Mir geht es täglich besser. Die Luft ist mild, die Nächte sind ruhig. Auf der Rückseite steht in anderer Schrift: Darf ich auch schreiben, dass ich nach Hause möchte?",
+   "footer": "Ein Blatt aus dem gewöhnlichen Kuralltag.",
+   "done_flag": "bhn_lese_07_gelesen",
+   "effects": {
+    "sets_flags": [
+     "bhn_lese_07_gelesen"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_pavillon",
+  "tile": [
+   5,
+   3
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_lese_08",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Die zweite Grußkarte lesen",
+   "title": "Die zweite Grußkarte",
+   "text": "Mir geht es täglich besser. Die Luft ist mild, die Nächte sind ruhig. Die Unterschrift wurde sorgfältig ausgespart, obwohl der restliche Bogen dreimal abgeschrieben ist.",
+   "footer": "Ein Blatt aus dem gewöhnlichen Kuralltag.",
+   "done_flag": "bhn_lese_08_gelesen",
+   "effects": {
+    "sets_flags": [
+     "bhn_lese_08_gelesen"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_pavillon",
+  "tile": [
+   6,
+   3
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_lese_09",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Die dritte Grußkarte lesen",
+   "title": "Die dritte Grußkarte",
+   "text": "Mir geht es täglich besser. Die Luft ist mild, die Nächte sind ruhig. Unten hat jemand eine Bank gezeichnet, auf der nur ein Mensch sitzt.",
+   "footer": "Ein Blatt aus dem gewöhnlichen Kuralltag.",
+   "done_flag": "bhn_lese_09_gelesen",
+   "effects": {
+    "sets_flags": [
+     "bhn_lese_09_gelesen"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_pavillon",
+  "tile": [
+   7,
+   3
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_lese_10",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Spielordnung lesen",
+   "title": "Spielordnung",
+   "text": "Ein freier Takt ist kein Aufruf. Mitsingen, Zuhören und Fortgehen bleiben gleichwertige Möglichkeiten. Die Kapelle übt, sich daran zu gewöhnen.",
+   "footer": "Ein Blatt aus dem gewöhnlichen Kuralltag.",
+   "done_flag": "bhn_lese_10_gelesen",
+   "effects": {
+    "sets_flags": [
+     "bhn_lese_10_gelesen"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_glasgaerten",
+  "tile": [
+   4,
+   3
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_lese_11",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Saatbuch: gewöhnliche Kresse lesen",
+   "title": "Saatbuch: gewöhnliche Kresse",
+   "text": "Wasser und Licht nach Bedarf. Kein Zusatz aus verschlossenen Beeten. Die Besitzerin wünscht eine kleine Portion für die Küche, keine Vorführung für den Klinikrat.",
+   "footer": "Ein Blatt aus dem gewöhnlichen Kuralltag.",
+   "done_flag": "bhn_lese_11_gelesen",
+   "effects": {
+    "sets_flags": [
+     "bhn_lese_11_gelesen"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_verkaufshalle",
+  "tile": [
+   4,
+   3
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_lese_12",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Saatbuch: gekehrte Tafeln lesen",
+   "title": "Saatbuch: gekehrte Tafeln",
+   "text": "Die Schriftseite bleibt geschützt. Eine Beobachtungsnummer ersetzt keinen Namen und ein Name keinen Einwilligungsbeleg. Fremde Stimmen werden nicht zur Sortenbestimmung abgespielt.",
+   "footer": "Ein Blatt aus dem gewöhnlichen Kuralltag.",
+   "done_flag": "bhn_lese_12_gelesen",
+   "effects": {
+    "sets_flags": [
+     "bhn_lese_12_gelesen"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_glasgaerten",
+  "tile": [
+   5,
+   3
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_lese_13",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Ein freier Topf lesen",
+   "title": "Ein freier Topf",
+   "text": "Freigegeben nach Reinigung. Frühere Herkunft unbekannt, deshalb kein Beweis über den nächsten Inhalt. Adeline hat den letzten Satz zweimal unterstrichen.",
+   "footer": "Ein Blatt aus dem gewöhnlichen Kuralltag.",
+   "done_flag": "bhn_lese_13_gelesen",
+   "effects": {
+    "sets_flags": [
+     "bhn_lese_13_gelesen"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_stillenhaeuser",
+  "tile": [
+   7,
+   3
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_lese_14",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Entlassungsbrief ohne Anrede lesen",
+   "title": "Entlassungsbrief ohne Anrede",
+   "text": "Ihre Behandlung ist abgeschlossen. Die Verwaltung dankt für das entgegengebrachte Vertrauen. Die Patientin hat unter die leere Anrede geschrieben: Welches Vertrauen meinen Sie?",
+   "footer": "Ein Blatt aus dem gewöhnlichen Kuralltag.",
+   "done_flag": "bhn_lese_14_gelesen",
+   "effects": {
+    "sets_flags": [
+     "bhn_lese_14_gelesen"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_speisesaal",
+  "tile": [
+   5,
+   3
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_lese_15",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Zweiter Entlassungsbrief lesen",
+   "title": "Zweiter Entlassungsbrief",
+   "text": "Schlaf und Nahrung sind zufriedenstellend. Zum Namen liegt keine Prüfung vor. Auf Wunsch erhält die betroffene Person Einsicht in die Beobachtungen, nicht bloß in deren Zusammenfassung.",
+   "footer": "Ein Blatt aus dem gewöhnlichen Kuralltag.",
+   "done_flag": "bhn_lese_15_gelesen",
+   "effects": {
+    "sets_flags": [
+     "bhn_lese_15_gelesen"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_speisesaal",
+  "tile": [
+   6,
+   3
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_lese_16",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Teeküchenregel lesen",
+   "title": "Teeküchenregel",
+   "text": "Gewöhnlicher Tee steht links, verordnete Mittel werden getrennt erklärt und ausgegeben. Wer Nein sagt, bekommt trotzdem Wasser. Ada verbietet, diese Regel als Sonderleistung zu bewerben.",
+   "footer": "Ein Blatt aus dem gewöhnlichen Kuralltag.",
+   "done_flag": "bhn_lese_16_gelesen",
+   "effects": {
+    "sets_flags": [
+     "bhn_lese_16_gelesen"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_stillenhaeuser",
+  "tile": [
+   8,
+   3
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_lese_17",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Die erreichbare Glocke lesen",
+   "title": "Die erreichbare Glocke",
+   "text": "Der Platz der Glocke wird mit dem Gast vereinbart. Nach dem Umhängen zieht der Gast selbst an der Schnur. Ein erfolgreicher Handgriff ist noch kein Einverständnis mit weiteren Veränderungen.",
+   "footer": "Ein Blatt aus dem gewöhnlichen Kuralltag.",
+   "done_flag": "bhn_lese_17_gelesen",
+   "effects": {
+    "sets_flags": [
+     "bhn_lese_17_gelesen"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_aktenraum",
+  "tile": [
+   5,
+   3
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_lese_18",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Widerruf und Abschrift lesen",
+   "title": "Widerruf und Abschrift",
+   "text": "Ein Widerruf wird beim Original aufbewahrt. Abschriften müssen auf ihn hinweisen. Eine frühere Zustimmung wird durch saubere Ablage nicht wieder gültig.",
+   "footer": "Ein Blatt aus dem gewöhnlichen Kuralltag.",
+   "done_flag": "bhn_lese_18_gelesen",
+   "effects": {
+    "sets_flags": [
+     "bhn_lese_18_gelesen"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_wurzelkranz",
+  "tile": [
+   3,
+   3
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_lese_19",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Leerkistenrechnung lesen",
+   "title": "Leerkistenrechnung",
+   "text": "Berechnet werden Holz, Nägel und Transport. Der Preis enthält keine Zusage über den früheren Inhalt. Alte Siegel dürfen zur Datierung geprüft, verschlossene Sendungen nicht ohne Erlaubnis geöffnet werden.",
+   "footer": "Ein Blatt aus dem gewöhnlichen Kuralltag.",
+   "done_flag": "bhn_lese_19_gelesen",
+   "effects": {
+    "sets_flags": [
+     "bhn_lese_19_gelesen"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_mutterhaus",
+  "tile": [
+   4,
+   3
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_lese_20",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Zwei Lichtstände lesen",
+   "title": "Zwei Lichtstände",
+   "text": "Erste Fassung: Schatten als Blattkante gezeichnet. Zweite Fassung: Kante durch Lichtwechsel geprüft. Beide bleiben im Heft, damit aus der Berichtigung keine scheinbar unfehlbare erste Beobachtung wird.",
+   "footer": "Ein Blatt aus dem gewöhnlichen Kuralltag.",
+   "done_flag": "bhn_lese_20_gelesen",
+   "effects": {
+    "sets_flags": [
+     "bhn_lese_20_gelesen"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_labor",
+  "tile": [
+   4,
+   3
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_lese_21",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Werbung für stille Nächte lesen",
+   "title": "Werbung für stille Nächte",
+   "text": "Briarholt schenkt Ihnen einen neuen Morgen. Fragen nach dem Preis werden im Aufnahmegespräch beantwortet. Darunter steht klein: Die Anzeige enthält keine Beschreibung möglicher Namensverluste.",
+   "footer": "Ein Blatt aus dem gewöhnlichen Kuralltag.",
+   "done_flag": "bhn_lese_21_gelesen",
+   "effects": {
+    "sets_flags": [
+     "bhn_lese_21_gelesen"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_pavillon",
+  "tile": [
+   8,
+   3
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_lese_22",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Aushang der Druckerei lesen",
+   "title": "Aushang der Druckerei",
+   "text": "Ein lächelndes Bild braucht dieselbe Erlaubnis wie ein trauriges. Ein privater Brief ist keine fertige Werbevorlage. Auftragsannahme erst nach schriftlicher Freigabe der tatsächlich verwendeten Zeilen.",
+   "footer": "Ein Blatt aus dem gewöhnlichen Kuralltag.",
+   "done_flag": "bhn_lese_22_gelesen",
+   "effects": {
+    "sets_flags": [
+     "bhn_lese_22_gelesen"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_kesselgrund",
+  "tile": [
+   8,
+   3
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_lese_23",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Wintervorrat: getrennte Anzeigen lesen",
+   "title": "Wintervorrat: getrennte Anzeigen",
+   "text": "Wärme zeigt, wie ein Raum versorgt wird. Rücklauf zeigt, wohin belastete Reste gelangen. Beide Anzeigen dürfen nebeneinander stehen; sie dürfen nicht denselben Namen tragen.",
+   "footer": "Ein Blatt aus dem gewöhnlichen Kuralltag.",
+   "done_flag": "bhn_lese_23_gelesen",
+   "effects": {
+    "sets_flags": [
+     "bhn_lese_23_gelesen"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_stillenhaeuser",
+  "tile": [
+   9,
+   3
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_lese_24",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Haushaltskarte mit freiem Rand lesen",
+   "title": "Haushaltskarte mit freiem Rand",
+   "text": "Bedarf, Zeitraum und gewünschte Form der Hilfe werden getrennt notiert. Ein Besuch in der Wärmestube bleibt freiwillig. Das leere Feld neben der Unterschrift ist kein Einverständnis der Nachbarn.",
+   "footer": "Ein Blatt aus dem gewöhnlichen Kuralltag.",
+   "done_flag": "bhn_lese_24_gelesen",
+   "effects": {
+    "sets_flags": [
+     "bhn_lese_24_gelesen"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_mutterhaus",
+  "tile": [
+   5,
+   3
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_lese_25",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Anweisung für gewöhnliche Wintertage lesen",
+   "title": "Anweisung für gewöhnliche Wintertage",
+   "text": "Werkzeug reinigen, Ausgänge freihalten, die Grundversorgung prüfen. Kein Mensch muss seine Vergangenheit abgeben, damit diese Arbeiten erledigt werden. Der Satz wurde nicht von der Klinik bestellt.",
+   "footer": "Ein Blatt aus dem gewöhnlichen Kuralltag.",
+   "done_flag": "bhn_lese_25_gelesen",
+   "effects": {
+    "sets_flags": [
+     "bhn_lese_25_gelesen"
+    ]
+   }
+  }
+ }
+]

@@ -84,6 +84,8 @@ export function applyQuestPack(content, pack) {
   // BQ: Beutetabellen je Kampf und der Sekten-Datenvorrat (Kulte, Ereignisse, Stufentexte) für core/Sekten.js
   if (pack.loot) content.loot = { ...(content.loot ?? {}), ...pack.loot };
   if (pack.sekten) content.sekten = pack.sekten;
+  // CK: Feste-Leben (Kalender, Wirkungen, HUD-Zeilen, Verbündeten- und Händlersprüche) für core/Clock.js und world/Feste.js
+  if (pack.festeLeben) content.festeLeben = pack.festeLeben;
   // Paket BN: Horchstellen, Klangzuordnung, Bindungen und Texte (core/SignalRoutes.js)
   if (pack.signalRoutes) content.signalRoutes = pack.signalRoutes;
   // Paket BG: Anspruchsquellen, Ersatzzeilen und Kurztexte (core/Claims.js)

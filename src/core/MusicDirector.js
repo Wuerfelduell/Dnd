@@ -6,14 +6,20 @@ import { DAY_NIGHT_SECONDS, isNightAt } from './Clock.js';
  * aus der Zuordnung der Manifeste: Titel, Kampf (Boss je Kapitel, Okkultes, Standard), Geistsicht,
  * Karte (Tag/Nacht), Gefahrengebiet und zuletzt die Stadt. Startet erst nach der ersten Eingabe.
  */
-export const MUSIC_MANIFESTS = ['basis', 'kettlegate', 'wexmoor', 'dunscar'].map((n) => `audio/manifest-musik-${n}.json`);
+export const MUSIC_MANIFESTS = ['basis', 'kettlegate', 'wexmoor', 'dunscar', 'k4k5', 'feste'].map((n) => `audio/manifest-musik-${n}.json`); // CL: Kapitel 4/5 und Feste
 
 /** Stadtmusik, wenn eine Karte keine eigene Zuordnung hat. */
 const CITY_MUSIC = {
   kettlegate: { tag: 'kettlegate_tag', nacht: 'kettlegate_nacht' },
   wexmoor: { tag: 'wexmoor_tag', nacht: 'wexmoor_nacht' },
   dunscar: { tag: 'ds_stadt_tag', nacht: 'ds_stadt_nacht' },
+  calderwick: { tag: 'cw_terrassen_tag', nacht: 'cw_terrassen_nacht' },
+  briarholt: { tag: 'bh_kalt', nacht: 'bh_kalt' },
 };
+/** CL: Kampfmusik je Stadt, wenn der Kampf kein eigenes Stück hat (Bosse stehen mit Namen in der Zuordnung). */
+const CITY_COMBAT = { calderwick: 'calderwick', briarholt: 'briarholt' };
+/** Festplätze (CK feste.json → karten): dort spielt am Festtag die Festmusik. */
+export const FEST_MUSIC_MAPS = { laternennacht: ['altmarkt', 'docks'], salzsegen: ['wx_salzmarkt', 'wx_bojenhafen'], schichtwechsel: ['ds_kalkmarkt', 'ds_arbeiterbogen'] };
 /** Tag- und Nachtfassung wechseln mit der Spieluhr (Clock.js). */
 export { DAY_NIGHT_SECONDS };
 /** Gegner, die keine Menschen sind, bekommen die okkulte Kampfmusik. */
@@ -23,7 +29,7 @@ const variant = (entry, night) => (entry && typeof entry === 'object' ? entry[ni
 
 /**
  * Welches Stück passt gerade? `z` ist die zusammengeführte Zuordnung aller Manifeste.
- * ctx: { title, combat: { id, enc } | null, vision, map, city, zone, playTime }
+ * ctx: { title, combat: { id, enc } | null, vision, map, city, zone, playTime, fest, season }
  */
 export function pickTrack(z, ctx) {
   if (ctx.title) return z.ereignisse?.titel ?? 'titel';
@@ -32,17 +38,26 @@ export function pickTrack(z, ctx) {
     const { id, enc } = ctx.combat;
     const k = z.kampf ?? {};
     // Kapitel 3 (AY): eigene Stücke für Gallowmere und die Unterschicht (auch ihre Folgeabschnitte) und die Pfadprüfungen
-    const named = k[id] ?? k[/^k3o_(\w+?)_phase\d$/.exec(id)?.[1]] ?? (id.startsWith('k3p_') ? k.pruefung : undefined);
+    const named = k[id] ?? k[/^k3o_(\w+?)_phase\d$/.exec(id)?.[1]] ?? k[/^(vg_\w+?)_phase\d$/.exec(id)?.[1]] ?? (id.startsWith('k3p_') ? k.pruefung : undefined);
     if (named) return named;
+    // CL: Calderwick, Briarholt und die Landstraße haben eigene Kampfstücke
+    const where = ctx.map === 'reise_landstrasse' ? 'landstrasse' : CITY_COMBAT[ctx.city];
+    if (where && k[where]) return k[where];
     if (enc?.boss) return z.kampf?.[`boss_kapitel${enc.chapter ?? (ctx.city === 'wexmoor' ? 2 : 1)}`] ?? z.kampf?.boss_kapitel1 ?? 'kampf';
     if (k[`standard_kapitel${enc?.chapter}`]) return k[`standard_kapitel${enc.chapter}`];
     if (OCCULT.test(id)) return k.okkult ?? k.standard ?? 'kampf';
     return k.standard ?? 'kampf';
   }
   if (ctx.vision) return z.ereignisse?.geistsicht ?? 'geistsicht';
-  const own = variant(z.maps?.[ctx.map], night) ?? variant(z.zonen?.[ctx.zone ?? ctx.map], night);
-  if (own) return own;
-  return variant(CITY_MUSIC[ctx.city] ?? CITY_MUSIC.kettlegate, night);
+  // CL: am Festtag spielt auf den Festplätzen die Festmusik; im Kettlegater Winter die Winterfassung des Tages
+  if (ctx.fest && FEST_MUSIC_MAPS[ctx.fest]?.includes(ctx.map) && z.ereignisse?.[`fest_${ctx.fest}`]) return z.ereignisse[`fest_${ctx.fest}`];
+  // CH: Briarholts warme Fassungen `<id>__warm` teilen die Zuordnung der kalten; wo dort das Kaltstück liegt, spielt das Warmstück
+  const warm = !!ctx.map?.endsWith('__warm');
+  const mapId = warm ? ctx.map.slice(0, -6) : ctx.map;
+  const own = variant(z.maps?.[mapId], night) ?? variant(z.zonen?.[ctx.zone ?? mapId], night) ?? variant(CITY_MUSIC[ctx.city] ?? CITY_MUSIC.kettlegate, night);
+  if (warm && own === z.ereignisse?.bh_zustand_kalt && z.ereignisse?.bh_zustand_warm) return z.ereignisse.bh_zustand_warm;
+  if (own === 'kettlegate_tag' && ctx.season === 'winter' && z.ereignisse?.kettlegate_winter_tag) return z.ereignisse.kettlegate_winter_tag;
+  return own;
 }
 
 export class MusicDirector {

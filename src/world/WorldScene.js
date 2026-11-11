@@ -1573,6 +1573,7 @@ export class WorldScene extends Phaser.Scene {
   travelTo(mapId, spawn) {
     if (this.leaving) return;
     if (!this.state.content.maps[mapId]) throw new Error(`Unbekannter Ort: ${mapId}`);
+    mapId = this.state.variantOf?.(mapId) ?? mapId; // CH: Briarholt kalt oder warm
     this.leaving = true;
     this.state.cancelPrivateAnswer?.(1); // BN: offene Namensantwort verfällt beim Kartenwechsel
     this.state.cancelPrivateAnswer?.(2);

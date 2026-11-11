@@ -41,7 +41,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
     travelRules: travel && {
       ...travel,
       pins: { ...travel.pins, ...(g.pins ?? {}) },
-      events: [...(travel.events ?? []), ...(wx.events ?? [])],
+      events: [...(travel.events ?? []), ...(wx.events ?? []), ...packs.flatMap((p) => p.events ?? [])], // CD: Landstraßen-Ereignisse der schnellen Reise in Calderwick
       cities: { ...(travel.cities ?? {}), ...(wx.city ? { [wx.city.id]: wx.city } : {}), ...(wx.cities ?? {}) },
     },
     pathways: pathways?.pathways ?? {},

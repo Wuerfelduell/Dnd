@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { Combat, isPrecise, skillBars } from '../src/core/Combat.js';
 import { buildK3Ruf } from '../src/data/k3Ruf.js';
 import { buildContent } from '../src/data/buildContent.js';
+import { runde8Packs, RUNDE8_FILES } from '../src/data/runde8.js';
 
 const load = (p) => JSON.parse(readFileSync(new URL(`../src/data/${p}`, import.meta.url), 'utf8'));
 
@@ -58,6 +59,8 @@ export function loadContent({ sequenzen = true, without = [] } = {}) {
     ...(without.includes('sekten') ? [] : [(() => { const f = load('packs/sekten/figuren.json'); const g = load('packs/sekten/gegner.json'); const a = load('packs/sekten/auftraege.json');
       return { name: 'sekten', npcs: f.npcs, dialogues: f.dialogues, einwohner: f.einwohner, items: g.items, encounters: g.encounters, loot: g.loot, quests: a.quests, artifacts: a.artifacts,
         dialog_zusaetze: load('packs/sekten/dialog_zusaetze.json'), platzierung: load('packs/sekten/platzierung.json'), zeitung: load('packs/sekten/zeitung.json'), gerede: load('packs/sekten/gerede.json'), geplauder: load('packs/sekten/geplauder.json'), sekten: load('packs/sekten/daten.json') }; })()]),
+    // Codex-Runde 8: Vorrat, Kapitel 4 und 5, Feste-Leben (Zusammenstellung in src/data/runde8.js)
+    ...(without.includes('runde8') ? [] : runde8Packs(Object.fromEntries(Object.entries(RUNDE8_FILES).map(([pack, files]) => [pack, Object.fromEntries(files.map((f) => [f, load(`packs/${pack}/${f}.json`)]))])))),
     ...(without.includes('koop_beute') ? [] : [{ name: 'koop_beute', dialog_zusaetze: load('packs/koop_beute/dialog_zusaetze.json'), ansprueche: load('packs/koop_beute/ansprueche.json'), ersatz: load('packs/koop_beute/ersatz.json'), texte: load('packs/koop_beute/texte.json') }])],
     beziehungen: load('beziehungen.json'),
     lore: Object.fromEntries(['bestiarium', 'gerede', 'item_texte', 'lesestuecke', 'zeitungen'].map((f) => [f, load(`packs/lore/${f}.json`)])),

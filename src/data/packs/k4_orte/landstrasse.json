@@ -1,0 +1,86 @@
+{
+ "events": [
+  {
+   "id": "cwo_reise_zoll",
+   "weight": 12,
+   "title": "Edwin Rusk prüft den Zoll",
+   "text": "Edwin Rusk dreht die Marke zwischen zwei Fingern. „Eine Fahrt, keine Lebensberechtigung“, sagt er und öffnet die Schranke."
+  },
+  {
+   "id": "cwo_reise_panne",
+   "weight": 12,
+   "title": "Mara Sedgewicks Speichenkeil",
+   "text": "Mara Sedgewick verkeilt eine lockere Speiche. Du hältst die Laterne, während sie feststellt, dass Stillstand wenigstens keine falsche Richtung ist."
+  },
+  {
+   "id": "cwo_reise_hausiererin",
+   "weight": 10,
+   "title": "Selma Quinces Tuch",
+   "text": "Selma Quince breitet ihre Ware auf einem trockenen Tuch aus. Für ein Gespräch verlangt sie nichts, für gutes Garn leider schon."
+  },
+  {
+   "id": "cwo_reise_arzt",
+   "weight": 10,
+   "title": "Emil Harrows Rastbank",
+   "text": "Dr. Emil Harrow prüft die Wasserflasche statt deiner Papiere. Er erinnert dich daran, dass auch eine dringende Reise eine Pause verträgt."
+  },
+  {
+   "id": "cwo_reise_richter",
+   "weight": 8,
+   "title": "Oren Voss hört beide Seiten",
+   "text": "Oren Voss hört einen Streit um dieselbe Sitzbank an. Sein Urteil lässt beiden Reisenden Platz und kostet niemanden einen Namen."
+  },
+  {
+   "id": "cwo_reise_bote",
+   "weight": 10,
+   "title": "Tobin Reeds Umweg",
+   "text": "Tobin Reed zeigt einen trockenen Pfad an der überfluteten Rinne vorbei. Er merkt sich Gesichter besser als die neuen Wegweiser."
+  },
+  {
+   "id": "cwo_reise_prediger",
+   "weight": 8,
+   "title": "Silas Meres leise Predigt",
+   "text": "Silas Mere spricht zu einer erloschenen Laterne. Als du vorbeikommst, macht er Platz, ohne ein Bekenntnis zu verlangen."
+  },
+  {
+   "id": "cwo_reise_karte",
+   "weight": 10,
+   "title": "Nessa Calders Randnotiz",
+   "text": "Nessa Calder zeichnet den Grenzstein neben die Straße statt auf sie. Die amtliche Karte hatte ihn praktischerweise mitten im Weg vergessen."
+  },
+  {
+   "id": "cwo_reise_ueberfall",
+   "weight": 6,
+   "title": "Zwei Mäntel im Hohlweg",
+   "text": "Zwei Wegelagerer treten aus dem Hohlweg. Hinter dir bleibt die breite Straße offen; du kannst ausweichen oder den Angriff annehmen.",
+   "encounter": "vg_all_wegelagerer"
+  },
+  {
+   "id": "cwo_reise_grenzstein",
+   "weight": 5,
+   "title": "Ein wandernder Grenzstein",
+   "text": "Der Grenzstein steht plötzlich auf deiner Seite der Rinne. Seine Kerbe hebt sich sichtbar, bevor er den Weg versperrt.",
+   "encounter": "vg_all_grenzstein"
+  },
+  {
+   "id": "cwo_reise_landvermesser",
+   "weight": 2,
+   "title": "Die verschobene Grenze",
+   "text": "Ein Landvermesser zieht eine Linie quer über die Fahrspur. Der äußere Weg bleibt frei; der Eingriff ist ausdrücklich freiwillig.",
+   "encounter": "vg_all_boss_landvermesser",
+   "hide_if_flags": [
+    "cwo_reise_schlafkutsche"
+   ]
+  },
+  {
+   "id": "cwo_reise_schlafkutsche",
+   "weight": 2,
+   "title": "Die Kutsche ohne Morgen",
+   "text": "Eine Kutsche steht mit schlafenden Reisenden am Rand. Nur ihr Mechanismus ist ein Ziel; du kannst am sicheren Rand weitergehen.",
+   "encounter": "vg_all_boss_schlafkutsche",
+   "hide_if_flags": [
+    "cwo_reise_landvermesser"
+   ]
+  }
+ ]
+}

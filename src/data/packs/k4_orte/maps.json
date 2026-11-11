@@ -1,0 +1,3924 @@
+[
+ {
+  "id": "cw_gleisfuss",
+  "name": "Gleisfuß",
+  "city": "calderwick",
+  "tiles": "c_bahnhof",
+  "tiles_wunsch": "cw_gleisfuss",
+  "rows": [
+   "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I.........III.......III.......III..........I",
+   "I.........III.......III.......III..........I",
+   "I.........III.......III.......III..........I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I.........III.......III.......III..........I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+  ],
+  "spawns": {
+   "default": [
+    2,
+    19
+   ],
+   "oben": [
+    41,
+    2
+   ]
+  },
+  "lights": [
+   {
+    "tile": [
+     3,
+     3
+    ],
+    "radius": 80,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   },
+   {
+    "tile": [
+     40,
+     18
+    ],
+    "radius": 90,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   }
+  ],
+  "ambient": {
+   "night": 0.65,
+   "fog": 0.1
+  },
+  "interactables": [
+   {
+    "id": "cwo_cw_gleisfuss_1",
+    "kind": "read",
+    "tile": [
+     3,
+     4
+    ],
+    "title": "Das fehlende C",
+    "prompt": "Das fehlende C ansehen",
+    "text": "Auf dem Stationsschild hält eine hellere Stelle den Platz eines Buchstabens frei. Die Schrauben sind noch da; nur die Bezeichnung ist abgereist.",
+    "marker": false,
+    "done_flag": "cwo_cw_gleisfuss_lesen1"
+   },
+   {
+    "id": "cwo_cw_gleisfuss_2",
+    "kind": "read",
+    "tile": [
+     6,
+     4
+    ],
+    "title": "Frachtwaage",
+    "prompt": "Frachtwaage ansehen",
+    "text": "Die Waage zeigt Gewicht, obwohl die Plattform leer ist. Neben dem Zeiger hat jemand „mit Erinnerung“ gekratzt.",
+    "marker": false,
+    "done_flag": "cwo_cw_gleisfuss_lesen2"
+   },
+   {
+    "id": "cwo_cw_gleisfuss_3",
+    "kind": "read",
+    "tile": [
+     9,
+     4
+    ],
+    "title": "Schrägseil",
+    "prompt": "Schrägseil ansehen",
+    "text": "Das obere Seil trägt helle Papierfasern, das untere schwarzen Ruß. Die Stadt schickt beides in entgegengesetzte Richtungen.",
+    "marker": false,
+    "done_flag": "cwo_cw_gleisfuss_lesen3"
+   },
+   {
+    "id": "cwo_cw_gleisfuss_4",
+    "kind": "read",
+    "tile": [
+     12,
+     4
+    ],
+    "title": "Treppengeländer",
+    "prompt": "Treppengeländer ansehen",
+    "text": "Sechs Hände haben den Lack auf derselben Höhe blank gerieben. Die Treppe verlangt kein Billett, nur Geduld.",
+    "marker": false,
+    "done_flag": "cwo_cw_gleisfuss_lesen4"
+   },
+   {
+    "id": "cwo_cw_gleisfuss_5",
+    "kind": "read",
+    "tile": [
+     15,
+     4
+    ],
+    "title": "Abfahrtsglocke",
+    "prompt": "Abfahrtsglocke ansehen",
+    "text": "Der Klöppel ist mit Filz umwickelt. Ankünfte werden offenbar lieber gezählt als gehört.",
+    "marker": false,
+    "done_flag": "cwo_cw_gleisfuss_lesen5"
+   },
+   {
+    "id": "cwo_cw_gleisfuss_6",
+    "kind": "read",
+    "tile": [
+     18,
+     4
+    ],
+    "title": "Verlorene Manschette",
+    "prompt": "Verlorene Manschette ansehen",
+    "text": "Ein sauber gefalteter Ärmel liegt im Fundkorb. Der Zettel nennt einen Besitzer, dessen Zeile durch das Papier geschnitten wurde.",
+    "marker": false,
+    "done_flag": "cwo_cw_gleisfuss_lesen6"
+   },
+   {
+    "id": "cwo_cw_gleisfuss_7",
+    "kind": "travel",
+    "tile": [
+     4,
+     2
+    ],
+    "prompt": "Stadtkarte öffnen",
+    "marker": false
+   },
+   {
+    "id": "cwo_cw_gleisfuss_8",
+    "kind": "door",
+    "tile": [
+     41,
+     3
+    ],
+    "to": "cw_setzergasse",
+    "spawn": "default",
+    "prompt": "Nach Setzergasse",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_gleisfuss_9",
+    "kind": "dialogue",
+    "tile": [
+     38,
+     2
+    ],
+    "dialogue": "cwo_lift_1",
+    "title": "Schrägaufzug: 2 Schilling, mit Werkstatt frei",
+    "prompt": "Schrägaufzug: 2 Schilling, mit Werkstatt frei",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_gleisfuss_10",
+    "kind": "door",
+    "tile": [
+     9,
+     19
+    ],
+    "to": "cw_gepaeckhalle",
+    "spawn": "default",
+    "prompt": "Nach Gepäckhalle",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_gleisfuss_11",
+    "kind": "dialogue",
+    "tile": [
+     34,
+     18
+    ],
+    "dialogue": "cwo_fahrt_cw_gleisfuss",
+    "title": "Landstraße: Fahrt beginnen",
+    "prompt": "Landstraße: Fahrt beginnen",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_gleisfuss_12",
+    "kind": "read",
+    "tile": [
+     6,
+     6
+    ],
+    "title": "Standseilbahn-Marke",
+    "prompt": "Standseilbahn-Marke ansehen",
+    "text": "Eine gelochte Messingmarke aus dem alten Werkstattkontingent. Das Stück liegt zur freien Mitnahme im gekennzeichneten Restefach.",
+    "marker": false,
+    "done_flag": "cwo_fund_aufzugsmarke",
+    "effects": {
+     "gives_items": {
+      "cwo_aufzugsmarke": 1
+     }
+    }
+   }
+  ]
+ },
+ {
+  "id": "cw_setzergasse",
+  "name": "Setzergasse",
+  "city": "calderwick",
+  "tiles": "altmarkt",
+  "tiles_wunsch": "cw_setzergasse",
+  "rows": [
+   "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I.........III.......III.......III..........I",
+   "I.........III.......III.......III..........I",
+   "I.........III.......III.......III..........I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I.........III.......III.......III..........I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+  ],
+  "spawns": {
+   "default": [
+    2,
+    19
+   ],
+   "oben": [
+    41,
+    2
+   ]
+  },
+  "lights": [
+   {
+    "tile": [
+     3,
+     3
+    ],
+    "radius": 80,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   },
+   {
+    "tile": [
+     40,
+     18
+    ],
+    "radius": 90,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   }
+  ],
+  "ambient": {
+   "night": 0.65,
+   "fog": 0.1
+  },
+  "interactables": [
+   {
+    "id": "cwo_cw_setzergasse_1",
+    "kind": "read",
+    "tile": [
+     3,
+     4
+    ],
+    "title": "Beschlagene Scheibe",
+    "prompt": "Beschlagene Scheibe ansehen",
+    "text": "Hinter dem Glas bewegen sich Pressenhebel. Eine Hand wischt einen Kreis frei und lässt ihn gleich wieder beschlagen.",
+    "marker": false,
+    "done_flag": "cwo_cw_setzergasse_lesen1"
+   },
+   {
+    "id": "cwo_cw_setzergasse_2",
+    "kind": "read",
+    "tile": [
+     6,
+     4
+    ],
+    "title": "Trockenleine",
+    "prompt": "Trockenleine ansehen",
+    "text": "Unbedruckte Bogen hängen zwischen den Häusern. Ihre Wasserzeichen tragen mehr Namen als die fertigen Bekanntmachungen.",
+    "marker": false,
+    "done_flag": "cwo_cw_setzergasse_lesen2"
+   },
+   {
+    "id": "cwo_cw_setzergasse_3",
+    "kind": "read",
+    "tile": [
+     9,
+     4
+    ],
+    "title": "Leimtopf",
+    "prompt": "Leimtopf ansehen",
+    "text": "Der Leim ist kalt, die Kelle frisch gereinigt. Jemand hat Feierabend gemacht und mit einer Rückkehr gerechnet.",
+    "marker": false,
+    "done_flag": "cwo_cw_setzergasse_lesen3"
+   },
+   {
+    "id": "cwo_cw_setzergasse_4",
+    "kind": "read",
+    "tile": [
+     12,
+     4
+    ],
+    "title": "Gesellenzeichen",
+    "prompt": "Gesellenzeichen ansehen",
+    "text": "Drei Kerben und ein Kreis stehen neben einer zugemauerten Tür. Die Kerben sind alt; den Kreis hat heute jemand nachgezogen.",
+    "marker": false,
+    "done_flag": "cwo_cw_setzergasse_lesen4"
+   },
+   {
+    "id": "cwo_cw_setzergasse_5",
+    "kind": "read",
+    "tile": [
+     15,
+     4
+    ],
+    "title": "Ausschusskorb",
+    "prompt": "Ausschusskorb ansehen",
+    "text": "Ein Blatt wurde wegen eines schiefen Kommas verworfen. Die fehlende Person in der Zeile darunter hat niemand beanstandet.",
+    "marker": false,
+    "done_flag": "cwo_cw_setzergasse_lesen5"
+   },
+   {
+    "id": "cwo_cw_setzergasse_6",
+    "kind": "read",
+    "tile": [
+     18,
+     4
+    ],
+    "title": "Rückwand der Binderei",
+    "prompt": "Rückwand der Binderei ansehen",
+    "text": "Aus der Wand ragt ein stumpfer Nagel. Darunter ist der Kalk von einer lange aufgehängten Tasche dunkel geworden.",
+    "marker": false,
+    "done_flag": "cwo_cw_setzergasse_lesen6"
+   },
+   {
+    "id": "cwo_cw_setzergasse_7",
+    "kind": "travel",
+    "tile": [
+     4,
+     2
+    ],
+    "prompt": "Stadtkarte öffnen",
+    "marker": false
+   },
+   {
+    "id": "cwo_cw_setzergasse_8",
+    "kind": "door",
+    "tile": [
+     3,
+     19
+    ],
+    "to": "cw_gleisfuss",
+    "spawn": "oben",
+    "prompt": "Nach Gleisfuß",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_setzergasse_9",
+    "kind": "door",
+    "tile": [
+     41,
+     3
+    ],
+    "to": "cw_quittungsmarkt",
+    "spawn": "default",
+    "prompt": "Nach Quittungsmarkt",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_setzergasse_10",
+    "kind": "dialogue",
+    "tile": [
+     38,
+     2
+    ],
+    "dialogue": "cwo_lift_2",
+    "title": "Schrägaufzug: 2 Schilling, mit Werkstatt frei",
+    "prompt": "Schrägaufzug: 2 Schilling, mit Werkstatt frei",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_setzergasse_11",
+    "kind": "door",
+    "tile": [
+     5,
+     19
+    ],
+    "to": "cw_buchbinderei",
+    "spawn": "default",
+    "prompt": "Nach Klammers Buchbinderei",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_setzergasse_12",
+    "kind": "door",
+    "tile": [
+     6,
+     19
+    ],
+    "to": "cw_alte_setzerei",
+    "spawn": "default",
+    "prompt": "Nach Alte Setzerei",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_setzergasse_13",
+    "kind": "read",
+    "tile": [
+     24,
+     4
+    ],
+    "title": "Lieferbuchanker",
+    "prompt": "Lieferbuchanker ansehen",
+    "text": "Der Lieferant hat die reparierte Tür noch vor Sonnenaufgang benutzt. Seine eigene Quittung entstand unabhängig von Klammers Erinnerung.",
+    "marker": false,
+    "done_flag": "cwo_anker_werkstatt_lieferant"
+   },
+   {
+    "id": "cwo_cw_setzergasse_14",
+    "kind": "read",
+    "tile": [
+     6,
+     6
+    ],
+    "title": "Verbogener Satzwinkel",
+    "prompt": "Verbogener Satzwinkel ansehen",
+    "text": "Hält Zeilen im rechten Winkel, solange man die verbogene Ecke auslässt. Das Stück liegt zur freien Mitnahme im gekennzeichneten Restefach.",
+    "marker": false,
+    "done_flag": "cwo_fund_satzwinkel",
+    "effects": {
+     "gives_items": {
+      "cwo_satzwinkel": 1
+     }
+    }
+   }
+  ]
+ },
+ {
+  "id": "cw_quittungsmarkt",
+  "name": "Quittungsmarkt",
+  "city": "calderwick",
+  "tiles": "altmarkt",
+  "tiles_wunsch": "cw_quittungsmarkt",
+  "rows": [
+   "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I.........III.......III.......III..........I",
+   "I.........III.......III.......III..........I",
+   "I.........III.......III.......III..........I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I.........III.......III.......III..........I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+  ],
+  "spawns": {
+   "default": [
+    2,
+    19
+   ],
+   "oben": [
+    41,
+    2
+   ]
+  },
+  "lights": [
+   {
+    "tile": [
+     3,
+     3
+    ],
+    "radius": 80,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   },
+   {
+    "tile": [
+     40,
+     18
+    ],
+    "radius": 90,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   }
+  ],
+  "ambient": {
+   "night": 0.65,
+   "fog": 0.1
+  },
+  "interactables": [
+   {
+    "id": "cwo_cw_quittungsmarkt_1",
+    "kind": "read",
+    "tile": [
+     3,
+     4
+    ],
+    "title": "Mündliche Schuld",
+    "prompt": "Mündliche Schuld ansehen",
+    "text": "Zwei Kreidestriche stehen auf einer leeren Tafel. Die Händlerin erklärt dem nächsten Kunden den Betrag auswendig.",
+    "marker": false,
+    "done_flag": "cwo_cw_quittungsmarkt_lesen1"
+   },
+   {
+    "id": "cwo_cw_quittungsmarkt_2",
+    "kind": "read",
+    "tile": [
+     6,
+     4
+    ],
+    "title": "Pfandfenster",
+    "prompt": "Pfandfenster ansehen",
+    "text": "Drei gleiche Uhren liegen unter drei verschiedenen Zetteln. Auf allen Zetteln steht derselbe Name in anderer Handschrift.",
+    "marker": false,
+    "done_flag": "cwo_cw_quittungsmarkt_lesen2"
+   },
+   {
+    "id": "cwo_cw_quittungsmarkt_3",
+    "kind": "read",
+    "tile": [
+     9,
+     4
+    ],
+    "title": "Streiktopf",
+    "prompt": "Streiktopf ansehen",
+    "text": "Der Topf ist verrußt, sein Deckel sorgfältig poliert. Wer nichts einzahlen kann, darf trotzdem eine Schale nehmen.",
+    "marker": false,
+    "done_flag": "cwo_cw_quittungsmarkt_lesen3"
+   },
+   {
+    "id": "cwo_cw_quittungsmarkt_4",
+    "kind": "read",
+    "tile": [
+     12,
+     4
+    ],
+    "title": "Waagschale",
+    "prompt": "Waagschale ansehen",
+    "text": "In der kleinen Schale liegt ein Knopf. Sein Gegenwert wurde mit „noch wissen wir es“ angeschrieben.",
+    "marker": false,
+    "done_flag": "cwo_cw_quittungsmarkt_lesen4"
+   },
+   {
+    "id": "cwo_cw_quittungsmarkt_5",
+    "kind": "read",
+    "tile": [
+     15,
+     4
+    ],
+    "title": "Leerer Stand",
+    "prompt": "Leerer Stand ansehen",
+    "text": "Die Bretter sind ausgefegt und der Regenschutz geflickt. Nur das Schild behauptet, hier sei nie ein Stand gewesen.",
+    "marker": false,
+    "done_flag": "cwo_cw_quittungsmarkt_lesen5"
+   },
+   {
+    "id": "cwo_cw_quittungsmarkt_6",
+    "kind": "read",
+    "tile": [
+     18,
+     4
+    ],
+    "title": "Markttreppe",
+    "prompt": "Markttreppe ansehen",
+    "text": "In jeder fünften Stufe sitzt eine flache Mulde. Dort werden Körbe abgestellt, wenn die Knie eine Verhandlung verlangen.",
+    "marker": false,
+    "done_flag": "cwo_cw_quittungsmarkt_lesen6"
+   },
+   {
+    "id": "cwo_cw_quittungsmarkt_7",
+    "kind": "travel",
+    "tile": [
+     4,
+     2
+    ],
+    "prompt": "Stadtkarte öffnen",
+    "marker": false
+   },
+   {
+    "id": "cwo_cw_quittungsmarkt_8",
+    "kind": "door",
+    "tile": [
+     3,
+     19
+    ],
+    "to": "cw_setzergasse",
+    "spawn": "oben",
+    "prompt": "Nach Setzergasse",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_quittungsmarkt_9",
+    "kind": "door",
+    "tile": [
+     41,
+     3
+    ],
+    "to": "cw_roehrenhof",
+    "spawn": "default",
+    "prompt": "Nach Röhrenhof",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_quittungsmarkt_10",
+    "kind": "dialogue",
+    "tile": [
+     38,
+     2
+    ],
+    "dialogue": "cwo_lift_3",
+    "title": "Schrägaufzug: 2 Schilling, mit Werkstatt frei",
+    "prompt": "Schrägaufzug: 2 Schilling, mit Werkstatt frei",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_quittungsmarkt_11",
+    "kind": "door",
+    "tile": [
+     13,
+     19
+    ],
+    "to": "cw_pfandhaus",
+    "spawn": "default",
+    "prompt": "Nach Lotties Pfandhaus",
+    "marker": true
+   }
+  ]
+ },
+ {
+  "id": "cw_roehrenhof",
+  "name": "Röhrenhof",
+  "city": "calderwick",
+  "tiles": "m_kontor",
+  "tiles_wunsch": "cw_roehrenhof",
+  "rows": [
+   "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I.........III.......III.......III..........I",
+   "I.........III.......III.......III..........I",
+   "I.........III.......III.......III..........I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I.........III.......III.......III..........I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+  ],
+  "spawns": {
+   "default": [
+    2,
+    19
+   ],
+   "oben": [
+    41,
+    2
+   ]
+  },
+  "lights": [
+   {
+    "tile": [
+     3,
+     3
+    ],
+    "radius": 80,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   },
+   {
+    "tile": [
+     40,
+     18
+    ],
+    "radius": 90,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   }
+  ],
+  "ambient": {
+   "night": 0.65,
+   "fog": 0.1
+  },
+  "interactables": [
+   {
+    "id": "cwo_cw_roehrenhof_1",
+    "kind": "read",
+    "tile": [
+     3,
+     4
+    ],
+    "title": "Kapselpost",
+    "prompt": "Kapselpost ansehen",
+    "text": "Eine Kapsel klappert im Rohr, ohne weiterzukommen. Das Namensfeld am Empfänger ist mit einem blanken Messingstreifen überklebt.",
+    "marker": false,
+    "done_flag": "cwo_cw_roehrenhof_lesen1"
+   },
+   {
+    "id": "cwo_cw_roehrenhof_2",
+    "kind": "read",
+    "tile": [
+     6,
+     4
+    ],
+    "title": "Warenbahn",
+    "prompt": "Warenbahn ansehen",
+    "text": "Die Schiene läuft dicht an Bürofenstern vorbei. An einer Kurve ist der Lack von innen zerkratzt.",
+    "marker": false,
+    "done_flag": "cwo_cw_roehrenhof_lesen2"
+   },
+   {
+    "id": "cwo_cw_roehrenhof_3",
+    "kind": "read",
+    "tile": [
+     9,
+     4
+    ],
+    "title": "Dienstordnung",
+    "prompt": "Dienstordnung ansehen",
+    "text": "Die Ordnung unterscheidet zwischen Sendung und Sendendem. Wer beides ist, soll sich am anderen Schalter melden.",
+    "marker": false,
+    "done_flag": "cwo_cw_roehrenhof_lesen3"
+   },
+   {
+    "id": "cwo_cw_roehrenhof_4",
+    "kind": "read",
+    "tile": [
+     12,
+     4
+    ],
+    "title": "Druckmesser",
+    "prompt": "Druckmesser ansehen",
+    "text": "Der Zeiger zittert bei jedem gesprochenen Namen. Bei Nummern bleibt er still.",
+    "marker": false,
+    "done_flag": "cwo_cw_roehrenhof_lesen4"
+   },
+   {
+    "id": "cwo_cw_roehrenhof_5",
+    "kind": "read",
+    "tile": [
+     15,
+     4
+    ],
+    "title": "Rücklauf",
+    "prompt": "Rücklauf ansehen",
+    "text": "Im Rücklaufkasten liegen Briefe ohne Absender. Ihre Umschläge wurden geöffnet und wieder ordentlich verschnürt.",
+    "marker": false,
+    "done_flag": "cwo_cw_roehrenhof_lesen5"
+   },
+   {
+    "id": "cwo_cw_roehrenhof_6",
+    "kind": "read",
+    "tile": [
+     18,
+     4
+    ],
+    "title": "Rinnenrost",
+    "prompt": "Rinnenrost ansehen",
+    "text": "Unter dem Rost sammelt sich schwarzer Papierbrei. Ein einzelner roter Faden hält zwei Fetzen zusammen.",
+    "marker": false,
+    "done_flag": "cwo_cw_roehrenhof_lesen6"
+   },
+   {
+    "id": "cwo_cw_roehrenhof_7",
+    "kind": "travel",
+    "tile": [
+     4,
+     2
+    ],
+    "prompt": "Stadtkarte öffnen",
+    "marker": false
+   },
+   {
+    "id": "cwo_cw_roehrenhof_8",
+    "kind": "door",
+    "tile": [
+     3,
+     19
+    ],
+    "to": "cw_quittungsmarkt",
+    "spawn": "oben",
+    "prompt": "Nach Quittungsmarkt",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_roehrenhof_9",
+    "kind": "door",
+    "tile": [
+     41,
+     3
+    ],
+    "to": "cw_witwenterrasse",
+    "spawn": "default",
+    "prompt": "Nach Witwenterrasse",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_roehrenhof_10",
+    "kind": "dialogue",
+    "tile": [
+     38,
+     2
+    ],
+    "dialogue": "cwo_lift_4",
+    "title": "Schrägaufzug: 2 Schilling, mit Werkstatt frei",
+    "prompt": "Schrägaufzug: 2 Schilling, mit Werkstatt frei",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_roehrenhof_11",
+    "kind": "door",
+    "tile": [
+     17,
+     19
+    ],
+    "to": "cw_sortierhalle",
+    "spawn": "default",
+    "prompt": "Nach Sortierhalle",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_roehrenhof_12",
+    "kind": "door",
+    "tile": [
+     9,
+     19
+    ],
+    "to": "cw_sortiergrube",
+    "spawn": "default",
+    "prompt": "Nach Sortiergrube",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_roehrenhof_13",
+    "kind": "read",
+    "tile": [
+     20,
+     7
+    ],
+    "title": "Rohrpoststation",
+    "prompt": "Rohrpoststation ansehen",
+    "text": "Der Rücklauf verlangt eine zustellbare Anschrift. Ein leerer Namensstreifen wird unverrichteter Dinge zurückgeschickt.",
+    "marker": false,
+    "visible_if": {
+     "requires_items": [
+      "cwa_rohrpostsiegel"
+     ]
+    },
+    "done_flag": "cwo_rohr_cw_roehrenhof"
+   },
+   {
+    "id": "cwo_cw_roehrenhof_14",
+    "kind": "read",
+    "tile": [
+     24,
+     4
+    ],
+    "title": "Wartungsfach",
+    "prompt": "Wartungsfach ansehen",
+    "text": "Unter dem Deckel liegt der fehlende Aufzugsschlüssel. Ein Wartungszettel verlangt, ihn zurückzubringen oder das offene Fach öffentlich zu melden.",
+    "marker": false,
+    "done_flag": "cwo_schluessel_gefunden",
+    "effects": {
+     "gives_items": {
+      "cwo_aufzugsschluessel": 1
+     }
+    }
+   },
+   {
+    "id": "cwo_cw_roehrenhof_15",
+    "kind": "read",
+    "tile": [
+     6,
+     6
+    ],
+    "title": "Filziger Rücklaufpfropfen",
+    "prompt": "Filziger Rücklaufpfropfen ansehen",
+    "text": "Dämpft das Geräusch einer leeren Rohrpostkapsel. Das Stück liegt zur freien Mitnahme im gekennzeichneten Restefach.",
+    "marker": false,
+    "done_flag": "cwo_fund_ruecklaufpfropfen",
+    "effects": {
+     "gives_items": {
+      "cwo_ruecklaufpfropfen": 1
+     }
+    }
+   }
+  ]
+ },
+ {
+  "id": "cw_witwenterrasse",
+  "name": "Witwenterrasse",
+  "city": "calderwick",
+  "tiles": "altmarkt",
+  "tiles_wunsch": "cw_witwenterrasse",
+  "rows": [
+   "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I.........III.......III.......III..........I",
+   "I.........III.......III.......III..........I",
+   "I.........III.......III.......III..........I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I.........III.......III.......III..........I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+  ],
+  "spawns": {
+   "default": [
+    2,
+    19
+   ],
+   "oben": [
+    41,
+    2
+   ]
+  },
+  "lights": [
+   {
+    "tile": [
+     3,
+     3
+    ],
+    "radius": 80,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   },
+   {
+    "tile": [
+     40,
+     18
+    ],
+    "radius": 90,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   }
+  ],
+  "ambient": {
+   "night": 0.65,
+   "fog": 0.1
+  },
+  "interactables": [
+   {
+    "id": "cwo_cw_witwenterrasse_1",
+    "kind": "read",
+    "tile": [
+     3,
+     4
+    ],
+    "title": "Leeres Türschild",
+    "prompt": "Leeres Türschild ansehen",
+    "text": "Das Messing ist um zwei Schrauben herum dunkler. Ein Name wurde nicht abgewaschen, sondern täglich nicht mehr ausgesprochen.",
+    "marker": false,
+    "done_flag": "cwo_cw_witwenterrasse_lesen1"
+   },
+   {
+    "id": "cwo_cw_witwenterrasse_2",
+    "kind": "read",
+    "tile": [
+     6,
+     4
+    ],
+    "title": "Gemeinsame Küche",
+    "prompt": "Gemeinsame Küche ansehen",
+    "text": "An der Tür hängen fünf Schlüssel an einer Schnur. Keiner gehört allein einem Haushalt.",
+    "marker": false,
+    "done_flag": "cwo_cw_witwenterrasse_lesen2"
+   },
+   {
+    "id": "cwo_cw_witwenterrasse_3",
+    "kind": "read",
+    "tile": [
+     9,
+     4
+    ],
+    "title": "Wäschebuch",
+    "prompt": "Wäschebuch ansehen",
+    "text": "Zwischen Bettlaken und Handtüchern fehlt eine Nummer. Die Wäscherin hat den freien Platz mit einem Kreuz versehen.",
+    "marker": false,
+    "done_flag": "cwo_cw_witwenterrasse_lesen3"
+   },
+   {
+    "id": "cwo_cw_witwenterrasse_4",
+    "kind": "read",
+    "tile": [
+     12,
+     4
+    ],
+    "title": "Fensterbank",
+    "prompt": "Fensterbank ansehen",
+    "text": "Zwei Tassenränder sind in den Lack eingebrannt. Der neuere Abdruck liegt genau über dem älteren.",
+    "marker": false,
+    "done_flag": "cwo_cw_witwenterrasse_lesen4"
+   },
+   {
+    "id": "cwo_cw_witwenterrasse_5",
+    "kind": "read",
+    "tile": [
+     15,
+     4
+    ],
+    "title": "Kohlenkasten",
+    "prompt": "Kohlenkasten ansehen",
+    "text": "Die Kohlen wurden in gleich große Portionen geteilt. Auf der letzten liegt ein Löffel, damit niemand sie übersieht.",
+    "marker": false,
+    "done_flag": "cwo_cw_witwenterrasse_lesen5"
+   },
+   {
+    "id": "cwo_cw_witwenterrasse_6",
+    "kind": "read",
+    "tile": [
+     18,
+     4
+    ],
+    "title": "Abendtafel",
+    "prompt": "Abendtafel ansehen",
+    "text": "Auf dem Essenszettel steht „für alle, die kommen“. Darunter wurde „und die fehlen“ mit dünnerer Kreide ergänzt.",
+    "marker": false,
+    "done_flag": "cwo_cw_witwenterrasse_lesen6"
+   },
+   {
+    "id": "cwo_cw_witwenterrasse_7",
+    "kind": "travel",
+    "tile": [
+     4,
+     2
+    ],
+    "prompt": "Stadtkarte öffnen",
+    "marker": false
+   },
+   {
+    "id": "cwo_cw_witwenterrasse_8",
+    "kind": "door",
+    "tile": [
+     3,
+     19
+    ],
+    "to": "cw_roehrenhof",
+    "spawn": "oben",
+    "prompt": "Nach Röhrenhof",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_witwenterrasse_9",
+    "kind": "door",
+    "tile": [
+     41,
+     3
+    ],
+    "to": "cw_kronenarchiv",
+    "spawn": "default",
+    "prompt": "Nach Kronenarchiv",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_witwenterrasse_10",
+    "kind": "dialogue",
+    "tile": [
+     38,
+     2
+    ],
+    "dialogue": "cwo_lift_5",
+    "title": "Schrägaufzug: 2 Schilling, mit Werkstatt frei",
+    "prompt": "Schrägaufzug: 2 Schilling, mit Werkstatt frei",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_witwenterrasse_11",
+    "kind": "door",
+    "tile": [
+     5,
+     19
+    ],
+    "to": "cw_kueche",
+    "spawn": "default",
+    "prompt": "Nach Gemeinschaftsküche",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_witwenterrasse_12",
+    "kind": "read",
+    "tile": [
+     6,
+     6
+    ],
+    "title": "Sechsschlaufiger Haushaltsknoten",
+    "prompt": "Sechsschlaufiger Haushaltsknoten ansehen",
+    "text": "Sechs getrennte Schlaufen lassen sich lösen, ohne die anderen aufzuschneiden. Das Stück liegt zur freien Mitnahme im gekennzeichneten Restefach.",
+    "marker": false,
+    "done_flag": "cwo_fund_haushaltsknoten",
+    "effects": {
+     "gives_items": {
+      "cwo_haushaltsknoten": 1
+     }
+    }
+   }
+  ]
+ },
+ {
+  "id": "cw_kronenarchiv",
+  "name": "Kronenarchiv",
+  "city": "calderwick",
+  "tiles": "m_kontor",
+  "tiles_wunsch": "cw_kronenarchiv",
+  "rows": [
+   "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I.........III.......III.......III..........I",
+   "I.........III.......III.......III..........I",
+   "I.........III.......III.......III..........I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I.........III.......III.......III..........I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "I..........................................I",
+   "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+  ],
+  "spawns": {
+   "default": [
+    2,
+    19
+   ],
+   "oben": [
+    41,
+    2
+   ]
+  },
+  "lights": [
+   {
+    "tile": [
+     3,
+     3
+    ],
+    "radius": 80,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   },
+   {
+    "tile": [
+     40,
+     18
+    ],
+    "radius": 90,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   }
+  ],
+  "ambient": {
+   "night": 0.65,
+   "fog": 0.1
+  },
+  "interactables": [
+   {
+    "id": "cwo_cw_kronenarchiv_1",
+    "kind": "read",
+    "tile": [
+     3,
+     4
+    ],
+    "title": "Trockener Garten",
+    "prompt": "Trockener Garten ansehen",
+    "text": "Die Beete sind geometrisch vollkommen. Eine Gießkanne rostet außerhalb des vorgesehenen Weges.",
+    "marker": false,
+    "done_flag": "cwo_cw_kronenarchiv_lesen1"
+   },
+   {
+    "id": "cwo_cw_kronenarchiv_2",
+    "kind": "read",
+    "tile": [
+     6,
+     4
+    ],
+    "title": "Gehaltsanschlag",
+    "prompt": "Gehaltsanschlag ansehen",
+    "text": "Jede Stelle hat einen Betrag und eine Unterschrift. Beim Direktor ersetzt der Amtstitel beides.",
+    "marker": false,
+    "done_flag": "cwo_cw_kronenarchiv_lesen2"
+   },
+   {
+    "id": "cwo_cw_kronenarchiv_3",
+    "kind": "read",
+    "tile": [
+     9,
+     4
+    ],
+    "title": "Leseverbot",
+    "prompt": "Leseverbot ansehen",
+    "text": "Ein Schild verbietet das Anfeuchten der Finger. Unter dem Schild steht ein Eimer für die undichte Decke.",
+    "marker": false,
+    "done_flag": "cwo_cw_kronenarchiv_lesen3"
+   },
+   {
+    "id": "cwo_cw_kronenarchiv_4",
+    "kind": "read",
+    "tile": [
+     12,
+     4
+    ],
+    "title": "Lieferaufzug",
+    "prompt": "Lieferaufzug ansehen",
+    "text": "Die Kabine ist innen mit Filz ausgekleidet. Neben Büchermaßen stehen Striche auf Schulterhöhe.",
+    "marker": false,
+    "done_flag": "cwo_cw_kronenarchiv_lesen4"
+   },
+   {
+    "id": "cwo_cw_kronenarchiv_5",
+    "kind": "read",
+    "tile": [
+     15,
+     4
+    ],
+    "title": "Steinbank",
+    "prompt": "Steinbank ansehen",
+    "text": "Unter der Bank liegen lose Pflastersteine. Jemand hat eine kleine Treppe für einen Menschen gebaut, der die große nicht schafft.",
+    "marker": false,
+    "done_flag": "cwo_cw_kronenarchiv_lesen5"
+   },
+   {
+    "id": "cwo_cw_kronenarchiv_6",
+    "kind": "read",
+    "tile": [
+     18,
+     4
+    ],
+    "title": "Archivtür",
+    "prompt": "Archivtür ansehen",
+    "text": "Die Tür hat drei Schlösser und einen abgenutzten Klopfer. Das Metall verrät, welcher Zugang häufiger benutzt wird.",
+    "marker": false,
+    "done_flag": "cwo_cw_kronenarchiv_lesen6"
+   },
+   {
+    "id": "cwo_cw_kronenarchiv_7",
+    "kind": "travel",
+    "tile": [
+     4,
+     2
+    ],
+    "prompt": "Stadtkarte öffnen",
+    "marker": false
+   },
+   {
+    "id": "cwo_cw_kronenarchiv_8",
+    "kind": "door",
+    "tile": [
+     3,
+     19
+    ],
+    "to": "cw_witwenterrasse",
+    "spawn": "oben",
+    "prompt": "Nach Witwenterrasse",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_kronenarchiv_9",
+    "kind": "read",
+    "tile": [
+     38,
+     2
+    ],
+    "title": "Oberste Seilrolle",
+    "prompt": "Oberste Seilrolle ansehen",
+    "text": "Hier endet der Aufzug. Die Rücktreppe führt kostenlos zu allen tieferen Terrassen.",
+    "marker": false
+   },
+   {
+    "id": "cwo_cw_kronenarchiv_10",
+    "kind": "door",
+    "tile": [
+     9,
+     19
+    ],
+    "to": "cw_archivsaal",
+    "spawn": "default",
+    "prompt": "Nach Archivsaal",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_kronenarchiv_11",
+    "kind": "door",
+    "tile": [
+     13,
+     19
+    ],
+    "to": "cw_villa",
+    "spawn": "default",
+    "prompt": "Nach Direktorenvilla",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_kronenarchiv_12",
+    "kind": "door",
+    "tile": [
+     14,
+     19
+    ],
+    "to": "cw_nullfundament",
+    "spawn": "default",
+    "prompt": "Nach Nullfundament",
+    "marker": true,
+    "visible_if": {
+     "requires_flags": [
+      "cwa_akt4_done"
+     ]
+    }
+   },
+   {
+    "id": "cwo_cw_kronenarchiv_13",
+    "kind": "read",
+    "tile": [
+     20,
+     7
+    ],
+    "title": "Rohrpoststation",
+    "prompt": "Rohrpoststation ansehen",
+    "text": "Die Kapsel aus der Villa trägt einen anderen Zeitstempel als der Dienstplan. Der Unterschied beträgt eine Kabinenfahrt.",
+    "marker": false,
+    "visible_if": {
+     "requires_items": [
+      "cwa_rohrpostsiegel"
+     ]
+    },
+    "done_flag": "cwo_rohr_cw_kronenarchiv"
+   },
+   {
+    "id": "cwo_cw_kronenarchiv_14",
+    "kind": "read",
+    "tile": [
+     6,
+     6
+    ],
+    "title": "Vertrocknetes Gartenetikett",
+    "prompt": "Vertrocknetes Gartenetikett ansehen",
+    "text": "Ein Pflanzschild für ein Beet, das nie Wasser erhielt. Das Stück liegt zur freien Mitnahme im gekennzeichneten Restefach.",
+    "marker": false,
+    "done_flag": "cwo_fund_gartenetikett",
+    "effects": {
+     "gives_items": {
+      "cwo_gartenetikett": 1
+     }
+    }
+   }
+  ]
+ },
+ {
+  "id": "cw_buchbinderei",
+  "name": "Klammers Buchbinderei",
+  "city": "calderwick",
+  "tiles": "m_kontor",
+  "tiles_wunsch": "cw_buchbinderei",
+  "rows": [
+   "IIIIIIIIIIIIIIIIIIIIIIII",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I.........III..........I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "IIIIIIIIIIIIIIIIIIIIIIII"
+  ],
+  "spawns": {
+   "default": [
+    2,
+    11
+   ],
+   "oben": [
+    21,
+    2
+   ]
+  },
+  "lights": [
+   {
+    "tile": [
+     3,
+     3
+    ],
+    "radius": 80,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   },
+   {
+    "tile": [
+     20,
+     10
+    ],
+    "radius": 90,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   }
+  ],
+  "ambient": {
+   "night": 0.65,
+   "fog": 0.02
+  },
+  "interactables": [
+   {
+    "id": "cwo_cw_buchbinderei_1",
+    "kind": "read",
+    "tile": [
+     3,
+     4
+    ],
+    "title": "Ofen",
+    "prompt": "Ofen ansehen",
+    "text": "Im Ofen liegen abgeschnittene Buchrücken. Klammer verbrennt nur die leeren Hüllen und legt jedes beschriebene Blatt beiseite.",
+    "marker": false,
+    "done_flag": "cwo_cw_buchbinderei_lesen1"
+   },
+   {
+    "id": "cwo_cw_buchbinderei_2",
+    "kind": "read",
+    "tile": [
+     6,
+     4
+    ],
+    "title": "Arbeitsbank",
+    "prompt": "Arbeitsbank ansehen",
+    "text": "Die Schneidkante ist stumpf genug, um niemanden zu überraschen. Eine Notiz verlangt, Werkzeuge an ihren Platz zurückzubringen.",
+    "marker": false,
+    "done_flag": "cwo_cw_buchbinderei_lesen2"
+   },
+   {
+    "id": "cwo_cw_buchbinderei_3",
+    "kind": "read",
+    "tile": [
+     9,
+     4
+    ],
+    "title": "Leimrezept",
+    "prompt": "Leimrezept ansehen",
+    "text": "Das Rezept nennt Mengen, Temperaturen und Geduld. Hinter Geduld steht kein Preis.",
+    "marker": false,
+    "done_flag": "cwo_cw_buchbinderei_lesen3"
+   },
+   {
+    "id": "cwo_cw_buchbinderei_4",
+    "kind": "read",
+    "tile": [
+     12,
+     4
+    ],
+    "title": "Fallwand",
+    "prompt": "Fallwand ansehen",
+    "text": "Fäden verbinden Fundorte, nicht Schuldige. Ein freier Nagel trägt die Beschriftung „noch nicht verstanden“.",
+    "marker": false,
+    "done_flag": "cwo_cw_buchbinderei_lesen4"
+   },
+   {
+    "id": "cwo_cw_buchbinderei_5",
+    "kind": "read",
+    "tile": [
+     15,
+     4
+    ],
+    "title": "Gästetasse",
+    "prompt": "Gästetasse ansehen",
+    "text": "Die Tasse hat einen Sprung und einen fest gebundenen Henkel. Klammer stellt sie hin, ohne nach einem amtlichen Namen zu fragen.",
+    "marker": false,
+    "done_flag": "cwo_cw_buchbinderei_lesen5"
+   },
+   {
+    "id": "cwo_cw_buchbinderei_6",
+    "kind": "read",
+    "tile": [
+     18,
+     4
+    ],
+    "title": "Bürgenbrett",
+    "prompt": "Bürgenbrett ansehen",
+    "text": "Drei Haken tragen leere Schlaufen. Gefundene Anker bleiben im Journal, Markierungen lassen sich hier kostenlos umsetzen.",
+    "marker": false,
+    "done_flag": "cwo_cw_buchbinderei_lesen6"
+   },
+   {
+    "id": "cwo_cw_buchbinderei_7",
+    "kind": "door",
+    "tile": [
+     3,
+     11
+    ],
+    "to": "cw_setzergasse",
+    "spawn": "default",
+    "prompt": "Nach Setzergasse",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_buchbinderei_8",
+    "kind": "rest",
+    "tile": [
+     3,
+     7
+    ],
+    "prompt": "In Klammers Koje ausruhen",
+    "title": "In Klammers Koje ausruhen",
+    "text": "Die Werkstatt bleibt dein sicherer Rückweg. Klammer legt frisches Holz neben den Ofen.",
+    "marker": false
+   },
+   {
+    "id": "cwo_cw_buchbinderei_9",
+    "kind": "storage",
+    "tile": [
+     7,
+     7
+    ],
+    "prompt": "Lagerkiste öffnen",
+    "title": "Lagerkiste öffnen",
+    "text": "Die Werkstatt bleibt dein sicherer Rückweg. Klammer legt frisches Holz neben den Ofen.",
+    "marker": false
+   },
+   {
+    "id": "cwo_cw_buchbinderei_10",
+    "kind": "casewall",
+    "tile": [
+     11,
+     7
+    ],
+    "prompt": "Fallwand ansehen",
+    "title": "Fallwand ansehen",
+    "text": "Die Werkstatt bleibt dein sicherer Rückweg. Klammer legt frisches Holz neben den Ofen.",
+    "marker": false
+   },
+   {
+    "id": "cwo_cw_buchbinderei_11",
+    "kind": "read",
+    "tile": [
+     20,
+     7
+    ],
+    "title": "Rohrpoststation",
+    "prompt": "Rohrpoststation ansehen",
+    "text": "Klammer hat Filz in den Empfänger gelegt. Vertrauliche Post muss nicht das ganze Haus wecken.",
+    "marker": false,
+    "visible_if": {
+     "requires_items": [
+      "cwa_rohrpostsiegel"
+     ]
+    },
+    "done_flag": "cwo_rohr_cw_buchbinderei"
+   },
+   {
+    "id": "cwo_cw_buchbinderei_12",
+    "kind": "dialogue",
+    "tile": [
+     15,
+     7
+    ],
+    "dialogue": "cwo_wartung",
+    "title": "Klammers Wartungszettel",
+    "prompt": "Klammers Wartungszettel",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_buchbinderei_13",
+    "kind": "read",
+    "tile": [
+     3,
+     9
+    ],
+    "title": "Werkstattanker",
+    "prompt": "Werkstattanker ansehen",
+    "text": "Klammer erinnert sich, wer die Tür gestern repariert hat. Diese persönliche Erinnerung stammt nicht aus dem Lieferbuch.",
+    "marker": false,
+    "done_flag": "cwo_anker_werkstatt_person"
+   },
+   {
+    "id": "cwo_cw_buchbinderei_14",
+    "kind": "dialogue",
+    "tile": [
+     7,
+     9
+    ],
+    "dialogue": "cwo_buergenprobe",
+    "title": "Bürgenbrett: sichere Übung",
+    "prompt": "Bürgenbrett: sichere Übung",
+    "marker": true
+   }
+  ]
+ },
+ {
+  "id": "cw_gepaeckhalle",
+  "name": "Gepäckhalle",
+  "city": "calderwick",
+  "tiles": "m_kontor",
+  "tiles_wunsch": "cw_gepaeckhalle",
+  "rows": [
+   "IIIIIIIIIIIIIIIIIIIIIIII",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I.........III..........I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "IIIIIIIIIIIIIIIIIIIIIIII"
+  ],
+  "spawns": {
+   "default": [
+    2,
+    11
+   ],
+   "oben": [
+    21,
+    2
+   ]
+  },
+  "lights": [
+   {
+    "tile": [
+     3,
+     3
+    ],
+    "radius": 80,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   },
+   {
+    "tile": [
+     20,
+     10
+    ],
+    "radius": 90,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   }
+  ],
+  "ambient": {
+   "night": 0.65,
+   "fog": 0.02
+  },
+  "interactables": [
+   {
+    "id": "cwo_cw_gepaeckhalle_1",
+    "kind": "read",
+    "tile": [
+     3,
+     4
+    ],
+    "title": "Fahrgastbuch",
+    "prompt": "Fahrgastbuch ansehen",
+    "text": "Die Linien sind gezogen, die Spalten leer. Nur am unteren Rand verrät ein Fingerabdruck frische Tinte.",
+    "marker": false,
+    "done_flag": "cwo_cw_gepaeckhalle_lesen1"
+   },
+   {
+    "id": "cwo_cw_gepaeckhalle_2",
+    "kind": "read",
+    "tile": [
+     6,
+     4
+    ],
+    "title": "Veras Schalter",
+    "prompt": "Veras Schalter ansehen",
+    "text": "Eine Schreibfeder liegt genau parallel zum Schalterrand. Darunter ist ein unvollendeter Buchstabe getrocknet.",
+    "marker": false,
+    "done_flag": "cwo_cw_gepaeckhalle_lesen2"
+   },
+   {
+    "id": "cwo_cw_gepaeckhalle_3",
+    "kind": "read",
+    "tile": [
+     9,
+     4
+    ],
+    "title": "Gepäckschein",
+    "prompt": "Gepäckschein ansehen",
+    "text": "Ein Koffer trägt einen Schein ohne Ziel. Am Griff hängt ein zweiter Zettel: „Bitte nicht allein lassen“.",
+    "marker": false,
+    "done_flag": "cwo_cw_gepaeckhalle_lesen3"
+   },
+   {
+    "id": "cwo_cw_gepaeckhalle_4",
+    "kind": "read",
+    "tile": [
+     12,
+     4
+    ],
+    "title": "Sitzbank",
+    "prompt": "Sitzbank ansehen",
+    "text": "Ein heller Fleck unterbricht die staubige Bank. Dort hat kürzlich jemand sehr lange gewartet.",
+    "marker": false,
+    "done_flag": "cwo_cw_gepaeckhalle_lesen4"
+   },
+   {
+    "id": "cwo_cw_gepaeckhalle_5",
+    "kind": "read",
+    "tile": [
+     15,
+     4
+    ],
+    "title": "Handwaage",
+    "prompt": "Handwaage ansehen",
+    "text": "Die Gewichte sind amtlich geprüft. Die dazugehörigen Namen wurden mit demselben Stempel unlesbar gemacht.",
+    "marker": false,
+    "done_flag": "cwo_cw_gepaeckhalle_lesen5"
+   },
+   {
+    "id": "cwo_cw_gepaeckhalle_6",
+    "kind": "read",
+    "tile": [
+     18,
+     4
+    ],
+    "title": "Heimkehrfach",
+    "prompt": "Heimkehrfach ansehen",
+    "text": "Im Fach liegen ungeöffnete Rückfahrkarten. Jemand hat sie nach Schuhgrößen statt nach Namen sortiert.",
+    "marker": false,
+    "done_flag": "cwo_cw_gepaeckhalle_lesen6"
+   },
+   {
+    "id": "cwo_cw_gepaeckhalle_7",
+    "kind": "door",
+    "tile": [
+     3,
+     11
+    ],
+    "to": "cw_gleisfuss",
+    "spawn": "default",
+    "prompt": "Nach Gleisfuß",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_gepaeckhalle_8",
+    "kind": "read",
+    "tile": [
+     20,
+     7
+    ],
+    "title": "Rohrpoststation",
+    "prompt": "Rohrpoststation ansehen",
+    "text": "Vera führt empfangene Kapseln getrennt vom Fahrgastbuch. Leere Spalten können also keine leere Stadt beweisen.",
+    "marker": false,
+    "visible_if": {
+     "requires_items": [
+      "cwa_rohrpostsiegel"
+     ]
+    },
+    "done_flag": "cwo_rohr_cw_gepaeckhalle"
+   },
+   {
+    "id": "cwo_cw_gepaeckhalle_9",
+    "kind": "dialogue",
+    "tile": [
+     18,
+     9
+    ],
+    "dialogue": "cwo_abgleich_1",
+    "title": "Gepäckverbindung registrieren",
+    "prompt": "Gepäckverbindung registrieren",
+    "marker": true
+   }
+  ]
+ },
+ {
+  "id": "cw_pfandhaus",
+  "name": "Lotties Pfandhaus",
+  "city": "calderwick",
+  "tiles": "m_kontor",
+  "tiles_wunsch": "cw_pfandhaus",
+  "rows": [
+   "IIIIIIIIIIIIIIIIIIIIIIII",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I.........III..........I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "IIIIIIIIIIIIIIIIIIIIIIII"
+  ],
+  "spawns": {
+   "default": [
+    2,
+    11
+   ],
+   "oben": [
+    21,
+    2
+   ]
+  },
+  "lights": [
+   {
+    "tile": [
+     3,
+     3
+    ],
+    "radius": 80,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   },
+   {
+    "tile": [
+     20,
+     10
+    ],
+    "radius": 90,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   }
+  ],
+  "ambient": {
+   "night": 0.65,
+   "fog": 0.02
+  },
+  "interactables": [
+   {
+    "id": "cwo_cw_pfandhaus_1",
+    "kind": "read",
+    "tile": [
+     3,
+     4
+    ],
+    "title": "Fingerhut",
+    "prompt": "Fingerhut ansehen",
+    "text": "Ein Fingerhut steckt in einem zu großen Etui. Der Pfandzettel bewertet das Silber; die Druckstellen einer Hand bleiben unberechnet.",
+    "marker": false,
+    "done_flag": "cwo_cw_pfandhaus_lesen1"
+   },
+   {
+    "id": "cwo_cw_pfandhaus_2",
+    "kind": "read",
+    "tile": [
+     6,
+     4
+    ],
+    "title": "Fremdes Geschirr",
+    "prompt": "Fremdes Geschirr ansehen",
+    "text": "Die Teller passen nicht zusammen. Lottie hat sie trotzdem zu einer Familie aufgestellt.",
+    "marker": false,
+    "done_flag": "cwo_cw_pfandhaus_lesen2"
+   },
+   {
+    "id": "cwo_cw_pfandhaus_3",
+    "kind": "read",
+    "tile": [
+     9,
+     4
+    ],
+    "title": "Drei Zettel",
+    "prompt": "Drei Zettel ansehen",
+    "text": "Drei Haushalte haben denselben Namen angegeben. Unterschiedliche Fettflecken zeigen, dass die Zettel nicht voneinander abgeschrieben wurden.",
+    "marker": false,
+    "done_flag": "cwo_cw_pfandhaus_lesen3"
+   },
+   {
+    "id": "cwo_cw_pfandhaus_4",
+    "kind": "read",
+    "tile": [
+     12,
+     4
+    ],
+    "title": "Rückkaufsuhr",
+    "prompt": "Rückkaufsuhr ansehen",
+    "text": "Die Uhr ist angehalten, damit keine Frist verstreicht. Ein Schild erklärt das für eine vorübergehende Reparatur.",
+    "marker": false,
+    "done_flag": "cwo_cw_pfandhaus_lesen4"
+   },
+   {
+    "id": "cwo_cw_pfandhaus_5",
+    "kind": "read",
+    "tile": [
+     15,
+     4
+    ],
+    "title": "Schubladenboden",
+    "prompt": "Schubladenboden ansehen",
+    "text": "Auf dem Holz stehen ältere Preise als auf den Zetteln. Der Abstand zwischen beiden Zahlen heißt hier Entgegenkommen.",
+    "marker": false,
+    "done_flag": "cwo_cw_pfandhaus_lesen5"
+   },
+   {
+    "id": "cwo_cw_pfandhaus_6",
+    "kind": "read",
+    "tile": [
+     18,
+     4
+    ],
+    "title": "Mantelhaken",
+    "prompt": "Mantelhaken ansehen",
+    "text": "Ein guter Mantel hängt neben einem fast zerfallenen. Beide sind mit derselben Sorgfalt ausgebürstet.",
+    "marker": false,
+    "done_flag": "cwo_cw_pfandhaus_lesen6"
+   },
+   {
+    "id": "cwo_cw_pfandhaus_7",
+    "kind": "door",
+    "tile": [
+     3,
+     11
+    ],
+    "to": "cw_quittungsmarkt",
+    "spawn": "default",
+    "prompt": "Nach Quittungsmarkt",
+    "marker": true
+   }
+  ]
+ },
+ {
+  "id": "cw_sortierhalle",
+  "name": "Sortierhalle",
+  "city": "calderwick",
+  "tiles": "m_kontor",
+  "tiles_wunsch": "cw_sortierhalle",
+  "rows": [
+   "IIIIIIIIIIIIIIIIIIIIIIII",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I.........III..........I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "IIIIIIIIIIIIIIIIIIIIIIII"
+  ],
+  "spawns": {
+   "default": [
+    2,
+    11
+   ],
+   "oben": [
+    21,
+    2
+   ]
+  },
+  "lights": [
+   {
+    "tile": [
+     3,
+     3
+    ],
+    "radius": 80,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   },
+   {
+    "tile": [
+     20,
+     10
+    ],
+    "radius": 90,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   }
+  ],
+  "ambient": {
+   "night": 0.65,
+   "fog": 0.02
+  },
+  "interactables": [
+   {
+    "id": "cwo_cw_sortierhalle_1",
+    "kind": "read",
+    "tile": [
+     3,
+     4
+    ],
+    "title": "Leerfrachtplan",
+    "prompt": "Leerfrachtplan ansehen",
+    "text": "Die Ladung ist mit null Stück angegeben. Die Zeitspalte enthält dennoch eine Essenspause.",
+    "marker": false,
+    "done_flag": "cwo_cw_sortierhalle_lesen1"
+   },
+   {
+    "id": "cwo_cw_sortierhalle_2",
+    "kind": "read",
+    "tile": [
+     6,
+     4
+    ],
+    "title": "Kabinenfenster",
+    "prompt": "Kabinenfenster ansehen",
+    "text": "Das Glas ist von innen beschlagen. Eine schmale freie Stelle liegt auf Augenhöhe eines sitzenden Menschen.",
+    "marker": false,
+    "done_flag": "cwo_cw_sortierhalle_lesen2"
+   },
+   {
+    "id": "cwo_cw_sortierhalle_3",
+    "kind": "read",
+    "tile": [
+     9,
+     4
+    ],
+    "title": "Verschnürung",
+    "prompt": "Verschnürung ansehen",
+    "text": "Die Knoten lassen sich von außen lösen. Innen hat jemand mit einem stumpfen Gegenstand am Seil gearbeitet.",
+    "marker": false,
+    "done_flag": "cwo_cw_sortierhalle_lesen3"
+   },
+   {
+    "id": "cwo_cw_sortierhalle_4",
+    "kind": "read",
+    "tile": [
+     12,
+     4
+    ],
+    "title": "Schichtzettel",
+    "prompt": "Schichtzettel ansehen",
+    "text": "Eine Ankunft wurde zweimal bestätigt. Die zweite Hand hat einen falschen Minutenstrich unbewusst berichtigt.",
+    "marker": false,
+    "done_flag": "cwo_cw_sortierhalle_lesen4"
+   },
+   {
+    "id": "cwo_cw_sortierhalle_5",
+    "kind": "read",
+    "tile": [
+     15,
+     4
+    ],
+    "title": "Rollenbahn",
+    "prompt": "Rollenbahn ansehen",
+    "text": "Zwischen den Rollen steckt ein heller Faden. Er passt zu keinem der grauen Transportsäcke.",
+    "marker": false,
+    "done_flag": "cwo_cw_sortierhalle_lesen5"
+   },
+   {
+    "id": "cwo_cw_sortierhalle_6",
+    "kind": "read",
+    "tile": [
+     18,
+     4
+    ],
+    "title": "Wartungstür",
+    "prompt": "Wartungstür ansehen",
+    "text": "Der Riegel ist geölt, obwohl die Tür offiziell stillgelegt wurde. Frischer Kalk liegt nur auf einer Seite der Schwelle.",
+    "marker": false,
+    "done_flag": "cwo_cw_sortierhalle_lesen6"
+   },
+   {
+    "id": "cwo_cw_sortierhalle_7",
+    "kind": "door",
+    "tile": [
+     3,
+     11
+    ],
+    "to": "cw_roehrenhof",
+    "spawn": "default",
+    "prompt": "Nach Röhrenhof",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_sortierhalle_8",
+    "kind": "read",
+    "tile": [
+     20,
+     7
+    ],
+    "title": "Rohrpoststation",
+    "prompt": "Rohrpoststation ansehen",
+    "text": "Eine Wartungskapsel nennt den Lesesaal als Ziel. Ihr Papier riecht nach derselben Seife wie das Kabinenfenster.",
+    "marker": false,
+    "visible_if": {
+     "requires_items": [
+      "cwa_rohrpostsiegel"
+     ]
+    },
+    "done_flag": "cwo_rohr_cw_sortierhalle"
+   },
+   {
+    "id": "cwo_cw_sortierhalle_9",
+    "kind": "read",
+    "tile": [
+     6,
+     6
+    ],
+    "title": "Kabinenfenster-Scherbe",
+    "prompt": "Kabinenfenster-Scherbe ansehen",
+    "text": "Doppelseitiges Glas mit einem Fingerabdruck zwischen den Schichten. Das Stück liegt zur freien Mitnahme im gekennzeichneten Restefach.",
+    "marker": false,
+    "done_flag": "cwo_fund_kabinenfenster_scherbe",
+    "effects": {
+     "gives_items": {
+      "cwo_kabinenfenster_scherbe": 1
+     }
+    }
+   },
+   {
+    "id": "cwo_cw_sortierhalle_10",
+    "kind": "dialogue",
+    "tile": [
+     18,
+     9
+    ],
+    "dialogue": "cwo_abgleich_2",
+    "title": "Kabinenlauf bestätigen",
+    "prompt": "Kabinenlauf bestätigen",
+    "marker": true
+   }
+  ]
+ },
+ {
+  "id": "cw_kueche",
+  "name": "Gemeinschaftsküche",
+  "city": "calderwick",
+  "tiles": "m_kontor",
+  "tiles_wunsch": "cw_kueche",
+  "rows": [
+   "IIIIIIIIIIIIIIIIIIIIIIII",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I.........III..........I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "IIIIIIIIIIIIIIIIIIIIIIII"
+  ],
+  "spawns": {
+   "default": [
+    2,
+    11
+   ],
+   "oben": [
+    21,
+    2
+   ]
+  },
+  "lights": [
+   {
+    "tile": [
+     3,
+     3
+    ],
+    "radius": 80,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   },
+   {
+    "tile": [
+     20,
+     10
+    ],
+    "radius": 90,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   }
+  ],
+  "ambient": {
+   "night": 0.65,
+   "fog": 0.02
+  },
+  "interactables": [
+   {
+    "id": "cwo_cw_kueche_1",
+    "kind": "read",
+    "tile": [
+     3,
+     4
+    ],
+    "title": "Zwei Teller",
+    "prompt": "Zwei Teller ansehen",
+    "text": "Noel deckt zwei Plätze, auch wenn nur einer besetzt ist. Der zweite Löffel liegt immer mit der Mulde nach unten.",
+    "marker": false,
+    "done_flag": "cwo_cw_kueche_lesen1"
+   },
+   {
+    "id": "cwo_cw_kueche_2",
+    "kind": "read",
+    "tile": [
+     6,
+     4
+    ],
+    "title": "Februarzettel",
+    "prompt": "Februarzettel ansehen",
+    "text": "Auf einem alten Essenszettel steht „Hochzeit im Februar“. Daneben hat jemand einen kleinen Sommerstern gezeichnet, ohne das Datum zu streichen.",
+    "marker": false,
+    "done_flag": "cwo_cw_kueche_lesen2"
+   },
+   {
+    "id": "cwo_cw_kueche_3",
+    "kind": "read",
+    "tile": [
+     9,
+     4
+    ],
+    "title": "Brotschublade",
+    "prompt": "Brotschublade ansehen",
+    "text": "Das Brot wird in dünne Scheiben geschnitten. Die erste und letzte Scheibe bleiben für jemanden liegen, der spät kommt.",
+    "marker": false,
+    "done_flag": "cwo_cw_kueche_lesen3"
+   },
+   {
+    "id": "cwo_cw_kueche_4",
+    "kind": "read",
+    "tile": [
+     12,
+     4
+    ],
+    "title": "Suppenbuch",
+    "prompt": "Suppenbuch ansehen",
+    "text": "Im Buch fehlen Namen, aber keine Portionen. Noel führt Anwesenheit mit Schüsseln statt Unterschriften.",
+    "marker": false,
+    "done_flag": "cwo_cw_kueche_lesen4"
+   },
+   {
+    "id": "cwo_cw_kueche_5",
+    "kind": "read",
+    "tile": [
+     15,
+     4
+    ],
+    "title": "Rohrwärme",
+    "prompt": "Rohrwärme ansehen",
+    "text": "Ein warmes Rohr verschwindet hinter dem Herd. In seinem Staub liegen zwei frische Handabdrücke.",
+    "marker": false,
+    "done_flag": "cwo_cw_kueche_lesen5"
+   },
+   {
+    "id": "cwo_cw_kueche_6",
+    "kind": "read",
+    "tile": [
+     18,
+     4
+    ],
+    "title": "Freier Stuhl",
+    "prompt": "Freier Stuhl ansehen",
+    "text": "Der Stuhl wurde ausgebessert, obwohl er angeblich niemandem gehört. Neues Holz ist ehrlicher als die Auskunft.",
+    "marker": false,
+    "done_flag": "cwo_cw_kueche_lesen6"
+   },
+   {
+    "id": "cwo_cw_kueche_7",
+    "kind": "door",
+    "tile": [
+     3,
+     11
+    ],
+    "to": "cw_witwenterrasse",
+    "spawn": "default",
+    "prompt": "Nach Witwenterrasse",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_kueche_8",
+    "kind": "read",
+    "tile": [
+     20,
+     7
+    ],
+    "title": "Rohrpoststation",
+    "prompt": "Rohrpoststation ansehen",
+    "text": "Noel empfängt keine amtlichen Speisepläne. In der Kapsel liegt die Bitte, einen weiteren Teller aufzuheben.",
+    "marker": false,
+    "visible_if": {
+     "requires_items": [
+      "cwa_rohrpostsiegel"
+     ]
+    },
+    "done_flag": "cwo_rohr_cw_kueche"
+   },
+   {
+    "id": "cwo_cw_kueche_9",
+    "kind": "read",
+    "tile": [
+     6,
+     6
+    ],
+    "title": "Terrassen-Kaltbrot",
+    "prompt": "Terrassen-Kaltbrot ansehen",
+    "text": "Ein hart gebackener Erinnerungslaib mit eingeschnittenen sechs Stufen. Kein Heilmittel. Das Stück liegt zur freien Mitnahme im gekennzeichneten Restefach.",
+    "marker": false,
+    "done_flag": "cwo_fund_terrassen_kaltbrot",
+    "effects": {
+     "gives_items": {
+      "cwo_terrassen_kaltbrot": 1
+     }
+    }
+   },
+   {
+    "id": "cwo_cw_kueche_10",
+    "kind": "dialogue",
+    "tile": [
+     18,
+     9
+    ],
+    "dialogue": "cwo_abgleich_4",
+    "title": "Haushalt als selbstständig bezeugen",
+    "prompt": "Haushalt als selbstständig bezeugen",
+    "marker": true
+   }
+  ]
+ },
+ {
+  "id": "cw_archivsaal",
+  "name": "Archivsaal",
+  "city": "calderwick",
+  "tiles": "m_kontor",
+  "tiles_wunsch": "cw_archivsaal",
+  "rows": [
+   "IIIIIIIIIIIIIIIIIIIIIIII",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I.........III..........I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "IIIIIIIIIIIIIIIIIIIIIIII"
+  ],
+  "spawns": {
+   "default": [
+    2,
+    11
+   ],
+   "oben": [
+    21,
+    2
+   ]
+  },
+  "lights": [
+   {
+    "tile": [
+     3,
+     3
+    ],
+    "radius": 80,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   },
+   {
+    "tile": [
+     20,
+     10
+    ],
+    "radius": 90,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   }
+  ],
+  "ambient": {
+   "night": 0.65,
+   "fog": 0.02
+  },
+  "interactables": [
+   {
+    "id": "cwo_cw_archivsaal_1",
+    "kind": "read",
+    "tile": [
+     3,
+     4
+    ],
+    "title": "Gehaltsliste",
+    "prompt": "Gehaltsliste ansehen",
+    "text": "Die Summen stimmen bis zum letzten Schilling. Beim Empfänger steht seit Jahren nur das Amt.",
+    "marker": false,
+    "done_flag": "cwo_cw_archivsaal_lesen1"
+   },
+   {
+    "id": "cwo_cw_archivsaal_2",
+    "kind": "read",
+    "tile": [
+     6,
+     4
+    ],
+    "title": "Wartungsplan",
+    "prompt": "Wartungsplan ansehen",
+    "text": "Der Plan lässt einen Gang aus, dessen Zugluft die Seiten bewegt. Eine ältere Lochung passt zu einem fehlenden Ergänzungsblatt.",
+    "marker": false,
+    "done_flag": "cwo_cw_archivsaal_lesen2"
+   },
+   {
+    "id": "cwo_cw_archivsaal_3",
+    "kind": "read",
+    "tile": [
+     9,
+     4
+    ],
+    "title": "Randkorrektur",
+    "prompt": "Randkorrektur ansehen",
+    "text": "Ein Wort wurde nicht getilgt, sondern zur Seite gerückt. Es lässt dem Rest des Satzes eine andere Bedeutung.",
+    "marker": false,
+    "done_flag": "cwo_cw_archivsaal_lesen3"
+   },
+   {
+    "id": "cwo_cw_archivsaal_4",
+    "kind": "read",
+    "tile": [
+     12,
+     4
+    ],
+    "title": "Formelherkunft",
+    "prompt": "Formelherkunft ansehen",
+    "text": "Die Druckplatten dokumentieren, wer alte Formeln verwahrte und weitergab. Hier steht kein neues Rezept und kein weiterer Pfad.",
+    "marker": false,
+    "done_flag": "cwo_cw_archivsaal_lesen4"
+   },
+   {
+    "id": "cwo_cw_archivsaal_5",
+    "kind": "read",
+    "tile": [
+     15,
+     4
+    ],
+    "title": "Lesepult",
+    "prompt": "Lesepult ansehen",
+    "text": "Auf der linken Pultkante sind Fingernägel ins Holz gedrückt. Rechts liegt ein sauber zugeschnittenes Löschblatt.",
+    "marker": false,
+    "done_flag": "cwo_cw_archivsaal_lesen5"
+   },
+   {
+    "id": "cwo_cw_archivsaal_6",
+    "kind": "read",
+    "tile": [
+     18,
+     4
+    ],
+    "title": "Rückstellwagen",
+    "prompt": "Rückstellwagen ansehen",
+    "text": "Ein Band steht verkehrt herum zwischen den anderen. Sein Rücken ist nur dort blank, wo ihn jemand heimlich greifen konnte.",
+    "marker": false,
+    "done_flag": "cwo_cw_archivsaal_lesen6"
+   },
+   {
+    "id": "cwo_cw_archivsaal_7",
+    "kind": "door",
+    "tile": [
+     3,
+     11
+    ],
+    "to": "cw_kronenarchiv",
+    "spawn": "default",
+    "prompt": "Nach Kronenarchiv",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_archivsaal_8",
+    "kind": "door",
+    "tile": [
+     17,
+     11
+    ],
+    "to": "cw_druckkammer",
+    "spawn": "default",
+    "prompt": "Nach Druckkammer",
+    "marker": true,
+    "visible_if": {
+     "requires_flags": [
+      "cwa_akt4_done"
+     ]
+    }
+   },
+   {
+    "id": "cwo_cw_archivsaal_9",
+    "kind": "read",
+    "tile": [
+     20,
+     7
+    ],
+    "title": "Rohrpoststation",
+    "prompt": "Rohrpoststation ansehen",
+    "text": "Der Wartungsdienst benutzt kleine Druckbuchstaben. In seiner Nachricht blieb ein persönliches Wort stehen.",
+    "marker": false,
+    "visible_if": {
+     "requires_items": [
+      "cwa_rohrpostsiegel"
+     ]
+    },
+    "done_flag": "cwo_rohr_cw_archivsaal"
+   },
+   {
+    "id": "cwo_cw_archivsaal_10",
+    "kind": "dialogue",
+    "tile": [
+     18,
+     9
+    ],
+    "dialogue": "cwo_abgleich_3",
+    "title": "Archivzugang berichtigen",
+    "prompt": "Archivzugang berichtigen",
+    "marker": true
+   }
+  ]
+ },
+ {
+  "id": "cw_villa",
+  "name": "Direktorenvilla",
+  "city": "calderwick",
+  "tiles": "m_kontor",
+  "tiles_wunsch": "cw_villa",
+  "rows": [
+   "IIIIIIIIIIIIIIIIIIIIIIII",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I.........III..........I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "IIIIIIIIIIIIIIIIIIIIIIII"
+  ],
+  "spawns": {
+   "default": [
+    2,
+    11
+   ],
+   "oben": [
+    21,
+    2
+   ]
+  },
+  "lights": [
+   {
+    "tile": [
+     3,
+     3
+    ],
+    "radius": 80,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   },
+   {
+    "tile": [
+     20,
+     10
+    ],
+    "radius": 90,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   }
+  ],
+  "ambient": {
+   "night": 0.65,
+   "fog": 0.02
+  },
+  "interactables": [
+   {
+    "id": "cwo_cw_villa_1",
+    "kind": "read",
+    "tile": [
+     3,
+     4
+    ],
+    "title": "Rechenblatt",
+    "prompt": "Rechenblatt ansehen",
+    "text": "Die Rechnung behandelt einzelne Menschen als Rundungsfehler. Die Summe wird kleiner, während die Zahl der leeren Plätze steigt.",
+    "marker": false,
+    "done_flag": "cwo_cw_villa_lesen1"
+   },
+   {
+    "id": "cwo_cw_villa_2",
+    "kind": "read",
+    "tile": [
+     6,
+     4
+    ],
+    "title": "Amtssessel",
+    "prompt": "Amtssessel ansehen",
+    "text": "Auf dem Sessel liegt kein persönlicher Gegenstand. Selbst der abgewetzte Stoff scheint nur dem Amt zu gehören.",
+    "marker": false,
+    "done_flag": "cwo_cw_villa_lesen2"
+   },
+   {
+    "id": "cwo_cw_villa_3",
+    "kind": "read",
+    "tile": [
+     9,
+     4
+    ],
+    "title": "Gekaufte Akten",
+    "prompt": "Gekaufte Akten ansehen",
+    "text": "Kisten tragen alte Kettlegater Eingangsstempel und jüngere Kaufbelege. Erwerb ist kein Beweis dafür, wer die ursprünglichen Taten plante.",
+    "marker": false,
+    "done_flag": "cwo_cw_villa_lesen3"
+   },
+   {
+    "id": "cwo_cw_villa_4",
+    "kind": "read",
+    "tile": [
+     12,
+     4
+    ],
+    "title": "Unterschriftsfeld",
+    "prompt": "Unterschriftsfeld ansehen",
+    "text": "Das Feld wurde so oft radiert, dass der Tisch durch das Papier scheint. Der Amtstitel blieb unberührt.",
+    "marker": false,
+    "done_flag": "cwo_cw_villa_lesen4"
+   },
+   {
+    "id": "cwo_cw_villa_5",
+    "kind": "read",
+    "tile": [
+     15,
+     4
+    ],
+    "title": "Fensterglas",
+    "prompt": "Fensterglas ansehen",
+    "text": "Vom Fenster sieht man keine Küchentür. Wer hier rechnet, muss das Fehlen anderer Menschen erzählt bekommen.",
+    "marker": false,
+    "done_flag": "cwo_cw_villa_lesen5"
+   },
+   {
+    "id": "cwo_cw_villa_6",
+    "kind": "read",
+    "tile": [
+     18,
+     4
+    ],
+    "title": "Roter Faden",
+    "prompt": "Roter Faden ansehen",
+    "text": "Ein Faden verbindet zwei Rohrposthebel. Er zieht sich straff, sobald der Rücklauf geöffnet wird.",
+    "marker": false,
+    "done_flag": "cwo_cw_villa_lesen6"
+   },
+   {
+    "id": "cwo_cw_villa_7",
+    "kind": "door",
+    "tile": [
+     3,
+     11
+    ],
+    "to": "cw_kronenarchiv",
+    "spawn": "default",
+    "prompt": "Nach Kronenarchiv",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_villa_8",
+    "kind": "read",
+    "tile": [
+     20,
+     7
+    ],
+    "title": "Rohrpoststation",
+    "prompt": "Rohrpoststation ansehen",
+    "text": "Der Rücklauf sammelt Antworten aus sechs Terrassen. Wer alle Namen zusammenzieht, bekommt trotzdem sechs verschiedene Handschriften.",
+    "marker": false,
+    "visible_if": {
+     "requires_items": [
+      "cwa_rohrpostsiegel"
+     ]
+    },
+    "done_flag": "cwo_rohr_cw_villa"
+   }
+  ]
+ },
+ {
+  "id": "cw_druckkammer",
+  "name": "Druckkammer",
+  "city": "calderwick",
+  "tiles": "m_kontor",
+  "tiles_wunsch": "cw_druckkammer",
+  "rows": [
+   "IIIIIIIIIIIIIIIIIIIIIIII",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I.........III..........I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "I......................I",
+   "IIIIIIIIIIIIIIIIIIIIIIII"
+  ],
+  "spawns": {
+   "default": [
+    2,
+    11
+   ],
+   "oben": [
+    21,
+    2
+   ]
+  },
+  "lights": [
+   {
+    "tile": [
+     3,
+     3
+    ],
+    "radius": 80,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   },
+   {
+    "tile": [
+     20,
+     10
+    ],
+    "radius": 90,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   }
+  ],
+  "ambient": {
+   "night": 0.65,
+   "fog": 0.02
+  },
+  "interactables": [
+   {
+    "id": "cwo_cw_druckkammer_1",
+    "kind": "read",
+    "tile": [
+     3,
+     4
+    ],
+    "title": "Hauptpresse",
+    "prompt": "Hauptpresse ansehen",
+    "text": "Die Walze ist größer als ein Esstisch. Ihr Druckbett hat Platz für einen einzigen vollständigen Namen.",
+    "marker": false,
+    "done_flag": "cwo_cw_druckkammer_lesen1"
+   },
+   {
+    "id": "cwo_cw_druckkammer_2",
+    "kind": "read",
+    "tile": [
+     6,
+     4
+    ],
+    "title": "Austrittsliste",
+    "prompt": "Austrittsliste ansehen",
+    "text": "Neben jedem Eintrag bleibt eine freie Zeile. Niemand muss unterschreiben, nur weil das Papier bereitliegt.",
+    "marker": false,
+    "done_flag": "cwo_cw_druckkammer_lesen2"
+   },
+   {
+    "id": "cwo_cw_druckkammer_3",
+    "kind": "read",
+    "tile": [
+     9,
+     4
+    ],
+    "title": "Notausgang",
+    "prompt": "Notausgang ansehen",
+    "text": "Die Fluchttür öffnet nach außen. Ihr Hebel ist erreichbar, ohne durch die Presse zu greifen.",
+    "marker": false,
+    "done_flag": "cwo_cw_druckkammer_lesen3"
+   },
+   {
+    "id": "cwo_cw_druckkammer_4",
+    "kind": "read",
+    "tile": [
+     12,
+     4
+    ],
+    "title": "Getrennte Spalten",
+    "prompt": "Getrennte Spalten ansehen",
+    "text": "Ein gesetzter Querstrich trennt die Sammelzeile. Kleine Abstände verhindern hier mehr Gewalt als dicke Mauern.",
+    "marker": false,
+    "done_flag": "cwo_cw_druckkammer_lesen4"
+   },
+   {
+    "id": "cwo_cw_druckkammer_5",
+    "kind": "read",
+    "tile": [
+     15,
+     4
+    ],
+    "title": "Satzspiegel",
+    "prompt": "Satzspiegel ansehen",
+    "text": "Vier Satzanfänge sind vorbereitet und keiner ist eingesetzt. Die Entscheidung gehört denen, die ihre Folgen tragen.",
+    "marker": false,
+    "done_flag": "cwo_cw_druckkammer_lesen5"
+   },
+   {
+    "id": "cwo_cw_druckkammer_6",
+    "kind": "read",
+    "tile": [
+     18,
+     4
+    ],
+    "title": "Ruhe nach Druck",
+    "prompt": "Ruhe nach Druck ansehen",
+    "text": "Unter dem Gestell liegen abgekühlte Lettern. Das Schweigen löst keinen Hunger in einer anderen Stadt.",
+    "marker": false,
+    "done_flag": "cwo_cw_druckkammer_lesen6"
+   },
+   {
+    "id": "cwo_cw_druckkammer_7",
+    "kind": "door",
+    "tile": [
+     3,
+     11
+    ],
+    "to": "cw_archivsaal",
+    "spawn": "default",
+    "prompt": "Nach Archivsaal",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_druckkammer_8",
+    "kind": "dialogue",
+    "tile": [
+     18,
+     9
+    ],
+    "dialogue": "cwo_abgleich_5",
+    "title": "Getrennte Austrittsliste bestätigen",
+    "prompt": "Getrennte Austrittsliste bestätigen",
+    "marker": true
+   }
+  ]
+ },
+ {
+  "id": "cw_alte_setzerei",
+  "name": "Alte Setzerei",
+  "city": "calderwick",
+  "tiles": "g_katakomben",
+  "tiles_wunsch": "cw_alte_setzerei",
+  "rows": [
+   "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I.........III.......III.......III.......III....I",
+   "I.........III.......III.......III.......III....I",
+   "I.........III.......III.......III.......III....I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I.........III.......III.......III.......III....I",
+   "I.........III.......III.......III.......III....I",
+   "I.........III.......III.......III.......III....I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I.........III.......III.......III.......III....I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+  ],
+  "spawns": {
+   "default": [
+    2,
+    27
+   ],
+   "oben": [
+    45,
+    2
+   ]
+  },
+  "lights": [
+   {
+    "tile": [
+     3,
+     3
+    ],
+    "radius": 80,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   },
+   {
+    "tile": [
+     44,
+     26
+    ],
+    "radius": 90,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   }
+  ],
+  "ambient": {
+   "night": 0.65,
+   "fog": 0.1
+  },
+  "interactables": [
+   {
+    "id": "cwo_cw_alte_setzerei_1",
+    "kind": "read",
+    "tile": [
+     3,
+     4
+    ],
+    "title": "Verklemmte Walze",
+    "prompt": "Verklemmte Walze ansehen",
+    "text": "Die Führung bietet Platz für einen Keil. Der äußere Gang bleibt frei, solange du an der markierten Linie wartest.",
+    "marker": false,
+    "done_flag": "cwo_cw_alte_setzerei_lesen1"
+   },
+   {
+    "id": "cwo_cw_alte_setzerei_2",
+    "kind": "read",
+    "tile": [
+     6,
+     4
+    ],
+    "title": "Letternkasten",
+    "prompt": "Letternkasten ansehen",
+    "text": "Die Fächer ordnen Zeichen nach Häufigkeit. Für seltene Namen ist auffallend wenig Platz vorgesehen.",
+    "marker": false,
+    "done_flag": "cwo_cw_alte_setzerei_lesen2"
+   },
+   {
+    "id": "cwo_cw_alte_setzerei_3",
+    "kind": "read",
+    "tile": [
+     9,
+     4
+    ],
+    "title": "Druckprobe",
+    "prompt": "Druckprobe ansehen",
+    "text": "Auf einer Probe steht derselbe Satz dreimal. Erst die Randkorrektur lässt erkennen, wer darin fehlt.",
+    "marker": false,
+    "done_flag": "cwo_cw_alte_setzerei_lesen3"
+   },
+   {
+    "id": "cwo_cw_alte_setzerei_4",
+    "kind": "read",
+    "tile": [
+     12,
+     4
+    ],
+    "title": "Bleispur",
+    "prompt": "Bleispur ansehen",
+    "text": "Eine breite Spur führt zur Presse, eine schmale wieder hinaus. Die schmale stammt von einem geschobenen Werkzeug.",
+    "marker": false,
+    "done_flag": "cwo_cw_alte_setzerei_lesen4"
+   },
+   {
+    "id": "cwo_cw_alte_setzerei_5",
+    "kind": "read",
+    "tile": [
+     15,
+     4
+    ],
+    "title": "Sicherheitsstrich",
+    "prompt": "Sicherheitsstrich ansehen",
+    "text": "Der Kreidestrich endet vor dem inneren Raum. Dahinter beginnt der freiwillige Eingriff, nicht schon beim Lesen.",
+    "marker": false,
+    "done_flag": "cwo_cw_alte_setzerei_lesen5"
+   },
+   {
+    "id": "cwo_cw_alte_setzerei_6",
+    "kind": "read",
+    "tile": [
+     18,
+     4
+    ],
+    "title": "Ausgangskeil",
+    "prompt": "Ausgangskeil ansehen",
+    "text": "Ein Holzkeil hält die Rücktür offen. Jemand hat ihn mit einem Stück Bindfaden gegen Verlieren gesichert.",
+    "marker": false,
+    "done_flag": "cwo_cw_alte_setzerei_lesen6"
+   },
+   {
+    "id": "cwo_cw_alte_setzerei_7",
+    "kind": "door",
+    "tile": [
+     3,
+     27
+    ],
+    "to": "cw_setzergasse",
+    "spawn": "default",
+    "prompt": "Nach Setzergasse",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_alte_setzerei_8",
+    "kind": "dialogue",
+    "tile": [
+     42,
+     25
+    ],
+    "dialogue": "vg_cw_boss_bleisammler_dialog",
+    "title": "Innerer Bereich: prüfen, friedlich lösen oder kämpfen",
+    "prompt": "Innerer Bereich: prüfen, friedlich lösen oder kämpfen",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_alte_setzerei_9",
+    "kind": "dialogue",
+    "tile": [
+     39,
+     25
+    ],
+    "dialogue": "cwo_kern_3",
+    "title": "Ersatzquelle für die Kernzutat",
+    "prompt": "Ersatzquelle für die Kernzutat",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_alte_setzerei_10",
+    "kind": "read",
+    "tile": [
+     6,
+     6
+    ],
+    "title": "Vollständiges Lettern-Set",
+    "prompt": "Vollständiges Lettern-Set ansehen",
+    "text": "Ein selten vollständig gebliebenes Alphabet in einer flachen Schachtel. Das Stück liegt zur freien Mitnahme im gekennzeichneten Restefach.",
+    "marker": false,
+    "done_flag": "cwo_fund_letternset",
+    "effects": {
+     "gives_items": {
+      "cwo_letternset": 1
+     }
+    }
+   },
+   {
+    "id": "cwo_cw_alte_setzerei_11",
+    "kind": "read",
+    "tile": [
+     7,
+     6
+    ],
+    "title": "Gekerbter Walzenkeil",
+    "prompt": "Gekerbter Walzenkeil ansehen",
+    "text": "Ein passgenau gekerbter Keil für eine stillgesetzte Hilfswalze. Das Stück liegt zur freien Mitnahme im gekennzeichneten Restefach.",
+    "marker": false,
+    "done_flag": "cwo_fund_walzenkeil",
+    "effects": {
+     "gives_items": {
+      "cwo_walzenkeil": 1
+     }
+    }
+   }
+  ],
+  "elite_chance": 0.12,
+  "roamers": [
+   {
+    "id": "cw_alte_setzerei_streife_1",
+    "encounter": "vg_cw_letternlaeufer",
+    "tile": [
+     24,
+     12
+    ]
+   },
+   {
+    "id": "cw_alte_setzerei_streife_2",
+    "encounter": "vg_cw_letternlaeufer",
+    "tile": [
+     28,
+     12
+    ]
+   },
+   {
+    "id": "cw_alte_setzerei_streife_3",
+    "encounter": "vg_cw_registerratte",
+    "tile": [
+     34,
+     20
+    ]
+   },
+   {
+    "id": "cw_alte_setzerei_streife_4",
+    "encounter": "vg_cw_registerratte",
+    "tile": [
+     38,
+     20
+    ]
+   },
+   {
+    "id": "cw_alte_setzerei_streife_5",
+    "encounter": "vg_cw_stempelhand",
+    "tile": [
+     40,
+     22
+    ]
+   }
+  ],
+  "danger": 5
+ },
+ {
+  "id": "cw_sortiergrube",
+  "name": "Sortiergrube",
+  "city": "calderwick",
+  "tiles": "g_katakomben",
+  "tiles_wunsch": "cw_sortiergrube",
+  "rows": [
+   "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I.........III.......III.......III.......III....I",
+   "I.........III.......III.......III.......III....I",
+   "I.........III.......III.......III.......III....I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I.........III.......III.......III.......III....I",
+   "I.........III.......III.......III.......III....I",
+   "I.........III.......III.......III.......III....I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I.........III.......III.......III.......III....I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+  ],
+  "spawns": {
+   "default": [
+    2,
+    27
+   ],
+   "oben": [
+    45,
+    2
+   ]
+  },
+  "lights": [
+   {
+    "tile": [
+     3,
+     3
+    ],
+    "radius": 80,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   },
+   {
+    "tile": [
+     44,
+     26
+    ],
+    "radius": 90,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   }
+  ],
+  "ambient": {
+   "night": 0.65,
+   "fog": 0.1
+  },
+  "interactables": [
+   {
+    "id": "cwo_cw_sortiergrube_1",
+    "kind": "read",
+    "tile": [
+     3,
+     4
+    ],
+    "title": "Drei Fächer",
+    "prompt": "Drei Fächer ansehen",
+    "text": "Drei zustellbare Anschriften stehen auf getrennten Fächern. Ein echter Empfänger zählt mehr als ein schöner Stempel.",
+    "marker": false,
+    "done_flag": "cwo_cw_sortiergrube_lesen1"
+   },
+   {
+    "id": "cwo_cw_sortiergrube_2",
+    "kind": "read",
+    "tile": [
+     6,
+     4
+    ],
+    "title": "Blindschiene",
+    "prompt": "Blindschiene ansehen",
+    "text": "Die Schiene endet vor einem gemauerten Absatz. Das Schild behauptet weiterhin, die Verbindung sei durchgehend.",
+    "marker": false,
+    "done_flag": "cwo_cw_sortiergrube_lesen2"
+   },
+   {
+    "id": "cwo_cw_sortiergrube_3",
+    "kind": "read",
+    "tile": [
+     9,
+     4
+    ],
+    "title": "Leerer Sack",
+    "prompt": "Leerer Sack ansehen",
+    "text": "Der Sack bewegt sich nur, wenn das Zugseil gespannt wird. Von der sicheren Seite kannst du den Mechanismus beobachten.",
+    "marker": false,
+    "done_flag": "cwo_cw_sortiergrube_lesen3"
+   },
+   {
+    "id": "cwo_cw_sortiergrube_4",
+    "kind": "read",
+    "tile": [
+     12,
+     4
+    ],
+    "title": "Kapselbruch",
+    "prompt": "Kapselbruch ansehen",
+    "text": "Eine zerbrochene Kapsel enthält einen unversehrten Brief. Sein Inhalt ist nicht die Beschädigung seiner Hülle.",
+    "marker": false,
+    "done_flag": "cwo_cw_sortiergrube_lesen4"
+   },
+   {
+    "id": "cwo_cw_sortiergrube_5",
+    "kind": "read",
+    "tile": [
+     15,
+     4
+    ],
+    "title": "Rücklaufhebel",
+    "prompt": "Rücklaufhebel ansehen",
+    "text": "Der Hebel kann ohne Betreten der Sortierbahn erreicht werden. Seine Kerben markieren drei einzelne Zustellungen.",
+    "marker": false,
+    "done_flag": "cwo_cw_sortiergrube_lesen5"
+   },
+   {
+    "id": "cwo_cw_sortiergrube_6",
+    "kind": "read",
+    "tile": [
+     18,
+     4
+    ],
+    "title": "Ruhepodest",
+    "prompt": "Ruhepodest ansehen",
+    "text": "Auf dem Podest stehen zwei Hocker. Niemand muss die Entscheidung über den nächsten Abschnitt im Laufen treffen.",
+    "marker": false,
+    "done_flag": "cwo_cw_sortiergrube_lesen6"
+   },
+   {
+    "id": "cwo_cw_sortiergrube_7",
+    "kind": "door",
+    "tile": [
+     3,
+     27
+    ],
+    "to": "cw_roehrenhof",
+    "spawn": "default",
+    "prompt": "Nach Röhrenhof",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_sortiergrube_8",
+    "kind": "dialogue",
+    "tile": [
+     42,
+     25
+    ],
+    "dialogue": "vg_cw_boss_blinder_zusteller_dialog",
+    "title": "Innerer Bereich: prüfen, friedlich lösen oder kämpfen",
+    "prompt": "Innerer Bereich: prüfen, friedlich lösen oder kämpfen",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_sortiergrube_9",
+    "kind": "dialogue",
+    "tile": [
+     39,
+     25
+    ],
+    "dialogue": "cwo_kern_2",
+    "title": "Ersatzquelle für die Kernzutat",
+    "prompt": "Ersatzquelle für die Kernzutat",
+    "marker": true
+   }
+  ],
+  "elite_chance": 0.12,
+  "roamers": [
+   {
+    "id": "cw_sortiergrube_streife_1",
+    "encounter": "vg_cw_rohrpostwespe",
+    "tile": [
+     24,
+     12
+    ]
+   },
+   {
+    "id": "cw_sortiergrube_streife_2",
+    "encounter": "vg_cw_rohrpostwespe",
+    "tile": [
+     28,
+     12
+    ]
+   },
+   {
+    "id": "cw_sortiergrube_streife_3",
+    "encounter": "vg_cw_leerfracht",
+    "tile": [
+     34,
+     20
+    ]
+   },
+   {
+    "id": "cw_sortiergrube_streife_4",
+    "encounter": "vg_cw_durchschlag",
+    "tile": [
+     38,
+     20
+    ]
+   }
+  ],
+  "danger": 5
+ },
+ {
+  "id": "cw_nullfundament",
+  "name": "Nullfundament",
+  "city": "calderwick",
+  "tiles": "g_katakomben",
+  "tiles_wunsch": "cw_nullfundament",
+  "rows": [
+   "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I.........III.......III.......III.......III....I",
+   "I.........III.......III.......III.......III....I",
+   "I.........III.......III.......III.......III....I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I.........III.......III.......III.......III....I",
+   "I.........III.......III.......III.......III....I",
+   "I.........III.......III.......III.......III....I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I.........III.......III.......III.......III....I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+  ],
+  "spawns": {
+   "default": [
+    2,
+    27
+   ],
+   "oben": [
+    45,
+    2
+   ]
+  },
+  "lights": [
+   {
+    "tile": [
+     3,
+     3
+    ],
+    "radius": 80,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   },
+   {
+    "tile": [
+     44,
+     26
+    ],
+    "radius": 90,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   }
+  ],
+  "ambient": {
+   "night": 0.65,
+   "fog": 0.1
+  },
+  "interactables": [
+   {
+    "id": "cwo_cw_nullfundament_1",
+    "kind": "read",
+    "tile": [
+     3,
+     4
+    ],
+    "title": "Einzelregister",
+    "prompt": "Einzelregister ansehen",
+    "text": "Die Register haben getrennte Rücken und einen gemeinsamen Riemen. Der Riemen ist jünger als jedes einzelne Buch.",
+    "marker": false,
+    "done_flag": "cwo_cw_nullfundament_lesen1"
+   },
+   {
+    "id": "cwo_cw_nullfundament_2",
+    "kind": "read",
+    "tile": [
+     6,
+     4
+    ],
+    "title": "Örtliche Öffnung",
+    "prompt": "Örtliche Öffnung ansehen",
+    "text": "Kalte Luft steigt zwischen zwei Steinplatten auf. Die Öffnung liegt hier; sie ist nicht das Ganze dessen, was hungert.",
+    "marker": false,
+    "done_flag": "cwo_cw_nullfundament_lesen2"
+   },
+   {
+    "id": "cwo_cw_nullfundament_3",
+    "kind": "read",
+    "tile": [
+     9,
+     4
+    ],
+    "title": "Trennleisten",
+    "prompt": "Trennleisten ansehen",
+    "text": "Schmale Leisten können die Spalten auseinanderhalten. Kein Name muss dafür als Keil benutzt werden.",
+    "marker": false,
+    "done_flag": "cwo_cw_nullfundament_lesen3"
+   },
+   {
+    "id": "cwo_cw_nullfundament_4",
+    "kind": "read",
+    "tile": [
+     12,
+     4
+    ],
+    "title": "Sicherer Steg",
+    "prompt": "Sicherer Steg ansehen",
+    "text": "Der äußere Steg führt am gesamten Fundament vorbei. Seine Kreidemarken bleiben auch im Dunkeln lesbar.",
+    "marker": false,
+    "done_flag": "cwo_cw_nullfundament_lesen4"
+   },
+   {
+    "id": "cwo_cw_nullfundament_5",
+    "kind": "read",
+    "tile": [
+     15,
+     4
+    ],
+    "title": "Erinnerungsrand",
+    "prompt": "Erinnerungsrand ansehen",
+    "text": "Am Rand eines Bandes stehen kleine häusliche Berichtigungen. Eine Behörde hätte diese Einzelheiten nie erfunden.",
+    "marker": false,
+    "done_flag": "cwo_cw_nullfundament_lesen5"
+   },
+   {
+    "id": "cwo_cw_nullfundament_6",
+    "kind": "read",
+    "tile": [
+     18,
+     4
+    ],
+    "title": "Letzte Schwelle",
+    "prompt": "Letzte Schwelle ansehen",
+    "text": "Hinter der Schwelle beginnt der letzte Abschnitt. Ein Pfeil zeigt ausdrücklich zurück zur Buchbinderei.",
+    "marker": false,
+    "done_flag": "cwo_cw_nullfundament_lesen6"
+   },
+   {
+    "id": "cwo_cw_nullfundament_7",
+    "kind": "door",
+    "tile": [
+     3,
+     27
+    ],
+    "to": "cw_kronenarchiv",
+    "spawn": "default",
+    "prompt": "Nach Kronenarchiv",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_nullfundament_8",
+    "kind": "dialogue",
+    "tile": [
+     42,
+     25
+    ],
+    "dialogue": "vg_cw_boss_nullfundament_dialog",
+    "title": "Innerer Bereich: prüfen, friedlich lösen oder kämpfen",
+    "prompt": "Innerer Bereich: prüfen, friedlich lösen oder kämpfen",
+    "marker": true
+   },
+   {
+    "id": "cwo_cw_nullfundament_9",
+    "kind": "dialogue",
+    "tile": [
+     39,
+     25
+    ],
+    "dialogue": "cwo_kern_1",
+    "title": "Ersatzquelle für die Kernzutat",
+    "prompt": "Ersatzquelle für die Kernzutat",
+    "marker": true
+   }
+  ],
+  "elite_chance": 0.12,
+  "roamers": [
+   {
+    "id": "cw_nullfundament_streife_1",
+    "encounter": "vg_cw_seilbahnwaechter",
+    "tile": [
+     24,
+     12
+    ]
+   },
+   {
+    "id": "cw_nullfundament_streife_2",
+    "encounter": "vg_cw_tintenschatten",
+    "tile": [
+     38,
+     20
+    ]
+   }
+  ],
+  "danger": 6
+ },
+ {
+  "id": "reise_landstrasse",
+  "name": "Landstraße",
+  "city": "calderwick",
+  "tiles": "g_katakomben",
+  "tiles_wunsch": "cw_landstrasse",
+  "rows": [
+   "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I.........III.......III.......III.......III....I",
+   "I.........III.......III.......III.......III....I",
+   "I.........III.......III.......III.......III....I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I.........III.......III.......III.......III....I",
+   "I.........III.......III.......III.......III....I",
+   "I.........III.......III.......III.......III....I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I.........III.......III.......III.......III....I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "I..............................................I",
+   "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+  ],
+  "spawns": {
+   "default": [
+    2,
+    27
+   ],
+   "oben": [
+    45,
+    2
+   ]
+  },
+  "lights": [
+   {
+    "tile": [
+     3,
+     3
+    ],
+    "radius": 80,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   },
+   {
+    "tile": [
+     44,
+     26
+    ],
+    "radius": 90,
+    "intensity": 0.65,
+    "color": "#ffc782",
+    "glow": 0.2,
+    "flicker": 0.08
+   }
+  ],
+  "ambient": {
+   "night": 0.65,
+   "fog": 0.1
+  },
+  "interactables": [
+   {
+    "id": "cwo_reise_landstrasse_1",
+    "kind": "read",
+    "tile": [
+     3,
+     4
+    ],
+    "title": "Zollpfahl",
+    "prompt": "Zollpfahl ansehen",
+    "text": "Der Pfahl trägt drei Stadtzeichen in verschiedener Höhe. Die Hand, die kassiert, sitzt bequem dazwischen.",
+    "marker": false,
+    "done_flag": "cwo_reise_landstrasse_lesen1"
+   },
+   {
+    "id": "cwo_reise_landstrasse_2",
+    "kind": "read",
+    "tile": [
+     6,
+     4
+    ],
+    "title": "Radspur",
+    "prompt": "Radspur ansehen",
+    "text": "Eine tiefe Spur verlässt die Straße und kehrt wenige Schritte später zurück. Daneben liegen frische Splitter eines Speichenkeils.",
+    "marker": false,
+    "done_flag": "cwo_reise_landstrasse_lesen2"
+   },
+   {
+    "id": "cwo_reise_landstrasse_3",
+    "kind": "read",
+    "tile": [
+     9,
+     4
+    ],
+    "title": "Grenzstein",
+    "prompt": "Grenzstein ansehen",
+    "text": "Der Stein zeigt nach beiden Seiten dieselbe Entfernung. Eine Karte mit persönlichen Notizen ist hier verlässlicher.",
+    "marker": false,
+    "done_flag": "cwo_reise_landstrasse_lesen3"
+   },
+   {
+    "id": "cwo_reise_landstrasse_4",
+    "kind": "read",
+    "tile": [
+     12,
+     4
+    ],
+    "title": "Arztbank",
+    "prompt": "Arztbank ansehen",
+    "text": "Auf der Bank liegt ein gewaschenes Tuch zum Trocknen. Niemand hat eine Rechnung darunter geschoben.",
+    "marker": false,
+    "done_flag": "cwo_reise_landstrasse_lesen4"
+   },
+   {
+    "id": "cwo_reise_landstrasse_5",
+    "kind": "read",
+    "tile": [
+     15,
+     4
+    ],
+    "title": "Briarholter Abzweig",
+    "prompt": "Briarholter Abzweig ansehen",
+    "text": "Der Wegweiser nennt Briarholt, doch der Anschluss ist noch nicht freigegeben. Dunscar und Calderwick bleiben über die alte Straße erreichbar.",
+    "marker": false,
+    "done_flag": "cwo_reise_landstrasse_lesen5"
+   },
+   {
+    "id": "cwo_reise_landstrasse_6",
+    "kind": "read",
+    "tile": [
+     18,
+     4
+    ],
+    "title": "Rastfeuer",
+    "prompt": "Rastfeuer ansehen",
+    "text": "Unter der Asche liegt noch Wärme. Acht verschiedene Sohlen haben den Boden festgetreten, ohne denselben Weg genommen zu haben.",
+    "marker": false,
+    "done_flag": "cwo_reise_landstrasse_lesen6"
+   },
+   {
+    "id": "cwo_reise_landstrasse_7",
+    "kind": "dialogue",
+    "tile": [
+     3,
+     24
+    ],
+    "dialogue": "cwo_reise_etappen",
+    "title": "Fahrt: nächste Begegnung oder Ziel",
+    "prompt": "Fahrt: nächste Begegnung oder Ziel",
+    "marker": true
+   },
+   {
+    "id": "cwo_reise_landstrasse_8",
+    "kind": "dialogue",
+    "tile": [
+     38,
+     24
+    ],
+    "dialogue": "vg_all_boss_landvermesser_dialog",
+    "title": "Freiwilliger großer Umweg: landvermesser",
+    "prompt": "Freiwilliger großer Umweg: landvermesser",
+    "marker": true,
+    "visible_if": {
+     "requires_flags": [
+      "cwo_reise_aktiv",
+      "cwo_reise_landvermesser"
+     ]
+    }
+   },
+   {
+    "id": "cwo_reise_landstrasse_9",
+    "kind": "dialogue",
+    "tile": [
+     43,
+     24
+    ],
+    "dialogue": "vg_all_boss_schlafkutsche_dialog",
+    "title": "Freiwilliger großer Umweg: schlafkutsche",
+    "prompt": "Freiwilliger großer Umweg: schlafkutsche",
+    "marker": true,
+    "visible_if": {
+     "requires_flags": [
+      "cwo_reise_aktiv",
+      "cwo_reise_schlafkutsche"
+     ]
+    }
+   }
+  ],
+  "elite_chance": 0.12,
+  "roamers": [
+   {
+    "id": "reise_landstrasse_streife_1",
+    "encounter": "vg_all_wegelagerer",
+    "tile": [
+     10,
+     13
+    ]
+   },
+   {
+    "id": "reise_landstrasse_streife_2",
+    "encounter": "vg_all_nebelkraehe",
+    "tile": [
+     30,
+     20
+    ]
+   },
+   {
+    "id": "reise_landstrasse_streife_3",
+    "encounter": "vg_all_fuhrmannsschatten",
+    "tile": [
+     26,
+     10
+    ]
+   },
+   {
+    "id": "reise_landstrasse_streife_4",
+    "encounter": "vg_all_zollhund",
+    "tile": [
+     34,
+     5
+    ]
+   },
+   {
+    "id": "reise_landstrasse_streife_5",
+    "encounter": "vg_all_kutschengeist",
+    "tile": [
+     14,
+     20
+    ]
+   }
+  ],
+  "danger": 5
+ }
+]

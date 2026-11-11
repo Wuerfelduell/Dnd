@@ -149,7 +149,7 @@ test('Kapitel 3: das Kernfach des Vorhauers gibt nur die Zutat des eigenen Pfads
 });
 
 test('Epiloge (AP/AR): jedes Kapitel-2/3-Ende zeigt seine Szenen in Dateireihenfolge', () => {
-  const ends = [...new Set(content.epiloge.map((e) => e.ending))].filter((id) => !id.startsWith('c9_')); // Kapitel 1: tests/case9.test.js
+  const ends = [...new Set(content.epiloge.map((e) => e.ending))].filter((id) => !/^(c9_|cwa_|bha_)/.test(id)); // Kapitel 1: tests/case9.test.js, Kapitel 4/5: tests/kapitel45.test.js
   assert.deepEqual(ends.sort(), ['k2_lichtmeister', 'k2_meer', 'k2_moor', 'k2_rein', 'k3_feierabend', 'k3_gegenstimme', 'k3_stilllegung', 'k3_vollzaehlig']);
   for (const id of ends) {
     const s = new GameState(content);

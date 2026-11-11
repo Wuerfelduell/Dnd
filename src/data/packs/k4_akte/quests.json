@@ -1,0 +1,394 @@
+{
+ "cwa_akt1": {
+  "title": "Ein Teller zu viel",
+  "kind": "main",
+  "case": "cwa_kapitel4",
+  "summary": "Prüfe die vier Fährten, verbinde die Fakten und besprich die Folgen mit Klammer.",
+  "steps": [
+   {
+    "text": "Die leere Ankunft",
+    "done": {
+     "requires_flags": [
+      "cwa_11_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "cw_gepaeckhalle",
+     "id": "cwa_11_station",
+     "label": "Die leere Ankunft"
+    }
+   },
+   {
+    "text": "Eine Frau ohne Vertrag",
+    "done": {
+     "requires_flags": [
+      "cwa_12_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "cw_kueche",
+     "id": "cwa_12_station",
+     "label": "Eine Frau ohne Vertrag"
+    }
+   },
+   {
+    "text": "Leerfracht",
+    "done": {
+     "requires_flags": [
+      "cwa_13_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "cw_roehrenhof",
+     "id": "cwa_13_station",
+     "label": "Leerfracht"
+    }
+   },
+   {
+    "text": "Der erste Abdruck",
+    "done": {
+     "requires_flags": [
+      "cwa_14_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "cw_alte_setzerei",
+     "id": "cwa_14_station",
+     "label": "Der erste Abdruck"
+    }
+   },
+   {
+    "text": "Die Bilanz mit Klammer in der Werkstatt bestätigen.",
+    "done": {
+     "requires_flags": [
+      "cwa_akt1_done"
+     ]
+    },
+    "target": {
+     "map": "cw_buchbinderei",
+     "id": "cw_crayford",
+     "label": "Klammer"
+    }
+   }
+  ],
+  "reward": {
+   "gives_money": 25
+  }
+ },
+ "cwa_akt2": {
+  "title": "Die geliehene Stadt",
+  "kind": "main",
+  "case": "cwa_kapitel4",
+  "summary": "Prüfe die vier Fährten, verbinde die Fakten und besprich die Folgen mit Klammer.",
+  "steps": [
+   {
+    "text": "Namen im Pfand",
+    "done": {
+     "requires_flags": [
+      "cwa_21_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "cw_pfandhaus",
+     "id": "cwa_21_station",
+     "label": "Namen im Pfand"
+    }
+   },
+   {
+    "text": "Der Käufer der Abschriften",
+    "done": {
+     "requires_flags": [
+      "cwa_22_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "cw_setzergasse",
+     "id": "cwa_22_station",
+     "label": "Der Käufer der Abschriften"
+    }
+   },
+   {
+    "text": "Idas Umweg",
+    "done": {
+     "requires_flags": [
+      "cwa_23_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "cw_sortierhalle",
+     "id": "cwa_23_station",
+     "label": "Idas Umweg"
+    }
+   },
+   {
+    "text": "Der Blinde Zusteller",
+    "done": {
+     "requires_flags": [
+      "cwa_24_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "cw_sortiergrube",
+     "id": "cwa_24_station",
+     "label": "Der Blinde Zusteller"
+    }
+   },
+   {
+    "text": "Die Bilanz mit Klammer in der Werkstatt bestätigen.",
+    "done": {
+     "requires_flags": [
+      "cwa_akt2_done"
+     ]
+    },
+    "target": {
+     "map": "cw_buchbinderei",
+     "id": "cw_crayford",
+     "label": "Klammer"
+    }
+   }
+  ],
+  "reward": {
+   "gives_money": 0,
+   "gives_items": {
+    "cwa_rohrpostsiegel": 1
+   }
+  }
+ },
+ "cwa_akt3": {
+  "title": "Ein Titel bleibt",
+  "kind": "main",
+  "case": "cwa_kapitel4",
+  "summary": "Prüfe die vier Fährten, verbinde die Fakten und besprich die Folgen mit Klammer.",
+  "steps": [
+   {
+    "text": "Der namenlose Direktor",
+    "done": {
+     "requires_flags": [
+      "cwa_31_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "cw_archivsaal",
+     "id": "cwa_31_station",
+     "label": "Der namenlose Direktor"
+    }
+   },
+   {
+    "text": "Der Versuchskeller",
+    "done": {
+     "requires_flags": [
+      "cwa_32_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "cw_archivsaal",
+     "id": "cwa_32_station",
+     "label": "Der Versuchskeller"
+    }
+   },
+   {
+    "text": "Die ganze Portion",
+    "done": {
+     "requires_flags": [
+      "cwa_33_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "cw_villa",
+     "id": "cwa_33_station",
+     "label": "Die ganze Portion"
+    }
+   },
+   {
+    "text": "Klammer öffnet die Schublade",
+    "done": {
+     "requires_flags": [
+      "cwa_34_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "cw_buchbinderei",
+     "id": "cwa_34_station",
+     "label": "Klammer öffnet die Schublade"
+    }
+   },
+   {
+    "text": "Die Bilanz mit Klammer in der Werkstatt bestätigen.",
+    "done": {
+     "requires_flags": [
+      "cwa_akt3_done"
+     ]
+    },
+    "target": {
+     "map": "cw_buchbinderei",
+     "id": "cw_crayford",
+     "label": "Klammer"
+    }
+   }
+  ],
+  "reward": {
+   "gives_money": 0,
+   "gives_items": {
+    "cwa_originalsatz": 1
+   }
+  }
+ },
+ "cwa_akt4": {
+  "title": "Unterschriften im Regen",
+  "kind": "main",
+  "case": "cwa_kapitel4",
+  "summary": "Prüfe die vier Fährten, verbinde die Fakten und besprich die Folgen mit Klammer.",
+  "steps": [
+   {
+    "text": "Die Setzerin im Schaukasten",
+    "done": {
+     "requires_flags": [
+      "cwa_41_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "cw_archivsaal",
+     "id": "cwa_41_station",
+     "label": "Die Setzerin im Schaukasten"
+    }
+   },
+   {
+    "text": "Drei verschiedene Erinnerungen",
+    "done": {
+     "requires_flags": [
+      "cwa_42_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "cw_quittungsmarkt",
+     "id": "cwa_42_station",
+     "label": "Drei verschiedene Erinnerungen"
+    }
+   },
+   {
+    "text": "Der vierte Satz",
+    "done": {
+     "requires_flags": [
+      "cwa_43_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "cw_archivsaal",
+     "id": "cwa_43_station",
+     "label": "Der vierte Satz"
+    }
+   },
+   {
+    "text": "Die Ausgangsfahne",
+    "done": {
+     "requires_flags": [
+      "cwa_44_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "cw_archivsaal",
+     "id": "cwa_44_station",
+     "label": "Die Ausgangsfahne"
+    }
+   },
+   {
+    "text": "Die Bilanz mit Klammer in der Werkstatt bestätigen.",
+    "done": {
+     "requires_flags": [
+      "cwa_akt4_done"
+     ]
+    },
+    "target": {
+     "map": "cw_buchbinderei",
+     "id": "cw_crayford",
+     "label": "Klammer"
+    }
+   }
+  ],
+  "reward": {
+   "gives_money": 0,
+   "bond": {
+    "cw_ida_bellcross": 2
+   },
+   "sets_flags": [
+    "cwa_ida_vertraut"
+   ]
+  }
+ },
+ "cwa_akt5": {
+  "title": "Wer unterschreibt",
+  "kind": "main",
+  "case": "cwa_kapitel4",
+  "summary": "Prüfe die vier Fährten, verbinde die Fakten und besprich die Folgen mit Klammer.",
+  "steps": [
+   {
+    "text": "Der letzte Haushalt",
+    "done": {
+     "requires_flags": [
+      "cwa_51_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "cw_roehrenhof",
+     "id": "cwa_51_station",
+     "label": "Der letzte Haushalt"
+    }
+   },
+   {
+    "text": "Das offene Fundament",
+    "done": {
+     "requires_flags": [
+      "cwa_52_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "cw_nullfundament",
+     "id": "cwa_52_station",
+     "label": "Das offene Fundament"
+    }
+   },
+   {
+    "text": "Wetherbys Unterschrift",
+    "done": {
+     "requires_flags": [
+      "cwa_53_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "cw_druckkammer",
+     "id": "cwa_53_station",
+     "label": "Wetherbys Unterschrift"
+    }
+   },
+   {
+    "text": "Ein Name nach dem anderen",
+    "done": {
+     "requires_flags": [
+      "cwa_54_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "cw_druckkammer",
+     "id": "cwa_54_station",
+     "label": "Ein Name nach dem anderen"
+    }
+   },
+   {
+    "text": "Die letzte Bilanz bei Klammer prüfen und an der Presse ausdrücklich entscheiden.",
+    "done": {
+     "requires_flags": [
+      "cwa_akt5_done"
+     ]
+    },
+    "target": {
+     "map": "cw_buchbinderei",
+     "id": "cw_crayford",
+     "label": "Klammer"
+    }
+   }
+  ],
+  "reward": {
+   "gives_money": 0
+  }
+ }
+}

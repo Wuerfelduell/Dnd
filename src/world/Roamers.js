@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { TILE } from './textures.js';
 import { DEPTH } from './Lighting.js';
-import { overworldIdFor, LOOT_SHEETS, RARITY_SHEET, CHARACTER_SHEETS } from './assets.js';
+import { overworldIdFor, LOOT_SHEETS, RARITY_SHEET, CHARACTER_SHEETS, FEST_MAPS } from './assets.js';
 import { fearsPlayer } from '../core/Fear.js';
 import { lootRarity, lootList, rollLoot, takeLoot, isEmptyLoot, RARITY_COLORS, CONTAINERS, CONTAINER_NAMES } from '../core/Loot.js';
 
@@ -35,8 +35,12 @@ export class Roamers {
     const s = this.scene;
     const defs = s.mapDef.roamers ?? [];
     const encs = this.state.content.encounters;
+    // CK: am Festtag stehen auf den Festplätzen keine Stadtgegner, dort feiern die Leute
+    const fest = this.state.festAktiv?.(s.mapDef.city ?? (s.mapDef.id.startsWith('ds_') ? 'dunscar' : s.mapDef.id.startsWith('wx_') ? 'wexmoor' : 'kettlegate'));
+    const festplatz = !!fest && (FEST_MAPS[fest] ?? []).includes(s.mapDef.id);
     for (const def of defs) {
       if (def.boss && this.state.flags.has(`won_${def.encounter}`)) continue; // Bosse bleiben besiegt
+      if (festplatz && encs[def.encounter]?.city && !def.boss) continue;
       if (def.visible_if && !this.state.meets(def.visible_if)) continue; // Stadtgegner: erst ab einem Fall, Kopfgeld-Ziele nur mit Auftrag
       const eliteId = `${def.encounter}_elite`;
       const elite = !def.boss && !!encs[eliteId] && Math.random() < (def.elite_chance ?? s.mapDef.elite_chance ?? ELITE_CHANCE);

@@ -110,16 +110,17 @@ export class Audio {
   }
 
   register(scene, kind, manifest) {
-    const entries = manifest?.[kind === 'sfx' ? 'sounds' : 'tracks'];
+    const bucket = kind.startsWith('sfx') ? 'sfx' : kind; // CM: manifest-sfx2.json ergänzt die Effekte aus manifest-sfx.json
+    const entries = manifest?.[bucket === 'sfx' ? 'sounds' : 'tracks'];
     if (!entries || typeof manifest.base !== 'string') return;
     for (const [id, raw] of Object.entries(entries)) {
       if (!raw || !/^[a-z0-9_]+$/.test(id)) continue;
       const variants = Number.isInteger(raw.variants) && raw.variants > 1 ? raw.variants : 1;
       const entry = { ...raw, volume: clamp(raw.volume), variants };
-      this.entries[kind].set(id, entry);
+      this.entries[bucket].set(id, entry);
       for (let v = 1; v <= variants; v++) {
         const file = variants > 1 ? `${id}_${v}` : id;
-        const key = `${kind}:${file}`;
+        const key = `${bucket}:${file}`;
         if (!scene.cache.audio.exists(key)) {
           const formats = (manifest.formats ?? ['ogg', 'mp3']).filter(f => f === 'ogg' || f === 'mp3');
           scene.load.audio(key, formats.map(f => `${this.base}${manifest.base}${file}.${f}`));

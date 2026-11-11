@@ -1,0 +1,178 @@
+{
+ "list": {
+  "vi_art_das_leere_tuerschild": {
+   "name": "Das leere Türschild",
+   "desc": "Messingschild ohne Namen; Gegner vergessen dich nach der Flucht, dafür verblasst eine Beziehung pro Tag.",
+   "weight": 0.6,
+   "price": 360,
+   "source": "wild",
+   "boons": [
+    {
+     "text": "Nach erfolgreicher Flucht verlieren gewöhnliche Verfolger die persönliche Zielbindung bis zur nächsten eigenen feindlichen Aktion; kein Fahndungsabbau und kein Vergessen von Beweisen."
+    }
+   ],
+   "curses": [
+    {
+     "text": "Je abgeschlossenem Reisetag −1 Bindung bei genau einem bereits bekannten Kontakt mit positiver Bindung, deterministisch rotierend; bei leerer Auswahl keine neue Beziehung erzeugen. Nur mitgetragen, nicht eingelagert; kein Echtzeitverlust beim Lesen."
+    }
+   ],
+   "inspect": "inspect_vi_art_das_leere_tuerschild",
+   "zones": [
+    "cw_sortiergrube"
+   ]
+  },
+  "vi_art_der_erste_durchschlag": {
+   "name": "Der erste Durchschlag",
+   "desc": "Durchschlag mit fremder Unterschrift; einmal pro Kampf ein Treffer doppelt, Nerven-Höchstwert -10.",
+   "weight": 0.1,
+   "price": 380,
+   "source": "quest",
+   "boons": [
+    {
+     "text": "Einmal je Kampf den ersten bewusst bestätigten erfolgreichen eigenen Waffentreffer verdoppeln. Nur diesen Teiltreffer, keine ganze Mehrfachaktion; Verbrauch der Ladung erst bei Treffer, keine Aufladung durch Inventarwechsel."
+    }
+   ],
+   "curses": [
+    {
+     "key": "max_nerves",
+     "value": -10,
+     "text": "−10 maximale Nerven."
+    }
+   ],
+   "inspect": "inspect_vi_art_der_erste_durchschlag"
+  },
+  "vi_art_die_warme_postkarte": {
+   "name": "Die warme Postkarte",
+   "desc": "Postkarte, die nie kalt wird; Nerven regenerieren im Kampf, aber Unruhe steigt beim Lesen.",
+   "weight": 0.1,
+   "price": 340,
+   "source": "wild",
+   "boons": [
+    {
+     "text": "Am Ende jeder vollständigen Kampfrunde +3 Nerven, höchstens bis zum Höchstwert; kein Gewinn durch Menüs oder zusätzliche Teilaktionen."
+    }
+   ],
+   "curses": [
+    {
+     "text": "Jedes ausdrücklich bestätigte Lesen der Karte verursacht +6 Unruhe; nicht bereits das Öffnen des Inventars und nicht der Rückweg im Dialog."
+    }
+   ],
+   "inspect": "inspect_vi_art_die_warme_postkarte",
+   "zones": [
+    "bh_verlassene_waescherei",
+    "bh_verlassene_waescherei__warm"
+   ]
+  },
+  "vi_art_der_falsche_fahrplan": {
+   "name": "Der falsche Fahrplan",
+   "desc": "Fahrplan mit Personen als Fracht; Schnellreise ohne Ereignis, Beute -20 %.",
+   "weight": 0.2,
+   "price": 400,
+   "source": "wild",
+   "boons": [
+    {
+     "text": "Auf einer freigeschalteten Schnellreise kein zufälliges Reiseereignis; fest angekündigte Hauptaktionen und gesperrte Routen bleiben unverändert."
+    }
+   ],
+   "curses": [
+    {
+     "text": "Beute aus optionalen Kämpfen und Reiseereignissen −20 %: Geld und Mengen gewöhnlicher Gegenstände abrunden, Einzelstück-Chancen mit 0,8 multiplizieren. Garantierte Beweise, Schlüssel, Questbelohnungen und Kernzutaten bleiben vollständig."
+    }
+   ],
+   "inspect": "inspect_vi_art_der_falsche_fahrplan",
+   "zones": [
+    "reise_landstrasse"
+   ]
+  },
+  "vi_art_die_gaertnerschnur": {
+   "name": "Die Gärtnerschnur",
+   "desc": "Grüne Schnur mit Knoten; Heilung +50 %, Rüstung -2.",
+   "weight": 0.2,
+   "price": 370,
+   "source": "wild",
+   "boons": [
+    {
+     "key": "heal_bonus",
+     "value": 1.5,
+     "text": "Heilmittel wirken 50 % stärker."
+    }
+   ],
+   "curses": [
+    {
+     "text": "Rüstung −2, mindestens 0; nur im künftigen flachen Rüstungssystem. Nicht stillschweigend in einen Schadensmultiplikator umrechnen."
+    }
+   ],
+   "inspect": "inspect_vi_art_die_gaertnerschnur",
+   "zones": [
+    "bh_wurzelkammer",
+    "bh_wurzelkammer__warm"
+   ]
+  },
+  "vi_art_der_stille_stempel": {
+   "name": "Der stille Stempel",
+   "desc": "Stempel ohne Zeichen; Verhöre leichter, Ehre pro Fall -5.",
+   "weight": 0.4,
+   "price": 350,
+   "source": "wild",
+   "boons": [
+    {
+     "text": "Bei einer ausdrücklich gewählten Verhörprobe +15 Prozentpunkte, höchstens 95 %; keine erzwungene Zustimmung und keine neuen Beweise."
+    }
+   ],
+   "curses": [
+    {
+     "text": "Bei endgültigem Abschluss eines Falls −5 Ehre, einmal je Fall-ID und unabhängig vom gewählten Ende; kein wiederholter Abzug beim Laden oder Lesen des Abschlusses."
+    }
+   ],
+   "inspect": "inspect_vi_art_der_stille_stempel",
+   "zones": [
+    "cw_alte_setzerei"
+   ]
+  },
+  "vi_art_das_bremserseil": {
+   "name": "Das Bremserseil",
+   "desc": "Seil der Standseilbahn; Flucht immer möglich, erster Treffer trifft immer dich.",
+   "weight": 1.2,
+   "price": 390,
+   "source": "wild",
+   "boons": [
+    {
+     "key": "always_flee",
+     "value": true,
+     "text": "Flucht ist aus jedem Kampf möglich."
+    }
+   ],
+   "curses": [
+    {
+     "text": "Der erste gegnerische schadensverursachende Treffer je Kampf richtet sich an den Träger und ist nicht ausweich- oder parierbar. Bei zwei Trägern feste Spielerreihenfolge; blockierende Rohrpostkapsel wird vor diesem Zwangstreffer nicht ausgelöst. Flucht selbst bleibt immer verfügbar."
+    }
+   ],
+   "inspect": "inspect_vi_art_das_bremserseil",
+   "zones": [
+    "cw_nullfundament"
+   ]
+  },
+  "vi_art_die_kurglocke": {
+   "name": "Die Kurglocke",
+   "desc": "Kleine Glocke der Stillenhäuser; Gegner beginnen schlafend, wachen aber bei Schaden doppelt zornig auf.",
+   "weight": 0.4,
+   "price": 420,
+   "source": "wild",
+   "boons": [
+    {
+     "text": "Zu Kampfbeginn schläft der Gegner eine Runde und setzt seinen ersten Zug aus; kein erneuter Schlaf durch Umlagern. Schlaf endet sofort beim ersten Schaden."
+    }
+   ],
+   "curses": [
+    {
+     "text": "Weckt Schaden den Gegner vor dem ersten ausgelassenen Zug, verursacht seine nächste vollständige Angriffsfolge doppelten Grundschaden; nach dieser Folge endet der Zorn. Bei natürlichem Erwachen ohne Schaden kein Zorn; die Warnung muss vor dem Angriff sichtbar sein."
+    }
+   ],
+   "inspect": "inspect_vi_art_die_kurglocke",
+   "zones": [
+    "bh_kaltes_palmhaus",
+    "bh_kaltes_palmhaus__warm"
+   ]
+  }
+ }
+}

@@ -1,0 +1,239 @@
+{
+ "bh_kaltes_palmhaus": {
+  "name": "Kaltes Palmhaus · kalt",
+  "tier": 5,
+  "travel": {
+   "name": "Kaltes Palmhaus",
+   "desc": "Kalter Umgang; Boss ruhig, friedlicher Eingriff möglich.",
+   "city": "briarholt",
+   "requires_flags": [
+    "bha_akt1_done"
+   ],
+   "hide_if_flags": [
+    "bha_ventil_palm_offen"
+   ]
+  },
+  "lose_to": {
+   "map": "bh_buegelraum",
+   "spawn": "default"
+  },
+  "lose_money": 0,
+  "lose_text": "Frost bringt dich über den markierten Außenweg in den eigenen Heizraum. Wissen und Funde bleiben bei dir.",
+  "flee_text": "Du erreichst den freien Wartungsstreifen. Kein Handrad hat sich von selbst bewegt.",
+  "elite_drops": [],
+  "loot_tables": {
+   "bho_kaltes_palmhaus_kalt": {
+    "money": [
+     4,
+     8
+    ],
+    "drops": [
+     {
+      "item": "bho_palmhausdattel",
+      "chance": 1
+     }
+    ]
+   }
+  },
+  "encounters": {}
+ },
+ "bh_kaltes_palmhaus__warm": {
+  "name": "Kaltes Palmhaus · warm",
+  "tier": 5,
+  "travel": {
+   "name": "Kaltes Palmhaus",
+   "desc": "Mehr Bewegung und Beute; Boss nur nach Bestätigung.",
+   "city": "briarholt",
+   "requires_flags": [
+    "bha_akt1_done",
+    "bha_ventil_palm_offen"
+   ]
+  },
+  "lose_to": {
+   "map": "bh_buegelraum",
+   "spawn": "default"
+  },
+  "lose_money": 0,
+  "lose_text": "Frost bringt dich über den markierten Außenweg in den eigenen Heizraum. Wissen und Funde bleiben bei dir.",
+  "flee_text": "Du erreichst den freien Wartungsstreifen. Kein Handrad hat sich von selbst bewegt.",
+  "elite_drops": [
+   {
+    "item": "bho_kuehlfilz",
+    "chance": 0.35
+   }
+  ],
+  "loot_tables": {
+   "bho_kaltes_palmhaus_warm": {
+    "money": [
+     8,
+     16
+    ],
+    "drops": [
+     {
+      "item": "bho_palmhausdattel",
+      "chance": 1
+     }
+    ]
+   }
+  },
+  "encounters": {}
+ },
+ "bh_verlassene_waescherei": {
+  "name": "Verlassene Wäscherei · kalt",
+  "tier": 5,
+  "travel": {
+   "name": "Verlassene Wäscherei",
+   "desc": "Kalter Umgang; Boss ruhig, friedlicher Eingriff möglich.",
+   "city": "briarholt",
+   "requires_flags": [
+    "bha_akt2_done"
+   ],
+   "hide_if_flags": [
+    "bha_ventil_waesche_offen"
+   ]
+  },
+  "lose_to": {
+   "map": "bh_buegelraum",
+   "spawn": "default"
+  },
+  "lose_money": 0,
+  "lose_text": "Frost bringt dich über den markierten Außenweg in den eigenen Heizraum. Wissen und Funde bleiben bei dir.",
+  "flee_text": "Du erreichst den freien Wartungsstreifen. Kein Handrad hat sich von selbst bewegt.",
+  "elite_drops": [],
+  "loot_tables": {
+   "bho_verlassene_waescherei_kalt": {
+    "money": [
+     4,
+     8
+    ],
+    "drops": [
+     {
+      "item": "bho_ruecklaufplombe",
+      "chance": 1
+     }
+    ]
+   }
+  },
+  "encounters": {}
+ },
+ "bh_verlassene_waescherei__warm": {
+  "name": "Verlassene Wäscherei · warm",
+  "tier": 5,
+  "travel": {
+   "name": "Verlassene Wäscherei",
+   "desc": "Mehr Bewegung und Beute; Boss nur nach Bestätigung.",
+   "city": "briarholt",
+   "requires_flags": [
+    "bha_akt2_done",
+    "bha_ventil_waesche_offen"
+   ]
+  },
+  "lose_to": {
+   "map": "bh_buegelraum",
+   "spawn": "default"
+  },
+  "lose_money": 0,
+  "lose_text": "Frost bringt dich über den markierten Außenweg in den eigenen Heizraum. Wissen und Funde bleiben bei dir.",
+  "flee_text": "Du erreichst den freien Wartungsstreifen. Kein Handrad hat sich von selbst bewegt.",
+  "elite_drops": [
+   {
+    "item": "bho_kuehlfilz",
+    "chance": 0.35
+   }
+  ],
+  "loot_tables": {
+   "bho_verlassene_waescherei_warm": {
+    "money": [
+     8,
+     16
+    ],
+    "drops": [
+     {
+      "item": "bho_ruecklaufplombe",
+      "chance": 1
+     }
+    ]
+   }
+  },
+  "encounters": {}
+ },
+ "bh_wurzelkammer": {
+  "name": "Wurzelkammer · kalt",
+  "tier": 6,
+  "travel": {
+   "name": "Wurzelkammer",
+   "desc": "Kalter Umgang; Boss ruhig, friedlicher Eingriff möglich.",
+   "city": "briarholt",
+   "requires_flags": [
+    "bha_akt4_done"
+   ],
+   "hide_if_flags": [
+    "bha_ventil_wurzel_offen"
+   ]
+  },
+  "lose_to": {
+   "map": "bh_buegelraum",
+   "spawn": "default"
+  },
+  "lose_money": 0,
+  "lose_text": "Frost bringt dich über den markierten Außenweg in den eigenen Heizraum. Wissen und Funde bleiben bei dir.",
+  "flee_text": "Du erreichst den freien Wartungsstreifen. Kein Handrad hat sich von selbst bewegt.",
+  "elite_drops": [],
+  "loot_tables": {
+   "bho_wurzelkammer_kalt": {
+    "money": [
+     4,
+     8
+    ],
+    "drops": [
+     {
+      "item": "bho_ruecklaufplombe",
+      "chance": 1
+     }
+    ]
+   }
+  },
+  "encounters": {}
+ },
+ "bh_wurzelkammer__warm": {
+  "name": "Wurzelkammer · warm",
+  "tier": 6,
+  "travel": {
+   "name": "Wurzelkammer",
+   "desc": "Mehr Bewegung und Beute; Boss nur nach Bestätigung.",
+   "city": "briarholt",
+   "requires_flags": [
+    "bha_akt4_done",
+    "bha_ventil_wurzel_offen"
+   ]
+  },
+  "lose_to": {
+   "map": "bh_buegelraum",
+   "spawn": "default"
+  },
+  "lose_money": 0,
+  "lose_text": "Frost bringt dich über den markierten Außenweg in den eigenen Heizraum. Wissen und Funde bleiben bei dir.",
+  "flee_text": "Du erreichst den freien Wartungsstreifen. Kein Handrad hat sich von selbst bewegt.",
+  "elite_drops": [
+   {
+    "item": "bho_kuehlfilz",
+    "chance": 0.35
+   }
+  ],
+  "loot_tables": {
+   "bho_wurzelkammer_warm": {
+    "money": [
+     8,
+     16
+    ],
+    "drops": [
+     {
+      "item": "bho_ruecklaufplombe",
+      "chance": 1
+     }
+    ]
+   }
+  },
+  "encounters": {}
+ }
+}

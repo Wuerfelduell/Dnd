@@ -123,7 +123,7 @@ test('Gegenstände und Kämpfe sind vollständig', () => {
     if (it.inspect) assert.ok(content.dialogues[it.inspect], `${id}: Untersuchen-Dialog ${it.inspect}`);
     if (it.kind === 'consumable') assert.ok(it.heal || it.composure || it.damage || it.calm || it.cleanse, `${id}: Wirkung`);
     if (it.kind === 'gear') assert.ok(['hut', 'mantel', 'amulett'].includes(it.slot) && it.boons?.length && it.boons.every((b) => b.key && b.text), `${id}: Platz und Wirkung`);
-    if (it.kind === 'artifact') assert.ok(it.boons?.length && it.curses?.length, `${id}: Vor- und Nachteile`);
+    if (it.kind === 'artifact') assert.ok(it.boons?.length && (it.curses?.length || it.source === 'fest'), `${id}: Vor- und Nachteile`);
   }
   for (const [id, e] of Object.entries(content.encounters)) {
     assert.ok(e.hp > 0 && e.attacks.length, `${id}: Leben und Attacken`);

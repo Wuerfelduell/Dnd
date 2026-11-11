@@ -696,6 +696,17 @@ export class GameState {
     this.tickParty(dtSeconds);
   }
 
+  /**
+   * Kapitel 5 (CH): Briarholts Orte haben eine warme Zwillingskarte `<id>__warm`, deren Bedingung `warm_if` am Ventilkreis hängt
+   * (Bügelraum: immer warm). Jede Reise und jede Tür landet über diese Funktion auf der passenden Fassung.
+   */
+  variantOf(mapId) {
+    const base = mapId?.endsWith('__warm') ? mapId.slice(0, -6) : mapId;
+    const warm = this.content.maps[`${base}__warm`];
+    if (!warm) return mapId;
+    return this.meets(warm.warm_if ?? {}) ? `${base}__warm` : base;
+  }
+
   // --- Speichern -------------------------------------------------------------------------
   serialize(position) {
     return {
@@ -782,6 +793,7 @@ export class GameState {
     this.loadSekten(data); // BQ: Umtriebe-Stufen und laufende Ereignisse
     this.syncClock(); // Tag/Nacht folgt der Spielzeit, nicht dem Spielstand
     if (!this.content.maps[this.map]) { this.map = this.content.start.map; this.position = null; }
+    this.map = this.variantOf(this.map); // CH: Briarholt kalt oder warm, je nach Ventilkreis
     return true;
   }
 }

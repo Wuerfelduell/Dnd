@@ -5,6 +5,8 @@ Jede Datei ist **eigenständig** (Regeln, Formate, Ablage stehen drin). Codex br
 ## Runde 8 (2026-11-11, letzter Codex-Tag): Kapitel 4 und 5 aus dem Vorrat, Feste, Musik, Sounds, Kettlegate-Leben; parallel startbar
 Nach Wert sortiert. CC bis CF teilen die Calderwick-Eckdaten (Präfixe `cwa_`/`cwo_`/`cwn_`, Karten `cw_*`), CG bis CJ die Briarholt-Eckdaten (`bha_`/`bho_`/`bhn_`, Karten `bh_*`); beide bauen auf dem Vorrat BH bis BM auf, nichts wird doppelt erfunden. Grafikpakete dürfen vor den Datenpaketen starten. Nächster freier Buchstabe danach: CO.
 
+**Stand:** CC, CD, CF, CG, CH, CJ, CK, CL und CM sind eingebaut (`src/data/runde8.js`, Abgleich über `tools/packs/runde8_sync.mjs`, das die JSON aus `docs/story/` nach `src/data/packs/` kopiert und korrigiert). Offen: CE (Calderwick-Grafik), CI (Briarholt-Grafik), CN (Kettlegate-Leben); bis dahin leihen sich die neuen Karten Tilesets und Kartenmarker von Dunscar/Wexmoor und die Kampf-Hintergründe des Vorrats.
+
 | Datei | Art | Inhalt | schreibt nach |
 |---|---|---|---|
 | `codex_CC_k4_akte.md` | Story | Kapitel 4 „Die Stadt ohne Unterschrift“ (Calderwick, Geschichte 1): Anreise aus den vier Dunscar-Enden, 5 Akte x 4 Fährten, Verhöre, Bosse aus BH als Story-Momente, Namensanker und Abgleiche als Daten, 4 Enden, Epiloge, Zeitung | `docs/story/k4_akte/` |

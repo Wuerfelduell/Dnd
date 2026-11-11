@@ -18,4 +18,4 @@ export function applyLore(content, lore) {
 }
 
 /** Name der Zeitung. */
-export const NEWSPAPERS = { kurier: 'Kettlegater Kurier', bote: 'Wexmoorer Bote', dunscarer_kalkblatt: 'Dunscarer Kalkblatt' }; // Kapitel 3 (AR)
+export const NEWSPAPERS = { kurier: 'Kettlegater Kurier', bote: 'Wexmoorer Bote', dunscarer_kalkblatt: 'Dunscarer Kalkblatt', calderwicker_anzeiger: 'Calderwicker Anzeiger', briarholter_kurblatt: 'Briarholter Kurblatt' }; // Kapitel 3 (AR), 4 (CC), 5 (CG)

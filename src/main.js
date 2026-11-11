@@ -38,7 +38,7 @@ let game;
 const restartWorld = () => game.scene.getScene('world').scene.restart();
 
 // Paket Y: Soundeffekte (eine Instanz für alle Szenen; spielt erst nach der ersten Eingabe)
-const audio = new Audio({ kinds: ['sfx'] }); // Musik (Paket Z) folgt
+const audio = new Audio({ kinds: ['sfx', 'sfx2'] }); // Effekte aus Paket Y und CM; Musik kommt als Notendaten (Paket Z)
 wireSounds(state, audio, uiRoot);
 
 const ui = new Ui(uiRoot, state, {
@@ -77,6 +77,8 @@ setInterval(() => {
     city: cityOf(state, state.map),
     zone: content.zones?.[state.map] ? state.map : null,
     playTime: state.playTime,
+    fest: state.festAktiv?.(cityOf(state, state.map)) ?? null, // CL: Festmusik auf den Festplätzen
+    season: state.season?.() ?? null,
   });
 }, 500);
 

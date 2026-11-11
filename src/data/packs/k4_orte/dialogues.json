@@ -1,0 +1,3191 @@
+{
+ "cwo_lift_1": {
+  "start": "cwo_start",
+  "nodes": {
+   "cwo_start": {
+    "text": "Die Fußtreppe bleibt kostenlos offen. Die Kabine fährt eine Terrasse höher; mit Klammers Werkstattfreigabe entfällt der Fahrpreis.",
+    "choices": [
+     {
+      "text": "Werkstattfreigabe zeigen.",
+      "requires_flags": [
+       "cwa_werkstatt"
+      ],
+      "next": "cwo_frei"
+     },
+     {
+      "text": "2 Schilling bezahlen.",
+      "requires_money": 2,
+      "hide_if_flags": [
+       "cwa_werkstatt"
+      ],
+      "next": "cwo_zahlen"
+     },
+     {
+      "text": "Die Treppe nehmen."
+     }
+    ]
+   },
+   "cwo_frei": {
+    "text": "Der Wärter öffnet das Gitter. Die Last des Papiers zieht dich nach oben.",
+    "travel": {
+     "map": "cw_setzergasse",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Aussteigen."
+     }
+    ]
+   },
+   "cwo_zahlen": {
+    "text": "Zwei Schilling verschwinden im Kasten. Die Last des Papiers zieht dich nach oben.",
+    "takes_money": 2,
+    "travel": {
+     "map": "cw_setzergasse",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Aussteigen."
+     }
+    ]
+   }
+  }
+ },
+ "cwo_lift_2": {
+  "start": "cwo_start",
+  "nodes": {
+   "cwo_start": {
+    "text": "Die Fußtreppe bleibt kostenlos offen. Die Kabine fährt eine Terrasse höher; mit Klammers Werkstattfreigabe entfällt der Fahrpreis.",
+    "choices": [
+     {
+      "text": "Werkstattfreigabe zeigen.",
+      "requires_flags": [
+       "cwa_werkstatt"
+      ],
+      "next": "cwo_frei"
+     },
+     {
+      "text": "2 Schilling bezahlen.",
+      "requires_money": 2,
+      "hide_if_flags": [
+       "cwa_werkstatt"
+      ],
+      "next": "cwo_zahlen"
+     },
+     {
+      "text": "Die Treppe nehmen."
+     }
+    ]
+   },
+   "cwo_frei": {
+    "text": "Der Wärter öffnet das Gitter. Die Last des Papiers zieht dich nach oben.",
+    "travel": {
+     "map": "cw_quittungsmarkt",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Aussteigen."
+     }
+    ]
+   },
+   "cwo_zahlen": {
+    "text": "Zwei Schilling verschwinden im Kasten. Die Last des Papiers zieht dich nach oben.",
+    "takes_money": 2,
+    "travel": {
+     "map": "cw_quittungsmarkt",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Aussteigen."
+     }
+    ]
+   }
+  }
+ },
+ "cwo_lift_3": {
+  "start": "cwo_start",
+  "nodes": {
+   "cwo_start": {
+    "text": "Die Fußtreppe bleibt kostenlos offen. Die Kabine fährt eine Terrasse höher; mit Klammers Werkstattfreigabe entfällt der Fahrpreis.",
+    "choices": [
+     {
+      "text": "Werkstattfreigabe zeigen.",
+      "requires_flags": [
+       "cwa_werkstatt"
+      ],
+      "next": "cwo_frei"
+     },
+     {
+      "text": "2 Schilling bezahlen.",
+      "requires_money": 2,
+      "hide_if_flags": [
+       "cwa_werkstatt"
+      ],
+      "next": "cwo_zahlen"
+     },
+     {
+      "text": "Die Treppe nehmen."
+     }
+    ]
+   },
+   "cwo_frei": {
+    "text": "Der Wärter öffnet das Gitter. Die Last des Papiers zieht dich nach oben.",
+    "travel": {
+     "map": "cw_roehrenhof",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Aussteigen."
+     }
+    ]
+   },
+   "cwo_zahlen": {
+    "text": "Zwei Schilling verschwinden im Kasten. Die Last des Papiers zieht dich nach oben.",
+    "takes_money": 2,
+    "travel": {
+     "map": "cw_roehrenhof",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Aussteigen."
+     }
+    ]
+   }
+  }
+ },
+ "cwo_lift_4": {
+  "start": "cwo_start",
+  "nodes": {
+   "cwo_start": {
+    "text": "Die Fußtreppe bleibt kostenlos offen. Die Kabine fährt eine Terrasse höher; mit Klammers Werkstattfreigabe entfällt der Fahrpreis.",
+    "choices": [
+     {
+      "text": "Werkstattfreigabe zeigen.",
+      "requires_flags": [
+       "cwa_werkstatt"
+      ],
+      "next": "cwo_frei"
+     },
+     {
+      "text": "2 Schilling bezahlen.",
+      "requires_money": 2,
+      "hide_if_flags": [
+       "cwa_werkstatt"
+      ],
+      "next": "cwo_zahlen"
+     },
+     {
+      "text": "Die Treppe nehmen."
+     }
+    ]
+   },
+   "cwo_frei": {
+    "text": "Der Wärter öffnet das Gitter. Die Last des Papiers zieht dich nach oben.",
+    "travel": {
+     "map": "cw_witwenterrasse",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Aussteigen."
+     }
+    ]
+   },
+   "cwo_zahlen": {
+    "text": "Zwei Schilling verschwinden im Kasten. Die Last des Papiers zieht dich nach oben.",
+    "takes_money": 2,
+    "travel": {
+     "map": "cw_witwenterrasse",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Aussteigen."
+     }
+    ]
+   }
+  }
+ },
+ "cwo_lift_5": {
+  "start": "cwo_start",
+  "nodes": {
+   "cwo_start": {
+    "text": "Die Fußtreppe bleibt kostenlos offen. Die Kabine fährt eine Terrasse höher; mit Klammers Werkstattfreigabe entfällt der Fahrpreis.",
+    "choices": [
+     {
+      "text": "Werkstattfreigabe zeigen.",
+      "requires_flags": [
+       "cwa_werkstatt"
+      ],
+      "next": "cwo_frei"
+     },
+     {
+      "text": "2 Schilling bezahlen.",
+      "requires_money": 2,
+      "hide_if_flags": [
+       "cwa_werkstatt"
+      ],
+      "next": "cwo_zahlen"
+     },
+     {
+      "text": "Die Treppe nehmen."
+     }
+    ]
+   },
+   "cwo_frei": {
+    "text": "Der Wärter öffnet das Gitter. Die Last des Papiers zieht dich nach oben.",
+    "travel": {
+     "map": "cw_kronenarchiv",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Aussteigen."
+     }
+    ]
+   },
+   "cwo_zahlen": {
+    "text": "Zwei Schilling verschwinden im Kasten. Die Last des Papiers zieht dich nach oben.",
+    "takes_money": 2,
+    "travel": {
+     "map": "cw_kronenarchiv",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Aussteigen."
+     }
+    ]
+   }
+  }
+ },
+ "cwo_kern_3": {
+  "start": "cwo_start",
+  "nodes": {
+   "cwo_start": {
+    "text": "Im gesicherten Fach liegt eine Ersatzquelle für deinen eigenen Pfad. Eine bereits vorhandene Zutat wird nicht nochmals ausgegeben.",
+    "choices": [
+     {
+      "text": "Zutat für laterne bergen.",
+      "next": "cwo_ausgabe_laterne",
+      "requires_flags": [
+       "vg_cw_boss_bleisammler_geloest"
+      ],
+      "hide_if_flags": [
+       "cwo_kern_3_genommen"
+      ],
+      "requires_pathway": [
+       "sq_laterne",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_laterne_3"
+      ]
+     },
+     {
+      "text": "Zutat für faden bergen.",
+      "next": "cwo_ausgabe_faden",
+      "requires_flags": [
+       "vg_cw_boss_bleisammler_geloest"
+      ],
+      "hide_if_flags": [
+       "cwo_kern_3_genommen"
+      ],
+      "requires_pathway": [
+       "sq_faden",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_faden_3"
+      ]
+     },
+     {
+      "text": "Zutat für maske bergen.",
+      "next": "cwo_ausgabe_maske",
+      "requires_flags": [
+       "vg_cw_boss_bleisammler_geloest"
+      ],
+      "hide_if_flags": [
+       "cwo_kern_3_genommen"
+      ],
+      "requires_pathway": [
+       "sq_maske",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_maske_3"
+      ]
+     },
+     {
+      "text": "Zutat für echo bergen.",
+      "next": "cwo_ausgabe_echo",
+      "requires_flags": [
+       "vg_cw_boss_bleisammler_geloest"
+      ],
+      "hide_if_flags": [
+       "cwo_kern_3_genommen"
+      ],
+      "requires_pathway": [
+       "sq_echo",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_echo_3"
+      ]
+     },
+     {
+      "text": "Zutat für kessel bergen.",
+      "next": "cwo_ausgabe_kessel",
+      "requires_flags": [
+       "vg_cw_boss_bleisammler_geloest"
+      ],
+      "hide_if_flags": [
+       "cwo_kern_3_genommen"
+      ],
+      "requires_pathway": [
+       "sq_kessel",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_kessel_3"
+      ]
+     },
+     {
+      "text": "Zutat für eisen bergen.",
+      "next": "cwo_ausgabe_eisen",
+      "requires_flags": [
+       "vg_cw_boss_bleisammler_geloest"
+      ],
+      "hide_if_flags": [
+       "cwo_kern_3_genommen"
+      ],
+      "requires_pathway": [
+       "sq_eisen",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_eisen_3"
+      ]
+     },
+     {
+      "text": "Zutat für schluessel bergen.",
+      "next": "cwo_ausgabe_schluessel",
+      "requires_flags": [
+       "vg_cw_boss_bleisammler_geloest"
+      ],
+      "hide_if_flags": [
+       "cwo_kern_3_genommen"
+      ],
+      "requires_pathway": [
+       "sq_schluessel",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_schluessel_3"
+      ]
+     },
+     {
+      "text": "Zutat für waage bergen.",
+      "next": "cwo_ausgabe_waage",
+      "requires_flags": [
+       "vg_cw_boss_bleisammler_geloest"
+      ],
+      "hide_if_flags": [
+       "cwo_kern_3_genommen"
+      ],
+      "requires_pathway": [
+       "sq_waage",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_waage_3"
+      ]
+     },
+     {
+      "text": "Zutat für moor bergen.",
+      "next": "cwo_ausgabe_moor",
+      "requires_flags": [
+       "vg_cw_boss_bleisammler_geloest"
+      ],
+      "hide_if_flags": [
+       "cwo_kern_3_genommen"
+      ],
+      "requires_pathway": [
+       "sq_moor",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_moor_3"
+      ]
+     },
+     {
+      "text": "Zutat für uhr bergen.",
+      "next": "cwo_ausgabe_uhr",
+      "requires_flags": [
+       "vg_cw_boss_bleisammler_geloest"
+      ],
+      "hide_if_flags": [
+       "cwo_kern_3_genommen"
+      ],
+      "requires_pathway": [
+       "sq_uhr",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_uhr_3"
+      ]
+     },
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   },
+   "cwo_ausgabe_laterne": {
+    "text": "Du entnimmst genau die passende Zutat. Der Weg zur Bergung hat ihren Wert nicht verändert.",
+    "gives_items": {
+     "sq_zutat_laterne_3": 1
+    },
+    "sets_flags": [
+     "cwo_kern_3_genommen"
+    ],
+    "choices": [
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   },
+   "cwo_ausgabe_faden": {
+    "text": "Du entnimmst genau die passende Zutat. Der Weg zur Bergung hat ihren Wert nicht verändert.",
+    "gives_items": {
+     "sq_zutat_faden_3": 1
+    },
+    "sets_flags": [
+     "cwo_kern_3_genommen"
+    ],
+    "choices": [
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   },
+   "cwo_ausgabe_maske": {
+    "text": "Du entnimmst genau die passende Zutat. Der Weg zur Bergung hat ihren Wert nicht verändert.",
+    "gives_items": {
+     "sq_zutat_maske_3": 1
+    },
+    "sets_flags": [
+     "cwo_kern_3_genommen"
+    ],
+    "choices": [
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   },
+   "cwo_ausgabe_echo": {
+    "text": "Du entnimmst genau die passende Zutat. Der Weg zur Bergung hat ihren Wert nicht verändert.",
+    "gives_items": {
+     "sq_zutat_echo_3": 1
+    },
+    "sets_flags": [
+     "cwo_kern_3_genommen"
+    ],
+    "choices": [
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   },
+   "cwo_ausgabe_kessel": {
+    "text": "Du entnimmst genau die passende Zutat. Der Weg zur Bergung hat ihren Wert nicht verändert.",
+    "gives_items": {
+     "sq_zutat_kessel_3": 1
+    },
+    "sets_flags": [
+     "cwo_kern_3_genommen"
+    ],
+    "choices": [
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   },
+   "cwo_ausgabe_eisen": {
+    "text": "Du entnimmst genau die passende Zutat. Der Weg zur Bergung hat ihren Wert nicht verändert.",
+    "gives_items": {
+     "sq_zutat_eisen_3": 1
+    },
+    "sets_flags": [
+     "cwo_kern_3_genommen"
+    ],
+    "choices": [
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   },
+   "cwo_ausgabe_schluessel": {
+    "text": "Du entnimmst genau die passende Zutat. Der Weg zur Bergung hat ihren Wert nicht verändert.",
+    "gives_items": {
+     "sq_zutat_schluessel_3": 1
+    },
+    "sets_flags": [
+     "cwo_kern_3_genommen"
+    ],
+    "choices": [
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   },
+   "cwo_ausgabe_waage": {
+    "text": "Du entnimmst genau die passende Zutat. Der Weg zur Bergung hat ihren Wert nicht verändert.",
+    "gives_items": {
+     "sq_zutat_waage_3": 1
+    },
+    "sets_flags": [
+     "cwo_kern_3_genommen"
+    ],
+    "choices": [
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   },
+   "cwo_ausgabe_moor": {
+    "text": "Du entnimmst genau die passende Zutat. Der Weg zur Bergung hat ihren Wert nicht verändert.",
+    "gives_items": {
+     "sq_zutat_moor_3": 1
+    },
+    "sets_flags": [
+     "cwo_kern_3_genommen"
+    ],
+    "choices": [
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   },
+   "cwo_ausgabe_uhr": {
+    "text": "Du entnimmst genau die passende Zutat. Der Weg zur Bergung hat ihren Wert nicht verändert.",
+    "gives_items": {
+     "sq_zutat_uhr_3": 1
+    },
+    "sets_flags": [
+     "cwo_kern_3_genommen"
+    ],
+    "choices": [
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   }
+  }
+ },
+ "cwo_kern_2": {
+  "start": "cwo_start",
+  "nodes": {
+   "cwo_start": {
+    "text": "Im gesicherten Fach liegt eine Ersatzquelle für deinen eigenen Pfad. Eine bereits vorhandene Zutat wird nicht nochmals ausgegeben.",
+    "choices": [
+     {
+      "text": "Zutat für laterne bergen.",
+      "next": "cwo_ausgabe_laterne",
+      "requires_flags": [
+       "vg_cw_boss_blinder_zusteller_geloest"
+      ],
+      "hide_if_flags": [
+       "cwo_kern_2_genommen"
+      ],
+      "requires_pathway": [
+       "sq_laterne",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_laterne_2"
+      ]
+     },
+     {
+      "text": "Zutat für faden bergen.",
+      "next": "cwo_ausgabe_faden",
+      "requires_flags": [
+       "vg_cw_boss_blinder_zusteller_geloest"
+      ],
+      "hide_if_flags": [
+       "cwo_kern_2_genommen"
+      ],
+      "requires_pathway": [
+       "sq_faden",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_faden_2"
+      ]
+     },
+     {
+      "text": "Zutat für maske bergen.",
+      "next": "cwo_ausgabe_maske",
+      "requires_flags": [
+       "vg_cw_boss_blinder_zusteller_geloest"
+      ],
+      "hide_if_flags": [
+       "cwo_kern_2_genommen"
+      ],
+      "requires_pathway": [
+       "sq_maske",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_maske_2"
+      ]
+     },
+     {
+      "text": "Zutat für echo bergen.",
+      "next": "cwo_ausgabe_echo",
+      "requires_flags": [
+       "vg_cw_boss_blinder_zusteller_geloest"
+      ],
+      "hide_if_flags": [
+       "cwo_kern_2_genommen"
+      ],
+      "requires_pathway": [
+       "sq_echo",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_echo_2"
+      ]
+     },
+     {
+      "text": "Zutat für kessel bergen.",
+      "next": "cwo_ausgabe_kessel",
+      "requires_flags": [
+       "vg_cw_boss_blinder_zusteller_geloest"
+      ],
+      "hide_if_flags": [
+       "cwo_kern_2_genommen"
+      ],
+      "requires_pathway": [
+       "sq_kessel",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_kessel_2"
+      ]
+     },
+     {
+      "text": "Zutat für eisen bergen.",
+      "next": "cwo_ausgabe_eisen",
+      "requires_flags": [
+       "vg_cw_boss_blinder_zusteller_geloest"
+      ],
+      "hide_if_flags": [
+       "cwo_kern_2_genommen"
+      ],
+      "requires_pathway": [
+       "sq_eisen",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_eisen_2"
+      ]
+     },
+     {
+      "text": "Zutat für schluessel bergen.",
+      "next": "cwo_ausgabe_schluessel",
+      "requires_flags": [
+       "vg_cw_boss_blinder_zusteller_geloest"
+      ],
+      "hide_if_flags": [
+       "cwo_kern_2_genommen"
+      ],
+      "requires_pathway": [
+       "sq_schluessel",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_schluessel_2"
+      ]
+     },
+     {
+      "text": "Zutat für waage bergen.",
+      "next": "cwo_ausgabe_waage",
+      "requires_flags": [
+       "vg_cw_boss_blinder_zusteller_geloest"
+      ],
+      "hide_if_flags": [
+       "cwo_kern_2_genommen"
+      ],
+      "requires_pathway": [
+       "sq_waage",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_waage_2"
+      ]
+     },
+     {
+      "text": "Zutat für moor bergen.",
+      "next": "cwo_ausgabe_moor",
+      "requires_flags": [
+       "vg_cw_boss_blinder_zusteller_geloest"
+      ],
+      "hide_if_flags": [
+       "cwo_kern_2_genommen"
+      ],
+      "requires_pathway": [
+       "sq_moor",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_moor_2"
+      ]
+     },
+     {
+      "text": "Zutat für uhr bergen.",
+      "next": "cwo_ausgabe_uhr",
+      "requires_flags": [
+       "vg_cw_boss_blinder_zusteller_geloest"
+      ],
+      "hide_if_flags": [
+       "cwo_kern_2_genommen"
+      ],
+      "requires_pathway": [
+       "sq_uhr",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_uhr_2"
+      ]
+     },
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   },
+   "cwo_ausgabe_laterne": {
+    "text": "Du entnimmst genau die passende Zutat. Der Weg zur Bergung hat ihren Wert nicht verändert.",
+    "gives_items": {
+     "sq_zutat_laterne_2": 1
+    },
+    "sets_flags": [
+     "cwo_kern_2_genommen"
+    ],
+    "choices": [
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   },
+   "cwo_ausgabe_faden": {
+    "text": "Du entnimmst genau die passende Zutat. Der Weg zur Bergung hat ihren Wert nicht verändert.",
+    "gives_items": {
+     "sq_zutat_faden_2": 1
+    },
+    "sets_flags": [
+     "cwo_kern_2_genommen"
+    ],
+    "choices": [
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   },
+   "cwo_ausgabe_maske": {
+    "text": "Du entnimmst genau die passende Zutat. Der Weg zur Bergung hat ihren Wert nicht verändert.",
+    "gives_items": {
+     "sq_zutat_maske_2": 1
+    },
+    "sets_flags": [
+     "cwo_kern_2_genommen"
+    ],
+    "choices": [
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   },
+   "cwo_ausgabe_echo": {
+    "text": "Du entnimmst genau die passende Zutat. Der Weg zur Bergung hat ihren Wert nicht verändert.",
+    "gives_items": {
+     "sq_zutat_echo_2": 1
+    },
+    "sets_flags": [
+     "cwo_kern_2_genommen"
+    ],
+    "choices": [
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   },
+   "cwo_ausgabe_kessel": {
+    "text": "Du entnimmst genau die passende Zutat. Der Weg zur Bergung hat ihren Wert nicht verändert.",
+    "gives_items": {
+     "sq_zutat_kessel_2": 1
+    },
+    "sets_flags": [
+     "cwo_kern_2_genommen"
+    ],
+    "choices": [
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   },
+   "cwo_ausgabe_eisen": {
+    "text": "Du entnimmst genau die passende Zutat. Der Weg zur Bergung hat ihren Wert nicht verändert.",
+    "gives_items": {
+     "sq_zutat_eisen_2": 1
+    },
+    "sets_flags": [
+     "cwo_kern_2_genommen"
+    ],
+    "choices": [
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   },
+   "cwo_ausgabe_schluessel": {
+    "text": "Du entnimmst genau die passende Zutat. Der Weg zur Bergung hat ihren Wert nicht verändert.",
+    "gives_items": {
+     "sq_zutat_schluessel_2": 1
+    },
+    "sets_flags": [
+     "cwo_kern_2_genommen"
+    ],
+    "choices": [
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   },
+   "cwo_ausgabe_waage": {
+    "text": "Du entnimmst genau die passende Zutat. Der Weg zur Bergung hat ihren Wert nicht verändert.",
+    "gives_items": {
+     "sq_zutat_waage_2": 1
+    },
+    "sets_flags": [
+     "cwo_kern_2_genommen"
+    ],
+    "choices": [
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   },
+   "cwo_ausgabe_moor": {
+    "text": "Du entnimmst genau die passende Zutat. Der Weg zur Bergung hat ihren Wert nicht verändert.",
+    "gives_items": {
+     "sq_zutat_moor_2": 1
+    },
+    "sets_flags": [
+     "cwo_kern_2_genommen"
+    ],
+    "choices": [
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   },
+   "cwo_ausgabe_uhr": {
+    "text": "Du entnimmst genau die passende Zutat. Der Weg zur Bergung hat ihren Wert nicht verändert.",
+    "gives_items": {
+     "sq_zutat_uhr_2": 1
+    },
+    "sets_flags": [
+     "cwo_kern_2_genommen"
+    ],
+    "choices": [
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   }
+  }
+ },
+ "cwo_kern_1": {
+  "start": "cwo_start",
+  "nodes": {
+   "cwo_start": {
+    "text": "Im gesicherten Fach liegt eine Ersatzquelle für deinen eigenen Pfad. Eine bereits vorhandene Zutat wird nicht nochmals ausgegeben.",
+    "choices": [
+     {
+      "text": "Zutat für laterne bergen.",
+      "next": "cwo_ausgabe_laterne",
+      "requires_flags": [
+       "vg_cw_boss_nullfundament_geloest"
+      ],
+      "hide_if_flags": [
+       "cwo_kern_1_genommen"
+      ],
+      "requires_pathway": [
+       "sq_laterne",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_laterne_1"
+      ]
+     },
+     {
+      "text": "Zutat für faden bergen.",
+      "next": "cwo_ausgabe_faden",
+      "requires_flags": [
+       "vg_cw_boss_nullfundament_geloest"
+      ],
+      "hide_if_flags": [
+       "cwo_kern_1_genommen"
+      ],
+      "requires_pathway": [
+       "sq_faden",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_faden_1"
+      ]
+     },
+     {
+      "text": "Zutat für maske bergen.",
+      "next": "cwo_ausgabe_maske",
+      "requires_flags": [
+       "vg_cw_boss_nullfundament_geloest"
+      ],
+      "hide_if_flags": [
+       "cwo_kern_1_genommen"
+      ],
+      "requires_pathway": [
+       "sq_maske",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_maske_1"
+      ]
+     },
+     {
+      "text": "Zutat für echo bergen.",
+      "next": "cwo_ausgabe_echo",
+      "requires_flags": [
+       "vg_cw_boss_nullfundament_geloest"
+      ],
+      "hide_if_flags": [
+       "cwo_kern_1_genommen"
+      ],
+      "requires_pathway": [
+       "sq_echo",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_echo_1"
+      ]
+     },
+     {
+      "text": "Zutat für kessel bergen.",
+      "next": "cwo_ausgabe_kessel",
+      "requires_flags": [
+       "vg_cw_boss_nullfundament_geloest"
+      ],
+      "hide_if_flags": [
+       "cwo_kern_1_genommen"
+      ],
+      "requires_pathway": [
+       "sq_kessel",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_kessel_1"
+      ]
+     },
+     {
+      "text": "Zutat für eisen bergen.",
+      "next": "cwo_ausgabe_eisen",
+      "requires_flags": [
+       "vg_cw_boss_nullfundament_geloest"
+      ],
+      "hide_if_flags": [
+       "cwo_kern_1_genommen"
+      ],
+      "requires_pathway": [
+       "sq_eisen",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_eisen_1"
+      ]
+     },
+     {
+      "text": "Zutat für schluessel bergen.",
+      "next": "cwo_ausgabe_schluessel",
+      "requires_flags": [
+       "vg_cw_boss_nullfundament_geloest"
+      ],
+      "hide_if_flags": [
+       "cwo_kern_1_genommen"
+      ],
+      "requires_pathway": [
+       "sq_schluessel",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_schluessel_1"
+      ]
+     },
+     {
+      "text": "Zutat für waage bergen.",
+      "next": "cwo_ausgabe_waage",
+      "requires_flags": [
+       "vg_cw_boss_nullfundament_geloest"
+      ],
+      "hide_if_flags": [
+       "cwo_kern_1_genommen"
+      ],
+      "requires_pathway": [
+       "sq_waage",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_waage_1"
+      ]
+     },
+     {
+      "text": "Zutat für moor bergen.",
+      "next": "cwo_ausgabe_moor",
+      "requires_flags": [
+       "vg_cw_boss_nullfundament_geloest"
+      ],
+      "hide_if_flags": [
+       "cwo_kern_1_genommen"
+      ],
+      "requires_pathway": [
+       "sq_moor",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_moor_1"
+      ]
+     },
+     {
+      "text": "Zutat für uhr bergen.",
+      "next": "cwo_ausgabe_uhr",
+      "requires_flags": [
+       "vg_cw_boss_nullfundament_geloest"
+      ],
+      "hide_if_flags": [
+       "cwo_kern_1_genommen"
+      ],
+      "requires_pathway": [
+       "sq_uhr",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_uhr_1"
+      ]
+     },
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   },
+   "cwo_ausgabe_laterne": {
+    "text": "Du entnimmst genau die passende Zutat. Der Weg zur Bergung hat ihren Wert nicht verändert.",
+    "gives_items": {
+     "sq_zutat_laterne_1": 1
+    },
+    "sets_flags": [
+     "cwo_kern_1_genommen"
+    ],
+    "choices": [
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   },
+   "cwo_ausgabe_faden": {
+    "text": "Du entnimmst genau die passende Zutat. Der Weg zur Bergung hat ihren Wert nicht verändert.",
+    "gives_items": {
+     "sq_zutat_faden_1": 1
+    },
+    "sets_flags": [
+     "cwo_kern_1_genommen"
+    ],
+    "choices": [
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   },
+   "cwo_ausgabe_maske": {
+    "text": "Du entnimmst genau die passende Zutat. Der Weg zur Bergung hat ihren Wert nicht verändert.",
+    "gives_items": {
+     "sq_zutat_maske_1": 1
+    },
+    "sets_flags": [
+     "cwo_kern_1_genommen"
+    ],
+    "choices": [
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   },
+   "cwo_ausgabe_echo": {
+    "text": "Du entnimmst genau die passende Zutat. Der Weg zur Bergung hat ihren Wert nicht verändert.",
+    "gives_items": {
+     "sq_zutat_echo_1": 1
+    },
+    "sets_flags": [
+     "cwo_kern_1_genommen"
+    ],
+    "choices": [
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   },
+   "cwo_ausgabe_kessel": {
+    "text": "Du entnimmst genau die passende Zutat. Der Weg zur Bergung hat ihren Wert nicht verändert.",
+    "gives_items": {
+     "sq_zutat_kessel_1": 1
+    },
+    "sets_flags": [
+     "cwo_kern_1_genommen"
+    ],
+    "choices": [
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   },
+   "cwo_ausgabe_eisen": {
+    "text": "Du entnimmst genau die passende Zutat. Der Weg zur Bergung hat ihren Wert nicht verändert.",
+    "gives_items": {
+     "sq_zutat_eisen_1": 1
+    },
+    "sets_flags": [
+     "cwo_kern_1_genommen"
+    ],
+    "choices": [
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   },
+   "cwo_ausgabe_schluessel": {
+    "text": "Du entnimmst genau die passende Zutat. Der Weg zur Bergung hat ihren Wert nicht verändert.",
+    "gives_items": {
+     "sq_zutat_schluessel_1": 1
+    },
+    "sets_flags": [
+     "cwo_kern_1_genommen"
+    ],
+    "choices": [
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   },
+   "cwo_ausgabe_waage": {
+    "text": "Du entnimmst genau die passende Zutat. Der Weg zur Bergung hat ihren Wert nicht verändert.",
+    "gives_items": {
+     "sq_zutat_waage_1": 1
+    },
+    "sets_flags": [
+     "cwo_kern_1_genommen"
+    ],
+    "choices": [
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   },
+   "cwo_ausgabe_moor": {
+    "text": "Du entnimmst genau die passende Zutat. Der Weg zur Bergung hat ihren Wert nicht verändert.",
+    "gives_items": {
+     "sq_zutat_moor_1": 1
+    },
+    "sets_flags": [
+     "cwo_kern_1_genommen"
+    ],
+    "choices": [
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   },
+   "cwo_ausgabe_uhr": {
+    "text": "Du entnimmst genau die passende Zutat. Der Weg zur Bergung hat ihren Wert nicht verändert.",
+    "gives_items": {
+     "sq_zutat_uhr_1": 1
+    },
+    "sets_flags": [
+     "cwo_kern_1_genommen"
+    ],
+    "choices": [
+     {
+      "text": "Fach schließen."
+     }
+    ]
+   }
+  }
+ },
+ "cwo_wartung": {
+  "start": [
+   {
+    "node": "cwo_fertig",
+    "requires_flags": [
+     "cwo_wartung_done"
+    ]
+   },
+   {
+    "node": "cwo_start"
+   }
+  ],
+  "nodes": {
+   "cwo_start": {
+    "text": "Der Aufzug fährt, doch sein Wartungsfach steht offen. Klammer möchte wissen, wer einen Schlüssel herumliegen lässt, bevor sie einen Schuldigen sucht.",
+    "start_quests": [
+     "cwo_wartungsweg"
+    ],
+    "choices": [
+     {
+      "text": "Schlüssel vertraulich zurückgeben.",
+      "requires_items": [
+       "cwo_aufzugsschluessel"
+      ],
+      "next": "cwo_vertraulich"
+     },
+     {
+      "text": "Das offene Fach öffentlich melden.",
+      "requires_items": [
+       "cwo_aufzugsschluessel"
+      ],
+      "next": "cwo_oeffentlich"
+     },
+     {
+      "text": "Erst das Wartungsfach im Röhrenhof ansehen."
+     }
+    ]
+   },
+   "cwo_fertig": {
+    "text": "Der Schlüssel hängt wieder an seinem Haken. Deine Entscheidung ist auf dem Wartungszettel vermerkt.",
+    "choices": [
+     {
+      "text": "Gehen."
+     }
+    ]
+   },
+   "cwo_vertraulich": {
+    "text": "Klammer quittiert die Rückgabe unter vier Augen. Der Fehler wird behoben, ohne einen Namen auszuhängen.",
+    "takes_items": {
+     "cwo_aufzugsschluessel": 1
+    },
+    "sets_flags": [
+     "cwo_wartung_done",
+     "cwo_wartung_vertraulich"
+    ],
+    "clears_flags": [
+     "cwo_wartung_oeffentlich"
+    ],
+    "gives_items": {
+     "cwo_getrennte_klammer": 1
+    },
+    "complete_quests": [
+     "cwo_wartungsweg"
+    ],
+    "choices": [
+     {
+      "text": "Die Klammer mit ihrem Fluch annehmen."
+     }
+    ]
+   },
+   "cwo_oeffentlich": {
+    "text": "Du hängst eine sachliche Meldung ohne Beschuldigung aus. Künftig kann jeder nachprüfen, ob das Fach geschlossen ist.",
+    "takes_items": {
+     "cwo_aufzugsschluessel": 1
+    },
+    "sets_flags": [
+     "cwo_wartung_done",
+     "cwo_wartung_oeffentlich"
+    ],
+    "clears_flags": [
+     "cwo_wartung_vertraulich"
+    ],
+    "gives_items": {
+     "cwo_getrennte_klammer": 1
+    },
+    "complete_quests": [
+     "cwo_wartungsweg"
+    ],
+    "choices": [
+     {
+      "text": "Die Klammer mit ihrem Fluch annehmen."
+     }
+    ]
+   }
+  }
+ },
+ "cwo_marktstand": {
+  "start": "cwo_start",
+  "nodes": {
+   "cwo_start": {
+    "text": "Brauchbares liegt bereit, die Preise stehen an jedem Stück. Eine Geschichte musst du beim Kauf nicht abgeben.",
+    "choices": [
+     {
+      "text": "Waren und Preise ansehen.",
+      "shop": "vi_handel_reise"
+     },
+     {
+      "text": "Für heute genug."
+     }
+    ]
+   }
+  }
+ },
+ "cwo_fahrt_ds_endbahnhof": {
+  "start": "cwo_start",
+  "nodes": {
+   "cwo_start": {
+    "text": "Eine Fahrt kostet vier Schilling oder eine Wegzoll-Marke. Auf der Straße wählst du zwei oder drei Begegnungen; freiwillige Umwege zu großen Gefahren schließen einander aus.",
+    "choices": [
+     {
+      "text": "4 Schilling bezahlen.",
+      "requires_money": 4,
+      "requires_flags": [
+       "kapitel3_done"
+      ],
+      "next": "cwo_geld"
+     },
+     {
+      "text": "Eine Wegzoll-Marke abgeben.",
+      "requires_items": [
+       "vi_m_wegzoll_marke"
+      ],
+      "requires_flags": [
+       "kapitel3_done"
+      ],
+      "next": "cwo_marke"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "cwo_geld": {
+    "text": "Die Fahrt ist bezahlt. Der sichere Rastplatz liegt vor dir; zwei Begegnungen gehören zum Weg, eine dritte bleibt deine Wahl.",
+    "clears_flags": [
+     "cwo_reise_zoll",
+     "cwo_reise_panne",
+     "cwo_reise_hausiererin",
+     "cwo_reise_arzt",
+     "cwo_reise_richter",
+     "cwo_reise_bote",
+     "cwo_reise_prediger",
+     "cwo_reise_karte",
+     "cwo_reise_ueberfall",
+     "cwo_reise_grenzstein",
+     "cwo_reise_landvermesser",
+     "cwo_reise_schlafkutsche",
+     "cwo_reise_1_done",
+     "cwo_reise_2_done",
+     "cwo_reise_3_done"
+    ],
+    "sets_flags": [
+     "cwo_reise_aktiv"
+    ],
+    "travel": {
+     "map": "reise_landstrasse",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Am Rastplatz aussteigen."
+     }
+    ],
+    "takes_money": 4
+   },
+   "cwo_marke": {
+    "text": "Die Fahrt ist bezahlt. Der sichere Rastplatz liegt vor dir; zwei Begegnungen gehören zum Weg, eine dritte bleibt deine Wahl.",
+    "clears_flags": [
+     "cwo_reise_zoll",
+     "cwo_reise_panne",
+     "cwo_reise_hausiererin",
+     "cwo_reise_arzt",
+     "cwo_reise_richter",
+     "cwo_reise_bote",
+     "cwo_reise_prediger",
+     "cwo_reise_karte",
+     "cwo_reise_ueberfall",
+     "cwo_reise_grenzstein",
+     "cwo_reise_landvermesser",
+     "cwo_reise_schlafkutsche",
+     "cwo_reise_1_done",
+     "cwo_reise_2_done",
+     "cwo_reise_3_done"
+    ],
+    "sets_flags": [
+     "cwo_reise_aktiv"
+    ],
+    "travel": {
+     "map": "reise_landstrasse",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Am Rastplatz aussteigen."
+     }
+    ],
+    "takes_items": {
+     "vi_m_wegzoll_marke": 1
+    }
+   }
+  }
+ },
+ "cwo_fahrt_cw_gleisfuss": {
+  "start": "cwo_start",
+  "nodes": {
+   "cwo_start": {
+    "text": "Eine Fahrt kostet vier Schilling oder eine Wegzoll-Marke. Auf der Straße wählst du zwei oder drei Begegnungen; freiwillige Umwege zu großen Gefahren schließen einander aus.",
+    "choices": [
+     {
+      "text": "4 Schilling bezahlen.",
+      "requires_money": 4,
+      "requires_flags": [
+       "kapitel3_done"
+      ],
+      "next": "cwo_geld"
+     },
+     {
+      "text": "Eine Wegzoll-Marke abgeben.",
+      "requires_items": [
+       "vi_m_wegzoll_marke"
+      ],
+      "requires_flags": [
+       "kapitel3_done"
+      ],
+      "next": "cwo_marke"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "cwo_geld": {
+    "text": "Die Fahrt ist bezahlt. Der sichere Rastplatz liegt vor dir; zwei Begegnungen gehören zum Weg, eine dritte bleibt deine Wahl.",
+    "clears_flags": [
+     "cwo_reise_zoll",
+     "cwo_reise_panne",
+     "cwo_reise_hausiererin",
+     "cwo_reise_arzt",
+     "cwo_reise_richter",
+     "cwo_reise_bote",
+     "cwo_reise_prediger",
+     "cwo_reise_karte",
+     "cwo_reise_ueberfall",
+     "cwo_reise_grenzstein",
+     "cwo_reise_landvermesser",
+     "cwo_reise_schlafkutsche",
+     "cwo_reise_1_done",
+     "cwo_reise_2_done",
+     "cwo_reise_3_done"
+    ],
+    "sets_flags": [
+     "cwo_reise_aktiv"
+    ],
+    "travel": {
+     "map": "reise_landstrasse",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Am Rastplatz aussteigen."
+     }
+    ],
+    "takes_money": 4
+   },
+   "cwo_marke": {
+    "text": "Die Fahrt ist bezahlt. Der sichere Rastplatz liegt vor dir; zwei Begegnungen gehören zum Weg, eine dritte bleibt deine Wahl.",
+    "clears_flags": [
+     "cwo_reise_zoll",
+     "cwo_reise_panne",
+     "cwo_reise_hausiererin",
+     "cwo_reise_arzt",
+     "cwo_reise_richter",
+     "cwo_reise_bote",
+     "cwo_reise_prediger",
+     "cwo_reise_karte",
+     "cwo_reise_ueberfall",
+     "cwo_reise_grenzstein",
+     "cwo_reise_landvermesser",
+     "cwo_reise_schlafkutsche",
+     "cwo_reise_1_done",
+     "cwo_reise_2_done",
+     "cwo_reise_3_done"
+    ],
+    "sets_flags": [
+     "cwo_reise_aktiv"
+    ],
+    "travel": {
+     "map": "reise_landstrasse",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Am Rastplatz aussteigen."
+     }
+    ],
+    "takes_items": {
+     "vi_m_wegzoll_marke": 1
+    }
+   }
+  }
+ },
+ "cwo_reise_etappen": {
+  "start": [
+   {
+    "node": "cwo_ziel",
+    "requires_flags": [
+     "cwo_reise_aktiv",
+     "cwo_reise_3_done"
+    ]
+   },
+   {
+    "node": "cwo_etappe_3",
+    "requires_flags": [
+     "cwo_reise_aktiv",
+     "cwo_reise_2_done"
+    ],
+    "hide_if_flags": [
+     "cwo_reise_3_done"
+    ]
+   },
+   {
+    "node": "cwo_etappe_2",
+    "requires_flags": [
+     "cwo_reise_aktiv",
+     "cwo_reise_1_done"
+    ],
+    "hide_if_flags": [
+     "cwo_reise_2_done"
+    ]
+   },
+   {
+    "node": "cwo_etappe_1",
+    "requires_flags": [
+     "cwo_reise_aktiv"
+    ],
+    "hide_if_flags": [
+     "cwo_reise_1_done"
+    ]
+   },
+   {
+    "node": "cwo_ohne_fahrt"
+   }
+  ],
+  "nodes": {
+   "cwo_etappe_1_cwo_reise_zoll": {
+    "text": "Edwin Rusk dreht die Marke zwischen zwei Fingern. „Eine Fahrt, keine Lebensberechtigung“, sagt er und öffnet die Schranke.",
+    "sets_flags": [
+     "cwo_reise_zoll",
+     "cwo_reise_1_done"
+    ],
+    "choices": [
+     {
+      "text": "Begegnung abschließen."
+     }
+    ]
+   },
+   "cwo_etappe_1_cwo_reise_panne": {
+    "text": "Mara Sedgewick verkeilt eine lockere Speiche. Du hältst die Laterne, während sie feststellt, dass Stillstand wenigstens keine falsche Richtung ist.",
+    "sets_flags": [
+     "cwo_reise_panne",
+     "cwo_reise_1_done"
+    ],
+    "choices": [
+     {
+      "text": "Begegnung abschließen."
+     }
+    ]
+   },
+   "cwo_etappe_1_cwo_reise_hausiererin": {
+    "text": "Selma Quince breitet ihre Ware auf einem trockenen Tuch aus. Für ein Gespräch verlangt sie nichts, für gutes Garn leider schon.",
+    "sets_flags": [
+     "cwo_reise_hausiererin",
+     "cwo_reise_1_done"
+    ],
+    "choices": [
+     {
+      "text": "Begegnung abschließen."
+     }
+    ]
+   },
+   "cwo_etappe_1_cwo_reise_arzt": {
+    "text": "Dr. Emil Harrow prüft die Wasserflasche statt deiner Papiere. Er erinnert dich daran, dass auch eine dringende Reise eine Pause verträgt.",
+    "sets_flags": [
+     "cwo_reise_arzt",
+     "cwo_reise_1_done"
+    ],
+    "choices": [
+     {
+      "text": "Begegnung abschließen."
+     }
+    ]
+   },
+   "cwo_etappe_1_cwo_reise_richter": {
+    "text": "Oren Voss hört einen Streit um dieselbe Sitzbank an. Sein Urteil lässt beiden Reisenden Platz und kostet niemanden einen Namen.",
+    "sets_flags": [
+     "cwo_reise_richter",
+     "cwo_reise_1_done"
+    ],
+    "choices": [
+     {
+      "text": "Begegnung abschließen."
+     }
+    ]
+   },
+   "cwo_etappe_1_cwo_reise_bote": {
+    "text": "Tobin Reed zeigt einen trockenen Pfad an der überfluteten Rinne vorbei. Er merkt sich Gesichter besser als die neuen Wegweiser.",
+    "sets_flags": [
+     "cwo_reise_bote",
+     "cwo_reise_1_done"
+    ],
+    "choices": [
+     {
+      "text": "Begegnung abschließen."
+     }
+    ]
+   },
+   "cwo_etappe_1_cwo_reise_prediger": {
+    "text": "Silas Mere spricht zu einer erloschenen Laterne. Als du vorbeikommst, macht er Platz, ohne ein Bekenntnis zu verlangen.",
+    "sets_flags": [
+     "cwo_reise_prediger",
+     "cwo_reise_1_done"
+    ],
+    "choices": [
+     {
+      "text": "Begegnung abschließen."
+     }
+    ]
+   },
+   "cwo_etappe_1_cwo_reise_karte": {
+    "text": "Nessa Calder zeichnet den Grenzstein neben die Straße statt auf sie. Die amtliche Karte hatte ihn praktischerweise mitten im Weg vergessen.",
+    "sets_flags": [
+     "cwo_reise_karte",
+     "cwo_reise_1_done"
+    ],
+    "choices": [
+     {
+      "text": "Begegnung abschließen."
+     }
+    ]
+   },
+   "cwo_etappe_1_cwo_reise_ueberfall_kampf": {
+    "text": "Du nimmst den angekündigten Kampf an. Bei einem Rückzug bleibt der sichere Weg offen.",
+    "combat": "vg_all_wegelagerer",
+    "choices": []
+   },
+   "cwo_etappe_1_cwo_reise_ueberfall": {
+    "text": "Zwei Wegelagerer treten aus dem Hohlweg. Hinter dir bleibt die breite Straße offen; du kannst ausweichen oder den Angriff annehmen.",
+    "sets_flags": [
+     "cwo_reise_ueberfall",
+     "cwo_reise_1_done"
+    ],
+    "choices": [
+     {
+      "text": "Den Angriff annehmen.",
+      "next": "cwo_etappe_1_cwo_reise_ueberfall_kampf"
+     },
+     {
+      "text": "Über den freien Randweg ausweichen."
+     }
+    ]
+   },
+   "cwo_etappe_1_cwo_reise_grenzstein_kampf": {
+    "text": "Du nimmst den angekündigten Kampf an. Bei einem Rückzug bleibt der sichere Weg offen.",
+    "combat": "vg_all_grenzstein",
+    "choices": []
+   },
+   "cwo_etappe_1_cwo_reise_grenzstein": {
+    "text": "Der Grenzstein steht plötzlich auf deiner Seite der Rinne. Seine Kerbe hebt sich sichtbar, bevor er den Weg versperrt.",
+    "sets_flags": [
+     "cwo_reise_grenzstein",
+     "cwo_reise_1_done"
+    ],
+    "choices": [
+     {
+      "text": "Den Angriff annehmen.",
+      "next": "cwo_etappe_1_cwo_reise_grenzstein_kampf"
+     },
+     {
+      "text": "Über den freien Randweg ausweichen."
+     }
+    ]
+   },
+   "cwo_etappe_1_cwo_reise_landvermesser": {
+    "text": "Ein Landvermesser zieht eine Linie quer über die Fahrspur. Der äußere Weg bleibt frei; der Eingriff ist ausdrücklich freiwillig.",
+    "sets_flags": [
+     "cwo_reise_landvermesser",
+     "cwo_reise_1_done"
+    ],
+    "choices": [
+     {
+      "text": "Am sicheren Rand weitergehen."
+     }
+    ]
+   },
+   "cwo_etappe_1_cwo_reise_schlafkutsche": {
+    "text": "Eine Kutsche steht mit schlafenden Reisenden am Rand. Nur ihr Mechanismus ist ein Ziel; du kannst am sicheren Rand weitergehen.",
+    "sets_flags": [
+     "cwo_reise_schlafkutsche",
+     "cwo_reise_1_done"
+    ],
+    "choices": [
+     {
+      "text": "Am sicheren Rand weitergehen."
+     }
+    ]
+   },
+   "cwo_etappe_1": {
+    "text": "Am Rastplatz entscheidest du, welche Begegnung du auf dieser Etappe näher ansiehst. Dieselbe Begegnung wird auf dieser Fahrt nicht wiederholt.",
+    "choices": [
+     {
+      "text": "Edwin Rusk prüft den Zoll",
+      "next": "cwo_etappe_1_cwo_reise_zoll",
+      "hide_if_flags": [
+       "cwo_reise_zoll"
+      ]
+     },
+     {
+      "text": "Mara Sedgewicks Speichenkeil",
+      "next": "cwo_etappe_1_cwo_reise_panne",
+      "hide_if_flags": [
+       "cwo_reise_panne"
+      ]
+     },
+     {
+      "text": "Selma Quinces Tuch",
+      "next": "cwo_etappe_1_cwo_reise_hausiererin",
+      "hide_if_flags": [
+       "cwo_reise_hausiererin"
+      ]
+     },
+     {
+      "text": "Emil Harrows Rastbank",
+      "next": "cwo_etappe_1_cwo_reise_arzt",
+      "hide_if_flags": [
+       "cwo_reise_arzt"
+      ]
+     },
+     {
+      "text": "Oren Voss hört beide Seiten",
+      "next": "cwo_etappe_1_cwo_reise_richter",
+      "hide_if_flags": [
+       "cwo_reise_richter"
+      ]
+     },
+     {
+      "text": "Tobin Reeds Umweg",
+      "next": "cwo_etappe_1_cwo_reise_bote",
+      "hide_if_flags": [
+       "cwo_reise_bote"
+      ]
+     },
+     {
+      "text": "Silas Meres leise Predigt",
+      "next": "cwo_etappe_1_cwo_reise_prediger",
+      "hide_if_flags": [
+       "cwo_reise_prediger"
+      ]
+     },
+     {
+      "text": "Nessa Calders Randnotiz",
+      "next": "cwo_etappe_1_cwo_reise_karte",
+      "hide_if_flags": [
+       "cwo_reise_karte"
+      ]
+     },
+     {
+      "text": "Zwei Mäntel im Hohlweg",
+      "next": "cwo_etappe_1_cwo_reise_ueberfall",
+      "hide_if_flags": [
+       "cwo_reise_ueberfall"
+      ]
+     },
+     {
+      "text": "Ein wandernder Grenzstein",
+      "next": "cwo_etappe_1_cwo_reise_grenzstein",
+      "hide_if_flags": [
+       "cwo_reise_grenzstein"
+      ]
+     },
+     {
+      "text": "Die verschobene Grenze",
+      "next": "cwo_etappe_1_cwo_reise_landvermesser",
+      "hide_if_flags": [
+       "cwo_reise_landvermesser",
+       "cwo_reise_schlafkutsche"
+      ]
+     },
+     {
+      "text": "Die Kutsche ohne Morgen",
+      "next": "cwo_etappe_1_cwo_reise_schlafkutsche",
+      "hide_if_flags": [
+       "cwo_reise_schlafkutsche",
+       "cwo_reise_landvermesser"
+      ]
+     }
+    ]
+   },
+   "cwo_etappe_2_cwo_reise_zoll": {
+    "text": "Edwin Rusk dreht die Marke zwischen zwei Fingern. „Eine Fahrt, keine Lebensberechtigung“, sagt er und öffnet die Schranke.",
+    "sets_flags": [
+     "cwo_reise_zoll",
+     "cwo_reise_2_done"
+    ],
+    "choices": [
+     {
+      "text": "Begegnung abschließen."
+     }
+    ]
+   },
+   "cwo_etappe_2_cwo_reise_panne": {
+    "text": "Mara Sedgewick verkeilt eine lockere Speiche. Du hältst die Laterne, während sie feststellt, dass Stillstand wenigstens keine falsche Richtung ist.",
+    "sets_flags": [
+     "cwo_reise_panne",
+     "cwo_reise_2_done"
+    ],
+    "choices": [
+     {
+      "text": "Begegnung abschließen."
+     }
+    ]
+   },
+   "cwo_etappe_2_cwo_reise_hausiererin": {
+    "text": "Selma Quince breitet ihre Ware auf einem trockenen Tuch aus. Für ein Gespräch verlangt sie nichts, für gutes Garn leider schon.",
+    "sets_flags": [
+     "cwo_reise_hausiererin",
+     "cwo_reise_2_done"
+    ],
+    "choices": [
+     {
+      "text": "Begegnung abschließen."
+     }
+    ]
+   },
+   "cwo_etappe_2_cwo_reise_arzt": {
+    "text": "Dr. Emil Harrow prüft die Wasserflasche statt deiner Papiere. Er erinnert dich daran, dass auch eine dringende Reise eine Pause verträgt.",
+    "sets_flags": [
+     "cwo_reise_arzt",
+     "cwo_reise_2_done"
+    ],
+    "choices": [
+     {
+      "text": "Begegnung abschließen."
+     }
+    ]
+   },
+   "cwo_etappe_2_cwo_reise_richter": {
+    "text": "Oren Voss hört einen Streit um dieselbe Sitzbank an. Sein Urteil lässt beiden Reisenden Platz und kostet niemanden einen Namen.",
+    "sets_flags": [
+     "cwo_reise_richter",
+     "cwo_reise_2_done"
+    ],
+    "choices": [
+     {
+      "text": "Begegnung abschließen."
+     }
+    ]
+   },
+   "cwo_etappe_2_cwo_reise_bote": {
+    "text": "Tobin Reed zeigt einen trockenen Pfad an der überfluteten Rinne vorbei. Er merkt sich Gesichter besser als die neuen Wegweiser.",
+    "sets_flags": [
+     "cwo_reise_bote",
+     "cwo_reise_2_done"
+    ],
+    "choices": [
+     {
+      "text": "Begegnung abschließen."
+     }
+    ]
+   },
+   "cwo_etappe_2_cwo_reise_prediger": {
+    "text": "Silas Mere spricht zu einer erloschenen Laterne. Als du vorbeikommst, macht er Platz, ohne ein Bekenntnis zu verlangen.",
+    "sets_flags": [
+     "cwo_reise_prediger",
+     "cwo_reise_2_done"
+    ],
+    "choices": [
+     {
+      "text": "Begegnung abschließen."
+     }
+    ]
+   },
+   "cwo_etappe_2_cwo_reise_karte": {
+    "text": "Nessa Calder zeichnet den Grenzstein neben die Straße statt auf sie. Die amtliche Karte hatte ihn praktischerweise mitten im Weg vergessen.",
+    "sets_flags": [
+     "cwo_reise_karte",
+     "cwo_reise_2_done"
+    ],
+    "choices": [
+     {
+      "text": "Begegnung abschließen."
+     }
+    ]
+   },
+   "cwo_etappe_2_cwo_reise_ueberfall_kampf": {
+    "text": "Du nimmst den angekündigten Kampf an. Bei einem Rückzug bleibt der sichere Weg offen.",
+    "combat": "vg_all_wegelagerer",
+    "choices": []
+   },
+   "cwo_etappe_2_cwo_reise_ueberfall": {
+    "text": "Zwei Wegelagerer treten aus dem Hohlweg. Hinter dir bleibt die breite Straße offen; du kannst ausweichen oder den Angriff annehmen.",
+    "sets_flags": [
+     "cwo_reise_ueberfall",
+     "cwo_reise_2_done"
+    ],
+    "choices": [
+     {
+      "text": "Den Angriff annehmen.",
+      "next": "cwo_etappe_2_cwo_reise_ueberfall_kampf"
+     },
+     {
+      "text": "Über den freien Randweg ausweichen."
+     }
+    ]
+   },
+   "cwo_etappe_2_cwo_reise_grenzstein_kampf": {
+    "text": "Du nimmst den angekündigten Kampf an. Bei einem Rückzug bleibt der sichere Weg offen.",
+    "combat": "vg_all_grenzstein",
+    "choices": []
+   },
+   "cwo_etappe_2_cwo_reise_grenzstein": {
+    "text": "Der Grenzstein steht plötzlich auf deiner Seite der Rinne. Seine Kerbe hebt sich sichtbar, bevor er den Weg versperrt.",
+    "sets_flags": [
+     "cwo_reise_grenzstein",
+     "cwo_reise_2_done"
+    ],
+    "choices": [
+     {
+      "text": "Den Angriff annehmen.",
+      "next": "cwo_etappe_2_cwo_reise_grenzstein_kampf"
+     },
+     {
+      "text": "Über den freien Randweg ausweichen."
+     }
+    ]
+   },
+   "cwo_etappe_2_cwo_reise_landvermesser": {
+    "text": "Ein Landvermesser zieht eine Linie quer über die Fahrspur. Der äußere Weg bleibt frei; der Eingriff ist ausdrücklich freiwillig.",
+    "sets_flags": [
+     "cwo_reise_landvermesser",
+     "cwo_reise_2_done"
+    ],
+    "choices": [
+     {
+      "text": "Am sicheren Rand weitergehen."
+     }
+    ]
+   },
+   "cwo_etappe_2_cwo_reise_schlafkutsche": {
+    "text": "Eine Kutsche steht mit schlafenden Reisenden am Rand. Nur ihr Mechanismus ist ein Ziel; du kannst am sicheren Rand weitergehen.",
+    "sets_flags": [
+     "cwo_reise_schlafkutsche",
+     "cwo_reise_2_done"
+    ],
+    "choices": [
+     {
+      "text": "Am sicheren Rand weitergehen."
+     }
+    ]
+   },
+   "cwo_etappe_2": {
+    "text": "Am Rastplatz entscheidest du, welche Begegnung du auf dieser Etappe näher ansiehst. Dieselbe Begegnung wird auf dieser Fahrt nicht wiederholt.",
+    "choices": [
+     {
+      "text": "Edwin Rusk prüft den Zoll",
+      "next": "cwo_etappe_2_cwo_reise_zoll",
+      "hide_if_flags": [
+       "cwo_reise_zoll"
+      ]
+     },
+     {
+      "text": "Mara Sedgewicks Speichenkeil",
+      "next": "cwo_etappe_2_cwo_reise_panne",
+      "hide_if_flags": [
+       "cwo_reise_panne"
+      ]
+     },
+     {
+      "text": "Selma Quinces Tuch",
+      "next": "cwo_etappe_2_cwo_reise_hausiererin",
+      "hide_if_flags": [
+       "cwo_reise_hausiererin"
+      ]
+     },
+     {
+      "text": "Emil Harrows Rastbank",
+      "next": "cwo_etappe_2_cwo_reise_arzt",
+      "hide_if_flags": [
+       "cwo_reise_arzt"
+      ]
+     },
+     {
+      "text": "Oren Voss hört beide Seiten",
+      "next": "cwo_etappe_2_cwo_reise_richter",
+      "hide_if_flags": [
+       "cwo_reise_richter"
+      ]
+     },
+     {
+      "text": "Tobin Reeds Umweg",
+      "next": "cwo_etappe_2_cwo_reise_bote",
+      "hide_if_flags": [
+       "cwo_reise_bote"
+      ]
+     },
+     {
+      "text": "Silas Meres leise Predigt",
+      "next": "cwo_etappe_2_cwo_reise_prediger",
+      "hide_if_flags": [
+       "cwo_reise_prediger"
+      ]
+     },
+     {
+      "text": "Nessa Calders Randnotiz",
+      "next": "cwo_etappe_2_cwo_reise_karte",
+      "hide_if_flags": [
+       "cwo_reise_karte"
+      ]
+     },
+     {
+      "text": "Zwei Mäntel im Hohlweg",
+      "next": "cwo_etappe_2_cwo_reise_ueberfall",
+      "hide_if_flags": [
+       "cwo_reise_ueberfall"
+      ]
+     },
+     {
+      "text": "Ein wandernder Grenzstein",
+      "next": "cwo_etappe_2_cwo_reise_grenzstein",
+      "hide_if_flags": [
+       "cwo_reise_grenzstein"
+      ]
+     },
+     {
+      "text": "Die verschobene Grenze",
+      "next": "cwo_etappe_2_cwo_reise_landvermesser",
+      "hide_if_flags": [
+       "cwo_reise_landvermesser",
+       "cwo_reise_schlafkutsche"
+      ]
+     },
+     {
+      "text": "Die Kutsche ohne Morgen",
+      "next": "cwo_etappe_2_cwo_reise_schlafkutsche",
+      "hide_if_flags": [
+       "cwo_reise_schlafkutsche",
+       "cwo_reise_landvermesser"
+      ]
+     }
+    ]
+   },
+   "cwo_etappe_3_cwo_reise_zoll": {
+    "text": "Edwin Rusk dreht die Marke zwischen zwei Fingern. „Eine Fahrt, keine Lebensberechtigung“, sagt er und öffnet die Schranke.",
+    "sets_flags": [
+     "cwo_reise_zoll",
+     "cwo_reise_3_done"
+    ],
+    "choices": [
+     {
+      "text": "Begegnung abschließen."
+     }
+    ]
+   },
+   "cwo_etappe_3_cwo_reise_panne": {
+    "text": "Mara Sedgewick verkeilt eine lockere Speiche. Du hältst die Laterne, während sie feststellt, dass Stillstand wenigstens keine falsche Richtung ist.",
+    "sets_flags": [
+     "cwo_reise_panne",
+     "cwo_reise_3_done"
+    ],
+    "choices": [
+     {
+      "text": "Begegnung abschließen."
+     }
+    ]
+   },
+   "cwo_etappe_3_cwo_reise_hausiererin": {
+    "text": "Selma Quince breitet ihre Ware auf einem trockenen Tuch aus. Für ein Gespräch verlangt sie nichts, für gutes Garn leider schon.",
+    "sets_flags": [
+     "cwo_reise_hausiererin",
+     "cwo_reise_3_done"
+    ],
+    "choices": [
+     {
+      "text": "Begegnung abschließen."
+     }
+    ]
+   },
+   "cwo_etappe_3_cwo_reise_arzt": {
+    "text": "Dr. Emil Harrow prüft die Wasserflasche statt deiner Papiere. Er erinnert dich daran, dass auch eine dringende Reise eine Pause verträgt.",
+    "sets_flags": [
+     "cwo_reise_arzt",
+     "cwo_reise_3_done"
+    ],
+    "choices": [
+     {
+      "text": "Begegnung abschließen."
+     }
+    ]
+   },
+   "cwo_etappe_3_cwo_reise_richter": {
+    "text": "Oren Voss hört einen Streit um dieselbe Sitzbank an. Sein Urteil lässt beiden Reisenden Platz und kostet niemanden einen Namen.",
+    "sets_flags": [
+     "cwo_reise_richter",
+     "cwo_reise_3_done"
+    ],
+    "choices": [
+     {
+      "text": "Begegnung abschließen."
+     }
+    ]
+   },
+   "cwo_etappe_3_cwo_reise_bote": {
+    "text": "Tobin Reed zeigt einen trockenen Pfad an der überfluteten Rinne vorbei. Er merkt sich Gesichter besser als die neuen Wegweiser.",
+    "sets_flags": [
+     "cwo_reise_bote",
+     "cwo_reise_3_done"
+    ],
+    "choices": [
+     {
+      "text": "Begegnung abschließen."
+     }
+    ]
+   },
+   "cwo_etappe_3_cwo_reise_prediger": {
+    "text": "Silas Mere spricht zu einer erloschenen Laterne. Als du vorbeikommst, macht er Platz, ohne ein Bekenntnis zu verlangen.",
+    "sets_flags": [
+     "cwo_reise_prediger",
+     "cwo_reise_3_done"
+    ],
+    "choices": [
+     {
+      "text": "Begegnung abschließen."
+     }
+    ]
+   },
+   "cwo_etappe_3_cwo_reise_karte": {
+    "text": "Nessa Calder zeichnet den Grenzstein neben die Straße statt auf sie. Die amtliche Karte hatte ihn praktischerweise mitten im Weg vergessen.",
+    "sets_flags": [
+     "cwo_reise_karte",
+     "cwo_reise_3_done"
+    ],
+    "choices": [
+     {
+      "text": "Begegnung abschließen."
+     }
+    ]
+   },
+   "cwo_etappe_3_cwo_reise_ueberfall_kampf": {
+    "text": "Du nimmst den angekündigten Kampf an. Bei einem Rückzug bleibt der sichere Weg offen.",
+    "combat": "vg_all_wegelagerer",
+    "choices": []
+   },
+   "cwo_etappe_3_cwo_reise_ueberfall": {
+    "text": "Zwei Wegelagerer treten aus dem Hohlweg. Hinter dir bleibt die breite Straße offen; du kannst ausweichen oder den Angriff annehmen.",
+    "sets_flags": [
+     "cwo_reise_ueberfall",
+     "cwo_reise_3_done"
+    ],
+    "choices": [
+     {
+      "text": "Den Angriff annehmen.",
+      "next": "cwo_etappe_3_cwo_reise_ueberfall_kampf"
+     },
+     {
+      "text": "Über den freien Randweg ausweichen."
+     }
+    ]
+   },
+   "cwo_etappe_3_cwo_reise_grenzstein_kampf": {
+    "text": "Du nimmst den angekündigten Kampf an. Bei einem Rückzug bleibt der sichere Weg offen.",
+    "combat": "vg_all_grenzstein",
+    "choices": []
+   },
+   "cwo_etappe_3_cwo_reise_grenzstein": {
+    "text": "Der Grenzstein steht plötzlich auf deiner Seite der Rinne. Seine Kerbe hebt sich sichtbar, bevor er den Weg versperrt.",
+    "sets_flags": [
+     "cwo_reise_grenzstein",
+     "cwo_reise_3_done"
+    ],
+    "choices": [
+     {
+      "text": "Den Angriff annehmen.",
+      "next": "cwo_etappe_3_cwo_reise_grenzstein_kampf"
+     },
+     {
+      "text": "Über den freien Randweg ausweichen."
+     }
+    ]
+   },
+   "cwo_etappe_3_cwo_reise_landvermesser": {
+    "text": "Ein Landvermesser zieht eine Linie quer über die Fahrspur. Der äußere Weg bleibt frei; der Eingriff ist ausdrücklich freiwillig.",
+    "sets_flags": [
+     "cwo_reise_landvermesser",
+     "cwo_reise_3_done"
+    ],
+    "choices": [
+     {
+      "text": "Am sicheren Rand weitergehen."
+     }
+    ]
+   },
+   "cwo_etappe_3_cwo_reise_schlafkutsche": {
+    "text": "Eine Kutsche steht mit schlafenden Reisenden am Rand. Nur ihr Mechanismus ist ein Ziel; du kannst am sicheren Rand weitergehen.",
+    "sets_flags": [
+     "cwo_reise_schlafkutsche",
+     "cwo_reise_3_done"
+    ],
+    "choices": [
+     {
+      "text": "Am sicheren Rand weitergehen."
+     }
+    ]
+   },
+   "cwo_etappe_3": {
+    "text": "Am Rastplatz entscheidest du, welche Begegnung du auf dieser Etappe näher ansiehst. Dieselbe Begegnung wird auf dieser Fahrt nicht wiederholt.",
+    "choices": [
+     {
+      "text": "Edwin Rusk prüft den Zoll",
+      "next": "cwo_etappe_3_cwo_reise_zoll",
+      "hide_if_flags": [
+       "cwo_reise_zoll"
+      ]
+     },
+     {
+      "text": "Mara Sedgewicks Speichenkeil",
+      "next": "cwo_etappe_3_cwo_reise_panne",
+      "hide_if_flags": [
+       "cwo_reise_panne"
+      ]
+     },
+     {
+      "text": "Selma Quinces Tuch",
+      "next": "cwo_etappe_3_cwo_reise_hausiererin",
+      "hide_if_flags": [
+       "cwo_reise_hausiererin"
+      ]
+     },
+     {
+      "text": "Emil Harrows Rastbank",
+      "next": "cwo_etappe_3_cwo_reise_arzt",
+      "hide_if_flags": [
+       "cwo_reise_arzt"
+      ]
+     },
+     {
+      "text": "Oren Voss hört beide Seiten",
+      "next": "cwo_etappe_3_cwo_reise_richter",
+      "hide_if_flags": [
+       "cwo_reise_richter"
+      ]
+     },
+     {
+      "text": "Tobin Reeds Umweg",
+      "next": "cwo_etappe_3_cwo_reise_bote",
+      "hide_if_flags": [
+       "cwo_reise_bote"
+      ]
+     },
+     {
+      "text": "Silas Meres leise Predigt",
+      "next": "cwo_etappe_3_cwo_reise_prediger",
+      "hide_if_flags": [
+       "cwo_reise_prediger"
+      ]
+     },
+     {
+      "text": "Nessa Calders Randnotiz",
+      "next": "cwo_etappe_3_cwo_reise_karte",
+      "hide_if_flags": [
+       "cwo_reise_karte"
+      ]
+     },
+     {
+      "text": "Zwei Mäntel im Hohlweg",
+      "next": "cwo_etappe_3_cwo_reise_ueberfall",
+      "hide_if_flags": [
+       "cwo_reise_ueberfall"
+      ]
+     },
+     {
+      "text": "Ein wandernder Grenzstein",
+      "next": "cwo_etappe_3_cwo_reise_grenzstein",
+      "hide_if_flags": [
+       "cwo_reise_grenzstein"
+      ]
+     },
+     {
+      "text": "Die verschobene Grenze",
+      "next": "cwo_etappe_3_cwo_reise_landvermesser",
+      "hide_if_flags": [
+       "cwo_reise_landvermesser",
+       "cwo_reise_schlafkutsche"
+      ]
+     },
+     {
+      "text": "Die Kutsche ohne Morgen",
+      "next": "cwo_etappe_3_cwo_reise_schlafkutsche",
+      "hide_if_flags": [
+       "cwo_reise_schlafkutsche",
+       "cwo_reise_landvermesser"
+      ]
+     },
+     {
+      "text": "Nach zwei Begegnungen die Fahrt beenden.",
+      "next": "cwo_ziel"
+     }
+    ]
+   },
+   "cwo_ziel": {
+    "text": "Der bezahlte Weg führt nach Dunscar oder Calderwick. Der Briarholter Anschluss bleibt bis Kapitel 5 geschlossen.",
+    "choices": [
+     {
+      "text": "Nach Dunscar.",
+      "next": "cwo_ds"
+     },
+     {
+      "text": "Nach Calderwick.",
+      "next": "cwo_cw"
+     }
+    ]
+   },
+   "cwo_ds": {
+    "text": "Die Kutsche hält am vereinbarten Bahnhof. Für eine neue Fahrt ist wieder ein Fahrpreis fällig.",
+    "clears_flags": [
+     "cwo_reise_aktiv"
+    ],
+    "travel": {
+     "map": "ds_endbahnhof",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Aussteigen."
+     }
+    ]
+   },
+   "cwo_cw": {
+    "text": "Die Kutsche hält am vereinbarten Bahnhof. Für eine neue Fahrt ist wieder ein Fahrpreis fällig.",
+    "clears_flags": [
+     "cwo_reise_aktiv"
+    ],
+    "travel": {
+     "map": "cw_gleisfuss",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Aussteigen."
+     }
+    ]
+   },
+   "cwo_ohne_fahrt": {
+    "text": "Der öffentliche Fußweg bleibt offen. Du kannst nach Dunscar zurückgehen; eine bezahlte Fahrt beginnt an einem Bahnhof.",
+    "choices": [
+     {
+      "text": "Zu Fuß nach Dunscar.",
+      "next": "cwo_ds"
+     },
+     {
+      "text": "Noch hierbleiben."
+     }
+    ]
+   }
+  }
+ },
+ "cwo_buergenprobe": {
+  "start": "cwo_start",
+  "nodes": {
+   "cwo_start": {
+    "text": "Übung am Bürgenbrett: Sichere die Werkstatttür mit zwei unabhängigen Quellen. Erst „Probe-Abgleich auslösen“ verbraucht die Markierung; Lesen verändert keine Straße.",
+    "choices": [
+     {
+      "text": "Mit beiden Ankern vormerken.",
+      "requires_flags": [
+       "cwo_anker_werkstatt_person",
+       "cwo_anker_werkstatt_lieferant"
+      ],
+      "next": "cwo_markieren"
+     },
+     {
+      "text": "Markierung kostenlos zurücknehmen.",
+      "next": "cwo_reset"
+     },
+     {
+      "text": "Vorschau ansehen.",
+      "next": "cwo_preview"
+     },
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "cwo_markieren": {
+    "text": "Die beiden unabhängigen Werkstattquellen sind vorgemerkt. Dies ist eine Übung mit einer Verbindung, kein Hauptakt-Abgleich.",
+    "sets_flags": [
+     "cwo_probe_markiert"
+    ],
+    "choices": [
+     {
+      "text": "Zur Vorschau.",
+      "next": "cwo_preview"
+     }
+    ]
+   },
+   "cwo_preview": {
+    "text": "Betroffen: nur die Übungsmarke an der Werkstatttür. Zwei Quellen sichern sie; ohne Sicherung gehst du zur Werkstattkreuzung zurück und verlierst fünf Nerven, aber keine Hinweise.",
+    "choices": [
+     {
+      "text": "Probe-Abgleich auslösen: öffentlich.",
+      "requires_flags": [
+       "cwo_probe_markiert"
+      ],
+      "next": "cwo_public"
+     },
+     {
+      "text": "Probe-Abgleich auslösen: vertraulich.",
+      "requires_flags": [
+       "cwo_probe_markiert"
+      ],
+      "next": "cwo_private"
+     },
+     {
+      "text": "Ungesicherten Probe-Abgleich auslösen (−5 Nerven).",
+      "hide_if_flags": [
+       "cwo_probe_markiert"
+      ],
+      "next": "cwo_fail"
+     },
+     {
+      "text": "Abbrechen."
+     }
+    ]
+   },
+   "cwo_reset": {
+    "text": "Die Übungsmarkierung ist gelöst. Beide gefundenen Quellen bleiben im Journal.",
+    "clears_flags": [
+     "cwo_probe_markiert",
+     "cwo_abgleich_1_bereit",
+     "cwo_abgleich_2_bereit",
+     "cwo_abgleich_3_bereit",
+     "cwo_abgleich_4_bereit",
+     "cwo_abgleich_5_bereit"
+    ],
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "cwo_fail": {
+    "text": "Die ungesicherte Übungsmarke hält nicht. Du gehst zur sicheren Werkstattkreuzung zurück; deine Hinweise bleiben erhalten.",
+    "nerves": -5,
+    "travel": {
+     "map": "cw_buchbinderei",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Neu vorbereiten."
+     }
+    ]
+   },
+   "cwo_public": {
+    "text": "Die Übungsverbindung hält. Die Quellen bleiben gefunden, die Markierung ist verbraucht und ihr gewählter Status bleibt lesbar.",
+    "sets_flags": [
+     "cwo_probe_public",
+     "cwo_probe_verbraucht"
+    ],
+    "clears_flags": [
+     "cwo_probe_private",
+     "cwo_probe_markiert"
+    ],
+    "choices": [
+     {
+      "text": "Zur Werkstatt zurück."
+     }
+    ]
+   },
+   "cwo_private": {
+    "text": "Die Übungsverbindung hält. Die Quellen bleiben gefunden, die Markierung ist verbraucht und ihr gewählter Status bleibt lesbar.",
+    "sets_flags": [
+     "cwo_probe_private",
+     "cwo_probe_verbraucht"
+    ],
+    "clears_flags": [
+     "cwo_probe_public",
+     "cwo_probe_markiert"
+    ],
+    "choices": [
+     {
+      "text": "Zur Werkstatt zurück."
+     }
+    ]
+   }
+  }
+ },
+ "cwo_abgleich_1": {
+  "start": [
+   {
+    "node": "cwo_done",
+    "requires_flags": [
+     "cwo_abgleich_1_verbraucht"
+    ]
+   },
+   {
+    "node": "cwo_start"
+   }
+  ],
+  "nodes": {
+   "cwo_start": {
+    "text": "Gepäckverbindung registrieren: Vorschau vor der Hauptaktion. Betroffen: Gleisfuß und Gepäckhalle; Vera. Ohne zwei unabhängige Quellen erfolgt ein Rückzug zur sicheren Werkstatt, mit fünf Nerven Verlust; Hinweise bleiben erhalten.",
+    "choices": [
+     {
+      "text": "Zwei unabhängige Quellen vormerken.",
+      "requires_flags": [
+       "cwa_anker_gleisfuss_vera",
+       "cwa_anker_gleisfuss_hesk"
+      ],
+      "next": "cwo_mark"
+     },
+     {
+      "text": "Vertraulich auslösen.",
+      "requires_flags": [
+       "cwa_anker_gleisfuss_vera",
+       "cwa_anker_gleisfuss_hesk",
+       "cwo_abgleich_1_bereit"
+      ],
+      "next": "cwo_private"
+     },
+     {
+      "text": "Öffentlich auslösen.",
+      "requires_flags": [
+       "cwa_anker_gleisfuss_vera",
+       "cwa_anker_gleisfuss_hesk",
+       "cwo_abgleich_1_bereit"
+      ],
+      "next": "cwo_public"
+     },
+     {
+      "text": "Bewusst ungesichert auslösen (−5 Nerven).",
+      "hide_if_flags": [
+       "cwo_abgleich_1_bereit"
+      ],
+      "next": "cwo_fail"
+     },
+     {
+      "text": "Abbrechen, nichts verändern."
+     }
+    ]
+   },
+   "cwo_mark": {
+    "text": "Beide Quellen sind für diese eine Verbindung vorgemerkt. Sie bleiben im Journal; die bestätigte Hauptaktion steht noch aus.",
+    "sets_flags": [
+     "cwo_abgleich_1_bereit"
+    ],
+    "clears_flags": [
+     "cwo_abgleich_2_bereit",
+     "cwo_abgleich_3_bereit",
+     "cwo_abgleich_4_bereit",
+     "cwo_abgleich_5_bereit"
+    ],
+    "choices": [
+     {
+      "text": "Zur Vorschau zurück.",
+      "next": "cwo_start"
+     }
+    ]
+   },
+   "cwo_fail": {
+    "text": "Die Sicherung reicht nicht. Du erreichst die Werkstattkreuzung und behältst sämtliche Hinweise; der Versuch kann nach neuen persönlichen Ankern wiederholt werden.",
+    "nerves": -5,
+    "clears_flags": [
+     "cwo_abgleich_1_bereit"
+    ],
+    "travel": {
+     "map": "cw_buchbinderei",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Neu vorbereiten."
+     }
+    ]
+   },
+   "cwo_done": {
+    "text": "Diese Hauptaktion wurde bereits abgesichert. Ihre Quellen und die gewählte Öffentlichkeit bleiben nachvollziehbar; eine erneute Auszahlung findet nicht statt.",
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "cwo_public": {
+    "text": "Die beiden unabhängigen Quellen sichern die Verbindung. Die Hauptaktion ist bestätigt; ihre Fortsetzung und ihre Folgen gehören zum Aktenablauf.",
+    "sets_flags": [
+     "cwo_abgleich_1_verbraucht",
+     "cwo_abgleich_1_public"
+    ],
+    "clears_flags": [
+     "cwo_abgleich_1_bereit",
+     "cwo_abgleich_1_private"
+    ],
+    "choices": [
+     {
+      "text": "Bestätigung abschließen."
+     }
+    ]
+   },
+   "cwo_private": {
+    "text": "Die beiden unabhängigen Quellen sichern die Verbindung. Die Hauptaktion ist bestätigt; ihre Fortsetzung und ihre Folgen gehören zum Aktenablauf.",
+    "sets_flags": [
+     "cwo_abgleich_1_verbraucht",
+     "cwo_abgleich_1_private"
+    ],
+    "clears_flags": [
+     "cwo_abgleich_1_bereit",
+     "cwo_abgleich_1_public"
+    ],
+    "choices": [
+     {
+      "text": "Bestätigung abschließen."
+     }
+    ]
+   }
+  }
+ },
+ "cwo_abgleich_2": {
+  "start": [
+   {
+    "node": "cwo_done",
+    "requires_flags": [
+     "cwo_abgleich_2_verbraucht"
+    ]
+   },
+   {
+    "node": "cwo_start"
+   }
+  ],
+  "nodes": {
+   "cwo_start": {
+    "text": "Kabinenlauf bestätigen: Vorschau vor der Hauptaktion. Betroffen: Röhrenhof und Sortierhalle; Hesk. Ohne zwei unabhängige Quellen erfolgt ein Rückzug zur sicheren Werkstatt, mit fünf Nerven Verlust; Hinweise bleiben erhalten.",
+    "choices": [
+     {
+      "text": "Zwei unabhängige Quellen vormerken.",
+      "requires_flags": [
+       "cwa_anker_sortierhalle_fahrplan",
+       "cwa_anker_sortierhalle_empfaenger"
+      ],
+      "next": "cwo_mark"
+     },
+     {
+      "text": "Vertraulich auslösen.",
+      "requires_flags": [
+       "cwa_anker_sortierhalle_fahrplan",
+       "cwa_anker_sortierhalle_empfaenger",
+       "cwo_abgleich_2_bereit"
+      ],
+      "next": "cwo_private"
+     },
+     {
+      "text": "Öffentlich auslösen.",
+      "requires_flags": [
+       "cwa_anker_sortierhalle_fahrplan",
+       "cwa_anker_sortierhalle_empfaenger",
+       "cwo_abgleich_2_bereit"
+      ],
+      "next": "cwo_public"
+     },
+     {
+      "text": "Bewusst ungesichert auslösen (−5 Nerven).",
+      "hide_if_flags": [
+       "cwo_abgleich_2_bereit"
+      ],
+      "next": "cwo_fail"
+     },
+     {
+      "text": "Abbrechen, nichts verändern."
+     }
+    ]
+   },
+   "cwo_mark": {
+    "text": "Beide Quellen sind für diese eine Verbindung vorgemerkt. Sie bleiben im Journal; die bestätigte Hauptaktion steht noch aus.",
+    "sets_flags": [
+     "cwo_abgleich_2_bereit"
+    ],
+    "clears_flags": [
+     "cwo_abgleich_1_bereit",
+     "cwo_abgleich_3_bereit",
+     "cwo_abgleich_4_bereit",
+     "cwo_abgleich_5_bereit"
+    ],
+    "choices": [
+     {
+      "text": "Zur Vorschau zurück.",
+      "next": "cwo_start"
+     }
+    ]
+   },
+   "cwo_fail": {
+    "text": "Die Sicherung reicht nicht. Du erreichst die Werkstattkreuzung und behältst sämtliche Hinweise; der Versuch kann nach neuen persönlichen Ankern wiederholt werden.",
+    "nerves": -5,
+    "clears_flags": [
+     "cwo_abgleich_2_bereit"
+    ],
+    "travel": {
+     "map": "cw_buchbinderei",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Neu vorbereiten."
+     }
+    ]
+   },
+   "cwo_done": {
+    "text": "Diese Hauptaktion wurde bereits abgesichert. Ihre Quellen und die gewählte Öffentlichkeit bleiben nachvollziehbar; eine erneute Auszahlung findet nicht statt.",
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "cwo_public": {
+    "text": "Die beiden unabhängigen Quellen sichern die Verbindung. Die Hauptaktion ist bestätigt; ihre Fortsetzung und ihre Folgen gehören zum Aktenablauf.",
+    "sets_flags": [
+     "cwo_abgleich_2_verbraucht",
+     "cwo_abgleich_2_public"
+    ],
+    "clears_flags": [
+     "cwo_abgleich_2_bereit",
+     "cwo_abgleich_2_private"
+    ],
+    "choices": [
+     {
+      "text": "Bestätigung abschließen."
+     }
+    ]
+   },
+   "cwo_private": {
+    "text": "Die beiden unabhängigen Quellen sichern die Verbindung. Die Hauptaktion ist bestätigt; ihre Fortsetzung und ihre Folgen gehören zum Aktenablauf.",
+    "sets_flags": [
+     "cwo_abgleich_2_verbraucht",
+     "cwo_abgleich_2_private"
+    ],
+    "clears_flags": [
+     "cwo_abgleich_2_bereit",
+     "cwo_abgleich_2_public"
+    ],
+    "choices": [
+     {
+      "text": "Bestätigung abschließen."
+     }
+    ]
+   }
+  }
+ },
+ "cwo_abgleich_3": {
+  "start": [
+   {
+    "node": "cwo_done",
+    "requires_flags": [
+     "cwo_abgleich_3_verbraucht"
+    ]
+   },
+   {
+    "node": "cwo_start"
+   }
+  ],
+  "nodes": {
+   "cwo_start": {
+    "text": "Archivzugang berichtigen: Vorschau vor der Hauptaktion. Betroffen: Kronenarchiv und Lesesaal; Malliver. Ohne zwei unabhängige Quellen erfolgt ein Rückzug zur sicheren Werkstatt, mit fünf Nerven Verlust; Hinweise bleiben erhalten.",
+    "choices": [
+     {
+      "text": "Zwei unabhängige Quellen vormerken.",
+      "requires_flags": [
+       "cwa_anker_kronenarchiv_gehalt",
+       "cwa_anker_kronenarchiv_malliver"
+      ],
+      "next": "cwo_mark"
+     },
+     {
+      "text": "Vertraulich auslösen.",
+      "requires_flags": [
+       "cwa_anker_kronenarchiv_gehalt",
+       "cwa_anker_kronenarchiv_malliver",
+       "cwo_abgleich_3_bereit"
+      ],
+      "next": "cwo_private"
+     },
+     {
+      "text": "Öffentlich auslösen.",
+      "requires_flags": [
+       "cwa_anker_kronenarchiv_gehalt",
+       "cwa_anker_kronenarchiv_malliver",
+       "cwo_abgleich_3_bereit"
+      ],
+      "next": "cwo_public"
+     },
+     {
+      "text": "Bewusst ungesichert auslösen (−5 Nerven).",
+      "hide_if_flags": [
+       "cwo_abgleich_3_bereit"
+      ],
+      "next": "cwo_fail"
+     },
+     {
+      "text": "Abbrechen, nichts verändern."
+     }
+    ]
+   },
+   "cwo_mark": {
+    "text": "Beide Quellen sind für diese eine Verbindung vorgemerkt. Sie bleiben im Journal; die bestätigte Hauptaktion steht noch aus.",
+    "sets_flags": [
+     "cwo_abgleich_3_bereit"
+    ],
+    "clears_flags": [
+     "cwo_abgleich_1_bereit",
+     "cwo_abgleich_2_bereit",
+     "cwo_abgleich_4_bereit",
+     "cwo_abgleich_5_bereit"
+    ],
+    "choices": [
+     {
+      "text": "Zur Vorschau zurück.",
+      "next": "cwo_start"
+     }
+    ]
+   },
+   "cwo_fail": {
+    "text": "Die Sicherung reicht nicht. Du erreichst die Werkstattkreuzung und behältst sämtliche Hinweise; der Versuch kann nach neuen persönlichen Ankern wiederholt werden.",
+    "nerves": -5,
+    "clears_flags": [
+     "cwo_abgleich_3_bereit"
+    ],
+    "travel": {
+     "map": "cw_buchbinderei",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Neu vorbereiten."
+     }
+    ]
+   },
+   "cwo_done": {
+    "text": "Diese Hauptaktion wurde bereits abgesichert. Ihre Quellen und die gewählte Öffentlichkeit bleiben nachvollziehbar; eine erneute Auszahlung findet nicht statt.",
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "cwo_public": {
+    "text": "Die beiden unabhängigen Quellen sichern die Verbindung. Die Hauptaktion ist bestätigt; ihre Fortsetzung und ihre Folgen gehören zum Aktenablauf.",
+    "sets_flags": [
+     "cwo_abgleich_3_verbraucht",
+     "cwo_abgleich_3_public"
+    ],
+    "clears_flags": [
+     "cwo_abgleich_3_bereit",
+     "cwo_abgleich_3_private"
+    ],
+    "choices": [
+     {
+      "text": "Bestätigung abschließen."
+     }
+    ]
+   },
+   "cwo_private": {
+    "text": "Die beiden unabhängigen Quellen sichern die Verbindung. Die Hauptaktion ist bestätigt; ihre Fortsetzung und ihre Folgen gehören zum Aktenablauf.",
+    "sets_flags": [
+     "cwo_abgleich_3_verbraucht",
+     "cwo_abgleich_3_private"
+    ],
+    "clears_flags": [
+     "cwo_abgleich_3_bereit",
+     "cwo_abgleich_3_public"
+    ],
+    "choices": [
+     {
+      "text": "Bestätigung abschließen."
+     }
+    ]
+   }
+  }
+ },
+ "cwo_abgleich_4": {
+  "start": [
+   {
+    "node": "cwo_done",
+    "requires_flags": [
+     "cwo_abgleich_4_verbraucht"
+    ]
+   },
+   {
+    "node": "cwo_start"
+   }
+  ],
+  "nodes": {
+   "cwo_start": {
+    "text": "Haushalt als selbstständig bezeugen: Vorschau vor der Hauptaktion. Betroffen: Witwenterrasse und Küche; Noel. Ohne zwei unabhängige Quellen erfolgt ein Rückzug zur sicheren Werkstatt, mit fünf Nerven Verlust; Hinweise bleiben erhalten.",
+    "choices": [
+     {
+      "text": "Zwei unabhängige Quellen vormerken.",
+      "requires_flags": [
+       "cwa_anker_witwenterrasse_noel",
+       "cwa_anker_witwenterrasse_nachbar"
+      ],
+      "next": "cwo_mark"
+     },
+     {
+      "text": "Vertraulich auslösen.",
+      "requires_flags": [
+       "cwa_anker_witwenterrasse_noel",
+       "cwa_anker_witwenterrasse_nachbar",
+       "cwo_abgleich_4_bereit"
+      ],
+      "next": "cwo_private"
+     },
+     {
+      "text": "Öffentlich auslösen.",
+      "requires_flags": [
+       "cwa_anker_witwenterrasse_noel",
+       "cwa_anker_witwenterrasse_nachbar",
+       "cwo_abgleich_4_bereit"
+      ],
+      "next": "cwo_public"
+     },
+     {
+      "text": "Bewusst ungesichert auslösen (−5 Nerven).",
+      "hide_if_flags": [
+       "cwo_abgleich_4_bereit"
+      ],
+      "next": "cwo_fail"
+     },
+     {
+      "text": "Abbrechen, nichts verändern."
+     }
+    ]
+   },
+   "cwo_mark": {
+    "text": "Beide Quellen sind für diese eine Verbindung vorgemerkt. Sie bleiben im Journal; die bestätigte Hauptaktion steht noch aus.",
+    "sets_flags": [
+     "cwo_abgleich_4_bereit"
+    ],
+    "clears_flags": [
+     "cwo_abgleich_1_bereit",
+     "cwo_abgleich_2_bereit",
+     "cwo_abgleich_3_bereit",
+     "cwo_abgleich_5_bereit"
+    ],
+    "choices": [
+     {
+      "text": "Zur Vorschau zurück.",
+      "next": "cwo_start"
+     }
+    ]
+   },
+   "cwo_fail": {
+    "text": "Die Sicherung reicht nicht. Du erreichst die Werkstattkreuzung und behältst sämtliche Hinweise; der Versuch kann nach neuen persönlichen Ankern wiederholt werden.",
+    "nerves": -5,
+    "clears_flags": [
+     "cwo_abgleich_4_bereit"
+    ],
+    "travel": {
+     "map": "cw_buchbinderei",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Neu vorbereiten."
+     }
+    ]
+   },
+   "cwo_done": {
+    "text": "Diese Hauptaktion wurde bereits abgesichert. Ihre Quellen und die gewählte Öffentlichkeit bleiben nachvollziehbar; eine erneute Auszahlung findet nicht statt.",
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "cwo_public": {
+    "text": "Die beiden unabhängigen Quellen sichern die Verbindung. Die Hauptaktion ist bestätigt; ihre Fortsetzung und ihre Folgen gehören zum Aktenablauf.",
+    "sets_flags": [
+     "cwo_abgleich_4_verbraucht",
+     "cwo_abgleich_4_public"
+    ],
+    "clears_flags": [
+     "cwo_abgleich_4_bereit",
+     "cwo_abgleich_4_private"
+    ],
+    "choices": [
+     {
+      "text": "Bestätigung abschließen."
+     }
+    ]
+   },
+   "cwo_private": {
+    "text": "Die beiden unabhängigen Quellen sichern die Verbindung. Die Hauptaktion ist bestätigt; ihre Fortsetzung und ihre Folgen gehören zum Aktenablauf.",
+    "sets_flags": [
+     "cwo_abgleich_4_verbraucht",
+     "cwo_abgleich_4_private"
+    ],
+    "clears_flags": [
+     "cwo_abgleich_4_bereit",
+     "cwo_abgleich_4_public"
+    ],
+    "choices": [
+     {
+      "text": "Bestätigung abschließen."
+     }
+    ]
+   }
+  }
+ },
+ "cwo_abgleich_5": {
+  "start": [
+   {
+    "node": "cwo_done",
+    "requires_flags": [
+     "cwo_abgleich_5_verbraucht"
+    ]
+   },
+   {
+    "node": "cwo_start"
+   }
+  ],
+  "nodes": {
+   "cwo_start": {
+    "text": "Getrennte Austrittsliste bestätigen: Vorschau vor der Hauptaktion. Betroffen: Archiv und Druckkammer; Ida. Ohne zwei unabhängige Quellen erfolgt ein Rückzug zur sicheren Werkstatt, mit fünf Nerven Verlust; Hinweise bleiben erhalten.",
+    "choices": [
+     {
+      "text": "Zwei unabhängige Quellen vormerken.",
+      "requires_flags": [
+       "cwa_anker_nullfundament_register",
+       "cwa_anker_nullfundament_haushalt"
+      ],
+      "next": "cwo_mark"
+     },
+     {
+      "text": "Vertraulich auslösen.",
+      "requires_flags": [
+       "cwa_anker_nullfundament_register",
+       "cwa_anker_nullfundament_haushalt",
+       "cwo_abgleich_5_bereit"
+      ],
+      "next": "cwo_private"
+     },
+     {
+      "text": "Öffentlich auslösen.",
+      "requires_flags": [
+       "cwa_anker_nullfundament_register",
+       "cwa_anker_nullfundament_haushalt",
+       "cwo_abgleich_5_bereit"
+      ],
+      "next": "cwo_public"
+     },
+     {
+      "text": "Bewusst ungesichert auslösen (−5 Nerven).",
+      "hide_if_flags": [
+       "cwo_abgleich_5_bereit"
+      ],
+      "next": "cwo_fail"
+     },
+     {
+      "text": "Abbrechen, nichts verändern."
+     }
+    ]
+   },
+   "cwo_mark": {
+    "text": "Beide Quellen sind für diese eine Verbindung vorgemerkt. Sie bleiben im Journal; die bestätigte Hauptaktion steht noch aus.",
+    "sets_flags": [
+     "cwo_abgleich_5_bereit"
+    ],
+    "clears_flags": [
+     "cwo_abgleich_1_bereit",
+     "cwo_abgleich_2_bereit",
+     "cwo_abgleich_3_bereit",
+     "cwo_abgleich_4_bereit"
+    ],
+    "choices": [
+     {
+      "text": "Zur Vorschau zurück.",
+      "next": "cwo_start"
+     }
+    ]
+   },
+   "cwo_fail": {
+    "text": "Die Sicherung reicht nicht. Du erreichst die Werkstattkreuzung und behältst sämtliche Hinweise; der Versuch kann nach neuen persönlichen Ankern wiederholt werden.",
+    "nerves": -5,
+    "clears_flags": [
+     "cwo_abgleich_5_bereit"
+    ],
+    "travel": {
+     "map": "cw_buchbinderei",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Neu vorbereiten."
+     }
+    ]
+   },
+   "cwo_done": {
+    "text": "Diese Hauptaktion wurde bereits abgesichert. Ihre Quellen und die gewählte Öffentlichkeit bleiben nachvollziehbar; eine erneute Auszahlung findet nicht statt.",
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "cwo_public": {
+    "text": "Die beiden unabhängigen Quellen sichern die Verbindung. Die Hauptaktion ist bestätigt; ihre Fortsetzung und ihre Folgen gehören zum Aktenablauf.",
+    "sets_flags": [
+     "cwo_abgleich_5_verbraucht",
+     "cwo_abgleich_5_public"
+    ],
+    "clears_flags": [
+     "cwo_abgleich_5_bereit",
+     "cwo_abgleich_5_private"
+    ],
+    "choices": [
+     {
+      "text": "Bestätigung abschließen."
+     }
+    ]
+   },
+   "cwo_private": {
+    "text": "Die beiden unabhängigen Quellen sichern die Verbindung. Die Hauptaktion ist bestätigt; ihre Fortsetzung und ihre Folgen gehören zum Aktenablauf.",
+    "sets_flags": [
+     "cwo_abgleich_5_verbraucht",
+     "cwo_abgleich_5_private"
+    ],
+    "clears_flags": [
+     "cwo_abgleich_5_bereit",
+     "cwo_abgleich_5_public"
+    ],
+    "choices": [
+     {
+      "text": "Bestätigung abschließen."
+     }
+    ]
+   }
+  }
+ }
+}

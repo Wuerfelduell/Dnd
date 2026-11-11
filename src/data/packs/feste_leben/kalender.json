@@ -1,0 +1,177 @@
+{
+ "beschreibung": "Vorschlag: Spieltag = floor(playTime / 1800) + 1. Saisonindex = floor((Spieltag - 1) / 6) modulo 4; Saisontag = ((Spieltag - 1) modulo 6) + 1. Start Herbst. Fest und Stiller Abend an Saisontag 4, Ankündigung an Tag 2, Nachlese ab Tag 5. Ein Fest dauert 1800 Sekunden. Der aktuelle Zwei-Tage-Kalender muss ausdrücklich migriert werden.",
+ "jahreszeiten": {
+  "fs_herbst": {
+   "name": "Herbst",
+   "beschreibung": "Nasses Laub klebt an den Stiefeln, während die Gasflammen früh unruhig werden. Die Leute sammeln Brennstoff und Gründe, noch nicht heimzugehen.",
+   "overlay": "feste_saison_herbst",
+   "partikel": "feste_saison_herbst_partikel",
+   "fassaden_zusatz": {
+    "kettlegate": "feste_saison_herbst_fassaden",
+    "wexmoor": "feste_saison_herbst_fassaden",
+    "dunscar": "feste_saison_herbst_fassaden"
+   },
+   "effects": {
+    "sets_flags": [
+     "fs_herbst"
+    ],
+    "clears_flags": [
+     "fs_winter",
+     "fs_fruehling",
+     "fs_sommer"
+    ]
+   }
+  },
+  "fs_winter": {
+   "name": "Winter",
+   "beschreibung": "Die Rohre klopfen lauter als die Türen. Wer Wärme übrig hat, stellt einen zweiten Stuhl dazu.",
+   "overlay": "feste_saison_winter",
+   "partikel": "feste_saison_winter_partikel",
+   "fassaden_zusatz": {
+    "kettlegate": "feste_saison_winter_fassaden",
+    "wexmoor": "feste_saison_winter_fassaden",
+    "dunscar": "feste_saison_winter_fassaden"
+   },
+   "effects": {
+    "sets_flags": [
+     "fs_winter"
+    ],
+    "clears_flags": [
+     "fs_herbst",
+     "fs_fruehling",
+     "fs_sommer"
+    ]
+   }
+  },
+  "fs_fruehling": {
+   "name": "Frühling",
+   "beschreibung": "Regen spült alte Kreidestriche von den Wänden. Unter den neuen Strichen stehen oft dieselben Namen.",
+   "overlay": "feste_saison_fruehling",
+   "partikel": "feste_saison_fruehling_partikel",
+   "fassaden_zusatz": {
+    "kettlegate": "feste_saison_fruehling_fassaden",
+    "wexmoor": "feste_saison_fruehling_fassaden",
+    "dunscar": "feste_saison_fruehling_fassaden"
+   },
+   "effects": {
+    "sets_flags": [
+     "fs_fruehling"
+    ],
+    "clears_flags": [
+     "fs_herbst",
+     "fs_winter",
+     "fs_sommer"
+    ]
+   }
+  },
+  "fs_sommer": {
+   "name": "Sommer",
+   "beschreibung": "Über den Schienen flimmert Luft, die nach Metall schmeckt. Die Fenster bleiben offen und die Gespräche werden leiser.",
+   "overlay": "feste_saison_sommer",
+   "partikel": "feste_saison_sommer_partikel",
+   "fassaden_zusatz": {
+    "kettlegate": "feste_saison_sommer_fassaden",
+    "wexmoor": "feste_saison_sommer_fassaden",
+    "dunscar": "feste_saison_sommer_fassaden"
+   },
+   "effects": {
+    "sets_flags": [
+     "fs_sommer"
+    ],
+    "clears_flags": [
+     "fs_herbst",
+     "fs_winter",
+     "fs_fruehling"
+    ]
+   }
+  }
+ },
+ "feste": {
+  "fs_laternennacht": {
+   "name": "Laternennacht",
+   "stadt": "kettlegate",
+   "karten": [
+    "altmarkt",
+    "docks"
+   ],
+   "jahreszeit": "fs_herbst",
+   "dauer_tage": 1,
+   "banner": "feste_laternennacht_banner",
+   "sequenzbild": "feste_laternennacht_szene",
+   "ankuendigung": "In zwei Spieltagen beginnt Laternennacht. Alle Wege bleiben offen; eine Teilnahme ist freiwillig.",
+   "musik_wunsch": "fest_laternennacht",
+   "effects": {
+    "sets_flags": [
+     "fs_fest_laternennacht_aktiv"
+    ],
+    "clears_flags": [
+     "fs_laternennacht_ankuendigung",
+     "fs_laternennacht_nachlese"
+    ]
+   }
+  },
+  "fs_salzsegen": {
+   "name": "Salzsegen",
+   "stadt": "wexmoor",
+   "karten": [
+    "wx_salzmarkt",
+    "wx_bojenhafen"
+   ],
+   "jahreszeit": "fs_fruehling",
+   "dauer_tage": 1,
+   "banner": "feste_salzsegen_banner",
+   "sequenzbild": "feste_salzsegen_szene",
+   "ankuendigung": "In zwei Spieltagen beginnt Salzsegen. Alle Wege bleiben offen; eine Teilnahme ist freiwillig.",
+   "musik_wunsch": "fest_salzsegen",
+   "effects": {
+    "sets_flags": [
+     "fs_fest_salzsegen_aktiv"
+    ],
+    "clears_flags": [
+     "fs_salzsegen_ankuendigung",
+     "fs_salzsegen_nachlese"
+    ]
+   }
+  },
+  "fs_schichtwechsel": {
+   "name": "Schichtwechsel",
+   "stadt": "dunscar",
+   "karten": [
+    "ds_kalkmarkt",
+    "ds_arbeiterbogen"
+   ],
+   "jahreszeit": "fs_sommer",
+   "dauer_tage": 1,
+   "banner": "feste_schichtwechsel_banner",
+   "sequenzbild": "feste_schichtwechsel_szene",
+   "ankuendigung": "In zwei Spieltagen beginnt Schichtwechsel. Alle Wege bleiben offen; eine Teilnahme ist freiwillig.",
+   "musik_wunsch": "fest_schichtwechsel",
+   "effects": {
+    "sets_flags": [
+     "fs_fest_schichtwechsel_aktiv"
+    ],
+    "clears_flags": [
+     "fs_schichtwechsel_ankuendigung",
+     "fs_schichtwechsel_nachlese"
+    ]
+   }
+  },
+  "fs_stiller_abend": {
+   "name": "Stiller Abend",
+   "stadt": "alle",
+   "karten": [
+    "buero",
+    "wx_kahn",
+    "ds_speisewagen"
+   ],
+   "jahreszeit": "fs_winter",
+   "dauer_tage": 1,
+   "beschreibung": "Am vierten Wintertag bleiben die Verkaufstische leer. Türen zu Zeugen, Fällen und Unterschlüpfen bleiben offen.",
+   "effects": {
+    "sets_flags": [
+     "fs_stiller_abend_aktiv"
+    ]
+   }
+  }
+ }
+}
