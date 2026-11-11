@@ -3,6 +3,7 @@
 // Aufruf vom Repository-Stamm: node tools/packs/runde8_sync.mjs
 import { readFileSync, writeFileSync, readdirSync, mkdirSync } from 'node:fs';
 import path from 'node:path';
+import { BH_MAP_THEMES } from '../../src/world/assets.js';
 
 const SRC = 'docs/story';
 const DST = 'src/data/packs';
@@ -50,6 +51,49 @@ for (const pack of PACKS) {
   });
 }
 
+/**
+ * CI (briarholt1): Props je Ort als Deko (`bhp_<blatt>_<region>`, Fußpunkt unten, nach Tiefe sortiert). Warme Karten zeigen entfaltete
+ * Palmen, geöffnete Verteilanlage und Rücklaufbehälter, blühende Pflanze. [x, y, sprite, solid?] – x/y ist das Fußfeld.
+ */
+const P = (x, y, sprite, solid = null) => ({ x, y, sprite, solid });
+const palme = (w) => `bhp_promenade_palme_${w ? 'warm' : 'kalt'}`;
+const BH_DECOR = {
+  bh_kutschenhof: (w) => [P(22, 4, 'bhp_kutschenhof_pferde', [60, 14]), P(3, 6, 'bhp_kutschenhof_gepaeckkarren_blumenerde', [28, 12]), P(5, 6, 'bhp_kutschenhof_patientenstuhl', [12, 10]),
+    P(6, 6, 'bhp_kutschenhof_hinweistafel_pfirsich', [28, 6, 0, -6]), P(12, 6, 'bhp_kutschenhof_wartebank_frost', [28, 10]), P(32, 12, palme(w), [20, 10]), P(26, 11, 'bhp_promenade_gaslaterne', [8, 6])],
+  bh_kesselgrund: (w) => [P(4, 3, `bhp_kesselgrund_ventil_${w ? 'warm' : 'kalt'}`), P(41, 2, `bhp_kesselgrund_druckanzeige_${w ? 'hoch' : 'niedrig'}`), P(20, 3, 'bhp_kesselgrund_kohlenbunker_voll', [28, 12]),
+    P(23, 3, 'bhp_kesselgrund_kohlenbunker_leer', [28, 12]), P(40, 18, 'bhp_kesselgrund_wartungsschrank', [28, 12]), P(30, 12, 'bhp_kesselgrund_waeschemangel', [28, 12])],
+  bh_winterpromenade: (w) => [P(22, 14, 'bhp_promenade_musikpavillon', [60, 24, 0, -4]), P(10, 12, 'bhp_promenade_gaslaterne', [8, 6]), P(30, 12, 'bhp_promenade_gaslaterne', [8, 6]),
+    P(14, 20, palme(w), [20, 10]), P(36, 20, palme(w), [20, 10]), P(26, 20, 'bhp_promenade_kurgaeste_bank', [28, 10]), P(12, 5, 'bhp_promenade_schreibpult_postkarten', [28, 12]), P(40, 12, 'bhp_promenade_kurkiosk', [28, 14])],
+  bh_glasgaerten: (w) => [P(6, 17, 'bhp_glasgaerten_beet_schild', [28, 12]), P(10, 17, `bhp_glasgaerten_beet_schild${w ? '_umgedreht' : ''}`, [28, 12]), P(14, 17, 'bhp_glasgaerten_beet_schild', [28, 12]),
+    P(3, 3, 'bhp_glasgaerten_saatbuch_pult', [28, 12]), P(30, 3, 'bhp_glasgaerten_veredelungsschere_gross', [28, 12]), P(24, 18, `bhp_glasgaerten_sprechende_pflanze_${w ? 3 : 0}`, [12, 8]), P(36, 18, 'bhp_glasgaerten_kapselhalter_leer', [12, 8])],
+  bh_stillenhaeuser: () => [P(3, 16, 'bhp_stillenhaeuser_bett_tafel_radiert', [28, 12]), P(7, 16, 'bhp_stillenhaeuser_bett_tafel_radiert', [28, 12]), P(30, 10, 'bhp_stillenhaeuser_teewagen', [28, 12]),
+    P(20, 10, 'bhp_stillenhaeuser_speisesaal_tisch', [44, 12]), P(24, 10, 'bhp_stillenhaeuser_speisesaal_stuehle', [28, 10]), P(36, 4, 'bhp_stillenhaeuser_kinderzeichnung')],
+  bh_wurzelkranz: (w) => [P(22, 13, 'bhp_wurzelkranz_pumpenrad', [28, 12]), P(34, 13, 'bhp_wurzelkranz_sudkessel', [28, 14]), P(40, 3, 'bhp_wurzelkranz_zeichentisch_fundamentplan', [28, 12]),
+    P(10, 13, `bhp_wurzelkranz_ruecklauf_${w ? 'offen' : 'versiegelt'}`, [28, 12])],
+  bh_buegelraum: () => [P(4, 2, 'bhp_kesselgrund_buegelbrett', [28, 12]), P(9, 2, 'bhp_kesselgrund_waeschemangel', [28, 12]), P(14, 3, 'bhp_kesselgrund_feuerstelle', [28, 12]), P(16, 4, 'bhp_kesselgrund_bett', [28, 12]),
+    P(18, 4, 'bhp_kesselgrund_lager', [28, 12]), P(20, 4, 'bhp_kesselgrund_fallwand', [28, 6, 0, -6]), P(16, 6, 'bhp_kesselgrund_ventiltafel', [28, 6, 0, -6]), P(21, 2, 'bhp_kesselgrund_kiste', [12, 10])],
+  bh_kutschenhalle: () => [P(8, 4, 'bhp_kutschenhof_gepaeckkarren_blumenerde', [28, 12]), P(10, 4, 'bhp_kutschenhof_patientenstuhl', [12, 10]), P(14, 9, 'bhp_kutschenhof_wartebank_frost', [28, 10])],
+  bh_pavillon: (w) => [P(11, 4, 'bhp_promenade_kurkiosk', [28, 14]), P(8, 4, 'bhp_promenade_schreibpult_postkarten', [28, 12]), P(5, 10, palme(w), [20, 10]), P(19, 10, palme(w), [20, 10])],
+  bh_verkaufshalle: (w) => [P(8, 4, 'bhp_glasgaerten_saatbuch_pult', [28, 12]), P(14, 9, 'bhp_glasgaerten_beet_schild', [28, 12]), P(18, 9, `bhp_glasgaerten_beet_schild${w ? '_umgedreht' : ''}`, [28, 12]), P(10, 4, 'bhp_glasgaerten_kapselhalter_kapsel', [12, 8])],
+  bh_speisesaal: () => [P(14, 9, 'bhp_stillenhaeuser_speisesaal_tisch', [44, 12]), P(18, 9, 'bhp_stillenhaeuser_speisesaal_stuehle', [28, 10]), P(8, 4, 'bhp_stillenhaeuser_teewagen', [28, 12])],
+  bh_aktenraum: () => [P(16, 10, 'bhp_stillenhaeuser_ennas_heft')],
+  bh_labor: () => [P(10, 4, 'bhp_wurzelkranz_sudkessel', [28, 14])],
+  bh_mutterhaus: () => [P(8, 4, 'bhp_wurzelkranz_zeichentisch_fundamentplan', [28, 12]), P(16, 10, 'bhp_stillenhaeuser_kinderzeichnung')],
+  bh_verteilanlage: (w) => [P(16, 10, `bhp_wurzelkranz_verteilanlage_${w ? 'offen' : 'zu'}`, [60, 24, 0, -4]), P(20, 10, `bhp_wurzelkranz_ruecklauf_${w ? 'offen' : 'versiegelt'}`, [28, 12])],
+  bh_kaltes_palmhaus: (w) => [P(6, 18, palme(w), [20, 10]), P(20, 18, palme(w), [20, 10]), P(34, 18, palme(w), [20, 10]), P(10, 26, 'bhp_glasgaerten_kapselhalter_leer', [12, 8])],
+  bh_verlassene_waescherei: () => [P(6, 13, 'bhp_kesselgrund_waeschemangel', [28, 12]), P(20, 13, 'bhp_kesselgrund_waeschemangel', [28, 12]), P(34, 13, 'bhp_kesselgrund_kohlenbunker_leer', [28, 12])],
+  bh_wurzelkammer: (w) => [P(10, 19, `bhp_wurzelkranz_ruecklauf_${w ? 'offen' : 'versiegelt'}`, [28, 12])],
+};
+function bhDecor(base, warm, m) {
+  const taken = new Set([...(m.interactables ?? []).map((i) => i.tile.join(',')), ...(m.npcs ?? []).map((n) => n.tile.join(',')), ...Object.values(m.spawns ?? {}).map((t) => t.join(','))]);
+  return (BH_DECOR[base]?.(warm) ?? []).map(({ x, y, sprite, solid }) => {
+    const ventil = sprite.includes('_ventil_'); // das Ventil steht auf seinem Lesefeld
+    if (!WALK.has(m.rows[y]?.[x])) throw new Error(`${m.id}: Deko ${sprite} auf ${x},${y} steht nicht auf Boden`);
+    if (!ventil && taken.has(`${x},${y}`)) throw new Error(`${m.id}: Deko ${sprite} auf ${x},${y} kollidiert mit Figur oder Objekt`);
+    return { tile: [x, y], sprite, origin: [0.5, 1], offset: [0, 8], alpha: 1, ysort: true, ...(solid ? { solid } : {}) };
+  });
+}
+
 // --- Kapitel 5 (CH/CG/CJ): Platzhalterthemen, Wärmebedingung je Variante, Stadtkarte, Zonenbindung, Flagnamen ---
 {
   // Kreis je Ort (CG ventile.json und CH travel.json): die warme Fassung gilt, solange der Kreis offen ist; der Bügelraum ist immer warm.
@@ -58,7 +102,11 @@ for (const pack of PACKS) {
     kaltes_palmhaus: 'palm', verlassene_waescherei: 'waesche', wurzelkammer: 'wurzel' };
   const maps = read(file('k5_orte', 'maps'));
   for (const m of maps) {
-    if (m.tiles === 'street') m.tiles = 'altmarkt'; // CI liefert die Promenade später; bis dahin Kettlegates Straßen
+    // CI (briarholt1): eigenes Thema je Ort, die warme Zwillingskarte nimmt das warme Blatt; der Bügelraum ist immer warm
+    const base = m.id.replace(/__warm$/, '');
+    const warm = m.id.endsWith('__warm') || base === 'bh_buegelraum';
+    m.tiles = `${BH_MAP_THEMES[base]}_${warm ? 'warm' : 'kalt'}`;
+    m.decor = bhDecor(base, warm, m);
     if (!m.id.endsWith('__warm')) continue;
     const ort = m.id.slice(3, -6);
     m.warm_if = KREIS[ort] ? { requires_flags: [`bha_ventil_${KREIS[ort]}_offen`] } : {};
@@ -66,7 +114,16 @@ for (const pack of PACKS) {
   write(file('k5_orte', 'maps'), maps);
   const pins = { bh_kutschenhof: [70, 225], bh_kesselgrund: [160, 240], bh_winterpromenade: [200, 160], bh_glasgaerten: [330, 150], bh_stillenhaeuser: [120, 110], bh_wurzelkranz: [300, 60],
     bh_buegelraum: [215, 235], bh_kaltes_palmhaus: [420, 120], bh_verlassene_waescherei: [110, 40], bh_wurzelkammer: [410, 40] };
-  write(file('k5_orte', 'city'), { id: 'briarholt', title: 'Stadtkarte von Briarholt', pins: Object.fromEntries(Object.entries(pins).flatMap(([id, p]) => [[id, p], [`${id}__warm`, p]])) });
+  // CI: gemalte Stadtkarte, Nebel und Leitungsplan-Overlay (Pins auf dem Grok-Bild gemessen, Innenräume beim Viertel)
+  Object.assign(pins, { bh_kutschenhof: [75, 226], bh_kesselgrund: [282, 206], bh_winterpromenade: [328, 122], bh_glasgaerten: [112, 50], bh_stillenhaeuser: [170, 124], bh_wurzelkranz: [305, 48],
+    bh_buegelraum: [240, 238], bh_kaltes_palmhaus: [160, 72], bh_verlassene_waescherei: [340, 232], bh_wurzelkammer: [430, 122] });
+  write(file('k5_orte', 'city'), { id: 'briarholt', title: 'Stadtkarte von Briarholt', map_image: 'ui/bh_karte.png', fog_image: 'ui/bh_karte_nebel.png', overlay_image: 'ui/bh_karte_leitungen.png',
+    pins: Object.fromEntries(Object.entries(pins).flatMap(([id, p]) => [[id, p], [`${id}__warm`, p]])) });
+  // CI: Szenenbilder an den Gesprächsknoten der Akte (Ankunft, Pfirsich mit türkisem Kern, Orla im Trockenraum)
+  const dlg = read(file('k5_akte', 'dialogues'));
+  for (const [id, d] of Object.entries(dlg)) if (id.startsWith('bha_anreise_')) d.nodes[d.start].scene = id === 'bha_anreise_buecher' ? 'bh_pfirsich' : 'bh_ankunft';
+  dlg.bha_34_dialog.nodes.bha_34_start.scene = 'bh_trockenraum';
+  write(file('k5_akte', 'dialogues'), dlg);
   const bind = (quelle, gegner, bosse, warm) => ({ quelle, gegner: warm ? [...gegner, warm] : gegner, bosse, elite_chance: warm ? 0.12 : 0 });
   const glas = ['vg_bh_boss_glasgaertner', 'vg_bh_boss_glasgaertner_phase2'];
   const waes = ['vg_bh_boss_waescherei', 'vg_bh_boss_waescherei_phase2'];

@@ -1,0 +1,6094 @@
+{
+  "version": 1,
+  "batch": "briarholt1",
+  "codex": "CI",
+  "city": "briarholt",
+  "status": "exported; game integration separate",
+  "paletteMaxVisibleColors": 32,
+  "palette": [
+    "#1a1c2c",
+    "#252b38",
+    "#303b49",
+    "#425360",
+    "#586c78",
+    "#71858b",
+    "#95a5a5",
+    "#a8b4c0",
+    "#2d2629",
+    "#58433c",
+    "#715648",
+    "#92745a",
+    "#b3946e",
+    "#cfb18a",
+    "#e0c9a1",
+    "#494b3a",
+    "#686850",
+    "#8b8870",
+    "#eee2c5",
+    "#173d40",
+    "#245b59",
+    "#36817a",
+    "#4eafa2",
+    "#6fe0d0",
+    "#886332",
+    "#d0a050",
+    "#e8b860",
+    "#f0ce80",
+    "#c8b0e8",
+    "#5c426a",
+    "#8c7295",
+    "#893e4e"
+  ],
+  "notDuplicated": "Figuren (BK/vorrat2), Gegner und Zonen-Hintergründe Palmhaus/Wäscherei/Wurzelkammer (BI/vorrat1), Item-Icons (BM/vorrat3) werden nicht neu geliefert.",
+  "assets": [
+    {
+      "id": "bh_promenade_kalt",
+      "kind": "tiles",
+      "theme": "bh_promenade",
+      "variant": "kalt",
+      "variants": {
+        "kalt": "tilesets/bh_promenade_kalt.png",
+        "warm": "tilesets/bh_promenade_warm.png"
+      },
+      "transparent": false,
+      "columns": 8,
+      "rows": 5,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "tilesets/bh_promenade_kalt.png",
+      "width": 128,
+      "height": 80,
+      "animations": {
+        "reif_glas_tropfen": {
+          "frames": [
+            19,
+            32
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        },
+        "reif_glasdach_tropfen": {
+          "frames": [
+            17,
+            33
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      },
+      "tileNames": [
+        "pflaster_1",
+        "pflaster_2",
+        "pflaster_messing",
+        "pflaster_rinne",
+        "pflaster_pfuetze",
+        "pavillon_boden",
+        "pavillon_rosette",
+        "pavillon_stufe",
+        "kurhaus_gesims",
+        "kurhaus_wand",
+        "kurhaus_ecke_links",
+        "kurhaus_ecke_rechts",
+        "kurhaus_fenster",
+        "kurhaus_tuer_oben",
+        "kurhaus_tuer_unten",
+        "kurhaus_sockel",
+        "glasgang_dach_links",
+        "glasgang_dach_mitte",
+        "glasgang_dach_rechts",
+        "glasgang_scheibe",
+        "glasgang_pfosten",
+        "glasgang_boden",
+        "messinggelaender",
+        "steintreppe",
+        "palme_krone",
+        "palme_kuebel",
+        "postkarten_oben",
+        "postkarten_fuss",
+        "bank_links",
+        "bank_rechts",
+        "beet",
+        "kanaldeckel",
+        "glasgang_scheibe_f2",
+        "glasgang_dach_mitte_f2",
+        "pflaster_kante_n",
+        "pflaster_kante_o",
+        "pflaster_kante_s",
+        "pflaster_kante_w",
+        "laternensockel",
+        "pavillon_saeule"
+      ],
+      "cells": {
+        "pflaster_1": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "pflaster_2": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "pflaster_messing": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "pflaster_rinne": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "pflaster_pfuetze": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "pavillon_boden": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "pavillon_rosette": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "pavillon_stufe": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_gesims": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_wand": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_ecke_links": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_ecke_rechts": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_fenster": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_tuer_oben": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_tuer_unten": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_sockel": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "glasgang_dach_links": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "glasgang_dach_mitte": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "glasgang_dach_rechts": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "glasgang_scheibe": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "glasgang_pfosten": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "glasgang_boden": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "messinggelaender": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "steintreppe": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "palme_krone": {
+          "index": 24,
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "palme_kuebel": {
+          "index": 25,
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "postkarten_oben": {
+          "index": 26,
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "postkarten_fuss": {
+          "index": 27,
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "bank_links": {
+          "index": 28,
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "bank_rechts": {
+          "index": 29,
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "beet": {
+          "index": 30,
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "kanaldeckel": {
+          "index": 31,
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "glasgang_scheibe_f2": {
+          "index": 32,
+          "x": 0,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "glasgang_dach_mitte_f2": {
+          "index": 33,
+          "x": 16,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "pflaster_kante_n": {
+          "index": 34,
+          "x": 32,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "pflaster_kante_o": {
+          "index": 35,
+          "x": 48,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "pflaster_kante_s": {
+          "index": 36,
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "pflaster_kante_w": {
+          "index": 37,
+          "x": 80,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "laternensockel": {
+          "index": 38,
+          "x": 96,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "pavillon_saeule": {
+          "index": 39,
+          "x": 112,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "stateSwitch": "Wechsel kalt/warm über die Mechanik Wärme und Rücklauf, nicht über die Tageszeit",
+      "sha256": "77763490472939b0f482ba1d56491533d24b11490e4afc36430dc40829994aa0",
+      "groundCells": [
+        "pflaster_1",
+        "pflaster_2",
+        "pavillon_boden",
+        "kurhaus_wand",
+        "glasgang_boden"
+      ],
+      "drawing": "hand-pixelled cell by cell on the 16x16 grid (v2), shared palette"
+    },
+    {
+      "id": "bh_promenade_warm",
+      "kind": "tiles",
+      "theme": "bh_promenade",
+      "variant": "warm",
+      "variants": {
+        "kalt": "tilesets/bh_promenade_kalt.png",
+        "warm": "tilesets/bh_promenade_warm.png"
+      },
+      "transparent": false,
+      "columns": 8,
+      "rows": 5,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "tilesets/bh_promenade_warm.png",
+      "width": 128,
+      "height": 80,
+      "animations": {
+        "glas_tropfen": {
+          "frames": [
+            19,
+            32
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "glasdach_tropfen": {
+          "frames": [
+            17,
+            33
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        }
+      },
+      "tileNames": [
+        "pflaster_1",
+        "pflaster_2",
+        "pflaster_messing",
+        "pflaster_rinne",
+        "pflaster_pfuetze",
+        "pavillon_boden",
+        "pavillon_rosette",
+        "pavillon_stufe",
+        "kurhaus_gesims",
+        "kurhaus_wand",
+        "kurhaus_ecke_links",
+        "kurhaus_ecke_rechts",
+        "kurhaus_fenster",
+        "kurhaus_tuer_oben",
+        "kurhaus_tuer_unten",
+        "kurhaus_sockel",
+        "glasgang_dach_links",
+        "glasgang_dach_mitte",
+        "glasgang_dach_rechts",
+        "glasgang_scheibe",
+        "glasgang_pfosten",
+        "glasgang_boden",
+        "messinggelaender",
+        "steintreppe",
+        "palme_krone",
+        "palme_kuebel",
+        "postkarten_oben",
+        "postkarten_fuss",
+        "bank_links",
+        "bank_rechts",
+        "beet",
+        "kanaldeckel",
+        "glasgang_scheibe_f2",
+        "glasgang_dach_mitte_f2",
+        "pflaster_kante_n",
+        "pflaster_kante_o",
+        "pflaster_kante_s",
+        "pflaster_kante_w",
+        "laternensockel",
+        "pavillon_saeule"
+      ],
+      "cells": {
+        "pflaster_1": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "pflaster_2": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "pflaster_messing": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "pflaster_rinne": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "pflaster_pfuetze": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "pavillon_boden": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "pavillon_rosette": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "pavillon_stufe": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_gesims": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_wand": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_ecke_links": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_ecke_rechts": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_fenster": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_tuer_oben": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_tuer_unten": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_sockel": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "glasgang_dach_links": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "glasgang_dach_mitte": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "glasgang_dach_rechts": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "glasgang_scheibe": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "glasgang_pfosten": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "glasgang_boden": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "messinggelaender": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "steintreppe": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "palme_krone": {
+          "index": 24,
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "palme_kuebel": {
+          "index": 25,
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "postkarten_oben": {
+          "index": 26,
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "postkarten_fuss": {
+          "index": 27,
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "bank_links": {
+          "index": 28,
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "bank_rechts": {
+          "index": 29,
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "beet": {
+          "index": 30,
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "kanaldeckel": {
+          "index": 31,
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "glasgang_scheibe_f2": {
+          "index": 32,
+          "x": 0,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "glasgang_dach_mitte_f2": {
+          "index": 33,
+          "x": 16,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "pflaster_kante_n": {
+          "index": 34,
+          "x": 32,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "pflaster_kante_o": {
+          "index": 35,
+          "x": 48,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "pflaster_kante_s": {
+          "index": 36,
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "pflaster_kante_w": {
+          "index": 37,
+          "x": 80,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "laternensockel": {
+          "index": 38,
+          "x": 96,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "pavillon_saeule": {
+          "index": 39,
+          "x": 112,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "stateSwitch": "Wechsel kalt/warm über die Mechanik Wärme und Rücklauf, nicht über die Tageszeit",
+      "sha256": "9c0e13349737f370baabb5be778abec4b0dee5e4306c76eeeb514e87d11cfc66",
+      "groundCells": [
+        "pflaster_1",
+        "pflaster_2",
+        "pavillon_boden",
+        "kurhaus_wand",
+        "glasgang_boden"
+      ],
+      "drawing": "hand-pixelled cell by cell on the 16x16 grid (v2), shared palette"
+    },
+    {
+      "id": "bh_kessel_kalt",
+      "kind": "tiles",
+      "theme": "bh_kessel",
+      "variant": "kalt",
+      "variants": {
+        "kalt": "tilesets/bh_kessel_kalt.png",
+        "warm": "tilesets/bh_kessel_warm.png"
+      },
+      "transparent": false,
+      "columns": 8,
+      "rows": 5,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "tilesets/bh_kessel_kalt.png",
+      "width": 128,
+      "height": 80,
+      "animations": {
+        "reif_dampf": {
+          "frames": [
+            19,
+            32,
+            33,
+            34
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      },
+      "tileNames": [
+        "werkstatt_boden",
+        "kopfstein",
+        "kopfstein_kohlenstaub",
+        "kondensat_pfuetze",
+        "gitterrost",
+        "bordstein_n",
+        "bordstein_s",
+        "werkbank",
+        "rohr_h",
+        "rohr_v",
+        "rohr_bogen_so",
+        "rohr_bogen_sw",
+        "rohr_bogen_no",
+        "rohr_bogen_nw",
+        "rohr_t",
+        "rohrbruecke_stuetze",
+        "ventil_zu",
+        "ventil_kalt",
+        "ventil_warm",
+        "dampfaustritt",
+        "kohlenrutsche",
+        "kohlenhaufen",
+        "rohrbruecke_traeger",
+        "rohr_isoliert",
+        "waescherei_traufe",
+        "waescherei_wand",
+        "waescherei_fenster",
+        "waescherei_tor_oben",
+        "waescherei_tor_unten",
+        "waescherei_lueftung",
+        "waescherei_sockel",
+        "waescherei_schild",
+        "dampfaustritt_f1",
+        "dampfaustritt_f2",
+        "dampfaustritt_f3",
+        "kondensat_rinne",
+        "rohr_v_manometer",
+        "abflussgitter",
+        "kopfstein_2",
+        "werkstatt_boden_2"
+      ],
+      "cells": {
+        "werkstatt_boden": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kopfstein": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kopfstein_kohlenstaub": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kondensat_pfuetze": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "gitterrost": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "bordstein_n": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "bordstein_s": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "werkbank": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "rohr_h": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "rohr_v": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "rohr_bogen_so": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "rohr_bogen_sw": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "rohr_bogen_no": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "rohr_bogen_nw": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "rohr_t": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "rohrbruecke_stuetze": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "ventil_zu": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "ventil_kalt": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "ventil_warm": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "dampfaustritt": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "kohlenrutsche": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "kohlenhaufen": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "rohrbruecke_traeger": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "rohr_isoliert": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "waescherei_traufe": {
+          "index": 24,
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "waescherei_wand": {
+          "index": 25,
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "waescherei_fenster": {
+          "index": 26,
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "waescherei_tor_oben": {
+          "index": 27,
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "waescherei_tor_unten": {
+          "index": 28,
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "waescherei_lueftung": {
+          "index": 29,
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "waescherei_sockel": {
+          "index": 30,
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "waescherei_schild": {
+          "index": 31,
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "dampfaustritt_f1": {
+          "index": 32,
+          "x": 0,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "dampfaustritt_f2": {
+          "index": 33,
+          "x": 16,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "dampfaustritt_f3": {
+          "index": 34,
+          "x": 32,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "kondensat_rinne": {
+          "index": 35,
+          "x": 48,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "rohr_v_manometer": {
+          "index": 36,
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "abflussgitter": {
+          "index": 37,
+          "x": 80,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "kopfstein_2": {
+          "index": 38,
+          "x": 96,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "werkstatt_boden_2": {
+          "index": 39,
+          "x": 112,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "stateSwitch": "Wechsel kalt/warm über die Mechanik Wärme und Rücklauf, nicht über die Tageszeit",
+      "sha256": "fa4b73a240b37536434f8b9f70f06ae79382722ba2868247b91a1996fab45884",
+      "groundCells": [
+        "werkstatt_boden",
+        "kopfstein",
+        "kopfstein_2",
+        "werkstatt_boden_2",
+        "waescherei_wand",
+        "rohr_h",
+        "rohr_v"
+      ],
+      "drawing": "hand-pixelled cell by cell on the 16x16 grid (v2), shared palette"
+    },
+    {
+      "id": "bh_kessel_warm",
+      "kind": "tiles",
+      "theme": "bh_kessel",
+      "variant": "warm",
+      "variants": {
+        "kalt": "tilesets/bh_kessel_kalt.png",
+        "warm": "tilesets/bh_kessel_warm.png"
+      },
+      "transparent": false,
+      "columns": 8,
+      "rows": 5,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "tilesets/bh_kessel_warm.png",
+      "width": 128,
+      "height": 80,
+      "animations": {
+        "dampf": {
+          "frames": [
+            19,
+            32,
+            33,
+            34
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      },
+      "tileNames": [
+        "werkstatt_boden",
+        "kopfstein",
+        "kopfstein_kohlenstaub",
+        "kondensat_pfuetze",
+        "gitterrost",
+        "bordstein_n",
+        "bordstein_s",
+        "werkbank",
+        "rohr_h",
+        "rohr_v",
+        "rohr_bogen_so",
+        "rohr_bogen_sw",
+        "rohr_bogen_no",
+        "rohr_bogen_nw",
+        "rohr_t",
+        "rohrbruecke_stuetze",
+        "ventil_zu",
+        "ventil_kalt",
+        "ventil_warm",
+        "dampfaustritt",
+        "kohlenrutsche",
+        "kohlenhaufen",
+        "rohrbruecke_traeger",
+        "rohr_isoliert",
+        "waescherei_traufe",
+        "waescherei_wand",
+        "waescherei_fenster",
+        "waescherei_tor_oben",
+        "waescherei_tor_unten",
+        "waescherei_lueftung",
+        "waescherei_sockel",
+        "waescherei_schild",
+        "dampfaustritt_f1",
+        "dampfaustritt_f2",
+        "dampfaustritt_f3",
+        "kondensat_rinne",
+        "rohr_v_manometer",
+        "abflussgitter",
+        "kopfstein_2",
+        "werkstatt_boden_2"
+      ],
+      "cells": {
+        "werkstatt_boden": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kopfstein": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kopfstein_kohlenstaub": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kondensat_pfuetze": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "gitterrost": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "bordstein_n": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "bordstein_s": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "werkbank": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "rohr_h": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "rohr_v": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "rohr_bogen_so": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "rohr_bogen_sw": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "rohr_bogen_no": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "rohr_bogen_nw": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "rohr_t": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "rohrbruecke_stuetze": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "ventil_zu": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "ventil_kalt": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "ventil_warm": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "dampfaustritt": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "kohlenrutsche": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "kohlenhaufen": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "rohrbruecke_traeger": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "rohr_isoliert": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "waescherei_traufe": {
+          "index": 24,
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "waescherei_wand": {
+          "index": 25,
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "waescherei_fenster": {
+          "index": 26,
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "waescherei_tor_oben": {
+          "index": 27,
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "waescherei_tor_unten": {
+          "index": 28,
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "waescherei_lueftung": {
+          "index": 29,
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "waescherei_sockel": {
+          "index": 30,
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "waescherei_schild": {
+          "index": 31,
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "dampfaustritt_f1": {
+          "index": 32,
+          "x": 0,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "dampfaustritt_f2": {
+          "index": 33,
+          "x": 16,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "dampfaustritt_f3": {
+          "index": 34,
+          "x": 32,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "kondensat_rinne": {
+          "index": 35,
+          "x": 48,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "rohr_v_manometer": {
+          "index": 36,
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "abflussgitter": {
+          "index": 37,
+          "x": 80,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "kopfstein_2": {
+          "index": 38,
+          "x": 96,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "werkstatt_boden_2": {
+          "index": 39,
+          "x": 112,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "stateSwitch": "Wechsel kalt/warm über die Mechanik Wärme und Rücklauf, nicht über die Tageszeit",
+      "sha256": "e95e3631e3c78dfac5b71faedd3cf053efcd8d8b4bd0b9eec9e6be650c6af487",
+      "groundCells": [
+        "werkstatt_boden",
+        "kopfstein",
+        "kopfstein_2",
+        "werkstatt_boden_2",
+        "waescherei_wand",
+        "rohr_h",
+        "rohr_v"
+      ],
+      "drawing": "hand-pixelled cell by cell on the 16x16 grid (v2), shared palette"
+    },
+    {
+      "id": "bh_glas_kalt",
+      "kind": "tiles",
+      "theme": "bh_glas",
+      "variant": "kalt",
+      "variants": {
+        "kalt": "tilesets/bh_glas_kalt.png",
+        "warm": "tilesets/bh_glas_warm.png"
+      },
+      "transparent": false,
+      "columns": 8,
+      "rows": 5,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "tilesets/bh_glas_kalt.png",
+      "width": 128,
+      "height": 80,
+      "animations": {
+        "reif_bluete": {
+          "frames": [
+            20,
+            32
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        },
+        "reif_rinne_h": {
+          "frames": [
+            24,
+            33
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        },
+        "reif_rinne_v": {
+          "frames": [
+            25,
+            34
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        },
+        "reif_rinne_ecke": {
+          "frames": [
+            26,
+            35
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      },
+      "tileNames": [
+        "kiesweg",
+        "kiesweg_2",
+        "kies_kante_n",
+        "kies_kante_s",
+        "kies_kante_w",
+        "kies_kante_o",
+        "erde",
+        "trittplatten",
+        "glaswand_traufe",
+        "glaswand",
+        "glaswand_schrift",
+        "glaswand_pfosten_links",
+        "glaswand_pfosten_rechts",
+        "glastuer_oben",
+        "glastuer_unten",
+        "glaswand_sockel",
+        "beet_geschlossen",
+        "beet_geschlossen_schild",
+        "beet_offen",
+        "beet_pflanze",
+        "beet_bluete",
+        "beet_rand_n",
+        "beet_rand_s",
+        "beet_ecke",
+        "rinne_h",
+        "rinne_v",
+        "rinne_ecke",
+        "rinne_kreuzung",
+        "rinne_ende",
+        "rinne_schieber",
+        "eisensaeule",
+        "anzucht_regal",
+        "beet_bluete_f2",
+        "rinne_h_f2",
+        "rinne_v_f2",
+        "rinne_ecke_f2",
+        "kies_laub",
+        "erde_saatreihen",
+        "glasdach",
+        "glasdach_first"
+      ],
+      "cells": {
+        "kiesweg": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kiesweg_2": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kies_kante_n": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kies_kante_s": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kies_kante_w": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kies_kante_o": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "erde": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "trittplatten": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "glaswand_traufe": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "glaswand": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "glaswand_schrift": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "glaswand_pfosten_links": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "glaswand_pfosten_rechts": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "glastuer_oben": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "glastuer_unten": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "glaswand_sockel": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "beet_geschlossen": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "beet_geschlossen_schild": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "beet_offen": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "beet_pflanze": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "beet_bluete": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "beet_rand_n": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "beet_rand_s": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "beet_ecke": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "rinne_h": {
+          "index": 24,
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "rinne_v": {
+          "index": 25,
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "rinne_ecke": {
+          "index": 26,
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "rinne_kreuzung": {
+          "index": 27,
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "rinne_ende": {
+          "index": 28,
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "rinne_schieber": {
+          "index": 29,
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "eisensaeule": {
+          "index": 30,
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "anzucht_regal": {
+          "index": 31,
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "beet_bluete_f2": {
+          "index": 32,
+          "x": 0,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "rinne_h_f2": {
+          "index": 33,
+          "x": 16,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "rinne_v_f2": {
+          "index": 34,
+          "x": 32,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "rinne_ecke_f2": {
+          "index": 35,
+          "x": 48,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "kies_laub": {
+          "index": 36,
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "erde_saatreihen": {
+          "index": 37,
+          "x": 80,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "glasdach": {
+          "index": 38,
+          "x": 96,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "glasdach_first": {
+          "index": 39,
+          "x": 112,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "stateSwitch": "Wechsel kalt/warm über die Mechanik Wärme und Rücklauf, nicht über die Tageszeit",
+      "sha256": "e7e454cf134de6e8d390cea26e84ffad77282fb553d6f3baff1329fb9713e743",
+      "groundCells": [
+        "kiesweg",
+        "kiesweg_2",
+        "erde",
+        "glaswand",
+        "glasdach",
+        "rinne_h",
+        "rinne_v"
+      ],
+      "drawing": "hand-pixelled cell by cell on the 16x16 grid (v2), shared palette"
+    },
+    {
+      "id": "bh_glas_warm",
+      "kind": "tiles",
+      "theme": "bh_glas",
+      "variant": "warm",
+      "variants": {
+        "kalt": "tilesets/bh_glas_kalt.png",
+        "warm": "tilesets/bh_glas_warm.png"
+      },
+      "transparent": false,
+      "columns": 8,
+      "rows": 5,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "tilesets/bh_glas_warm.png",
+      "width": 128,
+      "height": 80,
+      "animations": {
+        "bluete": {
+          "frames": [
+            20,
+            32
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "rinne_h": {
+          "frames": [
+            24,
+            33
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        },
+        "rinne_v": {
+          "frames": [
+            25,
+            34
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        },
+        "rinne_ecke": {
+          "frames": [
+            26,
+            35
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        }
+      },
+      "tileNames": [
+        "kiesweg",
+        "kiesweg_2",
+        "kies_kante_n",
+        "kies_kante_s",
+        "kies_kante_w",
+        "kies_kante_o",
+        "erde",
+        "trittplatten",
+        "glaswand_traufe",
+        "glaswand",
+        "glaswand_schrift",
+        "glaswand_pfosten_links",
+        "glaswand_pfosten_rechts",
+        "glastuer_oben",
+        "glastuer_unten",
+        "glaswand_sockel",
+        "beet_geschlossen",
+        "beet_geschlossen_schild",
+        "beet_offen",
+        "beet_pflanze",
+        "beet_bluete",
+        "beet_rand_n",
+        "beet_rand_s",
+        "beet_ecke",
+        "rinne_h",
+        "rinne_v",
+        "rinne_ecke",
+        "rinne_kreuzung",
+        "rinne_ende",
+        "rinne_schieber",
+        "eisensaeule",
+        "anzucht_regal",
+        "beet_bluete_f2",
+        "rinne_h_f2",
+        "rinne_v_f2",
+        "rinne_ecke_f2",
+        "kies_laub",
+        "erde_saatreihen",
+        "glasdach",
+        "glasdach_first"
+      ],
+      "cells": {
+        "kiesweg": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kiesweg_2": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kies_kante_n": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kies_kante_s": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kies_kante_w": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kies_kante_o": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "erde": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "trittplatten": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "glaswand_traufe": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "glaswand": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "glaswand_schrift": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "glaswand_pfosten_links": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "glaswand_pfosten_rechts": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "glastuer_oben": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "glastuer_unten": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "glaswand_sockel": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "beet_geschlossen": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "beet_geschlossen_schild": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "beet_offen": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "beet_pflanze": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "beet_bluete": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "beet_rand_n": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "beet_rand_s": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "beet_ecke": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "rinne_h": {
+          "index": 24,
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "rinne_v": {
+          "index": 25,
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "rinne_ecke": {
+          "index": 26,
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "rinne_kreuzung": {
+          "index": 27,
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "rinne_ende": {
+          "index": 28,
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "rinne_schieber": {
+          "index": 29,
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "eisensaeule": {
+          "index": 30,
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "anzucht_regal": {
+          "index": 31,
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "beet_bluete_f2": {
+          "index": 32,
+          "x": 0,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "rinne_h_f2": {
+          "index": 33,
+          "x": 16,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "rinne_v_f2": {
+          "index": 34,
+          "x": 32,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "rinne_ecke_f2": {
+          "index": 35,
+          "x": 48,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "kies_laub": {
+          "index": 36,
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "erde_saatreihen": {
+          "index": 37,
+          "x": 80,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "glasdach": {
+          "index": 38,
+          "x": 96,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "glasdach_first": {
+          "index": 39,
+          "x": 112,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "stateSwitch": "Wechsel kalt/warm über die Mechanik Wärme und Rücklauf, nicht über die Tageszeit",
+      "sha256": "9757e8625e47a2d7da5c00ffcc34964479a57cd764629b4a6311d34f54080063",
+      "groundCells": [
+        "kiesweg",
+        "kiesweg_2",
+        "erde",
+        "glaswand",
+        "glasdach",
+        "rinne_h",
+        "rinne_v"
+      ],
+      "drawing": "hand-pixelled cell by cell on the 16x16 grid (v2), shared palette"
+    },
+    {
+      "id": "bh_stille_kalt",
+      "kind": "tiles",
+      "theme": "bh_stille",
+      "variant": "kalt",
+      "variants": {
+        "kalt": "tilesets/bh_stille_kalt.png",
+        "warm": "tilesets/bh_stille_warm.png"
+      },
+      "transparent": false,
+      "columns": 8,
+      "rows": 5,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "tilesets/bh_stille_kalt.png",
+      "width": 128,
+      "height": 80,
+      "animations": {
+        "reif_teekessel_dampf": {
+          "frames": [
+            24,
+            32
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        },
+        "reif_herdfeuer": {
+          "frames": [
+            25,
+            33
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        },
+        "reif_fenster_links_tropfen": {
+          "frames": [
+            12,
+            34
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        },
+        "reif_fenster_rechts_tropfen": {
+          "frames": [
+            13,
+            35
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      },
+      "tileNames": [
+        "fliesen",
+        "fliesen_abfluss",
+        "dielen",
+        "dielen_2",
+        "linoleum",
+        "fliesen_dielen_kante",
+        "schwelle",
+        "dielen_fleck",
+        "wand_oben",
+        "wand",
+        "wand_ecke_links",
+        "wand_ecke_rechts",
+        "fenster_links",
+        "fenster_rechts",
+        "tuer_oben",
+        "tuer_unten",
+        "bett_kopf",
+        "bett_fuss",
+        "tafel_radiert",
+        "nachttisch",
+        "stuhl",
+        "speisetisch_links",
+        "speisetisch_rechts",
+        "bank",
+        "herd_oben",
+        "herd_unten",
+        "teeschrank",
+        "spuele",
+        "stationstresen_links",
+        "stationstresen_rechts",
+        "aktenregal",
+        "heizkoerper",
+        "herd_oben_f2",
+        "herd_unten_f2",
+        "fenster_links_f2",
+        "fenster_rechts_f2",
+        "vorhang",
+        "garderobe",
+        "wanduhr",
+        "dielen_teppich"
+      ],
+      "cells": {
+        "fliesen": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "fliesen_abfluss": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "dielen": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "dielen_2": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "linoleum": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "fliesen_dielen_kante": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "schwelle": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "dielen_fleck": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "wand_oben": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wand": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wand_ecke_links": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wand_ecke_rechts": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "fenster_links": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "fenster_rechts": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "tuer_oben": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "tuer_unten": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "bett_kopf": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "bett_fuss": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "tafel_radiert": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "nachttisch": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "stuhl": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "speisetisch_links": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "speisetisch_rechts": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "bank": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "herd_oben": {
+          "index": 24,
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "herd_unten": {
+          "index": 25,
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "teeschrank": {
+          "index": 26,
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "spuele": {
+          "index": 27,
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "stationstresen_links": {
+          "index": 28,
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "stationstresen_rechts": {
+          "index": 29,
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "aktenregal": {
+          "index": 30,
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "heizkoerper": {
+          "index": 31,
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "herd_oben_f2": {
+          "index": 32,
+          "x": 0,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "herd_unten_f2": {
+          "index": 33,
+          "x": 16,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "fenster_links_f2": {
+          "index": 34,
+          "x": 32,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "fenster_rechts_f2": {
+          "index": 35,
+          "x": 48,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "vorhang": {
+          "index": 36,
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "garderobe": {
+          "index": 37,
+          "x": 80,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "wanduhr": {
+          "index": 38,
+          "x": 96,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "dielen_teppich": {
+          "index": 39,
+          "x": 112,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "stateSwitch": "Wechsel kalt/warm über die Mechanik Wärme und Rücklauf, nicht über die Tageszeit",
+      "sha256": "bd78f8931ffe808a0869e6f30490fa9dcca996fa7dee9b92099b489488604939",
+      "groundCells": [
+        "fliesen",
+        "dielen",
+        "dielen_2",
+        "wand"
+      ],
+      "drawing": "hand-pixelled cell by cell on the 16x16 grid (v2), shared palette"
+    },
+    {
+      "id": "bh_stille_warm",
+      "kind": "tiles",
+      "theme": "bh_stille",
+      "variant": "warm",
+      "variants": {
+        "kalt": "tilesets/bh_stille_kalt.png",
+        "warm": "tilesets/bh_stille_warm.png"
+      },
+      "transparent": false,
+      "columns": 8,
+      "rows": 5,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "tilesets/bh_stille_warm.png",
+      "width": 128,
+      "height": 80,
+      "animations": {
+        "teekessel_dampf": {
+          "frames": [
+            24,
+            32
+          ],
+          "frameRate": 3,
+          "repeat": -1
+        },
+        "herdfeuer": {
+          "frames": [
+            25,
+            33
+          ],
+          "frameRate": 5,
+          "repeat": -1
+        },
+        "fenster_links_tropfen": {
+          "frames": [
+            12,
+            34
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "fenster_rechts_tropfen": {
+          "frames": [
+            13,
+            35
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        }
+      },
+      "tileNames": [
+        "fliesen",
+        "fliesen_abfluss",
+        "dielen",
+        "dielen_2",
+        "linoleum",
+        "fliesen_dielen_kante",
+        "schwelle",
+        "dielen_fleck",
+        "wand_oben",
+        "wand",
+        "wand_ecke_links",
+        "wand_ecke_rechts",
+        "fenster_links",
+        "fenster_rechts",
+        "tuer_oben",
+        "tuer_unten",
+        "bett_kopf",
+        "bett_fuss",
+        "tafel_radiert",
+        "nachttisch",
+        "stuhl",
+        "speisetisch_links",
+        "speisetisch_rechts",
+        "bank",
+        "herd_oben",
+        "herd_unten",
+        "teeschrank",
+        "spuele",
+        "stationstresen_links",
+        "stationstresen_rechts",
+        "aktenregal",
+        "heizkoerper",
+        "herd_oben_f2",
+        "herd_unten_f2",
+        "fenster_links_f2",
+        "fenster_rechts_f2",
+        "vorhang",
+        "garderobe",
+        "wanduhr",
+        "dielen_teppich"
+      ],
+      "cells": {
+        "fliesen": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "fliesen_abfluss": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "dielen": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "dielen_2": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "linoleum": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "fliesen_dielen_kante": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "schwelle": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "dielen_fleck": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "wand_oben": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wand": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wand_ecke_links": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wand_ecke_rechts": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "fenster_links": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "fenster_rechts": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "tuer_oben": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "tuer_unten": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "bett_kopf": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "bett_fuss": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "tafel_radiert": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "nachttisch": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "stuhl": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "speisetisch_links": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "speisetisch_rechts": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "bank": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "herd_oben": {
+          "index": 24,
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "herd_unten": {
+          "index": 25,
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "teeschrank": {
+          "index": 26,
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "spuele": {
+          "index": 27,
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "stationstresen_links": {
+          "index": 28,
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "stationstresen_rechts": {
+          "index": 29,
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "aktenregal": {
+          "index": 30,
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "heizkoerper": {
+          "index": 31,
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "herd_oben_f2": {
+          "index": 32,
+          "x": 0,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "herd_unten_f2": {
+          "index": 33,
+          "x": 16,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "fenster_links_f2": {
+          "index": 34,
+          "x": 32,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "fenster_rechts_f2": {
+          "index": 35,
+          "x": 48,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "vorhang": {
+          "index": 36,
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "garderobe": {
+          "index": 37,
+          "x": 80,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "wanduhr": {
+          "index": 38,
+          "x": 96,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "dielen_teppich": {
+          "index": 39,
+          "x": 112,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "stateSwitch": "Wechsel kalt/warm über die Mechanik Wärme und Rücklauf, nicht über die Tageszeit",
+      "sha256": "c1e3fffd97f1016478ae2b6cd4c91b5801caaf8551e9c7d666693f75d2c2751d",
+      "groundCells": [
+        "fliesen",
+        "dielen",
+        "dielen_2",
+        "wand"
+      ],
+      "drawing": "hand-pixelled cell by cell on the 16x16 grid (v2), shared palette"
+    },
+    {
+      "id": "bh_wurzel_kalt",
+      "kind": "tiles",
+      "theme": "bh_wurzel",
+      "variant": "kalt",
+      "variants": {
+        "kalt": "tilesets/bh_wurzel_kalt.png",
+        "warm": "tilesets/bh_wurzel_warm.png"
+      },
+      "transparent": false,
+      "columns": 8,
+      "rows": 5,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "tilesets/bh_wurzel_kalt.png",
+      "width": 128,
+      "height": 80,
+      "animations": {
+        "reif_wurzelpuls": {
+          "frames": [
+            17,
+            32,
+            33,
+            34
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        },
+        "reif_wand_tropfen": {
+          "frames": [
+            14,
+            35
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        },
+        "reif_tropfstelle": {
+          "frames": [
+            29,
+            36
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      },
+      "tileNames": [
+        "boden",
+        "boden_2",
+        "geroell",
+        "boden_wurzel_h",
+        "boden_wurzel_v",
+        "boden_pfuetze",
+        "boden_wandfuss",
+        "stufen",
+        "wand_oben",
+        "wand",
+        "wand_wurzel_a",
+        "wand_wurzel_b",
+        "wand_wurzelknoten",
+        "wand_wurzel_schild",
+        "wand_tropfen",
+        "wand_stuetze",
+        "wurzelwand_ol",
+        "wurzelwand_om",
+        "wurzelwand_or",
+        "wurzelwand_ul",
+        "wurzelwand_um",
+        "wurzelwand_ur",
+        "wurzel_spitze",
+        "wurzel_schild_haengend",
+        "decke_wurzeln",
+        "stollen_ecke_links",
+        "stollen_ecke_rechts",
+        "eingang_oben",
+        "eingang_unten",
+        "tropfstelle",
+        "kiste",
+        "boden_3",
+        "wurzelwand_om_f1",
+        "wurzelwand_om_f2",
+        "wurzelwand_om_f3",
+        "wand_tropfen_f2",
+        "tropfstelle_f2",
+        "wand_2",
+        "boden_wurzel_duenn",
+        "wand_wurzel_quer"
+      ],
+      "cells": {
+        "boden": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "boden_2": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "geroell": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "boden_wurzel_h": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "boden_wurzel_v": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "boden_pfuetze": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "boden_wandfuss": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "stufen": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "wand_oben": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wand": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wand_wurzel_a": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wand_wurzel_b": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wand_wurzelknoten": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wand_wurzel_schild": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wand_tropfen": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wand_stuetze": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wurzelwand_ol": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "wurzelwand_om": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "wurzelwand_or": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "wurzelwand_ul": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "wurzelwand_um": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "wurzelwand_ur": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "wurzel_spitze": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "wurzel_schild_haengend": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "decke_wurzeln": {
+          "index": 24,
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "stollen_ecke_links": {
+          "index": 25,
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "stollen_ecke_rechts": {
+          "index": 26,
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "eingang_oben": {
+          "index": 27,
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "eingang_unten": {
+          "index": 28,
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "tropfstelle": {
+          "index": 29,
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "kiste": {
+          "index": 30,
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "boden_3": {
+          "index": 31,
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "wurzelwand_om_f1": {
+          "index": 32,
+          "x": 0,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "wurzelwand_om_f2": {
+          "index": 33,
+          "x": 16,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "wurzelwand_om_f3": {
+          "index": 34,
+          "x": 32,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "wand_tropfen_f2": {
+          "index": 35,
+          "x": 48,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "tropfstelle_f2": {
+          "index": 36,
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "wand_2": {
+          "index": 37,
+          "x": 80,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "boden_wurzel_duenn": {
+          "index": 38,
+          "x": 96,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "wand_wurzel_quer": {
+          "index": 39,
+          "x": 112,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "stateSwitch": "Wechsel kalt/warm über die Mechanik Wärme und Rücklauf, nicht über die Tageszeit",
+      "sha256": "179dcdf40babd24eafa1120b4627db07c096c7059ca91a7897a6300a1ccf06ac",
+      "groundCells": [
+        "boden",
+        "boden_2",
+        "boden_3",
+        "wand",
+        "wand_2"
+      ],
+      "drawing": "hand-pixelled cell by cell on the 16x16 grid (v2), shared palette"
+    },
+    {
+      "id": "bh_wurzel_warm",
+      "kind": "tiles",
+      "theme": "bh_wurzel",
+      "variant": "warm",
+      "variants": {
+        "kalt": "tilesets/bh_wurzel_kalt.png",
+        "warm": "tilesets/bh_wurzel_warm.png"
+      },
+      "transparent": false,
+      "columns": 8,
+      "rows": 5,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "tilesets/bh_wurzel_warm.png",
+      "width": 128,
+      "height": 80,
+      "animations": {
+        "wurzelpuls": {
+          "frames": [
+            17,
+            32,
+            33,
+            34
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        },
+        "wand_tropfen": {
+          "frames": [
+            14,
+            35
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "tropfstelle": {
+          "frames": [
+            29,
+            36
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        }
+      },
+      "tileNames": [
+        "boden",
+        "boden_2",
+        "geroell",
+        "boden_wurzel_h",
+        "boden_wurzel_v",
+        "boden_pfuetze",
+        "boden_wandfuss",
+        "stufen",
+        "wand_oben",
+        "wand",
+        "wand_wurzel_a",
+        "wand_wurzel_b",
+        "wand_wurzelknoten",
+        "wand_wurzel_schild",
+        "wand_tropfen",
+        "wand_stuetze",
+        "wurzelwand_ol",
+        "wurzelwand_om",
+        "wurzelwand_or",
+        "wurzelwand_ul",
+        "wurzelwand_um",
+        "wurzelwand_ur",
+        "wurzel_spitze",
+        "wurzel_schild_haengend",
+        "decke_wurzeln",
+        "stollen_ecke_links",
+        "stollen_ecke_rechts",
+        "eingang_oben",
+        "eingang_unten",
+        "tropfstelle",
+        "kiste",
+        "boden_3",
+        "wurzelwand_om_f1",
+        "wurzelwand_om_f2",
+        "wurzelwand_om_f3",
+        "wand_tropfen_f2",
+        "tropfstelle_f2",
+        "wand_2",
+        "boden_wurzel_duenn",
+        "wand_wurzel_quer"
+      ],
+      "cells": {
+        "boden": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "boden_2": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "geroell": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "boden_wurzel_h": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "boden_wurzel_v": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "boden_pfuetze": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "boden_wandfuss": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "stufen": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "wand_oben": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wand": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wand_wurzel_a": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wand_wurzel_b": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wand_wurzelknoten": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wand_wurzel_schild": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wand_tropfen": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wand_stuetze": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wurzelwand_ol": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "wurzelwand_om": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "wurzelwand_or": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "wurzelwand_ul": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "wurzelwand_um": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "wurzelwand_ur": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "wurzel_spitze": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "wurzel_schild_haengend": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "decke_wurzeln": {
+          "index": 24,
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "stollen_ecke_links": {
+          "index": 25,
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "stollen_ecke_rechts": {
+          "index": 26,
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "eingang_oben": {
+          "index": 27,
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "eingang_unten": {
+          "index": 28,
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "tropfstelle": {
+          "index": 29,
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "kiste": {
+          "index": 30,
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "boden_3": {
+          "index": 31,
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "wurzelwand_om_f1": {
+          "index": 32,
+          "x": 0,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "wurzelwand_om_f2": {
+          "index": 33,
+          "x": 16,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "wurzelwand_om_f3": {
+          "index": 34,
+          "x": 32,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "wand_tropfen_f2": {
+          "index": 35,
+          "x": 48,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "tropfstelle_f2": {
+          "index": 36,
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "wand_2": {
+          "index": 37,
+          "x": 80,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "boden_wurzel_duenn": {
+          "index": 38,
+          "x": 96,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "wand_wurzel_quer": {
+          "index": 39,
+          "x": 112,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "stateSwitch": "Wechsel kalt/warm über die Mechanik Wärme und Rücklauf, nicht über die Tageszeit",
+      "sha256": "3a55cccd1f8a7e7fd3c9fed89fd2a8d58aa825cb296cc827496488475175b34c",
+      "groundCells": [
+        "boden",
+        "boden_2",
+        "boden_3",
+        "wand",
+        "wand_2"
+      ],
+      "drawing": "hand-pixelled cell by cell on the 16x16 grid (v2), shared palette"
+    },
+    {
+      "id": "bh_klinik_kalt",
+      "kind": "tiles",
+      "theme": "bh_klinik",
+      "variant": "kalt",
+      "variants": {
+        "kalt": "tilesets/bh_klinik_kalt.png",
+        "warm": "tilesets/bh_klinik_warm.png"
+      },
+      "transparent": false,
+      "columns": 8,
+      "rows": 5,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "tilesets/bh_klinik_kalt.png",
+      "width": 128,
+      "height": 80,
+      "animations": {
+        "reif_wurzeladern": {
+          "frames": [
+            1,
+            32,
+            33,
+            34
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      },
+      "tileNames": [
+        "pumpen_boden",
+        "pumpen_boden_adern",
+        "labor_fliesen",
+        "labor_fliesen_adern",
+        "parkett",
+        "parkett_2",
+        "stollen_boden",
+        "stollen_boden_adern",
+        "pumpe_oben",
+        "pumpe_unten",
+        "manometer",
+        "gusswand_oben",
+        "gusswand",
+        "rohr_gross_v",
+        "hebelbank",
+        "laufsteg",
+        "sudkessel_fundament_links",
+        "sudkessel_fundament_rechts",
+        "labortisch_links",
+        "labortisch_rechts",
+        "abzug",
+        "fliesenwand_oben",
+        "fliesenwand",
+        "ausguss",
+        "zeichenschrank_oben",
+        "zeichenschrank_unten",
+        "zeichenpult",
+        "tapete_oben",
+        "tapete",
+        "kamin",
+        "stollen_eingang_oben",
+        "stollen_eingang_unten",
+        "pumpen_boden_adern_f1",
+        "pumpen_boden_adern_f2",
+        "pumpen_boden_adern_f3",
+        "parkett_adern",
+        "stollen_wand",
+        "stollen_stuetze",
+        "wandlampe",
+        "gittertor"
+      ],
+      "cells": {
+        "pumpen_boden": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "pumpen_boden_adern": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "labor_fliesen": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "labor_fliesen_adern": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "parkett": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "parkett_2": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "stollen_boden": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "stollen_boden_adern": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "pumpe_oben": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "pumpe_unten": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "manometer": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "gusswand_oben": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "gusswand": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "rohr_gross_v": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "hebelbank": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "laufsteg": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "sudkessel_fundament_links": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "sudkessel_fundament_rechts": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "labortisch_links": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "labortisch_rechts": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "abzug": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "fliesenwand_oben": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "fliesenwand": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "ausguss": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "zeichenschrank_oben": {
+          "index": 24,
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "zeichenschrank_unten": {
+          "index": 25,
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "zeichenpult": {
+          "index": 26,
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "tapete_oben": {
+          "index": 27,
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "tapete": {
+          "index": 28,
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "kamin": {
+          "index": 29,
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "stollen_eingang_oben": {
+          "index": 30,
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "stollen_eingang_unten": {
+          "index": 31,
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "pumpen_boden_adern_f1": {
+          "index": 32,
+          "x": 0,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "pumpen_boden_adern_f2": {
+          "index": 33,
+          "x": 16,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "pumpen_boden_adern_f3": {
+          "index": 34,
+          "x": 32,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "parkett_adern": {
+          "index": 35,
+          "x": 48,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "stollen_wand": {
+          "index": 36,
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "stollen_stuetze": {
+          "index": 37,
+          "x": 80,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "wandlampe": {
+          "index": 38,
+          "x": 96,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "gittertor": {
+          "index": 39,
+          "x": 112,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "stateSwitch": "Wechsel kalt/warm über die Mechanik Wärme und Rücklauf, nicht über die Tageszeit",
+      "sha256": "929a6ffd555429121ab4acd34beda80f3d7aa0326867023237d0ec3878fd008a",
+      "groundCells": [
+        "pumpen_boden",
+        "pumpen_boden_adern",
+        "labor_fliesen",
+        "parkett",
+        "parkett_2",
+        "stollen_boden",
+        "gusswand",
+        "tapete",
+        "stollen_wand",
+        "fliesenwand"
+      ],
+      "drawing": "hand-pixelled cell by cell on the 16x16 grid (v2), shared palette"
+    },
+    {
+      "id": "bh_klinik_warm",
+      "kind": "tiles",
+      "theme": "bh_klinik",
+      "variant": "warm",
+      "variants": {
+        "kalt": "tilesets/bh_klinik_kalt.png",
+        "warm": "tilesets/bh_klinik_warm.png"
+      },
+      "transparent": false,
+      "columns": 8,
+      "rows": 5,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "tilesets/bh_klinik_warm.png",
+      "width": 128,
+      "height": 80,
+      "animations": {
+        "wurzeladern": {
+          "frames": [
+            1,
+            32,
+            33,
+            34
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        }
+      },
+      "tileNames": [
+        "pumpen_boden",
+        "pumpen_boden_adern",
+        "labor_fliesen",
+        "labor_fliesen_adern",
+        "parkett",
+        "parkett_2",
+        "stollen_boden",
+        "stollen_boden_adern",
+        "pumpe_oben",
+        "pumpe_unten",
+        "manometer",
+        "gusswand_oben",
+        "gusswand",
+        "rohr_gross_v",
+        "hebelbank",
+        "laufsteg",
+        "sudkessel_fundament_links",
+        "sudkessel_fundament_rechts",
+        "labortisch_links",
+        "labortisch_rechts",
+        "abzug",
+        "fliesenwand_oben",
+        "fliesenwand",
+        "ausguss",
+        "zeichenschrank_oben",
+        "zeichenschrank_unten",
+        "zeichenpult",
+        "tapete_oben",
+        "tapete",
+        "kamin",
+        "stollen_eingang_oben",
+        "stollen_eingang_unten",
+        "pumpen_boden_adern_f1",
+        "pumpen_boden_adern_f2",
+        "pumpen_boden_adern_f3",
+        "parkett_adern",
+        "stollen_wand",
+        "stollen_stuetze",
+        "wandlampe",
+        "gittertor"
+      ],
+      "cells": {
+        "pumpen_boden": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "pumpen_boden_adern": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "labor_fliesen": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "labor_fliesen_adern": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "parkett": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "parkett_2": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "stollen_boden": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "stollen_boden_adern": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "pumpe_oben": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "pumpe_unten": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "manometer": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "gusswand_oben": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "gusswand": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "rohr_gross_v": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "hebelbank": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "laufsteg": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "sudkessel_fundament_links": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "sudkessel_fundament_rechts": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "labortisch_links": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "labortisch_rechts": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "abzug": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "fliesenwand_oben": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "fliesenwand": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "ausguss": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "zeichenschrank_oben": {
+          "index": 24,
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "zeichenschrank_unten": {
+          "index": 25,
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "zeichenpult": {
+          "index": 26,
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "tapete_oben": {
+          "index": 27,
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "tapete": {
+          "index": 28,
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "kamin": {
+          "index": 29,
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "stollen_eingang_oben": {
+          "index": 30,
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "stollen_eingang_unten": {
+          "index": 31,
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "pumpen_boden_adern_f1": {
+          "index": 32,
+          "x": 0,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "pumpen_boden_adern_f2": {
+          "index": 33,
+          "x": 16,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "pumpen_boden_adern_f3": {
+          "index": 34,
+          "x": 32,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "parkett_adern": {
+          "index": 35,
+          "x": 48,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "stollen_wand": {
+          "index": 36,
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "stollen_stuetze": {
+          "index": 37,
+          "x": 80,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "wandlampe": {
+          "index": 38,
+          "x": 96,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "gittertor": {
+          "index": 39,
+          "x": 112,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "stateSwitch": "Wechsel kalt/warm über die Mechanik Wärme und Rücklauf, nicht über die Tageszeit",
+      "sha256": "26cc748d2a212a4259514fe3f9f43522a3d3d27ff1e7f27359dca1d590ea8296",
+      "groundCells": [
+        "pumpen_boden",
+        "pumpen_boden_adern",
+        "labor_fliesen",
+        "parkett",
+        "parkett_2",
+        "stollen_boden",
+        "gusswand",
+        "tapete",
+        "stollen_wand",
+        "fliesenwand"
+      ],
+      "drawing": "hand-pixelled cell by cell on the 16x16 grid (v2), shared palette"
+    },
+    {
+      "id": "bh_kutschenhof",
+      "kind": "props",
+      "transparent": true,
+      "columns": 16,
+      "rows": 8,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "props/bh_kutschenhof.png",
+      "width": 256,
+      "height": 128,
+      "animations": {},
+      "regions": {
+        "postkutsche_0": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 32
+        },
+        "postkutsche_1": {
+          "x": 64,
+          "y": 0,
+          "width": 64,
+          "height": 32
+        },
+        "gepaeckkarren_blumenerde": {
+          "x": 128,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "patientenstuhl": {
+          "x": 160,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "hinweistafel_pfirsich": {
+          "x": 176,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "wartebank_frost": {
+          "x": 208,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "dampfentladung_0": {
+          "x": 0,
+          "y": 32,
+          "width": 48,
+          "height": 48
+        },
+        "dampfentladung_1": {
+          "x": 48,
+          "y": 32,
+          "width": 48,
+          "height": 48
+        },
+        "dampfentladung_2": {
+          "x": 96,
+          "y": 32,
+          "width": 48,
+          "height": 48
+        },
+        "dampfentladung_3": {
+          "x": 144,
+          "y": 32,
+          "width": 48,
+          "height": 48
+        },
+        "dampfentladung_4": {
+          "x": 192,
+          "y": 32,
+          "width": 48,
+          "height": 48
+        },
+        "dampfentladung_5": {
+          "x": 0,
+          "y": 80,
+          "width": 48,
+          "height": 48
+        }
+      },
+      "regionAnimations": {
+        "pferde": {
+          "frames": [
+            "postkutsche_0",
+            "postkutsche_1"
+          ],
+          "frameRate": 3,
+          "repeat": -1
+        },
+        "dampfentladung": {
+          "frames": [
+            "dampfentladung_0",
+            "dampfentladung_1",
+            "dampfentladung_2",
+            "dampfentladung_3",
+            "dampfentladung_4",
+            "dampfentladung_5"
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "anchor": "bottom-center of each region",
+      "sha256": "dccddef51af8a70330873c31725685c244e19928cd56570de823836e1c841809"
+    },
+    {
+      "id": "bh_kesselgrund",
+      "kind": "props",
+      "transparent": true,
+      "columns": 16,
+      "rows": 6,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "props/bh_kesselgrund.png",
+      "width": 256,
+      "height": 96,
+      "animations": {},
+      "regions": {
+        "ventil_zu": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "ventil_kalt": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "ventil_warm": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "ventil_drehen_0": {
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "ventil_drehen_1": {
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "ventil_drehen_2": {
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "ventil_drehen_3": {
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "wartungsschrank": {
+          "x": 112,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "kohlenbunker_leer": {
+          "x": 144,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "kohlenbunker_voll": {
+          "x": 176,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "druckanzeige_niedrig": {
+          "x": 208,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "druckanzeige_hoch": {
+          "x": 224,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "buegelbrett": {
+          "x": 0,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "waeschemangel": {
+          "x": 32,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "feuerstelle_0": {
+          "x": 64,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "feuerstelle_1": {
+          "x": 96,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "fallwand": {
+          "x": 128,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "kiste": {
+          "x": 160,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "bett": {
+          "x": 176,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "lager": {
+          "x": 208,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "ventiltafel": {
+          "x": 0,
+          "y": 64,
+          "width": 32,
+          "height": 32
+        },
+        "steckmarke_zu": {
+          "x": 32,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "steckmarke_kalt": {
+          "x": 48,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "steckmarke_warm": {
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "regionAnimations": {
+        "ventil_drehen": {
+          "frames": [
+            "ventil_drehen_0",
+            "ventil_drehen_1",
+            "ventil_drehen_2",
+            "ventil_drehen_3"
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "feuerstelle": {
+          "frames": [
+            "feuerstelle_0",
+            "feuerstelle_1"
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        }
+      },
+      "anchor": "bottom-center of each region",
+      "sha256": "fe350c1d0379d09ea4729201fbe20c2035b8ff660e7816443e27d9e4c5ace226"
+    },
+    {
+      "id": "bh_promenade",
+      "kind": "props",
+      "transparent": true,
+      "columns": 16,
+      "rows": 3,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "props/bh_promenade.png",
+      "width": 256,
+      "height": 48,
+      "animations": {},
+      "regions": {
+        "musikpavillon": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 48
+        },
+        "schreibpult_postkarten": {
+          "x": 64,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "palme_kalt": {
+          "x": 96,
+          "y": 0,
+          "width": 32,
+          "height": 48
+        },
+        "palme_warm": {
+          "x": 128,
+          "y": 0,
+          "width": 32,
+          "height": 48
+        },
+        "gaslaterne": {
+          "x": 160,
+          "y": 0,
+          "width": 16,
+          "height": 48
+        },
+        "kurgaeste_bank": {
+          "x": 176,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "kurkiosk": {
+          "x": 208,
+          "y": 0,
+          "width": 32,
+          "height": 48
+        }
+      },
+      "regionAnimations": {},
+      "anchor": "bottom-center of each region",
+      "sha256": "7ef830c4825a68702210c99a37cd1428af1ed7bfcf983dfb9384efedbb1d94c8"
+    },
+    {
+      "id": "bh_glasgaerten",
+      "kind": "props",
+      "transparent": true,
+      "columns": 16,
+      "rows": 2,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "props/bh_glasgaerten.png",
+      "width": 256,
+      "height": 32,
+      "animations": {},
+      "regions": {
+        "beet_schild": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "beet_schild_umgedreht": {
+          "x": 32,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "saatbuch_pult": {
+          "x": 64,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "veredelungsschere_gross": {
+          "x": 96,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "kapselhalter_leer": {
+          "x": 128,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "kapselhalter_kapsel": {
+          "x": 144,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "sprechende_pflanze_0": {
+          "x": 160,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "sprechende_pflanze_1": {
+          "x": 176,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "sprechende_pflanze_2": {
+          "x": 192,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "sprechende_pflanze_3": {
+          "x": 208,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        }
+      },
+      "regionAnimations": {
+        "sprechende_pflanze": {
+          "frames": [
+            "sprechende_pflanze_0",
+            "sprechende_pflanze_1",
+            "sprechende_pflanze_2",
+            "sprechende_pflanze_3"
+          ],
+          "frameRate": 4,
+          "repeat": 0
+        }
+      },
+      "anchor": "bottom-center of each region",
+      "sha256": "fe50676d6de34e7b2f1421571ccc812e64850441dd8dca86db2bc25782de445b"
+    },
+    {
+      "id": "bh_stillenhaeuser",
+      "kind": "props",
+      "transparent": true,
+      "columns": 16,
+      "rows": 2,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "props/bh_stillenhaeuser.png",
+      "width": 256,
+      "height": 32,
+      "animations": {},
+      "regions": {
+        "bett_tafel_radiert": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "teewagen": {
+          "x": 32,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "ennas_heft": {
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "speisesaal_tisch": {
+          "x": 80,
+          "y": 0,
+          "width": 48,
+          "height": 32
+        },
+        "speisesaal_stuehle": {
+          "x": 128,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "kinderzeichnung": {
+          "x": 160,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        }
+      },
+      "regionAnimations": {},
+      "anchor": "bottom-center of each region",
+      "sha256": "049b553699d9aa6b0612c191d7070552432fcf699b71c9b3275f1d242ac8cfee"
+    },
+    {
+      "id": "bh_wurzelkranz",
+      "kind": "props",
+      "transparent": true,
+      "columns": 16,
+      "rows": 6,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "props/bh_wurzelkranz.png",
+      "width": 256,
+      "height": 96,
+      "animations": {},
+      "regions": {
+        "pumpenrad_0": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "pumpenrad_1": {
+          "x": 32,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "pumpenrad_2": {
+          "x": 64,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "pumpenrad_3": {
+          "x": 96,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "sudkessel_0": {
+          "x": 128,
+          "y": 0,
+          "width": 32,
+          "height": 48
+        },
+        "sudkessel_1": {
+          "x": 160,
+          "y": 0,
+          "width": 32,
+          "height": 48
+        },
+        "zeichentisch_fundamentplan": {
+          "x": 192,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "verteilanlage_zu": {
+          "x": 0,
+          "y": 48,
+          "width": 64,
+          "height": 48
+        },
+        "verteilanlage_offen": {
+          "x": 64,
+          "y": 48,
+          "width": 64,
+          "height": 48
+        },
+        "verteilanlage_ruecklauf": {
+          "x": 128,
+          "y": 48,
+          "width": 64,
+          "height": 48
+        },
+        "ruecklauf_versiegelt": {
+          "x": 192,
+          "y": 48,
+          "width": 32,
+          "height": 32
+        },
+        "ruecklauf_offen": {
+          "x": 224,
+          "y": 48,
+          "width": 32,
+          "height": 32
+        }
+      },
+      "regionAnimations": {
+        "pumpenrad": {
+          "frames": [
+            "pumpenrad_0",
+            "pumpenrad_1",
+            "pumpenrad_2",
+            "pumpenrad_3"
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "sudkessel": {
+          "frames": [
+            "sudkessel_0",
+            "sudkessel_1"
+          ],
+          "frameRate": 3,
+          "repeat": -1
+        }
+      },
+      "anchor": "bottom-center of each region",
+      "sha256": "e56c0a4a16fafb18e65aeba0b612b83d9238f301602b31cae057c90835c2882e"
+    },
+    {
+      "id": "bh_waerme",
+      "kind": "effect",
+      "transparent": true,
+      "columns": 16,
+      "rows": 5,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "fx/bh_waerme.png",
+      "width": 256,
+      "height": 80,
+      "animations": {},
+      "regions": {
+        "dampf_rohr_0": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "dampf_rohr_1": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "dampf_rohr_2": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "dampf_rohr_3": {
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kondensat_schrift_0": {
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kondensat_schrift_1": {
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kondensat_schrift_2": {
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kondensat_schrift_3": {
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kondensat_schrift_4": {
+          "x": 128,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kondensat_schrift_5": {
+          "x": 144,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "reif_uebergang_0": {
+          "x": 160,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "reif_uebergang_1": {
+          "x": 176,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "reif_uebergang_2": {
+          "x": 192,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "reif_uebergang_3": {
+          "x": 208,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "ruecklauf_puls_0": {
+          "x": 224,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "ruecklauf_puls_1": {
+          "x": 240,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "ruecklauf_puls_2": {
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "ruecklauf_puls_3": {
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "leitung_warm_h": {
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "leitung_warm_v": {
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "leitung_warm_ecke": {
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "leitung_warm_t": {
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "leitung_kalt_h": {
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "leitung_kalt_v": {
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "leitung_kalt_ecke": {
+          "x": 128,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "leitung_kalt_t": {
+          "x": 144,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "leitung_belastet_h": {
+          "x": 160,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "leitung_belastet_v": {
+          "x": 176,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "leitung_belastet_ecke": {
+          "x": 192,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "leitung_belastet_t": {
+          "x": 208,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "kondensat_sperre_0": {
+          "x": 224,
+          "y": 16,
+          "width": 32,
+          "height": 32
+        },
+        "kondensat_sperre_1": {
+          "x": 0,
+          "y": 48,
+          "width": 32,
+          "height": 32
+        },
+        "kondensat_sperre_2": {
+          "x": 32,
+          "y": 48,
+          "width": 32,
+          "height": 32
+        },
+        "kondensat_sperre_3": {
+          "x": 64,
+          "y": 48,
+          "width": 32,
+          "height": 32
+        }
+      },
+      "regionAnimations": {
+        "dampf_rohr": {
+          "frames": [
+            "dampf_rohr_0",
+            "dampf_rohr_1",
+            "dampf_rohr_2",
+            "dampf_rohr_3"
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "kondensat_schrift": {
+          "frames": [
+            "kondensat_schrift_0",
+            "kondensat_schrift_1",
+            "kondensat_schrift_2",
+            "kondensat_schrift_3",
+            "kondensat_schrift_4",
+            "kondensat_schrift_5"
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        },
+        "reif_uebergang": {
+          "frames": [
+            "reif_uebergang_0",
+            "reif_uebergang_1",
+            "reif_uebergang_2",
+            "reif_uebergang_3"
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        },
+        "ruecklauf_puls": {
+          "frames": [
+            "ruecklauf_puls_0",
+            "ruecklauf_puls_1",
+            "ruecklauf_puls_2",
+            "ruecklauf_puls_3"
+          ],
+          "frameRate": 5,
+          "repeat": -1
+        },
+        "kondensat_sperre": {
+          "frames": [
+            "kondensat_sperre_0",
+            "kondensat_sperre_1",
+            "kondensat_sperre_2",
+            "kondensat_sperre_3"
+          ],
+          "frameRate": 5,
+          "repeat": -1
+        }
+      },
+      "pipeOverlayTiles": {
+        "warm": "#e8b860",
+        "kalt": "#71858b",
+        "belastet": "#8c7295"
+      },
+      "sha256": "8e543f5d541b7a9816ea2764fc33dc866165899d3d2371baa253ae15a2a7eea7",
+      "drawing": "frames drawn by hand as pixel maps (v2)"
+    },
+    {
+      "id": "bh_ankunft",
+      "kind": "still",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "ui/scenes/bh_ankunft.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "46dde5c732cdd10d3957d2a3e0900b00d812fd2920a345db1ef7f6007d4d23a4"
+    },
+    {
+      "id": "kapitel5_karte",
+      "kind": "still",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "ui/scenes/kapitel5_karte.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "2e40838ec93d13ff1637b26d5c3c4a6841d85a987c4da6e7a1184d9964d98a06"
+    },
+    {
+      "id": "bh_trockenraum",
+      "kind": "still",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "file": "ui/scenes/bh_trockenraum.png",
+      "width": 240,
+      "height": 135,
+      "animations": {},
+      "sha256": "280edbff63a9b0306c85c4608d95c0cfc0314d33b8cad2fdbd7b846251e61159"
+    },
+    {
+      "id": "bh_pfirsich",
+      "kind": "still",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "file": "ui/scenes/bh_pfirsich.png",
+      "width": 240,
+      "height": 135,
+      "animations": {},
+      "sha256": "36e7918d8bff225896ba2e454d6e27d295674fbe43bc127d397ad33b6a393a1b"
+    },
+    {
+      "id": "bh_ende_wahl",
+      "kind": "still",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "file": "ui/scenes/bh_ende_wahl.png",
+      "width": 240,
+      "height": 135,
+      "animations": {},
+      "sha256": "ce73f222b332597219b8a3d8376db09dbfcfa196b319125bbe71c218bd215fba",
+      "ending": "bha_end_wahl"
+    },
+    {
+      "id": "bh_ende_winter",
+      "kind": "still",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "file": "ui/scenes/bh_ende_winter.png",
+      "width": 240,
+      "height": 135,
+      "animations": {},
+      "sha256": "c107b22017e51d2fea376be628440eb07c1cc595742e5250dbf3509c890d13d5",
+      "ending": "bha_end_winter"
+    },
+    {
+      "id": "bh_ende_verwahrt",
+      "kind": "still",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "file": "ui/scenes/bh_ende_verwahrt.png",
+      "width": 240,
+      "height": 135,
+      "animations": {},
+      "sha256": "34e3efaa8d7723b0a33c8ad38f2a294859924579e9161ccd0bcb7a6f68cca475",
+      "ending": "bha_end_verwahrt"
+    },
+    {
+      "id": "bh_ende_schmerzlos",
+      "kind": "still",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "file": "ui/scenes/bh_ende_schmerzlos.png",
+      "width": 240,
+      "height": 135,
+      "animations": {},
+      "sha256": "16011e8d42b7ce2d1c3634f69ea057a56f2a7e4475d732214f140d8828749a4c",
+      "ending": "bha_end_schmerzlos"
+    },
+    {
+      "id": "bh_ende_schmerzlos_lichtmeister",
+      "kind": "still",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "file": "ui/scenes/bh_ende_schmerzlos_lichtmeister.png",
+      "width": 240,
+      "height": 135,
+      "animations": {},
+      "sha256": "55f85f67bbe8adacef58ca370250a3b052607a4e65ac223a9be36ef3ae7eb306",
+      "condition": "k2_end_lichtmeister",
+      "ending": "bha_end_schmerzlos"
+    },
+    {
+      "id": "bg_bh_kutschenhof",
+      "kind": "background",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "battle/bg_bh_kutschenhof.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "5e5e67c56787e558b42f40ab44ba75ee99dd00cbf61205893760deff842eb13c",
+      "groundStrip": {
+        "x": 0,
+        "y": 200,
+        "width": 480,
+        "height": 70
+      }
+    },
+    {
+      "id": "bg_bh_kesselgrund_kalt",
+      "kind": "background",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "battle/bg_bh_kesselgrund_kalt.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "8a2ef29f645e45d602a2fc00a8085de033af49b74391f3ba833ccde800f05cc6",
+      "groundStrip": {
+        "x": 0,
+        "y": 200,
+        "width": 480,
+        "height": 70
+      },
+      "variant": "kalt",
+      "variants": {
+        "kalt": "battle/bg_bh_kesselgrund_kalt.png",
+        "warm": "battle/bg_bh_kesselgrund_warm.png"
+      }
+    },
+    {
+      "id": "bg_bh_kesselgrund_warm",
+      "kind": "background",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "battle/bg_bh_kesselgrund_warm.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "919a6cfb034bea7bacd9642740b014f7f7409af6c05c16153c81050b289be2f8",
+      "groundStrip": {
+        "x": 0,
+        "y": 200,
+        "width": 480,
+        "height": 70
+      },
+      "variant": "warm",
+      "variants": {
+        "kalt": "battle/bg_bh_kesselgrund_kalt.png",
+        "warm": "battle/bg_bh_kesselgrund_warm.png"
+      }
+    },
+    {
+      "id": "bg_bh_promenade",
+      "kind": "background",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "battle/bg_bh_promenade.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "9980b90e64d5a9415a50fd65623895e2334c85abc706e1724c39260cef8172ca",
+      "groundStrip": {
+        "x": 0,
+        "y": 200,
+        "width": 480,
+        "height": 70
+      }
+    },
+    {
+      "id": "bg_bh_glasgaerten_kalt",
+      "kind": "background",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "battle/bg_bh_glasgaerten_kalt.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "a75f228ea767c3971e174ac43628f022eefbbe0b80f779270df32ad179cef301",
+      "groundStrip": {
+        "x": 0,
+        "y": 200,
+        "width": 480,
+        "height": 70
+      },
+      "variant": "kalt",
+      "variants": {
+        "kalt": "battle/bg_bh_glasgaerten_kalt.png",
+        "warm": "battle/bg_bh_glasgaerten_warm.png"
+      }
+    },
+    {
+      "id": "bg_bh_glasgaerten_warm",
+      "kind": "background",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "battle/bg_bh_glasgaerten_warm.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "7753d90c0350f47804dbc8cc1d2ba53fad41a3e5310ee345b5d8d42cf2b04033",
+      "groundStrip": {
+        "x": 0,
+        "y": 200,
+        "width": 480,
+        "height": 70
+      },
+      "variant": "warm",
+      "variants": {
+        "kalt": "battle/bg_bh_glasgaerten_kalt.png",
+        "warm": "battle/bg_bh_glasgaerten_warm.png"
+      }
+    },
+    {
+      "id": "bg_bh_stillenhaeuser",
+      "kind": "background",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "battle/bg_bh_stillenhaeuser.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "da8f1e49f10dcda02d5cd3c1929e645d82a14840d3fafa4a4a46999b53b7eaab",
+      "groundStrip": {
+        "x": 0,
+        "y": 200,
+        "width": 480,
+        "height": 70
+      }
+    },
+    {
+      "id": "bg_bh_wurzelkranz",
+      "kind": "background",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "battle/bg_bh_wurzelkranz.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "db002ba2d8578a78cb4d8c676132f8f0752a7fdd47c4660ca8250d592afb9170",
+      "groundStrip": {
+        "x": 0,
+        "y": 200,
+        "width": 480,
+        "height": 70
+      }
+    },
+    {
+      "id": "bg_bh_verteilanlage",
+      "kind": "background",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "battle/bg_bh_verteilanlage.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "bd8dd5d76ab35d105c2ac489a3299cfaf965dd4ed0c9d99cb206f634ef90135a",
+      "groundStrip": {
+        "x": 0,
+        "y": 200,
+        "width": 480,
+        "height": 70
+      }
+    },
+    {
+      "id": "bh_karte",
+      "kind": "map",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "ui/bh_karte.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "3a6b5cb5d734c0d3287e15ecebe6633f721b61e50c01c4cd4de9052c7fe8067a",
+      "pins": {
+        "bh_kutschenhof": {
+          "x": 75,
+          "y": 226
+        },
+        "bh_kesselgrund": {
+          "x": 282,
+          "y": 206
+        },
+        "bh_winterpromenade": {
+          "x": 328,
+          "y": 122
+        },
+        "bh_glasgaerten": {
+          "x": 112,
+          "y": 50
+        },
+        "bh_stillenhaeuser": {
+          "x": 170,
+          "y": 124
+        },
+        "bh_wurzelkranz": {
+          "x": 305,
+          "y": 48
+        },
+        "bh_wurzelkammer": {
+          "x": 430,
+          "y": 122
+        }
+      }
+    },
+    {
+      "id": "bh_marker",
+      "kind": "markers",
+      "transparent": true,
+      "columns": 6,
+      "rows": 3,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "ui/bh_marker.png",
+      "width": 96,
+      "height": 48,
+      "animations": {},
+      "baselineExclusive": 15,
+      "regions": {
+        "bh_kutschenhof": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "bh_kesselgrund": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "bh_winterpromenade": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "bh_glasgaerten": {
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "bh_stillenhaeuser": {
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "bh_wurzelkranz": {
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "bh_buegelraum": {
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "bh_kutschenhalle": {
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "bh_pavillon": {
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "bh_verkaufshalle": {
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "bh_speisesaal": {
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "bh_aktenraum": {
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "bh_labor": {
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "bh_mutterhaus": {
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "bh_verteilanlage": {
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "bh_kaltes_palmhaus": {
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "bh_verlassene_waescherei": {
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "bh_wurzelkammer": {
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "sha256": "59a199be48dc006566373b85fa63e433652a0bc358e701a41b523867a037295a"
+    },
+    {
+      "id": "bh_karte_nebel",
+      "kind": "overlay",
+      "transparent": true,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "ui/bh_karte_nebel.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "f3977117d07afe5d2e0928038bcdd4246743477aac09eb20aca2e421381b61f8",
+      "alignsWith": "ui/bh_karte.png",
+      "style": "flat cloud banks like ui/ds_karte_nebel.png, clearings over the six quarters and the Wurzelkammer"
+    },
+    {
+      "id": "bh_karte_leitungen",
+      "kind": "overlay",
+      "transparent": true,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "ui/bh_karte_leitungen.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "c0be6e09f85c33a81ff11612695aa123c805a7583f6b2a001ad00dbdd0da4146",
+      "alignsWith": "ui/bh_karte.png",
+      "circuits": {
+        "warm": "#e8b860",
+        "kalt": "#71858b",
+        "belastet": "#8c7295"
+      },
+      "segments": [
+        {
+          "circuit": "warm",
+          "from": [
+            282,
+            206
+          ],
+          "to": [
+            237,
+            162
+          ]
+        },
+        {
+          "circuit": "warm",
+          "from": [
+            237,
+            162
+          ],
+          "to": [
+            237,
+            89
+          ]
+        },
+        {
+          "circuit": "warm",
+          "from": [
+            237,
+            162
+          ],
+          "to": [
+            328,
+            122
+          ]
+        },
+        {
+          "circuit": "warm",
+          "from": [
+            237,
+            162
+          ],
+          "to": [
+            170,
+            124
+          ]
+        },
+        {
+          "circuit": "kalt",
+          "from": [
+            75,
+            226
+          ],
+          "to": [
+            229,
+            170
+          ]
+        },
+        {
+          "circuit": "kalt",
+          "from": [
+            229,
+            89
+          ],
+          "to": [
+            112,
+            50
+          ]
+        },
+        {
+          "circuit": "kalt",
+          "from": [
+            229,
+            170
+          ],
+          "to": [
+            229,
+            89
+          ]
+        },
+        {
+          "circuit": "belastet",
+          "from": [
+            245,
+            81
+          ],
+          "to": [
+            305,
+            48
+          ]
+        },
+        {
+          "circuit": "belastet",
+          "from": [
+            305,
+            48
+          ],
+          "to": [
+            430,
+            122
+          ]
+        },
+        {
+          "circuit": "belastet",
+          "from": [
+            245,
+            156
+          ],
+          "to": [
+            245,
+            81
+          ]
+        }
+      ]
+    }
+  ]
+}
