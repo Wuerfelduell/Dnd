@@ -26,14 +26,19 @@ function withRitualHaerte(n, ritual) {
   const h = HOCH_RITUAL[n];
   if (!h || !ritual) return ritual;
   const { min_wins, ...rest } = h;
-  return { ...ritual, ...rest, requires: { ...(ritual.requires ?? {}), ...(min_wins ? { min_wins } : {}) } };
+  // Der Schwellenwächter (Seq 4) steht laut CO/CP im Schwellenring von Dunscar: dort geht das Ritual ebenfalls
+  const also = Number(n) === 4 && ritual.map !== 'ds_schwellenring' ? [...new Set([...(ritual.also_maps ?? []), 'ds_schwellenring'])] : ritual.also_maps;
+  return { ...ritual, ...rest, ...(also ? { also_maps: also } : {}), requires: { ...(ritual.requires ?? {}), ...(min_wins ? { min_wins } : {}) } };
 }
 const hochSeqs = (pid, seqs) => Object.fromEntries(Object.entries(seqs).map(([n, sd]) => [n, withDurchbruch(pid, n, { ...sd, ritual: withRitualHaerte(n, sd.ritual) })]));
 
-/** Schwellenwächter: der Gegner des schweren Rituals (Sequenz 4 und 2) je Pfad, aus dem Grundsatz des Pfades geformt. */
+/**
+ * Wächter der schweren Rituale je Pfad: hg_schwellenwaechter_<pfad> (Sequenz 4) und hg_grenzwaechter_<pfad> (Sequenz 2),
+ * Ids nach den Codex-Paketen CO/CP. Bis deren Sheets, Phasen und Dialoge eingebaut sind, leihen sie sich Dunscarer Boss-Sheets.
+ */
 export const SCHWELLE = {
-  4: { sheet: 'enemy_schwellenhund', hp: 400, armor: 3, dmg: [16, 20, 14], titel: 'Schwellenwächter', chapter: 3 },
-  2: { sheet: 'enemy_unterschicht', hp: 900, armor: 4, dmg: [26, 32, 23], titel: 'Schwellenrichter', chapter: 4 },
+  4: { waechter: 'hg_schwellenwaechter', sheet: 'enemy_schwellenhund', hp: 400, armor: 3, dmg: [16, 20, 14], titel: 'Schwellenwächter', chapter: 3 },
+  2: { waechter: 'hg_grenzwaechter', sheet: 'enemy_unterschicht', hp: 900, armor: 4, dmg: [26, 32, 23], titel: 'Grenzwächter', chapter: 4 },
 };
 export function schwelleEncounter(pid, p, seq) {
   const w = SCHWELLE[seq];
@@ -41,7 +46,7 @@ export function schwelleEncounter(pid, p, seq) {
   const [a, b, c] = w.dmg;
   return {
     name: `${w.titel} ${p.name.replace('Pfad der', 'der').replace('Pfad des', 'des')}`,
-    sprite: 'wild', sheet: w.sheet, boss: true, occult: true, fleeable: true, hp: w.hp, armor: w.armor, max_round_dmg: 0.2, ramp: 0.02, chapter: w.chapter,
+    sprite: 'wild', sheet: w.sheet, waechter: w.waechter, pathway: pid, boss: true, occult: true, fleeable: true, hp: w.hp, armor: w.armor, max_round_dmg: 0.2, ramp: 0.02, chapter: w.chapter,
     intro: `Aus dem Nebel tritt etwas, das aussieht wie dein Grundsatz, wenn er Zähne hätte. „${p.principle}“, sagt es mit deiner Stimme. „Zeig mir, dass du es meinst.“`,
     attacks: [
       { name: `Prüfung ${was}: zwei Schläge`, damage: a, hits: [1100, 1800] },

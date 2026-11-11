@@ -98,7 +98,7 @@ export const HALBGOTT_EIGENHEIT = {
 /**
  * Was die Rituale der hohen Stufen über die offene Probe hinaus verlangen. Sequenz 4 und 2 sind die
  * schweren: Tribut, viele Siege und Schlussfolgerungen, volle Nerven und ein Kampf gegen den
- * Schwellenwächter des eigenen Pfades (`ordeal`, Gegner schwelle_<pfad>_<seq>, siehe data/sequenzen.js).
+ * Schwellenwächter des eigenen Pfades (`ordeal`, Gegner hg_schwellenwaechter_<pfad> und hg_grenzwaechter_<pfad>, siehe data/sequenzen.js).
  */
 export const HOCH_RITUAL = {
   4: { tribute: 600, min_wins: 40, min_conclusions: 10, min_nerves: 80, ordeal: true },
@@ -106,8 +106,18 @@ export const HOCH_RITUAL = {
   2: { tribute: 1200, min_wins: 75, min_conclusions: 16, min_nerves: 100, ordeal: true },
   1: { tribute: 800, min_wins: 90 },
 };
-export const ordealId = (pid, seq) => `schwelle_${pid}_${seq}`;
+/** Kampf-Ids der Wächter je Pfad, nach den Eckdaten der Codex-Pakete CO/CP (hg_schwellenwaechter für 4, hg_grenzwaechter für 2). */
+export const WAECHTER = { 4: 'hg_schwellenwaechter', 2: 'hg_grenzwaechter' };
+export const ordealId = (pid, seq) => `${WAECHTER[seq] ?? 'hg_waechter'}_${pid}`;
 export const ordealFlag = (pid, seq) => `won_${ordealId(pid, seq)}`;
+/** Die mythischen Kreaturformen je Pfad (Ids und Namen verbindlich aus den Codex-Paketen CO/CP). */
+export const HG_FORMS = {
+  laterne: { id: 'hg_form_laterne', name: 'Leuchtgestalt' }, faden: { id: 'hg_form_faden', name: 'Nahtgespinst' },
+  maske: { id: 'hg_form_maske', name: 'Hundertmiene' }, echo: { id: 'hg_form_echo', name: 'Hohlklang' },
+  kessel: { id: 'hg_form_kessel', name: 'Siedeleib' }, eisen: { id: 'hg_form_eisen', name: 'Nietkoloss' },
+  schluessel: { id: 'hg_form_schluessel', name: 'Türhüter' }, sq_waage: { id: 'hg_form_sq_waage', name: 'Gewichtsträger' },
+  sq_moor: { id: 'hg_form_sq_moor', name: 'Torfleib' }, sq_uhr: { id: 'hg_form_sq_uhr', name: 'Pendelgestalt' },
+};
 /**
  * Mythische Gestalt (Seb, 2026-11-11): ab Sequenz 4 und 50 % Verdauung kann man die wahre Gestalt des Pfades
  * annehmen. Nicht-Beyonder (Menschen ohne Pfad) und Monster, die deutlich unter der eigenen Stufe liegen,
@@ -444,6 +454,7 @@ export const pathwayMethods = {
     const first = !this.pathway;
     const carryBefore = this.carryCapacity();
     this.pathway = { id: it.pathway, seq: it.seq, digestion: 0 };
+    if (HOCH_DURCHBRUCH[it.seq]) this.flags.add(`seq${it.seq}_erreicht`); // für Zeitung und Gerede (Paket CP)
     this.unruhe = Math.min(UNRUHE_MAX - 1, this.unruhe + 20 + premature * 0.4);
     this.updateMaxHp();
     const pd = this.pathwayDef();
@@ -678,6 +689,12 @@ export const pathwayMethods = {
     return !!this.pathway?.form;
   },
 
+  /** Die Kreaturform des eigenen Pfades: { id, name } (Texte und Grafik kommen mit den Paketen CO/CP dazu). */
+  formDef(pid = this.pathway?.id) {
+    if (!pid) return null;
+    return HG_FORMS[pid] ?? { id: `hg_form_${pid}`, name: `Gestalt ${this.pathwayDef(pid)?.name ?? pid}` };
+  },
+
   /** Warum die Gestalt gerade nicht geht (oder null). */
   formBlock() {
     const p = this.pathway;
@@ -690,20 +707,36 @@ export const pathwayMethods = {
   /** Nimmt die mythische Gestalt an oder legt sie ab. Ergebnis: { ok, text, active } */
   toggleForm() {
     const p = this.pathway;
+    const form = this.formDef();
     if (p?.form) {
-      delete p.form;
-      this.emit('form', { active: false, player: this.acting ?? 1 });
-      this.emit('changed');
-      return { ok: true, active: false, text: 'Du atmest aus. Die Gestalt fällt von dir ab wie ein nasser Mantel, und du bist wieder nur ein Mensch mit zu hellen Augen.' };
+      this.endForm();
+      return { ok: true, active: false, text: form.ablegen ?? `Du atmest aus. ${form.name} fällt von dir ab wie ein nasser Mantel, und du bist wieder nur ein Mensch mit zu hellen Augen.` };
     }
     const block = this.formBlock();
     if (block) return { ok: false, active: false, text: block };
     p.form = true;
     this.setUnruhe(this.unruhe + 5);
+    // Merker für Zeitung, Gerede und Lesestücke (Paket CP): kreaturform_an, kreaturform_gezeigt, kreaturform_gezeigt_<n>
+    this.formShown = (this.formShown ?? 0) + 1;
+    this.flags.add('kreaturform_an');
+    this.flags.add('kreaturform_gezeigt');
+    for (const n of [1, 3, 10]) if (this.formShown >= n) this.flags.add(`kreaturform_gezeigt_${n}`);
     const pd = this.pathwayDef();
-    this.emit('form', { active: true, player: this.acting ?? 1 });
+    this.emit('form', { active: true, player: this.acting ?? 1, form: form.id });
+    this.emit('form_annehmen', { player: this.acting ?? 1, form: form.id });
     this.emit('changed');
-    return { ok: true, active: true, text: `Du lässt los. ${pd.form_text ?? `Was unter deiner Haut gewartet hat, richtet sich auf: die wahre Gestalt des ${pd.name.replace('Pfad', 'Pfads')}.`} Menschen ohne Pfad und schwächere Wesen brechen zusammen, wenn sie dich sehen. Die Gestalt kostet ${FORM_NERVES_PER_SEC} Nerven und ${FORM_UNRUHE_PER_SEC} Unruhe je Sekunde.` };
+    return { ok: true, active: true, text: form.annehmen ?? `Du lässt los. Was unter deiner Haut gewartet hat, richtet sich auf: ${form.name}, die wahre Gestalt des ${pd.name.replace('Pfad', 'Pfads')}. Menschen ohne Pfad und schwächere Wesen brechen zusammen, wenn sie dich sehen. Die Gestalt kostet ${FORM_NERVES_PER_SEC} Nerven und ${FORM_UNRUHE_PER_SEC} Unruhe je Sekunde.` };
+  },
+
+  /** Legt die Gestalt ab (von Hand oder weil die Nerven ausgehen). */
+  endForm() {
+    const p = this.pathway;
+    if (!p?.form) return;
+    delete p.form;
+    this.flags.delete('kreaturform_an');
+    this.emit('form', { active: false, player: this.acting ?? 1, form: this.formDef()?.id });
+    this.emit('form_ablegen', { player: this.acting ?? 1, form: this.formDef()?.id });
+    this.emit('changed');
   },
 
   /** Wird aus tickPathway aufgerufen: die Gestalt zehrt und fällt ab, wenn die Nerven ausgehen. */
@@ -713,10 +746,8 @@ export const pathwayMethods = {
     this.setComposure(this.composure - FORM_NERVES_PER_SEC * dt);
     this.unruhe += FORM_UNRUHE_PER_SEC * dt; // setUnruhe folgt in tickPathway
     if (this.composure < FORM_MIN_NERVES) {
-      delete p.form;
-      this.emit('form', { active: false, player: this.acting ?? 1 });
-      this.emit('notice', 'Die Nerven reichen nicht mehr. Deine Gestalt schrumpft zurück in den Körper eines Menschen.');
-      this.emit('changed');
+      this.endForm();
+      this.emit('notice', this.formDef()?.zu_lange ?? 'Die Nerven reichen nicht mehr. Deine Gestalt schrumpft zurück in den Körper eines Menschen.');
     }
   },
 
@@ -731,7 +762,7 @@ export const pathwayMethods = {
   },
 
   serializePathway() {
-    return { money: this.money, pathway: this.pathway, unruhe: Math.round(this.unruhe), seenNodes: [...this.seenNodes], wins: this.wins, ...this.serializeArtifacts() };
+    return { money: this.money, pathway: this.pathway, unruhe: Math.round(this.unruhe), seenNodes: [...this.seenNodes], wins: this.wins, formShown: this.formShown ?? 0, ...this.serializeArtifacts() };
   },
 
   loadPathway(data) {
@@ -741,6 +772,7 @@ export const pathwayMethods = {
     this.unruhe = Math.max(0, Math.min(UNRUHE_MAX - 1, data.unruhe ?? 0));
     this.seenNodes = new Set(data.seenNodes ?? []);
     this.wins = data.wins ?? 0;
+    this.formShown = data.formShown ?? 0;
     this.loadArtifacts(data);
     this.maxHp = this.calcMaxHp();
     this.hp = Math.max(1, Math.min(this.maxHp, data.hp ?? this.maxHp));

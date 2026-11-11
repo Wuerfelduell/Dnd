@@ -4,7 +4,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
 import { Combat } from '../src/core/Combat.js';
-import { HOCH_DURCHBRUCH, HALBGOTT_EIGENHEIT, HOCH_RITUAL, ASCENSION_TEXT, FORM_SEQ, FORM_MIN_DIGEST, FORM_MIN_NERVES, ordealId, ordealFlag, SEQ_GROWTH_STEPS } from '../src/core/Pathways.js';
+import { HOCH_DURCHBRUCH, HALBGOTT_EIGENHEIT, HOCH_RITUAL, ASCENSION_TEXT, FORM_MIN_DIGEST, FORM_MIN_NERVES, HG_FORMS, ordealId, ordealFlag, SEQ_GROWTH_STEPS } from '../src/core/Pathways.js';
 import { encounterSeq } from '../src/core/Fear.js';
 import { loadContent, fight, EXPERT, SKILLED } from './helpers.js';
 
@@ -57,6 +57,9 @@ test('Rituale 4 bis 1: Tribut, Siege, Schlussfolgerungen, Nerven; 4 und 2 verlan
         const enc = content.encounters[ordealId(pid, n)];
         assert.ok(enc?.boss && enc.occult && enc.hp >= 400 && enc.max_round_dmg, `${pid} ${n}: Schwellenwächter`);
         assert.ok(enc.name.includes(p.name.replace(/^Pfad (der|des) /, '')), enc.name);
+        assert.equal(enc.waechter, n === 4 ? 'hg_schwellenwaechter' : 'hg_grenzwaechter');
+        assert.equal(ordealId(pid, n), `${enc.waechter}_${pid}`);
+        if (n === 4) assert.ok(r.map === 'ds_schwellenring' || r.also_maps.includes('ds_schwellenring'), `${pid}: Schwellenring`);
       } else assert.ok(!r.ordeal);
     }
   }
@@ -107,6 +110,7 @@ test('Trinken auf Sequenz 4 und 2: Halbgott- und Engel-Text samt Aufstiegs-Szene
     s.addItem(`trank_eisen_${seq}`);
     const r = s.drink(`trank_eisen_${seq}`, () => 0.99);
     assert.equal(r.ok, true, r.text);
+    assert.ok(s.flags.has(`seq${seq}_erreicht`), `seq${seq}_erreicht (Merker für Zeitung und Gerede)`);
     return r;
   };
   const halb = drinkTo(4);
@@ -142,7 +146,10 @@ test('Mythische Gestalt: ab Sequenz 4 und halber Verdauung; Nicht-Beyonder und s
   assert.equal(s.formBlock(), null);
   const on = s.toggleForm();
   assert.ok(on.ok && on.active && s.formActive());
-  assert.match(on.text, /Maske/);
+  assert.match(on.text, /Hundertmiene/);
+  assert.equal(s.formDef().id, 'hg_form_maske');
+  assert.deepEqual(Object.keys(HG_FORMS).sort(), Object.keys(content.pathways).sort());
+  assert.ok(s.flags.has('kreaturform_an') && s.flags.has('kreaturform_gezeigt_1'));
   // Wer fällt um: Menschen ohne Pfad (Stadtgegner), Wexmoorer und Dunscarer Monster; nicht: Bosse, höhere Wesen, Calderwick (Stufe 5 gegen Seq 4)
   const human = Object.keys(content.encounters).find((id) => content.encounters[id].city && !content.encounters[id].occult && !content.encounters[id].boss);
   assert.ok(human, 'ein menschlicher Stadtgegner');
@@ -176,6 +183,7 @@ test('Mythische Gestalt: ab Sequenz 4 und halber Verdauung; Nicht-Beyonder und s
   s.composure = FORM_MIN_NERVES - 1;
   s.tick(1);
   assert.equal(s.formActive(), false, 'fällt ab');
+  assert.ok(!s.flags.has('kreaturform_an') && s.flags.has('kreaturform_gezeigt'));
   // Ablegen von Hand und Spielstand
   s.composure = s.maxComposure();
   assert.ok(s.toggleForm().active);
