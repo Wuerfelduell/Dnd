@@ -691,3 +691,24 @@ test('BS: Starlings zweite Phase nutzt Sheet, Kulisse, Büste, Effekte, Sterne, 
   assert.ok(existsSync(file(A.sceneUrl('starling_phase2'))));
   assert.ok(existsSync(sprite(`portraits/${PORTRAITS.starling2}`)));
 });
+
+test('BW: Innenraum-Möbelsets, animierte Innen-Props und Lesebilder aus manifest-innen2 liegen vor und stehen in den Räumen', async () => {
+  const A = await import('../src/world/assets.js');
+  assert.ok(existsSync(sprite(SHEETS.i2_anim)));
+  for (const name of Object.keys(A.I2_ANIMS)) assert.ok(PROP_ANIMS[`i2_${name}`]?.[1].length === 4, name);
+  for (const [set, names] of Object.entries(A.I2_SETS)) {
+    assert.ok(existsSync(sprite(SHEETS[`i2_${set}`])), set);
+    for (const name of names.filter(Boolean)) assert.ok(PROP_CELLS[`i2_${set}_${name}`], `${set}/${name}`);
+  }
+  for (const id of A.LESE_SCENES) assert.ok(existsSync(file(A.sceneUrl(id))), id);
+  assert.equal(A.leseSceneOf('Ein Brief an die Witwe'), 'lese_brief');
+  assert.equal(A.leseSceneOf('Lohnzettel der Schicht 3'), 'lese_lohnzettel');
+  assert.equal(A.leseSceneOf('Ein Hebel'), null);
+  const placed = new Set();
+  for (const m of Object.values(content.maps)) for (const d of m.decor ?? []) {
+    if (!d.bw) continue;
+    assert.ok(PROP_CELLS[d.sprite] || PROP_ANIMS[d.sprite], `${m.id}: ${d.sprite}`);
+    placed.add(m.id);
+  }
+  for (const id of ['buero', 'revier', 'schleierhaus', 'wx_akademie', 'ds_speisewagen', 'ds_lohnbuero']) assert.ok(placed.has(id), id);
+});

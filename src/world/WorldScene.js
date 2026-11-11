@@ -5,7 +5,7 @@ import { Lighting, DEPTH } from './Lighting.js';
 import { WexmoorLife, preloadWexmoorLife, speechBubble } from './WexmoorLife.js';
 import { DunscarLife, preloadDunscarLife } from './DunscarLife.js';
 import { KoopLife } from './Koop.js';
-import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, PROP_ORIGINS, MAP_WEATHER, DISGUISE_SHEETS, pathwayArt, P2_LOOKS, skinKeyOf } from './assets.js';
+import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, PROP_ORIGINS, MAP_WEATHER, DISGUISE_SHEETS, pathwayArt, P2_LOOKS, skinKeyOf , leseSceneOf } from './assets.js';
 import { Roamers } from './Roamers.js';
 import { Critters } from './Critters.js';
 import { Patrols } from './Patrols.js';
@@ -1509,7 +1509,7 @@ export class WorldScene extends Phaser.Scene {
       case 'read': {
         this.playPlayerAction('read');
         const isNew = !def.done_flag || !this.state.flags.has(def.done_flag);
-        this.ui.showMessage(def.title, def.text, { footer: def.footer ?? '', scene: def.scene });
+        this.ui.showMessage(def.title, def.text, { footer: def.footer ?? '', scene: def.scene ?? leseSceneOf(`${def.title ?? ''} ${def.prompt ?? ''}`) }); // BW: Lesestellen-Bild
         if (isNew) this.state.applyEffects({ ...def.effects, sets_flags: [...(def.effects?.sets_flags ?? []), ...(def.done_flag ? [def.done_flag] : [])] });
         if (isNew && def.lock && def.done_flag) this.state.act('lock');
         break;

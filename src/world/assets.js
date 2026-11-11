@@ -1938,6 +1938,36 @@ ICON32.push(...X_ITEMS);
 /** Artefakte der Fasserin (geheime Treffen) haben seit BO eigene Bilder in 16 und 32px. */
 export const ARTISAN_ARTEFAKTE = ['krone_der_sieben', 'sternlicht_gespinst', 'glaskielfeder', 'herzkerze', 'perlenpaar', 'geisterspindel', 'leuchtturmmonokel', 'namenssiegel', 'gluehglocke', 'doppelsiegel'];
 ICON32.push(...ARTISAN_ARTEFAKTE);
+// --- BW: Innenräume (manifest-innen2.json): 19 animierte Props (32x32, 4 Frames), 6 Möbel-Sets, 10 Lesestellen-Bilder ----------
+SHEETS.i2_anim = 'props/innen2_anim.png';
+/** Zeile im Sheet = Reihenfolge hier; Wert = Bilder je Sekunde. */
+export const I2_ANIMS = { kamin_klein: 6, kamin_mittel: 6, kamin_gross: 6, kerze: 6, leuchter: 6, petroleumlampe: 6, pendeluhr: 3, kanarienkaefig: 6, schreibmaschine: 6, kessel: 6,
+  wasserhahn: 6, lampenfliegen: 6, katze: 3, hund: 3, schaukelstuhl: 6, zugvorhang: 6, ventilator: 6, grammophon: 6, fernschreiber: 6 };
+Object.keys(I2_ANIMS).forEach((name, row) => { PROP_ANIMS[`i2_${name}`] = ['i2_anim', [0, 1, 2, 3].map((f) => [f * 32, row * 32, 32, 32]), I2_ANIMS[name]]; });
+/** Möbel-Sets: je Sheet 4 x 2 Stücke à 32x32 (das letzte Feld sind Boden-/Wandkacheln und bleibt frei). */
+export const I2_SETS = {
+  buero: ['aktenregal', 'aktenregal_breit', 'pinnwand', 'schreibtisch', 'garderobe', 'waschtisch', 'sessel', null],
+  revier: ['zelle', 'pult', 'asservatenschrank', 'wartebank', 'aktenschrank', 'garderobe_uniform', 'regal_asservaten', null],
+  laden: ['theke', 'regal_waren', 'regal_flaschen', 'vitrine', 'kasse', 'waage', 'regal_klein', null],
+  akademie: ['sternglobus', 'fernrohr', 'lesepult', 'karten_tisch', 'lesepult_lampe', 'buecherregal', 'regal_karten', null],
+  speisewagen: ['polsterbank', 'polsterbank2', 'samowar_theke', 'gepaecknetz', 'zugtuer', 'klapptisch', 'klapptisch2', null],
+  lohnbuero: ['schalter', 'tafel', 'aushang', 'pinnwand', 'schreibtisch', 'kartei', 'pult', null],
+};
+for (const [set, names] of Object.entries(I2_SETS)) {
+  SHEETS[`i2_${set}`] = `props/innen2_moebel_${set}.png`;
+  names.forEach((n, i) => { if (n) PROP_CELLS[`i2_${set}_${n}`] = [`i2_${set}`, (i % 4) * 32, Math.floor(i / 4) * 32, 32, 32]; });
+}
+/** Lesestellen-Bilder (240x135) für das Lesefenster: aus Titel oder Aufforderung geraten, wenn die Lesestelle kein eigenes Bild hat. */
+export const LESE_SCENES = ['lese_brief', 'lese_kassenbuch', 'lese_zeitung', 'lese_wandanschlag', 'lese_kalkbrett', 'lese_telegramm', 'lese_sternkarte', 'lese_lohnzettel', 'lese_kinderzeichnung', 'lese_tagebuch'];
+FX_SCENES.push(...LESE_SCENES);
+const LESE_RULES = [
+  [/telegramm|depesche/i, 'lese_telegramm'], [/sternkarte|himmelskarte|sternen/i, 'lese_sternkarte'], [/lohnzettel|lohnliste|lohnbuch|gehalt/i, 'lese_lohnzettel'],
+  [/zeichnung|gemalt|kritzel/i, 'lese_kinderzeichnung'], [/tagebuch|notizbuch|journal/i, 'lese_tagebuch'], [/kalkbrett|kreidetafel|tafel|kreide/i, 'lese_kalkbrett'],
+  [/zeitung|kurier|bote|kalkblatt|ausgabe/i, 'lese_zeitung'], [/anschlag|aushang|plakat|zettel|warnschild|schild|steckbrief|befehl|bekanntmachung/i, 'lese_wandanschlag'],
+  [/brief|schreiben|nachricht|karte an|kuvert/i, 'lese_brief'], [/buch|register|akte|rechnung|quittung|beleg|liste|ordnung|vorschrift|protokoll|kehrbuch|verzeichnis/i, 'lese_kassenbuch'],
+];
+export const leseSceneOf = (text) => LESE_RULES.find(([re]) => re.test(text ?? ''))?.[1] ?? null;
+
 /** BO: Oda Kessel selbst (Laufbild, Sitzbild mit Werkbank, Portraits, Kopf) und ihre Werkbank als Requisiten. */
 SHEETS.fasserin = 'characters/fasserin_walk.png';
 CHARACTER_SHEETS.npc_fasserin = 'fasserin';
