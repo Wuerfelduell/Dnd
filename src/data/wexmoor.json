@@ -15842,7 +15842,7 @@
           "sprite": "wild",
           "sheet": "enemy_weisslicht",
           "occult": true,
-          "hp": 43,
+          "hp": 52,
           "intro": "Ein Licht, das nicht grün ist wie die Irrlichter, sondern weiß. Es summt eine Melodie aus Kettlegate.",
           "attacks": [
             {
@@ -15959,14 +15959,13 @@
       },
       "drain": 2,
       "ambush": 0.25,
-      "hp_mult": 1.4,
+      "hp_mult": {
+        "normal": 2,
+        "elite": 1.6,
+        "boss": 1.4
+      },
       "dmg_mult": 1.5,
-      "duo_full": true,
-      "max_round_dmg": {
-        "normal": 0.25,
-        "elite": 0.25,
-        "boss": 0.2
-      }
+      "duo_full": true
     },
     "wx_leuchtturm": {
       "name": "Der Leuchtturm",
@@ -16308,14 +16307,13 @@
       },
       "drain": 3,
       "ambush": 0.25,
-      "hp_mult": 1.4,
+      "hp_mult": {
+        "normal": 2,
+        "elite": 1.6,
+        "boss": 1.4
+      },
       "dmg_mult": 1.5,
-      "duo_full": true,
-      "max_round_dmg": {
-        "normal": 0.25,
-        "elite": 0.25,
-        "boss": 0.2
-      }
+      "duo_full": true
     },
     "wx_salzwatt": {
       "name": "Das Salzwatt",
@@ -16715,14 +16713,13 @@
       },
       "drain": 3,
       "ambush": 0.25,
-      "hp_mult": 1.4,
+      "hp_mult": {
+        "normal": 2,
+        "elite": 1.6,
+        "boss": 1.4
+      },
       "dmg_mult": 1.5,
-      "duo_full": true,
-      "max_round_dmg": {
-        "normal": 0.25,
-        "elite": 0.25,
-        "boss": 0.2
-      }
+      "duo_full": true
     },
     "wx_altstadt": {
       "name": "Die Versunkene Altstadt",
@@ -17091,14 +17088,13 @@
       },
       "drain": 2,
       "ambush": 0.25,
-      "hp_mult": 1.4,
+      "hp_mult": {
+        "normal": 2,
+        "elite": 1.6,
+        "boss": 1.4
+      },
       "dmg_mult": 1.5,
-      "duo_full": true,
-      "max_round_dmg": {
-        "normal": 0.25,
-        "elite": 0.25,
-        "boss": 0.2
-      }
+      "duo_full": true
     }
   },
   "encounters": {
@@ -17154,10 +17150,9 @@
       "win_text": "Hagen Wisp geht in die Knie. „Gut“, keucht es aus dem Dunkel. „Nimm, was du willst. Aber komm nie wieder.“\n\nDann ist da niemand mehr, nur das, was zurückblieb.",
       "armor": 2,
       "ramp": 0.02,
-      "hp_mult": 1.4,
+      "hp_mult": 1.8,
       "dmg_mult": 1.5,
-      "duo_full": true,
-      "max_round_dmg": 0.2
+      "duo_full": true
     },
     "ez_brennerin": {
       "name": "Mara Docht, die Brennerin",
@@ -17211,10 +17206,9 @@
       "win_text": "Mara Docht geht in die Knie. „Gut“, keucht es aus dem Dunkel. „Nimm, was du willst. Aber komm nie wieder.“\n\nDann ist da niemand mehr, nur das, was zurückblieb.",
       "armor": 2,
       "ramp": 0.02,
-      "hp_mult": 1.4,
+      "hp_mult": 1.8,
       "dmg_mult": 1.5,
-      "duo_full": true,
-      "max_round_dmg": 0.2
+      "duo_full": true
     },
     "ez_spinnerin": {
       "name": "Agathe Garn, die Spinnerin",
@@ -17268,10 +17262,9 @@
       "win_text": "Agathe Garn geht in die Knie. „Gut“, keucht es aus dem Dunkel. „Nimm, was du willst. Aber komm nie wieder.“\n\nDann ist da niemand mehr, nur das, was zurückblieb.",
       "armor": 2,
       "ramp": 0.02,
-      "hp_mult": 1.4,
+      "hp_mult": 1.8,
       "dmg_mult": 1.5,
-      "duo_full": true,
-      "max_round_dmg": 0.2
+      "duo_full": true
     },
     "ez_baender": {
       "name": "Tobin Krell, der Bänder",
@@ -17325,10 +17318,9 @@
       "win_text": "Tobin Krell geht in die Knie. „Gut“, keucht es aus dem Dunkel. „Nimm, was du willst. Aber komm nie wieder.“\n\nDann ist da niemand mehr, nur das, was zurückblieb.",
       "armor": 2,
       "ramp": 0.02,
-      "hp_mult": 1.4,
+      "hp_mult": 1.8,
       "dmg_mult": 1.5,
-      "duo_full": true,
-      "max_round_dmg": 0.2
+      "duo_full": true
     },
     "ez_maskenwirt": {
       "name": "Ambrose Fell, der Maskenwirt",
@@ -17382,10 +17374,9 @@
       "win_text": "Ambrose Fell geht in die Knie. „Gut“, keucht es aus dem Dunkel. „Nimm, was du willst. Aber komm nie wieder.“\n\nDann ist da niemand mehr, nur das, was zurückblieb.",
       "armor": 2,
       "ramp": 0.02,
-      "hp_mult": 1.4,
+      "hp_mult": 1.8,
       "dmg_mult": 1.5,
-      "duo_full": true,
-      "max_round_dmg": 0.2
+      "duo_full": true
     },
     "ez_glockenfischer": {
       "name": "Ole Tamsen, der Glockenfischer",
@@ -17439,10 +17430,9 @@
       "win_text": "Ole Tamsen geht in die Knie. „Gut“, keucht es aus dem Dunkel. „Nimm, was du willst. Aber komm nie wieder.“\n\nDann ist da niemand mehr, nur das, was zurückblieb.",
       "armor": 2,
       "ramp": 0.02,
-      "hp_mult": 1.4,
+      "hp_mult": 1.8,
       "dmg_mult": 1.5,
-      "duo_full": true,
-      "max_round_dmg": 0.2
+      "duo_full": true
     },
     "ez_schleusendieb": {
       "name": "Fitz Hallow, der Schleusendieb",
@@ -17496,10 +17486,9 @@
       "win_text": "Fitz Hallow geht in die Knie. „Gut“, keucht es aus dem Dunkel. „Nimm, was du willst. Aber komm nie wieder.“\n\nDann ist da niemand mehr, nur das, was zurückblieb.",
       "armor": 2,
       "ramp": 0.02,
-      "hp_mult": 1.4,
+      "hp_mult": 1.8,
       "dmg_mult": 1.5,
-      "duo_full": true,
-      "max_round_dmg": 0.2
+      "duo_full": true
     },
     "price_wx_fight": {
       "name": "Constable Price",
@@ -17553,10 +17542,9 @@
       "lose_text": "Price lässt dich im Schlick liegen. „Morgen komm ich wieder“, sagt er. Zunder schleppt dich heim.",
       "win_text": "Price sitzt im Schlick und reibt sich den Kiefer. „Gut“, sagt er. „Dann schreib ich, Sie sind ertrunken.“ Er nimmt den nächsten Zug.",
       "chapter": 2,
-      "hp_mult": 1.4,
+      "hp_mult": 1.8,
       "dmg_mult": 1.5,
-      "duo_full": true,
-      "max_round_dmg": 0.25
+      "duo_full": true
     },
     "wx_grauspaeher_fight": {
       "name": "Grauspäher-Streife",
