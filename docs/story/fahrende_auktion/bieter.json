@@ -1,0 +1,112 @@
+{
+  "version": 1,
+  "bieter": [
+    {
+      "id": "fa2_bieter_reeder",
+      "name": "Der Reeder",
+      "charakter": "Ein alter Frachtunternehmer zählt erst die Nieten, dann die Münzen. Er schweigt oft und kauft selten, aber entschlossen.",
+      "vorlieben": [
+        "werkzeug",
+        "ausruestung"
+      ],
+      "hoechstgebot": {
+        "basis_prozent": 140,
+        "vorliebe_prozent": 240,
+        "teilnahme_chance": 0.25,
+        "jitter_prozent": 10,
+        "unbegrenzt_kategorien": []
+      },
+      "gebote": [
+        "Das hält eine Überfahrt aus. Ich erhöhe.",
+        "Nehmen Sie meinen Betrag auf.",
+        "Ich zahle für Material, nicht für den Samt darunter.",
+        "Eine gute Fassung. Noch ein Gebot.",
+        "Meine Hand gilt, Frau Vance.",
+        "Dann wird die Fracht eben teurer."
+      ],
+      "aufgeben": [
+        "Für diesen Preis lasse ich es an Land.",
+        "Der Nutzen hat seine Grenze erreicht.",
+        "Kein weiterer Betrag von mir."
+      ]
+    },
+    {
+      "id": "fa2_bieter_witwe",
+      "name": "Die Witwe",
+      "charakter": "Sie sucht keine bestimmte Person mehr, sondern Spuren des Bewahrtwerdens. Bei Erinnerungsstücken hört sie nie auf; Vance warnt ausdrücklich davor.",
+      "vorlieben": [
+        "erinnerung"
+      ],
+      "hoechstgebot": {
+        "basis_prozent": 90,
+        "vorliebe_prozent": null,
+        "teilnahme_chance": 1,
+        "jitter_prozent": 10,
+        "unbegrenzt_kategorien": [
+          "erinnerung"
+        ],
+        "warnung": "Die Witwe bietet auf dieses Erinnerungsstück ohne Preisgrenze. Sie können jederzeit passen."
+      },
+      "gebote": [
+        "Es soll nicht wieder in eine Kiste fallen.",
+        "Ich bleibe dabei.",
+        "Nein, meine Hand ist noch oben.",
+        "Jemand hat es aufbewahrt. Das genügt mir.",
+        "Bitte schreiben Sie mein nächstes Gebot auf.",
+        "Für dieses Stück bin ich noch nicht fertig."
+      ],
+      "aufgeben": [
+        "Das war nicht, was ich gesucht habe.",
+        "Dieses Werkzeug mag Ihnen dienen.",
+        "Nein. An diesem Los halte ich nicht fest."
+      ],
+      "aufgeben_nur_ohne_vorliebe": true
+    },
+    {
+      "id": "fa2_bieter_zirkel",
+      "name": "Der Zirkelgast",
+      "charakter": "Eine höfliche Person mit einer wechselnden Zirkelzugehörigkeit. Sie prüft Verschlüsse, Schatten und die Pausen in Vances Beschreibung.",
+      "vorlieben": [
+        "okkult",
+        "zutat"
+      ],
+      "hoechstgebot": {
+        "basis_prozent": 100,
+        "vorliebe_prozent": 190,
+        "teilnahme_chance": 0.85,
+        "jitter_prozent": 10,
+        "unbegrenzt_kategorien": []
+      },
+      "zirkel_auswahl": {
+        "quelle": "src/data/treffen.json#/circles",
+        "verfahren": "Beim Halt genau einen vorhandenen Zirkel wählen; Ergebnis speichern. Keine Mitgliedschaft für Spieler setzen."
+      },
+      "gebote": [
+        "Die Versiegelung ist ungebrochen. Ich erhöhe.",
+        "Unser Kreis interessiert sich für die Herkunft.",
+        "Bitte lassen Sie das Tuch darauf. Mein Gebot gilt trotzdem.",
+        "Der Schatten gehört offenbar dazu.",
+        "Wir übernehmen auch die dokumentierte Nebenwirkung.",
+        "Ich lege nach. Ohne das Kästchen zu öffnen."
+      ],
+      "aufgeben": [
+        "Unser Interesse hat ein Budget.",
+        "Für diese Summe forschen wir anderswo weiter.",
+        "Der Kreis zieht das Gebot nicht zurück; er erhöht nur nicht mehr."
+      ]
+    }
+  ],
+  "reihenfolge": [
+    "fa2_bieter_reeder",
+    "fa2_bieter_witwe",
+    "fa2_bieter_zirkel"
+  ],
+  "kategorien": {
+    "erinnerung": "Explizit markierte persönliche Andenken; nie aus Namenssuche ableiten.",
+    "werkzeug": "Gebrauchsgerät oder Waffe.",
+    "ausruestung": "Tragbare Ausrüstung.",
+    "zutat": "Sequenzzutat.",
+    "okkult": "Artefakt oder übernatürliches Beutestück.",
+    "kuriositaet": "Gewöhnliche Kuriosität ohne obige Vorliebe."
+  }
+}

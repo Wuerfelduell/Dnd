@@ -1816,3 +1816,7 @@ Prüfung: `python tools/art/calderwick2/check.py` (Pillow, aus jedem Arbeitsverz
 - Prüfung: `python tools/art/kettlegate_leben/check.py`.
 
 Keine Laufzeitintegration in diesem Paket.
+
+## DE · Fahrende Auktion (`auktion`)
+
+55 PNGs: Vance, Träger, Glockenhund, drei Mitbieter, Portraits/Stimmungen/Köpfe, Wagen, zehn Los-Iconpaare, UI, Posen und Effekte. Manifest: `public/sprites/manifest-auktion.json`; Prompts, Vorschau und Prüfbericht: `batch-auktion-{generation.json,preview.png,validation.json}`. Texte und Einbauvertrag: `docs/story/fahrende_auktion/README.md`. Prüfung: `python tools/art/auktion/check.py` und `node docs/story/fahrende_auktion/pruefen.mjs`. Kein Runtime-Einbau.
