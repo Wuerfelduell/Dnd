@@ -1624,6 +1624,18 @@ Built-in Bildgenerator mit vorhandener Sprite-Referenz; Nearest-Neighbor-Export,
 ## BO – Fasserin (`fasserin`)
 
 26 PNGs: Oda Kessels Lauf- und Sitzanimation, vier Portraitstimmungen, 24×24-Kopf, Werkbank und Zangen sowie zehn bestehende Artefakte in 16×16 und 32×32. Gemeinsame Wexmoor7-Palette mit höchstens 32 sichtbaren Farben, indizierte PNGs, binäres Alpha. Manifest: `public/sprites/manifest-fasserin.json`; tatsächliche Bildprompts und Quellenprüfsummen: `docs/art/batch-fasserin-generation.json`. Export und Prüfung: `tools/art/fasserin/`. Texte, zehn weitere Rezepte und Integrationshinweise: `docs/story/fasserin/`. Spielcode und aktive Spieldaten bleiben unverändert.
+## Batch BV — Jahreszeiten und Feste (`feste`)
+
+Vier Jahreszeiten mit Boden-Deko, Partikeln und Fassadenaufsätzen für drei Städte;
+dazu Laternennacht, Salzsegen und Schichtwechsel mit Props, Sequenzbildern,
+zwölf laufenden Festgästen, Gerede-Symbolen und Ankündigungsbannern.
+**41 Pflicht-Sheets, 408 Frames**, ohne Spielcode oder Kartenänderungen.
+
+- [Manifest](../../public/sprites/manifest-feste.json), [Einbau und Formate](feste-README.md).
+- [Prompts und Herkunft](batch-feste-generation.json), [Vorschau](preview-feste.png).
+- Reproduktion: `python tools/art/feste/export.py`; Prüfung: `python tools/art/feste/check.py`.
+- Built-in-Bildgenerator, Nearest-Neighbor-Export, 31 gemeinsame sichtbare Farben plus Transparenz, binäres Alpha; normalisierte Quellen unter `docs/art/feste-sources/`.
+
 ## Konzentrations-Artefakte: Platzhalter-Icons (2026-11-10)
 
 - 16 neue Artefakte (`pathways.json` → `artifacts.list`, `konzentration: true`) nutzen Kopien bestehender Item-Icons als Platzhalter (`items/<id>.png`).
