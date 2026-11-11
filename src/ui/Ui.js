@@ -1120,7 +1120,7 @@ export class Ui {
       onClose?.();
       if (choice.signal_station) this.openSignalStation(choice.signal_station); // BN
       else if (choice.auction) this.openAuction(choice.auction);
-      else if (choice.shop) this.openShop(choice.shop);
+      else if (choice.shop) this.openShop(choice.shop, choice.shop_mode === 'sell' && this.state.merchant(choice.shop)?.buys ? 'sell' : 'buy'); // shop_mode: 'sell' öffnet gleich den Ankauf
       else if (choice.vault) this.openVault();
       else this.openExpert();
       return;
@@ -2138,7 +2138,7 @@ export class Ui {
   seasonGreeting() {
     const s = this.state;
     const line = s.content.festeLeben?.haendler?.[`fs_${s.season?.()}`]?.[s.map];
-    return line && s.meets(line) ? line.text : null;
+    return line && s.meets(line) ? line.text.replace(/^„|“$/g, "") : null; // die Festtexte bringen eigene Anführungszeichen mit, der Laden setzt seine selbst
   }
 
   renderShop(merchantId, mode, feedback) {
@@ -2253,7 +2253,7 @@ export class Ui {
     const sh = this.shop;
     const e = sh?.entries[i];
     if (!e) return;
-    const r = this.as(() => (sh.mode === 'buy' ? this.state.buy(sh.id, e.id) : this.state.sell(e.id)));
+    const r = this.as(() => (sh.mode === 'buy' ? this.state.buy(sh.id, e.id) : this.state.sell(e.id, sh.id)));
     this.openShop(sh.id, sh.mode, `<span class="${r.ok ? 'good' : ''}">${esc(r.text)}</span>`);
   }
 

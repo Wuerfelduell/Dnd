@@ -47,7 +47,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
     },
     pathways: pathways?.pathways ?? {},
     market: market && { ...market,
-      merchants: { ...market.merchants, ...(b.merchants ?? {}), ...(g.merchants ?? {}), ...Object.assign({}, ...packs.map((p) => p.haendler?.merchants ?? {})) },
+      merchants: { ...market.merchants, ...(b.merchants ?? {}), ...(g.merchants ?? {}), ...(wx.merchants ?? {}), ...Object.assign({}, ...packs.map((p) => p.haendler?.merchants ?? {})) }, // wexmoor.json: Pfandleiherin am Salzmarkt
       sell_prices: { ...market.sell_prices, ...(f.sell_prices ?? {}), ...Object.assign({}, ...packs.map((p) => p.haendler?.sell_prices ?? {})) } }, // BC: Händler und Verkaufswerte aus Paketen
     loot: { ...(market?.loot ?? {}), ...artifactDrops(wild.loot, wild.encounters, pathways?.artifacts), ...town.loot, ...(f.loot ?? {}), ...(wx.loot ?? {}) },
     artifacts: pathways?.artifacts ?? null,

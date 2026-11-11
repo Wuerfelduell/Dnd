@@ -632,9 +632,9 @@ export const pathwayMethods = {
     return Math.max(1, Math.round(base * 0.5 * this.passive('sell')));
   },
 
-  sell(itemId) {
+  sell(itemId, merchantId = 'gorse') {
     const price = this.sellPrice(itemId);
-    if (price === null || !this.itemCount(itemId)) return { ok: false, text: 'Das will Gorse nicht.' };
+    if (price === null || !this.itemCount(itemId)) return { ok: false, text: `Das will ${this.merchant(merchantId)?.name ?? 'der Händler'} nicht.` };
     if (this.weapon === itemId && this.itemCount(itemId) === 1) return { ok: false, text: 'Deine ausgerüstete Waffe behältst du lieber.' };
     this.removeItem(itemId);
     this.addMoney(price, { reason: 'Verkauf' });

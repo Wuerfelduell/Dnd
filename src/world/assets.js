@@ -2229,6 +2229,9 @@ for (const id of ['k2a_senn', 'k2a_veit', 'k2a_noll']) {
   SHEETS[`al_${id}`] = `characters/${id}_walk.png`;
   CHARACTER_SHEETS[`npc_${id}`] = `al_${id}`;
 }
+/** Pfandleiherin Maud Keel am Salzmarkt (Beute-Ankauf in Wexmoor): umgefärbte Vorratsfigur ds_einwohner_4, bis eigene Grafik kommt. */
+SHEETS.wx_pfandleiherin = 'characters/wx_pfandleiherin_walk.png';
+CHARACTER_SHEETS.npc_wx_pfandleiherin = 'wx_pfandleiherin';
 BATTLE_SHEETS.enemy_wxn_maler = ['battle/enemy_wxn_maler.png', 48];
 BATTLE_SHEETS.enemy_gemalte_frau = ['battle/enemy_gemalte_frau.png', 64];
 ANIM_ALIASES.enemy_wxn_maler = { attack: 'brush_slash', special: 'paint_throw' };
