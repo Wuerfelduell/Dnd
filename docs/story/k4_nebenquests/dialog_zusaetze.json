@@ -1,0 +1,2564 @@
+{
+  "bj_cw_noel_bellcross": {
+    "choices_add": [
+      {
+        "text": "Zwei Teller, eine Rechnung.",
+        "next": "cwn_zwei_teller_angebot",
+        "requires_flags": [
+          "k4_arrived"
+        ],
+        "hide_if_flags": [
+          "kapitel4_done"
+        ],
+        "hide_if_quests": [
+          "cwn_zwei_teller"
+        ]
+      },
+      {
+        "text": "Zwei Teller, eine Rechnung: Stand.",
+        "next": "cwn_zwei_teller_stand",
+        "requires_quests_active": [
+          "cwn_zwei_teller"
+        ],
+        "hide_if_flags": [
+          "cwn_zwei_teller_done"
+        ]
+      },
+      {
+        "text": "Zwei Teller, eine Rechnung: Danach.",
+        "next": "cwn_zwei_teller_danach",
+        "requires_quests_done": [
+          "cwn_zwei_teller"
+        ]
+      },
+      {
+        "text": "Die letzte Terrasse.",
+        "next": "cwn_letzte_terrasse_angebot",
+        "requires_flags": [
+          "k4_arrived",
+          "cwa_akt4_done"
+        ],
+        "hide_if_flags": [
+          "kapitel4_done"
+        ],
+        "hide_if_quests": [
+          "cwn_letzte_terrasse"
+        ]
+      },
+      {
+        "text": "Die letzte Terrasse: Stand.",
+        "next": "cwn_letzte_terrasse_stand",
+        "requires_quests_active": [
+          "cwn_letzte_terrasse"
+        ],
+        "hide_if_flags": [
+          "cwn_letzte_terrasse_done"
+        ]
+      },
+      {
+        "text": "Die letzte Terrasse: Danach.",
+        "next": "cwn_letzte_terrasse_danach",
+        "requires_quests_done": [
+          "cwn_letzte_terrasse"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "cwn_zwei_teller_angebot": {
+        "text": "Noel stellt den Topf mit dem reparierten Griff auf den Tisch. „Drei Nachbarn halfen damals beim Griff und aßen mit Ida. Der Lieferant streicht jetzt ihre Portion. Frag sie getrennt, bevor ihre Erinnerungen zu einer einzigen Rechnung werden.“",
+        "choices": [
+          {
+            "text": "Ich kümmere mich darum.",
+            "next": "cwn_zwei_teller_annehmen",
+            "requires_flags": [
+              "k4_arrived"
+            ],
+            "hide_if_flags": [
+              "kapitel4_done"
+            ],
+            "hide_if_quests": [
+              "cwn_zwei_teller"
+            ]
+          },
+          {
+            "text": "Heute nicht."
+          }
+        ]
+      },
+      "cwn_zwei_teller_annehmen": {
+        "text": "Du merkst dir die Fundstellen. Erst die getrennten Aussagen, dann die Entscheidung.",
+        "start_quests": [
+          "cwn_zwei_teller"
+        ],
+        "sets_flags": [
+          "cwn_zwei_teller_angenommen"
+        ],
+        "choices": [
+          {
+            "text": "Was fehlt noch?",
+            "next": "cwn_zwei_teller_stand"
+          }
+        ]
+      },
+      "cwn_zwei_teller_oeffentlich": {
+        "text": "Noel hängt die berichtigte Rechnung auf. Die zweite Portion ist wieder sichtbar, aber auch die Namen der drei Zeugen.",
+        "sets_flags": [
+          "cwn_zwei_teller_done",
+          "cwn_zwei_teller_oeffentlich"
+        ],
+        "complete_quests": [
+          "cwn_zwei_teller"
+        ],
+        "gives_money": 20,
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_zwei_teller_oeffentlich_erinnerung": {
+        "text": "Noel hängt die berichtigte Rechnung auf. Die zweite Portion ist wieder sichtbar, aber auch die Namen der drei Zeugen.",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_zwei_teller_vertraulich": {
+        "text": "Noel verwahrt die drei Aussagen getrennt. Der Lieferant erkennt die Portion an, verlangt aber bei jeder Lieferung eine persönliche Bestätigung.",
+        "sets_flags": [
+          "cwn_zwei_teller_done",
+          "cwn_zwei_teller_vertraulich"
+        ],
+        "complete_quests": [
+          "cwn_zwei_teller"
+        ],
+        "honor": 2,
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_zwei_teller_vertraulich_erinnerung": {
+        "text": "Noel verwahrt die drei Aussagen getrennt. Der Lieferant erkennt die Portion an, verlangt aber bei jeder Lieferung eine persönliche Bestätigung.",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_zwei_teller_zeuge": {
+        "text": "Du lässt die zweite Beobachtung für sich stehen. Sie ergänzt den Abgleich, ersetzt aber keine Aussage der Betroffenen.",
+        "sets_flags": [
+          "cwn_zwei_teller_koop"
+        ],
+        "choices": [
+          {
+            "text": "Zurück zu den Belegen.",
+            "next": "cwn_zwei_teller_stand"
+          }
+        ]
+      },
+      "cwn_zwei_teller_abgleich": {
+        "text": "Drei unabhängige Erinnerungen belegen Idas Mahlzeit vor ihrem Verschwinden. Die Lieferrechnung lässt sich offen berichtigen oder unter versiegelten Zeugenschaften sichern.",
+        "choices": [
+          {
+            "text": "Die Zeugnisse offen zur Rechnung legen.",
+            "next": "cwn_zwei_teller_oeffentlich",
+            "requires_flags": [
+              "cwn_zwei_teller_spur1",
+              "cwn_zwei_teller_spur2",
+              "cwn_zwei_teller_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_zwei_teller"
+            ],
+            "hide_if_flags": [
+              "cwn_zwei_teller_done"
+            ]
+          },
+          {
+            "text": "Die Zeugnisse vertraulich hinterlegen.",
+            "next": "cwn_zwei_teller_vertraulich",
+            "requires_flags": [
+              "cwn_zwei_teller_spur1",
+              "cwn_zwei_teller_spur2",
+              "cwn_zwei_teller_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_zwei_teller"
+            ],
+            "hide_if_flags": [
+              "cwn_zwei_teller_done"
+            ]
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "cwn_zwei_teller_stand": {
+        "text": "Du vergleichst deine Notizen mit den noch offenen Fundstellen. Erst wenn alle Stimmen einzeln festgehalten sind, lässt sich über die Folgen entscheiden.",
+        "choices": [
+          {
+            "text": "Alle Belege abgleichen.",
+            "next": "cwn_zwei_teller_abgleich",
+            "requires_flags": [
+              "cwn_zwei_teller_spur1",
+              "cwn_zwei_teller_spur2",
+              "cwn_zwei_teller_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_zwei_teller"
+            ],
+            "hide_if_flags": [
+              "cwn_zwei_teller_done"
+            ]
+          },
+          {
+            "text": "Die zweite Beobachtung festhalten.",
+            "next": "cwn_zwei_teller_zeuge",
+            "requires_flags": [
+              "koop_aktiv"
+            ],
+            "hide_if_flags": [
+              "cwn_zwei_teller_koop"
+            ]
+          },
+          {
+            "text": "Ich suche weiter."
+          }
+        ]
+      },
+      "cwn_zwei_teller_danach": {
+        "text": "Die Entscheidung bleibt in Erinnerung. Du kannst noch einmal über ihre Folgen sprechen.",
+        "choices": [
+          {
+            "text": "Die Zeugnisse offen zur Rechnung legen.",
+            "next": "cwn_zwei_teller_oeffentlich_erinnerung",
+            "requires_flags": [
+              "cwn_zwei_teller_oeffentlich"
+            ]
+          },
+          {
+            "text": "Die Zeugnisse vertraulich hinterlegen.",
+            "next": "cwn_zwei_teller_vertraulich_erinnerung",
+            "requires_flags": [
+              "cwn_zwei_teller_vertraulich"
+            ]
+          },
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "cwn_letzte_terrasse_angebot": {
+        "text": "Noel stellt vier zusätzliche Schalen hin. „Das Hausbuch sagt, diese Familien wohnen nirgends. Die Suppe widerspricht. Geh einzeln zu ihnen. Ich will keine Liste, auf der vier verschiedene Antworten wie ein gemeinsames Ja aussehen.“",
+        "choices": [
+          {
+            "text": "Ich kümmere mich darum.",
+            "next": "cwn_letzte_terrasse_annehmen",
+            "requires_flags": [
+              "k4_arrived",
+              "cwa_akt4_done"
+            ],
+            "hide_if_flags": [
+              "kapitel4_done"
+            ],
+            "hide_if_quests": [
+              "cwn_letzte_terrasse"
+            ]
+          },
+          {
+            "text": "Heute nicht."
+          }
+        ]
+      },
+      "cwn_letzte_terrasse_annehmen": {
+        "text": "Du merkst dir die Fundstellen. Erst die getrennten Aussagen, dann die Entscheidung.",
+        "start_quests": [
+          "cwn_letzte_terrasse"
+        ],
+        "sets_flags": [
+          "cwn_letzte_terrasse_angenommen"
+        ],
+        "choices": [
+          {
+            "text": "Was fehlt noch?",
+            "next": "cwn_letzte_terrasse_stand"
+          }
+        ]
+      },
+      "cwn_letzte_terrasse_liste": {
+        "text": "Noel verwahrt Namen und persönliche Zeugen getrennt vom öffentlichen Speiseplan. Die Küchenliste ergänzt die spätere Hauptuntersuchung, ersetzt aber keinen ihrer Belege.",
+        "sets_flags": [
+          "cwn_letzte_terrasse_done",
+          "cwn_letzte_terrasse_liste",
+          "cwn_kuechenliste"
+        ],
+        "complete_quests": [
+          "cwn_letzte_terrasse"
+        ],
+        "honor": 4,
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_letzte_terrasse_liste_erinnerung": {
+        "text": "Noel verwahrt Namen und persönliche Zeugen getrennt vom öffentlichen Speiseplan. Die Küchenliste ergänzt die spätere Hauptuntersuchung, ersetzt aber keinen ihrer Belege.",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_letzte_terrasse_bedarf": {
+        "text": "Vier Haushalte erhalten weiter Suppe, ohne als gemeinsame Person eingetragen zu werden. Persönliche Bürgschaften musst du im Hauptfall später unabhängig gewinnen.",
+        "sets_flags": [
+          "cwn_letzte_terrasse_done",
+          "cwn_letzte_terrasse_bedarf"
+        ],
+        "complete_quests": [
+          "cwn_letzte_terrasse"
+        ],
+        "gives_money": 25,
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_letzte_terrasse_bedarf_erinnerung": {
+        "text": "Vier Haushalte erhalten weiter Suppe, ohne als gemeinsame Person eingetragen zu werden. Persönliche Bürgschaften musst du im Hauptfall später unabhängig gewinnen.",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_letzte_terrasse_zeuge": {
+        "text": "Du lässt die zweite Beobachtung für sich stehen. Sie ergänzt den Abgleich, ersetzt aber keine Aussage der Betroffenen.",
+        "sets_flags": [
+          "cwn_letzte_terrasse_koop"
+        ],
+        "choices": [
+          {
+            "text": "Zurück zu den Belegen.",
+            "next": "cwn_letzte_terrasse_stand"
+          }
+        ]
+      },
+      "cwn_letzte_terrasse_abgleich": {
+        "text": "Alle vier Haushalte sind einzeln gehört. Du kannst ihre unterschiedlichen Zustimmungen in einer vertraulichen Küchenliste sichern oder einen anonymen Versorgungszettel ohne persönliche Bürgschaften abgeben.",
+        "choices": [
+          {
+            "text": "Eine freiwillige, vertrauliche Küchenliste sichern.",
+            "next": "cwn_letzte_terrasse_liste",
+            "requires_flags": [
+              "cwn_letzte_terrasse_spur1",
+              "cwn_letzte_terrasse_spur2",
+              "cwn_letzte_terrasse_spur3",
+              "cwn_letzte_terrasse_spur4"
+            ],
+            "requires_quests_active": [
+              "cwn_letzte_terrasse"
+            ],
+            "hide_if_flags": [
+              "cwn_letzte_terrasse_done"
+            ]
+          },
+          {
+            "text": "Nur den anonymen Versorgungsbedarf melden.",
+            "next": "cwn_letzte_terrasse_bedarf",
+            "requires_flags": [
+              "cwn_letzte_terrasse_spur1",
+              "cwn_letzte_terrasse_spur2",
+              "cwn_letzte_terrasse_spur3",
+              "cwn_letzte_terrasse_spur4"
+            ],
+            "requires_quests_active": [
+              "cwn_letzte_terrasse"
+            ],
+            "hide_if_flags": [
+              "cwn_letzte_terrasse_done"
+            ]
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "cwn_letzte_terrasse_stand": {
+        "text": "Du vergleichst deine Notizen mit den noch offenen Fundstellen. Erst wenn alle Stimmen einzeln festgehalten sind, lässt sich über die Folgen entscheiden.",
+        "choices": [
+          {
+            "text": "Alle Belege abgleichen.",
+            "next": "cwn_letzte_terrasse_abgleich",
+            "requires_flags": [
+              "cwn_letzte_terrasse_spur1",
+              "cwn_letzte_terrasse_spur2",
+              "cwn_letzte_terrasse_spur3",
+              "cwn_letzte_terrasse_spur4"
+            ],
+            "requires_quests_active": [
+              "cwn_letzte_terrasse"
+            ],
+            "hide_if_flags": [
+              "cwn_letzte_terrasse_done"
+            ]
+          },
+          {
+            "text": "Die zweite Beobachtung festhalten.",
+            "next": "cwn_letzte_terrasse_zeuge",
+            "requires_flags": [
+              "koop_aktiv"
+            ],
+            "hide_if_flags": [
+              "cwn_letzte_terrasse_koop"
+            ]
+          },
+          {
+            "text": "Ich suche weiter."
+          }
+        ]
+      },
+      "cwn_letzte_terrasse_danach": {
+        "text": "Die Entscheidung bleibt in Erinnerung. Du kannst noch einmal über ihre Folgen sprechen.",
+        "choices": [
+          {
+            "text": "Eine freiwillige, vertrauliche Küchenliste sichern.",
+            "next": "cwn_letzte_terrasse_liste_erinnerung",
+            "requires_flags": [
+              "cwn_letzte_terrasse_liste"
+            ]
+          },
+          {
+            "text": "Nur den anonymen Versorgungsbedarf melden.",
+            "next": "cwn_letzte_terrasse_bedarf_erinnerung",
+            "requires_flags": [
+              "cwn_letzte_terrasse_bedarf"
+            ]
+          },
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "bj_cw_pritch": {
+    "choices_add": [
+      {
+        "text": "Der Name in der Brotdose.",
+        "next": "cwn_brotdose_angebot",
+        "requires_flags": [
+          "k4_arrived",
+          "cwa_akt1_done"
+        ],
+        "hide_if_flags": [
+          "kapitel4_done"
+        ],
+        "hide_if_quests": [
+          "cwn_brotdose"
+        ]
+      },
+      {
+        "text": "Der Name in der Brotdose: Stand.",
+        "next": "cwn_brotdose_stand",
+        "requires_quests_active": [
+          "cwn_brotdose"
+        ],
+        "hide_if_flags": [
+          "cwn_brotdose_done"
+        ]
+      },
+      {
+        "text": "Der Name in der Brotdose: Danach.",
+        "next": "cwn_brotdose_danach",
+        "requires_quests_done": [
+          "cwn_brotdose"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "cwn_brotdose_angebot": {
+        "text": "Pritch legt den gesuchten Lohnlöffel neben eine Brotdose. „Am Griff ist eine Reparaturkerbe. Dieselbe Kerbe steht auf den Lettern, die der Geselle heimgetragen hat. Daraus wird ein Name, aber nicht automatisch ein Auftrag, ihn überall auszurufen.“",
+        "choices": [
+          {
+            "text": "Ich kümmere mich darum.",
+            "next": "cwn_brotdose_annehmen",
+            "requires_flags": [
+              "k4_arrived",
+              "cwa_akt1_done"
+            ],
+            "hide_if_flags": [
+              "kapitel4_done"
+            ],
+            "hide_if_quests": [
+              "cwn_brotdose"
+            ]
+          },
+          {
+            "text": "Heute nicht."
+          }
+        ]
+      },
+      "cwn_brotdose_annehmen": {
+        "text": "Du merkst dir die Fundstellen. Erst die getrennten Aussagen, dann die Entscheidung.",
+        "start_quests": [
+          "cwn_brotdose"
+        ],
+        "sets_flags": [
+          "cwn_brotdose_angenommen"
+        ],
+        "choices": [
+          {
+            "text": "Was fehlt noch?",
+            "next": "cwn_brotdose_stand"
+          }
+        ]
+      },
+      "cwn_brotdose_rueckgabe": {
+        "text": "Rena nimmt die Lettern in einem Tuch an. Die Gesellen behalten nur eine leere Stelle für ihren Protest.",
+        "sets_flags": [
+          "cwn_brotdose_done",
+          "cwn_brotdose_rueckgabe"
+        ],
+        "complete_quests": [
+          "cwn_brotdose"
+        ],
+        "honor": 3,
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_brotdose_rueckgabe_erinnerung": {
+        "text": "Rena nimmt die Lettern in einem Tuch an. Die Gesellen behalten nur eine leere Stelle für ihren Protest.",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_brotdose_aushang": {
+        "text": "Der Aushang zieht weitere Betroffene an. Rena widerspricht der Veröffentlichung; ihr Name steht nun wieder da, aber nicht zu ihren Bedingungen.",
+        "sets_flags": [
+          "cwn_brotdose_done",
+          "cwn_brotdose_aushang"
+        ],
+        "complete_quests": [
+          "cwn_brotdose"
+        ],
+        "gives_money": 35,
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_brotdose_aushang_erinnerung": {
+        "text": "Der Aushang zieht weitere Betroffene an. Rena widerspricht der Veröffentlichung; ihr Name steht nun wieder da, aber nicht zu ihren Bedingungen.",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_brotdose_abgleich": {
+        "text": "Die Eigentümerin hat eine private Rückgabe erbeten. Die Gesellen möchten den Namen dagegen als sichtbaren Widerspruch gegen die Streichung setzen.",
+        "choices": [
+          {
+            "text": "Den Satz der Eigentümerin zurückgeben.",
+            "next": "cwn_brotdose_rueckgabe",
+            "requires_flags": [
+              "cwn_brotdose_spur1",
+              "cwn_brotdose_spur2",
+              "cwn_brotdose_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_brotdose"
+            ],
+            "hide_if_flags": [
+              "cwn_brotdose_done"
+            ]
+          },
+          {
+            "text": "Den Namen den Gesellen für den Aushang geben.",
+            "next": "cwn_brotdose_aushang",
+            "requires_flags": [
+              "cwn_brotdose_spur1",
+              "cwn_brotdose_spur2",
+              "cwn_brotdose_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_brotdose"
+            ],
+            "hide_if_flags": [
+              "cwn_brotdose_done"
+            ]
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "cwn_brotdose_stand": {
+        "text": "Du vergleichst deine Notizen mit den noch offenen Fundstellen. Erst wenn alle Stimmen einzeln festgehalten sind, lässt sich über die Folgen entscheiden.",
+        "choices": [
+          {
+            "text": "Alle Belege abgleichen.",
+            "next": "cwn_brotdose_abgleich",
+            "requires_flags": [
+              "cwn_brotdose_spur1",
+              "cwn_brotdose_spur2",
+              "cwn_brotdose_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_brotdose"
+            ],
+            "hide_if_flags": [
+              "cwn_brotdose_done"
+            ]
+          },
+          {
+            "text": "Ich suche weiter."
+          }
+        ]
+      },
+      "cwn_brotdose_danach": {
+        "text": "Die Entscheidung bleibt in Erinnerung. Du kannst noch einmal über ihre Folgen sprechen.",
+        "choices": [
+          {
+            "text": "Den Satz der Eigentümerin zurückgeben.",
+            "next": "cwn_brotdose_rueckgabe_erinnerung",
+            "requires_flags": [
+              "cwn_brotdose_rueckgabe"
+            ]
+          },
+          {
+            "text": "Den Namen den Gesellen für den Aushang geben.",
+            "next": "cwn_brotdose_aushang_erinnerung",
+            "requires_flags": [
+              "cwn_brotdose_aushang"
+            ]
+          },
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "bj_cw_wicksend": {
+    "choices_add": [
+      {
+        "text": "Drei Haushalte, ein Pfand.",
+        "next": "cwn_falscher_pfand_angebot",
+        "requires_flags": [
+          "k4_arrived",
+          "cwa_akt1_done"
+        ],
+        "hide_if_flags": [
+          "kapitel4_done"
+        ],
+        "hide_if_quests": [
+          "cwn_falscher_pfand"
+        ]
+      },
+      {
+        "text": "Drei Haushalte, ein Pfand: Stand.",
+        "next": "cwn_falscher_pfand_stand",
+        "requires_quests_active": [
+          "cwn_falscher_pfand"
+        ],
+        "hide_if_flags": [
+          "cwn_falscher_pfand_done"
+        ]
+      },
+      {
+        "text": "Drei Haushalte, ein Pfand: Danach.",
+        "next": "cwn_falscher_pfand_danach",
+        "requires_quests_done": [
+          "cwn_falscher_pfand"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "cwn_falscher_pfand_angebot": {
+        "text": "Lottie stellt den Krug mit dem schiefen Henkel vor eine Uhr und eine Decke. „Alle drei wurden unter demselben Namen eingelöst. Früher reichte die Henkelreparatur. Jetzt ist die Verwechslung auf Raten gewachsen.“",
+        "choices": [
+          {
+            "text": "Ich kümmere mich darum.",
+            "next": "cwn_falscher_pfand_annehmen",
+            "requires_flags": [
+              "k4_arrived",
+              "cwa_akt1_done"
+            ],
+            "hide_if_flags": [
+              "kapitel4_done"
+            ],
+            "hide_if_quests": [
+              "cwn_falscher_pfand"
+            ]
+          },
+          {
+            "text": "Heute nicht."
+          }
+        ]
+      },
+      "cwn_falscher_pfand_annehmen": {
+        "text": "Du merkst dir die Fundstellen. Erst die getrennten Aussagen, dann die Entscheidung.",
+        "start_quests": [
+          "cwn_falscher_pfand"
+        ],
+        "sets_flags": [
+          "cwn_falscher_pfand_angenommen"
+        ],
+        "choices": [
+          {
+            "text": "Was fehlt noch?",
+            "next": "cwn_falscher_pfand_stand"
+          }
+        ]
+      },
+      "cwn_falscher_pfand_einzeln": {
+        "text": "Lottie schreibt drei Empfangsbestätigungen. Jeder Haushalt kann sein Eigentum nun ohne die Zustimmung der anderen auslösen.",
+        "sets_flags": [
+          "cwn_falscher_pfand_done",
+          "cwn_falscher_pfand_einzeln"
+        ],
+        "complete_quests": [
+          "cwn_falscher_pfand"
+        ],
+        "honor": 3,
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_falscher_pfand_einzeln_erinnerung": {
+        "text": "Lottie schreibt drei Empfangsbestätigungen. Jeder Haushalt kann sein Eigentum nun ohne die Zustimmung der anderen auslösen.",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_falscher_pfand_sammel": {
+        "text": "Lottie lässt den gemeinsamen Preis stehen. Selma bietet dir daraufhin günstigere Saisonwaren; die drei Haushalte bleiben in ihrer Rechnung voneinander abhängig.",
+        "sets_flags": [
+          "cwn_falscher_pfand_done",
+          "cwn_falscher_pfand_sammel"
+        ],
+        "complete_quests": [
+          "cwn_falscher_pfand"
+        ],
+        "gives_money": 15,
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_falscher_pfand_sammel_erinnerung": {
+        "text": "Lottie lässt den gemeinsamen Preis stehen. Selma bietet dir daraufhin günstigere Saisonwaren; die drei Haushalte bleiben in ihrer Rechnung voneinander abhängig.",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_falscher_pfand_abgleich": {
+        "text": "Die Herkunft ist geklärt. Getrennte Pfandscheine stellen die Haushalte wieder her; die Sammelrechnung bringt am Markt einen Nachlass, hält aber ihre Ansprüche zusammen.",
+        "choices": [
+          {
+            "text": "Die Gegenstände einzeln zuordnen.",
+            "next": "cwn_falscher_pfand_einzeln",
+            "requires_flags": [
+              "cwn_falscher_pfand_spur1",
+              "cwn_falscher_pfand_spur2",
+              "cwn_falscher_pfand_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_falscher_pfand"
+            ],
+            "hide_if_flags": [
+              "cwn_falscher_pfand_done"
+            ]
+          },
+          {
+            "text": "Die Sammelrechnung bestehen lassen.",
+            "next": "cwn_falscher_pfand_sammel",
+            "requires_flags": [
+              "cwn_falscher_pfand_spur1",
+              "cwn_falscher_pfand_spur2",
+              "cwn_falscher_pfand_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_falscher_pfand"
+            ],
+            "hide_if_flags": [
+              "cwn_falscher_pfand_done"
+            ]
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "cwn_falscher_pfand_stand": {
+        "text": "Du vergleichst deine Notizen mit den noch offenen Fundstellen. Erst wenn alle Stimmen einzeln festgehalten sind, lässt sich über die Folgen entscheiden.",
+        "choices": [
+          {
+            "text": "Alle Belege abgleichen.",
+            "next": "cwn_falscher_pfand_abgleich",
+            "requires_flags": [
+              "cwn_falscher_pfand_spur1",
+              "cwn_falscher_pfand_spur2",
+              "cwn_falscher_pfand_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_falscher_pfand"
+            ],
+            "hide_if_flags": [
+              "cwn_falscher_pfand_done"
+            ]
+          },
+          {
+            "text": "Ich suche weiter."
+          }
+        ]
+      },
+      "cwn_falscher_pfand_danach": {
+        "text": "Die Entscheidung bleibt in Erinnerung. Du kannst noch einmal über ihre Folgen sprechen.",
+        "choices": [
+          {
+            "text": "Die Gegenstände einzeln zuordnen.",
+            "next": "cwn_falscher_pfand_einzeln_erinnerung",
+            "requires_flags": [
+              "cwn_falscher_pfand_einzeln"
+            ]
+          },
+          {
+            "text": "Die Sammelrechnung bestehen lassen.",
+            "next": "cwn_falscher_pfand_sammel_erinnerung",
+            "requires_flags": [
+              "cwn_falscher_pfand_sammel"
+            ]
+          },
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "bj_cw_bexley": {
+    "choices_add": [
+      {
+        "text": "Die Wohnung antwortet.",
+        "next": "cwn_klopfzeichen_angebot",
+        "requires_flags": [
+          "k4_arrived",
+          "cwa_akt1_done"
+        ],
+        "hide_if_flags": [
+          "kapitel4_done"
+        ],
+        "hide_if_quests": [
+          "cwn_klopfzeichen"
+        ]
+      },
+      {
+        "text": "Die Wohnung antwortet: Stand.",
+        "next": "cwn_klopfzeichen_stand",
+        "requires_quests_active": [
+          "cwn_klopfzeichen"
+        ],
+        "hide_if_flags": [
+          "cwn_klopfzeichen_done"
+        ]
+      },
+      {
+        "text": "Die Wohnung antwortet: Danach.",
+        "next": "cwn_klopfzeichen_danach",
+        "requires_quests_done": [
+          "cwn_klopfzeichen"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "cwn_klopfzeichen_angebot": {
+        "text": "Bexley hält den Rohrschlüssel still. „Ungefähr drei Schläge, dann zwei. Das Hausbuch nennt die Wohnung leer. Ich möchte diesmal wissen, ob ich einen Mieter höre oder nur jemanden, den ich vermisse.“",
+        "choices": [
+          {
+            "text": "Ich kümmere mich darum.",
+            "next": "cwn_klopfzeichen_annehmen",
+            "requires_flags": [
+              "k4_arrived",
+              "cwa_akt1_done"
+            ],
+            "hide_if_flags": [
+              "kapitel4_done"
+            ],
+            "hide_if_quests": [
+              "cwn_klopfzeichen"
+            ]
+          },
+          {
+            "text": "Heute nicht."
+          }
+        ]
+      },
+      "cwn_klopfzeichen_annehmen": {
+        "text": "Du merkst dir die Fundstellen. Erst die getrennten Aussagen, dann die Entscheidung.",
+        "start_quests": [
+          "cwn_klopfzeichen"
+        ],
+        "sets_flags": [
+          "cwn_klopfzeichen_angenommen"
+        ],
+        "choices": [
+          {
+            "text": "Was fehlt noch?",
+            "next": "cwn_klopfzeichen_stand"
+          }
+        ]
+      },
+      "cwn_klopfzeichen_eintrag": {
+        "text": "Mina diktiert ihren eigenen Eintrag. Bexley streicht die falsche Zuordnung sichtbar durch, statt sie heimlich zu glätten.",
+        "sets_flags": [
+          "cwn_klopfzeichen_done",
+          "cwn_klopfzeichen_eintrag"
+        ],
+        "complete_quests": [
+          "cwn_klopfzeichen"
+        ],
+        "honor": 2,
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_klopfzeichen_eintrag_erinnerung": {
+        "text": "Mina diktiert ihren eigenen Eintrag. Bexley streicht die falsche Zuordnung sichtbar durch, statt sie heimlich zu glätten.",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_klopfzeichen_klopfen": {
+        "text": "Mina behält ihre Tür ohne Namensschild. Bexley kennt nun die richtige Antwort, muss aber jedes Mal persönlich nachfragen.",
+        "sets_flags": [
+          "cwn_klopfzeichen_done",
+          "cwn_klopfzeichen_klopfen"
+        ],
+        "complete_quests": [
+          "cwn_klopfzeichen"
+        ],
+        "gives_money": 20,
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_klopfzeichen_klopfen_erinnerung": {
+        "text": "Mina behält ihre Tür ohne Namensschild. Bexley kennt nun die richtige Antwort, muss aber jedes Mal persönlich nachfragen.",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_klopfzeichen_kampf": {
+        "text": "Im Türspalt hebt sich ein Schatten vom Papier. Du kannst ihn vertreiben; Minas Aussage hängt davon nicht ab.",
+        "combat": "vg_cw_tintenschatten",
+        "sets_flags": [
+          "cwn_klopfzeichen_kampf_versucht"
+        ],
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_klopfzeichen_abgleich": {
+        "text": "Die Wohnung ist bewohnt, aber Bexley hatte die Stimme falsch zugeordnet. Du kannst den Namen mit Minas Einverständnis ins Hausbuch aufnehmen oder nur einen vertraulichen Kontaktweg sichern.",
+        "choices": [
+          {
+            "text": "Mina selbst den Eintrag berichtigen lassen.",
+            "next": "cwn_klopfzeichen_eintrag",
+            "requires_flags": [
+              "cwn_klopfzeichen_spur1",
+              "cwn_klopfzeichen_spur2",
+              "cwn_klopfzeichen_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_klopfzeichen"
+            ],
+            "hide_if_flags": [
+              "cwn_klopfzeichen_done"
+            ]
+          },
+          {
+            "text": "Nur das persönliche Klopfzeichen vereinbaren.",
+            "next": "cwn_klopfzeichen_klopfen",
+            "requires_flags": [
+              "cwn_klopfzeichen_spur1",
+              "cwn_klopfzeichen_spur2",
+              "cwn_klopfzeichen_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_klopfzeichen"
+            ],
+            "hide_if_flags": [
+              "cwn_klopfzeichen_done"
+            ]
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "cwn_klopfzeichen_stand": {
+        "text": "Du vergleichst deine Notizen mit den noch offenen Fundstellen. Erst wenn alle Stimmen einzeln festgehalten sind, lässt sich über die Folgen entscheiden.",
+        "choices": [
+          {
+            "text": "Alle Belege abgleichen.",
+            "next": "cwn_klopfzeichen_abgleich",
+            "requires_flags": [
+              "cwn_klopfzeichen_spur1",
+              "cwn_klopfzeichen_spur2",
+              "cwn_klopfzeichen_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_klopfzeichen"
+            ],
+            "hide_if_flags": [
+              "cwn_klopfzeichen_done"
+            ]
+          },
+          {
+            "text": "Den Tintenschatten zurückdrängen.",
+            "next": "cwn_klopfzeichen_kampf",
+            "requires_flags": [
+              "cwn_klopfzeichen_spur1",
+              "cwn_klopfzeichen_spur2",
+              "cwn_klopfzeichen_spur3"
+            ],
+            "hide_if_flags": [
+              "cwn_klopfzeichen_kampf_versucht"
+            ]
+          },
+          {
+            "text": "Ich suche weiter."
+          }
+        ]
+      },
+      "cwn_klopfzeichen_danach": {
+        "text": "Die Entscheidung bleibt in Erinnerung. Du kannst noch einmal über ihre Folgen sprechen.",
+        "choices": [
+          {
+            "text": "Mina selbst den Eintrag berichtigen lassen.",
+            "next": "cwn_klopfzeichen_eintrag_erinnerung",
+            "requires_flags": [
+              "cwn_klopfzeichen_eintrag"
+            ]
+          },
+          {
+            "text": "Nur das persönliche Klopfzeichen vereinbaren.",
+            "next": "cwn_klopfzeichen_klopfen_erinnerung",
+            "requires_flags": [
+              "cwn_klopfzeichen_klopfen"
+            ]
+          },
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "bj_cw_darnell": {
+    "choices_add": [
+      {
+        "text": "Papier ohne Stempel.",
+        "next": "cwn_durchschlaege_angebot",
+        "requires_flags": [
+          "k4_arrived",
+          "cwa_akt2_done"
+        ],
+        "hide_if_flags": [
+          "kapitel4_done"
+        ],
+        "hide_if_quests": [
+          "cwn_durchschlaege"
+        ]
+      },
+      {
+        "text": "Papier ohne Stempel: Stand.",
+        "next": "cwn_durchschlaege_stand",
+        "requires_quests_active": [
+          "cwn_durchschlaege"
+        ],
+        "hide_if_flags": [
+          "cwn_durchschlaege_done"
+        ]
+      },
+      {
+        "text": "Papier ohne Stempel: Danach.",
+        "next": "cwn_durchschlaege_danach",
+        "requires_quests_done": [
+          "cwn_durchschlaege"
+        ]
+      },
+      {
+        "text": "Ein Paket von Pfiff.",
+        "next": "cwn_brief_aus_dunscar_angebot",
+        "requires_flags": [
+          "k4_arrived"
+        ],
+        "hide_if_flags": [
+          "kapitel4_done"
+        ],
+        "hide_if_quests": [
+          "cwn_brief_aus_dunscar"
+        ]
+      },
+      {
+        "text": "Ein Paket von Pfiff: Stand.",
+        "next": "cwn_brief_aus_dunscar_stand",
+        "requires_quests_active": [
+          "cwn_brief_aus_dunscar"
+        ],
+        "hide_if_flags": [
+          "cwn_brief_aus_dunscar_done"
+        ]
+      },
+      {
+        "text": "Ein Paket von Pfiff: Danach.",
+        "next": "cwn_brief_aus_dunscar_danach",
+        "requires_quests_done": [
+          "cwn_brief_aus_dunscar"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "cwn_durchschlaege_angebot": {
+        "text": "Vera schiebt eine leere Kapsel unter das Fahrgastbuch. „Ihre Naht kennt die richtige Werkstatt. In den drei Durchschlägen stehen Familien, die seit Wochen auf Antwort warten. Mein Schalter darf nicht ihr gemeinsamer Absender werden.“",
+        "choices": [
+          {
+            "text": "Ich kümmere mich darum.",
+            "next": "cwn_durchschlaege_annehmen",
+            "requires_flags": [
+              "k4_arrived",
+              "cwa_akt2_done"
+            ],
+            "hide_if_flags": [
+              "kapitel4_done"
+            ],
+            "hide_if_quests": [
+              "cwn_durchschlaege"
+            ]
+          },
+          {
+            "text": "Heute nicht."
+          }
+        ]
+      },
+      "cwn_durchschlaege_annehmen": {
+        "text": "Du merkst dir die Fundstellen. Erst die getrennten Aussagen, dann die Entscheidung.",
+        "start_quests": [
+          "cwn_durchschlaege"
+        ],
+        "sets_flags": [
+          "cwn_durchschlaege_angenommen"
+        ],
+        "choices": [
+          {
+            "text": "Was fehlt noch?",
+            "next": "cwn_durchschlaege_stand"
+          }
+        ]
+      },
+      "cwn_durchschlaege_buendel": {
+        "text": "Vera prüft die drei Bestätigungen und löst die gemeinsame Kapselnaht. Sie kann nun eine weitere Nachfrage beantworten, ohne ihren Namen zu hinterlassen.",
+        "sets_flags": [
+          "cwn_durchschlaege_done",
+          "cwn_durchschlaege_buendel"
+        ],
+        "complete_quests": [
+          "cwn_durchschlaege"
+        ],
+        "gives_money": 25,
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_durchschlaege_buendel_erinnerung": {
+        "text": "Vera prüft die drei Bestätigungen und löst die gemeinsame Kapselnaht. Sie kann nun eine weitere Nachfrage beantworten, ohne ihren Namen zu hinterlassen.",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_durchschlaege_getrennt": {
+        "text": "Vera vernichtet keine Belege. Sie notiert drei getrennte Rückfragewege, die mehr Arbeit machen und keinem einzelnen Schalter alles verraten.",
+        "sets_flags": [
+          "cwn_durchschlaege_done",
+          "cwn_durchschlaege_getrennt"
+        ],
+        "complete_quests": [
+          "cwn_durchschlaege"
+        ],
+        "honor": 3,
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_durchschlaege_getrennt_erinnerung": {
+        "text": "Vera vernichtet keine Belege. Sie notiert drei getrennte Rückfragewege, die mehr Arbeit machen und keinem einzelnen Schalter alles verraten.",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_durchschlaege_abgleich": {
+        "text": "Alle drei Blätter sind richtig zugestellt. Du kannst Veras unmarkierte Umschläge zurückbringen oder die Empfangsbestätigungen bei den Familien lassen; ihr Name bleibt in beiden Fällen geschützt.",
+        "choices": [
+          {
+            "text": "Die anonymen Bestätigungen bei Vera bündeln.",
+            "next": "cwn_durchschlaege_buendel",
+            "requires_flags": [
+              "cwn_durchschlaege_spur1",
+              "cwn_durchschlaege_spur2",
+              "cwn_durchschlaege_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_durchschlaege"
+            ],
+            "hide_if_flags": [
+              "cwn_durchschlaege_done"
+            ]
+          },
+          {
+            "text": "Jede Bestätigung in ihrem Haushalt lassen.",
+            "next": "cwn_durchschlaege_getrennt",
+            "requires_flags": [
+              "cwn_durchschlaege_spur1",
+              "cwn_durchschlaege_spur2",
+              "cwn_durchschlaege_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_durchschlaege"
+            ],
+            "hide_if_flags": [
+              "cwn_durchschlaege_done"
+            ]
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "cwn_durchschlaege_stand": {
+        "text": "Du vergleichst deine Notizen mit den noch offenen Fundstellen. Erst wenn alle Stimmen einzeln festgehalten sind, lässt sich über die Folgen entscheiden.",
+        "choices": [
+          {
+            "text": "Alle Belege abgleichen.",
+            "next": "cwn_durchschlaege_abgleich",
+            "requires_flags": [
+              "cwn_durchschlaege_spur1",
+              "cwn_durchschlaege_spur2",
+              "cwn_durchschlaege_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_durchschlaege"
+            ],
+            "hide_if_flags": [
+              "cwn_durchschlaege_done"
+            ]
+          },
+          {
+            "text": "Ich suche weiter."
+          }
+        ]
+      },
+      "cwn_durchschlaege_danach": {
+        "text": "Die Entscheidung bleibt in Erinnerung. Du kannst noch einmal über ihre Folgen sprechen.",
+        "choices": [
+          {
+            "text": "Die anonymen Bestätigungen bei Vera bündeln.",
+            "next": "cwn_durchschlaege_buendel_erinnerung",
+            "requires_flags": [
+              "cwn_durchschlaege_buendel"
+            ]
+          },
+          {
+            "text": "Jede Bestätigung in ihrem Haushalt lassen.",
+            "next": "cwn_durchschlaege_getrennt_erinnerung",
+            "requires_flags": [
+              "cwn_durchschlaege_getrennt"
+            ]
+          },
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "cwn_brief_aus_dunscar_angebot": {
+        "text": "Vera legt ein Paket mit Dunscarer Staub auf den Schalter. „Der Absender verlangt keine Empfangsformel. Er möchte nur eine Antwort, die du selbst geschrieben hast. Das ist ungewöhnlich präzise für Privatpost.“",
+        "choices": [
+          {
+            "text": "Ich kümmere mich darum.",
+            "next": "cwn_brief_aus_dunscar_annehmen",
+            "requires_flags": [
+              "k4_arrived"
+            ],
+            "hide_if_flags": [
+              "kapitel4_done"
+            ],
+            "hide_if_quests": [
+              "cwn_brief_aus_dunscar"
+            ]
+          },
+          {
+            "text": "Heute nicht."
+          }
+        ]
+      },
+      "cwn_brief_aus_dunscar_annehmen": {
+        "text": "Du merkst dir die Fundstellen. Erst die getrennten Aussagen, dann die Entscheidung.",
+        "start_quests": [
+          "cwn_brief_aus_dunscar"
+        ],
+        "sets_flags": [
+          "cwn_brief_aus_dunscar_angenommen"
+        ],
+        "choices": [
+          {
+            "text": "Was fehlt noch?",
+            "next": "cwn_brief_aus_dunscar_stand"
+          }
+        ]
+      },
+      "cwn_brief_aus_dunscar_ehrlich": {
+        "text": "Du schickst eine persönliche Antwort statt einer Erfolgsformel. Pfiff bleibt in Dunscar; sein Vertrauen wächst durch deine Klarheit, nicht durch ein rückwirkend gutes Ende.",
+        "sets_flags": [
+          "cwn_brief_aus_dunscar_done",
+          "cwn_brief_aus_dunscar_ehrlich"
+        ],
+        "complete_quests": [
+          "cwn_brief_aus_dunscar"
+        ],
+        "bond": {
+          "k3_pfiff": 1
+        },
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_brief_aus_dunscar_ehrlich_erinnerung": {
+        "text": "Du schickst eine persönliche Antwort statt einer Erfolgsformel. Pfiff bleibt in Dunscar; sein Vertrauen wächst durch deine Klarheit, nicht durch ein rückwirkend gutes Ende.",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_brief_aus_dunscar_sachlich": {
+        "text": "Das Rezept erreicht den Speisewagen mit einer sachlichen Notiz. Pfiff kennt nun den Weg, aber nicht mehr von deinen Gedanken als zuvor.",
+        "sets_flags": [
+          "cwn_brief_aus_dunscar_done",
+          "cwn_brief_aus_dunscar_sachlich"
+        ],
+        "complete_quests": [
+          "cwn_brief_aus_dunscar"
+        ],
+        "gives_money": 20,
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_brief_aus_dunscar_sachlich_erinnerung": {
+        "text": "Das Rezept erreicht den Speisewagen mit einer sachlichen Notiz. Pfiff kennt nun den Weg, aber nicht mehr von deinen Gedanken als zuvor.",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_brief_aus_dunscar_abgleich": {
+        "text": "Pfiff bekommt das Rezept zurück. Ob du deine Verantwortung beim Namen nennst oder nur den Botengang bestätigst, entscheidest du selbst.",
+        "choices": [
+          {
+            "text": "Offen über Verantwortung und Grenzen schreiben.",
+            "next": "cwn_brief_aus_dunscar_ehrlich",
+            "requires_flags": [
+              "cwn_brief_aus_dunscar_spur1",
+              "cwn_brief_aus_dunscar_spur2",
+              "cwn_brief_aus_dunscar_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_brief_aus_dunscar"
+            ],
+            "hide_if_flags": [
+              "cwn_brief_aus_dunscar_done"
+            ]
+          },
+          {
+            "text": "Nur Rezept und Empfang bestätigen.",
+            "next": "cwn_brief_aus_dunscar_sachlich",
+            "requires_flags": [
+              "cwn_brief_aus_dunscar_spur1",
+              "cwn_brief_aus_dunscar_spur2",
+              "cwn_brief_aus_dunscar_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_brief_aus_dunscar"
+            ],
+            "hide_if_flags": [
+              "cwn_brief_aus_dunscar_done"
+            ]
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "cwn_brief_aus_dunscar_stand": {
+        "text": "Du vergleichst deine Notizen mit den noch offenen Fundstellen. Erst wenn alle Stimmen einzeln festgehalten sind, lässt sich über die Folgen entscheiden.",
+        "choices": [
+          {
+            "text": "Alle Belege abgleichen.",
+            "next": "cwn_brief_aus_dunscar_abgleich",
+            "requires_flags": [
+              "cwn_brief_aus_dunscar_spur1",
+              "cwn_brief_aus_dunscar_spur2",
+              "cwn_brief_aus_dunscar_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_brief_aus_dunscar"
+            ],
+            "hide_if_flags": [
+              "cwn_brief_aus_dunscar_done"
+            ]
+          },
+          {
+            "text": "Ich suche weiter."
+          }
+        ]
+      },
+      "cwn_brief_aus_dunscar_danach": {
+        "text": "Die Entscheidung bleibt in Erinnerung. Du kannst noch einmal über ihre Folgen sprechen.",
+        "choices": [
+          {
+            "text": "Offen über Verantwortung und Grenzen schreiben.",
+            "next": "cwn_brief_aus_dunscar_ehrlich_erinnerung",
+            "requires_flags": [
+              "cwn_brief_aus_dunscar_ehrlich"
+            ]
+          },
+          {
+            "text": "Nur Rezept und Empfang bestätigen.",
+            "next": "cwn_brief_aus_dunscar_sachlich_erinnerung",
+            "requires_flags": [
+              "cwn_brief_aus_dunscar_sachlich"
+            ]
+          },
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "bj_cw_hesk": {
+    "choices_add": [
+      {
+        "text": "Die Last der falschen Adresse.",
+        "next": "cwn_falsche_adresse_angebot",
+        "requires_flags": [
+          "k4_arrived",
+          "cwa_akt2_done"
+        ],
+        "hide_if_flags": [
+          "kapitel4_done"
+        ],
+        "hide_if_quests": [
+          "cwn_falsche_adresse"
+        ]
+      },
+      {
+        "text": "Die Last der falschen Adresse: Stand.",
+        "next": "cwn_falsche_adresse_stand",
+        "requires_quests_active": [
+          "cwn_falsche_adresse"
+        ],
+        "hide_if_flags": [
+          "cwn_falsche_adresse_done"
+        ]
+      },
+      {
+        "text": "Die Last der falschen Adresse: Danach.",
+        "next": "cwn_falsche_adresse_danach",
+        "requires_quests_done": [
+          "cwn_falsche_adresse"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "cwn_falsche_adresse_angebot": {
+        "text": "Hesk lehnt sich gegen einen reparierten Handwagen. „Die Rechnung wurde berichtigt, die Last nicht. Die Kiste wiegt wie ein Mensch. Sieh nicht nach, bevor du weißt, wer am anderen Ende auf eine Lieferung wartet.“",
+        "choices": [
+          {
+            "text": "Ich kümmere mich darum.",
+            "next": "cwn_falsche_adresse_annehmen",
+            "requires_flags": [
+              "k4_arrived",
+              "cwa_akt2_done"
+            ],
+            "hide_if_flags": [
+              "kapitel4_done"
+            ],
+            "hide_if_quests": [
+              "cwn_falsche_adresse"
+            ]
+          },
+          {
+            "text": "Heute nicht."
+          }
+        ]
+      },
+      "cwn_falsche_adresse_annehmen": {
+        "text": "Du merkst dir die Fundstellen. Erst die getrennten Aussagen, dann die Entscheidung.",
+        "start_quests": [
+          "cwn_falsche_adresse"
+        ],
+        "sets_flags": [
+          "cwn_falsche_adresse_angenommen"
+        ],
+        "choices": [
+          {
+            "text": "Was fehlt noch?",
+            "next": "cwn_falsche_adresse_stand"
+          }
+        ]
+      },
+      "cwn_falsche_adresse_offen": {
+        "text": "Der Gehilfe steigt aus eigener Kraft aus. Hesk bezeugt den Zielwechsel öffentlich; seine Hilfe ist sichtbar und wird nicht als Entführung ausgegeben.",
+        "sets_flags": [
+          "cwn_falsche_adresse_done",
+          "cwn_falsche_adresse_offen"
+        ],
+        "complete_quests": [
+          "cwn_falsche_adresse"
+        ],
+        "honor": 3,
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_falsche_adresse_offen_erinnerung": {
+        "text": "Der Gehilfe steigt aus eigener Kraft aus. Hesk bezeugt den Zielwechsel öffentlich; seine Hilfe ist sichtbar und wird nicht als Entführung ausgegeben.",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_falsche_adresse_verdeckt": {
+        "text": "Die Kiste bleibt nur bis zur nächsten geschützten Tür geschlossen. Der Gehilfe meldet seine Ankunft selbst, während Hesks Name auf keiner neuen Liste erscheint.",
+        "sets_flags": [
+          "cwn_falsche_adresse_done",
+          "cwn_falsche_adresse_verdeckt"
+        ],
+        "complete_quests": [
+          "cwn_falsche_adresse"
+        ],
+        "gives_money": 25,
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_falsche_adresse_verdeckt_erinnerung": {
+        "text": "Die Kiste bleibt nur bis zur nächsten geschützten Tür geschlossen. Der Gehilfe meldet seine Ankunft selbst, während Hesks Name auf keiner neuen Liste erscheint.",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_falsche_adresse_zeuge": {
+        "text": "Du lässt die zweite Beobachtung für sich stehen. Sie ergänzt den Abgleich, ersetzt aber keine Aussage der Betroffenen.",
+        "sets_flags": [
+          "cwn_falsche_adresse_koop"
+        ],
+        "choices": [
+          {
+            "text": "Zurück zu den Belegen.",
+            "next": "cwn_falsche_adresse_stand"
+          }
+        ]
+      },
+      "cwn_falsche_adresse_abgleich": {
+        "text": "Ein Mensch hat dir selbst geantwortet. Du kannst den Deckel mit seiner Zustimmung öffnen und einen offenen Schutztransport organisieren oder seinen verdeckten Weg zur Werkstatt sichern.",
+        "choices": [
+          {
+            "text": "Offenen Schutztransport mit Zeugen organisieren.",
+            "next": "cwn_falsche_adresse_offen",
+            "requires_flags": [
+              "cwn_falsche_adresse_spur1",
+              "cwn_falsche_adresse_spur2",
+              "cwn_falsche_adresse_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_falsche_adresse"
+            ],
+            "hide_if_flags": [
+              "cwn_falsche_adresse_done"
+            ]
+          },
+          {
+            "text": "Den verdeckten Weg zur Werkstatt sichern.",
+            "next": "cwn_falsche_adresse_verdeckt",
+            "requires_flags": [
+              "cwn_falsche_adresse_spur1",
+              "cwn_falsche_adresse_spur2",
+              "cwn_falsche_adresse_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_falsche_adresse"
+            ],
+            "hide_if_flags": [
+              "cwn_falsche_adresse_done"
+            ]
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "cwn_falsche_adresse_stand": {
+        "text": "Du vergleichst deine Notizen mit den noch offenen Fundstellen. Erst wenn alle Stimmen einzeln festgehalten sind, lässt sich über die Folgen entscheiden.",
+        "choices": [
+          {
+            "text": "Alle Belege abgleichen.",
+            "next": "cwn_falsche_adresse_abgleich",
+            "requires_flags": [
+              "cwn_falsche_adresse_spur1",
+              "cwn_falsche_adresse_spur2",
+              "cwn_falsche_adresse_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_falsche_adresse"
+            ],
+            "hide_if_flags": [
+              "cwn_falsche_adresse_done"
+            ]
+          },
+          {
+            "text": "Die zweite Beobachtung festhalten.",
+            "next": "cwn_falsche_adresse_zeuge",
+            "requires_flags": [
+              "koop_aktiv"
+            ],
+            "hide_if_flags": [
+              "cwn_falsche_adresse_koop"
+            ]
+          },
+          {
+            "text": "Ich suche weiter."
+          }
+        ]
+      },
+      "cwn_falsche_adresse_danach": {
+        "text": "Die Entscheidung bleibt in Erinnerung. Du kannst noch einmal über ihre Folgen sprechen.",
+        "choices": [
+          {
+            "text": "Offenen Schutztransport mit Zeugen organisieren.",
+            "next": "cwn_falsche_adresse_offen_erinnerung",
+            "requires_flags": [
+              "cwn_falsche_adresse_offen"
+            ]
+          },
+          {
+            "text": "Den verdeckten Weg zur Werkstatt sichern.",
+            "next": "cwn_falsche_adresse_verdeckt_erinnerung",
+            "requires_flags": [
+              "cwn_falsche_adresse_verdeckt"
+            ]
+          },
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "bj_cw_malliver": {
+    "choices_add": [
+      {
+        "text": "Der nachgezogene Aktenrand.",
+        "next": "cwn_restaurierung_angebot",
+        "requires_flags": [
+          "k4_arrived",
+          "cwa_akt3_done"
+        ],
+        "hide_if_flags": [
+          "kapitel4_done"
+        ],
+        "hide_if_quests": [
+          "cwn_restaurierung"
+        ]
+      },
+      {
+        "text": "Der nachgezogene Aktenrand: Stand.",
+        "next": "cwn_restaurierung_stand",
+        "requires_quests_active": [
+          "cwn_restaurierung"
+        ],
+        "hide_if_flags": [
+          "cwn_restaurierung_done"
+        ]
+      },
+      {
+        "text": "Der nachgezogene Aktenrand: Danach.",
+        "next": "cwn_restaurierung_danach",
+        "requires_quests_done": [
+          "cwn_restaurierung"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "cwn_restaurierung_angebot": {
+        "text": "Malliver zeigt eine Akte unter dünnem Schutzpapier. „Der Rand wurde nachgezogen. Ich kann den Auftrag und die Ergänzung trennen, nicht meine Verantwortung abwaschen. Prüfe beides, bevor du meinen Befund als Anklage druckst.“",
+        "choices": [
+          {
+            "text": "Ich kümmere mich darum.",
+            "next": "cwn_restaurierung_annehmen",
+            "requires_flags": [
+              "k4_arrived",
+              "cwa_akt3_done"
+            ],
+            "hide_if_flags": [
+              "kapitel4_done"
+            ],
+            "hide_if_quests": [
+              "cwn_restaurierung"
+            ]
+          },
+          {
+            "text": "Heute nicht."
+          }
+        ]
+      },
+      "cwn_restaurierung_annehmen": {
+        "text": "Du merkst dir die Fundstellen. Erst die getrennten Aussagen, dann die Entscheidung.",
+        "start_quests": [
+          "cwn_restaurierung"
+        ],
+        "sets_flags": [
+          "cwn_restaurierung_angenommen"
+        ],
+        "choices": [
+          {
+            "text": "Was fehlt noch?",
+            "next": "cwn_restaurierung_stand"
+          }
+        ]
+      },
+      "cwn_restaurierung_offen": {
+        "text": "Malliver unterschreibt nur die beobachteten Schichten. Der Aushang belastet Wetherbys Büro, behauptet aber keine bislang unbelegte Tat.",
+        "sets_flags": [
+          "cwn_restaurierung_done",
+          "cwn_restaurierung_offen"
+        ],
+        "complete_quests": [
+          "cwn_restaurierung"
+        ],
+        "honor": 3,
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_restaurierung_offen_erinnerung": {
+        "text": "Malliver unterschreibt nur die beobachteten Schichten. Der Aushang belastet Wetherbys Büro, behauptet aber keine bislang unbelegte Tat.",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_restaurierung_versiegelt": {
+        "text": "Die Akte bleibt als prüfbares Original erhalten. Ihre Wirkung ist leiser; für jede Verwendung müssen die beiden Zeugen erneut zusammenkommen.",
+        "sets_flags": [
+          "cwn_restaurierung_done",
+          "cwn_restaurierung_versiegelt"
+        ],
+        "complete_quests": [
+          "cwn_restaurierung"
+        ],
+        "gives_money": 30,
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_restaurierung_versiegelt_erinnerung": {
+        "text": "Die Akte bleibt als prüfbares Original erhalten. Ihre Wirkung ist leiser; für jede Verwendung müssen die beiden Zeugen erneut zusammenkommen.",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_restaurierung_zeuge": {
+        "text": "Du lässt die zweite Beobachtung für sich stehen. Sie ergänzt den Abgleich, ersetzt aber keine Aussage der Betroffenen.",
+        "sets_flags": [
+          "cwn_restaurierung_koop"
+        ],
+        "choices": [
+          {
+            "text": "Zurück zu den Belegen.",
+            "next": "cwn_restaurierung_stand"
+          }
+        ]
+      },
+      "cwn_restaurierung_abgleich": {
+        "text": "Der Schaden an der Akte lässt sich begrenzen. Du kannst den belastenden Befund mit sichtbarer Unsicherheit veröffentlichen oder ein versiegeltes Original für spätere Zeugen sichern.",
+        "choices": [
+          {
+            "text": "Befund und Unsicherheit gemeinsam veröffentlichen.",
+            "next": "cwn_restaurierung_offen",
+            "requires_flags": [
+              "cwn_restaurierung_spur1",
+              "cwn_restaurierung_spur2",
+              "cwn_restaurierung_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_restaurierung"
+            ],
+            "hide_if_flags": [
+              "cwn_restaurierung_done"
+            ]
+          },
+          {
+            "text": "Das Original versiegelt bei zwei Zeugen sichern.",
+            "next": "cwn_restaurierung_versiegelt",
+            "requires_flags": [
+              "cwn_restaurierung_spur1",
+              "cwn_restaurierung_spur2",
+              "cwn_restaurierung_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_restaurierung"
+            ],
+            "hide_if_flags": [
+              "cwn_restaurierung_done"
+            ]
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "cwn_restaurierung_stand": {
+        "text": "Du vergleichst deine Notizen mit den noch offenen Fundstellen. Erst wenn alle Stimmen einzeln festgehalten sind, lässt sich über die Folgen entscheiden.",
+        "choices": [
+          {
+            "text": "Alle Belege abgleichen.",
+            "next": "cwn_restaurierung_abgleich",
+            "requires_flags": [
+              "cwn_restaurierung_spur1",
+              "cwn_restaurierung_spur2",
+              "cwn_restaurierung_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_restaurierung"
+            ],
+            "hide_if_flags": [
+              "cwn_restaurierung_done"
+            ]
+          },
+          {
+            "text": "Die zweite Beobachtung festhalten.",
+            "next": "cwn_restaurierung_zeuge",
+            "requires_flags": [
+              "koop_aktiv"
+            ],
+            "hide_if_flags": [
+              "cwn_restaurierung_koop"
+            ]
+          },
+          {
+            "text": "Ich suche weiter."
+          }
+        ]
+      },
+      "cwn_restaurierung_danach": {
+        "text": "Die Entscheidung bleibt in Erinnerung. Du kannst noch einmal über ihre Folgen sprechen.",
+        "choices": [
+          {
+            "text": "Befund und Unsicherheit gemeinsam veröffentlichen.",
+            "next": "cwn_restaurierung_offen_erinnerung",
+            "requires_flags": [
+              "cwn_restaurierung_offen"
+            ]
+          },
+          {
+            "text": "Das Original versiegelt bei zwei Zeugen sichern.",
+            "next": "cwn_restaurierung_versiegelt_erinnerung",
+            "requires_flags": [
+              "cwn_restaurierung_versiegelt"
+            ]
+          },
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "bj_cw_crayford": {
+    "choices_add": [
+      {
+        "text": "Ein Brief vor dem Abend.",
+        "next": "cwn_warnbrief_angebot",
+        "requires_flags": [
+          "k4_arrived",
+          "cwa_akt1_done"
+        ],
+        "hide_if_flags": [
+          "kapitel4_done",
+          "cwa_akt2_done"
+        ],
+        "hide_if_quests": [
+          "cwn_warnbrief"
+        ]
+      },
+      {
+        "text": "Ein Brief vor dem Abend: Stand.",
+        "next": "cwn_warnbrief_stand",
+        "requires_quests_active": [
+          "cwn_warnbrief"
+        ],
+        "hide_if_flags": [
+          "cwn_warnbrief_done"
+        ]
+      },
+      {
+        "text": "Ein Brief vor dem Abend: Danach.",
+        "next": "cwn_warnbrief_danach",
+        "requires_quests_done": [
+          "cwn_warnbrief"
+        ]
+      },
+      {
+        "text": "Wer liest die Revierakten?.",
+        "next": "cwn_telegramm_kettlegate_angebot",
+        "requires_flags": [
+          "k4_arrived",
+          "cwa_akt3_done"
+        ],
+        "hide_if_flags": [
+          "kapitel4_done"
+        ],
+        "hide_if_quests": [
+          "cwn_telegramm_kettlegate"
+        ]
+      },
+      {
+        "text": "Wer liest die Revierakten?: Stand.",
+        "next": "cwn_telegramm_kettlegate_stand",
+        "requires_quests_active": [
+          "cwn_telegramm_kettlegate"
+        ],
+        "hide_if_flags": [
+          "cwn_telegramm_kettlegate_done"
+        ]
+      },
+      {
+        "text": "Wer liest die Revierakten?: Danach.",
+        "next": "cwn_telegramm_kettlegate_danach",
+        "requires_quests_done": [
+          "cwn_telegramm_kettlegate"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "cwn_warnbrief_angebot": {
+        "text": "Klammer legt den geliehenen Rezeptband offen hin. „Drei Besitzer. Drei Einlagen. Bring ihnen diese neue Warnung vor dem Abend. Jeder soll selbst antworten können. Diesmal will ich nicht erst handeln, wenn die Schublade schon zur Ausrede geworden ist.“",
+        "choices": [
+          {
+            "text": "Ich kümmere mich darum.",
+            "next": "cwn_warnbrief_annehmen",
+            "requires_flags": [
+              "k4_arrived",
+              "cwa_akt1_done"
+            ],
+            "hide_if_flags": [
+              "kapitel4_done",
+              "cwa_akt2_done"
+            ],
+            "hide_if_quests": [
+              "cwn_warnbrief"
+            ]
+          },
+          {
+            "text": "Heute nicht."
+          }
+        ]
+      },
+      "cwn_warnbrief_annehmen": {
+        "text": "Du merkst dir die Fundstellen. Erst die getrennten Aussagen, dann die Entscheidung.",
+        "start_quests": [
+          "cwn_warnbrief"
+        ],
+        "sets_flags": [
+          "cwn_warnbrief_angenommen"
+        ],
+        "choices": [
+          {
+            "text": "Was fehlt noch?",
+            "next": "cwn_warnbrief_stand"
+          }
+        ]
+      },
+      "cwn_warnbrief_vertrauen": {
+        "text": "Klammer legt drei getrennte Empfangszeichen neben das Buch. „Hält“, sagt sie. Ihr Vertrauen wächst, weil diesmal niemand für den anderen geantwortet hat.",
+        "sets_flags": [
+          "cwn_warnbrief_done",
+          "cwn_warnbrief_vertrauen",
+          "cwn_klammer_vertrauen"
+        ],
+        "complete_quests": [
+          "cwn_warnbrief"
+        ],
+        "relation": {
+          "cw_crayford": 2
+        },
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_warnbrief_vertrauen_erinnerung": {
+        "text": "Klammer legt drei getrennte Empfangszeichen neben das Buch. „Hält“, sagt sie. Ihr Vertrauen wächst, weil diesmal niemand für den anderen geantwortet hat.",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_warnbrief_protokoll": {
+        "text": "Klammer hängt das neue Protokoll aus. Sie hält sich daran, spricht aber vorerst lieber über Bücher als über ihre Angst.",
+        "sets_flags": [
+          "cwn_warnbrief_done",
+          "cwn_warnbrief_protokoll"
+        ],
+        "complete_quests": [
+          "cwn_warnbrief"
+        ],
+        "honor": 2,
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_warnbrief_protokoll_erinnerung": {
+        "text": "Klammer hängt das neue Protokoll aus. Sie hält sich daran, spricht aber vorerst lieber über Bücher als über ihre Angst.",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_warnbrief_abgleich": {
+        "text": "Die neue Warnung ist angekommen. Klammer fragt nicht nach einer Entschuldigung, sondern danach, wie sie künftig eine zugesagte Hilfe nachprüfbar machen soll.",
+        "choices": [
+          {
+            "text": "Eine persönliche Rückmeldung vereinbaren.",
+            "next": "cwn_warnbrief_vertrauen",
+            "requires_flags": [
+              "cwn_warnbrief_spur1",
+              "cwn_warnbrief_spur2",
+              "cwn_warnbrief_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_warnbrief"
+            ],
+            "hide_if_flags": [
+              "cwn_warnbrief_done"
+            ]
+          },
+          {
+            "text": "Ein öffentliches Übergabeprotokoll verlangen.",
+            "next": "cwn_warnbrief_protokoll",
+            "requires_flags": [
+              "cwn_warnbrief_spur1",
+              "cwn_warnbrief_spur2",
+              "cwn_warnbrief_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_warnbrief"
+            ],
+            "hide_if_flags": [
+              "cwn_warnbrief_done"
+            ]
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "cwn_warnbrief_stand": {
+        "text": "Du vergleichst deine Notizen mit den noch offenen Fundstellen. Erst wenn alle Stimmen einzeln festgehalten sind, lässt sich über die Folgen entscheiden.",
+        "choices": [
+          {
+            "text": "Alle Belege abgleichen.",
+            "next": "cwn_warnbrief_abgleich",
+            "requires_flags": [
+              "cwn_warnbrief_spur1",
+              "cwn_warnbrief_spur2",
+              "cwn_warnbrief_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_warnbrief"
+            ],
+            "hide_if_flags": [
+              "cwn_warnbrief_done"
+            ]
+          },
+          {
+            "text": "Ich suche weiter."
+          }
+        ]
+      },
+      "cwn_warnbrief_danach": {
+        "text": "Die Entscheidung bleibt in Erinnerung. Du kannst noch einmal über ihre Folgen sprechen.",
+        "choices": [
+          {
+            "text": "Eine persönliche Rückmeldung vereinbaren.",
+            "next": "cwn_warnbrief_vertrauen_erinnerung",
+            "requires_flags": [
+              "cwn_warnbrief_vertrauen"
+            ]
+          },
+          {
+            "text": "Ein öffentliches Übergabeprotokoll verlangen.",
+            "next": "cwn_warnbrief_protokoll_erinnerung",
+            "requires_flags": [
+              "cwn_warnbrief_protokoll"
+            ]
+          },
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "cwn_telegramm_kettlegate_angebot": {
+        "text": "Klammer hält Marlowes Telegramm am trockenen Rand. „Verkaufte Revierauszüge“, liest sie. „Die Inspektorin fragt nach dem Weg der Blätter, nicht nach einem Gesicht, das wir ihr passend machen sollen.“",
+        "choices": [
+          {
+            "text": "Ich kümmere mich darum.",
+            "next": "cwn_telegramm_kettlegate_annehmen",
+            "requires_flags": [
+              "k4_arrived",
+              "cwa_akt3_done"
+            ],
+            "hide_if_flags": [
+              "kapitel4_done"
+            ],
+            "hide_if_quests": [
+              "cwn_telegramm_kettlegate"
+            ]
+          },
+          {
+            "text": "Heute nicht."
+          }
+        ]
+      },
+      "cwn_telegramm_kettlegate_annehmen": {
+        "text": "Du merkst dir die Fundstellen. Erst die getrennten Aussagen, dann die Entscheidung.",
+        "start_quests": [
+          "cwn_telegramm_kettlegate"
+        ],
+        "sets_flags": [
+          "cwn_telegramm_kettlegate_angenommen"
+        ],
+        "choices": [
+          {
+            "text": "Was fehlt noch?",
+            "next": "cwn_telegramm_kettlegate_stand"
+          }
+        ]
+      },
+      "cwn_telegramm_kettlegate_kopien": {
+        "text": "Marlowe kann den Weiterverkauf untersuchen. Persönliche Randnotizen Unbeteiligter bleiben in Calderwick; die unbekannte Schwester erhält kein erfundenes Gesicht.",
+        "sets_flags": [
+          "cwn_telegramm_kettlegate_done",
+          "cwn_telegramm_kettlegate_kopien"
+        ],
+        "complete_quests": [
+          "cwn_telegramm_kettlegate"
+        ],
+        "honor": 3,
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_telegramm_kettlegate_kopien_erinnerung": {
+        "text": "Marlowe kann den Weiterverkauf untersuchen. Persönliche Randnotizen Unbeteiligter bleiben in Calderwick; die unbekannte Schwester erhält kein erfundenes Gesicht.",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_telegramm_kettlegate_originale": {
+        "text": "Marlowe erhält Fundstellen und Datierungen. Die Originale bleiben erreichbar, solange die örtlichen Zeugen den Zugang gemeinsam bestätigen.",
+        "sets_flags": [
+          "cwn_telegramm_kettlegate_done",
+          "cwn_telegramm_kettlegate_originale"
+        ],
+        "complete_quests": [
+          "cwn_telegramm_kettlegate"
+        ],
+        "gives_money": 30,
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_telegramm_kettlegate_originale_erinnerung": {
+        "text": "Marlowe erhält Fundstellen und Datierungen. Die Originale bleiben erreichbar, solange die örtlichen Zeugen den Zugang gemeinsam bestätigen.",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_telegramm_kettlegate_abgleich": {
+        "text": "Der Absatzweg ist belegt. Du kannst Marlowe die überprüften Kopien schicken oder die Originale vor Ort unter Zeugen verwahren und nur die Fundstellen melden.",
+        "choices": [
+          {
+            "text": "Geprüfte Kopien an Marlowe schicken.",
+            "next": "cwn_telegramm_kettlegate_kopien",
+            "requires_flags": [
+              "cwn_telegramm_kettlegate_spur1",
+              "cwn_telegramm_kettlegate_spur2",
+              "cwn_telegramm_kettlegate_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_telegramm_kettlegate"
+            ],
+            "hide_if_flags": [
+              "cwn_telegramm_kettlegate_done"
+            ]
+          },
+          {
+            "text": "Originale unter örtlichen Zeugen verwahren.",
+            "next": "cwn_telegramm_kettlegate_originale",
+            "requires_flags": [
+              "cwn_telegramm_kettlegate_spur1",
+              "cwn_telegramm_kettlegate_spur2",
+              "cwn_telegramm_kettlegate_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_telegramm_kettlegate"
+            ],
+            "hide_if_flags": [
+              "cwn_telegramm_kettlegate_done"
+            ]
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "cwn_telegramm_kettlegate_stand": {
+        "text": "Du vergleichst deine Notizen mit den noch offenen Fundstellen. Erst wenn alle Stimmen einzeln festgehalten sind, lässt sich über die Folgen entscheiden.",
+        "choices": [
+          {
+            "text": "Alle Belege abgleichen.",
+            "next": "cwn_telegramm_kettlegate_abgleich",
+            "requires_flags": [
+              "cwn_telegramm_kettlegate_spur1",
+              "cwn_telegramm_kettlegate_spur2",
+              "cwn_telegramm_kettlegate_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_telegramm_kettlegate"
+            ],
+            "hide_if_flags": [
+              "cwn_telegramm_kettlegate_done"
+            ]
+          },
+          {
+            "text": "Ich suche weiter."
+          }
+        ]
+      },
+      "cwn_telegramm_kettlegate_danach": {
+        "text": "Die Entscheidung bleibt in Erinnerung. Du kannst noch einmal über ihre Folgen sprechen.",
+        "choices": [
+          {
+            "text": "Geprüfte Kopien an Marlowe schicken.",
+            "next": "cwn_telegramm_kettlegate_kopien_erinnerung",
+            "requires_flags": [
+              "cwn_telegramm_kettlegate_kopien"
+            ]
+          },
+          {
+            "text": "Originale unter örtlichen Zeugen verwahren.",
+            "next": "cwn_telegramm_kettlegate_originale_erinnerung",
+            "requires_flags": [
+              "cwn_telegramm_kettlegate_originale"
+            ]
+          },
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "cwn_aufzugswaerter": {
+    "choices_add": [
+      {
+        "text": "Die siebte Haltestelle.",
+        "next": "cwn_seilbahn_angebot",
+        "requires_flags": [
+          "k4_arrived",
+          "cwa_akt2_done"
+        ],
+        "hide_if_flags": [
+          "kapitel4_done"
+        ],
+        "hide_if_quests": [
+          "cwn_seilbahn"
+        ]
+      },
+      {
+        "text": "Die siebte Haltestelle: Stand.",
+        "next": "cwn_seilbahn_stand",
+        "requires_quests_active": [
+          "cwn_seilbahn"
+        ],
+        "hide_if_flags": [
+          "cwn_seilbahn_done"
+        ]
+      },
+      {
+        "text": "Die siebte Haltestelle: Danach.",
+        "next": "cwn_seilbahn_danach",
+        "requires_quests_done": [
+          "cwn_seilbahn"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "cwn_seilbahn_angebot": {
+        "text": "Der Aufzugswärter hält eine geschwärzte Klinke hoch. „Nachts hält die Bahn zwischen zwei Terrassen. Niemand steigt aus, und trotzdem wird eine Fahrt abgerechnet. Wenn es ein Geist ist, soll er wenigstens den Bremsklotz bezahlen.“",
+        "choices": [
+          {
+            "text": "Ich kümmere mich darum.",
+            "next": "cwn_seilbahn_annehmen",
+            "requires_flags": [
+              "k4_arrived",
+              "cwa_akt2_done"
+            ],
+            "hide_if_flags": [
+              "kapitel4_done"
+            ],
+            "hide_if_quests": [
+              "cwn_seilbahn"
+            ]
+          },
+          {
+            "text": "Heute nicht."
+          }
+        ]
+      },
+      "cwn_seilbahn_annehmen": {
+        "text": "Du merkst dir die Fundstellen. Erst die getrennten Aussagen, dann die Entscheidung.",
+        "start_quests": [
+          "cwn_seilbahn"
+        ],
+        "sets_flags": [
+          "cwn_seilbahn_angenommen"
+        ],
+        "choices": [
+          {
+            "text": "Was fehlt noch?",
+            "next": "cwn_seilbahn_stand"
+          }
+        ]
+      },
+      "cwn_seilbahn_abkuerzung": {
+        "text": "Der Wärter kennzeichnet den sicheren Abzweig. Die kurze Verbindung wird für den späteren Reiseeinbau vorgemerkt; kein gesperrter Kapitelweg wird geöffnet.",
+        "sets_flags": [
+          "cwn_seilbahn_done",
+          "cwn_seilbahn_abkuerzung",
+          "cwn_abkuerzung"
+        ],
+        "complete_quests": [
+          "cwn_seilbahn"
+        ],
+        "gives_money": 10,
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_seilbahn_abkuerzung_erinnerung": {
+        "text": "Der Wärter kennzeichnet den sicheren Abzweig. Die kurze Verbindung wird für den späteren Reiseeinbau vorgemerkt; kein gesperrter Kapitelweg wird geöffnet.",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_seilbahn_reserve": {
+        "text": "Der falsche Halt verschwindet ebenfalls. Die Mannschaft behält einen eigenen Arbeitsweg, und du erhältst ihren Reparaturbeitrag statt der Abkürzung.",
+        "sets_flags": [
+          "cwn_seilbahn_done",
+          "cwn_seilbahn_reserve"
+        ],
+        "complete_quests": [
+          "cwn_seilbahn"
+        ],
+        "gives_money": 45,
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_seilbahn_reserve_erinnerung": {
+        "text": "Der falsche Halt verschwindet ebenfalls. Die Mannschaft behält einen eigenen Arbeitsweg, und du erhältst ihren Reparaturbeitrag statt der Abkürzung.",
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      },
+      "cwn_seilbahn_abgleich": {
+        "text": "Der Nachtfehler ist erklärbar. Der alte Seitensteg könnte wieder genutzt oder als geschlossene Wartungsreserve gekennzeichnet werden.",
+        "choices": [
+          {
+            "text": "Den geprüften Seitensteg für Fußgänger freigeben.",
+            "next": "cwn_seilbahn_abkuerzung",
+            "requires_flags": [
+              "cwn_seilbahn_spur1",
+              "cwn_seilbahn_spur2",
+              "cwn_seilbahn_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_seilbahn"
+            ],
+            "hide_if_flags": [
+              "cwn_seilbahn_done"
+            ]
+          },
+          {
+            "text": "Den Steg als Wartungsreserve schließen.",
+            "next": "cwn_seilbahn_reserve",
+            "requires_flags": [
+              "cwn_seilbahn_spur1",
+              "cwn_seilbahn_spur2",
+              "cwn_seilbahn_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_seilbahn"
+            ],
+            "hide_if_flags": [
+              "cwn_seilbahn_done"
+            ]
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "cwn_seilbahn_stand": {
+        "text": "Du vergleichst deine Notizen mit den noch offenen Fundstellen. Erst wenn alle Stimmen einzeln festgehalten sind, lässt sich über die Folgen entscheiden.",
+        "choices": [
+          {
+            "text": "Alle Belege abgleichen.",
+            "next": "cwn_seilbahn_abgleich",
+            "requires_flags": [
+              "cwn_seilbahn_spur1",
+              "cwn_seilbahn_spur2",
+              "cwn_seilbahn_spur3"
+            ],
+            "requires_quests_active": [
+              "cwn_seilbahn"
+            ],
+            "hide_if_flags": [
+              "cwn_seilbahn_done"
+            ]
+          },
+          {
+            "text": "Ich suche weiter."
+          }
+        ]
+      },
+      "cwn_seilbahn_danach": {
+        "text": "Die Entscheidung bleibt in Erinnerung. Du kannst noch einmal über ihre Folgen sprechen.",
+        "choices": [
+          {
+            "text": "Den geprüften Seitensteg für Fußgänger freigeben.",
+            "next": "cwn_seilbahn_abkuerzung_erinnerung",
+            "requires_flags": [
+              "cwn_seilbahn_abkuerzung"
+            ]
+          },
+          {
+            "text": "Den Steg als Wartungsreserve schließen.",
+            "next": "cwn_seilbahn_reserve_erinnerung",
+            "requires_flags": [
+              "cwn_seilbahn_reserve"
+            ]
+          },
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  }
+}
