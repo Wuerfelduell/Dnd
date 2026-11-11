@@ -38,7 +38,7 @@ const highIngredients = Object.values(content.pathways).flatMap((p) => [7, 6, 5]
 test('Normaler Markt: Zutaten ab Sequenz 7 (auch 6 und 5) sind nicht mehr käuflich', () => {
   assert.ok(highIngredients.includes('sternglas') && highIngredients.includes('geisteressenz'));
   for (const [id, m] of Object.entries(content.market.merchants)) {
-    if (m.gathering) continue;
+    if (m.gathering || m.treffen_ersatz) continue; // Zunders Schmuggelkiste vertritt die Kettlegate-Treffen in Wexmoor
     for (const e of m.stock) assert.ok(!highIngredients.includes(e.item), `${id} verkauft ${e.item}`);
   }
 });

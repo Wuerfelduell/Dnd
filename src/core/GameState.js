@@ -792,6 +792,12 @@ export class GameState {
     // oder Zunders Vertrauen); wer die Insel schon erreicht hat, behält die Überfahrt
     if (this.flags.has('won_leuchtfeuer') || this.flags.has('kapitel2_done')) for (const f of K2_AKT5_STEPS) this.flags.add(f);
     else if (this.flags.has('k2_am_turm')) this.flags.add('k2v_boot_bereit');
+    // Kein Zurück nach Kettlegate: Stände, die nach der Ankunft in Wexmoor noch dort stehen (alter Nachtzug), wachen im Unterschlupf auf
+    if (this.flags.has('k2_arrived') && (this.content.maps[this.map]?.city ?? 'kettlegate') === 'kettlegate') {
+      this.map = this.content.maps.wx_kahn ? 'wx_kahn' : this.map;
+      this.spawn = 'default';
+      this.position = null;
+    }
     this.tracked = this.quests[data.tracked] === 'active' ? data.tracked : null;
     // Ab Version 3: Leben und Inventar (ältere Stände behalten die Startausrüstung)
     if (data.v >= 3) {
