@@ -1,0 +1,124 @@
+{
+  "bj_bh_crowther": {
+    "choices_add": [
+      {
+        "text": "Material für die Leitungen ansehen.",
+        "next": "bho_handel_bh_crowther"
+      }
+    ],
+    "nodes_add": {
+      "bho_handel_bh_crowther": {
+        "text": "Kupfer, Glas und Faser liegen bereit. Du kaufst Material, keine fremde Erinnerung und keine zusätzliche warme Leitung.",
+        "shop": "vi_handel_garten",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bj_bh_malkin": {
+    "choices_add": [
+      {
+        "text": "Material für die Leitungen ansehen.",
+        "next": "bho_handel_bh_malkin"
+      },
+      {
+        "text": "Den heimlichen Reserveweg kaufen: 18 Schilling.",
+        "next": "bho_umleitung_vorschau",
+        "requires_money": 18,
+        "hide_if_flags": [
+          "bho_umleitung_gelernt"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "bho_handel_bh_malkin": {
+        "text": "Kupfer, Glas und Faser liegen bereit. Du kaufst Material, keine fremde Erinnerung und keine zusätzliche warme Leitung.",
+        "shop": "vi_handel_garten",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bho_umleitung_vorschau": {
+        "text": "Malkin verlangt 18 Schilling für seinen Wartungsweg zum Wurzelkranz. Er verkauft keinen vierten warmen Kreis; der Weg taut nur bei offener Reserve auf.",
+        "choices": [
+          {
+            "text": "18 Schilling bezahlen.",
+            "next": "bho_umleitung_kauf",
+            "requires_money": 18,
+            "hide_if_flags": [
+              "bho_umleitung_gelernt"
+            ]
+          },
+          {
+            "text": "Nicht kaufen."
+          }
+        ]
+      },
+      "bho_umleitung_kauf": {
+        "text": "Du erhältst eine Wegbeschreibung und einen Vierkantschlüssel. Malkin besteht darauf, dass der Wohnungsbogen unberührt bleibt.",
+        "takes_money": 18,
+        "gives_items": {
+          "bho_ventilschluessel": 1
+        },
+        "sets_flags": [
+          "bho_umleitung_gelernt"
+        ],
+        "choices": [
+          {
+            "text": "Einstecken."
+          }
+        ]
+      }
+    }
+  },
+  "bha_finale": {
+    "choices_add": [
+      {
+        "text": "Aussaatleitung gewaltsam schließen: Folgen prüfen.",
+        "next": "bho_aussaat_warnung",
+        "requires_flags": [
+          "bha_akt4_done",
+          "bha_54_geschlossen"
+        ],
+        "hide_if_flags": [
+          "kapitel5_done",
+          "bho_aussaat_gesichert"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "bho_aussaat_warnung": {
+        "text": "Die Gewalt trifft nur die Aussaatleitung, nicht die Wohnwärme. Ein Restschwarm kann entweichen; der gewöhnliche Enddialog braucht diesen Kampf nicht.",
+        "choices": [
+          {
+            "text": "Gewaltsames Schließen ausdrücklich bestätigen.",
+            "next": "bho_aussaat_gewalt",
+            "hide_if_flags": [
+              "kapitel5_done"
+            ]
+          },
+          {
+            "text": "Ohne Gewalt zurück."
+          }
+        ]
+      },
+      "bho_aussaat_gewalt": {
+        "text": "Die Sperrklappe schlägt zu, und lose Schoten lösen sich vom Rohr. Greavesend bleibt am Bedienpult und ist kein Angriffsziel.",
+        "sets_flags": [
+          "bho_aussaat_gewaltsam_geschlossen"
+        ],
+        "encounter": "bha_aussaat_schwarm",
+        "choices": [
+          {
+            "text": "Die Endentscheidung danach gesondert treffen."
+          }
+        ]
+      }
+    }
+  }
+}
