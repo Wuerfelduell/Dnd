@@ -6,9 +6,10 @@ import { WexmoorLife, preloadWexmoorLife, speechBubble } from './WexmoorLife.js'
 import { GearOverlay, preloadGear } from './GearOverlay.js';
 import { Feste, preloadFeste } from './Feste.js';
 import { DunscarLife, preloadDunscarLife } from './DunscarLife.js';
+import { KettlegateLife, preloadKettlegateLife } from './KettlegateLife.js';
 import { KoopLife } from './Koop.js';
 import { SektenLife } from './SektenLife.js';
-import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, facadeAtNight, buildingFacades, WX2_TILE_ANIMS, PROP_ORIGINS, MAP_WEATHER, DISGUISE_SHEETS, pathwayArt, P2_LOOKS, skinKeyOf , leseSceneOf, BH_THEME_KEYS } from './assets.js';
+import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, facadeAtNight, buildingFacades, WX2_TILE_ANIMS, PROP_ORIGINS, MAP_WEATHER, DISGUISE_SHEETS, pathwayArt, P2_LOOKS, skinKeyOf , leseSceneOf, BH_THEME_KEYS, CW_THEME_KEYS } from './assets.js';
 import { Roamers } from './Roamers.js';
 import { Critters } from './Critters.js';
 import { Patrols } from './Patrols.js';
@@ -122,7 +123,7 @@ function tavernExtra(ch, at, x, y) {
  * Paket AV (Dunscar): Boden mit seltenen Varianten, Wände mit Front über dem Boden, Kante darüber,
  * das Innere dunkel. `walls` kann die Wände aus einem anderen Blatt nehmen (Bahn nutzt die Kalksteinhäuser).
  */
-function dsTheme(theme, { floorChars = '.sgw', walls = theme, mix = [], accent = null } = {}) {
+function dsTheme(theme, { floorChars = '.sgw', walls = theme, mix = [], accent = null, cap = false } = {}) {
   return (ch, at, v, x, y) => {
     const k = (t, g, seed = 0) => pickKey(themeKeys(t, g), x, y, seed);
     if (floorChars.includes(ch)) {
@@ -135,6 +136,8 @@ function dsTheme(theme, { floorChars = '.sgw', walls = theme, mix = [], accent =
     const wall = (c) => c === undefined || c === 'I';
     if (!wall(at(0, 1))) return accent && hash2(x, y, 82) > 0.8 ? k(walls, accent, 3) : k(walls, 'wallFace', 3);
     if (!wall(at(0, 2))) return k(walls, 'wallTop', 4);
+    // CE1 (Calderwick): die oberste Reihe freistehender Häuserblöcke bekommt ebenfalls ein Dach statt Schwarz
+    if (cap && !wall(at(0, -1))) return k(walls, 'wallTop', 5);
     return null;
   };
 }
@@ -152,6 +155,13 @@ const THEMES = {
     mix: { bh_promenade: [['stain', 0.04], ['wet', 0.05]], bh_kessel: [['wet', 0.06]], bh_glas: [['debris', 0.06]], bh_stille: [['wear', 0.05]], bh_klinik: [['wear', 0.06]],
       bh_labor: [['wear', 0.05]], bh_mutterhaus: [['wear', 0.05]], bh_wurzel: [['debris', 0.06], ['wet', 0.04]] }[t.replace(/_(kalt|warm)$/, '')],
     accent: 'window',
+  })])),
+  // Paket CE1 (Calderwick): Terrassenpflaster mit Gully und trockenem Beet, Druckerei mit verstreuten Lettern, Amt, Blechgang, Teppich, Küche, Nullfundament
+  ...Object.fromEntries(CW_THEME_KEYS.map((t) => [t, dsTheme(t, {
+    mix: { cw_terrasse: [['wet', 0.03], ['debris', 0.02]], cw_gleis: [], cw_druckerei: [['debris', 0.08]], cw_amt: [['wear', 0.05]], cw_sortierhalle: [['debris', 0.08], ['wear', 0.03]],
+      cw_archivsaal: [['edge', 0.1]], cw_kueche: [['wear', 0.08]], cw_fundament: [['debris', 0.1]] }[t],
+    accent: 'window',
+    cap: true,
   })])),
   warehouse: roomTheme('warehouse', {
     floorMix: (x, y) => (hash2(x, y, 31) > 0.95 ? themeKeys('warehouse', 'debris')[0] : pickKey(themeKeys('warehouse', 'floor'), x, y, 0)),
@@ -632,6 +642,7 @@ export class WorldScene extends Phaser.Scene {
     preloadGear(this, this.registry.get('state')); // Paket BU: sichtbare Ausrüstung
     preloadFeste(this); // Paket BV: Jahreszeiten und Feste
     preloadDunscarLife(this); // Paket BA/BD
+    preloadKettlegateLife(this); // Paket CN
     this.registry.get('audio')?.preload(this);
   }
 
@@ -688,6 +699,7 @@ export class WorldScene extends Phaser.Scene {
     this.mapDef = this.state.content.maps[this.state.map];
     this.interactables = [];
     this.conditional = []; // Objekte mit visible_if
+    this.visitRolls = {}; // CN: Zufallsereignisse werden je Kartenbesuch einmal gewürfelt
     this.lamps = []; // Laternen, die per Bedingung an- oder ausgehen
     this.hidden = []; // nur in der Geistsicht sichtbar
     this.cleanups = [];
@@ -729,6 +741,8 @@ export class WorldScene extends Phaser.Scene {
     this.wexLife.build();
     this.dsLife = new DunscarLife(this); // Paket BA/BD: Kalkstaub, Nachtnebel, Krähen, Ziegen, Motten in Dunscar
     this.dsLife.build();
+    this.kgLife = new KettlegateLife(this); // Paket CN: Nebel, Niesel, Rußschnee, Tauben, Katzen, Stände und Nachtfenster in Kettlegate
+    this.kgLife.build();
     // Paket AI: Koop-Rätsel, Platz-Flags und Geplauder zu zweit (Platz-Flags fallen beim Kartenwechsel weg)
     this.state.syncKoop?.();
     this.koop = new KoopLife(this);
@@ -870,6 +884,7 @@ export class WorldScene extends Phaser.Scene {
       this.registerVisibility(null, def, [img]);
     }
     for (const def of this.mapDef.interactables ?? []) {
+      if (!this.visitAllows(def)) continue;
       const [tx, ty] = def.tile;
       const x = tx * TILE + 8;
       const y = ty * TILE + 8;
@@ -1157,6 +1172,7 @@ export class WorldScene extends Phaser.Scene {
     this.roamers?.rebuild();
     this.patrols?.rebuild();
     this.dsLife?.rebuild();
+    this.kgLife?.rebuild();
   }
 
   refreshVisibility() {
@@ -1217,6 +1233,7 @@ export class WorldScene extends Phaser.Scene {
     this.critters.update(time, delta, blocked);
     this.wexLife?.update(delta);
     this.dsLife?.update(delta);
+    this.kgLife?.update(delta);
     if (this.clockDirty && !blocked) this.applyClock();
     this.koop?.update(delta, blocked);
     this.feste?.update(delta, blocked);
@@ -1560,11 +1577,14 @@ export class WorldScene extends Phaser.Scene {
         const dy = this.player.y - it.sprite.y;
         const dir = Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 'right' : 'left') : dy > 0 ? 'down' : 'up';
         if (!def.static) it.sprite.setFrame(DIRS.indexOf(dir) * 4);
-        this.ui.openDialogue(def, () => it.sprite.setFrame(DIRS.indexOf(it.facing) * 4));
+        // Paket CN: Sonderpose, solange das Gespräch läuft (characters/<id>_pose.png), danach wieder die Blickrichtung
+        const pose = `pose_${def.id}`;
+        if (!def.static && this.textures.exists(pose)) it.sprite.setTexture(pose, 0);
+        this.ui.openDialogue({ ...def, start: this.fahndungNode(def) }, () => { if (it.sprite.texture.key === pose) it.sprite.setTexture(`npc_${def.id}`); it.sprite.setFrame(DIRS.indexOf(it.facing) * 4); });
         break;
       }
       case 'dialogue':
-        this.ui.openDialogue({ name: def.title, role: def.role ?? '', dialogue: def.dialogue });
+        this.ui.openDialogue({ name: def.title, role: def.role ?? '', dialogue: def.dialogue, start: this.fahndungNode(def) });
         break;
       case 'travel':
         this.playPlayerAction('door');
@@ -1642,6 +1662,19 @@ export class WorldScene extends Phaser.Scene {
     });
   }
 
+  /** Paket CN: Einwohner und Stände weichen ab Fahndungsstufe `fahndung.min` aus – das Gespräch beginnt dann nur mit dem genannten Knoten. */
+  fahndungNode(def) {
+    const f = def.fahndung;
+    return f && (this.state.wanted ?? 0) >= (f.min ?? 2) ? f.node : undefined;
+  }
+
+  /** Paket CN: Ereignisse mit `visit_chance` erscheinen je Kartenbesuch nur mit dieser Wahrscheinlichkeit; einmal begonnen (`visit_started`) immer. */
+  visitAllows(def) {
+    if (def.visit_chance === undefined || (def.visit_started && this.state.flags.has(def.visit_started))) return true;
+    this.visitRolls[def.id] ??= Math.random() < def.visit_chance;
+    return this.visitRolls[def.id];
+  }
+
   /** Paket BN: aktuelle Kollision (Boden + Hindernisse) und lebende Gegner für Rufvorschau und Hörweite. */
   setupSignalContext() {
     let cache = null;
@@ -1701,6 +1734,9 @@ export class WorldScene extends Phaser.Scene {
   /** Pausiert die Welt und startet den Kampfbildschirm. `after(result)` läuft nach dem Kampf, `roamer` ist ein Gegner auf der Karte. */
   startCombat(id, after = null, { roamer = null, noLoot = false } = {}) {
     if (this.leaving || this.scene.isActive('combat')) return;
+    // Ein vorgemerkter Kampf aus einem Gespräch (z. B. Widerstand gegen die Streife) kann sich eine Nacharbeit wünschen
+    if (!after && this.combatHook) { after = this.combatHook; }
+    this.combatHook = null;
     if (!this.state.pendingCombat) this.state.combatBy = this.state.acting;
     this.state.pendingCombat = null;
     // Mythische Gestalt (ab Sequenz 4): Nicht-Beyonder und schwächere Wesen brechen beim Anblick zusammen, kein Kampf

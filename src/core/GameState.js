@@ -283,6 +283,7 @@ export class GameState {
       all(o.requires_quests_done, (q) => this.quests[q] === 'done') &&
       (o.requires_honor === undefined || this.honor >= o.requires_honor) &&
       (o.max_honor === undefined || this.honor < o.max_honor) &&
+      (o.requires_season === undefined || o.requires_season.includes(this.season())) && // CN: Kastanienröster nur Herbst/Winter
       none(o.hide_if_clues, (c) => this.hasClue(c)) &&
       none(o.hide_if_flags, (f) => this.flags.has(f)) &&
       none(o.hide_if_conclusions, (c) => this.hasConclusion(c)) &&
@@ -297,6 +298,7 @@ export class GameState {
       (o.requires_gathering === undefined || this.gatheringOpen(o.requires_gathering) && this.isMember(o.requires_gathering)) &&
       (o.requires_gatherings_unlocked === undefined || this.gatheringsUnlocked() === o.requires_gatherings_unlocked) &&
       this.meetsPathway(o.requires_pathway) &&
+      (o.requires_seq === undefined || (!!this.pathway && this.pathway.seq <= o.requires_seq)) && // Halbgott-Prüfung: Sequenz N oder besser, egal welcher Pfad
       this.meetsSignal(o) &&
       this.meetsBond(o) &&
       this.meetsRelation(o) &&
@@ -355,6 +357,8 @@ export class GameState {
     for (const [id, n] of Object.entries(e.bond ?? {})) this.changeBond(id, n); // Einzelgänger: Freund oder Feind; Gefährten (Zunder): nur Vertrauen
     if (e.relation && !(nodeKey && this.seenNodes?.has(nodeKey))) for (const [id, n] of Object.entries(e.relation)) this.changeRelation(id, n); // Beziehung (Stimmung der Figur)
     if (e.travel) this.pendingTravel = e.travel; // Ortswechsel nach dem Fenster (z. B. aus der Zelle)
+    // Festnahme aus einem Gespräch oder nach verlorenem Kampf gegen die Streife: Zelle nach dem Fenster
+    if (e.arrest && this.policeRules()) { const r = this.arrest(e.arrest === true ? {} : e.arrest); this.pendingTravel = { map: r.map, spawn: r.spawn }; }
     if (e.sets_flags || e.ending) this.checkPapers(); // Paket AD: neue Zeitungsausgabe?
     if (gained.length || e.sets_flags || e.start_quests || e.complete_quests || e.honor || e.gives_items || e.takes_items || e.gives_money || e.takes_money) this.emit('changed');
     return gained;
