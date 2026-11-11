@@ -578,7 +578,7 @@ export class CombatScene extends Phaser.Scene {
       const note = this.combat.phaseNote;
       this.combat.phaseNote = null;
       this.cameras.main.shake(250, 0.005);
-      this.float('Zweite Phase!', 'enemy', 'crit');
+      this.float(this.combat.phaseIndex >= 3 ? `${this.combat.phaseIndex}. Phase!` : this.combat.phaseIndex === 2 ? 'Dritte Phase!' : 'Zweite Phase!', 'enemy', 'crit');
       this.ui.combatMessage(note);
       if (!this.anim(this.enemy, 'phase2')) this.idle(this.enemy);
       return 900;
@@ -623,9 +623,11 @@ export class CombatScene extends Phaser.Scene {
         const a = c.lastAction;
         this.sfx(combatSound('act', a));
         this.ui.combatMessage(`${c.enemy.name}: ${a.name}\n\n${a.text}`);
-        const float = { guard: [`Panzer +${a.value}`, 'good'], heal: [`+${a.value}`, 'good'], veil: ['Schleier', 'miss'], taunt: [`-${a.value} Nerven`, 'hurt'], drain: [`-${a.value} Konzentration`, 'hurt'] }[a.action];
-        if (a.action === 'taunt' || a.action === 'drain') this.focusPlayer(c.target);
-        if (float) this.float(float[0], a.action === 'taunt' || a.action === 'drain' ? 'player' : 'enemy', float[1]);
+        const onPlayer = a.action === 'taunt' || a.action === 'drain' || a.action === 'shatter';
+        const float = { guard: [`Panzer +${a.value}`, 'good'], heal: [`+${a.value}`, 'good'], veil: ['Schleier', 'miss'], taunt: [`-${a.value} Nerven`, 'hurt'], drain: [`-${a.value} Konzentration`, 'hurt'], rally: [`Wut +${a.value} %`, 'crit'], shatter: [`Schutz zerspringt · -${a.value} Nerven`, 'hurt'] }[a.action];
+        if (onPlayer) this.focusPlayer(c.target);
+        if (float) this.float(float[0], onPlayer ? 'player' : 'enemy', float[1]);
+        if (a.action === 'rally') this.cameras.main.shake(200, 0.004);
         if (a.action === 'drain' && a.healed) this.float(`+${a.healed}`, 'enemy', 'good');
         this.anim(this.enemy, 'special');
         this.ui.combatRefresh();
@@ -646,7 +648,9 @@ export class CombatScene extends Phaser.Scene {
       impact: t0 + h, ring: atk.rings?.[i] ?? { curve: 'linear', lead: RING_LEAD },
       by: Object.fromEntries(c.targets.map((n) => [n, { result: null, applied: false }])),
     }));
-    const tags = [atk.sweep ? '⚠ Flächenangriff: trifft beide!' : '', atk.unparryable ? '⚠ nicht parierbar, ausweichen!' : '', atk.enraged ? 'in Rage' : '', atk.followup ? 'setzt nach!' : '', atk.bleed ? 'Treffer bluten nach' : '', atk.nerves ? `Treffer kosten ${atk.nerves} Nerven` : ''].filter(Boolean).join(' · ');
+    const tags = [atk.sweep ? '⚠ Flächenangriff: trifft beide!' : '', atk.charged ? '⚠ aufgeladen: doppelt hart!' : '', atk.unparryable ? '⚠ nicht parierbar, ausweichen!' : '', atk.undodgeable ? '⚠ nicht auszuweichen, parieren!' : '',
+      atk.winding ? 'holt aus: der nächste Schlag wird hart' : '', atk.escalate ? 'jeder Schlag härter' : '', atk.enraged ? 'in Rage' : '', atk.rallied ? 'in Wut' : '', atk.followup ? 'setzt nach!' : '', atk.bleed ? 'Treffer bluten nach' : '',
+      atk.nerves ? `Treffer kosten ${atk.nerves} Nerven` : '', atk.ap_drain ? `Treffer kosten ${atk.ap_drain} Konzentration` : '', atk.lifesteal ? 'zehrt: Treffer heilen ihn' : ''].filter(Boolean).join(' · ');
     const evading = c.targets.every((n) => c.fighters[n].evading);
     const dodge = (n) => c.on(n, () => c.dodgeCost());
     const help1 = `Spieler 1 · Leertaste: ausweichen (${dodge(1)} Nerven) · F: parieren`;
@@ -656,7 +660,7 @@ export class CombatScene extends Phaser.Scene {
     const whom = !c.duo ? '' : atk.sweep ? ' → beide Spieler' : ` → ${this.who(c.target)}`;
     this.ui.combatMessage(`${c.enemy.name}: ${atk.name}${whom}${atk.hits.length > 1 ? ` (${atk.hits.length} Schläge)` : ''}${tags ? `\n\n${tags}` : ''}${evading ? '\n\nDu weißt schon, wohin er schlägt.' : ''}`, help);
     this.tweens.add({ targets: this.enemy, x: ENEMY_X + 8, duration: TELEGRAPH * 0.6, ease: 'Sine.out' });
-    if (atk.sweep) this.cameras.main.shake(TELEGRAPH * 0.5, 0.003); // der Boden bebt: gleich trifft es beide
+    if (atk.sweep || atk.charged) this.cameras.main.shake(TELEGRAPH * 0.5, atk.charged ? 0.005 : 0.003); // der Boden bebt: gleich trifft es beide / der aufgeladene Schlag
     // Paket-B-Gegner haben zwei Angriffe: mehrteilige Attacken und Flächenangriffe nutzen 'special'
     if (!((atk.hits.length > 1 || atk.sweep) && this.anim(this.enemy, 'special'))) this.anim(this.enemy, 'attack');
     const efx = ENCOUNTER_FX[this.encounterId];
@@ -698,6 +702,9 @@ export class CombatScene extends Phaser.Scene {
       this.time.delayedCall(90, () => { this.flash(this.player); if (r.damage) this.hitFx('blunt', 'player'); this.float(r.damage ? `-${r.damage}` : 'Abgefangen', 'player', r.damage ? 'hurt' : 'good'); if (r.damage) this.cameras.main.shake(120, 0.01); });
       if (d.early) this.float('Zu früh', 'player', 'miss');
       else if (r.note === 'unparryable') this.float('Nicht parierbar!', 'player', 'miss');
+      else if (r.note === 'undodgeable') this.float('Kein Entkommen!', 'player', 'miss');
+      if (r.drained) this.time.delayedCall(260, () => this.float(`-${r.drained} Konzentration`, 'player', 'hurt'));
+      if (r.healed) this.time.delayedCall(260, () => this.float(`+${r.healed}`, 'enemy', 'good'));
       else if (r.note === 'exhausted') this.float('Erschöpft', 'player', 'miss');
       if (r.down && !this.combat.outcome) this.knockedOut(this.player);
     }

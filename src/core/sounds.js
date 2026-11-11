@@ -274,7 +274,7 @@ export function skillSound(def = {}, pathwayId = '') {
 export function combatSound(event, data = {}) {
   switch (event) {
     case 'telegraph': return 'ausholen';
-    case 'act': return data.action === 'taunt' || data.action === 'drain' || data.action === 'veil' ? 'debuff' : data.action === 'heal' ? 'heilen' : null;
+    case 'act': return data.action === 'taunt' || data.action === 'drain' || data.action === 'veil' || data.action === 'shatter' ? 'debuff' : data.action === 'heal' ? 'heilen' : data.action === 'rally' ? 'ausholen' : null;
     case 'start': return /^enemy_sk_|^chorwaechter$|^reise_kultist$/.test(data.id ?? '') ? 'sk_ueberfall' : /^fs_boxer/.test(data.id ?? '') ? 'fest_boxring_gong'
       : /schlafkutsche/.test(data.id ?? '') ? 'ls_schlafkutsche' : data.id === 'starling_stern' ? 'starling_verwandlung' : data.boss ? 'boss_auftritt' : 'kampf_start';
     case 'hit': return /^fs_boxer/.test(data.id ?? '') && (data.kind === 'blunt' || data.kind === 'slash' || data.kind === 'critical') ? 'fest_boxring_treffer' : null;

@@ -16,6 +16,7 @@
 
 import { rollLoot, takeLoot } from './Loot.js';
 import { FIGHT_DIGEST_MULT, ZONE_DIGEST_STEP } from './Pathways.js';
+import { phasesFor } from './Phasen.js';
 
 export const WINDOW = { parry: 80, dodge: 140 }; // ± Millisekunden um den Einschlag
 export const ELITE_PARRY = 65; // Eliten und Bosse: noch engeres Parierfenster
@@ -59,7 +60,18 @@ export const DODGE_COST = 3; // Ausweichen kostet Nerven (Artefakte: dodge_cost 
 export const PARRY_GAIN = 2;
 export const ATTACK_NERVES = 4; // der einfache Angriff lässt dich Atem holen: Nerven zurück, mehr bei präzisem Treffer
 export const ATTACK_NERVES_PERFECT = 6;
-export const ENRAGE_AT = 0.4; // unter 40 % Leben wird der Gegner schneller und härter
+export const ENRAGE_AT = 0.4; // unter 40 % Leben wird der Gegner schneller und härter (je Gegner: `enrage_at`)
+// Angriffsmuster (Felder einer Attacke in den Daten, dazu Phasen.js für den Haltungswechsel bei soundso viel Leben):
+//   charge: true        der Gegner holt aus: erst nur ein leichter Vorschlag (charge_first, Standard CHARGE_FIRST des Schadens),
+//                       im nächsten Zug fällt der Schlag mit charge_mult (Standard CHARGE_MULT), zu zweit auf beide.
+//                       Mit `unparryable: true` hilft dann nur Ausweichen.
+//   undodgeable: true   dem Schlag weicht man nicht aus, nur die Parade hilft (nie zusammen mit unparryable)
+//   escalate: 1.3       jeder weitere Schlag der Attacke ist um den Faktor härter als der vorige
+//   ap_drain: N         jeder Treffer nimmt dem Getroffenen N Konzentration
+//   lifesteal: 0.5      der Gegner heilt sich um diesen Anteil des angerichteten Schadens
+// Kniffe (action): rally (value % mehr Schaden für `rounds` Runden), shatter (Schutz des Ziels zerspringt, -value Nerven).
+export const CHARGE_MULT = 1.8;
+export const CHARGE_FIRST = 0.8;
 export const EARLY_LIMIT = 450; // frühere Tastendrücke zählen noch nicht
 export const AP_MAX = 6;
 export const AP_START = 1;
@@ -131,6 +143,23 @@ export function judgeTiming(pos, zone) {
 // Werte, die jeder Spieler im Kampf für sich hat (zu zweit: Spieler 1 und 2).
 const PER_FIGHTER = ['ap', 'shield', 'evading', 'bleed', 'actions', 'itemUsed', 'focused'];
 
+/**
+ * Welche Attacken man nicht parieren kann: wo die Daten es sagen (`unparryable`), gilt das; sonst die härteste
+ * Einzelattacke, wenn es mehr als zwei gibt. Nach einem Phasenwechsel bleiben bekannte Namen, wie sie waren (prev).
+ */
+export function unparrySet(attacks, prev = null) {
+  const strikes = attacks.filter((a) => !a.action);
+  const flagged = strikes.some((a) => a.unparryable !== undefined);
+  const known = prev ? strikes.filter((a) => prev.has(a.name)) : [];
+  if (prev && (flagged || known.length)) {
+    const set = new Set(known.map((a) => a.name));
+    for (const a of strikes) { if (a.unparryable === true) set.add(a.name); else if (a.unparryable === false) set.delete(a.name); }
+    return set;
+  }
+  const heavy = strikes.filter((a) => a.hits?.length === 1).sort((a, b) => b.damage - a.damage)[0];
+  return new Set(strikes.filter((a) => (flagged ? a.unparryable : a === heavy && attacks.length > 2)).map((a) => a.name));
+}
+
 /** Schlagkraft eines Spielers: Waffe mal Schadens-Passiven (Durchbrüche, Artefakte). */
 export function playerPower(state, n) {
   return state.withPlayer(n, () => state.weaponStats().atk * state.passive('dmg_mult'), { quiet: true });
@@ -178,14 +207,19 @@ export class Combat {
     this.armor = enc.practice ? 0 : enc.armor ?? (enc.boss ? Math.min(ARMOR.boss, tier) : enc.elite ? Math.min(ARMOR.elite, tier - 1) : 0);
     this.enemy = { name: enc.name, hp, maxHp: hp, occult: !!enc.occult };
     this.rng = state.rng ?? Math.random;
-    // BQ: Haupt einer Sekte wechselt bei halben Leben einmal die Angriffe (`phase2`: attacks, meldung), ohne Heilung oder Extra-Beute
-    this.phase2 = enc.phase2 ?? null;
+    // Phasen (Phasen.js): bei soundso viel Leben wechselt der Gegner die Haltung. `phase2` (BQ, Sektenhäupter) oder `phases`
+    // aus den Daten, Bosse und Eliten ohne eigene sonst automatisch mit eigener Schwelle (60 %, 50 %, 40 %, Drittel, Viertel).
+    this.phases = phasesFor(enc, encounterId, state.content.encounters);
+    this.phaseIndex = 0; // wie viele Phasen schon ausgelöst sind
     this.phased = false;
     this.phaseNote = null;
+    this.phaseDmg = 1; // Schadens- und Taktfaktor aus Phasen (`dmg`, `speed`)
+    this.phaseSpeed = 1;
+    this.enrageAt = enc.practice ? 0 : enc.enrage_at ?? ENRAGE_AT;
+    this.rallied = null; // Kniff rally: { mult, rounds }
+    this.charging = null; // Attacke mit `charge`, die der Gegner gerade auflädt und in seinem nächsten Zug fallen lässt
     // Die härteste Einzelattacke kann man nicht parieren, nur ausweichen (außer die Daten sagen es anders)
-    const flagged = enc.attacks.some((a) => a.unparryable !== undefined);
-    const heavy = enc.attacks.filter((a) => a.hits?.length === 1).sort((a, b) => b.damage - a.damage)[0];
-    this.unparryable = new Set(enc.attacks.filter((a) => (flagged ? a.unparryable : a === heavy && enc.attacks.length > 2)).map((a) => a.name));
+    this.unparryable = unparrySet(enc.attacks);
     this.weak = !!enc.weak_if && state.meets(enc.weak_if);
     // Kämpfer: Spieler 1 und (lokaler Koop) Spieler 2, jeder mit eigener Konzentration, Schutz, Blutung, Zug.
     // ap, shield, evading, bleed, actions, itemUsed lesen sich über Zugriffe beim gerade betroffenen Kämpfer.
@@ -527,13 +561,38 @@ export class Combat {
     }
     this.enemy.hp = Math.max(0, this.enemy.hp - dmg);
     if (this.enemy.hp === 0) this.outcome = 'won';
-    if (this.phase2 && !this.phased && this.enemy.hp > 0 && this.enemy.hp <= this.enemy.maxHp * 0.5) {
-      this.phased = true;
-      this.enc = { ...this.enc, attacks: this.phase2.attacks };
-      this.attackIndex = 0;
-      this.phaseNote = this.phase2.meldung ?? `${this.enemy.name} wechselt die Haltung.`;
-    }
+    this.checkPhases();
     return dmg;
+  }
+
+  /** Nächste Phase, deren Schwelle unterschritten ist (höchstens eine je Treffer, damit jede Meldung zu sehen ist). */
+  checkPhases() {
+    const next = this.phases[this.phaseIndex];
+    if (next && this.enemy.hp > 0 && this.enemy.hp <= this.enemy.maxHp * next.at) this.applyPhase(next);
+  }
+
+  /** Haltungswechsel: neue Angriffsliste, Panzer, Schutz, Heilung, Schadens- und Taktfaktor; die Meldung holt sich die Szene ab. */
+  applyPhase(p) {
+    this.phaseIndex += 1;
+    this.phased = true;
+    let attacks = p.attacks ? [...p.attacks] : [...this.enc.attacks];
+    if (p.add) attacks = [...attacks, ...p.add];
+    this.unparryable = unparrySet(attacks, this.unparryable);
+    this.enc = { ...this.enc, attacks };
+    // Neue Liste: von vorn. Nur angehängte Angriffe: der Takt läuft weiter, der erste neue kommt als Nächstes.
+    this.attackIndex = p.attacks ? 0 : attacks.length - (p.add?.length ?? 0);
+    if (p.armor) this.armor += p.armor;
+    if (p.guard) this.enemyGuard += p.guard;
+    if (p.heal) this.enemy.hp = Math.min(this.enemy.maxHp, this.enemy.hp + Math.round(this.enemy.maxHp * p.heal));
+    if (p.dmg) this.phaseDmg *= p.dmg;
+    if (p.speed) this.phaseSpeed *= p.speed;
+    this.phaseNote = p.meldung ?? `${this.enemy.name} wechselt die Haltung.`;
+    this.log.push(`Phase ${this.phaseIndex + 1}: ${this.phaseNote}`);
+  }
+
+  /** Schwelle der nächsten Phase (Anteil der Leben) oder null, wenn keine mehr kommt. */
+  nextPhaseAt() {
+    return this.phases[this.phaseIndex]?.at ?? null;
   }
 
   // --- Gegner --------------------------------------------------------------
@@ -549,11 +608,15 @@ export class Combat {
     this.struck.push(this.target);
     // Geblendet oder verwirrt: die ganze Runde ist für den Gegner vorbei
     if (this.stunned) { this.stunned = false; this.struck = [...up]; return null; }
-    const list = this.enc.attacks;
-    const atk = list[this.attackIndex % list.length];
-    this.attackIndex += 1;
-    // Flächenangriff: stehen noch beide unberührt da, trifft der Schlag manchmal beide zugleich
-    if (!atk.action && fresh.length > 1 && this.sweeps(atk)) {
+    let atk;
+    if (this.charging) atk = { ...this.charging, charged: true }; // der aufgeladene Schlag fällt jetzt
+    else {
+      const list = this.enc.attacks;
+      atk = list[this.attackIndex % list.length];
+      this.attackIndex += 1;
+    }
+    // Flächenangriff: stehen noch beide unberührt da, trifft der Schlag manchmal beide zugleich (aufgeladen immer)
+    if (!atk.action && fresh.length > 1 && (atk.charged || this.sweeps(atk))) {
       this.targets = [...fresh].sort();
       this.target = this.targets[0];
       this.struck = [...up];
@@ -567,13 +630,22 @@ export class Combat {
       return null;
     }
     if (atk.action) { this.enemyAct(atk); return null; }
+    if (atk.charge && !atk.charged) {
+      // Ausholen: diese Runde nur ein leichter Vorschlag (erster Takt, halber Schaden), der eigentliche Schlag fällt im
+      // nächsten Zug des Gegners mit charge_mult, zu zweit auf beide. Wer den Vorschlag sieht, weiß, was kommt.
+      this.charging = atk;
+      const first = atk.charge_first ?? CHARGE_FIRST;
+      return this.prepareAttack({ ...atk, name: `${atk.name} (holt aus)`, damage: Math.max(1, Math.round(atk.damage * first)), hits: atk.hits.slice(0, 1), charge: false, unparryable: false, winding: true });
+    }
+    if (atk.charged) this.charging = null;
     return this.prepareAttack(atk);
   }
 
   /**
    * Kniff statt Angriff (Pfad-Fähigkeiten der Sekten). action:
    * guard (Panzer +value), heal (+value Leben), veil (nächste Aktion nur präzise), taunt (-value Nerven),
-   * drain (Fall 9, Starling: erntet value Konzentration des Ziels und heilt sich um `heal`, pro gestohlenem Punkt mehr).
+   * drain (Fall 9, Starling: erntet value Konzentration des Ziels und heilt sich um `heal`, pro gestohlenem Punkt mehr),
+   * rally (value % mehr Schaden für `rounds` Runden), shatter (Schutz des Ziels zerspringt, -value Nerven).
    */
   enemyAct(atk) {
     const v = atk.value ?? 0;
@@ -585,6 +657,14 @@ export class Combat {
       text ||= `+${this.enemy.hp - before} Leben.`;
     } else if (atk.action === 'veil') { this.veiled = true; text ||= 'Nur präzise Treffer zählen.'; }
     else if (atk.action === 'taunt') { this.on(this.target, () => this.state.setComposure(this.state.composure - v)); text ||= `-${v} Nerven.`; }
+    else if (atk.action === 'rally') { const rounds = atk.rounds ?? 2; this.rallied = { mult: 1 + v / 100, rounds }; text ||= `+${v} % Schaden für ${rounds} Runden.`; }
+    else if (atk.action === 'shatter') {
+      const f = this.fighters[this.target];
+      const broke = f.shield;
+      f.shield = 0;
+      this.on(this.target, () => this.state.setComposure(this.state.composure - v));
+      text ||= `${broke ? `Schutz ${broke} zerspringt, ` : ''}-${v} Nerven.`;
+    }
     else if (atk.action === 'drain') {
       const f = this.fighters[this.target];
       const stolen = Math.min(f.ap, v);
@@ -628,7 +708,7 @@ export class Combat {
 
   /** Ist der Gegner in Rage (wenig Leben)? */
   enraged() {
-    return !this.enc.practice && this.enemy.hp <= this.enemy.maxHp * ENRAGE_AT;
+    return !this.enc.practice && this.enemy.hp <= this.enemy.maxHp * this.enrageAt;
   }
 
   /**
@@ -641,12 +721,15 @@ export class Combat {
     // Feld `ramp`: der Gegner wird mit jeder Runde stärker (gegen endloses Abwarten hinter Schilden)
     const ramp = 1 + this.rampRate() * Math.max(0, this.round - 1);
     const weak = this.weakened?.rounds > 0 ? this.weakened.mult : 1;
-    const dmgMult = (this.enc.practice ? 1 : ENEMY_DMG_MULT * (rage ? 1.2 : 1) * (tough0 ? ELITE_DMG_MULT : 1) * (this.duo && !this.duoFull ? DUO_DMG_MULT : 1) * (this.sweep ? SWEEP_DMG_MULT : 1) * ramp * this.dmgMult) * weak; // höhere Wesen und Wexmoor (duo_full) schlagen zu zweit nicht schwächer
+    // Phasen (`dmg`), Kniff rally und ein aufgeladener Schlag (charge_mult) legen obendrauf
+    const rally = this.rallied?.rounds > 0 ? this.rallied.mult : 1;
+    const charged = atk.charged ? atk.charge_mult ?? CHARGE_MULT : 1;
+    const dmgMult = (this.enc.practice ? 1 : ENEMY_DMG_MULT * (rage ? 1.2 : 1) * (tough0 ? ELITE_DMG_MULT : 1) * (this.duo && !this.duoFull ? DUO_DMG_MULT : 1) * (this.sweep ? SWEEP_DMG_MULT : 1) * ramp * this.dmgMult * this.phaseDmg * rally * charged) * weak; // höhere Wesen und Wexmoor (duo_full) schlagen zu zweit nicht schwächer
     const slowed = this.slowed;
     this.slowed = false;
     const readable = this.readNext;
     this.readNext = false;
-    const speed = (rage ? 0.85 : 1) * (slowed ? SLOW_MULT : 1);
+    const speed = (rage ? 0.85 : 1) * (slowed ? SLOW_MULT : 1) * (this.enc.practice ? 1 : this.phaseSpeed);
     const hits = [];
     const src = [...atk.hits];
     // Eliten und Bosse setzen manchmal nach
@@ -669,7 +752,11 @@ export class Combat {
       t = Math.max(450, t, prev === undefined ? 0 : prev + rings[i].lead + RING_GAP);
       hits.push(Math.round(t));
     }
-    return { ...atk, damage: Math.max(1, Math.round(atk.damage * dmgMult)), hits, rings, followup, unparryable: this.unparryable.has(atk.name) && !readable, readable, slowed, weakened: weak < 1, enraged: rage, sweep: this.sweep, targets: [...this.targets] };
+    const damage = Math.max(1, Math.round(atk.damage * dmgMult));
+    // escalate: jeder weitere Schlag der Attacke (auch ein Nachsetzen) ist härter als der vorige
+    const damages = atk.escalate ? hits.map((_, i) => Math.max(1, Math.round(damage * atk.escalate ** i))) : null;
+    const undodgeable = !!atk.undodgeable;
+    return { ...atk, damage, damages, hits, rings, followup, unparryable: !undodgeable && this.unparryable.has(atk.name) && !readable, undodgeable, readable, slowed, weakened: weak < 1, enraged: rage, rallied: rally > 1, sweep: this.sweep, targets: [...this.targets], count: {} };
   }
 
   /**
@@ -682,9 +769,13 @@ export class Combat {
   }
 
   resolveHitNow(attack, given, n = this.target) {
+    // Der wievielte Schlag dieser Attacke trifft diesen Spieler (escalate, Flächenangriff je Getroffenem)
+    attack.count ??= {};
+    const idx = attack.count[n] = (attack.count[n] ?? 0) + 1;
     let result = this.evading && given === 'miss' ? 'dodge' : given;
     let note = null;
     if (result === 'parry' && attack.unparryable) { result = 'miss'; note = 'unparryable'; }
+    if (result === 'dodge' && attack.undodgeable) { result = 'miss'; note = 'undodgeable'; }
     if (result === 'dodge' && given === 'dodge' && !this.evading) {
       const cost = this.dodgeCost();
       if (this.state.composure < cost) { result = 'miss'; note = 'exhausted'; }
@@ -698,17 +789,22 @@ export class Combat {
       return { damage: 0, counter, result };
     }
     if (result === 'dodge') return { damage: 0, counter: 0, result };
-    let incoming = attack.damage;
+    let incoming = attack.damages?.[idx - 1] ?? attack.damage;
     const absorbed = Math.min(this.shield, incoming);
     this.shield -= absorbed;
     incoming -= absorbed;
     const damage = this.state.damage(incoming);
     if (damage && attack.bleed) this.bleed = { damage: attack.bleed[0], rounds: attack.bleed[1] };
+    // Zehrende Schläge: Konzentration geht verloren, der Gegner heilt sich am Schaden
+    let drained = 0;
+    let healed = 0;
+    if (damage && attack.ap_drain) { const f = this.fighters[n]; drained = Math.min(f.ap, attack.ap_drain); f.ap -= drained; }
+    if (damage && attack.lifesteal) { const before = this.enemy.hp; this.enemy.hp = Math.min(this.enemy.maxHp, this.enemy.hp + Math.round(damage * attack.lifesteal)); healed = this.enemy.hp - before; }
     // Treffer kosten Nerven: manche Angriffe von sich aus, manche Artefakte bei jedem Treffer (hit_nerves)
     const shock = (attack.nerves ?? 0) + Math.max(0, this.state.passive('hit_nerves'));
     if (damage && shock) this.state.setComposure(this.state.composure - shock);
     if (this.state.hp === 0) this.knockOut(n);
-    return { damage, counter: 0, result, absorbed, note, down: this.fighters[n].down };
+    return { damage, counter: 0, result, absorbed, note, down: this.fighters[n].down, drained, healed };
   }
 
   /** Ende des gegnerischen Zuges: Ausweichen verfällt. */
@@ -730,6 +826,7 @@ export class Combat {
     this.capped = 0;
     for (const f of Object.values(this.fighters)) { f.bleedTick = 0; f.focusTick = 0; f.focusGain = 0; }
     if (this.weakened && --this.weakened.rounds <= 0) this.weakened = null;
+    if (this.rallied && --this.rallied.rounds <= 0) this.rallied = null;
     // BD: Gegner mit `flees_after` entziehen sich nach so vielen vollständigen Runden ohne Spielersieg (kein Sieg, keine Beute)
     if (!this.outcome && this.enc.flees_after && this.round > this.enc.flees_after) this.outcome = 'escaped';
     if (this.outcome) { this.startTurn(); return 0; }

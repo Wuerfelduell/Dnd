@@ -146,8 +146,8 @@ export function fight(state, encounterId, { attack = 'good', defend = () => 'dod
   const enemyTurn = () => {
     const atk = c.nextEnemyAttack();
     if (atk) {
-      // Wer Ringe lesen kann, pariert keine nicht parierbaren Angriffe, sondern weicht aus
-      const results = atk.hits.map(() => { const r = defend(n++); return r === 'parry' && atk.unparryable ? 'dodge' : r; });
+      // Wer Ringe lesen kann, pariert keine nicht parierbaren Angriffe, sondern weicht aus, und pariert, wem man nicht ausweichen kann
+      const results = atk.hits.map(() => { const r = defend(n++); return r === 'parry' && atk.unparryable ? 'dodge' : r === 'dodge' && atk.undodgeable ? 'parry' : r; });
       for (const r of results) { c.resolveHit(atk, r); if (c.outcome) break; }
       if (!c.outcome && results.every((r) => r === 'parry')) c.riposte();
       c.endEnemyTurn();
