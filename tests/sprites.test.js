@@ -885,3 +885,14 @@ test('BV: Jahreszeiten- und Festgrafik aus manifest-feste – Boden-Deko, Partik
   // Laternen der Laternennacht: vier Farben mit zwei Frames
   assert.deepEqual(Object.keys(byId.feste_laternennacht_props.regions).filter((n) => /^laterne_/.test(n)).length, 8);
 });
+
+test('jede Figur auf den Wexmoor-Karten hat ein echtes Lauf-Sheet (kein Platzhalter-Kasten)', () => {
+  for (const [mid, map] of Object.entries(content.maps)) {
+    if (!/^wx_|^treffen_(lichtlose|salz|namensgilde)$/.test(mid)) continue;
+    for (const n of map.npcs ?? []) {
+      const sheet = CHARACTER_SHEETS[`npc_${n.id}`];
+      assert.ok(sheet, `${mid}: ${n.id} ohne Lauf-Sheet`);
+      assert.ok(existsSync(sprite(SHEETS[sheet])), `${mid}: ${n.id} → ${SHEETS[sheet]}`);
+    }
+  }
+});
