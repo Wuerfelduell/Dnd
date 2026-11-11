@@ -1,0 +1,512 @@
+{
+  "marlowe": {
+    "choices_add": [
+      {
+        "text": "Die wandernden Kulte.",
+        "next": "sk_zusatz_marlowe",
+        "requires_flags": [
+          "sk_freigegeben"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "sk_zusatz_marlowe": {
+        "text": "„Sichere Kopien. Eine verbrannte Akte ist kein Freispruch, aber auch kein Beweis gegen ihren Besitzer.“",
+        "choices": [
+          {
+            "text": "Wo kann ich anfangen?",
+            "next": "sk_zusatz_marlowe_weg"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "sk_zusatz_marlowe_weg": {
+        "text": "„Frag Wenz Albrecht bei Glockengießerei Brannock. Dort kannst du die erste Spur prüfen.“",
+        "choices": [
+          {
+            "text": "Ich nehme die Spur auf.",
+            "next": "sk_zusatz_marlowe_annehmen",
+            "hide_if_quests": [
+              "sk_asche_kette"
+            ]
+          },
+          {
+            "text": "Ich sehe später nach."
+          }
+        ]
+      },
+      "sk_zusatz_marlowe_annehmen": {
+        "text": "Du notierst den Ausgangspunkt der Untersuchung.",
+        "start_quests": [
+          "sk_asche_kette"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "holt": {
+    "choices_add": [
+      {
+        "text": "Die wandernden Kulte.",
+        "next": "sk_zusatz_holt",
+        "requires_flags": [
+          "sk_freigegeben"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "sk_zusatz_holt": {
+        "text": "„Lass dir den Ausgang zeigen, bevor du mitgehst. Ein warmes Zimmer kann eine kalte Falle sein.“",
+        "choices": [
+          {
+            "text": "Wo kann ich anfangen?",
+            "next": "sk_zusatz_holt_weg"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "sk_zusatz_holt_weg": {
+        "text": "„Frag Wenz Albrecht bei Glockengießerei Brannock. Dort kannst du die erste Spur prüfen.“",
+        "choices": [
+          {
+            "text": "Ich nehme die Spur auf.",
+            "next": "sk_zusatz_holt_annehmen",
+            "hide_if_quests": [
+              "sk_asche_kette"
+            ]
+          },
+          {
+            "text": "Ich sehe später nach."
+          }
+        ]
+      },
+      "sk_zusatz_holt_annehmen": {
+        "text": "Du notierst den Ausgangspunkt der Untersuchung.",
+        "start_quests": [
+          "sk_asche_kette"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "greta": {
+    "choices_add": [
+      {
+        "text": "Die wandernden Kulte.",
+        "next": "sk_zusatz_greta",
+        "requires_flags": [
+          "sk_freigegeben"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "sk_zusatz_greta": {
+        "text": "„Wer Hunger hat, bekommt bei mir etwas. Dafür muss niemand seinen Namen verbrennen.“",
+        "choices": [
+          {
+            "text": "Wo kann ich anfangen?",
+            "next": "sk_zusatz_greta_weg"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "sk_zusatz_greta_weg": {
+        "text": "„Frag Wenz Albrecht bei Glockengießerei Brannock. Dort kannst du die erste Spur prüfen.“",
+        "choices": [
+          {
+            "text": "Ich nehme die Spur auf.",
+            "next": "sk_zusatz_greta_annehmen",
+            "hide_if_quests": [
+              "sk_asche_kette"
+            ]
+          },
+          {
+            "text": "Ich sehe später nach."
+          }
+        ]
+      },
+      "sk_zusatz_greta_annehmen": {
+        "text": "Du notierst den Ausgangspunkt der Untersuchung.",
+        "start_quests": [
+          "sk_asche_kette"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "zunder": {
+    "choices_add": [
+      {
+        "text": "Die wandernden Kulte.",
+        "next": "sk_zusatz_zunder",
+        "requires_flags": [
+          "sk_freigegeben"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "sk_zusatz_zunder": {
+        "text": "„Der Bund leiht sich unsere Arbeitskleider. Die Rußgesellschaft hat mit seinen Feuerstellen nichts zu tun.“",
+        "choices": [
+          {
+            "text": "Wo kann ich anfangen?",
+            "next": "sk_zusatz_zunder_weg"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "sk_zusatz_zunder_weg": {
+        "text": "„Frag Wenz Albrecht bei Glockengießerei Brannock. Dort kannst du die erste Spur prüfen.“",
+        "choices": [
+          {
+            "text": "Ich nehme die Spur auf.",
+            "next": "sk_zusatz_zunder_annehmen",
+            "hide_if_quests": [
+              "sk_asche_kette"
+            ]
+          },
+          {
+            "text": "Ich sehe später nach."
+          }
+        ]
+      },
+      "sk_zusatz_zunder_annehmen": {
+        "text": "Du notierst den Ausgangspunkt der Untersuchung.",
+        "start_quests": [
+          "sk_asche_kette"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "hale": {
+    "choices_add": [
+      {
+        "text": "Die wandernden Kulte.",
+        "next": "sk_zusatz_hale",
+        "requires_flags": [
+          "sk_freigegeben"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "sk_zusatz_hale": {
+        "text": "„Prüf die freien Wege zuerst. Eine Kultsperre darf keinen Vermisstenbericht aufhalten.“",
+        "choices": [
+          {
+            "text": "Wo kann ich anfangen?",
+            "next": "sk_zusatz_hale_weg"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "sk_zusatz_hale_weg": {
+        "text": "„Frag Lotte Marr bei Bojenhafen. Dort kannst du die erste Spur prüfen.“",
+        "choices": [
+          {
+            "text": "Ich nehme die Spur auf.",
+            "next": "sk_zusatz_hale_annehmen",
+            "hide_if_quests": [
+              "sk_flut_kette"
+            ]
+          },
+          {
+            "text": "Ich sehe später nach."
+          }
+        ]
+      },
+      "sk_zusatz_hale_annehmen": {
+        "text": "Du notierst den Ausgangspunkt der Untersuchung.",
+        "start_quests": [
+          "sk_flut_kette"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "k3a_pfiff": {
+    "choices_add": [
+      {
+        "text": "Die wandernden Kulte.",
+        "next": "sk_zusatz_k3a_pfiff",
+        "requires_flags": [
+          "sk_freigegeben"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "sk_zusatz_k3a_pfiff": {
+        "text": "„Frag nach der Antwort hinter dem Ruf. Eine Aufnahme kann dich begrüßen, aber nicht mit dir streiten.“",
+        "choices": [
+          {
+            "text": "Wo kann ich anfangen?",
+            "next": "sk_zusatz_k3a_pfiff_weg"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "sk_zusatz_k3a_pfiff_weg": {
+        "text": "„Frag Jost Ell bei Klangprüfhaus. Dort kannst du die erste Spur prüfen.“",
+        "choices": [
+          {
+            "text": "Ich nehme die Spur auf.",
+            "next": "sk_zusatz_k3a_pfiff_annehmen",
+            "hide_if_quests": [
+              "sk_chor_kette"
+            ]
+          },
+          {
+            "text": "Ich sehe später nach."
+          }
+        ]
+      },
+      "sk_zusatz_k3a_pfiff_annehmen": {
+        "text": "Du notierst den Ausgangspunkt der Untersuchung.",
+        "start_quests": [
+          "sk_chor_kette"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "k3p_hedda": {
+    "choices_add": [
+      {
+        "text": "Die wandernden Kulte.",
+        "next": "sk_zusatz_k3p_hedda",
+        "requires_flags": [
+          "sk_freigegeben"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "sk_zusatz_k3p_hedda": {
+        "text": "„Trenne nur den fremden Nebenaufsatz. Die öffentliche Leitung gehört den Menschen, die sie brauchen.“",
+        "choices": [
+          {
+            "text": "Wo kann ich anfangen?",
+            "next": "sk_zusatz_k3p_hedda_weg"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "sk_zusatz_k3p_hedda_weg": {
+        "text": "„Frag Jost Ell bei Klangprüfhaus. Dort kannst du die erste Spur prüfen.“",
+        "choices": [
+          {
+            "text": "Ich nehme die Spur auf.",
+            "next": "sk_zusatz_k3p_hedda_annehmen",
+            "hide_if_quests": [
+              "sk_chor_kette"
+            ]
+          },
+          {
+            "text": "Ich sehe später nach."
+          }
+        ]
+      },
+      "sk_zusatz_k3p_hedda_annehmen": {
+        "text": "Du notierst den Ausgangspunkt der Untersuchung.",
+        "start_quests": [
+          "sk_chor_kette"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "kittering": {
+    "choices_add": [
+      {
+        "text": "Die wandernden Kulte.",
+        "next": "sk_zusatz_kittering",
+        "requires_flags": [
+          "sk_freigegeben"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "sk_zusatz_kittering": {
+        "text": "„Ein Knoten ist billig. Teuer wird er erst, wenn jemand behauptet, nur er könne ihn öffnen.“",
+        "choices": [
+          {
+            "text": "Wo kann ich anfangen?",
+            "next": "sk_zusatz_kittering_weg"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "sk_zusatz_kittering_weg": {
+        "text": "„Frag Lotte Marr bei Bojenhafen. Dort kannst du die erste Spur prüfen.“",
+        "choices": [
+          {
+            "text": "Ich nehme die Spur auf.",
+            "next": "sk_zusatz_kittering_annehmen",
+            "hide_if_quests": [
+              "sk_flut_kette"
+            ]
+          },
+          {
+            "text": "Ich sehe später nach."
+          }
+        ]
+      },
+      "sk_zusatz_kittering_annehmen": {
+        "text": "Du notierst den Ausgangspunkt der Untersuchung.",
+        "start_quests": [
+          "sk_flut_kette"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "k3n_secondhaendler": {
+    "choices_add": [
+      {
+        "text": "Die wandernden Kulte.",
+        "next": "sk_zusatz_k3n_secondhaendler",
+        "requires_flags": [
+          "sk_freigegeben"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "sk_zusatz_k3n_secondhaendler": {
+        "text": "„Meine Stimme ist keine Ware. Dass jemand meinen Preis kennt, gibt ihm kein Recht auf sie.“",
+        "choices": [
+          {
+            "text": "Wo kann ich anfangen?",
+            "next": "sk_zusatz_k3n_secondhaendler_weg"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "sk_zusatz_k3n_secondhaendler_weg": {
+        "text": "„Frag Jost Ell bei Klangprüfhaus. Dort kannst du die erste Spur prüfen.“",
+        "choices": [
+          {
+            "text": "Ich nehme die Spur auf.",
+            "next": "sk_zusatz_k3n_secondhaendler_annehmen",
+            "hide_if_quests": [
+              "sk_chor_kette"
+            ]
+          },
+          {
+            "text": "Ich sehe später nach."
+          }
+        ]
+      },
+      "sk_zusatz_k3n_secondhaendler_annehmen": {
+        "text": "Du notierst den Ausgangspunkt der Untersuchung.",
+        "start_quests": [
+          "sk_chor_kette"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "varga": {
+    "choices_add": [
+      {
+        "text": "Die wandernden Kulte.",
+        "next": "sk_zusatz_varga",
+        "requires_flags": [
+          "sk_freigegeben"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "sk_zusatz_varga": {
+        "text": "„Bei verunreinigtem Wasser hilft eine andere Wasserstelle. Eine Taufe ist keine Behandlung.“",
+        "choices": [
+          {
+            "text": "Wo kann ich anfangen?",
+            "next": "sk_zusatz_varga_weg"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "sk_zusatz_varga_weg": {
+        "text": "„Frag Lotte Marr bei Bojenhafen. Dort kannst du die erste Spur prüfen.“",
+        "choices": [
+          {
+            "text": "Ich nehme die Spur auf.",
+            "next": "sk_zusatz_varga_annehmen",
+            "hide_if_quests": [
+              "sk_flut_kette"
+            ]
+          },
+          {
+            "text": "Ich sehe später nach."
+          }
+        ]
+      },
+      "sk_zusatz_varga_annehmen": {
+        "text": "Du notierst den Ausgangspunkt der Untersuchung.",
+        "start_quests": [
+          "sk_flut_kette"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,625 @@
+{
+  "quests": {
+    "sk_asche_kette": {
+      "title": "Was im Ofen fehlt",
+      "kind": "side",
+      "case": "side",
+      "summary": "Ein Heizplan verbindet drei Städte; die angebliche Schuldentilgung verschleiert verschwundene Arbeiter.",
+      "steps": [
+        {
+          "text": "Prüfe die ausgekühlte Aktenmulde an der Gießerei.",
+          "done": {
+            "requires_flags": [
+              "sk_asche_schritt_1"
+            ]
+          },
+          "target": {
+            "map": "giesserei",
+            "id": "sk_asche_lese_1",
+            "label": "Spur prüfen"
+          }
+        },
+        {
+          "text": "Vergleiche die Schichtkerben am Torfstich.",
+          "done": {
+            "requires_flags": [
+              "sk_asche_schritt_2"
+            ]
+          },
+          "target": {
+            "map": "wx_torfstich",
+            "id": "sk_asche_lese_2",
+            "label": "Spur prüfen"
+          }
+        },
+        {
+          "text": "Sichere den fehlenden Namen im Lohnbüro.",
+          "done": {
+            "requires_flags": [
+              "sk_asche_schritt_3"
+            ]
+          },
+          "target": {
+            "map": "ds_lohnbuero",
+            "id": "sk_asche_lese_3",
+            "label": "Spur prüfen"
+          }
+        },
+        {
+          "text": "Folge den leeren Kohlesäcken zum Kanalhafen.",
+          "done": {
+            "requires_flags": [
+              "sk_asche_schritt_4"
+            ]
+          },
+          "target": {
+            "map": "docks",
+            "id": "sk_asche_lese_4",
+            "label": "Spur prüfen"
+          }
+        },
+        {
+          "text": "Bring Wenz die gesicherte Abschrift.",
+          "done": {
+            "requires_flags": [
+              "sk_asche_schritt_5"
+            ]
+          },
+          "target": {
+            "map": "giesserei",
+            "id": "sk_asche_lese_1",
+            "label": "Rückkehr zur ersten Spur"
+          }
+        }
+      ],
+      "reward": {
+        "gives_money": 180,
+        "gives_items": {
+          "ski_art_aschenring": 1
+        }
+      }
+    },
+    "sk_asche_rueckholung": {
+      "title": "Ein freier Rückweg",
+      "kind": "side",
+      "case": "side",
+      "summary": "Hilf am Kultort; Zeitablauf allein zählt nicht als erledigter Auftrag.",
+      "steps": [
+        {
+          "text": "Begleite eine abgeworbene Person zurück.",
+          "done": {
+            "requires_flags": [
+              "sk_asche_gerettet"
+            ]
+          },
+          "target": {
+            "map": "giesserei",
+            "id": "sk_asche_aussteiger_tobin",
+            "label": "Aktuellen Ort erfragen"
+          }
+        }
+      ],
+      "reward": {
+        "gives_money": 60
+      }
+    },
+    "sk_asche_schrein_auftrag": {
+      "title": "Kalte Glut",
+      "kind": "side",
+      "case": "side",
+      "summary": "Hilf am Kultort; Zeitablauf allein zählt nicht als erledigter Auftrag.",
+      "steps": [
+        {
+          "text": "Baue einen bewachten Kultplatz ab.",
+          "done": {
+            "requires_flags": [
+              "sk_asche_hilfe_done"
+            ]
+          },
+          "target": {
+            "map": "giesserei",
+            "id": "sk_asche_opfer_wenz",
+            "label": "Aktuellen Ort erfragen"
+          }
+        }
+      ],
+      "reward": {
+        "gives_money": 40
+      }
+    },
+    "sk_flut_kette": {
+      "title": "Die Hand am anderen Seil",
+      "kind": "side",
+      "case": "side",
+      "summary": "Bojenmarken führen zu einer Taufgesellschaft, die Rettungsseile als Druckmittel benutzt.",
+      "steps": [
+        {
+          "text": "Lies die Bojenkerben am Hafen.",
+          "done": {
+            "requires_flags": [
+              "sk_flut_schritt_1"
+            ]
+          },
+          "target": {
+            "map": "wx_bojenhafen",
+            "id": "sk_flut_lese_1",
+            "label": "Spur prüfen"
+          }
+        },
+        {
+          "text": "Prüfe den trockenen Seilrest in den Gaskanälen.",
+          "done": {
+            "requires_flags": [
+              "sk_flut_schritt_2"
+            ]
+          },
+          "target": {
+            "map": "gaskanaele",
+            "id": "sk_flut_lese_2",
+            "label": "Spur prüfen"
+          }
+        },
+        {
+          "text": "Vergleiche die Bündelmarken am Endbahnhof.",
+          "done": {
+            "requires_flags": [
+              "sk_flut_schritt_3"
+            ]
+          },
+          "target": {
+            "map": "ds_endbahnhof",
+            "id": "sk_flut_lese_3",
+            "label": "Spur prüfen"
+          }
+        },
+        {
+          "text": "Löse die falsche Rettungsleine im Pfahldorf.",
+          "done": {
+            "requires_flags": [
+              "sk_flut_schritt_4"
+            ]
+          },
+          "target": {
+            "map": "wx_pfahldorf",
+            "id": "sk_flut_lese_4",
+            "label": "Spur prüfen"
+          }
+        },
+        {
+          "text": "Berichte Lotte, wer die Seile hielt.",
+          "done": {
+            "requires_flags": [
+              "sk_flut_schritt_5"
+            ]
+          },
+          "target": {
+            "map": "wx_bojenhafen",
+            "id": "sk_flut_lese_1",
+            "label": "Rückkehr zur ersten Spur"
+          }
+        }
+      ],
+      "reward": {
+        "gives_money": 180,
+        "gives_items": {
+          "ski_art_flutkompass": 1
+        }
+      }
+    },
+    "sk_flut_rueckholung": {
+      "title": "Ein freier Rückweg",
+      "kind": "side",
+      "case": "side",
+      "summary": "Hilf am Kultort; Zeitablauf allein zählt nicht als erledigter Auftrag.",
+      "steps": [
+        {
+          "text": "Begleite eine abgeworbene Person zurück.",
+          "done": {
+            "requires_flags": [
+              "sk_flut_gerettet"
+            ]
+          },
+          "target": {
+            "map": "wx_bojenhafen",
+            "id": "sk_flut_aussteiger_pell",
+            "label": "Aktuellen Ort erfragen"
+          }
+        }
+      ],
+      "reward": {
+        "gives_money": 60
+      }
+    },
+    "sk_flut_zeichen_auftrag": {
+      "title": "Ein unmarkiertes Haus",
+      "kind": "side",
+      "case": "side",
+      "summary": "Hilf am Kultort; Zeitablauf allein zählt nicht als erledigter Auftrag.",
+      "steps": [
+        {
+          "text": "Entferne die Markierung an einem bewohnten Haus.",
+          "done": {
+            "requires_flags": [
+              "sk_flut_hilfe_done"
+            ]
+          },
+          "target": {
+            "map": "wx_bojenhafen",
+            "id": "sk_flut_opfer_lotte",
+            "label": "Aktuellen Ort erfragen"
+          }
+        }
+      ],
+      "reward": {
+        "gives_money": 40
+      }
+    },
+    "sk_chor_kette": {
+      "title": "Ein Ruf gehört jemandem",
+      "kind": "side",
+      "case": "side",
+      "summary": "Stimmproben wurden als Arbeitsprüfung gesammelt und werden nun für falsche Einladungen abgespielt.",
+      "steps": [
+        {
+          "text": "Prüfe die Wachsmulde vor dem Klangprüfhaus.",
+          "done": {
+            "requires_flags": [
+              "sk_chor_schritt_1"
+            ]
+          },
+          "target": {
+            "map": "ds_pruefhaus",
+            "id": "sk_chor_lese_1",
+            "label": "Spur prüfen"
+          }
+        },
+        {
+          "text": "Vergleiche die stummen Einsätze am Theater.",
+          "done": {
+            "requires_flags": [
+              "sk_chor_schritt_2"
+            ]
+          },
+          "target": {
+            "map": "theater",
+            "id": "sk_chor_lese_2",
+            "label": "Spur prüfen"
+          }
+        },
+        {
+          "text": "Lies die Empfangsfolge im Lichtamt.",
+          "done": {
+            "requires_flags": [
+              "sk_chor_schritt_3"
+            ]
+          },
+          "target": {
+            "map": "wx_lichtamt",
+            "id": "sk_chor_lese_3",
+            "label": "Spur prüfen"
+          }
+        },
+        {
+          "text": "Trenne die falschen Rufe am Signalhang.",
+          "done": {
+            "requires_flags": [
+              "sk_chor_schritt_4"
+            ]
+          },
+          "target": {
+            "map": "ds_signalhang",
+            "id": "sk_chor_lese_4",
+            "label": "Spur prüfen"
+          }
+        },
+        {
+          "text": "Gib Jost seine unbenutzte Stimmprobe zurück.",
+          "done": {
+            "requires_flags": [
+              "sk_chor_schritt_5"
+            ]
+          },
+          "target": {
+            "map": "ds_pruefhaus",
+            "id": "sk_chor_lese_1",
+            "label": "Rückkehr zur ersten Spur"
+          }
+        }
+      ],
+      "reward": {
+        "gives_money": 180,
+        "gives_items": {
+          "ski_art_chorstimmgabel": 1
+        }
+      }
+    },
+    "sk_chor_rueckholung": {
+      "title": "Ein freier Rückweg",
+      "kind": "side",
+      "case": "side",
+      "summary": "Hilf am Kultort; Zeitablauf allein zählt nicht als erledigter Auftrag.",
+      "steps": [
+        {
+          "text": "Begleite eine abgeworbene Person zurück.",
+          "done": {
+            "requires_flags": [
+              "sk_chor_gerettet"
+            ]
+          },
+          "target": {
+            "map": "ds_pruefhaus",
+            "id": "sk_chor_aussteiger_rike",
+            "label": "Aktuellen Ort erfragen"
+          }
+        }
+      ],
+      "reward": {
+        "gives_money": 60
+      }
+    },
+    "sk_chor_schrein_auftrag": {
+      "title": "Der letzte Einsatz",
+      "kind": "side",
+      "case": "side",
+      "summary": "Hilf am Kultort; Zeitablauf allein zählt nicht als erledigter Auftrag.",
+      "steps": [
+        {
+          "text": "Baue einen bewachten Kultplatz ab.",
+          "done": {
+            "requires_flags": [
+              "sk_chor_hilfe_done"
+            ]
+          },
+          "target": {
+            "map": "ds_pruefhaus",
+            "id": "sk_chor_opfer_jost",
+            "label": "Aktuellen Ort erfragen"
+          }
+        }
+      ],
+      "reward": {
+        "gives_money": 40
+      }
+    }
+  },
+  "lesestellen": [
+    {
+      "id": "sk_asche_lese_1",
+      "map": "giesserei",
+      "dialogue": "sk_asche_schritt_1",
+      "title": "Prüfe die ausgekühlte Aktenmulde an der Gießerei",
+      "visible_if": {
+        "requires_quests_active": [
+          "sk_asche_kette"
+        ],
+        "requires_flags": []
+      }
+    },
+    {
+      "id": "sk_asche_lese_2",
+      "map": "wx_torfstich",
+      "dialogue": "sk_asche_schritt_2",
+      "title": "Vergleiche die Schichtkerben am Torfstich",
+      "visible_if": {
+        "requires_quests_active": [
+          "sk_asche_kette"
+        ],
+        "requires_flags": [
+          "sk_asche_schritt_1"
+        ]
+      }
+    },
+    {
+      "id": "sk_asche_lese_3",
+      "map": "ds_lohnbuero",
+      "dialogue": "sk_asche_schritt_3",
+      "title": "Sichere den fehlenden Namen im Lohnbüro",
+      "visible_if": {
+        "requires_quests_active": [
+          "sk_asche_kette"
+        ],
+        "requires_flags": [
+          "sk_asche_schritt_1",
+          "sk_asche_schritt_2"
+        ]
+      }
+    },
+    {
+      "id": "sk_asche_lese_4",
+      "map": "docks",
+      "dialogue": "sk_asche_schritt_4",
+      "title": "Folge den leeren Kohlesäcken zum Kanalhafen",
+      "visible_if": {
+        "requires_quests_active": [
+          "sk_asche_kette"
+        ],
+        "requires_flags": [
+          "sk_asche_schritt_1",
+          "sk_asche_schritt_2",
+          "sk_asche_schritt_3"
+        ]
+      }
+    },
+    {
+      "id": "sk_flut_lese_1",
+      "map": "wx_bojenhafen",
+      "dialogue": "sk_flut_schritt_1",
+      "title": "Lies die Bojenkerben am Hafen",
+      "visible_if": {
+        "requires_quests_active": [
+          "sk_flut_kette"
+        ],
+        "requires_flags": []
+      }
+    },
+    {
+      "id": "sk_flut_lese_2",
+      "map": "gaskanaele",
+      "dialogue": "sk_flut_schritt_2",
+      "title": "Prüfe den trockenen Seilrest in den Gaskanälen",
+      "visible_if": {
+        "requires_quests_active": [
+          "sk_flut_kette"
+        ],
+        "requires_flags": [
+          "sk_flut_schritt_1"
+        ]
+      }
+    },
+    {
+      "id": "sk_flut_lese_3",
+      "map": "ds_endbahnhof",
+      "dialogue": "sk_flut_schritt_3",
+      "title": "Vergleiche die Bündelmarken am Endbahnhof",
+      "visible_if": {
+        "requires_quests_active": [
+          "sk_flut_kette"
+        ],
+        "requires_flags": [
+          "sk_flut_schritt_1",
+          "sk_flut_schritt_2"
+        ]
+      }
+    },
+    {
+      "id": "sk_flut_lese_4",
+      "map": "wx_pfahldorf",
+      "dialogue": "sk_flut_schritt_4",
+      "title": "Löse die falsche Rettungsleine im Pfahldorf",
+      "visible_if": {
+        "requires_quests_active": [
+          "sk_flut_kette"
+        ],
+        "requires_flags": [
+          "sk_flut_schritt_1",
+          "sk_flut_schritt_2",
+          "sk_flut_schritt_3"
+        ]
+      }
+    },
+    {
+      "id": "sk_chor_lese_1",
+      "map": "ds_pruefhaus",
+      "dialogue": "sk_chor_schritt_1",
+      "title": "Prüfe die Wachsmulde vor dem Klangprüfhaus",
+      "visible_if": {
+        "requires_quests_active": [
+          "sk_chor_kette"
+        ],
+        "requires_flags": []
+      }
+    },
+    {
+      "id": "sk_chor_lese_2",
+      "map": "theater",
+      "dialogue": "sk_chor_schritt_2",
+      "title": "Vergleiche die stummen Einsätze am Theater",
+      "visible_if": {
+        "requires_quests_active": [
+          "sk_chor_kette"
+        ],
+        "requires_flags": [
+          "sk_chor_schritt_1"
+        ]
+      }
+    },
+    {
+      "id": "sk_chor_lese_3",
+      "map": "wx_lichtamt",
+      "dialogue": "sk_chor_schritt_3",
+      "title": "Lies die Empfangsfolge im Lichtamt",
+      "visible_if": {
+        "requires_quests_active": [
+          "sk_chor_kette"
+        ],
+        "requires_flags": [
+          "sk_chor_schritt_1",
+          "sk_chor_schritt_2"
+        ]
+      }
+    },
+    {
+      "id": "sk_chor_lese_4",
+      "map": "ds_signalhang",
+      "dialogue": "sk_chor_schritt_4",
+      "title": "Trenne die falschen Rufe am Signalhang",
+      "visible_if": {
+        "requires_quests_active": [
+          "sk_chor_kette"
+        ],
+        "requires_flags": [
+          "sk_chor_schritt_1",
+          "sk_chor_schritt_2",
+          "sk_chor_schritt_3"
+        ]
+      }
+    }
+  ],
+  "artifacts": {
+    "list": {
+      "ski_art_aschenring": {
+        "name": "Aschenring",
+        "source": "sekten",
+        "price": 140,
+        "icon": "ski_art_aschenring",
+        "desc": "Ein kalter Eisenring hält deine Hände ruhig, macht deinen Schritt aber schwer.",
+        "boons": [
+          {
+            "key": "parry_nerves",
+            "value": 3,
+            "text": "Paraden bringen 3 Nerven mehr."
+          }
+        ],
+        "curses": [
+          {
+            "key": "dodge_cost",
+            "value": 2,
+            "text": "Ausweichen kostet 2 Nerven mehr."
+          }
+        ]
+      },
+      "ski_art_flutkompass": {
+        "name": "Flutkompass",
+        "source": "sekten",
+        "price": 140,
+        "icon": "ski_art_flutkompass",
+        "desc": "Der Zeiger sucht den ruhigsten Atemzug und zieht Wärme aus deinen Fingern.",
+        "boons": [
+          {
+            "key": "round_nerves",
+            "value": 3,
+            "text": "+3 Nerven zu Beginn jeder Kampfrunde."
+          }
+        ],
+        "curses": [
+          {
+            "key": "max_hp",
+            "value": -5,
+            "text": "-5 maximale Leben, solange aktiv."
+          }
+        ]
+      },
+      "ski_art_chorstimmgabel": {
+        "name": "Chorstimmgabel",
+        "source": "sekten",
+        "price": 140,
+        "icon": "ski_art_chorstimmgabel",
+        "desc": "Die Zinken halten deinen Gedanken fest; der Körper spürt jeden Stoß deutlicher.",
+        "boons": [
+          {
+            "key": "ap_max",
+            "value": 1,
+            "text": "+1 Höchstkonzentration."
+          }
+        ],
+        "curses": [
+          {
+            "key": "damage_taken",
+            "value": 1.1,
+            "text": "Du nimmst 10 % mehr Schaden."
+          }
+        ]
+      }
+    }
+  }
+}
