@@ -1,5 +1,7 @@
 # Codex-Paket CE: Calderwick als Grafik (Kapitel 4)
 
+> **Ersetzt (2026-11-11):** zu groß für Codex. Bitte stattdessen die zwei Teilpakete nehmen: `codex_CE1_…` und `…2_…` (siehe prompts.md, Runde 8).
+
 **Batch-Name:** `calderwick1` (Manifest: `public/sprites/manifest-calderwick1.json`)
 
 Calderwick ist eine Druckerstadt auf sechs trockenen Kalkterrassen: Standseilbahnen ziehen Papier und Menschen bergauf, schwarze Regenrinnen führen den Ruß bergab, Rohrpost zischt durch die Fassaden, und an den Stationsschildern fehlen Buchstaben. Du lieferst Tilesets, Props, Innenräume, die Standseilbahn, Kampf-Hintergründe der Stadt, Stadtkarte und Kapitelkarte. Figuren (BK), Gegner mit sieben Zonen-Hintergründen (BI) und Item-Icons (BM) gibt es schon; mach nichts davon doppelt. Die Karten dazu macht gleichzeitig Paket CD.
