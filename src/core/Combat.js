@@ -157,12 +157,15 @@ export class Combat {
     const zone = state.content.zones?.[enc.zone];
     // Härte des Gebiets (Kapitel 2, Wexmoor): `hp_mult` / `dmg_mult` auf Gegner oder Gebiet skalieren Leben und Schaden,
     // `duo_full` lässt den Gegner zu zweit ohne Abschlag zuschlagen (sonst DUO_DMG_MULT)
-    this.hpMult = enc.practice ? 1 : enc.hp_mult ?? zone?.hp_mult ?? 1;
+    // Gebietswerte gelten je Rang, wenn sie als { normal, elite, boss } angegeben sind
+    const rank = enc.boss ? 'boss' : enc.elite ? 'elite' : 'normal';
+    const byRank = (v) => (v && typeof v === 'object' ? v[rank] : v);
+    this.hpMult = enc.practice ? 1 : enc.hp_mult ?? byRank(zone?.hp_mult) ?? 1;
     this.dmgMult = enc.practice ? 1 : enc.dmg_mult ?? zone?.dmg_mult ?? 1;
     this.duoFull = !!(enc.min_seq || (enc.duo_full ?? zone?.duo_full));
-    // Schadensgrenze je Runde: am Gegner `max_round_dmg` (Anteil der Leben), sonst am Gebiet je Rang { normal, elite, boss }
-    const zoneCap = zone?.max_round_dmg;
-    this.maxRoundDmg = enc.practice ? 0 : enc.max_round_dmg ?? (typeof zoneCap === 'object' ? zoneCap[enc.boss ? 'boss' : enc.elite ? 'elite' : 'normal'] : zoneCap) ?? 0;
+    // Schadensgrenze je Runde: am Gegner `max_round_dmg` (Anteil der Leben), sonst am Gebiet je Rang.
+    // In Wexmoor nicht mehr gesetzt: dort tanken die Gegner über mehr Leben (hp_mult), der Spieler macht vollen Schaden.
+    this.maxRoundDmg = enc.practice ? 0 : enc.max_round_dmg ?? byRank(zone?.max_round_dmg) ?? 0;
     const hp = enc.practice ? enc.hp : Math.round(enc.hp * ENEMY_HP_MULT * (enc.elite ? ELITE_HP_MULT : 1) * this.hpMult * this.duoHpMult);
     // Panzer wächst mit der Gefahrenstufe des Gebiets (Marsch 1, ...), Bosse eine Stufe mehr
     const tier = zone?.tier ?? 2;

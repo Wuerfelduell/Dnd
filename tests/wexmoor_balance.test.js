@@ -243,16 +243,18 @@ test('Wexmoor-Gegner schlagen 50 % härter und halten 40 % mehr aus; zu zweit oh
   for (const [zid, z] of Object.entries(content.zones)) {
     if (!zid.startsWith('wx_')) { assert.ok(!z.dmg_mult && !z.hp_mult, zid); continue; }
     assert.equal(z.dmg_mult, 1.5, zid);
-    assert.equal(z.hp_mult, 1.4, zid);
+    assert.deepEqual(z.hp_mult, { normal: 2, elite: 1.6, boss: 1.4 }, zid);
     assert.equal(z.duo_full, true, zid);
   }
   for (const id of ['ez_reetkoenig', 'ez_spinnerin', 'price_wx_fight', 'k2a_tinte_kampf', 'k2a_letztes_bild_kampf']) assert.equal(content.encounters[id].dmg_mult, 1.5, id);
   assert.ok(!content.encounters.wx_grauspaeher_fight.dmg_mult, 'Grauspäher bleiben, wie sie sind');
-  // Leben: Daten × ENEMY_HP_MULT × 1,4; Schaden: Daten × ENEMY_DMG_MULT × 1,5
+  // Leben: Daten × ENEMY_HP_MULT × Gebietsfaktor je Rang (normal 2, Elite 1,6, Boss 1,4); Schaden: Daten × ENEMY_DMG_MULT × 1,5
   const s = hero(3);
   const c = new Combat(s, 'salzgeist');
   const e = content.encounters.salzgeist;
-  assert.equal(c.enemy.maxHp, Math.round(e.hp * ENEMY_HP_MULT * 1.4));
+  assert.equal(c.enemy.maxHp, Math.round(e.hp * ENEMY_HP_MULT * 2));
+  assert.equal(new Combat(hero(3), 'salzgeist_elite').enemy.maxHp, Math.round(content.encounters.salzgeist_elite.hp * ENEMY_HP_MULT * 1.6));
+  assert.equal(new Combat(hero(4), 'glockenmutter').enemy.maxHp, Math.round(content.encounters.glockenmutter.hp * ENEMY_HP_MULT * 1.4));
   c.rng = seeded(3);
   const atk = c.nextEnemyAttack();
   const base = e.attacks.find((a) => a.name === atk.name);
@@ -271,25 +273,27 @@ test('Wexmoor-Gegner schlagen 50 % härter und halten 40 % mehr aus; zu zweit oh
   assert.equal(kgAtk.damage, Math.max(1, Math.round(content.encounters.schnabelmaske.attacks.find((a) => a.name === kgAtk.name).damage * (ENEMY_DMG_MULT * DUO_DMG_MULT))));
 });
 
-test('Schadensgrenze je Runde: kein Wexmoor-Gegner fällt in zwei Zügen, auch nicht gegen ein starkes Paar (Seb: „kein Gegner schafft 2 Züge gegen uns 2“)', () => {
-  for (const [zid, z] of Object.entries(content.zones)) {
-    if (!zid.startsWith('wx_')) continue;
-    assert.deepEqual(z.max_round_dmg, { normal: 0.25, elite: 0.25, boss: 0.2 }, zid);
+test('Kein Schadensdeckel in Wexmoor: der Spieler macht vollen Schaden, die Gegner tanken über mehr Leben (Seb: „unlogisch, er soll mehr Leben haben“)', () => {
+  for (const [zid, z] of Object.entries(content.zones)) if (zid.startsWith('wx_')) assert.equal(z.max_round_dmg, undefined, zid);
+  for (const [id, e] of WX) assert.equal(e.max_round_dmg, undefined, id);
+  for (const id of [...Object.keys(content.loners.list).filter((x) => !x.startsWith('ez_ds_')), 'price_wx_fight', 'k2a_tinte_kampf', 'k2a_letztes_bild_vane_kampf']) {
+    assert.equal(content.encounters[id].max_round_dmg, undefined, id);
+    assert.equal(content.encounters[id].hp_mult, 1.8, id);
   }
-  for (const id of Object.keys(content.loners.list).filter((x) => !x.startsWith('ez_ds_'))) assert.equal(content.encounters[id].max_round_dmg, 0.2, id);
-  assert.equal(content.encounters.price_wx_fight.max_round_dmg, 0.25);
-  assert.equal(content.encounters.k2a_tinte_kampf.max_round_dmg, 0.25);
-  // Gebietsfeld greift je Rang; ein Gegnerfeld geht vor
-  assert.equal(new Combat(hero(3), 'torfgaenger').maxRoundDmg, 0.25);
-  assert.equal(new Combat(hero(3), 'torfgaenger_elite').maxRoundDmg, 0.25);
-  assert.equal(new Combat(hero(3), 'namenlose').maxRoundDmg, 0.2);
+  assert.equal(new Combat(hero(3), 'torfgaenger').maxRoundDmg, 0);
+  assert.equal(new Combat(hero(3), 'namenlose').maxRoundDmg, 0);
+  // Grauspäher (nur mit Seq 4 zu schlagen) und Kettlegate-Bosse behalten ihre Grenze am Gegner
   assert.equal(new Combat(hero(3), 'wx_grauspaeher_fight').maxRoundDmg, 0.25);
-  assert.equal(new Combat(hero(3), 'schnabelmaske').maxRoundDmg, 0);
-  // Ein Paar aus Eisen (Seq 7) und Laterne mit Ossuarklingen, das alles trifft: Vergessmoor-Gegner halten mindestens vier Runden, Bosse fünf
+  assert.ok(new Combat(hero(3), 'starling_fight').maxRoundDmg > 0);
+  // Voller Schaden kommt an: ein Treffer über dem alten Viertel wird nicht mehr gekappt
+  const c = new Combat(hero(3), 'torfgaenger');
+  c.hurtEnemy(Math.round(c.enemy.maxHp * 0.6));
+  assert.equal(c.capped, 0);
+  assert.ok(c.enemy.hp <= c.enemy.maxHp * 0.4 + 1);
+  // Ein Paar aus Eisen (Seq 7) und Laterne mit Ossuarklingen, das alles trifft und jedem Schlag ausweicht:
+  // normale Gegner halten mindestens vier Runden, Eliten und Bosse fünf. Das ist, was der Deckel erzwingen sollte.
   for (const [id, e] of WX) {
-    if (e.zone !== 'wx_vergessmoor') continue;
-    const p = pair(4, e.min_seq ?? 7);
-    const c = duoFight(p, id, () => 'dodge');
-    assert.ok(c.round >= (e.boss ? 5 : 4), `${id}: fällt schon in Runde ${c.round}`);
+    const c = duoFight(pair(tierOf(e), e.min_seq ?? 7), id, () => 'dodge');
+    assert.ok(c.round >= (e.boss || e.elite ? 5 : 4), `${id}: fällt schon in Runde ${c.round}`);
   }
 });
