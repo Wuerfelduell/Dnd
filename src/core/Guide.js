@@ -1,3 +1,4 @@
+import { journalQuestVisible } from './journal.js';
 // Wegweiser für das Journal: Wohin muss ich für den nächsten Schritt eines Auftrags?
 // Die Ziele werden aus den Daten abgeleitet: Welche Person oder welches Objekt gibt den
 // fehlenden Hinweis oder setzt die fehlende Markierung? Ein Schritt kann das mit
@@ -249,7 +250,7 @@ export function leadTarget(state, lead) {
 export function questTarget(state, questId) {
   const c = state.content;
   const q = c.quests[questId];
-  if (!q || state.quests[questId] !== 'active') return null;
+  if (!q || state.quests[questId] !== 'active' || !journalQuestVisible(state, questId)) return null;
   const step = (q.steps ?? []).find((s) => !state.meets(s.done));
   if (!step) return null;
   const base = { quest: questId, step: step.text };
@@ -309,7 +310,7 @@ export function advice(state, speaker = null) {
   };
   const goTo = (t) => (c.npcs[t.id] ? `Fragen Sie ${t.name}, ${place(t)}.` : `Sehen Sie sich ${place(t)} genauer um.`);
   const lines = [];
-  const active = Object.keys(state.quests).filter((id) => state.quests[id] === 'active');
+  const active = Object.keys(state.quests).filter((id) => state.quests[id] === 'active' && journalQuestVisible(state, id));
   const mains = active.filter((id) => c.quests[id].kind === 'main').sort((a, b) => (a === state.tracked ? -1 : 0) - (b === state.tracked ? -1 : 0));
   for (const id of mains) {
     const quest = c.quests[id];
