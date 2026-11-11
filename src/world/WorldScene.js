@@ -1547,9 +1547,7 @@ export class WorldScene extends Phaser.Scene {
         this.state.setComposure(100);
         if (this.state.cityPolice()) this.state.restWanted(); // Untertauchen senkt die Fahndung (Wexmoor, nach Fall 9 auch Kettlegate)
         const calm = this.state.kahnRestBonus(); // Paket AB: Waschtisch im Kahn
-        const slept = this.state.sleepGatherings(); // Schlafen spult die Zirkel-Uhr vor (2 Minuten)
-        const status = slept && this.state.gatheringStatus();
-        this.ui.showMessage(def.title, def.text, { footer: (healed > 0 ? `+${healed} Leben, Nerven beruhigt.` : 'Du bist ausgeruht.') + (calm ? ` Am Waschtisch: -${calm} Unruhe.` : '') + (status ? ` ${Math.round(slept / 60)} Minuten vergangen · ${status.text}` : '') });
+        this.ui.showMessage(def.title, def.text, { footer: (healed > 0 ? `+${healed} Leben, Nerven beruhigt.` : 'Du bist ausgeruht.') + (calm ? ` Am Waschtisch: -${calm} Unruhe.` : '') });
         break;
       }
       case 'door':
