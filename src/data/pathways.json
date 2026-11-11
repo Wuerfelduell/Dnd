@@ -3697,6 +3697,175 @@
           }
         ],
         "konzentration": true
+      },
+      "taktgeber_uhrturm": {
+        "name": "Taktgeber aus dem Uhrturm",
+        "source": "revier",
+        "requires_honor": 50,
+        "price": 140,
+        "icon": "taktgeber_uhrturm",
+        "desc": "Ein Pendelstück aus Messing mit einer Linse im Auge, aus dem Uhrwerk des Uhrturms gebrochen. Wer es bei sich trägt, hört den Takt der Stadt in jedem Schlag und steht vom ersten Moment an richtig. Nur das Ausweichen fällt aus dem Takt.",
+        "boons": [
+          {
+            "key": "ap_start",
+            "value": 1,
+            "text": "Jeder Kampf beginnt mit +1 Konzentration."
+          },
+          {
+            "key": "parry_nerves",
+            "value": 3,
+            "text": "Paraden bringen 3 Nerven mehr."
+          }
+        ],
+        "curses": [
+          {
+            "key": "dodge_cost",
+            "value": 3,
+            "text": "Ausweichen kostet 3 Nerven mehr."
+          },
+          {
+            "key": "composure_regen",
+            "value": 0.75,
+            "text": "Nerven erholen sich 25 % langsamer."
+          }
+        ]
+      },
+      "kerze_der_nachtwache": {
+        "name": "Kerze der Nachtwache",
+        "source": "revier",
+        "requires_honor": 35,
+        "price": 110,
+        "icon": "kerze_der_nachtwache",
+        "desc": "Eine dicke Talgkerze mit ausgefransten Rändern auf einem Messingteller, aus der Asservatenkammer. Sie brannte angeblich eine ganze Nachtwache durch, ohne kürzer zu werden. Wer sie trägt, kommt schneller zur Ruhe, aber das Licht zehrt am Körper.",
+        "boons": [
+          {
+            "key": "composure_regen",
+            "value": 1.4,
+            "text": "Nerven erholen sich 40 % schneller."
+          },
+          {
+            "key": "vision_cost",
+            "value": 0.5,
+            "text": "Geistsicht kostet 50 % weniger Nerven."
+          }
+        ],
+        "curses": [
+          {
+            "key": "max_hp",
+            "value": -15,
+            "text": "-15 Leben."
+          },
+          {
+            "key": "combat_drain",
+            "value": 2,
+            "text": "Jede Kampfrunde kostet 2 Nerven."
+          }
+        ]
+      },
+      "zahnrad_schlafwandlerin": {
+        "name": "Zahnrad der Schlafwandlerin",
+        "source": "wild",
+        "zones": [
+          "katakomben",
+          "ds_unterschicht"
+        ],
+        "price": 125,
+        "icon": "zahnrad_schlafwandlerin",
+        "desc": "Ein kleines Zahnrad, auf dem ein geschlossenes Auge sitzt. Es stammt aus einer Uhr, die eine Schlafwandlerin jede Nacht aufzog, ohne je aufzuwachen. Es lässt dich im Kampf ruhig weiteratmen, doch jede Fertigkeit rührt etwas auf, das besser schliefe.",
+        "boons": [
+          {
+            "key": "round_nerves",
+            "value": 3,
+            "text": "+3 Nerven zu Beginn jeder Kampfrunde."
+          },
+          {
+            "key": "max_nerves",
+            "value": 15,
+            "text": "+15 Nerven."
+          }
+        ],
+        "curses": [
+          {
+            "key": "skill_unruhe",
+            "value": 2,
+            "text": "Jede Fertigkeit bringt 2 Unruhe."
+          },
+          {
+            "key": "heal_bonus",
+            "value": 0.8,
+            "text": "Heilung wirkt nur zu 80 %."
+          }
+        ]
+      },
+      "fiebermuenze": {
+        "name": "Fiebermünze",
+        "source": "wild",
+        "zones": [
+          "pestgassen",
+          "ds_rufschlucht"
+        ],
+        "price": 120,
+        "icon": "fiebermuenze",
+        "desc": "Eine Münze mit verwischtem Gesicht und angeschmolzenem Rand, die warm bleibt, egal wie kalt die Nacht ist. Sie macht die Nerven zäh wie Fieber und zieht Geld an. Aber jeder Treffer brennt länger nach.",
+        "boons": [
+          {
+            "key": "max_nerves",
+            "value": 30,
+            "text": "+30 Nerven."
+          },
+          {
+            "key": "money_bonus",
+            "value": 1.15,
+            "text": "+15 % Schilling aus Beute und Belohnungen."
+          }
+        ],
+        "curses": [
+          {
+            "key": "hit_nerves",
+            "value": 2,
+            "text": "Jeder Treffer, den du einsteckst, kostet 2 Nerven mehr."
+          },
+          {
+            "key": "damage_taken",
+            "value": 1.15,
+            "text": "Du nimmst 15 % mehr Schaden."
+          }
+        ]
+      },
+      "metronom_komponist": {
+        "name": "Metronom des Komponisten",
+        "source": "wild",
+        "zones": [
+          "wx_vergessmoor",
+          "ds_rangierwueste"
+        ],
+        "price": 150,
+        "icon": "metronom_komponist",
+        "desc": "Ein Taschenmetronom aus Ebenholz, dessen Pendel von allein schwingt. Der Komponist, dem es gehörte, schrieb schneller als er dachte. Es gibt jeder Runde einen Schlag Konzentration dazu und macht Fertigkeiten leichter, aber was du nicht ausgibst, nimmt es wieder mit.",
+        "boons": [
+          {
+            "key": "ap_round",
+            "value": 1,
+            "text": "Zu Beginn jeder weiteren Runde +1 Konzentration."
+          },
+          {
+            "key": "skill_composure",
+            "value": 0.75,
+            "text": "Fertigkeiten kosten 25 % weniger Nerven."
+          }
+        ],
+        "curses": [
+          {
+            "key": "ap_reset",
+            "value": 1,
+            "text": "Am Rundenende verfällt alle übrige Konzentration."
+          },
+          {
+            "key": "max_nerves",
+            "value": -15,
+            "text": "-15 Nerven."
+          }
+        ]
       }
     }
   },
