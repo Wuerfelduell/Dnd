@@ -1,0 +1,312 @@
+{
+  "batch": "nerven_artefakte",
+  "generator": "image_gen",
+  "palette": [
+    "#1a1c2c",
+    "#252b38",
+    "#425360",
+    "#586c78",
+    "#71858b",
+    "#95a5a5",
+    "#413433",
+    "#715648",
+    "#92745a",
+    "#b3946e",
+    "#b4a079",
+    "#e0c9a1",
+    "#eee2c5",
+    "#7d927e",
+    "#686850",
+    "#e8f0ff",
+    "#245b59",
+    "#36817a",
+    "#6fe0d0",
+    "#886332",
+    "#e8b860",
+    "#d0a050",
+    "#78578f",
+    "#c8b0e8",
+    "#884b60",
+    "#e07a8a",
+    "#4f713f",
+    "#9ad06a",
+    "#64788f",
+    "#a8b4c0",
+    "#92a6b2",
+    "#6a4a8a"
+  ],
+  "references": [
+    "public/sprites/items/32/uhr_ertrunkener.png",
+    "public/sprites/items/32/stille_glocke.png"
+  ],
+  "normalization": "alpha >=128; tight crop; nearest fit 112x112 centered in 128x128; nearest 16/32; nearest palette color; binary alpha",
+  "bxOverlap": "No finished BX graphics or art PR existed at start; both shared IDs included.",
+  "assets": [
+    {
+      "id": "taktgeber_uhrturm",
+      "name": "Taktgeber aus dem Uhrturm",
+      "description": "Messing-Pendelstück mit Linse, in Rost gefasst, ein violetter Funke im Pendelauge.",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSingle inventory item icon, 32x32 logical pixels on transparent background, centered, 1px deep blue-grey outline. Subject: a rust-framed brass pendulum piece with a glass lens and a tiny violet spark in the pendulum eye. Occult artifact. Simple chunky pixel blocks; readable at 16x16 nearest-neighbor downscale. Use attached sprites as strict style references: same palette, outline, pixel density, proportions and light direction. Only one object, no lettering, no frame, no floor or cast shadow. Enlarge the logical pixels as crisp square blocks.",
+      "source": "docs/art/nerven-artefakte-sources/taktgeber_uhrturm.png",
+      "sourceSha256": "3a4f04a653a1eb746192e729ce1d451a2570a5fa1f59908e8c3bc3f9a03bdb68",
+      "originalSha256": "a705b84e18537facd53400a2501b26adb8d735ecb2b8102ac04fbde7b84a6e3f",
+      "originalSize": [
+        1254,
+        1254
+      ],
+      "alphaCrop": [
+        259,
+        36,
+        995,
+        1201
+      ]
+    },
+    {
+      "id": "kerze_der_nachtwache",
+      "name": "Kerze der Nachtwache",
+      "description": "Dicke Talgkerze mit ausgefransten Wachsrändern, Flamme fahl-amber, darunter ein Messingteller mit Griff.",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSingle inventory item icon, 32x32 logical pixels on transparent background, centered, 1px deep blue-grey outline. Subject: Thick tallow candle with frayed wax edges, pale amber flame, on a brass saucer with a handle. Occult artifact: one small touch of turquoise #6fe0d0 or deep violet, otherwise muted brass, rust, bone white and fog grey. Readable at 16x16 nearest-neighbor downscale. Use attached sprites as strict style references: same palette, outline, pixel density, proportions and light direction. References are style only, draw the requested subject. Only one isolated object, ample margin, no lettering, no floor or cast shadow. Enlarge the logical pixels as crisp square blocks.",
+      "source": "docs/art/nerven-artefakte-sources/kerze_der_nachtwache.png",
+      "sourceSha256": "b7b14aece5e82445af9a4bc4f01c2789d940d4cd8d55239159f2a9e4cbae27c6",
+      "originalSha256": "2e4798620e56814dd47c9970d6c1d09eacd09d7310bb3e88d8fe3754f6cce970",
+      "originalSize": [
+        1254,
+        1254
+      ],
+      "alphaCrop": [
+        289,
+        148,
+        1038,
+        1090
+      ]
+    },
+    {
+      "id": "zahnrad_schlafwandlerin",
+      "name": "Zahnrad der Schlafwandlerin",
+      "description": "Kleines Zahnrad, auf dem ein geschlossenes Auge sitzt; die Zähne leicht ungleich, ein Zahn violett.",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSingle inventory item icon, 32x32 logical pixels on transparent background, centered, 1px deep blue-grey outline. Subject: Small brass cogwheel with a closed eye on its face, slightly unequal teeth and one violet tooth. Occult artifact: one small touch of turquoise #6fe0d0 or deep violet, otherwise muted brass, rust, bone white and fog grey. Readable at 16x16 nearest-neighbor downscale. Use attached sprites as strict style references: same palette, outline, pixel density, proportions and light direction. References are style only, draw the requested subject. Only one isolated object, ample margin, no lettering, no floor or cast shadow. Enlarge the logical pixels as crisp square blocks.",
+      "source": "docs/art/nerven-artefakte-sources/zahnrad_schlafwandlerin.png",
+      "sourceSha256": "00769133880a4ff8ff6af1656faa53d51b030c9b73995f9aea720a799128857c",
+      "originalSha256": "1389087a906af79e923c6187b272b6ee8786a87371cd2f26f13ec937c3104b64",
+      "originalSize": [
+        1254,
+        1254
+      ],
+      "alphaCrop": [
+        239,
+        244,
+        999,
+        1021
+      ]
+    },
+    {
+      "id": "zweites_herz",
+      "name": "Das zweite Herz",
+      "description": "Faustgroßer Klumpen dunkles Kraterglas in Herzform, innen ein türkiser Puls, Haarrisse.",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSingle inventory item icon, 32x32 logical pixels on transparent background, centered, 1px deep blue-grey outline. Subject: Fist-sized heart-shaped lump of dark crater glass with hairline cracks and a turquoise pulse inside. Occult artifact: one small touch of turquoise #6fe0d0 or deep violet, otherwise muted brass, rust, bone white and fog grey. Readable at 16x16 nearest-neighbor downscale. Use attached sprites as strict style references: same palette, outline, pixel density, proportions and light direction. References are style only, draw the requested subject. Only one isolated object, ample margin, no lettering, no floor or cast shadow. Enlarge the logical pixels as crisp square blocks.",
+      "source": "docs/art/nerven-artefakte-sources/zweites_herz.png",
+      "sourceSha256": "542117564bf807429f95d4337b119d516e83b1265846d596c434008b0d92d872",
+      "originalSha256": "01f125a39b2360c2f81b131de811a8f4a15da04e940221a9b4df4a678520e6bd",
+      "originalSize": [
+        1254,
+        1254
+      ],
+      "alphaCrop": [
+        236,
+        300,
+        1018,
+        1044
+      ]
+    },
+    {
+      "id": "atemperle",
+      "name": "Atemperle der Taucherin",
+      "description": "Graue, matte Perle mit Tang-Fäden und einem Salzrand, eine Luftblase im Innern.",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSingle inventory item icon, 32x32 logical pixels on transparent background, centered, 1px deep blue-grey outline. Subject: Matte grey pearl with strands of seaweed and a salt rim, a tiny air bubble inside, subtle turquoise accent. Occult artifact: one small touch of turquoise #6fe0d0 or deep violet, otherwise muted brass, rust, bone white and fog grey. Readable at 16x16 nearest-neighbor downscale. Use attached sprites as strict style references: same palette, outline, pixel density, proportions and light direction. References are style only, draw the requested subject. Only one isolated object, ample margin, no lettering, no floor or cast shadow. Enlarge the logical pixels as crisp square blocks.",
+      "source": "docs/art/nerven-artefakte-sources/atemperle.png",
+      "sourceSha256": "362e16442cb1a381ac62bfcb257af283f98ed385614af7d9d4c16de801914d13",
+      "originalSha256": "fd4c3cb801e7ed8268b61e6fd59caedcb80d3bf92402d388b29c0750f90991c5",
+      "originalSize": [
+        1254,
+        1254
+      ],
+      "alphaCrop": [
+        255,
+        193,
+        967,
+        1061
+      ]
+    },
+    {
+      "id": "fiebermuenze",
+      "name": "Fiebermünze",
+      "description": "Münze mit verwischtem Gesicht (keine Buchstaben), Rand angeschmolzen, ein rötlicher Schimmer.",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSingle inventory item icon, 32x32 logical pixels on transparent background, centered, 1px deep blue-grey outline. Subject: Coin with a blurred human face, no letters, partially melted rim and a reddish shimmer. Occult artifact: one small touch of turquoise #6fe0d0 or deep violet, otherwise muted brass, rust, bone white and fog grey. Readable at 16x16 nearest-neighbor downscale. Use attached sprites as strict style references: same palette, outline, pixel density, proportions and light direction. References are style only, draw the requested subject. Only one isolated object, ample margin, no lettering, no floor or cast shadow. Enlarge the logical pixels as crisp square blocks.",
+      "source": "docs/art/nerven-artefakte-sources/fiebermuenze.png",
+      "sourceSha256": "852c537ba286bf281913d09e2313b438581bacfd6aaa92a0899f8fac90bb2dbd",
+      "originalSha256": "1570948d43e03b1c6cefe097e236953f4ca216b9ae65fdc1cc595e8dfdf4991b",
+      "originalSize": [
+        1254,
+        1254
+      ],
+      "alphaCrop": [
+        189,
+        156,
+        1043,
+        1068
+      ]
+    },
+    {
+      "id": "blutsalz_phiole",
+      "name": "Blutsalz-Phiole",
+      "description": "Kleine Glasphiole mit Korken, innen rotes, grobes Salz, eine Ader davon klettert außen am Glas.",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSingle inventory item icon, 32x32 logical pixels on transparent background, centered, 1px deep blue-grey outline. Subject: Small corked glass vial filled with coarse red salt, a vein of salt climbing the outside of the glass, subtle turquoise accent. Occult artifact: one small touch of turquoise #6fe0d0 or deep violet, otherwise muted brass, rust, bone white and fog grey. Readable at 16x16 nearest-neighbor downscale. Use attached sprites as strict style references: same palette, outline, pixel density, proportions and light direction. References are style only, draw the requested subject. Only one isolated object, ample margin, no lettering, no floor or cast shadow. Enlarge the logical pixels as crisp square blocks.",
+      "source": "docs/art/nerven-artefakte-sources/blutsalz_phiole.png",
+      "sourceSha256": "e4d4e9c65317ec5b89cc24d662d0322e87142dbb2eb8407eae77ab428ad4eeb7",
+      "originalSha256": "22e21cd84b7a2e99179e1568ee66913bea6d4ada6ef1eeb50a52922a9857601c",
+      "originalSize": [
+        1254,
+        1254
+      ],
+      "alphaCrop": [
+        339,
+        176,
+        915,
+        1058
+      ]
+    },
+    {
+      "id": "nadel_der_naeherin",
+      "name": "Nadel der Näherin",
+      "description": "Lange Stopfnadel aus Bone-White-Knochen mit dunklem Faden, der zu einem Tropfen endet.",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSingle inventory item icon, 32x32 logical pixels on transparent background, centered, 1px deep blue-grey outline. Subject: Long bone-white darning needle with dark thread ending in a droplet. Occult artifact: one small touch of turquoise #6fe0d0 or deep violet, otherwise muted brass, rust, bone white and fog grey. Readable at 16x16 nearest-neighbor downscale. Use attached sprites as strict style references: same palette, outline, pixel density, proportions and light direction. References are style only, draw the requested subject. Only one isolated object, ample margin, no lettering, no floor or cast shadow. Enlarge the logical pixels as crisp square blocks.",
+      "source": "docs/art/nerven-artefakte-sources/nadel_der_naeherin.png",
+      "sourceSha256": "4b813cfd87d5fff7143c2d019815fd204715a44a1cca4c7da7e584360d3dc6df",
+      "originalSha256": "18479c86465a224f635042858878f642a2ee3e433aa636c8bc54656cf38babeb",
+      "originalSize": [
+        1254,
+        1254
+      ],
+      "alphaCrop": [
+        236,
+        209,
+        1013,
+        1059
+      ]
+    },
+    {
+      "id": "knoechelring_preisboxer",
+      "name": "Knöchelring des Preisboxers",
+      "description": "Schwerer Eisenring, blank geschlagen, mit Kerben und einem Rostfleck, kein Stein.",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSingle inventory item icon, 32x32 logical pixels on transparent background, centered, 1px deep blue-grey outline. Subject: Heavy iron knuckle ring, worn polished metal with notches and a rust spot, no gemstone. Occult artifact: one small touch of turquoise #6fe0d0 or deep violet, otherwise muted brass, rust, bone white and fog grey. Readable at 16x16 nearest-neighbor downscale. Use attached sprites as strict style references: same palette, outline, pixel density, proportions and light direction. References are style only, draw the requested subject. Only one isolated object, ample margin, no lettering, no floor or cast shadow. Enlarge the logical pixels as crisp square blocks.",
+      "source": "docs/art/nerven-artefakte-sources/knoechelring_preisboxer.png",
+      "sourceSha256": "8aad8fa644ce9ce15d1abf8c176fb816977757854c9aabc41b3fdd0301c2ac3c",
+      "originalSha256": "b8328b71895676ba7a76d059736a3839ebbe680cfd13a18e83ee498ad95d86ab",
+      "originalSize": [
+        1254,
+        1254
+      ],
+      "alphaCrop": [
+        179,
+        342,
+        1076,
+        993
+      ]
+    },
+    {
+      "id": "metronom_komponist",
+      "name": "Metronom des Komponisten",
+      "description": "Taschenmetronom aus Ebenholz mit Messingpendel, Deckel halb offen, Pendel violett nachgezogen.",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSingle inventory item icon, 32x32 logical pixels on transparent background, centered, 1px deep blue-grey outline. Subject: Pocket metronome made of ebony, brass pendulum and half-open lid, a subtle violet pendulum trail. Occult artifact: one small touch of turquoise #6fe0d0 or deep violet, otherwise muted brass, rust, bone white and fog grey. Readable at 16x16 nearest-neighbor downscale. Use attached sprites as strict style references: same palette, outline, pixel density, proportions and light direction. References are style only, draw the requested subject. Only one isolated object, ample margin, no lettering, no floor or cast shadow. Enlarge the logical pixels as crisp square blocks.",
+      "source": "docs/art/nerven-artefakte-sources/metronom_komponist.png",
+      "sourceSha256": "b3b412a8a370bf09685382151a419cdb894e71368d5819efd478692def47df55",
+      "originalSha256": "7af5d0a187634881c1e71317075c003bc0c3cbfbcdc6e24488ae05f9d761fbf2",
+      "originalSize": [
+        1254,
+        1254
+      ],
+      "alphaCrop": [
+        183,
+        113,
+        975,
+        1149
+      ]
+    },
+    {
+      "id": "trommelfell_ausrufer",
+      "name": "Trommelfell des Ausrufers",
+      "description": "Messingring mit gespanntem Pergament, Schallwellen als 2 feine Ringe in Fog-Grey.",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSingle inventory item icon, 32x32 logical pixels on transparent background, centered, 1px deep blue-grey outline. Subject: Brass hoop with stretched parchment and exactly two fine fog-grey sound-wave rings around it. Occult artifact: one small touch of turquoise #6fe0d0 or deep violet, otherwise muted brass, rust, bone white and fog grey. Readable at 16x16 nearest-neighbor downscale. Use attached sprites as strict style references: same palette, outline, pixel density, proportions and light direction. References are style only, draw the requested subject. Only one isolated object, ample margin, no lettering, no floor or cast shadow. Enlarge the logical pixels as crisp square blocks.",
+      "source": "docs/art/nerven-artefakte-sources/trommelfell_ausrufer.png",
+      "sourceSha256": "ecabd215e2846f4e775430c4d4fe32aa336b9d7fe876ec23dfe9a367b436e3b1",
+      "originalSha256": "03b6d5150241676a866d35f8a75634a50ba7c73b4f5bbf5e782fd081886f64f7",
+      "originalSize": [
+        1254,
+        1254
+      ],
+      "alphaCrop": [
+        122,
+        125,
+        1132,
+        1163
+      ]
+    },
+    {
+      "id": "glasnerv",
+      "name": "Glasnerv",
+      "description": "Verdrehter Strang aus Glasfedern, der an einem Ende ausfasert wie ein Nerv, türkiser Kern.",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSingle inventory item icon, 32x32 logical pixels on transparent background, centered, 1px deep blue-grey outline. Subject: Twisted strand of glass filaments fraying at one end like a nerve, turquoise core. Occult artifact: one small touch of turquoise #6fe0d0 or deep violet, otherwise muted brass, rust, bone white and fog grey. Readable at 16x16 nearest-neighbor downscale. Use attached sprites as strict style references: same palette, outline, pixel density, proportions and light direction. References are style only, draw the requested subject. Only one isolated object, ample margin, no lettering, no floor or cast shadow. Enlarge the logical pixels as crisp square blocks.",
+      "source": "docs/art/nerven-artefakte-sources/glasnerv.png",
+      "sourceSha256": "ce210afb5f7766a2be17d17fb890f45785235acfbda4500fdea9801fc4c0c0d7",
+      "originalSha256": "7911bf88470c5f340215c7941fba1406c6d0dedb4d2b315eb7f68037c975c323",
+      "originalSize": [
+        1254,
+        1254
+      ],
+      "alphaCrop": [
+        227,
+        148,
+        1052,
+        1119
+      ]
+    },
+    {
+      "id": "nervenfaden_weberin",
+      "name": "Nervenfaden der Weberin",
+      "description": "Spule aus dunklem Holz, darauf ein straffer Docht in Bone-White, der oben in einen Knoten reißt.",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSingle inventory item icon, 32x32 logical pixels on transparent background, centered, 1px deep blue-grey outline. Subject: Dark wooden spool with taut bone-white wick wound around it, fraying into a knot at the top. Occult artifact: one small touch of turquoise #6fe0d0 or deep violet, otherwise muted brass, rust, bone white and fog grey. Readable at 16x16 nearest-neighbor downscale. Use attached sprites as strict style references: same palette, outline, pixel density, proportions and light direction. References are style only, draw the requested subject. Only one isolated object, ample margin, no lettering, no floor or cast shadow. Enlarge the logical pixels as crisp square blocks.",
+      "source": "docs/art/nerven-artefakte-sources/nervenfaden_weberin.png",
+      "sourceSha256": "d62d3a2187cb8d32768121e77f10e3762807e64b4b8f294fd04eed96a087d831",
+      "originalSha256": "8c8440d3adef81797f132bb8a13a88a77f8144198afc86bf8c9d3eb437e877ae",
+      "originalSize": [
+        1254,
+        1254
+      ],
+      "alphaCrop": [
+        310,
+        146,
+        940,
+        1128
+      ]
+    },
+    {
+      "id": "moorzunder",
+      "name": "Moorzunder",
+      "description": "Schwarzer Wachsklumpen mit eingeschlossenen Irrlichtfunken (3 bis 4 Punkte Türkis), oben leicht angesengt.",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSingle inventory item icon, 32x32 logical pixels on transparent background, centered, 1px deep blue-grey outline. Subject: Black wax lump with three or four embedded turquoise will-o-wisp sparks, top lightly scorched. Occult artifact: one small touch of turquoise #6fe0d0 or deep violet, otherwise muted brass, rust, bone white and fog grey. Readable at 16x16 nearest-neighbor downscale. Use attached sprites as strict style references: same palette, outline, pixel density, proportions and light direction. References are style only, draw the requested subject. Only one isolated object, ample margin, no lettering, no floor or cast shadow. Enlarge the logical pixels as crisp square blocks.",
+      "source": "docs/art/nerven-artefakte-sources/moorzunder.png",
+      "sourceSha256": "250d78d558a6d7ba59c4ac791f9b8f384c5816981c07efb78ae5538ba9f89c16",
+      "originalSha256": "ea417a4a0fb2dcf421183d144d53502f802345462529674ee6b4494f6de44a56",
+      "originalSize": [
+        1254,
+        1254
+      ],
+      "alphaCrop": [
+        316,
+        378,
+        938,
+        1004
+      ]
+    }
+  ]
+}
