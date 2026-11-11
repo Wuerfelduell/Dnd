@@ -154,9 +154,14 @@ export class Combat {
     this.enc = enc;
     const duo = !!state.hasP2?.();
     this.duoHpMult = duo ? duoHpMult(state) : 1;
-    const hp = enc.practice ? enc.hp : Math.round(enc.hp * ENEMY_HP_MULT * (enc.elite ? ELITE_HP_MULT : 1) * this.duoHpMult);
-    // Panzer wächst mit der Gefahrenstufe des Gebiets (Marsch 1, ...), Bosse eine Stufe mehr
     const zone = state.content.zones?.[enc.zone];
+    // Härte des Gebiets (Kapitel 2, Wexmoor): `hp_mult` / `dmg_mult` auf Gegner oder Gebiet skalieren Leben und Schaden,
+    // `duo_full` lässt den Gegner zu zweit ohne Abschlag zuschlagen (sonst DUO_DMG_MULT)
+    this.hpMult = enc.practice ? 1 : enc.hp_mult ?? zone?.hp_mult ?? 1;
+    this.dmgMult = enc.practice ? 1 : enc.dmg_mult ?? zone?.dmg_mult ?? 1;
+    this.duoFull = !!(enc.min_seq || (enc.duo_full ?? zone?.duo_full));
+    const hp = enc.practice ? enc.hp : Math.round(enc.hp * ENEMY_HP_MULT * (enc.elite ? ELITE_HP_MULT : 1) * this.hpMult * this.duoHpMult);
+    // Panzer wächst mit der Gefahrenstufe des Gebiets (Marsch 1, ...), Bosse eine Stufe mehr
     const tier = zone?.tier ?? 2;
     this.zoneTier = tier;
     // Kapitel 2 (Wexmoor): das Gebiet zehrt an den Nerven (`drain` pro Runde) und lauert auf (`ambush`: Chance, dass der Gegner zuerst zuschlägt)
@@ -630,7 +635,7 @@ export class Combat {
     // Feld `ramp`: der Gegner wird mit jeder Runde stärker (gegen endloses Abwarten hinter Schilden)
     const ramp = 1 + this.rampRate() * Math.max(0, this.round - 1);
     const weak = this.weakened?.rounds > 0 ? this.weakened.mult : 1;
-    const dmgMult = (this.enc.practice ? 1 : ENEMY_DMG_MULT * (rage ? 1.2 : 1) * (tough0 ? ELITE_DMG_MULT : 1) * (this.duo && !this.enc.min_seq ? DUO_DMG_MULT : 1) * (this.sweep ? SWEEP_DMG_MULT : 1) * ramp) * weak; // höhere Wesen schlagen zu zweit nicht schwächer
+    const dmgMult = (this.enc.practice ? 1 : ENEMY_DMG_MULT * (rage ? 1.2 : 1) * (tough0 ? ELITE_DMG_MULT : 1) * (this.duo && !this.duoFull ? DUO_DMG_MULT : 1) * (this.sweep ? SWEEP_DMG_MULT : 1) * ramp * this.dmgMult) * weak; // höhere Wesen und Wexmoor (duo_full) schlagen zu zweit nicht schwächer
     const slowed = this.slowed;
     this.slowed = false;
     const readable = this.readNext;

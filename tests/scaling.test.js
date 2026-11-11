@@ -113,9 +113,11 @@ for (const [boss, min, weapon, tonics] of GATES) {
     };
     for (const pid of Object.keys(content.pathways)) {
       const skills = [...Object.keys(armed(pid, min).pathwaySkills()), 'attack', 'double']; // Doppelschlag hat jeder
-      const best = (seq, defend) => skills.some((skill) => fight(armed(pid, seq), boss, { defend, attack: SKILLED_HIT, skill, healBelow: 18 }).result.outcome === 'won');
+      // Kapitel 2 ist hart: verkettete Fertigkeit und sehr geübte Deckung gehören zum Maßstab (siehe wexmoor_balance.test.js)
+      const hard = boss !== 'starling_fight';
+      const best = (seq, defend) => skills.some((skill) => fight(armed(pid, seq), boss, { defend, attack: hard ? 'good' : SKILLED_HIT, skill, chain: hard, healBelow: 18 }).result.outcome === 'won');
       assert.equal(best(min + 1, EXPERT), false, `${pid}: mit Sequenz ${min + 1} darf man ${boss} nicht schaffen`);
-      assert.equal(best(min, SKILLED), true, `${pid}: mit Sequenz ${min} schafft man ${boss}`);
+      assert.equal(best(min, hard ? EXPERT : SKILLED), true, `${pid}: mit Sequenz ${min} schafft man ${boss}`);
     }
   });
 }
