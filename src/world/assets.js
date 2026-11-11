@@ -1645,9 +1645,56 @@ export const SKILL_ICONS_2 = Object.fromEntries([
   'lichtbann', 'fangnetz', 'spiegelbild', 'totenchor', 'lebenselixier', 'unbeugsam', 'taschenspiel',
   'weissglut', 'zerreissen', 'maskenball', 'stillgesang', 'zersetzung', 'hammerfall', 'kehlschnitt'].map((id, i) => [id, i]));
 export const SKILL_ICONS_2_URL = `${BASE}ui/skill_icons_2.png`;
-/** Icon einer Fähigkeit: [Bild-URL, Zelle] oder null. */
-export const skillIconOf = (id) => (SKILL_ICONS[id] !== undefined ? [SKILL_ICONS_URL, SKILL_ICONS[id]]
-  : SKILL_ICONS_2[id] !== undefined ? [SKILL_ICONS_2_URL, SKILL_ICONS_2[id]] : null);
+// --- Codex-Runde 7: Icons für alle Fähigkeiten (BZ, CA) ----------------------------------------
+/** Zweite Kampffertigkeit je Sequenz (BZ): ui/skill_icons_3.png, 10 Pfadspalten x Sequenz 9..1. */
+export const SKILL_ICONS_3 = Object.fromEntries([
+  'dochtfunke', 'fadenzug', 'finte', 'fluestern', 'riechsalz', 'schulterstoss', 'griff_in_die_tasche', 'waage_pfandnahme', 'moor_torfschlag', 'uhr_vorgriff',
+  'glutnadel', 'vorgefuehl', 'doppelgaenger', 'totenruf', 'rauchphiole', 'deckung', 'riegelgriff', 'waage_bleizunge', 'moor_namenslast', 'uhr_nachhinken',
+  'signalfeuer', 'musterbruch', 'rollentausch', 'seelenfaden', 'laugenwurf', 'klingenbruch', 'schattenhaut', 'waage_frist', 'moor_schicht', 'uhr_pendel',
+  'nebelriss', 'stolperfaden', 'zweite_haut', 'chorschild', 'destillat', 'hafenmauer', 'boersenschnitt', 'waage_ausgleich', 'moor_uferhalt', 'uhr_gangreserve',
+  'flammenmantel', 'knotenloesung', 'gesichterwirbel', 'stillstand', 'wandlungstrunk', 'ambossschlag', 'siegelstich', 'waage_saldo', 'moor_luecke', 'uhr_fristschlag',
+  'dochtschnitt', 'nahtriss', 'geliehene_miene', 'beschlagenes_wort', 'rueckstandsgift', 'nietenfaust', 'schwellentritt', 'waage_gewichtsschatten', 'moor_schichtdruck', 'uhr_zwischentakt',
+  'aschenwort', 'bruchvorhersage', 'stehendes_gesicht', 'fremde_kehle', 'kreislaufsud', 'gegenlast', 'leerriegel', 'waage_halber_ton', 'moor_bodennamen', 'uhr_fristlauscher',
+  'horizontglut', 'saumschnitt', 'leeres_gesicht', 'kuestenlaut', 'dampfstoss', 'traegerstoss', 'randsprung', 'waage_gegenbuchung', 'moor_vergessensrand', 'uhr_wiederkehr',
+  'unbequeme_wahrheit', 'offener_knotenpunkt', 'eigenes_gesicht', 'letztes_zuhoeren', 'letzte_fraktion', 'bleibende_stuetze', 'offene_schwelle', 'waage_quittung', 'moor_fehlstelle', 'uhr_gewaehrte_minute'].map((id, i) => [id, i]));
+export const SKILL_ICONS_3_URL = `${BASE}ui/skill_icons_3.png`;
+/** Welt-Fähigkeiten (BZ): ui/talent_icons.png, 10 Pfadspalten x Sequenz 9..1. */
+export const TALENT_ICONS = Object.fromEntries([
+  'laternenschein', 'spur_lesen', 'gefaellige_miene', 'lauschen', 'kraeuterwickel', 'zaehne_zusammen', 'muenzen_finden', 'waage_druckstellen', 'moor_alte_spur', 'uhr_taktzaehlen',
+  'ruhiges_licht', 'fadenblick', 'fremdes_gesicht', 'stille_bitte', 'beruhigender_sud', 'wachstand', 'schlossfluestern', 'waage_fairer_preis', 'moor_namen_sammeln', 'uhr_fruehe_minute',
+  'wegleuchte', 'gewebe_lesen', 'feilschergesicht', 'nachhall', 'staerkende_tinktur', 'waffenpflege', 'schattenweg', 'waage_ruhige_hand', 'moor_aeltere_geschichte', 'uhr_zoegern',
+  'klarer_blick', 'netz_spannen', 'unauffaellig', 'grabesstille', 'witterung', 'lastentraeger', 'nachtgang', 'waage_anteil', 'moor_bodenhaftung', 'uhr_anhalten',
+  'wandelndes_signal', 'faden_zur_spur', 'gastgesicht', 'ohr_an_der_wand', 'schnellbrand', 'schmerzfrei', 'jede_tuer', 'waage_schuldschein', 'moor_torfgedaechtnis', 'uhr_naechster_schlag',
+  'offene_lampe', 'nahtgefuehl', 'mietgesicht', 'stilleverwahrung', 'schichtung', 'standhaft', 'gute_beute', 'waage_pfandkoerper', 'moor_lesbare_haut', 'uhr_sekundenschatten',
+  'aschenlese', 'bruchstellen', 'rollenverwahrung', 'nachruf', 'zehrende_wandlung', 'eingedrueckte_spur', 'spiegelhand', 'waage_saldenhut', 'moor_sediment', 'uhr_fristen',
+  'lichtschranke', 'stadtgewebe', 'publikum_verlieren', 'schweigeufer', 'abwaerme', 'widerlager', 'innenrand', 'waage_zusagen', 'moor_ufer', 'uhr_zweiter_umriss',
+  'fensterlicht', 'zusammenhang', 'hundert_gesichter', 'zuhoerstelle', 'kreislauf', 'stehender_schatten', 'unverwehrte_tuer', 'waage_erlass', 'moor_erinnertes', 'uhr_fehlender_strich'].map((id, i) => [id, i]));
+export const TALENT_ICONS_URL = `${BASE}ui/talent_icons.png`;
+/** Hauptfertigkeiten Sequenz 4..1 aller Pfade (CA): ui/skill_icons_hoch.png, 10 Spalten. */
+export const SKILL_ICONS_HOCH = Object.fromEntries([
+  'laterne_hoch_4', 'faden_hoch_4', 'maske_hoch_4', 'echo_hoch_4', 'kessel_hoch_4', 'eisen_hoch_4', 'schluessel_hoch_4', 'waage_hoch_4', 'moor_hoch_4', 'uhr_hoch_4',
+  'laterne_hoch_3', 'faden_hoch_3', 'maske_hoch_3', 'echo_hoch_3', 'kessel_hoch_3', 'eisen_hoch_3', 'schluessel_hoch_3', 'waage_hoch_3', 'moor_hoch_3', 'uhr_hoch_3',
+  'laterne_hoch_2', 'faden_hoch_2', 'maske_hoch_2', 'echo_hoch_2', 'kessel_hoch_2', 'eisen_hoch_2', 'schluessel_hoch_2', 'waage_hoch_2', 'moor_hoch_2', 'uhr_hoch_2',
+  'laterne_hoch_1', 'faden_hoch_1', 'maske_hoch_1', 'echo_hoch_1', 'kessel_hoch_1', 'eisen_hoch_1', 'schluessel_hoch_1', 'waage_hoch_1', 'moor_hoch_1', 'uhr_hoch_1'].map((id, i) => [id, i]));
+export const SKILL_ICONS_HOCH_URL = `${BASE}ui/skill_icons_hoch.png`;
+/** Hauptfertigkeiten Sequenz 9..5 von Waage, Moor und Uhr (CA): ui/skill_icons_neu.png, 3 Spalten. */
+export const SKILL_ICONS_NEU = Object.fromEntries([
+  'waage_stufe_9', 'moor_stufe_9', 'uhr_stufe_9',
+  'waage_stufe_8', 'moor_stufe_8', 'uhr_stufe_8',
+  'waage_stufe_7', 'moor_stufe_7', 'uhr_stufe_7',
+  'waage_stufe_6', 'moor_stufe_6', 'uhr_stufe_6',
+  'waage_stufe_5', 'moor_stufe_5', 'uhr_stufe_5'].map((id, i) => [id, i]));
+export const SKILL_ICONS_NEU_URL = `${BASE}ui/skill_icons_neu.png`;
+/** Alle Fähigkeits-Atlanten: [Tabelle, URL, Spalten]. */
+const SKILL_ATLASES = [[SKILL_ICONS, SKILL_ICONS_URL, 7], [SKILL_ICONS_2, SKILL_ICONS_2_URL, 7], [SKILL_ICONS_3, SKILL_ICONS_3_URL, 10],
+  [SKILL_ICONS_HOCH, SKILL_ICONS_HOCH_URL, 10], [SKILL_ICONS_NEU, SKILL_ICONS_NEU_URL, 3]];
+/** Icon einer Kampffertigkeit: [Bild-URL, Zelle, Spalten] oder null. */
+export const skillIconOf = (id) => {
+  for (const [table, url, cols] of SKILL_ATLASES) if (table[id] !== undefined) return [url, table[id], cols];
+  return null;
+};
+/** Icon einer Welt-Fähigkeit: [Bild-URL, Zelle, Spalten] oder null. */
+export const talentIconOf = (id) => (TALENT_ICONS[id] !== undefined ? [TALENT_ICONS_URL, TALENT_ICONS[id], 10] : null);
 /** Verfluchte Artefakte und hohe Zutaten bekommen 32er-Icons (items/32/<id>.png). */
 export const N_ARTIFACTS = ['uhr_ertrunkener', 'richterhammer', 'augenbinde_odile', 'bleiamulett', 'rahmenloser_spiegel', 'zahnkette',
   'hungriger_ring', 'knochenwuerfel', 'stille_glocke', 'kupferkrone', 'wachshand', 'schwarzes_herz'];
@@ -1887,15 +1934,15 @@ export const X_ITEMS = ['nachtauge_brosche', 'bleierne_waage', 'kreidestummel', 
   'glaesernes_ohr', 'pfandmarke_alt', 'kleine_moorlaterne', 'eiserne_zunge', 'spiegelmuenze', 'fahrkarte_wexmoor', 'wundertonikum', 'pells_maske',
   'egelhaken', 'ossuarklinge', 'sternsplitter', 'empfehlungsschreiben'];
 ICON32.push(...X_ITEMS);
-/** Artefakte der Fasserin (geheime Treffen): bis eigene Bilder kommen, das Bild des Hauptbeutestücks. */
-export const ARTISAN_ICONS = { krone_der_sieben: 'rattenkrone', sternlicht_gespinst: 'sternhirschgeweih', glaskielfeder: 'glasfeder', herzkerze: 'wachsherz', perlenpaar: 'moorperle',
-  geisterspindel: 'geisterkern', leuchtturmmonokel: 'linsenscherbe', namenssiegel: 'madenwachs', gluehglocke: 'bronzeglocke_klein', doppelsiegel: 'ratssiegel' };
-Object.assign(ITEM_ICON_ALIASES, ARTISAN_ICONS);
-/** Nerven- und Konzentrations-Artefakte: Platzhalter aus Beute- und Fundstücken, bis Codex eigene Bilder liefert. */
-export const NERVEN_ARTEFAKT_ICONS = { taktgeber_uhrturm: 'taschenuhr', kerze_der_nachtwache: 'kerze_schwarz', zahnrad_schlafwandlerin: 'taschenuhr',
-  atemperle: 'moorperle', fiebermuenze: 'falschgeld', blutsalz_phiole: 'salzkristall', knoechelring_preisboxer: 'siegelring',
-  metronom_komponist: 'taschenuhr', trommelfell_ausrufer: 'bronzeglocke_klein', glasnerv: 'glasfeder', nervenfaden_weberin: 'wachsdocht', moorzunder: 'irrlichtfunke' };
-Object.assign(ITEM_ICON_ALIASES, NERVEN_ARTEFAKT_ICONS);
+/** Artefakte der Fasserin (geheime Treffen) haben seit BO eigene Bilder in 16 und 32px. */
+export const ARTISAN_ARTEFAKTE = ['krone_der_sieben', 'sternlicht_gespinst', 'glaskielfeder', 'herzkerze', 'perlenpaar', 'geisterspindel', 'leuchtturmmonokel', 'namenssiegel', 'gluehglocke', 'doppelsiegel'];
+ICON32.push(...ARTISAN_ARTEFAKTE);
+/** Nerven-Artefakte (BY) und Konzentrations-Artefakte (BX) haben eigene Icons; die 14 Nerven-Artefakte auch in 32px (items/32/). */
+export const NERVEN_ARTEFAKTE = ['taktgeber_uhrturm', 'kerze_der_nachtwache', 'zahnrad_schlafwandlerin', 'atemperle', 'fiebermuenze', 'blutsalz_phiole', 'knoechelring_preisboxer',
+  'metronom_komponist', 'trommelfell_ausrufer', 'glasnerv', 'nervenfaden_weberin', 'moorzunder'];
+ICON32.push(...NERVEN_ARTEFAKTE);
+export const KONZENTRATION_ARTEFAKTE = ['siebter_fingerring', 'metronom_ohne_feder', 'schlagzaehler', 'hohle_krone', 'tickender_zahn', 'nadel_der_naeherin', 'gedankenkaefig', 'stummer_chor',
+  'zweites_herz', 'rangierlinse', 'kreidezirkel', 'sanduhr_voll_asche', 'uhrwerkherz', 'knoechelrosenkranz', 'kerzenkrone', 'aschestundenglas'];
 /** Fall 9: eigene Kampf-Sheets für Pratt, den Gesangbuchgeist, das Sternlicht und Starling. */
 export const X_FIGHTS = { pratt_fight: ['pratt', 48], gesangbuchgeist: ['gesangbuchgeist', 64], sternlicht: ['sternlicht', 64], starling_fight: ['starling', 96], starling_stern: ['starling', 96] };
 for (const [enc, [id, w]] of Object.entries(X_FIGHTS)) {
@@ -2180,18 +2227,14 @@ for (const id of ['BE_troedelstand', 'BE_steinmetzwerkbank', 'BE_schaltbuden_the
   WHOLE_PROPS[id] = `props/${id}.png`;
   SHEETS[id] = `props/${id}.png`;
 }
-/** BC-Gegenstände ohne eigenes Bild zeigen bis BB/BE-Icons passende Bestandsbilder. */
-Object.assign(ITEM_ICON_ALIASES, {
-  k3h_schichtkappe: 'hut_schirmmuetze', k3h_staubhaube: 'hut_schutzbrille', k3h_rangiermantel: 'mantel_leder', k3h_taschenrock: 'mantel_flicken',
-  k3h_feierabendmarke: 'pfandmarke_alt', k3h_kupplungsring: 'siegelring', k3h_faeustel: 'richterhammer', k3h_steinmeissel: 'brecheisen',
-  k3h_hilfe_laterne: 'kreidestummel', k3h_hilfe_faden: 'salamanderoel', k3h_hilfe_maske: 'riechsalz', k3h_hilfe_echo: 'madenwachs',
-  k3h_hilfe_kessel: 'verband', k3h_hilfe_eisen: 'ambossstaub', k3h_hilfe_schluessel: 'lampenoel', k3h_hilfe_sq_waage: 'glockenstaub',
-  k3h_hilfe_sq_moor: 'grabmoos', k3h_hilfe_sq_uhr: 'fremdlicht_phiole', k3h_namenstaefelchen: 'schreintaefelchen', k3h_kerbholz: 'pfahlholz',
-  k3h_mantelzettel: 'k2n_pfandzettel', ez_ds_rangierer_gabe: 'ankerhaken', ez_ds_kalkbrennerin_gabe: 'amulett_eisen', ez_ds_streckenlaeufer_gabe: 'taschenuhr',
-  ez_ds_walzenstimme_gabe: 'wachszylinder', ez_ds_schrankenkind_gabe: 'knotengarn',
-});
-/** BD: Lottes gekaufte Ausgaben des Kalkblatts zeigen den Zeitungsausschnitt. */
-for (let i = 1; i <= 9; i++) ITEM_ICON_ALIASES[`k3e_ausgabe_${i}`] = 'zeitungsausschnitt';
+/** Dunscar-Gegenstände (CB, Batch icons3): 35 eigene Icons; Ausrüstung, Fundstücke und Gaben auch in 32px. */
+export const CB_ITEMS = ['k3h_schichtkappe', 'k3h_staubhaube', 'k3h_rangiermantel', 'k3h_taschenrock', 'k3h_feierabendmarke', 'k3h_kupplungsring', 'k3h_faeustel', 'k3h_steinmeissel',
+  'k3h_hilfe_laterne', 'k3h_hilfe_faden', 'k3h_hilfe_maske', 'k3h_hilfe_echo', 'k3h_hilfe_kessel', 'k3h_hilfe_eisen', 'k3h_hilfe_schluessel', 'k3h_hilfe_sq_waage', 'k3h_hilfe_sq_moor', 'k3h_hilfe_sq_uhr',
+  'k3h_namenstaefelchen', 'k3h_kerbholz', 'k3h_mantelzettel', 'ez_ds_rangierer_gabe', 'ez_ds_kalkbrennerin_gabe', 'ez_ds_streckenlaeufer_gabe', 'ez_ds_walzenstimme_gabe', 'ez_ds_schrankenkind_gabe',
+  ...Array.from({ length: 9 }, (_, i) => `k3e_ausgabe_${i + 1}`)];
+export const CB_ITEMS_32 = ['k3h_schichtkappe', 'k3h_staubhaube', 'k3h_rangiermantel', 'k3h_taschenrock', 'k3h_feierabendmarke', 'k3h_kupplungsring', 'k3h_faeustel', 'k3h_steinmeissel',
+  'k3h_namenstaefelchen', 'k3h_kerbholz', 'k3h_mantelzettel', 'ez_ds_rangierer_gabe', 'ez_ds_kalkbrennerin_gabe', 'ez_ds_streckenlaeufer_gabe', 'ez_ds_walzenstimme_gabe', 'ez_ds_schrankenkind_gabe'];
+ICON32.push(...CB_ITEMS_32);
 
 // --- Kapitel 3: Leben in Dunscar (BD Daten; BE Figuren und Kopfgeldgegner, BA Stände, Tiere und Wetter) ----------
 /** BE: acht Einwohner und zwei Aufseher (Lauf-Sheet, Kopf aus BE_koepfe); dazu die Nachtschicht-Fassungen zweier Einwohner als Schichtgänger. */

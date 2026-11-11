@@ -622,3 +622,37 @@ test('Batch X: Artefakte, Fall-9-Kämpfe, Zug-Portraits, Büsten und Zirkel-Mark
   for (const id of ['rost_schlaeger', 'schleier_seherin']) assert.ok(existsSync(sprite(`portraits/${PORTRAITS[id]}`)), id);
   assert.ok(mapMarkerOf('treffen_salz')[0].includes('X_map_markers_zirkel'));
 });
+
+// --- Codex-Runde 7: Icon-Pakete BX, BY, BZ, CA, CB und BO-Artefakte --------------------
+test('Runde 7: alle Fähigkeiten und Welt-Fähigkeiten haben ein Icon aus den Atlanten BZ/CA', async () => {
+  const A = await import('../src/world/assets.js');
+  for (const [name, aid, table, cols] of [['faehigkeiten2', 'skill_icons_3', A.SKILL_ICONS_3, 10], ['faehigkeiten2', 'talent_icons', A.TALENT_ICONS, 10],
+    ['skill-icons-hoch', 'skill_icons_hoch', A.SKILL_ICONS_HOCH, 10], ['skill-icons-hoch', 'skill_icons_neu', A.SKILL_ICONS_NEU, 3]]) {
+    const def = manifest(name).assets.find((a) => a.id === aid);
+    assert.ok(existsSync(sprite(def.file)), def.file);
+    assert.equal(def.columns, cols, aid);
+    def.skillIds.flat().forEach((id, i) => assert.equal(table[id], i, `${aid}: ${id}`));
+  }
+  for (const p of Object.values(content.pathways)) {
+    for (const sd of Object.values(p.seqs)) {
+      assert.ok(A.skillIconOf(sd.skill.id), sd.skill.id);
+      if (sd.skill2) assert.ok(A.skillIconOf(sd.skill2.id), sd.skill2.id);
+      if (sd.talent) assert.ok(A.talentIconOf(sd.talent.id), sd.talent.id);
+    }
+  }
+});
+
+test('Runde 7: Nerven-, Konzentrations-, Fasserin- und Dunscar-Gegenstände nutzen eigene Icons', async () => {
+  const A = await import('../src/world/assets.js');
+  for (const name of ['konzentration', 'nerven-artefakte', 'icons3', 'fasserin']) for (const a of manifest(name).assets) assert.ok(existsSync(sprite(a.file)), a.file);
+  const own = [...A.NERVEN_ARTEFAKTE, ...A.KONZENTRATION_ARTEFAKTE, ...A.ARTISAN_ARTEFAKTE, ...A.CB_ITEMS];
+  for (const id of own) {
+    assert.ok(content.items[id], id);
+    assert.equal(itemIconUrl(id), `./sprites/items/${id}.png`, id); // kein Platzhalter mehr
+    assert.ok(existsSync(file(itemIconUrl(id))), id);
+  }
+  for (const id of [...A.NERVEN_ARTEFAKTE, ...A.ARTISAN_ARTEFAKTE, ...A.CB_ITEMS_32]) {
+    assert.equal(itemIcon32Url(id), `./sprites/items/32/${id}.png`, id);
+    assert.ok(existsSync(file(itemIcon32Url(id))), id);
+  }
+});
