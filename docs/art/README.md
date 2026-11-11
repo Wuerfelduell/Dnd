@@ -1621,7 +1621,53 @@ Built-in Bildgenerator mit vorhandener Sprite-Referenz; Nearest-Neighbor-Export,
 - Normalisierte Bildgenerator-Master unter `docs/art/vorrat3-sources/`; Nearest-Neighbor-Export, gemeinsame 32-Farben-Palette und binäres Alpha.
 - Reproduzieren mit Python/Pillow: `python tools/art/vorrat3/export.py`; prüfen: `python tools/art/vorrat3/check.py`. Der Prüfer gleicht die IDs unabhängig mit der BM-Aufgabe ab und kontrolliert Maße, Transparenz, Palette, Rand, Duplikate und SHA-256-Herkunft.
 
+## BO – Fasserin (`fasserin`)
+
+26 PNGs: Oda Kessels Lauf- und Sitzanimation, vier Portraitstimmungen, 24×24-Kopf, Werkbank und Zangen sowie zehn bestehende Artefakte in 16×16 und 32×32. Gemeinsame Wexmoor7-Palette mit höchstens 32 sichtbaren Farben, indizierte PNGs, binäres Alpha. Manifest: `public/sprites/manifest-fasserin.json`; tatsächliche Bildprompts und Quellenprüfsummen: `docs/art/batch-fasserin-generation.json`. Export und Prüfung: `tools/art/fasserin/`. Texte, zehn weitere Rezepte und Integrationshinweise: `docs/story/fasserin/`. Spielcode und aktive Spieldaten bleiben unverändert.
 ## Konzentrations-Artefakte: Platzhalter-Icons (2026-11-10)
 
 - 16 neue Artefakte (`pathways.json` → `artifacts.list`, `konzentration: true`) nutzen Kopien bestehender Item-Icons als Platzhalter (`items/<id>.png`).
 - Echte Icons: Prompt-Paket `codex_BX_konzentration_artefakte.md` (Tabelle mit Id, Platzhalter und Prompt-Kern). Nach Lieferung die Dateien 1:1 ersetzen.
+
+## Batch BY – Nerven- und Konzentrations-Artefakte (`nerven_artefakte`)
+
+14 eigene Artefaktmotive als 28 RGBA-PNGs: je 16×16 in `items/` und 32×32 in
+`items/32/`. Gemeinsame Palette (31 verwendete Farben aus 32), binäres Alpha,
+transparenter Rand, Nearest-Neighbor-Export. Kein Spielcode geändert; die
+Zuordnung in `NERVEN_ARTEFAKT_ICONS` bleibt für den separaten Einbau bestehen.
+
+`zweites_herz` und `nadel_der_naeherin` sind enthalten: Zum Bearbeitungsbeginn
+waren nur die Platzhalter aus dem Datenpaket BX vorhanden, keine fertigen
+BX-Grafiken oder entsprechender Grafik-PR. Diese beiden Platzhalter werden
+ersetzt. Das optionale Status-Icon `atem` ist nicht Teil dieses Batches.
+
+- [Manifest](../../public/sprites/manifest-nerven-artefakte.json)
+- [Tatsächlich verwendete Einzelbild-Prompts und Herkunft](batch-nerven-artefakte-generation.json)
+- [Vorschau aller Motive in beiden Größen](preview-nerven-artefakte.png)
+- Normalisierte Generator-Master: `docs/art/nerven-artefakte-sources/`
+
+Reproduzierbar mit Python und Pillow aus den gespeicherten Mastern:
+
+```sh
+python tools/art/nerven_artefakte/export.py
+python tools/art/nerven_artefakte/check.py
+```
+
+Das Prüfskript kontrolliert die vollständige ID-Liste gegen die BY-Aufgabe,
+Maße, Manifest, gemeinsame Palette, binäres Alpha, transparente Randpixel,
+Duplikate und Herkunfts-Hashes. Generiert mit dem eingebauten Bildgenerator.
+## Batch CA – Hauptfertigkeiten (`skill_icons_hoch`)
+
+55 eigene 16×16-Icons: `ui/skill_icons_hoch.png` enthält 40 Hauptfertigkeiten (10 Pfade als Spalten, Sequenz 4→1 als Zeilen, 160×64); `ui/skill_icons_neu.png` enthält 15 Hauptfertigkeiten für Waage/Moor/Uhr (Sequenz 9→5, 48×80). Alle Einzelbilder liegen unter `ui/skills_hoch/<id>.png`. Die runden Medaillons folgen den vorhandenen Fertigkeitsicons; hohe Sequenzen erhalten zweite Motive, ab Sequenz 3 einen türkisen Funken und bei Sequenz 1 einen hellen Kern. [Manifest](../../public/sprites/manifest-skill-icons-hoch.json) mit zeilenweisen `skillIds`, [4×-Vorschau](preview-skill-icons-hoch.png), [vollständige Bildgenerator-Prompts](batch-skill-icons-hoch-generation.json) und Bildgenerator-Master in `skill-icons-hoch-sources/`. Reproduktion: `python tools/art/skill_icons_hoch/export.py` (Pillow); Prüfung: `python tools/art/skill_icons_hoch/check.py`. Gemeinsame indizierte Palette mit 31 sichtbaren Farben plus Transparenz, binäres Alpha, Nearest-Neighbor-Export. Prüfer kontrolliert Maße, alle 55 IDs in Atlasreihenfolge, belegte und unterschiedliche Zellen, Einzelbildgleichheit, Palette, Alpha und Rangakzente. Kein Laufzeit-Einbau; bestehende Atlanten und BZ-Fähigkeiten bleiben unberührt.
+
+## Batch BW — Innenräume und Lesestellen (`innen2`)
+
+17 neue PNGs: ein Animationsatlas, sechs Möbel-Sets und zehn deckende Leseansichten. Lieferung nach `codex_BW_innen2.md`; kein Spielcode geändert, Einbau separat.
+
+- [`manifest-innen2.json`](../../public/sprites/manifest-innen2.json): Framegrößen, Spalten/Reihen, Animationslisten, Geschwindigkeiten, Einzelzellen und benannte Möbelregionen.
+- `props/innen2_anim.png`: 128×608, 4 Spalten × 19 Reihen, 32×32 je Frame. 76 Frames, vier pro Variante, gemeinsame Grundlinie y=30 und transparenter Rand. Kleine Motive belegen höchstens 14×14 Pixel innerhalb derselben 32×32-Framefläche. Die Aufgabenliste nennt „16 Props“, zählt aber 19 Varianten einschließlich drei Kaminfeuern und zwei Kerzenarten auf. Alle 19 sind geliefert; keine genannte Variante entfällt.
+- `props/innen2_moebel_{buero,revier,laden,akademie,speisewagen,lohnbuero}.png`: je 128×64, 8×4 Zellen im 16×16-Raster. Die letzten vier Zellen sind deckende Wandstücke: Tapete, Täfelung, Kalk und Blech. Größere Möbel aus ihren benannten zusammenhängenden Regionen zusammensetzen. Einzelne Regal-/Schrankfragmente werden als modulare Wiederholung verwendet; 32 Zellen bedeutet nicht 32 unabhängige Möbelstücke.
+- `ui/scenes/lese_{brief,kassenbuch,zeitung,wandanschlag,kalkbrett,telegramm,sternkarte,lohnzettel,kinderzeichnung,tagebuch}.png`: je 240×135, vollständig deckend. Das ausdrücklich vorgegebene Szenenformat ist vom 16×16-Kachelraster ausgenommen. Gekritzel ist Bilddekoration, lesbarer Spieltext wird separat eingeblendet.
+- Gemeinsame Palette aus `props/05_03_furniture.png`, ergänzt um drei passende Farbtöne: 31 sichtbare Farben plus transparenter Index. Alpha nur 0/255, keine weißen/schwarzen Freistellränder. Referenzbild wurde jedem Bildgenerator-Aufruf mitgegeben. Lichtkegel/Staub waren optional und sind nicht Teil dieser Lieferung.
+- Verwendete Prompts, Quellnamen und SHA-256: [`batch-innen2-generation.json`](batch-innen2-generation.json). Erstellt mit integriertem Bildgenerator; Pillow verarbeitet nur Raster, Zuschnitte, Palette und Alpha. `tools/art/innen2/export.py --sources <json>` reproduziert den Export aus den ursprünglichen Generatorbildern; diese großen Zwischenbilder gehören nicht zum Laufzeitpaket. Die JSON-Liste benötigt `id`, `prompt` und lokalen `source`-Pfad je Eintrag.
+- Vorschau: [`preview-innen2.png`](preview-innen2.png). Prüfung: `python tools/art/innen2/check.py` (Pillow). Technische Tests prüfen keine semantische Richtigkeit oder Bewegung im laufenden Spiel; Motive und Lesbarkeit wurden zusätzlich in der Kontaktvorschau gesichtet.
