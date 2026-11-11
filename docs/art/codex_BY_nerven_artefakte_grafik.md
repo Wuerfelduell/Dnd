@@ -1,8 +1,11 @@
-# Codex-Paket BX: Nerven- und Konzentrations-Artefakte (Grafik)
+# Codex-Paket BY: Nerven- und Konzentrations-Artefakte (Grafik)
 
 **Batch-Name:** `nerven_artefakte` (Manifest: `public/sprites/manifest-nerven-artefakte.json`)
 
 Mit dem Nervensystem-Umbau sind 14 neue Artefakte im Spiel, die an Konzentration und Nerven drehen (Konzentration pro Runde, zu Kampfbeginn, Höchstwert; Nerven pro Runde; Blutzoll, Unruhe, teureres Ausweichen). Sie nutzen bisher Platzhalter-Icons von Beutestücken (siehe `src/world/assets.js` → `NERVEN_ARTEFAKT_ICONS`). Du lieferst **14 eigene Item-Icons** in zwei Größen.
+
+
+**Überschneidung mit Paket BX:** `zweites_herz` und `nadel_der_naeherin` stehen auch in `codex_BX_konzentration_artefakte.md`. Macht BX diese beiden schon, dann hier **auslassen** (dann sind es 12 Icons); sonst nach der Beschreibung unten zeichnen.
 
 ## 0. Gemeinsame Regeln (bitte zuerst lesen)
 
