@@ -203,7 +203,9 @@ test('Welt-Fähigkeit: Kosten, Abklingzeit, Buff zählt in passive() und läuft 
   const r = s.useTalent('gefaellige_miene');
   assert.equal(r.ok, true, r.text);
   assert.equal(s.composure, 44);
-  assert.equal(s.unruhe, 2);
+  // +2 Unruhe durch die Fähigkeit, aber ihr Einsatz verdaut den Trank und beruhigt dabei (6 Nerven = 0.6 Schritt · 6 Punkte · halb)
+  assert.ok(Math.abs(s.unruhe - 0.2) < 1e-9, `Unruhe ${s.unruhe}`);
+  assert.ok(Math.abs(s.pathway.digestion - 3.6) < 1e-9, `Welt-Fähigkeit verdaut: ${s.pathway.digestion}`);
   assert.ok(Math.abs(s.passive('price') - 0.85 * 0.85) < 1e-9, 'Buff multipliziert sich mit der Passive');
   assert.equal(s.useTalent('gefaellige_miene').ok, false, 'noch nicht bereit');
   assert.match(s.talentBlock('gefaellige_miene'), /bereit/);
@@ -252,7 +254,8 @@ test('Welt-Fähigkeit: Spuren sichtbar, Gegner weichen, Uhr steht, Verdauung, Fa
   // Verdauung (Moor 5)
   const m = beyonder('sq_moor', 5);
   m.useTalent('moor_torfgedaechtnis');
-  assert.ok(Math.abs(m.pathway.digestion - 0.08) < 1e-9, `Torfgedächtnis auf Sequenz 5: 8 % / 100 = ${m.pathway.digestion}`);
+  // 8 % feste Verdauung / 100 (Sequenz 5) + der Einsatz selbst (10 Nerven = 1 Schritt · 6 Punkte · 0.005)
+  assert.ok(Math.abs(m.pathway.digestion - 0.11) < 1e-9, `Torfgedächtnis auf Sequenz 5: ${m.pathway.digestion}`);
   // Fahndung (Maske 8)
   const w = beyonder('maske', 8);
   if (w.policeRules()) {
@@ -278,7 +281,8 @@ test('Welt-Fähigkeit: Spuren sichtbar, Gegner weichen, Uhr steht, Verdauung, Fa
   kes.useTalent('kraeuterwickel');
   assert.equal(kes.hp, 10 + Math.round(kes.maxHp * 0.2));
   kes.useTalent('beruhigender_sud');
-  assert.equal(Math.round(kes.unruhe), 25);
+  // -15 Unruhe durch den Sud, dazu beruhigt der Einsatz der Fähigkeit selbst ein wenig (Verdauung)
+  assert.ok(kes.unruhe > 20 && kes.unruhe <= 25, `Unruhe ${kes.unruhe}`);
 });
 
 test('Welt-Fähigkeit: schnelle Reise wird mit hurry_cost günstiger', () => {

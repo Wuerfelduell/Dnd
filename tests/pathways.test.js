@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
 import { Combat } from '../src/core/Combat.js';
-import { DIGEST_RATE, DIGEST_SLOW_FACTOR, fmtDigest } from '../src/core/Pathways.js';
+import { DIGEST_RATE, DIGEST_SLOW_FACTOR, fmtDigest, COMMON_DIGEST, FIGHT_DIGEST_MULT, ZONE_DIGEST_STEP } from '../src/core/Pathways.js';
 import { loadContent, talk, fight } from './helpers.js';
 
 const content = loadContent();
@@ -260,4 +260,59 @@ test('Verdauung ab Sequenz 6: jede Stufe zehnmal so langsam wie die davor', () =
   assert.ok(p1 > 0 && Math.abs(p2 * 10 - p1) < 1e-9, `Koop: Spieler 2 auf Sequenz 6 (${p2}) verdaut ein Zehntel von Spieler 1 auf 7 (${p1})`);
   assert.equal(fmtDigest(0.014), '0.014');
   assert.equal(fmtDigest(14), '14');
+});
+
+test('Mehr Verdauungsquellen: Bosse, Elite, Gefahrenstufe, Welt-Fähigkeiten, Ritual, Treffen', () => {
+  const s = new GameState(content);
+  s.pathway = { id: 'eisen', seq: 9, digestion: 0 };
+  // Gemeinsame Quellen gelten für jeden Pfad, die pfadeigene Tabelle bleibt
+  assert.equal(s.digestWeights().boss_win, COMMON_DIGEST.boss_win);
+  assert.equal(s.digestWeights().combat_win, 24);
+  assert.ok(s.digestTable().some((r) => r.kind === 'boss_win'), 'Pfad-Seite zeigt den Boss');
+  assert.equal(s.act('boss_win'), 30);
+  s.pathway.digestion = 0;
+  assert.equal(s.act('talent', 1), 6);
+  // Ein Pfad ohne Kampf in der Tabelle verdaut Bosse trotzdem (Prüfung für jeden Pfad)
+  s.pathway = { id: 'faden', seq: 9, digestion: 0 };
+  assert.equal(s.act('boss_win'), 30);
+  assert.equal(s.act('combat_win', 4), 0, 'normaler Kampfsieg verdaut den Faden weiterhin nicht');
+  // Kampfende: Boss = 4x Kampfsieg + Bosspunkte, Elite = 2x + Elitepunkte, Gefahrenstufe obendrauf
+  const won = (id, seq = 9) => {
+    const g = new GameState(content);
+    g.pathway = { id: 'eisen', seq, digestion: 0 };
+    const c = new Combat(g, id);
+    c.rng = () => 0.99;
+    c.outcome = 'won';
+    c.finish({ noLoot: true });
+    return { got: g.pathway.digestion, tier: c.zoneTier };
+  };
+  const plain = won('rook_fight');
+  const boss = won('starling_fight');
+  const zone = (t) => 1 + Math.max(0, t - 1) * ZONE_DIGEST_STEP;
+  assert.ok(Math.abs(plain.got - 24 * zone(plain.tier)) < 1e-9, `normaler Sieg ${plain.got} (Stufe ${plain.tier})`);
+  assert.ok(Math.abs(boss.got - Math.min(100, (24 * FIGHT_DIGEST_MULT.boss + COMMON_DIGEST.boss_win) * zone(boss.tier))) < 1e-9, `Boss ${boss.got} (Stufe ${boss.tier})`);
+  assert.ok(boss.got > plain.got * 3, 'Boss verdaut ein Vielfaches');
+  // Welt-Fähigkeit außerhalb des Kampfes: je 10 Nerven ein Schritt, zwischen 0.5 und 2.5
+  const t = new GameState(content);
+  t.pathway = { id: 'eisen', seq: 9, digestion: 0 };
+  t.updateMaxHp(); t.composure = t.maxComposure();
+  const tal = t.talents()[0];
+  assert.ok(tal, 'Eisen 9 hat eine Welt-Fähigkeit');
+  const r = t.useTalent(tal.id);
+  assert.equal(r.ok, true, r.text);
+  const steps = Math.min(2.5, Math.max(0.5, (tal.nerves ?? 0) / 10));
+  assert.ok(Math.abs(t.pathway.digestion - 6 * steps) < 1e-9, `Fähigkeit verdaut ${t.pathway.digestion} (${steps} Schritte)`);
+  assert.ok(r.text.includes('verdaut'), r.text);
+  // Zu zweit bleibt die Fähigkeit persönlich, der Boss verdaut beide
+  const d = new GameState(content);
+  d.pathway = { id: 'eisen', seq: 9, digestion: 0 };
+  d.addP2();
+  d.withPlayer(2, () => { d.pathway = { id: 'faden', seq: 9, digestion: 0 }; });
+  d.act('talent', 1);
+  assert.equal(d.withPlayer(2, () => d.pathway.digestion), 0, 'Fähigkeit von Spieler 1 verdaut Spieler 2 nicht');
+  d.act('boss_win');
+  assert.equal(d.withPlayer(2, () => d.pathway.digestion), 30, 'Boss verdaut auch Spieler 2');
+  // Gefahrenstufe und Bremse ab Sequenz 6 greifen zusammen
+  const deep = won('starling_fight', 5);
+  assert.ok(Math.abs(deep.got * 100 - boss.got) < 1e-6 || boss.got === 100, `Sequenz 5: ${deep.got}`);
 });
