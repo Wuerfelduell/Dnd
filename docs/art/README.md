@@ -1625,3 +1625,31 @@ Built-in Bildgenerator mit vorhandener Sprite-Referenz; Nearest-Neighbor-Export,
 
 - 16 neue Artefakte (`pathways.json` → `artifacts.list`, `konzentration: true`) nutzen Kopien bestehender Item-Icons als Platzhalter (`items/<id>.png`).
 - Echte Icons: Prompt-Paket `codex_BX_konzentration_artefakte.md` (Tabelle mit Id, Platzhalter und Prompt-Kern). Nach Lieferung die Dateien 1:1 ersetzen.
+
+## Batch BY – Nerven- und Konzentrations-Artefakte (`nerven_artefakte`)
+
+14 eigene Artefaktmotive als 28 RGBA-PNGs: je 16×16 in `items/` und 32×32 in
+`items/32/`. Gemeinsame Palette (31 verwendete Farben aus 32), binäres Alpha,
+transparenter Rand, Nearest-Neighbor-Export. Kein Spielcode geändert; die
+Zuordnung in `NERVEN_ARTEFAKT_ICONS` bleibt für den separaten Einbau bestehen.
+
+`zweites_herz` und `nadel_der_naeherin` sind enthalten: Zum Bearbeitungsbeginn
+waren nur die Platzhalter aus dem Datenpaket BX vorhanden, keine fertigen
+BX-Grafiken oder entsprechender Grafik-PR. Diese beiden Platzhalter werden
+ersetzt. Das optionale Status-Icon `atem` ist nicht Teil dieses Batches.
+
+- [Manifest](../../public/sprites/manifest-nerven-artefakte.json)
+- [Tatsächlich verwendete Einzelbild-Prompts und Herkunft](batch-nerven-artefakte-generation.json)
+- [Vorschau aller Motive in beiden Größen](preview-nerven-artefakte.png)
+- Normalisierte Generator-Master: `docs/art/nerven-artefakte-sources/`
+
+Reproduzierbar mit Python und Pillow aus den gespeicherten Mastern:
+
+```sh
+python tools/art/nerven_artefakte/export.py
+python tools/art/nerven_artefakte/check.py
+```
+
+Das Prüfskript kontrolliert die vollständige ID-Liste gegen die BY-Aufgabe,
+Maße, Manifest, gemeinsame Palette, binäres Alpha, transparente Randpixel,
+Duplikate und Herkunfts-Hashes. Generiert mit dem eingebauten Bildgenerator.
