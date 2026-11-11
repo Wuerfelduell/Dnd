@@ -4,3 +4,5 @@
 - `sekten/` (BQ): drei wandernde Kulte, 36 Ereignisse, neun Figuren, zwölf Gegner und neun Aufträge; Datenvorrat für alle drei Städte, Einbau separat.
 
 - [CF: Calderwick, Nebenaufträge und Stadtleben](k4_nebenquests/README.md) – 12 Aufträge, 8 Einwohner, Gerede, Lesestücke, Zeitung und Koop.
+- `k4_orte/` (CD): Calderwick mit 18 Karten, Landstraße, Vorratsverknüpfungen und Bürgenbrett-Spezifikation; geprüftes Datenpaket, Einbau und CC-Verträge separat.
+- `k4_akte/` (CC): Calderwicks Hauptstory mit fünf Akten, 20 Fährten, 80 Hinweisen, 309 Dialogknoten, sechs Abgleichen und vier Enden; eigenständig geprüfter Datenvorrat, Einbau und CD-Verträge separat.

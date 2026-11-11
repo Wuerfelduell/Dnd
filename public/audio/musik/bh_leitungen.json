@@ -1,0 +1,95 @@
+{
+  "format": "nebel-musik-1",
+  "id": "bh_leitungen",
+  "titel": "Der Rücklauf wird warm",
+  "art": "musik",
+  "bpm": 88,
+  "takt": [
+    4,
+    4
+  ],
+  "loop": true,
+  "lautstaerke": 0.62,
+  "hall": 0.32,
+  "spuren": {
+    "s0": {
+      "instrument": "pizzicato",
+      "lautstaerke": 0.48,
+      "pan": 0
+    },
+    "s1": {
+      "instrument": "wasser",
+      "lautstaerke": 0.12,
+      "pan": -0.2
+    },
+    "s2": {
+      "instrument": "saege",
+      "lautstaerke": 0.12,
+      "pan": 0.2
+    },
+    "s3": {
+      "instrument": "pauke",
+      "lautstaerke": 0.24,
+      "pan": -0.2
+    }
+  },
+  "muster": {
+    "intro_s0": {
+      "spur": "s0",
+      "takte": 2,
+      "noten": "r:8 d4:8 | r:8 d4:8"
+    },
+    "intro_s1": {
+      "spur": "s1",
+      "takte": 2,
+      "noten": "x:8 r:8 | r:16"
+    },
+    "A_s0": {
+      "spur": "s0",
+      "takte": 8,
+      "noten": "d5:5 a4:5 r:6 | d5:5 a4:5 r:6 | e5:5 b4:5 r:6 | f5:5 e5:5 r:6 | d5:5 a4:5 r:6 | d5:5 a4:5 r:6 | e5:5 b4:5 r:6 | f5:5 e5:5 r:6"
+    },
+    "A_s1": {
+      "spur": "s1",
+      "takte": 8,
+      "noten": "x:8 r:8 | r:16 | x:8 r:8 | r:16 | x:8 r:8 | r:16 | x:8 r:8 | r:16"
+    },
+    "A_s2": {
+      "spur": "s2",
+      "takte": 8,
+      "noten": "[d3,f3,a3]:16@0.35 | [d3,f3,a3]:16@0.35 | [d3,f3,a3]:16@0.35 | [d3,f3,a3]:16@0.35 | [d3,f3,a3]:16@0.35 | [d3,f3,a3]:16@0.35 | [d3,f3,a3]:16@0.35 | [d3,f3,a3]:16@0.35"
+    },
+    "A_s3": {
+      "spur": "s3",
+      "takte": 8,
+      "noten": "x:4@0.35 r:4@0.35 x:4@0.35 r:4@0.35 | x:4@0.35 r:4@0.35 x:4@0.35 r:4@0.35 | x:4@0.35 r:4@0.35 x:4@0.35 r:4@0.35 | x:4@0.35 r:4@0.35 x:4@0.35 r:4@0.35 | x:4@0.35 r:4@0.35 x:4@0.35 r:4@0.35 | x:4@0.35 r:4@0.35 x:4@0.35 r:4@0.35 | x:4@0.35 r:4@0.35 x:4@0.35 r:4@0.35 | x:4@0.35 r:4@0.35 x:4@0.35 r:4@0.35"
+    }
+  },
+  "abschnitte": {
+    "intro": [
+      "intro_s0",
+      "intro_s1"
+    ],
+    "A": [
+      "A_s0",
+      "A_s1",
+      "A_s2",
+      "A_s3"
+    ],
+    "B": {
+      "basis": "A",
+      "transponieren": 2
+    },
+    "C": {
+      "basis": "A",
+      "transponieren": 4
+    }
+  },
+  "ablauf": [
+    "intro",
+    "A",
+    "B",
+    "C"
+  ],
+  "loop_ab": 1
+}

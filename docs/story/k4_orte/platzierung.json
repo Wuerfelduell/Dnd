@@ -1,0 +1,285 @@
+[
+  {
+    "map": "cw_buchbinderei",
+    "npc": "cw_crayford",
+    "tile": [
+      4,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    }
+  },
+  {
+    "map": "cw_gepaeckhalle",
+    "npc": "cw_darnell",
+    "tile": [
+      8,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    }
+  },
+  {
+    "map": "cw_gleisfuss",
+    "npc": "cw_hesk",
+    "tile": [
+      24,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    }
+  },
+  {
+    "map": "cw_pfandhaus",
+    "npc": "cw_wicksend",
+    "tile": [
+      8,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    }
+  },
+  {
+    "map": "cw_kueche",
+    "npc": "cw_noel_bellcross",
+    "tile": [
+      8,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    }
+  },
+  {
+    "map": "cw_quittungsmarkt",
+    "npc": "cw_pritch",
+    "tile": [
+      24,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    }
+  },
+  {
+    "map": "cw_archivsaal",
+    "npc": "cw_bexley",
+    "tile": [
+      8,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt2_done"
+      ]
+    }
+  },
+  {
+    "map": "cw_archivsaal",
+    "npc": "cw_malliver",
+    "tile": [
+      16,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt2_done"
+      ]
+    }
+  },
+  {
+    "map": "cw_villa",
+    "npc": "cw_wetherby",
+    "tile": [
+      8,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt2_done"
+      ],
+      "hide_if_flags": [
+        "cwa_akt4_done"
+      ]
+    }
+  },
+  {
+    "map": "cw_druckkammer",
+    "npc": "cw_wetherby",
+    "tile": [
+      8,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt4_done"
+      ]
+    }
+  },
+  {
+    "map": "cw_buchbinderei",
+    "npc": "cw_ida_bellcross",
+    "tile": [
+      16,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "cwa_akt4_done"
+      ]
+    }
+  },
+  {
+    "map": "cw_quittungsmarkt",
+    "npc": "cwo_marktstand",
+    "tile": [
+      28,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k4_arrived"
+      ]
+    }
+  },
+  {
+    "map": "reise_landstrasse",
+    "npc": "vn_kutscherin",
+    "tile": [
+      4,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "kapitel3_done"
+      ]
+    }
+  },
+  {
+    "map": "reise_landstrasse",
+    "npc": "vn_zoellner",
+    "tile": [
+      9,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "kapitel3_done"
+      ]
+    }
+  },
+  {
+    "map": "reise_landstrasse",
+    "npc": "vn_hausiererin",
+    "tile": [
+      14,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "kapitel3_done"
+      ]
+    }
+  },
+  {
+    "map": "reise_landstrasse",
+    "npc": "vn_landarzt",
+    "tile": [
+      19,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "kapitel3_done"
+      ]
+    }
+  },
+  {
+    "map": "reise_landstrasse",
+    "npc": "vn_fahrender_richter",
+    "tile": [
+      24,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "kapitel3_done"
+      ]
+    }
+  },
+  {
+    "map": "reise_landstrasse",
+    "npc": "vn_waisenjunge",
+    "tile": [
+      29,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "kapitel3_done"
+      ]
+    }
+  },
+  {
+    "map": "reise_landstrasse",
+    "npc": "vn_wanderprediger",
+    "tile": [
+      34,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "kapitel3_done"
+      ]
+    }
+  },
+  {
+    "map": "reise_landstrasse",
+    "npc": "vn_kartenzeichnerin",
+    "tile": [
+      39,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "kapitel3_done"
+      ]
+    }
+  },
+  {
+    "map": "ds_endbahnhof",
+    "tile": [
+      25,
+      19
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "kapitel3_done"
+      ]
+    },
+    "interactable": {
+      "id": "cwo_ds_landstrasse",
+      "kind": "dialogue",
+      "dialogue": "cwo_fahrt_ds_endbahnhof",
+      "title": "Fahrt nach Calderwick",
+      "prompt": "Landstraße: 4 Schilling oder Wegzoll-Marke",
+      "marker": true
+    }
+  }
+]

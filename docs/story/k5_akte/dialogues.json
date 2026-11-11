@@ -1,0 +1,4772 @@
+{
+  "bha_11_dialog": {
+    "start": "bha_11_start",
+    "nodes": {
+      "bha_11_lesen1": {
+        "text": "Orlas Abholhälfte hängt noch am Nagel. Der Kontrollschnitt fehlt.",
+        "gives_clues": [
+          "bha_11_c1"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_11_start"
+          }
+        ]
+      },
+      "bha_11_lesen2": {
+        "text": "Während der angeblichen Abreise trug Felix Mehl zur Klinik. Orlas Koffer steht nicht im Ausgang.",
+        "gives_clues": [
+          "bha_11_c2"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_11_start"
+          }
+        ]
+      },
+      "bha_11_lesen3": {
+        "text": "Unter dem Koffer liegt ein ungebrochener heller Rand. Seit Tagen hat ihn niemand bewegt.",
+        "gives_clues": [
+          "bha_11_c3"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_11_start"
+          }
+        ]
+      },
+      "bha_11_lesen4": {
+        "text": "Die Meldung nennt eine Abreise ohne Wagen oder Uhrzeit. Das vorgedruckte Feld bleibt leer.",
+        "gives_clues": [
+          "bha_11_c4"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_11_start"
+          }
+        ]
+      },
+      "bha_11_start": {
+        "text": "Nicht entlassen. Du legst die Quellen getrennt vor dich; eine saubere Abschrift ersetzt noch keinen zweiten Beleg.",
+        "choices": [
+          {
+            "text": "Unbenutzter Gepäckschein",
+            "next": "bha_11_lesen1"
+          },
+          {
+            "text": "Felix’ Schichtbuch",
+            "next": "bha_11_lesen2"
+          },
+          {
+            "text": "Staubrand",
+            "next": "bha_11_lesen3"
+          },
+          {
+            "text": "Klinikmeldung",
+            "next": "bha_11_lesen4"
+          },
+          {
+            "text": "Den Schluss festhalten.",
+            "next": "bha_11_schluss",
+            "requires_conclusions": [
+              "bha_11_d"
+            ],
+            "hide_if_flags": [
+              "bha_11_geschlossen"
+            ],
+            "requires_flags": [
+              "bha_verhoer_11_geklaert"
+            ]
+          },
+          {
+            "text": "Später weiterprüfen."
+          }
+        ]
+      },
+      "bha_11_schluss": {
+        "text": "Am Kutschenhof suchst du Orlas Abreise. Ein unbenutzter Gepäckschein und Felix' Schichtbuch zeigen, dass niemand ihren Koffer abholte. Die Deduktion widerlegt die Klinikmeldung: Orla blieb innerhalb des Stadtgebiets. Du hältst fest, was belegt ist, und lässt die übrigen Fragen offen.",
+        "sets_flags": [
+          "bha_11_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_12_dialog": {
+    "start": "bha_12_start",
+    "nodes": {
+      "bha_12_lesen1": {
+        "text": "Drei Karten enthalten denselben Abschiedssatz. Sogar die ausgelassene Silbe steht an derselben Stelle.",
+        "gives_clues": [
+          "bha_12_c1"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_12_start"
+          }
+        ]
+      },
+      "bha_12_lesen2": {
+        "text": "Am Rand steht: Im Palmhaus spricht etwas mit meiner Stimme. Die Schrift drückt durch das Papier.",
+        "gives_clues": [
+          "bha_12_c2"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_12_start"
+          }
+        ]
+      },
+      "bha_12_lesen3": {
+        "text": "Auf dem Löschblatt steht der Gruß spiegelverkehrt. Er stammt vom Pult, nicht von einem Reiseentschluss.",
+        "gives_clues": [
+          "bha_12_c3"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_12_start"
+          }
+        ]
+      },
+      "bha_12_lesen4": {
+        "text": "Die Marke fehlt. Die Karte war verworfen, bevor jemand sie als Abschied auslegte.",
+        "gives_clues": [
+          "bha_12_c4"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_12_start"
+          }
+        ]
+      },
+      "bha_12_start": {
+        "text": "Die Postkarte. Du legst die Quellen getrennt vor dich; eine saubere Abschrift ersetzt noch keinen zweiten Beleg.",
+        "choices": [
+          {
+            "text": "Schreiberpult",
+            "next": "bha_12_lesen1"
+          },
+          {
+            "text": "Orlas Randnotiz",
+            "next": "bha_12_lesen2"
+          },
+          {
+            "text": "Löschblatt",
+            "next": "bha_12_lesen3"
+          },
+          {
+            "text": "Unfrankierte Rückseite",
+            "next": "bha_12_lesen4"
+          },
+          {
+            "text": "Den Schluss festhalten.",
+            "next": "bha_12_schluss",
+            "requires_conclusions": [
+              "bha_12_d"
+            ],
+            "hide_if_flags": [
+              "bha_12_geschlossen"
+            ]
+          },
+          {
+            "text": "Später weiterprüfen."
+          }
+        ]
+      },
+      "bha_12_schluss": {
+        "text": "Ihre letzte Nachricht war eine Warnung vor der Behandlung, kein Abschied vom Bruder. Du hältst fest, was belegt ist, und lässt die übrigen Fragen offen.",
+        "sets_flags": [
+          "bha_12_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "gives_items": {
+          "vi_k_bh_postkarte_verworfen": 1
+        }
+      }
+    }
+  },
+  "bha_13_dialog": {
+    "start": "bha_13_start",
+    "nodes": {
+      "bha_13_lesen1": {
+        "text": "Schlaf und Nahrung sind sauber eingetragen. Unter Name liegt ein frischer Radierstreifen.",
+        "gives_clues": [
+          "bha_13_c1"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_13_start"
+          }
+        ]
+      },
+      "bha_13_lesen2": {
+        "text": "Am Tassenboden klebt Sud der Charge Sieben. Das Etikett blieb unter dem Henkel trocken.",
+        "gives_clues": [
+          "bha_13_c2"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_13_start"
+          }
+        ]
+      },
+      "bha_13_lesen3": {
+        "text": "Charge Sieben versorgt auch die Beete. Die Nummer wurde nicht nachträglich ergänzt.",
+        "gives_clues": [
+          "bha_13_c3"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_13_start"
+          }
+        ]
+      },
+      "bha_13_lesen4": {
+        "text": "Die Leitung gabelt sich vor Teeküche und Garten. Beide Absperrhähne tragen denselben Wartungstag.",
+        "gives_clues": [
+          "bha_13_c4"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_13_start"
+          }
+        ]
+      },
+      "bha_13_start": {
+        "text": "Das Bett mit der Lücke. Du legst die Quellen getrennt vor dich; eine saubere Abschrift ersetzt noch keinen zweiten Beleg.",
+        "choices": [
+          {
+            "text": "Orlas Tafel",
+            "next": "bha_13_lesen1"
+          },
+          {
+            "text": "Teerest",
+            "next": "bha_13_lesen2"
+          },
+          {
+            "text": "Bewässerungsetikett",
+            "next": "bha_13_lesen3"
+          },
+          {
+            "text": "Geteiltes Rohr",
+            "next": "bha_13_lesen4"
+          },
+          {
+            "text": "Den Schluss festhalten.",
+            "next": "bha_13_schluss",
+            "requires_conclusions": [
+              "bha_13_d"
+            ],
+            "hide_if_flags": [
+              "bha_13_geschlossen"
+            ],
+            "requires_flags": [
+              "bha_verhoer_13_geklaert"
+            ]
+          },
+          {
+            "text": "Später weiterprüfen."
+          }
+        ]
+      },
+      "bha_13_schluss": {
+        "text": "Medikament und Garten werden gemeinsam versorgt. Du hältst fest, was belegt ist, und lässt die übrigen Fragen offen.",
+        "sets_flags": [
+          "bha_13_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_14_dialog": {
+    "start": "bha_14_start",
+    "nodes": {
+      "bha_14_lesen1": {
+        "text": "Weißer Stoff hängt innen am Wartungsrohr. Die Risskante weist vom Zimmer weg.",
+        "gives_clues": [
+          "bha_14_c1"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_14_start"
+          }
+        ]
+      },
+      "bha_14_lesen2": {
+        "text": "Frische Kreidestriche führen zum Palmhaus. Ein alter Strich zur Klinik ist durchgestrichen.",
+        "gives_clues": [
+          "bha_14_c2"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_14_start"
+          }
+        ]
+      },
+      "bha_14_lesen3": {
+        "text": "Der Bügelraum hat einen eigenen Zug. Sein Ofen hängt nicht am Kellerkreislauf.",
+        "gives_clues": [
+          "bha_14_c3"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_14_start"
+          }
+        ]
+      },
+      "bha_14_lesen4": {
+        "text": "Die blaue Linie erreicht einen versiegelten Behälter. Sie kreuzt keine Wohnungsleitung.",
+        "gives_clues": [
+          "bha_14_c4"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_14_start"
+          }
+        ]
+      },
+      "bha_14_start": {
+        "text": "Der sichere Rücklauf. Du legst die Quellen getrennt vor dich; eine saubere Abschrift ersetzt noch keinen zweiten Beleg.",
+        "choices": [
+          {
+            "text": "Stoffstreifen",
+            "next": "bha_14_lesen1"
+          },
+          {
+            "text": "Ventilmarken",
+            "next": "bha_14_lesen2"
+          },
+          {
+            "text": "Unabhängige Feuerstelle",
+            "next": "bha_14_lesen3"
+          },
+          {
+            "text": "Rücklaufplan",
+            "next": "bha_14_lesen4"
+          },
+          {
+            "text": "Den Schluss festhalten.",
+            "next": "bha_14_schluss",
+            "requires_conclusions": [
+              "bha_14_d"
+            ],
+            "requires_flags": [
+              "bha_ventil_hof_behaelter"
+            ],
+            "hide_if_flags": [
+              "bha_14_geschlossen"
+            ]
+          },
+          {
+            "text": "Später weiterprüfen."
+          }
+        ]
+      },
+      "bha_14_schluss": {
+        "text": "Im Kesselgrund suchst du den Weg aus Orlas Zimmer. Ein Stoffstreifen am Wartungsrohr und frische Ventilmarken zeigen ihre Route zum Kalten Palmhaus. Du öffnest einen sicheren Kreislauf; Frost belohnt die Reparatur mit Vorräten und einer unabhängigen Wärmequelle im Unterschlupf. Du hältst fest, was belegt ist, und lässt die übrigen Fragen offen.",
+        "sets_flags": [
+          "bha_14_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_21_dialog": {
+    "start": "bha_21_start",
+    "nodes": {
+      "bha_21_lesen1": {
+        "text": "Die Blüte spricht Orlas Abschiedssatz. Bei ihrem Namen stockt sie.",
+        "gives_clues": [
+          "bha_21_c1"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_21_start"
+          }
+        ]
+      },
+      "bha_21_lesen2": {
+        "text": "Die Pflanzennummer gehört zu Orlas Patientennummer. Beide Einträge entstanden am selben Tag.",
+        "gives_clues": [
+          "bha_21_c2"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_21_start"
+          }
+        ]
+      },
+      "bha_21_lesen3": {
+        "text": "Orlas frischer Fingerabdruck liegt auf dem Beetrand. Die zugeordnete Person ist nicht gestorben.",
+        "gives_clues": [
+          "bha_21_c3"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_21_start"
+          }
+        ]
+      },
+      "bha_21_lesen4": {
+        "text": "Die Probe und das Beet tragen denselben Schnittcode. Eine ähnliche Stimme allein hätte nicht genügt.",
+        "gives_clues": [
+          "bha_21_c4"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_21_start"
+          }
+        ]
+      },
+      "bha_21_start": {
+        "text": "Die fremde Abschiedsrede. Du legst die Quellen getrennt vor dich; eine saubere Abschrift ersetzt noch keinen zweiten Beleg.",
+        "choices": [
+          {
+            "text": "Sprechende Pflanze",
+            "next": "bha_21_lesen1"
+          },
+          {
+            "text": "Adelines Saatbuch",
+            "next": "bha_21_lesen2"
+          },
+          {
+            "text": "Lebende Signatur",
+            "next": "bha_21_lesen3"
+          },
+          {
+            "text": "Probenabgleich",
+            "next": "bha_21_lesen4"
+          },
+          {
+            "text": "Den Schluss festhalten.",
+            "next": "bha_21_schluss",
+            "requires_conclusions": [
+              "bha_21_d"
+            ],
+            "hide_if_flags": [
+              "bha_21_geschlossen"
+            ]
+          },
+          {
+            "text": "Später weiterprüfen."
+          }
+        ]
+      },
+      "bha_21_schluss": {
+        "text": "Im Palmhaus hörst du eine Pflanze dieselben Sätze wie auf Orlas Karte sprechen. Adelines Saatbuch, dessen Eintrag du mit der Probe abgleichst, nennt Orlas Patientennummer. Die Deduktion verbindet diesen Namenrest mit einer konkreten Lebenden, nicht mit einem Geist. Du hältst fest, was belegt ist, und lässt die übrigen Fragen offen.",
+        "sets_flags": [
+          "bha_21_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "gives_items": {
+          "vi_k_bh_beetschild": 1
+        }
+      }
+    }
+  },
+  "bha_22_dialog": {
+    "start": "bha_22_start",
+    "nodes": {
+      "bha_22_lesen1": {
+        "text": "Das Siegel stammt aus der Zeit vor deinem Wexmoor-Finale. Der Zoll hat es gegengezeichnet.",
+        "gives_clues": [
+          "bha_22_c1"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_22_start"
+          }
+        ]
+      },
+      "bha_22_lesen2": {
+        "text": "Unter neuem Papier liegt älteres, an der Kiste festgetrocknetes Packzeug. Das Datum ist keine frische Erfindung.",
+        "gives_clues": [
+          "bha_22_c2"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_22_start"
+          }
+        ]
+      },
+      "bha_22_lesen3": {
+        "text": "Crowther erhielt damals bereits Geld für Rückstände. Die Klinik war schon Kundin.",
+        "gives_clues": [
+          "bha_22_c3"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_22_start"
+          }
+        ]
+      },
+      "bha_22_lesen4": {
+        "text": "Das Klinikbuch bestätigt die Lieferung unabhängig vom Lieferanten. Kein geretteter Mensch wird darin als neue Fracht geführt.",
+        "gives_clues": [
+          "bha_22_c4"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_22_start"
+          }
+        ]
+      },
+      "bha_22_start": {
+        "text": "Vor deiner Ankunft. Du legst die Quellen getrennt vor dich; eine saubere Abschrift ersetzt noch keinen zweiten Beleg.",
+        "choices": [
+          {
+            "text": "Datiertes Frachtsiegel",
+            "next": "bha_22_lesen1"
+          },
+          {
+            "text": "Verpackungsschichten",
+            "next": "bha_22_lesen2"
+          },
+          {
+            "text": "Alte Rechnung",
+            "next": "bha_22_lesen3"
+          },
+          {
+            "text": "Empfangsbuch",
+            "next": "bha_22_lesen4"
+          },
+          {
+            "text": "Den Schluss festhalten.",
+            "next": "bha_22_schluss",
+            "requires_conclusions": [
+              "bha_22_d"
+            ],
+            "hide_if_flags": [
+              "bha_22_geschlossen"
+            ],
+            "requires_flags": [
+              "bha_verhoer_22_geklaert"
+            ]
+          },
+          {
+            "text": "Später weiterprüfen."
+          }
+        ]
+      },
+      "bha_22_schluss": {
+        "text": "Die Klinik profitiert von einer älteren Opferkette und wird nicht erst durch deine letzte Entscheidung böse. Du hältst fest, was belegt ist, und lässt die übrigen Fragen offen.",
+        "sets_flags": [
+          "bha_22_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_23_dialog": {
+    "start": "bha_23_start",
+    "nodes": {
+      "bha_23_lesen1": {
+        "text": "Orla unterschrieb eine begrenzte Schlafbehandlung. Von familiären Erinnerungen steht dort nichts.",
+        "gives_clues": [
+          "bha_23_c1"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_23_start"
+          }
+        ]
+      },
+      "bha_23_lesen2": {
+        "text": "Orla verlangte ein Ende der Entnahmen. Die Klinik bestätigte den Empfang.",
+        "gives_clues": [
+          "bha_23_c2"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_23_start"
+          }
+        ]
+      },
+      "bha_23_lesen3": {
+        "text": "Nach dem Widerruf wurden weitere Dosen vermerkt. Der Kalender lässt keinen Zweifel an der Reihenfolge.",
+        "gives_clues": [
+          "bha_23_c3"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_23_start"
+          }
+        ]
+      },
+      "bha_23_lesen4": {
+        "text": "Felix unterschrieb die Aufnahme zum Schutz vor dem Armenhaus. Seine Unterschrift ersetzt Orlas Entscheidung nicht.",
+        "gives_clues": [
+          "bha_23_c4"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_23_start"
+          }
+        ]
+      },
+      "bha_23_start": {
+        "text": "Die erste Zustimmung. Du legst die Quellen getrennt vor dich; eine saubere Abschrift ersetzt noch keinen zweiten Beleg.",
+        "choices": [
+          {
+            "text": "Einwilligung",
+            "next": "bha_23_lesen1"
+          },
+          {
+            "text": "Erster Widerruf",
+            "next": "bha_23_lesen2"
+          },
+          {
+            "text": "Fortgesetzte Dosis",
+            "next": "bha_23_lesen3"
+          },
+          {
+            "text": "Felix’ Einweisung",
+            "next": "bha_23_lesen4"
+          },
+          {
+            "text": "Den Schluss festhalten.",
+            "next": "bha_23_schluss",
+            "requires_conclusions": [
+              "bha_23_d"
+            ],
+            "hide_if_flags": [
+              "bha_23_geschlossen"
+            ]
+          },
+          {
+            "text": "Später weiterprüfen."
+          }
+        ]
+      },
+      "bha_23_schluss": {
+        "text": "Die angeblich freiwillige Therapie setzte sich gegen ihre erklärte Entscheidung fort. Du hältst fest, was belegt ist, und lässt die übrigen Fragen offen.",
+        "sets_flags": [
+          "bha_23_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "gives_items": {
+          "vi_k_bh_einweisung": 1
+        }
+      }
+    }
+  },
+  "bha_24_dialog": {
+    "start": "bha_24_start",
+    "nodes": {
+      "bha_24_lesen1": {
+        "text": "In der Halterung fehlt eine Kapsel. Ihre Kerben ordnen mehrere getrennte Kammern zu.",
+        "gives_clues": [
+          "bha_24_c1"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_24_start"
+          }
+        ]
+      },
+      "bha_24_lesen2": {
+        "text": "Ein kalter Streifen führt zur Wäschereileitung. Orla suchte Kühlung, keinen Ausgang.",
+        "gives_clues": [
+          "bha_24_c2"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_24_start"
+          }
+        ]
+      },
+      "bha_24_lesen3": {
+        "text": "Die Schere folgt den gespannten Fäden. Ihre Knoten liegen außerhalb der lebenden Stängel.",
+        "gives_clues": [
+          "bha_24_c3"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_24_start"
+          }
+        ]
+      },
+      "bha_24_lesen4": {
+        "text": "Eine alte gebrochene Hülse hat vermischte Beschriftungen. Zerstören würde die Zuordnung verlieren.",
+        "gives_clues": [
+          "bha_24_c4"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_24_start"
+          }
+        ]
+      },
+      "bha_24_start": {
+        "text": "Schnittstelle. Du legst die Quellen getrennt vor dich; eine saubere Abschrift ersetzt noch keinen zweiten Beleg.",
+        "choices": [
+          {
+            "text": "Leere Halterung",
+            "next": "bha_24_lesen1"
+          },
+          {
+            "text": "Kältespur",
+            "next": "bha_24_lesen2"
+          },
+          {
+            "text": "Veredelungsfäden",
+            "next": "bha_24_lesen3"
+          },
+          {
+            "text": "Zerbrochene Versuchshülse",
+            "next": "bha_24_lesen4"
+          },
+          {
+            "text": "Den Schluss festhalten.",
+            "next": "bha_24_schluss",
+            "requires_conclusions": [
+              "bha_24_d"
+            ],
+            "requires_flags": [
+              "bha_glasgaertner_geloest"
+            ],
+            "hide_if_flags": [
+              "bha_24_geschlossen"
+            ]
+          },
+          {
+            "text": "Später weiterprüfen."
+          }
+        ]
+      },
+      "bha_24_schluss": {
+        "text": "Nach dem Glasgärtner sicherst du Orlas versteckten Probenhalter. Kerben an der leeren Halterung zeigen, dass sie die Kapsel nicht zerstören konnte, ohne ihre Zuordnungen zu verlieren. Du folgerst, dass sie einen kühlen Ort sucht, und folgst der Leitung zur stillgelegten Wäscherei. Du hältst fest, was belegt ist, und lässt die übrigen Fragen offen.",
+        "sets_flags": [
+          "bha_24_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_31_dialog": {
+    "start": "bha_31_start",
+    "nodes": {
+      "bha_31_lesen1": {
+        "text": "Beatrice beschrieb einen kleinen Handschuh schon vor dieser Befragung. Enna hat keine Namen ergänzt.",
+        "gives_clues": [
+          "bha_31_c1"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_31_start"
+          }
+        ]
+      },
+      "bha_31_lesen2": {
+        "text": "Eine unabhängig verwahrte Zeichnung zeigt denselben Handschuh. Beatrice ist als Empfängerin genannt.",
+        "gives_clues": [
+          "bha_31_c2"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_31_start"
+          }
+        ]
+      },
+      "bha_31_lesen3": {
+        "text": "Beatrice erkennt die Handschrift, nicht die Beziehung. Sie bittet dich, ihr nichts vorzusagen.",
+        "gives_clues": [
+          "bha_31_c3"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_31_start"
+          }
+        ]
+      },
+      "bha_31_lesen4": {
+        "text": "Der Schlaf besserte sich vor dem Verlust der Anrede. Das eine beweist nicht die Harmlosigkeit des anderen.",
+        "gives_clues": [
+          "bha_31_c4"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_31_start"
+          }
+        ]
+      },
+      "bha_31_start": {
+        "text": "Beatrices Erinnerung. Du legst die Quellen getrennt vor dich; eine saubere Abschrift ersetzt noch keinen zweiten Beleg.",
+        "choices": [
+          {
+            "text": "Ennas Eintrag",
+            "next": "bha_31_lesen1"
+          },
+          {
+            "text": "Kinderzeichnung",
+            "next": "bha_31_lesen2"
+          },
+          {
+            "text": "Leere Anrede",
+            "next": "bha_31_lesen3"
+          },
+          {
+            "text": "Behandlungskurve",
+            "next": "bha_31_lesen4"
+          },
+          {
+            "text": "Den Schluss festhalten.",
+            "next": "bha_31_schluss",
+            "requires_conclusions": [
+              "bha_31_d"
+            ],
+            "hide_if_flags": [
+              "bha_31_geschlossen"
+            ]
+          },
+          {
+            "text": "Später weiterprüfen."
+          }
+        ]
+      },
+      "bha_31_schluss": {
+        "text": "Die Behandlung entfernt Verknüpfungen, nicht nur Schmerz. Du hältst fest, was belegt ist, und lässt die übrigen Fragen offen.",
+        "sets_flags": [
+          "bha_31_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "gives_items": {
+          "vi_k_bh_namensheft": 1
+        }
+      }
+    }
+  },
+  "bha_32_dialog": {
+    "start": "bha_32_start",
+    "nodes": {
+      "bha_32_lesen1": {
+        "text": "Zwei Brüder erhielten Lohn für dieselbe Reparatur. Die Tüten lagen seitdem im Personalraum.",
+        "gives_clues": [
+          "bha_32_c1"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_32_start"
+          }
+        ]
+      },
+      "bha_32_lesen2": {
+        "text": "Zwei unterschiedlich gefeilte Griffe bezeugen gemeinsame Arbeit. Frost erkennt seinen eigenen.",
+        "gives_clues": [
+          "bha_32_c2"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_32_start"
+          }
+        ]
+      },
+      "bha_32_lesen3": {
+        "text": "Frost erkennt den Schlüssel auf dem Bild. Den Mann daneben kann er nicht zuordnen.",
+        "gives_clues": [
+          "bha_32_c3"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_32_start"
+          }
+        ]
+      },
+      "bha_32_lesen4": {
+        "text": "Frosts Behandlung wurde vor Beatrices Aufnahme dokumentiert. Es ist ein unabhängiger Fall.",
+        "gives_clues": [
+          "bha_32_c4"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_32_start"
+          }
+        ]
+      },
+      "bha_32_start": {
+        "text": "Frosts Bruder. Du legst die Quellen getrennt vor dich; eine saubere Abschrift ersetzt noch keinen zweiten Beleg.",
+        "choices": [
+          {
+            "text": "Zwei Lohntüten",
+            "next": "bha_32_lesen1"
+          },
+          {
+            "text": "Kesselschlüssel",
+            "next": "bha_32_lesen2"
+          },
+          {
+            "text": "Familienbild",
+            "next": "bha_32_lesen3"
+          },
+          {
+            "text": "Getrennte Akte",
+            "next": "bha_32_lesen4"
+          },
+          {
+            "text": "Den Schluss festhalten.",
+            "next": "bha_32_schluss",
+            "requires_conclusions": [
+              "bha_32_d"
+            ],
+            "hide_if_flags": [
+              "bha_32_geschlossen"
+            ]
+          },
+          {
+            "text": "Später weiterprüfen."
+          }
+        ]
+      },
+      "bha_32_schluss": {
+        "text": "Im alten Personalraum findest du zwei Lohntüten und einen gemeinsam reparierten Kesselschlüssel. Frost erkennt die Arbeit, nicht die Person auf dem beigefügten Bild. Die Deduktion zeigt einen zweiten, nicht von Beatrice abgeschriebenen Fall; du respektierst seine Bitte um Abstand oder drängst auf weitere Erinnerung und verlierst Vertrauen. Du hältst fest, was belegt ist, und lässt die übrigen Fragen offen.",
+        "sets_flags": [
+          "bha_32_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_33_dialog": {
+    "start": "bha_33_start",
+    "nodes": {
+      "bha_33_lesen1": {
+        "text": "Im Bunker liegt alter Staub bis an die Schaufel. Seit Wochen wurde keine Kohle entnommen.",
+        "gives_clues": [
+          "bha_33_c1"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_33_start"
+          }
+        ]
+      },
+      "bha_33_lesen2": {
+        "text": "Der Druck steigt mit jeder Entnahme der Klinik. Die Uhrzeiten stimmen überein.",
+        "gives_clues": [
+          "bha_33_c2"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_33_start"
+          }
+        ]
+      },
+      "bha_33_lesen3": {
+        "text": "Malkin berechnete die warme Umleitung getrennt. Die Einnahme war ihm bekannt.",
+        "gives_clues": [
+          "bha_33_c3"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_33_start"
+          }
+        ]
+      },
+      "bha_33_lesen4": {
+        "text": "Ein gewöhnlich beheizter Umweg versorgt die Armenwohnungen. Er kann ohne neue Entnahmen weiterarbeiten.",
+        "gives_clues": [
+          "bha_33_c4"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_33_start"
+          }
+        ]
+      },
+      "bha_33_start": {
+        "text": "Wärme ohne Kohle. Du legst die Quellen getrennt vor dich; eine saubere Abschrift ersetzt noch keinen zweiten Beleg.",
+        "choices": [
+          {
+            "text": "Leerer Bunker",
+            "next": "bha_33_lesen1"
+          },
+          {
+            "text": "Druckkurve",
+            "next": "bha_33_lesen2"
+          },
+          {
+            "text": "Umleitungsrechnung",
+            "next": "bha_33_lesen3"
+          },
+          {
+            "text": "Reservebogen",
+            "next": "bha_33_lesen4"
+          },
+          {
+            "text": "Den Schluss festhalten.",
+            "next": "bha_33_schluss",
+            "requires_conclusions": [
+              "bha_33_d"
+            ],
+            "hide_if_flags": [
+              "bha_33_geschlossen"
+            ],
+            "requires_flags": [
+              "bha_verhoer_33_geklaert"
+            ]
+          },
+          {
+            "text": "Später weiterprüfen."
+          }
+        ]
+      },
+      "bha_33_schluss": {
+        "text": "Die Behandlung ist zugleich eine Energieernte, und Orla hat deren nächste Lieferung unterbrochen. Du hältst fest, was belegt ist, und lässt die übrigen Fragen offen.",
+        "sets_flags": [
+          "bha_33_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_34_dialog": {
+    "start": "bha_34_start",
+    "nodes": {
+      "bha_34_lesen1": {
+        "text": "Orla hält die Kammern getrennt. Jede Beschriftung bleibt lesbar.",
+        "gives_clues": [
+          "bha_34_c1"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_34_start"
+          }
+        ]
+      },
+      "bha_34_lesen2": {
+        "text": "Ennas Verzeichnis passt zu den erhaltenen Kammern. Keine Zuordnung muss geraten werden.",
+        "gives_clues": [
+          "bha_34_c2"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_34_start"
+          }
+        ]
+      },
+      "bha_34_lesen3": {
+        "text": "Der Rücklauf kann den Atemkessel entlasten. Die Zufuhr würde ihn weiter verdichten.",
+        "gives_clues": [
+          "bha_34_c3"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_34_start"
+          }
+        ]
+      },
+      "bha_34_lesen4": {
+        "text": "Orla will vor jeder Rückgabe fragen. Ihre eigene Flucht ist keine Vollmacht für andere.",
+        "gives_clues": [
+          "bha_34_c4"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_34_start"
+          }
+        ]
+      },
+      "bha_34_start": {
+        "text": "Orla im Trockenraum. Du legst die Quellen getrennt vor dich; eine saubere Abschrift ersetzt noch keinen zweiten Beleg.",
+        "choices": [
+          {
+            "text": "Kalte Kapsel",
+            "next": "bha_34_lesen1"
+          },
+          {
+            "text": "Ennas Vergleich",
+            "next": "bha_34_lesen2"
+          },
+          {
+            "text": "Rücklaufhahn",
+            "next": "bha_34_lesen3"
+          },
+          {
+            "text": "Orlas Vorbehalt",
+            "next": "bha_34_lesen4"
+          },
+          {
+            "text": "Den Schluss festhalten.",
+            "next": "bha_34_schluss",
+            "requires_conclusions": [
+              "bha_34_d"
+            ],
+            "requires_flags": [
+              "bha_atemkessel_geloest"
+            ],
+            "hide_if_flags": [
+              "bha_34_geschlossen"
+            ]
+          },
+          {
+            "text": "Später weiterprüfen."
+          }
+        ]
+      },
+      "bha_34_schluss": {
+        "text": "Rückgabe ist für diese noch getrennten Reste möglich; Orla will sie nicht pauschal vernichten und wird zur aktiven Partnerin der Jagd auf Greavesends Anlage. Du hältst fest, was belegt ist, und lässt die übrigen Fragen offen.",
+        "sets_flags": [
+          "bha_34_geschlossen",
+          "bha_orla_gerettet"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "gives_items": {
+          "vi_k_bh_pflanzenkapsel": 1
+        }
+      }
+    }
+  },
+  "bha_41_dialog": {
+    "start": "bha_41_start",
+    "nodes": {
+      "bha_41_lesen1": {
+        "text": "Dipples Skizze zeigt warme Wurzeln im freien Hang. Das Klinikgebäude fehlt.",
+        "gives_clues": [
+          "bha_41_c1"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_41_start"
+          }
+        ]
+      },
+      "bha_41_lesen2": {
+        "text": "Die erste Bauzeichnung führt Rohre um vorhandene Wurzeln herum. Ihr Datum ist amtlich bestätigt.",
+        "gives_clues": [
+          "bha_41_c2"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_41_start"
+          }
+        ]
+      },
+      "bha_41_lesen3": {
+        "text": "Dipple erhielt Geld für sein Schweigen. Der Zusatz nennt ausdrücklich die älteren Blätter.",
+        "gives_clues": [
+          "bha_41_c3"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_41_start"
+          }
+        ]
+      },
+      "bha_41_lesen4": {
+        "text": "Eine Höhenmarke im Mauerwerk entspricht der alten Skizze. Die Zeichnung wurde nicht erst nach dem Bau erfunden.",
+        "gives_clues": [
+          "bha_41_c4"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_41_start"
+          }
+        ]
+      },
+      "bha_41_start": {
+        "text": "Wurzeln vor dem Haus. Du legst die Quellen getrennt vor dich; eine saubere Abschrift ersetzt noch keinen zweiten Beleg.",
+        "choices": [
+          {
+            "text": "Alte Zeichnung",
+            "next": "bha_41_lesen1"
+          },
+          {
+            "text": "Fundamentplan",
+            "next": "bha_41_lesen2"
+          },
+          {
+            "text": "Rentenzusage",
+            "next": "bha_41_lesen3"
+          },
+          {
+            "text": "Unabhängige Messmarke",
+            "next": "bha_41_lesen4"
+          },
+          {
+            "text": "Den Schluss festhalten.",
+            "next": "bha_41_schluss",
+            "requires_conclusions": [
+              "bha_41_d"
+            ],
+            "hide_if_flags": [
+              "bha_41_geschlossen"
+            ],
+            "requires_flags": [
+              "bha_verhoer_41_geklaert"
+            ]
+          },
+          {
+            "text": "Später weiterprüfen."
+          }
+        ]
+      },
+      "bha_41_schluss": {
+        "text": "Greavesend nutzt einen vorhandenen Hunger; ihre Festnahme allein beendet seine Versorgung nicht. Du hältst fest, was belegt ist, und lässt die übrigen Fragen offen.",
+        "sets_flags": [
+          "bha_41_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "gives_items": {
+          "vi_k_bh_wurzelzeichnung": 1
+        }
+      }
+    }
+  },
+  "bha_42_dialog": {
+    "start": "bha_42_start",
+    "nodes": {
+      "bha_42_lesen1": {
+        "text": "Die leere Kammer bleibt unter kontrollierter Wärme stumm. Auch ein ähnlicher Name hilft nicht.",
+        "gives_clues": [
+          "bha_42_c1"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_42_start"
+          }
+        ]
+      },
+      "bha_42_lesen2": {
+        "text": "Die zweite Kammer antwortet auf ihre dokumentierte Zuordnung. Beide Versuche nutzen denselben Sud.",
+        "gives_clues": [
+          "bha_42_c2"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_42_start"
+          }
+        ]
+      },
+      "bha_42_lesen3": {
+        "text": "Temperatur und Menge wurden gleich gehalten. Der Unterschied liegt im erhaltenen Rest.",
+        "gives_clues": [
+          "bha_42_c3"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_42_start"
+          }
+        ]
+      },
+      "bha_42_lesen4": {
+        "text": "Eine fremde Stimme findet keinen Anschluss. Adeline beendet den Versuch, bevor jemand sie als Erinnerung ausgibt.",
+        "gives_clues": [
+          "bha_42_c4"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_42_start"
+          }
+        ]
+      },
+      "bha_42_start": {
+        "text": "Zwei Sorten Leere. Du legst die Quellen getrennt vor dich; eine saubere Abschrift ersetzt noch keinen zweiten Beleg.",
+        "choices": [
+          {
+            "text": "Leere Kapsel",
+            "next": "bha_42_lesen1"
+          },
+          {
+            "text": "Erhaltener Rest",
+            "next": "bha_42_lesen2"
+          },
+          {
+            "text": "Versuchsprotokoll",
+            "next": "bha_42_lesen3"
+          },
+          {
+            "text": "Abgebrochener Ersatzversuch",
+            "next": "bha_42_lesen4"
+          },
+          {
+            "text": "Den Schluss festhalten.",
+            "next": "bha_42_schluss",
+            "requires_conclusions": [
+              "bha_42_d"
+            ],
+            "hide_if_flags": [
+              "bha_42_geschlossen"
+            ]
+          },
+          {
+            "text": "Später weiterprüfen."
+          }
+        ]
+      },
+      "bha_42_schluss": {
+        "text": "Adeline prüft eine leere Kapsel und eine mit erhaltenem Namenrest unter identischen Bedingungen. Nur die zweite kann zur richtigen Person zurückfinden. Die Deduktion begrenzt das Heilversprechen: Aufgebrauchte Reste werden nicht durch ähnliche Stimmen ersetzt. Du hältst fest, was belegt ist, und lässt die übrigen Fragen offen.",
+        "sets_flags": [
+          "bha_42_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_43_dialog": {
+    "start": "bha_43_start",
+    "nodes": {
+      "bha_43_lesen1": {
+        "text": "Die Anleitung führt zurück, statt abzuziehen. Am Rand steht: nicht für Verkauf geeignet.",
+        "gives_clues": [
+          "bha_43_c1"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_43_start"
+          }
+        ]
+      },
+      "bha_43_lesen2": {
+        "text": "Jeder Pfad verlangt eigene Abstimmung. Ein Universaltrank wird ausdrücklich verworfen.",
+        "gives_clues": [
+          "bha_43_c2"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_43_start"
+          }
+        ]
+      },
+      "bha_43_lesen3": {
+        "text": "Die Rückführung benötigt keine neue Entnahme. Die versiegelte Kontrollprobe bleibt unberührt.",
+        "gives_clues": [
+          "bha_43_c3"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_43_start"
+          }
+        ]
+      },
+      "bha_43_lesen4": {
+        "text": "Der Vermerk nennt mögliche Forschung an Sequenz vier. Er enthält weder Rezept noch Ritualfreigabe.",
+        "gives_clues": [
+          "bha_43_c4"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_43_start"
+          }
+        ]
+      },
+      "bha_43_start": {
+        "text": "Ein Sud, der nichts nimmt. Du legst die Quellen getrennt vor dich; eine saubere Abschrift ersetzt noch keinen zweiten Beleg.",
+        "choices": [
+          {
+            "text": "Verworfene Anleitung",
+            "next": "bha_43_lesen1"
+          },
+          {
+            "text": "Zirkelvermerk",
+            "next": "bha_43_lesen2"
+          },
+          {
+            "text": "Unberührte Probe",
+            "next": "bha_43_lesen3"
+          },
+          {
+            "text": "Stufenwarnung",
+            "next": "bha_43_lesen4"
+          },
+          {
+            "text": "Den Schluss festhalten.",
+            "next": "bha_43_schluss",
+            "requires_conclusions": [
+              "bha_43_d"
+            ],
+            "hide_if_flags": [
+              "bha_43_geschlossen"
+            ]
+          },
+          {
+            "text": "Später weiterprüfen."
+          }
+        ]
+      },
+      "bha_43_schluss": {
+        "text": "Ein Zugang zu Sequenz 4 ist möglich, aber weder ein gemeinsamer Universaltrank noch das Opfer eines Patienten nötig. Du hältst fest, was belegt ist, und lässt die übrigen Fragen offen.",
+        "sets_flags": [
+          "bha_43_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_44_dialog": {
+    "start": "bha_44_start",
+    "nodes": {
+      "bha_44_lesen1": {
+        "text": "Die Markierung erreicht alle Behandlungssäle. Die Verteilung würde gleichzeitig erfolgen.",
+        "gives_clues": [
+          "bha_44_c1"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_44_start"
+          }
+        ]
+      },
+      "bha_44_lesen2": {
+        "text": "Eine eigene Klappe trennt den belasteten Rücklauf. Die gewöhnliche Wärmeleitung bleibt offen.",
+        "gives_clues": [
+          "bha_44_c2"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_44_start"
+          }
+        ]
+      },
+      "bha_44_lesen3": {
+        "text": "Der reparierte Reservebogen hält seinen Druck. Wohnräume erhalten weiter Grundwärme.",
+        "gives_clues": [
+          "bha_44_c3"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_44_start"
+          }
+        ]
+      },
+      "bha_44_lesen4": {
+        "text": "Der trockene Weg führt zum Kutschenhof. Er bleibt auch bei geschlossener Aussaatleitung passierbar.",
+        "gives_clues": [
+          "bha_44_c4"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_44_start"
+          }
+        ]
+      },
+      "bha_44_start": {
+        "text": "Die Aussaatleitung. Du legst die Quellen getrennt vor dich; eine saubere Abschrift ersetzt noch keinen zweiten Beleg.",
+        "choices": [
+          {
+            "text": "Markierte Probe",
+            "next": "bha_44_lesen1"
+          },
+          {
+            "text": "Sperrklappe",
+            "next": "bha_44_lesen2"
+          },
+          {
+            "text": "Reserveprüfung",
+            "next": "bha_44_lesen3"
+          },
+          {
+            "text": "Evakuierungsplan",
+            "next": "bha_44_lesen4"
+          },
+          {
+            "text": "Den Schluss festhalten.",
+            "next": "bha_44_schluss",
+            "requires_conclusions": [
+              "bha_44_d"
+            ],
+            "requires_flags": [
+              "bha_reserve_repariert"
+            ],
+            "hide_if_flags": [
+              "bha_44_geschlossen"
+            ]
+          },
+          {
+            "text": "Später weiterprüfen."
+          }
+        ]
+      },
+      "bha_44_schluss": {
+        "text": "Die Massenaussaat lässt sich aufhalten, ohne Briarholt über Nacht erfrieren zu lassen, sofern die zuvor gefundenen Reservewege repariert sind. Du hältst fest, was belegt ist, und lässt die übrigen Fragen offen.",
+        "sets_flags": [
+          "bha_44_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_51_dialog": {
+    "start": "bha_51_start",
+    "nodes": {
+      "bha_51_lesen1": {
+        "text": "Jede Person erhält ein eigenes Blatt. Unterschriften anderer werden nicht übernommen.",
+        "gives_clues": [
+          "bha_51_c1"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_51_start"
+          }
+        ]
+      },
+      "bha_51_lesen2": {
+        "text": "Nur ausdrücklich gewünschte und zuordenbare Reste stehen hier. Leere Kammern gelten nicht als Heilversprechen.",
+        "gives_clues": [
+          "bha_51_c2"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_51_start"
+          }
+        ]
+      },
+      "bha_51_lesen3": {
+        "text": "Verwahrung ist widerrufbar. Ein nicht geführtes Gespräch bleibt offen.",
+        "gives_clues": [
+          "bha_51_c3"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_51_start"
+          }
+        ]
+      },
+      "bha_51_lesen4": {
+        "text": "Einige wollen keinen Rest zurück. Ihre Erklärung wird getrennt von der allgemeinen Anlagenentscheidung festgehalten.",
+        "gives_clues": [
+          "bha_51_c4"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_51_start"
+          }
+        ]
+      },
+      "bha_51_start": {
+        "text": "Wer etwas zurückwill. Du legst die Quellen getrennt vor dich; eine saubere Abschrift ersetzt noch keinen zweiten Beleg.",
+        "choices": [
+          {
+            "text": "Ennas Liste",
+            "next": "bha_51_lesen1"
+          },
+          {
+            "text": "Rückgabeliste",
+            "next": "bha_51_lesen2"
+          },
+          {
+            "text": "Verwahrregister",
+            "next": "bha_51_lesen3"
+          },
+          {
+            "text": "Vernichtungswünsche",
+            "next": "bha_51_lesen4"
+          },
+          {
+            "text": "Den Schluss festhalten.",
+            "next": "bha_51_schluss",
+            "requires_conclusions": [
+              "bha_51_d"
+            ],
+            "requires_flags": [
+              "bha_patient_orla_gefragt",
+              "bha_patient_frost_gefragt",
+              "bha_patient_beatrice_gefragt",
+              "bha_patient_adeline_gefragt",
+              "bha_patient_enna_gefragt",
+              "bha_patient_felix_gefragt",
+              "bha_patient_mara_gefragt",
+              "bha_patient_emil_gefragt",
+              "bha_patient_lina_gefragt",
+              "bha_patient_osric_gefragt",
+              "bha_patient_tessa_gefragt",
+              "bha_patient_hugo_gefragt"
+            ],
+            "hide_if_flags": [
+              "bha_51_geschlossen"
+            ]
+          },
+          {
+            "text": "Später weiterprüfen."
+          }
+        ]
+      },
+      "bha_51_schluss": {
+        "text": "Orlas Rettungsplan darf nicht zur nächsten ungefragten Behandlung werden. Du hältst fest, was belegt ist, und lässt die übrigen Fragen offen.",
+        "sets_flags": [
+          "bha_51_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_52_dialog": {
+    "start": "bha_52_start",
+    "nodes": {
+      "bha_52_lesen1": {
+        "text": "Die Namensbänder verbinden Wurzel und Kammer. Sie lassen sich trennen, ohne eine Probe zu opfern.",
+        "gives_clues": [
+          "bha_52_c1"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_52_start"
+          }
+        ]
+      },
+      "bha_52_lesen2": {
+        "text": "Nur die gekappte Leitung verliert Wärme. Der Reservebogen hält.",
+        "gives_clues": [
+          "bha_52_c2"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_52_start"
+          }
+        ]
+      },
+      "bha_52_lesen3": {
+        "text": "Hinter der Kontaktstelle bleibt ein fernes Dröhnen. Der örtliche Zugriff ist nicht das ganze Wesen.",
+        "gives_clues": [
+          "bha_52_c3"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_52_start"
+          }
+        ]
+      },
+      "bha_52_lesen4": {
+        "text": "Nach der Trennung sind die Proben vollständig. Beruhigung erforderte keine neue Gabe.",
+        "gives_clues": [
+          "bha_52_c4"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_52_start"
+          }
+        ]
+      },
+      "bha_52_start": {
+        "text": "Die Mutterwurzel. Du legst die Quellen getrennt vor dich; eine saubere Abschrift ersetzt noch keinen zweiten Beleg.",
+        "choices": [
+          {
+            "text": "Lebende Beschriftung",
+            "next": "bha_52_lesen1"
+          },
+          {
+            "text": "Begrenzter Druckabfall",
+            "next": "bha_52_lesen2"
+          },
+          {
+            "text": "Isolierter Kontakt",
+            "next": "bha_52_lesen3"
+          },
+          {
+            "text": "Versiegelte Proben",
+            "next": "bha_52_lesen4"
+          },
+          {
+            "text": "Den Schluss festhalten.",
+            "next": "bha_52_schluss",
+            "requires_conclusions": [
+              "bha_52_d"
+            ],
+            "requires_flags": [
+              "bha_bluetenmund_geloest"
+            ],
+            "hide_if_flags": [
+              "bha_52_geschlossen"
+            ]
+          },
+          {
+            "text": "Später weiterprüfen."
+          }
+        ]
+      },
+      "bha_52_schluss": {
+        "text": "Die örtliche Verbindung ist isolierbar, nicht das gesamte unterirdische Wesen vernichtet. Du hältst fest, was belegt ist, und lässt die übrigen Fragen offen.",
+        "sets_flags": [
+          "bha_52_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_53_dialog": {
+    "start": "bha_53_start",
+    "nodes": {
+      "bha_53_lesen1": {
+        "text": "Die erste Versuchsperson war die Ärztin selbst. Ihr Eintrag nennt eine eigene Trauer.",
+        "gives_clues": [
+          "bha_53_c1"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_53_start"
+          }
+        ]
+      },
+      "bha_53_lesen2": {
+        "text": "Greavesend las und quittierte spätere Widerrufe. Die Fortsetzung war eine Entscheidung.",
+        "gives_clues": [
+          "bha_53_c2"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_53_start"
+          }
+        ]
+      },
+      "bha_53_lesen3": {
+        "text": "Sie beschreibt jeden Versuch genau. Nur dessen menschlicher Anlass bleibt ihr fern.",
+        "gives_clues": [
+          "bha_53_c3"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_53_start"
+          }
+        ]
+      },
+      "bha_53_lesen4": {
+        "text": "Die Freigabe trägt ihre heutige Unterschrift. Früherer Verlust erklärt nicht die heutige Erlaubnis.",
+        "gives_clues": [
+          "bha_53_c4"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_53_start"
+          }
+        ]
+      },
+      "bha_53_start": {
+        "text": "Die Ärztin ohne Trauer. Du legst die Quellen getrennt vor dich; eine saubere Abschrift ersetzt noch keinen zweiten Beleg.",
+        "choices": [
+          {
+            "text": "Greavesends Akte",
+            "next": "bha_53_lesen1"
+          },
+          {
+            "text": "Unterschriebene Widerrufe",
+            "next": "bha_53_lesen2"
+          },
+          {
+            "text": "Erinnerte Abläufe",
+            "next": "bha_53_lesen3"
+          },
+          {
+            "text": "Plan zur Massenaussaat",
+            "next": "bha_53_lesen4"
+          },
+          {
+            "text": "Den Schluss festhalten.",
+            "next": "bha_53_schluss",
+            "requires_conclusions": [
+              "bha_53_d"
+            ],
+            "hide_if_flags": [
+              "bha_53_geschlossen"
+            ],
+            "requires_flags": [
+              "bha_verhoer_53_geklaert"
+            ]
+          },
+          {
+            "text": "Später weiterprüfen."
+          }
+        ]
+      },
+      "bha_53_schluss": {
+        "text": "Ihr Verlust erklärt ihre Kälte, entschuldigt aber nicht die bewusste Fortsetzung der Eingriffe. Du hältst fest, was belegt ist, und lässt die übrigen Fragen offen.",
+        "sets_flags": [
+          "bha_53_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_54_dialog": {
+    "start": "bha_54_start",
+    "nodes": {
+      "bha_54_lesen1": {
+        "text": "Unverbrauchte Reste laufen durch ein eigenes Rohr. Eine Rückgabe muss nicht die ganze Anlage speisen.",
+        "gives_clues": [
+          "bha_54_c1"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_54_start"
+          }
+        ]
+      },
+      "bha_54_lesen2": {
+        "text": "Die Versiegelungen halten. Ein Behälter kann außerhalb des Entnahmenetzes gekühlt werden.",
+        "gives_clues": [
+          "bha_54_c2"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_54_start"
+          }
+        ]
+      },
+      "bha_54_lesen3": {
+        "text": "Die Register behalten einzelne Wünsche. Kein Gesamturteil ersetzt sie.",
+        "gives_clues": [
+          "bha_54_c3"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_54_start"
+          }
+        ]
+      },
+      "bha_54_lesen4": {
+        "text": "Der gewöhnliche Kessel arbeitet bei gesperrter Aussaat weiter. Sein Brennstoff muss künftig bezahlt werden.",
+        "gives_clues": [
+          "bha_54_c4"
+        ],
+        "choices": [
+          {
+            "text": "Weiter prüfen.",
+            "next": "bha_54_start"
+          }
+        ]
+      },
+      "bha_54_start": {
+        "text": "Der letzte Hahn. Du legst die Quellen getrennt vor dich; eine saubere Abschrift ersetzt noch keinen zweiten Beleg.",
+        "choices": [
+          {
+            "text": "Getrenntes Rohr",
+            "next": "bha_54_lesen1"
+          },
+          {
+            "text": "Behälterprüfung",
+            "next": "bha_54_lesen2"
+          },
+          {
+            "text": "Entscheidungsabgleich",
+            "next": "bha_54_lesen3"
+          },
+          {
+            "text": "Reservewärme",
+            "next": "bha_54_lesen4"
+          },
+          {
+            "text": "Den Schluss festhalten.",
+            "next": "bha_54_schluss",
+            "requires_conclusions": [
+              "bha_54_d"
+            ],
+            "hide_if_flags": [
+              "bha_54_geschlossen"
+            ]
+          },
+          {
+            "text": "Später weiterprüfen."
+          }
+        ]
+      },
+      "bha_54_schluss": {
+        "text": "Vor der Verteilanlage prüfst du Behälter, Patientenentscheidungen und Reservewärme gemeinsam. Der letzte Hinweis ist das getrennte Rohr für die noch unverbrauchten Reste. Die Deduktion unterscheidet gezielte Rückgabe, sichere Aufbewahrung und endgültiges Vernichten; du entscheidest über Anlage und Kapsel, bevor eine weitere Aussaat beginnen kann. Du hältst fest, was belegt ist, und lässt die übrigen Fragen offen.",
+        "sets_flags": [
+          "bha_54_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_glasgaertner": {
+    "start": "bha_glasgaertner",
+    "nodes": {
+      "bha_glasgaertner": {
+        "text": "Der Weg wird von einer fremden Bewegung versperrt. Du erkennst eine Möglichkeit zum Eingriff, wenn du die Spuren verstanden hast.",
+        "choices": [
+          {
+            "text": "Die Schwäche nutzen.",
+            "next": "bha_glasgaertner_frieden",
+            "requires_clues": [
+              "bha_24_c3"
+            ]
+          },
+          {
+            "text": "Den Weg im Kampf sichern.",
+            "next": "bha_glasgaertner_kampf"
+          },
+          {
+            "text": "Nach dem Sieg die Proben sichern.",
+            "next": "bha_glasgaertner_sieg",
+            "requires_flags": [
+              "won_vg_bh_boss_glasgaertner"
+            ]
+          },
+          {
+            "text": "Zum sicheren Eingang zurück."
+          }
+        ]
+      },
+      "bha_glasgaertner_frieden": {
+        "text": "Du löst die Veredelungsfäden an den äußeren Knoten. Die Schere sinkt, ohne einen lebenden Stängel zu schneiden.",
+        "sets_flags": [
+          "bha_glasgaertner_friedlich",
+          "bha_glasgaertner_geloest"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_glasgaertner_kampf": {
+        "text": "Du lässt die Proben hinter der Markierung. Erst dann trittst du in den Bereich der angekündigten Schläge.",
+        "encounter": "vg_bh_boss_glasgaertner",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_glasgaertner_sieg": {
+        "text": "Der Zugriff auf den Durchgang ist gebrochen. Du sicherst die Proben; niemand ist dadurch von den Toten zurückgekehrt.",
+        "sets_flags": [
+          "bha_glasgaertner_geloest"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_atemkessel": {
+    "start": "bha_atemkessel",
+    "nodes": {
+      "bha_atemkessel": {
+        "text": "Der Weg wird von einer fremden Bewegung versperrt. Du erkennst eine Möglichkeit zum Eingriff, wenn du die Spuren verstanden hast.",
+        "choices": [
+          {
+            "text": "Die Schwäche nutzen.",
+            "next": "bha_atemkessel_frieden",
+            "requires_clues": [
+              "bha_34_c3"
+            ]
+          },
+          {
+            "text": "Den Weg im Kampf sichern.",
+            "next": "bha_atemkessel_kampf"
+          },
+          {
+            "text": "Nach dem Sieg die Proben sichern.",
+            "next": "bha_atemkessel_sieg",
+            "requires_flags": [
+              "won_vg_bh_boss_waescherei"
+            ]
+          },
+          {
+            "text": "Zum sicheren Eingang zurück."
+          }
+        ]
+      },
+      "bha_atemkessel_frieden": {
+        "text": "Du öffnest den Rücklauf statt der Zufuhr. Die Tücher fallen auseinander, und hinter dem Kessel wird die Tür sichtbar.",
+        "sets_flags": [
+          "bha_atemkessel_friedlich",
+          "bha_atemkessel_geloest"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_atemkessel_kampf": {
+        "text": "Du lässt die Proben hinter der Markierung. Erst dann trittst du in den Bereich der angekündigten Schläge.",
+        "encounter": "vg_bh_boss_waescherei",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_atemkessel_sieg": {
+        "text": "Der Zugriff auf den Durchgang ist gebrochen. Du sicherst die Proben; niemand ist dadurch von den Toten zurückgekehrt.",
+        "sets_flags": [
+          "bha_atemkessel_geloest"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_bluetenmund": {
+    "start": "bha_bluetenmund",
+    "nodes": {
+      "bha_bluetenmund": {
+        "text": "Der Weg wird von einer fremden Bewegung versperrt. Du erkennst eine Möglichkeit zum Eingriff, wenn du die Spuren verstanden hast.",
+        "choices": [
+          {
+            "text": "Die Schwäche nutzen.",
+            "next": "bha_bluetenmund_frieden",
+            "requires_clues": [
+              "bha_52_c3"
+            ]
+          },
+          {
+            "text": "Den Weg im Kampf sichern.",
+            "next": "bha_bluetenmund_kampf"
+          },
+          {
+            "text": "Nach dem Sieg die Proben sichern.",
+            "next": "bha_bluetenmund_sieg",
+            "requires_flags": [
+              "won_vg_bh_boss_mutterwurzel"
+            ]
+          },
+          {
+            "text": "Zum sicheren Eingang zurück."
+          }
+        ]
+      },
+      "bha_bluetenmund_frieden": {
+        "text": "Du trennst die Beschriftungen von den lebenden Wurzeln. Die versiegelten Proben bleiben bei ihren Namen; der örtliche Mund schließt sich.",
+        "sets_flags": [
+          "bha_bluetenmund_friedlich",
+          "bha_bluetenmund_geloest"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_bluetenmund_kampf": {
+        "text": "Du lässt die Proben hinter der Markierung. Erst dann trittst du in den Bereich der angekündigten Schläge.",
+        "encounter": "vg_bh_boss_mutterwurzel",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_bluetenmund_sieg": {
+        "text": "Der Zugriff auf den Durchgang ist gebrochen. Du sicherst die Proben; niemand ist dadurch von den Toten zurückgekehrt.",
+        "sets_flags": [
+          "bha_bluetenmund_geloest"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_ventil_hof": {
+    "start": "bha_ventil_hof",
+    "nodes": {
+      "bha_ventil_hof": {
+        "text": "Die Tafel nennt Gepäckhalle als Überschusskreis. Wohnräume bleiben grundversorgt; Rücklauf und Wärme sind getrennte Schalter. Wärme ersetzt die anderen drei Kreise dieser Bank. Behälter bewahren getrennte Reste, Klinik führt sie zum Anschluss zurück, das leere Gebäude sperrt einen Wartungsraum und kostet zwei Nerven; Frost bringt dich zurück.",
+        "choices": [
+          {
+            "text": "Wärmewechsel bestätigen.",
+            "next": "bha_ventil_hof_warm"
+          },
+          {
+            "text": "Überschuss schließen: bestätigen.",
+            "next": "bha_ventil_hof_kalt"
+          },
+          {
+            "text": "Behälter-Rücklauf bestätigen.",
+            "next": "bha_ventil_hof_behaelter"
+          },
+          {
+            "text": "Klinik-Rücklauf bestätigen.",
+            "next": "bha_ventil_hof_klinik"
+          },
+          {
+            "text": "Leeres Gebäude: Folge bestätigen.",
+            "next": "bha_ventil_hof_leer"
+          },
+          {
+            "text": "Abbrechen."
+          }
+        ]
+      },
+      "bha_ventil_hof_warm": {
+        "text": "Du öffnest den Überschusskreis für Gepäckhalle. Der Zeiger steigt erst nach deinem bestätigten Handgriff.",
+        "sets_flags": [
+          "bha_ventil_hof_offen"
+        ],
+        "clears_flags": [
+          "bha_ventil_pult_offen",
+          "bha_ventil_tee_offen",
+          "bha_ventil_palm_offen",
+          "bha_ventil_hof_zu"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_hof_kalt": {
+        "text": "Du schließt den Überschuss für Gepäckhalle. Der Wohnungsbogen bleibt davon unberührt.",
+        "sets_flags": [
+          "bha_ventil_hof_zu"
+        ],
+        "clears_flags": [
+          "bha_ventil_hof_offen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_hof_behaelter": {
+        "text": "Die belasteten Reste bleiben versiegelt und getrennt. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_hof_behaelter"
+        ],
+        "clears_flags": [
+          "bha_ventil_hof_klinik",
+          "bha_ventil_hof_leer"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_hof_klinik": {
+        "text": "Die Reste gelangen zurück an den Klinikanschluss, nicht automatisch zu Patienten. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_hof_klinik"
+        ],
+        "clears_flags": [
+          "bha_ventil_hof_behaelter",
+          "bha_ventil_hof_leer"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_hof_leer": {
+        "text": "Kondensat sperrt kurz den leeren Wartungsraum; Frost führt dich sicher zurück. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_hof_leer"
+        ],
+        "clears_flags": [
+          "bha_ventil_hof_behaelter",
+          "bha_ventil_hof_klinik"
+        ],
+        "nerves": -2,
+        "travel": {
+          "map": "bh_buegelraum",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_ventil_pult": {
+    "start": "bha_ventil_pult",
+    "nodes": {
+      "bha_ventil_pult": {
+        "text": "Die Tafel nennt Schreiberpult als Überschusskreis. Wohnräume bleiben grundversorgt; Rücklauf und Wärme sind getrennte Schalter. Wärme ersetzt die anderen drei Kreise dieser Bank. Behälter bewahren getrennte Reste, Klinik führt sie zum Anschluss zurück, das leere Gebäude sperrt einen Wartungsraum und kostet zwei Nerven; Frost bringt dich zurück.",
+        "choices": [
+          {
+            "text": "Wärmewechsel bestätigen.",
+            "next": "bha_ventil_pult_warm"
+          },
+          {
+            "text": "Überschuss schließen: bestätigen.",
+            "next": "bha_ventil_pult_kalt"
+          },
+          {
+            "text": "Behälter-Rücklauf bestätigen.",
+            "next": "bha_ventil_pult_behaelter"
+          },
+          {
+            "text": "Klinik-Rücklauf bestätigen.",
+            "next": "bha_ventil_pult_klinik"
+          },
+          {
+            "text": "Leeres Gebäude: Folge bestätigen.",
+            "next": "bha_ventil_pult_leer"
+          },
+          {
+            "text": "Abbrechen."
+          }
+        ]
+      },
+      "bha_ventil_pult_warm": {
+        "text": "Du öffnest den Überschusskreis für Schreiberpult. Der Zeiger steigt erst nach deinem bestätigten Handgriff.",
+        "sets_flags": [
+          "bha_ventil_pult_offen"
+        ],
+        "clears_flags": [
+          "bha_ventil_hof_offen",
+          "bha_ventil_tee_offen",
+          "bha_ventil_palm_offen",
+          "bha_ventil_pult_zu"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_pult_kalt": {
+        "text": "Du schließt den Überschuss für Schreiberpult. Der Wohnungsbogen bleibt davon unberührt.",
+        "sets_flags": [
+          "bha_ventil_pult_zu"
+        ],
+        "clears_flags": [
+          "bha_ventil_pult_offen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_pult_behaelter": {
+        "text": "Die belasteten Reste bleiben versiegelt und getrennt. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_pult_behaelter"
+        ],
+        "clears_flags": [
+          "bha_ventil_pult_klinik",
+          "bha_ventil_pult_leer"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_pult_klinik": {
+        "text": "Die Reste gelangen zurück an den Klinikanschluss, nicht automatisch zu Patienten. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_pult_klinik"
+        ],
+        "clears_flags": [
+          "bha_ventil_pult_behaelter",
+          "bha_ventil_pult_leer"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_pult_leer": {
+        "text": "Kondensat sperrt kurz den leeren Wartungsraum; Frost führt dich sicher zurück. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_pult_leer"
+        ],
+        "clears_flags": [
+          "bha_ventil_pult_behaelter",
+          "bha_ventil_pult_klinik"
+        ],
+        "nerves": -2,
+        "travel": {
+          "map": "bh_buegelraum",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_ventil_tee": {
+    "start": "bha_ventil_tee",
+    "nodes": {
+      "bha_ventil_tee": {
+        "text": "Die Tafel nennt Teeküche als Überschusskreis. Wohnräume bleiben grundversorgt; Rücklauf und Wärme sind getrennte Schalter. Wärme ersetzt die anderen drei Kreise dieser Bank. Behälter bewahren getrennte Reste, Klinik führt sie zum Anschluss zurück, das leere Gebäude sperrt einen Wartungsraum und kostet zwei Nerven; Frost bringt dich zurück.",
+        "choices": [
+          {
+            "text": "Wärmewechsel bestätigen.",
+            "next": "bha_ventil_tee_warm"
+          },
+          {
+            "text": "Überschuss schließen: bestätigen.",
+            "next": "bha_ventil_tee_kalt"
+          },
+          {
+            "text": "Behälter-Rücklauf bestätigen.",
+            "next": "bha_ventil_tee_behaelter"
+          },
+          {
+            "text": "Klinik-Rücklauf bestätigen.",
+            "next": "bha_ventil_tee_klinik"
+          },
+          {
+            "text": "Leeres Gebäude: Folge bestätigen.",
+            "next": "bha_ventil_tee_leer"
+          },
+          {
+            "text": "Abbrechen."
+          }
+        ]
+      },
+      "bha_ventil_tee_warm": {
+        "text": "Du öffnest den Überschusskreis für Teeküche. Der Zeiger steigt erst nach deinem bestätigten Handgriff.",
+        "sets_flags": [
+          "bha_ventil_tee_offen"
+        ],
+        "clears_flags": [
+          "bha_ventil_hof_offen",
+          "bha_ventil_pult_offen",
+          "bha_ventil_palm_offen",
+          "bha_ventil_tee_zu"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_tee_kalt": {
+        "text": "Du schließt den Überschuss für Teeküche. Der Wohnungsbogen bleibt davon unberührt.",
+        "sets_flags": [
+          "bha_ventil_tee_zu"
+        ],
+        "clears_flags": [
+          "bha_ventil_tee_offen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_tee_behaelter": {
+        "text": "Die belasteten Reste bleiben versiegelt und getrennt. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_tee_behaelter"
+        ],
+        "clears_flags": [
+          "bha_ventil_tee_klinik",
+          "bha_ventil_tee_leer"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_tee_klinik": {
+        "text": "Die Reste gelangen zurück an den Klinikanschluss, nicht automatisch zu Patienten. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_tee_klinik"
+        ],
+        "clears_flags": [
+          "bha_ventil_tee_behaelter",
+          "bha_ventil_tee_leer"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_tee_leer": {
+        "text": "Kondensat sperrt kurz den leeren Wartungsraum; Frost führt dich sicher zurück. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_tee_leer"
+        ],
+        "clears_flags": [
+          "bha_ventil_tee_behaelter",
+          "bha_ventil_tee_klinik"
+        ],
+        "nerves": -2,
+        "travel": {
+          "map": "bh_buegelraum",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_ventil_palm": {
+    "start": "bha_ventil_palm",
+    "nodes": {
+      "bha_ventil_palm": {
+        "text": "Die Tafel nennt Palmhaustür als Überschusskreis. Wohnräume bleiben grundversorgt; Rücklauf und Wärme sind getrennte Schalter. Wärme ersetzt die anderen drei Kreise dieser Bank. Behälter bewahren getrennte Reste, Klinik führt sie zum Anschluss zurück, das leere Gebäude sperrt einen Wartungsraum und kostet zwei Nerven; Frost bringt dich zurück.",
+        "choices": [
+          {
+            "text": "Wärmewechsel bestätigen.",
+            "next": "bha_ventil_palm_warm"
+          },
+          {
+            "text": "Überschuss schließen: bestätigen.",
+            "next": "bha_ventil_palm_kalt"
+          },
+          {
+            "text": "Behälter-Rücklauf bestätigen.",
+            "next": "bha_ventil_palm_behaelter"
+          },
+          {
+            "text": "Klinik-Rücklauf bestätigen.",
+            "next": "bha_ventil_palm_klinik"
+          },
+          {
+            "text": "Leeres Gebäude: Folge bestätigen.",
+            "next": "bha_ventil_palm_leer"
+          },
+          {
+            "text": "Abbrechen."
+          }
+        ]
+      },
+      "bha_ventil_palm_warm": {
+        "text": "Du öffnest den Überschusskreis für Palmhaustür. Der Zeiger steigt erst nach deinem bestätigten Handgriff.",
+        "sets_flags": [
+          "bha_ventil_palm_offen"
+        ],
+        "clears_flags": [
+          "bha_ventil_hof_offen",
+          "bha_ventil_pult_offen",
+          "bha_ventil_tee_offen",
+          "bha_ventil_palm_zu"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_palm_kalt": {
+        "text": "Du schließt den Überschuss für Palmhaustür. Der Wohnungsbogen bleibt davon unberührt.",
+        "sets_flags": [
+          "bha_ventil_palm_zu"
+        ],
+        "clears_flags": [
+          "bha_ventil_palm_offen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_palm_behaelter": {
+        "text": "Die belasteten Reste bleiben versiegelt und getrennt. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_palm_behaelter"
+        ],
+        "clears_flags": [
+          "bha_ventil_palm_klinik",
+          "bha_ventil_palm_leer"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_palm_klinik": {
+        "text": "Die Reste gelangen zurück an den Klinikanschluss, nicht automatisch zu Patienten. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_palm_klinik"
+        ],
+        "clears_flags": [
+          "bha_ventil_palm_behaelter",
+          "bha_ventil_palm_leer"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_palm_leer": {
+        "text": "Kondensat sperrt kurz den leeren Wartungsraum; Frost führt dich sicher zurück. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_palm_leer"
+        ],
+        "clears_flags": [
+          "bha_ventil_palm_behaelter",
+          "bha_ventil_palm_klinik"
+        ],
+        "nerves": -2,
+        "travel": {
+          "map": "bh_buegelraum",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_ventil_beete": {
+    "start": "bha_ventil_beete",
+    "nodes": {
+      "bha_ventil_beete": {
+        "text": "Die Tafel nennt Versuchsbeete als Überschusskreis. Wohnräume bleiben grundversorgt; Rücklauf und Wärme sind getrennte Schalter. Wärme ersetzt die anderen drei Kreise dieser Bank. Behälter bewahren getrennte Reste, Klinik führt sie zum Anschluss zurück, das leere Gebäude sperrt einen Wartungsraum und kostet zwei Nerven; Frost bringt dich zurück.",
+        "choices": [
+          {
+            "text": "Wärmewechsel bestätigen.",
+            "next": "bha_ventil_beete_warm"
+          },
+          {
+            "text": "Überschuss schließen: bestätigen.",
+            "next": "bha_ventil_beete_kalt"
+          },
+          {
+            "text": "Behälter-Rücklauf bestätigen.",
+            "next": "bha_ventil_beete_behaelter"
+          },
+          {
+            "text": "Klinik-Rücklauf bestätigen.",
+            "next": "bha_ventil_beete_klinik"
+          },
+          {
+            "text": "Leeres Gebäude: Folge bestätigen.",
+            "next": "bha_ventil_beete_leer"
+          },
+          {
+            "text": "Abbrechen."
+          }
+        ]
+      },
+      "bha_ventil_beete_warm": {
+        "text": "Du öffnest den Überschusskreis für Versuchsbeete. Der Zeiger steigt erst nach deinem bestätigten Handgriff.",
+        "sets_flags": [
+          "bha_ventil_beete_offen"
+        ],
+        "clears_flags": [
+          "bha_ventil_akten_offen",
+          "bha_ventil_waesche_offen",
+          "bha_ventil_reserve_offen",
+          "bha_ventil_beete_zu"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_beete_kalt": {
+        "text": "Du schließt den Überschuss für Versuchsbeete. Der Wohnungsbogen bleibt davon unberührt.",
+        "sets_flags": [
+          "bha_ventil_beete_zu"
+        ],
+        "clears_flags": [
+          "bha_ventil_beete_offen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_beete_behaelter": {
+        "text": "Die belasteten Reste bleiben versiegelt und getrennt. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_beete_behaelter"
+        ],
+        "clears_flags": [
+          "bha_ventil_beete_klinik",
+          "bha_ventil_beete_leer"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_beete_klinik": {
+        "text": "Die Reste gelangen zurück an den Klinikanschluss, nicht automatisch zu Patienten. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_beete_klinik"
+        ],
+        "clears_flags": [
+          "bha_ventil_beete_behaelter",
+          "bha_ventil_beete_leer"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_beete_leer": {
+        "text": "Kondensat sperrt kurz den leeren Wartungsraum; Frost führt dich sicher zurück. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_beete_leer"
+        ],
+        "clears_flags": [
+          "bha_ventil_beete_behaelter",
+          "bha_ventil_beete_klinik"
+        ],
+        "nerves": -2,
+        "travel": {
+          "map": "bh_buegelraum",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_ventil_akten": {
+    "start": "bha_ventil_akten",
+    "nodes": {
+      "bha_ventil_akten": {
+        "text": "Die Tafel nennt Archivgang als Überschusskreis. Wohnräume bleiben grundversorgt; Rücklauf und Wärme sind getrennte Schalter. Wärme ersetzt die anderen drei Kreise dieser Bank. Behälter bewahren getrennte Reste, Klinik führt sie zum Anschluss zurück, das leere Gebäude sperrt einen Wartungsraum und kostet zwei Nerven; Frost bringt dich zurück.",
+        "choices": [
+          {
+            "text": "Wärmewechsel bestätigen.",
+            "next": "bha_ventil_akten_warm"
+          },
+          {
+            "text": "Überschuss schließen: bestätigen.",
+            "next": "bha_ventil_akten_kalt"
+          },
+          {
+            "text": "Behälter-Rücklauf bestätigen.",
+            "next": "bha_ventil_akten_behaelter"
+          },
+          {
+            "text": "Klinik-Rücklauf bestätigen.",
+            "next": "bha_ventil_akten_klinik"
+          },
+          {
+            "text": "Leeres Gebäude: Folge bestätigen.",
+            "next": "bha_ventil_akten_leer"
+          },
+          {
+            "text": "Abbrechen."
+          }
+        ]
+      },
+      "bha_ventil_akten_warm": {
+        "text": "Du öffnest den Überschusskreis für Archivgang. Der Zeiger steigt erst nach deinem bestätigten Handgriff.",
+        "sets_flags": [
+          "bha_ventil_akten_offen"
+        ],
+        "clears_flags": [
+          "bha_ventil_beete_offen",
+          "bha_ventil_waesche_offen",
+          "bha_ventil_reserve_offen",
+          "bha_ventil_akten_zu"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_akten_kalt": {
+        "text": "Du schließt den Überschuss für Archivgang. Der Wohnungsbogen bleibt davon unberührt.",
+        "sets_flags": [
+          "bha_ventil_akten_zu"
+        ],
+        "clears_flags": [
+          "bha_ventil_akten_offen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_akten_behaelter": {
+        "text": "Die belasteten Reste bleiben versiegelt und getrennt. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_akten_behaelter"
+        ],
+        "clears_flags": [
+          "bha_ventil_akten_klinik",
+          "bha_ventil_akten_leer"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_akten_klinik": {
+        "text": "Die Reste gelangen zurück an den Klinikanschluss, nicht automatisch zu Patienten. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_akten_klinik"
+        ],
+        "clears_flags": [
+          "bha_ventil_akten_behaelter",
+          "bha_ventil_akten_leer"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_akten_leer": {
+        "text": "Kondensat sperrt kurz den leeren Wartungsraum; Frost führt dich sicher zurück. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_akten_leer"
+        ],
+        "clears_flags": [
+          "bha_ventil_akten_behaelter",
+          "bha_ventil_akten_klinik"
+        ],
+        "nerves": -2,
+        "travel": {
+          "map": "bh_buegelraum",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_ventil_waesche": {
+    "start": "bha_ventil_waesche",
+    "nodes": {
+      "bha_ventil_waesche": {
+        "text": "Die Tafel nennt Trockenraum als Überschusskreis. Wohnräume bleiben grundversorgt; Rücklauf und Wärme sind getrennte Schalter. Wärme ersetzt die anderen drei Kreise dieser Bank. Behälter bewahren getrennte Reste, Klinik führt sie zum Anschluss zurück, das leere Gebäude sperrt einen Wartungsraum und kostet zwei Nerven; Frost bringt dich zurück.",
+        "choices": [
+          {
+            "text": "Wärmewechsel bestätigen.",
+            "next": "bha_ventil_waesche_warm"
+          },
+          {
+            "text": "Überschuss schließen: bestätigen.",
+            "next": "bha_ventil_waesche_kalt"
+          },
+          {
+            "text": "Behälter-Rücklauf bestätigen.",
+            "next": "bha_ventil_waesche_behaelter"
+          },
+          {
+            "text": "Klinik-Rücklauf bestätigen.",
+            "next": "bha_ventil_waesche_klinik"
+          },
+          {
+            "text": "Leeres Gebäude: Folge bestätigen.",
+            "next": "bha_ventil_waesche_leer"
+          },
+          {
+            "text": "Abbrechen."
+          }
+        ]
+      },
+      "bha_ventil_waesche_warm": {
+        "text": "Du öffnest den Überschusskreis für Trockenraum. Der Zeiger steigt erst nach deinem bestätigten Handgriff.",
+        "sets_flags": [
+          "bha_ventil_waesche_offen"
+        ],
+        "clears_flags": [
+          "bha_ventil_beete_offen",
+          "bha_ventil_akten_offen",
+          "bha_ventil_reserve_offen",
+          "bha_ventil_waesche_zu"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_waesche_kalt": {
+        "text": "Du schließt den Überschuss für Trockenraum. Der Wohnungsbogen bleibt davon unberührt.",
+        "sets_flags": [
+          "bha_ventil_waesche_zu"
+        ],
+        "clears_flags": [
+          "bha_ventil_waesche_offen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_waesche_behaelter": {
+        "text": "Die belasteten Reste bleiben versiegelt und getrennt. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_waesche_behaelter"
+        ],
+        "clears_flags": [
+          "bha_ventil_waesche_klinik",
+          "bha_ventil_waesche_leer"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_waesche_klinik": {
+        "text": "Die Reste gelangen zurück an den Klinikanschluss, nicht automatisch zu Patienten. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_waesche_klinik"
+        ],
+        "clears_flags": [
+          "bha_ventil_waesche_behaelter",
+          "bha_ventil_waesche_leer"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_waesche_leer": {
+        "text": "Kondensat sperrt kurz den leeren Wartungsraum; Frost führt dich sicher zurück. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_waesche_leer"
+        ],
+        "clears_flags": [
+          "bha_ventil_waesche_behaelter",
+          "bha_ventil_waesche_klinik"
+        ],
+        "nerves": -2,
+        "travel": {
+          "map": "bh_buegelraum",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_ventil_reserve": {
+    "start": "bha_ventil_reserve",
+    "nodes": {
+      "bha_ventil_reserve": {
+        "text": "Die Tafel nennt Reservebogen als Überschusskreis. Wohnräume bleiben grundversorgt; Rücklauf und Wärme sind getrennte Schalter. Wärme ersetzt die anderen drei Kreise dieser Bank. Behälter bewahren getrennte Reste, Klinik führt sie zum Anschluss zurück, das leere Gebäude sperrt einen Wartungsraum und kostet zwei Nerven; Frost bringt dich zurück.",
+        "choices": [
+          {
+            "text": "Wärmewechsel bestätigen.",
+            "next": "bha_ventil_reserve_warm"
+          },
+          {
+            "text": "Überschuss schließen: bestätigen.",
+            "next": "bha_ventil_reserve_kalt"
+          },
+          {
+            "text": "Behälter-Rücklauf bestätigen.",
+            "next": "bha_ventil_reserve_behaelter"
+          },
+          {
+            "text": "Klinik-Rücklauf bestätigen.",
+            "next": "bha_ventil_reserve_klinik"
+          },
+          {
+            "text": "Leeres Gebäude: Folge bestätigen.",
+            "next": "bha_ventil_reserve_leer"
+          },
+          {
+            "text": "Abbrechen."
+          }
+        ]
+      },
+      "bha_ventil_reserve_warm": {
+        "text": "Du öffnest den Überschusskreis für Reservebogen. Der Zeiger steigt erst nach deinem bestätigten Handgriff.",
+        "sets_flags": [
+          "bha_ventil_reserve_offen"
+        ],
+        "clears_flags": [
+          "bha_ventil_beete_offen",
+          "bha_ventil_akten_offen",
+          "bha_ventil_waesche_offen",
+          "bha_ventil_reserve_zu"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_reserve_kalt": {
+        "text": "Du schließt den Überschuss für Reservebogen. Der Wohnungsbogen bleibt davon unberührt.",
+        "sets_flags": [
+          "bha_ventil_reserve_zu"
+        ],
+        "clears_flags": [
+          "bha_ventil_reserve_offen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_reserve_behaelter": {
+        "text": "Die belasteten Reste bleiben versiegelt und getrennt. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_reserve_behaelter"
+        ],
+        "clears_flags": [
+          "bha_ventil_reserve_klinik",
+          "bha_ventil_reserve_leer"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_reserve_klinik": {
+        "text": "Die Reste gelangen zurück an den Klinikanschluss, nicht automatisch zu Patienten. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_reserve_klinik"
+        ],
+        "clears_flags": [
+          "bha_ventil_reserve_behaelter",
+          "bha_ventil_reserve_leer"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_reserve_leer": {
+        "text": "Kondensat sperrt kurz den leeren Wartungsraum; Frost führt dich sicher zurück. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_reserve_leer"
+        ],
+        "clears_flags": [
+          "bha_ventil_reserve_behaelter",
+          "bha_ventil_reserve_klinik"
+        ],
+        "nerves": -2,
+        "travel": {
+          "map": "bh_buegelraum",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_ventil_labor": {
+    "start": "bha_ventil_labor",
+    "nodes": {
+      "bha_ventil_labor": {
+        "text": "Die Tafel nennt Laborbank als Überschusskreis. Wohnräume bleiben grundversorgt; Rücklauf und Wärme sind getrennte Schalter. Wärme ersetzt die anderen drei Kreise dieser Bank. Behälter bewahren getrennte Reste, Klinik führt sie zum Anschluss zurück, das leere Gebäude sperrt einen Wartungsraum und kostet zwei Nerven; Frost bringt dich zurück.",
+        "choices": [
+          {
+            "text": "Wärmewechsel bestätigen.",
+            "next": "bha_ventil_labor_warm"
+          },
+          {
+            "text": "Überschuss schließen: bestätigen.",
+            "next": "bha_ventil_labor_kalt"
+          },
+          {
+            "text": "Behälter-Rücklauf bestätigen.",
+            "next": "bha_ventil_labor_behaelter"
+          },
+          {
+            "text": "Klinik-Rücklauf bestätigen.",
+            "next": "bha_ventil_labor_klinik"
+          },
+          {
+            "text": "Leeres Gebäude: Folge bestätigen.",
+            "next": "bha_ventil_labor_leer"
+          },
+          {
+            "text": "Abbrechen."
+          }
+        ]
+      },
+      "bha_ventil_labor_warm": {
+        "text": "Du öffnest den Überschusskreis für Laborbank. Der Zeiger steigt erst nach deinem bestätigten Handgriff.",
+        "sets_flags": [
+          "bha_ventil_labor_offen"
+        ],
+        "clears_flags": [
+          "bha_ventil_wurzel_offen",
+          "bha_ventil_kuehlung_offen",
+          "bha_ventil_klappe_offen",
+          "bha_ventil_labor_zu"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_labor_kalt": {
+        "text": "Du schließt den Überschuss für Laborbank. Der Wohnungsbogen bleibt davon unberührt.",
+        "sets_flags": [
+          "bha_ventil_labor_zu"
+        ],
+        "clears_flags": [
+          "bha_ventil_labor_offen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_labor_behaelter": {
+        "text": "Die belasteten Reste bleiben versiegelt und getrennt. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_labor_behaelter"
+        ],
+        "clears_flags": [
+          "bha_ventil_labor_klinik",
+          "bha_ventil_labor_leer"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_labor_klinik": {
+        "text": "Die Reste gelangen zurück an den Klinikanschluss, nicht automatisch zu Patienten. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_labor_klinik"
+        ],
+        "clears_flags": [
+          "bha_ventil_labor_behaelter",
+          "bha_ventil_labor_leer"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_labor_leer": {
+        "text": "Kondensat sperrt kurz den leeren Wartungsraum; Frost führt dich sicher zurück. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_labor_leer"
+        ],
+        "clears_flags": [
+          "bha_ventil_labor_behaelter",
+          "bha_ventil_labor_klinik"
+        ],
+        "nerves": -2,
+        "travel": {
+          "map": "bh_buegelraum",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_ventil_wurzel": {
+    "start": "bha_ventil_wurzel",
+    "nodes": {
+      "bha_ventil_wurzel": {
+        "text": "Die Tafel nennt Wartungssteg als Überschusskreis. Wohnräume bleiben grundversorgt; Rücklauf und Wärme sind getrennte Schalter. Wärme ersetzt die anderen drei Kreise dieser Bank. Behälter bewahren getrennte Reste, Klinik führt sie zum Anschluss zurück, das leere Gebäude sperrt einen Wartungsraum und kostet zwei Nerven; Frost bringt dich zurück.",
+        "choices": [
+          {
+            "text": "Wärmewechsel bestätigen.",
+            "next": "bha_ventil_wurzel_warm"
+          },
+          {
+            "text": "Überschuss schließen: bestätigen.",
+            "next": "bha_ventil_wurzel_kalt"
+          },
+          {
+            "text": "Behälter-Rücklauf bestätigen.",
+            "next": "bha_ventil_wurzel_behaelter"
+          },
+          {
+            "text": "Klinik-Rücklauf bestätigen.",
+            "next": "bha_ventil_wurzel_klinik"
+          },
+          {
+            "text": "Leeres Gebäude: Folge bestätigen.",
+            "next": "bha_ventil_wurzel_leer"
+          },
+          {
+            "text": "Abbrechen."
+          }
+        ]
+      },
+      "bha_ventil_wurzel_warm": {
+        "text": "Du öffnest den Überschusskreis für Wartungssteg. Der Zeiger steigt erst nach deinem bestätigten Handgriff.",
+        "sets_flags": [
+          "bha_ventil_wurzel_offen"
+        ],
+        "clears_flags": [
+          "bha_ventil_labor_offen",
+          "bha_ventil_kuehlung_offen",
+          "bha_ventil_klappe_offen",
+          "bha_ventil_wurzel_zu"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_wurzel_kalt": {
+        "text": "Du schließt den Überschuss für Wartungssteg. Der Wohnungsbogen bleibt davon unberührt.",
+        "sets_flags": [
+          "bha_ventil_wurzel_zu"
+        ],
+        "clears_flags": [
+          "bha_ventil_wurzel_offen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_wurzel_behaelter": {
+        "text": "Die belasteten Reste bleiben versiegelt und getrennt. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_wurzel_behaelter"
+        ],
+        "clears_flags": [
+          "bha_ventil_wurzel_klinik",
+          "bha_ventil_wurzel_leer"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_wurzel_klinik": {
+        "text": "Die Reste gelangen zurück an den Klinikanschluss, nicht automatisch zu Patienten. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_wurzel_klinik"
+        ],
+        "clears_flags": [
+          "bha_ventil_wurzel_behaelter",
+          "bha_ventil_wurzel_leer"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_wurzel_leer": {
+        "text": "Kondensat sperrt kurz den leeren Wartungsraum; Frost führt dich sicher zurück. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_wurzel_leer"
+        ],
+        "clears_flags": [
+          "bha_ventil_wurzel_behaelter",
+          "bha_ventil_wurzel_klinik"
+        ],
+        "nerves": -2,
+        "travel": {
+          "map": "bh_buegelraum",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_ventil_kuehlung": {
+    "start": "bha_ventil_kuehlung",
+    "nodes": {
+      "bha_ventil_kuehlung": {
+        "text": "Die Tafel nennt Kühlstrecke als Überschusskreis. Wohnräume bleiben grundversorgt; Rücklauf und Wärme sind getrennte Schalter. Wärme ersetzt die anderen drei Kreise dieser Bank. Behälter bewahren getrennte Reste, Klinik führt sie zum Anschluss zurück, das leere Gebäude sperrt einen Wartungsraum und kostet zwei Nerven; Frost bringt dich zurück.",
+        "choices": [
+          {
+            "text": "Wärmewechsel bestätigen.",
+            "next": "bha_ventil_kuehlung_warm"
+          },
+          {
+            "text": "Überschuss schließen: bestätigen.",
+            "next": "bha_ventil_kuehlung_kalt"
+          },
+          {
+            "text": "Behälter-Rücklauf bestätigen.",
+            "next": "bha_ventil_kuehlung_behaelter"
+          },
+          {
+            "text": "Klinik-Rücklauf bestätigen.",
+            "next": "bha_ventil_kuehlung_klinik"
+          },
+          {
+            "text": "Leeres Gebäude: Folge bestätigen.",
+            "next": "bha_ventil_kuehlung_leer"
+          },
+          {
+            "text": "Abbrechen."
+          }
+        ]
+      },
+      "bha_ventil_kuehlung_warm": {
+        "text": "Du öffnest den Überschusskreis für Kühlstrecke. Der Zeiger steigt erst nach deinem bestätigten Handgriff.",
+        "sets_flags": [
+          "bha_ventil_kuehlung_offen"
+        ],
+        "clears_flags": [
+          "bha_ventil_labor_offen",
+          "bha_ventil_wurzel_offen",
+          "bha_ventil_klappe_offen",
+          "bha_ventil_kuehlung_zu"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_kuehlung_kalt": {
+        "text": "Du schließt den Überschuss für Kühlstrecke. Der Wohnungsbogen bleibt davon unberührt.",
+        "sets_flags": [
+          "bha_ventil_kuehlung_zu"
+        ],
+        "clears_flags": [
+          "bha_ventil_kuehlung_offen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_kuehlung_behaelter": {
+        "text": "Die belasteten Reste bleiben versiegelt und getrennt. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_kuehlung_behaelter"
+        ],
+        "clears_flags": [
+          "bha_ventil_kuehlung_klinik",
+          "bha_ventil_kuehlung_leer"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_kuehlung_klinik": {
+        "text": "Die Reste gelangen zurück an den Klinikanschluss, nicht automatisch zu Patienten. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_kuehlung_klinik"
+        ],
+        "clears_flags": [
+          "bha_ventil_kuehlung_behaelter",
+          "bha_ventil_kuehlung_leer"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_kuehlung_leer": {
+        "text": "Kondensat sperrt kurz den leeren Wartungsraum; Frost führt dich sicher zurück. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_kuehlung_leer"
+        ],
+        "clears_flags": [
+          "bha_ventil_kuehlung_behaelter",
+          "bha_ventil_kuehlung_klinik"
+        ],
+        "nerves": -2,
+        "travel": {
+          "map": "bh_buegelraum",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_ventil_klappe": {
+    "start": "bha_ventil_klappe",
+    "nodes": {
+      "bha_ventil_klappe": {
+        "text": "Die Tafel nennt Sperrklappe als Überschusskreis. Wohnräume bleiben grundversorgt; Rücklauf und Wärme sind getrennte Schalter. Wärme ersetzt die anderen drei Kreise dieser Bank. Behälter bewahren getrennte Reste, Klinik führt sie zum Anschluss zurück, das leere Gebäude sperrt einen Wartungsraum und kostet zwei Nerven; Frost bringt dich zurück.",
+        "choices": [
+          {
+            "text": "Wärmewechsel bestätigen.",
+            "next": "bha_ventil_klappe_warm"
+          },
+          {
+            "text": "Überschuss schließen: bestätigen.",
+            "next": "bha_ventil_klappe_kalt"
+          },
+          {
+            "text": "Behälter-Rücklauf bestätigen.",
+            "next": "bha_ventil_klappe_behaelter"
+          },
+          {
+            "text": "Klinik-Rücklauf bestätigen.",
+            "next": "bha_ventil_klappe_klinik"
+          },
+          {
+            "text": "Leeres Gebäude: Folge bestätigen.",
+            "next": "bha_ventil_klappe_leer"
+          },
+          {
+            "text": "Abbrechen."
+          }
+        ]
+      },
+      "bha_ventil_klappe_warm": {
+        "text": "Du öffnest den Überschusskreis für Sperrklappe. Der Zeiger steigt erst nach deinem bestätigten Handgriff.",
+        "sets_flags": [
+          "bha_ventil_klappe_offen"
+        ],
+        "clears_flags": [
+          "bha_ventil_labor_offen",
+          "bha_ventil_wurzel_offen",
+          "bha_ventil_kuehlung_offen",
+          "bha_ventil_klappe_zu"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_klappe_kalt": {
+        "text": "Du schließt den Überschuss für Sperrklappe. Der Wohnungsbogen bleibt davon unberührt.",
+        "sets_flags": [
+          "bha_ventil_klappe_zu"
+        ],
+        "clears_flags": [
+          "bha_ventil_klappe_offen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_klappe_behaelter": {
+        "text": "Die belasteten Reste bleiben versiegelt und getrennt. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_klappe_behaelter"
+        ],
+        "clears_flags": [
+          "bha_ventil_klappe_klinik",
+          "bha_ventil_klappe_leer"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_klappe_klinik": {
+        "text": "Die Reste gelangen zurück an den Klinikanschluss, nicht automatisch zu Patienten. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_klappe_klinik"
+        ],
+        "clears_flags": [
+          "bha_ventil_klappe_behaelter",
+          "bha_ventil_klappe_leer"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_ventil_klappe_leer": {
+        "text": "Kondensat sperrt kurz den leeren Wartungsraum; Frost führt dich sicher zurück. Der Wartungsschrank enthält das nötige Dichtmaterial; alle Ventile bleiben erreichbar.",
+        "sets_flags": [
+          "bha_ventil_klappe_leer"
+        ],
+        "clears_flags": [
+          "bha_ventil_klappe_behaelter",
+          "bha_ventil_klappe_klinik"
+        ],
+        "nerves": -2,
+        "travel": {
+          "map": "bh_buegelraum",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_anreise_widerspruch": {
+    "start": "bha_anreise_widerspruch",
+    "nodes": {
+      "bha_anreise_widerspruch": {
+        "text": "Klammer hat ein Klinikangebot für die Folgen des Abgleichs erhalten. In der warmen Probe steckt Orlas Warnung.",
+        "choices": [
+          {
+            "text": "Der Spur nach Briarholt folgen.",
+            "next": "bha_anreise_widerspruch_reisen"
+          },
+          {
+            "text": "Noch hierbleiben."
+          }
+        ]
+      },
+      "bha_anreise_widerspruch_reisen": {
+        "text": "Die Postkutsche wartet auf dein Zeichen. Du nimmst die Probe mit und lässt den bisherigen Ausgang der Stadt unangetastet.",
+        "sets_flags": [
+          "bha_reise_frei"
+        ],
+        "travel": {
+          "map": "reise_landstrasse",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_anreise_amtsinhaber": {
+    "start": "bha_anreise_amtsinhaber",
+    "nodes": {
+      "bha_anreise_amtsinhaber": {
+        "text": "Setzlinge für den vertrockneten Ziergarten kommen an. Ein Schild trägt statt einer Sorte den Namen eines gelöschten Bürgers.",
+        "choices": [
+          {
+            "text": "Der Spur nach Briarholt folgen.",
+            "next": "bha_anreise_amtsinhaber_reisen"
+          },
+          {
+            "text": "Noch hierbleiben."
+          }
+        ]
+      },
+      "bha_anreise_amtsinhaber_reisen": {
+        "text": "Die Postkutsche wartet auf dein Zeichen. Du nimmst die Probe mit und lässt den bisherigen Ausgang der Stadt unangetastet.",
+        "sets_flags": [
+          "bha_reise_frei"
+        ],
+        "travel": {
+          "map": "reise_landstrasse",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_anreise_buecher": {
+    "start": "bha_anreise_buecher",
+    "nodes": {
+      "bha_anreise_buecher": {
+        "text": "Eine Händlerin zahlte Klammer am Ausweichbahnhof mit einem Pfirsich. Im Kern flüstert eine Stimme; auf der Kiste steht Orlas Name.",
+        "choices": [
+          {
+            "text": "Der Spur nach Briarholt folgen.",
+            "next": "bha_anreise_buecher_reisen"
+          },
+          {
+            "text": "Noch hierbleiben."
+          }
+        ]
+      },
+      "bha_anreise_buecher_reisen": {
+        "text": "Die Postkutsche wartet auf dein Zeichen. Du nimmst die Probe mit und lässt den bisherigen Ausgang der Stadt unangetastet.",
+        "sets_flags": [
+          "bha_reise_frei"
+        ],
+        "travel": {
+          "map": "reise_landstrasse",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_anreise_ordnung": {
+    "start": "bha_anreise_ordnung",
+    "nodes": {
+      "bha_anreise_ordnung": {
+        "text": "Die Klinik gratuliert dem geordneten Calderwick und lädt zur Erntevorführung. Unter dem warmen Mustersiegel steht: Es ist immer jemand darin.",
+        "choices": [
+          {
+            "text": "Der Spur nach Briarholt folgen.",
+            "next": "bha_anreise_ordnung_reisen"
+          },
+          {
+            "text": "Noch hierbleiben."
+          }
+        ]
+      },
+      "bha_anreise_ordnung_reisen": {
+        "text": "Die Postkutsche wartet auf dein Zeichen. Du nimmst die Probe mit und lässt den bisherigen Ausgang der Stadt unangetastet.",
+        "sets_flags": [
+          "bha_reise_frei"
+        ],
+        "travel": {
+          "map": "reise_landstrasse",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_anreise_dunscar": {
+    "start": "bha_anreise_dunscar",
+    "nodes": {
+      "bha_anreise_dunscar": {
+        "text": "Pfiffs Brief begleitet eine Probe aus einer Dunscarer Postkutsche. Unter der warmen Hülle steht Orla Fencrest; der Absender bittet, diesmal auch nach dem Preis der Hilfe zu fragen.",
+        "choices": [
+          {
+            "text": "Der Spur nach Briarholt folgen.",
+            "next": "bha_anreise_dunscar_reisen"
+          },
+          {
+            "text": "Noch hierbleiben."
+          }
+        ]
+      },
+      "bha_anreise_dunscar_reisen": {
+        "text": "Die Postkutsche wartet auf dein Zeichen. Du nimmst die Probe mit und lässt den bisherigen Ausgang der Stadt unangetastet.",
+        "sets_flags": [
+          "bha_reise_frei"
+        ],
+        "travel": {
+          "map": "reise_landstrasse",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_ankunft": {
+    "start": "bha_ankunft",
+    "nodes": {
+      "bha_ankunft": {
+        "text": "Die Kutsche hält unter einem niedrigen Dach. Aus einer Fuge schießt Dampf; ein Heizer zieht dich am Mantel auf trockenen Stein.",
+        "choices": [
+          {
+            "text": "Dem Heizer folgen.",
+            "next": "bha_ankunft_frost"
+          }
+        ]
+      },
+      "bha_ankunft_frost": {
+        "text": "„Frost. Nicht ans Rohr.“ Er zeigt dir den Bügelraum mit eigenem Ofen, Bett und Straßentür, bevor er nach deinem Auftrag fragt.",
+        "sets_flags": [
+          "k5_arrived"
+        ],
+        "start_quests": [
+          "bha_akt1"
+        ],
+        "travel": {
+          "map": "bh_buegelraum",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_landstrasse": {
+    "start": "bha_landstrasse",
+    "nodes": {
+      "bha_landstrasse": {
+        "text": "Der Kutscher nennt Briarholt als nächste Station. Die Probe bleibt warm, obwohl das Fenster beschlägt.",
+        "choices": [
+          {
+            "text": "Nach Briarholt weiterfahren.",
+            "next": "bha_landstrasse_weiter"
+          },
+          {
+            "text": "Noch warten."
+          }
+        ]
+      },
+      "bha_landstrasse_weiter": {
+        "text": "Die Räder erreichen gefrorenen Backstein. Hinter dem Dach des Kutschenhofs dampfen die ersten Rohre.",
+        "travel": {
+          "map": "bh_kutschenhof",
+          "spawn": "kutsche"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bha_patient_orla": {
+    "start": "bha_patient_orla",
+    "nodes": {
+      "bha_patient_orla_rueckgabe": {
+        "text": "„Ja, diesen zugeordneten Rest möchte ich zurück.“ Enna liest die Erklärung vor und wartet auf die persönliche Bestätigung.",
+        "sets_flags": [
+          "bha_rueckgabe_bha_patient_orla",
+          "bha_patient_orla_gefragt"
+        ],
+        "clears_flags": [
+          "bha_verwahrt_bha_patient_orla",
+          "bha_vernichtet_bha_patient_orla"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_patient_orla_verwahrt": {
+        "text": "„Dann vorerst verwahren. Ich möchte später erneut gefragt werden.“ Enna liest die Erklärung vor und wartet auf die persönliche Bestätigung.",
+        "sets_flags": [
+          "bha_verwahrt_bha_patient_orla",
+          "bha_patient_orla_gefragt"
+        ],
+        "clears_flags": [
+          "bha_rueckgabe_bha_patient_orla",
+          "bha_vernichtet_bha_patient_orla"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_patient_orla_vernichtet": {
+        "text": "„Ich verstehe, dass sie endgültig ist. Diesen Rest möchte ich nicht behalten.“ Enna liest die Erklärung vor und wartet auf die persönliche Bestätigung.",
+        "sets_flags": [
+          "bha_vernichtet_bha_patient_orla",
+          "bha_patient_orla_gefragt"
+        ],
+        "clears_flags": [
+          "bha_rueckgabe_bha_patient_orla",
+          "bha_verwahrt_bha_patient_orla"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_patient_orla": {
+        "text": "„Ich möchte meinen Rest zurück, sofern die Zuordnung stimmt.“ Du erklärst Rückgabe, widerrufbare Verwahrung und endgültigen Verlust ohne Behandlung. Ein zugeordneter Rest ist erhalten.",
+        "choices": [
+          {
+            "text": "Die Möglichkeit einer Rückgabe erklären.",
+            "next": "bha_patient_orla_rueckgabe"
+          },
+          {
+            "text": "Widerrufbare Verwahrung erklären.",
+            "next": "bha_patient_orla_verwahrt"
+          },
+          {
+            "text": "Endgültige Vernichtung erklären.",
+            "next": "bha_patient_orla_vernichtet"
+          },
+          {
+            "text": "Das Gespräch offenlassen."
+          }
+        ]
+      }
+    }
+  },
+  "bha_patient_frost": {
+    "start": "bha_patient_frost",
+    "nodes": {
+      "bha_patient_frost_verwahrt": {
+        "text": "„Für mich gibt es keinen erhaltenen Rest. Halte fest, dass ich darüber aufgeklärt bin.“ Enna liest die Erklärung vor und wartet auf die persönliche Bestätigung.",
+        "sets_flags": [
+          "bha_verwahrt_bha_patient_frost",
+          "bha_patient_frost_gefragt"
+        ],
+        "clears_flags": [
+          "bha_rueckgabe_bha_patient_frost",
+          "bha_vernichtet_bha_patient_frost"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_patient_frost_vernichtet": {
+        "text": "„Für mich gibt es keinen erhaltenen Rest. Halte fest, dass ich darüber aufgeklärt bin.“ Enna liest die Erklärung vor und wartet auf die persönliche Bestätigung.",
+        "sets_flags": [
+          "bha_vernichtet_bha_patient_frost",
+          "bha_patient_frost_gefragt"
+        ],
+        "clears_flags": [
+          "bha_rueckgabe_bha_patient_frost",
+          "bha_verwahrt_bha_patient_frost"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_patient_frost": {
+        "text": "„Für meinen Bruder ist kein Rest nachgewiesen. Schreib mir keine Hoffnung als Befund auf.“ Du erklärst Rückgabe, widerrufbare Verwahrung und endgültigen Verlust ohne Behandlung. Es ist kein eigener Rest nachgewiesen; hier wird nur die aufgeklärte Erklärung registriert.",
+        "choices": [
+          {
+            "text": "Widerrufbare Verwahrung erklären.",
+            "next": "bha_patient_frost_verwahrt"
+          },
+          {
+            "text": "Endgültige Vernichtung erklären.",
+            "next": "bha_patient_frost_vernichtet"
+          },
+          {
+            "text": "Das Gespräch offenlassen."
+          }
+        ]
+      }
+    }
+  },
+  "bha_patient_beatrice": {
+    "start": "bha_patient_beatrice",
+    "nodes": {
+      "bha_patient_beatrice_rueckgabe": {
+        "text": "„Ja, diesen zugeordneten Rest möchte ich zurück.“ Enna liest die Erklärung vor und wartet auf die persönliche Bestätigung.",
+        "sets_flags": [
+          "bha_rueckgabe_bha_patient_beatrice",
+          "bha_patient_beatrice_gefragt"
+        ],
+        "clears_flags": [
+          "bha_verwahrt_bha_patient_beatrice",
+          "bha_vernichtet_bha_patient_beatrice"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_patient_beatrice_verwahrt": {
+        "text": "„Dann vorerst verwahren. Ich möchte später erneut gefragt werden.“ Enna liest die Erklärung vor und wartet auf die persönliche Bestätigung.",
+        "sets_flags": [
+          "bha_verwahrt_bha_patient_beatrice",
+          "bha_patient_beatrice_gefragt"
+        ],
+        "clears_flags": [
+          "bha_rueckgabe_bha_patient_beatrice",
+          "bha_vernichtet_bha_patient_beatrice"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_patient_beatrice_vernichtet": {
+        "text": "„Ich verstehe, dass sie endgültig ist. Diesen Rest möchte ich nicht behalten.“ Enna liest die Erklärung vor und wartet auf die persönliche Bestätigung.",
+        "sets_flags": [
+          "bha_vernichtet_bha_patient_beatrice",
+          "bha_patient_beatrice_gefragt"
+        ],
+        "clears_flags": [
+          "bha_rueckgabe_bha_patient_beatrice",
+          "bha_verwahrt_bha_patient_beatrice"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_patient_beatrice": {
+        "text": "„Vielleicht will ich nachsehen. Lies mir zuerst vor, was sicher zu mir gehört.“ Du erklärst Rückgabe, widerrufbare Verwahrung und endgültigen Verlust ohne Behandlung. Ein zugeordneter Rest ist erhalten.",
+        "choices": [
+          {
+            "text": "Die Möglichkeit einer Rückgabe erklären.",
+            "next": "bha_patient_beatrice_rueckgabe"
+          },
+          {
+            "text": "Widerrufbare Verwahrung erklären.",
+            "next": "bha_patient_beatrice_verwahrt"
+          },
+          {
+            "text": "Endgültige Vernichtung erklären.",
+            "next": "bha_patient_beatrice_vernichtet"
+          },
+          {
+            "text": "Das Gespräch offenlassen."
+          }
+        ]
+      }
+    }
+  },
+  "bha_patient_adeline": {
+    "start": "bha_patient_adeline",
+    "nodes": {
+      "bha_patient_adeline_verwahrt": {
+        "text": "„Für mich gibt es keinen erhaltenen Rest. Halte fest, dass ich darüber aufgeklärt bin.“ Enna liest die Erklärung vor und wartet auf die persönliche Bestätigung.",
+        "sets_flags": [
+          "bha_verwahrt_bha_patient_adeline",
+          "bha_patient_adeline_gefragt"
+        ],
+        "clears_flags": [
+          "bha_rueckgabe_bha_patient_adeline",
+          "bha_vernichtet_bha_patient_adeline"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_patient_adeline_vernichtet": {
+        "text": "„Für mich gibt es keinen erhaltenen Rest. Halte fest, dass ich darüber aufgeklärt bin.“ Enna liest die Erklärung vor und wartet auf die persönliche Bestätigung.",
+        "sets_flags": [
+          "bha_vernichtet_bha_patient_adeline",
+          "bha_patient_adeline_gefragt"
+        ],
+        "clears_flags": [
+          "bha_rueckgabe_bha_patient_adeline",
+          "bha_verwahrt_bha_patient_adeline"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_patient_adeline": {
+        "text": "„Ich verwahre Beete anderer Menschen. Für mich ist keine eigene Kammer belegt.“ Du erklärst Rückgabe, widerrufbare Verwahrung und endgültigen Verlust ohne Behandlung. Es ist kein eigener Rest nachgewiesen; hier wird nur die aufgeklärte Erklärung registriert.",
+        "choices": [
+          {
+            "text": "Widerrufbare Verwahrung erklären.",
+            "next": "bha_patient_adeline_verwahrt"
+          },
+          {
+            "text": "Endgültige Vernichtung erklären.",
+            "next": "bha_patient_adeline_vernichtet"
+          },
+          {
+            "text": "Das Gespräch offenlassen."
+          }
+        ]
+      }
+    }
+  },
+  "bha_patient_enna": {
+    "start": "bha_patient_enna",
+    "nodes": {
+      "bha_patient_enna_verwahrt": {
+        "text": "„Für mich gibt es keinen erhaltenen Rest. Halte fest, dass ich darüber aufgeklärt bin.“ Enna liest die Erklärung vor und wartet auf die persönliche Bestätigung.",
+        "sets_flags": [
+          "bha_verwahrt_bha_patient_enna",
+          "bha_patient_enna_gefragt"
+        ],
+        "clears_flags": [
+          "bha_rueckgabe_bha_patient_enna",
+          "bha_vernichtet_bha_patient_enna"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_patient_enna_vernichtet": {
+        "text": "„Für mich gibt es keinen erhaltenen Rest. Halte fest, dass ich darüber aufgeklärt bin.“ Enna liest die Erklärung vor und wartet auf die persönliche Bestätigung.",
+        "sets_flags": [
+          "bha_vernichtet_bha_patient_enna",
+          "bha_patient_enna_gefragt"
+        ],
+        "clears_flags": [
+          "bha_rueckgabe_bha_patient_enna",
+          "bha_verwahrt_bha_patient_enna"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_patient_enna": {
+        "text": "„Meine Arbeit am Register macht mich nicht zur Eigentümerin seines Inhalts.“ Du erklärst Rückgabe, widerrufbare Verwahrung und endgültigen Verlust ohne Behandlung. Es ist kein eigener Rest nachgewiesen; hier wird nur die aufgeklärte Erklärung registriert.",
+        "choices": [
+          {
+            "text": "Widerrufbare Verwahrung erklären.",
+            "next": "bha_patient_enna_verwahrt"
+          },
+          {
+            "text": "Endgültige Vernichtung erklären.",
+            "next": "bha_patient_enna_vernichtet"
+          },
+          {
+            "text": "Das Gespräch offenlassen."
+          }
+        ]
+      }
+    }
+  },
+  "bha_patient_felix": {
+    "start": "bha_patient_felix",
+    "nodes": {
+      "bha_patient_felix_verwahrt": {
+        "text": "„Für mich gibt es keinen erhaltenen Rest. Halte fest, dass ich darüber aufgeklärt bin.“ Enna liest die Erklärung vor und wartet auf die persönliche Bestätigung.",
+        "sets_flags": [
+          "bha_verwahrt_bha_patient_felix",
+          "bha_patient_felix_gefragt"
+        ],
+        "clears_flags": [
+          "bha_rueckgabe_bha_patient_felix",
+          "bha_vernichtet_bha_patient_felix"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_patient_felix_vernichtet": {
+        "text": "„Für mich gibt es keinen erhaltenen Rest. Halte fest, dass ich darüber aufgeklärt bin.“ Enna liest die Erklärung vor und wartet auf die persönliche Bestätigung.",
+        "sets_flags": [
+          "bha_vernichtet_bha_patient_felix",
+          "bha_patient_felix_gefragt"
+        ],
+        "clears_flags": [
+          "bha_rueckgabe_bha_patient_felix",
+          "bha_verwahrt_bha_patient_felix"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_patient_felix": {
+        "text": "„Eigentlich wollte ich für Orla entscheiden. Auf meinem Blatt darf kein Rest stehen, den wir nicht gefunden haben.“ Du erklärst Rückgabe, widerrufbare Verwahrung und endgültigen Verlust ohne Behandlung. Es ist kein eigener Rest nachgewiesen; hier wird nur die aufgeklärte Erklärung registriert.",
+        "choices": [
+          {
+            "text": "Widerrufbare Verwahrung erklären.",
+            "next": "bha_patient_felix_verwahrt"
+          },
+          {
+            "text": "Endgültige Vernichtung erklären.",
+            "next": "bha_patient_felix_vernichtet"
+          },
+          {
+            "text": "Das Gespräch offenlassen."
+          }
+        ]
+      }
+    }
+  },
+  "bha_patient_mara": {
+    "start": "bha_patient_mara",
+    "nodes": {
+      "bha_patient_mara_rueckgabe": {
+        "text": "„Ja, diesen zugeordneten Rest möchte ich zurück.“ Enna liest die Erklärung vor und wartet auf die persönliche Bestätigung.",
+        "sets_flags": [
+          "bha_rueckgabe_bha_patient_mara",
+          "bha_patient_mara_gefragt"
+        ],
+        "clears_flags": [
+          "bha_verwahrt_bha_patient_mara",
+          "bha_vernichtet_bha_patient_mara"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_patient_mara_verwahrt": {
+        "text": "„Dann vorerst verwahren. Ich möchte später erneut gefragt werden.“ Enna liest die Erklärung vor und wartet auf die persönliche Bestätigung.",
+        "sets_flags": [
+          "bha_verwahrt_bha_patient_mara",
+          "bha_patient_mara_gefragt"
+        ],
+        "clears_flags": [
+          "bha_rueckgabe_bha_patient_mara",
+          "bha_vernichtet_bha_patient_mara"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_patient_mara_vernichtet": {
+        "text": "„Ich verstehe, dass sie endgültig ist. Diesen Rest möchte ich nicht behalten.“ Enna liest die Erklärung vor und wartet auf die persönliche Bestätigung.",
+        "sets_flags": [
+          "bha_vernichtet_bha_patient_mara",
+          "bha_patient_mara_gefragt"
+        ],
+        "clears_flags": [
+          "bha_rueckgabe_bha_patient_mara",
+          "bha_verwahrt_bha_patient_mara"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_patient_mara": {
+        "text": "„Ich möchte selbst bestimmen, ob die Stimme wieder zu meinem Tag gehört.“ Du erklärst Rückgabe, widerrufbare Verwahrung und endgültigen Verlust ohne Behandlung. Ein zugeordneter Rest ist erhalten.",
+        "choices": [
+          {
+            "text": "Die Möglichkeit einer Rückgabe erklären.",
+            "next": "bha_patient_mara_rueckgabe"
+          },
+          {
+            "text": "Widerrufbare Verwahrung erklären.",
+            "next": "bha_patient_mara_verwahrt"
+          },
+          {
+            "text": "Endgültige Vernichtung erklären.",
+            "next": "bha_patient_mara_vernichtet"
+          },
+          {
+            "text": "Das Gespräch offenlassen."
+          }
+        ]
+      }
+    }
+  },
+  "bha_patient_emil": {
+    "start": "bha_patient_emil",
+    "nodes": {
+      "bha_patient_emil_rueckgabe": {
+        "text": "„Ja, diesen zugeordneten Rest möchte ich zurück.“ Enna liest die Erklärung vor und wartet auf die persönliche Bestätigung.",
+        "sets_flags": [
+          "bha_rueckgabe_bha_patient_emil",
+          "bha_patient_emil_gefragt"
+        ],
+        "clears_flags": [
+          "bha_verwahrt_bha_patient_emil",
+          "bha_vernichtet_bha_patient_emil"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_patient_emil_verwahrt": {
+        "text": "„Dann vorerst verwahren. Ich möchte später erneut gefragt werden.“ Enna liest die Erklärung vor und wartet auf die persönliche Bestätigung.",
+        "sets_flags": [
+          "bha_verwahrt_bha_patient_emil",
+          "bha_patient_emil_gefragt"
+        ],
+        "clears_flags": [
+          "bha_rueckgabe_bha_patient_emil",
+          "bha_vernichtet_bha_patient_emil"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_patient_emil_vernichtet": {
+        "text": "„Ich verstehe, dass sie endgültig ist. Diesen Rest möchte ich nicht behalten.“ Enna liest die Erklärung vor und wartet auf die persönliche Bestätigung.",
+        "sets_flags": [
+          "bha_vernichtet_bha_patient_emil",
+          "bha_patient_emil_gefragt"
+        ],
+        "clears_flags": [
+          "bha_rueckgabe_bha_patient_emil",
+          "bha_verwahrt_bha_patient_emil"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_patient_emil": {
+        "text": "„Meine Familie darf mich begleiten. Unterschreiben werde ich selbst.“ Du erklärst Rückgabe, widerrufbare Verwahrung und endgültigen Verlust ohne Behandlung. Ein zugeordneter Rest ist erhalten.",
+        "choices": [
+          {
+            "text": "Die Möglichkeit einer Rückgabe erklären.",
+            "next": "bha_patient_emil_rueckgabe"
+          },
+          {
+            "text": "Widerrufbare Verwahrung erklären.",
+            "next": "bha_patient_emil_verwahrt"
+          },
+          {
+            "text": "Endgültige Vernichtung erklären.",
+            "next": "bha_patient_emil_vernichtet"
+          },
+          {
+            "text": "Das Gespräch offenlassen."
+          }
+        ]
+      }
+    }
+  },
+  "bha_patient_lina": {
+    "start": "bha_patient_lina",
+    "nodes": {
+      "bha_patient_lina_rueckgabe": {
+        "text": "„Ja, diesen zugeordneten Rest möchte ich zurück.“ Enna liest die Erklärung vor und wartet auf die persönliche Bestätigung.",
+        "sets_flags": [
+          "bha_rueckgabe_bha_patient_lina",
+          "bha_patient_lina_gefragt"
+        ],
+        "clears_flags": [
+          "bha_verwahrt_bha_patient_lina",
+          "bha_vernichtet_bha_patient_lina"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_patient_lina_verwahrt": {
+        "text": "„Dann vorerst verwahren. Ich möchte später erneut gefragt werden.“ Enna liest die Erklärung vor und wartet auf die persönliche Bestätigung.",
+        "sets_flags": [
+          "bha_verwahrt_bha_patient_lina",
+          "bha_patient_lina_gefragt"
+        ],
+        "clears_flags": [
+          "bha_rueckgabe_bha_patient_lina",
+          "bha_vernichtet_bha_patient_lina"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_patient_lina_vernichtet": {
+        "text": "„Ich verstehe, dass sie endgültig ist. Diesen Rest möchte ich nicht behalten.“ Enna liest die Erklärung vor und wartet auf die persönliche Bestätigung.",
+        "sets_flags": [
+          "bha_vernichtet_bha_patient_lina",
+          "bha_patient_lina_gefragt"
+        ],
+        "clears_flags": [
+          "bha_rueckgabe_bha_patient_lina",
+          "bha_verwahrt_bha_patient_lina"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_patient_lina": {
+        "text": "„Den Rest nicht im Garten lassen. Über alles Weitere muss ich sprechen können.“ Du erklärst Rückgabe, widerrufbare Verwahrung und endgültigen Verlust ohne Behandlung. Ein zugeordneter Rest ist erhalten.",
+        "choices": [
+          {
+            "text": "Die Möglichkeit einer Rückgabe erklären.",
+            "next": "bha_patient_lina_rueckgabe"
+          },
+          {
+            "text": "Widerrufbare Verwahrung erklären.",
+            "next": "bha_patient_lina_verwahrt"
+          },
+          {
+            "text": "Endgültige Vernichtung erklären.",
+            "next": "bha_patient_lina_vernichtet"
+          },
+          {
+            "text": "Das Gespräch offenlassen."
+          }
+        ]
+      }
+    }
+  },
+  "bha_patient_osric": {
+    "start": "bha_patient_osric",
+    "nodes": {
+      "bha_patient_osric_verwahrt": {
+        "text": "„Für mich gibt es keinen erhaltenen Rest. Halte fest, dass ich darüber aufgeklärt bin.“ Enna liest die Erklärung vor und wartet auf die persönliche Bestätigung.",
+        "sets_flags": [
+          "bha_verwahrt_bha_patient_osric",
+          "bha_patient_osric_gefragt"
+        ],
+        "clears_flags": [
+          "bha_rueckgabe_bha_patient_osric",
+          "bha_vernichtet_bha_patient_osric"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_patient_osric_vernichtet": {
+        "text": "„Für mich gibt es keinen erhaltenen Rest. Halte fest, dass ich darüber aufgeklärt bin.“ Enna liest die Erklärung vor und wartet auf die persönliche Bestätigung.",
+        "sets_flags": [
+          "bha_vernichtet_bha_patient_osric",
+          "bha_patient_osric_gefragt"
+        ],
+        "clears_flags": [
+          "bha_rueckgabe_bha_patient_osric",
+          "bha_verwahrt_bha_patient_osric"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_patient_osric": {
+        "text": "„Wenn nichts erhalten ist, sag nichts von einer Heilung.“ Du erklärst Rückgabe, widerrufbare Verwahrung und endgültigen Verlust ohne Behandlung. Es ist kein eigener Rest nachgewiesen; hier wird nur die aufgeklärte Erklärung registriert.",
+        "choices": [
+          {
+            "text": "Widerrufbare Verwahrung erklären.",
+            "next": "bha_patient_osric_verwahrt"
+          },
+          {
+            "text": "Endgültige Vernichtung erklären.",
+            "next": "bha_patient_osric_vernichtet"
+          },
+          {
+            "text": "Das Gespräch offenlassen."
+          }
+        ]
+      }
+    }
+  },
+  "bha_patient_tessa": {
+    "start": "bha_patient_tessa",
+    "nodes": {
+      "bha_patient_tessa_rueckgabe": {
+        "text": "„Ja, diesen zugeordneten Rest möchte ich zurück.“ Enna liest die Erklärung vor und wartet auf die persönliche Bestätigung.",
+        "sets_flags": [
+          "bha_rueckgabe_bha_patient_tessa",
+          "bha_patient_tessa_gefragt"
+        ],
+        "clears_flags": [
+          "bha_verwahrt_bha_patient_tessa",
+          "bha_vernichtet_bha_patient_tessa"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_patient_tessa_verwahrt": {
+        "text": "„Dann vorerst verwahren. Ich möchte später erneut gefragt werden.“ Enna liest die Erklärung vor und wartet auf die persönliche Bestätigung.",
+        "sets_flags": [
+          "bha_verwahrt_bha_patient_tessa",
+          "bha_patient_tessa_gefragt"
+        ],
+        "clears_flags": [
+          "bha_rueckgabe_bha_patient_tessa",
+          "bha_vernichtet_bha_patient_tessa"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_patient_tessa_vernichtet": {
+        "text": "„Ich verstehe, dass sie endgültig ist. Diesen Rest möchte ich nicht behalten.“ Enna liest die Erklärung vor und wartet auf die persönliche Bestätigung.",
+        "sets_flags": [
+          "bha_vernichtet_bha_patient_tessa",
+          "bha_patient_tessa_gefragt"
+        ],
+        "clears_flags": [
+          "bha_rueckgabe_bha_patient_tessa",
+          "bha_verwahrt_bha_patient_tessa"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_patient_tessa": {
+        "text": "„Ein verschlossenes Glas darf keine verschlossene Entscheidung werden.“ Du erklärst Rückgabe, widerrufbare Verwahrung und endgültigen Verlust ohne Behandlung. Ein zugeordneter Rest ist erhalten.",
+        "choices": [
+          {
+            "text": "Die Möglichkeit einer Rückgabe erklären.",
+            "next": "bha_patient_tessa_rueckgabe"
+          },
+          {
+            "text": "Widerrufbare Verwahrung erklären.",
+            "next": "bha_patient_tessa_verwahrt"
+          },
+          {
+            "text": "Endgültige Vernichtung erklären.",
+            "next": "bha_patient_tessa_vernichtet"
+          },
+          {
+            "text": "Das Gespräch offenlassen."
+          }
+        ]
+      }
+    }
+  },
+  "bha_patient_hugo": {
+    "start": "bha_patient_hugo",
+    "nodes": {
+      "bha_patient_hugo_verwahrt": {
+        "text": "„Für mich gibt es keinen erhaltenen Rest. Halte fest, dass ich darüber aufgeklärt bin.“ Enna liest die Erklärung vor und wartet auf die persönliche Bestätigung.",
+        "sets_flags": [
+          "bha_verwahrt_bha_patient_hugo",
+          "bha_patient_hugo_gefragt"
+        ],
+        "clears_flags": [
+          "bha_rueckgabe_bha_patient_hugo",
+          "bha_vernichtet_bha_patient_hugo"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_patient_hugo_vernichtet": {
+        "text": "„Für mich gibt es keinen erhaltenen Rest. Halte fest, dass ich darüber aufgeklärt bin.“ Enna liest die Erklärung vor und wartet auf die persönliche Bestätigung.",
+        "sets_flags": [
+          "bha_vernichtet_bha_patient_hugo",
+          "bha_patient_hugo_gefragt"
+        ],
+        "clears_flags": [
+          "bha_rueckgabe_bha_patient_hugo",
+          "bha_verwahrt_bha_patient_hugo"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_patient_hugo": {
+        "text": "„Eine ähnliche Stimme reicht mir nicht. Ich will meinen Verlust nicht gegen einen fremden tauschen.“ Du erklärst Rückgabe, widerrufbare Verwahrung und endgültigen Verlust ohne Behandlung. Es ist kein eigener Rest nachgewiesen; hier wird nur die aufgeklärte Erklärung registriert.",
+        "choices": [
+          {
+            "text": "Widerrufbare Verwahrung erklären.",
+            "next": "bha_patient_hugo_verwahrt"
+          },
+          {
+            "text": "Endgültige Vernichtung erklären.",
+            "next": "bha_patient_hugo_vernichtet"
+          },
+          {
+            "text": "Das Gespräch offenlassen."
+          }
+        ]
+      }
+    }
+  },
+  "bha_finale": {
+    "start": "bha_finale",
+    "nodes": {
+      "bha_finale": {
+        "text": "Du stehst vor dem letzten Hahn. Die Behälter, die Sperrklappe und die getrennte Wärmeleitung sind geprüft; keiner dieser Befunde entscheidet für dich.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          },
+          {
+            "text": "Jeder behält die Wahl",
+            "next": "bha_wahl_v",
+            "requires_flags": [
+              "bha_bilanz5",
+              "bha_54_geschlossen",
+              "bha_orla_gerettet",
+              "bha_reserve_repariert",
+              "bha_patient_orla_gefragt",
+              "bha_patient_frost_gefragt",
+              "bha_patient_beatrice_gefragt",
+              "bha_patient_adeline_gefragt",
+              "bha_patient_enna_gefragt",
+              "bha_patient_felix_gefragt",
+              "bha_patient_mara_gefragt",
+              "bha_patient_emil_gefragt",
+              "bha_patient_lina_gefragt",
+              "bha_patient_osric_gefragt",
+              "bha_patient_tessa_gefragt",
+              "bha_patient_hugo_gefragt"
+            ],
+            "hide_if_flags": [
+              "kapitel5_done"
+            ]
+          },
+          {
+            "text": "Der Winter zieht ein",
+            "next": "bha_winter_v",
+            "requires_flags": [
+              "bha_bilanz5",
+              "bha_54_geschlossen",
+              "bha_orla_gerettet",
+              "bha_evakuierung_offen"
+            ],
+            "hide_if_flags": [
+              "kapitel5_done"
+            ]
+          },
+          {
+            "text": "Die verwahrten Tage",
+            "next": "bha_verwahrt_v",
+            "requires_flags": [
+              "bha_bilanz5",
+              "bha_54_geschlossen",
+              "bha_kuehlung_intakt",
+              "bha_reserve_repariert"
+            ],
+            "hide_if_flags": [
+              "kapitel5_done"
+            ]
+          },
+          {
+            "text": "Ein Leben ohne Schmerz",
+            "next": "bha_schmerzlos_v",
+            "requires_flags": [
+              "bha_bilanz5",
+              "bha_54_geschlossen",
+              "bha_verhoer_53_geklaert"
+            ],
+            "hide_if_flags": [
+              "kapitel5_done"
+            ]
+          },
+          {
+            "text": "Zur Prüfung zurück."
+          }
+        ]
+      },
+      "bha_wahl_v": {
+        "text": "Die erhaltenen Reste werden nach den einzelnen Erklärungen behandelt. Rückgaben erfolgen nur mit Zustimmung; verwahrte Kammern bleiben versiegelt und Vernichtungswünsche werden getrennt vollzogen. Die Klinik arbeitet künftig unter Aufsicht ohne neue Entnahmen.",
+        "choices": [
+          {
+            "text": "Diesen Ausgang bestätigen.",
+            "next": "bha_wahl"
+          },
+          {
+            "text": "Noch nicht.",
+            "next": "bha_finale"
+          }
+        ]
+      },
+      "bha_wahl": {
+        "text": "Die erhaltenen Reste werden nach den einzelnen Erklärungen behandelt. Rückgaben erfolgen nur mit Zustimmung; verwahrte Kammern bleiben versiegelt und Vernichtungswünsche werden getrennt vollzogen. Die Klinik arbeitet künftig unter Aufsicht ohne neue Entnahmen.",
+        "sets_flags": [
+          "kapitel5_done",
+          "bha_end_wahl",
+          "bha_akt5_done"
+        ],
+        "complete_quests": [
+          "bha_akt5"
+        ],
+        "gives_items": {
+          "vi_v_dampfkompresse": 3
+        },
+        "honor": 3,
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_winter_v": {
+        "text": "Du legst die Pflanzenanlage still und sicherst die Evakuierung. Unzuordenbare Reste werden vernichtet, zuordenbare Bestände ohne sichere Zustimmung versiegelt statt ungefragt zurückgeführt. Frost öffnet eine gewöhnlich beheizte Wärmestube; viele Menschen ziehen fort.",
+        "choices": [
+          {
+            "text": "Diesen Ausgang bestätigen.",
+            "next": "bha_winter"
+          },
+          {
+            "text": "Noch nicht.",
+            "next": "bha_finale"
+          }
+        ]
+      },
+      "bha_winter": {
+        "text": "Du legst die Pflanzenanlage still und sicherst die Evakuierung. Unzuordenbare Reste werden vernichtet, zuordenbare Bestände ohne sichere Zustimmung versiegelt statt ungefragt zurückgeführt. Frost öffnet eine gewöhnlich beheizte Wärmestube; viele Menschen ziehen fort.",
+        "sets_flags": [
+          "kapitel5_done",
+          "bha_end_winter",
+          "bha_akt5_done"
+        ],
+        "complete_quests": [
+          "bha_akt5"
+        ],
+        "gives_items": {
+          "vi_v_dampfkompresse": 3
+        },
+        "honor": 3,
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_verwahrt_v": {
+        "text": "Die Sperrklappe schließt, die getrennte Kühlstrecke hält. Greavesend verliert die Kontrolle; Enna führt ein öffentlich beaufsichtigtes, widerrufbares Register. Die Kapseln bleiben Verantwortung, keine zugesagte Heilung.",
+        "choices": [
+          {
+            "text": "Diesen Ausgang bestätigen.",
+            "next": "bha_verwahrt"
+          },
+          {
+            "text": "Noch nicht.",
+            "next": "bha_finale"
+          }
+        ]
+      },
+      "bha_verwahrt": {
+        "text": "Die Sperrklappe schließt, die getrennte Kühlstrecke hält. Greavesend verliert die Kontrolle; Enna führt ein öffentlich beaufsichtigtes, widerrufbares Register. Die Kapseln bleiben Verantwortung, keine zugesagte Heilung.",
+        "sets_flags": [
+          "kapitel5_done",
+          "bha_end_verwahrt",
+          "bha_akt5_done"
+        ],
+        "complete_quests": [
+          "bha_akt5"
+        ],
+        "gives_items": {
+          "vi_v_dampfkompresse": 3
+        },
+        "honor": 3,
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "bha_schmerzlos_v": {
+        "text": "Du übergibst Greavesend bewusst die Kapsel und öffnest die Aussaatleitung. Die Kurstadt blüht und neue Patienten werden still. Orla verlässt dich; die fehlenden Anreden in den Briefen sind keine Nebenwirkung, die du noch übersehen könntest.",
+        "choices": [
+          {
+            "text": "Diesen Ausgang bestätigen.",
+            "next": "bha_schmerzlos"
+          },
+          {
+            "text": "Noch nicht.",
+            "next": "bha_finale"
+          }
+        ]
+      },
+      "bha_schmerzlos": {
+        "text": "Du übergibst Greavesend bewusst die Kapsel und öffnest die Aussaatleitung. Die Kurstadt blüht und neue Patienten werden still. Orla verlässt dich; die fehlenden Anreden in den Briefen sind keine Nebenwirkung, die du noch übersehen könntest.",
+        "sets_flags": [
+          "kapitel5_done",
+          "bha_end_schmerzlos",
+          "bha_akt5_done"
+        ],
+        "complete_quests": [
+          "bha_akt5"
+        ],
+        "gives_items": {
+          "bha_laborschluessel": 1
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  }
+}

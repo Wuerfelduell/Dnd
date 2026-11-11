@@ -1,0 +1,93 @@
+{
+  "format": "nebel-musik-1",
+  "id": "ls_ereignis",
+  "titel": "Noch ein Reisender",
+  "art": "musik",
+  "bpm": 92,
+  "takt": [
+    2,
+    4
+  ],
+  "loop": true,
+  "lautstaerke": 0.62,
+  "hall": 0.32,
+  "spuren": {
+    "s0": {
+      "instrument": "akkordeon",
+      "lautstaerke": 0.48,
+      "pan": 0
+    },
+    "s1": {
+      "instrument": "pizzicato",
+      "lautstaerke": 0.24,
+      "pan": -0.2
+    }
+  },
+  "muster": {
+    "intro_s0": {
+      "spur": "s0",
+      "takte": 2,
+      "noten": "r:4 d4:4 | r:4 d4:4"
+    },
+    "intro_s1": {
+      "spur": "s1",
+      "takte": 2,
+      "noten": "r:8 | r:2 a4:2 f#4:2 d4:2"
+    },
+    "A_s0": {
+      "spur": "s0",
+      "takte": 12,
+      "noten": "g4:2 a4:2 c5:2 b4:2 | g4:2 a4:2 c5:2 b4:2 | a4:2 b4:2 d5:2 c#5:2 | d5:2 b4:2 a4:2 g4:2 | g4:2 a4:2 c5:2 b4:2 | g4:2 a4:2 c5:2 b4:2 | a4:2 b4:2 d5:2 c#5:2 | d5:2 b4:2 a4:2 g4:2 | g4:2 a4:2 c5:2 b4:2 | g4:2 a4:2 c5:2 b4:2 | a4:2 b4:2 d5:2 c#5:2 | d5:2 b4:2 a4:2 g4:2"
+    },
+    "A_s1": {
+      "spur": "s1",
+      "takte": 12,
+      "noten": "r:8 | r:2 a4:2 f#4:2 d4:2 | r:8 | r:2 a4:2 f#4:2 d4:2 | r:8 | r:2 a4:2 f#4:2 d4:2 | r:8 | r:2 a4:2 f#4:2 d4:2 | r:8 | r:2 a4:2 f#4:2 d4:2 | r:8 | r:2 a4:2 f#4:2 d4:2"
+    },
+    "B_s0": {
+      "spur": "s0",
+      "takte": 11,
+      "noten": "d5:2 b4:2 a4:2 g4:2 | d5:2 b4:2 a4:2 g4:2 | c5:2 a4:2 g4:2 f4:2 | d5:2 b4:2 a4:2 g4:2 | d5:2 b4:2 a4:2 g4:2 | d5:2 b4:2 a4:2 g4:2 | c5:2 a4:2 g4:2 f4:2 | d5:2 b4:2 a4:2 g4:2 | d5:2 b4:2 a4:2 g4:2 | d5:2 b4:2 a4:2 g4:2 | c5:2 a4:2 g4:2 f4:2"
+    },
+    "B_s1": {
+      "spur": "s1",
+      "takte": 11,
+      "noten": "r:8 | r:2 f4:2 d4:2 a#3:2 | r:8 | r:2 f4:2 d4:2 a#3:2 | r:8 | r:2 f4:2 d4:2 a#3:2 | r:8 | r:2 f4:2 d4:2 a#3:2 | r:8 | r:2 f4:2 d4:2 a#3:2 | r:8"
+    },
+    "C_s0": {
+      "spur": "s0",
+      "takte": 11,
+      "noten": "g4:2 a4:2 c5:2 b4:2 | g4:2 a4:2 c5:2 b4:2 | a4:2 b4:2 d5:2 c#5:2 | d5:2 b4:2 a4:2 g4:2 | g4:2 a4:2 c5:2 b4:2 | g4:2 a4:2 c5:2 b4:2 | a4:2 b4:2 d5:2 c#5:2 | d5:2 b4:2 a4:2 g4:2 | g4:2 a4:2 c5:2 b4:2 | g4:2 a4:2 c5:2 b4:2 | a4:2 b4:2 d5:2 c#5:2"
+    },
+    "C_s1": {
+      "spur": "s1",
+      "takte": 11,
+      "noten": "r:8 | r:2 d5:2 b4:2 g4:2 | r:8 | r:2 d5:2 b4:2 g4:2 | r:8 | r:2 d5:2 b4:2 g4:2 | r:8 | r:2 d5:2 b4:2 g4:2 | r:8 | r:2 d5:2 b4:2 g4:2 | r:8"
+    }
+  },
+  "abschnitte": {
+    "intro": [
+      "intro_s0",
+      "intro_s1"
+    ],
+    "A": [
+      "A_s0",
+      "A_s1"
+    ],
+    "B": [
+      "B_s0",
+      "B_s1"
+    ],
+    "C": [
+      "C_s0",
+      "C_s1"
+    ]
+  },
+  "ablauf": [
+    "intro",
+    "A",
+    "B",
+    "C"
+  ],
+  "loop_ab": 1
+}
