@@ -1,0 +1,807 @@
+{
+ "cwn_zwei_teller": {
+  "title": "Zwei Teller, eine Rechnung",
+  "kind": "side",
+  "case": "side",
+  "summary": "bj_keim_cw_noel_bellcross: Drei Nachbarn bezeugen Idas frühere Mahlzeiten am reparierten Topf.",
+  "steps": [
+   {
+    "text": "Hannas Griffprobe.",
+    "done": {
+     "requires_flags": [
+      "cwn_zwei_teller_spur1"
+     ]
+    },
+    "target": {
+     "map": "cw_setzergasse",
+     "id": "cwn_e_griffmacherin",
+     "label": "Hannas Griffprobe"
+    }
+   },
+   {
+    "text": "Doras Küchentuch.",
+    "done": {
+     "requires_flags": [
+      "cwn_zwei_teller_spur2"
+     ]
+    },
+    "target": {
+     "map": "cw_witwenterrasse",
+     "id": "cwn_e_waescherin",
+     "label": "Doras Küchentuch"
+    }
+   },
+   {
+    "text": "Oskars Restportion.",
+    "done": {
+     "requires_flags": [
+      "cwn_zwei_teller_spur3"
+     ]
+    },
+    "target": {
+     "map": "cw_gleisfuss",
+     "id": "cwn_e_bote",
+     "label": "Oskars Restportion"
+    }
+   },
+   {
+    "text": "Die Belege abgleichen und eine Entscheidung treffen.",
+    "done": {
+     "requires_flags": [
+      "cwn_zwei_teller_done"
+     ]
+    },
+    "target": {
+     "map": "cw_kueche",
+     "id": "cw_noel_bellcross",
+     "label": "Zwei Teller, eine Rechnung"
+    }
+   }
+  ],
+  "reward": {
+   "gives_money": 60,
+   "gives_items": {
+    "vi_v_setzerbrot": 1
+   }
+  }
+ },
+ "cwn_brotdose": {
+  "title": "Der Name in der Brotdose",
+  "kind": "side",
+  "case": "side",
+  "summary": "bj_keim_cw_pritch: Der Griff eines verpfändeten Löffels führt zu Lettern für einen gelöschten Namen.",
+  "steps": [
+   {
+    "text": "Die Brotdose.",
+    "done": {
+     "requires_flags": [
+      "cwn_brotdose_spur1"
+     ]
+    },
+    "target": {
+     "map": "cw_setzergasse",
+     "id": "cwn_brotdose_spur1",
+     "label": "Die Brotdose"
+    }
+   },
+   {
+    "text": "Der Rückkaufeintrag.",
+    "done": {
+     "requires_flags": [
+      "cwn_brotdose_spur2"
+     ]
+    },
+    "target": {
+     "map": "cw_pfandhaus",
+     "id": "cwn_brotdose_spur2",
+     "label": "Der Rückkaufeintrag"
+    }
+   },
+   {
+    "text": "Renas Nachricht.",
+    "done": {
+     "requires_flags": [
+      "cwn_brotdose_spur3"
+     ]
+    },
+    "target": {
+     "map": "cw_witwenterrasse",
+     "id": "cwn_brotdose_spur3",
+     "label": "Renas Nachricht"
+    }
+   },
+   {
+    "text": "Die Belege abgleichen und eine Entscheidung treffen.",
+    "done": {
+     "requires_flags": [
+      "cwn_brotdose_done"
+     ]
+    },
+    "target": {
+     "map": "cw_setzergasse",
+     "id": "cw_pritch",
+     "label": "Der Name in der Brotdose"
+    }
+   }
+  ],
+  "reward": {
+   "gives_money": 60,
+   "gives_items": {
+    "vi_m_bleiletter": 1
+   }
+  }
+ },
+ "cwn_falscher_pfand": {
+  "title": "Drei Haushalte, ein Pfand",
+  "kind": "side",
+  "case": "side",
+  "summary": "bj_keim_cw_wicksend: Reparaturen und getrennte Aussagen ordnen Krug, Uhr und Decke drei Haushalten zu.",
+  "steps": [
+   {
+    "text": "Die Henkelrechnung.",
+    "done": {
+     "requires_flags": [
+      "cwn_falscher_pfand_spur1"
+     ]
+    },
+    "target": {
+     "map": "cw_quittungsmarkt",
+     "id": "cwn_falscher_pfand_spur1",
+     "label": "Die Henkelrechnung"
+    }
+   },
+   {
+    "text": "Die Uhr am Rohr.",
+    "done": {
+     "requires_flags": [
+      "cwn_falscher_pfand_spur2"
+     ]
+    },
+    "target": {
+     "map": "cw_roehrenhof",
+     "id": "cwn_falscher_pfand_spur2",
+     "label": "Die Uhr am Rohr"
+    }
+   },
+   {
+    "text": "Die geflickte Decke.",
+    "done": {
+     "requires_flags": [
+      "cwn_falscher_pfand_spur3"
+     ]
+    },
+    "target": {
+     "map": "cw_witwenterrasse",
+     "id": "cwn_falscher_pfand_spur3",
+     "label": "Die geflickte Decke"
+    }
+   },
+   {
+    "text": "Die Belege abgleichen und eine Entscheidung treffen.",
+    "done": {
+     "requires_flags": [
+      "cwn_falscher_pfand_done"
+     ]
+    },
+    "target": {
+     "map": "cw_pfandhaus",
+     "id": "cw_wicksend",
+     "label": "Drei Haushalte, ein Pfand"
+    }
+   }
+  ],
+  "reward": {
+   "gives_money": 60,
+   "gives_items": {
+    "vi_m_registerband": 1
+   }
+  }
+ },
+ "cwn_klopfzeichen": {
+  "title": "Die Wohnung antwortet",
+  "kind": "side",
+  "case": "side",
+  "summary": "bj_keim_cw_bexley: Drei Klopfzeiten und eine ruhende Heizleitung prüfen eine angeblich leere Wohnung.",
+  "steps": [
+   {
+    "text": "Drei verschiedene Zeiten.",
+    "done": {
+     "requires_flags": [
+      "cwn_klopfzeichen_spur1"
+     ]
+    },
+    "target": {
+     "map": "cw_witwenterrasse",
+     "id": "cwn_klopfzeichen_spur1",
+     "label": "Drei verschiedene Zeiten"
+    }
+   },
+   {
+    "text": "Das ruhende Rohr.",
+    "done": {
+     "requires_flags": [
+      "cwn_klopfzeichen_spur2"
+     ]
+    },
+    "target": {
+     "map": "cw_kueche",
+     "id": "cwn_klopfzeichen_spur2",
+     "label": "Das ruhende Rohr"
+    }
+   },
+   {
+    "text": "Ein Zettel unter der Tür.",
+    "done": {
+     "requires_flags": [
+      "cwn_klopfzeichen_spur3"
+     ]
+    },
+    "target": {
+     "map": "cw_witwenterrasse",
+     "id": "cwn_klopfzeichen_spur3",
+     "label": "Ein Zettel unter der Tür"
+    }
+   },
+   {
+    "text": "Die Belege abgleichen und eine Entscheidung treffen.",
+    "done": {
+     "requires_flags": [
+      "cwn_klopfzeichen_done"
+     ]
+    },
+    "target": {
+     "map": "cw_witwenterrasse",
+     "id": "cw_bexley",
+     "label": "Die Wohnung antwortet"
+    }
+   }
+  ],
+  "reward": {
+   "gives_money": 60,
+   "gives_items": {
+    "vi_m_kupferrohrstueck": 1
+   }
+  }
+ },
+ "cwn_durchschlaege": {
+  "title": "Papier ohne Stempel",
+  "kind": "side",
+  "case": "side",
+  "summary": "bj_keim_cw_darnell: Werkzeugspuren einer leeren Kapsel führen drei ungestempelte Durchschläge heim.",
+  "steps": [
+   {
+    "text": "Die Naht der Kapsel.",
+    "done": {
+     "requires_flags": [
+      "cwn_durchschlaege_spur1"
+     ]
+    },
+    "target": {
+     "map": "cw_setzergasse",
+     "id": "cwn_durchschlaege_spur1",
+     "label": "Die Naht der Kapsel"
+    }
+   },
+   {
+    "text": "Die zweite Empfangsfrage.",
+    "done": {
+     "requires_flags": [
+      "cwn_durchschlaege_spur2"
+     ]
+    },
+    "target": {
+     "map": "cw_quittungsmarkt",
+     "id": "cwn_durchschlaege_spur2",
+     "label": "Die zweite Empfangsfrage"
+    }
+   },
+   {
+    "text": "Die dritte Übergabe.",
+    "done": {
+     "requires_flags": [
+      "cwn_durchschlaege_spur3"
+     ]
+    },
+    "target": {
+     "map": "cw_witwenterrasse",
+     "id": "cwn_durchschlaege_spur3",
+     "label": "Die dritte Übergabe"
+    }
+   },
+   {
+    "text": "Die Belege abgleichen und eine Entscheidung treffen.",
+    "done": {
+     "requires_flags": [
+      "cwn_durchschlaege_done"
+     ]
+    },
+    "target": {
+     "map": "cw_gepaeckhalle",
+     "id": "cw_darnell",
+     "label": "Papier ohne Stempel"
+    }
+   }
+  ],
+  "reward": {
+   "gives_money": 60,
+   "gives_items": {
+    "vi_m_rohrpostkapsel_leer": 1
+   }
+  }
+ },
+ "cwn_falsche_adresse": {
+  "title": "Die Last der falschen Adresse",
+  "kind": "side",
+  "case": "side",
+  "summary": "bj_keim_cw_hesk: Radspuren und die doppelte Wagenrechnung führen zu einer ungewöhnlich schweren Kiste.",
+  "steps": [
+   {
+    "text": "Der Bremsklotz.",
+    "done": {
+     "requires_flags": [
+      "cwn_falsche_adresse_spur1"
+     ]
+    },
+    "target": {
+     "map": "cw_roehrenhof",
+     "id": "cwn_falsche_adresse_spur1",
+     "label": "Der Bremsklotz"
+    }
+   },
+   {
+    "text": "Die doppelte Zustellung.",
+    "done": {
+     "requires_flags": [
+      "cwn_falsche_adresse_spur2"
+     ]
+    },
+    "target": {
+     "map": "cw_sortierhalle",
+     "id": "cwn_falsche_adresse_spur2",
+     "label": "Die doppelte Zustellung"
+    }
+   },
+   {
+    "text": "Die Antwort aus der Kiste.",
+    "done": {
+     "requires_flags": [
+      "cwn_falsche_adresse_spur3"
+     ]
+    },
+    "target": {
+     "map": "cw_gepaeckhalle",
+     "id": "cwn_falsche_adresse_spur3",
+     "label": "Die Antwort aus der Kiste"
+    }
+   },
+   {
+    "text": "Die Belege abgleichen und eine Entscheidung treffen.",
+    "done": {
+     "requires_flags": [
+      "cwn_falsche_adresse_done"
+     ]
+    },
+    "target": {
+     "map": "cw_roehrenhof",
+     "id": "cw_hesk",
+     "label": "Die Last der falschen Adresse"
+    }
+   }
+  ],
+  "reward": {
+   "gives_money": 60,
+   "gives_items": {
+    "vi_m_seilbahnfett": 1
+   }
+  }
+ },
+ "cwn_restaurierung": {
+  "title": "Der nachgezogene Aktenrand",
+  "kind": "side",
+  "case": "side",
+  "summary": "bj_keim_cw_malliver: Eine reversible Randprobe trennt Wetherbys Auftrag von einer späteren Ergänzung.",
+  "steps": [
+   {
+    "text": "Der ursprüngliche Auftrag.",
+    "done": {
+     "requires_flags": [
+      "cwn_restaurierung_spur1"
+     ]
+    },
+    "target": {
+     "map": "cw_archivsaal",
+     "id": "cwn_restaurierung_spur1",
+     "label": "Der ursprüngliche Auftrag"
+    }
+   },
+   {
+    "text": "Das Vergleichspigment.",
+    "done": {
+     "requires_flags": [
+      "cwn_restaurierung_spur2"
+     ]
+    },
+    "target": {
+     "map": "cw_kronenarchiv",
+     "id": "cwn_restaurierung_spur2",
+     "label": "Das Vergleichspigment"
+    }
+   },
+   {
+    "text": "Die reversible Probe.",
+    "done": {
+     "requires_flags": [
+      "cwn_restaurierung_spur3"
+     ]
+    },
+    "target": {
+     "map": "cw_buchbinderei",
+     "id": "cwn_restaurierung_spur3",
+     "label": "Die reversible Probe"
+    }
+   },
+   {
+    "text": "Die Belege abgleichen und eine Entscheidung treffen.",
+    "done": {
+     "requires_flags": [
+      "cwn_restaurierung_done"
+     ]
+    },
+    "target": {
+     "map": "cw_archivsaal",
+     "id": "cw_malliver",
+     "label": "Der nachgezogene Aktenrand"
+    }
+   }
+  ],
+  "reward": {
+   "gives_money": 60,
+   "gives_items": {
+    "vi_m_tintenkuchen": 1
+   }
+  }
+ },
+ "cwn_warnbrief": {
+  "title": "Ein Brief vor dem Abend",
+  "kind": "side",
+  "case": "side",
+  "summary": "bj_keim_cw_crayford: Drei Einlagen eines Leihbands tragen eine neue Warnung, ohne fremde Erinnerungen zu vereinen.",
+  "steps": [
+   {
+    "text": "Die erste Einlage.",
+    "done": {
+     "requires_flags": [
+      "cwn_warnbrief_spur1"
+     ]
+    },
+    "target": {
+     "map": "cw_kueche",
+     "id": "cwn_warnbrief_spur1",
+     "label": "Die erste Einlage"
+    }
+   },
+   {
+    "text": "Die zweite Einlage.",
+    "done": {
+     "requires_flags": [
+      "cwn_warnbrief_spur2"
+     ]
+    },
+    "target": {
+     "map": "cw_quittungsmarkt",
+     "id": "cwn_warnbrief_spur2",
+     "label": "Die zweite Einlage"
+    }
+   },
+   {
+    "text": "Die dritte Einlage.",
+    "done": {
+     "requires_flags": [
+      "cwn_warnbrief_spur3"
+     ]
+    },
+    "target": {
+     "map": "cw_setzergasse",
+     "id": "cwn_warnbrief_spur3",
+     "label": "Die dritte Einlage"
+    }
+   },
+   {
+    "text": "Die Belege abgleichen und eine Entscheidung treffen.",
+    "done": {
+     "requires_flags": [
+      "cwn_warnbrief_done"
+     ]
+    },
+    "target": {
+     "map": "cw_buchbinderei",
+     "id": "cw_crayford",
+     "label": "Ein Brief vor dem Abend"
+    }
+   }
+  ],
+  "reward": {
+   "gives_money": 60,
+   "gives_items": {
+    "vi_m_registerband": 1
+   }
+  }
+ },
+ "cwn_seilbahn": {
+  "title": "Die siebte Haltestelle",
+  "kind": "side",
+  "case": "side",
+  "summary": "Ein nächtlicher Leerhalt führt zu einer verrutschten Kerbe statt zu einer neuen Terrasse.",
+  "steps": [
+   {
+    "text": "Die Nachtkerbe (nachts).",
+    "done": {
+     "requires_flags": [
+      "cwn_seilbahn_spur1"
+     ]
+    },
+    "target": {
+     "map": "cw_gleisfuss",
+     "id": "cwn_seilbahn_spur1",
+     "label": "Die Nachtkerbe"
+    }
+   },
+   {
+    "text": "Der Wartungsplan.",
+    "done": {
+     "requires_flags": [
+      "cwn_seilbahn_spur2"
+     ]
+    },
+    "target": {
+     "map": "cw_roehrenhof",
+     "id": "cwn_seilbahn_spur2",
+     "label": "Der Wartungsplan"
+    }
+   },
+   {
+    "text": "Der lose Anschlag.",
+    "done": {
+     "requires_flags": [
+      "cwn_seilbahn_spur3"
+     ]
+    },
+    "target": {
+     "map": "cw_setzergasse",
+     "id": "cwn_seilbahn_spur3",
+     "label": "Der lose Anschlag"
+    }
+   },
+   {
+    "text": "Die Belege abgleichen und eine Entscheidung treffen.",
+    "done": {
+     "requires_flags": [
+      "cwn_seilbahn_done"
+     ]
+    },
+    "target": {
+     "map": "cw_gleisfuss",
+     "id": "cwn_aufzugswaerter",
+     "label": "Die siebte Haltestelle"
+    }
+   }
+  ],
+  "reward": {
+   "gives_money": 60,
+   "gives_items": {
+    "vi_m_seilbahnfett": 1
+   }
+  }
+ },
+ "cwn_brief_aus_dunscar": {
+  "title": "Ein Paket von Pfiff",
+  "kind": "side",
+  "case": "side",
+  "summary": "Pfiffs Paket trägt die Folgen deines Dunscar-Endes; ein Botengang beantwortet seinen Brief.",
+  "steps": [
+   {
+    "text": "Pfiffs Paket.",
+    "done": {
+     "requires_flags": [
+      "cwn_brief_aus_dunscar_spur1"
+     ]
+    },
+    "target": {
+     "map": "cw_gepaeckhalle",
+     "id": "cwn_brief_aus_dunscar_spur1",
+     "label": "Pfiffs Paket"
+    }
+   },
+   {
+    "text": "Die gewöhnliche Mahlzeit.",
+    "done": {
+     "requires_flags": [
+      "cwn_brief_aus_dunscar_spur2"
+     ]
+    },
+    "target": {
+     "map": "cw_kueche",
+     "id": "cwn_brief_aus_dunscar_spur2",
+     "label": "Die gewöhnliche Mahlzeit"
+    }
+   },
+   {
+    "text": "Eine offene Rücksendung.",
+    "done": {
+     "requires_flags": [
+      "cwn_brief_aus_dunscar_spur3"
+     ]
+    },
+    "target": {
+     "map": "cw_gleisfuss",
+     "id": "cwn_brief_aus_dunscar_spur3",
+     "label": "Eine offene Rücksendung"
+    }
+   },
+   {
+    "text": "Die Belege abgleichen und eine Entscheidung treffen.",
+    "done": {
+     "requires_flags": [
+      "cwn_brief_aus_dunscar_done"
+     ]
+    },
+    "target": {
+     "map": "cw_gepaeckhalle",
+     "id": "cw_darnell",
+     "label": "Ein Paket von Pfiff"
+    }
+   }
+  ],
+  "reward": {
+   "gives_money": 60,
+   "gives_items": {
+    "vi_v_terrassentee": 1
+   }
+  }
+ },
+ "cwn_telegramm_kettlegate": {
+  "title": "Wer liest die Revierakten?",
+  "kind": "side",
+  "case": "side",
+  "summary": "Marlowes Telegramm führt zum Absatzweg verkaufter Akten, ohne eine Schleierschwester zu enttarnen.",
+  "steps": [
+   {
+    "text": "Marlowes Telegramm.",
+    "done": {
+     "requires_flags": [
+      "cwn_telegramm_kettlegate_spur1"
+     ]
+    },
+    "target": {
+     "map": "cw_buchbinderei",
+     "id": "cwn_telegramm_kettlegate_spur1",
+     "label": "Marlowes Telegramm"
+    }
+   },
+   {
+    "text": "Die Lagerquittung.",
+    "done": {
+     "requires_flags": [
+      "cwn_telegramm_kettlegate_spur2"
+     ]
+    },
+    "target": {
+     "map": "cw_quittungsmarkt",
+     "id": "cwn_telegramm_kettlegate_spur2",
+     "label": "Die Lagerquittung"
+    }
+   },
+   {
+    "text": "Die Empfangskopie.",
+    "done": {
+     "requires_flags": [
+      "cwn_telegramm_kettlegate_spur3"
+     ]
+    },
+    "target": {
+     "map": "cw_roehrenhof",
+     "id": "cwn_telegramm_kettlegate_spur3",
+     "label": "Die Empfangskopie"
+    }
+   },
+   {
+    "text": "Die Belege abgleichen und eine Entscheidung treffen.",
+    "done": {
+     "requires_flags": [
+      "cwn_telegramm_kettlegate_done"
+     ]
+    },
+    "target": {
+     "map": "cw_buchbinderei",
+     "id": "cw_crayford",
+     "label": "Wer liest die Revierakten?"
+    }
+   }
+  ],
+  "reward": {
+   "gives_money": 60,
+   "gives_items": {
+    "vi_m_rohrpostkapsel_leer": 1
+   }
+  }
+ },
+ "cwn_letzte_terrasse": {
+  "title": "Die letzte Terrasse",
+  "kind": "side",
+  "case": "side",
+  "summary": "Vier Haushalte ohne amtliche Wohnung geben unterschiedliche Antworten für eine freiwillige Küchenliste.",
+  "steps": [
+   {
+    "text": "Familie Pell.",
+    "done": {
+     "requires_flags": [
+      "cwn_letzte_terrasse_spur1"
+     ]
+    },
+    "target": {
+     "map": "cw_setzergasse",
+     "id": "cwn_e_nachtsetzer",
+     "label": "Familie Pell"
+    }
+   },
+   {
+    "text": "Familie Cale.",
+    "done": {
+     "requires_flags": [
+      "cwn_letzte_terrasse_spur2"
+     ]
+    },
+    "target": {
+     "map": "cw_roehrenhof",
+     "id": "cwn_e_fensterputzerin",
+     "label": "Familie Cale"
+    }
+   },
+   {
+    "text": "Ennos wechselnder Schlafplatz.",
+    "done": {
+     "requires_flags": [
+      "cwn_letzte_terrasse_spur3"
+     ]
+    },
+    "target": {
+     "map": "cw_gleisfuss",
+     "id": "cwn_e_laternenwart",
+     "label": "Ennos wechselnder Schlafplatz"
+    }
+   },
+   {
+    "text": "Bertas Mutter.",
+    "done": {
+     "requires_flags": [
+      "cwn_letzte_terrasse_spur4"
+     ]
+    },
+    "target": {
+     "map": "cw_kronenarchiv",
+     "id": "cwn_e_archivdienerin",
+     "label": "Bertas Mutter"
+    }
+   },
+   {
+    "text": "Die Belege abgleichen und eine Entscheidung treffen.",
+    "done": {
+     "requires_flags": [
+      "cwn_letzte_terrasse_done"
+     ]
+    },
+    "target": {
+     "map": "cw_kueche",
+     "id": "cw_noel_bellcross",
+     "label": "Die letzte Terrasse"
+    }
+   }
+  ],
+  "reward": {
+   "gives_money": 60,
+   "gives_items": {
+    "vi_v_setzerbrot": 1
+   }
+  }
+ }
+}

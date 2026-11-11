@@ -1178,6 +1178,8 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestDunscar5')) scene.load.json('manifestDunscar5', `${BASE}manifest-dunscar5.json`);
   if (!scene.cache.json.exists('manifestStarling2')) scene.load.json('manifestStarling2', `${BASE}manifest-starling2.json`);
   if (!scene.cache.json.exists('manifestSekten')) scene.load.json('manifestSekten', `${BASE}manifest-sekten.json`);
+  if (!scene.cache.json.exists('manifestVorrat1')) scene.load.json('manifestVorrat1', `${BASE}manifest-vorrat1.json`);
+  if (!scene.cache.json.exists('manifestVorrat2')) scene.load.json('manifestVorrat2', `${BASE}manifest-vorrat2.json`);
   if (!scene.cache.json.exists('manifestNebenquests')) scene.load.json('manifestNebenquests', `${BASE}manifest-nebenquests.json`);
   if (!scene.cache.json.exists('manifestSpieler2')) scene.load.json('manifestSpieler2', `${BASE}manifest-spieler2.json`);
   if (!scene.cache.json.exists('manifestWexmoor')) scene.load.json('manifestWexmoor', `${BASE}manifest-wexmoor.json`);
@@ -1222,7 +1224,7 @@ function battleAnimDef(scene, sheet, name) {
   return null;
 }
 /** Manifeste mit Kampf-Sheets; spätere Pakete nennen ihre Einträge nicht nach dem Sheet, darum auch über die Datei. */
-export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3', 'manifestDunscar5', 'manifestStarling2', 'manifestSekten'];
+export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3', 'manifestDunscar5', 'manifestStarling2', 'manifestSekten', 'manifestVorrat1', 'manifestVorrat2'];
 export function battleSheetDef(scene, sheet) {
   const file = BATTLE_SHEETS[sheet]?.[0];
   for (const m of BATTLE_MANIFESTS) {
@@ -2559,3 +2561,85 @@ export const OUTDOOR_THEMES = ['ds_stadt', 'ds_bahn', 'ds_bruch', 'ds_schlucht']
 export const isOutdoorMap = (m) => /[Rg~]/.test((m.rows ?? []).join('')) || OUTDOOR_THEMES.includes(m.tiles) || !!m.outdoor;
 /** Fassadenaufsatz je Jahreszeit (Spalten der saison_<s>_fassaden-Blätter). */
 export const SEASON_FACADE = { herbst: 'girlande', winter: 'haube', fruehling: 'blumenkasten', sommer: 'sonnensegel' };
+
+// --- Codex-Runde 8: Vorrat (BI Gegner, BK Figuren, BM Gegenstände; manifest-vorrat1/2/3.json) für Kapitel 4 und 5 ---------
+/** BI: 24 Gegner und 8 Bosse (Kampf-Sheet, Kartenfigur, Bestiarium, Bossbild). [Kampf-Frame-Breite, -Höhe] */
+export const VG_ENEMIES = {
+  vg_cw_letternlaeufer: [64], vg_cw_rohrpostwespe: [48], vg_cw_stempelhand: [48], vg_cw_durchschlag: [48], vg_cw_registerratte: [48], vg_cw_seilbahnwaechter: [64],
+  vg_cw_tintenschatten: [64], vg_cw_leerfracht: [64], vg_cw_boss_bleisammler: [96], vg_cw_boss_blinder_zusteller: [96], vg_cw_boss_nullfundament: [128, 96],
+  vg_bh_dampfschwester: [64], vg_bh_wurzelgaenger: [64], vg_bh_glasmotte: [48], vg_bh_bluetenkopf: [48], vg_bh_rohrwurm: [64], vg_bh_postkartenschreiber: [48],
+  vg_bh_waeschegeist: [64], vg_bh_sudtraeger: [64], vg_bh_boss_glasgaertner: [96], vg_bh_boss_waescherei: [96], vg_bh_boss_mutterwurzel: [128, 96],
+  vg_all_wegelagerer: [48], vg_all_kutschengeist: [64], vg_all_zollhund: [48], vg_all_nebelkraehe: [48], vg_all_marktschreier: [48], vg_all_grenzstein: [64],
+  vg_all_fuhrmannsschatten: [64], vg_all_brueckenzoll: [48], vg_all_boss_landvermesser: [96], vg_all_boss_schlafkutsche: [96],
+};
+export const VG_BOSSES = Object.keys(VG_ENEMIES).filter((id) => id.includes('_boss_'));
+for (const [id, [w, h = w]] of Object.entries(VG_ENEMIES)) {
+  BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, w, h];
+  ENCOUNTER_SHEETS[id] = `enemy_${id}`;
+  OVERWORLD_SHEETS[id] = [`characters/F_ow_${id}.png`, 16, 32];
+  PROP_ORIGINS[`ow_${id}`] = 0.85;
+  ANIM_ALIASES[`enemy_${id}`] = { special: 'attack', cast: 'attack' };
+  BESTIARY_FILES[id] = `F_${id}`;
+  if (!BESTIARY.includes(id)) BESTIARY.push(id);
+}
+for (const id of ['vg_cw_tintenschatten', 'vg_cw_leerfracht', 'vg_all_kutschengeist', 'vg_all_fuhrmannsschatten', 'vg_bh_waeschegeist', 'vg_bh_glasmotte']) FADING_SHEETS.push(`enemy_${id}`);
+for (const id of VG_BOSSES) {
+  BOSS_INTROS[id] = `${id}_bi`;
+  BOSS_INTRO_IMAGES[`${id}_bi`] = [`BI_boss_${id}`, `ui/BI_boss_${id}.png`];
+}
+/** Folgeabschnitte und die Reste der Finale (CD/CH) zeigen das Sheet und Bossbild ihres Bosses. */
+for (const [id, base] of [...VG_BOSSES.flatMap((b) => [[`${b}_phase2`, b], [`${b}_phase3`, b]]), ['cwa_registerleib_rest', 'vg_cw_boss_nullfundament'], ['bha_aussaat_schwarm', 'vg_bh_boss_mutterwurzel']]) {
+  ENCOUNTER_SHEETS[id] = `enemy_${base}`;
+  BOSS_INTROS[id] = `${base}_bi`;
+}
+/** BK: zwei Figuren mit Kampf-Sheet in zwei Phasen (Wetherby, Greavesend), vorerst ohne eigenen Kampf. */
+for (const id of ['cw_wetherby', 'bh_greavesend']) BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, 64, 64];
+/** BI: Kulissen der sieben Gefahrengebiete (Briarholt kalt und warm dieselbe). */
+Object.assign(BATTLE_BACKGROUNDS, { cw_alte_setzerei: 'bg_vorrat_alte_setzerei', cw_sortiergrube: 'bg_vorrat_sortiergrube', cw_nullfundament: 'bg_vorrat_nullfundament', reise_landstrasse: 'bg_vorrat_landstrasse' });
+for (const id of ['kaltes_palmhaus', 'verlassene_waescherei', 'wurzelkammer']) for (const v of ['', '__warm']) BATTLE_BACKGROUNDS[`bh_${id}${v}`] = `bg_vorrat_${id}`;
+/** BK: 28 Figuren (10 Calderwick, 10 Briarholt, 8 Landstraße) mit Lauf-Sheet, Portraits (vier plus AK-Stimmungen) und Kopf (aus BK_koepfe geschnitten). */
+export const BK_FIGURES = ['cw_crayford', 'cw_ida_bellcross', 'cw_noel_bellcross', 'cw_wetherby', 'cw_darnell', 'cw_hesk', 'cw_wicksend', 'cw_bexley', 'cw_malliver', 'cw_pritch',
+  'bh_bellweather', 'bh_orla_fencrest', 'bh_felix_fencrest', 'bh_greavesend', 'bh_vellish', 'bh_malkin', 'bh_rookwell', 'bh_henshall', 'bh_crowther', 'bh_dipple',
+  'vn_kutscherin', 'vn_zoellner', 'vn_hausiererin', 'vn_landarzt', 'vn_wanderprediger', 'vn_kartenzeichnerin', 'vn_fahrender_richter', 'vn_waisenjunge'];
+for (const id of BK_FIGURES) {
+  SHEETS[`bk_${id}`] = `characters/${id}_walk.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = `bk_${id}`;
+  PORTRAITS[id] = `${id}_emotions.png`;
+  HEADS.push(id);
+  AK_FIGURES.add(id);
+}
+/** BM: Kleidung, Waffen, Artefakte und Schlüsselstücke des Vorrats auch in 32px. */
+ICON32.push(...['vi_hut_setzerkappe', 'vi_hut_kurhaube', 'vi_hut_zylinder_vermesser', 'vi_hut_fuhrmannshut', 'vi_mantel_druckerschurz', 'vi_mantel_dampfmantel', 'vi_mantel_reisepelerine',
+  'vi_mantel_archivrobe', 'vi_amulett_bleiletter', 'vi_amulett_pfirsichkern', 'vi_amulett_grenzsteinsplitter', 'vi_amulett_rohrpostkapsel', 'vi_waffe_setzhaken', 'vi_waffe_bleihammer',
+  'vi_waffe_veredelungsschere', 'vi_waffe_dampfrohr', 'vi_waffe_kutschpeitsche', 'vi_waffe_richterstab', 'vi_art_das_leere_tuerschild', 'vi_art_der_erste_durchschlag', 'vi_art_die_warme_postkarte',
+  'vi_art_der_falsche_fahrplan', 'vi_art_die_gaertnerschnur', 'vi_art_der_stille_stempel', 'vi_art_das_bremserseil', 'vi_art_die_kurglocke', 'vi_k_cw_randkorrektur', 'vi_k_cw_ungestempelter_durchschlag',
+  'vi_k_cw_falsche_quittung', 'vi_k_cw_pfandzettel', 'vi_k_cw_heizungsrohr_skizze', 'vi_k_cw_streiktopf_auszug', 'vi_k_bh_postkarte_verworfen', 'vi_k_bh_pflanzenkapsel', 'vi_k_bh_einweisung',
+  'vi_k_bh_beetschild', 'vi_k_bh_namensheft', 'vi_k_bh_wurzelzeichnung']);
+/** Gegenstände der Akte- und Ortepakete (CC/CD/CG/CH) und der Feste (CK) haben noch kein eigenes Bild: Platzhalter aus dem Vorrat (bis CN kommt). */
+Object.assign(ITEM_ICON_ALIASES, {
+  cwo_getrennte_klammer: 'vi_art_der_stille_stempel', bho_kalte_handhabe: 'vi_art_die_kurglocke',
+  fs_laternennacht_andenken: 'vi_m_kutschenlaterne', fs_salzsegen_andenken: 'vi_m_grenzsteinmoos', fs_schichtwechsel_andenken: 'vi_m_wegzoll_marke',
+  cwo_aufzugsmarke: 'vi_m_wegzoll_marke', cwo_aufzugsschluessel: 'vi_k_cw_pfandzettel', cwo_letternset: 'vi_m_bleiletter', cwo_terrassen_kaltbrot: 'vi_v_setzerbrot', cwo_walzenkeil: 'vi_m_seilbahnfett',
+  cwo_kabinenfenster_scherbe: 'vi_m_glasscherbe_beschlagen', cwo_haushaltsknoten: 'vi_m_pferdehaar', cwo_satzwinkel: 'vi_m_bleiletter', cwo_gartenetikett: 'vi_k_bh_beetschild', cwo_ruecklaufpfropfen: 'vi_m_kupferrohrstueck',
+  cwa_rohrpostsiegel: 'vi_m_rohrpostkapsel_leer', cwa_originalsatz: 'vi_k_cw_ungestempelter_durchschlag', cwa_zeugensiegel: 'vi_v_zollsiegel', cwa_amtsschluessel: 'vi_k_cw_randkorrektur',
+  bha_heizvorrat: 'vi_v_dampfkompresse', bha_kapselhalter: 'vi_k_bh_pflanzenkapsel', bha_formelbeleg: 'vi_k_bh_einweisung', bha_laborschluessel: 'vi_k_bh_namensheft',
+  bho_ventilschluessel: 'vi_m_kupferrohrstueck', bho_kondensatglas: 'vi_m_sudflasche', bho_kurgastmarke: 'vi_v_kurkarte', bho_palmhausdattel: 'vi_v_wurzelpastille', bho_ruecklaufplombe: 'vi_m_kupferrohrstueck',
+  bho_porzellanschieber: 'vi_m_glasscherbe_beschlagen', bho_reifkamm: 'vi_m_kurwaesche', bho_ventilrose: 'vi_m_pfirsichholz', bho_kuehlfilz: 'vi_m_kurwaesche', bho_ruecklaufstreifen: 'vi_m_registerband',
+  fs_laternennacht_papierlaterne: 'vi_m_kutschenlaterne', fs_laternennacht_kerzenboot: 'vi_v_laternenoel_klar', fs_laternennacht_gluehwein: 'vi_v_pfirsichsud', fs_laternennacht_kastanien: 'vi_v_wegzehrung',
+  fs_laternennacht_kandis: 'vi_v_wurzelpastille', fs_laternennacht_apfel: 'vi_v_wegzehrung', fs_laternennacht_docht: 'vi_v_nebelkerze', fs_laternennacht_tee: 'vi_v_terrassentee',
+  fs_salzsegen_raeucherfisch: 'vi_v_wegzehrung', fs_salzsegen_salzkranz: 'vi_m_grenzsteinmoos', fs_salzsegen_bruehe: 'vi_v_pfirsichsud', fs_salzsegen_brot: 'vi_v_setzerbrot', fs_salzsegen_birne: 'vi_v_wegzehrung',
+  fs_salzsegen_kraeuter: 'vi_v_wurzelpastille', fs_salzsegen_wasser: 'vi_v_bitterwasser', fs_salzsegen_bonbon: 'vi_v_wurzelpastille',
+  fs_schichtwechsel_lohntuetenlos: 'vi_m_wegzoll_marke', fs_schichtwechsel_bierkrug: 'vi_v_pfirsichsud', fs_schichtwechsel_kandis: 'vi_v_wurzelpastille', fs_schichtwechsel_stulle: 'vi_v_setzerbrot',
+  fs_schichtwechsel_kaffee: 'vi_v_terrassentee', fs_schichtwechsel_gurke: 'vi_v_wegzehrung', fs_schichtwechsel_wasser: 'vi_v_bitterwasser', fs_schichtwechsel_gebinde: 'vi_v_dampfkompresse',
+});
+/** CD/CH: Stadtkarten-Marker von Calderwick und Briarholt leihen sich bis CE/CI die Dunscarer Zellen. */
+export const R8_MAP_MARKERS = {
+  cw_gleisfuss: 'ds_endbahnhof', cw_setzergasse: 'ds_arbeiterbogen', cw_quittungsmarkt: 'ds_kalkmarkt', cw_roehrenhof: 'ds_schwellenring', cw_witwenterrasse: 'ds_bruchstufen', cw_kronenarchiv: 'ds_lohnbuero',
+  cw_alte_setzerei: 'ds_rangierwueste', cw_sortiergrube: 'ds_klopfbruch', cw_nullfundament: 'ds_unterschicht', reise_landstrasse: 'ds_letzter_bahnsteig',
+  bh_kutschenhof: 'ds_endbahnhof', bh_kesselgrund: 'ds_runddepot', bh_winterpromenade: 'ds_schwellenring', bh_glasgaerten: 'ds_teesaal', bh_stillenhaeuser: 'ds_pruefhaus', bh_wurzelkranz: 'ds_bruchstufen',
+  bh_buegelraum: 'ds_speisewagen', bh_kaltes_palmhaus: 'ds_rangierwueste', bh_verlassene_waescherei: 'ds_klopfbruch', bh_wurzelkammer: 'ds_unterschicht',
+};
+for (const [id, ds] of Object.entries(R8_MAP_MARKERS)) {
+  DS_MAP_MARKERS[id] = DS_MAP_MARKERS[ds];
+  if (id.startsWith('bh_')) DS_MAP_MARKERS[`${id}__warm`] = DS_MAP_MARKERS[ds];
+}

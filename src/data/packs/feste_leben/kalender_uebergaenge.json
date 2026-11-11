@@ -1,0 +1,79 @@
+{
+ "fs_laternennacht_ankuendigen": {
+  "text": "Saisontag 2: Ankündigung setzen, auch außerhalb der Feststadt.",
+  "effects": {
+   "sets_flags": [
+    "fs_laternennacht_ankuendigung"
+   ],
+   "clears_flags": [
+    "fs_laternennacht_nachlese"
+   ]
+  }
+ },
+ "fs_laternennacht_beenden": {
+  "text": "Saisontag 5: Buden schließen; begonnene Ermittlungen und Auszahlung bleiben erreichbar.",
+  "effects": {
+   "clears_flags": [
+    "fs_fest_laternennacht_aktiv",
+    "fs_laternennacht_ankuendigung"
+   ],
+   "sets_flags": [
+    "fs_laternennacht_nachlese"
+   ]
+  }
+ },
+ "fs_salzsegen_ankuendigen": {
+  "text": "Saisontag 2: Ankündigung setzen, auch außerhalb der Feststadt.",
+  "effects": {
+   "sets_flags": [
+    "fs_salzsegen_ankuendigung"
+   ],
+   "clears_flags": [
+    "fs_salzsegen_nachlese"
+   ]
+  }
+ },
+ "fs_salzsegen_beenden": {
+  "text": "Saisontag 5: Buden schließen; begonnene Ermittlungen und Auszahlung bleiben erreichbar.",
+  "effects": {
+   "clears_flags": [
+    "fs_fest_salzsegen_aktiv",
+    "fs_salzsegen_ankuendigung"
+   ],
+   "sets_flags": [
+    "fs_salzsegen_nachlese"
+   ]
+  }
+ },
+ "fs_schichtwechsel_ankuendigen": {
+  "text": "Saisontag 2: Ankündigung setzen, auch außerhalb der Feststadt.",
+  "effects": {
+   "sets_flags": [
+    "fs_schichtwechsel_ankuendigung"
+   ],
+   "clears_flags": [
+    "fs_schichtwechsel_nachlese"
+   ]
+  }
+ },
+ "fs_schichtwechsel_beenden": {
+  "text": "Saisontag 5: Buden schließen; begonnene Ermittlungen und Auszahlung bleiben erreichbar.",
+  "effects": {
+   "clears_flags": [
+    "fs_fest_schichtwechsel_aktiv",
+    "fs_schichtwechsel_ankuendigung"
+   ],
+   "sets_flags": [
+    "fs_schichtwechsel_nachlese"
+   ]
+  }
+ },
+ "fs_stiller_abend_ende": {
+  "text": "Wintertag 5: regulären Handel wieder freigeben.",
+  "effects": {
+   "clears_flags": [
+    "fs_stiller_abend_aktiv"
+   ]
+  }
+ }
+}

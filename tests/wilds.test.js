@@ -8,7 +8,7 @@ import { loadContent, fight, SKILLED, EXPERT } from './helpers.js';
 
 const content = loadContent();
 const fresh = () => new GameState(content);
-const ZONES = Object.keys(content.zones);
+const ZONES = Object.keys(content.zones).filter((z) => !/^(cw_|bh_|reise_)/.test(z)); // Kapitel 4/5: tests/kapitel45.test.js
 // Erzählgebiete: wenige Gegner, den Boss stellt man bewusst an seiner Station (Kapitel 3: Dunscar)
 const STORY_ZONES = { wx_torfbrueche: 'moorbraut', ds_rangierwueste: 'schwellenhund', ds_klopfbruch: 'vorhauer', ds_rufschlucht: 'vielrufer', ds_unterschicht: 'unterschicht' };
 /** Feste Zufallsfolge für reproduzierbare Würfe. */
@@ -41,7 +41,7 @@ test('dreizehn Gefahrengebiete (fünf in Wexmoor, vier in Dunscar) mit Karte, Re
 
 test('jeder normale Gegner hat eine stärkere Elite-Variante mit besserer Beute', () => {
   for (const [id, e] of Object.entries(content.encounters)) {
-    if (!e.wild || e.boss || e.elite) continue;
+    if (!e.wild || e.boss || e.elite || e.chapter >= 4) continue; // Kapitel 4/5: tests/kapitel45.test.js
     const el = content.encounters[`${id}_elite`];
     assert.ok(el, `${id}: Elite fehlt`);
     assert.ok(el.hp > e.hp && el.attacks[0].damage >= e.attacks[0].damage, `${id}: Elite nicht stärker`);
@@ -149,7 +149,7 @@ const geared = (tier) => {
 
 test('Balance: Geübte schaffen normale Gegner ihres Gebiets, sehr Geübte auch Eliten und Bosse mit passender Ausrüstung', () => {
   for (const [id, e] of Object.entries(content.encounters)) {
-    if (!e.wild || e.chapter === 3 || e.zone.startsWith('wx_')) continue; // Kapitel 2 und 3 haben eine eigene Balance (tests/wexmoor_balance.test.js, tests/kapitel3.test.js)
+    if (!e.wild || e.chapter >= 3 || e.zone.startsWith('wx_')) continue; // Kapitel 2 bis 5 haben eine eigene Balance (tests/wexmoor_balance.test.js, tests/kapitel3.test.js)
     // Bosse sind für Ausrüstung der nächsten Stufe gedacht (die Waffe dafür liegt beim vorigen Boss bzw. im Schrein)
     const tier = Math.min(4, content.zones[e.zone].tier + (e.boss ? 1 : 0));
     const s = geared(tier);
@@ -164,7 +164,7 @@ test('Balance: Geübte schaffen normale Gegner ihres Gebiets, sehr Geübte auch 
 
 test('Balance: Wer nur jedem zweiten Schlag ausweicht, verliert gegen Elite und Boss', () => {
   for (const [id, e] of Object.entries(content.encounters)) {
-    if (!e.wild || !(e.elite || e.boss) || e.zone.startsWith('wx_')) continue; // Wexmoor: tests/wexmoor_balance.test.js
+    if (!e.wild || !(e.elite || e.boss) || e.zone.startsWith('wx_') || e.chapter >= 4) continue; // Wexmoor: tests/wexmoor_balance.test.js, Kapitel 4/5: tests/kapitel45.test.js
     const s = geared(Math.min(4, content.zones[e.zone].tier + (e.boss ? 1 : 0)));
     const { result } = fight(s, id, { defend: (i) => (i % 2 ? 'miss' : 'dodge'), healBelow: 18 });
     assert.equal(result.outcome, 'lost', id);

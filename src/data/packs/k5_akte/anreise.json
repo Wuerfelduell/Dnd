@@ -1,0 +1,98 @@
+[
+ {
+  "map": "cw_buchbinderei",
+  "interactable": {
+   "id": "bha_anreise_widerspruch_lesen",
+   "kind": "read",
+   "title": "Eine warme Sendung",
+   "text": "Klammer hat ein Klinikangebot für die Folgen des Abgleichs erhalten. In der warmen Probe steckt Orlas Warnung.",
+   "footer": "Briarholt",
+   "done_flag": "bha_anreise_widerspruch_gelesen",
+   "visible_if": {
+    "requires_flags": [
+     "cwa_end_widerspruch"
+    ],
+    "hide_if_flags": [
+     "k5_arrived"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_buchbinderei",
+  "interactable": {
+   "id": "bha_anreise_amtsinhaber_lesen",
+   "kind": "read",
+   "title": "Eine warme Sendung",
+   "text": "Setzlinge für den vertrockneten Ziergarten kommen an. Ein Schild trägt statt einer Sorte den Namen eines gelöschten Bürgers.",
+   "footer": "Briarholt",
+   "done_flag": "bha_anreise_amtsinhaber_gelesen",
+   "visible_if": {
+    "requires_flags": [
+     "cwa_end_amtsinhaber"
+    ],
+    "hide_if_flags": [
+     "k5_arrived"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_buchbinderei",
+  "interactable": {
+   "id": "bha_anreise_buecher_lesen",
+   "kind": "read",
+   "title": "Eine warme Sendung",
+   "text": "Eine Händlerin zahlte Klammer am Ausweichbahnhof mit einem Pfirsich. Im Kern flüstert eine Stimme; auf der Kiste steht Orlas Name.",
+   "footer": "Briarholt",
+   "done_flag": "bha_anreise_buecher_gelesen",
+   "visible_if": {
+    "requires_flags": [
+     "cwa_end_buecher"
+    ],
+    "hide_if_flags": [
+     "k5_arrived"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_buchbinderei",
+  "interactable": {
+   "id": "bha_anreise_ordnung_lesen",
+   "kind": "read",
+   "title": "Eine warme Sendung",
+   "text": "Die Klinik gratuliert dem geordneten Calderwick und lädt zur Erntevorführung. Unter dem warmen Mustersiegel steht: Es ist immer jemand darin.",
+   "footer": "Briarholt",
+   "done_flag": "bha_anreise_ordnung_gelesen",
+   "visible_if": {
+    "requires_flags": [
+     "cwa_end_ordnung"
+    ],
+    "hide_if_flags": [
+     "k5_arrived"
+    ]
+   }
+  }
+ },
+ {
+  "map": "ds_speisewagen",
+  "interactable": {
+   "id": "bha_anreise_dunscar_lesen",
+   "kind": "read",
+   "title": "Eine warme Sendung",
+   "text": "Pfiffs Brief begleitet eine Probe aus einer Dunscarer Postkutsche. Unter der warmen Hülle steht Orla Fencrest; der Absender bittet, diesmal auch nach dem Preis der Hilfe zu fragen.",
+   "footer": "Briarholt",
+   "done_flag": "bha_anreise_dunscar_gelesen",
+   "visible_if": {
+    "requires_flags": [
+     "kapitel3_done"
+    ],
+    "hide_if_flags": [
+     "k5_arrived",
+     "kapitel4_done"
+    ]
+   }
+  }
+ }
+]

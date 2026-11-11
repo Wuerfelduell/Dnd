@@ -1,0 +1,43 @@
+{
+ "fs_boxer_1": {
+  "name": "Silan, der Ringwart",
+  "sprite": "npc:holt",
+  "practice": true,
+  "fleeable": true,
+  "hp": 34,
+  "intro": "Silan prüft die Polster. „Ein Wort genügt, dann hören wir auf.“",
+  "attacks": [
+   {
+    "name": "Langsame Gerade",
+    "damage": 3,
+    "hits": [
+     1200
+    ]
+   },
+   {
+    "name": "Angekündigter Doppelstoß",
+    "damage": 2,
+    "hits": [
+     1000,
+     1600
+    ]
+   }
+  ],
+  "on_win": {},
+  "first_win": {},
+  "win_text": "Silan hebt die Hand und lacht außer Atem. Du hast einen Übungskampf gewonnen, keinen Feind besiegt.",
+  "lose_to": {
+   "map": "ds_kalkmarkt",
+   "spawn": "default"
+  },
+  "lose_money": 0,
+  "lose_text": "Der Ringwart beendet den Übungskampf und reicht dir Wasser. Du verlierst weder Geld noch Hinweise.",
+  "loot": {
+   "money": [
+    0,
+    0
+   ],
+   "drops": []
+  }
+ }
+}

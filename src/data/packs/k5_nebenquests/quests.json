@@ -1,0 +1,927 @@
+{
+ "bhn_gepaeckschein": {
+  "title": "Der Koffer ohne Einweisung",
+  "kind": "side",
+  "case": "kapitel5",
+  "summary": "Aus bj_keim_bh_felix_fencrest. Prüfe zwei unabhängige Befunde und bestätige eine Folge. Richtwert: 20 Minuten.",
+  "reward": {
+   "gives_money": 0
+  },
+  "steps": [
+   {
+    "text": "Den Auftrag annehmen.",
+    "done": {
+     "requires_flags": [
+      "bhn_gepaeckschein_angenommen"
+     ]
+    },
+    "target": {
+     "map": "bh_kutschenhalle",
+     "id": "bh_felix_fencrest",
+     "label": "Der Koffer ohne Einweisung"
+    }
+   },
+   {
+    "text": "Doppelter Gepäckschein",
+    "done": {
+     "requires_clues": [
+      "bhn_gepaeckschein_c1"
+     ]
+    },
+    "target": {
+     "map": "bh_kutschenhalle",
+     "id": "bhn_gepaeckschein_fund1",
+     "label": "Doppelter Gepäckschein"
+    }
+   },
+   {
+    "text": "Antwort aus dem Wärmesaal",
+    "done": {
+     "requires_clues": [
+      "bhn_gepaeckschein_c2"
+     ]
+    },
+    "target": {
+     "map": "bh_stillenhaeuser",
+     "id": "bhn_gepaeckschein_fund2",
+     "label": "Antwort aus dem Wärmesaal"
+    }
+   },
+   {
+    "text": "Befunde verbinden und eine Folge bestätigen.",
+    "done": {
+     "requires_flags": [
+      "bhn_gepaeckschein_entschieden"
+     ]
+    },
+    "target": {
+     "map": "bh_kutschenhalle",
+     "id": "bh_felix_fencrest",
+     "label": "Der Koffer ohne Einweisung"
+    }
+   },
+   {
+    "text": "Ausführung und einmaligen Lohn quittieren.",
+    "done": {
+     "requires_flags": [
+      "bhn_gepaeckschein_bezahlt"
+     ]
+    },
+    "target": {
+     "map": "bh_kutschenhalle",
+     "id": "bh_felix_fencrest",
+     "label": "Der Koffer ohne Einweisung"
+    }
+   }
+  ]
+ },
+ "bhn_postkarten": {
+  "title": "Eine Adresse ohne fremden Namen",
+  "kind": "side",
+  "case": "kapitel5",
+  "summary": "Aus bj_keim_bh_henshall. Prüfe zwei unabhängige Befunde und bestätige eine Folge. Richtwert: 30 Minuten.",
+  "reward": {
+   "gives_money": 0
+  },
+  "steps": [
+   {
+    "text": "Den Auftrag annehmen.",
+    "done": {
+     "requires_flags": [
+      "bhn_postkarten_angenommen"
+     ]
+    },
+    "target": {
+     "map": "bh_pavillon",
+     "id": "bh_henshall",
+     "label": "Eine Adresse ohne fremden Namen"
+    }
+   },
+   {
+    "text": "Abdruck unter der Schreibunterlage",
+    "done": {
+     "requires_clues": [
+      "bhn_postkarten_c1"
+     ]
+    },
+    "target": {
+     "map": "bh_winterpromenade",
+     "id": "bhn_postkarten_fund1",
+     "label": "Abdruck unter der Schreibunterlage"
+    }
+   },
+   {
+    "text": "Postfachantwort vom Mühlenhof",
+    "done": {
+     "requires_clues": [
+      "bhn_postkarten_c2"
+     ]
+    },
+    "target": {
+     "map": "bh_kutschenhalle",
+     "id": "bhn_postkarten_fund2",
+     "label": "Postfachantwort vom Mühlenhof"
+    }
+   },
+   {
+    "text": "Befunde verbinden und eine Folge bestätigen.",
+    "done": {
+     "requires_flags": [
+      "bhn_postkarten_entschieden"
+     ]
+    },
+    "target": {
+     "map": "bh_pavillon",
+     "id": "bh_henshall",
+     "label": "Eine Adresse ohne fremden Namen"
+    }
+   },
+   {
+    "text": "Ausführung und einmaligen Lohn quittieren.",
+    "done": {
+     "requires_flags": [
+      "bhn_postkarten_bezahlt"
+     ]
+    },
+    "target": {
+     "map": "bh_pavillon",
+     "id": "bh_henshall",
+     "label": "Eine Adresse ohne fremden Namen"
+    }
+   }
+  ]
+ },
+ "bhn_umgedrehte_schilder": {
+  "title": "Die Rückseite der Beete",
+  "kind": "side",
+  "case": "kapitel5",
+  "summary": "Aus bj_keim_bh_vellish. Prüfe zwei unabhängige Befunde und bestätige eine Folge. Richtwert: 40 Minuten.",
+  "reward": {
+   "gives_money": 0
+  },
+  "steps": [
+   {
+    "text": "Den Auftrag annehmen.",
+    "done": {
+     "requires_flags": [
+      "bhn_umgedrehte_schilder_angenommen"
+     ]
+    },
+    "target": {
+     "map": "bh_verkaufshalle",
+     "id": "bh_vellish",
+     "label": "Die Rückseite der Beete"
+    }
+   },
+   {
+    "text": "Schildervergleich am freien Beet",
+    "done": {
+     "requires_clues": [
+      "bhn_umgedrehte_schilder_c1"
+     ]
+    },
+    "target": {
+     "map": "bh_glasgaerten",
+     "id": "bhn_umgedrehte_schilder_fund1",
+     "label": "Schildervergleich am freien Beet"
+    }
+   },
+   {
+    "text": "Auftrag der Inspektionsstelle",
+    "done": {
+     "requires_clues": [
+      "bhn_umgedrehte_schilder_c2"
+     ]
+    },
+    "target": {
+     "map": "bh_aktenraum",
+     "id": "bhn_umgedrehte_schilder_fund2",
+     "label": "Auftrag der Inspektionsstelle"
+    }
+   },
+   {
+    "text": "Befunde verbinden und eine Folge bestätigen.",
+    "done": {
+     "requires_flags": [
+      "bhn_umgedrehte_schilder_entschieden"
+     ]
+    },
+    "target": {
+     "map": "bh_verkaufshalle",
+     "id": "bh_vellish",
+     "label": "Die Rückseite der Beete"
+    }
+   },
+   {
+    "text": "Ausführung und einmaligen Lohn quittieren.",
+    "done": {
+     "requires_flags": [
+      "bhn_umgedrehte_schilder_bezahlt"
+     ]
+    },
+    "target": {
+     "map": "bh_verkaufshalle",
+     "id": "bh_vellish",
+     "label": "Die Rückseite der Beete"
+    }
+   }
+  ]
+ },
+ "bhn_waermeschwarz": {
+  "title": "Armenwärme im Nebenrohr",
+  "kind": "side",
+  "case": "kapitel5",
+  "summary": "Aus bj_keim_bh_malkin. Prüfe zwei unabhängige Befunde und bestätige eine Folge. Richtwert: 20 Minuten.",
+  "reward": {
+   "gives_money": 0
+  },
+  "steps": [
+   {
+    "text": "Den Auftrag annehmen.",
+    "done": {
+     "requires_flags": [
+      "bhn_waermeschwarz_angenommen"
+     ]
+    },
+    "target": {
+     "map": "bh_kesselgrund",
+     "id": "bh_malkin",
+     "label": "Armenwärme im Nebenrohr"
+    }
+   },
+   {
+    "text": "Getrennter Wartungsplan",
+    "done": {
+     "requires_clues": [
+      "bhn_waermeschwarz_c1"
+     ]
+    },
+    "target": {
+     "map": "bh_kesselgrund",
+     "id": "bhn_waermeschwarz_fund1",
+     "label": "Getrennter Wartungsplan"
+    }
+   },
+   {
+    "text": "Quittungen der Wärmestube",
+    "done": {
+     "requires_clues": [
+      "bhn_waermeschwarz_c2"
+     ]
+    },
+    "target": {
+     "map": "bh_stillenhaeuser",
+     "id": "bhn_waermeschwarz_fund2",
+     "label": "Quittungen der Wärmestube"
+    }
+   },
+   {
+    "text": "Befunde verbinden und eine Folge bestätigen.",
+    "done": {
+     "requires_flags": [
+      "bhn_waermeschwarz_entschieden"
+     ]
+    },
+    "target": {
+     "map": "bh_kesselgrund",
+     "id": "bh_malkin",
+     "label": "Armenwärme im Nebenrohr"
+    }
+   },
+   {
+    "text": "Ausführung und einmaligen Lohn quittieren.",
+    "done": {
+     "requires_flags": [
+      "bhn_waermeschwarz_bezahlt"
+     ]
+    },
+    "target": {
+     "map": "bh_kesselgrund",
+     "id": "bh_malkin",
+     "label": "Armenwärme im Nebenrohr"
+    }
+   }
+  ]
+ },
+ "bhn_namensheft": {
+  "title": "Ein Heft in Reichweite",
+  "kind": "side",
+  "case": "kapitel5",
+  "summary": "Aus bj_keim_bh_rookwell. Prüfe zwei unabhängige Befunde und bestätige eine Folge. Richtwert: 30 Minuten.",
+  "reward": {
+   "gives_money": 0
+  },
+  "steps": [
+   {
+    "text": "Den Auftrag annehmen.",
+    "done": {
+     "requires_flags": [
+      "bhn_namensheft_angenommen"
+     ]
+    },
+    "target": {
+     "map": "bh_speisesaal",
+     "id": "bh_rookwell",
+     "label": "Ein Heft in Reichweite"
+    }
+   },
+   {
+    "text": "Deckblatt ohne Abschrift",
+    "done": {
+     "requires_clues": [
+      "bhn_namensheft_c1"
+     ]
+    },
+    "target": {
+     "map": "bh_speisesaal",
+     "id": "bhn_namensheft_fund1",
+     "label": "Deckblatt ohne Abschrift"
+    }
+   },
+   {
+    "text": "Vordruck zur Einsicht",
+    "done": {
+     "requires_clues": [
+      "bhn_namensheft_c2"
+     ]
+    },
+    "target": {
+     "map": "bh_aktenraum",
+     "id": "bhn_namensheft_fund2",
+     "label": "Vordruck zur Einsicht"
+    }
+   },
+   {
+    "text": "Befunde verbinden und eine Folge bestätigen.",
+    "done": {
+     "requires_flags": [
+      "bhn_namensheft_entschieden"
+     ]
+    },
+    "target": {
+     "map": "bh_speisesaal",
+     "id": "bh_rookwell",
+     "label": "Ein Heft in Reichweite"
+    }
+   },
+   {
+    "text": "Ausführung und einmaligen Lohn quittieren.",
+    "done": {
+     "requires_flags": [
+      "bhn_namensheft_bezahlt"
+     ]
+    },
+    "target": {
+     "map": "bh_speisesaal",
+     "id": "bh_rookwell",
+     "label": "Ein Heft in Reichweite"
+    }
+   }
+  ]
+ },
+ "bhn_frachtbelege": {
+  "title": "Der Preis einer leeren Kiste",
+  "kind": "side",
+  "case": "kapitel5",
+  "summary": "Aus bj_keim_bh_crowther. Prüfe zwei unabhängige Befunde und bestätige eine Folge. Richtwert: 40 Minuten.",
+  "reward": {
+   "gives_money": 0
+  },
+  "steps": [
+   {
+    "text": "Den Auftrag annehmen.",
+    "done": {
+     "requires_flags": [
+      "bhn_frachtbelege_angenommen"
+     ]
+    },
+    "target": {
+     "map": "bh_wurzelkranz",
+     "id": "bh_crowther",
+     "label": "Der Preis einer leeren Kiste"
+    }
+   },
+   {
+    "text": "Nägel über dem alten Siegel",
+    "done": {
+     "requires_clues": [
+      "bhn_frachtbelege_c1"
+     ]
+    },
+    "target": {
+     "map": "bh_kutschenhalle",
+     "id": "bhn_frachtbelege_fund1",
+     "label": "Nägel über dem alten Siegel"
+    }
+   },
+   {
+    "text": "Gegenbuch der Leihkisten",
+    "done": {
+     "requires_clues": [
+      "bhn_frachtbelege_c2"
+     ]
+    },
+    "target": {
+     "map": "bh_labor",
+     "id": "bhn_frachtbelege_fund2",
+     "label": "Gegenbuch der Leihkisten"
+    }
+   },
+   {
+    "text": "Befunde verbinden und eine Folge bestätigen.",
+    "done": {
+     "requires_flags": [
+      "bhn_frachtbelege_entschieden"
+     ]
+    },
+    "target": {
+     "map": "bh_wurzelkranz",
+     "id": "bh_crowther",
+     "label": "Der Preis einer leeren Kiste"
+    }
+   },
+   {
+    "text": "Ausführung und einmaligen Lohn quittieren.",
+    "done": {
+     "requires_flags": [
+      "bhn_frachtbelege_bezahlt"
+     ]
+    },
+    "target": {
+     "map": "bh_wurzelkranz",
+     "id": "bh_crowther",
+     "label": "Der Preis einer leeren Kiste"
+    }
+   }
+  ]
+ },
+ "bhn_wurzelzeichnungen": {
+  "title": "Zwei Kanten, zwei Zeiten",
+  "kind": "side",
+  "case": "kapitel5",
+  "summary": "Aus bj_keim_bh_dipple. Prüfe zwei unabhängige Befunde und bestätige eine Folge. Richtwert: 20 Minuten.",
+  "reward": {
+   "gives_money": 0
+  },
+  "steps": [
+   {
+    "text": "Den Auftrag annehmen.",
+    "done": {
+     "requires_flags": [
+      "bhn_wurzelzeichnungen_angenommen"
+     ]
+    },
+    "target": {
+     "map": "bh_mutterhaus",
+     "id": "bh_dipple",
+     "label": "Zwei Kanten, zwei Zeiten"
+    }
+   },
+   {
+    "text": "Blattstudie mit Lichtwechsel",
+    "done": {
+     "requires_clues": [
+      "bhn_wurzelzeichnungen_c1"
+     ]
+    },
+    "target": {
+     "map": "bh_verkaufshalle",
+     "id": "bhn_wurzelzeichnungen_fund1",
+     "label": "Blattstudie mit Lichtwechsel"
+    }
+   },
+   {
+    "text": "Rentenumschlag und Zeichenliste",
+    "done": {
+     "requires_clues": [
+      "bhn_wurzelzeichnungen_c2"
+     ]
+    },
+    "target": {
+     "map": "bh_mutterhaus",
+     "id": "bhn_wurzelzeichnungen_fund2",
+     "label": "Rentenumschlag und Zeichenliste"
+    }
+   },
+   {
+    "text": "Befunde verbinden und eine Folge bestätigen.",
+    "done": {
+     "requires_flags": [
+      "bhn_wurzelzeichnungen_entschieden"
+     ]
+    },
+    "target": {
+     "map": "bh_mutterhaus",
+     "id": "bh_dipple",
+     "label": "Zwei Kanten, zwei Zeiten"
+    }
+   },
+   {
+    "text": "Ausführung und einmaligen Lohn quittieren.",
+    "done": {
+     "requires_flags": [
+      "bhn_wurzelzeichnungen_bezahlt"
+     ]
+    },
+    "target": {
+     "map": "bh_mutterhaus",
+     "id": "bh_dipple",
+     "label": "Zwei Kanten, zwei Zeiten"
+    }
+   }
+  ]
+ },
+ "bhn_schraubenschluessel": {
+  "title": "Der gute Schlüssel",
+  "kind": "side",
+  "case": "kapitel5",
+  "summary": "Aus bj_keim_bh_bellweather. Prüfe zwei unabhängige Befunde und bestätige eine Folge. Richtwert: 30 Minuten.",
+  "reward": {
+   "gives_money": 0
+  },
+  "steps": [
+   {
+    "text": "Den Auftrag annehmen.",
+    "done": {
+     "requires_flags": [
+      "bhn_schraubenschluessel_angenommen"
+     ]
+    },
+    "target": {
+     "map": "bh_buegelraum",
+     "id": "bh_bellweather",
+     "label": "Der gute Schlüssel"
+    }
+   },
+   {
+    "text": "Ausgemusterte Türrolle",
+    "done": {
+     "requires_clues": [
+      "bhn_schraubenschluessel_c1"
+     ]
+    },
+    "target": {
+     "map": "bh_kesselgrund",
+     "id": "bhn_schraubenschluessel_fund1",
+     "label": "Ausgemusterte Türrolle"
+    }
+   },
+   {
+    "text": "Kerbe und Reparaturnotiz",
+    "done": {
+     "requires_clues": [
+      "bhn_schraubenschluessel_c2"
+     ]
+    },
+    "target": {
+     "map": "bh_buegelraum",
+     "id": "bhn_schraubenschluessel_fund2",
+     "label": "Kerbe und Reparaturnotiz"
+    }
+   },
+   {
+    "text": "Befunde verbinden und eine Folge bestätigen.",
+    "done": {
+     "requires_flags": [
+      "bhn_schraubenschluessel_entschieden"
+     ]
+    },
+    "target": {
+     "map": "bh_buegelraum",
+     "id": "bh_bellweather",
+     "label": "Der gute Schlüssel"
+    }
+   },
+   {
+    "text": "Ausführung und einmaligen Lohn quittieren.",
+    "done": {
+     "requires_flags": [
+      "bhn_schraubenschluessel_bezahlt"
+     ]
+    },
+    "target": {
+     "map": "bh_buegelraum",
+     "id": "bh_bellweather",
+     "label": "Der gute Schlüssel"
+    }
+   }
+  ]
+ },
+ "bhn_kurkonzert": {
+  "title": "Die ungeschriebene Zeile",
+  "kind": "side",
+  "case": "kapitel5",
+  "summary": "Prüfe zwei unabhängige Befunde und bestätige eine Folge. Richtwert: 40 Minuten.",
+  "reward": {
+   "gives_money": 0
+  },
+  "steps": [
+   {
+    "text": "Den Auftrag annehmen.",
+    "done": {
+     "requires_flags": [
+      "bhn_kurkonzert_angenommen"
+     ]
+    },
+    "target": {
+     "map": "bh_pavillon",
+     "id": "bhn_e_kapellmeister",
+     "label": "Die ungeschriebene Zeile"
+    }
+   },
+   {
+    "text": "Partitur mit unberührter Pause",
+    "done": {
+     "requires_clues": [
+      "bhn_kurkonzert_c1"
+     ]
+    },
+    "target": {
+     "map": "bh_pavillon",
+     "id": "bhn_kurkonzert_fund1",
+     "label": "Partitur mit unberührter Pause"
+    }
+   },
+   {
+    "text": "Zettel aus der Teeküche",
+    "done": {
+     "requires_clues": [
+      "bhn_kurkonzert_c2"
+     ]
+    },
+    "target": {
+     "map": "bh_stillenhaeuser",
+     "id": "bhn_kurkonzert_fund2",
+     "label": "Zettel aus der Teeküche"
+    }
+   },
+   {
+    "text": "Befunde verbinden und eine Folge bestätigen.",
+    "done": {
+     "requires_flags": [
+      "bhn_kurkonzert_entschieden"
+     ]
+    },
+    "target": {
+     "map": "bh_pavillon",
+     "id": "bhn_e_kapellmeister",
+     "label": "Die ungeschriebene Zeile"
+    }
+   },
+   {
+    "text": "Ausführung und einmaligen Lohn quittieren.",
+    "done": {
+     "requires_flags": [
+      "bhn_kurkonzert_bezahlt"
+     ]
+    },
+    "target": {
+     "map": "bh_pavillon",
+     "id": "bhn_e_kapellmeister",
+     "label": "Die ungeschriebene Zeile"
+    }
+   }
+  ]
+ },
+ "bhn_brief_aus_calderwick": {
+  "title": "Ein Paket ohne Vorladung",
+  "kind": "side",
+  "case": "kapitel5",
+  "summary": "Prüfe zwei unabhängige Befunde und bestätige eine Folge. Richtwert: 20 Minuten.",
+  "reward": {
+   "gives_money": 0
+  },
+  "steps": [
+   {
+    "text": "Den Auftrag annehmen.",
+    "done": {
+     "requires_flags": [
+      "bhn_brief_aus_calderwick_angenommen"
+     ]
+    },
+    "target": {
+     "map": "bh_buegelraum",
+     "id": "bh_bellweather",
+     "label": "Ein Paket ohne Vorladung"
+    }
+   },
+   {
+    "text": "Zustellnachweis",
+    "done": {
+     "requires_clues": [
+      "bhn_brief_aus_calderwick_c1"
+     ]
+    },
+    "target": {
+     "map": "bh_kutschenhalle",
+     "id": "bhn_brief_aus_calderwick_fund1",
+     "label": "Zustellnachweis"
+    }
+   },
+   {
+    "text": "Inventar unter dem Deckel",
+    "done": {
+     "requires_clues": [
+      "bhn_brief_aus_calderwick_c2"
+     ]
+    },
+    "target": {
+     "map": "bh_buegelraum",
+     "id": "bhn_brief_aus_calderwick_fund2",
+     "label": "Inventar unter dem Deckel"
+    }
+   },
+   {
+    "text": "Befunde verbinden und eine Folge bestätigen.",
+    "done": {
+     "requires_flags": [
+      "bhn_brief_aus_calderwick_entschieden"
+     ]
+    },
+    "target": {
+     "map": "bh_buegelraum",
+     "id": "bh_bellweather",
+     "label": "Ein Paket ohne Vorladung"
+    }
+   },
+   {
+    "text": "Ausführung und einmaligen Lohn quittieren.",
+    "done": {
+     "requires_flags": [
+      "bhn_brief_aus_calderwick_bezahlt"
+     ]
+    },
+    "target": {
+     "map": "bh_buegelraum",
+     "id": "bh_bellweather",
+     "label": "Ein Paket ohne Vorladung"
+    }
+   }
+  ]
+ },
+ "bhn_elsbeth": {
+  "title": "Keine Unterschrift für die Werbung",
+  "kind": "side",
+  "case": "kapitel5",
+  "summary": "Prüfe zwei unabhängige Befunde und bestätige eine Folge. Richtwert: 30 Minuten.",
+  "reward": {
+   "gives_money": 0
+  },
+  "steps": [
+   {
+    "text": "Den Auftrag annehmen.",
+    "done": {
+     "requires_flags": [
+      "bhn_elsbeth_angenommen"
+     ]
+    },
+    "target": {
+     "map": "bh_speisesaal",
+     "id": "bhn_e_patientin",
+     "label": "Keine Unterschrift für die Werbung"
+    }
+   },
+   {
+    "text": "Werbeabzug ohne Einwilligung",
+    "done": {
+     "requires_clues": [
+      "bhn_elsbeth_c1"
+     ]
+    },
+    "target": {
+     "map": "bh_pavillon",
+     "id": "bhn_elsbeth_fund1",
+     "label": "Werbeabzug ohne Einwilligung"
+    }
+   },
+   {
+    "text": "Grenze des Vergleichs",
+    "done": {
+     "requires_clues": [
+      "bhn_elsbeth_c2"
+     ]
+    },
+    "target": {
+     "map": "bh_speisesaal",
+     "id": "bhn_elsbeth_fund2",
+     "label": "Grenze des Vergleichs"
+    }
+   },
+   {
+    "text": "Befunde verbinden und eine Folge bestätigen.",
+    "done": {
+     "requires_flags": [
+      "bhn_elsbeth_entschieden"
+     ]
+    },
+    "target": {
+     "map": "bh_speisesaal",
+     "id": "bhn_e_patientin",
+     "label": "Keine Unterschrift für die Werbung"
+    }
+   },
+   {
+    "text": "Ausführung und einmaligen Lohn quittieren.",
+    "done": {
+     "requires_flags": [
+      "bhn_elsbeth_bezahlt"
+     ]
+    },
+    "target": {
+     "map": "bh_speisesaal",
+     "id": "bhn_e_patientin",
+     "label": "Keine Unterschrift für die Werbung"
+    }
+   }
+  ]
+ },
+ "bhn_wintervorrat": {
+  "title": "Vier Türen vor dem Winter",
+  "kind": "side",
+  "case": "kapitel5",
+  "summary": "Prüfe zwei unabhängige Befunde und bestätige eine Folge. Richtwert: 40 Minuten.",
+  "reward": {
+   "gives_money": 0
+  },
+  "steps": [
+   {
+    "text": "Den Auftrag annehmen.",
+    "done": {
+     "requires_flags": [
+      "bhn_wintervorrat_angenommen"
+     ]
+    },
+    "target": {
+     "map": "bh_buegelraum",
+     "id": "bh_bellweather",
+     "label": "Vier Türen vor dem Winter"
+    }
+   },
+   {
+    "text": "Haushalt 1: Mara Sill befragen.",
+    "done": {
+     "requires_flags": [
+      "bhn_reserve_haushalt1"
+     ]
+    },
+    "target": {
+     "map": "bh_stillenhaeuser",
+     "id": "bhn_e_patientin",
+     "label": "Mara Sill"
+    }
+   },
+   {
+    "text": "Haushalt 2: Tobin Yew befragen.",
+    "done": {
+     "requires_flags": [
+      "bhn_reserve_haushalt2"
+     ]
+    },
+    "target": {
+     "map": "bh_winterpromenade",
+     "id": "bhn_e_lehrer",
+     "label": "Tobin Yew"
+    }
+   },
+   {
+    "text": "Haushalt 3: Iva Quill befragen.",
+    "done": {
+     "requires_flags": [
+      "bhn_reserve_haushalt3"
+     ]
+    },
+    "target": {
+     "map": "bh_kesselgrund",
+     "id": "bhn_e_naeherin",
+     "label": "Iva Quill"
+    }
+   },
+   {
+    "text": "Haushalt 4: Ada Brindle befragen.",
+    "done": {
+     "requires_flags": [
+      "bhn_reserve_haushalt4"
+     ]
+    },
+    "target": {
+     "map": "bh_speisesaal",
+     "id": "bhn_e_koechin",
+     "label": "Ada Brindle"
+    }
+   },
+   {
+    "text": "Reserveblatt lesen, Befunde verbinden und Frosts Quittung holen.",
+    "done": {
+     "requires_flags": [
+      "bhn_reserve_geprueft"
+     ]
+    },
+    "target": {
+     "map": "bh_buegelraum",
+     "id": "bh_bellweather",
+     "label": "Frost"
+    }
+   }
+  ]
+ }
+}

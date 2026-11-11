@@ -251,6 +251,7 @@ import bn_klang from './packs/k3_ruf/klang_zuordnung.json';
 import bn_bindungen from './packs/k3_ruf/bindungen.json';
 import bn_texte from './packs/k3_ruf/texte.json';
 import { buildK3Ruf } from './k3Ruf.js';
+import { runde8Packs } from './runde8.js';
 import bz_dialog_zusaetze from './packs/beziehungen/dialog_zusaetze.json';
 import bo_rezepte from './packs/fasserin/rezepte.json';
 import bo_gerede from './packs/fasserin/gerede.json';
@@ -286,6 +287,149 @@ const sektenPack = { name: 'sekten', npcs: sk_figuren.npcs, dialogues: sk_figure
   quests: sk_auftraege.quests, artifacts: sk_auftraege.artifacts, dialog_zusaetze: sk_dialog_zusaetze, platzierung: sk_platzierung, zeitung: sk_zeitung, gerede: sk_gerede, geplauder: sk_geplauder, sekten: sk_daten };
 /** Paket BV: Jahreszeiten und Feste (Laufzeit in core/Clock.js und world/Feste.js), hier nur die Ankündigungen in der Zeitung. */
 const festePack = { name: 'feste', zeitung: bv_zeitung };
+// Codex-Runde 8 (BH/BJ/BL Vorrat, CC–CK Kapitel 4, 5 und Feste-Leben): Zusammenstellung in runde8.js
+import r8_vorrat_gegner_quests from './packs/vorrat_gegner/quests.json';
+import r8_vorrat_gegner_items from './packs/vorrat_gegner/items.json';
+import r8_vorrat_gegner_encounters from './packs/vorrat_gegner/encounters.json';
+import r8_vorrat_gegner_dialogues from './packs/vorrat_gegner/dialogues.json';
+import r8_vorrat_gegner_npcs from './packs/vorrat_gegner/npcs.json';
+import r8_vorrat_gegner_case from './packs/vorrat_gegner/case.json';
+import r8_vorrat_gegner_dialog_zusaetze from './packs/vorrat_gegner/dialog_zusaetze.json';
+import r8_vorrat_gegner_platzierung from './packs/vorrat_gegner/platzierung.json';
+import r8_vorrat_gegner_bosses from './packs/vorrat_gegner/bosses.json';
+import r8_vorrat_gegner_phasen from './packs/vorrat_gegner/phasen.json';
+import r8_vorrat_gegner_bestiarium from './packs/vorrat_gegner/bestiarium.json';
+import r8_vorrat_gegner_zonen_vorschlag from './packs/vorrat_gegner/zonen_vorschlag.json';
+import r8_vorrat_figuren_quests from './packs/vorrat_figuren/quests.json';
+import r8_vorrat_figuren_items from './packs/vorrat_figuren/items.json';
+import r8_vorrat_figuren_encounters from './packs/vorrat_figuren/encounters.json';
+import r8_vorrat_figuren_dialogues from './packs/vorrat_figuren/dialogues.json';
+import r8_vorrat_figuren_npcs from './packs/vorrat_figuren/npcs.json';
+import r8_vorrat_figuren_case from './packs/vorrat_figuren/case.json';
+import r8_vorrat_figuren_dialog_zusaetze from './packs/vorrat_figuren/dialog_zusaetze.json';
+import r8_vorrat_figuren_platzierung from './packs/vorrat_figuren/platzierung.json';
+import r8_vorrat_items_quests from './packs/vorrat_items/quests.json';
+import r8_vorrat_items_items from './packs/vorrat_items/items.json';
+import r8_vorrat_items_encounters from './packs/vorrat_items/encounters.json';
+import r8_vorrat_items_dialogues from './packs/vorrat_items/dialogues.json';
+import r8_vorrat_items_npcs from './packs/vorrat_items/npcs.json';
+import r8_vorrat_items_case from './packs/vorrat_items/case.json';
+import r8_vorrat_items_dialog_zusaetze from './packs/vorrat_items/dialog_zusaetze.json';
+import r8_vorrat_items_platzierung from './packs/vorrat_items/platzierung.json';
+import r8_vorrat_items_fundstuecke from './packs/vorrat_items/fundstuecke.json';
+import r8_vorrat_items_artifacts from './packs/vorrat_items/artifacts.json';
+import r8_vorrat_items_handel from './packs/vorrat_items/handel.json';
+import r8_k4_orte_quests from './packs/k4_orte/quests.json';
+import r8_k4_orte_items from './packs/k4_orte/items.json';
+import r8_k4_orte_encounters from './packs/k4_orte/encounters.json';
+import r8_k4_orte_dialogues from './packs/k4_orte/dialogues.json';
+import r8_k4_orte_npcs from './packs/k4_orte/npcs.json';
+import r8_k4_orte_case from './packs/k4_orte/case.json';
+import r8_k4_orte_dialog_zusaetze from './packs/k4_orte/dialog_zusaetze.json';
+import r8_k4_orte_platzierung from './packs/k4_orte/platzierung.json';
+import r8_k4_orte_maps from './packs/k4_orte/maps.json';
+import r8_k4_orte_travel from './packs/k4_orte/travel.json';
+import r8_k4_orte_zones from './packs/k4_orte/zones.json';
+import r8_k4_orte_zonen_bindung from './packs/k4_orte/zonen_bindung.json';
+import r8_k4_orte_bosses from './packs/k4_orte/bosses.json';
+import r8_k4_orte_artifacts from './packs/k4_orte/artifacts.json';
+import r8_k4_orte_city from './packs/k4_orte/city.json';
+import r8_k4_orte_landstrasse from './packs/k4_orte/landstrasse.json';
+import r8_k4_akte_quests from './packs/k4_akte/quests.json';
+import r8_k4_akte_items from './packs/k4_akte/items.json';
+import r8_k4_akte_encounters from './packs/k4_akte/encounters.json';
+import r8_k4_akte_dialogues from './packs/k4_akte/dialogues.json';
+import r8_k4_akte_npcs from './packs/k4_akte/npcs.json';
+import r8_k4_akte_case from './packs/k4_akte/case.json';
+import r8_k4_akte_dialog_zusaetze from './packs/k4_akte/dialog_zusaetze.json';
+import r8_k4_akte_platzierung from './packs/k4_akte/platzierung.json';
+import r8_k4_akte_faelle from './packs/k4_akte/faelle.json';
+import r8_k4_akte_zeitung from './packs/k4_akte/zeitung.json';
+import r8_k4_akte_boss_texte from './packs/k4_akte/boss_texte.json';
+import r8_k4_akte_epiloge from './packs/k4_akte/epiloge.json';
+import r8_k4_nebenquests_quests from './packs/k4_nebenquests/quests.json';
+import r8_k4_nebenquests_items from './packs/k4_nebenquests/items.json';
+import r8_k4_nebenquests_encounters from './packs/k4_nebenquests/encounters.json';
+import r8_k4_nebenquests_dialogues from './packs/k4_nebenquests/dialogues.json';
+import r8_k4_nebenquests_npcs from './packs/k4_nebenquests/npcs.json';
+import r8_k4_nebenquests_case from './packs/k4_nebenquests/case.json';
+import r8_k4_nebenquests_dialog_zusaetze from './packs/k4_nebenquests/dialog_zusaetze.json';
+import r8_k4_nebenquests_platzierung from './packs/k4_nebenquests/platzierung.json';
+import r8_k4_nebenquests_einwohner from './packs/k4_nebenquests/einwohner.json';
+import r8_k4_nebenquests_leben from './packs/k4_nebenquests/leben.json';
+import r8_k4_nebenquests_gerede from './packs/k4_nebenquests/gerede.json';
+import r8_k4_nebenquests_zeitung from './packs/k4_nebenquests/zeitung.json';
+import r8_k4_nebenquests_lesestuecke from './packs/k4_nebenquests/lesestuecke.json';
+import r8_k4_nebenquests_geplauder from './packs/k4_nebenquests/geplauder.json';
+import r8_k5_orte_quests from './packs/k5_orte/quests.json';
+import r8_k5_orte_items from './packs/k5_orte/items.json';
+import r8_k5_orte_encounters from './packs/k5_orte/encounters.json';
+import r8_k5_orte_dialogues from './packs/k5_orte/dialogues.json';
+import r8_k5_orte_npcs from './packs/k5_orte/npcs.json';
+import r8_k5_orte_case from './packs/k5_orte/case.json';
+import r8_k5_orte_dialog_zusaetze from './packs/k5_orte/dialog_zusaetze.json';
+import r8_k5_orte_platzierung from './packs/k5_orte/platzierung.json';
+import r8_k5_orte_maps from './packs/k5_orte/maps.json';
+import r8_k5_orte_travel from './packs/k5_orte/travel.json';
+import r8_k5_orte_zones from './packs/k5_orte/zones.json';
+import r8_k5_orte_zonen_bindung from './packs/k5_orte/zonen_bindung.json';
+import r8_k5_orte_bosses from './packs/k5_orte/bosses.json';
+import r8_k5_orte_artifacts from './packs/k5_orte/artifacts.json';
+import r8_k5_orte_city from './packs/k5_orte/city.json';
+import r8_k5_akte_quests from './packs/k5_akte/quests.json';
+import r8_k5_akte_items from './packs/k5_akte/items.json';
+import r8_k5_akte_encounters from './packs/k5_akte/encounters.json';
+import r8_k5_akte_dialogues from './packs/k5_akte/dialogues.json';
+import r8_k5_akte_npcs from './packs/k5_akte/npcs.json';
+import r8_k5_akte_case from './packs/k5_akte/case.json';
+import r8_k5_akte_dialog_zusaetze from './packs/k5_akte/dialog_zusaetze.json';
+import r8_k5_akte_platzierung from './packs/k5_akte/platzierung.json';
+import r8_k5_akte_zeitung from './packs/k5_akte/zeitung.json';
+import r8_k5_akte_boss_texte from './packs/k5_akte/boss_texte.json';
+import r8_k5_akte_epiloge from './packs/k5_akte/epiloge.json';
+import r8_k5_nebenquests_quests from './packs/k5_nebenquests/quests.json';
+import r8_k5_nebenquests_items from './packs/k5_nebenquests/items.json';
+import r8_k5_nebenquests_encounters from './packs/k5_nebenquests/encounters.json';
+import r8_k5_nebenquests_dialogues from './packs/k5_nebenquests/dialogues.json';
+import r8_k5_nebenquests_npcs from './packs/k5_nebenquests/npcs.json';
+import r8_k5_nebenquests_case from './packs/k5_nebenquests/case.json';
+import r8_k5_nebenquests_dialog_zusaetze from './packs/k5_nebenquests/dialog_zusaetze.json';
+import r8_k5_nebenquests_platzierung from './packs/k5_nebenquests/platzierung.json';
+import r8_k5_nebenquests_einwohner from './packs/k5_nebenquests/einwohner.json';
+import r8_k5_nebenquests_leben from './packs/k5_nebenquests/leben.json';
+import r8_k5_nebenquests_gerede from './packs/k5_nebenquests/gerede.json';
+import r8_k5_nebenquests_zeitung from './packs/k5_nebenquests/zeitung.json';
+import r8_k5_nebenquests_lesestuecke from './packs/k5_nebenquests/lesestuecke.json';
+import r8_k5_nebenquests_geplauder from './packs/k5_nebenquests/geplauder.json';
+import r8_feste_leben_quests from './packs/feste_leben/quests.json';
+import r8_feste_leben_items from './packs/feste_leben/items.json';
+import r8_feste_leben_encounters from './packs/feste_leben/encounters.json';
+import r8_feste_leben_dialogues from './packs/feste_leben/dialogues.json';
+import r8_feste_leben_npcs from './packs/feste_leben/npcs.json';
+import r8_feste_leben_case from './packs/feste_leben/case.json';
+import r8_feste_leben_dialog_zusaetze from './packs/feste_leben/dialog_zusaetze.json';
+import r8_feste_leben_platzierung from './packs/feste_leben/platzierung.json';
+import r8_feste_leben_feste from './packs/feste_leben/feste.json';
+import r8_feste_leben_artefakte from './packs/feste_leben/artefakte.json';
+import r8_feste_leben_zeitung from './packs/feste_leben/zeitung.json';
+import r8_feste_leben_geplauder from './packs/feste_leben/geplauder.json';
+import r8_feste_leben_texte from './packs/feste_leben/texte.json';
+import r8_feste_leben_kalender from './packs/feste_leben/kalender.json';
+import r8_feste_leben_kalender_uebergaenge from './packs/feste_leben/kalender_uebergaenge.json';
+import r8_feste_leben_wirkungen from './packs/feste_leben/wirkungen.json';
+import r8_feste_leben_wirkungen_platzierung from './packs/feste_leben/wirkungen_platzierung.json';
+const runde8 = runde8Packs({
+  vorrat_gegner: { quests: r8_vorrat_gegner_quests, items: r8_vorrat_gegner_items, encounters: r8_vorrat_gegner_encounters, dialogues: r8_vorrat_gegner_dialogues, npcs: r8_vorrat_gegner_npcs, case: r8_vorrat_gegner_case, dialog_zusaetze: r8_vorrat_gegner_dialog_zusaetze, platzierung: r8_vorrat_gegner_platzierung, bosses: r8_vorrat_gegner_bosses, phasen: r8_vorrat_gegner_phasen, bestiarium: r8_vorrat_gegner_bestiarium, zonen_vorschlag: r8_vorrat_gegner_zonen_vorschlag },
+  vorrat_figuren: { quests: r8_vorrat_figuren_quests, items: r8_vorrat_figuren_items, encounters: r8_vorrat_figuren_encounters, dialogues: r8_vorrat_figuren_dialogues, npcs: r8_vorrat_figuren_npcs, case: r8_vorrat_figuren_case, dialog_zusaetze: r8_vorrat_figuren_dialog_zusaetze, platzierung: r8_vorrat_figuren_platzierung },
+  vorrat_items: { quests: r8_vorrat_items_quests, items: r8_vorrat_items_items, encounters: r8_vorrat_items_encounters, dialogues: r8_vorrat_items_dialogues, npcs: r8_vorrat_items_npcs, case: r8_vorrat_items_case, dialog_zusaetze: r8_vorrat_items_dialog_zusaetze, platzierung: r8_vorrat_items_platzierung, fundstuecke: r8_vorrat_items_fundstuecke, artifacts: r8_vorrat_items_artifacts, handel: r8_vorrat_items_handel },
+  k4_orte: { quests: r8_k4_orte_quests, items: r8_k4_orte_items, encounters: r8_k4_orte_encounters, dialogues: r8_k4_orte_dialogues, npcs: r8_k4_orte_npcs, case: r8_k4_orte_case, dialog_zusaetze: r8_k4_orte_dialog_zusaetze, platzierung: r8_k4_orte_platzierung, maps: r8_k4_orte_maps, travel: r8_k4_orte_travel, zones: r8_k4_orte_zones, zonen_bindung: r8_k4_orte_zonen_bindung, bosses: r8_k4_orte_bosses, artifacts: r8_k4_orte_artifacts, city: r8_k4_orte_city, landstrasse: r8_k4_orte_landstrasse },
+  k4_akte: { quests: r8_k4_akte_quests, items: r8_k4_akte_items, encounters: r8_k4_akte_encounters, dialogues: r8_k4_akte_dialogues, npcs: r8_k4_akte_npcs, case: r8_k4_akte_case, dialog_zusaetze: r8_k4_akte_dialog_zusaetze, platzierung: r8_k4_akte_platzierung, faelle: r8_k4_akte_faelle, zeitung: r8_k4_akte_zeitung, boss_texte: r8_k4_akte_boss_texte, epiloge: r8_k4_akte_epiloge },
+  k4_nebenquests: { quests: r8_k4_nebenquests_quests, items: r8_k4_nebenquests_items, encounters: r8_k4_nebenquests_encounters, dialogues: r8_k4_nebenquests_dialogues, npcs: r8_k4_nebenquests_npcs, case: r8_k4_nebenquests_case, dialog_zusaetze: r8_k4_nebenquests_dialog_zusaetze, platzierung: r8_k4_nebenquests_platzierung, einwohner: r8_k4_nebenquests_einwohner, leben: r8_k4_nebenquests_leben, gerede: r8_k4_nebenquests_gerede, zeitung: r8_k4_nebenquests_zeitung, lesestuecke: r8_k4_nebenquests_lesestuecke, geplauder: r8_k4_nebenquests_geplauder },
+  k5_orte: { quests: r8_k5_orte_quests, items: r8_k5_orte_items, encounters: r8_k5_orte_encounters, dialogues: r8_k5_orte_dialogues, npcs: r8_k5_orte_npcs, case: r8_k5_orte_case, dialog_zusaetze: r8_k5_orte_dialog_zusaetze, platzierung: r8_k5_orte_platzierung, maps: r8_k5_orte_maps, travel: r8_k5_orte_travel, zones: r8_k5_orte_zones, zonen_bindung: r8_k5_orte_zonen_bindung, bosses: r8_k5_orte_bosses, artifacts: r8_k5_orte_artifacts, city: r8_k5_orte_city },
+  k5_akte: { quests: r8_k5_akte_quests, items: r8_k5_akte_items, encounters: r8_k5_akte_encounters, dialogues: r8_k5_akte_dialogues, npcs: r8_k5_akte_npcs, case: r8_k5_akte_case, dialog_zusaetze: r8_k5_akte_dialog_zusaetze, platzierung: r8_k5_akte_platzierung, zeitung: r8_k5_akte_zeitung, boss_texte: r8_k5_akte_boss_texte, epiloge: r8_k5_akte_epiloge },
+  k5_nebenquests: { quests: r8_k5_nebenquests_quests, items: r8_k5_nebenquests_items, encounters: r8_k5_nebenquests_encounters, dialogues: r8_k5_nebenquests_dialogues, npcs: r8_k5_nebenquests_npcs, case: r8_k5_nebenquests_case, dialog_zusaetze: r8_k5_nebenquests_dialog_zusaetze, platzierung: r8_k5_nebenquests_platzierung, einwohner: r8_k5_nebenquests_einwohner, leben: r8_k5_nebenquests_leben, gerede: r8_k5_nebenquests_gerede, zeitung: r8_k5_nebenquests_zeitung, lesestuecke: r8_k5_nebenquests_lesestuecke, geplauder: r8_k5_nebenquests_geplauder },
+  feste_leben: { quests: r8_feste_leben_quests, items: r8_feste_leben_items, encounters: r8_feste_leben_encounters, dialogues: r8_feste_leben_dialogues, npcs: r8_feste_leben_npcs, case: r8_feste_leben_case, dialog_zusaetze: r8_feste_leben_dialog_zusaetze, platzierung: r8_feste_leben_platzierung, feste: r8_feste_leben_feste, artefakte: r8_feste_leben_artefakte, zeitung: r8_feste_leben_zeitung, geplauder: r8_feste_leben_geplauder, texte: r8_feste_leben_texte, kalender: r8_feste_leben_kalender, kalender_uebergaenge: r8_feste_leben_kalender_uebergaenge, wirkungen: r8_feste_leben_wirkungen, wirkungen_platzierung: r8_feste_leben_wirkungen_platzierung },
+});
 const fasserinPack = { name: 'fasserin', rezepte: bo_rezepte.recipes, artifacts: bo_rezepte.artifacts, fasserin_texte: bo_texte, gerede: bo_gerede, zeitung: bo_zeitung };
 /** Paket AL: vier Wexmoorer Akten. */
 const k2Akten = { name: 'k2_akten', quests: k2a_quests, items: k2a_items, encounters: k2a_encounters, dialogues: k2a_dialogues, npcs: k2a_npcs, case: k2a_case, dialog_zusaetze: k2a_dialog_zusaetze, platzierung: k2a_platzierung, faelle: k2a_faelle, zeitung: k2a_zeitung };
@@ -323,7 +467,7 @@ export const content = buildContent({
   gatherings,
   city,
   wexmoor,
-  packs: [k1Finale, kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen, k3Handel, k3Leben, koopK3, koopBeute, k3Ruf, beziehungenPack, fasserinPack, festePack, sektenPack],
+  packs: [k1Finale, kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen, k3Handel, k3Leben, koopK3, koopBeute, k3Ruf, beziehungenPack, fasserinPack, festePack, sektenPack, ...runde8],
   lore: { bestiarium: lore_bestiarium, gerede: lore_gerede, item_texte: lore_item_texte, lesestuecke: lore_lesestuecke, zeitungen: lore_zeitungen },
   beziehungen,
   sequenzen: { neue_pfade: sq_neue_pfade, seq_4_bis_1: sq_seq_4_bis_1, zutaten: sq_zutaten, artefakte: sq_artefakte, rituale: k3p_rituale, faehigkeiten: sq_faehigkeiten },

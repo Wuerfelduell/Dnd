@@ -1,4 +1,5 @@
 import { NEWSPAPERS } from '../data/lore.js';
+import { FESTE } from '../core/Clock.js';
 import { DIGEST_LABELS } from '../core/Pathways.js';
 import { buffLabel, fmtSec } from '../core/Talents.js';
 import { CARRY_PER_STEP } from '../core/GameState.js';
@@ -411,6 +412,19 @@ export class Ui {
       this.toast(`Fahndungsstufe ${level}${reason ? `: ${reason}` : ''}`, delta > 0 ? 'warn' : 'item');
     });
     state.on('newspaper', (p) => this.toast(`${NEWSPAPERS[p.zeitung] ?? 'Zeitung'}: „${p.title}“ (Notizbuch → Zeitung)`, 'gold'));
+    // CK: Jahreszeit und Festtage melden sich kurz (Zeilen aus texte.json → hud); nur bei echtem Wechsel, nicht beim Laden
+    state.on('season', ({ season, day }) => {
+      const key = `${season}:${day}`;
+      if (this.seasonSeen === undefined) { this.seasonSeen = key; return; }
+      if (this.seasonSeen === key) return;
+      this.seasonSeen = key;
+      const lines = state.content.festeLeben?.hud?.[`fs_${season}`] ?? [];
+      const fest = Object.keys(FESTE).find((f) => state.flags.has(`fs_fest_${f}_aktiv`));
+      const text = state.flags.has('fs_stiller_abend_aktiv') ? 'Stiller Abend: Heute ruht der Verkauf, nicht deine Ermittlung.'
+        : fest ? `${FESTE[fest].name}: Heute feiert ${FESTE[fest].city === 'kettlegate' ? 'Kettlegate' : FESTE[fest].city === 'wexmoor' ? 'Wexmoor' : 'Dunscar'}.`
+          : lines[(day - 1) % Math.max(1, lines.length)];
+      if (text) this.toast(text, 'gold');
+    });
     state.on('relation', ({ name, delta, mood, changed }) => {
       if (changed) this.toast(`${name} ist dir gegenüber jetzt ${MOOD_LABEL[mood].toLowerCase()}.`, mood === 'feindselig' ? 'warn' : 'item');
       else this.toast(`${name} ${delta > 0 ? 'hält mehr von dir' : 'hält weniger von dir'}.`, delta > 0 ? 'item' : 'warn');
@@ -2021,7 +2035,20 @@ export class Ui {
   }
 
   openShop(merchantId, mode = 'buy', feedback = '') {
+    // CK: am Stillen Abend (vierter Wintertag) bleiben alle Verkaufstische leer; Zeugen, Fälle und Unterschlüpfe bleiben offen
+    if (this.state.stillerAbend?.()) {
+      const m = this.state.merchant(merchantId);
+      this.showMessage('Stiller Abend', `${m?.name ?? 'Der Händler'} hat heute nichts ausgelegt. Am Stillen Abend ruht der Verkauf in allen Städten, nicht deine Ermittlung. Morgen geht es weiter.`);
+      return;
+    }
     this.state.withPlayer(this.actor, () => this.renderShop(merchantId, mode, feedback), { quiet: true });
+  }
+
+  /** CK: Händlerspruch zur Jahreszeit (texte.json → haendler) für den Markt dieser Karte. */
+  seasonGreeting() {
+    const s = this.state;
+    const line = s.content.festeLeben?.haendler?.[`fs_${s.season?.()}`]?.[s.map];
+    return line && s.meets(line) ? line.text : null;
   }
 
   renderShop(merchantId, mode, feedback) {
@@ -2045,7 +2072,7 @@ export class Ui {
     }
     const el = this.open('shop', `
       <h3>${esc(m.name)} <span class="muted">${esc(m.title)}</span>${s.hasP2() ? ` <button class="badge keybtn" data-key="g">für Spieler ${s.acting} · <span class="key">G</span> wechseln</button>` : ''}</h3>
-      <p class="lead">„${esc(m.greeting)}“</p>
+      <p class="lead">„${esc(this.seasonGreeting() ?? m.greeting)}“</p>
       ${m.buys ? `<div class="tabs"><button class="tab ${mode === 'buy' ? 'sel' : ''}" data-mode="buy">${uiSprite('shop', 'buy', 1 / 16, 'tabico')}Kaufen</button><button class="tab ${mode === 'sell' ? 'sel' : ''}" data-mode="sell">${uiSprite('shop', 'sell', 1 / 16, 'tabico')}Verkaufen</button> <span class="muted">Wechseln mit <span class="key">V</span></span></div>` : ''}
       <ul class="items shoplist">${rows}</ul>
       <div class="feedback">${feedback}</div>

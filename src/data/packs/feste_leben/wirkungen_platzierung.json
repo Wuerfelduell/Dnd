@@ -1,0 +1,508 @@
+[
+ {
+  "map": "altmarkt",
+  "tile": [
+   10,
+   9
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "fs_herbst"
+   ],
+   "hide_if_flags": [
+    "fs_herbst_wirkung_1_genutzt"
+   ]
+  },
+  "interactable": {
+   "id": "fs_herbst_wirkung_1",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Kastanienfund",
+   "title": "Kastanienfund",
+   "text": "Ein Fund am sicheren Wegrand, einmal je Saison.",
+   "footer": "Einmal je Jahreszeit.",
+   "effects": {
+    "gives_items": {
+     "fs_laternennacht_kastanien": 1
+    },
+    "sets_flags": [
+     "fs_herbst_wirkung_1_genutzt"
+    ]
+   },
+   "marker": false
+  }
+ },
+ {
+  "map": "wx_salzmarkt",
+  "tile": [
+   12,
+   9
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "fs_herbst"
+   ],
+   "hide_if_flags": [
+    "fs_herbst_wirkung_2_genutzt"
+   ]
+  },
+  "interactable": {
+   "id": "fs_herbst_wirkung_2",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Pilzprüfung",
+   "title": "Pilzprüfung",
+   "text": "Ein geprüfter Pilzbeutel wird als Festtee getauscht, keine unbekannten Pilze essen.",
+   "footer": "Einmal je Jahreszeit.",
+   "effects": {
+    "gives_items": {
+     "fs_laternennacht_tee": 1
+    },
+    "sets_flags": [
+     "fs_herbst_wirkung_2_genutzt"
+    ]
+   },
+   "marker": false
+  }
+ },
+ {
+  "map": "ds_kalkmarkt",
+  "tile": [
+   14,
+   9
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "fs_herbst"
+   ],
+   "hide_if_flags": [
+    "fs_herbst_wirkung_3_genutzt"
+   ]
+  },
+  "interactable": {
+   "id": "fs_herbst_wirkung_3",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Trockener Unterstand",
+   "title": "Trockener Unterstand",
+   "text": "Eine kurze trockene Pause am Markt.",
+   "footer": "Einmal je Jahreszeit.",
+   "effects": {
+    "nerves": 2,
+    "sets_flags": [
+     "fs_herbst_wirkung_3_genutzt"
+    ]
+   },
+   "marker": false
+  }
+ },
+ {
+  "map": "altmarkt",
+  "tile": [
+   11,
+   8
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "fs_herbst"
+   ],
+   "hide_if_flags": [
+    "fs_herbst_wirkung_4_genutzt"
+   ]
+  },
+  "interactable": {
+   "id": "fs_herbst_wirkung_4",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Warmer Teller",
+   "title": "Warmer Teller",
+   "text": "Eine kostenlose Kostprobe am sicheren Tisch.",
+   "footer": "Einmal je Jahreszeit.",
+   "effects": {
+    "heal": 3,
+    "sets_flags": [
+     "fs_herbst_wirkung_4_genutzt"
+    ]
+   },
+   "marker": false
+  }
+ },
+ {
+  "map": "altmarkt",
+  "tile": [
+   10,
+   9
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "fs_winter"
+   ],
+   "hide_if_flags": [
+    "fs_winter_wirkung_1_genutzt"
+   ]
+  },
+  "interactable": {
+   "id": "fs_winter_wirkung_1",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Wärmestube",
+   "title": "Wärmestube",
+   "text": "Eine gewöhnliche warme Pause, unabhängig vom Stillen Abend.",
+   "footer": "Einmal je Jahreszeit.",
+   "effects": {
+    "nerves": 2,
+    "sets_flags": [
+     "fs_winter_wirkung_1_genutzt"
+    ]
+   },
+   "marker": false
+  }
+ },
+ {
+  "map": "wx_salzmarkt",
+  "tile": [
+   12,
+   9
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "fs_winter"
+   ],
+   "hide_if_flags": [
+    "fs_winter_wirkung_2_genutzt"
+   ]
+  },
+  "interactable": {
+   "id": "fs_winter_wirkung_2",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Trockene Wickel",
+   "title": "Trockene Wickel",
+   "text": "Kostenlose trockene Wickel am Markt.",
+   "footer": "Einmal je Jahreszeit.",
+   "effects": {
+    "heal": 3,
+    "sets_flags": [
+     "fs_winter_wirkung_2_genutzt"
+    ]
+   },
+   "marker": false
+  }
+ },
+ {
+  "map": "ds_kalkmarkt",
+  "tile": [
+   14,
+   9
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "fs_winter"
+   ],
+   "hide_if_flags": [
+    "fs_winter_wirkung_3_genutzt"
+   ]
+  },
+  "interactable": {
+   "id": "fs_winter_wirkung_3",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Heißes Wasser",
+   "title": "Heißes Wasser",
+   "text": "Ein warmes Getränk ohne Kaufpflicht.",
+   "footer": "Einmal je Jahreszeit.",
+   "effects": {
+    "gives_items": {
+     "fs_laternennacht_tee": 1
+    },
+    "sets_flags": [
+     "fs_winter_wirkung_3_genutzt"
+    ]
+   },
+   "marker": false
+  }
+ },
+ {
+  "map": "altmarkt",
+  "tile": [
+   11,
+   8
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "fs_winter"
+   ],
+   "hide_if_flags": [
+    "fs_winter_wirkung_4_genutzt"
+   ]
+  },
+  "interactable": {
+   "id": "fs_winter_wirkung_4",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Nachbarschaftshilfe",
+   "title": "Nachbarschaftshilfe",
+   "text": "Ein ausgeliehenes Tuch kommt zurück.",
+   "footer": "Einmal je Jahreszeit.",
+   "effects": {
+    "nerves": 2,
+    "sets_flags": [
+     "fs_winter_wirkung_4_genutzt"
+    ]
+   },
+   "marker": false
+  }
+ },
+ {
+  "map": "altmarkt",
+  "tile": [
+   10,
+   9
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "fs_fruehling"
+   ],
+   "hide_if_flags": [
+    "fs_fruehling_wirkung_1_genutzt"
+   ]
+  },
+  "interactable": {
+   "id": "fs_fruehling_wirkung_1",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Regenpause",
+   "title": "Regenpause",
+   "text": "Unter dem Vordach trocknest du die Hände.",
+   "footer": "Einmal je Jahreszeit.",
+   "effects": {
+    "nerves": 2,
+    "sets_flags": [
+     "fs_fruehling_wirkung_1_genutzt"
+    ]
+   },
+   "marker": false
+  }
+ },
+ {
+  "map": "wx_salzmarkt",
+  "tile": [
+   12,
+   9
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "fs_fruehling"
+   ],
+   "hide_if_flags": [
+    "fs_fruehling_wirkung_2_genutzt"
+   ]
+  },
+  "interactable": {
+   "id": "fs_fruehling_wirkung_2",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Frische Kräuter",
+   "title": "Frische Kräuter",
+   "text": "Eine kleine milde Kostprobe.",
+   "footer": "Einmal je Jahreszeit.",
+   "effects": {
+    "heal": 3,
+    "sets_flags": [
+     "fs_fruehling_wirkung_2_genutzt"
+    ]
+   },
+   "marker": false
+  }
+ },
+ {
+  "map": "ds_kalkmarkt",
+  "tile": [
+   14,
+   9
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "fs_fruehling"
+   ],
+   "hide_if_flags": [
+    "fs_fruehling_wirkung_3_genutzt"
+   ]
+  },
+  "interactable": {
+   "id": "fs_fruehling_wirkung_3",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Erste Ruderfahrt",
+   "title": "Erste Ruderfahrt",
+   "text": "Vom Ufer aus beim ruhigen Ablegen zusehen.",
+   "footer": "Einmal je Jahreszeit.",
+   "effects": {
+    "nerves": 2,
+    "sets_flags": [
+     "fs_fruehling_wirkung_3_genutzt"
+    ]
+   },
+   "marker": false
+  }
+ },
+ {
+  "map": "altmarkt",
+  "tile": [
+   11,
+   8
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "fs_fruehling"
+   ],
+   "hide_if_flags": [
+    "fs_fruehling_wirkung_4_genutzt"
+   ]
+  },
+  "interactable": {
+   "id": "fs_fruehling_wirkung_4",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Marktprobe",
+   "title": "Marktprobe",
+   "text": "Ein kostenloses Salzbonbon.",
+   "footer": "Einmal je Jahreszeit.",
+   "effects": {
+    "gives_items": {
+     "fs_salzsegen_bonbon": 1
+    },
+    "sets_flags": [
+     "fs_fruehling_wirkung_4_genutzt"
+    ]
+   },
+   "marker": false
+  }
+ },
+ {
+  "map": "altmarkt",
+  "tile": [
+   10,
+   9
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "fs_sommer"
+   ],
+   "hide_if_flags": [
+    "fs_sommer_wirkung_1_genutzt"
+   ]
+  },
+  "interactable": {
+   "id": "fs_sommer_wirkung_1",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Schattenbank",
+   "title": "Schattenbank",
+   "text": "Eine Pause im Schatten ohne Eintritt.",
+   "footer": "Einmal je Jahreszeit.",
+   "effects": {
+    "nerves": 2,
+    "sets_flags": [
+     "fs_sommer_wirkung_1_genutzt"
+    ]
+   },
+   "marker": false
+  }
+ },
+ {
+  "map": "wx_salzmarkt",
+  "tile": [
+   12,
+   9
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "fs_sommer"
+   ],
+   "hide_if_flags": [
+    "fs_sommer_wirkung_2_genutzt"
+   ]
+  },
+  "interactable": {
+   "id": "fs_sommer_wirkung_2",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Wasserstelle",
+   "title": "Wasserstelle",
+   "text": "Sauberes Wasser steht kostenlos bereit.",
+   "footer": "Einmal je Jahreszeit.",
+   "effects": {
+    "heal": 3,
+    "sets_flags": [
+     "fs_sommer_wirkung_2_genutzt"
+    ]
+   },
+   "marker": false
+  }
+ },
+ {
+  "map": "ds_kalkmarkt",
+  "tile": [
+   14,
+   9
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "fs_sommer"
+   ],
+   "hide_if_flags": [
+    "fs_sommer_wirkung_3_genutzt"
+   ]
+  },
+  "interactable": {
+   "id": "fs_sommer_wirkung_3",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Kühler Krug",
+   "title": "Kühler Krug",
+   "text": "Eine kostenlose verschlossene Flasche.",
+   "footer": "Einmal je Jahreszeit.",
+   "effects": {
+    "gives_items": {
+     "fs_schichtwechsel_wasser": 1
+    },
+    "sets_flags": [
+     "fs_sommer_wirkung_3_genutzt"
+    ]
+   },
+   "marker": false
+  }
+ },
+ {
+  "map": "altmarkt",
+  "tile": [
+   11,
+   8
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "fs_sommer"
+   ],
+   "hide_if_flags": [
+    "fs_sommer_wirkung_4_genutzt"
+   ]
+  },
+  "interactable": {
+   "id": "fs_sommer_wirkung_4",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Offenes Fenster",
+   "title": "Offenes Fenster",
+   "text": "Du trittst aus dem Kanalgeruch in frische Luft.",
+   "footer": "Einmal je Jahreszeit.",
+   "effects": {
+    "nerves": 2,
+    "sets_flags": [
+     "fs_sommer_wirkung_4_genutzt"
+    ]
+   },
+   "marker": false
+  }
+ }
+]

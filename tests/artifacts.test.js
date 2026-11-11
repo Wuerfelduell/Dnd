@@ -130,7 +130,7 @@ test('Artefakte wirken, sobald man sie dabei hat: Vorteile und Nachteile, Aufneh
   for (const id of arts) {
     const it = content.items[id];
     assert.equal(it.kind, 'artifact');
-    assert.ok(it.boons.length && it.curses.length, `${id}: Vor- und Nachteile`);
+    assert.ok(it.boons.length && (it.curses.length || it.source === 'fest'), `${id}: Vor- und Nachteile`); // CK: Fest-Andenken sind kleine reine Vorteile
   }
   assert.equal(s.equipArtifact, undefined, 'kein Anlegen mehr');
   const atk = s.weaponStats().atk;
@@ -212,6 +212,7 @@ test('Asservatenkammer: ausleihen nach Rang, nicht verkaufen, zurückgeben; Kont
 test('Gefahrengebiete: Gegner können Artefakte fallen lassen, Bosse häufiger', () => {
   const drops = (id) => content.loot[id].drops.filter((d) => content.items[d.item]?.kind === 'artifact');
   for (const zid of Object.keys(content.zones)) {
+    if (zid.endsWith('__warm')) continue; // Briarholt: die warme Fassung teilt Gegner und Beute mit der kalten
     const encs = Object.values(content.encounters).filter((e) => e.zone === zid);
     assert.ok(encs.length);
     const boss = Object.keys(content.encounters).find((id) => content.encounters[id].zone === zid && content.encounters[id].boss);

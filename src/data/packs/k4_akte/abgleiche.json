@@ -1,0 +1,306 @@
+[
+ {
+  "id": "cwa_abgleich1",
+  "ausloeser": "cwa_akt1:4",
+  "betroffene_karten": [
+   "cw_gleisfuss",
+   "cw_setzergasse"
+  ],
+  "gefaehrdete_kontakte": [
+   "cw_darnell",
+   "cw_crayford"
+  ],
+  "benoetigt": [
+   [
+    "cwa_anker_gleisfuss_durchschlag",
+    "cwa_anker_kueche_noel"
+   ],
+   [
+    "cwa_anker_gleisfuss_durchschlag",
+    "cwa_anker_kueche_teller"
+   ]
+  ],
+  "bei_fehlen": {
+   "rueckweg": {
+    "map": "cw_gleisfuss",
+    "spawn": "aufzug"
+   },
+   "nerves": -3,
+   "text": "Du landest an der letzten sicheren Kreuzung. Ein kurzes Flimmern kostet dich Nerven; alle Hinweise und Gegenstände bleiben erhalten."
+  },
+  "oeffentlich": {
+   "text": "Vera liest die getrennt bezeugte Ankunft vor. Die ganze Verbindung zum Bahnhof hält, aber das Archiv erhält ihre und Klammers Namen.",
+   "sets_flags": [
+    "cwa_abgleich1_done",
+    "cwa_abgleich1_oeffentlich",
+    "cwa_verraten_cw_darnell",
+    "cwa_verraten_cw_crayford"
+   ]
+  },
+  "vertraulich": {
+   "text": "Du gehst über die Küchentreppe und lässt beide Aussagen getrennt. Der Umweg dauert länger; Vera und Klammer bleiben dem Archiv von dir ungenannt.",
+   "sets_flags": [
+    "cwa_abgleich1_done",
+    "cwa_abgleich1_vertraulich"
+   ],
+   "travel": {
+    "map": "cw_gleisfuss",
+    "spawn": "aufzug"
+   }
+  }
+ },
+ {
+  "id": "cwa_abgleich2",
+  "ausloeser": "cwa_akt2:2",
+  "betroffene_karten": [
+   "cw_setzergasse",
+   "cw_quittungsmarkt"
+  ],
+  "gefaehrdete_kontakte": [
+   "cw_pritch",
+   "cw_wicksend"
+  ],
+  "benoetigt": [
+   [
+    "cwa_anker_kueche_noel",
+    "cwa_anker_sortierhalle_handzeichen"
+   ],
+   [
+    "cwa_anker_gleisfuss_durchschlag",
+    "cwa_anker_kueche_teller"
+   ]
+  ],
+  "bei_fehlen": {
+   "rueckweg": {
+    "map": "cw_buchbinderei",
+    "spawn": "default"
+   },
+   "nerves": -4,
+   "text": "Du landest an der letzten sicheren Kreuzung. Ein kurzes Flimmern kostet dich Nerven; alle Hinweise und Gegenstände bleiben erhalten."
+  },
+  "oeffentlich": {
+   "text": "Die Marktseite bleibt für alle als selbständiger Weg lesbar. Mit Zustimmung gehen die Namen der beiden Kontakte in den öffentlichen Rücklauf.",
+   "sets_flags": [
+    "cwa_abgleich2_done",
+    "cwa_abgleich2_oeffentlich",
+    "cwa_verraten_cw_pritch",
+    "cwa_verraten_cw_wicksend"
+   ]
+  },
+  "vertraulich": {
+   "text": "Du bringst die Aussagen über die Werkstatt einzeln zurück. Kein zusätzlicher Kontaktname geht ins Rohrpostfach; der direkte Marktweg bleibt vorerst ungezeichnet.",
+   "sets_flags": [
+    "cwa_abgleich2_done",
+    "cwa_abgleich2_vertraulich"
+   ],
+   "travel": {
+    "map": "cw_buchbinderei",
+    "spawn": "default"
+   }
+  }
+ },
+ {
+  "id": "cwa_abgleich3",
+  "ausloeser": "cwa_akt3:3",
+  "betroffene_karten": [
+   "cw_roehrenhof",
+   "cw_kronenarchiv"
+  ],
+  "gefaehrdete_kontakte": [
+   "cw_malliver",
+   "cw_hesk"
+  ],
+  "benoetigt": [
+   [
+    "cwa_anker_sortierhalle_handzeichen",
+    "cwa_anker_sortiergrube_ida"
+   ],
+   [
+    "cwa_anker_gleisfuss_durchschlag",
+    "cwa_anker_kueche_noel"
+   ]
+  ],
+  "bei_fehlen": {
+   "rueckweg": {
+    "map": "cw_roehrenhof",
+    "spawn": "default"
+   },
+   "nerves": -5,
+   "text": "Du landest an der letzten sicheren Kreuzung. Ein kurzes Flimmern kostet dich Nerven; alle Hinweise und Gegenstände bleiben erhalten."
+  },
+  "oeffentlich": {
+   "text": "Die Zeugnisse halten den ganzen Aufstieg. Im Austausch für diese Öffentlichkeit stehen Mallivers und Hesks Namen nun im Eingang der Direktion.",
+   "sets_flags": [
+    "cwa_abgleich3_done",
+    "cwa_abgleich3_oeffentlich",
+    "cwa_verraten_cw_malliver",
+    "cwa_verraten_cw_hesk"
+   ]
+  },
+  "vertraulich": {
+   "text": "Du trägst das Rechenblatt über den getrennten Wartungsweg. Der Aufstieg bleibt über den Umweg erreichbar, ohne neue Kontaktnamen an den Direktor zu melden.",
+   "sets_flags": [
+    "cwa_abgleich3_done",
+    "cwa_abgleich3_vertraulich"
+   ],
+   "travel": {
+    "map": "cw_roehrenhof",
+    "spawn": "default"
+   }
+  }
+ },
+ {
+  "id": "cwa_abgleich4",
+  "ausloeser": "cwa_akt4:2",
+  "betroffene_karten": [
+   "cw_quittungsmarkt",
+   "cw_witwenterrasse",
+   "cw_gleisfuss"
+  ],
+  "gefaehrdete_kontakte": [
+   "cw_wicksend",
+   "cw_noel_bellcross",
+   "cw_darnell"
+  ],
+  "benoetigt": [
+   [
+    "cwa_anker_gleisfuss_vera",
+    "cwa_anker_kueche_teller"
+   ],
+   [
+    "cwa_anker_markt_lottie",
+    "cwa_anker_gleisfuss_durchschlag"
+   ]
+  ],
+  "bei_fehlen": {
+   "rueckweg": {
+    "map": "cw_kueche",
+    "spawn": "default"
+   },
+   "nerves": -5,
+   "text": "Du landest an der letzten sicheren Kreuzung. Ein kurzes Flimmern kostet dich Nerven; alle Hinweise und Gegenstände bleiben erhalten."
+  },
+  "oeffentlich": {
+   "text": "Drei voneinander unabhängige Gruppen bestätigen ihre eigenen Fassungen. Die Terrassen bleiben erreichbar; die freigegebenen Namen werden dem Archiv sichtbar.",
+   "sets_flags": [
+    "cwa_abgleich4_done",
+    "cwa_abgleich4_oeffentlich",
+    "cwa_verraten_cw_wicksend",
+    "cwa_verraten_cw_noel_bellcross",
+    "cwa_verraten_cw_darnell"
+   ]
+  },
+  "vertraulich": {
+   "text": "Du lässt jede Gruppe getrennt gegenzeichnen und trägst die Antworten über die Küchentreppe. Die Wege bleiben über Umwege offen, die Kontaktliste bleibt bei den Bürgen.",
+   "sets_flags": [
+    "cwa_abgleich4_done",
+    "cwa_abgleich4_vertraulich"
+   ],
+   "travel": {
+    "map": "cw_kueche",
+    "spawn": "default"
+   }
+  }
+ },
+ {
+  "id": "cwa_abgleich5",
+  "ausloeser": "cwa_akt5:1",
+  "betroffene_karten": [
+   "cw_roehrenhof",
+   "cw_witwenterrasse"
+  ],
+  "gefaehrdete_kontakte": [
+   "cw_noel_bellcross",
+   "cw_bexley"
+  ],
+  "benoetigt": [
+   [
+    "cwa_anker_roehrenhof_noel",
+    "cwa_anker_villa_kuechenrechnung"
+   ],
+   [
+    "cwa_anker_kueche_noel",
+    "cwa_anker_kueche_teller"
+   ]
+  ],
+  "bei_fehlen": {
+   "rueckweg": {
+    "map": "cw_kueche",
+    "spawn": "default"
+   },
+   "nerves": -6,
+   "text": "Du landest an der letzten sicheren Kreuzung. Ein kurzes Flimmern kostet dich Nerven; alle Hinweise und Gegenstände bleiben erhalten."
+  },
+  "oeffentlich": {
+   "text": "Die zusätzlichen Küchenwege sind öffentlich benannt. Noel und Bexley haben zugestimmt, aber ihre Namen erreichen die letzte Prüfliste des Archivs.",
+   "sets_flags": [
+    "cwa_abgleich5_done",
+    "cwa_abgleich5_oeffentlich",
+    "cwa_verraten_cw_noel_bellcross",
+    "cwa_verraten_cw_bexley"
+   ]
+  },
+  "vertraulich": {
+   "text": "Du führst die Küchenbürgschaft auf getrennten Wegen zurück. Für Personen ohne Meldeadresse ist der Umweg länger, die Zustimmung bleibt trotzdem einzeln und kostenlos.",
+   "sets_flags": [
+    "cwa_abgleich5_done",
+    "cwa_abgleich5_vertraulich"
+   ],
+   "travel": {
+    "map": "cw_kueche",
+    "spawn": "default"
+   }
+  }
+ },
+ {
+  "id": "cwa_abgleich6",
+  "ausloeser": "cwa_akt5:4",
+  "betroffene_karten": [
+   "cw_druckkammer",
+   "cw_kronenarchiv",
+   "cw_gleisfuss"
+  ],
+  "gefaehrdete_kontakte": [
+   "cw_ida_bellcross",
+   "cw_crayford"
+  ],
+  "benoetigt": [
+   [
+    "cwa_anker_druckkammer_austritt",
+    "cwa_anker_sortiergrube_ida"
+   ],
+   [
+    "cwa_anker_archiv_satzprobe",
+    "cwa_anker_kueche_noel"
+   ]
+  ],
+  "bei_fehlen": {
+   "rueckweg": {
+    "map": "cw_buchbinderei",
+    "spawn": "default"
+   },
+   "nerves": -6,
+   "text": "Du landest an der letzten sicheren Kreuzung. Ein kurzes Flimmern kostet dich Nerven; alle Hinweise und Gegenstände bleiben erhalten."
+  },
+  "oeffentlich": {
+   "text": "Die Austrittswege sind für alle offen lesbar. Auch Idas und Klammers freigegebene Namen liegen nun vor dem Direktor, bevor du den Schlussplan wählst.",
+   "sets_flags": [
+    "cwa_abgleich6_done",
+    "cwa_abgleich6_oeffentlich",
+    "cwa_verraten_cw_ida_bellcross",
+    "cwa_verraten_cw_crayford"
+   ]
+  },
+  "vertraulich": {
+   "text": "Du gibst einzelne Wegbestätigungen aus. Die Evakuierung könnte länger dauern, aber niemand muss dafür unter einem gemeinsamen Namen unterschreiben.",
+   "sets_flags": [
+    "cwa_abgleich6_done",
+    "cwa_abgleich6_vertraulich"
+   ],
+   "travel": {
+    "map": "cw_buchbinderei",
+    "spawn": "default"
+   }
+  }
+ }
+]

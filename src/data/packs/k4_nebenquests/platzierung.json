@@ -1,0 +1,1027 @@
+[
+ {
+  "map": "cw_gleisfuss",
+  "npc": "cwn_aufzugswaerter",
+  "tile": [
+   5,
+   3
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k4_arrived"
+   ],
+   "hide_if_flags": [
+    "kapitel4_done"
+   ]
+  }
+ },
+ {
+  "map": "cw_setzergasse",
+  "tile": [
+   5,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_brotdose_spur1",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Untersuchen",
+   "title": "Die Brotdose",
+   "text": "In der Dose liegen ausgesonderte Lettern zwischen Brotkrumen. Die Einkerbungen passen zum Griff des zurückgekauften Löffels; der Name lautet Rena Voss.",
+   "footer": "Du hältst die Beobachtung getrennt fest.",
+   "done_flag": "cwn_brotdose_spur1",
+   "effects": {
+    "sets_flags": [
+     "cwn_brotdose_spur1"
+    ],
+    "gives_clues": [
+     "cwn_brotdose_spur1_hinweis"
+    ]
+   },
+   "visible_if": {
+    "requires_quests_active": [
+     "cwn_brotdose"
+    ],
+    "hide_if_flags": [
+     "cwn_brotdose_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_pfandhaus",
+  "tile": [
+   3,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_brotdose_spur2",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Untersuchen",
+   "title": "Der Rückkaufeintrag",
+   "text": "Die Reparaturrechnung nennt eine frühere Eigentümerin des Löffels. Sie gehört nicht zur Archivdienerin Berta, trotz desselben Nachnamens. Ein Randvermerk führt zu Renas eigener Anfrage.",
+   "footer": "Du hältst die Beobachtung getrennt fest.",
+   "done_flag": "cwn_brotdose_spur2",
+   "effects": {
+    "sets_flags": [
+     "cwn_brotdose_spur2"
+    ],
+    "gives_clues": [
+     "cwn_brotdose_spur2_hinweis"
+    ]
+   },
+   "visible_if": {
+    "requires_quests_active": [
+     "cwn_brotdose"
+    ],
+    "hide_if_flags": [
+     "cwn_brotdose_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_witwenterrasse",
+  "tile": [
+   8,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_brotdose_spur3",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Untersuchen",
+   "title": "Renas Nachricht",
+   "text": "Rena bestätigt ihre Anfrage durch die Beschreibung des schiefen Löffelgriffs. „Gib mir den Namen in die Hand. Wenn die Gesellen ihn brauchen, sollen sie wissen, dass er einer Person gehört.“",
+   "footer": "Du hältst die Beobachtung getrennt fest.",
+   "done_flag": "cwn_brotdose_spur3",
+   "effects": {
+    "sets_flags": [
+     "cwn_brotdose_spur3"
+    ],
+    "gives_clues": [
+     "cwn_brotdose_spur3_hinweis"
+    ]
+   },
+   "visible_if": {
+    "requires_quests_active": [
+     "cwn_brotdose"
+    ],
+    "hide_if_flags": [
+     "cwn_brotdose_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_quittungsmarkt",
+  "tile": [
+   5,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_falscher_pfand_spur1",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Untersuchen",
+   "title": "Die Henkelrechnung",
+   "text": "Eine Töpferrechnung beschreibt zwei verschiedenfarbige Nähte am Krug. Der erste Haushalt nennt beide, ohne den Krug gesehen zu haben.",
+   "footer": "Du hältst die Beobachtung getrennt fest.",
+   "done_flag": "cwn_falscher_pfand_spur1",
+   "effects": {
+    "sets_flags": [
+     "cwn_falscher_pfand_spur1"
+    ],
+    "gives_clues": [
+     "cwn_falscher_pfand_spur1_hinweis"
+    ]
+   },
+   "visible_if": {
+    "requires_quests_active": [
+     "cwn_falscher_pfand"
+    ],
+    "hide_if_flags": [
+     "cwn_falscher_pfand_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_roehrenhof",
+  "tile": [
+   5,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_falscher_pfand_spur2",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Untersuchen",
+   "title": "Die Uhr am Rohr",
+   "text": "Der zweite Haushalt beschreibt den fehlenden Schlag vor der vollen Stunde. Ein Wartungsvermerk bestätigt, dass die Uhr vor der Rohrreparatur dort hing.",
+   "footer": "Du hältst die Beobachtung getrennt fest.",
+   "done_flag": "cwn_falscher_pfand_spur2",
+   "effects": {
+    "sets_flags": [
+     "cwn_falscher_pfand_spur2"
+    ],
+    "gives_clues": [
+     "cwn_falscher_pfand_spur2_hinweis"
+    ]
+   },
+   "visible_if": {
+    "requires_quests_active": [
+     "cwn_falscher_pfand"
+    ],
+    "hide_if_flags": [
+     "cwn_falscher_pfand_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_witwenterrasse",
+  "tile": [
+   9,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_falscher_pfand_spur3",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Untersuchen",
+   "title": "Die geflickte Decke",
+   "text": "Die dritte Familie erkennt die Decke an einem eingenähten Taschenstück. Ihr mündlicher Leihvertrag nennt weder Krug noch Uhr.",
+   "footer": "Du hältst die Beobachtung getrennt fest.",
+   "done_flag": "cwn_falscher_pfand_spur3",
+   "effects": {
+    "sets_flags": [
+     "cwn_falscher_pfand_spur3"
+    ],
+    "gives_clues": [
+     "cwn_falscher_pfand_spur3_hinweis"
+    ]
+   },
+   "visible_if": {
+    "requires_quests_active": [
+     "cwn_falscher_pfand"
+    ],
+    "hide_if_flags": [
+     "cwn_falscher_pfand_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_witwenterrasse",
+  "tile": [
+   10,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_klopfzeichen_spur1",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Untersuchen",
+   "title": "Drei verschiedene Zeiten",
+   "text": "Die Nachbarn nennen verschiedene Klopfzeiten, aber denselben unregelmäßigen Abschluss. Keine Aussage wurde vom Hauswart abgeschrieben.",
+   "footer": "Du hältst die Beobachtung getrennt fest.",
+   "done_flag": "cwn_klopfzeichen_spur1",
+   "effects": {
+    "sets_flags": [
+     "cwn_klopfzeichen_spur1"
+    ],
+    "gives_clues": [
+     "cwn_klopfzeichen_spur1_hinweis"
+    ]
+   },
+   "visible_if": {
+    "requires_quests_active": [
+     "cwn_klopfzeichen"
+    ],
+    "hide_if_flags": [
+     "cwn_klopfzeichen_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_kueche",
+  "tile": [
+   5,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_klopfzeichen_spur2",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Untersuchen",
+   "title": "Das ruhende Rohr",
+   "text": "Die Zusatzheizung ist abgestellt. Das lose Lager bleibt still, doch aus der anderen Wohnung kommt die Antwort auf eine neue Frage.",
+   "footer": "Du hältst die Beobachtung getrennt fest.",
+   "done_flag": "cwn_klopfzeichen_spur2",
+   "effects": {
+    "sets_flags": [
+     "cwn_klopfzeichen_spur2"
+    ],
+    "gives_clues": [
+     "cwn_klopfzeichen_spur2_hinweis"
+    ]
+   },
+   "visible_if": {
+    "requires_quests_active": [
+     "cwn_klopfzeichen"
+    ],
+    "hide_if_flags": [
+     "cwn_klopfzeichen_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_witwenterrasse",
+  "tile": [
+   11,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_klopfzeichen_spur3",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Untersuchen",
+   "title": "Ein Zettel unter der Tür",
+   "text": "Unter der Tür liegt ein frisch gefalteter Zettel: „Ich heiße Mina, nicht meine frühere Nachbarin. Ich öffne, wenn der Hauswart allein wartet.“ Im Wartungsgang sammelt sich Tinte.",
+   "footer": "Du hältst die Beobachtung getrennt fest.",
+   "done_flag": "cwn_klopfzeichen_spur3",
+   "effects": {
+    "sets_flags": [
+     "cwn_klopfzeichen_spur3"
+    ],
+    "gives_clues": [
+     "cwn_klopfzeichen_spur3_hinweis"
+    ]
+   },
+   "visible_if": {
+    "requires_quests_active": [
+     "cwn_klopfzeichen"
+    ],
+    "hide_if_flags": [
+     "cwn_klopfzeichen_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_setzergasse",
+  "tile": [
+   6,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_durchschlaege_spur1",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Untersuchen",
+   "title": "Die Naht der Kapsel",
+   "text": "Die Werkstatt erkennt den schiefen Verschluss an ihrem Werkzeug. Die erste Familie bestätigt den zugehörigen Auftrag, ohne Veras Namen zu benötigen.",
+   "footer": "Du hältst die Beobachtung getrennt fest.",
+   "done_flag": "cwn_durchschlaege_spur1",
+   "effects": {
+    "sets_flags": [
+     "cwn_durchschlaege_spur1"
+    ],
+    "gives_clues": [
+     "cwn_durchschlaege_spur1_hinweis"
+    ]
+   },
+   "visible_if": {
+    "requires_quests_active": [
+     "cwn_durchschlaege"
+    ],
+    "hide_if_flags": [
+     "cwn_durchschlaege_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_quittungsmarkt",
+  "tile": [
+   6,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_durchschlaege_spur2",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Untersuchen",
+   "title": "Die zweite Empfangsfrage",
+   "text": "Ein Händler vergleicht die Paketmaße mit seinem eigenen Beleg. Du übergibst den passenden Durchschlag einzeln; er quittiert nur den Empfang, nicht die Herkunft.",
+   "footer": "Du hältst die Beobachtung getrennt fest.",
+   "done_flag": "cwn_durchschlaege_spur2",
+   "effects": {
+    "sets_flags": [
+     "cwn_durchschlaege_spur2"
+    ],
+    "gives_clues": [
+     "cwn_durchschlaege_spur2_hinweis"
+    ]
+   },
+   "visible_if": {
+    "requires_quests_active": [
+     "cwn_durchschlaege"
+    ],
+    "hide_if_flags": [
+     "cwn_durchschlaege_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_witwenterrasse",
+  "tile": [
+   12,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_durchschlaege_spur3",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Untersuchen",
+   "title": "Die dritte Übergabe",
+   "text": "Die letzte Familie beschreibt den beschädigten Inhalt, bevor du ihren Durchschlag zeigst. Du lässt den Bogen dort und behältst die anonyme Empfangsbestätigung.",
+   "footer": "Du hältst die Beobachtung getrennt fest.",
+   "done_flag": "cwn_durchschlaege_spur3",
+   "effects": {
+    "sets_flags": [
+     "cwn_durchschlaege_spur3"
+    ],
+    "gives_clues": [
+     "cwn_durchschlaege_spur3_hinweis"
+    ]
+   },
+   "visible_if": {
+    "requires_quests_active": [
+     "cwn_durchschlaege"
+    ],
+    "hide_if_flags": [
+     "cwn_durchschlaege_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_roehrenhof",
+  "tile": [
+   6,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_falsche_adresse_spur1",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Untersuchen",
+   "title": "Der Bremsklotz",
+   "text": "Der frische Abrieb gehört zur langsamen Fahrt eines schweren Wagens. Zwei unabhängige Träger bestätigen dieselbe Last, aber verschiedene vorgeschriebene Zielorte.",
+   "footer": "Du hältst die Beobachtung getrennt fest.",
+   "done_flag": "cwn_falsche_adresse_spur1",
+   "effects": {
+    "sets_flags": [
+     "cwn_falsche_adresse_spur1"
+    ],
+    "gives_clues": [
+     "cwn_falsche_adresse_spur1_hinweis"
+    ]
+   },
+   "visible_if": {
+    "requires_quests_active": [
+     "cwn_falsche_adresse"
+    ],
+    "hide_if_flags": [
+     "cwn_falsche_adresse_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_sortierhalle",
+  "tile": [
+   3,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_falsche_adresse_spur2",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Untersuchen",
+   "title": "Die doppelte Zustellung",
+   "text": "Eine Lieferkopie fordert die Kiste am Archiv an, die ältere an einer privaten Werkstatt. Die zweite Adresse wurde erst nachträglich darübergelegt.",
+   "footer": "Du hältst die Beobachtung getrennt fest.",
+   "done_flag": "cwn_falsche_adresse_spur2",
+   "effects": {
+    "sets_flags": [
+     "cwn_falsche_adresse_spur2"
+    ],
+    "gives_clues": [
+     "cwn_falsche_adresse_spur2_hinweis"
+    ]
+   },
+   "visible_if": {
+    "requires_quests_active": [
+     "cwn_falsche_adresse"
+    ],
+    "hide_if_flags": [
+     "cwn_falsche_adresse_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_gepaeckhalle",
+  "tile": [
+   3,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_falsche_adresse_spur3",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Untersuchen",
+   "title": "Die Antwort aus der Kiste",
+   "text": "Du fragst durch einen Luftspalt. Ein erwachsener Gehilfe antwortet und bittet um die private Werkstatt. Er versteckt sich vor einer Zwangszuordnung, nicht vor einer von dir bewiesenen Straftat.",
+   "footer": "Du hältst die Beobachtung getrennt fest.",
+   "done_flag": "cwn_falsche_adresse_spur3",
+   "effects": {
+    "sets_flags": [
+     "cwn_falsche_adresse_spur3"
+    ],
+    "gives_clues": [
+     "cwn_falsche_adresse_spur3_hinweis"
+    ]
+   },
+   "visible_if": {
+    "requires_quests_active": [
+     "cwn_falsche_adresse"
+    ],
+    "hide_if_flags": [
+     "cwn_falsche_adresse_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_archivsaal",
+  "tile": [
+   3,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_restaurierung_spur1",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Untersuchen",
+   "title": "Der ursprüngliche Auftrag",
+   "text": "Die ältere Rechnung verlangt eine Materialprüfung. Sie enthält weder eine Erlaubnis zum Tilgen von Menschen noch eine Zusicherung, der Versuch sei harmlos.",
+   "footer": "Du hältst die Beobachtung getrennt fest.",
+   "done_flag": "cwn_restaurierung_spur1",
+   "effects": {
+    "sets_flags": [
+     "cwn_restaurierung_spur1"
+    ],
+    "gives_clues": [
+     "cwn_restaurierung_spur1_hinweis"
+    ]
+   },
+   "visible_if": {
+    "requires_quests_active": [
+     "cwn_restaurierung"
+    ],
+    "hide_if_flags": [
+     "cwn_restaurierung_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_kronenarchiv",
+  "tile": [
+   4,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_restaurierung_spur2",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Untersuchen",
+   "title": "Das Vergleichspigment",
+   "text": "Ein eingelagerter Pigmentrest passt zur späteren Ergänzung. Der Zusatz belastet Wetherbys Büro, nicht jeden Beschäftigten des Archivs.",
+   "footer": "Du hältst die Beobachtung getrennt fest.",
+   "done_flag": "cwn_restaurierung_spur2",
+   "effects": {
+    "sets_flags": [
+     "cwn_restaurierung_spur2"
+    ],
+    "gives_clues": [
+     "cwn_restaurierung_spur2_hinweis"
+    ]
+   },
+   "visible_if": {
+    "requires_quests_active": [
+     "cwn_restaurierung"
+    ],
+    "hide_if_flags": [
+     "cwn_restaurierung_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_buchbinderei",
+  "tile": [
+   3,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_restaurierung_spur3",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Untersuchen",
+   "title": "Die reversible Probe",
+   "text": "Unter Aufsicht löst sich ein winziger Rand. Die ursprüngliche Formulierung bleibt erhalten; Klammer hält fest, welche Stelle verändert und welche nur ergänzt wurde.",
+   "footer": "Du hältst die Beobachtung getrennt fest.",
+   "done_flag": "cwn_restaurierung_spur3",
+   "effects": {
+    "sets_flags": [
+     "cwn_restaurierung_spur3"
+    ],
+    "gives_clues": [
+     "cwn_restaurierung_spur3_hinweis"
+    ]
+   },
+   "visible_if": {
+    "requires_quests_active": [
+     "cwn_restaurierung"
+    ],
+    "hide_if_flags": [
+     "cwn_restaurierung_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_kueche",
+  "tile": [
+   6,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_warnbrief_spur1",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Untersuchen",
+   "title": "Die erste Einlage",
+   "text": "Noel liest die Warnung vor verschobenen Lieferwegen. Er lässt die Küchentür offen und gibt nur seine eigene Einlage zur Reparatur frei.",
+   "footer": "Du hältst die Beobachtung getrennt fest.",
+   "done_flag": "cwn_warnbrief_spur1",
+   "effects": {
+    "sets_flags": [
+     "cwn_warnbrief_spur1"
+    ],
+    "gives_clues": [
+     "cwn_warnbrief_spur1_hinweis"
+    ]
+   },
+   "visible_if": {
+    "requires_quests_active": [
+     "cwn_warnbrief"
+    ],
+    "hide_if_flags": [
+     "cwn_warnbrief_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_quittungsmarkt",
+  "tile": [
+   7,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_warnbrief_spur2",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Untersuchen",
+   "title": "Die zweite Einlage",
+   "text": "Der zweite Besitzer bestätigt den Empfang durch eine alte Leimspur. Er möchte seine private Randnotiz behalten; du trennst sie nicht vom Band.",
+   "footer": "Du hältst die Beobachtung getrennt fest.",
+   "done_flag": "cwn_warnbrief_spur2",
+   "effects": {
+    "sets_flags": [
+     "cwn_warnbrief_spur2"
+    ],
+    "gives_clues": [
+     "cwn_warnbrief_spur2_hinweis"
+    ]
+   },
+   "visible_if": {
+    "requires_quests_active": [
+     "cwn_warnbrief"
+    ],
+    "hide_if_flags": [
+     "cwn_warnbrief_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_setzergasse",
+  "tile": [
+   7,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_warnbrief_spur3",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Untersuchen",
+   "title": "Die dritte Einlage",
+   "text": "Die letzte Besitzerin erklärt, warum sie dem neuen Hinweis misstraute. Du wartest auf ihre eigene Empfangsantwort, statt für sie zu unterschreiben.",
+   "footer": "Du hältst die Beobachtung getrennt fest.",
+   "done_flag": "cwn_warnbrief_spur3",
+   "effects": {
+    "sets_flags": [
+     "cwn_warnbrief_spur3"
+    ],
+    "gives_clues": [
+     "cwn_warnbrief_spur3_hinweis"
+    ]
+   },
+   "visible_if": {
+    "requires_quests_active": [
+     "cwn_warnbrief"
+    ],
+    "hide_if_flags": [
+     "cwn_warnbrief_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_gleisfuss",
+  "tile": [
+   6,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_seilbahn_spur1",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Untersuchen",
+   "title": "Die Nachtkerbe",
+   "text": "Eine zusätzliche Kerbe löst den Halt nur unter der seitlichen Nachtlampe aus. Sie liegt zwischen zwei alten Markierungen, nicht auf einer neuen Streckenhöhe.",
+   "footer": "Du hältst die Beobachtung getrennt fest.",
+   "done_flag": "cwn_seilbahn_spur1",
+   "effects": {
+    "sets_flags": [
+     "cwn_seilbahn_spur1"
+    ],
+    "gives_clues": [
+     "cwn_seilbahn_spur1_hinweis"
+    ]
+   },
+   "visible_if": {
+    "requires_quests_active": [
+     "cwn_seilbahn"
+    ],
+    "hide_if_flags": [
+     "cwn_seilbahn_done"
+    ],
+    "requires_flags": [
+     "k3h_nacht"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_roehrenhof",
+  "tile": [
+   7,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_seilbahn_spur2",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Untersuchen",
+   "title": "Der Wartungsplan",
+   "text": "Der alte Wartungsplan verzeichnet dort einen inzwischen verbauten Seitensteg. Seine kurze Verbindung umgeht die große Treppe, aber keine versperrte Hauptstrecke.",
+   "footer": "Du hältst die Beobachtung getrennt fest.",
+   "done_flag": "cwn_seilbahn_spur2",
+   "effects": {
+    "sets_flags": [
+     "cwn_seilbahn_spur2"
+    ],
+    "gives_clues": [
+     "cwn_seilbahn_spur2_hinweis"
+    ]
+   },
+   "visible_if": {
+    "requires_quests_active": [
+     "cwn_seilbahn"
+    ],
+    "hide_if_flags": [
+     "cwn_seilbahn_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_setzergasse",
+  "tile": [
+   8,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_seilbahn_spur3",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Untersuchen",
+   "title": "Der lose Anschlag",
+   "text": "Ein lockerer Anschlag verstellt die optische Haltmarke. Du sicherst ihn bei stillgesetztem Wagen; niemand muss zum Beweis auf einer unbekannten Plattform aussteigen.",
+   "footer": "Du hältst die Beobachtung getrennt fest.",
+   "done_flag": "cwn_seilbahn_spur3",
+   "effects": {
+    "sets_flags": [
+     "cwn_seilbahn_spur3"
+    ],
+    "gives_clues": [
+     "cwn_seilbahn_spur3_hinweis"
+    ]
+   },
+   "visible_if": {
+    "requires_quests_active": [
+     "cwn_seilbahn"
+    ],
+    "hide_if_flags": [
+     "cwn_seilbahn_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_gepaeckhalle",
+  "tile": [
+   4,
+   3
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "cwn_brief_aus_dunscar"
+   ],
+   "hide_if_flags": [
+    "cwn_brief_aus_dunscar_done"
+   ]
+  },
+  "interactable": {
+   "id": "cwn_brief_aus_dunscar_spur1",
+   "kind": "dialogue",
+   "dialogue": "cwn_brief_aus_dunscar_spur1",
+   "title": "Pfiffs Paket",
+   "prompt": "Ansehen",
+   "sprite": "paper",
+   "marker": true
+  }
+ },
+ {
+  "map": "cw_kueche",
+  "tile": [
+   7,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_brief_aus_dunscar_spur2",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Untersuchen",
+   "title": "Die gewöhnliche Mahlzeit",
+   "text": "Du bringst Pfiffs leere Rezeptseite zu Noel. Er notiert eine Suppe für erschöpfte Reisende, ohne aus einem fremden Stadtende ein Versprechen auf Heilung zu machen.",
+   "footer": "Du hältst die Beobachtung getrennt fest.",
+   "done_flag": "cwn_brief_aus_dunscar_spur2",
+   "effects": {
+    "sets_flags": [
+     "cwn_brief_aus_dunscar_spur2"
+    ],
+    "gives_clues": [
+     "cwn_brief_aus_dunscar_spur2_hinweis"
+    ]
+   },
+   "visible_if": {
+    "requires_quests_active": [
+     "cwn_brief_aus_dunscar"
+    ],
+    "hide_if_flags": [
+     "cwn_brief_aus_dunscar_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_gleisfuss",
+  "tile": [
+   7,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_brief_aus_dunscar_spur3",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Untersuchen",
+   "title": "Eine offene Rücksendung",
+   "text": "Der Bote prüft nur Adresse und Gewicht. Neben der Rezeptseite bleibt Platz für deine eigene Antwort; kein alter Bekannter muss dafür Calderwick betreten.",
+   "footer": "Du hältst die Beobachtung getrennt fest.",
+   "done_flag": "cwn_brief_aus_dunscar_spur3",
+   "effects": {
+    "sets_flags": [
+     "cwn_brief_aus_dunscar_spur3"
+    ],
+    "gives_clues": [
+     "cwn_brief_aus_dunscar_spur3_hinweis"
+    ]
+   },
+   "visible_if": {
+    "requires_quests_active": [
+     "cwn_brief_aus_dunscar"
+    ],
+    "hide_if_flags": [
+     "cwn_brief_aus_dunscar_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_buchbinderei",
+  "tile": [
+   4,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_telegramm_kettlegate_spur1",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Untersuchen",
+   "title": "Marlowes Telegramm",
+   "text": "Marlowe nennt eine unverwechselbare Registraturkorrektur aus einem verkauften Auszug. Sie bestätigt weder den Namen der Verkäuferin noch eine Verbindung Wetherbys zu den ursprünglichen Taten.",
+   "footer": "Du hältst die Beobachtung getrennt fest.",
+   "done_flag": "cwn_telegramm_kettlegate_spur1",
+   "effects": {
+    "sets_flags": [
+     "cwn_telegramm_kettlegate_spur1"
+    ],
+    "gives_clues": [
+     "cwn_telegramm_kettlegate_spur1_hinweis"
+    ]
+   },
+   "visible_if": {
+    "requires_quests_active": [
+     "cwn_telegramm_kettlegate"
+    ],
+    "hide_if_flags": [
+     "cwn_telegramm_kettlegate_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_quittungsmarkt",
+  "tile": [
+   8,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_telegramm_kettlegate_spur2",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Untersuchen",
+   "title": "Die Lagerquittung",
+   "text": "Im zugänglichen Lagerverzeichnis steht der Eingang der Abschriften nach Abschluss der Kettlegater Fälle. Das Handelszeichen führt zum Absatzweg der Schleierschwestern, nicht zu einer identifizierten Person.",
+   "footer": "Du hältst die Beobachtung getrennt fest.",
+   "done_flag": "cwn_telegramm_kettlegate_spur2",
+   "effects": {
+    "sets_flags": [
+     "cwn_telegramm_kettlegate_spur2"
+    ],
+    "gives_clues": [
+     "cwn_telegramm_kettlegate_spur2_hinweis"
+    ]
+   },
+   "visible_if": {
+    "requires_quests_active": [
+     "cwn_telegramm_kettlegate"
+    ],
+    "hide_if_flags": [
+     "cwn_telegramm_kettlegate_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_roehrenhof",
+  "tile": [
+   8,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_telegramm_kettlegate_spur3",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Untersuchen",
+   "title": "Die Empfangskopie",
+   "text": "Eine unabhängige Rohrpostkopie nennt Wetherbys Büro als späteren Käufer. Das Datum bestätigt die Reihenfolge; ein Käufer ihrer Methoden ist damit nicht der nachträgliche Urheber aller Fälle.",
+   "footer": "Du hältst die Beobachtung getrennt fest.",
+   "done_flag": "cwn_telegramm_kettlegate_spur3",
+   "effects": {
+    "sets_flags": [
+     "cwn_telegramm_kettlegate_spur3"
+    ],
+    "gives_clues": [
+     "cwn_telegramm_kettlegate_spur3_hinweis"
+    ]
+   },
+   "visible_if": {
+    "requires_quests_active": [
+     "cwn_telegramm_kettlegate"
+    ],
+    "hide_if_flags": [
+     "cwn_telegramm_kettlegate_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_quittungsmarkt",
+  "tile": [
+   9,
+   3
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k4_arrived"
+   ],
+   "hide_if_flags": [
+    "kapitel4_done",
+    "k3h_nacht"
+   ]
+  },
+  "interactable": {
+   "id": "cwn_saisonmarkt",
+   "kind": "dialogue",
+   "dialogue": "cwn_saisonmarkt",
+   "title": "Selmas Saisonstand",
+   "prompt": "Ansehen",
+   "sprite": "paper",
+   "marker": true
+  }
+ }
+]

@@ -1,0 +1,2726 @@
+{
+ "bho_reise_wurzelkranz": {
+  "start": [
+   {
+    "node": "bho_reise_wurzelkranz_warm",
+    "requires_flags": [
+     "bha_ventil_kuehlung_offen"
+    ]
+   },
+   {
+    "node": "bho_reise_wurzelkranz_kalt",
+    "hide_if_flags": [
+     "bha_ventil_kuehlung_offen"
+    ]
+   }
+  ],
+  "nodes": {
+   "bho_reise_wurzelkranz_warm": {
+    "text": "Der Weg nach Wurzelkranz ist warm. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_wurzelkranz_warm_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_wurzelkranz_warm_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_wurzelkranz__warm",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   },
+   "bho_reise_wurzelkranz_kalt": {
+    "text": "Der Weg nach Wurzelkranz ist kalt, aber begehbar. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_wurzelkranz_kalt_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_wurzelkranz_kalt_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_wurzelkranz",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   }
+  }
+ },
+ "bho_reise_kesselgrund": {
+  "start": [
+   {
+    "node": "bho_reise_kesselgrund_warm",
+    "requires_flags": [
+     "bha_ventil_reserve_offen"
+    ]
+   },
+   {
+    "node": "bho_reise_kesselgrund_kalt",
+    "hide_if_flags": [
+     "bha_ventil_reserve_offen"
+    ]
+   }
+  ],
+  "nodes": {
+   "bho_reise_kesselgrund_warm": {
+    "text": "Der Weg nach Kesselgrund ist warm. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_kesselgrund_warm_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_kesselgrund_warm_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_kesselgrund__warm",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   },
+   "bho_reise_kesselgrund_kalt": {
+    "text": "Der Weg nach Kesselgrund ist kalt, aber begehbar. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_kesselgrund_kalt_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_kesselgrund_kalt_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_kesselgrund",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   }
+  }
+ },
+ "bho_reise_kutschenhalle": {
+  "start": [
+   {
+    "node": "bho_reise_kutschenhalle_warm",
+    "requires_flags": [
+     "bha_ventil_hof_offen"
+    ]
+   },
+   {
+    "node": "bho_reise_kutschenhalle_kalt",
+    "hide_if_flags": [
+     "bha_ventil_hof_offen"
+    ]
+   }
+  ],
+  "nodes": {
+   "bho_reise_kutschenhalle_warm": {
+    "text": "Der Weg nach Kutschenhalle ist warm. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_kutschenhalle_warm_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_kutschenhalle_warm_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_kutschenhalle__warm",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   },
+   "bho_reise_kutschenhalle_kalt": {
+    "text": "Der Weg nach Kutschenhalle ist kalt, aber begehbar. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_kutschenhalle_kalt_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_kutschenhalle_kalt_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_kutschenhalle",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   }
+  }
+ },
+ "bho_reise_kutschenhof": {
+  "start": [
+   {
+    "node": "bho_reise_kutschenhof_warm",
+    "requires_flags": [
+     "bha_ventil_hof_offen"
+    ]
+   },
+   {
+    "node": "bho_reise_kutschenhof_kalt",
+    "hide_if_flags": [
+     "bha_ventil_hof_offen"
+    ]
+   }
+  ],
+  "nodes": {
+   "bho_reise_kutschenhof_warm": {
+    "text": "Der Weg nach Kutschenhof ist warm. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_kutschenhof_warm_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_kutschenhof_warm_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_kutschenhof__warm",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   },
+   "bho_reise_kutschenhof_kalt": {
+    "text": "Der Weg nach Kutschenhof ist kalt, aber begehbar. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_kutschenhof_kalt_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_kutschenhof_kalt_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_kutschenhof",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   }
+  }
+ },
+ "bho_reise_winterpromenade": {
+  "start": [
+   {
+    "node": "bho_reise_winterpromenade_warm",
+    "requires_flags": [
+     "bha_ventil_pult_offen"
+    ]
+   },
+   {
+    "node": "bho_reise_winterpromenade_kalt",
+    "hide_if_flags": [
+     "bha_ventil_pult_offen"
+    ]
+   }
+  ],
+  "nodes": {
+   "bho_reise_winterpromenade_warm": {
+    "text": "Der Weg nach Winterpromenade ist warm. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_winterpromenade_warm_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_winterpromenade_warm_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_winterpromenade__warm",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   },
+   "bho_reise_winterpromenade_kalt": {
+    "text": "Der Weg nach Winterpromenade ist kalt, aber begehbar. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_winterpromenade_kalt_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_winterpromenade_kalt_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_winterpromenade",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   }
+  }
+ },
+ "bho_reise_buegelraum": {
+  "start": [
+   {
+    "node": "bho_reise_buegelraum_warm"
+   }
+  ],
+  "nodes": {
+   "bho_reise_buegelraum_warm": {
+    "text": "Der Weg nach Frosts Bügelraum ist warm. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_buegelraum_warm_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_buegelraum_warm_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_buegelraum__warm",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   }
+  }
+ },
+ "bho_reise_verlassene_waescherei": {
+  "start": [
+   {
+    "node": "bho_reise_verlassene_waescherei_warm",
+    "requires_flags": [
+     "bha_ventil_waesche_offen"
+    ]
+   },
+   {
+    "node": "bho_reise_verlassene_waescherei_kalt",
+    "hide_if_flags": [
+     "bha_ventil_waesche_offen"
+    ]
+   }
+  ],
+  "nodes": {
+   "bho_reise_verlassene_waescherei_warm": {
+    "text": "Der Weg nach Verlassene Wäscherei ist warm. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_verlassene_waescherei_warm_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_verlassene_waescherei_warm_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_verlassene_waescherei__warm",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   },
+   "bho_reise_verlassene_waescherei_kalt": {
+    "text": "Der Weg nach Verlassene Wäscherei ist kalt, aber begehbar. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_verlassene_waescherei_kalt_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_verlassene_waescherei_kalt_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_verlassene_waescherei",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   }
+  }
+ },
+ "bho_reise_glasgaerten": {
+  "start": [
+   {
+    "node": "bho_reise_glasgaerten_warm",
+    "requires_flags": [
+     "bha_ventil_beete_offen"
+    ]
+   },
+   {
+    "node": "bho_reise_glasgaerten_kalt",
+    "hide_if_flags": [
+     "bha_ventil_beete_offen"
+    ]
+   }
+  ],
+  "nodes": {
+   "bho_reise_glasgaerten_warm": {
+    "text": "Der Weg nach Glasgärten ist warm. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_glasgaerten_warm_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_glasgaerten_warm_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_glasgaerten__warm",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   },
+   "bho_reise_glasgaerten_kalt": {
+    "text": "Der Weg nach Glasgärten ist kalt, aber begehbar. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_glasgaerten_kalt_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_glasgaerten_kalt_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_glasgaerten",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   }
+  }
+ },
+ "bho_reise_pavillon": {
+  "start": [
+   {
+    "node": "bho_reise_pavillon_warm",
+    "requires_flags": [
+     "bha_ventil_pult_offen"
+    ]
+   },
+   {
+    "node": "bho_reise_pavillon_kalt",
+    "hide_if_flags": [
+     "bha_ventil_pult_offen"
+    ]
+   }
+  ],
+  "nodes": {
+   "bho_reise_pavillon_warm": {
+    "text": "Der Weg nach Musikpavillon ist warm. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_pavillon_warm_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_pavillon_warm_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_pavillon__warm",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   },
+   "bho_reise_pavillon_kalt": {
+    "text": "Der Weg nach Musikpavillon ist kalt, aber begehbar. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_pavillon_kalt_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_pavillon_kalt_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_pavillon",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   }
+  }
+ },
+ "bho_reise_stillenhaeuser": {
+  "start": [
+   {
+    "node": "bho_reise_stillenhaeuser_warm",
+    "requires_flags": [
+     "bha_ventil_tee_offen"
+    ]
+   },
+   {
+    "node": "bho_reise_stillenhaeuser_kalt",
+    "hide_if_flags": [
+     "bha_ventil_tee_offen"
+    ]
+   }
+  ],
+  "nodes": {
+   "bho_reise_stillenhaeuser_warm": {
+    "text": "Der Weg nach Stillenhäuser ist warm. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_stillenhaeuser_warm_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_stillenhaeuser_warm_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_stillenhaeuser__warm",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   },
+   "bho_reise_stillenhaeuser_kalt": {
+    "text": "Der Weg nach Stillenhäuser ist kalt, aber begehbar. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_stillenhaeuser_kalt_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_stillenhaeuser_kalt_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_stillenhaeuser",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   }
+  }
+ },
+ "bho_reise_verkaufshalle": {
+  "start": [
+   {
+    "node": "bho_reise_verkaufshalle_warm",
+    "requires_flags": [
+     "bha_ventil_beete_offen"
+    ]
+   },
+   {
+    "node": "bho_reise_verkaufshalle_kalt",
+    "hide_if_flags": [
+     "bha_ventil_beete_offen"
+    ]
+   }
+  ],
+  "nodes": {
+   "bho_reise_verkaufshalle_warm": {
+    "text": "Der Weg nach Ehemalige Verkaufshalle ist warm. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_verkaufshalle_warm_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_verkaufshalle_warm_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_verkaufshalle__warm",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   },
+   "bho_reise_verkaufshalle_kalt": {
+    "text": "Der Weg nach Ehemalige Verkaufshalle ist kalt, aber begehbar. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_verkaufshalle_kalt_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_verkaufshalle_kalt_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_verkaufshalle",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   }
+  }
+ },
+ "bho_reise_kaltes_palmhaus": {
+  "start": [
+   {
+    "node": "bho_reise_kaltes_palmhaus_warm",
+    "requires_flags": [
+     "bha_ventil_palm_offen"
+    ]
+   },
+   {
+    "node": "bho_reise_kaltes_palmhaus_kalt",
+    "hide_if_flags": [
+     "bha_ventil_palm_offen"
+    ]
+   }
+  ],
+  "nodes": {
+   "bho_reise_kaltes_palmhaus_warm": {
+    "text": "Der Weg nach Kaltes Palmhaus ist warm. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_kaltes_palmhaus_warm_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_kaltes_palmhaus_warm_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_kaltes_palmhaus__warm",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   },
+   "bho_reise_kaltes_palmhaus_kalt": {
+    "text": "Der Weg nach Kaltes Palmhaus ist kalt, aber begehbar. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_kaltes_palmhaus_kalt_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_kaltes_palmhaus_kalt_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_kaltes_palmhaus",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   }
+  }
+ },
+ "bho_reise_speisesaal": {
+  "start": [
+   {
+    "node": "bho_reise_speisesaal_warm",
+    "requires_flags": [
+     "bha_ventil_tee_offen"
+    ]
+   },
+   {
+    "node": "bho_reise_speisesaal_kalt",
+    "hide_if_flags": [
+     "bha_ventil_tee_offen"
+    ]
+   }
+  ],
+  "nodes": {
+   "bho_reise_speisesaal_warm": {
+    "text": "Der Weg nach Speisesaal und Teeküche ist warm. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_speisesaal_warm_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_speisesaal_warm_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_speisesaal__warm",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   },
+   "bho_reise_speisesaal_kalt": {
+    "text": "Der Weg nach Speisesaal und Teeküche ist kalt, aber begehbar. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_speisesaal_kalt_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_speisesaal_kalt_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_speisesaal",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   }
+  }
+ },
+ "bho_reise_aktenraum": {
+  "start": [
+   {
+    "node": "bho_reise_aktenraum_warm",
+    "requires_flags": [
+     "bha_ventil_akten_offen"
+    ]
+   },
+   {
+    "node": "bho_reise_aktenraum_kalt",
+    "hide_if_flags": [
+     "bha_ventil_akten_offen"
+    ]
+   }
+  ],
+  "nodes": {
+   "bho_reise_aktenraum_warm": {
+    "text": "Der Weg nach Einwilligungsarchiv ist warm. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_aktenraum_warm_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_aktenraum_warm_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_aktenraum__warm",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   },
+   "bho_reise_aktenraum_kalt": {
+    "text": "Der Weg nach Einwilligungsarchiv ist kalt, aber begehbar. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_aktenraum_kalt_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_aktenraum_kalt_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_aktenraum",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   }
+  }
+ },
+ "bho_reise_labor": {
+  "start": [
+   {
+    "node": "bho_reise_labor_warm",
+    "requires_flags": [
+     "bha_ventil_labor_offen"
+    ]
+   },
+   {
+    "node": "bho_reise_labor_kalt",
+    "hide_if_flags": [
+     "bha_ventil_labor_offen"
+    ]
+   }
+  ],
+  "nodes": {
+   "bho_reise_labor_warm": {
+    "text": "Der Weg nach Greavesends Labor ist warm. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_labor_warm_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_labor_warm_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_labor__warm",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   },
+   "bho_reise_labor_kalt": {
+    "text": "Der Weg nach Greavesends Labor ist kalt, aber begehbar. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_labor_kalt_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_labor_kalt_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_labor",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   }
+  }
+ },
+ "bho_reise_mutterhaus": {
+  "start": [
+   {
+    "node": "bho_reise_mutterhaus_warm",
+    "requires_flags": [
+     "bha_ventil_kuehlung_offen"
+    ]
+   },
+   {
+    "node": "bho_reise_mutterhaus_kalt",
+    "hide_if_flags": [
+     "bha_ventil_kuehlung_offen"
+    ]
+   }
+  ],
+  "nodes": {
+   "bho_reise_mutterhaus_warm": {
+    "text": "Der Weg nach Mutterhaus und Zeichenstube ist warm. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_mutterhaus_warm_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_mutterhaus_warm_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_mutterhaus__warm",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   },
+   "bho_reise_mutterhaus_kalt": {
+    "text": "Der Weg nach Mutterhaus und Zeichenstube ist kalt, aber begehbar. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_mutterhaus_kalt_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_mutterhaus_kalt_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_mutterhaus",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   }
+  }
+ },
+ "bho_reise_verteilanlage": {
+  "start": [
+   {
+    "node": "bho_reise_verteilanlage_warm",
+    "requires_flags": [
+     "bha_ventil_klappe_offen"
+    ]
+   },
+   {
+    "node": "bho_reise_verteilanlage_kalt",
+    "hide_if_flags": [
+     "bha_ventil_klappe_offen"
+    ]
+   }
+  ],
+  "nodes": {
+   "bho_reise_verteilanlage_warm": {
+    "text": "Der Weg nach Verteilanlage ist warm. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_verteilanlage_warm_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_verteilanlage_warm_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_verteilanlage__warm",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   },
+   "bho_reise_verteilanlage_kalt": {
+    "text": "Der Weg nach Verteilanlage ist kalt, aber begehbar. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_verteilanlage_kalt_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_verteilanlage_kalt_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_verteilanlage",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   }
+  }
+ },
+ "bho_reise_wurzelkammer": {
+  "start": [
+   {
+    "node": "bho_reise_wurzelkammer_warm",
+    "requires_flags": [
+     "bha_ventil_wurzel_offen"
+    ]
+   },
+   {
+    "node": "bho_reise_wurzelkammer_kalt",
+    "hide_if_flags": [
+     "bha_ventil_wurzel_offen"
+    ]
+   }
+  ],
+  "nodes": {
+   "bho_reise_wurzelkammer_warm": {
+    "text": "Der Weg nach Wurzelkammer ist warm. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_wurzelkammer_warm_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_wurzelkammer_warm_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_wurzelkammer__warm",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   },
+   "bho_reise_wurzelkammer_kalt": {
+    "text": "Der Weg nach Wurzelkammer ist kalt, aber begehbar. Du behältst den markierten Außenweg als Rückweg.",
+    "choices": [
+     {
+      "text": "Den Weg betreten.",
+      "next": "bho_reise_wurzelkammer_kalt_ja"
+     },
+     {
+      "text": "Hier bleiben."
+     }
+    ]
+   },
+   "bho_reise_wurzelkammer_kalt_ja": {
+    "text": "Du folgst der ausgeschilderten Strecke. Die Reise verändert keine Ventilstellung.",
+    "travel": {
+     "map": "bh_wurzelkammer",
+     "spawn": "default"
+    },
+    "choices": [
+     {
+      "text": "Ankommen."
+     }
+    ]
+   }
+  }
+ },
+ "bho_glasgaertner_ablauf": {
+  "start": "bho_glasgaertner_ablauf",
+  "nodes": {
+   "bho_glasgaertner_ablauf": {
+    "text": "Die gelbe Bodenmarke bleibt außerhalb des Wirkbereichs. Du kannst den ruhigen Umgang lesen, einen vorbereiteten Eingriff besprechen oder die warmen Abschnitte einzeln stellen.",
+    "choices": [
+     {
+      "text": "Den gesicherten Abschluss anerkennen.",
+      "next": "bho_glasgaertner_ablauf_fertig",
+      "requires_flags": [
+       "vg_bh_boss_glasgaertner_geloest"
+      ],
+      "hide_if_flags": [
+       "bho_glasgaertner_geloest"
+      ]
+     },
+     {
+      "text": "Den friedlichen Abschluss anerkennen.",
+      "next": "bho_glasgaertner_ablauf_fertig",
+      "requires_flags": [
+       "bha_glasgaertner_friedlich"
+      ],
+      "hide_if_flags": [
+       "bho_glasgaertner_geloest"
+      ]
+     },
+     {
+      "text": "Abschnitt 1 prüfen.",
+      "next": "bho_glasgaertner_ablauf_phase1",
+      "requires_flags": [
+       "bha_ventil_palm_offen"
+      ],
+      "hide_if_flags": [
+       "vg_bh_boss_glasgaertner_geloest",
+       "bha_glasgaertner_friedlich",
+       "vg_bh_boss_glasgaertner_phase1_done"
+      ]
+     },
+     {
+      "text": "Abschnitt 2 prüfen.",
+      "next": "bho_glasgaertner_ablauf_phase2",
+      "requires_flags": [
+       "bha_ventil_palm_offen",
+       "vg_bh_boss_glasgaertner_phase1_done"
+      ],
+      "hide_if_flags": [
+       "vg_bh_boss_glasgaertner_geloest",
+       "bha_glasgaertner_friedlich"
+      ]
+     },
+     {
+      "text": "Die friedliche Möglichkeit erläutern.",
+      "next": "bho_glasgaertner_ablauf_ruhig"
+     },
+     {
+      "text": "Zurückweichen."
+     }
+    ]
+   },
+   "bho_glasgaertner_ablauf_fertig": {
+    "text": "Der örtliche Zugriff ist beendet. Du sicherst die losen Reste, ohne eine neue Probe von einem Menschen zu nehmen.",
+    "sets_flags": [
+     "bho_glasgaertner_geloest"
+    ],
+    "choices": [
+     {
+      "text": "Zurück.",
+      "next": "bho_glasgaertner_ablauf"
+     }
+    ]
+   },
+   "bho_glasgaertner_ablauf_phase1": {
+    "text": "Der nächste Kampf ist Abschnitt 1 von 2. Nach einer Niederlage führt Frost dich zum Bügelraum; du kannst jetzt abbrechen.",
+    "choices": [
+     {
+      "text": "Kampf ausdrücklich bestätigen.",
+      "next": "bho_glasgaertner_ablauf_phase1_ja",
+      "requires_flags": [
+       "bha_ventil_palm_offen"
+      ]
+     },
+     {
+      "text": "Abbrechen.",
+      "next": "bho_glasgaertner_ablauf"
+     }
+    ]
+   },
+   "bho_glasgaertner_ablauf_phase1_ja": {
+    "text": "Du trittst allein über die markierte Grenze des Wirkbereichs. Alle Proben bleiben im sicheren Umgang.",
+    "encounter": "vg_bh_boss_glasgaertner",
+    "choices": [
+     {
+      "text": "Am Zugang erneut prüfen.",
+      "next": "bho_glasgaertner_ablauf"
+     }
+    ]
+   },
+   "bho_glasgaertner_ablauf_phase2": {
+    "text": "Der nächste Kampf ist Abschnitt 2 von 2. Nach einer Niederlage führt Frost dich zum Bügelraum; du kannst jetzt abbrechen.",
+    "choices": [
+     {
+      "text": "Kampf ausdrücklich bestätigen.",
+      "next": "bho_glasgaertner_ablauf_phase2_ja",
+      "requires_flags": [
+       "bha_ventil_palm_offen",
+       "vg_bh_boss_glasgaertner_phase1_done"
+      ]
+     },
+     {
+      "text": "Abbrechen.",
+      "next": "bho_glasgaertner_ablauf"
+     }
+    ]
+   },
+   "bho_glasgaertner_ablauf_phase2_ja": {
+    "text": "Du trittst allein über die markierte Grenze des Wirkbereichs. Alle Proben bleiben im sicheren Umgang.",
+    "encounter": "vg_bh_boss_glasgaertner_phase2",
+    "choices": [
+     {
+      "text": "Am Zugang erneut prüfen.",
+      "next": "bho_glasgaertner_ablauf"
+     }
+    ]
+   },
+   "bho_glasgaertner_ablauf_ruhig": {
+    "text": "Die äußeren Veredelungsfäden sind lösbar. Besprich die gesicherte Fährte am Storyzugang, bevor du einen lebenden Strang berührst.",
+    "choices": [
+     {
+      "text": "Zurück.",
+      "next": "bho_glasgaertner_ablauf"
+     }
+    ]
+   }
+  }
+ },
+ "bho_glasgaertner_ersatz": {
+  "start": "bho_glasgaertner_ersatz",
+  "nodes": {
+   "bho_glasgaertner_ersatz": {
+    "text": "Hier liegen Ersatzquellen für eine schon bekannte Kernzutat. Es gibt nur die passende Zutat deines Pfads, keine neue Formel und keinen allgemeinen Trank.",
+    "choices": [
+     {
+      "text": "Passende Kernzutat sichern: laterne.",
+      "next": "bho_glasgaertner_ersatz_laterne",
+      "requires_flags": [
+       "bho_glasgaertner_geloest"
+      ],
+      "requires_pathway": [
+       "laterne",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_laterne_3"
+      ],
+      "hide_if_flags": [
+       "bho_glasgaertner_zutat_entnommen"
+      ]
+     },
+     {
+      "text": "Passende Kernzutat sichern: eisen.",
+      "next": "bho_glasgaertner_ersatz_eisen",
+      "requires_flags": [
+       "bho_glasgaertner_geloest"
+      ],
+      "requires_pathway": [
+       "eisen",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_eisen_3"
+      ],
+      "hide_if_flags": [
+       "bho_glasgaertner_zutat_entnommen"
+      ]
+     },
+     {
+      "text": "Passende Kernzutat sichern: echo.",
+      "next": "bho_glasgaertner_ersatz_echo",
+      "requires_flags": [
+       "bho_glasgaertner_geloest"
+      ],
+      "requires_pathway": [
+       "echo",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_echo_3"
+      ],
+      "hide_if_flags": [
+       "bho_glasgaertner_zutat_entnommen"
+      ]
+     },
+     {
+      "text": "Passende Kernzutat sichern: maske.",
+      "next": "bho_glasgaertner_ersatz_maske",
+      "requires_flags": [
+       "bho_glasgaertner_geloest"
+      ],
+      "requires_pathway": [
+       "maske",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_maske_3"
+      ],
+      "hide_if_flags": [
+       "bho_glasgaertner_zutat_entnommen"
+      ]
+     },
+     {
+      "text": "Passende Kernzutat sichern: faden.",
+      "next": "bho_glasgaertner_ersatz_faden",
+      "requires_flags": [
+       "bho_glasgaertner_geloest"
+      ],
+      "requires_pathway": [
+       "faden",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_faden_3"
+      ],
+      "hide_if_flags": [
+       "bho_glasgaertner_zutat_entnommen"
+      ]
+     },
+     {
+      "text": "Passende Kernzutat sichern: schluessel.",
+      "next": "bho_glasgaertner_ersatz_schluessel",
+      "requires_flags": [
+       "bho_glasgaertner_geloest"
+      ],
+      "requires_pathway": [
+       "schluessel",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_schluessel_3"
+      ],
+      "hide_if_flags": [
+       "bho_glasgaertner_zutat_entnommen"
+      ]
+     },
+     {
+      "text": "Passende Kernzutat sichern: kessel.",
+      "next": "bho_glasgaertner_ersatz_kessel",
+      "requires_flags": [
+       "bho_glasgaertner_geloest"
+      ],
+      "requires_pathway": [
+       "kessel",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_kessel_3"
+      ],
+      "hide_if_flags": [
+       "bho_glasgaertner_zutat_entnommen"
+      ]
+     },
+     {
+      "text": "Passende Kernzutat sichern: waage.",
+      "next": "bho_glasgaertner_ersatz_waage",
+      "requires_flags": [
+       "bho_glasgaertner_geloest"
+      ],
+      "requires_pathway": [
+       "sq_waage",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_waage_3"
+      ],
+      "hide_if_flags": [
+       "bho_glasgaertner_zutat_entnommen"
+      ]
+     },
+     {
+      "text": "Passende Kernzutat sichern: moor.",
+      "next": "bho_glasgaertner_ersatz_moor",
+      "requires_flags": [
+       "bho_glasgaertner_geloest"
+      ],
+      "requires_pathway": [
+       "sq_moor",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_moor_3"
+      ],
+      "hide_if_flags": [
+       "bho_glasgaertner_zutat_entnommen"
+      ]
+     },
+     {
+      "text": "Passende Kernzutat sichern: uhr.",
+      "next": "bho_glasgaertner_ersatz_uhr",
+      "requires_flags": [
+       "bho_glasgaertner_geloest"
+      ],
+      "requires_pathway": [
+       "sq_uhr",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_uhr_3"
+      ],
+      "hide_if_flags": [
+       "bho_glasgaertner_zutat_entnommen"
+      ]
+     },
+     {
+      "text": "Nichts entnehmen."
+     }
+    ]
+   },
+   "bho_glasgaertner_ersatz_laterne": {
+    "text": "Du nimmst genau die passende erhaltene Zutat. Die Herkunft wird notiert; eine bereits vorhandene Zutat wird nicht verdoppelt.",
+    "gives_items": {
+     "sq_zutat_laterne_3": 1
+    },
+    "sets_flags": [
+     "bho_glasgaertner_zutat_entnommen"
+    ],
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "bho_glasgaertner_ersatz_eisen": {
+    "text": "Du nimmst genau die passende erhaltene Zutat. Die Herkunft wird notiert; eine bereits vorhandene Zutat wird nicht verdoppelt.",
+    "gives_items": {
+     "sq_zutat_eisen_3": 1
+    },
+    "sets_flags": [
+     "bho_glasgaertner_zutat_entnommen"
+    ],
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "bho_glasgaertner_ersatz_echo": {
+    "text": "Du nimmst genau die passende erhaltene Zutat. Die Herkunft wird notiert; eine bereits vorhandene Zutat wird nicht verdoppelt.",
+    "gives_items": {
+     "sq_zutat_echo_3": 1
+    },
+    "sets_flags": [
+     "bho_glasgaertner_zutat_entnommen"
+    ],
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "bho_glasgaertner_ersatz_maske": {
+    "text": "Du nimmst genau die passende erhaltene Zutat. Die Herkunft wird notiert; eine bereits vorhandene Zutat wird nicht verdoppelt.",
+    "gives_items": {
+     "sq_zutat_maske_3": 1
+    },
+    "sets_flags": [
+     "bho_glasgaertner_zutat_entnommen"
+    ],
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "bho_glasgaertner_ersatz_faden": {
+    "text": "Du nimmst genau die passende erhaltene Zutat. Die Herkunft wird notiert; eine bereits vorhandene Zutat wird nicht verdoppelt.",
+    "gives_items": {
+     "sq_zutat_faden_3": 1
+    },
+    "sets_flags": [
+     "bho_glasgaertner_zutat_entnommen"
+    ],
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "bho_glasgaertner_ersatz_schluessel": {
+    "text": "Du nimmst genau die passende erhaltene Zutat. Die Herkunft wird notiert; eine bereits vorhandene Zutat wird nicht verdoppelt.",
+    "gives_items": {
+     "sq_zutat_schluessel_3": 1
+    },
+    "sets_flags": [
+     "bho_glasgaertner_zutat_entnommen"
+    ],
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "bho_glasgaertner_ersatz_kessel": {
+    "text": "Du nimmst genau die passende erhaltene Zutat. Die Herkunft wird notiert; eine bereits vorhandene Zutat wird nicht verdoppelt.",
+    "gives_items": {
+     "sq_zutat_kessel_3": 1
+    },
+    "sets_flags": [
+     "bho_glasgaertner_zutat_entnommen"
+    ],
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "bho_glasgaertner_ersatz_waage": {
+    "text": "Du nimmst genau die passende erhaltene Zutat. Die Herkunft wird notiert; eine bereits vorhandene Zutat wird nicht verdoppelt.",
+    "gives_items": {
+     "sq_zutat_waage_3": 1
+    },
+    "sets_flags": [
+     "bho_glasgaertner_zutat_entnommen"
+    ],
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "bho_glasgaertner_ersatz_moor": {
+    "text": "Du nimmst genau die passende erhaltene Zutat. Die Herkunft wird notiert; eine bereits vorhandene Zutat wird nicht verdoppelt.",
+    "gives_items": {
+     "sq_zutat_moor_3": 1
+    },
+    "sets_flags": [
+     "bho_glasgaertner_zutat_entnommen"
+    ],
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "bho_glasgaertner_ersatz_uhr": {
+    "text": "Du nimmst genau die passende erhaltene Zutat. Die Herkunft wird notiert; eine bereits vorhandene Zutat wird nicht verdoppelt.",
+    "gives_items": {
+     "sq_zutat_uhr_3": 1
+    },
+    "sets_flags": [
+     "bho_glasgaertner_zutat_entnommen"
+    ],
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   }
+  }
+ },
+ "bho_atemkessel_ablauf": {
+  "start": "bho_atemkessel_ablauf",
+  "nodes": {
+   "bho_atemkessel_ablauf": {
+    "text": "Die gelbe Bodenmarke bleibt außerhalb des Wirkbereichs. Du kannst den ruhigen Umgang lesen, einen vorbereiteten Eingriff besprechen oder die warmen Abschnitte einzeln stellen.",
+    "choices": [
+     {
+      "text": "Den gesicherten Abschluss anerkennen.",
+      "next": "bho_atemkessel_ablauf_fertig",
+      "requires_flags": [
+       "vg_bh_boss_waescherei_geloest"
+      ],
+      "hide_if_flags": [
+       "bho_atemkessel_geloest"
+      ]
+     },
+     {
+      "text": "Den friedlichen Abschluss anerkennen.",
+      "next": "bho_atemkessel_ablauf_fertig",
+      "requires_flags": [
+       "bha_atemkessel_friedlich"
+      ],
+      "hide_if_flags": [
+       "bho_atemkessel_geloest"
+      ]
+     },
+     {
+      "text": "Abschnitt 1 prüfen.",
+      "next": "bho_atemkessel_ablauf_phase1",
+      "requires_flags": [
+       "bha_ventil_waesche_offen"
+      ],
+      "hide_if_flags": [
+       "vg_bh_boss_waescherei_geloest",
+       "bha_atemkessel_friedlich",
+       "vg_bh_boss_waescherei_phase1_done"
+      ]
+     },
+     {
+      "text": "Abschnitt 2 prüfen.",
+      "next": "bho_atemkessel_ablauf_phase2",
+      "requires_flags": [
+       "bha_ventil_waesche_offen",
+       "vg_bh_boss_waescherei_phase1_done"
+      ],
+      "hide_if_flags": [
+       "vg_bh_boss_waescherei_geloest",
+       "bha_atemkessel_friedlich"
+      ]
+     },
+     {
+      "text": "Die friedliche Möglichkeit erläutern.",
+      "next": "bho_atemkessel_ablauf_ruhig"
+     },
+     {
+      "text": "Zurückweichen."
+     }
+    ]
+   },
+   "bho_atemkessel_ablauf_fertig": {
+    "text": "Der örtliche Zugriff ist beendet. Du sicherst die losen Reste, ohne eine neue Probe von einem Menschen zu nehmen.",
+    "sets_flags": [
+     "bho_atemkessel_geloest"
+    ],
+    "choices": [
+     {
+      "text": "Zurück.",
+      "next": "bho_atemkessel_ablauf"
+     }
+    ]
+   },
+   "bho_atemkessel_ablauf_phase1": {
+    "text": "Der nächste Kampf ist Abschnitt 1 von 2. Nach einer Niederlage führt Frost dich zum Bügelraum; du kannst jetzt abbrechen.",
+    "choices": [
+     {
+      "text": "Kampf ausdrücklich bestätigen.",
+      "next": "bho_atemkessel_ablauf_phase1_ja",
+      "requires_flags": [
+       "bha_ventil_waesche_offen"
+      ]
+     },
+     {
+      "text": "Abbrechen.",
+      "next": "bho_atemkessel_ablauf"
+     }
+    ]
+   },
+   "bho_atemkessel_ablauf_phase1_ja": {
+    "text": "Du trittst allein über die markierte Grenze des Wirkbereichs. Alle Proben bleiben im sicheren Umgang.",
+    "encounter": "vg_bh_boss_waescherei",
+    "choices": [
+     {
+      "text": "Am Zugang erneut prüfen.",
+      "next": "bho_atemkessel_ablauf"
+     }
+    ]
+   },
+   "bho_atemkessel_ablauf_phase2": {
+    "text": "Der nächste Kampf ist Abschnitt 2 von 2. Nach einer Niederlage führt Frost dich zum Bügelraum; du kannst jetzt abbrechen.",
+    "choices": [
+     {
+      "text": "Kampf ausdrücklich bestätigen.",
+      "next": "bho_atemkessel_ablauf_phase2_ja",
+      "requires_flags": [
+       "bha_ventil_waesche_offen",
+       "vg_bh_boss_waescherei_phase1_done"
+      ]
+     },
+     {
+      "text": "Abbrechen.",
+      "next": "bho_atemkessel_ablauf"
+     }
+    ]
+   },
+   "bho_atemkessel_ablauf_phase2_ja": {
+    "text": "Du trittst allein über die markierte Grenze des Wirkbereichs. Alle Proben bleiben im sicheren Umgang.",
+    "encounter": "vg_bh_boss_waescherei_phase2",
+    "choices": [
+     {
+      "text": "Am Zugang erneut prüfen.",
+      "next": "bho_atemkessel_ablauf"
+     }
+    ]
+   },
+   "bho_atemkessel_ablauf_ruhig": {
+    "text": "Der Rücklauf entlastet den Kessel, die Zufuhr nährt ihn. Besprich den belegten Eingriff am Storyzugang; der kalte Umgang bleibt offen.",
+    "choices": [
+     {
+      "text": "Zurück.",
+      "next": "bho_atemkessel_ablauf"
+     }
+    ]
+   }
+  }
+ },
+ "bho_atemkessel_ersatz": {
+  "start": "bho_atemkessel_ersatz",
+  "nodes": {
+   "bho_atemkessel_ersatz": {
+    "text": "Hier liegen Ersatzquellen für eine schon bekannte Kernzutat. Es gibt nur die passende Zutat deines Pfads, keine neue Formel und keinen allgemeinen Trank.",
+    "choices": [
+     {
+      "text": "Passende Kernzutat sichern: laterne.",
+      "next": "bho_atemkessel_ersatz_laterne",
+      "requires_flags": [
+       "bho_atemkessel_geloest"
+      ],
+      "requires_pathway": [
+       "laterne",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_laterne_2"
+      ],
+      "hide_if_flags": [
+       "bho_atemkessel_zutat_entnommen"
+      ]
+     },
+     {
+      "text": "Passende Kernzutat sichern: eisen.",
+      "next": "bho_atemkessel_ersatz_eisen",
+      "requires_flags": [
+       "bho_atemkessel_geloest"
+      ],
+      "requires_pathway": [
+       "eisen",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_eisen_2"
+      ],
+      "hide_if_flags": [
+       "bho_atemkessel_zutat_entnommen"
+      ]
+     },
+     {
+      "text": "Passende Kernzutat sichern: echo.",
+      "next": "bho_atemkessel_ersatz_echo",
+      "requires_flags": [
+       "bho_atemkessel_geloest"
+      ],
+      "requires_pathway": [
+       "echo",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_echo_2"
+      ],
+      "hide_if_flags": [
+       "bho_atemkessel_zutat_entnommen"
+      ]
+     },
+     {
+      "text": "Passende Kernzutat sichern: maske.",
+      "next": "bho_atemkessel_ersatz_maske",
+      "requires_flags": [
+       "bho_atemkessel_geloest"
+      ],
+      "requires_pathway": [
+       "maske",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_maske_2"
+      ],
+      "hide_if_flags": [
+       "bho_atemkessel_zutat_entnommen"
+      ]
+     },
+     {
+      "text": "Passende Kernzutat sichern: faden.",
+      "next": "bho_atemkessel_ersatz_faden",
+      "requires_flags": [
+       "bho_atemkessel_geloest"
+      ],
+      "requires_pathway": [
+       "faden",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_faden_2"
+      ],
+      "hide_if_flags": [
+       "bho_atemkessel_zutat_entnommen"
+      ]
+     },
+     {
+      "text": "Passende Kernzutat sichern: schluessel.",
+      "next": "bho_atemkessel_ersatz_schluessel",
+      "requires_flags": [
+       "bho_atemkessel_geloest"
+      ],
+      "requires_pathway": [
+       "schluessel",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_schluessel_2"
+      ],
+      "hide_if_flags": [
+       "bho_atemkessel_zutat_entnommen"
+      ]
+     },
+     {
+      "text": "Passende Kernzutat sichern: kessel.",
+      "next": "bho_atemkessel_ersatz_kessel",
+      "requires_flags": [
+       "bho_atemkessel_geloest"
+      ],
+      "requires_pathway": [
+       "kessel",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_kessel_2"
+      ],
+      "hide_if_flags": [
+       "bho_atemkessel_zutat_entnommen"
+      ]
+     },
+     {
+      "text": "Passende Kernzutat sichern: waage.",
+      "next": "bho_atemkessel_ersatz_waage",
+      "requires_flags": [
+       "bho_atemkessel_geloest"
+      ],
+      "requires_pathway": [
+       "sq_waage",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_waage_2"
+      ],
+      "hide_if_flags": [
+       "bho_atemkessel_zutat_entnommen"
+      ]
+     },
+     {
+      "text": "Passende Kernzutat sichern: moor.",
+      "next": "bho_atemkessel_ersatz_moor",
+      "requires_flags": [
+       "bho_atemkessel_geloest"
+      ],
+      "requires_pathway": [
+       "sq_moor",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_moor_2"
+      ],
+      "hide_if_flags": [
+       "bho_atemkessel_zutat_entnommen"
+      ]
+     },
+     {
+      "text": "Passende Kernzutat sichern: uhr.",
+      "next": "bho_atemkessel_ersatz_uhr",
+      "requires_flags": [
+       "bho_atemkessel_geloest"
+      ],
+      "requires_pathway": [
+       "sq_uhr",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_uhr_2"
+      ],
+      "hide_if_flags": [
+       "bho_atemkessel_zutat_entnommen"
+      ]
+     },
+     {
+      "text": "Nichts entnehmen."
+     }
+    ]
+   },
+   "bho_atemkessel_ersatz_laterne": {
+    "text": "Du nimmst genau die passende erhaltene Zutat. Die Herkunft wird notiert; eine bereits vorhandene Zutat wird nicht verdoppelt.",
+    "gives_items": {
+     "sq_zutat_laterne_2": 1
+    },
+    "sets_flags": [
+     "bho_atemkessel_zutat_entnommen"
+    ],
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "bho_atemkessel_ersatz_eisen": {
+    "text": "Du nimmst genau die passende erhaltene Zutat. Die Herkunft wird notiert; eine bereits vorhandene Zutat wird nicht verdoppelt.",
+    "gives_items": {
+     "sq_zutat_eisen_2": 1
+    },
+    "sets_flags": [
+     "bho_atemkessel_zutat_entnommen"
+    ],
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "bho_atemkessel_ersatz_echo": {
+    "text": "Du nimmst genau die passende erhaltene Zutat. Die Herkunft wird notiert; eine bereits vorhandene Zutat wird nicht verdoppelt.",
+    "gives_items": {
+     "sq_zutat_echo_2": 1
+    },
+    "sets_flags": [
+     "bho_atemkessel_zutat_entnommen"
+    ],
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "bho_atemkessel_ersatz_maske": {
+    "text": "Du nimmst genau die passende erhaltene Zutat. Die Herkunft wird notiert; eine bereits vorhandene Zutat wird nicht verdoppelt.",
+    "gives_items": {
+     "sq_zutat_maske_2": 1
+    },
+    "sets_flags": [
+     "bho_atemkessel_zutat_entnommen"
+    ],
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "bho_atemkessel_ersatz_faden": {
+    "text": "Du nimmst genau die passende erhaltene Zutat. Die Herkunft wird notiert; eine bereits vorhandene Zutat wird nicht verdoppelt.",
+    "gives_items": {
+     "sq_zutat_faden_2": 1
+    },
+    "sets_flags": [
+     "bho_atemkessel_zutat_entnommen"
+    ],
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "bho_atemkessel_ersatz_schluessel": {
+    "text": "Du nimmst genau die passende erhaltene Zutat. Die Herkunft wird notiert; eine bereits vorhandene Zutat wird nicht verdoppelt.",
+    "gives_items": {
+     "sq_zutat_schluessel_2": 1
+    },
+    "sets_flags": [
+     "bho_atemkessel_zutat_entnommen"
+    ],
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "bho_atemkessel_ersatz_kessel": {
+    "text": "Du nimmst genau die passende erhaltene Zutat. Die Herkunft wird notiert; eine bereits vorhandene Zutat wird nicht verdoppelt.",
+    "gives_items": {
+     "sq_zutat_kessel_2": 1
+    },
+    "sets_flags": [
+     "bho_atemkessel_zutat_entnommen"
+    ],
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "bho_atemkessel_ersatz_waage": {
+    "text": "Du nimmst genau die passende erhaltene Zutat. Die Herkunft wird notiert; eine bereits vorhandene Zutat wird nicht verdoppelt.",
+    "gives_items": {
+     "sq_zutat_waage_2": 1
+    },
+    "sets_flags": [
+     "bho_atemkessel_zutat_entnommen"
+    ],
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "bho_atemkessel_ersatz_moor": {
+    "text": "Du nimmst genau die passende erhaltene Zutat. Die Herkunft wird notiert; eine bereits vorhandene Zutat wird nicht verdoppelt.",
+    "gives_items": {
+     "sq_zutat_moor_2": 1
+    },
+    "sets_flags": [
+     "bho_atemkessel_zutat_entnommen"
+    ],
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "bho_atemkessel_ersatz_uhr": {
+    "text": "Du nimmst genau die passende erhaltene Zutat. Die Herkunft wird notiert; eine bereits vorhandene Zutat wird nicht verdoppelt.",
+    "gives_items": {
+     "sq_zutat_uhr_2": 1
+    },
+    "sets_flags": [
+     "bho_atemkessel_zutat_entnommen"
+    ],
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   }
+  }
+ },
+ "bho_bluetenmund_ablauf": {
+  "start": "bho_bluetenmund_ablauf",
+  "nodes": {
+   "bho_bluetenmund_ablauf": {
+    "text": "Die gelbe Bodenmarke bleibt außerhalb des Wirkbereichs. Du kannst den ruhigen Umgang lesen, einen vorbereiteten Eingriff besprechen oder die warmen Abschnitte einzeln stellen.",
+    "choices": [
+     {
+      "text": "Den gesicherten Abschluss anerkennen.",
+      "next": "bho_bluetenmund_ablauf_fertig",
+      "requires_flags": [
+       "vg_bh_boss_mutterwurzel_geloest"
+      ],
+      "hide_if_flags": [
+       "bho_bluetenmund_geloest"
+      ]
+     },
+     {
+      "text": "Den friedlichen Abschluss anerkennen.",
+      "next": "bho_bluetenmund_ablauf_fertig",
+      "requires_flags": [
+       "bha_bluetenmund_friedlich"
+      ],
+      "hide_if_flags": [
+       "bho_bluetenmund_geloest"
+      ]
+     },
+     {
+      "text": "Abschnitt 1 prüfen.",
+      "next": "bho_bluetenmund_ablauf_phase1",
+      "requires_flags": [
+       "bha_ventil_wurzel_offen"
+      ],
+      "hide_if_flags": [
+       "vg_bh_boss_mutterwurzel_geloest",
+       "bha_bluetenmund_friedlich",
+       "vg_bh_boss_mutterwurzel_phase1_done"
+      ]
+     },
+     {
+      "text": "Abschnitt 2 prüfen.",
+      "next": "bho_bluetenmund_ablauf_phase2",
+      "requires_flags": [
+       "bha_ventil_wurzel_offen",
+       "vg_bh_boss_mutterwurzel_phase1_done"
+      ],
+      "hide_if_flags": [
+       "vg_bh_boss_mutterwurzel_geloest",
+       "bha_bluetenmund_friedlich",
+       "vg_bh_boss_mutterwurzel_phase2_done"
+      ]
+     },
+     {
+      "text": "Abschnitt 3 prüfen.",
+      "next": "bho_bluetenmund_ablauf_phase3",
+      "requires_flags": [
+       "bha_ventil_wurzel_offen",
+       "vg_bh_boss_mutterwurzel_phase2_done"
+      ],
+      "hide_if_flags": [
+       "vg_bh_boss_mutterwurzel_geloest",
+       "bha_bluetenmund_friedlich"
+      ]
+     },
+     {
+      "text": "Die friedliche Möglichkeit erläutern.",
+      "next": "bho_bluetenmund_ablauf_ruhig"
+     },
+     {
+      "text": "Zurückweichen."
+     }
+    ]
+   },
+   "bho_bluetenmund_ablauf_fertig": {
+    "text": "Der örtliche Zugriff ist beendet. Du sicherst die losen Reste, ohne eine neue Probe von einem Menschen zu nehmen.",
+    "sets_flags": [
+     "bho_bluetenmund_geloest"
+    ],
+    "choices": [
+     {
+      "text": "Zurück.",
+      "next": "bho_bluetenmund_ablauf"
+     }
+    ]
+   },
+   "bho_bluetenmund_ablauf_phase1": {
+    "text": "Der nächste Kampf ist Abschnitt 1 von 3. Nach einer Niederlage führt Frost dich zum Bügelraum; du kannst jetzt abbrechen.",
+    "choices": [
+     {
+      "text": "Kampf ausdrücklich bestätigen.",
+      "next": "bho_bluetenmund_ablauf_phase1_ja",
+      "requires_flags": [
+       "bha_ventil_wurzel_offen"
+      ]
+     },
+     {
+      "text": "Abbrechen.",
+      "next": "bho_bluetenmund_ablauf"
+     }
+    ]
+   },
+   "bho_bluetenmund_ablauf_phase1_ja": {
+    "text": "Du trittst allein über die markierte Grenze des Wirkbereichs. Alle Proben bleiben im sicheren Umgang.",
+    "encounter": "vg_bh_boss_mutterwurzel",
+    "choices": [
+     {
+      "text": "Am Zugang erneut prüfen.",
+      "next": "bho_bluetenmund_ablauf"
+     }
+    ]
+   },
+   "bho_bluetenmund_ablauf_phase2": {
+    "text": "Der nächste Kampf ist Abschnitt 2 von 3. Nach einer Niederlage führt Frost dich zum Bügelraum; du kannst jetzt abbrechen.",
+    "choices": [
+     {
+      "text": "Kampf ausdrücklich bestätigen.",
+      "next": "bho_bluetenmund_ablauf_phase2_ja",
+      "requires_flags": [
+       "bha_ventil_wurzel_offen",
+       "vg_bh_boss_mutterwurzel_phase1_done"
+      ]
+     },
+     {
+      "text": "Abbrechen.",
+      "next": "bho_bluetenmund_ablauf"
+     }
+    ]
+   },
+   "bho_bluetenmund_ablauf_phase2_ja": {
+    "text": "Du trittst allein über die markierte Grenze des Wirkbereichs. Alle Proben bleiben im sicheren Umgang.",
+    "encounter": "vg_bh_boss_mutterwurzel_phase2",
+    "choices": [
+     {
+      "text": "Am Zugang erneut prüfen.",
+      "next": "bho_bluetenmund_ablauf"
+     }
+    ]
+   },
+   "bho_bluetenmund_ablauf_phase3": {
+    "text": "Der nächste Kampf ist Abschnitt 3 von 3. Nach einer Niederlage führt Frost dich zum Bügelraum; du kannst jetzt abbrechen.",
+    "choices": [
+     {
+      "text": "Kampf ausdrücklich bestätigen.",
+      "next": "bho_bluetenmund_ablauf_phase3_ja",
+      "requires_flags": [
+       "bha_ventil_wurzel_offen",
+       "vg_bh_boss_mutterwurzel_phase2_done"
+      ]
+     },
+     {
+      "text": "Abbrechen.",
+      "next": "bho_bluetenmund_ablauf"
+     }
+    ]
+   },
+   "bho_bluetenmund_ablauf_phase3_ja": {
+    "text": "Du trittst allein über die markierte Grenze des Wirkbereichs. Alle Proben bleiben im sicheren Umgang.",
+    "encounter": "vg_bh_boss_mutterwurzel_phase3",
+    "choices": [
+     {
+      "text": "Am Zugang erneut prüfen.",
+      "next": "bho_bluetenmund_ablauf"
+     }
+    ]
+   },
+   "bho_bluetenmund_ablauf_ruhig": {
+    "text": "Beschriftungen lassen sich von lebenden Wurzeln trennen. Der belegte Eingriff am Storyzugang isoliert nur diese örtliche Kontaktstelle.",
+    "choices": [
+     {
+      "text": "Zurück.",
+      "next": "bho_bluetenmund_ablauf"
+     }
+    ]
+   }
+  }
+ },
+ "bho_bluetenmund_ersatz": {
+  "start": "bho_bluetenmund_ersatz",
+  "nodes": {
+   "bho_bluetenmund_ersatz": {
+    "text": "Hier liegen Ersatzquellen für eine schon bekannte Kernzutat. Es gibt nur die passende Zutat deines Pfads, keine neue Formel und keinen allgemeinen Trank.",
+    "choices": [
+     {
+      "text": "Passende Kernzutat sichern: laterne.",
+      "next": "bho_bluetenmund_ersatz_laterne",
+      "requires_flags": [
+       "bho_bluetenmund_geloest"
+      ],
+      "requires_pathway": [
+       "laterne",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_laterne_1"
+      ],
+      "hide_if_flags": [
+       "bho_bluetenmund_zutat_entnommen"
+      ]
+     },
+     {
+      "text": "Passende Kernzutat sichern: eisen.",
+      "next": "bho_bluetenmund_ersatz_eisen",
+      "requires_flags": [
+       "bho_bluetenmund_geloest"
+      ],
+      "requires_pathway": [
+       "eisen",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_eisen_1"
+      ],
+      "hide_if_flags": [
+       "bho_bluetenmund_zutat_entnommen"
+      ]
+     },
+     {
+      "text": "Passende Kernzutat sichern: echo.",
+      "next": "bho_bluetenmund_ersatz_echo",
+      "requires_flags": [
+       "bho_bluetenmund_geloest"
+      ],
+      "requires_pathway": [
+       "echo",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_echo_1"
+      ],
+      "hide_if_flags": [
+       "bho_bluetenmund_zutat_entnommen"
+      ]
+     },
+     {
+      "text": "Passende Kernzutat sichern: maske.",
+      "next": "bho_bluetenmund_ersatz_maske",
+      "requires_flags": [
+       "bho_bluetenmund_geloest"
+      ],
+      "requires_pathway": [
+       "maske",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_maske_1"
+      ],
+      "hide_if_flags": [
+       "bho_bluetenmund_zutat_entnommen"
+      ]
+     },
+     {
+      "text": "Passende Kernzutat sichern: faden.",
+      "next": "bho_bluetenmund_ersatz_faden",
+      "requires_flags": [
+       "bho_bluetenmund_geloest"
+      ],
+      "requires_pathway": [
+       "faden",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_faden_1"
+      ],
+      "hide_if_flags": [
+       "bho_bluetenmund_zutat_entnommen"
+      ]
+     },
+     {
+      "text": "Passende Kernzutat sichern: schluessel.",
+      "next": "bho_bluetenmund_ersatz_schluessel",
+      "requires_flags": [
+       "bho_bluetenmund_geloest"
+      ],
+      "requires_pathway": [
+       "schluessel",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_schluessel_1"
+      ],
+      "hide_if_flags": [
+       "bho_bluetenmund_zutat_entnommen"
+      ]
+     },
+     {
+      "text": "Passende Kernzutat sichern: kessel.",
+      "next": "bho_bluetenmund_ersatz_kessel",
+      "requires_flags": [
+       "bho_bluetenmund_geloest"
+      ],
+      "requires_pathway": [
+       "kessel",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_kessel_1"
+      ],
+      "hide_if_flags": [
+       "bho_bluetenmund_zutat_entnommen"
+      ]
+     },
+     {
+      "text": "Passende Kernzutat sichern: waage.",
+      "next": "bho_bluetenmund_ersatz_waage",
+      "requires_flags": [
+       "bho_bluetenmund_geloest"
+      ],
+      "requires_pathway": [
+       "sq_waage",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_waage_1"
+      ],
+      "hide_if_flags": [
+       "bho_bluetenmund_zutat_entnommen"
+      ]
+     },
+     {
+      "text": "Passende Kernzutat sichern: moor.",
+      "next": "bho_bluetenmund_ersatz_moor",
+      "requires_flags": [
+       "bho_bluetenmund_geloest"
+      ],
+      "requires_pathway": [
+       "sq_moor",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_moor_1"
+      ],
+      "hide_if_flags": [
+       "bho_bluetenmund_zutat_entnommen"
+      ]
+     },
+     {
+      "text": "Passende Kernzutat sichern: uhr.",
+      "next": "bho_bluetenmund_ersatz_uhr",
+      "requires_flags": [
+       "bho_bluetenmund_geloest"
+      ],
+      "requires_pathway": [
+       "sq_uhr",
+       9
+      ],
+      "hide_if_items": [
+       "sq_zutat_uhr_1"
+      ],
+      "hide_if_flags": [
+       "bho_bluetenmund_zutat_entnommen"
+      ]
+     },
+     {
+      "text": "Nichts entnehmen."
+     }
+    ]
+   },
+   "bho_bluetenmund_ersatz_laterne": {
+    "text": "Du nimmst genau die passende erhaltene Zutat. Die Herkunft wird notiert; eine bereits vorhandene Zutat wird nicht verdoppelt.",
+    "gives_items": {
+     "sq_zutat_laterne_1": 1
+    },
+    "sets_flags": [
+     "bho_bluetenmund_zutat_entnommen"
+    ],
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "bho_bluetenmund_ersatz_eisen": {
+    "text": "Du nimmst genau die passende erhaltene Zutat. Die Herkunft wird notiert; eine bereits vorhandene Zutat wird nicht verdoppelt.",
+    "gives_items": {
+     "sq_zutat_eisen_1": 1
+    },
+    "sets_flags": [
+     "bho_bluetenmund_zutat_entnommen"
+    ],
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "bho_bluetenmund_ersatz_echo": {
+    "text": "Du nimmst genau die passende erhaltene Zutat. Die Herkunft wird notiert; eine bereits vorhandene Zutat wird nicht verdoppelt.",
+    "gives_items": {
+     "sq_zutat_echo_1": 1
+    },
+    "sets_flags": [
+     "bho_bluetenmund_zutat_entnommen"
+    ],
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "bho_bluetenmund_ersatz_maske": {
+    "text": "Du nimmst genau die passende erhaltene Zutat. Die Herkunft wird notiert; eine bereits vorhandene Zutat wird nicht verdoppelt.",
+    "gives_items": {
+     "sq_zutat_maske_1": 1
+    },
+    "sets_flags": [
+     "bho_bluetenmund_zutat_entnommen"
+    ],
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "bho_bluetenmund_ersatz_faden": {
+    "text": "Du nimmst genau die passende erhaltene Zutat. Die Herkunft wird notiert; eine bereits vorhandene Zutat wird nicht verdoppelt.",
+    "gives_items": {
+     "sq_zutat_faden_1": 1
+    },
+    "sets_flags": [
+     "bho_bluetenmund_zutat_entnommen"
+    ],
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "bho_bluetenmund_ersatz_schluessel": {
+    "text": "Du nimmst genau die passende erhaltene Zutat. Die Herkunft wird notiert; eine bereits vorhandene Zutat wird nicht verdoppelt.",
+    "gives_items": {
+     "sq_zutat_schluessel_1": 1
+    },
+    "sets_flags": [
+     "bho_bluetenmund_zutat_entnommen"
+    ],
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "bho_bluetenmund_ersatz_kessel": {
+    "text": "Du nimmst genau die passende erhaltene Zutat. Die Herkunft wird notiert; eine bereits vorhandene Zutat wird nicht verdoppelt.",
+    "gives_items": {
+     "sq_zutat_kessel_1": 1
+    },
+    "sets_flags": [
+     "bho_bluetenmund_zutat_entnommen"
+    ],
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "bho_bluetenmund_ersatz_waage": {
+    "text": "Du nimmst genau die passende erhaltene Zutat. Die Herkunft wird notiert; eine bereits vorhandene Zutat wird nicht verdoppelt.",
+    "gives_items": {
+     "sq_zutat_waage_1": 1
+    },
+    "sets_flags": [
+     "bho_bluetenmund_zutat_entnommen"
+    ],
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "bho_bluetenmund_ersatz_moor": {
+    "text": "Du nimmst genau die passende erhaltene Zutat. Die Herkunft wird notiert; eine bereits vorhandene Zutat wird nicht verdoppelt.",
+    "gives_items": {
+     "sq_zutat_moor_1": 1
+    },
+    "sets_flags": [
+     "bho_bluetenmund_zutat_entnommen"
+    ],
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   },
+   "bho_bluetenmund_ersatz_uhr": {
+    "text": "Du nimmst genau die passende erhaltene Zutat. Die Herkunft wird notiert; eine bereits vorhandene Zutat wird nicht verdoppelt.",
+    "gives_items": {
+     "sq_zutat_uhr_1": 1
+    },
+    "sets_flags": [
+     "bho_bluetenmund_zutat_entnommen"
+    ],
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   }
+  }
+ },
+ "bho_pruefstreifen": {
+  "start": "bho_pruefstreifen",
+  "nodes": {
+   "bho_pruefstreifen": {
+    "text": "An der Wartungskiste liegen zwei Messstreifen und ein leerer Umschlag. Frost bittet dich, Grundwärme und Rücklauf getrennt zu prüfen, bevor du den Befund weitergibst.",
+    "choices": [
+     {
+      "text": "Die Prüfung übernehmen.",
+      "next": "bho_pruefstreifen_start",
+      "hide_if_flags": [
+       "bho_pruefung_begonnen"
+      ]
+     },
+     {
+      "text": "Den geprüften Befund besprechen.",
+      "next": "bho_pruefstreifen_wahl",
+      "requires_flags": [
+       "bho_kesselgrund_gelesen2",
+       "bho_wurzelkranz_gelesen3"
+      ],
+      "hide_if_flags": [
+       "bho_pruefung_fertig"
+      ],
+      "requires_quests_active": [
+       "bho_pruefung"
+      ]
+     },
+     {
+      "text": "Später."
+     }
+    ]
+   },
+   "bho_pruefstreifen_start": {
+    "text": "Du notierst die beiden Messstellen und den sicheren Außenweg. Eine Ventilstellung allein gilt noch nicht als Befund.",
+    "sets_flags": [
+     "bho_pruefung_begonnen"
+    ],
+    "start_quests": [
+     "bho_pruefung"
+    ],
+    "choices": [
+     {
+      "text": "Aufbrechen."
+     }
+    ]
+   },
+   "bho_pruefstreifen_wahl": {
+    "text": "Beide Skalen sind verständlich erklärt. Du kannst den Befund öffentlich aushängen oder die noch unbestätigte persönliche Zuordnung in Frosts verschlossener Kiste lassen.",
+    "choices": [
+     {
+      "text": "Nur die technischen Werte öffentlich aushängen.",
+      "next": "bho_pruefstreifen_offen"
+     },
+     {
+      "text": "Den gesamten Befund vertraulich verwahren.",
+      "next": "bho_pruefstreifen_privat"
+     },
+     {
+      "text": "Noch nicht entscheiden."
+     }
+    ]
+   },
+   "bho_pruefstreifen_offen": {
+    "text": "Du hängst die technischen Werte ohne Patientennamen aus. Frost bezahlt die Arbeit und legt die kalte Handhabe als Prüfwerkzeug dazu.",
+    "sets_flags": [
+     "bho_pruefung_fertig",
+     "bho_pruefung_oeffentlich"
+    ],
+    "complete_quests": [
+     "bho_pruefung"
+    ],
+    "gives_money": 24,
+    "honor": 1,
+    "gives_items": {
+     "bho_kalte_handhabe": 1
+    },
+    "choices": [
+     {
+      "text": "Abschließen."
+     }
+    ]
+   },
+   "bho_pruefstreifen_privat": {
+    "text": "Du legst den Befund in die beschriftete Kiste. Frost gibt dir die Handhabe und zwei gewöhnliche Heilvorräte; niemand wird öffentlich einer Behandlung zugeordnet.",
+    "sets_flags": [
+     "bho_pruefung_fertig",
+     "bho_pruefung_vertraulich"
+    ],
+    "complete_quests": [
+     "bho_pruefung"
+    ],
+    "gives_items": {
+     "bho_kalte_handhabe": 1,
+     "vi_v_pfirsichsud": 2
+    },
+    "choices": [
+     {
+      "text": "Abschließen."
+     }
+    ]
+   }
+  }
+ },
+ "bho_kurkiosk": {
+  "start": "bho_kurkiosk",
+  "nodes": {
+   "bho_kurkiosk": {
+    "text": "Am Pavillon verkauft der Kurkiosk Reisebedarf zum angeschriebenen Preis. Eigene Grüße kosten keinen Aufschlag.",
+    "shop": "vi_handel_reise",
+    "choices": [
+     {
+      "text": "Schließen."
+     }
+    ]
+   }
+  }
+ },
+ "bho_postkartenschreiber": {
+  "start": "bho_postkartenschreiber",
+  "nodes": {
+   "bho_postkartenschreiber": {
+    "text": "Der Kurgast hält seine Karte fest und lässt den breiten Außenweg frei. Du kannst Abstand halten oder ihn ohne tödliche Gewalt aus dem Blütenbereich bringen.",
+    "choices": [
+     {
+      "text": "Abstand halten."
+     },
+     {
+      "text": "Den angekündigten Griff unterbrechen.",
+      "next": "bho_postkartenschreiber_bestaetigen"
+     }
+    ]
+   },
+   "bho_postkartenschreiber_bestaetigen": {
+    "text": "Er dreht die Handfläche vor dem ersten Griff nach oben. Du greifst nur ein, um ihn zu sichern; die Betreuung danach gehört dazu.",
+    "choices": [
+     {
+      "text": "Nicht tödlichen Eingriff bestätigen.",
+      "next": "bho_postkartenschreiber_kampf"
+     },
+     {
+      "text": "Abbrechen."
+     }
+    ]
+   },
+   "bho_postkartenschreiber_kampf": {
+    "text": "Du hältst die Karte aus seiner Fallrichtung. Niemand benutzt den Patienten als Heizmaterial.",
+    "encounter": "vg_bh_postkartenschreiber",
+    "choices": [
+     {
+      "text": "Danach zurücktreten."
+     }
+    ]
+   }
+  }
+ }
+}

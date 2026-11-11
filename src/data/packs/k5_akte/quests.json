@@ -1,0 +1,367 @@
+{
+ "bha_akt1": {
+  "title": "Akt 1: Warme Fenster",
+  "kind": "main",
+  "case": "kapitel5",
+  "summary": "Prüfe die vier Fährten und besprich die belegten Schlüsse mit Frost.",
+  "steps": [
+   {
+    "text": "Nicht entlassen",
+    "done": {
+     "requires_flags": [
+      "bha_11_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "bh_kutschenhalle",
+     "id": "bha_11_station",
+     "label": "Nicht entlassen"
+    }
+   },
+   {
+    "text": "Die Postkarte",
+    "done": {
+     "requires_flags": [
+      "bha_12_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "bh_pavillon",
+     "id": "bha_12_station",
+     "label": "Die Postkarte"
+    }
+   },
+   {
+    "text": "Das Bett mit der Lücke",
+    "done": {
+     "requires_flags": [
+      "bha_13_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "bh_speisesaal",
+     "id": "bha_13_station",
+     "label": "Das Bett mit der Lücke"
+    }
+   },
+   {
+    "text": "Der sichere Rücklauf",
+    "done": {
+     "requires_flags": [
+      "bha_14_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "bh_kesselgrund",
+     "id": "bha_14_station",
+     "label": "Der sichere Rücklauf"
+    }
+   },
+   {
+    "text": "Mit Frost den nächsten Schritt bestätigen.",
+    "done": {
+     "requires_flags": [
+      "bha_akt1_done"
+     ]
+    },
+    "target": {
+     "map": "bh_buegelraum",
+     "id": "bh_bellweather",
+     "label": "Frost"
+    }
+   }
+  ]
+ },
+ "bha_akt2": {
+  "title": "Akt 2: Was im Kern spricht",
+  "kind": "main",
+  "case": "kapitel5",
+  "summary": "Prüfe die vier Fährten und besprich die belegten Schlüsse mit Frost.",
+  "steps": [
+   {
+    "text": "Die fremde Abschiedsrede",
+    "done": {
+     "requires_flags": [
+      "bha_21_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "bh_kaltes_palmhaus",
+     "id": "bha_21_station",
+     "label": "Die fremde Abschiedsrede"
+    }
+   },
+   {
+    "text": "Vor deiner Ankunft",
+    "done": {
+     "requires_flags": [
+      "bha_22_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "bh_labor",
+     "id": "bha_22_station",
+     "label": "Vor deiner Ankunft"
+    }
+   },
+   {
+    "text": "Die erste Zustimmung",
+    "done": {
+     "requires_flags": [
+      "bha_23_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "bh_aktenraum",
+     "id": "bha_23_station",
+     "label": "Die erste Zustimmung"
+    }
+   },
+   {
+    "text": "Schnittstelle",
+    "done": {
+     "requires_flags": [
+      "bha_24_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "bh_kaltes_palmhaus",
+     "id": "bha_24_station",
+     "label": "Schnittstelle"
+    }
+   },
+   {
+    "text": "Mit Frost den nächsten Schritt bestätigen.",
+    "done": {
+     "requires_flags": [
+      "bha_akt2_done"
+     ]
+    },
+    "target": {
+     "map": "bh_buegelraum",
+     "id": "bh_bellweather",
+     "label": "Frost"
+    }
+   }
+  ]
+ },
+ "bha_akt3": {
+  "title": "Akt 3: Die geliehene Erleichterung",
+  "kind": "main",
+  "case": "kapitel5",
+  "summary": "Prüfe die vier Fährten und besprich die belegten Schlüsse mit Frost.",
+  "steps": [
+   {
+    "text": "Beatrices Erinnerung",
+    "done": {
+     "requires_flags": [
+      "bha_31_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "bh_pavillon",
+     "id": "bha_31_station",
+     "label": "Beatrices Erinnerung"
+    }
+   },
+   {
+    "text": "Frosts Bruder",
+    "done": {
+     "requires_flags": [
+      "bha_32_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "bh_buegelraum",
+     "id": "bha_32_station",
+     "label": "Frosts Bruder"
+    }
+   },
+   {
+    "text": "Wärme ohne Kohle",
+    "done": {
+     "requires_flags": [
+      "bha_33_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "bh_verlassene_waescherei",
+     "id": "bha_33_station",
+     "label": "Wärme ohne Kohle"
+    }
+   },
+   {
+    "text": "Orla im Trockenraum",
+    "done": {
+     "requires_flags": [
+      "bha_34_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "bh_verlassene_waescherei",
+     "id": "bha_34_station",
+     "label": "Orla im Trockenraum"
+    }
+   },
+   {
+    "text": "Mit Frost den nächsten Schritt bestätigen.",
+    "done": {
+     "requires_flags": [
+      "bha_akt3_done"
+     ]
+    },
+    "target": {
+     "map": "bh_buegelraum",
+     "id": "bh_bellweather",
+     "label": "Frost"
+    }
+   }
+  ]
+ },
+ "bha_akt4": {
+  "title": "Akt 4: Die nächste Blüte",
+  "kind": "main",
+  "case": "kapitel5",
+  "summary": "Prüfe die vier Fährten und besprich die belegten Schlüsse mit Frost.",
+  "steps": [
+   {
+    "text": "Wurzeln vor dem Haus",
+    "done": {
+     "requires_flags": [
+      "bha_41_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "bh_mutterhaus",
+     "id": "bha_41_station",
+     "label": "Wurzeln vor dem Haus"
+    }
+   },
+   {
+    "text": "Zwei Sorten Leere",
+    "done": {
+     "requires_flags": [
+      "bha_42_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "bh_verkaufshalle",
+     "id": "bha_42_station",
+     "label": "Zwei Sorten Leere"
+    }
+   },
+   {
+    "text": "Ein Sud, der nichts nimmt",
+    "done": {
+     "requires_flags": [
+      "bha_43_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "bh_labor",
+     "id": "bha_43_station",
+     "label": "Ein Sud, der nichts nimmt"
+    }
+   },
+   {
+    "text": "Die Aussaatleitung",
+    "done": {
+     "requires_flags": [
+      "bha_44_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "bh_wurzelkranz",
+     "id": "bha_44_station",
+     "label": "Die Aussaatleitung"
+    }
+   },
+   {
+    "text": "Mit Frost den nächsten Schritt bestätigen.",
+    "done": {
+     "requires_flags": [
+      "bha_akt4_done"
+     ]
+    },
+    "target": {
+     "map": "bh_buegelraum",
+     "id": "bh_bellweather",
+     "label": "Frost"
+    }
+   }
+  ]
+ },
+ "bha_akt5": {
+  "title": "Akt 5: Ein Garten mit Namen",
+  "kind": "main",
+  "case": "kapitel5",
+  "summary": "Prüfe die vier Fährten und besprich die belegten Schlüsse mit Frost.",
+  "steps": [
+   {
+    "text": "Wer etwas zurückwill",
+    "done": {
+     "requires_flags": [
+      "bha_51_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "bh_stillenhaeuser",
+     "id": "bha_51_station",
+     "label": "Wer etwas zurückwill"
+    }
+   },
+   {
+    "text": "Die Mutterwurzel",
+    "done": {
+     "requires_flags": [
+      "bha_52_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "bh_wurzelkammer",
+     "id": "bha_52_station",
+     "label": "Die Mutterwurzel"
+    }
+   },
+   {
+    "text": "Die Ärztin ohne Trauer",
+    "done": {
+     "requires_flags": [
+      "bha_53_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "bh_labor",
+     "id": "bha_53_station",
+     "label": "Die Ärztin ohne Trauer"
+    }
+   },
+   {
+    "text": "Der letzte Hahn",
+    "done": {
+     "requires_flags": [
+      "bha_54_geschlossen"
+     ]
+    },
+    "target": {
+     "map": "bh_verteilanlage",
+     "id": "bha_54_station",
+     "label": "Der letzte Hahn"
+    }
+   },
+   {
+    "text": "Mit Frost den nächsten Schritt bestätigen.",
+    "done": {
+     "requires_flags": [
+      "bha_akt5_done"
+     ]
+    },
+    "target": {
+     "map": "bh_buegelraum",
+     "id": "bh_bellweather",
+     "label": "Frost"
+    }
+   }
+  ]
+ }
+}

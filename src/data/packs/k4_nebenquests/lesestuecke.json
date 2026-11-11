@@ -1,0 +1,627 @@
+[
+ {
+  "map": "cw_gleisfuss",
+  "tile": [
+   8,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_lese_01",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Lesen",
+   "title": "Beförderungsregel",
+   "text": "Der Fahrgast hat sein Gewicht vollständig anzugeben. Erinnerungen sind Handgepäck, sofern sie niemand anderem gehören.",
+   "footer": "Du lässt das Blatt an seinem Platz.",
+   "done_flag": "cwn_lese_01_gelesen",
+   "visible_if": {
+    "requires_flags": [
+     "k4_arrived"
+    ],
+    "hide_if_flags": [
+     "kapitel4_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_gleisfuss",
+  "tile": [
+   9,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_lese_02",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Lesen",
+   "title": "Warteschlange",
+   "text": "Bitte stelle dich hinter die Person vor dir. Fehlt diese Person im Buch, bleibt ihr Platz dennoch besetzt.",
+   "footer": "Du lässt das Blatt an seinem Platz.",
+   "done_flag": "cwn_lese_02_gelesen",
+   "visible_if": {
+    "requires_flags": [
+     "k4_arrived"
+    ],
+    "hide_if_flags": [
+     "kapitel4_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_gleisfuss",
+  "tile": [
+   10,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_lese_03",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Lesen",
+   "title": "Eine freie Zeile",
+   "text": "Liebe     , ich bin gut angekommen. Die Lücke ist nicht für einen anderen Namen, nur für die Zeit, bis ich deinen wieder sicher schreiben kann.",
+   "footer": "Du lässt das Blatt an seinem Platz.",
+   "done_flag": "cwn_lese_03_gelesen",
+   "visible_if": {
+    "requires_flags": [
+     "k4_arrived"
+    ],
+    "hide_if_flags": [
+     "kapitel4_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_gleisfuss",
+  "tile": [
+   11,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_lese_04",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Lesen",
+   "title": "Bremszettel",
+   "text": "Die Kurbel wird nicht losgelassen, weil der Zeiger Ruhe zeigt. Ein ruhiger Zeiger hat noch nie einen beladenen Wagen gehalten.",
+   "footer": "Du lässt das Blatt an seinem Platz.",
+   "done_flag": "cwn_lese_04_gelesen",
+   "visible_if": {
+    "requires_flags": [
+     "k4_arrived"
+    ],
+    "hide_if_flags": [
+     "kapitel4_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_setzergasse",
+  "tile": [
+   9,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_lese_05",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Lesen",
+   "title": "Setzerwitz",
+   "text": "Was wiegt weniger als eine Letter? Ihr Fehler. Er wird auf die nächste Schicht übertragen.",
+   "footer": "Du lässt das Blatt an seinem Platz.",
+   "done_flag": "cwn_lese_05_gelesen",
+   "visible_if": {
+    "requires_flags": [
+     "k4_arrived"
+    ],
+    "hide_if_flags": [
+     "kapitel4_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_setzergasse",
+  "tile": [
+   10,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_lese_06",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Lesen",
+   "title": "Schichtwechsel",
+   "text": "Wenn du diese Zeile liest, habe ich Feierabend. Falls du sie zweimal liest, ersetzt du mich nicht auch noch morgen.",
+   "footer": "Du lässt das Blatt an seinem Platz.",
+   "done_flag": "cwn_lese_06_gelesen",
+   "visible_if": {
+    "requires_flags": [
+     "k4_arrived"
+    ],
+    "hide_if_flags": [
+     "kapitel4_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_setzergasse",
+  "tile": [
+   11,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_lese_07",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Lesen",
+   "title": "Kinderreim",
+   "text": "Ohne A steht mt am Tor. Ohne M steht At davor. Lass die Namen heil beim Spiel, sonst fehlt morgen einer viel.",
+   "footer": "Du lässt das Blatt an seinem Platz.",
+   "done_flag": "cwn_lese_07_gelesen",
+   "visible_if": {
+    "requires_flags": [
+     "k4_arrived"
+    ],
+    "hide_if_flags": [
+     "kapitel4_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_setzergasse",
+  "tile": [
+   12,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_lese_08",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Lesen",
+   "title": "Brotpapier",
+   "text": "Die Lettern in der Dose sind nicht zum Backen. Wer das verwechselt, bekommt immerhin einen sehr beständigen Zahnabdruck.",
+   "footer": "Du lässt das Blatt an seinem Platz.",
+   "done_flag": "cwn_lese_08_gelesen",
+   "visible_if": {
+    "requires_flags": [
+     "k4_arrived"
+    ],
+    "hide_if_flags": [
+     "kapitel4_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_quittungsmarkt",
+  "tile": [
+   10,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_lese_09",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Lesen",
+   "title": "Schuldschein",
+   "text": "Ich schulde dir sechs Schilling und eine Erklärung. Die Schilling darfst du abtreten, die Erklärung möchte ich dir selbst geben.",
+   "footer": "Du lässt das Blatt an seinem Platz.",
+   "done_flag": "cwn_lese_09_gelesen",
+   "visible_if": {
+    "requires_flags": [
+     "k4_arrived"
+    ],
+    "hide_if_flags": [
+     "kapitel4_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_quittungsmarkt",
+  "tile": [
+   11,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_lese_10",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Lesen",
+   "title": "Pfandregel",
+   "text": "Ein Gegenstand darf nur unter einem Namen lagern. Mehrere Eigentümer mögen sich deshalb nicht ebenfalls im Regal ablegen.",
+   "footer": "Du lässt das Blatt an seinem Platz.",
+   "done_flag": "cwn_lese_10_gelesen",
+   "visible_if": {
+    "requires_flags": [
+     "k4_arrived"
+    ],
+    "hide_if_flags": [
+     "kapitel4_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_quittungsmarkt",
+  "tile": [
+   12,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_lese_11",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Lesen",
+   "title": "Krugangebot",
+   "text": "Kleiner Sprung, großer Henkel, keine Meinung. Der Krug wird ausdrücklich ohne die Geschichte des Vorbesitzers verkauft.",
+   "footer": "Du lässt das Blatt an seinem Platz.",
+   "done_flag": "cwn_lese_11_gelesen",
+   "visible_if": {
+    "requires_flags": [
+     "k4_arrived"
+    ],
+    "hide_if_flags": [
+     "kapitel4_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_quittungsmarkt",
+  "tile": [
+   3,
+   4
+  ],
+  "interactable": {
+   "id": "cwn_lese_12",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Lesen",
+   "title": "Saisonkasten",
+   "text": "Herbst bringt Lettern, Winter Fett, Frühling Bänder, Sommer leere Kapseln. Die Jahreszeiten können wegen der Treppen nicht persönlich erscheinen.",
+   "footer": "Du lässt das Blatt an seinem Platz.",
+   "done_flag": "cwn_lese_12_gelesen",
+   "visible_if": {
+    "requires_flags": [
+     "k4_arrived"
+    ],
+    "hide_if_flags": [
+     "kapitel4_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_roehrenhof",
+  "tile": [
+   9,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_lese_13",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Lesen",
+   "title": "Rohrpostordnung",
+   "text": "Nasse Briefe sind vor der Aufgabe zu trocknen. Tränen gelten nicht als unzureichende Frankierung.",
+   "footer": "Du lässt das Blatt an seinem Platz.",
+   "done_flag": "cwn_lese_13_gelesen",
+   "visible_if": {
+    "requires_flags": [
+     "k4_arrived"
+    ],
+    "hide_if_flags": [
+     "kapitel4_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_roehrenhof",
+  "tile": [
+   10,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_lese_14",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Lesen",
+   "title": "Fehlleitung",
+   "text": "Diese Nachricht kam zweimal zurück. Ich lege sie jetzt selbst unter deine Tür, damit wenigstens der Weg keine Ausrede mehr hat.",
+   "footer": "Du lässt das Blatt an seinem Platz.",
+   "done_flag": "cwn_lese_14_gelesen",
+   "visible_if": {
+    "requires_flags": [
+     "k4_arrived"
+    ],
+    "hide_if_flags": [
+     "kapitel4_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_roehrenhof",
+  "tile": [
+   11,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_lese_15",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Lesen",
+   "title": "Kapselprobe",
+   "text": "Leere Kapsel, Dichtung geprüft. Wer darin eine Antwort findet, möge zuerst den Absender feststellen.",
+   "footer": "Du lässt das Blatt an seinem Platz.",
+   "done_flag": "cwn_lese_15_gelesen",
+   "visible_if": {
+    "requires_flags": [
+     "k4_arrived"
+    ],
+    "hide_if_flags": [
+     "kapitel4_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_roehrenhof",
+  "tile": [
+   12,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_lese_16",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Lesen",
+   "title": "Trägerzettel",
+   "text": "Wagen drei hat eine neue Bremse. Das zusätzliche Gewicht stammt nicht von der Reparatur, auch wenn die Rechnung anderes behauptet.",
+   "footer": "Du lässt das Blatt an seinem Platz.",
+   "done_flag": "cwn_lese_16_gelesen",
+   "visible_if": {
+    "requires_flags": [
+     "k4_arrived"
+    ],
+    "hide_if_flags": [
+     "kapitel4_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_witwenterrasse",
+  "tile": [
+   3,
+   4
+  ],
+  "interactable": {
+   "id": "cwn_lese_17",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Lesen",
+   "title": "Küchenregel",
+   "text": "Wer Hunger hat, setzt sich. Wer einen Beleg verlangt, spült danach die Schüssel.",
+   "footer": "Du lässt das Blatt an seinem Platz.",
+   "done_flag": "cwn_lese_17_gelesen",
+   "visible_if": {
+    "requires_flags": [
+     "k4_arrived"
+    ],
+    "hide_if_flags": [
+     "kapitel4_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_witwenterrasse",
+  "tile": [
+   4,
+   4
+  ],
+  "interactable": {
+   "id": "cwn_lese_18",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Lesen",
+   "title": "Klopfreim",
+   "text": "Einmal Regen, zweimal Wind, dreimal weiß ich, wer wir sind. Antwort leise, Antwort klar, deine Tür ist trotzdem da.",
+   "footer": "Du lässt das Blatt an seinem Platz.",
+   "done_flag": "cwn_lese_18_gelesen",
+   "visible_if": {
+    "requires_flags": [
+     "k4_arrived"
+    ],
+    "hide_if_flags": [
+     "kapitel4_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_witwenterrasse",
+  "tile": [
+   5,
+   4
+  ],
+  "interactable": {
+   "id": "cwn_lese_19",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Lesen",
+   "title": "Leere Anrede",
+   "text": "Liebe     , ich habe deinen Schal geflickt. Komm vorbei, wenn du magst. Ich brauche für einen Besuch kein richtig ausgefülltes Wort.",
+   "footer": "Du lässt das Blatt an seinem Platz.",
+   "done_flag": "cwn_lese_19_gelesen",
+   "visible_if": {
+    "requires_flags": [
+     "k4_arrived"
+    ],
+    "hide_if_flags": [
+     "kapitel4_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_witwenterrasse",
+  "tile": [
+   6,
+   4
+  ],
+  "interactable": {
+   "id": "cwn_lese_20",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Lesen",
+   "title": "Geliehene Stühle",
+   "text": "Vier Stühle ausgeliehen, drei gleiche und einer mit Mut zur Seite. Zurückzugeben nach dem Essen, nicht nach der amtlichen Zählung.",
+   "footer": "Du lässt das Blatt an seinem Platz.",
+   "done_flag": "cwn_lese_20_gelesen",
+   "visible_if": {
+    "requires_flags": [
+     "k4_arrived"
+    ],
+    "hide_if_flags": [
+     "kapitel4_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_kronenarchiv",
+  "tile": [
+   5,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_lese_21",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Lesen",
+   "title": "Lesesaal",
+   "text": "Bitte befeuchte die Finger nicht an den Listen. Die Namen sollen lesbar bleiben, nicht besser umblättern.",
+   "footer": "Du lässt das Blatt an seinem Platz.",
+   "done_flag": "cwn_lese_21_gelesen",
+   "visible_if": {
+    "requires_flags": [
+     "k4_arrived"
+    ],
+    "hide_if_flags": [
+     "kapitel4_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_kronenarchiv",
+  "tile": [
+   6,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_lese_22",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Lesen",
+   "title": "Gartenpflege",
+   "text": "Die vertrockneten Beete werden planmäßig gegossen. Für das Wiederanwachsen ist eine andere Abteilung zuständig.",
+   "footer": "Du lässt das Blatt an seinem Platz.",
+   "done_flag": "cwn_lese_22_gelesen",
+   "visible_if": {
+    "requires_flags": [
+     "k4_arrived"
+    ],
+    "hide_if_flags": [
+     "kapitel4_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_kronenarchiv",
+  "tile": [
+   7,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_lese_23",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Lesen",
+   "title": "Katzenvermerk",
+   "text": "Die Katze gehört keinem Bestand an. Etwaige Pfotenabdrücke sind keine Genehmigung.",
+   "footer": "Du lässt das Blatt an seinem Platz.",
+   "done_flag": "cwn_lese_23_gelesen",
+   "visible_if": {
+    "requires_flags": [
+     "k4_arrived"
+    ],
+    "hide_if_flags": [
+     "kapitel4_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_kronenarchiv",
+  "tile": [
+   8,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_lese_24",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Lesen",
+   "title": "Randnotiz",
+   "text": "Die beschädigte Stelle wurde nicht ergänzt. Eine sichtbare Lücke sagt weniger Falsches als ein sauber erfundener Satz.",
+   "footer": "Du lässt das Blatt an seinem Platz.",
+   "done_flag": "cwn_lese_24_gelesen",
+   "visible_if": {
+    "requires_flags": [
+     "k4_arrived"
+    ],
+    "hide_if_flags": [
+     "kapitel4_done"
+    ]
+   }
+  }
+ },
+ {
+  "map": "cw_buchbinderei",
+  "tile": [
+   5,
+   3
+  ],
+  "interactable": {
+   "id": "cwn_lese_25",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Lesen",
+   "title": "Bindefaden",
+   "text": "Drei Hefte, drei Fäden. Wer sie zusammenbindet, gewinnt einen Rücken und verliert womöglich die Reihenfolge.",
+   "footer": "Du lässt das Blatt an seinem Platz.",
+   "done_flag": "cwn_lese_25_gelesen",
+   "visible_if": {
+    "requires_flags": [
+     "k4_arrived"
+    ],
+    "hide_if_flags": [
+     "kapitel4_done"
+    ]
+   }
+  }
+ }
+]

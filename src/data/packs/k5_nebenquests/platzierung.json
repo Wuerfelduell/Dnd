@@ -1,0 +1,826 @@
+[
+ {
+  "map": "bh_kutschenhalle",
+  "tile": [
+   3,
+   3
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "bhn_gepaeckschein"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_gepaeckschein_fund1",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Doppelter Gepäckschein lesen",
+   "title": "Doppelter Gepäckschein",
+   "text": "Am leeren Fach hängt ein Schein für Edmund Rill. Die Abholerlaubnis nennt eine blaue Naht und einen fehlenden Messingfuß, erlaubt aber kein Öffnen. Der Schichtstempel bestätigt seine Ankunft, nicht seine Aufnahme in die Klinik.",
+   "footer": "Du kannst den Befund später erneut lesen.",
+   "done_flag": "bhn_gepaeckschein_gelesen1",
+   "effects": {
+    "sets_flags": [
+     "bhn_gepaeckschein_gelesen1"
+    ],
+    "gives_clues": [
+     "bhn_gepaeckschein_c1"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_stillenhaeuser",
+  "tile": [
+   3,
+   3
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "bhn_gepaeckschein"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_gepaeckschein_fund2",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Antwort aus dem Wärmesaal lesen",
+   "title": "Antwort aus dem Wärmesaal",
+   "text": "Edmund lässt durch den Wärmesaal antworten: „Die Naht ist blau, der Fuß fehlt. Ich war zur Untersuchung hier und bin gegangen, bevor man mich aufnahm.“ Er erlaubt entweder die versiegelte Zustellung oder weitere Verwahrung bis zum Frühjahr.",
+   "footer": "Du kannst den Befund später erneut lesen.",
+   "done_flag": "bhn_gepaeckschein_gelesen2",
+   "effects": {
+    "sets_flags": [
+     "bhn_gepaeckschein_gelesen2"
+    ],
+    "gives_clues": [
+     "bhn_gepaeckschein_c2"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_winterpromenade",
+  "tile": [
+   3,
+   3
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "bhn_postkarten"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_postkarten_fund1",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Abdruck unter der Schreibunterlage lesen",
+   "title": "Abdruck unter der Schreibunterlage",
+   "text": "Die oberste Karte ist eine Klinikvorlage. Darunter hat sich eine Anschrift eingeprägt: Mühlenhof, hinteres Tor. Der Abdruck verrät weder einen Namen noch eine Verwandtschaft; Beatrice erlaubt dir, nur die Anschrift zu prüfen.",
+   "footer": "Du kannst den Befund später erneut lesen.",
+   "done_flag": "bhn_postkarten_gelesen1",
+   "effects": {
+    "sets_flags": [
+     "bhn_postkarten_gelesen1"
+    ],
+    "gives_clues": [
+     "bhn_postkarten_c1"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_kutschenhalle",
+  "tile": [
+   4,
+   3
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "bhn_postkarten"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_postkarten_fund2",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Postfachantwort vom Mühlenhof lesen",
+   "title": "Postfachantwort vom Mühlenhof",
+   "text": "Der Postbote bewahrt einen Rückschein auf. Am Mühlenhof wird Post für Beatrice gesammelt, ohne sie einem Kind zuzuschreiben. Die Verwalterin bietet an, eine offene Frage weiterzugeben und eine eigene Antwort abzuwarten.",
+   "footer": "Du kannst den Befund später erneut lesen.",
+   "done_flag": "bhn_postkarten_gelesen2",
+   "effects": {
+    "sets_flags": [
+     "bhn_postkarten_gelesen2"
+    ],
+    "gives_clues": [
+     "bhn_postkarten_c2"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_glasgaerten",
+  "tile": [
+   3,
+   3
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "bhn_umgedrehte_schilder"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_umgedrehte_schilder_fund1",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Schildervergleich am freien Beet lesen",
+   "title": "Schildervergleich am freien Beet",
+   "text": "Am gewöhnlichen Steckling stehen Sorte und Gießtag. Die umgedrehten Tafeln tragen dagegen Beobachtungsnummern und kurze Sätze. Du schreibst nur Nummern ab; eine Stimme allein beweist keinen Namen.",
+   "footer": "Du kannst den Befund später erneut lesen.",
+   "done_flag": "bhn_umgedrehte_schilder_gelesen1",
+   "effects": {
+    "sets_flags": [
+     "bhn_umgedrehte_schilder_gelesen1"
+    ],
+    "gives_clues": [
+     "bhn_umgedrehte_schilder_c1"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_aktenraum",
+  "tile": [
+   3,
+   3
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "bhn_umgedrehte_schilder"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_umgedrehte_schilder_fund2",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Auftrag der Inspektionsstelle lesen",
+   "title": "Auftrag der Inspektionsstelle",
+   "text": "Der Auftrag verlangt Pflanzenzahl und Zustand, keine Patientennamen. Eine Nachtragszeile fordert jedoch sämtliche gesprochenen Sätze als Verkaufsprobe. Sie stammt vom Einkauf der Klinik und trägt nicht die Unterschrift der Inspektorin.",
+   "footer": "Du kannst den Befund später erneut lesen.",
+   "done_flag": "bhn_umgedrehte_schilder_gelesen2",
+   "effects": {
+    "sets_flags": [
+     "bhn_umgedrehte_schilder_gelesen2"
+    ],
+    "gives_clues": [
+     "bhn_umgedrehte_schilder_c2"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_kesselgrund",
+  "tile": [
+   3,
+   3
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "bhn_waermeschwarz"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_waermeschwarz_fund1",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Getrennter Wartungsplan lesen",
+   "title": "Getrennter Wartungsplan",
+   "text": "Eine gestrichelte Linie führt zur Zusatzwärme der Wärmestube. Das Wohnnetz verläuft getrennt darunter. Eine Reparatur darf nur den Wartungsabschnitt öffnen; seine Abtrennung ist mit zwei alten Prüfmarken bestätigt.",
+   "footer": "Du kannst den Befund später erneut lesen.",
+   "done_flag": "bhn_waermeschwarz_gelesen1",
+   "effects": {
+    "sets_flags": [
+     "bhn_waermeschwarz_gelesen1"
+    ],
+    "gives_clues": [
+     "bhn_waermeschwarz_c1"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_stillenhaeuser",
+  "tile": [
+   4,
+   3
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "bhn_waermeschwarz"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_waermeschwarz_fund2",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Quittungen der Wärmestube lesen",
+   "title": "Quittungen der Wärmestube",
+   "text": "Die Bewohner zeigen unterschiedliche Beträge für dieselbe Zusatzstunde. Neben den Zahlungen stehen auch kostenlose Lieferungen. Die Grundversorgung war nie Malkins Eigentum; die geheime Reserve half trotzdem mehreren Haushalten.",
+   "footer": "Du kannst den Befund später erneut lesen.",
+   "done_flag": "bhn_waermeschwarz_gelesen2",
+   "effects": {
+    "sets_flags": [
+     "bhn_waermeschwarz_gelesen2"
+    ],
+    "gives_clues": [
+     "bhn_waermeschwarz_c2"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_speisesaal",
+  "tile": [
+   3,
+   3
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "bhn_namensheft"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_namensheft_fund1",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Deckblatt ohne Abschrift lesen",
+   "title": "Deckblatt ohne Abschrift",
+   "text": "Enna zeigt dir das Deckblatt, hält aber die Namen zu. Die Einträge unterscheiden Beobachtung, Aussage und Vermutung. Sie will das Original weiterführen; du sollst weder eine zweite Patientenliste anlegen noch einzelne Namen ergänzen.",
+   "footer": "Du kannst den Befund später erneut lesen.",
+   "done_flag": "bhn_namensheft_gelesen1",
+   "effects": {
+    "sets_flags": [
+     "bhn_namensheft_gelesen1"
+    ],
+    "gives_clues": [
+     "bhn_namensheft_c1"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_aktenraum",
+  "tile": [
+   4,
+   3
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "bhn_namensheft"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_namensheft_fund2",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Vordruck zur Einsicht lesen",
+   "title": "Vordruck zur Einsicht",
+   "text": "Der Vordruck erlaubt einen begrenzten Prüfkreis und widerrufbare Einsicht. Daneben liegt die Anforderung einer vollständigen Kopie für den Einkauf. Diese Anforderung enthält keine Zustimmung der Betroffenen.",
+   "footer": "Du kannst den Befund später erneut lesen.",
+   "done_flag": "bhn_namensheft_gelesen2",
+   "effects": {
+    "sets_flags": [
+     "bhn_namensheft_gelesen2"
+    ],
+    "gives_clues": [
+     "bhn_namensheft_c2"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_kutschenhalle",
+  "tile": [
+   5,
+   3
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "bhn_frachtbelege"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_frachtbelege_fund1",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Nägel über dem alten Siegel lesen",
+   "title": "Nägel über dem alten Siegel",
+   "text": "Zwei Reparaturnägel liegen über einem datierten Wexmoorer Liefersiegel. Das Holz wurde vor deinem dortigen Finale neu vernagelt. Du öffnest keine versiegelte Sendung; die leere Verpackung reicht für den zeitlichen Vergleich.",
+   "footer": "Du kannst den Befund später erneut lesen.",
+   "done_flag": "bhn_frachtbelege_gelesen1",
+   "effects": {
+    "sets_flags": [
+     "bhn_frachtbelege_gelesen1"
+    ],
+    "gives_clues": [
+     "bhn_frachtbelege_c1"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_labor",
+  "tile": [
+   3,
+   3
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "bhn_frachtbelege"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_frachtbelege_fund2",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Gegenbuch der Leihkisten lesen",
+   "title": "Gegenbuch der Leihkisten",
+   "text": "Im Gegenbuch stimmen Übergabe und alte Siegelnummer überein. Die Doppelrechnung betrifft eine spätere Kistenmiete, nicht einen neuen Verkauf befreiter Menschen. Crowthers Provision erscheint getrennt von der Rückzahlung.",
+   "footer": "Du kannst den Befund später erneut lesen.",
+   "done_flag": "bhn_frachtbelege_gelesen2",
+   "effects": {
+    "sets_flags": [
+     "bhn_frachtbelege_gelesen2"
+    ],
+    "gives_clues": [
+     "bhn_frachtbelege_c2"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_verkaufshalle",
+  "tile": [
+   3,
+   3
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "bhn_wurzelzeichnungen"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_wurzelzeichnungen_fund1",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Blattstudie mit Lichtwechsel lesen",
+   "title": "Blattstudie mit Lichtwechsel",
+   "text": "Die erste Studie verwechselt Schatten und Rand. Die zweite hält beide auseinander und behält das Datum der Korrektur. Die Schülerin will, dass auch Dipples Irrtum sichtbar bleibt, ohne seine ältere Arbeit zu vernichten.",
+   "footer": "Du kannst den Befund später erneut lesen.",
+   "done_flag": "bhn_wurzelzeichnungen_gelesen1",
+   "effects": {
+    "sets_flags": [
+     "bhn_wurzelzeichnungen_gelesen1"
+    ],
+    "gives_clues": [
+     "bhn_wurzelzeichnungen_c1"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_mutterhaus",
+  "tile": [
+   3,
+   3
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "bhn_wurzelzeichnungen"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_wurzelzeichnungen_fund2",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Rentenumschlag und Zeichenliste lesen",
+   "title": "Rentenumschlag und Zeichenliste",
+   "text": "Ein älteres Verzeichnis nennt dieselben Blattnummern wie der Rentenumschlag. Die Rente begann nach Abgabe der Zeichnungen und enthält eine Schweigeklausel. Das beweist den Handel mit Unterlagen, noch nicht die Herkunft der Wurzeln.",
+   "footer": "Du kannst den Befund später erneut lesen.",
+   "done_flag": "bhn_wurzelzeichnungen_gelesen2",
+   "effects": {
+    "sets_flags": [
+     "bhn_wurzelzeichnungen_gelesen2"
+    ],
+    "gives_clues": [
+     "bhn_wurzelzeichnungen_c2"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_kesselgrund",
+  "tile": [
+   4,
+   3
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "bhn_schraubenschluessel"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_schraubenschluessel_fund1",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Ausgemusterte Türrolle lesen",
+   "title": "Ausgemusterte Türrolle",
+   "text": "Die freigegebene Wäsche ist trocken; der Faden zeigt Zug unter der Tür, nicht am Lüftungsspalt. Zwischen den Stofflagen steckt ein Werkzeugzettel. Ein Schlüssel mit schiefem Maul wurde zur geschlossenen Werkbank gebracht.",
+   "footer": "Du kannst den Befund später erneut lesen.",
+   "done_flag": "bhn_schraubenschluessel_gelesen1",
+   "effects": {
+    "sets_flags": [
+     "bhn_schraubenschluessel_gelesen1"
+    ],
+    "gives_clues": [
+     "bhn_schraubenschluessel_c1"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_buegelraum",
+  "tile": [
+   3,
+   3
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "bhn_schraubenschluessel"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_schraubenschluessel_fund2",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Kerbe und Reparaturnotiz lesen",
+   "title": "Kerbe und Reparaturnotiz",
+   "text": "An der Werkbank liegt der beschriebene Schlüssel. Frost erkennt die Kerbe vom gemeinsamen Feilen, ohne ein Gesicht dazu zu sehen. Auf der Notiz steht ausdrücklich: Lüftung frei lassen, Türrolle nur am unteren Spalt.",
+   "footer": "Du kannst den Befund später erneut lesen.",
+   "done_flag": "bhn_schraubenschluessel_gelesen2",
+   "effects": {
+    "sets_flags": [
+     "bhn_schraubenschluessel_gelesen2"
+    ],
+    "gives_clues": [
+     "bhn_schraubenschluessel_c2"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_pavillon",
+  "tile": [
+   3,
+   3
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "bhn_kurkonzert"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_kurkonzert_fund1",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Partitur mit unberührter Pause lesen",
+   "title": "Partitur mit unberührter Pause",
+   "text": "Die Stimmenbücher enden vor der gesummten Zeile. In allen steht dieselbe unberührte Pause. Der Kopist hat keinen Text entfernt; die Kapelle verlängert nur jeden Abend die Begleitung über diesen leeren Takt.",
+   "footer": "Du kannst den Befund später erneut lesen.",
+   "done_flag": "bhn_kurkonzert_gelesen1",
+   "effects": {
+    "sets_flags": [
+     "bhn_kurkonzert_gelesen1"
+    ],
+    "gives_clues": [
+     "bhn_kurkonzert_c1"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_stillenhaeuser",
+  "tile": [
+   5,
+   3
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "bhn_kurkonzert"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_kurkonzert_fund2",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Zettel aus der Teeküche lesen",
+   "title": "Zettel aus der Teeküche",
+   "text": "Zwei Gäste notierten die Melodie getrennt. Der Rhythmus gleicht der früheren Teeglocke, aber die Worte unterscheiden sich. Niemand muss mitsingen, und keine Fassung darf als gemeinsame Erinnerung ausgegeben werden.",
+   "footer": "Du kannst den Befund später erneut lesen.",
+   "done_flag": "bhn_kurkonzert_gelesen2",
+   "effects": {
+    "sets_flags": [
+     "bhn_kurkonzert_gelesen2"
+    ],
+    "gives_clues": [
+     "bhn_kurkonzert_c2"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_kutschenhalle",
+  "tile": [
+   6,
+   3
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "bhn_brief_aus_calderwick"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_brief_aus_calderwick_fund1",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Zustellnachweis lesen",
+   "title": "Zustellnachweis",
+   "text": "Der Postweg und das Absendersiegel stimmen überein. Das Paket ist nicht an die Klinik adressiert. Die Zustellerin bestätigt nur den Weg, nicht den Wahrheitsgehalt des Briefes.",
+   "footer": "Du kannst den Befund später erneut lesen.",
+   "done_flag": "bhn_brief_aus_calderwick_gelesen1",
+   "effects": {
+    "sets_flags": [
+     "bhn_brief_aus_calderwick_gelesen1"
+    ],
+    "gives_clues": [
+     "bhn_brief_aus_calderwick_c1"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_buegelraum",
+  "tile": [
+   4,
+   3
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "bhn_brief_aus_calderwick"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_brief_aus_calderwick_fund2",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Inventar unter dem Deckel lesen",
+   "title": "Inventar unter dem Deckel",
+   "text": "Frost legt den äußeren Packzettel neben das Siegel. Die gewöhnlichen Hilfsmittel sind einzeln verzeichnet. Eine Weitergabe ist möglich, aber du musst entscheiden, ob du sie selbst behältst oder dem Unterschlupf überlässt.",
+   "footer": "Du kannst den Befund später erneut lesen.",
+   "done_flag": "bhn_brief_aus_calderwick_gelesen2",
+   "effects": {
+    "sets_flags": [
+     "bhn_brief_aus_calderwick_gelesen2"
+    ],
+    "gives_clues": [
+     "bhn_brief_aus_calderwick_c2"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_pavillon",
+  "tile": [
+   4,
+   3
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "bhn_elsbeth"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_elsbeth_fund1",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Werbeabzug ohne Einwilligung lesen",
+   "title": "Werbeabzug ohne Einwilligung",
+   "text": "Der Abzug nennt eine sichere Wiederkehr jedes verlorenen Namens. Die Zeile für die Zustimmung ist leer. Darunter wurde bereits Platz für ein lächelndes Gesicht ausgespart; der Preis steht fest, die behauptete Heilung nicht.",
+   "footer": "Du kannst den Befund später erneut lesen.",
+   "done_flag": "bhn_elsbeth_gelesen1",
+   "effects": {
+    "sets_flags": [
+     "bhn_elsbeth_gelesen1"
+    ],
+    "gives_clues": [
+     "bhn_elsbeth_c1"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_speisesaal",
+  "tile": [
+   4,
+   3
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "bhn_elsbeth"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_elsbeth_fund2",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Grenze des Vergleichs lesen",
+   "title": "Grenze des Vergleichs",
+   "text": "Mara erklärt: „Einen Namen wieder aussprechen zu können heißt nicht, alle verlorenen Tage zurückzubekommen.“ Du hältst diese Grenze getrennt vom Werbeabzug fest. Keine andere Person wird durch ihre Geschichte ersetzt.",
+   "footer": "Du kannst den Befund später erneut lesen.",
+   "done_flag": "bhn_elsbeth_gelesen2",
+   "effects": {
+    "sets_flags": [
+     "bhn_elsbeth_gelesen2"
+    ],
+    "gives_clues": [
+     "bhn_elsbeth_c2"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_stillenhaeuser",
+  "tile": [
+   6,
+   3
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "bhn_wintervorrat"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_wintervorrat_fund1",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Vier Bedarfe lesen",
+   "title": "Vier Bedarfe",
+   "text": "Die Haushalte müssen einzeln gefragt werden. Eine gemeinsame Unterschrift würde ihre verschiedenen Bedarfe verdecken. Frost wartet mit der Empfehlung, bis alle vier Antworten vorliegen.",
+   "footer": "Du kannst den Befund später erneut lesen.",
+   "done_flag": "bhn_wintervorrat_gelesen1",
+   "effects": {
+    "sets_flags": [
+     "bhn_wintervorrat_gelesen1"
+    ],
+    "gives_clues": [
+     "bhn_wintervorrat_c1"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_kesselgrund",
+  "tile": [
+   5,
+   3
+  ],
+  "visible_if": {
+   "requires_quests_active": [
+    "bhn_wintervorrat"
+   ]
+  },
+  "interactable": {
+   "id": "bhn_wintervorrat_fund2",
+   "kind": "read",
+   "sprite": "paper",
+   "prompt": "Reserve ohne Aussaat lesen",
+   "title": "Reserve ohne Aussaat",
+   "text": "Die getrennten Speicher tragen gewöhnliche Heizmarken. Ein Prüfblatt zeigt den Ersatzweg zur Feuerstelle. Du bestätigst damit eine Reserveprüfung, keine Ventilschaltung und keinen fertigen Hauptplan.",
+   "footer": "Du kannst den Befund später erneut lesen.",
+   "done_flag": "bhn_wintervorrat_gelesen2",
+   "effects": {
+    "sets_flags": [
+     "bhn_wintervorrat_gelesen2"
+    ],
+    "gives_clues": [
+     "bhn_wintervorrat_c2"
+    ]
+   }
+  }
+ },
+ {
+  "map": "bh_stillenhaeuser",
+  "npc": "bhn_e_patientin",
+  "tile": [
+   3,
+   10
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  }
+ },
+ {
+  "map": "bh_pavillon",
+  "npc": "bhn_e_kapellmeister",
+  "tile": [
+   4,
+   10
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  }
+ },
+ {
+  "map": "bh_pavillon",
+  "npc": "bhn_e_kiosk",
+  "tile": [
+   5,
+   10
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  }
+ },
+ {
+  "map": "bh_winterpromenade",
+  "npc": "bhn_e_lehrer",
+  "tile": [
+   6,
+   10
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  }
+ },
+ {
+  "map": "bh_kesselgrund",
+  "npc": "bhn_e_naeherin",
+  "tile": [
+   7,
+   10
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  }
+ },
+ {
+  "map": "bh_speisesaal",
+  "npc": "bhn_e_koechin",
+  "tile": [
+   8,
+   10
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  }
+ },
+ {
+  "map": "bh_kutschenhof",
+  "npc": "bhn_e_bote",
+  "tile": [
+   9,
+   10
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  }
+ },
+ {
+  "map": "bh_glasgaerten",
+  "npc": "bhn_e_wart",
+  "tile": [
+   10,
+   10
+  ],
+  "visible_if": {
+   "requires_flags": [
+    "k5_arrived"
+   ]
+  }
+ }
+]

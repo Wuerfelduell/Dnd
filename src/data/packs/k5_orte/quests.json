@@ -1,0 +1,49 @@
+{
+ "bho_pruefung": {
+  "title": "Zwei Skalen, ein Befund",
+  "kind": "side",
+  "case": "kapitel5",
+  "summary": "Prüfe zwei getrennte Anzeigen und entscheide, wie der technische Befund zugänglich wird.",
+  "steps": [
+   {
+    "text": "Die Drei-Handräder-Tafel prüfen.",
+    "done": {
+     "requires_flags": [
+      "bho_kesselgrund_gelesen2"
+     ]
+    },
+    "target": {
+     "map": "bh_kesselgrund",
+     "id": "bho_kesselgrund_lese2",
+     "label": "Drei Handräder"
+    }
+   },
+   {
+    "text": "Temperatur und Rücklauf im Wurzelkranz vergleichen.",
+    "done": {
+     "requires_flags": [
+      "bho_wurzelkranz_gelesen3"
+     ]
+    },
+    "target": {
+     "map": "bh_wurzelkranz",
+     "id": "bho_wurzelkranz_lese3",
+     "label": "Getrennte Skalen"
+    }
+   },
+   {
+    "text": "Über den Befund entscheiden und die Belohnung nehmen.",
+    "done": {
+     "requires_flags": [
+      "bho_pruefung_fertig"
+     ]
+    },
+    "target": {
+     "map": "bh_buegelraum",
+     "id": "bho_pruefstreifen_station",
+     "label": "Wartungskiste"
+    }
+   }
+  ]
+ }
+}
