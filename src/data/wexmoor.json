@@ -3676,6 +3676,27 @@
           "reach": 24
         },
         {
+          "id": "kessel",
+          "kind": "brew",
+          "tile": [
+            10,
+            3
+          ],
+          "prompt": "Am Braukessel brauen",
+          "sprite": "cauldron",
+          "marker": false,
+          "solid": [
+            14,
+            10
+          ],
+          "title": "Zunders Kessel",
+          "anim": [
+            "cauldron_bubble",
+            "bubble"
+          ],
+          "reach": 24
+        },
+        {
           "id": "fallwand",
           "kind": "casewall",
           "tile": [
@@ -3701,8 +3722,8 @@
             ]
           },
           "title": "Ein Kahn als Zuhause",
-          "text": "Der Torfkahn liegt halb im Moor, schief wie ein müder Hund. Innen ist es überraschend trocken: eine Koje, ein Tisch, ein Ofen aus einem alten Ölfass und eine Kiste, auf der in Ruß „deins“ steht, und ein Braukessel, der aussieht, als hätte er schon vor dir hier gewohnt.\n\nDaneben eine zweite Kiste mit Bahnhofsstempel: „Was du vom Nachtmarkt brauchst, kommt mit dem Nachtzug“, sagt Zunder. „Kittering, Nell, Gorse. Die Gesellschaft schickt es, ich zahl den Schaffner. Zurückfahren tut keiner von uns.“\n\n„Die Ruß-Leute in Kettlegate haben deine Sachen aus dem Büro geholt, bevor die Wache drankam“, sagt Zunder. „Frag nicht, wie.“",
-          "footer": "Koje: ausruhen. Kiste: dein Lager (dasselbe wie im Büro). Fallwand: deine Fälle. Kessel: brauen. Schmuggelkiste: Formeln, Zutaten und Vorräte aus Kettlegate.",
+          "text": "Der Torfkahn liegt halb im Moor, schief wie ein müder Hund. Innen ist es überraschend trocken: eine Koje, ein Tisch, ein Ofen aus einem alten Ölfass, ein verbeulter Kessel über Kohlen und eine Kiste, auf der in Ruß „deins“ steht.\n\n„Die Ruß-Leute in Kettlegate haben deine Sachen aus dem Büro geholt, bevor die Wache drankam“, sagt Zunder. „Frag nicht, wie.“\n\nDaneben eine zweite Kiste mit Bahnhofsstempel. „Was du vom Nachtmarkt brauchst, kommt mit dem Nachtzug“, sagt Zunder. „Kittering, Nell, Gorse. Die Gesellschaft schickt es, ich zahl den Schaffner. Zurückfahren tut keiner von uns.“",
+          "footer": "Koje: ausruhen. Kiste: dein Lager (dasselbe wie im Büro). Kessel: Tränke brauen. Fallwand: deine Fälle. Schmuggelkiste: Formeln, Zutaten und Vorräte aus Kettlegate.",
           "done_flag": "k2_hideout",
           "effects": {
             "sets_flags": [
@@ -3800,31 +3821,6 @@
           "title": "Ein Paket aus Kettlegate",
           "text": "Ein Paket, in Zeitungspapier aus Kettlegate gewickelt, mit Ruß an den Kanten. Darin zwei Flaschen Tonikum, Verband und ein Zettel in Blockschrift:\n\n„HALT DURCH. HIER REDEN ALLE VON DIR. EZRA SAGT, DIE GLOCKEN IM UHRTURM LÄUTEN FALSCH, SEIT DU WEG BIST. DIE GESELLSCHAFT VERGISST KEINEN. JEM.“",
           "footer": "+2 Tonikum, +2 Verband."
-        },
-        {
-          "id": "kessel",
-          "kind": "brew",
-          "tile": [
-            12,
-            7
-          ],
-          "prompt": "Am Braukessel brauen",
-          "sprite": "cauldron",
-          "marker": false,
-          "solid": [
-            14,
-            10
-          ],
-          "title": "Zunders Braukessel",
-          "anim": [
-            "cauldron_bubble",
-            "bubble"
-          ],
-          "visible_if": {
-            "requires_flags": [
-              "k2_hideout"
-            ]
-          }
         },
         {
           "id": "schmuggelkiste",

@@ -2224,6 +2224,11 @@ export const P2_CHOICE_URL = `${BASE}ui/AH_wahl.png`;
 // --- Paket AL: vier Wexmoorer Akten (data/packs/k2_akten) ---------------------------------------------
 /** Senn, Veit und Noll kämpfen vorerst mit vorhandenen Sheets (docs/story/k2_akten/grafikwuensche.md); Vane und die gemalte Frau aus AO. */
 Object.assign(ENCOUNTER_SHEETS, { k2a_tinte_kampf: 'enemy_kanalschmuggler', k2a_bittere_mittel_kampf: 'enemy_price', k2a_hafenrecht_kampf: 'enemy_kanalschmuggler' });
+/** Lauf-Sheets der drei Auftraggeber: umgefärbte Vorratsfiguren (Senn aus ds_einwohner_6, Veit aus ds_einwohner_3, Noll aus ds_einwohner_1), bis eigene Grafik kommt. */
+for (const id of ['k2a_senn', 'k2a_veit', 'k2a_noll']) {
+  SHEETS[`al_${id}`] = `characters/${id}_walk.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = `al_${id}`;
+}
 BATTLE_SHEETS.enemy_wxn_maler = ['battle/enemy_wxn_maler.png', 48];
 BATTLE_SHEETS.enemy_gemalte_frau = ['battle/enemy_gemalte_frau.png', 64];
 ANIM_ALIASES.enemy_wxn_maler = { attack: 'brush_slash', special: 'paint_throw' };
@@ -2597,6 +2602,13 @@ export const FEST_MAPS = {
   salzsegen: ['wx_salzmarkt', 'wx_bojenhafen', 'wx_pfahldorf', 'wx_oberstadt', 'wx_bahnhof'],
   schichtwechsel: ['ds_schwellenring', 'ds_arbeiterbogen', 'ds_kalkmarkt', 'ds_endbahnhof', 'ds_bruchstufen'],
 };
+/** Festbesucher mit festem Platz und Gespräch (Paket CK: Figuren fs_<fest>_gast_<n>) laufen mit den BV-Gast-Sheets statt mit dem Platzhalter. */
+for (const f of Object.keys(FEST_MAPS)) {
+  for (const n of [1, 2, 3, 4]) {
+    SHEETS[`fest_${f}_gast_${n}`] = `characters/fest_${f}_gast_${n}_walk.png`;
+    CHARACTER_SHEETS[`npc_fs_${f}_gast_${n}`] = `fest_${f}_gast_${n}`;
+  }
+}
 /** Außenkarten ohne Dächer, Gras oder Wasser (Dunscar: Stadt, Bahn, Bruch, Schlucht). */
 export const OUTDOOR_THEMES = ['ds_stadt', 'ds_bahn', 'ds_bruch', 'ds_schlucht', 'bh_promenade_kalt', 'bh_promenade_warm', 'bh_kessel_kalt', 'bh_kessel_warm'];
 export const isOutdoorMap = (m) => /[Rg~]/.test((m.rows ?? []).join('')) || OUTDOOR_THEMES.includes(m.tiles) || !!m.outdoor;

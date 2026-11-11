@@ -1,4 +1,4 @@
-import { journalQuestVisible } from './journal.js';
+import { journalQuestVisible, leftKettlegate } from './journal.js';
 // Reiner Spielzustand ohne Phaser-Abhängigkeit, damit er auch in Node-Tests läuft.
 import { pathwayMethods } from './Pathways.js';
 import { gatheringMethods } from './Gatherings.js';
@@ -225,6 +225,27 @@ export class GameState {
     if (this.hasConclusion(match.id)) return { result: 'known', deduction: match };
     this.addConclusion(match.id);
     return { result: 'new', deduction: match };
+  }
+
+  /** Auto-Verknüpfen gibt es erst ab Wexmoor (Kapitel 2): In Kettlegate soll man die Paare noch selbst finden. */
+  autoLinkFrei() {
+    return leftKettlegate(this);
+  }
+
+  /**
+   * Auto-Verknüpfen: zieht alle Schlussfolgerungen eines Falls, deren Informationen bekannt und nicht widerlegt sind.
+   * Ergebnis: { result: 'new' | 'nothing' | 'locked', deductions: [...] }
+   */
+  autoCombine(caseId) {
+    if (!this.autoLinkFrei()) return { result: 'locked', deductions: [] };
+    const usable = (f) => !['unknown', 'refuted'].includes(this.factStatus(f));
+    const found = [];
+    for (const d of this.content.deductions) {
+      if (caseId && d.case !== caseId) continue;
+      if (this.hasConclusion(d.id)) continue;
+      if (d.pairs.some(([a, b]) => usable(a) && usable(b))) { this.addConclusion(d.id); found.push(d); }
+    }
+    return { result: found.length ? 'new' : 'nothing', deductions: found };
   }
 
   // --- Ansehen -----------------------------------------------------------------
