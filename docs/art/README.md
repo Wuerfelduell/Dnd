@@ -1625,3 +1625,16 @@ Built-in Bildgenerator mit vorhandener Sprite-Referenz; Nearest-Neighbor-Export,
 
 - 16 neue Artefakte (`pathways.json` → `artifacts.list`, `konzentration: true`) nutzen Kopien bestehender Item-Icons als Platzhalter (`items/<id>.png`).
 - Echte Icons: Prompt-Paket `codex_BX_konzentration_artefakte.md` (Tabelle mit Id, Platzhalter und Prompt-Kern). Nach Lieferung die Dateien 1:1 ersetzen.
+
+
+## Batch BW — Innenräume und Lesestellen (`innen2`)
+
+17 neue PNGs: ein Animationsatlas, sechs Möbel-Sets und zehn deckende Leseansichten. Lieferung nach `codex_BW_innen2.md`; kein Spielcode geändert, Einbau separat.
+
+- [`manifest-innen2.json`](../../public/sprites/manifest-innen2.json): Framegrößen, Spalten/Reihen, Animationslisten, Geschwindigkeiten, Einzelzellen und benannte Möbelregionen.
+- `props/innen2_anim.png`: 128×608, 4 Spalten × 19 Reihen, 32×32 je Frame. 76 Frames, vier pro Variante, gemeinsame Grundlinie y=30 und transparenter Rand. Kleine Motive belegen höchstens 14×14 Pixel innerhalb derselben 32×32-Framefläche. Die Aufgabenliste nennt „16 Props“, zählt aber 19 Varianten einschließlich drei Kaminfeuern und zwei Kerzenarten auf. Alle 19 sind geliefert; keine genannte Variante entfällt.
+- `props/innen2_moebel_{buero,revier,laden,akademie,speisewagen,lohnbuero}.png`: je 128×64, 8×4 Zellen im 16×16-Raster. Die letzten vier Zellen sind deckende Wandstücke: Tapete, Täfelung, Kalk und Blech. Größere Möbel aus ihren benannten zusammenhängenden Regionen zusammensetzen. Einzelne Regal-/Schrankfragmente werden als modulare Wiederholung verwendet; 32 Zellen bedeutet nicht 32 unabhängige Möbelstücke.
+- `ui/scenes/lese_{brief,kassenbuch,zeitung,wandanschlag,kalkbrett,telegramm,sternkarte,lohnzettel,kinderzeichnung,tagebuch}.png`: je 240×135, vollständig deckend. Das ausdrücklich vorgegebene Szenenformat ist vom 16×16-Kachelraster ausgenommen. Gekritzel ist Bilddekoration, lesbarer Spieltext wird separat eingeblendet.
+- Gemeinsame Palette aus `props/05_03_furniture.png`, ergänzt um drei passende Farbtöne: 31 sichtbare Farben plus transparenter Index. Alpha nur 0/255, keine weißen/schwarzen Freistellränder. Referenzbild wurde jedem Bildgenerator-Aufruf mitgegeben. Lichtkegel/Staub waren optional und sind nicht Teil dieser Lieferung.
+- Verwendete Prompts, Quellnamen und SHA-256: [`batch-innen2-generation.json`](batch-innen2-generation.json). Erstellt mit integriertem Bildgenerator; Pillow verarbeitet nur Raster, Zuschnitte, Palette und Alpha. `tools/art/innen2/export.py --sources <json>` reproduziert den Export aus den ursprünglichen Generatorbildern; diese großen Zwischenbilder gehören nicht zum Laufzeitpaket. Die JSON-Liste benötigt `id`, `prompt` und lokalen `source`-Pfad je Eintrag.
+- Vorschau: [`preview-innen2.png`](preview-innen2.png). Prüfung: `python tools/art/innen2/check.py` (Pillow). Technische Tests prüfen keine semantische Richtigkeit oder Bewegung im laufenden Spiel; Motive und Lesbarkeit wurden zusätzlich in der Kontaktvorschau gesichtet.
