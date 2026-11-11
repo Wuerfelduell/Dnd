@@ -2,6 +2,48 @@
 
 Jede Datei ist **eigenständig** (Regeln, Formate, Ablage stehen drin). Codex braucht immer nur **eine** Datei. Alle Pakete schreiben in getrennte Ordner und können **gleichzeitig** laufen. Jedes Paket endet mit einem eigenen Pull Request.
 
+## Runde 8 (2026-11-11, letzter Codex-Tag): Kapitel 4 und 5 aus dem Vorrat, Feste, Musik, Sounds, Kettlegate-Leben; parallel startbar
+Nach Wert sortiert. CC bis CF teilen die Calderwick-Eckdaten (Präfixe `cwa_`/`cwo_`/`cwn_`, Karten `cw_*`), CG bis CJ die Briarholt-Eckdaten (`bha_`/`bho_`/`bhn_`, Karten `bh_*`); beide bauen auf dem Vorrat BH bis BM auf, nichts wird doppelt erfunden. Grafikpakete dürfen vor den Datenpaketen starten. Nächster freier Buchstabe danach: CO.
+
+| Datei | Art | Inhalt | schreibt nach |
+|---|---|---|---|
+| `codex_CC_k4_akte.md` | Story | Kapitel 4 „Die Stadt ohne Unterschrift“ (Calderwick, Geschichte 1): Anreise aus den vier Dunscar-Enden, 5 Akte x 4 Fährten, Verhöre, Bosse aus BH als Story-Momente, Namensanker und Abgleiche als Daten, 4 Enden, Epiloge, Zeitung | `docs/story/k4_akte/` |
+| `codex_CD_k4_orte.md` | Karten/Mechanik | Calderwick: 6 Terrassen mit Schrägaufzug, 8 Innenräume, 3 Gefahrengebiete mit BH-Gegnern, Finale, Reisegebiet Landstraße (Reiseereignisse mit BJ-Figuren und BH-Gegnern), Zutaten-Ersatzquellen, Spezifikation + Grundgerüst „Bürgen und Abgleich“ | `docs/story/k4_orte/` |
+| `codex_CE_calderwick_grafik.md` | Grafik | 6 Tilesets, Props je Terrasse, Bürgenbrett, Abgleich-Effekte, Standseilbahn, 9 Kampf-Hintergründe, 7 Szenenbilder, Stadtkarte, Kapitel-4-Karte, Landstraßen-Karte | Batch `calderwick1` |
+| `codex_CF_k4_nebenquests.md` | Quests | 12 Nebenaufträge aus den BJ-Keimen, 8 Einwohner, 60 Gerede, 25 Lesestücke, Zeitung „Calderwicker Anzeiger“, Tiere/Wetter, Koop | `docs/story/k4_nebenquests/` |
+| `codex_CG_k5_akte.md` | Story | Kapitel 5 „Der Garten der fehlenden Tage“ (Briarholt, Geschichte 2): Anreise aus den vier Calderwick-Enden (plus Dunscar-Variante), 5 Akte x 4 Fährten, Ventile und Patienten-Entscheidungen als Daten, 4 Enden, Epiloge, Zeitung | `docs/story/k5_akte/` |
+| `codex_CH_k5_orte.md` | Karten/Mechanik | Briarholt: 6 Viertel und 9 Innenräume je kalt und warm, 3 Gefahrengebiete mit BH-Gegnern, Finale, Reise, Spezifikation + Grundgerüst „Wärme und Rücklauf“ | `docs/story/k5_orte/` |
+| `codex_CI_briarholt_grafik.md` | Grafik | 6 Tilesets je kalt und warm, Props, Ventiltafel, Wärme-Effekte, Leitungsplan-Overlay, 9 Kampf-Hintergründe, Szenenbilder, Stadtkarte, Kapitel-5-Karte | Batch `briarholt1` |
+| `codex_CJ_k5_nebenquests.md` | Quests | 12 Nebenaufträge aus den BJ-Keimen, 8 Kurgäste, 60 Gerede nach Wärmezustand, 25 Lesestücke, Zeitung „Briarholter Kurblatt“, Koop | `docs/story/k5_nebenquests/` |
+| `codex_CK_feste_leben.md` | Daten + Texte | Spielinhalt zur BV-Grafik: Kalender aus der Spieluhr, Wirkungen je Jahreszeit, 3 Feste mit je 4 Buden, Festbesuchern, Fest-Auftrag, Fest-Spiel als Dialog, Zeitung, Saison-Gerede, Koop | `docs/story/feste_leben/` |
+| `codex_CL_musik_k4k5_feste.md` | Ton | Notendaten: 13 Stücke Calderwick, 14 Briarholt (kalt/warm), 6 Landstraße, 4 Fest-Stücke, 4 Jahreszeiten-Zwischenspiele, Zuordnung aller neuen Karten | `public/audio/musik/` (`cw_`, `bh_`, `ls_`, `fest_`, `saison_`) |
+| `codex_CM_soundeffekte2.md` | Ton | ca. 90 Soundeffekte für alles seit Y: Dunscar und Rufen, Sekten, Feste/Jahreszeiten, Fasserin/Kontrollverlust/Starling, Beziehungen/Koop/Ausrüstung, Calderwick, Briarholt, Landstraße, Oberfläche | `public/audio/sfx/`, `manifest-sfx2.json` |
+| `codex_CN_kettlegate_leben.md` | Daten + Grafik | Kettlegate lebt wie Wexmoor und Dunscar: 10 Einwohner mit Tagesplänen, 100 Gerede, Tiere/Wetter, 8 Stände, 6 Stadt-Ereignisse, Zeitung, Koop; dazu Lauf-Sheets, Tiere, Wetter, Stände, Nacht-Overlays | `docs/story/kg_leben/`, Batch `kettlegate_leben` |
+
+## Runde 7 (2026-11-11): letzte Icon-Lücken, parallel startbar
+Nur Grafik, keine festen IDs untereinander. BX und BY teilen zwei Artefakt-Ids (`zweites_herz`, `nadel_der_naeherin`): BX macht sie, BY lässt sie aus. Nächster freier Buchstabe danach: CC (vergeben in Runde 8).
+
+| Datei | Art | Inhalt | schreibt nach |
+|---|---|---|---|
+| `codex_BX_konzentration_artefakte.md` | Grafik | 16 Icons der Konzentrations-Artefakte (16, optional 32), ersetzen Platzhalter-Kopien | Batch `konzentration` |
+| `codex_BY_nerven_artefakte_grafik.md` | Grafik | 14 Icons der Nerven-Artefakte (16+32), optional Status-Icon „Atem holen“ | Batch `nerven_artefakte` |
+| `codex_BZ_faehigkeiten2_icons.md` | Grafik | 180 Icons der zweiten Fähigkeiten: Atlas `skill_icons_3.png` (90 Kampf) und `talent_icons.png` (90 Welt), 10 Pfade x Seq 9–1 | Batch `faehigkeiten2` |
+| `codex_CA_skill_icons_hoch.md` | Grafik | 55 Icons der Hauptfertigkeiten ohne Bild: Seq 4–1 aller 10 Pfade (`skill_icons_hoch.png`) und Seq 9–5 von Waage/Moor/Uhr (`skill_icons_neu.png`) | Batch `skill_icons_hoch` |
+| `codex_CB_dunscar_icons.md` | Grafik | 35 geliehene Dunscar-Item-Icons: 8 Händler-Ausrüstung, 10 Prüfungshilfen, 3 Schichtbund-Fundstücke, 5 Einzelgänger-Gaben, 9 Kalkblatt-Ausgaben | Batch `icons3` |
+
+## Runde 6 (2026-11-10): Sekten, Starling Phase 2, Wexmoor-Look, Ausrüstung; parallel startbar
+BQ und BR teilen feste IDs (Präfix `sk_`); BR darf vor BQ starten. Nächster freier Buchstabe danach: BX.
+
+| Datei | Art | Inhalt | schreibt nach |
+|---|---|---|---|
+| `codex_BQ_sekten.md` | Daten + Texte | 3 Kulte (Aschenbund, Flutkinder, Stummer Chor) mit Umtriebe-Stufen 0–3, 36 Ereignisse quer durch alle drei Städte (Spuren, Werbung, Abwerbung von Figuren, Sabotage, Schreine, Überfälle), 12 Gegner, 9 Figuren, 3 Ketten durch 3 Städte + 6 kleine Aufträge, Zeitung/Gerede/Koop | `docs/story/sekten/` |
+| `codex_BR_sekten_grafik.md` | Grafik | 12 Kultisten-Sheets, 9 Figuren mit Portraits, 12 Kampf-Sheets mit nicht tödlichen Enden, Zeichen, 3 Schreine, Sabotage-Props, Ereignis-FX, HUD, 12 Item-Icons | Batch `sekten` |
+| `codex_BS_starling_phase2_grafik.md` | Grafik | Sternsammler: 128x96-Kampf-Sheet mit Verwandlung und nicht tödlichem Ende, zweite Büste, aufgerissene Sternwarte, FX, acht Fall-Sterne, HUD, Portraits, Sequenzbild | Batch `starling2` |
+| `codex_BT_wexmoor_look.md` | Grafik | Wexmoor als Pfahl- und Torfstadt: 8 Austausch-Tilesets im gleichen Zellenraster (`_v2`), 18 Fassaden, Props, Wetter, Tiere, Seekarte als Stadtkarte | Batch `wexmoor8` |
+| `codex_BU_ausruestung_kulissen_koop.md` | Grafik | 99 Ausrüstungs-Overlays (Hüte, Mäntel, Waffen, Amulett) für 3 Figuren, 12 Kampfkulissen Dunscar/Wexmoor, Koop-Rahmen, -Symbole, Portraits für p2a/p2b | Batch `ausruestung2` |
+| `codex_BV_feste_jahreszeiten.md` | Grafik | 4 Jahreszeiten als Boden-/Fassaden-Überlagerung mit Partikeln, 3 Stadtfeste (Laternennacht, Salzsegen, Schichtwechsel) mit Props, Gästen, Bannern, Sequenzbildern | Batch `feste` |
+| `codex_BW_innen2.md` | Grafik | 16 animierte Innen-Props, 6 Möbel-Sets (Büro, Revier, Laden, Akademie, Speisewagen, Lohnbüro), 10 Lesestellen-Close-ups | Batch `innen2` |
+
 ## Runde 5 (2026-11-10): Lücken in Kapitel 3, Koop, Platzhalter, parallel startbar
 Alle teilen dieselben Eckdaten mit festen IDs. BN liegt hinter BM, weil AZ das Beziehungs-Paket aus einem anderen Thread ist.
 
