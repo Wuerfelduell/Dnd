@@ -1,6 +1,6 @@
 import { NEWSPAPERS } from '../data/lore.js';
 import { FESTE } from '../core/Clock.js';
-import { DIGEST_LABELS } from '../core/Pathways.js';
+import { DIGEST_LABELS, digestSlowdown, fmtDigest } from '../core/Pathways.js';
 import { buffLabel, fmtSec } from '../core/Talents.js';
 import { CARRY_PER_STEP } from '../core/GameState.js';
 import { GEAR_SLOT_NAMES } from '../core/Gear.js';
@@ -444,10 +444,11 @@ export class Ui {
       const key = `${player}:${kind}`;
       this.digestAcc[key] = (this.digestAcc[key] ?? 0) + delta;
       const acc = this.digestAcc[key];
-      if (acc < (kind === 'vision' ? 5 : 1) && state.pathway.digestion < 100) return;
+      // Auf tiefen Sequenzen tröpfelt die Verdauung: die Meldung kommt entsprechend früher
+      if (acc < (kind === 'vision' ? 5 : 1) * digestSlowdown(state.pathway.seq) && state.pathway.digestion < 100) return;
       this.digestAcc[key] = 0;
       if (this.modal === 'combat') return;
-      this.toast(`${player === 2 ? 'Spieler 2: ' : ''}+${Math.round(acc)} % verdaut: ${DIGEST_LABELS[kind] ?? kind}`, 'digest');
+      this.toast(`${player === 2 ? 'Spieler 2: ' : ''}+${fmtDigest(acc)} % verdaut: ${DIGEST_LABELS[kind] ?? kind}`, 'digest');
     });
     state.on('digested', ({ seq, player = 1 }) => this.toast(`${player === 2 ? 'Spieler 2: ' : ''}${seq <= 8 ? 'Bereit für den nächsten Trank. Die Formel gibt es auf geheimen Treffen, selten bei Kittering.' : 'Bereit für den nächsten Trank. Kittering hat die Formel.'}`, 'gold'));
     // Geheime Treffen: Ankündigung und Uhr im HUD
@@ -678,7 +679,7 @@ export class Ui {
       const d = Math.floor(s.pathway.digestion);
       this.$('.meter.digest .dfill').style.width = `${d}%`;
       this.$('.meter.digest .dfill').classList.toggle('full', d >= 100);
-      this.$('.dnum').textContent = `${d} %`;
+      this.$('.dnum').textContent = `${s.pathway.seq <= 6 && d < 100 ? fmtDigest(s.pathway.digestion) : d} %`;
     }
     const el = this.$('.meter.unruhe');
     el.classList.toggle('hidden', !s.isBeyonder() && s.unruhe <= 0);
@@ -1954,8 +1955,8 @@ export class Ui {
       ${this.buffsHtml(s)}
       ${this.ritualHtml()}
       <h4>Was deinen Trank verdaut</h4>
-      <ul class="digestlist">${s.digestTable().map((r) => `<li><span>${esc(r.label)}</span> <strong>+${r.points} %</strong></li>`).join('')}
-        <li class="muted">Alles andere verdaut diesen Pfad nicht. Auf höheren Sequenzen geht es langsamer.</li></ul>
+      <ul class="digestlist">${s.digestTable().map((r) => `<li><span>${esc(r.label)}</span> <strong>+${r.text} %</strong></li>`).join('')}
+        <li class="muted">Alles andere verdaut diesen Pfad nicht. Ab Sequenz 6 verdaut jede Stufe zehnmal so langsam wie die davor.</li></ul>
       <ul class="seqs">${rows}</ul>
       ${this.recipesHtml(false)}`;
   }

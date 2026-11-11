@@ -14,7 +14,18 @@
 
 export const SEQ_START = 9;
 export const SEQ_MAX = 1; // höchste erreichbare Stufe (Kapitel 3 bringt die Kernzutaten für 4 bis 1)
-export const DIGEST_RATE = { 9: 1, 8: 0.7, 7: 0.5, 6: 0.35, 5: 0.25, 4: 0.2, 3: 0.16, 2: 0.13, 1: 0.1 };
+// Verdauungstempo je Sequenz. Bis Sequenz 7 wie gehabt; ab Sequenz 6 wird es brutal:
+// jede weitere Sequenz verdaut zehnmal so langsam wie die davor (6 = 1/10 von 7, 5 = 1/100, ...).
+export const DIGEST_SLOW_FACTOR = 10;
+export const DIGEST_RATE = { 9: 1, 8: 0.7, 7: 0.5, 6: 0.05, 5: 0.005, 4: 0.0005, 3: 0.00005, 2: 0.000005, 1: 0.0000005 };
+/** Verdauungstempo einer Sequenz im Verhältnis zu Sequenz 7 (1 bis Sequenz 7, danach 1/10, 1/100, ...). */
+export function digestSlowdown(seq) { return Math.min(1, (DIGEST_RATE[seq] ?? DIGEST_RATE[1]) / DIGEST_RATE[7]); }
+/** Prozentwert fürs Auge: große Werte mit einer Nachkommastelle, winzige mit zwei gültigen Ziffern. */
+export function fmtDigest(v) {
+  if (v >= 1) return String(Math.round(v * 10) / 10);
+  if (v <= 0) return '0';
+  return String(Number(v.toPrecision(2)));
+}
 export const COMPOSURE_BASE = 100;
 export const DEFAULT_GROWTH = { hp: 5, nerves: 5 };
 // Durchbrüche: Sequenz 7 und 6 zählen beim Wachstum doppelt (große Sprünge an Leben und Nerven).
@@ -190,7 +201,7 @@ export const pathwayMethods = {
     if (!p) return 0;
     const table = this.pathwayDef().digest ?? {};
     if (!table[kind]) return 0;
-    let pts = table[kind] * amount * (DIGEST_RATE[p.seq] ?? 0.25) * this.passive('digest_mult');
+    let pts = table[kind] * amount * (DIGEST_RATE[p.seq] ?? DIGEST_RATE[1]) * this.passive('digest_mult');
     if (kind === 'vision') {
       if (this.visionDigest.map !== this.map) this.visionDigest = { map: this.map, total: 0 };
       pts = Math.min(pts, Math.max(0, VISION_DIGEST_CAP - this.visionDigest.total));
@@ -214,9 +225,9 @@ export const pathwayMethods = {
   /** Was den eigenen Pfad wie stark verdaut, auf der aktuellen Sequenz: [{kind, label, points}] */
   digestTable() {
     if (!this.pathway) return [];
-    const rate = (DIGEST_RATE[this.pathway.seq] ?? 0.25) * this.passive('digest_mult');
+    const rate = (DIGEST_RATE[this.pathway.seq] ?? DIGEST_RATE[1]) * this.passive('digest_mult');
     return Object.entries(this.pathwayDef().digest ?? {})
-      .map(([kind, v]) => ({ kind, label: DIGEST_LABELS[kind] ?? kind, points: Math.round(v * rate * 10) / 10 }))
+      .map(([kind, v]) => ({ kind, label: DIGEST_LABELS[kind] ?? kind, points: v * rate, text: fmtDigest(v * rate) }))
       .sort((a, b) => b.points - a.points);
   },
 
