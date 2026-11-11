@@ -157,6 +157,11 @@ export class Roamers {
       if (time < r.stunUntil) {
         b.setVelocity(0, 0);
         r.mode = 'wander';
+      } else if (!graced && d < aggro * 1.1 && s.state.awes?.(r.id)) {
+        // Mythische Gestalt: wer dich sieht und dir nichts entgegenzusetzen hat, bricht zusammen (WorldScene.startCombat)
+        b.setVelocity(0, 0);
+        this.engage(r);
+        return;
       } else if (afraid && d < aggro * FLEE_RANGE) {
         // Ab Sequenz 7: hält Abstand statt anzugreifen. Wer ihn einholt, kämpft trotzdem.
         if (r.mode !== 'flee') this.notice(r, time, true);

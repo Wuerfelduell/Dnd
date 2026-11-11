@@ -1,6 +1,6 @@
 import { NEWSPAPERS } from '../data/lore.js';
 import { FESTE } from '../core/Clock.js';
-import { DIGEST_LABELS, digestSlowdown, fmtDigest } from '../core/Pathways.js';
+import { DIGEST_LABELS, digestSlowdown, fmtDigest, FORM_SEQ, FORM_MIN_DIGEST, FORM_NERVES_PER_SEC, FORM_UNRUHE_PER_SEC, FORM_MIN_NERVES } from '../core/Pathways.js';
 import { buffLabel, fmtSec } from '../core/Talents.js';
 import { CARRY_PER_STEP } from '../core/GameState.js';
 import { GEAR_SLOT_NAMES } from '../core/Gear.js';
@@ -1488,6 +1488,10 @@ export class Ui {
         if (r.ok) this.toast(r.text, 'good');
       };
     });
+    el.querySelector('[data-form]')?.addEventListener('click', () => {
+      const r = inv(() => this.state.toggleForm());
+      if (r.ok && r.active) { this.close(); this.showMessage('Mythische Gestalt', r.text); } else this.renderNotebook(esc(r.text));
+    });
     el.querySelector('[data-ritual]')?.addEventListener('click', () => {
       const who = this.state.hasP2() ? this.invPlayer : 1;
       const r = inv(() => this.state.performRitual());
@@ -1497,6 +1501,12 @@ export class Ui {
         const card = ritualCardUrl(pid);
         this.showMessage(who === 2 ? 'Ritual: Spieler 2' : 'Ritual', r.text, { aside: card ? `<img class="ritualcard" src="${card}" alt="" onerror="this.remove()">` : '' });
         this.scene?.playRitual?.(pid, who);
+      } else if (r.fight) {
+        // Schweres Ritual (Sequenz 4 und 2): der Schwellenwächter tritt an; der Kampf startet, sobald das Fenster zu ist
+        const pid = inv(() => this.state.pathway?.id);
+        this.close();
+        this.scene?.playRitual?.(pid, who);
+        this.showMessage('Ritual', r.text);
       } else this.renderNotebook(esc(r.text));
     });
     el.querySelectorAll('[data-inspect]').forEach((b) => { b.onclick = () => this.inspectItem(b.dataset.inspect); });
@@ -1934,7 +1944,7 @@ export class Ui {
       const socket = uiSprite('ladder', !reached ? (n === cur.seq - 1 ? 'empty' : 'locked') : n === cur.seq && s.unruhe >= 60 ? 'cracked' : 'unlocked', 1 / 12, 'socket');
       if (!reached) return `<li class="seq locked">${socket}<strong>Sequenz ${n}: ${esc(sd.name)}</strong> <span class="muted">noch nicht erreicht${sd.skill2 || sd.talent ? ` · bringt ${[sd.skill.name, sd.skill2?.name, sd.talent?.name].filter(Boolean).map(esc).join(', ')}` : ''}</span></li>`;
       const talent = sd.talent ? this.talentRowHtml(s, sd.talent) : '';
-      return `<li class="seq">${socket}<strong>Sequenz ${n}: ${esc(sd.name)}</strong> ${n === cur.seq ? '<span class="badge likely">aktuell</span>' : ''}<br>
+      return `<li class="seq${sd.durchbruch ? ' durchbruch' : ''}">${socket}<strong>Sequenz ${n}: ${esc(sd.name)}</strong> ${sd.durchbruch ? `<span class="badge halbgott">${esc(sd.durchbruch)}</span>` : ''}${n === cur.seq ? '<span class="badge likely">aktuell</span>' : ''}<br>
         <span class="desc">${esc(sd.desc)}</span><br>
         ${skillIcon(sd.skill.id) || '⚔ '}<strong>${esc(sd.skill.name)}</strong> <span class="muted">(${sd.skill.cost} K${s.skillComposureCost({ ...sd.skill, seq: n }) ? ` · ${s.skillComposureCost({ ...sd.skill, seq: n })} Nerven` : ''})</span> ${esc(sd.skill.desc)}
         ${sd.skill2 ? `<br>${skillIcon(sd.skill2.id) || '⚔ '}<strong>${esc(sd.skill2.name)}</strong> <span class="muted">(${sd.skill2.cost} K${s.skillComposureCost({ ...sd.skill2, seq: n }) ? ` · ${s.skillComposureCost({ ...sd.skill2, seq: n })} Nerven` : ''})</span> ${esc(sd.skill2.desc)}` : ''}
@@ -1953,6 +1963,7 @@ export class Ui {
       <p class="muted">Jede Sequenz dieses Pfades: +${s.growth().hp} Leben, +${s.growth().nerves} Nerven, +${CARRY_PER_STEP} Pfund Tragkraft, die Durchbrüche 7 und 6 das Doppelte. Gerade: ${s.maxHp} Leben, ${s.maxComposure()} Nerven, ${esc(s.carryBreakdown())} = ${fmtLb(s.carryCapacity())} Pfund Tragkraft.</p>
       ${s.corruptionDrain().count ? `<p class="curse">Korruption: ${s.corruptionDrain().count} Stück an dir zehrt an Leben und Nerven (siehe Inventar). Bei 100 Unruhe wachsen die Tentakel erneut und treffen alles, was du dann trägst.</p>` : '<p class="muted">Bei 100 Unruhe verlierst du die Kontrolle: Tentakel korrumpieren Waffe, Kleidung und Artefakte am Leib, die dich danach Leben und Nerven kosten, solange du sie trägst.</p>'}
       ${this.buffsHtml(s)}
+      ${this.formHtml(s)}
       ${this.ritualHtml()}
       <h4>Was deinen Trank verdaut</h4>
       <ul class="digestlist">${s.digestTable().map((r) => `<li><span>${esc(r.label)}</span> <strong>+${r.text} %</strong></li>`).join('')}
@@ -1978,6 +1989,18 @@ export class Ui {
     return `<p class="buffs">☉ Wirkt gerade: ${[...list.map((b) => `${esc(buffLabel(b))} <span class="muted">(${b.remainingText})</span>`), ...world.map(esc)].join(' · ')}</p>`;
   }
 
+  /** Mythische Gestalt (ab Sequenz 4 und halb verdautem Trank): Knopf zum Annehmen und Ablegen. */
+  formHtml(s) {
+    if (!s.pathway || s.pathway.seq > FORM_SEQ) return '';
+    const active = s.formActive();
+    const block = active ? null : s.formBlock();
+    return `<div class="gestalt ${active ? 'active' : ''}"><h4>Mythische Gestalt ${active ? '<span class="badge halbgott">angenommen</span>' : ''}</h4>
+      <p class="muted">${active
+        ? `Menschen ohne Pfad und Wesen, die deutlich unter dir stehen, brechen beim Anblick zusammen (Sieg samt Beute, ohne Kampf). Kostet ${FORM_NERVES_PER_SEC} Nerven und ${FORM_UNRUHE_PER_SEC} Unruhe je Sekunde; fällt ab, wenn die Nerven unter ${FORM_MIN_NERVES} sinken. Bosse und höhere Wesen bleiben.`
+        : `Ab ${FORM_MIN_DIGEST} % Verdauung auf Sequenz ${FORM_SEQ}: die wahre Gestalt des Pfades. Nicht-Beyonder und schwächere Monster fallen vor ihr um. Zehrt an Nerven und Unruhe.`}</p>
+      <button class="small ${block ? '' : 'primary'}" data-form="1" ${block ? 'disabled' : ''}>${active ? 'Gestalt ablegen' : 'Gestalt annehmen'}</button> ${block ? `<span class="muted">${esc(block)}</span>` : ''}</div>`;
+  }
+
   /** Ritual für den nächsten Trank (ab Sequenz 6): Ort, Zutaten, Bedingungen, Knopf. */
   ritualHtml() {
     const s = this.state;
@@ -1987,11 +2010,11 @@ export class Ui {
     if (!r) return '';
     if (s.ritualDone(s.pathway.id, seq)) return `<div class="ritual done"><h4>Ritual: ${esc(r.name)} <span class="badge likely">vollzogen</span></h4><p class="muted">Du kannst den Trank der Sequenz ${seq} trinken.</p></div>`;
     const steps = s.ritualSteps();
-    const ready = steps.every((x) => x.done);
+    const ready = steps.every((x) => x.done || x.ordeal);
     return `<div class="ritual"><h4>Ritual für Sequenz ${seq}: ${esc(r.name)}</h4>
       <p class="desc">${esc(r.desc)}</p>
       <ul class="steps">${steps.map((x) => `<li class="${x.done ? 'done' : ''}">${x.done ? '✓' : '○'} ${esc(x.text)}</li>`).join('')}</ul>
-      <button class="small ${ready ? 'primary' : ''}" data-ritual="1" ${ready ? '' : 'disabled'}>Ritual vollziehen</button> <span class="muted">Kostet 20 Nerven und bringt 20 Unruhe.</span></div>`;
+      <button class="small ${ready ? 'primary' : ''}" data-ritual="1" ${ready ? '' : 'disabled'}>${ready && r.ordeal && !s.ordealDone(s.pathway.id, seq) ? 'Schwellenwächter rufen' : 'Ritual vollziehen'}</button> <span class="muted">Kostet 20 Nerven und bringt 20 Unruhe.${r.ordeal ? ' Ein schweres Ritual: Wenn alles andere steht, tritt der Schwellenwächter deines Pfades an.' : ''}</span></div>`;
   }
 
   recipesHtml(withButtons) {
@@ -2008,7 +2031,26 @@ export class Ui {
     if (r.lost) { this.close(); return; } // Meldung kommt über 'lostcontrol'
     if (!r.ok) { this.renderNotebook(esc(r.text)); return; }
     this.close();
-    this.showMessage(`${who === 2 ? 'Spieler 2: ' : ''}${this.state.item(itemId).name}`, r.text);
+    const title = `${who === 2 ? 'Spieler 2: ' : ''}${this.state.item(itemId).name}`;
+    if (r.ascension) this.playAscension(r.ascension, () => this.showMessage(title, r.text));
+    else this.showMessage(title, r.text);
+  }
+
+  /**
+   * Aufstiegs-Szene für Halbgott (Sequenz 4) und Engel (Sequenz 2): Lichtflut in der Pfadfarbe über dem ganzen Bild,
+   * Ringe, dann das Wort in großen Lettern und der Name der Stufe. Die Welt spielt dazu ihre eigenen Funken (WorldScene).
+   * Tasten sind so lange gesperrt; danach folgt das Trankfenster.
+   */
+  playAscension(asc, then) {
+    const color = asc.color ?? '#e8c070';
+    const el = document.createElement('div');
+    el.className = 'ascension';
+    el.style.setProperty('--c', color);
+    el.innerHTML = `<div class="rings"><i></i><i></i><i></i></div><div class="words"><span class="rank">Sequenz ${asc.seq}</span><strong>${esc(asc.title)}</strong><span class="name">${esc(asc.name ?? '')}</span></div>`;
+    this.root.appendChild(el);
+    this.keysBlockedUntil = performance.now() + 4200;
+    setTimeout(() => el.classList.add('fade'), 3600);
+    setTimeout(() => { el.remove(); then?.(); }, 4300);
   }
 
   /** Braukessel: wer ihn bedient (Spieler 2 per Enter), braut aus seiner eigenen Tasche. */
