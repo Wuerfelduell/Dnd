@@ -1816,3 +1816,8 @@ Prüfung: `python tools/art/calderwick2/check.py` (Pillow, aus jedem Arbeitsverz
 - Prüfung: `python tools/art/kettlegate_leben/check.py`.
 
 Keine Laufzeitintegration in diesem Paket.
+
+
+## Batch DL — Erfolge (`erfolge`)
+
+80 stille Aktenvermerke, acht PNGs: Atlas 16/32px jeweils erfüllt/offen, 9-Slice-Rahmen, sechs Stempelframes, neun Gruppensymbole und Meldungsrahmen. Manifest: `public/sprites/manifest-erfolge.json`; Daten und Einbauvertrag: `docs/story/erfolge/`. Vorschau: `batch-erfolge-preview.png`, Prompts: `batch-erfolge-generation.json`, Abnahme: `batch-erfolge-validation.json`. Kein Laufzeitcode. Prüfung: `node docs/story/erfolge/pruefen.mjs` und `python tools/art/erfolge/check.py`.
