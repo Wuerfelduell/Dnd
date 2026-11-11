@@ -65,3 +65,31 @@ test('Ohne Informationen rät der Tipp zum Umhören, Fallen werden nicht empfohl
   // Die Anselm-Falle (Ansehen 0) ist nie das Ziel
   for (let i = 0; i < 3; i++) assert.notEqual(nextDeduction(s, 'case_02')?.deduction.id, 'anselm_guilty');
 });
+
+/** Fall 8 wie bei Seb: Schlafwandeln doppelt belegt, von den Traumfäden fehlt noch alles. */
+function stuckInCase8() {
+  const s = new GameState(content);
+  s.quests.case_08 = 'active';
+  s.flags.add('briefed_07');
+  s.flags.add('briefed_08');
+  ['nan_sleepwalk', 'nan_piper', 'molly_walk', 'molly_tea', 'tea_tin', 'wren_piper', 'piper_home'].forEach((c) => s.addClue(c));
+  assert.equal(s.combine('sleep_tea', 'sleepwalk').result, 'new');
+  return s;
+}
+
+test('Fall 8: der Tipp sagt, dass die Fäden nur in der Geistsicht zu sehen sind, und dass der Rattenfänger weitere Fragen braucht', () => {
+  const s = stuckInCase8();
+  assert.equal(nextDeduction(s, 'case_08').deduction.id, 'd8_thread');
+  const lines = caseHints(s, 'case_08', 2).lines;
+  assert.match(lines[1], /mit der Geistsicht im Ort „Waisenhaus St. Brigid“ umsehen/);
+  assert.match(lines[1], /Jasper Reed weiter ausfragen/);
+  // Sobald die Vorfrage gestellt ist, ist Jasper ein normaler Fundort
+  s.addClue('piper_canal');
+  assert.match(caseHints(s, 'case_08', 2).lines[1], /Jasper Reed fragen \(Ashgrove Lane\)/);
+  // Mit Jaspers Aussage bleibt nur die Geistsicht, und der Tipp nennt sie weiter
+  s.addClue('piper_thread');
+  assert.equal(s.combine('dream_thread', 'sleepwalk').result, 'new');
+  assert.match(caseHints(s, 'case_08', 2).lines[2], /Geistsicht/);
+  s.addClue('thread_vision');
+  assert.ok(s.isCertain('d8_thread'));
+});
