@@ -15,6 +15,7 @@
 //   no_flee (keine Flucht), no_items (keine Gegenstände im Kampf). Lebensverlust durch Flüche tötet nie (mindestens 1 Leben).
 
 import { rollLoot, takeLoot } from './Loot.js';
+import { FIGHT_DIGEST_MULT, ZONE_DIGEST_STEP } from './Pathways.js';
 
 export const WINDOW = { parry: 80, dodge: 140 }; // ± Millisekunden um den Einschlag
 export const ELITE_PARRY = 65; // Eliten und Bosse: noch engeres Parierfenster
@@ -157,6 +158,7 @@ export class Combat {
     // Panzer wächst mit der Gefahrenstufe des Gebiets (Marsch 1, ...), Bosse eine Stufe mehr
     const zone = state.content.zones?.[enc.zone];
     const tier = zone?.tier ?? 2;
+    this.zoneTier = tier;
     // Kapitel 2 (Wexmoor): das Gebiet zehrt an den Nerven (`drain` pro Runde) und lauert auf (`ambush`: Chance, dass der Gegner zuerst zuschlägt)
     this.drain = enc.practice ? 0 : enc.drain ?? zone?.drain ?? 0;
     this.ambushChance = enc.practice ? 0 : enc.ambush ?? zone?.ambush ?? 0;
@@ -678,7 +680,7 @@ export class Combat {
       else this.state.setComposure(this.state.composure - cost);
     }
     if (result === 'parry') {
-      if (!this.enc.practice) this.state.act('parry');
+      if (!this.enc.practice) this.state.act('parry', this.enc.boss ? FIGHT_DIGEST_MULT.boss : this.enc.elite ? FIGHT_DIGEST_MULT.elite : 1);
       this.state.setComposure(this.state.composure + Math.max(0, PARRY_GAIN + this.state.passive('parry_nerves')));
       this.gainAp(1 + this.state.passive('parry_ap'));
       const counter = this.hurtEnemy(this.hitDamage(COUNTER_MULT, 'good'));
@@ -795,8 +797,13 @@ export class Combat {
         loot = noLoot ? null : this.rollLoot(first); // BQ: Schreinwachen geben keine eigene Beute, erst der Abbau
         // Bei Gegnern auf der Karte landet die Beute in einem Behälter am Boden (WorldScene)
         if (!deferLoot && loot) takeLoot(s, loot, enc.name);
-        s.act('combat_win');
-        if (enc.occult) s.act('occult_win');
+        // Verdauung: Bosse und Elite zählen mehrfach, gefährliche Gebiete obendrauf; der Boss selbst verdaut jeden Pfad
+        const zoneMult = 1 + Math.max(0, (this.zoneTier ?? 1) - 1) * ZONE_DIGEST_STEP;
+        const fightMult = (enc.boss ? FIGHT_DIGEST_MULT.boss : enc.elite ? FIGHT_DIGEST_MULT.elite : 1) * zoneMult;
+        s.act('combat_win', fightMult);
+        if (enc.occult) s.act('occult_win', fightMult);
+        if (enc.boss) s.act('boss_win', zoneMult);
+        else if (enc.elite) s.act('elite_win', zoneMult);
       }
       text = enc.win_text ?? `${enc.name} ist besiegt.`;
       if (!enc.practice) { // BG: persönliche Kernzutat aus der Hüterbeute für jeden Beteiligten

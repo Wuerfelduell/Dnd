@@ -50,9 +50,23 @@ export const DIGEST_LABELS = {
   parry: 'Schlag pariert', vision: 'Geistsicht (pro Sekunde)', dialogue: 'neues Gespräch geführt',
   trade: 'gehandelt', brew: 'Trank gebraut', use_item: 'Heilmittel benutzt', lock: 'Verschlossenes geöffnet',
   loot: 'Belohnung eingestrichen',
+  boss_win: 'Boss besiegt', elite_win: 'Elitegegner besiegt', talent: 'Welt-Fähigkeit eingesetzt (je 10 Nerven)',
+  ritual: 'Ritual vollzogen', gathering: 'Zuschlag auf einem geheimen Treffen',
 };
+/**
+ * Was jeden Pfad verdaut, ganz gleich nach welchem Grundsatz: die großen Prüfungen und das Wirken der eigenen Kraft.
+ * Ein Pfad kann einen Schlüssel in seiner eigenen `digest`-Tabelle überschreiben.
+ */
+export const COMMON_DIGEST = { boss_win: 30, elite_win: 8, talent: 6, ritual: 25, gathering: 3 };
+/** Bosse und Elitegegner zählen für die pfadeigenen Kampf-Handlungen (combat_win, occult_win, parry) mehrfach. */
+export const FIGHT_DIGEST_MULT = { boss: 4, elite: 2 };
+/** Gefahrenstufe des Gebiets: jede Stufe über 1 bringt 25 % mehr Verdauung aus dem Kampf. */
+export const ZONE_DIGEST_STEP = 0.25;
+/** Welt-Fähigkeit: Verdauung je 10 Nerven Einsatz, mindestens das Halbe, höchstens das Zweieinhalbfache. */
+export const TALENT_DIGEST_PER_NERVES = 10;
+export const TALENT_DIGEST_SPAN = [0.5, 2.5];
 /** Handlungen, die nur den Pfad dessen verdauen, der sie selbst tut. Alles andere verdaut beide Spieler. */
-export const PERSONAL_DIGEST = new Set(['parry', 'vision', 'use_item', 'brew']);
+export const PERSONAL_DIGEST = new Set(['parry', 'vision', 'use_item', 'brew', 'talent', 'ritual']);
 const MULT_KEYS = new Set(['vision_cost', 'composure_regen', 'heal_bonus', 'price', 'sell', 'honor_loss', 'occult_mult',
   'money_bonus', 'skill_composure', 'calm_decay', 'dodge_window', 'damage_taken', 'digest_mult', 'dmg_mult', 'hurry_cost']);
 
@@ -199,9 +213,9 @@ export const pathwayMethods = {
   digestOwn(kind, amount = 1) {
     const p = this.pathway;
     if (!p) return 0;
-    const table = this.pathwayDef().digest ?? {};
-    if (!table[kind]) return 0;
-    let pts = table[kind] * amount * (DIGEST_RATE[p.seq] ?? DIGEST_RATE[1]) * this.passive('digest_mult');
+    const base = this.digestWeights()[kind];
+    if (!base) return 0;
+    let pts = base * amount * (DIGEST_RATE[p.seq] ?? DIGEST_RATE[1]) * this.passive('digest_mult');
     if (kind === 'vision') {
       if (this.visionDigest.map !== this.map) this.visionDigest = { map: this.map, total: 0 };
       pts = Math.min(pts, Math.max(0, VISION_DIGEST_CAP - this.visionDigest.total));
@@ -222,11 +236,16 @@ export const pathwayMethods = {
     return p.digestion - before;
   },
 
+  /** Grundpunkte je Handlung für den eigenen Pfad: die pfadeigene Tabelle über den gemeinsamen Quellen. */
+  digestWeights() {
+    return { ...COMMON_DIGEST, ...(this.pathwayDef()?.digest ?? {}) };
+  },
+
   /** Was den eigenen Pfad wie stark verdaut, auf der aktuellen Sequenz: [{kind, label, points}] */
   digestTable() {
     if (!this.pathway) return [];
     const rate = (DIGEST_RATE[this.pathway.seq] ?? DIGEST_RATE[1]) * this.passive('digest_mult');
-    return Object.entries(this.pathwayDef().digest ?? {})
+    return Object.entries(this.digestWeights())
       .map(([kind, v]) => ({ kind, label: DIGEST_LABELS[kind] ?? kind, points: v * rate, text: fmtDigest(v * rate) }))
       .sort((a, b) => b.points - a.points);
   },
@@ -404,6 +423,7 @@ export const pathwayMethods = {
     this.flags.add(this.ritualFlag(p.id, seq));
     this.setComposure(this.composure - (rules.nerves ?? 20));
     this.setUnruhe(this.unruhe + (rules.unruhe ?? 20));
+    this.act('ritual'); // das Ritual selbst ist ein Schritt auf dem Pfad
     this.emit('ritual', { pathway: p.id, seq, player: this.acting ?? 1 });
     this.emit('changed');
     return { ok: true, text: `${r.name}\n\n${r.desc}\n\nDas Ritual ist vollzogen. Die Luft um dich summt. Jetzt kannst du den Trank der Sequenz ${seq} trinken.` };

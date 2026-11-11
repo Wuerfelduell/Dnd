@@ -105,6 +105,9 @@ Auf dem **Nachtmarkt** unter der Krähenbrücke (Stadtkarte) kann man aufsteigen
   Die Verdauung steht im HUD, jede passende Handlung meldet sich mit „+N % verdaut“, und die Pfad-Seite (`P`) listet,
   welche Handlungen den eigenen Pfad wie stark verdauen. Bis Sequenz 7 geht das zügig; ab Sequenz 6 verdaut jede Stufe
   zehnmal so langsam wie die davor (6 = ein Zehntel von 7, 5 = ein Hundertstel, ...). Das gilt auch für verdauende Fähigkeiten.
+  Dafür verdauen die großen Prüfungen jeden Pfad: Bosse (30 Punkte, dazu zählt der Sieg für Kampfpfade vierfach), Elitegegner
+  (8, doppelt), gefährliche Gebiete (je Stufe +25 %), jede eingesetzte Welt-Fähigkeit (6 je 10 Nerven), ein vollzogenes Ritual (25)
+  und ein Zuschlag auf einem geheimen Treffen (3).
 - **Unruhe**: kommt mit jedem Trank und mit Geistsicht, klingt mit der Zeit und durch passendes Handeln ab. Ruhetee senkt sie.
   Bei 100 Unruhe oder einem zu früh getrunkenen Trank droht der **Kontrollverlust**: Ohnmacht, Verlust von Leben,
   Schilling und Verdauung (nie Game Over), und Tentakel wachsen aus der Figur und **korrumpieren** alles am Leib:

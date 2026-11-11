@@ -102,6 +102,7 @@ export const artisanMethods = {
     if (c.fee) this.spendMoney(c.fee);
     this.addItem(c.artifact);
     this.act?.('trade');
+    this.act?.('gathering');
     a.crafted.push({ item: c.artifact, price: c.fee });
     this.say(`${this.artisanName()} fasst ${this.item(c.artifact).name}. ${r.line ?? ''}`.trim());
     this.emit('changed');

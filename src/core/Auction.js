@@ -194,6 +194,7 @@ export const auctionMethods = {
     this.spendMoney(price);
     this.addItem(l.item);
     this.act?.('trade');
+    this.act?.('gathering');
     a.bought.push({ item: l.item, price });
     this.say(`Zuschlag! ${this.item(l.item).name} geht für ${price} Schilling an dich.`);
     this.emit('changed');

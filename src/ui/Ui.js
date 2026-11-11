@@ -1956,7 +1956,7 @@ export class Ui {
       ${this.ritualHtml()}
       <h4>Was deinen Trank verdaut</h4>
       <ul class="digestlist">${s.digestTable().map((r) => `<li><span>${esc(r.label)}</span> <strong>+${r.text} %</strong></li>`).join('')}
-        <li class="muted">Alles andere verdaut diesen Pfad nicht. Ab Sequenz 6 verdaut jede Stufe zehnmal so langsam wie die davor.</li></ul>
+        <li class="muted">Alles andere verdaut diesen Pfad nicht. Bosse zählen vierfach, Elitegegner doppelt, gefährliche Gebiete bringen je Stufe ein Viertel mehr. Ab Sequenz 6 verdaut jede Stufe zehnmal so langsam wie die davor.</li></ul>
       <ul class="seqs">${rows}</ul>
       ${this.recipesHtml(false)}`;
   }

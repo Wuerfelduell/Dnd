@@ -16,7 +16,7 @@
 //
 // Abklingzeiten und Buffs gehören jedem Spieler selbst (talentCd, buffs in Party.PERSONAL); Sichtbarkeit,
 // Furcht und die stehende Uhr gelten für die ganze Karte.
-import { digestSlowdown, fmtDigest } from './Pathways.js';
+import { digestSlowdown, fmtDigest, TALENT_DIGEST_PER_NERVES, TALENT_DIGEST_SPAN } from './Pathways.js';
 
 /** Lesbare Beschreibung eines zeitweiligen Passivs (für Pfad-Tab und Meldungen). */
 export const BUFF_LABELS = {
@@ -99,6 +99,12 @@ export const talentMethods = {
     if (t.reveal) { this.revealUntil = Math.max(this.revealUntil, this.talentTime + t.reveal); parts.push(`verborgene Spuren ${fmtSec(t.reveal)} sichtbar`); this.emit('vision', this.spiritVision); }
     if (t.scare) { this.scareUntil = Math.max(this.scareUntil, this.talentTime + t.scare); parts.push(`Gegner weichen ${fmtSec(t.scare)}`); }
     if (t.clock) { this.clockFrozen = Math.max(this.clockFrozen, t.clock); parts.push(`die Uhr der Stadt steht ${fmtSec(t.clock)}`); }
+    // Die eigene Kraft außerhalb des Kampfes zu wirken, verdaut den Trank: je 10 Nerven Einsatz ein Schritt
+    if (this.pathway) {
+      const amount = Math.min(TALENT_DIGEST_SPAN[1], Math.max(TALENT_DIGEST_SPAN[0], (t.nerves ?? 0) / TALENT_DIGEST_PER_NERVES));
+      const got = this.act('talent', amount);
+      if (got > 0) parts.push(`+${fmtDigest(got)} % verdaut`);
+    }
     if (t.digest && this.pathway) {
       const p = this.pathway;
       const before = p.digestion;
