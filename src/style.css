@@ -721,7 +721,14 @@ html.touch .cb-menu.tiles .choices { max-height: 5.9em; }
 .panel.message.chapterbook { position: relative; max-width: none; width: 52em; height: 29.25em; border: none; box-shadow: none; padding: 3em 9em 4em 12.5em;
   background: var(--notebook_bg) center / 100% 100% no-repeat; image-rendering: pixelated; color: #2a2018; text-shadow: none; overflow: hidden; }
 .panel.message.chapterbook h3 { color: #5a2a18; }
-.panel.message.chapterbook .text { column-count: 2; column-gap: 7em; font-size: 0.85em; height: 17em; }
+.panel.message.chapterbook .text { column-count: 2; column-gap: 7em; font-size: 0.85em; height: 17em; overflow: hidden; }
+/* Mit Kapitelbild: linke Seite Bild, Titel, Hinweis und Knopf; rechte Seite der Text (vorher lief der Text unter den Buchrand) */
+.panel.message.chapterbook:has(img.scene) { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto 1fr auto; column-gap: 5.5em; padding: 2.8em 8.5em 3.2em 11.5em; }
+.panel.message.chapterbook:has(img.scene) img.scene, .panel.message.chapterbook:has(img.scene) .chaptercard { grid-column: 1; grid-row: 1; width: 100%; height: auto; margin: 0 0 0.5em; }
+.panel.message.chapterbook:has(img.scene) h3 { grid-column: 1; grid-row: 2; margin: 0 0 0.4em; font-size: 1.05em; }
+.panel.message.chapterbook:has(img.scene) .footer { grid-column: 1; grid-row: 3; align-self: start; margin: 0; font-size: 0.72em; line-height: 1.35; }
+.panel.message.chapterbook:has(img.scene) .next { position: static; grid-column: 1; grid-row: 4; justify-self: start; align-self: end; margin-top: 0.5em; }
+.panel.message.chapterbook:has(img.scene) .text { grid-column: 2; grid-row: 1 / span 4; column-count: 1; height: auto; max-height: 100%; overflow: auto; margin: 0; }
 .panel.message.chapterbook .footer { color: #5a4a38; }
 .panel.message.chapterbook .next { position: absolute; right: 9em; bottom: 3.2em; }
 .layer:has(.chapterbook) { align-items: center; }
@@ -944,3 +951,7 @@ html.touch .cb-def .aeicon { display: block; margin: 0 auto 0.2em; font-size: 16
 .taintbox { border-color: #8a3a9a; }
 .paperdoll .dollslot.tainted img { filter: sepia(1) hue-rotate(230deg) saturate(2.2) brightness(0.8); }
 .paperdoll .dollslot.tainted { cursor: pointer; }
+
+/* Welt-Fähigkeiten im Pfad-Tab (zweite Fähigkeit je Sequenz) */
+.notebook .seqs .talentbtn { margin-left: 0.4em; vertical-align: baseline; }
+.notebook .buffs { font-size: 0.85em; color: var(--occult, #c8b0e8); border: 0.125em solid #4a3a5a; padding: 0.3em 0.6em; margin: 0.5em 0; }

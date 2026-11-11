@@ -995,5 +995,66 @@
       "color": "#7aa8d8",
       "glow": 0.15
     }
+  ],
+  "police": true,
+  "patrols": [
+    {
+      "id": "constable_brunnen",
+      "figur": "grimes",
+      "route": [
+        [
+          20,
+          10
+        ],
+        [
+          36,
+          10
+        ],
+        [
+          36,
+          19
+        ],
+        [
+          20,
+          19
+        ]
+      ],
+      "speed": 28,
+      "wait": 1400,
+      "visible_if": {
+        "requires_flags": [
+          "kapitel1_done"
+        ]
+      }
+    },
+    {
+      "id": "constable_nordseite",
+      "figur": "grimes",
+      "route": [
+        [
+          1,
+          4
+        ],
+        [
+          46,
+          4
+        ],
+        [
+          46,
+          11
+        ],
+        [
+          1,
+          11
+        ]
+      ],
+      "speed": 26,
+      "wait": 1800,
+      "visible_if": {
+        "requires_flags": [
+          "kapitel1_done"
+        ]
+      }
+    }
   ]
 }

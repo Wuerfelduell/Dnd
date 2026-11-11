@@ -1624,3 +1624,7 @@ Built-in Bildgenerator mit vorhandener Sprite-Referenz; Nearest-Neighbor-Export,
 ## BO – Fasserin (`fasserin`)
 
 26 PNGs: Oda Kessels Lauf- und Sitzanimation, vier Portraitstimmungen, 24×24-Kopf, Werkbank und Zangen sowie zehn bestehende Artefakte in 16×16 und 32×32. Gemeinsame Wexmoor7-Palette mit höchstens 32 sichtbaren Farben, indizierte PNGs, binäres Alpha. Manifest: `public/sprites/manifest-fasserin.json`; tatsächliche Bildprompts und Quellenprüfsummen: `docs/art/batch-fasserin-generation.json`. Export und Prüfung: `tools/art/fasserin/`. Texte, zehn weitere Rezepte und Integrationshinweise: `docs/story/fasserin/`. Spielcode und aktive Spieldaten bleiben unverändert.
+## Konzentrations-Artefakte: Platzhalter-Icons (2026-11-10)
+
+- 16 neue Artefakte (`pathways.json` → `artifacts.list`, `konzentration: true`) nutzen Kopien bestehender Item-Icons als Platzhalter (`items/<id>.png`).
+- Echte Icons: Prompt-Paket `codex_BX_konzentration_artefakte.md` (Tabelle mit Id, Platzhalter und Prompt-Kern). Nach Lieferung die Dateien 1:1 ersetzen.

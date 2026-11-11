@@ -3,6 +3,7 @@
   "rules": {
     "interval_min": 20,
     "open_min": 6,
+    "sleep_skip_min": 2,
     "order": [
       "waage",
       "kreide",
@@ -462,6 +463,11 @@
               "item": "eiserne_zunge",
               "price": 620,
               "chance": 0.3
+            },
+            {
+              "item": "kreidezirkel",
+              "price": 429,
+              "chance": 0.3
             }
           ],
           "wants": [
@@ -588,6 +594,11 @@
               "item": "hut_maskenball",
               "price": 190,
               "chance": 0.35
+            },
+            {
+              "item": "sanduhr_voll_asche",
+              "price": 495,
+              "chance": 0.3
             }
           ],
           "wants": [
@@ -886,6 +897,11 @@
               "item": "kreidestummel",
               "price": 470,
               "chance": 0.3
+            },
+            {
+              "item": "knoechelring_preisboxer",
+              "price": 440,
+              "chance": 0.3
             }
           ],
           "wants": [
@@ -953,6 +969,11 @@
               "item": "mantel_moor",
               "price": 150,
               "chance": 0.35
+            },
+            {
+              "item": "uhrwerkherz",
+              "price": 594,
+              "chance": 0.3
             }
           ],
           "wants": [
@@ -1123,6 +1144,11 @@
               "item": "mantel_giesser",
               "price": 180,
               "chance": 0.35
+            },
+            {
+              "item": "knoechelrosenkranz",
+              "price": 396,
+              "chance": 0.3
             }
           ],
           "wants": [
@@ -1218,6 +1244,11 @@
             {
               "item": "schwarzes_herz",
               "price": 620,
+              "chance": 0.3
+            },
+            {
+              "item": "kerzenkrone",
+              "price": 561,
               "chance": 0.3
             }
           ],
@@ -1323,6 +1354,11 @@
               "item": "siegelring",
               "price": 120,
               "chance": 0.35
+            },
+            {
+              "item": "aschestundenglas",
+              "price": 528,
+              "chance": 0.3
             }
           ],
           "wants": [
@@ -1369,6 +1405,11 @@
             {
               "item": "namenstaefelchen",
               "price": 460,
+              "chance": 0.3
+            },
+            {
+              "item": "trommelfell_ausrufer",
+              "price": 410,
               "chance": 0.3
             }
           ],
@@ -4455,6 +4496,34 @@
         },
         "fee": 90,
         "line": "Rat und Polizei auf einem Siegel. Händler verbeugen sich, Beute scheut."
+      },
+      {
+        "id": "glasnerv",
+        "needs": {
+          "glasfeder": 2,
+          "geisterkern": 1
+        },
+        "fee": 170,
+        "line": "Zwei Federn, ein Kern. Halten Sie still, der Nerv weiß noch nicht, wem er gehört."
+      },
+      {
+        "id": "nervenfaden_weberin",
+        "needs": {
+          "wachsdocht": 1,
+          "madenwachs": 1,
+          "rattenschwanz": 2
+        },
+        "fee": 140,
+        "line": "Straff gespult. Wenn er singt, sind Sie zu lange im Kampf."
+      },
+      {
+        "id": "moorzunder",
+        "needs": {
+          "irrlichtfunke": 2,
+          "kerze_schwarz": 2
+        },
+        "fee": 120,
+        "line": "Funken ins Wachs, Wachs in den Kopf. Löschen kann ich ihn nicht."
       }
     ]
   }

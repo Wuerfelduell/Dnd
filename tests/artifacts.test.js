@@ -78,8 +78,8 @@ test('Jeder Pfad lässt sich bis Sequenz 1 brauen und trinken, Leben und Nerven 
       lastHp = s.maxHp;
       lastNerves = s.maxComposure();
     }
-    // Alle neun Fähigkeiten im Kampf verfügbar
-    assert.equal(Object.keys(s.pathwaySkills()).length, 9, pid);
+    // Alle Fähigkeiten im Kampf verfügbar: je Sequenz zwei (skill und skill2)
+    assert.equal(Object.keys(s.pathwaySkills()).length, 18, pid);
     const c = new Combat(s, 'moorleiche');
     c.ap = 6;
     for (const id of Object.keys(s.pathwaySkills())) assert.ok(c.skillDef(id), id);
@@ -108,6 +108,7 @@ test('Sequenz 6 und 5: Formeln erst mit Rang, nur für den eigenen Pfad; Verdaue
 test('Hammerfall und Unbeugsam funktionieren im Kampf', () => {
   const s = new GameState(content);
   for (const seq of [9, 8, 7, 6, 5]) ascend(s, 'eisen', seq);
+  s.composure = s.maxComposure(); // Rituale und Tränke haben an den Nerven gezehrt
   const c = new Combat(s, 'moorleiche');
   c.ap = 6;
   const r = c.useSkill('unbeugsam', []);
@@ -116,6 +117,9 @@ test('Hammerfall und Unbeugsam funktionieren im Kampf', () => {
   c.ap = 6;
   const h = c.useSkill('hammerfall', ['good', 'good']);
   assert.ok(h.total > 0);
+  assert.equal(c.stunned, false, 'ohne präzisen Takt keine Betäubung');
+  c.ap = 6;
+  c.useSkill('hammerfall', ['perfect', 'good']);
   assert.equal(c.stunned || c.outcome === 'won', true);
 });
 

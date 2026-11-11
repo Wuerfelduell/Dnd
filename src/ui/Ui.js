@@ -1,7 +1,9 @@
 import { NEWSPAPERS } from '../data/lore.js';
 import { DIGEST_LABELS } from '../core/Pathways.js';
+import { buffLabel, fmtSec } from '../core/Talents.js';
 import { CARRY_PER_STEP } from '../core/GameState.js';
 import { GEAR_SLOT_NAMES } from '../core/Gear.js';
+import { isPrecise } from '../core/Combat.js';
 import { lootList, itemRarity, RARITY_NAMES, lootPreview, chanceWord } from '../core/Loot.js';
 import {
   itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, moneyIconUrl, UI_SKINS, UI_SHEETS, UI_REGIONS, DAMAGE_FONT, STATUS_ICONS, STATUS_ICONS_URL,
@@ -19,7 +21,7 @@ import { MOOD_LABEL, GIFT_KINDS } from '../core/Relations.js';
 import { koopGreeting } from '../core/Koop.js';
 import { STATION_NAMES, DIRECTION_NAMES } from '../data/k3Ruf.js';
 import { isSolved, knownPeople } from '../core/journal.js';
-import { canHurry, travelSafe, travelFast, afterHurryFight, travelDestinations, cityOf } from '../core/Travel.js';
+import { canHurry, hurryCost, travelSafe, travelFast, afterHurryFight, travelDestinations, cityOf } from '../core/Travel.js';
 import { questTarget, leadTarget, personPlaces, advice } from '../core/Guide.js';
 
 /** 16x16-Icon vor einem Item-Namen. Lädt es nicht, verschwindet es einfach. */
@@ -620,12 +622,12 @@ export class Ui {
     if (heavy) el.innerHTML = `${uiSprite('loot', 'full', 1 / 16, 'toastico')}Überladen · ${esc(this.state.carryText())}`;
   }
 
-  /** Kapitel 2: Fahndungsstufe im HUD, nur in Wexmoor. */
+  /** Fahndungsstufe im HUD: in Wexmoor, und in Kettlegate, sobald Price nach dir suchen lässt (Ende Fall 9). */
   updateWanted() {
     const el = this.$('.fahndung');
     const s = this.state;
-    const r = s.policeRules?.();
-    const show = !!r && s.content.maps[s.map]?.city === 'wexmoor';
+    const r = s.cityPolice?.();
+    const show = !!r;
     el.classList.toggle('hidden', !show);
     if (!show) return;
     el.classList.toggle('hot', s.wanted > 0);
@@ -1316,7 +1318,7 @@ export class Ui {
       <button class="mode safe" data-mode="sicher">${modeIcon('sicher')}<b><span class="key">1</span> ${esc(safe.name)}</b>
         <span class="muted">${esc(safe.desc)}</span><span class="gain">+${Math.round(s.maxHp * safe.heal_pct)} Leben · +${safe.nerves} Nerven · Journal</span></button>
       <button class="mode fast" data-mode="schnell" ${hurry ? '' : 'disabled'}>${modeIcon('schnell')}<b><span class="key">2</span> ${esc(fast.name)}</b>
-        <span class="muted">${esc(fast.desc)}</span><span class="cost">${hurry ? `−${fast.nerves_cost} Nerven · Monster · Beute` : s.isOverloaded() ? `Zu schwer beladen (${s.carryText()})` : `Zu wenig Nerven (mind. ${fast.nerves_cost})`}</span></button>`;
+        <span class="muted">${esc(fast.desc)}</span><span class="cost">${hurry ? `−${hurryCost(s)} Nerven · Monster · Beute` : s.isOverloaded() ? `Zu schwer beladen (${s.carryText()})` : `Zu wenig Nerven (mind. ${hurryCost(s)})`}</span></button>`;
     modes.querySelectorAll('[data-mode]').forEach((b) => {
       b.onclick = () => this.travelMode(b.dataset.mode);
       b.onmouseenter = () => el.querySelector('.route')?.classList.toggle('schnell', b.dataset.mode === 'schnell');
@@ -1358,7 +1360,7 @@ export class Ui {
     }
     const lines = [ev.text];
     if (ev.loot?.length) lines.push(`Gefunden:\n${ev.loot.join('\n')}`);
-    const footer = ev.lostMoney ? `−${ev.lostMoney} Schilling` : '';
+    const footer = [ev.damage ? `−${ev.damage} Leben` : '', ev.lostMoney ? `−${ev.lostMoney} Schilling` : ''].filter(Boolean).join(', ');
     this.showMessage(ev.title, lines.join('\n\n'), { footer, onClose: go, scene: ev.id });
   }
 
@@ -1434,6 +1436,13 @@ export class Ui {
       };
     });
     el.querySelectorAll('[data-drink]').forEach((b) => { b.onclick = () => this.drink(b.dataset.drink); });
+    el.querySelectorAll('[data-talent]').forEach((b) => {
+      b.onclick = () => {
+        const r = inv(() => this.state.useTalent(b.dataset.talent));
+        this.renderNotebook(esc(r.text));
+        if (r.ok) this.toast(r.text, 'good');
+      };
+    });
     el.querySelector('[data-ritual]')?.addEventListener('click', () => {
       const who = this.state.hasP2() ? this.invPlayer : 1;
       const r = inv(() => this.state.performRitual());
@@ -1859,10 +1868,13 @@ export class Ui {
       const reached = n >= cur.seq;
       // Paket A: Sockel der Pfad-Leiter (leer = als Nächstes, verriegelt = später, Riss bei hoher Unruhe)
       const socket = uiSprite('ladder', !reached ? (n === cur.seq - 1 ? 'empty' : 'locked') : n === cur.seq && s.unruhe >= 60 ? 'cracked' : 'unlocked', 1 / 12, 'socket');
-      if (!reached) return `<li class="seq locked">${socket}<strong>Sequenz ${n}: ${esc(sd.name)}</strong> <span class="muted">noch nicht erreicht</span></li>`;
+      if (!reached) return `<li class="seq locked">${socket}<strong>Sequenz ${n}: ${esc(sd.name)}</strong> <span class="muted">noch nicht erreicht${sd.skill2 || sd.talent ? ` · bringt ${[sd.skill.name, sd.skill2?.name, sd.talent?.name].filter(Boolean).map(esc).join(', ')}` : ''}</span></li>`;
+      const talent = sd.talent ? this.talentRowHtml(s, sd.talent) : '';
       return `<li class="seq">${socket}<strong>Sequenz ${n}: ${esc(sd.name)}</strong> ${n === cur.seq ? '<span class="badge likely">aktuell</span>' : ''}<br>
         <span class="desc">${esc(sd.desc)}</span><br>
-        ⚔ <strong>${esc(sd.skill.name)}</strong> <span class="muted">(${sd.skill.cost} K)</span> ${esc(sd.skill.desc)}
+        ⚔ <strong>${esc(sd.skill.name)}</strong> <span class="muted">(${sd.skill.cost} K${s.skillComposureCost({ ...sd.skill, seq: n }) ? ` · ${s.skillComposureCost({ ...sd.skill, seq: n })} Nerven` : ''})</span> ${esc(sd.skill.desc)}
+        ${sd.skill2 ? `<br>⚔ <strong>${esc(sd.skill2.name)}</strong> <span class="muted">(${sd.skill2.cost} K${s.skillComposureCost({ ...sd.skill2, seq: n }) ? ` · ${s.skillComposureCost({ ...sd.skill2, seq: n })} Nerven` : ''})</span> ${esc(sd.skill2.desc)}` : ''}
+        ${talent}
         ${(sd.passives ?? []).map((x) => `<br>✧ ${esc(x.text)}`).join('')}</li>`;
     }).join('');
     const d = Math.floor(cur.digestion);
@@ -1876,12 +1888,30 @@ export class Ui {
       <p class="lead"><em>„${esc(p.principle)}“</em> ${esc(p.digest_hint)}</p>
       <p class="muted">Jede Sequenz dieses Pfades: +${s.growth().hp} Leben, +${s.growth().nerves} Nerven, +${CARRY_PER_STEP} Pfund Tragkraft, die Durchbrüche 7 und 6 das Doppelte. Gerade: ${s.maxHp} Leben, ${s.maxComposure()} Nerven, ${esc(s.carryBreakdown())} = ${fmtLb(s.carryCapacity())} Pfund Tragkraft.</p>
       ${s.corruptionDrain().count ? `<p class="curse">Korruption: ${s.corruptionDrain().count} Stück an dir zehrt an Leben und Nerven (siehe Inventar). Bei 100 Unruhe wachsen die Tentakel erneut und treffen alles, was du dann trägst.</p>` : '<p class="muted">Bei 100 Unruhe verlierst du die Kontrolle: Tentakel korrumpieren Waffe, Kleidung und Artefakte am Leib, die dich danach Leben und Nerven kosten, solange du sie trägst.</p>'}
+      ${this.buffsHtml(s)}
       ${this.ritualHtml()}
       <h4>Was deinen Trank verdaut</h4>
       <ul class="digestlist">${s.digestTable().map((r) => `<li><span>${esc(r.label)}</span> <strong>+${r.points} %</strong></li>`).join('')}
         <li class="muted">Alles andere verdaut diesen Pfad nicht. Auf höheren Sequenzen geht es langsamer.</li></ul>
       <ul class="seqs">${rows}</ul>
       ${this.recipesHtml(false)}`;
+  }
+
+  /** Welt-Fähigkeit einer Sequenz: Kosten, Abklingzeit und Knopf zum Einsetzen (nur außerhalb von Kämpfen). */
+  talentRowHtml(s, def) {
+    const t = s.talentDef(def.id) ?? def;
+    const cost = [def.nerves ? `${def.nerves} Nerven` : '', def.unruhe ? `+${def.unruhe} Unruhe` : '', `${fmtSec(def.cooldown)} Pause`].filter(Boolean).join(' · ');
+    const block = s.talentBlock(def.id);
+    const label = t.remaining > 0 ? `bereit in ${t.remainingText}` : block ? 'zu wenig Nerven' : 'Einsetzen';
+    return `<br>☉ <strong>${esc(def.name)}</strong> <span class="muted">(${cost})</span> ${esc(def.desc)} <button class="small talentbtn ${block ? '' : 'primary'}" data-talent="${def.id}" ${block ? 'disabled' : ''}>${label}</button>`;
+  }
+
+  /** Laufende Wirkungen der Welt-Fähigkeiten. */
+  buffsHtml(s) {
+    const list = s.activeBuffs();
+    const world = [s.revealUntil > s.talentTime ? 'verborgene Spuren sichtbar' : '', s.scaresEnemies() ? 'Gegner weichen' : '', s.clockStopped() ? 'die Uhr der Stadt steht' : ''].filter(Boolean);
+    if (!list.length && !world.length) return '<p class="muted">☉ Welt-Fähigkeiten setzt du hier im Pfad-Tab ein (nicht im Kampf). Sie kosten Nerven und brauchen danach eine Pause.</p>';
+    return `<p class="buffs">☉ Wirkt gerade: ${[...list.map((b) => `${esc(buffLabel(b))} <span class="muted">(${b.remainingText})</span>`), ...world.map(esc)].join(' · ')}</p>`;
   }
 
   /** Ritual für den nächsten Trank (ab Sequenz 6): Ort, Zutaten, Bedingungen, Knopf. */
@@ -2337,13 +2367,13 @@ export class Ui {
       c.veiled ? `<span class="badge refuted">${statusIcon('schatten')}verschleiert</span>` : '',
       c.enc.faction ? `<span class="badge"><span class="emblem16" style="background-image:url(${factionEmblemUrl(c.enc.faction)})"></span>${c.state.content.factions?.[c.enc.faction]?.name ?? ''}</span>` : ''].join(' ');
     // Ein Feld pro Spieler; zu zweit leuchtet, wer am Zug ist bzw. angegriffen wird
-    const focus = sc.phase === 'enemy' ? c.target : c.actor;
+    const focus = sc.phase === 'enemy' ? c.targets ?? [c.target] : [c.actor]; // Flächenangriff: beide leuchten
     for (const [n, f] of Object.entries(c.fighters)) {
       const box = this.layer.querySelector(`.cb-player[data-p="${n}"]`);
       if (!box) continue;
       const v = s.playerView(Number(n));
       const b = (sel) => box.querySelector(sel);
-      box.classList.toggle('active', c.duo && Number(n) === focus && !f.down);
+      box.classList.toggle('active', c.duo && focus.includes(Number(n)) && !f.down);
       box.classList.toggle('down', f.down);
       b('.cb-status').innerHTML = [f.down ? '<span class="curse">K.o.</span>' : '', f.shield ? statusIcon('eisenhaut', `Schutz ${f.shield}`) + f.shield : '', f.evading ? statusIcon('vorahnung', 'Nächster Angriff geht ins Leere') : '',
         f.bleed ? statusIcon('blutung', `Blutung: ${f.bleed.damage} pro Runde, noch ${f.bleed.rounds}`) + f.bleed.rounds : ''].join(' ');
@@ -2355,7 +2385,8 @@ export class Ui {
       // Paket B: Leisten und Konzentration aus battle_hud.png
       b('.hudbar.hp').innerHTML = uiSprite('hud', `hp${pctStep(v.hp / v.maxHp, 6)}`, 1 / 6);
       b('.hudbar.nerves').innerHTML = uiSprite('hud', `nerves${pctStep(v.composure / v.maxComposure, 6)}`, 1 / 6);
-      b('.pips').innerHTML = Array.from({ length: 6 }, (_, i) => uiSprite('hud', i >= f.ap ? 'conc_empty' : f.ap >= 6 ? 'conc_glow' : 'conc_full', 1 / 6, 'pip')).join('');
+      const apMax = c.apMaxOf(Number(n)); // Konzentrations-Artefakte können den Höchstwert verschieben
+      b('.pips').innerHTML = Array.from({ length: apMax }, (_, i) => uiSprite('hud', i >= f.ap ? 'conc_empty' : f.ap >= apMax ? 'conc_glow' : 'conc_full', 1 / 6, 'pip')).join('');
     }
   }
 
@@ -2404,9 +2435,9 @@ export class Ui {
     if (sub === 'main') {
       const items = mine(() => this.state.items().filter((i) => i.kind === 'consumable' && !i.cleanse).length);
       entries = [
-        { text: 'Angriff', ui: 'attack', info: '+1 K · beendet den Zug', act: { type: 'skill', id: 'attack' } },
-        { text: 'Fertigkeiten', ui: 'skill', info: `${c.ap} K`, sub: 'skills' },
-        { text: 'Gegenstände', ui: 'item', info: c.canUseItem() ? `${items}` : 'schon benutzt', sub: 'items', disabled: !c.canUseItem() },
+        { text: 'Angriff', ui: 'attack', info: `+${1 + mine(() => this.state.passive('attack_ap'))} K · beendet den Zug`, act: { type: 'skill', id: 'attack' } },
+        { text: 'Fertigkeiten', ui: 'skill', info: `${c.ap}/${c.apMax} K`, sub: 'skills' },
+        { text: 'Gegenstände', ui: 'item', info: c.canUseItem() ? `${items}` : c.itemBlockedText(), sub: 'items', disabled: !c.canUseItem() },
         { text: 'Fliehen', ui: 'flee', info: c.canFlee() ? '' : 'unmöglich', act: { type: 'flee' }, disabled: !c.canFlee() },
       ];
       if (c.actions) entries.push({ text: 'Zug beenden', ui: 'defend', info: '', act: { type: 'end' } });
@@ -2417,7 +2448,8 @@ export class Ui {
       this.layer.querySelector('.cb-help').textContent = '';
     } else if (sub === 'skills') {
       entries = c.skills().filter((k) => k.id !== 'attack').map((k) => ({
-        text: `${k.pathway && !skillIconOf(k.id) ? '✧ ' : ''}${k.name}`, skill: k.id, info: `${k.cost} K${k.composure ? ` · ${k.composure} Nerven` : ''}`, desc: k.desc, act: { type: 'skill', id: k.id }, disabled: !k.usable,
+        text: `${k.pathway && !skillIconOf(k.id) ? '✧ ' : ''}${k.name}`, skill: k.id, info: `${k.cost} K${k.composure ? ` · ${k.composure} Nerven` : ''}${isPrecise(k) ? ' · ◎ präzise' : ''}`,
+        desc: `${k.desc ?? ''}${isPrecise(k) ? ` ◎ Präzise: volle Wirkung${k.stun ? ' und Betäubung' : ''} nur bei perfektem Takt, das goldene Fenster ist winzig.` : ''}`, act: { type: 'skill', id: k.id }, disabled: !k.usable,
       }));
     } else {
       entries = mine(() => this.state.items()).filter((i) => i.kind === 'consumable' && !i.cleanse).map((i) => ({ text: `${i.name} ×${i.count}`, icon: i.id, desc: i.desc, act: { type: 'item', id: i.id } }));

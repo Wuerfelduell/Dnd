@@ -24,6 +24,13 @@ export const UNRUHE_MAX = 100;
 export const UNRUHE_DECAY_PER_SEC = 0.25;
 export const UNRUHE_VISION_PER_SEC = 0.35;
 export const VISION_DIGEST_CAP = 25; // pro Kartenbesuch
+// Nervenkosten der Fertigkeiten (Kampf): Wer keine eigenen `composure`-Kosten hat, zahlt nach Konzentration.
+// Dicke Fähigkeiten (4–5 K) reißen ein tiefes Loch in die Nerven; wer sie spammt, steht bald ohne da.
+export const SKILL_COMPOSURE_BY_COST = { 0: 0, 1: 4, 2: 6, 3: 10, 4: 16, 5: 22, 6: 30 };
+// Gewöhnung: Jede Sequenz, die man über die Fertigkeit hinaus gestiegen ist, nimmt ihr 15 % Nervenkosten (bis 40 %).
+// Die Fertigkeit der aktuellen Sequenz kostet immer voll, die aus Sequenz 9 ist mit Sequenz 5 schon zu 60 % Gewohnheit.
+export const HABIT_STEP = 0.15;
+export const HABIT_MIN = 0.4;
 /** Was hinter den Verdauungs-Schlüsseln steckt (für Anzeige und Rückmeldungen). */
 export const DIGEST_LABELS = {
   clue: 'Hinweis gefunden', hidden_clue: 'verborgene Spur gefunden', fact_likely: 'Information bestätigt',
@@ -36,7 +43,7 @@ export const DIGEST_LABELS = {
 /** Handlungen, die nur den Pfad dessen verdauen, der sie selbst tut. Alles andere verdaut beide Spieler. */
 export const PERSONAL_DIGEST = new Set(['parry', 'vision', 'use_item', 'brew']);
 const MULT_KEYS = new Set(['vision_cost', 'composure_regen', 'heal_bonus', 'price', 'sell', 'honor_loss', 'occult_mult',
-  'money_bonus', 'skill_composure', 'calm_decay', 'dodge_window', 'damage_taken', 'digest_mult', 'dmg_mult']);
+  'money_bonus', 'skill_composure', 'calm_decay', 'dodge_window', 'damage_taken', 'digest_mult', 'dmg_mult', 'hurry_cost']);
 
 export const pathwayMethods = {
   resetPathway() {
@@ -77,7 +84,7 @@ export const pathwayMethods = {
   passive(key) {
     const mult = MULT_KEYS.has(key);
     let v = mult ? 1 : 0;
-    const lists = [...this.reachedSeqs().map((s) => s.passives ?? []), ...this.artifactEffects(), ...this.gearEffects(), this.bindingPassive?.(this.acting ?? 1) ?? []]; // BN: persönliche Rufbindung
+    const lists = [...this.reachedSeqs().map((s) => s.passives ?? []), ...this.artifactEffects(), ...this.gearEffects(), this.bindingPassive?.(this.acting ?? 1) ?? [], this.buffEffects?.() ?? []]; // BN: persönliche Rufbindung; Welt-Fähigkeiten (Talents.js)
     for (const list of lists) {
       for (const p of list) {
         if (p.key !== key) continue;
@@ -117,11 +124,31 @@ export const pathwayMethods = {
     return Math.max(10, base + this.growth().hp * this.growthSteps() + this.passive('max_hp'));
   },
 
-  /** Kampffertigkeiten des eigenen Pfades: { id: skill } */
+  /** Kampffertigkeiten des eigenen Pfades: { id: skill }. Jede erreichte Sequenz bringt zwei (skill und skill2). */
   pathwaySkills() {
     const out = {};
-    for (const s of this.reachedSeqs()) if (s.skill) out[s.skill.id] = { ...s.skill, pathway: this.pathway.id };
+    for (const s of this.reachedSeqs()) {
+      if (s.skill) out[s.skill.id] = { ...s.skill, pathway: this.pathway.id, seq: s.seq };
+      if (s.skill2) out[s.skill2.id] = { ...s.skill2, pathway: this.pathway.id, seq: s.seq, second: true };
+    }
     return out;
+  },
+
+  /**
+   * Gewöhnung an eine Fertigkeit: Faktor auf ihre Nervenkosten. skillSeq = Sequenz, aus der sie stammt
+   * (Grundfertigkeiten ohne Sequenz gewöhnt man sich mit jeder erreichten Sequenz nach der ersten an).
+   */
+  skillHabit(skillSeq) {
+    if (!this.pathway) return 1;
+    const steps = skillSeq === undefined ? Math.max(0, this.seqSteps() - 1) : Math.max(0, skillSeq - this.pathway.seq);
+    return Math.max(HABIT_MIN, 1 - HABIT_STEP * steps);
+  },
+
+  /** Nervenkosten einer Fertigkeit: Grundkosten (eigene oder nach Konzentration), Gewöhnung, Passive (Pfad des Echos, Artefakte). */
+  skillComposureCost(sk) {
+    const base = sk.composure ?? SKILL_COMPOSURE_BY_COST[sk.cost] ?? 0;
+    if (!base) return 0;
+    return Math.max(1, Math.round(base * this.skillHabit(sk.seq) * this.passive('skill_composure')));
   },
 
   // --- Schilling ------------------------------------------------------------------

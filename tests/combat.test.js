@@ -2,7 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
-import { Combat, judgeDefense, judgeTiming, WINDOW, ENEMY_HP_MULT, ENEMY_DMG_MULT, DODGE_COST, RING_CURVES } from '../src/core/Combat.js';
+import { Combat, judgeDefense, judgeTiming, isPrecise, skillBars, PRECISE_WINDOW, PRECISE_GRADE_MULT, GRADE_MULT, WINDOW, ENEMY_HP_MULT, ENEMY_DMG_MULT, DODGE_COST, RING_CURVES } from '../src/core/Combat.js';
 import { loadContent, fight, SKILLED, EXPERT, seeded } from './helpers.js';
 
 const content = loadContent();
@@ -82,7 +82,12 @@ test('Laternenblende lässt den Gegner aussetzen, Bannwort kostet Nerven', () =>
   const s = fresh();
   const c = new Combat(s, 'ash_warden');
   c.ap = 6;
-  assert.ok(c.useSkill('blind', ['good']).stunned);
+  const miss = c.useSkill('blind', ['good']);
+  assert.ok(!miss.stunned && miss.stunMissed, 'nur ein präziser Treffer blendet');
+  assert.ok(c.nextEnemyAttack());
+  c.endEnemyTurn();
+  c.ap = 6;
+  assert.ok(c.useSkill('blind', ['perfect']).stunned);
   assert.equal(c.nextEnemyAttack(), null);
   assert.ok(c.nextEnemyAttack());
   const before = s.composure;
@@ -124,14 +129,26 @@ test('Niederlage: Ohnmacht mit wenig Leben, im Wächterkampf zurück an die Trep
 const LATE = ['choir_zealots', 'rook_fight', 'gasgeist', 'felix_fight', 'uhrwerkwaechter', 'kanalkroete', 'maskenspieler', 'schlachtergehilfe',
   'chorwaechter', 'stimmenfresser', 'bronzeengel', 'glockenecho', 'miriam', 'schattenabzug', 'negativ_geist', 'silberbad_schleim', 'dreizehnter_gast', 'pratt_fight', // Fall 5/6
   'ertrunkener', 'pfandeintreiber', 'traumfaden', 'miss_wren', // Fall 7/8
-  'sternlicht', 'starling_fight', // Fall 9
+  'sternlicht', 'starling_fight', 'starling_stern', // Fall 9
   ...Object.keys(content.encounters).filter((id) => content.encounters[id].faction), // Sekten kommen nach Fall 2/3
   ...Object.keys(content.encounters).filter((id) => id.startsWith('kg_'))]; // Nebenaufträge Kettlegate erst nach Fall 5
 
 const BOSSES = ['ash_warden', 'rook_fight', 'felix_fight', 'mirror_shade', 'fog_hound', 'rost_schmied', 'rost_vater', 'schleier_seherin', 'schleier_mutter',
-  'bronzeengel', 'miriam', 'dreizehnter_gast', 'traumfaden', 'miss_wren', 'sternlicht', 'starling_fight'];
+  'bronzeengel', 'miriam', 'dreizehnter_gast', 'traumfaden', 'miss_wren', 'sternlicht', 'starling_fight', 'starling_stern'];
 
-const NEEDS_SEQ7 = ['miss_wren', 'starling_fight'];
+// Ab Fall 4 verlangen die Gegner einen Pfad: Fall 4 Sequenz 9 (Nachtmarkt), Fall 5/6 und die Nebenaufträge
+// Kettlegate Sequenz 8, Fall 7/8 und Fall 9 den Durchbruch auf Sequenz 7.
+const NEEDS_SEQ = Object.fromEntries([
+  ...['gasgeist', 'felix_fight', 'uhrwerkwaechter', 'kanalkroete', 'maskenspieler', 'schlachtergehilfe'].map((id) => [id, 9]),
+  ...['chorwaechter', 'stimmenfresser', 'bronzeengel', 'glockenecho', 'miriam', 'schattenabzug', 'negativ_geist', 'silberbad_schleim', 'dreizehnter_gast', 'pratt_fight'].map((id) => [id, 8]),
+  ...Object.keys(content.encounters).filter((id) => id.startsWith('kg_')).map((id) => [id, 8]),
+  ...['ertrunkener', 'pfandeintreiber', 'traumfaden', 'miss_wren', 'sternlicht', 'starling_fight', 'starling_stern'].map((id) => [id, 7]),
+]);
+const NEEDS_SEQ7 = Object.keys(NEEDS_SEQ).filter((id) => NEEDS_SEQ[id] === 7);
+/** Fertigkeit des Eisen-Pfads, die man auf dieser Sequenz hat (Wuchtschlag ab 9, Klingenwirbel ab 7). */
+const SEQ_SKILL = (seq) => (seq ? (seq <= 7 ? 'klingenwirbel' : 'wuchtschlag') : 'attack');
+/** Waffe, die man bis dahin hat: Fall 4 den Stockdegen (Markt), ab Fall 5 die Ossuarklinge aus den Katakomben. */
+const SEQ_WEAPON = (seq) => (seq === 9 ? 'stockdegen' : 'ossuarklinge');
 
 test('Balance: Geübte Spieler (Bosse: sehr Geübte) schaffen mit Startausrüstung jeden Kampf', () => {
   // Wer von drei Schlägen einem ausweicht, einen pariert und unter 15 Leben verbindet, gewinnt.
@@ -143,12 +160,14 @@ test('Balance: Geübte Spieler (Bosse: sehr Geübte) schaffen mit Startausrüstu
     if (items.length) s.addItem('bannsalz', 2);
     // Ab Fall 3 hat man längst den Dienstschlagstock von Holt.
     if (LATE.includes(id)) s.addItem('schlagstock');
-    // Miss Wren (Fall 7/8) und Starling (Fall 9) verlangen den Durchbruch auf Sequenz 7
-    if (NEEDS_SEQ7.includes(id)) { s.pathway = { id: 'eisen', seq: 7, digestion: 0 }; s.updateMaxHp(); s.hp = s.maxHp; }
+    // Ab Fall 4 ist man auf dem Pfad: Sequenz 9, später 8, für Fall 7 bis 9 der Durchbruch auf 7; dazu eine
+    // bessere Waffe, die Fertigkeit wird verkettet, und die Schwachstelle kennt man aus den Ermittlungen
+    const seq = NEEDS_SEQ[id];
+    if (seq) { s.pathway = { id: 'eisen', seq, digestion: 0 }; s.updateMaxHp(); s.hp = s.maxHp; s.addItem(SEQ_WEAPON(seq)); s.equip(SEQ_WEAPON(seq)); }
     // Bosse der Geschichte verlangen sauberes Timing
     const defend = BOSSES.includes(id) ? EXPERT : SKILLED;
-    const skill = NEEDS_SEQ7.includes(id) ? 'klingenwirbel' : 'attack';
-    const { result, combat } = fight(s, id, { defend, items, skill, healBelow: 15 });
+    const skill = SEQ_SKILL(seq);
+    const { result, combat } = fight(s, id, { defend, items, skill, healBelow: 15, chain: !!seq, weak: !!seq });
     assert.equal(result.outcome, 'won', `${id}: verloren in Runde ${combat.round}`);
   }
 });
@@ -292,4 +311,39 @@ test('Schicksalsfaden durchdringt Panzer und trifft auch bei verfehltem Takt', (
   const r = c.useSkill(sk.id, ['miss', 'good']);
   assert.ok(r.hits.every((h) => h.grade === 'good'));
   assert.equal(r.total, r.hits[0].damage + r.hits[1].damage, 'Panzer zieht nichts ab');
+});
+
+test('Präzise Fertigkeiten: Betäuben und große Wucht nur bei perfektem Takt, kleines Fenster', () => {
+  // Was betäubt oder richtig viel Schaden macht, ist präzise; die Grundfertigkeiten bis auf die Blende nicht
+  const P = content.pathways;
+  for (const id of ['blind']) assert.ok(isPrecise(c0().skillDef(id)), id);
+  for (const id of ['attack', 'double', 'ward']) assert.ok(!isPrecise(c0().skillDef(id)), id);
+  for (const [pid, seq] of [['eisen', 5], ['echo', 5], ['faden', 6], ['schluessel', 8], ['laterne', 7], ['kessel', 5], ['eisen', 1]]) assert.ok(isPrecise(P[pid].seqs[seq].skill), `${pid} ${seq}`);
+  for (const [pid, seq] of [['eisen', 9], ['eisen', 7], ['faden', 7], ['echo', 7], ['kessel', 7], ['maske', 5]]) assert.ok(!isPrecise(P[pid].seqs[seq].skill), `${pid} ${seq}`);
+  assert.ok(isPrecise({ hits: 1, mult: 1, precise: true }) && !isPrecise({ hits: 1, stun: true, precise: false }), 'Daten dürfen überschreiben');
+  // Fangnetz (ohne Treffer) verlangt jetzt einen Takt für die Betäubung
+  assert.equal(skillBars(P.faden.seqs[6].skill), 1);
+  assert.equal(skillBars(P.faden.seqs[8].skill), 0);
+  assert.equal(PRECISE_WINDOW, 0.2);
+  assert.ok(PRECISE_GRADE_MULT.good < GRADE_MULT.good / 2 && PRECISE_GRADE_MULT.perfect === GRADE_MULT.perfect);
+  // Hammerfall: gut getroffen nur ein Bruchteil, präzise die volle Wucht
+  const sk = P.eisen.seqs[5].skill;
+  const heavy = (grades) => { const c = c0(); c.state.pathwaySkills = () => ({ [sk.id]: sk }); c.ap = 6; c.enemy.hp = c.enemy.maxHp = 999; return c.useSkill(sk.id, grades); };
+  const good = heavy(['good', 'good']);
+  const perfect = heavy(['perfect', 'perfect']);
+  assert.ok(!good.stunned && good.stunMissed && good.precise);
+  assert.ok(perfect.stunned && !perfect.stunMissed);
+  assert.ok(perfect.total > good.total * 2.5, `${perfect.total} vs ${good.total}`);
+  assert.ok(good.effects.some((e) => /präziser Treffer/.test(e)));
+  // Ein präziser von zwei Takten reicht zum Betäuben, nur dieser Schlag sitzt voll
+  const mixed = heavy(['good', 'perfect']);
+  assert.ok(mixed.stunned && mixed.hits[1].damage > mixed.hits[0].damage * 2);
+  // Fangnetz: Takt verfehlt, keine Betäubung, Schwachstelle trotzdem erkannt
+  const net = P.faden.seqs[6].skill;
+  const c = c0(); c.state.pathwaySkills = () => ({ [net.id]: net }); c.ap = 6;
+  const r = c.useSkill(net.id, ['good']);
+  assert.ok(!r.stunned && r.stunMissed && c.weak);
+  c.ap = 6;
+  assert.ok(c.useSkill(net.id, ['perfect']).stunned);
+  function c0() { return new Combat(fresh(), 'ash_warden'); }
 });

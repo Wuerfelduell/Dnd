@@ -691,7 +691,7 @@ export const ENCOUNTER_BACKGROUNDS = {
   felix_fight: 'bg_glockenstube', miriam: 'bg_glockenstube', gasgeist: 'bg_gaswerk',
   bronzeengel: 'bg_glockenstube', glockenecho: 'bg_glockenstube', silberbad_schleim: 'bg_spiegel', dreizehnter_gast: 'bg_spiegel',
   ertrunkener: 'bg_archiv', pfandeintreiber: 'bg_ashgrove', traumfaden: 'bg_gaswerk', miss_wren: 'bg_gaswerk',
-  sternlicht: 'bg_sternwarte', starling_fight: 'bg_sternwarte',
+  sternlicht: 'bg_sternwarte', starling_fight: 'bg_sternwarte', starling_stern: 'bg_sternwarte',
   // Begegnungen auf dem schnellen Reiseweg (travel.json)
   reise_ratten: 'bg_hafen', reise_strassenraeuber: 'bg_ashgrove', reise_nebelhund: 'bg_ashgrove', reise_irrlicht: 'bg_hafen', reise_kultist: 'bg_altmarkt',
 };
@@ -1891,8 +1891,13 @@ ICON32.push(...X_ITEMS);
 export const ARTISAN_ICONS = { krone_der_sieben: 'rattenkrone', sternlicht_gespinst: 'sternhirschgeweih', glaskielfeder: 'glasfeder', herzkerze: 'wachsherz', perlenpaar: 'moorperle',
   geisterspindel: 'geisterkern', leuchtturmmonokel: 'linsenscherbe', namenssiegel: 'madenwachs', gluehglocke: 'bronzeglocke_klein', doppelsiegel: 'ratssiegel' };
 Object.assign(ITEM_ICON_ALIASES, ARTISAN_ICONS);
+/** Nerven- und Konzentrations-Artefakte: Platzhalter aus Beute- und Fundstücken, bis Codex eigene Bilder liefert. */
+export const NERVEN_ARTEFAKT_ICONS = { taktgeber_uhrturm: 'taschenuhr', kerze_der_nachtwache: 'kerze_schwarz', zahnrad_schlafwandlerin: 'taschenuhr', zweites_herz: 'wachsherz',
+  atemperle: 'moorperle', fiebermuenze: 'falschgeld', blutsalz_phiole: 'salzkristall', nadel_der_naeherin: 'glasfeder', knoechelring_preisboxer: 'siegelring',
+  metronom_komponist: 'taschenuhr', trommelfell_ausrufer: 'bronzeglocke_klein', glasnerv: 'glasfeder', nervenfaden_weberin: 'wachsdocht', moorzunder: 'irrlichtfunke' };
+Object.assign(ITEM_ICON_ALIASES, NERVEN_ARTEFAKT_ICONS);
 /** Fall 9: eigene Kampf-Sheets für Pratt, den Gesangbuchgeist, das Sternlicht und Starling. */
-export const X_FIGHTS = { pratt_fight: ['pratt', 48], gesangbuchgeist: ['gesangbuchgeist', 64], sternlicht: ['sternlicht', 64], starling_fight: ['starling', 96] };
+export const X_FIGHTS = { pratt_fight: ['pratt', 48], gesangbuchgeist: ['gesangbuchgeist', 64], sternlicht: ['sternlicht', 64], starling_fight: ['starling', 96], starling_stern: ['starling', 96] };
 for (const [enc, [id, w]] of Object.entries(X_FIGHTS)) {
   BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, w];
   ENCOUNTER_SHEETS[enc] = `enemy_${id}`;
@@ -1901,8 +1906,8 @@ for (const [enc, [id, w]] of Object.entries(X_FIGHTS)) {
 FADING_SHEETS.push('enemy_gesangbuchgeist', 'enemy_sternlicht');
 ANIM_ALIASES.enemy_starling = { attack: 'brennglas', special: 'sternregen', cast: 'gestohlene_stimme', phase2: 'geliehener_schatten', defeated: 'fallender_stern_defeat' };
 /** Boss-Büsten (160x160) für Starling und die vier Gebietsbosse. */
-for (const id of ['starling_fight', 'moorkoenigin', 'rattenkoenig', 'ossuarwaechter', 'sternhirsch']) {
-  const file = `X_08_boss_${id === 'starling_fight' ? 'starling' : id}`;
+for (const id of ['starling_fight', 'starling_stern', 'moorkoenigin', 'rattenkoenig', 'ossuarwaechter', 'sternhirsch']) {
+  const file = `X_08_boss_${id.startsWith('starling') ? 'starling' : id}`;
   BOSS_INTROS[id] = `${id}_x`;
   BOSS_INTRO_IMAGES[`${id}_x`] = [file, `ui/${file}.png`];
 }
@@ -1918,6 +1923,9 @@ for (const [file, ids] of Object.entries({
     TURN_PORTRAIT_URLS[id] = [`${BASE}ui/${file}.png`, ids.length];
   });
 }
+// Phase 2 des Finales nutzt Starlings Zug-Portrait
+TURN_PORTRAITS.starling_stern = TURN_PORTRAITS.starling_fight;
+TURN_PORTRAIT_URLS.starling_stern = TURN_PORTRAIT_URLS.starling_fight;
 /** Bestiarium-Karten (ui/bestiary/X_<id>.png). */
 for (const id of ['pratt_fight', 'gesangbuchgeist', 'sternlicht', 'starling_fight', 'rost_schlaeger', 'rost_werfer', 'rost_schmied', 'rost_vater',
   'schleier_novizin', 'schleier_messerin', 'schleier_seherin', 'schleier_mutter']) {

@@ -24,6 +24,15 @@ einem kleinen Rundenkampf mit Timing und Spielständen.
 3. `npm run dev` starten und die angezeigte Adresse öffnen (http://localhost:5173).
    Änderungen am Code oder an den Falldaten erscheinen sofort im Browser.
 
+## Fähigkeiten der Pfade
+
+Jede erreichte Sequenz bringt drei Dinge: zwei Kampffertigkeiten (⚔, im Kampf unter „Fertigkeiten“) und eine
+Welt-Fähigkeit (☉) für draußen: verborgene Spuren ohne Geistsicht zeigen, Gegner auf der Karte verscheuchen, die
+Uhr der Stadt anhalten, feilschen, schneller reisen, den nächsten Schritt eines Auftrags erfragen und mehr. Welt-Fähigkeiten
+setzt man im Pfad-Tab (`P`) ein; sie kosten Nerven und etwas Unruhe und brauchen danach eine Pause (Spielzeit). Die zweiten
+Kampffertigkeiten sind eher Kniffe als Wucht: Konzentration zurück, Gegner dämpfen oder verlangsamen, den nächsten Schlag
+lesbar machen, Panzer brechen, Schutz und Heilung für beide Spieler. Daten: `src/data/packs/sequenzen/faehigkeiten2.json`.
+
 ## Steuerung
 
 | Taste | Wirkung |
@@ -34,7 +43,7 @@ einem kleinen Rundenkampf mit Timing und Spielständen.
 | `Q` | Geistsicht an/aus: zeigt verborgene Spuren, kostet Nerven |
 | `J` / `Tab` | Notizbuch: zwei Hinweise anklicken, mit `V` verknüpfen |
 | `I` | Inventar: Gegenstände benutzen, Waffe ausrüsten, Tränke trinken |
-| `P` | Pfad: Sequenz, Verdauung, Unruhe, Fähigkeiten und Formeln |
+| `P` | Pfad: Sequenz, Verdauung, Unruhe, Fähigkeiten und Formeln. Welt-Fähigkeiten (☉) werden hier eingesetzt |
 | Kampf: `1`–`4` | Aktion wählen (Angriff, Fertigkeiten, Gegenstände, Flucht) |
 | Kampf: `E` / `Leertaste` | beim Angriff im goldenen Bereich drücken |
 | Kampf: `Leertaste` / `F` | beim gegnerischen Schlag ausweichen / parieren |
@@ -59,7 +68,10 @@ Beweisstücke wandern immer zum Ermittler. Wer geht, behält seine Sachen für d
 | Kampf: `←` / `→` (Gamepad `X` / `B`) | ausweichen / parieren, wenn der Gegner Spieler 2 angreift |
 
 Im Kampf stehen beide nebeneinander. Jede Runde handelt erst Spieler 1, dann Spieler 2, dann greift der Gegner
-einen von beiden an; abwehren muss der Angegriffene mit seinen Tasten. Jeder hat eigene Konzentration, eigene
+jeden von beiden einmal an; abwehren muss der Angegriffene mit seinen Tasten. Manchmal holt der Gegner zu einem
+**Flächenangriff** aus (etwa jede dritte Runde, Eliten und Bosse öfter): Der Schlag trifft beide zugleich, über
+beiden Figuren läuft derselbe Ring, und jeder muss im selben Takt für sich ausweichen oder parieren. Parieren beide
+alles, folgt ein doppelter Gegenschlag. Jeder hat eigene Konzentration, eigene
 Gegenstände und eigene Zustände (Schutz, Blutung). Wer zu Boden geht, setzt aus; verloren ist erst, wenn beide
 liegen. Gewinnt der andere, rappelt sich der Gestürzte mit einem Viertel seines Lebens auf.
 
@@ -136,6 +148,13 @@ Auf dem **Nachtmarkt** unter der Krähenbrücke (Stadtkarte) kann man aufsteigen
   Ring an: *Ausweichen* (Leertaste) ist großzügig, *Parieren* (F) eng, bringt aber Konzentration
   und einen Konter. Wer alle Schläge einer Attacke pariert, setzt zum Gegenschlag an.
   Konzentration bezahlt Fertigkeiten (Doppelschlag, Laternenblende, Bannwort).
+  Jede Fertigkeit zehrt außerdem an den **Nerven**, je dicker (mehr Konzentration), desto mehr:
+  1 K kostet 4, 5 K kostet 22 Nerven, Sequenz 4 bis 1 noch mehr. Der einfache Angriff im Takt
+  lässt Atem holen (+4 Nerven, präzise +6), Paraden bringen Nerven zurück, Ausweichen kostet welche.
+  Wer nur Fertigkeiten spammt und ausweicht, steht bald bei 0: dann geht weder Fertigkeit noch
+  Ausweichen. Mit jeder höheren Sequenz gewöhnt man sich an die älteren Fertigkeiten (15 % weniger
+  Nervenkosten je Sequenz, bis 40 %), die neueste kostet immer voll. Artefakte können an Nerven und
+  Konzentration drehen (Konzentration pro Runde, zu Kampfbeginn, Höchstwert), immer mit hartem Preis.
   Wissen aus den Ermittlungen deckt Schwachstellen auf. Eine Niederlage ist kein Game Over:
   Man wacht mit wenig Leben wieder auf. Kämpfe bisher: Übungskampf mit Sergeant Holt,
   der Nebelhund am Kanal (Nebenauftrag), der Aschewächter in der Krypta (Fall 2), Ratten im Archiv,

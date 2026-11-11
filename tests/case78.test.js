@@ -7,7 +7,8 @@ import { nextDeduction } from '../src/core/hints.js';
 import { leadTarget } from '../src/core/Guide.js';
 
 const content = loadContent();
-const BOSS = { defend: EXPERT, healBelow: 15 };
+// Mit Sequenz 7 schlägt man mit dem Klingenwirbel zu; Bosse verlangen sauberes Timing
+const BOSS = { defend: EXPERT, skill: 'klingenwirbel', chain: true, healBelow: 15 };
 
 /** Zustand nach Fall 6 (Epilog gesehen). */
 function afterCase6() {
@@ -18,8 +19,8 @@ function afterCase6() {
     'epilogue4_seen', 'briefed_05', 'case_05_closed', 'vey_arrested', 'epilogue5_seen', 'briefed_06', 'case_06_closed', 'mews_arrested', 'epilogue6_seen']
     .forEach((f) => s.flags.add(f));
   ['case_01', 'case_02', 'case_03', 'case_04', 'case_05', 'case_06'].forEach((q) => { s.quests[q] = 'done'; });
-  s.addItem('schlagstock');
-  s.equip('schlagstock');
+  s.addItem('ossuarklinge');
+  s.equip('ossuarklinge');
   s.addItem('verband', 4);
   // Bis Fall 7/8 hat man über das Revier längst Sequenz 7 erreicht (Miss Wren ist ohne Durchbruch kaum zu schaffen).
   s.pathway = { id: 'eisen', seq: 7, digestion: 0 };

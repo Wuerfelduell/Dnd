@@ -2,6 +2,7 @@ import { NIGHT_FLAG } from '../core/Clock.js';
 import { applyQuestPack } from './questPacks.js';
 import { applyLore } from './lore.js';
 import { withSequenzen, applySequenzen } from './sequenzen.js';
+import { withFaehigkeiten } from './faehigkeiten.js';
 import { applyMoods } from './moods.js';
 import { applyRelations } from './relations.js';
 // Fügt alle Inhaltsdateien zu einem Objekt zusammen (ohne JSON-Imports, damit Node-Tests es nutzen können).
@@ -14,7 +15,7 @@ import { applyRelations } from './relations.js';
 export function buildContent({ campaign, quests, cases, maps, dialogues, items = {}, encounters = {}, pathways = null, market = null, travel = null, wilds = null, factions = null, buildings = null, gatherings = null, city = null, wexmoor = null, packs = [], lore = null, sequenzen = null, beziehungen = null }) {
   // Paket AF: neue Pfade, Zutaten und Artefakte gehören vor der Erzeugung der Trank-/Formel-Items dazu
   const sq = withSequenzen(pathways, sequenzen);
-  pathways = sq.pathways;
+  pathways = withFaehigkeiten(sq.pathways, sequenzen?.faehigkeiten); // zweite Kampffertigkeit und Welt-Fähigkeit je Sequenz
   ({ gatherings, pathways, wexmoor } = withPackTreffen(packs, gatherings, pathways, wexmoor));
   const merge = (list, key) => Object.assign({}, ...list.map((x) => x[key] ?? {}));
   const b = buildings ?? {};
@@ -57,6 +58,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
     factions: f.factions ?? {},
     gatherings: g.rules ? { rules: g.rules, circles: g.circles ?? {}, artisan: g.artisan ?? null } : null,
     police: wx.police ?? null,
+    polices: { ...(wx.police ? { wexmoor: wx.police } : {}), ...Object.assign({}, ...packs.map((p) => p.police ?? {})) }, // Fahndung je Stadt (K1-Finale: Kettlegate)
     loners: wx.loners ? { ...wx.loners, list: { ...wx.loners.list, ...Object.assign({}, ...packs.map((p) => p.einzelgaenger?.loners?.list ?? {})) } } : null, // BC: Dunscarer Einzelgänger
     facts: merge(cases, 'facts'),
     clues: merge(cases, 'clues'),

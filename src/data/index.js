@@ -150,6 +150,8 @@ import k3a_platzierung from './packs/k3_akte/platzierung.json';
 import k3a_zeitung from './packs/k3_akte/zeitung.json';
 import k3a_epiloge from './packs/k3_akte/epiloge.json';
 import k2v_epiloge from './packs/k2_akte/epiloge.json';
+import k1_epiloge from './packs/k1_finale/epiloge.json';
+import k1_police from './packs/k1_finale/police.json';
 import k2v_akt5 from './packs/k2_akte/akt5_neu.json';
 import k2v_turm_sperren from './packs/k2_akte/turm_sperren.json';
 import k3h_quests from './packs/k3_handel/quests.json';
@@ -226,6 +228,7 @@ import sq_neue_pfade from './packs/sequenzen/neue_pfade.json';
 import sq_seq_4_bis_1 from './packs/sequenzen/seq_4_bis_1.json';
 import sq_zutaten from './packs/sequenzen/zutaten.json';
 import sq_artefakte from './packs/sequenzen/artefakte.json';
+import sq_faehigkeiten from './packs/sequenzen/faehigkeiten2.json';
 import k3p_rituale from './packs/k3_pruefungen/rituale.json';
 import bf_quests from './packs/koop_k3/quests.json';
 import bf_items from './packs/koop_k3/items.json';
@@ -278,6 +281,8 @@ const k3Leben = { name: 'k3_leben', quests: k3e_quests, items: k3e_items, encoun
   platzierung: k3e_platzierung.filter((p) => !p.npc), einwohner: k3e_einwohner, stadtgegner: k3e_stadtgegner, phasen: k3e_phasen, streifen: k3e_streifen, gerede: k3e_gerede, zeitung: k3e_zeitung, leben: k3e_leben };
 const k3Akte = { name: 'k3_akte', quests: k3a_quests, items: k3a_items, encounters: k3a_encounters, dialogues: k3a_dialogues, npcs: k3a_npcs, case: k3a_case, dialog_zusaetze: k3a_dialog_zusaetze, platzierung: k3a_platzierung, zeitung: k3a_zeitung, boss_texte: k3a_boss_texte, epiloge: k3a_epiloge };
 const k2Gilde = { name: 'k2_gilde', quests: k2g_quests, items: k2g_items, encounters: k2g_encounters, dialogues: k2g_dialogues, npcs: k2g_npcs, case: k2g_case, dialog_zusaetze: k2g_dialog_zusaetze, platzierung: k2g_platzierung, artefakte: k2g_artefakte, treffen: k2g_treffen_namensgilde };
+/** Kapitel-1-Finale: Epilogtafeln nach Fall 9 und die Fahndung in Kettlegate (Price lässt nach dir suchen). */
+const k1Finale = { name: 'k1_finale', epiloge: k1_epiloge, police: k1_police };
 const kgNebenquests = { name: 'kg_nebenquests', quests: kg_quests, items: kg_items, encounters: kg_encounters, dialogues: kg_dialogues, npcs: kg_npcs, case: kg_case, dialog_zusaetze: kg_dialog_zusaetze, platzierung: kg_platzierung };
 
 export const content = buildContent({
@@ -297,8 +302,8 @@ export const content = buildContent({
   gatherings,
   city,
   wexmoor,
-  packs: [kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen, k3Handel, k3Leben, koopK3, koopBeute, k3Ruf, beziehungenPack],
+  packs: [k1Finale, kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen, k3Handel, k3Leben, koopK3, koopBeute, k3Ruf, beziehungenPack],
   lore: { bestiarium: lore_bestiarium, gerede: lore_gerede, item_texte: lore_item_texte, lesestuecke: lore_lesestuecke, zeitungen: lore_zeitungen },
   beziehungen,
-  sequenzen: { neue_pfade: sq_neue_pfade, seq_4_bis_1: sq_seq_4_bis_1, zutaten: sq_zutaten, artefakte: sq_artefakte, rituale: k3p_rituale },
+  sequenzen: { neue_pfade: sq_neue_pfade, seq_4_bis_1: sq_seq_4_bis_1, zutaten: sq_zutaten, artefakte: sq_artefakte, rituale: k3p_rituale, faehigkeiten: sq_faehigkeiten },
 });

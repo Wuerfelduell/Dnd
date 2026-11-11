@@ -2,16 +2,18 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
-import { Combat, ENEMY_HP_MULT, DUO_HP_SHARE, DUO_POWER_MIN, duoHpMult } from '../src/core/Combat.js';
+import { Combat, ENEMY_HP_MULT, DUO_HP_SHARE, DUO_HP_SHARE_MIN, DUO_POWER_MIN, DUO_POWER_MAX, DUO_DMG_MULT, ENEMY_DMG_MULT, SWEEP_DMG_MULT, SWEEP_CHANCE, SWEEP_CHANCE_TOUGH, duoHpMult } from '../src/core/Combat.js';
 import { loadContent, seeded, SKILLED, EXPERT } from './helpers.js';
 
 const content = loadContent();
 const always = () => 0.99; // Zufall, der nie Kontrollverlust auslöst
 
+// Ab Fall 4 trägt man eine bessere Waffe: Stockdegen bei Sequenz 9, ab Fall 5 die Ossuarklinge
+const weaponFor = (seq) => (!seq || seq === 9 ? 'schlagstock' : 'ossuarklinge');
 function hero(seq = null, id = 'eisen') {
   const s = new GameState(content);
-  s.addItem('schlagstock');
-  s.equip('schlagstock');
+  s.addItem(weaponFor(seq));
+  s.equip(weaponFor(seq));
   s.addItem('verband', 3);
   if (seq) {
     s.pathway = { id, seq, digestion: 0 };
@@ -26,8 +28,8 @@ function pair(seq = null, seq2 = seq, id2 = 'laterne') {
   const s = hero(seq);
   s.addP2();
   s.withPlayer(2, () => {
-    s.addItem('schlagstock');
-    s.equip('schlagstock');
+    s.addItem(weaponFor(seq2));
+    s.equip(weaponFor(seq2));
     s.addItem('verband', 1);
     if (seq2) {
       s.pathway = { id: id2, seq: seq2, digestion: 0 };
@@ -127,7 +129,7 @@ test('Zu zweit greift der Gegner jeden stehenden Spieler einmal pro Runde an', (
   for (let round = 0; round < 4; round++) {
     const hit = [];
     do {
-      if (c.nextEnemyAttack()) hit.push(c.target);
+      if (c.nextEnemyAttack()) hit.push(...c.targets);
       c.endEnemyTurn();
     } while (c.moreStrikes());
     if (hit.length) assert.deepEqual([...hit].sort(), [1, 2], `Runde ${round}`);
@@ -139,6 +141,60 @@ test('Zu zweit greift der Gegner jeden stehenden Spieler einmal pro Runde an', (
   c.nextEnemyAttack();
   assert.equal(c.target, 1);
   assert.equal(c.moreStrikes(), false);
+});
+
+test('Flächenangriff: manchmal trifft der Gegner beide Spieler zugleich, jeder wehrt für sich ab', () => {
+  const s = pair();
+  const c = new Combat(s, 'fog_hound');
+  c.rng = () => 0.01; // Zufall unter der Flächen-Wahrscheinlichkeit
+  const atk = c.nextEnemyAttack();
+  assert.equal(atk.sweep, true);
+  assert.deepEqual(c.targets, [1, 2]);
+  assert.deepEqual(atk.targets, [1, 2]);
+  assert.equal(c.moreStrikes(), false, 'nach dem Flächenangriff ist die Runde des Gegners vorbei');
+  const base = c.enc.attacks[0];
+  assert.equal(atk.damage, Math.max(1, Math.round(base.damage * ENEMY_DMG_MULT * DUO_DMG_MULT * SWEEP_DMG_MULT)));
+  const hp1 = s.hp;
+  const hp2 = s.p2.hp;
+  const r1 = c.resolveHit(atk, 'miss', 1);
+  const r2 = c.resolveHit(atk, 'parry', 2);
+  assert.ok(r1.damage > 0 && s.hp < hp1, 'Spieler 1 steckt ein');
+  assert.equal(r2.damage, 0);
+  assert.ok(r2.counter > 0, 'Spieler 2 pariert und kontert');
+  assert.equal(s.p2.hp, hp2);
+  // Gegenschlag kann jeder führen, der alles pariert hat
+  const before = c.enemy.hp;
+  c.riposte(2);
+  assert.ok(c.enemy.hp < before);
+  // Liegt einer, gibt es keine Flächenangriffe mehr
+  c.endEnemyTurn();
+  c.endRound();
+  c.target = 1;
+  c.resolveHit({ name: 'Test', damage: 999, hits: [500] }, 'miss', 1);
+  assert.equal(c.fighters[1].down, true);
+  const next = c.nextEnemyAttack();
+  assert.equal(next.sweep, false);
+  assert.deepEqual(c.targets, [2]);
+});
+
+test('Flächenangriffe: nie allein oder in der Übung, bei Bossen öfter, Daten können es erzwingen oder verbieten', () => {
+  assert.equal(new Combat(hero(), 'fog_hound').sweeps({}), false);
+  const c = new Combat(pair(), 'fog_hound');
+  let n = 0;
+  c.rng = () => (n++ % 100) / 100;
+  let sweeps = 0;
+  for (let i = 0; i < 100; i++) if (c.sweeps({})) sweeps += 1;
+  assert.equal(sweeps, Math.round(SWEEP_CHANCE * 100));
+  assert.equal(c.sweeps({ sweep: true }), true);
+  assert.equal(c.sweeps({ sweep: false }), false);
+  const boss = new Combat(pair(7), 'starling_fight');
+  assert.ok(boss.enc.boss);
+  n = 0;
+  boss.rng = () => (n++ % 100) / 100;
+  sweeps = 0;
+  for (let i = 0; i < 100; i++) if (boss.sweeps({})) sweeps += 1;
+  assert.equal(sweeps, Math.round(SWEEP_CHANCE_TOUGH * 100));
+  assert.equal(new Combat(pair(), 'sparring').sweeps({}), false);
 });
 
 test('Blendung lässt die ganze Gegnerrunde ausfallen', () => {
@@ -153,51 +209,79 @@ test('Gegnerleben zu zweit richtet sich nach der Schlagkraft von Spieler 2', () 
   const weak = hero();
   weak.addP2(); // Spieler 2 mit Spazierstock
   const base = content.encounters.miss_wren.hp * ENEMY_HP_MULT;
-  assert.equal(new Combat(strong, 'miss_wren').enemy.maxHp, Math.round(base * (1 + DUO_HP_SHARE)));
+  assert.equal(new Combat(strong, 'miss_wren').enemy.maxHp, Math.round(base * (1 + DUO_HP_SHARE)), 'gleich stark: +150 %');
   const w = new Combat(weak, 'miss_wren').enemy.maxHp;
-  assert.ok(w < base * (1 + DUO_HP_SHARE) && w >= Math.round(base * (1 + DUO_HP_SHARE * DUO_POWER_MIN)));
+  assert.ok(w < base * (1 + DUO_HP_SHARE) && w >= Math.round(base * (1 + DUO_HP_SHARE_MIN)), 'schwacher Spieler 2: mindestens +70 %');
   assert.ok(duoHpMult(weak) < duoHpMult(strong));
+  // Unter halber Stärke bleibt es bei +70 %, über 1,25-facher Stärke steigt es nicht weiter
+  const feeble = hero();
+  feeble.addP2();
+  feeble.p2.weapon = null;
+  assert.ok(Math.abs(duoHpMult(feeble) - (1 + DUO_HP_SHARE_MIN)) < 1e-9 || duoHpMult(feeble) >= 1 + DUO_HP_SHARE_MIN);
+  const strong2 = pair(9, 7, 'laterne'); // Spieler 2 mit Durchbrüchen schlägt härter
+  assert.ok(duoHpMult(strong2) <= 1 + DUO_HP_SHARE_MIN + (DUO_HP_SHARE - DUO_HP_SHARE_MIN) * (DUO_POWER_MAX - DUO_POWER_MIN) / (1 - DUO_POWER_MIN) + 1e-9);
 });
 
 /** Spielt einen Kampf zu zweit durch: beide greifen an, der Gegner schlägt jeden einmal. */
-function duoFight(state, enc, defend) {
+function duoFight(state, enc, defend, seed = 7) {
   const c = new Combat(state, enc);
-  c.rng = seeded(7);
+  c.rng = seeded(seed);
   let n = 0;
   while (!c.outcome && c.round <= 80) {
     for (const p of [1, 2]) {
       if (!c.fighters[p] || c.fighters[p].down || c.outcome) continue;
       c.actor = p;
       c.on(p, () => { if (state.hp < state.maxHp * 0.35 && state.itemCount('verband') && c.canUseItem()) c.useItemNow('verband'); });
-      c.useSkill('attack', ['good']);
+      // Wie geübte Spieler ab Fall 5 (Sequenz 8): die stärkste Pfad-Fertigkeit, solange Konzentration reicht, dann der Angriff
+      let guard = 0;
+      while (!c.outcome && (state.pathway?.seq ?? 9) <= 8 && guard++ < 5) {
+        const sk = c.skills().filter((x) => x.usable && x.cost > 0 && x.hits > 0 && x.id !== 'blind' && x.id !== 'ward').sort((a, b) => (b.flat ?? b.mult * 10) * b.hits - (a.flat ?? a.mult * 10) * a.hits)[0];
+        if (!sk) break;
+        c.useSkill(sk.id, Array(sk.hits).fill('good'));
+      }
+      if (!c.outcome) c.useSkill('attack', ['good']);
     }
     if (c.outcome) break;
     do {
       const atk = c.nextEnemyAttack();
       if (atk) {
-        const rs = atk.hits.map(() => { const r = defend(n++); return r === 'parry' && atk.unparryable ? 'dodge' : r; });
-        for (const r of rs) { c.resolveHit(atk, r); if (c.outcome) break; }
-        if (!c.outcome && rs.every((r) => r === 'parry')) c.riposte();
+        if (atk.sweep) c.sweepCount = (c.sweepCount ?? 0) + 1;
+        // Flächenangriff: jeder Getroffene wehrt jeden Schlag für sich ab
+        for (const p of atk.targets) {
+          const rs = atk.hits.map(() => { const r = defend(n++); return r === 'parry' && atk.unparryable ? 'dodge' : r; });
+          for (const r of rs) { c.resolveHit(atk, r, p); if (c.outcome) break; }
+          if (!c.outcome && !c.fighters[p].down && rs.every((r) => r === 'parry')) c.riposte(p);
+        }
         c.endEnemyTurn();
       }
     } while (c.moreStrikes());
     c.endRound();
   }
+  c.sweepCount ??= 0;
   return c;
 }
 
 test('Balance zu zweit: Bosse bleiben fordernd, gleich starke Paare schaffen sie mit Übung', () => {
+  const seeds = [1, 2, 3, 4, 5, 6, 7, 8];
+  const mean = (xs) => xs.reduce((a, b) => a + b, 0) / xs.length;
   for (const [enc, seq] of [['rook_fight', 9], ['miriam', 8], ['dreizehnter_gast', 8], ['miss_wren', 7], ['starling_fight', 7]]) {
-    const c = duoFight(pair(seq), enc, EXPERT);
-    assert.equal(c.outcome, 'won', `${enc} zu zweit (geübt)`);
-    // Keiner kommt ungeschoren davon: beide müssen sich verteidigen
+    const fights = seeds.map((seed) => duoFight(pair(seq), enc, EXPERT, seed));
+    // Mit +150 % Gegnerleben (Seb, 2026-11-10) schaffen Geübte die Bosse meistens, Starling (zwei Phasen, höheres Wesen) bleibt ein Brocken
+    const wins = fights.filter((c) => c.outcome === 'won').length;
+    const need = { rook_fight: seeds.length, starling_fight: 2 }[enc] ?? seeds.length / 2;
+    assert.ok(wins >= need, `${enc} zu zweit (geübt): ${wins} von ${seeds.length} Siegen, erwartet mindestens ${need}`);
+    // Keiner kommt ungeschoren davon: beide müssen sich verteidigen (im Schnitt über mehrere Kämpfe)
     for (const n of [1, 2]) {
-      const lost = c.on(n, () => 1 - c.state.hp / c.state.maxHp);
+      const lost = mean(fights.map((c) => c.on(n, () => 1 - c.state.hp / c.state.maxHp)));
       assert.ok(lost >= 0.2, `${enc}: Spieler ${n} verliert spürbar Leben (${lost.toFixed(2)})`);
     }
+    // Flächenangriffe kommen vor, aber nicht in jeder Runde
+    const sweeps = mean(fights.map((c) => c.sweepCount));
+    assert.ok(sweeps >= 1 && sweeps < mean(fights.map((c) => c.round)) * 0.6, `${enc}: ${sweeps} Flächenangriffe je Kampf`);
     // Zu zweit dauert ein Bosskampf nicht viel kürzer als allein
-    const solo = duoFight(hero(seq), enc, EXPERT);
-    assert.ok(c.round >= solo.round * 0.65, `${enc}: ${c.round} Runden zu zweit, ${solo.round} allein`);
+    const solo = mean(seeds.map((seed) => duoFight(hero(seq), enc, EXPERT, seed).round));
+    const duo = mean(fights.map((c) => c.round));
+    assert.ok(duo >= solo * 0.8, `${enc}: ${duo} Runden zu zweit, ${solo} allein`);
   }
   // Ohne Durchbruch reicht es auch zu zweit nicht gegen Starling, wenn man nur mittelmäßig verteidigt
   assert.notEqual(duoFight(pair(8), 'starling_fight', SKILLED).outcome, 'won');

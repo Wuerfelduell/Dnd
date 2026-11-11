@@ -386,19 +386,19 @@
     "name": "Kanalkröte",
     "sprite": "rats",
     "fleeable": true,
-    "hp": 36,
+    "hp": 96,
     "intro": "Das Wasser in der Kammer wölbt sich. Eine Kröte, groß wie ein Kutschpferd, schiebt sich hervor. Ihre Haut glänzt giftig gelb im Licht des Leuchtmooses.",
     "attacks": [
       {
         "name": "Zungenschlag",
-        "damage": 6,
+        "damage": 10,
         "hits": [
           700
         ]
       },
       {
         "name": "Giftspritzer",
-        "damage": 3,
+        "damage": 6,
         "hits": [
           600,
           850,
@@ -407,7 +407,7 @@
       },
       {
         "name": "Bauchplatscher",
-        "damage": 10,
+        "damage": 17,
         "hits": [
           1900
         ]
@@ -433,19 +433,20 @@
       "map": "gaskanaele",
       "spawn": "default"
     },
-    "win_text": "Die Kröte gleitet zurück ins schwarze Wasser und taucht nicht wieder auf. Am Rand bleibt eine Schleimspur, die man gut verkaufen könnte."
+    "win_text": "Die Kröte gleitet zurück ins schwarze Wasser und taucht nicht wieder auf. Am Rand bleibt eine Schleimspur, die man gut verkaufen könnte.",
+    "max_round_dmg": 0.34
   },
   "gasgeist": {
     "name": "Gasgeist",
     "sprite": "apparition",
     "occult": true,
     "fleeable": true,
-    "hp": 40,
+    "hp": 86,
     "intro": "Aus einem lecken Rohr quillt blassgelbes Gas und formt ein Gesicht mit leeren Augen. Es singt drei Töne, und der Gang wird kalt.",
     "attacks": [
       {
         "name": "Erstickender Hauch",
-        "damage": 5,
+        "damage": 7,
         "hits": [
           900,
           1300
@@ -453,7 +454,7 @@
       },
       {
         "name": "Flackern",
-        "damage": 3,
+        "damage": 4,
         "hits": [
           500,
           800,
@@ -463,7 +464,7 @@
       },
       {
         "name": "Verpuffung",
-        "damage": 11,
+        "damage": 14,
         "hits": [
           2000
         ]
@@ -489,25 +490,26 @@
       "spawn": "default"
     },
     "lose_text": "Hustend kommst du an der Leiter wieder zu dir. Der Gang vor dir glimmt noch immer gelb.",
-    "win_text": "Der Geist zerfasert, und das Gas sinkt als feiner Staub zu Boden. Dahinter liegt der Gang zum Uhrturm frei."
+    "win_text": "Der Geist zerfasert, und das Gas sinkt als feiner Staub zu Boden. Dahinter liegt der Gang zum Uhrturm frei.",
+    "max_round_dmg": 0.34
   },
   "uhrwerkwaechter": {
     "name": "Uhrwerkwächter",
     "sprite": "warden",
     "fleeable": true,
-    "hp": 36,
+    "hp": 77,
     "intro": "Zahnräder rasseln. Eine Messingfigur in Wächteruniform dreht den Kopf mit einem Ruck zu dir. Auf ihrer Brust tickt ein Uhrwerk, und jemand hat ein Auge in das Zifferblatt geritzt.",
     "attacks": [
       {
         "name": "Taktschlag",
-        "damage": 6,
+        "damage": 8,
         "hits": [
           1000
         ]
       },
       {
         "name": "Viertelstunde",
-        "damage": 4,
+        "damage": 5,
         "hits": [
           600,
           900,
@@ -517,7 +519,7 @@
       },
       {
         "name": "Volle Stunde",
-        "damage": 10,
+        "damage": 13,
         "hits": [
           2100
         ]
@@ -543,25 +545,26 @@
       "spawn": "default"
     },
     "lose_text": "Du rollst die Treppe hinunter. Oben tickt der Wächter weiter, Schritt für Schritt.",
-    "win_text": "Die Feder springt mit einem Klang wie eine Saite. Der Wächter bleibt mitten im Schritt stehen. In seinem Werk hängt silbrige Spinnenseide."
+    "win_text": "Die Feder springt mit einem Klang wie eine Saite. Der Wächter bleibt mitten im Schritt stehen. In seinem Werk hängt silbrige Spinnenseide.",
+    "max_round_dmg": 0.34
   },
   "maskenspieler": {
     "name": "Der Maskenspieler",
     "sprite": "npc:maskenmacher",
     "fleeable": false,
-    "hp": 34,
+    "hp": 83,
     "intro": "Eine Gestalt mit weißer Halbmaske verbeugt sich übertrieben tief. „Applaus, Applaus! Leider muss der Herr Ermittler die Vorstellung früh verlassen.“",
     "attacks": [
       {
         "name": "Degenstoß",
-        "damage": 6,
+        "damage": 8,
         "hits": [
           800
         ]
       },
       {
         "name": "Finte und Stoß",
-        "damage": 5,
+        "damage": 7,
         "hits": [
           600,
           1400
@@ -569,7 +572,7 @@
       },
       {
         "name": "Großer Auftritt",
-        "damage": 9,
+        "damage": 12,
         "hits": [
           1800
         ]
@@ -587,25 +590,26 @@
     },
     "on_lose": {},
     "lose_text": "Der Maskenspieler tippt dir mit dem Degen an die Nase und verschwindet hinter dem Vorhang. Das Publikum, das es nicht gibt, klatscht.",
-    "win_text": "Die Maske fällt. Darunter ein rotes, verschwitztes Gesicht: Lionel Crabb. „Ich war gut, oder? Sagen Sie, dass ich gut war.“"
+    "win_text": "Die Maske fällt. Darunter ein rotes, verschwitztes Gesicht: Lionel Crabb. „Ich war gut, oder? Sagen Sie, dass ich gut war.“",
+    "max_round_dmg": 0.34
   },
   "schlachtergehilfe": {
     "name": "Knox, der Schlachtergehilfe",
     "sprite": "npc:schlachtermeister",
     "fleeable": false,
-    "hp": 40,
+    "hp": 90,
     "intro": "Knox wischt die Hände an der Schürze ab und greift nach einem Fleischerhaken. „Der Meister hätte dem Jungen geglaubt. Jetzt muss ich mir was überlegen.“",
     "attacks": [
       {
         "name": "Hakenschwung",
-        "damage": 7,
+        "damage": 9,
         "hits": [
           1000
         ]
       },
       {
         "name": "Rempeln",
-        "damage": 4,
+        "damage": 5,
         "hits": [
           600,
           950
@@ -613,7 +617,7 @@
       },
       {
         "name": "Fassstoß",
-        "damage": 10,
+        "damage": 13,
         "hits": [
           1900
         ]
@@ -628,19 +632,20 @@
     },
     "on_lose": {},
     "lose_text": "Du liegst zwischen den Salzfässern. Knox ist fort, sein Karren auch. Finn hält dir einen Eimer Wasser hin.",
-    "win_text": "Knox sitzt im Sägemehl und hält sich den Arm. Bram steht in der Tür und sagt kein Wort. Das ist schlimmer als jedes Geschrei."
+    "win_text": "Knox sitzt im Sägemehl und hält sich den Arm. Bram steht in der Tür und sagt kein Wort. Das ist schlimmer als jedes Geschrei.",
+    "max_round_dmg": 0.34
   },
   "felix_fight": {
     "name": "Felix Dunmore",
     "sprite": "npc:souffleur",
     "occult": true,
     "fleeable": false,
-    "hp": 42,
+    "hp": 86,
     "intro": "Felix steht zwischen den Zahnrädern, umgeben von Phiolen voller Licht. Als er den Mund öffnet, singt nicht er, sondern ein Dutzend fremder Stimmen zugleich.",
     "attacks": [
       {
         "name": "Fremde Arie",
-        "damage": 6,
+        "damage": 8,
         "hits": [
           900,
           1500
@@ -648,7 +653,7 @@
       },
       {
         "name": "Chor",
-        "damage": 4,
+        "damage": 5,
         "hits": [
           600,
           850,
@@ -658,14 +663,14 @@
       },
       {
         "name": "Der hohe Ton",
-        "damage": 12,
+        "damage": 13,
         "hits": [
           2100
         ]
       },
       {
         "name": "Souffliert",
-        "damage": 7,
+        "damage": 8,
         "hits": [
           700
         ]
@@ -687,7 +692,10 @@
       "spawn": "default"
     },
     "lose_text": "Die Stimmen drücken dich zu Boden, bis du nichts mehr hörst. Du wachst am Fuß der Treppe auf. Oben singt es noch.",
-    "win_text": "Felix sinkt gegen ein Zahnrad. Die fremden Stimmen verstummen, nur seine eigene bleibt, brüchig und klein. „Sie hat mich nie gehört“, flüstert er. „Kein einziges Mal.“"
+    "win_text": "Felix sinkt gegen ein Zahnrad. Die fremden Stimmen verstummen, nur seine eigene bleibt, brüchig und klein. „Sie hat mich nie gehört“, flüstert er. „Kein einziges Mal.“",
+    "armor": 1,
+    "ramp": 0.04,
+    "max_round_dmg": 0.2
   },
   "gesangbuchgeist": {
     "name": "Chor der Seiten",
@@ -745,13 +753,13 @@
   "chorwaechter": {
     "name": "Chorwächter",
     "sprite": "npc:cultist",
-    "hp": 34,
+    "hp": 104,
     "fleeable": true,
     "intro": "Ein Mann in weißer Chorrobe tritt aus dem Ofenschatten. Er singt einen einzigen Ton und hört nicht auf.",
     "attacks": [
       {
         "name": "Taktstock",
-        "damage": 5,
+        "damage": 8,
         "hits": [
           700,
           1000
@@ -765,7 +773,7 @@
       },
       {
         "name": "Fortissimo",
-        "damage": 10,
+        "damage": 15,
         "hits": [
           1800
         ]
@@ -776,19 +784,20 @@
         "chorwaechter_defeated"
       ]
     },
-    "win_text": "Der Ton bricht ab. Der Mann sinkt zusammen und atmet, als hätte er es seit Tagen nicht getan."
+    "win_text": "Der Ton bricht ab. Der Mann sinkt zusammen und atmet, als hätte er es seit Tagen nicht getan.",
+    "max_round_dmg": 0.34
   },
   "stimmenfresser": {
     "name": "Stimmenfresser",
     "sprite": "apparition",
     "occult": true,
-    "hp": 36,
+    "hp": 108,
     "fleeable": true,
     "intro": "Im Schatten hinter Lilians Bett bewegt sich ein Mund ohne Gesicht. Er flüstert mit deiner Stimme deinen Namen.",
     "attacks": [
       {
         "name": "Flüstern",
-        "damage": 3,
+        "damage": 4,
         "hits": [
           500,
           750,
@@ -799,7 +808,7 @@
       },
       {
         "name": "Verschlucken",
-        "damage": 8,
+        "damage": 11,
         "hits": [
           1500
         ]
@@ -816,26 +825,27 @@
         "stimmenfresser_defeated"
       ]
     },
-    "win_text": "Der Mund schließt sich und ist nur noch ein Fleck an der Wand."
+    "win_text": "Der Mund schließt sich und ist nur noch ein Fleck an der Wand.",
+    "max_round_dmg": 0.34
   },
   "bronzeengel": {
     "name": "Bronzener Engel",
     "sprite": "warden",
     "occult": true,
-    "hp": 44,
+    "hp": 126,
     "fleeable": false,
     "intro": "An der Treppe steht eine Engelsfigur aus frischer Bronze, noch warm vom Guss. Als du näherkommst, hebt sie den Klöppel wie ein Schwert.",
     "attacks": [
       {
         "name": "Glockenschlag",
-        "damage": 9,
+        "damage": 11,
         "hits": [
           1200
         ]
       },
       {
         "name": "Nachklang",
-        "damage": 3,
+        "damage": 4,
         "hits": [
           600,
           900,
@@ -851,7 +861,7 @@
       },
       {
         "name": "Sturz",
-        "damage": 13,
+        "damage": 16,
         "hits": [
           2100
         ]
@@ -870,19 +880,21 @@
       "spawn": "kammer"
     },
     "lose_text": "Du wachst auf der Treppe auf. Unten summt die Glocke weiter.",
-    "win_text": "Der Engel kippt und zerspringt am Boden in zwei Hälften. Sein Klöppel rollt dir vor die Füße."
+    "win_text": "Der Engel kippt und zerspringt am Boden in zwei Hälften. Sein Klöppel rollt dir vor die Füße.",
+    "armor": 1,
+    "max_round_dmg": 0.25
   },
   "glockenecho": {
     "name": "Glockenecho",
     "sprite": "apparition",
     "occult": true,
-    "hp": 30,
+    "hp": 90,
     "fleeable": true,
     "intro": "Ein Ton hängt in der Luft, der nicht aufhört. Er wird dichter, bis er eine Gestalt hat.",
     "attacks": [
       {
         "name": "Widerhall",
-        "damage": 4,
+        "damage": 8,
         "hits": [
           800,
           1300
@@ -890,7 +902,7 @@
       },
       {
         "name": "Überlagerung",
-        "damage": 3,
+        "damage": 5,
         "hits": [
           500,
           750,
@@ -903,26 +915,27 @@
         "glockenecho_defeated"
       ]
     },
-    "win_text": "Das Echo verklingt."
+    "win_text": "Das Echo verklingt.",
+    "max_round_dmg": 0.34
   },
   "miriam": {
     "name": "Miriam Vey",
     "sprite": "npc:miriam",
     "occult": true,
     "boss": true,
-    "hp": 50,
+    "hp": 115,
     "fleeable": false,
     "intro": "Miriam Vey steht vor der Glocke, das geliehene Gesicht halb abgestreift. „Sie hätten zuhören sollen, Ermittler. Nur ein einziges Mal zuhören.“\n\nSie hebt den Taktstock, und die Glocke antwortet.",
     "attacks": [
       {
         "name": "Wiegenlied",
         "action": "taunt",
-        "value": 12,
-        "text": "Lilians Wiegenlied, ganz leise. Deine Augen werden schwer. -12 Nerven."
+        "value": 15,
+        "text": "Lilians Wiegenlied, ganz leise. Deine Augen werden schwer. -15 Nerven."
       },
       {
         "name": "Sieben Stimmen",
-        "damage": 4,
+        "damage": 5,
         "hits": [
           600,
           850,
@@ -932,7 +945,7 @@
       },
       {
         "name": "Taktstock",
-        "damage": 7,
+        "damage": 9,
         "hits": [
           800,
           1200
@@ -940,7 +953,7 @@
       },
       {
         "name": "Der erste Schlag",
-        "damage": 12,
+        "damage": 16,
         "hits": [
           2200
         ]
@@ -948,8 +961,8 @@
       {
         "name": "Ein fremdes Gesicht",
         "action": "heal",
-        "value": 6,
-        "text": "Sie streicht über ihr Gesicht, und die Wunde gehört plötzlich jemand anderem. +7 Leben."
+        "value": 8,
+        "text": "Sie streicht über ihr Gesicht, und die Wunde gehört plötzlich jemand anderem. +8 Leben."
       }
     ],
     "weak_if": {
@@ -970,26 +983,29 @@
       "spawn": "kammer"
     },
     "lose_text": "Du kommst oben in der Gießerei zu dir. Aus der Kammer klingt ein Wiegenlied. Es ist noch nicht Neumond. Noch nicht ganz.",
-    "win_text": "Vey sinkt gegen die Glocke. Der Taktstock fällt ihr aus der Hand. Die Glocke summt weiter, sieben Stimmen tief."
+    "win_text": "Vey sinkt gegen die Glocke. Der Taktstock fällt ihr aus der Hand. Die Glocke summt weiter, sieben Stimmen tief.",
+    "armor": 1,
+    "ramp": 0.02,
+    "max_round_dmg": 0.2
   },
   "schattenabzug": {
     "name": "Schattenabzug",
     "sprite": "apparition",
     "occult": true,
-    "hp": 30,
+    "hp": 94,
     "fleeable": true,
     "intro": "Ein Schatten löst sich von der Wand, obwohl niemand vor ihr steht. Er hat die Umrisse eines Offiziers.",
     "attacks": [
       {
         "name": "Kalter Griff",
-        "damage": 5,
+        "damage": 7,
         "hits": [
           900
         ]
       },
       {
         "name": "Flackern",
-        "damage": 3,
+        "damage": 4,
         "hits": [
           500,
           800,
@@ -1002,19 +1018,20 @@
         "schattenabzug_defeated"
       ]
     },
-    "win_text": "Der Schatten fällt zu Boden und kriecht unter einen Stuhl. Dort bleibt er liegen, als würde er auf jemanden warten."
+    "win_text": "Der Schatten fällt zu Boden und kriecht unter einen Stuhl. Dort bleibt er liegen, als würde er auf jemanden warten.",
+    "max_round_dmg": 0.34
   },
   "negativ_geist": {
     "name": "Negativgeist",
     "sprite": "apparition",
     "occult": true,
-    "hp": 40,
+    "hp": 115,
     "fleeable": true,
     "intro": "Im roten Licht der Dunkelkammer steht eine Gestalt, weiß, wo sie schwarz sein sollte. Ein Mensch, umgekehrt.",
     "attacks": [
       {
         "name": "Blitzlicht",
-        "damage": 6,
+        "damage": 9,
         "hits": [
           1000
         ],
@@ -1022,7 +1039,7 @@
       },
       {
         "name": "Umkehrung",
-        "damage": 4,
+        "damage": 6,
         "hits": [
           600,
           900
@@ -1030,7 +1047,7 @@
       },
       {
         "name": "Überbelichtung",
-        "damage": 11,
+        "damage": 16,
         "hits": [
           1900
         ]
@@ -1044,19 +1061,20 @@
         "belichtungsmesser": 1
       }
     },
-    "win_text": "Die Gestalt verblasst wie eine Platte im Tageslicht."
+    "win_text": "Die Gestalt verblasst wie eine Platte im Tageslicht.",
+    "max_round_dmg": 0.34
   },
   "silberbad_schleim": {
     "name": "Silberbadschleim",
     "sprite": "rats",
     "occult": true,
-    "hp": 38,
+    "hp": 112,
     "fleeable": true,
     "intro": "Die Pfütze glänzt wie flüssiger Spiegel. Dann richtet sie sich auf und zeigt dir dein Gesicht, falsch herum.",
     "attacks": [
       {
         "name": "Spritzer",
-        "damage": 3,
+        "damage": 4,
         "hits": [
           500,
           750,
@@ -1066,7 +1084,7 @@
       },
       {
         "name": "Ätzendes Silber",
-        "damage": 7,
+        "damage": 9,
         "hits": [
           1300
         ],
@@ -1084,20 +1102,21 @@
         "schattenrest": 1
       }
     },
-    "win_text": "Der Schleim zerfließt. Zurück bleibt ein Fetzen Dunkelheit, der sich in eine leere Flasche flüchtet."
+    "win_text": "Der Schleim zerfließt. Zurück bleibt ein Fetzen Dunkelheit, der sich in eine leere Flasche flüchtet.",
+    "max_round_dmg": 0.34
   },
   "dreizehnter_gast": {
     "name": "Der dreizehnte Gast",
     "sprite": "npc:cultist",
     "occult": true,
     "boss": true,
-    "hp": 54,
+    "hp": 130,
     "fleeable": false,
     "intro": "Lucan Mews tritt aus den Spiegeln, und mit ihm zwölf Schatten, die nicht seine sind. „Sie waren so schön auf den Platten. Ich wollte nur auch einmal da sein.“",
     "attacks": [
       {
         "name": "Zwölf Schatten",
-        "damage": 3,
+        "damage": 7,
         "hits": [
           500,
           750,
@@ -1107,7 +1126,7 @@
       },
       {
         "name": "Blitzpulver",
-        "damage": 8,
+        "damage": 11,
         "hits": [
           1100
         ],
@@ -1116,12 +1135,12 @@
       {
         "name": "Geborgter Leib",
         "action": "heal",
-        "value": 5,
-        "text": "Ein fremder Schatten legt sich über seine Wunde. +5 Leben."
+        "value": 8,
+        "text": "Ein fremder Schatten legt sich über seine Wunde. +8 Leben."
       },
       {
         "name": "Spiegelsturz",
-        "damage": 13,
+        "damage": 18,
         "hits": [
           2000
         ]
@@ -1146,18 +1165,21 @@
     },
     "lose_text": "Du stehst draußen vor dem Kabinett und weißt nicht, wie du dorthin gekommen bist. Dein Schatten ist noch da. Fast ganz.",
     "win_text": "Lucan fällt, und die fremden Schatten fallen von ihm ab. Darunter ist ein dünner junger Mann, der zittert.",
-    "tint": "#b8c4d8"
+    "tint": "#b8c4d8",
+    "armor": 1,
+    "ramp": 0.02,
+    "max_round_dmg": 0.2
   },
   "pratt_fight": {
     "name": "Dr. Horatio Pratt",
     "sprite": "npc:silas",
-    "hp": 30,
+    "hp": 94,
     "fleeable": true,
     "intro": "Pratt zieht einen Stockdegen aus seinem Gehstock. „Meine Kunden sind zufrieden, Herr Polizist!“",
     "attacks": [
       {
         "name": "Degenstich",
-        "damage": 5,
+        "damage": 7,
         "hits": [
           700,
           1050
@@ -1165,7 +1187,7 @@
       },
       {
         "name": "Flasche ins Gesicht",
-        "damage": 7,
+        "damage": 10,
         "hits": [
           1300
         ]
@@ -1180,27 +1202,28 @@
         "wundertonikum"
       ]
     },
-    "win_text": "Pratt sitzt zwischen seinen zerbrochenen Flaschen und rechnet laut nach, wie viel ihn das kostet."
+    "win_text": "Pratt sitzt zwischen seinen zerbrochenen Flaschen und rechnet laut nach, wie viel ihn das kostet.",
+    "max_round_dmg": 0.34
   },
   "ertrunkener": {
     "name": "Der Ertrunkene",
     "sprite": "apparition",
     "tint": "#7ab0a0",
     "occult": true,
-    "hp": 42,
+    "hp": 119,
     "fleeable": true,
     "intro": "Im Kohlenkeller steht eine Gestalt, aus der Wasser rinnt, ohne dass der Boden nass wird. Sie hat Thornes Gesicht, nur aufgedunsen.",
     "attacks": [
       {
         "name": "Schwall",
-        "damage": 8,
+        "damage": 10,
         "hits": [
           1100
         ]
       },
       {
         "name": "Gurgeln",
-        "damage": 4,
+        "damage": 5,
         "hits": [
           500,
           800,
@@ -1210,7 +1233,7 @@
       },
       {
         "name": "Nach unten ziehen",
-        "damage": 12,
+        "damage": 15,
         "hits": [
           1900
         ]
@@ -1221,26 +1244,27 @@
         "ertrunkener_defeated"
       ]
     },
-    "win_text": "Die Gestalt fällt in sich zusammen. Zurück bleibt ein Geruch nach Kanal."
+    "win_text": "Die Gestalt fällt in sich zusammen. Zurück bleibt ein Geruch nach Kanal.",
+    "max_round_dmg": 0.34
   },
   "pfandeintreiber": {
     "name": "Der Pfandeintreiber",
     "sprite": "npc:holt",
     "tint": "#a08a6a",
-    "hp": 44,
+    "hp": 126,
     "fleeable": true,
     "intro": "Ein breiter Mann mit Melone und Schuldbuch versperrt dir den Weg. „Thorne ist tot, aber die Schulden leben. Und Schnüffler zahlen extra.“",
     "attacks": [
       {
         "name": "Faustschlag",
-        "damage": 8,
+        "damage": 10,
         "hits": [
           900
         ]
       },
       {
         "name": "Schlagring",
-        "damage": 5,
+        "damage": 6,
         "hits": [
           600,
           900
@@ -1248,7 +1272,7 @@
       },
       {
         "name": "Kopfstoß",
-        "damage": 13,
+        "damage": 16,
         "hits": [
           1700
         ]
@@ -1262,20 +1286,22 @@
         "schuldbuch": 1
       }
     },
-    "win_text": "Er lässt das Schuldbuch fallen und rennt."
+    "win_text": "Er lässt das Schuldbuch fallen und rennt.",
+    "armor": 1,
+    "max_round_dmg": 0.34
   },
   "traumfaden": {
     "name": "Gewebe aus Traumfäden",
     "sprite": "apparition",
     "tint": "#b0b8f0",
     "occult": true,
-    "hp": 56,
+    "hp": 101,
     "fleeable": false,
     "intro": "Zwischen dir und dem Webstuhl hängen tausend Fäden. Als du näherkommst, ziehen sie sich zu einer Gestalt zusammen, die wie ein schlafendes Kind atmet.",
     "attacks": [
       {
         "name": "Umspinnen",
-        "damage": 4,
+        "damage": 5,
         "hits": [
           500,
           750,
@@ -1291,14 +1317,14 @@
       },
       {
         "name": "Reißen",
-        "damage": 11,
+        "damage": 15,
         "hits": [
           1300
         ]
       },
       {
         "name": "Albtraum",
-        "damage": 15,
+        "damage": 20,
         "hits": [
           2000
         ]
@@ -1313,7 +1339,9 @@
       "map": "waisenhaus",
       "spawn": "keller"
     },
-    "win_text": "Die Fäden reißen und sinken zu Boden wie Staub."
+    "win_text": "Die Fäden reißen und sinken zu Boden wie Staub.",
+    "armor": 2,
+    "max_round_dmg": 0.25
   },
   "miss_wren": {
     "name": "Miss Imogen Wren",
@@ -1321,19 +1349,19 @@
     "tint": "#c8c8d8",
     "occult": true,
     "boss": true,
-    "hp": 72,
+    "hp": 150,
     "fleeable": false,
     "intro": "Miss Wren sitzt am Webstuhl und webt, ohne aufzusehen. „Sie verstehen das nicht. Er hätte sie auf die Straße gesetzt. Ich habe ihn nur im Schlaf besucht.“\n\nSie hebt die Schere.",
     "attacks": [
       {
         "name": "Schlaflied",
         "action": "taunt",
-        "value": 14,
-        "text": "Sie summt. Deine Lider werden schwer. -14 Nerven."
+        "value": 18,
+        "text": "Sie summt. Deine Lider werden schwer. -18 Nerven."
       },
       {
         "name": "Fadenhieb",
-        "damage": 5,
+        "damage": 8,
         "hits": [
           500,
           750,
@@ -1343,7 +1371,7 @@
       },
       {
         "name": "Silberschere",
-        "damage": 10,
+        "damage": 14,
         "hits": [
           900,
           1300
@@ -1351,7 +1379,7 @@
       },
       {
         "name": "Kanalwasser",
-        "damage": 16,
+        "damage": 17,
         "hits": [
           2100
         ]
@@ -1384,14 +1412,16 @@
       "spawn": "keller"
     },
     "win_text": "Die Schere fällt. Miss Wren sinkt neben den Webstuhl und summt weiter, ganz leise.",
-    "armor": 3
+    "armor": 3,
+    "max_round_dmg": 0.2,
+    "ramp": 0.03
   },
   "sternlicht": {
     "name": "Gefallenes Sternlicht",
     "sprite": "apparition",
     "tint": "#e8f0ff",
     "occult": true,
-    "hp": 58,
+    "hp": 104,
     "fleeable": false,
     "intro": "Aus dem Okular tropft Licht auf die Dielen und richtet sich auf. Es hat viele Stimmen, und keine davon gehört ihm.",
     "attacks": [
@@ -1435,7 +1465,8 @@
       "map": "sternwarte",
       "spawn": "default"
     },
-    "win_text": "Das Licht zerfällt in Funken, die zum Teleskop zurückkriechen."
+    "win_text": "Das Licht zerfällt in Funken, die zum Teleskop zurückkriechen.",
+    "max_round_dmg": 0.34
   },
   "starling_fight": {
     "name": "Professor Lucius Starling",
@@ -1446,15 +1477,22 @@
     "hp": 84,
     "armor": 3,
     "fleeable": false,
-    "intro": "Starling dreht sich vom Okular weg und lächelt, als hätte er dich zum Tee erwartet. „Mein bester Ermittler! Sie kommen genau richtig. Ohne Sie hätte ich nichts davon ernten können.“\n\nEr hebt eine Linse, und darin brennt ein Stück Stern.",
+    "min_seq": 7,
+    "intro": "Starling dreht sich vom Okular weg und lächelt, als hätte er dich zum Tee erwartet. „Mein bester Ermittler! Sie kommen genau richtig. Ohne Sie hätte ich nichts davon ernten können.“\n\nEr hebt eine Linse, und darin brennt ein Stück Stern. „Price hat heute meinen vierten Brief bekommen. Sie haben noch bis zum Morgengrauen, dann gehört Ihr Gesicht ihm.“",
     "attacks": [
       {
         "name": "Brennglas",
-        "damage": 9,
+        "damage": 10,
         "hits": [
           900,
           1300
         ]
+      },
+      {
+        "name": "Gestohlene Stimme",
+        "action": "taunt",
+        "value": 14,
+        "text": "Er spricht mit Elias’ Stimme: „Hilf mir.“ -14 Nerven."
       },
       {
         "name": "Sternregen",
@@ -1463,14 +1501,17 @@
           500,
           750,
           1000,
-          1250
+          1250,
+          1500
         ]
       },
       {
-        "name": "Gestohlene Stimme",
-        "action": "taunt",
-        "value": 12,
-        "text": "Er spricht mit Elias’ Stimme: „Hilf mir.“ -12 Nerven."
+        "name": "Ernte",
+        "action": "drain",
+        "value": 2,
+        "heal": 4,
+        "heal_per_ap": 2,
+        "text": "Er hält dir die Linse hin, und deine Konzentration fließt als dünner Lichtfaden hinein. Er wird heller."
       },
       {
         "name": "Geliehener Schatten",
@@ -1480,7 +1521,7 @@
       },
       {
         "name": "Fallender Stern",
-        "damage": 17,
+        "damage": 18,
         "hits": [
           2100
         ]
@@ -1494,6 +1535,89 @@
     "weak_text": "Du weißt, woraus sein Licht besteht: aus fremden Stimmen, Schatten und Träumen. Du rufst ihre Namen, und es flackert.",
     "on_win": {
       "sets_flags": [
+        "starling_phase1"
+      ],
+      "heal": 25,
+      "nerves": 25,
+      "combat": "starling_stern"
+    },
+    "lose_to": {
+      "map": "sternwarte",
+      "spawn": "default"
+    },
+    "lose_text": "Das Brennglas findet dich. Du kommst am Fuß der Treppe zu dir, und oben am Okular steht Starling wieder, als hätte es dich nie gegeben.",
+    "win_text": "Die Linse zerspringt. Starling taumelt gegen das Teleskop, und für einen Atemzug glaubst du, es sei vorbei. Du holst Luft, der Kopf wird klarer (+25 Leben, +25 Nerven).\n\nDann greift er in den Spiegel, und der Stern greift zurück.",
+    "max_round_dmg": 0.2
+  },
+  "starling_stern": {
+    "name": "Starling, vom Stern getragen",
+    "sprite": "npc:cultist",
+    "tint": "#f4f8ff",
+    "occult": true,
+    "boss": true,
+    "hp": 95,
+    "armor": 3,
+    "ramp": 0.03,
+    "fleeable": false,
+    "min_seq": 7,
+    "intro": "Licht läuft Starlings Arme hinauf, und unter seiner Haut kreisen fünf kleine Lichter: Stimmen, Schatten, Glockenklang, Träume. „Nicht ich habe Sie gebraucht“, sagt er mit Elias’ Stimme, mit Varennes Stimme, mit deiner. „Er hat Sie gebraucht.“\n\nEr wird mit jeder Runde heller. Zieh den Kampf nicht in die Länge.",
+    "attacks": [
+      {
+        "name": "Fünf Ernten",
+        "damage": 5,
+        "hits": [
+          500,
+          800,
+          1100,
+          1400
+        ],
+        "nerves": 2
+      },
+      {
+        "name": "Spiegellicht",
+        "action": "veil",
+        "text": "Der Stern spiegelt sich in ihm. Nur ein präziser Treffer findet den Mann im Licht."
+      },
+      {
+        "name": "Sternenkrone",
+        "damage": 11,
+        "hits": [
+          800,
+          1500
+        ],
+        "bleed": [
+          3,
+          2
+        ]
+      },
+      {
+        "name": "Dein Name",
+        "action": "taunt",
+        "value": 18,
+        "text": "„Wie hießen Sie noch? Auf dem Steckbrief steht es anders.“ -18 Nerven."
+      },
+      {
+        "name": "Sternlicht trinken",
+        "action": "heal",
+        "value": 10,
+        "text": "Er trinkt vom Licht des Sterns. +10 Leben."
+      },
+      {
+        "name": "Fallender Stern",
+        "damage": 21,
+        "hits": [
+          2300
+        ]
+      }
+    ],
+    "weak_if": {
+      "requires_certain": [
+        "d9_ernte"
+      ]
+    },
+    "weak_text": "Du kennst jedes der fünf Lichter beim Namen. Wenn du sie rufst, zögert das Licht, und darunter ist nur ein alter Mann.",
+    "on_win": {
+      "sets_flags": [
         "starling_beaten"
       ],
       "honor": 5,
@@ -1503,7 +1627,8 @@
       "map": "sternwarte",
       "spawn": "default"
     },
-    "win_text": "Die Linse zerspringt. Starling sinkt neben das Teleskop und lacht, als hätte er gewonnen.",
-    "min_seq": 7
+    "lose_text": "Das Licht schlägt über dir zusammen. Du kommst am Fuß der Treppe zu dir, und oben am Okular steht Starling wieder, unversehrt. Du musst noch einmal hinauf, von Anfang an.",
+    "win_text": "Der Stern lässt ihn los. Starling sinkt neben das Teleskop, grau und klein, und lacht, als hätte er trotzdem gewonnen.\n\n„Sehen Sie aus dem Fenster“, flüstert er. „Die Laternen kommen den Hügel herauf.“",
+    "max_round_dmg": 0.2
   }
 }

@@ -83,8 +83,7 @@
             "flat": 16,
             "holy": true,
             "stun": true,
-            "composure": 10,
-            "desc": "Ein greller Lichtblitz. 16 Schaden, doppelt gegen Okkultes, der Gegner setzt eine Runde aus. Kostet 10 Nerven."
+            "desc": "Ein greller Lichtblitz. 16 Schaden, doppelt gegen Okkultes, der Gegner setzt eine Runde aus."
           },
           "passives": [
             {
@@ -172,8 +171,7 @@
               5,
               3
             ],
-            "composure": 15,
-            "desc": "Du lässt alles Licht auf einmal los. 30 Schaden, doppelt gegen Okkultes, der Gegner setzt aus und brennt 3 Runden. Kostet 15 Nerven."
+            "desc": "Du lässt alles Licht auf einmal los. 30 Schaden, doppelt gegen Okkultes, der Gegner setzt aus und brennt 3 Runden."
           },
           "passives": [
             {
@@ -674,8 +672,7 @@
             "hits": 1,
             "flat": 7,
             "holy": true,
-            "composure": 5,
-            "desc": "Ein Ton, der nur Tote quält. 7 Schaden, doppelt gegen Okkultes. Kostet 5 Nerven."
+            "desc": "Ein Ton, der nur Tote quält. 7 Schaden, doppelt gegen Okkultes."
           },
           "passives": [
             {
@@ -699,8 +696,7 @@
             "cost": 3,
             "hits": 0,
             "stun": true,
-            "composure": 10,
-            "desc": "Eine Stimme aus dem Grab. Der Gegner erstarrt und setzt eine Runde aus. Kostet 10 Nerven."
+            "desc": "Eine Stimme aus dem Grab. Der Gegner erstarrt und setzt eine Runde aus."
           },
           "passives": [
             {
@@ -762,8 +758,7 @@
             "hits": 3,
             "flat": 7,
             "holy": true,
-            "composure": 10,
-            "desc": "Drei Stimmen singen mit dir. Je 7 Schaden, doppelt gegen Okkultes. Kostet 10 Nerven."
+            "desc": "Drei Stimmen singen mit dir. Je 7 Schaden, doppelt gegen Okkultes."
           },
           "passives": [
             {
@@ -810,8 +805,7 @@
             "flat": 24,
             "drain": 0.6,
             "stun": true,
-            "composure": 15,
-            "desc": "Ein Lied, das Atem stiehlt. 24 Schaden, 60 % davon heilen dich, der Gegner erstarrt. Kostet 15 Nerven."
+            "desc": "Ein Lied, das Atem stiehlt. 24 Schaden, 60 % davon heilen dich, der Gegner erstarrt."
           },
           "passives": [
             {
@@ -1780,6 +1774,221 @@
       "boss": 0.2
     },
     "list": {
+      "atemperle": {
+        "name": "Atemperle der Taucherin",
+        "source": "wild",
+        "zones": [
+          "wx_salzwatt",
+          "wx_leuchtturm"
+        ],
+        "price": 120,
+        "icon": "moorperle",
+        "desc": "Eine graue Perle, die nach Tang und Salz riecht. Wer sie unter der Zunge hält, atmet ruhig, auch wenn der Gegner zum dritten Mal ausholt. Dafür bleibt kein Platz für Gedanken.",
+        "boons": [
+          {
+            "key": "round_nerves",
+            "value": 5,
+            "text": "+5 Nerven zu Beginn jeder Kampfrunde."
+          }
+        ],
+        "curses": [
+          {
+            "key": "ap_max",
+            "value": -2,
+            "text": "-2 Höchstkonzentration."
+          },
+          {
+            "key": "heal_bonus",
+            "value": 0.6,
+            "text": "Heilung wirkt nur zu 60 %."
+          }
+        ]
+      },
+      "blutsalz_phiole": {
+        "name": "Blutsalz-Phiole",
+        "source": "wild",
+        "zones": [
+          "marsch",
+          "wx_torfbrueche"
+        ],
+        "price": 90,
+        "icon": "salzkristall",
+        "desc": "Eine Phiole mit rotem Salz aus dem Moor. Es knistert, wenn ein Schlag auf dich zukommt, und zieht die Angst aus den Fingern. Es zieht auch anderes.",
+        "boons": [
+          {
+            "key": "round_nerves",
+            "value": 4,
+            "text": "+4 Nerven zu Beginn jeder Kampfrunde."
+          },
+          {
+            "key": "parry_nerves",
+            "value": 2,
+            "text": "Paraden bringen 2 Nerven mehr."
+          }
+        ],
+        "curses": [
+          {
+            "key": "ap_blood",
+            "value": 1,
+            "text": "Jeder Punkt Konzentration, den du ausgibst, kostet 1 Leben."
+          },
+          {
+            "key": "heal_bonus",
+            "value": 0.7,
+            "text": "Heilung wirkt nur zu 70 %."
+          }
+        ]
+      },
+      "knoechelring_preisboxer": {
+        "name": "Knöchelring des Preisboxers",
+        "source": "treffen",
+        "price": 125,
+        "icon": "siegelring",
+        "desc": "Ein Eisenring für den Mittelfinger, blank geschlagen von hundert Fausthieben. Wer ihn trägt, will keinem Schlag ausweichen. Er will ihn fangen.",
+        "boons": [
+          {
+            "key": "parry_ap",
+            "value": 1,
+            "text": "Paraden bringen 1 Konzentration mehr."
+          },
+          {
+            "key": "parry_nerves",
+            "value": 4,
+            "text": "Paraden bringen 4 Nerven mehr."
+          }
+        ],
+        "curses": [
+          {
+            "key": "dodge_cost",
+            "value": 4,
+            "text": "Ausweichen kostet 4 Nerven mehr."
+          },
+          {
+            "key": "damage_taken",
+            "value": 1.15,
+            "text": "Du nimmst 15 % mehr Schaden."
+          }
+        ]
+      },
+      "trommelfell_ausrufer": {
+        "name": "Trommelfell des Ausrufers",
+        "source": "treffen",
+        "price": 115,
+        "icon": "bronzeglocke_klein",
+        "desc": "Eine Membran aus Pergament in einem Messingring, angeblich das Trommelfell eines Marktausrufers, der nie heiser wurde. Nichts bringt dich so leicht aus der Ruhe. Aber du brauchst länger, bis du zuschlägst.",
+        "boons": [
+          {
+            "key": "max_nerves",
+            "value": 25,
+            "text": "+25 Nerven."
+          },
+          {
+            "key": "composure_regen",
+            "value": 1.3,
+            "text": "Nerven erholen sich 30 % schneller."
+          }
+        ],
+        "curses": [
+          {
+            "key": "ap_max",
+            "value": -1,
+            "text": "-1 Höchstkonzentration."
+          },
+          {
+            "key": "ap_start",
+            "value": -1,
+            "text": "Du beginnst jeden Kampf mit 1 Konzentration weniger."
+          },
+          {
+            "key": "damage_taken",
+            "value": 1.1,
+            "text": "Du nimmst 10 % mehr Schaden."
+          }
+        ]
+      },
+      "glasnerv": {
+        "name": "Glasnerv",
+        "source": "artisan",
+        "price": 170,
+        "icon": "glasfeder",
+        "desc": "Ein Strang aus Glasfedern und Geisterkern, zu einem Nerv gefasst, der nicht reißt. Er hält mehr aus als deine eigenen. Dafür spürst du jeden Schlag doppelt.",
+        "boons": [
+          {
+            "key": "max_nerves",
+            "value": 40,
+            "text": "+40 Nerven."
+          }
+        ],
+        "curses": [
+          {
+            "key": "damage_taken",
+            "value": 1.25,
+            "text": "Du nimmst 25 % mehr Schaden."
+          },
+          {
+            "key": "dodge_cost",
+            "value": 3,
+            "text": "Ausweichen kostet 3 Nerven mehr."
+          }
+        ]
+      },
+      "nervenfaden_weberin": {
+        "name": "Nervenfaden der Weberin",
+        "source": "artisan",
+        "price": 150,
+        "icon": "wachsdocht",
+        "desc": "Ein Docht, mit Madenwachs gespult und so straff gespannt, dass er singt. Er hält drei Gedanken mehr, als in deinen Kopf passen. Jede Runde reißt er ein Stück weiter.",
+        "boons": [
+          {
+            "key": "ap_max",
+            "value": 3,
+            "text": "+3 Höchstkonzentration."
+          }
+        ],
+        "curses": [
+          {
+            "key": "round_nerves",
+            "value": -5,
+            "text": "Jede Kampfrunde kostet 5 Nerven."
+          },
+          {
+            "key": "max_nerves",
+            "value": -20,
+            "text": "-20 Nerven."
+          }
+        ]
+      },
+      "moorzunder": {
+        "name": "Moorzunder",
+        "source": "artisan",
+        "price": 130,
+        "icon": "irrlichtfunke",
+        "desc": "Irrlichtfunken in schwarzem Kerzenwachs. Zünde ihn im Kopf, und die Fertigkeiten kommen fast umsonst. Was er stattdessen frisst, merkst du erst, wenn die Stimmen anfangen.",
+        "boons": [
+          {
+            "key": "skill_composure",
+            "value": 0.4,
+            "text": "Fertigkeiten kosten 60 % weniger Nerven."
+          }
+        ],
+        "curses": [
+          {
+            "key": "skill_unruhe",
+            "value": 4,
+            "text": "Jede Fertigkeit bringt 4 Unruhe."
+          },
+          {
+            "key": "max_hp",
+            "value": -12,
+            "text": "-12 Leben."
+          },
+          {
+            "key": "vision_cost",
+            "value": 1.5,
+            "text": "Geistsicht kostet 50 % mehr Nerven."
+          }
+        ]
+      },
       "uhr_ertrunkener": {
         "name": "Uhr des Ertrunkenen",
         "source": "revier",
@@ -2948,6 +3157,546 @@
             "text": "Ansehen sinkt 20 % schneller."
           }
         ]
+      },
+      "siebter_fingerring": {
+        "name": "Ring für den siebten Finger",
+        "source": "revier",
+        "requires_honor": 20,
+        "price": 70,
+        "icon": "siegelring",
+        "desc": "Ein Ring, der an keinen deiner Finger passt. Trag ihn trotzdem bei dir: Er sucht sich einen Platz, den du nicht siehst.",
+        "boons": [
+          {
+            "key": "ap_max",
+            "value": 1,
+            "text": "+1 Höchstwert Konzentration."
+          }
+        ],
+        "curses": [
+          {
+            "key": "max_hp",
+            "value": -15,
+            "text": "−15 Leben."
+          },
+          {
+            "key": "unruhe_tick",
+            "value": 0.1,
+            "text": "Unruhe steigt langsam, solange du ihn trägst."
+          }
+        ],
+        "konzentration": true
+      },
+      "metronom_ohne_feder": {
+        "name": "Metronom ohne Feder",
+        "source": "revier",
+        "requires_honor": 35,
+        "price": 100,
+        "icon": "taschenuhr",
+        "desc": "Ein Metronom, dem jemand die Feder gezogen hat. Es schlägt trotzdem, aber erst, wenn man es eine Weile angestarrt hat.",
+        "boons": [
+          {
+            "key": "ap_round",
+            "value": 1,
+            "text": "Zu Beginn jeder weiteren Runde +1 Konzentration."
+          }
+        ],
+        "curses": [
+          {
+            "key": "ap_start",
+            "value": -1,
+            "text": "Du beginnst jeden Kampf ohne Konzentration."
+          },
+          {
+            "key": "composure_regen",
+            "value": 0.5,
+            "text": "Nerven erholen sich nur halb so schnell."
+          },
+          {
+            "key": "damage_taken",
+            "value": 1.15,
+            "text": "Du nimmst 15 % mehr Schaden."
+          }
+        ],
+        "konzentration": true
+      },
+      "schlagzaehler": {
+        "name": "Schlagzähler des Preisboxers",
+        "source": "revier",
+        "requires_honor": 50,
+        "price": 110,
+        "icon": "messingschlagring",
+        "desc": "Ein Messingzähler, den ein Boxer am Handgelenk trug. Er zählt jeden Treffer mit, und solange er zählt, denkt man nicht an Rückzug.",
+        "boons": [
+          {
+            "key": "attack_ap",
+            "value": 1,
+            "text": "Jeder einfache Angriff bringt +1 Konzentration mehr."
+          }
+        ],
+        "curses": [
+          {
+            "key": "no_flee",
+            "value": true,
+            "text": "Du kannst aus keinem Kampf fliehen."
+          },
+          {
+            "key": "damage_taken",
+            "value": 1.25,
+            "text": "Du nimmst 25 % mehr Schaden."
+          }
+        ],
+        "konzentration": true
+      },
+      "hohle_krone": {
+        "name": "Die hohle Krone",
+        "source": "revier",
+        "requires_honor": 70,
+        "price": 200,
+        "icon": "kupferkrone",
+        "desc": "Eine Krone aus dünnem Blech, innen leer. Wer sie bei sich trägt, denkt in geraden Linien und vergisst, dass ein Körper dazugehört.",
+        "boons": [
+          {
+            "key": "ap_max",
+            "value": 3,
+            "text": "+3 Höchstwert Konzentration."
+          },
+          {
+            "key": "ap_round",
+            "value": 1,
+            "text": "Zu Beginn jeder weiteren Runde +1 Konzentration."
+          }
+        ],
+        "curses": [
+          {
+            "key": "max_hp",
+            "value": -30,
+            "text": "−30 Leben."
+          },
+          {
+            "key": "damage_taken",
+            "value": 1.3,
+            "text": "Du nimmst 30 % mehr Schaden."
+          },
+          {
+            "key": "ap_burn",
+            "value": 1,
+            "text": "Jeder am Rundenende ungenutzte Punkt Konzentration kostet 1 Leben."
+          },
+          {
+            "key": "heal_bonus",
+            "value": 0.5,
+            "text": "Heilmittel wirken nur halb."
+          }
+        ],
+        "konzentration": true
+      },
+      "tickender_zahn": {
+        "name": "Der tickende Zahn",
+        "source": "wild",
+        "zones": [
+          "marsch",
+          "wx_torfbrueche"
+        ],
+        "price": 90,
+        "icon": "schlickzahn",
+        "desc": "Ein Backenzahn, in dem etwas tickt. Legt man ihn ans Ohr, zählt er mit, und man kann nicht aufhören mitzuzählen.",
+        "boons": [
+          {
+            "key": "ap_round",
+            "value": 1,
+            "text": "Zu Beginn jeder weiteren Runde +1 Konzentration."
+          }
+        ],
+        "curses": [
+          {
+            "key": "ap_burn",
+            "value": 3,
+            "text": "Jeder am Rundenende ungenutzte Punkt Konzentration kostet 3 Leben."
+          },
+          {
+            "key": "max_nerves",
+            "value": -15,
+            "text": "−15 Nerven."
+          }
+        ],
+        "konzentration": true
+      },
+      "nadel_der_naeherin": {
+        "name": "Nadel der Näherin",
+        "source": "wild",
+        "zones": [
+          "pestgassen",
+          "wx_salzwatt"
+        ],
+        "price": 120,
+        "icon": "haarnadel",
+        "desc": "Eine Stopfnadel, die jemand sechzig Jahre lang zwischen den Lippen hielt. Mit ihr in der Tasche ist man vom ersten Herzschlag an bei der Sache. Dann näht sie weiter.",
+        "boons": [
+          {
+            "key": "ap_start",
+            "value": 2,
+            "text": "Jeder Kampf beginnt mit +2 Konzentration."
+          }
+        ],
+        "curses": [
+          {
+            "key": "combat_drain",
+            "value": 4,
+            "text": "Jede Kampfrunde kostet 4 Nerven."
+          },
+          {
+            "key": "composure_regen",
+            "value": 0.7,
+            "text": "Nerven erholen sich 30 % langsamer."
+          }
+        ],
+        "konzentration": true
+      },
+      "gedankenkaefig": {
+        "name": "Der Gedankenkäfig",
+        "source": "wild",
+        "zones": [
+          "katakomben",
+          "wx_altstadt"
+        ],
+        "price": 150,
+        "icon": "kette_rauchfass",
+        "desc": "Ein Käfig aus Draht, so groß wie eine Faust, mit nichts darin. Wer ihn trägt, hat Platz im Kopf für mehr. Für anderes bleibt keiner.",
+        "boons": [
+          {
+            "key": "ap_max",
+            "value": 3,
+            "text": "+3 Höchstwert Konzentration."
+          }
+        ],
+        "curses": [
+          {
+            "key": "no_items",
+            "value": true,
+            "text": "Im Kampf kannst du keine Gegenstände benutzen."
+          },
+          {
+            "key": "parry_ap",
+            "value": -1,
+            "text": "Paraden bringen keine Konzentration."
+          },
+          {
+            "key": "max_nerves",
+            "value": -20,
+            "text": "−20 Nerven."
+          }
+        ],
+        "konzentration": true
+      },
+      "stummer_chor": {
+        "name": "Der stumme Chor",
+        "source": "wild",
+        "zones": [
+          "wx_leuchtturm",
+          "ds_rufschlucht"
+        ],
+        "price": 140,
+        "icon": "puppenglas",
+        "desc": "Ein Glasgefäß mit zwölf winzigen Figuren, die alle den Mund offen haben. Man hört nichts. Man denkt nur klarer, und jede Anstrengung hallt nach.",
+        "boons": [
+          {
+            "key": "ap_max",
+            "value": 2,
+            "text": "+2 Höchstwert Konzentration."
+          },
+          {
+            "key": "ap_start",
+            "value": 1,
+            "text": "Jeder Kampf beginnt mit +1 Konzentration."
+          }
+        ],
+        "curses": [
+          {
+            "key": "skill_composure",
+            "value": 2,
+            "text": "Fertigkeiten kosten doppelt so viele Nerven."
+          },
+          {
+            "key": "unruhe_tick",
+            "value": 0.15,
+            "text": "Unruhe steigt, solange du es trägst."
+          }
+        ],
+        "konzentration": true
+      },
+      "zweites_herz": {
+        "name": "Das zweite Herz",
+        "source": "wild",
+        "zones": [
+          "kraterwald",
+          "ds_klopfbruch"
+        ],
+        "price": 160,
+        "icon": "wachsherz",
+        "desc": "Ein Herz aus Torf und Draht, das im Takt des eigenen schlägt, nur schneller. Es gibt viel und behält nichts.",
+        "boons": [
+          {
+            "key": "ap_round",
+            "value": 2,
+            "text": "Zu Beginn jeder weiteren Runde +2 Konzentration."
+          }
+        ],
+        "curses": [
+          {
+            "key": "ap_reset",
+            "value": true,
+            "text": "Am Rundenende verfällt alle übrige Konzentration."
+          },
+          {
+            "key": "ap_blood",
+            "value": 2,
+            "text": "Jeder ausgegebene Punkt Konzentration kostet 2 Leben."
+          },
+          {
+            "key": "heal_bonus",
+            "value": 0.7,
+            "text": "Heilmittel wirken 30 % schwächer."
+          }
+        ],
+        "konzentration": true
+      },
+      "rangierlinse": {
+        "name": "Die Rangierlinse",
+        "source": "wild",
+        "zones": [
+          "ds_rangierwueste",
+          "ds_unterschicht"
+        ],
+        "price": 170,
+        "icon": "linsenscherbe",
+        "desc": "Eine Signallinse aus der Rangierwüste, rot und rissig. Durch sie sieht man nur das Ziel. Alles andere kommt näher, ohne dass man es merkt.",
+        "boons": [
+          {
+            "key": "ap_max",
+            "value": 2,
+            "text": "+2 Höchstwert Konzentration."
+          },
+          {
+            "key": "dmg_mult",
+            "value": 1.1,
+            "text": "+10 % Schaden."
+          }
+        ],
+        "curses": [
+          {
+            "key": "enemy_ramp",
+            "value": 0.08,
+            "text": "Gegner schlagen jede Runde 8 % härter zu."
+          },
+          {
+            "key": "no_flee",
+            "value": true,
+            "text": "Du kannst aus keinem Kampf fliehen."
+          },
+          {
+            "key": "calm_decay",
+            "value": 0.5,
+            "text": "Unruhe klingt nur halb so schnell ab."
+          }
+        ],
+        "konzentration": true
+      },
+      "kreidezirkel": {
+        "name": "Kreidezirkel des Rechenmeisters",
+        "source": "treffen",
+        "price": 130,
+        "icon": "kreidestummel",
+        "desc": "Ein Zirkel mit Kreide statt Spitze. Wer ihn trägt, rechnet jeden Schlag voraus. Nur die eigenen Füße kommen in der Rechnung nicht vor.",
+        "boons": [
+          {
+            "key": "parry_ap",
+            "value": 1,
+            "text": "Paraden bringen +1 Konzentration."
+          },
+          {
+            "key": "ap_round",
+            "value": 1,
+            "text": "Zu Beginn jeder weiteren Runde +1 Konzentration."
+          }
+        ],
+        "curses": [
+          {
+            "key": "dodge_window",
+            "value": 0.6,
+            "text": "Ausweichfenster −40 %."
+          },
+          {
+            "key": "money_bonus",
+            "value": 0.7,
+            "text": "Beute bringt 30 % weniger Geld."
+          }
+        ],
+        "konzentration": true
+      },
+      "sanduhr_voll_asche": {
+        "name": "Sanduhr voll Asche",
+        "source": "treffen",
+        "price": 150,
+        "icon": "knochenmehl",
+        "desc": "Eine Sanduhr, gefüllt mit der Asche von jemandem, der nie wartete. Sie rieselt immer. Je länger ein Kampf dauert, desto lauter.",
+        "boons": [
+          {
+            "key": "ap_round",
+            "value": 1,
+            "text": "Zu Beginn jeder weiteren Runde +1 Konzentration."
+          },
+          {
+            "key": "ap_max",
+            "value": 1,
+            "text": "+1 Höchstwert Konzentration."
+          }
+        ],
+        "curses": [
+          {
+            "key": "enemy_ramp",
+            "value": 0.06,
+            "text": "Gegner schlagen jede Runde 6 % härter zu."
+          },
+          {
+            "key": "composure_regen",
+            "value": 0.6,
+            "text": "Nerven erholen sich 40 % langsamer."
+          }
+        ],
+        "konzentration": true
+      },
+      "uhrwerkherz": {
+        "name": "Uhrwerkherz",
+        "source": "treffen",
+        "price": 180,
+        "icon": "zahnrad_klein",
+        "desc": "Ein Uhrwerk in Herzform, das aufgezogen werden will. Es treibt an, Schlag für Schlag, und nimmt sich dafür ein wenig Blut.",
+        "boons": [
+          {
+            "key": "ap_round",
+            "value": 1,
+            "text": "Zu Beginn jeder weiteren Runde +1 Konzentration."
+          },
+          {
+            "key": "attack_ap",
+            "value": 1,
+            "text": "Jeder einfache Angriff bringt +1 Konzentration mehr."
+          }
+        ],
+        "curses": [
+          {
+            "key": "ap_blood",
+            "value": 1,
+            "text": "Jeder ausgegebene Punkt Konzentration kostet 1 Leben."
+          },
+          {
+            "key": "honor_loss",
+            "value": 1.5,
+            "text": "Ansehen sinkt 50 % schneller."
+          },
+          {
+            "key": "max_hp",
+            "value": -10,
+            "text": "−10 Leben."
+          }
+        ],
+        "konzentration": true
+      },
+      "knoechelrosenkranz": {
+        "name": "Rosenkranz aus Fingerknöcheln",
+        "source": "treffen",
+        "price": 120,
+        "icon": "knochenwuerfel",
+        "desc": "Zwölf Fingerknöchel auf einer Schnur. Wer sie beim Zuschlagen durch die Hand gleiten lässt, bleibt bei der Sache. Abwehr zählt der Rosenkranz nicht.",
+        "boons": [
+          {
+            "key": "attack_ap",
+            "value": 1,
+            "text": "Jeder einfache Angriff bringt +1 Konzentration mehr."
+          },
+          {
+            "key": "ap_max",
+            "value": 1,
+            "text": "+1 Höchstwert Konzentration."
+          }
+        ],
+        "curses": [
+          {
+            "key": "parry_ap",
+            "value": -1,
+            "text": "Paraden bringen keine Konzentration."
+          },
+          {
+            "key": "composure_regen",
+            "value": 0.5,
+            "text": "Nerven erholen sich nur halb so schnell."
+          }
+        ],
+        "konzentration": true
+      },
+      "kerzenkrone": {
+        "name": "Krone aus sieben Kerzen",
+        "source": "treffen",
+        "price": 170,
+        "icon": "kerze_schwarz",
+        "desc": "Ein Reif mit sieben Kerzenstummeln, die ohne Flamme brennen. Was man nicht ausgibt, verbrennt.",
+        "boons": [
+          {
+            "key": "ap_max",
+            "value": 2,
+            "text": "+2 Höchstwert Konzentration."
+          },
+          {
+            "key": "attack_ap",
+            "value": 1,
+            "text": "Jeder einfache Angriff bringt +1 Konzentration mehr."
+          }
+        ],
+        "curses": [
+          {
+            "key": "ap_burn",
+            "value": 2,
+            "text": "Jeder am Rundenende ungenutzte Punkt Konzentration kostet 2 Leben."
+          },
+          {
+            "key": "vision_cost",
+            "value": 1.5,
+            "text": "Geistsicht kostet 50 % mehr Nerven."
+          }
+        ],
+        "konzentration": true
+      },
+      "aschestundenglas": {
+        "name": "Stundenglas aus Knochenasche",
+        "source": "treffen",
+        "price": 160,
+        "icon": "grubenglas",
+        "desc": "Ein Stundenglas aus Glas, das man aus Knochenasche geschmolzen hat. Es misst nur die eine Runde, dann ist alles, was man gesammelt hat, weg.",
+        "boons": [
+          {
+            "key": "ap_max",
+            "value": 1,
+            "text": "+1 Höchstwert Konzentration."
+          },
+          {
+            "key": "ap_round",
+            "value": 1,
+            "text": "Zu Beginn jeder weiteren Runde +1 Konzentration."
+          }
+        ],
+        "curses": [
+          {
+            "key": "ap_reset",
+            "value": true,
+            "text": "Am Rundenende verfällt alle übrige Konzentration."
+          },
+          {
+            "key": "combat_drain",
+            "value": 3,
+            "text": "Jede Kampfrunde kostet 3 Nerven."
+          }
+        ],
+        "konzentration": true
       }
     }
   },
