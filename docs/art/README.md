@@ -1758,3 +1758,25 @@ Duplikate und Herkunfts-Hashes. Generiert mit dem eingebauten Bildgenerator.
 Prüfung: `python tools/art/sekten/check.py` (Pillow). Prüft den vollständigen Pflichtumfang, Maße, Palette, binäres Alpha, Raster, Animationsgrenzen, belegte und leere Frames, Ausholduplikate, unterschiedliche Lauf-/Effektframes und Portraitausdrücke sowie 2×-Items. Export: `python tools/art/sekten/export.py docs/art/batch-sekten-generation.json /pfad/zu/generated_images`. Die Quelldateinamen und SHA-256 stehen im Promptprotokoll.
 
 Grafiklieferung ohne Änderung am Spielcode. Die Einbindung und die Abstimmung im laufenden Spiel folgen separat.
+
+## Batch CI – Briarholt, kalt und warm (`briarholt1`)
+
+41 PNGs für Kapitel 5 (Briarholt), Einbau separat: 6 Tilesets je `_kalt`/`_warm`
+(8×5 Zellen à 16×16, identische Zellenbelegung; Reihe 5 enthält die Animationsphasen,
+in `_kalt` als ruhende Kopien), 6 Prop-Blätter (Kutschenhof, Kesselgrund inkl. Bügelraum
+mit Ventiltafel und Steckmarken, Promenade, Glasgärten, Stillenhäuser, Wurzelkranz mit
+Verteilanlage in 3 Zuständen), `fx/bh_waerme.png` (Dampf, Kondensat-Schrift, Reif,
+Rücklauf-Puls, Kondensat-Sperre, Leitungsplan-Kacheln), 9 Szenenbilder inkl. vier Enden
+und der Lichtmeister-Variante, 9 Kampf-Hintergründe (Kesselgrund und Glasgärten kalt/warm),
+Stadtkarte mit Nebel- und Leitungsplan-Overlay, Marker für alle 18 Karten und die
+Kapitelkarte. Gemeinsame 32-Farben-Palette, binäres Alpha, Nearest-Neighbor-Zielraster.
+Figuren (BK), Gegner/Zonen-Hintergründe (BI) und Item-Icons (BM) werden nicht doppelt geliefert.
+
+- Manifest: `public/sprites/manifest-briarholt1.json` (Zellen, Regionen, `regionAnimations`, `variants: {kalt, warm}`, Pins, Leitungs-Segmente).
+- Prompts (Style-Block vorangestellt), Referenzen, Roh- und Ausgabe-Hashes: `docs/art/batch-briarholt1-generation.json`.
+- Vorschau: `docs/art/batch-briarholt1-preview.png`; Prüfung: `python tools/art/briarholt1/check.py --write` → `docs/art/batch-briarholt1-validation.json`.
+
+**Hinweise:** Warm-Zustand von `bh_klinik` und die Animationsreihen sind prozedural aus den
+generierten Zellen abgeleitet (siehe `variantSource`/`steps` im Protokoll). Pins und
+Leitungs-Segmente der Stadtkarte sind am generierten Bild gemessen und Vorschläge für CH;
+`groundStrip` der Kampf-Hintergründe folgt dem Dunscar-Standard (y 200, Höhe 70).

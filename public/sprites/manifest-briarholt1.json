@@ -1,0 +1,5799 @@
+{
+  "version": 1,
+  "batch": "briarholt1",
+  "codex": "CI",
+  "city": "briarholt",
+  "status": "exported; game integration separate",
+  "paletteMaxVisibleColors": 32,
+  "palette": [
+    "#1a1c2c",
+    "#252b38",
+    "#303b49",
+    "#425360",
+    "#586c78",
+    "#71858b",
+    "#95a5a5",
+    "#a8b4c0",
+    "#2d2629",
+    "#58433c",
+    "#715648",
+    "#92745a",
+    "#b3946e",
+    "#cfb18a",
+    "#e0c9a1",
+    "#494b3a",
+    "#686850",
+    "#8b8870",
+    "#eee2c5",
+    "#173d40",
+    "#245b59",
+    "#36817a",
+    "#4eafa2",
+    "#6fe0d0",
+    "#886332",
+    "#d0a050",
+    "#e8b860",
+    "#f0ce80",
+    "#c8b0e8",
+    "#5c426a",
+    "#8c7295",
+    "#893e4e"
+  ],
+  "notDuplicated": "Figuren (BK/vorrat2), Gegner und Zonen-Hintergründe Palmhaus/Wäscherei/Wurzelkammer (BI/vorrat1), Item-Icons (BM/vorrat3) werden nicht neu geliefert.",
+  "assets": [
+    {
+      "id": "bh_promenade_kalt",
+      "kind": "tiles",
+      "theme": "bh_promenade",
+      "variant": "kalt",
+      "variants": {
+        "kalt": "tilesets/bh_promenade_kalt.png",
+        "warm": "tilesets/bh_promenade_warm.png"
+      },
+      "transparent": false,
+      "columns": 8,
+      "rows": 5,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "tilesets/bh_promenade_kalt.png",
+      "width": 128,
+      "height": 80,
+      "animations": {},
+      "tileNames": [
+        "brick_paving_1",
+        "brick_paving_2",
+        "brick_paving_3",
+        "brick_paving_4",
+        "pavilion_floor_1",
+        "pavilion_floor_2",
+        "paving_edge_north_1",
+        "paving_edge_north_2",
+        "palm_tub",
+        "brick_planter",
+        "gas_lamp_base",
+        "postcard_rack",
+        "glass_walkway_pane_a",
+        "glass_walkway_pane_b",
+        "glass_walkway_roof_left",
+        "glass_walkway_roof_right",
+        "kurhaus_cornice_brass",
+        "kurhaus_wall_center",
+        "kurhaus_wall_left",
+        "kurhaus_wall_right",
+        "kurhaus_window_1",
+        "kurhaus_window_2",
+        "kurhaus_double_door",
+        "brass_cornice_band",
+        "kurhaus_plinth",
+        "brass_railing_1",
+        "brass_railing_2",
+        "stone_steps",
+        "flowerbed_curb",
+        "drain_grate",
+        "bench_base",
+        "lamp_light_patch",
+        "glass_walkway_pane_drip_2",
+        "glass_walkway_pane_b_drip_2",
+        "filler_2",
+        "filler_3",
+        "filler_4",
+        "filler_5",
+        "filler_6",
+        "filler_7"
+      ],
+      "cells": {
+        "brick_paving_1": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "brick_paving_2": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "brick_paving_3": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "brick_paving_4": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "pavilion_floor_1": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "pavilion_floor_2": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "paving_edge_north_1": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "paving_edge_north_2": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "palm_tub": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "brick_planter": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "gas_lamp_base": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "postcard_rack": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "glass_walkway_pane_a": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "glass_walkway_pane_b": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "glass_walkway_roof_left": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "glass_walkway_roof_right": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_cornice_brass": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_wall_center": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_wall_left": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_wall_right": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_window_1": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_window_2": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_double_door": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "brass_cornice_band": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_plinth": {
+          "index": 24,
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "brass_railing_1": {
+          "index": 25,
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "brass_railing_2": {
+          "index": 26,
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "stone_steps": {
+          "index": 27,
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "flowerbed_curb": {
+          "index": 28,
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "drain_grate": {
+          "index": 29,
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "bench_base": {
+          "index": 30,
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "lamp_light_patch": {
+          "index": 31,
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "glass_walkway_pane_drip_2": {
+          "index": 32,
+          "x": 0,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "glass_walkway_pane_b_drip_2": {
+          "index": 33,
+          "x": 16,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_2": {
+          "index": 34,
+          "x": 32,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_3": {
+          "index": 35,
+          "x": 48,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_4": {
+          "index": 36,
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_5": {
+          "index": 37,
+          "x": 80,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_6": {
+          "index": 38,
+          "x": 96,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_7": {
+          "index": 39,
+          "x": 112,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "stateSwitch": "Wechsel kalt/warm über die Mechanik Wärme und Rücklauf, nicht über die Tageszeit",
+      "sha256": "486343be08151812df9dd4bcceaa9ad2133ff514c8870cfe08b482440baaceeb"
+    },
+    {
+      "id": "bh_promenade_warm",
+      "kind": "tiles",
+      "theme": "bh_promenade",
+      "variant": "warm",
+      "variants": {
+        "kalt": "tilesets/bh_promenade_kalt.png",
+        "warm": "tilesets/bh_promenade_warm.png"
+      },
+      "transparent": false,
+      "columns": 8,
+      "rows": 5,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "tilesets/bh_promenade_warm.png",
+      "width": 128,
+      "height": 80,
+      "animations": {
+        "glass_drip": {
+          "frames": [
+            12,
+            32
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "glass_drip_b": {
+          "frames": [
+            13,
+            33
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        }
+      },
+      "tileNames": [
+        "brick_paving_1",
+        "brick_paving_2",
+        "brick_paving_3",
+        "brick_paving_4",
+        "pavilion_floor_1",
+        "pavilion_floor_2",
+        "paving_edge_north_1",
+        "paving_edge_north_2",
+        "palm_tub",
+        "brick_planter",
+        "gas_lamp_base",
+        "postcard_rack",
+        "glass_walkway_pane_a",
+        "glass_walkway_pane_b",
+        "glass_walkway_roof_left",
+        "glass_walkway_roof_right",
+        "kurhaus_cornice_brass",
+        "kurhaus_wall_center",
+        "kurhaus_wall_left",
+        "kurhaus_wall_right",
+        "kurhaus_window_1",
+        "kurhaus_window_2",
+        "kurhaus_double_door",
+        "brass_cornice_band",
+        "kurhaus_plinth",
+        "brass_railing_1",
+        "brass_railing_2",
+        "stone_steps",
+        "flowerbed_curb",
+        "drain_grate",
+        "bench_base",
+        "lamp_light_patch",
+        "glass_walkway_pane_drip_2",
+        "glass_walkway_pane_b_drip_2",
+        "filler_2",
+        "filler_3",
+        "filler_4",
+        "filler_5",
+        "filler_6",
+        "filler_7"
+      ],
+      "cells": {
+        "brick_paving_1": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "brick_paving_2": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "brick_paving_3": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "brick_paving_4": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "pavilion_floor_1": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "pavilion_floor_2": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "paving_edge_north_1": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "paving_edge_north_2": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "palm_tub": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "brick_planter": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "gas_lamp_base": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "postcard_rack": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "glass_walkway_pane_a": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "glass_walkway_pane_b": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "glass_walkway_roof_left": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "glass_walkway_roof_right": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_cornice_brass": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_wall_center": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_wall_left": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_wall_right": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_window_1": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_window_2": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_double_door": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "brass_cornice_band": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "kurhaus_plinth": {
+          "index": 24,
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "brass_railing_1": {
+          "index": 25,
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "brass_railing_2": {
+          "index": 26,
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "stone_steps": {
+          "index": 27,
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "flowerbed_curb": {
+          "index": 28,
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "drain_grate": {
+          "index": 29,
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "bench_base": {
+          "index": 30,
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "lamp_light_patch": {
+          "index": 31,
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "glass_walkway_pane_drip_2": {
+          "index": 32,
+          "x": 0,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "glass_walkway_pane_b_drip_2": {
+          "index": 33,
+          "x": 16,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_2": {
+          "index": 34,
+          "x": 32,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_3": {
+          "index": 35,
+          "x": 48,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_4": {
+          "index": 36,
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_5": {
+          "index": 37,
+          "x": 80,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_6": {
+          "index": 38,
+          "x": 96,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_7": {
+          "index": 39,
+          "x": 112,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "stateSwitch": "Wechsel kalt/warm über die Mechanik Wärme und Rücklauf, nicht über die Tageszeit",
+      "sha256": "1fef657bd7d1000488975095bef79491509ce0618bc7d60c7a5eb14af0ed58a9"
+    },
+    {
+      "id": "bh_kessel_kalt",
+      "kind": "tiles",
+      "theme": "bh_kessel",
+      "variant": "kalt",
+      "variants": {
+        "kalt": "tilesets/bh_kessel_kalt.png",
+        "warm": "tilesets/bh_kessel_warm.png"
+      },
+      "transparent": false,
+      "columns": 8,
+      "rows": 5,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "tilesets/bh_kessel_kalt.png",
+      "width": 128,
+      "height": 80,
+      "animations": {},
+      "tileNames": [
+        "workshop_floor_1",
+        "workshop_floor_2",
+        "workshop_floor_3",
+        "coal_chute_top",
+        "coal_chute_bottom",
+        "coal_heap",
+        "laundry_facade_window",
+        "laundry_facade_wall",
+        "pipe_bridge_horizontal",
+        "pipe_bridge_cross",
+        "pipe_bend_1",
+        "pipe_bend_2",
+        "valve_closed",
+        "valve_cold",
+        "valve_warm",
+        "pipe_flange_joint",
+        "condensate_puddle_1",
+        "condensate_puddle_2",
+        "laundry_window",
+        "laundry_door",
+        "steam_vent_1",
+        "steam_vent_2",
+        "steam_vent_3",
+        "steam_vent_4",
+        "brick_wall_1",
+        "brick_wall_2",
+        "brick_wall_3",
+        "brick_wall_4",
+        "chimney_base",
+        "floor_grate",
+        "iron_rail",
+        "cobble_edge",
+        "steam_vent_anim_1",
+        "steam_vent_anim_2",
+        "steam_vent_anim_3",
+        "steam_vent_anim_4",
+        "filler_4",
+        "filler_5",
+        "filler_6",
+        "filler_7"
+      ],
+      "cells": {
+        "workshop_floor_1": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "workshop_floor_2": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "workshop_floor_3": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "coal_chute_top": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "coal_chute_bottom": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "coal_heap": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "laundry_facade_window": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "laundry_facade_wall": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "pipe_bridge_horizontal": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "pipe_bridge_cross": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "pipe_bend_1": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "pipe_bend_2": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "valve_closed": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "valve_cold": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "valve_warm": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "pipe_flange_joint": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "condensate_puddle_1": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "condensate_puddle_2": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "laundry_window": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "laundry_door": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "steam_vent_1": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "steam_vent_2": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "steam_vent_3": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "steam_vent_4": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "brick_wall_1": {
+          "index": 24,
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "brick_wall_2": {
+          "index": 25,
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "brick_wall_3": {
+          "index": 26,
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "brick_wall_4": {
+          "index": 27,
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "chimney_base": {
+          "index": 28,
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "floor_grate": {
+          "index": 29,
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "iron_rail": {
+          "index": 30,
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "cobble_edge": {
+          "index": 31,
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "steam_vent_anim_1": {
+          "index": 32,
+          "x": 0,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "steam_vent_anim_2": {
+          "index": 33,
+          "x": 16,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "steam_vent_anim_3": {
+          "index": 34,
+          "x": 32,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "steam_vent_anim_4": {
+          "index": 35,
+          "x": 48,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_4": {
+          "index": 36,
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_5": {
+          "index": 37,
+          "x": 80,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_6": {
+          "index": 38,
+          "x": 96,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_7": {
+          "index": 39,
+          "x": 112,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "stateSwitch": "Wechsel kalt/warm über die Mechanik Wärme und Rücklauf, nicht über die Tageszeit",
+      "sha256": "825d10a2c7e48cb54290149132f3312ac8cb8c29c12203c72bcbe608ee4f5983"
+    },
+    {
+      "id": "bh_kessel_warm",
+      "kind": "tiles",
+      "theme": "bh_kessel",
+      "variant": "warm",
+      "variants": {
+        "kalt": "tilesets/bh_kessel_kalt.png",
+        "warm": "tilesets/bh_kessel_warm.png"
+      },
+      "transparent": false,
+      "columns": 8,
+      "rows": 5,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "tilesets/bh_kessel_warm.png",
+      "width": 128,
+      "height": 80,
+      "animations": {
+        "steam": {
+          "frames": [
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      },
+      "tileNames": [
+        "workshop_floor_1",
+        "workshop_floor_2",
+        "workshop_floor_3",
+        "coal_chute_top",
+        "coal_chute_bottom",
+        "coal_heap",
+        "laundry_facade_window",
+        "laundry_facade_wall",
+        "pipe_bridge_horizontal",
+        "pipe_bridge_cross",
+        "pipe_bend_1",
+        "pipe_bend_2",
+        "valve_closed",
+        "valve_cold",
+        "valve_warm",
+        "pipe_flange_joint",
+        "condensate_puddle_1",
+        "condensate_puddle_2",
+        "laundry_window",
+        "laundry_door",
+        "steam_vent_1",
+        "steam_vent_2",
+        "steam_vent_3",
+        "steam_vent_4",
+        "brick_wall_1",
+        "brick_wall_2",
+        "brick_wall_3",
+        "brick_wall_4",
+        "chimney_base",
+        "floor_grate",
+        "iron_rail",
+        "cobble_edge",
+        "steam_vent_anim_1",
+        "steam_vent_anim_2",
+        "steam_vent_anim_3",
+        "steam_vent_anim_4",
+        "filler_4",
+        "filler_5",
+        "filler_6",
+        "filler_7"
+      ],
+      "cells": {
+        "workshop_floor_1": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "workshop_floor_2": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "workshop_floor_3": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "coal_chute_top": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "coal_chute_bottom": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "coal_heap": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "laundry_facade_window": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "laundry_facade_wall": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "pipe_bridge_horizontal": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "pipe_bridge_cross": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "pipe_bend_1": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "pipe_bend_2": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "valve_closed": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "valve_cold": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "valve_warm": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "pipe_flange_joint": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "condensate_puddle_1": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "condensate_puddle_2": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "laundry_window": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "laundry_door": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "steam_vent_1": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "steam_vent_2": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "steam_vent_3": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "steam_vent_4": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "brick_wall_1": {
+          "index": 24,
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "brick_wall_2": {
+          "index": 25,
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "brick_wall_3": {
+          "index": 26,
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "brick_wall_4": {
+          "index": 27,
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "chimney_base": {
+          "index": 28,
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "floor_grate": {
+          "index": 29,
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "iron_rail": {
+          "index": 30,
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "cobble_edge": {
+          "index": 31,
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "steam_vent_anim_1": {
+          "index": 32,
+          "x": 0,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "steam_vent_anim_2": {
+          "index": 33,
+          "x": 16,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "steam_vent_anim_3": {
+          "index": 34,
+          "x": 32,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "steam_vent_anim_4": {
+          "index": 35,
+          "x": 48,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_4": {
+          "index": 36,
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_5": {
+          "index": 37,
+          "x": 80,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_6": {
+          "index": 38,
+          "x": 96,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_7": {
+          "index": 39,
+          "x": 112,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "stateSwitch": "Wechsel kalt/warm über die Mechanik Wärme und Rücklauf, nicht über die Tageszeit",
+      "sha256": "11bd635756458cd20e1c83a526e145feaaed9c3bcced168cadfc1b50358982c8"
+    },
+    {
+      "id": "bh_glas_kalt",
+      "kind": "tiles",
+      "theme": "bh_glas",
+      "variant": "kalt",
+      "variants": {
+        "kalt": "tilesets/bh_glas_kalt.png",
+        "warm": "tilesets/bh_glas_warm.png"
+      },
+      "transparent": false,
+      "columns": 8,
+      "rows": 5,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "tilesets/bh_glas_kalt.png",
+      "width": 128,
+      "height": 80,
+      "animations": {},
+      "tileNames": [
+        "greenhouse_wall_1",
+        "greenhouse_wall_2",
+        "greenhouse_wall_3",
+        "greenhouse_wall_4",
+        "greenhouse_wall_5",
+        "greenhouse_wall_6",
+        "greenhouse_door",
+        "greenhouse_corner_post",
+        "bed_closed_with_sign",
+        "bed_open_1",
+        "bed_open_2",
+        "bed_blossom",
+        "gravel_path_1",
+        "gravel_path_2",
+        "gravel_path_3",
+        "gravel_path_4",
+        "gutter_horizontal",
+        "gutter_cross",
+        "gutter_horizontal_2",
+        "gutter_vertical",
+        "soil_1",
+        "soil_2",
+        "soil_3",
+        "stepping_stones_soil",
+        "planting_table",
+        "potting_shelf",
+        "seed_tray",
+        "watering_can",
+        "brick_plinth",
+        "iron_grate",
+        "frost_moss_patch",
+        "stepping_stones_moss",
+        "bed_blossom_2",
+        "gutter_horizontal_flow_2",
+        "gutter_vertical_flow_2",
+        "filler_3",
+        "filler_4",
+        "filler_5",
+        "filler_6",
+        "filler_7"
+      ],
+      "cells": {
+        "greenhouse_wall_1": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "greenhouse_wall_2": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "greenhouse_wall_3": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "greenhouse_wall_4": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "greenhouse_wall_5": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "greenhouse_wall_6": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "greenhouse_door": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "greenhouse_corner_post": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "bed_closed_with_sign": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "bed_open_1": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "bed_open_2": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "bed_blossom": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "gravel_path_1": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "gravel_path_2": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "gravel_path_3": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "gravel_path_4": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "gutter_horizontal": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "gutter_cross": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "gutter_horizontal_2": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "gutter_vertical": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "soil_1": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "soil_2": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "soil_3": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "stepping_stones_soil": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "planting_table": {
+          "index": 24,
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "potting_shelf": {
+          "index": 25,
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "seed_tray": {
+          "index": 26,
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "watering_can": {
+          "index": 27,
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "brick_plinth": {
+          "index": 28,
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "iron_grate": {
+          "index": 29,
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "frost_moss_patch": {
+          "index": 30,
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "stepping_stones_moss": {
+          "index": 31,
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "bed_blossom_2": {
+          "index": 32,
+          "x": 0,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "gutter_horizontal_flow_2": {
+          "index": 33,
+          "x": 16,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "gutter_vertical_flow_2": {
+          "index": 34,
+          "x": 32,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_3": {
+          "index": 35,
+          "x": 48,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_4": {
+          "index": 36,
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_5": {
+          "index": 37,
+          "x": 80,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_6": {
+          "index": 38,
+          "x": 96,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_7": {
+          "index": 39,
+          "x": 112,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "stateSwitch": "Wechsel kalt/warm über die Mechanik Wärme und Rücklauf, nicht über die Tageszeit",
+      "sha256": "9d63d9065ab8b2820e6460145eb33bcebd2d8c32723d9db6ed0e531c617045fd"
+    },
+    {
+      "id": "bh_glas_warm",
+      "kind": "tiles",
+      "theme": "bh_glas",
+      "variant": "warm",
+      "variants": {
+        "kalt": "tilesets/bh_glas_kalt.png",
+        "warm": "tilesets/bh_glas_warm.png"
+      },
+      "transparent": false,
+      "columns": 8,
+      "rows": 5,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "tilesets/bh_glas_warm.png",
+      "width": 128,
+      "height": 80,
+      "animations": {
+        "blossom": {
+          "frames": [
+            11,
+            32
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "gutter_flow_h": {
+          "frames": [
+            16,
+            33
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        },
+        "gutter_flow_v": {
+          "frames": [
+            19,
+            34
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        }
+      },
+      "tileNames": [
+        "greenhouse_wall_1",
+        "greenhouse_wall_2",
+        "greenhouse_wall_3",
+        "greenhouse_wall_4",
+        "greenhouse_wall_5",
+        "greenhouse_wall_6",
+        "greenhouse_door",
+        "greenhouse_corner_post",
+        "bed_closed_with_sign",
+        "bed_open_1",
+        "bed_open_2",
+        "bed_blossom",
+        "gravel_path_1",
+        "gravel_path_2",
+        "gravel_path_3",
+        "gravel_path_4",
+        "gutter_horizontal",
+        "gutter_cross",
+        "gutter_horizontal_2",
+        "gutter_vertical",
+        "soil_1",
+        "soil_2",
+        "soil_3",
+        "stepping_stones_soil",
+        "planting_table",
+        "potting_shelf",
+        "seed_tray",
+        "watering_can",
+        "brick_plinth",
+        "iron_grate",
+        "frost_moss_patch",
+        "stepping_stones_moss",
+        "bed_blossom_2",
+        "gutter_horizontal_flow_2",
+        "gutter_vertical_flow_2",
+        "filler_3",
+        "filler_4",
+        "filler_5",
+        "filler_6",
+        "filler_7"
+      ],
+      "cells": {
+        "greenhouse_wall_1": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "greenhouse_wall_2": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "greenhouse_wall_3": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "greenhouse_wall_4": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "greenhouse_wall_5": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "greenhouse_wall_6": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "greenhouse_door": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "greenhouse_corner_post": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "bed_closed_with_sign": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "bed_open_1": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "bed_open_2": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "bed_blossom": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "gravel_path_1": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "gravel_path_2": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "gravel_path_3": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "gravel_path_4": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "gutter_horizontal": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "gutter_cross": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "gutter_horizontal_2": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "gutter_vertical": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "soil_1": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "soil_2": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "soil_3": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "stepping_stones_soil": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "planting_table": {
+          "index": 24,
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "potting_shelf": {
+          "index": 25,
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "seed_tray": {
+          "index": 26,
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "watering_can": {
+          "index": 27,
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "brick_plinth": {
+          "index": 28,
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "iron_grate": {
+          "index": 29,
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "frost_moss_patch": {
+          "index": 30,
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "stepping_stones_moss": {
+          "index": 31,
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "bed_blossom_2": {
+          "index": 32,
+          "x": 0,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "gutter_horizontal_flow_2": {
+          "index": 33,
+          "x": 16,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "gutter_vertical_flow_2": {
+          "index": 34,
+          "x": 32,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_3": {
+          "index": 35,
+          "x": 48,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_4": {
+          "index": 36,
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_5": {
+          "index": 37,
+          "x": 80,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_6": {
+          "index": 38,
+          "x": 96,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_7": {
+          "index": 39,
+          "x": 112,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "stateSwitch": "Wechsel kalt/warm über die Mechanik Wärme und Rücklauf, nicht über die Tageszeit",
+      "sha256": "8930857d19e1acadc7a92528ac20303e518d05a7a28e545b4522dba93bd45b10"
+    },
+    {
+      "id": "bh_stille_kalt",
+      "kind": "tiles",
+      "theme": "bh_stille",
+      "variant": "kalt",
+      "variants": {
+        "kalt": "tilesets/bh_stille_kalt.png",
+        "warm": "tilesets/bh_stille_warm.png"
+      },
+      "transparent": false,
+      "columns": 8,
+      "rows": 5,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "tilesets/bh_stille_kalt.png",
+      "width": 128,
+      "height": 80,
+      "animations": {},
+      "tileNames": [
+        "hospital_tiles_1",
+        "hospital_tiles_2",
+        "dining_floorboards_1",
+        "dining_floorboards_2",
+        "floor_rug_pattern",
+        "hospital_tiles_3",
+        "floor_edge_north_1",
+        "floor_edge_north_2",
+        "bed_1",
+        "bed_2",
+        "slate_board_last_line_erased",
+        "bedside_table",
+        "wall_left",
+        "wall_center",
+        "wall_right",
+        "wall_corner",
+        "window_1",
+        "window_2",
+        "door",
+        "wainscot_wall",
+        "dining_table_left",
+        "dining_table_middle",
+        "dining_table_right",
+        "bench",
+        "tea_counter",
+        "tea_kettle_stove",
+        "cupboard",
+        "sink",
+        "station_desk",
+        "filing_shelf",
+        "rug",
+        "radiator",
+        "filler_0",
+        "filler_1",
+        "filler_2",
+        "filler_3",
+        "filler_4",
+        "filler_5",
+        "filler_6",
+        "filler_7"
+      ],
+      "cells": {
+        "hospital_tiles_1": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "hospital_tiles_2": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "dining_floorboards_1": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "dining_floorboards_2": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "floor_rug_pattern": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "hospital_tiles_3": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "floor_edge_north_1": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "floor_edge_north_2": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "bed_1": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "bed_2": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "slate_board_last_line_erased": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "bedside_table": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wall_left": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wall_center": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wall_right": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wall_corner": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "window_1": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "window_2": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "door": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "wainscot_wall": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "dining_table_left": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "dining_table_middle": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "dining_table_right": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "bench": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "tea_counter": {
+          "index": 24,
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "tea_kettle_stove": {
+          "index": 25,
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "cupboard": {
+          "index": 26,
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "sink": {
+          "index": 27,
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "station_desk": {
+          "index": 28,
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "filing_shelf": {
+          "index": 29,
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "rug": {
+          "index": 30,
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "radiator": {
+          "index": 31,
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "filler_0": {
+          "index": 32,
+          "x": 0,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_1": {
+          "index": 33,
+          "x": 16,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_2": {
+          "index": 34,
+          "x": 32,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_3": {
+          "index": 35,
+          "x": 48,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_4": {
+          "index": 36,
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_5": {
+          "index": 37,
+          "x": 80,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_6": {
+          "index": 38,
+          "x": 96,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_7": {
+          "index": 39,
+          "x": 112,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "stateSwitch": "Wechsel kalt/warm über die Mechanik Wärme und Rücklauf, nicht über die Tageszeit",
+      "sha256": "5e636b5fe0cc5f2063a527090e934703cb9bccab0fa6c12e5ed57c1d5f6e9b07"
+    },
+    {
+      "id": "bh_stille_warm",
+      "kind": "tiles",
+      "theme": "bh_stille",
+      "variant": "warm",
+      "variants": {
+        "kalt": "tilesets/bh_stille_kalt.png",
+        "warm": "tilesets/bh_stille_warm.png"
+      },
+      "transparent": false,
+      "columns": 8,
+      "rows": 5,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "tilesets/bh_stille_warm.png",
+      "width": 128,
+      "height": 80,
+      "animations": {},
+      "tileNames": [
+        "hospital_tiles_1",
+        "hospital_tiles_2",
+        "dining_floorboards_1",
+        "dining_floorboards_2",
+        "floor_rug_pattern",
+        "hospital_tiles_3",
+        "floor_edge_north_1",
+        "floor_edge_north_2",
+        "bed_1",
+        "bed_2",
+        "slate_board_last_line_erased",
+        "bedside_table",
+        "wall_left",
+        "wall_center",
+        "wall_right",
+        "wall_corner",
+        "window_1",
+        "window_2",
+        "door",
+        "wainscot_wall",
+        "dining_table_left",
+        "dining_table_middle",
+        "dining_table_right",
+        "bench",
+        "tea_counter",
+        "tea_kettle_stove",
+        "cupboard",
+        "sink",
+        "station_desk",
+        "filing_shelf",
+        "rug",
+        "radiator",
+        "filler_0",
+        "filler_1",
+        "filler_2",
+        "filler_3",
+        "filler_4",
+        "filler_5",
+        "filler_6",
+        "filler_7"
+      ],
+      "cells": {
+        "hospital_tiles_1": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "hospital_tiles_2": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "dining_floorboards_1": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "dining_floorboards_2": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "floor_rug_pattern": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "hospital_tiles_3": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "floor_edge_north_1": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "floor_edge_north_2": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "bed_1": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "bed_2": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "slate_board_last_line_erased": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "bedside_table": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wall_left": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wall_center": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wall_right": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wall_corner": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "window_1": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "window_2": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "door": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "wainscot_wall": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "dining_table_left": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "dining_table_middle": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "dining_table_right": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "bench": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "tea_counter": {
+          "index": 24,
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "tea_kettle_stove": {
+          "index": 25,
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "cupboard": {
+          "index": 26,
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "sink": {
+          "index": 27,
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "station_desk": {
+          "index": 28,
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "filing_shelf": {
+          "index": 29,
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "rug": {
+          "index": 30,
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "radiator": {
+          "index": 31,
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "filler_0": {
+          "index": 32,
+          "x": 0,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_1": {
+          "index": 33,
+          "x": 16,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_2": {
+          "index": 34,
+          "x": 32,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_3": {
+          "index": 35,
+          "x": 48,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_4": {
+          "index": 36,
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_5": {
+          "index": 37,
+          "x": 80,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_6": {
+          "index": 38,
+          "x": 96,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_7": {
+          "index": 39,
+          "x": 112,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "stateSwitch": "Wechsel kalt/warm über die Mechanik Wärme und Rücklauf, nicht über die Tageszeit",
+      "sha256": "f2787a587a51a97c973899b4bb23d34095670f7f08547eb62d4ef36a1ef81527"
+    },
+    {
+      "id": "bh_wurzel_kalt",
+      "kind": "tiles",
+      "theme": "bh_wurzel",
+      "variant": "kalt",
+      "variants": {
+        "kalt": "tilesets/bh_wurzel_kalt.png",
+        "warm": "tilesets/bh_wurzel_warm.png"
+      },
+      "transparent": false,
+      "columns": 8,
+      "rows": 5,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "tilesets/bh_wurzel_kalt.png",
+      "width": 128,
+      "height": 80,
+      "animations": {},
+      "tileNames": [
+        "gallery_floor_1",
+        "gallery_floor_2",
+        "gallery_floor_3",
+        "gallery_floor_4",
+        "rock_wall_1",
+        "rock_wall_2",
+        "rock_wall_root",
+        "rock_wall_3",
+        "root_wall_1",
+        "root_wall_2",
+        "root_wall_3",
+        "root_wall_4",
+        "rock_ledge",
+        "root_wall_5",
+        "root_wall_6",
+        "rock_ledge_low",
+        "root_blank_tag",
+        "blank_tag_post",
+        "timber_prop",
+        "timber_beam",
+        "rubble_1",
+        "rail_horizontal",
+        "rail_vertical",
+        "rubble_2",
+        "drip_1",
+        "drip_2",
+        "drip_3",
+        "pit_edge_1",
+        "pit_edge_2",
+        "root_floor_1",
+        "root_floor_2",
+        "dust_patch",
+        "root_pulse_1",
+        "root_pulse_2",
+        "root_pulse_3",
+        "root_pulse_4",
+        "drip_anim_1",
+        "drip_anim_2",
+        "filler_6",
+        "filler_7"
+      ],
+      "cells": {
+        "gallery_floor_1": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "gallery_floor_2": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "gallery_floor_3": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "gallery_floor_4": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "rock_wall_1": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "rock_wall_2": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "rock_wall_root": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "rock_wall_3": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "root_wall_1": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "root_wall_2": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "root_wall_3": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "root_wall_4": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "rock_ledge": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "root_wall_5": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "root_wall_6": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "rock_ledge_low": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "root_blank_tag": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "blank_tag_post": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "timber_prop": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "timber_beam": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "rubble_1": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "rail_horizontal": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "rail_vertical": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "rubble_2": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "drip_1": {
+          "index": 24,
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "drip_2": {
+          "index": 25,
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "drip_3": {
+          "index": 26,
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "pit_edge_1": {
+          "index": 27,
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "pit_edge_2": {
+          "index": 28,
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "root_floor_1": {
+          "index": 29,
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "root_floor_2": {
+          "index": 30,
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "dust_patch": {
+          "index": 31,
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "root_pulse_1": {
+          "index": 32,
+          "x": 0,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "root_pulse_2": {
+          "index": 33,
+          "x": 16,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "root_pulse_3": {
+          "index": 34,
+          "x": 32,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "root_pulse_4": {
+          "index": 35,
+          "x": 48,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "drip_anim_1": {
+          "index": 36,
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "drip_anim_2": {
+          "index": 37,
+          "x": 80,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_6": {
+          "index": 38,
+          "x": 96,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_7": {
+          "index": 39,
+          "x": 112,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "stateSwitch": "Wechsel kalt/warm über die Mechanik Wärme und Rücklauf, nicht über die Tageszeit",
+      "sha256": "9ae7fbce24d39b0b6acba5f13ac06e656f34106fc7d886f90187efb12e370510"
+    },
+    {
+      "id": "bh_wurzel_warm",
+      "kind": "tiles",
+      "theme": "bh_wurzel",
+      "variant": "warm",
+      "variants": {
+        "kalt": "tilesets/bh_wurzel_kalt.png",
+        "warm": "tilesets/bh_wurzel_warm.png"
+      },
+      "transparent": false,
+      "columns": 8,
+      "rows": 5,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "tilesets/bh_wurzel_warm.png",
+      "width": 128,
+      "height": 80,
+      "animations": {
+        "root_pulse": {
+          "frames": [
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        },
+        "drip": {
+          "frames": [
+            36,
+            37
+          ],
+          "frameRate": 3,
+          "repeat": -1
+        }
+      },
+      "tileNames": [
+        "gallery_floor_1",
+        "gallery_floor_2",
+        "gallery_floor_3",
+        "gallery_floor_4",
+        "rock_wall_1",
+        "rock_wall_2",
+        "rock_wall_root",
+        "rock_wall_3",
+        "root_wall_1",
+        "root_wall_2",
+        "root_wall_3",
+        "root_wall_4",
+        "rock_ledge",
+        "root_wall_5",
+        "root_wall_6",
+        "rock_ledge_low",
+        "root_blank_tag",
+        "blank_tag_post",
+        "timber_prop",
+        "timber_beam",
+        "rubble_1",
+        "rail_horizontal",
+        "rail_vertical",
+        "rubble_2",
+        "drip_1",
+        "drip_2",
+        "drip_3",
+        "pit_edge_1",
+        "pit_edge_2",
+        "root_floor_1",
+        "root_floor_2",
+        "dust_patch",
+        "root_pulse_1",
+        "root_pulse_2",
+        "root_pulse_3",
+        "root_pulse_4",
+        "drip_anim_1",
+        "drip_anim_2",
+        "filler_6",
+        "filler_7"
+      ],
+      "cells": {
+        "gallery_floor_1": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "gallery_floor_2": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "gallery_floor_3": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "gallery_floor_4": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "rock_wall_1": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "rock_wall_2": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "rock_wall_root": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "rock_wall_3": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "root_wall_1": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "root_wall_2": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "root_wall_3": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "root_wall_4": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "rock_ledge": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "root_wall_5": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "root_wall_6": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "rock_ledge_low": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "root_blank_tag": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "blank_tag_post": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "timber_prop": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "timber_beam": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "rubble_1": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "rail_horizontal": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "rail_vertical": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "rubble_2": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "drip_1": {
+          "index": 24,
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "drip_2": {
+          "index": 25,
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "drip_3": {
+          "index": 26,
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "pit_edge_1": {
+          "index": 27,
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "pit_edge_2": {
+          "index": 28,
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "root_floor_1": {
+          "index": 29,
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "root_floor_2": {
+          "index": 30,
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "dust_patch": {
+          "index": 31,
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "root_pulse_1": {
+          "index": 32,
+          "x": 0,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "root_pulse_2": {
+          "index": 33,
+          "x": 16,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "root_pulse_3": {
+          "index": 34,
+          "x": 32,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "root_pulse_4": {
+          "index": 35,
+          "x": 48,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "drip_anim_1": {
+          "index": 36,
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "drip_anim_2": {
+          "index": 37,
+          "x": 80,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_6": {
+          "index": 38,
+          "x": 96,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_7": {
+          "index": 39,
+          "x": 112,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "stateSwitch": "Wechsel kalt/warm über die Mechanik Wärme und Rücklauf, nicht über die Tageszeit",
+      "sha256": "d22518e46513e5b3070c4bb5f01cdcedbb430d0ef45ce01ff3148b50b7cabf9a"
+    },
+    {
+      "id": "bh_klinik_kalt",
+      "kind": "tiles",
+      "theme": "bh_klinik",
+      "variant": "kalt",
+      "variants": {
+        "kalt": "tilesets/bh_klinik_kalt.png",
+        "warm": "tilesets/bh_klinik_warm.png"
+      },
+      "transparent": false,
+      "columns": 8,
+      "rows": 5,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "tilesets/bh_klinik_kalt.png",
+      "width": 128,
+      "height": 80,
+      "animations": {},
+      "tileNames": [
+        "pump_floor_plate",
+        "riveted_iron_wall",
+        "pressure_gauge_blank",
+        "pipe_manifold",
+        "pump_housing",
+        "iron_grating",
+        "brick_pillar",
+        "iron_door",
+        "lab_tiles",
+        "lab_tiles_cracked",
+        "vat_foundation",
+        "lab_drain",
+        "lab_counter",
+        "vial_shelf",
+        "lab_sink",
+        "lab_wall_tap",
+        "parquet_1",
+        "parquet_2",
+        "drawing_cabinet_1",
+        "drawing_cabinet_2",
+        "mother_house_carpet",
+        "mother_house_bench",
+        "mother_house_window",
+        "mother_house_door",
+        "pump_floor_plate_2",
+        "cracked_floor",
+        "pressure_gauge_blank_2",
+        "pipe_manifold_2",
+        "pump_housing_2",
+        "iron_grating_2",
+        "brick_pillar_2",
+        "iron_door_2",
+        "root_vein_floor_1",
+        "root_vein_floor_2",
+        "root_vein_floor_3",
+        "root_vein_floor_4",
+        "filler_4",
+        "filler_5",
+        "filler_6",
+        "filler_7"
+      ],
+      "cells": {
+        "pump_floor_plate": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "riveted_iron_wall": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "pressure_gauge_blank": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "pipe_manifold": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "pump_housing": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "iron_grating": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "brick_pillar": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "iron_door": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "lab_tiles": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "lab_tiles_cracked": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "vat_foundation": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "lab_drain": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "lab_counter": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "vial_shelf": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "lab_sink": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "lab_wall_tap": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "parquet_1": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "parquet_2": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "drawing_cabinet_1": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "drawing_cabinet_2": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "mother_house_carpet": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "mother_house_bench": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "mother_house_window": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "mother_house_door": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "pump_floor_plate_2": {
+          "index": 24,
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "cracked_floor": {
+          "index": 25,
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "pressure_gauge_blank_2": {
+          "index": 26,
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "pipe_manifold_2": {
+          "index": 27,
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "pump_housing_2": {
+          "index": 28,
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "iron_grating_2": {
+          "index": 29,
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "brick_pillar_2": {
+          "index": 30,
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "iron_door_2": {
+          "index": 31,
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "root_vein_floor_1": {
+          "index": 32,
+          "x": 0,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "root_vein_floor_2": {
+          "index": 33,
+          "x": 16,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "root_vein_floor_3": {
+          "index": 34,
+          "x": 32,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "root_vein_floor_4": {
+          "index": 35,
+          "x": 48,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_4": {
+          "index": 36,
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_5": {
+          "index": 37,
+          "x": 80,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_6": {
+          "index": 38,
+          "x": 96,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_7": {
+          "index": 39,
+          "x": 112,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "stateSwitch": "Wechsel kalt/warm über die Mechanik Wärme und Rücklauf, nicht über die Tageszeit",
+      "sha256": "57be5bf4a335cf7281be2661c045b726c798784b48a4d8d14ec2e77746726d8f"
+    },
+    {
+      "id": "bh_klinik_warm",
+      "kind": "tiles",
+      "theme": "bh_klinik",
+      "variant": "warm",
+      "variants": {
+        "kalt": "tilesets/bh_klinik_kalt.png",
+        "warm": "tilesets/bh_klinik_warm.png"
+      },
+      "transparent": false,
+      "columns": 8,
+      "rows": 5,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "tilesets/bh_klinik_warm.png",
+      "width": 128,
+      "height": 80,
+      "animations": {
+        "root_veins": {
+          "frames": [
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        }
+      },
+      "tileNames": [
+        "pump_floor_plate",
+        "riveted_iron_wall",
+        "pressure_gauge_blank",
+        "pipe_manifold",
+        "pump_housing",
+        "iron_grating",
+        "brick_pillar",
+        "iron_door",
+        "lab_tiles",
+        "lab_tiles_cracked",
+        "vat_foundation",
+        "lab_drain",
+        "lab_counter",
+        "vial_shelf",
+        "lab_sink",
+        "lab_wall_tap",
+        "parquet_1",
+        "parquet_2",
+        "drawing_cabinet_1",
+        "drawing_cabinet_2",
+        "mother_house_carpet",
+        "mother_house_bench",
+        "mother_house_window",
+        "mother_house_door",
+        "pump_floor_plate_2",
+        "cracked_floor",
+        "pressure_gauge_blank_2",
+        "pipe_manifold_2",
+        "pump_housing_2",
+        "iron_grating_2",
+        "brick_pillar_2",
+        "iron_door_2",
+        "root_vein_floor_1",
+        "root_vein_floor_2",
+        "root_vein_floor_3",
+        "root_vein_floor_4",
+        "filler_4",
+        "filler_5",
+        "filler_6",
+        "filler_7"
+      ],
+      "cells": {
+        "pump_floor_plate": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "riveted_iron_wall": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "pressure_gauge_blank": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "pipe_manifold": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "pump_housing": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "iron_grating": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "brick_pillar": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "iron_door": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "lab_tiles": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "lab_tiles_cracked": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "vat_foundation": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "lab_drain": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "lab_counter": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "vial_shelf": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "lab_sink": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "lab_wall_tap": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "parquet_1": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "parquet_2": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "drawing_cabinet_1": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "drawing_cabinet_2": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "mother_house_carpet": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "mother_house_bench": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "mother_house_window": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "mother_house_door": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "pump_floor_plate_2": {
+          "index": 24,
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "cracked_floor": {
+          "index": 25,
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "pressure_gauge_blank_2": {
+          "index": 26,
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "pipe_manifold_2": {
+          "index": 27,
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "pump_housing_2": {
+          "index": 28,
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "iron_grating_2": {
+          "index": 29,
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "brick_pillar_2": {
+          "index": 30,
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "iron_door_2": {
+          "index": 31,
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "root_vein_floor_1": {
+          "index": 32,
+          "x": 0,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "root_vein_floor_2": {
+          "index": 33,
+          "x": 16,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "root_vein_floor_3": {
+          "index": 34,
+          "x": 32,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "root_vein_floor_4": {
+          "index": 35,
+          "x": 48,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_4": {
+          "index": 36,
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_5": {
+          "index": 37,
+          "x": 80,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_6": {
+          "index": 38,
+          "x": 96,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "filler_7": {
+          "index": 39,
+          "x": 112,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "stateSwitch": "Wechsel kalt/warm über die Mechanik Wärme und Rücklauf, nicht über die Tageszeit",
+      "sha256": "889ac8efc44b9df40b7a6049b4858678ebcc91b826af153ff0afacecd4ecd5e1"
+    },
+    {
+      "id": "bh_kutschenhof",
+      "kind": "props",
+      "transparent": true,
+      "columns": 16,
+      "rows": 8,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "props/bh_kutschenhof.png",
+      "width": 256,
+      "height": 128,
+      "animations": {},
+      "regions": {
+        "postkutsche_0": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 32
+        },
+        "postkutsche_1": {
+          "x": 64,
+          "y": 0,
+          "width": 64,
+          "height": 32
+        },
+        "gepaeckkarren_blumenerde": {
+          "x": 128,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "patientenstuhl": {
+          "x": 160,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "hinweistafel_pfirsich": {
+          "x": 176,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "wartebank_frost": {
+          "x": 208,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "dampfentladung_0": {
+          "x": 0,
+          "y": 32,
+          "width": 48,
+          "height": 48
+        },
+        "dampfentladung_1": {
+          "x": 48,
+          "y": 32,
+          "width": 48,
+          "height": 48
+        },
+        "dampfentladung_2": {
+          "x": 96,
+          "y": 32,
+          "width": 48,
+          "height": 48
+        },
+        "dampfentladung_3": {
+          "x": 144,
+          "y": 32,
+          "width": 48,
+          "height": 48
+        },
+        "dampfentladung_4": {
+          "x": 192,
+          "y": 32,
+          "width": 48,
+          "height": 48
+        },
+        "dampfentladung_5": {
+          "x": 0,
+          "y": 80,
+          "width": 48,
+          "height": 48
+        }
+      },
+      "regionAnimations": {
+        "pferde": {
+          "frames": [
+            "postkutsche_0",
+            "postkutsche_1"
+          ],
+          "frameRate": 3,
+          "repeat": -1
+        },
+        "dampfentladung": {
+          "frames": [
+            "dampfentladung_0",
+            "dampfentladung_1",
+            "dampfentladung_2",
+            "dampfentladung_3",
+            "dampfentladung_4",
+            "dampfentladung_5"
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "anchor": "bottom-center of each region",
+      "sha256": "dccddef51af8a70330873c31725685c244e19928cd56570de823836e1c841809"
+    },
+    {
+      "id": "bh_kesselgrund",
+      "kind": "props",
+      "transparent": true,
+      "columns": 16,
+      "rows": 6,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "props/bh_kesselgrund.png",
+      "width": 256,
+      "height": 96,
+      "animations": {},
+      "regions": {
+        "ventil_zu": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "ventil_kalt": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "ventil_warm": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "ventil_drehen_0": {
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "ventil_drehen_1": {
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "ventil_drehen_2": {
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "ventil_drehen_3": {
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "wartungsschrank": {
+          "x": 112,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "kohlenbunker_leer": {
+          "x": 144,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "kohlenbunker_voll": {
+          "x": 176,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "druckanzeige_niedrig": {
+          "x": 208,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "druckanzeige_hoch": {
+          "x": 224,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "buegelbrett": {
+          "x": 0,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "waeschemangel": {
+          "x": 32,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "feuerstelle_0": {
+          "x": 64,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "feuerstelle_1": {
+          "x": 96,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "fallwand": {
+          "x": 128,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "kiste": {
+          "x": 160,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "bett": {
+          "x": 176,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "lager": {
+          "x": 208,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "ventiltafel": {
+          "x": 0,
+          "y": 64,
+          "width": 32,
+          "height": 32
+        },
+        "steckmarke_zu": {
+          "x": 32,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "steckmarke_kalt": {
+          "x": 48,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "steckmarke_warm": {
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "regionAnimations": {
+        "ventil_drehen": {
+          "frames": [
+            "ventil_drehen_0",
+            "ventil_drehen_1",
+            "ventil_drehen_2",
+            "ventil_drehen_3"
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "feuerstelle": {
+          "frames": [
+            "feuerstelle_0",
+            "feuerstelle_1"
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        }
+      },
+      "anchor": "bottom-center of each region",
+      "sha256": "fe350c1d0379d09ea4729201fbe20c2035b8ff660e7816443e27d9e4c5ace226"
+    },
+    {
+      "id": "bh_promenade",
+      "kind": "props",
+      "transparent": true,
+      "columns": 16,
+      "rows": 3,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "props/bh_promenade.png",
+      "width": 256,
+      "height": 48,
+      "animations": {},
+      "regions": {
+        "musikpavillon": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 48
+        },
+        "schreibpult_postkarten": {
+          "x": 64,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "palme_kalt": {
+          "x": 96,
+          "y": 0,
+          "width": 32,
+          "height": 48
+        },
+        "palme_warm": {
+          "x": 128,
+          "y": 0,
+          "width": 32,
+          "height": 48
+        },
+        "gaslaterne": {
+          "x": 160,
+          "y": 0,
+          "width": 16,
+          "height": 48
+        },
+        "kurgaeste_bank": {
+          "x": 176,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "kurkiosk": {
+          "x": 208,
+          "y": 0,
+          "width": 32,
+          "height": 48
+        }
+      },
+      "regionAnimations": {},
+      "anchor": "bottom-center of each region",
+      "sha256": "7ef830c4825a68702210c99a37cd1428af1ed7bfcf983dfb9384efedbb1d94c8"
+    },
+    {
+      "id": "bh_glasgaerten",
+      "kind": "props",
+      "transparent": true,
+      "columns": 16,
+      "rows": 2,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "props/bh_glasgaerten.png",
+      "width": 256,
+      "height": 32,
+      "animations": {},
+      "regions": {
+        "beet_schild": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "beet_schild_umgedreht": {
+          "x": 32,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "saatbuch_pult": {
+          "x": 64,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "veredelungsschere_gross": {
+          "x": 96,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "kapselhalter_leer": {
+          "x": 128,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "kapselhalter_kapsel": {
+          "x": 144,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "sprechende_pflanze_0": {
+          "x": 160,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "sprechende_pflanze_1": {
+          "x": 176,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "sprechende_pflanze_2": {
+          "x": 192,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "sprechende_pflanze_3": {
+          "x": 208,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        }
+      },
+      "regionAnimations": {
+        "sprechende_pflanze": {
+          "frames": [
+            "sprechende_pflanze_0",
+            "sprechende_pflanze_1",
+            "sprechende_pflanze_2",
+            "sprechende_pflanze_3"
+          ],
+          "frameRate": 4,
+          "repeat": 0
+        }
+      },
+      "anchor": "bottom-center of each region",
+      "sha256": "fe50676d6de34e7b2f1421571ccc812e64850441dd8dca86db2bc25782de445b"
+    },
+    {
+      "id": "bh_stillenhaeuser",
+      "kind": "props",
+      "transparent": true,
+      "columns": 16,
+      "rows": 2,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "props/bh_stillenhaeuser.png",
+      "width": 256,
+      "height": 32,
+      "animations": {},
+      "regions": {
+        "bett_tafel_radiert": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "teewagen": {
+          "x": 32,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "ennas_heft": {
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "speisesaal_tisch": {
+          "x": 80,
+          "y": 0,
+          "width": 48,
+          "height": 32
+        },
+        "speisesaal_stuehle": {
+          "x": 128,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "kinderzeichnung": {
+          "x": 160,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        }
+      },
+      "regionAnimations": {},
+      "anchor": "bottom-center of each region",
+      "sha256": "049b553699d9aa6b0612c191d7070552432fcf699b71c9b3275f1d242ac8cfee"
+    },
+    {
+      "id": "bh_wurzelkranz",
+      "kind": "props",
+      "transparent": true,
+      "columns": 16,
+      "rows": 6,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "props/bh_wurzelkranz.png",
+      "width": 256,
+      "height": 96,
+      "animations": {},
+      "regions": {
+        "pumpenrad_0": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "pumpenrad_1": {
+          "x": 32,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "pumpenrad_2": {
+          "x": 64,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "pumpenrad_3": {
+          "x": 96,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "sudkessel_0": {
+          "x": 128,
+          "y": 0,
+          "width": 32,
+          "height": 48
+        },
+        "sudkessel_1": {
+          "x": 160,
+          "y": 0,
+          "width": 32,
+          "height": 48
+        },
+        "zeichentisch_fundamentplan": {
+          "x": 192,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "verteilanlage_zu": {
+          "x": 0,
+          "y": 48,
+          "width": 64,
+          "height": 48
+        },
+        "verteilanlage_offen": {
+          "x": 64,
+          "y": 48,
+          "width": 64,
+          "height": 48
+        },
+        "verteilanlage_ruecklauf": {
+          "x": 128,
+          "y": 48,
+          "width": 64,
+          "height": 48
+        },
+        "ruecklauf_versiegelt": {
+          "x": 192,
+          "y": 48,
+          "width": 32,
+          "height": 32
+        },
+        "ruecklauf_offen": {
+          "x": 224,
+          "y": 48,
+          "width": 32,
+          "height": 32
+        }
+      },
+      "regionAnimations": {
+        "pumpenrad": {
+          "frames": [
+            "pumpenrad_0",
+            "pumpenrad_1",
+            "pumpenrad_2",
+            "pumpenrad_3"
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "sudkessel": {
+          "frames": [
+            "sudkessel_0",
+            "sudkessel_1"
+          ],
+          "frameRate": 3,
+          "repeat": -1
+        }
+      },
+      "anchor": "bottom-center of each region",
+      "sha256": "e56c0a4a16fafb18e65aeba0b612b83d9238f301602b31cae057c90835c2882e"
+    },
+    {
+      "id": "bh_waerme",
+      "kind": "effect",
+      "transparent": true,
+      "columns": 16,
+      "rows": 5,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "fx/bh_waerme.png",
+      "width": 256,
+      "height": 80,
+      "animations": {},
+      "regions": {
+        "dampf_rohr_0": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "dampf_rohr_1": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "dampf_rohr_2": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "dampf_rohr_3": {
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kondensat_schrift_0": {
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kondensat_schrift_1": {
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kondensat_schrift_2": {
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kondensat_schrift_3": {
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kondensat_schrift_4": {
+          "x": 128,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kondensat_schrift_5": {
+          "x": 144,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "reif_uebergang_0": {
+          "x": 160,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "reif_uebergang_1": {
+          "x": 176,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "reif_uebergang_2": {
+          "x": 192,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "reif_uebergang_3": {
+          "x": 208,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "ruecklauf_puls_0": {
+          "x": 224,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "ruecklauf_puls_1": {
+          "x": 240,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "ruecklauf_puls_2": {
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "ruecklauf_puls_3": {
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "leitung_warm_h": {
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "leitung_warm_v": {
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "leitung_warm_ecke": {
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "leitung_warm_t": {
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "leitung_kalt_h": {
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "leitung_kalt_v": {
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "leitung_kalt_ecke": {
+          "x": 128,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "leitung_kalt_t": {
+          "x": 144,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "leitung_belastet_h": {
+          "x": 160,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "leitung_belastet_v": {
+          "x": 176,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "leitung_belastet_ecke": {
+          "x": 192,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "leitung_belastet_t": {
+          "x": 208,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "kondensat_sperre_0": {
+          "x": 224,
+          "y": 16,
+          "width": 32,
+          "height": 32
+        },
+        "kondensat_sperre_1": {
+          "x": 0,
+          "y": 48,
+          "width": 32,
+          "height": 32
+        },
+        "kondensat_sperre_2": {
+          "x": 32,
+          "y": 48,
+          "width": 32,
+          "height": 32
+        },
+        "kondensat_sperre_3": {
+          "x": 64,
+          "y": 48,
+          "width": 32,
+          "height": 32
+        }
+      },
+      "regionAnimations": {
+        "dampf_rohr": {
+          "frames": [
+            "dampf_rohr_0",
+            "dampf_rohr_1",
+            "dampf_rohr_2",
+            "dampf_rohr_3"
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "kondensat_schrift": {
+          "frames": [
+            "kondensat_schrift_0",
+            "kondensat_schrift_1",
+            "kondensat_schrift_2",
+            "kondensat_schrift_3",
+            "kondensat_schrift_4",
+            "kondensat_schrift_5"
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        },
+        "reif_uebergang": {
+          "frames": [
+            "reif_uebergang_0",
+            "reif_uebergang_1",
+            "reif_uebergang_2",
+            "reif_uebergang_3"
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        },
+        "ruecklauf_puls": {
+          "frames": [
+            "ruecklauf_puls_0",
+            "ruecklauf_puls_1",
+            "ruecklauf_puls_2",
+            "ruecklauf_puls_3"
+          ],
+          "frameRate": 5,
+          "repeat": -1
+        },
+        "kondensat_sperre": {
+          "frames": [
+            "kondensat_sperre_0",
+            "kondensat_sperre_1",
+            "kondensat_sperre_2",
+            "kondensat_sperre_3"
+          ],
+          "frameRate": 5,
+          "repeat": -1
+        }
+      },
+      "pipeOverlayTiles": {
+        "warm": "#e8b860",
+        "kalt": "#71858b",
+        "belastet": "#8c7295"
+      },
+      "sha256": "98e0b77ccaf00740c2b8a24efd6c1b1def10c3145deb37893d31a7906de697e2"
+    },
+    {
+      "id": "bh_ankunft",
+      "kind": "still",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "ui/scenes/bh_ankunft.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "46dde5c732cdd10d3957d2a3e0900b00d812fd2920a345db1ef7f6007d4d23a4"
+    },
+    {
+      "id": "kapitel5_karte",
+      "kind": "still",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "ui/scenes/kapitel5_karte.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "2e40838ec93d13ff1637b26d5c3c4a6841d85a987c4da6e7a1184d9964d98a06"
+    },
+    {
+      "id": "bh_trockenraum",
+      "kind": "still",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "file": "ui/scenes/bh_trockenraum.png",
+      "width": 240,
+      "height": 135,
+      "animations": {},
+      "sha256": "280edbff63a9b0306c85c4608d95c0cfc0314d33b8cad2fdbd7b846251e61159"
+    },
+    {
+      "id": "bh_pfirsich",
+      "kind": "still",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "file": "ui/scenes/bh_pfirsich.png",
+      "width": 240,
+      "height": 135,
+      "animations": {},
+      "sha256": "36e7918d8bff225896ba2e454d6e27d295674fbe43bc127d397ad33b6a393a1b"
+    },
+    {
+      "id": "bh_ende_wahl",
+      "kind": "still",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "file": "ui/scenes/bh_ende_wahl.png",
+      "width": 240,
+      "height": 135,
+      "animations": {},
+      "sha256": "ce73f222b332597219b8a3d8376db09dbfcfa196b319125bbe71c218bd215fba",
+      "ending": "bha_end_wahl"
+    },
+    {
+      "id": "bh_ende_winter",
+      "kind": "still",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "file": "ui/scenes/bh_ende_winter.png",
+      "width": 240,
+      "height": 135,
+      "animations": {},
+      "sha256": "c107b22017e51d2fea376be628440eb07c1cc595742e5250dbf3509c890d13d5",
+      "ending": "bha_end_winter"
+    },
+    {
+      "id": "bh_ende_verwahrt",
+      "kind": "still",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "file": "ui/scenes/bh_ende_verwahrt.png",
+      "width": 240,
+      "height": 135,
+      "animations": {},
+      "sha256": "34e3efaa8d7723b0a33c8ad38f2a294859924579e9161ccd0bcb7a6f68cca475",
+      "ending": "bha_end_verwahrt"
+    },
+    {
+      "id": "bh_ende_schmerzlos",
+      "kind": "still",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "file": "ui/scenes/bh_ende_schmerzlos.png",
+      "width": 240,
+      "height": 135,
+      "animations": {},
+      "sha256": "16011e8d42b7ce2d1c3634f69ea057a56f2a7e4475d732214f140d8828749a4c",
+      "ending": "bha_end_schmerzlos"
+    },
+    {
+      "id": "bh_ende_schmerzlos_lichtmeister",
+      "kind": "still",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "file": "ui/scenes/bh_ende_schmerzlos_lichtmeister.png",
+      "width": 240,
+      "height": 135,
+      "animations": {},
+      "sha256": "55f85f67bbe8adacef58ca370250a3b052607a4e65ac223a9be36ef3ae7eb306",
+      "condition": "k2_end_lichtmeister",
+      "ending": "bha_end_schmerzlos"
+    },
+    {
+      "id": "bg_bh_kutschenhof",
+      "kind": "background",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "battle/bg_bh_kutschenhof.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "5e5e67c56787e558b42f40ab44ba75ee99dd00cbf61205893760deff842eb13c",
+      "groundStrip": {
+        "x": 0,
+        "y": 200,
+        "width": 480,
+        "height": 70
+      }
+    },
+    {
+      "id": "bg_bh_kesselgrund_kalt",
+      "kind": "background",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "battle/bg_bh_kesselgrund_kalt.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "8a2ef29f645e45d602a2fc00a8085de033af49b74391f3ba833ccde800f05cc6",
+      "groundStrip": {
+        "x": 0,
+        "y": 200,
+        "width": 480,
+        "height": 70
+      },
+      "variant": "kalt",
+      "variants": {
+        "kalt": "battle/bg_bh_kesselgrund_kalt.png",
+        "warm": "battle/bg_bh_kesselgrund_warm.png"
+      }
+    },
+    {
+      "id": "bg_bh_kesselgrund_warm",
+      "kind": "background",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "battle/bg_bh_kesselgrund_warm.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "919a6cfb034bea7bacd9642740b014f7f7409af6c05c16153c81050b289be2f8",
+      "groundStrip": {
+        "x": 0,
+        "y": 200,
+        "width": 480,
+        "height": 70
+      },
+      "variant": "warm",
+      "variants": {
+        "kalt": "battle/bg_bh_kesselgrund_kalt.png",
+        "warm": "battle/bg_bh_kesselgrund_warm.png"
+      }
+    },
+    {
+      "id": "bg_bh_promenade",
+      "kind": "background",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "battle/bg_bh_promenade.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "9980b90e64d5a9415a50fd65623895e2334c85abc706e1724c39260cef8172ca",
+      "groundStrip": {
+        "x": 0,
+        "y": 200,
+        "width": 480,
+        "height": 70
+      }
+    },
+    {
+      "id": "bg_bh_glasgaerten_kalt",
+      "kind": "background",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "battle/bg_bh_glasgaerten_kalt.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "a75f228ea767c3971e174ac43628f022eefbbe0b80f779270df32ad179cef301",
+      "groundStrip": {
+        "x": 0,
+        "y": 200,
+        "width": 480,
+        "height": 70
+      },
+      "variant": "kalt",
+      "variants": {
+        "kalt": "battle/bg_bh_glasgaerten_kalt.png",
+        "warm": "battle/bg_bh_glasgaerten_warm.png"
+      }
+    },
+    {
+      "id": "bg_bh_glasgaerten_warm",
+      "kind": "background",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "battle/bg_bh_glasgaerten_warm.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "7753d90c0350f47804dbc8cc1d2ba53fad41a3e5310ee345b5d8d42cf2b04033",
+      "groundStrip": {
+        "x": 0,
+        "y": 200,
+        "width": 480,
+        "height": 70
+      },
+      "variant": "warm",
+      "variants": {
+        "kalt": "battle/bg_bh_glasgaerten_kalt.png",
+        "warm": "battle/bg_bh_glasgaerten_warm.png"
+      }
+    },
+    {
+      "id": "bg_bh_stillenhaeuser",
+      "kind": "background",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "battle/bg_bh_stillenhaeuser.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "da8f1e49f10dcda02d5cd3c1929e645d82a14840d3fafa4a4a46999b53b7eaab",
+      "groundStrip": {
+        "x": 0,
+        "y": 200,
+        "width": 480,
+        "height": 70
+      }
+    },
+    {
+      "id": "bg_bh_wurzelkranz",
+      "kind": "background",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "battle/bg_bh_wurzelkranz.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "db002ba2d8578a78cb4d8c676132f8f0752a7fdd47c4660ca8250d592afb9170",
+      "groundStrip": {
+        "x": 0,
+        "y": 200,
+        "width": 480,
+        "height": 70
+      }
+    },
+    {
+      "id": "bg_bh_verteilanlage",
+      "kind": "background",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "battle/bg_bh_verteilanlage.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "bd8dd5d76ab35d105c2ac489a3299cfaf965dd4ed0c9d99cb206f634ef90135a",
+      "groundStrip": {
+        "x": 0,
+        "y": 200,
+        "width": 480,
+        "height": 70
+      }
+    },
+    {
+      "id": "bh_karte",
+      "kind": "map",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "ui/bh_karte.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "3a6b5cb5d734c0d3287e15ecebe6633f721b61e50c01c4cd4de9052c7fe8067a",
+      "pins": {
+        "bh_kutschenhof": {
+          "x": 75,
+          "y": 226
+        },
+        "bh_kesselgrund": {
+          "x": 282,
+          "y": 206
+        },
+        "bh_winterpromenade": {
+          "x": 328,
+          "y": 122
+        },
+        "bh_glasgaerten": {
+          "x": 112,
+          "y": 50
+        },
+        "bh_stillenhaeuser": {
+          "x": 170,
+          "y": 124
+        },
+        "bh_wurzelkranz": {
+          "x": 305,
+          "y": 48
+        },
+        "bh_wurzelkammer": {
+          "x": 430,
+          "y": 122
+        }
+      }
+    },
+    {
+      "id": "bh_marker",
+      "kind": "markers",
+      "transparent": true,
+      "columns": 6,
+      "rows": 3,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "ui/bh_marker.png",
+      "width": 96,
+      "height": 48,
+      "animations": {},
+      "baselineExclusive": 15,
+      "regions": {
+        "bh_kutschenhof": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "bh_kesselgrund": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "bh_winterpromenade": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "bh_glasgaerten": {
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "bh_stillenhaeuser": {
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "bh_wurzelkranz": {
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "bh_buegelraum": {
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "bh_kutschenhalle": {
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "bh_pavillon": {
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "bh_verkaufshalle": {
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "bh_speisesaal": {
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "bh_aktenraum": {
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "bh_labor": {
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "bh_mutterhaus": {
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "bh_verteilanlage": {
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "bh_kaltes_palmhaus": {
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "bh_verlassene_waescherei": {
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "bh_wurzelkammer": {
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "sha256": "59a199be48dc006566373b85fa63e433652a0bc358e701a41b523867a037295a"
+    },
+    {
+      "id": "bh_karte_nebel",
+      "kind": "overlay",
+      "transparent": true,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "ui/bh_karte_nebel.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "a00f316291719a8bdf0b17e4208a97b6cddef6f9b6a1fd20ee1366b1a4894eff",
+      "alignsWith": "ui/bh_karte.png"
+    },
+    {
+      "id": "bh_karte_leitungen",
+      "kind": "overlay",
+      "transparent": true,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "ui/bh_karte_leitungen.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "c0be6e09f85c33a81ff11612695aa123c805a7583f6b2a001ad00dbdd0da4146",
+      "alignsWith": "ui/bh_karte.png",
+      "circuits": {
+        "warm": "#e8b860",
+        "kalt": "#71858b",
+        "belastet": "#8c7295"
+      },
+      "segments": [
+        {
+          "circuit": "warm",
+          "from": [
+            282,
+            206
+          ],
+          "to": [
+            237,
+            162
+          ]
+        },
+        {
+          "circuit": "warm",
+          "from": [
+            237,
+            162
+          ],
+          "to": [
+            237,
+            89
+          ]
+        },
+        {
+          "circuit": "warm",
+          "from": [
+            237,
+            162
+          ],
+          "to": [
+            328,
+            122
+          ]
+        },
+        {
+          "circuit": "warm",
+          "from": [
+            237,
+            162
+          ],
+          "to": [
+            170,
+            124
+          ]
+        },
+        {
+          "circuit": "kalt",
+          "from": [
+            75,
+            226
+          ],
+          "to": [
+            229,
+            170
+          ]
+        },
+        {
+          "circuit": "kalt",
+          "from": [
+            229,
+            89
+          ],
+          "to": [
+            112,
+            50
+          ]
+        },
+        {
+          "circuit": "kalt",
+          "from": [
+            229,
+            170
+          ],
+          "to": [
+            229,
+            89
+          ]
+        },
+        {
+          "circuit": "belastet",
+          "from": [
+            245,
+            81
+          ],
+          "to": [
+            305,
+            48
+          ]
+        },
+        {
+          "circuit": "belastet",
+          "from": [
+            305,
+            48
+          ],
+          "to": [
+            430,
+            122
+          ]
+        },
+        {
+          "circuit": "belastet",
+          "from": [
+            245,
+            156
+          ],
+          "to": [
+            245,
+            81
+          ]
+        }
+      ]
+    }
+  ]
+}
