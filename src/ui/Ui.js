@@ -10,7 +10,7 @@ import {
   portraitUrl, portraitFor, AK_FIGURES, P2_LOOKS, P2_CHOICE_URL, p2HeadUrl, p2PortraitUrl, mapMarkerOf, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
   endingImageUrl, caseFileUrl, sceneUrl, wantedUrl, wantedSingle, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
   TURN_PORTRAITS, TURN_PORTRAITS_URL, TURN_PORTRAIT_URLS, BESTIARY, bestiaryUrl, TITLE_LAYERS,
-  headUrl, ritualCardUrl, ZIRKEL_URL, ZIRKEL_ICONS, AUKTION_URL, AUKTION_REGIONS, LONER_UI_URL, LONER_UI, LONER_SEALS, S_ZIRKEL_URL, S_ZIRKEL, skillIconOf, PULSE_ICONS, ARTIFACT_UI_URL, sourceKind, sourceKindUrl, inspectUrl, RISK_ICONS, RISK_ICONS_URL, JOURNAL_FRAME, JOURNAL_FRAME_URL, choiceRisk, riskOf,
+  headUrl, ritualCardUrl, ZIRKEL_URL, ZIRKEL_ICONS, AUKTION_URL, AUKTION_REGIONS, LONER_UI_URL, LONER_UI, LONER_SEALS, S_ZIRKEL_URL, S_ZIRKEL, skillIconOf, talentIconOf, PULSE_ICONS, ARTIFACT_UI_URL, sourceKind, sourceKindUrl, inspectUrl, RISK_ICONS, RISK_ICONS_URL, JOURNAL_FRAME, JOURNAL_FRAME_URL, choiceRisk, riskOf,
   factionEmblemUrl, PLACE_PICTURES, TRAVEL_MODES_URL, TRAVEL_MODE_ICONS, TRAVEL_MARKER_URL,
   DANGER_URL, DANGER_ICONS, DANGER_BANNER, RARITY_SHEET, RARITY_SHEET_URL, RARITY_GEMS,
 } from '../world/assets.js';
@@ -130,15 +130,17 @@ const turnFace = (id) => {
 const BASE_SKILL_IDS = ['double', 'blind', 'ward'];
 /** Icon-Größe der Kampf-Kacheln in em (1em = 8 Spielpixel). */
 const TILE_ICON_EM = 1.75;
-const skillIcon = (id) => { const ic = skillIconOf(id); return ic ? atlasIcon(ic[0], ic[1], 7) : ''; };
+const skillIcon = (id) => { const ic = skillIconOf(id); return ic ? atlasIcon(ic[0], ic[1], ic[2] ?? 7) : ''; };
+/** Icon einer Welt-Fähigkeit (BZ: ui/talent_icons.png), sonst das Sonnenzeichen. */
+const talentIcon = (id) => { const ic = talentIconOf(id); return ic ? atlasIcon(ic[0], ic[1], ic[2]) : '☉ '; };
 /** Großes Fähigkeits-Icon fürs Kampfmenü: 16er-Zelle auf 1.75em (skaliert mit der Oberfläche, nicht in festen Pixeln). */
 const skillIconBig = (id) => {
   const ic = skillIconOf(id);
-  // Grundfertigkeiten ohne eigenes Bild leihen sich die Menüsymbole; neue Pfadfertigkeiten (Seq. 4 bis 1) zeigen bis zur eigenen Grafik ein Siegel
+  // Grundfertigkeiten ohne eigenes Bild leihen sich die Menüsymbole
   if (!ic) return uiSprite('bmenu', id === 'double' ? 'attack' : BASE_SKILL_IDS.includes(id) ? 'skill' : 'defend', TILE_ICON_EM / 16, 'cbicon big');
-  const [url, index] = ic;
+  const [url, index, cols = 7] = ic;
   const k = TILE_ICON_EM;
-  return `<span class="atlas-icon big" style="background-image:url(${url});background-size:${7 * k}em auto;background-position:-${(index % 7) * k}em -${Math.floor(index / 7) * k}em"></span>`;
+  return `<span class="atlas-icon big" style="background-image:url(${url});background-size:${cols * k}em auto;background-position:-${(index % cols) * k}em -${Math.floor(index / cols) * k}em"></span>`;
 };
 /** Artefakt-Slots (20x20 aus ui/N_artefakt_ui.png), mitgeführte mit Icon in der Öffnung. */
 const artifactSlots = (ids, max, overloaded) => Array.from({ length: Math.max(max, ids.length) }, (_, i) => {
@@ -1872,8 +1874,8 @@ export class Ui {
       const talent = sd.talent ? this.talentRowHtml(s, sd.talent) : '';
       return `<li class="seq">${socket}<strong>Sequenz ${n}: ${esc(sd.name)}</strong> ${n === cur.seq ? '<span class="badge likely">aktuell</span>' : ''}<br>
         <span class="desc">${esc(sd.desc)}</span><br>
-        ⚔ <strong>${esc(sd.skill.name)}</strong> <span class="muted">(${sd.skill.cost} K${s.skillComposureCost({ ...sd.skill, seq: n }) ? ` · ${s.skillComposureCost({ ...sd.skill, seq: n })} Nerven` : ''})</span> ${esc(sd.skill.desc)}
-        ${sd.skill2 ? `<br>⚔ <strong>${esc(sd.skill2.name)}</strong> <span class="muted">(${sd.skill2.cost} K${s.skillComposureCost({ ...sd.skill2, seq: n }) ? ` · ${s.skillComposureCost({ ...sd.skill2, seq: n })} Nerven` : ''})</span> ${esc(sd.skill2.desc)}` : ''}
+        ${skillIcon(sd.skill.id) || '⚔ '}<strong>${esc(sd.skill.name)}</strong> <span class="muted">(${sd.skill.cost} K${s.skillComposureCost({ ...sd.skill, seq: n }) ? ` · ${s.skillComposureCost({ ...sd.skill, seq: n })} Nerven` : ''})</span> ${esc(sd.skill.desc)}
+        ${sd.skill2 ? `<br>${skillIcon(sd.skill2.id) || '⚔ '}<strong>${esc(sd.skill2.name)}</strong> <span class="muted">(${sd.skill2.cost} K${s.skillComposureCost({ ...sd.skill2, seq: n }) ? ` · ${s.skillComposureCost({ ...sd.skill2, seq: n })} Nerven` : ''})</span> ${esc(sd.skill2.desc)}` : ''}
         ${talent}
         ${(sd.passives ?? []).map((x) => `<br>✧ ${esc(x.text)}`).join('')}</li>`;
     }).join('');
@@ -1903,7 +1905,7 @@ export class Ui {
     const cost = [def.nerves ? `${def.nerves} Nerven` : '', def.unruhe ? `+${def.unruhe} Unruhe` : '', `${fmtSec(def.cooldown)} Pause`].filter(Boolean).join(' · ');
     const block = s.talentBlock(def.id);
     const label = t.remaining > 0 ? `bereit in ${t.remainingText}` : block ? 'zu wenig Nerven' : 'Einsetzen';
-    return `<br>☉ <strong>${esc(def.name)}</strong> <span class="muted">(${cost})</span> ${esc(def.desc)} <button class="small talentbtn ${block ? '' : 'primary'}" data-talent="${def.id}" ${block ? 'disabled' : ''}>${label}</button>`;
+    return `<br>${talentIcon(def.id)}<strong>${esc(def.name)}</strong> <span class="muted">(${cost})</span> ${esc(def.desc)} <button class="small talentbtn ${block ? '' : 'primary'}" data-talent="${def.id}" ${block ? 'disabled' : ''}>${label}</button>`;
   }
 
   /** Laufende Wirkungen der Welt-Fähigkeiten. */
@@ -2448,7 +2450,7 @@ export class Ui {
       this.layer.querySelector('.cb-help').textContent = '';
     } else if (sub === 'skills') {
       entries = c.skills().filter((k) => k.id !== 'attack').map((k) => ({
-        text: `${k.pathway && !skillIconOf(k.id) ? '✧ ' : ''}${k.name}`, skill: k.id, info: `${k.cost} K${k.composure ? ` · ${k.composure} Nerven` : ''}${isPrecise(k) ? ' · ◎ präzise' : ''}`,
+        text: k.name, skill: k.id, info: `${k.cost} K${k.composure ? ` · ${k.composure} Nerven` : ''}${isPrecise(k) ? ' · ◎ präzise' : ''}`,
         desc: `${k.desc ?? ''}${isPrecise(k) ? ` ◎ Präzise: volle Wirkung${k.stun ? ' und Betäubung' : ''} nur bei perfektem Takt, das goldene Fenster ist winzig.` : ''}`, act: { type: 'skill', id: k.id }, disabled: !k.usable,
       }));
     } else {

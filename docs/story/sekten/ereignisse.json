@@ -1,0 +1,1890 @@
+[
+  {
+    "id": "sk_asche_ereignis_01",
+    "kult": "sk_asche",
+    "min_stufe": 0,
+    "karten": [
+      "giesserei"
+    ],
+    "zeit": "immer",
+    "art": "spur",
+    "titel": "Kreis im Kohlestaub",
+    "meldung": "Ein Aschekreis liegt dort, wo gestern noch Kohlesäcke standen.",
+    "folge_stufe": 1,
+    "koop_zeile": "Der Kreis ist sauberer als die Straße.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_asche_ereignis_01_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_asche_ereignis_01_aktiv"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_asche_ereignis_01_aktiv"
+      ],
+      "sets_flags": [
+        "sk_asche_ereignis_01_erledigt",
+        "sk_asche_ereignis_01_hinweis"
+      ]
+    },
+    "text": "Die Ränder sind kalt; in der Mitte liegt ein verkohlter Lohnstreifen.",
+    "setzt_hinweis": "sk_asche_ereignis_01_hinweis"
+  },
+  {
+    "id": "sk_asche_ereignis_02",
+    "kult": "sk_asche",
+    "min_stufe": 0,
+    "karten": [
+      "wx_torfstich"
+    ],
+    "zeit": "tag",
+    "art": "werbung",
+    "titel": "Eine warme Einladung",
+    "meldung": "Eine Heizerin bietet dir einen Platz ohne Vergangenheit an.",
+    "folge_stufe": 0,
+    "koop_zeile": "Ein warmer Raum kann trotzdem die falsche Tür haben.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_asche_ereignis_02_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_asche_ereignis_02_aktiv"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_asche_ereignis_02_aktiv"
+      ],
+      "sets_flags": [
+        "sk_asche_ereignis_02_erledigt"
+      ]
+    },
+    "dialog": {
+      "id": "sk_asche_ereignis_02",
+      "node": "start"
+    }
+  },
+  {
+    "id": "sk_asche_ereignis_03",
+    "kult": "sk_asche",
+    "min_stufe": 0,
+    "karten": [
+      "ds_lohnbuero"
+    ],
+    "zeit": "immer",
+    "art": "zeichen_am_haus",
+    "titel": "Ruß über der Tür",
+    "meldung": "Am Türsturz klebt ein schwarzer Handabdruck.",
+    "folge_stufe": 0,
+    "koop_zeile": "Jemand wollte, dass diese Tür schon von weitem auffällt.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_asche_ereignis_03_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_asche_ereignis_03_aktiv"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_asche_ereignis_03_aktiv"
+      ],
+      "sets_flags": [
+        "sk_asche_ereignis_03_erledigt"
+      ]
+    },
+    "figur": "k3_esther",
+    "naechster_besuch": {
+      "dialog": {
+        "id": "sk_asche_ereignis_03",
+        "node": "start"
+      }
+    }
+  },
+  {
+    "id": "sk_asche_ereignis_04",
+    "kult": "sk_asche",
+    "min_stufe": 1,
+    "karten": [
+      "revier",
+      "wx_bahnhof"
+    ],
+    "zeit": "immer",
+    "art": "spur",
+    "titel": "Der verbrannte Rand",
+    "meldung": "Unter einem Rost liegt der Rand einer ausgelöschten Liste.",
+    "folge_stufe": 1,
+    "koop_zeile": "Vom Papier fehlt ausgerechnet die Antwort.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_asche_ereignis_04_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_asche_ereignis_04_aktiv"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_asche_ereignis_04_aktiv"
+      ],
+      "sets_flags": [
+        "sk_asche_ereignis_04_erledigt",
+        "sk_asche_ereignis_04_hinweis"
+      ]
+    },
+    "text": "Die Beträge wurden sorgsam ausgespart. Offenbar brennt eine Schuld schlechter als ein Name.",
+    "setzt_hinweis": "sk_asche_ereignis_04_hinweis"
+  },
+  {
+    "id": "sk_asche_ereignis_05",
+    "kult": "sk_asche",
+    "min_stufe": 1,
+    "karten": [
+      "revier"
+    ],
+    "zeit": "tag",
+    "art": "abwerbung",
+    "titel": "Ein Platz im Archiv fehlt",
+    "meldung": "Pimm ist einem angeblichen Aktenfund gefolgt und nicht zurückgekommen.",
+    "folge_stufe": 1,
+    "koop_zeile": "Wer Pimm festhält, hat offenbar noch nie etwas bei ihr ausgeliehen.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_asche_ereignis_05_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_asche_ereignis_05_aktiv"
+      ],
+      "start_quests": [
+        "sk_asche_rueckholung"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_asche_ereignis_05_aktiv"
+      ],
+      "sets_flags": [
+        "sk_asche_ereignis_05_erledigt"
+      ]
+    },
+    "figur": "pimm",
+    "dauer_min": 1440,
+    "rueckholung": "sk_asche_rueckholung",
+    "rueckkehr": {
+      "bei_quest": "sk_asche_rueckholung",
+      "bei_zeitablauf": true,
+      "bei_hauptinteraktion": true,
+      "bei_kapitelwechsel": true,
+      "zeitablauf_effekte": {
+        "clears_flags": [
+          "sk_asche_ereignis_05_aktiv"
+        ],
+        "sets_flags": [
+          "sk_asche_ereignis_05_erledigt"
+        ]
+      }
+    },
+    "dialog": {
+      "id": "sk_asche_ereignis_05",
+      "node": "start"
+    }
+  },
+  {
+    "id": "sk_asche_ereignis_06",
+    "kult": "sk_asche",
+    "min_stufe": 1,
+    "karten": [
+      "ds_arbeiterbogen"
+    ],
+    "zeit": "immer",
+    "art": "sabotage",
+    "titel": "Die falsche Glut im Wasser",
+    "meldung": "Aschereste treiben im Brunnen; Heiltränke helfen hier vorübergehend nur halb.",
+    "folge_stufe": 0,
+    "koop_zeile": "Das Wasser riecht nach etwas, das längst hätte kalt sein müssen.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_asche_ereignis_06_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_asche_ereignis_06_aktiv"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_asche_ereignis_06_aktiv"
+      ],
+      "sets_flags": [
+        "sk_asche_ereignis_06_erledigt"
+      ]
+    },
+    "dauer_min": 12,
+    "wirkung": {
+      "art": "heilung",
+      "nur_aktuelle_karte": true,
+      "heiltrank_faktor": 0.5
+    },
+    "gegenmassnahme": {
+      "item": "ski_laeuterwasser",
+      "dialog": {
+        "id": "sk_asche_ereignis_06",
+        "node": "start"
+      },
+      "kostenlos": {
+        "id": "sk_asche_ereignis_06",
+        "node": "handarbeit"
+      }
+    },
+    "ablauf": {
+      "clears_flags": [
+        "sk_asche_ereignis_06_aktiv"
+      ],
+      "sets_flags": [
+        "sk_asche_ereignis_06_erledigt"
+      ]
+    }
+  },
+  {
+    "id": "sk_asche_ereignis_07",
+    "kult": "sk_asche",
+    "min_stufe": 2,
+    "karten": [
+      "altmarkt"
+    ],
+    "zeit": "tag",
+    "art": "abwerbung",
+    "titel": "Neds leerer Platz",
+    "meldung": "Neds Stock liegt am gewohnten Sitz; der Bund hat ihn fortgelockt.",
+    "folge_stufe": 1,
+    "koop_zeile": "Den Stock hätte er nicht freiwillig liegen lassen.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_asche_ereignis_07_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_asche_ereignis_07_aktiv"
+      ],
+      "start_quests": [
+        "sk_asche_rueckholung"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_asche_ereignis_07_aktiv"
+      ],
+      "sets_flags": [
+        "sk_asche_ereignis_07_erledigt"
+      ]
+    },
+    "figur": "ned",
+    "dauer_min": 2880,
+    "rueckholung": "sk_asche_rueckholung",
+    "rueckkehr": {
+      "bei_quest": "sk_asche_rueckholung",
+      "bei_zeitablauf": true,
+      "bei_hauptinteraktion": true,
+      "bei_kapitelwechsel": true,
+      "zeitablauf_effekte": {
+        "clears_flags": [
+          "sk_asche_ereignis_07_aktiv"
+        ],
+        "sets_flags": [
+          "sk_asche_ereignis_07_erledigt"
+        ]
+      }
+    },
+    "dialog": {
+      "id": "sk_asche_ereignis_07",
+      "node": "start"
+    }
+  },
+  {
+    "id": "sk_asche_ereignis_08",
+    "kult": "sk_asche",
+    "min_stufe": 2,
+    "karten": [
+      "altmarkt",
+      "wx_salzmarkt"
+    ],
+    "zeit": "nacht",
+    "art": "schrein",
+    "titel": "Der Ofen ohne Wand",
+    "meldung": "Kultisten haben ein Kohlebecken zwischen die Häuser gestellt.",
+    "folge_stufe": 0,
+    "koop_zeile": "Das ist kein Herd für die Nachbarschaft.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_asche_ereignis_08_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_asche_ereignis_08_aktiv"
+      ],
+      "start_quests": [
+        "sk_asche_schrein_auftrag"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_asche_ereignis_08_aktiv"
+      ],
+      "sets_flags": [
+        "sk_asche_ereignis_08_erledigt"
+      ]
+    },
+    "gegner": [
+      "enemy_sk_asche_novize",
+      "enemy_sk_asche_hand"
+    ],
+    "beute": {
+      "money": [
+        3,
+        8
+      ],
+      "drops": [
+        {
+          "item": "ski_aschensiegel",
+          "chance": 1
+        }
+      ]
+    },
+    "abbauen": {
+      "stufe_delta": -1,
+      "dialog": {
+        "id": "sk_asche_ereignis_08",
+        "node": "abbauen"
+      }
+    },
+    "dialog": {
+      "id": "sk_asche_ereignis_08",
+      "node": "start"
+    }
+  },
+  {
+    "id": "sk_asche_ereignis_09",
+    "kult": "sk_asche",
+    "min_stufe": 2,
+    "karten": [
+      "wx_salzmarkt"
+    ],
+    "zeit": "nacht",
+    "art": "ueberfall",
+    "titel": "Haken im Nebel",
+    "meldung": "Ein Ofenhaken schiebt sich vor deinen Weg.",
+    "folge_stufe": 0,
+    "koop_zeile": "Der Haken kommt vor der Forderung.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_asche_ereignis_09_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_asche_ereignis_09_aktiv"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_asche_ereignis_09_aktiv"
+      ],
+      "sets_flags": [
+        "sk_asche_ereignis_09_erledigt"
+      ]
+    },
+    "gegner": [
+      "enemy_sk_asche_hand"
+    ],
+    "ausweichen": {
+      "dialog": {
+        "id": "sk_asche_ereignis_09",
+        "node": "ausweichen"
+      }
+    },
+    "dialog": {
+      "id": "sk_asche_ereignis_09",
+      "node": "start"
+    }
+  },
+  {
+    "id": "sk_asche_ereignis_10",
+    "kult": "sk_asche",
+    "min_stufe": 3,
+    "karten": [
+      "ds_endbahnhof"
+    ],
+    "zeit": "immer",
+    "art": "sabotage",
+    "titel": "Ruß im Lampenkopf",
+    "meldung": "Jemand hat die örtlichen Laternen abgedreht.",
+    "folge_stufe": 1,
+    "koop_zeile": "Die Flamme fehlt, aber die Leitung ist heil.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_asche_ereignis_10_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_asche_ereignis_10_aktiv",
+        "sk_asche_ereignis_10_dunkel"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_asche_ereignis_10_aktiv",
+        "sk_asche_ereignis_10_dunkel"
+      ],
+      "sets_flags": [
+        "sk_asche_ereignis_10_erledigt"
+      ]
+    },
+    "dauer_min": 18,
+    "wirkung": {
+      "art": "nacht",
+      "nur_aktuelle_karte": true,
+      "nachtflag": "sk_asche_ereignis_10_dunkel"
+    },
+    "gegenmassnahme": {
+      "item": "ski_laeuterwasser",
+      "dialog": {
+        "id": "sk_asche_ereignis_10",
+        "node": "start"
+      },
+      "kostenlos": {
+        "id": "sk_asche_ereignis_10",
+        "node": "handarbeit"
+      }
+    },
+    "ablauf": {
+      "clears_flags": [
+        "sk_asche_ereignis_10_aktiv",
+        "sk_asche_ereignis_10_dunkel"
+      ],
+      "sets_flags": [
+        "sk_asche_ereignis_10_erledigt"
+      ]
+    }
+  },
+  {
+    "id": "sk_asche_ereignis_11",
+    "kult": "sk_asche",
+    "min_stufe": 3,
+    "karten": [
+      "ds_endbahnhof",
+      "ds_lohnbuero"
+    ],
+    "zeit": "nacht",
+    "art": "schrein",
+    "titel": "Ein Kreis für alle Namen",
+    "meldung": "Ein größeres Aschebecken sammelt Papier aus mehreren Vierteln.",
+    "folge_stufe": 0,
+    "koop_zeile": "Hier soll aus einzelnen Verlusten eine Gewohnheit werden.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_asche_ereignis_11_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_asche_ereignis_11_aktiv"
+      ],
+      "start_quests": [
+        "sk_asche_schrein_auftrag"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_asche_ereignis_11_aktiv"
+      ],
+      "sets_flags": [
+        "sk_asche_ereignis_11_erledigt"
+      ]
+    },
+    "gegner": [
+      "enemy_sk_asche_novize",
+      "enemy_sk_asche_hand",
+      "enemy_sk_asche_sprecher"
+    ],
+    "beute": {
+      "money": [
+        3,
+        8
+      ],
+      "drops": [
+        {
+          "item": "ski_aschensiegel",
+          "chance": 1
+        }
+      ]
+    },
+    "abbauen": {
+      "stufe_delta": -1,
+      "dialog": {
+        "id": "sk_asche_ereignis_11",
+        "node": "abbauen"
+      }
+    },
+    "dialog": {
+      "id": "sk_asche_ereignis_11",
+      "node": "start"
+    }
+  },
+  {
+    "id": "sk_asche_ereignis_12",
+    "kult": "sk_asche",
+    "min_stufe": 3,
+    "karten": [
+      "wx_torfstich",
+      "wx_bahnhof",
+      "ds_endbahnhof"
+    ],
+    "zeit": "nacht",
+    "art": "ueberfall",
+    "titel": "Die letzte Quittung",
+    "meldung": "Die Aschenhand fordert dich zwischen zwei Kohlewagen heraus.",
+    "folge_stufe": 0,
+    "koop_zeile": "Diese Quittung nehme ich lieber nicht entgegen.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_asche_ereignis_12_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_asche_ereignis_12_aktiv"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_asche_ereignis_12_aktiv"
+      ],
+      "sets_flags": [
+        "sk_asche_ereignis_12_erledigt"
+      ]
+    },
+    "gegner": [
+      "enemy_sk_asche_haupt"
+    ],
+    "ausweichen": {
+      "dialog": {
+        "id": "sk_asche_ereignis_12",
+        "node": "ausweichen"
+      }
+    },
+    "dialog": {
+      "id": "sk_asche_ereignis_12",
+      "node": "start"
+    }
+  },
+  {
+    "id": "sk_flut_ereignis_01",
+    "kult": "sk_flut",
+    "min_stufe": 0,
+    "karten": [
+      "wx_bojenhafen"
+    ],
+    "zeit": "immer",
+    "art": "spur",
+    "titel": "Der Knoten am Poller",
+    "meldung": "Ein nasses Tau hängt an einem trockenen Poller.",
+    "folge_stufe": 1,
+    "koop_zeile": "Der Knoten hält sich selbst zu fest.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_flut_ereignis_01_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_flut_ereignis_01_aktiv"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_flut_ereignis_01_aktiv"
+      ],
+      "sets_flags": [
+        "sk_flut_ereignis_01_erledigt",
+        "sk_flut_ereignis_01_hinweis"
+      ]
+    },
+    "text": "Die Schlaufe zieht nach innen, obwohl niemand daran zieht. Am Holz klebt heller Schaum.",
+    "setzt_hinweis": "sk_flut_ereignis_01_hinweis"
+  },
+  {
+    "id": "sk_flut_ereignis_02",
+    "kult": "sk_flut",
+    "min_stufe": 0,
+    "karten": [
+      "gaskanaele"
+    ],
+    "zeit": "tag",
+    "art": "werbung",
+    "titel": "Eine Fahrt ohne Gepäck",
+    "meldung": "Ein Fährmann bietet dir eine Taufe statt einer Überfahrt an.",
+    "folge_stufe": 0,
+    "koop_zeile": "Ich würde zuerst fragen, wer das andere Ende hält.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_flut_ereignis_02_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_flut_ereignis_02_aktiv"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_flut_ereignis_02_aktiv"
+      ],
+      "sets_flags": [
+        "sk_flut_ereignis_02_erledigt"
+      ]
+    },
+    "dialog": {
+      "id": "sk_flut_ereignis_02",
+      "node": "start"
+    }
+  },
+  {
+    "id": "sk_flut_ereignis_03",
+    "kult": "sk_flut",
+    "min_stufe": 0,
+    "karten": [
+      "ds_endbahnhof"
+    ],
+    "zeit": "immer",
+    "art": "zeichen_am_haus",
+    "titel": "Die Bojenmarke",
+    "meldung": "Über einer Haustür glänzt ein nasser Bogen.",
+    "folge_stufe": 0,
+    "koop_zeile": "Wasserzeichen sollten nicht auf trockenen Türen wachsen.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_flut_ereignis_03_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_flut_ereignis_03_aktiv"
+      ],
+      "start_quests": [
+        "sk_flut_zeichen_auftrag"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_flut_ereignis_03_aktiv"
+      ],
+      "sets_flags": [
+        "sk_flut_ereignis_03_erledigt"
+      ]
+    },
+    "figur": "k3_pfiff",
+    "naechster_besuch": {
+      "dialog": {
+        "id": "sk_flut_ereignis_03",
+        "node": "start"
+      }
+    }
+  },
+  {
+    "id": "sk_flut_ereignis_04",
+    "kult": "sk_flut",
+    "min_stufe": 1,
+    "karten": [
+      "wx_pfahldorf",
+      "docks"
+    ],
+    "zeit": "immer",
+    "art": "spur",
+    "titel": "Nasse Schritte bergauf",
+    "meldung": "Eine Spur feuchter Sohlen endet fern vom Wasser.",
+    "folge_stufe": 1,
+    "koop_zeile": "Die Spur reist leichter als ihre Geschichte.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_flut_ereignis_04_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_flut_ereignis_04_aktiv"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_flut_ereignis_04_aktiv"
+      ],
+      "sets_flags": [
+        "sk_flut_ereignis_04_erledigt",
+        "sk_flut_ereignis_04_hinweis"
+      ]
+    },
+    "text": "Die Schritte folgen der Bahn. An jeder dritten Schwelle liegt ein Stück geknotetes Garn.",
+    "setzt_hinweis": "sk_flut_ereignis_04_hinweis"
+  },
+  {
+    "id": "sk_flut_ereignis_05",
+    "kult": "sk_flut",
+    "min_stufe": 1,
+    "karten": [
+      "wx_pfahldorf"
+    ],
+    "zeit": "tag",
+    "art": "abwerbung",
+    "titel": "Sedges leere Bank",
+    "meldung": "Mutter Sedge wurde zu einem vermeintlich verirrten Kind gerufen.",
+    "folge_stufe": 1,
+    "koop_zeile": "Mit einem Hilferuf lässt sich viel Unrecht verstecken.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_flut_ereignis_05_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_flut_ereignis_05_aktiv"
+      ],
+      "start_quests": [
+        "sk_flut_rueckholung"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_flut_ereignis_05_aktiv"
+      ],
+      "sets_flags": [
+        "sk_flut_ereignis_05_erledigt"
+      ]
+    },
+    "figur": "sedge",
+    "dauer_min": 1440,
+    "rueckholung": "sk_flut_rueckholung",
+    "rueckkehr": {
+      "bei_quest": "sk_flut_rueckholung",
+      "bei_zeitablauf": true,
+      "bei_hauptinteraktion": true,
+      "bei_kapitelwechsel": true,
+      "zeitablauf_effekte": {
+        "clears_flags": [
+          "sk_flut_ereignis_05_aktiv"
+        ],
+        "sets_flags": [
+          "sk_flut_ereignis_05_erledigt"
+        ]
+      }
+    },
+    "dialog": {
+      "id": "sk_flut_ereignis_05",
+      "node": "start"
+    }
+  },
+  {
+    "id": "sk_flut_ereignis_06",
+    "kult": "sk_flut",
+    "min_stufe": 1,
+    "karten": [
+      "ds_schwellenring"
+    ],
+    "zeit": "immer",
+    "art": "sabotage",
+    "titel": "Eine Kette vor der Überfahrt",
+    "meldung": "Eine Kultkette verteuert die örtliche Reise vorübergehend.",
+    "folge_stufe": 0,
+    "koop_zeile": "Die Kette kassiert, ohne eine Brücke gebaut zu haben.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_flut_ereignis_06_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_flut_ereignis_06_aktiv"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_flut_ereignis_06_aktiv"
+      ],
+      "sets_flags": [
+        "sk_flut_ereignis_06_erledigt"
+      ]
+    },
+    "dauer_min": 12,
+    "wirkung": {
+      "art": "reise",
+      "nur_aktuelle_karte": true,
+      "aufpreis_schilling": 5,
+      "hauptreise_ausgenommen": true,
+      "bei_geldmangel": 0
+    },
+    "gegenmassnahme": {
+      "item": "ski_seilschnitt",
+      "dialog": {
+        "id": "sk_flut_ereignis_06",
+        "node": "start"
+      },
+      "kostenlos": {
+        "id": "sk_flut_ereignis_06",
+        "node": "handarbeit"
+      }
+    },
+    "ablauf": {
+      "clears_flags": [
+        "sk_flut_ereignis_06_aktiv"
+      ],
+      "sets_flags": [
+        "sk_flut_ereignis_06_erledigt"
+      ]
+    }
+  },
+  {
+    "id": "sk_flut_ereignis_07",
+    "kult": "sk_flut",
+    "min_stufe": 2,
+    "karten": [
+      "wx_bojenhafen"
+    ],
+    "zeit": "tag",
+    "art": "abwerbung",
+    "titel": "Bracks Boje bleibt still",
+    "meldung": "Brack ist einer falschen Bojenwarnung gefolgt.",
+    "folge_stufe": 1,
+    "koop_zeile": "Die Boje schweigt aus einem anderen Grund als ihre Hüterin.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_flut_ereignis_07_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_flut_ereignis_07_aktiv"
+      ],
+      "start_quests": [
+        "sk_flut_rueckholung"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_flut_ereignis_07_aktiv"
+      ],
+      "sets_flags": [
+        "sk_flut_ereignis_07_erledigt"
+      ]
+    },
+    "figur": "brack",
+    "dauer_min": 2880,
+    "rueckholung": "sk_flut_rueckholung",
+    "rueckkehr": {
+      "bei_quest": "sk_flut_rueckholung",
+      "bei_zeitablauf": true,
+      "bei_hauptinteraktion": true,
+      "bei_kapitelwechsel": true,
+      "zeitablauf_effekte": {
+        "clears_flags": [
+          "sk_flut_ereignis_07_aktiv"
+        ],
+        "sets_flags": [
+          "sk_flut_ereignis_07_erledigt"
+        ]
+      }
+    },
+    "dialog": {
+      "id": "sk_flut_ereignis_07",
+      "node": "start"
+    }
+  },
+  {
+    "id": "sk_flut_ereignis_08",
+    "kult": "sk_flut",
+    "min_stufe": 2,
+    "karten": [
+      "wx_salzmarkt",
+      "altmarkt"
+    ],
+    "zeit": "nacht",
+    "art": "schrein",
+    "titel": "Der atmende Steg",
+    "meldung": "Eine Bojenlaterne steht über einer Wasserlache, die sich hebt und senkt.",
+    "folge_stufe": 0,
+    "koop_zeile": "Der Steg trägt mehr Absicht als Gewicht.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_flut_ereignis_08_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_flut_ereignis_08_aktiv"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_flut_ereignis_08_aktiv"
+      ],
+      "sets_flags": [
+        "sk_flut_ereignis_08_erledigt"
+      ]
+    },
+    "gegner": [
+      "enemy_sk_flut_novize",
+      "enemy_sk_flut_hand"
+    ],
+    "beute": {
+      "money": [
+        3,
+        8
+      ],
+      "drops": [
+        {
+          "item": "ski_flutknoten",
+          "chance": 1
+        }
+      ]
+    },
+    "abbauen": {
+      "stufe_delta": -1,
+      "dialog": {
+        "id": "sk_flut_ereignis_08",
+        "node": "abbauen"
+      }
+    },
+    "dialog": {
+      "id": "sk_flut_ereignis_08",
+      "node": "start"
+    }
+  },
+  {
+    "id": "sk_flut_ereignis_09",
+    "kult": "sk_flut",
+    "min_stufe": 2,
+    "karten": [
+      "altmarkt"
+    ],
+    "zeit": "nacht",
+    "art": "ueberfall",
+    "titel": "Ein Seil aus dem Nebel",
+    "meldung": "Eine Schlinge schlägt vor deinen Füßen auf.",
+    "folge_stufe": 0,
+    "koop_zeile": "Das Tau kam schneller als die Einladung.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_flut_ereignis_09_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_flut_ereignis_09_aktiv"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_flut_ereignis_09_aktiv"
+      ],
+      "sets_flags": [
+        "sk_flut_ereignis_09_erledigt"
+      ]
+    },
+    "gegner": [
+      "enemy_sk_flut_hand"
+    ],
+    "ausweichen": {
+      "dialog": {
+        "id": "sk_flut_ereignis_09",
+        "node": "ausweichen"
+      }
+    },
+    "dialog": {
+      "id": "sk_flut_ereignis_09",
+      "node": "start"
+    }
+  },
+  {
+    "id": "sk_flut_ereignis_10",
+    "kult": "sk_flut",
+    "min_stufe": 3,
+    "karten": [
+      "ds_bruchstufen"
+    ],
+    "zeit": "immer",
+    "art": "sabotage",
+    "titel": "Grüner Schaum",
+    "meldung": "Fremdes Bojenöl verdirbt den örtlichen Brunnen.",
+    "folge_stufe": 1,
+    "koop_zeile": "Was auf dem Wasser schwimmt, gehört nicht immer hinein.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_flut_ereignis_10_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_flut_ereignis_10_aktiv"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_flut_ereignis_10_aktiv"
+      ],
+      "sets_flags": [
+        "sk_flut_ereignis_10_erledigt"
+      ]
+    },
+    "dauer_min": 18,
+    "wirkung": {
+      "art": "heilung",
+      "nur_aktuelle_karte": true,
+      "heiltrank_faktor": 0.5
+    },
+    "gegenmassnahme": {
+      "item": "ski_seilschnitt",
+      "dialog": {
+        "id": "sk_flut_ereignis_10",
+        "node": "start"
+      },
+      "kostenlos": {
+        "id": "sk_flut_ereignis_10",
+        "node": "handarbeit"
+      }
+    },
+    "ablauf": {
+      "clears_flags": [
+        "sk_flut_ereignis_10_aktiv"
+      ],
+      "sets_flags": [
+        "sk_flut_ereignis_10_erledigt"
+      ]
+    }
+  },
+  {
+    "id": "sk_flut_ereignis_11",
+    "kult": "sk_flut",
+    "min_stufe": 3,
+    "karten": [
+      "ds_bruchstufen",
+      "ds_endbahnhof"
+    ],
+    "zeit": "nacht",
+    "art": "schrein",
+    "titel": "Die zweite Taufe",
+    "meldung": "Drei Wachen richten einen neuen Kultplatz her.",
+    "folge_stufe": 0,
+    "koop_zeile": "Eine leere Schlinge ist der beste Zeitpunkt zum Eingreifen.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_flut_ereignis_11_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_flut_ereignis_11_aktiv"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_flut_ereignis_11_aktiv"
+      ],
+      "sets_flags": [
+        "sk_flut_ereignis_11_erledigt"
+      ]
+    },
+    "gegner": [
+      "enemy_sk_flut_novize",
+      "enemy_sk_flut_hand",
+      "enemy_sk_flut_sprecher"
+    ],
+    "beute": {
+      "money": [
+        3,
+        8
+      ],
+      "drops": [
+        {
+          "item": "ski_flutknoten",
+          "chance": 1
+        }
+      ]
+    },
+    "abbauen": {
+      "stufe_delta": -1,
+      "dialog": {
+        "id": "sk_flut_ereignis_11",
+        "node": "abbauen"
+      }
+    },
+    "dialog": {
+      "id": "sk_flut_ereignis_11",
+      "node": "start"
+    }
+  },
+  {
+    "id": "sk_flut_ereignis_12",
+    "kult": "sk_flut",
+    "min_stufe": 3,
+    "karten": [
+      "gaskanaele",
+      "docks",
+      "ds_bruchstufen"
+    ],
+    "zeit": "nacht",
+    "art": "ueberfall",
+    "titel": "Der Preis des Rückwegs",
+    "meldung": "Fluthände wollen deinen freien Rückweg verkaufen.",
+    "folge_stufe": 0,
+    "koop_zeile": "Für einen Weg, der schon da ist, zahle ich ungern zweimal.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_flut_ereignis_12_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_flut_ereignis_12_aktiv"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_flut_ereignis_12_aktiv"
+      ],
+      "sets_flags": [
+        "sk_flut_ereignis_12_erledigt"
+      ]
+    },
+    "gegner": [
+      "enemy_sk_flut_haupt"
+    ],
+    "ausweichen": {
+      "dialog": {
+        "id": "sk_flut_ereignis_12",
+        "node": "ausweichen"
+      }
+    },
+    "dialog": {
+      "id": "sk_flut_ereignis_12",
+      "node": "start"
+    }
+  },
+  {
+    "id": "sk_chor_ereignis_01",
+    "kult": "sk_chor",
+    "min_stufe": 0,
+    "karten": [
+      "ds_pruefhaus"
+    ],
+    "zeit": "immer",
+    "art": "spur",
+    "titel": "Ein Mund aus Kreide",
+    "meldung": "Ein Kreidemund liegt auf einer Wand ohne Plakat.",
+    "folge_stufe": 1,
+    "koop_zeile": "Der Mund wartet auf etwas, das wir nicht sagen müssen.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_chor_ereignis_01_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_chor_ereignis_01_aktiv"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_chor_ereignis_01_aktiv"
+      ],
+      "sets_flags": [
+        "sk_chor_ereignis_01_erledigt",
+        "sk_chor_ereignis_01_hinweis"
+      ]
+    },
+    "text": "Zwischen den Lippen fehlt ein Strich. Wenn du innehältst, summt die Lücke.",
+    "setzt_hinweis": "sk_chor_ereignis_01_hinweis"
+  },
+  {
+    "id": "sk_chor_ereignis_02",
+    "kult": "sk_chor",
+    "min_stufe": 0,
+    "karten": [
+      "theater"
+    ],
+    "zeit": "tag",
+    "art": "werbung",
+    "titel": "Eine Stimme im Takt",
+    "meldung": "Ein Vorarbeiter bittet dich um eine angeblich harmlose Stimmprobe.",
+    "folge_stufe": 0,
+    "koop_zeile": "Eine kleine Probe kann eine lange Reise machen.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_chor_ereignis_02_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_chor_ereignis_02_aktiv"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_chor_ereignis_02_aktiv"
+      ],
+      "sets_flags": [
+        "sk_chor_ereignis_02_erledigt"
+      ]
+    },
+    "dialog": {
+      "id": "sk_chor_ereignis_02",
+      "node": "start"
+    }
+  },
+  {
+    "id": "sk_chor_ereignis_03",
+    "kult": "sk_chor",
+    "min_stufe": 0,
+    "karten": [
+      "wx_lichtamt"
+    ],
+    "zeit": "immer",
+    "art": "zeichen_am_haus",
+    "titel": "Eine falsche Anrede",
+    "meldung": "Am Haus hängt ein Kreidezeichen in Mundhöhe.",
+    "folge_stufe": 0,
+    "koop_zeile": "Ein bekanntes Geräusch ist noch kein bekannter Besucher.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_chor_ereignis_03_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_chor_ereignis_03_aktiv"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_chor_ereignis_03_aktiv"
+      ],
+      "sets_flags": [
+        "sk_chor_ereignis_03_erledigt"
+      ]
+    },
+    "figur": "wxn_lichtschreiber",
+    "naechster_besuch": {
+      "dialog": {
+        "id": "sk_chor_ereignis_03",
+        "node": "start"
+      }
+    }
+  },
+  {
+    "id": "sk_chor_ereignis_04",
+    "kult": "sk_chor",
+    "min_stufe": 1,
+    "karten": [
+      "ds_kalkmarkt",
+      "nachtmarkt"
+    ],
+    "zeit": "immer",
+    "art": "spur",
+    "titel": "Die Pause im Holz",
+    "meldung": "Auf einer Latte stehen Kerben ohne Lied.",
+    "folge_stufe": 1,
+    "koop_zeile": "Hier wurde kein Lied aufgeschrieben, sondern eine Lücke vorbereitet.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_chor_ereignis_04_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_chor_ereignis_04_aktiv"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_chor_ereignis_04_aktiv"
+      ],
+      "sets_flags": [
+        "sk_chor_ereignis_04_erledigt",
+        "sk_chor_ereignis_04_hinweis"
+      ]
+    },
+    "text": "Die Abstände passen zu gewöhnlichen Anreden. Dazwischen wurde frisches Wachs eingerieben.",
+    "setzt_hinweis": "sk_chor_ereignis_04_hinweis"
+  },
+  {
+    "id": "sk_chor_ereignis_05",
+    "kult": "sk_chor",
+    "min_stufe": 1,
+    "karten": [
+      "ds_kalkmarkt"
+    ],
+    "zeit": "tag",
+    "art": "abwerbung",
+    "titel": "Ruths geschlossener Stand",
+    "meldung": "Ruth Bellwick folgte einem Ruf nach verlorener Ware.",
+    "folge_stufe": 1,
+    "koop_zeile": "Ein guter Handel beginnt selten mit einer fremden Stimme im eigenen Kopf.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_chor_ereignis_05_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_chor_ereignis_05_aktiv"
+      ],
+      "start_quests": [
+        "sk_chor_rueckholung"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_chor_ereignis_05_aktiv"
+      ],
+      "sets_flags": [
+        "sk_chor_ereignis_05_erledigt"
+      ]
+    },
+    "figur": "k3n_secondhaendler",
+    "dauer_min": 1440,
+    "rueckholung": "sk_chor_rueckholung",
+    "rueckkehr": {
+      "bei_quest": "sk_chor_rueckholung",
+      "bei_zeitablauf": true,
+      "bei_hauptinteraktion": true,
+      "bei_kapitelwechsel": true,
+      "zeitablauf_effekte": {
+        "clears_flags": [
+          "sk_chor_ereignis_05_aktiv"
+        ],
+        "sets_flags": [
+          "sk_chor_ereignis_05_erledigt"
+        ]
+      }
+    },
+    "dialog": {
+      "id": "sk_chor_ereignis_05",
+      "node": "start"
+    }
+  },
+  {
+    "id": "sk_chor_ereignis_06",
+    "kult": "sk_chor",
+    "min_stufe": 1,
+    "karten": [
+      "wx_bahnhof"
+    ],
+    "zeit": "immer",
+    "art": "sabotage",
+    "titel": "Die verdunkelte Reihe",
+    "meldung": "Kreidewachs verklebt die örtlichen Lampen.",
+    "folge_stufe": 0,
+    "koop_zeile": "Die Dunkelheit wurde aufgelegt, nicht eingeschaltet.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_chor_ereignis_06_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_chor_ereignis_06_aktiv",
+        "sk_chor_ereignis_06_dunkel"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_chor_ereignis_06_aktiv",
+        "sk_chor_ereignis_06_dunkel"
+      ],
+      "sets_flags": [
+        "sk_chor_ereignis_06_erledigt"
+      ]
+    },
+    "dauer_min": 12,
+    "wirkung": {
+      "art": "nacht",
+      "nur_aktuelle_karte": true,
+      "nachtflag": "sk_chor_ereignis_06_dunkel"
+    },
+    "gegenmassnahme": {
+      "item": "ski_stimmwachs_rein",
+      "dialog": {
+        "id": "sk_chor_ereignis_06",
+        "node": "start"
+      },
+      "kostenlos": {
+        "id": "sk_chor_ereignis_06",
+        "node": "handarbeit"
+      }
+    },
+    "ablauf": {
+      "clears_flags": [
+        "sk_chor_ereignis_06_aktiv",
+        "sk_chor_ereignis_06_dunkel"
+      ],
+      "sets_flags": [
+        "sk_chor_ereignis_06_erledigt"
+      ]
+    }
+  },
+  {
+    "id": "sk_chor_ereignis_07",
+    "kult": "sk_chor",
+    "min_stufe": 2,
+    "karten": [
+      "ds_arbeiterbogen"
+    ],
+    "zeit": "tag",
+    "art": "abwerbung",
+    "titel": "Die Zeitung bleibt liegen",
+    "meldung": "Die Dunscarer Zeitungsfrau fehlt nach einem falschen Hilferuf.",
+    "folge_stufe": 1,
+    "koop_zeile": "Die liegen gebliebenen Blätter wissen weniger als ihre Verkäuferin.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_chor_ereignis_07_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_chor_ereignis_07_aktiv"
+      ],
+      "start_quests": [
+        "sk_chor_rueckholung"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_chor_ereignis_07_aktiv"
+      ],
+      "sets_flags": [
+        "sk_chor_ereignis_07_erledigt"
+      ]
+    },
+    "figur": "k3e_zeitungsfrau",
+    "dauer_min": 2880,
+    "rueckholung": "sk_chor_rueckholung",
+    "rueckkehr": {
+      "bei_quest": "sk_chor_rueckholung",
+      "bei_zeitablauf": true,
+      "bei_hauptinteraktion": true,
+      "bei_kapitelwechsel": true,
+      "zeitablauf_effekte": {
+        "clears_flags": [
+          "sk_chor_ereignis_07_aktiv"
+        ],
+        "sets_flags": [
+          "sk_chor_ereignis_07_erledigt"
+        ]
+      }
+    },
+    "dialog": {
+      "id": "sk_chor_ereignis_07",
+      "node": "start"
+    }
+  },
+  {
+    "id": "sk_chor_ereignis_08",
+    "kult": "sk_chor",
+    "min_stufe": 2,
+    "karten": [
+      "ds_arbeiterbogen",
+      "altmarkt"
+    ],
+    "zeit": "nacht",
+    "art": "schrein",
+    "titel": "Der Chor ohne Sänger",
+    "meldung": "Eine Stimmgabel summt zwischen drei Kreidemündern.",
+    "folge_stufe": 0,
+    "koop_zeile": "Man kann auch ohne Publikum Lärm anrichten.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_chor_ereignis_08_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_chor_ereignis_08_aktiv"
+      ],
+      "start_quests": [
+        "sk_chor_schrein_auftrag"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_chor_ereignis_08_aktiv"
+      ],
+      "sets_flags": [
+        "sk_chor_ereignis_08_erledigt"
+      ]
+    },
+    "gegner": [
+      "enemy_sk_chor_novize",
+      "enemy_sk_chor_hand"
+    ],
+    "beute": {
+      "money": [
+        3,
+        8
+      ],
+      "drops": [
+        {
+          "item": "ski_chorkreide",
+          "chance": 1
+        }
+      ]
+    },
+    "abbauen": {
+      "stufe_delta": -1,
+      "dialog": {
+        "id": "sk_chor_ereignis_08",
+        "node": "abbauen"
+      }
+    },
+    "dialog": {
+      "id": "sk_chor_ereignis_08",
+      "node": "start"
+    }
+  },
+  {
+    "id": "sk_chor_ereignis_09",
+    "kult": "sk_chor",
+    "min_stufe": 2,
+    "karten": [
+      "altmarkt"
+    ],
+    "zeit": "nacht",
+    "art": "ueberfall",
+    "titel": "Der gestohlene Ruf",
+    "meldung": "Eine vertraute Anrede lockt dich in einen schmalen Gang.",
+    "folge_stufe": 0,
+    "koop_zeile": "Der Klang kennt uns, die Gestalten nicht.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_chor_ereignis_09_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_chor_ereignis_09_aktiv"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_chor_ereignis_09_aktiv"
+      ],
+      "sets_flags": [
+        "sk_chor_ereignis_09_erledigt"
+      ]
+    },
+    "gegner": [
+      "enemy_sk_chor_hand"
+    ],
+    "ausweichen": {
+      "dialog": {
+        "id": "sk_chor_ereignis_09",
+        "node": "ausweichen"
+      }
+    },
+    "dialog": {
+      "id": "sk_chor_ereignis_09",
+      "node": "start"
+    }
+  },
+  {
+    "id": "sk_chor_ereignis_10",
+    "kult": "sk_chor",
+    "min_stufe": 3,
+    "karten": [
+      "wx_oberstadt"
+    ],
+    "zeit": "immer",
+    "art": "sabotage",
+    "titel": "Wachs am Hebel",
+    "meldung": "Ein fremder Wachsaufsatz verzögert die örtliche Nebenfahrt.",
+    "folge_stufe": 1,
+    "koop_zeile": "Das Wachs fährt nirgendwohin und verlangt trotzdem Fahrgeld.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_chor_ereignis_10_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_chor_ereignis_10_aktiv"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_chor_ereignis_10_aktiv"
+      ],
+      "sets_flags": [
+        "sk_chor_ereignis_10_erledigt"
+      ]
+    },
+    "dauer_min": 18,
+    "wirkung": {
+      "art": "reise",
+      "nur_aktuelle_karte": true,
+      "aufpreis_schilling": 5,
+      "hauptreise_ausgenommen": true,
+      "bei_geldmangel": 0
+    },
+    "gegenmassnahme": {
+      "item": "ski_stimmwachs_rein",
+      "dialog": {
+        "id": "sk_chor_ereignis_10",
+        "node": "start"
+      },
+      "kostenlos": {
+        "id": "sk_chor_ereignis_10",
+        "node": "handarbeit"
+      }
+    },
+    "ablauf": {
+      "clears_flags": [
+        "sk_chor_ereignis_10_aktiv"
+      ],
+      "sets_flags": [
+        "sk_chor_ereignis_10_erledigt"
+      ]
+    }
+  },
+  {
+    "id": "sk_chor_ereignis_11",
+    "kult": "sk_chor",
+    "min_stufe": 3,
+    "karten": [
+      "wx_oberstadt",
+      "wx_lichtamt"
+    ],
+    "zeit": "nacht",
+    "art": "schrein",
+    "titel": "Alle Münder zugleich",
+    "meldung": "Drei Kultisten richten die Kreidemünder auf bewohnte Fenster aus.",
+    "folge_stufe": 0,
+    "koop_zeile": "Die Fenster haben diesem Auftritt nicht zugestimmt.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_chor_ereignis_11_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_chor_ereignis_11_aktiv"
+      ],
+      "start_quests": [
+        "sk_chor_schrein_auftrag"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_chor_ereignis_11_aktiv"
+      ],
+      "sets_flags": [
+        "sk_chor_ereignis_11_erledigt"
+      ]
+    },
+    "gegner": [
+      "enemy_sk_chor_novize",
+      "enemy_sk_chor_hand",
+      "enemy_sk_chor_sprecher"
+    ],
+    "beute": {
+      "money": [
+        3,
+        8
+      ],
+      "drops": [
+        {
+          "item": "ski_chorkreide",
+          "chance": 1
+        }
+      ]
+    },
+    "abbauen": {
+      "stufe_delta": -1,
+      "dialog": {
+        "id": "sk_chor_ereignis_11",
+        "node": "abbauen"
+      }
+    },
+    "dialog": {
+      "id": "sk_chor_ereignis_11",
+      "node": "start"
+    }
+  },
+  {
+    "id": "sk_chor_ereignis_12",
+    "kult": "sk_chor",
+    "min_stufe": 3,
+    "karten": [
+      "theater",
+      "nachtmarkt",
+      "wx_oberstadt"
+    ],
+    "zeit": "nacht",
+    "art": "ueberfall",
+    "titel": "Ein Einsatz zu viel",
+    "meldung": "Chorhände schneiden dir mit fremden Anreden den Weg ab.",
+    "folge_stufe": 0,
+    "koop_zeile": "Eine Antwort schulden wir diesem Ruf nicht.",
+    "visible_if": {
+      "requires_flags": [
+        "sk_freigegeben"
+      ],
+      "hide_if_flags": [
+        "sk_chor_ereignis_12_erledigt"
+      ]
+    },
+    "start": {
+      "sets_flags": [
+        "sk_chor_ereignis_12_aktiv"
+      ]
+    },
+    "ende": {
+      "clears_flags": [
+        "sk_chor_ereignis_12_aktiv"
+      ],
+      "sets_flags": [
+        "sk_chor_ereignis_12_erledigt"
+      ]
+    },
+    "gegner": [
+      "enemy_sk_chor_haupt"
+    ],
+    "ausweichen": {
+      "dialog": {
+        "id": "sk_chor_ereignis_12",
+        "node": "ausweichen"
+      }
+    },
+    "dialog": {
+      "id": "sk_chor_ereignis_12",
+      "node": "start"
+    }
+  }
+]
