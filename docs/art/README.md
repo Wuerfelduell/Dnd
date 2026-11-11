@@ -1816,3 +1816,15 @@ Prüfung: `python tools/art/calderwick2/check.py` (Pillow, aus jedem Arbeitsverz
 - Prüfung: `python tools/art/kettlegate_leben/check.py`.
 
 Keine Laufzeitintegration in diesem Paket.
+
+## CZ: Varrowmouth-Gegner und Bosse (`varrowmouth4`)
+
+41 PNGs aus 27 eigenständigen Bildgenerator-Sheets: zehn Kampf-Sheets, sieben Karten-Sheets, sieben Köpfe, sieben Bestiariumsbilder, neun Effekte und das Wrack-Prop. Sechs normale Gegnerformen einschließlich Salzkrusten-Rest, eine Elite und drei Boss-Kampfverträge. Die zwei Pegelherrin-Sheets bleiben bei CY.
+
+- Manifest: `public/sprites/manifest-varrowmouth4.json`, mit Frame-Listen, Tempo, Regionen und externen CY-Verweisen.
+- Vorschau: [batch-varrowmouth4-preview.png](batch-varrowmouth4-preview.png).
+- Prompts, Korrekturläufe und Quellprüfsummen: `batch-varrowmouth4-generation.json`. Erzeugung mit dem integrierten Bildgenerator; Nearest Neighbor, gemeinsame 32-Farben-Palette aus `manifest-dunscar3.json`, indizierte PNGs und binäres Alpha. Köpfe und Bestiarium sind dokumentierte Ableitungen der Idle-Posen.
+- Grafikprüfung: `python tools/art/varrowmouth4/check.py`; Bericht `batch-varrowmouth4-validation.json`.
+- Daten/Anschlussentscheidungen: [k6_gegner/README.md](../story/k6_gegner/README.md); Prüfung `node docs/story/k6_gegner/pruefen.mjs`.
+
+Kein Spielcode geändert. CU/CT binden Item- und Story-Eingänge beim späteren Einbau. Die begrenzte Ring-/Zeugen-Sperrdauer ist ausdrücklich dokumentiert, weil „bis Kampfende halbieren“ keine feste Rundenzahl definiert.
