@@ -1,4 +1,5 @@
 import { NEWSPAPERS } from '../data/lore.js';
+import { uiSound, worldSound } from '../core/sounds.js';
 import { FESTE } from '../core/Clock.js';
 import { DIGEST_LABELS, digestSlowdown, fmtDigest, FORM_SEQ, FORM_MIN_DIGEST, FORM_NERVES_PER_SEC, FORM_UNRUHE_PER_SEC, FORM_MIN_NERVES } from '../core/Pathways.js';
 import { buffLabel, fmtSec } from '../core/Talents.js';
@@ -368,7 +369,7 @@ export class Ui {
 
     state.on('composure', (v) => this.updateComposure(v));
     state.on('vision', (on) => root.classList.toggle('vision', on));
-    state.on('notice', (t) => this.toast(t, 'warn'));
+    state.on('notice', (t) => { this.toast(t, 'warn'); if (/^Zu schwer/.test(t)) this.sfx(uiSound('notebook', 'heavy')); });
     state.on('clue', (id) => this.toast(`Neuer Hinweis: ${state.clue(id).name}`));
     state.on('cross', ({ fact, case: c }) => {
       const title = state.content.cases.find((x) => x.id === c)?.title.split(':')[0] ?? 'einem anderen Fall';
@@ -807,8 +808,16 @@ export class Ui {
 
   // --- Modale Fenster --------------------------------------------------------
 
+  /** Paket Y: Klang der Oberfläche (still ohne Audio). */
+  sfx(id, opts) {
+    if (id) this.audio?.play(id, opts);
+  }
+
   open(kind, html, cls = '') {
     this.rememberScroll();
+    // Y: ein Fenster klingt beim Öffnen (Karte entfalten, Notizbuch blättern, Schublade), nicht bei jedem Neuaufbau
+    if (this.modal !== kind) { this.sfx(this.nextOpenSound ?? uiSound(kind)); }
+    this.nextOpenSound = null;
     this.modal = kind;
     this.layer.classList.remove('has-titlescene');
     this.layer.onpointermove = null;
@@ -854,6 +863,7 @@ export class Ui {
   }
 
   close() {
+    if (this.modal && this.modal !== 'title') this.sfx(uiSound(this.modal, 'close'));
     if (this.modal === 'signal') { this.state.cancelPrivateAnswer?.(1); this.state.cancelPrivateAnswer?.(2); this.signalUi = null; } // BN: offenes Angebot verfällt
     this.forgetScroll();
     this.modal = null;
@@ -870,6 +880,7 @@ export class Ui {
       // AP/AR: Epilogszenen nach dem Schlussbild, eine Tafel je Szene, dann die Kapitelkarte
       const scene = this.pendingEpilogue.shift();
       this.showMessage(scene.title, scene.text, { footer: 'Epilog' });
+      this.sfx(uiSound('message', 'epilog'));
       this.layer.querySelector('.panel.message')?.classList.add('chapterbook');
     } else if (this.pendingChapter) {
       // Kapitelende (z. B. Fall 9): eigene Tafel nach dem Schlussbild
@@ -878,6 +889,7 @@ export class Ui {
       // Paket AE: Kapitelkarte (Ende von Kapitel 1 kündigt Kapitel 2 an, sonst die Schlusskarte)
       const card = ch.scene ?? (/Kapitel 1\b/.test(ch.title) ? 'kapitel2_karte' : /Kapitel 2\b/.test(ch.title) ? 'kapitel3_karte' : /Kapitel 3\b/.test(ch.title) ? 'kapitel4_karte' : /Kapitel 4\b/.test(ch.title) ? 'kapitel5_karte' : 'kapitel_ende');
       this.showMessage(ch.title, ch.text, { footer: ch.footer ?? '', scene: card });
+      this.sfx(uiSound('message', 'chapter'));
       this.layer.querySelector('.panel.message')?.classList.add('chapterbook'); // Grundpaket: aufgeschlagenes Notizbuch (07_02)
     } else if (this.pendingLost) {
       const { title, text, corrupted = [], player = 1 } = this.pendingLost;
@@ -1033,6 +1045,8 @@ export class Ui {
     const { npc, tree } = this.dialogue;
     const node = tree.nodes[nodeId];
     if (!node) throw new Error(`Dialogknoten fehlt: ${npc.dialogue}.${nodeId}`);
+    this.sfx(uiSound('dialogue', 'dialog'), { volume: 0.7 });
+    if (s.map === 'reise_landstrasse' && !this.dialogue.greeted) this.music?.cue?.('ls_ereignis', 45); // CL: Reiseereignis auf der Landstraße
     this.as(() => s.applyEffects(node, { nodeKey: `${npc.dialogue}.${nodeId}`, commandId: `${npc.dialogue}.${nodeId}@${Date.now()}` })); // BG: jeder bestätigte Schritt ist ein eigener Befehl
     if (node.combat) { this.dialogue.combat = true; if (npc.id) s.hostileAfterFight(npc.id, node.combat); }
     s.visitNode(npc.dialogue, nodeId);
@@ -1152,6 +1166,7 @@ export class Ui {
 
   giveGift(itemId) {
     const r = this.as(() => this.state.giveGift(this.dialogue.npc.id, itemId));
+    this.sfx(worldSound('gift', r));
     this.openGift(r.text);
   }
 
@@ -1238,6 +1253,8 @@ export class Ui {
     const places = personPlaces(s, npcId);
     if (!npc || !places.length) return;
     this.personPin = npcId;
+    this.nextOpenSound = this.modal === 'travel' ? null : uiSound('personmap');
+    if (this.modal === 'notebook') this.sfx(uiSound('notebook', 'wegweiser')); // CM: Person angeklickt, Wegweiser zeigt alle Aufenthaltsorte
     const all = s.content.travelRules;
     const ownCity = cityOf(s, s.map);
     const city = places.some((p) => p.city === ownCity) ? ownCity : places[0].city;
@@ -1339,6 +1356,7 @@ export class Ui {
     const s = this.state;
     const rules = s.content.travelRules;
     if (d.direct) { // Zugfahrt zwischen den Städten: keine Reiseart, direkt hin
+      this.sfx(worldSound('travel', { direct: true, to: d.map }));
       this.close();
       this.scene.travelTo(d.map, d.spawn);
       return;
@@ -1374,6 +1392,7 @@ export class Ui {
     const fee = s.sektenReiseAufschlag?.(this.travelFrom) ?? 0;
     if (fee) { s.addMoney(-fee); this.toast(`Aufschlag an der Sperre: −${fee} Schilling`, 'warn'); }
     const go = () => this.scene.travelTo(d.map, d.spawn);
+    this.sfx(worldSound('travel', { mode, city: cityOf(s, s.map) })); // Y: Kutsche rumpelt, in Wexmoor rudert man die Abkürzung
     if (mode === 'sicher') {
       const r = travelSafe(s);
       const parts = [`Die Kutsche rumpelt über das Kopfsteinpflaster nach ${d.name}. Du lehnst dich zurück und schlägst dein Journal auf.`];
@@ -1457,26 +1476,27 @@ export class Ui {
         <button data-act="close">Schließen <span class="key">J</span></button>
       </div>`, 'notebook');
     this.notebookTabs = tabs;
-    el.querySelectorAll('[data-tab]').forEach((b) => { b.onclick = () => { this.tab = b.dataset.tab; this.selected = []; this.forgetScroll(); this.renderNotebook(''); }; });
-    el.querySelectorAll('[data-itemcat]').forEach((b) => { b.onclick = () => { this.itemCat = b.dataset.itemcat; this.forgetScroll('notebook', /^UL\./); this.renderNotebook(''); }; });
+    el.querySelectorAll('[data-tab]').forEach((b) => { b.onclick = () => { if (this.tab !== b.dataset.tab) this.sfx(uiSound('notebook', 'tab')); this.tab = b.dataset.tab; this.selected = []; this.forgetScroll(); this.renderNotebook(''); }; });
+    el.querySelectorAll('[data-itemcat]').forEach((b) => { b.onclick = () => { if (this.itemCat !== b.dataset.itemcat) this.sfx(uiSound('notebook', 'page')); this.itemCat = b.dataset.itemcat; this.forgetScroll('notebook', /^UL\./); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-fact]').forEach((b) => { b.onclick = () => this.toggleFact(b.dataset.fact); });
     el.querySelectorAll('[data-quest-case]').forEach((b) => { b.onclick = (event) => {
       event.stopPropagation();
+      this.sfx(uiSound('notebook', 'page'));
       this.forgetScroll();
       this.openNotebook(b.dataset.questCase);
     }; });
-    el.querySelector('[data-act=quests]')?.addEventListener('click', () => { this.forgetScroll(); this.openNotebook('quests'); });
-    el.querySelectorAll('[data-archive]').forEach((b) => { b.onclick = () => { this.archiveCase = b.dataset.archive; this.selected = []; this.forgetScroll(); this.renderNotebook(''); }; });
+    el.querySelector('[data-act=quests]')?.addEventListener('click', () => { this.sfx(uiSound('notebook', 'page')); this.forgetScroll(); this.openNotebook('quests'); });
+    el.querySelectorAll('[data-archive]').forEach((b) => { b.onclick = () => { this.sfx(uiSound('notebook', 'page')); this.archiveCase = b.dataset.archive; this.selected = []; this.forgetScroll(); this.renderNotebook(''); }; });
     el.querySelector('[data-act=combine]')?.addEventListener('click', () => this.combine());
     const inv = (fn) => this.as(fn, this.tab === 'items' || this.tab === 'pfad' ? this.invPlayer : 1);
-    el.querySelectorAll('[data-use]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(inv(() => this.state.useItem(b.dataset.use)) ?? '')); });
-    el.querySelectorAll('[data-equip]').forEach((b) => { b.onclick = () => { inv(() => this.state.equip(b.dataset.equip)); this.renderNotebook(''); }; });
+    el.querySelectorAll('[data-use]').forEach((b) => { b.onclick = () => { this.sfx(worldSound('use', { id: b.dataset.use })); this.renderNotebook(esc(inv(() => this.state.useItem(b.dataset.use)) ?? '')); }; });
+    el.querySelectorAll('[data-equip]').forEach((b) => { b.onclick = () => { if (inv(() => this.state.equip(b.dataset.equip))) this.sfx(worldSound('equip')); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-unequip]').forEach((b) => { b.onclick = () => { inv(() => this.state.unequipWeapon()); this.renderNotebook('Du kämpfst jetzt mit bloßen Fäusten. Die Korruption ruht.'); }; });
     el.querySelectorAll('[data-aside]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(inv(() => this.state.setAsideArtifact(b.dataset.aside)).text)); });
     el.querySelectorAll('[data-takeup]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(inv(() => this.state.takeUpArtifact(b.dataset.takeup)).text)); });
     el.querySelectorAll('[data-cleanse]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(inv(() => this.state.cleanseWithSalt(b.dataset.cleanse)).text)); });
-    el.querySelectorAll('[data-wear]').forEach((b) => { b.onclick = () => { inv(() => this.state.wear(b.dataset.wear)); this.renderNotebook(''); }; });
-    el.querySelectorAll('[data-takeoff]').forEach((b) => { b.onclick = () => { inv(() => this.state.takeOff(b.dataset.takeoff)); this.renderNotebook(''); }; });
+    el.querySelectorAll('[data-wear]').forEach((b) => { b.onclick = () => { if (inv(() => this.state.wear(b.dataset.wear))) this.sfx(worldSound('wear', { slot: this.state.item(b.dataset.wear)?.slot })); this.renderNotebook(''); }; });
+    el.querySelectorAll('[data-takeoff]').forEach((b) => { b.onclick = () => { if (inv(() => this.state.takeOff(b.dataset.takeoff))) this.sfx(worldSound('wear', { slot: b.dataset.takeoff })); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-invplayer]').forEach((b) => { b.onclick = () => { this.invPlayer = Number(b.dataset.invplayer); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-give]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(this.state.giveItem(b.dataset.give, this.invPlayer).text)); });
     // Wegwerfen braucht einen zweiten Klick, damit nichts aus Versehen verschwindet
@@ -1501,6 +1521,7 @@ export class Ui {
     el.querySelector('[data-ritual]')?.addEventListener('click', () => {
       const who = this.state.hasP2() ? this.invPlayer : 1;
       const r = inv(() => this.state.performRitual());
+      this.sfx(worldSound('ritual', r));
       if (r.ok) {
         const pid = inv(() => this.state.pathway?.id);
         this.close();
@@ -2084,6 +2105,7 @@ export class Ui {
 
   brew(formulaId) {
     const r = this.as(() => this.state.brew(formulaId));
+    this.sfx(worldSound('brew', r));
     this.scene?.playBrewFx?.(r.ok);
     this.openBrew(`<span class="${r.ok ? 'good' : ''}">${esc(r.text)}</span>`);
   }
@@ -2314,7 +2336,15 @@ export class Ui {
   auctionPick(i) {
     const x = this.auctionActs?.[i];
     if (!x || x.off) return;
+    const a0 = this.state.auction;
+    const before = a0 ? a0.bought.length + a0.sold.length : 0;
     const r = x.fn();
+    // CM: Gebot (Papier und Räuspern), Zuschlag (Hammer), Fassung (Metall klickt), Fehlschlag (Doppel-Tock)
+    if (/^(Über)?[Bb]ieten/.test(x.label)) this.sfx(worldSound('bid', r ?? { ok: true }));
+    else if (/ fassen /.test(x.label)) this.sfx(worldSound('craft', r ?? { ok: false }));
+    else if (r && r.ok === false) this.sfx(uiSound('auction', 'error'));
+    const a1 = this.state.auction;
+    if (a1 && a1.bought.length + a1.sold.length > before) this.sfx(worldSound('hammer'));
     if (!this.state.auction) return;
     this.renderAuction(r?.text ? esc(r.text) : '');
   }

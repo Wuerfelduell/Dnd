@@ -151,7 +151,9 @@ export class Audio {
   create(id, kind, opts = {}) {
     const entry = this.entries[kind].get(id);
     if (!entry || !this.ready()) return null;
-    const variant = entry.variants > 1 ? `_${1 + Math.min(entry.variants - 1, Math.floor(this.random() * entry.variants))}` : '';
+    // CM: feste Variante (Ventilzustand, Fall-Stern), sonst zufällig
+    const pick = Number.isInteger(opts.variant) ? Math.max(1, Math.min(entry.variants, opts.variant)) : 1 + Math.min(entry.variants - 1, Math.floor(this.random() * entry.variants));
+    const variant = entry.variants > 1 ? `_${pick}` : '';
     const key = `${kind}:${id}${variant}`;
     if (!this.scene.cache.audio.exists(key)) return null;
     const sound = this.manager.add(key);
@@ -186,7 +188,7 @@ export class Audio {
 
   play(id, opts = {}) {
     // Intentionally drop pre-gesture/hidden one-shots rather than replay old clicks.
-    return this.create(id, 'sfx', { volume: opts.volume })?.sound ?? null;
+    return this.create(id, 'sfx', { volume: opts.volume, variant: opts.variant })?.sound ?? null;
   }
 
   loop(id) {

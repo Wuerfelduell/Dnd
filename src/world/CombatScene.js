@@ -8,6 +8,8 @@ import {
 } from './assets.js';
 import { VIEW_W, VIEW_H, PLAYER_PALETTE } from './WorldScene.js';
 import { koopBark, koopStartEvent } from '../core/Koop.js';
+import { combatSound, skillSound } from '../core/sounds.js';
+import { combatCue } from '../core/musicCues.js';
 import { speechBubble } from './WexmoorLife.js';
 
 // Kampfbildschirm in Seitenansicht: Spieler links, Gegner rechts, Bodenstreifen unten.
@@ -67,8 +69,8 @@ export class CombatScene extends Phaser.Scene {
   }
 
   /** Paket Y: Soundeffekt (still, wenn der Ton fehlt oder noch gesperrt ist). */
-  sfx(id) {
-    this.registry.get('audio')?.play(id);
+  sfx(id, opts) {
+    if (id) this.registry.get('audio')?.play(id, opts);
   }
 
   /** Paket F: Boss-Band schiebt sich ins Bild, Büste und Name, dann wieder weg. */
@@ -81,7 +83,7 @@ export class CombatScene extends Phaser.Scene {
       const watcher = special === 'koop_pruefung' ? (this.state.combatBy === 2 ? 1 : 2) : null;
       this.time.delayedCall(bust ? 2400 : 600, () => this.bark(special ?? (bust || this.combat.enc.boss ? 'koop_bossbeginn' : 'koop_kampfbeginn'), watcher));
     }
-    this.sfx(bust ? 'boss_auftritt' : 'kampf_start');
+    this.sfx(combatSound('start', { id: this.encounterId, boss: !!bust })); // CM: Sekten überfallen aus dem Nebel, Starling verwandelt sich
     if (!bust || !this.textures.exists('F_08_boss_band')) return;
     const band = this.add.sprite(0, 0, 'F_08_boss_band', 0).setOrigin(0).setDepth(90);
     const key = 'F_08_boss_band-enter';
@@ -153,7 +155,8 @@ export class CombatScene extends Phaser.Scene {
   hitFx(kind, who) {
     const p = who === 'enemy' ? this.enemyCenter() : this.playerCenter();
     // Paket Y: passender Klang zum Treffer
-    const sound = { miss: 'verfehlt', critical: 'treffer_krit', parry: 'parade', dodge: 'ausweichen', heal: 'heilen', item: 'trank', nerves: 'nerven' }[kind]
+    const sound = combatSound('hit', { id: this.encounterId, kind }) // CM: gepolsterte Treffer im Fest-Boxring
+      ?? { miss: 'verfehlt', critical: 'treffer_krit', parry: 'parade', dodge: 'ausweichen', heal: 'heilen', item: 'trank', nerves: 'nerven' }[kind]
       ?? (who === 'player' ? 'treffer_spieler' : 'treffer');
     this.sfx(sound);
     this.playFx('hits', kind, p.x, p.y, 1);
@@ -318,6 +321,7 @@ export class CombatScene extends Phaser.Scene {
     this.stars.forEach((star, i) => {
       if (i >= lit || star.lit) return;
       star.lit = true;
+      this.sfx('starling_stern', { variant: i + 1 }); // CM: acht Sterne, tonal gestuft D4 bis D5
       this.tweens.add({ targets: star, alpha: 1, scale: { from: 1.6, to: 1 }, duration: 400, ease: 'Back.out' });
     });
   }
@@ -517,6 +521,7 @@ export class CombatScene extends Phaser.Scene {
     const c = this.combat;
     const sk = c.skillDef(skillId);
     const r = c.useSkill(skillId, grades);
+    this.sfx(skillSound(sk, c.on(c.actor, () => this.state.pathway?.id))); // Y: Pfadklang (Licht, Salz, Glocke, Geist, Feuer, Schwächung)
     if (!sk.hits) {
       if (!this.castAnim()) this.flash(this.player);
       this.skillFx(skillId);
@@ -616,6 +621,7 @@ export class CombatScene extends Phaser.Scene {
       if (c.lastAction) {
         // Kniff der Sekten: Panzer, Heilung, Schleier, Einschüchterung
         const a = c.lastAction;
+        this.sfx(combatSound('act', a));
         this.ui.combatMessage(`${c.enemy.name}: ${a.name}\n\n${a.text}`);
         const float = { guard: [`Panzer +${a.value}`, 'good'], heal: [`+${a.value}`, 'good'], veil: ['Schleier', 'miss'], taunt: [`-${a.value} Nerven`, 'hurt'], drain: [`-${a.value} Konzentration`, 'hurt'] }[a.action];
         if (a.action === 'taunt' || a.action === 'drain') this.focusPlayer(c.target);
@@ -633,6 +639,7 @@ export class CombatScene extends Phaser.Scene {
     this.phase = 'enemy';
     this.attack = atk;
     this.focusPlayer(c.target);
+    this.sfx(combatSound('telegraph')); // Y: Warnsignal, der Gegner holt aus
     const t0 = now() + TELEGRAPH;
     // Jeder Schlag hat je Getroffenem ein eigenes Ergebnis (Flächenangriff: beide wehren denselben Ring ab)
     this.hits = atk.hits.map((h, i) => ({
@@ -775,11 +782,12 @@ export class CombatScene extends Phaser.Scene {
   over() {
     this.phase = 'over';
     const c = this.combat;
-    this.sfx({ won: 'sieg', lost: 'niederlage', fled: 'flucht', escaped: 'flucht' }[c.outcome]);
+    this.sfx(combatSound('over', { id: this.encounterId, outcome: c.outcome }));
+    this.registry.get('music')?.cue?.(combatCue(c.outcome, c.enc)); // Z: Bosssieg und Flucht als Ereignisstück
     if (c.outcome === 'won') {
       // Menschen (z. B. Holt beim Training) geben auf und bleiben stehen, Wesen vergehen.
       const human = this.enemySheet ? !FADING_SHEETS.includes(this.enemySheet) : this.combat.enc.sprite.startsWith('npc:');
-      this.sfx(human ? 'gegner_tod' : 'geist_tod');
+      this.sfx(combatSound('defeated', { id: this.encounterId, sheet: this.enemySheet ?? this.combat.enc.sprite, human }));
       if (this.anim(this.enemy, 'defeated', false)) { if (!human) this.tweens.add({ targets: this.enemy, alpha: 0, delay: 900, duration: 700 }); }
       else this.tweens.add({ targets: this.enemy, alpha: 0, y: '+=10', duration: 700 });
     }

@@ -8,6 +8,8 @@ import { CombatScene } from './world/CombatScene.js';
 import { Audio } from './core/Audio.js';
 import { wireSounds } from './core/sounds.js';
 import { MusicDirector } from './core/MusicDirector.js';
+import { wireMusicCues, modeFor } from './core/musicCues.js';
+import { isOutdoorMap } from './world/assets.js';
 import { cityOf } from './core/Travel.js';
 
 const SAVE_KEY = 'nebelakten-save';
@@ -39,7 +41,7 @@ const restartWorld = () => game.scene.getScene('world').scene.restart();
 
 // Paket Y: Soundeffekte (eine Instanz für alle Szenen; spielt erst nach der ersten Eingabe)
 const audio = new Audio({ kinds: ['sfx', 'sfx2'] }); // Effekte aus Paket Y und CM; Musik kommt als Notendaten (Paket Z)
-wireSounds(state, audio, uiRoot);
+wireSounds(state, audio, uiRoot, { cityOf: (m) => cityOf(state, m) });
 
 const ui = new Ui(uiRoot, state, {
   hasSave: () => [2, 3, 4].includes(readSave()?.v),
@@ -61,6 +63,8 @@ ui.audio = audio;
 
 // Paket Z: Musik aus Notendaten (Web Audio), startet mit der ersten Eingabe
 const music = new MusicDirector({ audio });
+ui.music = music;
+wireMusicCues(state, music); // Z/AY/CL: Enden, Ankünfte, Rituale, Jahreszeiten, Abgleiche und Ventile als Ereignisstücke
 const setVolumes = audio.setVolumes.bind(audio);
 audio.setVolumes = (v) => { const out = setVolumes(v); music.applyVolume(); return out; };
 const startMusic = () => music.start();
@@ -79,6 +83,8 @@ setInterval(() => {
     playTime: state.playTime,
     fest: state.festAktiv?.(cityOf(state, state.map)) ?? null, // CL: Festmusik auf den Festplätzen
     season: state.season?.() ?? null,
+    // Z: Lagen mit eigener Schleife (Horchstelle, Treffen, Streife im Freien einer Polizeistadt)
+    mode: modeFor({ modal: ui.modal, auction: !!state.auction, wanted: state.wanted ?? 0, police: !!state.cityPolice?.(), outdoor: !!content.maps[state.map] && isOutdoorMap(content.maps[state.map]) }),
   });
 }, 500);
 
@@ -98,6 +104,7 @@ game = new Phaser.Game({
     preBoot: (g) => {
       g.registry.set('state', state);
       g.registry.set('ui', ui);
+      g.registry.set('music', music);
       g.registry.set('audio', audio);
     },
   },

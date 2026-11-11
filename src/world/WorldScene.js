@@ -14,7 +14,9 @@ import { Roamers } from './Roamers.js';
 import { Critters } from './Critters.js';
 import { Patrols } from './Patrols.js';
 import { TapMove } from './TapMove.js';
-import { footstepSound, ambienceFor } from '../core/sounds.js';
+import { footstepSound, ambienceFor, weatherLoop, randomSoundsFor, worldSound } from '../core/sounds.js';
+import { isOutdoorMap } from './assets.js';
+import { cityOf } from '../core/Travel.js';
 import { Combat } from '../core/Combat.js';
 
 export const VIEW_W = 480;
@@ -653,7 +655,39 @@ export class WorldScene extends Phaser.Scene {
     this.stepT = 300;
     const tx = Math.floor(this.player.x / TILE);
     const ty = Math.floor(this.player.y / TILE);
-    this.registry.get('audio')?.play(footstepSound(this.mapDef.tiles, this.mapDef.rows?.[ty]?.[tx]), { volume: 0.6 });
+    // CM: im Winter Schnee, im Herbst Laub unter den Schritten im Freien
+    const step = footstepSound(this.mapDef.tiles, this.mapDef.rows?.[ty]?.[tx], { season: this.state.season?.(), outdoor: this.outdoor });
+    this.registry.get('audio')?.play(step, { volume: 0.6 });
+    if (step === 'schritt_laub' && Math.random() < 0.15) this.sfx('saison_laub', { volume: 0.4 }); // Herbstlaub raschelt hin und wieder lauter
+  }
+
+  /** Y/CM: Soundeffekt der Welt (still ohne Audio). */
+  sfx(id, opts) {
+    if (id) this.registry.get('audio')?.play(id, opts);
+  }
+
+  /** CM: zweite Schleife für Wetter und Feste neben der Ortsatmo; wechselt mit Jahreszeit und Festtag. */
+  updateWeatherLoop() {
+    const audio = this.registry.get('audio');
+    if (!audio) return;
+    const id = weatherLoop({ mapId: this.state.map, outdoor: this.outdoor, season: this.state.season?.(), fest: this.state.festAktiv?.(cityOf(this.state, this.state.map)) ?? null });
+    if (audio.weather === id) return;
+    if (audio.weather) audio.stopLoop(audio.weather, 800);
+    audio.weather = id;
+    if (id) audio.loop(id);
+  }
+
+  /** Y/CM: Zufallsklänge des Ortes (Glocke fern, Frösche, Ratten, Kalk rieselt, Kondensat …), jeder in seinem eigenen Takt. */
+  updateRandomSounds(delta) {
+    if (!this.randomSounds?.length) return;
+    for (const r of this.randomSounds) {
+      r.t -= delta / 1000;
+      if (r.t > 0) continue;
+      r.t = r.every * (0.5 + Math.random());
+      this.sfx(r.id, { volume: 0.55 });
+      if (r.then) for (let i = 0; i < (r.then[2] ?? 1); i++) this.time.delayedCall(r.then[1] + i * 450, () => this.sfx(r.then[0], { volume: 0.6 }));
+      if (r.id === 'fest_feuerwerk_start') this.registry.get('music')?.cue?.('fest_feuerwerk'); // CL: Feuerwerksstück zur Festnacht
+    }
   }
 
   /**
@@ -691,6 +725,11 @@ export class WorldScene extends Phaser.Scene {
     if (audio.ambience && audio.ambience !== id) audio.stopLoop(audio.ambience, 600);
     audio.ambience = id;
     if (id) audio.loop(id);
+    this.outdoor = isOutdoorMap(this.mapDef);
+    this.updateWeatherLoop();
+    this.randomSounds = randomSoundsFor(this.state.map, this.mapDef, { night: this.state.isNight?.() ?? false, fest: this.state.festAktiv?.(cityOf(this.state, this.state.map)) ?? null }).map((r) => ({ ...r, t: r.every * (0.3 + Math.random()) }));
+    // Y: Geistsicht summt, solange sie an ist (Kartenwechsel schaltet sie aus)
+    if (audio.loops?.has('geistsicht_schleife')) audio.stopLoop('geistsicht_schleife', 300);
   }
 
   create() {
@@ -1201,6 +1240,8 @@ export class WorldScene extends Phaser.Scene {
     }
     this.visionOverlay.setVisible(on);
     this.setVisionFx(on);
+    const audio = this.registry.get('audio');
+    if (audio) { if (on) audio.loop('geistsicht_schleife'); else audio.stopLoop('geistsicht_schleife', 400); } // Y: leises Schweben, solange die Geistsicht an ist
     this.updateAura();
     this.lighting.nightAlpha = on ? Math.max(0.5, this.baseNight - 0.1) : this.baseNight;
   }
@@ -1234,7 +1275,8 @@ export class WorldScene extends Phaser.Scene {
     this.wexLife?.update(delta);
     this.dsLife?.update(delta);
     this.kgLife?.update(delta);
-    if (this.clockDirty && !blocked) this.applyClock();
+    if (this.clockDirty && !blocked) { this.applyClock(); this.updateWeatherLoop(); }
+    if (!blocked) this.updateRandomSounds(delta);
     this.koop?.update(delta, blocked);
     this.feste?.update(delta, blocked);
     if (!blocked) this.checkLocks(delta); // BN: Schallschleusen an den Ausgängen
@@ -1280,6 +1322,7 @@ export class WorldScene extends Phaser.Scene {
     } else this.tap?.cancel();
     const skin = this.skinKey();
     if (skin !== this.playerKey) { // Verkleidung an- oder abgelegt
+      this.sfx(worldSound('disguise'));
       this.playerKey = skin;
       this.player.anims.stop();
       this.player.setTexture(skin, DIRS.indexOf(this.facing) * 4);
@@ -1571,6 +1614,7 @@ export class WorldScene extends Phaser.Scene {
     const warehouseOpen = def.to === 'warehouse'
       && (this.state.flags.has('briefed_05') || ['active', 'done'].includes(this.state.quests.case_05));
     if (def.lock && !warehouseOpen && !this.state.meetsLock(def.lock)) {
+      this.sfx(worldSound('locked'));
       this.ui.showMessage(def.title ?? def.prompt, def.lock.text, { footer: def.lock.footer ?? '' });
       return;
     }
@@ -1612,10 +1656,12 @@ export class WorldScene extends Phaser.Scene {
         break;
       case 'loot':
         this.playPlayerAction('pickup');
+        this.sfx(worldSound('loot'));
         this.roamers.open(it);
         break;
       case 'rest': {
         this.playPlayerAction('rest');
+        this.sfx(worldSound('rest'));
         const healed = this.state.heal(this.state.maxHp);
         this.state.setComposure(100);
         if (this.state.cityPolice()) this.state.restWanted(); // Untertauchen senkt die Fahndung (Wexmoor, nach Fall 9 auch Kettlegate)
@@ -1625,10 +1671,12 @@ export class WorldScene extends Phaser.Scene {
       }
       case 'door':
         this.playPlayerAction('door');
+        this.sfx(worldSound('door', { to: def.to, from: this.state.map }));
         this.travelTo(def.to, def.spawn);
         break;
       case 'read': {
         this.playPlayerAction('read');
+        this.sfx(worldSound('read'));
         const isNew = !def.done_flag || !this.state.flags.has(def.done_flag);
         this.ui.showMessage(def.title, def.text, { footer: def.footer ?? '', scene: def.scene ?? leseSceneOf(`${def.title ?? ''} ${def.prompt ?? ''}`) }); // BW: Lesestellen-Bild
         if (isNew) this.state.applyEffects({ ...def.effects, sets_flags: [...(def.effects?.sets_flags ?? []), ...(def.done_flag ? [def.done_flag] : [])] });
