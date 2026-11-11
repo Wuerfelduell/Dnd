@@ -1,0 +1,4269 @@
+{
+  "cwa_11_dialog": {
+    "start": "cwa_11_start",
+    "nodes": {
+      "cwa_11_start": {
+        "text": "Vera schiebt das leere Fahrgastbuch zu dir. „Vorläufig hat hier niemand gefehlt.“ Auf ihrer Manschette trocknet die Farbe des Bereinigungsstempels.",
+        "choices": [
+          {
+            "text": "Welche andere Erklärung müssen wir ausschließen?",
+            "next": "cwa_11_gegenprobe"
+          },
+          {
+            "text": "Die Schlussfolgerung festhalten.",
+            "next": "cwa_11_schluss",
+            "requires_conclusions": [
+              "cwa_11_d"
+            ],
+            "requires_flags": [
+              "cwa_11_verhoer_done"
+            ],
+            "hide_if_flags": [
+              "cwa_11_geschlossen"
+            ]
+          },
+          {
+            "text": "Ich ermittle weiter."
+          }
+        ]
+      },
+      "cwa_11_gegenprobe": {
+        "text": "Eine freiwillige Abreise müsste am Ausgang eine Entwertung hinterlassen. Dort hängt noch das unbenutzte Kontrollband; die Tragespur führt seitwärts.",
+        "choices": [
+          {
+            "text": "Die Gegenprobe im Blick behalten.",
+            "next": "cwa_11_start"
+          }
+        ]
+      },
+      "cwa_11_schluss": {
+        "text": "Ida wurde am Bahnhof aus dem Personenverkehr genommen. Du markierst die Warenbahn als nächsten Weg. Ein fehlender Eintrag entlastet den Bahnhof nicht, wenn gerade seine Entfernung nachweisbar ist.",
+        "choices": [
+          {
+            "text": "Diesen Befund bestätigen.",
+            "next": "cwa_11_bestaetigt"
+          },
+          {
+            "text": "Noch nichts abschließen.",
+            "next": "cwa_11_start"
+          }
+        ]
+      },
+      "cwa_11_bestaetigt": {
+        "text": "Du markierst die Warenbahn als nächsten Weg. Ein fehlender Eintrag entlastet den Bahnhof nicht, wenn gerade seine Entfernung nachweisbar ist.",
+        "sets_flags": [
+          "cwa_11_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwa_12_dialog": {
+    "start": "cwa_12_start",
+    "nodes": {
+      "cwa_12_start": {
+        "text": "Noel deckt zwei Teller und stellt keinen davon zur Seite. „Eine Portion ist noch unterwegs. Ich lasse sie nicht amtlich kalt werden.“",
+        "choices": [
+          {
+            "text": "Welche andere Erklärung müssen wir ausschließen?",
+            "next": "cwa_12_gegenprobe"
+          },
+          {
+            "text": "Die Schlussfolgerung festhalten.",
+            "next": "cwa_12_schluss",
+            "requires_conclusions": [
+              "cwa_12_d"
+            ],
+            "requires_flags": [],
+            "hide_if_flags": [
+              "cwa_12_geschlossen"
+            ]
+          },
+          {
+            "text": "Ich ermittle weiter."
+          }
+        ]
+      },
+      "cwa_12_gegenprobe": {
+        "text": "Eine erfundene Ehe könnte eine einzelne Erzählung erklären. Die gewaschenen Nähte und getrennt abgenutzten Teller entstanden jedoch nicht in dieser Nacht.",
+        "choices": [
+          {
+            "text": "Die Gegenprobe im Blick behalten.",
+            "next": "cwa_12_start"
+          }
+        ]
+      },
+      "cwa_12_schluss": {
+        "text": "Private gemeinsame Erfahrung übersteht den amtlichen Abgleich zunächst. Du hältst Noels falsches Datum als gemeinsam gelebte Erinnerung fest. Es wird nicht zur neuen amtlichen Wahrheit erklärt.",
+        "choices": [
+          {
+            "text": "Diesen Befund bestätigen.",
+            "next": "cwa_12_bestaetigt"
+          },
+          {
+            "text": "Noch nichts abschließen.",
+            "next": "cwa_12_start"
+          }
+        ]
+      },
+      "cwa_12_bestaetigt": {
+        "text": "Du hältst Noels falsches Datum als gemeinsam gelebte Erinnerung fest. Es wird nicht zur neuen amtlichen Wahrheit erklärt.",
+        "sets_flags": [
+          "cwa_12_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwa_13_dialog": {
+    "start": "cwa_13_start",
+    "nodes": {
+      "cwa_13_start": {
+        "text": "Hesk zieht die Trageriemen enger. „Rahmen. Papier. Tragbar.“ Er sagt nichts über die Hand, die innen am Fenster gelegen hat.",
+        "choices": [
+          {
+            "text": "Welche andere Erklärung müssen wir ausschließen?",
+            "next": "cwa_13_gegenprobe"
+          },
+          {
+            "text": "Die Schlussfolgerung festhalten.",
+            "next": "cwa_13_schluss",
+            "requires_conclusions": [
+              "cwa_13_d"
+            ],
+            "requires_flags": [
+              "cwa_13_verhoer_done"
+            ],
+            "hide_if_flags": [
+              "cwa_13_geschlossen"
+            ]
+          },
+          {
+            "text": "Ich ermittle weiter."
+          }
+        ]
+      },
+      "cwa_13_gegenprobe": {
+        "text": "Nasses Papier ist schwer. Es erklärt weder eine eingedrückte Sitzfeder noch einen Handabdruck auf der Innenseite einer abgeklebten Scheibe.",
+        "choices": [
+          {
+            "text": "Die Gegenprobe im Blick behalten.",
+            "next": "cwa_13_start"
+          }
+        ]
+      },
+      "cwa_13_schluss": {
+        "text": "Idas Transport führt zur Sortiergrube statt zum Ausgang der Stadt. Du zeichnest die Weiche getrennt vom behaupteten Ziel ein. Hesk bleibt ansprechbar; ein belasteter Träger ist noch kein geklärter Entführer.",
+        "choices": [
+          {
+            "text": "Diesen Befund bestätigen.",
+            "next": "cwa_13_bestaetigt"
+          },
+          {
+            "text": "Noch nichts abschließen.",
+            "next": "cwa_13_start"
+          }
+        ]
+      },
+      "cwa_13_bestaetigt": {
+        "text": "Du zeichnest die Weiche getrennt vom behaupteten Ziel ein. Hesk bleibt ansprechbar; ein belasteter Träger ist noch kein geklärter Entführer.",
+        "sets_flags": [
+          "cwa_13_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwa_14_dialog": {
+    "start": "cwa_14_start",
+    "nodes": {
+      "cwa_14_start": {
+        "text": "Ausgesonderte Lettern schlagen hinter dem Schutzrahmen gegeneinander. Klammer zeigt auf die trockene Probeschublade. „Die bleibt heil. Auch wenn die Walze fällt.“",
+        "choices": [
+          {
+            "text": "Welche andere Erklärung müssen wir ausschließen?",
+            "next": "cwa_14_gegenprobe"
+          },
+          {
+            "text": "Die Schlussfolgerung festhalten.",
+            "next": "cwa_14_schluss",
+            "requires_conclusions": [
+              "cwa_14_d"
+            ],
+            "requires_flags": [
+              "cwa_bleisammler_passiert",
+              "cwa_abgleich1_done"
+            ],
+            "hide_if_flags": [
+              "cwa_14_geschlossen"
+            ]
+          },
+          {
+            "text": "Ich ermittle weiter."
+          }
+        ]
+      },
+      "cwa_14_gegenprobe": {
+        "text": "Ein bloßer Setzfehler müsste zufällig verteilt sein. Hier verbindet dieselbe Bruchstelle Korrektur, Archivbefehl und den entfernten Personeneintrag.",
+        "choices": [
+          {
+            "text": "Die Gegenprobe im Blick behalten.",
+            "next": "cwa_14_start"
+          }
+        ]
+      },
+      "cwa_14_schluss": {
+        "text": "Die Löschung führt gezielt auf eine geplante Sammelurkunde hin. Du sicherst den Hauptabdruck in jedem Fall. Nur das zusätzliche Herkunftssiegel kann bei einem gewaltsamen Eingriff zerbrechen.",
+        "choices": [
+          {
+            "text": "Diesen Befund bestätigen.",
+            "next": "cwa_14_bestaetigt"
+          },
+          {
+            "text": "Noch nichts abschließen.",
+            "next": "cwa_14_start"
+          }
+        ]
+      },
+      "cwa_14_bestaetigt": {
+        "text": "Du sicherst den Hauptabdruck in jedem Fall. Nur das zusätzliche Herkunftssiegel kann bei einem gewaltsamen Eingriff zerbrechen.",
+        "sets_flags": [
+          "cwa_14_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwa_21_dialog": {
+    "start": "cwa_21_start",
+    "nodes": {
+      "cwa_21_start": {
+        "text": "Lottie hält einen Schlüssel in der geschlossenen Hand. „Vorerst ist derselbe Name ein Dach. Darunter wohnen trotzdem verschiedene Leute.“",
+        "choices": [
+          {
+            "text": "Welche andere Erklärung müssen wir ausschließen?",
+            "next": "cwa_21_gegenprobe"
+          },
+          {
+            "text": "Die Schlussfolgerung festhalten.",
+            "next": "cwa_21_schluss",
+            "requires_conclusions": [
+              "cwa_21_d"
+            ],
+            "requires_flags": [
+              "cwa_21_verhoer_done"
+            ],
+            "hide_if_flags": [
+              "cwa_21_geschlossen"
+            ]
+          },
+          {
+            "text": "Ich ermittle weiter."
+          }
+        ]
+      },
+      "cwa_21_gegenprobe": {
+        "text": "Eine gemeinsame Bürgschaft wäre freiwillig und würde die einzelnen Schulden ausweisen. Hier wird ein fremder Betrag ohne Einwilligung weitergereicht.",
+        "choices": [
+          {
+            "text": "Die Gegenprobe im Blick behalten.",
+            "next": "cwa_21_start"
+          }
+        ]
+      },
+      "cwa_21_schluss": {
+        "text": "Die Verwaltung testet bereits, Menschen zusammenzufassen. Du lässt die Pfänder getrennt. Der falsche Sammelname darf nicht als bequeme Quelle für drei scheinbar unabhängige Belege zählen.",
+        "choices": [
+          {
+            "text": "Diesen Befund bestätigen.",
+            "next": "cwa_21_bestaetigt"
+          },
+          {
+            "text": "Noch nichts abschließen.",
+            "next": "cwa_21_start"
+          }
+        ]
+      },
+      "cwa_21_bestaetigt": {
+        "text": "Du lässt die Pfänder getrennt. Der falsche Sammelname darf nicht als bequeme Quelle für drei scheinbar unabhängige Belege zählen.",
+        "sets_flags": [
+          "cwa_21_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwa_22_dialog": {
+    "start": "cwa_22_start",
+    "nodes": {
+      "cwa_22_start": {
+        "text": "Pritch legt den Löffel neben die Kasse. „Die Suppe war nötig. Die Adresse hätte nicht mitgehen dürfen.“ Eine Rohrpostkapsel tickt im Lagerfach.",
+        "choices": [
+          {
+            "text": "Welche andere Erklärung müssen wir ausschließen?",
+            "next": "cwa_22_gegenprobe"
+          },
+          {
+            "text": "Die Schlussfolgerung festhalten.",
+            "next": "cwa_22_schluss",
+            "requires_conclusions": [
+              "cwa_22_d"
+            ],
+            "requires_flags": [
+              "cwa_22_verhoer_done",
+              "cwa_abgleich2_done"
+            ],
+            "hide_if_flags": [
+              "cwa_22_geschlossen"
+            ]
+          },
+          {
+            "text": "Ich ermittle weiter."
+          }
+        ]
+      },
+      "cwa_22_gegenprobe": {
+        "text": "Ein später Kauf macht Wetherby nicht zum Urheber früherer Verbrechen. Die Herkunft erklärt seinen Methodenimport, ohne Veys oder Wrens Entscheidungen umzuschreiben.",
+        "choices": [
+          {
+            "text": "Die Gegenprobe im Blick behalten.",
+            "next": "cwa_22_start"
+          }
+        ]
+      },
+      "cwa_22_schluss": {
+        "text": "Wetherby war Käufer der Kettlegater Methoden, nicht Urheber jener Fälle. Du trennst die Verantwortung für Verkauf, Nutzung und frühere Taten. Das Handelszeichen erhält kein nachträglich geratenes Gesicht.",
+        "choices": [
+          {
+            "text": "Diesen Befund bestätigen.",
+            "next": "cwa_22_bestaetigt"
+          },
+          {
+            "text": "Noch nichts abschließen.",
+            "next": "cwa_22_start"
+          }
+        ]
+      },
+      "cwa_22_bestaetigt": {
+        "text": "Du trennst die Verantwortung für Verkauf, Nutzung und frühere Taten. Das Handelszeichen erhält kein nachträglich geratenes Gesicht.",
+        "sets_flags": [
+          "cwa_22_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwa_23_dialog": {
+    "start": "cwa_23_start",
+    "nodes": {
+      "cwa_23_start": {
+        "text": "Hesk steht neben der stillgelegten Bahn. „Die erste Last war ein Befehl. Die zweite war eine Bitte. Beides lag auf meinen Schultern.“",
+        "choices": [
+          {
+            "text": "Welche andere Erklärung müssen wir ausschließen?",
+            "next": "cwa_23_gegenprobe"
+          },
+          {
+            "text": "Die Schlussfolgerung festhalten.",
+            "next": "cwa_23_schluss",
+            "requires_conclusions": [
+              "cwa_23_d"
+            ],
+            "requires_flags": [
+              "cwa_23_verhoer_done"
+            ],
+            "hide_if_flags": [
+              "cwa_23_geschlossen"
+            ]
+          },
+          {
+            "text": "Ich ermittle weiter."
+          }
+        ]
+      },
+      "cwa_23_gegenprobe": {
+        "text": "Eine falsche Quittung kann einen Täter schützen. Idas eigenes Zeichen und der zugängliche Wasserbecher belegen hier eine konkrete Hilfe nach dem Transport.",
+        "choices": [
+          {
+            "text": "Die Gegenprobe im Blick behalten.",
+            "next": "cwa_23_start"
+          }
+        ]
+      },
+      "cwa_23_schluss": {
+        "text": "Der vermeintliche Entführer war zuletzt Idas Helfer. Du musst seine frühere Beteiligung nicht entschuldigen, um seine spätere Hilfe zu schützen. Über eine Veröffentlichung entscheidest du ausdrücklich.",
+        "choices": [
+          {
+            "text": "Diesen Befund bestätigen.",
+            "next": "cwa_23_bestaetigt"
+          },
+          {
+            "text": "Noch nichts abschließen.",
+            "next": "cwa_23_start"
+          }
+        ]
+      },
+      "cwa_23_bestaetigt": {
+        "text": "Du musst seine frühere Beteiligung nicht entschuldigen, um seine spätere Hilfe zu schützen. Über eine Veröffentlichung entscheidest du ausdrücklich.",
+        "sets_flags": [
+          "cwa_23_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwa_24_dialog": {
+    "start": "cwa_24_start",
+    "nodes": {
+      "cwa_24_start": {
+        "text": "Hinter dem Fenster hält Ida eine einzelne Letter. „Wenn du meinen Namen fragst, gibt es ihn noch irgendwo.“ Die Warenbahn wartet auf eine ausdrücklich bestätigte Weitergabe.",
+        "choices": [
+          {
+            "text": "Welche andere Erklärung müssen wir ausschließen?",
+            "next": "cwa_24_gegenprobe"
+          },
+          {
+            "text": "Die Schlussfolgerung festhalten.",
+            "next": "cwa_24_schluss",
+            "requires_conclusions": [
+              "cwa_24_d"
+            ],
+            "requires_flags": [
+              "cwa_blinder_zusteller_passiert"
+            ],
+            "hide_if_flags": [
+              "cwa_24_geschlossen"
+            ]
+          },
+          {
+            "text": "Ich ermittle weiter."
+          }
+        ]
+      },
+      "cwa_24_gegenprobe": {
+        "text": "Die Selbstlöschung war kein Einverständnis mit Haft. Sie entzog Ida zunächst dem Sammelregister und nahm ihr zugleich den amtlichen Ausgang.",
+        "choices": [
+          {
+            "text": "Die Gegenprobe im Blick behalten.",
+            "next": "cwa_24_start"
+          }
+        ]
+      },
+      "cwa_24_schluss": {
+        "text": "Ida kommt ohne fremde Bürgschaft nicht mehr aus der Kabine. Beim bestätigten Abschluss zieht die automatische Bahn die Kabine hinauf. Du hast Ida lebend erreicht und ihren Weg zum Kronenarchiv belegt.",
+        "choices": [
+          {
+            "text": "Diesen Befund bestätigen.",
+            "next": "cwa_24_bestaetigt"
+          },
+          {
+            "text": "Noch nichts abschließen.",
+            "next": "cwa_24_start"
+          }
+        ]
+      },
+      "cwa_24_bestaetigt": {
+        "text": "Beim bestätigten Abschluss zieht die automatische Bahn die Kabine hinauf. Du hast Ida lebend erreicht und ihren Weg zum Kronenarchiv belegt.",
+        "sets_flags": [
+          "cwa_24_geschlossen",
+          "cwa_ida_im_archiv",
+          "cwa_klammer_gestand"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwa_31_dialog": {
+    "start": "cwa_31_start",
+    "nodes": {
+      "cwa_31_start": {
+        "text": "Der Lesesaal führt eine Bezahlung ohne Bezahlten. Aus der Rohrpost kommt höflich die Nachfrage, welche Stelle für deine Verwunderung zuständig sei.",
+        "choices": [
+          {
+            "text": "Welche andere Erklärung müssen wir ausschließen?",
+            "next": "cwa_31_gegenprobe"
+          },
+          {
+            "text": "Die Schlussfolgerung festhalten.",
+            "next": "cwa_31_schluss",
+            "requires_conclusions": [
+              "cwa_31_d"
+            ],
+            "requires_flags": [],
+            "hide_if_flags": [
+              "cwa_31_geschlossen"
+            ]
+          },
+          {
+            "text": "Ich ermittle weiter."
+          }
+        ]
+      },
+      "cwa_31_gegenprobe": {
+        "text": "Ein Schreibversehen würde nicht über Jahre dieselbe Lücke mit einem wirksamen Amtstitel verbinden. Der Titel hält hier tatsächlich eine Person zusammen.",
+        "choices": [
+          {
+            "text": "Die Gegenprobe im Blick behalten.",
+            "next": "cwa_31_start"
+          }
+        ]
+      },
+      "cwa_31_schluss": {
+        "text": "Wetherbys Titel ist ein funktionierender Ersatzanker. Eine Amtsenthebung wäre auch ein Eingriff in seine Existenz. Das macht ihn verantwortlich, aber nicht zu einer bedenkenlos löschbaren Aktenstelle.",
+        "choices": [
+          {
+            "text": "Diesen Befund bestätigen.",
+            "next": "cwa_31_bestaetigt"
+          },
+          {
+            "text": "Noch nichts abschließen.",
+            "next": "cwa_31_start"
+          }
+        ]
+      },
+      "cwa_31_bestaetigt": {
+        "text": "Eine Amtsenthebung wäre auch ein Eingriff in seine Existenz. Das macht ihn verantwortlich, aber nicht zu einer bedenkenlos löschbaren Aktenstelle.",
+        "sets_flags": [
+          "cwa_31_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwa_32_dialog": {
+    "start": "cwa_32_start",
+    "nodes": {
+      "cwa_32_start": {
+        "text": "Malliver stellt die trockene Wanne neben die nasse. „Gleiche Bedingungen sind prüfbar. Gleiche Folgen muss man erst beobachten.“",
+        "choices": [
+          {
+            "text": "Welche andere Erklärung müssen wir ausschließen?",
+            "next": "cwa_32_gegenprobe"
+          },
+          {
+            "text": "Die Schlussfolgerung festhalten.",
+            "next": "cwa_32_schluss",
+            "requires_conclusions": [
+              "cwa_32_d"
+            ],
+            "requires_flags": [
+              "cwa_32_verhoer_done"
+            ],
+            "hide_if_flags": [
+              "cwa_32_geschlossen"
+            ]
+          },
+          {
+            "text": "Ich ermittle weiter."
+          }
+        ]
+      },
+      "cwa_32_gegenprobe": {
+        "text": "Wasser allein erklärt den Versuch nicht. Ebenso wenig folgt daraus, dass jede beschriftete Sache überall verschwindet; der geprüfte Kontakt ist örtlich begrenzt.",
+        "choices": [
+          {
+            "text": "Die Gegenprobe im Blick behalten.",
+            "next": "cwa_32_start"
+          }
+        ]
+      },
+      "cwa_32_schluss": {
+        "text": "Die Verbindung reagiert auf zugeordnete Namen, nicht auf jedes Material und nicht bloß auf Wasser. Du protokollierst auch die unveränderte Probe. Ein begrenzter Vergleich ersetzt keine Erklärung des gesamten Hungers.",
+        "choices": [
+          {
+            "text": "Diesen Befund bestätigen.",
+            "next": "cwa_32_bestaetigt"
+          },
+          {
+            "text": "Noch nichts abschließen.",
+            "next": "cwa_32_start"
+          }
+        ]
+      },
+      "cwa_32_bestaetigt": {
+        "text": "Du protokollierst auch die unveränderte Probe. Ein begrenzter Vergleich ersetzt keine Erklärung des gesamten Hungers.",
+        "sets_flags": [
+          "cwa_32_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwa_33_dialog": {
+    "start": "cwa_33_start",
+    "nodes": {
+      "cwa_33_start": {
+        "text": "Auf Wetherbys Tisch liegen kleine Summen und eine große Klammer. Neben der Klammer ist so oft radiert worden, dass das Papier wie dünne Haut durchscheint.",
+        "choices": [
+          {
+            "text": "Welche andere Erklärung müssen wir ausschließen?",
+            "next": "cwa_33_gegenprobe"
+          },
+          {
+            "text": "Die Schlussfolgerung festhalten.",
+            "next": "cwa_33_schluss",
+            "requires_conclusions": [
+              "cwa_33_d"
+            ],
+            "requires_flags": [
+              "cwa_abgleich3_done"
+            ],
+            "hide_if_flags": [
+              "cwa_33_geschlossen"
+            ]
+          },
+          {
+            "text": "Ich ermittle weiter."
+          }
+        ]
+      },
+      "cwa_33_gegenprobe": {
+        "text": "Gleichzeitigkeit allein könnte Zufall sein. Der wiederholte Wechsel nach genau derselben Zusammenfassungszeile und der unabhängige Messstreifen zeigen den gemeinsamen Zugang.",
+        "choices": [
+          {
+            "text": "Die Gegenprobe im Blick behalten.",
+            "next": "cwa_33_start"
+          }
+        ]
+      },
+      "cwa_33_schluss": {
+        "text": "Ein gemeinsamer Name vergrößert den Zugriff des Hungers. Du sicherst Zahlen und Reihenfolge. Der geplante Schutz ist keine bloß riskante Vermutung mehr, sondern ein belegter zusätzlicher Zugriff.",
+        "choices": [
+          {
+            "text": "Diesen Befund bestätigen.",
+            "next": "cwa_33_bestaetigt"
+          },
+          {
+            "text": "Noch nichts abschließen.",
+            "next": "cwa_33_start"
+          }
+        ]
+      },
+      "cwa_33_bestaetigt": {
+        "text": "Du sicherst Zahlen und Reihenfolge. Der geplante Schutz ist keine bloß riskante Vermutung mehr, sondern ein belegter zusätzlicher Zugriff.",
+        "sets_flags": [
+          "cwa_33_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwa_34_dialog": {
+    "start": "cwa_34_start",
+    "nodes": {
+      "cwa_34_start": {
+        "text": "Klammer schiebt die Schublade ganz heraus. „Ich hatte ihn. Ich habe gewartet.“ Sie stellt kein Werkzeug zwischen dich und den Brief.",
+        "choices": [
+          {
+            "text": "Welche andere Erklärung müssen wir ausschließen?",
+            "next": "cwa_34_gegenprobe"
+          },
+          {
+            "text": "Die Schlussfolgerung festhalten.",
+            "next": "cwa_34_schluss",
+            "requires_conclusions": [
+              "cwa_34_d"
+            ],
+            "requires_flags": [],
+            "hide_if_flags": [
+              "cwa_34_geschlossen"
+            ]
+          },
+          {
+            "text": "Ich ermittle weiter."
+          }
+        ]
+      },
+      "cwa_34_gegenprobe": {
+        "text": "Ein zurückgehaltener Hilferuf ist ein Versäumnis. Er beweist ohne Weiterleitung keine Anzeige beim Archiv; beides wird getrennt festgehalten.",
+        "choices": [
+          {
+            "text": "Die Gegenprobe im Blick behalten.",
+            "next": "cwa_34_start"
+          }
+        ]
+      },
+      "cwa_34_schluss": {
+        "text": "Klammer verriet Ida nicht an Wetherby, ließ sie aber aus Angst allein. Du kannst weiter mit Klammer arbeiten oder Abstand verlangen. Die Werkstatt bleibt offen und der Originalsatz wird in beiden Fällen konserviert.",
+        "choices": [
+          {
+            "text": "Diesen Befund bestätigen.",
+            "next": "cwa_34_bestaetigt"
+          },
+          {
+            "text": "Noch nichts abschließen.",
+            "next": "cwa_34_start"
+          }
+        ]
+      },
+      "cwa_34_bestaetigt": {
+        "text": "Du kannst weiter mit Klammer arbeiten oder Abstand verlangen. Die Werkstatt bleibt offen und der Originalsatz wird in beiden Fällen konserviert.",
+        "sets_flags": [
+          "cwa_34_geschlossen",
+          "cwa_original_gesichert"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwa_41_dialog": {
+    "start": "cwa_41_start",
+    "nodes": {
+      "cwa_41_start": {
+        "text": "Im Wartungsgang kannst du Ida ohne den Amtsnamen ansprechen. Sie zeigt nicht auf das Schloss, sondern auf die Zeile, die Wetherby noch von ihr braucht.",
+        "choices": [
+          {
+            "text": "Welche andere Erklärung müssen wir ausschließen?",
+            "next": "cwa_41_gegenprobe"
+          },
+          {
+            "text": "Die Schlussfolgerung festhalten.",
+            "next": "cwa_41_schluss",
+            "requires_conclusions": [
+              "cwa_41_d"
+            ],
+            "requires_flags": [],
+            "hide_if_flags": [
+              "cwa_41_geschlossen"
+            ]
+          },
+          {
+            "text": "Ich ermittle weiter."
+          }
+        ]
+      },
+      "cwa_41_gegenprobe": {
+        "text": "Eine sabotierte Zeile kann einen Lauf unterbrechen. Weil die Leitung angeschlossen bleibt und selbst neu ansetzt, ist sie kein dauerhafter Abschaltplan.",
+        "choices": [
+          {
+            "text": "Die Gegenprobe im Blick behalten.",
+            "next": "cwa_41_start"
+          }
+        ]
+      },
+      "cwa_41_schluss": {
+        "text": "Eine fehlerhafte Schlusszeile verschafft Zeit, stoppt den Abgleich aber nicht dauerhaft. Du hältst den Wartungsgang frei. Ida bleibt bis zur vorbereiteten Ausgangsfahne geschützt erreichbar, ohne dass Lesen den nächsten Drucklauf auslöst.",
+        "choices": [
+          {
+            "text": "Diesen Befund bestätigen.",
+            "next": "cwa_41_bestaetigt"
+          },
+          {
+            "text": "Noch nichts abschließen.",
+            "next": "cwa_41_start"
+          }
+        ]
+      },
+      "cwa_41_bestaetigt": {
+        "text": "Du hältst den Wartungsgang frei. Ida bleibt bis zur vorbereiteten Ausgangsfahne geschützt erreichbar, ohne dass Lesen den nächsten Drucklauf auslöst.",
+        "sets_flags": [
+          "cwa_41_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwa_42_dialog": {
+    "start": "cwa_42_start",
+    "nodes": {
+      "cwa_42_start": {
+        "text": "Am Markt liegen drei Fassungen nebeneinander. Noel liest zuerst die Stellen, an denen sie sich widersprechen. „Die Portion passt trotzdem für dieselbe Frau.“",
+        "choices": [
+          {
+            "text": "Welche andere Erklärung müssen wir ausschließen?",
+            "next": "cwa_42_gegenprobe"
+          },
+          {
+            "text": "Die Schlussfolgerung festhalten.",
+            "next": "cwa_42_schluss",
+            "requires_conclusions": [
+              "cwa_42_d"
+            ],
+            "requires_flags": [
+              "cwa_abgleich4_done"
+            ],
+            "hide_if_flags": [
+              "cwa_42_geschlossen"
+            ]
+          },
+          {
+            "text": "Ich ermittle weiter."
+          }
+        ]
+      },
+      "cwa_42_gegenprobe": {
+        "text": "Widerspruch in Nebensachen entwertet ein Zeugnis nicht automatisch. Ein perfekter Gleichklang hätte hier eher auf eine abgeschriebene zentrale Liste hingedeutet.",
+        "choices": [
+          {
+            "text": "Die Gegenprobe im Blick behalten.",
+            "next": "cwa_42_start"
+          }
+        ]
+      },
+      "cwa_42_schluss": {
+        "text": "Ein dezentrales Zeugennetz kann die Sammelidentität ersetzen. Du kannst die drei Gruppen öffentlich verbinden oder ihre Einzelwege vertraulich halten. Beide Formen verlangen Zustimmung statt einer Unterschrift für Abwesende.",
+        "choices": [
+          {
+            "text": "Diesen Befund bestätigen.",
+            "next": "cwa_42_bestaetigt"
+          },
+          {
+            "text": "Noch nichts abschließen.",
+            "next": "cwa_42_start"
+          }
+        ]
+      },
+      "cwa_42_bestaetigt": {
+        "text": "Du kannst die drei Gruppen öffentlich verbinden oder ihre Einzelwege vertraulich halten. Beide Formen verlangen Zustimmung statt einer Unterschrift für Abwesende.",
+        "sets_flags": [
+          "cwa_42_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwa_43_dialog": {
+    "start": "cwa_43_start",
+    "nodes": {
+      "cwa_43_start": {
+        "text": "Malliver legt das Blatt neben den Katalog, nicht darunter. „Ein fehlender Satz ist keine Erlaubnis, den billigsten einzusetzen.“ Die zehn Pfadspalten bleiben vollständig lesbar.",
+        "choices": [
+          {
+            "text": "Welche andere Erklärung müssen wir ausschließen?",
+            "next": "cwa_43_gegenprobe"
+          },
+          {
+            "text": "Die Schlussfolgerung festhalten.",
+            "next": "cwa_43_schluss",
+            "requires_conclusions": [
+              "cwa_43_d"
+            ],
+            "requires_flags": [],
+            "hide_if_flags": [
+              "cwa_43_geschlossen"
+            ]
+          },
+          {
+            "text": "Ich ermittle weiter."
+          }
+        ]
+      },
+      "cwa_43_gegenprobe": {
+        "text": "Das Herkunftsblatt ist kein gebrauchsfertiges Rezept. Sein Gegenbeleg reicht dennoch aus, um die Forderung nach einem fremden Namenopfer zurückzuweisen.",
+        "choices": [
+          {
+            "text": "Die Gegenprobe im Blick behalten.",
+            "next": "cwa_43_start"
+          }
+        ]
+      },
+      "cwa_43_schluss": {
+        "text": "Das Ritual verlangt eine selbst getragene Bindung, kein fremdes Namenopfer. Du sicherst den Formelnachweis als Wissen. Es gibt weder eine neue Formel noch einen automatischen Aufstieg; die vorhandenen Sequenzregeln gelten weiter.",
+        "choices": [
+          {
+            "text": "Diesen Befund bestätigen.",
+            "next": "cwa_43_bestaetigt"
+          },
+          {
+            "text": "Noch nichts abschließen.",
+            "next": "cwa_43_start"
+          }
+        ]
+      },
+      "cwa_43_bestaetigt": {
+        "text": "Du sicherst den Formelnachweis als Wissen. Es gibt weder eine neue Formel noch einen automatischen Aufstieg; die vorhandenen Sequenzregeln gelten weiter.",
+        "sets_flags": [
+          "cwa_43_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwa_44_dialog": {
+    "start": "cwa_44_start",
+    "nodes": {
+      "cwa_44_start": {
+        "text": "Ida schiebt dir die Fahne durch die Klappe. „Du kannst mich herauslassen, ohne schon für die Stadt zu unterschreiben.“ Ihr Finger bleibt neben der Schlusszeile.",
+        "choices": [
+          {
+            "text": "Welche andere Erklärung müssen wir ausschließen?",
+            "next": "cwa_44_gegenprobe"
+          },
+          {
+            "text": "Die Schlussfolgerung festhalten.",
+            "next": "cwa_44_schluss",
+            "requires_conclusions": [
+              "cwa_44_d"
+            ],
+            "requires_flags": [],
+            "hide_if_flags": [
+              "cwa_44_geschlossen"
+            ]
+          },
+          {
+            "text": "Ich ermittle weiter."
+          }
+        ]
+      },
+      "cwa_44_gegenprobe": {
+        "text": "Eine schnelle Leitung ist allein kein Rettungsplan. Erst ihr Anschluss am Personenschloss und an der Satzaufnahme eröffnet getrennte, überprüfbare Handlungen.",
+        "choices": [
+          {
+            "text": "Die Gegenprobe im Blick behalten.",
+            "next": "cwa_44_start"
+          }
+        ]
+      },
+      "cwa_44_schluss": {
+        "text": "Über die Nebenleitung kannst du Ida befreien und den Originalsatz austauschen oder die Maschine isolieren. Mit deiner Bestätigung tritt Ida durch den Wartungsgang hinaus. Den Plan kannst du bis zur letzten Unterschrift am Bürgenbrett ändern.",
+        "choices": [
+          {
+            "text": "Diesen Befund bestätigen.",
+            "next": "cwa_44_bestaetigt"
+          },
+          {
+            "text": "Noch nichts abschließen.",
+            "next": "cwa_44_start"
+          }
+        ]
+      },
+      "cwa_44_bestaetigt": {
+        "text": "Mit deiner Bestätigung tritt Ida durch den Wartungsgang hinaus. Den Plan kannst du bis zur letzten Unterschrift am Bürgenbrett ändern.",
+        "sets_flags": [
+          "cwa_44_geschlossen",
+          "cwa_ida_frei",
+          "cwa_frachtbahn_sicher"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwa_51_dialog": {
+    "start": "cwa_51_start",
+    "nodes": {
+      "cwa_51_start": {
+        "text": "Der letzte Haushalt hat keine Tür. Noel stellt seine Liste neben den Schlussbogen. „Wer bei mir isst, braucht deshalb noch lange keinen amtlichen Wohnsitz.“",
+        "choices": [
+          {
+            "text": "Welche andere Erklärung müssen wir ausschließen?",
+            "next": "cwa_51_gegenprobe"
+          },
+          {
+            "text": "Die Schlussfolgerung festhalten.",
+            "next": "cwa_51_schluss",
+            "requires_conclusions": [
+              "cwa_51_d"
+            ],
+            "requires_flags": [
+              "cwa_abgleich5_done"
+            ],
+            "hide_if_flags": [
+              "cwa_51_geschlossen"
+            ]
+          },
+          {
+            "text": "Ich ermittle weiter."
+          }
+        ]
+      },
+      "cwa_51_gegenprobe": {
+        "text": "Nur gemeldete Bürger zu schützen würde die übrigen nicht übersehen, sondern trotz des Schlussbogens bewusst ungesichert lassen. Die Küchenbestätigung ist kostenlos erreichbar.",
+        "choices": [
+          {
+            "text": "Die Gegenprobe im Blick behalten.",
+            "next": "cwa_51_start"
+          }
+        ]
+      },
+      "cwa_51_schluss": {
+        "text": "Nur registrierte Bürger zu sichern würde die übrigen opfern; eine Küchenbürgschaft schließt die Lücke. Du kannst die zusätzliche Bürgschaft jetzt einholen oder später zurückkehren. Ohne sie bleiben andere Enden offen, aber keine vollständige Rettung der Stadt.",
+        "choices": [
+          {
+            "text": "Diesen Befund bestätigen.",
+            "next": "cwa_51_bestaetigt"
+          },
+          {
+            "text": "Noch nichts abschließen.",
+            "next": "cwa_51_start"
+          }
+        ]
+      },
+      "cwa_51_bestaetigt": {
+        "text": "Du kannst die zusätzliche Bürgschaft jetzt einholen oder später zurückkehren. Ohne sie bleiben andere Enden offen, aber keine vollständige Rettung der Stadt.",
+        "sets_flags": [
+          "cwa_51_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwa_52_dialog": {
+    "start": "cwa_52_start",
+    "nodes": {
+      "cwa_52_start": {
+        "text": "Unter dem Archiv faltet sich ein Leib aus Registerrändern auf. Mallivers Messnische bleibt außerhalb seiner Reichweite. „Die Probe war klein. Diese Reaktion ist dieselbe, nur nicht harmlos.“",
+        "choices": [
+          {
+            "text": "Welche andere Erklärung müssen wir ausschließen?",
+            "next": "cwa_52_gegenprobe"
+          },
+          {
+            "text": "Die Schlussfolgerung festhalten.",
+            "next": "cwa_52_schluss",
+            "requires_conclusions": [
+              "cwa_52_d"
+            ],
+            "requires_flags": [
+              "cwa_nullfundament_passiert"
+            ],
+            "hide_if_flags": [
+              "cwa_52_geschlossen"
+            ]
+          },
+          {
+            "text": "Ich ermittle weiter."
+          }
+        ]
+      },
+      "cwa_52_gegenprobe": {
+        "text": "Das Ende dieses Leibes wäre keine Vernichtung aller örtlichen Kontakte in anderen Städten. Geprüft werden nur diese Leitung und die von ihr gebündelte Öffnung.",
+        "choices": [
+          {
+            "text": "Die Gegenprobe im Blick behalten.",
+            "next": "cwa_52_start"
+          }
+        ]
+      },
+      "cwa_52_schluss": {
+        "text": "Die Sammelurkunde bündelt die örtliche Öffnung; sie kann getrennt werden, ohne den Hunger überall zu vernichten. Du legst die Messung neben den Hauptabdruck. Der Zugriff ist unterbrochen, die endgültige Trennung hängt noch von deiner Entscheidung an der Presse ab.",
+        "choices": [
+          {
+            "text": "Diesen Befund bestätigen.",
+            "next": "cwa_52_bestaetigt"
+          },
+          {
+            "text": "Noch nichts abschließen.",
+            "next": "cwa_52_start"
+          }
+        ]
+      },
+      "cwa_52_bestaetigt": {
+        "text": "Du legst die Messung neben den Hauptabdruck. Der Zugriff ist unterbrochen, die endgültige Trennung hängt noch von deiner Entscheidung an der Presse ab.",
+        "sets_flags": [
+          "cwa_52_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwa_53_dialog": {
+    "start": "cwa_53_start",
+    "nodes": {
+      "cwa_53_start": {
+        "text": "Wetherby richtet die leere Fassung seiner Amtskette. „Eine Stadt verlangt eine zuständige Stelle.“ Sein Blick bleibt an deinem Rechenblatt hängen.",
+        "choices": [
+          {
+            "text": "Welche andere Erklärung müssen wir ausschließen?",
+            "next": "cwa_53_gegenprobe"
+          },
+          {
+            "text": "Die Schlussfolgerung festhalten.",
+            "next": "cwa_53_schluss",
+            "requires_conclusions": [
+              "cwa_53_d"
+            ],
+            "requires_flags": [
+              "cwa_53_verhoer_done"
+            ],
+            "hide_if_flags": [
+              "cwa_53_geschlossen"
+            ]
+          },
+          {
+            "text": "Ich ermittle weiter."
+          }
+        ]
+      },
+      "cwa_53_gegenprobe": {
+        "text": "Ein freiwilliger Zeuge kann einen Menschen festhalten, ohne seinen Plan zu rechtfertigen. Die Möglichkeit zwingt Wetherby weder zur Einsicht noch zur Zustimmung.",
+        "choices": [
+          {
+            "text": "Die Gegenprobe im Blick behalten.",
+            "next": "cwa_53_start"
+          }
+        ]
+      },
+      "cwa_53_schluss": {
+        "text": "Auch Wetherbys Existenz kann ein freiwilliger Zeuge sichern; das eröffnet eine Festnahme statt seines Zerfalls. Du kannst eine freiwillige Bürgschaft anbieten oder ihn ohne sie festsetzen. Sein möglicher Verlust ist kein Grund, die Stadt seinem Amt zu überlassen.",
+        "choices": [
+          {
+            "text": "Diesen Befund bestätigen.",
+            "next": "cwa_53_bestaetigt"
+          },
+          {
+            "text": "Noch nichts abschließen.",
+            "next": "cwa_53_start"
+          }
+        ]
+      },
+      "cwa_53_bestaetigt": {
+        "text": "Du kannst eine freiwillige Bürgschaft anbieten oder ihn ohne sie festsetzen. Sein möglicher Verlust ist kein Grund, die Stadt seinem Amt zu überlassen.",
+        "sets_flags": [
+          "cwa_53_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwa_54_dialog": {
+    "start": "cwa_54_start",
+    "nodes": {
+      "cwa_54_start": {
+        "text": "Die Hauptpresse steht. Ida legt den Rotstift hin. „Jetzt kann man nicht mehr nur einen Satz verbessern. Jetzt muss jemand entscheiden, was er tut.“",
+        "choices": [
+          {
+            "text": "Welche andere Erklärung müssen wir ausschließen?",
+            "next": "cwa_54_gegenprobe"
+          },
+          {
+            "text": "Die Schlussfolgerung festhalten.",
+            "next": "cwa_54_schluss",
+            "requires_conclusions": [
+              "cwa_54_d"
+            ],
+            "requires_flags": [
+              "cwa_abgleich6_done",
+              "cwa_kontakte_geprueft"
+            ],
+            "hide_if_flags": [
+              "cwa_54_geschlossen"
+            ]
+          },
+          {
+            "text": "Ich ermittle weiter."
+          }
+        ]
+      },
+      "cwa_54_gegenprobe": {
+        "text": "Eine geordnete Liste ist noch keine Menschenrettung. Die Austrittsliste zeigt gerade die Unterschiede, die ein gemeinsamer Stadtnamen verdecken würde.",
+        "choices": [
+          {
+            "text": "Die Gegenprobe im Blick behalten.",
+            "next": "cwa_54_start"
+          }
+        ]
+      },
+      "cwa_54_schluss": {
+        "text": "Menschenrettung, Amtserhalt und bloße Evakuierung sind verschiedene Schlusspläne mit verschiedenen Kosten. Du bestätigst nur die Bilanz. Das Ende wird erst mit einer zweiten, ausdrücklich benannten Entscheidung ausgelöst; bis dahin bleiben Rückweg und Planwechsel offen.",
+        "choices": [
+          {
+            "text": "Diesen Befund bestätigen.",
+            "next": "cwa_54_bestaetigt"
+          },
+          {
+            "text": "Noch nichts abschließen.",
+            "next": "cwa_54_start"
+          }
+        ]
+      },
+      "cwa_54_bestaetigt": {
+        "text": "Du bestätigst nur die Bilanz. Das Ende wird erst mit einer zweiten, ausdrücklich benannten Entscheidung ausgelöst; bis dahin bleiben Rückweg und Planwechsel offen.",
+        "sets_flags": [
+          "cwa_54_geschlossen",
+          "cwa_bilanz5"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwa_abgleich1_dialog": {
+    "start": [
+      {
+        "node": "cwa_abgleich1_fertig",
+        "requires_flags": [
+          "cwa_abgleich1_done"
+        ]
+      },
+      {
+        "node": "cwa_abgleich1_vorschau"
+      }
+    ],
+    "nodes": {
+      "cwa_abgleich1_vorschau": {
+        "text": "Der erste Abgleich erfasst den Weg vom Bahnhof zur Setzergasse. Vera und Klammer könnten einander am Übergang nicht mehr zuordnen. Lesen und Gespräche lösen nichts aus. Du kannst vorher kostenlos zurückgehen.",
+        "choices": [
+          {
+            "text": "Den zerbrochenen Zusatzbeleg durch eine dritte Herkunft ersetzen.",
+            "next": "cwa_abgleich1_ersatz",
+            "requires_flags": [
+              "cwa_beleg_verloren_1"
+            ],
+            "requires_clues": [
+              "cwa_11_c1",
+              "cwa_12_c1",
+              "cwa_13_c2"
+            ],
+            "hide_if_flags": [
+              "cwa_beleg_ersetzt_1"
+            ]
+          },
+          {
+            "text": "Zwei unabhängige Quellen prüfen: Kombination 1.",
+            "next": "cwa_abgleich1_paar1",
+            "requires_flags": [
+              "cwa_anker_gleisfuss_durchschlag",
+              "cwa_anker_kueche_noel"
+            ],
+            "hide_if_flags": [
+              "cwa_beleg_verloren_1"
+            ]
+          },
+          {
+            "text": "Zwei unabhängige Quellen prüfen: Kombination 1.",
+            "next": "cwa_abgleich1_paar1",
+            "requires_flags": [
+              "cwa_anker_gleisfuss_durchschlag",
+              "cwa_anker_kueche_noel",
+              "cwa_beleg_verloren_1",
+              "cwa_beleg_ersetzt_1"
+            ]
+          },
+          {
+            "text": "Zwei unabhängige Quellen prüfen: Kombination 2.",
+            "next": "cwa_abgleich1_paar2",
+            "requires_flags": [
+              "cwa_anker_gleisfuss_durchschlag",
+              "cwa_anker_kueche_teller"
+            ],
+            "hide_if_flags": [
+              "cwa_beleg_verloren_1"
+            ]
+          },
+          {
+            "text": "Zwei unabhängige Quellen prüfen: Kombination 2.",
+            "next": "cwa_abgleich1_paar2",
+            "requires_flags": [
+              "cwa_anker_gleisfuss_durchschlag",
+              "cwa_anker_kueche_teller",
+              "cwa_beleg_verloren_1",
+              "cwa_beleg_ersetzt_1"
+            ]
+          },
+          {
+            "text": "Ohne Sicherung prüfen: Rückweg, 3 Nerven.",
+            "next": "cwa_abgleich1_fehlen",
+            "hide_if_flags": [
+              "cwa_abgleich1_fehlversuch"
+            ]
+          },
+          {
+            "text": "Noch keinen Abgleich auslösen."
+          }
+        ]
+      },
+      "cwa_abgleich1_paar1": {
+        "text": "Du legst zwei Quellen verschiedener Herkunft nebeneinander. Kopien derselben Akte bleiben ein Beleg, und die weiteren markierten Verbindungen werden für diesen einen Eingriff nicht benötigt.",
+        "choices": [
+          {
+            "text": "Öffentlich abgleichen: Terrasse stabil, Kontakte sichtbar.",
+            "next": "cwa_abgleich1_oeffentlich",
+            "requires_flags": [
+              "cwa_anker_gleisfuss_durchschlag",
+              "cwa_anker_kueche_noel"
+            ],
+            "hide_if_flags": [
+              "cwa_abgleich1_done"
+            ]
+          },
+          {
+            "text": "Vertraulich abgleichen: Kontakte schützen, Umweg nehmen.",
+            "next": "cwa_abgleich1_vertraulich",
+            "requires_flags": [
+              "cwa_anker_gleisfuss_durchschlag",
+              "cwa_anker_kueche_noel"
+            ],
+            "hide_if_flags": [
+              "cwa_abgleich1_done"
+            ]
+          },
+          {
+            "text": "Vor der Bestätigung abbrechen."
+          }
+        ]
+      },
+      "cwa_abgleich1_paar2": {
+        "text": "Du legst zwei Quellen verschiedener Herkunft nebeneinander. Kopien derselben Akte bleiben ein Beleg, und die weiteren markierten Verbindungen werden für diesen einen Eingriff nicht benötigt.",
+        "choices": [
+          {
+            "text": "Öffentlich abgleichen: Terrasse stabil, Kontakte sichtbar.",
+            "next": "cwa_abgleich1_oeffentlich",
+            "requires_flags": [
+              "cwa_anker_gleisfuss_durchschlag",
+              "cwa_anker_kueche_teller"
+            ],
+            "hide_if_flags": [
+              "cwa_abgleich1_done"
+            ]
+          },
+          {
+            "text": "Vertraulich abgleichen: Kontakte schützen, Umweg nehmen.",
+            "next": "cwa_abgleich1_vertraulich",
+            "requires_flags": [
+              "cwa_anker_gleisfuss_durchschlag",
+              "cwa_anker_kueche_teller"
+            ],
+            "hide_if_flags": [
+              "cwa_abgleich1_done"
+            ]
+          },
+          {
+            "text": "Vor der Bestätigung abbrechen."
+          }
+        ]
+      },
+      "cwa_abgleich1_oeffentlich": {
+        "text": "Vera liest die getrennt bezeugte Ankunft vor. Die ganze Verbindung zum Bahnhof hält, aber das Archiv erhält ihre und Klammers Namen.",
+        "sets_flags": [
+          "cwa_abgleich1_done",
+          "cwa_abgleich1_oeffentlich",
+          "cwa_verraten_cw_darnell",
+          "cwa_verraten_cw_crayford"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "clears_flags": [
+          "cwa_kontakte_geprueft"
+        ]
+      },
+      "cwa_abgleich1_vertraulich": {
+        "text": "Du gehst über die Küchentreppe und lässt beide Aussagen getrennt. Der Umweg dauert länger; Vera und Klammer bleiben dem Archiv von dir ungenannt.",
+        "sets_flags": [
+          "cwa_abgleich1_done",
+          "cwa_abgleich1_vertraulich"
+        ],
+        "travel": {
+          "map": "cw_gleisfuss",
+          "spawn": "aufzug"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_abgleich1_fehlen": {
+        "text": "Du landest an der letzten sicheren Kreuzung. Ein kurzes Flimmern kostet dich Nerven; alle Hinweise und Gegenstände bleiben erhalten.",
+        "nerves": -3,
+        "travel": {
+          "map": "cw_gleisfuss",
+          "spawn": "aufzug"
+        },
+        "sets_flags": [
+          "cwa_abgleich1_fehlversuch"
+        ],
+        "choices": [
+          {
+            "text": "An der sicheren Kreuzung weiterermitteln."
+          }
+        ]
+      },
+      "cwa_abgleich1_fertig": {
+        "text": "Dieser Abgleich ist bestätigt. Die Notizen bleiben erhalten, der nächste Vergleich wird erst durch seine eigene beschriftete Hauptaktion ausgelöst.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_abgleich1_ersatz": {
+        "text": "Du gehst die dritte, bereits zugängliche Herkunft einzeln nach. Das kostet einen zusätzlichen Weg statt Geld oder fremder Zustimmung; die zwei ursprünglichen Hauptbelege bleiben vollständig erhalten.",
+        "sets_flags": [
+          "cwa_beleg_ersetzt_1"
+        ],
+        "choices": [
+          {
+            "text": "Mit der ergänzten Bürgschaft zurück.",
+            "next": "cwa_abgleich1_vorschau"
+          }
+        ]
+      }
+    }
+  },
+  "cwa_abgleich2_dialog": {
+    "start": [
+      {
+        "node": "cwa_abgleich2_fertig",
+        "requires_flags": [
+          "cwa_abgleich2_done"
+        ]
+      },
+      {
+        "node": "cwa_abgleich2_vorschau"
+      }
+    ],
+    "nodes": {
+      "cwa_abgleich2_vorschau": {
+        "text": "Der Abgleich der gekauften Abschriften betrifft Lager und Quittungsmarkt. Eine öffentliche Gegenliste würde auch Pritchs und Lotties Beteiligung nennen. Lesen und Gespräche lösen nichts aus. Du kannst vorher kostenlos zurückgehen.",
+        "choices": [
+          {
+            "text": "Zwei unabhängige Quellen prüfen: Kombination 1.",
+            "next": "cwa_abgleich2_paar1",
+            "requires_flags": [
+              "cwa_anker_kueche_noel",
+              "cwa_anker_sortierhalle_handzeichen"
+            ]
+          },
+          {
+            "text": "Zwei unabhängige Quellen prüfen: Kombination 2.",
+            "next": "cwa_abgleich2_paar2",
+            "requires_flags": [
+              "cwa_anker_gleisfuss_durchschlag",
+              "cwa_anker_kueche_teller"
+            ]
+          },
+          {
+            "text": "Ohne Sicherung prüfen: Rückweg, 4 Nerven.",
+            "next": "cwa_abgleich2_fehlen",
+            "hide_if_flags": [
+              "cwa_abgleich2_fehlversuch"
+            ]
+          },
+          {
+            "text": "Noch keinen Abgleich auslösen."
+          }
+        ]
+      },
+      "cwa_abgleich2_paar1": {
+        "text": "Du legst zwei Quellen verschiedener Herkunft nebeneinander. Kopien derselben Akte bleiben ein Beleg, und die weiteren markierten Verbindungen werden für diesen einen Eingriff nicht benötigt.",
+        "choices": [
+          {
+            "text": "Öffentlich abgleichen: Terrasse stabil, Kontakte sichtbar.",
+            "next": "cwa_abgleich2_oeffentlich",
+            "requires_flags": [
+              "cwa_anker_kueche_noel",
+              "cwa_anker_sortierhalle_handzeichen"
+            ],
+            "hide_if_flags": [
+              "cwa_abgleich2_done"
+            ]
+          },
+          {
+            "text": "Vertraulich abgleichen: Kontakte schützen, Umweg nehmen.",
+            "next": "cwa_abgleich2_vertraulich",
+            "requires_flags": [
+              "cwa_anker_kueche_noel",
+              "cwa_anker_sortierhalle_handzeichen"
+            ],
+            "hide_if_flags": [
+              "cwa_abgleich2_done"
+            ]
+          },
+          {
+            "text": "Vor der Bestätigung abbrechen."
+          }
+        ]
+      },
+      "cwa_abgleich2_paar2": {
+        "text": "Du legst zwei Quellen verschiedener Herkunft nebeneinander. Kopien derselben Akte bleiben ein Beleg, und die weiteren markierten Verbindungen werden für diesen einen Eingriff nicht benötigt.",
+        "choices": [
+          {
+            "text": "Öffentlich abgleichen: Terrasse stabil, Kontakte sichtbar.",
+            "next": "cwa_abgleich2_oeffentlich",
+            "requires_flags": [
+              "cwa_anker_gleisfuss_durchschlag",
+              "cwa_anker_kueche_teller"
+            ],
+            "hide_if_flags": [
+              "cwa_abgleich2_done"
+            ]
+          },
+          {
+            "text": "Vertraulich abgleichen: Kontakte schützen, Umweg nehmen.",
+            "next": "cwa_abgleich2_vertraulich",
+            "requires_flags": [
+              "cwa_anker_gleisfuss_durchschlag",
+              "cwa_anker_kueche_teller"
+            ],
+            "hide_if_flags": [
+              "cwa_abgleich2_done"
+            ]
+          },
+          {
+            "text": "Vor der Bestätigung abbrechen."
+          }
+        ]
+      },
+      "cwa_abgleich2_oeffentlich": {
+        "text": "Die Marktseite bleibt für alle als selbständiger Weg lesbar. Mit Zustimmung gehen die Namen der beiden Kontakte in den öffentlichen Rücklauf.",
+        "sets_flags": [
+          "cwa_abgleich2_done",
+          "cwa_abgleich2_oeffentlich",
+          "cwa_verraten_cw_pritch",
+          "cwa_verraten_cw_wicksend"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "clears_flags": [
+          "cwa_kontakte_geprueft"
+        ]
+      },
+      "cwa_abgleich2_vertraulich": {
+        "text": "Du bringst die Aussagen über die Werkstatt einzeln zurück. Kein zusätzlicher Kontaktname geht ins Rohrpostfach; der direkte Marktweg bleibt vorerst ungezeichnet.",
+        "sets_flags": [
+          "cwa_abgleich2_done",
+          "cwa_abgleich2_vertraulich"
+        ],
+        "travel": {
+          "map": "cw_buchbinderei",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_abgleich2_fehlen": {
+        "text": "Du landest an der letzten sicheren Kreuzung. Ein kurzes Flimmern kostet dich Nerven; alle Hinweise und Gegenstände bleiben erhalten.",
+        "nerves": -4,
+        "travel": {
+          "map": "cw_buchbinderei",
+          "spawn": "default"
+        },
+        "sets_flags": [
+          "cwa_abgleich2_fehlversuch"
+        ],
+        "choices": [
+          {
+            "text": "An der sicheren Kreuzung weiterermitteln."
+          }
+        ]
+      },
+      "cwa_abgleich2_fertig": {
+        "text": "Dieser Abgleich ist bestätigt. Die Notizen bleiben erhalten, der nächste Vergleich wird erst durch seine eigene beschriftete Hauptaktion ausgelöst.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwa_abgleich3_dialog": {
+    "start": [
+      {
+        "node": "cwa_abgleich3_fertig",
+        "requires_flags": [
+          "cwa_abgleich3_done"
+        ]
+      },
+      {
+        "node": "cwa_abgleich3_vorschau"
+      }
+    ],
+    "nodes": {
+      "cwa_abgleich3_vorschau": {
+        "text": "Die Prüfung des Rechenblatts stößt den Verwaltungsabgleich an. Röhrenhof und Archivzufahrt sind betroffen, Malliver und Hesk verlieren ohne Sicherung ihre Zuordnung am Übergang. Lesen und Gespräche lösen nichts aus. Du kannst vorher kostenlos zurückgehen.",
+        "choices": [
+          {
+            "text": "Den zerbrochenen Zusatzbeleg durch eine dritte Herkunft ersetzen.",
+            "next": "cwa_abgleich3_ersatz",
+            "requires_flags": [
+              "cwa_beleg_verloren_2"
+            ],
+            "requires_clues": [
+              "cwa_21_c2",
+              "cwa_23_c3",
+              "cwa_24_c3"
+            ],
+            "hide_if_flags": [
+              "cwa_beleg_ersetzt_2"
+            ]
+          },
+          {
+            "text": "Zwei unabhängige Quellen prüfen: Kombination 1.",
+            "next": "cwa_abgleich3_paar1",
+            "requires_flags": [
+              "cwa_anker_sortierhalle_handzeichen",
+              "cwa_anker_sortiergrube_ida"
+            ],
+            "hide_if_flags": [
+              "cwa_beleg_verloren_2"
+            ]
+          },
+          {
+            "text": "Zwei unabhängige Quellen prüfen: Kombination 1.",
+            "next": "cwa_abgleich3_paar1",
+            "requires_flags": [
+              "cwa_anker_sortierhalle_handzeichen",
+              "cwa_anker_sortiergrube_ida",
+              "cwa_beleg_verloren_2",
+              "cwa_beleg_ersetzt_2"
+            ]
+          },
+          {
+            "text": "Zwei unabhängige Quellen prüfen: Kombination 2.",
+            "next": "cwa_abgleich3_paar2",
+            "requires_flags": [
+              "cwa_anker_gleisfuss_durchschlag",
+              "cwa_anker_kueche_noel"
+            ],
+            "hide_if_flags": [
+              "cwa_beleg_verloren_2"
+            ]
+          },
+          {
+            "text": "Zwei unabhängige Quellen prüfen: Kombination 2.",
+            "next": "cwa_abgleich3_paar2",
+            "requires_flags": [
+              "cwa_anker_gleisfuss_durchschlag",
+              "cwa_anker_kueche_noel",
+              "cwa_beleg_verloren_2",
+              "cwa_beleg_ersetzt_2"
+            ]
+          },
+          {
+            "text": "Ohne Sicherung prüfen: Rückweg, 5 Nerven.",
+            "next": "cwa_abgleich3_fehlen",
+            "hide_if_flags": [
+              "cwa_abgleich3_fehlversuch"
+            ]
+          },
+          {
+            "text": "Noch keinen Abgleich auslösen."
+          }
+        ]
+      },
+      "cwa_abgleich3_paar1": {
+        "text": "Du legst zwei Quellen verschiedener Herkunft nebeneinander. Kopien derselben Akte bleiben ein Beleg, und die weiteren markierten Verbindungen werden für diesen einen Eingriff nicht benötigt.",
+        "choices": [
+          {
+            "text": "Öffentlich abgleichen: Terrasse stabil, Kontakte sichtbar.",
+            "next": "cwa_abgleich3_oeffentlich",
+            "requires_flags": [
+              "cwa_anker_sortierhalle_handzeichen",
+              "cwa_anker_sortiergrube_ida"
+            ],
+            "hide_if_flags": [
+              "cwa_abgleich3_done"
+            ]
+          },
+          {
+            "text": "Vertraulich abgleichen: Kontakte schützen, Umweg nehmen.",
+            "next": "cwa_abgleich3_vertraulich",
+            "requires_flags": [
+              "cwa_anker_sortierhalle_handzeichen",
+              "cwa_anker_sortiergrube_ida"
+            ],
+            "hide_if_flags": [
+              "cwa_abgleich3_done"
+            ]
+          },
+          {
+            "text": "Vor der Bestätigung abbrechen."
+          }
+        ]
+      },
+      "cwa_abgleich3_paar2": {
+        "text": "Du legst zwei Quellen verschiedener Herkunft nebeneinander. Kopien derselben Akte bleiben ein Beleg, und die weiteren markierten Verbindungen werden für diesen einen Eingriff nicht benötigt.",
+        "choices": [
+          {
+            "text": "Öffentlich abgleichen: Terrasse stabil, Kontakte sichtbar.",
+            "next": "cwa_abgleich3_oeffentlich",
+            "requires_flags": [
+              "cwa_anker_gleisfuss_durchschlag",
+              "cwa_anker_kueche_noel"
+            ],
+            "hide_if_flags": [
+              "cwa_abgleich3_done"
+            ]
+          },
+          {
+            "text": "Vertraulich abgleichen: Kontakte schützen, Umweg nehmen.",
+            "next": "cwa_abgleich3_vertraulich",
+            "requires_flags": [
+              "cwa_anker_gleisfuss_durchschlag",
+              "cwa_anker_kueche_noel"
+            ],
+            "hide_if_flags": [
+              "cwa_abgleich3_done"
+            ]
+          },
+          {
+            "text": "Vor der Bestätigung abbrechen."
+          }
+        ]
+      },
+      "cwa_abgleich3_oeffentlich": {
+        "text": "Die Zeugnisse halten den ganzen Aufstieg. Im Austausch für diese Öffentlichkeit stehen Mallivers und Hesks Namen nun im Eingang der Direktion.",
+        "sets_flags": [
+          "cwa_abgleich3_done",
+          "cwa_abgleich3_oeffentlich",
+          "cwa_verraten_cw_malliver",
+          "cwa_verraten_cw_hesk"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "clears_flags": [
+          "cwa_kontakte_geprueft"
+        ]
+      },
+      "cwa_abgleich3_vertraulich": {
+        "text": "Du trägst das Rechenblatt über den getrennten Wartungsweg. Der Aufstieg bleibt über den Umweg erreichbar, ohne neue Kontaktnamen an den Direktor zu melden.",
+        "sets_flags": [
+          "cwa_abgleich3_done",
+          "cwa_abgleich3_vertraulich"
+        ],
+        "travel": {
+          "map": "cw_roehrenhof",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_abgleich3_fehlen": {
+        "text": "Du landest an der letzten sicheren Kreuzung. Ein kurzes Flimmern kostet dich Nerven; alle Hinweise und Gegenstände bleiben erhalten.",
+        "nerves": -5,
+        "travel": {
+          "map": "cw_roehrenhof",
+          "spawn": "default"
+        },
+        "sets_flags": [
+          "cwa_abgleich3_fehlversuch"
+        ],
+        "choices": [
+          {
+            "text": "An der sicheren Kreuzung weiterermitteln."
+          }
+        ]
+      },
+      "cwa_abgleich3_fertig": {
+        "text": "Dieser Abgleich ist bestätigt. Die Notizen bleiben erhalten, der nächste Vergleich wird erst durch seine eigene beschriftete Hauptaktion ausgelöst.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_abgleich3_ersatz": {
+        "text": "Du gehst die dritte, bereits zugängliche Herkunft einzeln nach. Das kostet einen zusätzlichen Weg statt Geld oder fremder Zustimmung; die zwei ursprünglichen Hauptbelege bleiben vollständig erhalten.",
+        "sets_flags": [
+          "cwa_beleg_ersetzt_2"
+        ],
+        "choices": [
+          {
+            "text": "Mit der ergänzten Bürgschaft zurück.",
+            "next": "cwa_abgleich3_vorschau"
+          }
+        ]
+      }
+    }
+  },
+  "cwa_abgleich4_dialog": {
+    "start": [
+      {
+        "node": "cwa_abgleich4_fertig",
+        "requires_flags": [
+          "cwa_abgleich4_done"
+        ]
+      },
+      {
+        "node": "cwa_abgleich4_vorschau"
+      }
+    ],
+    "nodes": {
+      "cwa_abgleich4_vorschau": {
+        "text": "Das Zeugennetz betrifft Markt, Küchen und Bahnhof. Eine öffentliche Liste hält die drei Terrassen gemeinsam erreichbar, gibt aber Lottie, Noel und Vera an Wetherby preis. Lesen und Gespräche lösen nichts aus. Du kannst vorher kostenlos zurückgehen.",
+        "choices": [
+          {
+            "text": "Zwei unabhängige Quellen prüfen: Kombination 1.",
+            "next": "cwa_abgleich4_paar1",
+            "requires_flags": [
+              "cwa_anker_gleisfuss_vera",
+              "cwa_anker_kueche_teller"
+            ]
+          },
+          {
+            "text": "Zwei unabhängige Quellen prüfen: Kombination 2.",
+            "next": "cwa_abgleich4_paar2",
+            "requires_flags": [
+              "cwa_anker_markt_lottie",
+              "cwa_anker_gleisfuss_durchschlag"
+            ]
+          },
+          {
+            "text": "Ohne Sicherung prüfen: Rückweg, 5 Nerven.",
+            "next": "cwa_abgleich4_fehlen",
+            "hide_if_flags": [
+              "cwa_abgleich4_fehlversuch"
+            ]
+          },
+          {
+            "text": "Noch keinen Abgleich auslösen."
+          }
+        ]
+      },
+      "cwa_abgleich4_paar1": {
+        "text": "Du legst zwei Quellen verschiedener Herkunft nebeneinander. Kopien derselben Akte bleiben ein Beleg, und die weiteren markierten Verbindungen werden für diesen einen Eingriff nicht benötigt.",
+        "choices": [
+          {
+            "text": "Öffentlich abgleichen: Terrasse stabil, Kontakte sichtbar.",
+            "next": "cwa_abgleich4_oeffentlich",
+            "requires_flags": [
+              "cwa_anker_gleisfuss_vera",
+              "cwa_anker_kueche_teller"
+            ],
+            "hide_if_flags": [
+              "cwa_abgleich4_done"
+            ]
+          },
+          {
+            "text": "Vertraulich abgleichen: Kontakte schützen, Umweg nehmen.",
+            "next": "cwa_abgleich4_vertraulich",
+            "requires_flags": [
+              "cwa_anker_gleisfuss_vera",
+              "cwa_anker_kueche_teller"
+            ],
+            "hide_if_flags": [
+              "cwa_abgleich4_done"
+            ]
+          },
+          {
+            "text": "Vor der Bestätigung abbrechen."
+          }
+        ]
+      },
+      "cwa_abgleich4_paar2": {
+        "text": "Du legst zwei Quellen verschiedener Herkunft nebeneinander. Kopien derselben Akte bleiben ein Beleg, und die weiteren markierten Verbindungen werden für diesen einen Eingriff nicht benötigt.",
+        "choices": [
+          {
+            "text": "Öffentlich abgleichen: Terrasse stabil, Kontakte sichtbar.",
+            "next": "cwa_abgleich4_oeffentlich",
+            "requires_flags": [
+              "cwa_anker_markt_lottie",
+              "cwa_anker_gleisfuss_durchschlag"
+            ],
+            "hide_if_flags": [
+              "cwa_abgleich4_done"
+            ]
+          },
+          {
+            "text": "Vertraulich abgleichen: Kontakte schützen, Umweg nehmen.",
+            "next": "cwa_abgleich4_vertraulich",
+            "requires_flags": [
+              "cwa_anker_markt_lottie",
+              "cwa_anker_gleisfuss_durchschlag"
+            ],
+            "hide_if_flags": [
+              "cwa_abgleich4_done"
+            ]
+          },
+          {
+            "text": "Vor der Bestätigung abbrechen."
+          }
+        ]
+      },
+      "cwa_abgleich4_oeffentlich": {
+        "text": "Drei voneinander unabhängige Gruppen bestätigen ihre eigenen Fassungen. Die Terrassen bleiben erreichbar; die freigegebenen Namen werden dem Archiv sichtbar.",
+        "sets_flags": [
+          "cwa_abgleich4_done",
+          "cwa_abgleich4_oeffentlich",
+          "cwa_verraten_cw_wicksend",
+          "cwa_verraten_cw_noel_bellcross",
+          "cwa_verraten_cw_darnell"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "clears_flags": [
+          "cwa_kontakte_geprueft"
+        ]
+      },
+      "cwa_abgleich4_vertraulich": {
+        "text": "Du lässt jede Gruppe getrennt gegenzeichnen und trägst die Antworten über die Küchentreppe. Die Wege bleiben über Umwege offen, die Kontaktliste bleibt bei den Bürgen.",
+        "sets_flags": [
+          "cwa_abgleich4_done",
+          "cwa_abgleich4_vertraulich"
+        ],
+        "travel": {
+          "map": "cw_kueche",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_abgleich4_fehlen": {
+        "text": "Du landest an der letzten sicheren Kreuzung. Ein kurzes Flimmern kostet dich Nerven; alle Hinweise und Gegenstände bleiben erhalten.",
+        "nerves": -5,
+        "travel": {
+          "map": "cw_kueche",
+          "spawn": "default"
+        },
+        "sets_flags": [
+          "cwa_abgleich4_fehlversuch"
+        ],
+        "choices": [
+          {
+            "text": "An der sicheren Kreuzung weiterermitteln."
+          }
+        ]
+      },
+      "cwa_abgleich4_fertig": {
+        "text": "Dieser Abgleich ist bestätigt. Die Notizen bleiben erhalten, der nächste Vergleich wird erst durch seine eigene beschriftete Hauptaktion ausgelöst.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwa_abgleich5_dialog": {
+    "start": [
+      {
+        "node": "cwa_abgleich5_fertig",
+        "requires_flags": [
+          "cwa_abgleich5_done"
+        ]
+      },
+      {
+        "node": "cwa_abgleich5_vorschau"
+      }
+    ],
+    "nodes": {
+      "cwa_abgleich5_vorschau": {
+        "text": "Der Schlussbogen erfasst die Küchenwege ohne Meldeadresse. Noel und Bexley können bei einem direkten Abgleich ihren gemeinsamen Rückweg verlieren. Lesen und Gespräche lösen nichts aus. Du kannst vorher kostenlos zurückgehen.",
+        "choices": [
+          {
+            "text": "Zwei unabhängige Quellen prüfen: Kombination 1.",
+            "next": "cwa_abgleich5_paar1",
+            "requires_flags": [
+              "cwa_anker_roehrenhof_noel",
+              "cwa_anker_villa_kuechenrechnung"
+            ]
+          },
+          {
+            "text": "Zwei unabhängige Quellen prüfen: Kombination 2.",
+            "next": "cwa_abgleich5_paar2",
+            "requires_flags": [
+              "cwa_anker_kueche_noel",
+              "cwa_anker_kueche_teller"
+            ]
+          },
+          {
+            "text": "Ohne Sicherung prüfen: Rückweg, 6 Nerven.",
+            "next": "cwa_abgleich5_fehlen",
+            "hide_if_flags": [
+              "cwa_abgleich5_fehlversuch"
+            ]
+          },
+          {
+            "text": "Noch keinen Abgleich auslösen."
+          }
+        ]
+      },
+      "cwa_abgleich5_paar1": {
+        "text": "Du legst zwei Quellen verschiedener Herkunft nebeneinander. Kopien derselben Akte bleiben ein Beleg, und die weiteren markierten Verbindungen werden für diesen einen Eingriff nicht benötigt.",
+        "choices": [
+          {
+            "text": "Öffentlich abgleichen: Terrasse stabil, Kontakte sichtbar.",
+            "next": "cwa_abgleich5_oeffentlich",
+            "requires_flags": [
+              "cwa_anker_roehrenhof_noel",
+              "cwa_anker_villa_kuechenrechnung"
+            ],
+            "hide_if_flags": [
+              "cwa_abgleich5_done"
+            ]
+          },
+          {
+            "text": "Vertraulich abgleichen: Kontakte schützen, Umweg nehmen.",
+            "next": "cwa_abgleich5_vertraulich",
+            "requires_flags": [
+              "cwa_anker_roehrenhof_noel",
+              "cwa_anker_villa_kuechenrechnung"
+            ],
+            "hide_if_flags": [
+              "cwa_abgleich5_done"
+            ]
+          },
+          {
+            "text": "Vor der Bestätigung abbrechen."
+          }
+        ]
+      },
+      "cwa_abgleich5_paar2": {
+        "text": "Du legst zwei Quellen verschiedener Herkunft nebeneinander. Kopien derselben Akte bleiben ein Beleg, und die weiteren markierten Verbindungen werden für diesen einen Eingriff nicht benötigt.",
+        "choices": [
+          {
+            "text": "Öffentlich abgleichen: Terrasse stabil, Kontakte sichtbar.",
+            "next": "cwa_abgleich5_oeffentlich",
+            "requires_flags": [
+              "cwa_anker_kueche_noel",
+              "cwa_anker_kueche_teller"
+            ],
+            "hide_if_flags": [
+              "cwa_abgleich5_done"
+            ]
+          },
+          {
+            "text": "Vertraulich abgleichen: Kontakte schützen, Umweg nehmen.",
+            "next": "cwa_abgleich5_vertraulich",
+            "requires_flags": [
+              "cwa_anker_kueche_noel",
+              "cwa_anker_kueche_teller"
+            ],
+            "hide_if_flags": [
+              "cwa_abgleich5_done"
+            ]
+          },
+          {
+            "text": "Vor der Bestätigung abbrechen."
+          }
+        ]
+      },
+      "cwa_abgleich5_oeffentlich": {
+        "text": "Die zusätzlichen Küchenwege sind öffentlich benannt. Noel und Bexley haben zugestimmt, aber ihre Namen erreichen die letzte Prüfliste des Archivs.",
+        "sets_flags": [
+          "cwa_abgleich5_done",
+          "cwa_abgleich5_oeffentlich",
+          "cwa_verraten_cw_noel_bellcross",
+          "cwa_verraten_cw_bexley"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "clears_flags": [
+          "cwa_kontakte_geprueft"
+        ]
+      },
+      "cwa_abgleich5_vertraulich": {
+        "text": "Du führst die Küchenbürgschaft auf getrennten Wegen zurück. Für Personen ohne Meldeadresse ist der Umweg länger, die Zustimmung bleibt trotzdem einzeln und kostenlos.",
+        "sets_flags": [
+          "cwa_abgleich5_done",
+          "cwa_abgleich5_vertraulich"
+        ],
+        "travel": {
+          "map": "cw_kueche",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_abgleich5_fehlen": {
+        "text": "Du landest an der letzten sicheren Kreuzung. Ein kurzes Flimmern kostet dich Nerven; alle Hinweise und Gegenstände bleiben erhalten.",
+        "nerves": -6,
+        "travel": {
+          "map": "cw_kueche",
+          "spawn": "default"
+        },
+        "sets_flags": [
+          "cwa_abgleich5_fehlversuch"
+        ],
+        "choices": [
+          {
+            "text": "An der sicheren Kreuzung weiterermitteln."
+          }
+        ]
+      },
+      "cwa_abgleich5_fertig": {
+        "text": "Dieser Abgleich ist bestätigt. Die Notizen bleiben erhalten, der nächste Vergleich wird erst durch seine eigene beschriftete Hauptaktion ausgelöst.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwa_abgleich6_dialog": {
+    "start": [
+      {
+        "node": "cwa_abgleich6_fertig",
+        "requires_flags": [
+          "cwa_abgleich6_done"
+        ]
+      },
+      {
+        "node": "cwa_abgleich6_vorschau"
+      }
+    ],
+    "nodes": {
+      "cwa_abgleich6_vorschau": {
+        "text": "Der letzte Abgleich betrifft Presse, Archiv und den Bahnhofsausgang. Ida und Klammer bleiben nur mit geprüften Verbindungen sicher zugeordnet. Lesen und Gespräche lösen nichts aus. Du kannst vorher kostenlos zurückgehen.",
+        "choices": [
+          {
+            "text": "Den zerbrochenen Zusatzbeleg durch eine dritte Herkunft ersetzen.",
+            "next": "cwa_abgleich6_ersatz",
+            "requires_flags": [
+              "cwa_beleg_verloren_3"
+            ],
+            "requires_clues": [
+              "cwa_42_c1",
+              "cwa_51_c2",
+              "cwa_52_c1"
+            ],
+            "hide_if_flags": [
+              "cwa_beleg_ersetzt_3"
+            ]
+          },
+          {
+            "text": "Zwei unabhängige Quellen prüfen: Kombination 1.",
+            "next": "cwa_abgleich6_paar1",
+            "requires_flags": [
+              "cwa_anker_druckkammer_austritt",
+              "cwa_anker_sortiergrube_ida",
+              "cwa_kontakte_geprueft"
+            ],
+            "hide_if_flags": [
+              "cwa_beleg_verloren_3"
+            ]
+          },
+          {
+            "text": "Zwei unabhängige Quellen prüfen: Kombination 1.",
+            "next": "cwa_abgleich6_paar1",
+            "requires_flags": [
+              "cwa_anker_druckkammer_austritt",
+              "cwa_anker_sortiergrube_ida",
+              "cwa_beleg_verloren_3",
+              "cwa_beleg_ersetzt_3",
+              "cwa_kontakte_geprueft"
+            ]
+          },
+          {
+            "text": "Zwei unabhängige Quellen prüfen: Kombination 2.",
+            "next": "cwa_abgleich6_paar2",
+            "requires_flags": [
+              "cwa_anker_archiv_satzprobe",
+              "cwa_anker_kueche_noel",
+              "cwa_kontakte_geprueft"
+            ],
+            "hide_if_flags": [
+              "cwa_beleg_verloren_3"
+            ]
+          },
+          {
+            "text": "Zwei unabhängige Quellen prüfen: Kombination 2.",
+            "next": "cwa_abgleich6_paar2",
+            "requires_flags": [
+              "cwa_anker_archiv_satzprobe",
+              "cwa_anker_kueche_noel",
+              "cwa_beleg_verloren_3",
+              "cwa_beleg_ersetzt_3",
+              "cwa_kontakte_geprueft"
+            ]
+          },
+          {
+            "text": "Ohne Sicherung prüfen: Rückweg, 6 Nerven.",
+            "next": "cwa_abgleich6_fehlen",
+            "hide_if_flags": [
+              "cwa_abgleich6_fehlversuch"
+            ]
+          },
+          {
+            "text": "Noch keinen Abgleich auslösen."
+          }
+        ]
+      },
+      "cwa_abgleich6_paar1": {
+        "text": "Du legst zwei Quellen verschiedener Herkunft nebeneinander. Kopien derselben Akte bleiben ein Beleg, und die weiteren markierten Verbindungen werden für diesen einen Eingriff nicht benötigt.",
+        "choices": [
+          {
+            "text": "Öffentlich abgleichen: Terrasse stabil, Kontakte sichtbar.",
+            "next": "cwa_abgleich6_oeffentlich",
+            "requires_flags": [
+              "cwa_anker_druckkammer_austritt",
+              "cwa_anker_sortiergrube_ida",
+              "cwa_kontakte_geprueft"
+            ],
+            "hide_if_flags": [
+              "cwa_abgleich6_done"
+            ]
+          },
+          {
+            "text": "Vertraulich abgleichen: Kontakte schützen, Umweg nehmen.",
+            "next": "cwa_abgleich6_vertraulich",
+            "requires_flags": [
+              "cwa_anker_druckkammer_austritt",
+              "cwa_anker_sortiergrube_ida",
+              "cwa_kontakte_geprueft"
+            ],
+            "hide_if_flags": [
+              "cwa_abgleich6_done"
+            ]
+          },
+          {
+            "text": "Vor der Bestätigung abbrechen."
+          }
+        ]
+      },
+      "cwa_abgleich6_paar2": {
+        "text": "Du legst zwei Quellen verschiedener Herkunft nebeneinander. Kopien derselben Akte bleiben ein Beleg, und die weiteren markierten Verbindungen werden für diesen einen Eingriff nicht benötigt.",
+        "choices": [
+          {
+            "text": "Öffentlich abgleichen: Terrasse stabil, Kontakte sichtbar.",
+            "next": "cwa_abgleich6_oeffentlich",
+            "requires_flags": [
+              "cwa_anker_archiv_satzprobe",
+              "cwa_anker_kueche_noel",
+              "cwa_kontakte_geprueft"
+            ],
+            "hide_if_flags": [
+              "cwa_abgleich6_done"
+            ]
+          },
+          {
+            "text": "Vertraulich abgleichen: Kontakte schützen, Umweg nehmen.",
+            "next": "cwa_abgleich6_vertraulich",
+            "requires_flags": [
+              "cwa_anker_archiv_satzprobe",
+              "cwa_anker_kueche_noel",
+              "cwa_kontakte_geprueft"
+            ],
+            "hide_if_flags": [
+              "cwa_abgleich6_done"
+            ]
+          },
+          {
+            "text": "Vor der Bestätigung abbrechen."
+          }
+        ]
+      },
+      "cwa_abgleich6_oeffentlich": {
+        "text": "Die Austrittswege sind für alle offen lesbar. Auch Idas und Klammers freigegebene Namen liegen nun vor dem Direktor, bevor du den Schlussplan wählst.",
+        "sets_flags": [
+          "cwa_abgleich6_done",
+          "cwa_abgleich6_oeffentlich",
+          "cwa_verraten_cw_ida_bellcross",
+          "cwa_verraten_cw_crayford"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "clears_flags": [
+          "cwa_kontakte_geprueft"
+        ]
+      },
+      "cwa_abgleich6_vertraulich": {
+        "text": "Du gibst einzelne Wegbestätigungen aus. Die Evakuierung könnte länger dauern, aber niemand muss dafür unter einem gemeinsamen Namen unterschreiben.",
+        "sets_flags": [
+          "cwa_abgleich6_done",
+          "cwa_abgleich6_vertraulich"
+        ],
+        "travel": {
+          "map": "cw_buchbinderei",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_abgleich6_fehlen": {
+        "text": "Du landest an der letzten sicheren Kreuzung. Ein kurzes Flimmern kostet dich Nerven; alle Hinweise und Gegenstände bleiben erhalten.",
+        "nerves": -6,
+        "travel": {
+          "map": "cw_buchbinderei",
+          "spawn": "default"
+        },
+        "sets_flags": [
+          "cwa_abgleich6_fehlversuch"
+        ],
+        "choices": [
+          {
+            "text": "An der sicheren Kreuzung weiterermitteln."
+          }
+        ]
+      },
+      "cwa_abgleich6_fertig": {
+        "text": "Dieser Abgleich ist bestätigt. Die Notizen bleiben erhalten, der nächste Vergleich wird erst durch seine eigene beschriftete Hauptaktion ausgelöst.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_abgleich6_ersatz": {
+        "text": "Du gehst die dritte, bereits zugängliche Herkunft einzeln nach. Das kostet einen zusätzlichen Weg statt Geld oder fremder Zustimmung; die zwei ursprünglichen Hauptbelege bleiben vollständig erhalten.",
+        "sets_flags": [
+          "cwa_beleg_ersetzt_3"
+        ],
+        "choices": [
+          {
+            "text": "Mit der ergänzten Bürgschaft zurück.",
+            "next": "cwa_abgleich6_vorschau"
+          }
+        ]
+      }
+    }
+  },
+  "cwa_bleisammler_dialog": {
+    "start": [
+      {
+        "node": "cwa_bleisammler_quittung",
+        "requires_flags": [
+          "cwa_bleisammler_passiert"
+        ]
+      },
+      {
+        "node": "cwa_bleisammler_sieg",
+        "requires_flags": [
+          "won_vg_cw_boss_bleisammler_phase2"
+        ]
+      },
+      {
+        "node": "cwa_bleisammler_weiter1",
+        "requires_flags": [
+          "cwa_bleisammler_abschnitt1",
+          "vg_cw_boss_bleisammler_phase1_done"
+        ]
+      },
+      {
+        "node": "cwa_bleisammler_start"
+      }
+    ],
+    "nodes": {
+      "cwa_bleisammler_start": {
+        "text": "Zwischen ausgesonderten Lettern steckt Idas Schutzrahmen. Die lose Walzenführung lässt Platz für einen Keil; an der Seite liegt ein zusätzliches Herkunftssiegel.",
+        "choices": [
+          {
+            "text": "Den ermittelten Eingriff ausführen.",
+            "next": "cwa_bleisammler_friedlich",
+            "requires_clues": [
+              "cwa_14_c1",
+              "cwa_14_c2",
+              "cwa_14_c3",
+              "cwa_14_c4"
+            ]
+          },
+          {
+            "text": "Kämpfen: ein zusätzlicher Bürgschaftsbeleg kann zerbrechen.",
+            "next": "cwa_bleisammler_kampf1"
+          },
+          {
+            "text": "Den sicheren Rückweg nehmen.",
+            "next": "cwa_bleisammler_abbruch"
+          }
+        ]
+      },
+      "cwa_bleisammler_kampf1": {
+        "text": "Zwischen ausgesonderten Lettern steckt Idas Schutzrahmen. Die lose Walzenführung lässt Platz für einen Keil; an der Seite liegt ein zusätzliches Herkunftssiegel.",
+        "combat": "vg_cw_boss_bleisammler",
+        "sets_flags": [
+          "cwa_bleisammler_abschnitt1"
+        ],
+        "clears_flags": [
+          "cwa_bleisammler_abschnitt2"
+        ],
+        "choices": []
+      },
+      "cwa_bleisammler_weiter1": {
+        "text": "Der überwundene Abschnitt legt die nächste Bindung frei. Du kannst fortsetzen oder zum Eingang zurückkehren; ein Abbruch setzt die örtliche Kampfvorbereitung zurück.",
+        "choices": [
+          {
+            "text": "Den nächsten Abschnitt beginnen.",
+            "next": "cwa_bleisammler_kampf2"
+          },
+          {
+            "text": "Zum gesicherten Eingang zurück.",
+            "next": "cwa_bleisammler_abbruch"
+          }
+        ]
+      },
+      "cwa_bleisammler_kampf2": {
+        "text": "Der nächste Abschnitt beginnt nur mit deiner Bestätigung. Der markierte Rückweg bleibt offen; die Messnische und deine Beweise bleiben geschützt.",
+        "combat": "vg_cw_boss_bleisammler_phase2",
+        "sets_flags": [
+          "cwa_bleisammler_abschnitt2"
+        ],
+        "clears_flags": [
+          "cwa_bleisammler_abschnitt1"
+        ],
+        "choices": []
+      },
+      "cwa_bleisammler_sieg": {
+        "text": "Die Walze fällt aus dem Leib und zerbricht das zusätzliche Herkunftssiegel. Idas Korrekturfahne und die Probeplatte liegen geschützt; der Hauptbeweis ist weiterhin vollständig erreichbar.",
+        "sets_flags": [
+          "cwa_bleisammler_passiert",
+          "cwa_beleg_verloren_1"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_bleisammler_friedlich": {
+        "text": "Du blockierst die geprüfte Führung, ohne einen Namen einzusetzen. Die Walze steht, der Bleisammler legt seine Lettern ab und das zusätzliche Herkunftssiegel bleibt unversehrt.",
+        "sets_flags": [
+          "cwa_bleisammler_passiert",
+          "cwa_bleisammler_friedlich"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_bleisammler_quittung": {
+        "text": "Der Eingriff ist abgeschlossen. Hauptbeweise bleiben zugänglich; eine bereits gesicherte Kernzutat wird nicht doppelt ausgegeben. Die Bergungsstelle kann separat geprüft werden.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_bleisammler_abbruch": {
+        "text": "Du bleibst auf dem gesicherten Rückweg. Die Anlage rückt während des Lesens und Ruhens nicht vor; ein neuer Kampfversuch beginnt wieder im ersten Abschnitt.",
+        "clears_flags": [
+          "cwa_bleisammler_abschnitt1",
+          "cwa_bleisammler_abschnitt2"
+        ],
+        "travel": {
+          "map": "cw_buchbinderei",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwa_bleisammler_kern_dialog": {
+    "start": "cwa_bleisammler_kern_start",
+    "nodes": {
+      "cwa_bleisammler_kern_laterne": {
+        "text": "Du sicherst die vorhandene Kernzutat für deinen eigenen Pfad. Weder ein neuer Pfad noch eine Formel oder ein Aufstieg wird damit vergeben.",
+        "gives_items": {
+          "sq_zutat_laterne_3": 1
+        },
+        "sets_flags": [
+          "cwa_bleisammler_kern_laterne_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_bleisammler_kern_faden": {
+        "text": "Du sicherst die vorhandene Kernzutat für deinen eigenen Pfad. Weder ein neuer Pfad noch eine Formel oder ein Aufstieg wird damit vergeben.",
+        "gives_items": {
+          "sq_zutat_faden_3": 1
+        },
+        "sets_flags": [
+          "cwa_bleisammler_kern_faden_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_bleisammler_kern_maske": {
+        "text": "Du sicherst die vorhandene Kernzutat für deinen eigenen Pfad. Weder ein neuer Pfad noch eine Formel oder ein Aufstieg wird damit vergeben.",
+        "gives_items": {
+          "sq_zutat_maske_3": 1
+        },
+        "sets_flags": [
+          "cwa_bleisammler_kern_maske_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_bleisammler_kern_echo": {
+        "text": "Du sicherst die vorhandene Kernzutat für deinen eigenen Pfad. Weder ein neuer Pfad noch eine Formel oder ein Aufstieg wird damit vergeben.",
+        "gives_items": {
+          "sq_zutat_echo_3": 1
+        },
+        "sets_flags": [
+          "cwa_bleisammler_kern_echo_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_bleisammler_kern_kessel": {
+        "text": "Du sicherst die vorhandene Kernzutat für deinen eigenen Pfad. Weder ein neuer Pfad noch eine Formel oder ein Aufstieg wird damit vergeben.",
+        "gives_items": {
+          "sq_zutat_kessel_3": 1
+        },
+        "sets_flags": [
+          "cwa_bleisammler_kern_kessel_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_bleisammler_kern_eisen": {
+        "text": "Du sicherst die vorhandene Kernzutat für deinen eigenen Pfad. Weder ein neuer Pfad noch eine Formel oder ein Aufstieg wird damit vergeben.",
+        "gives_items": {
+          "sq_zutat_eisen_3": 1
+        },
+        "sets_flags": [
+          "cwa_bleisammler_kern_eisen_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_bleisammler_kern_schluessel": {
+        "text": "Du sicherst die vorhandene Kernzutat für deinen eigenen Pfad. Weder ein neuer Pfad noch eine Formel oder ein Aufstieg wird damit vergeben.",
+        "gives_items": {
+          "sq_zutat_schluessel_3": 1
+        },
+        "sets_flags": [
+          "cwa_bleisammler_kern_schluessel_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_bleisammler_kern_sq_waage": {
+        "text": "Du sicherst die vorhandene Kernzutat für deinen eigenen Pfad. Weder ein neuer Pfad noch eine Formel oder ein Aufstieg wird damit vergeben.",
+        "gives_items": {
+          "sq_zutat_waage_3": 1
+        },
+        "sets_flags": [
+          "cwa_bleisammler_kern_sq_waage_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_bleisammler_kern_sq_moor": {
+        "text": "Du sicherst die vorhandene Kernzutat für deinen eigenen Pfad. Weder ein neuer Pfad noch eine Formel oder ein Aufstieg wird damit vergeben.",
+        "gives_items": {
+          "sq_zutat_moor_3": 1
+        },
+        "sets_flags": [
+          "cwa_bleisammler_kern_sq_moor_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_bleisammler_kern_sq_uhr": {
+        "text": "Du sicherst die vorhandene Kernzutat für deinen eigenen Pfad. Weder ein neuer Pfad noch eine Formel oder ein Aufstieg wird damit vergeben.",
+        "gives_items": {
+          "sq_zutat_uhr_3": 1
+        },
+        "sets_flags": [
+          "cwa_bleisammler_kern_sq_uhr_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_bleisammler_kern_start": {
+        "text": "Die getrennte Bergung ist nach friedlichem Eingriff und Kampf gleichermaßen erreichbar. Wenn die Zutat bereits bei dir liegt, bleibt sie unberührt; nach einer bestätigten Ausgabe entsteht keine neue.",
+        "choices": [
+          {
+            "text": "Ersatzkern für den eigenen Pfad sichern.",
+            "next": "cwa_bleisammler_kern_laterne",
+            "requires_pathway": [
+              "laterne",
+              9
+            ],
+            "hide_if_items": [
+              "sq_zutat_laterne_3"
+            ],
+            "hide_if_flags": [
+              "cwa_bleisammler_kern_laterne_erhalten"
+            ]
+          },
+          {
+            "text": "Ersatzkern für den eigenen Pfad sichern.",
+            "next": "cwa_bleisammler_kern_faden",
+            "requires_pathway": [
+              "faden",
+              9
+            ],
+            "hide_if_items": [
+              "sq_zutat_faden_3"
+            ],
+            "hide_if_flags": [
+              "cwa_bleisammler_kern_faden_erhalten"
+            ]
+          },
+          {
+            "text": "Ersatzkern für den eigenen Pfad sichern.",
+            "next": "cwa_bleisammler_kern_maske",
+            "requires_pathway": [
+              "maske",
+              9
+            ],
+            "hide_if_items": [
+              "sq_zutat_maske_3"
+            ],
+            "hide_if_flags": [
+              "cwa_bleisammler_kern_maske_erhalten"
+            ]
+          },
+          {
+            "text": "Ersatzkern für den eigenen Pfad sichern.",
+            "next": "cwa_bleisammler_kern_echo",
+            "requires_pathway": [
+              "echo",
+              9
+            ],
+            "hide_if_items": [
+              "sq_zutat_echo_3"
+            ],
+            "hide_if_flags": [
+              "cwa_bleisammler_kern_echo_erhalten"
+            ]
+          },
+          {
+            "text": "Ersatzkern für den eigenen Pfad sichern.",
+            "next": "cwa_bleisammler_kern_kessel",
+            "requires_pathway": [
+              "kessel",
+              9
+            ],
+            "hide_if_items": [
+              "sq_zutat_kessel_3"
+            ],
+            "hide_if_flags": [
+              "cwa_bleisammler_kern_kessel_erhalten"
+            ]
+          },
+          {
+            "text": "Ersatzkern für den eigenen Pfad sichern.",
+            "next": "cwa_bleisammler_kern_eisen",
+            "requires_pathway": [
+              "eisen",
+              9
+            ],
+            "hide_if_items": [
+              "sq_zutat_eisen_3"
+            ],
+            "hide_if_flags": [
+              "cwa_bleisammler_kern_eisen_erhalten"
+            ]
+          },
+          {
+            "text": "Ersatzkern für den eigenen Pfad sichern.",
+            "next": "cwa_bleisammler_kern_schluessel",
+            "requires_pathway": [
+              "schluessel",
+              9
+            ],
+            "hide_if_items": [
+              "sq_zutat_schluessel_3"
+            ],
+            "hide_if_flags": [
+              "cwa_bleisammler_kern_schluessel_erhalten"
+            ]
+          },
+          {
+            "text": "Ersatzkern für den eigenen Pfad sichern.",
+            "next": "cwa_bleisammler_kern_sq_waage",
+            "requires_pathway": [
+              "sq_waage",
+              9
+            ],
+            "hide_if_items": [
+              "sq_zutat_waage_3"
+            ],
+            "hide_if_flags": [
+              "cwa_bleisammler_kern_sq_waage_erhalten"
+            ]
+          },
+          {
+            "text": "Ersatzkern für den eigenen Pfad sichern.",
+            "next": "cwa_bleisammler_kern_sq_moor",
+            "requires_pathway": [
+              "sq_moor",
+              9
+            ],
+            "hide_if_items": [
+              "sq_zutat_moor_3"
+            ],
+            "hide_if_flags": [
+              "cwa_bleisammler_kern_sq_moor_erhalten"
+            ]
+          },
+          {
+            "text": "Ersatzkern für den eigenen Pfad sichern.",
+            "next": "cwa_bleisammler_kern_sq_uhr",
+            "requires_pathway": [
+              "sq_uhr",
+              9
+            ],
+            "hide_if_items": [
+              "sq_zutat_uhr_3"
+            ],
+            "hide_if_flags": [
+              "cwa_bleisammler_kern_sq_uhr_erhalten"
+            ]
+          },
+          {
+            "text": "Später bergen."
+          }
+        ]
+      }
+    }
+  },
+  "cwa_blinder_zusteller_dialog": {
+    "start": [
+      {
+        "node": "cwa_blinder_zusteller_quittung",
+        "requires_flags": [
+          "cwa_blinder_zusteller_passiert"
+        ]
+      },
+      {
+        "node": "cwa_blinder_zusteller_sieg",
+        "requires_flags": [
+          "won_vg_cw_boss_blinder_zusteller_phase2"
+        ]
+      },
+      {
+        "node": "cwa_blinder_zusteller_weiter1",
+        "requires_flags": [
+          "cwa_blinder_zusteller_abschnitt1",
+          "vg_cw_boss_blinder_zusteller_phase1_done"
+        ]
+      },
+      {
+        "node": "cwa_blinder_zusteller_start"
+      }
+    ],
+    "nodes": {
+      "cwa_blinder_zusteller_start": {
+        "text": "Der Zusteller tastet nach einem einzigen Empfänger für drei verschiedene Sendungen. Vor dem gesicherten Kabinenfenster liegen die echten Empfangszeichen im Rücklauf.",
+        "choices": [
+          {
+            "text": "Den ermittelten Eingriff ausführen.",
+            "next": "cwa_blinder_zusteller_friedlich",
+            "requires_clues": [
+              "cwa_24_c1",
+              "cwa_24_c2",
+              "cwa_24_c3",
+              "cwa_24_c4"
+            ]
+          },
+          {
+            "text": "Kämpfen: ein zusätzlicher Bürgschaftsbeleg kann zerbrechen.",
+            "next": "cwa_blinder_zusteller_kampf1"
+          },
+          {
+            "text": "Den sicheren Rückweg nehmen.",
+            "next": "cwa_blinder_zusteller_abbruch"
+          }
+        ]
+      },
+      "cwa_blinder_zusteller_kampf1": {
+        "text": "Der Zusteller tastet nach einem einzigen Empfänger für drei verschiedene Sendungen. Vor dem gesicherten Kabinenfenster liegen die echten Empfangszeichen im Rücklauf.",
+        "combat": "vg_cw_boss_blinder_zusteller",
+        "sets_flags": [
+          "cwa_blinder_zusteller_abschnitt1"
+        ],
+        "clears_flags": [
+          "cwa_blinder_zusteller_abschnitt2"
+        ],
+        "choices": []
+      },
+      "cwa_blinder_zusteller_weiter1": {
+        "text": "Der überwundene Abschnitt legt die nächste Bindung frei. Du kannst fortsetzen oder zum Eingang zurückkehren; ein Abbruch setzt die örtliche Kampfvorbereitung zurück.",
+        "choices": [
+          {
+            "text": "Den nächsten Abschnitt beginnen.",
+            "next": "cwa_blinder_zusteller_kampf2"
+          },
+          {
+            "text": "Zum gesicherten Eingang zurück.",
+            "next": "cwa_blinder_zusteller_abbruch"
+          }
+        ]
+      },
+      "cwa_blinder_zusteller_kampf2": {
+        "text": "Der nächste Abschnitt beginnt nur mit deiner Bestätigung. Der markierte Rückweg bleibt offen; die Messnische und deine Beweise bleiben geschützt.",
+        "combat": "vg_cw_boss_blinder_zusteller_phase2",
+        "sets_flags": [
+          "cwa_blinder_zusteller_abschnitt2"
+        ],
+        "clears_flags": [
+          "cwa_blinder_zusteller_abschnitt1"
+        ],
+        "choices": []
+      },
+      "cwa_blinder_zusteller_sieg": {
+        "text": "Der Zusteller verliert seinen Zugriff, das zusätzliche Zustellband reißt. Die drei dokumentierten Lieferwege und Idas erreichbares Sichtfenster bleiben erhalten.",
+        "sets_flags": [
+          "cwa_blinder_zusteller_passiert",
+          "cwa_beleg_verloren_2"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_blinder_zusteller_friedlich": {
+        "text": "Du legst drei echte Zustellungen mit getrennter Herkunft vor. Der Zusteller stellt den Sack ab; das unversehrte Zustellband bleibt als zusätzliche bequeme Bürgschaft erhalten.",
+        "sets_flags": [
+          "cwa_blinder_zusteller_passiert",
+          "cwa_blinder_zusteller_friedlich"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_blinder_zusteller_quittung": {
+        "text": "Der Eingriff ist abgeschlossen. Hauptbeweise bleiben zugänglich; eine bereits gesicherte Kernzutat wird nicht doppelt ausgegeben. Die Bergungsstelle kann separat geprüft werden.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_blinder_zusteller_abbruch": {
+        "text": "Du bleibst auf dem gesicherten Rückweg. Die Anlage rückt während des Lesens und Ruhens nicht vor; ein neuer Kampfversuch beginnt wieder im ersten Abschnitt.",
+        "clears_flags": [
+          "cwa_blinder_zusteller_abschnitt1",
+          "cwa_blinder_zusteller_abschnitt2"
+        ],
+        "travel": {
+          "map": "cw_buchbinderei",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwa_blinder_zusteller_kern_dialog": {
+    "start": "cwa_blinder_zusteller_kern_start",
+    "nodes": {
+      "cwa_blinder_zusteller_kern_laterne": {
+        "text": "Du sicherst die vorhandene Kernzutat für deinen eigenen Pfad. Weder ein neuer Pfad noch eine Formel oder ein Aufstieg wird damit vergeben.",
+        "gives_items": {
+          "sq_zutat_laterne_2": 1
+        },
+        "sets_flags": [
+          "cwa_blinder_zusteller_kern_laterne_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_blinder_zusteller_kern_faden": {
+        "text": "Du sicherst die vorhandene Kernzutat für deinen eigenen Pfad. Weder ein neuer Pfad noch eine Formel oder ein Aufstieg wird damit vergeben.",
+        "gives_items": {
+          "sq_zutat_faden_2": 1
+        },
+        "sets_flags": [
+          "cwa_blinder_zusteller_kern_faden_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_blinder_zusteller_kern_maske": {
+        "text": "Du sicherst die vorhandene Kernzutat für deinen eigenen Pfad. Weder ein neuer Pfad noch eine Formel oder ein Aufstieg wird damit vergeben.",
+        "gives_items": {
+          "sq_zutat_maske_2": 1
+        },
+        "sets_flags": [
+          "cwa_blinder_zusteller_kern_maske_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_blinder_zusteller_kern_echo": {
+        "text": "Du sicherst die vorhandene Kernzutat für deinen eigenen Pfad. Weder ein neuer Pfad noch eine Formel oder ein Aufstieg wird damit vergeben.",
+        "gives_items": {
+          "sq_zutat_echo_2": 1
+        },
+        "sets_flags": [
+          "cwa_blinder_zusteller_kern_echo_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_blinder_zusteller_kern_kessel": {
+        "text": "Du sicherst die vorhandene Kernzutat für deinen eigenen Pfad. Weder ein neuer Pfad noch eine Formel oder ein Aufstieg wird damit vergeben.",
+        "gives_items": {
+          "sq_zutat_kessel_2": 1
+        },
+        "sets_flags": [
+          "cwa_blinder_zusteller_kern_kessel_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_blinder_zusteller_kern_eisen": {
+        "text": "Du sicherst die vorhandene Kernzutat für deinen eigenen Pfad. Weder ein neuer Pfad noch eine Formel oder ein Aufstieg wird damit vergeben.",
+        "gives_items": {
+          "sq_zutat_eisen_2": 1
+        },
+        "sets_flags": [
+          "cwa_blinder_zusteller_kern_eisen_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_blinder_zusteller_kern_schluessel": {
+        "text": "Du sicherst die vorhandene Kernzutat für deinen eigenen Pfad. Weder ein neuer Pfad noch eine Formel oder ein Aufstieg wird damit vergeben.",
+        "gives_items": {
+          "sq_zutat_schluessel_2": 1
+        },
+        "sets_flags": [
+          "cwa_blinder_zusteller_kern_schluessel_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_blinder_zusteller_kern_sq_waage": {
+        "text": "Du sicherst die vorhandene Kernzutat für deinen eigenen Pfad. Weder ein neuer Pfad noch eine Formel oder ein Aufstieg wird damit vergeben.",
+        "gives_items": {
+          "sq_zutat_waage_2": 1
+        },
+        "sets_flags": [
+          "cwa_blinder_zusteller_kern_sq_waage_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_blinder_zusteller_kern_sq_moor": {
+        "text": "Du sicherst die vorhandene Kernzutat für deinen eigenen Pfad. Weder ein neuer Pfad noch eine Formel oder ein Aufstieg wird damit vergeben.",
+        "gives_items": {
+          "sq_zutat_moor_2": 1
+        },
+        "sets_flags": [
+          "cwa_blinder_zusteller_kern_sq_moor_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_blinder_zusteller_kern_sq_uhr": {
+        "text": "Du sicherst die vorhandene Kernzutat für deinen eigenen Pfad. Weder ein neuer Pfad noch eine Formel oder ein Aufstieg wird damit vergeben.",
+        "gives_items": {
+          "sq_zutat_uhr_2": 1
+        },
+        "sets_flags": [
+          "cwa_blinder_zusteller_kern_sq_uhr_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_blinder_zusteller_kern_start": {
+        "text": "Die getrennte Bergung ist nach friedlichem Eingriff und Kampf gleichermaßen erreichbar. Wenn die Zutat bereits bei dir liegt, bleibt sie unberührt; nach einer bestätigten Ausgabe entsteht keine neue.",
+        "choices": [
+          {
+            "text": "Ersatzkern für den eigenen Pfad sichern.",
+            "next": "cwa_blinder_zusteller_kern_laterne",
+            "requires_pathway": [
+              "laterne",
+              9
+            ],
+            "hide_if_items": [
+              "sq_zutat_laterne_2"
+            ],
+            "hide_if_flags": [
+              "cwa_blinder_zusteller_kern_laterne_erhalten"
+            ]
+          },
+          {
+            "text": "Ersatzkern für den eigenen Pfad sichern.",
+            "next": "cwa_blinder_zusteller_kern_faden",
+            "requires_pathway": [
+              "faden",
+              9
+            ],
+            "hide_if_items": [
+              "sq_zutat_faden_2"
+            ],
+            "hide_if_flags": [
+              "cwa_blinder_zusteller_kern_faden_erhalten"
+            ]
+          },
+          {
+            "text": "Ersatzkern für den eigenen Pfad sichern.",
+            "next": "cwa_blinder_zusteller_kern_maske",
+            "requires_pathway": [
+              "maske",
+              9
+            ],
+            "hide_if_items": [
+              "sq_zutat_maske_2"
+            ],
+            "hide_if_flags": [
+              "cwa_blinder_zusteller_kern_maske_erhalten"
+            ]
+          },
+          {
+            "text": "Ersatzkern für den eigenen Pfad sichern.",
+            "next": "cwa_blinder_zusteller_kern_echo",
+            "requires_pathway": [
+              "echo",
+              9
+            ],
+            "hide_if_items": [
+              "sq_zutat_echo_2"
+            ],
+            "hide_if_flags": [
+              "cwa_blinder_zusteller_kern_echo_erhalten"
+            ]
+          },
+          {
+            "text": "Ersatzkern für den eigenen Pfad sichern.",
+            "next": "cwa_blinder_zusteller_kern_kessel",
+            "requires_pathway": [
+              "kessel",
+              9
+            ],
+            "hide_if_items": [
+              "sq_zutat_kessel_2"
+            ],
+            "hide_if_flags": [
+              "cwa_blinder_zusteller_kern_kessel_erhalten"
+            ]
+          },
+          {
+            "text": "Ersatzkern für den eigenen Pfad sichern.",
+            "next": "cwa_blinder_zusteller_kern_eisen",
+            "requires_pathway": [
+              "eisen",
+              9
+            ],
+            "hide_if_items": [
+              "sq_zutat_eisen_2"
+            ],
+            "hide_if_flags": [
+              "cwa_blinder_zusteller_kern_eisen_erhalten"
+            ]
+          },
+          {
+            "text": "Ersatzkern für den eigenen Pfad sichern.",
+            "next": "cwa_blinder_zusteller_kern_schluessel",
+            "requires_pathway": [
+              "schluessel",
+              9
+            ],
+            "hide_if_items": [
+              "sq_zutat_schluessel_2"
+            ],
+            "hide_if_flags": [
+              "cwa_blinder_zusteller_kern_schluessel_erhalten"
+            ]
+          },
+          {
+            "text": "Ersatzkern für den eigenen Pfad sichern.",
+            "next": "cwa_blinder_zusteller_kern_sq_waage",
+            "requires_pathway": [
+              "sq_waage",
+              9
+            ],
+            "hide_if_items": [
+              "sq_zutat_waage_2"
+            ],
+            "hide_if_flags": [
+              "cwa_blinder_zusteller_kern_sq_waage_erhalten"
+            ]
+          },
+          {
+            "text": "Ersatzkern für den eigenen Pfad sichern.",
+            "next": "cwa_blinder_zusteller_kern_sq_moor",
+            "requires_pathway": [
+              "sq_moor",
+              9
+            ],
+            "hide_if_items": [
+              "sq_zutat_moor_2"
+            ],
+            "hide_if_flags": [
+              "cwa_blinder_zusteller_kern_sq_moor_erhalten"
+            ]
+          },
+          {
+            "text": "Ersatzkern für den eigenen Pfad sichern.",
+            "next": "cwa_blinder_zusteller_kern_sq_uhr",
+            "requires_pathway": [
+              "sq_uhr",
+              9
+            ],
+            "hide_if_items": [
+              "sq_zutat_uhr_2"
+            ],
+            "hide_if_flags": [
+              "cwa_blinder_zusteller_kern_sq_uhr_erhalten"
+            ]
+          },
+          {
+            "text": "Später bergen."
+          }
+        ]
+      }
+    }
+  },
+  "cwa_nullfundament_dialog": {
+    "start": [
+      {
+        "node": "cwa_nullfundament_quittung",
+        "requires_flags": [
+          "cwa_nullfundament_passiert"
+        ]
+      },
+      {
+        "node": "cwa_nullfundament_sieg",
+        "requires_flags": [
+          "won_vg_cw_boss_nullfundament_phase3"
+        ]
+      },
+      {
+        "node": "cwa_nullfundament_weiter2",
+        "requires_flags": [
+          "cwa_nullfundament_abschnitt2",
+          "vg_cw_boss_nullfundament_phase2_done"
+        ]
+      },
+      {
+        "node": "cwa_nullfundament_weiter1",
+        "requires_flags": [
+          "cwa_nullfundament_abschnitt1",
+          "vg_cw_boss_nullfundament_phase1_done"
+        ]
+      },
+      {
+        "node": "cwa_nullfundament_start"
+      }
+    ],
+    "nodes": {
+      "cwa_nullfundament_start": {
+        "text": "Der Registerleib faltet fremde Zuordnungen ineinander. Getrennte Registerränder liegen vor der Messnische bereit; kein Mensch muss als Gegenlast in das Fundament treten.",
+        "choices": [
+          {
+            "text": "Den ermittelten Eingriff ausführen.",
+            "next": "cwa_nullfundament_friedlich",
+            "requires_clues": [
+              "cwa_52_c1",
+              "cwa_52_c2",
+              "cwa_52_c3",
+              "cwa_52_c4"
+            ]
+          },
+          {
+            "text": "Kämpfen: ein zusätzlicher Bürgschaftsbeleg kann zerbrechen.",
+            "next": "cwa_nullfundament_kampf1"
+          },
+          {
+            "text": "Den sicheren Rückweg nehmen.",
+            "next": "cwa_nullfundament_abbruch"
+          }
+        ]
+      },
+      "cwa_nullfundament_kampf1": {
+        "text": "Der Registerleib faltet fremde Zuordnungen ineinander. Getrennte Registerränder liegen vor der Messnische bereit; kein Mensch muss als Gegenlast in das Fundament treten.",
+        "combat": "vg_cw_boss_nullfundament",
+        "sets_flags": [
+          "cwa_nullfundament_abschnitt1"
+        ],
+        "clears_flags": [
+          "cwa_nullfundament_abschnitt2",
+          "cwa_nullfundament_abschnitt3"
+        ],
+        "choices": []
+      },
+      "cwa_nullfundament_weiter1": {
+        "text": "Der überwundene Abschnitt legt die nächste Bindung frei. Du kannst fortsetzen oder zum Eingang zurückkehren; ein Abbruch setzt die örtliche Kampfvorbereitung zurück.",
+        "choices": [
+          {
+            "text": "Den nächsten Abschnitt beginnen.",
+            "next": "cwa_nullfundament_kampf2"
+          },
+          {
+            "text": "Zum gesicherten Eingang zurück.",
+            "next": "cwa_nullfundament_abbruch"
+          }
+        ]
+      },
+      "cwa_nullfundament_kampf2": {
+        "text": "Der nächste Abschnitt beginnt nur mit deiner Bestätigung. Der markierte Rückweg bleibt offen; die Messnische und deine Beweise bleiben geschützt.",
+        "combat": "vg_cw_boss_nullfundament_phase2",
+        "sets_flags": [
+          "cwa_nullfundament_abschnitt2"
+        ],
+        "clears_flags": [
+          "cwa_nullfundament_abschnitt1",
+          "cwa_nullfundament_abschnitt3"
+        ],
+        "choices": []
+      },
+      "cwa_nullfundament_weiter2": {
+        "text": "Der überwundene Abschnitt legt die nächste Bindung frei. Du kannst fortsetzen oder zum Eingang zurückkehren; ein Abbruch setzt die örtliche Kampfvorbereitung zurück.",
+        "choices": [
+          {
+            "text": "Den nächsten Abschnitt beginnen.",
+            "next": "cwa_nullfundament_kampf3"
+          },
+          {
+            "text": "Zum gesicherten Eingang zurück.",
+            "next": "cwa_nullfundament_abbruch"
+          }
+        ]
+      },
+      "cwa_nullfundament_kampf3": {
+        "text": "Der nächste Abschnitt beginnt nur mit deiner Bestätigung. Der markierte Rückweg bleibt offen; die Messnische und deine Beweise bleiben geschützt.",
+        "combat": "vg_cw_boss_nullfundament_phase3",
+        "sets_flags": [
+          "cwa_nullfundament_abschnitt3"
+        ],
+        "clears_flags": [
+          "cwa_nullfundament_abschnitt1",
+          "cwa_nullfundament_abschnitt2"
+        ],
+        "choices": []
+      },
+      "cwa_nullfundament_sieg": {
+        "text": "Der letzte Druck reißt das zusätzliche Kontrollsiegel entzwei. Die getrennten Messungen und Hauptregister bleiben erhalten; die örtliche Öffnung ist unterbrochen, nicht überall vernichtet.",
+        "sets_flags": [
+          "cwa_nullfundament_passiert",
+          "cwa_beleg_verloren_3"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_nullfundament_friedlich": {
+        "text": "Du setzt die drei getrennten Register ein. Jede Zuordnung findet ihren eigenen Rand, der Registerleib verliert seinen Sammelzugriff und das zusätzliche Kontrollsiegel bleibt heil.",
+        "sets_flags": [
+          "cwa_nullfundament_passiert",
+          "cwa_nullfundament_friedlich"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_nullfundament_quittung": {
+        "text": "Der Eingriff ist abgeschlossen. Hauptbeweise bleiben zugänglich; eine bereits gesicherte Kernzutat wird nicht doppelt ausgegeben. Die Bergungsstelle kann separat geprüft werden.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_nullfundament_abbruch": {
+        "text": "Du bleibst auf dem gesicherten Rückweg. Die Anlage rückt während des Lesens und Ruhens nicht vor; ein neuer Kampfversuch beginnt wieder im ersten Abschnitt.",
+        "clears_flags": [
+          "cwa_nullfundament_abschnitt1",
+          "cwa_nullfundament_abschnitt2",
+          "cwa_nullfundament_abschnitt3"
+        ],
+        "travel": {
+          "map": "cw_buchbinderei",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwa_nullfundament_kern_dialog": {
+    "start": "cwa_nullfundament_kern_start",
+    "nodes": {
+      "cwa_nullfundament_kern_laterne": {
+        "text": "Du sicherst die vorhandene Kernzutat für deinen eigenen Pfad. Weder ein neuer Pfad noch eine Formel oder ein Aufstieg wird damit vergeben.",
+        "gives_items": {
+          "sq_zutat_laterne_1": 1
+        },
+        "sets_flags": [
+          "cwa_nullfundament_kern_laterne_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_nullfundament_kern_faden": {
+        "text": "Du sicherst die vorhandene Kernzutat für deinen eigenen Pfad. Weder ein neuer Pfad noch eine Formel oder ein Aufstieg wird damit vergeben.",
+        "gives_items": {
+          "sq_zutat_faden_1": 1
+        },
+        "sets_flags": [
+          "cwa_nullfundament_kern_faden_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_nullfundament_kern_maske": {
+        "text": "Du sicherst die vorhandene Kernzutat für deinen eigenen Pfad. Weder ein neuer Pfad noch eine Formel oder ein Aufstieg wird damit vergeben.",
+        "gives_items": {
+          "sq_zutat_maske_1": 1
+        },
+        "sets_flags": [
+          "cwa_nullfundament_kern_maske_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_nullfundament_kern_echo": {
+        "text": "Du sicherst die vorhandene Kernzutat für deinen eigenen Pfad. Weder ein neuer Pfad noch eine Formel oder ein Aufstieg wird damit vergeben.",
+        "gives_items": {
+          "sq_zutat_echo_1": 1
+        },
+        "sets_flags": [
+          "cwa_nullfundament_kern_echo_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_nullfundament_kern_kessel": {
+        "text": "Du sicherst die vorhandene Kernzutat für deinen eigenen Pfad. Weder ein neuer Pfad noch eine Formel oder ein Aufstieg wird damit vergeben.",
+        "gives_items": {
+          "sq_zutat_kessel_1": 1
+        },
+        "sets_flags": [
+          "cwa_nullfundament_kern_kessel_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_nullfundament_kern_eisen": {
+        "text": "Du sicherst die vorhandene Kernzutat für deinen eigenen Pfad. Weder ein neuer Pfad noch eine Formel oder ein Aufstieg wird damit vergeben.",
+        "gives_items": {
+          "sq_zutat_eisen_1": 1
+        },
+        "sets_flags": [
+          "cwa_nullfundament_kern_eisen_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_nullfundament_kern_schluessel": {
+        "text": "Du sicherst die vorhandene Kernzutat für deinen eigenen Pfad. Weder ein neuer Pfad noch eine Formel oder ein Aufstieg wird damit vergeben.",
+        "gives_items": {
+          "sq_zutat_schluessel_1": 1
+        },
+        "sets_flags": [
+          "cwa_nullfundament_kern_schluessel_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_nullfundament_kern_sq_waage": {
+        "text": "Du sicherst die vorhandene Kernzutat für deinen eigenen Pfad. Weder ein neuer Pfad noch eine Formel oder ein Aufstieg wird damit vergeben.",
+        "gives_items": {
+          "sq_zutat_waage_1": 1
+        },
+        "sets_flags": [
+          "cwa_nullfundament_kern_sq_waage_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_nullfundament_kern_sq_moor": {
+        "text": "Du sicherst die vorhandene Kernzutat für deinen eigenen Pfad. Weder ein neuer Pfad noch eine Formel oder ein Aufstieg wird damit vergeben.",
+        "gives_items": {
+          "sq_zutat_moor_1": 1
+        },
+        "sets_flags": [
+          "cwa_nullfundament_kern_sq_moor_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_nullfundament_kern_sq_uhr": {
+        "text": "Du sicherst die vorhandene Kernzutat für deinen eigenen Pfad. Weder ein neuer Pfad noch eine Formel oder ein Aufstieg wird damit vergeben.",
+        "gives_items": {
+          "sq_zutat_uhr_1": 1
+        },
+        "sets_flags": [
+          "cwa_nullfundament_kern_sq_uhr_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_nullfundament_kern_start": {
+        "text": "Die getrennte Bergung ist nach friedlichem Eingriff und Kampf gleichermaßen erreichbar. Wenn die Zutat bereits bei dir liegt, bleibt sie unberührt; nach einer bestätigten Ausgabe entsteht keine neue.",
+        "choices": [
+          {
+            "text": "Ersatzkern für den eigenen Pfad sichern.",
+            "next": "cwa_nullfundament_kern_laterne",
+            "requires_pathway": [
+              "laterne",
+              9
+            ],
+            "hide_if_items": [
+              "sq_zutat_laterne_1"
+            ],
+            "hide_if_flags": [
+              "cwa_nullfundament_kern_laterne_erhalten"
+            ]
+          },
+          {
+            "text": "Ersatzkern für den eigenen Pfad sichern.",
+            "next": "cwa_nullfundament_kern_faden",
+            "requires_pathway": [
+              "faden",
+              9
+            ],
+            "hide_if_items": [
+              "sq_zutat_faden_1"
+            ],
+            "hide_if_flags": [
+              "cwa_nullfundament_kern_faden_erhalten"
+            ]
+          },
+          {
+            "text": "Ersatzkern für den eigenen Pfad sichern.",
+            "next": "cwa_nullfundament_kern_maske",
+            "requires_pathway": [
+              "maske",
+              9
+            ],
+            "hide_if_items": [
+              "sq_zutat_maske_1"
+            ],
+            "hide_if_flags": [
+              "cwa_nullfundament_kern_maske_erhalten"
+            ]
+          },
+          {
+            "text": "Ersatzkern für den eigenen Pfad sichern.",
+            "next": "cwa_nullfundament_kern_echo",
+            "requires_pathway": [
+              "echo",
+              9
+            ],
+            "hide_if_items": [
+              "sq_zutat_echo_1"
+            ],
+            "hide_if_flags": [
+              "cwa_nullfundament_kern_echo_erhalten"
+            ]
+          },
+          {
+            "text": "Ersatzkern für den eigenen Pfad sichern.",
+            "next": "cwa_nullfundament_kern_kessel",
+            "requires_pathway": [
+              "kessel",
+              9
+            ],
+            "hide_if_items": [
+              "sq_zutat_kessel_1"
+            ],
+            "hide_if_flags": [
+              "cwa_nullfundament_kern_kessel_erhalten"
+            ]
+          },
+          {
+            "text": "Ersatzkern für den eigenen Pfad sichern.",
+            "next": "cwa_nullfundament_kern_eisen",
+            "requires_pathway": [
+              "eisen",
+              9
+            ],
+            "hide_if_items": [
+              "sq_zutat_eisen_1"
+            ],
+            "hide_if_flags": [
+              "cwa_nullfundament_kern_eisen_erhalten"
+            ]
+          },
+          {
+            "text": "Ersatzkern für den eigenen Pfad sichern.",
+            "next": "cwa_nullfundament_kern_schluessel",
+            "requires_pathway": [
+              "schluessel",
+              9
+            ],
+            "hide_if_items": [
+              "sq_zutat_schluessel_1"
+            ],
+            "hide_if_flags": [
+              "cwa_nullfundament_kern_schluessel_erhalten"
+            ]
+          },
+          {
+            "text": "Ersatzkern für den eigenen Pfad sichern.",
+            "next": "cwa_nullfundament_kern_sq_waage",
+            "requires_pathway": [
+              "sq_waage",
+              9
+            ],
+            "hide_if_items": [
+              "sq_zutat_waage_1"
+            ],
+            "hide_if_flags": [
+              "cwa_nullfundament_kern_sq_waage_erhalten"
+            ]
+          },
+          {
+            "text": "Ersatzkern für den eigenen Pfad sichern.",
+            "next": "cwa_nullfundament_kern_sq_moor",
+            "requires_pathway": [
+              "sq_moor",
+              9
+            ],
+            "hide_if_items": [
+              "sq_zutat_moor_1"
+            ],
+            "hide_if_flags": [
+              "cwa_nullfundament_kern_sq_moor_erhalten"
+            ]
+          },
+          {
+            "text": "Ersatzkern für den eigenen Pfad sichern.",
+            "next": "cwa_nullfundament_kern_sq_uhr",
+            "requires_pathway": [
+              "sq_uhr",
+              9
+            ],
+            "hide_if_items": [
+              "sq_zutat_uhr_1"
+            ],
+            "hide_if_flags": [
+              "cwa_nullfundament_kern_sq_uhr_erhalten"
+            ]
+          },
+          {
+            "text": "Später bergen."
+          }
+        ]
+      }
+    }
+  },
+  "cwa_ankunft": {
+    "start": [
+      {
+        "node": "cwa_ankunft_bekannt",
+        "requires_flags": [
+          "k4_arrived"
+        ]
+      },
+      {
+        "node": "cwa_ankunft_zone"
+      }
+    ],
+    "nodes": {
+      "cwa_ankunft_zone": {
+        "text": "Du steigst am Gleisfuß aus. Das Stationsschild verliert einen Buchstaben, und die Tür hinter dir führt plötzlich wieder vor dieselbe Tür. Klammer zieht dich an der Mantelnaht aus dem hellen Prüfstreifen.",
+        "choices": [
+          {
+            "text": "Klammer folgen und die Lage prüfen.",
+            "next": "cwa_ankunft_rettung"
+          }
+        ]
+      },
+      "cwa_ankunft_rettung": {
+        "text": "„Hier hält die Kante. Komm seitlich.“ Klammer zeigt auf den Weg zur Buchbinderei. „Ida ist meine Freundin. Dein Papier hilft. Dein Ruf nicht allein.“",
+        "sets_flags": [
+          "k4_arrived",
+          "cwa_ankunft_sicher"
+        ],
+        "start_quests": [
+          "cwa_akt1"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_ankunft_bekannt": {
+        "text": "Der sichere Rand am Gleisfuß bleibt markiert. Die Buchbinderei ist offen; die Ankunft wird nicht noch einmal als Prüfung ausgespielt.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "cwa_planbrett": {
+    "start": "cwa_plan_start",
+    "nodes": {
+      "cwa_plan_austausch": {
+        "text": "Du legst diesen Plan obenauf. Der Originalsatz und alle anderen vorbereiteten Möglichkeiten bleiben erhalten; erst die bestätigte Schlussentscheidung an der Presse legt das Ende fest.",
+        "sets_flags": [
+          "cwa_plan_austausch"
+        ],
+        "clears_flags": [
+          "cwa_plan_isolierung",
+          "cwa_plan_evakuierung"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_plan_isolierung": {
+        "text": "Du legst diesen Plan obenauf. Der Originalsatz und alle anderen vorbereiteten Möglichkeiten bleiben erhalten; erst die bestätigte Schlussentscheidung an der Presse legt das Ende fest.",
+        "sets_flags": [
+          "cwa_plan_isolierung"
+        ],
+        "clears_flags": [
+          "cwa_plan_austausch",
+          "cwa_plan_evakuierung"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_plan_evakuierung": {
+        "text": "Du legst diesen Plan obenauf. Der Originalsatz und alle anderen vorbereiteten Möglichkeiten bleiben erhalten; erst die bestätigte Schlussentscheidung an der Presse legt das Ende fest.",
+        "sets_flags": [
+          "cwa_plan_evakuierung"
+        ],
+        "clears_flags": [
+          "cwa_plan_austausch",
+          "cwa_plan_isolierung"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_plan_start": {
+        "text": "Am Bürgenbrett kannst du bis zu drei Verbindungen markieren und kostenlos umsetzen. Ohne den neuen Brett-Code wählst du jedes Ankerpaar im beschrifteten Abgleichdialog; kein Slotzähler blockiert den Hauptweg.",
+        "choices": [
+          {
+            "text": "Den Originalsatz austauschen.",
+            "next": "cwa_plan_austausch"
+          },
+          {
+            "text": "Die Hauptleitung isolieren.",
+            "next": "cwa_plan_isolierung"
+          },
+          {
+            "text": "Die Frachtbahn für Etappen bereithalten.",
+            "next": "cwa_plan_evakuierung"
+          },
+          {
+            "text": "Den aktuellen Plan liegen lassen."
+          }
+        ]
+      }
+    }
+  },
+  "cwa_finale": {
+    "start": "cwa_finale_start",
+    "nodes": {
+      "cwa_widerspruch_warnung": {
+        "text": "Drei unabhängige Zeugengruppen und die zusätzliche Küchenbürgschaft sind gesichert. Du rettest die Menschen in ihrer Stadt, ohne ihre Widersprüche zu einem einzigen Namen zu glätten.",
+        "choices": [
+          {
+            "text": "Dieses Ende jetzt ausdrücklich bestätigen.",
+            "next": "cwa_widerspruch_bestaetigt",
+            "requires_flags": [
+              "cwa_abschlussbereitschaft",
+              "cwa_54_geschlossen",
+              "cwa_ida_frei",
+              "cwa_zeugen_markt",
+              "cwa_zeugen_kuechen",
+              "cwa_zeugen_bahnhof",
+              "cwa_kuechenbuerge"
+            ],
+            "requires_conclusions": [
+              "cwa_33_d",
+              "cwa_42_d",
+              "cwa_51_d"
+            ],
+            "hide_if_flags": [
+              "kapitel4_done"
+            ]
+          },
+          {
+            "text": "Keine Entscheidung treffen und weiterermitteln."
+          }
+        ]
+      },
+      "cwa_widerspruch_bestaetigt": {
+        "text": "Du bestätigst die angekündigte Entscheidung mit ihren Kosten. Erst jetzt wird die Schlussaktion an der Hauptpresse ausgeführt.",
+        "ending": "cwa_widerspruch",
+        "choices": []
+      },
+      "cwa_amtsinhaber_warnung": {
+        "text": "Du übernimmst eine Verwaltung, deren nächste Zusammenfassung du verantwortest. Ein unvollständiges Zeugennetz reicht dafür aus; es wird dadurch nicht geheilt. Niemand hat dir eine Vollmacht für künftige Opfer gegeben.",
+        "choices": [
+          {
+            "text": "Dieses Ende jetzt ausdrücklich bestätigen.",
+            "next": "cwa_amtsinhaber_bestaetigt",
+            "requires_flags": [
+              "cwa_abschlussbereitschaft",
+              "cwa_54_geschlossen"
+            ],
+            "requires_conclusions": [
+              "cwa_31_d"
+            ],
+            "hide_if_flags": [
+              "kapitel4_done"
+            ]
+          },
+          {
+            "text": "Keine Entscheidung treffen und weiterermitteln."
+          }
+        ]
+      },
+      "cwa_amtsinhaber_bestaetigt": {
+        "text": "Du bestätigst die angekündigte Entscheidung mit ihren Kosten. Erst jetzt wird die Schlussaktion an der Hauptpresse ausgeführt.",
+        "ending": "cwa_amtsinhaber",
+        "choices": []
+      },
+      "cwa_buecher_warnung": {
+        "text": "Die Bahn ist gesichert und Ida frei. Du kannst alle Menschen herausbringen, aber nicht jede verlorene Verbindung und nicht die Stadt als Ort erhalten. Die Austrittsliste wird für jede Etappe einzeln geprüft.",
+        "choices": [
+          {
+            "text": "Dieses Ende jetzt ausdrücklich bestätigen.",
+            "next": "cwa_buecher_bestaetigt",
+            "requires_flags": [
+              "cwa_abschlussbereitschaft",
+              "cwa_54_geschlossen",
+              "cwa_ida_frei",
+              "cwa_frachtbahn_sicher"
+            ],
+            "requires_conclusions": [
+              "cwa_44_d"
+            ],
+            "hide_if_flags": [
+              "kapitel4_done"
+            ]
+          },
+          {
+            "text": "Keine Entscheidung treffen und weiterermitteln."
+          }
+        ]
+      },
+      "cwa_buecher_bestaetigt": {
+        "text": "Du bestätigst die angekündigte Entscheidung mit ihren Kosten. Erst jetzt wird die Schlussaktion an der Hauptpresse ausgeführt.",
+        "ending": "cwa_buecher",
+        "choices": []
+      },
+      "cwa_ordnung_warnung": {
+        "text": "Du kennst den belegten Sammelfehler und entscheidest dich trotzdem für die gemeinsame Zeile. Ida stimmt nicht zu. Deine Unterschrift ersetzt ihre und die anderen fehlenden Zustimmungen nicht.",
+        "choices": [
+          {
+            "text": "Dieses Ende jetzt ausdrücklich bestätigen.",
+            "next": "cwa_ordnung_bestaetigt",
+            "requires_flags": [
+              "cwa_abschlussbereitschaft",
+              "cwa_54_geschlossen"
+            ],
+            "requires_conclusions": [
+              "cwa_33_d"
+            ],
+            "hide_if_flags": [
+              "kapitel4_done"
+            ]
+          },
+          {
+            "text": "Keine Entscheidung treffen und weiterermitteln."
+          }
+        ]
+      },
+      "cwa_ordnung_bestaetigt": {
+        "text": "Du bestätigst die angekündigte Entscheidung mit ihren Kosten. Erst jetzt wird die Schlussaktion an der Hauptpresse ausgeführt.",
+        "ending": "cwa_ordnung",
+        "choices": []
+      },
+      "cwa_finale_start": {
+        "text": "Ida legt die Austrittsliste neben deine Belege. Du kannst Kosten prüfen, zurückgehen oder einen vorbereiteten Schlussplan ausdrücklich bestätigen. Keine Antwort wird für dich gewählt.",
+        "choices": [
+          {
+            "text": "Die Stadt widerspricht: Kosten prüfen.",
+            "next": "cwa_widerspruch_warnung",
+            "requires_flags": [
+              "cwa_abschlussbereitschaft",
+              "cwa_54_geschlossen",
+              "cwa_ida_frei",
+              "cwa_zeugen_markt",
+              "cwa_zeugen_kuechen",
+              "cwa_zeugen_bahnhof",
+              "cwa_kuechenbuerge"
+            ],
+            "requires_conclusions": [
+              "cwa_33_d",
+              "cwa_42_d",
+              "cwa_51_d"
+            ],
+            "hide_if_flags": [
+              "kapitel4_done"
+            ]
+          },
+          {
+            "text": "Ein fremder Amtsinhaber: Kosten prüfen.",
+            "next": "cwa_amtsinhaber_warnung",
+            "requires_flags": [
+              "cwa_abschlussbereitschaft",
+              "cwa_54_geschlossen"
+            ],
+            "requires_conclusions": [
+              "cwa_31_d"
+            ],
+            "hide_if_flags": [
+              "kapitel4_done"
+            ]
+          },
+          {
+            "text": "Die Bücher gehen mit: Kosten prüfen.",
+            "next": "cwa_buecher_warnung",
+            "requires_flags": [
+              "cwa_abschlussbereitschaft",
+              "cwa_54_geschlossen",
+              "cwa_ida_frei",
+              "cwa_frachtbahn_sicher"
+            ],
+            "requires_conclusions": [
+              "cwa_44_d"
+            ],
+            "hide_if_flags": [
+              "kapitel4_done"
+            ]
+          },
+          {
+            "text": "Ordnung muss sein: Kosten prüfen.",
+            "next": "cwa_ordnung_warnung",
+            "requires_flags": [
+              "cwa_abschlussbereitschaft",
+              "cwa_54_geschlossen"
+            ],
+            "requires_conclusions": [
+              "cwa_33_d"
+            ],
+            "hide_if_flags": [
+              "kapitel4_done"
+            ]
+          },
+          {
+            "text": "Einen losen Registerrest bekämpfen, ohne Wetherby anzugreifen.",
+            "next": "cwa_rest_warnung",
+            "requires_flags": [
+              "cwa_53_geschlossen"
+            ],
+            "hide_if_flags": [
+              "won_cwa_registerleib_rest"
+            ]
+          },
+          {
+            "text": "Die Presse stehen lassen und weiterermitteln."
+          }
+        ]
+      },
+      "cwa_rest_warnung": {
+        "text": "An der Nebenleitung hängt ein loser Registerrest. Sein Kampf ist freiwillig und entscheidet weder das Verhör noch ein Ende; du kannst stattdessen sofort zur Bilanz zurückgehen.",
+        "choices": [
+          {
+            "text": "Den optionalen Registerrest bekämpfen.",
+            "next": "cwa_rest_kampf"
+          },
+          {
+            "text": "Keinen Kampf beginnen."
+          }
+        ]
+      },
+      "cwa_rest_kampf": {
+        "text": "Du wendest dich nur dem losen Registerrest zu. Wetherby bleibt ein Verhörter und wird nicht zum Kampfboss.",
+        "combat": "cwa_registerleib_rest",
+        "choices": []
+      }
+    }
+  },
+  "cwa_kontaktpruefung": {
+    "start": [
+      {
+        "node": "cwa_kontaktpruefung_cw_darnell",
+        "requires_flags": [
+          "cwa_verraten_cw_darnell"
+        ],
+        "hide_if_flags": [
+          "cwa_folge_cw_darnell_gesichert"
+        ]
+      },
+      {
+        "node": "cwa_kontaktpruefung_cw_crayford",
+        "requires_flags": [
+          "cwa_verraten_cw_crayford"
+        ],
+        "hide_if_flags": [
+          "cwa_folge_cw_crayford_gesichert"
+        ]
+      },
+      {
+        "node": "cwa_kontaktpruefung_cw_pritch",
+        "requires_flags": [
+          "cwa_verraten_cw_pritch"
+        ],
+        "hide_if_flags": [
+          "cwa_folge_cw_pritch_gesichert"
+        ]
+      },
+      {
+        "node": "cwa_kontaktpruefung_cw_wicksend",
+        "requires_flags": [
+          "cwa_verraten_cw_wicksend"
+        ],
+        "hide_if_flags": [
+          "cwa_folge_cw_wicksend_gesichert"
+        ]
+      },
+      {
+        "node": "cwa_kontaktpruefung_cw_hesk",
+        "requires_flags": [
+          "cwa_verraten_cw_hesk"
+        ],
+        "hide_if_flags": [
+          "cwa_folge_cw_hesk_gesichert"
+        ]
+      },
+      {
+        "node": "cwa_kontaktpruefung_cw_malliver",
+        "requires_flags": [
+          "cwa_verraten_cw_malliver"
+        ],
+        "hide_if_flags": [
+          "cwa_folge_cw_malliver_gesichert"
+        ]
+      },
+      {
+        "node": "cwa_kontaktpruefung_cw_noel_bellcross",
+        "requires_flags": [
+          "cwa_verraten_cw_noel_bellcross"
+        ],
+        "hide_if_flags": [
+          "cwa_folge_cw_noel_bellcross_gesichert"
+        ]
+      },
+      {
+        "node": "cwa_kontaktpruefung_cw_bexley",
+        "requires_flags": [
+          "cwa_verraten_cw_bexley"
+        ],
+        "hide_if_flags": [
+          "cwa_folge_cw_bexley_gesichert"
+        ]
+      },
+      {
+        "node": "cwa_kontaktpruefung_cw_ida_bellcross",
+        "requires_flags": [
+          "cwa_verraten_cw_ida_bellcross"
+        ],
+        "hide_if_flags": [
+          "cwa_folge_cw_ida_bellcross_gesichert"
+        ]
+      },
+      {
+        "node": "cwa_kontakte_fertig"
+      }
+    ],
+    "nodes": {
+      "cwa_kontaktpruefung_cw_darnell": {
+        "text": "Ein öffentlich genannter Kontakt wurde vom Archiv vorgeladen. Die Hauptbeweise bleiben bei dir; vor der Austrittsprüfung musst du die Person auf ihrem gesicherten persönlichen Weg wieder ansprechen. Der Weg ist kostenlos und verlangt keinen Kampf.",
+        "travel": {
+          "map": "cw_gepaeckhalle",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_kontaktpruefung_cw_crayford": {
+        "text": "Ein öffentlich genannter Kontakt wurde vom Archiv vorgeladen. Die Hauptbeweise bleiben bei dir; vor der Austrittsprüfung musst du die Person auf ihrem gesicherten persönlichen Weg wieder ansprechen. Der Weg ist kostenlos und verlangt keinen Kampf.",
+        "travel": {
+          "map": "cw_buchbinderei",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_kontaktpruefung_cw_pritch": {
+        "text": "Ein öffentlich genannter Kontakt wurde vom Archiv vorgeladen. Die Hauptbeweise bleiben bei dir; vor der Austrittsprüfung musst du die Person auf ihrem gesicherten persönlichen Weg wieder ansprechen. Der Weg ist kostenlos und verlangt keinen Kampf.",
+        "travel": {
+          "map": "cw_quittungsmarkt",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_kontaktpruefung_cw_wicksend": {
+        "text": "Ein öffentlich genannter Kontakt wurde vom Archiv vorgeladen. Die Hauptbeweise bleiben bei dir; vor der Austrittsprüfung musst du die Person auf ihrem gesicherten persönlichen Weg wieder ansprechen. Der Weg ist kostenlos und verlangt keinen Kampf.",
+        "travel": {
+          "map": "cw_pfandhaus",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_kontaktpruefung_cw_hesk": {
+        "text": "Ein öffentlich genannter Kontakt wurde vom Archiv vorgeladen. Die Hauptbeweise bleiben bei dir; vor der Austrittsprüfung musst du die Person auf ihrem gesicherten persönlichen Weg wieder ansprechen. Der Weg ist kostenlos und verlangt keinen Kampf.",
+        "travel": {
+          "map": "cw_roehrenhof",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_kontaktpruefung_cw_malliver": {
+        "text": "Ein öffentlich genannter Kontakt wurde vom Archiv vorgeladen. Die Hauptbeweise bleiben bei dir; vor der Austrittsprüfung musst du die Person auf ihrem gesicherten persönlichen Weg wieder ansprechen. Der Weg ist kostenlos und verlangt keinen Kampf.",
+        "travel": {
+          "map": "cw_archivsaal",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_kontaktpruefung_cw_noel_bellcross": {
+        "text": "Ein öffentlich genannter Kontakt wurde vom Archiv vorgeladen. Die Hauptbeweise bleiben bei dir; vor der Austrittsprüfung musst du die Person auf ihrem gesicherten persönlichen Weg wieder ansprechen. Der Weg ist kostenlos und verlangt keinen Kampf.",
+        "travel": {
+          "map": "cw_kueche",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_kontaktpruefung_cw_bexley": {
+        "text": "Ein öffentlich genannter Kontakt wurde vom Archiv vorgeladen. Die Hauptbeweise bleiben bei dir; vor der Austrittsprüfung musst du die Person auf ihrem gesicherten persönlichen Weg wieder ansprechen. Der Weg ist kostenlos und verlangt keinen Kampf.",
+        "travel": {
+          "map": "cw_witwenterrasse",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_kontaktpruefung_cw_ida_bellcross": {
+        "text": "Ein öffentlich genannter Kontakt wurde vom Archiv vorgeladen. Die Hauptbeweise bleiben bei dir; vor der Austrittsprüfung musst du die Person auf ihrem gesicherten persönlichen Weg wieder ansprechen. Der Weg ist kostenlos und verlangt keinen Kampf.",
+        "travel": {
+          "map": "cw_buchbinderei",
+          "spawn": "default"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_kontakte_fertig": {
+        "text": "Alle von dir öffentlich genannten Kontakte sind persönlich wieder gesichert. Nicht veröffentlichte Namen brauchen keine zusätzliche Vorladung zu beantworten; die letzte Austrittsprüfung ist frei.",
+        "sets_flags": [
+          "cwa_kontakte_geprueft"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  }
+}
