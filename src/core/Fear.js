@@ -28,3 +28,23 @@ export function fearsPlayer(playerSeq, def, mapDef = {}) {
   if (!playerSeq) return false;
   return enemySeq(def, mapDef) - playerSeq >= FEAR_MARGIN;
 }
+
+/**
+ * Stufe eines Gegners nach seinen Kampfdaten (für die mythische Gestalt, Pathways.js):
+ * ausdrückliches Feld `tier_seq`, sonst die Gefahrenstufe seines Gebiets (zones), sonst nach Kapitel
+ * (Kettlegate 9/8, Wexmoor 7, Dunscar 6, Calderwick und Briarholt 5). Bosse eine Sequenz darüber.
+ */
+export const CHAPTER_SEQ = { 1: 9, 2: 7, 3: 6, 4: 5, 5: 5 };
+export function encounterSeq(enc, content = {}) {
+  let seq;
+  if (enc.tier_seq) seq = enc.tier_seq;
+  else {
+    const tier = content.zones?.[enc.zone]?.tier;
+    if (tier) seq = 10 - tier;
+    else if (enc.chapter) seq = CHAPTER_SEQ[enc.chapter] ?? 5;
+    else seq = enc.city ? 9 : 8;
+  }
+  if (enc.boss) seq -= 1;
+  if (enc.elite) seq -= 0.5;
+  return seq;
+}

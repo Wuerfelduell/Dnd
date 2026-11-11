@@ -684,7 +684,7 @@ export class GameState {
         this.emit('notice', 'Ein stechender Kopfschmerz reißt dich aus der Geistsicht.');
         if (this.pathway) this.setUnruhe(this.unruhe + 15);
       }
-    } else {
+    } else if (!this.formActive?.()) { // in der mythischen Gestalt erholen sich die Nerven nicht (Pathways.tickForm zehrt)
       const calmMind = this.unruhe >= 60 ? 0.5 : 1;
       this.composure = Math.min(this.maxComposure(), this.composure + VISION_REGEN_PER_SEC * this.passive('composure_regen') * calmMind * dtSeconds);
     }

@@ -6,7 +6,54 @@
  * liegen geladen unter content.highSeqs (Kernzutaten unter content.highItems), bis Kapitel 3 die Bosse für ihre Kernzutaten bringt.
  * Die sechs Artefakte sind Belohnungen dieser Seq-4-Aufgaben und stehen schon in artifacts.list.
  */
+import { HOCH_DURCHBRUCH, HALBGOTT_EIGENHEIT, HOCH_RITUAL, ordealId } from '../core/Pathways.js';
+
 export const SEQ_HIGHEST = 1; // Kapitel 3: alle Stufen bis 1 sind spielbar
+
+/**
+ * Die hohen Stufen (Seb, 2026-11-11): Sequenz 4 = Halbgott, 2 = Engel. Jede Stufe 4 bis 1 bekommt die Passiven ihres
+ * Durchbruchs (HOCH_DURCHBRUCH) zu dem, was der Pfad dort ohnehin mitbringt; Sequenz 4 dazu die Eigenheit des Pfades.
+ * Die Rituale 4 bis 1 werden um Tribut, Siege, Schlussfolgerungen, Nerven und (4 und 2) den Schwellenwächter ergänzt.
+ */
+function withDurchbruch(pid, n, sd) {
+  const d = HOCH_DURCHBRUCH[n];
+  if (!d) return sd;
+  const extra = [...d.passives, ...(Number(n) === 4 && HALBGOTT_EIGENHEIT[pid] ? [HALBGOTT_EIGENHEIT[pid]] : [])];
+  const have = new Set((sd.passives ?? []).map((x) => x.text));
+  return { ...sd, durchbruch: d.titel, passives: [...(sd.passives ?? []), ...extra.filter((x) => !have.has(x.text))] };
+}
+function withRitualHaerte(n, ritual) {
+  const h = HOCH_RITUAL[n];
+  if (!h || !ritual) return ritual;
+  const { min_wins, ...rest } = h;
+  return { ...ritual, ...rest, requires: { ...(ritual.requires ?? {}), ...(min_wins ? { min_wins } : {}) } };
+}
+const hochSeqs = (pid, seqs) => Object.fromEntries(Object.entries(seqs).map(([n, sd]) => [n, withDurchbruch(pid, n, { ...sd, ritual: withRitualHaerte(n, sd.ritual) })]));
+
+/** Schwellenwächter: der Gegner des schweren Rituals (Sequenz 4 und 2) je Pfad, aus dem Grundsatz des Pfades geformt. */
+export const SCHWELLE = {
+  4: { sheet: 'enemy_schwellenhund', hp: 400, armor: 3, dmg: [16, 20, 14], titel: 'Schwellenwächter', chapter: 3 },
+  2: { sheet: 'enemy_unterschicht', hp: 900, armor: 4, dmg: [26, 32, 23], titel: 'Schwellenrichter', chapter: 4 },
+};
+export function schwelleEncounter(pid, p, seq) {
+  const w = SCHWELLE[seq];
+  const was = p.name.replace(/^Pfad (der|des) /, '');
+  const [a, b, c] = w.dmg;
+  return {
+    name: `${w.titel} ${p.name.replace('Pfad der', 'der').replace('Pfad des', 'des')}`,
+    sprite: 'wild', sheet: w.sheet, boss: true, occult: true, fleeable: true, hp: w.hp, armor: w.armor, max_round_dmg: 0.2, ramp: 0.02, chapter: w.chapter,
+    intro: `Aus dem Nebel tritt etwas, das aussieht wie dein Grundsatz, wenn er Zähne hätte. „${p.principle}“, sagt es mit deiner Stimme. „Zeig mir, dass du es meinst.“`,
+    attacks: [
+      { name: `Prüfung ${was}: zwei Schläge`, damage: a, hits: [1100, 1800] },
+      { name: `Urteil ${was}: ein schwerer Schlag, ausweichen`, damage: b, hits: [2400], unparryable: true },
+      { name: `Zweifel ${was}: drei schnelle Schläge`, damage: c, hits: [900, 1500, 2100] },
+    ],
+    on_win: {},
+    win_text: `${w.titel} ${was}: Die Gestalt zerfällt zu Nebel und sinkt in den Kreis zurück. Du hast deinen eigenen Grundsatz niedergerungen. Jetzt kannst du das Ritual vollenden.`,
+    lose_text: 'Die Gestalt löst sich auf, als du fällst. Nichts ist verloren, nur der Versuch. Der Kreis bleibt, der Tribut bleibt. Komm wieder, wenn du stärker bist.',
+    loot: { money: [0, 0], drops: [] },
+  };
+}
 
 /** Neue Pfade leihen sich bis zur eigenen Grafik Emblem, Karte, Pose, Trankbild und Effekte bei einem Bestandspfad. */
 export const PATHWAY_STANDIN = { sq_waage: 'eisen', sq_moor: 'kessel', sq_uhr: 'schluessel' };
@@ -42,7 +89,7 @@ export function withSequenzen(pathways, sq) {
   for (const [pid, p] of Object.entries(sq.seq_4_bis_1 ?? {})) {
     highSeqs[pid] = high(p.seqs);
     const old = pathways.pathways[pid];
-    if (old) added[pid] = { ...old, seqs: { ...old.seqs, ...live(p.seqs) } };
+    if (old) added[pid] = { ...old, seqs: { ...old.seqs, ...hochSeqs(pid, live(p.seqs)) } };
   }
   for (const [pid, p] of Object.entries(sq.neue_pfade ?? {})) {
     highSeqs[pid] = high(p.seqs);
@@ -50,13 +97,13 @@ export function withSequenzen(pathways, sq) {
     const seqs = Object.fromEntries(Object.entries(live(p.seqs)).map(([n, sd]) => [n, {
       ...sd, skill: { fx: standin?.seqs[n]?.skill.id, ...sd.skill },
     }]));
-    added[pid] = { ...p, seqs };
+    added[pid] = { ...p, seqs: hochSeqs(pid, seqs) };
   }
   // Kapitel 3 (AU): die offenen Proben ersetzen die Rituale der Stufen 4 bis 1
   for (const [pid, perSeq] of Object.entries(sq.rituale ?? {})) {
     const p = added[pid];
     if (!p) continue;
-    added[pid] = { ...p, seqs: Object.fromEntries(Object.entries(p.seqs).map(([n, sd]) => [n, perSeq[n] ? { ...sd, ritual: perSeq[n] } : sd])) };
+    added[pid] = { ...p, seqs: Object.fromEntries(Object.entries(p.seqs).map(([n, sd]) => [n, perSeq[n] ? { ...sd, ritual: withRitualHaerte(n, perSeq[n]) } : sd])) };
   }
   const highItems = Object.fromEntries(Object.entries(sq.zutaten ?? {}).filter(([id]) => lockedIngredient(id)));
   return {
@@ -75,6 +122,14 @@ export function withSequenzen(pathways, sq) {
 export function applySequenzen(content, sq, { highSeqs = {}, highItems = {} } = {}) {
   content.highSeqs = highSeqs; // Stufen 4 bis 1, noch nicht erreichbar
   content.highItems = highItems; // ihre Kernzutaten, ebenso
+  // Schwellenwächter der schweren Rituale (Sequenz 4 und 2) für jeden Pfad, der diese Stufen hat
+  const encounters = { ...content.encounters };
+  for (const [pid, p] of Object.entries(content.pathways)) {
+    for (const seq of Object.keys(SCHWELLE).map(Number)) {
+      if (p.seqs[seq]?.ritual?.ordeal && !encounters[ordealId(pid, seq)]) encounters[ordealId(pid, seq)] = schwelleEncounter(pid, p, seq);
+    }
+  }
+  content.encounters = encounters;
   if (!sq?.neue_pfade) return content;
   const pids = Object.keys(sq.neue_pfade);
   const m = content.market;

@@ -14,6 +14,7 @@ import { Critters } from './Critters.js';
 import { Patrols } from './Patrols.js';
 import { TapMove } from './TapMove.js';
 import { footstepSound, ambienceFor } from '../core/sounds.js';
+import { Combat } from '../core/Combat.js';
 
 export const VIEW_W = 480;
 export const VIEW_H = 270;
@@ -1124,11 +1125,13 @@ export class WorldScene extends Phaser.Scene {
       s.on('signal_alarm_end', () => this.roamers?.alarmEnd()),
       s.on('signal_lock', () => this.roamers?.alarmEnd()),
       s.on('quest', refresh),
-      s.on('ascend', ({ pathway, player }) => this.playDrinkFx(pathway, player)),
+      s.on('ascend', ({ pathway, player, ascension }) => { this.playDrinkFx(pathway, player); if (ascension) this.playAscension(ascension, player); }),
+      s.on('form', () => this.updateForm()),
       s.on('unruhe', () => this.updateCracks()),
       s.on('party', () => { if (s.hasP2()) this.spawnP2(); else this.despawnP2(); }),
     );
     this.updateCracks();
+    if (this.state.formActive?.()) this.updateForm();
     // Paket G: pulsierender Rand in Gefahrengebieten
     if (this.mapDef.danger && this.textures.exists('g_gefahr_vignette')) {
       this.add.sprite(0, 0, 'g_gefahr_vignette').setOrigin(0).setScrollFactor(0).setDepth(DEPTH.vision + 1)
@@ -1366,6 +1369,53 @@ export class WorldScene extends Phaser.Scene {
     this.time.delayedCall(450, () => playSheetAnim(fx, 'potion_ascend', 'ascend', () => fx.destroy()) || fx.destroy());
   }
 
+  /**
+   * Aufstieg zum Halbgott (Sequenz 4) oder Engel (Sequenz 2): weißer Blitz, die Kamera zieht an die Figur heran und
+   * zittert, drei Lichtringe in der Pfadfarbe laufen über die Karte, ein Lichtkegel steht Sekunden über der Figur.
+   * Die Oberfläche legt dazu ihre Lichtflut mit dem Wort darüber (Ui.playAscension).
+   */
+  playAscension(asc, player = 1) {
+    const who = player === 2 && this.p2 ? this.p2 : this.player;
+    if (!who) return;
+    const cam = this.cameras.main;
+    const color = Number.parseInt((asc.color ?? '#e8c070').slice(1), 16);
+    cam.flash(900, 255, 255, 255);
+    cam.shake(1200, 0.006);
+    const zoom0 = cam.zoom;
+    this.tweens.add({ targets: cam, zoom: zoom0 * 1.5, duration: 1400, ease: 'Sine.easeInOut', yoyo: true, hold: 1200 });
+    let lit = true;
+    this.lighting?.add({ follow: { get x() { return who.x; }, get y() { return who.y - 12; } }, radius: 120, intensity: 1, color, glowAlpha: 0.5, flicker: 0.05, active: () => lit });
+    for (let i = 0; i < 3; i++) {
+      const g = this.add.graphics().setDepth(DEPTH.vision + 1).setBlendMode(Phaser.BlendModes.ADD);
+      const ring = { r: 4 };
+      this.tweens.add({ targets: ring, r: 220, delay: 300 + i * 450, duration: 1800, ease: 'Cubic.easeOut',
+        onUpdate: () => { g.clear(); g.lineStyle(3, color, Math.max(0, 1 - ring.r / 220)).strokeCircle(who.x, who.y - 10, ring.r); },
+        onComplete: () => g.destroy() });
+    }
+    this.time.delayedCall(4300, () => { lit = false; this.updateForm(); });
+  }
+
+  /** Mythische Gestalt: die Figur wächst, leuchtet in der Pfadfarbe und trägt ihre Aura auch ohne Geistsicht. */
+  updateForm() {
+    const active = !!this.state.formActive?.();
+    const who = this.state.acting === 2 && this.p2 ? this.p2 : this.player;
+    if (!who) return;
+    const color = this.state.content.pathways[this.state.pathway?.id]?.color;
+    if (active) {
+      who.setScale(1.3);
+      if (color) who.setTint(Number.parseInt(color.slice(1), 16));
+      if (!this.formLight) {
+        // Das Licht bleibt an der Figur, solange die Gestalt steht (active fragt den Spielstand)
+        this.lighting?.add({ follow: { get x() { return who.x; }, get y() { return who.y - 12; } }, radius: 80, intensity: 0.9, color: color ? Number.parseInt(color.slice(1), 16) : 0xffd98a, glowAlpha: 0.4, flicker: 0.12, active: () => !!this.state.formActive?.() });
+        this.formLight = true;
+      }
+    } else {
+      who.setScale(1);
+      if (who === this.p2 && this.p2Key === 'player') who.setTint(P2_TINT); else who.clearTint();
+    }
+    this.updateAura();
+  }
+
   /** Kessel-Animation nach dem Brauen (Erfolg oder Fehlschlag), danach wieder Blubbern. */
   playBrewFx(ok) {
     const k = this.interactables.find((it) => it.kind === 'brew' && it.idleAnim);
@@ -1398,7 +1448,7 @@ export class WorldScene extends Phaser.Scene {
   /** Pfad-Aura um die Figur, sichtbar mit Geistsicht. */
   updateAura() {
     const pid = this.state.pathway?.id;
-    const show = pid && this.state.spiritVision && this.textures.exists('aura_pfade');
+    const show = pid && (this.state.spiritVision || this.state.formActive?.()) && this.textures.exists('aura_pfade');
     if (!show) { this.aura?.setVisible(false); return; }
     if (!this.aura) this.aura = this.add.sprite(0, 0, 'aura_pfade').setOrigin(0.5, 1).setAlpha(0.7).setBlendMode(Phaser.BlendModes.ADD).setDepth(DEPTH.dark + 1); // über der Dunkelheit, wie ein Leuchten
     // Paket AG: Waage, Moor und Uhr haben eine eigene Aura (48x64), sonst die eines Bestandspfads
@@ -1655,6 +1705,19 @@ export class WorldScene extends Phaser.Scene {
     if (this.leaving || this.scene.isActive('combat')) return;
     if (!this.state.pendingCombat) this.state.combatBy = this.state.acting;
     this.state.pendingCombat = null;
+    // Mythische Gestalt (ab Sequenz 4): Nicht-Beyonder und schwächere Wesen brechen beim Anblick zusammen, kein Kampf
+    if (this.state.awes?.(id)) {
+      const c = new Combat(this.state, id);
+      c.outcome = 'won';
+      const result = c.finish({ deferLoot: !!roamer, noLoot });
+      this.cameras.main.flash(250, 255, 240, 200);
+      this.ui.toast?.(`${c.enc.name} bricht vor deiner Gestalt zusammen.`, 'good');
+      if (roamer) this.roamers.afterCombat(roamer, result);
+      this.refreshVisibility();
+      if (result.travel) this.travelTo(result.travel.map, result.travel.spawn);
+      after?.(result);
+      return;
+    }
     this.state.setSpiritVision(false);
     this.player.setVelocity(0, 0);
     this.player.anims.stop();

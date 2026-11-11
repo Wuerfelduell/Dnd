@@ -975,3 +975,25 @@ img.scene.koop2trennung { display: block; width: 15em; height: auto; margin: 0 a
 .festbanner { position: absolute; left: 50%; top: 3.2em; width: 12em; height: 2em; margin-left: -6em; background-size: 12em 2em; background-repeat: no-repeat; image-rendering: pixelated; pointer-events: none; z-index: 30; transition: opacity 0.6s; }
 .festbanner span { position: absolute; left: 3.6em; top: 0.5em; width: 6em; height: 1em; line-height: 1em; font-size: 1em; text-align: center; color: #f4e6c2; text-shadow: 0 0 0.15em #1a1c2c; white-space: nowrap; overflow: hidden; }
 .festbanner.out { opacity: 0; }
+
+/* Halbgott (Sequenz 4) und Engel (Sequenz 2): Durchbrüche, mythische Gestalt, Aufstiegs-Szene */
+.badge.halbgott { color: #ffd98a; text-shadow: 0 0 0.4em rgba(255, 200, 90, 0.7); }
+.seq.durchbruch > strong { color: #ffd98a; }
+.gestalt { margin: 0.6em 0; padding: 0.5em 0.7em; border: 1px solid rgba(255, 217, 138, 0.35); background: rgba(255, 200, 90, 0.06); }
+.gestalt.active { border-color: rgba(255, 217, 138, 0.8); box-shadow: 0 0 0.8em rgba(255, 200, 90, 0.35) inset; }
+.gestalt h4 { margin: 0 0 0.3em; }
+.ascension { position: absolute; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; overflow: hidden; pointer-events: none;
+  background: radial-gradient(circle at 50% 55%, color-mix(in srgb, var(--c) 70%, white) 0%, var(--c) 18%, rgba(4, 4, 8, 0.92) 62%);
+  animation: ascFlood 4.3s ease-out forwards; }
+.ascension.fade { transition: opacity 0.7s; opacity: 0; }
+.ascension .rings { position: absolute; left: 50%; top: 55%; width: 0; height: 0; }
+.ascension .rings i { position: absolute; left: 0; top: 0; width: 1em; height: 1em; margin: -0.5em; border-radius: 50%; border: 3px solid white; opacity: 0; box-shadow: 0 0 1.2em var(--c), 0 0 2em white inset; animation: ascRing 2.4s ease-out forwards; }
+.ascension .rings i:nth-child(2) { animation-delay: 0.45s; }
+.ascension .rings i:nth-child(3) { animation-delay: 0.9s; }
+.ascension .words { position: relative; text-align: center; color: #fff8e8; text-shadow: 0 0 0.3em var(--c), 0 0 1.2em var(--c), 0 2px 0 #000; animation: ascWords 4.3s ease-out forwards; }
+.ascension .words .rank { display: block; font-size: 1.1em; letter-spacing: 0.4em; opacity: 0.85; }
+.ascension .words strong { display: block; font-size: 4.2em; line-height: 1.1; letter-spacing: 0.18em; margin: 0.1em 0; }
+.ascension .words .name { display: block; font-size: 1.3em; font-style: italic; }
+@keyframes ascFlood { 0% { opacity: 0; } 10% { opacity: 1; } 100% { opacity: 1; } }
+@keyframes ascRing { 0% { transform: scale(1); opacity: 0.9; } 100% { transform: scale(90); opacity: 0; } }
+@keyframes ascWords { 0% { opacity: 0; transform: scale(0.6); letter-spacing: 0.6em; } 30% { opacity: 0; } 55% { opacity: 1; transform: scale(1); } 100% { opacity: 1; transform: scale(1.04); } }

@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
 import { Combat } from '../src/core/Combat.js';
-import { SEQ_MAX } from '../src/core/Pathways.js';
+import { SEQ_MAX, ordealFlag } from '../src/core/Pathways.js';
 import { loadContent, talk } from './helpers.js';
 
 const content = loadContent();
@@ -50,6 +50,7 @@ function ritual(s, pid, seq) {
   if (r.requires?.min_wins) s.wins = r.requires.min_wins;
   for (const f of r.requires?.requires_flags ?? []) s.flags.add(f);
   if (r.tribute) s.money += r.tribute;
+  if (r.ordeal) s.flags.add(ordealFlag(pid, seq)); // Schwellenwächter (Sequenz 4 und 2) gilt als besiegt
   const res = s.performRitual();
   assert.equal(res.ok, true, `${pid} ${seq}: ${res.text}`);
   s.spiritVision = false;

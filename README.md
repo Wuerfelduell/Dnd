@@ -108,6 +108,16 @@ Auf dem **Nachtmarkt** unter der Krähenbrücke (Stadtkarte) kann man aufsteigen
   Dafür verdauen die großen Prüfungen jeden Pfad: Bosse (30 Punkte, dazu zählt der Sieg für Kampfpfade vierfach), Elitegegner
   (8, doppelt), gefährliche Gebiete (je Stufe +25 %), jede eingesetzte Welt-Fähigkeit (6 je 10 Nerven), ein vollzogenes Ritual (25)
   und ein Zuschlag auf einem geheimen Treffen (3).
+- **Halbgott und Engel** (Sequenz 4 und 2): die beiden brutalen Durchbrüche. Sequenz 4 bringt +60 % Schaden, 30 % weniger
+  Schaden genommen, zwei Konzentration zu Kampfbeginn, deutlich mehr Leben und Nerven und eine Eigenheit je Pfad; Sequenz 2
+  noch einmal dasselbe obendrauf, 3 und 1 sind kleinere Schritte. Die Rituale dafür sind schwer: offene Probe des Pfades
+  (Kapitel 3), Tribut (600 bzw. 1200 Schilling), 40 bzw. 75 Siege, 10 bzw. 16 Schlussfolgerungen, volle Nerven, und zuletzt
+  tritt der **Schwellenwächter** des eigenen Pfades an (Boss, muss besiegt werden). Der Trank spielt dann die Aufstiegs-Szene.
+  Die Gegner von Kapitel 4 (Calderwick) sind auf Sequenz 4 ausgelegt, die von Kapitel 5 (Briarholt) auf Sequenz 3 bis 2.
+- **Mythische Gestalt**: ab Sequenz 4 mit halb verdautem Trank im Pfad-Tab (`P`) anzunehmen. Menschen ohne Pfad und Monster,
+  die zwei Sequenzen oder mehr unter dir stehen, brechen beim Anblick zusammen (Sieg samt Beute und Verdauung, ohne Kampf).
+  Bosse und höhere Wesen bleiben. Die Gestalt kostet 1,5 Nerven und 0,4 Unruhe je Sekunde, die Nerven erholen sich dabei nicht,
+  und sie fällt ab, sobald die Nerven unter 15 sinken.
 - **Unruhe**: kommt mit jedem Trank und mit Geistsicht, klingt mit der Zeit und durch passendes Handeln ab. Ruhetee senkt sie.
   Bei 100 Unruhe oder einem zu früh getrunkenen Trank droht der **Kontrollverlust**: Ohnmacht, Verlust von Leben,
   Schilling und Verdauung (nie Game Over), und Tentakel wachsen aus der Figur und **korrumpieren** alles am Leib:
