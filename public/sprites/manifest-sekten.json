@@ -1,0 +1,3643 @@
+{
+  "version": 1,
+  "batch": "sekten",
+  "status": "exported; runtime integration pending",
+  "paletteMaxVisibleColors": 31,
+  "palette": [
+    "#1a1c2c",
+    "#252b38",
+    "#303b49",
+    "#425360",
+    "#586c78",
+    "#71858b",
+    "#95a5a5",
+    "#2d2629",
+    "#413433",
+    "#58433c",
+    "#715648",
+    "#92745a",
+    "#b3946e",
+    "#cfb18a",
+    "#e0c9a1",
+    "#494b3a",
+    "#686850",
+    "#8b8870",
+    "#b4ac91",
+    "#dbd2b3",
+    "#eee2c5",
+    "#245b59",
+    "#36817a",
+    "#6fe0d0",
+    "#886332",
+    "#ba8942",
+    "#743d42",
+    "#ae6050",
+    "#493653",
+    "#745482",
+    "#a48baa"
+  ],
+  "assets": [
+    {
+      "id": "sk_asche_novize",
+      "file": "characters/sk_asche_novize.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "kind": "walk",
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_sk_asche_novize",
+      "file": "battle/enemy_sk_asche_novize.png",
+      "width": 288,
+      "height": 192,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "kind": "battle",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        },
+        "hit": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        },
+        "end": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        }
+      },
+      "facing": "left",
+      "nonlethal": true,
+      "emptyFrames": [
+        4,
+        5,
+        15,
+        16,
+        17,
+        22,
+        23
+      ],
+      "identicalFrames": [
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "bestiary_sk_asche_novize",
+      "file": "bestiary/enemy_sk_asche_novize.png",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "single",
+      "animations": {}
+    },
+    {
+      "id": "sk_asche_sprecher",
+      "file": "characters/sk_asche_sprecher.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "kind": "walk",
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_sk_asche_sprecher",
+      "file": "battle/enemy_sk_asche_sprecher.png",
+      "width": 384,
+      "height": 256,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "kind": "battle",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        },
+        "hit": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        },
+        "end": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        }
+      },
+      "facing": "left",
+      "nonlethal": true,
+      "emptyFrames": [
+        4,
+        5,
+        15,
+        16,
+        17,
+        22,
+        23
+      ],
+      "identicalFrames": [
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "bestiary_sk_asche_sprecher",
+      "file": "bestiary/enemy_sk_asche_sprecher.png",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "single",
+      "animations": {}
+    },
+    {
+      "id": "sk_asche_hand",
+      "file": "characters/sk_asche_hand.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "kind": "walk",
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_sk_asche_hand",
+      "file": "battle/enemy_sk_asche_hand.png",
+      "width": 384,
+      "height": 256,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "kind": "battle",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        },
+        "hit": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        },
+        "end": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        }
+      },
+      "facing": "left",
+      "nonlethal": true,
+      "emptyFrames": [
+        4,
+        5,
+        15,
+        16,
+        17,
+        22,
+        23
+      ],
+      "identicalFrames": [
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "bestiary_sk_asche_hand",
+      "file": "bestiary/enemy_sk_asche_hand.png",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "single",
+      "animations": {}
+    },
+    {
+      "id": "sk_asche_haupt",
+      "file": "characters/sk_asche_haupt.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "kind": "walk",
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_sk_asche_haupt",
+      "file": "battle/enemy_sk_asche_haupt.png",
+      "width": 576,
+      "height": 480,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 5,
+      "transparent": true,
+      "kind": "battle",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        },
+        "hit": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        },
+        "end": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        },
+        "phase2": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        }
+      },
+      "facing": "left",
+      "nonlethal": true,
+      "emptyFrames": [
+        4,
+        5,
+        15,
+        16,
+        17,
+        22,
+        23
+      ],
+      "identicalFrames": [
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "bestiary_sk_asche_haupt",
+      "file": "bestiary/enemy_sk_asche_haupt.png",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "single",
+      "animations": {}
+    },
+    {
+      "id": "sk_flut_novize",
+      "file": "characters/sk_flut_novize.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "kind": "walk",
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_sk_flut_novize",
+      "file": "battle/enemy_sk_flut_novize.png",
+      "width": 288,
+      "height": 192,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "kind": "battle",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        },
+        "hit": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        },
+        "end": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        }
+      },
+      "facing": "left",
+      "nonlethal": true,
+      "emptyFrames": [
+        4,
+        5,
+        15,
+        16,
+        17,
+        22,
+        23
+      ],
+      "identicalFrames": [
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "bestiary_sk_flut_novize",
+      "file": "bestiary/enemy_sk_flut_novize.png",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "single",
+      "animations": {}
+    },
+    {
+      "id": "sk_flut_sprecher",
+      "file": "characters/sk_flut_sprecher.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "kind": "walk",
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_sk_flut_sprecher",
+      "file": "battle/enemy_sk_flut_sprecher.png",
+      "width": 384,
+      "height": 256,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "kind": "battle",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        },
+        "hit": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        },
+        "end": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        }
+      },
+      "facing": "left",
+      "nonlethal": true,
+      "emptyFrames": [
+        4,
+        5,
+        15,
+        16,
+        17,
+        22,
+        23
+      ],
+      "identicalFrames": [
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "bestiary_sk_flut_sprecher",
+      "file": "bestiary/enemy_sk_flut_sprecher.png",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "single",
+      "animations": {}
+    },
+    {
+      "id": "sk_flut_hand",
+      "file": "characters/sk_flut_hand.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "kind": "walk",
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_sk_flut_hand",
+      "file": "battle/enemy_sk_flut_hand.png",
+      "width": 384,
+      "height": 256,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "kind": "battle",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        },
+        "hit": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        },
+        "end": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        }
+      },
+      "facing": "left",
+      "nonlethal": true,
+      "emptyFrames": [
+        4,
+        5,
+        15,
+        16,
+        17,
+        22,
+        23
+      ],
+      "identicalFrames": [
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "bestiary_sk_flut_hand",
+      "file": "bestiary/enemy_sk_flut_hand.png",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "single",
+      "animations": {}
+    },
+    {
+      "id": "sk_flut_haupt",
+      "file": "characters/sk_flut_haupt.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "kind": "walk",
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_sk_flut_haupt",
+      "file": "battle/enemy_sk_flut_haupt.png",
+      "width": 576,
+      "height": 480,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 5,
+      "transparent": true,
+      "kind": "battle",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        },
+        "hit": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        },
+        "end": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        },
+        "phase2": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        }
+      },
+      "facing": "left",
+      "nonlethal": true,
+      "emptyFrames": [
+        4,
+        5,
+        15,
+        16,
+        17,
+        22,
+        23
+      ],
+      "identicalFrames": [
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "bestiary_sk_flut_haupt",
+      "file": "bestiary/enemy_sk_flut_haupt.png",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "single",
+      "animations": {}
+    },
+    {
+      "id": "sk_chor_novize",
+      "file": "characters/sk_chor_novize.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "kind": "walk",
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_sk_chor_novize",
+      "file": "battle/enemy_sk_chor_novize.png",
+      "width": 288,
+      "height": 192,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "kind": "battle",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        },
+        "hit": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        },
+        "end": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        }
+      },
+      "facing": "left",
+      "nonlethal": true,
+      "emptyFrames": [
+        4,
+        5,
+        15,
+        16,
+        17,
+        22,
+        23
+      ],
+      "identicalFrames": [
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "bestiary_sk_chor_novize",
+      "file": "bestiary/enemy_sk_chor_novize.png",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "single",
+      "animations": {}
+    },
+    {
+      "id": "sk_chor_sprecher",
+      "file": "characters/sk_chor_sprecher.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "kind": "walk",
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_sk_chor_sprecher",
+      "file": "battle/enemy_sk_chor_sprecher.png",
+      "width": 384,
+      "height": 256,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "kind": "battle",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        },
+        "hit": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        },
+        "end": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        }
+      },
+      "facing": "left",
+      "nonlethal": true,
+      "emptyFrames": [
+        4,
+        5,
+        15,
+        16,
+        17,
+        22,
+        23
+      ],
+      "identicalFrames": [
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "bestiary_sk_chor_sprecher",
+      "file": "bestiary/enemy_sk_chor_sprecher.png",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "single",
+      "animations": {}
+    },
+    {
+      "id": "sk_chor_hand",
+      "file": "characters/sk_chor_hand.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "kind": "walk",
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_sk_chor_hand",
+      "file": "battle/enemy_sk_chor_hand.png",
+      "width": 384,
+      "height": 256,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "kind": "battle",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        },
+        "hit": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        },
+        "end": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        }
+      },
+      "facing": "left",
+      "nonlethal": true,
+      "emptyFrames": [
+        4,
+        5,
+        15,
+        16,
+        17,
+        22,
+        23
+      ],
+      "identicalFrames": [
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "bestiary_sk_chor_hand",
+      "file": "bestiary/enemy_sk_chor_hand.png",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "single",
+      "animations": {}
+    },
+    {
+      "id": "sk_chor_haupt",
+      "file": "characters/sk_chor_haupt.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "kind": "walk",
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_sk_chor_haupt",
+      "file": "battle/enemy_sk_chor_haupt.png",
+      "width": 576,
+      "height": 480,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 5,
+      "transparent": true,
+      "kind": "battle",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        },
+        "hit": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        },
+        "end": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        },
+        "phase2": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 9,
+          "repeat": 0
+        }
+      },
+      "facing": "left",
+      "nonlethal": true,
+      "emptyFrames": [
+        4,
+        5,
+        15,
+        16,
+        17,
+        22,
+        23
+      ],
+      "identicalFrames": [
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "bestiary_sk_chor_haupt",
+      "file": "bestiary/enemy_sk_chor_haupt.png",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "single",
+      "animations": {}
+    },
+    {
+      "id": "sk_asche_haupt_aura",
+      "file": "characters/sk_asche_haupt_aura.png",
+      "width": 128,
+      "height": 48,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "kind": "aura",
+      "animations": {
+        "loop": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "characterAnchor": {
+        "x": 8,
+        "y": 8,
+        "width": 16,
+        "height": 32
+      }
+    },
+    {
+      "id": "sk_flut_haupt_aura",
+      "file": "characters/sk_flut_haupt_aura.png",
+      "width": 128,
+      "height": 48,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "kind": "aura",
+      "animations": {
+        "loop": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "characterAnchor": {
+        "x": 8,
+        "y": 8,
+        "width": 16,
+        "height": 32
+      }
+    },
+    {
+      "id": "sk_chor_haupt_aura",
+      "file": "characters/sk_chor_haupt_aura.png",
+      "width": 128,
+      "height": 48,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "kind": "aura",
+      "animations": {
+        "loop": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "characterAnchor": {
+        "x": 8,
+        "y": 8,
+        "width": 16,
+        "height": 32
+      }
+    },
+    {
+      "id": "sk_asche_sprecher_ida",
+      "file": "characters/sk_asche_sprecher_ida_walk.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "kind": "walk",
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "sk_asche_sprecher_ida_emotions",
+      "file": "portraits/sk_asche_sprecher_ida_emotions.png",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "kind": "portrait",
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "misstrauisch": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "erschrocken": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "leichtes_laecheln": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "sk_asche_sprecher_ida_head",
+      "file": "portraits/heads/sk_asche_sprecher_ida.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "head",
+      "derivedFrom": "portraits/sk_asche_sprecher_ida_emotions.png",
+      "animations": {}
+    },
+    {
+      "id": "sk_asche_aussteiger_tobin",
+      "file": "characters/sk_asche_aussteiger_tobin_walk.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "kind": "walk",
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "sk_asche_aussteiger_tobin_emotions",
+      "file": "portraits/sk_asche_aussteiger_tobin_emotions.png",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "kind": "portrait",
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "misstrauisch": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "erschrocken": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "leichtes_laecheln": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "sk_asche_aussteiger_tobin_head",
+      "file": "portraits/heads/sk_asche_aussteiger_tobin.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "head",
+      "derivedFrom": "portraits/sk_asche_aussteiger_tobin_emotions.png",
+      "animations": {}
+    },
+    {
+      "id": "sk_asche_opfer_wenz",
+      "file": "characters/sk_asche_opfer_wenz_walk.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "kind": "walk",
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "sk_asche_opfer_wenz_emotions",
+      "file": "portraits/sk_asche_opfer_wenz_emotions.png",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "kind": "portrait",
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "misstrauisch": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "erschrocken": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "leichtes_laecheln": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "sk_asche_opfer_wenz_head",
+      "file": "portraits/heads/sk_asche_opfer_wenz.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "head",
+      "derivedFrom": "portraits/sk_asche_opfer_wenz_emotions.png",
+      "animations": {}
+    },
+    {
+      "id": "sk_flut_sprecher_maren",
+      "file": "characters/sk_flut_sprecher_maren_walk.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "kind": "walk",
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "sk_flut_sprecher_maren_emotions",
+      "file": "portraits/sk_flut_sprecher_maren_emotions.png",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "kind": "portrait",
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "misstrauisch": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "erschrocken": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "leichtes_laecheln": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "sk_flut_sprecher_maren_head",
+      "file": "portraits/heads/sk_flut_sprecher_maren.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "head",
+      "derivedFrom": "portraits/sk_flut_sprecher_maren_emotions.png",
+      "animations": {}
+    },
+    {
+      "id": "sk_flut_aussteiger_pell",
+      "file": "characters/sk_flut_aussteiger_pell_walk.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "kind": "walk",
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "sk_flut_aussteiger_pell_emotions",
+      "file": "portraits/sk_flut_aussteiger_pell_emotions.png",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "kind": "portrait",
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "misstrauisch": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "erschrocken": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "leichtes_laecheln": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "sk_flut_aussteiger_pell_head",
+      "file": "portraits/heads/sk_flut_aussteiger_pell.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "head",
+      "derivedFrom": "portraits/sk_flut_aussteiger_pell_emotions.png",
+      "animations": {}
+    },
+    {
+      "id": "sk_flut_opfer_lotte",
+      "file": "characters/sk_flut_opfer_lotte_walk.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "kind": "walk",
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "sk_flut_opfer_lotte_emotions",
+      "file": "portraits/sk_flut_opfer_lotte_emotions.png",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "kind": "portrait",
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "misstrauisch": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "erschrocken": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "leichtes_laecheln": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "sk_flut_opfer_lotte_head",
+      "file": "portraits/heads/sk_flut_opfer_lotte.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "head",
+      "derivedFrom": "portraits/sk_flut_opfer_lotte_emotions.png",
+      "animations": {}
+    },
+    {
+      "id": "sk_chor_sprecher_ansgar",
+      "file": "characters/sk_chor_sprecher_ansgar_walk.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "kind": "walk",
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "sk_chor_sprecher_ansgar_emotions",
+      "file": "portraits/sk_chor_sprecher_ansgar_emotions.png",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "kind": "portrait",
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "misstrauisch": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "erschrocken": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "leichtes_laecheln": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "sk_chor_sprecher_ansgar_head",
+      "file": "portraits/heads/sk_chor_sprecher_ansgar.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "head",
+      "derivedFrom": "portraits/sk_chor_sprecher_ansgar_emotions.png",
+      "animations": {}
+    },
+    {
+      "id": "sk_chor_aussteiger_rike",
+      "file": "characters/sk_chor_aussteiger_rike_walk.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "kind": "walk",
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "sk_chor_aussteiger_rike_emotions",
+      "file": "portraits/sk_chor_aussteiger_rike_emotions.png",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "kind": "portrait",
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "misstrauisch": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "erschrocken": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "leichtes_laecheln": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "sk_chor_aussteiger_rike_head",
+      "file": "portraits/heads/sk_chor_aussteiger_rike.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "head",
+      "derivedFrom": "portraits/sk_chor_aussteiger_rike_emotions.png",
+      "animations": {}
+    },
+    {
+      "id": "sk_chor_opfer_jost",
+      "file": "characters/sk_chor_opfer_jost_walk.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "kind": "walk",
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "sk_chor_opfer_jost_emotions",
+      "file": "portraits/sk_chor_opfer_jost_emotions.png",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "kind": "portrait",
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "misstrauisch": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "erschrocken": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "leichtes_laecheln": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "sk_chor_opfer_jost_head",
+      "file": "portraits/heads/sk_chor_opfer_jost.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "head",
+      "derivedFrom": "portraits/sk_chor_opfer_jost_emotions.png",
+      "animations": {}
+    },
+    {
+      "id": "ski_aschensiegel",
+      "file": "items/ski_aschensiegel.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "item",
+      "animations": {}
+    },
+    {
+      "id": "ski_aschensiegel_32",
+      "file": "items/32/ski_aschensiegel.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "item",
+      "animations": {},
+      "derivedFrom": "items/ski_aschensiegel.png"
+    },
+    {
+      "id": "ski_glutkohle",
+      "file": "items/ski_glutkohle.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "item",
+      "animations": {}
+    },
+    {
+      "id": "ski_glutkohle_32",
+      "file": "items/32/ski_glutkohle.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "item",
+      "animations": {},
+      "derivedFrom": "items/ski_glutkohle.png"
+    },
+    {
+      "id": "ski_flutknoten",
+      "file": "items/ski_flutknoten.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "item",
+      "animations": {}
+    },
+    {
+      "id": "ski_flutknoten_32",
+      "file": "items/32/ski_flutknoten.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "item",
+      "animations": {},
+      "derivedFrom": "items/ski_flutknoten.png"
+    },
+    {
+      "id": "ski_bojenoel",
+      "file": "items/ski_bojenoel.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "item",
+      "animations": {}
+    },
+    {
+      "id": "ski_bojenoel_32",
+      "file": "items/32/ski_bojenoel.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "item",
+      "animations": {},
+      "derivedFrom": "items/ski_bojenoel.png"
+    },
+    {
+      "id": "ski_chorkreide",
+      "file": "items/ski_chorkreide.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "item",
+      "animations": {}
+    },
+    {
+      "id": "ski_chorkreide_32",
+      "file": "items/32/ski_chorkreide.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "item",
+      "animations": {},
+      "derivedFrom": "items/ski_chorkreide.png"
+    },
+    {
+      "id": "ski_stimmwachs",
+      "file": "items/ski_stimmwachs.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "item",
+      "animations": {}
+    },
+    {
+      "id": "ski_stimmwachs_32",
+      "file": "items/32/ski_stimmwachs.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "item",
+      "animations": {},
+      "derivedFrom": "items/ski_stimmwachs.png"
+    },
+    {
+      "id": "ski_laeuterwasser",
+      "file": "items/ski_laeuterwasser.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "item",
+      "animations": {}
+    },
+    {
+      "id": "ski_laeuterwasser_32",
+      "file": "items/32/ski_laeuterwasser.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "item",
+      "animations": {},
+      "derivedFrom": "items/ski_laeuterwasser.png"
+    },
+    {
+      "id": "ski_art_aschenring",
+      "file": "items/ski_art_aschenring.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "item",
+      "animations": {}
+    },
+    {
+      "id": "ski_art_aschenring_32",
+      "file": "items/32/ski_art_aschenring.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "item",
+      "animations": {},
+      "derivedFrom": "items/ski_art_aschenring.png"
+    },
+    {
+      "id": "ski_seilschnitt",
+      "file": "items/ski_seilschnitt.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "item",
+      "animations": {}
+    },
+    {
+      "id": "ski_seilschnitt_32",
+      "file": "items/32/ski_seilschnitt.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "item",
+      "animations": {},
+      "derivedFrom": "items/ski_seilschnitt.png"
+    },
+    {
+      "id": "ski_art_flutkompass",
+      "file": "items/ski_art_flutkompass.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "item",
+      "animations": {}
+    },
+    {
+      "id": "ski_art_flutkompass_32",
+      "file": "items/32/ski_art_flutkompass.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "item",
+      "animations": {},
+      "derivedFrom": "items/ski_art_flutkompass.png"
+    },
+    {
+      "id": "ski_stimmwachs_rein",
+      "file": "items/ski_stimmwachs_rein.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "item",
+      "animations": {}
+    },
+    {
+      "id": "ski_stimmwachs_rein_32",
+      "file": "items/32/ski_stimmwachs_rein.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "item",
+      "animations": {},
+      "derivedFrom": "items/ski_stimmwachs_rein.png"
+    },
+    {
+      "id": "ski_art_chorstimmgabel",
+      "file": "items/ski_art_chorstimmgabel.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "item",
+      "animations": {}
+    },
+    {
+      "id": "ski_art_chorstimmgabel_32",
+      "file": "items/32/ski_art_chorstimmgabel.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "kind": "item",
+      "animations": {},
+      "derivedFrom": "items/ski_art_chorstimmgabel.png"
+    },
+    {
+      "id": "sk_zeichen",
+      "file": "props/sk_zeichen.png",
+      "width": 64,
+      "height": 48,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 3,
+      "transparent": true,
+      "kind": "tiles",
+      "animations": {},
+      "regions": {
+        "asche_kreis": [
+          0,
+          0,
+          16,
+          16
+        ],
+        "asche_tuerrahmen": [
+          16,
+          0,
+          16,
+          16
+        ],
+        "asche_russhand": [
+          32,
+          0,
+          16,
+          16
+        ],
+        "asche_entfernt": [
+          48,
+          0,
+          16,
+          16
+        ],
+        "flut_knoten": [
+          0,
+          16,
+          16,
+          16
+        ],
+        "flut_fussspur": [
+          16,
+          16,
+          16,
+          16
+        ],
+        "flut_bojenmarke": [
+          32,
+          16,
+          16,
+          16
+        ],
+        "flut_entfernt": [
+          48,
+          16,
+          16,
+          16
+        ],
+        "chor_kreidemund": [
+          0,
+          32,
+          16,
+          16
+        ],
+        "chor_notenlinie": [
+          16,
+          32,
+          16,
+          16
+        ],
+        "chor_lippen": [
+          32,
+          32,
+          16,
+          16
+        ],
+        "chor_entfernt": [
+          48,
+          32,
+          16,
+          16
+        ]
+      }
+    },
+    {
+      "id": "sk_schrein_asche",
+      "file": "props/sk_schrein_asche.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "kind": "shrine",
+      "animations": {
+        "loop": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "regions": {
+        "base": [
+          0,
+          0,
+          48,
+          48
+        ],
+        "effect": [
+          0,
+          48,
+          64,
+          16
+        ]
+      },
+      "effectAnchor": {
+        "x": 16,
+        "y": 16
+      }
+    },
+    {
+      "id": "sk_schrein_flut",
+      "file": "props/sk_schrein_flut.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "kind": "shrine",
+      "animations": {
+        "loop": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "regions": {
+        "base": [
+          0,
+          0,
+          48,
+          48
+        ],
+        "effect": [
+          0,
+          48,
+          64,
+          16
+        ]
+      },
+      "effectAnchor": {
+        "x": 16,
+        "y": 16
+      }
+    },
+    {
+      "id": "sk_schrein_chor",
+      "file": "props/sk_schrein_chor.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "kind": "shrine",
+      "animations": {
+        "loop": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "regions": {
+        "base": [
+          0,
+          0,
+          48,
+          48
+        ],
+        "effect": [
+          0,
+          48,
+          64,
+          16
+        ]
+      },
+      "effectAnchor": {
+        "x": 16,
+        "y": 16
+      }
+    },
+    {
+      "id": "sk_sabotage",
+      "file": "props/sk_sabotage.png",
+      "width": 64,
+      "height": 32,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 2,
+      "transparent": true,
+      "kind": "tiles",
+      "animations": {},
+      "regions": {
+        "brunnen": [
+          0,
+          0,
+          16,
+          16
+        ],
+        "laterne": [
+          16,
+          0,
+          16,
+          16
+        ],
+        "faehre": [
+          32,
+          0,
+          16,
+          16
+        ],
+        "bahnhebel": [
+          48,
+          0,
+          16,
+          16
+        ],
+        "briefkasten": [
+          0,
+          16,
+          16,
+          16
+        ],
+        "boje": [
+          16,
+          16,
+          16,
+          16
+        ],
+        "chorplatz": [
+          32,
+          16,
+          16,
+          16
+        ],
+        "haus": [
+          48,
+          16,
+          16,
+          16
+        ]
+      }
+    },
+    {
+      "id": "sk_ereignis",
+      "file": "fx/sk_ereignis.png",
+      "width": 192,
+      "height": 96,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 6,
+      "rows": 3,
+      "transparent": true,
+      "kind": "events",
+      "animations": {
+        "asche": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "flut": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "chor": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "sk_umtriebe",
+      "file": "ui/sk_umtriebe.png",
+      "width": 80,
+      "height": 48,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 5,
+      "rows": 3,
+      "transparent": true,
+      "kind": "hud",
+      "animations": {},
+      "regions": {
+        "asche": {
+          "0": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "1": [
+            16,
+            0,
+            16,
+            16
+          ],
+          "2": [
+            32,
+            0,
+            16,
+            16
+          ],
+          "3": [
+            48,
+            0,
+            16,
+            16
+          ],
+          "niedergeschlagen": [
+            64,
+            0,
+            16,
+            16
+          ]
+        },
+        "flut": {
+          "0": [
+            0,
+            16,
+            16,
+            16
+          ],
+          "1": [
+            16,
+            16,
+            16,
+            16
+          ],
+          "2": [
+            32,
+            16,
+            16,
+            16
+          ],
+          "3": [
+            48,
+            16,
+            16,
+            16
+          ],
+          "niedergeschlagen": [
+            64,
+            16,
+            16,
+            16
+          ]
+        },
+        "chor": {
+          "0": [
+            0,
+            32,
+            16,
+            16
+          ],
+          "1": [
+            16,
+            32,
+            16,
+            16
+          ],
+          "2": [
+            32,
+            32,
+            16,
+            16
+          ],
+          "3": [
+            48,
+            32,
+            16,
+            16
+          ],
+          "niedergeschlagen": [
+            64,
+            32,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "id": "sk_karte_pins",
+      "file": "ui/sk_karte_pins.png",
+      "width": 36,
+      "height": 24,
+      "frameWidth": 12,
+      "frameHeight": 12,
+      "columns": 3,
+      "rows": 2,
+      "transparent": true,
+      "kind": "pins",
+      "animations": {},
+      "regions": {
+        "asche": {
+          "normal": [
+            0,
+            0,
+            12,
+            12
+          ],
+          "aktiv": [
+            0,
+            12,
+            12,
+            12
+          ]
+        },
+        "flut": {
+          "normal": [
+            12,
+            0,
+            12,
+            12
+          ],
+          "aktiv": [
+            12,
+            12,
+            12,
+            12
+          ]
+        },
+        "chor": {
+          "normal": [
+            24,
+            0,
+            12,
+            12
+          ],
+          "aktiv": [
+            24,
+            12,
+            12,
+            12
+          ]
+        }
+      }
+    }
+  ]
+}

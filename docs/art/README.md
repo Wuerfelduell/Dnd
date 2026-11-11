@@ -1742,3 +1742,19 @@ Duplikate und Herkunfts-Hashes. Generiert mit dem eingebauten Bildgenerator.
 - Vorschau: [`preview-innen2.png`](preview-innen2.png). Prüfung: `python tools/art/innen2/check.py` (Pillow). Technische Tests prüfen keine semantische Richtigkeit oder Bewegung im laufenden Spiel; Motive und Lesbarkeit wurden zusätzlich in der Kontaktvorschau gesichtet.
 
 - **BU / ausruestung2:** 120 Ausrüstungs-Overlays plus Korruption, 16 Kampfkulissen und 7 Koop-/Portraitgrafiken; Manifest `public/sprites/manifest-ausruestung2.json`, Vorschau `preview-ausruestung2.png`, Prüfung und Zuordnungen in `tools/art/ausruestung2/`.
+
+
+## Batch BR — Sekten (`sekten`)
+
+98 Pflicht-PNGs für Aschenbund, Flutkinder und Stummen Chor nach den BQ-Grafikbriefen: zwölf Rang-Laufsheets, drei Haupt-Auren, neun benannte Figuren mit Lauf-, Emotions- und Kopf-Bildern, zwölf Kampf-Sheets und zwölf Bestiariumsbilder, Zeichen, drei animierte Schreine, Sabotage, Ereignis-FX, Umtriebe-HUD, Karten-Pins sowie zwölf Items in 16×16 und 32×32. Die optionalen Szenen und Kampfkulissen sind nicht Teil dieser Lieferung.
+
+- [Manifest](../../public/sprites/manifest-sekten.json): Framegrößen, Reihen/Spalten, nullbasierte Animationslisten, Bildraten und Regionen. Laufreihen: unten, links, rechts, oben. Portraits: neutral, misstrauisch, erschrocken, leichtes Lächeln.
+- Kampf: sechs Spalten; Reihen `idle` (4), `attack` (6), `hit` (3), `end` (4). Bei den Häuptern folgt `phase2` (6). Zwei identische Ausholframes, transparente Restzellen, nicht tödliche Enden. Nur Idle läuft endlos.
+- Haupt-Auren: 128×48, vier 32×48-Frames; die 16×32-Figur sitzt innerhalb der Aura bei (8,8).
+- Schreine: 64×64-Packbild, Basisregion (0,0,48,48), Effektstreifen (0,48,64,16). Effektframes 12–15 auf 16×16-Raster; über der Basis bei (16,16) platzieren. Die ungenutzte rechte Fläche neben der Basis bleibt transparent.
+- Alle Laufzeitbilder sind indizierte PNGs mit binärem Alpha und einer gemeinsamen Palette aus 31 sichtbaren Farben. Export ausschließlich mit Nearest Neighbor. Die 32er-Items sind exakte 2×-Versionen; Köpfe stammen aus dem neutralen Portrait.
+- [Verwendete Bildprompts und Quellen](batch-sekten-generation.json), [Vorschau](preview-sekten.png), [Prüfbericht](batch-sekten-validation.json).
+
+Prüfung: `python tools/art/sekten/check.py` (Pillow). Prüft den vollständigen Pflichtumfang, Maße, Palette, binäres Alpha, Raster, Animationsgrenzen, belegte und leere Frames, Ausholduplikate, unterschiedliche Lauf-/Effektframes und Portraitausdrücke sowie 2×-Items. Export: `python tools/art/sekten/export.py docs/art/batch-sekten-generation.json /pfad/zu/generated_images`. Die Quelldateinamen und SHA-256 stehen im Promptprotokoll.
+
+Grafiklieferung ohne Änderung am Spielcode. Die Einbindung und die Abstimmung im laufenden Spiel folgen separat.
