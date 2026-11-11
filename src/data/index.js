@@ -418,6 +418,20 @@ import r8_feste_leben_kalender from './packs/feste_leben/kalender.json';
 import r8_feste_leben_kalender_uebergaenge from './packs/feste_leben/kalender_uebergaenge.json';
 import r8_feste_leben_wirkungen from './packs/feste_leben/wirkungen.json';
 import r8_feste_leben_wirkungen_platzierung from './packs/feste_leben/wirkungen_platzierung.json';
+import r8_kg_leben_quests from './packs/kg_leben/quests.json';
+import r8_kg_leben_items from './packs/kg_leben/items.json';
+import r8_kg_leben_encounters from './packs/kg_leben/encounters.json';
+import r8_kg_leben_dialogues from './packs/kg_leben/dialogues.json';
+import r8_kg_leben_npcs from './packs/kg_leben/npcs.json';
+import r8_kg_leben_case from './packs/kg_leben/case.json';
+import r8_kg_leben_dialog_zusaetze from './packs/kg_leben/dialog_zusaetze.json';
+import r8_kg_leben_platzierung from './packs/kg_leben/platzierung.json';
+import r8_kg_leben_einwohner from './packs/kg_leben/einwohner.json';
+import r8_kg_leben_leben from './packs/kg_leben/leben.json';
+import r8_kg_leben_gerede from './packs/kg_leben/gerede.json';
+import r8_kg_leben_zeitung from './packs/kg_leben/zeitung.json';
+import r8_kg_leben_geplauder from './packs/kg_leben/geplauder.json';
+import r8_kg_leben_streifen from './packs/kg_leben/streifen.json';
 const runde8 = runde8Packs({
   vorrat_gegner: { quests: r8_vorrat_gegner_quests, items: r8_vorrat_gegner_items, encounters: r8_vorrat_gegner_encounters, dialogues: r8_vorrat_gegner_dialogues, npcs: r8_vorrat_gegner_npcs, case: r8_vorrat_gegner_case, dialog_zusaetze: r8_vorrat_gegner_dialog_zusaetze, platzierung: r8_vorrat_gegner_platzierung, bosses: r8_vorrat_gegner_bosses, phasen: r8_vorrat_gegner_phasen, bestiarium: r8_vorrat_gegner_bestiarium, zonen_vorschlag: r8_vorrat_gegner_zonen_vorschlag },
   vorrat_figuren: { quests: r8_vorrat_figuren_quests, items: r8_vorrat_figuren_items, encounters: r8_vorrat_figuren_encounters, dialogues: r8_vorrat_figuren_dialogues, npcs: r8_vorrat_figuren_npcs, case: r8_vorrat_figuren_case, dialog_zusaetze: r8_vorrat_figuren_dialog_zusaetze, platzierung: r8_vorrat_figuren_platzierung },
@@ -429,6 +443,7 @@ const runde8 = runde8Packs({
   k5_akte: { quests: r8_k5_akte_quests, items: r8_k5_akte_items, encounters: r8_k5_akte_encounters, dialogues: r8_k5_akte_dialogues, npcs: r8_k5_akte_npcs, case: r8_k5_akte_case, dialog_zusaetze: r8_k5_akte_dialog_zusaetze, platzierung: r8_k5_akte_platzierung, zeitung: r8_k5_akte_zeitung, boss_texte: r8_k5_akte_boss_texte, epiloge: r8_k5_akte_epiloge },
   k5_nebenquests: { quests: r8_k5_nebenquests_quests, items: r8_k5_nebenquests_items, encounters: r8_k5_nebenquests_encounters, dialogues: r8_k5_nebenquests_dialogues, npcs: r8_k5_nebenquests_npcs, case: r8_k5_nebenquests_case, dialog_zusaetze: r8_k5_nebenquests_dialog_zusaetze, platzierung: r8_k5_nebenquests_platzierung, einwohner: r8_k5_nebenquests_einwohner, leben: r8_k5_nebenquests_leben, gerede: r8_k5_nebenquests_gerede, zeitung: r8_k5_nebenquests_zeitung, lesestuecke: r8_k5_nebenquests_lesestuecke, geplauder: r8_k5_nebenquests_geplauder },
   feste_leben: { quests: r8_feste_leben_quests, items: r8_feste_leben_items, encounters: r8_feste_leben_encounters, dialogues: r8_feste_leben_dialogues, npcs: r8_feste_leben_npcs, case: r8_feste_leben_case, dialog_zusaetze: r8_feste_leben_dialog_zusaetze, platzierung: r8_feste_leben_platzierung, feste: r8_feste_leben_feste, artefakte: r8_feste_leben_artefakte, zeitung: r8_feste_leben_zeitung, geplauder: r8_feste_leben_geplauder, texte: r8_feste_leben_texte, kalender: r8_feste_leben_kalender, kalender_uebergaenge: r8_feste_leben_kalender_uebergaenge, wirkungen: r8_feste_leben_wirkungen, wirkungen_platzierung: r8_feste_leben_wirkungen_platzierung },
+  kg_leben: { quests: r8_kg_leben_quests, items: r8_kg_leben_items, encounters: r8_kg_leben_encounters, dialogues: r8_kg_leben_dialogues, npcs: r8_kg_leben_npcs, case: r8_kg_leben_case, dialog_zusaetze: r8_kg_leben_dialog_zusaetze, platzierung: r8_kg_leben_platzierung, einwohner: r8_kg_leben_einwohner, leben: r8_kg_leben_leben, gerede: r8_kg_leben_gerede, zeitung: r8_kg_leben_zeitung, geplauder: r8_kg_leben_geplauder, streifen: r8_kg_leben_streifen },
 });
 const fasserinPack = { name: 'fasserin', rezepte: bo_rezepte.recipes, artifacts: bo_rezepte.artifacts, fasserin_texte: bo_texte, gerede: bo_gerede, zeitung: bo_zeitung };
 /** Paket AL: vier Wexmoorer Akten. */

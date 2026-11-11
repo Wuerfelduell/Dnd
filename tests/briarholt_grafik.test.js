@@ -117,5 +117,5 @@ test('CI: Kapitelkarte, Ankunfts- und Zwischenbilder an den Gesprächen, Schluss
     assert.ok(existsSync(pub(endingImageUrl(id, 'kapitel5'))), id);
   }
   assert.ok(existsSync(pub(endingImageUrl('bha_schmerzlos_lichtmeister'))));
-  assert.equal(Object.keys(ENDING_SCENE_IMAGES).length, 5);
+  assert.equal(Object.keys(ENDING_SCENE_IMAGES).length, 9); // 5 Briarholt (CI) + 4 Calderwick (CE2)
 });

@@ -468,6 +468,7 @@ export const mapMarkerOf = (map) => {
   if (X_MAP_MARKERS[map] !== undefined) return [X_MAP_MARKERS_URL, X_MAP_MARKERS[map], 2, true];
   if (Q_MAP_MARKERS[map] !== undefined) return [Q_MAP_MARKERS_URL, Q_MAP_MARKERS[map], 7];
   if (AN_MAP_MARKERS[map] !== undefined) return [AN_MAP_MARKERS_URL, AN_MAP_MARKERS[map], 3, false, { rows: 2, row: 1 }];
+  if (CW_MAP_MARKERS[map] !== undefined) return [CW_MAP_MARKERS_URL, CW_MAP_MARKERS[map], 6, false, { rows: 3, row: Math.floor(CW_MAP_MARKERS[map] / 6) }];
   if (DS_MAP_MARKERS[map] !== undefined) return [DS_MAP_MARKERS_URL, DS_MAP_MARKERS[map], 6, false, { rows: 3, row: Math.floor(DS_MAP_MARKERS[map] / 6) }];
   if (BH_MAP_MARKERS[map] !== undefined) return [BH_MAP_MARKERS_URL, BH_MAP_MARKERS[map], 6, false, { rows: 3, row: Math.floor(BH_MAP_MARKERS[map] / 6) }];
   if (BE_MAP_MARKERS[map]) return BE_MAP_MARKERS[map];
@@ -976,7 +977,8 @@ export function portraitFor(id, mood) {
 export const ENDING_IMAGES = { c4_perfect: 'E_ende_fall4_gut', c4_good: 'E_ende_fall4_halb', c4_early: 'E_ende_fall4_schlecht', c4_mask: 'E_ende_fall4_haken' };
 export const CASE_ENDING_IMAGES = { case_01: 'E_ende_fall1', case_02: 'E_ende_fall2', case_03: 'E_ende_fall3' };
 /** Paket CI: Schlussbilder von Kapitel 5 liegen als 240x135 unter ui/scenes/ (Variante mit Turm bei k2_end_lichtmeister). */
-export const ENDING_SCENE_IMAGES = { bha_wahl: 'bh_ende_wahl', bha_winter: 'bh_ende_winter', bha_verwahrt: 'bh_ende_verwahrt', bha_schmerzlos: 'bh_ende_schmerzlos', bha_schmerzlos_lichtmeister: 'bh_ende_schmerzlos_lichtmeister' };
+export const ENDING_SCENE_IMAGES = { cwa_widerspruch: 'cw_ende_widerspruch', cwa_amtsinhaber: 'cw_ende_amtsinhaber', cwa_buecher: 'cw_ende_buecher', cwa_ordnung: 'cw_ende_ordnung', // CE2
+  bha_wahl: 'bh_ende_wahl', bha_winter: 'bh_ende_winter', bha_verwahrt: 'bh_ende_verwahrt', bha_schmerzlos: 'bh_ende_schmerzlos', bha_schmerzlos_lichtmeister: 'bh_ende_schmerzlos_lichtmeister' };
 export const endingImageUrl = (id, caseId) => {
   if (ENDING_SCENE_IMAGES[id]) return `${BASE}ui/scenes/${ENDING_SCENE_IMAGES[id]}.png`;
   const f = ENDING_IMAGES[id] ?? CASE_ENDING_IMAGES[caseId];
@@ -996,11 +998,14 @@ export const K_SCENES = ['abzuege', 'schattenlos', 'maskenball', 'dunkelkammer',
 /** Paket M: Bilder zu Fall 7 und 8. */
 export const M_SCENES = ['kanal', 'finch', 'schlafsaal', 'molly', 'webstuhl', 'morgen'];
 /** Paket AE: Kapitelkarten (480x270) für Spielbeginn, Kapitelwechsel und Kapitelende. */
-export const CHAPTER_CARDS = ['kapitel1_karte', 'kapitel2_karte', 'kapitel3_karte', 'kapitel5_karte', 'kapitel_ende'];
+export const CHAPTER_CARDS = ['kapitel1_karte', 'kapitel2_karte', 'kapitel3_karte', 'kapitel4_karte', 'kapitel5_karte', 'kapitel_ende'];
 /** Kontrollverlust: Tentakel-Bild (240x135, Platzhalter bis Codex-Paket BP liefert). */
 export const FX_SCENES = ['kontrollverlust'];
 /** Paket CI: Ankunft in Briarholt (480x270), Trockenraum und Pfirsich (240x135) unter ui/scenes/<id>.png. */
 export const BH_SCENES = ['bh_ankunft', 'bh_trockenraum', 'bh_pfirsich'];
+/** Paket CE2: Szenen von Kapitel 4 (Aufzugsfahrt 480x270, zwei Teller 480x270, Sortierkabine 240x135). */
+export const CW_SCENES = ['cw_aufzug', 'cw_zwei_teller', 'cw_sortierkabine'];
+BH_SCENES.push(...CW_SCENES);
 export const sceneUrl = (id) => (id?.startsWith('fest_') ? `${BASE}sequences/${id}.png` : CHAPTER_CARDS.includes(id) || FX_SCENES.includes(id) || BH_SCENES.includes(id) ? `${BASE}ui/scenes/${id}.png` : SCENES.includes(id) ? `${BASE}ui/scenes/E_szene_${id}.png`
   : TRAVEL_SCENES.includes(id) ? `${BASE}ui/scenes/I_${id}.png`
     : J_SCENES.includes(id) ? `${BASE}ui/scenes/J_szene_${id}.png`
@@ -1051,7 +1056,8 @@ function createRegionTextures(scene) {
       if (Array.isArray(a) || !a.frames?.length) continue;
       const cols = Math.floor(img.width / 16);
       // Zahlen = linke obere 16er-Zelle des Frames, sonst Rechtecke
-      const frames = a.frames.map((f) => (typeof f === 'number'
+      // Paket CE1: `regions` nennt die exakten Ausschnitte, `frames` wären nur 64er-Speicherplätze
+      const frames = (a.regions ?? a.frames).map((f) => (typeof f === 'number'
         ? { x: (f % cols) * 16, y: Math.floor(f / cols) * 16, w: a.frameWidth ?? 16, h: a.frameHeight ?? 16 } : rect(typeof f === 'string' ? regions[f] : f)));
       const key = `${prefix}_${name}`;
       if (!cut(key, img, frames)) continue;
@@ -1212,6 +1218,7 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestVorrat1')) scene.load.json('manifestVorrat1', `${BASE}manifest-vorrat1.json`);
   if (!scene.cache.json.exists('manifestVorrat2')) scene.load.json('manifestVorrat2', `${BASE}manifest-vorrat2.json`);
   if (!scene.cache.json.exists('manifestBriarholt1')) scene.load.json('manifestBriarholt1', `${BASE}manifest-briarholt1.json`);
+  if (!scene.cache.json.exists('manifestCalderwick1')) scene.load.json('manifestCalderwick1', `${BASE}manifest-calderwick1.json`);
   if (!scene.cache.json.exists('manifestNebenquests')) scene.load.json('manifestNebenquests', `${BASE}manifest-nebenquests.json`);
   if (!scene.cache.json.exists('manifestSpieler2')) scene.load.json('manifestSpieler2', `${BASE}manifest-spieler2.json`);
   if (!scene.cache.json.exists('manifestWexmoor')) scene.load.json('manifestWexmoor', `${BASE}manifest-wexmoor.json`);
@@ -1369,9 +1376,11 @@ export const HEADS = ['marlowe', 'holt', 'pimm', 'rook', 'price', 'barnaby', 'fe
   'kittering', 'gorse', 'sabeth', 'brock', 'diva', 'souffleur', 'maskenmacher', 'uhrmacherin', 'turmwaechter', 'schlachtermeister',
   'lehrling', 'gaswerker', 'astronom', 'miriam', 'schleierbote', 'tresswell', 'vellacourt', 'kohlenjem', 'player', 'cultist', 'nate', 'unknown_man', 'unknown_woman', 'anonymous', 'crowd', 'spirit'];
 const HEAD_ALIASES = { grubenwirt: 'brock', price_wx: 'price' };
+/** Köpfe, die nicht unter ui/heads/ liegen (Paket CN: portraits/heads/). */
+export const HEAD_FILES = {};
 export const headUrl = (id) => {
   const h = HEAD_ALIASES[id] ?? id;
-  return HEADS.includes(h) ? `${BASE}ui/heads/${h}.png` : null;
+  return HEADS.includes(h) ? `${BASE}${HEAD_FILES[h] ?? `ui/heads/${h}.png`}` : null;
 };
 
 /** Quellen-Symbole (24x24): Art der Quelle aus dem Quellentext, sonst aus dem Typ (core/sources.js). */
@@ -2664,12 +2673,11 @@ Object.assign(ITEM_ICON_ALIASES, {
   fs_schichtwechsel_lohntuetenlos: 'vi_m_wegzoll_marke', fs_schichtwechsel_bierkrug: 'vi_v_pfirsichsud', fs_schichtwechsel_kandis: 'vi_v_wurzelpastille', fs_schichtwechsel_stulle: 'vi_v_setzerbrot',
   fs_schichtwechsel_kaffee: 'vi_v_terrassentee', fs_schichtwechsel_gurke: 'vi_v_wegzehrung', fs_schichtwechsel_wasser: 'vi_v_bitterwasser', fs_schichtwechsel_gebinde: 'vi_v_dampfkompresse',
 });
-/** CD: Stadtkarten-Marker von Calderwick leihen sich bis CE die Dunscarer Zellen (Briarholt hat seit CI eigene). */
-export const R8_MAP_MARKERS = {
-  cw_gleisfuss: 'ds_endbahnhof', cw_setzergasse: 'ds_arbeiterbogen', cw_quittungsmarkt: 'ds_kalkmarkt', cw_roehrenhof: 'ds_schwellenring', cw_witwenterrasse: 'ds_bruchstufen', cw_kronenarchiv: 'ds_lohnbuero',
-  cw_alte_setzerei: 'ds_rangierwueste', cw_sortiergrube: 'ds_klopfbruch', cw_nullfundament: 'ds_unterschicht', reise_landstrasse: 'ds_letzter_bahnsteig',
-};
-for (const [id, ds] of Object.entries(R8_MAP_MARKERS)) DS_MAP_MARKERS[id] = DS_MAP_MARKERS[ds];
+/** CD/CE2: Calderwicks Orte haben seit Paket CE2 eigene Marker (ui/cw_marker.png, 6x3 Felder in Manifest-Reihenfolge, Landstraße zuletzt). */
+export const CW_MAP_IDS = ['cw_gleisfuss', 'cw_setzergasse', 'cw_quittungsmarkt', 'cw_roehrenhof', 'cw_witwenterrasse', 'cw_kronenarchiv', 'cw_buchbinderei', 'cw_gepaeckhalle', 'cw_pfandhaus',
+  'cw_sortierhalle', 'cw_kueche', 'cw_archivsaal', 'cw_villa', 'cw_druckkammer', 'cw_alte_setzerei', 'cw_sortiergrube', 'cw_nullfundament', 'reise_landstrasse'];
+export const CW_MAP_MARKERS = Object.fromEntries(CW_MAP_IDS.map((id, i) => [id, i]));
+export const CW_MAP_MARKERS_URL = `${BASE}ui/cw_marker.png`;
 
 // --- Kapitel 5: Briarholt-Grafik (Paket CI, Batch briarholt1; von Grok geliefert, manifest-briarholt1.json) --------------
 /** Props je Viertel und das Wärme-Effektblatt: Regionen als `bhp_<blatt>_<region>`, Animationen gleichnamig (z. B. bhp_kutschenhof_pferde). */
@@ -2695,3 +2703,74 @@ export const BH_MAP_THEMES = { bh_kutschenhof: 'bh_promenade', bh_kutschenhalle:
   bh_stillenhaeuser: 'bh_stille', bh_speisesaal: 'bh_stille', bh_aktenraum: 'bh_stille', bh_wurzelkranz: 'bh_klinik', bh_verteilanlage: 'bh_klinik', bh_labor: 'bh_labor', bh_mutterhaus: 'bh_mutterhaus',
   bh_wurzelkammer: 'bh_wurzel' };
 
+
+// --- Kapitel 4: Calderwick-Grafik (Pakete CE1 calderwick1 und CE2 calderwick2) ------------------------------------
+/**
+ * CE1: sechs Tilesets (8 Spalten à 16 px, Zellindex laut manifest-calderwick1.json). Die Terrassen teilen ein Blatt; Amt, Sortierhalle und
+ * Archivsaal liegen auf dem Amtsblatt (Marmor, Blechgang, Leseteppich); das Gleisblatt ist nur Deko (Schienen auf dem Terrassenpflaster).
+ */
+const CW_THEME_SPECS = {
+  cw_terrasse: { fallback: 'cobble0', floor: [0, 1, 2, 3], wet: [6], debris: [30], wallTop: [15], wallFace: [16], window: [19, 20, 21], door: [22], tube: [23, 24, 25, 26, 27, 28] },
+  cw_gleis: { fallback: 'cobble0', floor: [0], rails: [0, 1], bend: [2, 3, 4, 5], ramp: [9, 10, 11, 12], stop: [8], sign: [18, 19, 20], grooves: [21, 22], wallTop: [19], wallFace: [19] },
+  cw_druckerei: { fallback: 'wood0', floor: [0], debris: [1], wallTop: [6], wallFace: [7], window: [16, 17], press: [2, 3, 4, 5], paper: [10, 11], bench: [12, 13] },
+  cw_amt: { fallback: 'stone', floor: [0, 1], wear: [2], wallTop: [4], wallFace: [5], window: [8, 9], tube: [8, 9, 10, 11] },
+  cw_sortierhalle: { sheet: 'cw_amt', fallback: 'stone', floor: [16, 17], debris: [18], wear: [19], wallTop: [20], wallFace: [21], window: [8, 10] },
+  cw_archivsaal: { sheet: 'cw_amt', fallback: 'wood0', floor: [12], edge: [13, 15], wallTop: [4], wallFace: [5], window: [8, 11] },
+  cw_kueche: { fallback: 'stone', floor: [0, 1], wear: [2], wallTop: [12], wallFace: [13], window: [14, 15], stove: [4, 5, 6, 7], table: [8, 9, 10, 11] },
+  cw_fundament: { fallback: 'stone', floor: [0, 1], debris: [2, 3], wallTop: [4], wallFace: [5], window: [8, 9], niche: [8, 9, 10, 11, 12, 13], shelf: [16, 17, 18, 19], column: [20, 21, 22, 23] },
+};
+export const CW_THEME_KEYS = Object.keys(CW_THEME_SPECS);
+for (const [theme, { sheet = theme, ...rest }] of Object.entries(CW_THEME_SPECS)) {
+  if (!SHEETS[sheet]) SHEETS[sheet] = `tilesets/${sheet}.png`;
+  const spec = (THEME_TILES[theme] = { ...rest, sheet });
+  const list = Object.entries(spec).filter(([, v]) => Array.isArray(v)).flatMap(([group, regions]) => regions.map((region) => ({
+    key: `${theme}_${group}_${region}`, theme, group, sheet, region, solid: !WALKABLE_GROUPS.includes(group), fallback: GROUP_FALLBACK[group] ?? spec.fallback,
+    base: WALKABLE_GROUPS.includes(group) ? null : `${theme}_floor_${spec.floor[0]}`,
+  })));
+  THEME_TILE_LIST.push(...list);
+  for (const t of list) TILE_CELLS[t.key] = [t.sheet, t.region, t.base];
+}
+/** CE1: Gleis- und Fundamentblatt zusätzlich als Spritesheets (16x16-Zellen als Deko: Schienen am Gleisfuß, leuchtende Namensnischen). */
+ANIM_SHEETS.cwt_gleis = ['tilesets/cw_gleis.png', 16, 16];
+ANIM_SHEETS.cwt_fundament = ['tilesets/cw_fundament.png', 16, 16];
+/** Karte → Thema (CD-Orte; Gefahrengebiete: Setzerei = Druckerei, Sortiergrube = Blechgang, Nullfundament = Fundament). */
+export const CW_MAP_THEMES = { cw_gleisfuss: 'cw_terrasse', cw_setzergasse: 'cw_terrasse', cw_quittungsmarkt: 'cw_terrasse', cw_roehrenhof: 'cw_terrasse', cw_witwenterrasse: 'cw_terrasse',
+  cw_kronenarchiv: 'cw_terrasse', cw_buchbinderei: 'cw_druckerei', cw_gepaeckhalle: 'cw_sortierhalle', cw_pfandhaus: 'cw_druckerei', cw_sortierhalle: 'cw_sortierhalle', cw_kueche: 'cw_kueche',
+  cw_archivsaal: 'cw_archivsaal', cw_villa: 'cw_archivsaal', cw_druckkammer: 'cw_druckerei', cw_alte_setzerei: 'cw_druckerei', cw_sortiergrube: 'cw_sortierhalle', cw_nullfundament: 'cw_fundament' };
+/** CE1: sieben Props-Blätter, Regionen als `cwp_<blatt>_<region>` (Animationen gleichnamig: cwp_gleisfuss_aufzug, cwp_setzergasse_druckerpresse …). */
+export const CW_PROP_SHEETS = ['gleisfuss', 'setzergasse', 'quittungsmarkt', 'roehrenhof', 'witwenterrasse', 'kronenarchiv', 'buchbinderei'];
+for (const n of CW_PROP_SHEETS) {
+  SHEETS[`cwp_${n}`] = `props/cw_${n}.png`;
+  REGION_SHEETS[`cwp_${n}`] = ['manifestCalderwick1', `cw_${n}`];
+}
+/** CE2: Kampfkulissen je Terrasse; Innenräume nehmen die ihres Viertels, die Druckkammer ihre eigene; die Landstraße hat Tag und Nacht. */
+Object.assign(BATTLE_BACKGROUNDS, { cw_gleisfuss: 'bg_cw_gleisfuss', cw_gepaeckhalle: 'bg_cw_gleisfuss', cw_setzergasse: 'bg_cw_setzergasse', cw_buchbinderei: 'bg_cw_setzergasse',
+  cw_quittungsmarkt: 'bg_cw_quittungsmarkt', cw_pfandhaus: 'bg_cw_quittungsmarkt', cw_roehrenhof: 'bg_cw_roehrenhof', cw_sortierhalle: 'bg_cw_roehrenhof',
+  cw_witwenterrasse: 'bg_cw_witwenterrasse', cw_kueche: 'bg_cw_witwenterrasse', cw_kronenarchiv: 'bg_cw_kronenarchiv', cw_archivsaal: 'bg_cw_kronenarchiv', cw_villa: 'bg_cw_kronenarchiv',
+  cw_druckkammer: 'bg_cw_druckkammer', reise_landstrasse: 'bg_cw_landstrasse_tag' });
+BATTLE_BACKGROUNDS_NIGHT.reise_landstrasse = 'bg_cw_landstrasse_nacht';
+/** CE2: Abgleich-Atlas (fx/cw_abgleich.png): Straßenmarken, gefährdeter Kontakt, stabile Verbindung, Nebel-Rückweg – Regionen → [x, y, w, h, Frames, fps]. */
+export const CW_ABGLEICH_KEY = 'cw_abgleich';
+export const CW_ABGLEICH = { strasse_gerade: [0, 0, 16, 16, 4, 4], strasse_kurve: [0, 16, 16, 16, 4, 4], strasse_ende: [0, 32, 16, 16, 4, 4], kontakt_gefaehrdet: [0, 48, 16, 16, 4, 4],
+  verbindung_stabil: [0, 64, 16, 16, 2, 4], nebel_rueckweg: [0, 80, 48, 48, 6, 8] };
+SHEETS.cw_abgleich = 'fx/cw_abgleich.png';
+
+// --- Paket CN: Kettlegate lebt (manifest-kettlegate-leben.json) ---------------------------------------------------
+/** Zehn Einwohner: Lauf-Sheet, Kopf (24x24 unter portraits/heads/), Sonderpose (16x32, Schlüssel pose_<id>, läuft während des Gesprächs). */
+export const KGL_FIGURES = ['kgl_e_laternenanzuender', 'kgl_e_zeitungsjunge', 'kgl_e_fischweib', 'kgl_e_schornsteinfegerin', 'kgl_e_kutscher', 'kgl_e_leichenwaescherin', 'kgl_e_uhrlehrling', 'kgl_e_bettler', 'kgl_e_waescherin', 'kgl_e_nachtwaechter'];
+for (const id of KGL_FIGURES) {
+  SHEETS[`kgl_${id}`] = `characters/${id}.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = `kgl_${id}`;
+  HEADS.push(id);
+  HEAD_FILES[id] = `portraits/heads/${id}.png`;
+  ANIM_SHEETS[`pose_${id}`] = [`characters/${id}_pose.png`, 16, 32];
+}
+/** Tiere, Wetter, Stände und Nachtfassaden: Regionen → [x, y, w, h, Frames, fps]; genutzt in world/KettlegateLife.js. */
+export const KGL_KEYS = { tiere: 'kgl_tiere', wetter: 'kgl_wetter', staende: 'kgl_staende', nacht: 'kgl_nacht' };
+export const KGL_FILES = { kgl_tiere: 'fx/kgl_tiere.png', kgl_wetter: 'fx/kgl_wetter.png', kgl_staende: 'props/kgl_staende.png', kgl_nacht: 'props/kgl_nacht.png' };
+export const KGL_TIERE = { kgl_taube_picken: [0, 0, 16, 16, 4, 3], kgl_taube_auffliegen: [0, 16, 16, 16, 4, 8], kgl_ratte: [0, 32, 16, 16, 4, 8], kgl_katze: [0, 48, 16, 32, 4, 3], kgl_hund: [0, 80, 16, 16, 4, 3], kgl_moewe: [0, 96, 16, 16, 4, 3], kgl_fledermaus: [0, 112, 16, 16, 4, 8], kgl_pferd: [0, 128, 32, 32, 2, 3] };
+export const KGL_WETTER = { kgl_nieselregen: [0, 0, 64, 64, 6, 10], kgl_russschnee: [0, 64, 64, 64, 6, 6], kgl_nebel_dicht: [0, 128, 96, 48, 4, 3], kgl_kanalgeruch: [0, 176, 32, 32, 4, 4], kgl_pfuetze: [0, 208, 16, 16, 4, 6] };
+export const KGL_STAENDE = { kgl_kastanien: [0, 0, 48, 32, 2, 4], kgl_zeitung: [0, 32, 32, 32, 1, 1], kgl_heisswasser: [0, 64, 48, 32, 2, 4], kgl_streichholz: [0, 96, 32, 32, 1, 1], kgl_drehorgel: [0, 128, 48, 32, 4, 5], kgl_schleifer: [0, 160, 48, 32, 4, 8], kgl_austern: [0, 192, 48, 32, 1, 1], kgl_oel: [0, 224, 48, 32, 1, 1], kgl_droschke: [0, 256, 64, 32, 2, 2], kgl_droschke_umgestuerzt: [0, 288, 64, 32, 1, 1], kgl_kreidekreis: [0, 320, 32, 32, 1, 1], kgl_schornsteinbrand: [0, 352, 16, 32, 4, 8] };
+export const KGL_NACHT = { kgl_fenster_1: [0, 0, 16, 16, 2, 3], kgl_fenster_2: [0, 16, 16, 16, 2, 3], kgl_fenster_3: [0, 32, 16, 16, 2, 3], kgl_fenster_4: [0, 48, 16, 16, 2, 3], kgl_laterne: [0, 64, 16, 32, 2, 1], kgl_rauch: [0, 96, 16, 32, 4, 4] };
+/** Stadtpins der zehn Einwohner (ui/kgl_karte_pins.png, 12x12 in Reihenfolge von KGL_FIGURES). */
+export const KGL_PINS_URL = `${BASE}ui/kgl_karte_pins.png`;

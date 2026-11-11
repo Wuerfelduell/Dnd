@@ -283,6 +283,7 @@ export class GameState {
       all(o.requires_quests_done, (q) => this.quests[q] === 'done') &&
       (o.requires_honor === undefined || this.honor >= o.requires_honor) &&
       (o.max_honor === undefined || this.honor < o.max_honor) &&
+      (o.requires_season === undefined || o.requires_season.includes(this.season())) && // CN: Kastanienröster nur Herbst/Winter
       none(o.hide_if_clues, (c) => this.hasClue(c)) &&
       none(o.hide_if_flags, (f) => this.flags.has(f)) &&
       none(o.hide_if_conclusions, (c) => this.hasConclusion(c)) &&

@@ -3,11 +3,11 @@
 // Aufruf vom Repository-Stamm: node tools/packs/runde8_sync.mjs
 import { readFileSync, writeFileSync, readdirSync, mkdirSync } from 'node:fs';
 import path from 'node:path';
-import { BH_MAP_THEMES } from '../../src/world/assets.js';
+import { BH_MAP_THEMES, CW_MAP_THEMES } from '../../src/world/assets.js';
 
 const SRC = 'docs/story';
 const DST = 'src/data/packs';
-const PACKS = ['vorrat_gegner', 'vorrat_figuren', 'vorrat_items', 'k4_orte', 'k4_akte', 'k4_nebenquests', 'k5_orte', 'k5_akte', 'k5_nebenquests', 'feste_leben'];
+const PACKS = ['vorrat_gegner', 'vorrat_figuren', 'vorrat_items', 'k4_orte', 'k4_akte', 'k4_nebenquests', 'k5_orte', 'k5_akte', 'k5_nebenquests', 'feste_leben', 'kg_leben'];
 const read = (p) => JSON.parse(readFileSync(p, 'utf8'));
 const write = (p, o) => writeFileSync(p, `${JSON.stringify(o, null, 1)}\n`);
 const file = (pack, name) => path.join(DST, pack, `${name}.json`);
@@ -15,7 +15,59 @@ const WALK = new Set([...'.,=wgpcsP']);
 
 for (const pack of PACKS) {
   mkdirSync(path.join(DST, pack), { recursive: true });
-  for (const f of readdirSync(path.join(SRC, pack))) if (f.endsWith('.json')) write(file(pack, f.slice(0, -5)), read(path.join(SRC, pack, f)));
+  for (const f of readdirSync(path.join(SRC, pack))) if (f.endsWith('.json') && f !== 'ereignisse.json') write(file(pack, f.slice(0, -5)), read(path.join(SRC, pack, f))); // CN: ereignisse.json ist nur ein Auszug aus dialogues.json
+}
+
+/**
+ * CE1 (calderwick1): Props je Ort als Deko (`cwp_<blatt>_<region>`, Fußpunkt unten, nach Tiefe sortiert); Schienen am Gleisfuß aus dem Gleisblatt
+ * (Spritesheet cwt_gleis, Zelle 0 = waagrechte Schienen, 8 = Prellbock). [x, y, sprite, solid?] – x/y ist das Fußfeld.
+ */
+const D = (x, y, sprite, solid = null) => ({ x, y, sprite, solid });
+const CW_DECOR = {
+  cw_gleisfuss: [D(40, 6, 'cwp_gleisfuss_aufzug', [28, 12]), D(42, 7, 'cwp_gleisfuss_gegengewicht', [10, 6]), D(24, 13, 'cwp_gleisfuss_schalter', [28, 12]), D(27, 13, 'cwp_gleisfuss_fahrgastbuch', [12, 8]),
+    D(16, 13, 'cwp_gleisfuss_stationsschild_1', [20, 8]), D(36, 13, 'cwp_gleisfuss_stationsschild_2', [20, 8]), D(6, 13, 'cwp_gleisfuss_stationsschild_3', [20, 8]),
+    D(18, 20, 'cwp_gleisfuss_gueterwaggon_offen', [44, 12]), D(27, 20, 'cwp_gleisfuss_gueterwaggon_zu', [44, 12])],
+  cw_setzergasse: [D(6, 13, 'cwp_setzergasse_druckerpresse', [28, 12]), D(14, 13, 'cwp_setzergasse_setzkasten', [28, 12]), D(26, 13, 'cwp_setzergasse_papierballen', [28, 12]),
+    D(36, 13, 'cwp_setzergasse_streiktopf', [24, 12]), D(17, 12, 'cwp_setzergasse_brotdose'), D(25, 7, 'cwp_setzergasse_fenster'), D(16, 20, 'cwp_setzergasse_papierballen', [28, 12])],
+  cw_quittungsmarkt: [D(4, 13, 'cwp_quittungsmarkt_marktstand_buecher', [28, 12]), D(14, 13, 'cwp_quittungsmarkt_marktstand_werkzeug', [28, 12]), D(24, 13, 'cwp_quittungsmarkt_marktstand_tee', [28, 12]),
+    D(36, 7, 'cwp_quittungsmarkt_pfandhaus', [60, 14]), D(16, 20, 'cwp_quittungsmarkt_schuldscheine', [28, 10]), D(26, 19, 'cwp_quittungsmarkt_waage'), D(36, 20, 'cwp_quittungsmarkt_herkunftskiste', [28, 12])],
+  cw_roehrenhof: [D(4, 13, 'cwp_roehrenhof_rohrpost', [10, 8]), D(16, 13, 'cwp_roehrenhof_rohrpost', [10, 8]), D(26, 13, 'cwp_roehrenhof_rohrpost', [10, 8]), D(36, 13, 'cwp_roehrenhof_rohrpost', [10, 8]),
+    D(24, 7, 'cwp_roehrenhof_warenbahn', [28, 12]), D(14, 7, 'cwp_roehrenhof_fahrplantafel', [28, 10]), D(34, 7, 'cwp_roehrenhof_sichtfenster'), D(18, 20, 'cwp_roehrenhof_stempelhand', [28, 12])],
+  cw_witwenterrasse: [D(14, 7, 'cwp_witwenterrasse_eingang'), D(4, 13, 'cwp_witwenterrasse_heizungsrohr', [10, 8]), D(26, 13, 'cwp_witwenterrasse_heizungsrohr', [10, 8]),
+    D(16, 13, 'cwp_witwenterrasse_waescheleine', [40, 6]), D(36, 13, 'cwp_witwenterrasse_picknicktisch', [28, 12]), D(24, 7, 'cwp_witwenterrasse_klopftuer'), D(16, 20, 'cwp_witwenterrasse_picknicktisch', [28, 12])],
+  cw_kronenarchiv: [D(16, 7, 'cwp_kronenarchiv_archivportal', [60, 14]), D(36, 7, 'cwp_kronenarchiv_direktorenvilla', [60, 14]), D(24, 13, 'cwp_kronenarchiv_brunnen', [28, 12]),
+    D(6, 13, 'cwp_kronenarchiv_statue', [20, 12]), D(16, 20, 'cwp_kronenarchiv_hauptpresse', [60, 14]), D(27, 19, 'cwp_kronenarchiv_austrittsliste'), D(40, 13, 'cwp_kronenarchiv_rechenblatt')],
+  cw_buchbinderei: [D(20, 12, 'cwp_buchbinderei_bett', [28, 8]), D(16, 12, 'cwp_buchbinderei_ofen', [24, 10]), D(11, 12, 'cwp_buchbinderei_kiste', [20, 10]), D(7, 12, 'cwp_buchbinderei_fallwand'),
+    D(20, 6, 'cwp_buchbinderei_buergenbrett_leer'), D(14, 6, 'cwp_buchbinderei_buchpresse', [24, 10])],
+  cw_gepaeckhalle: [D(6, 12, 'cwp_gleisfuss_schalter', [28, 12]), D(9, 12, 'cwp_gleisfuss_fahrgastbuch', [12, 8]), D(20, 6, 'cwp_gleisfuss_stationsschild_2', [20, 8]), D(16, 12, 'cwp_gleisfuss_gueterwaggon_zu', [44, 12])],
+  cw_pfandhaus: [D(6, 12, 'cwp_quittungsmarkt_schuldscheine', [28, 10]), D(14, 6, 'cwp_quittungsmarkt_waage'), D(18, 12, 'cwp_quittungsmarkt_herkunftskiste', [28, 12]), D(11, 12, 'cwp_buchbinderei_kiste', [20, 10])],
+  cw_sortierhalle: [D(6, 12, 'cwp_roehrenhof_rohrpost', [10, 8]), D(20, 12, 'cwp_roehrenhof_rohrpost', [10, 8]), D(14, 12, 'cwp_roehrenhof_warenbahn', [28, 12]), D(20, 6, 'cwp_roehrenhof_fahrplantafel', [28, 10]),
+    D(8, 6, 'cwp_roehrenhof_sichtfenster'), D(17, 6, 'cwp_roehrenhof_stempelhand', [28, 12])],
+  cw_kueche: [D(14, 6, 'cwp_setzergasse_brotdose'), D(8, 12, 'cwp_witwenterrasse_picknicktisch', [28, 12]), D(18, 12, 'cwp_witwenterrasse_picknicktisch', [28, 12])],
+  cw_archivsaal: [D(6, 12, 'cwp_kronenarchiv_austrittsliste'), D(14, 12, 'cwp_kronenarchiv_rechenblatt'), D(20, 12, 'cwp_kronenarchiv_statue', [20, 12]), D(18, 6, 'cwp_buchbinderei_buchpresse', [24, 10])],
+  cw_villa: [D(6, 6, 'cwp_kronenarchiv_statue', [20, 12]), D(20, 12, 'cwp_kronenarchiv_austrittsliste'), D(14, 12, 'cwp_witwenterrasse_picknicktisch', [28, 12]), D(8, 12, 'cwp_buchbinderei_bett', [28, 8])],
+  cw_druckkammer: [D(14, 12, 'cwp_kronenarchiv_hauptpresse', [60, 14]), D(6, 12, 'cwp_setzergasse_papierballen', [28, 12]), D(20, 6, 'cwp_setzergasse_setzkasten', [28, 12])],
+  cw_alte_setzerei: [D(6, 13, 'cwp_setzergasse_druckerpresse', [28, 12]), D(26, 13, 'cwp_setzergasse_druckerpresse', [28, 12]), D(16, 13, 'cwp_setzergasse_setzkasten', [28, 12]), D(36, 13, 'cwp_setzergasse_setzkasten', [28, 12]),
+    D(16, 21, 'cwp_setzergasse_papierballen', [28, 12]), D(36, 21, 'cwp_setzergasse_papierballen', [28, 12]), D(6, 21, 'cwp_setzergasse_brotdose')],
+  cw_sortiergrube: [D(6, 13, 'cwp_roehrenhof_rohrpost', [10, 8]), D(16, 21, 'cwp_roehrenhof_rohrpost', [10, 8]), D(26, 13, 'cwp_roehrenhof_rohrpost', [10, 8]), D(36, 21, 'cwp_roehrenhof_rohrpost', [10, 8]),
+    D(16, 13, 'cwp_roehrenhof_warenbahn', [28, 12]), D(36, 13, 'cwp_roehrenhof_warenbahn', [28, 12]), D(26, 21, 'cwp_roehrenhof_stempelhand', [28, 12]), D(45, 13, 'cwp_roehrenhof_sichtfenster')],
+  cw_nullfundament: [D(26, 13, 'cwp_kronenarchiv_hauptpresse', [60, 14]), D(6, 13, 'cwp_buchbinderei_kiste', [20, 10]), D(36, 21, 'cwp_buchbinderei_kiste', [20, 10]), D(16, 13, 'cwp_buchbinderei_fallwand')],
+};
+/** Schienen am Gleisfuß: waagrecht durch die untere Halle, Prellböcke an beiden Enden; die Güterwaggons stehen darauf. */
+const CW_RAILS = { cw_gleisfuss: { y: 20, from: 12, to: 31 } };
+function cwDecor(m) {
+  const taken = new Set([...(m.interactables ?? []).map((i) => i.tile.join(',')), ...(m.npcs ?? []).map((n) => n.tile.join(',')), ...Object.values(m.spawns ?? {}).map((t) => t.join(','))]);
+  const out = (CW_DECOR[m.id] ?? []).map(({ x, y, sprite, solid }) => {
+    if (!WALK.has(m.rows[y]?.[x])) throw new Error(`${m.id}: Deko ${sprite} auf ${x},${y} steht nicht auf Boden`);
+    if (taken.has(`${x},${y}`)) throw new Error(`${m.id}: Deko ${sprite} auf ${x},${y} kollidiert mit Figur oder Objekt`);
+    return { tile: [x, y], sprite, origin: [0.5, 1], offset: [0, 8], alpha: 1, ysort: true, ...(solid ? { solid } : {}) };
+  });
+  const rails = CW_RAILS[m.id];
+  if (rails) {
+    for (let x = rails.from; x <= rails.to; x++) out.unshift({ tile: [x, rails.y], sprite: 'cwt_gleis', frame: 0, alpha: 1, depth: 40 });
+    for (const x of [rails.from - 1, rails.to + 1]) out.unshift({ tile: [x, rails.y], sprite: 'cwt_gleis', frame: 8, alpha: 1, depth: 40, flip: x > rails.to });
+  }
+  return out;
 }
 
 // --- Kapitel 4 (CD): Streifen aus verknuepfungen.md, Elitechance aus BH, Stadtkarte, Zonenbindung -------------
@@ -28,20 +80,32 @@ for (const pack of PACKS) {
     reise_landstrasse: [['vg_all_wegelagerer', [10, 13]], ['vg_all_nebelkraehe', [30, 20]], ['vg_all_fuhrmannsschatten', [26, 10]], ['vg_all_zollhund', [34, 5]], ['vg_all_kutschengeist', [14, 20]]],
   };
   for (const m of maps) {
+    // CE1 (calderwick1): eigenes Thema je Ort und Deko aus den Props-Blättern; die Landstraße behält ihr Gefahrengebiets-Blatt
+    if (CW_MAP_THEMES[m.id]) m.tiles = CW_MAP_THEMES[m.id];
+    m.decor = cwDecor(m);
     const own = STREIFEN[m.id];
     if (!own) continue;
     m.elite_chance = 0.12;
     m.roamers = own.map(([encounter, tile], i) => ({ id: `${m.id}_streife_${i + 1}`, encounter, tile: nearestFloor(m, tile) }));
   }
   write(file('k4_orte', 'maps'), maps);
+  // CE2: gemalte Stadtkarte mit Nebel (Pins auf ui/cw_karte.png gemessen: sechs Terrassen von unten nach oben, Gefahrengebiete an den Hängen)
   write(file('k4_orte', 'city'), {
     id: 'calderwick',
     title: 'Stadtkarte von Calderwick',
+    map_image: 'ui/cw_karte.png',
+    fog_image: 'ui/cw_karte_nebel.png',
     pins: {
-      cw_gleisfuss: [75, 230], cw_setzergasse: [145, 195], cw_quittungsmarkt: [220, 160], cw_roehrenhof: [285, 125], cw_witwenterrasse: [350, 90], cw_kronenarchiv: [410, 50],
-      cw_alte_setzerei: [110, 150], cw_sortiergrube: [250, 215], cw_nullfundament: [440, 115],
+      cw_gleisfuss: [240, 242], cw_setzergasse: [150, 200], cw_quittungsmarkt: [240, 160], cw_roehrenhof: [330, 120], cw_witwenterrasse: [150, 82], cw_kronenarchiv: [240, 40],
+      cw_alte_setzerei: [40, 150], cw_sortiergrube: [440, 195], cw_nullfundament: [40, 255],
     },
   });
+  // CE2: Szenenbilder an den Gesprächsknoten der Akte (Ankunft im Aufzug, Noels zwei Teller, Ida in der Sortierkabine)
+  const dlg = read(file('k4_akte', 'dialogues'));
+  dlg.cwa_ankunft.nodes.cwa_ankunft_zone.scene = 'cw_aufzug';
+  dlg.cwa_12_dialog.nodes.cwa_12_start.scene = 'cw_zwei_teller';
+  dlg.cwa_24_dialog.nodes.cwa_24_schluss.scene = 'cw_sortierkabine';
+  write(file('k4_akte', 'dialogues'), dlg);
   write(file('k4_orte', 'zonen_bindung'), {
     cw_alte_setzerei: { quelle: 'vg_zone_cw_setzerei', gegner: ['vg_cw_letternlaeufer', 'vg_cw_stempelhand', 'vg_cw_registerratte'], bosse: ['vg_cw_boss_bleisammler', 'vg_cw_boss_bleisammler_phase2'] },
     cw_sortiergrube: { quelle: 'vg_zone_cw_sortiergrube', gegner: ['vg_cw_rohrpostwespe', 'vg_cw_durchschlag', 'vg_cw_leerfracht'], bosse: ['vg_cw_boss_blinder_zusteller', 'vg_cw_boss_blinder_zusteller_phase2'] },
@@ -260,3 +324,29 @@ function nearestFloor(m, [x, y]) {
   throw new Error(`${m.id}: kein Boden nahe ${x},${y}`);
 }
 console.log('Runde 8 synchronisiert:', PACKS.join(', '));
+
+// --- CN (kg_leben): Kettlegate lebt – Einbauvertrag aus docs/story/kg_leben/offene_punkte.md -------------------------
+{
+  // Stände: Bild aus props/kgl_staende.png, bei Fahndung ab Stufe 2 nur „geschlossen“; der Kastanienröster nur im Herbst und Winter
+  const STAND = { kgl_s_kastanien: 'kgl_kastanien', kgl_s_zeitung: 'kgl_zeitung', kgl_s_heisswasser: 'kgl_heisswasser', kgl_s_streichholz: 'kgl_streichholz', kgl_s_drehorgel: 'kgl_drehorgel',
+    kgl_s_schleifer: 'kgl_schleifer', kgl_s_austern: 'kgl_austern', kgl_s_oel: 'kgl_oel' };
+  // Ereignisse: je Kartenbesuch eine Chance von 10 %, begonnene bleiben; drei zeigen ihr Bild (umgestürzte Droschke, Schornsteinbrand, Kreidekreis)
+  const EV_BILD = { kgl_ev_droschke: 'kgl_droschke_umgestuerzt', kgl_ev_brand: 'kgl_schornsteinbrand', kgl_ev_kreide: 'kgl_kreidekreis' };
+  const plats = read(file('kg_leben', 'platzierung')).map((p) => {
+    const { tile, ...i } = p.interactable; // CN schreibt das Feld ins Objekt, das Questpack-Format erwartet es daneben
+    if (STAND[i.id]) {
+      i.stand = STAND[i.id];
+      i.fahndung = { min: 2, node: 'kgl_geschlossen' };
+      if (i.id === 'kgl_s_kastanien') i.visible_if = { ...(i.visible_if ?? {}), requires_season: ['herbst', 'winter'] };
+    }
+    if (/^kgl_ev_\w+$/.test(i.id) && !i.id.includes('hinweis')) {
+      i.visit_chance = 0.1;
+      i.visit_started = `${i.id}_start`;
+      if (EV_BILD[i.id]) i.stand = EV_BILD[i.id];
+    }
+    return { ...p, tile: p.tile ?? tile, interactable: i };
+  });
+  write(file('kg_leben', 'platzierung'), plats);
+  // Einwohner weichen bei Fahndung ab Stufe 2 aus (Knoten kgl_fahndung in jedem Gespräch)
+  write(file('kg_leben', 'einwohner'), read(file('kg_leben', 'einwohner')).map((e) => ({ ...e, fahndung: { min: 2, node: 'kgl_fahndung' } })));
+}

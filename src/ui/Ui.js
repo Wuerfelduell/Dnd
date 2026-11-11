@@ -875,7 +875,7 @@ export class Ui {
       const ch = this.pendingChapter;
       this.pendingChapter = null;
       // Paket AE: Kapitelkarte (Ende von Kapitel 1 kündigt Kapitel 2 an, sonst die Schlusskarte)
-      const card = ch.scene ?? (/Kapitel 1\b/.test(ch.title) ? 'kapitel2_karte' : /Kapitel 2\b/.test(ch.title) ? 'kapitel3_karte' : /Kapitel 4\b/.test(ch.title) ? 'kapitel5_karte' : 'kapitel_ende');
+      const card = ch.scene ?? (/Kapitel 1\b/.test(ch.title) ? 'kapitel2_karte' : /Kapitel 2\b/.test(ch.title) ? 'kapitel3_karte' : /Kapitel 3\b/.test(ch.title) ? 'kapitel4_karte' : /Kapitel 4\b/.test(ch.title) ? 'kapitel5_karte' : 'kapitel_ende');
       this.showMessage(ch.title, ch.text, { footer: ch.footer ?? '', scene: card });
       this.layer.querySelector('.panel.message')?.classList.add('chapterbook'); // Grundpaket: aufgeschlagenes Notizbuch (07_02)
     } else if (this.pendingLost) {
@@ -1024,7 +1024,7 @@ export class Ui {
     const tree = this.state.content.dialogues[npc.dialogue];
     if (!tree) throw new Error(`Dialog fehlt: ${npc.dialogue}`);
     this.dialogue = { npc, tree, onClose, greeted: false };
-    this.showNode(this.state.pick(tree.start));
+    this.showNode(npc.start ?? this.state.pick(tree.start)); // CN: `start` erzwingt einen Knoten (Fahndung)
   }
 
   showNode(nodeId) {
