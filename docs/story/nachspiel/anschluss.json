@@ -1,0 +1,333 @@
+{
+  "id": "np_anschluss",
+  "start": {
+    "requires_flags": [
+      "k6_done"
+    ],
+    "ende_gruppen": {
+      "kettlegate": {
+        "type": "gespeicherte_ending_id",
+        "values": [
+          "c9_perfect",
+          "c9_good",
+          "c9_early",
+          "c9_vey"
+        ]
+      },
+      "wexmoor": {
+        "type": "exakt_ein_flag",
+        "values": [
+          "k2_end_rein",
+          "k2_end_moor",
+          "k2_end_lichtmeister",
+          "k2_end_meer"
+        ],
+        "ending_ids": [
+          "k2_rein",
+          "k2_moor",
+          "k2_lichtmeister",
+          "k2_meer"
+        ]
+      },
+      "dunscar": {
+        "type": "exakt_ein_flag",
+        "values": [
+          "k3a_end_feierabend",
+          "k3a_end_stilllegung",
+          "k3a_end_gegenstimme",
+          "k3a_end_vollzaehlig"
+        ],
+        "ending_ids": [
+          "k3_feierabend",
+          "k3_stilllegung",
+          "k3_gegenstimme",
+          "k3_vollzaehlig"
+        ]
+      },
+      "calderwick": {
+        "type": "exakt_ein_flag",
+        "values": [
+          "cwa_end_widerspruch",
+          "cwa_end_amtsinhaber",
+          "cwa_end_buecher",
+          "cwa_end_ordnung"
+        ],
+        "ending_ids": [
+          "cwa_widerspruch",
+          "cwa_amtsinhaber",
+          "cwa_buecher",
+          "cwa_ordnung"
+        ]
+      },
+      "briarholt": {
+        "type": "exakt_ein_flag",
+        "values": [
+          "bha_end_wahl",
+          "bha_end_winter",
+          "bha_end_verwahrt",
+          "bha_end_schmerzlos"
+        ],
+        "ending_ids": [
+          "bha_wahl",
+          "bha_winter",
+          "bha_verwahrt",
+          "bha_schmerzlos"
+        ]
+      },
+      "varrowmouth": {
+        "type": "exakt_ein_flag",
+        "values": [
+          "k6_ende_schliessen",
+          "k6_ende_verbrennen",
+          "k6_ende_uebergeben",
+          "k6_ende_teilen"
+        ],
+        "ending_ids": [
+          "k6_ende_schliessen",
+          "k6_ende_verbrennen",
+          "k6_ende_uebergeben",
+          "k6_ende_teilen"
+        ]
+      }
+    },
+    "ungueltige_enden": "abbruch_mit_diagnose_keine_stillschweigende_prioritaet"
+  },
+  "zustandsregeln": [
+    {
+      "id": "np_regel_kettlegate_fahndung_beendet",
+      "city": "kettlegate",
+      "state": "nachspiel_kettlegate_fahndung_beendet",
+      "priority": 20,
+      "requires_flags": [
+        "np_fahndung_aufgehoben"
+      ],
+      "any_flags": [],
+      "hide_if_flags": []
+    },
+    {
+      "id": "np_regel_kettlegate_fahndung_offen",
+      "city": "kettlegate",
+      "state": "nachspiel_kettlegate_fahndung_offen",
+      "priority": 10,
+      "requires_flags": [],
+      "any_flags": [],
+      "hide_if_flags": [
+        "np_fahndung_aufgehoben"
+      ]
+    },
+    {
+      "id": "np_regel_wexmoor_gilde_zerschlagen",
+      "city": "wexmoor",
+      "state": "nachspiel_wexmoor_gilde_zerschlagen",
+      "priority": 30,
+      "requires_flags": [
+        "np_gilde_zerschlagen"
+      ],
+      "any_flags": [],
+      "hide_if_flags": []
+    },
+    {
+      "id": "np_regel_wexmoor_gilde_offen",
+      "city": "wexmoor",
+      "state": "nachspiel_wexmoor_gilde_offen",
+      "priority": 20,
+      "requires_flags": [
+        "treffen_namensgilde"
+      ],
+      "any_flags": [],
+      "hide_if_flags": [
+        "np_gilde_zerschlagen"
+      ]
+    },
+    {
+      "id": "np_regel_wexmoor_gilde_verborgen",
+      "city": "wexmoor",
+      "state": "nachspiel_wexmoor_gilde_verborgen",
+      "priority": 10,
+      "requires_flags": [],
+      "any_flags": [],
+      "hide_if_flags": [
+        "np_gilde_zerschlagen",
+        "treffen_namensgilde"
+      ]
+    },
+    {
+      "id": "np_regel_dunscar_zug_faehrt",
+      "city": "dunscar",
+      "state": "nachspiel_dunscar_zug_faehrt",
+      "priority": 10,
+      "requires_flags": [],
+      "any_flags": [
+        "k3a_end_feierabend",
+        "k3a_end_gegenstimme"
+      ],
+      "hide_if_flags": []
+    },
+    {
+      "id": "np_regel_dunscar_endbahnhof_bleibt",
+      "city": "dunscar",
+      "state": "nachspiel_dunscar_endbahnhof_bleibt",
+      "priority": 10,
+      "requires_flags": [],
+      "any_flags": [
+        "k3a_end_stilllegung",
+        "k3a_end_vollzaehlig"
+      ],
+      "hide_if_flags": []
+    },
+    {
+      "id": "np_regel_calderwick_geraeumt",
+      "city": "calderwick",
+      "state": "nachspiel_calderwick_geraeumt",
+      "priority": 30,
+      "requires_flags": [
+        "cwa_end_buecher"
+      ],
+      "any_flags": [],
+      "hide_if_flags": []
+    },
+    {
+      "id": "np_regel_calderwick_unterschrift_zurueck",
+      "city": "calderwick",
+      "state": "nachspiel_calderwick_unterschrift_zurueck",
+      "priority": 10,
+      "requires_flags": [
+        "cwa_end_widerspruch"
+      ],
+      "any_flags": [],
+      "hide_if_flags": []
+    },
+    {
+      "id": "np_regel_calderwick_unterschrift_fehlt",
+      "city": "calderwick",
+      "state": "nachspiel_calderwick_unterschrift_fehlt",
+      "priority": 10,
+      "requires_flags": [],
+      "any_flags": [
+        "cwa_end_amtsinhaber",
+        "cwa_end_ordnung"
+      ],
+      "hide_if_flags": []
+    },
+    {
+      "id": "np_regel_briarholt_warm",
+      "city": "briarholt",
+      "state": "nachspiel_briarholt_warm",
+      "priority": 10,
+      "requires_flags": [
+        "bha_ventil_hof_offen"
+      ],
+      "any_flags": [],
+      "hide_if_flags": [
+        "bha_end_winter"
+      ]
+    },
+    {
+      "id": "np_regel_briarholt_kalt",
+      "city": "briarholt",
+      "state": "nachspiel_briarholt_kalt",
+      "priority": 20,
+      "requires_flags": [],
+      "any_flags": [],
+      "hide_if_flags": [],
+      "alternativen": [
+        {
+          "requires_flags": [
+            "bha_end_winter"
+          ]
+        },
+        {
+          "hide_if_flags": [
+            "bha_ventil_hof_offen"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "np_regel_varrowmouth_schliessen",
+      "city": "varrowmouth",
+      "state": "nachspiel_varrowmouth_schliessen",
+      "priority": 10,
+      "requires_flags": [
+        "k6_ende_schliessen"
+      ],
+      "any_flags": [],
+      "hide_if_flags": []
+    },
+    {
+      "id": "np_regel_varrowmouth_verbrennen",
+      "city": "varrowmouth",
+      "state": "nachspiel_varrowmouth_verbrennen",
+      "priority": 10,
+      "requires_flags": [
+        "k6_ende_verbrennen"
+      ],
+      "any_flags": [],
+      "hide_if_flags": []
+    },
+    {
+      "id": "np_regel_varrowmouth_uebergeben",
+      "city": "varrowmouth",
+      "state": "nachspiel_varrowmouth_uebergeben",
+      "priority": 10,
+      "requires_flags": [
+        "k6_ende_uebergeben"
+      ],
+      "any_flags": [],
+      "hide_if_flags": []
+    },
+    {
+      "id": "np_regel_varrowmouth_teilen",
+      "city": "varrowmouth",
+      "state": "nachspiel_varrowmouth_teilen",
+      "priority": 10,
+      "requires_flags": [
+        "k6_ende_teilen"
+      ],
+      "any_flags": [],
+      "hide_if_flags": []
+    }
+  ],
+  "eigene_flags": [
+    {
+      "id": "np_fahndung_aufgehoben",
+      "producer": "np_ruecknahme_abgeschlossen",
+      "migration": "nur_mit_belegter_amtlicher_ruecknahme_nie_aus_k2_price_done"
+    },
+    {
+      "id": "np_gilde_zerschlagen",
+      "producer": "einbau_adapter_nach_belegtem_quellereignis",
+      "migration": "standard_false_nicht_aus_fehlender_mitgliedschaft_ableiten"
+    }
+  ],
+  "seq1": {
+    "freigabe_enden": [
+      "k6_ende_schliessen",
+      "k6_ende_uebergeben"
+    ],
+    "gesperrte_enden": [
+      "k6_ende_verbrennen",
+      "k6_ende_teilen"
+    ],
+    "pruefung": "dd_ritualbedingungen_und_persoenlicher_verzicht_bleiben",
+    "quelle": "docs/story/seq31/register_seq1.json",
+    "reaktionen": "docs/story/seq31/reaktionen.json"
+  },
+  "systeme": [
+    {
+      "id": "np_auktion_weiter",
+      "source": "docs/story/fahrende_auktion/",
+      "regel": "kalender_gebote_bestand_und_einmalige_kaeufe_beibehalten_evakuierte_staedte_am_sicheren_halt"
+    },
+    {
+      "id": "np_benannte_weiter",
+      "source": "docs/story/benannte_gegner/gegner.json",
+      "regel": "sichtungs_und_siegflags_beibehalten_kein_respawn_einmaliger_gegner_gezeiten_vor_spawn_pruefen"
+    },
+    {
+      "id": "np_haus_abschluss",
+      "source": "docs/story/eigenes_haus/haus.json",
+      "regel": "schlafaktion_mit_expliziter_bestaetigung_hausbesitz_nicht_voraussetzen_kauf_nachholbar"
+    }
+  ]
+}

@@ -1,0 +1,3616 @@
+{
+  "gespraeche": [
+    {
+      "id": "np_gespraech_marlowe",
+      "city": "kettlegate",
+      "kind": "haupt",
+      "npc": "marlowe",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "start",
+      "nodes": {
+        "start": {
+          "speaker": "marlowe",
+          "text": "Sie sind also durch die Vordertür gekommen.",
+          "next": "zustand"
+        },
+        "zustand": {
+          "speaker": "marlowe",
+          "text_by_state": {
+            "nachspiel_kettlegate_fahndung_offen": "Hier hat sich etwas geändert. Der Steckbrief hat schon drei Wintermäntel überlebt.",
+            "nachspiel_kettlegate_fahndung_beendet": "Hier hat sich etwas geändert. Das leere Rechteck fällt mehr auf als das Gesicht."
+          },
+          "next": "ende"
+        },
+        "ende": {
+          "speaker": "marlowe",
+          "text_by_ending": {
+            "c9_perfect": "Die drei Stunden von damals sind in keinem Dienstplan vermerkt.",
+            "c9_good": "Der Weg durch den Kraterwald steht weiterhin in den Berichten.",
+            "c9_early": "Die unvollständigen Belege von damals werden durch Ihre Rückkehr nicht vollständig.",
+            "c9_vey": "Der Brief auf Ihrer Fahrkarte gehört mit zu dieser Geschichte."
+          },
+          "next": "thema_1"
+        },
+        "thema_1": {
+          "speaker": "marlowe",
+          "text": "Ich habe Ihre alte Mappe behalten.",
+          "next": "thema_2"
+        },
+        "thema_2": {
+          "speaker": "marlowe",
+          "text": "Nicht aus Sentimentalität. Es fehlten Rückfragen.",
+          "next": "thema_3"
+        },
+        "thema_3": {
+          "speaker": "marlowe",
+          "text": "Starlings Briefe sind dünnes Papier. Ihre Folgen sind schwerer.",
+          "next": "thema_4"
+        },
+        "thema_4": {
+          "speaker": "marlowe",
+          "text": "Eine Reise macht die Schrift nicht lesbarer.",
+          "next": "thema_5"
+        },
+        "thema_5": {
+          "speaker": "marlowe",
+          "text": "Wir können heute die Zustellungen vergleichen.",
+          "next": "thema_6"
+        },
+        "thema_6": {
+          "speaker": "marlowe",
+          "text": "Oder Sie erzählen mir, wer die Abschriften gesehen hat.",
+          "next": "wahl"
+        },
+        "wahl": {
+          "speaker": "marlowe",
+          "text": "Beides gehört ordentlich aufgenommen.",
+          "choices": [
+            {
+              "text": "Ich helfe bei der Arbeit.",
+              "next": "arbeit"
+            },
+            {
+              "text": "Ich bleibe für das Gespräch.",
+              "next": "gespraech"
+            }
+          ]
+        },
+        "arbeit": {
+          "speaker": "marlowe",
+          "text": "Dann beginnen wir mit dem Datum.",
+          "next": "schluss"
+        },
+        "gespraech": {
+          "speaker": "marlowe",
+          "text": "Dann schreiben wir die Zeugen einzeln auf.",
+          "next": "schluss"
+        },
+        "schluss": {
+          "speaker": "marlowe",
+          "text": "Lassen Sie die Mappe offen. Ich bin noch im Dienst."
+        }
+      },
+      "abwesenheit": {
+        "modus": "schriftliche_rueckschau_ohne_gegenwartsbehauptung",
+        "text": "Du liest die aufbewahrten Worte. Die Person ist heute nicht hier. Du erhältst daraus keine Zustimmung und keine Belohnung."
+      }
+    },
+    {
+      "id": "np_gespraech_kit",
+      "city": "kettlegate",
+      "kind": "haupt",
+      "npc": "kit",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "start",
+      "nodes": {
+        "start": {
+          "speaker": "kit",
+          "text": "Sie haben diesmal eine richtige Fahrkarte.",
+          "next": "zustand"
+        },
+        "zustand": {
+          "speaker": "kit",
+          "text_by_state": {
+            "nachspiel_kettlegate_fahndung_offen": "Hier hat sich etwas geändert. Der Steckbrief hat schon drei Wintermäntel überlebt.",
+            "nachspiel_kettlegate_fahndung_beendet": "Hier hat sich etwas geändert. Das leere Rechteck fällt mehr auf als das Gesicht."
+          },
+          "next": "ende"
+        },
+        "ende": {
+          "speaker": "kit",
+          "text_by_ending": {
+            "c9_perfect": "Die drei Stunden von damals sind in keinem Dienstplan vermerkt.",
+            "c9_good": "Der Weg durch den Kraterwald steht weiterhin in den Berichten.",
+            "c9_early": "Die unvollständigen Belege von damals werden durch Ihre Rückkehr nicht vollständig.",
+            "c9_vey": "Der Brief auf Ihrer Fahrkarte gehört mit zu dieser Geschichte."
+          },
+          "next": "thema_1"
+        },
+        "thema_1": {
+          "speaker": "kit",
+          "text": "Den Kanal kenne ich immer noch.",
+          "next": "thema_2"
+        },
+        "thema_2": {
+          "speaker": "kit",
+          "text": "Aber ich verkaufe jetzt auch Fahrten bei Tageslicht.",
+          "next": "thema_3"
+        },
+        "thema_3": {
+          "speaker": "kit",
+          "text": "Die Plane ist geflickt. Man sieht die Naht.",
+          "next": "thema_4"
+        },
+        "thema_4": {
+          "speaker": "kit",
+          "text": "Ein Mann wollte dafür weniger bezahlen.",
+          "next": "thema_5"
+        },
+        "thema_5": {
+          "speaker": "kit",
+          "text": "Ich sagte, gerade die Naht hält.",
+          "next": "thema_6"
+        },
+        "thema_6": {
+          "speaker": "kit",
+          "text": "Sie können mir die neue Strecke aufzeichnen.",
+          "next": "wahl"
+        },
+        "wahl": {
+          "speaker": "kit",
+          "text": "Oder Sie helfen beim Festmachen.",
+          "choices": [
+            {
+              "text": "Ich helfe bei der Arbeit.",
+              "next": "arbeit"
+            },
+            {
+              "text": "Ich bleibe für das Gespräch.",
+              "next": "gespraech"
+            }
+          ]
+        },
+        "arbeit": {
+          "speaker": "kit",
+          "text": "Zeigen Sie mir zuerst den letzten Halt.",
+          "next": "schluss"
+        },
+        "gespraech": {
+          "speaker": "kit",
+          "text": "Nehmen Sie das trockene Ende der Leine.",
+          "next": "schluss"
+        },
+        "schluss": {
+          "speaker": "kit",
+          "text": "Gut. Jetzt kann der Kahn liegen bleiben."
+        }
+      },
+      "abwesenheit": {
+        "modus": "schriftliche_rueckschau_ohne_gegenwartsbehauptung",
+        "text": "Du liest die aufbewahrten Worte. Die Person ist heute nicht hier. Du erhältst daraus keine Zustimmung und keine Belohnung."
+      }
+    },
+    {
+      "id": "np_gespraech_waescherin",
+      "city": "kettlegate",
+      "kind": "haupt",
+      "npc": "waescherin",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "start",
+      "nodes": {
+        "start": {
+          "speaker": "waescherin",
+          "text": "Sie stellen den Koffer bitte nicht auf die saubere Wäsche.",
+          "next": "zustand"
+        },
+        "zustand": {
+          "speaker": "waescherin",
+          "text_by_state": {
+            "nachspiel_kettlegate_fahndung_offen": "Hier hat sich etwas geändert. Der Steckbrief hat schon drei Wintermäntel überlebt.",
+            "nachspiel_kettlegate_fahndung_beendet": "Hier hat sich etwas geändert. Das leere Rechteck fällt mehr auf als das Gesicht."
+          },
+          "next": "ende"
+        },
+        "ende": {
+          "speaker": "waescherin",
+          "text_by_ending": {
+            "c9_perfect": "Die drei Stunden von damals sind in keinem Dienstplan vermerkt.",
+            "c9_good": "Der Weg durch den Kraterwald steht weiterhin in den Berichten.",
+            "c9_early": "Die unvollständigen Belege von damals werden durch Ihre Rückkehr nicht vollständig.",
+            "c9_vey": "Der Brief auf Ihrer Fahrkarte gehört mit zu dieser Geschichte."
+          },
+          "next": "thema_1"
+        },
+        "thema_1": {
+          "speaker": "waescherin",
+          "text": "Das Hemd von damals ist längst gewaschen.",
+          "next": "thema_2"
+        },
+        "thema_2": {
+          "speaker": "waescherin",
+          "text": "Was daran hing, ließ sich nicht alles ausspülen.",
+          "next": "thema_3"
+        },
+        "thema_3": {
+          "speaker": "waescherin",
+          "text": "Ich führe jetzt ein eigenes Annahmebuch.",
+          "next": "thema_4"
+        },
+        "thema_4": {
+          "speaker": "waescherin",
+          "text": "Ein Name, ein Bündel, eine Rückgabe.",
+          "next": "thema_5"
+        },
+        "thema_5": {
+          "speaker": "waescherin",
+          "text": "Das klingt nach wenig Arbeit, bis jemand den Namen ändern will.",
+          "next": "thema_6"
+        },
+        "thema_6": {
+          "speaker": "waescherin",
+          "text": "Sie könnten die letzte Quittung gegenlesen.",
+          "next": "wahl"
+        },
+        "wahl": {
+          "speaker": "waescherin",
+          "text": "Oder bleiben, bis der Kessel warm ist.",
+          "choices": [
+            {
+              "text": "Ich helfe bei der Arbeit.",
+              "next": "arbeit"
+            },
+            {
+              "text": "Ich bleibe für das Gespräch.",
+              "next": "gespraech"
+            }
+          ]
+        },
+        "arbeit": {
+          "speaker": "waescherin",
+          "text": "Die Handschrift rechts ist meine. Prüfen Sie die linke.",
+          "next": "schluss"
+        },
+        "gespraech": {
+          "speaker": "waescherin",
+          "text": "Der zweite Becher steht unter dem Tuch.",
+          "next": "schluss"
+        },
+        "schluss": {
+          "speaker": "waescherin",
+          "text": "Heute darf etwas einfach trocken werden."
+        }
+      },
+      "abwesenheit": {
+        "modus": "schriftliche_rueckschau_ohne_gegenwartsbehauptung",
+        "text": "Du liest die aufbewahrten Worte. Die Person ist heute nicht hier. Du erhältst daraus keine Zustimmung und keine Belohnung."
+      }
+    },
+    {
+      "id": "np_gespraech_zunder",
+      "city": "wexmoor",
+      "kind": "haupt",
+      "npc": "zunder",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "start",
+      "nodes": {
+        "start": {
+          "speaker": "zunder",
+          "text": "Sie riechen nach Bahnrauch. Das ist eine Verbesserung.",
+          "next": "zustand"
+        },
+        "zustand": {
+          "speaker": "zunder",
+          "text_by_state": {
+            "nachspiel_wexmoor_gilde_offen": "Hier hat sich etwas geändert. Die Gilde nimmt Abschriften, keine geratenen Namen.",
+            "nachspiel_wexmoor_gilde_verborgen": "Hier hat sich etwas geändert. Die Tür ist nicht verschwunden, nur die Einladung fehlt.",
+            "nachspiel_wexmoor_gilde_zerschlagen": "Hier hat sich etwas geändert. Den Schrein öffnet heute niemand."
+          },
+          "next": "ende"
+        },
+        "ende": {
+          "speaker": "zunder",
+          "text_by_ending": {
+            "k2_rein": "Brandts Festnahme hat die Rechnungen nicht von selbst geklärt.",
+            "k2_moor": "Der dunkle Turm macht den Stegbau dringlich.",
+            "k2_lichtmeister": "Ihr Name am Lichtamt entlastet Sie nicht von den nächsten Entscheidungen.",
+            "k2_meer": "Sie sind entkommen; das alte Lichtamt ist dadurch nicht verschwunden."
+          },
+          "next": "thema_1"
+        },
+        "thema_1": {
+          "speaker": "zunder",
+          "text": "Die Schmuggelkiste ist nicht größer geworden.",
+          "next": "thema_2"
+        },
+        "thema_2": {
+          "speaker": "zunder",
+          "text": "Die Geschichten darin leider schon.",
+          "next": "thema_3"
+        },
+        "thema_3": {
+          "speaker": "zunder",
+          "text": "Ich sortiere nach Gewicht, nicht nach Heldentat.",
+          "next": "thema_4"
+        },
+        "thema_4": {
+          "speaker": "zunder",
+          "text": "Manches kam zurück, ohne bestellt zu sein.",
+          "next": "thema_5"
+        },
+        "thema_5": {
+          "speaker": "zunder",
+          "text": "Das legen wir nicht wieder ungefragt in fremde Taschen.",
+          "next": "thema_6"
+        },
+        "thema_6": {
+          "speaker": "zunder",
+          "text": "Sie können die Rücksendungen prüfen.",
+          "next": "wahl"
+        },
+        "wahl": {
+          "speaker": "zunder",
+          "text": "Oder mir von einem ehrlichen Schalter erzählen.",
+          "choices": [
+            {
+              "text": "Ich helfe bei der Arbeit.",
+              "next": "arbeit"
+            },
+            {
+              "text": "Ich bleibe für das Gespräch.",
+              "next": "gespraech"
+            }
+          ]
+        },
+        "arbeit": {
+          "speaker": "zunder",
+          "text": "Fangen Sie mit der Kiste ohne Adresse an.",
+          "next": "schluss"
+        },
+        "gespraech": {
+          "speaker": "zunder",
+          "text": "Langsam. So etwas möchte ich mir merken.",
+          "next": "schluss"
+        },
+        "schluss": {
+          "speaker": "zunder",
+          "text": "Und lassen Sie den Deckel nicht ins Wasser fallen."
+        }
+      },
+      "abwesenheit": {
+        "modus": "schriftliche_rueckschau_ohne_gegenwartsbehauptung",
+        "text": "Du liest die aufbewahrten Worte. Die Person ist heute nicht hier. Du erhältst daraus keine Zustimmung und keine Belohnung."
+      }
+    },
+    {
+      "id": "np_gespraech_sedge",
+      "city": "wexmoor",
+      "kind": "haupt",
+      "npc": "sedge",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "start",
+      "nodes": {
+        "start": {
+          "speaker": "sedge",
+          "text": "Sie haben Ihre Schuhe vor der Schwelle abgewischt.",
+          "next": "zustand"
+        },
+        "zustand": {
+          "speaker": "sedge",
+          "text_by_state": {
+            "nachspiel_wexmoor_gilde_offen": "Hier hat sich etwas geändert. Die Gilde nimmt Abschriften, keine geratenen Namen.",
+            "nachspiel_wexmoor_gilde_verborgen": "Hier hat sich etwas geändert. Die Tür ist nicht verschwunden, nur die Einladung fehlt.",
+            "nachspiel_wexmoor_gilde_zerschlagen": "Hier hat sich etwas geändert. Den Schrein öffnet heute niemand."
+          },
+          "next": "ende"
+        },
+        "ende": {
+          "speaker": "sedge",
+          "text_by_ending": {
+            "k2_rein": "Brandts Festnahme hat die Rechnungen nicht von selbst geklärt.",
+            "k2_moor": "Der dunkle Turm macht den Stegbau dringlich.",
+            "k2_lichtmeister": "Ihr Name am Lichtamt entlastet Sie nicht von den nächsten Entscheidungen.",
+            "k2_meer": "Sie sind entkommen; das alte Lichtamt ist dadurch nicht verschwunden."
+          },
+          "next": "thema_1"
+        },
+        "thema_1": {
+          "speaker": "sedge",
+          "text": "Die alten Namen stehen nicht von selbst wieder im Holz.",
+          "next": "thema_2"
+        },
+        "thema_2": {
+          "speaker": "sedge",
+          "text": "Manche Angehörige wollen eine neue Tafel.",
+          "next": "thema_3"
+        },
+        "thema_3": {
+          "speaker": "sedge",
+          "text": "Andere behalten den leeren Halter.",
+          "next": "thema_4"
+        },
+        "thema_4": {
+          "speaker": "sedge",
+          "text": "Ich frage beide, bevor ich schnitze.",
+          "next": "thema_5"
+        },
+        "thema_5": {
+          "speaker": "sedge",
+          "text": "Was Sie am Meer entschieden haben, entscheidet nicht für sie.",
+          "next": "thema_6"
+        },
+        "thema_6": {
+          "speaker": "sedge",
+          "text": "Möchten Sie zuhören oder die Abschriften ordnen?",
+          "next": "wahl"
+        },
+        "wahl": {
+          "speaker": "sedge",
+          "text": "Die scharfen Werkzeuge bleiben bei mir.",
+          "choices": [
+            {
+              "text": "Ich helfe bei der Arbeit.",
+              "next": "arbeit"
+            },
+            {
+              "text": "Ich bleibe für das Gespräch.",
+              "next": "gespraech"
+            }
+          ]
+        },
+        "arbeit": {
+          "speaker": "sedge",
+          "text": "Dann legen Sie die Blätter nach Herkunft aus.",
+          "next": "schluss"
+        },
+        "gespraech": {
+          "speaker": "sedge",
+          "text": "Dann lassen wir zwischen den Antworten Platz.",
+          "next": "schluss"
+        },
+        "schluss": {
+          "speaker": "sedge",
+          "text": "Ein Name darf mehr Zeit brauchen als ein Besuch."
+        }
+      },
+      "abwesenheit": {
+        "modus": "schriftliche_rueckschau_ohne_gegenwartsbehauptung",
+        "text": "Du liest die aufbewahrten Worte. Die Person ist heute nicht hier. Du erhältst daraus keine Zustimmung und keine Belohnung."
+      }
+    },
+    {
+      "id": "np_gespraech_wyle",
+      "city": "wexmoor",
+      "kind": "haupt",
+      "npc": "wyle",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "start",
+      "nodes": {
+        "start": {
+          "speaker": "wyle",
+          "text": "Sie bringen hoffentlich eine Beobachtung mit.",
+          "next": "zustand"
+        },
+        "zustand": {
+          "speaker": "wyle",
+          "text_by_state": {
+            "nachspiel_wexmoor_gilde_offen": "Hier hat sich etwas geändert. Die Gilde nimmt Abschriften, keine geratenen Namen.",
+            "nachspiel_wexmoor_gilde_verborgen": "Hier hat sich etwas geändert. Die Tür ist nicht verschwunden, nur die Einladung fehlt.",
+            "nachspiel_wexmoor_gilde_zerschlagen": "Hier hat sich etwas geändert. Den Schrein öffnet heute niemand."
+          },
+          "next": "ende"
+        },
+        "ende": {
+          "speaker": "wyle",
+          "text_by_ending": {
+            "k2_rein": "Brandts Festnahme hat die Rechnungen nicht von selbst geklärt.",
+            "k2_moor": "Der dunkle Turm macht den Stegbau dringlich.",
+            "k2_lichtmeister": "Ihr Name am Lichtamt entlastet Sie nicht von den nächsten Entscheidungen.",
+            "k2_meer": "Sie sind entkommen; das alte Lichtamt ist dadurch nicht verschwunden."
+          },
+          "next": "thema_1"
+        },
+        "thema_1": {
+          "speaker": "wyle",
+          "text": "Die Sterne haben Ihre Rückfahrt nicht angekündigt.",
+          "next": "thema_2"
+        },
+        "thema_2": {
+          "speaker": "wyle",
+          "text": "Der Fahrplan war dabei genauer.",
+          "next": "thema_3"
+        },
+        "thema_3": {
+          "speaker": "wyle",
+          "text": "Ich habe einige meiner alten Berechnungen gestrichen.",
+          "next": "thema_4"
+        },
+        "thema_4": {
+          "speaker": "wyle",
+          "text": "Das Papier ist dadurch nicht wertlos geworden.",
+          "next": "thema_5"
+        },
+        "thema_5": {
+          "speaker": "wyle",
+          "text": "Es zeigt jetzt, an welcher Stelle ich mich irrte.",
+          "next": "thema_6"
+        },
+        "thema_6": {
+          "speaker": "wyle",
+          "text": "Wollen Sie den Randvermerk lesen?",
+          "next": "wahl"
+        },
+        "wahl": {
+          "speaker": "wyle",
+          "text": "Oder prüfen wir die Beobachtung gemeinsam?",
+          "choices": [
+            {
+              "text": "Ich helfe bei der Arbeit.",
+              "next": "arbeit"
+            },
+            {
+              "text": "Ich bleibe für das Gespräch.",
+              "next": "gespraech"
+            }
+          ]
+        },
+        "arbeit": {
+          "speaker": "wyle",
+          "text": "Der Strich bedeutet Irrtum, nicht Geheimschrift.",
+          "next": "schluss"
+        },
+        "gespraech": {
+          "speaker": "wyle",
+          "text": "Zuerst sagen Sie, was Sie tatsächlich gesehen haben.",
+          "next": "schluss"
+        },
+        "schluss": {
+          "speaker": "wyle",
+          "text": "Eine unsichere Antwort ist brauchbarer als ein geliehener Beweis."
+        }
+      },
+      "abwesenheit": {
+        "modus": "schriftliche_rueckschau_ohne_gegenwartsbehauptung",
+        "text": "Du liest die aufbewahrten Worte. Die Person ist heute nicht hier. Du erhältst daraus keine Zustimmung und keine Belohnung."
+      }
+    },
+    {
+      "id": "np_gespraech_k3_pfiff",
+      "city": "dunscar",
+      "kind": "haupt",
+      "npc": "k3_pfiff",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "start",
+      "nodes": {
+        "start": {
+          "speaker": "k3_pfiff",
+          "text": "Sie dürfen den Abschaltschlüssel ansehen. Nicht einstecken.",
+          "next": "zustand"
+        },
+        "zustand": {
+          "speaker": "k3_pfiff",
+          "text_by_state": {
+            "nachspiel_dunscar_zug_faehrt": "Hier hat sich etwas geändert. Die Küstenbahn fragt nach dem Ziel, nicht nach der Schicht.",
+            "nachspiel_dunscar_endbahnhof_bleibt": "Hier hat sich etwas geändert. Der alte Schalter bleibt geschlossen."
+          },
+          "next": "ende"
+        },
+        "ende": {
+          "speaker": "k3_pfiff",
+          "text_by_ending": {
+            "k3_feierabend": "Die verschiedenen Stimmen dürfen verschieden bleiben.",
+            "k3_stilllegung": "Die stillgelegte Anlage wird für eine Rückfahrt nicht wieder geöffnet.",
+            "k3_gegenstimme": "Ohne Ihre bewusste Zustimmung bleibt die örtliche Anlage aus.",
+            "k3_vollzaehlig": "Die Opferverwaltung bleibt Ihre Verantwortung; der neue Zug entschuldigt sie nicht."
+          },
+          "next": "thema_1"
+        },
+        "thema_1": {
+          "speaker": "k3_pfiff",
+          "text": "Er bleibt hier in Griffweite.",
+          "next": "thema_2"
+        },
+        "thema_2": {
+          "speaker": "k3_pfiff",
+          "text": "Die neue Bahn benutzt eine andere Leitung.",
+          "next": "thema_3"
+        },
+        "thema_3": {
+          "speaker": "k3_pfiff",
+          "text": "Das habe ich nicht dem Fahrmeister geglaubt.",
+          "next": "thema_4"
+        },
+        "thema_4": {
+          "speaker": "k3_pfiff",
+          "text": "Oren und ich sind die Kabel selbst abgegangen.",
+          "next": "thema_5"
+        },
+        "thema_5": {
+          "speaker": "k3_pfiff",
+          "text": "Unter einem Schild war noch die alte Klemme.",
+          "next": "thema_6"
+        },
+        "thema_6": {
+          "speaker": "k3_pfiff",
+          "text": "Wollen Sie das Prüfblatt lesen oder die Walze hören?",
+          "next": "wahl"
+        },
+        "wahl": {
+          "speaker": "k3_pfiff",
+          "text": "Für beides machen wir die Tür zu.",
+          "choices": [
+            {
+              "text": "Ich helfe bei der Arbeit.",
+              "next": "arbeit"
+            },
+            {
+              "text": "Ich bleibe für das Gespräch.",
+              "next": "gespraech"
+            }
+          ]
+        },
+        "arbeit": {
+          "speaker": "k3_pfiff",
+          "text": "Das Datum steht neben der Unterschrift.",
+          "next": "schluss"
+        },
+        "gespraech": {
+          "speaker": "k3_pfiff",
+          "text": "Die Walze darf nach ihrem eigenen Ende aufhören.",
+          "next": "schluss"
+        },
+        "schluss": {
+          "speaker": "k3_pfiff",
+          "text": "Danach trinken wir etwas, das nicht aus einer Leitung kommt."
+        }
+      },
+      "abwesenheit": {
+        "modus": "schriftliche_rueckschau_ohne_gegenwartsbehauptung",
+        "text": "Du liest die aufbewahrten Worte. Die Person ist heute nicht hier. Du erhältst daraus keine Zustimmung und keine Belohnung."
+      }
+    },
+    {
+      "id": "np_gespraech_k3_nellie",
+      "city": "dunscar",
+      "kind": "haupt",
+      "npc": "k3_nellie",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "start",
+      "nodes": {
+        "start": {
+          "speaker": "k3_nellie",
+          "text": "Ihre Ankunft ist eingetragen. Mit der wirklichen Minute.",
+          "next": "zustand"
+        },
+        "zustand": {
+          "speaker": "k3_nellie",
+          "text_by_state": {
+            "nachspiel_dunscar_zug_faehrt": "Hier hat sich etwas geändert. Die Küstenbahn fragt nach dem Ziel, nicht nach der Schicht.",
+            "nachspiel_dunscar_endbahnhof_bleibt": "Hier hat sich etwas geändert. Der alte Schalter bleibt geschlossen."
+          },
+          "next": "ende"
+        },
+        "ende": {
+          "speaker": "k3_nellie",
+          "text_by_ending": {
+            "k3_feierabend": "Die verschiedenen Stimmen dürfen verschieden bleiben.",
+            "k3_stilllegung": "Die stillgelegte Anlage wird für eine Rückfahrt nicht wieder geöffnet.",
+            "k3_gegenstimme": "Ohne Ihre bewusste Zustimmung bleibt die örtliche Anlage aus.",
+            "k3_vollzaehlig": "Die Opferverwaltung bleibt Ihre Verantwortung; der neue Zug entschuldigt sie nicht."
+          },
+          "next": "thema_1"
+        },
+        "thema_1": {
+          "speaker": "k3_nellie",
+          "text": "Der Fahrplan darf sich irren. Mein Buch soll es nicht.",
+          "next": "thema_2"
+        },
+        "thema_2": {
+          "speaker": "k3_nellie",
+          "text": "Ich habe alte Durchschläge aufgehoben.",
+          "next": "thema_3"
+        },
+        "thema_3": {
+          "speaker": "k3_nellie",
+          "text": "Auf manchen steht dieselbe Minute dreimal.",
+          "next": "thema_4"
+        },
+        "thema_4": {
+          "speaker": "k3_nellie",
+          "text": "Darunter habe ich jetzt die Empfangszeit gesetzt.",
+          "next": "thema_5"
+        },
+        "thema_5": {
+          "speaker": "k3_nellie",
+          "text": "Ein kleiner Unterschied, aber einer mit einem Zeugen.",
+          "next": "thema_6"
+        },
+        "thema_6": {
+          "speaker": "k3_nellie",
+          "text": "Prüfen Sie den Durchschlag oder diktieren Sie eine Nachricht?",
+          "next": "wahl"
+        },
+        "wahl": {
+          "speaker": "k3_nellie",
+          "text": "Beides bekommt heute eine eigene Zeile.",
+          "choices": [
+            {
+              "text": "Ich helfe bei der Arbeit.",
+              "next": "arbeit"
+            },
+            {
+              "text": "Ich bleibe für das Gespräch.",
+              "next": "gespraech"
+            }
+          ]
+        },
+        "arbeit": {
+          "speaker": "k3_nellie",
+          "text": "Halten Sie das Blatt gegen die Lampe.",
+          "next": "schluss"
+        },
+        "gespraech": {
+          "speaker": "k3_nellie",
+          "text": "Nennen Sie erst den Empfänger. Dann den Text.",
+          "next": "schluss"
+        },
+        "schluss": {
+          "speaker": "k3_nellie",
+          "text": "Sie bekommen den Durchschlag mit."
+        }
+      },
+      "abwesenheit": {
+        "modus": "schriftliche_rueckschau_ohne_gegenwartsbehauptung",
+        "text": "Du liest die aufbewahrten Worte. Die Person ist heute nicht hier. Du erhältst daraus keine Zustimmung und keine Belohnung."
+      }
+    },
+    {
+      "id": "np_gespraech_k3_weichenstellerin",
+      "city": "dunscar",
+      "kind": "haupt",
+      "npc": "k3_weichenstellerin",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "start",
+      "nodes": {
+        "start": {
+          "speaker": "k3_weichenstellerin",
+          "text": "Sie haben noch immer zwei Füße und zu viele Fragen.",
+          "next": "zustand"
+        },
+        "zustand": {
+          "speaker": "k3_weichenstellerin",
+          "text_by_state": {
+            "nachspiel_dunscar_zug_faehrt": "Hier hat sich etwas geändert. Die Küstenbahn fragt nach dem Ziel, nicht nach der Schicht.",
+            "nachspiel_dunscar_endbahnhof_bleibt": "Hier hat sich etwas geändert. Der alte Schalter bleibt geschlossen."
+          },
+          "next": "ende"
+        },
+        "ende": {
+          "speaker": "k3_weichenstellerin",
+          "text_by_ending": {
+            "k3_feierabend": "Die verschiedenen Stimmen dürfen verschieden bleiben.",
+            "k3_stilllegung": "Die stillgelegte Anlage wird für eine Rückfahrt nicht wieder geöffnet.",
+            "k3_gegenstimme": "Ohne Ihre bewusste Zustimmung bleibt die örtliche Anlage aus.",
+            "k3_vollzaehlig": "Die Opferverwaltung bleibt Ihre Verantwortung; der neue Zug entschuldigt sie nicht."
+          },
+          "next": "thema_1"
+        },
+        "thema_1": {
+          "speaker": "k3_weichenstellerin",
+          "text": "Das ist für eine Prüfung ausreichend.",
+          "next": "thema_2"
+        },
+        "thema_2": {
+          "speaker": "k3_weichenstellerin",
+          "text": "Die Spuren von damals warten nicht aus Höflichkeit.",
+          "next": "thema_3"
+        },
+        "thema_3": {
+          "speaker": "k3_weichenstellerin",
+          "text": "Sie sind bloß noch nicht erledigt.",
+          "next": "thema_4"
+        },
+        "thema_4": {
+          "speaker": "k3_weichenstellerin",
+          "text": "Eine bestandene Probe nehme ich Ihnen nicht wieder weg.",
+          "next": "thema_5"
+        },
+        "thema_5": {
+          "speaker": "k3_weichenstellerin",
+          "text": "Eine offene erkläre ich nicht wegen Ihrer Reise für bestanden.",
+          "next": "thema_6"
+        },
+        "thema_6": {
+          "speaker": "k3_weichenstellerin",
+          "text": "Wollen Sie den Befund prüfen oder erst die Werkzeuge sortieren?",
+          "next": "wahl"
+        },
+        "wahl": {
+          "speaker": "k3_weichenstellerin",
+          "text": "Fassen Sie keine Weiche an, die Sie nicht benennen können.",
+          "choices": [
+            {
+              "text": "Ich helfe bei der Arbeit.",
+              "next": "arbeit"
+            },
+            {
+              "text": "Ich bleibe für das Gespräch.",
+              "next": "gespraech"
+            }
+          ]
+        },
+        "arbeit": {
+          "speaker": "k3_weichenstellerin",
+          "text": "Beginnen Sie mit dem Gegenbeleg.",
+          "next": "schluss"
+        },
+        "gespraech": {
+          "speaker": "k3_weichenstellerin",
+          "text": "Legen Sie die beschädigten Stücke getrennt.",
+          "next": "schluss"
+        },
+        "schluss": {
+          "speaker": "k3_weichenstellerin",
+          "text": "Melden Sie sich mit dem Ergebnis, nicht mit einem Titel."
+        }
+      },
+      "abwesenheit": {
+        "modus": "schriftliche_rueckschau_ohne_gegenwartsbehauptung",
+        "text": "Du liest die aufbewahrten Worte. Die Person ist heute nicht hier. Du erhältst daraus keine Zustimmung und keine Belohnung."
+      }
+    },
+    {
+      "id": "np_gespraech_cw_crayford",
+      "city": "calderwick",
+      "kind": "haupt",
+      "npc": "cw_crayford",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "start",
+      "nodes": {
+        "start": {
+          "speaker": "cw_crayford",
+          "text": "Sie haben wieder Papier in den Taschen.",
+          "next": "zustand"
+        },
+        "zustand": {
+          "speaker": "cw_crayford",
+          "text_by_state": {
+            "nachspiel_calderwick_unterschrift_zurueck": "Hier hat sich etwas geändert. Ida lässt Platz für Korrekturen.",
+            "nachspiel_calderwick_unterschrift_fehlt": "Hier hat sich etwas geändert. Ein ordentliches Schild kennt seinen Bewohner nicht.",
+            "nachspiel_calderwick_geraeumt": "Hier hat sich etwas geändert. Die Küche ist kalt; die Leute essen anderswo."
+          },
+          "next": "ende"
+        },
+        "ende": {
+          "speaker": "cw_crayford",
+          "text_by_ending": {
+            "cwa_widerspruch": "Einzelne Zeugnisse bleiben prüfbar.",
+            "cwa_amtsinhaber": "Sie verwalten jetzt das Amt, nicht die Zustimmung anderer.",
+            "cwa_buecher": "Wir besuchen die geräumte Stadt; wir wohnen dadurch nicht wieder dort.",
+            "cwa_ordnung": "Die gemeinsame Bestätigung hat die einzelnen Stimmen nicht zurückgebracht."
+          },
+          "next": "thema_1"
+        },
+        "thema_1": {
+          "speaker": "cw_crayford",
+          "text": "Legen Sie es flach hin. Der Rücken ist feucht.",
+          "next": "thema_2"
+        },
+        "thema_2": {
+          "speaker": "cw_crayford",
+          "text": "Ich binde keine Menschen zu einem Sammelband.",
+          "next": "thema_3"
+        },
+        "thema_3": {
+          "speaker": "cw_crayford",
+          "text": "Bei Akten kann das ebenfalls schiefgehen.",
+          "next": "thema_4"
+        },
+        "thema_4": {
+          "speaker": "cw_crayford",
+          "text": "Deshalb bleibt jede Herkunft am Blatt.",
+          "next": "thema_5"
+        },
+        "thema_5": {
+          "speaker": "cw_crayford",
+          "text": "Wer es später liest, soll widersprechen können.",
+          "next": "thema_6"
+        },
+        "thema_6": {
+          "speaker": "cw_crayford",
+          "text": "Möchten Sie die Lagen ordnen oder den Einband reparieren?",
+          "next": "wahl"
+        },
+        "wahl": {
+          "speaker": "cw_crayford",
+          "text": "Die Nadel liegt rechts.",
+          "choices": [
+            {
+              "text": "Ich helfe bei der Arbeit.",
+              "next": "arbeit"
+            },
+            {
+              "text": "Ich bleibe für das Gespräch.",
+              "next": "gespraech"
+            }
+          ]
+        },
+        "arbeit": {
+          "speaker": "cw_crayford",
+          "text": "Dann kommt jede Aussage auf ihre eigene Lage.",
+          "next": "schluss"
+        },
+        "gespraech": {
+          "speaker": "cw_crayford",
+          "text": "Ziehen Sie den Faden nicht bis zum Reißen an.",
+          "next": "schluss"
+        },
+        "schluss": {
+          "speaker": "cw_crayford",
+          "text": "So. Das Buch kann geöffnet werden, ohne zu zerfallen."
+        }
+      },
+      "abwesenheit": {
+        "modus": "schriftliche_rueckschau_ohne_gegenwartsbehauptung",
+        "text": "Du liest die aufbewahrten Worte. Die Person ist heute nicht hier. Du erhältst daraus keine Zustimmung und keine Belohnung."
+      }
+    },
+    {
+      "id": "np_gespraech_cw_ida_bellcross",
+      "city": "calderwick",
+      "kind": "haupt",
+      "npc": "cw_ida_bellcross",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "start",
+      "nodes": {
+        "start": {
+          "speaker": "cw_ida_bellcross",
+          "text": "Sie dürfen meinen Namen ruhig aussprechen.",
+          "next": "zustand"
+        },
+        "zustand": {
+          "speaker": "cw_ida_bellcross",
+          "text_by_state": {
+            "nachspiel_calderwick_unterschrift_zurueck": "Hier hat sich etwas geändert. Ida lässt Platz für Korrekturen.",
+            "nachspiel_calderwick_unterschrift_fehlt": "Hier hat sich etwas geändert. Ein ordentliches Schild kennt seinen Bewohner nicht.",
+            "nachspiel_calderwick_geraeumt": "Hier hat sich etwas geändert. Die Küche ist kalt; die Leute essen anderswo."
+          },
+          "next": "ende"
+        },
+        "ende": {
+          "speaker": "cw_ida_bellcross",
+          "text_by_ending": {
+            "cwa_widerspruch": "Einzelne Zeugnisse bleiben prüfbar.",
+            "cwa_amtsinhaber": "Sie verwalten jetzt das Amt, nicht die Zustimmung anderer.",
+            "cwa_buecher": "Wir besuchen die geräumte Stadt; wir wohnen dadurch nicht wieder dort.",
+            "cwa_ordnung": "Die gemeinsame Bestätigung hat die einzelnen Stimmen nicht zurückgebracht."
+          },
+          "next": "thema_1"
+        },
+        "thema_1": {
+          "speaker": "cw_ida_bellcross",
+          "text": "Sie müssen ihn nicht für mich unterschreiben.",
+          "next": "thema_2"
+        },
+        "thema_2": {
+          "speaker": "cw_ida_bellcross",
+          "text": "Ich habe eine Korrektur aufbewahrt.",
+          "next": "thema_3"
+        },
+        "thema_3": {
+          "speaker": "cw_ida_bellcross",
+          "text": "Sie war klein genug, um übersehen zu werden.",
+          "next": "thema_4"
+        },
+        "thema_4": {
+          "speaker": "cw_ida_bellcross",
+          "text": "Gerade deshalb lasse ich sie stehen.",
+          "next": "thema_5"
+        },
+        "thema_5": {
+          "speaker": "cw_ida_bellcross",
+          "text": "Der Strich zeigt, wo eine andere Hand zu viel wusste.",
+          "next": "thema_6"
+        },
+        "thema_6": {
+          "speaker": "cw_ida_bellcross",
+          "text": "Wollen Sie den Satz lesen oder Ihren eigenen daneben schreiben?",
+          "next": "wahl"
+        },
+        "wahl": {
+          "speaker": "cw_ida_bellcross",
+          "text": "Ich entscheide selbst, ob ich ihn bestätige.",
+          "choices": [
+            {
+              "text": "Ich helfe bei der Arbeit.",
+              "next": "arbeit"
+            },
+            {
+              "text": "Ich bleibe für das Gespräch.",
+              "next": "gespraech"
+            }
+          ]
+        },
+        "arbeit": {
+          "speaker": "cw_ida_bellcross",
+          "text": "Lesen Sie auch das gestrichene Wort.",
+          "next": "schluss"
+        },
+        "gespraech": {
+          "speaker": "cw_ida_bellcross",
+          "text": "Lassen Sie unter Ihrer Zeile Platz.",
+          "next": "schluss"
+        },
+        "schluss": {
+          "speaker": "cw_ida_bellcross",
+          "text": "Eine Antwort ist erst meine, wenn ich sie gegeben habe."
+        }
+      },
+      "abwesenheit": {
+        "modus": "schriftliche_rueckschau_ohne_gegenwartsbehauptung",
+        "text": "Du liest die aufbewahrten Worte. Die Person ist heute nicht hier. Du erhältst daraus keine Zustimmung und keine Belohnung."
+      }
+    },
+    {
+      "id": "np_gespraech_cw_noel_bellcross",
+      "city": "calderwick",
+      "kind": "haupt",
+      "npc": "cw_noel_bellcross",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "start",
+      "nodes": {
+        "start": {
+          "speaker": "cw_noel_bellcross",
+          "text": "Sie kommen zwischen zwei Mahlzeiten. Das lässt sich ändern.",
+          "next": "zustand"
+        },
+        "zustand": {
+          "speaker": "cw_noel_bellcross",
+          "text_by_state": {
+            "nachspiel_calderwick_unterschrift_zurueck": "Hier hat sich etwas geändert. Ida lässt Platz für Korrekturen.",
+            "nachspiel_calderwick_unterschrift_fehlt": "Hier hat sich etwas geändert. Ein ordentliches Schild kennt seinen Bewohner nicht.",
+            "nachspiel_calderwick_geraeumt": "Hier hat sich etwas geändert. Die Küche ist kalt; die Leute essen anderswo."
+          },
+          "next": "ende"
+        },
+        "ende": {
+          "speaker": "cw_noel_bellcross",
+          "text_by_ending": {
+            "cwa_widerspruch": "Einzelne Zeugnisse bleiben prüfbar.",
+            "cwa_amtsinhaber": "Sie verwalten jetzt das Amt, nicht die Zustimmung anderer.",
+            "cwa_buecher": "Wir besuchen die geräumte Stadt; wir wohnen dadurch nicht wieder dort.",
+            "cwa_ordnung": "Die gemeinsame Bestätigung hat die einzelnen Stimmen nicht zurückgebracht."
+          },
+          "next": "thema_1"
+        },
+        "thema_1": {
+          "speaker": "cw_noel_bellcross",
+          "text": "Der zweite Teller steht noch da.",
+          "next": "thema_2"
+        },
+        "thema_2": {
+          "speaker": "cw_noel_bellcross",
+          "text": "Er ist kein Beweisstück.",
+          "next": "thema_3"
+        },
+        "thema_3": {
+          "speaker": "cw_noel_bellcross",
+          "text": "Ich brauche dafür weder eine Behörde noch Ihre Bestätigung.",
+          "next": "thema_4"
+        },
+        "thema_4": {
+          "speaker": "cw_noel_bellcross",
+          "text": "Die Rechnung führen wir trotzdem ordentlich.",
+          "next": "thema_5"
+        },
+        "thema_5": {
+          "speaker": "cw_noel_bellcross",
+          "text": "Sonst zahlt am Ende wieder jemand für drei.",
+          "next": "thema_6"
+        },
+        "thema_6": {
+          "speaker": "cw_noel_bellcross",
+          "text": "Möchten Sie den Tisch decken oder die Rechnung prüfen?",
+          "next": "wahl"
+        },
+        "wahl": {
+          "speaker": "cw_noel_bellcross",
+          "text": "Das Brot bleibt dabei auf dem Tisch.",
+          "choices": [
+            {
+              "text": "Ich helfe bei der Arbeit.",
+              "next": "arbeit"
+            },
+            {
+              "text": "Ich bleibe für das Gespräch.",
+              "next": "gespraech"
+            }
+          ]
+        },
+        "arbeit": {
+          "speaker": "cw_noel_bellcross",
+          "text": "Nehmen Sie die beiden unbeschädigten Teller.",
+          "next": "schluss"
+        },
+        "gespraech": {
+          "speaker": "cw_noel_bellcross",
+          "text": "Zählen Sie Portionen, keine Haushaltsnamen.",
+          "next": "schluss"
+        },
+        "schluss": {
+          "speaker": "cw_noel_bellcross",
+          "text": "Jetzt setzen Sie sich. Das Essen wird nicht genauer, wenn es kalt ist."
+        }
+      },
+      "abwesenheit": {
+        "modus": "schriftliche_rueckschau_ohne_gegenwartsbehauptung",
+        "text": "Du liest die aufbewahrten Worte. Die Person ist heute nicht hier. Du erhältst daraus keine Zustimmung und keine Belohnung."
+      }
+    },
+    {
+      "id": "np_gespraech_bh_bellweather",
+      "city": "briarholt",
+      "kind": "haupt",
+      "npc": "bh_bellweather",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "start",
+      "nodes": {
+        "start": {
+          "speaker": "bh_bellweather",
+          "text": "Sie schließen die Tür bitte hinter sich.",
+          "next": "zustand"
+        },
+        "zustand": {
+          "speaker": "bh_bellweather",
+          "text_by_state": {
+            "nachspiel_briarholt_warm": "Hier hat sich etwas geändert. Die Blätter glänzen auch ohne Beifall.",
+            "nachspiel_briarholt_kalt": "Hier hat sich etwas geändert. Der Ofen braucht Kohle, keine Erinnerungen."
+          },
+          "next": "ende"
+        },
+        "ende": {
+          "speaker": "bh_bellweather",
+          "text_by_ending": {
+            "bha_wahl": "Die einzelnen Erklärungen bleiben maßgeblich.",
+            "bha_winter": "Der Ofen ersetzt keine Rückgabe; die Pflanzenanlage bleibt still.",
+            "bha_verwahrt": "Die verwahrten Kapseln sind eine Verantwortung, keine versprochene Heilung.",
+            "bha_schmerzlos": "Neue Patienten werden still. Die Blüte macht das nicht gut."
+          },
+          "next": "thema_1"
+        },
+        "thema_1": {
+          "speaker": "bh_bellweather",
+          "text": "Mein Ofen zieht auch ohne große Entscheidung.",
+          "next": "thema_2"
+        },
+        "thema_2": {
+          "speaker": "bh_bellweather",
+          "text": "Er braucht Kohle und eine saubere Klappe.",
+          "next": "thema_3"
+        },
+        "thema_3": {
+          "speaker": "bh_bellweather",
+          "text": "Den Schlüssel habe ich nicht an die Klinik gegeben.",
+          "next": "thema_4"
+        },
+        "thema_4": {
+          "speaker": "bh_bellweather",
+          "text": "Manche Dinge funktionieren besser, wenn man ihre Grenze kennt.",
+          "next": "thema_5"
+        },
+        "thema_5": {
+          "speaker": "bh_bellweather",
+          "text": "Das Bild auf dem Tisch bleibt hier.",
+          "next": "thema_6"
+        },
+        "thema_6": {
+          "speaker": "bh_bellweather",
+          "text": "Wollen Sie Holz nachlegen oder einen Moment sitzen?",
+          "next": "wahl"
+        },
+        "wahl": {
+          "speaker": "bh_bellweather",
+          "text": "Den zweiten Stuhl dürfen Sie benutzen.",
+          "choices": [
+            {
+              "text": "Ich helfe bei der Arbeit.",
+              "next": "arbeit"
+            },
+            {
+              "text": "Ich bleibe für das Gespräch.",
+              "next": "gespraech"
+            }
+          ]
+        },
+        "arbeit": {
+          "speaker": "bh_bellweather",
+          "text": "Nicht zu viel. Wir wollen Wärme, keinen Wettkampf.",
+          "next": "schluss"
+        },
+        "gespraech": {
+          "speaker": "bh_bellweather",
+          "text": "Dann lassen wir den Ofen die Arbeit machen.",
+          "next": "schluss"
+        },
+        "schluss": {
+          "speaker": "bh_bellweather",
+          "text": "Wenn Sie gehen, ziehen Sie die Tür leise zu."
+        }
+      },
+      "abwesenheit": {
+        "modus": "schriftliche_rueckschau_ohne_gegenwartsbehauptung",
+        "text": "Du liest die aufbewahrten Worte. Die Person ist heute nicht hier. Du erhältst daraus keine Zustimmung und keine Belohnung."
+      }
+    },
+    {
+      "id": "np_gespraech_bh_rookwell",
+      "city": "briarholt",
+      "kind": "haupt",
+      "npc": "bh_rookwell",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "start",
+      "nodes": {
+        "start": {
+          "speaker": "bh_rookwell",
+          "text": "Sie müssen für einen Besuch nichts unterschreiben.",
+          "next": "zustand"
+        },
+        "zustand": {
+          "speaker": "bh_rookwell",
+          "text_by_state": {
+            "nachspiel_briarholt_warm": "Hier hat sich etwas geändert. Die Blätter glänzen auch ohne Beifall.",
+            "nachspiel_briarholt_kalt": "Hier hat sich etwas geändert. Der Ofen braucht Kohle, keine Erinnerungen."
+          },
+          "next": "ende"
+        },
+        "ende": {
+          "speaker": "bh_rookwell",
+          "text_by_ending": {
+            "bha_wahl": "Die einzelnen Erklärungen bleiben maßgeblich.",
+            "bha_winter": "Der Ofen ersetzt keine Rückgabe; die Pflanzenanlage bleibt still.",
+            "bha_verwahrt": "Die verwahrten Kapseln sind eine Verantwortung, keine versprochene Heilung.",
+            "bha_schmerzlos": "Neue Patienten werden still. Die Blüte macht das nicht gut."
+          },
+          "next": "thema_1"
+        },
+        "thema_1": {
+          "speaker": "bh_rookwell",
+          "text": "Für eine Behandlung frage ich weiterhin einzeln.",
+          "next": "thema_2"
+        },
+        "thema_2": {
+          "speaker": "bh_rookwell",
+          "text": "Die Etiketten sind lesbar geworden.",
+          "next": "thema_3"
+        },
+        "thema_3": {
+          "speaker": "bh_rookwell",
+          "text": "Das ist ein Anfang, keine Einwilligung.",
+          "next": "thema_4"
+        },
+        "thema_4": {
+          "speaker": "bh_rookwell",
+          "text": "Ich habe eine Schublade für unbeantwortete Fragen.",
+          "next": "thema_5"
+        },
+        "thema_5": {
+          "speaker": "bh_rookwell",
+          "text": "Niemand wird durch die Schublade zum verfügbaren Bestand.",
+          "next": "thema_6"
+        },
+        "thema_6": {
+          "speaker": "bh_rookwell",
+          "text": "Möchten Sie beim Vorlesen helfen oder eine Nachricht aufnehmen?",
+          "next": "wahl"
+        },
+        "wahl": {
+          "speaker": "bh_rookwell",
+          "text": "Die Antwort gehört der Person, die sie gibt.",
+          "choices": [
+            {
+              "text": "Ich helfe bei der Arbeit.",
+              "next": "arbeit"
+            },
+            {
+              "text": "Ich bleibe für das Gespräch.",
+              "next": "gespraech"
+            }
+          ]
+        },
+        "arbeit": {
+          "speaker": "bh_rookwell",
+          "text": "Lesen Sie langsam und ohne Ergänzungen.",
+          "next": "schluss"
+        },
+        "gespraech": {
+          "speaker": "bh_rookwell",
+          "text": "Schreiben Sie auch auf, wenn jemand schweigt.",
+          "next": "schluss"
+        },
+        "schluss": {
+          "speaker": "bh_rookwell",
+          "text": "Danke. Jetzt lassen wir den Menschen ihre Pause."
+        }
+      },
+      "abwesenheit": {
+        "modus": "schriftliche_rueckschau_ohne_gegenwartsbehauptung",
+        "text": "Du liest die aufbewahrten Worte. Die Person ist heute nicht hier. Du erhältst daraus keine Zustimmung und keine Belohnung."
+      }
+    },
+    {
+      "id": "np_gespraech_bh_felix_fencrest",
+      "city": "briarholt",
+      "kind": "haupt",
+      "npc": "bh_felix_fencrest",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "start",
+      "nodes": {
+        "start": {
+          "speaker": "bh_felix_fencrest",
+          "text": "Sie tragen Ihren Koffer diesmal selbst.",
+          "next": "zustand"
+        },
+        "zustand": {
+          "speaker": "bh_felix_fencrest",
+          "text_by_state": {
+            "nachspiel_briarholt_warm": "Hier hat sich etwas geändert. Die Blätter glänzen auch ohne Beifall.",
+            "nachspiel_briarholt_kalt": "Hier hat sich etwas geändert. Der Ofen braucht Kohle, keine Erinnerungen."
+          },
+          "next": "ende"
+        },
+        "ende": {
+          "speaker": "bh_felix_fencrest",
+          "text_by_ending": {
+            "bha_wahl": "Die einzelnen Erklärungen bleiben maßgeblich.",
+            "bha_winter": "Der Ofen ersetzt keine Rückgabe; die Pflanzenanlage bleibt still.",
+            "bha_verwahrt": "Die verwahrten Kapseln sind eine Verantwortung, keine versprochene Heilung.",
+            "bha_schmerzlos": "Neue Patienten werden still. Die Blüte macht das nicht gut."
+          },
+          "next": "thema_1"
+        },
+        "thema_1": {
+          "speaker": "bh_felix_fencrest",
+          "text": "Ich frage trotzdem, ob Sie Hilfe brauchen.",
+          "next": "thema_2"
+        },
+        "thema_2": {
+          "speaker": "bh_felix_fencrest",
+          "text": "Früher habe ich zuerst nach der Einweisung gesehen.",
+          "next": "thema_3"
+        },
+        "thema_3": {
+          "speaker": "bh_felix_fencrest",
+          "text": "Das war bequem für den Schalter.",
+          "next": "thema_4"
+        },
+        "thema_4": {
+          "speaker": "bh_felix_fencrest",
+          "text": "Für den Menschen am Griff nicht immer.",
+          "next": "thema_5"
+        },
+        "thema_5": {
+          "speaker": "bh_felix_fencrest",
+          "text": "Ich halte jetzt beides auseinander.",
+          "next": "thema_6"
+        },
+        "thema_6": {
+          "speaker": "bh_felix_fencrest",
+          "text": "Soll ich den Griff prüfen oder möchten Sie eine Nachricht hinterlassen?",
+          "next": "wahl"
+        },
+        "wahl": {
+          "speaker": "bh_felix_fencrest",
+          "text": "Eine Nachricht an meine Schwester leite ich nur mit ihrer Zustimmung weiter.",
+          "choices": [
+            {
+              "text": "Ich helfe bei der Arbeit.",
+              "next": "arbeit"
+            },
+            {
+              "text": "Ich bleibe für das Gespräch.",
+              "next": "gespraech"
+            }
+          ]
+        },
+        "arbeit": {
+          "speaker": "bh_felix_fencrest",
+          "text": "Die Schraube sitzt. Das Leder braucht Fett.",
+          "next": "schluss"
+        },
+        "gespraech": {
+          "speaker": "bh_felix_fencrest",
+          "text": "Ich lege sie zu den persönlichen Sachen, nicht zur Fracht.",
+          "next": "schluss"
+        },
+        "schluss": {
+          "speaker": "bh_felix_fencrest",
+          "text": "Für die Rückfahrt ist kein Krankenschein nötig."
+        }
+      },
+      "abwesenheit": {
+        "modus": "schriftliche_rueckschau_ohne_gegenwartsbehauptung",
+        "text": "Du liest die aufbewahrten Worte. Die Person ist heute nicht hier. Du erhältst daraus keine Zustimmung und keine Belohnung."
+      }
+    },
+    {
+      "id": "np_gespraech_vmn_tam_verrin",
+      "city": "varrowmouth",
+      "kind": "haupt",
+      "npc": "vmn_tam_verrin",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "start",
+      "nodes": {
+        "start": {
+          "speaker": "vmn_tam_verrin",
+          "text": "Sie warten diesmal am richtigen Steg.",
+          "next": "zustand"
+        },
+        "zustand": {
+          "speaker": "vmn_tam_verrin",
+          "text_by_state": {
+            "nachspiel_varrowmouth_schliessen": "Hier hat sich etwas geändert. Die Flut kommt nicht heute, aber irgendwann.",
+            "nachspiel_varrowmouth_verbrennen": "Hier hat sich etwas geändert. Die Stimmen hörst du im Evakuierungswagen, nicht aus den Häusern.",
+            "nachspiel_varrowmouth_uebergeben": "Hier hat sich etwas geändert. Der Stuhl ist für Nell zu hoch.",
+            "nachspiel_varrowmouth_teilen": "Hier hat sich etwas geändert. Die Last ist geteilt, nicht verschwunden."
+          },
+          "next": "ende"
+        },
+        "ende": {
+          "speaker": "vmn_tam_verrin",
+          "text_by_ending": {
+            "k6_ende_schliessen": "Die Stadt ist frei. Die kommende Flut bleibt eine Aufgabe.",
+            "k6_ende_verbrennen": "Wir sprechen außerhalb der geräumten Stadt. Niemand soll für dieses Gespräch zurück ins Wasser.",
+            "k6_ende_uebergeben": "Nell trägt das Register. Ihre Arbeit als Schreiber bleibt auch nach einer Reise nötig.",
+            "k6_ende_teilen": "Sie beide tragen das Register. Keiner kann die Zustimmung des anderen ersetzen."
+          },
+          "next": "thema_1"
+        },
+        "thema_1": {
+          "speaker": "vmn_tam_verrin",
+          "text": "Ich prüfe das Tau trotzdem.",
+          "next": "thema_2"
+        },
+        "thema_2": {
+          "speaker": "vmn_tam_verrin",
+          "text": "Freie Fahrt heißt nicht, dass Holz nicht fault.",
+          "next": "thema_3"
+        },
+        "thema_3": {
+          "speaker": "vmn_tam_verrin",
+          "text": "Ein Brett war gestern noch fest.",
+          "next": "thema_4"
+        },
+        "thema_4": {
+          "speaker": "vmn_tam_verrin",
+          "text": "Heute habe ich es markiert.",
+          "next": "thema_5"
+        },
+        "thema_5": {
+          "speaker": "vmn_tam_verrin",
+          "text": "Sie gehen nicht darauf, nur weil Sie schon Schlimmeres überstanden haben.",
+          "next": "thema_6"
+        },
+        "thema_6": {
+          "speaker": "vmn_tam_verrin",
+          "text": "Helfen Sie beim Sichern oder sehen wir zuerst auf die Pegeluhr?",
+          "next": "wahl"
+        },
+        "wahl": {
+          "speaker": "vmn_tam_verrin",
+          "text": "Beides geschieht ohne Eile.",
+          "choices": [
+            {
+              "text": "Ich helfe bei der Arbeit.",
+              "next": "arbeit"
+            },
+            {
+              "text": "Ich bleibe für das Gespräch.",
+              "next": "gespraech"
+            }
+          ]
+        },
+        "arbeit": {
+          "speaker": "vmn_tam_verrin",
+          "text": "Nehmen Sie die Leine unterhalb der Kerbe.",
+          "next": "schluss"
+        },
+        "gespraech": {
+          "speaker": "vmn_tam_verrin",
+          "text": "Die Zeiger sind lesbar. Jetzt glauben wir ihnen auch.",
+          "next": "schluss"
+        },
+        "schluss": {
+          "speaker": "vmn_tam_verrin",
+          "text": "Wenn Sie zurückwollen, sagen Sie es rechtzeitig."
+        }
+      },
+      "abwesenheit": {
+        "modus": "schriftliche_rueckschau_ohne_gegenwartsbehauptung",
+        "text": "Du liest die aufbewahrten Worte. Die Person ist heute nicht hier. Du erhältst daraus keine Zustimmung und keine Belohnung."
+      },
+      "quelle_abgleich": "CX-Charakterbogen und CT-Epilog; DK-Termin ersetzt die CX-Sperre nach k6_done."
+    },
+    {
+      "id": "np_gespraech_vmn_osric_dale",
+      "city": "varrowmouth",
+      "kind": "haupt",
+      "npc": "vmn_osric_dale",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "start",
+      "nodes": {
+        "start": {
+          "speaker": "vmn_osric_dale",
+          "text": "Sie finden die Tinte unter dem trockenen Tuch.",
+          "next": "zustand"
+        },
+        "zustand": {
+          "speaker": "vmn_osric_dale",
+          "text_by_state": {
+            "nachspiel_varrowmouth_schliessen": "Hier hat sich etwas geändert. Die Flut kommt nicht heute, aber irgendwann.",
+            "nachspiel_varrowmouth_verbrennen": "Hier hat sich etwas geändert. Die Stimmen hörst du im Evakuierungswagen, nicht aus den Häusern.",
+            "nachspiel_varrowmouth_uebergeben": "Hier hat sich etwas geändert. Der Stuhl ist für Nell zu hoch.",
+            "nachspiel_varrowmouth_teilen": "Hier hat sich etwas geändert. Die Last ist geteilt, nicht verschwunden."
+          },
+          "next": "ende"
+        },
+        "ende": {
+          "speaker": "vmn_osric_dale",
+          "text_by_ending": {
+            "k6_ende_schliessen": "Die Stadt ist frei. Die kommende Flut bleibt eine Aufgabe.",
+            "k6_ende_verbrennen": "Wir sprechen außerhalb der geräumten Stadt. Niemand soll für dieses Gespräch zurück ins Wasser.",
+            "k6_ende_uebergeben": "Nell trägt das Register. Ihre Arbeit als Schreiber bleibt auch nach einer Reise nötig.",
+            "k6_ende_teilen": "Sie beide tragen das Register. Keiner kann die Zustimmung des anderen ersetzen."
+          },
+          "next": "thema_1"
+        },
+        "thema_1": {
+          "speaker": "vmn_osric_dale",
+          "text": "Ich schreibe langsamer als früher.",
+          "next": "thema_2"
+        },
+        "thema_2": {
+          "speaker": "vmn_osric_dale",
+          "text": "Die alten Fehler liefen schnell genug.",
+          "next": "thema_3"
+        },
+        "thema_3": {
+          "speaker": "vmn_osric_dale",
+          "text": "Ein Name wird nicht richtig, weil ein Schreiber ihn oft wiederholt.",
+          "next": "thema_4"
+        },
+        "thema_4": {
+          "speaker": "vmn_osric_dale",
+          "text": "Ich habe die unklaren Stellen offen gelassen.",
+          "next": "thema_5"
+        },
+        "thema_5": {
+          "speaker": "vmn_osric_dale",
+          "text": "Das kostet Papier. Weniger als eine falsche Gewissheit.",
+          "next": "thema_6"
+        },
+        "thema_6": {
+          "speaker": "vmn_osric_dale",
+          "text": "Wollen Sie eine Stelle gegenlesen oder die Blätter trocknen?",
+          "next": "wahl"
+        },
+        "wahl": {
+          "speaker": "vmn_osric_dale",
+          "text": "Nichts kommt ohne Herkunft in den Stapel.",
+          "choices": [
+            {
+              "text": "Ich helfe bei der Arbeit.",
+              "next": "arbeit"
+            },
+            {
+              "text": "Ich bleibe für das Gespräch.",
+              "next": "gespraech"
+            }
+          ]
+        },
+        "arbeit": {
+          "speaker": "vmn_osric_dale",
+          "text": "Sagen Sie mir, wo Ihr Beleg aufhört.",
+          "next": "schluss"
+        },
+        "gespraech": {
+          "speaker": "vmn_osric_dale",
+          "text": "Legen Sie die Blätter einzeln aus.",
+          "next": "schluss"
+        },
+        "schluss": {
+          "speaker": "vmn_osric_dale",
+          "text": "Morgen können wir erkennen, was heute noch feucht ist."
+        }
+      },
+      "abwesenheit": {
+        "modus": "schriftliche_rueckschau_ohne_gegenwartsbehauptung",
+        "text": "Du liest die aufbewahrten Worte. Die Person ist heute nicht hier. Du erhältst daraus keine Zustimmung und keine Belohnung."
+      },
+      "quelle_abgleich": "CX-Charakterbogen und CT-Epilog; DK-Termin ersetzt die CX-Sperre nach k6_done."
+    },
+    {
+      "id": "np_gespraech_vmn_nell_quarrie",
+      "city": "varrowmouth",
+      "kind": "haupt",
+      "npc": "vmn_nell_quarrie",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "start",
+      "nodes": {
+        "start": {
+          "speaker": "vmn_nell_quarrie",
+          "text": "Sie haben Salz an Ihrem Ärmel.",
+          "next": "zustand"
+        },
+        "zustand": {
+          "speaker": "vmn_nell_quarrie",
+          "text_by_state": {
+            "nachspiel_varrowmouth_schliessen": "Hier hat sich etwas geändert. Die Flut kommt nicht heute, aber irgendwann.",
+            "nachspiel_varrowmouth_verbrennen": "Hier hat sich etwas geändert. Die Stimmen hörst du im Evakuierungswagen, nicht aus den Häusern.",
+            "nachspiel_varrowmouth_uebergeben": "Hier hat sich etwas geändert. Der Stuhl ist für Nell zu hoch.",
+            "nachspiel_varrowmouth_teilen": "Hier hat sich etwas geändert. Die Last ist geteilt, nicht verschwunden."
+          },
+          "next": "ende"
+        },
+        "ende": {
+          "speaker": "vmn_nell_quarrie",
+          "text_by_ending": {
+            "k6_ende_schliessen": "Die Stadt ist frei. Die kommende Flut bleibt eine Aufgabe.",
+            "k6_ende_verbrennen": "Wir sprechen außerhalb der geräumten Stadt. Niemand soll für dieses Gespräch zurück ins Wasser.",
+            "k6_ende_uebergeben": "Ich trage das Register. Sie sind mein Schreiber. Ich brauche auch Pausen.",
+            "k6_ende_teilen": "Sie beide tragen das Register. Keiner kann die Zustimmung des anderen ersetzen."
+          },
+          "next": "thema_1"
+        },
+        "thema_1": {
+          "speaker": "vmn_nell_quarrie",
+          "text": "Das geht nicht mit bloßem Schütteln weg.",
+          "next": "thema_2"
+        },
+        "thema_2": {
+          "speaker": "vmn_nell_quarrie",
+          "text": "Ich habe es versucht.",
+          "next": "thema_3"
+        },
+        "thema_3": {
+          "speaker": "vmn_nell_quarrie",
+          "text": "Manche Namen bleiben auch, wenn man nicht daran denkt.",
+          "next": "thema_4"
+        },
+        "thema_4": {
+          "speaker": "vmn_nell_quarrie",
+          "text": "Andere gehen fort, obwohl jemand festhält.",
+          "next": "thema_5"
+        },
+        "thema_5": {
+          "speaker": "vmn_nell_quarrie",
+          "text": "Ich möchte nicht jeden Tag vorführen, was ich kann.",
+          "next": "thema_6"
+        },
+        "thema_6": {
+          "speaker": "vmn_nell_quarrie",
+          "text": "Wollen Sie eine Muschel ansehen oder erzählen, was im Zug war?",
+          "next": "wahl"
+        },
+        "wahl": {
+          "speaker": "vmn_nell_quarrie",
+          "text": "Nur eine Geschichte. Keine Liste.",
+          "choices": [
+            {
+              "text": "Ich helfe bei der Arbeit.",
+              "next": "arbeit"
+            },
+            {
+              "text": "Ich bleibe für das Gespräch.",
+              "next": "gespraech"
+            }
+          ]
+        },
+        "arbeit": {
+          "speaker": "vmn_nell_quarrie",
+          "text": "Die kaputte Seite gehört auch dazu.",
+          "next": "schluss"
+        },
+        "gespraech": {
+          "speaker": "vmn_nell_quarrie",
+          "text": "Fangen Sie bei einem Fenster an.",
+          "next": "schluss"
+        },
+        "schluss": {
+          "speaker": "vmn_nell_quarrie",
+          "text": "Gut. Den Rest erzählen Sie beim nächsten Mal."
+        }
+      },
+      "abwesenheit": {
+        "modus": "schriftliche_rueckschau_ohne_gegenwartsbehauptung",
+        "text": "Du liest die aufbewahrten Worte. Die Person ist heute nicht hier. Du erhältst daraus keine Zustimmung und keine Belohnung."
+      },
+      "quelle_abgleich": "CX-Charakterbogen und CT-Epilog; DK-Termin ersetzt die CX-Sperre nach k6_done."
+    },
+    {
+      "id": "np_kurz_holt",
+      "city": "kettlegate",
+      "kind": "neben",
+      "npc": "holt",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "holt",
+          "text": "Die Rücknahme braucht ein Datum.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "holt",
+          "text": "Das alte Blatt bleibt als Vorgang erhalten.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "holt",
+          "text": "Ich streiche keine Belege aus Gefälligkeit.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "holt",
+          "text": "Bringen Sie die Zustellliste mit.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "holt",
+          "text": "Dann weiß auch das nächste Revier Bescheid."
+        }
+      },
+      "darstellung": "gespraech",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_fotografin",
+      "city": "kettlegate",
+      "kind": "neben",
+      "npc": "fotografin",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "fotografin",
+          "text": "Halten Sie still, wenn Sie ein Bild wollen.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "fotografin",
+          "text": "Nicht feierlich. Nur still.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "fotografin",
+          "text": "Die Platte zeigt auch den schiefen Kragen.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "fotografin",
+          "text": "Den retuschiere ich nicht ohne Frage.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "fotografin",
+          "text": "Eine Reise darf Spuren hinterlassen."
+        }
+      },
+      "darstellung": "gespraech",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_kaminkehrer",
+      "city": "kettlegate",
+      "kind": "neben",
+      "npc": "kaminkehrer",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "kaminkehrer",
+          "text": "Der Zug bringt mehr Ruß als Kundschaft.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "kaminkehrer",
+          "text": "Das ist für meinen Beruf erträglich.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "kaminkehrer",
+          "text": "Ich prüfe erst den Zug im Kamin.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "kaminkehrer",
+          "text": "Danach kommt die Rechnung.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "kaminkehrer",
+          "text": "Sie dürfen unten warten."
+        }
+      },
+      "darstellung": "gespraech",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_kutscher",
+      "city": "kettlegate",
+      "kind": "neben",
+      "npc": "kutscher",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "kutscher",
+          "text": "Eine Rückfahrt ist eine ganz gewöhnliche Fahrt.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "kutscher",
+          "text": "Das sage ich meinen Pferden auch.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "kutscher",
+          "text": "Sie glauben mir erst nach dem Futter.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "kutscher",
+          "text": "Den Koffer legen Sie quer.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "kutscher",
+          "text": "Dann passt noch ein Mensch hinein."
+        }
+      },
+      "darstellung": "gespraech",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_kind_streuner",
+      "city": "kettlegate",
+      "kind": "neben",
+      "npc": "kind_streuner",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "kind_streuner",
+          "text": "Sie sind wirklich zurückgekommen.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "kind_streuner",
+          "text": "Das war keine Wette, nur eine Frage.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "kind_streuner",
+          "text": "Wir teilen die trockenen Zeitungen zuerst.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "kind_streuner",
+          "text": "Die feuchten taugen unter den Stiefeln.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "kind_streuner",
+          "text": "Nehmen Sie ein trockenes Blatt."
+        }
+      },
+      "darstellung": "gespraech",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_sufragette",
+      "city": "kettlegate",
+      "kind": "neben",
+      "npc": "sufragette",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "sufragette",
+          "text": "Ich drucke die Berichtigung mit.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "sufragette",
+          "text": "Nicht kleiner als die Anschuldigung.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "sufragette",
+          "text": "Papier sparen wir an anderer Stelle.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "sufragette",
+          "text": "Sie können die Zeile gegenlesen.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "sufragette",
+          "text": "Ihren Namen setze ich erst nach Ihrer Zustimmung darunter."
+        }
+      },
+      "darstellung": "gespraech",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_hesper",
+      "city": "wexmoor",
+      "kind": "neben",
+      "npc": "hesper",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "hesper",
+          "text": "Der Tisch am Fenster ist frei.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "hesper",
+          "text": "Die Geschichte kostet nichts.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "hesper",
+          "text": "Für Tee nehme ich weiter Geld.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "hesper",
+          "text": "Sonst wird aus jeder Reise eine offene Rechnung.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "hesper",
+          "text": "Setzen Sie sich, solange die Kanne warm ist."
+        }
+      },
+      "darstellung": "gespraech",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_brack",
+      "city": "wexmoor",
+      "kind": "neben",
+      "npc": "brack",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "brack",
+          "text": "Die Bojen liegen noch auf meiner Liste.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "brack",
+          "text": "Das Wasser liest sie leider nicht.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "brack",
+          "text": "Ich prüfe jede Leine selbst.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "brack",
+          "text": "Wenn Sie helfen, halten Sie das freie Ende.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "brack",
+          "text": "Knoten erst auf mein Zeichen."
+        }
+      },
+      "darstellung": "gespraech",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_druce",
+      "city": "wexmoor",
+      "kind": "neben",
+      "npc": "druce",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "druce",
+          "text": "Die Schleuse öffnet nach Pegel.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "druce",
+          "text": "Ihr Titel ändert daran wenig.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "druce",
+          "text": "Das ist keine Unhöflichkeit.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "druce",
+          "text": "Wasser nimmt solche Dinge persönlich genug.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "druce",
+          "text": "Warten Sie hinter der Markierung."
+        }
+      },
+      "darstellung": "gespraech",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_k2n_eichmeisterin",
+      "city": "wexmoor",
+      "kind": "neben",
+      "npc": "k2n_eichmeisterin",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "k2n_eichmeisterin",
+          "text": "Das Gewicht hat sich gehalten.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "k2n_eichmeisterin",
+          "text": "Ich wiege es trotzdem nach.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "k2n_eichmeisterin",
+          "text": "Vertrauen ist keine Eichmarke.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "k2n_eichmeisterin",
+          "text": "Legen Sie nichts auf die zweite Schale.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "k2n_eichmeisterin",
+          "text": "So sehen wir, ob sie wirklich leer ist."
+        }
+      },
+      "darstellung": "gespraech",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_k2n_zeichner",
+      "city": "wexmoor",
+      "kind": "neben",
+      "npc": "k2n_zeichner",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "k2n_zeichner",
+          "text": "Ihr Gesicht ist älter geworden.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "k2n_zeichner",
+          "text": "Der Steckbrief leider nicht.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "k2n_zeichner",
+          "text": "Ich zeichne nur, was ich sehe.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "k2n_zeichner",
+          "text": "Für Korrekturen brauche ich kein Geständnis.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "k2n_zeichner",
+          "text": "Drehen Sie sich etwas zum Fenster."
+        }
+      },
+      "darstellung": "gespraech",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_k2n_waerter",
+      "city": "wexmoor",
+      "kind": "neben",
+      "npc": "k2n_waerter",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "k2n_waerter",
+          "text": "Die alte Laterne bleibt ausgemustert.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "k2n_waerter",
+          "text": "Ich putze sie dennoch.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "k2n_waerter",
+          "text": "Eine Scheibe kann man verwenden, ohne den Dienst wieder aufzunehmen.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "k2n_waerter",
+          "text": "Lassen Sie den Brenner liegen.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "k2n_waerter",
+          "text": "Der gehört nicht in eine Rückfahrgeschichte."
+        }
+      },
+      "darstellung": "gespraech",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_k3_oren",
+      "city": "dunscar",
+      "kind": "neben",
+      "npc": "k3_oren",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "k3_oren",
+          "text": "Die Küstenbahn hat eine eigene Kupplung.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "k3_oren",
+          "text": "Ich habe die Maße nachgesehen.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "k3_oren",
+          "text": "Kein Wagen muss an die alte Anlage.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "k3_oren",
+          "text": "Halten Sie bitte die Lampe.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "k3_oren",
+          "text": "Jetzt kann ich die Nummer lesen."
+        }
+      },
+      "darstellung": "gespraech",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_k3_mabel",
+      "city": "dunscar",
+      "kind": "neben",
+      "npc": "k3_mabel",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "k3_mabel",
+          "text": "Der Teller bleibt ungedeckt, bis jemand Platz nimmt.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "k3_mabel",
+          "text": "Ich frage nicht nach seiner Schicht.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "k3_mabel",
+          "text": "Heute gibt es Suppe.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "k3_mabel",
+          "text": "Morgen wahrscheinlich auch.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "k3_mabel",
+          "text": "Das ist die verlässlichste Auskunft im Viertel."
+        }
+      },
+      "darstellung": "gespraech",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_k3_pelham",
+      "city": "dunscar",
+      "kind": "neben",
+      "npc": "k3_pelham",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "k3_pelham",
+          "text": "Der Stein steht noch hier.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "k3_pelham",
+          "text": "Die falsche Schrift ist nicht heimlich geglättet worden.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "k3_pelham",
+          "text": "Ich mache einen neuen Entwurf daneben.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "k3_pelham",
+          "text": "Sie dürfen beide ansehen.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "k3_pelham",
+          "text": "Abtragen kann man später immer noch."
+        }
+      },
+      "darstellung": "gespraech",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_k3_adaine",
+      "city": "dunscar",
+      "kind": "neben",
+      "npc": "k3_adaine",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "k3_adaine",
+          "text": "Mein Nullpunkt ist neu vermessen.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "k3_adaine",
+          "text": "Die alte Marke bleibt kenntlich.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "k3_adaine",
+          "text": "Sonst glaubt der Nächste, es habe nie eine Abweichung gegeben.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "k3_adaine",
+          "text": "Stellen Sie den Fuß neben die Schnur.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "k3_adaine",
+          "text": "Jetzt stimmt der Abstand."
+        }
+      },
+      "darstellung": "gespraech",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_k3_esther",
+      "city": "dunscar",
+      "kind": "neben",
+      "npc": "k3_esther",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "k3_esther",
+          "text": "Die Liste ist keine Lohnforderung mehr.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "k3_esther",
+          "text": "Einige Beträge bleiben ungeklärt.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "k3_esther",
+          "text": "Ich schreibe sie nicht auf lebende Nachbarn um.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "k3_esther",
+          "text": "Sie können den Durchschlag lesen.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "k3_esther",
+          "text": "Für offene Zahlen gibt es offene Ränder."
+        }
+      },
+      "darstellung": "gespraech",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_k3n_secondhaendler",
+      "city": "dunscar",
+      "kind": "neben",
+      "npc": "k3n_secondhaendler",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "k3n_secondhaendler",
+          "text": "Diese Platte grüßt noch falsch.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "k3n_secondhaendler",
+          "text": "Ich verkaufe sie deshalb nicht als Familienaufnahme.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "k3n_secondhaendler",
+          "text": "Vielleicht erkennt jemand die Stimme.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "k3n_secondhaendler",
+          "text": "Bis dahin bleibt das Etikett ehrlich.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "k3n_secondhaendler",
+          "text": "Das macht sie billiger, nicht wertlos."
+        }
+      },
+      "darstellung": "gespraech",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_cw_darnell",
+      "city": "calderwick",
+      "kind": "neben",
+      "npc": "cw_darnell",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "cw_darnell",
+          "text": "Der Gleisfuß steht im neuen Fahrplan.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "cw_darnell",
+          "text": "Ich prüfe trotzdem jede Abfahrt.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "cw_darnell",
+          "text": "Ein gedrucktes Ziel trägt keinen Koffer.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "cw_darnell",
+          "text": "Nennen Sie Ihre wirkliche Haltestelle.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "cw_darnell",
+          "text": "Den Durchschlag behalten Sie."
+        }
+      },
+      "darstellung": "gespraech",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_cw_hesk",
+      "city": "calderwick",
+      "kind": "neben",
+      "npc": "cw_hesk",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "cw_hesk",
+          "text": "Die Kiste gehört zu einer Person.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "cw_hesk",
+          "text": "Nicht zu der Anschrift auf dem großen Sammelzettel.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "cw_hesk",
+          "text": "Ich frage vor dem Abladen.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "cw_hesk",
+          "text": "Manche Leute sind inzwischen fortgezogen.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "cw_hesk",
+          "text": "Dann fährt die Kiste mit ihnen."
+        }
+      },
+      "darstellung": "gespraech",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_cw_wicksend",
+      "city": "calderwick",
+      "kind": "neben",
+      "npc": "cw_wicksend",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "cw_wicksend",
+          "text": "Drei Haushalte sind drei Pfänder.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "cw_wicksend",
+          "text": "Ich habe die alten Zeilen getrennt.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "cw_wicksend",
+          "text": "Das Holz der Schublade reichte dafür schon immer.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "cw_wicksend",
+          "text": "Bringen Sie den richtigen Schein.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "cw_wicksend",
+          "text": "Wir zählen ohne Eile."
+        }
+      },
+      "darstellung": "gespraech",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_cw_bexley",
+      "city": "calderwick",
+      "kind": "neben",
+      "npc": "cw_bexley",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "cw_bexley",
+          "text": "Der Schlüssel passt noch.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "cw_bexley",
+          "text": "Ob jemand öffnet, ist eine andere Frage.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "cw_bexley",
+          "text": "Ich betrete keine Wohnung für eine gute Geschichte.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "cw_bexley",
+          "text": "Sie können hier eine Nachricht lassen.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "cw_bexley",
+          "text": "Mit Absender, wenn Sie eine Antwort wünschen."
+        }
+      },
+      "darstellung": "gespraech",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_cw_malliver",
+      "city": "calderwick",
+      "kind": "neben",
+      "npc": "cw_malliver",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "cw_malliver",
+          "text": "Der Aktenrand ist nicht wieder weiß geworden.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "cw_malliver",
+          "text": "Ich könnte ihn glätten.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "cw_malliver",
+          "text": "Dann sähe niemand mehr den Eingriff.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "cw_malliver",
+          "text": "Wir legen die Erklärung daneben.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "cw_malliver",
+          "text": "Das Papier darf beschädigt bleiben."
+        }
+      },
+      "darstellung": "gespraech",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_cw_pritch",
+      "city": "calderwick",
+      "kind": "neben",
+      "npc": "cw_pritch",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "cw_pritch",
+          "text": "Der Topf hat einen neuen Griff.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "cw_pritch",
+          "text": "Die alte Rechnung hängt daneben.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "cw_pritch",
+          "text": "Ich sammle keine Zustimmung durch Essensmarken.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "cw_pritch",
+          "text": "Wer Hunger hat, bekommt eine Portion.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "cw_pritch",
+          "text": "Über die Rechnung reden wir danach."
+        }
+      },
+      "darstellung": "gespraech",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_bh_vellish",
+      "city": "briarholt",
+      "kind": "neben",
+      "npc": "bh_vellish",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "bh_vellish",
+          "text": "Die Wurzelzeichnung ist nicht die Pflanze.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "bh_vellish",
+          "text": "Ich halte beides auseinander.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "bh_vellish",
+          "text": "Die Beete zeigen Folgen, keine Erlaubnis.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "bh_vellish",
+          "text": "Sie können beim Beschriften helfen.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "bh_vellish",
+          "text": "Bitte keine fremden Namen ergänzen."
+        }
+      },
+      "darstellung": "gespraech",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_bh_malkin",
+      "city": "briarholt",
+      "kind": "neben",
+      "npc": "bh_malkin",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "bh_malkin",
+          "text": "Das Rohr ist von der Anlage getrennt.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "bh_malkin",
+          "text": "Ich habe die Trennstelle markiert.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "bh_malkin",
+          "text": "Eine warme Wand beweist noch keine sichere Leitung.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "bh_malkin",
+          "text": "Halten Sie die Manschette fest.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "bh_malkin",
+          "text": "Nun prüfen wir sie im kalten Zustand."
+        }
+      },
+      "darstellung": "gespraech",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_bh_henshall",
+      "city": "briarholt",
+      "kind": "neben",
+      "npc": "bh_henshall",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "bh_henshall",
+          "text": "Meine Adresse steht auf der Karte.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "bh_henshall",
+          "text": "Die Anrede bestimme ich selbst.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "bh_henshall",
+          "text": "Ich habe lange genug Formulare gelesen.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "bh_henshall",
+          "text": "Sie dürfen die Karte weitergeben.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "bh_henshall",
+          "text": "Den Text ändern Sie bitte nicht."
+        }
+      },
+      "darstellung": "gespraech",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_bh_crowther",
+      "city": "briarholt",
+      "kind": "neben",
+      "npc": "bh_crowther",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "bh_crowther",
+          "text": "Die leere Kiste ist zurück.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "bh_crowther",
+          "text": "Ich berechne nur den Transport.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "bh_crowther",
+          "text": "Für ihren früheren Inhalt bin ich auskunftspflichtig.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "bh_crowther",
+          "text": "Die Belege liegen offen.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "bh_crowther",
+          "text": "Sie müssen nicht erst etwas kaufen."
+        }
+      },
+      "darstellung": "gespraech",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_bh_dipple",
+      "city": "briarholt",
+      "kind": "neben",
+      "npc": "bh_dipple",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "bh_dipple",
+          "text": "Ich zeichne die zweite Kante mit.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "bh_dipple",
+          "text": "Die erste war nicht genau genug.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "bh_dipple",
+          "text": "Das neue Blatt versteckt das alte nicht.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "bh_dipple",
+          "text": "Sehen Sie auf den Maßstab.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "bh_dipple",
+          "text": "So groß ist der Unterschied wirklich."
+        }
+      },
+      "darstellung": "gespraech",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_bhn_e_kapellmeister",
+      "city": "briarholt",
+      "kind": "neben",
+      "npc": "bhn_e_kapellmeister",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "bhn_e_kapellmeister",
+          "text": "Im Stück bleibt eine Pause.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "bhn_e_kapellmeister",
+          "text": "Niemand muss sie mit einem fremden Namen füllen.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "bhn_e_kapellmeister",
+          "text": "Ich hebe die Hand erst nach dem Atemzug.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "bhn_e_kapellmeister",
+          "text": "Sie dürfen zuhören.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "bhn_e_kapellmeister",
+          "text": "Mitsingen ist keine Pflicht."
+        }
+      },
+      "darstellung": "gespraech",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_vmn_zollschreiber",
+      "city": "varrowmouth",
+      "kind": "neben",
+      "npc": "vmn_zollschreiber",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "np_erzaehler",
+          "text": "Sie lesen eine geschriebene Antwort.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "np_erzaehler",
+          "text": "Auf dem Blatt steht: Die Herkunft bleibt neben dem Namen.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "np_erzaehler",
+          "text": "Darunter ist Raum für eine Berichtigung.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "np_erzaehler",
+          "text": "Der Stift wird nicht zu Ihrer Hand geschoben.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "np_erzaehler",
+          "text": "Du lässt die freie Zeile frei."
+        }
+      },
+      "darstellung": "schriftliche_auskunft",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_vmn_rat_1",
+      "city": "varrowmouth",
+      "kind": "neben",
+      "npc": "vmn_rat_1",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "np_erzaehler",
+          "text": "Sie finden eine Auskunft zum Zoll.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "np_erzaehler",
+          "text": "Ein freier Weg braucht keine nachträgliche Eintragung.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "np_erzaehler",
+          "text": "Offene Forderungen sind einzeln zu begründen.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "np_erzaehler",
+          "text": "Die alte Amtsbezeichnung genügt dafür nicht.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "np_erzaehler",
+          "text": "Die Auskunft bleibt bei den Akten."
+        }
+      },
+      "darstellung": "schriftliche_auskunft",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_vmn_rat_2",
+      "city": "varrowmouth",
+      "kind": "neben",
+      "npc": "vmn_rat_2",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "np_erzaehler",
+          "text": "Sie lesen eine Notiz zum Pegel.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "np_erzaehler",
+          "text": "Die Uhr misst Wasser und keine Zustimmung.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "np_erzaehler",
+          "text": "Wartung wird mit Datum vermerkt.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "np_erzaehler",
+          "text": "Fehlende Messungen bleiben als Lücken sichtbar.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "np_erzaehler",
+          "text": "Niemand ergänzt rückwirkend einen sicheren Stand."
+        }
+      },
+      "darstellung": "schriftliche_auskunft",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_vmn_rat_3",
+      "city": "varrowmouth",
+      "kind": "neben",
+      "npc": "vmn_rat_3",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "np_erzaehler",
+          "text": "Sie finden eine Abschrift zum Register.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "np_erzaehler",
+          "text": "Eine Liste vertritt nicht die Menschen auf ihr.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "np_erzaehler",
+          "text": "Ein Widerspruch bleibt neben dem Eintrag.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "np_erzaehler",
+          "text": "Er wird nicht für eine schönere Seite entfernt.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "np_erzaehler",
+          "text": "Du klappst die Abschrift vorsichtig zu."
+        }
+      },
+      "darstellung": "schriftliche_auskunft",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_vmn_rat_4",
+      "city": "varrowmouth",
+      "kind": "neben",
+      "npc": "vmn_rat_4",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "np_erzaehler",
+          "text": "Sie lesen eine Auskunft zum Hafen.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "np_erzaehler",
+          "text": "Die Rückfahrt bleibt am äußeren Halt erreichbar.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "np_erzaehler",
+          "text": "Beschädigte Stege werden nicht als Abkürzung empfohlen.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "np_erzaehler",
+          "text": "Die Sperrung nennt einen Grund.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "np_erzaehler",
+          "text": "Du prüfst den Rückweg vor dem Aufbruch."
+        }
+      },
+      "darstellung": "schriftliche_auskunft",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    },
+    {
+      "id": "np_kurz_vmn_rat_5",
+      "city": "varrowmouth",
+      "kind": "neben",
+      "npc": "vmn_rat_5",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "start": "zeile_0",
+      "nodes": {
+        "zeile_0": {
+          "speaker": "np_erzaehler",
+          "text": "Sie finden eine Notiz zu den Werkstätten.",
+          "next": "zeile_1"
+        },
+        "zeile_1": {
+          "speaker": "np_erzaehler",
+          "text": "Werkzeug wird an die tatsächlichen Besitzer zurückgegeben.",
+          "next": "zeile_2"
+        },
+        "zeile_2": {
+          "speaker": "np_erzaehler",
+          "text": "Ein verlorener Schein macht es nicht herrenlos.",
+          "next": "zeile_3"
+        },
+        "zeile_3": {
+          "speaker": "np_erzaehler",
+          "text": "Unklare Stücke bleiben getrennt liegen.",
+          "next": "zeile_4"
+        },
+        "zeile_4": {
+          "speaker": "np_erzaehler",
+          "text": "Du lässt die Markierung am Griff."
+        }
+      },
+      "darstellung": "schriftliche_auskunft",
+      "abwesenheit": {
+        "modus": "aufbewahrte_auskunft",
+        "text": "Du findest die hinterlegte Auskunft. Sie bestätigt nicht, dass die Person noch hier lebt."
+      }
+    }
+  ],
+  "koop": [
+    {
+      "id": "np_koop_kettlegate",
+      "city": "kettlegate",
+      "npc": "marlowe",
+      "zeilen": [
+        {
+          "speaker": "marlowe",
+          "text": "Sie haben beide denselben Zug genommen. Ihre Aussagen nehme ich getrennt auf."
+        },
+        {
+          "speaker": "np_spieler_1",
+          "text": "Ich möchte noch bleiben."
+        },
+        {
+          "speaker": "np_spieler_2",
+          "text": "Ich möchte erst den Rückweg prüfen."
+        },
+        {
+          "speaker": "marlowe",
+          "text": "Das lässt sich nacheinander tun. Bestätigen Sie beide, bevor der Zug fährt."
+        }
+      ],
+      "zustimmung": "beide",
+      "wirkung": "keine_automatische_reise"
+    },
+    {
+      "id": "np_koop_wexmoor",
+      "city": "wexmoor",
+      "npc": "zunder",
+      "zeilen": [
+        {
+          "speaker": "zunder",
+          "text": "Für zwei Reisende brauche ich zwei Antworten, nicht die lautere."
+        },
+        {
+          "speaker": "np_spieler_1",
+          "text": "Ich möchte noch bleiben."
+        },
+        {
+          "speaker": "np_spieler_2",
+          "text": "Ich möchte erst den Rückweg prüfen."
+        },
+        {
+          "speaker": "zunder",
+          "text": "Das lässt sich nacheinander tun. Bestätigen Sie beide, bevor der Zug fährt."
+        }
+      ],
+      "zustimmung": "beide",
+      "wirkung": "keine_automatische_reise"
+    },
+    {
+      "id": "np_koop_dunscar",
+      "city": "dunscar",
+      "npc": "k3_pfiff",
+      "zeilen": [
+        {
+          "speaker": "k3_pfiff",
+          "text": "Ich gebe Ihnen beiden einen Durchschlag."
+        },
+        {
+          "speaker": "np_spieler_1",
+          "text": "Ich möchte noch bleiben."
+        },
+        {
+          "speaker": "np_spieler_2",
+          "text": "Ich möchte erst den Rückweg prüfen."
+        },
+        {
+          "speaker": "k3_pfiff",
+          "text": "Das lässt sich nacheinander tun. Bestätigen Sie beide, bevor der Zug fährt."
+        }
+      ],
+      "zustimmung": "beide",
+      "wirkung": "keine_automatische_reise"
+    },
+    {
+      "id": "np_koop_calderwick",
+      "city": "calderwick",
+      "npc": "cw_crayford",
+      "zeilen": [
+        {
+          "speaker": "cw_crayford",
+          "text": "Zwei Handschriften bleiben auch in einem Band zwei Handschriften."
+        },
+        {
+          "speaker": "np_spieler_1",
+          "text": "Ich möchte noch bleiben."
+        },
+        {
+          "speaker": "np_spieler_2",
+          "text": "Ich möchte erst den Rückweg prüfen."
+        },
+        {
+          "speaker": "cw_crayford",
+          "text": "Das lässt sich nacheinander tun. Bestätigen Sie beide, bevor der Zug fährt."
+        }
+      ],
+      "zustimmung": "beide",
+      "wirkung": "keine_automatische_reise"
+    },
+    {
+      "id": "np_koop_briarholt",
+      "city": "briarholt",
+      "npc": "bh_bellweather",
+      "zeilen": [
+        {
+          "speaker": "bh_bellweather",
+          "text": "Der zweite Stuhl ist frei. Niemand muss für den anderen sprechen."
+        },
+        {
+          "speaker": "np_spieler_1",
+          "text": "Ich möchte noch bleiben."
+        },
+        {
+          "speaker": "np_spieler_2",
+          "text": "Ich möchte erst den Rückweg prüfen."
+        },
+        {
+          "speaker": "bh_bellweather",
+          "text": "Das lässt sich nacheinander tun. Bestätigen Sie beide, bevor der Zug fährt."
+        }
+      ],
+      "zustimmung": "beide",
+      "wirkung": "keine_automatische_reise"
+    },
+    {
+      "id": "np_koop_varrowmouth",
+      "city": "varrowmouth",
+      "npc": "vmn_tam_verrin",
+      "zeilen": [
+        {
+          "speaker": "vmn_tam_verrin",
+          "text": "Ich prüfe die Rückfahrt mit Ihnen beiden."
+        },
+        {
+          "speaker": "np_spieler_1",
+          "text": "Ich möchte noch bleiben."
+        },
+        {
+          "speaker": "np_spieler_2",
+          "text": "Ich möchte erst den Rückweg prüfen."
+        },
+        {
+          "speaker": "vmn_tam_verrin",
+          "text": "Das lässt sich nacheinander tun. Bestätigen Sie beide, bevor der Zug fährt."
+        }
+      ],
+      "zustimmung": "beide",
+      "wirkung": "keine_automatische_reise"
+    }
+  ],
+  "seq1_reaktionen": {
+    "source": "docs/story/seq31/reaktionen.json",
+    "modus": "dd_nach_persoenlicher_stufe_und_klasse_einfuegen",
+    "eigene_reaktionen": false,
+    "zuordnung": [
+      {
+        "npc": "marlowe",
+        "reaction_ref": "seq31_reaktion_polizei_1"
+      },
+      {
+        "npc": "kit",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "waescherin",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "zunder",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "sedge",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "wyle",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "k3_pfiff",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "k3_nellie",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "k3_weichenstellerin",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "cw_crayford",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "cw_ida_bellcross",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "cw_noel_bellcross",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "bh_bellweather",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "bh_rookwell",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "bh_felix_fencrest",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "vmn_tam_verrin",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "vmn_osric_dale",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "vmn_nell_quarrie",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "holt",
+        "reaction_ref": "seq31_reaktion_polizei_1"
+      },
+      {
+        "npc": "fotografin",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "kaminkehrer",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "kutscher",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "kind_streuner",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "sufragette",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "hesper",
+        "reaction_ref": "seq31_reaktion_haendler_1"
+      },
+      {
+        "npc": "brack",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "druce",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "k2n_eichmeisterin",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "k2n_zeichner",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "k2n_waerter",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "k3_oren",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "k3_mabel",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "k3_pelham",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "k3_adaine",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "k3_esther",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "k3n_secondhaendler",
+        "reaction_ref": "seq31_reaktion_haendler_1"
+      },
+      {
+        "npc": "cw_darnell",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "cw_hesk",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "cw_wicksend",
+        "reaction_ref": "seq31_reaktion_haendler_1"
+      },
+      {
+        "npc": "cw_bexley",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "cw_malliver",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "cw_pritch",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "bh_vellish",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "bh_malkin",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "bh_henshall",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "bh_crowther",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "bh_dipple",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "bhn_e_kapellmeister",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "vmn_zollschreiber",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "vmn_rat_1",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "vmn_rat_2",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "vmn_rat_3",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "vmn_rat_4",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      },
+      {
+        "npc": "vmn_rat_5",
+        "reaction_ref": "seq31_reaktion_buerger_1"
+      }
+    ]
+  }
+}

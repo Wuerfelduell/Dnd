@@ -1,0 +1,910 @@
+[
+  {
+    "id": "nachspiel_kettlegate_fahndung_offen",
+    "city": "kettlegate",
+    "zustand": "fahndung_offen",
+    "ankunft": "Der Kleister unter deinem Steckbrief ist jünger als das Papier. Am Nordtor erkennt dich ein Träger und blickt auf seinen Karren. Die Küstenbahn hält trotzdem. Hinter dem Revierfenster brennt eine einzelne Lampe. Du kannst zurückkehren, aber die Akte kehrt mit dir zurück.",
+    "aenderungen": {
+      "sprecher_entfernen": [],
+      "sprecher_hinzufuegen": [],
+      "sprecher_verlegen": [],
+      "karten_gesperrt": [],
+      "preise": [],
+      "zeitung": {
+        "id": "np_zeitung_kettlegate_fahndung_offen",
+        "title": "Reviernachtrag",
+        "text": "Der Kleister unter deinem Steckbrief ist jünger als das Papier."
+      }
+    },
+    "gerede": [
+      "Der Steckbrief hat schon drei Wintermäntel überlebt.",
+      "Die Bahn verkauft Fahrkarten, keine Freisprüche.",
+      "Im Revier ist noch ein Fach für den Fall frei.",
+      "Marlowe liest die alten Briefe wieder.",
+      "Der Kleistermann verdient an jeder Rückkehr.",
+      "Wer jemanden erkennt, muss noch lange nicht alles wissen.",
+      "Die Nummer der Akte stimmt; das Gesicht ist schlecht getroffen.",
+      "Am Nordtor werden Fragen inzwischen leiser gestellt.",
+      "Eine alte Anschuldigung wird durch Warten nicht genauer.",
+      "Der nächste Schalter nimmt auch Beschwerden an."
+    ],
+    "nacht": {
+      "text": "Unter der Revierlampe wird jede Handbewegung deutlich.",
+      "sprecher_modus": "tagesplan_mit_nachspiel_verlegungen",
+      "preise_faktor": 1,
+      "reise_offen": true,
+      "nachspiel_sprechstunde": "06_18",
+      "ausserhalb_sprechstunde": "auskunft_lesen_oder_naechsten_besuch_waehlen_keine_npc_teleportation",
+      "beleuchtung": "vorhandene_nachtbeleuchtung",
+      "gerede_zusatz": [
+        "Der letzte Abendzug ist weg. Der nächste fährt am Morgen.",
+        "Am sicheren Halt bleibt eine Lampe für Wartende an."
+      ]
+    }
+  },
+  {
+    "id": "nachspiel_kettlegate_fahndung_beendet",
+    "city": "kettlegate",
+    "zustand": "fahndung_beendet",
+    "ankunft": "Wo dein Steckbrief hing, bleibt ein helles Rechteck. Das Revier hat die Rücknahme datiert. Auf dem Altmarkt weiß man bereits drei Gründe dafür. Keiner stimmt ganz. Du gehst durch dieselben Straßen und musst dich nicht mehr wegen Starlings Akte verstecken.",
+    "aenderungen": {
+      "sprecher_entfernen": [],
+      "sprecher_hinzufuegen": [],
+      "sprecher_verlegen": [],
+      "karten_gesperrt": [],
+      "preise": [],
+      "zeitung": {
+        "id": "np_zeitung_kettlegate_fahndung_beendet",
+        "title": "Reviernachtrag",
+        "text": "Wo dein Steckbrief hing, bleibt ein helles Rechteck."
+      }
+    },
+    "gerede": [
+      "Das leere Rechteck fällt mehr auf als das Gesicht.",
+      "Die Rücknahme hat einen Stempel; das Gerücht braucht keinen.",
+      "Holt hat die letzte Abschrift eingesammelt.",
+      "Manche haben Sie angeblich schon immer für unschuldig gehalten.",
+      "Der Zeitungskasten ist heute schnell leer geworden.",
+      "Die Wäscherin verlangt weiterhin denselben Preis.",
+      "Ein Freispruch bessert keine nassen Stiefel.",
+      "Der Bote musste alle Reviere einzeln anschreiben.",
+      "An der Laterne hängt jetzt eine Zimmeranzeige.",
+      "Auch ein beendeter Fall braucht einen ordentlichen Deckel."
+    ],
+    "nacht": {
+      "text": "Unter der Revierlampe wird jede Handbewegung deutlich.",
+      "sprecher_modus": "tagesplan_mit_nachspiel_verlegungen",
+      "preise_faktor": 1,
+      "reise_offen": true,
+      "nachspiel_sprechstunde": "06_18",
+      "ausserhalb_sprechstunde": "auskunft_lesen_oder_naechsten_besuch_waehlen_keine_npc_teleportation",
+      "beleuchtung": "vorhandene_nachtbeleuchtung",
+      "gerede_zusatz": [
+        "Der letzte Abendzug ist weg. Der nächste fährt am Morgen.",
+        "Am sicheren Halt bleibt eine Lampe für Wartende an."
+      ]
+    }
+  },
+  {
+    "id": "nachspiel_wexmoor_gilde_offen",
+    "city": "wexmoor",
+    "zustand": "gilde_offen",
+    "ankunft": "Unter dem Pfahldorf ist der Schrein wieder zugänglich. Holzspäne liegen auf den Stufen. Die Mitglieder vergleichen Namen, bevor sie neue Tafeln schneiden. Vom Hafen kommt der Geruch nasser Netze. Du findest einen Platz, aber keine fertige Antwort.",
+    "aenderungen": {
+      "sprecher_entfernen": [],
+      "sprecher_hinzufuegen": [],
+      "sprecher_verlegen": [],
+      "karten_gesperrt": [],
+      "preise": [],
+      "zeitung": {
+        "id": "np_zeitung_wexmoor_gilde_offen",
+        "title": "Mitteilung vom Salzmarkt",
+        "text": "Unter dem Pfahldorf ist der Schrein wieder zugänglich."
+      }
+    },
+    "gerede": [
+      "Die Gilde nimmt Abschriften, keine geratenen Namen.",
+      "Im Schrein ist jetzt eine zweite Bank.",
+      "Sedge lässt die Kerben noch einmal prüfen.",
+      "Ein leerer Halter ist besser als ein falsches Schild.",
+      "Die Tür quietscht; heimlich ist das kaum.",
+      "Jemand hat den Spanbesen repariert.",
+      "Ein Name passt nicht immer auf die erste Tafel.",
+      "Besucher sollen ihre Hände vorher trocknen.",
+      "Wanda zählt Werkzeug, bevor die Sitzung beginnt.",
+      "Die Gilde ist offen, die Zustimmung bleibt persönlich."
+    ],
+    "nacht": {
+      "text": "Auf dem Holzsteg sammelt sich Tau.",
+      "sprecher_modus": "tagesplan_mit_nachspiel_verlegungen",
+      "preise_faktor": 1,
+      "reise_offen": true,
+      "nachspiel_sprechstunde": "06_18",
+      "ausserhalb_sprechstunde": "auskunft_lesen_oder_naechsten_besuch_waehlen_keine_npc_teleportation",
+      "beleuchtung": "vorhandene_nachtbeleuchtung",
+      "gerede_zusatz": [
+        "Der letzte Abendzug ist weg. Der nächste fährt am Morgen.",
+        "Am sicheren Halt bleibt eine Lampe für Wartende an."
+      ]
+    }
+  },
+  {
+    "id": "nachspiel_wexmoor_gilde_verborgen",
+    "city": "wexmoor",
+    "zustand": "gilde_verborgen",
+    "ankunft": "Die Treppe zum Schrein liegt still. Du siehst frische Holzspäne, aber kein Schild lädt dich ein. Am Salzmarkt werden Namen nur im Gespräch genannt. Sedge ist weiterhin erreichbar. Eine Rückfahrkarte ersetzt keine Bürgschaft.",
+    "aenderungen": {
+      "sprecher_entfernen": [],
+      "sprecher_hinzufuegen": [],
+      "sprecher_verlegen": [],
+      "karten_gesperrt": [],
+      "preise": [],
+      "zeitung": {
+        "id": "np_zeitung_wexmoor_gilde_verborgen",
+        "title": "Mitteilung vom Salzmarkt",
+        "text": "Die Treppe zum Schrein liegt still."
+      }
+    },
+    "gerede": [
+      "Die Tür ist nicht verschwunden, nur die Einladung fehlt.",
+      "Sedge kennt noch die alten Spuren.",
+      "Kein Mensch schuldet Fremden seinen Namen.",
+      "Der Schrein hat keine öffentliche Öffnungszeit.",
+      "Holzspäne treiben auch ohne Versammlung im Wasser.",
+      "Wer höflich fragt, muss eine Antwort abwarten.",
+      "Am Markt kann man eine Wegbeschreibung bekommen.",
+      "Drei ordentliche Abschriften sind mehr wert als zehn Gerüchte.",
+      "Die Gilde ist nicht zerstört, bloß schwer zu finden.",
+      "Eine lange Reise macht noch kein Mitglied."
+    ],
+    "nacht": {
+      "text": "Auf dem Holzsteg sammelt sich Tau.",
+      "sprecher_modus": "tagesplan_mit_nachspiel_verlegungen",
+      "preise_faktor": 1,
+      "reise_offen": true,
+      "nachspiel_sprechstunde": "06_18",
+      "ausserhalb_sprechstunde": "auskunft_lesen_oder_naechsten_besuch_waehlen_keine_npc_teleportation",
+      "beleuchtung": "vorhandene_nachtbeleuchtung",
+      "gerede_zusatz": [
+        "Der letzte Abendzug ist weg. Der nächste fährt am Morgen.",
+        "Am sicheren Halt bleibt eine Lampe für Wartende an."
+      ]
+    }
+  },
+  {
+    "id": "nachspiel_wexmoor_gilde_zerschlagen",
+    "city": "wexmoor",
+    "zustand": "gilde_zerschlagen",
+    "ankunft": "Der Schrein bleibt verschlossen. Unter der Tür quillt aufgeweichtes Holz hervor. Die früheren Mitglieder kommen einzeln zum Markt. Niemand stellt dort eine neue gemeinsame Liste auf. Du findest noch Zeugen, aber keine unversehrte Gilde.",
+    "aenderungen": {
+      "sprecher_entfernen": [],
+      "sprecher_hinzufuegen": [],
+      "sprecher_verlegen": [
+        {
+          "npc": "tm_esse",
+          "map": "wx_salzmarkt",
+          "modus": "einzeln_nur_bei_anwesenheit"
+        },
+        {
+          "npc": "tm_kerbe",
+          "map": "wx_salzmarkt",
+          "modus": "einzeln_nur_bei_anwesenheit"
+        },
+        {
+          "npc": "tm_mulde",
+          "map": "wx_salzmarkt",
+          "modus": "einzeln_nur_bei_anwesenheit"
+        }
+      ],
+      "karten_gesperrt": [
+        {
+          "map": "treffen_namensgilde",
+          "when": "immer"
+        }
+      ],
+      "preise": [],
+      "zeitung": {
+        "id": "np_zeitung_wexmoor_gilde_zerschlagen",
+        "title": "Mitteilung vom Salzmarkt",
+        "text": "Der Schrein bleibt verschlossen."
+      }
+    },
+    "gerede": [
+      "Den Schrein öffnet heute niemand.",
+      "Einige Tafeln sind bei Familien untergebracht.",
+      "Wanda trägt ihr Werkzeug jetzt selbst.",
+      "Am Markt redet man einzeln miteinander.",
+      "Eine zerbrochene Tafel löscht keine Verwandtschaft.",
+      "Sedge bewahrt die Abschriften trocken auf.",
+      "Es gibt keinen gemeinsamen Ladentisch mehr.",
+      "Die Sitzung fällt aus; die Fragen bleiben.",
+      "Eine neue Liste wäre noch keine Wiedergutmachung.",
+      "Bringen Sie den Namen zu seinem Menschen, nicht zum leeren Haus."
+    ],
+    "nacht": {
+      "text": "Auf dem Holzsteg sammelt sich Tau.",
+      "sprecher_modus": "tagesplan_mit_nachspiel_verlegungen",
+      "preise_faktor": 1,
+      "reise_offen": true,
+      "nachspiel_sprechstunde": "06_18",
+      "ausserhalb_sprechstunde": "auskunft_lesen_oder_naechsten_besuch_waehlen_keine_npc_teleportation",
+      "beleuchtung": "vorhandene_nachtbeleuchtung",
+      "gerede_zusatz": [
+        "Der letzte Abendzug ist weg. Der nächste fährt am Morgen.",
+        "Am sicheren Halt bleibt eine Lampe für Wartende an."
+      ]
+    }
+  },
+  {
+    "id": "nachspiel_dunscar_zug_faehrt",
+    "city": "dunscar",
+    "zustand": "zug_faehrt",
+    "ankunft": "Ein gewöhnlicher Pfiff läuft über den Bahnsteig. Die Küstenbahn wartet auf Gepäck. Dahinter bleibt die alte Anlage unter ihren eigenen Regeln. Niemand liest aus deiner Fahrkarte einen Arbeitsvertrag. Du kannst weiterfahren oder bleiben.",
+    "aenderungen": {
+      "sprecher_entfernen": [],
+      "sprecher_hinzufuegen": [],
+      "sprecher_verlegen": [],
+      "karten_gesperrt": [],
+      "preise": [],
+      "zeitung": {
+        "id": "np_zeitung_dunscar_zug_faehrt",
+        "title": "Nachtrag zum Fahrplan",
+        "text": "Ein gewöhnlicher Pfiff läuft über den Bahnsteig."
+      }
+    },
+    "gerede": [
+      "Die Küstenbahn fragt nach dem Ziel, nicht nach der Schicht.",
+      "Nellie trägt die wirkliche Ankunftszeit ein.",
+      "Die neue Fahrkarte riecht nach Druckerschwärze.",
+      "Ein Pfiff darf auch bloß Abfahrt heißen.",
+      "Die alte Anlage bekommt keinen Strom aus dem Fahrplan.",
+      "Der Schaffner wartet auf den letzten Koffer.",
+      "Im Teesaal steht ein Stuhl ohne Nummer.",
+      "Wer hier umsteigt, unterschreibt keine Lohnliste.",
+      "Hedda prüft noch immer beide Seiten einer Weiche.",
+      "Ein freier Platz ist kein fehlender Arbeiter."
+    ],
+    "nacht": {
+      "text": "Die Küstenbahn führt ihre eigene Schlusslampe.",
+      "sprecher_modus": "tagesplan_mit_nachspiel_verlegungen",
+      "preise_faktor": 1,
+      "reise_offen": true,
+      "nachspiel_sprechstunde": "06_18",
+      "ausserhalb_sprechstunde": "auskunft_lesen_oder_naechsten_besuch_waehlen_keine_npc_teleportation",
+      "beleuchtung": "vorhandene_nachtbeleuchtung",
+      "gerede_zusatz": [
+        "Der letzte Abendzug ist weg. Der nächste fährt am Morgen.",
+        "Am sicheren Halt bleibt eine Lampe für Wartende an."
+      ]
+    }
+  },
+  {
+    "id": "nachspiel_dunscar_endbahnhof_bleibt",
+    "city": "dunscar",
+    "zustand": "endbahnhof_bleibt",
+    "ankunft": "Die alte Schalterklappe bleibt unten. Auf dem benachbarten Gleis hält die Küstenbahn. Ihr Personal benutzt eine andere Kasse. Hinter den Zäunen liegt die Anlage, wie dein Entschluss sie hinterlassen hat. Du hörst einen Zug fahren, ohne dass dadurch die alte Ordnung verschwindet.",
+    "aenderungen": {
+      "sprecher_entfernen": [],
+      "sprecher_hinzufuegen": [],
+      "sprecher_verlegen": [],
+      "karten_gesperrt": [],
+      "preise": [],
+      "zeitung": {
+        "id": "np_zeitung_dunscar_endbahnhof_bleibt",
+        "title": "Nachtrag zum Fahrplan",
+        "text": "Die alte Schalterklappe bleibt unten."
+      }
+    },
+    "gerede": [
+      "Der alte Schalter bleibt geschlossen.",
+      "Die Küstenbahn führt eine eigene Kasse.",
+      "Eine neue Linie repariert keine alte Entscheidung.",
+      "Nellie schreibt beide Gleise auseinander.",
+      "Oren lagert Werkzeuge hinter der Absperrung.",
+      "Der Teesaal bleibt auf dem Fußweg erreichbar.",
+      "Es wird niemand für den neuen Zug eingeteilt.",
+      "Den alten Fahrmeister fragt heute keiner nach Billets.",
+      "Die Rückfahrt fährt außen herum.",
+      "Auch ein Endbahnhof kann einen Nachbarn haben."
+    ],
+    "nacht": {
+      "text": "Die Küstenbahn führt ihre eigene Schlusslampe.",
+      "sprecher_modus": "tagesplan_mit_nachspiel_verlegungen",
+      "preise_faktor": 1,
+      "reise_offen": true,
+      "nachspiel_sprechstunde": "06_18",
+      "ausserhalb_sprechstunde": "auskunft_lesen_oder_naechsten_besuch_waehlen_keine_npc_teleportation",
+      "beleuchtung": "vorhandene_nachtbeleuchtung",
+      "gerede_zusatz": [
+        "Der letzte Abendzug ist weg. Der nächste fährt am Morgen.",
+        "Am sicheren Halt bleibt eine Lampe für Wartende an."
+      ]
+    }
+  },
+  {
+    "id": "nachspiel_calderwick_unterschrift_zurueck",
+    "city": "calderwick",
+    "zustand": "unterschrift_zurueck",
+    "ankunft": "An den Türen stehen wieder einzelne Namen. Manche sind mit anderer Tinte verbessert worden. In der Setzergasse klopft eine Presse langsam. Ein Durchschlag bleibt zur Prüfung auf dem Tisch. Du findest die Stadt nicht einig, aber ihre Stimmen lassen sich unterscheiden.",
+    "aenderungen": {
+      "sprecher_entfernen": [],
+      "sprecher_hinzufuegen": [],
+      "sprecher_verlegen": [],
+      "karten_gesperrt": [],
+      "preise": [],
+      "zeitung": {
+        "id": "np_zeitung_calderwick_unterschrift_zurueck",
+        "title": "Berichtigung vom Gleisfuß",
+        "text": "An den Türen stehen wieder einzelne Namen."
+      }
+    },
+    "gerede": [
+      "Ida lässt Platz für Korrekturen.",
+      "Ein Name wird jetzt einzeln gegengelesen.",
+      "Noel hat zwei Portionen aufgeschrieben.",
+      "Die richtige Adresse ersetzt keinen Besuch.",
+      "Im Archiv darf eine Lücke stehen bleiben.",
+      "Die Setzer streiten über einen Buchstaben.",
+      "Ein Zeuge hat seine Aussage selbst verbessert.",
+      "Der Pfandschein nennt wieder den Haushalt.",
+      "Man kann widersprechen, ohne aus dem Formular zu fallen.",
+      "Die Unterschrift ist zurück; die Rechnung ist noch offen."
+    ],
+    "nacht": {
+      "text": "Die Rohre kühlen mit leisem Knacken ab.",
+      "sprecher_modus": "tagesplan_mit_nachspiel_verlegungen",
+      "preise_faktor": 1,
+      "reise_offen": true,
+      "nachspiel_sprechstunde": "06_18",
+      "ausserhalb_sprechstunde": "auskunft_lesen_oder_naechsten_besuch_waehlen_keine_npc_teleportation",
+      "beleuchtung": "vorhandene_nachtbeleuchtung",
+      "gerede_zusatz": [
+        "Der letzte Abendzug ist weg. Der nächste fährt am Morgen.",
+        "Am sicheren Halt bleibt eine Lampe für Wartende an."
+      ]
+    }
+  },
+  {
+    "id": "nachspiel_calderwick_unterschrift_fehlt",
+    "city": "calderwick",
+    "zustand": "unterschrift_fehlt",
+    "ankunft": "Die Schilder an den Häusern wirken ordentlich. Vor einem Schalter warten trotzdem drei Menschen auf eine einzelne Antwort. Im Röhrenhof schlägt eine Leitung gegen ihre Halterung. Die Akten tragen weiter die Folgen deiner Entscheidung. Du kannst hier arbeiten, aber keinen fremden Verlust wegstempeln.",
+    "aenderungen": {
+      "sprecher_entfernen": [],
+      "sprecher_hinzufuegen": [],
+      "sprecher_verlegen": [],
+      "karten_gesperrt": [],
+      "preise": [],
+      "zeitung": {
+        "id": "np_zeitung_calderwick_unterschrift_fehlt",
+        "title": "Berichtigung vom Gleisfuß",
+        "text": "Die Schilder an den Häusern wirken ordentlich."
+      }
+    },
+    "gerede": [
+      "Ein ordentliches Schild kennt seinen Bewohner nicht.",
+      "Der Sammelbogen hat viel Platz und wenig Stimmen.",
+      "Ida setzt ihre Zustimmung nicht darunter.",
+      "Noel schöpft trotzdem zweimal.",
+      "Die nächste Zuordnung liegt noch auf dem Tisch.",
+      "Eine Amtsübernahme ist keine Reparatur.",
+      "Im Röhrenhof fehlt wieder ein Empfänger.",
+      "Die Post kommt bis zur Tür.",
+      "Eine Klammer hält Papier, keine Menschen zusammen.",
+      "Wer fragt, bekommt nicht immer eine einzelne Antwort."
+    ],
+    "nacht": {
+      "text": "Die Rohre kühlen mit leisem Knacken ab.",
+      "sprecher_modus": "tagesplan_mit_nachspiel_verlegungen",
+      "preise_faktor": 1,
+      "reise_offen": true,
+      "nachspiel_sprechstunde": "06_18",
+      "ausserhalb_sprechstunde": "auskunft_lesen_oder_naechsten_besuch_waehlen_keine_npc_teleportation",
+      "beleuchtung": "vorhandene_nachtbeleuchtung",
+      "gerede_zusatz": [
+        "Der letzte Abendzug ist weg. Der nächste fährt am Morgen.",
+        "Am sicheren Halt bleibt eine Lampe für Wartende an."
+      ]
+    }
+  },
+  {
+    "id": "nachspiel_calderwick_geraeumt",
+    "city": "calderwick",
+    "zustand": "geraeumt",
+    "ankunft": "Auf den Terrassen stehen geschlossene Kisten. Der Wind bewegt das Seil der stillen Bahn. Am Gleisfuß hält ein Wagen für die Menschen, die hier noch etwas abzuholen haben. Die Häuser bleiben leer. Du triffst die Fortgezogenen nur bei vereinbarten Besuchen am Halt.",
+    "aenderungen": {
+      "sprecher_entfernen": [],
+      "sprecher_hinzufuegen": [],
+      "sprecher_verlegen": [
+        {
+          "npc": "cw_crayford",
+          "map": "cw_gleisfuss",
+          "modus": "besuch_nach_vereinbarung"
+        },
+        {
+          "npc": "cw_ida_bellcross",
+          "map": "cw_gleisfuss",
+          "modus": "besuch_nach_vereinbarung"
+        },
+        {
+          "npc": "cw_noel_bellcross",
+          "map": "cw_gleisfuss",
+          "modus": "besuch_nach_vereinbarung"
+        },
+        {
+          "npc": "cw_darnell",
+          "map": "cw_gleisfuss",
+          "modus": "besuch_nach_vereinbarung"
+        },
+        {
+          "npc": "cw_hesk",
+          "map": "cw_gleisfuss",
+          "modus": "besuch_nach_vereinbarung"
+        },
+        {
+          "npc": "cw_wicksend",
+          "map": "cw_gleisfuss",
+          "modus": "besuch_nach_vereinbarung"
+        },
+        {
+          "npc": "cw_bexley",
+          "map": "cw_gleisfuss",
+          "modus": "besuch_nach_vereinbarung"
+        },
+        {
+          "npc": "cw_malliver",
+          "map": "cw_gleisfuss",
+          "modus": "besuch_nach_vereinbarung"
+        },
+        {
+          "npc": "cw_pritch",
+          "map": "cw_gleisfuss",
+          "modus": "besuch_nach_vereinbarung"
+        }
+      ],
+      "karten_gesperrt": [],
+      "preise": [],
+      "zeitung": {
+        "id": "np_zeitung_calderwick_geraeumt",
+        "title": "Berichtigung vom Gleisfuß",
+        "text": "Auf den Terrassen stehen geschlossene Kisten."
+      }
+    },
+    "gerede": [
+      "Die Küche ist kalt; die Leute essen anderswo.",
+      "Zum Abholen kommt man am hellen Tag.",
+      "Klammer hat ihre Werkstatt mitgenommen.",
+      "Die Presse wird nicht wieder angeworfen.",
+      "Ein Schlüssel beweist nicht, dass noch jemand dort wohnt.",
+      "Der Bahnwagen bringt Besucher und nimmt sie wieder mit.",
+      "Kein Haus muss für eine Erinnerung bewohnt bleiben.",
+      "Am Gleisfuß werden Rückgaben quittiert.",
+      "Die alten Adressen bleiben auf den Kisten stehen.",
+      "Die Stadt verfällt, die Gespräche gehen weiter."
+    ],
+    "nacht": {
+      "text": "Die Rohre kühlen mit leisem Knacken ab.",
+      "sprecher_modus": "tagesplan_mit_nachspiel_verlegungen",
+      "preise_faktor": 1,
+      "reise_offen": true,
+      "nachspiel_sprechstunde": "06_18",
+      "ausserhalb_sprechstunde": "auskunft_lesen_oder_naechsten_besuch_waehlen_keine_npc_teleportation",
+      "beleuchtung": "vorhandene_nachtbeleuchtung",
+      "gerede_zusatz": [
+        "Der letzte Abendzug ist weg. Der nächste fährt am Morgen.",
+        "Am sicheren Halt bleibt eine Lampe für Wartende an."
+      ]
+    }
+  },
+  {
+    "id": "nachspiel_briarholt_warm",
+    "city": "briarholt",
+    "zustand": "warm",
+    "ankunft": "Warme Luft beschlägt die Scheibe am Kutschenhof. Unter dem Glas stehen Pflanzen in sauber gezogenen Reihen. Auf der Bank liegen Briefe mit sehr verschiedenen Anreden. Frost heizt seinen eigenen Ofen. Du musst die Wärme und ihren Preis getrennt betrachten.",
+    "aenderungen": {
+      "sprecher_entfernen": [],
+      "sprecher_hinzufuegen": [],
+      "sprecher_verlegen": [],
+      "karten_gesperrt": [],
+      "preise": [
+        {
+          "scope": "stadt_verbrauchswaren",
+          "kauf_faktor": 1,
+          "verkauf_faktor": 1,
+          "ausnahmen": [
+            "questgegenstaende",
+            "zutaten",
+            "auktion",
+            "einmalige_belohnungen"
+          ]
+        }
+      ],
+      "zeitung": {
+        "id": "np_zeitung_briarholt_warm",
+        "title": "Notiz vom Kutschenhof",
+        "text": "Warme Luft beschlägt die Scheibe am Kutschenhof."
+      }
+    },
+    "gerede": [
+      "Die Blätter glänzen auch ohne Beifall.",
+      "Frost führt seine Kohle getrennt.",
+      "Wärme sagt nichts über Zustimmung.",
+      "Ein Brief braucht mehr als eine saubere Anschrift.",
+      "Die Gärtnerin prüft jede Wurzel.",
+      "In den Stillenhäusern fehlen manche vertrauten Worte.",
+      "Ein warmer Gang ist noch keine Heilung.",
+      "Die Kapseln gehören nicht dem Wetter.",
+      "Am Pavillon wartet jemand auf eine eigene Antwort.",
+      "Wer sich wohlfühlt, darf trotzdem Fragen stellen."
+    ],
+    "nacht": {
+      "text": "An den kalten Geländern haftet der Handschuh.",
+      "sprecher_modus": "tagesplan_mit_nachspiel_verlegungen",
+      "preise_faktor": 1,
+      "reise_offen": true,
+      "nachspiel_sprechstunde": "06_18",
+      "ausserhalb_sprechstunde": "auskunft_lesen_oder_naechsten_besuch_waehlen_keine_npc_teleportation",
+      "beleuchtung": "vorhandene_nachtbeleuchtung",
+      "gerede_zusatz": [
+        "Der letzte Abendzug ist weg. Der nächste fährt am Morgen.",
+        "Am sicheren Halt bleibt eine Lampe für Wartende an."
+      ]
+    }
+  },
+  {
+    "id": "nachspiel_briarholt_kalt",
+    "city": "briarholt",
+    "zustand": "kalt",
+    "ankunft": "Reif sitzt auf den Geländern. Der Weg zur Wärmestube ist gestreut. Aus Frosts gewöhnlichem Ofen steigt Rauch. Manche Zimmer sind leer, andere werden einzeln betreut. Du hörst deine Schritte deutlicher als früher.",
+    "aenderungen": {
+      "sprecher_entfernen": [],
+      "sprecher_hinzufuegen": [],
+      "sprecher_verlegen": [],
+      "karten_gesperrt": [],
+      "preise": [
+        {
+          "scope": "stadt_verbrauchswaren",
+          "kauf_faktor": 1.05,
+          "verkauf_faktor": 1,
+          "ausnahmen": [
+            "questgegenstaende",
+            "zutaten",
+            "auktion",
+            "einmalige_belohnungen"
+          ]
+        }
+      ],
+      "zeitung": {
+        "id": "np_zeitung_briarholt_kalt",
+        "title": "Notiz vom Kutschenhof",
+        "text": "Reif sitzt auf den Geländern."
+      }
+    },
+    "gerede": [
+      "Der Ofen braucht Kohle, keine Erinnerungen.",
+      "Vor der Wärmestube wird gestreut.",
+      "Ein leeres Zimmer ist nicht immer ein Versäumnis.",
+      "Enna prüft jedes Etikett einzeln.",
+      "Die Pflanzenanlage bleibt ohne neue Entnahmen.",
+      "Der Kutschenhof hat Decken am Schalter.",
+      "Wer fortgezogen ist, darf Post bekommen.",
+      "Der Frost macht aus einem Nein kein Ja.",
+      "Ein Becher Tee braucht keinen Kurvertrag.",
+      "Die Kälte ist sichtbar; manches andere war es nicht."
+    ],
+    "nacht": {
+      "text": "An den kalten Geländern haftet der Handschuh.",
+      "sprecher_modus": "tagesplan_mit_nachspiel_verlegungen",
+      "preise_faktor": 1,
+      "reise_offen": true,
+      "nachspiel_sprechstunde": "06_18",
+      "ausserhalb_sprechstunde": "auskunft_lesen_oder_naechsten_besuch_waehlen_keine_npc_teleportation",
+      "beleuchtung": "vorhandene_nachtbeleuchtung",
+      "gerede_zusatz": [
+        "Der letzte Abendzug ist weg. Der nächste fährt am Morgen.",
+        "Am sicheren Halt bleibt eine Lampe für Wartende an."
+      ]
+    }
+  },
+  {
+    "id": "nachspiel_varrowmouth_schliessen",
+    "city": "varrowmouth",
+    "zustand": "schliessen",
+    "ankunft": "Die Pegeluhr geht weiter. Unter ihrem Glas sammelt sich gewöhnliches Salz. Niemand hält dich mit einem Eintrag am Ausgang fest. Auf den Stegen werden Bretter für kommende Winter gestapelt. Die Freiheit hat einen langen Wartungsplan.",
+    "aenderungen": {
+      "sprecher_entfernen": [],
+      "sprecher_hinzufuegen": [],
+      "sprecher_verlegen": [],
+      "karten_gesperrt": [],
+      "preise": [],
+      "zeitung": {
+        "id": "np_zeitung_varrowmouth_schliessen",
+        "title": "Nachricht am Küstenhalt",
+        "text": "Die Pegeluhr geht weiter."
+      },
+      "routine_override": {
+        "source": "docs/story/k6_figuren/tagesplaene.json",
+        "replace_gate": "hide_if_flags_k6_done",
+        "gate": "k6_done_und_passendes_ende",
+        "modus": "nachspiel_termine_06_18",
+        "keine_wiederbelebung": true,
+        "nur_sprecher": [
+          "vmn_tam_verrin",
+          "vmn_osric_dale",
+          "vmn_nell_quarrie",
+          "vmn_zollschreiber",
+          "vmn_rat_1",
+          "vmn_rat_2",
+          "vmn_rat_3",
+          "vmn_rat_4",
+          "vmn_rat_5"
+        ]
+      }
+    },
+    "gerede": [
+      "Die Flut kommt nicht heute, aber irgendwann.",
+      "Die Bretter sind für den nächsten Winter.",
+      "Tam fährt ohne heimliche Liste.",
+      "Nell zählt jetzt lieber Muscheln.",
+      "Osric bewahrt die alten Fehler auf.",
+      "Der Rat muss sich erklären.",
+      "Ein Name auf Ihren Schultern macht niemanden zu Ihrem Eigentum.",
+      "Die Pegeluhr braucht weiterhin Öl.",
+      "Manche Familien haben zum ersten Mal eine Rückfahrkarte.",
+      "Der freie Hafen bleibt ein Hafen am Meer."
+    ],
+    "nacht": {
+      "text": "Du prüfst die Pegeluhr vor dem nächsten Schritt.",
+      "sprecher_modus": "tagesplan_mit_nachspiel_verlegungen",
+      "preise_faktor": 1,
+      "reise_offen": true,
+      "nachspiel_sprechstunde": "06_18",
+      "ausserhalb_sprechstunde": "auskunft_lesen_oder_naechsten_besuch_waehlen_keine_npc_teleportation",
+      "beleuchtung": "vorhandene_nachtbeleuchtung",
+      "gerede_zusatz": [
+        "Der letzte Abendzug ist weg. Der nächste fährt am Morgen.",
+        "Am sicheren Halt bleibt eine Lampe für Wartende an."
+      ]
+    }
+  },
+  {
+    "id": "nachspiel_varrowmouth_verbrennen",
+    "city": "varrowmouth",
+    "zustand": "verbrennen",
+    "ankunft": "Bei Ebbe liegen die unteren Mauern frei. Salz sitzt in den Fensterfalzen. Du findest keine Bewohner zwischen den Ruinen. Am äußeren Halt wartet der Rückfahrwagen. Wenn das Wasser steigt, musst auch du gehen.",
+    "aenderungen": {
+      "sprecher_entfernen": [
+        "vmn_pegelherrin"
+      ],
+      "sprecher_hinzufuegen": [],
+      "sprecher_verlegen": [
+        {
+          "npc": "vmn_tam_verrin",
+          "map": "bh_kutschenhof",
+          "modus": "evakuierte_nur_bei_quellbestaetigtem_ueberleben"
+        },
+        {
+          "npc": "vmn_osric_dale",
+          "map": "bh_kutschenhof",
+          "modus": "evakuierte_nur_bei_quellbestaetigtem_ueberleben"
+        },
+        {
+          "npc": "vmn_nell_quarrie",
+          "map": "bh_kutschenhof",
+          "modus": "evakuierte_nur_bei_quellbestaetigtem_ueberleben"
+        },
+        {
+          "npc": "vmn_zollschreiber",
+          "map": "bh_kutschenhof",
+          "modus": "evakuierte_nur_bei_quellbestaetigtem_ueberleben"
+        },
+        {
+          "npc": "vmn_rat_1",
+          "map": "bh_kutschenhof",
+          "modus": "evakuierte_nur_bei_quellbestaetigtem_ueberleben"
+        },
+        {
+          "npc": "vmn_rat_2",
+          "map": "bh_kutschenhof",
+          "modus": "evakuierte_nur_bei_quellbestaetigtem_ueberleben"
+        },
+        {
+          "npc": "vmn_rat_3",
+          "map": "bh_kutschenhof",
+          "modus": "evakuierte_nur_bei_quellbestaetigtem_ueberleben"
+        },
+        {
+          "npc": "vmn_rat_4",
+          "map": "bh_kutschenhof",
+          "modus": "evakuierte_nur_bei_quellbestaetigtem_ueberleben"
+        },
+        {
+          "npc": "vmn_rat_5",
+          "map": "bh_kutschenhof",
+          "modus": "evakuierte_nur_bei_quellbestaetigtem_ueberleben"
+        }
+      ],
+      "karten_gesperrt": [
+        {
+          "map": "vm_registerkeller",
+          "when": "immer"
+        },
+        {
+          "map": "vm_stegviertel",
+          "when": "immer"
+        }
+      ],
+      "preise": [],
+      "zeitung": {
+        "id": "np_zeitung_varrowmouth_verbrennen",
+        "title": "Nachricht am Küstenhalt",
+        "text": "Bei Ebbe liegen die unteren Mauern frei."
+      },
+      "routine_override": {
+        "source": "docs/story/k6_figuren/tagesplaene.json",
+        "replace_gate": "hide_if_flags_k6_done",
+        "gate": "k6_done_und_passendes_ende",
+        "modus": "nachspiel_termine_06_18",
+        "keine_wiederbelebung": true,
+        "nur_sprecher": [
+          "vmn_tam_verrin",
+          "vmn_osric_dale",
+          "vmn_nell_quarrie",
+          "vmn_zollschreiber",
+          "vmn_rat_1",
+          "vmn_rat_2",
+          "vmn_rat_3",
+          "vmn_rat_4",
+          "vmn_rat_5"
+        ]
+      }
+    },
+    "gerede": [
+      "Die Stimmen hörst du im Evakuierungswagen, nicht aus den Häusern.",
+      "Tam zählt die Rückkehrenden zweimal.",
+      "Die Stadt ist geräumt, nicht geheilt.",
+      "Ein trockener Stein ist noch kein sicherer Weg.",
+      "Osrics Listen liegen außerhalb des Wassers.",
+      "Nell muss nicht in die Ruine zurück.",
+      "Der Pegelbote wird am äußeren Halt verteilt.",
+      "Bei Flut nimmt niemand Fahrgäste nach unten mit.",
+      "Zurückgelassene Dinge warten ohne Besitzerwechsel.",
+      "Die letzte Tür geht ins Freie."
+    ],
+    "nacht": {
+      "text": "Du prüfst die Pegeluhr vor dem nächsten Schritt.",
+      "sprecher_modus": "tagesplan_mit_nachspiel_verlegungen",
+      "preise_faktor": 1,
+      "reise_offen": true,
+      "nachspiel_sprechstunde": "06_18",
+      "ausserhalb_sprechstunde": "auskunft_lesen_oder_naechsten_besuch_waehlen_keine_npc_teleportation",
+      "beleuchtung": "vorhandene_nachtbeleuchtung",
+      "gerede_zusatz": [
+        "Der letzte Abendzug ist weg. Der nächste fährt am Morgen.",
+        "Am sicheren Halt bleibt eine Lampe für Wartende an."
+      ]
+    }
+  },
+  {
+    "id": "nachspiel_varrowmouth_uebergeben",
+    "city": "varrowmouth",
+    "zustand": "uebergeben",
+    "ankunft": "Am Zollhaus liegt ein kleinerer Mantel über der Stuhllehne. Die Pegeluhr zeigt dieselben Zahlen. Für jede Auskunft muss jemand auf Nell warten. Du kommst als Schreiber zurück. Deine Reise darf ihre Last nicht unsichtbar machen.",
+    "aenderungen": {
+      "sprecher_entfernen": [],
+      "sprecher_hinzufuegen": [],
+      "sprecher_verlegen": [],
+      "karten_gesperrt": [],
+      "preise": [],
+      "zeitung": {
+        "id": "np_zeitung_varrowmouth_uebergeben",
+        "title": "Nachricht am Küstenhalt",
+        "text": "Am Zollhaus liegt ein kleinerer Mantel über der Stuhllehne."
+      },
+      "routine_override": {
+        "source": "docs/story/k6_figuren/tagesplaene.json",
+        "replace_gate": "hide_if_flags_k6_done",
+        "gate": "k6_done_und_passendes_ende",
+        "modus": "nachspiel_termine_06_18",
+        "keine_wiederbelebung": true,
+        "nur_sprecher": [
+          "vmn_tam_verrin",
+          "vmn_osric_dale",
+          "vmn_nell_quarrie",
+          "vmn_zollschreiber",
+          "vmn_rat_1",
+          "vmn_rat_2",
+          "vmn_rat_3",
+          "vmn_rat_4",
+          "vmn_rat_5"
+        ]
+      }
+    },
+    "gerede": [
+      "Der Stuhl ist für Nell zu hoch.",
+      "Tam lässt sie nicht ohne Pause arbeiten.",
+      "Osric liest jeden Eintrag gegen.",
+      "Ein Kind trägt keine kleinere Verantwortung, nur weil es kleiner ist.",
+      "Der Schreiber ist wieder da.",
+      "Die Uhr läuft, aber niemand nennt das einen Feierabend.",
+      "Die Namen verlangen weiterhin Arbeit.",
+      "Eine Rückfahrt ersetzt keine Ablösung.",
+      "Manche Bitten bleiben bis morgen liegen.",
+      "Nell darf auch eine Frage unbeantwortet lassen."
+    ],
+    "nacht": {
+      "text": "Du prüfst die Pegeluhr vor dem nächsten Schritt.",
+      "sprecher_modus": "tagesplan_mit_nachspiel_verlegungen",
+      "preise_faktor": 1,
+      "reise_offen": true,
+      "nachspiel_sprechstunde": "06_18",
+      "ausserhalb_sprechstunde": "auskunft_lesen_oder_naechsten_besuch_waehlen_keine_npc_teleportation",
+      "beleuchtung": "vorhandene_nachtbeleuchtung",
+      "gerede_zusatz": [
+        "Der letzte Abendzug ist weg. Der nächste fährt am Morgen.",
+        "Am sicheren Halt bleibt eine Lampe für Wartende an."
+      ]
+    }
+  },
+  {
+    "id": "nachspiel_varrowmouth_teilen",
+    "city": "varrowmouth",
+    "zustand": "teilen",
+    "ankunft": "Die Pegeluhr schlägt einmal. Ihr hört den Ton von zwei Seiten. Auf dem Schreibtisch liegen zwei getrennte Hefte. Niemand hat daraus eine einzige Handschrift gemacht. Eine gemeinsame Rückfahrt braucht noch immer zwei Zusagen.",
+    "aenderungen": {
+      "sprecher_entfernen": [],
+      "sprecher_hinzufuegen": [],
+      "sprecher_verlegen": [],
+      "karten_gesperrt": [],
+      "preise": [],
+      "zeitung": {
+        "id": "np_zeitung_varrowmouth_teilen",
+        "title": "Nachricht am Küstenhalt",
+        "text": "Die Pegeluhr schlägt einmal."
+      },
+      "routine_override": {
+        "source": "docs/story/k6_figuren/tagesplaene.json",
+        "replace_gate": "hide_if_flags_k6_done",
+        "gate": "k6_done_und_passendes_ende",
+        "modus": "nachspiel_termine_06_18",
+        "keine_wiederbelebung": true,
+        "nur_sprecher": [
+          "vmn_tam_verrin",
+          "vmn_osric_dale",
+          "vmn_nell_quarrie",
+          "vmn_zollschreiber",
+          "vmn_rat_1",
+          "vmn_rat_2",
+          "vmn_rat_3",
+          "vmn_rat_4",
+          "vmn_rat_5"
+        ]
+      }
+    },
+    "gerede": [
+      "Die Last ist geteilt, nicht verschwunden.",
+      "Zwei Hefte bleiben auf dem Tisch.",
+      "Tam fragt beide vor der Abfahrt.",
+      "Osric lässt zwei Zeilen frei.",
+      "Ein gemeinsamer Name wäre hier der falsche Schluss.",
+      "Nell muss keinen der beiden ersetzen.",
+      "Der Rat bekommt nicht automatisch zwei Stimmen für sich.",
+      "Niemand steigt allein für den anderen auf.",
+      "Die nächste Pause wird gemeinsam verabredet.",
+      "Der Hafen wartet auf zwei Antworten."
+    ],
+    "nacht": {
+      "text": "Du prüfst die Pegeluhr vor dem nächsten Schritt.",
+      "sprecher_modus": "tagesplan_mit_nachspiel_verlegungen",
+      "preise_faktor": 1,
+      "reise_offen": true,
+      "nachspiel_sprechstunde": "06_18",
+      "ausserhalb_sprechstunde": "auskunft_lesen_oder_naechsten_besuch_waehlen_keine_npc_teleportation",
+      "beleuchtung": "vorhandene_nachtbeleuchtung",
+      "gerede_zusatz": [
+        "Der letzte Abendzug ist weg. Der nächste fährt am Morgen.",
+        "Am sicheren Halt bleibt eine Lampe für Wartende an."
+      ]
+    }
+  }
+]
