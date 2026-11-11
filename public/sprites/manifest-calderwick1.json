@@ -1,0 +1,1924 @@
+{
+  "version": 1,
+  "batch": "calderwick1",
+  "city": "calderwick",
+  "status": "exported; integration separate",
+  "paletteMaxVisibleColors": 31,
+  "palette": [
+    "#1a1c2c",
+    "#252b38",
+    "#303b49",
+    "#425360",
+    "#586c78",
+    "#71858b",
+    "#95a5a5",
+    "#a8b4c0",
+    "#2d2629",
+    "#58433c",
+    "#715648",
+    "#92745a",
+    "#b3946e",
+    "#cfb18a",
+    "#e0c9a1",
+    "#494b3a",
+    "#686850",
+    "#8b8870",
+    "#eee2c5",
+    "#173d40",
+    "#245b59",
+    "#36817a",
+    "#4eafa2",
+    "#6fe0d0",
+    "#886332",
+    "#d0a050",
+    "#e8b860",
+    "#f0ce80",
+    "#c8b0e8",
+    "#5c426a",
+    "#8c7295"
+  ],
+  "transparentIndex": 31,
+  "assets": [
+    {
+      "id": "cw_terrasse",
+      "file": "tilesets/cw_terrasse.png",
+      "kind": "tiles",
+      "width": 128,
+      "height": 64,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 4,
+      "transparent": false,
+      "animations": {},
+      "cells": {
+        "paving_1": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "paving_2": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "paving_3": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "paving_4": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "gutter_straight": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "gutter_corner": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "gully": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "terrace_top_railing": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "terrace_bottom": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "stairs_top": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "stairs_bottom": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "retaining_wall": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wall_base": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wall_left": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wall_right": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "facade_top": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "facade_fill": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "facade_left": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "facade_right": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "window_dark": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "window_lit": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "window_fogged": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "door": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "tube_vertical": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "tube_horizontal": {
+          "index": 24,
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "tube_ne": {
+          "index": 25,
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "tube_sw": {
+          "index": 26,
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "tube_junction": {
+          "index": 27,
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "tube_hatch": {
+          "index": 28,
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "door_plaque": {
+          "index": 29,
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "dried_bed": {
+          "index": 30,
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "soot_wall": {
+          "index": 31,
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "tileNames": [
+        "paving_1",
+        "paving_2",
+        "paving_3",
+        "paving_4",
+        "gutter_straight",
+        "gutter_corner",
+        "gully",
+        "terrace_top_railing",
+        "terrace_bottom",
+        "stairs_top",
+        "stairs_bottom",
+        "retaining_wall",
+        "wall_base",
+        "wall_left",
+        "wall_right",
+        "facade_top",
+        "facade_fill",
+        "facade_left",
+        "facade_right",
+        "window_dark",
+        "window_lit",
+        "window_fogged",
+        "door",
+        "tube_vertical",
+        "tube_horizontal",
+        "tube_ne",
+        "tube_sw",
+        "tube_junction",
+        "tube_hatch",
+        "door_plaque",
+        "dried_bed",
+        "soot_wall"
+      ],
+      "sha256": "0478e44f78554d39eef60a88b760a213e2c74b9ecc337eb7bdc6aa47d01ac4c4"
+    },
+    {
+      "id": "cw_gleis",
+      "file": "tilesets/cw_gleis.png",
+      "kind": "tiles",
+      "width": 128,
+      "height": 48,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 3,
+      "transparent": true,
+      "animations": {},
+      "cells": {
+        "horizontal_rails": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "vertical_rails": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "rail_nw_bend": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "rail_ne_bend": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "rail_sw_bend": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "rail_se_bend": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "track_switch_left": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "track_switch_right": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "buffer_stop": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "loading_ramp_north": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "loading_ramp_south": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "loading_ramp_left": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "loading_ramp_right": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "cargo_trolley_tracks": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "incline_rail_upper_left": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "incline_rail_upper_right": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "incline_rail_lower_left": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "incline_rail_lower_right": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "blank_station_sign_left": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "blank_station_sign_middle_missing_inset_plates": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "blank_station_sign_right": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "wheel_grooves_horizontal": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "wheel_grooves_vertical": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "tileNames": [
+        "horizontal_rails",
+        "vertical_rails",
+        "rail_nw_bend",
+        "rail_ne_bend",
+        "rail_sw_bend",
+        "rail_se_bend",
+        "track_switch_left",
+        "track_switch_right",
+        "buffer_stop",
+        "loading_ramp_north",
+        "loading_ramp_south",
+        "loading_ramp_left",
+        "loading_ramp_right",
+        "cargo_trolley_tracks",
+        "incline_rail_upper_left",
+        "incline_rail_upper_right",
+        "incline_rail_lower_left",
+        "incline_rail_lower_right",
+        "blank_station_sign_left",
+        "blank_station_sign_middle_missing_inset_plates",
+        "blank_station_sign_right",
+        "wheel_grooves_horizontal",
+        "wheel_grooves_vertical"
+      ],
+      "sha256": "16ad49d5fcb01448b81a5d659e698c9cc110d5aaf268de062997923586dd2f59"
+    },
+    {
+      "id": "cw_druckerei",
+      "file": "tilesets/cw_druckerei.png",
+      "kind": "tiles",
+      "width": 128,
+      "height": 48,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 3,
+      "transparent": true,
+      "animations": {},
+      "cells": {
+        "wood_floor_clean": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "wood_floor_loose_metal_type": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "printing_press_foundation_nw": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "printing_press_foundation_ne": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "printing_press_foundation_sw": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "printing_press_foundation_se": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "type_case_wall_top": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "type_case_wall_center": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "type_case_wall_left": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "type_case_wall_right": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "paper_stack_small": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "paper_stack_large": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "workbench_left": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "workbench_right": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "book_press_top": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "book_press_bottom": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "case_pinboard_left": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "case_pinboard_right": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "tileNames": [
+        "wood_floor_clean",
+        "wood_floor_loose_metal_type",
+        "printing_press_foundation_nw",
+        "printing_press_foundation_ne",
+        "printing_press_foundation_sw",
+        "printing_press_foundation_se",
+        "type_case_wall_top",
+        "type_case_wall_center",
+        "type_case_wall_left",
+        "type_case_wall_right",
+        "paper_stack_small",
+        "paper_stack_large",
+        "workbench_left",
+        "workbench_right",
+        "book_press_top",
+        "book_press_bottom",
+        "case_pinboard_left",
+        "case_pinboard_right"
+      ],
+      "sha256": "65aac50dcbb7eaa2d5b6d657a39e868bec6a5089d13c0c8d42fee91228de1cda"
+    },
+    {
+      "id": "cw_amt",
+      "file": "tilesets/cw_amt.png",
+      "kind": "tiles",
+      "width": 128,
+      "height": 48,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 3,
+      "transparent": true,
+      "animations": {},
+      "cells": {
+        "cold_marble_floor": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "marble_floor_alternate": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "marble_floor_border": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "marble_floor_corner": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "file_shelves_top": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "file_shelves_center": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "file_shelves_left": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "file_shelves_right": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "postal_tube_wall_straight": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "postal_tube_wall_bend": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "postal_tube_wall_junction": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "postal_tube_hatch": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "reading_carpet_center": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "reading_carpet_edge": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "reading_carpet_corner": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "reading_carpet_fringe": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "sheetmetal_passage_floor": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "metal_floor_seam": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "metal_floor_grate": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "metal_floor_hatch": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "salary_ledger_shelves_top": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "salary_ledger_shelves_center": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "tileNames": [
+        "cold_marble_floor",
+        "marble_floor_alternate",
+        "marble_floor_border",
+        "marble_floor_corner",
+        "file_shelves_top",
+        "file_shelves_center",
+        "file_shelves_left",
+        "file_shelves_right",
+        "postal_tube_wall_straight",
+        "postal_tube_wall_bend",
+        "postal_tube_wall_junction",
+        "postal_tube_hatch",
+        "reading_carpet_center",
+        "reading_carpet_edge",
+        "reading_carpet_corner",
+        "reading_carpet_fringe",
+        "sheetmetal_passage_floor",
+        "metal_floor_seam",
+        "metal_floor_grate",
+        "metal_floor_hatch",
+        "salary_ledger_shelves_top",
+        "salary_ledger_shelves_center"
+      ],
+      "sha256": "f4f14281e0394136908930e8e3663fe919892240af7c3eca71f4c4d97026740b"
+    },
+    {
+      "id": "cw_kueche",
+      "file": "tilesets/cw_kueche.png",
+      "kind": "tiles",
+      "width": 128,
+      "height": 32,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 2,
+      "transparent": false,
+      "animations": {},
+      "cells": {
+        "kitchen_tiles_cream": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kitchen_tiles_slate": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kitchen_floor_worn": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "floor_border": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "long_iron_stove_left": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "long_iron_stove_center": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "long_iron_stove_right": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "stove_chimney": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "shared_table_left": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "shared_table_middle": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "shared_table_right": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "two_set_plates_together": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "dish_shelf_top": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "dish_shelf_lower": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "plate_rack": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "cup_rack": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "tileNames": [
+        "kitchen_tiles_cream",
+        "kitchen_tiles_slate",
+        "kitchen_floor_worn",
+        "floor_border",
+        "long_iron_stove_left",
+        "long_iron_stove_center",
+        "long_iron_stove_right",
+        "stove_chimney",
+        "shared_table_left",
+        "shared_table_middle",
+        "shared_table_right",
+        "two_set_plates_together",
+        "dish_shelf_top",
+        "dish_shelf_lower",
+        "plate_rack",
+        "cup_rack"
+      ],
+      "sha256": "3f4eb5c18c6ae02a34f7582c54ba48c6a031ce4bbb485e537df54bb2b3839647"
+    },
+    {
+      "id": "cw_fundament",
+      "file": "tilesets/cw_fundament.png",
+      "kind": "tiles",
+      "width": 128,
+      "height": 48,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 3,
+      "transparent": false,
+      "animations": {
+        "namensnische": {
+          "frames": [
+            10,
+            11,
+            12,
+            13
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        }
+      },
+      "cells": {
+        "old_stone_floor": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "cracked_stone": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "dusty_stone": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "broken_stone": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "ancient_wall_top": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "ancient_wall_fill": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "ancient_wall_left_corner": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "ancient_wall_right_corner": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "empty_name_niche": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "scratched_niche_no_writing": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "turquoise_niche_glow_frame1": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "turquoise_niche_glow_frame2": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "turquoise_niche_glow_frame3": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "turquoise_niche_glow_frame4": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "niche_arch": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "niche_base": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "collapsed_register_shelf_nw": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "collapsed_register_shelf_ne": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "collapsed_register_shelf_sw": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "collapsed_register_shelf_se": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "printing_roller_column_top": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "printing_roller_column_middle": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "printing_roller_column_bottom": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "column_footing": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "tileNames": [
+        "old_stone_floor",
+        "cracked_stone",
+        "dusty_stone",
+        "broken_stone",
+        "ancient_wall_top",
+        "ancient_wall_fill",
+        "ancient_wall_left_corner",
+        "ancient_wall_right_corner",
+        "empty_name_niche",
+        "scratched_niche_no_writing",
+        "turquoise_niche_glow_frame1",
+        "turquoise_niche_glow_frame2",
+        "turquoise_niche_glow_frame3",
+        "turquoise_niche_glow_frame4",
+        "niche_arch",
+        "niche_base",
+        "collapsed_register_shelf_nw",
+        "collapsed_register_shelf_ne",
+        "collapsed_register_shelf_sw",
+        "collapsed_register_shelf_se",
+        "printing_roller_column_top",
+        "printing_roller_column_middle",
+        "printing_roller_column_bottom",
+        "column_footing"
+      ],
+      "sha256": "dee5c31251cefbb1c7569c11991f94e940c9ad3ef7ecb485f477123d28e59194"
+    },
+    {
+      "id": "cw_gleisfuss",
+      "file": "props/cw_gleisfuss.png",
+      "kind": "props",
+      "width": 256,
+      "height": 192,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 3,
+      "transparent": true,
+      "animations": {
+        "aufzug": {
+          "regions": [
+            "aufzug_1",
+            "aufzug_2"
+          ],
+          "frames": [
+            0,
+            1
+          ],
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "frameRate": 4,
+          "repeat": -1
+        }
+      },
+      "regions": {
+        "aufzug_1": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32,
+          "description": "small inclined railway cabin rocking slightly left"
+        },
+        "aufzug_2": {
+          "x": 64,
+          "y": 0,
+          "width": 32,
+          "height": 32,
+          "description": "same cabin rocking slightly right"
+        },
+        "gegengewicht": {
+          "x": 128,
+          "y": 0,
+          "width": 16,
+          "height": 32,
+          "description": "iron funicular counterweight"
+        },
+        "schalter": {
+          "x": 192,
+          "y": 0,
+          "width": 32,
+          "height": 32,
+          "description": "luggage desk with iron grille"
+        },
+        "fahrgastbuch": {
+          "x": 0,
+          "y": 64,
+          "width": 16,
+          "height": 32,
+          "description": "blank open passenger ledger on standing desk"
+        },
+        "stationsschild_1": {
+          "x": 64,
+          "y": 64,
+          "width": 32,
+          "height": 32,
+          "description": "standing sign with empty missing plaque sockets"
+        },
+        "stationsschild_2": {
+          "x": 128,
+          "y": 64,
+          "width": 32,
+          "height": 32,
+          "description": "standing sign with different missing sockets"
+        },
+        "stationsschild_3": {
+          "x": 192,
+          "y": 64,
+          "width": 32,
+          "height": 32,
+          "description": "standing sign with three missing sockets"
+        },
+        "gueterwaggon_offen": {
+          "x": 0,
+          "y": 128,
+          "width": 48,
+          "height": 32,
+          "description": "open wooden goods wagon"
+        },
+        "gueterwaggon_zu": {
+          "x": 64,
+          "y": 128,
+          "width": 48,
+          "height": 32,
+          "description": "same goods wagon closed"
+        }
+      },
+      "sha256": "f320d1e1acb52cafe8cee076f7bca1d432418ab859200225df9c66dd686fb3b7"
+    },
+    {
+      "id": "cw_setzergasse",
+      "file": "props/cw_setzergasse.png",
+      "kind": "props",
+      "width": 256,
+      "height": 192,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 3,
+      "transparent": true,
+      "animations": {
+        "druckerpresse": {
+          "regions": [
+            "druckerpresse_1",
+            "druckerpresse_2",
+            "druckerpresse_3",
+            "druckerpresse_4"
+          ],
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "frameRate": 4,
+          "repeat": -1
+        },
+        "fenster": {
+          "regions": [
+            "fenster_1",
+            "fenster_2"
+          ],
+          "frames": [
+            6,
+            7
+          ],
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "frameRate": 4,
+          "repeat": -1
+        },
+        "streiktopf": {
+          "regions": [
+            "streiktopf_1",
+            "streiktopf_2"
+          ],
+          "frames": [
+            9,
+            10
+          ],
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "frameRate": 4,
+          "repeat": -1
+        }
+      },
+      "regions": {
+        "druckerpresse_1": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32,
+          "description": "same printing press with roller in rotation animation phase 1 of 4"
+        },
+        "druckerpresse_2": {
+          "x": 64,
+          "y": 0,
+          "width": 32,
+          "height": 32,
+          "description": "same printing press with roller in rotation animation phase 2 of 4"
+        },
+        "druckerpresse_3": {
+          "x": 128,
+          "y": 0,
+          "width": 32,
+          "height": 32,
+          "description": "same printing press with roller in rotation animation phase 3 of 4"
+        },
+        "druckerpresse_4": {
+          "x": 192,
+          "y": 0,
+          "width": 32,
+          "height": 32,
+          "description": "same printing press with roller in rotation animation phase 4 of 4"
+        },
+        "setzkasten": {
+          "x": 0,
+          "y": 64,
+          "width": 32,
+          "height": 32,
+          "description": "wooden printer type case tiny plain metal blocks no letters"
+        },
+        "brotdose": {
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 16,
+          "description": "open lunchbox with metal type blocks"
+        },
+        "fenster_1": {
+          "x": 128,
+          "y": 64,
+          "width": 32,
+          "height": 32,
+          "description": "fogged shop window droplets high"
+        },
+        "fenster_2": {
+          "x": 192,
+          "y": 64,
+          "width": 32,
+          "height": 32,
+          "description": "same fogged shop window droplets low"
+        },
+        "papierballen": {
+          "x": 0,
+          "y": 128,
+          "width": 32,
+          "height": 32,
+          "description": "bound bale of paper"
+        },
+        "streiktopf_1": {
+          "x": 64,
+          "y": 128,
+          "width": 32,
+          "height": 32,
+          "description": "soup cauldron on stand steam curl left"
+        },
+        "streiktopf_2": {
+          "x": 128,
+          "y": 128,
+          "width": 32,
+          "height": 32,
+          "description": "same soup cauldron steam curl right"
+        }
+      },
+      "sha256": "63ed8e122dabfcae20538af1f4adcc5081f20b8a57ce1eaece032494f7d55f7d"
+    },
+    {
+      "id": "cw_quittungsmarkt",
+      "file": "props/cw_quittungsmarkt.png",
+      "kind": "props",
+      "width": 256,
+      "height": 128,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 2,
+      "transparent": true,
+      "animations": {},
+      "regions": {
+        "marktstand_buecher": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32,
+          "description": "market stall selling books"
+        },
+        "marktstand_werkzeug": {
+          "x": 64,
+          "y": 0,
+          "width": 32,
+          "height": 32,
+          "description": "market stall selling tools"
+        },
+        "marktstand_tee": {
+          "x": 128,
+          "y": 0,
+          "width": 32,
+          "height": 32,
+          "description": "market stall with tea kettle cups"
+        },
+        "pfandhaus": {
+          "x": 192,
+          "y": 0,
+          "width": 64,
+          "height": 48,
+          "description": "yellow limestone pawnshop facade with three hanging brass balls"
+        },
+        "schuldscheine": {
+          "x": 0,
+          "y": 64,
+          "width": 32,
+          "height": 32,
+          "description": "nail board with blank debt slips"
+        },
+        "waage": {
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 16,
+          "description": "brass balance scales"
+        },
+        "herkunftskiste": {
+          "x": 128,
+          "y": 64,
+          "width": 32,
+          "height": 32,
+          "description": "closed crate tied with ribbon and wax provenance seal"
+        }
+      },
+      "sha256": "2998b49cdf3d43e07eefccf420d3fd472f569e877b9f072e89598d76242f21b9"
+    },
+    {
+      "id": "cw_roehrenhof",
+      "file": "props/cw_roehrenhof.png",
+      "kind": "props",
+      "width": 256,
+      "height": 128,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 2,
+      "transparent": true,
+      "animations": {
+        "rohrpost": {
+          "regions": [
+            "rohrpost_1",
+            "rohrpost_2",
+            "rohrpost_3",
+            "rohrpost_4"
+          ],
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameWidth": 16,
+          "frameHeight": 32,
+          "frameRate": 4,
+          "repeat": -1
+        }
+      },
+      "regions": {
+        "rohrpost_1": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 32,
+          "description": "same vertical brass pneumatic mail station, capsule passing through in motion phase 1 of 4"
+        },
+        "rohrpost_2": {
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 32,
+          "description": "same vertical brass pneumatic mail station, capsule passing through in motion phase 2 of 4"
+        },
+        "rohrpost_3": {
+          "x": 128,
+          "y": 0,
+          "width": 16,
+          "height": 32,
+          "description": "same vertical brass pneumatic mail station, capsule passing through in motion phase 3 of 4"
+        },
+        "rohrpost_4": {
+          "x": 192,
+          "y": 0,
+          "width": 16,
+          "height": 32,
+          "description": "same vertical brass pneumatic mail station, capsule passing through in motion phase 4 of 4"
+        },
+        "warenbahn": {
+          "x": 0,
+          "y": 64,
+          "width": 32,
+          "height": 32,
+          "description": "closed goods railway cabin windows taped over"
+        },
+        "fahrplantafel": {
+          "x": 64,
+          "y": 64,
+          "width": 32,
+          "height": 32,
+          "description": "timetable board with blank strips no writing"
+        },
+        "sichtfenster": {
+          "x": 128,
+          "y": 64,
+          "width": 32,
+          "height": 32,
+          "description": "square glass viewing window ornate brass frame"
+        },
+        "stempelhand": {
+          "x": 192,
+          "y": 64,
+          "width": 32,
+          "height": 32,
+          "description": "mechanical stamp-hand automaton attached to pedestal, no creature face"
+        }
+      },
+      "sha256": "1dd9ec32079e6891d0bcde71449fd99605a4624792ec41b0b2848b4bb2b089b8"
+    },
+    {
+      "id": "cw_witwenterrasse",
+      "file": "props/cw_witwenterrasse.png",
+      "kind": "props",
+      "width": 256,
+      "height": 128,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 2,
+      "transparent": true,
+      "animations": {
+        "klopftuer": {
+          "regions": [
+            "klopftuer_1",
+            "klopftuer_2"
+          ],
+          "frames": [
+            4,
+            5
+          ],
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "frameRate": 4,
+          "repeat": -1
+        }
+      },
+      "regions": {
+        "eingang": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32,
+          "description": "narrow limestone house doorway blank name plaque"
+        },
+        "heizungsrohr": {
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 32,
+          "description": "heating pipe with small listening grille"
+        },
+        "waescheleine": {
+          "x": 128,
+          "y": 0,
+          "width": 48,
+          "height": 32,
+          "description": "laundry line clean linens"
+        },
+        "picknicktisch": {
+          "x": 192,
+          "y": 0,
+          "width": 32,
+          "height": 32,
+          "description": "wooden picnic table with benches"
+        },
+        "klopftuer_1": {
+          "x": 0,
+          "y": 64,
+          "width": 32,
+          "height": 32,
+          "description": "closed door with brass knocker resting"
+        },
+        "klopftuer_2": {
+          "x": 64,
+          "y": 64,
+          "width": 32,
+          "height": 32,
+          "description": "identical door brass knocker lifted"
+        }
+      },
+      "sha256": "e0adfa9e80406eb200329ea6cb574748cb988e67acf48fa31a07db3cbb580ff6"
+    },
+    {
+      "id": "cw_kronenarchiv",
+      "file": "props/cw_kronenarchiv.png",
+      "kind": "props",
+      "width": 256,
+      "height": 192,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 3,
+      "transparent": true,
+      "animations": {
+        "hauptpresse": {
+          "regions": [
+            "hauptpresse_1",
+            "hauptpresse_2",
+            "hauptpresse_3",
+            "hauptpresse_4"
+          ],
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameWidth": 64,
+          "frameHeight": 48,
+          "frameRate": 4,
+          "repeat": -1
+        }
+      },
+      "regions": {
+        "archivportal": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 48,
+          "description": "monumental limestone archive portal"
+        },
+        "direktorenvilla": {
+          "x": 64,
+          "y": 0,
+          "width": 64,
+          "height": 48,
+          "description": "Victorian yellow limestone directors villa facade"
+        },
+        "brunnen": {
+          "x": 128,
+          "y": 0,
+          "width": 32,
+          "height": 32,
+          "description": "dry ornamental fountain dead weeds"
+        },
+        "statue": {
+          "x": 192,
+          "y": 0,
+          "width": 32,
+          "height": 32,
+          "description": "weathered faceless statue on plinth"
+        },
+        "hauptpresse_1": {
+          "x": 0,
+          "y": 64,
+          "width": 64,
+          "height": 48,
+          "description": "same enormous brass and dark iron printing press machine, platen vertical stroke animation phase 1 of 4"
+        },
+        "hauptpresse_2": {
+          "x": 64,
+          "y": 64,
+          "width": 64,
+          "height": 48,
+          "description": "same enormous brass and dark iron printing press machine, platen vertical stroke animation phase 2 of 4"
+        },
+        "hauptpresse_3": {
+          "x": 128,
+          "y": 64,
+          "width": 64,
+          "height": 48,
+          "description": "same enormous brass and dark iron printing press machine, platen vertical stroke animation phase 3 of 4"
+        },
+        "hauptpresse_4": {
+          "x": 192,
+          "y": 64,
+          "width": 64,
+          "height": 48,
+          "description": "same enormous brass and dark iron printing press machine, platen vertical stroke animation phase 4 of 4"
+        },
+        "austrittsliste": {
+          "x": 0,
+          "y": 128,
+          "width": 32,
+          "height": 32,
+          "description": "lectern with long blank exit roll"
+        },
+        "rechenblatt": {
+          "x": 64,
+          "y": 128,
+          "width": 32,
+          "height": 32,
+          "description": "writing desk with blank calculation paper and brass abacus"
+        }
+      },
+      "sha256": "734d5e97eab022b913eab1e6dd093c3f98f7a5d50229469b551373b7a006575e"
+    },
+    {
+      "id": "cw_buchbinderei",
+      "file": "props/cw_buchbinderei.png",
+      "kind": "props",
+      "width": 256,
+      "height": 192,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 3,
+      "transparent": true,
+      "animations": {
+        "ofen": {
+          "regions": [
+            "ofen_1",
+            "ofen_2"
+          ],
+          "frames": [
+            1,
+            2
+          ],
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "frameRate": 4,
+          "repeat": -1
+        }
+      },
+      "regions": {
+        "bett": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32,
+          "description": "simple wooden bed grey blanket"
+        },
+        "ofen_1": {
+          "x": 64,
+          "y": 0,
+          "width": 32,
+          "height": 32,
+          "description": "iron coal stove small amber fire"
+        },
+        "ofen_2": {
+          "x": 128,
+          "y": 0,
+          "width": 32,
+          "height": 32,
+          "description": "identical coal stove brighter flickering fire"
+        },
+        "kiste": {
+          "x": 192,
+          "y": 0,
+          "width": 32,
+          "height": 32,
+          "description": "wooden storage chest"
+        },
+        "fallwand": {
+          "x": 0,
+          "y": 64,
+          "width": 32,
+          "height": 32,
+          "description": "investigation pinboard blank papers"
+        },
+        "buergenbrett_leer": {
+          "x": 64,
+          "y": 64,
+          "width": 32,
+          "height": 32,
+          "description": "wooden vouching pinboard three blank tokens no threads"
+        },
+        "buergenbrett_zwei": {
+          "x": 128,
+          "y": 64,
+          "width": 32,
+          "height": 32,
+          "description": "identical vouching board two tokens linked by thin ivory thread third token separate"
+        },
+        "buergenbrett_drei": {
+          "x": 192,
+          "y": 64,
+          "width": 32,
+          "height": 32,
+          "description": "identical vouching board all three tokens connected by ivory threads"
+        },
+        "buchpresse": {
+          "x": 0,
+          "y": 128,
+          "width": 32,
+          "height": 32,
+          "description": "wooden screw bookbinding press"
+        }
+      },
+      "sha256": "bc050f317fa7a778f15daa96c1b7e1d016b416a5759ab4685906e9eaeb625a38",
+      "states": {
+        "buergenbrett": {
+          "leer": "buergenbrett_leer",
+          "zwei_verbunden": "buergenbrett_zwei",
+          "drei_verbunden": "buergenbrett_drei"
+        }
+      }
+    }
+  ],
+  "notes": [
+    "CE1 only: six tilesets and seven props atlases. Game integration is separate.",
+    "Tiles: 16x16, eight columns, cells and tileNames in row-major order. Undeclared remainder is transparent.",
+    "Props: 64x64 storage slots. Extract each named region at its exact width/height; animation frames refer to storage slots, not tightly packed frame sizes.",
+    "Bürgenbrett states are selected explicitly; never autoplay them."
+  ]
+}

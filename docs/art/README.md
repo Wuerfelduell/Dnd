@@ -1758,3 +1758,14 @@ Duplikate und Herkunfts-Hashes. Generiert mit dem eingebauten Bildgenerator.
 Prüfung: `python tools/art/sekten/check.py` (Pillow). Prüft den vollständigen Pflichtumfang, Maße, Palette, binäres Alpha, Raster, Animationsgrenzen, belegte und leere Frames, Ausholduplikate, unterschiedliche Lauf-/Effektframes und Portraitausdrücke sowie 2×-Items. Export: `python tools/art/sekten/export.py docs/art/batch-sekten-generation.json /pfad/zu/generated_images`. Die Quelldateinamen und SHA-256 stehen im Promptprotokoll.
 
 Grafiklieferung ohne Änderung am Spielcode. Die Einbindung und die Abstimmung im laufenden Spiel folgen separat.
+
+## CE1 — Calderwick: Tilesets und Props (`calderwick1`)
+
+Sechs Tilesets mit **135 Zellen à 16×16** (acht Spalten) und sieben Props-Sheets mit **61 benannten Regionen**, einschließlich aller geforderten Animationsframes. Heller trockener Kalk, rußige Rinnen, Druckerei, Amt, Gemeinschaftsküche und Nullfundament. Die gemeinsame Palette übernimmt 31 sichtbare Farben aus `manifest-dunscar1.json`; Index 31 ist für Transparenz reserviert.
+
+- Manifest: [`manifest-calderwick1.json`](../../public/sprites/manifest-calderwick1.json). Die Props verwenden 64×64-Speicherplätze; `regions` gibt die tatsächlichen Zuschnitte an (16×16 bis 64×48). `animations.frames` bezeichnet Speicherplatz-Indizes, `animations.regions` die zugehörigen exakten Ausschnitte. Beim Einbau keine 64×64-Flächen auf die Objektgröße stauchen.
+- Das **Bürgenbrett** hat drei manuell gewählte Zustände unter `states.buergenbrett`: `leer`, `zwei_verbunden`, `drei_verbunden`. Kein automatisch laufender Zustandswechsel.
+- [Vorschau](batch-calderwick1-preview.png), [verwendete Prompts und Herkunft](batch-calderwick1-generation.json), [Prüfbericht](batch-calderwick1-validation.json).
+- Prüfung und Vorschau neu erstellen: `python tools/art/calderwick1/check.py` (Pillow). Prüft Umfang, Maße, Palette, binäres Alpha, Raster, transparente Restfelder, Regionen, Animationsframes, Brettzustände und SHA-256.
+
+Die bereits mit `image_gen` erzeugten CE-Grafiken wurden wiederverwendet und auf CE1 begrenzt. Die originalen 13 Prompts und Quellbild-Hashes bleiben dokumentiert; `exportSelection` nennt die tatsächlich übernommenen Zellen und Regionen. Ungeforderte Zusatzmotive sind ausgesondert. CE2, Figuren, Gegner und Item-Icons sind nicht Bestandteil dieser Lieferung. Kein Spielcode geändert; Kartenplatzierung, Laufzeitregistrierung und Prüfung der Kachelübergänge in den fertigen Karten folgen beim separaten Einbau.
