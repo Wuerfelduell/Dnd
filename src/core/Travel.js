@@ -24,10 +24,23 @@ export function cityOf(state, mapId) {
   return state.content.maps[mapId]?.city ?? 'kettlegate';
 }
 
-/** Reiseziele, die von dieser Karte aus auf der Stadtkarte stehen: nur die eigene Stadt. */
+/**
+ * Städte, in die es kein Zurück gibt (Seb, 2026-11-11): Wer mit dem Zug in Wexmoor angekommen ist, kehrt nie nach
+ * Kettlegate zurück. Dort läuft die Fahndung, und alles Nötige (Kessel, Formeln, Zutaten, Vorräte) steht im Unterschlupf.
+ */
+export function lockedCities(state) {
+  return state.flags.has('k2_arrived') ? ['kettlegate'] : [];
+}
+
+export function cityLocked(state, city) {
+  return lockedCities(state).includes(city);
+}
+
+/** Reiseziele, die von dieser Karte aus auf der Stadtkarte stehen: nur die eigene Stadt, nie eine gesperrte Stadt. */
 export function travelDestinations(state, current) {
   const city = cityOf(state, current);
-  return state.content.travel.filter((t) => t.map !== current && (t.city ?? 'kettlegate') === city && state.meets(t));
+  return state.content.travel.filter((t) => t.map !== current && (t.city ?? 'kettlegate') === city
+    && !cityLocked(state, cityOf(state, t.map)) && state.meets(t));
 }
 
 /** Nervenkosten der schnellen Reise (Welt-Fähigkeiten senken sie über das Passiv hurry_cost). */

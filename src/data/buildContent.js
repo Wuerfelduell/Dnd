@@ -5,6 +5,7 @@ import { withSequenzen, applySequenzen } from './sequenzen.js';
 import { withFaehigkeiten } from './faehigkeiten.js';
 import { applyMoods } from './moods.js';
 import { applyRelations } from './relations.js';
+import { applySchmuggel } from './schmuggel.js';
 // Fügt alle Inhaltsdateien zu einem Objekt zusammen (ohne JSON-Imports, damit Node-Tests es nutzen können).
 // Hinweise, Informationen, Schlussfolgerungen und Dialoge teilen sich jeweils einen Namensraum über alle Fälle.
 // factions.json (Sekten) bringt eigene Figuren, Reiseziele, Gegner, Beute, Aufträge und Hinweise mit.
@@ -76,6 +77,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   for (const pack of packs) withPackLeben(content, pack); // Paket BD: Einwohner mit Tagesplan, Aufseher-Streifen, Wetter und Tiere
   for (const pack of packs) withPackBosses(content, pack); // Kapitel 3: Bosse, Folgeabschnitte und Kampftexte
   applySequenzen(content, sequenzen, sq); // Paket AF: Händler, Treffen und Funde für die neuen Pfade
+  applySchmuggel(content); // Kein Zurück nach Kettlegate: Zirkelware von dort in Zunders Schmuggelkiste
   applyMoods(content); // Paket AK: Stimmungen für Schlüsselstellen
   applyRelations(content, beziehungen, packs); // Beziehungen: Regeln, Vorlieben, Knoten-Wirkungen
   return content;

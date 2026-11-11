@@ -1484,16 +1484,6 @@
     },
     {
       "map": "wx_bahnhof",
-      "spawn": "zug",
-      "name": "Nachtzug nach Wexmoor",
-      "desc": "Zurück in die Moorstadt, zu Zunder und deinem Unterschlupf.",
-      "requires_flags": [
-        "k2_arrived"
-      ],
-      "city": "kettlegate"
-    },
-    {
-      "map": "wx_bahnhof",
       "spawn": "default",
       "name": "Güterbahnhof & Schleusenviertel",
       "desc": "Kohlenzüge, Lastkähne und die große Schleuse. Hier kommst du an.",
@@ -1509,16 +1499,6 @@
       "desc": "Torfstecher, versunkene Kähne und dein Unterschlupf. Keine Streife traut sich her.",
       "requires_flags": [
         "k2_met_zunder"
-      ],
-      "city": "wexmoor"
-    },
-    {
-      "map": "docks",
-      "spawn": "default",
-      "name": "Nachtzug nach Kettlegate",
-      "desc": "Zurück nach Kettlegate, wo Nebenaufträge und Kopfgelder warten. Auch dort sucht man dich.",
-      "requires_flags": [
-        "k2_hideout"
       ],
       "city": "wexmoor"
     },
@@ -3721,8 +3701,8 @@
             ]
           },
           "title": "Ein Kahn als Zuhause",
-          "text": "Der Torfkahn liegt halb im Moor, schief wie ein müder Hund. Innen ist es überraschend trocken: eine Koje, ein Tisch, ein Ofen aus einem alten Ölfass und eine Kiste, auf der in Ruß „deins“ steht.\n\n„Die Ruß-Leute in Kettlegate haben deine Sachen aus dem Büro geholt, bevor die Wache drankam“, sagt Zunder. „Frag nicht, wie.“",
-          "footer": "Koje: ausruhen. Kiste: dein Lager (dasselbe wie im Büro). Fallwand: deine Fälle.",
+          "text": "Der Torfkahn liegt halb im Moor, schief wie ein müder Hund. Innen ist es überraschend trocken: eine Koje, ein Tisch, ein Ofen aus einem alten Ölfass und eine Kiste, auf der in Ruß „deins“ steht, und ein Braukessel, der aussieht, als hätte er schon vor dir hier gewohnt.\n\nDaneben eine zweite Kiste mit Bahnhofsstempel: „Was du vom Nachtmarkt brauchst, kommt mit dem Nachtzug“, sagt Zunder. „Kittering, Nell, Gorse. Die Gesellschaft schickt es, ich zahl den Schaffner. Zurückfahren tut keiner von uns.“\n\n„Die Ruß-Leute in Kettlegate haben deine Sachen aus dem Büro geholt, bevor die Wache drankam“, sagt Zunder. „Frag nicht, wie.“",
+          "footer": "Koje: ausruhen. Kiste: dein Lager (dasselbe wie im Büro). Fallwand: deine Fälle. Kessel: brauen. Schmuggelkiste: Formeln, Zutaten und Vorräte aus Kettlegate.",
           "done_flag": "k2_hideout",
           "effects": {
             "sets_flags": [
@@ -3820,6 +3800,50 @@
           "title": "Ein Paket aus Kettlegate",
           "text": "Ein Paket, in Zeitungspapier aus Kettlegate gewickelt, mit Ruß an den Kanten. Darin zwei Flaschen Tonikum, Verband und ein Zettel in Blockschrift:\n\n„HALT DURCH. HIER REDEN ALLE VON DIR. EZRA SAGT, DIE GLOCKEN IM UHRTURM LÄUTEN FALSCH, SEIT DU WEG BIST. DIE GESELLSCHAFT VERGISST KEINEN. JEM.“",
           "footer": "+2 Tonikum, +2 Verband."
+        },
+        {
+          "id": "kessel",
+          "kind": "brew",
+          "tile": [
+            12,
+            7
+          ],
+          "prompt": "Am Braukessel brauen",
+          "sprite": "cauldron",
+          "marker": false,
+          "solid": [
+            14,
+            10
+          ],
+          "title": "Zunders Braukessel",
+          "anim": [
+            "cauldron_bubble",
+            "bubble"
+          ],
+          "visible_if": {
+            "requires_flags": [
+              "k2_hideout"
+            ]
+          }
+        },
+        {
+          "id": "schmuggelkiste",
+          "kind": "dialogue",
+          "dialogue": "wx_schmuggelkiste",
+          "title": "Schmuggelkiste",
+          "role": "Ware aus Kettlegate",
+          "tile": [
+            13,
+            5
+          ],
+          "prompt": "Die Schmuggelkiste öffnen (Händler)",
+          "marker": false,
+          "reach": 24,
+          "visible_if": {
+            "requires_flags": [
+              "k2_hideout"
+            ]
+          }
         }
       ],
       "npcs": [
@@ -15370,6 +15394,35 @@
           "choices": [
             {
               "text": "In die Zelle."
+            }
+          ]
+        }
+      }
+    },
+    "wx_schmuggelkiste": {
+      "start": "start",
+      "nodes": {
+        "start": {
+          "text": "Eine Kiste mit dem Stempel des Güterbahnhofs, innen in Fächer geteilt. Was die Rußgesellschaft in Kettlegate besorgt, kommt mit dem Nachtzug hierher: Kitterings Formeln, Nells Zutaten, Gorses Vorräte. Und ab und zu etwas, das auf den geheimen Treffen dort den Besitzer gewechselt hat.\n\nZurück fährt der Zug ohne dich.",
+          "choices": [
+            {
+              "text": "Formeln (Kittering)",
+              "shop": "kittering"
+            },
+            {
+              "text": "Zutaten (Nell Rauhfuß)",
+              "shop": "nell"
+            },
+            {
+              "text": "Zirkelware aus Kettlegate (wechselt mit dem Markt)",
+              "shop": "schmuggel"
+            },
+            {
+              "text": "Vorräte, An- und Verkauf (Gorse)",
+              "shop": "gorse"
+            },
+            {
+              "text": "Deckel zu."
             }
           ]
         }

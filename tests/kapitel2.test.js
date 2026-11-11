@@ -38,10 +38,10 @@ test('Ankunft: Steckbrief, Zunder, Unterschlupf und die erste Schlussfolgerung',
   talk(s, 'zunder_ankunft', ['Wer bist du', 'verstecken', 'vorher', 'Bring mich']);
   assert.ok(s.flags.has('k2_met_zunder'));
   assert.equal(use(s, 'wx_bahnhof', 'exit'), 'ok');
-  // Auf der Wexmoorer Karte stehen nur Wexmoorer Ziele (und der Zug zurück)
+  // Auf der Wexmoorer Karte stehen nur Wexmoorer Ziele, kein Zug zurück
   const dests = names(s, 'wx_bahnhof');
   assert.ok(dests.includes('wx_torfstich'));
-  assert.ok(dests.every((m) => cityOf(s, m) === 'wexmoor' || m === 'docks'), dests.join(','));
+  assert.ok(dests.every((m) => cityOf(s, m) === 'wexmoor'), dests.join(','));
   assert.ok(!dests.includes('revier'));
   // Zweite Quelle beim Schleusenwärter, dann die Schlussfolgerung
   talk(s, 'druce', ['Steckbriefe']);
@@ -51,7 +51,7 @@ test('Ankunft: Steckbrief, Zunder, Unterschlupf und die erste Schlussfolgerung',
   assert.ok(s.hasConclusion('dk2_erwartet'));
   // Unterschlupf
   s.flags.add('k2_hideout');
-  assert.ok(names(s, 'wx_torfstich').includes('docks'), 'Nachtzug zurück nach Kettlegate');
+  assert.ok(!names(s, 'wx_torfstich').includes('docks'), 'kein Nachtzug zurück nach Kettlegate');
   assert.deepEqual(s.questSteps('k2_akt1').map((x) => x.done), [true, true, true, true, false, false, false, false]);
 });
 
