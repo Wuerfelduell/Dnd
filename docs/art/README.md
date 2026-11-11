@@ -1782,3 +1782,14 @@ Leitungs-Segmente der Stadtkarte sind am generierten Bild gemessen und Vorschlä
 `groundStrip` der Kampf-Hintergründe folgt dem Dunscar-Standard (y 200, Höhe 70).
 Offen: Die Stadtkarte liest sich eher wie eine normale Kleinstadt; Talkessel und die sechs
 Viertel sind noch nicht klar erkennbar (bewusst unverändert gelassen).
+
+## CN: Kettlegate lebt (`kettlegate_leben`)
+
+35 PNGs: zehn Lauf-Sheets 64×128, zehn Köpfe 24×24, zehn Sonderposen 16×32, Tiere, Wetter, Stände, Nachtfassaden und zehn Stadtpins. 282 nichtleere Frames, gemeinsame 31-Farben-Palette, binäres Alpha. Gemischte Atlasgrößen und Animationslisten stehen in `public/sprites/manifest-kettlegate-leben.json`.
+
+- Daten und Einbauvertrag: `docs/story/kg_leben/README.md`.
+- Prompts und Quellbild-Prüfsummen: `batch-kettlegate-leben-generation.json`; Erzeugung mit dem eingebauten Bildgenerator, danach Nearest-Neighbor-Rasterung und Palette/Alpha-Bereinigung.
+- Vorschau: [preview-kettlegate-leben.png](preview-kettlegate-leben.png).
+- Prüfung: `python tools/art/kettlegate_leben/check.py`.
+
+Keine Laufzeitintegration in diesem Paket.

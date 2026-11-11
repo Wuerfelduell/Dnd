@@ -8,3 +8,5 @@
 - [CF: Calderwick, Nebenaufträge und Stadtleben](k4_nebenquests/README.md) – 12 Aufträge, 8 Einwohner, Gerede, Lesestücke, Zeitung und Koop.
 - `k4_orte/` (CD): Calderwick mit 18 Karten, Landstraße, Vorratsverknüpfungen und Bürgenbrett-Spezifikation; geprüftes Datenpaket, Einbau und CC-Verträge separat.
 - `k4_akte/` (CC): Calderwicks Hauptstory mit fünf Akten, 20 Fährten, 80 Hinweisen, 309 Dialogknoten, sechs Abgleichen und vier Enden; eigenständig geprüfter Datenvorrat, Einbau und CD-Verträge separat.
+
+- [CN: Kettlegate lebt](kg_leben/README.md): 10 Einwohner, 100 Gerede-Zeilen, 8 Stände, 6 Stadtaufträge, Zeitung, Koop und passende Grafik.

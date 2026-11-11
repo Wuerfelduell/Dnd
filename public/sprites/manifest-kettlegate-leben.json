@@ -1,0 +1,1488 @@
+{
+  "version": 1,
+  "batch": "kettlegate_leben",
+  "status": "exported; runtime integration pending",
+  "paletteMaxVisibleColors": 31,
+  "palette": [
+    "#1a1c2c",
+    "#292d3e",
+    "#333b4a",
+    "#445265",
+    "#566877",
+    "#71828a",
+    "#93a2a5",
+    "#bec6bd",
+    "#ded8bf",
+    "#a89776",
+    "#846f52",
+    "#66513e",
+    "#493e36",
+    "#9b7657",
+    "#bc967b",
+    "#d3b18c",
+    "#72524e",
+    "#965c46",
+    "#b57d4d",
+    "#d5a45b",
+    "#edc878",
+    "#f1dfa5",
+    "#3b453b",
+    "#58634b",
+    "#788164",
+    "#9ca383",
+    "#44414e",
+    "#62576c",
+    "#84768c",
+    "#53585b",
+    "#b7b5a4"
+  ],
+  "assets": [
+    {
+      "id": "kgl_e_laternenanzuender",
+      "file": "characters/kgl_e_laternenanzuender.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "kgl_e_laternenanzuender_head",
+      "file": "portraits/heads/kgl_e_laternenanzuender.png",
+      "width": 24,
+      "height": 24,
+      "transparent": true,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "kgl_e_laternenanzuender_pose",
+      "file": "characters/kgl_e_laternenanzuender_pose.png",
+      "width": 16,
+      "height": 32,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "kgl_e_zeitungsjunge",
+      "file": "characters/kgl_e_zeitungsjunge.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "kgl_e_zeitungsjunge_head",
+      "file": "portraits/heads/kgl_e_zeitungsjunge.png",
+      "width": 24,
+      "height": 24,
+      "transparent": true,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "kgl_e_zeitungsjunge_pose",
+      "file": "characters/kgl_e_zeitungsjunge_pose.png",
+      "width": 16,
+      "height": 32,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "kgl_e_fischweib",
+      "file": "characters/kgl_e_fischweib.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "kgl_e_fischweib_head",
+      "file": "portraits/heads/kgl_e_fischweib.png",
+      "width": 24,
+      "height": 24,
+      "transparent": true,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "kgl_e_fischweib_pose",
+      "file": "characters/kgl_e_fischweib_pose.png",
+      "width": 16,
+      "height": 32,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "kgl_e_schornsteinfegerin",
+      "file": "characters/kgl_e_schornsteinfegerin.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "kgl_e_schornsteinfegerin_head",
+      "file": "portraits/heads/kgl_e_schornsteinfegerin.png",
+      "width": 24,
+      "height": 24,
+      "transparent": true,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "kgl_e_schornsteinfegerin_pose",
+      "file": "characters/kgl_e_schornsteinfegerin_pose.png",
+      "width": 16,
+      "height": 32,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "kgl_e_kutscher",
+      "file": "characters/kgl_e_kutscher.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "kgl_e_kutscher_head",
+      "file": "portraits/heads/kgl_e_kutscher.png",
+      "width": 24,
+      "height": 24,
+      "transparent": true,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "kgl_e_kutscher_pose",
+      "file": "characters/kgl_e_kutscher_pose.png",
+      "width": 16,
+      "height": 32,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "kgl_e_leichenwaescherin",
+      "file": "characters/kgl_e_leichenwaescherin.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "kgl_e_leichenwaescherin_head",
+      "file": "portraits/heads/kgl_e_leichenwaescherin.png",
+      "width": 24,
+      "height": 24,
+      "transparent": true,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "kgl_e_leichenwaescherin_pose",
+      "file": "characters/kgl_e_leichenwaescherin_pose.png",
+      "width": 16,
+      "height": 32,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "kgl_e_uhrlehrling",
+      "file": "characters/kgl_e_uhrlehrling.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "kgl_e_uhrlehrling_head",
+      "file": "portraits/heads/kgl_e_uhrlehrling.png",
+      "width": 24,
+      "height": 24,
+      "transparent": true,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "kgl_e_uhrlehrling_pose",
+      "file": "characters/kgl_e_uhrlehrling_pose.png",
+      "width": 16,
+      "height": 32,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "kgl_e_bettler",
+      "file": "characters/kgl_e_bettler.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "kgl_e_bettler_head",
+      "file": "portraits/heads/kgl_e_bettler.png",
+      "width": 24,
+      "height": 24,
+      "transparent": true,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "kgl_e_bettler_pose",
+      "file": "characters/kgl_e_bettler_pose.png",
+      "width": 16,
+      "height": 32,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "kgl_e_waescherin",
+      "file": "characters/kgl_e_waescherin.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "kgl_e_waescherin_head",
+      "file": "portraits/heads/kgl_e_waescherin.png",
+      "width": 24,
+      "height": 24,
+      "transparent": true,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "kgl_e_waescherin_pose",
+      "file": "characters/kgl_e_waescherin_pose.png",
+      "width": 16,
+      "height": 32,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "kgl_e_nachtwaechter",
+      "file": "characters/kgl_e_nachtwaechter.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "kgl_e_nachtwaechter_head",
+      "file": "portraits/heads/kgl_e_nachtwaechter.png",
+      "width": 24,
+      "height": 24,
+      "transparent": true,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "kgl_e_nachtwaechter_pose",
+      "file": "characters/kgl_e_nachtwaechter_pose.png",
+      "width": 16,
+      "height": 32,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "kgl_tiere",
+      "file": "fx/kgl_tiere.png",
+      "width": 64,
+      "height": 160,
+      "transparent": true,
+      "regions": {
+        "kgl_taube_picken": {
+          "x": 0,
+          "y": 0,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "animations": {
+            "loop": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 3,
+              "repeat": -1
+            }
+          }
+        },
+        "kgl_taube_auffliegen": {
+          "x": 0,
+          "y": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "animations": {
+            "loop": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 8,
+              "repeat": -1
+            }
+          }
+        },
+        "kgl_ratte": {
+          "x": 0,
+          "y": 32,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "animations": {
+            "loop": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 8,
+              "repeat": -1
+            }
+          }
+        },
+        "kgl_katze": {
+          "x": 0,
+          "y": 48,
+          "frameWidth": 16,
+          "frameHeight": 32,
+          "columns": 4,
+          "rows": 1,
+          "animations": {
+            "loop": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 3,
+              "repeat": -1
+            }
+          }
+        },
+        "kgl_hund": {
+          "x": 0,
+          "y": 80,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "animations": {
+            "loop": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 3,
+              "repeat": -1
+            }
+          }
+        },
+        "kgl_moewe": {
+          "x": 0,
+          "y": 96,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "animations": {
+            "loop": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 3,
+              "repeat": -1
+            }
+          }
+        },
+        "kgl_fledermaus": {
+          "x": 0,
+          "y": 112,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "animations": {
+            "loop": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 8,
+              "repeat": -1
+            }
+          }
+        },
+        "kgl_pferd": {
+          "x": 0,
+          "y": 128,
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "columns": 2,
+          "rows": 1,
+          "animations": {
+            "loop": {
+              "frames": [
+                0,
+                1
+              ],
+              "frameRate": 3,
+              "repeat": -1
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "kgl_wetter",
+      "file": "fx/kgl_wetter.png",
+      "width": 384,
+      "height": 224,
+      "transparent": true,
+      "regions": {
+        "kgl_nieselregen": {
+          "x": 0,
+          "y": 0,
+          "frameWidth": 64,
+          "frameHeight": 64,
+          "columns": 6,
+          "rows": 1,
+          "animations": {
+            "loop": {
+              "frames": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "frameRate": 10,
+              "repeat": -1
+            }
+          }
+        },
+        "kgl_russschnee": {
+          "x": 0,
+          "y": 64,
+          "frameWidth": 64,
+          "frameHeight": 64,
+          "columns": 6,
+          "rows": 1,
+          "animations": {
+            "loop": {
+              "frames": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "frameRate": 6,
+              "repeat": -1
+            }
+          }
+        },
+        "kgl_nebel_dicht": {
+          "x": 0,
+          "y": 128,
+          "frameWidth": 96,
+          "frameHeight": 48,
+          "columns": 4,
+          "rows": 1,
+          "animations": {
+            "loop": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 3,
+              "repeat": -1
+            }
+          }
+        },
+        "kgl_kanalgeruch": {
+          "x": 0,
+          "y": 176,
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "columns": 4,
+          "rows": 1,
+          "animations": {
+            "loop": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 4,
+              "repeat": -1
+            }
+          }
+        },
+        "kgl_pfuetze": {
+          "x": 0,
+          "y": 208,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "animations": {
+            "loop": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 6,
+              "repeat": -1
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "kgl_staende",
+      "file": "props/kgl_staende.png",
+      "width": 192,
+      "height": 384,
+      "transparent": true,
+      "regions": {
+        "kgl_kastanien": {
+          "x": 0,
+          "y": 0,
+          "frameWidth": 48,
+          "frameHeight": 32,
+          "columns": 2,
+          "rows": 1,
+          "animations": {
+            "loop": {
+              "frames": [
+                0,
+                1
+              ],
+              "frameRate": 4,
+              "repeat": -1
+            }
+          }
+        },
+        "kgl_zeitung": {
+          "x": 0,
+          "y": 32,
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "columns": 1,
+          "rows": 1,
+          "animations": {
+            "loop": {
+              "frames": [
+                0
+              ],
+              "frameRate": 1,
+              "repeat": -1
+            }
+          }
+        },
+        "kgl_heisswasser": {
+          "x": 0,
+          "y": 64,
+          "frameWidth": 48,
+          "frameHeight": 32,
+          "columns": 2,
+          "rows": 1,
+          "animations": {
+            "loop": {
+              "frames": [
+                0,
+                1
+              ],
+              "frameRate": 4,
+              "repeat": -1
+            }
+          }
+        },
+        "kgl_streichholz": {
+          "x": 0,
+          "y": 96,
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "columns": 1,
+          "rows": 1,
+          "animations": {
+            "loop": {
+              "frames": [
+                0
+              ],
+              "frameRate": 1,
+              "repeat": -1
+            }
+          }
+        },
+        "kgl_drehorgel": {
+          "x": 0,
+          "y": 128,
+          "frameWidth": 48,
+          "frameHeight": 32,
+          "columns": 4,
+          "rows": 1,
+          "animations": {
+            "loop": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 5,
+              "repeat": -1
+            }
+          }
+        },
+        "kgl_schleifer": {
+          "x": 0,
+          "y": 160,
+          "frameWidth": 48,
+          "frameHeight": 32,
+          "columns": 4,
+          "rows": 1,
+          "animations": {
+            "loop": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 8,
+              "repeat": -1
+            }
+          }
+        },
+        "kgl_austern": {
+          "x": 0,
+          "y": 192,
+          "frameWidth": 48,
+          "frameHeight": 32,
+          "columns": 1,
+          "rows": 1,
+          "animations": {
+            "loop": {
+              "frames": [
+                0
+              ],
+              "frameRate": 1,
+              "repeat": -1
+            }
+          }
+        },
+        "kgl_oel": {
+          "x": 0,
+          "y": 224,
+          "frameWidth": 48,
+          "frameHeight": 32,
+          "columns": 1,
+          "rows": 1,
+          "animations": {
+            "loop": {
+              "frames": [
+                0
+              ],
+              "frameRate": 1,
+              "repeat": -1
+            }
+          }
+        },
+        "kgl_droschke": {
+          "x": 0,
+          "y": 256,
+          "frameWidth": 64,
+          "frameHeight": 32,
+          "columns": 2,
+          "rows": 1,
+          "animations": {
+            "loop": {
+              "frames": [
+                0,
+                1
+              ],
+              "frameRate": 2,
+              "repeat": -1
+            }
+          }
+        },
+        "kgl_droschke_umgestuerzt": {
+          "x": 0,
+          "y": 288,
+          "frameWidth": 64,
+          "frameHeight": 32,
+          "columns": 1,
+          "rows": 1,
+          "animations": {
+            "loop": {
+              "frames": [
+                0
+              ],
+              "frameRate": 1,
+              "repeat": -1
+            }
+          }
+        },
+        "kgl_kreidekreis": {
+          "x": 0,
+          "y": 320,
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "columns": 1,
+          "rows": 1,
+          "animations": {
+            "loop": {
+              "frames": [
+                0
+              ],
+              "frameRate": 1,
+              "repeat": -1
+            }
+          }
+        },
+        "kgl_schornsteinbrand": {
+          "x": 0,
+          "y": 352,
+          "frameWidth": 16,
+          "frameHeight": 32,
+          "columns": 4,
+          "rows": 1,
+          "animations": {
+            "loop": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 8,
+              "repeat": -1
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "kgl_nacht",
+      "file": "props/kgl_nacht.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "regions": {
+        "kgl_fenster_1": {
+          "x": 0,
+          "y": 0,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 2,
+          "rows": 1,
+          "animations": {
+            "loop": {
+              "frames": [
+                0,
+                1
+              ],
+              "frameRate": 3,
+              "repeat": -1
+            }
+          }
+        },
+        "kgl_fenster_2": {
+          "x": 0,
+          "y": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 2,
+          "rows": 1,
+          "animations": {
+            "loop": {
+              "frames": [
+                0,
+                1
+              ],
+              "frameRate": 3,
+              "repeat": -1
+            }
+          }
+        },
+        "kgl_fenster_3": {
+          "x": 0,
+          "y": 32,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 2,
+          "rows": 1,
+          "animations": {
+            "loop": {
+              "frames": [
+                0,
+                1
+              ],
+              "frameRate": 3,
+              "repeat": -1
+            }
+          }
+        },
+        "kgl_fenster_4": {
+          "x": 0,
+          "y": 48,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 2,
+          "rows": 1,
+          "animations": {
+            "loop": {
+              "frames": [
+                0,
+                1
+              ],
+              "frameRate": 3,
+              "repeat": -1
+            }
+          }
+        },
+        "kgl_laterne": {
+          "x": 0,
+          "y": 64,
+          "frameWidth": 16,
+          "frameHeight": 32,
+          "columns": 2,
+          "rows": 1,
+          "animations": {
+            "loop": {
+              "frames": [
+                0,
+                1
+              ],
+              "frameRate": 1,
+              "repeat": -1
+            }
+          }
+        },
+        "kgl_rauch": {
+          "x": 0,
+          "y": 96,
+          "frameWidth": 16,
+          "frameHeight": 32,
+          "columns": 4,
+          "rows": 1,
+          "animations": {
+            "loop": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 4,
+              "repeat": -1
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "kgl_karte_pins",
+      "file": "ui/kgl_karte_pins.png",
+      "width": 120,
+      "height": 12,
+      "transparent": true,
+      "frameWidth": 12,
+      "frameHeight": 12,
+      "columns": 10,
+      "rows": 1,
+      "regions": {
+        "kgl_e_laternenanzuender": {
+          "x": 0,
+          "y": 0,
+          "width": 12,
+          "height": 12
+        },
+        "kgl_e_zeitungsjunge": {
+          "x": 12,
+          "y": 0,
+          "width": 12,
+          "height": 12
+        },
+        "kgl_e_fischweib": {
+          "x": 24,
+          "y": 0,
+          "width": 12,
+          "height": 12
+        },
+        "kgl_e_schornsteinfegerin": {
+          "x": 36,
+          "y": 0,
+          "width": 12,
+          "height": 12
+        },
+        "kgl_e_kutscher": {
+          "x": 48,
+          "y": 0,
+          "width": 12,
+          "height": 12
+        },
+        "kgl_e_leichenwaescherin": {
+          "x": 60,
+          "y": 0,
+          "width": 12,
+          "height": 12
+        },
+        "kgl_e_uhrlehrling": {
+          "x": 72,
+          "y": 0,
+          "width": 12,
+          "height": 12
+        },
+        "kgl_e_bettler": {
+          "x": 84,
+          "y": 0,
+          "width": 12,
+          "height": 12
+        },
+        "kgl_e_waescherin": {
+          "x": 96,
+          "y": 0,
+          "width": 12,
+          "height": 12
+        },
+        "kgl_e_nachtwaechter": {
+          "x": 108,
+          "y": 0,
+          "width": 12,
+          "height": 12
+        }
+      }
+    }
+  ]
+}
