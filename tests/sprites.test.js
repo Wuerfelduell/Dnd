@@ -494,7 +494,7 @@ test('Paket R: Wexmoor hat eigene Böden, Figuren, Bosse, Verkleidungen und Szen
   const themes = new Set(THEME_TILE_LIST.map((t) => t.theme));
   for (const id of ['wx_bahnhof', 'wx_salzmarkt', 'wx_bojenhafen', 'wx_oberstadt', 'wx_pfahldorf', 'wx_torfstich', 'wx_akademie', 'wx_lucent',
     'wx_wachhaus', 'wx_zelle', 'wx_vergessmoor', 'wx_leuchtturm']) {
-    assert.match(content.maps[id].tiles, /^(r_|c_bahnhof$)/, id);
+    assert.match(content.maps[id].tiles, /^(r_|c_bahnhof(_wx)?$)/, id);
     assert.ok(themes.has(content.maps[id].tiles), id);
     assert.ok(!content.maps[id].decor.some((d) => /^d_(gaswerk|nordtor|bruecken_winch|strassenmoebel)/.test(d.sprite)), `${id}: Platzhalter-Deko`);
   }
@@ -571,12 +571,13 @@ test('Liegengebliebene Bögen: Oberflächen-Ausschnitte liegen im Bild, Fundstü
 });
 
 test('Liegengebliebene Tiles und Requisiten: Räume nutzen ihre Bögen, Deko liegt auf freiem Boden', () => {
-  const tiles = { mietskaserne: 'd_wohnung', haus_morrow: 'b_interieur', schleierhaus: 'b_keller', pfandhaus: 'b_auktion', bestatter: 'b_sanatorium', wx_bahnhof: 'c_bahnhof' };
+  const tiles = { mietskaserne: 'd_wohnung', haus_morrow: 'b_interieur', schleierhaus: 'b_keller', pfandhaus: 'b_auktion', bestatter: 'b_sanatorium', wx_bahnhof: 'c_bahnhof_wx' };
   for (const [map, theme] of Object.entries(tiles)) assert.equal(content.maps[map].tiles, theme, map);
   const used = new Set(Object.values(content.maps).flatMap((m) => (m.decor ?? []).map((d) => d.sprite)));
-  for (const key of Object.keys(PROP_CELLS).filter((k) => /^(b|c_bahn)_/.test(k))) assert.ok(used.has(key), `${key} wird nirgends gezeigt`);
+  // Paket BT: der Bahnhof Wexmoor zeigt die Möbel vom Wexmoor-Blatt (wx2_bahn_*), die Kettlegate-Zellen bleiben für den Koffer
+  for (const key of Object.keys(PROP_CELLS).filter((k) => /^(b|wx2_bahn)_/.test(k) && !/_dach/.test(k))) assert.ok(used.has(key), `${key} wird nirgends gezeigt`);
   for (const m of Object.values(content.maps)) for (const d of m.decor ?? []) {
-    if (!/^(b|c_bahn)_/.test(d.sprite)) continue;
+    if (!/^(b|c_bahn|wx2_bahn)_/.test(d.sprite)) continue;
     const [x, y] = d.tile;
     assert.ok(!'I#E'.includes(m.rows[y][x]), `${m.id}: ${d.sprite} steht in der Wand`);
   }
@@ -751,4 +752,65 @@ test('BR: Sekten-Grafik aus manifest-sekten – Laufbilder, Portraits, Köpfe, K
   assert.deepEqual(A.UI_REGIONS.skumtriebe.chor_niedergeschlagen, [64, 32, 16, 16]);
   assert.deepEqual(A.UI_REGIONS.skpins.flut_aktiv, [12, 12, 12, 12]);
   assert.ok(existsSync(sprite(ANIM_SHEETS.sk_ereignis[0])));
+});
+
+test('BT: Wexmoor-Look – v2-Tilesets, 18 Fassaden mit Nachtvarianten, Props, Wetter, Tiere, Stadtkarte und Wasserphasen aus manifest-wexmoor8', async () => {
+  const A = await import('../src/world/assets.js');
+  const m = manifest('wexmoor8');
+  assert.equal(m.assets.length, 42);
+  for (const a of m.assets) assert.ok(existsSync(sprite(a.file)), a.file);
+  // Themen zeigen auf die neuen Blätter; Zellen bleiben, deshalb gleiche Indizes
+  for (const [theme, f] of Object.entries({ r_wexmoor: 'R_wexmoor_tiles_v2', r_oberstadt: 'R_oberstadt_tiles_v2', r_salzmarkt: 'R_salzmarkt_tiles_v2', r_torf: 'R_torf_tiles_v2',
+    r_akademie: 'R_innen_wexmoor_v2', r_zelle: 'R_innen_wexmoor_v2', r_leuchtturm: 'R_leuchtturm_tiles_v2', r_vergessmoor: 'R_vergessmoor_tiles_v2',
+    q_kajuete: 'Q_kajuete_tiles_v2', s_salzwatt: 'S_salzwatt_tiles_v2', c_bahnhof_wx: 'C_bahnhof_wexmoor_v2' })) {
+    assert.equal(SHEETS[A.THEME_TILES[theme].sheet], `tilesets/${f}.png`, theme);
+  }
+  assert.equal(SHEETS[A.THEME_TILES.c_bahnhof.sheet], 'tilesets/C_06_bahnhof_tiles.png'); // Kettlegate unverändert
+  assert.deepEqual(A.THEME_TILES.c_bahnhof_wx.rails, A.THEME_TILES.c_bahnhof.rails);
+  // Fassaden: alle 18 plus sechs Nachtvarianten, gleiche Zellgruppen wie D_03
+  assert.equal(A.WX_FACADES.length, 18);
+  for (const f of [...A.WX_FACADES, ...A.WX_FACADE_NIGHT.map((x) => `${x}_nacht`)]) {
+    assert.ok(existsSync(sprite(SHEETS[`fac_${f}`])), f);
+    for (const g of ['wall', 'window', 'door', 'eave', 'roof']) assert.ok(A.facadeKeys(f, g).every((k) => TILE_KEYS.includes(k)), `${f} ${g}`);
+  }
+  assert.equal(A.facadeAtNight('wx_pfahlhaus'), 'wx_pfahlhaus_nacht');
+  assert.equal(A.facadeAtNight('wx_glocke'), 'wx_glocke');
+  const nacht = m.assets.find((a) => a.id === 'wexmoor_v2_pfahlhaus_nacht');
+  assert.deepEqual(nacht.changedCells, [8, 9, 10, 11, 12, 13, 14, 15]);
+  // Häuserzeile mit drei Türen → drei Fassaden, Dach folgt dem Haus darunter
+  const rows = ['RRRRRRRRRRRR', '#D##W#D#WW#D', '............'];
+  const fac = A.buildingFacades(rows, ['a', 'b', 'c', 'd']);
+  assert.equal(fac.get('0,1'), 'a');
+  assert.equal(fac.get('6,1'), 'b');
+  assert.equal(fac.get('11,1'), 'c');
+  assert.equal(fac.get('11,0'), 'c');
+  assert.equal(fac.size, 24);
+  // Props, große Props, animierte Props, Bahnhofsmöbel
+  for (const n of A.WX2_PROPS) assert.ok(PROP_CELLS[`wx2_${n}`], n);
+  for (const n of A.WX2_GROSS) assert.deepEqual(PROP_CELLS[`wx2g_${n}`].slice(3), [32, 32], n);
+  for (const n of A.WX2_ANIMS) assert.equal(PROP_ANIMS[`wx2a_${n}`][1].length, 4, n);
+  assert.deepEqual(PROP_CELLS.wx2_bahn_uhr, ['c_bahnhof_wx', 16, 80, 16, 48]);
+  // Wasserphasen: 9 Animationen x 4 Frames, Wasser blockiert weiter, Lichtrisse bleiben begehbar
+  assert.equal(A.WX2_TILE_ANIM_KEYS.length, 36);
+  for (const k of A.WX2_TILE_ANIM_KEYS) assert.ok(TILE_KEYS.includes(k), k);
+  const { SOLID_KEYS } = await import('../src/world/textures.js');
+  assert.ok(SOLID_KEYS.includes('wx2anim_water_0_0') && !SOLID_KEYS.includes('wx2anim_cracks_1_0'));
+  // Karten: Stadtkarte, Bahnhof auf dem Wexmoor-Blatt, Fassaden je Haus, neue Deko steht auf freiem Boden oder im Wasser
+  assert.equal(content.travelRules.cities.wexmoor.map_image, 'ui/wexmoor_v2_stadtkarte.png');
+  assert.equal(content.travelRules.cities.wexmoor.fog_image, 'ui/wexmoor_v2_nebel.png');
+  assert.equal(content.maps.wx_bahnhof.tiles, 'c_bahnhof_wx');
+  assert.ok(content.maps.wx_bahnhof.decor.some((d) => d.sprite === 'wx2_bahn_uhr'));
+  for (const id of ['wx_bahnhof', 'wx_salzmarkt', 'wx_bojenhafen', 'wx_oberstadt', 'wx_pfahldorf']) {
+    const map = content.maps[id];
+    assert.ok(map.facades.length >= 3 && map.facades.every((f) => A.WX_FACADES.includes(f)), id);
+    assert.ok(map.decor.some((d) => d.sprite.startsWith('wx2')), id);
+  }
+  for (const map of Object.values(content.maps)) {
+    for (const d of map.decor ?? []) {
+      if (!d.sprite.startsWith('wx2')) continue;
+      assert.ok(PROP_CELLS[d.sprite] || PROP_ANIMS[d.sprite], d.sprite);
+      const ch = map.rows[d.tile[1]][d.tile[0]];
+      assert.ok(d.depth === 6 ? ch === '~' : '.,gpcsPw'.includes(ch), `${map.id} ${d.sprite} auf '${ch}'`);
+    }
+  }
 });

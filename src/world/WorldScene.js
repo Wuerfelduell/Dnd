@@ -6,7 +6,7 @@ import { WexmoorLife, preloadWexmoorLife, speechBubble } from './WexmoorLife.js'
 import { DunscarLife, preloadDunscarLife } from './DunscarLife.js';
 import { KoopLife } from './Koop.js';
 import { SektenLife } from './SektenLife.js';
-import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, PROP_ORIGINS, MAP_WEATHER, DISGUISE_SHEETS, pathwayArt, P2_LOOKS, skinKeyOf , leseSceneOf } from './assets.js';
+import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, facadeAtNight, buildingFacades, WX2_TILE_ANIMS, PROP_ORIGINS, MAP_WEATHER, DISGUISE_SHEETS, pathwayArt, P2_LOOKS, skinKeyOf , leseSceneOf } from './assets.js';
 import { Roamers } from './Roamers.js';
 import { Critters } from './Critters.js';
 import { Patrols } from './Patrols.js';
@@ -63,6 +63,15 @@ const runOf = (at, ch) => {
  * Paket R (Wexmoor): Stege auf Pfählen über schwarzem Wasser. `ground` liefert den Belag für
  * Straße ('.') und Gehweg (','), Wasser bekommt an Stegen eine Kante mit Pfählen, der Kai eine Steinkante.
  */
+function cBahnhof(theme, ch, at, v, x, y) {
+  const k = (g, seed) => pickKey(themeKeys(theme, g), x, y, seed);
+  const water = (c) => '~Q='.includes(c ?? '~');
+  if (ch === 'P' && !water(at(0, 1)) && !water(at(0, -1))) return k('rails', 7);
+  if (ch === '.' && at(0, 1) === 'P') return k('edge', 8);
+  if (ch === '.' || ch === ',') return k('floor', 9);
+  return THEMES.r_wexmoor(ch, at, v, x, y);
+}
+
 function rWexmoor(ground) {
   const deck = 'P.,L=CV';
   return (ch, at, v, x, y) => {
@@ -355,14 +364,9 @@ const THEMES = {
   },
   // Paket R (Wexmoor): Stege, Markt, Oberstadt, Torfstich, Innenräume, Vergessmoor, Leuchtturm
   // Paket C: Bahnhof Wexmoor mit Bahnsteig, Gleisen und Bahnsteigkante; Brücke und Kai bleiben Wexmoor
-  c_bahnhof: (ch, at, v, x, y) => {
-    const k = (g, seed) => pickKey(themeKeys('c_bahnhof', g), x, y, seed);
-    const water = (c) => '~Q='.includes(c ?? '~');
-    if (ch === 'P' && !water(at(0, 1)) && !water(at(0, -1))) return k('rails', 7);
-    if (ch === '.' && at(0, 1) === 'P') return k('edge', 8);
-    if (ch === '.' || ch === ',') return k('floor', 9);
-    return THEMES.r_wexmoor(ch, at, v, x, y);
-  },
+  c_bahnhof: (ch, at, v, x, y) => cBahnhof('c_bahnhof', ch, at, v, x, y),
+  // Paket BT: derselbe Bahnhof auf dem Wexmoor-Blatt (Holzrampen, nasse Kohle)
+  c_bahnhof_wx: (ch, at, v, x, y) => cBahnhof('c_bahnhof_wx', ch, at, v, x, y),
   r_wexmoor: rWexmoor((ch, k) => (ch === '.' ? k('floor') : k('wood', 2))),
   r_salzmarkt: rWexmoor((ch, k, x, y) => (ch === '.' ? (hash2(x, y, 62) > 0.8 ? k('sand', 2, 'r_salzmarkt') : k('floor')) : k('wood', 2))),
   r_oberstadt(ch, at, v, x, y) {
@@ -734,12 +738,39 @@ export class WorldScene extends Phaser.Scene {
     const rows = this.mapDef.rows;
     this.mapW = rows[0].length * TILE;
     this.mapH = rows.length * TILE;
-    const data = rows.map((row, y) => [...row].map((_, x) => tileIndexFor(rows, x, y, this.mapDef.tiles, this.mapDef.facade)));
+    // Paket BT: mehrere Fassaden je Karte, nachts die beleuchtete Variante
+    const night = this.state?.isNight?.() ?? false;
+    const perHouse = buildingFacades(rows, this.mapDef.facades);
+    const facadeAt = (x, y) => { const f = perHouse.get(`${x},${y}`) ?? this.mapDef.facade; return f && night ? facadeAtNight(f) : f; };
+    const data = rows.map((row, y) => [...row].map((_, x) => tileIndexFor(rows, x, y, this.mapDef.tiles, facadeAt(x, y))));
     const map = this.make.tilemap({ data, tileWidth: TILE, tileHeight: TILE });
     const tileset = map.addTilesetImage('tiles', 'tiles', TILE, TILE, 0, 0);
     this.groundLayer = map.createLayer(0, tileset, 0, 0).setDepth(0);
     this.groundLayer.setCollision(SOLID_KEYS.map((k) => TILE_INDEX[k]));
     this.physics.world.setBounds(0, 0, this.mapW, this.mapH);
+    this.animateTiles();
+  }
+
+  /** Paket BT: Wasser, Geisterlicht und Lichtrisse in Wexmoor wechseln alle 260 ms zwischen vier Phasen (fx/wexmoor_v2_tileanim.png). */
+  animateTiles() {
+    const theme = this.mapDef.tiles;
+    const spec = WX2_TILE_ANIMS[theme] ?? (theme?.startsWith('r_') || theme === 'c_bahnhof_wx' ? WX2_TILE_ANIMS.r_wexmoor : null);
+    if (!spec || !this.textures.exists('tiles')) return;
+    const animOf = {};
+    for (const [t, groups] of Object.entries(WX2_TILE_ANIMS)) {
+      if (t !== theme && t !== 'r_wexmoor') continue; // Oberstadt, Salzmarkt, Torf, Bahnhof nutzen die Wasserzellen von r_wexmoor
+      for (const [g, names] of Object.entries(groups)) themeKeys(t, g).forEach((k, i) => { if (names[i]) animOf[TILE_INDEX[k]] = names[i]; });
+    }
+    const cells = [];
+    this.groundLayer.forEachTile((tile) => { const a = animOf[tile.index]; if (a && TILE_INDEX[`wx2anim_${a}_0`] !== undefined) cells.push([tile.x, tile.y, a]); });
+    if (!cells.length) return;
+    let phase = 0;
+    const step = () => {
+      phase = (phase + 1) % 4;
+      for (const [x, y, a] of cells) this.groundLayer.putTileAt(TILE_INDEX[`wx2anim_${a}_${(phase + x + y) % 4}`], x, y, false);
+    };
+    step();
+    this.time.addEvent({ delay: 260, loop: true, callback: step });
   }
 
   forEachTile(chars, fn) {

@@ -80,15 +80,18 @@ export const SHEETS = {
   k_atelier: 'tilesets/K_atelier_tiles.png', k_ballsaal: 'tilesets/K_ballsaal_tiles.png',
   k_spiegelkabinett: 'tilesets/K_spiegelkabinett_tiles.png',
   m_kontor: 'tilesets/M_kontor_tiles.png', m_waisenhaus: 'tilesets/M_waisenhaus_tiles.png', m_traumkeller: 'tilesets/M_traumkeller_tiles.png',
-  q_kajuete: 'tilesets/Q_kajuete_tiles.png',
-  r_wexmoor: 'tilesets/R_wexmoor_tiles.png', r_innen: 'tilesets/R_innen_tiles.png', r_vergessmoor: 'tilesets/R_vergessmoor_tiles.png',
-  r_leuchtturm: 'tilesets/R_leuchtturm_tiles.png',
+  q_kajuete: 'tilesets/Q_kajuete_tiles_v2.png',
+  r_wexmoor: 'tilesets/R_wexmoor_tiles_v2.png', r_innen: 'tilesets/R_innen_wexmoor_v2.png', r_vergessmoor: 'tilesets/R_vergessmoor_tiles_v2.png',
+  // Paket BT: eigene Blätter für Oberstadt, Salzmarkt, Torfstich und den Güterbahnhof (nur Wexmoor), gleiches Zellenraster
+  r_oberstadt_boden: 'tilesets/R_oberstadt_tiles_v2.png', r_salzmarkt_boden: 'tilesets/R_salzmarkt_tiles_v2.png', r_torf_boden: 'tilesets/R_torf_tiles_v2.png',
+  c_bahnhof_wx: 'tilesets/C_bahnhof_wexmoor_v2.png',
+  r_leuchtturm: 'tilesets/R_leuchtturm_tiles_v2.png',
   // Paket AV (Kapitel 3, Dunscar): Straßen, Bahn, Steinbruch, Schlucht, Innenräume, Zug (8 Spalten à 16 px)
   ds_stadt: 'tilesets/ds_stadt.png', ds_bahn: 'tilesets/ds_bahn.png', ds_bruch: 'tilesets/ds_bruch.png', ds_schlucht: 'tilesets/ds_schlucht.png',
   ds_innen: 'tilesets/ds_innen.png', ds_zug: 'tilesets/ds_zug.png',
   v_glocke: 'tilesets/V_01_glocke_tiles.png',
   w_altstadt: 'tilesets/W_01_altstadt_tiles.png',
-  s_salzwatt: 'tilesets/S_salzwatt_tiles.png', s_lichtlose: 'tilesets/S_lichtlose_tiles.png', s_salz: 'tilesets/S_salz_tiles.png',
+  s_salzwatt: 'tilesets/S_salzwatt_tiles_v2.png', s_lichtlose: 'tilesets/S_lichtlose_tiles.png', s_salz: 'tilesets/S_salz_tiles.png',
   // Grundpaket und Paket D: bisher ungenutzte Innenraum-Tilesets (8 Spalten à 16 px)
   d_wohnung_tiles: 'tilesets/D_08_wohnung_tiles.png', b_interieur: 'tilesets/02_07_interiors.png', b_keller: 'tilesets/02_08_occult_basement.png',
   b_auktion: 'tilesets/13_02_auction_tiles.png', b_sanatorium: 'tilesets/13_03_sanatorium_tiles.png', c_bahnhof: 'tilesets/C_06_bahnhof_tiles.png',
@@ -150,6 +153,8 @@ export const THEME_TILES = {
   // Bisher ungenutzte Innenräume: Mietwohnung (D_08), Haus Morrow (02_07), Schleierhaus-Keller (02_08),
   // Pfandhaus (13_02), Bestatter (13_03)
   c_bahnhof: { sheet: 'c_bahnhof', fallback: 'stone', floor: [0, 1, 2, 3, 24, 25, 26], edge: [4, 5, 6, 7], rails: [8, 9, 10, 11] },
+  // Paket BT: Güterbahnhof auf Pfählen (nur Wexmoor-Karten), Zellen wie c_bahnhof
+  c_bahnhof_wx: { sheet: 'c_bahnhof_wx', fallback: 'stone', floor: [0, 1, 2, 3, 24, 25, 26], edge: [4, 5, 6, 7], rails: [8, 9, 10, 11] },
   d_nachtmarkt: { sheet: 'd_nachtmarkt_boden', fallback: 'stone', floor: [0, 1, 2, 3, 22, 23], accent: [4, 5, 6, 7, 8, 9] },
   d_wohnung: { sheet: 'd_wohnung_tiles', fallback: 'wood0', floor: [0, 1], carpet: [12, 13], wallTop: [48, 49, 50], wallFace: [16, 17, 18, 24, 25, 26] },
   b_interieur: { sheet: 'b_interieur', fallback: 'wood0', floor: [8, 9, 10], wallTop: [24, 25, 26], wallFace: [16, 17, 18, 19, 20, 21] },
@@ -189,9 +194,9 @@ export const THEME_TILES = {
     water: [20, 22, 24, 26], reeds: [28, 29], mud: [42, 43, 44, 45], wet: [46, 47], path: [48, 49, 50, 51], bridge: [52, 53],
     sand: [56, 57], quayN: [58], quayE: [59], quayS: [60], quayW: [61] },
   // Varianten auf demselben Blatt: Oberstadt-Pflaster, Salzkruste am Markt, Torfschlamm
-  r_oberstadt: { sheet: 'r_wexmoor', fallback: 'cobble0', floor: [48, 49, 50, 51] },
-  r_salzmarkt: { sheet: 'r_wexmoor', fallback: 'wood0', floor: [0, 1, 2, 3], sand: [56, 57] },
-  r_torf: { sheet: 'r_wexmoor', fallback: 'path', floor: [42, 43, 44, 45], wet: [46, 47] },
+  r_oberstadt: { sheet: 'r_oberstadt_boden', fallback: 'cobble0', floor: [48, 49, 50, 51] },
+  r_salzmarkt: { sheet: 'r_salzmarkt_boden', fallback: 'wood0', floor: [0, 1, 2, 3], sand: [56, 57] },
+  r_torf: { sheet: 'r_torf_boden', fallback: 'path', floor: [42, 43, 44, 45], wet: [46, 47] },
   // Innenräume: Akademie, Haus Lucent, Wachhaus, Zelle (je Boden 4, Wand oben/vorn/links/rechts)
   r_akademie: { sheet: 'r_innen', fallback: 'wood0', floor: [0, 1, 2, 3], wallTop: [4], wallFace: [5], wallSide: [6, 7] },
   r_lucent: { sheet: 'r_innen', fallback: 'wood0', floor: [8, 9, 10, 11], wallTop: [12], wallFace: [13], wallSide: [14, 15] },
@@ -842,18 +847,64 @@ export const CASE_SHEETS = {
 
 /** Hausfassaden aus D_03 (gleiches 8x6-Raster für alle Materialien). Map-Feld "facade": putz|holz|stein|slum|fabrik. */
 export const FACADES = ['putz', 'holz', 'stein', 'slum', 'fabrik'];
+/** Paket BT: Wexmoor-Fassaden (facades/wexmoor_v2_<name>.png, gleiches 8x6-Raster); sechs davon mit beleuchteter Nachtvariante. */
+export const WX_FACADES = ['pfahlhaus', 'fischerhaus', 'seilerhaus', 'schilfhuette', 'bojenwart', 'torfschuppen', 'oberstadt', 'ratshaus', 'apotheke',
+  'salzspeicher', 'fischhalle', 'wachhaus', 'akademie', 'lucent', 'glocke', 'altstadt', 'leuchtturm', 'bahnhof'].map((n) => `wx_${n}`);
+export const WX_FACADE_NIGHT = ['pfahlhaus', 'oberstadt', 'salzspeicher', 'wachhaus', 'akademie', 'lucent'].map((n) => `wx_${n}`);
+const ALL_FACADES = [...FACADES, ...WX_FACADES, ...WX_FACADE_NIGHT.map((m) => `${m}_nacht`)];
+/** Fassade bei Nacht: beleuchtete Variante, falls es eine gibt. */
+export const facadeAtNight = (m) => (WX_FACADE_NIGHT.includes(m) ? `${m}_nacht` : m);
+/**
+ * Paket BT: mehrere Fassaden auf einer Karte. Zusammenhängende Gebäudeflächen (#, W, D, R) werden gesucht;
+ * eine Häuserzeile mit mehreren Türen wird zwischen den Türen in einzelne Häuser geteilt, sonst in Bänder von
+ * zehn Feldern. Jedes Haus bekommt der Reihe nach eine Fassade aus `facades`; Rückgabe "x,y" → Fassade.
+ */
+export function buildingFacades(rows, facades) {
+  const out = new Map();
+  if (!facades?.length) return out;
+  const isHouse = (x, y) => '#WDR'.includes(rows[y]?.[x] ?? ' ');
+  const seen = new Set();
+  let n = 0;
+  rows.forEach((row, y0) => [...row].forEach((_, x0) => {
+    if (!isHouse(x0, y0) || seen.has(`${x0},${y0}`)) return;
+    const cells = [];
+    const doors = new Set();
+    const q = [[x0, y0]];
+    while (q.length) {
+      const [x, y] = q.pop();
+      const key = `${x},${y}`;
+      if (seen.has(key) || !isHouse(x, y)) continue;
+      seen.add(key);
+      cells.push([x, y]);
+      if (rows[y][x] === 'D') doors.add(x);
+      q.push([x + 1, y], [x - 1, y], [x, y + 1], [x, y - 1]);
+    }
+    const minX = Math.min(...cells.map(([x]) => x));
+    const d = [...doors].sort((a, b) => a - b);
+    // Grenzen zwischen den Häusern: Mitte zwischen zwei Türen, sonst alle zehn Felder
+    const bounds = d.length >= 2 ? d.slice(1).map((x, i) => Math.ceil((d[i] + x) / 2)) : [];
+    const segment = (x) => (bounds.length ? bounds.filter((b) => x >= b).length : Math.floor((x - minX) / 10));
+    const first = n;
+    let used = 0;
+    for (const [x, y] of cells) { const sgm = segment(x); used = Math.max(used, sgm + 1); out.set(`${x},${y}`, facades[(first + sgm) % facades.length]); }
+    n += used;
+  }));
+  return out;
+}
+
 const FACADE_CELLS = { wall: [0, 0, 0, 0, 1, 2], window: [8, 8, 12, 12, 9, 10, 13], door: [16, 17], eave: [24, 25], roof: [32, 33, 34, 35] };
 const FACADE_FALLBACK = { wall: 'brick', window: 'window', door: 'door', eave: 'roofEaveBottom', roof: 'roofEaveTop' };
 /** [{ key, sheet, cell, group, fallback }] – Tile-Key `fac_<material>_<gruppe>_<n>`. */
 /** Abweichungen je Material: In Elendsvierteln und Fabriken brennt kaum Licht, viele Fenster sind vernagelt. */
 const FACADE_OVERRIDES = { slum: { window: [9, 11, 11, 13, 9, 15, 8] }, fabrik: { window: [9, 13, 9, 8, 12] } };
 const facadeCells = (m, group) => FACADE_OVERRIDES[m]?.[group] ?? FACADE_CELLS[group];
-export const FACADE_TILE_LIST = FACADES.flatMap((m) => Object.keys(FACADE_CELLS).flatMap((group) => facadeCells(m, group).map((cell, n) => ({
+export const FACADE_TILE_LIST = ALL_FACADES.flatMap((m) => Object.keys(FACADE_CELLS).flatMap((group) => facadeCells(m, group).map((cell, n) => ({
   key: `fac_${m}_${group}_${n}`, sheet: `fac_${m}`, cell, group, fallback: FACADE_FALLBACK[group],
 }))));
 /** Tile-Keys einer Fassadengruppe. */
 export const facadeKeys = (m, group) => facadeCells(m, group).map((_, n) => `fac_${m}_${group}_${n}`);
 for (const m of FACADES) SHEETS[`fac_${m}`] = `tilesets/D_03_fassade_${m}.png`;
+for (const m of ALL_FACADES) if (m.startsWith('wx_')) SHEETS[`fac_${m}`] = `facades/wexmoor_v2_${m.slice(3)}.png`;
 for (const t of FACADE_TILE_LIST) TILE_CELLS[t.key] = [t.sheet, t.cell];
 
 /** Paket E: 16 Auftragsfiguren mit Lauf-Sheet und Portrait (gameId aus manifest-faelle.json). */
@@ -2408,3 +2459,40 @@ UI_REGIONS.skumtriebe = Object.fromEntries(SK_KULTE.flatMap((k, row) => [...[0, 
 UI_SHEETS.skpins = ['ui/sk_karte_pins.png', 36, 24];
 UI_REGIONS.skpins = Object.fromEntries(SK_KULTE.flatMap((k, col) => [[`${SK_KURZ[k]}_normal`, [col * 12, 0, 12, 12]], [`${SK_KURZ[k]}_aktiv`, [col * 12, 12, 12, 12]]]));
 export const SK_PINS_URL = `${BASE}ui/sk_karte_pins.png`;
+
+// --- Paket BT: Wexmoor sieht nach Wexmoor aus (props/wexmoor_v2_*.png, fx/wexmoor_v2_tileanim.png) ---
+SHEETS.wx2_props = 'props/wexmoor_v2_props.png';
+SHEETS.wx2_gross = 'props/wexmoor_v2_gross.png';
+SHEETS.wx2_anim = 'props/wexmoor_v2_anim.png';
+SHEETS.wx2_tileanim = 'fx/wexmoor_v2_tileanim.png';
+/** Straßenmöbel 16x16 (8x6-Raster), Texture-Key wx2_<name>. */
+export const WX2_PROPS = ['bojenlaterne_an', 'bojenlaterne_aus', 'pfahlpoller', 'taurolle', 'salzfass', 'torfkarre', 'netz', 'reuse',
+  'fischkiste', 'gelaender_h', 'gelaender_v', 'gangway_h', 'gangway_v', 'pricke', 'nebelhorn', 'boje',
+  'anker', 'haken', 'eimer', 'salzsack', 'torfsode', 'wollgras', 'schilf', 'treibholz',
+  'seilpfahl', 'muschelkorb', 'aalkorb', 'fischfass', 'rettungsring', 'stiefel', 'reusenleine', 'pegelpfahl',
+  'kalktopf', 'teereimer', 'paddel', 'ruder', 'klappbruecke', 'schleusenhebel', 'kleiner_kran', 'ankerwinde',
+  'kistenstapel', 'salzlampe', 'schuppenplane', 'fischgestell', 'briefkasten', 'wasserpumpe', 'bojenstange', 'moorpflanze'];
+WX2_PROPS.forEach((n, i) => { PROP_CELLS[`wx2_${n}`] = ['wx2_props', (i % 8) * 16, Math.floor(i / 8) * 16, 16, 16]; });
+/** Große Props 32x32 (4x4-Raster), Texture-Key wx2g_<name>. */
+export const WX2_GROSS = ['kahn', 'torfstapel', 'kran', 'schleusenrad', 'fischkutter', 'salzwagen', 'netzgestell', 'torfkarre',
+  'gangway', 'schleusentor', 'bojenmast', 'holzstapel', 'salzberg', 'reusengruppe', 'nebelhorn', 'rettungsboot'];
+WX2_GROSS.forEach((n, i) => { PROP_CELLS[`wx2g_${n}`] = ['wx2_gross', (i % 4) * 32, Math.floor(i / 4) * 32, 32, 32]; PROP_ORIGINS[`wx2g_${n}`] = 0.85; });
+/** Animierte Props (4 Frames je Zeile), Anim-Key wx2a_<name>. */
+export const WX2_ANIMS = ['laterne', 'netz', 'reuse', 'boje', 'schilf', 'nebelhorn'];
+WX2_ANIMS.forEach((n, row) => { PROP_ANIMS[`wx2a_${n}`] = ['wx2_anim', [0, 1, 2, 3].map((f) => [f * 16, row * 16, 16, 16]), 6]; });
+/** Güterbahnhof Wexmoor: Bank, Karren, Kiosk, Säule und Uhr aus dem neuen Blatt (gleiche Plätze wie c_bahn_*). */
+Object.entries({ bank: [0, 64, 32, 16], karren: [32, 64, 32, 16], kiosk: [64, 64, 32, 32], dach: [96, 64, 16, 16], dachecke: [112, 64, 16, 16], saeule: [0, 80, 16, 48], uhr: [16, 80, 16, 48] })
+  .forEach(([n, c]) => { PROP_CELLS[`wx2_bahn_${n}`] = ['c_bahnhof_wx', ...c]; });
+/** Vier-Phasen-Animationen für Wasser, Geisterlicht, Nebel, Lichtrisse und Salzschimmer (4 Spalten x 9 Zeilen). */
+export const WX2_TILE_ANIM_NAMES = ['water_0', 'water_1', 'water_2', 'water_3', 'ghost_reflection', 'mist', 'cracks_1', 'cracks_2', 'shimmer'];
+export const WX2_TILE_ANIM_KEYS = WX2_TILE_ANIM_NAMES.flatMap((n, row) => [0, 1, 2, 3].map((f) => `wx2anim_${n}_${f}`));
+WX2_TILE_ANIM_NAMES.forEach((n, row) => [0, 1, 2, 3].forEach((f) => { TILE_CELLS[`wx2anim_${n}_${f}`] = ['wx2_tileanim', row * 4 + f]; }));
+/** Welche Themen-Tiles animiert werden: Thema → Gruppe → Animationsname je Zelle (Reihenfolge wie in THEME_TILES). */
+export const WX2_TILE_ANIMS = {
+  r_wexmoor: { water: ['water_0', 'water_1', 'water_2', 'water_3'] },
+  r_vergessmoor: { water: ['water_0', 'water_1', 'water_2', 'water_3'], ghost: ['ghost_reflection'] },
+  r_leuchtturm: { ring: ['cracks_1', 'cracks_2'] },
+  s_salzwatt: { water: ['shimmer', 'shimmer'] },
+};
+/** Begehbar bleiben nur die Lichtrisse im Leuchtturm. */
+export const WX2_TILE_ANIM_WALKABLE = ['cracks_1', 'cracks_2'];
