@@ -15317,6 +15317,63 @@
           ]
         }
       }
+    },
+    "wx_festnahme": {
+      "start": [
+        {
+          "node": "start_halbgott",
+          "requires_seq": 4
+        },
+        {
+          "node": "start"
+        }
+      ],
+      "nodes": {
+        "start": {
+          "text": "„Stehen bleiben! Im Namen des Lichtamts!“\n\nZwei Grauspäher treten aus dem Nebel, die Sturmlaternen auf dein Gesicht gerichtet. Unter den grauen Wachshandschuhen glimmt etwas, das kein Laternenlicht ist, und die Luft um sie herum schmeckt nach heißem Wachs.\n\nDu spürst es bis in die Zähne: Das sind keine Wachleute. Das sind Beyonder, und sie stehen weit über dir.",
+          "choices": [
+            {
+              "text": "Widerstand leisten. (Sie sind dir weit überlegen.)",
+              "next": "kampf"
+            },
+            {
+              "text": "Mitgehen.",
+              "next": "mitgehen"
+            }
+          ]
+        },
+        "start_halbgott": {
+          "text": "„Stehen bleiben! Im Namen des Licht…“\n\nDie Stimme bricht ab. Zwei Grauspäher treten aus dem Nebel, und zum ersten Mal, seit du in Wexmoor bist, zittern ihre Laternen. Was in dir wohnt, kennen sie aus Akten, nicht aus der Nähe.\n\nSie heben die Knüppel trotzdem. Das Lichtamt lässt ihnen keine Wahl.",
+          "choices": [
+            {
+              "text": "Widerstand leisten.",
+              "next": "kampf"
+            },
+            {
+              "text": "Mitgehen.",
+              "next": "mitgehen"
+            }
+          ]
+        },
+        "kampf": {
+          "text": "Du gehst in Stellung. Die Laternen blenden auf, und hinter dem Licht hörst du die Grauspäher etwas murmeln, das nicht nach Dienstvorschrift klingt.",
+          "combat": "wx_grauspaeher_fight",
+          "choices": [
+            {
+              "text": "Kämpfen."
+            }
+          ]
+        },
+        "mitgehen": {
+          "text": "Zwei Hände in grauen Wachshandschuhen packen dich. Jemand vergleicht dich mit einem zerknitterten Zettel und nickt. Was in deinen Taschen klimpert, wandert zum Teil in die Asservatenkammer.\n\nDie Fahrt im Gefängniswagen dauert nicht lange. Das Wachhaus riecht nach nassem Wachs und kaltem Ruß.",
+          "arrest": true,
+          "choices": [
+            {
+              "text": "In die Zelle."
+            }
+          ]
+        }
+      }
     }
   },
   "police": {
@@ -15369,7 +15426,9 @@
     "disguise_misfit": {
       "range": 1.15,
       "catch": 0.85
-    }
+    },
+    "resist": "wx_grauspaeher_fight",
+    "resist_dialogue": "wx_festnahme"
   },
   "items": {
     "torfkittel": {
@@ -17325,6 +17384,98 @@
       "lose_text": "Price lässt dich im Schlick liegen. „Morgen komm ich wieder“, sagt er. Zunder schleppt dich heim.",
       "win_text": "Price sitzt im Schlick und reibt sich den Kiefer. „Gut“, sagt er. „Dann schreib ich, Sie sind ertrunken.“ Er nimmt den nächsten Zug.",
       "chapter": 2
+    },
+    "wx_grauspaeher_fight": {
+      "name": "Grauspäher-Streife",
+      "sprite": "npc:grauspaeher",
+      "sheet": "enemy_k3p_lampengutachter",
+      "chapter": 2,
+      "occult": true,
+      "min_seq": 4,
+      "fleeable": false,
+      "hp": 240,
+      "armor": 3,
+      "ramp": 0.08,
+      "max_round_dmg": 0.25,
+      "intro": "Die Grauspäher legen die Laternen nicht ab. Sie brauchen beide Hände nicht. Der vordere zieht den Wachsknüppel, und das Licht in seinen Augen ist dasselbe wie das in der Laterne.",
+      "attacks": [
+        {
+          "name": "Wachsknüppel",
+          "damage": 16,
+          "hits": [
+            700,
+            1100
+          ]
+        },
+        {
+          "name": "Blendlaterne",
+          "action": "taunt",
+          "value": 10,
+          "text": "Die Laterne flammt weiß auf. Du siehst eine Weile gar nichts. -10 Nerven."
+        },
+        {
+          "name": "Dienstgriff",
+          "damage": 24,
+          "hits": [
+            1300
+          ],
+          "unparryable": true
+        },
+        {
+          "name": "Zweite Streife",
+          "action": "guard",
+          "value": 14,
+          "text": "Der zweite Grauspäher tritt vor den ersten. Panzer +14."
+        },
+        {
+          "name": "Knüppelwirbel",
+          "damage": 11,
+          "hits": [
+            600,
+            900,
+            1200,
+            1500
+          ]
+        },
+        {
+          "name": "Lichtamt-Salbe",
+          "action": "heal",
+          "value": 24,
+          "text": "Weißes Wachs schließt die Wunden, als wären sie nie da gewesen. +24 Leben."
+        }
+      ],
+      "on_win": {
+        "wanted": 3,
+        "wanted_reason": "Widerstand gegen das Lichtamt",
+        "sets_flags": [
+          "k2_grauspaeher_besiegt"
+        ]
+      },
+      "win_text": "Der vordere Grauspäher geht in die Knie, und die Laterne in seiner Hand erlischt, als wäre nie ein Docht darin gewesen. Der zweite weicht zurück, ohne dich aus den Augen zu lassen.\n\nNoch in derselben Stunde hängt dein Gesicht an jeder Lichtsäule der Stadt. Das Lichtamt vergisst nicht.",
+      "on_lose": {
+        "wanted": 2,
+        "wanted_reason": "Widerstand gegen das Lichtamt",
+        "arrest": {
+          "seize_mult": 2
+        }
+      },
+      "lose_text": "Der Knüppel trifft, und das Licht geht aus.\n\nAls du zu dir kommst, liegst du auf dem Boden des Gefängniswagens, die Handgelenke in Wachs gegossen. Ein Grauspäher sitzt dir gegenüber und zählt deine Schillinge in einen Beutel, langsam, damit du zusiehst. „Widerstand“, sagt er. „Das kostet.“\n\nDas Wachhaus riecht nach nassem Wachs und kaltem Ruß.",
+      "loot": {
+        "money": [
+          20,
+          40
+        ],
+        "drops": [
+          {
+            "item": "fremdlicht_phiole",
+            "chance": 0.6
+          },
+          {
+            "item": "verband",
+            "chance": 1
+          }
+        ]
+      }
     }
   },
   "loot": {
