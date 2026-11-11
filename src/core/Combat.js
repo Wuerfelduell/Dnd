@@ -160,6 +160,9 @@ export class Combat {
     this.hpMult = enc.practice ? 1 : enc.hp_mult ?? zone?.hp_mult ?? 1;
     this.dmgMult = enc.practice ? 1 : enc.dmg_mult ?? zone?.dmg_mult ?? 1;
     this.duoFull = !!(enc.min_seq || (enc.duo_full ?? zone?.duo_full));
+    // Schadensgrenze je Runde: am Gegner `max_round_dmg` (Anteil der Leben), sonst am Gebiet je Rang { normal, elite, boss }
+    const zoneCap = zone?.max_round_dmg;
+    this.maxRoundDmg = enc.practice ? 0 : enc.max_round_dmg ?? (typeof zoneCap === 'object' ? zoneCap[enc.boss ? 'boss' : enc.elite ? 'elite' : 'normal'] : zoneCap) ?? 0;
     const hp = enc.practice ? enc.hp : Math.round(enc.hp * ENEMY_HP_MULT * (enc.elite ? ELITE_HP_MULT : 1) * this.hpMult * this.duoHpMult);
     // Panzer wächst mit der Gefahrenstufe des Gebiets (Marsch 1, ...), Bosse eine Stufe mehr
     const tier = zone?.tier ?? 2;
@@ -514,8 +517,8 @@ export class Combat {
     let dmg = n - absorbed;
     // Feld `max_round_dmg` (Anteil der Leben): ab Fall 4 steckt ein Gegner je Runde nur so viel weg,
     // der Rest prallt ab. Kein Build erledigt ihn damit in zwei Runden, schwache Treffer bleiben unberührt.
-    if (this.enc.max_round_dmg && dmg > 0) {
-      const room = Math.max(0, Math.round(this.enemy.maxHp * this.enc.max_round_dmg) - this.roundDmg);
+    if (this.maxRoundDmg && dmg > 0) {
+      const room = Math.max(0, Math.round(this.enemy.maxHp * this.maxRoundDmg) - this.roundDmg);
       if (dmg > room) { this.capped += dmg - room; dmg = room; }
       this.roundDmg += dmg;
     }
