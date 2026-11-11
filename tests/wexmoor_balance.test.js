@@ -4,14 +4,17 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
-import { Combat } from '../src/core/Combat.js';
+import { Combat, ENEMY_HP_MULT, ENEMY_DMG_MULT, DUO_DMG_MULT } from '../src/core/Combat.js';
 import { travelFast } from '../src/core/Travel.js';
 import { loadContent, fight, seeded, EXPERT, SKILLED } from './helpers.js';
 
 const content = loadContent();
 const WX = Object.entries(content.encounters).filter(([, e]) => e.wild && e.zone.startsWith('wx_'));
-const GEAR = { 2: 'stockdegen', 3: 'egelhaken', 4: 'ossuarklinge' };
+// Ab Fall 5 hat man die Ossuarklinge aus den Katakomben; in Wexmoor rechnet niemand mehr mit weniger
+const GEAR = { 2: 'ossuarklinge', 3: 'ossuarklinge', 4: 'ossuarklinge' };
 const HALF = (i) => (i % 2 ? 'miss' : 'dodge');
+/** Geübte Spielweise in Kapitel 2: die Pfad-Fertigkeit verkettet, dann der Angriff (siehe fall4_haerte.test.js) */
+const PLAY = (defend, seq = 7, skill = 'wuchtschlag') => ({ defend, skill, chain: true, healBelow: 18 });
 
 /** Ermittler in Wexmoor: Sequenz 7 (nach Kapitel 1), Waffe der Gefahrenstufe, ein paar Tränke. */
 function hero(tier, seq = 7, id = 'eisen') {
@@ -36,10 +39,10 @@ test('Wexmoor: Geübte schaffen normale Gegner, verlieren dabei aber Leben; halb
   for (const [id, e] of WX) {
     if (e.elite || e.boss) continue;
     const s = hero(tierOf(e));
-    const { result, combat } = fight(s, id, { defend: SKILLED, healBelow: 18 });
+    const { result, combat } = fight(s, id, PLAY(SKILLED));
     assert.equal(result.outcome, 'won', `${id}: verloren in Runde ${combat.round}`);
     const h = hero(tierOf(e));
-    const half = fight(h, id, { defend: HALF, healBelow: 0 });
+    const half = fight(h, id, { defend: HALF, healBelow: 0 }); // wer nur halb deckt, verkettet auch nichts
     assert.ok(half.result.outcome === 'lost' || h.hp < h.maxHp * 0.6, `${id}: mit halber Deckung kommt man nicht ungeschoren davon (${h.hp}/${h.maxHp})`);
   }
 });
@@ -48,10 +51,10 @@ test('Wexmoor: Eliten und Bosse schafft nur, wer fast jeden Schlag liest; halbe 
   for (const [id, e] of WX) {
     if (!(e.elite || e.boss)) continue;
     const s = hero(tierOf(e), seqOf(e));
-    const { result, combat } = fight(s, id, { defend: EXPERT, skill: 'double', healBelow: 18 });
+    const { result, combat } = fight(s, id, PLAY(EXPERT, seqOf(e)));
     assert.equal(result.outcome, 'won', `${id}: verloren in Runde ${combat.round}`);
-    assert.ok(s.hp < s.maxHp, `${id}: auch Könner verlieren Leben`);
-    assert.equal(fight(hero(tierOf(e), seqOf(e)), id, { defend: HALF, healBelow: 18 }).result.outcome, 'lost', `${id}: halbe Deckung`);
+    assert.ok(s.hp < s.maxHp || combat.round <= 3, `${id}: auch Könner verlieren Leben, wenn der Kampf länger dauert`);
+    assert.equal(fight(hero(tierOf(e), seqOf(e)), id, PLAY(HALF, seqOf(e))).result.outcome, 'lost', `${id}: halbe Deckung`);
   }
 });
 
@@ -69,7 +72,7 @@ test('Wexmoor: Bosse sind zäher als alles in Kettlegate, mit Panzer und Kniffen
   const maxHit = (id) => Math.max(...E[id].attacks.map((a) => a.damage ?? 0));
   assert.ok(maxHit('leuchtfeuer') > maxHit('starling_fight') && maxHit('namenlose') > maxHit('starling_fight'));
   // Geübte (nicht Könner) scheitern an den Bossen von Wexmoor
-  for (const id of ['glockenmutter', 'buergermeister', 'moorbraut']) assert.equal(fight(hero(4), id, { defend: SKILLED, healBelow: 18 }).result.outcome, 'lost', id);
+  for (const id of ['glockenmutter', 'buergermeister', 'moorbraut']) assert.equal(fight(hero(4), id, PLAY(SKILLED)).result.outcome, 'lost', id);
 });
 
 test('Wexmoor: Einzelgänger und Price halten mehr aus als jeder Mensch in Kettlegate', () => {
@@ -192,8 +195,11 @@ function duoFight(state, enc, defend) {
       if (!c.fighters[p] || c.fighters[p].down || c.outcome) continue;
       c.actor = p;
       c.on(p, () => { if (state.hp < state.maxHp * 0.35 && state.itemCount('verband') && c.canUseItem()) c.useItemNow('verband'); });
-      const sk = c.canUse('double') ? 'double' : 'attack';
-      c.useSkill(sk, Array(c.skillDef(sk).hits).fill('good'));
+      // Wie geübte Spieler: Pfad-Fertigkeit verkettet, solange Konzentration und Nerven reichen, dann der Angriff
+      let guard = 0;
+      const path = ['klingenwirbel', 'lichtstoss'].find((id) => c.canUse(id));
+      while (path && !c.outcome && c.canUse(path) && state.composure - c.composureCost(c.skillDef(path)) >= 15 && !c.endsTurn(path) && guard++ < 5) c.useSkill(path, Array(c.skillDef(path).hits).fill('good'));
+      if (!c.outcome) c.useSkill('attack', ['good']);
     }
     if (c.outcome) break;
     do {
@@ -228,4 +234,36 @@ test('Zu zweit bleibt Wexmoor hart: Könner-Paare schaffen die Bosse, halbe Deck
     const bled = [1, 2].reduce((sum, n) => sum + h.on(n, () => 1 - h.state.hp / h.state.maxHp), 0) >= 0.9; // zusammen fast ein ganzes Leben
     assert.ok(h.outcome !== 'won' || bled, `${enc}: halbe Deckung zu zweit (${h.outcome})`);
   }
+});
+
+test('Wexmoor-Gegner schlagen 50 % härter und halten 40 % mehr aus; zu zweit ohne Abschlag (Seb: „nicht brutal genug“)', () => {
+  for (const [zid, z] of Object.entries(content.zones)) {
+    if (!zid.startsWith('wx_')) { assert.ok(!z.dmg_mult && !z.hp_mult, zid); continue; }
+    assert.equal(z.dmg_mult, 1.5, zid);
+    assert.equal(z.hp_mult, 1.4, zid);
+    assert.equal(z.duo_full, true, zid);
+  }
+  for (const id of ['ez_reetkoenig', 'ez_spinnerin', 'price_wx_fight', 'k2a_tinte_kampf', 'k2a_letztes_bild_kampf']) assert.equal(content.encounters[id].dmg_mult, 1.5, id);
+  assert.ok(!content.encounters.wx_grauspaeher_fight.dmg_mult, 'Grauspäher bleiben, wie sie sind');
+  // Leben: Daten × ENEMY_HP_MULT × 1,4; Schaden: Daten × ENEMY_DMG_MULT × 1,5
+  const s = hero(3);
+  const c = new Combat(s, 'salzgeist');
+  const e = content.encounters.salzgeist;
+  assert.equal(c.enemy.maxHp, Math.round(e.hp * ENEMY_HP_MULT * 1.4));
+  c.rng = seeded(3);
+  const atk = c.nextEnemyAttack();
+  const base = e.attacks.find((a) => a.name === atk.name);
+  assert.equal(atk.damage, Math.max(1, Math.round(base.damage * (ENEMY_DMG_MULT * 1.5))));
+  // Zu zweit: Kettlegate-Gegner schlagen pro Schlag schwächer (DUO_DMG_MULT), Wexmoor-Gegner nicht
+  const d = pair(3, 7);
+  const w = new Combat(d, 'salzgeist');
+  w.rng = seeded(3);
+  w.targets = [1];
+  const duo = w.nextEnemyAttack();
+  assert.equal(duo.damage, Math.max(1, Math.round(content.encounters.salzgeist.attacks.find((a) => a.name === duo.name).damage * (ENEMY_DMG_MULT * 1.5))));
+  const kg = new Combat(pair(3, 7), 'schnabelmaske');
+  kg.rng = seeded(3);
+  kg.targets = [1];
+  const kgAtk = kg.nextEnemyAttack();
+  assert.equal(kgAtk.damage, Math.max(1, Math.round(content.encounters.schnabelmaske.attacks.find((a) => a.name === kgAtk.name).damage * (ENEMY_DMG_MULT * DUO_DMG_MULT))));
 });

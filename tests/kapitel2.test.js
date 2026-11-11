@@ -263,7 +263,7 @@ function afterAct3() {
   s.hp = s.maxHp;
   s.addItem('tonikum', 3);
   s.addItem('verband', 2);
-  const { result } = fight(s, 'namenlose', { defend: EXPERT, skill: 'double', healBelow: 18 });
+  const { result } = fight(s, 'namenlose', { defend: EXPERT, skill: 'klingenwirbel', chain: true, healBelow: 18 });
   assert.equal(result.outcome, 'won');
   assert.ok(s.flags.has('won_namenlose'));
   // Price aus Kettlegate: Brief von L., gegen Geld zurück in den Zug
@@ -369,7 +369,7 @@ function atTheTop(opts) {
   s.addItem('tonikum', 4);
   s.addItem('verband', 2);
   s.heal(s.maxHp);
-  const { result } = fight(s, 'leuchtfeuer', { defend: EXPERT, skill: 'double', healBelow: 18 });
+  const { result } = fight(s, 'leuchtfeuer', { defend: EXPERT, skill: 'klingenwirbel', chain: true, healBelow: 18 });
   assert.equal(result.outcome, 'won');
   return s;
 }
@@ -415,7 +415,7 @@ test('Price lässt sich auch überzeugen oder verprügeln', () => {
   t.addItem('tonikum', 3);
   t.addItem('verband', 2);
   talk(t, 'price_wexmoor', ['holen']);
-  const { result } = fight(t, 'price_wx_fight', { defend: SKILLED, healBelow: 18 });
+  const { result } = fight(t, 'price_wx_fight', { defend: SKILLED, skill: 'klingenwirbel', chain: true, healBelow: 18 });
   assert.equal(result.outcome, 'won');
   assert.ok(t.flags.has('k2_price_done'));
   assert.ok(t.wanted >= 1, 'Prügelei macht dich bekannter');

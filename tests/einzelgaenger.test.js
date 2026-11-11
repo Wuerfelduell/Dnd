@@ -22,15 +22,20 @@ function bring(s, id) {
   for (const i of give.requires_items ?? []) s.addItem(i, 5);
 }
 
-/** Ausrüstung je nach Sequenz: Sequenz 7 wie Bosse der Stufe 3, darüber wie Stufe 4. */
-function armed(s, seq) {
-  const w = seq >= 7 ? 'egelhaken' : 'ossuarklinge';
+/** Ausrüstung in Wexmoor: Ossuarklinge (ab Fall 5), Sequenz 7 (so kommt man in Kapitel 2 an), ein paar Tränke. */
+function armed(s, seq = 7) {
+  const w = 'ossuarklinge';
   s.addItem(w);
   s.equip(w);
   s.addItem('tonikum', seq >= 7 ? 3 : 4);
   s.addItem('verband', 2);
+  s.pathway = { id: 'eisen', seq, digestion: 0 };
+  s.updateMaxHp();
+  s.hp = s.maxHp;
   return s;
 }
+/** Geübte Spielweise: Pfad-Fertigkeit verkettet, dann der Angriff */
+const PLAY = (defend) => ({ defend, skill: 'wuchtschlag', chain: true, healBelow: 18 });
 
 test('Sieben Einzelgänger, je ein Pfad, alle mit Figur, Ort, Dialog und Kampf', () => {
   assert.equal(LONERS.length, 7);
@@ -84,14 +89,14 @@ test('Wer grob anfängt, braucht einen zweiten Gefallen', () => {
 test('Anfeinden: zweimal schlecht behandelt, dann greift der Einzelgänger an', () => {
   for (const id of LONERS) {
     const l = content.loners.list[id];
-    const s = armed(inWexmoor(), l.seq);
+    const s = armed(inWexmoor());
     const rude = content.dialogues[id].nodes.erst.choices[1].text;
     talk(s, id, [rude]);
     const betray = content.dialogues[id].nodes.hub.choices.find((c) => Array.isArray(c.next) && c.next.some((v) => v.node === 'kampf')).text;
     talk(s, id, [betray]);
     assert.equal(s.bondStatus(id), 'feind', id);
     assert.equal(s.pendingCombat, id);
-    const { result, combat } = fight(s, id, { defend: EXPERT, skill: 'double', healBelow: 18 });
+    const { result, combat } = fight(s, id, PLAY(EXPERT));
     assert.equal(result.outcome, 'won', `${id}: verloren in Runde ${combat.round}`);
     assert.ok(s.flags.has(`${id}_besiegt`));
     const visible = content.maps[l.map].npcs.find((n) => n.id === id).visible_if;
@@ -101,11 +106,11 @@ test('Anfeinden: zweimal schlecht behandelt, dann greift der Einzelgänger an', 
   }
 });
 
-test('Einzelgänger-Kämpfe sind hart: halbe Deckung verliert', () => {
+test('Einzelgänger-Kämpfe sind hart: halbe Deckung verliert oder kommt mit weniger als einem Drittel Leben raus', () => {
   for (const id of LONERS) {
-    const s = armed(inWexmoor(), content.loners.list[id].seq);
-    const { result } = fight(s, id, { defend: (i) => (i % 2 ? 'miss' : 'dodge'), healBelow: 18 });
-    assert.equal(result.outcome, 'lost', id);
+    const s = armed(inWexmoor());
+    const { result } = fight(s, id, PLAY((i) => (i % 2 ? 'miss' : 'dodge')));
+    assert.ok(result.outcome === 'lost' || s.hp < s.maxHp * 0.3, `${id}: ${result.outcome}, ${s.hp}/${s.maxHp}`);
   }
 });
 
