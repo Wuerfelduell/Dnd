@@ -1,0 +1,2218 @@
+{
+ "kgl_e_laternenanzuender": {
+  "start": [
+   {
+    "node": "kgl_gruss_hoch",
+    "requires_honor": 60
+   },
+   {
+    "node": "kgl_gruss_mittel",
+    "requires_honor": 20
+   },
+   {
+    "node": "kgl_gruss_niedrig"
+   }
+  ],
+  "nodes": {
+   "kgl_gruss_hoch": {
+    "text": "„Für dich nehme ich mir einen Augenblick.“ Meine Leiter hat mehr Dienstjahre als der Inspektor. Sie darf trotzdem nicht in Pension.",
+    "choices": [
+     {
+      "text": "Was beschäftigt dich?",
+      "next": "kgl_pf_ad",
+      "requires_pathway": [
+       "laterne",
+       9
+      ]
+     },
+     {
+      "text": "Seit der Hafenakte?",
+      "next": "kgl_fall3",
+      "requires_flags": [
+       "case_03_closed"
+      ]
+     },
+     {
+      "text": "Seit der Spiegelakte?",
+      "next": "kgl_fall6",
+      "requires_flags": [
+       "case_06_closed"
+      ]
+     },
+     {
+      "text": "Nach der Sternwarte?",
+      "next": "kgl_fall9",
+      "requires_flags": [
+       "case_09_closed"
+      ]
+     }
+    ]
+   },
+   "kgl_gruss_mittel": {
+    "text": "„Guten Abend oder guten Morgen, je nach Dienstplan.“ Meine Leiter hat mehr Dienstjahre als der Inspektor. Sie darf trotzdem nicht in Pension.",
+    "choices": [
+     {
+      "text": "Was beschäftigt dich?",
+      "next": "kgl_pf_ad",
+      "requires_pathway": [
+       "laterne",
+       9
+      ]
+     },
+     {
+      "text": "Seit der Hafenakte?",
+      "next": "kgl_fall3",
+      "requires_flags": [
+       "case_03_closed"
+      ]
+     },
+     {
+      "text": "Seit der Spiegelakte?",
+      "next": "kgl_fall6",
+      "requires_flags": [
+       "case_06_closed"
+      ]
+     },
+     {
+      "text": "Nach der Sternwarte?",
+      "next": "kgl_fall9",
+      "requires_flags": [
+       "case_09_closed"
+      ]
+     }
+    ]
+   },
+   "kgl_gruss_niedrig": {
+    "text": "„Ich kenne dich noch nicht gut genug für Versprechen.“ Meine Leiter hat mehr Dienstjahre als der Inspektor. Sie darf trotzdem nicht in Pension.",
+    "choices": [
+     {
+      "text": "Was beschäftigt dich?",
+      "next": "kgl_pf_ad",
+      "requires_pathway": [
+       "laterne",
+       9
+      ]
+     },
+     {
+      "text": "Seit der Hafenakte?",
+      "next": "kgl_fall3",
+      "requires_flags": [
+       "case_03_closed"
+      ]
+     },
+     {
+      "text": "Seit der Spiegelakte?",
+      "next": "kgl_fall6",
+      "requires_flags": [
+       "case_06_closed"
+      ]
+     },
+     {
+      "text": "Nach der Sternwarte?",
+      "next": "kgl_fall9",
+      "requires_flags": [
+       "case_09_closed"
+      ]
+     }
+    ]
+   },
+   "kgl_pf_ad": {
+    "text": "„Dein Licht braucht kein Gas. Meines darf dafür der Hauswirt bezahlen.“ Die Arbeit wartet trotzdem.",
+    "choices": []
+   },
+   "kgl_fall3": {
+    "text": "„Nach der Hafenakte prüfe ich jeden Laternenverschluss doppelt. Auch ein abgeschlossener Fall braucht Licht.“",
+    "choices": []
+   },
+   "kgl_fall6": {
+    "text": "„Seit der Spiegelakte halte ich die Lampe vor den Füßen. Wer keinen Schatten findet, soll wenigstens den Heimweg sehen.“",
+    "choices": []
+   },
+   "kgl_fall9": {
+    "text": "„Die neunte Akte ist geschlossen. Ich zünde weiter an, auch unter Steckbriefen.“",
+    "choices": []
+   },
+   "kgl_fahndung": {
+    "text": "Die Person weicht zur Hauswand aus. „Die Wache zählt gerade meine Laternen. Geh weiter, bevor sie bei dir ankommt.“",
+    "choices": []
+   }
+  }
+ },
+ "kgl_e_zeitungsjunge": {
+  "start": [
+   {
+    "node": "kgl_gruss_hoch",
+    "requires_honor": 60
+   },
+   {
+    "node": "kgl_gruss_mittel",
+    "requires_honor": 20
+   },
+   {
+    "node": "kgl_gruss_niedrig"
+   }
+  ],
+  "nodes": {
+   "kgl_gruss_hoch": {
+    "text": "„Für dich nehme ich mir einen Augenblick.“ Die frischen Blätter sind noch warm. Die Berichtigungen von gestern leider auch.",
+    "choices": [
+     {
+      "text": "Was beschäftigt dich?",
+      "next": "kgl_pf_ad",
+      "requires_pathway": [
+       "echo",
+       9
+      ]
+     },
+     {
+      "text": "Seit der Hafenakte?",
+      "next": "kgl_fall3",
+      "requires_flags": [
+       "case_03_closed"
+      ]
+     },
+     {
+      "text": "Seit der Spiegelakte?",
+      "next": "kgl_fall6",
+      "requires_flags": [
+       "case_06_closed"
+      ]
+     },
+     {
+      "text": "Nach der Sternwarte?",
+      "next": "kgl_fall9",
+      "requires_flags": [
+       "case_09_closed"
+      ]
+     }
+    ]
+   },
+   "kgl_gruss_mittel": {
+    "text": "„Guten Abend oder guten Morgen, je nach Dienstplan.“ Die frischen Blätter sind noch warm. Die Berichtigungen von gestern leider auch.",
+    "choices": [
+     {
+      "text": "Was beschäftigt dich?",
+      "next": "kgl_pf_ad",
+      "requires_pathway": [
+       "echo",
+       9
+      ]
+     },
+     {
+      "text": "Seit der Hafenakte?",
+      "next": "kgl_fall3",
+      "requires_flags": [
+       "case_03_closed"
+      ]
+     },
+     {
+      "text": "Seit der Spiegelakte?",
+      "next": "kgl_fall6",
+      "requires_flags": [
+       "case_06_closed"
+      ]
+     },
+     {
+      "text": "Nach der Sternwarte?",
+      "next": "kgl_fall9",
+      "requires_flags": [
+       "case_09_closed"
+      ]
+     }
+    ]
+   },
+   "kgl_gruss_niedrig": {
+    "text": "„Ich kenne dich noch nicht gut genug für Versprechen.“ Die frischen Blätter sind noch warm. Die Berichtigungen von gestern leider auch.",
+    "choices": [
+     {
+      "text": "Was beschäftigt dich?",
+      "next": "kgl_pf_ad",
+      "requires_pathway": [
+       "echo",
+       9
+      ]
+     },
+     {
+      "text": "Seit der Hafenakte?",
+      "next": "kgl_fall3",
+      "requires_flags": [
+       "case_03_closed"
+      ]
+     },
+     {
+      "text": "Seit der Spiegelakte?",
+      "next": "kgl_fall6",
+      "requires_flags": [
+       "case_06_closed"
+      ]
+     },
+     {
+      "text": "Nach der Sternwarte?",
+      "next": "kgl_fall9",
+      "requires_flags": [
+       "case_09_closed"
+      ]
+     }
+    ]
+   },
+   "kgl_pf_ad": {
+    "text": "„Du hörst, was nachklingt. Merk dir bitte auch die Berichtigung auf Seite zwei.“ Die Arbeit wartet trotzdem.",
+    "choices": []
+   },
+   "kgl_fall3": {
+    "text": "„Drei Akten zu, sagt die Redaktion. Für die vierte hat sie schon Platz gelassen.“",
+    "choices": []
+   },
+   "kgl_fall6": {
+    "text": "„Die Spiegelgeschichte verkaufte sich gut. Den Betroffenen habe ich kein Blatt angeboten.“",
+    "choices": []
+   },
+   "kgl_fall9": {
+    "text": "„Seit der Sternwarte verlangen alle eine Sonderausgabe. Ich hätte gern einen gewöhnlichen Morgen.“",
+    "choices": []
+   },
+   "kgl_fahndung": {
+    "text": "Die Person weicht zur Hauswand aus. „Ich verkaufe deinen Steckbrief nicht. Aber reden kann ich jetzt auch nicht.“",
+    "choices": []
+   }
+  }
+ },
+ "kgl_e_fischweib": {
+  "start": [
+   {
+    "node": "kgl_gruss_hoch",
+    "requires_honor": 60
+   },
+   {
+    "node": "kgl_gruss_mittel",
+    "requires_honor": 20
+   },
+   {
+    "node": "kgl_gruss_niedrig"
+   }
+  ],
+  "nodes": {
+   "kgl_gruss_hoch": {
+    "text": "„Für dich nehme ich mir einen Augenblick.“ Der Fisch ist frisch, der Kanal nicht. Verwechsle mir die beiden nicht.",
+    "choices": [
+     {
+      "text": "Was beschäftigt dich?",
+      "next": "kgl_pf_ad",
+      "requires_pathway": [
+       "kessel",
+       9
+      ]
+     },
+     {
+      "text": "Seit der Hafenakte?",
+      "next": "kgl_fall3",
+      "requires_flags": [
+       "case_03_closed"
+      ]
+     },
+     {
+      "text": "Seit der Spiegelakte?",
+      "next": "kgl_fall6",
+      "requires_flags": [
+       "case_06_closed"
+      ]
+     },
+     {
+      "text": "Nach der Sternwarte?",
+      "next": "kgl_fall9",
+      "requires_flags": [
+       "case_09_closed"
+      ]
+     }
+    ]
+   },
+   "kgl_gruss_mittel": {
+    "text": "„Guten Abend oder guten Morgen, je nach Dienstplan.“ Der Fisch ist frisch, der Kanal nicht. Verwechsle mir die beiden nicht.",
+    "choices": [
+     {
+      "text": "Was beschäftigt dich?",
+      "next": "kgl_pf_ad",
+      "requires_pathway": [
+       "kessel",
+       9
+      ]
+     },
+     {
+      "text": "Seit der Hafenakte?",
+      "next": "kgl_fall3",
+      "requires_flags": [
+       "case_03_closed"
+      ]
+     },
+     {
+      "text": "Seit der Spiegelakte?",
+      "next": "kgl_fall6",
+      "requires_flags": [
+       "case_06_closed"
+      ]
+     },
+     {
+      "text": "Nach der Sternwarte?",
+      "next": "kgl_fall9",
+      "requires_flags": [
+       "case_09_closed"
+      ]
+     }
+    ]
+   },
+   "kgl_gruss_niedrig": {
+    "text": "„Ich kenne dich noch nicht gut genug für Versprechen.“ Der Fisch ist frisch, der Kanal nicht. Verwechsle mir die beiden nicht.",
+    "choices": [
+     {
+      "text": "Was beschäftigt dich?",
+      "next": "kgl_pf_ad",
+      "requires_pathway": [
+       "kessel",
+       9
+      ]
+     },
+     {
+      "text": "Seit der Hafenakte?",
+      "next": "kgl_fall3",
+      "requires_flags": [
+       "case_03_closed"
+      ]
+     },
+     {
+      "text": "Seit der Spiegelakte?",
+      "next": "kgl_fall6",
+      "requires_flags": [
+       "case_06_closed"
+      ]
+     },
+     {
+      "text": "Nach der Sternwarte?",
+      "next": "kgl_fall9",
+      "requires_flags": [
+       "case_09_closed"
+      ]
+     }
+    ]
+   },
+   "kgl_pf_ad": {
+    "text": "„Du kennst dich mit Kesseln aus. Meiner kocht Suppe, und das soll er auch weiterhin tun.“ Die Arbeit wartet trotzdem.",
+    "choices": []
+   },
+   "kgl_fall3": {
+    "text": "„Seit der dritten Akte schauen die Kunden erst ins Lagerhaus. Dann erst auf meinen Fang.“",
+    "choices": []
+   },
+   "kgl_fall6": {
+    "text": "„Die Leute prüfen jetzt Fischaugen auf Spiegelungen. Ich berechne das nicht extra.“",
+    "choices": []
+   },
+   "kgl_fall9": {
+    "text": "„Die Sternwarte ist still. Unter meiner Waage tropft es wie immer.“",
+    "choices": []
+   },
+   "kgl_fahndung": {
+    "text": "Die Person weicht zur Hauswand aus. „Heute steht zu viel Uniform am Kai. Mein Fang muss warten und du auch.“",
+    "choices": []
+   }
+  }
+ },
+ "kgl_e_schornsteinfegerin": {
+  "start": [
+   {
+    "node": "kgl_gruss_hoch",
+    "requires_honor": 60
+   },
+   {
+    "node": "kgl_gruss_mittel",
+    "requires_honor": 20
+   },
+   {
+    "node": "kgl_gruss_niedrig"
+   }
+  ],
+  "nodes": {
+   "kgl_gruss_hoch": {
+    "text": "„Für dich nehme ich mir einen Augenblick.“ Glück bringe ich nur gegen Termin. Ruß bringe ich leider immer.",
+    "choices": [
+     {
+      "text": "Was beschäftigt dich?",
+      "next": "kgl_pf_ad",
+      "requires_pathway": [
+       "eisen",
+       9
+      ]
+     },
+     {
+      "text": "Seit der Hafenakte?",
+      "next": "kgl_fall3",
+      "requires_flags": [
+       "case_03_closed"
+      ]
+     },
+     {
+      "text": "Seit der Spiegelakte?",
+      "next": "kgl_fall6",
+      "requires_flags": [
+       "case_06_closed"
+      ]
+     },
+     {
+      "text": "Nach der Sternwarte?",
+      "next": "kgl_fall9",
+      "requires_flags": [
+       "case_09_closed"
+      ]
+     }
+    ]
+   },
+   "kgl_gruss_mittel": {
+    "text": "„Guten Abend oder guten Morgen, je nach Dienstplan.“ Glück bringe ich nur gegen Termin. Ruß bringe ich leider immer.",
+    "choices": [
+     {
+      "text": "Was beschäftigt dich?",
+      "next": "kgl_pf_ad",
+      "requires_pathway": [
+       "eisen",
+       9
+      ]
+     },
+     {
+      "text": "Seit der Hafenakte?",
+      "next": "kgl_fall3",
+      "requires_flags": [
+       "case_03_closed"
+      ]
+     },
+     {
+      "text": "Seit der Spiegelakte?",
+      "next": "kgl_fall6",
+      "requires_flags": [
+       "case_06_closed"
+      ]
+     },
+     {
+      "text": "Nach der Sternwarte?",
+      "next": "kgl_fall9",
+      "requires_flags": [
+       "case_09_closed"
+      ]
+     }
+    ]
+   },
+   "kgl_gruss_niedrig": {
+    "text": "„Ich kenne dich noch nicht gut genug für Versprechen.“ Glück bringe ich nur gegen Termin. Ruß bringe ich leider immer.",
+    "choices": [
+     {
+      "text": "Was beschäftigt dich?",
+      "next": "kgl_pf_ad",
+      "requires_pathway": [
+       "eisen",
+       9
+      ]
+     },
+     {
+      "text": "Seit der Hafenakte?",
+      "next": "kgl_fall3",
+      "requires_flags": [
+       "case_03_closed"
+      ]
+     },
+     {
+      "text": "Seit der Spiegelakte?",
+      "next": "kgl_fall6",
+      "requires_flags": [
+       "case_06_closed"
+      ]
+     },
+     {
+      "text": "Nach der Sternwarte?",
+      "next": "kgl_fall9",
+      "requires_flags": [
+       "case_09_closed"
+      ]
+     }
+    ]
+   },
+   "kgl_pf_ad": {
+    "text": "„Deine Hände kennen Widerstand. Halt die Leiter fest, ich brauche keinen Vortrag über Stärke.“ Die Arbeit wartet trotzdem.",
+    "choices": []
+   },
+   "kgl_fall3": {
+    "text": "„Nach der Hafenakte will jeder seinen Kamin geprüft haben. Geheimtüren gehören nicht zum Tarif.“",
+    "choices": []
+   },
+   "kgl_fall6": {
+    "text": "„Ein Schatten im Schlot ist meist meiner. Seit der sechsten Akte sage ich das lieber vorher.“",
+    "choices": []
+   },
+   "kgl_fall9": {
+    "text": "„Der Himmel bleibt über den Dächern. Das ist heute schon eine gute Nachricht.“",
+    "choices": []
+   },
+   "kgl_fahndung": {
+    "text": "Die Person weicht zur Hauswand aus. „Von oben sehe ich die Streife schon. Bleib nicht unter meiner Leiter stehen.“",
+    "choices": []
+   }
+  }
+ },
+ "kgl_e_kutscher": {
+  "start": [
+   {
+    "node": "kgl_gruss_hoch",
+    "requires_honor": 60
+   },
+   {
+    "node": "kgl_gruss_mittel",
+    "requires_honor": 20
+   },
+   {
+    "node": "kgl_gruss_niedrig"
+   }
+  ],
+  "nodes": {
+   "kgl_gruss_hoch": {
+    "text": "„Für dich nehme ich mir einen Augenblick.“ Mein Pferd kennt alle Abkürzungen. Es verweigert sie aus beruflichem Stolz.",
+    "choices": [
+     {
+      "text": "Was beschäftigt dich?",
+      "next": "kgl_pf_ad",
+      "requires_pathway": [
+       "sq_waage",
+       9
+      ]
+     },
+     {
+      "text": "Seit der Hafenakte?",
+      "next": "kgl_fall3",
+      "requires_flags": [
+       "case_03_closed"
+      ]
+     },
+     {
+      "text": "Seit der Spiegelakte?",
+      "next": "kgl_fall6",
+      "requires_flags": [
+       "case_06_closed"
+      ]
+     },
+     {
+      "text": "Nach der Sternwarte?",
+      "next": "kgl_fall9",
+      "requires_flags": [
+       "case_09_closed"
+      ]
+     }
+    ]
+   },
+   "kgl_gruss_mittel": {
+    "text": "„Guten Abend oder guten Morgen, je nach Dienstplan.“ Mein Pferd kennt alle Abkürzungen. Es verweigert sie aus beruflichem Stolz.",
+    "choices": [
+     {
+      "text": "Was beschäftigt dich?",
+      "next": "kgl_pf_ad",
+      "requires_pathway": [
+       "sq_waage",
+       9
+      ]
+     },
+     {
+      "text": "Seit der Hafenakte?",
+      "next": "kgl_fall3",
+      "requires_flags": [
+       "case_03_closed"
+      ]
+     },
+     {
+      "text": "Seit der Spiegelakte?",
+      "next": "kgl_fall6",
+      "requires_flags": [
+       "case_06_closed"
+      ]
+     },
+     {
+      "text": "Nach der Sternwarte?",
+      "next": "kgl_fall9",
+      "requires_flags": [
+       "case_09_closed"
+      ]
+     }
+    ]
+   },
+   "kgl_gruss_niedrig": {
+    "text": "„Ich kenne dich noch nicht gut genug für Versprechen.“ Mein Pferd kennt alle Abkürzungen. Es verweigert sie aus beruflichem Stolz.",
+    "choices": [
+     {
+      "text": "Was beschäftigt dich?",
+      "next": "kgl_pf_ad",
+      "requires_pathway": [
+       "sq_waage",
+       9
+      ]
+     },
+     {
+      "text": "Seit der Hafenakte?",
+      "next": "kgl_fall3",
+      "requires_flags": [
+       "case_03_closed"
+      ]
+     },
+     {
+      "text": "Seit der Spiegelakte?",
+      "next": "kgl_fall6",
+      "requires_flags": [
+       "case_06_closed"
+      ]
+     },
+     {
+      "text": "Nach der Sternwarte?",
+      "next": "kgl_fall9",
+      "requires_flags": [
+       "case_09_closed"
+      ]
+     }
+    ]
+   },
+   "kgl_pf_ad": {
+    "text": "„Du wiegst Entscheidungen ab. Meine Hinterachse würde ein wenig davon vertragen.“ Die Arbeit wartet trotzdem.",
+    "choices": []
+   },
+   "kgl_fall3": {
+    "text": "„Seit der Hafenakte lasse ich niemanden im Gepäckkasten mitfahren. Auch nicht dienstlich.“",
+    "choices": []
+   },
+   "kgl_fall6": {
+    "text": "„Nach der Spiegelakte zahlt jeder Fahrgast für sich. Schatten fahren weiterhin kostenlos.“",
+    "choices": []
+   },
+   "kgl_fall9": {
+    "text": "„Zur Sternwarte fahre ich wieder. Für die Rückfahrt verspreche ich nur einen Sitzplatz.“",
+    "choices": []
+   },
+   "kgl_fahndung": {
+    "text": "Die Person weicht zur Hauswand aus. „Mein Pferd mag keine Verfolgungen. Such dir heute einen anderen Wagen.“",
+    "choices": []
+   }
+  }
+ },
+ "kgl_e_leichenwaescherin": {
+  "start": [
+   {
+    "node": "kgl_gruss_hoch",
+    "requires_honor": 60
+   },
+   {
+    "node": "kgl_gruss_mittel",
+    "requires_honor": 20
+   },
+   {
+    "node": "kgl_gruss_niedrig"
+   }
+  ],
+  "nodes": {
+   "kgl_gruss_hoch": {
+    "text": "„Für dich nehme ich mir einen Augenblick.“ Ein sauberes Tuch ist kein Urteil. Das verwechseln hier sogar die Lebenden.",
+    "choices": [
+     {
+      "text": "Was beschäftigt dich?",
+      "next": "kgl_pf_ad",
+      "requires_pathway": [
+       "faden",
+       9
+      ]
+     },
+     {
+      "text": "Seit der Hafenakte?",
+      "next": "kgl_fall3",
+      "requires_flags": [
+       "case_03_closed"
+      ]
+     },
+     {
+      "text": "Seit der Spiegelakte?",
+      "next": "kgl_fall6",
+      "requires_flags": [
+       "case_06_closed"
+      ]
+     },
+     {
+      "text": "Nach der Sternwarte?",
+      "next": "kgl_fall9",
+      "requires_flags": [
+       "case_09_closed"
+      ]
+     }
+    ]
+   },
+   "kgl_gruss_mittel": {
+    "text": "„Guten Abend oder guten Morgen, je nach Dienstplan.“ Ein sauberes Tuch ist kein Urteil. Das verwechseln hier sogar die Lebenden.",
+    "choices": [
+     {
+      "text": "Was beschäftigt dich?",
+      "next": "kgl_pf_ad",
+      "requires_pathway": [
+       "faden",
+       9
+      ]
+     },
+     {
+      "text": "Seit der Hafenakte?",
+      "next": "kgl_fall3",
+      "requires_flags": [
+       "case_03_closed"
+      ]
+     },
+     {
+      "text": "Seit der Spiegelakte?",
+      "next": "kgl_fall6",
+      "requires_flags": [
+       "case_06_closed"
+      ]
+     },
+     {
+      "text": "Nach der Sternwarte?",
+      "next": "kgl_fall9",
+      "requires_flags": [
+       "case_09_closed"
+      ]
+     }
+    ]
+   },
+   "kgl_gruss_niedrig": {
+    "text": "„Ich kenne dich noch nicht gut genug für Versprechen.“ Ein sauberes Tuch ist kein Urteil. Das verwechseln hier sogar die Lebenden.",
+    "choices": [
+     {
+      "text": "Was beschäftigt dich?",
+      "next": "kgl_pf_ad",
+      "requires_pathway": [
+       "faden",
+       9
+      ]
+     },
+     {
+      "text": "Seit der Hafenakte?",
+      "next": "kgl_fall3",
+      "requires_flags": [
+       "case_03_closed"
+      ]
+     },
+     {
+      "text": "Seit der Spiegelakte?",
+      "next": "kgl_fall6",
+      "requires_flags": [
+       "case_06_closed"
+      ]
+     },
+     {
+      "text": "Nach der Sternwarte?",
+      "next": "kgl_fall9",
+      "requires_flags": [
+       "case_09_closed"
+      ]
+     }
+    ]
+   },
+   "kgl_pf_ad": {
+    "text": "„Du siehst die Fäden. Lass den Angehörigen ihre eigenen Knoten.“ Die Arbeit wartet trotzdem.",
+    "choices": []
+   },
+   "kgl_fall3": {
+    "text": "„Die dritte Akte ist zu. Bei mir bleiben die Namen ausgeschrieben.“",
+    "choices": []
+   },
+   "kgl_fall6": {
+    "text": "„Seit der Spiegelakte decke ich die Waschschale zu. Manche Angehörige brauchen weniger Bilder.“",
+    "choices": []
+   },
+   "kgl_fall9": {
+    "text": "„Neun Akten machen niemanden ungeschehen. Ich falte trotzdem für morgen.“",
+    "choices": []
+   },
+   "kgl_fahndung": {
+    "text": "Die Person weicht zur Hauswand aus. „Die Wache fragt nach Namen. Deinen behalte ich lieber für mich.“",
+    "choices": []
+   }
+  }
+ },
+ "kgl_e_uhrlehrling": {
+  "start": [
+   {
+    "node": "kgl_gruss_hoch",
+    "requires_honor": 60
+   },
+   {
+    "node": "kgl_gruss_mittel",
+    "requires_honor": 20
+   },
+   {
+    "node": "kgl_gruss_niedrig"
+   }
+  ],
+  "nodes": {
+   "kgl_gruss_hoch": {
+    "text": "„Für dich nehme ich mir einen Augenblick.“ Die Werkstattuhr geht vor. So kommt der Meister wenigstens einmal pünktlich zu spät.",
+    "choices": [
+     {
+      "text": "Was beschäftigt dich?",
+      "next": "kgl_pf_ad",
+      "requires_pathway": [
+       "sq_uhr",
+       9
+      ]
+     },
+     {
+      "text": "Seit der Hafenakte?",
+      "next": "kgl_fall3",
+      "requires_flags": [
+       "case_03_closed"
+      ]
+     },
+     {
+      "text": "Seit der Spiegelakte?",
+      "next": "kgl_fall6",
+      "requires_flags": [
+       "case_06_closed"
+      ]
+     },
+     {
+      "text": "Nach der Sternwarte?",
+      "next": "kgl_fall9",
+      "requires_flags": [
+       "case_09_closed"
+      ]
+     }
+    ]
+   },
+   "kgl_gruss_mittel": {
+    "text": "„Guten Abend oder guten Morgen, je nach Dienstplan.“ Die Werkstattuhr geht vor. So kommt der Meister wenigstens einmal pünktlich zu spät.",
+    "choices": [
+     {
+      "text": "Was beschäftigt dich?",
+      "next": "kgl_pf_ad",
+      "requires_pathway": [
+       "sq_uhr",
+       9
+      ]
+     },
+     {
+      "text": "Seit der Hafenakte?",
+      "next": "kgl_fall3",
+      "requires_flags": [
+       "case_03_closed"
+      ]
+     },
+     {
+      "text": "Seit der Spiegelakte?",
+      "next": "kgl_fall6",
+      "requires_flags": [
+       "case_06_closed"
+      ]
+     },
+     {
+      "text": "Nach der Sternwarte?",
+      "next": "kgl_fall9",
+      "requires_flags": [
+       "case_09_closed"
+      ]
+     }
+    ]
+   },
+   "kgl_gruss_niedrig": {
+    "text": "„Ich kenne dich noch nicht gut genug für Versprechen.“ Die Werkstattuhr geht vor. So kommt der Meister wenigstens einmal pünktlich zu spät.",
+    "choices": [
+     {
+      "text": "Was beschäftigt dich?",
+      "next": "kgl_pf_ad",
+      "requires_pathway": [
+       "sq_uhr",
+       9
+      ]
+     },
+     {
+      "text": "Seit der Hafenakte?",
+      "next": "kgl_fall3",
+      "requires_flags": [
+       "case_03_closed"
+      ]
+     },
+     {
+      "text": "Seit der Spiegelakte?",
+      "next": "kgl_fall6",
+      "requires_flags": [
+       "case_06_closed"
+      ]
+     },
+     {
+      "text": "Nach der Sternwarte?",
+      "next": "kgl_fall9",
+      "requires_flags": [
+       "case_09_closed"
+      ]
+     }
+    ]
+   },
+   "kgl_pf_ad": {
+    "text": "„Deine Zeit tickt anders. Bitte bring sie nicht neben meine offenen Uhrwerke.“ Die Arbeit wartet trotzdem.",
+    "choices": []
+   },
+   "kgl_fall3": {
+    "text": "„Der Meister sagt, drei gelöste Fälle sparen keine Arbeitsminute. Ich habe die Aussage nicht nachgemessen.“",
+    "choices": []
+   },
+   "kgl_fall6": {
+    "text": "„Seit der Spiegelakte poliere ich nur noch die Zifferblätter. In blankem Messing sieht man genug.“",
+    "choices": []
+   },
+   "kgl_fall9": {
+    "text": "„Nach der Sternwarte bestellt niemand Sternenuhren. Die einfachen gehen ebenfalls falsch.“",
+    "choices": []
+   },
+   "kgl_fahndung": {
+    "text": "Die Person weicht zur Hauswand aus. „Der Meister sieht zum Fenster. Ich darf dich gerade nicht hereinbitten.“",
+    "choices": []
+   }
+  }
+ },
+ "kgl_e_bettler": {
+  "start": [
+   {
+    "node": "kgl_gruss_hoch",
+    "requires_honor": 60
+   },
+   {
+    "node": "kgl_gruss_mittel",
+    "requires_honor": 20
+   },
+   {
+    "node": "kgl_gruss_niedrig"
+   }
+  ],
+  "nodes": {
+   "kgl_gruss_hoch": {
+    "text": "„Für dich nehme ich mir einen Augenblick.“ Der Hund heißt Knopf. Er gehört niemandem, aber er wartet jeden Abend auf mich.",
+    "choices": [
+     {
+      "text": "Was beschäftigt dich?",
+      "next": "kgl_pf_ad",
+      "requires_pathway": [
+       "schluessel",
+       9
+      ]
+     },
+     {
+      "text": "Seit der Hafenakte?",
+      "next": "kgl_fall3",
+      "requires_flags": [
+       "case_03_closed"
+      ]
+     },
+     {
+      "text": "Seit der Spiegelakte?",
+      "next": "kgl_fall6",
+      "requires_flags": [
+       "case_06_closed"
+      ]
+     },
+     {
+      "text": "Nach der Sternwarte?",
+      "next": "kgl_fall9",
+      "requires_flags": [
+       "case_09_closed"
+      ]
+     }
+    ]
+   },
+   "kgl_gruss_mittel": {
+    "text": "„Guten Abend oder guten Morgen, je nach Dienstplan.“ Der Hund heißt Knopf. Er gehört niemandem, aber er wartet jeden Abend auf mich.",
+    "choices": [
+     {
+      "text": "Was beschäftigt dich?",
+      "next": "kgl_pf_ad",
+      "requires_pathway": [
+       "schluessel",
+       9
+      ]
+     },
+     {
+      "text": "Seit der Hafenakte?",
+      "next": "kgl_fall3",
+      "requires_flags": [
+       "case_03_closed"
+      ]
+     },
+     {
+      "text": "Seit der Spiegelakte?",
+      "next": "kgl_fall6",
+      "requires_flags": [
+       "case_06_closed"
+      ]
+     },
+     {
+      "text": "Nach der Sternwarte?",
+      "next": "kgl_fall9",
+      "requires_flags": [
+       "case_09_closed"
+      ]
+     }
+    ]
+   },
+   "kgl_gruss_niedrig": {
+    "text": "„Ich kenne dich noch nicht gut genug für Versprechen.“ Der Hund heißt Knopf. Er gehört niemandem, aber er wartet jeden Abend auf mich.",
+    "choices": [
+     {
+      "text": "Was beschäftigt dich?",
+      "next": "kgl_pf_ad",
+      "requires_pathway": [
+       "schluessel",
+       9
+      ]
+     },
+     {
+      "text": "Seit der Hafenakte?",
+      "next": "kgl_fall3",
+      "requires_flags": [
+       "case_03_closed"
+      ]
+     },
+     {
+      "text": "Seit der Spiegelakte?",
+      "next": "kgl_fall6",
+      "requires_flags": [
+       "case_06_closed"
+      ]
+     },
+     {
+      "text": "Nach der Sternwarte?",
+      "next": "kgl_fall9",
+      "requires_flags": [
+       "case_09_closed"
+      ]
+     }
+    ]
+   },
+   "kgl_pf_ad": {
+    "text": "„Du findest Türen. Such mir eine, vor der Knopf liegen darf.“ Die Arbeit wartet trotzdem.",
+    "choices": []
+   },
+   "kgl_fall3": {
+    "text": "„Seit der Hafenakte beschnuppert Knopf alle Uniformen. Einen Grund nennt er nicht.“",
+    "choices": []
+   },
+   "kgl_fall6": {
+    "text": "„Nach der Spiegelakte zählt Knopf die Schatten. Ich zähle lieber die Brotkanten.“",
+    "choices": []
+   },
+   "kgl_fall9": {
+    "text": "„Dein Gesicht hängt jetzt an Laternen. Knopf hat dich ohne Papier erkannt.“",
+    "choices": []
+   },
+   "kgl_fahndung": {
+    "text": "Die Person weicht zur Hauswand aus. „Knopf erkennt dich, die Streife leider auch. Geh ein Stück weiter.“",
+    "choices": []
+   }
+  }
+ },
+ "kgl_e_waescherin": {
+  "start": [
+   {
+    "node": "kgl_gruss_hoch",
+    "requires_honor": 60
+   },
+   {
+    "node": "kgl_gruss_mittel",
+    "requires_honor": 20
+   },
+   {
+    "node": "kgl_gruss_niedrig"
+   }
+  ],
+  "nodes": {
+   "kgl_gruss_hoch": {
+    "text": "„Für dich nehme ich mir einen Augenblick.“ Regenwasser kostet nichts. Das ist der einzige Teil meiner Arbeit, der nichts kostet.",
+    "choices": [
+     {
+      "text": "Was beschäftigt dich?",
+      "next": "kgl_pf_ad",
+      "requires_pathway": [
+       "sq_moor",
+       9
+      ]
+     },
+     {
+      "text": "Seit der Hafenakte?",
+      "next": "kgl_fall3",
+      "requires_flags": [
+       "case_03_closed"
+      ]
+     },
+     {
+      "text": "Seit der Spiegelakte?",
+      "next": "kgl_fall6",
+      "requires_flags": [
+       "case_06_closed"
+      ]
+     },
+     {
+      "text": "Nach der Sternwarte?",
+      "next": "kgl_fall9",
+      "requires_flags": [
+       "case_09_closed"
+      ]
+     }
+    ]
+   },
+   "kgl_gruss_mittel": {
+    "text": "„Guten Abend oder guten Morgen, je nach Dienstplan.“ Regenwasser kostet nichts. Das ist der einzige Teil meiner Arbeit, der nichts kostet.",
+    "choices": [
+     {
+      "text": "Was beschäftigt dich?",
+      "next": "kgl_pf_ad",
+      "requires_pathway": [
+       "sq_moor",
+       9
+      ]
+     },
+     {
+      "text": "Seit der Hafenakte?",
+      "next": "kgl_fall3",
+      "requires_flags": [
+       "case_03_closed"
+      ]
+     },
+     {
+      "text": "Seit der Spiegelakte?",
+      "next": "kgl_fall6",
+      "requires_flags": [
+       "case_06_closed"
+      ]
+     },
+     {
+      "text": "Nach der Sternwarte?",
+      "next": "kgl_fall9",
+      "requires_flags": [
+       "case_09_closed"
+      ]
+     }
+    ]
+   },
+   "kgl_gruss_niedrig": {
+    "text": "„Ich kenne dich noch nicht gut genug für Versprechen.“ Regenwasser kostet nichts. Das ist der einzige Teil meiner Arbeit, der nichts kostet.",
+    "choices": [
+     {
+      "text": "Was beschäftigt dich?",
+      "next": "kgl_pf_ad",
+      "requires_pathway": [
+       "sq_moor",
+       9
+      ]
+     },
+     {
+      "text": "Seit der Hafenakte?",
+      "next": "kgl_fall3",
+      "requires_flags": [
+       "case_03_closed"
+      ]
+     },
+     {
+      "text": "Seit der Spiegelakte?",
+      "next": "kgl_fall6",
+      "requires_flags": [
+       "case_06_closed"
+      ]
+     },
+     {
+      "text": "Nach der Sternwarte?",
+      "next": "kgl_fall9",
+      "requires_flags": [
+       "case_09_closed"
+      ]
+     }
+    ]
+   },
+   "kgl_pf_ad": {
+    "text": "„Du kennst nassen Boden. Dann weißt du, warum meine Schuhe vor der Tür bleiben.“ Die Arbeit wartet trotzdem.",
+    "choices": []
+   },
+   "kgl_fall3": {
+    "text": "„Seit der dritten Akte fragt jeder nach Flecken auf Uniformen. Ich sehe nur zusätzliche Arbeit.“",
+    "choices": []
+   },
+   "kgl_fall6": {
+    "text": "„Nach der Spiegelakte hängen die Leute ihre Laken vor die Spiegel. Zum Trocknen taugt das nicht.“",
+    "choices": []
+   },
+   "kgl_fall9": {
+    "text": "„Die letzte Akte ist zu. Der Wäschekorb hat von dem Verfahren nichts erfahren.“",
+    "choices": []
+   },
+   "kgl_fahndung": {
+    "text": "Die Person weicht zur Hauswand aus. „Ich hänge die Laken höher. Dahinter musst du deinen Weg selbst finden.“",
+    "choices": []
+   }
+  }
+ },
+ "kgl_e_nachtwaechter": {
+  "start": [
+   {
+    "node": "kgl_gruss_hoch",
+    "requires_honor": 60
+   },
+   {
+    "node": "kgl_gruss_mittel",
+    "requires_honor": 20
+   },
+   {
+    "node": "kgl_gruss_niedrig"
+   }
+  ],
+  "nodes": {
+   "kgl_gruss_hoch": {
+    "text": "„Für dich nehme ich mir einen Augenblick.“ Tagsüber bewache ich meinen Schlaf. Nachts bewache ich Leute, die Schlaf spielen.",
+    "choices": [
+     {
+      "text": "Was beschäftigt dich?",
+      "next": "kgl_pf_ad",
+      "requires_pathway": [
+       "maske",
+       9
+      ]
+     },
+     {
+      "text": "Seit der Hafenakte?",
+      "next": "kgl_fall3",
+      "requires_flags": [
+       "case_03_closed"
+      ]
+     },
+     {
+      "text": "Seit der Spiegelakte?",
+      "next": "kgl_fall6",
+      "requires_flags": [
+       "case_06_closed"
+      ]
+     },
+     {
+      "text": "Nach der Sternwarte?",
+      "next": "kgl_fall9",
+      "requires_flags": [
+       "case_09_closed"
+      ]
+     }
+    ]
+   },
+   "kgl_gruss_mittel": {
+    "text": "„Guten Abend oder guten Morgen, je nach Dienstplan.“ Tagsüber bewache ich meinen Schlaf. Nachts bewache ich Leute, die Schlaf spielen.",
+    "choices": [
+     {
+      "text": "Was beschäftigt dich?",
+      "next": "kgl_pf_ad",
+      "requires_pathway": [
+       "maske",
+       9
+      ]
+     },
+     {
+      "text": "Seit der Hafenakte?",
+      "next": "kgl_fall3",
+      "requires_flags": [
+       "case_03_closed"
+      ]
+     },
+     {
+      "text": "Seit der Spiegelakte?",
+      "next": "kgl_fall6",
+      "requires_flags": [
+       "case_06_closed"
+      ]
+     },
+     {
+      "text": "Nach der Sternwarte?",
+      "next": "kgl_fall9",
+      "requires_flags": [
+       "case_09_closed"
+      ]
+     }
+    ]
+   },
+   "kgl_gruss_niedrig": {
+    "text": "„Ich kenne dich noch nicht gut genug für Versprechen.“ Tagsüber bewache ich meinen Schlaf. Nachts bewache ich Leute, die Schlaf spielen.",
+    "choices": [
+     {
+      "text": "Was beschäftigt dich?",
+      "next": "kgl_pf_ad",
+      "requires_pathway": [
+       "maske",
+       9
+      ]
+     },
+     {
+      "text": "Seit der Hafenakte?",
+      "next": "kgl_fall3",
+      "requires_flags": [
+       "case_03_closed"
+      ]
+     },
+     {
+      "text": "Seit der Spiegelakte?",
+      "next": "kgl_fall6",
+      "requires_flags": [
+       "case_06_closed"
+      ]
+     },
+     {
+      "text": "Nach der Sternwarte?",
+      "next": "kgl_fall9",
+      "requires_flags": [
+       "case_09_closed"
+      ]
+     }
+    ]
+   },
+   "kgl_pf_ad": {
+    "text": "„Du trägst Gesichter wie andere Hüte. Hinter der Bühne lasse ich trotzdem nur Beschäftigte hinein.“ Die Arbeit wartet trotzdem.",
+    "choices": []
+   },
+   "kgl_fall3": {
+    "text": "„Seit der Hafenakte kontrolliere ich die Requisitenkisten. Die Kisten nehmen es gelassen.“",
+    "choices": []
+   },
+   "kgl_fall6": {
+    "text": "„Nach der Spiegelakte wurden die Garderobenspiegel verhängt. Endlich hört das Publikum auf, selbst zu spielen.“",
+    "choices": []
+   },
+   "kgl_fall9": {
+    "text": "„Die Sternwarte ist still, die Bühne wieder laut. Ich halte das für einen bescheidenen Fortschritt.“",
+    "choices": []
+   },
+   "kgl_fahndung": {
+    "text": "Die Person weicht zur Hauswand aus. „Vor der Bühne wartet heute die Wache. Ich kann dir keinen Einlass geben.“",
+    "choices": []
+   }
+  }
+ },
+ "kgl_s_kastanien": {
+  "start": "kgl_start",
+  "nodes": {
+   "kgl_start": {
+    "text": "Der Röster hebt den Deckel. „Die warmen Monate gehören den Eisverkäufern, die kalten meinen Fingern.“",
+    "choices": [
+     {
+      "text": "Einen Augenblick bleiben.",
+      "next": "kgl_antwort"
+     }
+    ]
+   },
+   "kgl_antwort": {
+    "text": "Drei Kastanien rollen in eine Papiertüte. Du wärmst die Hände daran.",
+    "choices": []
+   },
+   "kgl_geschlossen": {
+    "text": "Die Abdeckung ist fest verschnürt. „Solange die Wache hier sucht, bleibt mein Stand zu.“",
+    "choices": []
+   }
+  }
+ },
+ "kgl_s_zeitung": {
+  "start": "kgl_start",
+  "nodes": {
+   "kgl_start": {
+    "text": "„Der Nebelbote kommt auch bei Regen.“ Unter dem Dach trocknet eine handgeschriebene Berichtigung.",
+    "choices": [
+     {
+      "text": "Einen Augenblick bleiben.",
+      "next": "kgl_antwort"
+     }
+    ]
+   },
+   "kgl_antwort": {
+    "text": "Du liest die Meldungen. Jemand hat den Wetterbericht mit einem nassen Finger bestätigt.",
+    "choices": []
+   },
+   "kgl_geschlossen": {
+    "text": "Die Abdeckung ist fest verschnürt. „Solange die Wache hier sucht, bleibt mein Stand zu.“",
+    "choices": []
+   }
+  }
+ },
+ "kgl_s_heisswasser": {
+  "start": "kgl_start",
+  "nodes": {
+   "kgl_start": {
+    "text": "„Heißes Wasser. Wer Tee will, darf es sich vorstellen.“ Die Tassen sind sauber und verschieden groß.",
+    "choices": [
+     {
+      "text": "Einen Augenblick bleiben.",
+      "next": "kgl_antwort"
+     }
+    ]
+   },
+   "kgl_antwort": {
+    "text": "Der Becher wärmt deine Hände. Der Verkäufer lässt dir Zeit, ihn zurückzugeben.",
+    "choices": []
+   },
+   "kgl_geschlossen": {
+    "text": "Die Abdeckung ist fest verschnürt. „Solange die Wache hier sucht, bleibt mein Stand zu.“",
+    "choices": []
+   }
+  }
+ },
+ "kgl_s_streichholz": {
+  "start": "kgl_start",
+  "nodes": {
+   "kgl_start": {
+    "text": "Die junge Verkäuferin hält die Schachteln unter einem Blechdach trocken. „Das Dach habe ich selbst bezahlt.“",
+    "choices": [
+     {
+      "text": "Einen Augenblick bleiben.",
+      "next": "kgl_antwort"
+     }
+    ]
+   },
+   "kgl_antwort": {
+    "text": "Sie zeigt dir die trockene Reibfläche. Du nimmst nur so viel Platz ein, wie ein Kunde braucht.",
+    "choices": []
+   },
+   "kgl_geschlossen": {
+    "text": "Die Abdeckung ist fest verschnürt. „Solange die Wache hier sucht, bleibt mein Stand zu.“",
+    "choices": []
+   }
+  }
+ },
+ "kgl_s_drehorgel": {
+  "start": "kgl_start",
+  "nodes": {
+   "kgl_start": {
+    "text": "Die Orgel spielt drei Takte, dann hustet sie. Der Affe wartet geduldig auf den vierten.",
+    "choices": [
+     {
+      "text": "Einen Augenblick bleiben.",
+      "next": "kgl_antwort"
+     }
+    ]
+   },
+   "kgl_antwort": {
+    "text": "Der Spieler löst einen klemmenden Hebel. Für einen Augenblick klingt die Melodie fast fröhlich.",
+    "choices": []
+   },
+   "kgl_geschlossen": {
+    "text": "Die Abdeckung ist fest verschnürt. „Solange die Wache hier sucht, bleibt mein Stand zu.“",
+    "choices": []
+   }
+  }
+ },
+ "kgl_s_schleifer": {
+  "start": "kgl_start",
+  "nodes": {
+   "kgl_start": {
+    "text": "„Ich schärfe Scheren, keine Zungen.“ Das Rad streut Funken in eine nasse Blechschale.",
+    "choices": [
+     {
+      "text": "Einen Augenblick bleiben.",
+      "next": "kgl_antwort"
+     }
+    ]
+   },
+   "kgl_antwort": {
+    "text": "Er zeigt dir die stumpfe Stelle einer Schere. „Ein sauberer Schnitt spart Stoff und Streit.“",
+    "choices": []
+   },
+   "kgl_geschlossen": {
+    "text": "Die Abdeckung ist fest verschnürt. „Solange die Wache hier sucht, bleibt mein Stand zu.“",
+    "choices": []
+   }
+  }
+ },
+ "kgl_s_austern": {
+  "start": "kgl_start",
+  "nodes": {
+   "kgl_start": {
+    "text": "Die Austern liegen auf kaltem Stein. „Frisch geöffnet, nicht frisch erfunden“, sagt die Verkäuferin.",
+    "choices": [
+     {
+      "text": "Einen Augenblick bleiben.",
+      "next": "kgl_antwort"
+     }
+    ]
+   },
+   "kgl_antwort": {
+    "text": "Sie hebt eine geschlossene Schale ins Licht. Du hörst vom Fang, bevor du ans Essen denkst.",
+    "choices": []
+   },
+   "kgl_geschlossen": {
+    "text": "Die Abdeckung ist fest verschnürt. „Solange die Wache hier sucht, bleibt mein Stand zu.“",
+    "choices": []
+   }
+  }
+ },
+ "kgl_s_oel": {
+  "start": "kgl_start",
+  "nodes": {
+   "kgl_start": {
+    "text": "„Öl für Lampen, nicht für Gerüchte.“ Auf den Kannen stehen eingeritzte Füllstriche.",
+    "choices": [
+     {
+      "text": "Einen Augenblick bleiben.",
+      "next": "kgl_antwort"
+     }
+    ]
+   },
+   "kgl_antwort": {
+    "text": "Der Händler prüft einen Docht. „Wenn es rußt, hilft nicht immer mehr Brennstoff.“",
+    "choices": []
+   },
+   "kgl_geschlossen": {
+    "text": "Die Abdeckung ist fest verschnürt. „Solange die Wache hier sucht, bleibt mein Stand zu.“",
+    "choices": []
+   }
+  }
+ },
+ "kgl_ev_droschke": {
+  "start": [
+   {
+    "node": "kgl_nachher",
+    "requires_flags": [
+     "kgl_ev_droschke_done"
+    ]
+   },
+   {
+    "node": "kgl_entscheid",
+    "requires_flags": [
+     "kgl_ev_droschke_spur1",
+     "kgl_ev_droschke_spur2"
+    ]
+   },
+   {
+    "node": "kgl_auftrag",
+    "requires_flags": [
+     "kgl_ev_droschke_start"
+    ]
+   },
+   {
+    "node": "kgl_start"
+   }
+  ],
+  "nodes": {
+   "kgl_start": {
+    "text": "Ein Wagen steht schief am Bordstein. Jost hält das Pferd, während eine Botin auf ihre versiegelte Tasche zeigt.",
+    "start_quests": [
+     "kgl_q_droschke"
+    ],
+    "sets_flags": [
+     "kgl_ev_droschke_start"
+    ],
+    "choices": [
+     {
+      "text": "Den Spuren nachgehen.",
+      "next": "kgl_auftrag"
+     }
+    ]
+   },
+   "kgl_auftrag": {
+    "text": "Du merkst dir die beiden Anlaufstellen. Erst die Beobachtungen, dann die Entscheidung.",
+    "choices": []
+   },
+   "kgl_entscheid": {
+    "text": "Am Rad fehlt der Sicherungskeil. Im Rinnstein liegt frisches Holz, ohne Sägespur. Die Botin hat eine warme Arzneiflasche in der Tasche. Auf dem Zettel steht eine heutige Abholzeit.",
+    "choices": [
+     {
+      "text": "Das Pferd ruhig halten und gemeinsam das Rad sichern.",
+      "next": "kgl_a",
+      "requires_flags": [
+       "kgl_ev_droschke_spur1",
+       "kgl_ev_droschke_spur2"
+      ]
+     },
+     {
+      "text": "Die Botin zu Fuß begleiten, der Kutscher wartet bei der Droschke.",
+      "next": "kgl_b",
+      "requires_flags": [
+       "kgl_ev_droschke_spur1",
+       "kgl_ev_droschke_spur2"
+      ]
+     }
+    ]
+   },
+   "kgl_a": {
+    "text": "Du bleibst beim Pferd, bis das Rad sitzt. Die Botin erreicht ihr Ziel später, aber ohne weiteren Unfall.",
+    "sets_flags": [
+     "kgl_ev_droschke_done",
+     "kgl_ev_droschke_a"
+    ],
+    "complete_quests": [
+     "kgl_q_droschke"
+    ],
+    "gives_money": 20,
+    "choices": []
+   },
+   "kgl_b": {
+    "text": "Du trägst die Tasche bis zur richtigen Straße. Jost wartet auf einen Ersatzkeil und dankt dir später.",
+    "sets_flags": [
+     "kgl_ev_droschke_done",
+     "kgl_ev_droschke_b"
+    ],
+    "complete_quests": [
+     "kgl_q_droschke"
+    ],
+    "honor": 4,
+    "choices": []
+   },
+   "kgl_nachher": {
+    "text": "Die Straße hat ihren gewöhnlichen Takt wiedergefunden. Deine Entscheidung bleibt bei den Beteiligten.",
+    "choices": []
+   }
+  }
+ },
+ "kgl_ev_brand": {
+  "start": [
+   {
+    "node": "kgl_nachher",
+    "requires_flags": [
+     "kgl_ev_brand_done"
+    ]
+   },
+   {
+    "node": "kgl_entscheid",
+    "requires_flags": [
+     "kgl_ev_brand_spur1",
+     "kgl_ev_brand_spur2"
+    ]
+   },
+   {
+    "node": "kgl_auftrag",
+    "requires_flags": [
+     "kgl_ev_brand_start"
+    ]
+   },
+   {
+    "node": "kgl_start"
+   }
+  ],
+  "nodes": {
+   "kgl_start": {
+    "text": "Aus einem Schlot schlagen kurze Funken. Rike schickt die Gaffer von der Hauswand weg.",
+    "start_quests": [
+     "kgl_q_brand"
+    ],
+    "sets_flags": [
+     "kgl_ev_brand_start"
+    ],
+    "choices": [
+     {
+      "text": "Den Spuren nachgehen.",
+      "next": "kgl_auftrag"
+     }
+    ]
+   },
+   "kgl_auftrag": {
+    "text": "Du merkst dir die beiden Anlaufstellen. Erst die Beobachtungen, dann die Entscheidung.",
+    "choices": []
+   },
+   "kgl_entscheid": {
+    "text": "Der Ofenzug ist offen. Die Bewohnerin hat bereits aufgehört nachzulegen, das Feuer sitzt im Schlot. Am Brunnen steht ein leerer Sandeimer. Eine Leiter ist erreichbar, doch sie muss am Fuß gesichert werden.",
+    "choices": [
+     {
+      "text": "Die Bewohner aus dem Haus führen und Rike den Schlot sichern lassen.",
+      "next": "kgl_a",
+      "requires_flags": [
+       "kgl_ev_brand_spur1",
+       "kgl_ev_brand_spur2"
+      ]
+     },
+     {
+      "text": "Den Bereich absperren und den Boten zur Feuerwache schicken.",
+      "next": "kgl_b",
+      "requires_flags": [
+       "kgl_ev_brand_spur1",
+       "kgl_ev_brand_spur2"
+      ]
+     }
+    ]
+   },
+   "kgl_a": {
+    "text": "Du hilfst den Bewohnern auf die freie Straße. Rike sperrt den Zug, bis Fachleute den Schlot prüfen.",
+    "sets_flags": [
+     "kgl_ev_brand_done",
+     "kgl_ev_brand_a"
+    ],
+    "complete_quests": [
+     "kgl_q_brand"
+    ],
+    "gives_money": 30,
+    "choices": []
+   },
+   "kgl_b": {
+    "text": "Du hältst die Straße frei. Der Bote holt Hilfe, während Rike die Nachbarfenster schließen lässt.",
+    "sets_flags": [
+     "kgl_ev_brand_done",
+     "kgl_ev_brand_b"
+    ],
+    "complete_quests": [
+     "kgl_q_brand"
+    ],
+    "honor": 4,
+    "choices": []
+   },
+   "kgl_nachher": {
+    "text": "Die Straße hat ihren gewöhnlichen Takt wiedergefunden. Deine Entscheidung bleibt bei den Beteiligten.",
+    "choices": []
+   }
+  }
+ },
+ "kgl_ev_tasche": {
+  "start": [
+   {
+    "node": "kgl_nachher",
+    "requires_flags": [
+     "kgl_ev_tasche_done"
+    ]
+   },
+   {
+    "node": "kgl_entscheid",
+    "requires_flags": [
+     "kgl_ev_tasche_spur1",
+     "kgl_ev_tasche_spur2"
+    ]
+   },
+   {
+    "node": "kgl_auftrag",
+    "requires_flags": [
+     "kgl_ev_tasche_route"
+    ]
+   },
+   {
+    "node": "kgl_flicken",
+    "requires_flags": [
+     "kgl_ev_tasche_blick"
+    ]
+   },
+   {
+    "node": "kgl_fragen",
+    "requires_flags": [
+     "kgl_ev_tasche_zeuge"
+    ]
+   },
+   {
+    "node": "kgl_start"
+   }
+  ],
+  "nodes": {
+   "kgl_start": {
+    "text": "Ein Taschendieb verschwindet zwischen zwei Karren. Die Bestohlene zeigt auf einen blauen Flicken am Mantel.",
+    "start_quests": [
+     "kgl_q_tasche"
+    ],
+    "sets_flags": [
+     "kgl_ev_tasche_start"
+    ],
+    "choices": [
+     {
+      "text": "Auf den blauen Flicken achten.",
+      "next": "kgl_flicken"
+     },
+     {
+      "text": "Nach dem Weg fragen.",
+      "next": "kgl_fragen"
+     }
+    ]
+   },
+   "kgl_auftrag": {
+    "text": "Du merkst dir die beiden Anlaufstellen. Erst die Beobachtungen, dann die Entscheidung.",
+    "choices": []
+   },
+   "kgl_entscheid": {
+    "text": "An der ersten Ecke liegt ein abgerissener blauer Faden. Die nassen Schritte führen zum Kanal. Ein Händler sah den Dieb unter der Brücke warten. Er hält die Tasche fest, als wäre sie sein Fahrgeld.",
+    "choices": [
+     {
+      "text": "Den Weg offenlassen und die Rückgabe verlangen.",
+      "next": "kgl_a",
+      "requires_flags": [
+       "kgl_ev_tasche_spur1",
+       "kgl_ev_tasche_spur2"
+      ]
+     },
+     {
+      "text": "Mit der Bestohlenen auf Abstand sprechen, statt ihn einzukreisen.",
+      "next": "kgl_b",
+      "requires_flags": [
+       "kgl_ev_tasche_spur1",
+       "kgl_ev_tasche_spur2",
+       "kgl_ev_tasche_begleitung"
+      ]
+     },
+     {
+      "text": "Den Händler als Zeugen dazuholen.",
+      "next": "kgl_b",
+      "requires_flags": [
+       "kgl_ev_tasche_spur1",
+       "kgl_ev_tasche_spur2",
+       "kgl_ev_tasche_zeuge"
+      ]
+     }
+    ]
+   },
+   "kgl_a": {
+    "text": "Du versprichst keine Straffreiheit, aber du lässt Platz. Der Dieb legt die Tasche hin und läuft davon.",
+    "sets_flags": [
+     "kgl_ev_tasche_done",
+     "kgl_ev_tasche_a"
+    ],
+    "complete_quests": [
+     "kgl_q_tasche"
+    ],
+    "gives_money": 25,
+    "choices": []
+   },
+   "kgl_b": {
+    "text": "Die Bestohlene nennt den Inhalt. Der Dieb gibt die Tasche zurück und wartet auf die Wache.",
+    "sets_flags": [
+     "kgl_ev_tasche_done",
+     "kgl_ev_tasche_b"
+    ],
+    "complete_quests": [
+     "kgl_q_tasche"
+    ],
+    "honor": 4,
+    "choices": []
+   },
+   "kgl_nachher": {
+    "text": "Die Straße hat ihren gewöhnlichen Takt wiedergefunden. Deine Entscheidung bleibt bei den Beteiligten.",
+    "choices": []
+   },
+   "kgl_flicken": {
+    "text": "Du hältst den Flicken im Blick. An der Ecke findest du den verlorenen Faden.",
+    "sets_flags": [
+     "kgl_ev_tasche_blick"
+    ],
+    "choices": [
+     {
+      "text": "Die Gasse leise durchqueren.",
+      "next": "kgl_leise"
+     },
+     {
+      "text": "Die Bestohlene mitnehmen.",
+      "next": "kgl_zeugen"
+     }
+    ]
+   },
+   "kgl_fragen": {
+    "text": "Ein Händler zeigt zur Brücke. Du verlierst Sekunden, gewinnst aber einen Zeugen.",
+    "sets_flags": [
+     "kgl_ev_tasche_zeuge"
+    ],
+    "choices": [
+     {
+      "text": "Die Gasse leise durchqueren.",
+      "next": "kgl_leise"
+     },
+     {
+      "text": "Die Bestohlene mitnehmen.",
+      "next": "kgl_zeugen"
+     }
+    ]
+   },
+   "kgl_leise": {
+    "text": "Du gehst ohne Zurufe weiter. Der Dieb bemerkt die Verfolgung erst an der Brücke.",
+    "sets_flags": [
+     "kgl_ev_tasche_leise",
+     "kgl_ev_tasche_route"
+    ],
+    "choices": []
+   },
+   "kgl_zeugen": {
+    "text": "Die Bestohlene folgt mit Abstand. Du kannst sie später selbst sprechen lassen.",
+    "sets_flags": [
+     "kgl_ev_tasche_begleitung",
+     "kgl_ev_tasche_route"
+    ],
+    "choices": []
+   }
+  }
+ },
+ "kgl_ev_prediger": {
+  "start": [
+   {
+    "node": "kgl_nachher",
+    "requires_flags": [
+     "kgl_ev_prediger_done"
+    ]
+   },
+   {
+    "node": "kgl_entscheid",
+    "requires_flags": [
+     "kgl_ev_prediger_spur1",
+     "kgl_ev_prediger_spur2"
+    ]
+   },
+   {
+    "node": "kgl_auftrag",
+    "requires_flags": [
+     "kgl_ev_prediger_start"
+    ]
+   },
+   {
+    "node": "kgl_start"
+   }
+  ],
+  "nodes": {
+   "kgl_start": {
+    "text": "Ein Prediger der Rostbrüder verspricht jedem Schuldner einen neuen Namen. Neben ihm klappert eine Spendendose.",
+    "start_quests": [
+     "kgl_q_prediger"
+    ],
+    "sets_flags": [
+     "kgl_ev_prediger_start"
+    ],
+    "choices": [
+     {
+      "text": "Den Spuren nachgehen.",
+      "next": "kgl_auftrag"
+     }
+    ]
+   },
+   "kgl_auftrag": {
+    "text": "Du merkst dir die beiden Anlaufstellen. Erst die Beobachtungen, dann die Entscheidung.",
+    "choices": []
+   },
+   "kgl_entscheid": {
+    "text": "Auf dem Flugblatt ist nur eine Treffzeit gedruckt. Die versprochene Schuldentilgung steht nirgends. Eine Zuhörerin zeigt ihre Quittung. Bezahlt wurde ein Vortrag, kein Erlass ihrer Schulden.",
+    "choices": [
+     {
+      "text": "Die Quittung laut und sachlich vorlesen.",
+      "next": "kgl_a",
+      "requires_flags": [
+       "kgl_ev_prediger_spur1",
+       "kgl_ev_prediger_spur2"
+      ]
+     },
+     {
+      "text": "Die Zuhörerin beiseitenehmen und ihr beim Widerspruch helfen.",
+      "next": "kgl_b",
+      "requires_flags": [
+       "kgl_ev_prediger_spur1",
+       "kgl_ev_prediger_spur2"
+      ]
+     }
+    ]
+   },
+   "kgl_a": {
+    "text": "Du liest, was auf dem Papier steht. Einige Zuhörer gehen, andere verlangen ihr Geld zurück.",
+    "sets_flags": [
+     "kgl_ev_prediger_done",
+     "kgl_ev_prediger_a"
+    ],
+    "complete_quests": [
+     "kgl_q_prediger"
+    ],
+    "gives_money": 15,
+    "choices": []
+   },
+   "kgl_b": {
+    "text": "Ihr schreibt den Anspruch gemeinsam auf. Der Prediger muss sich mit einer konkreten Forderung befassen.",
+    "sets_flags": [
+     "kgl_ev_prediger_done",
+     "kgl_ev_prediger_b"
+    ],
+    "complete_quests": [
+     "kgl_q_prediger"
+    ],
+    "honor": 4,
+    "choices": []
+   },
+   "kgl_nachher": {
+    "text": "Die Straße hat ihren gewöhnlichen Takt wiedergefunden. Deine Entscheidung bleibt bei den Beteiligten.",
+    "choices": []
+   }
+  }
+ },
+ "kgl_ev_kreide": {
+  "start": [
+   {
+    "node": "kgl_nachher",
+    "requires_flags": [
+     "kgl_ev_kreide_done"
+    ]
+   },
+   {
+    "node": "kgl_entscheid",
+    "requires_flags": [
+     "kgl_ev_kreide_spur1",
+     "kgl_ev_kreide_spur2"
+    ]
+   },
+   {
+    "node": "kgl_auftrag",
+    "requires_flags": [
+     "kgl_ev_kreide_start"
+    ]
+   },
+   {
+    "node": "kgl_start"
+   }
+  ],
+  "nodes": {
+   "kgl_start": {
+    "text": "Kinder zeichnen einen Kreis auf eine freie Pflasterstelle. Ein freier Platz darin trägt einen verwischten Namen.",
+    "start_quests": [
+     "kgl_q_kreide"
+    ],
+    "sets_flags": [
+     "kgl_ev_kreide_start"
+    ],
+    "choices": [
+     {
+      "text": "Den Spuren nachgehen.",
+      "next": "kgl_auftrag"
+     }
+    ]
+   },
+   "kgl_auftrag": {
+    "text": "Du merkst dir die beiden Anlaufstellen. Erst die Beobachtungen, dann die Entscheidung.",
+    "choices": []
+   },
+   "kgl_entscheid": {
+    "text": "Die Kreide stammt von einer Schneiderin. An ihr klebt kein Ritualstaub, nur ein Stück Verpackung. Das fehlende Kind arbeitet seit Tagen bei Verwandten. Die anderen wollten ihm einen Platz freihalten.",
+    "choices": [
+     {
+      "text": "Den Kreis erklären und bis zum Abend stehen lassen.",
+      "next": "kgl_a",
+      "requires_flags": [
+       "kgl_ev_kreide_spur1",
+       "kgl_ev_kreide_spur2"
+      ]
+     },
+     {
+      "text": "Mit den Kindern ein abwaschbares Schild für den Rückweg malen.",
+      "next": "kgl_b",
+      "requires_flags": [
+       "kgl_ev_kreide_spur1",
+       "kgl_ev_kreide_spur2"
+      ]
+     }
+    ]
+   },
+   "kgl_a": {
+    "text": "Du bittest die Passanten um etwas Platz. Der Kreis bleibt ein Spiel und muss nichts beweisen.",
+    "sets_flags": [
+     "kgl_ev_kreide_done",
+     "kgl_ev_kreide_a"
+    ],
+    "complete_quests": [
+     "kgl_q_kreide"
+    ],
+    "gives_money": 10,
+    "choices": []
+   },
+   "kgl_b": {
+    "text": "Die Kinder zeichnen Pfeile auf ein loses Brett. Niemand muss für ihr Spiel über eine Türschwelle steigen.",
+    "sets_flags": [
+     "kgl_ev_kreide_done",
+     "kgl_ev_kreide_b"
+    ],
+    "complete_quests": [
+     "kgl_q_kreide"
+    ],
+    "honor": 4,
+    "choices": []
+   },
+   "kgl_nachher": {
+    "text": "Die Straße hat ihren gewöhnlichen Takt wiedergefunden. Deine Entscheidung bleibt bei den Beteiligten.",
+    "choices": []
+   }
+  }
+ },
+ "kgl_ev_brief": {
+  "start": [
+   {
+    "node": "kgl_nachher",
+    "requires_flags": [
+     "kgl_ev_brief_done"
+    ]
+   },
+   {
+    "node": "kgl_entscheid",
+    "requires_flags": [
+     "kgl_ev_brief_spur1",
+     "kgl_ev_brief_spur2"
+    ]
+   },
+   {
+    "node": "kgl_auftrag",
+    "requires_flags": [
+     "kgl_ev_brief_start"
+    ]
+   },
+   {
+    "node": "kgl_start"
+   }
+  ],
+  "nodes": {
+   "kgl_start": {
+    "text": "Ein Brief liegt unter einer falschen Tür. Die Empfängerin heißt fast wie die Frau, die dort wohnt.",
+    "start_quests": [
+     "kgl_q_brief"
+    ],
+    "sets_flags": [
+     "kgl_ev_brief_start"
+    ],
+    "choices": [
+     {
+      "text": "Den Spuren nachgehen.",
+      "next": "kgl_auftrag"
+     }
+    ]
+   },
+   "kgl_auftrag": {
+    "text": "Du merkst dir die beiden Anlaufstellen. Erst die Beobachtungen, dann die Entscheidung.",
+    "choices": []
+   },
+   "kgl_entscheid": {
+    "text": "Die Hausnummer wurde nach dem letzten Brand versetzt. Der Umschlag trägt noch die alte Nummer. Edda kennt die Empfängerin. Die Frau wartet auf Nachricht über eine Stelle, nicht auf eine Erbschaft.",
+    "choices": [
+     {
+      "text": "Den verschlossenen Brief der Empfängerin übergeben.",
+      "next": "kgl_a",
+      "requires_flags": [
+       "kgl_ev_brief_spur1",
+       "kgl_ev_brief_spur2"
+      ]
+     },
+     {
+      "text": "Den Brief mit korrigierter Anschrift beim Boten abgeben.",
+      "next": "kgl_b",
+      "requires_flags": [
+       "kgl_ev_brief_spur1",
+       "kgl_ev_brief_spur2"
+      ]
+     }
+    ]
+   },
+   "kgl_a": {
+    "text": "Du reichst den Umschlag weiter. Die Frau öffnet ihn erst, als du dich abwendest.",
+    "sets_flags": [
+     "kgl_ev_brief_done",
+     "kgl_ev_brief_a"
+    ],
+    "complete_quests": [
+     "kgl_q_brief"
+    ],
+    "gives_money": 20,
+    "choices": []
+   },
+   "kgl_b": {
+    "text": "Der Bote ergänzt die neue Nummer und quittiert die Annahme. Die fremden Zeilen bleiben fremd.",
+    "sets_flags": [
+     "kgl_ev_brief_done",
+     "kgl_ev_brief_b"
+    ],
+    "complete_quests": [
+     "kgl_q_brief"
+    ],
+    "honor": 4,
+    "choices": []
+   },
+   "kgl_nachher": {
+    "text": "Die Straße hat ihren gewöhnlichen Takt wiedergefunden. Deine Entscheidung bleibt bei den Beteiligten.",
+    "choices": []
+   }
+  }
+ }
+}

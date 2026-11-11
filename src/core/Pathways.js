@@ -12,6 +12,8 @@
 //
 // Die Methoden werden in GameState eingehängt (siehe unten in GameState.js).
 
+import { encounterSeq } from './Fear.js';
+
 export const SEQ_START = 9;
 export const SEQ_MAX = 1; // höchste erreichbare Stufe (Kapitel 3 bringt die Kernzutaten für 4 bis 1)
 // Verdauungstempo je Sequenz. Bis Sequenz 7 wie gehabt; ab Sequenz 6 wird es brutal:
@@ -30,7 +32,119 @@ export const COMPOSURE_BASE = 100;
 export const DEFAULT_GROWTH = { hp: 5, nerves: 5 };
 // Durchbrüche: Sequenz 7 und 6 zählen beim Wachstum doppelt (große Sprünge an Leben und Nerven).
 // Sequenz 5 ist der große Durchbruch (Kapitel 2); 4 bis 1 wie von AF/AU empfohlen auf den Bestand aufgesetzt
-export const SEQ_GROWTH_STEPS = { 7: 2, 6: 2, 5: 3, 4: 2, 3: 2, 2: 3, 1: 3 };
+export const SEQ_GROWTH_STEPS = { 7: 2, 6: 2, 5: 3, 4: 4, 3: 2, 2: 5, 1: 3 };
+/**
+ * Die hohen Durchbrüche (Seb, 2026-11-11): Sequenz 4 macht einen Halbgott aus dem Ermittler, Sequenz 2 einen Engel.
+ * Dazwischen (3 und 1) gute, aber keine brutalen Sprünge. Die Passiven werden beim Laden an die Stufen 4 bis 1
+ * aller zehn Pfade gehängt (data/sequenzen.js), zusätzlich zu dem, was jeder Pfad dort schon mitbringt.
+ */
+export const HOCH_DURCHBRUCH = {
+  4: {
+    titel: 'Halbgott',
+    passives: [
+      { key: 'ap_start', value: 2, text: 'Halbgott: Jeder Kampf beginnt mit zwei weiteren Punkten Konzentration.' },
+      { key: 'dmg_mult', value: 1.6, text: 'Halbgott: +60 % Schaden mit allen Angriffen und Fertigkeiten.' },
+      { key: 'damage_taken', value: 0.7, text: 'Halbgott: Du nimmst 30 % weniger Schaden.' },
+      { key: 'max_hp', value: 25, text: 'Halbgott: +25 Leben.' },
+      { key: 'max_nerves', value: 25, text: 'Halbgott: +25 Nerven.' },
+      { key: 'composure_regen', value: 1.25, text: 'Halbgott: Nerven erholen sich 25 % schneller.' },
+    ],
+  },
+  3: {
+    titel: 'Gefestigter Halbgott',
+    passives: [
+      { key: 'ap_start', value: 1, text: 'Durchbruch: Jeder Kampf beginnt mit einer weiteren Konzentration.' },
+      { key: 'dmg_mult', value: 1.2, text: 'Durchbruch: weitere +20 % Schaden.' },
+      { key: 'damage_taken', value: 0.9, text: 'Durchbruch: Du nimmst 10 % weniger Schaden.' },
+      { key: 'max_hp', value: 10, text: 'Durchbruch: +10 Leben.' },
+      { key: 'max_nerves', value: 10, text: 'Durchbruch: +10 Nerven.' },
+    ],
+  },
+  2: {
+    titel: 'Engel',
+    passives: [
+      { key: 'ap_start', value: 2, text: 'Engel: Jeder Kampf beginnt mit zwei weiteren Punkten Konzentration.' },
+      { key: 'dmg_mult', value: 1.6, text: 'Engel: +60 % Schaden mit allen Angriffen und Fertigkeiten.' },
+      { key: 'damage_taken', value: 0.7, text: 'Engel: Du nimmst 30 % weniger Schaden.' },
+      { key: 'max_hp', value: 35, text: 'Engel: +35 Leben.' },
+      { key: 'max_nerves', value: 35, text: 'Engel: +35 Nerven.' },
+      { key: 'composure_regen', value: 1.25, text: 'Engel: Nerven erholen sich 25 % schneller.' },
+    ],
+  },
+  1: {
+    titel: 'Vollendeter Engel',
+    passives: [
+      { key: 'ap_start', value: 1, text: 'Durchbruch: Jeder Kampf beginnt mit einer weiteren Konzentration.' },
+      { key: 'dmg_mult', value: 1.25, text: 'Durchbruch: weitere +25 % Schaden.' },
+      { key: 'damage_taken', value: 0.85, text: 'Durchbruch: Du nimmst 15 % weniger Schaden.' },
+      { key: 'max_hp', value: 15, text: 'Durchbruch: +15 Leben.' },
+      { key: 'max_nerves', value: 15, text: 'Durchbruch: +15 Nerven.' },
+    ],
+  },
+};
+/** Eigenheit jedes Pfades auf Sequenz 4: was ihn als Halbgott von den anderen unterscheidet. */
+export const HALBGOTT_EIGENHEIT = {
+  laterne: { key: 'occult_mult', value: 1.3, text: 'Halbgott der Laterne: +30 % Schaden gegen Okkultes.' },
+  faden: { key: 'parry_ap', value: 1, text: 'Halbgott des Fadens: Paraden geben eine Konzentration mehr.' },
+  maske: { key: 'dodge_window', value: 1.3, text: 'Halbgott der Maske: Ausweichfenster +30 %.' },
+  echo: { key: 'composure_regen', value: 1.3, text: 'Halbgott des Echos: Nerven erholen sich noch einmal 30 % schneller.' },
+  kessel: { key: 'heal_bonus', value: 1.5, text: 'Halbgott des Kessels: Heilmittel wirken 50 % stärker.' },
+  eisen: { key: 'damage_taken', value: 0.85, text: 'Halbgott des Eisens: noch einmal 15 % weniger Schaden.' },
+  schluessel: { key: 'money_bonus', value: 1.3, text: 'Halbgott des Schlüssels: +30 % Schilling aus Beute und Belohnungen.' },
+  sq_waage: { key: 'damage_taken', value: 0.85, text: 'Halbgott der Waage: noch einmal 15 % weniger Schaden.' },
+  sq_moor: { key: 'heal_bonus', value: 1.5, text: 'Halbgott des Moors: Heilmittel wirken 50 % stärker.' },
+  sq_uhr: { key: 'parry_ap', value: 1, text: 'Halbgott der Uhr: Paraden geben eine Konzentration mehr.' },
+};
+/**
+ * Was die Rituale der hohen Stufen über die offene Probe hinaus verlangen. Sequenz 4 und 2 sind die
+ * schweren: Tribut, viele Siege und Schlussfolgerungen, volle Nerven und ein Kampf gegen den
+ * Schwellenwächter des eigenen Pfades (`ordeal`, Gegner hg_schwellenwaechter_<pfad> und hg_grenzwaechter_<pfad>, siehe data/sequenzen.js).
+ */
+export const HOCH_RITUAL = {
+  4: { tribute: 600, min_wins: 40, min_conclusions: 10, min_nerves: 80, ordeal: true },
+  3: { tribute: 400, min_wins: 55 },
+  2: { tribute: 1200, min_wins: 75, min_conclusions: 16, min_nerves: 100, ordeal: true },
+  1: { tribute: 800, min_wins: 90 },
+};
+/** Kampf-Ids der Wächter je Pfad, nach den Eckdaten der Codex-Pakete CO/CP (hg_schwellenwaechter für 4, hg_grenzwaechter für 2). */
+export const WAECHTER = { 4: 'hg_schwellenwaechter', 2: 'hg_grenzwaechter' };
+export const ordealId = (pid, seq) => `${WAECHTER[seq] ?? 'hg_waechter'}_${pid}`;
+export const ordealFlag = (pid, seq) => `won_${ordealId(pid, seq)}`;
+/** Die mythischen Kreaturformen je Pfad (Ids und Namen verbindlich aus den Codex-Paketen CO/CP). */
+export const HG_FORMS = {
+  laterne: { id: 'hg_form_laterne', name: 'Leuchtgestalt' }, faden: { id: 'hg_form_faden', name: 'Nahtgespinst' },
+  maske: { id: 'hg_form_maske', name: 'Hundertmiene' }, echo: { id: 'hg_form_echo', name: 'Hohlklang' },
+  kessel: { id: 'hg_form_kessel', name: 'Siedeleib' }, eisen: { id: 'hg_form_eisen', name: 'Nietkoloss' },
+  schluessel: { id: 'hg_form_schluessel', name: 'Türhüter' }, sq_waage: { id: 'hg_form_sq_waage', name: 'Gewichtsträger' },
+  sq_moor: { id: 'hg_form_sq_moor', name: 'Torfleib' }, sq_uhr: { id: 'hg_form_sq_uhr', name: 'Pendelgestalt' },
+};
+/**
+ * Mythische Gestalt (Seb, 2026-11-11): ab Sequenz 4 und 50 % Verdauung kann man die wahre Gestalt des Pfades
+ * annehmen. Nicht-Beyonder (Menschen ohne Pfad) und Monster, die deutlich unter der eigenen Stufe liegen,
+ * brechen beim bloßen Anblick zusammen (kein Kampf, aber Sieg mit Beute und Verdauung). Die Gestalt zehrt an
+ * Nerven und Unruhe und fällt ab, wenn die Nerven ausgehen. Bosse, höhere Wesen (min_seq) und Übungskämpfe bleiben.
+ */
+export const FORM_SEQ = 4;
+export const FORM_MIN_DIGEST = 50;
+export const FORM_NERVES_PER_SEC = 1.5;
+export const FORM_UNRUHE_PER_SEC = 0.4;
+export const FORM_MIN_NERVES = 15;
+export const FORM_MARGIN = 2; // so viele Sequenzen muss ein Monster unter dir liegen
+/** Worte für die großen Tränke: Halbgott (4) und Engel (2). Die Oberfläche spielt dazu die Aufstiegs-Szene. */
+export const ASCENSION_TEXT = {
+  4: {
+    title: 'Halbgott',
+    intro: 'Der Trank schlägt nicht ein. Er bleibt. Er füllt dich aus wie Wasser ein Gefäß, bis das Gefäß nicht mehr das Maß ist. Die Wände rücken weg. Das Licht wird dünn und durchsichtig, und dahinter siehst du die Stadt, wie sie wirklich ist: ein Gewirr aus Fäden, Flammen und Atem, und jeder Faden kennt deinen Namen.',
+    rank: 'Was du gerade warst, ein Ermittler mit einem Trank im Blut, ist vorbei. Man nennt diese Stufe Halbgott. Nicht, weil man dich anbeten wird. Weil nichts Menschliches dir mehr gewachsen ist.',
+    outro: 'Dein Herz schlägt langsamer und lauter. Wunden, die dich gestern umgeworfen hätten, sind ein Kratzer. Dein Grundsatz ist kein Vorsatz mehr, sondern ein Naturgesetz, und die Welt richtet sich ein Stück weit nach dir. Vergiss nicht: Auch Halbgötter verdauen. Nur sehr, sehr langsam.',
+  },
+  2: {
+    title: 'Engel',
+    intro: 'Der Trank hat keinen Geschmack mehr. Du bist der Geschmack. Für einen Augenblick existierst du an jedem Ort, an dem dein Grundsatz je gegolten hat, in jeder Laterne, jedem Knoten, jedem Schlüssel, jeder Waage, und du musst dich entscheiden, zurückzukommen.',
+    rank: 'Man nennt diese Stufe Engel. Die Alten in Dunscar schreiben das Wort nicht aus. Es gibt in dieser Welt kaum noch etwas, das dir im Weg stehen kann, außer dir selbst.',
+    outro: 'Deine Schritte lassen den Nebel zur Seite weichen. Was dich trifft, trifft kaum noch. Und doch: Die Stimmen, die mit jedem Trank lauter wurden, sind jetzt ein Chor. Halte deinen Grundsatz fest. Er ist das Einzige, was zwischen dir und dem Kontrollverlust steht.',
+  },
+};
 export const UNRUHE_MAX = 100;
 export const UNRUHE_DECAY_PER_SEC = 0.25;
 export const UNRUHE_VISION_PER_SEC = 0.35;
@@ -69,6 +183,7 @@ export const TALENT_DIGEST_SPAN = [0.5, 2.5];
 export const PERSONAL_DIGEST = new Set(['parry', 'vision', 'use_item', 'brew', 'talent', 'ritual']);
 const MULT_KEYS = new Set(['vision_cost', 'composure_regen', 'heal_bonus', 'price', 'sell', 'honor_loss', 'occult_mult',
   'money_bonus', 'skill_composure', 'calm_decay', 'dodge_window', 'damage_taken', 'digest_mult', 'dmg_mult', 'hurry_cost']);
+
 
 export const pathwayMethods = {
   resetPathway() {
@@ -287,6 +402,7 @@ export const pathwayMethods = {
   /** Wird von tick() aufgerufen. */
   tickPathway(dt) {
     this.tickCorruption(dt);
+    this.tickForm(dt);
     const pull = this.artifactUnruhe();
     if (!this.pathway && this.unruhe <= 0 && !pull) return;
     let u = this.unruhe + pull * dt;
@@ -338,19 +454,23 @@ export const pathwayMethods = {
     const first = !this.pathway;
     const carryBefore = this.carryCapacity();
     this.pathway = { id: it.pathway, seq: it.seq, digestion: 0 };
+    if (HOCH_DURCHBRUCH[it.seq]) this.flags.add(`seq${it.seq}_erreicht`); // für Zeitung und Gerede (Paket CP)
     this.unruhe = Math.min(UNRUHE_MAX - 1, this.unruhe + 20 + premature * 0.4);
     this.updateMaxHp();
     const pd = this.pathwayDef();
     // Aufstiegsmeldung: was der Körper dazugewonnen hat (Leben, Nerven, Tragkraft)
     const carryGain = this.carryCapacity() - carryBefore;
     const gains = `Dein Körper wächst mit: ${this.maxHp} Leben, ${this.maxComposure()} Nerven, Tragkraft ${this.carryText().split('/')[1]}${carryGain > 0 ? ` (+${carryGain})` : ''}.`;
+    const asc = ASCENSION_TEXT[it.seq];
     const text = first
       ? `Du trinkst. Es schmeckt nach Nebel und Kupfer. Dann wird die Welt für einen Herzschlag zu laut, zu hell, zu nah.\n\nDu bist jetzt Sequenz 9 des ${pd.name.replace('Pfad', 'Pfads')}: ${sd.name}.\n\n${sd.desc}\n\n${gains}\n\nGrundsatz: „${pd.principle}“ Handle danach, um den Trank zu verdauen.`
-      : `Der Trank schlägt ein wie ein Blitz. Als er abklingt, bist du jemand anderes. Ein bisschen.\n\nDu bist jetzt Sequenz ${sd ? it.seq : ''}: ${sd.name}.\n\n${sd.desc}\n\n${gains}`;
+      : asc
+        ? `${asc.intro}\n\nDu bist jetzt Sequenz ${it.seq}: ${sd.name}. ${asc.rank}\n\n${sd.desc}\n\n${asc.outro}\n\n${gains}${it.seq === FORM_SEQ ? `\n\nAb ${FORM_MIN_DIGEST} % Verdauung kannst du im Pfad-Tab deine mythische Gestalt annehmen. Menschen ohne Pfad und schwächere Wesen brechen vor ihr zusammen.` : ''}`
+        : `Der Trank schlägt ein wie ein Blitz. Als er abklingt, bist du jemand anderes. Ein bisschen.\n\nDu bist jetzt Sequenz ${sd ? it.seq : ''}: ${sd.name}.\n\n${sd.desc}\n\n${gains}`;
     this.emit('unruhe', this.unruhe);
-    this.emit('ascend', { pathway: it.pathway, seq: it.seq, player: this.acting ?? 1 });
+    this.emit('ascend', { pathway: it.pathway, seq: it.seq, player: this.acting ?? 1, ascension: asc ? { ...asc, seq: it.seq, color: pd.color } : null });
     this.emit('changed');
-    return { ok: true, text };
+    return { ok: true, text, ascension: asc ? { ...asc, seq: it.seq, color: pd.color, name: sd.name } : null };
   },
 
   /** Rechnet Leben und Nerven neu (nach Aufstieg oder Artefaktwechsel). Mehr Höchstwert heilt um die Differenz. */
@@ -366,7 +486,7 @@ export const pathwayMethods = {
   },
 
   // --- Rituale ---------------------------------------------------------------------------
-  // Ab Sequenz 6 verlangt jeder Trank ein Ritual: an einem bestimmten Ort, mit Zutaten, die dabei
+  // Ab Sequenz 6 verlangt jeder Trank ein ortsunabhängiges Ritual mit Zutaten, die dabei
   // verbraucht werden, und einer Bedingung (Geistsicht, Nerven, Wunden, Schlussfolgerungen, Siege, Tribut).
   // Danach darf genau dieser Trank getrunken werden (Flag ritual_<pfad>_<seq>).
 
@@ -388,8 +508,6 @@ export const pathwayMethods = {
     const r = this.ritualDef(pid, seq);
     if (!r) return null;
     const steps = [];
-    const mapName = this.content.maps[r.map]?.name ?? r.map;
-    steps.push({ text: `Ort: ${mapName}${r.also_maps?.length ? ' (auch drinnen)' : ''}`, done: this.map === r.map || (r.also_maps ?? []).includes(this.map) });
     for (const [id, n] of Object.entries(r.consumes ?? {})) steps.push({ text: `${this.item(id).name} ×${n} (wird verbraucht)`, done: this.itemCount(id) >= n });
     if (r.vision) steps.push({ text: 'Geistsicht ist aktiv', done: !!this.spiritVision });
     if (r.min_nerves) steps.push({ text: `Mindestens ${r.min_nerves} Nerven`, done: this.composure >= r.min_nerves });
@@ -404,8 +522,17 @@ export const pathwayMethods = {
       }
     }
     if (r.tribute) steps.push({ text: `${r.tribute} Schilling als Tribut`, done: this.money >= r.tribute });
+    if (r.ordeal) {
+      const enc = this.content.encounters[ordealId(pid, seq)];
+      steps.push({ text: `${enc?.name ?? 'Schwellenwächter'} besiegt (erscheint, sobald alles andere bereit ist)`, done: this.ordealDone(pid, seq), ordeal: true });
+    }
     if (!this.itemCount(`trank_${pid}_${seq}`)) steps.push({ text: `Trank der Sequenz ${seq} dabei`, done: false });
     return steps;
+  },
+
+  /** Ist der Schwellenwächter dieses Rituals schon besiegt? */
+  ordealDone(pid, seq) {
+    return this.flags.has(ordealFlag(pid, seq));
   },
 
   /** Vollzieht das Ritual für den nächsten Trank. Ergebnis: { ok, text } */
@@ -416,6 +543,13 @@ export const pathwayMethods = {
     if (!r) return { ok: false, text: 'Für deinen nächsten Trank brauchst du kein Ritual.' };
     if (this.ritualDone(p.id, seq)) return { ok: false, text: 'Das Ritual ist schon vollzogen. Trink den Trank.' };
     const open = this.ritualSteps(p.id, seq).filter((x) => !x.done);
+    // Die schweren Rituale (4 und 2): Steht alles andere, tritt der Schwellenwächter des Pfades aus dem Nebel
+    if (open.length === 1 && open[0].ordeal) {
+      const id = ordealId(p.id, seq);
+      if (!this.content.encounters[id]) return { ok: false, text: 'Der Schwellenwächter dieses Pfades ist noch nicht im Spiel.' };
+      this.startCombat(id);
+      return { ok: false, fight: id, text: `${r.name}\n\nDer Kreis ist gezogen, der Tribut liegt bereit. Dann wird es still. Aus dem Nebel tritt ${this.content.encounters[id].name}: dein eigener Grundsatz, der wissen will, ob du ihn tragen kannst.` };
+    }
     if (open.length) return { ok: false, text: `Es fehlt noch: ${open.map((x) => x.text).join(', ')}.` };
     for (const [id, n] of Object.entries(r.consumes ?? {})) this.removeItem(id, n);
     if (r.tribute) this.addMoney(-r.tribute, { reason: 'Tribut' });
@@ -541,17 +675,102 @@ export const pathwayMethods = {
     return t;
   },
 
+  // --- Mythische Gestalt (ab Sequenz 4) --------------------------------------------------------
+  /** Hat man die Gestalt überhaupt schon (Sequenz 4 mit halb verdautem Trank, oder tiefer)? */
+  formUnlocked() {
+    const p = this.pathway;
+    if (!p || p.seq > FORM_SEQ) return false;
+    return p.seq < FORM_SEQ || p.digestion >= FORM_MIN_DIGEST;
+  },
+
+  formActive() {
+    return !!this.pathway?.form;
+  },
+
+  /** Die Kreaturform des eigenen Pfades: { id, name } (Texte und Grafik kommen mit den Paketen CO/CP dazu). */
+  formDef(pid = this.pathway?.id) {
+    if (!pid) return null;
+    return HG_FORMS[pid] ?? { id: `hg_form_${pid}`, name: `Gestalt ${this.pathwayDef(pid)?.name ?? pid}` };
+  },
+
+  /** Warum die Gestalt gerade nicht geht (oder null). */
+  formBlock() {
+    const p = this.pathway;
+    if (!p || p.seq > FORM_SEQ) return `Erst ab Sequenz ${FORM_SEQ}.`;
+    if (!this.formUnlocked()) return `Der Trank der Sequenz ${FORM_SEQ} muss zur Hälfte verdaut sein (${Math.floor(p.digestion)} von ${FORM_MIN_DIGEST} %).`;
+    if (!p.form && this.composure < FORM_MIN_NERVES * 2) return `Dafür fehlen dir die Nerven (mindestens ${FORM_MIN_NERVES * 2}).`;
+    return null;
+  },
+
+  /** Nimmt die mythische Gestalt an oder legt sie ab. Ergebnis: { ok, text, active } */
+  toggleForm() {
+    const p = this.pathway;
+    const form = this.formDef();
+    if (p?.form) {
+      this.endForm();
+      return { ok: true, active: false, text: form.ablegen ?? `Du atmest aus. ${form.name} fällt von dir ab wie ein nasser Mantel, und du bist wieder nur ein Mensch mit zu hellen Augen.` };
+    }
+    const block = this.formBlock();
+    if (block) return { ok: false, active: false, text: block };
+    p.form = true;
+    this.setUnruhe(this.unruhe + 5);
+    // Merker für Zeitung, Gerede und Lesestücke (Paket CP): kreaturform_an, kreaturform_gezeigt, kreaturform_gezeigt_<n>
+    this.formShown = (this.formShown ?? 0) + 1;
+    this.flags.add('kreaturform_an');
+    this.flags.add('kreaturform_gezeigt');
+    for (const n of [1, 3, 10]) if (this.formShown >= n) this.flags.add(`kreaturform_gezeigt_${n}`);
+    const pd = this.pathwayDef();
+    this.emit('form', { active: true, player: this.acting ?? 1, form: form.id });
+    this.emit('form_annehmen', { player: this.acting ?? 1, form: form.id });
+    this.emit('changed');
+    return { ok: true, active: true, text: form.annehmen ?? `Du lässt los. Was unter deiner Haut gewartet hat, richtet sich auf: ${form.name}, die wahre Gestalt des ${pd.name.replace('Pfad', 'Pfads')}. Menschen ohne Pfad und schwächere Wesen brechen zusammen, wenn sie dich sehen. Die Gestalt kostet ${FORM_NERVES_PER_SEC} Nerven und ${FORM_UNRUHE_PER_SEC} Unruhe je Sekunde.` };
+  },
+
+  /** Legt die Gestalt ab (von Hand oder weil die Nerven ausgehen). */
+  endForm() {
+    const p = this.pathway;
+    if (!p?.form) return;
+    delete p.form;
+    this.flags.delete('kreaturform_an');
+    this.emit('form', { active: false, player: this.acting ?? 1, form: this.formDef()?.id });
+    this.emit('form_ablegen', { player: this.acting ?? 1, form: this.formDef()?.id });
+    this.emit('changed');
+  },
+
+  /** Wird aus tickPathway aufgerufen: die Gestalt zehrt und fällt ab, wenn die Nerven ausgehen. */
+  tickForm(dt) {
+    const p = this.pathway;
+    if (!p?.form) return;
+    this.setComposure(this.composure - FORM_NERVES_PER_SEC * dt);
+    this.unruhe += FORM_UNRUHE_PER_SEC * dt; // setUnruhe folgt in tickPathway
+    if (this.composure < FORM_MIN_NERVES) {
+      this.endForm();
+      this.emit('notice', this.formDef()?.zu_lange ?? 'Die Nerven reichen nicht mehr. Deine Gestalt schrumpft zurück in den Körper eines Menschen.');
+    }
+  },
+
+  /** Bricht dieser Gegner beim Anblick deiner Gestalt zusammen? (Kein Kampf, sofortiger Sieg.) */
+  awes(encounterId) {
+    const p = this.pathway;
+    const enc = this.content.encounters[encounterId];
+    if (!p?.form || !enc) return false;
+    if (enc.boss || enc.min_seq || enc.practice) return false;
+    if (!enc.occult) return true; // Nicht-Beyonder: Menschen, die dir nichts entgegenzusetzen haben
+    return encounterSeq(enc, this.content) - p.seq >= FORM_MARGIN;
+  },
+
   serializePathway() {
-    return { money: this.money, pathway: this.pathway, unruhe: Math.round(this.unruhe), seenNodes: [...this.seenNodes], wins: this.wins, ...this.serializeArtifacts() };
+    return { money: this.money, pathway: this.pathway, unruhe: Math.round(this.unruhe), seenNodes: [...this.seenNodes], wins: this.wins, formShown: this.formShown ?? 0, ...this.serializeArtifacts() };
   },
 
   loadPathway(data) {
     this.money = data.money ?? this.money;
     const p = data.pathway;
-    this.pathway = p && this.seqDef(p.id, p.seq) ? { id: p.id, seq: p.seq, digestion: p.digestion ?? 0 } : null;
+    this.pathway = p && this.seqDef(p.id, p.seq) ? { id: p.id, seq: p.seq, digestion: p.digestion ?? 0, ...(p.form ? { form: true } : {}) } : null;
     this.unruhe = Math.max(0, Math.min(UNRUHE_MAX - 1, data.unruhe ?? 0));
     this.seenNodes = new Set(data.seenNodes ?? []);
     this.wins = data.wins ?? 0;
+    this.formShown = data.formShown ?? 0;
     this.loadArtifacts(data);
     this.maxHp = this.calcMaxHp();
     this.hp = Math.max(1, Math.min(this.maxHp, data.hp ?? this.maxHp));

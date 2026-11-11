@@ -1,7 +1,7 @@
 import { NEWSPAPERS } from '../data/lore.js';
 import { uiSound, worldSound } from '../core/sounds.js';
 import { FESTE } from '../core/Clock.js';
-import { DIGEST_LABELS, digestSlowdown, fmtDigest } from '../core/Pathways.js';
+import { DIGEST_LABELS, digestSlowdown, fmtDigest, FORM_SEQ, FORM_MIN_DIGEST, FORM_NERVES_PER_SEC, FORM_UNRUHE_PER_SEC, FORM_MIN_NERVES } from '../core/Pathways.js';
 import { buffLabel, fmtSec } from '../core/Talents.js';
 import { CARRY_PER_STEP } from '../core/GameState.js';
 import { GEAR_SLOT_NAMES } from '../core/Gear.js';
@@ -22,7 +22,7 @@ import { guessMood } from '../core/Moods.js';
 import { MOOD_LABEL, GIFT_KINDS } from '../core/Relations.js';
 import { koopGreeting } from '../core/Koop.js';
 import { STATION_NAMES, DIRECTION_NAMES } from '../data/k3Ruf.js';
-import { isSolved, knownPeople } from '../core/journal.js';
+import { isSolved, knownPeople, journalQuestVisible } from '../core/journal.js';
 import { canHurry, hurryCost, travelSafe, travelFast, afterHurryFight, travelDestinations, cityOf } from '../core/Travel.js';
 import { questTarget, leadTarget, personPlaces, advice } from '../core/Guide.js';
 
@@ -611,7 +611,7 @@ export class Ui {
     if (!el) return;
     const s = this.state;
     // Ohne verfolgten Auftrag zeigt der Wegweiser die nächste offene Spur (z. B. Nan Kettle für Fall 8).
-    const t = s.tracked ? questTarget(s, s.tracked) : leadTarget(s, s.openLeads()[0]);
+    const t = s.tracked && journalQuestVisible(s, s.tracked) ? questTarget(s, s.tracked) : leadTarget(s, s.openLeads()[0]);
     el.classList.toggle('hidden', !t);
     if (t) el.innerHTML = `<span class="arrow">➤</span> ${esc(this.goalText(t))}<span class="gstep">${esc(t.lead ? `Neue Spur: ${s.quest(t.quest).title}` : t.step)}</span>${t.because ? `<span class="gwhy">${esc(t.because.length > 150 ? `${t.because.slice(0, 147)}…` : t.because)}</span>` : ''}`;
   }
@@ -887,7 +887,7 @@ export class Ui {
       const ch = this.pendingChapter;
       this.pendingChapter = null;
       // Paket AE: Kapitelkarte (Ende von Kapitel 1 kündigt Kapitel 2 an, sonst die Schlusskarte)
-      const card = ch.scene ?? (/Kapitel 1\b/.test(ch.title) ? 'kapitel2_karte' : /Kapitel 2\b/.test(ch.title) ? 'kapitel3_karte' : /Kapitel 4\b/.test(ch.title) ? 'kapitel5_karte' : 'kapitel_ende');
+      const card = ch.scene ?? (/Kapitel 1\b/.test(ch.title) ? 'kapitel2_karte' : /Kapitel 2\b/.test(ch.title) ? 'kapitel3_karte' : /Kapitel 3\b/.test(ch.title) ? 'kapitel4_karte' : /Kapitel 4\b/.test(ch.title) ? 'kapitel5_karte' : 'kapitel_ende');
       this.showMessage(ch.title, ch.text, { footer: ch.footer ?? '', scene: card });
       this.sfx(uiSound('message', 'chapter'));
       this.layer.querySelector('.panel.message')?.classList.add('chapterbook'); // Grundpaket: aufgeschlagenes Notizbuch (07_02)
@@ -1037,7 +1037,7 @@ export class Ui {
     const tree = this.state.content.dialogues[npc.dialogue];
     if (!tree) throw new Error(`Dialog fehlt: ${npc.dialogue}`);
     this.dialogue = { npc, tree, onClose, greeted: false };
-    this.showNode(this.state.pick(tree.start));
+    this.showNode(npc.start ?? this.state.pick(tree.start)); // CN: `start` erzwingt einen Knoten (Fahndung)
   }
 
   showNode(nodeId) {
@@ -1190,7 +1190,7 @@ export class Ui {
     this.travelFrom = current;
     const pins = rules.pins ?? {};
     this.travelPins = pins;
-    const goal = s.tracked ? questTarget(s, s.tracked) : leadTarget(s, s.openLeads()[0]);
+    const goal = s.tracked && journalQuestVisible(s, s.tracked) ? questTarget(s, s.tracked) : leadTarget(s, s.openLeads()[0]);
     const goalMap = goal?.district ?? null;
     const meetMap = s.gatheringTarget?.()?.district ?? null;
     this.personMap = null;
@@ -1479,6 +1479,13 @@ export class Ui {
     el.querySelectorAll('[data-tab]').forEach((b) => { b.onclick = () => { if (this.tab !== b.dataset.tab) this.sfx(uiSound('notebook', 'tab')); this.tab = b.dataset.tab; this.selected = []; this.forgetScroll(); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-itemcat]').forEach((b) => { b.onclick = () => { if (this.itemCat !== b.dataset.itemcat) this.sfx(uiSound('notebook', 'page')); this.itemCat = b.dataset.itemcat; this.forgetScroll('notebook', /^UL\./); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-fact]').forEach((b) => { b.onclick = () => this.toggleFact(b.dataset.fact); });
+    el.querySelectorAll('[data-quest-case]').forEach((b) => { b.onclick = (event) => {
+      event.stopPropagation();
+      this.sfx(uiSound('notebook', 'page'));
+      this.forgetScroll();
+      this.openNotebook(b.dataset.questCase);
+    }; });
+    el.querySelector('[data-act=quests]')?.addEventListener('click', () => { this.sfx(uiSound('notebook', 'page')); this.forgetScroll(); this.openNotebook('quests'); });
     el.querySelectorAll('[data-archive]').forEach((b) => { b.onclick = () => { this.sfx(uiSound('notebook', 'page')); this.archiveCase = b.dataset.archive; this.selected = []; this.forgetScroll(); this.renderNotebook(''); }; });
     el.querySelector('[data-act=combine]')?.addEventListener('click', () => this.combine());
     const inv = (fn) => this.as(fn, this.tab === 'items' || this.tab === 'pfad' ? this.invPlayer : 1);
@@ -1507,6 +1514,10 @@ export class Ui {
         if (r.ok) this.toast(r.text, 'good');
       };
     });
+    el.querySelector('[data-form]')?.addEventListener('click', () => {
+      const r = inv(() => this.state.toggleForm());
+      if (r.ok && r.active) { this.close(); this.showMessage('Mythische Gestalt', r.text); } else this.renderNotebook(esc(r.text));
+    });
     el.querySelector('[data-ritual]')?.addEventListener('click', () => {
       const who = this.state.hasP2() ? this.invPlayer : 1;
       const r = inv(() => this.state.performRitual());
@@ -1517,6 +1528,12 @@ export class Ui {
         const card = ritualCardUrl(pid);
         this.showMessage(who === 2 ? 'Ritual: Spieler 2' : 'Ritual', r.text, { aside: card ? `<img class="ritualcard" src="${card}" alt="" onerror="this.remove()">` : '' });
         this.scene?.playRitual?.(pid, who);
+      } else if (r.fight) {
+        // Schweres Ritual (Sequenz 4 und 2): der Schwellenwächter tritt an; der Kampf startet, sobald das Fenster zu ist
+        const pid = inv(() => this.state.pathway?.id);
+        this.close();
+        this.scene?.playRitual?.(pid, who);
+        this.showMessage('Ritual', r.text);
       } else this.renderNotebook(esc(r.text));
     });
     el.querySelectorAll('[data-inspect]').forEach((b) => { b.onclick = () => this.inspectItem(b.dataset.inspect); });
@@ -1586,7 +1603,7 @@ export class Ui {
 
   questsHtml() {
     const s = this.state;
-    const ids = Object.keys(s.quests);
+    const ids = Object.keys(s.quests).filter((id) => journalQuestVisible(s, id));
     const order = (q) => (s.quests[q] === 'active' ? 0 : 1) * 10 + (s.quest(q).kind === 'main' ? 0 : 1);
     ids.sort((a, b) => order(a) - order(b));
     if (!ids.length && !s.openLeads().length) return '<p class="empty">Noch keine Aufträge.</p>';
@@ -1598,8 +1615,10 @@ export class Ui {
       const steps = active ? `<ul class="steps">${s.questSteps(id).map((x) => `<li class="${x.done ? 'done' : ''}">${x.done ? '✓' : '○'} ${esc(x.text)}</li>`).join('')}</ul>` : '';
       const t = active ? questTarget(s, id) : null;
       const goal = active ? `<div class="qgoal">➤ ${t ? esc(this.goalText(t)) : 'Kein fester Ort bekannt'}</div>${t?.because ? `<div class="qwhy">${esc(t.because)}</div>` : ''}` : '';
+      const caseLink = s.content.cases.some((c) => c.id === q.case)
+        ? `<button class="small" data-quest-case="${esc(q.case)}" aria-label="${esc(q.title)}: Schlüsse ziehen">Schlüsse ziehen</button>` : '';
       return `<li class="quest ${st} ${tracked ? 'tracked' : ''}" ${active ? `data-track="${id}"` : ''}><div class="qtitle">${uiSprite('qstatus', !active ? 'q1' : tracked ? 'q6' : q.kind === 'main' ? 'q5' : 'q2', 1 / 12, 'qico')}<span class="qkind">${q.kind === 'main' ? 'Hauptfall' : 'Nebenauftrag'}</span> ${esc(q.title)} ${!active ? '<span class="badge likely">erledigt</span>' : ''}${tracked ? '<span class="badge track">verfolgt</span>' : ''}</div>
-        ${active ? `<div class="qsum">${q.wanted ? wantedImg(q.wanted, false) : ''}${esc(q.summary)}</div>` : ''}${steps}${goal}</li>`;
+        ${active ? `<div class="qsum">${q.wanted ? wantedImg(q.wanted, false) : ''}${esc(q.summary)}</div>` : ''}${steps}${goal}${caseLink}</li>`;
     };
     // Offene Spuren: Aufträge, die noch abgeholt werden müssen (z. B. Fall 8 bei Nan Kettle am Nachtmarkt)
     const leadRow = (l) => {
@@ -1612,7 +1631,7 @@ export class Ui {
     // Erledigte Aufträge zusammengeklappt, damit die offenen oben sichtbar bleiben
     const open = ids.filter((id) => s.quests[id] === 'active');
     const closed = ids.filter((id) => s.quests[id] !== 'active');
-    return `<p class="hintline">Klicke auf einen Auftrag, um ihn zu verfolgen. Ein Pfeil zeigt dir dann den Weg.</p>
+    return `<p class="hintline">Klicke auf einen Auftrag, um ihn zu verfolgen. „Schlüsse ziehen“ öffnet die Informationen zu diesem Fall.</p>
       <ul class="quests">${leads}${open.map(row).join('') || (leads ? '' : '<li class="empty">Gerade keine offenen Aufträge.</li>')}</ul>
       ${closed.length ? `<details class="closed-quests"><summary>Erledigt (${closed.length})</summary><ul class="quests">${closed.map(row).join('')}</ul></details>` : ''}`;
   }
@@ -1830,6 +1849,8 @@ export class Ui {
         <ul class="sources">${s.factSources(detailId).map((c) => `<li>${sourceFace(s.content, s.clue(c), s.factStatus(detailId) === 'refuted')}<div><em>${esc(s.clue(c).source)}:</em> ${esc(s.clue(c).text)}</div></li>`).join('')}</ul>`
       : 'Klicke eine Information an, um ihre Quellen zu sehen. Ab zwei Quellen gilt sie als sehr wahrscheinlich. Wähle zwei Informationen und verknüpfe sie.';
     return `
+      <div class="actions"><button class="small" data-act="quests">← Zurück zu den Aufträgen</button></div>
+      <h4>${esc(s.content.cases.find((c) => c.id === caseId)?.title ?? 'Fallakte')}</h4>
       ${blockBox}
       <div class="cols">
         <div class="col">
@@ -1954,7 +1975,7 @@ export class Ui {
       const socket = uiSprite('ladder', !reached ? (n === cur.seq - 1 ? 'empty' : 'locked') : n === cur.seq && s.unruhe >= 60 ? 'cracked' : 'unlocked', 1 / 12, 'socket');
       if (!reached) return `<li class="seq locked">${socket}<strong>Sequenz ${n}: ${esc(sd.name)}</strong> <span class="muted">noch nicht erreicht${sd.skill2 || sd.talent ? ` · bringt ${[sd.skill.name, sd.skill2?.name, sd.talent?.name].filter(Boolean).map(esc).join(', ')}` : ''}</span></li>`;
       const talent = sd.talent ? this.talentRowHtml(s, sd.talent) : '';
-      return `<li class="seq">${socket}<strong>Sequenz ${n}: ${esc(sd.name)}</strong> ${n === cur.seq ? '<span class="badge likely">aktuell</span>' : ''}<br>
+      return `<li class="seq${sd.durchbruch ? ' durchbruch' : ''}">${socket}<strong>Sequenz ${n}: ${esc(sd.name)}</strong> ${sd.durchbruch ? `<span class="badge halbgott">${esc(sd.durchbruch)}</span>` : ''}${n === cur.seq ? '<span class="badge likely">aktuell</span>' : ''}<br>
         <span class="desc">${esc(sd.desc)}</span><br>
         ${skillIcon(sd.skill.id) || '⚔ '}<strong>${esc(sd.skill.name)}</strong> <span class="muted">(${sd.skill.cost} K${s.skillComposureCost({ ...sd.skill, seq: n }) ? ` · ${s.skillComposureCost({ ...sd.skill, seq: n })} Nerven` : ''})</span> ${esc(sd.skill.desc)}
         ${sd.skill2 ? `<br>${skillIcon(sd.skill2.id) || '⚔ '}<strong>${esc(sd.skill2.name)}</strong> <span class="muted">(${sd.skill2.cost} K${s.skillComposureCost({ ...sd.skill2, seq: n }) ? ` · ${s.skillComposureCost({ ...sd.skill2, seq: n })} Nerven` : ''})</span> ${esc(sd.skill2.desc)}` : ''}
@@ -1973,6 +1994,7 @@ export class Ui {
       <p class="muted">Jede Sequenz dieses Pfades: +${s.growth().hp} Leben, +${s.growth().nerves} Nerven, +${CARRY_PER_STEP} Pfund Tragkraft, die Durchbrüche 7 und 6 das Doppelte. Gerade: ${s.maxHp} Leben, ${s.maxComposure()} Nerven, ${esc(s.carryBreakdown())} = ${fmtLb(s.carryCapacity())} Pfund Tragkraft.</p>
       ${s.corruptionDrain().count ? `<p class="curse">Korruption: ${s.corruptionDrain().count} Stück an dir zehrt an Leben und Nerven (siehe Inventar). Bei 100 Unruhe wachsen die Tentakel erneut und treffen alles, was du dann trägst.</p>` : '<p class="muted">Bei 100 Unruhe verlierst du die Kontrolle: Tentakel korrumpieren Waffe, Kleidung und Artefakte am Leib, die dich danach Leben und Nerven kosten, solange du sie trägst.</p>'}
       ${this.buffsHtml(s)}
+      ${this.formHtml(s)}
       ${this.ritualHtml()}
       <h4>Was deinen Trank verdaut</h4>
       <ul class="digestlist">${s.digestTable().map((r) => `<li><span>${esc(r.label)}</span> <strong>+${r.text} %</strong></li>`).join('')}
@@ -1998,7 +2020,19 @@ export class Ui {
     return `<p class="buffs">☉ Wirkt gerade: ${[...list.map((b) => `${esc(buffLabel(b))} <span class="muted">(${b.remainingText})</span>`), ...world.map(esc)].join(' · ')}</p>`;
   }
 
-  /** Ritual für den nächsten Trank (ab Sequenz 6): Ort, Zutaten, Bedingungen, Knopf. */
+  /** Mythische Gestalt (ab Sequenz 4 und halb verdautem Trank): Knopf zum Annehmen und Ablegen. */
+  formHtml(s) {
+    if (!s.pathway || s.pathway.seq > FORM_SEQ) return '';
+    const active = s.formActive();
+    const block = active ? null : s.formBlock();
+    return `<div class="gestalt ${active ? 'active' : ''}"><h4>Mythische Gestalt ${active ? '<span class="badge halbgott">angenommen</span>' : ''}</h4>
+      <p class="muted">${active
+        ? `Menschen ohne Pfad und Wesen, die deutlich unter dir stehen, brechen beim Anblick zusammen (Sieg samt Beute, ohne Kampf). Kostet ${FORM_NERVES_PER_SEC} Nerven und ${FORM_UNRUHE_PER_SEC} Unruhe je Sekunde; fällt ab, wenn die Nerven unter ${FORM_MIN_NERVES} sinken. Bosse und höhere Wesen bleiben.`
+        : `Ab ${FORM_MIN_DIGEST} % Verdauung auf Sequenz ${FORM_SEQ}: die wahre Gestalt des Pfades. Nicht-Beyonder und schwächere Monster fallen vor ihr um. Zehrt an Nerven und Unruhe.`}</p>
+      <button class="small ${block ? '' : 'primary'}" data-form="1" ${block ? 'disabled' : ''}>${active ? 'Gestalt ablegen' : 'Gestalt annehmen'}</button> ${block ? `<span class="muted">${esc(block)}</span>` : ''}</div>`;
+  }
+
+  /** Ritual für den nächsten Trank (ab Sequenz 6): Zutaten, Bedingungen, Knopf. */
   ritualHtml() {
     const s = this.state;
     if (!s.pathway) return '';
@@ -2007,11 +2041,12 @@ export class Ui {
     if (!r) return '';
     if (s.ritualDone(s.pathway.id, seq)) return `<div class="ritual done"><h4>Ritual: ${esc(r.name)} <span class="badge likely">vollzogen</span></h4><p class="muted">Du kannst den Trank der Sequenz ${seq} trinken.</p></div>`;
     const steps = s.ritualSteps();
-    const ready = steps.every((x) => x.done);
+    const ready = steps.every((x) => x.done || x.ordeal);
     return `<div class="ritual"><h4>Ritual für Sequenz ${seq}: ${esc(r.name)}</h4>
+      <p><strong>Überall ausführbar.</strong> Die genannten Orte sind Teil der Überlieferung und keine Voraussetzung.</p>
       <p class="desc">${esc(r.desc)}</p>
       <ul class="steps">${steps.map((x) => `<li class="${x.done ? 'done' : ''}">${x.done ? '✓' : '○'} ${esc(x.text)}</li>`).join('')}</ul>
-      <button class="small ${ready ? 'primary' : ''}" data-ritual="1" ${ready ? '' : 'disabled'}>Ritual vollziehen</button> <span class="muted">Kostet 20 Nerven und bringt 20 Unruhe.</span></div>`;
+      <button class="small ${ready ? 'primary' : ''}" data-ritual="1" ${ready ? '' : 'disabled'}>${ready && r.ordeal && !s.ordealDone(s.pathway.id, seq) ? 'Schwellenwächter rufen' : 'Ritual vollziehen'}</button> <span class="muted">Kostet 20 Nerven und bringt 20 Unruhe.${r.ordeal ? ' Ein schweres Ritual: Wenn alles andere steht, tritt der Schwellenwächter deines Pfades an.' : ''}</span></div>`;
   }
 
   recipesHtml(withButtons) {
@@ -2028,7 +2063,26 @@ export class Ui {
     if (r.lost) { this.close(); return; } // Meldung kommt über 'lostcontrol'
     if (!r.ok) { this.renderNotebook(esc(r.text)); return; }
     this.close();
-    this.showMessage(`${who === 2 ? 'Spieler 2: ' : ''}${this.state.item(itemId).name}`, r.text);
+    const title = `${who === 2 ? 'Spieler 2: ' : ''}${this.state.item(itemId).name}`;
+    if (r.ascension) this.playAscension(r.ascension, () => this.showMessage(title, r.text));
+    else this.showMessage(title, r.text);
+  }
+
+  /**
+   * Aufstiegs-Szene für Halbgott (Sequenz 4) und Engel (Sequenz 2): Lichtflut in der Pfadfarbe über dem ganzen Bild,
+   * Ringe, dann das Wort in großen Lettern und der Name der Stufe. Die Welt spielt dazu ihre eigenen Funken (WorldScene).
+   * Tasten sind so lange gesperrt; danach folgt das Trankfenster.
+   */
+  playAscension(asc, then) {
+    const color = asc.color ?? '#e8c070';
+    const el = document.createElement('div');
+    el.className = 'ascension';
+    el.style.setProperty('--c', color);
+    el.innerHTML = `<div class="rings"><i></i><i></i><i></i></div><div class="words"><span class="rank">Sequenz ${asc.seq}</span><strong>${esc(asc.title)}</strong><span class="name">${esc(asc.name ?? '')}</span></div>`;
+    this.root.appendChild(el);
+    this.keysBlockedUntil = performance.now() + 4200;
+    setTimeout(() => el.classList.add('fade'), 3600);
+    setTimeout(() => { el.remove(); then?.(); }, 4300);
   }
 
   /** Braukessel: wer ihn bedient (Spieler 2 per Enter), braut aus seiner eigenen Tasche. */
@@ -2233,24 +2287,27 @@ export class Ui {
       stage = `<div class="speaker">Dein Angebot <span class="role">Artefakte und Formeln</span></div>
         ${list.length ? '<p class="lead">Was legst du auf den Tisch?</p>' : '<p class="lead">Du hast keine Artefakte oder Formeln dabei, die du anbieten könntest.</p>'}
         ${list.length ? `<ul class="offers">${list.slice(0, 8).map((o) => `<li>${itemIcon(o.id)}<strong>${esc(o.name)}</strong> <span class="muted">etwa ${o.value} Sch.</span>${offerHtml(s, o.id)}</li>`).join('')}</ul>` : ''}
-        ${a.artisan ? `<p class="lead muted">${esc(s.artisanName())} sitzt abseits und fasst Beutestücke zu Artefakten.</p>` : ''}`;
+        ${a.artisan ? `<p class="lead muted">${esc(s.artisanName())} sitzt abseits und nimmt starke Beutestücke in Auftrag.</p>` : ''}`;
       if (a.artisan) acts.push({ label: `Zu ${s.artisanName()}: Beute fassen lassen`, fn: () => s.openArtisan() });
       for (const o of list.slice(0, 8)) acts.push({ label: `${o.name} anbieten`, fn: () => s.offerOwn(o.id), icon: o.id });
       acts.push({ label: 'Runde beenden', fn: () => this.finishAuction() });
     } else if (a.phase === 'artisan') {
       const recipes = s.artisanRecipes(a.circle, a.cycle);
+      const pct = (c) => `${Math.round(c * 100)} %`;
       const rows = recipes.map((r) => {
         const c = s.recipeCheck(r);
         const it = s.item(c.artifact);
         const needs = c.needs.map((x) => `<span class="${x.have >= x.n ? 'got' : 'lack'}">${itemIcon(x.item)}${esc(s.item(x.item)?.name ?? x.item)} ${x.have}/${x.n}</span>`).join(' · ');
-        return `<li class="recipe ${c.ok ? 'ready' : ''}">${itemIconBig(c.artifact)}<strong>${esc(it?.name ?? c.artifact)}</strong> <span class="muted">Lohn ${c.fee} Sch.</span>${artifactEffectsHtml(it ?? {})}<span class="needs">Braucht: ${needs}</span></li>`;
+        return `<li class="recipe ${c.ok ? 'ready' : ''}">${itemIconBig(c.artifact)}<strong>${esc(it?.name ?? c.artifact)}</strong> <span class="muted">Lohn ${c.fee} Sch. · gelingt zu ${pct(c.chance)}</span>${artifactEffectsHtml(it ?? {})}<span class="needs">Aus: ${needs}</span></li>`;
       }).join('');
+      const pending = s.pendingOrders();
+      const pendingHtml = pending.length ? `<p class="lead muted">In Arbeit: ${pending.map((o) => `${esc(s.item(o.artifact)?.name ?? o.artifact)} (${esc(s.gatheringDef(o.circle)?.name ?? o.circle)})`).join(', ')}.</p>` : '';
       stage = `${portrait(s.artisanId())}<div class="speaker">${esc(s.artisanName())} <span class="role">${esc(s.content.npcs[s.artisanId()]?.role ?? 'Fasserin')}</span></div>
-        <p class="lead">„${esc(s.artisanGreeting(a.circle, a.cycle))}“ <span class="muted">Der Lohn ist fest, die Beute ist danach weg.</span></p>
-        <ul class="recipes">${rows || '<li class="muted">Heute hat sie nichts auf dem Tisch.</li>'}</ul>`;
+        <p class="lead">„${esc(s.artisanGreeting(a.circle, a.cycle))}“ <span class="muted">Ein Stück, fester Lohn. Fertig ist es beim nächsten Treffen dieses Zirkels; misslingt die Fassung, ist das Stück hin und die Hälfte des Lohns kommt zurück.</span></p>
+        <ul class="recipes">${rows || '<li class="muted">Heute hat sie nichts auf dem Tisch.</li>'}</ul>${pendingHtml}`;
       for (const r of recipes) {
         const c = s.recipeCheck(r);
-        acts.push({ label: `${s.item(c.artifact)?.name ?? r.id} fassen (${c.fee} Sch.)`, fn: () => s.craftArtifact(r.id), off: !c.ok, icon: c.artifact });
+        acts.push({ label: `${s.item(c.artifact)?.name ?? r.id} in Auftrag geben (${c.fee} Sch., ${pct(c.chance)})`, fn: () => s.orderArtifact(r.id), off: !c.ok, icon: c.artifact });
       }
       acts.push({ label: 'Zurück zur Runde', fn: () => s.leaveArtisan() });
     } else if (a.phase === 'own_bids') {
@@ -2297,7 +2354,8 @@ export class Ui {
     this.close();
     if (!sum) return;
     const line = (l, verb) => l.map((x) => `${this.state.item(x.item).name} (${x.price} Sch.)`).join(', ') || 'nichts';
-    this.showMessage('Die Runde löst sich auf', `Gekauft: ${line(sum.bought)}\n\nVerkauft: ${line(sum.sold)}${sum.crafted?.length ? `\n\nGefasst: ${line(sum.crafted)}` : ''}`, { footer: 'Bis zum nächsten Treffen.' });
+    const got = (sum.collected ?? []).map((x) => (x.ok ? `${this.state.item(x.item).name} gelungen` : `${this.state.item(x.item).name} misslungen (${x.refund} Sch. zurück)`)).join(', ');
+    this.showMessage('Die Runde löst sich auf', `Gekauft: ${line(sum.bought)}\n\nVerkauft: ${line(sum.sold)}${got ? `\n\nAbgeholt: ${got}` : ''}${sum.crafted?.length ? `\n\nIn Auftrag: ${line(sum.crafted)} · fertig beim nächsten Treffen dieses Zirkels` : ''}`, { footer: 'Bis zum nächsten Treffen.' });
   }
 
   // --- Eigenes Büro: Lagerschrank und Fallwand -------------------------------------------

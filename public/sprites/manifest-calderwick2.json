@@ -1,0 +1,596 @@
+{
+  "version": 1,
+  "batch": "calderwick2",
+  "city": "calderwick",
+  "status": "exported; game integration separate",
+  "paletteMaxVisibleColors": 32,
+  "palette": [
+    "#1a1c2c",
+    "#252b38",
+    "#303b49",
+    "#425360",
+    "#586c78",
+    "#71858b",
+    "#95a5a5",
+    "#a8b4c0",
+    "#2d2629",
+    "#58433c",
+    "#715648",
+    "#92745a",
+    "#b3946e",
+    "#cfb18a",
+    "#e0c9a1",
+    "#494b3a",
+    "#686850",
+    "#8b8870",
+    "#eee2c5",
+    "#173d40",
+    "#245b59",
+    "#36817a",
+    "#4eafa2",
+    "#6fe0d0",
+    "#886332",
+    "#d0a050",
+    "#e8b860",
+    "#f0ce80",
+    "#c8b0e8",
+    "#5c426a",
+    "#8c7295",
+    "#893e4e"
+  ],
+  "assets": [
+    {
+      "id": "cw_aufzug",
+      "kind": "scene",
+      "file": "ui/scenes/cw_aufzug.png",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "sha256": "29b7012a8c357f3a15b9277f909022d6c9d408e2bc1218192e37ebe2f8f99d90"
+    },
+    {
+      "id": "cw_zwei_teller",
+      "kind": "scene",
+      "file": "ui/scenes/cw_zwei_teller.png",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "sha256": "20f03ffce2922ebe6519ba9a6c4d95f554b8d8e712cf3445e71a919e39750623"
+    },
+    {
+      "id": "cw_sortierkabine",
+      "kind": "scene",
+      "file": "ui/scenes/cw_sortierkabine.png",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "sha256": "5c4eedea416bc9318a55a04c74849c8ad2080487a7bce40c5ac29ca9afd6c0ec"
+    },
+    {
+      "id": "cw_ende_widerspruch",
+      "kind": "scene",
+      "file": "ui/scenes/cw_ende_widerspruch.png",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "sha256": "0e996b2fcaf48315e539966967a267dd01017df09fc59eb63a8842bb526be9ba"
+    },
+    {
+      "id": "cw_ende_amtsinhaber",
+      "kind": "scene",
+      "file": "ui/scenes/cw_ende_amtsinhaber.png",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "sha256": "a7978358cf38de66b6eb69119bec3edfd46bbdc0ea720d8bb256bb2038dc8bf0"
+    },
+    {
+      "id": "cw_ende_buecher",
+      "kind": "scene",
+      "file": "ui/scenes/cw_ende_buecher.png",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "sha256": "e73777a20a3da577119824f2b7833703dafc28a6e10bf294d5b65dffcc43dad4"
+    },
+    {
+      "id": "cw_ende_ordnung",
+      "kind": "scene",
+      "file": "ui/scenes/cw_ende_ordnung.png",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "sha256": "bc1656e928c97362c1337521aa83adc3a0d6d9750610231e774c450bb85eef18"
+    },
+    {
+      "id": "bg_cw_gleisfuss",
+      "kind": "background",
+      "file": "battle/bg_cw_gleisfuss.png",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "sha256": "fe3729a136899228972c048d48b71c690315f095d87ac314ce3ea07570b9dde2"
+    },
+    {
+      "id": "bg_cw_setzergasse",
+      "kind": "background",
+      "file": "battle/bg_cw_setzergasse.png",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "sha256": "43aca312a4d616f01ee01a4bf0e3ef8687a1ac497e8e8a3abe3d9c80bf67d7a5"
+    },
+    {
+      "id": "bg_cw_quittungsmarkt",
+      "kind": "background",
+      "file": "battle/bg_cw_quittungsmarkt.png",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "sha256": "84ed25270460612fa5cf6873b82adb8e07284a679cc46fd53d45190da77c9652"
+    },
+    {
+      "id": "bg_cw_roehrenhof",
+      "kind": "background",
+      "file": "battle/bg_cw_roehrenhof.png",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "sha256": "ecb76ade6c1833cfe8b9ba96c10fe92a93c703ff56d0126e4739c67d8b60466d"
+    },
+    {
+      "id": "bg_cw_witwenterrasse",
+      "kind": "background",
+      "file": "battle/bg_cw_witwenterrasse.png",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "sha256": "dc806e615de6bbbc8838bde877b7908f1b8def61a8ff7d616729cc51b28d035b"
+    },
+    {
+      "id": "bg_cw_kronenarchiv",
+      "kind": "background",
+      "file": "battle/bg_cw_kronenarchiv.png",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "sha256": "9d4499026bd23955319b7e0ad90eb30a5abb696873227df7d63190095c96faca"
+    },
+    {
+      "id": "bg_cw_druckkammer",
+      "kind": "background",
+      "file": "battle/bg_cw_druckkammer.png",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "sha256": "ced532d7ab6248a98279cecdb68cc6e2d6b31e9ffa063c122a71bcb87ee43bcd"
+    },
+    {
+      "id": "bg_cw_landstrasse_tag",
+      "kind": "background",
+      "file": "battle/bg_cw_landstrasse_tag.png",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "sha256": "8f1d0c4f125ec832fd5122e525c1dd3c29171af11c8bf5314f1997d99f7eb953"
+    },
+    {
+      "id": "bg_cw_landstrasse_nacht",
+      "kind": "background",
+      "file": "battle/bg_cw_landstrasse_nacht.png",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "sha256": "898b030ce3aa1d77c3f80d86869d41bee9caba09c9232a02f8a8c04448862fc8"
+    },
+    {
+      "id": "cw_karte",
+      "kind": "map",
+      "file": "ui/cw_karte.png",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "sha256": "1f5b13da4ba3d3de11f7bc55026169994d86089520314b6988327bc275a486a6"
+    },
+    {
+      "id": "cw_karte_nebel",
+      "kind": "map",
+      "file": "ui/cw_karte_nebel.png",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "sha256": "7f00d4700fa094ea7ee6d8e2e0875ef76a3562eb58b4b3443c041ef27ec2d7bb"
+    },
+    {
+      "id": "cw_marker",
+      "kind": "markers",
+      "file": "ui/cw_marker.png",
+      "width": 96,
+      "height": 48,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 6,
+      "rows": 3,
+      "transparent": true,
+      "animations": {},
+      "regions": {
+        "cw_gleisfuss": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "cw_setzergasse": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "cw_quittungsmarkt": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "cw_roehrenhof": {
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "cw_witwenterrasse": {
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "cw_kronenarchiv": {
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "cw_buchbinderei": {
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "cw_gepaeckhalle": {
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "cw_pfandhaus": {
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "cw_sortierhalle": {
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "cw_kueche": {
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "cw_archivsaal": {
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "cw_villa": {
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "cw_druckkammer": {
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "cw_alte_setzerei": {
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "cw_sortiergrube": {
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "cw_nullfundament": {
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "reise_landstrasse": {
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "baselineExclusive": 15,
+      "sha256": "222d647fba52c2f68f780d4467f460a380c93ecda992ba88f9e6df0704c35dee"
+    },
+    {
+      "id": "kapitel4_karte",
+      "kind": "scene",
+      "file": "ui/scenes/kapitel4_karte.png",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "sha256": "b799a0075ce7912075de5fd8192cd9fd51acfa284833fc1bfb3fb4f2102bc64a"
+    },
+    {
+      "id": "landstrasse_karte",
+      "kind": "map",
+      "file": "ui/landstrasse_karte.png",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "sha256": "c531be21206920738e498041cd042908957e69177b3df5891a7a7d8cbdc056d8"
+    },
+    {
+      "id": "cw_abgleich",
+      "kind": "fx",
+      "file": "fx/cw_abgleich.png",
+      "width": 288,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 18,
+      "rows": 8,
+      "transparent": true,
+      "animations": {},
+      "regions": {
+        "strasse_gerade": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "animations": {
+            "strasse_gerade": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 4,
+              "repeat": -1
+            }
+          }
+        },
+        "strasse_kurve": {
+          "x": 0,
+          "y": 16,
+          "width": 64,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "animations": {
+            "strasse_kurve": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 4,
+              "repeat": -1
+            }
+          }
+        },
+        "strasse_ende": {
+          "x": 0,
+          "y": 32,
+          "width": 64,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "animations": {
+            "strasse_ende": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 4,
+              "repeat": -1
+            }
+          }
+        },
+        "kontakt_gefaehrdet": {
+          "x": 0,
+          "y": 48,
+          "width": 64,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "animations": {
+            "kontakt_gefaehrdet": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 4,
+              "repeat": -1
+            }
+          }
+        },
+        "verbindung_stabil": {
+          "x": 0,
+          "y": 64,
+          "width": 32,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 2,
+          "rows": 1,
+          "animations": {
+            "verbindung_stabil": {
+              "frames": [
+                0,
+                1
+              ],
+              "frameRate": 4,
+              "repeat": -1
+            }
+          }
+        },
+        "nebel_rueckweg": {
+          "x": 0,
+          "y": 80,
+          "width": 288,
+          "height": 48,
+          "frameWidth": 48,
+          "frameHeight": 48,
+          "columns": 6,
+          "rows": 1,
+          "animations": {
+            "nebel_rueckweg": {
+              "frames": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "frameRate": 8,
+              "repeat": 0
+            }
+          }
+        }
+      },
+      "sha256": "7370b66214da229d780c68e0f974a606c7831d4ef267760b6cba189303a38329"
+    }
+  ]
+}

@@ -1,0 +1,302 @@
+{
+  "kgl_q_droschke": {
+    "title": "Das Rad im Rinnstein",
+    "kind": "side",
+    "case": "side",
+    "summary": "Folge zwei Beobachtungen und entscheide, wie du hilfst.",
+    "steps": [
+      {
+        "text": "Am Rad fehlt der Sicherungskeil. Im Rinnstein liegt frisches Holz, ohne Sägespur.",
+        "done": {
+          "requires_flags": [
+            "kgl_ev_droschke_spur1"
+          ]
+        },
+        "target": {
+          "map": "altmarkt",
+          "id": "kgl_ev_droschke_hinweis1",
+          "label": "Spur 1"
+        }
+      },
+      {
+        "text": "Die Botin hat eine warme Arzneiflasche in der Tasche. Auf dem Zettel steht eine heutige Abholzeit.",
+        "done": {
+          "requires_flags": [
+            "kgl_ev_droschke_spur2"
+          ]
+        },
+        "target": {
+          "map": "ashgrove",
+          "id": "kgl_ev_droschke_hinweis2",
+          "label": "Spur 2"
+        }
+      },
+      {
+        "text": "Kehre zur Straßenszene zurück und entscheide.",
+        "done": {
+          "requires_flags": [
+            "kgl_ev_droschke_done"
+          ]
+        },
+        "target": {
+          "map": "nordtor",
+          "id": "kgl_ev_droschke",
+          "label": "Das Rad im Rinnstein"
+        }
+      }
+    ],
+    "reward": {
+      "gives_money": 0
+    }
+  },
+  "kgl_q_brand": {
+    "title": "Ruß über den Dachziegeln",
+    "kind": "side",
+    "case": "side",
+    "summary": "Folge zwei Beobachtungen und entscheide, wie du hilfst.",
+    "steps": [
+      {
+        "text": "Der Ofenzug ist offen. Die Bewohnerin hat bereits aufgehört nachzulegen, das Feuer sitzt im Schlot.",
+        "done": {
+          "requires_flags": [
+            "kgl_ev_brand_spur1"
+          ]
+        },
+        "target": {
+          "map": "altmarkt",
+          "id": "kgl_ev_brand_hinweis1",
+          "label": "Spur 1"
+        }
+      },
+      {
+        "text": "Am Brunnen steht ein leerer Sandeimer. Eine Leiter ist erreichbar, doch sie muss am Fuß gesichert werden.",
+        "done": {
+          "requires_flags": [
+            "kgl_ev_brand_spur2"
+          ]
+        },
+        "target": {
+          "map": "nordtor",
+          "id": "kgl_ev_brand_hinweis2",
+          "label": "Spur 2"
+        }
+      },
+      {
+        "text": "Kehre zur Straßenszene zurück und entscheide.",
+        "done": {
+          "requires_flags": [
+            "kgl_ev_brand_done"
+          ]
+        },
+        "target": {
+          "map": "ashgrove",
+          "id": "kgl_ev_brand",
+          "label": "Ruß über den Dachziegeln"
+        }
+      }
+    ],
+    "reward": {
+      "gives_money": 0
+    }
+  },
+  "kgl_q_tasche": {
+    "title": "Drei Ecken Vorsprung",
+    "kind": "side",
+    "case": "side",
+    "summary": "Folge zwei Beobachtungen und entscheide, wie du hilfst.",
+    "steps": [
+      {
+        "text": "An der ersten Ecke liegt ein abgerissener blauer Faden. Die nassen Schritte führen zum Kanal.",
+        "done": {
+          "requires_flags": [
+            "kgl_ev_tasche_spur1"
+          ]
+        },
+        "target": {
+          "map": "ashgrove",
+          "id": "kgl_ev_tasche_hinweis1",
+          "label": "Spur 1"
+        }
+      },
+      {
+        "text": "Ein Händler sah den Dieb unter der Brücke warten. Er hält die Tasche fest, als wäre sie sein Fahrgeld.",
+        "done": {
+          "requires_flags": [
+            "kgl_ev_tasche_spur2"
+          ]
+        },
+        "target": {
+          "map": "docks",
+          "id": "kgl_ev_tasche_hinweis2",
+          "label": "Spur 2"
+        }
+      },
+      {
+        "text": "Kehre zur Straßenszene zurück und entscheide.",
+        "done": {
+          "requires_flags": [
+            "kgl_ev_tasche_done"
+          ]
+        },
+        "target": {
+          "map": "altmarkt",
+          "id": "kgl_ev_tasche",
+          "label": "Drei Ecken Vorsprung"
+        }
+      }
+    ],
+    "reward": {
+      "gives_money": 0
+    }
+  },
+  "kgl_q_prediger": {
+    "title": "Rost am Rednerpult",
+    "kind": "side",
+    "case": "side",
+    "summary": "Folge zwei Beobachtungen und entscheide, wie du hilfst.",
+    "steps": [
+      {
+        "text": "Auf dem Flugblatt ist nur eine Treffzeit gedruckt. Die versprochene Schuldentilgung steht nirgends.",
+        "done": {
+          "requires_flags": [
+            "kgl_ev_prediger_spur1"
+          ]
+        },
+        "target": {
+          "map": "altmarkt",
+          "id": "kgl_ev_prediger_hinweis1",
+          "label": "Spur 1"
+        }
+      },
+      {
+        "text": "Eine Zuhörerin zeigt ihre Quittung. Bezahlt wurde ein Vortrag, kein Erlass ihrer Schulden.",
+        "done": {
+          "requires_flags": [
+            "kgl_ev_prediger_spur2"
+          ]
+        },
+        "target": {
+          "map": "nachtmarkt",
+          "id": "kgl_ev_prediger_hinweis2",
+          "label": "Spur 2"
+        }
+      },
+      {
+        "text": "Kehre zur Straßenszene zurück und entscheide.",
+        "done": {
+          "requires_flags": [
+            "kgl_ev_prediger_done"
+          ]
+        },
+        "target": {
+          "map": "ankerhof",
+          "id": "kgl_ev_prediger",
+          "label": "Rost am Rednerpult"
+        }
+      }
+    ],
+    "reward": {
+      "gives_money": 0
+    }
+  },
+  "kgl_q_kreide": {
+    "title": "Ein Kreis für die Fehlenden",
+    "kind": "side",
+    "case": "side",
+    "summary": "Folge zwei Beobachtungen und entscheide, wie du hilfst.",
+    "steps": [
+      {
+        "text": "Die Kreide stammt von einer Schneiderin. An ihr klebt kein Ritualstaub, nur ein Stück Verpackung.",
+        "done": {
+          "requires_flags": [
+            "kgl_ev_kreide_spur1"
+          ]
+        },
+        "target": {
+          "map": "altmarkt",
+          "id": "kgl_ev_kreide_hinweis1",
+          "label": "Spur 1"
+        }
+      },
+      {
+        "text": "Das fehlende Kind arbeitet seit Tagen bei Verwandten. Die anderen wollten ihm einen Platz freihalten.",
+        "done": {
+          "requires_flags": [
+            "kgl_ev_kreide_spur2"
+          ]
+        },
+        "target": {
+          "map": "ashgrove",
+          "id": "kgl_ev_kreide_hinweis2",
+          "label": "Spur 2"
+        }
+      },
+      {
+        "text": "Kehre zur Straßenszene zurück und entscheide.",
+        "done": {
+          "requires_flags": [
+            "kgl_ev_kreide_done"
+          ]
+        },
+        "target": {
+          "map": "nachtmarkt",
+          "id": "kgl_ev_kreide",
+          "label": "Ein Kreis für die Fehlenden"
+        }
+      }
+    ],
+    "reward": {
+      "gives_money": 0
+    }
+  },
+  "kgl_q_brief": {
+    "title": "Die Tür mit der falschen Zahl",
+    "kind": "side",
+    "case": "side",
+    "summary": "Folge zwei Beobachtungen und entscheide, wie du hilfst.",
+    "steps": [
+      {
+        "text": "Die Hausnummer wurde nach dem letzten Brand versetzt. Der Umschlag trägt noch die alte Nummer.",
+        "done": {
+          "requires_flags": [
+            "kgl_ev_brief_spur1"
+          ]
+        },
+        "target": {
+          "map": "altmarkt",
+          "id": "kgl_ev_brief_hinweis1",
+          "label": "Spur 1"
+        }
+      },
+      {
+        "text": "Edda kennt die Empfängerin. Die Frau wartet auf Nachricht über eine Stelle, nicht auf eine Erbschaft.",
+        "done": {
+          "requires_flags": [
+            "kgl_ev_brief_spur2"
+          ]
+        },
+        "target": {
+          "map": "ebba",
+          "id": "kgl_ev_brief_hinweis2",
+          "label": "Spur 2"
+        }
+      },
+      {
+        "text": "Kehre zur Straßenszene zurück und entscheide.",
+        "done": {
+          "requires_flags": [
+            "kgl_ev_brief_done"
+          ]
+        },
+        "target": {
+          "map": "ashgrove",
+          "id": "kgl_ev_brief",
+          "label": "Die Tür mit der falschen Zahl"
+        }
+      }
+    ],
+    "reward": {
+      "gives_money": 0
+    }
+  }
+}

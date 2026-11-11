@@ -113,8 +113,10 @@ export const auctionMethods = {
     this.sessionsHeld = [...this.sessionsHeld.filter((k) => Number(k.split(':')[1]) >= cycle - 1), `${circleId}:${cycle}`];
     const members = this.circleMembers(circleId).map((m) => m.id);
     const artisan = !!this.artisanPresent?.(circleId, cycle);
-    this.auction = { circle: circleId, cycle, members, turn: 0, phase: 'lot', lot: null, request: null, own: null, artisan, log: [], bought: [], sold: [], crafted: [] };
+    this.auction = { circle: circleId, cycle, members, turn: 0, phase: 'lot', lot: null, request: null, own: null, artisan, log: [], bought: [], sold: [], crafted: [], collected: [] };
     this.say(`${this.gatheringDef(circleId).name}: Die Runde ist eröffnet.${artisan ? ` ${this.artisanName()} sitzt mit am Tisch.` : ''}`);
+    // Was die Fasserin seit dem letzten Treffen dieses Zirkels fertig hat, übergibt der Gastgeber zuerst
+    this.auction.collected = this.collectOrders?.(circleId, cycle) ?? [];
     this.openLot();
     return { ok: true };
   },
@@ -314,7 +316,7 @@ export const auctionMethods = {
     const a = this.auction;
     if (!a) return null;
     a.phase = 'done';
-    const summary = { bought: a.bought, sold: a.sold, crafted: a.crafted ?? [] };
+    const summary = { bought: a.bought, sold: a.sold, crafted: a.crafted ?? [], collected: a.collected ?? [] };
     this.auction = null;
     this.emit('changed');
     return summary;

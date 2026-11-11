@@ -36,7 +36,9 @@ export function runde8Packs(f) {
   const k5Akte = mirrorWarm({ ...std('k5_akte', f.k5_akte), zeitung: f.k5_akte.zeitung, boss_texte: f.k5_akte.boss_texte, epiloge: f.k5_akte.epiloge }, warm);
   const k5Neben = mirrorWarm(nebenPack('k5_nebenquests', f.k5_nebenquests), warm);
   // Die Akte kommt vor den Orten: die Reisegespräche (CH) hängen Optionen an das Finale (CG)
-  return [vorratGegner, vorratFiguren, vorratItems, k4Orte, k4Akte, k4Neben, k5Akte, k5Orte, k5Neben, festeLebenPack(f.feste_leben)];
+  // CN: Kettlegate lebt (Einwohner mit Tag/Nacht, Stände als Gespräch, Ereignisse, Gerede, Nebelbote, Koop-Geplauder, Wetter und Tiere)
+  const kgLeben = f.kg_leben ? { ...nebenPack('kg_leben', f.kg_leben), streifen: f.kg_leben.streifen } : null;
+  return [vorratGegner, vorratFiguren, vorratItems, k4Orte, k4Akte, k4Neben, k5Akte, k5Orte, k5Neben, festeLebenPack(f.feste_leben), ...(kgLeben ? [kgLeben] : [])];
 }
 
 const stripLoot = ({ loot, ...e }) => e;
@@ -117,4 +119,5 @@ export const RUNDE8_FILES = {
   k5_akte: [...STD, 'zeitung', 'boss_texte', 'epiloge'],
   k5_nebenquests: [...STD, 'einwohner', 'leben', 'gerede', 'zeitung', 'lesestuecke', 'geplauder'],
   feste_leben: [...STD, 'feste', 'artefakte', 'zeitung', 'geplauder', 'texte', 'kalender', 'kalender_uebergaenge', 'wirkungen', 'wirkungen_platzierung'],
+  kg_leben: [...STD, 'einwohner', 'leben', 'gerede', 'zeitung', 'geplauder', 'streifen'],
 };

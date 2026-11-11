@@ -7,6 +7,8 @@ import { worldSound } from '../core/sounds.js';
 // Kapitel 2 (Wexmoor): Grauspäher laufen feste Runden mit Sturmlaterne.
 // Wer im Lichtkegel steht und nicht hinter Kisten, Fässern oder Mauern verdeckt ist, wird gesehen.
 // Bleibst du zu lange drin, folgt die Festnahme; kommst du rechtzeitig raus, steigt nur die Fahndungsstufe.
+// Wexmoor (police.resist): Gestellt heißt nicht gefangen. Man darf sich der Streife stellen, aber die Grauspäher sind
+// Beyonder höherer Sequenz (min_seq 4): Wer kein Halbgott ist, verliert, auch zu zweit, und zahlt doppelt.
 // Kartenfeld: patrols: [{ id, route: [[x, y], ...], speed?, wait?, visible_if? }] (Kacheln; die Route läuft im Kreis).
 // Kapitel 3 (BD): `kind: 'aufsicht'` sind zivile Bahnaufseher in Dunscar ohne Polizei: fester Sichtkegel, wer ohne
 // Bahnkarte oder Aufsichtsmarke gesehen wird, verliert einmal 5 Nerven und wird in den Speisewagen geschickt.
@@ -105,7 +107,7 @@ export class Patrols {
         g.seenMs += delta;
         this.face(g, Math.atan2(spotted.y - g.sprite.y, spotted.x - g.sprite.x));
         g.sprite.anims.stop();
-        if (g.seenMs >= cone.catchSec * 1000) { if (g.civil) this.sentAway(); else this.caught(); return; }
+        if (g.seenMs >= cone.catchSec * 1000) { if (g.civil) this.sentAway(); else this.caught(g); return; }
       } else if (g.spotting) {
         g.lostMs += delta;
         g.sprite.anims.stop();
@@ -219,18 +221,40 @@ export class Patrols {
     s.ui.showMessage('Bahnaufsicht', AUFSICHT.text, { onClose: () => s.travelTo(AUFSICHT.to.map, AUFSICHT.to.spawn) });
   }
 
-  caught() {
+  caught(by = null) {
     const s = this.scene;
     s.sfx?.(worldSound('whistle'));
     s.time.delayedCall(700, () => s.sfx?.(worldSound('arrest'))); // Y: Zellentür fällt ins Schloss
     for (const g of this.list) { g.spotting = false; g.seenMs = 0; }
     s.player.setVelocity(0, 0);
     s.p2?.setVelocity(0, 0);
+    const rules = this.state.policeRules();
+    if (rules?.resist && rules.resist_dialogue) { this.confront(by, rules); return; }
     const res = this.state.arrest();
     s.ui.showMessage('Festgenommen', res.text, {
       aside: s.ui.portraitHtml('streife', 'angry'),
       footer: res.seized > 0 ? `Beschlagnahmt: ${res.seized} Schilling. Fahndungsstufe ${this.state.wanted}.` : `Fahndungsstufe ${this.state.wanted}.`,
       onClose: () => s.travelTo(res.map, res.spawn),
+    });
+  }
+
+  /**
+   * Gestellt: Gespräch mit der Wahl Widerstand oder Mitgehen. Die Festnahme läuft über den Effekt `arrest`
+   * (Zelle nach dem Fenster), der Kampf über `combat`; nach einem Sieg verschwindet diese Streife bis zum Kartenwechsel.
+   */
+  confront(by, rules) {
+    const s = this.scene;
+    this.graceUntil = s.time.now + START_GRACE_MS * 3; // nach Kampf oder Zelle nicht sofort wieder im Kegel stehen
+    s.combatHook = (result) => {
+      if (result.outcome !== 'won' || !by) return;
+      for (const o of [by.sprite, by.cone, by.alert]) o.destroy();
+      by.light.active = () => false;
+      by.light.glow.setVisible(false);
+      this.list = this.list.filter((g) => g !== by);
+    };
+    const npc = this.state.content.npcs.grauspaeher;
+    s.ui.openDialogue({ name: npc?.name ?? 'Grauspäher', role: npc?.role ?? 'Stadtwache von Wexmoor', dialogue: rules.resist_dialogue }, ({ combat } = {}) => {
+      if (!combat) s.combatHook = null;
     });
   }
 }

@@ -1,0 +1,652 @@
+{
+  "kgl_ev_droschke": {
+    "start": [
+      {
+        "node": "kgl_nachher",
+        "requires_flags": [
+          "kgl_ev_droschke_done"
+        ]
+      },
+      {
+        "node": "kgl_entscheid",
+        "requires_flags": [
+          "kgl_ev_droschke_spur1",
+          "kgl_ev_droschke_spur2"
+        ]
+      },
+      {
+        "node": "kgl_auftrag",
+        "requires_flags": [
+          "kgl_ev_droschke_start"
+        ]
+      },
+      {
+        "node": "kgl_start"
+      }
+    ],
+    "nodes": {
+      "kgl_start": {
+        "text": "Ein Wagen steht schief am Bordstein. Jost hält das Pferd, während eine Botin auf ihre versiegelte Tasche zeigt.",
+        "start_quests": [
+          "kgl_q_droschke"
+        ],
+        "sets_flags": [
+          "kgl_ev_droschke_start"
+        ],
+        "choices": [
+          {
+            "text": "Den Spuren nachgehen.",
+            "next": "kgl_auftrag"
+          }
+        ]
+      },
+      "kgl_auftrag": {
+        "text": "Du merkst dir die beiden Anlaufstellen. Erst die Beobachtungen, dann die Entscheidung.",
+        "choices": []
+      },
+      "kgl_entscheid": {
+        "text": "Am Rad fehlt der Sicherungskeil. Im Rinnstein liegt frisches Holz, ohne Sägespur. Die Botin hat eine warme Arzneiflasche in der Tasche. Auf dem Zettel steht eine heutige Abholzeit.",
+        "choices": [
+          {
+            "text": "Das Pferd ruhig halten und gemeinsam das Rad sichern.",
+            "next": "kgl_a",
+            "requires_flags": [
+              "kgl_ev_droschke_spur1",
+              "kgl_ev_droschke_spur2"
+            ]
+          },
+          {
+            "text": "Die Botin zu Fuß begleiten, der Kutscher wartet bei der Droschke.",
+            "next": "kgl_b",
+            "requires_flags": [
+              "kgl_ev_droschke_spur1",
+              "kgl_ev_droschke_spur2"
+            ]
+          }
+        ]
+      },
+      "kgl_a": {
+        "text": "Du bleibst beim Pferd, bis das Rad sitzt. Die Botin erreicht ihr Ziel später, aber ohne weiteren Unfall.",
+        "sets_flags": [
+          "kgl_ev_droschke_done",
+          "kgl_ev_droschke_a"
+        ],
+        "complete_quests": [
+          "kgl_q_droschke"
+        ],
+        "gives_money": 20,
+        "choices": []
+      },
+      "kgl_b": {
+        "text": "Du trägst die Tasche bis zur richtigen Straße. Jost wartet auf einen Ersatzkeil und dankt dir später.",
+        "sets_flags": [
+          "kgl_ev_droschke_done",
+          "kgl_ev_droschke_b"
+        ],
+        "complete_quests": [
+          "kgl_q_droschke"
+        ],
+        "honor": 4,
+        "choices": []
+      },
+      "kgl_nachher": {
+        "text": "Die Straße hat ihren gewöhnlichen Takt wiedergefunden. Deine Entscheidung bleibt bei den Beteiligten.",
+        "choices": []
+      }
+    }
+  },
+  "kgl_ev_brand": {
+    "start": [
+      {
+        "node": "kgl_nachher",
+        "requires_flags": [
+          "kgl_ev_brand_done"
+        ]
+      },
+      {
+        "node": "kgl_entscheid",
+        "requires_flags": [
+          "kgl_ev_brand_spur1",
+          "kgl_ev_brand_spur2"
+        ]
+      },
+      {
+        "node": "kgl_auftrag",
+        "requires_flags": [
+          "kgl_ev_brand_start"
+        ]
+      },
+      {
+        "node": "kgl_start"
+      }
+    ],
+    "nodes": {
+      "kgl_start": {
+        "text": "Aus einem Schlot schlagen kurze Funken. Rike schickt die Gaffer von der Hauswand weg.",
+        "start_quests": [
+          "kgl_q_brand"
+        ],
+        "sets_flags": [
+          "kgl_ev_brand_start"
+        ],
+        "choices": [
+          {
+            "text": "Den Spuren nachgehen.",
+            "next": "kgl_auftrag"
+          }
+        ]
+      },
+      "kgl_auftrag": {
+        "text": "Du merkst dir die beiden Anlaufstellen. Erst die Beobachtungen, dann die Entscheidung.",
+        "choices": []
+      },
+      "kgl_entscheid": {
+        "text": "Der Ofenzug ist offen. Die Bewohnerin hat bereits aufgehört nachzulegen, das Feuer sitzt im Schlot. Am Brunnen steht ein leerer Sandeimer. Eine Leiter ist erreichbar, doch sie muss am Fuß gesichert werden.",
+        "choices": [
+          {
+            "text": "Die Bewohner aus dem Haus führen und Rike den Schlot sichern lassen.",
+            "next": "kgl_a",
+            "requires_flags": [
+              "kgl_ev_brand_spur1",
+              "kgl_ev_brand_spur2"
+            ]
+          },
+          {
+            "text": "Den Bereich absperren und den Boten zur Feuerwache schicken.",
+            "next": "kgl_b",
+            "requires_flags": [
+              "kgl_ev_brand_spur1",
+              "kgl_ev_brand_spur2"
+            ]
+          }
+        ]
+      },
+      "kgl_a": {
+        "text": "Du hilfst den Bewohnern auf die freie Straße. Rike sperrt den Zug, bis Fachleute den Schlot prüfen.",
+        "sets_flags": [
+          "kgl_ev_brand_done",
+          "kgl_ev_brand_a"
+        ],
+        "complete_quests": [
+          "kgl_q_brand"
+        ],
+        "gives_money": 30,
+        "choices": []
+      },
+      "kgl_b": {
+        "text": "Du hältst die Straße frei. Der Bote holt Hilfe, während Rike die Nachbarfenster schließen lässt.",
+        "sets_flags": [
+          "kgl_ev_brand_done",
+          "kgl_ev_brand_b"
+        ],
+        "complete_quests": [
+          "kgl_q_brand"
+        ],
+        "honor": 4,
+        "choices": []
+      },
+      "kgl_nachher": {
+        "text": "Die Straße hat ihren gewöhnlichen Takt wiedergefunden. Deine Entscheidung bleibt bei den Beteiligten.",
+        "choices": []
+      }
+    }
+  },
+  "kgl_ev_tasche": {
+    "start": [
+      {
+        "node": "kgl_nachher",
+        "requires_flags": [
+          "kgl_ev_tasche_done"
+        ]
+      },
+      {
+        "node": "kgl_entscheid",
+        "requires_flags": [
+          "kgl_ev_tasche_spur1",
+          "kgl_ev_tasche_spur2"
+        ]
+      },
+      {
+        "node": "kgl_auftrag",
+        "requires_flags": [
+          "kgl_ev_tasche_route"
+        ]
+      },
+      {
+        "node": "kgl_flicken",
+        "requires_flags": [
+          "kgl_ev_tasche_blick"
+        ]
+      },
+      {
+        "node": "kgl_fragen",
+        "requires_flags": [
+          "kgl_ev_tasche_zeuge"
+        ]
+      },
+      {
+        "node": "kgl_start"
+      }
+    ],
+    "nodes": {
+      "kgl_start": {
+        "text": "Ein Taschendieb verschwindet zwischen zwei Karren. Die Bestohlene zeigt auf einen blauen Flicken am Mantel.",
+        "start_quests": [
+          "kgl_q_tasche"
+        ],
+        "sets_flags": [
+          "kgl_ev_tasche_start"
+        ],
+        "choices": [
+          {
+            "text": "Auf den blauen Flicken achten.",
+            "next": "kgl_flicken"
+          },
+          {
+            "text": "Nach dem Weg fragen.",
+            "next": "kgl_fragen"
+          }
+        ]
+      },
+      "kgl_auftrag": {
+        "text": "Du merkst dir die beiden Anlaufstellen. Erst die Beobachtungen, dann die Entscheidung.",
+        "choices": []
+      },
+      "kgl_entscheid": {
+        "text": "An der ersten Ecke liegt ein abgerissener blauer Faden. Die nassen Schritte führen zum Kanal. Ein Händler sah den Dieb unter der Brücke warten. Er hält die Tasche fest, als wäre sie sein Fahrgeld.",
+        "choices": [
+          {
+            "text": "Den Weg offenlassen und die Rückgabe verlangen.",
+            "next": "kgl_a",
+            "requires_flags": [
+              "kgl_ev_tasche_spur1",
+              "kgl_ev_tasche_spur2"
+            ]
+          },
+          {
+            "text": "Mit der Bestohlenen auf Abstand sprechen, statt ihn einzukreisen.",
+            "next": "kgl_b",
+            "requires_flags": [
+              "kgl_ev_tasche_spur1",
+              "kgl_ev_tasche_spur2",
+              "kgl_ev_tasche_begleitung"
+            ]
+          },
+          {
+            "text": "Den Händler als Zeugen dazuholen.",
+            "next": "kgl_b",
+            "requires_flags": [
+              "kgl_ev_tasche_spur1",
+              "kgl_ev_tasche_spur2",
+              "kgl_ev_tasche_zeuge"
+            ]
+          }
+        ]
+      },
+      "kgl_a": {
+        "text": "Du versprichst keine Straffreiheit, aber du lässt Platz. Der Dieb legt die Tasche hin und läuft davon.",
+        "sets_flags": [
+          "kgl_ev_tasche_done",
+          "kgl_ev_tasche_a"
+        ],
+        "complete_quests": [
+          "kgl_q_tasche"
+        ],
+        "gives_money": 25,
+        "choices": []
+      },
+      "kgl_b": {
+        "text": "Die Bestohlene nennt den Inhalt. Der Dieb gibt die Tasche zurück und wartet auf die Wache.",
+        "sets_flags": [
+          "kgl_ev_tasche_done",
+          "kgl_ev_tasche_b"
+        ],
+        "complete_quests": [
+          "kgl_q_tasche"
+        ],
+        "honor": 4,
+        "choices": []
+      },
+      "kgl_nachher": {
+        "text": "Die Straße hat ihren gewöhnlichen Takt wiedergefunden. Deine Entscheidung bleibt bei den Beteiligten.",
+        "choices": []
+      },
+      "kgl_flicken": {
+        "text": "Du hältst den Flicken im Blick. An der Ecke findest du den verlorenen Faden.",
+        "sets_flags": [
+          "kgl_ev_tasche_blick"
+        ],
+        "choices": [
+          {
+            "text": "Die Gasse leise durchqueren.",
+            "next": "kgl_leise"
+          },
+          {
+            "text": "Die Bestohlene mitnehmen.",
+            "next": "kgl_zeugen"
+          }
+        ]
+      },
+      "kgl_fragen": {
+        "text": "Ein Händler zeigt zur Brücke. Du verlierst Sekunden, gewinnst aber einen Zeugen.",
+        "sets_flags": [
+          "kgl_ev_tasche_zeuge"
+        ],
+        "choices": [
+          {
+            "text": "Die Gasse leise durchqueren.",
+            "next": "kgl_leise"
+          },
+          {
+            "text": "Die Bestohlene mitnehmen.",
+            "next": "kgl_zeugen"
+          }
+        ]
+      },
+      "kgl_leise": {
+        "text": "Du gehst ohne Zurufe weiter. Der Dieb bemerkt die Verfolgung erst an der Brücke.",
+        "sets_flags": [
+          "kgl_ev_tasche_leise",
+          "kgl_ev_tasche_route"
+        ],
+        "choices": []
+      },
+      "kgl_zeugen": {
+        "text": "Die Bestohlene folgt mit Abstand. Du kannst sie später selbst sprechen lassen.",
+        "sets_flags": [
+          "kgl_ev_tasche_begleitung",
+          "kgl_ev_tasche_route"
+        ],
+        "choices": []
+      }
+    }
+  },
+  "kgl_ev_prediger": {
+    "start": [
+      {
+        "node": "kgl_nachher",
+        "requires_flags": [
+          "kgl_ev_prediger_done"
+        ]
+      },
+      {
+        "node": "kgl_entscheid",
+        "requires_flags": [
+          "kgl_ev_prediger_spur1",
+          "kgl_ev_prediger_spur2"
+        ]
+      },
+      {
+        "node": "kgl_auftrag",
+        "requires_flags": [
+          "kgl_ev_prediger_start"
+        ]
+      },
+      {
+        "node": "kgl_start"
+      }
+    ],
+    "nodes": {
+      "kgl_start": {
+        "text": "Ein Prediger der Rostbrüder verspricht jedem Schuldner einen neuen Namen. Neben ihm klappert eine Spendendose.",
+        "start_quests": [
+          "kgl_q_prediger"
+        ],
+        "sets_flags": [
+          "kgl_ev_prediger_start"
+        ],
+        "choices": [
+          {
+            "text": "Den Spuren nachgehen.",
+            "next": "kgl_auftrag"
+          }
+        ]
+      },
+      "kgl_auftrag": {
+        "text": "Du merkst dir die beiden Anlaufstellen. Erst die Beobachtungen, dann die Entscheidung.",
+        "choices": []
+      },
+      "kgl_entscheid": {
+        "text": "Auf dem Flugblatt ist nur eine Treffzeit gedruckt. Die versprochene Schuldentilgung steht nirgends. Eine Zuhörerin zeigt ihre Quittung. Bezahlt wurde ein Vortrag, kein Erlass ihrer Schulden.",
+        "choices": [
+          {
+            "text": "Die Quittung laut und sachlich vorlesen.",
+            "next": "kgl_a",
+            "requires_flags": [
+              "kgl_ev_prediger_spur1",
+              "kgl_ev_prediger_spur2"
+            ]
+          },
+          {
+            "text": "Die Zuhörerin beiseitenehmen und ihr beim Widerspruch helfen.",
+            "next": "kgl_b",
+            "requires_flags": [
+              "kgl_ev_prediger_spur1",
+              "kgl_ev_prediger_spur2"
+            ]
+          }
+        ]
+      },
+      "kgl_a": {
+        "text": "Du liest, was auf dem Papier steht. Einige Zuhörer gehen, andere verlangen ihr Geld zurück.",
+        "sets_flags": [
+          "kgl_ev_prediger_done",
+          "kgl_ev_prediger_a"
+        ],
+        "complete_quests": [
+          "kgl_q_prediger"
+        ],
+        "gives_money": 15,
+        "choices": []
+      },
+      "kgl_b": {
+        "text": "Ihr schreibt den Anspruch gemeinsam auf. Der Prediger muss sich mit einer konkreten Forderung befassen.",
+        "sets_flags": [
+          "kgl_ev_prediger_done",
+          "kgl_ev_prediger_b"
+        ],
+        "complete_quests": [
+          "kgl_q_prediger"
+        ],
+        "honor": 4,
+        "choices": []
+      },
+      "kgl_nachher": {
+        "text": "Die Straße hat ihren gewöhnlichen Takt wiedergefunden. Deine Entscheidung bleibt bei den Beteiligten.",
+        "choices": []
+      }
+    }
+  },
+  "kgl_ev_kreide": {
+    "start": [
+      {
+        "node": "kgl_nachher",
+        "requires_flags": [
+          "kgl_ev_kreide_done"
+        ]
+      },
+      {
+        "node": "kgl_entscheid",
+        "requires_flags": [
+          "kgl_ev_kreide_spur1",
+          "kgl_ev_kreide_spur2"
+        ]
+      },
+      {
+        "node": "kgl_auftrag",
+        "requires_flags": [
+          "kgl_ev_kreide_start"
+        ]
+      },
+      {
+        "node": "kgl_start"
+      }
+    ],
+    "nodes": {
+      "kgl_start": {
+        "text": "Kinder zeichnen einen Kreis auf eine freie Pflasterstelle. Ein freier Platz darin trägt einen verwischten Namen.",
+        "start_quests": [
+          "kgl_q_kreide"
+        ],
+        "sets_flags": [
+          "kgl_ev_kreide_start"
+        ],
+        "choices": [
+          {
+            "text": "Den Spuren nachgehen.",
+            "next": "kgl_auftrag"
+          }
+        ]
+      },
+      "kgl_auftrag": {
+        "text": "Du merkst dir die beiden Anlaufstellen. Erst die Beobachtungen, dann die Entscheidung.",
+        "choices": []
+      },
+      "kgl_entscheid": {
+        "text": "Die Kreide stammt von einer Schneiderin. An ihr klebt kein Ritualstaub, nur ein Stück Verpackung. Das fehlende Kind arbeitet seit Tagen bei Verwandten. Die anderen wollten ihm einen Platz freihalten.",
+        "choices": [
+          {
+            "text": "Den Kreis erklären und bis zum Abend stehen lassen.",
+            "next": "kgl_a",
+            "requires_flags": [
+              "kgl_ev_kreide_spur1",
+              "kgl_ev_kreide_spur2"
+            ]
+          },
+          {
+            "text": "Mit den Kindern ein abwaschbares Schild für den Rückweg malen.",
+            "next": "kgl_b",
+            "requires_flags": [
+              "kgl_ev_kreide_spur1",
+              "kgl_ev_kreide_spur2"
+            ]
+          }
+        ]
+      },
+      "kgl_a": {
+        "text": "Du bittest die Passanten um etwas Platz. Der Kreis bleibt ein Spiel und muss nichts beweisen.",
+        "sets_flags": [
+          "kgl_ev_kreide_done",
+          "kgl_ev_kreide_a"
+        ],
+        "complete_quests": [
+          "kgl_q_kreide"
+        ],
+        "gives_money": 10,
+        "choices": []
+      },
+      "kgl_b": {
+        "text": "Die Kinder zeichnen Pfeile auf ein loses Brett. Niemand muss für ihr Spiel über eine Türschwelle steigen.",
+        "sets_flags": [
+          "kgl_ev_kreide_done",
+          "kgl_ev_kreide_b"
+        ],
+        "complete_quests": [
+          "kgl_q_kreide"
+        ],
+        "honor": 4,
+        "choices": []
+      },
+      "kgl_nachher": {
+        "text": "Die Straße hat ihren gewöhnlichen Takt wiedergefunden. Deine Entscheidung bleibt bei den Beteiligten.",
+        "choices": []
+      }
+    }
+  },
+  "kgl_ev_brief": {
+    "start": [
+      {
+        "node": "kgl_nachher",
+        "requires_flags": [
+          "kgl_ev_brief_done"
+        ]
+      },
+      {
+        "node": "kgl_entscheid",
+        "requires_flags": [
+          "kgl_ev_brief_spur1",
+          "kgl_ev_brief_spur2"
+        ]
+      },
+      {
+        "node": "kgl_auftrag",
+        "requires_flags": [
+          "kgl_ev_brief_start"
+        ]
+      },
+      {
+        "node": "kgl_start"
+      }
+    ],
+    "nodes": {
+      "kgl_start": {
+        "text": "Ein Brief liegt unter einer falschen Tür. Die Empfängerin heißt fast wie die Frau, die dort wohnt.",
+        "start_quests": [
+          "kgl_q_brief"
+        ],
+        "sets_flags": [
+          "kgl_ev_brief_start"
+        ],
+        "choices": [
+          {
+            "text": "Den Spuren nachgehen.",
+            "next": "kgl_auftrag"
+          }
+        ]
+      },
+      "kgl_auftrag": {
+        "text": "Du merkst dir die beiden Anlaufstellen. Erst die Beobachtungen, dann die Entscheidung.",
+        "choices": []
+      },
+      "kgl_entscheid": {
+        "text": "Die Hausnummer wurde nach dem letzten Brand versetzt. Der Umschlag trägt noch die alte Nummer. Edda kennt die Empfängerin. Die Frau wartet auf Nachricht über eine Stelle, nicht auf eine Erbschaft.",
+        "choices": [
+          {
+            "text": "Den verschlossenen Brief der Empfängerin übergeben.",
+            "next": "kgl_a",
+            "requires_flags": [
+              "kgl_ev_brief_spur1",
+              "kgl_ev_brief_spur2"
+            ]
+          },
+          {
+            "text": "Den Brief mit korrigierter Anschrift beim Boten abgeben.",
+            "next": "kgl_b",
+            "requires_flags": [
+              "kgl_ev_brief_spur1",
+              "kgl_ev_brief_spur2"
+            ]
+          }
+        ]
+      },
+      "kgl_a": {
+        "text": "Du reichst den Umschlag weiter. Die Frau öffnet ihn erst, als du dich abwendest.",
+        "sets_flags": [
+          "kgl_ev_brief_done",
+          "kgl_ev_brief_a"
+        ],
+        "complete_quests": [
+          "kgl_q_brief"
+        ],
+        "gives_money": 20,
+        "choices": []
+      },
+      "kgl_b": {
+        "text": "Der Bote ergänzt die neue Nummer und quittiert die Annahme. Die fremden Zeilen bleiben fremd.",
+        "sets_flags": [
+          "kgl_ev_brief_done",
+          "kgl_ev_brief_b"
+        ],
+        "complete_quests": [
+          "kgl_q_brief"
+        ],
+        "honor": 4,
+        "choices": []
+      },
+      "kgl_nachher": {
+        "text": "Die Straße hat ihren gewöhnlichen Takt wiedergefunden. Deine Entscheidung bleibt bei den Beteiligten.",
+        "choices": []
+      }
+    }
+  }
+}

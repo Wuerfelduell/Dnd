@@ -1,3 +1,4 @@
+import { journalQuestVisible } from './journal.js';
 // Reiner Spielzustand ohne Phaser-Abhängigkeit, damit er auch in Node-Tests läuft.
 import { pathwayMethods } from './Pathways.js';
 import { gatheringMethods } from './Gatherings.js';
@@ -283,6 +284,7 @@ export class GameState {
       all(o.requires_quests_done, (q) => this.quests[q] === 'done') &&
       (o.requires_honor === undefined || this.honor >= o.requires_honor) &&
       (o.max_honor === undefined || this.honor < o.max_honor) &&
+      (o.requires_season === undefined || o.requires_season.includes(this.season())) && // CN: Kastanienröster nur Herbst/Winter
       none(o.hide_if_clues, (c) => this.hasClue(c)) &&
       none(o.hide_if_flags, (f) => this.flags.has(f)) &&
       none(o.hide_if_conclusions, (c) => this.hasConclusion(c)) &&
@@ -297,6 +299,7 @@ export class GameState {
       (o.requires_gathering === undefined || this.gatheringOpen(o.requires_gathering) && this.isMember(o.requires_gathering)) &&
       (o.requires_gatherings_unlocked === undefined || this.gatheringsUnlocked() === o.requires_gatherings_unlocked) &&
       this.meetsPathway(o.requires_pathway) &&
+      (o.requires_seq === undefined || (!!this.pathway && this.pathway.seq <= o.requires_seq)) && // Halbgott-Prüfung: Sequenz N oder besser, egal welcher Pfad
       this.meetsSignal(o) &&
       this.meetsBond(o) &&
       this.meetsRelation(o) &&
@@ -355,6 +358,8 @@ export class GameState {
     for (const [id, n] of Object.entries(e.bond ?? {})) this.changeBond(id, n); // Einzelgänger: Freund oder Feind; Gefährten (Zunder): nur Vertrauen
     if (e.relation && !(nodeKey && this.seenNodes?.has(nodeKey))) for (const [id, n] of Object.entries(e.relation)) this.changeRelation(id, n); // Beziehung (Stimmung der Figur)
     if (e.travel) this.pendingTravel = e.travel; // Ortswechsel nach dem Fenster (z. B. aus der Zelle)
+    // Festnahme aus einem Gespräch oder nach verlorenem Kampf gegen die Streife: Zelle nach dem Fenster
+    if (e.arrest && this.policeRules()) { const r = this.arrest(e.arrest === true ? {} : e.arrest); this.pendingTravel = { map: r.map, spawn: r.spawn }; }
     if (e.sets_flags || e.ending) this.checkPapers(); // Paket AD: neue Zeitungsausgabe?
     if (gained.length || e.sets_flags || e.start_quests || e.complete_quests || e.honor || e.gives_items || e.takes_items || e.gives_money || e.takes_money) this.emit('changed');
     return gained;
@@ -370,7 +375,7 @@ export class GameState {
     if (this.quests[id]) return false;
     this.quests[id] = 'active';
     // Neuer Hauptfall oder gerade nichts verfolgt: direkt als Ziel übernehmen
-    if (!this.tracked || (this.quest(id).kind === 'main' && this.quest(this.tracked)?.kind !== 'main')) this.tracked = id;
+    if (!this.tracked || !journalQuestVisible(this, this.tracked) || (this.quest(id).kind === 'main' && this.quest(this.tracked)?.kind !== 'main')) this.tracked = id;
     this.emit('quest', { id, status: 'active' });
     return true;
   }
@@ -394,7 +399,7 @@ export class GameState {
 
   /** Auftrag im Journal verfolgen (Wegweiser im HUD, im Ort und auf der Stadtkarte). */
   track(id) {
-    this.tracked = id && this.quests[id] === 'active' ? id : null;
+    this.tracked = id && this.quests[id] === 'active' && journalQuestVisible(this, id) ? id : null;
     this.emit('track', this.tracked);
   }
 
@@ -410,7 +415,7 @@ export class GameState {
   openLeads() {
     const out = [];
     for (const [id, q] of Object.entries(this.content.quests)) {
-      if (!q.lead || this.quests[id] !== undefined) continue;
+      if (!q.lead || this.quests[id] !== undefined || !journalQuestVisible(this, id)) continue;
       const lead = (Array.isArray(q.lead) ? q.lead : [q.lead]).find((l) => this.meets(l));
       if (lead) out.push({ quest: id, title: q.title, text: lead.text, target: lead.target ?? null });
     }
@@ -419,7 +424,7 @@ export class GameState {
 
   /** Nächster offener Schritt des wichtigsten aktiven Auftrags (für Tipps); sonst die nächste offene Spur. */
   nextHint() {
-    const active = Object.keys(this.quests).filter((q) => this.quests[q] === 'active');
+    const active = Object.keys(this.quests).filter((q) => this.quests[q] === 'active' && journalQuestVisible(this, q));
     active.sort((a, b) => (this.quest(a).kind === 'main' ? -1 : 1) - (this.quest(b).kind === 'main' ? -1 : 1));
     for (const q of active) {
       const step = this.questSteps(q).find((s) => !s.done);
@@ -684,7 +689,7 @@ export class GameState {
         this.emit('notice', 'Ein stechender Kopfschmerz reißt dich aus der Geistsicht.');
         if (this.pathway) this.setUnruhe(this.unruhe + 15);
       }
-    } else {
+    } else if (!this.formActive?.()) { // in der mythischen Gestalt erholen sich die Nerven nicht (Pathways.tickForm zehrt)
       const calmMind = this.unruhe >= 60 ? 0.5 : 1;
       this.composure = Math.min(this.maxComposure(), this.composure + VISION_REGEN_PER_SEC * this.passive('composure_regen') * calmMind * dtSeconds);
     }

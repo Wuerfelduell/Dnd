@@ -159,13 +159,14 @@ test('Vorrat BJ/BL und BI/BK/BM: Figuren mit Sheet, Portrait und Kopf; Gegner mi
   assert.ok(Object.keys(content.bestiaryTexts).filter((i) => i.startsWith('vg_')).length >= 30);
 });
 
-test('Balance Kapitel 4/5: mit Ausrüstung der Stufe 4 und Sequenz 5 schafft ein sehr Geübter die normalen Gegner, ein Unachtsamer verliert', () => {
-  const geared = () => {
+test('Balance Kapitel 4/5: mit Ausrüstung der Stufe 4 und Sequenz 4 (Halbgott) schafft ein sehr Geübter die normalen Gegner, ein Unachtsamer verliert', () => {
+  // Seb (2026-11-11): Sequenz 4 ist der Halbgott-Sprung, die Gegner von Kapitel 4/5 sind darauf skaliert (vorrat_gegner, halbgott_skaliert)
+  const geared = (seq = 4) => {
     const s = fresh();
     s.addItem('revolver');
     s.addItem('verband', 4);
     s.addItem('tonikum', 3);
-    s.pathway = { id: 'eisen', seq: 5, digestion: 0 };
+    s.pathway = { id: 'eisen', seq, digestion: 0 };
     s.updateMaxHp();
     s.hp = s.maxHp;
     return s;
@@ -180,6 +181,12 @@ test('Balance Kapitel 4/5: mit Ausrüstung der Stufe 4 und Sequenz 5 schafft ein
   assert.ok(won >= normal.length * 0.8, `nur ${won} von ${normal.length} Siege`);
   const { result } = fight(geared(), 'vg_cw_boss_bleisammler', { defend: (i) => (i % 2 ? 'miss' : 'dodge') });
   assert.equal(result.outcome, 'lost');
+  // Ohne den Halbgott-Sprung (Sequenz 5) sind die Calderwicker Gegner eine Nummer zu groß
+  let wonSeq5 = 0;
+  for (const [id] of normal.filter(([i]) => /^vg_(cw|all)_/.test(i))) {
+    if (fight(geared(5), id, { defend: EXPERT, skill: 'double', healBelow: 20 }).result.outcome === 'won') wonSeq5++;
+  }
+  assert.ok(wonSeq5 <= normal.length * 0.5, `Sequenz 5 gewinnt ${wonSeq5} von ${normal.length}`);
 });
 
 test('Feste-Leben (CK): Buden, Gäste und Auftrag nur am Festtag; Saisonwirkungen liegen einmal je Jahreszeit auf den Märkten; Stiller Abend', () => {

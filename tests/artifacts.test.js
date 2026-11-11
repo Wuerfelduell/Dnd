@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
 import { Combat } from '../src/core/Combat.js';
-import { SEQ_MAX } from '../src/core/Pathways.js';
+import { SEQ_MAX, ordealFlag } from '../src/core/Pathways.js';
 import { loadContent, talk } from './helpers.js';
 
 const content = loadContent();
@@ -41,7 +41,7 @@ const digestAll = (s) => { s.pathway.digestion = 100; };
 function ritual(s, pid, seq) {
   const r = s.ritualDef(pid, seq);
   if (!r) return;
-  s.map = r.map;
+  s.map = r.map === 'wx_zelle' ? 'buero' : 'wx_zelle'; // Aufstieg auch fern vom überlieferten Ritualort.
   for (const [id, n] of Object.entries(r.consumes ?? {})) s.addItem(id, n);
   if (r.vision) s.spiritVision = true;
   s.composure = s.maxComposure();
@@ -50,6 +50,7 @@ function ritual(s, pid, seq) {
   if (r.requires?.min_wins) s.wins = r.requires.min_wins;
   for (const f of r.requires?.requires_flags ?? []) s.flags.add(f);
   if (r.tribute) s.money += r.tribute;
+  if (r.ordeal) s.flags.add(ordealFlag(pid, seq)); // Schwellenwächter (Sequenz 4 und 2) gilt als besiegt
   const res = s.performRitual();
   assert.equal(res.ok, true, `${pid} ${seq}: ${res.text}`);
   s.spiritVision = false;
@@ -290,13 +291,13 @@ test('Ab Sequenz 6 braucht jeder Trank ein Ritual: Ort, Zutaten, Bedingung', () 
   const chk = s.drinkCheck(p6);
   assert.equal(chk.ok, false);
   assert.ok(chk.ritual);
-  // Unverletzt am falschen Ort klappt es nicht
+  // Der Ort ist frei, die Verwundungsbedingung bleibt aber bestehen
   s.addItem('ochsenblut', 2);
   s.addItem('eisenkraut', 2);
   const fail = s.performRitual();
   assert.equal(fail.ok, false);
-  assert.match(fail.text, /Schlachthof/);
-  s.map = 'schlachthof';
+  assert.match(fail.text, /Verwundet/);
+  s.map = 'wx_zelle';
   s.hp = Math.floor(s.maxHp / 2);
   const unruhe = s.unruhe;
   assert.equal(s.performRitual().ok, true);
