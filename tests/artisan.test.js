@@ -1,4 +1,5 @@
-// Die Fasserin auf geheimen Treffen: 30 % Chance, Rezepte aus Beutestücken, Artefakte.
+// Die Fasserin auf geheimen Treffen: 30 % Chance, ein starkes Beutestück je Rezept, Auftrag bis zum
+// nächsten Treffen desselben Zirkels, Erfolgschance 40–80 % (stärker = unsicherer).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { loadContent } from './helpers.js';
@@ -42,7 +43,11 @@ test('Die Fasserin ist mit etwa 30 % dabei, pro Treffen fest', () => {
   assert.deepEqual(s.artisanRecipes('waage', 7).map((r) => r.id), s.artisanRecipes('waage', 7).map((r) => r.id));
 });
 
-test('Rezepte: nur ungewöhnliche, seltene oder okkulte Beutestücke, jedes Artefakt vollständig', () => {
+test('Rezepte: genau ein Beutestück, nie gewöhnlich, jedes Artefakt vollständig, Chance 40–80 % fallend mit Stärke', () => {
+  const s = new GameState(content);
+  const E = artisan.erfolg;
+  assert.equal(E.min, 0.4);
+  assert.equal(E.max, 0.8);
   assert.ok(artisan.recipes.length >= 8);
   const ids = new Set();
   for (const r of artisan.recipes) {
@@ -54,16 +59,24 @@ test('Rezepte: nur ungewöhnliche, seltene oder okkulte Beutestücke, jedes Arte
     assert.ok(art.boons.length && art.curses.length, `${r.id}: Vor- und Nachteile`);
     assert.ok(r.fee >= 50 && r.fee <= 250, `${r.id}: Lohn ${r.fee}`);
     const needs = Object.entries(r.needs);
-    assert.ok(needs.length >= 2, `${r.id}: zu wenige Zutaten`);
-    let special = 0;
-    for (const [item, n] of needs) {
-      const it = content.items[item];
-      assert.ok(it && it.kind === 'trophy', `${r.id}: ${item} ist kein Beutestück`);
-      assert.ok(n >= 1);
-      if (itemRarity(it) !== 'gewoehnlich') special++;
-    }
-    assert.ok(special >= 1, `${r.id}: braucht etwas Ungewöhnliches`);
+    assert.equal(needs.length, 1, `${r.id}: ein einzelnes Stück, kein Rezept aus Teilen`);
+    const [item, n] = needs[0];
+    const it = content.items[item];
+    assert.ok(it && it.kind === 'trophy', `${r.id}: ${item} ist kein Beutestück`);
+    assert.equal(n, 1);
+    assert.notEqual(itemRarity(it), 'gewoehnlich', `${r.id}: ${item} ist zu gewöhnlich`);
+    const chance = s.recipeChance(r);
+    assert.ok(chance >= E.min && chance <= E.max, `${r.id}: Chance ${chance}`);
+    assert.equal(s.recipeCheck(r).chance, chance);
   }
+  // Stärkere Artefakte (höherer Preis) gelingen seltener, die Spanne wird ausgenutzt
+  const byPrice = [...artisan.recipes].sort((a, b) => content.artifacts.list[a.id].price - content.artifacts.list[b.id].price);
+  for (let i = 1; i < byPrice.length; i++) assert.ok(s.recipeChance(byPrice[i]) <= s.recipeChance(byPrice[i - 1]), `${byPrice[i].id} dürfte nicht leichter gelingen als ${byPrice[i - 1].id}`);
+  assert.equal(s.recipeChance(byPrice[0]), E.max);
+  assert.equal(s.recipeChance(byPrice[byPrice.length - 1]), E.min);
+  // Rattenkönig-Krone und Sternhirschgeweih sind je allein ein Auftrag
+  assert.deepEqual(artisan.recipes.find((r) => r.id === 'krone_der_sieben').needs, { rattenkrone: 1 });
+  assert.deepEqual(artisan.recipes.find((r) => r.id === 'sternlicht_gespinst').needs, { sternhirschgeweih: 1 });
   // Artefakte der Fasserin gibt es nur bei ihr, nicht als Los auf den Treffen
   const lots = new Set(Object.values(content.gatherings.circles).flatMap((c) => c.members.flatMap((m) => m.offers.map((e) => e.item))));
   for (const id of ids) assert.ok(!lots.has(id), `${id} wird auch versteigert`);
@@ -95,52 +108,156 @@ test('Ohne Fasserin gibt es in der Runde keinen Weg zu ihr', () => {
   assert.equal(s.craftArtifact(artisan.recipes[0].id).ok, false);
 });
 
-test('Fassen: Beute und Lohn weg, Artefakt da und wirksam; ohne Beute oder Geld nicht', () => {
-  const s = session(true);
-  assert.equal(s.startSession('waage').ok, true);
-  assert.equal(s.auction.artisan, true);
-  assert.equal(s.openArtisan().ok, false, 'erst wenn alle dran waren');
+/** Zur Runde durchklicken, bis man selbst dran ist. */
+function toOwn(s) {
   while (s.auction.phase !== 'own') {
     if (s.auction.phase === 'lot') s.passLot();
     else if (s.auction.phase === 'request') s.declineRequest();
   }
+}
+
+test('Auftrag: Stück und Lohn weg, Artefakt noch nicht; ohne Stück oder Geld nicht', () => {
+  const s = session(true);
+  assert.equal(s.startSession('waage').ok, true);
+  assert.equal(s.auction.artisan, true);
+  assert.equal(s.openArtisan().ok, false, 'erst wenn alle dran waren');
+  toOwn(s);
   assert.equal(s.openArtisan().ok, true);
   assert.equal(s.auction.phase, 'artisan');
   assert.equal(s.auctionSpeaker(), s.artisanId());
   const [r] = s.artisanRecipes('waage', s.auction.cycle);
   const artifact = r.artifact ?? r.id;
+  const [piece] = Object.keys(r.needs);
   // Ohne Beute
-  let res = s.craftArtifact(r.id);
+  let res = s.orderArtifact(r.id);
   assert.equal(res.ok, false);
   assert.match(res.text, /fehlt/i);
   // Mit Beute, ohne Geld
-  for (const [item, n] of Object.entries(r.needs)) s.addItem(item, n + 1);
+  s.addItem(piece, 2);
   s.money = r.fee - 1;
-  res = s.craftArtifact(r.id);
+  res = s.orderArtifact(r.id);
   assert.equal(res.ok, false);
   assert.match(res.text, /lohn/i);
-  // Mit allem
+  // Mit allem: Auftrag, kein Artefakt
   s.money = 1000;
-  const unruhe = s.unruhe;
-  res = s.craftArtifact(r.id);
+  res = s.orderArtifact(r.id);
   assert.equal(res.ok, true, res.text);
   assert.equal(s.money, 1000 - r.fee);
-  for (const [item] of Object.entries(r.needs)) assert.equal(s.itemCount(item), 1, `${item} verbraucht`);
-  assert.equal(s.itemCount(artifact), 1);
-  assert.ok(s.activeArtifacts().includes(artifact), 'wirkt sofort beim Mitführen');
-  assert.ok(s.unruhe > unruhe, 'Aufnehmen bringt Unruhe');
-  assert.ok(!s.borrowed.includes(artifact), 'gehört dir, nicht dem Revier');
-  assert.deepEqual(s.auction.crafted, [{ item: artifact, price: r.fee }]);
+  assert.equal(s.itemCount(piece), 1, 'ein Stück verbraucht');
+  assert.equal(s.itemCount(artifact), 0, 'nichts sofort');
+  assert.deepEqual(s.pendingOrders().map((o) => [o.circle, o.recipe, o.artifact, o.fee]), [['waage', r.id, artifact, r.fee]]);
+  assert.equal(s.pendingOrders()[0].cycle, s.auction.cycle);
+  assert.equal(s.pendingOrders()[0].chance, s.recipeChance(r));
+  assert.ok(artisan.texte.auftrag.some((l) => s.auction.log.at(-1).includes(l)), s.auction.log.at(-1));
+  assert.deepEqual(s.auction.crafted, [{ item: artifact, price: r.fee, chance: s.recipeChance(r) }]);
   // Rezept, das heute nicht auf dem Tisch liegt
   const other = artisan.recipes.find((x) => !s.artisanRecipes('waage', s.auction.cycle).some((y) => y.id === x.id));
   for (const [item, n] of Object.entries(other.needs)) s.addItem(item, n);
-  assert.equal(s.craftArtifact(other.id).ok, false);
-  // Zurück zur Runde, dann darf man das neue Artefakt sogar gleich anbieten
+  assert.equal(s.orderArtifact(other.id).ok, false);
+  // Zurück zur Runde; die Fassung kann man noch nicht anbieten, sie ist ja nicht da
   assert.equal(s.leaveArtisan().ok, true);
   assert.equal(s.auction.phase, 'own');
-  assert.ok(s.ownOfferables().some((o) => o.id === artifact));
+  assert.ok(!s.ownOfferables().some((o) => o.id === artifact));
   const sum = s.endSession();
   assert.equal(sum.crafted.length, 1);
+  assert.deepEqual(sum.collected, []);
+  // Noch in derselben Runde des Zirkels ist nichts bereit
+  assert.deepEqual(s.readyOrders('waage', s.marketCycle()), []);
+});
+
+test('Abholen: erst beim nächsten Treffen desselben Zirkels; andere Zirkel übergeben nichts', () => {
+  const s = session(true);
+  s.startSession('waage');
+  toOwn(s);
+  s.openArtisan();
+  const [r] = s.artisanRecipes('waage', s.auction.cycle);
+  const artifact = r.artifact ?? r.id;
+  s.addItem(Object.keys(r.needs)[0], 1);
+  assert.ok(s.orderArtifact(r.id).ok);
+  s.endSession();
+  // Ein anderer Zirkel kommt vorher dran: Mitglied werden, hingehen, nichts passiert
+  s.flags.add(content.gatherings.circles.kreide.member_flag);
+  const ck = jumpTo(s, 'kreide');
+  assert.deepEqual(s.readyOrders('kreide', ck), []);
+  assert.ok(s.startSession('kreide').ok);
+  assert.deepEqual(s.auction.collected, []);
+  assert.equal(s.itemCount(artifact), 0);
+  assert.equal(s.pendingOrders().length, 1);
+  s.endSession();
+  // HUD vor dem Waage-Treffen: Fassung abholen
+  const cw = jumpTo(s, 'waage');
+  s.playTime = s.gatheringSlot(cw).start - 30;
+  const st = s.gatheringStatus();
+  assert.equal(st.next.id, 'waage');
+  assert.equal(st.orders.length, 1);
+  assert.match(st.text, /Fassung abholen/);
+  // Einladung nennt die bereitliegende Fassung
+  const notes = [];
+  s.on('gathering', (e) => notes.push(e));
+  s.lastGatheringCycle = null;
+  s.tickGatherings(31);
+  assert.ok(notes.some((n) => n.open && n.text.includes(content.items[artifact].name)), notes.map((n) => n.text).join('|'));
+  // Beim Waage-Treffen übergibt der Gastgeber, ob die Fasserin dabei ist oder nicht
+  const money = s.money;
+  assert.ok(s.startSession('waage').ok);
+  assert.equal(s.auction.collected.length, 1);
+  const [c] = s.auction.collected;
+  assert.equal(c.item, artifact);
+  assert.equal(s.pendingOrders().length, 0, 'Auftrag erledigt');
+  if (c.ok) {
+    assert.equal(s.itemCount(artifact), 1);
+    assert.equal(c.refund, 0);
+    assert.equal(s.money, money);
+    assert.ok(s.activeArtifacts().includes(artifact), 'wirkt sofort beim Mitführen');
+    assert.ok(artisan.texte.gelungen.some((l) => s.auction.log.some((t) => t.includes(l))));
+  } else {
+    assert.equal(s.itemCount(artifact), 0);
+    assert.equal(c.refund, Math.floor(r.fee * artisan.erfolg.erstattung));
+    assert.equal(s.money, money + c.refund, 'halber Lohn zurück');
+    assert.ok(artisan.texte.missglueckt.some((l) => s.auction.log.some((t) => t.includes(l))));
+  }
+  const sum = s.endSession();
+  assert.equal(sum.collected.length, 1);
+});
+
+test('Der Würfel ist fest je Auftrag und trifft die Chance: Gelingen und Misslingen kommen beide vor', () => {
+  const s = new GameState(content);
+  const weak = [...artisan.recipes].sort((a, b) => content.artifacts.list[a.id].price - content.artifacts.list[b.id].price);
+  const easy = weak[0], hard = weak[weak.length - 1];
+  const rate = (r) => {
+    let ok = 0;
+    const n = 1000;
+    for (let c = 0; c < n; c++) {
+      const o = { circle: 'waage', cycle: c, recipe: r.id, chance: s.recipeChance(r) };
+      assert.equal(s.orderSucceeds(o), s.orderSucceeds(o), 'Neuladen ändert nichts');
+      if (s.orderSucceeds(o)) ok++;
+    }
+    return ok / n;
+  };
+  const e = rate(easy), h = rate(hard);
+  assert.ok(Math.abs(e - s.recipeChance(easy)) < 0.06, `leicht: ${e}`);
+  assert.ok(Math.abs(h - s.recipeChance(hard)) < 0.06, `schwer: ${h}`);
+  assert.ok(e > h);
+});
+
+test('Spielstand: offene Aufträge überleben Laden', () => {
+  const s = session(true);
+  s.startSession('waage');
+  toOwn(s);
+  s.openArtisan();
+  const [r] = s.artisanRecipes('waage', s.auction.cycle);
+  s.addItem(Object.keys(r.needs)[0], 1);
+  assert.ok(s.orderArtifact(r.id).ok);
+  s.endSession();
+  const l = new GameState(content);
+  assert.ok(l.load(JSON.parse(JSON.stringify(s.serialize()))));
+  assert.deepEqual(l.pendingOrders(), s.pendingOrders());
+  // Ein Spielstand von vor dem Umbau hat keine Aufträge
+  const old = new GameState(content);
+  const data = JSON.parse(JSON.stringify(s.serialize()));
+  delete data.artisanOrders;
+  assert.ok(old.load(data));
+  assert.deepEqual(old.pendingOrders(), []);
 });
 
 test('Ankündigung: Einladung und HUD nennen die Fasserin, wenn sie kommt', () => {
@@ -203,6 +320,7 @@ test('BO: 20 Rezepte im Vorrat (plus Nerven-Artefakte), fass_-Artefakte nur bei 
   assert.equal(poor.ok, false);
   assert.ok(artisan.texte.fehlendes_geld.some((l) => poor.text.includes(l)), poor.text);
   s.money = 500;
-  assert.ok(s.craftArtifact(r.id).ok);
+  assert.ok(s.craftArtifact(r.id).ok, 'alter Name führt zum Auftrag');
+  assert.equal(s.pendingOrders().length, 1);
   assert.ok(s.leaveArtisan().ok);
 });

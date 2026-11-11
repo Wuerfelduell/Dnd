@@ -87,7 +87,7 @@ Schleifen bei Eintritt starten, bei Verlassen oder Ende der Aktion stoppen; nie 
 | ID | Hook / Auswahlbedingung | Karte / Lebensdauer |
 |---|---|---|
 | `fasserin_werkbank` | D/A: `openArtisan()` erfolgreich, Fasserin arbeitet | aktiver Treffpunkt aus `src/data/treffen.json`; Loop bis `leaveArtisan` |
-| `fasserin_fassung` | D: `craftArtifact(recipeId)` erfolgreich; nicht pauschal `item` | aktiver Fasserin-Treffpunkt; einmal |
+| `fasserin_fassung` | D: `orderArtifact(recipeId)` erfolgreich (Auftrag angenommen); nicht pauschal `item` | aktiver Fasserin-Treffpunkt; einmal |
 | `kontrolle_tentakel` | E: `lostcontrol`, nur bei sichtbarem Tentakelwachstum | aktuelle Kampfkarte; einmal statt doppeltem Y-Klang |
 | `kontrolle_zurueck` | D: sichtbare Tentakel-Rückbildung abgeschlossen | aktuelle Karte; einmal |
 | `kontrolle_laeutersalz` | N: `cleansed`, nur wenn Läutersalz tatsächlich verbraucht wurde | aktuelle Karte; einmal |

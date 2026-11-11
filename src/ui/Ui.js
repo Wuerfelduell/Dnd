@@ -2212,24 +2212,27 @@ export class Ui {
       stage = `<div class="speaker">Dein Angebot <span class="role">Artefakte und Formeln</span></div>
         ${list.length ? '<p class="lead">Was legst du auf den Tisch?</p>' : '<p class="lead">Du hast keine Artefakte oder Formeln dabei, die du anbieten könntest.</p>'}
         ${list.length ? `<ul class="offers">${list.slice(0, 8).map((o) => `<li>${itemIcon(o.id)}<strong>${esc(o.name)}</strong> <span class="muted">etwa ${o.value} Sch.</span>${offerHtml(s, o.id)}</li>`).join('')}</ul>` : ''}
-        ${a.artisan ? `<p class="lead muted">${esc(s.artisanName())} sitzt abseits und fasst Beutestücke zu Artefakten.</p>` : ''}`;
+        ${a.artisan ? `<p class="lead muted">${esc(s.artisanName())} sitzt abseits und nimmt starke Beutestücke in Auftrag.</p>` : ''}`;
       if (a.artisan) acts.push({ label: `Zu ${s.artisanName()}: Beute fassen lassen`, fn: () => s.openArtisan() });
       for (const o of list.slice(0, 8)) acts.push({ label: `${o.name} anbieten`, fn: () => s.offerOwn(o.id), icon: o.id });
       acts.push({ label: 'Runde beenden', fn: () => this.finishAuction() });
     } else if (a.phase === 'artisan') {
       const recipes = s.artisanRecipes(a.circle, a.cycle);
+      const pct = (c) => `${Math.round(c * 100)} %`;
       const rows = recipes.map((r) => {
         const c = s.recipeCheck(r);
         const it = s.item(c.artifact);
         const needs = c.needs.map((x) => `<span class="${x.have >= x.n ? 'got' : 'lack'}">${itemIcon(x.item)}${esc(s.item(x.item)?.name ?? x.item)} ${x.have}/${x.n}</span>`).join(' · ');
-        return `<li class="recipe ${c.ok ? 'ready' : ''}">${itemIconBig(c.artifact)}<strong>${esc(it?.name ?? c.artifact)}</strong> <span class="muted">Lohn ${c.fee} Sch.</span>${artifactEffectsHtml(it ?? {})}<span class="needs">Braucht: ${needs}</span></li>`;
+        return `<li class="recipe ${c.ok ? 'ready' : ''}">${itemIconBig(c.artifact)}<strong>${esc(it?.name ?? c.artifact)}</strong> <span class="muted">Lohn ${c.fee} Sch. · gelingt zu ${pct(c.chance)}</span>${artifactEffectsHtml(it ?? {})}<span class="needs">Aus: ${needs}</span></li>`;
       }).join('');
+      const pending = s.pendingOrders();
+      const pendingHtml = pending.length ? `<p class="lead muted">In Arbeit: ${pending.map((o) => `${esc(s.item(o.artifact)?.name ?? o.artifact)} (${esc(s.gatheringDef(o.circle)?.name ?? o.circle)})`).join(', ')}.</p>` : '';
       stage = `${portrait(s.artisanId())}<div class="speaker">${esc(s.artisanName())} <span class="role">${esc(s.content.npcs[s.artisanId()]?.role ?? 'Fasserin')}</span></div>
-        <p class="lead">„${esc(s.artisanGreeting(a.circle, a.cycle))}“ <span class="muted">Der Lohn ist fest, die Beute ist danach weg.</span></p>
-        <ul class="recipes">${rows || '<li class="muted">Heute hat sie nichts auf dem Tisch.</li>'}</ul>`;
+        <p class="lead">„${esc(s.artisanGreeting(a.circle, a.cycle))}“ <span class="muted">Ein Stück, fester Lohn. Fertig ist es beim nächsten Treffen dieses Zirkels; misslingt die Fassung, ist das Stück hin und die Hälfte des Lohns kommt zurück.</span></p>
+        <ul class="recipes">${rows || '<li class="muted">Heute hat sie nichts auf dem Tisch.</li>'}</ul>${pendingHtml}`;
       for (const r of recipes) {
         const c = s.recipeCheck(r);
-        acts.push({ label: `${s.item(c.artifact)?.name ?? r.id} fassen (${c.fee} Sch.)`, fn: () => s.craftArtifact(r.id), off: !c.ok, icon: c.artifact });
+        acts.push({ label: `${s.item(c.artifact)?.name ?? r.id} in Auftrag geben (${c.fee} Sch., ${pct(c.chance)})`, fn: () => s.orderArtifact(r.id), off: !c.ok, icon: c.artifact });
       }
       acts.push({ label: 'Zurück zur Runde', fn: () => s.leaveArtisan() });
     } else if (a.phase === 'own_bids') {
@@ -2268,7 +2271,8 @@ export class Ui {
     this.close();
     if (!sum) return;
     const line = (l, verb) => l.map((x) => `${this.state.item(x.item).name} (${x.price} Sch.)`).join(', ') || 'nichts';
-    this.showMessage('Die Runde löst sich auf', `Gekauft: ${line(sum.bought)}\n\nVerkauft: ${line(sum.sold)}${sum.crafted?.length ? `\n\nGefasst: ${line(sum.crafted)}` : ''}`, { footer: 'Bis zum nächsten Treffen.' });
+    const got = (sum.collected ?? []).map((x) => (x.ok ? `${this.state.item(x.item).name} gelungen` : `${this.state.item(x.item).name} misslungen (${x.refund} Sch. zurück)`)).join(', ');
+    this.showMessage('Die Runde löst sich auf', `Gekauft: ${line(sum.bought)}\n\nVerkauft: ${line(sum.sold)}${got ? `\n\nAbgeholt: ${got}` : ''}${sum.crafted?.length ? `\n\nIn Auftrag: ${line(sum.crafted)} · fertig beim nächsten Treffen dieses Zirkels` : ''}`, { footer: 'Bis zum nächsten Treffen.' });
   }
 
   // --- Eigenes Büro: Lagerschrank und Fallwand -------------------------------------------
