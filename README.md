@@ -103,7 +103,8 @@ Auf dem **Nachtmarkt** unter der Krähenbrücke (Stadtkarte) kann man aufsteigen
 - **Verdauen**: Jeder Pfad hat einen Grundsatz. Wer danach handelt (Faden: Schlussfolgerungen ziehen, Eisen: Kämpfe gewinnen,
   Schlüssel: gesperrte Akten öffnen, ...), verdaut den Trank. Erst bei 100 % verträgt man die nächste Sequenz gefahrlos.
   Die Verdauung steht im HUD, jede passende Handlung meldet sich mit „+N % verdaut“, und die Pfad-Seite (`P`) listet,
-  welche Handlungen den eigenen Pfad wie stark verdauen.
+  welche Handlungen den eigenen Pfad wie stark verdauen. Bis Sequenz 7 geht das zügig; ab Sequenz 6 verdaut jede Stufe
+  zehnmal so langsam wie die davor (6 = ein Zehntel von 7, 5 = ein Hundertstel, ...). Das gilt auch für verdauende Fähigkeiten.
 - **Unruhe**: kommt mit jedem Trank und mit Geistsicht, klingt mit der Zeit und durch passendes Handeln ab. Ruhetee senkt sie.
   Bei 100 Unruhe oder einem zu früh getrunkenen Trank droht der **Kontrollverlust**: Ohnmacht, Verlust von Leben,
   Schilling und Verdauung (nie Game Over), und Tentakel wachsen aus der Figur und **korrumpieren** alles am Leib:

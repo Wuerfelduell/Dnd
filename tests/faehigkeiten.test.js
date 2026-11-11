@@ -252,7 +252,7 @@ test('Welt-Fähigkeit: Spuren sichtbar, Gegner weichen, Uhr steht, Verdauung, Fa
   // Verdauung (Moor 5)
   const m = beyonder('sq_moor', 5);
   m.useTalent('moor_torfgedaechtnis');
-  assert.equal(m.pathway.digestion, 8);
+  assert.ok(Math.abs(m.pathway.digestion - 0.08) < 1e-9, `Torfgedächtnis auf Sequenz 5: 8 % / 100 = ${m.pathway.digestion}`);
   // Fahndung (Maske 8)
   const w = beyonder('maske', 8);
   if (w.policeRules()) {

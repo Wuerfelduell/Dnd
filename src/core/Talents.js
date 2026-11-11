@@ -16,6 +16,7 @@
 //
 // Abklingzeiten und Buffs gehören jedem Spieler selbst (talentCd, buffs in Party.PERSONAL); Sichtbarkeit,
 // Furcht und die stehende Uhr gelten für die ganze Karte.
+import { digestSlowdown, fmtDigest } from './Pathways.js';
 
 /** Lesbare Beschreibung eines zeitweiligen Passivs (für Pfad-Tab und Meldungen). */
 export const BUFF_LABELS = {
@@ -101,8 +102,9 @@ export const talentMethods = {
     if (t.digest && this.pathway) {
       const p = this.pathway;
       const before = p.digestion;
-      p.digestion = Math.min(100, p.digestion + t.digest);
-      if (p.digestion > before) { parts.push(`+${Math.round(p.digestion - before)} % verdaut`); this.emit('digest', { value: p.digestion, delta: p.digestion - before, kind: 'talent', player: this.acting ?? 1 }); }
+      // Fähigkeiten verdauen auf tiefen Sequenzen genauso gebremst wie Handlungen (siehe DIGEST_RATE)
+      p.digestion = Math.min(100, p.digestion + t.digest * digestSlowdown(p.seq));
+      if (p.digestion > before) { parts.push(`+${fmtDigest(p.digestion - before)} % verdaut`); this.emit('digest', { value: p.digestion, delta: p.digestion - before, kind: 'talent', player: this.acting ?? 1 }); }
       if (before < 100 && p.digestion >= 100) this.emit('digested', { ...p, player: this.acting ?? 1 });
     }
     if (t.wanted && this.wanted > 0) { const before = this.wanted; this.setWanted(this.wanted + t.wanted, t.name); parts.push(`Fahndung -${before - this.wanted}`); }

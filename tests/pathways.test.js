@@ -3,6 +3,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
 import { Combat } from '../src/core/Combat.js';
+import { DIGEST_RATE, DIGEST_SLOW_FACTOR, fmtDigest } from '../src/core/Pathways.js';
 import { loadContent, talk, fight } from './helpers.js';
 
 const content = loadContent();
@@ -233,4 +234,30 @@ test('Speichern und Laden behält Schilling, Pfad und Unruhe', () => {
   assert.equal(t.pathway.id, 'echo');
   assert.equal(t.pathway.digestion, s.pathway.digestion);
   assert.equal(Math.round(t.unruhe), Math.round(s.unruhe));
+});
+
+test('Verdauung ab Sequenz 6: jede Stufe zehnmal so langsam wie die davor', () => {
+  assert.equal(DIGEST_RATE[7], 0.5, 'Sequenz 7 bleibt wie gehabt');
+  for (let seq = 6; seq >= 1; seq--) {
+    assert.ok(Math.abs(DIGEST_RATE[seq] * DIGEST_SLOW_FACTOR - DIGEST_RATE[seq + 1]) < 1e-12, `Sequenz ${seq} = Sequenz ${seq + 1} / 10`);
+  }
+  const s = new GameState(content);
+  const gain = (seq) => { s.pathway = { id: 'eisen', seq, digestion: 0 }; return s.act('combat_win'); };
+  const at7 = gain(7);
+  const at6 = gain(6);
+  const at5 = gain(5);
+  assert.ok(at7 > 0);
+  assert.ok(Math.abs(at6 * 10 - at7) < 1e-9, `Sequenz 6 (${at6}) ist ein Zehntel von 7 (${at7})`);
+  assert.ok(Math.abs(at5 * 100 - at7) < 1e-9, `Sequenz 5 (${at5}) ist ein Hundertstel von 7 (${at7})`);
+  // Zu zweit: Spieler 2 verdaut nach seiner eigenen Sequenz
+  const d = new GameState(content);
+  d.pathway = { id: 'eisen', seq: 7, digestion: 0 };
+  d.addP2();
+  d.withPlayer(2, () => { d.pathway = { id: 'eisen', seq: 6, digestion: 0 }; });
+  d.act('combat_win');
+  const p1 = d.pathway.digestion;
+  const p2 = d.withPlayer(2, () => d.pathway.digestion);
+  assert.ok(p1 > 0 && Math.abs(p2 * 10 - p1) < 1e-9, `Koop: Spieler 2 auf Sequenz 6 (${p2}) verdaut ein Zehntel von Spieler 1 auf 7 (${p1})`);
+  assert.equal(fmtDigest(0.014), '0.014');
+  assert.equal(fmtDigest(14), '14');
 });
