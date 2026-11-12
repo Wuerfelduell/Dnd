@@ -37,8 +37,12 @@ const hochSeqs = (pid, seqs) => Object.fromEntries(Object.entries(seqs).map(([n,
  * Ids nach den Codex-Paketen CO/CP. Bis deren Sheets, Phasen und Dialoge eingebaut sind, leihen sie sich Dunscarer Boss-Sheets.
  */
 export const SCHWELLE = {
-  4: { waechter: 'hg_schwellenwaechter', sheet: 'enemy_schwellenhund', hp: 400, armor: 3, dmg: [16, 20, 14], titel: 'Schwellenwächter', chapter: 3 },
-  2: { waechter: 'hg_grenzwaechter', sheet: 'enemy_unterschicht', hp: 900, armor: 4, dmg: [26, 32, 23], titel: 'Grenzwächter', chapter: 4 },
+  4: { waechter: 'hg_schwellenwaechter', sheet: 'hg_schwellenwaechter', hp: 520, armor: 3, dmg: [16, 20, 14], titel: 'Schwellenwächter', chapter: 3,
+    schlag: 'Signalschlag', welle: 'Kalkstaub-Welle', welle_dmg: 12, nerves: 8, phase_text: '„Sie haben die Prüfung bewegt. Nun trägt sie zurück.“',
+    bild: 'Kalk und alte Bahnsignale bilden einen Körper ohne Gesicht. Vor der Brust hängt dein Pfadsiegel.' },
+  2: { waechter: 'hg_grenzwaechter', sheet: 'hg_grenzwaechter', hp: 1400, armor: 4, dmg: [26, 32, 23], titel: 'Grenzwächter', chapter: 4,
+    schlag: 'Grenzschlag', welle: 'Grenznebel', welle_dmg: 20, nerves: 12, phase_text: '„Die Grenze antwortet jetzt mit Ihrer eigenen Haltung.“',
+    bild: 'Grenzsteine halten einen Leib aus dichtem Nebel zusammen. Neben ihm steht ein leerer Umriss in deiner Haltung.' },
 };
 export function schwelleEncounter(pid, p, seq) {
   const w = SCHWELLE[seq];
@@ -47,12 +51,17 @@ export function schwelleEncounter(pid, p, seq) {
   return {
     name: `${w.titel} ${p.name.replace('Pfad der', 'der').replace('Pfad des', 'des')}`,
     sprite: 'wild', sheet: w.sheet, waechter: w.waechter, pathway: pid, boss: true, occult: true, fleeable: true, hp: w.hp, armor: w.armor, max_round_dmg: 0.2, ramp: 0.02, chapter: w.chapter,
-    intro: `Aus dem Nebel tritt etwas, das aussieht wie dein Grundsatz, wenn er Zähne hätte. „${p.principle}“, sagt es mit deiner Stimme. „Zeig mir, dass du es meinst.“`,
+    intro: `${w.bild} Aus dem Nebel spricht es mit deiner Stimme: „${p.principle}“ – „Zeigen Sie mir, was Sie selbst verantworten.“`,
     attacks: [
-      { name: `Prüfung ${was}: zwei Schläge`, damage: a, hits: [1100, 1800] },
+      { name: `${w.schlag} ${was}: zwei Schläge`, damage: a, hits: [1100, 1800] },
       { name: `Urteil ${was}: ein schwerer Schlag, ausweichen`, damage: b, hits: [2400], unparryable: true },
       { name: `Zweifel ${was}: drei schnelle Schläge`, damage: c, hits: [900, 1500, 2100] },
     ],
+    // CP: ab halben Leben der Zorn (Welle gegen alle, senkt Nerven) im Wechsel mit dem Schlag; eigene Reihe idle_p2 im CO-Sheet
+    phase2: { meldung: w.phase_text, attacks: [
+      { name: `${w.welle}: trifft alle, senkt Nerven`, damage: w.welle_dmg, hits: [900, 1800], nerves: w.nerves },
+      { name: `${w.schlag}: ein schwerer Schlag, ausweichen`, damage: b, hits: [2400], unparryable: true },
+    ] },
     on_win: {},
     win_text: `${w.titel} ${was}: Die Gestalt zerfällt zu Nebel und sinkt in den Kreis zurück. Du hast deinen eigenen Grundsatz niedergerungen. Jetzt kannst du das Ritual vollenden.`,
     lose_text: 'Die Gestalt löst sich auf, als du fällst. Nichts ist verloren, nur der Versuch. Der Kreis bleibt, der Tribut bleibt. Komm wieder, wenn du stärker bist.',

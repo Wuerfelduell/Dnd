@@ -425,7 +425,8 @@ export class Combat {
     let stunned = false;
     let stunMissed = false;
     if (sk.stun && !this.outcome) {
-      if (graded.some((g) => g === 'perfect')) { this.stunned = true; stunned = true; } else { stunMissed = true; effects.push('nur ein präziser Treffer hätte betäubt'); }
+      if (this.unshakable()) { stunMissed = true; effects.push(`${this.enemy.name} lässt sich nicht betäuben`); }
+      else if (graded.some((g) => g === 'perfect')) { this.stunned = true; stunned = true; } else { stunMissed = true; effects.push('nur ein präziser Treffer hätte betäubt'); }
     }
     if (precise && !stunned && !stunMissed && hits.length && !graded.some((g) => g === 'perfect')) effects.push('ungenau, nur ein Bruchteil der Wucht');
     if (sk.weak && landed && !this.weak) { this.weak = true; effects.push('Schwachstelle erkannt'); }
@@ -433,7 +434,7 @@ export class Combat {
     if (sk.drain && total) effects.push(`+${this.state.heal(Math.round(total * sk.drain))} Leben`);
     if (sk.shield) { this.shield += sk.shield; effects.push(`Schutz ${this.shield}`); }
     if (sk.evade) { this.evading = true; effects.push('nächster Angriff geht ins Leere'); }
-    if (sk.confuse && landed) { this.confused = true; effects.push('Gegner verwirrt'); }
+    if (sk.confuse && landed) { if (this.unshakable()) effects.push(`${this.enemy.name} lässt sich nicht verwirren`); else { this.confused = true; effects.push('Gegner verwirrt'); } }
     if (sk.burn && landed) {
       // Ein stärkerer oder längerer Brand ersetzt den alten, ein schwächerer verlängert ihn nur (extend_burn)
       const old = this.burn;
@@ -540,8 +541,19 @@ export class Combat {
   /** Schadensfaktor der Sequenz-Schranke für den Spieler, der gerade handelt (zu zweit zählt jeder für sich). */
   wardMult() {
     const min = this.enc.min_seq;
-    if (!min || this.enc.practice) return 1;
+    // `ward: false`: höheres Wesen ohne Schranke (Grauspäher). Der Spieler macht vollen Schaden, die Härte steckt in Leben und Schlägen.
+    if (!min || this.enc.practice || this.enc.ward === false) return 1;
     return (this.state.pathway?.seq ?? 99) <= min ? 1 : SEQ_WARD_MULT;
+  }
+
+  /**
+   * Höhere Wesen (`min_seq`) lassen sich von Schwächeren nicht blenden oder verwirren: Tricks, die den Gegner
+   * aussetzen oder sich selbst schlagen lassen, prallen an ihrem Willen ab. Schaden kommt trotzdem voll an (`ward: false`).
+   */
+  unshakable() {
+    const min = this.enc.min_seq;
+    if (!min || this.enc.practice) return false;
+    return (this.state.pathway?.seq ?? 99) > min;
   }
 
   hurtEnemy(n, { pierce = false } = {}) {
@@ -859,7 +871,9 @@ export class Combat {
       if (!enc.practice) {
         each(() => { s.hp = Math.max(1, Math.round(s.maxHp * 0.4)); });
         s.applyEffects(enc.on_lose);
-        travel = enc.lose_to ?? null;
+        // Festnahme nach verlorenem Widerstand (Grauspäher): sofort in die Zelle, nicht erst nach dem Fenster
+        travel = enc.lose_to ?? s.pendingTravel ?? null;
+        if (travel && s.pendingTravel === travel) s.pendingTravel = null;
       } else {
         each((f) => { s.hp = Math.max(1, f.hpBefore); });
       }

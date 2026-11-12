@@ -462,7 +462,11 @@ export const pathwayMethods = {
     const carryGain = this.carryCapacity() - carryBefore;
     const gains = `Dein Körper wächst mit: ${this.maxHp} Leben, ${this.maxComposure()} Nerven, Tragkraft ${this.carryText().split('/')[1]}${carryGain > 0 ? ` (+${carryGain})` : ''}.`;
     const asc = ASCENSION_TEXT[it.seq];
-    const text = first
+    const cp = asc ? this.hgDrinkText(it.pathway, it.seq) : null; // Paket CP: eigener Trinktext je Pfad und Stufe
+    const formHint = it.seq === FORM_SEQ ? `\n\nAb ${FORM_MIN_DIGEST} % Verdauung kannst du im Pfad-Tab deine mythische Gestalt annehmen. Menschen ohne Pfad und schwächere Wesen brechen vor ihr zusammen.` : '';
+    const text = cp
+      ? `${cp.trinken}\n\nDu bist jetzt Sequenz ${it.seq}: ${sd.name}. ${asc.rank}\n\n${sd.desc}\n\n${asc.outro}\n\n${gains}${formHint}`
+      : first
       ? `Du trinkst. Es schmeckt nach Nebel und Kupfer. Dann wird die Welt für einen Herzschlag zu laut, zu hell, zu nah.\n\nDu bist jetzt Sequenz 9 des ${pd.name.replace('Pfad', 'Pfads')}: ${sd.name}.\n\n${sd.desc}\n\n${gains}\n\nGrundsatz: „${pd.principle}“ Handle danach, um den Trank zu verdauen.`
       : asc
         ? `${asc.intro}\n\nDu bist jetzt Sequenz ${it.seq}: ${sd.name}. ${asc.rank}\n\n${sd.desc}\n\n${asc.outro}\n\n${gains}${it.seq === FORM_SEQ ? `\n\nAb ${FORM_MIN_DIGEST} % Verdauung kannst du im Pfad-Tab deine mythische Gestalt annehmen. Menschen ohne Pfad und schwächere Wesen brechen vor ihr zusammen.` : ''}`
@@ -690,14 +694,43 @@ export const pathwayMethods = {
   /** Die Kreaturform des eigenen Pfades: { id, name } (Texte und Grafik kommen mit den Paketen CO/CP dazu). */
   formDef(pid = this.pathway?.id) {
     if (!pid) return null;
-    return HG_FORMS[pid] ?? { id: `hg_form_${pid}`, name: `Gestalt ${this.pathwayDef(pid)?.name ?? pid}` };
+    const base = HG_FORMS[pid] ?? { id: `hg_form_${pid}`, name: `Gestalt ${this.pathwayDef(pid)?.name ?? pid}` };
+    const cp = this.content.halbgott?.kreaturform?.[pid]; // Paket CP: Beschreibung, Annehmen, Ablegen, Sperre, zu lange, Koop-Sicht
+    return cp ? { ...base, ...cp, id: base.id, name: cp.name ?? base.name } : base;
+  },
+
+  /** Paket CP: Trinktext und Ankunft für die großen Tränke (Sequenz 4 und 2) des Pfades, sonst null. */
+  hgDrinkText(pid, seq) {
+    return this.content.halbgott?.trinktexte?.[`${pid}_${seq}`] ?? null;
+  },
+
+  /**
+   * Paket CP: Wie ein Gegner auf die Gestalt reagiert (nur wer vor ihr zusammenbricht, siehe awes): Klasse nach Art
+   * der Begegnung, eine Zeile „beim Anblick“, bei Polizei Ansehensverlust (Folge hg_folge_01). Ergebnis { klasse, text } oder null.
+   */
+  formFearReaction(encounterId) {
+    const f = this.content.halbgott?.furcht;
+    const enc = this.content.encounters[encounterId];
+    if (!f || !enc) return null;
+    const blob = `${encounterId} ${enc.name ?? ''} ${enc.sheet ?? ''}`.toLowerCase();
+    const klasse = enc.animal || /ratte|hund|katze|taube|moewe|tier/.test(blob) ? 'tiere'
+      : enc.occult ? 'beyonder_schwach'
+        : /polizei|wache|streife|konstabler|posten|aufseher|grausp/.test(blob) ? 'polizei'
+          : /haendler|kraemer|markt|hehler|schmuggler/.test(blob) ? 'haendler' : 'buerger';
+    const k = f.klassen?.[klasse] ?? f.klassen?.buerger;
+    if (!k) return null;
+    const lines = k.beim_anblick ?? [];
+    const n = (this.formFearCount = (this.formFearCount ?? 0) + 1);
+    if (klasse === 'polizei') this.addHonor?.(-3, 'Die Wache sah deine Gestalt');
+    if (!this.flags.has('hg_form_oeffentlich') && klasse !== 'tiere') this.flags.add('hg_form_oeffentlich');
+    return { klasse, wirkung: k.wirkung, text: lines.length ? lines[n % lines.length] : null };
   },
 
   /** Warum die Gestalt gerade nicht geht (oder null). */
   formBlock() {
     const p = this.pathway;
     if (!p || p.seq > FORM_SEQ) return `Erst ab Sequenz ${FORM_SEQ}.`;
-    if (!this.formUnlocked()) return `Der Trank der Sequenz ${FORM_SEQ} muss zur Hälfte verdaut sein (${Math.floor(p.digestion)} von ${FORM_MIN_DIGEST} %).`;
+    if (!this.formUnlocked()) return `Der Trank der Sequenz ${FORM_SEQ} muss zur Hälfte verdaut sein (${Math.floor(p.digestion)} von ${FORM_MIN_DIGEST} %).${this.formDef()?.gesperrt ? ` ${this.formDef().gesperrt}` : ''}`;
     if (!p.form && this.composure < FORM_MIN_NERVES * 2) return `Dafür fehlen dir die Nerven (mindestens ${FORM_MIN_NERVES * 2}).`;
     return null;
   },
@@ -723,7 +756,8 @@ export const pathwayMethods = {
     this.emit('form', { active: true, player: this.acting ?? 1, form: form.id });
     this.emit('form_annehmen', { player: this.acting ?? 1, form: form.id });
     this.emit('changed');
-    return { ok: true, active: true, text: form.annehmen ?? `Du lässt los. Was unter deiner Haut gewartet hat, richtet sich auf: ${form.name}, die wahre Gestalt des ${pd.name.replace('Pfad', 'Pfads')}. Menschen ohne Pfad und schwächere Wesen brechen zusammen, wenn sie dich sehen. Die Gestalt kostet ${FORM_NERVES_PER_SEC} Nerven und ${FORM_UNRUHE_PER_SEC} Unruhe je Sekunde.` };
+    const rules = `Menschen ohne Pfad und schwächere Wesen brechen zusammen, wenn sie dich sehen. Die Gestalt kostet ${FORM_NERVES_PER_SEC} Nerven und ${FORM_UNRUHE_PER_SEC} Unruhe je Sekunde.`;
+    return { ok: true, active: true, text: form.annehmen ? `${form.annehmen} ${form.name}${form.beschreibung ? `: ${form.beschreibung}` : '.'}\n\n${rules}` : `Du lässt los. Was unter deiner Haut gewartet hat, richtet sich auf: ${form.name}, die wahre Gestalt des ${pd.name.replace('Pfad', 'Pfads')}. ${rules}` };
   },
 
   /** Legt die Gestalt ab (von Hand oder weil die Nerven ausgehen). */

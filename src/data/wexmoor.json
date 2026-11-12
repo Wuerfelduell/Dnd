@@ -4781,6 +4781,29 @@
           ],
           "alpha": 1,
           "ysort": true
+        },
+        {
+          "sprite": "wx_pfandtisch",
+          "tile": [
+            16,
+            5
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            44,
+            8,
+            0,
+            -4
+          ]
         }
       ],
       "tiles": "r_salzmarkt",
@@ -17881,15 +17904,14 @@
         "wanted_reason": "Flucht vor der Streife"
       },
       "flee_text": "Du reißt dich los und rennst, bis die Laternen hinter dir nur noch Punkte sind. Der Pfiff der Streife folgt dir durch die Gassen. Das Lichtamt kennt jetzt dein Gesicht.",
-      "hp": 240,
+      "hp": 700,
       "armor": 3,
-      "ramp": 0.08,
-      "max_round_dmg": 0.25,
-      "intro": "Die Grauspäher legen die Laternen nicht ab. Sie brauchen beide Hände nicht. Der vordere zieht den Wachsknüppel, und das Licht in seinen Augen ist dasselbe wie das in der Laterne.",
+      "ramp": 0.02,
+      "intro": "Die Grauspäher legen die Laternen nicht ab. Sie brauchen beide Hände nicht. Der vordere zieht den Wachsknüppel, und das Licht in seinen Augen ist dasselbe wie das in der Laterne. Was immer du bist: Diese beiden stecken mehr weg, als du in einer Nacht austeilen kannst.",
       "attacks": [
         {
           "name": "Wachsknüppel",
-          "damage": 16,
+          "damage": 55,
           "hits": [
             700,
             1100
@@ -17903,7 +17925,7 @@
         },
         {
           "name": "Dienstgriff",
-          "damage": 24,
+          "damage": 85,
           "hits": [
             1300
           ],
@@ -17912,12 +17934,12 @@
         {
           "name": "Zweite Streife",
           "action": "guard",
-          "value": 14,
-          "text": "Der zweite Grauspäher tritt vor den ersten. Panzer +14."
+          "value": 20,
+          "text": "Der zweite Grauspäher tritt vor den ersten. Panzer +20."
         },
         {
           "name": "Knüppelwirbel",
-          "damage": 11,
+          "damage": 30,
           "hits": [
             600,
             900,
@@ -17928,8 +17950,8 @@
         {
           "name": "Lichtamt-Salbe",
           "action": "heal",
-          "value": 24,
-          "text": "Weißes Wachs schließt die Wunden, als wären sie nie da gewesen. +24 Leben."
+          "value": 40,
+          "text": "Weißes Wachs schließt die Wunden, als wären sie nie da gewesen. +40 Leben."
         }
       ],
       "on_win": {
@@ -17963,7 +17985,8 @@
             "chance": 1
           }
         ]
-      }
+      },
+      "ward": false
     }
   },
   "loot": {

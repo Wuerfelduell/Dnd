@@ -282,8 +282,8 @@ test('Kein Schadensdeckel in Wexmoor: der Spieler macht vollen Schaden, die Gegn
   }
   assert.equal(new Combat(hero(3), 'torfgaenger').maxRoundDmg, 0);
   assert.equal(new Combat(hero(3), 'namenlose').maxRoundDmg, 0);
-  // Grauspäher (nur mit Seq 4 zu schlagen) und Kettlegate-Bosse behalten ihre Grenze am Gegner
-  assert.equal(new Combat(hero(3), 'wx_grauspaeher_fight').maxRoundDmg, 0.25);
+  // Grauspäher tanken seit dem Umbau ebenfalls über Leben (kein Deckel mehr), Kettlegate-Bosse behalten ihre Grenze am Gegner
+  assert.equal(new Combat(hero(3), 'wx_grauspaeher_fight').maxRoundDmg, 0);
   assert.ok(new Combat(hero(3), 'starling_fight').maxRoundDmg > 0);
   // Voller Schaden kommt an: ein Treffer über dem alten Viertel wird nicht mehr gekappt
   const c = new Combat(hero(3), 'torfgaenger');
