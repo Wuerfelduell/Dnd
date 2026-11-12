@@ -147,10 +147,10 @@ function dsTheme(theme, { floorChars = '.sgw', walls = theme, mix = [], accent =
 }
 
 const THEMES = {
-  ds_stadt: dsTheme('ds_stadt', { mix: [['chalk', 0.06], ['debris', 0.06]], accent: 'window' }),
-  ds_bahn: dsTheme('ds_bahn', { walls: 'ds_stadt', mix: [['debris', 0.06]] }),
+  ds_stadt: dsTheme('ds_stadt', { mix: [['debris', 0.03]], accent: 'window' }), // ruhiger Boden: keine hellen Kalkkacheln mehr im Raster (Kulisse streut sie vereinzelt)
+  ds_bahn: dsTheme('ds_bahn', { walls: 'ds_stadt', mix: [['debris', 0.03]] }),
   ds_bruch: dsTheme('ds_bruch', { mix: [['debris', 0.05], ['wet', 0.03]] }),
-  ds_schlucht: dsTheme('ds_schlucht', { mix: [['debris', 0.08]], accent: 'grooves' }),
+  ds_schlucht: dsTheme('ds_schlucht', { mix: [['debris', 0.025]], accent: 'grooves' }),
   ds_innen: dsTheme('ds_innen', { mix: [['wear', 0.05]] }),
   ds_teesaal: dsTheme('ds_teesaal', { mix: [['carpet', 0.3]] }),
   ds_zug: dsTheme('ds_zug', { accent: 'window' }),
@@ -953,6 +953,12 @@ export class WorldScene extends Phaser.Scene {
         if (item.hidden) this.hidden.push(item.sprite);
       }
       if (def.lamp) this.buildLamp(x, ty * TILE + 16, def.lamp);
+      // Dunscar-Kulisse: Ausgänge tragen ein Schild mit dem Ziel
+      if (def.label) {
+        const tag = this.add.text(x, y - 10, def.label, { fontFamily: 'monospace', fontSize: '8px', color: '#f0ce80', stroke: '#1a1c2c', strokeThickness: 3 })
+          .setOrigin(0.5, 1).setDepth(4900).setResolution(2);
+        item.parts.push(tag);
+      }
       const isClue = item.kind === 'clue' || item.kind === 'read';
       if (def.marker ?? isClue) {
         item.glint = this.add.image(x + 3, y - 5, 'glint').setDepth(60).setAlpha(0).setBlendMode(Phaser.BlendModes.ADD);
