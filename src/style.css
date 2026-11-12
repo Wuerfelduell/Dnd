@@ -1013,3 +1013,25 @@ img.scene.koop2trennung { display: block; width: 15em; height: auto; margin: 0 a
 .combat .flee-badge { color: #ffd27a; border-color: #ffd27a; animation: flee-pulse 1.2s ease-in-out infinite; }
 .combat .flee-note { color: #ffd27a; font-weight: bold; }
 @keyframes flee-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
+
+/* Schnellleiste der Welt-Fähigkeiten: unten links (Spieler 2 unten rechts), Tasten 1–9 / Ziffernblock */
+.talentbar { position: absolute; left: 0.75em; bottom: 0.9em; display: flex; gap: 0.3em; pointer-events: none; }
+.talentbar.p2 { left: auto; right: 0.75em; }
+.talentbar.hidden { display: none; }
+.talentbar .tslot {
+  position: relative; width: 2.6em; height: 2.6em; padding: 0; display: flex; align-items: center; justify-content: center;
+  font: inherit; background: rgba(14, 12, 18, 0.75); border: 0.125em solid #4a4050; cursor: pointer; line-height: 0;
+}
+.talentbar .tslot.ready { border-color: var(--brass); }
+.talentbar .tslot.ready:hover { border-color: var(--gold); background: rgba(40, 32, 24, 0.85); }
+.talentbar .tslot.cd .ticon, .talentbar .tslot.nonerves .ticon { filter: grayscale(1) brightness(0.55); }
+.talentbar .tslot.nonerves { border-color: #6a3a3a; }
+.talentbar .tslot.sel { outline: 0.125em solid var(--gold); outline-offset: 0.06em; }
+.talentbar .ticon { margin: 0; }
+.talentbar .ticon.atlas-icon { width: 1.75em; height: 1.75em; vertical-align: middle; }
+.talentbar .ticon.sun { color: var(--gold); font-size: 1.4em; line-height: 1; text-shadow: 0 0.1em 0 #000; }
+.talentbar .tcd { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--ink); font-size: 0.8em; line-height: 1; text-shadow: 0 0.125em 0 #000, 0 0 0.3em #000; }
+.talentbar .tslot .key { position: absolute; right: -0.3em; bottom: -0.3em; font-size: 0.65em; line-height: 1; padding: 0.05em 0.25em; }
+.talentbar.p2 .tslot .key::before { content: 'N'; opacity: 0.7; }
+html.touch .talentbar { bottom: 0.6em; gap: 0.4em; }
+html.touch .talentbar .tslot { width: 3.2em; height: 3.2em; }
