@@ -1,0 +1,2883 @@
+{
+  "version": 1,
+  "batch": "halbgott",
+  "status": "exported; runtime integration pending",
+  "paletteMaxVisibleColors": 32,
+  "palette": [
+    "#1a1c2c",
+    "#252b38",
+    "#303b49",
+    "#d0a050",
+    "#e8b860",
+    "#92745a",
+    "#58433c",
+    "#2d2629",
+    "#715648",
+    "#886332",
+    "#686850",
+    "#494b3a",
+    "#b3946e",
+    "#cfb18a",
+    "#f0ce80",
+    "#8b8870",
+    "#425360",
+    "#e0c9a1",
+    "#a8b4c0",
+    "#586c78",
+    "#71858b",
+    "#95a5a5",
+    "#eee2c5",
+    "#893e4e",
+    "#6fe0d0",
+    "#496b64",
+    "#334d47",
+    "#493d59",
+    "#665572",
+    "#877595",
+    "#835140",
+    "#a66c4d"
+  ],
+  "assets": [
+    {
+      "id": "bg_hg_grenze",
+      "file": "battle/bg_hg_grenze.png",
+      "width": 480,
+      "height": 270,
+      "kind": "background",
+      "transparent": false,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "bg_hg_schwelle",
+      "file": "battle/bg_hg_schwelle.png",
+      "width": 480,
+      "height": 270,
+      "kind": "background",
+      "transparent": false,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "hg_battle_echo",
+      "file": "battle/hg_battle_echo.png",
+      "width": 576,
+      "height": 576,
+      "kind": "battle",
+      "transparent": true,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 6,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "anticipationHoldFrames": {
+        "attack1": [
+          7,
+          8
+        ],
+        "attack2": [
+          13,
+          14
+        ]
+      }
+    },
+    {
+      "id": "hg_battle_eisen",
+      "file": "battle/hg_battle_eisen.png",
+      "width": 576,
+      "height": 576,
+      "kind": "battle",
+      "transparent": true,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 6,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "anticipationHoldFrames": {
+        "attack1": [
+          7,
+          8
+        ],
+        "attack2": [
+          13,
+          14
+        ]
+      }
+    },
+    {
+      "id": "hg_battle_faden",
+      "file": "battle/hg_battle_faden.png",
+      "width": 576,
+      "height": 576,
+      "kind": "battle",
+      "transparent": true,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 6,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "anticipationHoldFrames": {
+        "attack1": [
+          7,
+          8
+        ],
+        "attack2": [
+          13,
+          14
+        ]
+      }
+    },
+    {
+      "id": "hg_battle_kessel",
+      "file": "battle/hg_battle_kessel.png",
+      "width": 576,
+      "height": 576,
+      "kind": "battle",
+      "transparent": true,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 6,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "anticipationHoldFrames": {
+        "attack1": [
+          7,
+          8
+        ],
+        "attack2": [
+          13,
+          14
+        ]
+      }
+    },
+    {
+      "id": "hg_battle_laterne",
+      "file": "battle/hg_battle_laterne.png",
+      "width": 576,
+      "height": 576,
+      "kind": "battle",
+      "transparent": true,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 6,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "anticipationHoldFrames": {
+        "attack1": [
+          7,
+          8
+        ],
+        "attack2": [
+          13,
+          14
+        ]
+      }
+    },
+    {
+      "id": "hg_battle_maske",
+      "file": "battle/hg_battle_maske.png",
+      "width": 576,
+      "height": 576,
+      "kind": "battle",
+      "transparent": true,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 6,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "anticipationHoldFrames": {
+        "attack1": [
+          7,
+          8
+        ],
+        "attack2": [
+          13,
+          14
+        ]
+      }
+    },
+    {
+      "id": "hg_battle_schluessel",
+      "file": "battle/hg_battle_schluessel.png",
+      "width": 576,
+      "height": 576,
+      "kind": "battle",
+      "transparent": true,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 6,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "anticipationHoldFrames": {
+        "attack1": [
+          7,
+          8
+        ],
+        "attack2": [
+          13,
+          14
+        ]
+      }
+    },
+    {
+      "id": "hg_battle_sq_moor",
+      "file": "battle/hg_battle_sq_moor.png",
+      "width": 576,
+      "height": 576,
+      "kind": "battle",
+      "transparent": true,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 6,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "anticipationHoldFrames": {
+        "attack1": [
+          7,
+          8
+        ],
+        "attack2": [
+          13,
+          14
+        ]
+      }
+    },
+    {
+      "id": "hg_battle_sq_uhr",
+      "file": "battle/hg_battle_sq_uhr.png",
+      "width": 576,
+      "height": 576,
+      "kind": "battle",
+      "transparent": true,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 6,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "anticipationHoldFrames": {
+        "attack1": [
+          7,
+          8
+        ],
+        "attack2": [
+          13,
+          14
+        ]
+      }
+    },
+    {
+      "id": "hg_battle_sq_waage",
+      "file": "battle/hg_battle_sq_waage.png",
+      "width": 576,
+      "height": 576,
+      "kind": "battle",
+      "transparent": true,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 6,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "anticipationHoldFrames": {
+        "attack1": [
+          7,
+          8
+        ],
+        "attack2": [
+          13,
+          14
+        ]
+      }
+    },
+    {
+      "id": "hg_grenzwaechter",
+      "file": "battle/hg_grenzwaechter.png",
+      "width": 768,
+      "height": 768,
+      "kind": "boss",
+      "transparent": true,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "columns": 6,
+      "rows": 6,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "idle_p1": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        },
+        "idle_p2": {
+          "frames": [
+            2,
+            3
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        },
+        "idle_p3": {
+          "frames": [
+            4,
+            5
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        }
+      },
+      "anticipationHoldFrames": {
+        "attack1": [
+          7,
+          8
+        ],
+        "attack2": [
+          13,
+          14
+        ]
+      }
+    },
+    {
+      "id": "hg_schwellenwaechter",
+      "file": "battle/hg_schwellenwaechter.png",
+      "width": 768,
+      "height": 576,
+      "kind": "boss",
+      "transparent": true,
+      "frameWidth": 128,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 6,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "idle_p1": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        },
+        "idle_p2": {
+          "frames": [
+            2,
+            3
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        },
+        "idle_p3": {
+          "frames": [
+            4,
+            5
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        }
+      },
+      "anticipationHoldFrames": {
+        "attack1": [
+          7,
+          8
+        ],
+        "attack2": [
+          13,
+          14
+        ]
+      }
+    },
+    {
+      "id": "hg_siegel",
+      "file": "battle/hg_siegel.png",
+      "width": 320,
+      "height": 32,
+      "kind": "icons",
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 10,
+      "rows": 1,
+      "regions": {
+        "laterne": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "faden": {
+          "x": 32,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "maske": {
+          "x": 64,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "echo": {
+          "x": 96,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "kessel": {
+          "x": 128,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "eisen": {
+          "x": 160,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "schluessel": {
+          "x": 192,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "sq_waage": {
+          "x": 224,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "sq_moor": {
+          "x": 256,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "sq_uhr": {
+          "x": 288,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        }
+      }
+    },
+    {
+      "id": "A_player_drink_engel",
+      "file": "characters/A_player_drink_engel.png",
+      "width": 192,
+      "height": 32,
+      "kind": "drink",
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 12,
+      "rows": 1,
+      "baseline": 30,
+      "animations": {
+        "drink": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "A_player_drink_halbgott",
+      "file": "characters/A_player_drink_halbgott.png",
+      "width": 192,
+      "height": 32,
+      "kind": "drink",
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 12,
+      "rows": 1,
+      "baseline": 30,
+      "animations": {
+        "drink": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "hg_form_echo",
+      "file": "characters/hg_form_echo.png",
+      "width": 128,
+      "height": 192,
+      "kind": "walk",
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "columns": 4,
+      "rows": 4,
+      "baseline": 46,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "hg_form_eisen",
+      "file": "characters/hg_form_eisen.png",
+      "width": 128,
+      "height": 192,
+      "kind": "walk",
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "columns": 4,
+      "rows": 4,
+      "baseline": 46,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "hg_form_faden",
+      "file": "characters/hg_form_faden.png",
+      "width": 128,
+      "height": 192,
+      "kind": "walk",
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "columns": 4,
+      "rows": 4,
+      "baseline": 46,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "hg_form_kessel",
+      "file": "characters/hg_form_kessel.png",
+      "width": 128,
+      "height": 192,
+      "kind": "walk",
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "columns": 4,
+      "rows": 4,
+      "baseline": 46,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "hg_form_laterne",
+      "file": "characters/hg_form_laterne.png",
+      "width": 128,
+      "height": 192,
+      "kind": "walk",
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "columns": 4,
+      "rows": 4,
+      "baseline": 46,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "hg_form_maske",
+      "file": "characters/hg_form_maske.png",
+      "width": 128,
+      "height": 192,
+      "kind": "walk",
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "columns": 4,
+      "rows": 4,
+      "baseline": 46,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "hg_form_schluessel",
+      "file": "characters/hg_form_schluessel.png",
+      "width": 128,
+      "height": 192,
+      "kind": "walk",
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "columns": 4,
+      "rows": 4,
+      "baseline": 46,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "hg_form_sq_moor",
+      "file": "characters/hg_form_sq_moor.png",
+      "width": 128,
+      "height": 192,
+      "kind": "walk",
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "columns": 4,
+      "rows": 4,
+      "baseline": 46,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "hg_form_sq_uhr",
+      "file": "characters/hg_form_sq_uhr.png",
+      "width": 128,
+      "height": 192,
+      "kind": "walk",
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "columns": 4,
+      "rows": 4,
+      "baseline": 46,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "hg_form_sq_waage",
+      "file": "characters/hg_form_sq_waage.png",
+      "width": 128,
+      "height": 192,
+      "kind": "walk",
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "columns": 4,
+      "rows": 4,
+      "baseline": 46,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "hg_grenzwaechter_karte",
+      "file": "characters/hg_grenzwaechter_karte.png",
+      "width": 128,
+      "height": 48,
+      "kind": "idle",
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "columns": 4,
+      "rows": 1,
+      "baseline": 46,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "hg_schwellenwaechter_karte",
+      "file": "characters/hg_schwellenwaechter_karte.png",
+      "width": 128,
+      "height": 48,
+      "kind": "idle",
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "columns": 4,
+      "rows": 1,
+      "baseline": 46,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "p2a_drink_engel",
+      "file": "characters/p2a_drink_engel.png",
+      "width": 192,
+      "height": 32,
+      "kind": "drink",
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 12,
+      "rows": 1,
+      "baseline": 30,
+      "animations": {
+        "drink": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "p2a_drink_halbgott",
+      "file": "characters/p2a_drink_halbgott.png",
+      "width": 192,
+      "height": 32,
+      "kind": "drink",
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 12,
+      "rows": 1,
+      "baseline": 30,
+      "animations": {
+        "drink": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "p2b_drink_engel",
+      "file": "characters/p2b_drink_engel.png",
+      "width": 192,
+      "height": 32,
+      "kind": "drink",
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 12,
+      "rows": 1,
+      "baseline": 30,
+      "animations": {
+        "drink": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "p2b_drink_halbgott",
+      "file": "characters/p2b_drink_halbgott.png",
+      "width": 192,
+      "height": 32,
+      "kind": "drink",
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 12,
+      "rows": 1,
+      "baseline": 30,
+      "animations": {
+        "drink": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "HG_aufstieg_2",
+      "file": "fx/HG_aufstieg_2.png",
+      "width": 1920,
+      "height": 135,
+      "kind": "ascension",
+      "transparent": false,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 8,
+      "rows": 1,
+      "animations": {
+        "ascend": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "HG_aufstieg_4",
+      "file": "fx/HG_aufstieg_4.png",
+      "width": 1920,
+      "height": 135,
+      "kind": "ascension",
+      "transparent": false,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 8,
+      "rows": 1,
+      "animations": {
+        "ascend": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "HG_aura_engel",
+      "file": "fx/HG_aura_engel.png",
+      "width": 96,
+      "height": 36,
+      "kind": "fx",
+      "transparent": true,
+      "frameWidth": 24,
+      "frameHeight": 36,
+      "columns": 4,
+      "rows": 1,
+      "animations": {
+        "loop": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "HG_aura_halbgott",
+      "file": "fx/HG_aura_halbgott.png",
+      "width": 96,
+      "height": 36,
+      "kind": "fx",
+      "transparent": true,
+      "frameWidth": 24,
+      "frameHeight": 36,
+      "columns": 4,
+      "rows": 1,
+      "animations": {
+        "loop": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "HG_furcht",
+      "file": "fx/HG_furcht.png",
+      "width": 96,
+      "height": 16,
+      "kind": "fx",
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 6,
+      "rows": 1,
+      "regions": {
+        "schreck": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "schweiss": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "zittern": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "augen_zu": {
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "nebel_frage": {
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "ohnmacht": {
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "HG_kreatur_wechsel",
+      "file": "fx/HG_kreatur_wechsel.png",
+      "width": 512,
+      "height": 64,
+      "kind": "fx",
+      "transparent": true,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 8,
+      "rows": 1,
+      "animations": {
+        "transform": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "revert": {
+          "frames": [
+            7,
+            6,
+            5,
+            4,
+            3,
+            2,
+            1,
+            0
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "HG_umfallen",
+      "file": "fx/HG_umfallen.png",
+      "width": 64,
+      "height": 32,
+      "kind": "fx",
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 1,
+      "animations": {
+        "loop": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "HG_zoegern",
+      "file": "fx/HG_zoegern.png",
+      "width": 128,
+      "height": 32,
+      "kind": "fx",
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 1,
+      "animations": {
+        "loop": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "HG_hud",
+      "file": "ui/HG_hud.png",
+      "width": 160,
+      "height": 16,
+      "kind": "hud",
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 10,
+      "rows": 1,
+      "regions": {
+        "halbgott": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "engel": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "form_aus": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "form_an": {
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "verdauung_gesperrt": {
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "furcht": {
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "ritual_offen": {
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "ritual_bestanden": {
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "rueckverwandlung": {
+          "x": 128,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "koop_form": {
+          "x": 144,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "HG_hud_32",
+      "file": "ui/HG_hud_32.png",
+      "width": 320,
+      "height": 32,
+      "kind": "hud",
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 10,
+      "rows": 1,
+      "regions": {
+        "halbgott": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "engel": {
+          "x": 32,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "form_aus": {
+          "x": 64,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "form_an": {
+          "x": 96,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "verdauung_gesperrt": {
+          "x": 128,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "furcht": {
+          "x": 160,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "ritual_offen": {
+          "x": 192,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "ritual_bestanden": {
+          "x": 224,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "rueckverwandlung": {
+          "x": 256,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "koop_form": {
+          "x": 288,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        }
+      },
+      "derivedFrom": "ui/HG_hud.png"
+    },
+    {
+      "id": "hg_seq2_echo",
+      "file": "ui/hg_seq2_echo.png",
+      "width": 240,
+      "height": 135,
+      "kind": "scene",
+      "transparent": false,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "hg_seq2_eisen",
+      "file": "ui/hg_seq2_eisen.png",
+      "width": 240,
+      "height": 135,
+      "kind": "scene",
+      "transparent": false,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "hg_seq2_faden",
+      "file": "ui/hg_seq2_faden.png",
+      "width": 240,
+      "height": 135,
+      "kind": "scene",
+      "transparent": false,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "hg_seq2_kessel",
+      "file": "ui/hg_seq2_kessel.png",
+      "width": 240,
+      "height": 135,
+      "kind": "scene",
+      "transparent": false,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "hg_seq2_laterne",
+      "file": "ui/hg_seq2_laterne.png",
+      "width": 240,
+      "height": 135,
+      "kind": "scene",
+      "transparent": false,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "hg_seq2_maske",
+      "file": "ui/hg_seq2_maske.png",
+      "width": 240,
+      "height": 135,
+      "kind": "scene",
+      "transparent": false,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "hg_seq2_schluessel",
+      "file": "ui/hg_seq2_schluessel.png",
+      "width": 240,
+      "height": 135,
+      "kind": "scene",
+      "transparent": false,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "hg_seq2_sq_moor",
+      "file": "ui/hg_seq2_sq_moor.png",
+      "width": 240,
+      "height": 135,
+      "kind": "scene",
+      "transparent": false,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "hg_seq2_sq_uhr",
+      "file": "ui/hg_seq2_sq_uhr.png",
+      "width": 240,
+      "height": 135,
+      "kind": "scene",
+      "transparent": false,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "hg_seq2_sq_waage",
+      "file": "ui/hg_seq2_sq_waage.png",
+      "width": 240,
+      "height": 135,
+      "kind": "scene",
+      "transparent": false,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "hg_seq4_echo",
+      "file": "ui/hg_seq4_echo.png",
+      "width": 240,
+      "height": 135,
+      "kind": "scene",
+      "transparent": false,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "hg_seq4_eisen",
+      "file": "ui/hg_seq4_eisen.png",
+      "width": 240,
+      "height": 135,
+      "kind": "scene",
+      "transparent": false,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "hg_seq4_faden",
+      "file": "ui/hg_seq4_faden.png",
+      "width": 240,
+      "height": 135,
+      "kind": "scene",
+      "transparent": false,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "hg_seq4_kessel",
+      "file": "ui/hg_seq4_kessel.png",
+      "width": 240,
+      "height": 135,
+      "kind": "scene",
+      "transparent": false,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "hg_seq4_laterne",
+      "file": "ui/hg_seq4_laterne.png",
+      "width": 240,
+      "height": 135,
+      "kind": "scene",
+      "transparent": false,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "hg_seq4_maske",
+      "file": "ui/hg_seq4_maske.png",
+      "width": 240,
+      "height": 135,
+      "kind": "scene",
+      "transparent": false,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "hg_seq4_schluessel",
+      "file": "ui/hg_seq4_schluessel.png",
+      "width": 240,
+      "height": 135,
+      "kind": "scene",
+      "transparent": false,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "hg_seq4_sq_moor",
+      "file": "ui/hg_seq4_sq_moor.png",
+      "width": 240,
+      "height": 135,
+      "kind": "scene",
+      "transparent": false,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "hg_seq4_sq_uhr",
+      "file": "ui/hg_seq4_sq_uhr.png",
+      "width": 240,
+      "height": 135,
+      "kind": "scene",
+      "transparent": false,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "hg_seq4_sq_waage",
+      "file": "ui/hg_seq4_sq_waage.png",
+      "width": 240,
+      "height": 135,
+      "kind": "scene",
+      "transparent": false,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "hg_zug_echo",
+      "file": "ui/hg_zug_echo.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "derivedFrom": "battle/hg_battle_echo.png"
+    },
+    {
+      "id": "hg_zug_eisen",
+      "file": "ui/hg_zug_eisen.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "derivedFrom": "battle/hg_battle_eisen.png"
+    },
+    {
+      "id": "hg_zug_faden",
+      "file": "ui/hg_zug_faden.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "derivedFrom": "battle/hg_battle_faden.png"
+    },
+    {
+      "id": "hg_zug_kessel",
+      "file": "ui/hg_zug_kessel.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "derivedFrom": "battle/hg_battle_kessel.png"
+    },
+    {
+      "id": "hg_zug_laterne",
+      "file": "ui/hg_zug_laterne.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "derivedFrom": "battle/hg_battle_laterne.png"
+    },
+    {
+      "id": "hg_zug_maske",
+      "file": "ui/hg_zug_maske.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "derivedFrom": "battle/hg_battle_maske.png"
+    },
+    {
+      "id": "hg_zug_schluessel",
+      "file": "ui/hg_zug_schluessel.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "derivedFrom": "battle/hg_battle_schluessel.png"
+    },
+    {
+      "id": "hg_zug_sq_moor",
+      "file": "ui/hg_zug_sq_moor.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "derivedFrom": "battle/hg_battle_sq_moor.png"
+    },
+    {
+      "id": "hg_zug_sq_uhr",
+      "file": "ui/hg_zug_sq_uhr.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "derivedFrom": "battle/hg_battle_sq_uhr.png"
+    },
+    {
+      "id": "hg_zug_sq_waage",
+      "file": "ui/hg_zug_sq_waage.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "derivedFrom": "battle/hg_battle_sq_waage.png"
+    }
+  ]
+}
