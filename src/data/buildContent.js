@@ -18,6 +18,7 @@ import { applyAltbeute } from './altbeute.js';
 import { applyVorratStuecke } from './vorratStuecke.js';
 import { applyFahrendeAuktion } from './fahrendeAuktion.js';
 import { applyEigenesHaus } from './eigenesHaus.js';
+import { applyNebelseite } from './nebelseite.js';
 import { applyDunscarHaendler } from './dunscarHaendler.js';
 import { applyDunscarKulisse } from './dunscarKulisse.js';
 import { applyDunscarAusbau, applyDunscarStaende } from './dunscarAusbau.js';
@@ -122,6 +123,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyUebergaenge(content); // Kapitelübergänge: Abschied, Reise und Ankunft Kettlegate→Wexmoor→Dunscar
   applyDunscarAusbau(content); // Dunscar: Gasthaus, Kalkapotheke, starke Heil-/Nerven-/Ruhemittel, möblierte Innenräume
   applyDunscarKulisse(content); // Dunscar: Ausgänge nach Himmelsrichtung mit Schild, Rückkehr an der passenden Tür, Requisiten je Viertel
+  applyNebelseite(content); // Codex DH: Spiegelkarten und verborgene Übergänge
   applyEigenesHaus(content); // Codex DG: Häuser in Wexmoor und Dunscar, Maklerin, Türen (nach der Kulisse, die Dunscar-Karten neu baut)
   applyDunscarStaende(content); // Dunscar: Marktstände mit Schild hinter den Händlern
   return content;
@@ -148,6 +150,7 @@ function withPackLore(content, pack) {
   }
   if (pack.fa2Circles) content.fa2Circles = pack.fa2Circles; // Codex DE
   if (pack.haus) content.haus = pack.haus; // Codex DG
+  if (pack.nebelseite) content.nebelseite = pack.nebelseite; // Codex DH
   if (pack.erfolge) content.erfolge = pack.erfolge; // Codex DL: Akte des Ermittlers
   if (pack.benannte) content.benannte = pack.benannte; // Codex DJ: benannte Gegner (Aufbau in applyBenannte)
   if (pack.post) { // Codex DI: Briefe; Beilagen als Andenken (nicht handelbar), vorhandene Items bleiben wie sie sind

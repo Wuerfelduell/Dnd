@@ -1,0 +1,662 @@
+[
+  {
+    "id": "ns_uebergang_1",
+    "city": "kettlegate",
+    "original_map": "altmarkt",
+    "target_map": "ns_altmarkt",
+    "position_proposal": [
+      2,
+      29
+    ],
+    "target_position_proposal": [
+      2,
+      29
+    ],
+    "kind": "spiegel",
+    "condition": {
+      "sequence_at_most": 5,
+      "night": true,
+      "spirit_sight_active": true
+    },
+    "return_condition": {
+      "always_while_inside": true,
+      "same_transition": true,
+      "ignore_night_and_spirit_sight": true
+    },
+    "first_entry_text": "Dein Spiegelbild tritt zuerst zur Seite. Hinter dem Glas fehlt die Wand, die du eben noch gesehen hast. Du prägst dir den hellen Rahmen als Rückweg ein.",
+    "first_entry_flag": "ns_uebergang_1_gesehen",
+    "koop": {
+      "all_players_near_same_transition": true,
+      "distance_tiles": 1,
+      "both_confirm": true,
+      "atomic_transfer": true
+    }
+  },
+  {
+    "id": "ns_uebergang_2",
+    "city": "kettlegate",
+    "original_map": "sternwarte",
+    "target_map": "ns_sternwarte",
+    "position_proposal": [
+      2,
+      11
+    ],
+    "target_position_proposal": [
+      2,
+      11
+    ],
+    "kind": "wasser",
+    "condition": {
+      "sequence_at_most": 5,
+      "night": true,
+      "spirit_sight_active": true
+    },
+    "return_condition": {
+      "always_while_inside": true,
+      "same_transition": true,
+      "ignore_night_and_spirit_sight": true
+    },
+    "first_entry_text": "Die Wasserfläche bleibt glatt, als dein Fuß sie berührt. Unter dir liegt dieselbe Straße ohne Gewicht. Am Ufer hält ein heller Rand den Rückweg offen.",
+    "first_entry_flag": "ns_uebergang_2_gesehen",
+    "koop": {
+      "all_players_near_same_transition": true,
+      "distance_tiles": 1,
+      "both_confirm": true,
+      "atomic_transfer": true
+    }
+  },
+  {
+    "id": "ns_uebergang_3",
+    "city": "kettlegate",
+    "original_map": "katakomben",
+    "target_map": "ns_katakomben",
+    "position_proposal": [
+      2,
+      35
+    ],
+    "target_position_proposal": [
+      2,
+      35
+    ],
+    "kind": "nebelbank",
+    "condition": {
+      "sequence_at_most": 5,
+      "night": true,
+      "spirit_sight_active": true
+    },
+    "return_condition": {
+      "always_while_inside": true,
+      "same_transition": true,
+      "ignore_night_and_spirit_sight": true
+    },
+    "first_entry_text": "Der Nebel streicht durch deinen Mantel, ohne ihn zu befeuchten. Die Häuser verlieren ihre Flächen und behalten nur ihre Kanten. Hinter dir bleibt die Nebelbank als Ausgang stehen.",
+    "first_entry_flag": "ns_uebergang_3_gesehen",
+    "koop": {
+      "all_players_near_same_transition": true,
+      "distance_tiles": 1,
+      "both_confirm": true,
+      "atomic_transfer": true
+    }
+  },
+  {
+    "id": "ns_uebergang_4",
+    "city": "wexmoor",
+    "original_map": "wx_salzmarkt",
+    "target_map": "ns_salzmarkt",
+    "position_proposal": [
+      2,
+      11
+    ],
+    "target_position_proposal": [
+      2,
+      11
+    ],
+    "kind": "spiegel",
+    "condition": {
+      "sequence_at_most": 5,
+      "night": true,
+      "spirit_sight_active": true
+    },
+    "return_condition": {
+      "always_while_inside": true,
+      "same_transition": true,
+      "ignore_night_and_spirit_sight": true
+    },
+    "first_entry_text": "Dein Spiegelbild tritt zuerst zur Seite. Hinter dem Glas fehlt die Wand, die du eben noch gesehen hast. Du prägst dir den hellen Rahmen als Rückweg ein.",
+    "first_entry_flag": "ns_uebergang_4_gesehen",
+    "koop": {
+      "all_players_near_same_transition": true,
+      "distance_tiles": 1,
+      "both_confirm": true,
+      "atomic_transfer": true
+    }
+  },
+  {
+    "id": "ns_uebergang_5",
+    "city": "wexmoor",
+    "original_map": "wx_flossfriedhof",
+    "target_map": "ns_flossfriedhof",
+    "position_proposal": [
+      2,
+      15
+    ],
+    "target_position_proposal": [
+      2,
+      15
+    ],
+    "kind": "wasser",
+    "condition": {
+      "sequence_at_most": 5,
+      "night": true,
+      "spirit_sight_active": true
+    },
+    "return_condition": {
+      "always_while_inside": true,
+      "same_transition": true,
+      "ignore_night_and_spirit_sight": true
+    },
+    "first_entry_text": "Die Wasserfläche bleibt glatt, als dein Fuß sie berührt. Unter dir liegt dieselbe Straße ohne Gewicht. Am Ufer hält ein heller Rand den Rückweg offen.",
+    "first_entry_flag": "ns_uebergang_5_gesehen",
+    "koop": {
+      "all_players_near_same_transition": true,
+      "distance_tiles": 1,
+      "both_confirm": true,
+      "atomic_transfer": true
+    }
+  },
+  {
+    "id": "ns_uebergang_6",
+    "city": "wexmoor",
+    "original_map": "wx_torfbrueche",
+    "target_map": "ns_torfbrueche",
+    "position_proposal": [
+      2,
+      27
+    ],
+    "target_position_proposal": [
+      2,
+      27
+    ],
+    "kind": "nebelbank",
+    "condition": {
+      "sequence_at_most": 5,
+      "night": true,
+      "spirit_sight_active": true
+    },
+    "return_condition": {
+      "always_while_inside": true,
+      "same_transition": true,
+      "ignore_night_and_spirit_sight": true
+    },
+    "first_entry_text": "Der Nebel streicht durch deinen Mantel, ohne ihn zu befeuchten. Die Häuser verlieren ihre Flächen und behalten nur ihre Kanten. Hinter dir bleibt die Nebelbank als Ausgang stehen.",
+    "first_entry_flag": "ns_uebergang_6_gesehen",
+    "koop": {
+      "all_players_near_same_transition": true,
+      "distance_tiles": 1,
+      "both_confirm": true,
+      "atomic_transfer": true
+    }
+  },
+  {
+    "id": "ns_uebergang_7",
+    "city": "dunscar",
+    "original_map": "ds_endbahnhof",
+    "target_map": "ns_bahnhof",
+    "position_proposal": [
+      2,
+      19
+    ],
+    "target_position_proposal": [
+      2,
+      19
+    ],
+    "kind": "spiegel",
+    "condition": {
+      "sequence_at_most": 5,
+      "night": true,
+      "spirit_sight_active": true
+    },
+    "return_condition": {
+      "always_while_inside": true,
+      "same_transition": true,
+      "ignore_night_and_spirit_sight": true
+    },
+    "first_entry_text": "Dein Spiegelbild tritt zuerst zur Seite. Hinter dem Glas fehlt die Wand, die du eben noch gesehen hast. Du prägst dir den hellen Rahmen als Rückweg ein.",
+    "first_entry_flag": "ns_uebergang_7_gesehen",
+    "koop": {
+      "all_players_near_same_transition": true,
+      "distance_tiles": 1,
+      "both_confirm": true,
+      "atomic_transfer": true
+    }
+  },
+  {
+    "id": "ns_uebergang_8",
+    "city": "dunscar",
+    "original_map": "ds_schwellenring",
+    "target_map": "ns_schwellenring",
+    "position_proposal": [
+      2,
+      19
+    ],
+    "target_position_proposal": [
+      2,
+      19
+    ],
+    "kind": "wasser",
+    "condition": {
+      "sequence_at_most": 5,
+      "night": true,
+      "spirit_sight_active": true
+    },
+    "return_condition": {
+      "always_while_inside": true,
+      "same_transition": true,
+      "ignore_night_and_spirit_sight": true
+    },
+    "first_entry_text": "Die Wasserfläche bleibt glatt, als dein Fuß sie berührt. Unter dir liegt dieselbe Straße ohne Gewicht. Am Ufer hält ein heller Rand den Rückweg offen.",
+    "first_entry_flag": "ns_uebergang_8_gesehen",
+    "koop": {
+      "all_players_near_same_transition": true,
+      "distance_tiles": 1,
+      "both_confirm": true,
+      "atomic_transfer": true
+    }
+  },
+  {
+    "id": "ns_uebergang_9",
+    "city": "dunscar",
+    "original_map": "ds_speisewagen",
+    "target_map": "ns_speisewagen",
+    "position_proposal": [
+      2,
+      11
+    ],
+    "target_position_proposal": [
+      2,
+      11
+    ],
+    "kind": "nebelbank",
+    "condition": {
+      "sequence_at_most": 5,
+      "night": true,
+      "spirit_sight_active": true
+    },
+    "return_condition": {
+      "always_while_inside": true,
+      "same_transition": true,
+      "ignore_night_and_spirit_sight": true
+    },
+    "first_entry_text": "Der Nebel streicht durch deinen Mantel, ohne ihn zu befeuchten. Die Häuser verlieren ihre Flächen und behalten nur ihre Kanten. Hinter dir bleibt die Nebelbank als Ausgang stehen.",
+    "first_entry_flag": "ns_uebergang_9_gesehen",
+    "koop": {
+      "all_players_near_same_transition": true,
+      "distance_tiles": 1,
+      "both_confirm": true,
+      "atomic_transfer": true
+    }
+  },
+  {
+    "id": "ns_uebergang_10",
+    "city": "calderwick",
+    "original_map": "cw_quittungsmarkt",
+    "target_map": "ns_terrasse_3",
+    "position_proposal": [
+      2,
+      19
+    ],
+    "target_position_proposal": [
+      2,
+      19
+    ],
+    "kind": "spiegel",
+    "condition": {
+      "sequence_at_most": 5,
+      "night": true,
+      "spirit_sight_active": true
+    },
+    "return_condition": {
+      "always_while_inside": true,
+      "same_transition": true,
+      "ignore_night_and_spirit_sight": true
+    },
+    "first_entry_text": "Dein Spiegelbild tritt zuerst zur Seite. Hinter dem Glas fehlt die Wand, die du eben noch gesehen hast. Du prägst dir den hellen Rahmen als Rückweg ein.",
+    "first_entry_flag": "ns_uebergang_10_gesehen",
+    "koop": {
+      "all_players_near_same_transition": true,
+      "distance_tiles": 1,
+      "both_confirm": true,
+      "atomic_transfer": true
+    }
+  },
+  {
+    "id": "ns_uebergang_11",
+    "city": "calderwick",
+    "original_map": "reise_landstrasse",
+    "target_map": "ns_landstrasse",
+    "position_proposal": [
+      2,
+      27
+    ],
+    "target_position_proposal": [
+      2,
+      27
+    ],
+    "kind": "wasser",
+    "condition": {
+      "sequence_at_most": 5,
+      "night": true,
+      "spirit_sight_active": true
+    },
+    "return_condition": {
+      "always_while_inside": true,
+      "same_transition": true,
+      "ignore_night_and_spirit_sight": true
+    },
+    "first_entry_text": "Die Wasserfläche bleibt glatt, als dein Fuß sie berührt. Unter dir liegt dieselbe Straße ohne Gewicht. Am Ufer hält ein heller Rand den Rückweg offen.",
+    "first_entry_flag": "ns_uebergang_11_gesehen",
+    "koop": {
+      "all_players_near_same_transition": true,
+      "distance_tiles": 1,
+      "both_confirm": true,
+      "atomic_transfer": true
+    }
+  },
+  {
+    "id": "ns_uebergang_12",
+    "city": "briarholt",
+    "original_map": "bh_speisesaal",
+    "target_map": "ns_kurhaus",
+    "position_proposal": [
+      2,
+      11
+    ],
+    "target_position_proposal": [
+      2,
+      11
+    ],
+    "kind": "nebelbank",
+    "condition": {
+      "sequence_at_most": 5,
+      "night": true,
+      "spirit_sight_active": true
+    },
+    "return_condition": {
+      "always_while_inside": true,
+      "same_transition": true,
+      "ignore_night_and_spirit_sight": true
+    },
+    "first_entry_text": "Der Nebel streicht durch deinen Mantel, ohne ihn zu befeuchten. Die Häuser verlieren ihre Flächen und behalten nur ihre Kanten. Hinter dir bleibt die Nebelbank als Ausgang stehen.",
+    "first_entry_flag": "ns_uebergang_12_gesehen",
+    "koop": {
+      "all_players_near_same_transition": true,
+      "distance_tiles": 1,
+      "both_confirm": true,
+      "atomic_transfer": true
+    }
+  },
+  {
+    "id": "ns_uebergang_13",
+    "city": "briarholt",
+    "original_map": "bh_verteilanlage",
+    "target_map": "ns_leitungsplan",
+    "position_proposal": [
+      2,
+      11
+    ],
+    "target_position_proposal": [
+      2,
+      11
+    ],
+    "kind": "spiegel",
+    "condition": {
+      "sequence_at_most": 5,
+      "night": true,
+      "spirit_sight_active": true
+    },
+    "return_condition": {
+      "always_while_inside": true,
+      "same_transition": true,
+      "ignore_night_and_spirit_sight": true
+    },
+    "first_entry_text": "Dein Spiegelbild tritt zuerst zur Seite. Hinter dem Glas fehlt die Wand, die du eben noch gesehen hast. Du prägst dir den hellen Rahmen als Rückweg ein.",
+    "first_entry_flag": "ns_uebergang_13_gesehen",
+    "koop": {
+      "all_players_near_same_transition": true,
+      "distance_tiles": 1,
+      "both_confirm": true,
+      "atomic_transfer": true
+    }
+  },
+  {
+    "id": "ns_uebergang_14",
+    "city": "varrowmouth",
+    "original_map": "docks",
+    "target_map": "ns_zollhafen",
+    "position_proposal": [
+      2,
+      11
+    ],
+    "target_position_proposal": [
+      2,
+      11
+    ],
+    "kind": "wasser",
+    "condition": {
+      "sequence_at_most": 5,
+      "night": true,
+      "spirit_sight_active": true
+    },
+    "return_condition": {
+      "always_while_inside": true,
+      "same_transition": true,
+      "ignore_night_and_spirit_sight": true
+    },
+    "first_entry_text": "Die Wasserfläche bleibt glatt, als dein Fuß sie berührt. Unter dir liegt dieselbe Straße ohne Gewicht. Am Ufer hält ein heller Rand den Rückweg offen.",
+    "first_entry_flag": "ns_uebergang_14_gesehen",
+    "koop": {
+      "all_players_near_same_transition": true,
+      "distance_tiles": 1,
+      "both_confirm": true,
+      "atomic_transfer": true
+    }
+  },
+  {
+    "id": "ns_uebergang_15",
+    "city": "varrowmouth",
+    "original_map": "crypt",
+    "target_map": "ns_registerkeller",
+    "position_proposal": [
+      2,
+      9
+    ],
+    "target_position_proposal": [
+      2,
+      9
+    ],
+    "kind": "nebelbank",
+    "condition": {
+      "sequence_at_most": 5,
+      "night": true,
+      "spirit_sight_active": true
+    },
+    "return_condition": {
+      "always_while_inside": true,
+      "same_transition": true,
+      "ignore_night_and_spirit_sight": true
+    },
+    "first_entry_text": "Der Nebel streicht durch deinen Mantel, ohne ihn zu befeuchten. Die Häuser verlieren ihre Flächen und behalten nur ihre Kanten. Hinter dir bleibt die Nebelbank als Ausgang stehen.",
+    "first_entry_flag": "ns_uebergang_15_gesehen",
+    "koop": {
+      "all_players_near_same_transition": true,
+      "distance_tiles": 1,
+      "both_confirm": true,
+      "atomic_transfer": true
+    }
+  },
+  {
+    "id": "ns_uebergang_16",
+    "city": "kettlegate",
+    "original_map": "altmarkt",
+    "target_map": "ns_altmarkt",
+    "position_proposal": [
+      4,
+      29
+    ],
+    "target_position_proposal": [
+      4,
+      29
+    ],
+    "kind": "spiegel",
+    "condition": {
+      "sequence_at_most": 5,
+      "night": true,
+      "spirit_sight_active": true
+    },
+    "return_condition": {
+      "always_while_inside": true,
+      "same_transition": true,
+      "ignore_night_and_spirit_sight": true
+    },
+    "first_entry_text": "Dein Spiegelbild tritt zuerst zur Seite. Hinter dem Glas fehlt die Wand, die du eben noch gesehen hast. Du prägst dir den hellen Rahmen als Rückweg ein.",
+    "first_entry_flag": "ns_uebergang_16_gesehen",
+    "koop": {
+      "all_players_near_same_transition": true,
+      "distance_tiles": 1,
+      "both_confirm": true,
+      "atomic_transfer": true
+    }
+  },
+  {
+    "id": "ns_uebergang_17",
+    "city": "kettlegate",
+    "original_map": "sternwarte",
+    "target_map": "ns_sternwarte",
+    "position_proposal": [
+      4,
+      11
+    ],
+    "target_position_proposal": [
+      4,
+      11
+    ],
+    "kind": "wasser",
+    "condition": {
+      "sequence_at_most": 5,
+      "night": true,
+      "spirit_sight_active": true
+    },
+    "return_condition": {
+      "always_while_inside": true,
+      "same_transition": true,
+      "ignore_night_and_spirit_sight": true
+    },
+    "first_entry_text": "Die Wasserfläche bleibt glatt, als dein Fuß sie berührt. Unter dir liegt dieselbe Straße ohne Gewicht. Am Ufer hält ein heller Rand den Rückweg offen.",
+    "first_entry_flag": "ns_uebergang_17_gesehen",
+    "koop": {
+      "all_players_near_same_transition": true,
+      "distance_tiles": 1,
+      "both_confirm": true,
+      "atomic_transfer": true
+    }
+  },
+  {
+    "id": "ns_uebergang_18",
+    "city": "kettlegate",
+    "original_map": "katakomben",
+    "target_map": "ns_katakomben",
+    "position_proposal": [
+      4,
+      35
+    ],
+    "target_position_proposal": [
+      4,
+      35
+    ],
+    "kind": "nebelbank",
+    "condition": {
+      "sequence_at_most": 5,
+      "night": true,
+      "spirit_sight_active": true
+    },
+    "return_condition": {
+      "always_while_inside": true,
+      "same_transition": true,
+      "ignore_night_and_spirit_sight": true
+    },
+    "first_entry_text": "Der Nebel streicht durch deinen Mantel, ohne ihn zu befeuchten. Die Häuser verlieren ihre Flächen und behalten nur ihre Kanten. Hinter dir bleibt die Nebelbank als Ausgang stehen.",
+    "first_entry_flag": "ns_uebergang_18_gesehen",
+    "koop": {
+      "all_players_near_same_transition": true,
+      "distance_tiles": 1,
+      "both_confirm": true,
+      "atomic_transfer": true
+    }
+  },
+  {
+    "id": "ns_uebergang_19",
+    "city": "wexmoor",
+    "original_map": "wx_salzmarkt",
+    "target_map": "ns_salzmarkt",
+    "position_proposal": [
+      4,
+      11
+    ],
+    "target_position_proposal": [
+      4,
+      11
+    ],
+    "kind": "spiegel",
+    "condition": {
+      "sequence_at_most": 5,
+      "night": true,
+      "spirit_sight_active": true
+    },
+    "return_condition": {
+      "always_while_inside": true,
+      "same_transition": true,
+      "ignore_night_and_spirit_sight": true
+    },
+    "first_entry_text": "Dein Spiegelbild tritt zuerst zur Seite. Hinter dem Glas fehlt die Wand, die du eben noch gesehen hast. Du prägst dir den hellen Rahmen als Rückweg ein.",
+    "first_entry_flag": "ns_uebergang_19_gesehen",
+    "koop": {
+      "all_players_near_same_transition": true,
+      "distance_tiles": 1,
+      "both_confirm": true,
+      "atomic_transfer": true
+    }
+  },
+  {
+    "id": "ns_uebergang_20",
+    "city": "wexmoor",
+    "original_map": "wx_flossfriedhof",
+    "target_map": "ns_flossfriedhof",
+    "position_proposal": [
+      4,
+      15
+    ],
+    "target_position_proposal": [
+      4,
+      15
+    ],
+    "kind": "wasser",
+    "condition": {
+      "sequence_at_most": 5,
+      "night": true,
+      "spirit_sight_active": true
+    },
+    "return_condition": {
+      "always_while_inside": true,
+      "same_transition": true,
+      "ignore_night_and_spirit_sight": true
+    },
+    "first_entry_text": "Die Wasserfläche bleibt glatt, als dein Fuß sie berührt. Unter dir liegt dieselbe Straße ohne Gewicht. Am Ufer hält ein heller Rand den Rückweg offen.",
+    "first_entry_flag": "ns_uebergang_20_gesehen",
+    "koop": {
+      "all_players_near_same_transition": true,
+      "distance_tiles": 1,
+      "both_confirm": true,
+      "atomic_transfer": true
+    }
+  }
+]

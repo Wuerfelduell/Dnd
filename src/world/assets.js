@@ -1273,6 +1273,7 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestFasserin2')) scene.load.json('manifestFasserin2', `${BASE}manifest-fasserin2.json`);
   if (!scene.cache.json.exists('manifestFigurenNachzuegler')) scene.load.json('manifestFigurenNachzuegler', `${BASE}manifest-figuren_nachzuegler.json`);
   if (!scene.cache.json.exists('manifestBenannte')) scene.load.json('manifestBenannte', `${BASE}manifest-benannte.json`); // Codex DJ
+  if (!scene.cache.json.exists('manifestNebelseite')) scene.load.json('manifestNebelseite', `${BASE}manifest-nebelseite.json`); // Codex DH
   if (!scene.cache.json.exists('manifestBriarholt1')) scene.load.json('manifestBriarholt1', `${BASE}manifest-briarholt1.json`);
   if (!scene.cache.json.exists('manifestCalderwick1')) scene.load.json('manifestCalderwick1', `${BASE}manifest-calderwick1.json`);
   if (!scene.cache.json.exists('manifestNebenquests')) scene.load.json('manifestNebenquests', `${BASE}manifest-nebenquests.json`);
@@ -1324,7 +1325,7 @@ function battleAnimDef(scene, sheet, name) {
   return null;
 }
 /** Manifeste mit Kampf-Sheets; spätere Pakete nennen ihre Einträge nicht nach dem Sheet, darum auch über die Datei. */
-export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3', 'manifestDunscar5', 'manifestStarling2', 'manifestSekten', 'manifestVorrat1', 'manifestVorrat2', 'manifestHalbgott', 'manifestFasserin2', 'manifestFigurenNachzuegler', 'manifestSeq4rit1', 'manifestSchatten', 'manifestRituale56', 'manifestBenannte'];
+export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3', 'manifestDunscar5', 'manifestStarling2', 'manifestSekten', 'manifestVorrat1', 'manifestVorrat2', 'manifestHalbgott', 'manifestFasserin2', 'manifestFigurenNachzuegler', 'manifestSeq4rit1', 'manifestSchatten', 'manifestRituale56', 'manifestBenannte', 'manifestNebelseite'];
 export function battleSheetDef(scene, sheet) {
   const file = BATTLE_SHEETS[sheet]?.[0];
   for (const m of BATTLE_MANIFESTS) {
@@ -3055,3 +3056,17 @@ BATTLE_SHEETS.haus_trophaeen = ['props/haus_trophaeen.png', 32];
 SHEETS.haus_maklerin = 'characters/E_marktfrau_walk.png';
 CHARACTER_SHEETS.npc_haus_maklerin = 'haus_maklerin';
 ICON32.push(...HAUS_MOEBEL);
+
+/** Codex DH: Nebelseite – Wesen (Lauf 16x32, Kampf 64er 6x5), stilles Wesen (32x48). */
+for (const id of ['nsw_umrissgaenger', 'nsw_lampenfresser', 'nsw_rueckwaertsgeher']) {
+  BATTLE_SHEETS[`enemy_${id}`] = [`battle/${id}.png`, 64];
+  ANIM_ALIASES[`enemy_${id}`] ??= { attack: 'attack1', special: 'attack2', cast: 'attack2' };
+  OVERWORLD_SHEETS[id] = [`characters/${id}.png`, 16, 32];
+  HEADS.push(id);
+}
+for (const c of ['kettlegate', 'wexmoor', 'dunscar']) {
+  SHEETS[`nsw_still_${c}`] = 'characters/nsw_still.png';
+  CHARACTER_SHEETS[`npc_nsw_still_${c}`] = `nsw_still_${c}`;
+  HEADS.push(`nsw_still_${c}`);
+  HEAD_FILES[`nsw_still_${c}`] = 'ui/heads/nsw_still.png';
+}
