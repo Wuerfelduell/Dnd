@@ -1254,6 +1254,7 @@ export class Ui {
     if (choice.gift) { this.openGift(); return; }
     if (choice.moor) { this.openMoor(); return; }
     if (choice.maske) { this.openMaske(); return; }
+    if (choice.repair) { const { onClose } = this.dialogue; this.dialogue = null; onClose?.(); this.openRepair(); return; }
     if (choice.shop || choice.vault || choice.expert || choice.auction || choice.signal_station) {
       const { onClose } = this.dialogue;
       this.dialogue = null;
@@ -2665,6 +2666,23 @@ export class Ui {
 
   // --- Revier: Asservatenkammer und Gutachterin ---------------------------------------
 
+  /** Flickerin Hanne Saum auf den Dunscar-Treffen: korrumpierte Stücke beider Spieler für je 500 reparieren. */
+  openRepair(feedback = '') {
+    const s = this.state;
+    const offers = s.repairOffers();
+    this.vault = offers.map((o) => ({ type: 'repair', id: o.id, player: o.player, disabled: !o.affordable }));
+    const rows = offers.map((o, i) => `<li class="item tainted"><div>${itemIcon(o.id)}<strong>${esc(o.name)}</strong> ${korrBadge()}${s.p2 ? ` <span class="muted">Spieler ${o.player}</span>` : ''}</div>
+        <div><button class="small" data-vault="${i}" ${o.affordable ? '' : 'disabled'}><span class="key">${i + 1}</span> Reparieren · ${coin}${o.price}</button></div></li>`).join('');
+    const el = this.open('vault', `
+      <h3>Hanne Saum <span class="muted">Flickerin der Zirkel</span></h3>
+      <p class="lead">„Was die Tentakel angefressen haben, nähe ich wieder zu. Fünfhundert das Stück, egal was es ist.“</p>
+      <ul class="items shoplist">${rows || '<li class="empty">Nichts Korrumpiertes dabei.</li>'}</ul>
+      <div class="feedback">${feedback}</div>
+      <div class="actions"><button data-act="close">Gehen <span class="key">Esc</span></button></div>`, 'notebook shop');
+    el.querySelectorAll('[data-vault]').forEach((b) => { b.onclick = () => this.vaultPick(Number(b.dataset.vault)); });
+    el.querySelector('[data-act=close]').onclick = () => this.close();
+  }
+
   /** Asservatenkammer: Artefakte ausleihen und zurückgeben. */
   openVault(feedback = '') {
     const s = this.state;
@@ -2690,6 +2708,11 @@ export class Ui {
     if (e.type === 'potion') {
       const r = this.state.takeRevierPotion(e.pathway);
       this.openExpert(`<span class="${r.ok ? 'good' : ''}">${esc(r.text)}</span>`);
+      return;
+    }
+    if (e.type === 'repair') {
+      const r = this.state.repairAt(e.id, e.player);
+      this.openRepair(`<span class="${r.ok ? 'good' : ''}">${esc(r.text)}</span>`);
       return;
     }
     if (e.type === 'cleanse') {

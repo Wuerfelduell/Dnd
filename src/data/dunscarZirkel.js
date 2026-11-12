@@ -125,6 +125,13 @@ export const DS_ZIRKEL = {
   },
 };
 
+/** Flickerin: bei jedem Dunscar-Treffen dabei, repariert korrumpierte Stücke (core/Corruption.js repairAt, 500). */
+export const FLICKERIN = 'dsz_flickerin';
+const FLICKERIN_PLATZ = [20, 11];
+const FLICKERIN_DIALOG = { start: 'start', nodes: { start: {
+  text: 'Eine Frau mit Kalkstaub im Haar sitzt auf einer Kiste, eine lange Nadel zwischen den Lippen. „Hanne Saum. Ich gehe von Treffen zu Treffen und flicke, was das Andere angefressen hat. Fünfhundert das Stück.“',
+  choices: [{ text: 'Korrumpierte Stücke reparieren lassen.', repair: true }, { text: 'Auf Wiedersehen.' }] } } };
+
 /** Sitzplätze im Raum (Gastgeber oben, drei Mitglieder unten). */
 const SEATS = [[12, 4], [5, 7], [12, 8], [19, 7]];
 
@@ -138,7 +145,7 @@ function room(id, z) {
     spawns: { default: [3, 11] },
     lights: [{ tile: [12, 6], radius: 100, intensity: 0.7, color: z.light }],
     ambient: { night: 0.62, fog: 0 },
-    npcs: [z.host, ...z.members.map((m) => m.id)].map((n, i) => ({ id: n, tile: SEATS[i] })),
+    npcs: [...[z.host, ...z.members.map((m) => m.id)].map((n, i) => ({ id: n, tile: SEATS[i] })), { id: FLICKERIN, tile: FLICKERIN_PLATZ }],
     interactables: [{ id: `dsz_${id}_ausgang`, kind: 'door', tile: [3, 12], to: z.exit, spawn: 'default', prompt: 'Hinaus nach Dunscar', marker: true }],
     decor: [],
   };
@@ -178,6 +185,8 @@ export function dunscarZirkelPack() {
     npcs = { ...npcs, ...Object.fromEntries(Object.entries(z.npcs).map(([n, d]) => [n, { ...d, dialogue: n }])) };
     dlg = { ...dlg, ...dialogues(id, z) };
   }
+  npcs[FLICKERIN] = { ...npc('Flickerin Hanne Saum', 'Repariert Korrumpiertes, jedes Treffen', '#3a5a5a'), dialogue: FLICKERIN };
+  dlg[FLICKERIN] = FLICKERIN_DIALOG;
   return {
     name: 'ds_zirkel',
     items: { ...DS_ITEMS },
@@ -189,7 +198,7 @@ export function dunscarZirkelPack() {
 }
 
 /** Alle Figuren der neuen Zirkel (für Lauf-Sheets in assets.js). */
-export const DS_ZIRKEL_FIGUREN = Object.values(DS_ZIRKEL).flatMap((z) => Object.keys(z.npcs));
+export const DS_ZIRKEL_FIGUREN = [...Object.values(DS_ZIRKEL).flatMap((z) => Object.keys(z.npcs)), 'dsz_flickerin'];
 /** Alle neuen Gegenstände mit eigenem Bild. */
 export const DS_ZIRKEL_ICONS = [...Object.keys(DS_ARTEFAKTE), ...Object.keys(DS_ITEMS)];
 
@@ -207,6 +216,9 @@ const SCHICHTBUND_NEU = {
 export function applyDunscarZirkel(content) {
   const circles = content.gatherings?.circles;
   if (!circles?.kalkofen || !circles?.stellwerk) return;
+  // Die Flickerin sitzt auch beim Schichtbund
+  const bundMap = content.maps[circles.schichtbund?.map];
+  if (bundMap && !bundMap.npcs.some((n) => n.id === FLICKERIN)) bundMap.npcs = [...bundMap.npcs, { id: FLICKERIN, tile: FLICKERIN_PLATZ }];
   const pids = Object.keys(content.pathways ?? {});
   const has = (id) => !!content.items[id];
   const seat = (cid, i) => circles[cid].members[i % circles[cid].members.length];

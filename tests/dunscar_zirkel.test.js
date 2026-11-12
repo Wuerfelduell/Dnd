@@ -75,3 +75,17 @@ test('Eine Seq-3-Formel bringt beim Versteigern immer mindestens 10.000', () => 
     for (const b of s.auction.own.bids) assert.ok(b.price >= 10000, `${id}: ${b.price}`);
   }
 });
+
+test('Flickerin sitzt bei jedem Dunscar-Treffen und repariert Korrumpiertes für 500, auch für Spieler 2', () => {
+  for (const [, c] of dunscar) assert.ok(content.maps[c.map].npcs.some((n) => n.id === 'dsz_flickerin'), c.map);
+  assert.ok(Object.values(content.dialogues.dsz_flickerin.nodes.start.choices).some((ch) => ch.repair));
+  const s = new GameState(content);
+  s.money = 1200;
+  s.addItem('dsz_spiegel');
+  s.corrupted = { dsz_spiegel: 2 };
+  assert.deepEqual(s.repairOffers().map((o) => [o.player, o.id, o.price]), [[1, 'dsz_spiegel', 500]]);
+  assert.ok(s.repairAt('dsz_spiegel', 1).ok);
+  assert.equal(s.money, 700);
+  assert.ok(!s.isCorrupted('dsz_spiegel'));
+  assert.ok(!s.repairAt('dsz_spiegel', 1).ok);
+});

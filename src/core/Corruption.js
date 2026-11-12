@@ -22,6 +22,9 @@ export const DEFAULT_CORRUPTION = {
   cleanse_item: 'laeutersalz',
 };
 
+/** Flickerin auf den Dunscar-Treffen (Seb, 2026-11-12): repariert jedes korrumpierte Stück für 500, beide Spieler. */
+export const REPAIR_PRICE = 500;
+
 export const corruptionMethods = {
   resetCorruption() {
     this.corrupted = {}; // id -> Anzahl der Kontrollverluste, die das Stück getroffen haben
@@ -162,6 +165,25 @@ export const corruptionMethods = {
     this.emit('money', { delta: -price, value: this.money, reason: 'Reinigung' });
     this.purify(id);
     return { ok: true, text: `Dr. Varga legt ${this.item(id).name} in eine Schale mit Salzlauge und murmelt etwas Lateinisches. Das Wasser wird schwarz. „Das war's. Trinken Sie nächstes Mal langsamer.“ (${price} Schilling)` };
+  },
+
+  /** Angebot der Flickerin: korrumpierte Stücke beider Spieler [{player, id, name, price, affordable}]. */
+  repairOffers() {
+    const players = this.p2 ? [1, 2] : [1];
+    return players.flatMap((n) => this.withPlayer(n, () => this.corruptedItems().filter((id) => this.itemCount(id) > 0)
+      .map((id) => ({ player: n, id, name: this.item(id)?.name ?? id, price: REPAIR_PRICE, affordable: this.money >= REPAIR_PRICE })), { quiet: true }));
+  },
+
+  /** Repariert ein korrumpiertes Stück von Spieler n für REPAIR_PRICE (Geld ist gemeinsam). */
+  repairAt(id, n = 1) {
+    return this.withPlayer(n, () => {
+      if (!this.isCorrupted(id) || !this.itemCount(id)) return { ok: false, text: 'Daran ist nichts zu flicken.' };
+      if (this.money < REPAIR_PRICE) return { ok: false, text: `Das Flicken kostet ${REPAIR_PRICE} Schilling. So viel habt ihr nicht.` };
+      this.money -= REPAIR_PRICE;
+      this.emit('money', { delta: -REPAIR_PRICE, value: this.money, reason: 'Reparatur' });
+      this.purify(id);
+      return { ok: true, text: `Hanne zieht mit einer Kalknadel den schwarzen Faden aus ${this.item(id).name}, Stich für Stich, bis nichts mehr zuckt. „Fünfhundert. Und halt die Tentakel bei dir.“` };
+    });
   },
 
   /** Reinigung unterwegs mit Läutersalz (verbraucht einen Beutel). */
