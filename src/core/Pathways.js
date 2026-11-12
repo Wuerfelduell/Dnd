@@ -259,7 +259,7 @@ export const pathwayMethods = {
   passive(key) {
     const mult = MULT_KEYS.has(key);
     let v = mult ? 1 : 0;
-    const lists = [...this.reachedSeqs().map((s) => s.passives ?? []), ...this.artifactEffects(), ...this.gearEffects(), this.bindingPassive?.(this.acting ?? 1) ?? [], this.buffEffects?.() ?? []]; // BN: persönliche Rufbindung; Welt-Fähigkeiten (Talents.js)
+    const lists = [...this.reachedSeqs().map((s) => s.passives ?? []), ...this.artifactEffects(), ...this.gearEffects(), this.bindingPassive?.(this.acting ?? 1) ?? [], this.buffEffects?.() ?? [], this.tierEffects?.() ?? []]; // Codex DF: aktives Tier // BN: persönliche Rufbindung; Welt-Fähigkeiten (Talents.js)
     for (const list of lists) {
       for (const p of list) {
         if (p.key !== key) continue;

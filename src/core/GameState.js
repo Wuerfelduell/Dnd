@@ -27,6 +27,7 @@ import { seq5Methods } from './Seq5.js';
 import { seq4Methods } from './Seq4.js';
 import { erfolgeMethods } from './Erfolge.js';
 import { postMethods } from './Post.js';
+import { tiereMethods } from './Tiere.js';
 import { benannteMethods } from './Benannte.js';
 import { seqHochMethods } from './SeqHoch.js';
 
@@ -71,6 +72,7 @@ export class GameState {
   reset() {
     const s = this.content.start;
     this.erfolgZaehler = {};
+    this.tiere = { owned: {}, aktiv: null, fundTag: -1 }; // Codex DF: Tiergefährten
     this.loadPost(null);
     this.map = s.map;
     this.spawn = s.spawn;
@@ -399,6 +401,7 @@ export class GameState {
     for (const q of e.complete_quests ?? []) this.finishQuest(q, 'done');
     for (const q of e.fail_quests ?? []) this.finishQuest(q, 'failed');
     if (e.honor) this.addHonor(e.honor, e.honor_reason ?? '');
+    if (e.tier_claim) this.tierClaim(e.tier_claim); // Codex DF
     for (const [id, n] of Object.entries(e.gives_items ?? {})) this.addItem(id, n);
     if (e.gives_items) this.settleClaims(e.gives_items); // BG: Bestandsauszahlung erfüllt den eigenen Anspruch
     if (e.claim || e.replacement) this.applyClaims(e, { commandId }); // BG: persönliche Abholung bzw. Ersatzprobe (nur mit bestätigtem Befehl)
@@ -771,6 +774,7 @@ export class GameState {
 
   tick(dtSeconds) {
     this.tickTalents(dtSeconds);
+    this.tierTick?.(); // Codex DF: Tagesfund des Katers
     this.tickSekten(); // BQ: Fristen und per Dialog aufgelöste Ereignisse
     const before = this.composure;
     if (this.spiritVision) {
@@ -841,6 +845,7 @@ export class GameState {
       tracked: this.tracked,
       erfolgZaehler: this.erfolgZaehler ?? {},
       ...this.serializePost(),
+      ...this.serializeTiere(),
       ...this.serializePathway(),
       ...this.serializeTalents(),
       ...this.serializeCorruption(),
@@ -875,6 +880,7 @@ export class GameState {
     this.endings = data.endings ?? {};
     this.erfolgZaehler = data.erfolgZaehler ?? {};
     this.loadPost(data);
+    this.loadTiere(data);
     // Freischaltungen aus erreichten Enden nachtragen (z. B. der Kanalhafen nach dem falschen Ende von Fall 3,
     // das ihn in älteren Ständen nicht freigeschaltet hat). Ortsfreigaben werden nie zurückgenommen.
     for (const id of Object.values(this.endings)) {
@@ -930,4 +936,4 @@ export class GameState {
 /** Fortschrittsflags der verlängerten Akt-V-Fassung (AP), in Spielreihenfolge. */
 export const K2_AKT5_STEPS = ['k2v_boot_bereit', 'k2v_keller_passiert', 'k2v_aufstieg_passiert', 'k2v_abschied_done'];
 
-Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods, sudeMethods, seq5Methods, seq4Methods, seqHochMethods, pfadHandelMethods, erfolgeMethods, postMethods, benannteMethods);
+Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods, sudeMethods, seq5Methods, seq4Methods, seqHochMethods, pfadHandelMethods, erfolgeMethods, postMethods, benannteMethods, tiereMethods);

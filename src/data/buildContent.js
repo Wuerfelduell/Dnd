@@ -133,6 +133,10 @@ function withPackLore(content, pack) {
   // Codex-Runde 9: Textvorräte für Halbgott/Engel (CP) und die Fasserin-Aufträge (CR) liegen als Ganzes im Inhalt
   if (pack.halbgott) content.halbgott = pack.halbgott;
   if (pack.fasserin_auftrag) content.fasserinAuftrag = pack.fasserin_auftrag;
+  if (pack.tiere) { // Codex DF: Tiergefährten, Fundplätze neben dem Ortseingang
+    content.tiere = pack.tiere;
+    for (const p of pack.platzierung_tiere ?? []) { const q = withSpawnOffset(content, p); if (q && content.maps[q.map]) content.maps[q.map].interactables.push({ ...q.interactable, tile: q.tile }); }
+  }
   if (pack.erfolge) content.erfolge = pack.erfolge; // Codex DL: Akte des Ermittlers
   if (pack.benannte) content.benannte = pack.benannte; // Codex DJ: benannte Gegner (Aufbau in applyBenannte)
   if (pack.post) { // Codex DI: Briefe; Beilagen als Andenken (nicht handelbar), vorhandene Items bleiben wie sie sind
@@ -145,7 +149,7 @@ function withPackLore(content, pack) {
 }
 
 /** Lesestück ohne feste Kachel (`spawn_offset`): neben dem Standard-Spawn seiner Karte; ohne Karte entfällt es. */
-function withSpawnOffset(content, p) {
+export function withSpawnOffset(content, p) {
   if (!p.spawn_offset) return p;
   const m = content.maps[p.map];
   const base = m?.spawns?.default ?? Object.values(m?.spawns ?? {})[0];
