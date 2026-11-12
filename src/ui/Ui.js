@@ -10,7 +10,7 @@ import { SUD_MAX_ZUTATEN, LEERES_GEFAESS, sudEffectText } from '../data/sude.js'
 import { CARRY_PER_STEP } from '../core/GameState.js';
 import { GEAR_SLOT_NAMES } from '../core/Gear.js';
 import { isPrecise } from '../core/Combat.js';
-import { lootList, itemRarity, RARITY_NAMES, lootPreview, chanceWord } from '../core/Loot.js';
+import { lootList, itemRarity, RARITY_NAMES, lootPreview, chanceWord, hiddenLoot } from '../core/Loot.js';
 import {
   itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, moneyIconUrl, UI_SKINS, UI_SHEETS, UI_REGIONS, DAMAGE_FONT, STATUS_ICONS, STATUS_ICONS_URL,
   portraitUrl, portraitFor, AK_FIGURES, P2_LOOKS, P2_CHOICE_URL, p2HeadUrl, p2PortraitUrl, KOOP2_TRENNUNG_URL, festBannerUrl, mapMarkerOf, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
@@ -3114,7 +3114,7 @@ export class Ui {
   possibleLoot(encId) {
     const t = this.state.content.loot?.[encId];
     const items = this.state.content.items;
-    const ids = [...new Set([...(t?.drops ?? []).map((d) => d.item), ...Object.keys(t?.items ?? {})])];
+    const ids = [...new Set([...(t?.drops ?? []).map((d) => d.item), ...Object.keys(t?.items ?? {})])].filter((id) => !hiddenLoot(id, items));
     if (!ids.length) return '';
     ids.sort((a, b) => ['gewoehnlich', 'ungewoehnlich', 'selten', 'okkult'].indexOf(itemRarity(items[b])) - ['gewoehnlich', 'ungewoehnlich', 'selten', 'okkult'].indexOf(itemRarity(items[a])));
     return `<span class="cb-loot">Beute: ${ids.map((id) => `<span class="loot-ico rar-${itemRarity(items[id])}" title="${esc(items[id]?.name ?? id)}">${itemIcon(id)}</span>`).join('')}</span>`;
