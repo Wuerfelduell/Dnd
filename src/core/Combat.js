@@ -39,7 +39,10 @@ export const DUO_DMG_MULT = 0.85;
 // Zu zweit (gleich starke Spieler, ×2,5) ergibt das 1300 / 2200 / 5000. Wächter, Spiegel, Übungen und Ausreißer (flees_after) ausgenommen.
 export const HP_FLOOR_FROM_CHAPTER = 3;
 export const HP_FLOOR = { normal: 520, elite: 880, boss: 2000 };
-export const HP_FLOOR_DMG_MIN = 0.5;
+// Ab Kapitel 3 schlagen reguläre Gegner (die mit Lebens-Untergrenze) härter zu als in Wexmoor (dort ×1,5) und zu zweit ohne Abschlag.
+// Die Untergrenze macht sie nur zäher, nicht sanfter. Kapitel 4/5 tragen ihren Aufschlag schon in den Rohdaten (halbgott_skaliert).
+// Bosse etwas weniger, weil sie über die Untergrenze 2000 Leben tragen und sonst auch für sehr Geübte solo unschaffbar werden.
+export const LATE_DMG_MULT = { 3: { normal: 1.65, elite: 1.65, boss: 1.15 } };
 export function hpFloor(enc) {
   if (enc.practice || enc.mirror || enc.waechter || enc.flees_after || !(enc.chapter >= HP_FLOOR_FROM_CHAPTER)) return 0;
   return HP_FLOOR[enc.boss ? 'boss' : enc.elite ? 'elite' : 'normal'];
@@ -205,8 +208,9 @@ export class Combat {
     const rank = enc.boss ? 'boss' : enc.elite ? 'elite' : 'normal';
     const byRank = (v) => (v && typeof v === 'object' ? v[rank] : v);
     this.hpMult = enc.practice ? 1 : enc.hp_mult ?? byRank(zone?.hp_mult) ?? 1;
-    this.dmgMult = enc.practice ? 1 : enc.dmg_mult ?? zone?.dmg_mult ?? 1;
-    this.duoFull = !!(enc.min_seq || (enc.duo_full ?? zone?.duo_full));
+    const late = hpFloor(enc) > 0;
+    this.dmgMult = enc.practice ? 1 : enc.dmg_mult ?? zone?.dmg_mult ?? (late ? byRank(LATE_DMG_MULT[enc.chapter]) ?? 1 : 1);
+    this.duoFull = !!(enc.min_seq || (enc.duo_full ?? zone?.duo_full ?? late));
     // Schadensgrenze je Runde: am Gegner `max_round_dmg` (Anteil der Leben), sonst am Gebiet je Rang.
     // In Wexmoor nicht mehr gesetzt: dort tanken die Gegner über mehr Leben (hp_mult), der Spieler macht vollen Schaden.
     this.maxRoundDmg = enc.practice ? 0 : enc.max_round_dmg ?? byRank(zone?.max_round_dmg) ?? 0;
@@ -216,8 +220,6 @@ export class Combat {
     const soloHp = enc.hp * ENEMY_HP_MULT * (enc.elite ? ELITE_HP_MULT : 1) * this.hpMult;
     const floor = hpFloor(enc) * (this.rules?.scale?.hp ?? 1); // Ritualgegner mit eigener Stärke behalten ihren Vorsprung
     const hp = enc.practice ? enc.hp : Math.round(Math.max(soloHp, floor) * this.duoHpMult);
-    // Zäher gemacht, nicht tödlicher: wer über die Untergrenze viel länger steht, schlägt etwas sanfter zu (Wurzel des Lebenssprungs, höchstens halbiert)
-    if (floor > soloHp) this.dmgMult *= Math.max(HP_FLOOR_DMG_MIN, Math.sqrt(soloHp / floor));
     // Panzer wächst mit der Gefahrenstufe des Gebiets (Marsch 1, ...), Bosse eine Stufe mehr
     const tier = zone?.tier ?? 2;
     this.zoneTier = tier;
