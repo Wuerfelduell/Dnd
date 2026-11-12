@@ -69,3 +69,15 @@ test('Kapitel 3: Horchstelle an der Drehscheibe lässt sich überspringen', () =
   assert.ok(s.signal.revealedRoutes.has('k3o_horch_drehscheibe:east'));
   assert.equal(s.signal.charges, before);
 });
+
+test('Dunscar: alle Gebiete offen, Hör-Fährte gestrichen, Schichtbund offen (auch für alte Stände)', () => {
+  for (const t of content.travel.filter((x) => x.city === 'dunscar')) {
+    assert.ok(!(t.requires_flags ?? []).some((f) => /^k3a_akt\d_done$|^kapitel3_done$/.test(f)), `${t.map} noch gesperrt`);
+  }
+  assert.ok(!content.quests.k3a_akt1.steps.some((st) => JSON.stringify(st.done).includes('k3a_14')));
+  const s = new GameState(content);
+  s.flags.add('k3_arrived');
+  s.dunscarOffen();
+  for (const f of ['k3a_14_geschlossen', 'treffen_schichtbund']) assert.ok(s.flags.has(f), f);
+  assert.ok(s.hasConclusion('k3a_14_d'));
+});

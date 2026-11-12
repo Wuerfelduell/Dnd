@@ -429,6 +429,19 @@ export class GameState {
     return true;
   }
 
+  /**
+   * Dunscar (Seb, 2026-11-12): alle Gebiete offen, die Hör-Fährte „Der Ruf durch die Wand“ ist gestrichen und gilt als erledigt,
+   * der Schichtbund nimmt dich gleich bei der Ankunft auf. Die Ankunft setzt das für neue Stände, hier für alte.
+   */
+  dunscarOffen() {
+    if (!this.flags.has('k3_arrived')) return;
+    const e = { sets_flags: ['k3a_14_passage', 'k3a_14_geschlossen', 'treffen_schichtbund', 'k3h_aufnahme_done'], gives_clues: ['k3a_14_c1', 'k3a_14_c2', 'k3a_14_c3', 'k3a_14_c4'], gives_conclusions: ['k3a_14_d'] };
+    const neu = { sets_flags: (e.sets_flags ?? []).filter((f) => f !== 'k3_arrived' && !this.flags.has(f)), gives_clues: (e.gives_clues ?? []).filter((c) => this.content.clues?.[c]), gives_conclusions: (e.gives_conclusions ?? []).filter((c) => this.deduction(c) && !this.hasConclusion(c)) };
+    if (!neu.sets_flags.length && !neu.gives_conclusions.length) return;
+    this.applyEffects(neu);
+    if (this.quests.k3h_aufnahme === 'active') this.finishQuest('k3h_aufnahme', 'done');
+  }
+
   /** Bonusakte nach Kapitel 2: zeigt je nach Ende, wo die Nachricht nach Dunscar liegt. */
   startBonusakteK2() {
     if (!this.flags.has('kapitel2_done') || this.flags.has('k3_arrived')) return;
@@ -886,6 +899,7 @@ export class GameState {
     this.loadPfadHandel(data);
     this.syncClock(); // Tag/Nacht folgt der Spielzeit, nicht dem Spielstand
     this.startBonusakteK2(); // alte Stände: Kapitel 2 fertig, aber noch kein Wegweiser nach Dunscar
+    this.dunscarOffen(); // Seb 2026-11-12: Hör-Fährte gestrichen, Schichtbund offen
     if (!this.content.maps[this.map]) { this.map = this.content.start.map; this.position = null; }
     this.map = this.variantOf(this.map); // CH: Briarholt kalt oder warm, je nach Ventilkreis
     return true;

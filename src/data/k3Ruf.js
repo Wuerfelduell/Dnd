@@ -34,8 +34,7 @@ export function buildK3Ruf({ stationen, klang_zuordnung, bindungen, texte }) {
       nodes_add: {},
     };
   }
-  const dreh = stationen.find((s) => s.id === 'k3o_horch_drehscheibe');
-  const platzierung = dreh ? [{ map: dreh.map, tile: [dreh.tile[0] + 1, dreh.tile[1]],
-    interactable: { id: 'k3r_trichter_drehscheibe', kind: 'signal', station: dreh.id, marker: true, prompt: STATION_NAMES[dreh.id], title: STATION_NAMES[dreh.id] } }] : [];
+  // Seb 2026-11-12: die Hör-Fährte am Trichter der Drehscheibe ist gestrichen, der Trichter steht nicht mehr in der Welt.
+  const platzierung = [];
   return { name: 'k3_ruf', dialog_zusaetze, platzierung, signalRoutes: { stationen, klang_zuordnung, bindungen, texte } };
 }
