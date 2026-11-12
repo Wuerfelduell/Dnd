@@ -260,6 +260,7 @@ import dr_kessel_rezepte from './packs/seq4_dr/kessel_rezepte.json';
 import dr_moor_relikt from './packs/seq4_dr/moor_relikt.json';
 import dr_nebentexte from './packs/seq4_dr/nebentexte.json';
 import dr_wexmoor_einnahmen from './packs/seq4_dr/wexmoor_einnahmen.json';
+import dr_einbau from './packs/seq4_dr/einbau.json';
 import bz_dialog_zusaetze from './packs/beziehungen/dialog_zusaetze.json';
 import bo_rezepte from './packs/fasserin/rezepte.json';
 import bo_gerede from './packs/fasserin/gerede.json';
@@ -473,7 +474,7 @@ import hg_lesestuecke from './packs/halbgott/lesestuecke.json';
 import hg_koop from './packs/halbgott/koop.json';
 /** Codex-Runde 9: CR Fasserin-Aufträge (20 fa_*-Artefakte) und CP Halbgott/Engel-Texte. */
 const fasserinAuftrag = fasserinAuftragPack({ oda: fa_oda, gastgeber: fa_gastgeber, texte: fa_texte, artefakte: fa_artefakte, gerede: fa_gerede, zeitung: fa_zeitung, lesestuecke: fa_lesestuecke });
-const seq4Dr = seq4DrPack({ rituale: dr_rituale, meldungen: dr_meldungen, waechter: dr_waechter, kessel_rezepte: dr_kessel_rezepte, moor_relikt: dr_moor_relikt, nebentexte: dr_nebentexte, wexmoor_einnahmen: dr_wexmoor_einnahmen }); // Codex DR: Seq-4-Texte, Wexmoor-Einnahmen
+const seq4Dr = seq4DrPack({ rituale: dr_rituale, meldungen: dr_meldungen, waechter: dr_waechter, kessel_rezepte: dr_kessel_rezepte, moor_relikt: dr_moor_relikt, nebentexte: dr_nebentexte, wexmoor_einnahmen: dr_wexmoor_einnahmen, einbau: dr_einbau }); // Codex DR: Seq-4-Texte, Wexmoor-Einnahmen
 const halbgott = halbgottPack({ trinktexte: hg_trinktexte, kreaturform: hg_kreaturform, furcht: hg_furcht, rituale: hg_rituale, encounters: hg_encounters, bestiarium: hg_bestiarium, zeitung: hg_zeitung, gerede: hg_gerede, lesestuecke: hg_lesestuecke, koop: hg_koop });
 const fasserinPack = { name: 'fasserin', rezepte: bo_rezepte.recipes, artifacts: bo_rezepte.artifacts, fasserin_texte: bo_texte, gerede: bo_gerede, zeitung: bo_zeitung };
 /** Paket AL: vier Wexmoorer Akten. */

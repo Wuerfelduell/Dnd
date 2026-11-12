@@ -49,6 +49,7 @@ export const SEQ4_ITEMS = {
   wurf_saeure: { name: 'Säurephiole', kind: 'consumable', combat_only: true, damage: 22, price: 45, weight: 0.5, desc: 'Ein dünnwandiges Glas voll grüner Säure. Nur im Kampf: 22 Schaden, doppelt gegen Okkultes.' },
   wurf_gift: { name: 'Giftphiole', kind: 'consumable', combat_only: true, damage: 6, burn: [10, 3], price: 40, weight: 0.5, desc: 'Ein Schwall gelben Dunstes. Nur im Kampf: 6 Schaden, dann drei Runden je 10 Gift.' },
   wurf_spreng: { name: 'Sprengflasche', kind: 'consumable', combat_only: true, damage: 34, price: 70, weight: 1, desc: 'Lampenöl, Pulver und ein Docht. Nur im Kampf: 34 Schaden, doppelt gegen Okkultes.' },
+  s4sc_schattenband: { name: 'Schattenband', kind: 'trophy', weight: 0, price: 0, desc: 'Ein schwarzblaues Band, zu einem Schlüssel geknotet. Es blieb zurück, als der Schatten wieder an deine Fersen fand. Andenken an das Ritual des Schlüssels.' },
   [RELIKT]: { name: 'Relikt des Verfalls', kind: 'artifact', weight: 1, boons: [{ key: 'occult_mult', value: 1, text: 'Trägt Eigenschaften der fünf zersetzten Dinge (je Spieler verschieden).' }], curses: [{ key: 'unruhe_tick', value: 0, text: 'Was im Moor zerfällt, zerfällt weiter.' }], desc: 'Aus fünf zersetzten Dingen geformt, schwarz wie Torf und warm wie ein Atem. Es trägt Eigenschaften seiner Herkunft, bei jedem anders.' },
 };
 

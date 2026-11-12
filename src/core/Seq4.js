@@ -31,7 +31,7 @@ import { HG_NAMES, HG_SUDE, MOORWASSER, RELIKT } from '../data/seq4.js';
 import { LEERES_GEFAESS } from '../data/sude.js';
 import { seeded } from './Gatherings.js';
 import { DAY_SECONDS } from './Clock.js';
-import { drMeldung, pct } from '../data/seq4Dr.js';
+import { drMeldung, drFehlschlag, pct } from '../data/seq4Dr.js';
 
 export const HG_FAIL_PCT = 17;
 export const HG_FAIL_UNRUHE = 10;
@@ -107,9 +107,15 @@ export const seq4Methods = {
   },
 
   /** Zuschauerzeile für Spieler 2 (Codex DR), wenn eine Prüfung solo läuft. */
-  seq4Zuschauer(kind = this.seq4Kind()) {
+  seq4Zuschauer(kind = this.seq4Kind(), i = 0) {
     const z = this.content.seq4Texte?.zuschauer?.[kind] ?? [];
-    return z.length ? `Spieler 2: „${z[Math.floor(this.random() * z.length)]}“` : '';
+    if (!z.length || !this.hasP2?.()) return '';
+    return `Spieler 2 schaut zu: „${z[Math.min(i, z.length - 1)]}“`;
+  },
+
+  /** Gemeinsame DR-Texte (einbau.json gemeinsame_texte), z. B. s4r_trank_frei. */
+  seq4Text(key) {
+    return this.content.seq4Texte?.gemeinsam?.[key] ?? '';
   },
 
   // --- Wexmoor-Einnahmen (DR): einmal je Spieltag -------------------------------------------------
@@ -184,7 +190,8 @@ export const seq4Methods = {
   },
 
   // --- Erfolg und Fehlschlag ----------------------------------------------------------------------
-  seq4Fail(kind, text) {
+  /** grund: Schlüssel in rituale.json fehlschlag (Codex DR: konkreter Grund samt −17 %). */
+  seq4Fail(kind, text, grund = null) {
     const p = this.pathway;
     const st = this.seq4();
     this.seq4Cleanup(st);
@@ -199,7 +206,9 @@ export const seq4Methods = {
     }
     const extra = this.seq4Join(kind === 'echo' ? this.seq4Msg('echo', 'taubheit_ende') : '', this._waageBack ? this.seq4Msg('waage', 'besitz_zurueck') : '');
     this._waageBack = false;
-    const full = `${this.seq4Name(kind)}: gescheitert. ${this.seq4Join(text, extra)} (−${HG_FAIL_PCT} % Verdauung, +${HG_FAIL_UNRUHE} Unruhe. Du kannst es noch einmal versuchen.)`;
+    const dr = grund ? drFehlschlag(this.content, kind, grund) : '';
+    const tail = dr ? `(+${HG_FAIL_UNRUHE} Unruhe. Du kannst es noch einmal versuchen.)` : `(−${HG_FAIL_PCT} % Verdauung, +${HG_FAIL_UNRUHE} Unruhe. Du kannst es noch einmal versuchen.)`;
+    const full = `${this.seq4Name(kind)}: gescheitert. ${this.seq4Join(text, dr, extra)} ${tail}`;
     this.emit('seq4', { kind, passed: false, player: this.acting ?? 1, text: full });
     this.emit('notice', full);
     this.emit('changed');
@@ -219,7 +228,8 @@ export const seq4Methods = {
     this.flags.add(`hg_zeitung_${kind}`);
     const back = this._waageBack ? this.seq4Msg('waage', 'besitz_zurueck') : '';
     this._waageBack = false;
-    const full = `${this.seq4Name(kind)}: bestanden. ${this.seq4Join(text, this.seq4Card(kind)?.erfolg, kind === 'echo' ? this.seq4Msg('echo', 'taubheit_ende') : '', back)} Der Wächter ist gefallen. Das Ritual kann vollzogen werden (Pfad-Tab).`;
+    if (kind === 'schluessel' && !this.itemCount('s4sc_schattenband')) this.addItem('s4sc_schattenband'); // Codex DP: Andenken an den Schatten
+    const full = `${this.seq4Name(kind)}: bestanden. ${this.seq4Join(text, this.seq4Card(kind)?.erfolg, kind === 'echo' ? this.seq4Msg('echo', 'taubheit_ende') : '', back, this.seq4Zuschauer(kind, 1))} ${this.seq4Text('s4r_trank_frei') || 'Der Wächter ist gefallen.'} Das Ritual kann vollzogen werden (Pfad-Tab).`;
     this.emit('seq4', { kind, passed: true, player: this.acting ?? 1, text: full });
     this.emit('notice', full);
     this.emit('changed');
@@ -256,7 +266,7 @@ export const seq4Methods = {
     this.startCombat(id);
     this.emit('changed');
     const kind = this.seq4Kind();
-    const dr = this.seq4Join(kind === 'waage' ? this.seq4Msg('waage', 'alles_gekauft') : '', this.seq4Msg(kind, 'waechter_erscheint'), this.hasP2?.() ? this.seq4Zuschauer(kind) : '');
+    const dr = this.seq4Join(kind === 'waage' ? this.seq4Msg('waage', 'alles_gekauft') : '', this.seq4Msg(kind, 'waechter_erscheint'), kind === 'echo' ? '' : this.seq4Zuschauer(kind, 0)); // Echo: während der Taubheit keine Rede
     return `${text}\n\nDann wird es still. Aus dem Nebel tritt ${this.content.encounters[id].name}.${dr ? ` ${dr}` : ''}`;
   },
 
@@ -301,14 +311,14 @@ export const seq4Methods = {
     if (k === 'faden' && rules?.dream) {
       if (id === TRAUM_ID) {
         if (won) this.sfx('s4r_bedingung_erfuellt');
-        if (!won) return this.seq4Fail('faden', combat.outcome === 'lost' ? 'Die fünf Fäden ziehen sich zu, und du wachst schweißnass auf.' : 'Du reißt dich aus dem Traum. Die Fäden sind schlaff.').text;
+        if (!won) return this.seq4Fail('faden', combat.outcome === 'lost' ? 'Die fünf Fäden ziehen sich zu, und du wachst schweißnass auf.' : 'Du reißt dich aus dem Traum. Die Fäden sind schlaff.', 'niederlage').text;
         st.dreamWon = true;
         return this.seq4Summon('Die fünf Gestalten lösen sich in Garn auf. Der Traum aber endet nicht.');
       }
-      if (g) return won ? this.seq4Pass('faden', this.seq4Join('Du erwachst mit Garn zwischen den Fingern.', this.seq4Msg('faden', 'erwachen'))).text : this.seq4Fail('faden', 'Der Wächter zerschneidet das Netz, und du wachst auf.').text;
+      if (g) return won ? this.seq4Pass('faden', this.seq4Join('Du erwachst mit Garn zwischen den Fingern.', this.seq4Msg('faden', 'erwachen'))).text : this.seq4Fail('faden', 'Der Wächter zerschneidet das Netz, und du wachst auf.', 'niederlage').text;
     }
     if (k === 'maske' && rules) {
-      if (broken) return this.seq4Fail('maske', broken).text;
+      if (broken) return this.seq4Fail('maske', broken, 'faehigkeit_benutzt').text;
       if (!g) {
         if (combat.outcome === 'spared') {
           st.spared = combat.enc.name;
@@ -319,14 +329,14 @@ export const seq4Methods = {
           const line = zw.length ? `„${zw[Math.floor(this.random() * zw.length)].replaceAll('{name}', combat.enc.name)}“` : '';
           return this.seq4Summon(this.seq4Join(this.seq4Msg('maske', 'verschont'), `${combat.enc.name} starrt auf die eigenen Hände. Ein Mensch ohne Pfad hat das getan.`, line, 'Dieser Zweifel bleibt.'));
         }
-        if (won) return this.seq4Fail('maske', this.seq4Join(this.seq4Msg('maske', 'gegner_tot'), 'Die Maske verlangte Gnade.')).text;
-        if (combat.outcome === 'lost') return this.seq4Fail('maske', 'Ein gewöhnlicher Mensch verliert gegen einen Beyonder. Diesmal du.').text;
+        if (won) return this.seq4Fail('maske', this.seq4Msg('maske', 'gegner_tot'), 'gegner_tot').text;
+        if (combat.outcome === 'lost') return this.seq4Fail('maske', 'Ein gewöhnlicher Mensch verliert gegen einen Beyonder. Diesmal du.', 'niederlage').text;
         return null; // geflohen: kein Schaden, keine Wertung
       }
-      return won ? this.seq4Pass('maske', 'Ohne eine einzige Gabe.').text : this.seq4Fail('maske', 'Der Wächter sieht durch das Gesicht hindurch.').text;
+      return won ? this.seq4Pass('maske', 'Ohne eine einzige Gabe.').text : this.seq4Fail('maske', 'Der Wächter sieht durch das Gesicht hindurch.', 'niederlage').text;
     }
     if (k === 'echo' && rules?.deaf) {
-      if (!won) return this.seq4Fail('echo', combat.outcome === 'lost' ? 'Die Stille hat dich gefällt.' : 'Du bist der Stille ausgewichen. Das zählt nicht.').text;
+      if (!won) return this.seq4Fail('echo', combat.outcome === 'lost' ? 'Die Stille hat dich gefällt.' : 'Du bist der Stille ausgewichen. Das zählt nicht.', 'niederlage').text;
       if (g) return this.seq4Pass('echo', 'In der Stille hast du den Schlag gesehen, bevor er kam.').text;
       st.wins = (st.wins ?? 0) + 1;
       this.sfx('s4r_bedingung_erfuellt');
@@ -335,19 +345,19 @@ export const seq4Methods = {
       return this.seq4Msg('echo', 'gegner_besiegt', { n: st.wins }) || `${this.seq4Name('echo')}: ${st.wins}/${ECHO_FIGHTS} Kämpfe.`;
     }
     if (k === 'kessel' && g) {
-      if (broken) return this.seq4Fail('kessel', broken).text;
-      return won ? this.seq4Pass('kessel', 'Kein Schlag, nur Glas, Gift und Feuer.').text : this.seq4Fail('kessel', 'Die Flaschen sind leer, der Wächter steht.').text;
+      if (broken) return this.seq4Fail('kessel', broken, 'verstoss').text;
+      return won ? this.seq4Pass('kessel', 'Kein Schlag, nur Glas, Gift und Feuer.').text : this.seq4Fail('kessel', 'Die Flaschen sind leer, der Wächter steht.', 'niederlage').text;
     }
     if (k === 'eisen' && g) {
-      if (!won) return this.seq4Fail('eisen', combat.outcome === 'lost' ? 'Die Last hat dich niedergedrückt.' : 'Du bist gewichen. Das Eisen verzeiht das nicht.').text;
-      if (broken) return this.seq4Fail('eisen', broken).text;
+      if (broken) return this.seq4Fail('eisen', broken, 'ausweichen').text;
+      if (!won) return this.seq4Fail('eisen', combat.outcome === 'lost' ? 'Die Last hat dich niedergedrückt.' : 'Du bist gewichen. Das Eisen verzeiht das nicht.', 'niederlage').text;
       const c = this.eisenConditions();
-      if (!c.ok) return this.seq4Fail('eisen', 'Die Last war am Ende nicht mehr dieselbe.').text;
+      if (!c.ok) return this.seq4Fail('eisen', this.seq4Msg('eisen', 'bedingung_gebrochen') || 'Die Last war am Ende nicht mehr dieselbe.', 'verstoss').text;
       return this.seq4Pass('eisen', 'Unter doppelter Last, ohne zu weichen.').text;
     }
     if (k === 'schluessel' && rules?.shadow) {
       st.shadowHp = Math.max(0, combat.shadowHpLeft ?? st.shadowHp);
-      if (combat.outcome === 'lost') return this.seq4Fail('schluessel', this.seq4Msg('schluessel', 'schatten_zerfasert') || 'Der Schatten zerreißt und kriecht zurück in deinen Körper. Du lebst.').text;
+      if (combat.outcome === 'lost') return this.seq4Fail('schluessel', this.seq4Msg('schluessel', 'schatten_zerfasert') || 'Der Schatten zerreißt und kriecht zurück in deinen Körper. Du lebst.', 'schatten_tot').text;
       if (!won) { this.emit('changed'); return null; }
       if (g) return this.seq4Pass('schluessel', this.seq4Join(this.seq4Msg('schluessel', 'schatten_zurueck'), 'Er gleitet zurück an deine Füße.')).text;
       st.wins = (st.wins ?? 0) + 1;
@@ -356,17 +366,17 @@ export const seq4Methods = {
       this.emit('changed');
       return `${this.seq4Msg('schluessel', 'gegner_besiegt', { n: st.wins }) || `${this.seq4Name('schluessel')}: ${st.wins}/${SCHATTEN.fights} Gegner.`} ${st.shadowHp}/${st.shadowMax} Leben übrig.`;
     }
-    if (k === 'waage' && g) return won ? this.seq4Pass('waage', 'Mit nichts als dem Gekauften.').text : this.seq4Fail('waage', 'Was du gekauft hast, hat nicht gereicht.').text;
+    if (k === 'waage' && g) return won ? this.seq4Pass('waage', 'Mit nichts als dem Gekauften.').text : this.seq4Fail('waage', 'Was du gekauft hast, hat nicht gereicht.', 'niederlage').text;
     if (k === 'moor' && g) {
-      if (broken) return this.seq4Fail('moor', broken).text;
-      if (won && !this.itemCount(RELIKT)) return this.seq4Fail('moor', 'Das Relikt war nicht bei dir.').text;
-      return won ? this.seq4Pass('moor', 'Verfall gegen Schwelle, und der Verfall hat gesiegt.').text : this.seq4Fail('moor', 'Der Wächter steht, das Moor hat dich nicht getragen.').text;
+      if (broken) return this.seq4Fail('moor', broken, /Moorwasser/.test(broken) ? 'moorwasser_leer' : 'verstoss').text;
+      if (won && !this.itemCount(RELIKT)) return this.seq4Fail('moor', 'Das Relikt war nicht bei dir.', 'verstoss').text;
+      return won ? this.seq4Pass('moor', 'Verfall gegen Schwelle, und der Verfall hat gesiegt.').text : this.seq4Fail('moor', 'Der Wächter steht, das Moor hat dich nicht getragen.', 'niederlage').text;
     }
     if (k === 'uhr' && rules?.uhr) {
-      if (broken) return this.seq4Fail('uhr', broken).text;
-      if (!won) return this.seq4Fail('uhr', combat.outcome === 'lost' ? 'Kein Sieg, kein Augenblick.' : 'Wer flieht, verpasst den Augenblick.').text;
+      if (broken) return this.seq4Fail('uhr', broken, g ? 'zu_viele_fehler' : 'vorpruefung_fehler').text;
+      if (!won) return this.seq4Fail('uhr', combat.outcome === 'lost' ? 'Kein Sieg, kein Augenblick.' : 'Wer flieht, verpasst den Augenblick.', 'niederlage').text;
       if (g) return this.seq4Pass('uhr', `${combat.dodgeErrors} ${combat.dodgeErrors === 1 ? 'Fehler' : 'Fehler'} beim Wächter.`).text;
-      if (!combat.enemyAttacks) { this.emit('changed'); return `${combat.enc.name} hat nicht ein einziges Mal angegriffen. Das zählt nicht.`; }
+      if (!combat.enemyAttacks) return this.seq4Fail('uhr', `${combat.enc.name} hat nicht ein einziges Mal angegriffen.`, 'gegner_ohne_angriff').text; // DR v2: Sieg ohne Gegnerangriff scheitert
       st.count = (st.count ?? 0) + 1;
       this.sfx('s4r_bedingung_erfuellt');
       if (st.count >= UHR.monsters) return this.seq4Summon(this.seq4Join(this.seq4Msg('uhr', 'monster_angriff', { n: st.count }), 'Drei Monster, kein einziger verfehlter Augenblick.'));
@@ -411,7 +421,7 @@ export const seq4Methods = {
     const st = this.seq4();
     if (!st.siege) return null;
     if (result.won) return this.seq4Pass('laterne', 'Der Sonnenaufgang zwischen drei Flammen hat ihn ausgelöscht.');
-    return this.seq4Fail('laterne', result.reason ?? 'Das Licht ist erloschen.');
+    return this.seq4Fail('laterne', result.reason ?? 'Das Licht ist erloschen.', 'niederlage');
   },
 
   // --- Faden -----------------------------------------------------------------------------------------
@@ -507,7 +517,7 @@ export const seq4Methods = {
     st.active = true;
     st.wins = 0;
     this.emit('changed'); // DS: s4ec_taub_an spielt die Karte (HalbgottRitual.updateDeaf), bevor der Ton verstummt
-    return { ok: true, text: `${this.seq4Join(this.seq4Card('echo')?.beginn, this.seq4Msg('echo', 'taubheit_beginn'))} Du drückst die Hände auf die Ohren, bis das Rauschen aufhört. Dann ist es still. Ganz still. ${ECHO_FIGHTS} Kämpfe und der Wächter, ohne Ringe, ohne Warnklang.` };
+    return { ok: true, text: `${this.seq4Join(this.seq4Zuschauer('echo', 0), this.seq4Card('echo')?.beginn, this.seq4Msg('echo', 'taubheit_beginn'))} Du drückst die Hände auf die Ohren, bis das Rauschen aufhört. Dann ist es still. Ganz still. ${ECHO_FIGHTS} Kämpfe und der Wächter, ohne Ringe, ohne Warnklang.` };
   },
 
   /** Ist der Spieler taub (Ton aus)? */
@@ -655,7 +665,7 @@ export const seq4Methods = {
     if (this.seq4Kind() !== 'waage' || !st.inSession) return null;
     if (kind === 'buy') { st.bought = (st.bought ?? 0) + 1; this.sfx('s4wa_kauf'); this.emit('changed'); return null; }
     this.sfx('s4wa_kapital_knapp');
-    return this.seq4Fail('waage', this.seq4Join('Ein Los ist an dir vorbeigegangen.', this.seq4Msg('waage', 'kapital_zu_knapp'), 'Die Waage verlangt alles.'));
+    return this.seq4Fail('waage', this.seq4Join('Ein Los ist an dir vorbeigegangen.', this.seq4Msg('waage', 'kapital_zu_knapp')), 'zu_wenig_kapital');
   },
 
   /** Aus Auction.nextTurn: alle Mitglieder waren dran. Alles gekauft? Dann kommt der Wächter (beim Schließen der Runde). */
@@ -673,7 +683,7 @@ export const seq4Methods = {
   seq4SessionEnd() {
     const st = this.seq4();
     if (this.seq4Kind() !== 'waage' || !st.stash) return;
-    if (st.inSession) { this.seq4Fail('waage', 'Die Runde ging zu Ende, bevor jedes Los dir gehörte.'); return; }
+    if (st.inSession) { this.seq4Fail('waage', 'Die Runde ging zu Ende, bevor jedes Los dir gehörte.', 'zu_wenig_kapital'); return; }
     if (st.guardianDue) {
       delete st.guardianDue;
       this.seq4Summon(`Jedes Los gehört dir (${st.bought}). Die Börse ist leichter, die Waage steht still.`);
@@ -730,8 +740,11 @@ export const seq4Methods = {
     const dr = this.content.seq4Texte?.relikt;
     const wirkung = this.content.seq4Texte?.reliktWirkung ?? {};
     const boons = pick(boonsPool, 2);
-    const moorPool = (dr?.eigenschaften ?? []).filter((e) => wirkung[e.id]).map((e) => ({ key: wirkung[e.id][0], value: wirkung[e.id][1], text: `${e.name}: ${wirkung[e.id][2]}.`, name: e.name }));
-    for (const b of pick(moorPool, 3)) if (boons.length < 3 && !boons.some((o) => o.key === b.key)) boons.push(b);
+    // Jedes zersetzte Ding vererbt genau eine Moor-Eigenschaft (fest an seine Id gebunden), gezogen wird nur aus diesen fünf
+    const pool = (dr?.eigenschaften ?? []).filter((e) => wirkung[e.id]);
+    const hash = (t) => [...t].reduce((h, ch) => (h * 31 + ch.charCodeAt(0)) >>> 0, 7);
+    const moorPool = pool.length ? (st.decayed ?? []).map((d) => pool[hash(d.id) % pool.length]).map((e) => ({ key: wirkung[e.id][0], value: wirkung[e.id][1], text: `${e.name}: ${wirkung[e.id][2]}.`, name: e.name, kat: e.kategorie })) : [];
+    for (const b of pick(moorPool, 5)) if (boons.length < 3 && !boons.some((o) => o.key === b.key)) boons.push(b);
     if (!boons.length) boons.push({ key: 'occult_mult', value: 1.2, text: 'Verfall frisst Okkultes: +20 % Schaden gegen okkulte Wesen.' });
     const curses = pick(cursePool, 1);
     const vs = dr?.namensteile?.vorsilben ?? [];
@@ -740,7 +753,10 @@ export const seq4Methods = {
     const names = boons.map((b) => b.name ?? b.text.replace(/[.:].*$/, '')).join(', ');
     const tpl = dr?.desc_vorlagen ?? [];
     const desc = tpl.length ? tpl[Math.floor(rng() * tpl.length)].replaceAll('{name}', name).replaceAll('{eigenschaften}', names) : '';
-    this.pathway.relikt = { boons, curses, name, desc };
+    // Codex DP: das Bild folgt der häufigsten Moor-Kategorie der Eigenschaften (glut, faden, stein, schatten, salz)
+    const kats = boons.map((b) => b.kat).filter(Boolean);
+    const look = kats.sort((a, b) => kats.filter((x) => x === b).length - kats.filter((x) => x === a).length)[0] ?? null;
+    this.pathway.relikt = { boons, curses, name, desc, ...(look ? { look } : {}) };
     this.sfx('s4mo_relikt_formen', { delay: 900 });
     this.addItem(RELIKT);
     this.emit('changed');
