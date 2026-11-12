@@ -31,7 +31,7 @@ test('Sortiment: alte Waffen, Kleidung, Amulette, Kräuter, teurer als in Kettle
   for (const g of ['mantel_leder', 'hut_zylinder', 'amulett_laterne', 'amulett_stimme']) assert.ok(stockOf('ds_kleiderhaendlerin').includes(g), g);
   for (const z of ['nebeltau', 'silberstaub', 'mondmohn', 'leeres_gefaess']) assert.ok(stockOf('ds_kraeuterfrau').includes(z), z);
   const kg = (id) => [...M.gorse.stock, ...M.kittering.stock, ...M.nell.stock].find((e) => e.item === id)?.price;
-  for (const e of M.ds_waffenhaendlerin.stock) assert.ok(e.price > kg(e.item), e.item);
+  for (const e of M.ds_waffenhaendlerin.stock) if (kg(e.item)) assert.ok(e.price > kg(e.item), e.item);
 });
 
 test('Keine Formeln, keine Zutaten ab Sequenz 7, keine Treffen-Lose im normalen Sortiment', () => {
@@ -42,7 +42,8 @@ test('Keine Formeln, keine Zutaten ab Sequenz 7, keine Treffen-Lose im normalen 
     for (const e of M[id].stock) {
       assert.notEqual(content.items[e.item].kind, 'formula', `${id}: ${e.item}`);
       assert.ok(!high.has(e.item), `${id}: ${e.item}`);
-      if (id !== 'k3h_troedlerin') assert.ok(!lots.has(e.item), `${id}: ${e.item} ist ein Treffen-Los`);
+      // alte Zirkelstücke aus Kettlegate/Wexmoor nur als Restposten (Händler-Abgleich, Seb 2026-11-12)
+      if (id !== 'k3h_troedlerin' && e.rare === undefined) assert.ok(!lots.has(e.item), `${id}: ${e.item} ist ein Treffen-Los`);
     }
   }
 });

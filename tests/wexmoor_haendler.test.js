@@ -42,7 +42,7 @@ test('Beute lässt sich bei ihr verkaufen, Schlüssel und Formeln nicht, der Hin
   assert.match(s.sell(trophy, ID).text, /Maud Keel/);
   const key = Object.keys(content.items).find((id) => content.items[id].kind === 'key');
   assert.match(s.sell(key).text, /Gorse/, 'ohne Händler bleibt Gorse der Standard');
-  for (const e of content.market.merchants[ID].stock) {
+  for (const e of content.market.merchants[ID].stock.filter((x) => x.rare === undefined)) { // Restposten wechseln je Markttag
     s.money = 1000;
     assert.ok(s.buy(ID, e.item).ok, e.item);
   }
