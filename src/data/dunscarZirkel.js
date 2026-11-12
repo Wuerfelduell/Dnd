@@ -361,7 +361,7 @@ export function applyDunscarZirkel(content) {
   // Seq-3-Formel (Seb 2026-11-12): taucht mit 1 % auf, für 15.000; reihum über alle drei Dunscar-Zirkel
   const seats3 = Object.values(circles).filter((c) => c.city === 'dunscar').flatMap((c) => c.members);
   pids.filter((p) => has(`formel_${p}_3`)).forEach((p, i) => seats3[i % seats3.length].offers.push(
-    L(`formel_${p}_3`, DS_LOS.formel[3], DS_LOS.formel3Chance, { once: true, requires_pathway: [p, 4], locked_text: 'Erst ab Sequenz 4 dieses Pfades' })));
+    L(`formel_${p}_3`, DS_LOS.formel[3], DS_LOS.formel3Chance, { once: true, requires_pathway: [p, 4], nachbar: true, locked_text: 'Erst ab Sequenz 4 dieses Pfades oder seines Nachbarpfads' })));
   // Formeln unter Sequenz 3 nie
   for (const c of Object.values(circles)) {
     if (c.city !== 'dunscar') continue;

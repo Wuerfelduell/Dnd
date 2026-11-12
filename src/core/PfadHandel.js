@@ -5,6 +5,7 @@
 // Elite-Beute (0,5 %; sonst gibt es sie nur auf geheimen Treffen).
 import { DAY_NIGHT_SECONDS } from './Clock.js';
 import { FORMEL_ELITE_CHANCE, FORMEL_K3_CHANCE, K3_ZUTAT4_CHANCE, SCHLEUSEN_FRIST, WX_ZONES } from '../data/pfadHandel.js';
+import { NACHBARPFADE } from '../data/nachbarpfade.js';
 
 /** Wie viele Schritte jede Aufgabe mit Stationen hat. */
 const STEPS = { laterne5: 3, uhr5: 4, echo4: 3 };
@@ -170,7 +171,9 @@ export const pfadHandelMethods = {
     const rang = enc.mittelboss ? 'mittel' : tier;
     const pws = [this.pathway, this.p2?.active ? this.p2.pathway : null].filter((pw) => pw?.id);
     const seen = new Set();
-    for (const pw of pws) {
+    // Pfadwechsel (Seb 2026-11-12): wer auf Seq 4 steht, kann auch die Formel 3 seines Nachbarpfads finden
+    const rolls = pws.flatMap((pw) => [pw, ...(pw.seq === 4 && !pw.wechsel ? (NACHBARPFADE[pw.id] ?? []).map((id) => ({ id, seq: 4 })) : [])]);
+    for (const pw of rolls) {
       const target = pw.seq - 1;
       const own = zone?.formel_chance?.[target]?.[rang];
       const chance = own !== undefined && k3f ? own : target === 4 ? (k3f ? FORMEL_K3_CHANCE[4][tier] : enc.elite ? FORMEL_ELITE_CHANCE : 0)

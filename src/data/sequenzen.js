@@ -6,6 +6,7 @@
  * liegen geladen unter content.highSeqs (Kernzutaten unter content.highItems), bis Kapitel 3 die Bosse für ihre Kernzutaten bringt.
  * Die sechs Artefakte sind Belohnungen dieser Seq-4-Aufgaben und stehen schon in artifacts.list.
  */
+import { NACHBARPFADE } from './nachbarpfade.js';
 import { HOCH_DURCHBRUCH, HALBGOTT_EIGENHEIT, HOCH_RITUAL, ordealId } from '../core/Pathways.js';
 
 export const SEQ_HIGHEST = 1; // Kapitel 3: alle Stufen bis 1 sind spielbar
@@ -100,8 +101,7 @@ const zutat = (pid, n) => `sq_zutat_${pid.replace(/^sq_/, '')}_${n}`;
  * die eigene oder die Kernzutat eines Nachbarpfads sein (so nützen Funde für den Pfad von Spieler 2).
  * Nachbarn je Pfad: fünf feste Paare.
  */
-const PAARE = [['laterne', 'schluessel'], ['echo', 'maske'], ['faden', 'sq_uhr'], ['sq_waage', 'eisen'], ['kessel', 'sq_moor']]; // Seb 2026-11-12: je Pfad genau ein Nachbar
-export const NACHBARPFADE = Object.fromEntries(PAARE.flatMap(([a, b]) => [[a, [b]], [b, [a]]]));
+export { NACHBARPFADE }; // Seb 2026-11-12: je Pfad genau ein Nachbar (data/nachbarpfade.js)
 /** Zweite Kernzutat der Formel 4 eines Pfades: { need, from: [eigene, Nachbarn...] } */
 export function zweitzutat4(pid, items = null) {
   const from = [pid, ...(NACHBARPFADE[pid] ?? [])].map((p) => zutat(p, 4)).filter((id) => !items || items[id]);
@@ -191,7 +191,7 @@ export function applySequenzen(content, sq, { highSeqs = {}, highItems = {} } = 
       for (const [n, k] of Object.entries(KITTERING_HOCH)) {
         const seq = Number(n);
         if (!content.items[`formel_${pid}_${seq}`]) continue;
-        kit.stock.push({ item: `formel_${pid}_${seq}`, price: k.price, once: true, requires_honor: k.honor,
+        kit.stock.push({ item: `formel_${pid}_${seq}`, price: k.price, once: true, requires_honor: k.honor, ...(seq === 3 ? { nachbar: true } : {}),
           requires_pathway: [pid, seq + 1], locked_text: `Erst ab Sequenz ${seq + 1} dieses Pfades und ${k.honor} Ehre` });
       }
     }
