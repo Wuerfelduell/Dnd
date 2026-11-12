@@ -56,3 +56,7 @@ test('Dunscar-Ausbau: Händler am Kalkmarkt stehen an Ständen mit Schild', () =
     assert.deepEqual(st.tile, [n.tile[0], n.tile[1] - 1]);
   }
 });
+
+test('Dunscar-Ausbau: Steinmetz-Werkzeug kostet so viel wie gleich starke Waffen', () => {
+  for (const m of Object.values(content.market.merchants)) for (const e of m.stock) if (e.item === 'k3h_faeustel') assert.ok(e.price >= 800, e.price);
+});
