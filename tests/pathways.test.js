@@ -48,6 +48,7 @@ test('Zehn Pfade (sieben + Waage, Moor, Uhr aus Paket AF) mit je Sequenz 9 bis 1
   for (const [id, it] of Object.entries(content.items)) {
     if (!['ingredient', 'formula'].includes(it.kind)) continue;
     if (/^sq_zutat_\w+_[1-4]$/.test(id)) assert.ok(given.has(id), `${id} gibt es nirgends`);
+    else if (/^formel_\w+_[1-3]$/.test(id)) assert.ok(Object.values(content.maps).some((m) => m.id?.startsWith('o3_') && (m.interactables ?? []).some((i) => i.effects?.gives_items?.[id])), `${id} liegt an keinem Ort`);
     else assert.ok(sold.has(id), `${id} wird nirgends verkauft`);
   }
   for (const m of Object.values(content.market.merchants)) for (const e of m.stock) assert.ok(content.items[e.item], `Händlerware ${e.item}`);

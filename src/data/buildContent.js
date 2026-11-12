@@ -1,11 +1,13 @@
 import { NIGHT_FLAG } from '../core/Clock.js';
 import { applyQuestPack } from './questPacks.js';
 import { applyDunscarZirkel } from './dunscarZirkel.js';
+import { applyZirkelAuftraege } from './zirkelAuftraege.js';
 import { applyLore } from './lore.js';
 import { withSequenzen, applySequenzen } from './sequenzen.js';
 import { applyPfadHandel } from './pfadHandel.js';
 import { applySeq5 } from './seq5.js';
 import { applySeq4 } from './seq4.js';
+import { applySeqHoch } from './seqHoch.js';
 import { withFaehigkeiten } from './faehigkeiten.js';
 import { applyMoods } from './moods.js';
 import { applyRelations } from './relations.js';
@@ -90,6 +92,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyDunscarZirkel(content); // Dunscar: Zirkel-Lose im Tausenderbereich, Kalter Ofen + Stummes Stellwerk
   applySeq5(content); // Seq-5-Rituale: Gefäße, Fäden, Uhr, Sude, Laternenbestie und Kokonspinne
   applySeq4(content, packs.find((p) => p.seq4Dr)?.seq4Dr ?? null); // Seq-4-Rituale: zehn Halbgott-Prüfungen samt Wächter, Wurfflaschen, Relikt, Wexmoor-Einnahmen
+  applySeqHoch(content); // Seq 3 bis 1: Rituale, Orte der Sequenz 3 mit den Formeln 3/2/1, Weltwandel-Gerede
   applyPfadHandel(content); // Pfad-Beyonder in Wexmoor: Zutaten für Seq 5/4, drei neue Einzelgänger, Laufplan
   applySchmuggel(content); // Kein Zurück nach Kettlegate: Zirkelware von dort in Zunders Schmuggelkiste
   applyMoods(content); // Paket AK: Stimmungen für Schlüsselstellen
@@ -103,6 +106,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyDunscarGeld(content); // Dunscar zahlt mehr als Wexmoor: Gegnergeld und Kopfgelder
   applyDunscarBeute(content); // Dunscar-Beute 3–5× so viel wert wie in Wexmoor
   applyHaendlerAbgleich(content); // Händler aller Gebiete: Stärke und Preise je Gebiet, alte Stücke auch später
+  applyZirkelAuftraege(content); // Dunscar: Zirkelmitglieder vergeben Aufträge (Monster, Polizisten)
   applyDunscarKulisse(content); // Dunscar: Ausgänge nach Himmelsrichtung mit Schild, Rückkehr an der passenden Tür, Requisiten je Viertel
   return content;
 }

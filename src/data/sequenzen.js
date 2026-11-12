@@ -82,7 +82,8 @@ const KITTERING = {
 const TREFFEN = { 6: 640, 5: 900, 4: 4000 };
 /** Kapitel 3: Formeln für Sequenz 3 bis 1 aller Pfade bei Kittering (Ehre nach AF, einmaliger Kauf).
  * Seb (2026-11-12): die Halbgott-Formel (4) gibt es NUR auf geheimen Treffen (TREFFEN[4]) oder mit 0,5 % bei Elite-Gegnern (core/PfadHandel.js). */
-const KITTERING_HOCH = { 3: { price: 260, honor: 110 }, 2: { price: 380, honor: 135 }, 1: { price: 560, honor: 160 } };
+// Seb (2026-11-12): die Formeln 3, 2 und 1 gibt es nur noch am eigenen Ort des Pfades (data/seqHoch.js), nie bei Kittering.
+const KITTERING_HOCH = {};
 /** Knapper Markt: Zutaten ab Sequenz 7 nur auf geheimen Treffen (7 und 6 in Kettlegate, der Kern für 5 in Wexmoor). */
 const ZUTAT_TREFFEN = { 7: { price: 120, chance: 0.45 }, 6: { price: 200, chance: 0.3 }, 5: { price: 320, chance: 0.45 }, 4: { price: 4500, chance: 0.5 } }; // Seq-4-Zutat 4500 (Seb 2026-11-12)
 /** Wer auf den Treffen Zutaten und Formeln der neuen Pfade anbietet: Kettlegate [Zirkel, Mitglied], Wexmoor [Zirkel, Mitglied]. */
