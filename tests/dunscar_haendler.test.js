@@ -59,3 +59,9 @@ test('Ida Marrow kauft Beute an und führt Grundvorräte', () => {
   assert.ok(s.sell(trophy, 'k3h_troedlerin').ok);
   assert.ok(s.money > before);
 });
+
+test('Wilma Rook führt das Wachsamulett gegen Unruhe', async () => {
+  const content = await loadContent();
+  const e = content.market.merchants.ds_kleiderhaendlerin.stock.find((x) => x.item === 'wachsamulett');
+  assert.ok(e && e.price === content.items.wachsamulett.price * 2);
+});
