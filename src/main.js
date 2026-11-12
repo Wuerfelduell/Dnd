@@ -49,6 +49,9 @@ const ui = new Ui(uiRoot, state, {
   onNewGame: () => {
     clearSave();
     state.reset();
+    // Teststart für die Seq-4-Rituale: ?probe=laterne (oder ein anderer Pfad) → Sequenz 5, voll verdaut, im Vergessmoor
+    const probe = new URLSearchParams(location.search).get('probe');
+    if (probe) state.seq4Probe(probe);
     started = true;
     restartWorld();
     saveSoon();

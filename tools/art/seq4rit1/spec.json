@@ -1,0 +1,576 @@
+[
+  {
+    "file": "props/s4la_ritual_laterne.png",
+    "w": 16,
+    "h": 32,
+    "n": 24,
+    "desc": "Iron stake ritual oil lantern. Six rows: full steady flame four poses; half smaller flame four; weak soot glass flicker four; attacked rattling glass sparks two then two empty; extinguished one then three empty; refilling oil flowing flame growing four.",
+    "cols": 4,
+    "rows": 6,
+    "counts": [
+      4,
+      4,
+      4,
+      2,
+      1,
+      4
+    ],
+    "names": [
+      "voll",
+      "halb",
+      "schwach",
+      "angegriffen",
+      "erloschen",
+      "nachfuellen"
+    ]
+  },
+  {
+    "file": "fx/s4la_lichtkreis.png",
+    "w": 64,
+    "h": 64,
+    "n": 4,
+    "desc": "Amber circular light pool around lantern, binary alpha checker dither, gently breathing loop"
+  },
+  {
+    "file": "fx/s4la_spielerlicht.png",
+    "w": 48,
+    "h": 48,
+    "n": 4,
+    "desc": "Weak pale amber circular player light halo, much fainter smaller than lantern pool, checker dither pulse"
+  },
+  {
+    "file": "fx/s4la_monster_licht.png",
+    "w": 32,
+    "h": 32,
+    "n": 6,
+    "desc": "Light damage sizzling smoke and bone-white sparks increasing then dissipating"
+  },
+  {
+    "file": "fx/s4la_monster_zerfall.png",
+    "w": 32,
+    "h": 32,
+    "n": 6,
+    "desc": "Monster disintegrates into ash: abstract smoky silhouette crumbling into dust then fading"
+  },
+  {
+    "file": "fx/s4la_rueckstoss.png",
+    "w": 32,
+    "h": 32,
+    "n": 4,
+    "desc": "Knockback impact dust ring and small impact star expands and dissipates"
+  },
+  {
+    "file": "ui/s4la_halten.png",
+    "w": 16,
+    "h": 16,
+    "n": 9,
+    "desc": "Hold progress ring: first eight icons progress clockwise from empty to full, ninth cracked rust-red interrupted ring"
+  },
+  {
+    "file": "ui/s4la_hud.png",
+    "w": 12,
+    "h": 16,
+    "n": 4,
+    "desc": "Four tiny lantern state icons full, half, weak, extinguished in order"
+  },
+  {
+    "file": "ui/s4la_hud_rahmen.png",
+    "w": 96,
+    "h": 20,
+    "n": 1,
+    "desc": "Long thin brass and soot HUD frame with six empty lantern spaces, no symbols no text",
+    "full": true
+  },
+  {
+    "file": "fx/s4la_sonnenaufgang.png",
+    "w": 96,
+    "h": 96,
+    "n": 8,
+    "desc": "Three burning lanterns arranged triangle. Rays connect, central sunrise grows amber to bone white, climactic light burst then resolves"
+  },
+  {
+    "file": "fx/s4la_unruhe.png",
+    "w": 480,
+    "h": 270,
+    "n": 4,
+    "desc": "Screen edge overlay: soot tendrils and deep violet veins increasingly uneasy. Only outer 12 percent border occupied, huge transparent rectangular center",
+    "edge": true
+  },
+  {
+    "file": "fx/s4fa_markieren.png",
+    "w": 48,
+    "h": 48,
+    "n": 6,
+    "desc": "Violet fate thread winds around an invisible creature, developing a knot then gently glowing, transparent center no creature"
+  },
+  {
+    "file": "fx/s4fa_mark_welt.png",
+    "w": 16,
+    "h": 16,
+    "n": 4,
+    "desc": "Small floating violet knot with loose trailing thread, gently moving loop"
+  },
+  {
+    "file": "ui/s4fa_hud.png",
+    "w": 16,
+    "h": 16,
+    "n": 10,
+    "desc": "Ten knot icons: first five open grey knots; next five marked violet tied knots"
+  },
+  {
+    "file": "ui/s4fa_hud_rahmen.png",
+    "w": 96,
+    "h": 20,
+    "n": 1,
+    "desc": "Thin grey violet threadwork frame for five empty knot slots, no text",
+    "full": true
+  },
+  {
+    "file": "fx/s4fa_einschlafen.png",
+    "w": 480,
+    "h": 270,
+    "n": 6,
+    "desc": "Six full-bleed opaque consecutive transition scenes: Victorian bedroom gradually tilts into dream, violet threads draw edges closed, final woven dark dream threshold. No borders between frames",
+    "opaque": true,
+    "full": true
+  },
+  {
+    "file": "battle/bg_s4fa_traum.png",
+    "w": 480,
+    "h": 270,
+    "n": 1,
+    "desc": "Full bleed opaque battle background: woven net floor five thread tracks converge toward center, desaturated Victorian city background no sky. Broad empty battle arena foreground",
+    "opaque": true,
+    "full": true
+  },
+  {
+    "file": "fx/s4fa_traumschleier.png",
+    "w": 64,
+    "h": 64,
+    "n": 4,
+    "desc": "Transparent dream enemy overlay: violet threads dangling where limbs would be, faint doubled contour suggestions, no actual body, gently swaying loop"
+  },
+  {
+    "file": "fx/s4fa_heilung_gesperrt.png",
+    "w": 16,
+    "h": 16,
+    "n": 2,
+    "desc": "Heart shaped healing vial crossed by severed violet thread, two pulsing warning states"
+  },
+  {
+    "file": "characters/s4ma_zivil_player.png",
+    "w": 16,
+    "h": 32,
+    "n": 16,
+    "desc": "Preserve referenced character body and face identity, replace clothing with plain wool coat flat cap no insignia or glow. Walking four directions rows down,left,right,up, four gait poses each.",
+    "cols": 4,
+    "rows": 4,
+    "baseline": 30,
+    "ref": "characters/03_01_investigator_walk.png",
+    "names": [
+      "down",
+      "left",
+      "right",
+      "up"
+    ]
+  },
+  {
+    "file": "battle/s4ma_zivil_player.png",
+    "w": 48,
+    "h": 48,
+    "n": 54,
+    "desc": "Preserve reference body and face identity, plain woolcoat flatcap civilian disguise no insignia or glow. Facing RIGHT. Nine animation rows: idle4; fist or club melee6 (first two windup identical); mundane thrown stone5; dodge4; parry4; use item4; hurt3; defeated4; forbidden ability attempted but fails mundane gesture6. Remaining cells fully transparent. No magical trails. Exact six columns nine rows.",
+    "cols": 6,
+    "rows": 9,
+    "baseline": 47,
+    "counts": [
+      4,
+      6,
+      5,
+      4,
+      4,
+      4,
+      3,
+      4,
+      6
+    ],
+    "ref": "battle/battle_player.png",
+    "names": [
+      "idle",
+      "attack",
+      "shoot",
+      "dodge",
+      "parry",
+      "item",
+      "hurt",
+      "defeated",
+      "occult"
+    ],
+    "heldRows": [
+      1
+    ]
+  },
+  {
+    "file": "characters/s4ma_zivil_p2a.png",
+    "w": 16,
+    "h": 32,
+    "n": 16,
+    "desc": "Preserve referenced character body and face identity, replace clothing with plain wool coat flat cap no insignia or glow. Walking four directions rows down,left,right,up, four gait poses each.",
+    "cols": 4,
+    "rows": 4,
+    "baseline": 30,
+    "ref": "characters/p2a_walk.png",
+    "names": [
+      "down",
+      "left",
+      "right",
+      "up"
+    ]
+  },
+  {
+    "file": "battle/s4ma_zivil_p2a.png",
+    "w": 48,
+    "h": 48,
+    "n": 54,
+    "desc": "Preserve reference body and face identity, plain woolcoat flatcap civilian disguise no insignia or glow. Facing RIGHT. Nine animation rows: idle4; fist or club melee6 (first two windup identical); mundane thrown stone5; dodge4; parry4; use item4; hurt3; defeated4; forbidden ability attempted but fails mundane gesture6. Remaining cells fully transparent. No magical trails. Exact six columns nine rows.",
+    "cols": 6,
+    "rows": 9,
+    "baseline": 47,
+    "counts": [
+      4,
+      6,
+      5,
+      4,
+      4,
+      4,
+      3,
+      4,
+      6
+    ],
+    "ref": "battle/p2a_battle.png",
+    "names": [
+      "idle",
+      "attack",
+      "shoot",
+      "dodge",
+      "parry",
+      "item",
+      "hurt",
+      "defeated",
+      "occult"
+    ],
+    "heldRows": [
+      1
+    ]
+  },
+  {
+    "file": "characters/s4ma_zivil_p2b.png",
+    "w": 16,
+    "h": 32,
+    "n": 16,
+    "desc": "Preserve referenced character body and face identity, replace clothing with plain wool coat flat cap no insignia or glow. Walking four directions rows down,left,right,up, four gait poses each.",
+    "cols": 4,
+    "rows": 4,
+    "baseline": 30,
+    "ref": "characters/p2b_walk.png",
+    "names": [
+      "down",
+      "left",
+      "right",
+      "up"
+    ]
+  },
+  {
+    "file": "battle/s4ma_zivil_p2b.png",
+    "w": 48,
+    "h": 48,
+    "n": 54,
+    "desc": "Preserve reference body and face identity, plain woolcoat flatcap civilian disguise no insignia or glow. Facing RIGHT. Nine animation rows: idle4; fist or club melee6 (first two windup identical); mundane thrown stone5; dodge4; parry4; use item4; hurt3; defeated4; forbidden ability attempted but fails mundane gesture6. Remaining cells fully transparent. No magical trails. Exact six columns nine rows.",
+    "cols": 6,
+    "rows": 9,
+    "baseline": 47,
+    "counts": [
+      4,
+      6,
+      5,
+      4,
+      4,
+      4,
+      3,
+      4,
+      6
+    ],
+    "ref": "battle/p2b_battle.png",
+    "names": [
+      "idle",
+      "attack",
+      "shoot",
+      "dodge",
+      "parry",
+      "item",
+      "hurt",
+      "defeated",
+      "occult"
+    ],
+    "heldRows": [
+      1
+    ]
+  },
+  {
+    "file": "fx/s4ma_verwandeln.png",
+    "w": 32,
+    "h": 48,
+    "n": 8,
+    "desc": "Falling theatrical mask revealing ordinary anonymous face silhouette, transformation effect only, no full player body"
+  },
+  {
+    "file": "fx/s4ma_herausforderung.png",
+    "w": 32,
+    "h": 32,
+    "n": 6,
+    "desc": "Victorian challenge glove arcs down then lands on floor, small bounce settles"
+  },
+  {
+    "file": "fx/s4ma_gabe_verboten.png",
+    "w": 32,
+    "h": 32,
+    "n": 6,
+    "desc": "Forbidden ability warning theatrical mask cracks then shatters into fragments"
+  },
+  {
+    "file": "fx/s4ma_zweifel.png",
+    "w": 48,
+    "h": 48,
+    "n": 6,
+    "desc": "Aura of a spared occult adversary develops cracks and flickers out, no body, violet and turquoise broken halo"
+  },
+  {
+    "file": "fx/s4ma_zweifel_welt.png",
+    "w": 16,
+    "h": 16,
+    "n": 2,
+    "desc": "Small fractured aura crack icon, two flickering states"
+  },
+  {
+    "file": "fx/s4ec_taubheit_an.png",
+    "w": 480,
+    "h": 270,
+    "n": 6,
+    "desc": "Screen border sound waves freeze into slate blue brittle lines then fall as dust. Outer12percent only, fully transparent central rectangle",
+    "edge": true
+  },
+  {
+    "file": "fx/s4ec_taub_rand.png",
+    "w": 480,
+    "h": 270,
+    "n": 1,
+    "desc": "Silent deafness vignette desaturated blue, irregular soft-looking checker dither outer border only, transparent central rectangle",
+    "edge": true
+  },
+  {
+    "file": "ui/s4ec_taub_hud.png",
+    "w": 48,
+    "h": 32,
+    "n": 1,
+    "desc": "Two matching deaf ear icons side by side: left small16x16 top-aligned, right large32x32. Ear with straight horizontal line instead of sound wave. No text",
+    "full": true,
+    "mixed": true
+  },
+  {
+    "file": "fx/s4ec_stille_treffer.png",
+    "w": 32,
+    "h": 32,
+    "n": 4,
+    "desc": "Silent hit only expanding dust ring, no stars no impact lines no sparks"
+  },
+  {
+    "file": "fx/s4ke_wurf_explosion.png",
+    "w": 64,
+    "h": 64,
+    "n": 8,
+    "desc": "Thrown explosive glass flask bursts, glass shards amber rust fireball expands then smoke fades"
+  },
+  {
+    "file": "fx/s4ke_wurf_frost.png",
+    "w": 64,
+    "h": 64,
+    "n": 6,
+    "desc": "Frost lye glass flask shatters, icy blue hoarfrost spreads in crystalline ring"
+  },
+  {
+    "file": "fx/s4ke_wurf_glut.png",
+    "w": 48,
+    "h": 48,
+    "n": 6,
+    "desc": "Thrown ember slime splats and adheres, rust amber embers smolder then subside"
+  },
+  {
+    "file": "fx/s4ke_trinken_reihe.png",
+    "w": 32,
+    "h": 32,
+    "n": 5,
+    "desc": "Five separate potion drinking vapor puffs, each distinct: turquoise, moss green, amber, iceblue, rust. No body or flask"
+  },
+  {
+    "file": "ui/s4ke_hud.png",
+    "w": 16,
+    "h": 16,
+    "n": 10,
+    "desc": "Ten potion slot icons: first five empty bottle recesses, next five consumed potions marked small checks"
+  },
+  {
+    "file": "ui/s4ke_hud_rahmen.png",
+    "w": 96,
+    "h": 20,
+    "n": 1,
+    "desc": "Thin brass alchemical HUD frame for five empty potion slots, no text",
+    "full": true
+  },
+  {
+    "file": "ui/s4ke_angriff_verboten.png",
+    "w": 16,
+    "h": 16,
+    "n": 1,
+    "desc": "Crossed fist icon, attacks forbidden, muted rust slash"
+  },
+  {
+    "file": "fx/s4ei_ueberlast_welt.png",
+    "w": 32,
+    "h": 32,
+    "n": 4,
+    "desc": "Ground cracks under invisible player's feet and small dust puffs, loop, no player"
+  },
+  {
+    "file": "fx/s4ei_ueberlast_kampf.png",
+    "w": 64,
+    "h": 32,
+    "n": 4,
+    "desc": "Wide battle floor cracks under invisible player's feet and dust puffs, loop, no player"
+  },
+  {
+    "file": "ui/s4ei_hud.png",
+    "w": 16,
+    "h": 16,
+    "n": 10,
+    "desc": "Ten rivet icons: first five open iron rivet holes, next five hammered brass rivets"
+  },
+  {
+    "file": "ui/s4ei_hud_rahmen.png",
+    "w": 96,
+    "h": 20,
+    "n": 1,
+    "desc": "Thin riveted iron HUD frame for five empty rivet slots, no text",
+    "full": true
+  },
+  {
+    "file": "ui/s4ei_ausweichen_verboten.png",
+    "w": 16,
+    "h": 16,
+    "n": 1,
+    "desc": "Footprint crossed out by rust slash, dodging forbidden icon"
+  },
+  {
+    "file": "ui/s4ei_bedingung_gebrochen.png",
+    "w": 16,
+    "h": 16,
+    "n": 1,
+    "desc": "Cracked iron support beam icon"
+  },
+  {
+    "file": "fx/s4ei_waechter_unsterblich.png",
+    "w": 128,
+    "h": 96,
+    "n": 4,
+    "desc": "Protective elliptical iron rivet ring surrounding invisible warden, checker-dither pale slate shimmer, hollow transparent center loop"
+  },
+  {
+    "file": "fx/s4ei_waechter_frei.png",
+    "w": 128,
+    "h": 96,
+    "n": 6,
+    "desc": "Protective elliptical rivet ring breaks open and scatters into iron fragments"
+  },
+  {
+    "file": "fx/s4uh_perfekt.png",
+    "w": 64,
+    "h": 64,
+    "n": 8,
+    "desc": "Perfect dodge time stop effect, clockface ring without digits, hands pause, abstract neutral shadow afterimage sweeps aside then fades; no identifiable player"
+  },
+  {
+    "file": "fx/s4uh_fehler.png",
+    "w": 64,
+    "h": 64,
+    "n": 6,
+    "desc": "Failed dodge clock ring splits and hands break into fragments"
+  },
+  {
+    "file": "ui/s4uh_hud.png",
+    "w": 16,
+    "h": 16,
+    "n": 6,
+    "desc": "Six gear icons: first three intact brass gears, next three broken rust gears"
+  },
+  {
+    "file": "ui/s4uh_monsterphase.png",
+    "w": 16,
+    "h": 16,
+    "n": 1,
+    "desc": "Single brass gear with rust-red square border, zero-error monster phase indicator no numerals"
+  },
+  {
+    "file": "ui/s4uh_hat_angegriffen.png",
+    "w": 16,
+    "h": 16,
+    "n": 2,
+    "desc": "Two monster attack confirmation states: empty grey checkbox, brass check tick"
+  },
+  {
+    "file": "characters/s4r_waechter_welt.png",
+    "w": 48,
+    "h": 64,
+    "n": 16,
+    "desc": "Same threshold guardian as reference, bulky pale stone armored golem brass rivets, dark hollow head, small chimney on left shoulder and horizontal beam projecting right. Overworld walking rows down,left,right,up four gait frames each.",
+    "cols": 4,
+    "rows": 4,
+    "baseline": 62,
+    "ref": "battle/hg_schwellenwaechter.png",
+    "names": [
+      "down",
+      "left",
+      "right",
+      "up"
+    ]
+  },
+  {
+    "file": "fx/s4r_waechter_erscheint.png",
+    "w": 96,
+    "h": 96,
+    "n": 10,
+    "desc": "Chalk dust gathers into stone doorway threshold then reference guardian steps out, final pose fully manifested. Same pale stone golem brass rivets chimney left shoulder beam right.",
+    "ref": "battle/hg_schwellenwaechter.png"
+  },
+  {
+    "file": "fx/s4r_waechter_immun.png",
+    "w": 64,
+    "h": 64,
+    "n": 4,
+    "desc": "Hit ricochets from invisible guardian, pale slate shield arc deflecting small amber spark"
+  },
+  {
+    "file": "fx/s4r_ritual_gescheitert.png",
+    "w": 64,
+    "h": 64,
+    "n": 8,
+    "desc": "Neutral monochrome bone slate occult path seal cracks and shatters, no letters or digits, runtime tintable"
+  },
+  {
+    "file": "ui/s4r_regelkarte.png",
+    "w": 48,
+    "h": 48,
+    "n": 1,
+    "desc": "Parchment rule card nine-slice panel, 3x3 equal regions, 16pixel borders, dark outline, subtle blank seal recess at left, blank space for three rules no text no lines",
+    "full": true,
+    "slice": 16
+  }
+]

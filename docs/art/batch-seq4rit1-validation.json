@@ -1,0 +1,617 @@
+{
+  "batch": "seq4rit1",
+  "passed": true,
+  "assetCount": 59,
+  "frameCount": 441,
+  "checks": [
+    "exact required file set",
+    "dimensions and integral frame grid",
+    "shared palette <=32 visible colors",
+    "indexed PNG",
+    "binary alpha / opaque scenes",
+    "empty cells",
+    "animation indices and variation",
+    "held melee windup",
+    "player 6x9 compatibility",
+    "world baselines and direction variation",
+    "transparent screen centers",
+    "atlas region bounds",
+    "16px nine-slice",
+    "generation SHA256",
+    "ritual mappings"
+  ],
+  "scope": "Technical export validation; visual review performed separately. No gameplay/runtime integration tests.",
+  "errors": [],
+  "assets": [
+    {
+      "file": "props/s4la_ritual_laterne.png",
+      "size": [
+        64,
+        192
+      ],
+      "visibleColors": 23,
+      "frames": 19,
+      "passed": true
+    },
+    {
+      "file": "fx/s4la_lichtkreis.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 8,
+      "frames": 4,
+      "passed": true
+    },
+    {
+      "file": "fx/s4la_spielerlicht.png",
+      "size": [
+        192,
+        48
+      ],
+      "visibleColors": 3,
+      "frames": 4,
+      "passed": true
+    },
+    {
+      "file": "fx/s4la_monster_licht.png",
+      "size": [
+        192,
+        32
+      ],
+      "visibleColors": 11,
+      "frames": 6,
+      "passed": true
+    },
+    {
+      "file": "fx/s4la_monster_zerfall.png",
+      "size": [
+        192,
+        32
+      ],
+      "visibleColors": 11,
+      "frames": 6,
+      "passed": true
+    },
+    {
+      "file": "fx/s4la_rueckstoss.png",
+      "size": [
+        128,
+        32
+      ],
+      "visibleColors": 19,
+      "frames": 4,
+      "passed": true
+    },
+    {
+      "file": "ui/s4la_halten.png",
+      "size": [
+        144,
+        16
+      ],
+      "visibleColors": 14,
+      "frames": 9,
+      "passed": true
+    },
+    {
+      "file": "ui/s4la_hud.png",
+      "size": [
+        48,
+        16
+      ],
+      "visibleColors": 18,
+      "frames": 4,
+      "passed": true
+    },
+    {
+      "file": "ui/s4la_hud_rahmen.png",
+      "size": [
+        96,
+        20
+      ],
+      "visibleColors": 11,
+      "frames": 1,
+      "passed": true
+    },
+    {
+      "file": "fx/s4la_sonnenaufgang.png",
+      "size": [
+        768,
+        96
+      ],
+      "visibleColors": 18,
+      "frames": 8,
+      "passed": true
+    },
+    {
+      "file": "fx/s4la_unruhe.png",
+      "size": [
+        1920,
+        270
+      ],
+      "visibleColors": 8,
+      "frames": 4,
+      "passed": true
+    },
+    {
+      "file": "fx/s4fa_markieren.png",
+      "size": [
+        288,
+        48
+      ],
+      "visibleColors": 10,
+      "frames": 6,
+      "passed": true
+    },
+    {
+      "file": "fx/s4fa_mark_welt.png",
+      "size": [
+        64,
+        16
+      ],
+      "visibleColors": 7,
+      "frames": 4,
+      "passed": true
+    },
+    {
+      "file": "ui/s4fa_hud.png",
+      "size": [
+        160,
+        16
+      ],
+      "visibleColors": 15,
+      "frames": 10,
+      "passed": true
+    },
+    {
+      "file": "ui/s4fa_hud_rahmen.png",
+      "size": [
+        96,
+        20
+      ],
+      "visibleColors": 9,
+      "frames": 1,
+      "passed": true
+    },
+    {
+      "file": "fx/s4fa_einschlafen.png",
+      "size": [
+        2880,
+        270
+      ],
+      "visibleColors": 30,
+      "frames": 6,
+      "passed": true
+    },
+    {
+      "file": "battle/bg_s4fa_traum.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 10,
+      "frames": 1,
+      "passed": true
+    },
+    {
+      "file": "fx/s4fa_traumschleier.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 6,
+      "frames": 4,
+      "passed": true
+    },
+    {
+      "file": "fx/s4fa_heilung_gesperrt.png",
+      "size": [
+        32,
+        16
+      ],
+      "visibleColors": 19,
+      "frames": 2,
+      "passed": true
+    },
+    {
+      "file": "characters/s4ma_zivil_player.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 19,
+      "frames": 16,
+      "passed": true
+    },
+    {
+      "file": "battle/s4ma_zivil_player.png",
+      "size": [
+        288,
+        432
+      ],
+      "visibleColors": 20,
+      "frames": 40,
+      "passed": true
+    },
+    {
+      "file": "characters/s4ma_zivil_p2a.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 19,
+      "frames": 16,
+      "passed": true
+    },
+    {
+      "file": "battle/s4ma_zivil_p2a.png",
+      "size": [
+        288,
+        432
+      ],
+      "visibleColors": 22,
+      "frames": 40,
+      "passed": true
+    },
+    {
+      "file": "characters/s4ma_zivil_p2b.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 17,
+      "frames": 16,
+      "passed": true
+    },
+    {
+      "file": "battle/s4ma_zivil_p2b.png",
+      "size": [
+        288,
+        432
+      ],
+      "visibleColors": 22,
+      "frames": 40,
+      "passed": true
+    },
+    {
+      "file": "fx/s4ma_verwandeln.png",
+      "size": [
+        256,
+        48
+      ],
+      "visibleColors": 16,
+      "frames": 8,
+      "passed": true
+    },
+    {
+      "file": "fx/s4ma_herausforderung.png",
+      "size": [
+        192,
+        32
+      ],
+      "visibleColors": 21,
+      "frames": 6,
+      "passed": true
+    },
+    {
+      "file": "fx/s4ma_gabe_verboten.png",
+      "size": [
+        192,
+        32
+      ],
+      "visibleColors": 25,
+      "frames": 6,
+      "passed": true
+    },
+    {
+      "file": "fx/s4ma_zweifel.png",
+      "size": [
+        288,
+        48
+      ],
+      "visibleColors": 13,
+      "frames": 6,
+      "passed": true
+    },
+    {
+      "file": "fx/s4ma_zweifel_welt.png",
+      "size": [
+        32,
+        16
+      ],
+      "visibleColors": 10,
+      "frames": 2,
+      "passed": true
+    },
+    {
+      "file": "fx/s4ec_taubheit_an.png",
+      "size": [
+        2880,
+        270
+      ],
+      "visibleColors": 4,
+      "frames": 6,
+      "passed": true
+    },
+    {
+      "file": "fx/s4ec_taub_rand.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 7,
+      "frames": 1,
+      "passed": true
+    },
+    {
+      "file": "ui/s4ec_taub_hud.png",
+      "size": [
+        48,
+        32
+      ],
+      "visibleColors": 13,
+      "frames": 1,
+      "passed": true
+    },
+    {
+      "file": "fx/s4ec_stille_treffer.png",
+      "size": [
+        128,
+        32
+      ],
+      "visibleColors": 9,
+      "frames": 4,
+      "passed": true
+    },
+    {
+      "file": "fx/s4ke_wurf_explosion.png",
+      "size": [
+        512,
+        64
+      ],
+      "visibleColors": 22,
+      "frames": 8,
+      "passed": true
+    },
+    {
+      "file": "fx/s4ke_wurf_frost.png",
+      "size": [
+        384,
+        64
+      ],
+      "visibleColors": 23,
+      "frames": 6,
+      "passed": true
+    },
+    {
+      "file": "fx/s4ke_wurf_glut.png",
+      "size": [
+        288,
+        48
+      ],
+      "visibleColors": 14,
+      "frames": 6,
+      "passed": true
+    },
+    {
+      "file": "fx/s4ke_trinken_reihe.png",
+      "size": [
+        160,
+        32
+      ],
+      "visibleColors": 25,
+      "frames": 5,
+      "passed": true
+    },
+    {
+      "file": "ui/s4ke_hud.png",
+      "size": [
+        160,
+        16
+      ],
+      "visibleColors": 16,
+      "frames": 10,
+      "passed": true
+    },
+    {
+      "file": "ui/s4ke_hud_rahmen.png",
+      "size": [
+        96,
+        20
+      ],
+      "visibleColors": 17,
+      "frames": 1,
+      "passed": true
+    },
+    {
+      "file": "ui/s4ke_angriff_verboten.png",
+      "size": [
+        16,
+        16
+      ],
+      "visibleColors": 7,
+      "frames": 1,
+      "passed": true
+    },
+    {
+      "file": "fx/s4ei_ueberlast_welt.png",
+      "size": [
+        128,
+        32
+      ],
+      "visibleColors": 11,
+      "frames": 4,
+      "passed": true
+    },
+    {
+      "file": "fx/s4ei_ueberlast_kampf.png",
+      "size": [
+        256,
+        32
+      ],
+      "visibleColors": 11,
+      "frames": 4,
+      "passed": true
+    },
+    {
+      "file": "ui/s4ei_hud.png",
+      "size": [
+        160,
+        16
+      ],
+      "visibleColors": 23,
+      "frames": 10,
+      "passed": true
+    },
+    {
+      "file": "ui/s4ei_hud_rahmen.png",
+      "size": [
+        96,
+        20
+      ],
+      "visibleColors": 17,
+      "frames": 1,
+      "passed": true
+    },
+    {
+      "file": "ui/s4ei_ausweichen_verboten.png",
+      "size": [
+        16,
+        16
+      ],
+      "visibleColors": 8,
+      "frames": 1,
+      "passed": true
+    },
+    {
+      "file": "ui/s4ei_bedingung_gebrochen.png",
+      "size": [
+        16,
+        16
+      ],
+      "visibleColors": 13,
+      "frames": 1,
+      "passed": true
+    },
+    {
+      "file": "fx/s4ei_waechter_unsterblich.png",
+      "size": [
+        512,
+        96
+      ],
+      "visibleColors": 23,
+      "frames": 4,
+      "passed": true
+    },
+    {
+      "file": "fx/s4ei_waechter_frei.png",
+      "size": [
+        768,
+        96
+      ],
+      "visibleColors": 21,
+      "frames": 6,
+      "passed": true
+    },
+    {
+      "file": "fx/s4uh_perfekt.png",
+      "size": [
+        512,
+        64
+      ],
+      "visibleColors": 16,
+      "frames": 8,
+      "passed": true
+    },
+    {
+      "file": "fx/s4uh_fehler.png",
+      "size": [
+        384,
+        64
+      ],
+      "visibleColors": 27,
+      "frames": 6,
+      "passed": true
+    },
+    {
+      "file": "ui/s4uh_hud.png",
+      "size": [
+        96,
+        16
+      ],
+      "visibleColors": 13,
+      "frames": 6,
+      "passed": true
+    },
+    {
+      "file": "ui/s4uh_monsterphase.png",
+      "size": [
+        16,
+        16
+      ],
+      "visibleColors": 10,
+      "frames": 1,
+      "passed": true
+    },
+    {
+      "file": "ui/s4uh_hat_angegriffen.png",
+      "size": [
+        32,
+        16
+      ],
+      "visibleColors": 12,
+      "frames": 2,
+      "passed": true
+    },
+    {
+      "file": "characters/s4r_waechter_welt.png",
+      "size": [
+        192,
+        256
+      ],
+      "visibleColors": 24,
+      "frames": 16,
+      "passed": true
+    },
+    {
+      "file": "fx/s4r_waechter_erscheint.png",
+      "size": [
+        960,
+        96
+      ],
+      "visibleColors": 23,
+      "frames": 10,
+      "passed": true
+    },
+    {
+      "file": "fx/s4r_waechter_immun.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 20,
+      "frames": 4,
+      "passed": true
+    },
+    {
+      "file": "fx/s4r_ritual_gescheitert.png",
+      "size": [
+        512,
+        64
+      ],
+      "visibleColors": 15,
+      "frames": 8,
+      "passed": true
+    },
+    {
+      "file": "ui/s4r_regelkarte.png",
+      "size": [
+        48,
+        48
+      ],
+      "visibleColors": 13,
+      "frames": 1,
+      "passed": true
+    }
+  ]
+}
