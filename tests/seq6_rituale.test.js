@@ -169,39 +169,34 @@ function waageSession() {
   return s;
 }
 
-/** Bis zum abgekarteten Los vorspulen (aussteigen, Gesuche ablehnen). */
+/** Bis zum überteuerten Los vorspulen (aussteigen, Gesuche ablehnen). */
 function toRiggedLot(s) {
   const a = s.auction;
   let guard = 0;
   while (guard++ < 40) {
-    if (a.phase === 'lot' && a.lot.shill) return a.lot;
-    if (a.phase === 'lot') s.passLot(); else if (a.phase === 'request') s.declineRequest(); else break;
+    if (a.phase === 'lot' && a.lot.rigged) return a.lot;
+    if (a.phase === 'lot') { assert.ok(a.lot.start <= a.lot.appraisal, 'ehrliche Lose starten unter Wert'); s.passLot(); } else if (a.phase === 'request') s.declineRequest(); else break;
   }
   return null;
 }
 
-test('Waage: in jeder Runde ist ein Los abgekartet, der Strohmann verrät sich im Protokoll', () => {
+test('Waage: in jeder Runde ist genau ein Los überteuert, Schätzwert und Ausruf stehen bei jedem Los', () => {
   const s = waageSession();
   assert.ok(s.fraudPending());
   assert.equal(s.startSession('waage').ok, true);
   const a = s.auction;
   assert.ok(a.fraud && a.fraud.turn >= 0 && a.fraud.turn < a.members.length);
   const lot = toRiggedLot(s);
-  assert.ok(lot, 'ein abgekartetes Los');
-  assert.notEqual(lot.shill, lot.seller);
-  assert.ok(lot.ceilings[lot.shill] >= lot.value * 2);
-  assert.ok(a.log.some((t) => /einen kurzen Blick zu/.test(t)), a.log.join(' | '));
-  // Der Strohmann hält ohne hinzusehen dagegen
-  const r = s.bid();
-  assert.equal(r.outbid, true);
-  assert.ok(a.log.some((t) => /ohne das Stück anzusehen/.test(t)), a.log.join(' | '));
+  assert.ok(lot, 'ein überteuertes Los');
+  assert.ok(lot.start >= lot.appraisal * 1.8, `${lot.start} ausgerufen, ${lot.appraisal} wert`);
+  assert.ok(a.log.some((t) => new RegExp(`Start bei ${lot.start} Schilling`).test(t)), a.log.join(' | '));
   // Anprangern: Schritt erfüllt, Los verfällt
   const acc = s.accuseFraud();
   assert.equal(acc.exposed, true);
   assert.ok(s.fraudExposed('sq_waage', 6));
   assert.ok(s.ritualSteps('sq_waage', 6).find((x) => x.fraud).done);
   assert.ok(!s.fraudPending());
-  assert.notEqual(a.lot?.shill, lot.shill);
+  assert.ok(!a.lot?.rigged);
 });
 
 test('Waage: falsche Anschuldigung wirft einen aus der Runde', () => {
@@ -209,7 +204,7 @@ test('Waage: falsche Anschuldigung wirft einen aus der Runde', () => {
   s.startSession('waage');
   const a = s.auction;
   let guard = 0;
-  while (guard++ < 40 && !(a.phase === 'lot' && !a.lot.shill)) { if (a.phase === 'lot') s.passLot(); else if (a.phase === 'request') s.declineRequest(); else break; }
+  while (guard++ < 40 && !(a.phase === 'lot' && !a.lot.rigged)) { if (a.phase === 'lot') s.passLot(); else if (a.phase === 'request') s.declineRequest(); else break; }
   if (a.phase !== 'lot') return; // alle anderen Lose fielen aus (sehr selten)
   const r = s.accuseFraud();
   assert.equal(r.exposed, false);
@@ -227,7 +222,7 @@ test('Ohne Waage-Ritual bleibt die Runde wie bisher', () => {
   assert.equal(s.auction.fraud, undefined);
   assert.equal(s.accuseFraud().ok, false);
   let guard = 0;
-  while (guard++ < 40 && s.auction.phase !== 'own') { if (s.auction.phase === 'lot') { assert.ok(!s.auction.lot.shill); s.passLot(); } else if (s.auction.phase === 'request') s.declineRequest(); else break; }
+  while (guard++ < 40 && s.auction.phase !== 'own') { if (s.auction.phase === 'lot') { assert.ok(!s.auction.lot.rigged && !s.auction.lot.appraisal); s.passLot(); } else if (s.auction.phase === 'request') s.declineRequest(); else break; }
 });
 
 // --- Schlüssel: Schlösser knacken ---------------------------------------------------------------
