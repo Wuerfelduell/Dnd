@@ -230,7 +230,8 @@ export const seq4Methods = {
     const extra = this.seq4Join(kind === 'echo' ? this.seq4Msg('echo', 'taubheit_ende') : '', this._waageBack ? this.seq4Msg('waage', 'besitz_zurueck') : '');
     this._waageBack = false;
     const dr = grund ? drFehlschlag(this.content, kind, grund) : '';
-    const tail = dr ? `(+${HG_FAIL_UNRUHE} Unruhe. Du kannst es noch einmal versuchen.)` : `(−${HG_FAIL_PCT} % Verdauung, +${HG_FAIL_UNRUHE} Unruhe. Du kannst es noch einmal versuchen.)`;
+    const fu = HG_FAIL_UNRUHE * this.unruheGainMult();
+    const tail = dr ? `(+${fu} Unruhe. Du kannst es noch einmal versuchen.)` : `(−${HG_FAIL_PCT} % Verdauung, +${fu} Unruhe. Du kannst es noch einmal versuchen.)`;
     const full = `${this.seq4Name(kind)}: gescheitert. ${this.seq4Join(text, dr, extra)} ${tail}`;
     this.emit('seq4', { kind, passed: false, player: this.acting ?? 1, text: full });
     this.emit('notice', full);

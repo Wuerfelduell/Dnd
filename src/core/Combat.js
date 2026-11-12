@@ -455,7 +455,7 @@ export class Combat {
     if (sk.cost) {
       // Artefakt-Fluch skill_unruhe: jede Fertigkeit bringt Unruhe
       const stir = this.state.passive('skill_unruhe');
-      if (stir > 0 && this.state.pathway && !this.enc.practice) { this.state.setUnruhe(this.state.unruhe + stir); priceEffects.push(`+${stir} Unruhe`); }
+      if (stir > 0 && this.state.pathway && !this.enc.practice) { this.state.setUnruhe(this.state.unruhe + stir); priceEffects.push(`+${+(stir * this.state.unruheGainMult()).toFixed(1)} Unruhe`); }
     }
     const precise = isPrecise(sk);
     const gradeMult = precise ? PRECISE_GRADE_MULT : GRADE_MULT;
