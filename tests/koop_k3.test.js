@@ -91,11 +91,11 @@ test('BF: elf Dunscarer Figuren bemerken die Begleitung, nur Pfiff bietet die zw
   assert.ok(s.flags.has('koop_ds_koje'));
 });
 
-test('BF: Horchen am Schwellenring über Rollenplätze, Ruf kostet eine Ladung, Erfolg öffnet den Hinterzugang', () => {
+test('BF (gestrichen, Daten bleiben): Horchen am Schwellenring über Rollenplätze, Ruf kostet eine Ladung, Erfolg öffnet den Hinterzugang', () => {
   const s = duo({ act: 2 });
   const ring = content.maps.ds_schwellenring;
   const find = (id) => ring.interactables.find((i) => i.id === id);
-  assert.ok(s.meets(find('koop_ds_horchen_auftrag').visible_if));
+  assert.ok(!find('koop_ds_horchen_auftrag'), 'Auftrag ist gestrichen (Seb, 2026-11-12), die Daten bleiben nur für alte Stände');
   assert.ok(!s.meets(find('koop_ds_horchen_p1').visible_if), 'Rollenplätze erst nach Annahme');
   assert.equal(koopRoleOf('koop_ds_horchen_p1'), 1);
   assert.equal(koopRoleOf('koop_ds_horchen_p2'), 2);

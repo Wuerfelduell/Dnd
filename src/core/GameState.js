@@ -51,6 +51,9 @@ export const HONOR_GAIN = 0.25;
 export const SAVE_VERSION = 4;
 export const DEFAULT_HP = 40;
 
+/** Von Seb gestrichene Aufträge (2026-11-12): Trichter und Drehscheibe in Dunscar. */
+export const GESTRICHENE_AUFTRAEGE = ['k3n_drehscheibe', 'koop_ds_horchen'];
+
 export class GameState {
   constructor(content) {
     this.content = content;
@@ -437,6 +440,8 @@ export class GameState {
     if (!this.flags.has('k3_arrived')) return;
     const e = { sets_flags: ['k3a_14_passage', 'k3a_14_geschlossen', 'treffen_schichtbund', 'k3h_aufnahme_done'], gives_clues: ['k3a_14_c1', 'k3a_14_c2', 'k3a_14_c3', 'k3a_14_c4'], gives_conclusions: ['k3a_14_d'] };
     const neu = { sets_flags: (e.sets_flags ?? []).filter((f) => f !== 'k3_arrived' && !this.flags.has(f)), gives_clues: (e.gives_clues ?? []).filter((c) => this.content.clues?.[c]), gives_conclusions: (e.gives_conclusions ?? []).filter((c) => this.deduction(c) && !this.hasConclusion(c)) };
+    // Seb 2026-11-12: Trichter-/Drehscheiben-Aufträge gestrichen, laufende verschwinden aus dem Notizbuch
+    for (const q of GESTRICHENE_AUFTRAEGE) if (this.quests[q] === 'active') { delete this.quests[q]; if (this.tracked === q) this.tracked = null; }
     if (!neu.sets_flags.length && !neu.gives_conclusions.length) return;
     this.applyEffects(neu);
     if (this.quests.k3h_aufnahme === 'active') this.finishQuest('k3h_aufnahme', 'done');
