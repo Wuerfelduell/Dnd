@@ -201,19 +201,13 @@
             }
           ],
           "ritual": {
-            "name": "Das Feuer im Krater",
-            "map": "kraterwald",
-            "vision": true,
+            "name": "Die Laternenbestie",
+            "trial": "laterne",
             "consumes": {
               "sternglas": 2,
               "geisteressenz": 1
             },
-            "requires": {
-              "requires_flags": [
-                "won_sternhirsch"
-              ]
-            },
-            "desc": "Im Krater, wo der Sternhirsch fiel, legst du zwei Splitter Sternglas in einen Kreis. Sie fangen dein Licht und geben es tausendfach zurück."
+            "desc": "Zehn Laternen in einem Monstergebiet, je ein Lampenöl, und zwischen ihnen verdichtet sich das Licht zu einem Leib, der deine Haltung hat. Die Bestie ist so stark wie du. Nur ein Leuchten darf sie beenden. Danach legst du zwei Splitter Sternglas in den kalten Kreis der Laternen."
           }
         }
       },
@@ -416,14 +410,13 @@
             }
           ],
           "ritual": {
-            "name": "Das Netz über der Stadt",
-            "map": "uhrturm",
-            "min_conclusions": 22,
+            "name": "Der violette Kokon",
+            "trial": "faden",
             "consumes": {
               "eulenfeder": 2,
               "spiegelquecksilber": 1
             },
-            "desc": "Oben im Uhrturm, zwischen den Zahnrädern, knüpfst du jeden Fall der Stadt an einen einzigen Knoten. Wenn die Uhr schlägt, zieh."
+            "desc": "Zehn lila Spinnfäden, um Arme, Brust und Beine gewickelt, bis jeder Schritt schwer wird. Erst wenn Leben und Nerven fast verbraucht sind, lockst du die Spinne aus dem Garn und besiegst sie eingewickelt. Dann knüpfst du zwei Eulenfedern in das zerrissene Netz."
           }
         }
       },
@@ -623,14 +616,13 @@
             }
           ],
           "ritual": {
-            "name": "Hundert Gesichter im Gedränge",
-            "map": "altmarkt",
-            "min_nerves": 70,
+            "name": "Die gestohlene Identität",
+            "trial": "maske",
             "consumes": {
               "mondmohn": 2,
               "spiegelquecksilber": 1
             },
-            "desc": "Mitten im Gedränge des Altmarkts wechselst du so oft das Gesicht, bis dich niemand mehr kennt. Nicht einmal du selbst. Halte deine Nerven fest."
+            "desc": "Besiege einen Beyonder und nimm sein Gesicht: Züge, Gang, Namen. Dann überzeuge zwei andere Beyonder im Gespräch, dass du diese Person bist. Eine falsche Antwort, und die Maske fällt, und wer sie gesehen hat, misstraut dir für immer."
           }
         }
       },
@@ -829,19 +821,14 @@
             }
           ],
           "ritual": {
-            "name": "Die stille Messe",
-            "map": "katakomben",
-            "vision": true,
+            "name": "Die geraubte Stimme",
+            "trial": "echo",
             "consumes": {
               "seufzerstein": 2,
-              "geisteressenz": 1
+              "geisteressenz": 1,
+              "grabmoos": 2
             },
-            "requires": {
-              "requires_flags": [
-                "won_ossuarwaechter"
-              ]
-            },
-            "desc": "Tief in den Katakomben, wo der Ossuarwächter fiel, hältst du eine Messe ohne Worte. Wenn die Steine aufhören zu seufzen, ist es Zeit."
+            "desc": "Bring einen Beyonder an den Rand des Todes und lass ihn leben. Leg ihm die Hand auf die Kehle und zieh. Die Seufzersteine, die Essenz und das Moos gehen in diesem Augenblick drauf; er behält sein Leben und verliert seine Stimme für immer."
           }
         }
       },
@@ -1055,14 +1042,14 @@
             }
           ],
           "ritual": {
-            "name": "Die Wandlung im Pesthauch",
-            "map": "pestgassen",
+            "name": "Die eigene Schöpfung",
+            "trial": "kessel",
             "consumes": {
               "hustenstaub": 3,
               "schwarzbernstein": 1,
               "geisteressenz": 1
             },
-            "desc": "In den Pestgassen verwandelst du die Krankheit selbst in eine Zutat. Atme den Rauch, bis er süß schmeckt."
+            "desc": "Kein Rezept aus fremder Hand: Am Kessel wirfst du ohne Formel zusammen, was du für richtig hältst, und füllst es ins leere Gefäß. Trink deine Schöpfung, und solange sie in dir wirkt, vollziehst du Ritual und Trank. Verfliegt die Wirkung vorher, ist alles umsonst."
           }
         }
       },
@@ -1263,17 +1250,13 @@
             }
           ],
           "ritual": {
-            "name": "Der Sturm an der Mole",
-            "map": "docks",
-            "max_hp_pct": 0.4,
+            "name": "Die Kampfprüfung",
+            "trial": "eisen",
             "consumes": {
               "sternschlacke": 2,
               "tonikum": 1
             },
-            "requires": {
-              "min_wins": 30
-            },
-            "desc": "Am Kanalhafen stellst du dich mit Sternenschlacke in den Fäusten gegen den Wind. Erst nach dreißig gewonnenen Kämpfen und schwer verwundet hält dein Körper den Trank."
+            "desc": "Mit nicht mehr als zwei Fünfteln deines Lebens beginnst du, und so bleibt es: fünf Gegner in zusammen höchstens zwölf Runden, ohne Verband, Tonikum oder Heilfertigkeit. Das Tonikum danach ist nicht zum Trinken. Du gießt es über die Sternenschlacke."
           }
         }
       },
@@ -1472,15 +1455,13 @@
             }
           ],
           "ritual": {
-            "name": "Der Siegelbruch",
-            "map": "crypt",
-            "vision": true,
+            "name": "Der große Diebstahl",
+            "trial": "schluessel",
             "consumes": {
               "nachtfalterstaub": 2,
               "geisteressenz": 1
             },
-            "tribute": 200,
-            "desc": "In der Krypta unter St. Ebba brichst du in der Geistsicht ein Siegel, das seit hundert Jahren hält. 200 Schilling für den Wächter, der es nicht verhindert."
+            "desc": "Mit etwas am Leib, das Schilling anzieht, nimmst du einem Gegner in einem einzigen Kampf fünfzig Schilling aus der Tasche und gewinnst. Das Geld bleibt bei dir. Der Nachtfalterstaub bleibt an den Münzen."
           }
         }
       },

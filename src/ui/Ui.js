@@ -4,6 +4,9 @@ import { FESTE } from '../core/Clock.js';
 import { DIGEST_LABELS, digestSlowdown, fmtDigest, FORM_SEQ, FORM_MIN_DIGEST, FORM_NERVES_PER_SEC, FORM_UNRUHE_PER_SEC, FORM_MIN_NERVES } from '../core/Pathways.js';
 import { buffLabel, fmtSec } from '../core/Talents.js';
 import { PROBE_FAIL } from '../core/Proben.js';
+import { FAIL_PCT, FAIL_UNRUHE, LATERNEN, LAMPENOEL, KOKON_FAEDEN, SUD_MIN_SEC } from '../core/Seq5.js';
+import { SPINNENFADEN } from '../data/seq5.js';
+import { SUD_MAX_ZUTATEN, LEERES_GEFAESS, sudEffectText } from '../data/sude.js';
 import { CARRY_PER_STEP } from '../core/GameState.js';
 import { GEAR_SLOT_NAMES } from '../core/Gear.js';
 import { isPrecise } from '../core/Combat.js';
@@ -1089,6 +1092,9 @@ export class Ui {
     const menu = nodeId === (tree.nodes.start ? 'start' : tree.start && tree.nodes[tree.start] ? tree.start : 'hub');
     if (menu && npc.id && !npc.item && s.content.npcs[npc.id] && !node.ending && !node.combat && (node.choices ?? []).length) {
       choices.splice(Math.max(0, choices.length - 1), 0, { text: 'Etwas schenken …', gift: true });
+      // Seq-5-Rituale: dem Bürger eine Erinnerung nehmen (Moor), als gestohlene Identität auftreten (Maske)
+      if (this.as(() => s.canTakeMemory(npc.id))) choices.splice(Math.max(0, choices.length - 1), 0, { text: 'Eine Erinnerung nehmen …', moor: true });
+      if (this.as(() => s.canImpersonate(npc.id))) choices.splice(Math.max(0, choices.length - 1), 0, { text: `Als ${this.as(() => s.maskeIdentity())?.name ?? '…'} auftreten …`, maske: true });
       this.dialogue.menuNode = nodeId;
     }
     if (choices.filter((c) => !c.locked).length === 0) choices.push({ text: node.ending ? 'Weiter' : 'Ende' });
@@ -1115,6 +1121,8 @@ export class Ui {
     const choice = this.dialogue?.choices[i];
     if (!choice || choice.locked) return;
     if (choice.gift) { this.openGift(); return; }
+    if (choice.moor) { this.openMoor(); return; }
+    if (choice.maske) { this.openMaske(); return; }
     if (choice.shop || choice.vault || choice.expert || choice.auction || choice.signal_station) {
       const { onClose } = this.dialogue;
       this.dialogue = null;
@@ -1174,6 +1182,71 @@ export class Ui {
   /** Zurück ins Menü der Figur (ohne neue Begrüßung). */
   closeGift() {
     this.showNode(this.dialogue.menuNode);
+  }
+
+  // --- Seq-5-Rituale im Gespräch (core/Seq5.js) ----------------------------------------------------
+  /** Moor: der Bürger bietet drei Erinnerungen an; die seiner Herkunft darf man nicht nehmen. */
+  openMoor() {
+    const s = this.state;
+    const { npc } = this.dialogue;
+    const mems = this.as(() => s.moorMemories(npc.id));
+    this.moorCount = mems.length;
+    const el = this.open('moor', `${portrait(npc.id, relationMood(s, npc.id))}
+      <div class="speaker">${esc(npc.name)} <span class="role">${esc(npc.role ?? '')}</span>${relationBadge(s, npc.id)}</div>
+      <h3>Eine Erinnerung nehmen</h3>
+      <p class="tastes">Du hältst das leere Gefäß unter dem Tisch und lässt ${esc(npc.name)} reden. Drei Dinge kommen zur Sprache. Eines davon ist die Herkunft, und die bewahrt das Moor: Greifst du danach, springt das Glas. Hör genau hin.</p>
+      <ul class="choices giftlist">${mems.map((m, i) => `<li><button data-mem="${i}"><span class="key">${i + 1}</span> „${esc(m.text[0].toUpperCase() + m.text.slice(1))}“</button></li>`).join('')}</ul>
+      <div class="actions"><button data-act="back">Doch nicht <span class="key">Esc</span></button></div>`, 'dialogue with-portrait gift');
+    el.querySelectorAll('[data-mem]').forEach((b) => { b.onclick = () => this.moorPick(Number(b.dataset.mem)); });
+    el.querySelector('[data-act=back]').onclick = () => this.closeGift();
+  }
+
+  moorPick(i) {
+    const { npc } = this.dialogue;
+    const r = this.as(() => this.state.takeMemory(npc.id, i));
+    if (!r.ok && r.passed === undefined) { this.openMoor(); this.toast(r.text, 'bad'); return; }
+    this.sfx(worldSound('ritual', r));
+    this.dialogue = null;
+    this.close();
+    this.showMessage(r.passed ? 'Die Erinnerung ist im Glas' : 'Das Glas springt', r.text);
+  }
+
+  /** Maske: zwei Fragen zum Steckbrief der gestohlenen Identität. */
+  openMaske() {
+    const s = this.state;
+    const { npc } = this.dialogue;
+    if (!s.maskeQuiz || s.maskeQuiz.npc !== npc.id) {
+      const r = this.as(() => s.startImpersonation(npc.id));
+      if (!r.ok) { this.closeGift(); return; }
+    }
+    const quiz = s.maskeQuiz;
+    const round = quiz.rounds[quiz.step];
+    this.maskeOptions = round.options;
+    const el = this.open('maske', `${portrait(npc.id, relationMood(s, npc.id))}
+      <div class="speaker">${esc(npc.name)} <span class="role">${esc(npc.role ?? '')}</span>${relationBadge(s, npc.id)}</div>
+      <h3>Als ${esc(this.as(() => s.maskeIdentity())?.name ?? '')} auftreten <span class="muted">Frage ${quiz.step + 1} von ${quiz.rounds.length}</span></h3>
+      <p class="tastes">${esc(npc.name)} mustert dich. ${esc(round.prompt)}</p>
+      <p class="muted">Eine falsche Antwort, und die Maske fällt: −${FAIL_PCT.maske} % Verdauung, und alle, die du angesprochen hast, misstrauen dir für immer.</p>
+      <ul class="choices giftlist">${round.options.map((o, i) => `<li><button data-opt="${i}"><span class="key">${i + 1}</span> ${esc(o)}</button></li>`).join('')}</ul>
+      <div class="actions"><button data-act="back">${quiz.step > 0 ? 'Verstummen (gilt als enttarnt)' : 'Doch nicht'} <span class="key">Esc</span></button></div>`, 'dialogue with-portrait gift');
+    el.querySelectorAll('[data-opt]').forEach((b) => { b.onclick = () => this.maskePick(Number(b.dataset.opt)); });
+    el.querySelector('[data-act=back]').onclick = () => this.cancelMaske();
+  }
+
+  maskePick(i) {
+    const r = this.as(() => this.state.answerImpersonation(i));
+    if (!r.ok && r.passed === undefined) return;
+    if (r.next) { this.sfx(uiSound('probe', 'ok')); this.openMaske(); return; }
+    this.sfx(worldSound('ritual', r));
+    this.dialogue = null;
+    this.close();
+    this.showMessage(r.passed ? 'Die Maske hält' : 'Die Maske fällt', r.text);
+  }
+
+  cancelMaske() {
+    const r = this.as(() => this.state.cancelImpersonation());
+    if (r?.passed === false) { this.dialogue = null; this.close(); this.showMessage('Die Maske fällt', r.text); return; }
+    this.closeGift();
   }
 
   // --- Stadtkarte ----------------------------------------------------------------
@@ -1522,6 +1595,17 @@ export class Ui {
       if (r.ok && r.active) { this.close(); this.showMessage('Mythische Gestalt', r.text); } else this.renderNotebook(esc(r.text));
     });
     el.querySelector('[data-probe]')?.addEventListener('click', () => this.openProbe());
+    // Seq-5-Prüfungen (core/Seq5.js): Knöpfe im Ritualblock
+    el.querySelectorAll('[data-seq5]').forEach((b) => {
+      b.onclick = () => {
+        const fn = { laterne: 'lightLantern', kokon: 'wrapCocoon', spinne: 'lureSpider', eisen: 'startEisen', diebstahl: 'startDiebstahl', handel: 'startHandel', uhr: 'startUhr', abbrechen: 'seq5Cancel' }[b.dataset.seq5];
+        if (!fn) return;
+        const r = inv(() => this.state[fn]());
+        if (r.fight) { this.close(); this.showMessage(inv(() => this.state.seq5Name()), r.text); return; } // der Kampf startet, sobald das Fenster zu ist
+        if (r.passed === false) { this.close(); this.showMessage(inv(() => this.state.seq5Name()), r.text); return; }
+        this.renderNotebook(esc(r.text));
+      };
+    });
     el.querySelector('[data-ritual]')?.addEventListener('click', () => {
       const who = this.state.hasP2() ? this.invPlayer : 1;
       const r = inv(() => this.state.performRitual());
@@ -2070,9 +2154,35 @@ export class Ui {
       <p><strong>Überall ausführbar.</strong> Die genannten Orte sind Teil der Überlieferung und keine Voraussetzung.</p>
       <p class="desc">${esc(r.desc)}</p>${cpHtml}
       <ul class="steps">${steps.map((x) => `<li class="${x.done ? 'done' : ''}">${x.done ? '✓' : '○'} ${esc(x.text)}</li>`).join('')}</ul>
+      ${this.seq5Html(r)}
       ${probe ? `<p><button class="small primary" data-probe="1">${esc(probe.name)} antreten</button> <span class="muted">Eine zufällige Prüfung, überall ablegbar. Misslingt sie, kostet das ${PROBE_FAIL.nerves} Nerven und bringt ${PROBE_FAIL.unruhe} Unruhe; dann kannst du es gleich noch einmal versuchen.</span></p>` : ''}
       ${steps.some((x) => x.fraud && !x.done) ? '<p class="muted">Auf jedem geheimen Treffen ist ein Los abgekartet: Achte auf den Blick zwischen Anbieter und Strohmann und auf Gebote, die ohne Hinsehen in großen Sprüngen kommen. Dann „Betrug anprangern“.</p>' : ''}
       <button class="small ${ready ? 'primary' : ''}" data-ritual="1" ${ready ? '' : 'disabled'}>${ready && r.ordeal && !s.ordealDone(s.pathway.id, seq) ? 'Schwellenwächter rufen' : 'Ritual vollziehen'}</button> <span class="muted">Kostet 20 Nerven und bringt 20 Unruhe.${r.ordeal ? ' Ein schweres Ritual: Wenn alles andere steht, tritt der Schwellenwächter deines Pfades an.' : ''}</span></div>`;
+  }
+
+  /** Seq-5-Prüfung im Ritualblock: Regel, Knöpfe, Steckbrief (core/Seq5.js). */
+  seq5Html(r) {
+    const s = this.state;
+    if (!r?.trial) return '';
+    const k = r.trial;
+    const st = s.seq5();
+    const done = s.seq5IsDone(k);
+    const btn = (act, label, enabled = true, title = '') => `<button class="small ${enabled ? 'primary' : ''}" data-seq5="${act}" ${enabled ? '' : 'disabled'} title="${esc(title)}">${esc(label)}</button>`;
+    const acts = [];
+    if (!done) {
+      if (k === 'laterne') acts.push(btn('laterne', `Laterne entzünden (${Math.min(LATERNEN, st.lanterns ?? 0)}/${LATERNEN})`, s.inLanternZone() && s.itemCount(LAMPENOEL) > 0, s.inLanternZone() ? `Lampenöl: ${s.itemCount(LAMPENOEL)}` : 'Nur in einem Monstergebiet'));
+      if (k === 'faden') acts.push(st.kokon ? btn('spinne', 'Die Spinne locken', s.cocoonReady(), `Erst unter ${20} % Leben und Nerven`) : btn('kokon', `In den Kokon wickeln (${Math.min(KOKON_FAEDEN, s.itemCount(SPINNENFADEN))}/${KOKON_FAEDEN} Fäden)`, s.itemCount(SPINNENFADEN) >= KOKON_FAEDEN));
+      if (k === 'eisen' && !st.active) acts.push(btn('eisen', 'Kampfprüfung beginnen', s.hp <= s.maxHp * 0.4, 'Erst unter 40 % Leben'));
+      if (k === 'schluessel' && !st.armed) acts.push(btn('diebstahl', 'Diebstahl ansetzen', s.moneyBonusFromGear() > 1, 'Etwas mit Schillingbonus tragen'));
+      if (k === 'waage' && !st.armed) acts.push(btn('handel', 'Handelsprobe beginnen', s.money >= 3000));
+      if (k === 'uhr' && !st.armed) acts.push(btn('uhr', 'Zeitprüfung beginnen', s.hasWatch(), 'Eine Uhr in der Tasche'));
+      const running = !!(st.armed || st.active || st.kokon || (st.lanterns ?? 0) > 0 || st.identity);
+      if (running) acts.push(`<button class="small" data-seq5="abbrechen">Prüfung abbrechen</button>`);
+    }
+    const ident = k === 'maske' && st.identity ? `<p class="desc"><strong>Steckbrief:</strong> ${esc(s.identityText())}${st.convinced?.length ? ` Überzeugt: ${st.convinced.map((id) => s.content.npcs[id]?.name ?? id).join(', ')}.` : ''}</p>` : '';
+    const sude = k === 'kessel' ? `<p class="muted">Eigene Sude bisher: ${(s.sudeBekannt ?? []).length}. Die Wirkung muss mindestens ${SUD_MIN_SEC} Sekunden halten und noch laufen, wenn du Ritual und Trank vollziehst.</p>` : '';
+    return `<div class="seq5"><p class="desc"><strong>${esc(s.seq5Name(k))}.</strong> ${esc(s.seq5Hint(k))}</p>${ident}${sude}
+      <p>${acts.join(' ')} <span class="muted">Misslingt die Prüfung: −${FAIL_PCT[k]} % Verdauung, +${FAIL_UNRUHE} Unruhe; wiederholen darfst du jederzeit.</span></p></div>`;
   }
 
   // --- Proben der Seq-6-Rituale (core/Proben.js) -------------------------------------------------
@@ -2192,10 +2302,41 @@ export class Ui {
       <h3>Braukessel${this.state.hasP2() ? ` <span class="muted">für Spieler ${this.state.acting}</span>` : ''}</h3>
       <p class="lead">Der Kessel blubbert über einem Kohlebecken. Wähle eine Formel. Die Zutaten werden verbraucht.</p>
       ${this.recipesHtml(true)}
+      ${this.sudHtml()}
       <div class="feedback">${feedback}</div>
       <div class="actions"><button data-act="close">Fertig <span class="key">Esc</span></button></div>`, 'notebook brew');
     el.querySelectorAll('[data-brew]').forEach((b) => { b.onclick = () => this.brew(b.dataset.brew); });
+    el.querySelectorAll('[data-sud-add]').forEach((b) => { b.onclick = () => { if ((this.sudPick ??= []).length < SUD_MAX_ZUTATEN) this.sudPick.push(b.dataset.sudAdd); this.openBrew(''); }; });
+    el.querySelectorAll('[data-sud-rm]').forEach((b) => { b.onclick = () => { this.sudPick?.splice(Number(b.dataset.sudRm), 1); this.openBrew(''); }; });
+    el.querySelector('[data-sud-brew]')?.addEventListener('click', () => this.brewSud());
     el.querySelector('[data-act=close]').onclick = () => this.close();
+  }
+
+  /** Freies Brauen (Pfad des Kessels ab Sequenz 6, core/Sude.js): bis zu drei Zutaten ins leere Gefäß. */
+  sudHtml() {
+    const s = this.state;
+    if (!s.freeBrewUnlocked()) return s.pathway?.id === 'kessel' ? `<p class="muted">${esc(s.freeBrewBlock())}</p>` : '';
+    const pick = (this.sudPick ??= []).filter((id) => s.itemCount(id) > 0);
+    this.sudPick = pick;
+    const used = {};
+    for (const id of pick) used[id] = (used[id] ?? 0) + 1;
+    const ingredients = s.sudIngredients().filter((z) => z.count > (used[z.id] ?? 0));
+    const known = s.knownSude();
+    const vessels = s.itemCount(LEERES_GEFAESS);
+    return `<div class="sud"><h4>Eigener Sud <span class="muted">ohne Formel · bis zu ${SUD_MAX_ZUTATEN} Zutaten · leere Gefäße: ${vessels}</span></h4>
+      <p class="muted">Was zusammenpasst, wird ein Sud mit Wirkung; was nicht passt, ein Trüber Sud. Jedes neue Rezept gilt als eigene Schöpfung.</p>
+      <p>Im Kessel: ${pick.length ? pick.map((id, i) => `<button class="small" data-sud-rm="${i}" title="Herausnehmen">${itemIcon(id)}${esc(s.item(id).name)} ✕</button>`).join(' ') : '<span class="muted">nichts</span>'}
+        <button class="small ${pick.length && vessels ? 'primary' : ''}" data-sud-brew="1" ${pick.length && vessels ? '' : 'disabled'}>Abfüllen</button></p>
+      <ul class="choices giftlist">${ingredients.map((z) => `<li><button data-sud-add="${z.id}" ${pick.length >= SUD_MAX_ZUTATEN ? 'disabled' : ''}>${itemIcon(z.id)}${esc(z.name)} <span class="muted">×${z.count - (used[z.id] ?? 0)}</span></button></li>`).join('') || '<li class="empty">Keine Zutaten in der Tasche.</li>'}</ul>
+      ${known.length ? `<h4>Deine Rezepte</h4><ul class="steps">${known.map((k) => `<li>${itemIcon(k.item)}<strong>${esc(k.name)}</strong>: ${k.zutaten.map((z) => esc(z.name)).join(' + ')} <span class="muted">(${esc(sudEffectText(s.item(k.item), buffLabel))})</span></li>`).join('')}</ul>` : ''}</div>`;
+  }
+
+  brewSud() {
+    const r = this.as(() => this.state.brewSud(this.sudPick ?? []));
+    this.sfx(worldSound('brew', r));
+    this.scene?.playBrewFx?.(r.ok);
+    if (r.ok) this.sudPick = [];
+    this.openBrew(`<span class="${r.ok ? 'good' : ''}">${esc(r.text)}</span>`);
   }
 
   brew(formulaId) {
@@ -2716,6 +2857,7 @@ export class Ui {
         { text: 'Fliehen', ui: 'flee', info: c.fleeing ? `Rückzug läuft · ${c.fleeStatus()}` : c.canFlee() ? (c.fleeRounds > 0 ? `${c.fleeRounds} Runden durchhalten` : '') : 'unmöglich', act: { type: 'flee' }, disabled: !c.canFlee(),
           desc: c.fleeRounds > 0 && !c.fleeing ? `${esc(c.enemy.name)} lässt dich nicht einfach gehen: Nach „Fliehen“ ist dein Zug vorbei, und du musst noch ${c.fleeRounds} Runden durchhalten.` : '' },
       ];
+      if (c.canStealVoice?.()) entries.splice(3, 0, { text: 'Stimme rauben', ui: 'skill', info: 'verschonen · Zutaten gehen drauf', act: { type: 'voice' }, desc: `${esc(c.enemy.name)} liegt unter 10 % Leben. Nimm die Stimme statt das Leben: Der Kampf endet, keine Beute, das Ritual des Echos ist bestanden.` });
       const fleeNote = c.fleeing ? `<p class="flee-note">⏳ Rückzug läuft: ${c.fleeStatus()} durchhalten${c.duo ? ', dann seid ihr weg' : ', dann bist du weg'}.</p>` : '';
       if (c.actions) entries.push({ text: 'Zug beenden', ui: 'defend', info: '', act: { type: 'end' } });
       else this.combatTurn('player');
@@ -2798,7 +2940,7 @@ export class Ui {
 
   combatOver(title) {
     const c = this.combatScene.combat;
-    const text = { won: `${c.enemy.name} ist besiegt.`, lost: 'Deine Beine geben nach.', fled: 'Du bringst dich in Sicherheit.', escaped: `${c.enemy.name} entzieht sich.` }[c.outcome];
+    const text = { won: `${c.enemy.name} ist besiegt.`, lost: 'Deine Beine geben nach.', fled: 'Du bringst dich in Sicherheit.', escaped: `${c.enemy.name} entzieht sich.`, spared: `${c.enemy.name} lebt und schweigt.` }[c.outcome];
     this.combatMessage(`${title}! ${text}`, 'Weiter mit E');
   }
 
@@ -2810,7 +2952,7 @@ export class Ui {
     this.layer.innerHTML = '';
     this.updateHp();
     this.updateP2();
-    const title = { won: 'Sieg', lost: 'Ohnmacht', fled: 'Rückzug', escaped: 'Entkommen' }[result.outcome];
+    const title = { won: 'Sieg', lost: 'Ohnmacht', fled: 'Rückzug', escaped: 'Entkommen', spared: 'Verschont' }[result.outcome];
     this.keysBlockedUntil = performance.now() + 400; // hastiges E-Drücken schließt die Meldung nicht sofort
     const list = result.loot ? lootHtml(result.loot, this.state.content.items) : '';
     const extra = list ? `<h4 class="loot-title">${uiSprite('bresult', 'loot', 1 / 8)}${result.lootDeferred ? 'Beute liegt am Boden' : 'Beute'}</h4>${list}` : '';
@@ -2868,6 +3010,10 @@ export class Ui {
     else if (this.modal === 'gift' && num >= 0 && this.giftIds?.[num]) this.giveGift(this.giftIds[num]);
     else if (this.modal === 'gift' && (k === 'escape' || k === 'e')) this.closeGift();
     else if (this.modal === 'gift' && k === 'g' && this.state.hasP2()) { this.actor = this.actor === 1 ? 2 : 1; this.openGift(); }
+    else if (this.modal === 'moor' && num >= 0 && num < (this.moorCount ?? 0)) this.moorPick(num);
+    else if (this.modal === 'moor' && (k === 'escape' || k === 'e')) this.closeGift();
+    else if (this.modal === 'maske' && num >= 0 && this.maskeOptions?.[num] !== undefined) this.maskePick(num);
+    else if (this.modal === 'maske' && (k === 'escape' || k === 'e')) this.cancelMaske();
     else if (this.modal === 'dialogue' && confirm && this.dialogue?.keyMap.length === 1) this.choose(this.dialogue.keyMap[0]);
     else if (this.modal === 'travel' && this.travelPick && (num === 0 || num === 1)) this.travelMode(num === 0 ? 'sicher' : 'schnell');
     else if (this.modal === 'travel' && !this.travelPick && num >= 0) this.travel(num);

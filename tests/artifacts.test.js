@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
 import { Combat } from '../src/core/Combat.js';
 import { SEQ_MAX, ordealFlag } from '../src/core/Pathways.js';
-import { loadContent, talk } from './helpers.js';
+import { loadContent, talk, passTrial } from './helpers.js';
 
 const content = loadContent();
 const never = () => 0.999;
@@ -55,6 +55,7 @@ function ritual(s, pid, seq) {
   if (r.probe) s.flags.add(s.probeFlag(pid, seq));
   if (r.fraud) s.flags.add(s.fraudFlag(pid, seq));
   if (r.min_picks) s.picks = r.min_picks;
+  if (r.trial) passTrial(s, r.trial); // Seq 5 (Seb 2026-11-12): die Prüfung des Pfads gilt als bestanden
   const res = s.performRitual();
   assert.equal(res.ok, true, `${pid} ${seq}: ${res.text}`);
   s.spiritVision = false;

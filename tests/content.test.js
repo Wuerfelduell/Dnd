@@ -121,7 +121,7 @@ test('Gegenstände und Kämpfe sind vollständig', () => {
     assert.ok(['weapon', 'consumable', 'key', 'potion', 'formula', 'ingredient', 'trophy', 'artifact', 'gear'].includes(it.kind), `${id}: Art ${it.kind}`);
     if (it.kind === 'weapon') assert.ok(it.atk > 0, `${id}: Angriff`);
     if (it.inspect) assert.ok(content.dialogues[it.inspect], `${id}: Untersuchen-Dialog ${it.inspect}`);
-    if (it.kind === 'consumable') assert.ok(it.heal || it.composure || it.damage || it.calm || it.cleanse, `${id}: Wirkung`);
+    if (it.kind === 'consumable') assert.ok(it.heal || it.composure || it.damage || it.calm || it.cleanse || it.buff, `${id}: Wirkung`);
     if (it.kind === 'gear') assert.ok(['hut', 'mantel', 'amulett'].includes(it.slot) && it.boons?.length && it.boons.every((b) => b.key && b.text), `${id}: Platz und Wirkung`);
     if (it.kind === 'artifact') assert.ok(it.boons?.length && (it.curses?.length || it.source === 'fest'), `${id}: Vor- und Nachteile`);
   }
