@@ -1,0 +1,1722 @@
+[
+  {
+    "id": "s3p_laterne",
+    "pfad": "laterne",
+    "seq_name": "Aschenprotokollant",
+    "titel": "Die belastende Zeile",
+    "ort": "cw_buchbinderei",
+    "auftraggeber": "cw_crayford",
+    "alternativer_ort": {
+      "map": "bh_aktenraum",
+      "auftraggeber": "bh_rookwell",
+      "city": "briarholt",
+      "requires_flags": [
+        "k5_arrived"
+      ],
+      "zone": "bh_kaltes_palmhaus"
+    },
+    "routen": [
+      {
+        "map": "cw_buchbinderei",
+        "auftraggeber": "cw_crayford",
+        "city": "calderwick",
+        "requires_flags": [
+          "k4_arrived"
+        ],
+        "zone": "cw_alte_setzerei"
+      },
+      {
+        "map": "bh_aktenraum",
+        "auftraggeber": "bh_rookwell",
+        "city": "briarholt",
+        "requires_flags": [
+          "k5_arrived"
+        ],
+        "zone": "bh_kaltes_palmhaus"
+      }
+    ],
+    "requires": {
+      "sequence": 4,
+      "digestion_min": 100
+    },
+    "kanonischer_ritualsatz": "Du legst die Asche zweier widersprechender Berichte auf die Linse und benennst den Irrtum in deinem eigenen Bericht zuerst. Das Licht frisst nur die falsche Zeile.",
+    "teile": [
+      {
+        "id": "seq31_laterne_teil_1",
+        "beschreibung": "Du vergleichst zwei Abschriften deines Berichts und markierst deinen eigenen Irrtum.",
+        "hinweis": "Du prüfst die Herkunft vor der Deutung.",
+        "flag": "seq31_laterne_teil_1_done"
+      },
+      {
+        "id": "seq31_laterne_teil_2",
+        "beschreibung": "Du legst die Asche der widersprechenden Zeilen auf eine mitgebrachte Linse.",
+        "hinweis": "Du darfst die frühere Fassung neben die berichtigte legen.",
+        "flag": "seq31_laterne_teil_2_done"
+      },
+      {
+        "id": "seq31_laterne_teil_3",
+        "beschreibung": "Du hängst die Berichtigung mit deinem Namen aus, obwohl sie deinen Anteil am Irrtum zeigt.",
+        "hinweis": "Die Unterschrift muss auch unter der ungünstigen Fassung stehen.",
+        "flag": "seq31_laterne_teil_3_done"
+      }
+    ],
+    "probe": {
+      "typ": "friedlich",
+      "bedingung": "Das eigene Fehlurteil bleibt öffentlich einsehbar.",
+      "requires_flags": [
+        "seq31_laterne_teil_1_done",
+        "seq31_laterne_teil_2_done",
+        "seq31_laterne_teil_3_done"
+      ],
+      "requires": {
+        "sequence": 4,
+        "digestion_min": 100
+      },
+      "bestaetigung": {
+        "id": "seq31_laterne_probe_bestaetigen",
+        "text": "Das eigene Fehlurteil bleibt öffentlich einsehbar.",
+        "effects": {
+          "set_flags": [
+            "seq3_pruefung_laterne_done"
+          ]
+        }
+      },
+      "wiederholbar_bei_scheitern": true
+    },
+    "belohnung_text": "Die Prüfung ist bestanden. Du darfst den Trank für Aschenprotokollant bereiten; dein Körper verändert sich erst beim Trinken.",
+    "dialoge": {
+      "einleitung": [
+        "„Sie suchen die Prüfung für Aschenprotokollant.“",
+        "„Legen Sie zuerst die Herkunft offen.“",
+        "„Die Unterschrift muss auch unter der ungünstigen Fassung stehen.“",
+        "„Eine Berichtigung löscht den alten Vorgang nicht.“",
+        "„Sie müssen niemanden besiegen.“",
+        "„Auch Ihr eigener Vorteil steht zur Prüfung.“",
+        "„Wir gehen die drei Teile nacheinander durch.“",
+        "„Sie können unterbrechen und später wiederkommen.“"
+      ],
+      "abschluss": [
+        "„Die Herkunft ist kenntlich.“",
+        "„Die Gegenprobe bleibt erhalten.“",
+        "„Das eigene Fehlurteil bleibt öffentlich einsehbar.“",
+        "„Ich bestätige die Prüfung, nicht Ihre Unfehlbarkeit.“"
+      ],
+      "scheitern": [
+        "„Diese Fassung trägt noch nicht.“",
+        "„Die Unterschrift muss auch unter der ungünstigen Fassung stehen.“",
+        "„Nehmen Sie die Unterlagen wieder mit. Wir versuchen es erneut.“"
+      ]
+    },
+    "zutaten_hinweis": [
+      {
+        "item": "sq_zutat_laterne_3",
+        "anzahl": 1,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 1 × Widerrufsasche am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      },
+      {
+        "item": "nebeltau",
+        "anzahl": 2,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 2 × nebeltau am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      },
+      {
+        "item": "geisteressenz",
+        "anzahl": 3,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 3 × geisteressenz am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      },
+      {
+        "item": "silberstaub",
+        "anzahl": 3,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 3 × silberstaub am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      }
+    ],
+    "materialpaket": {
+      "gives_items": {
+        "sq_zutat_laterne_3": 1,
+        "nebeltau": 2,
+        "geisteressenz": 3,
+        "silberstaub": 3
+      },
+      "once_flag": "seq31_laterne_material_erhalten",
+      "requires_flags": [
+        "seq3_pruefung_laterne_done"
+      ]
+    },
+    "koop": {
+      "scope": "player",
+      "fortschritt_getrennt": true,
+      "zutaten_getrennt": true
+    }
+  },
+  {
+    "id": "s3p_faden",
+    "pfad": "faden",
+    "seq_name": "Bruchhefter",
+    "titel": "Die lösbare Naht",
+    "ort": "cw_buchbinderei",
+    "auftraggeber": "cw_crayford",
+    "alternativer_ort": {
+      "map": "bh_aktenraum",
+      "auftraggeber": "bh_dipple",
+      "city": "briarholt",
+      "requires_flags": [
+        "k5_arrived"
+      ],
+      "zone": "bh_kaltes_palmhaus"
+    },
+    "routen": [
+      {
+        "map": "cw_buchbinderei",
+        "auftraggeber": "cw_crayford",
+        "city": "calderwick",
+        "requires_flags": [
+          "k4_arrived"
+        ],
+        "zone": "cw_alte_setzerei"
+      },
+      {
+        "map": "bh_aktenraum",
+        "auftraggeber": "bh_dipple",
+        "city": "briarholt",
+        "requires_flags": [
+          "k5_arrived"
+        ],
+        "zone": "bh_kaltes_palmhaus"
+      }
+    ],
+    "requires": {
+      "sequence": 4,
+      "digestion_min": 100
+    },
+    "kanonischer_ritualsatz": "Du heftest eine Kettlegater Aussage an einen Wexmoorer Befund und trennst eine verlockende falsche Verbindung wieder auf. Das lose Ende bleibt an deiner Hand.",
+    "teile": [
+      {
+        "id": "seq31_faden_teil_1",
+        "beschreibung": "Du ordnest eine mitgeführte Kettlegater Aussage und einen Wexmoorer Befund getrennt an.",
+        "hinweis": "Du prüfst die Herkunft vor der Deutung.",
+        "flag": "seq31_faden_teil_1_done"
+      },
+      {
+        "id": "seq31_faden_teil_2",
+        "beschreibung": "Du heftest nur die belegte Verbindung und kennzeichnest ihren unbekannten Ursprung.",
+        "hinweis": "Du darfst die frühere Fassung neben die berichtigte legen.",
+        "flag": "seq31_faden_teil_2_done"
+      },
+      {
+        "id": "seq31_faden_teil_3",
+        "beschreibung": "Du trennst die bequeme falsche Verbindung auf und lässt das lose Ende sichtbar.",
+        "hinweis": "Gleiche Tinte ist noch kein gemeinsamer Urheber.",
+        "flag": "seq31_faden_teil_3_done"
+      }
+    ],
+    "probe": {
+      "typ": "friedlich",
+      "bedingung": "Die Lücke bleibt in beiden Abschriften offen.",
+      "requires_flags": [
+        "seq31_faden_teil_1_done",
+        "seq31_faden_teil_2_done",
+        "seq31_faden_teil_3_done"
+      ],
+      "requires": {
+        "sequence": 4,
+        "digestion_min": 100
+      },
+      "bestaetigung": {
+        "id": "seq31_faden_probe_bestaetigen",
+        "text": "Die Lücke bleibt in beiden Abschriften offen.",
+        "effects": {
+          "set_flags": [
+            "seq3_pruefung_faden_done"
+          ]
+        }
+      },
+      "wiederholbar_bei_scheitern": true
+    },
+    "belohnung_text": "Die Prüfung ist bestanden. Du darfst den Trank für Bruchhefter bereiten; dein Körper verändert sich erst beim Trinken.",
+    "dialoge": {
+      "einleitung": [
+        "„Sie suchen die Prüfung für Bruchhefter.“",
+        "„Legen Sie zuerst die Herkunft offen.“",
+        "„Gleiche Tinte ist noch kein gemeinsamer Urheber.“",
+        "„Eine Berichtigung löscht den alten Vorgang nicht.“",
+        "„Sie müssen niemanden besiegen.“",
+        "„Auch Ihr eigener Vorteil steht zur Prüfung.“",
+        "„Wir gehen die drei Teile nacheinander durch.“",
+        "„Sie können unterbrechen und später wiederkommen.“"
+      ],
+      "abschluss": [
+        "„Die Herkunft ist kenntlich.“",
+        "„Die Gegenprobe bleibt erhalten.“",
+        "„Die Lücke bleibt in beiden Abschriften offen.“",
+        "„Ich bestätige die Prüfung, nicht Ihre Unfehlbarkeit.“"
+      ],
+      "scheitern": [
+        "„Diese Fassung trägt noch nicht.“",
+        "„Gleiche Tinte ist noch kein gemeinsamer Urheber.“",
+        "„Nehmen Sie die Unterlagen wieder mit. Wir versuchen es erneut.“"
+      ]
+    },
+    "zutaten_hinweis": [
+      {
+        "item": "sq_zutat_faden_3",
+        "anzahl": 1,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 1 × Gegennaht am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      },
+      {
+        "item": "nebeltau",
+        "anzahl": 2,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 2 × nebeltau am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      },
+      {
+        "item": "geisteressenz",
+        "anzahl": 3,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 3 × geisteressenz am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      },
+      {
+        "item": "silberstaub",
+        "anzahl": 3,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 3 × silberstaub am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      }
+    ],
+    "materialpaket": {
+      "gives_items": {
+        "sq_zutat_faden_3": 1,
+        "nebeltau": 2,
+        "geisteressenz": 3,
+        "silberstaub": 3
+      },
+      "once_flag": "seq31_faden_material_erhalten",
+      "requires_flags": [
+        "seq3_pruefung_faden_done"
+      ]
+    },
+    "koop": {
+      "scope": "player",
+      "fortschritt_getrennt": true,
+      "zutaten_getrennt": true
+    }
+  },
+  {
+    "id": "s3p_maske",
+    "pfad": "maske",
+    "seq_name": "Rollenverwahrer",
+    "titel": "Die zurückgegebene Rolle",
+    "ort": "cw_quittungsmarkt",
+    "auftraggeber": "cw_wicksend",
+    "alternativer_ort": {
+      "map": "bh_pavillon",
+      "auftraggeber": "bh_henshall",
+      "city": "briarholt",
+      "requires_flags": [
+        "k5_arrived"
+      ],
+      "zone": "bh_kaltes_palmhaus"
+    },
+    "routen": [
+      {
+        "map": "cw_quittungsmarkt",
+        "auftraggeber": "cw_wicksend",
+        "city": "calderwick",
+        "requires_flags": [
+          "k4_arrived"
+        ],
+        "zone": "cw_alte_setzerei"
+      },
+      {
+        "map": "bh_pavillon",
+        "auftraggeber": "bh_henshall",
+        "city": "briarholt",
+        "requires_flags": [
+          "k5_arrived"
+        ],
+        "zone": "bh_kaltes_palmhaus"
+      }
+    ],
+    "requires": {
+      "sequence": 4,
+      "digestion_min": 100
+    },
+    "kanonischer_ritualsatz": "Du sprichst vor einem stillen Spiegel drei Geständnisse in fremden Rollen und ein eigenes mit deiner Stimme. Nur das eigene darf im Glas zurückbleiben.",
+    "teile": [
+      {
+        "id": "seq31_maske_teil_1",
+        "beschreibung": "Du sprichst drei fremde Geständnisse vor einem stillen Spiegel und benennst ihre Besitzer.",
+        "hinweis": "Du prüfst die Herkunft vor der Deutung.",
+        "flag": "seq31_maske_teil_1_done"
+      },
+      {
+        "id": "seq31_maske_teil_2",
+        "beschreibung": "Du gibst den Vorteil einer benutzten Amtsrolle ausdrücklich zurück.",
+        "hinweis": "Du darfst die frühere Fassung neben die berichtigte legen.",
+        "flag": "seq31_maske_teil_2_done"
+      },
+      {
+        "id": "seq31_maske_teil_3",
+        "beschreibung": "Du sagst dein eigenes Geständnis mit deiner Stimme und verlangst keine Vergebung.",
+        "hinweis": "Ein geliehener Titel gehört nicht unter deine eigene Aussage.",
+        "flag": "seq31_maske_teil_3_done"
+      }
+    ],
+    "probe": {
+      "typ": "friedlich",
+      "bedingung": "Die Amtsrolle bleibt nach der Probe gesperrt.",
+      "requires_flags": [
+        "seq31_maske_teil_1_done",
+        "seq31_maske_teil_2_done",
+        "seq31_maske_teil_3_done"
+      ],
+      "requires": {
+        "sequence": 4,
+        "digestion_min": 100
+      },
+      "bestaetigung": {
+        "id": "seq31_maske_probe_bestaetigen",
+        "text": "Die Amtsrolle bleibt nach der Probe gesperrt.",
+        "effects": {
+          "set_flags": [
+            "seq3_pruefung_maske_done"
+          ]
+        }
+      },
+      "wiederholbar_bei_scheitern": true
+    },
+    "belohnung_text": "Die Prüfung ist bestanden. Du darfst den Trank für Rollenverwahrer bereiten; dein Körper verändert sich erst beim Trinken.",
+    "dialoge": {
+      "einleitung": [
+        "„Sie suchen die Prüfung für Rollenverwahrer.“",
+        "„Legen Sie zuerst die Herkunft offen.“",
+        "„Ein geliehener Titel gehört nicht unter deine eigene Aussage.“",
+        "„Eine Berichtigung löscht den alten Vorgang nicht.“",
+        "„Sie müssen niemanden besiegen.“",
+        "„Auch Ihr eigener Vorteil steht zur Prüfung.“",
+        "„Wir gehen die drei Teile nacheinander durch.“",
+        "„Sie können unterbrechen und später wiederkommen.“"
+      ],
+      "abschluss": [
+        "„Die Herkunft ist kenntlich.“",
+        "„Die Gegenprobe bleibt erhalten.“",
+        "„Die Amtsrolle bleibt nach der Probe gesperrt.“",
+        "„Ich bestätige die Prüfung, nicht Ihre Unfehlbarkeit.“"
+      ],
+      "scheitern": [
+        "„Diese Fassung trägt noch nicht.“",
+        "„Ein geliehener Titel gehört nicht unter deine eigene Aussage.“",
+        "„Nehmen Sie die Unterlagen wieder mit. Wir versuchen es erneut.“"
+      ]
+    },
+    "zutaten_hinweis": [
+      {
+        "item": "sq_zutat_maske_3",
+        "anzahl": 1,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 1 × Eigentonpuder am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      },
+      {
+        "item": "nebeltau",
+        "anzahl": 2,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 2 × nebeltau am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      },
+      {
+        "item": "geisteressenz",
+        "anzahl": 3,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 3 × geisteressenz am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      },
+      {
+        "item": "silberstaub",
+        "anzahl": 3,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 3 × silberstaub am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      }
+    ],
+    "materialpaket": {
+      "gives_items": {
+        "sq_zutat_maske_3": 1,
+        "nebeltau": 2,
+        "geisteressenz": 3,
+        "silberstaub": 3
+      },
+      "once_flag": "seq31_maske_material_erhalten",
+      "requires_flags": [
+        "seq3_pruefung_maske_done"
+      ]
+    },
+    "koop": {
+      "scope": "player",
+      "fortschritt_getrennt": true,
+      "zutaten_getrennt": true
+    }
+  },
+  {
+    "id": "s3p_echo",
+    "pfad": "echo",
+    "seq_name": "Nachrufgefäß",
+    "titel": "Der ungeschönte Nachruf",
+    "ort": "cw_kueche",
+    "auftraggeber": "cw_noel_bellcross",
+    "alternativer_ort": {
+      "map": "bh_pavillon",
+      "auftraggeber": "bh_henshall",
+      "city": "briarholt",
+      "requires_flags": [
+        "k5_arrived"
+      ],
+      "zone": "bh_kaltes_palmhaus"
+    },
+    "routen": [
+      {
+        "map": "cw_kueche",
+        "auftraggeber": "cw_noel_bellcross",
+        "city": "calderwick",
+        "requires_flags": [
+          "k4_arrived"
+        ],
+        "zone": "cw_alte_setzerei"
+      },
+      {
+        "map": "bh_pavillon",
+        "auftraggeber": "bh_henshall",
+        "city": "briarholt",
+        "requires_flags": [
+          "k5_arrived"
+        ],
+        "zone": "bh_kaltes_palmhaus"
+      }
+    ],
+    "requires": {
+      "sequence": 4,
+      "digestion_min": 100
+    },
+    "kanonischer_ritualsatz": "Du liest einen Nachruf in der versunkenen Stadt und streichst das Lob, das der Verstorbene nie verdient hat. Seine Stimme bleibt trotzdem bei dir.",
+    "teile": [
+      {
+        "id": "seq31_echo_teil_1",
+        "beschreibung": "Du liest eine mitgeführte Abschrift des Nachrufs aus der versunkenen Stadt vollständig.",
+        "hinweis": "Du prüfst die Herkunft vor der Deutung.",
+        "flag": "seq31_echo_teil_1_done"
+      },
+      {
+        "id": "seq31_echo_teil_2",
+        "beschreibung": "Du streichst unbelegtes Lob, ohne die belegte Aussage der verstorbenen Person zu löschen.",
+        "hinweis": "Du darfst die frühere Fassung neben die berichtigte legen.",
+        "flag": "seq31_echo_teil_2_done"
+      },
+      {
+        "id": "seq31_echo_teil_3",
+        "beschreibung": "Du hörst die Gegenlesung bis zum Ende und gibst die Aufnahme danach frei.",
+        "hinweis": "Eine unangenehme Stimme ist noch keine falsche Aussage.",
+        "flag": "seq31_echo_teil_3_done"
+      }
+    ],
+    "probe": {
+      "typ": "friedlich",
+      "bedingung": "Die Aufnahme wird weder festgehalten noch als Lösung ausgegeben.",
+      "requires_flags": [
+        "seq31_echo_teil_1_done",
+        "seq31_echo_teil_2_done",
+        "seq31_echo_teil_3_done"
+      ],
+      "requires": {
+        "sequence": 4,
+        "digestion_min": 100
+      },
+      "bestaetigung": {
+        "id": "seq31_echo_probe_bestaetigen",
+        "text": "Die Aufnahme wird weder festgehalten noch als Lösung ausgegeben.",
+        "effects": {
+          "set_flags": [
+            "seq3_pruefung_echo_done"
+          ]
+        }
+      },
+      "wiederholbar_bei_scheitern": true
+    },
+    "belohnung_text": "Die Prüfung ist bestanden. Du darfst den Trank für Nachrufgefäß bereiten; dein Körper verändert sich erst beim Trinken.",
+    "dialoge": {
+      "einleitung": [
+        "„Sie suchen die Prüfung für Nachrufgefäß.“",
+        "„Legen Sie zuerst die Herkunft offen.“",
+        "„Eine unangenehme Stimme ist noch keine falsche Aussage.“",
+        "„Eine Berichtigung löscht den alten Vorgang nicht.“",
+        "„Sie müssen niemanden besiegen.“",
+        "„Auch Ihr eigener Vorteil steht zur Prüfung.“",
+        "„Wir gehen die drei Teile nacheinander durch.“",
+        "„Sie können unterbrechen und später wiederkommen.“"
+      ],
+      "abschluss": [
+        "„Die Herkunft ist kenntlich.“",
+        "„Die Gegenprobe bleibt erhalten.“",
+        "„Die Aufnahme wird weder festgehalten noch als Lösung ausgegeben.“",
+        "„Ich bestätige die Prüfung, nicht Ihre Unfehlbarkeit.“"
+      ],
+      "scheitern": [
+        "„Diese Fassung trägt noch nicht.“",
+        "„Eine unangenehme Stimme ist noch keine falsche Aussage.“",
+        "„Nehmen Sie die Unterlagen wieder mit. Wir versuchen es erneut.“"
+      ]
+    },
+    "zutaten_hinweis": [
+      {
+        "item": "sq_zutat_echo_3",
+        "anzahl": 1,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 1 × Ungeschönter Ton am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      },
+      {
+        "item": "nebeltau",
+        "anzahl": 2,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 2 × nebeltau am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      },
+      {
+        "item": "geisteressenz",
+        "anzahl": 3,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 3 × geisteressenz am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      },
+      {
+        "item": "silberstaub",
+        "anzahl": 3,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 3 × silberstaub am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      }
+    ],
+    "materialpaket": {
+      "gives_items": {
+        "sq_zutat_echo_3": 1,
+        "nebeltau": 2,
+        "geisteressenz": 3,
+        "silberstaub": 3
+      },
+      "once_flag": "seq31_echo_material_erhalten",
+      "requires_flags": [
+        "seq3_pruefung_echo_done"
+      ]
+    },
+    "koop": {
+      "scope": "player",
+      "fortschritt_getrennt": true,
+      "zutaten_getrennt": true
+    }
+  },
+  {
+    "id": "s3p_kessel",
+    "pfad": "kessel",
+    "seq_name": "Kreislaufgefäß",
+    "titel": "Die beschriftete Restcharge",
+    "ort": "cw_kueche",
+    "auftraggeber": "cw_noel_bellcross",
+    "alternativer_ort": {
+      "map": "bh_kesselgrund",
+      "auftraggeber": "bh_malkin",
+      "city": "briarholt",
+      "requires_flags": [
+        "k5_arrived"
+      ],
+      "zone": "bh_kaltes_palmhaus"
+    },
+    "routen": [
+      {
+        "map": "cw_kueche",
+        "auftraggeber": "cw_noel_bellcross",
+        "city": "calderwick",
+        "requires_flags": [
+          "k4_arrived"
+        ],
+        "zone": "cw_alte_setzerei"
+      },
+      {
+        "map": "bh_kesselgrund",
+        "auftraggeber": "bh_malkin",
+        "city": "briarholt",
+        "requires_flags": [
+          "k5_arrived"
+        ],
+        "zone": "bh_kaltes_palmhaus"
+      }
+    ],
+    "requires": {
+      "sequence": 4,
+      "digestion_min": 100
+    },
+    "kanonischer_ritualsatz": "Du trennst am Torfkessel Heilmittel und Abwasser derselben Charge und führst beides einem sicheren Kreislauf zu. Nichts darf unbemerkt im Moor verschwinden.",
+    "teile": [
+      {
+        "id": "seq31_kessel_teil_1",
+        "beschreibung": "Du vergleichst die mitgebrachte Torfkesselprobe mit dem lokalen Rücklauf.",
+        "hinweis": "Du prüfst die Herkunft vor der Deutung.",
+        "flag": "seq31_kessel_teil_1_done"
+      },
+      {
+        "id": "seq31_kessel_teil_2",
+        "beschreibung": "Du trennst Heilmittel und Abwasser derselben Charge in beschriftete Gefäße.",
+        "hinweis": "Du darfst die frühere Fassung neben die berichtigte legen.",
+        "flag": "seq31_kessel_teil_2_done"
+      },
+      {
+        "id": "seq31_kessel_teil_3",
+        "beschreibung": "Du schließt beide sicheren Kreisläufe und lässt einen messbaren Rest zur Kontrolle stehen.",
+        "hinweis": "Klares Wasser kann noch dieselbe belastete Charge sein.",
+        "flag": "seq31_kessel_teil_3_done"
+      }
+    ],
+    "probe": {
+      "typ": "friedlich",
+      "bedingung": "Beide Rückläufe sind dokumentiert; nichts wird heimlich abgelassen.",
+      "requires_flags": [
+        "seq31_kessel_teil_1_done",
+        "seq31_kessel_teil_2_done",
+        "seq31_kessel_teil_3_done"
+      ],
+      "requires": {
+        "sequence": 4,
+        "digestion_min": 100
+      },
+      "bestaetigung": {
+        "id": "seq31_kessel_probe_bestaetigen",
+        "text": "Beide Rückläufe sind dokumentiert; nichts wird heimlich abgelassen.",
+        "effects": {
+          "set_flags": [
+            "seq3_pruefung_kessel_done"
+          ]
+        }
+      },
+      "wiederholbar_bei_scheitern": true
+    },
+    "belohnung_text": "Die Prüfung ist bestanden. Du darfst den Trank für Kreislaufgefäß bereiten; dein Körper verändert sich erst beim Trinken.",
+    "dialoge": {
+      "einleitung": [
+        "„Sie suchen die Prüfung für Kreislaufgefäß.“",
+        "„Legen Sie zuerst die Herkunft offen.“",
+        "„Klares Wasser kann noch dieselbe belastete Charge sein.“",
+        "„Eine Berichtigung löscht den alten Vorgang nicht.“",
+        "„Sie müssen niemanden besiegen.“",
+        "„Auch Ihr eigener Vorteil steht zur Prüfung.“",
+        "„Wir gehen die drei Teile nacheinander durch.“",
+        "„Sie können unterbrechen und später wiederkommen.“"
+      ],
+      "abschluss": [
+        "„Die Herkunft ist kenntlich.“",
+        "„Die Gegenprobe bleibt erhalten.“",
+        "„Beide Rückläufe sind dokumentiert; nichts wird heimlich abgelassen.“",
+        "„Ich bestätige die Prüfung, nicht Ihre Unfehlbarkeit.“"
+      ],
+      "scheitern": [
+        "„Diese Fassung trägt noch nicht.“",
+        "„Klares Wasser kann noch dieselbe belastete Charge sein.“",
+        "„Nehmen Sie die Unterlagen wieder mit. Wir versuchen es erneut.“"
+      ]
+    },
+    "zutaten_hinweis": [
+      {
+        "item": "sq_zutat_kessel_3",
+        "anzahl": 1,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 1 × Rücklaufharz am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      },
+      {
+        "item": "nebeltau",
+        "anzahl": 2,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 2 × nebeltau am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      },
+      {
+        "item": "geisteressenz",
+        "anzahl": 3,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 3 × geisteressenz am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      },
+      {
+        "item": "silberstaub",
+        "anzahl": 3,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 3 × silberstaub am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      }
+    ],
+    "materialpaket": {
+      "gives_items": {
+        "sq_zutat_kessel_3": 1,
+        "nebeltau": 2,
+        "geisteressenz": 3,
+        "silberstaub": 3
+      },
+      "once_flag": "seq31_kessel_material_erhalten",
+      "requires_flags": [
+        "seq3_pruefung_kessel_done"
+      ]
+    },
+    "koop": {
+      "scope": "player",
+      "fortschritt_getrennt": true,
+      "zutaten_getrennt": true
+    }
+  },
+  {
+    "id": "s3p_eisen",
+    "pfad": "eisen",
+    "seq_name": "Gegenlast",
+    "titel": "Die verteilte Gegenlast",
+    "ort": "cw_roehrenhof",
+    "auftraggeber": "cw_hesk",
+    "alternativer_ort": {
+      "map": "bh_kesselgrund",
+      "auftraggeber": "bh_bellweather",
+      "city": "briarholt",
+      "requires_flags": [
+        "k5_arrived"
+      ],
+      "zone": "bh_kaltes_palmhaus"
+    },
+    "routen": [
+      {
+        "map": "cw_roehrenhof",
+        "auftraggeber": "cw_hesk",
+        "city": "calderwick",
+        "requires_flags": [
+          "k4_arrived"
+        ],
+        "zone": "cw_alte_setzerei"
+      },
+      {
+        "map": "bh_kesselgrund",
+        "auftraggeber": "bh_bellweather",
+        "city": "briarholt",
+        "requires_flags": [
+          "k5_arrived"
+        ],
+        "zone": "bh_kaltes_palmhaus"
+      }
+    ],
+    "requires": {
+      "sequence": 4,
+      "digestion_min": 100
+    },
+    "kanonischer_ritualsatz": "Du hebst am Dock ein festgeklemmtes Gegengewicht und gibst den Arbeitern Zeit zum Rückzug. Du wartest nicht auf einen Befehl, der nie kommen wird.",
+    "teile": [
+      {
+        "id": "seq31_eisen_teil_1",
+        "beschreibung": "Du zeichnest die Lastwege eines klemmenden Gegengewichts auf.",
+        "hinweis": "Du prüfst die Herkunft vor der Deutung.",
+        "flag": "seq31_eisen_teil_1_done"
+      },
+      {
+        "id": "seq31_eisen_teil_2",
+        "beschreibung": "Du sicherst den Rückzug der Arbeiter und verteilst die Last auf mehrere Stützen.",
+        "hinweis": "Du darfst die frühere Fassung neben die berichtigte legen.",
+        "flag": "seq31_eisen_teil_2_done"
+      },
+      {
+        "id": "seq31_eisen_teil_3",
+        "beschreibung": "Du nimmst deine Hand fort, während die Arbeiter die sichere Stellung selbst prüfen.",
+        "hinweis": "Eine Stütze ist erst brauchbar, wenn sie ohne deine Schulter hält.",
+        "flag": "seq31_eisen_teil_3_done"
+      }
+    ],
+    "probe": {
+      "typ": "friedlich",
+      "bedingung": "Die Last bleibt verteilt, und alle Beteiligten verlassen freiwillig den Prüfbereich.",
+      "requires_flags": [
+        "seq31_eisen_teil_1_done",
+        "seq31_eisen_teil_2_done",
+        "seq31_eisen_teil_3_done"
+      ],
+      "requires": {
+        "sequence": 4,
+        "digestion_min": 100
+      },
+      "bestaetigung": {
+        "id": "seq31_eisen_probe_bestaetigen",
+        "text": "Die Last bleibt verteilt, und alle Beteiligten verlassen freiwillig den Prüfbereich.",
+        "effects": {
+          "set_flags": [
+            "seq3_pruefung_eisen_done"
+          ]
+        }
+      },
+      "wiederholbar_bei_scheitern": true
+    },
+    "belohnung_text": "Die Prüfung ist bestanden. Du darfst den Trank für Gegenlast bereiten; dein Körper verändert sich erst beim Trinken.",
+    "dialoge": {
+      "einleitung": [
+        "„Sie suchen die Prüfung für Gegenlast.“",
+        "„Legen Sie zuerst die Herkunft offen.“",
+        "„Eine Stütze ist erst brauchbar, wenn sie ohne deine Schulter hält.“",
+        "„Eine Berichtigung löscht den alten Vorgang nicht.“",
+        "„Sie müssen niemanden besiegen.“",
+        "„Auch Ihr eigener Vorteil steht zur Prüfung.“",
+        "„Wir gehen die drei Teile nacheinander durch.“",
+        "„Sie können unterbrechen und später wiederkommen.“"
+      ],
+      "abschluss": [
+        "„Die Herkunft ist kenntlich.“",
+        "„Die Gegenprobe bleibt erhalten.“",
+        "„Die Last bleibt verteilt, und alle Beteiligten verlassen freiwillig den Prüfbereich.“",
+        "„Ich bestätige die Prüfung, nicht Ihre Unfehlbarkeit.“"
+      ],
+      "scheitern": [
+        "„Diese Fassung trägt noch nicht.“",
+        "„Eine Stütze ist erst brauchbar, wenn sie ohne deine Schulter hält.“",
+        "„Nehmen Sie die Unterlagen wieder mit. Wir versuchen es erneut.“"
+      ]
+    },
+    "zutaten_hinweis": [
+      {
+        "item": "sq_zutat_eisen_3",
+        "anzahl": 1,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 1 × Gegengewichtspan am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      },
+      {
+        "item": "nebeltau",
+        "anzahl": 2,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 2 × nebeltau am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      },
+      {
+        "item": "geisteressenz",
+        "anzahl": 3,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 3 × geisteressenz am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      },
+      {
+        "item": "silberstaub",
+        "anzahl": 3,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 3 × silberstaub am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      }
+    ],
+    "materialpaket": {
+      "gives_items": {
+        "sq_zutat_eisen_3": 1,
+        "nebeltau": 2,
+        "geisteressenz": 3,
+        "silberstaub": 3
+      },
+      "once_flag": "seq31_eisen_material_erhalten",
+      "requires_flags": [
+        "seq3_pruefung_eisen_done"
+      ]
+    },
+    "koop": {
+      "scope": "player",
+      "fortschritt_getrennt": true,
+      "zutaten_getrennt": true
+    }
+  },
+  {
+    "id": "s3p_schluessel",
+    "pfad": "schluessel",
+    "seq_name": "Riegelabwesenheit",
+    "titel": "Die unbesetzte Lade",
+    "ort": "cw_archivsaal",
+    "auftraggeber": "cw_malliver",
+    "alternativer_ort": {
+      "map": "bh_aktenraum",
+      "auftraggeber": "bh_dipple",
+      "city": "briarholt",
+      "requires_flags": [
+        "k5_arrived"
+      ],
+      "zone": "bh_kaltes_palmhaus"
+    },
+    "routen": [
+      {
+        "map": "cw_archivsaal",
+        "auftraggeber": "cw_malliver",
+        "city": "calderwick",
+        "requires_flags": [
+          "k4_arrived"
+        ],
+        "zone": "cw_alte_setzerei"
+      },
+      {
+        "map": "bh_aktenraum",
+        "auftraggeber": "bh_dipple",
+        "city": "briarholt",
+        "requires_flags": [
+          "k5_arrived"
+        ],
+        "zone": "bh_kaltes_palmhaus"
+      }
+    ],
+    "requires": {
+      "sequence": 4,
+      "digestion_min": 100
+    },
+    "kanonischer_ritualsatz": "Du öffnest im alten Ratssaal die Lade mit den beschlagnahmten Namen und gibst jedem Täfelchen seinen Platz zurück. Eine leere Lade darf leer bleiben.",
+    "teile": [
+      {
+        "id": "seq31_schluessel_teil_1",
+        "beschreibung": "Du prüfst die Herkunft mitgeführter Namenstäfelchen aus der alten Ratslade.",
+        "hinweis": "Du prüfst die Herkunft vor der Deutung.",
+        "flag": "seq31_schluessel_teil_1_done"
+      },
+      {
+        "id": "seq31_schluessel_teil_2",
+        "beschreibung": "Du gibst jedem belegten Namen seinen Platz und lässt die unbelegte Lade leer.",
+        "hinweis": "Du darfst die frühere Fassung neben die berichtigte legen.",
+        "flag": "seq31_schluessel_teil_2_done"
+      },
+      {
+        "id": "seq31_schluessel_teil_3",
+        "beschreibung": "Du öffnest den lokalen Zugang ohne Namenspfand und gibst die Zugangsvollmacht zurück.",
+        "hinweis": "Eine leere Lade ist kein Auftrag, einen Namen zu beschaffen.",
+        "flag": "seq31_schluessel_teil_3_done"
+      }
+    ],
+    "probe": {
+      "typ": "friedlich",
+      "bedingung": "Der Zugang bleibt auch nach Abgabe deiner Vollmacht offen.",
+      "requires_flags": [
+        "seq31_schluessel_teil_1_done",
+        "seq31_schluessel_teil_2_done",
+        "seq31_schluessel_teil_3_done"
+      ],
+      "requires": {
+        "sequence": 4,
+        "digestion_min": 100
+      },
+      "bestaetigung": {
+        "id": "seq31_schluessel_probe_bestaetigen",
+        "text": "Der Zugang bleibt auch nach Abgabe deiner Vollmacht offen.",
+        "effects": {
+          "set_flags": [
+            "seq3_pruefung_schluessel_done"
+          ]
+        }
+      },
+      "wiederholbar_bei_scheitern": true
+    },
+    "belohnung_text": "Die Prüfung ist bestanden. Du darfst den Trank für Riegelabwesenheit bereiten; dein Körper verändert sich erst beim Trinken.",
+    "dialoge": {
+      "einleitung": [
+        "„Sie suchen die Prüfung für Riegelabwesenheit.“",
+        "„Legen Sie zuerst die Herkunft offen.“",
+        "„Eine leere Lade ist kein Auftrag, einen Namen zu beschaffen.“",
+        "„Eine Berichtigung löscht den alten Vorgang nicht.“",
+        "„Sie müssen niemanden besiegen.“",
+        "„Auch Ihr eigener Vorteil steht zur Prüfung.“",
+        "„Wir gehen die drei Teile nacheinander durch.“",
+        "„Sie können unterbrechen und später wiederkommen.“"
+      ],
+      "abschluss": [
+        "„Die Herkunft ist kenntlich.“",
+        "„Die Gegenprobe bleibt erhalten.“",
+        "„Der Zugang bleibt auch nach Abgabe deiner Vollmacht offen.“",
+        "„Ich bestätige die Prüfung, nicht Ihre Unfehlbarkeit.“"
+      ],
+      "scheitern": [
+        "„Diese Fassung trägt noch nicht.“",
+        "„Eine leere Lade ist kein Auftrag, einen Namen zu beschaffen.“",
+        "„Nehmen Sie die Unterlagen wieder mit. Wir versuchen es erneut.“"
+      ]
+    },
+    "zutaten_hinweis": [
+      {
+        "item": "sq_zutat_schluessel_3",
+        "anzahl": 1,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 1 × Leerschloss am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      },
+      {
+        "item": "nebeltau",
+        "anzahl": 2,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 2 × nebeltau am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      },
+      {
+        "item": "geisteressenz",
+        "anzahl": 3,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 3 × geisteressenz am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      },
+      {
+        "item": "silberstaub",
+        "anzahl": 3,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 3 × silberstaub am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      }
+    ],
+    "materialpaket": {
+      "gives_items": {
+        "sq_zutat_schluessel_3": 1,
+        "nebeltau": 2,
+        "geisteressenz": 3,
+        "silberstaub": 3
+      },
+      "once_flag": "seq31_schluessel_material_erhalten",
+      "requires_flags": [
+        "seq3_pruefung_schluessel_done"
+      ]
+    },
+    "koop": {
+      "scope": "player",
+      "fortschritt_getrennt": true,
+      "zutaten_getrennt": true
+    }
+  },
+  {
+    "id": "s3p_sq_waage",
+    "pfad": "sq_waage",
+    "seq_name": "Saldenhüter",
+    "titel": "Die Schuld ohne Pfand",
+    "ort": "cw_pfandhaus",
+    "auftraggeber": "cw_wicksend",
+    "alternativer_ort": {
+      "map": "bh_verkaufshalle",
+      "auftraggeber": "bh_crowther",
+      "city": "briarholt",
+      "requires_flags": [
+        "k5_arrived"
+      ],
+      "zone": "bh_kaltes_palmhaus"
+    },
+    "routen": [
+      {
+        "map": "cw_pfandhaus",
+        "auftraggeber": "cw_wicksend",
+        "city": "calderwick",
+        "requires_flags": [
+          "k4_arrived"
+        ],
+        "zone": "cw_alte_setzerei"
+      },
+      {
+        "map": "bh_verkaufshalle",
+        "auftraggeber": "bh_crowther",
+        "city": "briarholt",
+        "requires_flags": [
+          "k5_arrived"
+        ],
+        "zone": "bh_kaltes_palmhaus"
+      }
+    ],
+    "requires": {
+      "sequence": 4,
+      "digestion_min": 100
+    },
+    "kanonischer_ritualsatz": "Du vergleichst ein Kettlegater Pfandbuch mit dem Wexmoorer Abgabenregister und streichst die doppelt erhobene Forderung. Den Verlust buchst du öffentlich.",
+    "teile": [
+      {
+        "id": "seq31_sq_waage_teil_1",
+        "beschreibung": "Du vergleichst ein mitgeführtes Kettlegater Pfandbuch mit dem Wexmoorer Abgabenregister.",
+        "hinweis": "Du prüfst die Herkunft vor der Deutung.",
+        "flag": "seq31_sq_waage_teil_1_done"
+      },
+      {
+        "id": "seq31_sq_waage_teil_2",
+        "beschreibung": "Du streichst die doppelte Forderung und buchst deinen eigenen Verlust öffentlich.",
+        "hinweis": "Du darfst die frühere Fassung neben die berichtigte legen.",
+        "flag": "seq31_sq_waage_teil_2_done"
+      },
+      {
+        "id": "seq31_sq_waage_teil_3",
+        "beschreibung": "Du leistest die belegte Schuld ein, ohne ein Pfand oder eine Gegenzusage zu fordern.",
+        "hinweis": "Eine Quittung über den Verlust ist keine neue Forderung.",
+        "flag": "seq31_sq_waage_teil_3_done"
+      }
+    ],
+    "probe": {
+      "typ": "friedlich",
+      "bedingung": "Die empfangende Person schuldet weder Dienst noch Sicherheit.",
+      "requires_flags": [
+        "seq31_sq_waage_teil_1_done",
+        "seq31_sq_waage_teil_2_done",
+        "seq31_sq_waage_teil_3_done"
+      ],
+      "requires": {
+        "sequence": 4,
+        "digestion_min": 100
+      },
+      "bestaetigung": {
+        "id": "seq31_sq_waage_probe_bestaetigen",
+        "text": "Die empfangende Person schuldet weder Dienst noch Sicherheit.",
+        "effects": {
+          "set_flags": [
+            "seq3_pruefung_sq_waage_done"
+          ]
+        }
+      },
+      "wiederholbar_bei_scheitern": true
+    },
+    "belohnung_text": "Die Prüfung ist bestanden. Du darfst den Trank für Saldenhüter bereiten; dein Körper verändert sich erst beim Trinken.",
+    "dialoge": {
+      "einleitung": [
+        "„Sie suchen die Prüfung für Saldenhüter.“",
+        "„Legen Sie zuerst die Herkunft offen.“",
+        "„Eine Quittung über den Verlust ist keine neue Forderung.“",
+        "„Eine Berichtigung löscht den alten Vorgang nicht.“",
+        "„Sie müssen niemanden besiegen.“",
+        "„Auch Ihr eigener Vorteil steht zur Prüfung.“",
+        "„Wir gehen die drei Teile nacheinander durch.“",
+        "„Sie können unterbrechen und später wiederkommen.“"
+      ],
+      "abschluss": [
+        "„Die Herkunft ist kenntlich.“",
+        "„Die Gegenprobe bleibt erhalten.“",
+        "„Die empfangende Person schuldet weder Dienst noch Sicherheit.“",
+        "„Ich bestätige die Prüfung, nicht Ihre Unfehlbarkeit.“"
+      ],
+      "scheitern": [
+        "„Diese Fassung trägt noch nicht.“",
+        "„Eine Quittung über den Verlust ist keine neue Forderung.“",
+        "„Nehmen Sie die Unterlagen wieder mit. Wir versuchen es erneut.“"
+      ]
+    },
+    "zutaten_hinweis": [
+      {
+        "item": "sq_zutat_waage_3",
+        "anzahl": 1,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 1 × Doppelbuchspan am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      },
+      {
+        "item": "nebeltau",
+        "anzahl": 2,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 2 × nebeltau am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      },
+      {
+        "item": "geisteressenz",
+        "anzahl": 3,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 3 × geisteressenz am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      },
+      {
+        "item": "silberstaub",
+        "anzahl": 3,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 3 × silberstaub am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      }
+    ],
+    "materialpaket": {
+      "gives_items": {
+        "sq_zutat_waage_3": 1,
+        "nebeltau": 2,
+        "geisteressenz": 3,
+        "silberstaub": 3
+      },
+      "once_flag": "seq31_sq_waage_material_erhalten",
+      "requires_flags": [
+        "seq3_pruefung_sq_waage_done"
+      ]
+    },
+    "koop": {
+      "scope": "player",
+      "fortschritt_getrennt": true,
+      "zutaten_getrennt": true
+    }
+  },
+  {
+    "id": "s3p_sq_moor",
+    "pfad": "sq_moor",
+    "seq_name": "Namensediment",
+    "titel": "Die getrennten Namen",
+    "ort": "cw_archivsaal",
+    "auftraggeber": "cw_malliver",
+    "alternativer_ort": {
+      "map": "bh_glasgaerten",
+      "auftraggeber": "bh_vellish",
+      "city": "briarholt",
+      "requires_flags": [
+        "k5_arrived"
+      ],
+      "zone": "bh_kaltes_palmhaus"
+    },
+    "routen": [
+      {
+        "map": "cw_archivsaal",
+        "auftraggeber": "cw_malliver",
+        "city": "calderwick",
+        "requires_flags": [
+          "k4_arrived"
+        ],
+        "zone": "cw_alte_setzerei"
+      },
+      {
+        "map": "bh_glasgaerten",
+        "auftraggeber": "bh_vellish",
+        "city": "briarholt",
+        "requires_flags": [
+          "k5_arrived"
+        ],
+        "zone": "bh_kaltes_palmhaus"
+      }
+    ],
+    "requires": {
+      "sequence": 4,
+      "digestion_min": 100
+    },
+    "kanonischer_ritualsatz": "Du vergleichst eine Kettlegater Vermisstenliste mit den Täfelchen am Wexmoorer Schrein. Gleiche Schreibweise gilt dir nicht als Beweis für dieselbe Person.",
+    "teile": [
+      {
+        "id": "seq31_sq_moor_teil_1",
+        "beschreibung": "Du vergleichst die mitgeführte Kettlegater Vermisstenliste mit Wexmoorer Schreinabschriften.",
+        "hinweis": "Du prüfst die Herkunft vor der Deutung.",
+        "flag": "seq31_sq_moor_teil_1_done"
+      },
+      {
+        "id": "seq31_sq_moor_teil_2",
+        "beschreibung": "Du trennst zwei gleiche Schreibweisen anhand ihrer verschiedenen Fundschichten.",
+        "hinweis": "Du darfst die frühere Fassung neben die berichtigte legen.",
+        "flag": "seq31_sq_moor_teil_2_done"
+      },
+      {
+        "id": "seq31_sq_moor_teil_3",
+        "beschreibung": "Du lässt die ungeklärte Zuordnung offen und holst die Zustimmung zur Namensnennung ein.",
+        "hinweis": "Gleiche Buchstaben machen aus zwei Menschen keinen einzigen.",
+        "flag": "seq31_sq_moor_teil_3_done"
+      }
+    ],
+    "probe": {
+      "typ": "friedlich",
+      "bedingung": "Die verweigerte Namensnennung bleibt respektiert und wird nicht umgangen.",
+      "requires_flags": [
+        "seq31_sq_moor_teil_1_done",
+        "seq31_sq_moor_teil_2_done",
+        "seq31_sq_moor_teil_3_done"
+      ],
+      "requires": {
+        "sequence": 4,
+        "digestion_min": 100
+      },
+      "bestaetigung": {
+        "id": "seq31_sq_moor_probe_bestaetigen",
+        "text": "Die verweigerte Namensnennung bleibt respektiert und wird nicht umgangen.",
+        "effects": {
+          "set_flags": [
+            "seq3_pruefung_sq_moor_done"
+          ]
+        }
+      },
+      "wiederholbar_bei_scheitern": true
+    },
+    "belohnung_text": "Die Prüfung ist bestanden. Du darfst den Trank für Namensediment bereiten; dein Körper verändert sich erst beim Trinken.",
+    "dialoge": {
+      "einleitung": [
+        "„Sie suchen die Prüfung für Namensediment.“",
+        "„Legen Sie zuerst die Herkunft offen.“",
+        "„Gleiche Buchstaben machen aus zwei Menschen keinen einzigen.“",
+        "„Eine Berichtigung löscht den alten Vorgang nicht.“",
+        "„Sie müssen niemanden besiegen.“",
+        "„Auch Ihr eigener Vorteil steht zur Prüfung.“",
+        "„Wir gehen die drei Teile nacheinander durch.“",
+        "„Sie können unterbrechen und später wiederkommen.“"
+      ],
+      "abschluss": [
+        "„Die Herkunft ist kenntlich.“",
+        "„Die Gegenprobe bleibt erhalten.“",
+        "„Die verweigerte Namensnennung bleibt respektiert und wird nicht umgangen.“",
+        "„Ich bestätige die Prüfung, nicht Ihre Unfehlbarkeit.“"
+      ],
+      "scheitern": [
+        "„Diese Fassung trägt noch nicht.“",
+        "„Gleiche Buchstaben machen aus zwei Menschen keinen einzigen.“",
+        "„Nehmen Sie die Unterlagen wieder mit. Wir versuchen es erneut.“"
+      ]
+    },
+    "zutaten_hinweis": [
+      {
+        "item": "sq_zutat_moor_3",
+        "anzahl": 1,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 1 × Zweinamenschlick am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      },
+      {
+        "item": "nebeltau",
+        "anzahl": 2,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 2 × nebeltau am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      },
+      {
+        "item": "geisteressenz",
+        "anzahl": 3,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 3 × geisteressenz am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      },
+      {
+        "item": "silberstaub",
+        "anzahl": 3,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 3 × silberstaub am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      }
+    ],
+    "materialpaket": {
+      "gives_items": {
+        "sq_zutat_moor_3": 1,
+        "nebeltau": 2,
+        "geisteressenz": 3,
+        "silberstaub": 3
+      },
+      "once_flag": "seq31_sq_moor_material_erhalten",
+      "requires_flags": [
+        "seq3_pruefung_sq_moor_done"
+      ]
+    },
+    "koop": {
+      "scope": "player",
+      "fortschritt_getrennt": true,
+      "zutaten_getrennt": true
+    }
+  },
+  {
+    "id": "s3p_sq_uhr",
+    "pfad": "sq_uhr",
+    "seq_name": "Fristlauscher",
+    "titel": "Die fremde Frist",
+    "ort": "cw_gepaeckhalle",
+    "auftraggeber": "cw_darnell",
+    "alternativer_ort": {
+      "map": "bh_kutschenhalle",
+      "auftraggeber": "bh_felix_fencrest",
+      "city": "briarholt",
+      "requires_flags": [
+        "k5_arrived"
+      ],
+      "zone": "bh_kaltes_palmhaus"
+    },
+    "routen": [
+      {
+        "map": "cw_gepaeckhalle",
+        "auftraggeber": "cw_darnell",
+        "city": "calderwick",
+        "requires_flags": [
+          "k4_arrived"
+        ],
+        "zone": "cw_alte_setzerei"
+      },
+      {
+        "map": "bh_kutschenhalle",
+        "auftraggeber": "bh_felix_fencrest",
+        "city": "briarholt",
+        "requires_flags": [
+          "k5_arrived"
+        ],
+        "zone": "bh_kaltes_palmhaus"
+      }
+    ],
+    "requires": {
+      "sequence": 4,
+      "digestion_min": 100
+    },
+    "kanonischer_ritualsatz": "Du legst zwei falsch gestempelte Fahrkarten nebeneinander und rekonstruierst die Verspätung. Den verpassten Zug erklärst du nicht zum Fehler des Reisenden.",
+    "teile": [
+      {
+        "id": "seq31_sq_uhr_teil_1",
+        "beschreibung": "Du legst zwei falsch gestempelte Fahrkarten nebeneinander und sicherst ihre Herkunft.",
+        "hinweis": "Du prüfst die Herkunft vor der Deutung.",
+        "flag": "seq31_sq_uhr_teil_1_done"
+      },
+      {
+        "id": "seq31_sq_uhr_teil_2",
+        "beschreibung": "Du rekonstruierst die tatsächliche Verspätung, ohne sie dem Reisenden anzulasten.",
+        "hinweis": "Du darfst die frühere Fassung neben die berichtigte legen.",
+        "flag": "seq31_sq_uhr_teil_2_done"
+      },
+      {
+        "id": "seq31_sq_uhr_teil_3",
+        "beschreibung": "Du gibst dem Reisenden die offene Frist zurück und nimmst den eigenen späteren Anschluss.",
+        "hinweis": "Die Uhrzeit des Stempels ist nicht die Zeit der Abfahrt.",
+        "flag": "seq31_sq_uhr_teil_3_done"
+      }
+    ],
+    "probe": {
+      "typ": "friedlich",
+      "bedingung": "Dein eigener Anschluss bleibt später; niemand verliert dafür seine Frist.",
+      "requires_flags": [
+        "seq31_sq_uhr_teil_1_done",
+        "seq31_sq_uhr_teil_2_done",
+        "seq31_sq_uhr_teil_3_done"
+      ],
+      "requires": {
+        "sequence": 4,
+        "digestion_min": 100
+      },
+      "bestaetigung": {
+        "id": "seq31_sq_uhr_probe_bestaetigen",
+        "text": "Dein eigener Anschluss bleibt später; niemand verliert dafür seine Frist.",
+        "effects": {
+          "set_flags": [
+            "seq3_pruefung_sq_uhr_done"
+          ]
+        }
+      },
+      "wiederholbar_bei_scheitern": true
+    },
+    "belohnung_text": "Die Prüfung ist bestanden. Du darfst den Trank für Fristlauscher bereiten; dein Körper verändert sich erst beim Trinken.",
+    "dialoge": {
+      "einleitung": [
+        "„Sie suchen die Prüfung für Fristlauscher.“",
+        "„Legen Sie zuerst die Herkunft offen.“",
+        "„Die Uhrzeit des Stempels ist nicht die Zeit der Abfahrt.“",
+        "„Eine Berichtigung löscht den alten Vorgang nicht.“",
+        "„Sie müssen niemanden besiegen.“",
+        "„Auch Ihr eigener Vorteil steht zur Prüfung.“",
+        "„Wir gehen die drei Teile nacheinander durch.“",
+        "„Sie können unterbrechen und später wiederkommen.“"
+      ],
+      "abschluss": [
+        "„Die Herkunft ist kenntlich.“",
+        "„Die Gegenprobe bleibt erhalten.“",
+        "„Dein eigener Anschluss bleibt später; niemand verliert dafür seine Frist.“",
+        "„Ich bestätige die Prüfung, nicht Ihre Unfehlbarkeit.“"
+      ],
+      "scheitern": [
+        "„Diese Fassung trägt noch nicht.“",
+        "„Die Uhrzeit des Stempels ist nicht die Zeit der Abfahrt.“",
+        "„Nehmen Sie die Unterlagen wieder mit. Wir versuchen es erneut.“"
+      ]
+    },
+    "zutaten_hinweis": [
+      {
+        "item": "sq_zutat_uhr_3",
+        "anzahl": 1,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 1 × Verspätungsfeder am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      },
+      {
+        "item": "nebeltau",
+        "anzahl": 2,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 2 × nebeltau am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      },
+      {
+        "item": "geisteressenz",
+        "anzahl": 3,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 3 × geisteressenz am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      },
+      {
+        "item": "silberstaub",
+        "anzahl": 3,
+        "zonen": [
+          "cw_alte_setzerei",
+          "bh_kaltes_palmhaus"
+        ],
+        "quelle": "seq31_pruefmaterial",
+        "text": "Du erhältst 3 × silberstaub am gesicherten Rand der Alten Setzerei oder des Kalten Palmhauses. Die beschriftete Materialkiste wird nach bestandener Prüfung einmal pro Person geöffnet.",
+        "anschluss": "Neuer garantierter DD-Fund, kein behaupteter bestehender Drop. An beiden Orten dieselbe einmalige Vergabe."
+      }
+    ],
+    "materialpaket": {
+      "gives_items": {
+        "sq_zutat_uhr_3": 1,
+        "nebeltau": 2,
+        "geisteressenz": 3,
+        "silberstaub": 3
+      },
+      "once_flag": "seq31_sq_uhr_material_erhalten",
+      "requires_flags": [
+        "seq3_pruefung_sq_uhr_done"
+      ]
+    },
+    "koop": {
+      "scope": "player",
+      "fortschritt_getrennt": true,
+      "zutaten_getrennt": true
+    }
+  }
+]

@@ -1,0 +1,3822 @@
+[
+  {
+    "id": "seq31_laterne_register",
+    "pfad": "laterne",
+    "seq_name": "Das unbequeme Licht",
+    "map": "vm_register_laterne",
+    "raum": {
+      "width": 24,
+      "height": 16,
+      "beschreibung": [
+        "Der Zollregisterraum ist zehn Lampen.",
+        "Nasser Stein und Registerregale umgeben drei voneinander getrennte Zeugenplätze.",
+        "Eine Wasserlinie bleibt unter dem freien Ausgang sichtbar."
+      ],
+      "props": [
+        "Linsenrahmen",
+        "Dochtschere",
+        "Ascheschale",
+        "offenes Register"
+      ],
+      "zugang": "vm_registerkeller",
+      "gezeitensicher": true
+    },
+    "kanonischer_ritualsatz": "Du öffnest die letzte Lampe vor Zeugen aus beiden Städten und veröffentlichst auch den Beleg, der dich belastet. Niemand darf zum Brennstoff werden.",
+    "requires": {
+      "requires_flags": [
+        "k6_done"
+      ],
+      "requires_any_flags": [
+        "k6_ende_schliessen",
+        "k6_ende_uebergeben"
+      ],
+      "sequence": 2,
+      "digestion_min": 100,
+      "hide_if_flags": [
+        "seq1_verzicht",
+        "seq1_register_laterne_done"
+      ]
+    },
+    "zeugen": [
+      {
+        "rolle": "fruehere_stadt",
+        "npc": "cw_crayford",
+        "pfad": "kein_pfadzeugnis",
+        "haltung": "gegen",
+        "anwesenheit": {
+          "event": "seq31_zeugen_einladen",
+          "freiwillig": true,
+          "reise": "Zeuge reist nach Varrowmouth; Spieler reist nicht zurück.",
+          "bei_abwesenheit": "Gespräch vertagen; keine erzwungene Zustimmung, kein endgültiger Fehlschlag."
+        },
+        "dialog": {
+          "fuer": [
+            "„Die Unterschrift muss auch unter der ungünstigen Fassung stehen.“",
+            "„Sie lassen die unbequeme Fassung stehen.“",
+            "„Dafür stehe ich als Zeuge ein.“",
+            "„Meine Zustimmung gehört nur dieser Handlung.“"
+          ],
+          "gegen": [
+            "„Ich erinnere mich an Ihren Vorteil.“",
+            "„Ein neuer Titel berichtigt ihn nicht.“",
+            "„Zeigen Sie, was Sie wirklich abgeben.“",
+            "„Ich kann widersprechen und trotzdem hierbleiben.“"
+          ],
+          "unentschieden": [
+            "„Ich sehe die Unterlagen.“",
+            "„Bei der Herkunft fehlt mir noch Ihre Erklärung.“",
+            "„Lesen Sie den Randvermerk ebenfalls vor.“",
+            "„Danach entscheide ich selbst.“"
+          ]
+        }
+      },
+      {
+        "rolle": "varrowmouth",
+        "npc": "vmn_tam_verrin",
+        "pfad": "kein_pfadzeugnis",
+        "haltung": "unentschieden",
+        "anwesenheit": {
+          "event": "seq31_zeugen_einladen",
+          "freiwillig": true,
+          "reise": "Zeuge reist nach Varrowmouth; Spieler reist nicht zurück.",
+          "bei_abwesenheit": "Gespräch vertagen; keine erzwungene Zustimmung, kein endgültiger Fehlschlag."
+        },
+        "dialog": {
+          "fuer": [
+            "„Die Unterschrift muss auch unter der ungünstigen Fassung stehen.“",
+            "„Sie lassen die unbequeme Fassung stehen.“",
+            "„Dafür stehe ich als Zeuge ein.“",
+            "„Meine Zustimmung gehört nur dieser Handlung.“"
+          ],
+          "gegen": [
+            "„Ich erinnere mich an Ihren Vorteil.“",
+            "„Ein neuer Titel berichtigt ihn nicht.“",
+            "„Zeigen Sie, was Sie wirklich abgeben.“",
+            "„Ich kann widersprechen und trotzdem hierbleiben.“"
+          ],
+          "unentschieden": [
+            "„Ich sehe die Unterlagen.“",
+            "„Bei der Herkunft fehlt mir noch Ihre Erklärung.“",
+            "„Lesen Sie den Randvermerk ebenfalls vor.“",
+            "„Danach entscheide ich selbst.“"
+          ]
+        }
+      },
+      {
+        "rolle": "pfad",
+        "npc": "ez_brennerin",
+        "pfad": "laterne",
+        "haltung": "fuer",
+        "anwesenheit": {
+          "event": "seq31_zeugen_einladen",
+          "freiwillig": true,
+          "reise": "Zeuge reist nach Varrowmouth; Spieler reist nicht zurück.",
+          "bei_abwesenheit": "Gespräch vertagen; keine erzwungene Zustimmung, kein endgültiger Fehlschlag."
+        },
+        "dialog": {
+          "fuer": [
+            "„Die Unterschrift muss auch unter der ungünstigen Fassung stehen.“",
+            "„Sie lassen die unbequeme Fassung stehen.“",
+            "„Dafür stehe ich als Zeuge ein.“",
+            "„Meine Zustimmung gehört nur dieser Handlung.“"
+          ],
+          "gegen": [
+            "„Ich erinnere mich an Ihren Vorteil.“",
+            "„Ein neuer Titel berichtigt ihn nicht.“",
+            "„Zeigen Sie, was Sie wirklich abgeben.“",
+            "„Ich kann widersprechen und trotzdem hierbleiben.“"
+          ],
+          "unentschieden": [
+            "„Ich sehe die Unterlagen.“",
+            "„Bei der Herkunft fehlt mir noch Ihre Erklärung.“",
+            "„Lesen Sie den Randvermerk ebenfalls vor.“",
+            "„Danach entscheide ich selbst.“"
+          ]
+        }
+      }
+    ],
+    "vorlagen": {
+      "beleg": {
+        "requires_flags": [
+          "case_09_closed",
+          "kapitel2_done",
+          "seq3_pruefung_laterne_done"
+        ],
+        "text": "Du zeigst dein Abschlussprotokoll aus Kettlegate, den mitgeführten Wexmoorer Bestand und die Gegenprobe: Die belastende Zeile.",
+        "verbrauch": false
+      },
+      "person": {
+        "npc": "vmn_tam_verrin",
+        "relationship_min": 3,
+        "freiwillige_zustimmung": true,
+        "text": "Tam bestätigt eure gewachsene Beziehung und behält ihr Recht auf Widerspruch."
+      },
+      "verzicht": {
+        "typ": "faehigkeit",
+        "skill": "laterne_hoch_4",
+        "dauerhaft": true,
+        "zeitpunkt": "nur_aufstieg_commit",
+        "text": "Du gibst Dochtgericht dauerhaft ab. Keine Fähigkeit deines Partners ist betroffen."
+      }
+    },
+    "probe": {
+      "typ": "gespraech",
+      "start": "seq31_laterne_gespraech_start",
+      "nodes": [
+        {
+          "id": "seq31_laterne_gespraech_start",
+          "text": "Die drei Zeugen nehmen ihre Plätze ein. Du kannst deine Unterlagen öffnen oder die Entscheidung vertagen.",
+          "choices": [
+            {
+              "text": "Ich lege den Beleg vor.",
+              "next": "seq31_laterne_gespraech_beleg"
+            },
+            {
+              "text": "Mein Rang genügt als Beweis.",
+              "next": "seq31_laterne_gespraech_falsch_rang"
+            },
+            {
+              "text": "Ich komme später wieder.",
+              "next": "seq31_laterne_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_laterne_gespraech_beleg",
+          "text": "Die Unterschrift muss auch unter der ungünstigen Fassung stehen.",
+          "choices": [
+            {
+              "text": "Ich zeige Herkunft und Gegenbeleg.",
+              "next": "seq31_laterne_gespraech_person",
+              "requires": {
+                "requires_flags": [
+                  "case_09_closed",
+                  "kapitel2_done",
+                  "seq3_pruefung_laterne_done"
+                ]
+              }
+            },
+            {
+              "text": "Die belastende Fassung bleibt verborgen.",
+              "next": "seq31_laterne_gespraech_falsch_beleg"
+            },
+            {
+              "text": "Ich muss die Unterlagen prüfen.",
+              "next": "seq31_laterne_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_laterne_gespraech_person",
+          "text": "Tam legt eine Hand neben das Register. „Ich bin freiwillig hier. Meine Zustimmung können Sie nicht mittrinken.“",
+          "choices": [
+            {
+              "text": "Ich erkenne Ihre eigene Entscheidung an.",
+              "next": "seq31_laterne_gespraech_opfer",
+              "requires": {
+                "relationship": {
+                  "npc": "vmn_tam_verrin",
+                  "min": 3
+                }
+              }
+            },
+            {
+              "text": "Ich vertage das Gespräch.",
+              "next": "seq31_laterne_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_laterne_gespraech_opfer",
+          "text": "Du kannst für den Aufstieg die Fähigkeit Dochtgericht dauerhaft abgeben. Beim endgültigen Verzicht bleibt sie erhalten.",
+          "choices": [
+            {
+              "text": "Ich merke die Fähigkeit als Opfer vor.",
+              "next": "seq31_laterne_gespraech_entscheidung"
+            },
+            {
+              "text": "Ich möchte die Flasche ablegen.",
+              "next": "seq31_laterne_gespraech_verzicht"
+            },
+            {
+              "text": "Ich brauche noch Zeit.",
+              "next": "seq31_laterne_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_laterne_gespraech_entscheidung",
+          "text": "Du öffnest die letzte Lampe vor Zeugen aus beiden Städten und veröffentlichst auch den Beleg, der dich belastet. Niemand darf zum Brennstoff werden.",
+          "choices": [
+            {
+              "text": "Ich vollziehe die Handlung und bestätige den Aufstieg samt Opfer.",
+              "next": "seq31_laterne_gespraech_aufstieg",
+              "requires": {
+                "all_present": true,
+                "relationship": {
+                  "npc": "vmn_tam_verrin",
+                  "min": 3
+                },
+                "has_skill": "laterne_hoch_4",
+                "has_recipe_ingredients": {
+                  "pfad": "laterne",
+                  "seq": 1
+                }
+              }
+            },
+            {
+              "text": "Ich entscheide mich für den endgültigen Verzicht.",
+              "next": "seq31_laterne_gespraech_verzicht"
+            },
+            {
+              "text": "Ich vertage ohne Verlust.",
+              "next": "seq31_laterne_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_laterne_gespraech_falsch_rang",
+          "text": "„Ihr Rang ist kein Beleg. Öffnen Sie die Unterlagen, wenn Sie weiterreden möchten.“",
+          "choices": [
+            {
+              "text": "Ich beginne mit den Unterlagen.",
+              "next": "seq31_laterne_gespraech_beleg"
+            },
+            {
+              "text": "Ich gehe vorerst.",
+              "next": "seq31_laterne_gespraech_pause"
+            }
+          ],
+          "falscher_weg": true
+        },
+        {
+          "id": "seq31_laterne_gespraech_falsch_beleg",
+          "text": "„Ohne die Gegenfassung können wir das nicht prüfen. Es wird nichts eingezogen.“",
+          "choices": [
+            {
+              "text": "Ich lege beide Fassungen offen.",
+              "next": "seq31_laterne_gespraech_beleg"
+            },
+            {
+              "text": "Ich vertage.",
+              "next": "seq31_laterne_gespraech_pause"
+            }
+          ],
+          "falscher_weg": true
+        },
+        {
+          "id": "seq31_laterne_gespraech_verzicht",
+          "text": "Du kannst die Flasche jetzt endgültig ablegen. Die bisherige Stufe und ihre Fähigkeiten bleiben erhalten.",
+          "choices": [
+            {
+              "text": "Ich bestätige den endgültigen Verzicht.",
+              "next": "seq31_laterne_gespraech_ende_verzicht"
+            },
+            {
+              "text": "Ich möchte weiter überlegen.",
+              "next": "seq31_laterne_gespraech_entscheidung"
+            }
+          ]
+        },
+        {
+          "id": "seq31_laterne_gespraech_aufstieg",
+          "text": "Du trinkst nach dem vollständigen Zeugnis.",
+          "terminal": true,
+          "action": "seq31_commit_aufstieg"
+        },
+        {
+          "id": "seq31_laterne_gespraech_ende_verzicht",
+          "text": "Du legst die versiegelte Flasche ab.",
+          "terminal": true,
+          "action": "seq31_commit_verzicht"
+        },
+        {
+          "id": "seq31_laterne_gespraech_pause",
+          "text": "Du nimmst deine Unterlagen mit. Zutaten und Fähigkeiten bleiben unangetastet.",
+          "terminal": true,
+          "action": "seq31_pause"
+        }
+      ],
+      "mehrheitsentscheid": false,
+      "erfolg": "Belegte Vorlagen und freiwillige Anwesenheit aller drei; Gegenrede blockiert nicht allein den Abschluss."
+    },
+    "aufstiegstext": "Du stellst die letzte Lampe zwischen die beiden Register. Auf dem Glas sitzt der Abdruck deines Daumens. Du könntest ihn wegwischen, aber er gehört zu diesem Beleg. Als du die belastende Zeile liest, wird dir hinter den Zähnen warm. Die Flamme wächst nicht. Sie beleuchtet nur den Teil des Tisches, den deine Hand bisher verdeckt hat. Du hebst die Hand. Einer der Zeugen rückt seinen Stuhl zurück; die Entfernung darf er selbst bestimmen. In deinen geschlossenen Lidern stehen Fenster. Du kannst erkennen, welche dunkel sind, aber nicht, wer hinter ihnen wohnt. Die Abschrift deines Irrtums bleibt an der Tür. Du gehst daran vorbei, ohne sie umzudrehen. Du trinkst erst nach deiner ausdrücklichen Entscheidung. Die Flasche wird durchsichtig und bleibt als gewöhnliches Glas zurück. Du erhältst keinen Anspruch auf die Zeugen. Sie können gehen, widersprechen und später wiederkommen. Du räumst deinen Platz selbst ab, bevor du die Tür öffnest.",
+    "seq_1_welt": [
+      "Du wirst als Das unbequeme Licht erkannt; gewöhnliche Händler rechnen den vorgeschlagenen Preisfaktor 1,00 statt eines zusätzlichen Seq-1-Aufschlags.",
+      "Im Gerede bleibt deine Gegenprobe neben dem neuen Titel genannt.",
+      "Schwache gewöhnliche Gegner weichen dir aus, während fest gesetzte Begegnungen ihre eigenen Bedingungen behalten."
+    ],
+    "abschluss": {
+      "aufstieg": {
+        "set_flags": [
+          "seq1_register_laterne_done",
+          "seq31_aufstieg_laterne"
+        ],
+        "sequence": 1,
+        "consume_recipe": {
+          "pfad": "laterne",
+          "seq": 1
+        },
+        "disable_skill": "laterne_hoch_4"
+      },
+      "verzicht": {
+        "set_flags": [
+          "seq1_verzicht",
+          "seq31_verzicht_laterne"
+        ],
+        "sequence_unveraendert": true,
+        "consume_items": false,
+        "disable_skills": false
+      }
+    },
+    "abspann": {
+      "bild": "sequences/abspann_laterne.png",
+      "text": "Das eigene Fehlurteil bleibt öffentlich einsehbar.",
+      "reihenfolge": 20
+    },
+    "koop": {
+      "scope": "player",
+      "partner_nicht_zeuge": true,
+      "entscheidung_getrennt": true,
+      "warte_auf_partner": false
+    }
+  },
+  {
+    "id": "seq31_faden_register",
+    "pfad": "faden",
+    "seq_name": "Der offene Zusammenhang",
+    "map": "vm_register_faden",
+    "raum": {
+      "width": 24,
+      "height": 16,
+      "beschreibung": [
+        "Der Zollregisterraum ist ein Netzboden über Wasser.",
+        "Nasser Stein und Registerregale umgeben drei voneinander getrennte Zeugenplätze.",
+        "Eine Wasserlinie bleibt unter dem freien Ausgang sichtbar."
+      ],
+      "props": [
+        "Spule",
+        "offener Knoten",
+        "Registerpult",
+        "Wasserrost"
+      ],
+      "zugang": "vm_registerkeller",
+      "gezeitensicher": true
+    },
+    "kanonischer_ritualsatz": "Du knüpfst die geretteten Register beider Städte zusammen und lässt den unbekannten Ursprung offen. Du verpflichtest dich, einen späteren Gegenbeweis nicht zu vernichten.",
+    "requires": {
+      "requires_flags": [
+        "k6_done"
+      ],
+      "requires_any_flags": [
+        "k6_ende_schliessen",
+        "k6_ende_uebergeben"
+      ],
+      "sequence": 2,
+      "digestion_min": 100,
+      "hide_if_flags": [
+        "seq1_verzicht",
+        "seq1_register_faden_done"
+      ]
+    },
+    "zeugen": [
+      {
+        "rolle": "fruehere_stadt",
+        "npc": "cw_crayford",
+        "pfad": "kein_pfadzeugnis",
+        "haltung": "gegen",
+        "anwesenheit": {
+          "event": "seq31_zeugen_einladen",
+          "freiwillig": true,
+          "reise": "Zeuge reist nach Varrowmouth; Spieler reist nicht zurück.",
+          "bei_abwesenheit": "Gespräch vertagen; keine erzwungene Zustimmung, kein endgültiger Fehlschlag."
+        },
+        "dialog": {
+          "fuer": [
+            "„Gleiche Tinte ist noch kein gemeinsamer Urheber.“",
+            "„Sie lassen die unbequeme Fassung stehen.“",
+            "„Dafür stehe ich als Zeuge ein.“",
+            "„Meine Zustimmung gehört nur dieser Handlung.“"
+          ],
+          "gegen": [
+            "„Ich erinnere mich an Ihren Vorteil.“",
+            "„Ein neuer Titel berichtigt ihn nicht.“",
+            "„Zeigen Sie, was Sie wirklich abgeben.“",
+            "„Ich kann widersprechen und trotzdem hierbleiben.“"
+          ],
+          "unentschieden": [
+            "„Ich sehe die Unterlagen.“",
+            "„Bei der Herkunft fehlt mir noch Ihre Erklärung.“",
+            "„Lesen Sie den Randvermerk ebenfalls vor.“",
+            "„Danach entscheide ich selbst.“"
+          ]
+        }
+      },
+      {
+        "rolle": "varrowmouth",
+        "npc": "vmn_tam_verrin",
+        "pfad": "kein_pfadzeugnis",
+        "haltung": "unentschieden",
+        "anwesenheit": {
+          "event": "seq31_zeugen_einladen",
+          "freiwillig": true,
+          "reise": "Zeuge reist nach Varrowmouth; Spieler reist nicht zurück.",
+          "bei_abwesenheit": "Gespräch vertagen; keine erzwungene Zustimmung, kein endgültiger Fehlschlag."
+        },
+        "dialog": {
+          "fuer": [
+            "„Gleiche Tinte ist noch kein gemeinsamer Urheber.“",
+            "„Sie lassen die unbequeme Fassung stehen.“",
+            "„Dafür stehe ich als Zeuge ein.“",
+            "„Meine Zustimmung gehört nur dieser Handlung.“"
+          ],
+          "gegen": [
+            "„Ich erinnere mich an Ihren Vorteil.“",
+            "„Ein neuer Titel berichtigt ihn nicht.“",
+            "„Zeigen Sie, was Sie wirklich abgeben.“",
+            "„Ich kann widersprechen und trotzdem hierbleiben.“"
+          ],
+          "unentschieden": [
+            "„Ich sehe die Unterlagen.“",
+            "„Bei der Herkunft fehlt mir noch Ihre Erklärung.“",
+            "„Lesen Sie den Randvermerk ebenfalls vor.“",
+            "„Danach entscheide ich selbst.“"
+          ]
+        }
+      },
+      {
+        "rolle": "pfad",
+        "npc": "ez_spinnerin",
+        "pfad": "faden",
+        "haltung": "fuer",
+        "anwesenheit": {
+          "event": "seq31_zeugen_einladen",
+          "freiwillig": true,
+          "reise": "Zeuge reist nach Varrowmouth; Spieler reist nicht zurück.",
+          "bei_abwesenheit": "Gespräch vertagen; keine erzwungene Zustimmung, kein endgültiger Fehlschlag."
+        },
+        "dialog": {
+          "fuer": [
+            "„Gleiche Tinte ist noch kein gemeinsamer Urheber.“",
+            "„Sie lassen die unbequeme Fassung stehen.“",
+            "„Dafür stehe ich als Zeuge ein.“",
+            "„Meine Zustimmung gehört nur dieser Handlung.“"
+          ],
+          "gegen": [
+            "„Ich erinnere mich an Ihren Vorteil.“",
+            "„Ein neuer Titel berichtigt ihn nicht.“",
+            "„Zeigen Sie, was Sie wirklich abgeben.“",
+            "„Ich kann widersprechen und trotzdem hierbleiben.“"
+          ],
+          "unentschieden": [
+            "„Ich sehe die Unterlagen.“",
+            "„Bei der Herkunft fehlt mir noch Ihre Erklärung.“",
+            "„Lesen Sie den Randvermerk ebenfalls vor.“",
+            "„Danach entscheide ich selbst.“"
+          ]
+        }
+      }
+    ],
+    "vorlagen": {
+      "beleg": {
+        "requires_flags": [
+          "case_09_closed",
+          "kapitel2_done",
+          "seq3_pruefung_faden_done"
+        ],
+        "text": "Du zeigst dein Abschlussprotokoll aus Kettlegate, den mitgeführten Wexmoorer Bestand und die Gegenprobe: Die lösbare Naht.",
+        "verbrauch": false
+      },
+      "person": {
+        "npc": "vmn_tam_verrin",
+        "relationship_min": 3,
+        "freiwillige_zustimmung": true,
+        "text": "Tam bestätigt eure gewachsene Beziehung und behält ihr Recht auf Widerspruch."
+      },
+      "verzicht": {
+        "typ": "faehigkeit",
+        "skill": "faden_hoch_4",
+        "dauerhaft": true,
+        "zeitpunkt": "nur_aufstieg_commit",
+        "text": "Du gibst Nahtbefund dauerhaft ab. Keine Fähigkeit deines Partners ist betroffen."
+      }
+    },
+    "probe": {
+      "typ": "gespraech",
+      "start": "seq31_faden_gespraech_start",
+      "nodes": [
+        {
+          "id": "seq31_faden_gespraech_start",
+          "text": "Die drei Zeugen nehmen ihre Plätze ein. Du kannst deine Unterlagen öffnen oder die Entscheidung vertagen.",
+          "choices": [
+            {
+              "text": "Ich lege den Beleg vor.",
+              "next": "seq31_faden_gespraech_beleg"
+            },
+            {
+              "text": "Mein Rang genügt als Beweis.",
+              "next": "seq31_faden_gespraech_falsch_rang"
+            },
+            {
+              "text": "Ich komme später wieder.",
+              "next": "seq31_faden_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_faden_gespraech_beleg",
+          "text": "Gleiche Tinte ist noch kein gemeinsamer Urheber.",
+          "choices": [
+            {
+              "text": "Ich zeige Herkunft und Gegenbeleg.",
+              "next": "seq31_faden_gespraech_person",
+              "requires": {
+                "requires_flags": [
+                  "case_09_closed",
+                  "kapitel2_done",
+                  "seq3_pruefung_faden_done"
+                ]
+              }
+            },
+            {
+              "text": "Die belastende Fassung bleibt verborgen.",
+              "next": "seq31_faden_gespraech_falsch_beleg"
+            },
+            {
+              "text": "Ich muss die Unterlagen prüfen.",
+              "next": "seq31_faden_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_faden_gespraech_person",
+          "text": "Tam legt eine Hand neben das Register. „Ich bin freiwillig hier. Meine Zustimmung können Sie nicht mittrinken.“",
+          "choices": [
+            {
+              "text": "Ich erkenne Ihre eigene Entscheidung an.",
+              "next": "seq31_faden_gespraech_opfer",
+              "requires": {
+                "relationship": {
+                  "npc": "vmn_tam_verrin",
+                  "min": 3
+                }
+              }
+            },
+            {
+              "text": "Ich vertage das Gespräch.",
+              "next": "seq31_faden_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_faden_gespraech_opfer",
+          "text": "Du kannst für den Aufstieg die Fähigkeit Nahtbefund dauerhaft abgeben. Beim endgültigen Verzicht bleibt sie erhalten.",
+          "choices": [
+            {
+              "text": "Ich merke die Fähigkeit als Opfer vor.",
+              "next": "seq31_faden_gespraech_entscheidung"
+            },
+            {
+              "text": "Ich möchte die Flasche ablegen.",
+              "next": "seq31_faden_gespraech_verzicht"
+            },
+            {
+              "text": "Ich brauche noch Zeit.",
+              "next": "seq31_faden_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_faden_gespraech_entscheidung",
+          "text": "Du knüpfst die geretteten Register beider Städte zusammen und lässt den unbekannten Ursprung offen. Du verpflichtest dich, einen späteren Gegenbeweis nicht zu vernichten.",
+          "choices": [
+            {
+              "text": "Ich vollziehe die Handlung und bestätige den Aufstieg samt Opfer.",
+              "next": "seq31_faden_gespraech_aufstieg",
+              "requires": {
+                "all_present": true,
+                "relationship": {
+                  "npc": "vmn_tam_verrin",
+                  "min": 3
+                },
+                "has_skill": "faden_hoch_4",
+                "has_recipe_ingredients": {
+                  "pfad": "faden",
+                  "seq": 1
+                }
+              }
+            },
+            {
+              "text": "Ich entscheide mich für den endgültigen Verzicht.",
+              "next": "seq31_faden_gespraech_verzicht"
+            },
+            {
+              "text": "Ich vertage ohne Verlust.",
+              "next": "seq31_faden_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_faden_gespraech_falsch_rang",
+          "text": "„Ihr Rang ist kein Beleg. Öffnen Sie die Unterlagen, wenn Sie weiterreden möchten.“",
+          "choices": [
+            {
+              "text": "Ich beginne mit den Unterlagen.",
+              "next": "seq31_faden_gespraech_beleg"
+            },
+            {
+              "text": "Ich gehe vorerst.",
+              "next": "seq31_faden_gespraech_pause"
+            }
+          ],
+          "falscher_weg": true
+        },
+        {
+          "id": "seq31_faden_gespraech_falsch_beleg",
+          "text": "„Ohne die Gegenfassung können wir das nicht prüfen. Es wird nichts eingezogen.“",
+          "choices": [
+            {
+              "text": "Ich lege beide Fassungen offen.",
+              "next": "seq31_faden_gespraech_beleg"
+            },
+            {
+              "text": "Ich vertage.",
+              "next": "seq31_faden_gespraech_pause"
+            }
+          ],
+          "falscher_weg": true
+        },
+        {
+          "id": "seq31_faden_gespraech_verzicht",
+          "text": "Du kannst die Flasche jetzt endgültig ablegen. Die bisherige Stufe und ihre Fähigkeiten bleiben erhalten.",
+          "choices": [
+            {
+              "text": "Ich bestätige den endgültigen Verzicht.",
+              "next": "seq31_faden_gespraech_ende_verzicht"
+            },
+            {
+              "text": "Ich möchte weiter überlegen.",
+              "next": "seq31_faden_gespraech_entscheidung"
+            }
+          ]
+        },
+        {
+          "id": "seq31_faden_gespraech_aufstieg",
+          "text": "Du trinkst nach dem vollständigen Zeugnis.",
+          "terminal": true,
+          "action": "seq31_commit_aufstieg"
+        },
+        {
+          "id": "seq31_faden_gespraech_ende_verzicht",
+          "text": "Du legst die versiegelte Flasche ab.",
+          "terminal": true,
+          "action": "seq31_commit_verzicht"
+        },
+        {
+          "id": "seq31_faden_gespraech_pause",
+          "text": "Du nimmst deine Unterlagen mit. Zutaten und Fähigkeiten bleiben unangetastet.",
+          "terminal": true,
+          "action": "seq31_pause"
+        }
+      ],
+      "mehrheitsentscheid": false,
+      "erfolg": "Belegte Vorlagen und freiwillige Anwesenheit aller drei; Gegenrede blockiert nicht allein den Abschluss."
+    },
+    "aufstiegstext": "Du führst den Faden durch die geretteten Register. Das Papier gibt an jeder alten Heftstelle anders nach. Du ziehst nicht fester, um diese Unterschiede zu verbergen. Zwischen zwei Blättern bleibt eine Lücke breit genug für einen Finger. Dort soll der Gegenbeweis liegen dürfen, wenn er eines Tages kommt. Du sagst das laut. Unter deinem Ärmel löst sich eine Spannung, an die du dich längst gewöhnt hattest. Dein Umriss schließt sich nicht mehr ganz. Niemand muss seine Hand hineinlegen. Du bindest das Ende so, dass es ohne Messer wieder geöffnet werden kann. Auf dem Netzboden stehen drei getrennte Stühle. Keine Schnur hält ihre Beine fest. Du trinkst erst nach deiner ausdrücklichen Entscheidung. Die Flasche wird durchsichtig und bleibt als gewöhnliches Glas zurück. Du erhältst keinen Anspruch auf die Zeugen. Sie können gehen, widersprechen und später wiederkommen. Du räumst deinen Platz selbst ab, bevor du die Tür öffnest.",
+    "seq_1_welt": [
+      "Du wirst als Der offene Zusammenhang erkannt; gewöhnliche Händler rechnen den vorgeschlagenen Preisfaktor 1,00 statt eines zusätzlichen Seq-1-Aufschlags.",
+      "Im Gerede bleibt deine Gegenprobe neben dem neuen Titel genannt.",
+      "Schwache gewöhnliche Gegner weichen dir aus, während fest gesetzte Begegnungen ihre eigenen Bedingungen behalten."
+    ],
+    "abschluss": {
+      "aufstieg": {
+        "set_flags": [
+          "seq1_register_faden_done",
+          "seq31_aufstieg_faden"
+        ],
+        "sequence": 1,
+        "consume_recipe": {
+          "pfad": "faden",
+          "seq": 1
+        },
+        "disable_skill": "faden_hoch_4"
+      },
+      "verzicht": {
+        "set_flags": [
+          "seq1_verzicht",
+          "seq31_verzicht_faden"
+        ],
+        "sequence_unveraendert": true,
+        "consume_items": false,
+        "disable_skills": false
+      }
+    },
+    "abspann": {
+      "bild": "sequences/abspann_faden.png",
+      "text": "Die Lücke bleibt in beiden Abschriften offen.",
+      "reihenfolge": 20
+    },
+    "koop": {
+      "scope": "player",
+      "partner_nicht_zeuge": true,
+      "entscheidung_getrennt": true,
+      "warte_auf_partner": false
+    }
+  },
+  {
+    "id": "seq31_maske_register",
+    "pfad": "maske",
+    "seq_name": "Das unvermietete Gesicht",
+    "map": "vm_register_maske",
+    "raum": {
+      "width": 24,
+      "height": 16,
+      "beschreibung": [
+        "Der Zollregisterraum ist eine Garderobe mit leeren Masken.",
+        "Nasser Stein und Registerregale umgeben drei voneinander getrennte Zeugenplätze.",
+        "Eine Wasserlinie bleibt unter dem freien Ausgang sichtbar."
+      ],
+      "props": [
+        "Spiegel",
+        "Mantelhaken",
+        "Maskenablage",
+        "Vorhang"
+      ],
+      "zugang": "vm_registerkeller",
+      "gezeitensicher": true
+    },
+    "kanonischer_ritualsatz": "Du führst alle geliehenen Rollen auf ihre Besitzer zurück. Vor dem letzten Vorhang sagst du deinen Namen, ohne dafür eine Antwort oder Vergebung zu verlangen.",
+    "requires": {
+      "requires_flags": [
+        "k6_done"
+      ],
+      "requires_any_flags": [
+        "k6_ende_schliessen",
+        "k6_ende_uebergeben"
+      ],
+      "sequence": 2,
+      "digestion_min": 100,
+      "hide_if_flags": [
+        "seq1_verzicht",
+        "seq1_register_maske_done"
+      ]
+    },
+    "zeugen": [
+      {
+        "rolle": "fruehere_stadt",
+        "npc": "cw_wicksend",
+        "pfad": "kein_pfadzeugnis",
+        "haltung": "gegen",
+        "anwesenheit": {
+          "event": "seq31_zeugen_einladen",
+          "freiwillig": true,
+          "reise": "Zeuge reist nach Varrowmouth; Spieler reist nicht zurück.",
+          "bei_abwesenheit": "Gespräch vertagen; keine erzwungene Zustimmung, kein endgültiger Fehlschlag."
+        },
+        "dialog": {
+          "fuer": [
+            "„Ein geliehener Titel gehört nicht unter deine eigene Aussage.“",
+            "„Sie lassen die unbequeme Fassung stehen.“",
+            "„Dafür stehe ich als Zeuge ein.“",
+            "„Meine Zustimmung gehört nur dieser Handlung.“"
+          ],
+          "gegen": [
+            "„Ich erinnere mich an Ihren Vorteil.“",
+            "„Ein neuer Titel berichtigt ihn nicht.“",
+            "„Zeigen Sie, was Sie wirklich abgeben.“",
+            "„Ich kann widersprechen und trotzdem hierbleiben.“"
+          ],
+          "unentschieden": [
+            "„Ich sehe die Unterlagen.“",
+            "„Bei der Herkunft fehlt mir noch Ihre Erklärung.“",
+            "„Lesen Sie den Randvermerk ebenfalls vor.“",
+            "„Danach entscheide ich selbst.“"
+          ]
+        }
+      },
+      {
+        "rolle": "varrowmouth",
+        "npc": "vmn_tam_verrin",
+        "pfad": "kein_pfadzeugnis",
+        "haltung": "unentschieden",
+        "anwesenheit": {
+          "event": "seq31_zeugen_einladen",
+          "freiwillig": true,
+          "reise": "Zeuge reist nach Varrowmouth; Spieler reist nicht zurück.",
+          "bei_abwesenheit": "Gespräch vertagen; keine erzwungene Zustimmung, kein endgültiger Fehlschlag."
+        },
+        "dialog": {
+          "fuer": [
+            "„Ein geliehener Titel gehört nicht unter deine eigene Aussage.“",
+            "„Sie lassen die unbequeme Fassung stehen.“",
+            "„Dafür stehe ich als Zeuge ein.“",
+            "„Meine Zustimmung gehört nur dieser Handlung.“"
+          ],
+          "gegen": [
+            "„Ich erinnere mich an Ihren Vorteil.“",
+            "„Ein neuer Titel berichtigt ihn nicht.“",
+            "„Zeigen Sie, was Sie wirklich abgeben.“",
+            "„Ich kann widersprechen und trotzdem hierbleiben.“"
+          ],
+          "unentschieden": [
+            "„Ich sehe die Unterlagen.“",
+            "„Bei der Herkunft fehlt mir noch Ihre Erklärung.“",
+            "„Lesen Sie den Randvermerk ebenfalls vor.“",
+            "„Danach entscheide ich selbst.“"
+          ]
+        }
+      },
+      {
+        "rolle": "pfad",
+        "npc": "ez_maskenwirt",
+        "pfad": "maske",
+        "haltung": "fuer",
+        "anwesenheit": {
+          "event": "seq31_zeugen_einladen",
+          "freiwillig": true,
+          "reise": "Zeuge reist nach Varrowmouth; Spieler reist nicht zurück.",
+          "bei_abwesenheit": "Gespräch vertagen; keine erzwungene Zustimmung, kein endgültiger Fehlschlag."
+        },
+        "dialog": {
+          "fuer": [
+            "„Ein geliehener Titel gehört nicht unter deine eigene Aussage.“",
+            "„Sie lassen die unbequeme Fassung stehen.“",
+            "„Dafür stehe ich als Zeuge ein.“",
+            "„Meine Zustimmung gehört nur dieser Handlung.“"
+          ],
+          "gegen": [
+            "„Ich erinnere mich an Ihren Vorteil.“",
+            "„Ein neuer Titel berichtigt ihn nicht.“",
+            "„Zeigen Sie, was Sie wirklich abgeben.“",
+            "„Ich kann widersprechen und trotzdem hierbleiben.“"
+          ],
+          "unentschieden": [
+            "„Ich sehe die Unterlagen.“",
+            "„Bei der Herkunft fehlt mir noch Ihre Erklärung.“",
+            "„Lesen Sie den Randvermerk ebenfalls vor.“",
+            "„Danach entscheide ich selbst.“"
+          ]
+        }
+      }
+    ],
+    "vorlagen": {
+      "beleg": {
+        "requires_flags": [
+          "case_09_closed",
+          "kapitel2_done",
+          "seq3_pruefung_maske_done"
+        ],
+        "text": "Du zeigst dein Abschlussprotokoll aus Kettlegate, den mitgeführten Wexmoorer Bestand und die Gegenprobe: Die zurückgegebene Rolle.",
+        "verbrauch": false
+      },
+      "person": {
+        "npc": "vmn_tam_verrin",
+        "relationship_min": 3,
+        "freiwillige_zustimmung": true,
+        "text": "Tam bestätigt eure gewachsene Beziehung und behält ihr Recht auf Widerspruch."
+      },
+      "verzicht": {
+        "typ": "faehigkeit",
+        "skill": "maske_hoch_4",
+        "dauerhaft": true,
+        "zeitpunkt": "nur_aufstieg_commit",
+        "text": "Du gibst Fremde Miene dauerhaft ab. Keine Fähigkeit deines Partners ist betroffen."
+      }
+    },
+    "probe": {
+      "typ": "gespraech",
+      "start": "seq31_maske_gespraech_start",
+      "nodes": [
+        {
+          "id": "seq31_maske_gespraech_start",
+          "text": "Die drei Zeugen nehmen ihre Plätze ein. Du kannst deine Unterlagen öffnen oder die Entscheidung vertagen.",
+          "choices": [
+            {
+              "text": "Ich lege den Beleg vor.",
+              "next": "seq31_maske_gespraech_beleg"
+            },
+            {
+              "text": "Mein Rang genügt als Beweis.",
+              "next": "seq31_maske_gespraech_falsch_rang"
+            },
+            {
+              "text": "Ich komme später wieder.",
+              "next": "seq31_maske_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_maske_gespraech_beleg",
+          "text": "Ein geliehener Titel gehört nicht unter deine eigene Aussage.",
+          "choices": [
+            {
+              "text": "Ich zeige Herkunft und Gegenbeleg.",
+              "next": "seq31_maske_gespraech_person",
+              "requires": {
+                "requires_flags": [
+                  "case_09_closed",
+                  "kapitel2_done",
+                  "seq3_pruefung_maske_done"
+                ]
+              }
+            },
+            {
+              "text": "Die belastende Fassung bleibt verborgen.",
+              "next": "seq31_maske_gespraech_falsch_beleg"
+            },
+            {
+              "text": "Ich muss die Unterlagen prüfen.",
+              "next": "seq31_maske_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_maske_gespraech_person",
+          "text": "Tam legt eine Hand neben das Register. „Ich bin freiwillig hier. Meine Zustimmung können Sie nicht mittrinken.“",
+          "choices": [
+            {
+              "text": "Ich erkenne Ihre eigene Entscheidung an.",
+              "next": "seq31_maske_gespraech_opfer",
+              "requires": {
+                "relationship": {
+                  "npc": "vmn_tam_verrin",
+                  "min": 3
+                }
+              }
+            },
+            {
+              "text": "Ich vertage das Gespräch.",
+              "next": "seq31_maske_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_maske_gespraech_opfer",
+          "text": "Du kannst für den Aufstieg die Fähigkeit Fremde Miene dauerhaft abgeben. Beim endgültigen Verzicht bleibt sie erhalten.",
+          "choices": [
+            {
+              "text": "Ich merke die Fähigkeit als Opfer vor.",
+              "next": "seq31_maske_gespraech_entscheidung"
+            },
+            {
+              "text": "Ich möchte die Flasche ablegen.",
+              "next": "seq31_maske_gespraech_verzicht"
+            },
+            {
+              "text": "Ich brauche noch Zeit.",
+              "next": "seq31_maske_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_maske_gespraech_entscheidung",
+          "text": "Du führst alle geliehenen Rollen auf ihre Besitzer zurück. Vor dem letzten Vorhang sagst du deinen Namen, ohne dafür eine Antwort oder Vergebung zu verlangen.",
+          "choices": [
+            {
+              "text": "Ich vollziehe die Handlung und bestätige den Aufstieg samt Opfer.",
+              "next": "seq31_maske_gespraech_aufstieg",
+              "requires": {
+                "all_present": true,
+                "relationship": {
+                  "npc": "vmn_tam_verrin",
+                  "min": 3
+                },
+                "has_skill": "maske_hoch_4",
+                "has_recipe_ingredients": {
+                  "pfad": "maske",
+                  "seq": 1
+                }
+              }
+            },
+            {
+              "text": "Ich entscheide mich für den endgültigen Verzicht.",
+              "next": "seq31_maske_gespraech_verzicht"
+            },
+            {
+              "text": "Ich vertage ohne Verlust.",
+              "next": "seq31_maske_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_maske_gespraech_falsch_rang",
+          "text": "„Ihr Rang ist kein Beleg. Öffnen Sie die Unterlagen, wenn Sie weiterreden möchten.“",
+          "choices": [
+            {
+              "text": "Ich beginne mit den Unterlagen.",
+              "next": "seq31_maske_gespraech_beleg"
+            },
+            {
+              "text": "Ich gehe vorerst.",
+              "next": "seq31_maske_gespraech_pause"
+            }
+          ],
+          "falscher_weg": true
+        },
+        {
+          "id": "seq31_maske_gespraech_falsch_beleg",
+          "text": "„Ohne die Gegenfassung können wir das nicht prüfen. Es wird nichts eingezogen.“",
+          "choices": [
+            {
+              "text": "Ich lege beide Fassungen offen.",
+              "next": "seq31_maske_gespraech_beleg"
+            },
+            {
+              "text": "Ich vertage.",
+              "next": "seq31_maske_gespraech_pause"
+            }
+          ],
+          "falscher_weg": true
+        },
+        {
+          "id": "seq31_maske_gespraech_verzicht",
+          "text": "Du kannst die Flasche jetzt endgültig ablegen. Die bisherige Stufe und ihre Fähigkeiten bleiben erhalten.",
+          "choices": [
+            {
+              "text": "Ich bestätige den endgültigen Verzicht.",
+              "next": "seq31_maske_gespraech_ende_verzicht"
+            },
+            {
+              "text": "Ich möchte weiter überlegen.",
+              "next": "seq31_maske_gespraech_entscheidung"
+            }
+          ]
+        },
+        {
+          "id": "seq31_maske_gespraech_aufstieg",
+          "text": "Du trinkst nach dem vollständigen Zeugnis.",
+          "terminal": true,
+          "action": "seq31_commit_aufstieg"
+        },
+        {
+          "id": "seq31_maske_gespraech_ende_verzicht",
+          "text": "Du legst die versiegelte Flasche ab.",
+          "terminal": true,
+          "action": "seq31_commit_verzicht"
+        },
+        {
+          "id": "seq31_maske_gespraech_pause",
+          "text": "Du nimmst deine Unterlagen mit. Zutaten und Fähigkeiten bleiben unangetastet.",
+          "terminal": true,
+          "action": "seq31_pause"
+        }
+      ],
+      "mehrheitsentscheid": false,
+      "erfolg": "Belegte Vorlagen und freiwillige Anwesenheit aller drei; Gegenrede blockiert nicht allein den Abschluss."
+    },
+    "aufstiegstext": "Du hängst die letzte geliehene Rolle an ihren Haken. Der Stoff bewegt sich noch, obwohl keine Schulter darunter steckt. Vor dem Spiegel sagst du deinen Namen. Du ergänzt keinen Titel. Eine Antwort kommt nicht, und du wartest nicht auf eine. In deinem Gesicht entspannen sich Muskeln, die bisher fremde Höflichkeit getragen haben. Das Glas lässt eine Stelle frei. Du musst sie nicht mit einem besseren Menschen füllen. Hinter dir können die Zeugen ihre Mäntel wieder nehmen; ihre Rollen gehören ihnen. Du schiebst den Vorhang zur Seite. Der leere Haken bleibt sichtbar. Draußen erkennt dich jemand nicht sofort. Du stellst dich noch einmal vor. Du trinkst erst nach deiner ausdrücklichen Entscheidung. Die Flasche wird durchsichtig und bleibt als gewöhnliches Glas zurück. Du erhältst keinen Anspruch auf die Zeugen. Sie können gehen, widersprechen und später wiederkommen. Du räumst deinen Platz selbst ab, bevor du die Tür öffnest.",
+    "seq_1_welt": [
+      "Du wirst als Das unvermietete Gesicht erkannt; gewöhnliche Händler rechnen den vorgeschlagenen Preisfaktor 1,00 statt eines zusätzlichen Seq-1-Aufschlags.",
+      "Im Gerede bleibt deine Gegenprobe neben dem neuen Titel genannt.",
+      "Schwache gewöhnliche Gegner weichen dir aus, während fest gesetzte Begegnungen ihre eigenen Bedingungen behalten."
+    ],
+    "abschluss": {
+      "aufstieg": {
+        "set_flags": [
+          "seq1_register_maske_done",
+          "seq31_aufstieg_maske"
+        ],
+        "sequence": 1,
+        "consume_recipe": {
+          "pfad": "maske",
+          "seq": 1
+        },
+        "disable_skill": "maske_hoch_4"
+      },
+      "verzicht": {
+        "set_flags": [
+          "seq1_verzicht",
+          "seq31_verzicht_maske"
+        ],
+        "sequence_unveraendert": true,
+        "consume_items": false,
+        "disable_skills": false
+      }
+    },
+    "abspann": {
+      "bild": "sequences/abspann_maske.png",
+      "text": "Die Amtsrolle bleibt nach der Probe gesperrt.",
+      "reihenfolge": 20
+    },
+    "koop": {
+      "scope": "player",
+      "partner_nicht_zeuge": true,
+      "entscheidung_getrennt": true,
+      "warte_auf_partner": false
+    }
+  },
+  {
+    "id": "seq31_echo_register",
+    "pfad": "echo",
+    "seq_name": "Die letzte Zuhörstelle",
+    "map": "vm_register_echo",
+    "raum": {
+      "width": 24,
+      "height": 16,
+      "beschreibung": [
+        "Der Zollregisterraum ist ein Glockenraum ohne Klöppel.",
+        "Nasser Stein und Registerregale umgeben drei voneinander getrennte Zeugenplätze.",
+        "Eine Wasserlinie bleibt unter dem freien Ausgang sichtbar."
+      ],
+      "props": [
+        "Glockenmantel",
+        "Hörrohr",
+        "Protokollstuhl",
+        "Filzauflage"
+      ],
+      "zugang": "vm_registerkeller",
+      "gezeitensicher": true
+    },
+    "kanonischer_ritualsatz": "Du hörst die Aussage aus dem verschlossenen Stadtregister bis zum Ende. Du lässt die Stimme anschließend gehen, auch wenn sie dir keine Lösung gegeben hat.",
+    "requires": {
+      "requires_flags": [
+        "k6_done"
+      ],
+      "requires_any_flags": [
+        "k6_ende_schliessen",
+        "k6_ende_uebergeben"
+      ],
+      "sequence": 2,
+      "digestion_min": 100,
+      "hide_if_flags": [
+        "seq1_verzicht",
+        "seq1_register_echo_done"
+      ]
+    },
+    "zeugen": [
+      {
+        "rolle": "fruehere_stadt",
+        "npc": "cw_noel_bellcross",
+        "pfad": "kein_pfadzeugnis",
+        "haltung": "gegen",
+        "anwesenheit": {
+          "event": "seq31_zeugen_einladen",
+          "freiwillig": true,
+          "reise": "Zeuge reist nach Varrowmouth; Spieler reist nicht zurück.",
+          "bei_abwesenheit": "Gespräch vertagen; keine erzwungene Zustimmung, kein endgültiger Fehlschlag."
+        },
+        "dialog": {
+          "fuer": [
+            "„Eine unangenehme Stimme ist noch keine falsche Aussage.“",
+            "„Sie lassen die unbequeme Fassung stehen.“",
+            "„Dafür stehe ich als Zeuge ein.“",
+            "„Meine Zustimmung gehört nur dieser Handlung.“"
+          ],
+          "gegen": [
+            "„Ich erinnere mich an Ihren Vorteil.“",
+            "„Ein neuer Titel berichtigt ihn nicht.“",
+            "„Zeigen Sie, was Sie wirklich abgeben.“",
+            "„Ich kann widersprechen und trotzdem hierbleiben.“"
+          ],
+          "unentschieden": [
+            "„Ich sehe die Unterlagen.“",
+            "„Bei der Herkunft fehlt mir noch Ihre Erklärung.“",
+            "„Lesen Sie den Randvermerk ebenfalls vor.“",
+            "„Danach entscheide ich selbst.“"
+          ]
+        }
+      },
+      {
+        "rolle": "varrowmouth",
+        "npc": "vmn_tam_verrin",
+        "pfad": "kein_pfadzeugnis",
+        "haltung": "unentschieden",
+        "anwesenheit": {
+          "event": "seq31_zeugen_einladen",
+          "freiwillig": true,
+          "reise": "Zeuge reist nach Varrowmouth; Spieler reist nicht zurück.",
+          "bei_abwesenheit": "Gespräch vertagen; keine erzwungene Zustimmung, kein endgültiger Fehlschlag."
+        },
+        "dialog": {
+          "fuer": [
+            "„Eine unangenehme Stimme ist noch keine falsche Aussage.“",
+            "„Sie lassen die unbequeme Fassung stehen.“",
+            "„Dafür stehe ich als Zeuge ein.“",
+            "„Meine Zustimmung gehört nur dieser Handlung.“"
+          ],
+          "gegen": [
+            "„Ich erinnere mich an Ihren Vorteil.“",
+            "„Ein neuer Titel berichtigt ihn nicht.“",
+            "„Zeigen Sie, was Sie wirklich abgeben.“",
+            "„Ich kann widersprechen und trotzdem hierbleiben.“"
+          ],
+          "unentschieden": [
+            "„Ich sehe die Unterlagen.“",
+            "„Bei der Herkunft fehlt mir noch Ihre Erklärung.“",
+            "„Lesen Sie den Randvermerk ebenfalls vor.“",
+            "„Danach entscheide ich selbst.“"
+          ]
+        }
+      },
+      {
+        "rolle": "pfad",
+        "npc": "ez_glockenfischer",
+        "pfad": "echo",
+        "haltung": "fuer",
+        "anwesenheit": {
+          "event": "seq31_zeugen_einladen",
+          "freiwillig": true,
+          "reise": "Zeuge reist nach Varrowmouth; Spieler reist nicht zurück.",
+          "bei_abwesenheit": "Gespräch vertagen; keine erzwungene Zustimmung, kein endgültiger Fehlschlag."
+        },
+        "dialog": {
+          "fuer": [
+            "„Eine unangenehme Stimme ist noch keine falsche Aussage.“",
+            "„Sie lassen die unbequeme Fassung stehen.“",
+            "„Dafür stehe ich als Zeuge ein.“",
+            "„Meine Zustimmung gehört nur dieser Handlung.“"
+          ],
+          "gegen": [
+            "„Ich erinnere mich an Ihren Vorteil.“",
+            "„Ein neuer Titel berichtigt ihn nicht.“",
+            "„Zeigen Sie, was Sie wirklich abgeben.“",
+            "„Ich kann widersprechen und trotzdem hierbleiben.“"
+          ],
+          "unentschieden": [
+            "„Ich sehe die Unterlagen.“",
+            "„Bei der Herkunft fehlt mir noch Ihre Erklärung.“",
+            "„Lesen Sie den Randvermerk ebenfalls vor.“",
+            "„Danach entscheide ich selbst.“"
+          ]
+        }
+      }
+    ],
+    "vorlagen": {
+      "beleg": {
+        "requires_flags": [
+          "case_09_closed",
+          "kapitel2_done",
+          "seq3_pruefung_echo_done"
+        ],
+        "text": "Du zeigst dein Abschlussprotokoll aus Kettlegate, den mitgeführten Wexmoorer Bestand und die Gegenprobe: Der ungeschönte Nachruf.",
+        "verbrauch": false
+      },
+      "person": {
+        "npc": "vmn_tam_verrin",
+        "relationship_min": 3,
+        "freiwillige_zustimmung": true,
+        "text": "Tam bestätigt eure gewachsene Beziehung und behält ihr Recht auf Widerspruch."
+      },
+      "verzicht": {
+        "typ": "faehigkeit",
+        "skill": "echo_hoch_4",
+        "dauerhaft": true,
+        "zeitpunkt": "nur_aufstieg_commit",
+        "text": "Du gibst Restton dauerhaft ab. Keine Fähigkeit deines Partners ist betroffen."
+      }
+    },
+    "probe": {
+      "typ": "gespraech",
+      "start": "seq31_echo_gespraech_start",
+      "nodes": [
+        {
+          "id": "seq31_echo_gespraech_start",
+          "text": "Die drei Zeugen nehmen ihre Plätze ein. Du kannst deine Unterlagen öffnen oder die Entscheidung vertagen.",
+          "choices": [
+            {
+              "text": "Ich lege den Beleg vor.",
+              "next": "seq31_echo_gespraech_beleg"
+            },
+            {
+              "text": "Mein Rang genügt als Beweis.",
+              "next": "seq31_echo_gespraech_falsch_rang"
+            },
+            {
+              "text": "Ich komme später wieder.",
+              "next": "seq31_echo_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_echo_gespraech_beleg",
+          "text": "Eine unangenehme Stimme ist noch keine falsche Aussage.",
+          "choices": [
+            {
+              "text": "Ich zeige Herkunft und Gegenbeleg.",
+              "next": "seq31_echo_gespraech_person",
+              "requires": {
+                "requires_flags": [
+                  "case_09_closed",
+                  "kapitel2_done",
+                  "seq3_pruefung_echo_done"
+                ]
+              }
+            },
+            {
+              "text": "Die belastende Fassung bleibt verborgen.",
+              "next": "seq31_echo_gespraech_falsch_beleg"
+            },
+            {
+              "text": "Ich muss die Unterlagen prüfen.",
+              "next": "seq31_echo_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_echo_gespraech_person",
+          "text": "Tam legt eine Hand neben das Register. „Ich bin freiwillig hier. Meine Zustimmung können Sie nicht mittrinken.“",
+          "choices": [
+            {
+              "text": "Ich erkenne Ihre eigene Entscheidung an.",
+              "next": "seq31_echo_gespraech_opfer",
+              "requires": {
+                "relationship": {
+                  "npc": "vmn_tam_verrin",
+                  "min": 3
+                }
+              }
+            },
+            {
+              "text": "Ich vertage das Gespräch.",
+              "next": "seq31_echo_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_echo_gespraech_opfer",
+          "text": "Du kannst für den Aufstieg die Fähigkeit Restton dauerhaft abgeben. Beim endgültigen Verzicht bleibt sie erhalten.",
+          "choices": [
+            {
+              "text": "Ich merke die Fähigkeit als Opfer vor.",
+              "next": "seq31_echo_gespraech_entscheidung"
+            },
+            {
+              "text": "Ich möchte die Flasche ablegen.",
+              "next": "seq31_echo_gespraech_verzicht"
+            },
+            {
+              "text": "Ich brauche noch Zeit.",
+              "next": "seq31_echo_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_echo_gespraech_entscheidung",
+          "text": "Du hörst die Aussage aus dem verschlossenen Stadtregister bis zum Ende. Du lässt die Stimme anschließend gehen, auch wenn sie dir keine Lösung gegeben hat.",
+          "choices": [
+            {
+              "text": "Ich vollziehe die Handlung und bestätige den Aufstieg samt Opfer.",
+              "next": "seq31_echo_gespraech_aufstieg",
+              "requires": {
+                "all_present": true,
+                "relationship": {
+                  "npc": "vmn_tam_verrin",
+                  "min": 3
+                },
+                "has_skill": "echo_hoch_4",
+                "has_recipe_ingredients": {
+                  "pfad": "echo",
+                  "seq": 1
+                }
+              }
+            },
+            {
+              "text": "Ich entscheide mich für den endgültigen Verzicht.",
+              "next": "seq31_echo_gespraech_verzicht"
+            },
+            {
+              "text": "Ich vertage ohne Verlust.",
+              "next": "seq31_echo_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_echo_gespraech_falsch_rang",
+          "text": "„Ihr Rang ist kein Beleg. Öffnen Sie die Unterlagen, wenn Sie weiterreden möchten.“",
+          "choices": [
+            {
+              "text": "Ich beginne mit den Unterlagen.",
+              "next": "seq31_echo_gespraech_beleg"
+            },
+            {
+              "text": "Ich gehe vorerst.",
+              "next": "seq31_echo_gespraech_pause"
+            }
+          ],
+          "falscher_weg": true
+        },
+        {
+          "id": "seq31_echo_gespraech_falsch_beleg",
+          "text": "„Ohne die Gegenfassung können wir das nicht prüfen. Es wird nichts eingezogen.“",
+          "choices": [
+            {
+              "text": "Ich lege beide Fassungen offen.",
+              "next": "seq31_echo_gespraech_beleg"
+            },
+            {
+              "text": "Ich vertage.",
+              "next": "seq31_echo_gespraech_pause"
+            }
+          ],
+          "falscher_weg": true
+        },
+        {
+          "id": "seq31_echo_gespraech_verzicht",
+          "text": "Du kannst die Flasche jetzt endgültig ablegen. Die bisherige Stufe und ihre Fähigkeiten bleiben erhalten.",
+          "choices": [
+            {
+              "text": "Ich bestätige den endgültigen Verzicht.",
+              "next": "seq31_echo_gespraech_ende_verzicht"
+            },
+            {
+              "text": "Ich möchte weiter überlegen.",
+              "next": "seq31_echo_gespraech_entscheidung"
+            }
+          ]
+        },
+        {
+          "id": "seq31_echo_gespraech_aufstieg",
+          "text": "Du trinkst nach dem vollständigen Zeugnis.",
+          "terminal": true,
+          "action": "seq31_commit_aufstieg"
+        },
+        {
+          "id": "seq31_echo_gespraech_ende_verzicht",
+          "text": "Du legst die versiegelte Flasche ab.",
+          "terminal": true,
+          "action": "seq31_commit_verzicht"
+        },
+        {
+          "id": "seq31_echo_gespraech_pause",
+          "text": "Du nimmst deine Unterlagen mit. Zutaten und Fähigkeiten bleiben unangetastet.",
+          "terminal": true,
+          "action": "seq31_pause"
+        }
+      ],
+      "mehrheitsentscheid": false,
+      "erfolg": "Belegte Vorlagen und freiwillige Anwesenheit aller drei; Gegenrede blockiert nicht allein den Abschluss."
+    },
+    "aufstiegstext": "Du legst dein Ohr an das kalte Hörrohr. Die Stimme aus dem Register setzt mitten in einem Satz ein. Du fragst nicht nach dem fehlenden Anfang. Du hörst bis zum letzten Atemgeräusch und lässt die Hand vom Verschluss. In deinem Hals bewegen sich Formen, ohne selbst sprechen zu müssen. Dann wird es still. Die Aussage hat den Fall nicht sauber gemacht. Ein Datum fehlt, ein Vorwurf bleibt unbelegt. Du schreibst beides auf. Dein Ohr wirft einen Schatten dorthin, wo eben noch Klang war. Keiner der Zeugen muss die Stimme wiederholen. Du lässt das Rohr offen und nimmst den Stuhl ein Stück vom Tisch zurück. Du trinkst erst nach deiner ausdrücklichen Entscheidung. Die Flasche wird durchsichtig und bleibt als gewöhnliches Glas zurück. Du erhältst keinen Anspruch auf die Zeugen. Sie können gehen, widersprechen und später wiederkommen. Du räumst deinen Platz selbst ab, bevor du die Tür öffnest.",
+    "seq_1_welt": [
+      "Du wirst als Die letzte Zuhörstelle erkannt; gewöhnliche Händler rechnen den vorgeschlagenen Preisfaktor 1,00 statt eines zusätzlichen Seq-1-Aufschlags.",
+      "Im Gerede bleibt deine Gegenprobe neben dem neuen Titel genannt.",
+      "Schwache gewöhnliche Gegner weichen dir aus, während fest gesetzte Begegnungen ihre eigenen Bedingungen behalten."
+    ],
+    "abschluss": {
+      "aufstieg": {
+        "set_flags": [
+          "seq1_register_echo_done",
+          "seq31_aufstieg_echo"
+        ],
+        "sequence": 1,
+        "consume_recipe": {
+          "pfad": "echo",
+          "seq": 1
+        },
+        "disable_skill": "echo_hoch_4"
+      },
+      "verzicht": {
+        "set_flags": [
+          "seq1_verzicht",
+          "seq31_verzicht_echo"
+        ],
+        "sequence_unveraendert": true,
+        "consume_items": false,
+        "disable_skills": false
+      }
+    },
+    "abspann": {
+      "bild": "sequences/abspann_echo.png",
+      "text": "Die Aufnahme wird weder festgehalten noch als Lösung ausgegeben.",
+      "reihenfolge": 20
+    },
+    "koop": {
+      "scope": "player",
+      "partner_nicht_zeuge": true,
+      "entscheidung_getrennt": true,
+      "warte_auf_partner": false
+    }
+  },
+  {
+    "id": "seq31_kessel_register",
+    "pfad": "kessel",
+    "seq_name": "Der unverlorene Rest",
+    "map": "vm_register_kessel",
+    "raum": {
+      "width": 24,
+      "height": 16,
+      "beschreibung": [
+        "Der Zollregisterraum ist eine Siedeküche mit klaren Kesseln.",
+        "Nasser Stein und Registerregale umgeben drei voneinander getrennte Zeugenplätze.",
+        "Eine Wasserlinie bleibt unter dem freien Ausgang sichtbar."
+      ],
+      "props": [
+        "Probenflasche",
+        "Rücklaufrohr",
+        "Messlöffel",
+        "Restgefäß"
+      ],
+      "zugang": "vm_registerkeller",
+      "gezeitensicher": true
+    },
+    "kanonischer_ritualsatz": "Du schließt den letzten Kreislauf, ohne das kranke Ausgangsmaterial zu leugnen. Einen Rest lässt du beschriftet stehen, damit die nächste Hand weiß, womit sie arbeitet.",
+    "requires": {
+      "requires_flags": [
+        "k6_done"
+      ],
+      "requires_any_flags": [
+        "k6_ende_schliessen",
+        "k6_ende_uebergeben"
+      ],
+      "sequence": 2,
+      "digestion_min": 100,
+      "hide_if_flags": [
+        "seq1_verzicht",
+        "seq1_register_kessel_done"
+      ]
+    },
+    "zeugen": [
+      {
+        "rolle": "fruehere_stadt",
+        "npc": "cw_noel_bellcross",
+        "pfad": "kein_pfadzeugnis",
+        "haltung": "gegen",
+        "anwesenheit": {
+          "event": "seq31_zeugen_einladen",
+          "freiwillig": true,
+          "reise": "Zeuge reist nach Varrowmouth; Spieler reist nicht zurück.",
+          "bei_abwesenheit": "Gespräch vertagen; keine erzwungene Zustimmung, kein endgültiger Fehlschlag."
+        },
+        "dialog": {
+          "fuer": [
+            "„Klares Wasser kann noch dieselbe belastete Charge sein.“",
+            "„Sie lassen die unbequeme Fassung stehen.“",
+            "„Dafür stehe ich als Zeuge ein.“",
+            "„Meine Zustimmung gehört nur dieser Handlung.“"
+          ],
+          "gegen": [
+            "„Ich erinnere mich an Ihren Vorteil.“",
+            "„Ein neuer Titel berichtigt ihn nicht.“",
+            "„Zeigen Sie, was Sie wirklich abgeben.“",
+            "„Ich kann widersprechen und trotzdem hierbleiben.“"
+          ],
+          "unentschieden": [
+            "„Ich sehe die Unterlagen.“",
+            "„Bei der Herkunft fehlt mir noch Ihre Erklärung.“",
+            "„Lesen Sie den Randvermerk ebenfalls vor.“",
+            "„Danach entscheide ich selbst.“"
+          ]
+        }
+      },
+      {
+        "rolle": "varrowmouth",
+        "npc": "vmn_tam_verrin",
+        "pfad": "kein_pfadzeugnis",
+        "haltung": "unentschieden",
+        "anwesenheit": {
+          "event": "seq31_zeugen_einladen",
+          "freiwillig": true,
+          "reise": "Zeuge reist nach Varrowmouth; Spieler reist nicht zurück.",
+          "bei_abwesenheit": "Gespräch vertagen; keine erzwungene Zustimmung, kein endgültiger Fehlschlag."
+        },
+        "dialog": {
+          "fuer": [
+            "„Klares Wasser kann noch dieselbe belastete Charge sein.“",
+            "„Sie lassen die unbequeme Fassung stehen.“",
+            "„Dafür stehe ich als Zeuge ein.“",
+            "„Meine Zustimmung gehört nur dieser Handlung.“"
+          ],
+          "gegen": [
+            "„Ich erinnere mich an Ihren Vorteil.“",
+            "„Ein neuer Titel berichtigt ihn nicht.“",
+            "„Zeigen Sie, was Sie wirklich abgeben.“",
+            "„Ich kann widersprechen und trotzdem hierbleiben.“"
+          ],
+          "unentschieden": [
+            "„Ich sehe die Unterlagen.“",
+            "„Bei der Herkunft fehlt mir noch Ihre Erklärung.“",
+            "„Lesen Sie den Randvermerk ebenfalls vor.“",
+            "„Danach entscheide ich selbst.“"
+          ]
+        }
+      },
+      {
+        "rolle": "pfad",
+        "npc": "ez_reetkoenig",
+        "pfad": "kessel",
+        "haltung": "fuer",
+        "anwesenheit": {
+          "event": "seq31_zeugen_einladen",
+          "freiwillig": true,
+          "reise": "Zeuge reist nach Varrowmouth; Spieler reist nicht zurück.",
+          "bei_abwesenheit": "Gespräch vertagen; keine erzwungene Zustimmung, kein endgültiger Fehlschlag."
+        },
+        "dialog": {
+          "fuer": [
+            "„Klares Wasser kann noch dieselbe belastete Charge sein.“",
+            "„Sie lassen die unbequeme Fassung stehen.“",
+            "„Dafür stehe ich als Zeuge ein.“",
+            "„Meine Zustimmung gehört nur dieser Handlung.“"
+          ],
+          "gegen": [
+            "„Ich erinnere mich an Ihren Vorteil.“",
+            "„Ein neuer Titel berichtigt ihn nicht.“",
+            "„Zeigen Sie, was Sie wirklich abgeben.“",
+            "„Ich kann widersprechen und trotzdem hierbleiben.“"
+          ],
+          "unentschieden": [
+            "„Ich sehe die Unterlagen.“",
+            "„Bei der Herkunft fehlt mir noch Ihre Erklärung.“",
+            "„Lesen Sie den Randvermerk ebenfalls vor.“",
+            "„Danach entscheide ich selbst.“"
+          ]
+        }
+      }
+    ],
+    "vorlagen": {
+      "beleg": {
+        "requires_flags": [
+          "case_09_closed",
+          "kapitel2_done",
+          "seq3_pruefung_kessel_done"
+        ],
+        "text": "Du zeigst dein Abschlussprotokoll aus Kettlegate, den mitgeführten Wexmoorer Bestand und die Gegenprobe: Die beschriftete Restcharge.",
+        "verbrauch": false
+      },
+      "person": {
+        "npc": "vmn_tam_verrin",
+        "relationship_min": 3,
+        "freiwillige_zustimmung": true,
+        "text": "Tam bestätigt eure gewachsene Beziehung und behält ihr Recht auf Widerspruch."
+      },
+      "verzicht": {
+        "typ": "faehigkeit",
+        "skill": "kessel_hoch_4",
+        "dauerhaft": true,
+        "zeitpunkt": "nur_aufstieg_commit",
+        "text": "Du gibst Rückstandslauge dauerhaft ab. Keine Fähigkeit deines Partners ist betroffen."
+      }
+    },
+    "probe": {
+      "typ": "gespraech",
+      "start": "seq31_kessel_gespraech_start",
+      "nodes": [
+        {
+          "id": "seq31_kessel_gespraech_start",
+          "text": "Die drei Zeugen nehmen ihre Plätze ein. Du kannst deine Unterlagen öffnen oder die Entscheidung vertagen.",
+          "choices": [
+            {
+              "text": "Ich lege den Beleg vor.",
+              "next": "seq31_kessel_gespraech_beleg"
+            },
+            {
+              "text": "Mein Rang genügt als Beweis.",
+              "next": "seq31_kessel_gespraech_falsch_rang"
+            },
+            {
+              "text": "Ich komme später wieder.",
+              "next": "seq31_kessel_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_kessel_gespraech_beleg",
+          "text": "Klares Wasser kann noch dieselbe belastete Charge sein.",
+          "choices": [
+            {
+              "text": "Ich zeige Herkunft und Gegenbeleg.",
+              "next": "seq31_kessel_gespraech_person",
+              "requires": {
+                "requires_flags": [
+                  "case_09_closed",
+                  "kapitel2_done",
+                  "seq3_pruefung_kessel_done"
+                ]
+              }
+            },
+            {
+              "text": "Die belastende Fassung bleibt verborgen.",
+              "next": "seq31_kessel_gespraech_falsch_beleg"
+            },
+            {
+              "text": "Ich muss die Unterlagen prüfen.",
+              "next": "seq31_kessel_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_kessel_gespraech_person",
+          "text": "Tam legt eine Hand neben das Register. „Ich bin freiwillig hier. Meine Zustimmung können Sie nicht mittrinken.“",
+          "choices": [
+            {
+              "text": "Ich erkenne Ihre eigene Entscheidung an.",
+              "next": "seq31_kessel_gespraech_opfer",
+              "requires": {
+                "relationship": {
+                  "npc": "vmn_tam_verrin",
+                  "min": 3
+                }
+              }
+            },
+            {
+              "text": "Ich vertage das Gespräch.",
+              "next": "seq31_kessel_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_kessel_gespraech_opfer",
+          "text": "Du kannst für den Aufstieg die Fähigkeit Rückstandslauge dauerhaft abgeben. Beim endgültigen Verzicht bleibt sie erhalten.",
+          "choices": [
+            {
+              "text": "Ich merke die Fähigkeit als Opfer vor.",
+              "next": "seq31_kessel_gespraech_entscheidung"
+            },
+            {
+              "text": "Ich möchte die Flasche ablegen.",
+              "next": "seq31_kessel_gespraech_verzicht"
+            },
+            {
+              "text": "Ich brauche noch Zeit.",
+              "next": "seq31_kessel_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_kessel_gespraech_entscheidung",
+          "text": "Du schließt den letzten Kreislauf, ohne das kranke Ausgangsmaterial zu leugnen. Einen Rest lässt du beschriftet stehen, damit die nächste Hand weiß, womit sie arbeitet.",
+          "choices": [
+            {
+              "text": "Ich vollziehe die Handlung und bestätige den Aufstieg samt Opfer.",
+              "next": "seq31_kessel_gespraech_aufstieg",
+              "requires": {
+                "all_present": true,
+                "relationship": {
+                  "npc": "vmn_tam_verrin",
+                  "min": 3
+                },
+                "has_skill": "kessel_hoch_4",
+                "has_recipe_ingredients": {
+                  "pfad": "kessel",
+                  "seq": 1
+                }
+              }
+            },
+            {
+              "text": "Ich entscheide mich für den endgültigen Verzicht.",
+              "next": "seq31_kessel_gespraech_verzicht"
+            },
+            {
+              "text": "Ich vertage ohne Verlust.",
+              "next": "seq31_kessel_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_kessel_gespraech_falsch_rang",
+          "text": "„Ihr Rang ist kein Beleg. Öffnen Sie die Unterlagen, wenn Sie weiterreden möchten.“",
+          "choices": [
+            {
+              "text": "Ich beginne mit den Unterlagen.",
+              "next": "seq31_kessel_gespraech_beleg"
+            },
+            {
+              "text": "Ich gehe vorerst.",
+              "next": "seq31_kessel_gespraech_pause"
+            }
+          ],
+          "falscher_weg": true
+        },
+        {
+          "id": "seq31_kessel_gespraech_falsch_beleg",
+          "text": "„Ohne die Gegenfassung können wir das nicht prüfen. Es wird nichts eingezogen.“",
+          "choices": [
+            {
+              "text": "Ich lege beide Fassungen offen.",
+              "next": "seq31_kessel_gespraech_beleg"
+            },
+            {
+              "text": "Ich vertage.",
+              "next": "seq31_kessel_gespraech_pause"
+            }
+          ],
+          "falscher_weg": true
+        },
+        {
+          "id": "seq31_kessel_gespraech_verzicht",
+          "text": "Du kannst die Flasche jetzt endgültig ablegen. Die bisherige Stufe und ihre Fähigkeiten bleiben erhalten.",
+          "choices": [
+            {
+              "text": "Ich bestätige den endgültigen Verzicht.",
+              "next": "seq31_kessel_gespraech_ende_verzicht"
+            },
+            {
+              "text": "Ich möchte weiter überlegen.",
+              "next": "seq31_kessel_gespraech_entscheidung"
+            }
+          ]
+        },
+        {
+          "id": "seq31_kessel_gespraech_aufstieg",
+          "text": "Du trinkst nach dem vollständigen Zeugnis.",
+          "terminal": true,
+          "action": "seq31_commit_aufstieg"
+        },
+        {
+          "id": "seq31_kessel_gespraech_ende_verzicht",
+          "text": "Du legst die versiegelte Flasche ab.",
+          "terminal": true,
+          "action": "seq31_commit_verzicht"
+        },
+        {
+          "id": "seq31_kessel_gespraech_pause",
+          "text": "Du nimmst deine Unterlagen mit. Zutaten und Fähigkeiten bleiben unangetastet.",
+          "terminal": true,
+          "action": "seq31_pause"
+        }
+      ],
+      "mehrheitsentscheid": false,
+      "erfolg": "Belegte Vorlagen und freiwillige Anwesenheit aller drei; Gegenrede blockiert nicht allein den Abschluss."
+    },
+    "aufstiegstext": "Du drehst das letzte Ventil nur so weit, wie die Markierung erlaubt. Der Rücklauf beginnt langsam. Im klaren Gefäß bleibt ein Rest, dessen Beschriftung du nicht gegen einen freundlicheren Namen austauschst. Du nennst das kranke Ausgangsmaterial vor den Zeugen. Ein feiner Dampf steigt aus deinem Ärmel und kehrt auf deine Hand zurück. Nichts daran reinigt deine Entscheidungen. Du prüfst die zweite Leitung, bevor du die erste verlässt. Die nächste Person soll ohne deine Anwesenheit erkennen können, welche Probe sie vor sich hat. Auf dem Deckel steht die Charge, nicht dein neuer Titel. Du wäschst den Messlöffel und legst ihn für eine fremde Hand bereit. Du trinkst erst nach deiner ausdrücklichen Entscheidung. Die Flasche wird durchsichtig und bleibt als gewöhnliches Glas zurück. Du erhältst keinen Anspruch auf die Zeugen. Sie können gehen, widersprechen und später wiederkommen. Du räumst deinen Platz selbst ab, bevor du die Tür öffnest.",
+    "seq_1_welt": [
+      "Du wirst als Der unverlorene Rest erkannt; gewöhnliche Händler rechnen den vorgeschlagenen Preisfaktor 1,00 statt eines zusätzlichen Seq-1-Aufschlags.",
+      "Im Gerede bleibt deine Gegenprobe neben dem neuen Titel genannt.",
+      "Schwache gewöhnliche Gegner weichen dir aus, während fest gesetzte Begegnungen ihre eigenen Bedingungen behalten."
+    ],
+    "abschluss": {
+      "aufstieg": {
+        "set_flags": [
+          "seq1_register_kessel_done",
+          "seq31_aufstieg_kessel"
+        ],
+        "sequence": 1,
+        "consume_recipe": {
+          "pfad": "kessel",
+          "seq": 1
+        },
+        "disable_skill": "kessel_hoch_4"
+      },
+      "verzicht": {
+        "set_flags": [
+          "seq1_verzicht",
+          "seq31_verzicht_kessel"
+        ],
+        "sequence_unveraendert": true,
+        "consume_items": false,
+        "disable_skills": false
+      }
+    },
+    "abspann": {
+      "bild": "sequences/abspann_kessel.png",
+      "text": "Beide Rückläufe sind dokumentiert; nichts wird heimlich abgelassen.",
+      "reihenfolge": 20
+    },
+    "koop": {
+      "scope": "player",
+      "partner_nicht_zeuge": true,
+      "entscheidung_getrennt": true,
+      "warte_auf_partner": false
+    }
+  },
+  {
+    "id": "seq31_eisen_register",
+    "pfad": "eisen",
+    "seq_name": "Die bleibende Stütze",
+    "map": "vm_register_eisen",
+    "raum": {
+      "width": 24,
+      "height": 16,
+      "beschreibung": [
+        "Der Zollregisterraum ist ein Brückenlager unter der Straße.",
+        "Nasser Stein und Registerregale umgeben drei voneinander getrennte Zeugenplätze.",
+        "Eine Wasserlinie bleibt unter dem freien Ausgang sichtbar."
+      ],
+      "props": [
+        "Lastplatte",
+        "Stützbock",
+        "Nietkasten",
+        "Prüflehre"
+      ],
+      "zugang": "vm_registerkeller",
+      "gezeitensicher": true
+    },
+    "kanonischer_ritualsatz": "Du verteilst die Last des stillen Pumpwerks auf viele tragfähige Stellen. Zuletzt nimmst du deine Hand fort und beweist, dass Standhalten andere nicht abhängig machen muss.",
+    "requires": {
+      "requires_flags": [
+        "k6_done"
+      ],
+      "requires_any_flags": [
+        "k6_ende_schliessen",
+        "k6_ende_uebergeben"
+      ],
+      "sequence": 2,
+      "digestion_min": 100,
+      "hide_if_flags": [
+        "seq1_verzicht",
+        "seq1_register_eisen_done"
+      ]
+    },
+    "zeugen": [
+      {
+        "rolle": "fruehere_stadt",
+        "npc": "cw_hesk",
+        "pfad": "kein_pfadzeugnis",
+        "haltung": "gegen",
+        "anwesenheit": {
+          "event": "seq31_zeugen_einladen",
+          "freiwillig": true,
+          "reise": "Zeuge reist nach Varrowmouth; Spieler reist nicht zurück.",
+          "bei_abwesenheit": "Gespräch vertagen; keine erzwungene Zustimmung, kein endgültiger Fehlschlag."
+        },
+        "dialog": {
+          "fuer": [
+            "„Eine Stütze ist erst brauchbar, wenn sie ohne deine Schulter hält.“",
+            "„Sie lassen die unbequeme Fassung stehen.“",
+            "„Dafür stehe ich als Zeuge ein.“",
+            "„Meine Zustimmung gehört nur dieser Handlung.“"
+          ],
+          "gegen": [
+            "„Ich erinnere mich an Ihren Vorteil.“",
+            "„Ein neuer Titel berichtigt ihn nicht.“",
+            "„Zeigen Sie, was Sie wirklich abgeben.“",
+            "„Ich kann widersprechen und trotzdem hierbleiben.“"
+          ],
+          "unentschieden": [
+            "„Ich sehe die Unterlagen.“",
+            "„Bei der Herkunft fehlt mir noch Ihre Erklärung.“",
+            "„Lesen Sie den Randvermerk ebenfalls vor.“",
+            "„Danach entscheide ich selbst.“"
+          ]
+        }
+      },
+      {
+        "rolle": "varrowmouth",
+        "npc": "vmn_tam_verrin",
+        "pfad": "kein_pfadzeugnis",
+        "haltung": "unentschieden",
+        "anwesenheit": {
+          "event": "seq31_zeugen_einladen",
+          "freiwillig": true,
+          "reise": "Zeuge reist nach Varrowmouth; Spieler reist nicht zurück.",
+          "bei_abwesenheit": "Gespräch vertagen; keine erzwungene Zustimmung, kein endgültiger Fehlschlag."
+        },
+        "dialog": {
+          "fuer": [
+            "„Eine Stütze ist erst brauchbar, wenn sie ohne deine Schulter hält.“",
+            "„Sie lassen die unbequeme Fassung stehen.“",
+            "„Dafür stehe ich als Zeuge ein.“",
+            "„Meine Zustimmung gehört nur dieser Handlung.“"
+          ],
+          "gegen": [
+            "„Ich erinnere mich an Ihren Vorteil.“",
+            "„Ein neuer Titel berichtigt ihn nicht.“",
+            "„Zeigen Sie, was Sie wirklich abgeben.“",
+            "„Ich kann widersprechen und trotzdem hierbleiben.“"
+          ],
+          "unentschieden": [
+            "„Ich sehe die Unterlagen.“",
+            "„Bei der Herkunft fehlt mir noch Ihre Erklärung.“",
+            "„Lesen Sie den Randvermerk ebenfalls vor.“",
+            "„Danach entscheide ich selbst.“"
+          ]
+        }
+      },
+      {
+        "rolle": "pfad",
+        "npc": "ez_ds_rangierer",
+        "pfad": "eisen",
+        "haltung": "fuer",
+        "anwesenheit": {
+          "event": "seq31_zeugen_einladen",
+          "freiwillig": true,
+          "reise": "Zeuge reist nach Varrowmouth; Spieler reist nicht zurück.",
+          "bei_abwesenheit": "Gespräch vertagen; keine erzwungene Zustimmung, kein endgültiger Fehlschlag."
+        },
+        "dialog": {
+          "fuer": [
+            "„Eine Stütze ist erst brauchbar, wenn sie ohne deine Schulter hält.“",
+            "„Sie lassen die unbequeme Fassung stehen.“",
+            "„Dafür stehe ich als Zeuge ein.“",
+            "„Meine Zustimmung gehört nur dieser Handlung.“"
+          ],
+          "gegen": [
+            "„Ich erinnere mich an Ihren Vorteil.“",
+            "„Ein neuer Titel berichtigt ihn nicht.“",
+            "„Zeigen Sie, was Sie wirklich abgeben.“",
+            "„Ich kann widersprechen und trotzdem hierbleiben.“"
+          ],
+          "unentschieden": [
+            "„Ich sehe die Unterlagen.“",
+            "„Bei der Herkunft fehlt mir noch Ihre Erklärung.“",
+            "„Lesen Sie den Randvermerk ebenfalls vor.“",
+            "„Danach entscheide ich selbst.“"
+          ]
+        }
+      }
+    ],
+    "vorlagen": {
+      "beleg": {
+        "requires_flags": [
+          "case_09_closed",
+          "kapitel2_done",
+          "seq3_pruefung_eisen_done"
+        ],
+        "text": "Du zeigst dein Abschlussprotokoll aus Kettlegate, den mitgeführten Wexmoorer Bestand und die Gegenprobe: Die verteilte Gegenlast.",
+        "verbrauch": false
+      },
+      "person": {
+        "npc": "vmn_tam_verrin",
+        "relationship_min": 3,
+        "freiwillige_zustimmung": true,
+        "text": "Tam bestätigt eure gewachsene Beziehung und behält ihr Recht auf Widerspruch."
+      },
+      "verzicht": {
+        "typ": "faehigkeit",
+        "skill": "eisen_hoch_4",
+        "dauerhaft": true,
+        "zeitpunkt": "nur_aufstieg_commit",
+        "text": "Du gibst Lastschlag dauerhaft ab. Keine Fähigkeit deines Partners ist betroffen."
+      }
+    },
+    "probe": {
+      "typ": "gespraech",
+      "start": "seq31_eisen_gespraech_start",
+      "nodes": [
+        {
+          "id": "seq31_eisen_gespraech_start",
+          "text": "Die drei Zeugen nehmen ihre Plätze ein. Du kannst deine Unterlagen öffnen oder die Entscheidung vertagen.",
+          "choices": [
+            {
+              "text": "Ich lege den Beleg vor.",
+              "next": "seq31_eisen_gespraech_beleg"
+            },
+            {
+              "text": "Mein Rang genügt als Beweis.",
+              "next": "seq31_eisen_gespraech_falsch_rang"
+            },
+            {
+              "text": "Ich komme später wieder.",
+              "next": "seq31_eisen_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_eisen_gespraech_beleg",
+          "text": "Eine Stütze ist erst brauchbar, wenn sie ohne deine Schulter hält.",
+          "choices": [
+            {
+              "text": "Ich zeige Herkunft und Gegenbeleg.",
+              "next": "seq31_eisen_gespraech_person",
+              "requires": {
+                "requires_flags": [
+                  "case_09_closed",
+                  "kapitel2_done",
+                  "seq3_pruefung_eisen_done"
+                ]
+              }
+            },
+            {
+              "text": "Die belastende Fassung bleibt verborgen.",
+              "next": "seq31_eisen_gespraech_falsch_beleg"
+            },
+            {
+              "text": "Ich muss die Unterlagen prüfen.",
+              "next": "seq31_eisen_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_eisen_gespraech_person",
+          "text": "Tam legt eine Hand neben das Register. „Ich bin freiwillig hier. Meine Zustimmung können Sie nicht mittrinken.“",
+          "choices": [
+            {
+              "text": "Ich erkenne Ihre eigene Entscheidung an.",
+              "next": "seq31_eisen_gespraech_opfer",
+              "requires": {
+                "relationship": {
+                  "npc": "vmn_tam_verrin",
+                  "min": 3
+                }
+              }
+            },
+            {
+              "text": "Ich vertage das Gespräch.",
+              "next": "seq31_eisen_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_eisen_gespraech_opfer",
+          "text": "Du kannst für den Aufstieg die Fähigkeit Lastschlag dauerhaft abgeben. Beim endgültigen Verzicht bleibt sie erhalten.",
+          "choices": [
+            {
+              "text": "Ich merke die Fähigkeit als Opfer vor.",
+              "next": "seq31_eisen_gespraech_entscheidung"
+            },
+            {
+              "text": "Ich möchte die Flasche ablegen.",
+              "next": "seq31_eisen_gespraech_verzicht"
+            },
+            {
+              "text": "Ich brauche noch Zeit.",
+              "next": "seq31_eisen_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_eisen_gespraech_entscheidung",
+          "text": "Du verteilst die Last des stillen Pumpwerks auf viele tragfähige Stellen. Zuletzt nimmst du deine Hand fort und beweist, dass Standhalten andere nicht abhängig machen muss.",
+          "choices": [
+            {
+              "text": "Ich vollziehe die Handlung und bestätige den Aufstieg samt Opfer.",
+              "next": "seq31_eisen_gespraech_aufstieg",
+              "requires": {
+                "all_present": true,
+                "relationship": {
+                  "npc": "vmn_tam_verrin",
+                  "min": 3
+                },
+                "has_skill": "eisen_hoch_4",
+                "has_recipe_ingredients": {
+                  "pfad": "eisen",
+                  "seq": 1
+                }
+              }
+            },
+            {
+              "text": "Ich entscheide mich für den endgültigen Verzicht.",
+              "next": "seq31_eisen_gespraech_verzicht"
+            },
+            {
+              "text": "Ich vertage ohne Verlust.",
+              "next": "seq31_eisen_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_eisen_gespraech_falsch_rang",
+          "text": "„Ihr Rang ist kein Beleg. Öffnen Sie die Unterlagen, wenn Sie weiterreden möchten.“",
+          "choices": [
+            {
+              "text": "Ich beginne mit den Unterlagen.",
+              "next": "seq31_eisen_gespraech_beleg"
+            },
+            {
+              "text": "Ich gehe vorerst.",
+              "next": "seq31_eisen_gespraech_pause"
+            }
+          ],
+          "falscher_weg": true
+        },
+        {
+          "id": "seq31_eisen_gespraech_falsch_beleg",
+          "text": "„Ohne die Gegenfassung können wir das nicht prüfen. Es wird nichts eingezogen.“",
+          "choices": [
+            {
+              "text": "Ich lege beide Fassungen offen.",
+              "next": "seq31_eisen_gespraech_beleg"
+            },
+            {
+              "text": "Ich vertage.",
+              "next": "seq31_eisen_gespraech_pause"
+            }
+          ],
+          "falscher_weg": true
+        },
+        {
+          "id": "seq31_eisen_gespraech_verzicht",
+          "text": "Du kannst die Flasche jetzt endgültig ablegen. Die bisherige Stufe und ihre Fähigkeiten bleiben erhalten.",
+          "choices": [
+            {
+              "text": "Ich bestätige den endgültigen Verzicht.",
+              "next": "seq31_eisen_gespraech_ende_verzicht"
+            },
+            {
+              "text": "Ich möchte weiter überlegen.",
+              "next": "seq31_eisen_gespraech_entscheidung"
+            }
+          ]
+        },
+        {
+          "id": "seq31_eisen_gespraech_aufstieg",
+          "text": "Du trinkst nach dem vollständigen Zeugnis.",
+          "terminal": true,
+          "action": "seq31_commit_aufstieg"
+        },
+        {
+          "id": "seq31_eisen_gespraech_ende_verzicht",
+          "text": "Du legst die versiegelte Flasche ab.",
+          "terminal": true,
+          "action": "seq31_commit_verzicht"
+        },
+        {
+          "id": "seq31_eisen_gespraech_pause",
+          "text": "Du nimmst deine Unterlagen mit. Zutaten und Fähigkeiten bleiben unangetastet.",
+          "terminal": true,
+          "action": "seq31_pause"
+        }
+      ],
+      "mehrheitsentscheid": false,
+      "erfolg": "Belegte Vorlagen und freiwillige Anwesenheit aller drei; Gegenrede blockiert nicht allein den Abschluss."
+    },
+    "aufstiegstext": "Du stellst den letzten Stützbock unter den Querträger. Das stille Pumpwerk drückt gleichmäßig auf die Lager. Früher hättest du deinen Rücken an die schwächste Stelle gesetzt und dort gewartet. Jetzt reichst du die Prüflehre weiter. Die Zeugen messen selbst. Du nimmst deine Hand fort. Dein Schatten bleibt stehen, doch das Eisen ruht nicht auf ihm. Die tragfähigen Stellen sind markiert und für andere erreichbar. In deinen Knien lässt ein Druck nach, ohne dass du leichter wirst. Über dir fährt ein Wagen durch die Straße. Niemand hält an, um dir zu danken. Du setzt dich auf die niedrige Bank und hörst die Räder sicher weitergehen. Du trinkst erst nach deiner ausdrücklichen Entscheidung. Die Flasche wird durchsichtig und bleibt als gewöhnliches Glas zurück. Du erhältst keinen Anspruch auf die Zeugen. Sie können gehen, widersprechen und später wiederkommen. Du räumst deinen Platz selbst ab, bevor du die Tür öffnest.",
+    "seq_1_welt": [
+      "Du wirst als Die bleibende Stütze erkannt; gewöhnliche Händler rechnen den vorgeschlagenen Preisfaktor 1,00 statt eines zusätzlichen Seq-1-Aufschlags.",
+      "Im Gerede bleibt deine Gegenprobe neben dem neuen Titel genannt.",
+      "Schwache gewöhnliche Gegner weichen dir aus, während fest gesetzte Begegnungen ihre eigenen Bedingungen behalten."
+    ],
+    "abschluss": {
+      "aufstieg": {
+        "set_flags": [
+          "seq1_register_eisen_done",
+          "seq31_aufstieg_eisen"
+        ],
+        "sequence": 1,
+        "consume_recipe": {
+          "pfad": "eisen",
+          "seq": 1
+        },
+        "disable_skill": "eisen_hoch_4"
+      },
+      "verzicht": {
+        "set_flags": [
+          "seq1_verzicht",
+          "seq31_verzicht_eisen"
+        ],
+        "sequence_unveraendert": true,
+        "consume_items": false,
+        "disable_skills": false
+      }
+    },
+    "abspann": {
+      "bild": "sequences/abspann_eisen.png",
+      "text": "Die Last bleibt verteilt, und alle Beteiligten verlassen freiwillig den Prüfbereich.",
+      "reihenfolge": 20
+    },
+    "koop": {
+      "scope": "player",
+      "partner_nicht_zeuge": true,
+      "entscheidung_getrennt": true,
+      "warte_auf_partner": false
+    }
+  },
+  {
+    "id": "seq31_schluessel_register",
+    "pfad": "schluessel",
+    "seq_name": "Die unverwehrte Tür",
+    "map": "vm_register_schluessel",
+    "raum": {
+      "width": 24,
+      "height": 16,
+      "beschreibung": [
+        "Der Zollregisterraum ist ein Türenflur mit offenen Türen.",
+        "Nasser Stein und Registerregale umgeben drei voneinander getrennte Zeugenplätze.",
+        "Eine Wasserlinie bleibt unter dem freien Ausgang sichtbar."
+      ],
+      "props": [
+        "Schlüsselschale",
+        "Namenslade",
+        "Türangel",
+        "Schwellenstein"
+      ],
+      "zugang": "vm_registerkeller",
+      "gezeitensicher": true
+    },
+    "kanonischer_ritualsatz": "Du öffnest das letzte Tor ohne einen Namen als Pfand zu hinterlassen. Dann legst du den Schlüssel von innen auf die Schwelle und trittst ohne ihn zurück.",
+    "requires": {
+      "requires_flags": [
+        "k6_done"
+      ],
+      "requires_any_flags": [
+        "k6_ende_schliessen",
+        "k6_ende_uebergeben"
+      ],
+      "sequence": 2,
+      "digestion_min": 100,
+      "hide_if_flags": [
+        "seq1_verzicht",
+        "seq1_register_schluessel_done"
+      ]
+    },
+    "zeugen": [
+      {
+        "rolle": "fruehere_stadt",
+        "npc": "cw_malliver",
+        "pfad": "kein_pfadzeugnis",
+        "haltung": "gegen",
+        "anwesenheit": {
+          "event": "seq31_zeugen_einladen",
+          "freiwillig": true,
+          "reise": "Zeuge reist nach Varrowmouth; Spieler reist nicht zurück.",
+          "bei_abwesenheit": "Gespräch vertagen; keine erzwungene Zustimmung, kein endgültiger Fehlschlag."
+        },
+        "dialog": {
+          "fuer": [
+            "„Eine leere Lade ist kein Auftrag, einen Namen zu beschaffen.“",
+            "„Sie lassen die unbequeme Fassung stehen.“",
+            "„Dafür stehe ich als Zeuge ein.“",
+            "„Meine Zustimmung gehört nur dieser Handlung.“"
+          ],
+          "gegen": [
+            "„Ich erinnere mich an Ihren Vorteil.“",
+            "„Ein neuer Titel berichtigt ihn nicht.“",
+            "„Zeigen Sie, was Sie wirklich abgeben.“",
+            "„Ich kann widersprechen und trotzdem hierbleiben.“"
+          ],
+          "unentschieden": [
+            "„Ich sehe die Unterlagen.“",
+            "„Bei der Herkunft fehlt mir noch Ihre Erklärung.“",
+            "„Lesen Sie den Randvermerk ebenfalls vor.“",
+            "„Danach entscheide ich selbst.“"
+          ]
+        }
+      },
+      {
+        "rolle": "varrowmouth",
+        "npc": "vmn_tam_verrin",
+        "pfad": "kein_pfadzeugnis",
+        "haltung": "unentschieden",
+        "anwesenheit": {
+          "event": "seq31_zeugen_einladen",
+          "freiwillig": true,
+          "reise": "Zeuge reist nach Varrowmouth; Spieler reist nicht zurück.",
+          "bei_abwesenheit": "Gespräch vertagen; keine erzwungene Zustimmung, kein endgültiger Fehlschlag."
+        },
+        "dialog": {
+          "fuer": [
+            "„Eine leere Lade ist kein Auftrag, einen Namen zu beschaffen.“",
+            "„Sie lassen die unbequeme Fassung stehen.“",
+            "„Dafür stehe ich als Zeuge ein.“",
+            "„Meine Zustimmung gehört nur dieser Handlung.“"
+          ],
+          "gegen": [
+            "„Ich erinnere mich an Ihren Vorteil.“",
+            "„Ein neuer Titel berichtigt ihn nicht.“",
+            "„Zeigen Sie, was Sie wirklich abgeben.“",
+            "„Ich kann widersprechen und trotzdem hierbleiben.“"
+          ],
+          "unentschieden": [
+            "„Ich sehe die Unterlagen.“",
+            "„Bei der Herkunft fehlt mir noch Ihre Erklärung.“",
+            "„Lesen Sie den Randvermerk ebenfalls vor.“",
+            "„Danach entscheide ich selbst.“"
+          ]
+        }
+      },
+      {
+        "rolle": "pfad",
+        "npc": "ez_schleusendieb",
+        "pfad": "schluessel",
+        "haltung": "fuer",
+        "anwesenheit": {
+          "event": "seq31_zeugen_einladen",
+          "freiwillig": true,
+          "reise": "Zeuge reist nach Varrowmouth; Spieler reist nicht zurück.",
+          "bei_abwesenheit": "Gespräch vertagen; keine erzwungene Zustimmung, kein endgültiger Fehlschlag."
+        },
+        "dialog": {
+          "fuer": [
+            "„Eine leere Lade ist kein Auftrag, einen Namen zu beschaffen.“",
+            "„Sie lassen die unbequeme Fassung stehen.“",
+            "„Dafür stehe ich als Zeuge ein.“",
+            "„Meine Zustimmung gehört nur dieser Handlung.“"
+          ],
+          "gegen": [
+            "„Ich erinnere mich an Ihren Vorteil.“",
+            "„Ein neuer Titel berichtigt ihn nicht.“",
+            "„Zeigen Sie, was Sie wirklich abgeben.“",
+            "„Ich kann widersprechen und trotzdem hierbleiben.“"
+          ],
+          "unentschieden": [
+            "„Ich sehe die Unterlagen.“",
+            "„Bei der Herkunft fehlt mir noch Ihre Erklärung.“",
+            "„Lesen Sie den Randvermerk ebenfalls vor.“",
+            "„Danach entscheide ich selbst.“"
+          ]
+        }
+      }
+    ],
+    "vorlagen": {
+      "beleg": {
+        "requires_flags": [
+          "case_09_closed",
+          "kapitel2_done",
+          "seq3_pruefung_schluessel_done"
+        ],
+        "text": "Du zeigst dein Abschlussprotokoll aus Kettlegate, den mitgeführten Wexmoorer Bestand und die Gegenprobe: Die unbesetzte Lade.",
+        "verbrauch": false
+      },
+      "person": {
+        "npc": "vmn_tam_verrin",
+        "relationship_min": 3,
+        "freiwillige_zustimmung": true,
+        "text": "Tam bestätigt eure gewachsene Beziehung und behält ihr Recht auf Widerspruch."
+      },
+      "verzicht": {
+        "typ": "faehigkeit",
+        "skill": "schluessel_hoch_4",
+        "dauerhaft": true,
+        "zeitpunkt": "nur_aufstieg_commit",
+        "text": "Du gibst Schwellenschnitt dauerhaft ab. Keine Fähigkeit deines Partners ist betroffen."
+      }
+    },
+    "probe": {
+      "typ": "gespraech",
+      "start": "seq31_schluessel_gespraech_start",
+      "nodes": [
+        {
+          "id": "seq31_schluessel_gespraech_start",
+          "text": "Die drei Zeugen nehmen ihre Plätze ein. Du kannst deine Unterlagen öffnen oder die Entscheidung vertagen.",
+          "choices": [
+            {
+              "text": "Ich lege den Beleg vor.",
+              "next": "seq31_schluessel_gespraech_beleg"
+            },
+            {
+              "text": "Mein Rang genügt als Beweis.",
+              "next": "seq31_schluessel_gespraech_falsch_rang"
+            },
+            {
+              "text": "Ich komme später wieder.",
+              "next": "seq31_schluessel_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_schluessel_gespraech_beleg",
+          "text": "Eine leere Lade ist kein Auftrag, einen Namen zu beschaffen.",
+          "choices": [
+            {
+              "text": "Ich zeige Herkunft und Gegenbeleg.",
+              "next": "seq31_schluessel_gespraech_person",
+              "requires": {
+                "requires_flags": [
+                  "case_09_closed",
+                  "kapitel2_done",
+                  "seq3_pruefung_schluessel_done"
+                ]
+              }
+            },
+            {
+              "text": "Die belastende Fassung bleibt verborgen.",
+              "next": "seq31_schluessel_gespraech_falsch_beleg"
+            },
+            {
+              "text": "Ich muss die Unterlagen prüfen.",
+              "next": "seq31_schluessel_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_schluessel_gespraech_person",
+          "text": "Tam legt eine Hand neben das Register. „Ich bin freiwillig hier. Meine Zustimmung können Sie nicht mittrinken.“",
+          "choices": [
+            {
+              "text": "Ich erkenne Ihre eigene Entscheidung an.",
+              "next": "seq31_schluessel_gespraech_opfer",
+              "requires": {
+                "relationship": {
+                  "npc": "vmn_tam_verrin",
+                  "min": 3
+                }
+              }
+            },
+            {
+              "text": "Ich vertage das Gespräch.",
+              "next": "seq31_schluessel_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_schluessel_gespraech_opfer",
+          "text": "Du kannst für den Aufstieg die Fähigkeit Schwellenschnitt dauerhaft abgeben. Beim endgültigen Verzicht bleibt sie erhalten.",
+          "choices": [
+            {
+              "text": "Ich merke die Fähigkeit als Opfer vor.",
+              "next": "seq31_schluessel_gespraech_entscheidung"
+            },
+            {
+              "text": "Ich möchte die Flasche ablegen.",
+              "next": "seq31_schluessel_gespraech_verzicht"
+            },
+            {
+              "text": "Ich brauche noch Zeit.",
+              "next": "seq31_schluessel_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_schluessel_gespraech_entscheidung",
+          "text": "Du öffnest das letzte Tor ohne einen Namen als Pfand zu hinterlassen. Dann legst du den Schlüssel von innen auf die Schwelle und trittst ohne ihn zurück.",
+          "choices": [
+            {
+              "text": "Ich vollziehe die Handlung und bestätige den Aufstieg samt Opfer.",
+              "next": "seq31_schluessel_gespraech_aufstieg",
+              "requires": {
+                "all_present": true,
+                "relationship": {
+                  "npc": "vmn_tam_verrin",
+                  "min": 3
+                },
+                "has_skill": "schluessel_hoch_4",
+                "has_recipe_ingredients": {
+                  "pfad": "schluessel",
+                  "seq": 1
+                }
+              }
+            },
+            {
+              "text": "Ich entscheide mich für den endgültigen Verzicht.",
+              "next": "seq31_schluessel_gespraech_verzicht"
+            },
+            {
+              "text": "Ich vertage ohne Verlust.",
+              "next": "seq31_schluessel_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_schluessel_gespraech_falsch_rang",
+          "text": "„Ihr Rang ist kein Beleg. Öffnen Sie die Unterlagen, wenn Sie weiterreden möchten.“",
+          "choices": [
+            {
+              "text": "Ich beginne mit den Unterlagen.",
+              "next": "seq31_schluessel_gespraech_beleg"
+            },
+            {
+              "text": "Ich gehe vorerst.",
+              "next": "seq31_schluessel_gespraech_pause"
+            }
+          ],
+          "falscher_weg": true
+        },
+        {
+          "id": "seq31_schluessel_gespraech_falsch_beleg",
+          "text": "„Ohne die Gegenfassung können wir das nicht prüfen. Es wird nichts eingezogen.“",
+          "choices": [
+            {
+              "text": "Ich lege beide Fassungen offen.",
+              "next": "seq31_schluessel_gespraech_beleg"
+            },
+            {
+              "text": "Ich vertage.",
+              "next": "seq31_schluessel_gespraech_pause"
+            }
+          ],
+          "falscher_weg": true
+        },
+        {
+          "id": "seq31_schluessel_gespraech_verzicht",
+          "text": "Du kannst die Flasche jetzt endgültig ablegen. Die bisherige Stufe und ihre Fähigkeiten bleiben erhalten.",
+          "choices": [
+            {
+              "text": "Ich bestätige den endgültigen Verzicht.",
+              "next": "seq31_schluessel_gespraech_ende_verzicht"
+            },
+            {
+              "text": "Ich möchte weiter überlegen.",
+              "next": "seq31_schluessel_gespraech_entscheidung"
+            }
+          ]
+        },
+        {
+          "id": "seq31_schluessel_gespraech_aufstieg",
+          "text": "Du trinkst nach dem vollständigen Zeugnis.",
+          "terminal": true,
+          "action": "seq31_commit_aufstieg"
+        },
+        {
+          "id": "seq31_schluessel_gespraech_ende_verzicht",
+          "text": "Du legst die versiegelte Flasche ab.",
+          "terminal": true,
+          "action": "seq31_commit_verzicht"
+        },
+        {
+          "id": "seq31_schluessel_gespraech_pause",
+          "text": "Du nimmst deine Unterlagen mit. Zutaten und Fähigkeiten bleiben unangetastet.",
+          "terminal": true,
+          "action": "seq31_pause"
+        }
+      ],
+      "mehrheitsentscheid": false,
+      "erfolg": "Belegte Vorlagen und freiwillige Anwesenheit aller drei; Gegenrede blockiert nicht allein den Abschluss."
+    },
+    "aufstiegstext": "Du gehst durch das letzte Tor und legst den Schlüssel von innen auf die Schwelle. Das Metall ist wärmer als der Stein. Du trittst zurück, ohne es mitzunehmen. Niemand hat dafür seinen Namen hinterlegt. In deinem Schatten öffnet sich ein heller Durchgang, aber du stellst dich nicht vor die wirkliche Tür. Eine Zeugin prüft die Angel. Sie darf sie schließen und wieder öffnen. Du kannst ihr diese Wahl nicht abnehmen. Die leere Namenslade bleibt leer. Als der Luftzug ein Blatt über den Boden schiebt, hältst du es mit dem Fuß fest und gibst es zurück. Selbst hier muss nicht alles durch dich hindurch. Du trinkst erst nach deiner ausdrücklichen Entscheidung. Die Flasche wird durchsichtig und bleibt als gewöhnliches Glas zurück. Du erhältst keinen Anspruch auf die Zeugen. Sie können gehen, widersprechen und später wiederkommen. Du räumst deinen Platz selbst ab, bevor du die Tür öffnest.",
+    "seq_1_welt": [
+      "Du wirst als Die unverwehrte Tür erkannt; gewöhnliche Händler rechnen den vorgeschlagenen Preisfaktor 1,00 statt eines zusätzlichen Seq-1-Aufschlags.",
+      "Im Gerede bleibt deine Gegenprobe neben dem neuen Titel genannt.",
+      "Schwache gewöhnliche Gegner weichen dir aus, während fest gesetzte Begegnungen ihre eigenen Bedingungen behalten."
+    ],
+    "abschluss": {
+      "aufstieg": {
+        "set_flags": [
+          "seq1_register_schluessel_done",
+          "seq31_aufstieg_schluessel"
+        ],
+        "sequence": 1,
+        "consume_recipe": {
+          "pfad": "schluessel",
+          "seq": 1
+        },
+        "disable_skill": "schluessel_hoch_4"
+      },
+      "verzicht": {
+        "set_flags": [
+          "seq1_verzicht",
+          "seq31_verzicht_schluessel"
+        ],
+        "sequence_unveraendert": true,
+        "consume_items": false,
+        "disable_skills": false
+      }
+    },
+    "abspann": {
+      "bild": "sequences/abspann_schluessel.png",
+      "text": "Der Zugang bleibt auch nach Abgabe deiner Vollmacht offen.",
+      "reihenfolge": 20
+    },
+    "koop": {
+      "scope": "player",
+      "partner_nicht_zeuge": true,
+      "entscheidung_getrennt": true,
+      "warte_auf_partner": false
+    }
+  },
+  {
+    "id": "seq31_sq_waage_register",
+    "pfad": "sq_waage",
+    "seq_name": "Die quittierte Last",
+    "map": "vm_register_sq_waage",
+    "raum": {
+      "width": 24,
+      "height": 16,
+      "beschreibung": [
+        "Der Zollregisterraum ist eine Zollwaage-Halle.",
+        "Nasser Stein und Registerregale umgeben drei voneinander getrennte Zeugenplätze.",
+        "Eine Wasserlinie bleibt unter dem freien Ausgang sichtbar."
+      ],
+      "props": [
+        "leere Waagschale",
+        "Quittungsbrett",
+        "Gewichtsatz",
+        "Pfandablage"
+      ],
+      "zugang": "vm_registerkeller",
+      "gezeitensicher": true
+    },
+    "kanonischer_ritualsatz": "Du quittierst die letzte Forderung und gibst das Pfand zurück, bevor du deinen Lohn erhältst. Kein Vertrag bindet die nächste Generation.",
+    "requires": {
+      "requires_flags": [
+        "k6_done"
+      ],
+      "requires_any_flags": [
+        "k6_ende_schliessen",
+        "k6_ende_uebergeben"
+      ],
+      "sequence": 2,
+      "digestion_min": 100,
+      "hide_if_flags": [
+        "seq1_verzicht",
+        "seq1_register_sq_waage_done"
+      ]
+    },
+    "zeugen": [
+      {
+        "rolle": "fruehere_stadt",
+        "npc": "cw_wicksend",
+        "pfad": "kein_pfadzeugnis",
+        "haltung": "gegen",
+        "anwesenheit": {
+          "event": "seq31_zeugen_einladen",
+          "freiwillig": true,
+          "reise": "Zeuge reist nach Varrowmouth; Spieler reist nicht zurück.",
+          "bei_abwesenheit": "Gespräch vertagen; keine erzwungene Zustimmung, kein endgültiger Fehlschlag."
+        },
+        "dialog": {
+          "fuer": [
+            "„Eine Quittung über den Verlust ist keine neue Forderung.“",
+            "„Sie lassen die unbequeme Fassung stehen.“",
+            "„Dafür stehe ich als Zeuge ein.“",
+            "„Meine Zustimmung gehört nur dieser Handlung.“"
+          ],
+          "gegen": [
+            "„Ich erinnere mich an Ihren Vorteil.“",
+            "„Ein neuer Titel berichtigt ihn nicht.“",
+            "„Zeigen Sie, was Sie wirklich abgeben.“",
+            "„Ich kann widersprechen und trotzdem hierbleiben.“"
+          ],
+          "unentschieden": [
+            "„Ich sehe die Unterlagen.“",
+            "„Bei der Herkunft fehlt mir noch Ihre Erklärung.“",
+            "„Lesen Sie den Randvermerk ebenfalls vor.“",
+            "„Danach entscheide ich selbst.“"
+          ]
+        }
+      },
+      {
+        "rolle": "varrowmouth",
+        "npc": "vmn_tam_verrin",
+        "pfad": "kein_pfadzeugnis",
+        "haltung": "unentschieden",
+        "anwesenheit": {
+          "event": "seq31_zeugen_einladen",
+          "freiwillig": true,
+          "reise": "Zeuge reist nach Varrowmouth; Spieler reist nicht zurück.",
+          "bei_abwesenheit": "Gespräch vertagen; keine erzwungene Zustimmung, kein endgültiger Fehlschlag."
+        },
+        "dialog": {
+          "fuer": [
+            "„Eine Quittung über den Verlust ist keine neue Forderung.“",
+            "„Sie lassen die unbequeme Fassung stehen.“",
+            "„Dafür stehe ich als Zeuge ein.“",
+            "„Meine Zustimmung gehört nur dieser Handlung.“"
+          ],
+          "gegen": [
+            "„Ich erinnere mich an Ihren Vorteil.“",
+            "„Ein neuer Titel berichtigt ihn nicht.“",
+            "„Zeigen Sie, was Sie wirklich abgeben.“",
+            "„Ich kann widersprechen und trotzdem hierbleiben.“"
+          ],
+          "unentschieden": [
+            "„Ich sehe die Unterlagen.“",
+            "„Bei der Herkunft fehlt mir noch Ihre Erklärung.“",
+            "„Lesen Sie den Randvermerk ebenfalls vor.“",
+            "„Danach entscheide ich selbst.“"
+          ]
+        }
+      },
+      {
+        "rolle": "pfad",
+        "npc": "k3_weichenstellerin",
+        "pfad": "sq_waage",
+        "haltung": "fuer",
+        "anwesenheit": {
+          "event": "seq31_zeugen_einladen",
+          "freiwillig": true,
+          "reise": "Zeuge reist nach Varrowmouth; Spieler reist nicht zurück.",
+          "bei_abwesenheit": "Gespräch vertagen; keine erzwungene Zustimmung, kein endgültiger Fehlschlag."
+        },
+        "dialog": {
+          "fuer": [
+            "„Eine Quittung über den Verlust ist keine neue Forderung.“",
+            "„Sie lassen die unbequeme Fassung stehen.“",
+            "„Dafür stehe ich als Zeuge ein.“",
+            "„Meine Zustimmung gehört nur dieser Handlung.“"
+          ],
+          "gegen": [
+            "„Ich erinnere mich an Ihren Vorteil.“",
+            "„Ein neuer Titel berichtigt ihn nicht.“",
+            "„Zeigen Sie, was Sie wirklich abgeben.“",
+            "„Ich kann widersprechen und trotzdem hierbleiben.“"
+          ],
+          "unentschieden": [
+            "„Ich sehe die Unterlagen.“",
+            "„Bei der Herkunft fehlt mir noch Ihre Erklärung.“",
+            "„Lesen Sie den Randvermerk ebenfalls vor.“",
+            "„Danach entscheide ich selbst.“"
+          ]
+        }
+      }
+    ],
+    "vorlagen": {
+      "beleg": {
+        "requires_flags": [
+          "case_09_closed",
+          "kapitel2_done",
+          "seq3_pruefung_sq_waage_done"
+        ],
+        "text": "Du zeigst dein Abschlussprotokoll aus Kettlegate, den mitgeführten Wexmoorer Bestand und die Gegenprobe: Die Schuld ohne Pfand.",
+        "verbrauch": false
+      },
+      "person": {
+        "npc": "vmn_tam_verrin",
+        "relationship_min": 3,
+        "freiwillige_zustimmung": true,
+        "text": "Tam bestätigt eure gewachsene Beziehung und behält ihr Recht auf Widerspruch."
+      },
+      "verzicht": {
+        "typ": "faehigkeit",
+        "skill": "waage_hoch_4",
+        "dauerhaft": true,
+        "zeitpunkt": "nur_aufstieg_commit",
+        "text": "Du gibst Pfandabruf dauerhaft ab. Keine Fähigkeit deines Partners ist betroffen."
+      }
+    },
+    "probe": {
+      "typ": "gespraech",
+      "start": "seq31_sq_waage_gespraech_start",
+      "nodes": [
+        {
+          "id": "seq31_sq_waage_gespraech_start",
+          "text": "Die drei Zeugen nehmen ihre Plätze ein. Du kannst deine Unterlagen öffnen oder die Entscheidung vertagen.",
+          "choices": [
+            {
+              "text": "Ich lege den Beleg vor.",
+              "next": "seq31_sq_waage_gespraech_beleg"
+            },
+            {
+              "text": "Mein Rang genügt als Beweis.",
+              "next": "seq31_sq_waage_gespraech_falsch_rang"
+            },
+            {
+              "text": "Ich komme später wieder.",
+              "next": "seq31_sq_waage_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_sq_waage_gespraech_beleg",
+          "text": "Eine Quittung über den Verlust ist keine neue Forderung.",
+          "choices": [
+            {
+              "text": "Ich zeige Herkunft und Gegenbeleg.",
+              "next": "seq31_sq_waage_gespraech_person",
+              "requires": {
+                "requires_flags": [
+                  "case_09_closed",
+                  "kapitel2_done",
+                  "seq3_pruefung_sq_waage_done"
+                ]
+              }
+            },
+            {
+              "text": "Die belastende Fassung bleibt verborgen.",
+              "next": "seq31_sq_waage_gespraech_falsch_beleg"
+            },
+            {
+              "text": "Ich muss die Unterlagen prüfen.",
+              "next": "seq31_sq_waage_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_sq_waage_gespraech_person",
+          "text": "Tam legt eine Hand neben das Register. „Ich bin freiwillig hier. Meine Zustimmung können Sie nicht mittrinken.“",
+          "choices": [
+            {
+              "text": "Ich erkenne Ihre eigene Entscheidung an.",
+              "next": "seq31_sq_waage_gespraech_opfer",
+              "requires": {
+                "relationship": {
+                  "npc": "vmn_tam_verrin",
+                  "min": 3
+                }
+              }
+            },
+            {
+              "text": "Ich vertage das Gespräch.",
+              "next": "seq31_sq_waage_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_sq_waage_gespraech_opfer",
+          "text": "Du kannst für den Aufstieg die Fähigkeit Pfandabruf dauerhaft abgeben. Beim endgültigen Verzicht bleibt sie erhalten.",
+          "choices": [
+            {
+              "text": "Ich merke die Fähigkeit als Opfer vor.",
+              "next": "seq31_sq_waage_gespraech_entscheidung"
+            },
+            {
+              "text": "Ich möchte die Flasche ablegen.",
+              "next": "seq31_sq_waage_gespraech_verzicht"
+            },
+            {
+              "text": "Ich brauche noch Zeit.",
+              "next": "seq31_sq_waage_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_sq_waage_gespraech_entscheidung",
+          "text": "Du quittierst die letzte Forderung und gibst das Pfand zurück, bevor du deinen Lohn erhältst. Kein Vertrag bindet die nächste Generation.",
+          "choices": [
+            {
+              "text": "Ich vollziehe die Handlung und bestätige den Aufstieg samt Opfer.",
+              "next": "seq31_sq_waage_gespraech_aufstieg",
+              "requires": {
+                "all_present": true,
+                "relationship": {
+                  "npc": "vmn_tam_verrin",
+                  "min": 3
+                },
+                "has_skill": "waage_hoch_4",
+                "has_recipe_ingredients": {
+                  "pfad": "sq_waage",
+                  "seq": 1
+                }
+              }
+            },
+            {
+              "text": "Ich entscheide mich für den endgültigen Verzicht.",
+              "next": "seq31_sq_waage_gespraech_verzicht"
+            },
+            {
+              "text": "Ich vertage ohne Verlust.",
+              "next": "seq31_sq_waage_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_sq_waage_gespraech_falsch_rang",
+          "text": "„Ihr Rang ist kein Beleg. Öffnen Sie die Unterlagen, wenn Sie weiterreden möchten.“",
+          "choices": [
+            {
+              "text": "Ich beginne mit den Unterlagen.",
+              "next": "seq31_sq_waage_gespraech_beleg"
+            },
+            {
+              "text": "Ich gehe vorerst.",
+              "next": "seq31_sq_waage_gespraech_pause"
+            }
+          ],
+          "falscher_weg": true
+        },
+        {
+          "id": "seq31_sq_waage_gespraech_falsch_beleg",
+          "text": "„Ohne die Gegenfassung können wir das nicht prüfen. Es wird nichts eingezogen.“",
+          "choices": [
+            {
+              "text": "Ich lege beide Fassungen offen.",
+              "next": "seq31_sq_waage_gespraech_beleg"
+            },
+            {
+              "text": "Ich vertage.",
+              "next": "seq31_sq_waage_gespraech_pause"
+            }
+          ],
+          "falscher_weg": true
+        },
+        {
+          "id": "seq31_sq_waage_gespraech_verzicht",
+          "text": "Du kannst die Flasche jetzt endgültig ablegen. Die bisherige Stufe und ihre Fähigkeiten bleiben erhalten.",
+          "choices": [
+            {
+              "text": "Ich bestätige den endgültigen Verzicht.",
+              "next": "seq31_sq_waage_gespraech_ende_verzicht"
+            },
+            {
+              "text": "Ich möchte weiter überlegen.",
+              "next": "seq31_sq_waage_gespraech_entscheidung"
+            }
+          ]
+        },
+        {
+          "id": "seq31_sq_waage_gespraech_aufstieg",
+          "text": "Du trinkst nach dem vollständigen Zeugnis.",
+          "terminal": true,
+          "action": "seq31_commit_aufstieg"
+        },
+        {
+          "id": "seq31_sq_waage_gespraech_ende_verzicht",
+          "text": "Du legst die versiegelte Flasche ab.",
+          "terminal": true,
+          "action": "seq31_commit_verzicht"
+        },
+        {
+          "id": "seq31_sq_waage_gespraech_pause",
+          "text": "Du nimmst deine Unterlagen mit. Zutaten und Fähigkeiten bleiben unangetastet.",
+          "terminal": true,
+          "action": "seq31_pause"
+        }
+      ],
+      "mehrheitsentscheid": false,
+      "erfolg": "Belegte Vorlagen und freiwillige Anwesenheit aller drei; Gegenrede blockiert nicht allein den Abschluss."
+    },
+    "aufstiegstext": "Du quittierst die letzte Forderung, bevor jemand deinen Lohn auf den Tisch legt. Das Pfand geht zurück in die Hände seines Besitzers. Du lässt die Finger offen. Auf deinen Handflächen stehen feine Zeilen, die niemand unterschreiben muss. Die Waage zeigt keinen Menschenwert an. Du prüfst nur die Gewichte und nimmst das falsche aus dem Satz. Eine Frage nach den Kindern des Schuldners bleibt ohne Buchung. Dieser Vertrag endet hier. Du hörst die Kette der leeren Schale noch einen Augenblick schwingen. Dein eigener Anteil ist bezahlt; daraus entsteht kein Anspruch auf Dank. Als du die Hände schließt, bleibt das zurückgegebene Pfand auf der anderen Seite des Tisches. Du trinkst erst nach deiner ausdrücklichen Entscheidung. Die Flasche wird durchsichtig und bleibt als gewöhnliches Glas zurück. Du erhältst keinen Anspruch auf die Zeugen. Sie können gehen, widersprechen und später wiederkommen. Du räumst deinen Platz selbst ab, bevor du die Tür öffnest.",
+    "seq_1_welt": [
+      "Du wirst als Die quittierte Last erkannt; gewöhnliche Händler rechnen den vorgeschlagenen Preisfaktor 1,00 statt eines zusätzlichen Seq-1-Aufschlags.",
+      "Im Gerede bleibt deine Gegenprobe neben dem neuen Titel genannt.",
+      "Schwache gewöhnliche Gegner weichen dir aus, während fest gesetzte Begegnungen ihre eigenen Bedingungen behalten."
+    ],
+    "abschluss": {
+      "aufstieg": {
+        "set_flags": [
+          "seq1_register_sq_waage_done",
+          "seq31_aufstieg_sq_waage"
+        ],
+        "sequence": 1,
+        "consume_recipe": {
+          "pfad": "sq_waage",
+          "seq": 1
+        },
+        "disable_skill": "waage_hoch_4"
+      },
+      "verzicht": {
+        "set_flags": [
+          "seq1_verzicht",
+          "seq31_verzicht_sq_waage"
+        ],
+        "sequence_unveraendert": true,
+        "consume_items": false,
+        "disable_skills": false
+      }
+    },
+    "abspann": {
+      "bild": "sequences/abspann_sq_waage.png",
+      "text": "Die empfangende Person schuldet weder Dienst noch Sicherheit.",
+      "reihenfolge": 20
+    },
+    "koop": {
+      "scope": "player",
+      "partner_nicht_zeuge": true,
+      "entscheidung_getrennt": true,
+      "warte_auf_partner": false
+    }
+  },
+  {
+    "id": "seq31_sq_moor_register",
+    "pfad": "sq_moor",
+    "seq_name": "Das erinnerte Fehlende",
+    "map": "vm_register_sq_moor",
+    "raum": {
+      "width": 24,
+      "height": 16,
+      "beschreibung": [
+        "Der Zollregisterraum ist eine Torfkammer im Keller.",
+        "Nasser Stein und Registerregale umgeben drei voneinander getrennte Zeugenplätze.",
+        "Eine Wasserlinie bleibt unter dem freien Ausgang sichtbar."
+      ],
+      "props": [
+        "Torfkasten",
+        "Fundtiefenstab",
+        "leeres Blattfach",
+        "Tuchauflage"
+      ],
+      "zugang": "vm_registerkeller",
+      "gezeitensicher": true
+    },
+    "kanonischer_ritualsatz": "Du bewahrst die fehlende Seite des Stadtbuchs als Lücke und gibst den lebenden Namensträgern ihre Wahl zurück. Bewahren heißt diesmal, nicht alles auszusprechen.",
+    "requires": {
+      "requires_flags": [
+        "k6_done"
+      ],
+      "requires_any_flags": [
+        "k6_ende_schliessen",
+        "k6_ende_uebergeben"
+      ],
+      "sequence": 2,
+      "digestion_min": 100,
+      "hide_if_flags": [
+        "seq1_verzicht",
+        "seq1_register_sq_moor_done"
+      ]
+    },
+    "zeugen": [
+      {
+        "rolle": "fruehere_stadt",
+        "npc": "cw_malliver",
+        "pfad": "kein_pfadzeugnis",
+        "haltung": "gegen",
+        "anwesenheit": {
+          "event": "seq31_zeugen_einladen",
+          "freiwillig": true,
+          "reise": "Zeuge reist nach Varrowmouth; Spieler reist nicht zurück.",
+          "bei_abwesenheit": "Gespräch vertagen; keine erzwungene Zustimmung, kein endgültiger Fehlschlag."
+        },
+        "dialog": {
+          "fuer": [
+            "„Gleiche Buchstaben machen aus zwei Menschen keinen einzigen.“",
+            "„Sie lassen die unbequeme Fassung stehen.“",
+            "„Dafür stehe ich als Zeuge ein.“",
+            "„Meine Zustimmung gehört nur dieser Handlung.“"
+          ],
+          "gegen": [
+            "„Ich erinnere mich an Ihren Vorteil.“",
+            "„Ein neuer Titel berichtigt ihn nicht.“",
+            "„Zeigen Sie, was Sie wirklich abgeben.“",
+            "„Ich kann widersprechen und trotzdem hierbleiben.“"
+          ],
+          "unentschieden": [
+            "„Ich sehe die Unterlagen.“",
+            "„Bei der Herkunft fehlt mir noch Ihre Erklärung.“",
+            "„Lesen Sie den Randvermerk ebenfalls vor.“",
+            "„Danach entscheide ich selbst.“"
+          ]
+        }
+      },
+      {
+        "rolle": "varrowmouth",
+        "npc": "vmn_tam_verrin",
+        "pfad": "kein_pfadzeugnis",
+        "haltung": "unentschieden",
+        "anwesenheit": {
+          "event": "seq31_zeugen_einladen",
+          "freiwillig": true,
+          "reise": "Zeuge reist nach Varrowmouth; Spieler reist nicht zurück.",
+          "bei_abwesenheit": "Gespräch vertagen; keine erzwungene Zustimmung, kein endgültiger Fehlschlag."
+        },
+        "dialog": {
+          "fuer": [
+            "„Gleiche Buchstaben machen aus zwei Menschen keinen einzigen.“",
+            "„Sie lassen die unbequeme Fassung stehen.“",
+            "„Dafür stehe ich als Zeuge ein.“",
+            "„Meine Zustimmung gehört nur dieser Handlung.“"
+          ],
+          "gegen": [
+            "„Ich erinnere mich an Ihren Vorteil.“",
+            "„Ein neuer Titel berichtigt ihn nicht.“",
+            "„Zeigen Sie, was Sie wirklich abgeben.“",
+            "„Ich kann widersprechen und trotzdem hierbleiben.“"
+          ],
+          "unentschieden": [
+            "„Ich sehe die Unterlagen.“",
+            "„Bei der Herkunft fehlt mir noch Ihre Erklärung.“",
+            "„Lesen Sie den Randvermerk ebenfalls vor.“",
+            "„Danach entscheide ich selbst.“"
+          ]
+        }
+      },
+      {
+        "rolle": "pfad",
+        "npc": "ez_ds_schrankenkind",
+        "pfad": "sq_moor",
+        "haltung": "fuer",
+        "anwesenheit": {
+          "event": "seq31_zeugen_einladen",
+          "freiwillig": true,
+          "reise": "Zeuge reist nach Varrowmouth; Spieler reist nicht zurück.",
+          "bei_abwesenheit": "Gespräch vertagen; keine erzwungene Zustimmung, kein endgültiger Fehlschlag."
+        },
+        "dialog": {
+          "fuer": [
+            "„Gleiche Buchstaben machen aus zwei Menschen keinen einzigen.“",
+            "„Sie lassen die unbequeme Fassung stehen.“",
+            "„Dafür stehe ich als Zeuge ein.“",
+            "„Meine Zustimmung gehört nur dieser Handlung.“"
+          ],
+          "gegen": [
+            "„Ich erinnere mich an Ihren Vorteil.“",
+            "„Ein neuer Titel berichtigt ihn nicht.“",
+            "„Zeigen Sie, was Sie wirklich abgeben.“",
+            "„Ich kann widersprechen und trotzdem hierbleiben.“"
+          ],
+          "unentschieden": [
+            "„Ich sehe die Unterlagen.“",
+            "„Bei der Herkunft fehlt mir noch Ihre Erklärung.“",
+            "„Lesen Sie den Randvermerk ebenfalls vor.“",
+            "„Danach entscheide ich selbst.“"
+          ]
+        }
+      }
+    ],
+    "vorlagen": {
+      "beleg": {
+        "requires_flags": [
+          "case_09_closed",
+          "kapitel2_done",
+          "seq3_pruefung_sq_moor_done"
+        ],
+        "text": "Du zeigst dein Abschlussprotokoll aus Kettlegate, den mitgeführten Wexmoorer Bestand und die Gegenprobe: Die getrennten Namen.",
+        "verbrauch": false
+      },
+      "person": {
+        "npc": "vmn_tam_verrin",
+        "relationship_min": 3,
+        "freiwillige_zustimmung": true,
+        "text": "Tam bestätigt eure gewachsene Beziehung und behält ihr Recht auf Widerspruch."
+      },
+      "verzicht": {
+        "typ": "faehigkeit",
+        "skill": "moor_hoch_4",
+        "dauerhaft": true,
+        "zeitpunkt": "nur_aufstieg_commit",
+        "text": "Du gibst Schichtdruck dauerhaft ab. Keine Fähigkeit deines Partners ist betroffen."
+      }
+    },
+    "probe": {
+      "typ": "gespraech",
+      "start": "seq31_sq_moor_gespraech_start",
+      "nodes": [
+        {
+          "id": "seq31_sq_moor_gespraech_start",
+          "text": "Die drei Zeugen nehmen ihre Plätze ein. Du kannst deine Unterlagen öffnen oder die Entscheidung vertagen.",
+          "choices": [
+            {
+              "text": "Ich lege den Beleg vor.",
+              "next": "seq31_sq_moor_gespraech_beleg"
+            },
+            {
+              "text": "Mein Rang genügt als Beweis.",
+              "next": "seq31_sq_moor_gespraech_falsch_rang"
+            },
+            {
+              "text": "Ich komme später wieder.",
+              "next": "seq31_sq_moor_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_sq_moor_gespraech_beleg",
+          "text": "Gleiche Buchstaben machen aus zwei Menschen keinen einzigen.",
+          "choices": [
+            {
+              "text": "Ich zeige Herkunft und Gegenbeleg.",
+              "next": "seq31_sq_moor_gespraech_person",
+              "requires": {
+                "requires_flags": [
+                  "case_09_closed",
+                  "kapitel2_done",
+                  "seq3_pruefung_sq_moor_done"
+                ]
+              }
+            },
+            {
+              "text": "Die belastende Fassung bleibt verborgen.",
+              "next": "seq31_sq_moor_gespraech_falsch_beleg"
+            },
+            {
+              "text": "Ich muss die Unterlagen prüfen.",
+              "next": "seq31_sq_moor_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_sq_moor_gespraech_person",
+          "text": "Tam legt eine Hand neben das Register. „Ich bin freiwillig hier. Meine Zustimmung können Sie nicht mittrinken.“",
+          "choices": [
+            {
+              "text": "Ich erkenne Ihre eigene Entscheidung an.",
+              "next": "seq31_sq_moor_gespraech_opfer",
+              "requires": {
+                "relationship": {
+                  "npc": "vmn_tam_verrin",
+                  "min": 3
+                }
+              }
+            },
+            {
+              "text": "Ich vertage das Gespräch.",
+              "next": "seq31_sq_moor_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_sq_moor_gespraech_opfer",
+          "text": "Du kannst für den Aufstieg die Fähigkeit Schichtdruck dauerhaft abgeben. Beim endgültigen Verzicht bleibt sie erhalten.",
+          "choices": [
+            {
+              "text": "Ich merke die Fähigkeit als Opfer vor.",
+              "next": "seq31_sq_moor_gespraech_entscheidung"
+            },
+            {
+              "text": "Ich möchte die Flasche ablegen.",
+              "next": "seq31_sq_moor_gespraech_verzicht"
+            },
+            {
+              "text": "Ich brauche noch Zeit.",
+              "next": "seq31_sq_moor_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_sq_moor_gespraech_entscheidung",
+          "text": "Du bewahrst die fehlende Seite des Stadtbuchs als Lücke und gibst den lebenden Namensträgern ihre Wahl zurück. Bewahren heißt diesmal, nicht alles auszusprechen.",
+          "choices": [
+            {
+              "text": "Ich vollziehe die Handlung und bestätige den Aufstieg samt Opfer.",
+              "next": "seq31_sq_moor_gespraech_aufstieg",
+              "requires": {
+                "all_present": true,
+                "relationship": {
+                  "npc": "vmn_tam_verrin",
+                  "min": 3
+                },
+                "has_skill": "moor_hoch_4",
+                "has_recipe_ingredients": {
+                  "pfad": "sq_moor",
+                  "seq": 1
+                }
+              }
+            },
+            {
+              "text": "Ich entscheide mich für den endgültigen Verzicht.",
+              "next": "seq31_sq_moor_gespraech_verzicht"
+            },
+            {
+              "text": "Ich vertage ohne Verlust.",
+              "next": "seq31_sq_moor_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_sq_moor_gespraech_falsch_rang",
+          "text": "„Ihr Rang ist kein Beleg. Öffnen Sie die Unterlagen, wenn Sie weiterreden möchten.“",
+          "choices": [
+            {
+              "text": "Ich beginne mit den Unterlagen.",
+              "next": "seq31_sq_moor_gespraech_beleg"
+            },
+            {
+              "text": "Ich gehe vorerst.",
+              "next": "seq31_sq_moor_gespraech_pause"
+            }
+          ],
+          "falscher_weg": true
+        },
+        {
+          "id": "seq31_sq_moor_gespraech_falsch_beleg",
+          "text": "„Ohne die Gegenfassung können wir das nicht prüfen. Es wird nichts eingezogen.“",
+          "choices": [
+            {
+              "text": "Ich lege beide Fassungen offen.",
+              "next": "seq31_sq_moor_gespraech_beleg"
+            },
+            {
+              "text": "Ich vertage.",
+              "next": "seq31_sq_moor_gespraech_pause"
+            }
+          ],
+          "falscher_weg": true
+        },
+        {
+          "id": "seq31_sq_moor_gespraech_verzicht",
+          "text": "Du kannst die Flasche jetzt endgültig ablegen. Die bisherige Stufe und ihre Fähigkeiten bleiben erhalten.",
+          "choices": [
+            {
+              "text": "Ich bestätige den endgültigen Verzicht.",
+              "next": "seq31_sq_moor_gespraech_ende_verzicht"
+            },
+            {
+              "text": "Ich möchte weiter überlegen.",
+              "next": "seq31_sq_moor_gespraech_entscheidung"
+            }
+          ]
+        },
+        {
+          "id": "seq31_sq_moor_gespraech_aufstieg",
+          "text": "Du trinkst nach dem vollständigen Zeugnis.",
+          "terminal": true,
+          "action": "seq31_commit_aufstieg"
+        },
+        {
+          "id": "seq31_sq_moor_gespraech_ende_verzicht",
+          "text": "Du legst die versiegelte Flasche ab.",
+          "terminal": true,
+          "action": "seq31_commit_verzicht"
+        },
+        {
+          "id": "seq31_sq_moor_gespraech_pause",
+          "text": "Du nimmst deine Unterlagen mit. Zutaten und Fähigkeiten bleiben unangetastet.",
+          "terminal": true,
+          "action": "seq31_pause"
+        }
+      ],
+      "mehrheitsentscheid": false,
+      "erfolg": "Belegte Vorlagen und freiwillige Anwesenheit aller drei; Gegenrede blockiert nicht allein den Abschluss."
+    },
+    "aufstiegstext": "Du legst kein Ersatzblatt in die fehlende Stelle des Stadtbuchs. Das freie Fach bleibt trocken und sichtbar. Neben ihm liegen die Namen, deren lebende Träger selbst über ihre Nennung entschieden haben. Du liest nur die erlaubten vor. Unter deinen Füßen verschiebt sich eine dunkle Schicht, ohne jemanden festzuhalten. An deinem Umriss fehlt ein Stück, in dem andere etwas hören können, das dir nicht gehört. Du fragst nicht nach diesem Namen. Ein Zeuge schiebt sein Täfelchen zurück unter das Tuch. Du hilfst ihm dabei. Die Fundtiefe bleibt auf der Hülle stehen. Was du bewahrst, muss nicht alles gleichzeitig im Licht liegen. Du trinkst erst nach deiner ausdrücklichen Entscheidung. Die Flasche wird durchsichtig und bleibt als gewöhnliches Glas zurück. Du erhältst keinen Anspruch auf die Zeugen. Sie können gehen, widersprechen und später wiederkommen. Du räumst deinen Platz selbst ab, bevor du die Tür öffnest.",
+    "seq_1_welt": [
+      "Du wirst als Das erinnerte Fehlende erkannt; gewöhnliche Händler rechnen den vorgeschlagenen Preisfaktor 1,00 statt eines zusätzlichen Seq-1-Aufschlags.",
+      "Im Gerede bleibt deine Gegenprobe neben dem neuen Titel genannt.",
+      "Schwache gewöhnliche Gegner weichen dir aus, während fest gesetzte Begegnungen ihre eigenen Bedingungen behalten."
+    ],
+    "abschluss": {
+      "aufstieg": {
+        "set_flags": [
+          "seq1_register_sq_moor_done",
+          "seq31_aufstieg_sq_moor"
+        ],
+        "sequence": 1,
+        "consume_recipe": {
+          "pfad": "sq_moor",
+          "seq": 1
+        },
+        "disable_skill": "moor_hoch_4"
+      },
+      "verzicht": {
+        "set_flags": [
+          "seq1_verzicht",
+          "seq31_verzicht_sq_moor"
+        ],
+        "sequence_unveraendert": true,
+        "consume_items": false,
+        "disable_skills": false
+      }
+    },
+    "abspann": {
+      "bild": "sequences/abspann_sq_moor.png",
+      "text": "Die verweigerte Namensnennung bleibt respektiert und wird nicht umgangen.",
+      "reihenfolge": 20
+    },
+    "koop": {
+      "scope": "player",
+      "partner_nicht_zeuge": true,
+      "entscheidung_getrennt": true,
+      "warte_auf_partner": false
+    }
+  },
+  {
+    "id": "seq31_sq_uhr_register",
+    "pfad": "sq_uhr",
+    "seq_name": "Die gewährte Minute",
+    "map": "vm_register_sq_uhr",
+    "raum": {
+      "width": 24,
+      "height": 16,
+      "beschreibung": [
+        "Der Zollregisterraum ist ein Pegeluhr-Werk.",
+        "Nasser Stein und Registerregale umgeben drei voneinander getrennte Zeugenplätze.",
+        "Eine Wasserlinie bleibt unter dem freien Ausgang sichtbar."
+      ],
+      "props": [
+        "Pendel",
+        "Fahrkartenpult",
+        "Stillsetzhebel",
+        "Minutenring"
+      ],
+      "zugang": "vm_registerkeller",
+      "gezeitensicher": true
+    },
+    "kanonischer_ritualsatz": "Du gibst die letzte geborgte Minute an den Menschen zurück, dessen Frist sie war. Du bleibst bei dem Ergebnis, auch wenn dein eigener Weg länger wird.",
+    "requires": {
+      "requires_flags": [
+        "k6_done"
+      ],
+      "requires_any_flags": [
+        "k6_ende_schliessen",
+        "k6_ende_uebergeben"
+      ],
+      "sequence": 2,
+      "digestion_min": 100,
+      "hide_if_flags": [
+        "seq1_verzicht",
+        "seq1_register_sq_uhr_done"
+      ]
+    },
+    "zeugen": [
+      {
+        "rolle": "fruehere_stadt",
+        "npc": "cw_darnell",
+        "pfad": "kein_pfadzeugnis",
+        "haltung": "gegen",
+        "anwesenheit": {
+          "event": "seq31_zeugen_einladen",
+          "freiwillig": true,
+          "reise": "Zeuge reist nach Varrowmouth; Spieler reist nicht zurück.",
+          "bei_abwesenheit": "Gespräch vertagen; keine erzwungene Zustimmung, kein endgültiger Fehlschlag."
+        },
+        "dialog": {
+          "fuer": [
+            "„Die Uhrzeit des Stempels ist nicht die Zeit der Abfahrt.“",
+            "„Sie lassen die unbequeme Fassung stehen.“",
+            "„Dafür stehe ich als Zeuge ein.“",
+            "„Meine Zustimmung gehört nur dieser Handlung.“"
+          ],
+          "gegen": [
+            "„Ich erinnere mich an Ihren Vorteil.“",
+            "„Ein neuer Titel berichtigt ihn nicht.“",
+            "„Zeigen Sie, was Sie wirklich abgeben.“",
+            "„Ich kann widersprechen und trotzdem hierbleiben.“"
+          ],
+          "unentschieden": [
+            "„Ich sehe die Unterlagen.“",
+            "„Bei der Herkunft fehlt mir noch Ihre Erklärung.“",
+            "„Lesen Sie den Randvermerk ebenfalls vor.“",
+            "„Danach entscheide ich selbst.“"
+          ]
+        }
+      },
+      {
+        "rolle": "varrowmouth",
+        "npc": "vmn_tam_verrin",
+        "pfad": "kein_pfadzeugnis",
+        "haltung": "unentschieden",
+        "anwesenheit": {
+          "event": "seq31_zeugen_einladen",
+          "freiwillig": true,
+          "reise": "Zeuge reist nach Varrowmouth; Spieler reist nicht zurück.",
+          "bei_abwesenheit": "Gespräch vertagen; keine erzwungene Zustimmung, kein endgültiger Fehlschlag."
+        },
+        "dialog": {
+          "fuer": [
+            "„Die Uhrzeit des Stempels ist nicht die Zeit der Abfahrt.“",
+            "„Sie lassen die unbequeme Fassung stehen.“",
+            "„Dafür stehe ich als Zeuge ein.“",
+            "„Meine Zustimmung gehört nur dieser Handlung.“"
+          ],
+          "gegen": [
+            "„Ich erinnere mich an Ihren Vorteil.“",
+            "„Ein neuer Titel berichtigt ihn nicht.“",
+            "„Zeigen Sie, was Sie wirklich abgeben.“",
+            "„Ich kann widersprechen und trotzdem hierbleiben.“"
+          ],
+          "unentschieden": [
+            "„Ich sehe die Unterlagen.“",
+            "„Bei der Herkunft fehlt mir noch Ihre Erklärung.“",
+            "„Lesen Sie den Randvermerk ebenfalls vor.“",
+            "„Danach entscheide ich selbst.“"
+          ]
+        }
+      },
+      {
+        "rolle": "pfad",
+        "npc": "ez_ds_streckenlaeufer",
+        "pfad": "sq_uhr",
+        "haltung": "fuer",
+        "anwesenheit": {
+          "event": "seq31_zeugen_einladen",
+          "freiwillig": true,
+          "reise": "Zeuge reist nach Varrowmouth; Spieler reist nicht zurück.",
+          "bei_abwesenheit": "Gespräch vertagen; keine erzwungene Zustimmung, kein endgültiger Fehlschlag."
+        },
+        "dialog": {
+          "fuer": [
+            "„Die Uhrzeit des Stempels ist nicht die Zeit der Abfahrt.“",
+            "„Sie lassen die unbequeme Fassung stehen.“",
+            "„Dafür stehe ich als Zeuge ein.“",
+            "„Meine Zustimmung gehört nur dieser Handlung.“"
+          ],
+          "gegen": [
+            "„Ich erinnere mich an Ihren Vorteil.“",
+            "„Ein neuer Titel berichtigt ihn nicht.“",
+            "„Zeigen Sie, was Sie wirklich abgeben.“",
+            "„Ich kann widersprechen und trotzdem hierbleiben.“"
+          ],
+          "unentschieden": [
+            "„Ich sehe die Unterlagen.“",
+            "„Bei der Herkunft fehlt mir noch Ihre Erklärung.“",
+            "„Lesen Sie den Randvermerk ebenfalls vor.“",
+            "„Danach entscheide ich selbst.“"
+          ]
+        }
+      }
+    ],
+    "vorlagen": {
+      "beleg": {
+        "requires_flags": [
+          "case_09_closed",
+          "kapitel2_done",
+          "seq3_pruefung_sq_uhr_done"
+        ],
+        "text": "Du zeigst dein Abschlussprotokoll aus Kettlegate, den mitgeführten Wexmoorer Bestand und die Gegenprobe: Die fremde Frist.",
+        "verbrauch": false
+      },
+      "person": {
+        "npc": "vmn_tam_verrin",
+        "relationship_min": 3,
+        "freiwillige_zustimmung": true,
+        "text": "Tam bestätigt eure gewachsene Beziehung und behält ihr Recht auf Widerspruch."
+      },
+      "verzicht": {
+        "typ": "faehigkeit",
+        "skill": "uhr_hoch_4",
+        "dauerhaft": true,
+        "zeitpunkt": "nur_aufstieg_commit",
+        "text": "Du gibst Taktlücke dauerhaft ab. Keine Fähigkeit deines Partners ist betroffen."
+      }
+    },
+    "probe": {
+      "typ": "gespraech",
+      "start": "seq31_sq_uhr_gespraech_start",
+      "nodes": [
+        {
+          "id": "seq31_sq_uhr_gespraech_start",
+          "text": "Die drei Zeugen nehmen ihre Plätze ein. Du kannst deine Unterlagen öffnen oder die Entscheidung vertagen.",
+          "choices": [
+            {
+              "text": "Ich lege den Beleg vor.",
+              "next": "seq31_sq_uhr_gespraech_beleg"
+            },
+            {
+              "text": "Mein Rang genügt als Beweis.",
+              "next": "seq31_sq_uhr_gespraech_falsch_rang"
+            },
+            {
+              "text": "Ich komme später wieder.",
+              "next": "seq31_sq_uhr_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_sq_uhr_gespraech_beleg",
+          "text": "Die Uhrzeit des Stempels ist nicht die Zeit der Abfahrt.",
+          "choices": [
+            {
+              "text": "Ich zeige Herkunft und Gegenbeleg.",
+              "next": "seq31_sq_uhr_gespraech_person",
+              "requires": {
+                "requires_flags": [
+                  "case_09_closed",
+                  "kapitel2_done",
+                  "seq3_pruefung_sq_uhr_done"
+                ]
+              }
+            },
+            {
+              "text": "Die belastende Fassung bleibt verborgen.",
+              "next": "seq31_sq_uhr_gespraech_falsch_beleg"
+            },
+            {
+              "text": "Ich muss die Unterlagen prüfen.",
+              "next": "seq31_sq_uhr_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_sq_uhr_gespraech_person",
+          "text": "Tam legt eine Hand neben das Register. „Ich bin freiwillig hier. Meine Zustimmung können Sie nicht mittrinken.“",
+          "choices": [
+            {
+              "text": "Ich erkenne Ihre eigene Entscheidung an.",
+              "next": "seq31_sq_uhr_gespraech_opfer",
+              "requires": {
+                "relationship": {
+                  "npc": "vmn_tam_verrin",
+                  "min": 3
+                }
+              }
+            },
+            {
+              "text": "Ich vertage das Gespräch.",
+              "next": "seq31_sq_uhr_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_sq_uhr_gespraech_opfer",
+          "text": "Du kannst für den Aufstieg die Fähigkeit Taktlücke dauerhaft abgeben. Beim endgültigen Verzicht bleibt sie erhalten.",
+          "choices": [
+            {
+              "text": "Ich merke die Fähigkeit als Opfer vor.",
+              "next": "seq31_sq_uhr_gespraech_entscheidung"
+            },
+            {
+              "text": "Ich möchte die Flasche ablegen.",
+              "next": "seq31_sq_uhr_gespraech_verzicht"
+            },
+            {
+              "text": "Ich brauche noch Zeit.",
+              "next": "seq31_sq_uhr_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_sq_uhr_gespraech_entscheidung",
+          "text": "Du gibst die letzte geborgte Minute an den Menschen zurück, dessen Frist sie war. Du bleibst bei dem Ergebnis, auch wenn dein eigener Weg länger wird.",
+          "choices": [
+            {
+              "text": "Ich vollziehe die Handlung und bestätige den Aufstieg samt Opfer.",
+              "next": "seq31_sq_uhr_gespraech_aufstieg",
+              "requires": {
+                "all_present": true,
+                "relationship": {
+                  "npc": "vmn_tam_verrin",
+                  "min": 3
+                },
+                "has_skill": "uhr_hoch_4",
+                "has_recipe_ingredients": {
+                  "pfad": "sq_uhr",
+                  "seq": 1
+                }
+              }
+            },
+            {
+              "text": "Ich entscheide mich für den endgültigen Verzicht.",
+              "next": "seq31_sq_uhr_gespraech_verzicht"
+            },
+            {
+              "text": "Ich vertage ohne Verlust.",
+              "next": "seq31_sq_uhr_gespraech_pause"
+            }
+          ]
+        },
+        {
+          "id": "seq31_sq_uhr_gespraech_falsch_rang",
+          "text": "„Ihr Rang ist kein Beleg. Öffnen Sie die Unterlagen, wenn Sie weiterreden möchten.“",
+          "choices": [
+            {
+              "text": "Ich beginne mit den Unterlagen.",
+              "next": "seq31_sq_uhr_gespraech_beleg"
+            },
+            {
+              "text": "Ich gehe vorerst.",
+              "next": "seq31_sq_uhr_gespraech_pause"
+            }
+          ],
+          "falscher_weg": true
+        },
+        {
+          "id": "seq31_sq_uhr_gespraech_falsch_beleg",
+          "text": "„Ohne die Gegenfassung können wir das nicht prüfen. Es wird nichts eingezogen.“",
+          "choices": [
+            {
+              "text": "Ich lege beide Fassungen offen.",
+              "next": "seq31_sq_uhr_gespraech_beleg"
+            },
+            {
+              "text": "Ich vertage.",
+              "next": "seq31_sq_uhr_gespraech_pause"
+            }
+          ],
+          "falscher_weg": true
+        },
+        {
+          "id": "seq31_sq_uhr_gespraech_verzicht",
+          "text": "Du kannst die Flasche jetzt endgültig ablegen. Die bisherige Stufe und ihre Fähigkeiten bleiben erhalten.",
+          "choices": [
+            {
+              "text": "Ich bestätige den endgültigen Verzicht.",
+              "next": "seq31_sq_uhr_gespraech_ende_verzicht"
+            },
+            {
+              "text": "Ich möchte weiter überlegen.",
+              "next": "seq31_sq_uhr_gespraech_entscheidung"
+            }
+          ]
+        },
+        {
+          "id": "seq31_sq_uhr_gespraech_aufstieg",
+          "text": "Du trinkst nach dem vollständigen Zeugnis.",
+          "terminal": true,
+          "action": "seq31_commit_aufstieg"
+        },
+        {
+          "id": "seq31_sq_uhr_gespraech_ende_verzicht",
+          "text": "Du legst die versiegelte Flasche ab.",
+          "terminal": true,
+          "action": "seq31_commit_verzicht"
+        },
+        {
+          "id": "seq31_sq_uhr_gespraech_pause",
+          "text": "Du nimmst deine Unterlagen mit. Zutaten und Fähigkeiten bleiben unangetastet.",
+          "terminal": true,
+          "action": "seq31_pause"
+        }
+      ],
+      "mehrheitsentscheid": false,
+      "erfolg": "Belegte Vorlagen und freiwillige Anwesenheit aller drei; Gegenrede blockiert nicht allein den Abschluss."
+    },
+    "aufstiegstext": "Du schiebst den Minutenring zurück an seine richtige Stelle. Die letzte geborgte Minute gehört einem anderen Menschen. Du gibst sie frei und lässt deinen eigenen Anschluss verstreichen. Dein Körper erwartet einen Ruck, doch es kommt nur der nächste Atemzug. Die Pegeluhr geht weiter. Um dich herum fehlt den Zifferblättern derselbe Strich, ohne dass ihre Zeiger stehenbleiben. Du hältst diesen Abstand aus. Die Person mit der zurückgegebenen Frist entscheidet selbst, was sie darin tut. Vielleicht wartet sie einfach. Du darfst die Minute nicht nachträglich für unnütz erklären. Du setzt dich auf die Bank und liest die Abfahrten neu, diesmal ohne deine Zeit vor ihre zu setzen. Du trinkst erst nach deiner ausdrücklichen Entscheidung. Die Flasche wird durchsichtig und bleibt als gewöhnliches Glas zurück. Du erhältst keinen Anspruch auf die Zeugen. Sie können gehen, widersprechen und später wiederkommen. Du räumst deinen Platz selbst ab, bevor du die Tür öffnest.",
+    "seq_1_welt": [
+      "Du wirst als Die gewährte Minute erkannt; gewöhnliche Händler rechnen den vorgeschlagenen Preisfaktor 1,00 statt eines zusätzlichen Seq-1-Aufschlags.",
+      "Im Gerede bleibt deine Gegenprobe neben dem neuen Titel genannt.",
+      "Schwache gewöhnliche Gegner weichen dir aus, während fest gesetzte Begegnungen ihre eigenen Bedingungen behalten."
+    ],
+    "abschluss": {
+      "aufstieg": {
+        "set_flags": [
+          "seq1_register_sq_uhr_done",
+          "seq31_aufstieg_sq_uhr"
+        ],
+        "sequence": 1,
+        "consume_recipe": {
+          "pfad": "sq_uhr",
+          "seq": 1
+        },
+        "disable_skill": "uhr_hoch_4"
+      },
+      "verzicht": {
+        "set_flags": [
+          "seq1_verzicht",
+          "seq31_verzicht_sq_uhr"
+        ],
+        "sequence_unveraendert": true,
+        "consume_items": false,
+        "disable_skills": false
+      }
+    },
+    "abspann": {
+      "bild": "sequences/abspann_sq_uhr.png",
+      "text": "Dein eigener Anschluss bleibt später; niemand verliert dafür seine Frist.",
+      "reihenfolge": 20
+    },
+    "koop": {
+      "scope": "player",
+      "partner_nicht_zeuge": true,
+      "entscheidung_getrennt": true,
+      "warte_auf_partner": false
+    }
+  }
+]
