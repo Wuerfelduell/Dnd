@@ -273,6 +273,17 @@ export function applyDunscarAusbau(content) {
   }
   speisewagen(content);
   moeblieren(content);
+  steinmetzPreise(content);
+}
+
+/** Steinmetz-Werkzeug war für seine Stärke viel zu billig (Fäustel Angriff 15 für 150, Duellsäbel 15 für 950). */
+const STEINMETZ_PREISE = { k3h_faeustel: 900, k3h_steinmeissel: 650 };
+function steinmetzPreise(content) {
+  for (const [id, preis] of Object.entries(STEINMETZ_PREISE)) {
+    if (!content.items[id]) continue;
+    content.items[id] = { ...content.items[id], price: preis };
+    for (const m of Object.values(content.market?.merchants ?? {})) for (const e of m.stock ?? []) if (e.item === id) e.price = preis;
+  }
 }
 
 /** Marktplätze im Südwesten: zwei Reihen à drei Stände, breit genug für die Schilder. */
