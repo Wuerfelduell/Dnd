@@ -3156,10 +3156,11 @@ export class Ui {
     this.combatScene.choose(e.act);
   }
 
-  combatFloat(text, xPct, yPct, cls) {
+  combatFloat(text, xPct, yPct, cls, tag = null) {
     const box = this.$('.floats');
     const el = document.createElement('div');
     el.className = `float ${cls}`;
+    if (tag) el.dataset.who = tag; // Koop: wen es getroffen hat
     // Paket B: Zahlen in der Schadensschrift (damage_font.png), Text bleibt Text
     const row = /^[+-]?\d+$/.test(text) ? (text.startsWith('+') ? 'healing' : { crit: 'critical', hurt: 'player_damage', nerves: 'nerves' }[cls] ?? 'damage') : null;
     if (row) { el.classList.add('digits'); el.innerHTML = damageDigits(text, row, 1 / 8); } else el.textContent = text;
