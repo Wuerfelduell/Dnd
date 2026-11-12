@@ -428,6 +428,15 @@ export class GameState {
     return true;
   }
 
+  /** Bonusakte nach Kapitel 2: zeigt je nach Ende, wo die Nachricht nach Dunscar liegt. */
+  startBonusakteK2() {
+    if (!this.flags.has('kapitel2_done') || this.flags.has('k3_arrived')) return;
+    for (const k of ['rein', 'moor', 'lichtmeister', 'meer']) {
+      const id = `k2_weiter_${k}`;
+      if (this.flags.has(`k2_end_${k}`) && this.quest(id) && this.quests[id] === undefined) this.startQuest(id);
+    }
+  }
+
   finishQuest(id, status) {
     const q = this.quest(id);
     if (!q) throw new Error(`Unbekannter Auftrag: ${id}`);
@@ -875,6 +884,7 @@ export class GameState {
     this.loadSude(data);
     this.loadPfadHandel(data);
     this.syncClock(); // Tag/Nacht folgt der Spielzeit, nicht dem Spielstand
+    this.startBonusakteK2(); // alte Stände: Kapitel 2 fertig, aber noch kein Wegweiser nach Dunscar
     if (!this.content.maps[this.map]) { this.map = this.content.start.map; this.position = null; }
     this.map = this.variantOf(this.map); // CH: Briarholt kalt oder warm, je nach Ventilkreis
     return true;

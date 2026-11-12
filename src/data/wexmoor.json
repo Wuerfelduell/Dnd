@@ -487,8 +487,11 @@
         "chapter": {
           "title": "Ende von Kapitel 2: Die Moorstadt",
           "text": "Brandt sitzt im Wachhaus, in Zelle 2, und schreibt jeden Tag einen Brief an den Magistrat. Niemand öffnet sie.\n\nZunder bekommt ihr Siegel zurück. Hale bekommt das Kommando. Und du bekommst etwas, das du in Kettlegate nie hattest: einen Freispruch, schwarz auf weiß.\n\nNur das Moor ist unruhig. Nachts hörst du es atmen, unter der Stadt.",
-          "footer": "Wexmoor bleibt offen: Zunders Kahn, die Viertel und das Vergessmoor. Kapitel 3 folgt in einem späteren Bauschritt."
-        }
+          "footer": "Wexmoor bleibt offen: Zunders Kahn, die Viertel und das Vergessmoor. Weiter geht es in Kapitel 3: Die Bonusakte im Notizbuch zeigt dir den Weg nach Dunscar."
+        },
+        "start_quests": [
+          "k2_weiter_rein"
+        ]
       },
       "k2_moor": {
         "case": "kapitel2",
@@ -506,8 +509,11 @@
         "chapter": {
           "title": "Ende von Kapitel 2: Die Moorstadt",
           "text": "Wexmoor sinkt wieder, einen Zoll im Jahr. Die Leute bauen höhere Stege und schimpfen auf das Lichtamt, das es nicht mehr gibt.\n\nDie Grauspäher hängen deinen Steckbrief ab. Zunder verkauft jetzt Öl an alle, die wollen, und du schläfst zum ersten Mal ohne Fahndungsstufe.\n\nNur manchmal, wenn der Nebel tief liegt, geht draußen auf dem Moor ein Licht an, das niemand angezündet hat.",
-          "footer": "Wexmoor bleibt offen: Zunders Kahn, die Viertel und das Vergessmoor. Kapitel 3 folgt in einem späteren Bauschritt."
-        }
+          "footer": "Wexmoor bleibt offen: Zunders Kahn, die Viertel und das Vergessmoor. Weiter geht es in Kapitel 3: Die Bonusakte im Notizbuch zeigt dir den Weg nach Dunscar."
+        },
+        "start_quests": [
+          "k2_weiter_moor"
+        ]
       },
       "k2_lichtmeister": {
         "case": "kapitel2",
@@ -525,8 +531,11 @@
         "chapter": {
           "title": "Ende von Kapitel 2: Die Moorstadt",
           "text": "Am nächsten Morgen hängt dein Steckbrief nicht mehr. An seiner Stelle hängt eine Bekanntmachung des Lichtamts, und unten steht dein Name.\n\nZunder kommt nicht mehr zum Kahn. Sie schickt einen Zettel: „Ich hab dir Öl verkauft. Jetzt verkauf ich dir keins mehr.“\n\nIn Kettlegate verschwinden wieder Menschen. Du weißt, wohin.",
-          "footer": "Wexmoor bleibt offen: Zunders Kahn, die Viertel und das Vergessmoor. Kapitel 3 folgt in einem späteren Bauschritt."
-        }
+          "footer": "Wexmoor bleibt offen: Zunders Kahn, die Viertel und das Vergessmoor. Weiter geht es in Kapitel 3: Die Bonusakte im Notizbuch zeigt dir den Weg nach Dunscar."
+        },
+        "start_quests": [
+          "k2_weiter_lichtmeister"
+        ]
       },
       "k2_meer": {
         "case": "kapitel2",
@@ -544,8 +553,11 @@
         "chapter": {
           "title": "Ende von Kapitel 2: Die Moorstadt",
           "text": "Wexmoor brennt weiter. Brandt bleibt Lichtmeisterin, und irgendwann kommt der nächste Fremde mit dem Zug.\n\nIhr fahrt die Küste entlang, Kit, Zunder und du, von Hafen zu Hafen. In jedem hängt ein Steckbrief, und auf keinem stimmt das Gesicht.\n\nDu hast überlebt. Das ist nicht dasselbe wie gewonnen. Aber es ist nicht nichts.",
-          "footer": "Wexmoor bleibt offen: Zunders Kahn, die Viertel und das Vergessmoor. Kapitel 3 folgt in einem späteren Bauschritt."
-        }
+          "footer": "Wexmoor bleibt offen: Zunders Kahn, die Viertel und das Vergessmoor. Weiter geht es in Kapitel 3: Die Bonusakte im Notizbuch zeigt dir den Weg nach Dunscar."
+        },
+        "start_quests": [
+          "k2_weiter_meer"
+        ]
       }
     }
   },
@@ -888,11 +900,16 @@
           }
         },
         {
-          "text": "Stell Ilse Brandt",
+          "text": "Stell Ilse Brandt oben im Leuchtturm",
           "done": {
             "requires_flags": [
               "kapitel2_done"
             ]
+          },
+          "target": {
+            "map": "wx_leuchtturm",
+            "id": "brandt",
+            "label": "Ilse Brandt"
           }
         }
       ]
@@ -1208,6 +1225,142 @@
             "map": "wx_salzmarkt",
             "id": "hale",
             "label": "Hale am Salzmarkt"
+          }
+        }
+      ]
+    },
+    "k2_weiter_rein": {
+      "title": "Bonusakte: Weiter nach Dunscar",
+      "kind": "main",
+      "case": "kapitel2",
+      "summary": "Brandt ist gestellt, Kapitel 2 ist vorbei. Im Torfkahn wartet eine Nachricht, die dich weiterführt: Marlowes Bahnhofstelegramm. Lies sie, dann kannst du nach Dunscar reisen.",
+      "steps": [
+        {
+          "text": "Lies „Marlowes Bahnhofstelegramm“ im Torfkahn",
+          "done": {
+            "requires_flags": [
+              "k3a_anreise_rein_bereit"
+            ]
+          },
+          "target": {
+            "map": "wx_kahn",
+            "id": "k3a_anreise_rein_brief",
+            "label": "Marlowes Bahnhofstelegramm"
+          }
+        },
+        {
+          "text": "Reise nach Dunscar",
+          "done": {
+            "requires_flags": [
+              "k3_arrived"
+            ]
+          },
+          "target": {
+            "map": "wx_kahn",
+            "id": "k3a_anreise_rein_reise",
+            "label": "Die Reise nach Dunscar"
+          }
+        }
+      ]
+    },
+    "k2_weiter_moor": {
+      "title": "Bonusakte: Weiter nach Dunscar",
+      "kind": "main",
+      "case": "kapitel2",
+      "summary": "Brandt ist gestellt, Kapitel 2 ist vorbei. Im Torfkahn wartet eine Nachricht, die dich weiterführt: Die Pfeife im Güterwagen. Lies sie, dann kannst du nach Dunscar reisen.",
+      "steps": [
+        {
+          "text": "Lies „Die Pfeife im Güterwagen“ im Torfkahn",
+          "done": {
+            "requires_flags": [
+              "k3a_anreise_moor_bereit"
+            ]
+          },
+          "target": {
+            "map": "wx_kahn",
+            "id": "k3a_anreise_moor_brief",
+            "label": "Die Pfeife im Güterwagen"
+          }
+        },
+        {
+          "text": "Reise nach Dunscar",
+          "done": {
+            "requires_flags": [
+              "k3_arrived"
+            ]
+          },
+          "target": {
+            "map": "wx_kahn",
+            "id": "k3a_anreise_moor_reise",
+            "label": "Die Reise nach Dunscar"
+          }
+        }
+      ]
+    },
+    "k2_weiter_lichtmeister": {
+      "title": "Bonusakte: Weiter nach Dunscar",
+      "kind": "main",
+      "case": "kapitel2",
+      "summary": "Brandt ist gestellt, Kapitel 2 ist vorbei. Oben im Leuchtturm wartet eine Nachricht, die dich weiterführt: Post für das Amt. Lies sie, dann kannst du nach Dunscar reisen.",
+      "steps": [
+        {
+          "text": "Lies „Post für das Amt“ oben im Leuchtturm",
+          "done": {
+            "requires_flags": [
+              "k3a_anreise_lichtmeister_bereit"
+            ]
+          },
+          "target": {
+            "map": "wx_leuchtturm",
+            "id": "k3a_anreise_lichtmeister_brief",
+            "label": "Post für das Amt"
+          }
+        },
+        {
+          "text": "Reise nach Dunscar",
+          "done": {
+            "requires_flags": [
+              "k3_arrived"
+            ]
+          },
+          "target": {
+            "map": "wx_leuchtturm",
+            "id": "k3a_anreise_lichtmeister_reise",
+            "label": "Die Reise nach Dunscar"
+          }
+        }
+      ]
+    },
+    "k2_weiter_meer": {
+      "title": "Bonusakte: Weiter nach Dunscar",
+      "kind": "main",
+      "case": "kapitel2",
+      "summary": "Brandt ist gestellt, Kapitel 2 ist vorbei. Im Torfkahn wartet eine Nachricht, die dich weiterführt: Kits Kohlenkiste. Lies sie, dann kannst du nach Dunscar reisen.",
+      "steps": [
+        {
+          "text": "Lies „Kits Kohlenkiste“ im Torfkahn",
+          "done": {
+            "requires_flags": [
+              "k3a_anreise_meer_bereit"
+            ]
+          },
+          "target": {
+            "map": "wx_kahn",
+            "id": "k3a_anreise_meer_brief",
+            "label": "Kits Kohlenkiste"
+          }
+        },
+        {
+          "text": "Reise nach Dunscar",
+          "done": {
+            "requires_flags": [
+              "k3_arrived"
+            ]
+          },
+          "target": {
+            "map": "wx_kahn",
+            "id": "k3a_anreise_meer_reise",
+            "label": "Die Reise nach Dunscar"
           }
         }
       ]
