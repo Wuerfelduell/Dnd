@@ -382,6 +382,7 @@ export class GameState {
     if (e.signal || e.signal_reserve) this.applySignal(e); // Kapitel 3: Rufladungen
     if (e.learn_pattern || e.reveal_route || e.enter_lock) this.applySignalRoutes(e); // BN: Rufwissen, Route, Schleuse
     for (const f of e.clears_flags ?? []) this.flags.delete(f);
+    for (const c of e.gives_conclusions ?? []) this.addConclusion(c); // Überspringen-Knöpfe: Schluss direkt ziehen
     for (const q of e.start_quests ?? []) this.startQuest(q);
     for (const q of e.complete_quests ?? []) this.finishQuest(q, 'done');
     for (const q of e.fail_quests ?? []) this.finishQuest(q, 'failed');

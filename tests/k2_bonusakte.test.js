@@ -47,3 +47,13 @@ test('Alte Spielstände nach Kapitel 2 bekommen die Bonusakte beim Laden', () =>
   t.startBonusakteK2();
   assert.equal(t.quests.k2_weiter_rein, undefined);
 });
+
+test('Kapitel 3: „Der Ruf durch die Wand“ lässt sich bei Pfiff überspringen', () => {
+  const s = new GameState(content);
+  s.flags.add('k3_arrived');
+  s.startQuest('k3a_akt1');
+  s.applyEffects(content.dialogues.k3a_14_dialog.nodes.k3a_14_ueberspringen);
+  assert.ok(s.flags.has('k3a_14_geschlossen'));
+  assert.ok(s.hasConclusion('k3a_14_d'));
+  assert.ok(s.clues.has?.('k3a_14_c2') ?? s.clues.includes('k3a_14_c2'));
+});

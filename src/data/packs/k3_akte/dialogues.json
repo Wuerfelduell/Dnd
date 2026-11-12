@@ -933,6 +933,13 @@
             ]
           },
           {
+            "text": "Überspringen: Pfiff zeigt dir den Wartungsweg direkt.",
+            "next": "k3a_14_ueberspringen",
+            "hide_if_flags": [
+              "k3a_14_geschlossen"
+            ]
+          },
+          {
             "text": "Ich sehe mich weiter um."
           }
         ]
@@ -1010,6 +1017,27 @@
           },
           {
             "text": "Zu Pfiff zurück."
+          }
+        ]
+      },
+      "k3a_14_ueberspringen": {
+        "text": "Pfiff winkt ab, horcht selbst an der Schwelle und öffnet die Wartungstür neben der Mauer. Dahinter liegt die trockene Galerie zur Drehscheibe. Du markierst die Abkürzung und den sicheren Fußweg.",
+        "gives_clues": [
+          "k3a_14_c1",
+          "k3a_14_c2",
+          "k3a_14_c3",
+          "k3a_14_c4"
+        ],
+        "gives_conclusions": [
+          "k3a_14_d"
+        ],
+        "sets_flags": [
+          "k3a_14_passage",
+          "k3a_14_geschlossen"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
           }
         ]
       }
