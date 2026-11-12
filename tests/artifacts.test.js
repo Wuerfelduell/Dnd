@@ -224,6 +224,7 @@ test('Gefahrengebiete: Gegner können Artefakte fallen lassen, Bosse häufiger',
   const drops = (id) => content.loot[id].drops.filter((d) => content.items[d.item]?.kind === 'artifact');
   for (const zid of Object.keys(content.zones)) {
     if (zid.endsWith('__warm')) continue; // Briarholt: die warme Fassung teilt Gegner und Beute mit der kalten
+    if (zid.startsWith('ds_')) continue; // Dunscar: alte Artefakte durch Kalkopal ersetzt (dunscar_haendler.test.js)
     const encs = Object.values(content.encounters).filter((e) => e.zone === zid);
     assert.ok(encs.length);
     const boss = Object.keys(content.encounters).find((id) => content.encounters[id].zone === zid && content.encounters[id].boss);
