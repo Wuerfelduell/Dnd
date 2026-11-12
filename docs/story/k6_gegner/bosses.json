@@ -1,0 +1,599 @@
+{
+  "wrackmutter": {
+    "name": "Wrackmutter",
+    "sprite": "enemy_wrackmutter",
+    "boss": true,
+    "fleeable": false,
+    "chapter": 6,
+    "hp": 1500,
+    "armor": 12,
+    "occult": true,
+    "sequence_expectation": [
+      3
+    ],
+    "intro": "Wrackmutter versperrt dir den Weg.",
+    "attacks": [
+      {
+        "id": "tauschlag",
+        "name": "Tauschlag",
+        "damage": 30,
+        "damage_range": [
+          26,
+          34
+        ],
+        "nerve_damage": 3,
+        "hits": [
+          1400
+        ],
+        "unparryable": false,
+        "animation": "attack1",
+        "target": "one_player"
+      },
+      {
+        "id": "rumpfstoss",
+        "name": "Rumpfstoß",
+        "damage": 26,
+        "damage_range": [
+          22,
+          30
+        ],
+        "nerve_damage": 4,
+        "hits": [
+          1400
+        ],
+        "unparryable": false,
+        "animation": "attack2",
+        "target": "all_players"
+      },
+      {
+        "id": "kielruf",
+        "name": "Kielruf",
+        "damage": 0,
+        "damage_range": [
+          0,
+          0
+        ],
+        "nerve_damage": 2,
+        "hits": [
+          1400
+        ],
+        "unparryable": false,
+        "animation": "special",
+        "target": "one_player"
+      }
+    ],
+    "resistances": {
+      "physical": 0.8,
+      "fire": 1.25,
+      "occult": 1.0
+    },
+    "loot": {
+      "money": [
+        60,
+        90
+      ],
+      "drops": [
+        {
+          "item": "vmi_registerseite",
+          "chance": 1.0,
+          "count": 1
+        }
+      ]
+    },
+    "on_win": {
+      "sets_flags": [
+        "k6_cz_wrackmutter_beendet"
+      ]
+    },
+    "win_text": "Der Weg ist frei.",
+    "lose_to": {
+      "map": "vm_zollhafen",
+      "spawn": "default"
+    },
+    "lose_money": 0,
+    "lose_text": "Tam bringt dich zum Zollhafen zurück.",
+    "balance": {
+      "minimum_rounds": 5,
+      "incoming_damage_cap_per_round": 300,
+      "scope": "per_enemy_shared_by_all_players_and_all_damage_sources",
+      "includes": [
+        "attacks",
+        "skills",
+        "critical",
+        "damage_over_time",
+        "reflection",
+        "summons",
+        "environment"
+      ],
+      "reset": "start_of_full_combat_round",
+      "overflow": "discard",
+      "instant_kill": "treated_as_damage_subject_to_cap"
+    },
+    "integration": "data_contract_not_runtime_registered",
+    "map": "vm_wrackfeld",
+    "trigger": {
+      "interact": "vm_wrackmutter_wrack",
+      "requires_flags": [
+        "gezeit_ebbe"
+      ]
+    },
+    "preparation": [
+      "Warte die Ebbe ab.",
+      "Halte Feuer gegen das Tauwerk bereit."
+    ],
+    "tide_change": {
+      "to": "flut",
+      "outcome": "forced_escape",
+      "overrides_status": "verzeichnet",
+      "penalty": 0,
+      "rewards": false,
+      "despawn_summons": true,
+      "retry": "full_hp_at_next_ebbe"
+    },
+    "summon": {
+      "attack": "kielruf",
+      "enemy": "vme_tauwerk",
+      "count": 2,
+      "cooldown_rounds": 3,
+      "max_active_summons": 2,
+      "if_full": "use_tauschlag",
+      "summons_drop_loot": false,
+      "summons_act": "next_full_round"
+    },
+    "phases": [
+      {
+        "id": "wrackmutter",
+        "hp": 1500,
+        "sprite": "enemy_wrackmutter",
+        "trigger": "combat_start"
+      }
+    ]
+  },
+  "leuchtfeuerwaechter": {
+    "name": "Leuchtfeuerwächter",
+    "sprite": "enemy_leuchtfeuerwaechter",
+    "boss": true,
+    "fleeable": false,
+    "chapter": 6,
+    "hp": 1400,
+    "armor": 10,
+    "occult": true,
+    "sequence_expectation": [
+      3
+    ],
+    "intro": "Leuchtfeuerwächter versperrt dir den Weg.",
+    "attacks": [
+      {
+        "id": "linsenschlag",
+        "name": "Linsenschlag",
+        "damage": 28,
+        "damage_range": [
+          24,
+          32
+        ],
+        "nerve_damage": 3,
+        "hits": [
+          1400
+        ],
+        "unparryable": false,
+        "animation": "attack1",
+        "target": "one_player"
+      },
+      {
+        "id": "flammenpuls",
+        "name": "Flammenpuls",
+        "damage": 24,
+        "damage_range": [
+          20,
+          28
+        ],
+        "nerve_damage": 4,
+        "hits": [
+          1400
+        ],
+        "unparryable": false,
+        "animation": "attack2",
+        "target": "one_player"
+      },
+      {
+        "id": "lichtkegel",
+        "name": "Lichtkegel",
+        "damage": 22,
+        "damage_range": [
+          18,
+          26
+        ],
+        "nerve_damage": 5,
+        "hits": [
+          1400
+        ],
+        "unparryable": false,
+        "animation": "special",
+        "target": "all_players",
+        "effect": "fx/vm_lichtkegel.png",
+        "apply_status": "geblendet"
+      }
+    ],
+    "resistances": {
+      "physical": 1.0,
+      "fire": 1.0,
+      "occult": 1.0
+    },
+    "loot": {
+      "money": [
+        60,
+        90
+      ],
+      "drops": [
+        {
+          "item": "vmi_registerseite",
+          "chance": 1.0,
+          "count": 1
+        }
+      ]
+    },
+    "on_win": {
+      "sets_flags": [
+        "k6_cz_leuchtfeuerwaechter_beendet"
+      ]
+    },
+    "win_text": "Der Weg ist frei.",
+    "lose_to": {
+      "map": "vm_zollhafen",
+      "spawn": "default"
+    },
+    "lose_money": 0,
+    "lose_text": "Tam bringt dich zum Zollhafen zurück.",
+    "balance": {
+      "minimum_rounds": 5,
+      "incoming_damage_cap_per_round": 168,
+      "scope": "per_enemy_shared_by_all_players_and_all_damage_sources",
+      "includes": [
+        "attacks",
+        "skills",
+        "critical",
+        "damage_over_time",
+        "reflection",
+        "summons",
+        "environment"
+      ],
+      "reset": "start_of_full_combat_round",
+      "overflow": "discard",
+      "instant_kill": "treated_as_damage_subject_to_cap"
+    },
+    "integration": "data_contract_not_runtime_registered",
+    "map": "vm_leuchtbank",
+    "trigger": {
+      "interact": "leuchtfeuerwaechter"
+    },
+    "preparation": [
+      "Läute vor dem Kampf die Leuchtbank-Glocke.",
+      "Halte Abstand, sobald sich die Linse öffnet."
+    ],
+    "preparation_effect": {
+      "semantic_input": "CU_leuchtbank_glocke_gelaeutet",
+      "effect": "skip_first_lichtkegel"
+    },
+    "phases": [
+      {
+        "id": "leuchtfeuerwaechter",
+        "hp": 1400,
+        "sprite": "enemy_leuchtfeuerwaechter",
+        "trigger": "combat_start"
+      },
+      {
+        "id": "leuchtfeuerwaechter_mensch",
+        "hp": 1,
+        "sprite": "enemy_leuchtfeuerwaechter_mensch",
+        "trigger": {
+          "hp_ratio_lte": 0.4
+        },
+        "threshold_clamp": 560,
+        "discard_overflow_damage": true,
+        "cancel_queued_hits": true,
+        "clear_damage_over_time": true,
+        "clear_player_debuffs": true,
+        "attacks": [],
+        "player_choice_required": true,
+        "options": {
+          "verschonen": {
+            "outcome": "peace",
+            "same_loot_as_win": true
+          },
+          "treffer": {
+            "outcome": "defeat",
+            "same_loot_as_win": true
+          }
+        },
+        "nerve_damage": 0,
+        "automatic_damage_allowed": false
+      }
+    ],
+    "rewards_once": true
+  },
+  "pegelherrin": {
+    "name": "Ismay Harrow, die Pegelherrin",
+    "sprite": "enemy_pegelherrin",
+    "boss": true,
+    "fleeable": false,
+    "chapter": 6,
+    "hp": 1600,
+    "armor": 12,
+    "occult": true,
+    "sequence_expectation": [
+      3
+    ],
+    "intro": "Ismay Harrow, die Pegelherrin versperrt dir den Weg.",
+    "attacks": [
+      {
+        "id": "pegelstoss",
+        "name": "Pegelstoß",
+        "damage": 28,
+        "damage_range": [
+          24,
+          32
+        ],
+        "nerve_damage": 4,
+        "hits": [
+          1400
+        ],
+        "unparryable": false,
+        "animation": "attack1",
+        "target": "all_players",
+        "effect": "fx/vm_schwall.png"
+      },
+      {
+        "id": "amtszeichen",
+        "name": "Amtszeichen",
+        "damage": 30,
+        "damage_range": [
+          26,
+          34
+        ],
+        "nerve_damage": 5,
+        "hits": [
+          1400
+        ],
+        "unparryable": false,
+        "animation": "attack2",
+        "target": "one_player",
+        "effect": "fx/vm_stempel.png",
+        "apply_status": "verzeichnet"
+      },
+      {
+        "id": "registerdruck",
+        "name": "Registerdruck",
+        "damage": 24,
+        "damage_range": [
+          20,
+          28
+        ],
+        "nerve_damage": 6,
+        "hits": [
+          1400
+        ],
+        "unparryable": false,
+        "animation": "special",
+        "target": "all_players",
+        "effect": "fx/vm_stempel.png"
+      }
+    ],
+    "resistances": {
+      "physical": 1.0,
+      "fire": 1.0,
+      "occult": 1.0
+    },
+    "loot": {
+      "money": [
+        60,
+        90
+      ],
+      "drops": [
+        {
+          "item": "vmi_registerseite",
+          "chance": 1.0,
+          "count": 1
+        }
+      ]
+    },
+    "on_win": {
+      "sets_flags": [
+        "k6_cz_pegelherrin_beendet"
+      ]
+    },
+    "win_text": "Der Weg ist frei.",
+    "lose_to": {
+      "map": "vm_zollhafen",
+      "spawn": "default"
+    },
+    "lose_money": 0,
+    "lose_text": "Tam bringt dich zum Zollhafen zurück.",
+    "balance": {
+      "minimum_rounds": 5,
+      "incoming_damage_cap_per_round": 320,
+      "scope": "per_enemy_shared_by_all_players_and_all_damage_sources",
+      "includes": [
+        "attacks",
+        "skills",
+        "critical",
+        "damage_over_time",
+        "reflection",
+        "summons",
+        "environment"
+      ],
+      "reset": "start_of_full_combat_round",
+      "overflow": "discard",
+      "instant_kill": "treated_as_damage_subject_to_cap"
+    },
+    "integration": "data_contract_not_runtime_registered",
+    "map": "vm_registerkeller",
+    "speaker": "vmn_pegelherrin",
+    "trigger": {
+      "story": "CT_akt_v_combat",
+      "requires_flags": [
+        "gezeit_ebbe"
+      ]
+    },
+    "preparation": [
+      "Sprich mit Nell über ihren Namenlos-Ring.",
+      "Bringe einen Zollherrn als Zeugen mit.",
+      "Sichere die vier Fährten aus Akt IV und gewinne Osrics Vertrauen."
+    ],
+    "phases": [
+      {
+        "id": "pegelherrin",
+        "hp": 1600,
+        "sprite": "enemy_pegelherrin",
+        "trigger": "combat_start",
+        "incoming_damage_cap_per_round": 320
+      },
+      {
+        "id": "pegelherrin_register",
+        "hp": 2200,
+        "sprite": "enemy_pegelherrin_register",
+        "trigger": "phase_1_hp_zero_and_peace_declined_or_unavailable",
+        "incoming_damage_cap_per_round": 440,
+        "reset_round_counter": true,
+        "discard_overflow_damage": true,
+        "attacks": [
+          {
+            "id": "namensflut",
+            "name": "Namensflut",
+            "damage": 30,
+            "damage_range": [
+              26,
+              34
+            ],
+            "nerve_damage": 5,
+            "hits": [
+              1400
+            ],
+            "unparryable": false,
+            "animation": "attack1",
+            "target": "all_players",
+            "effect": "fx/vm_schwall.png"
+          },
+          {
+            "id": "registerschnitt",
+            "name": "Registerschnitt",
+            "damage": 34,
+            "damage_range": [
+              30,
+              38
+            ],
+            "nerve_damage": 4,
+            "hits": [
+              1400
+            ],
+            "unparryable": false,
+            "animation": "attack2",
+            "target": "one_player",
+            "effect": "fx/vm_stempel.png"
+          },
+          {
+            "id": "faehigkeit_eintragen",
+            "name": "Fähigkeit eintragen",
+            "damage": 0,
+            "damage_range": [
+              0,
+              0
+            ],
+            "nerve_damage": 5,
+            "hits": [
+              1400
+            ],
+            "unparryable": false,
+            "animation": "special",
+            "target": "one_player",
+            "effect": "fx/vm_stempel.png"
+          }
+        ]
+      }
+    ],
+    "peace": {
+      "window": "after_phase_1_before_phase_2",
+      "requires": {
+        "all_four_act_iv_leads": true,
+        "relationship": {
+          "npc": "vmn_osric_dale",
+          "gte": 3
+        }
+      },
+      "lead_topics": [
+        "Osrics Schreibbuch",
+        "Glocke der Leuchtbank",
+        "Liste der Ertrunkenen",
+        "Kommt die Flut wirklich?"
+      ],
+      "dialogue_owner": "CT",
+      "choice": "register_vorlesen",
+      "skip_phase_2": true,
+      "same_loot_as_win": true,
+      "event": "k6_cz_pegelherrin_beendet"
+    },
+    "ability_lock": {
+      "phase": "pegelherrin_register",
+      "every_n_rounds": 3,
+      "first_round": 3,
+      "timing": "enemy_action_replaces_regular_attack",
+      "selection": "most_recently_used_unlocked_equipped_skill_then_stable_id",
+      "target": "alternate_living_players_in_coop_starting_player_1",
+      "excluded_actions": [
+        "basic_attack",
+        "defend",
+        "items",
+        "dialogue"
+      ],
+      "duration": "until_battle_end",
+      "countermeasures": {
+        "any_of": [
+          {
+            "semantic_item": "CU_namenlos_ring",
+            "must_be_equipped_by_target": true
+          },
+          {
+            "semantic_input": "CT_council_witness_present",
+            "allowed_npcs": [
+              "vmn_rat_1",
+              "vmn_rat_2",
+              "vmn_rat_3",
+              "vmn_rat_4",
+              "vmn_rat_5",
+              "vmn_rat_6",
+              "vmn_rat_7"
+            ]
+          }
+        ],
+        "protected_duration_rounds": 3,
+        "reference_duration_rounds": 6,
+        "stacking": false
+      },
+      "if_no_eligible_skill": "use_registerschnitt",
+      "clear_on": [
+        "win",
+        "peace",
+        "defeat",
+        "escape",
+        "tide_evacuation"
+      ],
+      "reapply_locked_skill": false
+    },
+    "tide_change": {
+      "to": "flut",
+      "outcome": "forced_escape",
+      "overrides_status": "verzeichnet",
+      "penalty": 0,
+      "rewards": false,
+      "clear_locks": true,
+      "retry": "restart_phase_1"
+    },
+    "rewards_once": true,
+    "story_completion": {
+      "emit": "k6_cz_pegelherrin_beendet",
+      "do_not_set": [
+        "k6_done"
+      ],
+      "owner": "CT_ending_choice"
+    }
+  }
+}

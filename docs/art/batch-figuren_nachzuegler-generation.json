@@ -1,0 +1,1031 @@
+{
+  "batch": "figuren_nachzuegler",
+  "mode": "built_in_image_gen",
+  "sources": [
+    {
+      "asset": "wx_pfandleiherin_walk",
+      "tool": "built_in_image_gen",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable dark atmospheric Victorian-industrial pixel art. Strict 16x16 tile grid. Overworld characters 16x32 pixels per frame. Crisp hard pixel edges, no antialiasing, no blur, no gradients. 1px deep blue-grey #1a1c2c outline. Muted max 32 color palette, slate, fog grey, rust, brass, desaturated wool. Flat lighting from upper left. Melancholic, never gory. Actual transparent background, no text, no numbers, no labels, no watermark. No 3D, no photorealism, no chibi or anime.\nAsset: exactly ONE complete walking animation sprite sheet. Logical size 64x128 pixels, optionally scaled up by integer nearest-neighbor. Four equal rows and four equal columns (16 cells total). Every cell is 16x32 logical pixels. Rows in order: facing DOWN toward viewer, LEFT profile, RIGHT profile, UP back view. Columns walk cycle: left foot forward, passing feet, right foot forward, passing feet. Real distinct leg and arm motion, preserve same clothing and identity. Feet baseline at logical y=30 of every cell. Full body fits strictly inside its cell, transparent margins, no cropping or overlap. Do not draw a grid.\nCharacter: Maud Keel, weathered female pawnbroker in her fifties, teal-grey wool coat #4e7484, dark knit cap #2a3440, pale knitted scarf #c9c2ad, skin #d8b89a, grey hair #8a8e96 pinned back, legs #2a3440. Jeweller loupe on neck cord, small ring tray at hip. Shrewd, unhurried, slightly stooped. Rounded woman silhouette, not square box. This is a new unique drawing, not a recolor.",
+      "source_file": "wx_pfandleiherin_walk.png",
+      "source_sha256": "8cbf0517687dd0171ddb8ab539f93faaf3f1cea6fe31e05c00c74891dcc7f6df",
+      "source_size": [
+        1122,
+        1402
+      ],
+      "output": "characters/wx_pfandleiherin_walk.png",
+      "output_sha256": "c1c3bb0d7653ed3d9846ca92663ff806104d9afe8be5f004d0e3bd89b226d6cc",
+      "processing": "equal-grid crop; alpha threshold 128; common per-sheet scale; nearest-neighbor; feet baseline; nearest shared palette with Noll green-cloth anchor normalization; two-frame battle anticipation hold"
+    },
+    {
+      "asset": "k2a_senn_walk",
+      "tool": "built_in_image_gen",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept\nAsset type: production 2D game walking sheet\nOne complete walking animation sprite sheet, FOUR equal columns and FOUR equal rows, no grid or labels. Logical sheet 64x128 pixels, cells 16x32; may render enlarged. Rows DOWN (front), LEFT (profile), RIGHT (profile), UP (back). Columns four distinct walk-cycle poses: left foot forward, passing feet, right foot forward, passing feet. Real leg/arm changes, consistent identity and props. Entire body in every cell with transparent gutters, never crossing a cell border. Feet baseline at logical y=30. Anatomy readable at tiny pixel scale, not a box. No scenery or shadow blob. Transparent background.\nCharacter: Ivo Senn. thin male freight copyist, worn brown vest and short navy rain cape, violet ink-stained thumbs, heavy wire spool at hip, carbon copy beneath coat, wary calculating posture.\nColor anchors: {\"coat\": \"#2a2a40\", \"vest\": \"#746255\", \"skin\": \"#e0c0a0\"}. Main coat hue must be recognizable.",
+      "source_file": "k2a_senn_walk.png",
+      "source_sha256": "d03ac80b3bc8037bedfcd967edeea1ab7d1dd98efcff1fc8e282f4e8c36a42d6",
+      "source_size": [
+        1122,
+        1402
+      ],
+      "output": "characters/k2a_senn_walk.png",
+      "output_sha256": "3ed78dddd60f60d9742b8e56955bde1485b3fb1c34ebfc0c500f0f268276d2f0",
+      "processing": "equal-grid crop; alpha threshold 128; common per-sheet scale; nearest-neighbor; feet baseline; nearest shared palette with Noll green-cloth anchor normalization; two-frame battle anticipation hold"
+    },
+    {
+      "asset": "k2a_veit_walk",
+      "tool": "built_in_image_gen",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept\nAsset type: production 2D game walking sheet\nOne complete walking animation sprite sheet, FOUR equal columns and FOUR equal rows, no grid or labels. Logical sheet 64x128 pixels, cells 16x32; may render enlarged. Rows DOWN (front), LEFT (profile), RIGHT (profile), UP (back). Columns four distinct walk-cycle poses: left foot forward, passing feet, right foot forward, passing feet. Real leg/arm changes, consistent identity and props. Entire body in every cell with transparent gutters, never crossing a cell border. Feet baseline at logical y=30. Anatomy readable at tiny pixel scale, not a box. No scenery or shadow blob. Transparent background.\nCharacter: Dr. Oren Veit. tidy male material curator, anthracite coat, grey sleeve protectors, soot-stained spectacles, sample ledger in gloved hand, pale leaf scraps clinging to sleeve, neat narrow silhouette.\nColor anchors: {\"coat\": \"#2a2a40\", \"sleeves\": \"#8a8e96\", \"skin\": \"#e0c0a0\"}. Main coat hue must be recognizable.",
+      "source_file": "k2a_veit_walk.png",
+      "source_sha256": "85d0db67c4647e6875cdcc4b43e8e1e5507be7495222b8d85d5b337af8be2d86",
+      "source_size": [
+        887,
+        1774
+      ],
+      "output": "characters/k2a_veit_walk.png",
+      "output_sha256": "f1b59ef1f7ef033f5b3c69b6de363a71227b9a7166f31be183d3cff26cd4fefa",
+      "processing": "equal-grid crop; alpha threshold 128; common per-sheet scale; nearest-neighbor; feet baseline; nearest shared palette with Noll green-cloth anchor normalization; two-frame battle anticipation hold"
+    },
+    {
+      "asset": "k2a_noll_walk",
+      "tool": "built_in_image_gen",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept\nAsset type: production 2D game walking sheet\nOne complete walking animation sprite sheet, FOUR equal columns and FOUR equal rows, no grid or labels. Logical sheet 64x128 pixels, cells 16x32; may render enlarged. Rows DOWN (front), LEFT (profile), RIGHT (profile), UP (back). Columns four distinct walk-cycle poses: left foot forward, passing feet, right foot forward, passing feet. Real leg/arm changes, consistent identity and props. Entire body in every cell with transparent gutters, never crossing a cell border. Feet baseline at logical y=30. Anatomy readable at tiny pixel scale, not a box. No scenery or shadow blob. Transparent background.\nCharacter: Clem Noll. complacent middle-aged male harbour clerk, expensive dark green coat, brass registry stamp on cord, shining boots with muddy soles, holds dry sealed envelope to chest, proud stout posture.\nColor anchors: {\"coat\": \"#334d47\", \"skin\": \"#e0c0a0\"}. Main coat hue must be recognizable.",
+      "source_file": "k2a_noll_walk.png",
+      "source_sha256": "2e20dbf17520b94c063686c635bf225b13be7d32c86bcf8d3224d5b152855fe0",
+      "source_size": [
+        1122,
+        1402
+      ],
+      "output": "characters/k2a_noll_walk.png",
+      "output_sha256": "b8ec3b71ee85f18c7a0bfcd05149f90239f18dd930459a3207ec685ad16fbe07",
+      "processing": "equal-grid crop; alpha threshold 128; common per-sheet scale; nearest-neighbor; feet baseline; nearest shared palette with Noll green-cloth anchor normalization; two-frame battle anticipation hold"
+    },
+    {
+      "asset": "cwn_e_griffmacherin_walk",
+      "tool": "built_in_image_gen",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept\nAsset type: production 2D game walking sheet\nOne complete walking animation sprite sheet, FOUR equal columns and FOUR equal rows, no grid or labels. Logical sheet 64x128 pixels, cells 16x32; may render enlarged. Rows DOWN (front), LEFT (profile), RIGHT (profile), UP (back). Columns four distinct walk-cycle poses: left foot forward, passing feet, right foot forward, passing feet. Real leg/arm changes, consistent identity and props. Entire body in every cell with transparent gutters, never crossing a cell border. Feet baseline at logical y=30. Anatomy readable at tiny pixel scale, not a box. No scenery or shadow blob. Transparent background.\nCharacter: Hanna Krell. Drechslerin für Stempel- und Werkzeuggriffe, Lederschürze, Späne im Haar, Griffbündel unterm Arm; Setzergasse.\nColor anchors: {\"coat\": \"#756956\", \"hat\": \"#444450\", \"skin\": \"#c4aa91\", \"hair\": \"#6a5e55\", \"legs\": \"#3d414a\"}. Main coat hue must be recognizable.",
+      "source_file": "cwn_e_griffmacherin_walk.png",
+      "source_sha256": "954f28445c503ec80cc2246f1014b4c9040b31b84af4564386cb6faa9c3f5f2b",
+      "source_size": [
+        1122,
+        1402
+      ],
+      "output": "characters/cwn_e_griffmacherin.png",
+      "output_sha256": "0b7ffd733f34c6452c649fedc09460c3c1da94103cc2994ed9b3554c24ac3789",
+      "processing": "equal-grid crop; alpha threshold 128; common per-sheet scale; nearest-neighbor; feet baseline; nearest shared palette with Noll green-cloth anchor normalization; two-frame battle anticipation hold"
+    },
+    {
+      "asset": "cwn_e_waescherin_walk",
+      "tool": "built_in_image_gen",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept\nAsset type: production 2D game walking sheet\nOne complete walking animation sprite sheet, FOUR equal columns and FOUR equal rows, no grid or labels. Logical sheet 64x128 pixels, cells 16x32; may render enlarged. Rows DOWN (front), LEFT (profile), RIGHT (profile), UP (back). Columns four distinct walk-cycle poses: left foot forward, passing feet, right foot forward, passing feet. Real leg/arm changes, consistent identity and props. Entire body in every cell with transparent gutters, never crossing a cell border. Feet baseline at logical y=30. Anatomy readable at tiny pixel scale, not a box. No scenery or shadow blob. Transparent background.\nCharacter: Dora Nell. Wäscherin der Witwenterrasse, hochgekrempelte Ärmel, rote Hände, Korb auf der Hüfte, Tuch über dem Kopf.\nColor anchors: {\"coat\": \"#626c79\", \"hat\": \"#444450\", \"skin\": \"#c4aa91\", \"hair\": \"#6a5e55\", \"legs\": \"#3d414a\"}. Main coat hue must be recognizable.",
+      "source_file": "cwn_e_waescherin_walk.png",
+      "source_sha256": "a3f6eb6b61597872de9470ca34222870df3b810eac3966f5f5e584763fc033be",
+      "source_size": [
+        887,
+        1774
+      ],
+      "output": "characters/cwn_e_waescherin.png",
+      "output_sha256": "863d26f5168a9fa278aa90d6040e8cc2208b2e7beb3b771978c27b9a14612fea",
+      "processing": "equal-grid crop; alpha threshold 128; common per-sheet scale; nearest-neighbor; feet baseline; nearest shared palette with Noll green-cloth anchor normalization; two-frame battle anticipation hold"
+    },
+    {
+      "asset": "cwn_e_bote_walk",
+      "tool": "built_in_image_gen",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept\nAsset type: production 2D game walking sheet\nOne complete walking animation sprite sheet, FOUR equal columns and FOUR equal rows, no grid or labels. Logical sheet 64x128 pixels, cells 16x32; may render enlarged. Rows DOWN (front), LEFT (profile), RIGHT (profile), UP (back). Columns four distinct walk-cycle poses: left foot forward, passing feet, right foot forward, passing feet. Real leg/arm changes, consistent identity and props. Entire body in every cell with transparent gutters, never crossing a cell border. Feet baseline at logical y=30. Anatomy readable at tiny pixel scale, not a box. No scenery or shadow blob. Transparent background.\nCharacter: Oskar Venn. Quittungsbote, junger Mann mit Umhängetasche voller Zettel, Mütze mit Messingnummer, dünne Beine; am Gleisfuß.\nColor anchors: {\"coat\": \"#746255\", \"hat\": \"#444450\", \"skin\": \"#c4aa91\", \"hair\": \"#6a5e55\", \"legs\": \"#3d414a\"}. Main coat hue must be recognizable.",
+      "source_file": "cwn_e_bote_walk.png",
+      "source_sha256": "3283c918fe3e64f76de0414be95b628c185f88102ba8324123f1eaf844802bf1",
+      "source_size": [
+        887,
+        1774
+      ],
+      "output": "characters/cwn_e_bote.png",
+      "output_sha256": "fa0ba4df041192dac06328cdb3a8625104cb63ea6530ae77a184c83005bc5404",
+      "processing": "equal-grid crop; alpha threshold 128; common per-sheet scale; nearest-neighbor; feet baseline; nearest shared palette with Noll green-cloth anchor normalization; two-frame battle anticipation hold"
+    },
+    {
+      "asset": "cwn_e_marktfrau_walk",
+      "tool": "built_in_image_gen",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept\nAsset type: production 2D game walking sheet\nOne complete walking animation sprite sheet, FOUR equal columns and FOUR equal rows, no grid or labels. Logical sheet 64x128 pixels, cells 16x32; may render enlarged. Rows DOWN (front), LEFT (profile), RIGHT (profile), UP (back). Columns four distinct walk-cycle poses: left foot forward, passing feet, right foot forward, passing feet. Real leg/arm changes, consistent identity and props. Entire body in every cell with transparent gutters, never crossing a cell border. Feet baseline at logical y=30. Anatomy readable at tiny pixel scale, not a box. No scenery or shadow blob. Transparent background.\nCharacter: Selma Dorr. Standfrau am Quittungsmarkt, Wollumhang, Münzschürze, Kreidetafel unter dem Arm, kräftig.\nColor anchors: {\"coat\": \"#68725d\", \"hat\": \"#444450\", \"skin\": \"#c4aa91\", \"hair\": \"#6a5e55\", \"legs\": \"#3d414a\"}. Main coat hue must be recognizable.",
+      "source_file": "cwn_e_marktfrau_walk.png",
+      "source_sha256": "f12974522be0547aa97b4d4ea218ad2d3977f714c8ac426c5c5279c8f6cd4efb",
+      "source_size": [
+        1122,
+        1402
+      ],
+      "output": "characters/cwn_e_marktfrau.png",
+      "output_sha256": "40ac5d2522bd2d0569f7ad2013b7cdf8c0a70629f323fa28981f47df5aeae94f",
+      "processing": "equal-grid crop; alpha threshold 128; common per-sheet scale; nearest-neighbor; feet baseline; nearest shared palette with Noll green-cloth anchor normalization; two-frame battle anticipation hold"
+    },
+    {
+      "asset": "cwn_e_nachtsetzer_walk",
+      "tool": "built_in_image_gen",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept\nAsset type: production 2D game walking sheet\nOne complete walking animation sprite sheet, FOUR equal columns and FOUR equal rows, no grid or labels. Logical sheet 64x128 pixels, cells 16x32; may render enlarged. Rows DOWN (front), LEFT (profile), RIGHT (profile), UP (back). Columns four distinct walk-cycle poses: left foot forward, passing feet, right foot forward, passing feet. Real leg/arm changes, consistent identity and props. Entire body in every cell with transparent gutters, never crossing a cell border. Feet baseline at logical y=30. Anatomy readable at tiny pixel scale, not a box. No scenery or shadow blob. Transparent background.\nCharacter: Arvo Pell. Setzer der Nachtschicht, Druckerschwärze an Fingern und Wange, Schirmmütze, Augenschatten, Setzkasten klein unterm Arm; Setzergasse.\nColor anchors: {\"coat\": \"#756956\", \"hat\": \"#444450\", \"skin\": \"#c4aa91\", \"hair\": \"#6a5e55\", \"legs\": \"#3d414a\"}. Main coat hue must be recognizable.",
+      "source_file": "cwn_e_nachtsetzer_walk.png",
+      "source_sha256": "4ae9413e811cbdf6f0b62a2f490972665089fe55eccbae85d5e66e01360698e9",
+      "source_size": [
+        887,
+        1774
+      ],
+      "output": "characters/cwn_e_nachtsetzer.png",
+      "output_sha256": "58b90ce1b03c5af30c4acf48859e73f3c36f32ba054e651c9718c5885670de55",
+      "processing": "equal-grid crop; alpha threshold 128; common per-sheet scale; nearest-neighbor; feet baseline; nearest shared palette with Noll green-cloth anchor normalization; two-frame battle anticipation hold"
+    },
+    {
+      "asset": "cwn_e_fensterputzerin_walk",
+      "tool": "built_in_image_gen",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept\nAsset type: production 2D game walking sheet\nOne complete walking animation sprite sheet, FOUR equal columns and FOUR equal rows, no grid or labels. Logical sheet 64x128 pixels, cells 16x32; may render enlarged. Rows DOWN (front), LEFT (profile), RIGHT (profile), UP (back). Columns four distinct walk-cycle poses: left foot forward, passing feet, right foot forward, passing feet. Real leg/arm changes, consistent identity and props. Entire body in every cell with transparent gutters, never crossing a cell border. Feet baseline at logical y=30. Anatomy readable at tiny pixel scale, not a box. No scenery or shadow blob. Transparent background.\nCharacter: Mira Cale. putzt die Glasfronten der Terrassen, Eimer und Lederabzieher, Seilgurt um die Hüfte, sportlich; Röhrenhof.\nColor anchors: {\"coat\": \"#626c79\", \"hat\": \"#444450\", \"skin\": \"#c4aa91\", \"hair\": \"#6a5e55\", \"legs\": \"#3d414a\"}. Main coat hue must be recognizable.",
+      "source_file": "cwn_e_fensterputzerin_walk.png",
+      "source_sha256": "436bfe4c6e29c2eb4b561af3c0315e01074d9bca98eb20fc03df0f0da9359e60",
+      "source_size": [
+        887,
+        1774
+      ],
+      "output": "characters/cwn_e_fensterputzerin.png",
+      "output_sha256": "463089645ee8458a00a0c9c13da4f78cceaeef07d470f3d4e4e78e325f960052",
+      "processing": "equal-grid crop; alpha threshold 128; common per-sheet scale; nearest-neighbor; feet baseline; nearest shared palette with Noll green-cloth anchor normalization; two-frame battle anticipation hold"
+    },
+    {
+      "asset": "cwn_e_laternenwart_walk",
+      "tool": "built_in_image_gen",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept\nAsset type: production 2D game walking sheet\nOne complete walking animation sprite sheet, FOUR equal columns and FOUR equal rows, no grid or labels. Logical sheet 64x128 pixels, cells 16x32; may render enlarged. Rows DOWN (front), LEFT (profile), RIGHT (profile), UP (back). Columns four distinct walk-cycle poses: left foot forward, passing feet, right foot forward, passing feet. Real leg/arm changes, consistent identity and props. Entire body in every cell with transparent gutters, never crossing a cell border. Feet baseline at logical y=30. Anatomy readable at tiny pixel scale, not a box. No scenery or shadow blob. Transparent background.\nCharacter: Enno Reed. pflegt die Laternen am Schrägaufzug, Ölkanne, kurze Leiter auf der Schulter, älterer Mann mit Bart; Gleisfuß.\nColor anchors: {\"coat\": \"#746255\", \"hat\": \"#444450\", \"skin\": \"#c4aa91\", \"hair\": \"#6a5e55\", \"legs\": \"#3d414a\"}. Main coat hue must be recognizable.",
+      "source_file": "cwn_e_laternenwart_walk.png",
+      "source_sha256": "bf11d3e6611c1226d2250c36796919779f1cf7724029a76bdc88446f5170e69b",
+      "source_size": [
+        887,
+        1774
+      ],
+      "output": "characters/cwn_e_laternenwart.png",
+      "output_sha256": "6120e2a1e30dc844ba732b52295ef1fb0e401f31f43fafb6220bf48723733381",
+      "processing": "equal-grid crop; alpha threshold 128; common per-sheet scale; nearest-neighbor; feet baseline; nearest shared palette with Noll green-cloth anchor normalization; two-frame battle anticipation hold"
+    },
+    {
+      "asset": "cwn_e_archivdienerin_walk",
+      "tool": "built_in_image_gen",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept\nAsset type: production 2D game walking sheet\nOne complete walking animation sprite sheet, FOUR equal columns and FOUR equal rows, no grid or labels. Logical sheet 64x128 pixels, cells 16x32; may render enlarged. Rows DOWN (front), LEFT (profile), RIGHT (profile), UP (back). Columns four distinct walk-cycle poses: left foot forward, passing feet, right foot forward, passing feet. Real leg/arm changes, consistent identity and props. Entire body in every cell with transparent gutters, never crossing a cell border. Feet baseline at logical y=30. Anatomy readable at tiny pixel scale, not a box. No scenery or shadow blob. Transparent background.\nCharacter: Berta Voss. Dienerin im Kronenarchiv, strenger grauer Kittel, Schlüsselbund, Aktenstapel vor der Brust, Zwicker; Kronenarchiv.\nColor anchors: {\"coat\": \"#68725d\", \"hat\": \"#444450\", \"skin\": \"#c4aa91\", \"hair\": \"#6a5e55\", \"legs\": \"#3d414a\"}. Main coat hue must be recognizable.",
+      "source_file": "cwn_e_archivdienerin_walk.png",
+      "source_sha256": "295176dabc34a50285514d31cabb30d19c541646140ce70511a5661b44ad38b9",
+      "source_size": [
+        887,
+        1774
+      ],
+      "output": "characters/cwn_e_archivdienerin.png",
+      "output_sha256": "5c12d37da200ee9a5ed8a8314f180f1f35b17a7f6be7c2cb6055b9624e9a7f89",
+      "processing": "equal-grid crop; alpha threshold 128; common per-sheet scale; nearest-neighbor; feet baseline; nearest shared palette with Noll green-cloth anchor normalization; two-frame battle anticipation hold"
+    },
+    {
+      "asset": "cwo_marktstand_walk",
+      "tool": "built_in_image_gen",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept\nAsset type: production 2D game walking sheet\nOne complete walking animation sprite sheet, FOUR equal columns and FOUR equal rows, no grid or labels. Logical sheet 64x128 pixels, cells 16x32; may render enlarged. Rows DOWN (front), LEFT (profile), RIGHT (profile), UP (back). Columns four distinct walk-cycle poses: left foot forward, passing feet, right foot forward, passing feet. Real leg/arm changes, consistent identity and props. Entire body in every cell with transparent gutters, never crossing a cell border. Feet baseline at logical y=30. Anatomy readable at tiny pixel scale, not a box. No scenery or shadow blob. Transparent background.\nCharacter: Mina Falz. calm female travel-supplies seller in grey shop apron, pencil behind ear, ledger at waist, practical rolled sleeves.\nColor anchors: {\"coat\": \"#566065\", \"hat\": \"#363640\", \"skin\": \"#c8ac8c\", \"hair\": \"#655847\", \"legs\": \"#34333a\"}. Main coat hue must be recognizable.",
+      "source_file": "cwo_marktstand_walk.png",
+      "source_sha256": "ae012b949165ec761bf257137319bed94b6a7c0e2e4dab037f8df689288cd379",
+      "source_size": [
+        1122,
+        1402
+      ],
+      "output": "characters/cwo_marktstand.png",
+      "output_sha256": "5486ed901c8e79dc71f419e5b663429d3e0f1c98fc7931f331b61f21a995d985",
+      "processing": "equal-grid crop; alpha threshold 128; common per-sheet scale; nearest-neighbor; feet baseline; nearest shared palette with Noll green-cloth anchor normalization; two-frame battle anticipation hold"
+    },
+    {
+      "asset": "bhn_e_patientin_walk",
+      "tool": "built_in_image_gen",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept\nAsset type: production 2D game walking sheet\nOne complete walking animation sprite sheet, FOUR equal columns and FOUR equal rows, no grid or labels. Logical sheet 64x128 pixels, cells 16x32; may render enlarged. Rows DOWN (front), LEFT (profile), RIGHT (profile), UP (back). Columns four distinct walk-cycle poses: left foot forward, passing feet, right foot forward, passing feet. Real leg/arm changes, consistent identity and props. Entire body in every cell with transparent gutters, never crossing a cell border. Feet baseline at logical y=30. Anatomy readable at tiny pixel scale, not a box. No scenery or shadow blob. Transparent background.\nCharacter: Mara Sill. Kurpatientin, violetter Morgenmantel über Wollkleid, Decke um die Schultern, blass, geht langsam; Stillenhäuser.\nColor anchors: {\"coat\": \"#665572\", \"hat\": \"#252b38\", \"skin\": \"#cfb18a\", \"hair\": \"#8b8870\", \"legs\": \"#303b49\"}. Main coat hue must be recognizable.",
+      "source_file": "bhn_e_patientin_walk.png",
+      "source_sha256": "55479b4a2a4e111b41f06a55233829b76c3b4314ae3629f15ed1d580abf1d142",
+      "source_size": [
+        1122,
+        1402
+      ],
+      "output": "characters/bhn_e_patientin.png",
+      "output_sha256": "2c900fe3f95ae33538ea481aeb93e67f219806f34fb32f0107e0945714728390",
+      "processing": "equal-grid crop; alpha threshold 128; common per-sheet scale; nearest-neighbor; feet baseline; nearest shared palette with Noll green-cloth anchor normalization; two-frame battle anticipation hold"
+    },
+    {
+      "asset": "bhn_e_kapellmeister_walk",
+      "tool": "built_in_image_gen",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept\nAsset type: production 2D game walking sheet\nOne complete walking animation sprite sheet, FOUR equal columns and FOUR equal rows, no grid or labels. Logical sheet 64x128 pixels, cells 16x32; may render enlarged. Rows DOWN (front), LEFT (profile), RIGHT (profile), UP (back). Columns four distinct walk-cycle poses: left foot forward, passing feet, right foot forward, passing feet. Real leg/arm changes, consistent identity and props. Entire body in every cell with transparent gutters, never crossing a cell border. Feet baseline at logical y=30. Anatomy readable at tiny pixel scale, not a box. No scenery or shadow blob. Transparent background.\nCharacter: Orenna Pike. Kapellmeisterin der Kurkapelle, blaugrauer Frack, Taktstock, Notenrolle, Haar streng hochgesteckt; Pavillon.\nColor anchors: {\"coat\": \"#586c78\", \"hat\": \"#252b38\", \"skin\": \"#cfb18a\", \"hair\": \"#8b8870\", \"legs\": \"#303b49\"}. Main coat hue must be recognizable.",
+      "source_file": "bhn_e_kapellmeister_walk.png",
+      "source_sha256": "1aa3e0b71100a2d17c85eb91611a09b92b65532176f98f77ccc8471c5362fc18",
+      "source_size": [
+        887,
+        1774
+      ],
+      "output": "characters/bhn_e_kapellmeister.png",
+      "output_sha256": "1069cea0fd42410c42464272c82733a585ddcead2f537bd68990ef261684bea9",
+      "processing": "equal-grid crop; alpha threshold 128; common per-sheet scale; nearest-neighbor; feet baseline; nearest shared palette with Noll green-cloth anchor normalization; two-frame battle anticipation hold"
+    },
+    {
+      "asset": "bhn_e_kiosk_walk",
+      "tool": "built_in_image_gen",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept\nAsset type: production 2D game walking sheet\nOne complete walking animation sprite sheet, FOUR equal columns and FOUR equal rows, no grid or labels. Logical sheet 64x128 pixels, cells 16x32; may render enlarged. Rows DOWN (front), LEFT (profile), RIGHT (profile), UP (back). Columns four distinct walk-cycle poses: left foot forward, passing feet, right foot forward, passing feet. Real leg/arm changes, consistent identity and props. Entire body in every cell with transparent gutters, never crossing a cell border. Feet baseline at logical y=30. Anatomy readable at tiny pixel scale, not a box. No scenery or shadow blob. Transparent background.\nCharacter: Nell Rusk. Kioskfrau am Pavillon, brauner Mantel mit Bauchladen (Zeitungen, Hustenbonbons, Postkarten), Fäustlinge.\nColor anchors: {\"coat\": \"#715648\", \"hat\": \"#252b38\", \"skin\": \"#cfb18a\", \"hair\": \"#8b8870\", \"legs\": \"#303b49\"}. Main coat hue must be recognizable.",
+      "source_file": "bhn_e_kiosk_walk.png",
+      "source_sha256": "93bd54ddb229edcfbb07024449a4470173a73083764ad234ce945dc94bcfe487",
+      "source_size": [
+        1122,
+        1402
+      ],
+      "output": "characters/bhn_e_kiosk.png",
+      "output_sha256": "bd545b7f457e3219b02730c9b66ffc701f192959b526fef93f6429fad849d623",
+      "processing": "equal-grid crop; alpha threshold 128; common per-sheet scale; nearest-neighbor; feet baseline; nearest shared palette with Noll green-cloth anchor normalization; two-frame battle anticipation hold"
+    },
+    {
+      "asset": "bhn_e_lehrer_walk",
+      "tool": "built_in_image_gen",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept\nAsset type: production 2D game walking sheet\nOne complete walking animation sprite sheet, FOUR equal columns and FOUR equal rows, no grid or labels. Logical sheet 64x128 pixels, cells 16x32; may render enlarged. Rows DOWN (front), LEFT (profile), RIGHT (profile), UP (back). Columns four distinct walk-cycle poses: left foot forward, passing feet, right foot forward, passing feet. Real leg/arm changes, consistent identity and props. Entire body in every cell with transparent gutters, never crossing a cell border. Feet baseline at logical y=30. Anatomy readable at tiny pixel scale, not a box. No scenery or shadow blob. Transparent background.\nCharacter: Tobin Yew. Lehrer der Kurschule, grüner Mantel mit Schal, Lederbuch unterm Arm, Brille, freundlich-müde; Winterpromenade.\nColor anchors: {\"coat\": \"#496b64\", \"hat\": \"#252b38\", \"skin\": \"#cfb18a\", \"hair\": \"#8b8870\", \"legs\": \"#303b49\"}. Main coat hue must be recognizable.",
+      "source_file": "bhn_e_lehrer_walk.png",
+      "source_sha256": "65aa32133e8dea58869449eae0516d3a7c3caa3018a9b9866274e911883bb489",
+      "source_size": [
+        887,
+        1774
+      ],
+      "output": "characters/bhn_e_lehrer.png",
+      "output_sha256": "72bf8bd683642f73f3f89f49b5e8677f028ae980deb7ba2605e38f1db63ecdd5",
+      "processing": "equal-grid crop; alpha threshold 128; common per-sheet scale; nearest-neighbor; feet baseline; nearest shared palette with Noll green-cloth anchor normalization; two-frame battle anticipation hold"
+    },
+    {
+      "asset": "bhn_e_naeherin_walk",
+      "tool": "built_in_image_gen",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept\nAsset type: production 2D game walking sheet\nOne complete walking animation sprite sheet, FOUR equal columns and FOUR equal rows, no grid or labels. Logical sheet 64x128 pixels, cells 16x32; may render enlarged. Rows DOWN (front), LEFT (profile), RIGHT (profile), UP (back). Columns four distinct walk-cycle poses: left foot forward, passing feet, right foot forward, passing feet. Real leg/arm changes, consistent identity and props. Entire body in every cell with transparent gutters, never crossing a cell border. Feet baseline at logical y=30. Anatomy readable at tiny pixel scale, not a box. No scenery or shadow blob. Transparent background.\nCharacter: Iva Quill. Näherin für Decken und Verbände, Nadelkissen am Handgelenk, Stoffballen, Fingerhut; Kesselgrund.\nColor anchors: {\"coat\": \"#665572\", \"hat\": \"#252b38\", \"skin\": \"#cfb18a\", \"hair\": \"#8b8870\", \"legs\": \"#303b49\"}. Main coat hue must be recognizable.",
+      "source_file": "bhn_e_naeherin_walk.png",
+      "source_sha256": "afcc92f1bac5d832259ac84724550db64de5fab6bf549563f9443cb21a97699a",
+      "source_size": [
+        1122,
+        1402
+      ],
+      "output": "characters/bhn_e_naeherin.png",
+      "output_sha256": "fc156626af29bb1a42970d4837b86eb6b8e81467b0abebd9d7b7a48246d206af",
+      "processing": "equal-grid crop; alpha threshold 128; common per-sheet scale; nearest-neighbor; feet baseline; nearest shared palette with Noll green-cloth anchor normalization; two-frame battle anticipation hold"
+    },
+    {
+      "asset": "bhn_e_koechin_walk",
+      "tool": "built_in_image_gen",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept\nAsset type: production 2D game walking sheet\nOne complete walking animation sprite sheet, FOUR equal columns and FOUR equal rows, no grid or labels. Logical sheet 64x128 pixels, cells 16x32; may render enlarged. Rows DOWN (front), LEFT (profile), RIGHT (profile), UP (back). Columns four distinct walk-cycle poses: left foot forward, passing feet, right foot forward, passing feet. Real leg/arm changes, consistent identity and props. Entire body in every cell with transparent gutters, never crossing a cell border. Feet baseline at logical y=30. Anatomy readable at tiny pixel scale, not a box. No scenery or shadow blob. Transparent background.\nCharacter: Ada Brindle. Köchin des Speisesaals, Schürze über blaugrauem Kleid, Haube, Suppenkelle, rundlich und energisch.\nColor anchors: {\"coat\": \"#586c78\", \"hat\": \"#252b38\", \"skin\": \"#cfb18a\", \"hair\": \"#8b8870\", \"legs\": \"#303b49\"}. Main coat hue must be recognizable.",
+      "source_file": "bhn_e_koechin_walk.png",
+      "source_sha256": "a332d75c8465b08b601e8d4a612afa897ed73d6c65dceacb067b553bcc10f3fa",
+      "source_size": [
+        887,
+        1774
+      ],
+      "output": "characters/bhn_e_koechin.png",
+      "output_sha256": "ed85159923d3f3739b6a3a0e256da3f828b1af36100957777405b460f9a1d203",
+      "processing": "equal-grid crop; alpha threshold 128; common per-sheet scale; nearest-neighbor; feet baseline; nearest shared palette with Noll green-cloth anchor normalization; two-frame battle anticipation hold"
+    },
+    {
+      "asset": "bhn_e_bote_walk",
+      "tool": "built_in_image_gen",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept\nAsset type: production 2D game walking sheet\nOne complete walking animation sprite sheet, FOUR equal columns and FOUR equal rows, no grid or labels. Logical sheet 64x128 pixels, cells 16x32; may render enlarged. Rows DOWN (front), LEFT (profile), RIGHT (profile), UP (back). Columns four distinct walk-cycle poses: left foot forward, passing feet, right foot forward, passing feet. Real leg/arm changes, consistent identity and props. Entire body in every cell with transparent gutters, never crossing a cell border. Feet baseline at logical y=30. Anatomy readable at tiny pixel scale, not a box. No scenery or shadow blob. Transparent background.\nCharacter: Perrin Tuck. Kutschenhof-Bote, brauner Mantel, Umhängetasche, Wollmütze mit Bommel, läuft etwas schneller; Kutschenhof.\nColor anchors: {\"coat\": \"#715648\", \"hat\": \"#252b38\", \"skin\": \"#cfb18a\", \"hair\": \"#8b8870\", \"legs\": \"#303b49\"}. Main coat hue must be recognizable.",
+      "source_file": "bhn_e_bote_walk.png",
+      "source_sha256": "0dc0bcb85bdd824f5cfc3476793832947674227fe640875f8df7f7906b576651",
+      "source_size": [
+        887,
+        1774
+      ],
+      "output": "characters/bhn_e_bote.png",
+      "output_sha256": "2bb53a5e37f2257aa45ce0e8cf950282615a6024c31d3bfa8fbaadab147e95a8",
+      "processing": "equal-grid crop; alpha threshold 128; common per-sheet scale; nearest-neighbor; feet baseline; nearest shared palette with Noll green-cloth anchor normalization; two-frame battle anticipation hold"
+    },
+    {
+      "asset": "bhn_e_wart_walk",
+      "tool": "built_in_image_gen",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept\nAsset type: production 2D game walking sheet\nOne complete walking animation sprite sheet, FOUR equal columns and FOUR equal rows, no grid or labels. Logical sheet 64x128 pixels, cells 16x32; may render enlarged. Rows DOWN (front), LEFT (profile), RIGHT (profile), UP (back). Columns four distinct walk-cycle poses: left foot forward, passing feet, right foot forward, passing feet. Real leg/arm changes, consistent identity and props. Entire body in every cell with transparent gutters, never crossing a cell border. Feet baseline at logical y=30. Anatomy readable at tiny pixel scale, not a box. No scenery or shadow blob. Transparent background.\nCharacter: Edric Loam. Wart der Glasgärten und Heizleitungen, grüne Ölhaut, Rohrzange am Gürtel, Dampfbrille auf der Stirn, Handschuhe; Glasgärten.\nColor anchors: {\"coat\": \"#496b64\", \"hat\": \"#252b38\", \"skin\": \"#cfb18a\", \"hair\": \"#8b8870\", \"legs\": \"#303b49\"}. Main coat hue must be recognizable.",
+      "source_file": "bhn_e_wart_walk.png",
+      "source_sha256": "894e0374e9ced8c32f0bb7d69f226c657044fddbf152a8f31fbbac2a0859555c",
+      "source_size": [
+        887,
+        1774
+      ],
+      "output": "characters/bhn_e_wart.png",
+      "output_sha256": "3eb6fb59b76e8e72502eb2daeea7eadf07068dd66d23f73e0e8f4158a8ce0258",
+      "processing": "equal-grid crop; alpha threshold 128; common per-sheet scale; nearest-neighbor; feet baseline; nearest shared palette with Noll green-cloth anchor normalization; two-frame battle anticipation hold"
+    },
+    {
+      "asset": "wx_pfandleiherin_emotions",
+      "tool": "built_in_image_gen",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept\nProduction portrait sprite strip, exactly FOUR equally sized square 64x64 logical cells in ONE horizontal row, whole canvas 256x64 logical pixels. Render enlarged if needed. Same recognizable Victorian character head and shoulders in each cell. Expressions LEFT TO RIGHT: neutral, friendly businesslike small smile, suspicious lowered brows, startled eyes and mouth. Four genuinely different expressions, same scale, wardrobe, face and lighting. Transparent background with safe gutters; no cropping at boundaries. No text. Character: Maud Keel. weathered woman pawnbroker in her fifties, teal-grey wool coat, pale scarf, dark knit cap, grey hair pinned back, jeweller loupe on neck cord, ring tray at hip, shrewd and slightly stooped. Color anchors: {\"coat\": \"#4e7484\", \"hat\": \"#2a3440\", \"skin\": \"#d8b89a\", \"hair\": \"#8a8e96\", \"legs\": \"#2a3440\", \"scarf\": \"#c9c2ad\"}",
+      "source_file": "wx_pfandleiherin_emotions.png",
+      "source_sha256": "30937a4c58d187c45057c7c9e04d4b3b950db55f10f1571b3596de32e5620e82",
+      "source_size": [
+        2172,
+        724
+      ],
+      "output": "portraits/wx_pfandleiherin_emotions.png",
+      "output_sha256": "9f75f552f00cef9553003c8f572b9c44fe1600785c6b856f15ae25a9a5a1b89c",
+      "processing": "equal-grid crop; alpha threshold 128; common per-sheet scale; nearest-neighbor; feet baseline; nearest shared palette with Noll green-cloth anchor normalization; two-frame battle anticipation hold"
+    },
+    {
+      "asset": "k2a_senn_emotions",
+      "tool": "built_in_image_gen",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept\nProduction portrait sprite strip, exactly FOUR equally sized square 64x64 logical cells in ONE horizontal row, whole canvas 256x64 logical pixels. Render enlarged if needed. Same recognizable Victorian character head and shoulders in each cell. Expressions LEFT TO RIGHT: neutral, friendly businesslike small smile, suspicious lowered brows, startled eyes and mouth. Four genuinely different expressions, same scale, wardrobe, face and lighting. Transparent background with safe gutters; no cropping at boundaries. No text. Character: Ivo Senn. thin male freight copyist, worn brown vest and short navy rain cape, violet ink-stained thumbs, heavy wire spool at hip, carbon copy beneath coat, wary calculating posture. Color anchors: {\"coat\": \"#2a2a40\", \"vest\": \"#746255\", \"skin\": \"#e0c0a0\"}",
+      "source_file": "k2a_senn_emotions.png",
+      "source_sha256": "c94476496e46c20316dea7ddc4e508476c1e9adca6a3b7f6c21480e9d57d0831",
+      "source_size": [
+        2172,
+        724
+      ],
+      "output": "portraits/k2a_senn_emotions.png",
+      "output_sha256": "39d5763463b4f5a05f11cb1bc47ca2b710a0752371cf1c74be3e659995a3edf3",
+      "processing": "equal-grid crop; alpha threshold 128; common per-sheet scale; nearest-neighbor; feet baseline; nearest shared palette with Noll green-cloth anchor normalization; two-frame battle anticipation hold"
+    },
+    {
+      "asset": "k2a_veit_emotions",
+      "tool": "built_in_image_gen",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept\nProduction portrait sprite strip, exactly FOUR equally sized square 64x64 logical cells in ONE horizontal row, whole canvas 256x64 logical pixels. Render enlarged if needed. Same recognizable Victorian character head and shoulders in each cell. Expressions LEFT TO RIGHT: neutral, friendly businesslike small smile, suspicious lowered brows, startled eyes and mouth. Four genuinely different expressions, same scale, wardrobe, face and lighting. Transparent background with safe gutters; no cropping at boundaries. No text. Character: Dr. Oren Veit. tidy male material curator, anthracite coat, grey sleeve protectors, soot-stained spectacles, sample ledger in gloved hand, pale leaf scraps clinging to sleeve, neat narrow silhouette. Color anchors: {\"coat\": \"#2a2a40\", \"sleeves\": \"#8a8e96\", \"skin\": \"#e0c0a0\"}",
+      "source_file": "k2a_veit_emotions.png",
+      "source_sha256": "9cf56aae3ce1c069e167103cecace07b947ece5b02154390565cf332db90d09c",
+      "source_size": [
+        2172,
+        724
+      ],
+      "output": "portraits/k2a_veit_emotions.png",
+      "output_sha256": "61a7c11ccec7b375346eab41fc2efe01d6f9ba7112d86f07d9d47cff7e50449b",
+      "processing": "equal-grid crop; alpha threshold 128; common per-sheet scale; nearest-neighbor; feet baseline; nearest shared palette with Noll green-cloth anchor normalization; two-frame battle anticipation hold"
+    },
+    {
+      "asset": "k2a_noll_emotions",
+      "tool": "built_in_image_gen",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept\nProduction portrait sprite strip, exactly FOUR equally sized square 64x64 logical cells in ONE horizontal row, whole canvas 256x64 logical pixels. Render enlarged if needed. Same recognizable Victorian character head and shoulders in each cell. Expressions LEFT TO RIGHT: neutral, friendly businesslike small smile, suspicious lowered brows, startled eyes and mouth. Four genuinely different expressions, same scale, wardrobe, face and lighting. Transparent background with safe gutters; no cropping at boundaries. No text. Character: Clem Noll. complacent middle-aged male harbour clerk, expensive dark green coat, brass registry stamp on cord, shining boots with muddy soles, holds dry sealed envelope to chest, proud stout posture. Color anchors: {\"coat\": \"#334d47\", \"skin\": \"#e0c0a0\"}",
+      "source_file": "k2a_noll_emotions.png",
+      "source_sha256": "a6a80665a5b6d15dbd9eb9b361cbca2803ca488c2e18db6b91ec2c86fa566fc0",
+      "source_size": [
+        2172,
+        724
+      ],
+      "output": "portraits/k2a_noll_emotions.png",
+      "output_sha256": "6f62fe4c58422a5abed59a6213ed6596210d1380439939f20544da2f80987a87",
+      "processing": "equal-grid crop; alpha threshold 128; common per-sheet scale; nearest-neighbor; feet baseline; nearest shared palette with Noll green-cloth anchor normalization; two-frame battle anticipation hold"
+    },
+    {
+      "asset": "enemy_k2a_senn",
+      "tool": "built_in_image_gen",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept\nProduction enemy sprite animation sheet: EXACTLY SIX COLUMNS and FIVE ROWS, 30 cells, each 64x64 logical pixels; full sheet 384x320. Transparent canvas, no grid, no scenery; all figures remain inside their individual cells. Row1 idle breathing, row2 attack1, row3 attack2, row4 hurt, row5 defeated. Attack rows: frames1 and2 IDENTICAL held windup, frame3 release, frame4 follow-through, frames5/6 recovery. Clear distinct action poses and weapon directions, never just translate one sprite. Full body in each square cell, feet near bottom, side three-quarter view facing left, readable silhouettes. No gore. Character: Ivo Senn. thin male freight copyist, worn brown vest and short navy rain cape, violet ink-stained thumbs, heavy wire spool at hip, carbon copy beneath coat, wary calculating posture. Swings a heavy wire spool while shielding a portable telegraph on a small stool. attack1: spool swing; attack2: short shove with spool. Defeated: kneels and puts wire down. Color anchors: {\"coat\": \"#2a2a40\", \"vest\": \"#746255\", \"skin\": \"#e0c0a0\"}",
+      "source_file": "enemy_k2a_senn.png",
+      "source_sha256": "ad49c523532bfc3652957c2ee639d16f8b65279acddb6ac1d56aa80d0ec99344",
+      "source_size": [
+        1374,
+        1145
+      ],
+      "output": "battle/enemy_k2a_senn.png",
+      "output_sha256": "82e46f1352f4cd7f8f074e58c26ef7156ad5606729f10ab2c7b28ae359a81f66",
+      "processing": "equal-grid crop; alpha threshold 128; common per-sheet scale; nearest-neighbor; feet baseline; nearest shared palette with Noll green-cloth anchor normalization; two-frame battle anticipation hold"
+    },
+    {
+      "asset": "enemy_k2a_veit",
+      "tool": "built_in_image_gen",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept\nProduction enemy sprite animation sheet: EXACTLY SIX COLUMNS and FIVE ROWS, 30 cells, each 64x64 logical pixels; full sheet 384x320. Transparent canvas, no grid, no scenery; all figures remain inside their individual cells. Row1 idle breathing, row2 attack1, row3 attack2, row4 hurt, row5 defeated. Attack rows: frames1 and2 IDENTICAL held windup, frame3 release, frame4 follow-through, frames5/6 recovery. Clear distinct action poses and weapon directions, never just translate one sprite. Full body in each square cell, feet near bottom, side three-quarter view facing left, readable silhouettes. No gore. Character: Dr. Oren Veit. tidy male material curator, anthracite coat, grey sleeve protectors, soot-stained spectacles, sample ledger in gloved hand, pale leaf scraps clinging to sleeve, neat narrow silhouette. Throws glass vials of pale powder, no flames. A small sample cabinet at his rear. attack1: vial throw; attack2: defensive powder toss. Hurt: coughing. Defeated: seated surrender with empty hands. Color anchors: {\"coat\": \"#2a2a40\", \"sleeves\": \"#8a8e96\", \"skin\": \"#e0c0a0\"}",
+      "source_file": "enemy_k2a_veit.png",
+      "source_sha256": "8d1f62514c9adffe1dfd62a6e208c8e08cdf01a6e8854ad034a94c7aee6d3686",
+      "source_size": [
+        1374,
+        1145
+      ],
+      "output": "battle/enemy_k2a_veit.png",
+      "output_sha256": "1016ee7661ccdc067d13bfda5fe4bbfaf55d72b20c3d18547392b588e61e07f7",
+      "processing": "equal-grid crop; alpha threshold 128; common per-sheet scale; nearest-neighbor; feet baseline; nearest shared palette with Noll green-cloth anchor normalization; two-frame battle anticipation hold"
+    },
+    {
+      "asset": "enemy_k2a_noll",
+      "tool": "built_in_image_gen",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept\nProduction enemy sprite animation sheet: EXACTLY SIX COLUMNS and FIVE ROWS, 30 cells, each 64x64 logical pixels; full sheet 384x320. Transparent canvas, no grid, no scenery; all figures remain inside their individual cells. Row1 idle breathing, row2 attack1, row3 attack2, row4 hurt, row5 defeated. Attack rows: frames1 and2 IDENTICAL held windup, frame3 release, frame4 follow-through, frames5/6 recovery. Clear distinct action poses and weapon directions, never just translate one sprite. Full body in each square cell, feet near bottom, side three-quarter view facing left, readable silhouettes. No gore. Character: Clem Noll. complacent middle-aged male harbour clerk, expensive dark green coat, brass registry stamp on cord, shining boots with muddy soles, holds dry sealed envelope to chest, proud stout posture. Keeps distance with a long boat hook; sealed duplicate held behind him, no boat background. attack1: hook swing; attack2: forward hook thrust. Hurt: losing balance. Defeated: disarmed surrender. Color anchors: {\"coat\": \"#334d47\", \"skin\": \"#e0c0a0\"}",
+      "source_file": "enemy_k2a_noll.png",
+      "source_sha256": "5912e07b63e2ef25b61361f223c2445c74eec7e89102b26ec5a9af29c00fc87f",
+      "source_size": [
+        1374,
+        1145
+      ],
+      "output": "battle/enemy_k2a_noll.png",
+      "output_sha256": "3e62a704a112f03b732879f0dd672db9b5d6189eefa3f8783af8f1d1a1cda906",
+      "processing": "equal-grid crop; alpha threshold 128; common per-sheet scale; nearest-neighbor; feet baseline; nearest shared palette with Noll green-cloth anchor normalization; two-frame battle anticipation hold"
+    },
+    {
+      "asset": "wx_pfandtisch",
+      "tool": "built_in_image_gen",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept\nOne complete top-down 3/4 production pixel-art game prop, logical size 48x32 pixels, enlarged if needed. Entire object centered and contained in canvas with transparent margin on all sides. Pawnshop table: two salt barrels support a reused old door as tabletop, balance scale, ring tray and jeweller loupe on tabletop. Grey-brown aged wood, bone-white salt, dull brass. No person.",
+      "source_file": "wx_pfandtisch.png",
+      "source_sha256": "494439ac46a0cba00ea442fc5eb1027d9d1e01dcb4509ec027684012d657746a",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "output": "props/wx_pfandtisch.png",
+      "output_sha256": "ba99d681df1a218a290487e368ec58711dedb430543292d6ed793190cfd88be1",
+      "processing": "equal-grid crop; alpha threshold 128; common per-sheet scale; nearest-neighbor; feet baseline; nearest shared palette with Noll green-cloth anchor normalization; two-frame battle anticipation hold"
+    },
+    {
+      "asset": "cwo_marktstand_tisch",
+      "tool": "built_in_image_gen",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept\nOne complete top-down 3/4 production pixel-art game prop, logical size 48x32 pixels, enlarged if needed. Entire object centered and contained in canvas with transparent margin on all sides. Victorian travel supplies stall, low counter with a canvas canopy, tin cans, coils of rope, lamp oil bottles, tiny blank price cards without writing. Grey-brown wood, muted canvas. No person.",
+      "source_file": "cwo_marktstand_tisch.png",
+      "source_sha256": "72adb14ce7dbf53169743b49b5eb35f377b306245f7050146586c509d0bdbf82",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "output": "props/cwo_marktstand_tisch.png",
+      "output_sha256": "bb7d4039d58beb88d804d22d0b56e05cc41e34ac7b053f8bd823854a297afc71",
+      "processing": "equal-grid crop; alpha threshold 128; common per-sheet scale; nearest-neighbor; feet baseline; nearest shared palette with Noll green-cloth anchor normalization; two-frame battle anticipation hold"
+    }
+  ],
+  "export_jobs": [
+    {
+      "key": "wx_pfandleiherin_walk",
+      "npc": "wx_pfandleiherin",
+      "kind": "walk",
+      "file": "characters/wx_pfandleiherin_walk.png",
+      "target": [
+        64,
+        128
+      ],
+      "grid": [
+        4,
+        4
+      ],
+      "palette": {
+        "coat": "#4e7484",
+        "hat": "#2a3440",
+        "skin": "#d8b89a",
+        "hair": "#8a8e96",
+        "legs": "#2a3440",
+        "scarf": "#c9c2ad"
+      }
+    },
+    {
+      "key": "k2a_senn_walk",
+      "npc": "k2a_senn",
+      "kind": "walk",
+      "file": "characters/k2a_senn_walk.png",
+      "target": [
+        64,
+        128
+      ],
+      "grid": [
+        4,
+        4
+      ],
+      "palette": {
+        "coat": "#2a2a40",
+        "vest": "#746255",
+        "skin": "#e0c0a0"
+      }
+    },
+    {
+      "key": "k2a_veit_walk",
+      "npc": "k2a_veit",
+      "kind": "walk",
+      "file": "characters/k2a_veit_walk.png",
+      "target": [
+        64,
+        128
+      ],
+      "grid": [
+        4,
+        4
+      ],
+      "palette": {
+        "coat": "#2a2a40",
+        "sleeves": "#8a8e96",
+        "skin": "#e0c0a0"
+      }
+    },
+    {
+      "key": "k2a_noll_walk",
+      "npc": "k2a_noll",
+      "kind": "walk",
+      "file": "characters/k2a_noll_walk.png",
+      "target": [
+        64,
+        128
+      ],
+      "grid": [
+        4,
+        4
+      ],
+      "palette": {
+        "coat": "#334d47",
+        "skin": "#e0c0a0"
+      }
+    },
+    {
+      "key": "cwn_e_griffmacherin_walk",
+      "npc": "cwn_e_griffmacherin",
+      "kind": "walk",
+      "file": "characters/cwn_e_griffmacherin.png",
+      "target": [
+        64,
+        128
+      ],
+      "grid": [
+        4,
+        4
+      ],
+      "palette": {
+        "coat": "#756956",
+        "hat": "#444450",
+        "skin": "#c4aa91",
+        "hair": "#6a5e55",
+        "legs": "#3d414a"
+      }
+    },
+    {
+      "key": "cwn_e_waescherin_walk",
+      "npc": "cwn_e_waescherin",
+      "kind": "walk",
+      "file": "characters/cwn_e_waescherin.png",
+      "target": [
+        64,
+        128
+      ],
+      "grid": [
+        4,
+        4
+      ],
+      "palette": {
+        "coat": "#626c79",
+        "hat": "#444450",
+        "skin": "#c4aa91",
+        "hair": "#6a5e55",
+        "legs": "#3d414a"
+      }
+    },
+    {
+      "key": "cwn_e_bote_walk",
+      "npc": "cwn_e_bote",
+      "kind": "walk",
+      "file": "characters/cwn_e_bote.png",
+      "target": [
+        64,
+        128
+      ],
+      "grid": [
+        4,
+        4
+      ],
+      "palette": {
+        "coat": "#746255",
+        "hat": "#444450",
+        "skin": "#c4aa91",
+        "hair": "#6a5e55",
+        "legs": "#3d414a"
+      }
+    },
+    {
+      "key": "cwn_e_marktfrau_walk",
+      "npc": "cwn_e_marktfrau",
+      "kind": "walk",
+      "file": "characters/cwn_e_marktfrau.png",
+      "target": [
+        64,
+        128
+      ],
+      "grid": [
+        4,
+        4
+      ],
+      "palette": {
+        "coat": "#68725d",
+        "hat": "#444450",
+        "skin": "#c4aa91",
+        "hair": "#6a5e55",
+        "legs": "#3d414a"
+      }
+    },
+    {
+      "key": "cwn_e_nachtsetzer_walk",
+      "npc": "cwn_e_nachtsetzer",
+      "kind": "walk",
+      "file": "characters/cwn_e_nachtsetzer.png",
+      "target": [
+        64,
+        128
+      ],
+      "grid": [
+        4,
+        4
+      ],
+      "palette": {
+        "coat": "#756956",
+        "hat": "#444450",
+        "skin": "#c4aa91",
+        "hair": "#6a5e55",
+        "legs": "#3d414a"
+      }
+    },
+    {
+      "key": "cwn_e_fensterputzerin_walk",
+      "npc": "cwn_e_fensterputzerin",
+      "kind": "walk",
+      "file": "characters/cwn_e_fensterputzerin.png",
+      "target": [
+        64,
+        128
+      ],
+      "grid": [
+        4,
+        4
+      ],
+      "palette": {
+        "coat": "#626c79",
+        "hat": "#444450",
+        "skin": "#c4aa91",
+        "hair": "#6a5e55",
+        "legs": "#3d414a"
+      }
+    },
+    {
+      "key": "cwn_e_laternenwart_walk",
+      "npc": "cwn_e_laternenwart",
+      "kind": "walk",
+      "file": "characters/cwn_e_laternenwart.png",
+      "target": [
+        64,
+        128
+      ],
+      "grid": [
+        4,
+        4
+      ],
+      "palette": {
+        "coat": "#746255",
+        "hat": "#444450",
+        "skin": "#c4aa91",
+        "hair": "#6a5e55",
+        "legs": "#3d414a"
+      }
+    },
+    {
+      "key": "cwn_e_archivdienerin_walk",
+      "npc": "cwn_e_archivdienerin",
+      "kind": "walk",
+      "file": "characters/cwn_e_archivdienerin.png",
+      "target": [
+        64,
+        128
+      ],
+      "grid": [
+        4,
+        4
+      ],
+      "palette": {
+        "coat": "#68725d",
+        "hat": "#444450",
+        "skin": "#c4aa91",
+        "hair": "#6a5e55",
+        "legs": "#3d414a"
+      }
+    },
+    {
+      "key": "cwo_marktstand_walk",
+      "npc": "cwo_marktstand",
+      "kind": "walk",
+      "file": "characters/cwo_marktstand.png",
+      "target": [
+        64,
+        128
+      ],
+      "grid": [
+        4,
+        4
+      ],
+      "palette": {
+        "coat": "#566065",
+        "hat": "#363640",
+        "skin": "#c8ac8c",
+        "hair": "#655847",
+        "legs": "#34333a"
+      }
+    },
+    {
+      "key": "bhn_e_patientin_walk",
+      "npc": "bhn_e_patientin",
+      "kind": "walk",
+      "file": "characters/bhn_e_patientin.png",
+      "target": [
+        64,
+        128
+      ],
+      "grid": [
+        4,
+        4
+      ],
+      "palette": {
+        "coat": "#665572",
+        "hat": "#252b38",
+        "skin": "#cfb18a",
+        "hair": "#8b8870",
+        "legs": "#303b49"
+      }
+    },
+    {
+      "key": "bhn_e_kapellmeister_walk",
+      "npc": "bhn_e_kapellmeister",
+      "kind": "walk",
+      "file": "characters/bhn_e_kapellmeister.png",
+      "target": [
+        64,
+        128
+      ],
+      "grid": [
+        4,
+        4
+      ],
+      "palette": {
+        "coat": "#586c78",
+        "hat": "#252b38",
+        "skin": "#cfb18a",
+        "hair": "#8b8870",
+        "legs": "#303b49"
+      }
+    },
+    {
+      "key": "bhn_e_kiosk_walk",
+      "npc": "bhn_e_kiosk",
+      "kind": "walk",
+      "file": "characters/bhn_e_kiosk.png",
+      "target": [
+        64,
+        128
+      ],
+      "grid": [
+        4,
+        4
+      ],
+      "palette": {
+        "coat": "#715648",
+        "hat": "#252b38",
+        "skin": "#cfb18a",
+        "hair": "#8b8870",
+        "legs": "#303b49"
+      }
+    },
+    {
+      "key": "bhn_e_lehrer_walk",
+      "npc": "bhn_e_lehrer",
+      "kind": "walk",
+      "file": "characters/bhn_e_lehrer.png",
+      "target": [
+        64,
+        128
+      ],
+      "grid": [
+        4,
+        4
+      ],
+      "palette": {
+        "coat": "#496b64",
+        "hat": "#252b38",
+        "skin": "#cfb18a",
+        "hair": "#8b8870",
+        "legs": "#303b49"
+      }
+    },
+    {
+      "key": "bhn_e_naeherin_walk",
+      "npc": "bhn_e_naeherin",
+      "kind": "walk",
+      "file": "characters/bhn_e_naeherin.png",
+      "target": [
+        64,
+        128
+      ],
+      "grid": [
+        4,
+        4
+      ],
+      "palette": {
+        "coat": "#665572",
+        "hat": "#252b38",
+        "skin": "#cfb18a",
+        "hair": "#8b8870",
+        "legs": "#303b49"
+      }
+    },
+    {
+      "key": "bhn_e_koechin_walk",
+      "npc": "bhn_e_koechin",
+      "kind": "walk",
+      "file": "characters/bhn_e_koechin.png",
+      "target": [
+        64,
+        128
+      ],
+      "grid": [
+        4,
+        4
+      ],
+      "palette": {
+        "coat": "#586c78",
+        "hat": "#252b38",
+        "skin": "#cfb18a",
+        "hair": "#8b8870",
+        "legs": "#303b49"
+      }
+    },
+    {
+      "key": "bhn_e_bote_walk",
+      "npc": "bhn_e_bote",
+      "kind": "walk",
+      "file": "characters/bhn_e_bote.png",
+      "target": [
+        64,
+        128
+      ],
+      "grid": [
+        4,
+        4
+      ],
+      "palette": {
+        "coat": "#715648",
+        "hat": "#252b38",
+        "skin": "#cfb18a",
+        "hair": "#8b8870",
+        "legs": "#303b49"
+      }
+    },
+    {
+      "key": "bhn_e_wart_walk",
+      "npc": "bhn_e_wart",
+      "kind": "walk",
+      "file": "characters/bhn_e_wart.png",
+      "target": [
+        64,
+        128
+      ],
+      "grid": [
+        4,
+        4
+      ],
+      "palette": {
+        "coat": "#496b64",
+        "hat": "#252b38",
+        "skin": "#cfb18a",
+        "hair": "#8b8870",
+        "legs": "#303b49"
+      }
+    },
+    {
+      "key": "wx_pfandleiherin_emotions",
+      "npc": "wx_pfandleiherin",
+      "kind": "emotions",
+      "file": "portraits/wx_pfandleiherin_emotions.png",
+      "target": [
+        256,
+        64
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "palette": {
+        "coat": "#4e7484",
+        "hat": "#2a3440",
+        "skin": "#d8b89a",
+        "hair": "#8a8e96",
+        "legs": "#2a3440",
+        "scarf": "#c9c2ad"
+      }
+    },
+    {
+      "key": "k2a_senn_emotions",
+      "npc": "k2a_senn",
+      "kind": "emotions",
+      "file": "portraits/k2a_senn_emotions.png",
+      "target": [
+        256,
+        64
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "palette": {
+        "coat": "#2a2a40",
+        "vest": "#746255",
+        "skin": "#e0c0a0"
+      }
+    },
+    {
+      "key": "k2a_veit_emotions",
+      "npc": "k2a_veit",
+      "kind": "emotions",
+      "file": "portraits/k2a_veit_emotions.png",
+      "target": [
+        256,
+        64
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "palette": {
+        "coat": "#2a2a40",
+        "sleeves": "#8a8e96",
+        "skin": "#e0c0a0"
+      }
+    },
+    {
+      "key": "k2a_noll_emotions",
+      "npc": "k2a_noll",
+      "kind": "emotions",
+      "file": "portraits/k2a_noll_emotions.png",
+      "target": [
+        256,
+        64
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "palette": {
+        "coat": "#334d47",
+        "skin": "#e0c0a0"
+      }
+    },
+    {
+      "key": "enemy_k2a_senn",
+      "npc": "k2a_senn",
+      "kind": "battle",
+      "file": "battle/enemy_k2a_senn.png",
+      "target": [
+        384,
+        320
+      ],
+      "grid": [
+        6,
+        5
+      ],
+      "palette": {
+        "coat": "#2a2a40",
+        "vest": "#746255",
+        "skin": "#e0c0a0"
+      }
+    },
+    {
+      "key": "enemy_k2a_veit",
+      "npc": "k2a_veit",
+      "kind": "battle",
+      "file": "battle/enemy_k2a_veit.png",
+      "target": [
+        384,
+        320
+      ],
+      "grid": [
+        6,
+        5
+      ],
+      "palette": {
+        "coat": "#2a2a40",
+        "sleeves": "#8a8e96",
+        "skin": "#e0c0a0"
+      }
+    },
+    {
+      "key": "enemy_k2a_noll",
+      "npc": "k2a_noll",
+      "kind": "battle",
+      "file": "battle/enemy_k2a_noll.png",
+      "target": [
+        384,
+        320
+      ],
+      "grid": [
+        6,
+        5
+      ],
+      "palette": {
+        "coat": "#334d47",
+        "skin": "#e0c0a0"
+      }
+    },
+    {
+      "key": "wx_pfandtisch",
+      "kind": "prop",
+      "file": "props/wx_pfandtisch.png",
+      "target": [
+        48,
+        32
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "palette": {}
+    },
+    {
+      "key": "cwo_marktstand_tisch",
+      "kind": "prop",
+      "file": "props/cwo_marktstand_tisch.png",
+      "target": [
+        48,
+        32
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "palette": {}
+    }
+  ],
+  "head_derivation": "20 head cutouts from the corresponding first walk frame; Mina has no requested head",
+  "replacement_policy": "only four explicitly requested borrowed walk sheets replaced",
+  "notes": [
+    "K2 legacy palette uses one shared navy placeholder; Senn retains navy rain cape over specified brown vest, Veit anthracite, Noll uses explicitly requested dark green.",
+    "All explicit coat anchors and the shared muted palette are retained."
+  ]
+}
