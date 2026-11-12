@@ -136,7 +136,7 @@ test('CO/CP: Kreaturformen mit Texten und Sheets, Wächter mit CO-Blatt, Siegel,
       assert.ok(file(sceneUrl(`hg_seq${seq}_${pid}`)), `${pid} ${seq}: Sequenzbild`);
       const enc = content.encounters[ordealId(pid, seq)];
       assert.equal(enc.sheet, SCHWELLE[seq].sheet);
-      assert.equal(enc.hp, seq === 4 ? 520 : 1400, 'Leben nach CP');
+      assert.equal(enc.hp, seq === 4 ? 2500 : 1400, 'Leben nach CP');
       assert.ok(enc.phase2?.attacks?.length === 2 && enc.phase2.meldung, 'Zorn-Phase');
       assert.ok(enc.phase2.attacks.some((a) => a.nerves > 0), 'die Welle senkt Nerven');
       assert.equal(ENCOUNTER_BACKGROUNDS[ordealId(pid, seq)], seq === 4 ? 'bg_hg_schwelle' : 'bg_hg_grenze');

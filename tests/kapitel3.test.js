@@ -75,6 +75,7 @@ test('Balance Kapitel 3: mit Sequenz 5 schaffen sehr Geübte jeden Gegner und je
   const ch3 = Object.entries(content.encounters).filter(([, e]) => e.chapter === 3);
   assert.ok(ch3.length >= 20);
   for (const [id, e] of ch3) {
+    if (id.startsWith('hg_schwellenwaechter')) continue; // Seq-4-Prüfung, eigener Maßstab in halbgott.test.js
     const tough = e.elite || e.boss || e.flees_after; // BD: wer sich nach drei Runden entzieht, verlangt den Doppelschlag
     const { result, combat } = fight(seq(5), id, { defend: EXPERT, skill: tough ? 'double' : 'attack', healBelow: 18 });
     assert.equal(result.outcome, 'won', `${id}: verloren in Runde ${combat.round}`);
