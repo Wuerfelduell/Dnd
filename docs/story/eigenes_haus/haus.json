@@ -1,0 +1,2752 @@
+{
+  "schema": "nebel-haus-dg-1",
+  "status": "integration_pending",
+  "purchase": {
+    "npc_id": "haus_maklerin",
+    "name": "Frau Leda Voss",
+    "lines": [
+      "Die Maklerin legt einen eisernen Schlüssel auf das Fensterbrett.",
+      "„Vier Räume. Stube, Arbeitszimmer, Kammer, Keller.“",
+      "„Die Tapete verzeiht Nägel; die Nachbarn verzeihen wenig Lärm.“",
+      "Du fragst nach dem Preis.",
+      "„Sechshundert Schilling, einmalig und schriftlich.“",
+      "Du blickst auf die leeren Dielen.",
+      "„Ab Ihrem vierten Fall kann das Revier die Anschrift bestätigen.“",
+      "„Wenn Sie weiterziehen, gilt der Vertrag für unsere Unterkünfte mit.“",
+      "Du fragst, ob das Haus reist.",
+      "„Der Hausrat reist. Die Wände wechseln. Das ist deutlich billiger.“",
+      "Sie schiebt dir den Vertrag hin.",
+      "Der Schlüssel wartet, ohne zu drängen."
+    ],
+    "requires": {
+      "case_at_least": 4,
+      "city": "kettlegate"
+    },
+    "price_schilling": 600,
+    "choices": [
+      {
+        "id": "kaufen",
+        "text": "Den Vertrag unterschreiben.",
+        "requires_money": 600,
+        "transaction": {
+          "take_money": 600,
+          "set_flag": "haus_owned",
+          "grant_once": [
+            "haus_bett_p1",
+            "haus_bett_p2",
+            "haus_schreibtisch_p1",
+            "haus_schreibtisch_p2"
+          ],
+          "idempotency_key": "haus_kauf"
+        }
+      },
+      {
+        "id": "spaeter",
+        "text": "Ich überlege es mir noch.",
+        "effects": {}
+      }
+    ]
+  },
+  "shared_instance": "hausrat",
+  "maps": [
+    {
+      "id": "haus_kettlegate",
+      "city": "kettlegate",
+      "size_tiles": [
+        32,
+        20
+      ],
+      "rows": [
+        "################################",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............................#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#######..##############..#######",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............................#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#######..#######################"
+      ],
+      "rooms": {
+        "stube": [
+          1,
+          1,
+          14,
+          8
+        ],
+        "arbeitszimmer": [
+          16,
+          1,
+          15,
+          8
+        ],
+        "kammer": [
+          1,
+          10,
+          14,
+          9
+        ],
+        "keller": [
+          16,
+          10,
+          15,
+          9
+        ]
+      },
+      "spawn": [
+        8,
+        18
+      ],
+      "wall_material": "Backstein",
+      "room_text": {
+        "stube": [
+          "Der Backstein hält die Wärme des Ofens.",
+          "Straßenlärm endet am Vorhang.",
+          "Der Sessel steht zum Licht."
+        ],
+        "arbeitszimmer": [
+          "Ruß setzt sich außen auf die Scheibe.",
+          "Innen bleibt eine freie Zeile.",
+          "Der Schreibtisch wackelt nicht mehr."
+        ],
+        "kammer": [
+          "Über dem Bett knarrt ein Balken.",
+          "Das Fenster lässt einen schmalen Morgenstreifen herein.",
+          "Die Decke riecht nach Seife."
+        ],
+        "keller": [
+          "Die Kellerstufen sind in der Mitte blank.",
+          "Hinter den Kisten verläuft ein trockenes Rohr.",
+          "Jeder Schatten hat hier einen Gegenstand."
+        ]
+      },
+      "move_lines": [
+        "Der Schlüssel ist schwerer als erwartet.",
+        "Die Träger stellen die ersten Kisten ab.",
+        "Zum ersten Mal lautet die Anschrift: zu Hause."
+      ]
+    },
+    {
+      "id": "haus_wexmoor",
+      "city": "wexmoor",
+      "size_tiles": [
+        32,
+        20
+      ],
+      "rows": [
+        "################################",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............................#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#######..##############..#######",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............................#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#######..#######################"
+      ],
+      "rooms": {
+        "stube": [
+          1,
+          1,
+          14,
+          8
+        ],
+        "arbeitszimmer": [
+          16,
+          1,
+          15,
+          8
+        ],
+        "kammer": [
+          1,
+          10,
+          14,
+          9
+        ],
+        "keller": [
+          16,
+          10,
+          15,
+          9
+        ]
+      },
+      "spawn": [
+        8,
+        18
+      ],
+      "wall_material": "Torfholz",
+      "room_text": {
+        "stube": [
+          "Das Torfholz riecht nach feuchter Erde.",
+          "Die vertrauten Möbel stehen auf fremden Dielen.",
+          "Ein Tropfen zählt die Zeit draußen."
+        ],
+        "arbeitszimmer": [
+          "Am Fenster klebt ein Blatt Schilf.",
+          "Die Akten bleiben unter einem Tuch trocken.",
+          "Der Bleistift rollt zur selben Tischkante."
+        ],
+        "kammer": [
+          "Das Holz arbeitet nachts.",
+          "Unter der Decke ist die Luft warm.",
+          "Ein leiser Wind fährt am Haus vorbei."
+        ],
+        "keller": [
+          "Zwischen den Steinen glänzt Torfwasser.",
+          "Die Kisten stehen erhöht.",
+          "Die Treppe bleibt trocken."
+        ]
+      },
+      "move_lines": [
+        "Der Hausrat kommt auf einem flachen Kahn.",
+        "Die Wände riechen jetzt nach Torf.",
+        "Die Kerbe am Schreibtisch ist mitgereist."
+      ]
+    },
+    {
+      "id": "haus_dunscar",
+      "city": "dunscar",
+      "size_tiles": [
+        32,
+        20
+      ],
+      "rows": [
+        "################################",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............................#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#######..##############..#######",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............................#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#######..#######################"
+      ],
+      "rooms": {
+        "stube": [
+          1,
+          1,
+          14,
+          8
+        ],
+        "arbeitszimmer": [
+          16,
+          1,
+          15,
+          8
+        ],
+        "kammer": [
+          1,
+          10,
+          14,
+          9
+        ],
+        "keller": [
+          16,
+          10,
+          15,
+          9
+        ]
+      },
+      "spawn": [
+        8,
+        18
+      ],
+      "wall_material": "Bahnhofsfliesen",
+      "room_text": {
+        "stube": [
+          "Die Fliesen tragen alte Rußschatten.",
+          "Ein Zug lässt die Tasse zittern.",
+          "Der Sessel rückt keinen Zoll."
+        ],
+        "arbeitszimmer": [
+          "Ein ferner Pfiff zieht durch die Scheibe.",
+          "Auf dem Tisch liegen stillere Linien.",
+          "Die Lampe leuchtet auf beide Hände."
+        ],
+        "kammer": [
+          "Hinter der Wand rauscht eine Leitung.",
+          "Das Bett steht weit genug davon entfernt.",
+          "Hier endet die Schicht."
+        ],
+        "keller": [
+          "Der Boden trägt Spuren schwerer Stiefel.",
+          "Ein altes Rohr ist sorgfältig verschlossen.",
+          "Die Kisten stehen in geraden Reihen."
+        ]
+      },
+      "move_lines": [
+        "Der Gepäckwagen bringt dieselben Kisten.",
+        "Hinter den Möbeln glänzen Bahnhofsfliesen.",
+        "Der Sessel steht wieder am Fenster."
+      ]
+    },
+    {
+      "id": "haus_calderwick",
+      "city": "calderwick",
+      "size_tiles": [
+        32,
+        20
+      ],
+      "rows": [
+        "################################",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............................#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#######..##############..#######",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............................#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#######..#######################"
+      ],
+      "rooms": {
+        "stube": [
+          1,
+          1,
+          14,
+          8
+        ],
+        "arbeitszimmer": [
+          16,
+          1,
+          15,
+          8
+        ],
+        "kammer": [
+          1,
+          10,
+          14,
+          9
+        ],
+        "keller": [
+          16,
+          10,
+          15,
+          9
+        ]
+      },
+      "spawn": [
+        8,
+        18
+      ],
+      "wall_material": "Terrassenstein",
+      "room_text": {
+        "stube": [
+          "Der helle Stein wirft das Lampenlicht zurück.",
+          "Von unten klingt eine Standseilbahn.",
+          "Der Teppich dämpft ihre Vibration."
+        ],
+        "arbeitszimmer": [
+          "Eine Rohrpost zischt jenseits der Mauer.",
+          "Auf diesem Tisch landet nur geöffnete Post.",
+          "Der freie Stuhl wartet ohne Aktenzeichen."
+        ],
+        "kammer": [
+          "Die Wand speichert Tageswärme.",
+          "Der Vorhang hält den Kalkstaub draußen.",
+          "Neben dem Bett bleibt ein Glas Wasser."
+        ],
+        "keller": [
+          "Im Stein sitzen kleine Druckerschwärzen.",
+          "Die Stufen sind kühl.",
+          "Die Beschläge der Truhe bleiben trocken."
+        ]
+      },
+      "move_lines": [
+        "Eine Standseilbahn hebt den Hausrat auf die Terrasse.",
+        "Heller Stein ersetzt die Fliesen.",
+        "Die Schubladen enthalten, was ich eingepackt habe."
+      ]
+    },
+    {
+      "id": "haus_briarholt",
+      "city": "briarholt",
+      "size_tiles": [
+        32,
+        20
+      ],
+      "rows": [
+        "################################",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............................#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#######..##############..#######",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............................#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#######..#######################"
+      ],
+      "rooms": {
+        "stube": [
+          1,
+          1,
+          14,
+          8
+        ],
+        "arbeitszimmer": [
+          16,
+          1,
+          15,
+          8
+        ],
+        "kammer": [
+          1,
+          10,
+          14,
+          9
+        ],
+        "keller": [
+          16,
+          10,
+          15,
+          9
+        ]
+      },
+      "spawn": [
+        8,
+        18
+      ],
+      "wall_material": "Kurhausglas",
+      "room_text": {
+        "stube": [
+          "Milchiges Glas macht das Licht weich.",
+          "Der Ofen bleibt ein gewöhnlicher Ofen.",
+          "Auf dem Teppich liegt kein Klinikplan."
+        ],
+        "arbeitszimmer": [
+          "Das Fenster zeigt Zweige statt Stationsnummern.",
+          "Die Bücher haben keine Patientenetiketten.",
+          "Ein Blatt darf unbeschrieben bleiben."
+        ],
+        "kammer": [
+          "Der Wind streicht über das Dachglas.",
+          "Die Decke ist keine Verordnung.",
+          "Schlaf braucht hier keine Unterschrift."
+        ],
+        "keller": [
+          "Eine stillgelegte Leitung endet vor der Wand.",
+          "Das Ventil ist kalt.",
+          "Zwischen den Kisten riecht es nach Holz."
+        ]
+      },
+      "move_lines": [
+        "Unter Glas werden die Kisten abgestellt.",
+        "Das Zimmer hat einen anderen Atem.",
+        "Die zwei Tassen finden ihren alten Platz."
+      ]
+    },
+    {
+      "id": "haus_varrowmouth",
+      "city": "varrowmouth",
+      "size_tiles": [
+        32,
+        20
+      ],
+      "rows": [
+        "################################",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............................#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#######..##############..#######",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............................#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#..............#...............#",
+        "#######..#######################"
+      ],
+      "rooms": {
+        "stube": [
+          1,
+          1,
+          14,
+          8
+        ],
+        "arbeitszimmer": [
+          16,
+          1,
+          15,
+          8
+        ],
+        "kammer": [
+          1,
+          10,
+          14,
+          9
+        ],
+        "keller": [
+          16,
+          10,
+          15,
+          9
+        ]
+      },
+      "spawn": [
+        8,
+        18
+      ],
+      "wall_material": "nasser Stein",
+      "room_text": {
+        "stube": [
+          "Nasser Stein glänzt am Türrahmen.",
+          "Das vertraute Polster riecht noch nach Reise.",
+          "Die Glocke am Fenster bleibt still."
+        ],
+        "arbeitszimmer": [
+          "Salz zeichnet einen Rand auf die Scheibe.",
+          "Das Registerblatt hängt über meinem Tisch.",
+          "Dahinter ist eine Wand, kein Amt."
+        ],
+        "kammer": [
+          "Wasser schlägt unterhalb des Fensters an.",
+          "Die Bettfüße stehen trocken.",
+          "Die Nacht darf kommen, ohne mich abzuholen."
+        ],
+        "keller": [
+          "Eine Flutmarke läuft über den Stein.",
+          "Die Kisten stehen über ihr.",
+          "Die Treppe führt jederzeit zurück ins Licht."
+        ]
+      },
+      "move_lines": [
+        "Die Träger warten auf sinkendes Wasser.",
+        "Dann tragen sie die Kisten über den Steg.",
+        "Die Wände wechseln; ich erkenne jede Schramme."
+      ]
+    }
+  ],
+  "furniture": [
+    {
+      "id": "haus_sessel",
+      "name": "Abgewetzter Sessel",
+      "source": {
+        "type": "Kauf",
+        "city": "kettlegate",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "price_schilling": 20,
+        "provider": "haus_maklerin"
+      },
+      "place_type": "boden",
+      "size_tiles": [
+        2,
+        2
+      ],
+      "rotation": [
+        0,
+        180
+      ],
+      "sprite_region": "haus_sessel",
+      "bonus": {
+        "flag": "haus_bonus_sessel",
+        "effect": "sleep_nerves_add",
+        "value": 1,
+        "cap_group": "sleep",
+        "group_cap": 3,
+        "trigger": "first_sleep_per_world_day"
+      },
+      "inspect": "Die Armlehne kennt die Form einer ruhenden Hand."
+    },
+    {
+      "id": "haus_lesepult",
+      "name": "Lesepult",
+      "source": {
+        "type": "Quest-Belohnung",
+        "city": "kettlegate",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "trigger": {
+          "type": "completed_case_in_city",
+          "city": "kettlegate"
+        },
+        "grant_once": true
+      },
+      "place_type": "boden",
+      "size_tiles": [
+        2,
+        2
+      ],
+      "rotation": [
+        0,
+        180
+      ],
+      "sprite_region": "haus_lesepult",
+      "bonus": {
+        "flag": "haus_bonus_lesepult",
+        "effect": "review_known_clue",
+        "value": 1,
+        "cap_group": "reading",
+        "group_cap": 1,
+        "trigger": "read_existing_piece",
+        "restriction": "Nur bereits bekannte Hinweise; keine neuen Beweise oder automatischen Schlüsse."
+      },
+      "inspect": "Hier muss ich ein Blatt nicht mehr mit dem Ellenbogen festhalten."
+    },
+    {
+      "id": "haus_kraeuterbrett",
+      "name": "Kräuterbrett",
+      "source": {
+        "type": "Kauf",
+        "city": "kettlegate",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "price_schilling": 40,
+        "provider": "haus_maklerin"
+      },
+      "place_type": "wand",
+      "size_tiles": [
+        2,
+        1
+      ],
+      "rotation": [
+        0
+      ],
+      "sprite_region": "haus_kraeuterbrett",
+      "bonus": {
+        "flag": "haus_bonus_kraeuterbrett",
+        "effect": "house_ingredient_storage_slots",
+        "value": 4,
+        "cap_group": "storage",
+        "group_cap": 8,
+        "trigger": "while_placed",
+        "restriction": "Nur eingelagerte Zutaten gewichtslos; bei Entnahme gilt ihr ursprüngliches Gewicht."
+      },
+      "inspect": "Die Bündel trocknen, ohne dass ich ihre Namen vergesse."
+    },
+    {
+      "id": "haus_landkarte",
+      "name": "Landkarte der fünf Städte",
+      "source": {
+        "type": "Fund",
+        "city": "kettlegate",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "trigger": {
+          "type": "inspect_delivery_crate",
+          "requires_city": "kettlegate"
+        },
+        "grant_once": true
+      },
+      "place_type": "wand",
+      "size_tiles": [
+        2,
+        1
+      ],
+      "rotation": [
+        0
+      ],
+      "sprite_region": "haus_landkarte",
+      "bonus": {
+        "flag": "haus_bonus_landkarte",
+        "effect": "show_unlocked_destination_note",
+        "value": 1,
+        "cap_group": "travel",
+        "group_cap": 1,
+        "trigger": "inspect",
+        "restriction": "Nur freigeschaltete Reiseziele; keine Abkürzung und kein Zugang."
+      },
+      "inspect": "Am Rand hört das Papier auf; die Straße vermutlich nicht."
+    },
+    {
+      "id": "haus_pegelglocke",
+      "name": "Pegelglocke",
+      "source": {
+        "type": "Fasserin",
+        "city": "kettlegate",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "provider": "fasserin",
+        "trigger": {
+          "type": "completed_fasserin_order_in_city",
+          "city": "kettlegate"
+        },
+        "grant_once": true
+      },
+      "place_type": "tisch",
+      "size_tiles": [
+        2,
+        1
+      ],
+      "rotation": [
+        0
+      ],
+      "sprite_region": "haus_pegelglocke",
+      "bonus": {
+        "flag": "haus_bonus_pegelglocke",
+        "effect": "arrival_nerves_add",
+        "value": 1,
+        "cap_group": "arrival",
+        "group_cap": 2,
+        "trigger": "first_homecoming_per_world_day"
+      },
+      "inspect": "Diese Glocke darf schweigen, auch wenn das Wasser steigt."
+    },
+    {
+      "id": "haus_grammophon",
+      "name": "Grammophon ohne Trichter",
+      "source": {
+        "type": "Fund",
+        "city": "kettlegate",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "trigger": {
+          "type": "inspect_delivery_crate",
+          "requires_city": "kettlegate"
+        },
+        "grant_once": true
+      },
+      "place_type": "tisch",
+      "size_tiles": [
+        2,
+        1
+      ],
+      "rotation": [
+        0
+      ],
+      "sprite_region": "haus_grammophon",
+      "bonus": {
+        "flag": "haus_bonus_grammophon",
+        "effect": "arrival_nerves_add",
+        "value": 1,
+        "cap_group": "arrival",
+        "group_cap": 2,
+        "trigger": "first_homecoming_per_world_day"
+      },
+      "inspect": "Die Nadel kreist über einer Rille, die niemand besingen muss."
+    },
+    {
+      "id": "haus_aktenschrank",
+      "name": "Aktenschrank",
+      "source": {
+        "type": "Kauf",
+        "city": "kettlegate",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "price_schilling": 30,
+        "provider": "haus_maklerin"
+      },
+      "place_type": "boden",
+      "size_tiles": [
+        2,
+        2
+      ],
+      "rotation": [
+        0,
+        180
+      ],
+      "sprite_region": "haus_aktenschrank",
+      "bonus": {
+        "flag": "haus_bonus_aktenschrank",
+        "effect": "pin_known_journal_entry",
+        "value": 1,
+        "cap_group": "journal",
+        "group_cap": 2,
+        "trigger": "inspect"
+      },
+      "inspect": "Geschlossene Schubladen sind keine gelösten Fälle."
+    },
+    {
+      "id": "haus_waschzuber",
+      "name": "Waschzuber",
+      "source": {
+        "type": "Kauf",
+        "city": "wexmoor",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "price_schilling": 40,
+        "provider": "haus_lieferliste"
+      },
+      "place_type": "boden",
+      "size_tiles": [
+        2,
+        2
+      ],
+      "rotation": [
+        0,
+        180
+      ],
+      "sprite_region": "haus_waschzuber",
+      "bonus": {
+        "flag": "haus_bonus_waschzuber",
+        "effect": "arrival_nerves_add",
+        "value": 1,
+        "cap_group": "arrival",
+        "group_cap": 2,
+        "trigger": "first_homecoming_per_world_day"
+      },
+      "inspect": "Das Wasser wird grau, die Hände wieder meine."
+    },
+    {
+      "id": "haus_ofen",
+      "name": "Kleiner Ofen",
+      "source": {
+        "type": "Kauf",
+        "city": "wexmoor",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "price_schilling": 50,
+        "provider": "haus_lieferliste"
+      },
+      "place_type": "boden",
+      "size_tiles": [
+        2,
+        2
+      ],
+      "rotation": [
+        0,
+        180
+      ],
+      "sprite_region": "haus_ofen",
+      "bonus": {
+        "flag": "haus_bonus_ofen",
+        "effect": "sleep_nerves_add",
+        "value": 1,
+        "cap_group": "sleep",
+        "group_cap": 3,
+        "trigger": "first_sleep_per_world_day"
+      },
+      "inspect": "Ein gewöhnliches Feuer verlangt nur Kohle."
+    },
+    {
+      "id": "haus_vorhang",
+      "name": "Schwerer Vorhang",
+      "source": {
+        "type": "Quest-Belohnung",
+        "city": "wexmoor",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "trigger": {
+          "type": "completed_case_in_city",
+          "city": "wexmoor"
+        },
+        "grant_once": true
+      },
+      "place_type": "wand",
+      "size_tiles": [
+        2,
+        1
+      ],
+      "rotation": [
+        0
+      ],
+      "sprite_region": "haus_vorhang",
+      "bonus": {
+        "flag": "haus_bonus_vorhang",
+        "effect": "sleep_nerves_add",
+        "value": 1,
+        "cap_group": "sleep",
+        "group_cap": 3,
+        "trigger": "first_sleep_per_world_day"
+      },
+      "inspect": "Ich darf den Blick der Straße heute aussperren."
+    },
+    {
+      "id": "haus_spiegel",
+      "name": "Blinder Randspiegel",
+      "source": {
+        "type": "Fasserin",
+        "city": "wexmoor",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "provider": "fasserin",
+        "trigger": {
+          "type": "completed_fasserin_order_in_city",
+          "city": "wexmoor"
+        },
+        "grant_once": true
+      },
+      "place_type": "wand",
+      "size_tiles": [
+        2,
+        1
+      ],
+      "rotation": [
+        0
+      ],
+      "sprite_region": "haus_spiegel",
+      "bonus": {
+        "flag": "haus_bonus_spiegel",
+        "effect": "arrival_nerves_add",
+        "value": 1,
+        "cap_group": "arrival",
+        "group_cap": 2,
+        "trigger": "first_homecoming_per_world_day"
+      },
+      "inspect": "Ich warte einen Augenblick; mein Spiegelbild wartet mit."
+    },
+    {
+      "id": "haus_weinregal",
+      "name": "Weinregal",
+      "source": {
+        "type": "Kauf",
+        "city": "wexmoor",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "price_schilling": 30,
+        "provider": "haus_lieferliste"
+      },
+      "place_type": "boden",
+      "size_tiles": [
+        2,
+        2
+      ],
+      "rotation": [
+        0,
+        180
+      ],
+      "sprite_region": "haus_weinregal",
+      "bonus": {
+        "flag": "haus_bonus_weinregal",
+        "effect": "visit_nerves_add",
+        "value": 1,
+        "cap_group": "visit",
+        "group_cap": 2,
+        "trigger": "visit_completed_once_per_world_day"
+      },
+      "inspect": "Die guten Gläser bleiben nicht länger nur für irgendwann."
+    },
+    {
+      "id": "haus_werkbank",
+      "name": "Kleine Werkbank",
+      "source": {
+        "type": "Quest-Belohnung",
+        "city": "wexmoor",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "trigger": {
+          "type": "completed_case_in_city",
+          "city": "wexmoor"
+        },
+        "grant_once": true
+      },
+      "place_type": "boden",
+      "size_tiles": [
+        2,
+        2
+      ],
+      "rotation": [
+        0,
+        180
+      ],
+      "sprite_region": "haus_werkbank",
+      "bonus": {
+        "flag": "haus_bonus_werkbank",
+        "effect": "pin_known_journal_entry",
+        "value": 1,
+        "cap_group": "journal",
+        "group_cap": 2,
+        "trigger": "inspect"
+      },
+      "inspect": "Eine lose Schraube lässt sich wenigstens eindeutig finden."
+    },
+    {
+      "id": "haus_teekessel",
+      "name": "Teekessel",
+      "source": {
+        "type": "Kauf",
+        "city": "wexmoor",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "price_schilling": 50,
+        "provider": "haus_lieferliste"
+      },
+      "place_type": "tisch",
+      "size_tiles": [
+        2,
+        1
+      ],
+      "rotation": [
+        0
+      ],
+      "sprite_region": "haus_teekessel",
+      "bonus": {
+        "flag": "haus_bonus_teekessel",
+        "effect": "visit_nerves_add",
+        "value": 1,
+        "cap_group": "visit",
+        "group_cap": 2,
+        "trigger": "visit_completed_once_per_world_day"
+      },
+      "inspect": "Das Pfeifen hat diesmal einen harmlosen Grund."
+    },
+    {
+      "id": "haus_lampe_tisch",
+      "name": "Tischlampe",
+      "source": {
+        "type": "Kauf",
+        "city": "dunscar",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "price_schilling": 60,
+        "provider": "haus_lieferliste"
+      },
+      "place_type": "tisch",
+      "size_tiles": [
+        2,
+        1
+      ],
+      "rotation": [
+        0
+      ],
+      "sprite_region": "haus_lampe_tisch",
+      "bonus": {
+        "flag": "haus_bonus_lampe_tisch",
+        "effect": "review_known_clue",
+        "value": 1,
+        "cap_group": "reading",
+        "group_cap": 1,
+        "trigger": "read_existing_piece",
+        "restriction": "Nur bereits bekannte Hinweise; keine neuen Beweise oder automatischen Schlüsse."
+      },
+      "inspect": "Der Lichtkreis ist klein genug, um ihn zu überblicken."
+    },
+    {
+      "id": "haus_lampe_stand",
+      "name": "Stehlampe",
+      "source": {
+        "type": "Kauf",
+        "city": "dunscar",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "price_schilling": 20,
+        "provider": "haus_lieferliste"
+      },
+      "place_type": "boden",
+      "size_tiles": [
+        2,
+        2
+      ],
+      "rotation": [
+        0,
+        180
+      ],
+      "sprite_region": "haus_lampe_stand",
+      "bonus": {
+        "flag": "haus_bonus_lampe_stand",
+        "effect": "review_known_clue",
+        "value": 1,
+        "cap_group": "reading",
+        "group_cap": 1,
+        "trigger": "read_existing_piece",
+        "restriction": "Nur bereits bekannte Hinweise; keine neuen Beweise oder automatischen Schlüsse."
+      },
+      "inspect": "In dieser Ecke muss niemand mehr im Schatten sitzen."
+    },
+    {
+      "id": "haus_lampe_wand",
+      "name": "Wandleuchter",
+      "source": {
+        "type": "Fund",
+        "city": "dunscar",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "trigger": {
+          "type": "inspect_delivery_crate",
+          "requires_city": "dunscar"
+        },
+        "grant_once": true
+      },
+      "place_type": "wand",
+      "size_tiles": [
+        2,
+        1
+      ],
+      "rotation": [
+        0
+      ],
+      "sprite_region": "haus_lampe_wand",
+      "bonus": {
+        "flag": "haus_bonus_lampe_wand",
+        "effect": "arrival_nerves_add",
+        "value": 1,
+        "cap_group": "arrival",
+        "group_cap": 2,
+        "trigger": "first_homecoming_per_world_day"
+      },
+      "inspect": "Die Flamme zittert, aber sie bleibt."
+    },
+    {
+      "id": "haus_bildrahmen",
+      "name": "Leerer Bilderrahmen",
+      "source": {
+        "type": "Fund",
+        "city": "dunscar",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "trigger": {
+          "type": "inspect_delivery_crate",
+          "requires_city": "dunscar"
+        },
+        "grant_once": true
+      },
+      "place_type": "wand",
+      "size_tiles": [
+        2,
+        1
+      ],
+      "rotation": [
+        0
+      ],
+      "sprite_region": "haus_bildrahmen",
+      "bonus": {
+        "flag": "haus_bonus_bildrahmen",
+        "effect": "pin_known_journal_entry",
+        "value": 1,
+        "cap_group": "journal",
+        "group_cap": 2,
+        "trigger": "inspect"
+      },
+      "inspect": "Ich muss noch nicht wissen, was hier hineingehört."
+    },
+    {
+      "id": "haus_schachbrett",
+      "name": "Schachbrett",
+      "source": {
+        "type": "Quest-Belohnung",
+        "city": "dunscar",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "trigger": {
+          "type": "completed_case_in_city",
+          "city": "dunscar"
+        },
+        "grant_once": true
+      },
+      "place_type": "tisch",
+      "size_tiles": [
+        2,
+        1
+      ],
+      "rotation": [
+        0
+      ],
+      "sprite_region": "haus_schachbrett",
+      "bonus": {
+        "flag": "haus_bonus_schachbrett",
+        "effect": "visit_nerves_add",
+        "value": 1,
+        "cap_group": "visit",
+        "group_cap": 2,
+        "trigger": "visit_completed_once_per_world_day"
+      },
+      "inspect": "Man darf eine Partie vertagen, ohne jemanden zu verlieren."
+    },
+    {
+      "id": "haus_fernrohr",
+      "name": "Fensterfernrohr",
+      "source": {
+        "type": "Fasserin",
+        "city": "dunscar",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "provider": "fasserin",
+        "trigger": {
+          "type": "completed_fasserin_order_in_city",
+          "city": "dunscar"
+        },
+        "grant_once": true
+      },
+      "place_type": "boden",
+      "size_tiles": [
+        2,
+        2
+      ],
+      "rotation": [
+        0,
+        180
+      ],
+      "sprite_region": "haus_fernrohr",
+      "bonus": {
+        "flag": "haus_bonus_fernrohr",
+        "effect": "show_unlocked_destination_note",
+        "value": 1,
+        "cap_group": "travel",
+        "group_cap": 1,
+        "trigger": "inspect",
+        "restriction": "Nur freigeschaltete Reiseziele; keine Abkürzung und kein Zugang."
+      },
+      "inspect": "Heute sehe ich nur nach dem Wetter."
+    },
+    {
+      "id": "haus_truhe",
+      "name": "Beschlagene Truhe",
+      "source": {
+        "type": "Kauf",
+        "city": "dunscar",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "price_schilling": 20,
+        "provider": "haus_lieferliste"
+      },
+      "place_type": "boden",
+      "size_tiles": [
+        2,
+        2
+      ],
+      "rotation": [
+        0,
+        180
+      ],
+      "sprite_region": "haus_truhe",
+      "bonus": {
+        "flag": "haus_bonus_truhe",
+        "effect": "house_ingredient_storage_slots",
+        "value": 4,
+        "cap_group": "storage",
+        "group_cap": 8,
+        "trigger": "while_placed",
+        "restriction": "Nur eingelagerte Zutaten gewichtslos; bei Entnahme gilt ihr ursprüngliches Gewicht."
+      },
+      "inspect": "Der Schlüssel passt, und das genügt mir für heute."
+    },
+    {
+      "id": "haus_reisekoffer",
+      "name": "Reisekoffer",
+      "source": {
+        "type": "Fund",
+        "city": "calderwick",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "trigger": {
+          "type": "inspect_delivery_crate",
+          "requires_city": "calderwick"
+        },
+        "grant_once": true
+      },
+      "place_type": "boden",
+      "size_tiles": [
+        2,
+        2
+      ],
+      "rotation": [
+        0,
+        180
+      ],
+      "sprite_region": "haus_reisekoffer",
+      "bonus": {
+        "flag": "haus_bonus_reisekoffer",
+        "effect": "show_unlocked_destination_note",
+        "value": 1,
+        "cap_group": "travel",
+        "group_cap": 1,
+        "trigger": "inspect",
+        "restriction": "Nur freigeschaltete Reiseziele; keine Abkürzung und kein Zugang."
+      },
+      "inspect": "Jede Schramme erinnert sich an eine andere Treppe."
+    },
+    {
+      "id": "haus_stiefelbank",
+      "name": "Stiefelbank",
+      "source": {
+        "type": "Kauf",
+        "city": "calderwick",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "price_schilling": 40,
+        "provider": "haus_lieferliste"
+      },
+      "place_type": "boden",
+      "size_tiles": [
+        2,
+        2
+      ],
+      "rotation": [
+        0,
+        180
+      ],
+      "sprite_region": "haus_stiefelbank",
+      "bonus": {
+        "flag": "haus_bonus_stiefelbank",
+        "effect": "arrival_nerves_add",
+        "value": 1,
+        "cap_group": "arrival",
+        "group_cap": 2,
+        "trigger": "first_homecoming_per_world_day"
+      },
+      "inspect": "Den Schlamm kann ich hierlassen."
+    },
+    {
+      "id": "haus_nachttisch",
+      "name": "Nachttisch",
+      "source": {
+        "type": "Kauf",
+        "city": "calderwick",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "price_schilling": 50,
+        "provider": "haus_lieferliste"
+      },
+      "place_type": "boden",
+      "size_tiles": [
+        2,
+        2
+      ],
+      "rotation": [
+        0,
+        180
+      ],
+      "sprite_region": "haus_nachttisch",
+      "bonus": {
+        "flag": "haus_bonus_nachttisch",
+        "effect": "sleep_nerves_add",
+        "value": 1,
+        "cap_group": "sleep",
+        "group_cap": 3,
+        "trigger": "first_sleep_per_world_day"
+      },
+      "inspect": "Wasser, Uhr, ein freies Stück Holz: mehr brauche ich jetzt nicht."
+    },
+    {
+      "id": "haus_bett_p1",
+      "name": "Bett P1",
+      "source": {
+        "type": "Kauf",
+        "city": "kettlegate",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "price_schilling": 60,
+        "provider": "haus_maklerin"
+      },
+      "place_type": "boden",
+      "size_tiles": [
+        2,
+        2
+      ],
+      "rotation": [
+        0,
+        180
+      ],
+      "sprite_region": "haus_bett_p1",
+      "bonus": {
+        "flag": "haus_bonus_bett_p1",
+        "effect": "sleep_nerves_add",
+        "value": 1,
+        "cap_group": "sleep",
+        "group_cap": 3,
+        "trigger": "first_sleep_per_world_day"
+      },
+      "inspect": "Ich liege nicht nur zwischen zwei Aufträgen."
+    },
+    {
+      "id": "haus_bett_p2",
+      "name": "Bett P2",
+      "source": {
+        "type": "Kauf",
+        "city": "kettlegate",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "price_schilling": 20,
+        "provider": "haus_maklerin"
+      },
+      "place_type": "boden",
+      "size_tiles": [
+        2,
+        2
+      ],
+      "rotation": [
+        0,
+        180
+      ],
+      "sprite_region": "haus_bett_p2",
+      "bonus": {
+        "flag": "haus_bonus_bett_p2",
+        "effect": "sleep_nerves_add",
+        "value": 1,
+        "cap_group": "sleep",
+        "group_cap": 3,
+        "trigger": "first_sleep_per_world_day"
+      },
+      "inspect": "Ein zweites Kissen macht aus Stille etwas anderes."
+    },
+    {
+      "id": "haus_schreibtisch_p1",
+      "name": "Erster Schreibtisch",
+      "source": {
+        "type": "Kauf",
+        "city": "kettlegate",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "price_schilling": 30,
+        "provider": "haus_maklerin"
+      },
+      "place_type": "boden",
+      "size_tiles": [
+        2,
+        2
+      ],
+      "rotation": [
+        0,
+        180
+      ],
+      "sprite_region": "haus_schreibtisch_p1",
+      "bonus": {
+        "flag": "haus_bonus_schreibtisch_p1",
+        "effect": "pin_known_journal_entry",
+        "value": 1,
+        "cap_group": "journal",
+        "group_cap": 2,
+        "trigger": "inspect"
+      },
+      "inspect": "Hier darf ein Gedanke unvollständig liegen bleiben."
+    },
+    {
+      "id": "haus_schreibtisch_p2",
+      "name": "Zweiter Schreibtisch",
+      "source": {
+        "type": "Kauf",
+        "city": "kettlegate",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "price_schilling": 40,
+        "provider": "haus_maklerin"
+      },
+      "place_type": "boden",
+      "size_tiles": [
+        2,
+        2
+      ],
+      "rotation": [
+        0,
+        180
+      ],
+      "sprite_region": "haus_schreibtisch_p2",
+      "bonus": {
+        "flag": "haus_bonus_schreibtisch_p2",
+        "effect": "pin_known_journal_entry",
+        "value": 1,
+        "cap_group": "journal",
+        "group_cap": 2,
+        "trigger": "inspect"
+      },
+      "inspect": "Zwei Handschriften müssen sich nicht gegenseitig überdecken."
+    },
+    {
+      "id": "haus_buecherstapel",
+      "name": "Bücherstapel",
+      "source": {
+        "type": "Fund",
+        "city": "briarholt",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "trigger": {
+          "type": "inspect_delivery_crate",
+          "requires_city": "briarholt"
+        },
+        "grant_once": true
+      },
+      "place_type": "regal",
+      "size_tiles": [
+        2,
+        1
+      ],
+      "rotation": [
+        0
+      ],
+      "sprite_region": "haus_buecherstapel",
+      "bonus": {
+        "flag": "haus_bonus_buecherstapel",
+        "effect": "review_known_clue",
+        "value": 1,
+        "cap_group": "reading",
+        "group_cap": 1,
+        "trigger": "read_existing_piece",
+        "restriction": "Nur bereits bekannte Hinweise; keine neuen Beweise oder automatischen Schlüsse."
+      },
+      "inspect": "Ein Lesezeichen hält die Stelle, bis ich zurückkomme."
+    },
+    {
+      "id": "haus_globus",
+      "name": "Kleiner Globus",
+      "source": {
+        "type": "Fasserin",
+        "city": "briarholt",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "provider": "fasserin",
+        "trigger": {
+          "type": "completed_fasserin_order_in_city",
+          "city": "briarholt"
+        },
+        "grant_once": true
+      },
+      "place_type": "tisch",
+      "size_tiles": [
+        2,
+        1
+      ],
+      "rotation": [
+        0
+      ],
+      "sprite_region": "haus_globus",
+      "bonus": {
+        "flag": "haus_bonus_globus",
+        "effect": "show_unlocked_destination_note",
+        "value": 1,
+        "cap_group": "travel",
+        "group_cap": 1,
+        "trigger": "inspect",
+        "restriction": "Nur freigeschaltete Reiseziele; keine Abkürzung und kein Zugang."
+      },
+      "inspect": "Nicht jeder Ort auf dieser Kugel braucht meine Hilfe."
+    },
+    {
+      "id": "haus_uhr",
+      "name": "Wanduhr",
+      "source": {
+        "type": "Quest-Belohnung",
+        "city": "briarholt",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "trigger": {
+          "type": "completed_case_in_city",
+          "city": "briarholt"
+        },
+        "grant_once": true
+      },
+      "place_type": "wand",
+      "size_tiles": [
+        2,
+        1
+      ],
+      "rotation": [
+        0
+      ],
+      "sprite_region": "haus_uhr",
+      "bonus": {
+        "flag": "haus_bonus_uhr",
+        "effect": "arrival_nerves_add",
+        "value": 1,
+        "cap_group": "arrival",
+        "group_cap": 2,
+        "trigger": "first_homecoming_per_world_day"
+      },
+      "inspect": "Sie zählt auch die Stunden, in denen nichts geschieht."
+    },
+    {
+      "id": "haus_vitrine",
+      "name": "Vitrine",
+      "source": {
+        "type": "Kauf",
+        "city": "briarholt",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "price_schilling": 30,
+        "provider": "haus_lieferliste"
+      },
+      "place_type": "boden",
+      "size_tiles": [
+        2,
+        2
+      ],
+      "rotation": [
+        0,
+        180
+      ],
+      "sprite_region": "haus_vitrine",
+      "bonus": {
+        "flag": "haus_bonus_vitrine",
+        "effect": "pin_known_journal_entry",
+        "value": 1,
+        "cap_group": "journal",
+        "group_cap": 2,
+        "trigger": "inspect"
+      },
+      "inspect": "Ein Fundstück hinter Glas ist noch immer eine Verantwortung."
+    },
+    {
+      "id": "haus_teppich_lang",
+      "name": "Langer Teppich",
+      "source": {
+        "type": "Kauf",
+        "city": "briarholt",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "price_schilling": 40,
+        "provider": "haus_lieferliste"
+      },
+      "place_type": "boden",
+      "size_tiles": [
+        2,
+        2
+      ],
+      "rotation": [
+        0,
+        180
+      ],
+      "sprite_region": "haus_teppich_lang",
+      "bonus": {
+        "flag": "haus_bonus_teppich_lang",
+        "effect": "sleep_nerves_add",
+        "value": 1,
+        "cap_group": "sleep",
+        "group_cap": 3,
+        "trigger": "first_sleep_per_world_day"
+      },
+      "inspect": "Die Schritte enden weich vor dem Bett."
+    },
+    {
+      "id": "haus_teppich_rund",
+      "name": "Runder Teppich",
+      "source": {
+        "type": "Quest-Belohnung",
+        "city": "briarholt",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "trigger": {
+          "type": "completed_case_in_city",
+          "city": "briarholt"
+        },
+        "grant_once": true
+      },
+      "place_type": "boden",
+      "size_tiles": [
+        2,
+        2
+      ],
+      "rotation": [
+        0,
+        180
+      ],
+      "sprite_region": "haus_teppich_rund",
+      "bonus": {
+        "flag": "haus_bonus_teppich_rund",
+        "effect": "visit_nerves_add",
+        "value": 1,
+        "cap_group": "visit",
+        "group_cap": 2,
+        "trigger": "visit_completed_once_per_world_day"
+      },
+      "inspect": "Um diese Mitte passen mehrere Stühle."
+    },
+    {
+      "id": "haus_teppich_schmal",
+      "name": "Schmaler Läufer",
+      "source": {
+        "type": "Fund",
+        "city": "briarholt",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "trigger": {
+          "type": "inspect_delivery_crate",
+          "requires_city": "briarholt"
+        },
+        "grant_once": true
+      },
+      "place_type": "boden",
+      "size_tiles": [
+        2,
+        2
+      ],
+      "rotation": [
+        0,
+        180
+      ],
+      "sprite_region": "haus_teppich_schmal",
+      "bonus": {
+        "flag": "haus_bonus_teppich_schmal",
+        "effect": "arrival_nerves_add",
+        "value": 1,
+        "cap_group": "arrival",
+        "group_cap": 2,
+        "trigger": "first_homecoming_per_world_day"
+      },
+      "inspect": "Der Streifen zeigt zur Tür, aber er drängt mich nicht hinaus."
+    },
+    {
+      "id": "haus_pflanze_farn",
+      "name": "Zimmerfarn",
+      "source": {
+        "type": "Kauf",
+        "city": "varrowmouth",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "price_schilling": 20,
+        "provider": "haus_lieferliste"
+      },
+      "place_type": "boden",
+      "size_tiles": [
+        2,
+        2
+      ],
+      "rotation": [
+        0,
+        180
+      ],
+      "sprite_region": "haus_pflanze_farn",
+      "bonus": {
+        "flag": "haus_bonus_pflanze_farn",
+        "effect": "arrival_nerves_add",
+        "value": 1,
+        "cap_group": "arrival",
+        "group_cap": 2,
+        "trigger": "first_homecoming_per_world_day"
+      },
+      "inspect": "Er wächst ohne Verhör."
+    },
+    {
+      "id": "haus_pflanze_efeu",
+      "name": "Topfefeu",
+      "source": {
+        "type": "Quest-Belohnung",
+        "city": "varrowmouth",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "trigger": {
+          "type": "completed_case_in_city",
+          "city": "varrowmouth"
+        },
+        "grant_once": true
+      },
+      "place_type": "regal",
+      "size_tiles": [
+        2,
+        1
+      ],
+      "rotation": [
+        0
+      ],
+      "sprite_region": "haus_pflanze_efeu",
+      "bonus": {
+        "flag": "haus_bonus_pflanze_efeu",
+        "effect": "arrival_nerves_add",
+        "value": 1,
+        "cap_group": "arrival",
+        "group_cap": 2,
+        "trigger": "first_homecoming_per_world_day"
+      },
+      "inspect": "Die Ranke sucht Halt und findet ein gewöhnliches Brett."
+    },
+    {
+      "id": "haus_pflanze_bluete",
+      "name": "Blasse Fensterblume",
+      "source": {
+        "type": "Fund",
+        "city": "varrowmouth",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "trigger": {
+          "type": "inspect_delivery_crate",
+          "requires_city": "varrowmouth"
+        },
+        "grant_once": true
+      },
+      "place_type": "tisch",
+      "size_tiles": [
+        2,
+        1
+      ],
+      "rotation": [
+        0
+      ],
+      "sprite_region": "haus_pflanze_bluete",
+      "bonus": {
+        "flag": "haus_bonus_pflanze_bluete",
+        "effect": "arrival_nerves_add",
+        "value": 1,
+        "cap_group": "arrival",
+        "group_cap": 2,
+        "trigger": "first_homecoming_per_world_day"
+      },
+      "inspect": "Auch eine welke Blüte darf ihren Platz behalten.",
+      "state": {
+        "wilted_in": [
+          "wexmoor"
+        ],
+        "region": "haus_pflanze_bluete_welk",
+        "restores_on_city_exit": true,
+        "bonus_unchanged": true
+      }
+    },
+    {
+      "id": "haus_moorlampe",
+      "name": "Moor-Lampe",
+      "source": {
+        "type": "Fasserin",
+        "city": "varrowmouth",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "provider": "fasserin",
+        "trigger": {
+          "type": "completed_fasserin_order_in_city",
+          "city": "varrowmouth"
+        },
+        "grant_once": true
+      },
+      "place_type": "tisch",
+      "size_tiles": [
+        2,
+        1
+      ],
+      "rotation": [
+        0
+      ],
+      "sprite_region": "haus_moorlampe",
+      "bonus": {
+        "flag": "haus_bonus_moorlampe",
+        "effect": "review_known_clue",
+        "value": 1,
+        "cap_group": "reading",
+        "group_cap": 1,
+        "trigger": "read_existing_piece",
+        "restriction": "Nur bereits bekannte Hinweise; keine neuen Beweise oder automatischen Schlüsse."
+      },
+      "inspect": "Das grüne Licht kennt einen Heimweg."
+    },
+    {
+      "id": "haus_registerseite",
+      "name": "Gerahmte Register-Seite",
+      "source": {
+        "type": "Quest-Belohnung",
+        "city": "varrowmouth",
+        "integration": "DG-Vorschlag, noch kein bestehender Shop-/Quest-Eintrag",
+        "trigger": {
+          "type": "completed_case_in_city",
+          "city": "varrowmouth"
+        },
+        "grant_once": true
+      },
+      "place_type": "wand",
+      "size_tiles": [
+        2,
+        1
+      ],
+      "rotation": [
+        0
+      ],
+      "sprite_region": "haus_registerseite",
+      "bonus": {
+        "flag": "haus_bonus_registerseite",
+        "effect": "pin_known_journal_entry",
+        "value": 1,
+        "cap_group": "journal",
+        "group_cap": 2,
+        "trigger": "inspect"
+      },
+      "inspect": "Das Blatt gehört jetzt zu meiner Geschichte, nicht zu meiner Akte."
+    }
+  ],
+  "trophies": [
+    {
+      "id": "troph_miriam",
+      "boss_id": "miriam",
+      "boss_name": "Miriam Vey",
+      "encounter_ids": [
+        "miriam"
+      ],
+      "name": "Taktstock der Vey",
+      "inspect": "Der Taktstock dirigiert nur noch Staub.",
+      "sprite_region": "troph_miriam",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "miriam",
+        "backfill_any_flags": [
+          "vey_beaten"
+        ],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/encounters.json",
+          "pointer": "/miriam",
+          "id": "miriam"
+        }
+      ]
+    },
+    {
+      "id": "troph_dreizehnter_gast",
+      "boss_id": "dreizehnter_gast",
+      "boss_name": "Der dreizehnte Gast",
+      "encounter_ids": [
+        "dreizehnter_gast"
+      ],
+      "name": "Gesprungene Fotoplatte",
+      "inspect": "Die Platte hält niemanden mehr fest.",
+      "sprite_region": "troph_dreizehnter_gast",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "dreizehnter_gast",
+        "backfill_any_flags": [
+          "mews_beaten"
+        ],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/encounters.json",
+          "pointer": "/dreizehnter_gast",
+          "id": "dreizehnter_gast"
+        }
+      ]
+    },
+    {
+      "id": "troph_miss_wren",
+      "boss_id": "miss_wren",
+      "boss_name": "Miss Imogen Wren",
+      "encounter_ids": [
+        "miss_wren"
+      ],
+      "name": "Wrens Silberschere",
+      "inspect": "Die Schere liegt geschlossen.",
+      "sprite_region": "troph_miss_wren",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "miss_wren",
+        "backfill_any_flags": [
+          "wren_beaten"
+        ],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/encounters.json",
+          "pointer": "/miss_wren",
+          "id": "miss_wren"
+        }
+      ]
+    },
+    {
+      "id": "troph_starling_fight",
+      "boss_id": "starling_fight",
+      "boss_name": "Professor Lucius Starling",
+      "encounter_ids": [
+        "starling_fight",
+        "starling_stern"
+      ],
+      "name": "Starlings Handschuh",
+      "inspect": "Das Leder riecht nach kaltem Messing.",
+      "sprite_region": "troph_starling_fight",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "starling_stern",
+        "backfill_any_flags": [
+          "starling_beaten"
+        ],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/encounters.json",
+          "pointer": "/starling_fight",
+          "id": "starling_fight"
+        },
+        {
+          "file": "src/data/encounters.json",
+          "pointer": "/starling_stern",
+          "id": "starling_stern"
+        }
+      ]
+    },
+    {
+      "id": "troph_moorkoenigin",
+      "boss_id": "moorkoenigin",
+      "boss_name": "Moorkönigin",
+      "encounter_ids": [
+        "moorkoenigin"
+      ],
+      "name": "Torfkrone",
+      "inspect": "Kein Moor muss sich vor dieser Krone neigen.",
+      "sprite_region": "troph_moorkoenigin",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "moorkoenigin",
+        "backfill_any_flags": [],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/wilds.json",
+          "pointer": "/zones/marsch/encounters/moorkoenigin",
+          "id": "moorkoenigin"
+        }
+      ]
+    },
+    {
+      "id": "troph_ossuarwaechter",
+      "boss_id": "ossuarwaechter",
+      "boss_name": "Ossuarwächter",
+      "encounter_ids": [
+        "ossuarwaechter"
+      ],
+      "name": "Knochenschlüssel",
+      "inspect": "Der Schlüssel öffnet hier keine Tür.",
+      "sprite_region": "troph_ossuarwaechter",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "ossuarwaechter",
+        "backfill_any_flags": [],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/wilds.json",
+          "pointer": "/zones/katakomben/encounters/ossuarwaechter",
+          "id": "ossuarwaechter"
+        }
+      ]
+    },
+    {
+      "id": "troph_rattenkoenig",
+      "boss_id": "rattenkoenig",
+      "boss_name": "Rattenkönig",
+      "encounter_ids": [
+        "rattenkoenig"
+      ],
+      "name": "Kupferkrone",
+      "inspect": "Die Krone ist kleiner als ihr Schatten war.",
+      "sprite_region": "troph_rattenkoenig",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "rattenkoenig",
+        "backfill_any_flags": [],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/wilds.json",
+          "pointer": "/zones/pestgassen/encounters/rattenkoenig",
+          "id": "rattenkoenig"
+        }
+      ]
+    },
+    {
+      "id": "troph_sternhirsch",
+      "boss_id": "sternhirsch",
+      "boss_name": "Sternhirsch",
+      "encounter_ids": [
+        "sternhirsch"
+      ],
+      "name": "Sterngeweih",
+      "inspect": "Das Geweih wirft gewöhnliche Schatten.",
+      "sprite_region": "troph_sternhirsch",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "sternhirsch",
+        "backfill_any_flags": [],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/wilds.json",
+          "pointer": "/zones/kraterwald/encounters/sternhirsch",
+          "id": "sternhirsch"
+        }
+      ]
+    },
+    {
+      "id": "troph_namenlose",
+      "boss_id": "namenlose",
+      "boss_name": "Die Namenlose",
+      "encounter_ids": [
+        "namenlose"
+      ],
+      "name": "Blankes Namensmedaillon",
+      "inspect": "Eine leere Fläche kann auch Freiheit sein.",
+      "sprite_region": "troph_namenlose",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "namenlose",
+        "backfill_any_flags": [],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/wexmoor.json",
+          "pointer": "/zones/wx_vergessmoor/encounters/namenlose",
+          "id": "namenlose"
+        }
+      ]
+    },
+    {
+      "id": "troph_leuchtfeuer",
+      "boss_id": "leuchtfeuer",
+      "boss_name": "Das Leuchtfeuer",
+      "encounter_ids": [
+        "leuchtfeuer"
+      ],
+      "name": "Leuchtfeuerlinse",
+      "inspect": "Die Linse bündelt nur mein Fensterlicht.",
+      "sprite_region": "troph_leuchtfeuer",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "leuchtfeuer",
+        "backfill_any_flags": [],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/wexmoor.json",
+          "pointer": "/zones/wx_leuchtturm/encounters/leuchtfeuer",
+          "id": "leuchtfeuer"
+        }
+      ]
+    },
+    {
+      "id": "troph_glockenmutter",
+      "boss_id": "glockenmutter",
+      "boss_name": "Die Glockenmutter",
+      "encounter_ids": [
+        "glockenmutter"
+      ],
+      "name": "Mutterglocke",
+      "inspect": "Ich entscheide, wann sie läuten darf.",
+      "sprite_region": "troph_glockenmutter",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "glockenmutter",
+        "backfill_any_flags": [],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/wexmoor.json",
+          "pointer": "/zones/wx_salzwatt/encounters/glockenmutter",
+          "id": "glockenmutter"
+        }
+      ]
+    },
+    {
+      "id": "troph_buergermeister",
+      "boss_id": "buergermeister",
+      "boss_name": "Der Ertrunkene Bürgermeister",
+      "encounter_ids": [
+        "buergermeister"
+      ],
+      "name": "Korrodierter Amtssiegel",
+      "inspect": "Das Amt ist vergangen, die Kerbe geblieben.",
+      "sprite_region": "troph_buergermeister",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "buergermeister",
+        "backfill_any_flags": [],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/wexmoor.json",
+          "pointer": "/zones/wx_altstadt/encounters/buergermeister",
+          "id": "buergermeister"
+        }
+      ]
+    },
+    {
+      "id": "troph_schmugglerkoenigin",
+      "boss_id": "schmugglerkoenigin",
+      "boss_name": "Die Schmugglerkönigin",
+      "encounter_ids": [
+        "schmugglerkoenigin"
+      ],
+      "name": "Schmugglerbrosche",
+      "inspect": "Der Verschluss lässt sich ohne Handel öffnen.",
+      "sprite_region": "troph_schmugglerkoenigin",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "schmugglerkoenigin",
+        "backfill_any_flags": [],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/stadtgegner.json",
+          "pointer": "/encounters/schmugglerkoenigin",
+          "id": "schmugglerkoenigin"
+        }
+      ]
+    },
+    {
+      "id": "troph_moorbraut",
+      "boss_id": "moorbraut",
+      "boss_name": "Die Moorbraut",
+      "encounter_ids": [
+        "moorbraut"
+      ],
+      "name": "Glocke der Moorbraut",
+      "inspect": "Ihr letzter Ton darf hier ausklingen.",
+      "sprite_region": "troph_moorbraut",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "moorbraut",
+        "backfill_any_flags": [
+          "k2o_ring_geborgen"
+        ],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/packs/k2_orte/zone.json",
+          "pointer": "/wx_torfbrueche/encounters/moorbraut",
+          "id": "moorbraut"
+        }
+      ]
+    },
+    {
+      "id": "troph_bha_aussaat_schwarm",
+      "boss_id": "bha_aussaat_schwarm",
+      "boss_name": "Aussaatschwarm",
+      "encounter_ids": [
+        "bha_aussaat_schwarm"
+      ],
+      "name": "Leere Samenhülse",
+      "inspect": "Aus dieser Hülse wächst kein Befehl.",
+      "sprite_region": "troph_bha_aussaat_schwarm",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "bha_aussaat_schwarm",
+        "backfill_any_flags": [
+          "bho_aussaat_gesichert"
+        ],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/packs/k5_orte/bosses.json",
+          "pointer": "/bha_aussaat_schwarm",
+          "id": "bha_aussaat_schwarm"
+        }
+      ]
+    },
+    {
+      "id": "troph_enemy_sk_asche_haupt",
+      "boss_id": "enemy_sk_asche_haupt",
+      "boss_name": "Haupt der letzten Glut",
+      "encounter_ids": [
+        "enemy_sk_asche_haupt"
+      ],
+      "name": "Aschereliquiar",
+      "inspect": "Unter dem Deckel ist die Glut erloschen.",
+      "sprite_region": "troph_enemy_sk_asche_haupt",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "enemy_sk_asche_haupt",
+        "backfill_any_flags": [],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/packs/sekten/gegner.json",
+          "pointer": "/encounters/enemy_sk_asche_haupt",
+          "id": "enemy_sk_asche_haupt"
+        }
+      ]
+    },
+    {
+      "id": "troph_enemy_sk_flut_haupt",
+      "boss_id": "enemy_sk_flut_haupt",
+      "boss_name": "Haupt unter dem Pegel",
+      "encounter_ids": [
+        "enemy_sk_flut_haupt"
+      ],
+      "name": "Nasses Kultsiegel",
+      "inspect": "Der Wasserfleck trocknet endlich.",
+      "sprite_region": "troph_enemy_sk_flut_haupt",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "enemy_sk_flut_haupt",
+        "backfill_any_flags": [],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/packs/sekten/gegner.json",
+          "pointer": "/encounters/enemy_sk_flut_haupt",
+          "id": "enemy_sk_flut_haupt"
+        }
+      ]
+    },
+    {
+      "id": "troph_enemy_sk_chor_haupt",
+      "boss_id": "enemy_sk_chor_haupt",
+      "boss_name": "Haupt der fremden Stimmen",
+      "encounter_ids": [
+        "enemy_sk_chor_haupt"
+      ],
+      "name": "Dreilochpfeife",
+      "inspect": "Drei Löcher, und doch kein fremder Chor.",
+      "sprite_region": "troph_enemy_sk_chor_haupt",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "enemy_sk_chor_haupt",
+        "backfill_any_flags": [],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/packs/sekten/gegner.json",
+          "pointer": "/encounters/enemy_sk_chor_haupt",
+          "id": "enemy_sk_chor_haupt"
+        }
+      ]
+    },
+    {
+      "id": "troph_vg_cw_boss_bleisammler",
+      "boss_id": "vg_cw_boss_bleisammler",
+      "boss_name": "Bleisammler",
+      "encounter_ids": [
+        "vg_cw_boss_bleisammler_phase2",
+        "vg_cw_boss_bleisammler"
+      ],
+      "name": "Bleiletter",
+      "inspect": "Diese Letter druckt niemandem einen Namen auf.",
+      "sprite_region": "troph_vg_cw_boss_bleisammler",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "vg_cw_boss_bleisammler_phase2",
+        "backfill_any_flags": [
+          "vg_cw_boss_bleisammler_geloest"
+        ],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/packs/vorrat_gegner/phasen.json",
+          "pointer": "/vg_cw_boss_bleisammler_phase2",
+          "id": "vg_cw_boss_bleisammler_phase2"
+        },
+        {
+          "file": "src/data/packs/vorrat_gegner/zonen_vorschlag.json",
+          "pointer": "/vg_zone_cw_setzerei/encounters/vg_cw_boss_bleisammler",
+          "id": "vg_cw_boss_bleisammler"
+        }
+      ]
+    },
+    {
+      "id": "troph_vg_cw_boss_blinder_zusteller",
+      "boss_id": "vg_cw_boss_blinder_zusteller",
+      "boss_name": "Blinder Zusteller",
+      "encounter_ids": [
+        "vg_cw_boss_blinder_zusteller_phase2",
+        "vg_cw_boss_blinder_zusteller"
+      ],
+      "name": "Zustellerschnalle",
+      "inspect": "Die Schnalle hat ihren Dienst beendet.",
+      "sprite_region": "troph_vg_cw_boss_blinder_zusteller",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "vg_cw_boss_blinder_zusteller_phase2",
+        "backfill_any_flags": [
+          "vg_cw_boss_blinder_zusteller_geloest"
+        ],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/packs/vorrat_gegner/phasen.json",
+          "pointer": "/vg_cw_boss_blinder_zusteller_phase2",
+          "id": "vg_cw_boss_blinder_zusteller_phase2"
+        },
+        {
+          "file": "src/data/packs/vorrat_gegner/zonen_vorschlag.json",
+          "pointer": "/vg_zone_cw_sortiergrube/encounters/vg_cw_boss_blinder_zusteller",
+          "id": "vg_cw_boss_blinder_zusteller"
+        }
+      ]
+    },
+    {
+      "id": "troph_vg_cw_boss_nullfundament",
+      "boss_id": "vg_cw_boss_nullfundament",
+      "boss_name": "Registerleib des Nullfundaments",
+      "encounter_ids": [
+        "vg_cw_boss_nullfundament_phase2",
+        "vg_cw_boss_nullfundament_phase3",
+        "vg_cw_boss_nullfundament"
+      ],
+      "name": "Registerzahnrad",
+      "inspect": "Ein Zahnrad allein kann keinen Menschen verzeichnen.",
+      "sprite_region": "troph_vg_cw_boss_nullfundament",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "vg_cw_boss_nullfundament_phase3",
+        "backfill_any_flags": [
+          "vg_cw_boss_nullfundament_geloest"
+        ],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/packs/vorrat_gegner/phasen.json",
+          "pointer": "/vg_cw_boss_nullfundament_phase2",
+          "id": "vg_cw_boss_nullfundament_phase2"
+        },
+        {
+          "file": "src/data/packs/vorrat_gegner/phasen.json",
+          "pointer": "/vg_cw_boss_nullfundament_phase3",
+          "id": "vg_cw_boss_nullfundament_phase3"
+        },
+        {
+          "file": "src/data/packs/vorrat_gegner/zonen_vorschlag.json",
+          "pointer": "/vg_zone_cw_nullfundament/encounters/vg_cw_boss_nullfundament",
+          "id": "vg_cw_boss_nullfundament"
+        }
+      ]
+    },
+    {
+      "id": "troph_vg_bh_boss_glasgaertner",
+      "boss_id": "vg_bh_boss_glasgaertner",
+      "boss_name": "Glasgärtner",
+      "encounter_ids": [
+        "vg_bh_boss_glasgaertner_phase2",
+        "vg_bh_boss_glasgaertner"
+      ],
+      "name": "Glasblatt",
+      "inspect": "Das Glasblatt braucht keinen Schmerz zum Wachsen.",
+      "sprite_region": "troph_vg_bh_boss_glasgaertner",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "vg_bh_boss_glasgaertner_phase2",
+        "backfill_any_flags": [
+          "vg_bh_boss_glasgaertner_geloest"
+        ],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/packs/vorrat_gegner/phasen.json",
+          "pointer": "/vg_bh_boss_glasgaertner_phase2",
+          "id": "vg_bh_boss_glasgaertner_phase2"
+        },
+        {
+          "file": "src/data/packs/vorrat_gegner/zonen_vorschlag.json",
+          "pointer": "/vg_zone_bh_palmhaus/encounters/vg_bh_boss_glasgaertner",
+          "id": "vg_bh_boss_glasgaertner"
+        }
+      ]
+    },
+    {
+      "id": "troph_vg_bh_boss_waescherei",
+      "boss_id": "vg_bh_boss_waescherei",
+      "boss_name": "Atemkessel der verlassenen Wäscherei",
+      "encounter_ids": [
+        "vg_bh_boss_waescherei_phase2",
+        "vg_bh_boss_waescherei"
+      ],
+      "name": "Kesseldruckmesser",
+      "inspect": "Der Zeiger bleibt unter dem roten Strich.",
+      "sprite_region": "troph_vg_bh_boss_waescherei",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "vg_bh_boss_waescherei_phase2",
+        "backfill_any_flags": [
+          "vg_bh_boss_waescherei_geloest"
+        ],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/packs/vorrat_gegner/phasen.json",
+          "pointer": "/vg_bh_boss_waescherei_phase2",
+          "id": "vg_bh_boss_waescherei_phase2"
+        },
+        {
+          "file": "src/data/packs/vorrat_gegner/zonen_vorschlag.json",
+          "pointer": "/vg_zone_bh_waescherei/encounters/vg_bh_boss_waescherei",
+          "id": "vg_bh_boss_waescherei"
+        }
+      ]
+    },
+    {
+      "id": "troph_vg_bh_boss_mutterwurzel",
+      "boss_id": "vg_bh_boss_mutterwurzel",
+      "boss_name": "Blütenmund der Mutterwurzel",
+      "encounter_ids": [
+        "vg_bh_boss_mutterwurzel_phase2",
+        "vg_bh_boss_mutterwurzel_phase3",
+        "vg_bh_boss_mutterwurzel"
+      ],
+      "name": "Wurzelblüte",
+      "inspect": "Die Wurzel hat ihren Griff gelöst.",
+      "sprite_region": "troph_vg_bh_boss_mutterwurzel",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "vg_bh_boss_mutterwurzel_phase3",
+        "backfill_any_flags": [
+          "vg_bh_boss_mutterwurzel_geloest"
+        ],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/packs/vorrat_gegner/phasen.json",
+          "pointer": "/vg_bh_boss_mutterwurzel_phase2",
+          "id": "vg_bh_boss_mutterwurzel_phase2"
+        },
+        {
+          "file": "src/data/packs/vorrat_gegner/phasen.json",
+          "pointer": "/vg_bh_boss_mutterwurzel_phase3",
+          "id": "vg_bh_boss_mutterwurzel_phase3"
+        },
+        {
+          "file": "src/data/packs/vorrat_gegner/zonen_vorschlag.json",
+          "pointer": "/vg_zone_bh_wurzelkammer/encounters/vg_bh_boss_mutterwurzel",
+          "id": "vg_bh_boss_mutterwurzel"
+        }
+      ]
+    },
+    {
+      "id": "troph_vg_all_boss_landvermesser",
+      "boss_id": "vg_all_boss_landvermesser",
+      "boss_name": "Landvermesser",
+      "encounter_ids": [
+        "vg_all_boss_landvermesser_phase2",
+        "vg_all_boss_landvermesser"
+      ],
+      "name": "Vermesserzirkel",
+      "inspect": "Der Zirkel vermisst nur ein Stück Holz.",
+      "sprite_region": "troph_vg_all_boss_landvermesser",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "vg_all_boss_landvermesser_phase2",
+        "backfill_any_flags": [
+          "vg_all_boss_landvermesser_geloest"
+        ],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/packs/vorrat_gegner/phasen.json",
+          "pointer": "/vg_all_boss_landvermesser_phase2",
+          "id": "vg_all_boss_landvermesser_phase2"
+        },
+        {
+          "file": "src/data/packs/vorrat_gegner/zonen_vorschlag.json",
+          "pointer": "/vg_zone_all_landstrasse/encounters/vg_all_boss_landvermesser",
+          "id": "vg_all_boss_landvermesser"
+        }
+      ]
+    },
+    {
+      "id": "troph_vg_all_boss_schlafkutsche",
+      "boss_id": "vg_all_boss_schlafkutsche",
+      "boss_name": "Schlafkutsche",
+      "encounter_ids": [
+        "vg_all_boss_schlafkutsche_phase2",
+        "vg_all_boss_schlafkutsche"
+      ],
+      "name": "Kutschenrad",
+      "inspect": "Dieses Rad muss niemanden mehr forttragen.",
+      "sprite_region": "troph_vg_all_boss_schlafkutsche",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "vg_all_boss_schlafkutsche_phase2",
+        "backfill_any_flags": [
+          "vg_all_boss_schlafkutsche_geloest"
+        ],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/packs/vorrat_gegner/phasen.json",
+          "pointer": "/vg_all_boss_schlafkutsche_phase2",
+          "id": "vg_all_boss_schlafkutsche_phase2"
+        },
+        {
+          "file": "src/data/packs/vorrat_gegner/zonen_vorschlag.json",
+          "pointer": "/vg_zone_all_landstrasse/encounters/vg_all_boss_schlafkutsche",
+          "id": "vg_all_boss_schlafkutsche"
+        }
+      ]
+    },
+    {
+      "id": "troph_cwa_registerleib_rest",
+      "boss_id": "cwa_registerleib_rest",
+      "boss_name": "Registerleib: verbliebener Druck",
+      "encounter_ids": [
+        "cwa_registerleib_rest"
+      ],
+      "name": "Letzter Druckstock",
+      "inspect": "Ein Rest Druck ist noch keine neue Ordnung.",
+      "sprite_region": "troph_cwa_registerleib_rest",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "cwa_registerleib_rest",
+        "backfill_any_flags": [
+          "cwo_registerrest_geloest"
+        ],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/packs/k4_orte/bosses.json",
+          "pointer": "/cwa_registerleib_rest",
+          "id": "cwa_registerleib_rest"
+        }
+      ]
+    },
+    {
+      "id": "troph_gallowmere",
+      "boss_id": "gallowmere",
+      "boss_name": "Perrin Gallowmere",
+      "encounter_ids": [
+        "k3o_gallowmere_phase2",
+        "gallowmere"
+      ],
+      "name": "Fahrmeisterzange",
+      "inspect": "Die Zange entwertet keine Heimfahrt mehr.",
+      "sprite_region": "troph_gallowmere",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "k3o_gallowmere_phase2",
+        "backfill_any_flags": [
+          "k3o_gallowmere_geloest"
+        ],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/packs/k3_orte/phasen.json",
+          "pointer": "/k3o_gallowmere_phase2",
+          "id": "k3o_gallowmere_phase2"
+        },
+        {
+          "file": "src/data/packs/k3_orte/bosses.json",
+          "pointer": "/gallowmere",
+          "id": "gallowmere"
+        }
+      ]
+    },
+    {
+      "id": "troph_unterschicht",
+      "boss_id": "unterschicht",
+      "boss_name": "Die Unterschicht",
+      "encounter_ids": [
+        "k3o_unterschicht_phase2",
+        "k3o_unterschicht_phase3",
+        "unterschicht"
+      ],
+      "name": "Dunkler Schwellenstein",
+      "inspect": "Der Stein schweigt ohne Drohung.",
+      "sprite_region": "troph_unterschicht",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "k3o_unterschicht_phase3",
+        "backfill_any_flags": [
+          "k3o_unterschicht_geloest"
+        ],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/packs/k3_orte/phasen.json",
+          "pointer": "/k3o_unterschicht_phase2",
+          "id": "k3o_unterschicht_phase2"
+        },
+        {
+          "file": "src/data/packs/k3_orte/phasen.json",
+          "pointer": "/k3o_unterschicht_phase3",
+          "id": "k3o_unterschicht_phase3"
+        },
+        {
+          "file": "src/data/packs/k3_orte/bosses.json",
+          "pointer": "/unterschicht",
+          "id": "unterschicht"
+        }
+      ]
+    },
+    {
+      "id": "troph_schwellenhund",
+      "boss_id": "schwellenhund",
+      "boss_name": "Schwellenhund",
+      "encounter_ids": [
+        "schwellenhund"
+      ],
+      "name": "Schwellenhalsband",
+      "inspect": "Das Halsband liegt ohne Kette.",
+      "sprite_region": "troph_schwellenhund",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "schwellenhund",
+        "backfill_any_flags": [
+          "k3o_schwellenhund_geloest"
+        ],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/packs/k3_orte/bosses.json",
+          "pointer": "/schwellenhund",
+          "id": "schwellenhund"
+        }
+      ]
+    },
+    {
+      "id": "troph_vorhauer",
+      "boss_id": "vorhauer",
+      "boss_name": "Vorhauer",
+      "encounter_ids": [
+        "vorhauer"
+      ],
+      "name": "Abgeschlagene Hammerkante",
+      "inspect": "An der Bruchkante endet der Schlag.",
+      "sprite_region": "troph_vorhauer",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "vorhauer",
+        "backfill_any_flags": [
+          "k3o_vorhauer_geloest"
+        ],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/packs/k3_orte/bosses.json",
+          "pointer": "/vorhauer",
+          "id": "vorhauer"
+        }
+      ]
+    },
+    {
+      "id": "troph_vielrufer",
+      "boss_id": "vielrufer",
+      "boss_name": "Vielrufer",
+      "encounter_ids": [
+        "vielrufer"
+      ],
+      "name": "Rufmuschel",
+      "inspect": "Ich halte sie ans Ohr und höre nur das Zimmer.",
+      "sprite_region": "troph_vielrufer",
+      "unlock": {
+        "event": "combat_victory",
+        "encounter": "vielrufer",
+        "backfill_any_flags": [
+          "k3o_vielrufer_geloest"
+        ],
+        "never_unlock_from_intermediate_phase": true
+      },
+      "source_refs": [
+        {
+          "file": "src/data/packs/k3_orte/bosses.json",
+          "pointer": "/vielrufer",
+          "id": "vielrufer"
+        }
+      ]
+    }
+  ],
+  "boss_audit": {
+    "source_commit": "6ccced920b21ee296edba27f20d5215e68b62695",
+    "unique_bosses": 32,
+    "encounter_ids": 46,
+    "reason": "32 statt ungefähr 30: vollständiger Stand, Phasen zusammengefasst. Noch nicht vorhandene Kapitel-6-Bosse werden nicht erfunden."
+  }
+}
