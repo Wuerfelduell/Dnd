@@ -928,6 +928,15 @@ export class Combat {
   }
 
   /** Rundenende: Brand/Gift wirkt auf den Gegner, Blutung auf dich (bleedTick). Gibt den Schaden am Gegner zurück. */
+  /** Codex DR: Zwischenruf des Schwellenwächters zu Beginn einer Runde (`rufe_runde` je Runde, sonst jede zweite Runde reihum). */
+  ruf(round) {
+    const fixed = this.enc.rufe_runde?.[round];
+    if (fixed) return { text: fixed, say: false };
+    const r = this.enc.rufe ?? [];
+    if (!r.length || round % 2) return null;
+    return { text: r[(round / 2 - 1) % r.length], say: !this.rules?.deaf };
+  }
+
   endRound() {
     this.round += 1;
     this.roundDmg = 0;
@@ -964,6 +973,7 @@ export class Combat {
     });
     this.focusRound();
     this.startTurn();
+    this.rufNote = this.ruf(this.round);
     if (this.rules?.shadow) this.pickRoundSkill();
     if (this.rules?.moorwater) this.drinkMoor();
     if (this.outcome) return 0;

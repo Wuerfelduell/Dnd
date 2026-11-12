@@ -30,6 +30,8 @@ import { encounterSeq } from './Fear.js';
 import { HG_NAMES, HG_SUDE, MOORWASSER, RELIKT } from '../data/seq4.js';
 import { LEERES_GEFAESS } from '../data/sude.js';
 import { seeded } from './Gatherings.js';
+import { DAY_SECONDS } from './Clock.js';
+import { drMeldung, pct } from '../data/seq4Dr.js';
 
 export const HG_FAIL_PCT = 17;
 export const HG_FAIL_UNRUHE = 10;
@@ -84,7 +86,48 @@ export const seq4Methods = {
   },
 
   seq4Name(kind = this.seq4Kind()) {
-    return HG_NAMES[kind] ?? 'Die Prüfung';
+    return this.content.seq4Texte?.rituale?.[kind]?.name ?? HG_NAMES[kind] ?? 'Die Prüfung';
+  },
+
+  /** Codex DR: Regelkarte, Vorbereitung, Beginn, Erfolg und Notizbuchzeile einer Prüfung (oder null). */
+  seq4Card(kind = this.seq4Kind()) {
+    const r = this.content.seq4Texte?.rituale?.[kind];
+    if (!r) return null;
+    return { regeln: (r.regeln ?? []).map(pct), vorbereitung: (r.vorbereitung ?? []).map(pct), beginn: pct(r.beginn), erfolg: pct(r.erfolg), notizbuch: pct(r.notizbuch) };
+  },
+
+  /** Codex DR: Kurzmeldung zu einem Ereignis der Prüfung ('' wenn es keine gibt). */
+  seq4Msg(kind, key, vars) {
+    return drMeldung(this.content, kind, key, vars);
+  },
+
+  /** Text + DR-Meldungen, durch Leerzeichen verbunden (leere fallen weg). */
+  seq4Join(...parts) {
+    return parts.filter(Boolean).join(' ');
+  },
+
+  /** Zuschauerzeile für Spieler 2 (Codex DR), wenn eine Prüfung solo läuft. */
+  seq4Zuschauer(kind = this.seq4Kind()) {
+    const z = this.content.seq4Texte?.zuschauer?.[kind] ?? [];
+    return z.length ? `Spieler 2: „${z[Math.floor(this.random() * z.length)]}“` : '';
+  },
+
+  // --- Wexmoor-Einnahmen (DR): einmal je Spieltag -------------------------------------------------
+  dailyFlag(id) {
+    return `tag_${id}_${Math.floor((this.playTime ?? 0) / DAY_SECONDS)}`;
+  },
+
+  dailyDone(id) {
+    return this.flags.has(this.dailyFlag(id));
+  },
+
+  meetsDaily(o) {
+    return (o.requires_daily === undefined || !this.dailyDone(o.requires_daily)) && (o.hide_if_daily === undefined || this.dailyDone(o.hide_if_daily));
+  },
+
+  markDaily(id) {
+    for (const f of [...this.flags]) if (f.startsWith(`tag_${id}_`)) this.flags.delete(f);
+    this.flags.add(this.dailyFlag(id));
   },
 
   seq4Hint(kind = this.seq4Kind()) {
@@ -154,7 +197,9 @@ export const seq4Methods = {
       this.emit('digest', { value: p.digestion, delta: p.digestion - before, kind: 'seq4_fail', player: this.acting ?? 1 });
       this.setUnruhe(this.unruhe + HG_FAIL_UNRUHE);
     }
-    const full = `${this.seq4Name(kind)}: gescheitert. ${text} (−${HG_FAIL_PCT} % Verdauung, +${HG_FAIL_UNRUHE} Unruhe. Du kannst es noch einmal versuchen.)`;
+    const extra = this.seq4Join(kind === 'echo' ? this.seq4Msg('echo', 'taubheit_ende') : '', this._waageBack ? this.seq4Msg('waage', 'besitz_zurueck') : '');
+    this._waageBack = false;
+    const full = `${this.seq4Name(kind)}: gescheitert. ${this.seq4Join(text, extra)} (−${HG_FAIL_PCT} % Verdauung, +${HG_FAIL_UNRUHE} Unruhe. Du kannst es noch einmal versuchen.)`;
     this.emit('seq4', { kind, passed: false, player: this.acting ?? 1, text: full });
     this.emit('notice', full);
     this.emit('changed');
@@ -168,7 +213,13 @@ export const seq4Methods = {
     st.done = true;
     this.flags.add(this.hgFlag());
     this.flags.add(`${this.acting === 2 ? 'p2_' : ''}${`won_${this.hgGuardianId()}`}`);
-    const full = `${this.seq4Name(kind)}: bestanden. ${text} Der Wächter ist gefallen. Das Ritual kann vollzogen werden (Pfad-Tab).`;
+    // DR: Gerede und Zeitung über das bestandene Ritual (nur eine Ausgabe, im Blatt der Stadt, in der man gerade ist)
+    this.flags.add(`hg_gerede_${kind}`);
+    this.checkPapers?.();
+    this.flags.add(`hg_zeitung_${kind}`);
+    const back = this._waageBack ? this.seq4Msg('waage', 'besitz_zurueck') : '';
+    this._waageBack = false;
+    const full = `${this.seq4Name(kind)}: bestanden. ${this.seq4Join(text, this.seq4Card(kind)?.erfolg, kind === 'echo' ? this.seq4Msg('echo', 'taubheit_ende') : '', back)} Der Wächter ist gefallen. Das Ritual kann vollzogen werden (Pfad-Tab).`;
     this.emit('seq4', { kind, passed: true, player: this.acting ?? 1, text: full });
     this.emit('notice', full);
     this.emit('changed');
@@ -177,7 +228,7 @@ export const seq4Methods = {
 
   /** Was nach jeder Prüfung zurück muss: verwahrter Besitz (Waage). */
   seq4Cleanup(st = this.seq4()) {
-    if (st.stash) this.waageRestore(st);
+    if (st.stash) { this.waageRestore(st); this._waageBack = true; }
   },
 
   /** Laufende Prüfung abbrechen: vor dem ersten echten Schritt umsonst, sonst ein Fehlschlag. */
@@ -203,7 +254,9 @@ export const seq4Methods = {
     st.guardian = true;
     this.startCombat(id);
     this.emit('changed');
-    return `${text}\n\nDann wird es still. Aus dem Nebel tritt ${this.content.encounters[id].name}.`;
+    const kind = this.seq4Kind();
+    const dr = this.seq4Join(kind === 'waage' ? this.seq4Msg('waage', 'alles_gekauft') : '', this.seq4Msg(kind, 'waechter_erscheint'), this.hasP2?.() ? this.seq4Zuschauer(kind) : '');
+    return `${text}\n\nDann wird es still. Aus dem Nebel tritt ${this.content.encounters[id].name}.${dr ? ` ${dr}` : ''}`;
   },
 
   // --- Regeln für den Kampf (Combat.js liest sie beim Kampfbeginn) ---------------------------------
@@ -250,7 +303,7 @@ export const seq4Methods = {
         st.dreamWon = true;
         return this.seq4Summon('Die fünf Gestalten lösen sich in Garn auf. Der Traum aber endet nicht.');
       }
-      if (g) return won ? this.seq4Pass('faden', 'Du erwachst mit Garn zwischen den Fingern.').text : this.seq4Fail('faden', 'Der Wächter zerschneidet das Netz, und du wachst auf.').text;
+      if (g) return won ? this.seq4Pass('faden', this.seq4Join('Du erwachst mit Garn zwischen den Fingern.', this.seq4Msg('faden', 'erwachen'))).text : this.seq4Fail('faden', 'Der Wächter zerschneidet das Netz, und du wachst auf.').text;
     }
     if (k === 'maske' && rules) {
       if (broken) return this.seq4Fail('maske', broken).text;
@@ -258,9 +311,11 @@ export const seq4Methods = {
         if (combat.outcome === 'spared') {
           st.spared = combat.enc.name;
           this.flags.add(`zweifel_${id}`);
-          return this.seq4Summon(`${combat.enc.name} starrt auf die eigenen Hände. Ein Mensch ohne Pfad hat das getan. Dieser Zweifel bleibt.`);
+          const zw = this.content.seq4Texte?.zweifel ?? [];
+          const line = zw.length ? `„${zw[Math.floor(this.random() * zw.length)].replaceAll('{name}', combat.enc.name)}“` : '';
+          return this.seq4Summon(this.seq4Join(this.seq4Msg('maske', 'verschont'), `${combat.enc.name} starrt auf die eigenen Hände. Ein Mensch ohne Pfad hat das getan.`, line, 'Dieser Zweifel bleibt.'));
         }
-        if (won) return this.seq4Fail('maske', `${combat.enc.name} ist tot. Die Maske verlangte Gnade.`).text;
+        if (won) return this.seq4Fail('maske', this.seq4Join(this.seq4Msg('maske', 'gegner_tot'), 'Die Maske verlangte Gnade.')).text;
         if (combat.outcome === 'lost') return this.seq4Fail('maske', 'Ein gewöhnlicher Mensch verliert gegen einen Beyonder. Diesmal du.').text;
         return null; // geflohen: kein Schaden, keine Wertung
       }
@@ -270,9 +325,9 @@ export const seq4Methods = {
       if (!won) return this.seq4Fail('echo', combat.outcome === 'lost' ? 'Die Stille hat dich gefällt.' : 'Du bist der Stille ausgewichen. Das zählt nicht.').text;
       if (g) return this.seq4Pass('echo', 'In der Stille hast du den Schlag gesehen, bevor er kam.').text;
       st.wins = (st.wins ?? 0) + 1;
-      if (st.wins >= ECHO_FIGHTS) return this.seq4Summon(`${ECHO_FIGHTS} Kämpfe in völliger Stille.`);
+      if (st.wins >= ECHO_FIGHTS) return this.seq4Summon(this.seq4Join(this.seq4Msg('echo', 'gegner_besiegt', { n: st.wins }), `${ECHO_FIGHTS} Kämpfe in völliger Stille.`));
       this.emit('changed');
-      return `Die Welt ohne Klang: ${st.wins}/${ECHO_FIGHTS} Kämpfe.`;
+      return this.seq4Msg('echo', 'gegner_besiegt', { n: st.wins }) || `${this.seq4Name('echo')}: ${st.wins}/${ECHO_FIGHTS} Kämpfe.`;
     }
     if (k === 'kessel' && g) {
       if (broken) return this.seq4Fail('kessel', broken).text;
@@ -287,13 +342,13 @@ export const seq4Methods = {
     }
     if (k === 'schluessel' && rules?.shadow) {
       st.shadowHp = Math.max(0, combat.shadowHpLeft ?? st.shadowHp);
-      if (combat.outcome === 'lost') return this.seq4Fail('schluessel', 'Der Schatten zerreißt und kriecht zurück in deinen Körper. Du lebst.').text;
+      if (combat.outcome === 'lost') return this.seq4Fail('schluessel', this.seq4Msg('schluessel', 'schatten_zerfasert') || 'Der Schatten zerreißt und kriecht zurück in deinen Körper. Du lebst.').text;
       if (!won) { this.emit('changed'); return null; }
-      if (g) return this.seq4Pass('schluessel', 'Der Schatten gleitet zurück an deine Füße.').text;
+      if (g) return this.seq4Pass('schluessel', this.seq4Join(this.seq4Msg('schluessel', 'schatten_zurueck'), 'Er gleitet zurück an deine Füße.')).text;
       st.wins = (st.wins ?? 0) + 1;
-      if (st.wins >= SCHATTEN.fights) return this.seq4Summon('Zwei Gegner, gefällt von einem Schatten.');
+      if (st.wins >= SCHATTEN.fights) return this.seq4Summon(this.seq4Join(this.seq4Msg('schluessel', 'gegner_besiegt', { n: st.wins }), 'Zwei Gegner, gefällt von einem Schatten.'));
       this.emit('changed');
-      return `Der Schatten ohne Körper: ${st.wins}/${SCHATTEN.fights} Gegner, ${st.shadowHp}/${st.shadowMax} Leben übrig.`;
+      return `${this.seq4Msg('schluessel', 'gegner_besiegt', { n: st.wins }) || `${this.seq4Name('schluessel')}: ${st.wins}/${SCHATTEN.fights} Gegner.`} ${st.shadowHp}/${st.shadowMax} Leben übrig.`;
     }
     if (k === 'waage' && g) return won ? this.seq4Pass('waage', 'Mit nichts als dem Gekauften.').text : this.seq4Fail('waage', 'Was du gekauft hast, hat nicht gereicht.').text;
     if (k === 'moor' && g) {
@@ -307,9 +362,9 @@ export const seq4Methods = {
       if (g) return this.seq4Pass('uhr', `${combat.dodgeErrors} ${combat.dodgeErrors === 1 ? 'Fehler' : 'Fehler'} beim Wächter.`).text;
       if (!combat.enemyAttacks) { this.emit('changed'); return `${combat.enc.name} hat nicht ein einziges Mal angegriffen. Das zählt nicht.`; }
       st.count = (st.count ?? 0) + 1;
-      if (st.count >= UHR.monsters) return this.seq4Summon('Drei Monster, kein einziger verfehlter Augenblick.');
+      if (st.count >= UHR.monsters) return this.seq4Summon(this.seq4Join(this.seq4Msg('uhr', 'monster_angriff', { n: st.count }), 'Drei Monster, kein einziger verfehlter Augenblick.'));
       this.emit('changed');
-      return `Der perfekte Augenblick: ${st.count}/${UHR.monsters} Monster.`;
+      return `${this.seq4Name('uhr')}: ${st.count}/${UHR.monsters} Monster ohne Fehler.`;
     }
     if (k === 'laterne' && g) return null; // der Wächter der Laterne kämpft nicht auf dem Kampfbildschirm
     return null;
@@ -321,14 +376,14 @@ export const seq4Methods = {
     const st = this.seq4();
     if (st.guardian || this.pendingCombat) return;
     if (!this.eisenConditions().ok) return;
-    this.seq4Summon('Die Last zieht dich in die Knie. Das Eisen hört es.');
-    this.emit('notice', `${this.seq4Name('eisen')}: Der Wächter tritt an, wo du stehst.`);
+    this.seq4Summon(this.seq4Join(this.seq4Msg('eisen', 'bereit'), this.seq4Card('eisen')?.beginn, 'Die Last zieht dich in die Knie.'));
+    this.emit('notice', `${this.seq4Name('eisen')}: ${this.seq4Msg('eisen', 'waechter_erscheint') || 'Der Wächter tritt an, wo du stehst.'}`);
   },
 
   // --- Laterne ---------------------------------------------------------------------------------------
   /** Beginnt die Laternennacht (die Szene übernimmt mit core/Laternenwacht.js). */
   startSiege() {
-    if (this.acting === 2) return { ok: false, text: 'Die Laternennacht führt die Hauptfigur auf der Karte; als Spieler 2 geht das noch nicht.' };
+    if (this.acting === 2) return { ok: false, text: this.seq4Join('Die Laternennacht führt die Hauptfigur auf der Karte; als Spieler 2 geht das noch nicht.', this.seq4Zuschauer('laterne')) };
     if (this.seq4Kind() !== 'laterne') return { ok: false, text: 'Das verlangt dein Ritual nicht.' };
     const st = this.seq4();
     if (st.siege) return { ok: false, text: 'Die Laternen brennen schon.' };
@@ -339,7 +394,7 @@ export const seq4Methods = {
     st.siegeMap = this.map;
     st.siegeKills = 0;
     this.emit('changed');
-    return { ok: true, siege: true, text: 'Du stellst sechs Laternen im Kreis auf und zündest sie an. Im Dunkel dahinter regt sich etwas. Halte das Licht.' };
+    return { ok: true, siege: true, text: this.seq4Join('Du stellst sechs Laternen im Kreis auf und zündest sie an.', this.seq4Card('laterne')?.beginn, 'Im Dunkel dahinter regt sich etwas. Halte das Licht.') };
   },
 
   /** Ergebnis der Laternennacht (aus der Szene). */
@@ -370,7 +425,8 @@ export const seq4Methods = {
     st.marks = [...(st.marks ?? []), { enc: id, name: enc.name, area: this.map, hp: enc.hp, attacks: enc.attacks }];
     this.emit('changed');
     const n = st.marks.length;
-    return `Ein violetter Faden spannt sich von deinem Finger zu ${enc.name}. Schicksalsfaden ${n}/${HG_FAEDEN}.${n >= HG_FAEDEN ? ' Alle fünf halten. Schlaf, wenn du bereit bist.' : ''}`;
+    return this.seq4Join(n === 1 ? this.seq4Card('faden')?.beginn : '', `Ein violetter Faden spannt sich von deinem Finger zu ${enc.name}.`, this.seq4Msg('faden', 'kreatur_markiert', { name: enc.name, n }) || `Schicksalsfaden ${n}/${HG_FAEDEN}.`,
+      n >= HG_FAEDEN ? this.seq4Join(this.seq4Msg('faden', 'alle_markiert'), 'Schlaf, wenn du bereit bist.') : '');
   },
 
   /** Aus der Koje: mit fünf Fäden beginnt der Traum. Gibt Text zurück oder null. */
@@ -381,7 +437,7 @@ export const seq4Methods = {
     st.dream = true;
     this.buildDream();
     this.startCombat(TRAUM_ID);
-    return 'Kaum sind die Augen zu, ziehen die fünf Fäden. Sie ziehen dich hinab, und am anderen Ende warten alle fünf zugleich. Im Traum heilt nichts.';
+    return this.seq4Join(this.seq4Msg('faden', 'einschlafen'), 'Kaum sind die Augen zu, ziehen die fünf Fäden. Sie ziehen dich hinab, und am anderen Ende warten alle fünf zugleich.', this.seq4Msg('faden', 'traumbeginn'), 'Im Traum heilt nichts.');
   },
 
   /** Baut das Traumgeflecht aus den fünf markierten Wesen (ein Gegner, alle Angriffe, verstärkt). */
@@ -428,7 +484,7 @@ export const seq4Methods = {
     if (this.formActive?.()) return { ok: false, text: 'Leg erst die mythische Gestalt ab.' };
     st.masked = true;
     this.emit('changed');
-    return { ok: true, text: 'Du nimmst das Gesicht eines Menschen an, den niemand ansieht: Mantel vom Trödler, krumme Schultern, leere Hände. Jetzt such dir einen Beyonder der Sequenz 5 oder höher. Nur der einfache Angriff, Tränke sind erlaubt. Verschone ihn.' };
+    return { ok: true, text: this.seq4Join(this.seq4Card('maske')?.beginn, this.seq4Msg('maske', 'verwandlung')) + ' Du nimmst das Gesicht eines Menschen an, den niemand ansieht: Mantel vom Trödler, krumme Schultern, leere Hände. Jetzt such dir einen Beyonder der Sequenz 5 oder höher. Nur der einfache Angriff, Tränke sind erlaubt. Verschone ihn.' };
   },
 
   // --- Echo ------------------------------------------------------------------------------------------
@@ -439,7 +495,7 @@ export const seq4Methods = {
     st.active = true;
     st.wins = 0;
     this.emit('changed');
-    return { ok: true, text: `Du drückst die Hände auf die Ohren, bis das Rauschen aufhört. Dann ist es still. Ganz still. ${ECHO_FIGHTS} Kämpfe und der Wächter, ohne Ringe, ohne Warnklang.` };
+    return { ok: true, text: `${this.seq4Join(this.seq4Card('echo')?.beginn, this.seq4Msg('echo', 'taubheit_beginn'))} Du drückst die Hände auf die Ohren, bis das Rauschen aufhört. Dann ist es still. Ganz still. ${ECHO_FIGHTS} Kämpfe und der Wächter, ohne Ringe, ohne Warnklang.` };
   },
 
   /** Ist der Spieler taub (Ton aus)? */
@@ -458,7 +514,7 @@ export const seq4Methods = {
   hgRecipes() {
     if (!this.hgRecipesUnlocked()) return [];
     const st = this.seq4();
-    return HG_SUDE.map((s, i) => {
+    return (this.content.seq4Sude ?? HG_SUDE).map((s, i) => {
       const need = { ...s.zutaten, [LEERES_GEFAESS]: 1 };
       return { ...s, i, need, have: Object.fromEntries(Object.keys(need).map((id) => [id, this.itemCount(id)])), ready: Object.entries(need).every(([id, n]) => this.itemCount(id) >= n), drunk: (st.drunk ?? []).includes(s.id), owned: this.itemCount(s.id) };
     });
@@ -473,7 +529,8 @@ export const seq4Methods = {
     this.addItem(r.id);
     this.act('brew');
     this.emit('changed');
-    return { ok: true, text: `${r.name} gebraut. ${r.desc}` };
+    const n = (st0) => (st0.drunk ?? []).length + this.hgRecipes().filter((x) => x.owned).length;
+    return { ok: true, text: this.seq4Join(this.seq4Msg('kessel', 'gebraut', { n: Math.min(5, n(this.seq4())) }) || `${r.name} gebraut.`, r.desc) };
   },
 
   drinkEssence(i) {
@@ -485,8 +542,9 @@ export const seq4Methods = {
     st.drunk = [...(st.drunk ?? []), r.id];
     st.active = true;
     this.emit('changed');
-    if (st.drunk.length >= 5) return { ok: true, fight: this.hgGuardianId(), text: this.seq4Summon('Die fünfte Essenz brennt hinab. Fünf Feuer in einem Bauch, und sie werden eins.') };
-    return { ok: true, text: `${r.name} getrunken (${st.drunk.length}/5). Es brennt, dann wird es warm.` };
+    const msg = this.seq4Msg('kessel', 'getrunken', { n: st.drunk.length });
+    if (st.drunk.length >= 5) return { ok: true, fight: this.hgGuardianId(), text: this.seq4Summon(this.seq4Join(msg, 'Die fünfte Essenz brennt hinab. Fünf Feuer in einem Bauch, und sie werden eins.')) };
+    return { ok: true, text: this.seq4Join(st.drunk.length === 1 ? this.seq4Card('kessel')?.beginn : '', msg || `${r.name} getrunken (${st.drunk.length}/5).`, r.wirkung ?? 'Es brennt, dann wird es warm.') };
   },
 
   // --- Eisen -----------------------------------------------------------------------------------------
@@ -511,7 +569,7 @@ export const seq4Methods = {
     st.shadowMap = this.map;
     st.wins = 0;
     this.emit('changed');
-    return { ok: true, shadow: true, text: `Du stellst dich still und lässt los. Dein Schatten steht auf, ohne dich. Dein Körper bleibt, wo er ist. Der Schatten hat ${st.shadowMax} Leben, heilt nicht, pariert nicht und trägt nichts. ${SCHATTEN.fights} Gegner, dann der Wächter.` };
+    return { ok: true, shadow: true, text: `${this.seq4Join(this.seq4Card('schluessel')?.beginn, this.seq4Msg('schluessel', 'schatten_getrennt'), this.seq4Msg('schluessel', 'koerper_zurueck'))} Du stellst dich still und lässt los. Dein Schatten steht auf, ohne dich. Dein Körper bleibt, wo er ist. Der Schatten hat ${st.shadowMax} Leben, heilt nicht, pariert nicht und trägt nichts. ${SCHATTEN.fights} Gegner, dann der Wächter.` };
   },
 
   shadowActive() {
@@ -543,7 +601,7 @@ export const seq4Methods = {
     this.updateMaxHp();
     this.emit('money', this.money);
     this.emit('changed');
-    return { ok: true, text: `Alles, was du besitzt, liegt in sicherer Verwahrung. In deiner Tasche: ${capital} Schilling und sonst nichts. Geh zu einem Zirkel und kauf jedes Los der nächsten Runde.` };
+    return { ok: true, text: this.seq4Join(this.seq4Card('waage')?.beginn, this.seq4Msg('waage', 'besitz_versiegelt'), `In deiner Tasche: ${capital} Schilling und sonst nichts. Geh zu einem Zirkel und kauf jedes Los der nächsten Runde.`) };
   },
 
   /** Gibt den verwahrten Besitz zurück (Gekauftes bleibt dazu). */
@@ -580,7 +638,7 @@ export const seq4Methods = {
     const st = this.seq4();
     if (this.seq4Kind() !== 'waage' || !st.inSession) return null;
     if (kind === 'buy') { st.bought = (st.bought ?? 0) + 1; this.emit('changed'); return null; }
-    return this.seq4Fail('waage', 'Ein Los ist an dir vorbeigegangen. Die Waage verlangt alles.');
+    return this.seq4Fail('waage', this.seq4Join('Ein Los ist an dir vorbeigegangen.', this.seq4Msg('waage', 'kapital_zu_knapp'), 'Die Waage verlangt alles.'));
   },
 
   /** Aus Auction.nextTurn: alle Mitglieder waren dran. Alles gekauft? Dann kommt der Wächter (beim Schließen der Runde). */
@@ -629,9 +687,13 @@ export const seq4Methods = {
     this.dropArtifactIfGone?.(id);
     st.decayed = [...(st.decayed ?? []), { id, name: it.name, boons: it.boons ?? [], curses: it.curses ?? [] }];
     this.act('use_item');
-    if (st.decayed.length >= MOOR.items) return { ok: true, text: `${it.name} wird schwarz und weich, dann Schlamm. ${this.formRelic()}` };
+    const z = this.content.seq4Texte?.relikt?.zersetzen ?? {};
+    const cat = it.kind === 'artifact' ? 'artefakt' : it.kind === 'ingredient' ? 'zutat' : /knochen|schädel|zahn|geweih/i.test(it.name) ? 'knochen' : /glas|linse|scherbe/i.test(it.name) ? 'glas'
+      : /stein|quarz|perle|bernstein/i.test(it.name) ? 'edelstein' : /papier|brief|seite|akte/i.test(it.name) ? 'papier' : /faden|tuch|stoff/i.test(it.name) ? 'stoff' : /eisen|messing|kupfer|bronze|silber|lot|medaille|glocke/i.test(it.name) ? 'metall' : 'zutat';
+    const look = this.seq4Join(st.decayed.length === 1 ? this.seq4Card('moor')?.beginn : '', z[cat] ?? `${it.name} wird schwarz und weich, dann Schlamm.`, this.seq4Msg('moor', 'zersetzt', { item: it.name, n: st.decayed.length }));
+    if (st.decayed.length >= MOOR.items) return { ok: true, text: `${look} ${this.formRelic()}` };
     this.emit('changed');
-    return { ok: true, text: `${it.name} wird schwarz und weich, dann Schlamm. (${st.decayed.length}/${MOOR.items})` };
+    return { ok: true, text: look || `${it.name} zersetzt (${st.decayed.length}/${MOOR.items}).` };
   },
 
   /** Formt das Relikt aus den Resten: zufällige Eigenschaften der fünf, bei jedem anders. */
@@ -645,14 +707,25 @@ export const seq4Methods = {
       while (a.length && out.length < n) { const j = Math.floor(rng() * a.length); const [x] = a.splice(j, 1); if (!out.some((o) => o.key === x.key)) out.push(x); }
       return out;
     };
-    const boons = pick(boonsPool, 3);
-    // Ohne Artefakte unter den fünf: der Verfall selbst gibt etwas
+    // Codex DR: zwei Eigenschaften der zersetzten Dinge, aufgefüllt aus den zwanzig Moor-Eigenschaften, dazu ein Name
+    const dr = this.content.seq4Texte?.relikt;
+    const wirkung = this.content.seq4Texte?.reliktWirkung ?? {};
+    const boons = pick(boonsPool, 2);
+    const moorPool = (dr?.eigenschaften ?? []).filter((e) => wirkung[e.id]).map((e) => ({ key: wirkung[e.id][0], value: wirkung[e.id][1], text: `${e.name}: ${wirkung[e.id][2]}.`, name: e.name }));
+    for (const b of pick(moorPool, 3)) if (boons.length < 3 && !boons.some((o) => o.key === b.key)) boons.push(b);
     if (!boons.length) boons.push({ key: 'occult_mult', value: 1.2, text: 'Verfall frisst Okkultes: +20 % Schaden gegen okkulte Wesen.' });
     const curses = pick(cursePool, 1);
-    this.pathway.relikt = { boons, curses };
+    const vs = dr?.namensteile?.vorsilben ?? [];
+    const ns = dr?.namensteile?.nachsilben ?? [];
+    const name = vs.length && ns.length ? `${vs[Math.floor(rng() * vs.length)]}${ns[Math.floor(rng() * ns.length)]}` : 'Relikt des Verfalls';
+    const names = boons.map((b) => b.name ?? b.text.replace(/[.:].*$/, '')).join(', ');
+    const tpl = dr?.desc_vorlagen ?? [];
+    const desc = tpl.length ? tpl[Math.floor(rng() * tpl.length)].replaceAll('{name}', name).replaceAll('{eigenschaften}', names) : '';
+    this.pathway.relikt = { boons, curses, name, desc };
     this.addItem(RELIKT);
     this.emit('changed');
-    return `Aus dem Schlamm hebst du etwas Festes: das Relikt des Verfalls. ${boons.map((b) => b.text).join(' ')}${curses.length ? ` Aber: ${curses.map((c) => c.text).join(' ')}` : ''}`;
+    const msg = this.seq4Msg('moor', 'relikt_geformt', { name, eigenschaften: names });
+    return this.seq4Join(`Aus dem Schlamm hebst du etwas Festes: ${name}, das Relikt des Verfalls.`, msg, desc, boons.map((b) => b.text).join(' '), curses.length ? `Aber: ${curses.map((c) => c.text).join(' ')}` : '');
   },
 
   /** Wächter des Moores rufen: Relikt und Moorwasser müssen dabei sein. */
@@ -673,6 +746,6 @@ export const seq4Methods = {
     st.active = true;
     st.count = 0;
     this.emit('changed');
-    return { ok: true, text: `Der Augenblick zählt. ${UHR.monsters} Monster, jedes muss angreifen, jeder Schlag perfekt ausgewichen. Kein Fehler.` };
+    return { ok: true, text: `${this.seq4Card('uhr')?.beginn ?? ''} Der Augenblick zählt. ${UHR.monsters} Monster, jedes muss angreifen, jeder Schlag perfekt ausgewichen. Kein Fehler.` };
   },
 };

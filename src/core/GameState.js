@@ -335,7 +335,8 @@ export class GameState {
       this.meetsBond(o) &&
       this.meetsRelation(o) &&
       this.meetsClaims(o) && // Paket BG: requires_claim, requires_claim_missing, requires_p2, requires_replacement
-      this.meetsSignalRoutes(o) // Paket BN: requires_route, requires_pattern, requires_binding
+      this.meetsSignalRoutes(o) && // Paket BN: requires_route, requires_pattern, requires_binding
+      this.meetsDaily(o) // DR: requires_daily / hide_if_daily (einmal je Spieltag)
     );
   }
 
@@ -385,6 +386,7 @@ export class GameState {
     if (e.gives_money) this.addMoney(e.gives_money, { loot: true, reason: e.honor_reason ?? '' });
     if (e.takes_money) this.addMoney(-e.takes_money);
     if (e.ending) this.setEnding(e.ending);
+    if (e.daily) this.markDaily(e.daily); // DR: tägliche Arbeit oder Fundstelle erledigt
     if (e.damage) this.damage(Math.min(e.damage, this.hp - 1)); // außerhalb des Kampfes nie tödlich
     if (e.nerves) this.setComposure(this.composure + e.nerves);
     // Unruhe trifft nur Beyonder; wer keinen Trank hat, verliert stattdessen Nerven.
@@ -398,7 +400,7 @@ export class GameState {
     // Festnahme aus einem Gespräch oder nach verlorenem Kampf gegen die Streife: Zelle nach dem Fenster
     if (e.arrest && this.policeRules()) { const r = this.arrest(e.arrest === true ? {} : e.arrest); this.pendingTravel = { map: r.map, spawn: r.spawn }; }
     if (e.sets_flags || e.ending) this.checkPapers(); // Paket AD: neue Zeitungsausgabe?
-    if (gained.length || e.sets_flags || e.start_quests || e.complete_quests || e.honor || e.gives_items || e.takes_items || e.gives_money || e.takes_money) this.emit('changed');
+    if (gained.length || e.sets_flags || e.start_quests || e.complete_quests || e.honor || e.gives_items || e.takes_items || e.gives_money || e.takes_money || e.daily) this.emit('changed');
     return gained;
   }
 

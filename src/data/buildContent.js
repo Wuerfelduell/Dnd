@@ -80,7 +80,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   for (const pack of packs) withPackBosses(content, pack); // Kapitel 3: Bosse, Folgeabschnitte und Kampftexte
   applySequenzen(content, sequenzen, sq); // Paket AF: Händler, Treffen und Funde für die neuen Pfade
   applySeq5(content); // Seq-5-Rituale: Gefäße, Fäden, Uhr, Sude, Laternenbestie und Kokonspinne
-  applySeq4(content); // Seq-4-Rituale: zehn Halbgott-Prüfungen samt Wächter, Wurfflaschen, Relikt, Wexmoor-Einnahmen
+  applySeq4(content, packs.find((p) => p.seq4Dr)?.seq4Dr ?? null); // Seq-4-Rituale: zehn Halbgott-Prüfungen samt Wächter, Wurfflaschen, Relikt, Wexmoor-Einnahmen
   applySchmuggel(content); // Kein Zurück nach Kettlegate: Zirkelware von dort in Zunders Schmuggelkiste
   applyMoods(content); // Paket AK: Stimmungen für Schlüsselstellen
   applyRelations(content, beziehungen, packs); // Beziehungen: Regeln, Vorlieben, Knoten-Wirkungen
@@ -112,7 +112,7 @@ function withSpawnOffset(content, p) {
   if (!base) return null;
   const { spawn_offset: off, ...rest } = p;
   const taken = new Set([...(m.npcs ?? []), ...(m.interactables ?? [])].filter((o) => o.tile).map((o) => `${o.tile[0]},${o.tile[1]}`));
-  const free = (x, y) => !taken.has(`${x},${y}`) && /[.swg]/.test(m.rows?.[y]?.[x] ?? '.');
+  const free = (x, y) => !taken.has(`${x},${y}`) && /[.swg]/.test(m.rows?.[y]?.[x] ?? ''); // außerhalb der Karte ist nichts frei
   // Vorgabe-Versatz, sonst die nächste freie Bodenkachel rund um den Spawn, damit kein Objekt eines anderen Pakets überdeckt wird
   const candidates = [off, [-1, 0], [0, 1], [0, -1], [2, 0], [-2, 0], [1, 1], [-1, 1], [1, -1], [-1, -1], [0, 2], [0, -2]];
   const pick = candidates.find(([dx, dy]) => free(base[0] + dx, base[1] + dy)) ?? off;

@@ -1,0 +1,485 @@
+{
+  "kopfgelder": {
+    "kopfgeld_wx_gleispluenderer": {
+      "title": "Kopfgeld: Gleisplünderer",
+      "kind": "side",
+      "case": "kapitel2",
+      "summary": "Stiehlt Werkzeug aus abgestellten Güterwagen. Stelle den Gesuchten und melde dich im Wachhaus.",
+      "lohn_stufe": "klein",
+      "auftraggeber": "wx_wachhaus",
+      "gesuchter": {
+        "id": "wxk_gleispluenderer",
+        "steckbrief": "Gesucht wegen: Stiehlt Werkzeug aus abgestellten Güterwagen."
+      },
+      "steps": [
+        {
+          "text": "Den Gesuchten stellen.",
+          "done": {
+            "requires_flags": [
+              "won_kopfgeld_wx_gleispluenderer"
+            ]
+          },
+          "target": {
+            "map": "wx_bahnhof",
+            "id": "wxk_gleispluenderer",
+            "label": "Gleisplünderer"
+          }
+        },
+        {
+          "text": "Im Wachhaus abrechnen.",
+          "done": {
+            "requires_flags": [
+              "kopfgeld_wx_gleispluenderer_bezahlt"
+            ]
+          },
+          "target": {
+            "map": "wx_oberstadt",
+            "id": "wx_wachhaus",
+            "label": "Wachhaus"
+          }
+        }
+      ],
+      "abgabetext": "Die Wache nimmt den Bericht entgegen. Der Lohn wird ausgezahlt."
+    },
+    "kopfgeld_wx_torfschneider": {
+      "title": "Kopfgeld: Torfabschneider",
+      "kind": "side",
+      "case": "kapitel2",
+      "summary": "Schneidet fremde Torffelder ohne Erlaubnis ab. Stelle den Gesuchten und melde dich im Wachhaus.",
+      "lohn_stufe": "klein",
+      "auftraggeber": "wx_wachhaus",
+      "gesuchter": {
+        "id": "wxk_torfschneider",
+        "steckbrief": "Gesucht wegen: Schneidet fremde Torffelder ohne Erlaubnis ab."
+      },
+      "steps": [
+        {
+          "text": "Den Gesuchten stellen.",
+          "done": {
+            "requires_flags": [
+              "won_kopfgeld_wx_torfschneider"
+            ]
+          },
+          "target": {
+            "map": "wx_torfstich",
+            "id": "wxk_torfschneider",
+            "label": "Torfabschneider"
+          }
+        },
+        {
+          "text": "Im Wachhaus abrechnen.",
+          "done": {
+            "requires_flags": [
+              "kopfgeld_wx_torfschneider_bezahlt"
+            ]
+          },
+          "target": {
+            "map": "wx_oberstadt",
+            "id": "wx_wachhaus",
+            "label": "Wachhaus"
+          }
+        }
+      ],
+      "abgabetext": "Die Wache nimmt den Bericht entgegen. Der Lohn wird ausgezahlt."
+    },
+    "kopfgeld_wx_salzfaelscher": {
+      "title": "Kopfgeld: Salzfälscher",
+      "kind": "side",
+      "case": "kapitel2",
+      "summary": "Streckt die Salzsäcke mit grauem Sand. Stelle den Gesuchten und melde dich im Wachhaus.",
+      "lohn_stufe": "mittel",
+      "auftraggeber": "wx_wachhaus",
+      "gesuchter": {
+        "id": "wxk_salzfaelscher",
+        "steckbrief": "Gesucht wegen: Streckt die Salzsäcke mit grauem Sand."
+      },
+      "steps": [
+        {
+          "text": "Den Gesuchten stellen.",
+          "done": {
+            "requires_flags": [
+              "won_kopfgeld_wx_salzfaelscher"
+            ]
+          },
+          "target": {
+            "map": "wx_salzmarkt",
+            "id": "wxk_salzfaelscher",
+            "label": "Salzfälscher"
+          }
+        },
+        {
+          "text": "Im Wachhaus abrechnen.",
+          "done": {
+            "requires_flags": [
+              "kopfgeld_wx_salzfaelscher_bezahlt"
+            ]
+          },
+          "target": {
+            "map": "wx_oberstadt",
+            "id": "wx_wachhaus",
+            "label": "Wachhaus"
+          }
+        }
+      ],
+      "abgabetext": "Die Wache nimmt den Bericht entgegen. Der Lohn wird ausgezahlt."
+    },
+    "kopfgeld_wx_bojenbrecher": {
+      "title": "Kopfgeld: Bojenbrecher",
+      "kind": "side",
+      "case": "kapitel2",
+      "summary": "Löst nachts die Ketten der Hafenbojen. Stelle den Gesuchten und melde dich im Wachhaus.",
+      "lohn_stufe": "mittel",
+      "auftraggeber": "wx_wachhaus",
+      "gesuchter": {
+        "id": "wxk_bojenbrecher",
+        "steckbrief": "Gesucht wegen: Löst nachts die Ketten der Hafenbojen."
+      },
+      "steps": [
+        {
+          "text": "Den Gesuchten stellen.",
+          "done": {
+            "requires_flags": [
+              "won_kopfgeld_wx_bojenbrecher"
+            ]
+          },
+          "target": {
+            "map": "wx_bojenhafen",
+            "id": "wxk_bojenbrecher",
+            "label": "Bojenbrecher"
+          }
+        },
+        {
+          "text": "Im Wachhaus abrechnen.",
+          "done": {
+            "requires_flags": [
+              "kopfgeld_wx_bojenbrecher_bezahlt"
+            ]
+          },
+          "target": {
+            "map": "wx_oberstadt",
+            "id": "wx_wachhaus",
+            "label": "Wachhaus"
+          }
+        }
+      ],
+      "abgabetext": "Die Wache nimmt den Bericht entgegen. Der Lohn wird ausgezahlt."
+    },
+    "kopfgeld_wx_pfahlraeuber": {
+      "title": "Kopfgeld: Pfahlräuber",
+      "kind": "side",
+      "case": "kapitel2",
+      "summary": "Erpresst die Bewohner der Pfahlhäuser. Stelle den Gesuchten und melde dich im Wachhaus.",
+      "lohn_stufe": "mittel",
+      "auftraggeber": "wx_wachhaus",
+      "gesuchter": {
+        "id": "wxk_pfahlraeuber",
+        "steckbrief": "Gesucht wegen: Erpresst die Bewohner der Pfahlhäuser."
+      },
+      "steps": [
+        {
+          "text": "Den Gesuchten stellen.",
+          "done": {
+            "requires_flags": [
+              "won_kopfgeld_wx_pfahlraeuber"
+            ]
+          },
+          "target": {
+            "map": "wx_pfahldorf",
+            "id": "wxk_pfahlraeuber",
+            "label": "Pfahlräuber"
+          }
+        },
+        {
+          "text": "Im Wachhaus abrechnen.",
+          "done": {
+            "requires_flags": [
+              "kopfgeld_wx_pfahlraeuber_bezahlt"
+            ]
+          },
+          "target": {
+            "map": "wx_oberstadt",
+            "id": "wx_wachhaus",
+            "label": "Wachhaus"
+          }
+        }
+      ],
+      "abgabetext": "Die Wache nimmt den Bericht entgegen. Der Lohn wird ausgezahlt."
+    },
+    "kopfgeld_wx_wattgaenger": {
+      "title": "Kopfgeld: Wattgänger",
+      "kind": "side",
+      "case": "kapitel2",
+      "summary": "Lockt Reisende mit falschen Wattmarkierungen. Stelle den Gesuchten und melde dich im Wachhaus.",
+      "lohn_stufe": "mittel",
+      "auftraggeber": "wx_wachhaus",
+      "gesuchter": {
+        "id": "wxk_wattgaenger",
+        "steckbrief": "Gesucht wegen: Lockt Reisende mit falschen Wattmarkierungen."
+      },
+      "steps": [
+        {
+          "text": "Den Gesuchten stellen.",
+          "done": {
+            "requires_flags": [
+              "won_kopfgeld_wx_wattgaenger"
+            ]
+          },
+          "target": {
+            "map": "wx_salzwatt",
+            "id": "wxk_wattgaenger",
+            "label": "Wattgänger"
+          }
+        },
+        {
+          "text": "Im Wachhaus abrechnen.",
+          "done": {
+            "requires_flags": [
+              "kopfgeld_wx_wattgaenger_bezahlt"
+            ]
+          },
+          "target": {
+            "map": "wx_oberstadt",
+            "id": "wx_wachhaus",
+            "label": "Wachhaus"
+          }
+        }
+      ],
+      "abgabetext": "Die Wache nimmt den Bericht entgegen. Der Lohn wird ausgezahlt."
+    },
+    "kopfgeld_wx_moorhehler": {
+      "title": "Kopfgeld: Moorhehler",
+      "kind": "side",
+      "case": "kapitel2",
+      "summary": "Verkauft gestohlene Moorfunde unter falscher Herkunft. Stelle den Gesuchten und melde dich im Wachhaus.",
+      "lohn_stufe": "gross",
+      "auftraggeber": "wx_wachhaus",
+      "gesuchter": {
+        "id": "wxk_moorhehler",
+        "steckbrief": "Gesucht wegen: Verkauft gestohlene Moorfunde unter falscher Herkunft."
+      },
+      "steps": [
+        {
+          "text": "Den Gesuchten stellen.",
+          "done": {
+            "requires_flags": [
+              "won_kopfgeld_wx_moorhehler"
+            ]
+          },
+          "target": {
+            "map": "wx_vergessmoor",
+            "id": "wxk_moorhehler",
+            "label": "Moorhehler"
+          }
+        },
+        {
+          "text": "Im Wachhaus abrechnen.",
+          "done": {
+            "requires_flags": [
+              "kopfgeld_wx_moorhehler_bezahlt"
+            ]
+          },
+          "target": {
+            "map": "wx_oberstadt",
+            "id": "wx_wachhaus",
+            "label": "Wachhaus"
+          }
+        }
+      ],
+      "abgabetext": "Die Wache nimmt den Bericht entgegen. Der Lohn wird ausgezahlt."
+    },
+    "kopfgeld_wx_linsendieb": {
+      "title": "Kopfgeld: Linsendieb",
+      "kind": "side",
+      "case": "kapitel2",
+      "summary": "Entwendet Glas aus der Leuchtturmlinse. Stelle den Gesuchten und melde dich im Wachhaus.",
+      "lohn_stufe": "gross",
+      "auftraggeber": "wx_wachhaus",
+      "gesuchter": {
+        "id": "wxk_linsendieb",
+        "steckbrief": "Gesucht wegen: Entwendet Glas aus der Leuchtturmlinse."
+      },
+      "steps": [
+        {
+          "text": "Den Gesuchten stellen.",
+          "done": {
+            "requires_flags": [
+              "won_kopfgeld_wx_linsendieb"
+            ]
+          },
+          "target": {
+            "map": "wx_leuchtturm",
+            "id": "wxk_linsendieb",
+            "label": "Linsendieb"
+          }
+        },
+        {
+          "text": "Im Wachhaus abrechnen.",
+          "done": {
+            "requires_flags": [
+              "kopfgeld_wx_linsendieb_bezahlt"
+            ]
+          },
+          "target": {
+            "map": "wx_oberstadt",
+            "id": "wx_wachhaus",
+            "label": "Wachhaus"
+          }
+        }
+      ],
+      "abgabetext": "Die Wache nimmt den Bericht entgegen. Der Lohn wird ausgezahlt."
+    }
+  },
+  "gelegenheitsarbeiten": {
+    "wxj_torf_stechen": {
+      "title": "Torf stechen",
+      "wiederholbar": true,
+      "ort": "wx_torfstich",
+      "lohn_stufe": "klein",
+      "auftraggeber": "Für saubere Arbeit gibt es Schilling gegen Quittung.",
+      "ablauf": "Du stichst die zugewiesene Fläche ab. Danach stapelst du den Torf zum Trocknen.",
+      "zwischenfaelle": [
+        "Ein Werkzeug klemmt und muss neu angesetzt werden.",
+        "Der Boden gibt nach und verzögert die Arbeit.",
+        "Ein Fremder fragt nach dem Inhalt der Lieferung."
+      ],
+      "abschluss": "Die Arbeit ist abgenommen. Du erhältst deinen Lohn."
+    },
+    "wxj_bojen_pruefen": {
+      "title": "Bojen prüfen",
+      "wiederholbar": true,
+      "ort": "wx_bojenhafen",
+      "lohn_stufe": "klein",
+      "auftraggeber": "Für saubere Arbeit gibt es Schilling gegen Quittung.",
+      "ablauf": "Du prüfst die Bojenketten auf Rost. Lose Verbindungen meldest du am Hafen.",
+      "zwischenfaelle": [
+        "Ein Werkzeug klemmt und muss neu angesetzt werden.",
+        "Der Boden gibt nach und verzögert die Arbeit.",
+        "Ein Fremder fragt nach dem Inhalt der Lieferung."
+      ],
+      "abschluss": "Die Arbeit ist abgenommen. Du erhältst deinen Lohn."
+    },
+    "wxj_salzwagen_bewachen": {
+      "title": "Salzwagen bewachen",
+      "wiederholbar": true,
+      "ort": "wx_salzmarkt",
+      "lohn_stufe": "mittel",
+      "auftraggeber": "Für saubere Arbeit gibt es Schilling gegen Quittung.",
+      "ablauf": "Du begleitest einen Salzwagen bis zum Übergabepunkt. Unterwegs hältst du die Ladung im Blick.",
+      "zwischenfaelle": [
+        "Ein Werkzeug klemmt und muss neu angesetzt werden.",
+        "Der Boden gibt nach und verzögert die Arbeit.",
+        "Ein Fremder fragt nach dem Inhalt der Lieferung."
+      ],
+      "abschluss": "Die Arbeit ist abgenommen. Du erhältst deinen Lohn."
+    },
+    "wxj_wattlaternen": {
+      "title": "Wattlaternen entzünden",
+      "wiederholbar": true,
+      "ort": "wx_salzwatt",
+      "lohn_stufe": "mittel",
+      "auftraggeber": "Für saubere Arbeit gibt es Schilling gegen Quittung.",
+      "ablauf": "Du entzündest die Markierungslaternen im Watt. Anschließend kontrollierst du die Flammen aus sicherer Entfernung.",
+      "zwischenfaelle": [
+        "Ein Werkzeug klemmt und muss neu angesetzt werden.",
+        "Der Boden gibt nach und verzögert die Arbeit.",
+        "Ein Fremder fragt nach dem Inhalt der Lieferung."
+      ],
+      "abschluss": "Die Arbeit ist abgenommen. Du erhältst deinen Lohn."
+    },
+    "wxj_moorfunde_bergen": {
+      "title": "Moorfunde bergen",
+      "wiederholbar": true,
+      "ort": "wx_vergessmoor",
+      "lohn_stufe": "gross",
+      "auftraggeber": "Für saubere Arbeit gibt es Schilling gegen Quittung.",
+      "ablauf": "Du suchst das freigegebene Moorstück ab. Gefundene Stücke lieferst du vollständig ab.",
+      "zwischenfaelle": [
+        "Ein Werkzeug klemmt und muss neu angesetzt werden.",
+        "Der Boden gibt nach und verzögert die Arbeit.",
+        "Ein Fremder fragt nach dem Inhalt der Lieferung."
+      ],
+      "abschluss": "Die Arbeit ist abgenommen. Du erhältst deinen Lohn."
+    },
+    "wxj_akademie_boten": {
+      "title": "Akademieboten",
+      "wiederholbar": true,
+      "ort": "wx_oberstadt",
+      "lohn_stufe": "gross",
+      "auftraggeber": "Für saubere Arbeit gibt es Schilling gegen Quittung.",
+      "ablauf": "Du holst versiegelte Schreiben für die Akademie ab. Du bringst sie ungeöffnet zum Empfänger.",
+      "zwischenfaelle": [
+        "Ein Werkzeug klemmt und muss neu angesetzt werden.",
+        "Der Boden gibt nach und verzögert die Arbeit.",
+        "Ein Fremder fragt nach dem Inhalt der Lieferung."
+      ],
+      "abschluss": "Die Arbeit ist abgenommen. Du erhältst deinen Lohn."
+    }
+  },
+  "seltene_funde": {
+    "wxf_salzglas": {
+      "name": "Salzglas",
+      "desc": "Ein seltener Fund aus den gefährlichen Gebieten um Wexmoor. Maud Keel prüft ihn vor dem Ankauf.",
+      "fundort": "wx_bahnhof",
+      "lohn_stufe": "klein"
+    },
+    "wxf_moorbernstein": {
+      "name": "Moorbernstein",
+      "desc": "Ein seltener Fund aus den gefährlichen Gebieten um Wexmoor. Maud Keel prüft ihn vor dem Ankauf.",
+      "fundort": "wx_torfstich",
+      "lohn_stufe": "klein"
+    },
+    "wxf_schlickperle": {
+      "name": "Schlickperle",
+      "desc": "Ein seltener Fund aus den gefährlichen Gebieten um Wexmoor. Maud Keel prüft ihn vor dem Ankauf.",
+      "fundort": "wx_salzmarkt",
+      "lohn_stufe": "klein"
+    },
+    "wxf_gezeitenzahn": {
+      "name": "Gezeitenzahn",
+      "desc": "Ein seltener Fund aus den gefährlichen Gebieten um Wexmoor. Maud Keel prüft ihn vor dem Ankauf.",
+      "fundort": "wx_bojenhafen",
+      "lohn_stufe": "mittel"
+    },
+    "wxf_schwarzlot": {
+      "name": "Schwarzlot",
+      "desc": "Ein seltener Fund aus den gefährlichen Gebieten um Wexmoor. Maud Keel prüft ihn vor dem Ankauf.",
+      "fundort": "wx_pfahldorf",
+      "lohn_stufe": "mittel"
+    },
+    "wxf_torfkompass": {
+      "name": "Torfkompass",
+      "desc": "Ein seltener Fund aus den gefährlichen Gebieten um Wexmoor. Maud Keel prüft ihn vor dem Ankauf.",
+      "fundort": "wx_salzwatt",
+      "lohn_stufe": "mittel"
+    },
+    "wxf_silberalge": {
+      "name": "Silberalge",
+      "desc": "Ein seltener Fund aus den gefährlichen Gebieten um Wexmoor. Maud Keel prüft ihn vor dem Ankauf.",
+      "fundort": "wx_vergessmoor",
+      "lohn_stufe": "mittel"
+    },
+    "wxf_nebelquarz": {
+      "name": "Nebelquarz",
+      "desc": "Ein seltener Fund aus den gefährlichen Gebieten um Wexmoor. Maud Keel prüft ihn vor dem Ankauf.",
+      "fundort": "wx_leuchtturm",
+      "lohn_stufe": "gross"
+    },
+    "wxf_ankerfossil": {
+      "name": "Ankerfossil",
+      "desc": "Ein seltener Fund aus den gefährlichen Gebieten um Wexmoor. Maud Keel prüft ihn vor dem Ankauf.",
+      "fundort": "wx_bahnhof",
+      "lohn_stufe": "gross"
+    },
+    "wxf_wattspiegel": {
+      "name": "Wattspiegel",
+      "desc": "Ein seltener Fund aus den gefährlichen Gebieten um Wexmoor. Maud Keel prüft ihn vor dem Ankauf.",
+      "fundort": "wx_torfstich",
+      "lohn_stufe": "gross"
+    }
+  },
+  "maud_keel": [
+    "Sie bringen mir inzwischen mehr Ware als die Fischer.",
+    "Ich habe für Ihre Funde eine eigene Schublade freigeräumt.",
+    "Wenn Sie so weitermachen, muss ich einen zweiten Tresor kaufen."
+  ]
+}

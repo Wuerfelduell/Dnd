@@ -604,6 +604,13 @@ export class CombatScene extends Phaser.Scene {
 
   /** Paket I: Sektenoberhäupter verwandeln sich in Rage in ihre große Gestalt. Liefert die Dauer in ms. */
   transform() {
+    // Codex DR: Zwischenruf des Schwellenwächters (beim Echo nur, was man sieht)
+    if (this.combat.rufNote && !this.combat.phaseNote) {
+      const note = this.combat.rufNote;
+      this.combat.rufNote = null;
+      this.ui.combatMessage(note.say ? `${this.combat.enemy.name}: „${note.text}“` : note.text);
+      return 700;
+    }
     // BQ: zweite Phase eines Sektenhaupts: Meldung, Ruck durchs Bild, eigene Reihe `phase2` im Sheet
     if (this.combat.phaseNote) {
       const note = this.combat.phaseNote;

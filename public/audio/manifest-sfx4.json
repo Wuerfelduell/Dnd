@@ -1,0 +1,668 @@
+{
+  "batch": "sfx4",
+  "base": "audio/sfx/",
+  "formats": [
+    "ogg",
+    "mp3"
+  ],
+  "sounds": {
+    "s4r_regel_gebrochen": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 0.65,
+      "loop": false,
+      "note": "Ritualregel gebrochen: trockener Riss, danach Stille"
+    },
+    "s4r_waechter_erscheint_welt": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 2.8,
+      "loop": false,
+      "note": "Wächter erscheint am Standort: Kalk rieselt, schwere Tür bewegt sich"
+    },
+    "s4r_waechter_immun": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 0.55,
+      "loop": false,
+      "note": "Wächter noch immun: dumpfes Abprallen"
+    },
+    "s4r_bedingung_erfuellt": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 0.7,
+      "loop": false,
+      "note": "Ritualbedingung erfüllt: kurzer leiser Siegelton"
+    },
+    "s4la_laterne_aufstellen": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 0.8,
+      "loop": false,
+      "note": "Laterne aufgestellt: Eisenpfahl trifft Erde"
+    },
+    "s4la_nachfuellen_loop": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 2.0,
+      "loop": true,
+      "note": "Nachfülltaste gehalten: gleichmäßiges Ölgluckern"
+    },
+    "s4la_nachfuellen_voll": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 0.65,
+      "loop": false,
+      "note": "Ölbehälter voll: Flamme springt auf"
+    },
+    "s4la_nachfuellen_abbruch": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 0.4,
+      "loop": false,
+      "note": "Nachfülltaste losgelassen: Ölfluss bricht ab"
+    },
+    "s4la_laterne_angegriffen": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 0.65,
+      "loop": false,
+      "note": "Monster trifft Laterne: kurzes Glasklirren",
+      "variants": 2
+    },
+    "s4la_laterne_aus": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 0.7,
+      "loop": false,
+      "note": "Laterne erlischt: Flamme erstickt"
+    },
+    "s4la_monster_zischt": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 0.7,
+      "loop": false,
+      "note": "Licht trifft Monster: Schatten zischt weich",
+      "variants": 3
+    },
+    "s4la_monster_zerfall": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 1.2,
+      "loop": false,
+      "note": "Licht besiegt Monster: trockener Schattenzerfall"
+    },
+    "s4la_rueckstoss": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 0.8,
+      "loop": false,
+      "note": "Spieler zurückgestoßen: dumpfer Treffer und Sohlenrutschen"
+    },
+    "s4la_amb_nacht": {
+      "group": "s4r",
+      "volume": 0.24,
+      "duration": 8.0,
+      "loop": true,
+      "note": "Ritualnacht aktiv: Wind, fernes Scharren, Flammen"
+    },
+    "s4la_unruhe_puls": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 2.0,
+      "loop": true,
+      "note": "Ritual dauert an: tiefer langsam einblendbarer Puls"
+    },
+    "s4la_sonnenaufgang": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 3.9,
+      "loop": false,
+      "note": "Drei Laternen ermöglichen Sonnenaufgang: drei Töne vereinigen sich, ferner Vogel"
+    },
+    "s4fa_markieren": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 0.8,
+      "loop": false,
+      "note": "Neue Kreatur markiert: gespannter Faden, hoher weicher Ton"
+    },
+    "s4fa_einschlafen": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 2.4,
+      "loop": false,
+      "note": "Schlaf bestätigt: Atem und sich schließende Fäden"
+    },
+    "s4fa_traum_amb": {
+      "group": "s4r",
+      "volume": 0.24,
+      "duration": 8.0,
+      "loop": true,
+      "note": "Traum betreten: gedämpfte Atmosphäre, rückwärts anschwellende Glocke"
+    },
+    "s4fa_erwachen": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 1.4,
+      "loop": false,
+      "note": "Traum verlassen: Atem und sich lösende Spannung"
+    },
+    "s4fa_heilung_versagt": {
+      "group": "s4r",
+      "volume": 0.28,
+      "duration": 0.5,
+      "loop": false,
+      "note": "Heilversuch im Traum abgewiesen: leiser Fadenriss"
+    },
+    "s4ma_verwandeln": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 1.5,
+      "loop": false,
+      "note": "Zivilgestalt angenommen: Porzellan abgelegt, Stoff raschelt"
+    },
+    "s4ma_handschuh": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 0.7,
+      "loop": false,
+      "note": "Herausforderung ausgesprochen: Handschuh fällt auf Stein"
+    },
+    "s4ma_faust": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 0.45,
+      "loop": false,
+      "note": "Ziviler Fausttreffer: bloßer dumpfer Schlag ohne Magie",
+      "variants": 3
+    },
+    "s4ma_gabe_verboten": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 0.55,
+      "loop": false,
+      "note": "Fähigkeitsversuch gesperrt: Maske bekommt einen Sprung"
+    },
+    "s4ma_verschonen": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 1.8,
+      "loop": false,
+      "note": "Besiegter verschont: Ausatmen und weggehende Schritte"
+    },
+    "s4ma_zweifel": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 0.7,
+      "loop": false,
+      "note": "Dauerhafter Zweifel gesetzt: stockender, abbrechender Ton"
+    },
+    "s4ec_taub_an": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 1.5,
+      "loop": false,
+      "note": "Taubheit beginnt: gefiltertes Rauschen verliert alle Höhen und verstummt"
+    },
+    "s4ec_taub_aus": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 0.9,
+      "loop": false,
+      "note": "Taubheit endet: sanft zurückkehrende Welt ohne Pfeifton"
+    },
+    "s4ke_rezept_frei": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 1.1,
+      "loop": false,
+      "note": "Ritualrezept freigeschaltet: Kessel klingt wie eine Glocke"
+    },
+    "s4ke_ritualtrank_gebraut": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 1.1,
+      "loop": false,
+      "note": "Einer der fünf Ritualtränke fertig: Blase und heller Dampf"
+    },
+    "s4ke_trinken_reihe": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 0.85,
+      "loop": false,
+      "note": "Ritualtrank 1–5 getrunken: jeweils eigenes Schlucken und Zischen",
+      "variants": 5
+    },
+    "s4ke_wurf_explosion": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 1.2,
+      "loop": false,
+      "note": "Explosiver Ritualtrank trifft: kompakter trockener Druckstoß"
+    },
+    "s4ke_wurf_frost": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 0.9,
+      "loop": false,
+      "note": "Frosttrank trifft: feines Eis knackt"
+    },
+    "s4ke_wurf_glut": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 1.2,
+      "loop": false,
+      "note": "Gluttrank trifft: weiches Zischen und Brutzeln"
+    },
+    "s4ke_angriff_verboten": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 0.6,
+      "loop": false,
+      "note": "Normalangriff gesperrt: dumpfer Kesselrand statt Treffer"
+    },
+    "s4ei_last_aechzt": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 1.6,
+      "loop": false,
+      "note": "Überlast bewegt sich: Metall knarrt unter Gewicht",
+      "variants": 2
+    },
+    "s4ei_runde_ueberstanden": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 0.6,
+      "loop": false,
+      "note": "Eine der ersten fünf Runden überstanden: Niet schlägt ein"
+    },
+    "s4ei_waechter_frei": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 1.0,
+      "loop": false,
+      "note": "Runde 6 beginnt: Nietring springt, Wächter verwundbar"
+    },
+    "s4ei_ausweichen_verboten": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 0.5,
+      "loop": false,
+      "note": "Ausweichversuch gesperrt: kurze gespannte Lastkette"
+    },
+    "s4wa_besitz_versiegeln": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 1.2,
+      "loop": false,
+      "note": "Besitz abgelegt und versiegelt: Schnur und Bleiplombe"
+    },
+    "s4wa_kauf": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 0.85,
+      "loop": false,
+      "note": "Zirkelware gekauft: Münzen auf Waagschale",
+      "variants": 3
+    },
+    "s4wa_kapital_knapp": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 0.65,
+      "loop": false,
+      "note": "Kapital reicht nicht: leerer Beutel raschelt"
+    },
+    "s4wa_alles_gekauft": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 1.4,
+      "loop": false,
+      "note": "Alle Waren gekauft: Waage pendelt ein"
+    },
+    "s4mo_zersetzen": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 1.5,
+      "loop": false,
+      "note": "Moorfähigkeit zersetzt einen geeigneten Gegenstand: feuchte Blasen",
+      "variants": 3
+    },
+    "s4mo_relikt_formen": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 3.0,
+      "loop": false,
+      "note": "Fünf Überreste zum Relikt geformt: Torf pressen und trockenes Knochenknacken"
+    },
+    "s4mo_moorwasser_trinken": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 0.9,
+      "loop": false,
+      "note": "Pflichtflasche dieser Runde getrunken: dunkles Gluckern",
+      "variants": 2
+    },
+    "s4mo_moorwasser_leer": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 0.65,
+      "loop": false,
+      "note": "Moorwasser fehlt: leere Glasflasche wird gekippt"
+    },
+    "s4uh_perfekt": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 0.75,
+      "loop": false,
+      "note": "Perfektes Ausweichen: Tick setzt aus, heller Schlag"
+    },
+    "s4uh_fehler": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 0.6,
+      "loop": false,
+      "note": "Ausweichfehler gezählt: Zahnrad bricht"
+    },
+    "s4uh_monster_angriff_gezaehlt": {
+      "group": "s4r",
+      "volume": 0.48,
+      "duration": 0.25,
+      "loop": false,
+      "note": "Pflichtangriff eines Monsters gezählt: kurzer Tick"
+    },
+    "schatten_trennen": {
+      "group": "schatten",
+      "volume": 0.48,
+      "duration": 1.8,
+      "loop": false,
+      "note": "Schattensteuerung beginnt: Stoff löst sich vom Boden, Unterdruck"
+    },
+    "schatten_rueckkehr": {
+      "group": "schatten",
+      "volume": 0.48,
+      "duration": 1.4,
+      "loop": false,
+      "note": "Schatten kehrt in den Körper zurück"
+    },
+    "schatten_verloren": {
+      "group": "schatten",
+      "volume": 0.48,
+      "duration": 1.5,
+      "loop": false,
+      "note": "Schatten stirbt, Körper überlebt: Rauch verweht"
+    },
+    "schatten_schritt": {
+      "group": "schatten",
+      "volume": 0.28,
+      "duration": 0.45,
+      "loop": false,
+      "note": "Schatten bewegt sich: sehr leises Stoffstreifen",
+      "variants": 2
+    },
+    "schatten_attacke": {
+      "group": "schatten",
+      "volume": 0.48,
+      "duration": 0.7,
+      "loop": false,
+      "note": "Kostenlose Schattenattacke: dunkler Luftschnitt",
+      "variants": 3
+    },
+    "schatten_treffer": {
+      "group": "schatten",
+      "volume": 0.48,
+      "duration": 0.7,
+      "loop": false,
+      "note": "Schatten verliert Leben: gedämpfter Luftstoß"
+    },
+    "schatten_auslosen": {
+      "group": "schatten",
+      "volume": 0.48,
+      "duration": 0.9,
+      "loop": false,
+      "note": "Rundenbeginn: genau eine eigene Fähigkeit ausgelost, dunkler Würfelklang"
+    },
+    "schatten_heilung_versagt": {
+      "group": "schatten",
+      "volume": 0.48,
+      "duration": 0.55,
+      "loop": false,
+      "note": "Heilversuch des Schattens gesperrt: kurzer matter Luftverschluss"
+    },
+    "schatten_amb": {
+      "group": "schatten",
+      "volume": 0.24,
+      "duration": 8.0,
+      "loop": true,
+      "note": "Schattensteuerung aktiv: leiser tiefer Luftdruck, kein Infraschall"
+    },
+    "sud_zutat": {
+      "group": "rituale56",
+      "volume": 0.48,
+      "duration": 0.9,
+      "loop": false,
+      "note": "Zutat eingelegt: Variante 1 Pulver, 2 Kraut, 3 Flüssigkeit",
+      "variants": 3
+    },
+    "sud_brodeln_loop": {
+      "group": "rituale56",
+      "volume": 0.48,
+      "duration": 4.0,
+      "loop": true,
+      "note": "Freier Sud braut: gleichmäßiges Brodeln"
+    },
+    "sud_gelungen": {
+      "group": "rituale56",
+      "volume": 0.48,
+      "duration": 1.1,
+      "loop": false,
+      "note": "Sud gelungen: heller Dampfstoß"
+    },
+    "sud_pfusch": {
+      "group": "rituale56",
+      "volume": 0.48,
+      "duration": 1.2,
+      "loop": false,
+      "note": "Sud misslungen: dumpfe Blasen und trockene Asche"
+    },
+    "sud_abfuellen": {
+      "group": "rituale56",
+      "volume": 0.48,
+      "duration": 1.4,
+      "loop": false,
+      "note": "Sud abgefüllt: Flüssigkeit fließt in Glas"
+    },
+    "sud_wirkung_endet": {
+      "group": "rituale56",
+      "volume": 0.28,
+      "duration": 0.8,
+      "loop": false,
+      "note": "Sudwirkung endet: leises Ausatmen"
+    },
+    "s5_laternenbestie_ruf": {
+      "group": "rituale56",
+      "volume": 0.48,
+      "duration": 1.6,
+      "loop": false,
+      "note": "Laternenbestie erscheint: tiefe Resonanz mit Glas, keine Stimme"
+    },
+    "s5_laternenbestie_fall": {
+      "group": "rituale56",
+      "volume": 0.48,
+      "duration": 1.6,
+      "loop": false,
+      "note": "Laternenbestie besiegt: Glas klingt aus"
+    },
+    "s5_kokon_wickeln": {
+      "group": "rituale56",
+      "volume": 0.48,
+      "duration": 1.7,
+      "loop": false,
+      "note": "Kokon entsteht: Fäden wickeln sich eng"
+    },
+    "s5_kokon_platzt": {
+      "group": "rituale56",
+      "volume": 0.48,
+      "duration": 0.8,
+      "loop": false,
+      "note": "Kokon öffnet sich: Fasern platzen trocken"
+    },
+    "s5_gesicht_nehmen": {
+      "group": "rituale56",
+      "volume": 0.48,
+      "duration": 1.1,
+      "loop": false,
+      "note": "Gesicht genommen: weiches Porzellanstreifen"
+    },
+    "s5_misstrauen": {
+      "group": "rituale56",
+      "volume": 0.48,
+      "duration": 1.4,
+      "loop": false,
+      "note": "Misstrauen wächst: wortloses gedämpftes Raunen"
+    },
+    "s5_diebstahl": {
+      "group": "rituale56",
+      "volume": 0.48,
+      "duration": 0.8,
+      "loop": false,
+      "note": "Diebstahl gelungen: Münzen fallen in Stofftasche",
+      "variants": 2
+    },
+    "s5_erinnerung_ziehen": {
+      "group": "rituale56",
+      "volume": 0.48,
+      "duration": 1.4,
+      "loop": false,
+      "note": "Erinnerung entnommen: Atemhauch im Glas"
+    },
+    "s5_erinnerung_verweigert": {
+      "group": "rituale56",
+      "volume": 0.48,
+      "duration": 0.65,
+      "loop": false,
+      "note": "Erinnerung verweigert: Glas wird gedämpft"
+    },
+    "s5_uhr_warten_tick": {
+      "group": "rituale56",
+      "volume": 0.48,
+      "duration": 1.0,
+      "loop": false,
+      "note": "Wartepause: einzelner Taschenuhr-Tick, nicht automatisch wiederholen"
+    },
+    "s5_pruefung_gescheitert": {
+      "group": "rituale56",
+      "volume": 0.48,
+      "duration": 0.8,
+      "loop": false,
+      "note": "Seq-5-Prüfung gescheitert: gedämpfter absteigender Zweiton"
+    },
+    "probe_start": {
+      "group": "rituale56",
+      "volume": 0.48,
+      "duration": 0.6,
+      "loop": false,
+      "note": "Seq-6-Probe startet: kurzer trockener Auftakt"
+    },
+    "probe_bestanden": {
+      "group": "rituale56",
+      "volume": 0.48,
+      "duration": 0.8,
+      "loop": false,
+      "note": "Seq-6-Probe bestanden: warmer Zweiton"
+    },
+    "probe_fehlversuch": {
+      "group": "rituale56",
+      "volume": 0.48,
+      "duration": 0.6,
+      "loop": false,
+      "note": "Seq-6-Fehlversuch: kurzer matter Impuls"
+    },
+    "probe_faden_verbinden": {
+      "group": "rituale56",
+      "volume": 0.48,
+      "duration": 0.85,
+      "loop": false,
+      "note": "Fadenprobe: zwei Fäden verbinden sich"
+    },
+    "probe_echo_stimme": {
+      "group": "rituale56",
+      "volume": 0.48,
+      "duration": 1.3,
+      "loop": false,
+      "note": "Echoprobe: synthetische Nebelstimme ohne Worte",
+      "variants": 3
+    },
+    "probe_echo_nachhall": {
+      "group": "rituale56",
+      "volume": 0.48,
+      "duration": 1.6,
+      "loop": false,
+      "note": "Echoprobe: kurze gedämpfte Antwort"
+    },
+    "probe_moor_name_weg": {
+      "group": "rituale56",
+      "volume": 0.48,
+      "duration": 1.2,
+      "loop": false,
+      "note": "Moorprobe: Namensspur löst sich auf"
+    },
+    "probe_uhr_puls": {
+      "group": "rituale56",
+      "volume": 0.48,
+      "duration": 1.3,
+      "loop": false,
+      "note": "Uhrprobe: zwei Schläge, dann Stille"
+    },
+    "waage_anprangern": {
+      "group": "rituale56",
+      "volume": 0.48,
+      "duration": 0.65,
+      "loop": false,
+      "note": "Betrug angeprangert: Faust auf Holztisch"
+    },
+    "waage_betrug_aufgedeckt": {
+      "group": "rituale56",
+      "volume": 0.48,
+      "duration": 1.5,
+      "loop": false,
+      "note": "Betrug belegt: Wachsstempel und leises Raunen"
+    },
+    "waage_falsch_beschuldigt": {
+      "group": "rituale56",
+      "volume": 0.48,
+      "duration": 1.1,
+      "loop": false,
+      "note": "Falsch beschuldigt: Stuhl rückt, danach Stille"
+    },
+    "schloss_dietrich": {
+      "group": "rituale56",
+      "volume": 0.48,
+      "duration": 0.8,
+      "loop": false,
+      "note": "Dietrich angesetzt: unterschiedlich schnelle Metallstifte",
+      "variants": 3
+    },
+    "schloss_auf": {
+      "group": "rituale56",
+      "volume": 0.48,
+      "duration": 0.65,
+      "loop": false,
+      "note": "Schloss geöffnet: Stift und Riegel lösen sich"
+    },
+    "schloss_brecheisen": {
+      "group": "rituale56",
+      "volume": 0.48,
+      "duration": 1.2,
+      "loop": false,
+      "note": "Schloss aufgebrochen: Metall hebelt Holz auf"
+    },
+    "schloss_misslungen": {
+      "group": "rituale56",
+      "volume": 0.48,
+      "duration": 0.7,
+      "loop": false,
+      "note": "Schlossversuch misslungen: Stift springt zurück"
+    }
+  }
+}

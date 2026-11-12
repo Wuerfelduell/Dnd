@@ -1158,6 +1158,9 @@ Object.assign(ITEM_ICON_ALIASES, {
   // Seq-4-Rituale (data/seq4.js): Leihbilder, bis Codex DP liefert
   s4ke_nachtschierling: 'fremdlicht_phiole', s4ke_aetzwasser: 'giftflasche', s4ke_knallsud: 'blutsalz_phiole', s4ke_frostlauge: 'ruhetee', s4ke_glutschleim: 'blutsalz_phiole',
   wurf_saeure: 'giftflasche', wurf_gift: 'giftflasche', wurf_spreng: 'blutsalz_phiole', s4mo_relikt: 'sq_torfsiegel',
+  // Codex DR: seltene Funde in Wexmoor (Leihbilder)
+  wxf_salzglas: 'salzkristall', wxf_moorbernstein: 'torfbernstein', wxf_schlickperle: 'schlickperle', wxf_gezeitenzahn: 'schlickzahn', wxf_schwarzlot: 'schwarzbernstein',
+  wxf_torfkompass: 'ski_art_flutkompass', wxf_silberalge: 'vi_m_grenzsteinmoos', wxf_nebelquarz: 'seufzerstein', wxf_ankerfossil: 'vt_all_grenzstein', wxf_wattspiegel: 'taschenspiegel',
 });
 export const itemIconUrl = (id) => `${BASE}items/${ITEM_ICON_ALIASES[id] ?? standinIcon(id)}.png`;
 /** 32x32-Fassung (gibt es für Tränke und die Stimmphiole). */
