@@ -1,0 +1,1026 @@
+[
+  {
+    "id": "erf_fall_1",
+    "name": "Erste Ablage",
+    "text": "Fall 1 wurde geschlossen.",
+    "versteckt": false,
+    "bedingung": {
+      "requires_flags": [
+        "case_01_closed"
+      ]
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_fall_2",
+    "name": "Zweite Ablage",
+    "text": "Fall 2 wurde geschlossen.",
+    "versteckt": false,
+    "bedingung": {
+      "requires_flags": [
+        "case_02_closed"
+      ]
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_fall_3",
+    "name": "Dritte Ablage",
+    "text": "Fall 3 wurde geschlossen.",
+    "versteckt": false,
+    "bedingung": {
+      "requires_flags": [
+        "case_03_closed"
+      ]
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_fall_4",
+    "name": "Vierte Ablage",
+    "text": "Fall 4 wurde geschlossen.",
+    "versteckt": false,
+    "bedingung": {
+      "requires_flags": [
+        "case_04_closed"
+      ]
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_fall_5",
+    "name": "Fünfte Ablage",
+    "text": "Fall 5 wurde geschlossen.",
+    "versteckt": false,
+    "bedingung": {
+      "requires_flags": [
+        "case_05_closed"
+      ]
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_fall_6",
+    "name": "Sechste Ablage",
+    "text": "Fall 6 wurde geschlossen.",
+    "versteckt": false,
+    "bedingung": {
+      "requires_flags": [
+        "case_06_closed"
+      ]
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_fall_7",
+    "name": "Siebte Ablage",
+    "text": "Fall 7 wurde geschlossen.",
+    "versteckt": false,
+    "bedingung": {
+      "requires_flags": [
+        "case_07_closed"
+      ]
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_fall_8",
+    "name": "Achte Ablage",
+    "text": "Fall 8 wurde geschlossen.",
+    "versteckt": false,
+    "bedingung": {
+      "requires_flags": [
+        "case_08_closed"
+      ]
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_fall_9",
+    "name": "Neunte Ablage",
+    "text": "Fall 9 wurde geschlossen.",
+    "versteckt": false,
+    "bedingung": {
+      "requires_flags": [
+        "case_09_closed"
+      ]
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_kapitel_2",
+    "name": "Akte Wexmoor",
+    "text": "Der Abschluss von Kapitel 2 wurde vermerkt.",
+    "versteckt": false,
+    "bedingung": {
+      "requires_flags": [
+        "kapitel2_done"
+      ]
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_kapitel_3",
+    "name": "Akte Dunscar",
+    "text": "Der Abschluss von Kapitel 3 wurde vermerkt.",
+    "versteckt": false,
+    "bedingung": {
+      "requires_flags": [
+        "kapitel3_done"
+      ]
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_kapitel_4",
+    "name": "Akte Calderwick",
+    "text": "Der Abschluss von Kapitel 4 wurde vermerkt.",
+    "versteckt": false,
+    "bedingung": {
+      "requires_flags": [
+        "kapitel4_done"
+      ]
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_kapitel_5",
+    "name": "Akte Briarholt",
+    "text": "Der Abschluss von Kapitel 5 wurde vermerkt.",
+    "versteckt": false,
+    "bedingung": {
+      "requires_flags": [
+        "kapitel5_done"
+      ]
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_kapitel_6",
+    "name": "Akte Varrowmouth",
+    "text": "Der Abschluss von Kapitel 6 wurde vermerkt.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_kapitel_6",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_vier_enden",
+    "name": "Vier Ausfertigungen",
+    "text": "Vier unterschiedliche Enden desselben Kapitels liegen vor.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_enden_eines_kapitels",
+        "min": 4
+      }
+    },
+    "koop": false,
+    "freischaltung": "haus_register_seite_gerahmt"
+  },
+  {
+    "id": "erf_irrtum_berichtigt",
+    "name": "Berichtigter Vermerk",
+    "text": "Nach dem Fehlurteil in Fall 7 wurde Fall 8 aufgeklärt.",
+    "versteckt": false,
+    "bedingung": {
+      "requires_flags": [
+        "c7_wrong",
+        "case_08_closed",
+        "wren_arrested"
+      ]
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_sequenz_8",
+    "name": "Stufe 8 vermerkt",
+    "text": "Sequenz 8 wurde erreicht.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_sequenz_8",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_sequenz_7",
+    "name": "Stufe 7 vermerkt",
+    "text": "Sequenz 7 wurde erreicht.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_sequenz_7",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_sequenz_6",
+    "name": "Stufe 6 vermerkt",
+    "text": "Sequenz 6 wurde erreicht.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_sequenz_6",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_sequenz_5",
+    "name": "Stufe 5 vermerkt",
+    "text": "Sequenz 5 wurde erreicht.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_sequenz_5",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_sequenz_4",
+    "name": "Stufe 4 vermerkt",
+    "text": "Sequenz 4 wurde erreicht.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_sequenz_4",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_sequenz_3",
+    "name": "Stufe 3 vermerkt",
+    "text": "Sequenz 3 wurde erreicht.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_sequenz_3",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_sequenz_2",
+    "name": "Stufe 2 vermerkt",
+    "text": "Sequenz 2 wurde erreicht.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_sequenz_2",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_sequenz_1",
+    "name": "Stufe 1 vermerkt",
+    "text": "Sequenz 1 wurde erreicht.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_sequenz_1",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_kreaturform",
+    "name": "Abweichende Gestalt",
+    "text": "Die erste Verwandlung wurde protokolliert.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_kreaturform",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_halb_verdaut",
+    "name": "Ruhiger Befund",
+    "text": "Die halbe Verdauung wurde ohne Kontrollverlust erreicht.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_halb_verdaut",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_verzicht",
+    "name": "Unbenutztes Glas",
+    "text": "Der Verzicht auf Sequenz 1 wurde verbindlich erklärt.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_verzicht",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_zehn_pfade",
+    "name": "Zehn Handschriften",
+    "text": "Zehn verschiedene Pfade wurden in getrennten Lebensläufen verzeichnet.",
+    "versteckt": true,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_pfade_profil",
+        "min": 10
+      }
+    },
+    "koop": false,
+    "freischaltung": "titel_6"
+  },
+  {
+    "id": "erf_zirkel_waage",
+    "name": "Stille Aufnahme",
+    "text": "Die Mitgliedschaft wurde in das betreffende Zirkelbuch eingetragen.",
+    "versteckt": false,
+    "bedingung": {
+      "requires_flags": [
+        "treffen_waage"
+      ]
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_zirkel_kreide",
+    "name": "Geschlossener Kreidekreis",
+    "text": "Die Mitgliedschaft wurde in das betreffende Zirkelbuch eingetragen.",
+    "versteckt": false,
+    "bedingung": {
+      "requires_flags": [
+        "treffen_kreide"
+      ]
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_zirkel_russ",
+    "name": "Ruß am Ärmel",
+    "text": "Die Mitgliedschaft wurde in das betreffende Zirkelbuch eingetragen.",
+    "versteckt": false,
+    "bedingung": {
+      "requires_flags": [
+        "treffen_russ"
+      ]
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_zirkel_lichtlose",
+    "name": "Lichtlose Gesellschaft",
+    "text": "Die Mitgliedschaft wurde in das betreffende Zirkelbuch eingetragen.",
+    "versteckt": false,
+    "bedingung": {
+      "requires_flags": [
+        "treffen_lichtlose"
+      ]
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_zirkel_salz",
+    "name": "Salz im Register",
+    "text": "Die Mitgliedschaft wurde in das betreffende Zirkelbuch eingetragen.",
+    "versteckt": false,
+    "bedingung": {
+      "requires_flags": [
+        "treffen_salz"
+      ]
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_zirkel_schichtbund",
+    "name": "Eingetragene Schicht",
+    "text": "Die Mitgliedschaft wurde in das betreffende Zirkelbuch eingetragen.",
+    "versteckt": false,
+    "bedingung": {
+      "requires_flags": [
+        "treffen_schichtbund"
+      ]
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_zwei_zirkel",
+    "name": "Doppelte Zugehörigkeit",
+    "text": "Zwei Zirkel führten gleichzeitig denselben Namen.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_zwei_zirkel",
+        "min": 2
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_fuenf_freunde",
+    "name": "Fünf gute Aussagen",
+    "text": "Fünf Personen waren gleichzeitig mit mindestens fünf Beziehungspunkten verzeichnet.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_fuenf_freunde",
+        "min": 5
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_drei_feinde",
+    "name": "Drei Vorbehalte",
+    "text": "Drei Personen waren gleichzeitig als feindselig verzeichnet.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_drei_feinde",
+        "min": 3
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_geschenk_abgelehnt",
+    "name": "Annahme verweigert",
+    "text": "Ein persönlich angebotenes Geschenk wurde abgelehnt.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_geschenk_abgelehnt",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_fasserin_bilanz",
+    "name": "Gemischte Auftragslage",
+    "text": "Für die Fasserin wurden ein Erfolg und ein Fehlschlag vermerkt.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_fasserin_bilanz",
+        "min": 2
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_buerge",
+    "name": "Zweite Unterschrift",
+    "text": "Eine Person hat verbindlich die Bürgschaft übernommen.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_buerge",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_lesestuecke_stadt",
+    "name": "Vollständige Stadtlektüre",
+    "text": "Alle Lesestücke einer Stadt wurden gelesen.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_lesestuecke_stadt",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_lesestuecke_alle",
+    "name": "Sechs volle Register",
+    "text": "Die Lesestücke aller sechs Städte wurden gelesen.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_lesestuecke_alle",
+        "min": 6
+      }
+    },
+    "koop": false,
+    "freischaltung": "haus_lesepult"
+  },
+  {
+    "id": "erf_bestiarium_kettlegate",
+    "name": "Bestandsbuch Kettlegate",
+    "text": "Das Bestiarium von Kettlegate wurde vervollständigt.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_bestiarium_kettlegate",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_bestiarium_wexmoor",
+    "name": "Bestandsbuch Wexmoor",
+    "text": "Das Bestiarium von Wexmoor wurde vervollständigt.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_bestiarium_wexmoor",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_bestiarium_dunscar",
+    "name": "Bestandsbuch Dunscar",
+    "text": "Das Bestiarium von Dunscar wurde vervollständigt.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_bestiarium_dunscar",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_bestiarium_calderwick",
+    "name": "Bestandsbuch Calderwick",
+    "text": "Das Bestiarium von Calderwick wurde vervollständigt.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_bestiarium_calderwick",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_bestiarium_briarholt",
+    "name": "Bestandsbuch Briarholt",
+    "text": "Das Bestiarium von Briarholt wurde vervollständigt.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_bestiarium_briarholt",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_bestiarium_varrowmouth",
+    "name": "Bestandsbuch Varrowmouth",
+    "text": "Das Bestiarium von Varrowmouth wurde vervollständigt.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_bestiarium_varrowmouth",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_benannte_gegner",
+    "name": "Zehn bekannte Namen",
+    "text": "Zehn benannte Gegner wurden besiegt.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_benannte_gegner",
+        "min": 10
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_auktion",
+    "name": "Eigener Zuschlag",
+    "text": "Die Fahrende Auktion hat den ersten Zuschlag erteilt.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_auktion",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_tier",
+    "name": "Vertraute Schritte",
+    "text": "Ein Tiergefährte hat Stufe 3 erreicht.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_tier",
+        "min": 3
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_haus",
+    "name": "Kein freier Platz",
+    "text": "Alle vorgesehenen Einrichtungsplätze des Hauses wurden belegt.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_haus",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_nebelseiten",
+    "name": "Sechs andere Straßen",
+    "text": "Die Nebelseite jeder Stadt wurde betreten.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_nebelseiten",
+        "min": 6
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_briefe",
+    "name": "Fünfzig Sendungen",
+    "text": "Fünfzig verschiedene Briefe wurden gelesen.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "zaehler_briefe",
+        "min": 50
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_fest",
+    "name": "Anwesenheit vermerkt",
+    "text": "Ein Fest wurde während seiner Laufzeit besucht.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_feste",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_drei_feste",
+    "name": "Dreimal anwesend",
+    "text": "Drei verschiedene Feste wurden besucht.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_feste",
+        "min": 3
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_boss_unberuehrt_1",
+    "name": "Unversehrte Akte 1",
+    "text": "Ein Boss aus Kapitel 1 wurde ohne erlittenen Treffer besiegt.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_boss_unberuehrt_1",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_boss_unberuehrt_2",
+    "name": "Unversehrte Akte 2",
+    "text": "Ein Boss aus Kapitel 2 wurde ohne erlittenen Treffer besiegt.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_boss_unberuehrt_2",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_boss_unberuehrt_3",
+    "name": "Unversehrte Akte 3",
+    "text": "Ein Boss aus Kapitel 3 wurde ohne erlittenen Treffer besiegt.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_boss_unberuehrt_3",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_boss_unberuehrt_4",
+    "name": "Unversehrte Akte 4",
+    "text": "Ein Boss aus Kapitel 4 wurde ohne erlittenen Treffer besiegt.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_boss_unberuehrt_4",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_boss_unberuehrt_5",
+    "name": "Unversehrte Akte 5",
+    "text": "Ein Boss aus Kapitel 5 wurde ohne erlittenen Treffer besiegt.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_boss_unberuehrt_5",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_boss_unberuehrt_6",
+    "name": "Unversehrte Akte 6",
+    "text": "Ein Boss aus Kapitel 6 wurde ohne erlittenen Treffer besiegt.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_boss_unberuehrt_6",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_nur_nerven",
+    "name": "Nerven zu Protokoll",
+    "text": "Ein Kampf wurde ausschließlich mit Nerven-Fähigkeiten gewonnen.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_nur_nerven",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_grauspaeher_flucht",
+    "name": "Nicht mehr anwesend",
+    "text": "Dem Grauspäher wurde durch erfolgreiche Flucht entkommen.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_grauspaeher_flucht",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_grauspaeher_sieg",
+    "name": "Grauer Abschluss",
+    "text": "Der Grauspäher wurde besiegt.",
+    "versteckt": false,
+    "bedingung": {
+      "requires_flags": [
+        "k2_grauspaeher_besiegt"
+      ]
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_hundert_kaempfe",
+    "name": "Hundert Gefechtsakten",
+    "text": "Hundert reguläre Kämpfe wurden beendet.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "zaehler_kaempfe",
+        "min": 100
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_friedliche_stadt",
+    "name": "Unbeschriebenes Gefechtsblatt",
+    "text": "Eine Stadt wurde ohne Kampfbeginn vollständig abgeschlossen.",
+    "versteckt": true,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_friedliche_stadt",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_starling_fuenf",
+    "name": "Kurzer Nachtrag",
+    "text": "Starlings zweite Phase wurde innerhalb von fünf Runden besiegt.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_starling_fuenf",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_koop_pfade",
+    "name": "Zwei Wege mit Begleitung",
+    "text": "Zwei Ermittler mit verschiedenen Pfaden führten gleichzeitig zwei verschiedene Tiere.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_koop_pfade",
+        "min": 1
+      }
+    },
+    "koop": true
+  },
+  {
+    "id": "erf_koop_kapitel_1",
+    "name": "Gemeinsame Akte 1",
+    "text": "In Kapitel 1 wurde ein Duo-Kampf ohne Niederlage bestanden.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_koop_kapitel_1",
+        "min": 1
+      }
+    },
+    "koop": true
+  },
+  {
+    "id": "erf_koop_kapitel_2",
+    "name": "Gemeinsame Akte 2",
+    "text": "In Kapitel 2 wurde ein Duo-Kampf ohne Niederlage bestanden.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_koop_kapitel_2",
+        "min": 1
+      }
+    },
+    "koop": true
+  },
+  {
+    "id": "erf_koop_kapitel_3",
+    "name": "Gemeinsame Akte 3",
+    "text": "In Kapitel 3 wurde ein Duo-Kampf ohne Niederlage bestanden.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_koop_kapitel_3",
+        "min": 1
+      }
+    },
+    "koop": true
+  },
+  {
+    "id": "erf_koop_kapitel_4",
+    "name": "Gemeinsame Akte 4",
+    "text": "In Kapitel 4 wurde ein Duo-Kampf ohne Niederlage bestanden.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_koop_kapitel_4",
+        "min": 1
+      }
+    },
+    "koop": true
+  },
+  {
+    "id": "erf_koop_kapitel_5",
+    "name": "Gemeinsame Akte 5",
+    "text": "In Kapitel 5 wurde ein Duo-Kampf ohne Niederlage bestanden.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_koop_kapitel_5",
+        "min": 1
+      }
+    },
+    "koop": true
+  },
+  {
+    "id": "erf_koop_kapitel_6",
+    "name": "Gemeinsame Akte 6",
+    "text": "In Kapitel 6 wurde ein Duo-Kampf ohne Niederlage bestanden.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_koop_kapitel_6",
+        "min": 1
+      }
+    },
+    "koop": true
+  },
+  {
+    "id": "erf_register_geteilt",
+    "name": "Gemeinsame Niederschrift",
+    "text": "Das Register wurde im Koop verbindlich geteilt.",
+    "versteckt": false,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_register_geteilt",
+        "min": 1
+      }
+    },
+    "koop": true
+  },
+  {
+    "id": "erf_alle_betten",
+    "name": "Überall zu Gast",
+    "text": "In jedem vorgesehenen Wohnhaus wurde eine Nacht verbracht.",
+    "versteckt": true,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_alle_betten",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_schlick",
+    "name": "Tausend nasse Schritte",
+    "text": "Tausend Schritte im Schlick wurden verzeichnet.",
+    "versteckt": true,
+    "bedingung": {
+      "zaehler": {
+        "id": "zaehler_schritte_schlick",
+        "min": 1000
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_nell",
+    "name": "Namen abgewischt",
+    "text": "Mit Nell wurden Namen von der vorgesehenen Fläche gewischt.",
+    "versteckt": true,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_nell",
+        "min": 1
+      }
+    },
+    "koop": false
+  },
+  {
+    "id": "erf_letztes_glas",
+    "name": "Glas stehen gelassen",
+    "text": "Am Ende blieb der letzte angebotene Trank ungetrunken.",
+    "versteckt": true,
+    "bedingung": {
+      "zaehler": {
+        "id": "dl_letztes_glas",
+        "min": 1
+      }
+    },
+    "koop": false
+  }
+]
