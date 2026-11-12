@@ -742,6 +742,7 @@ export class Combat {
     }
     // Ritual des Eisens: vor Runde 6 fällt der Wächter nicht
     if (this.rules?.minKillRound && this.round < this.rules.minKillRound && dmg >= this.enemy.hp) { dmg = Math.max(0, this.enemy.hp - 1); this.state.sfx?.('s4r_waechter_immun', { throttle: 800 }); }
+    if (this.enc.unbesiegbar) dmg = Math.min(dmg, Math.max(0, this.enemy.hp - Math.ceil(this.enemy.maxHp * 0.5))); // Himmelsstadt: oben fällt niemand (Kapitel 4)
     this.enemy.hp = Math.max(0, this.enemy.hp - dmg);
     if (this.enemy.hp === 0 && !this.outcome) { this.outcome = 'won'; this.killedBy = this.curSkill ?? null; }
     if (this.enemy.hp > 0 && this.enemy.hp <= this.enemy.maxHp * 0.1 && this.state.isBeyonderFoe?.(this.id)) this.voiceWindow = true;
