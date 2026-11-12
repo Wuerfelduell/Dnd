@@ -4,7 +4,7 @@
 // Sonderregeln (keine Heilung, kein Ausweichen, Taubheit, Moorwasser), Hinweis-Beute und die Seq-4-Formel als seltene
 // Elite-Beute (0,5 %; sonst gibt es sie nur auf geheimen Treffen).
 import { DAY_NIGHT_SECONDS } from './Clock.js';
-import { FORMEL_ELITE_CHANCE, SCHLEUSEN_FRIST, WX_ZONES } from '../data/pfadHandel.js';
+import { FORMEL_ELITE_CHANCE, K3_ZUTAT4_CHANCE, SCHLEUSEN_FRIST, WX_ZONES } from '../data/pfadHandel.js';
 
 /** Wie viele Schritte jede Aufgabe mit Stationen hat. */
 const STEPS = { laterne5: 3, uhr5: 4, echo4: 3 };
@@ -167,6 +167,17 @@ export const pfadHandelMethods = {
       if (this.item(id) && this.itemCount(id) === 0 && !this.flags.has(`ph_formel_${this.pathway.id}`) && rng() < FORMEL_ELITE_CHANCE) {
         add(id);
         this.flags.add(`ph_formel_${this.pathway.id}`);
+      }
+    }
+    // Kapitel 3: Seq-4-Kernzutat bei Eliten und Bossen, je Pfad, der auf Seq 5 steht (auch Spieler 2)
+    const k3 = enc.chapter === 3 && (enc.boss ? K3_ZUTAT4_CHANCE.boss : enc.elite ? K3_ZUTAT4_CHANCE.elite : 0);
+    if (k3) {
+      const need = {};
+      for (const pw of [this.pathway, this.p2?.active ? this.p2.pathway : null]) if (pw?.seq === 5) need[pw.id] = (need[pw.id] ?? 0) + 1;
+      for (const [pid, n] of Object.entries(need)) {
+        const id = `sq_zutat_${pid.replace(/^sq_/, '')}_4`;
+        const have = (this.inventory[id] ?? 0) + (this.p2?.inventory?.[id] ?? 0) + (this.storage?.[id] ?? 0) + (loot.items[id] ?? 0);
+        if (this.item(id) && have < n && rng() < k3) add(id);
       }
     }
   },

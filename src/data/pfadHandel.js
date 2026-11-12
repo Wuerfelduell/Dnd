@@ -15,6 +15,9 @@ import { NIGHT_FLAG, DAY_B_FLAG } from '../core/Clock.js';
 export const PH_BOND = 2;
 /** Wer die Seq-4-Formel ohne Treffen sucht: Chance je Sieg über einen Elite-Gegner. */
 export const FORMEL_ELITE_CHANCE = 0.005;
+/** Seb (2026-11-12): in Kapitel 3 (Dunscar) fallen Seq-4-Kernzutaten öfter, für Spieler auf Seq 5, solange sie fehlen.
+ * Nur die Zutat, nie die Formel. */
+export const K3_ZUTAT4_CHANCE = { elite: 0.06, boss: 0.15 };
 /** Uhr (Seq 5): so viele Sekunden Spielzeit für alle vier Schleusenräder. */
 export const SCHLEUSEN_FRIST = 180;
 /** Wexmoors Monstergebiete (Uhr, Seq 4: fünf Siege in einer Nacht). */
