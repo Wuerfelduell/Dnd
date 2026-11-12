@@ -13,6 +13,7 @@ import { withFaehigkeiten } from './faehigkeiten.js';
 import { applyMoods } from './moods.js';
 import { applyRelations } from './relations.js';
 import { applySchmuggel } from './schmuggel.js';
+import { applyUebergaenge } from './uebergaenge.js';
 import { applyAltbeute } from './altbeute.js';
 import { applyVorratStuecke } from './vorratStuecke.js';
 import { applyDunscarHaendler } from './dunscarHaendler.js';
@@ -112,6 +113,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyVorratStuecke(content); // Vorrat-Zips: neue Waffen, Kleidung, Artefakte, Wertstücke bei Händlern, in Gebieten und auf Treffen
   applyHaendlerAbgleich(content); // Händler aller Gebiete: Stärke und Preise je Gebiet, alte Stücke auch später
   applyZirkelAuftraege(content); // Dunscar: Zirkelmitglieder vergeben Aufträge (Monster, Polizisten)
+  applyUebergaenge(content); // Kapitelübergänge: Abschied, Reise und Ankunft Kettlegate→Wexmoor→Dunscar
   applyDunscarKulisse(content); // Dunscar: Ausgänge nach Himmelsrichtung mit Schild, Rückkehr an der passenden Tür, Requisiten je Viertel
   return content;
 }

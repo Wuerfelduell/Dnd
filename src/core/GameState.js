@@ -918,6 +918,7 @@ export class GameState {
     this.loadSude(data);
     this.loadPfadHandel(data);
     this.syncClock(); // Tag/Nacht folgt der Spielzeit, nicht dem Spielstand
+    if (this.flags.has('kapitel1_done') && !this.flags.has('k2_arrived') && this.quest('k1_abreise') && this.quests.k1_abreise === undefined) this.startQuest('k1_abreise'); // alte Stände: Wegweiser zum Zug
     this.startBonusakteK2(); // alte Stände: Kapitel 2 fertig, aber noch kein Wegweiser nach Dunscar
     this.dunscarOffen(); // Seb 2026-11-12: Hör-Fährte gestrichen, Schichtbund offen
     if (!this.content.maps[this.map]) { this.map = this.content.start.map; this.position = null; }
