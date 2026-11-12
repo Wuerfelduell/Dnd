@@ -22,6 +22,8 @@ export const SEQ_MAX = 1; // höchste erreichbare Stufe (Kapitel 3 bringt die Ke
 export const DIGEST_SLOW_FACTOR = 10;
 export const DIGEST_RATE = { 9: 1, 8: 0.7, 7: 0.5, 6: 0.05, 5: 0.005, 4: 0.0005, 3: 0.00005, 2: 0.000005, 1: 0.0000005 };
 /** Verdauungstempo einer Sequenz im Verhältnis zu Sequenz 7 (1 bis Sequenz 7, danach 1/10, 1/100, ...). */
+/** Faktor für jede Unruhe-Steigerung ab Sequenz 5 (Seb 2026-11-12). */
+export const UNRUHE_GAIN_HOCH = 0.5;
 export function digestSlowdown(seq) { return Math.min(1, (DIGEST_RATE[seq] ?? DIGEST_RATE[1]) / DIGEST_RATE[7]); }
 /** Prozentwert fürs Auge: große Werte mit einer Nachkommastelle, winzige mit zwei gültigen Ziffern. */
 export function fmtDigest(v) {
@@ -391,8 +393,12 @@ export const pathwayMethods = {
   },
 
   // --- Unruhe ------------------------------------------------------------------------
+  /** Ab Sequenz 5 steigt die Unruhe nur noch halb so stark (je Spieler, alle Pfade). */
+  unruheGainMult() { const q = this.pathway?.seq; return q != null && q <= 5 ? UNRUHE_GAIN_HOCH : 1; },
+
   setUnruhe(v) {
     const before = this.unruhe;
+    if (v > before) v = before + (v - before) * this.unruheGainMult();
     this.unruhe = Math.max(0, Math.min(UNRUHE_MAX, v));
     if (Math.round(this.unruhe) !== Math.round(before)) this.emit('unruhe', this.unruhe);
     if (this.unruhe >= UNRUHE_MAX && before < UNRUHE_MAX) this.loseControl('Die Stimmen werden zu laut.');
@@ -483,7 +489,7 @@ export const pathwayMethods = {
     const relikt = this.pathway?.relikt; // Seq 4 (Moor): das Relikt des Verfalls bleibt nach dem Aufstieg
     this.pathway = { id: it.pathway, seq: it.seq, digestion: 0, ...(relikt ? { relikt } : {}) };
     if (HOCH_DURCHBRUCH[it.seq]) this.flags.add(`seq${it.seq}_erreicht`); // für Zeitung und Gerede (Paket CP)
-    this.unruhe = Math.min(UNRUHE_MAX - 1, this.unruhe + 20 + premature * 0.4);
+    this.unruhe = Math.min(UNRUHE_MAX - 1, this.unruhe + (20 + premature * 0.4) * this.unruheGainMult());
     this.updateMaxHp();
     const pd = this.pathwayDef();
     // Aufstiegsmeldung: was der Körper dazugewonnen hat (Leben, Nerven, Tragkraft)
@@ -870,7 +876,7 @@ export const pathwayMethods = {
     const p = this.pathway;
     if (!p?.form) return;
     this.setComposure(this.composure - FORM_NERVES_PER_SEC * dt);
-    this.unruhe += FORM_UNRUHE_PER_SEC * dt; // setUnruhe folgt in tickPathway
+    this.unruhe += FORM_UNRUHE_PER_SEC * this.unruheGainMult() * dt; // setUnruhe folgt in tickPathway
     if (this.composure < FORM_MIN_NERVES) {
       this.endForm();
       this.emit('notice', this.formDef()?.zu_lange ?? 'Die Nerven reichen nicht mehr. Deine Gestalt schrumpft zurück in den Körper eines Menschen.');

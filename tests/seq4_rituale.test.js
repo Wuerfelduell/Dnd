@@ -57,7 +57,7 @@ test('Wexmoor: Gegner tragen deutlich mehr Geld (Waage braucht bis 10 000 Schill
   assert.ok(content.loot.torfgaenger_elite.money[0] >= 4 * WX_MONEY_MULT);
 });
 
-test('Fehlschlag: −17 % Verdauung, +10 Unruhe; Abbruch vor dem ersten Schritt ist umsonst', () => {
+test('Fehlschlag: −17 % Verdauung, +5 Unruhe (halbiert ab Seq 5); Abbruch vor dem ersten Schritt ist umsonst', () => {
   const s = at('echo');
   assert.equal(s.startEcho().ok, true);
   assert.equal(s.seq4Cancel().text, 'Abgebrochen, ohne Folgen.');
@@ -66,7 +66,7 @@ test('Fehlschlag: −17 % Verdauung, +10 Unruhe; Abbruch vor dem ersten Schritt 
   const r = s.seq4Cancel();
   assert.equal(r.passed, false);
   assert.equal(s.pathway.digestion, 100 - HG_FAIL_PCT);
-  assert.equal(s.unruhe, HG_FAIL_UNRUHE);
+  assert.equal(s.unruhe, HG_FAIL_UNRUHE / 2); // ab Seq 5 halbe Unruhe-Steigerung
 });
 
 test('Solo: Spieler 2 kämpft in keiner Prüfung mit, und der Wächter zählt nur aus der Prüfung', () => {
@@ -417,4 +417,17 @@ test('Solo als Spieler 2: der Prüfling kämpft allein, danach sind die Werte wi
   assert.equal(s.pathway.id, 'eisen');
   assert.equal(s.hp, p1hp);
   assert.equal(s.withPlayer(2, () => s.seq4().wins), 1);
+});
+
+test('Unruhe steigt ab Seq 5 nur halb so stark, sinkt aber normal', () => {
+  const s = new GameState(loadContent());
+  s.pathway = { id: 'starling', seq: 6, digestion: 0 };
+  s.setUnruhe(10);
+  assert.equal(s.unruhe, 10);
+  s.unruhe = 0;
+  s.pathway.seq = 5;
+  s.setUnruhe(10);
+  assert.equal(s.unruhe, 5);
+  s.setUnruhe(2);
+  assert.equal(s.unruhe, 2);
 });
