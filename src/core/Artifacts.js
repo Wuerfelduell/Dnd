@@ -14,6 +14,9 @@
 // fertige Tränke aus, jede Sequenz einmal, sobald der passende Fall gelöst ist. Nur bis Sequenz 7:
 // höhere Stufen gibt es nur bei geheimen Treffen (Auktionen) oder als seltenen Fund.
 
+/** Seq 4: bis `free` Artefakte ohne Unruhe, bis `light` nur leichte (Unruhe/s je Stück über `free`). */
+export const SEQ4_ART = { seq: 4, free: 4, light: 6, light_tick: 0.1 };
+
 export const artifactMethods = {
   resetArtifacts() {
     this.borrowed = []; // vom Revier geliehen (ids)
@@ -48,25 +51,44 @@ export const artifactMethods = {
     return out;
   },
 
+  /** Ab Sequenz 4 (Halbgott, Seb 2026-11-12) trägt man mehr Artefakte gelassen. */
+  artifactHalbgott() {
+    return (this.pathway?.seq ?? 9) <= SEQ4_ART.seq;
+  },
+
+  /** Wie viele Artefakte man tragen kann, bevor sie heftig aneinander zerren. */
+  artifactMaxActive() {
+    return this.artifactHalbgott() ? SEQ4_ART.light : this.artifactRules().max_active ?? 3;
+  },
+
   /** Unruhe pro Sekunde durch Artefakte (Flüche plus Streit zwischen mehreren). */
   artifactUnruhe() {
     const n = this.activeArtifacts().length;
     if (!n) return Math.max(0, this.passive('unruhe_tick')); // BN: Bindung wirkt auch ohne Artefakt
     const rules = this.artifactRules();
-    const clash = (rules.clash_tick ?? 0.2) * Math.max(0, n - 1);
-    const over = (rules.overload_tick ?? 0.6) * Math.max(0, n - (rules.max_active ?? 3));
+    let clash;
+    let over;
+    if (this.artifactHalbgott()) {
+      // Bis 4 Artefakte kein Streit, 5 und 6 nur leicht, darüber wie gewohnt heftig.
+      clash = SEQ4_ART.light_tick * Math.max(0, Math.min(n, SEQ4_ART.light) - SEQ4_ART.free);
+      over = (rules.overload_tick ?? 0.6) * Math.max(0, n - SEQ4_ART.light);
+    } else {
+      clash = (rules.clash_tick ?? 0.2) * Math.max(0, n - 1);
+      over = (rules.overload_tick ?? 0.6) * Math.max(0, n - (rules.max_active ?? 3));
+    }
     return Math.max(0, this.passive('unruhe_tick') + clash + over);
   },
 
   /** Wird aufgerufen, wenn ein Artefakt neu ins Inventar kommt. */
   artifactPickedUp(id) {
-    const u = this.artifactRules().pickup_unruhe ?? 10;
+    const n = this.activeArtifacts().length;
+    const base = this.artifactRules().pickup_unruhe ?? 10;
+    const u = !this.artifactHalbgott() ? base : n <= SEQ4_ART.free ? 0 : n <= SEQ4_ART.light ? Math.ceil(base / 2) : base;
     if (u) this.setUnruhe(this.unruhe + u);
     this.updateMaxHp();
     this.emit('artifact', { id, active: true });
-    const max = this.artifactRules().max_active ?? 3;
-    const n = this.activeArtifacts().length;
-    this.emit('notice', `${this.item(id).name} wirkt jetzt, solange du es bei dir hast (+${u} Unruhe).${n > max ? ` ${n} Artefakte auf einmal: Sie zerren heftig aneinander.` : ''}`);
+    const max = this.artifactMaxActive();
+    this.emit('notice', `${this.item(id).name} wirkt jetzt, solange du es bei dir hast${u ? ` (+${u} Unruhe)` : ''}.${n > max ? ` ${n} Artefakte auf einmal: Sie zerren heftig aneinander.` : ''}`);
   },
 
   /** Wird aufgerufen, wenn ein Gegenstand das Inventar verlässt. */
