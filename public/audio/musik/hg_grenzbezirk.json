@@ -1,0 +1,121 @@
+{
+  "format": "nebel-musik-1",
+  "id": "hg_grenzbezirk",
+  "titel": "Hg grenzbezirk",
+  "bpm": 48,
+  "takt": [
+    4,
+    4
+  ],
+  "loop": true,
+  "lautstaerke": 0.58,
+  "hall": 0.62,
+  "spuren": {
+    "melodie": {
+      "instrument": "harmonium",
+      "lautstaerke": 0.32,
+      "pan": 0.18
+    },
+    "gezeit": {
+      "instrument": "streicher",
+      "lautstaerke": 0.16,
+      "pan": -0.18
+    },
+    "pegel": {
+      "instrument": "kontrabass",
+      "lautstaerke": 0.16,
+      "pan": 0
+    }
+  },
+  "muster": {
+    "intro_melodie": {
+      "spur": "melodie",
+      "takte": 1,
+      "noten": "r:16"
+    },
+    "intro_gezeit": {
+      "spur": "gezeit",
+      "takte": 1,
+      "noten": "a3:16@0.15"
+    },
+    "intro_pegel": {
+      "spur": "pegel",
+      "takte": 1,
+      "noten": "d2:16@0.25"
+    },
+    "A_melodie": {
+      "spur": "melodie",
+      "takte": 8,
+      "noten": "r:16 | r:16 | r:16 | r:16 | r:16 | r:16 | e4:4@0.2 r:12 | r:16"
+    },
+    "A_gezeit": {
+      "spur": "gezeit",
+      "takte": 8,
+      "noten": "a3:16@0.15 | a3:16@0.15 | a3:16@0.15 | a3:16@0.15 | a3:16@0.15 | a3:16@0.15 | a3:16@0.15 | a3:16@0.15"
+    },
+    "A_pegel": {
+      "spur": "pegel",
+      "takte": 8,
+      "noten": "d2:16@0.25 | d2:16@0.25 | d2:16@0.25 | d2:16@0.25 | d2:16@0.25 | d2:16@0.25 | d2:16@0.25 | d2:16@0.25"
+    },
+    "B_melodie": {
+      "spur": "melodie",
+      "takte": 8,
+      "noten": "r:16 | r:16 | r:16 | r:16 | r:16 | r:16 | e4:4@0.2 r:12 | r:16"
+    },
+    "B_gezeit": {
+      "spur": "gezeit",
+      "takte": 8,
+      "noten": "a3:16@0.15 | a3:16@0.15 | a3:16@0.15 | a3:16@0.15 | a3:16@0.15 | a3:16@0.15 | a3:16@0.15 | a3:16@0.15"
+    },
+    "B_pegel": {
+      "spur": "pegel",
+      "takte": 8,
+      "noten": "d2:16@0.25 | d2:16@0.25 | d2:16@0.25 | d2:16@0.25 | d2:16@0.25 | d2:16@0.25 | d2:16@0.25 | d2:16@0.25"
+    },
+    "C_melodie": {
+      "spur": "melodie",
+      "takte": 8,
+      "noten": "r:16 | r:16 | r:16 | r:16 | r:16 | r:16 | e4:4@0.2 r:12 | r:16"
+    },
+    "C_gezeit": {
+      "spur": "gezeit",
+      "takte": 8,
+      "noten": "a3:16@0.15 | a3:16@0.15 | a3:16@0.15 | a3:16@0.15 | a3:16@0.15 | a3:16@0.15 | a3:16@0.15 | a3:16@0.15"
+    },
+    "C_pegel": {
+      "spur": "pegel",
+      "takte": 8,
+      "noten": "d2:16@0.25 | d2:16@0.25 | d2:16@0.25 | d2:16@0.25 | d2:16@0.25 | d2:16@0.25 | d2:16@0.25 | d2:16@0.25"
+    }
+  },
+  "abschnitte": {
+    "intro": [
+      "intro_melodie",
+      "intro_gezeit",
+      "intro_pegel"
+    ],
+    "A": [
+      "A_melodie",
+      "A_gezeit",
+      "A_pegel"
+    ],
+    "B": [
+      "B_melodie",
+      "B_gezeit",
+      "B_pegel"
+    ],
+    "C": [
+      "C_melodie",
+      "C_gezeit",
+      "C_pegel"
+    ]
+  },
+  "ablauf": [
+    "intro",
+    "A",
+    "B",
+    "C"
+  ],
+  "loop_ab": 1
+}

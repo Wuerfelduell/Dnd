@@ -1824,3 +1824,12 @@ Keine Laufzeitintegration in diesem Paket.
 Manifest: `public/sprites/manifest-benannte.json`; Daten und Anschlussregeln: `docs/story/benannte_gegner/README.md`. ImageGen-Prompts und Quellhashes: `batch-benannte-generation.json`; Sichtübersicht: `batch-benannte-preview.png`; technischer Bericht: `batch-benannte-validation.json`. Export über `tools/art/benannte/export.py`, Pillow-Prüfung über `tools/art/benannte/check.py`, Datenprüfung über `node docs/story/benannte_gegner/pruefen.mjs --art`.
 
 Alle Exporte verwenden die 32 Farben aus `manifest-fasserin.json`, Nearest Neighbor und binäres Alpha. Die Kampfzellen behalten die Größe der Grundlage, auch deren 96×96-Ausnahmen. Beim Zollgeist wird das neutrale Gesicht erst im Laufzeiteinbau durch das aktuelle Spielerporträt ersetzt (Koop Spieler 2). CZ-Basiswerte sind noch aufzulösen; CU-Fundorte wurden gegen PR #291 gelesen. Kein Spielcode geändert.
+## CO: Halbgott und Engel (`halbgott`)
+
+73 PNGs für Sequenz 4 und 2: sechs Trink-Sheets, acht Effekte, zehn Kreaturformen jeweils für Karte und Kampf, zehn Zugportraits, zwei Ritualwächter mit Kartenfiguren, zehn Siegel, zwei Kampfkulissen, zwanzig Sequenzbilder und zwei HUD-Größen. Die 780 Rasterzellen verwenden die gemeinsame Palette aus `manifest-fasserin.json`; Alpha ist binär, Szenen sind opak.
+
+- [Manifest](../../public/sprites/manifest-halbgott.json), [Vorschau](batch-halbgott-preview.png), [Prompts und Herkunft](batch-halbgott-generation.json), [Prüfbericht](batch-halbgott-validation.json).
+- [Übergabe und Registrierungsstellen](halbgott-uebergabe.md): Framegrößen, Richtungen, Aushol-Holds, drei Wächterphasen, Rückverwandlung und getrennte Koop-Instanzen.
+- Prüfung: `python tools/art/halbgott/check.py` (Pillow). Kontrolliert das vollständige Sollinventar, Maße, gemeinsame Palette, Alpha, Raster, Animationen, Baselines und exakte HUD-Verdopplung.
+
+Erzeugt mit dem eingebauten Bildgenerator, anschließend Nearest Neighbor und Palette-/Alpha-Bereinigung. Grafiklieferung ohne Spielcodeänderung; CP und der spätere Einbau übernehmen Ritual- und Kampfregeln.

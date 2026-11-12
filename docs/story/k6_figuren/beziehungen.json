@@ -1,0 +1,2132 @@
+{
+  "rules": {
+    "min": -3,
+    "max": 5,
+    "geschenk_max": 3,
+    "geschenk_wert": 1,
+    "unlock_policy": "Alle erreichten Schwellen gelten kumulativ; dauerhafte Gesprächsentdeckungen bleiben. Dienste prüfen die aktuelle Beziehung, Zustimmung und Tageslimit erneut. Keine Wiederholung beim erneuten Erreichen einer Schwelle.",
+    "main_story_policy": "Hauptfährten und Ratsvertrauen bleiben von Geschenken unabhängig.",
+    "zirkel_policy": "Dessas Beziehung ersetzt Tams Zugang ab +3 nie. Kielraum bei Flut geschlossen; öffentliches Gespräch auf dem oberen Steg bleibt möglich."
+  },
+  "items": {
+    "vmi_cx_leinenwachs": {
+      "name": "Leinenwachs",
+      "kind": "gift",
+      "desc": "Wachs zum Schutz beanspruchter Bootsleinen.",
+      "cx_source": "Optionales lokales Geschenk; bei Markteinbau verfügbar machen, keine Hauptquest-Voraussetzung."
+    },
+    "vmi_cx_loeschpapier": {
+      "name": "Löschpapier",
+      "kind": "gift",
+      "desc": "Unbedruckte Blätter zum Trocknen alter Tinte.",
+      "cx_source": "Optionales lokales Geschenk; bei Markteinbau verfügbar machen, keine Hauptquest-Voraussetzung."
+    },
+    "vmi_cx_kreidestummel": {
+      "name": "Kreidestummel",
+      "kind": "gift",
+      "desc": "Weiche weiße Kreide ohne Amtszeichen.",
+      "cx_source": "Optionales lokales Geschenk; bei Markteinbau verfügbar machen, keine Hauptquest-Voraussetzung."
+    },
+    "vmi_cx_durchschlagbogen": {
+      "name": "Durchschlagbogen",
+      "kind": "gift",
+      "desc": "Sauberes Papier für eine überprüfbare zweite Fassung.",
+      "cx_source": "Optionales lokales Geschenk; bei Markteinbau verfügbar machen, keine Hauptquest-Voraussetzung."
+    },
+    "vmi_cx_fluchtplanpapier": {
+      "name": "Fluchtplanpapier",
+      "kind": "gift",
+      "desc": "Festes Rasterpapier für Gehzeiten und sichere Sammelpunkte.",
+      "cx_source": "Optionales lokales Geschenk; bei Markteinbau verfügbar machen, keine Hauptquest-Voraussetzung."
+    },
+    "vmi_cx_tassengriff": {
+      "name": "Tassengriff",
+      "kind": "gift",
+      "desc": "Ein schlichter Ersatzgriff für einen Zinnbecher.",
+      "cx_source": "Optionales lokales Geschenk; bei Markteinbau verfügbar machen, keine Hauptquest-Voraussetzung."
+    }
+  },
+  "figuren": {
+    "vmn_tam_verrin": {
+      "mag": [
+        "vmi_cx_leinenwachs",
+        "taschentuch",
+        "verband"
+      ],
+      "verabscheut": [
+        "blitzpulver",
+        "schlagstock"
+      ],
+      "begruessung": {
+        "freundlich": "Dessa erwartet Sie im Kielraum.",
+        "feindselig": "Lassen Sie meine Leinen liegen."
+      },
+      "stufen": {
+        "-3": {
+          "begruessungen": [
+            "Bleiben Sie bitte hinter dem Poller.",
+            "Für heute halte ich Abstand."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_leinenwachs",
+              "begruendung": "Leinenwachs hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Das entzündet mir das Ölzeug."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Ein Schlagstock hält kein Boot auf Kurs."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_tam_verrin_stufe_m3",
+            "text": "Nur die öffentliche Pegelanzeige zeigen.",
+            "art": "gespraech",
+            "requires_relation": -3
+          }
+        },
+        "-2": {
+          "begruessungen": [
+            "Lassen Sie meine Leinen liegen.",
+            "Bitte bleiben Sie bei der Sache."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_leinenwachs",
+              "begruendung": "Leinenwachs hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Das entzündet mir das Ölzeug."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Ein Schlagstock hält kein Boot auf Kurs."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_tam_verrin_stufe_m2",
+            "text": "Eine sichere Trittfolge erklären.",
+            "art": "gespraech",
+            "requires_relation": -2
+          }
+        },
+        "-1": {
+          "begruessungen": [
+            "Ihre Schritte höre ich. Das genügt vorerst.",
+            "Ich gebe Ihnen einen Augenblick."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_leinenwachs",
+              "begruendung": "Leinenwachs hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Das entzündet mir das Ölzeug."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Ein Schlagstock hält kein Boot auf Kurs."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_tam_verrin_stufe_m1",
+            "text": "Den nächsten Gezeitenwechsel ankündigen.",
+            "art": "gespraech",
+            "requires_relation": -1
+          }
+        },
+        "0": {
+          "begruessungen": [
+            "Sie können auf dem trockenen Brett warten.",
+            "Was führt Sie heute zu mir?"
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_leinenwachs",
+              "begruendung": "Leinenwachs hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Das entzündet mir das Ölzeug."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Ein Schlagstock hält kein Boot auf Kurs."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_tam_verrin_stufe_0",
+            "text": "Die kostenlose Hafenorientierung anbieten.",
+            "art": "gespraech",
+            "requires_relation": 0
+          }
+        },
+        "1": {
+          "begruessungen": [
+            "Für Ihre Frage ist Platz im Boot.",
+            "Gut, dass Sie wiederkommen."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_leinenwachs",
+              "begruendung": "Leinenwachs hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Das entzündet mir das Ölzeug."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Ein Schlagstock hält kein Boot auf Kurs."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_tam_verrin_stufe_1",
+            "text": "Eine Leinenprüfung gemeinsam durchführen.",
+            "art": "gespraech",
+            "requires_relation": 1
+          }
+        },
+        "2": {
+          "begruessungen": [
+            "Heute müssen Sie nicht am Rand stehen.",
+            "Ihre Geduld ist mir aufgefallen."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_leinenwachs",
+              "begruendung": "Leinenwachs hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Das entzündet mir das Ölzeug."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Ein Schlagstock hält kein Boot auf Kurs."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_tam_verrin_stufe_2",
+            "text": "Den trockenen Warteplatz benennen.",
+            "art": "gespraech",
+            "requires_relation": 2
+          }
+        },
+        "3": {
+          "begruessungen": [
+            "Dessa erwartet Sie im Kielraum.",
+            "Ich kann Ihnen heute mehr zeigen."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_leinenwachs",
+              "begruendung": "Leinenwachs hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Das entzündet mir das Ölzeug."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Ein Schlagstock hält kein Boot auf Kurs."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_tam_verrin_stufe_3",
+            "text": "Zugang zu den Unverzeichneten freigeben.",
+            "art": "zirkel",
+            "requires_relation": 3,
+            "target": "unverzeichnete",
+            "requires_flags": [
+              "k6_arrived"
+            ],
+            "sets_flags": [
+              "k6_cx_zirkelzugang"
+            ]
+          }
+        },
+        "4": {
+          "begruessungen": [
+            "Mein Boot steht für Sie bereit.",
+            "Mit Ihnen kann ich auch über Fehler reden."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_leinenwachs",
+              "begruendung": "Leinenwachs hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Das entzündet mir das Ölzeug."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Ein Schlagstock hält kein Boot auf Kurs."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_tam_verrin_stufe_4",
+            "text": "Boot innerhalb der Stadt zu jeder Uhrzeit und beiden Gezeiten freigeben.",
+            "art": "boot",
+            "requires_relation": 4,
+            "scope": "varrowmouth",
+            "gezeiten": [
+              "ebbe",
+              "flut"
+            ],
+            "uhrzeit": "jederzeit",
+            "keine_rueckreise": true
+          }
+        },
+        "5": {
+          "begruessungen": [
+            "Ich gebe Ihnen die Reserveleine in die Hand.",
+            "Unser Einverständnis verträgt eine offene Frage."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_leinenwachs",
+              "begruendung": "Leinenwachs hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Das entzündet mir das Ölzeug."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Ein Schlagstock hält kein Boot auf Kurs."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_tam_verrin_stufe_5",
+            "text": "Die Planung einer sicheren Rettungsfahrt besprechen.",
+            "art": "gespraech",
+            "requires_relation": 5
+          }
+        }
+      }
+    },
+    "vmn_osric_dale": {
+      "mag": [
+        "vmi_cx_loeschpapier",
+        "taschentuch",
+        "tonikum"
+      ],
+      "verabscheut": [
+        "blitzpulver",
+        "schlagstock"
+      ],
+      "begruessung": {
+        "freundlich": "Ich lese Ihnen auch die Auslassung vor.",
+        "feindselig": "Die Lampe dürfen Sie ansehen. Mehr nicht."
+      },
+      "stufen": {
+        "-3": {
+          "begruessungen": [
+            "Bleiben Sie vor meinem Schreibpult.",
+            "Für heute halte ich Abstand."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_loeschpapier",
+              "begruendung": "Löschpapier hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "tonikum",
+              "begruendung": "Für eine lange Schicht ist das brauchbar."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Das alte Papier verträgt keinen Funken."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Mit Druck wird eine Abschrift nicht genauer."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_osric_dale_stufe_m3",
+            "text": "Die öffentliche Lampenpflege erklären.",
+            "art": "gespraech",
+            "requires_relation": -3
+          }
+        },
+        "-2": {
+          "begruessungen": [
+            "Die Lampe dürfen Sie ansehen. Mehr nicht.",
+            "Bitte bleiben Sie bei der Sache."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_loeschpapier",
+              "begruendung": "Löschpapier hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "tonikum",
+              "begruendung": "Für eine lange Schicht ist das brauchbar."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Das alte Papier verträgt keinen Funken."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Mit Druck wird eine Abschrift nicht genauer."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_osric_dale_stufe_m2",
+            "text": "Eine sichtbare Jahreszahl erläutern.",
+            "art": "gespraech",
+            "requires_relation": -2
+          }
+        },
+        "-1": {
+          "begruessungen": [
+            "Ich höre Ihre Frage bis zum Ende.",
+            "Ich gebe Ihnen einen Augenblick."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_loeschpapier",
+              "begruendung": "Löschpapier hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "tonikum",
+              "begruendung": "Für eine lange Schicht ist das brauchbar."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Das alte Papier verträgt keinen Funken."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Mit Druck wird eine Abschrift nicht genauer."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_osric_dale_stufe_m1",
+            "text": "Den Unterschied zwischen Original und Abschrift erklären.",
+            "art": "gespraech",
+            "requires_relation": -1
+          }
+        },
+        "0": {
+          "begruessungen": [
+            "Setzen Sie sich, wenn die Bank trocken ist.",
+            "Was führt Sie heute zu mir?"
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_loeschpapier",
+              "begruendung": "Löschpapier hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "tonikum",
+              "begruendung": "Für eine lange Schicht ist das brauchbar."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Das alte Papier verträgt keinen Funken."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Mit Druck wird eine Abschrift nicht genauer."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_osric_dale_stufe_0",
+            "text": "Eine leere Registerseite zeigen.",
+            "art": "gespraech",
+            "requires_relation": 0
+          }
+        },
+        "1": {
+          "begruessungen": [
+            "Sie dürfen die unbeschriebene Seite halten.",
+            "Gut, dass Sie wiederkommen."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_loeschpapier",
+              "begruendung": "Löschpapier hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "tonikum",
+              "begruendung": "Für eine lange Schicht ist das brauchbar."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Das alte Papier verträgt keinen Funken."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Mit Druck wird eine Abschrift nicht genauer."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_osric_dale_stufe_1",
+            "text": "Die Tintenprobe beschreiben.",
+            "art": "gespraech",
+            "requires_relation": 1
+          }
+        },
+        "2": {
+          "begruessungen": [
+            "Heute zeige ich Ihnen eine alte Zeile.",
+            "Ihre Geduld ist mir aufgefallen."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_loeschpapier",
+              "begruendung": "Löschpapier hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "tonikum",
+              "begruendung": "Für eine lange Schicht ist das brauchbar."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Das alte Papier verträgt keinen Funken."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Mit Druck wird eine Abschrift nicht genauer."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_osric_dale_stufe_2",
+            "text": "Ein freiwilliges Lesestück des alten Registers freigeben.",
+            "art": "lesestueck",
+            "requires_relation": 2,
+            "text_inhalt": "Die Ankunft ist ein Zeitpunkt. Sie ist kein Eigentumsrecht. Eine freie Zeile bestätigt nur, dass der Schreiber nicht alles weiß. Wer später einen Namen ergänzt, muss die Person fragen."
+          }
+        },
+        "3": {
+          "begruessungen": [
+            "Ich lese Ihnen auch die Auslassung vor.",
+            "Ich kann Ihnen heute mehr zeigen."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_loeschpapier",
+              "begruendung": "Löschpapier hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "tonikum",
+              "begruendung": "Für eine lange Schicht ist das brauchbar."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Das alte Papier verträgt keinen Funken."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Mit Druck wird eine Abschrift nicht genauer."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_osric_dale_stufe_3",
+            "text": "Die Randnotiz zur ausgelassenen Zeile lesen.",
+            "art": "gespraech",
+            "requires_relation": 3
+          }
+        },
+        "4": {
+          "begruessungen": [
+            "Sie kennen nun meine unruhige Hand.",
+            "Mit Ihnen kann ich auch über Fehler reden."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_loeschpapier",
+              "begruendung": "Löschpapier hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "tonikum",
+              "begruendung": "Für eine lange Schicht ist das brauchbar."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Das alte Papier verträgt keinen Funken."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Mit Druck wird eine Abschrift nicht genauer."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_osric_dale_stufe_4",
+            "text": "Über Schuld ohne Amtssprache sprechen.",
+            "art": "gespraech",
+            "requires_relation": 4
+          }
+        },
+        "5": {
+          "begruessungen": [
+            "Korrigieren Sie mich, wenn ich wieder ausweiche.",
+            "Unser Einverständnis verträgt eine offene Frage."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_loeschpapier",
+              "begruendung": "Löschpapier hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "tonikum",
+              "begruendung": "Für eine lange Schicht ist das brauchbar."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Das alte Papier verträgt keinen Funken."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Mit Druck wird eine Abschrift nicht genauer."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_osric_dale_stufe_5",
+            "text": "Eine gegenseitig geprüfte Abschrift anbieten.",
+            "art": "gespraech",
+            "requires_relation": 5
+          }
+        }
+      }
+    },
+    "vmn_nell_quarrie": {
+      "mag": [
+        "vmi_cx_kreidestummel",
+        "taschentuch",
+        "verband"
+      ],
+      "verabscheut": [
+        "blitzpulver",
+        "schlagstock"
+      ],
+      "begruessung": {
+        "freundlich": "Ein Name geht heute. Danach brauche ich Ruhe.",
+        "feindselig": "Heute bleibe ich bei der Treppe."
+      },
+      "stufen": {
+        "-3": {
+          "begruessungen": [
+            "Lassen Sie meine Mütze liegen.",
+            "Für heute halte ich Abstand."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_kreidestummel",
+              "begruendung": "Kreidestummel hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Davon werden meine Ohren eng."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Damit dürfen Sie nicht neben meiner Mütze stehen."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_nell_quarrie_stufe_m3",
+            "text": "Nur den sichtbaren sicheren Aufgang zeigen.",
+            "art": "gespraech",
+            "requires_relation": -3
+          }
+        },
+        "-2": {
+          "begruessungen": [
+            "Heute bleibe ich bei der Treppe.",
+            "Bitte bleiben Sie bei der Sache."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_kreidestummel",
+              "begruendung": "Kreidestummel hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Davon werden meine Ohren eng."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Damit dürfen Sie nicht neben meiner Mütze stehen."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_nell_quarrie_stufe_m2",
+            "text": "Ein Kreidezeichen erklären.",
+            "art": "gespraech",
+            "requires_relation": -2
+          }
+        },
+        "-1": {
+          "begruessungen": [
+            "Sie dürfen fragen. Ich muss nicht antworten.",
+            "Ich gebe Ihnen einen Augenblick."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_kreidestummel",
+              "begruendung": "Kreidestummel hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Davon werden meine Ohren eng."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Damit dürfen Sie nicht neben meiner Mütze stehen."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_nell_quarrie_stufe_m1",
+            "text": "Eine Pause respektieren können.",
+            "art": "gespraech",
+            "requires_relation": -1
+          }
+        },
+        "0": {
+          "begruessungen": [
+            "Auf diesem Stein ist noch Platz.",
+            "Was führt Sie heute zu mir?"
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_kreidestummel",
+              "begruendung": "Kreidestummel hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Davon werden meine Ohren eng."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Damit dürfen Sie nicht neben meiner Mütze stehen."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_nell_quarrie_stufe_0",
+            "text": "Das Hüpfmuster ansehen.",
+            "art": "gespraech",
+            "requires_relation": 0
+          }
+        },
+        "1": {
+          "begruessungen": [
+            "Ich zeige Ihnen meine drei trockenen Schritte.",
+            "Gut, dass Sie wiederkommen."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_kreidestummel",
+              "begruendung": "Kreidestummel hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Davon werden meine Ohren eng."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Damit dürfen Sie nicht neben meiner Mütze stehen."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_nell_quarrie_stufe_1",
+            "text": "Eine freiwillige Ortsgeschichte hören.",
+            "art": "gespraech",
+            "requires_relation": 1
+          }
+        },
+        "2": {
+          "begruessungen": [
+            "Sie können den Zettel halten, wenn Sie wollen.",
+            "Ihre Geduld ist mir aufgefallen."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_kreidestummel",
+              "begruendung": "Kreidestummel hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Davon werden meine Ohren eng."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Damit dürfen Sie nicht neben meiner Mütze stehen."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_nell_quarrie_stufe_2",
+            "text": "Über die Müdigkeit nach dem Vergessen sprechen.",
+            "art": "gespraech",
+            "requires_relation": 2
+          }
+        },
+        "3": {
+          "begruessungen": [
+            "Ein Name geht heute. Danach brauche ich Ruhe.",
+            "Ich kann Ihnen heute mehr zeigen."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_kreidestummel",
+              "begruendung": "Kreidestummel hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Davon werden meine Ohren eng."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Damit dürfen Sie nicht neben meiner Mütze stehen."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_nell_quarrie_stufe_3",
+            "text": "Mit Zustimmung einen Namen für einen Spieltag aus der aktiven Zollzeile löschen.",
+            "art": "zollzeile_vergessen",
+            "requires_relation": 3,
+            "consent_required": true,
+            "actor_scope": "ausgewaehlter_spieler",
+            "target": "vme_zollgeist",
+            "duration_game_hours": 24,
+            "cooldown_game_hours": 24,
+            "permanent": false,
+            "sets_flags": [
+              "k6_cx_nell_pause"
+            ],
+            "text_inhalt": "Ein Name. Nur heute. Danach brauche ich meine Wörter für mich.",
+            "restriction": "Löscht nur die aktive Kontrollzeile. Kein Löschen der Hauptakte, kein Ausreiseweg, kein Löschen beider Koop-Namen, keine Macht über die Pegelherrin."
+          }
+        },
+        "4": {
+          "begruessungen": [
+            "Sie haben auch gewartet, als ich nichts konnte.",
+            "Mit Ihnen kann ich auch über Fehler reden."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_kreidestummel",
+              "begruendung": "Kreidestummel hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Davon werden meine Ohren eng."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Damit dürfen Sie nicht neben meiner Mütze stehen."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_nell_quarrie_stufe_4",
+            "text": "Die Geschichte eines wiedergefundenen Wortes hören.",
+            "art": "gespraech",
+            "requires_relation": 4
+          }
+        },
+        "5": {
+          "begruessungen": [
+            "Sie dürfen mich erinnern, wenn ich ein Wort suche.",
+            "Unser Einverständnis verträgt eine offene Frage."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_kreidestummel",
+              "begruendung": "Kreidestummel hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Davon werden meine Ohren eng."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Damit dürfen Sie nicht neben meiner Mütze stehen."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_nell_quarrie_stufe_5",
+            "text": "Eine Erinnerung ohne neue Anwendung der Gabe teilen.",
+            "art": "gespraech",
+            "requires_relation": 5
+          }
+        }
+      }
+    },
+    "vmn_rat_1": {
+      "mag": [
+        "vmi_cx_durchschlagbogen",
+        "taschentuch",
+        "tonikum"
+      ],
+      "verabscheut": [
+        "blitzpulver",
+        "schlagstock"
+      ],
+      "begruessung": {
+        "freundlich": "Den leeren Frachtposten erkläre ich Ihnen.",
+        "feindselig": "Ich bestätige nur Ihren Empfang."
+      },
+      "stufen": {
+        "-3": {
+          "begruessungen": [
+            "Ihre Eingabe bleibt auf der Besucherseite.",
+            "Für heute halte ich Abstand."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_durchschlagbogen",
+              "begruendung": "Durchschlagbogen hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "tonikum",
+              "begruendung": "Für eine lange Schicht ist das brauchbar."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Eine Amtsstube ist kein Ofen."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Ich unterschreibe nicht unter einer Drohung."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_rat_1_stufe_m3",
+            "text": "Die öffentlich ausgehängten Zollsätze lesen.",
+            "art": "gespraech",
+            "requires_relation": -3
+          }
+        },
+        "-2": {
+          "begruessungen": [
+            "Ich bestätige nur Ihren Empfang.",
+            "Bitte bleiben Sie bei der Sache."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_durchschlagbogen",
+              "begruendung": "Durchschlagbogen hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "tonikum",
+              "begruendung": "Für eine lange Schicht ist das brauchbar."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Eine Amtsstube ist kein Ofen."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Ich unterschreibe nicht unter einer Drohung."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_rat_1_stufe_m2",
+            "text": "Die Beschwerdefrist erläutern.",
+            "art": "gespraech",
+            "requires_relation": -2
+          }
+        },
+        "-1": {
+          "begruessungen": [
+            "Heute höre ich ohne Protokollvorlage zu.",
+            "Ich gebe Ihnen einen Augenblick."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_durchschlagbogen",
+              "begruendung": "Durchschlagbogen hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "tonikum",
+              "begruendung": "Für eine lange Schicht ist das brauchbar."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Eine Amtsstube ist kein Ofen."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Ich unterschreibe nicht unter einer Drohung."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_rat_1_stufe_m1",
+            "text": "Eine formlose Nachfrage zulassen.",
+            "art": "gespraech",
+            "requires_relation": -1
+          }
+        },
+        "0": {
+          "begruessungen": [
+            "Der zweite Stuhl ist frei.",
+            "Was führt Sie heute zu mir?"
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_durchschlagbogen",
+              "begruendung": "Durchschlagbogen hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "tonikum",
+              "begruendung": "Für eine lange Schicht ist das brauchbar."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Eine Amtsstube ist kein Ofen."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Ich unterschreibe nicht unter einer Drohung."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_rat_1_stufe_0",
+            "text": "Ein leeres Formular aushändigen.",
+            "art": "gespraech",
+            "requires_relation": 0
+          }
+        },
+        "1": {
+          "begruessungen": [
+            "Sie dürfen den Durchschlag mitlesen.",
+            "Gut, dass Sie wiederkommen."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_durchschlagbogen",
+              "begruendung": "Durchschlagbogen hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "tonikum",
+              "begruendung": "Für eine lange Schicht ist das brauchbar."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Eine Amtsstube ist kein Ofen."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Ich unterschreibe nicht unter einer Drohung."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_rat_1_stufe_1",
+            "text": "Eine Gebührenrechnung erklären.",
+            "art": "gespraech",
+            "requires_relation": 1
+          }
+        },
+        "2": {
+          "begruessungen": [
+            "Ich lasse eine Zeile für Ihre Berichtigung offen.",
+            "Ihre Geduld ist mir aufgefallen."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_durchschlagbogen",
+              "begruendung": "Durchschlagbogen hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "tonikum",
+              "begruendung": "Für eine lange Schicht ist das brauchbar."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Eine Amtsstube ist kein Ofen."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Ich unterschreibe nicht unter einer Drohung."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_rat_1_stufe_2",
+            "text": "Einen freiwilligen Durchschlag lesen.",
+            "art": "gespraech",
+            "requires_relation": 2
+          }
+        },
+        "3": {
+          "begruessungen": [
+            "Den leeren Frachtposten erkläre ich Ihnen.",
+            "Ich kann Ihnen heute mehr zeigen."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_durchschlagbogen",
+              "begruendung": "Durchschlagbogen hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "tonikum",
+              "begruendung": "Für eine lange Schicht ist das brauchbar."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Eine Amtsstube ist kein Ofen."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Ich unterschreibe nicht unter einer Drohung."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_rat_1_stufe_3",
+            "text": "Die Deckbuchung als persönliche Einlassung erklären.",
+            "art": "gespraech",
+            "requires_relation": 3
+          }
+        },
+        "4": {
+          "begruessungen": [
+            "Ich stehe zu meinem falschen Eintrag.",
+            "Mit Ihnen kann ich auch über Fehler reden."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_durchschlagbogen",
+              "begruendung": "Durchschlagbogen hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "tonikum",
+              "begruendung": "Für eine lange Schicht ist das brauchbar."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Eine Amtsstube ist kein Ofen."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Ich unterschreibe nicht unter einer Drohung."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_rat_1_stufe_4",
+            "text": "Ein Gespräch über Verantwortung ermöglichen.",
+            "art": "gespraech",
+            "requires_relation": 4
+          }
+        },
+        "5": {
+          "begruessungen": [
+            "Sie dürfen auch meine Hilfe öffentlich prüfen.",
+            "Unser Einverständnis verträgt eine offene Frage."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_durchschlagbogen",
+              "begruendung": "Durchschlagbogen hilft bei meiner Arbeit."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "tonikum",
+              "begruendung": "Für eine lange Schicht ist das brauchbar."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Eine Amtsstube ist kein Ofen."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Ich unterschreibe nicht unter einer Drohung."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_rat_1_stufe_5",
+            "text": "Eine spätere öffentliche Aussage anbieten.",
+            "art": "gespraech",
+            "requires_relation": 5
+          }
+        }
+      }
+    },
+    "vmn_rat_3": {
+      "mag": [
+        "vmi_cx_fluchtplanpapier",
+        "verband",
+        "taschentuch"
+      ],
+      "verabscheut": [
+        "blitzpulver",
+        "schlagstock"
+      ],
+      "begruessung": {
+        "freundlich": "Ich zeige Ihnen die unvollständige Rechnung.",
+        "feindselig": "Sie können die Legende ansehen."
+      },
+      "stufen": {
+        "-3": {
+          "begruessungen": [
+            "Mein Entwurf bleibt zugeklappt.",
+            "Für heute halte ich Abstand."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_fluchtplanpapier",
+              "begruendung": "Fluchtplanpapier hilft bei meiner Arbeit."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Feuer ohne Räumung ist kein Plan."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Schläge überzeugen keine langsameren Beine."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_rat_3_stufe_m3",
+            "text": "Die öffentlichen Ausgangswege benennen.",
+            "art": "gespraech",
+            "requires_relation": -3
+          }
+        },
+        "-2": {
+          "begruessungen": [
+            "Sie können die Legende ansehen.",
+            "Bitte bleiben Sie bei der Sache."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_fluchtplanpapier",
+              "begruendung": "Fluchtplanpapier hilft bei meiner Arbeit."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Feuer ohne Räumung ist kein Plan."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Schläge überzeugen keine langsameren Beine."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_rat_3_stufe_m2",
+            "text": "Die Kartenlegende erklären.",
+            "art": "gespraech",
+            "requires_relation": -2
+          }
+        },
+        "-1": {
+          "begruessungen": [
+            "Sagen Sie, welche Strecke Sie selbst gegangen sind.",
+            "Ich gebe Ihnen einen Augenblick."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_fluchtplanpapier",
+              "begruendung": "Fluchtplanpapier hilft bei meiner Arbeit."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Feuer ohne Räumung ist kein Plan."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Schläge überzeugen keine langsameren Beine."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_rat_3_stufe_m1",
+            "text": "Eine Gehzeit vergleichen.",
+            "art": "gespraech",
+            "requires_relation": -1
+          }
+        },
+        "0": {
+          "begruessungen": [
+            "Ich brauche einen Einwand, keinen Beifall.",
+            "Was führt Sie heute zu mir?"
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_fluchtplanpapier",
+              "begruendung": "Fluchtplanpapier hilft bei meiner Arbeit."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Feuer ohne Räumung ist kein Plan."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Schläge überzeugen keine langsameren Beine."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_rat_3_stufe_0",
+            "text": "Einen leeren Plan zeigen.",
+            "art": "gespraech",
+            "requires_relation": 0
+          }
+        },
+        "1": {
+          "begruessungen": [
+            "Tragen Sie die langsamen Schritte zuerst ein.",
+            "Gut, dass Sie wiederkommen."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_fluchtplanpapier",
+              "begruendung": "Fluchtplanpapier hilft bei meiner Arbeit."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Feuer ohne Räumung ist kein Plan."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Schläge überzeugen keine langsameren Beine."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_rat_3_stufe_1",
+            "text": "Eine Räumungsübung besprechen.",
+            "art": "gespraech",
+            "requires_relation": 1
+          }
+        },
+        "2": {
+          "begruessungen": [
+            "Ihre Korrektur hat Platz am Rand.",
+            "Ihre Geduld ist mir aufgefallen."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_fluchtplanpapier",
+              "begruendung": "Fluchtplanpapier hilft bei meiner Arbeit."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Feuer ohne Räumung ist kein Plan."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Schläge überzeugen keine langsameren Beine."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_rat_3_stufe_2",
+            "text": "Den Unterschied zwischen Verbrennen und Befreien erörtern.",
+            "art": "gespraech",
+            "requires_relation": 2
+          }
+        },
+        "3": {
+          "begruessungen": [
+            "Ich zeige Ihnen die unvollständige Rechnung.",
+            "Ich kann Ihnen heute mehr zeigen."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_fluchtplanpapier",
+              "begruendung": "Fluchtplanpapier hilft bei meiner Arbeit."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Feuer ohne Räumung ist kein Plan."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Schläge überzeugen keine langsameren Beine."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_rat_3_stufe_3",
+            "text": "Eine freiwillige Fehlerliste lesen.",
+            "art": "gespraech",
+            "requires_relation": 3
+          }
+        },
+        "4": {
+          "begruessungen": [
+            "Sie haben recht: Die letzte Reihe braucht länger.",
+            "Mit Ihnen kann ich auch über Fehler reden."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_fluchtplanpapier",
+              "begruendung": "Fluchtplanpapier hilft bei meiner Arbeit."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Feuer ohne Räumung ist kein Plan."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Schläge überzeugen keine langsameren Beine."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_rat_3_stufe_4",
+            "text": "Über seine persönliche Mitverantwortung sprechen.",
+            "art": "gespraech",
+            "requires_relation": 4
+          }
+        },
+        "5": {
+          "begruessungen": [
+            "Lesen Sie meinen Plan so streng wie den des Rats.",
+            "Unser Einverständnis verträgt eine offene Frage."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_fluchtplanpapier",
+              "begruendung": "Fluchtplanpapier hilft bei meiner Arbeit."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Feuer ohne Räumung ist kein Plan."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Schläge überzeugen keine langsameren Beine."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_rat_3_stufe_5",
+            "text": "Eine korrigierte Räumungsskizze zur Diskussion stellen.",
+            "art": "gespraech",
+            "requires_relation": 5
+          }
+        }
+      }
+    },
+    "vmn_kielwirtin": {
+      "mag": [
+        "vmi_cx_tassengriff",
+        "verband",
+        "taschentuch"
+      ],
+      "verabscheut": [
+        "blitzpulver",
+        "schlagstock"
+      ],
+      "begruessung": {
+        "freundlich": "Sie kennen die Regel: keine fremden Namen sammeln.",
+        "feindselig": "Auf dem Steg können Sie Ihre Frage stellen."
+      },
+      "stufen": {
+        "-3": {
+          "begruessungen": [
+            "Die Schwelle bleibt zwischen uns.",
+            "Für heute halte ich Abstand."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_tassengriff",
+              "begruendung": "Tassengriff hilft bei meiner Arbeit."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Unter Deck schläft jemand neben jedem Funken."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Hier verlangt niemand mit einem Stock einen Platz."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_kielwirtin_stufe_m3",
+            "text": "Ein öffentliches Gespräch auf dem Steg führen.",
+            "art": "gespraech",
+            "requires_relation": -3
+          }
+        },
+        "-2": {
+          "begruessungen": [
+            "Auf dem Steg können Sie Ihre Frage stellen.",
+            "Bitte bleiben Sie bei der Sache."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_tassengriff",
+              "begruendung": "Tassengriff hilft bei meiner Arbeit."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Unter Deck schläft jemand neben jedem Funken."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Hier verlangt niemand mit einem Stock einen Platz."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_kielwirtin_stufe_m2",
+            "text": "Auf die trockene Wartestelle hinweisen.",
+            "art": "gespraech",
+            "requires_relation": -2
+          }
+        },
+        "-1": {
+          "begruessungen": [
+            "Ich höre zu, wenn Sie die Hände offen lassen.",
+            "Ich gebe Ihnen einen Augenblick."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_tassengriff",
+              "begruendung": "Tassengriff hilft bei meiner Arbeit."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Unter Deck schläft jemand neben jedem Funken."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Hier verlangt niemand mit einem Stock einen Platz."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_kielwirtin_stufe_m1",
+            "text": "Die Hausregel erklären.",
+            "art": "gespraech",
+            "requires_relation": -1
+          }
+        },
+        "0": {
+          "begruessungen": [
+            "Die Tasse ist sauber. Setzen Sie sich.",
+            "Was führt Sie heute zu mir?"
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_tassengriff",
+              "begruendung": "Tassengriff hilft bei meiner Arbeit."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Unter Deck schläft jemand neben jedem Funken."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Hier verlangt niemand mit einem Stock einen Platz."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_kielwirtin_stufe_0",
+            "text": "Ein alltägliches Tassengespräch führen.",
+            "art": "gespraech",
+            "requires_relation": 0
+          }
+        },
+        "1": {
+          "begruessungen": [
+            "Sie dürfen beim Abtrocknen helfen.",
+            "Gut, dass Sie wiederkommen."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_tassengriff",
+              "begruendung": "Tassengriff hilft bei meiner Arbeit."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Unter Deck schläft jemand neben jedem Funken."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Hier verlangt niemand mit einem Stock einen Platz."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_kielwirtin_stufe_1",
+            "text": "Eine Geschichte über den Kielraum hören.",
+            "art": "gespraech",
+            "requires_relation": 1
+          }
+        },
+        "2": {
+          "begruessungen": [
+            "Heute halte ich Ihnen einen ruhigen Platz frei.",
+            "Ihre Geduld ist mir aufgefallen."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_tassengriff",
+              "begruendung": "Tassengriff hilft bei meiner Arbeit."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Unter Deck schläft jemand neben jedem Funken."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Hier verlangt niemand mit einem Stock einen Platz."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_kielwirtin_stufe_2",
+            "text": "Eine persönliche Ruhepause anbieten.",
+            "art": "gespraech",
+            "requires_relation": 2
+          }
+        },
+        "3": {
+          "begruessungen": [
+            "Sie kennen die Regel: keine fremden Namen sammeln.",
+            "Ich kann Ihnen heute mehr zeigen."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_tassengriff",
+              "begruendung": "Tassengriff hilft bei meiner Arbeit."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Unter Deck schläft jemand neben jedem Funken."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Hier verlangt niemand mit einem Stock einen Platz."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_kielwirtin_stufe_3",
+            "text": "Die namenlose Versorgungsliste erläutern.",
+            "art": "gespraech",
+            "requires_relation": 3,
+            "requires_flags": [
+              "k6_cx_zirkelzugang"
+            ]
+          }
+        },
+        "4": {
+          "begruessungen": [
+            "Ich zeige Ihnen den Vorrat ohne Gästeliste.",
+            "Mit Ihnen kann ich auch über Fehler reden."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_tassengriff",
+              "begruendung": "Tassengriff hilft bei meiner Arbeit."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Unter Deck schläft jemand neben jedem Funken."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Hier verlangt niemand mit einem Stock einen Platz."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_kielwirtin_stufe_4",
+            "text": "Ein Gespräch über Vorräte führen.",
+            "art": "gespraech",
+            "requires_relation": 4,
+            "requires_flags": [
+              "k6_cx_zirkelzugang"
+            ]
+          }
+        },
+        "5": {
+          "begruessungen": [
+            "Sie können den Schlüssel zurücklegen, wann Sie wollen.",
+            "Unser Einverständnis verträgt eine offene Frage."
+          ],
+          "mag": [
+            {
+              "item": "vmi_cx_tassengriff",
+              "begruendung": "Tassengriff hilft bei meiner Arbeit."
+            },
+            {
+              "item": "verband",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            },
+            {
+              "item": "taschentuch",
+              "begruendung": "Sauberes Leinen kann ich im Hafen brauchen."
+            }
+          ],
+          "verabscheut": [
+            {
+              "item": "blitzpulver",
+              "begruendung": "Unter Deck schläft jemand neben jedem Funken."
+            },
+            {
+              "item": "schlagstock",
+              "begruendung": "Hier verlangt niemand mit einem Stock einen Platz."
+            }
+          ],
+          "freischaltung": {
+            "id": "k6_cx_kielwirtin_stufe_5",
+            "text": "Die Verantwortung für offene Türen besprechen.",
+            "art": "gespraech",
+            "requires_relation": 5,
+            "requires_flags": [
+              "k6_cx_zirkelzugang"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
