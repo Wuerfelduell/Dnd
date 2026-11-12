@@ -5,25 +5,26 @@
     "sequenz_4": "Dochtgezeichneter",
     "name": "Die Nacht der Laternen",
     "name_vorschlag": "Die Nacht der Laternen",
-    "desc": "Halte 5–6 Laternen in einem Monstergebiet gegen mindestens 15 Monster. Du kämpfst ohne Kampfbildschirm und kannst nicht angreifen. Fülle die Laternen durch Halten der Taste für 1–2 Sekunden nach; Treffer unterbrechen dich. Besiege den Wächter durch Sonnenaufgang zwischen drei brennenden Laternen.",
+    "desc": "Halte in Echtzeit 5–6 Laternen gegen mindestens 15 Monster; es gibt keinen Kampfbildschirm und keine Angriffe. Die Monster suchen die schwächste Laterne auf und sterben nur an Licht; dein schwaches Eigenlicht verletzt sie und treibt sie zurück. Halte zum Nachfüllen die Taste 1–2 Sekunden; ein Treffer unterbricht dich mit Schaden und Rückstoß, während Licht Nerven und Spiritualität kostet und die Unruhe mit der Dauer steigt. Am Ende fällt der Schwellenwächter nur durch Sonnenaufgang zwischen drei nahen, brennenden Laternen, nicht durch einzelne Flammen.",
     "regeln": [
-      "Kein Kampfbildschirm und keine Angriffe.",
-      "Monster sterben nur durch Licht.",
-      "5–6 Laternen gegen mindestens 15 Monster.",
-      "Nachfüllen: Taste 1–2 Sekunden halten.",
-      "Wächter: drei Laternen für Sonnenaufgang."
+      "5–6 Laternen; mindestens 15 Monster; kein Kampfbildschirm.",
+      "Keine Angriffe: Monster sterben nur an Licht.",
+      "Monster greifen die schwächste Laterne an.",
+      "Nachfüllen: 1–2 s halten; Treffer unterbrechen.",
+      "Licht kostet Nerven und Spiritualität; Unruhe steigt.",
+      "Wächter: Sonnenaufgang zwischen drei brennenden Laternen."
     ],
     "vorbereitung": [
       "Besorge ausreichend Lampenöl.",
-      "Plane kurze Wege zwischen den Laternen."
+      "Plane kurze Wege zwischen den Laternen.",
+      "Erhole Nerven und Spiritualität vor der langen Nacht."
     ],
     "beginn": "Die Nacht beginnt, und die Laternen sind noch kalt. Dein eigenes Licht reicht nur für wenige Schritte.",
     "erfolg": "Drei Flammen stehen zusammen. Der Wächter weicht dem ersten Morgenlicht.",
     "fehlschlag": {
-      "niederlage": "Du unterliegst. Die Verdauung sinkt um {pct} %.",
-      "verstoss": "Du hast eine Regel gebrochen. Die Verdauung sinkt um {pct} %."
+      "niederlage": "Dein Licht reicht nicht mehr, um dich auf den Beinen zu halten; die Verdauung sinkt um {pct} %."
     },
-    "notizbuch": "Offen: Die Nacht der Laternen. Kein Kampfbildschirm und keine Angriffe."
+    "notizbuch": "Halte das Licht und spare Kraft für Sonnenaufgang zwischen drei brennenden Laternen."
   },
   "s4r_faden": {
     "pfad": "faden",
@@ -31,13 +32,14 @@
     "sequenz_4": "Nahtträger",
     "name": "Das Netz der fünf Träume",
     "name_vorschlag": "Das Netz der fünf Träume",
-    "desc": "Markiere fünf verschiedene Kreaturen aus fünf verschiedenen Gebieten mit Schicksalsfäden. Die Zeichen bleiben über Kapitel hinweg bestehen. Schlafe danach ein und besiege alle fünf zugleich im verstärkten Traumkampf. Im Traum ist jede Heilung gesperrt.",
+    "desc": "Markiere fünf verschiedene Kreaturenarten aus fünf verschiedenen Gebieten mit Schicksalsfäden; Monster und Beyonder sind zulässig. Die Markierungen bleiben über Kapitel hinweg erhalten, ohne dass du zurückreisen musst. Schlafe ein und besiege alle fünf deutlich verstärkten Gegner gleichzeitig, ohne dich im Traum zu heilen. Auch dieser Weg endet mit dem Schwellenwächter; erst nach bestandener Abschlussprüfung und dem Erwachen folgt der Trank.",
     "regeln": [
       "Fünf verschiedene Kreaturen markieren.",
       "Jede Markierung aus einem anderen Gebiet.",
       "Markierungen bleiben über Kapitel bestehen.",
       "Alle fünf gleichzeitig im Traum besiegen.",
-      "Im Traum ist Heilung verboten."
+      "Im Traum ist Heilung verboten.",
+      "Der Schwellenwächter bleibt die Abschlussprüfung."
     ],
     "vorbereitung": [
       "Suche fünf verschiedene Gebiete auf.",
@@ -46,10 +48,9 @@
     "beginn": "Die Fäden ziehen an deinen Fingern. Im Schlaf werden fünf entfernte Schritte zu einem einzigen.",
     "erfolg": "Die Fäden lösen sich von deinem Handgelenk. Du erwachst, und die fünf Gesichter bleiben im Traum.",
     "fehlschlag": {
-      "niederlage": "Du unterliegst. Die Verdauung sinkt um {pct} %.",
-      "verstoss": "Du hast eine Regel gebrochen. Die Verdauung sinkt um {pct} %."
+      "niederlage": "Du verlierst den Halt im Traum; die Verdauung sinkt um {pct} %."
     },
-    "notizbuch": "Offen: Das Netz der fünf Träume. Fünf verschiedene Kreaturen markieren."
+    "notizbuch": "Markiere fünf Arten aus fünf Gebieten; die Fäden bleiben erhalten, auch wenn du weiterreist."
   },
   "s4r_maske": {
     "pfad": "maske",
@@ -57,27 +58,28 @@
     "sequenz_4": "Gesichtsvermieter",
     "name": "Das Gesicht ohne Gabe",
     "name_vorschlag": "Das Gesicht ohne Gabe",
-    "desc": "Nimm die Gestalt eines gewöhnlichen Zivilisten an. Fordere einen Beyonder ab Sequenz 5 heraus und besiege ihn ohne übernatürliche Fähigkeiten. Gewöhnliche Ausrüstung und Tränke sind erlaubt, Artefakte nicht. Verschone den Besiegten, damit sein Zweifel bleibt.",
+    "desc": "Verwandle dich in einen gewöhnlichen Zivilisten und fordere einen Beyonder der Sequenz 5 oder einer höheren Machtstufe heraus. Besiege ihn nur mit normalen Angriffen, gewöhnlicher Ausrüstung und erlaubten Tränken; deine Fähigkeiten und Artefakte sind verboten, seine Fähigkeiten bleiben erhalten. Verschone ihn, damit er dauerhaft an seinen Kräften zweifelt; Niederlage, sein Tod oder eine von dir benutzte Fähigkeit lassen die Prüfung scheitern. Danach bleibt der Schwellenwächter als Abschlussprüfung vor dem Trank.",
     "regeln": [
       "Zivilgestalt während der Prüfung.",
       "Gegner: Beyonder ab Sequenz 5.",
       "Keine Fähigkeiten und keine Artefakte.",
       "Normale Angriffe und Tränke erlaubt.",
-      "Gegner muss am Leben bleiben."
+      "Gegner muss am Leben bleiben.",
+      "Gegner behält Fähigkeiten; danach Abschluss beim Wächter."
     ],
     "vorbereitung": [
       "Lege alle Artefakte ab.",
       "Nimm gewöhnliche Ausrüstung und Tränke mit."
     ],
     "beginn": "Dein fremdes Gesicht sitzt ohne Widerstand. Die Herausforderung wird mit einer gewöhnlichen Stimme ausgesprochen.",
-    "erfolg": "Der Besiegte lebt und betrachtet seine Hände. Sein Vertrauen in die eigene Macht ist nicht zurückgekehrt.",
+    "erfolg": "Der Schwellenwächter gibt den Weg frei. Der verschonte Beyonder lebt mit seinem Zweifel weiter; du darfst den Trank der Sequenz 4 trinken.",
     "fehlschlag": {
-      "niederlage": "Du unterliegst. Die Verdauung sinkt um {pct} %.",
-      "gegner_tot": "Der Gegner wurde getötet. Die Verdauung sinkt um {pct} %.",
-      "faehigkeit_benutzt": "Du hast eine verbotene Fähigkeit benutzt. Die Verdauung sinkt um {pct} %.",
-      "verstoss": "Du hast eine Regel gebrochen. Die Verdauung sinkt um {pct} %."
+      "niederlage": "Dein gewöhnliches Gesicht liegt im Staub; die Verdauung sinkt um {pct} %.",
+      "gegner_tot": "Du hast den Gegner getötet und damit den nötigen Zweifel ausgelöscht; die Verdauung sinkt um {pct} %.",
+      "faehigkeit_benutzt": "Deine eigene Gabe hat die Zivilgestalt verraten; die Verdauung sinkt um {pct} %.",
+      "verstoss": "Ein Artefakt hat deine gewöhnlichen Mittel ersetzt; die Verdauung sinkt um {pct} %."
     },
-    "notizbuch": "Offen: Das Gesicht ohne Gabe. Zivilgestalt während der Prüfung."
+    "notizbuch": "Besiege den Beyonder ohne eigene Gabe und lass ihn leben; der Wächter steht noch aus."
   },
   "s4r_echo": {
     "pfad": "echo",
@@ -99,9 +101,9 @@
     "beginn": "Die Welt bewegt sich weiter, aber kein Laut erreicht dich. Selbst deine Schritte sind stumm.",
     "erfolg": "Die Lippen des Wächters bleiben still. Erst nach dem Ende kehrt der Klang der Welt zurück.",
     "fehlschlag": {
-      "niederlage": "Du unterliegst. Die Verdauung sinkt um {pct} %."
+      "niederlage": "Du siehst den Boden näher kommen und hörst den Aufprall nicht; die Verdauung sinkt um {pct} %."
     },
-    "notizbuch": "Offen: Die Welt ohne Klang. Vollständige Taubheit."
+    "notizbuch": "Drei Gegner und der Wächter: Verlasse dich auf Bewegungen, nicht auf Warnungen."
   },
   "s4r_kessel": {
     "pfad": "kessel",
@@ -121,12 +123,12 @@
       "Sammle Zutaten und zusätzliche Wurftränke."
     ],
     "beginn": "Der Kessel trägt fünf verschiedene Rückstände. Was du trinkst, wird zur einzigen Waffe.",
-    "erfolg": "Der letzte Rückstand ist verbraucht. Der Wächter liegt still, und der Kessel kühlt ab.",
+    "erfolg": "Die Trankwirkungen haben den Schwellenwächter bezwungen. Zwischen den kalten Flaschen ist Platz für den Trank der Sequenz 4.",
     "fehlschlag": {
-      "niederlage": "Du unterliegst. Die Verdauung sinkt um {pct} %.",
-      "verstoss": "Du hast eine Regel gebrochen. Die Verdauung sinkt um {pct} %."
+      "niederlage": "Die Wirkung deiner Sude reicht nicht aus; die Verdauung sinkt um {pct} %.",
+      "verstoss": "Du hast mit einem normalen Angriff oder einer offensiven Fähigkeit eingegriffen; die Verdauung sinkt um {pct} %."
     },
-    "notizbuch": "Offen: Die fünffache Essenz. Fünf Ritual-Tränke brauen und trinken."
+    "notizbuch": "Braue und trinke die fünf Ritual-Tränke; beim Wächter darf nur Trankwirkung schaden."
   },
   "s4r_eisen": {
     "pfad": "eisen",
@@ -139,7 +141,8 @@
       "Traglast mindestens 200 %.",
       "Ohne Rüstung, Helm und Amulett.",
       "Ausweichen verboten; Parieren und Heilung erlaubt.",
-      "Wächter stirbt frühestens in Runde 6."
+      "Wächter stirbt frühestens in Runde 6.",
+      "Bedingungen halten; Runde 1–5 schaden, nicht töten."
     ],
     "vorbereitung": [
       "Sammle mindestens fünf Artefakte.",
@@ -148,61 +151,62 @@
     "beginn": "Das Gewicht zieht deine Schultern nach unten. Direkt vor dir wird der Wächter sichtbar.",
     "erfolg": "Du stehst noch immer unter der Last. Erst jetzt gibt der Wächter den Weg frei.",
     "fehlschlag": {
-      "niederlage": "Du unterliegst. Die Verdauung sinkt um {pct} %.",
-      "verstoss": "Du hast eine Regel gebrochen. Die Verdauung sinkt um {pct} %."
+      "niederlage": "Du gehst unter der Last in die Knie; die Verdauung sinkt um {pct} %.",
+      "ausweichen": "Du bist ausgewichen und hast die Lastprüfung gebrochen; die Verdauung sinkt um {pct} %.",
+      "verstoss": "Artefakte, Traglast oder abgelegte Ausrüstung erfüllen die Bedingung nicht mehr; die Verdauung sinkt um {pct} %."
     },
-    "notizbuch": "Offen: Die Last des Halbgottes. Mindestens fünf Artefakte im Inventar."
+    "notizbuch": "Behalte Last und freie Ausrüstungsslots bis zum Sieg; der Wächter kann erst ab Runde 6 sterben."
   },
   "s4r_schluessel": {
     "pfad": "schluessel",
     "praefix": "s4sc_",
     "sequenz_4": "Schwellenlücke",
     "name": "Der Schatten ohne Körper",
-    "desc": "Trenne deinen Schatten vom Körper und steuere nur ihn; der Körper bleibt regungslos. Der Schatten besitzt 40 % Leben, keine Ausrüstung, keine Heilung und keine Parade. Seine Schattenattacke ist immer verfügbar und verursacht ungefähr 80 % Schaden; jede Runde erhält er genau eine zufällige eigene Fähigkeit. Besiege zwei Gegner und dann den Wächter; stirbt der Schatten, überlebt dein Körper.",
+    "desc": "Trenne deinen Schatten vom regunglos zurückbleibenden Körper und steuere ihn auf der Karte und im Kampf mit 40 % Leben. Er trägt keine Ausrüstung, kann weder heilen noch parieren, darf aber ausweichen. Die Schattenattacke bleibt immer verfügbar, kostet keine Nerven und verursacht etwa 80 % Normalschaden; zu Beginn jeder Runde kommt genau eine zufällige eigene Fähigkeit hinzu. Besiege zwei Gegner und danach den Schwellenwächter; stirbt der Schatten, scheitert das Ritual, doch dein Körper überlebt.",
     "regeln": [
       "Schatten: 40 % Leben, ohne Ausrüstung.",
       "Keine Heilung und kein Parieren.",
       "Ausweichen bleibt erlaubt.",
-      "Schattenattacke: etwa 80 % Schaden.",
-      "Pro Runde eine zufällige eigene Fähigkeit."
+      "Schattenattacke: etwa 80 % Schaden, keine Nerven.",
+      "Pro Runde eine zufällige eigene Fähigkeit.",
+      "Zwei Gegner, dann Wächter; dein Körper überlebt."
     ],
     "vorbereitung": [
       "Plane einen Kampf ohne Heilung.",
-      "Wähle einen sicheren Platz für den Körper."
+      "Verlasse dich auf die Schattenattacke, nicht auf eine bestimmte Zufallsfähigkeit."
     ],
     "beginn": "Dein Schatten löst sich vom Boden. Dein Körper bleibt stehen, als warte er auf eine verspätete Bewegung.",
     "erfolg": "Der Schatten findet den Weg zu deinen Füßen zurück. Deine Finger bewegen sich wieder.",
     "fehlschlag": {
-      "schatten_tot": "Dein Schatten zerfällt; dein Körper lebt. Die Verdauung sinkt um {pct} %.",
-      "verstoss": "Du hast eine Regel gebrochen. Die Verdauung sinkt um {pct} %."
+      "schatten_tot": "Dein Schatten zerfasert, während dein Körper weiteratmet; die Verdauung sinkt um {pct} %."
     },
-    "notizbuch": "Offen: Der Schatten ohne Körper. Schatten: 40 % Leben, ohne Ausrüstung."
+    "notizbuch": "Zwei Gegner und der Wächter warten auf deinen Schatten; Heilung und Parade bleiben gesperrt."
   },
   "s4r_sq_waage": {
     "pfad": "sq_waage",
     "praefix": "s4wa_",
     "sequenz_4": "Pfandkörper",
     "name": "Der Preis der Macht",
-    "desc": "Lege deinen gesamten Besitz ab; Inventar und Ausrüstung bleiben versiegelt. Wähle selbst, wie viel Schilling du in den geheimen Zirkel mitnimmst, und kaufe dort alle angebotenen Waren, gegebenenfalls auch die Formel für 4000 Schilling. Der Zirkel ändert sein Angebot nicht für das Ritual. Besiege den Wächter nur mit dem Gekauften; Fähigkeiten sind erlaubt.",
+    "desc": "Lege deinen gesamten Besitz im versiegelten Lager ab und betrete einen geheimen Zirkel mit leerem Inventar, ohne Ausrüstung und mit selbst gewähltem Kapital. Kaufe alle angebotenen Waren, auch eine etwaige Sequenz-4-Formel für 4000 Schilling; das Ritual verändert weder Zirkel noch Angebot, und den Geldbedarf schätzt du selbst. Nach dem letzten Kauf erscheint der Schwellenwächter, den du nur mit dort Gekauftem und deinen erlaubten Fähigkeiten besiegen darfst. Zu wenig Kapital oder eine Niederlage lassen das Ritual scheitern; du darfst es wiederholen.",
     "regeln": [
       "Inventar und Ausrüstung vollständig leer.",
       "Kapital vor dem Eintritt selbst wählen.",
       "Alle angebotenen Waren kaufen.",
       "Formel kann 4000 Schilling kosten.",
-      "Im Kampf nur dort Gekauftes verwenden."
+      "Im Kampf nur dort Gekauftes verwenden.",
+      "Fähigkeiten erlaubt; Angebot bleibt unverändert."
     ],
     "vorbereitung": [
       "Spare genügend Schilling; den Bedarf schätzt du.",
       "Lege vor dem Eintritt sämtlichen Besitz ab."
     ],
-    "beginn": "Die Lagerklappe fällt hinter deinem Besitz zu. Im Zirkel zählt nur, was du selbst mitgebracht hast.",
+    "beginn": "Das Siegel schließt sich über deinem eingelagerten Besitz. Du zählst das gewählte Kapital noch einmal; die Händler räumen für dich nichts vom Tisch.",
     "erfolg": "Die letzte Ware ist bezahlt und die Prüfung bestanden. Dein versiegelter Besitz wird wieder freigegeben.",
     "fehlschlag": {
-      "zu_wenig_kapital": "Dein Kapital reicht nicht für alle Waren. Die Verdauung sinkt um {pct} %.",
-      "niederlage": "Du unterliegst. Die Verdauung sinkt um {pct} %.",
-      "verstoss": "Du hast eine Regel gebrochen. Die Verdauung sinkt um {pct} %."
+      "zu_wenig_kapital": "Eine Ware bleibt unbezahlt, weil dein gewähltes Kapital nicht reicht; die Verdauung sinkt um {pct} %.",
+      "niederlage": "Du unterliegst dem Wächter mit deinen Einkäufen; die Verdauung sinkt um {pct} %."
     },
-    "notizbuch": "Offen: Der Preis der Macht. Inventar und Ausrüstung vollständig leer."
+    "notizbuch": "Schätze dein Kapital selbst und kaufe alles; im Kampf zählt nur dort Gekauftes."
   },
   "s4r_sq_moor": {
     "pfad": "sq_moor",
@@ -224,11 +228,11 @@
     "beginn": "Fünf Dinge verlieren ihre alte Form im Moor. Was übrig bleibt, hält sich in deiner Hand zusammen.",
     "erfolg": "Das neue Relikt ist nicht mehr warm. Du behältst es, als der Wächter verschwindet.",
     "fehlschlag": {
-      "niederlage": "Du unterliegst. Die Verdauung sinkt um {pct} %.",
-      "moorwasser_leer": "Du hast kein Moorwasser mehr. Die Verdauung sinkt um {pct} %.",
-      "verstoss": "Du hast eine Regel gebrochen. Die Verdauung sinkt um {pct} %."
+      "niederlage": "Du sinkst mit dem neuen Relikt vor dem Wächter nieder; die Verdauung sinkt um {pct} %.",
+      "moorwasser_leer": "Für diese Runde fehlt dir eine Flasche Moorwasser; die Verdauung sinkt um {pct} %.",
+      "verstoss": "Du hast die Zersetzungs-, Relikt- oder Trinkregel gebrochen; die Verdauung sinkt um {pct} %."
     },
-    "notizbuch": "Offen: Das Relikt des Verfalls. Fünf okkulte oder sehr seltene Gegenstände."
+    "notizbuch": "Forme das Relikt aus fünf geeigneten Gegenständen und halte Moorwasser für jede Runde bereit."
   },
   "s4r_sq_uhr": {
     "pfad": "sq_uhr",
@@ -250,10 +254,12 @@
     "beginn": "Die erste Bewegung gehört dem Gegner. Du wartest auf den Augenblick, der keine Korrektur duldet.",
     "erfolg": "Die Uhr setzt ihren gewöhnlichen Gang fort. Du hast den Zwischenraum getroffen.",
     "fehlschlag": {
-      "niederlage": "Du unterliegst. Die Verdauung sinkt um {pct} %.",
-      "zu_viele_fehler": "Ein Ausweichfehler zu viel. Die Verdauung sinkt um {pct} %.",
-      "verstoss": "Du hast eine Regel gebrochen. Die Verdauung sinkt um {pct} %."
+      "niederlage": "Du hältst dem nächsten Angriff nicht stand; die Verdauung sinkt um {pct} %.",
+      "vorpruefung_fehler": "Du bist einem Monster nicht perfekt ausgewichen; die Verdauung sinkt um {pct} %.",
+      "zu_viele_fehler": "Dein vierter Ausweichfehler beim Wächter beendet die Prüfung; die Verdauung sinkt um {pct} %.",
+      "gegner_ohne_angriff": "Du hast ein Monster besiegt, bevor es angreifen konnte; die Verdauung sinkt um {pct} %.",
+      "verstoss": "Du hast pariert und damit die Augenblicksprüfung gebrochen; die Verdauung sinkt um {pct} %."
     },
-    "notizbuch": "Offen: Der perfekte Augenblick. Drei Monster müssen je einmal angreifen."
+    "notizbuch": "Lass jedes Monster angreifen und weiche perfekt aus; beim Wächter scheitert der vierte Fehler."
   }
 }
