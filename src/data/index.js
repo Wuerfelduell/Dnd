@@ -458,6 +458,18 @@ const runde8 = runde8Packs({
   kg_leben: { quests: r8_kg_leben_quests, items: r8_kg_leben_items, encounters: r8_kg_leben_encounters, dialogues: r8_kg_leben_dialogues, npcs: r8_kg_leben_npcs, case: r8_kg_leben_case, dialog_zusaetze: r8_kg_leben_dialog_zusaetze, platzierung: r8_kg_leben_platzierung, einwohner: r8_kg_leben_einwohner, leben: r8_kg_leben_leben, gerede: r8_kg_leben_gerede, zeitung: r8_kg_leben_zeitung, geplauder: r8_kg_leben_geplauder, streifen: r8_kg_leben_streifen },
 });
 import { fasserinAuftragPack, halbgottPack } from './runde9.js';
+import { erfolgePack, postPack } from './runde10.js';
+import { benanntePack } from './benannte.js';
+import bn_gegner from './packs/benannte_gegner/gegner.json';
+import bn_bestiarium from './packs/benannte_gegner/bestiarium.json';
+import bn_auftritt from './packs/benannte_gegner/auftritt.json';
+import bn_beute from './packs/benannte_gegner/beute.json';
+import post_briefe from './packs/post/briefe.json';
+import post_beilagen from './packs/post/beilagen.json';
+import post_post from './packs/post/post.json';
+import erf_erfolge from './packs/erfolge/erfolge.json';
+import erf_bedingungen from './packs/erfolge/bedingungen.json';
+import erf_meldungen from './packs/erfolge/meldungen.json';
 import fa_oda from './packs/fasserin_auftrag/oda.json';
 import fa_gastgeber from './packs/fasserin_auftrag/gastgeber.json';
 import fa_texte from './packs/fasserin_auftrag/texte.json';
@@ -516,7 +528,7 @@ export const content = buildContent({
   gatherings,
   city,
   wexmoor,
-  packs: [k1Finale, kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen, k3Handel, dunscarZirkelPack(), k3Leben, koopK3, koopBeute, k3Ruf, beziehungenPack, fasserinPack, fasserinAuftrag, halbgott, festePack, sektenPack, seq4Dr, ...runde8],
+  packs: [k1Finale, kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen, k3Handel, dunscarZirkelPack(), k3Leben, koopK3, koopBeute, k3Ruf, beziehungenPack, fasserinPack, fasserinAuftrag, halbgott, festePack, sektenPack, seq4Dr, erfolgePack({ erfolge: erf_erfolge, bedingungen: erf_bedingungen, meldungen: erf_meldungen }), postPack({ briefe: post_briefe, beilagen: post_beilagen, post: post_post }), benanntePack({ gegner: bn_gegner, bestiarium: bn_bestiarium, auftritt: bn_auftritt, beute: bn_beute }), ...runde8],
   lore: { bestiarium: lore_bestiarium, gerede: lore_gerede, item_texte: lore_item_texte, lesestuecke: lore_lesestuecke, zeitungen: lore_zeitungen },
   beziehungen,
   sequenzen: { neue_pfade: sq_neue_pfade, seq_4_bis_1: sq_seq_4_bis_1, zutaten: sq_zutaten, artefakte: sq_artefakte, rituale: k3p_rituale, faehigkeiten: sq_faehigkeiten },

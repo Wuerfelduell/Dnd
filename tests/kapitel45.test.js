@@ -25,7 +25,7 @@ test('Vorrat BH: zehn Gefahrengebiete tragen Gegner, Eliten, Bosse und Beute aus
     assert.ok(content.travel.some((t) => t.map === zid), `${zid}: Reiseziel`);
     assert.ok(map.roamers.length >= 2, `${zid}: Streifen`);
     const [sx, sy] = map.spawns.default;
-    for (const r of map.roamers) {
+    for (const r of map.roamers.filter((x) => !x.bn)) { // DJ: benannte Gegner prüft benannte.test.js
       const e = content.encounters[r.encounter];
       assert.ok(e?.wild && e.chapter >= 4 && e.zone, `${zid}: ${r.encounter}`);
       assert.ok(WALK.has(map.rows[r.tile[1]][r.tile[0]]), `${zid}: ${r.encounter} steht auf ${map.rows[r.tile[1]][r.tile[0]]}`);

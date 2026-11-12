@@ -14,6 +14,8 @@ import { applySchmuggel } from './schmuggel.js';
 import { applyAltbeute } from './altbeute.js';
 import { applyDunscarHaendler } from './dunscarHaendler.js';
 import { applyDunscarKulisse } from './dunscarKulisse.js';
+import { applyBenannte } from './benannte.js';
+import { applyDunscarSchlacke } from './dunscarSchlacke.js';
 import { applyHaendlerAbgleich } from './haendlerAbgleich.js';
 // Fügt alle Inhaltsdateien zu einem Objekt zusammen (ohne JSON-Imports, damit Node-Tests es nutzen können).
 // Hinweise, Informationen, Schlussfolgerungen und Dialoge teilen sich jeweils einen Namensraum über alle Fälle.
@@ -95,9 +97,11 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyMoods(content); // Paket AK: Stimmungen für Schlüsselstellen
   applyRelations(content, beziehungen, packs); // Beziehungen: Regeln, Vorlieben, Knoten-Wirkungen
   applyDunscarHaendler(content); // Dunscar: Waffen, Kleidung, Kräuter und Ankauf am Kalkmarkt (kein Zurück in alte Städte)
+  applyBenannte(content); // Codex DJ: benannte Gegner auf den Grundgegnern, nachts in ihren Gebieten
   applyAltbeute(content); // Wexmoor-Monster tragen ab und zu Kettlegater Beute (kein Zurück dorthin)
   applyDunscarGebietsbosse(content); // Dunscar: je Gefahrengebiet ein frei stehender Gebietsboss wie in Wexmoor
   applyDunscarDichte(content); // Dunscar-Gefahrengebiete so dicht besetzt wie Wexmoor (vorher nur 3–4 Gegner)
+  applyDunscarSchlacke(content); // Dunscar: Schlackengrube (Stufe 7) mit harten Farmgegnern, Mittelbossen und reicher Beute
   applyDunscarGeld(content); // Dunscar zahlt mehr als Wexmoor: Gegnergeld und Kopfgelder
   applyDunscarBeute(content); // Dunscar-Beute 3–5× so viel wert wie in Wexmoor
   applyHaendlerAbgleich(content); // Händler aller Gebiete: Stärke und Preise je Gebiet, alte Stücke auch später
@@ -120,6 +124,15 @@ function withPackLore(content, pack) {
   // Codex-Runde 9: Textvorräte für Halbgott/Engel (CP) und die Fasserin-Aufträge (CR) liegen als Ganzes im Inhalt
   if (pack.halbgott) content.halbgott = pack.halbgott;
   if (pack.fasserin_auftrag) content.fasserinAuftrag = pack.fasserin_auftrag;
+  if (pack.erfolge) content.erfolge = pack.erfolge; // Codex DL: Akte des Ermittlers
+  if (pack.benannte) content.benannte = pack.benannte; // Codex DJ: benannte Gegner (Aufbau in applyBenannte)
+  if (pack.post) { // Codex DI: Briefe; Beilagen als Andenken (nicht handelbar), vorhandene Items bleiben wie sie sind
+    content.post = pack.post;
+    for (const b of pack.post.beilagen) {
+      if (content.items[b.id] || b.kind === 'currency') continue;
+      content.items[b.id] = { name: b.name, desc: b.text, weight: b.gewicht ?? 0, price: 0, kind: 'key', post: true };
+    }
+  }
 }
 
 /** Lesestück ohne feste Kachel (`spawn_offset`): neben dem Standard-Spawn seiner Karte; ohne Karte entfällt es. */

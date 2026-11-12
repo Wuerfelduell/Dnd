@@ -15,7 +15,7 @@ import {
   itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, moneyIconUrl, UI_SKINS, UI_SHEETS, UI_REGIONS, DAMAGE_FONT, STATUS_ICONS, STATUS_ICONS_URL,
   portraitUrl, portraitFor, AK_FIGURES, P2_LOOKS, P2_CHOICE_URL, p2HeadUrl, p2PortraitUrl, KOOP2_TRENNUNG_URL, festBannerUrl, mapMarkerOf, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
   endingImageUrl, caseFileUrl, sceneUrl, wantedUrl, wantedSingle, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
-  TURN_PORTRAITS, TURN_PORTRAITS_URL, TURN_PORTRAIT_URLS, BESTIARY, bestiaryUrl, TITLE_LAYERS,
+  TURN_PORTRAITS, TURN_PORTRAITS_URL, TURN_PORTRAIT_URLS, BESTIARY, bestiaryUrl, TITLE_LAYERS, dmTitleLayers, spielstandUrl, ladenUrl,
   headUrl, ritualCardUrl, ZIRKEL_URL, ZIRKEL_ICONS, AUKTION_URL, AUKTION_REGIONS, LONER_UI_URL, LONER_UI, LONER_SEALS, S_ZIRKEL_URL, S_ZIRKEL, skillIconOf, talentIconOf, PULSE_ICONS, ARTIFACT_UI_URL, sourceKind, sourceKindUrl, inspectUrl, RISK_ICONS, RISK_ICONS_URL, JOURNAL_FRAME, JOURNAL_FRAME_URL, choiceRisk, riskOf,
   factionEmblemUrl, PLACE_PICTURES, TRAVEL_MODES_URL, TRAVEL_MODE_ICONS, TRAVEL_MARKER_URL,
   DANGER_URL, DANGER_ICONS, DANGER_BANNER, RARITY_SHEET, RARITY_SHEET_URL, RARITY_GEMS, reliktIcon, SEQ4_RITUAL_ICONS,
@@ -286,6 +286,13 @@ const damageDigits = (text, row, k) => [...text].map((ch) => {
   const r = DAMAGE_FONT.rows[row];
   return i < 0 ? '' : regionIcon(SPRITE_BASE + UI_SHEETS.dmg[0], [i * 8, r * 10, 8, 10], 96, 50, 'glyph', k);
 }).join('');
+/** Codex DL: Erfolgs-Icon (Atlas 10x8, 16px; offen = graue Prägung) und Gruppensymbole. */
+const ERF_GRUPPEN = { faelle: 'Fälle und Kapitel', sequenzen: 'Sequenzen', zirkel: 'Zirkel und Beziehungen', welt: 'Welt', kampf: 'Kampf', koop: 'Koop', kuriositaeten: 'Kuriositäten' };
+const erfIcon = (index, frei, k = 1 / 8, cls = '') => regionIcon(`${SPRITE_BASE}ui/erfolge_icons${frei ? '' : '_offen'}.png`, [(index % 10) * 16, Math.floor(index / 10) * 16, 16, 16], 160, 128, `erfico ${cls}`, k);
+const erfSymbol = (name, k = 1 / 16, title = '') => {
+  const i = ['faelle', 'sequenzen', 'zirkel', 'welt', 'kampf', 'koop', 'kuriositaeten', 'versteckt', 'neu'].indexOf(name);
+  return i < 0 ? '' : regionIcon(`${SPRITE_BASE}ui/erfolge_symbole.png`, [i * 16, 0, 16, 16], 144, 16, 'erfsym', k, title);
+};
 /**
  * Ausschnitte für 9-Slice-Rahmen und Zeiger: werden einmal auf ein Canvas kopiert und als CSS-Variable gesetzt
  * (border-image braucht ein eigenes Bild). Lädt ein Bogen nicht, bleibt der bisherige Rahmen.
@@ -319,7 +326,7 @@ function cropSkins(root) {
   }
 }
 /** Notizbuch-Reiter → Symbol aus 07_03_icons.png (Fallakten: Lupe). */
-const TAB_ICONS = { quests: 'ausruf', items: 'schluessel', pfad: 'auge', personen: 'sprechen', bestiar: 'spuren', archiv: 'notebook', kulte: 'spuren' };
+const TAB_ICONS = { erfolge: 'notebook', quests: 'ausruf', items: 'schluessel', pfad: 'auge', personen: 'sprechen', bestiar: 'spuren', archiv: 'notebook', kulte: 'spuren' };
 const pctStep = (frac, n) => Math.max(0, Math.min(n - 1, Math.round((1 - Math.max(0, Math.min(1, frac))) * (n - 1))));
 const moneyIcon = (n) => `<img class="coin" src="${moneyIconUrl(n)}" alt="" width="16" height="16" onerror="this.remove()">`;
 /** Beute als Liste mit Icon, Anzahl und Seltenheit (Farbe). */
@@ -424,6 +431,8 @@ export class Ui {
     state.on('vision', (on) => root.classList.toggle('vision', on));
     state.on('notice', (t) => { this.toast(t, 'warn'); if (/^Zu schwer/.test(t)) this.sfx(uiSound('notebook', 'heavy')); });
     state.on('clue', (id) => this.toast(`Neuer Hinweis: ${state.clue(id).name}`));
+    // Codex DL: neuer Erfolg – Einblendung mit Icon (still nachgetragene melden sich nicht)
+    state.on('erfolg', (def) => { this.toast(state.erfolgMeldung(def), 'gold erfolg'); this.$('.toasts')?.lastElementChild?.insertAdjacentHTML('afterbegin', erfIcon(def.index, true, 1 / 8, 'toastico')); });
     state.on('cross', ({ fact, case: c }) => {
       const title = state.content.cases.find((x) => x.id === c)?.title.split(':')[0] ?? 'einem anderen Fall';
       this.toast(`Querverbindung: „${state.fact(fact).text}“ gehört auch zu ${title}`, 'gold');
@@ -1044,6 +1053,10 @@ export class Ui {
   showTitle() {
     const c = this.state.content;
     const save = this.hasSave();
+    // Codex DM: Stadt des Spielstands (Titelbild des Kapitels und Spielstand-Karte)
+    const saved = save ? (() => { try { return JSON.parse(localStorage.getItem('nebelakten-save') ?? 'null'); } catch { return null; } })() : null;
+    const city = saved?.map ? (c.maps[saved.map]?.city ?? 'kettlegate') : null;
+    const card = city && spielstandUrl(city) ? `<div class="savecard"><img src="${spielstandUrl(city)}" alt="" onerror="this.parentNode.remove()"><span>${esc(c.maps[saved.map]?.name ?? '')}</span></div>` : '';
     const el = this.open('title', `
       <h1>${esc(c.title)}</h1>
       <h2>Ein Mystery in Kettlegate</h2>
@@ -1063,12 +1076,13 @@ export class Ui {
         <div><span class="key">J</span> Notizbuch: Aufträge, Quellen, Schlussfolgerungen</div>
         <div><span class="key">Esc</span> Menü: Spieler 2 hinzufügen oder entfernen</div>
       </div>
+      ${card}
       <div class="actions center">
         ${save ? '<button class="primary" data-act="continue">Fortsetzen <span class="key">E</span></button>' : ''}
         <button class="${save ? '' : 'primary'}" data-act="new">Neues Spiel ${save ? '<span class="key">N</span>' : '<span class="key">E</span>'}</button>
         <button data-act="fullscreen">${this.fullscreenLabel()}</button>
       </div>`, 'title');
-    this.titleScene();
+    this.titleScene(dmTitleLayers(city, { warm: /__warm$/.test(saved?.map ?? '') }) ?? TITLE_LAYERS);
     el.querySelector('[data-act=fullscreen]').onclick = () => this.toggleFullscreen();
     this.titleContinue = save ? () => { this.close(); this.onContinue(); } : null;
     this.titleNew = () => {
@@ -1084,14 +1098,14 @@ export class Ui {
    * Paket AE: Titelbild in Ebenen hinter dem Titelfenster. Mond, Fenster, Laterne und Regen laufen als Streifen,
    * der Nebel zieht langsam, und die Häuser verschieben sich leicht mit der Maus (Parallax).
    */
-  titleScene() {
+  titleScene(layers = TITLE_LAYERS) {
     const box = (l) => (l.box ? `left:${(l.box[0] / 480) * 100}%;top:${(l.box[1] / 270) * 100}%;width:${(l.box[2] / 480) * 100}%;height:${(l.box[3] / 270) * 100}%;right:auto;bottom:auto` : '');
     const layer = (l) => `<div class="tl${l.depth ? ` d${l.depth}` : ''}" style="${box(l)}">${l.drift
       ? `<div class="drift" style="animation-duration:${l.drift}s"><img src="${l.url}" alt=""><img src="${l.url}" alt=""></div>`
       : `<img src="${l.url}" alt="" class="${l.frames ? `f${l.frames}` : ''}" style="${l.frames ? `width:${l.frames * 100}%;animation-duration:${l.sec}s` : ''}">`}</div>`;
     const scene = document.createElement('div');
     scene.className = 'titlescene';
-    scene.innerHTML = TITLE_LAYERS.map(layer).join('');
+    scene.innerHTML = layers.map(layer).join('');
     // Fehlt eine Ebene, bleibt das alte Titelbild sichtbar
     scene.querySelector('img')?.addEventListener('load', () => this.layer.classList.add('has-titlescene'), { once: true });
     this.layer.prepend(scene);
@@ -1099,6 +1113,18 @@ export class Ui {
       const r = this.layer.getBoundingClientRect();
       scene.style.setProperty('--px', ((e.clientX - r.left) / r.width - 0.5).toFixed(3));
     };
+  }
+
+  /** Codex DM: Ladebild der Zielstadt beim Stadtwechsel (kurz über dem Abblenden). */
+  showLoading(city) {
+    const url = ladenUrl(city, Math.floor(Math.random() * 3));
+    if (!url) return;
+    const el = document.createElement('div');
+    el.className = 'ladebild';
+    el.innerHTML = `<img src="${url}" alt="" onerror="this.parentNode.remove()">`;
+    (this.layer.parentNode ?? this.layer).appendChild(el); // neben dem Fensterlayer, damit ein neues Fenster es nicht löscht
+    setTimeout(() => el.classList.add('out'), 1400);
+    setTimeout(() => el.remove(), 1900);
   }
 
   /** Dialogportrait als HTML (z. B. für Meldungen außerhalb von Gesprächen). */
@@ -1654,10 +1680,11 @@ export class Ui {
     const cases = all.filter((c) => !solved.includes(c));
     const beasts = this.knownBeasts();
     const papers = this.state.paperArchive();
-    const fixed = ['quests', 'items', 'pfad', 'personen', 'kulte', 'bestiar', 'zeitung', 'archiv'];
+    const fixed = ['quests', 'items', 'pfad', 'personen', 'kulte', 'bestiar', 'zeitung', 'archiv', 'erfolge', 'post'];
     if (this.tab === 'kulte' && !this.state.sektenFrei?.()) this.tab = 'quests';
     if (this.tab === 'zeitung' && !papers.length) this.tab = 'quests';
     if (this.tab === 'archiv' && !solved.length) this.tab = 'quests';
+    if (this.tab === 'post' && !this.state.post?.fach.length) this.tab = 'quests';
     if (this.tab === 'bestiar' && !beasts.length) this.tab = 'quests';
     // Ein gelöster Fall wird im Archiv geöffnet
     if (solved.some((c) => c.id === this.tab)) { this.archiveCase = this.tab; this.tab = 'archiv'; }
@@ -1667,11 +1694,13 @@ export class Ui {
       ...(this.state.sektenFrei?.() ? [{ id: 'kulte', title: 'Kulte' }] : []), // BQ: Umtriebe der drei Sekten
       ...(beasts.length ? [{ id: 'bestiar', title: 'Bestiarium' }] : []),
       ...(papers.length ? [{ id: 'zeitung', title: 'Zeitung' }] : []),
-      ...cases.map((c) => ({ id: c.id, title: c.title.replace(/:.*/, '') })), ...(solved.length ? [{ id: 'archiv', title: `Archiv (${solved.length})` }] : [])];
+      ...cases.map((c) => ({ id: c.id, title: c.title.replace(/:.*/, '') })), ...(solved.length ? [{ id: 'archiv', title: `Archiv (${solved.length})` }] : []),
+      ...(this.state.post?.fach.length ? [{ id: 'post', title: `Post${this.state.postUngelesen() ? ` (${this.state.postUngelesen()})` : ''}` }] : []), // Codex DI
+      ...(this.state.erfolgeDefs().length ? [{ id: 'erfolge', title: 'Akte' }] : [])]; // Codex DL
     const caseId = this.currentCase();
     const body = this.tab === 'quests' ? this.questsHtml() + this.signalJournalHtml() : this.tab === 'items' ? this.itemsHtml() : this.tab === 'pfad' ? this.pathwayTabHtml()
       : this.tab === 'personen' ? this.peopleHtml() : this.tab === 'kulte' ? this.kulteHtml() : this.tab === 'bestiar' ? this.bestiaryHtml(beasts) : this.tab === 'zeitung' ? this.papersHtml(papers)
-      : this.tab === 'archiv' ? this.archiveHtml(solved) : this.caseHtml(this.tab);
+      : this.tab === 'archiv' ? this.archiveHtml(solved) : this.tab === 'erfolge' ? this.erfolgeHtml() : this.tab === 'post' ? this.postHtml() : this.caseHtml(this.tab);
     const isCase = !!caseId;
     const el = this.open('notebook', `
       <div class="tabs">${tabs.map((t, i) => `<button class="tab ${t.id === this.tab ? 'sel' : ''}" data-tab="${t.id}"><span class="key">${i + 1}</span> ${uiSprite('icons', TAB_ICONS[t.id] ?? 'lupe', 1 / 16, 'tabico')}${esc(t.title)}</button>`).join('')}
@@ -1702,6 +1731,10 @@ export class Ui {
     }; });
     el.querySelector('[data-act=quests]')?.addEventListener('click', () => { this.sfx(uiSound('notebook', 'page')); this.forgetScroll(); this.openNotebook('quests'); });
     el.querySelectorAll('[data-archive]').forEach((b) => { b.onclick = () => { this.sfx(uiSound('notebook', 'page')); this.archiveCase = b.dataset.archive; this.selected = []; this.forgetScroll(); this.renderNotebook(''); }; });
+    // Codex DI: Briefe öffnen, beantworten, Beilage nehmen
+    el.querySelectorAll('[data-brief]').forEach((b) => { b.onclick = () => { this.sfx(uiSound('notebook', 'page')); this.postOpen = b.dataset.brief; this.state.postLesen(b.dataset.brief); this.renderNotebook(''); }; });
+    el.querySelectorAll('[data-antwort]').forEach((b) => { b.onclick = () => { const [id, i] = b.dataset.antwort.split('|'); this.renderNotebook(esc(this.state.postAntworten(id, Number(i)).text)); }; });
+    el.querySelectorAll('[data-beilage]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(this.state.postBeilage(b.dataset.beilage).text)); });
     el.querySelector('[data-act=combine]')?.addEventListener('click', () => this.combine());
     el.querySelector('[data-act=autocombine]')?.addEventListener('click', () => this.autoCombine());
     const inv = (fn) => this.as(fn, this.tab === 'items' || this.tab === 'pfad' ? this.invPlayer : 1);
@@ -1820,6 +1853,49 @@ export class Ui {
     const lore = this.state.content.bestiaryTexts ?? {};
     const extra = Object.keys(encounters).filter((id) => !id.endsWith('_elite') && !BESTIARY.includes(id) && (hasLoot(id) || lore[id]));
     return [...BESTIARY, ...extra].filter((id) => encounters[id] && won(id));
+  }
+
+  /** Codex DI: Postfach – links die Briefe (neueste oben), rechts der geöffnete mit Antworten und Beilage. */
+  postHtml() {
+    const st = this.state;
+    const fach = st.postFach();
+    if (!fach.some((f) => f.id === this.postOpen)) this.postOpen = fach.find((f) => !f.gelesen)?.id ?? fach[0]?.id;
+    const list = fach.map((f) => {
+      const b = st.postBrief(f.id);
+      return `<li class="${f.id === this.postOpen ? 'sel' : ''} ${f.gelesen ? '' : 'neu'}" data-brief="${f.id}"><b>${esc(b.betreff)}</b><br><span class="dim">${esc(st.postAbsender(b))}${f.gelesen ? '' : ' · ungelesen'}${f.antwort === null && f.gelesen ? ' · Antwort offen' : ''}</span></li>`;
+    }).join('');
+    const f = fach.find((x) => x.id === this.postOpen);
+    const b = f && st.postBrief(f.id);
+    const brief = !b ? '' : `<div class="postbrief"><h3>${esc(b.betreff)}</h3><p class="dim">Von ${esc(st.postAbsender(b))}${b.absendeort ? `, ${esc(b.absendeort)}` : ''}</p>
+      ${st.postText(f.id).split(/\n\n/).map((t) => `<p>${esc(t)}</p>`).join('')}
+      ${f.beilage === false ? `<button data-beilage="${f.id}">Beilage nehmen</button>` : f.beilage ? '<p class="dim">Beilage genommen.</p>' : ''}
+      ${f.antwort === null ? (b.antworten ?? []).map((a, i) => `<button class="antwort" data-antwort="${f.id}|${i}">${esc(a.text)}</button>`).join('')
+        : `<p class="dim">Deine Antwort: „${esc(b.antworten?.[f.antwort]?.text ?? '')}“</p><p class="dim">${esc(b.antworten?.[f.antwort]?.abschluss_text ?? '')}</p>`}</div>`;
+    const tipp = st.postDaten()?.post?.notizbuch?.[0]?.text;
+    return `<div class="postfach"><ul class="postliste">${list}</ul>${brief}</div>${tipp ? `<p class="dim">Pro Spieltag kommen höchstens zwei neue Briefe. Lesen und Antworten geht von überall.</p>` : ''}`;
+  }
+
+  /** Codex DL: „Akte des Ermittlers“ – alle 80 Vermerke nach Gruppen, offene in grauer Prägung. */
+  erfolgeHtml() {
+    const st = this.state;
+    st.checkErfolge();
+    const neu = new Set(st.erfolgeProfil().neu);
+    const defs = st.erfolgeDefs();
+    const frei = defs.filter((d) => st.erfolgFrei(d.id)).length;
+    const rows = Object.entries(ERF_GRUPPEN).map(([g, title]) => {
+      const list = defs.filter((d) => d.gruppe === g);
+      if (!list.length) return '';
+      return `<h3 class="erfgruppe">${erfSymbol(g)} ${esc(title)} <span class="dim">${list.filter((d) => st.erfolgFrei(d.id)).length}/${list.length}</span></h3>
+        <ul class="erfliste">${list.map((d) => {
+          const ok = st.erfolgFrei(d.id);
+          const text = !ok && d.versteckt ? 'Vermerk noch versiegelt.' : d.text;
+          const hint = ok ? '' : st.erfolgMessbar(d) ? '' : ' <span class="dim">(noch nicht im Spiel)</span>';
+          return `<li class="erf ${ok ? 'frei' : 'offen'}">${erfIcon(d.index, ok, 1 / 8)}<div><b>${esc(d.name)}</b>${neu.has(d.id) ? ` ${erfSymbol('neu', 1 / 16, 'neu')}` : ''}${!ok && d.versteckt ? ` ${erfSymbol('versteckt', 1 / 16, 'versteckt')}` : ''}${d.koop ? ' <span class="dim">· Koop</span>' : ''}
+            <div class="dim">${esc(text)}${hint}</div></div>${ok ? '<span class="erfstempel" title="erfüllt">✓</span>' : ''}</li>`;
+        }).join('')}</ul>`;
+    }).join('');
+    st.erfolgeGesehen();
+    return `<div class="erfakte"><p><b>Akte des Ermittlers</b> · ${frei}/${defs.length}</p>${st.erfolgeSeitentext().map((t) => `<p class="dim">${esc(t)}</p>`).join('')}${rows}</div>`;
   }
 
   bestiaryHtml(ids) {

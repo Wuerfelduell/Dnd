@@ -41,10 +41,12 @@ export class Roamers {
     for (const def of defs) {
       if (def.boss && !def.respawn && this.state.flags.has(`won_${def.encounter}`)) continue; // Bosse bleiben besiegt (Gebietsbosse mit `respawn` kommen wieder)
       if (festplatz && encs[def.encounter]?.city && !def.boss) continue;
-      if (def.visible_if && !this.state.meets(def.visible_if)) continue; // Stadtgegner: erst ab einem Fall, Kopfgeld-Ziele nur mit Auftrag
+      if (def.visible_if && !this.state.meets(def.visible_if)) continue;
+      if (def.bn && !this.state.bnErscheint?.(def.encounter, s.mapDef.id)) continue; // Codex DJ: benannte Gegner nur nachts, ab Seq 6, 10 % je Tag // Stadtgegner: erst ab einem Fall, Kopfgeld-Ziele nur mit Auftrag
       const eliteId = `${def.encounter}_elite`;
-      const elite = !def.boss && !!encs[eliteId] && Math.random() < (def.elite_chance ?? s.mapDef.elite_chance ?? ELITE_CHANCE);
-      const id = elite ? eliteId : def.encounter;
+      // Gegner, die schon in den Daten Elite sind (Schlackengrube), gelten immer als Elite
+      const elite = !def.boss && !def.bn && (!!encs[def.encounter]?.elite || (!!encs[eliteId] && Math.random() < (def.elite_chance ?? s.mapDef.elite_chance ?? ELITE_CHANCE)));
+      const id = elite && encs[eliteId] ? eliteId : def.encounter;
       const enc = encs[id];
       if (!enc) throw new Error(`Unbekannter Gegner auf ${s.mapDef.id}: ${id}`);
       const [tx, ty] = def.tile;
@@ -56,7 +58,7 @@ export class Roamers {
       s.physics.add.collider(body, s.groundLayer);
       s.physics.add.collider(body, s.blockers);
       const r = {
-        def, id, enc, body, elite, boss: !!def.boss, alive: true,
+        def, id, enc, body, elite: elite || !!enc.benannt, boss: !!def.boss, alive: true,
         home: { x, y }, mode: 'wander', target: null, wait: Math.random() * 1500, stunUntil: 0, noticed: false,
         roam: enc.roam ?? {}, phase: Math.random() * 6, lastPos: { x, y }, stuck: 0,
       };
@@ -73,7 +75,7 @@ export class Roamers {
       r.light = s.lighting.add({ follow: r.sprite, offsetY: -r.sprite.displayHeight * 0.5, radius: r.boss ? 56 : r.elite ? 34 : 26, intensity: r.boss ? 0.6 : 0.42,
         color, glowAlpha: r.elite || r.boss ? 0.4 : 0.25, flicker: 0.25, active: () => r.alive });
       if (r.elite || r.boss) {
-        r.label = s.add.text(x, y - 34, r.boss ? `☠ ${enc.name}` : `★ ${enc.name}`, {
+        r.label = s.add.text(x, y - 34, r.boss ? `☠ ${enc.name}` : enc.mittelboss ? `★★ ${enc.name}` : `★ ${enc.name}`, {
           fontFamily: 'monospace', fontSize: '8px', color: r.boss ? '#ff7060' : '#ffb080', stroke: '#1a1c2c', strokeThickness: 2,
         }).setOrigin(0.5, 1).setDepth(DEPTH.dark + 3).setAlpha(0.9);
       }

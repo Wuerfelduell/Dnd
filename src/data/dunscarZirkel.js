@@ -81,14 +81,15 @@ const npc = (name, role, coat) => ({ name, role, palette: { ...FIG, coat } });
 
 export const DS_ZIRKEL = {
   kalkofen: {
-    name: 'Der Kalte Ofen',
-    short: 'Asche, Glas und Halbgott-Formeln',
-    host: 'dsz_ofenmutter',
+    name: 'Die Rußgesellschaft',
+    short: 'Raritäten und Halbgott-Formeln, im Kalten Ofen',
+    alt: 'russ', // Seb 2026-11-12: die Rußgesellschaft ist nach Dunscar gezogen und hat den Kalten Ofen aufgenommen
+    host: 'kohlenjem',
     pin: [300, 72],
     exit: 'ds_kalkmarkt',
-    mapName: 'Im Kalten Ofen',
-    desc: 'Der stillgelegte Kalkofen hinter dem Kalkmarkt. Wer in Dunscar angekommen ist, darf hinein.',
-    invite: 'Der Kalte Ofen glimmt wieder. Hinter dem Kalkmarkt wird heute versteigert, was nicht verkauft werden darf. Der Treffpunkt steht auf der Stadtkarte.',
+    mapName: 'Rußgesellschaft im Kalten Ofen',
+    desc: 'Kohlen-Jem und seine Leute sind aus Kettlegate nachgekommen und handeln jetzt im stillgelegten Kalkofen hinter dem Kalkmarkt, zusammen mit der Ofenrunde. Wer in Dunscar angekommen ist, darf hinein.',
+    invite: 'Die Rußgesellschaft tagt im Kalten Ofen. Hinter dem Kalkmarkt wird heute versteigert, was nicht verkauft werden darf. Der Treffpunkt steht auf der Stadtkarte.',
     light: '#ff9a5a',
     npcs: {
       dsz_ofenmutter: npc('Ofenmutter Selma Grau', 'Hüterin des Kalten Ofens', '#6a3a2a'),
@@ -96,18 +97,15 @@ export const DS_ZIRKEL = {
       dsz_aschenleserin: npc('Ilse Aschgrund', 'Aschenleserin', '#4a3a5a'),
       dsz_loeschmeister: npc('Ruben Lösch', 'Löschmeister', '#3a4a3a'),
       dsz_glasblaeserin: npc('Greta Glut', 'Glasbläserin', '#7a4a2a'),
-      dsz_schlackenwirt: npc('Hagen Schlack', 'Schlackenwirt', '#4a3a2a'),
-      dsz_kalkhexe: npc('Alma Kalk', 'Kalkhexe', '#5a5a4a'),
-      dsz_apotheker: npc('Doktor Fenwick Staub', 'Apotheker ohne Apotheke', '#3a3a4a'),
     },
     members: [
+      { id: 'tm_dot', offers: [] },
+      { id: 'tm_brann', offers: [] },
+      { id: 'dsz_ofenmutter', offers: [] },
       { id: 'dsz_brenner', offers: [L('dsz_ofenhammer', 6500, 0.15, EINMAL), L('dsz_kalkherz', 3500, 0.25, EINMAL), L('dsz_herzwalze', 14000, 0.06, EINMAL)], wants: ['k3o_schichtknopf', 'k3o_stillkiesel'] },
       { id: 'dsz_aschenleserin', offers: [L('dsz_geisterlaterne', 1500, 0.5), L('dsz_spiegel', 10000, 0.07, EINMAL)], wants: ['k3o_schraubenzahn', 'k3o_schichtknopf'] },
       { id: 'dsz_loeschmeister', offers: [L('dsz_lohnbuch', 2800, 0.25, EINMAL), L('dsz_sanduhr', 12000, 0.06, EINMAL)], wants: ['k3o_stillkiesel', 'k3o_schraubenzahn'] },
       { id: 'dsz_glasblaeserin', offers: [L('dsz_geisterlaterne', 1500, 0.5)] },
-      { id: 'dsz_schlackenwirt', offers: [] },
-      { id: 'dsz_kalkhexe', offers: [] },
-      { id: 'dsz_apotheker', offers: [L('dsz_geisterlaterne', 1500, 0.5)] },
     ],
     say: {
       dsz_ofenmutter: '„Der Ofen ist kalt, seit die Bank fiel“, sagt Selma. „Was hier brennt, brennt nicht für Kalk. Wer in Dunscar lebt, darf zusehen. Wer bieten will, bringt Tausender mit.“',
@@ -115,20 +113,18 @@ export const DS_ZIRKEL = {
       dsz_aschenleserin: 'Ilse streut Asche auf ein Blech und liest darin. „Du suchst etwas, das es nicht geben dürfte. Gut. Ich habe es.“',
       dsz_loeschmeister: 'Ruben zählt Münzen in einen Eimer. „Ich lösche keine Feuer. Ich lösche Schulden.“',
       dsz_glasblaeserin: 'Greta dreht eine Glaskugel in der Glut, die es nicht mehr gibt. „Bring mir Signalsilber, und ich zahle dir mehr, als die Bank je hatte.“',
-      dsz_schlackenwirt: 'Hagen schenkt etwas Graues in Becher. „Schichtgold. Wer welches hat, trinkt hier umsonst und geht reich.“',
-      dsz_kalkhexe: 'Alma kratzt mit dem Fingernagel Kalk von der Ofenwand. „Ein Kalkopal aus den unteren Stollen, und du kannst dir aussuchen, was auf dem Tisch liegt.“',
-      dsz_apotheker: 'Doktor Staub sortiert Fläschchen ohne Etikett. „Rezepte, Zutaten, Wertstücke. Ich kaufe alles, was die Gegner da draußen bei sich tragen.“',
     },
   },
   stellwerk: {
-    name: 'Das Stumme Stellwerk',
-    short: 'Hebel, Signale und verbotene Formeln',
-    host: 'dsz_stellwerker',
+    name: 'Der Kreidezirkel',
+    short: 'Formeln, Signale und verbotene Rezepte, im Stummen Stellwerk',
+    alt: 'kreide', // der Kreidezirkel hat das Stumme Stellwerk übernommen
+    host: 'vellacourt',
     pin: [255, 150],
     exit: 'ds_signalhang',
-    mapName: 'Im Stummen Stellwerk',
-    desc: 'Das abgeschaltete Stellwerk am Signalhang. Wer in Dunscar angekommen ist, darf hinein.',
-    invite: 'Im Stummen Stellwerk am Signalhang leuchtet ein rotes Licht. Die Hebelrunde handelt heute. Der Treffpunkt steht auf der Stadtkarte.',
+    mapName: 'Kreidezirkel im Stummen Stellwerk',
+    desc: 'Ada Vellacourt hat den Kreidezirkel nach Dunscar geholt und sitzt mit der Hebelrunde im abgeschalteten Stellwerk am Signalhang. Wer in Dunscar angekommen ist, darf hinein.',
+    invite: 'Der Kreidezirkel tagt im Stummen Stellwerk am Signalhang. Ein rotes Licht brennt. Der Treffpunkt steht auf der Stadtkarte.',
     light: '#ff5a5a',
     npcs: {
       dsz_stellwerker: npc('Stellwerksmeister Corvin Lathe', 'Hält die Hebelrunde', '#2a3a5a'),
@@ -136,18 +132,15 @@ export const DS_ZIRKEL = {
       dsz_weichenwaerter: npc('Ansgar Weich', 'Weichenwärter', '#3a5a4a'),
       dsz_fundsammler: npc('Bertolt Fund', 'Sammler aus den Gleisen', '#4a4a3a'),
       dsz_rangierer: npc('Kurt Rangier', 'Rangierer', '#3a3a5a'),
-      dsz_schrankenwaerterin: npc('Lene Schrank', 'Schrankenwärterin', '#5a3a4a'),
-      dsz_lampenputzer: npc('Otto Docht', 'Signallampenputzer', '#4a5a3a'),
-      dsz_fahrdienstleiterin: npc('Vera Takt', 'Fahrdienstleiterin', '#2a4a5a'),
     },
     members: [
+      { id: 'tm_sallow', offers: [] },
+      { id: 'tm_corve', offers: [] },
+      { id: 'dsz_stellwerker', offers: [] },
       { id: 'dsz_telegrafistin', offers: [L('dsz_rohrpost', 2600, 0.3, EINMAL), L('dsz_weichenuhr', 4800, 0.2, EINMAL)], wants: ['k3o_schichtknopf', 'k3o_stillkiesel'] },
       { id: 'dsz_weichenwaerter', offers: [L('dsz_schienennagel', 5000, 0.2, EINMAL), L('dsz_signallinse', 3200, 0.25, EINMAL), L('dsz_augenamulett', 3800, 0.2, EINMAL)], wants: ['k3o_schraubenzahn', 'k3o_schichtknopf'] },
       { id: 'dsz_fundsammler', offers: [L('dsz_glasschluessel', 2200, 0.3, EINMAL), L('dsz_tresorscheibe', 9000, 0.07, EINMAL)], wants: ['k3o_stillkiesel', 'k3o_schraubenzahn'] },
       { id: 'dsz_rangierer', offers: [L('dsz_geisterlaterne', 1500, 0.5)] },
-      { id: 'dsz_schrankenwaerterin', offers: [] },
-      { id: 'dsz_lampenputzer', offers: [L('dsz_geisterlaterne', 1500, 0.5)] },
-      { id: 'dsz_fahrdienstleiterin', offers: [] },
     ],
     say: {
       dsz_stellwerker: '„Hier wird nichts mehr gestellt“, sagt Corvin und legt die Hand auf einen Hebel. „Nur noch gehandelt. Wer in Dunscar angekommen ist, sitzt mit am Pult.“',
@@ -155,22 +148,48 @@ export const DS_ZIRKEL = {
       dsz_weichenwaerter: 'Ansgar ölt einen Nagel, als wäre er eine Klinge. „Auf der falschen Weiche fährt man nur einmal.“',
       dsz_fundsammler: 'Bertolt kippt einen Sack Gleisschotter aus und sortiert mit spitzen Fingern. „Die Gleise geben alles zurück. Irgendwann.“',
       dsz_rangierer: 'Kurt hat Öl bis zu den Ellbogen. „Signalsilber aus den Leitungen? Her damit. Ich zahle besser als jeder Pfandleiher.“',
-      dsz_schrankenwaerterin: 'Lene kurbelt an einer Schranke, die nirgends mehr hängt. „Schichtgold geht hier nicht durch, ohne dass ich es kaufe.“',
-      dsz_lampenputzer: 'Otto putzt ein rotes Glas, bis es glüht. „Wer aus den Gefahrengebieten kommt, hat meistens etwas für mich in der Tasche.“',
-      dsz_fahrdienstleiterin: 'Vera blättert in einem Fahrplan von vor zwanzig Jahren. „Jeder Zug hat seinen Preis. Kalkopal hat den höchsten.“',
+    },
+  },
+  salzds: {
+    alt: 'salz', // die Salzbrüder aus Wexmoor haben in Dunscar einen Speicher gefunden
+    name: 'Die Salzbrüder',
+    short: 'Salz, Zutaten und Wertstücke, im Salzspeicher am Arbeiterbogen',
+    host: 'zirkel_salzbruder',
+    pin: [205, 190],
+    exit: 'ds_arbeiterbogen',
+    mapName: 'Salzbrüder im alten Streusalzspeicher',
+    desc: 'Bruder Kliff und die Salzbrüder sind aus Wexmoor nach Dunscar gekommen. Im alten Streusalzspeicher am Arbeiterbogen wiegen sie wieder. Wer in Dunscar angekommen ist, darf hinein.',
+    invite: 'Im alten Streusalzspeicher am Arbeiterbogen stehen die Waagen der Salzbrüder. Heute wird gewogen. Der Treffpunkt steht auf der Stadtkarte.',
+    light: '#a0c8ff',
+    npcs: {
+      dsz_kalkhexe: npc('Alma Kalk', 'Kalkhexe', '#5a5a4a'),
+      dsz_apotheker: npc('Doktor Fenwick Staub', 'Apotheker ohne Apotheke', '#3a3a4a'),
+    },
+    members: [
+      { id: 'tm_gischt', offers: [] },
+      { id: 'tm_lake', offers: [] },
+      { id: 'dsz_sb_kassiererin', offers: [L('dsz_geisterlaterne', 1500, 0.5)] },
+      { id: 'dsz_sb_heizer', offers: [] },
+      { id: 'dsz_sb_vorarbeiterin', offers: [] },
+      { id: 'dsz_kalkhexe', offers: [] },
+      { id: 'dsz_apotheker', offers: [L('dsz_geisterlaterne', 1500, 0.5)] },
+    ],
+    say: {
+      dsz_kalkhexe: 'Alma kratzt mit dem Fingernagel Kalk von der Ofenwand. „Ein Kalkopal aus den unteren Stollen, und du kannst dir aussuchen, was auf dem Tisch liegt.“',
+      dsz_apotheker: 'Doktor Staub sortiert Fläschchen ohne Etikett. „Rezepte, Zutaten, Wertstücke. Ich kaufe alles, was die Gegner da draußen bei sich tragen.“',
     },
   },
 };
 
-/** Vier weitere Leute beim Schichtbund (Seb 2026-11-12: zu wenig Leute im Zirkel). */
-const SCHICHTBUND_LEUTE = {
-  dsz_sb_hauer: { ...npc('Hauer Mats Stollen', 'Hauer der Nachtschicht', '#4a4030'),
+/** Weitere Leute (Seb 2026-11-12: zu wenig Leute im Zirkel) (Seb 2026-11-12: zu wenig Leute im Zirkel). */
+const SCHICHTBUND_LEUTE = { // Hauer sitzt bei der Stillen Waage, die anderen drei bei den Salzbrüdern
+  dsz_sb_hauer: { ...npc('Hauer Mats Stollen', 'Hauer der Nachtschicht', '#4a4030'), zirkel: 'schichtbund',
     say: 'Mats klopft Kalk aus den Stiefeln. „Wer aus den Stollen Schichtgold mitbringt, kriegt hier mehr als in der Bank, die es nicht mehr gibt.“' },
-  dsz_sb_kassiererin: { ...npc('Kassiererin Ada Pfennig', 'Führt die Schichtkasse', '#5a4a2a'),
+  dsz_sb_kassiererin: { ...npc('Kassiererin Ada Pfennig', 'Führt die Schichtkasse', '#5a4a2a'), zirkel: 'salzds',
     say: 'Ada schiebt Münzen zu ordentlichen Türmen. „Signalsilber, Schichtgold, Kalkopal. Die Kasse zahlt für alles, was rar ist.“' },
-  dsz_sb_heizer: { ...npc('Heizer Lutz Kohl', 'Heizer der letzten Lok', '#3a3030'),
+  dsz_sb_heizer: { ...npc('Heizer Lutz Kohl', 'Heizer der letzten Lok', '#3a3030'), zirkel: 'salzds',
     say: 'Lutz wärmt sich die Hände an einem kalten Kessel. „Die Gegner da draußen tragen Silber in den Taschen. Bring es her.“' },
-  dsz_sb_vorarbeiterin: { ...npc('Vorarbeiterin Grete Hub', 'Teilt die Schichten ein', '#3a4a4a'),
+  dsz_sb_vorarbeiterin: { ...npc('Vorarbeiterin Grete Hub', 'Teilt die Schichten ein', '#3a4a4a'), zirkel: 'salzds',
     say: 'Grete hakt Namen auf einer Tafel ab. „Wer viel bringt, sitzt vorn. Wer nichts bringt, schaut zu.“' },
 };
 
@@ -183,7 +202,6 @@ const FLICKERIN_DIALOG = { start: 'start', nodes: { start: {
 
 /** Sitzplätze im Raum (Gastgeber oben, sieben Mitglieder ringsum). */
 const SEATS = [[12, 4], [5, 7], [12, 8], [19, 7], [8, 5], [16, 5], [8, 10], [16, 10]];
-const SCHICHTBUND_SEATS = SEATS.slice(4);
 
 function room(id, z) {
   return {
@@ -201,22 +219,40 @@ function room(id, z) {
   };
 }
 
-function dialogues(id, z) {
-  const out = {};
-  out[z.host] = { start: 'start', nodes: {
-    start: { text: z.say[z.host], choices: [
-      { text: 'Die Auktion eröffnen.', auction: id, requires_gathering: id },
+const REGEL = '„Vier Zirkel teilen sich die Nacht in Dunscar: die Stille Waage, der Kreidezirkel, die Rußgesellschaft und die Salzbrüder. Alle fünf Minuten hält einer Runde. Wer zu spät kommt, wartet zwanzig Minuten.“';
+
+/** Gespräch einer Dunscar-Figur am Zirkeltisch. */
+function memberDialog(circleId, text) {
+  return { start: 'start', nodes: {
+    start: { text, choices: [
+      { text: 'Die Angebote der Runde ansehen.', auction: circleId, requires_gathering: circleId },
       { text: 'Wann trefft ihr euch?', next: 'regel' },
       { text: 'Auf Wiedersehen.' }] },
-    regel: { text: `„Drei Zirkel teilen sich die Nacht in Dunscar: der Schichtbund, der Kalte Ofen und das Stumme Stellwerk. Alle fünf Minuten hält einer Runde. Wer zu spät kommt, wartet eine Viertelstunde auf uns.“`, choices: [{ text: 'Auf Wiedersehen.' }] },
+    regel: { text: REGEL, choices: [{ text: 'Auf Wiedersehen.' }] },
   } };
-  for (const m of z.members) {
-    out[m.id] = { start: 'start', nodes: { start: { text: z.say[m.id], choices: [
-      { text: 'Die Angebote der Runde ansehen.', auction: id, requires_gathering: id },
-      { text: 'Auf Wiedersehen.' }] } } };
-  }
-  return out;
 }
+
+function dialogues(id, z) {
+  return Object.fromEntries(Object.keys(z.npcs).map((n) => [n, memberDialog(id, z.say[n])]));
+}
+
+/** Die Stille Waage in Dunscar (Kennung schichtbund). */
+const WAAGE = {
+  host: 'tresswell',
+  alt: ['tm_halloran', 'tm_rusk'],
+  mapName: 'Stille Waage unter dem Runddepot',
+  desc: 'Ignaz Tresswell hat die Stille Waage nach Dunscar gebracht und mit dem Schichtbund unter dem Runddepot zusammengelegt. Wer in Dunscar angekommen ist, darf hinein.',
+  circle: { name: 'Die Stille Waage', short: 'Zutaten und Schichtbund-Ware, unter dem Runddepot',
+    invite: 'Die Stille Waage wiegt heute unter dem Runddepot, zusammen mit dem Schichtbund. Der Treffpunkt steht auf der Stadtkarte.' },
+};
+
+/** Was die alten Gastgeber in Dunscar sagen. */
+const ALT_GESICHTER = {
+  schichtbund: { host: 'Tresswell legt die Lupe ab und lächelt dünn. „Du. In Kettlegate hast du ruhig geboten. Hier unten haben wir uns mit dem Schichtbund zusammengetan. Die Waage ist dieselbe, nur die Preise sind schwerer.“' },
+  stellwerk: { host: 'Ada Vellacourt wischt Kreide von einem Signalhebel. „Wir haben die Tafeln eingepackt, als Kettlegate zu heiß wurde. Die Hebelrunde hat uns aufgenommen. Lesen ist immer noch umsonst.“' },
+  kalkofen: { host: 'Kohlen-Jem sitzt auf einem Sack Kalk statt auf Kohle. „Der Krater ist weit weg, aber die Ware findet uns. Der Ofen gehört jetzt uns und den Ofenleuten zusammen.“' },
+  salzds: { host: 'Bruder Kliff tariert eine Waage zwischen Säcken mit Streusalz. „Das Meer ist weit, das Salz nicht. Die Brüder haben gesagt, dass du kommst. Wiegen wir, wie in Wexmoor.“' },
+};
 
 /** Pack für buildContent: Zirkel, Räume, Reiseziele, Figuren, Gespräche, Artefakte und Gegenstände. Nach k3_handel einhängen. */
 export function dunscarZirkelPack() {
@@ -235,10 +271,9 @@ export function dunscarZirkelPack() {
     npcs = { ...npcs, ...Object.fromEntries(Object.entries(z.npcs).map(([n, d]) => [n, { ...d, dialogue: n }])) };
     dlg = { ...dlg, ...dialogues(id, z) };
   }
-  for (const [n, { say, ...d }] of Object.entries(SCHICHTBUND_LEUTE)) {
+  for (const [n, { say, zirkel, ...d }] of Object.entries(SCHICHTBUND_LEUTE)) {
     npcs[n] = { ...d, dialogue: n };
-    dlg[n] = { start: 'start', nodes: { start: { text: say, choices: [
-      { text: 'Die Angebote der Runde ansehen.', auction: 'schichtbund', requires_gathering: 'schichtbund' }, { text: 'Auf Wiedersehen.' }] } } };
+    dlg[n] = memberDialog(zirkel, say);
   }
   npcs[FLICKERIN] = { ...npc('Flickerin Hanne Saum', 'Repariert Korrumpiertes, jedes Treffen', '#3a5a5a'), dialogue: FLICKERIN };
   dlg[FLICKERIN] = FLICKERIN_DIALOG;
@@ -248,7 +283,7 @@ export function dunscarZirkelPack() {
     npcs,
     dialogues: dlg,
     artifacts: { list: DS_ARTEFAKTE },
-    treffen: { rules: { orders: { dunscar: ['schichtbund', 'kalkofen', 'stellwerk'] } }, circles, pins, travel, maps },
+    treffen: { rules: { orders: { dunscar: ['schichtbund', 'stellwerk', 'kalkofen', 'salzds'] } }, circles, pins, travel, maps },
   };
 }
 
@@ -270,15 +305,39 @@ const SCHICHTBUND_NEU = {
  */
 export function applyDunscarZirkel(content) {
   const circles = content.gatherings?.circles;
-  if (!circles?.kalkofen || !circles?.stellwerk) return;
+  if (!circles?.kalkofen || !circles?.stellwerk || !circles?.salzds) return;
   // Die Flickerin sitzt auch beim Schichtbund
   const bundMap = content.maps[circles.schichtbund?.map];
   if (bundMap && !bundMap.npcs.some((n) => n.id === FLICKERIN)) bundMap.npcs = [...bundMap.npcs, { id: FLICKERIN, tile: FLICKERIN_PLATZ }];
-  // Vier weitere Leute beim Schichtbund (Angebote werden unten neu verteilt)
-  if (circles.schichtbund && !circles.schichtbund.members.some((m) => m.id in SCHICHTBUND_LEUTE)) {
-    const neu = Object.keys(SCHICHTBUND_LEUTE);
-    circles.schichtbund = { ...circles.schichtbund, members: [...circles.schichtbund.members, ...neu.map((id) => ({ id, offers: [], wants: [] }))] };
-    if (bundMap) bundMap.npcs = [...bundMap.npcs, ...neu.map((id, i) => ({ id, tile: SCHICHTBUND_SEATS[i] }))];
+  // Seb 2026-11-12: Die Stille Waage ist nach Dunscar gezogen und hat den Schichtbund aufgenommen.
+  // Die Kennung bleibt `schichtbund` (Aufnahme, Post, Erfolge, Fasserin-Aufträge, Spielstände), Name und Gastgeber wechseln.
+  if (circles.schichtbund && circles.schichtbund.host !== WAAGE.host) {
+    const sb = circles.schichtbund;
+    const members = [...WAAGE.alt.map((id) => ({ id, offers: [], wants: [] })), { id: sb.host, offers: [], wants: [] }, ...sb.members,
+      ...Object.entries(SCHICHTBUND_LEUTE).filter(([, d]) => d.zirkel === 'schichtbund').map(([id]) => ({ id, offers: [], wants: [] }))];
+    circles.schichtbund = { ...sb, ...WAAGE.circle, host: WAAGE.host, members };
+    if (bundMap) {
+      content.maps[sb.map] = { ...bundMap, name: WAAGE.mapName,
+        npcs: [...[WAAGE.host, ...members.map((m) => m.id)].map((id, i) => ({ id, tile: SEATS[i] })), { id: FLICKERIN, tile: FLICKERIN_PLATZ }] };
+    }
+    content.travel = (content.travel ?? []).map((t) => (t.map === sb.map ? { ...t, name: WAAGE.circle.name, desc: `${WAAGE.desc} Nur während eines offenen Treffens.` } : t));
+  }
+  // Die alten Gesichter: in Dunscar (nach der Ankunft) eigener Gesprächsanfang mit dem Dunscar-Treffen
+  for (const [cid, c] of Object.entries(circles)) {
+    if (c.city !== 'dunscar') continue;
+    const alt = ALT_GESICHTER[cid];
+    for (const id of [c.host, ...c.members.map((m) => m.id)]) {
+      const tree = content.dialogues[id];
+      if (!tree || id.startsWith('dsz_') || !Array.isArray(tree.start) || tree.nodes.ds_open) continue;
+      const name = content.npcs[id]?.name ?? id;
+      tree.nodes = { ...tree.nodes,
+        ds_open: { text: id === c.host ? alt.host : `${name} nickt dir zu. „Kettlegate, Wexmoor, jetzt Dunscar. Wir ziehen dahin, wo noch gehandelt wird. Und wir vergessen keine Gesichter.“`,
+          choices: [{ text: 'Die Runde eröffnen.', auction: cid }, { text: 'Wann trefft ihr euch?', next: 'ds_regel' }, { text: 'Ich gehe.' }] },
+        ds_regel: { text: REGEL, choices: [{ text: 'Gut.' }] },
+        ds_closed: { text: `${name} sitzt nicht am Tisch. ${c.name} trifft sich wieder, wenn die Uhr es sagt. Die Einladung kommt wie immer.`, choices: [{ text: 'Gut.' }] },
+      };
+      tree.start = [{ node: 'ds_open', requires_gathering: cid }, { node: 'ds_closed', requires_flags: ['k3_arrived'] }, ...tree.start];
+    }
   }
   const pids = Object.keys(content.pathways ?? {});
   const has = (id) => !!content.items[id];
@@ -288,7 +347,7 @@ export function applyDunscarZirkel(content) {
     L(`formel_${p}_4`, DS_LOS.formel[4], DS_LOS.formel4Chance, { once: true, requires_pathway: [p, 5], locked_text: 'Erst ab Sequenz 5 dieses Pfades' })));
   // Kernzutat der Formel 5 (die erste Zutat, z. B. Lichtperle oder sq_zutat_waage_5)
   const kern5 = (p) => Object.keys(content.items[`formel_${p}_5`]?.ingredients ?? {})[0];
-  pids.filter((p) => kern5(p) && has(kern5(p))).forEach((p, i) => seat('kalkofen', i + 1).offers.push(
+  pids.filter((p) => kern5(p) && has(kern5(p))).forEach((p, i) => seat(circles.salzds ? 'salzds' : 'kalkofen', i + 1).offers.push(
     L(kern5(p), DS_LOS.zutat5.price, DS_LOS.zutat5.chance, { requires_pathway: [p, 6], locked_text: 'Erst ab Sequenz 6 dieses Pfades' })));
   // Formeln 6/5 der Pfade, die der Schichtbund nicht führt
   const bund = new Set((circles.schichtbund?.members ?? []).flatMap((m) => m.offers.map((o) => o.item)));
