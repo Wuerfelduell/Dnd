@@ -30,6 +30,7 @@ import { postMethods } from './Post.js';
 import { tiereMethods } from './Tiere.js';
 import { benannteMethods } from './Benannte.js';
 import { seqHochMethods } from './SeqHoch.js';
+import { CALDERWICK_WELT_FLAGS } from '../data/aufstieg.js';
 
 /** Tragkraft in Pfund. Gegenstände ohne eigenes "weight" wiegen je nach Art so viel. */
 export const BASE_CARRY = 40;
@@ -456,6 +457,18 @@ export class GameState {
     if (neu.length) this.applyEffects({ sets_flags: neu });
     if (this.quests.k3h_aufnahme === 'active') this.finishQuest('k3h_aufnahme', 'done');
     if (this.quest('k3_rache') && this.quests.k3_rache === undefined && !this.flags.has('kapitel3_done')) this.startQuest('k3_rache'); // neues Kapitelziel auch für alte Stände
+  }
+
+  /**
+   * Kapitel 4 (Seb, 2026-11-12): Calderwick ohne die Detektivgeschichte. Wer schon dort ist (alte Stände), bekommt die offenen Viertel,
+   * verliert laufende Akte (cwa_*) und bekommt das neue Kapitelziel.
+   */
+  calderwickOffen() {
+    if (!this.flags.has('k4_arrived')) return;
+    for (const q of Object.keys(this.quests)) if (q.startsWith('cwa_') && this.quests[q] === 'active') { delete this.quests[q]; if (this.tracked === q) this.tracked = null; }
+    const neu = CALDERWICK_WELT_FLAGS.filter((f) => !this.flags.has(f));
+    if (neu.length) this.applyEffects({ sets_flags: neu });
+    if (this.quest('k4_aufstieg') && this.quests.k4_aufstieg === undefined && !this.flags.has('kapitel4_done')) this.startQuest('k4_aufstieg');
   }
 
   /** Bonusakte nach Kapitel 2: zeigt je nach Ende, wo die Nachricht nach Dunscar liegt. */
@@ -927,6 +940,7 @@ export class GameState {
     if (this.flags.has('kapitel1_done') && !this.flags.has('k2_arrived') && this.quest('k1_abreise') && this.quests.k1_abreise === undefined) this.startQuest('k1_abreise'); // alte Stände: Wegweiser zum Zug
     this.startBonusakteK2(); // alte Stände: Kapitel 2 fertig, aber noch kein Wegweiser nach Dunscar
     this.dunscarOffen(); // Seb 2026-11-12: Hör-Fährte gestrichen, Schichtbund offen
+    this.calderwickOffen(); // Kapitel 4: Calderwick ohne Akte, alle Viertel offen
     if (!this.content.maps[this.map]) { this.map = this.content.start.map; this.position = null; }
     this.map = this.variantOf(this.map); // CH: Briarholt kalt oder warm, je nach Ventilkreis
     return true;

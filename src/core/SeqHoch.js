@@ -9,6 +9,7 @@ import { ordealId } from './Pathways.js';
 import { ritualformel, gildeFlag, HOCH_SEQ1_VERSIEGELT, HOCH, HOCH_FAIL_PCT, HOCH_FAIL_UNRUHE, HOCH_SCALE, GRENZ_SCALE, WELT_MULT, ORTE } from '../data/seqHoch.js';
 import { PROBE_NAMEN } from './Proben.js';
 import { NACHBARPFADE } from '../data/nachbarpfade.js';
+import { CW_GEBIETE } from '../data/aufstieg.js';
 
 const LATE = /^(ds_|cw_|bh_|o3_)/; // Monstergebiete ab Dunscar (Kapitel 3)
 
@@ -321,7 +322,7 @@ export const seqHochMethods = {
   /** Teststart (?hoch=<pfad>&seq=<3|2|1>): eine Stufe über dem Ziel, voll verdaut, Ort gefunden, das Nötigste dabei. */
   hochProbeStart(pid, seq = 3) {
     if (!this.content.pathways?.[pid]?.seqs?.[seq]?.ritual?.hoch) return false;
-    for (const f of ['kapitel1_done', 'k2_arrived', 'k3_arrived', gildeFlag(pid, 'bekannt')]) this.flags.add(f);
+    for (const f of ['kapitel1_done', 'k2_arrived', 'k3_arrived', 'k4_arrived', gildeFlag(pid, 'bekannt')]) this.flags.add(f);
     this.pathway = { id: pid, seq: seq + 1, digestion: 100 };
     if (seq === 3) this.flags.add(gildeFlag(pid, 'mitglied'));
     for (const [id, n] of Object.entries({ revolver: 1, tonikum: 6, verband: 6, [`formel_${pid}_${seq}`]: 1, [ritualformel(pid)]: 1 })) if (this.item(id)) this.addItem(id, n);
@@ -345,7 +346,7 @@ export const seqHochMethods = {
 
   /** Ab Dunscar kennt man den Sitz der Gilde des eigenen Pfades, ab Sequenz 4 auch den des Nachbarpfads (je Spieler). */
   gildeTick() {
-    if (!this.flags.has('k3_arrived')) return;
+    if (!this.flags.has('k4_arrived')) return; // Kapitel 4: die Gilden sitzen in den Pfadgebieten von Calderwick
     for (const n of this.hasP2?.() ? [1, 2] : [1]) {
       const p = n === 1 && this.acting !== 2 ? this.pathway : this.withPlayer(n, () => this.pathway, { quiet: true });
       if (!p) continue;
@@ -354,7 +355,7 @@ export const seqHochMethods = {
         this.flags.add(gildeFlag(pid, 'bekannt'));
         const o = ORTE[pid];
         // Seb (2026-11-12): ein Gildenmitglied sagt dir, dass es die Kernzutat 3 nur bei der Gilde gibt
-        this.emit('notice', `Ein Mitglied von ${o.gilde} spricht dich an: „Du trägst unseren Pfad. Die Kernzutat für die dritte Sequenz bekommst du nirgends sonst, nur bei uns. Tritt bei, steig durch die fünf Ränge und stell dich ${o.chef}. Wer das Oberhaupt besiegt, ob er es tötet oder selbst Oberhaupt wird, hält den Kern in der Hand. Unser Sitz: ${o.name}.“ (steht jetzt auf der Stadtkarte)`);
+        this.emit('notice', `Ein Mitglied von ${o.gilde} spricht dich an: „Du trägst unseren Pfad. Die Kernzutat für die dritte Sequenz bekommst du nirgends sonst, nur bei uns. Tritt bei, steig durch die fünf Ränge und stell dich ${o.chef}. Wer das Oberhaupt besiegt, ob er es tötet oder selbst Oberhaupt wird, hält den Kern in der Hand. Unser Sitz: ${o.name}, mitten in ${CW_GEBIETE[pid]?.viertel ?? 'Calderwick'}.“ (steht auf der Stadtkarte von Calderwick)`);
       }
     }
   },
