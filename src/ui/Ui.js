@@ -139,6 +139,14 @@ const TILE_ICON_EM = 1.75;
 const skillIcon = (id) => { const ic = skillIconOf(id); return ic ? atlasIcon(ic[0], ic[1], ic[2] ?? 7) : ''; };
 /** Icon einer Welt-Fähigkeit (BZ: ui/talent_icons.png), sonst das Sonnenzeichen. */
 const talentIcon = (id) => { const ic = talentIconOf(id); return ic ? atlasIcon(ic[0], ic[1], ic[2]) : '☉ '; };
+/** Welt-Fähigkeit in der Schnellleiste: 16er-Zelle auf 1.75em, sonst das Sonnenzeichen. */
+const talentIconHud = (id) => {
+  const ic = talentIconOf(id);
+  if (!ic) return '<span class="ticon sun">☉</span>';
+  const [url, index, cols] = ic;
+  const k = TILE_ICON_EM;
+  return `<span class="atlas-icon big ticon" style="background-image:url(${url});background-size:${cols * k}em auto;background-position:-${(index % cols) * k}em -${Math.floor(index / cols) * k}em"></span>`;
+};
 /** Großes Fähigkeits-Icon fürs Kampfmenü: 16er-Zelle auf 1.75em (skaliert mit der Oberfläche, nicht in festen Pixeln). */
 const skillIconBig = (id) => {
   const ic = skillIconOf(id);
@@ -363,6 +371,8 @@ export class Ui {
           </div>
         </div>
         <div class="vision-tag">Geistsicht</div>
+        <div class="talentbar hidden" data-tbar="1"></div>
+        <div class="talentbar p2 hidden" data-tbar="2"></div>
       </div>
       <button class="prompt hidden"></button>
       <div class="toasts"></div>
@@ -486,6 +496,7 @@ export class Ui {
     ['party', 'hp', 'composure', 'item', 'changed'].forEach((ev) => state.on(ev, () => this.updateP2()));
     window.addEventListener('keydown', (e) => this.onKey(e), true);
     this.bindTouch();
+    this.bindTalentBar();
     this.updateComposure(state.composure);
     this.updateHonor();
     this.updateHp();
@@ -749,6 +760,85 @@ export class Ui {
     if (v.overloaded) load.textContent = `Überladen · ${v.carry}`;
   }
 
+  // --- Schnellleiste der Welt-Fähigkeiten -------------------------------------------
+  // Unten links (Spieler 2 unten rechts) liegen alle Welt-Fähigkeiten der erreichten Sequenzen,
+  // in derselben Reihenfolge wie im Pfad-Tab (Sequenz 9 zuerst). Tasten 1–9 setzen sie ein,
+  // Spieler 2 nimmt den Ziffernblock oder am Gamepad LB/RB zum Wählen und X zum Einsetzen.
+
+  bindTalentBar() {
+    this.talentSel2 = 0;
+    this.root.addEventListener('click', (e) => {
+      const b = e.target.closest?.('[data-tslot]');
+      if (!b || !this.root.contains(b)) return;
+      e.preventDefault();
+      this.useTalentSlot(Number(b.dataset.tplayer), Number(b.dataset.tslot));
+    });
+    // Ereignisse kommen oft mitten aus withPlayer(2): erst danach zeichnen, sonst stünden die Werte vertauscht
+    const later = () => { if (!this.talentBarTimer) this.talentBarTimer = setTimeout(() => { this.talentBarTimer = null; this.updateTalentBar(); }, 0); };
+    ['talent', 'composure', 'party', 'ascend', 'changed', 'digested'].forEach((ev) => this.state.on(ev, later));
+    // Abklingzeiten zählen sichtbar herunter (gezeichnet wird nur, wenn sich etwas ändert)
+    setInterval(() => this.updateTalentBar(), 500);
+    this.updateTalentBar();
+  }
+
+  /** Welt-Fähigkeiten eines Spielers für die Leiste (leer ohne Pfad oder ohne Spieler 2). */
+  talentSlots(n) {
+    if (n === 2 && !this.state.hasP2()) return [];
+    return this.as(() => this.state.talents?.() ?? [], n);
+  }
+
+  updateTalentBar() {
+    for (const n of [1, 2]) {
+      const el = this.$(`[data-tbar="${n}"]`);
+      if (!el) continue;
+      const list = this.talentSlots(n);
+      if (n === 2 && this.talentSel2 >= list.length) this.talentSel2 = 0;
+      const html = list.map((t, i) => this.talentSlotHtml(t, i, n)).join('');
+      if (el.dataset.html === html) continue;
+      el.dataset.html = html;
+      el.innerHTML = html;
+      el.classList.toggle('hidden', !list.length);
+    }
+  }
+
+  talentSlotHtml(t, i, n) {
+    const state = t.remaining > 0 ? 'cd' : t.ready ? 'ready' : 'nonerves';
+    const cost = [t.nerves ? `${t.nerves} Nerven` : '', t.unruhe ? `+${t.unruhe} Unruhe` : '', `${fmtSec(t.cooldown ?? 60)} Pause`].filter(Boolean).join(' · ');
+    const why = t.remaining > 0 ? `bereit in ${t.remainingText}` : t.ready ? 'bereit' : 'zu wenig Nerven';
+    const key = n === 2 ? `Num ${i + 1}` : `${i + 1}`;
+    const title = `${t.name} (Seq ${t.seq}, Taste ${key}): ${t.desc ?? ''} [${cost}] – ${why}`;
+    const sel = n === 2 && this.talentSel2 === i ? ' sel' : '';
+    const left = Math.ceil(t.remaining);
+    const cd = left > 0 ? `<span class="tcd">${left >= 60 ? `${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}` : left}</span>` : '';
+    return `<button class="tslot ${state}${sel}" data-tslot="${i}" data-tplayer="${n}" title="${esc(title)}">${talentIconHud(t.id)}${cd}<span class="key">${i + 1}</span></button>`;
+  }
+
+  /** Spieler 2 am Gamepad: Auswahl in der Leiste verschieben (LB/RB). */
+  moveTalentSel2(d) {
+    const len = this.talentSlots(2).length;
+    if (!len) return;
+    this.talentSel2 = (this.talentSel2 + d + len) % len;
+    this.updateTalentBar();
+  }
+
+  /** Welt-Fähigkeit auf Platz idx einsetzen (Taste, Klick oder Tipp). Nur in der Welt, nicht in Fenstern oder Kämpfen. */
+  useTalentSlot(n, idx) {
+    if (!this.scene || this.combatScene || this.isBlocking()) return null;
+    if (idx === 'sel') idx = this.talentSel2 ?? 0;
+    const list = this.talentSlots(n);
+    const who = n === 2 ? 'Spieler 2: ' : '';
+    const t = list[idx];
+    if (!t) {
+      if (n === 2 && !this.state.hasP2()) return null;
+      this.toast(list.length ? `${who}Auf Taste ${idx + 1} liegt keine Welt-Fähigkeit (du hast ${list.length}).` : `${who}Welt-Fähigkeiten bekommst du mit deinem ersten Trank.`, 'warn');
+      return null;
+    }
+    const r = this.as(() => this.state.useTalent(t.id), n);
+    this.toast(`${who}${r.text}`, r.ok ? 'good' : 'warn');
+    this.updateTalentBar();
+    return r;
+  }
+
   /** Führt fn mit den Werten des Spielers aus, der das Fenster bedient. */
   as(fn, n = this.actor) {
     return this.state.withPlayer(n, fn);
@@ -922,12 +1012,14 @@ export class Ui {
         <div>Tippen: hinlaufen · auf Personen und Dinge tippen: sprechen / untersuchen</div>
         <div>Finger halten und ziehen: die Figur folgt dem Finger</div>
         <div>Knöpfe oben rechts: Notizbuch, Inventar, Pfad, Geistsicht, Menü</div>
+        <div>Leiste unten links: Welt-Fähigkeiten antippen</div>
         <div>Kampf: tippen für den Takt · Knöpfe für Ausweichen und Parieren</div>
       </div>
       <div class="controls no-touch">
         <div><span class="key">WASD</span> / <span class="key">Pfeile</span> laufen · oder hinklicken</div>
         <div><span class="key">E</span> untersuchen / sprechen</div>
         <div><span class="key">Q</span> Geistsicht (kostet Nerven)</div>
+        <div><span class="key">1</span>–<span class="key">9</span> Welt-Fähigkeiten (Leiste unten links)</div>
         <div><span class="key">J</span> Notizbuch: Aufträge, Quellen, Schlussfolgerungen</div>
         <div><span class="key">Esc</span> Menü: Spieler 2 hinzufügen oder entfernen</div>
       </div>
@@ -2117,7 +2209,7 @@ export class Ui {
   buffsHtml(s) {
     const list = s.activeBuffs();
     const world = [s.revealUntil > s.talentTime ? 'verborgene Spuren sichtbar' : '', s.scaresEnemies() ? 'Gegner weichen' : '', s.clockStopped() ? 'die Uhr der Stadt steht' : ''].filter(Boolean);
-    if (!list.length && !world.length) return '<p class="muted">☉ Welt-Fähigkeiten setzt du hier im Pfad-Tab ein (nicht im Kampf). Sie kosten Nerven und brauchen danach eine Pause.</p>';
+    if (!list.length && !world.length) return `<p class="muted">☉ Welt-Fähigkeiten setzt du hier im Pfad-Tab ein oder in der Welt über die Leiste unten links${this.touch ? '' : ' (Tasten <span class="key">1</span>–<span class="key">9</span>, Spieler 2 Ziffernblock)'}, nicht im Kampf. Sie kosten Nerven und brauchen danach eine Pause.</p>`;
     return `<p class="buffs">☉ Wirkt gerade: ${[...list.map((b) => `${esc(buffLabel(b))} <span class="muted">(${b.remainingText})</span>`), ...world.map(esc)].join(' · ')}</p>`;
   }
 
@@ -2681,14 +2773,16 @@ export class Ui {
           <div><span class="key">WASD</span> laufen${on ? '' : ' (allein auch <span class="key">Pfeile</span>)'}</div>
           <div><span class="key">E</span> untersuchen / sprechen</div>
           <div><span class="key">Q</span> Geistsicht · <span class="key">J</span> Notizbuch · <span class="key">I</span> Inventar</div>
+          <div><span class="key">1</span>–<span class="key">9</span> Welt-Fähigkeiten</div>
           <div>Kampf: <span class="key">E</span> Takt · <span class="key">Leertaste</span> ausweichen · <span class="key">F</span> parieren</div>
         </div>
         <div><h4>Spieler 2 · Begleiter</h4>
           <div><span class="key">Pfeile</span> laufen</div>
           <div><span class="key">Enter</span> untersuchen / sprechen / aufheben</div>
           <div><span class="key">I</span> dann <span class="key">G</span> eigenes Inventar</div>
+          <div>Ziffernblock <span class="key">1</span>–<span class="key">9</span> Welt-Fähigkeiten</div>
           <div>Kampf: <span class="key">Enter</span> Takt · <span class="key">←</span> ausweichen · <span class="key">→</span> parieren</div>
-          <div class="muted">Gamepad${pad ? ' (erkannt)' : ''}: Stick laufen · A Aktion/Takt · X ausweichen · B parieren · Y Inventar</div>
+          <div class="muted">Gamepad${pad ? ' (erkannt)' : ''}: Stick laufen · A Aktion/Takt · X ausweichen · B parieren · Y Inventar · LB/RB Fähigkeit wählen, X einsetzen</div>
         </div>
       </div>`, 'pause');
     el.querySelector('[data-act=resume]').onclick = () => this.close();

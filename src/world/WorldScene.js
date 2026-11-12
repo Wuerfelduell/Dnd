@@ -1148,6 +1148,14 @@ export class WorldScene extends Phaser.Scene {
     this.input.keyboard.on('keydown-TAB', queue('notebook'));
     this.input.keyboard.on('keydown-I', queue('inventory'));
     this.input.keyboard.on('keydown-P', queue('pathway'));
+    // Welt-Fähigkeiten: Zahlenreihe 1–9 für Spieler 1, Ziffernblock für Spieler 2 (allein auch für Spieler 1)
+    this.input.keyboard.on('keydown', (e) => {
+      const m = /^(Digit|Numpad)([1-9])$/.exec(e.code ?? '');
+      if (!m || e.repeat) return;
+      const slot = `talent:${Number(m[2]) - 1}`;
+      if (m[1] === 'Numpad' && this.p2) this.pending2 = slot;
+      else this.pending = slot;
+    });
     // Handy/Maus: hintippen zum Hinlaufen und Interagieren
     this.tap = new TapMove(this);
     this.setupSignalContext(); // BN: Kollision und Lauscher für Rufwege
@@ -1158,6 +1166,8 @@ export class WorldScene extends Phaser.Scene {
       if (!this.p2) return;
       if (button.index === 0) this.pending2 = 'interact'; // A
       else if (button.index === 3) this.pending2 = 'inventory'; // Y
+      else if (button.index === 2) this.pending2 = 'talent:sel'; // X: gewählte Welt-Fähigkeit
+      else if (button.index === 4 || button.index === 5) this.ui.moveTalentSel2(button.index === 4 ? -1 : 1); // LB/RB
     });
   }
 
@@ -1632,6 +1642,7 @@ export class WorldScene extends Phaser.Scene {
     if (!blocked && a2 && this.p2) {
       if (a2 === 'interact' && this.focus2) this.interactAs2(this.focus2);
       else if (a2 === 'inventory') this.ui.openNotebook('items', 2);
+      else if (a2.startsWith('talent:')) this.useTalentKey(2, a2.slice(7));
     }
     const action = this.pending;
     this.pending = null;
@@ -1643,6 +1654,12 @@ export class WorldScene extends Phaser.Scene {
     else if (action === 'notebook') this.ui.openNotebook();
     else if (action === 'inventory') this.ui.openNotebook('items');
     else if (action === 'pathway') this.ui.openNotebook('pfad');
+    else if (action.startsWith('talent:')) this.useTalentKey(1, action.slice(7));
+  }
+
+  /** Taste 1–9 / Ziffernblock / Gamepad-X: Welt-Fähigkeit aus der Schnellleiste. */
+  useTalentKey(n, slot) {
+    this.ui.useTalentSlot(n, slot === 'sel' ? 'sel' : Number(slot));
   }
 
   /** Spieler 2 benutzt etwas: Beute, Käufe und Gesprächsbelohnungen landen in seiner Tasche. */
