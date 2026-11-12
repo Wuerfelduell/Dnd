@@ -65,7 +65,7 @@ export const EARLY_LIMIT = 450; // frühere Tastendrücke zählen noch nicht
 export const AP_MAX = 6;
 export const AP_START = 1;
 export const SEQ5_AP_SEQ = 5; // ab Sequenz 5 (alle Pfade) …
-export const SEQ5_AP_BONUS = 2; // … +2 maximale Konzentration
+export const SEQ5_AP_BONUS = 1; // … +1 maximale Konzentration
 export const AP_MAX_CAP = 10; // mehr Pips passen nicht in die Leiste
 export const GRADE_MULT = { perfect: 1.3, good: 1, miss: 0.4 };
 /**
