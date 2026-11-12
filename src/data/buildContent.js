@@ -90,7 +90,29 @@ function withPackLore(content, pack) {
     for (const [map, lines] of Object.entries(perMap)) own[map] = [...(own[map] ?? []), ...lines];
   }
   for (const [id, t] of Object.entries(pack.bestiarium ?? {})) content.bestiaryTexts[id] ??= t;
-  if (pack.lesestuecke?.length) applyQuestPack(content, { name: `${pack.name}_lese`, platzierung: pack.lesestuecke });
+  if (pack.lesestuecke?.length) {
+    // Lesestücke ohne feste Kachel stehen auch auf der warmen Zwillingskarte (Briarholt), damit sie beim Umschalten nicht verschwinden
+    const twin = (l) => (l.spawn_offset && content.maps[`${l.map}__warm`] ? [l, { ...l, map: `${l.map}__warm` }] : [l]);
+    applyQuestPack(content, { name: `${pack.name}_lese`, platzierung: pack.lesestuecke.flatMap(twin).map((l) => withSpawnOffset(content, l)).filter(Boolean) });
+  }
+  // Codex-Runde 9: Textvorräte für Halbgott/Engel (CP) und die Fasserin-Aufträge (CR) liegen als Ganzes im Inhalt
+  if (pack.halbgott) content.halbgott = pack.halbgott;
+  if (pack.fasserin_auftrag) content.fasserinAuftrag = pack.fasserin_auftrag;
+}
+
+/** Lesestück ohne feste Kachel (`spawn_offset`): neben dem Standard-Spawn seiner Karte; ohne Karte entfällt es. */
+function withSpawnOffset(content, p) {
+  if (!p.spawn_offset) return p;
+  const m = content.maps[p.map];
+  const base = m?.spawns?.default ?? Object.values(m?.spawns ?? {})[0];
+  if (!base) return null;
+  const { spawn_offset: off, ...rest } = p;
+  const taken = new Set([...(m.npcs ?? []), ...(m.interactables ?? [])].filter((o) => o.tile).map((o) => `${o.tile[0]},${o.tile[1]}`));
+  const free = (x, y) => !taken.has(`${x},${y}`) && /[.swg]/.test(m.rows?.[y]?.[x] ?? '.');
+  // Vorgabe-Versatz, sonst die nächste freie Bodenkachel rund um den Spawn, damit kein Objekt eines anderen Pakets überdeckt wird
+  const candidates = [off, [-1, 0], [0, 1], [0, -1], [2, 0], [-2, 0], [1, 1], [-1, 1], [1, -1], [-1, -1], [0, 2], [0, -2]];
+  const pick = candidates.find(([dx, dy]) => free(base[0] + dx, base[1] + dy)) ?? off;
+  return { ...rest, tile: [base[0] + pick[0], base[1] + pick[1]] };
 }
 
 /**

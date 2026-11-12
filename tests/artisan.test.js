@@ -62,7 +62,7 @@ test('Rezepte: genau ein Beutestück, nie gewöhnlich, jedes Artefakt vollständ
     assert.equal(needs.length, 1, `${r.id}: ein einzelnes Stück, kein Rezept aus Teilen`);
     const [item, n] = needs[0];
     const it = content.items[item];
-    assert.ok(it && it.kind === 'trophy', `${r.id}: ${item} ist kein Beutestück`);
+    assert.ok(it && (it.kind === 'trophy' || it.kind === 'gear'), `${r.id}: ${item} ist kein Beutestück`); // CR: der Geweihreif (Ausrüstung) ist ein Auftragsstück
     assert.equal(n, 1);
     assert.notEqual(itemRarity(it), 'gewoehnlich', `${r.id}: ${item} ist zu gewöhnlich`);
     const chance = s.recipeChance(r);

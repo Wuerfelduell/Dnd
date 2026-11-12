@@ -1006,7 +1006,7 @@ export const BH_SCENES = ['bh_ankunft', 'bh_trockenraum', 'bh_pfirsich'];
 /** Paket CE2: Szenen von Kapitel 4 (Aufzugsfahrt 480x270, zwei Teller 480x270, Sortierkabine 240x135). */
 export const CW_SCENES = ['cw_aufzug', 'cw_zwei_teller', 'cw_sortierkabine'];
 BH_SCENES.push(...CW_SCENES);
-export const sceneUrl = (id) => (id?.startsWith('fest_') ? `${BASE}sequences/${id}.png` : CHAPTER_CARDS.includes(id) || FX_SCENES.includes(id) || BH_SCENES.includes(id) ? `${BASE}ui/scenes/${id}.png` : SCENES.includes(id) ? `${BASE}ui/scenes/E_szene_${id}.png`
+export const sceneUrl = (id) => (id?.startsWith('fest_') ? `${BASE}sequences/${id}.png` : /^hg_seq[24]_/.test(id ?? '') ? `${BASE}ui/${id}.png` : CHAPTER_CARDS.includes(id) || FX_SCENES.includes(id) || BH_SCENES.includes(id) ? `${BASE}ui/scenes/${id}.png` : SCENES.includes(id) ? `${BASE}ui/scenes/E_szene_${id}.png`
   : TRAVEL_SCENES.includes(id) ? `${BASE}ui/scenes/I_${id}.png`
     : J_SCENES.includes(id) ? `${BASE}ui/scenes/J_szene_${id}.png`
       : K_SCENES.includes(id) ? `${BASE}ui/scenes/K_szene_${id}.png`
@@ -1217,6 +1217,9 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestSekten')) scene.load.json('manifestSekten', `${BASE}manifest-sekten.json`);
   if (!scene.cache.json.exists('manifestVorrat1')) scene.load.json('manifestVorrat1', `${BASE}manifest-vorrat1.json`);
   if (!scene.cache.json.exists('manifestVorrat2')) scene.load.json('manifestVorrat2', `${BASE}manifest-vorrat2.json`);
+  if (!scene.cache.json.exists('manifestHalbgott')) scene.load.json('manifestHalbgott', `${BASE}manifest-halbgott.json`);
+  if (!scene.cache.json.exists('manifestFasserin2')) scene.load.json('manifestFasserin2', `${BASE}manifest-fasserin2.json`);
+  if (!scene.cache.json.exists('manifestFigurenNachzuegler')) scene.load.json('manifestFigurenNachzuegler', `${BASE}manifest-figuren_nachzuegler.json`);
   if (!scene.cache.json.exists('manifestBriarholt1')) scene.load.json('manifestBriarholt1', `${BASE}manifest-briarholt1.json`);
   if (!scene.cache.json.exists('manifestCalderwick1')) scene.load.json('manifestCalderwick1', `${BASE}manifest-calderwick1.json`);
   if (!scene.cache.json.exists('manifestNebenquests')) scene.load.json('manifestNebenquests', `${BASE}manifest-nebenquests.json`);
@@ -1244,7 +1247,7 @@ export function playSheetAnim(sprite, sheet, name, then) {
   const key = `${sheet}-${name}`;
   if (!scene.anims.exists(key)) {
     const id = MANIFEST_IDS[sheet] ?? sheet;
-    const def = ['manifestPfade', 'manifestWelt', 'manifestJournal', 'manifestSpieler2', 'manifestSequenzen3', 'manifestKontrollverlust', 'manifestSekten'].map((m) => scene.cache.json.get(m)?.assets?.find((a) => a.id === id)?.animations?.[name]).find(Boolean);
+    const def = ['manifestPfade', 'manifestWelt', 'manifestJournal', 'manifestSpieler2', 'manifestSequenzen3', 'manifestKontrollverlust', 'manifestSekten', 'manifestHalbgott', 'manifestFasserin2'].map((m) => scene.cache.json.get(m)?.assets?.find((a) => a.id === id)?.animations?.[name]).find(Boolean);
     if (!def) return false;
     scene.anims.create({ key, frames: def.frames.map((frame) => ({ key: sheet, frame })), frameRate: def.frameRate, repeat: def.repeat });
   }
@@ -1263,7 +1266,7 @@ function battleAnimDef(scene, sheet, name) {
   return null;
 }
 /** Manifeste mit Kampf-Sheets; spätere Pakete nennen ihre Einträge nicht nach dem Sheet, darum auch über die Datei. */
-export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3', 'manifestDunscar5', 'manifestStarling2', 'manifestSekten', 'manifestVorrat1', 'manifestVorrat2'];
+export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3', 'manifestDunscar5', 'manifestStarling2', 'manifestSekten', 'manifestVorrat1', 'manifestVorrat2', 'manifestHalbgott', 'manifestFasserin2', 'manifestFigurenNachzuegler'];
 export function battleSheetDef(scene, sheet) {
   const file = BATTLE_SHEETS[sheet]?.[0];
   for (const m of BATTLE_MANIFESTS) {
@@ -2789,3 +2792,103 @@ export const KGL_STAENDE = { kgl_kastanien: [0, 0, 48, 32, 2, 4], kgl_zeitung: [
 export const KGL_NACHT = { kgl_fenster_1: [0, 0, 16, 16, 2, 3], kgl_fenster_2: [0, 16, 16, 16, 2, 3], kgl_fenster_3: [0, 32, 16, 16, 2, 3], kgl_fenster_4: [0, 48, 16, 16, 2, 3], kgl_laterne: [0, 64, 16, 32, 2, 1], kgl_rauch: [0, 96, 16, 32, 4, 4] };
 /** Stadtpins der zehn Einwohner (ui/kgl_karte_pins.png, 12x12 in Reihenfolge von KGL_FIGURES). */
 export const KGL_PINS_URL = `${BASE}ui/kgl_karte_pins.png`;
+
+// --- Paket CS: Figuren ohne eigene Grafik (manifest-figuren_nachzuegler.json) --------------------------------------
+/** 17 Einwohner aus Kapitel 4/5 (cwn_e_*, bhn_e_*) und Mina Falz (cwo_marktstand): Lauf-Sheet 16x32 und Kopf 24x24. */
+export const CS_FIGURES = ['cwn_e_griffmacherin', 'cwn_e_waescherin', 'cwn_e_bote', 'cwn_e_marktfrau', 'cwn_e_nachtsetzer', 'cwn_e_fensterputzerin', 'cwn_e_laternenwart', 'cwn_e_archivdienerin',
+  'cwo_marktstand', 'bhn_e_patientin', 'bhn_e_kapellmeister', 'bhn_e_kiosk', 'bhn_e_lehrer', 'bhn_e_naeherin', 'bhn_e_koechin', 'bhn_e_bote', 'bhn_e_wart'];
+for (const id of CS_FIGURES) {
+  SHEETS[`cs_${id}`] = `characters/${id}.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = `cs_${id}`;
+  if (id !== 'cwo_marktstand') { HEADS.push(id); HEAD_FILES[id] = `portraits/heads/${id}.png`; } // Mina hat laut Auftrag keinen Kopf
+}
+/** Maud Keel und die drei Wexmoorer Auftraggeber: Lauf-Sheets ersetzt (AL/#277 bleiben als Keys), dazu Kopf und Porträtleiste (4 Stimmungen). */
+export const CS_PORTRAIT_MOODS = { neutral: 0, freundlich: 1, friendly: 1, smile: 1, faint_smile: 1, approving: 1, bidding: 1, misstrauisch: 2, suspicious: 2, skeptical: 2, erschrocken: 3, shocked: 3, scared: 3, angry: 2 };
+for (const id of ['wx_pfandleiherin', 'k2a_senn', 'k2a_veit', 'k2a_noll']) {
+  HEADS.push(id);
+  HEAD_FILES[id] = `portraits/heads/${id}.png`;
+  PORTRAITS[id] = `${id}_emotions.png`;
+  PORTRAIT_EXTRA[id] = [`${id}_emotions.png`, CS_PORTRAIT_MOODS];
+}
+/** Senn, Veit und Noll kämpfen jetzt mit eigenen Blättern (64x64, Reihen idle/attack1/attack2/hurt/defeated). */
+for (const id of ['k2a_senn', 'k2a_veit', 'k2a_noll']) BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, 64];
+Object.assign(ENCOUNTER_SHEETS, { k2a_tinte_kampf: 'enemy_k2a_senn', k2a_bittere_mittel_kampf: 'enemy_k2a_veit', k2a_hafenrecht_kampf: 'enemy_k2a_noll' });
+/** Zwei Stände (48x32): Mauds Pfandtisch am Salzmarkt, Minas Reisebedarf am Quittungsmarkt (Deko in den Kartendaten). */
+for (const id of ['wx_pfandtisch', 'cwo_marktstand_tisch']) { WHOLE_PROPS[id] = `props/${id}.png`; SHEETS[id] = `props/${id}.png`; }
+
+// --- Paket CQ: Fasserin-Aufträge (manifest-fasserin2.json) -------------------------------------------------------
+/** Auftragszettel (5 Zustände), Chancenmarke (40–80), Zirkelmarken, HUD; Regionen als 16er-Zellen in Manifestreihenfolge. */
+export const CQ_ORDER_STATES = ['bestellt', 'in_arbeit', 'fertig', 'misslungen', 'abgeholt'];
+export const CQ_ZIRKEL = ['waage', 'kreide', 'russ', 'lichtlose', 'salz', 'schichtbund'];
+UI_SHEETS.cqauftrag = ['ui/CQ_auftrag.png', 80, 16];
+UI_REGIONS.cqauftrag = Object.fromEntries(CQ_ORDER_STATES.map((n, i) => [n, [i * 16, 0, 16, 16]]));
+UI_SHEETS.cqauftrag32 = ['ui/CQ_auftrag_32.png', 160, 32];
+UI_REGIONS.cqauftrag32 = Object.fromEntries(CQ_ORDER_STATES.map((n, i) => [n, [i * 32, 0, 32, 32]]));
+UI_SHEETS.cqchance = ['ui/CQ_chance.png', 80, 16];
+UI_REGIONS.cqchance = Object.fromEntries(['40', '50', '60', '70', '80'].map((n, i) => [n, [i * 16, 0, 16, 16]]));
+UI_SHEETS.cqzirkel = ['ui/CQ_zirkel_marke.png', 96, 16];
+UI_REGIONS.cqzirkel = Object.fromEntries(CQ_ZIRKEL.map((n, i) => [n, [i * 16, 0, 16, 16]]));
+UI_SHEETS.cqhud = ['ui/CQ_hud.png', 64, 16];
+UI_REGIONS.cqhud = Object.fromEntries(['offen', 'naechstes_treffen', 'einladung_abholung', 'oda_anwesend'].map((n, i) => [n, [i * 16, 0, 16, 16]]));
+export const CQ_EINLADUNG_URL = `${BASE}ui/CQ_einladung.png`;
+/** Odas Posen (16x32, Reihen pruefen/haemmern/uebergabe/kopfschuetteln/abwesend), Fassungs-Effekte (32x32) und Werkbankzustände. */
+ANIM_SHEETS.fasserin_posen = ['characters/fasserin_posen.png', 16, 32];
+for (const id of ['CQ_fassung_erfolg', 'CQ_fassung_misslungen', 'CQ_wuerfel']) ANIM_SHEETS[id] = [`fx/${id}.png`, 32, 32];
+PORTRAIT_EXTRA.fasserin = ['fasserin_emotions2.png', { zufrieden: 0, bedauernd: 1, pruefend: 2, muede: 3 }];
+SHEETS.fasserin_werkbank_zustaende = 'props/fasserin_werkbank_zustaende.png';
+export const CQ_WERKBANK = { leer: [0, 0, 32, 32], eingespannt: [32, 0, 32, 32], fertig: [64, 0, 32, 32], scherben: [96, 0, 32, 32] };
+WHOLE_PROPS.fasserin_auftragsbrett = 'props/fasserin_auftragsbrett.png';
+SHEETS.fasserin_auftragsbrett = 'props/fasserin_auftragsbrett.png';
+/** Die 20 festen Auftrags-Artefakte fa_<stueck> haben eigene Bilder in 16 und 32 px. */
+export const FA_ARTEFAKTE = ['fa_rattenkrone', 'fa_sternhirschgeweih', 'fa_geweihreif', 'fa_geisterkern', 'fa_glasfeder', 'fa_wachsherz', 'fa_moorperle', 'fa_schlickperle', 'fa_brutschale', 'fa_moewenglas',
+  'fa_irrlichtfunke', 'fa_schaedelsplitter', 'fa_ratssiegel', 'fa_medaille_polizei', 'fa_fernrohr_messing', 'fa_bronzeglocke_klein', 'fa_spinnfaden_lila', 'fa_linsenscherbe', 'fa_madenwachs', 'fa_russklumpen'];
+ICON32.push(...FA_ARTEFAKTE);
+
+// --- Paket CO: Halbgott und Engel (manifest-halbgott.json) -------------------------------------------------------
+/** Pfadreihenfolge der Siegel, Formen und Sequenzbilder. */
+export const HG_PATHS = ['laterne', 'faden', 'maske', 'echo', 'kessel', 'eisen', 'schluessel', 'sq_waage', 'sq_moor', 'sq_uhr'];
+/** Trink-Sheets für Sequenz 4 (halbgott) und 2 (engel): Ermittler und beide Figuren von Spieler 2, zwölf Frames. */
+ANIM_SHEETS.player_drink_halbgott = ['characters/A_player_drink_halbgott.png', 16, 32];
+ANIM_SHEETS.player_drink_engel = ['characters/A_player_drink_engel.png', 16, 32];
+for (const look of ['p2a', 'p2b']) for (const t of ['halbgott', 'engel']) ANIM_SHEETS[`${look}_drink_${t}`] = [`characters/${look}_drink_${t}.png`, 16, 32];
+/** Aufstiegs-Vollbilder (240x135, acht Frames, auf Bildschirmgröße skaliert), Wechsel-, Furcht-, Umfall- und Zögern-Effekte, Auren. */
+ANIM_SHEETS.HG_aufstieg_4 = ['fx/HG_aufstieg_4.png', 240, 135];
+ANIM_SHEETS.HG_aufstieg_2 = ['fx/HG_aufstieg_2.png', 240, 135];
+ANIM_SHEETS.HG_kreatur_wechsel = ['fx/HG_kreatur_wechsel.png', 64, 64];
+ANIM_SHEETS.HG_furcht = ['fx/HG_furcht.png', 16, 16];
+export const HG_FURCHT = { schreck: 0, schweiss: 1, zittern: 2, augen_zu: 3, nebel_frage: 4, ohnmacht: 5 };
+ANIM_SHEETS.HG_umfallen = ['fx/HG_umfallen.png', 16, 32];
+ANIM_SHEETS.HG_aura_halbgott = ['fx/HG_aura_halbgott.png', 24, 36];
+ANIM_SHEETS.HG_aura_engel = ['fx/HG_aura_engel.png', 24, 36];
+ANIM_SHEETS.HG_zoegern = ['fx/HG_zoegern.png', 32, 32];
+/** Kreaturformen auf der Karte (32x48, Reihen unten/links/rechts/oben, Fußpunkt y=46) und im Kampf (96x96). */
+for (const p of HG_PATHS) {
+  ANIM_SHEETS[`hg_form_${p}`] = [`characters/hg_form_${p}.png`, 32, 48];
+  BATTLE_SHEETS[`hg_battle_${p}`] = [`battle/hg_battle_${p}.png`, 96];
+}
+/** Wächter der schweren Rituale: Kampfblätter (rechteckig!), Kartenfiguren und der Siegelstreifen (32x32, Pfadreihenfolge). */
+BATTLE_SHEETS.hg_schwellenwaechter = ['battle/hg_schwellenwaechter.png', 128, 96];
+BATTLE_SHEETS.hg_grenzwaechter = ['battle/hg_grenzwaechter.png', 128, 128];
+ANIM_SHEETS.hg_schwellenwaechter_karte = ['characters/hg_schwellenwaechter_karte.png', 32, 48];
+ANIM_SHEETS.hg_grenzwaechter_karte = ['characters/hg_grenzwaechter_karte.png', 32, 48];
+ANIM_SHEETS.hg_siegel = ['battle/hg_siegel.png', 32, 32];
+ANIM_ALIASES.hg_schwellenwaechter = { phase2: 'idle_p2', cast: 'special' };
+ANIM_ALIASES.hg_grenzwaechter = { phase2: 'idle_p2', cast: 'special' };
+for (const p of HG_PATHS) ANIM_ALIASES[`hg_battle_${p}`] = { attack: 'attack1', heavy: 'attack2', double: 'attack2', occult: 'special', cast: 'special', victory: 'idle', hit: 'hurt', death: 'defeated' };
+/** Kampfkulissen der beiden Wächter, je Pfad-Begegnung (hg_schwellenwaechter_<pfad>, hg_grenzwaechter_<pfad>). */
+for (const p of HG_PATHS) {
+  ENCOUNTER_BACKGROUNDS[`hg_schwellenwaechter_${p}`] = 'bg_hg_schwelle';
+  ENCOUNTER_BACKGROUNDS[`hg_grenzwaechter_${p}`] = 'bg_hg_grenze';
+}
+/** Zugportraits der Formen (32x32, ein Bild je Pfad) und Sequenzbilder (240x135) für Seq 4 und 2. */
+for (const p of HG_PATHS) {
+  TURN_PORTRAITS[`hg_form_${p}`] = 0;
+  TURN_PORTRAIT_URLS[`hg_form_${p}`] = [`${BASE}ui/hg_zug_${p}.png`, 1];
+}
+export const HG_SCENES = HG_PATHS.flatMap((p) => [`hg_seq4_${p}`, `hg_seq2_${p}`]);
+/** HUD-Marken (16x16 und 32x32): halbgott, engel, form_aus, form_an, verdauung_gesperrt, furcht, ritual_offen, ritual_bestanden, rueckverwandlung, koop_form. */
+export const HG_HUD = ['halbgott', 'engel', 'form_aus', 'form_an', 'verdauung_gesperrt', 'furcht', 'ritual_offen', 'ritual_bestanden', 'rueckverwandlung', 'koop_form'];
+UI_SHEETS.hghud = ['ui/HG_hud.png', 160, 16];
+UI_REGIONS.hghud = Object.fromEntries(HG_HUD.map((n, i) => [n, [i * 16, 0, 16, 16]]));
+UI_SHEETS.hghud32 = ['ui/HG_hud_32.png', 320, 32];
+UI_REGIONS.hghud32 = Object.fromEntries(HG_HUD.map((n, i) => [n, [i * 32, 0, 32, 32]]));

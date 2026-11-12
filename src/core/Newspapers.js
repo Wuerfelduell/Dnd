@@ -8,6 +8,7 @@ export const newspaperMethods = {
 
   /** Neue Ausgaben prüfen. silent: nur ins Archiv (z. B. beim Laden eines alten Spielstands). */
   checkPapers(silent = false) {
+    this.syncCityFlags();
     const fresh = [];
     for (const p of this.content.newspapers ?? []) {
       if (this.papers.includes(p.id) || !this.meets(p)) continue;
@@ -16,6 +17,14 @@ export const newspaperMethods = {
     }
     if (!silent) for (const p of fresh) this.emit('newspaper', p);
     return fresh;
+  },
+
+  /** Paket CP: `hg_in_<stadt>` ist eine abgeleitete Flagge der aktuellen Stadt (Zeitungen melden den Halbgott vor Ort). */
+  syncCityFlags() {
+    const city = this.content.maps?.[this.map]?.city ?? 'kettlegate';
+    for (const c of ['kettlegate', 'wexmoor', 'dunscar', 'calderwick', 'briarholt']) {
+      if (c === city) this.flags.add(`hg_in_${c}`); else this.flags.delete(`hg_in_${c}`);
+    }
   },
 
   /** Archiv, neueste zuerst. */

@@ -62,7 +62,7 @@ test('CE1: Deko aus den sieben Props-Blättern steht auf Boden und nennt nur vor
     const m = content.maps[id];
     for (const d of m.decor) {
       decor += 1;
-      if (d.sprite === 'cwt_gleis') continue;
+      if (d.sprite === 'cwt_gleis' || d.sprite.startsWith('cwo_')) continue; // CS: Minas Stand kommt aus dem Nachzügler-Paket
       assert.ok(known.has(d.sprite), `${id}: ${d.sprite}`);
       assert.match(m.rows[d.tile[1]][d.tile[0]], /[.swg]/, `${id}: ${d.sprite} auf ${d.tile}`);
     }

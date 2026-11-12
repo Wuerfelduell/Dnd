@@ -30,18 +30,52 @@ export const artisanMethods = {
   },
 
   resetArtisan() {
-    this.artisanOrders = []; // [{ circle, cycle, recipe, artifact, fee, chance }] – warten auf das nächste Treffen des Zirkels
+    this.artisanOrders = []; // [{ id, owner, piece, circle, cycle, recipe, artifact, fee, chance }] – warten auf das nächste Treffen des Zirkels
+    this.artisanHistory = []; // CR: abgeholte Aufträge mit festem Ergebnis [{ id, owner, circle, artifact, piece, ok, refund }], neueste zuletzt
   },
 
   serializeArtisan() {
-    return { artisanOrders: this.artisanOrders ?? [] };
+    return { artisanOrders: this.artisanOrders ?? [], artisanHistory: (this.artisanHistory ?? []).slice(-12) };
   },
 
   loadArtisan(data) {
     this.artisanOrders = Array.isArray(data.artisanOrders)
       ? data.artisanOrders.filter((o) => o && typeof o.circle === 'string' && typeof o.cycle === 'number' && typeof o.recipe === 'string')
-        .map((o) => ({ circle: o.circle, cycle: o.cycle, recipe: o.recipe, artifact: o.artifact ?? o.recipe, fee: o.fee ?? 0, chance: o.chance ?? this.recipeChance(o.recipe) }))
+        .map((o) => ({ ...(o.id ? { id: o.id } : {}), owner: o.owner ?? 1, piece: o.piece ?? Object.keys(this.recipeDef(o.recipe)?.needs ?? {})[0] ?? null,
+          circle: o.circle, cycle: o.cycle, recipe: o.recipe, artifact: o.artifact ?? o.recipe, fee: o.fee ?? 0, chance: o.chance ?? this.recipeChance(o.recipe) }))
       : [];
+    this.artisanHistory = Array.isArray(data.artisanHistory) ? data.artisanHistory.filter((h) => h && typeof h.artifact === 'string') : [];
+  },
+
+  /** CR: Textvorrat der Fasserin-Aufträge (Oda, Gastgeber je Zirkel, Karten- und Hinweistexte) oder null. */
+  faTexte() {
+    return this.content.fasserinAuftrag ?? null;
+  },
+
+  /** Höchstens so viele Aufträge gleichzeitig offen (CR: gemeinsame Obergrenze, auch zu zweit). */
+  maxOpenOrders() {
+    return this.artisanDef()?.max_open ?? 2;
+  },
+
+  /** CR: Platzhalter {zirkel}, {artefakt}, {beutestueck}, {lohn}, {erstattung}, {auftraggeber} in einer Zeile ersetzen. */
+  faFill(text, o = {}) {
+    const name = (id) => this.item(id)?.name ?? id ?? '';
+    return String(text ?? '')
+      .replaceAll('{zirkel}', this.gatheringDef(o.circle)?.name ?? o.circle ?? '')
+      .replaceAll('{artefakt}', name(o.artifact)).replaceAll('{beutestueck}', name(o.piece))
+      .replaceAll('{lohn}', String(o.fee ?? '')).replaceAll('{erstattung}', String(o.refund ?? Math.floor((o.fee ?? 0) * (this.artisanDef()?.erfolg?.erstattung ?? 0.5))))
+      .replaceAll('{auftraggeber}', o.owner === 2 ? 'Spieler 2' : 'dir');
+  },
+
+  /** Zustand eines Auftrags für Zettel und Oberfläche: bestellt (diese Runde), in_arbeit, fertig (abholbar). */
+  orderState(o, cycle = this.marketCycle()) {
+    if (o.cycle >= cycle) return this.auction?.circle === o.circle && this.auction?.cycle === o.cycle ? 'bestellt' : 'in_arbeit';
+    return 'fertig';
+  },
+
+  /** CR: Odas Zirkelzeile zur Begrüßung (wo bestellt wird, wird abgeholt), sonst leer. */
+  artisanCircleLine(circleId) {
+    return this.faTexte()?.oda?.je_zirkel?.[circleId] ?? '';
   },
 
   recipeDef(id) {
@@ -98,7 +132,12 @@ export const artisanMethods = {
 
   /** Gelingt die Fassung? Fester Würfel je Auftrag (Zirkel, Runde der Bestellung, Rezept, laufende Nummer). */
   orderSucceeds(order, index = 0) {
-    return this.sessionRng(order.circle, order.cycle, `craft:${order.recipe}:${index}`)() < (order.chance ?? this.recipeChance(order.recipe));
+    return this.sessionRng(order.circle, order.cycle, `craft:${order.recipe}:${order.id ?? index}`)() < (order.chance ?? this.recipeChance(order.recipe));
+  },
+
+  /** CR: eine Zeile aus einem Vorrat, fest nach Runde gewählt (kein Schlagabtausch aus allen Varianten). */
+  faLine(list, seed = 0, fallback = '') {
+    return list?.length ? list[Math.abs(seed) % list.length] : fallback;
   },
 
   /**
@@ -109,17 +148,30 @@ export const artisanMethods = {
     const ready = this.readyOrders(circleId, cycle);
     if (!ready.length) return [];
     const e = this.artisanDef()?.erfolg ?? {};
+    const cr = this.faTexte();
+    const oda = this.artisanPresent(circleId, cycle);
+    const host = cr?.gastgeber?.[circleId];
     const out = [];
     ready.forEach((o, i) => {
       const ok = this.orderSucceeds(o, i);
       const refund = ok ? 0 : Math.floor((o.fee ?? 0) * (e.erstattung ?? 0.5));
       if (ok) this.addItem(o.artifact);
       else if (refund) this.addMoney(refund);
-      out.push({ item: o.artifact, ok, refund, price: o.fee });
+      out.push({ item: o.artifact, ok, refund, price: o.fee, id: o.id, owner: o.owner ?? 1 });
       const name = this.item(o.artifact)?.name ?? o.artifact;
-      this.say?.(ok
-        ? `Der Gastgeber schiebt dir ${name} zu. „${this.artisanLine('gelungen', 'Die Fasserin lässt grüßen. Es hat gehalten.')}“`
-        : `Der Gastgeber legt ${refund} Schilling vor dich. „${this.artisanLine('missglueckt', `${name} ist ihr zersprungen. Den halben Lohn gibt sie zurück.`)}“`);
+      // CR: bei Oda die stückspezifische Zeile, sonst die Zirkelvariante des Gastgebers; sonst der BO-Vorrat
+      const bo = ok ? this.artisanLine('gelungen', 'Die Fasserin lässt grüßen. Es hat gehalten.') : this.artisanLine('missglueckt', `${name} ist ihr zersprungen. Den halben Lohn gibt sie zurück.`);
+      const crLine = ok
+        ? (oda && cr?.oda?.uebergabe_erfolg?.[o.artifact]) || this.faLine(host?.uebergabe_erfolg, cycle + i)
+        : (oda && cr?.oda?.uebergabe_misslungen?.[o.piece]) || this.faLine(host?.uebergabe_misslungen, cycle + i);
+      const who = oda ? this.artisanName() : 'Der Gastgeber';
+      const said = `„${bo}“${crLine ? ` ${this.faFill(crLine, { ...o, refund })}` : ''}`;
+      this.say?.(ok ? `${who} schiebt dir ${name} zu. ${said}` : `${who} legt ${refund} Schilling vor dich. ${said}`);
+      this.artisanHistory = [...(this.artisanHistory ?? []), { id: o.id ?? null, owner: o.owner ?? 1, circle: o.circle, artifact: o.artifact, piece: o.piece ?? null, ok, refund }].slice(-12);
+      if (!ok) {
+        const n = this.artisanHistory.filter((h) => !h.ok).length;
+        for (const k of [1, 3, 5]) if (n >= k) this.flags.add(`fa_misslungen_${k}`);
+      }
     });
     this.artisanOrders = this.pendingOrders().filter((o) => !ready.includes(o));
     this.emit('changed');
@@ -172,17 +224,28 @@ export const artisanMethods = {
     if (!a || a.phase !== 'artisan') return { ok: false, text: 'Die Fasserin arbeitet nur am Tisch der Runde.' };
     const r = this.artisanRecipes(a.circle, a.cycle).find((x) => x.id === recipeId);
     if (!r) return { ok: false, text: 'Das fasst sie heute nicht.' };
+    const cr = this.faTexte();
+    // CR: höchstens zwei offene Aufträge, auch zu zweit; beim Bestätigen erneut geprüft
+    if (this.pendingOrders().length >= this.maxOpenOrders()) return { ok: false, text: `„${this.faLine(cr?.oda?.zu_viele, a.cycle, 'Zwei Aufträge sind schon offen; holen Sie erst ein Ergebnis ab.')}“` };
     const c = this.recipeCheck(r);
-    if (c.missing.length) return { ok: false, text: `„${this.artisanLine('fehlende_beute', 'Bringen Sie den Rest.')}“ Es fehlt: ${c.missing.map((x) => `${this.item(x.item)?.name ?? x.item} (${x.have}/${x.n})`).join(', ')}.` };
-    if (c.poor) return { ok: false, text: `„${this.artisanLine('fehlendes_geld', 'Der Lohn steht fest.')}“ Der Fasserlohn sind ${c.fee} Schilling. So viel hast du nicht.` };
+    // BO-Zeile zuerst, CR ergänzt (kein_stueck/kein_geld verbrauchen nichts)
+    const plus = (list) => { const l = this.faLine(list, a.cycle); return l ? ` ${l}` : ''; };
+    if (c.missing.length) return { ok: false, text: `„${this.artisanLine('fehlende_beute', 'Bringen Sie den Rest.')}${plus(cr?.oda?.kein_stueck)}“ Es fehlt: ${c.missing.map((x) => `${this.item(x.item)?.name ?? x.item} (${x.have}/${x.n})`).join(', ')}.` };
+    if (c.poor) return { ok: false, text: `„${this.artisanLine('fehlendes_geld', 'Der Lohn steht fest.')}${plus(cr?.oda?.kein_geld)}“ Der Fasserlohn sind ${c.fee} Schilling. So viel hast du nicht.` };
     for (const x of c.needs) this.removeItem(x.item, x.n);
     if (c.fee) this.spendMoney(c.fee);
-    const order = { circle: a.circle, cycle: a.cycle, recipe: r.id, artifact: c.artifact, fee: c.fee, chance: c.chance };
+    const n = (this.artisanOrderCount = (this.artisanOrderCount ?? 0) + 1);
+    const order = { id: `fa_${a.circle}_${a.cycle}_${n}_${Math.floor(Math.random() * 1e6)}`, owner: this.acting ?? 1, piece: c.needs[0]?.item ?? null, circle: a.circle, cycle: a.cycle, recipe: r.id, artifact: c.artifact, fee: c.fee, chance: c.chance };
     this.artisanOrders = [...(this.artisanOrders ?? []), order];
+    this.flags.add('fa_auftrag_erteilt');
+    this.flags.add(`fa_auftrag_${a.circle}`);
     this.act?.('trade');
     this.act?.('gathering');
     a.crafted.push({ item: c.artifact, price: c.fee, chance: c.chance });
-    this.say(`${this.artisanName()} nimmt ${this.item(c.needs[0]?.item)?.name ?? 'das Stück'} an sich. ${r.line ?? ''} „${this.artisanLine('auftrag', 'Beim nächsten Treffen dieses Zirkels.')}“`.trim());
+    const annehmen = this.faLine(cr?.oda?.annehmen, a.cycle + n);
+    this.say(`${this.artisanName()} nimmt ${this.item(c.needs[0]?.item)?.name ?? 'das Stück'} an sich. ${r.line ?? ''} „${this.artisanLine('auftrag', 'Beim nächsten Treffen dieses Zirkels.')}${annehmen ? ` ${annehmen}` : ''}“`.trim());
+    if (cr?.texte?.hinweise?.auftrag_erteilt) this.emit('notice', this.faFill(cr.texte.hinweise.auftrag_erteilt, order));
+    if (this.pendingOrders().length >= this.maxOpenOrders() && cr?.texte?.hinweise?.zweiter_auftrag_offen) this.emit('notice', cr.texte.hinweise.zweiter_auftrag_offen);
     this.emit('changed');
     return { ok: true, artifact: c.artifact, order };
   },
