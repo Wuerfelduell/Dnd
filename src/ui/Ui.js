@@ -1685,6 +1685,13 @@ export class Ui {
     el.querySelectorAll('[data-tab]').forEach((b) => { b.onclick = () => { if (this.tab !== b.dataset.tab) this.sfx(uiSound('notebook', 'tab')); this.tab = b.dataset.tab; this.selected = []; this.forgetScroll(); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-itemcat]').forEach((b) => { b.onclick = () => { if (this.itemCat !== b.dataset.itemcat) this.sfx(uiSound('notebook', 'page')); this.itemCat = b.dataset.itemcat; this.forgetScroll('notebook', /^UL\./); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-fact]').forEach((b) => { b.onclick = () => this.toggleFact(b.dataset.fact); });
+    const search = el.querySelector('.beast-search');
+    if (search) {
+      this.filterBestiary(el);
+      search.oninput = () => { this.beastQuery = search.value; this.filterBestiary(el); };
+      // Tippen darf weder Notizbuch-Tasten noch die Laufsteuerung (WASD) auslösen; Esc verlässt das Feld
+      search.onkeydown = (e) => { e.stopPropagation(); if (e.key === 'Escape') search.blur(); };
+    }
     el.querySelectorAll('[data-quest-case]').forEach((b) => { b.onclick = (event) => {
       event.stopPropagation();
       this.sfx(uiSound('notebook', 'page'));
@@ -1805,12 +1812,32 @@ export class Ui {
     const card = (id) => {
       const e = encs[id];
       const eliteWon = this.state.flags.has(`won_${id}_elite`);
-      return `<li><img src="${bestiaryUrl(id)}" alt="" onerror="this.remove()"><div class="beast-info">
+      return `<li data-beast="${esc(e.name.toLowerCase())}"><img src="${bestiaryUrl(id)}" alt="" onerror="this.remove()"><div class="beast-info">
         <strong>${esc(e.name)}</strong><span class="muted">${e.occult ? 'Okkult · ' : ''}${e.hp} Leben${eliteWon ? ' · Elite besiegt' : ''}</span>
         ${this.beastLoreHtml(id)}
         ${this.beastLootHtml(loot?.[id], items, eliteWon ? loot?.[`${id}_elite`] : null)}</div></li>`;
     };
-    return `<ul class="bestiary">${ids.map(card).join('')}</ul>`;
+    const q = this.beastQuery ?? '';
+    return `<div class="beast-searchbar"><input type="search" class="beast-search" placeholder="Gegner oder Beute suchen …" value="${esc(q)}" aria-label="Bestiarium durchsuchen">
+      <span class="muted beast-count"></span></div>
+      <ul class="bestiary">${ids.map(card).join('')}</ul><p class="empty beast-none" hidden>Kein bekannter Gegner lässt das fallen.</p>`;
+  }
+
+  /** Suchleiste im Bestiarium: zeigt nur Gegner, deren Name oder Beute passt, und hebt passende Beute hervor. */
+  filterBestiary(el) {
+    const q = (this.beastQuery ?? '').trim().toLowerCase();
+    let shown = 0;
+    const cards = [...el.querySelectorAll('.bestiary > li')];
+    for (const li of cards) {
+      const rows = [...li.querySelectorAll('.loot-row[data-item]')];
+      const hits = q ? rows.filter((r) => r.dataset.item.includes(q)) : [];
+      rows.forEach((r) => r.classList.toggle('hit', hits.includes(r)));
+      const show = !q || li.dataset.beast.includes(q) || hits.length > 0;
+      li.hidden = !show;
+      if (show) shown++;
+    }
+    el.querySelector('.beast-count').textContent = q ? `${shown} von ${cards.length}` : `${cards.length} Gegner`;
+    el.querySelector('.beast-none').hidden = shown > 0;
   }
 
   /** Paket AD: Beschreibung und Kampftipp im Bestiarium. */
@@ -1830,7 +1857,7 @@ export class Ui {
   /** Beute-Liste eines Gegners im Bestiarium. */
   beastLootHtml(table, items, elite) {
     const p = lootPreview(table, items, elite);
-    const rows = p.items.map((e) => `<li class="loot-row rar-${e.rarity}" title="${esc(RARITY_NAMES[e.rarity])}">${itemIcon(e.id)}<span>${esc(e.name)}</span>
+    const rows = p.items.map((e) => `<li class="loot-row rar-${e.rarity}" data-item="${esc(e.name.toLowerCase())}" title="${esc(RARITY_NAMES[e.rarity])}">${itemIcon(e.id)}<span>${esc(e.name)}</span>
       <span class="rar">${e.first ? 'erster Sieg' : chanceWord(e.chance)}${e.elite ? ' · Elite' : ''}</span></li>`);
     const [lo, hi] = p.money;
     if (hi) rows.unshift(`<li class="loot-row">${moneyIcon(hi)}<span>${lo === hi ? lo : `${lo}–${hi}`} Schilling</span></li>`);
@@ -3230,6 +3257,7 @@ export class Ui {
   // --- Tastatur ---------------------------------------------------------------
 
   onKey(e) {
+    if (e.target?.classList?.contains('beast-search')) return; // Suchfeld im Bestiarium: Tasten gehören dem Textfeld
     if (!this.modal) {
       // Esc in der Welt: Pausemenü (Spieler 2 hinzufügen oder entfernen)
       if (e.key === 'Escape' && !e.repeat && this.scene && !this.combatScene && performance.now() >= this.blockedUntil) {
