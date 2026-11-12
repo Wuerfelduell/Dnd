@@ -2100,3 +2100,7 @@ Unterelemente und drei Größenableitungen; keine zusätzlichen Varianten.
 - DW `stellwerk`: Figuren Stummes Stellwerk + 3 Kalkmarkt-Händlerinnen
 - DX `gebietsbosse`: 4 Dunscar-Gebietsbosse (Kampfblatt + Auftrittsbild)
 - DY `pfadbeyonder`: Wenna Kolk, Corvin Hake (Lauf + Kopf + Kampf), Maud Keel Kampfblatt
+
+## Wexmoorer Pfad-Beyonder (`pfadbeyonder`)
+
+Sieben Figuren- und Kampf-Sheets für Wenna Kolk, Corvin Hake und Maud Keel. Manifest: `public/sprites/manifest-pfadbeyonder.json`; Vorschau, Generationsnotizen und Prüfreport liegen unter `docs/art/batch-pfadbeyonder-*`. Technische Prüfung: `python tools/art/pfadbeyonder/check.py`.
