@@ -41,6 +41,14 @@ export function rollLoot(table, rng = Math.random, { luck = 1, moneyMult = 1 } =
     const n = Math.max(1, between(d.n ?? 1, rng));
     out.items[d.item] = (out.items[d.item] ?? 0) + n;
   }
+  // Altfund (data/altbeute.js): mit `alt.chance` genau ein gewichtet gezogenes Stück aus dem Topf
+  const alt = table.alt;
+  if (alt?.pool?.length && rng() < Math.min(1, alt.chance * luck)) {
+    const total = alt.pool.reduce((s, e) => s + (e.w ?? 1), 0);
+    let r = rng() * total;
+    const pick = alt.pool.find((e) => (r -= e.w ?? 1) < 0) ?? alt.pool[alt.pool.length - 1];
+    out.items[pick.item] = (out.items[pick.item] ?? 0) + 1;
+  }
   return out;
 }
 
@@ -90,5 +98,7 @@ export function lootPreview(table, items, elite = null) {
   for (const id of Object.keys(elite?.items ?? {})) add(id, { chance: 1, first: true, elite: true });
   const list = [...entries.values()].sort((a, b) => RARITIES.indexOf(b.rarity) - RARITIES.indexOf(a.rarity) || b.chance - a.chance);
   const money = table?.money ?? 0;
-  return { money: Array.isArray(money) ? money : [money, money], repeat: !!table?.repeat, items: list };
+  const alt = table?.alt ?? elite?.alt;
+  return { money: Array.isArray(money) ? money : [money, money], repeat: !!table?.repeat, items: list,
+    alt: alt?.pool?.length ? { label: alt.label ?? 'Altfund', chance: table?.alt?.chance ?? 0, elite: elite?.alt?.chance ?? 0, n: alt.pool.length } : null };
 }
