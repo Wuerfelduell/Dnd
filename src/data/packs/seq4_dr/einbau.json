@@ -1,0 +1,262 @@
+{
+  "id": "s4r_einbau",
+  "gemeinsam": {
+    "ort": "Frei gewählter geeigneter Standort; keine Bindung an Fälle, Städte oder feste Ritualfelder.",
+    "solo": "Nur der aufsteigende Spieler handelt; der Koop-Partner schaut zu und greift nicht ein.",
+    "abschluss": "Jedes Ritual endet mit dem Schwellenwächter; danach wird der Sequenz-4-Trank freigegeben, nicht automatisch als getrunken gewertet.",
+    "wiederholung": "Nach einem Fehlschlag ist ein neuer Versuch möglich.",
+    "verlust_offen": "Für Faden, Eisen, Schlüssel, Waage und Uhr setzt der Einbau den Verdauungsverlust innerhalb der vorgegebenen 20–25 % fest.",
+    "eingabe": "Eine gesperrte Aktion zeigt eine Meldung; nur ein vom Regelkern bestätigter Fehlschlag zeigt den Fehlertext und zieht einmal Verdauung ab."
+  },
+  "platzhalter": {
+    "n": "Kontextabhängig: Anzahl, Nummer, Kapital oder Restbestand.",
+    "pct": "Prozentwert ohne Prozentzeichen; aus Regelkern oder Balancing.",
+    "runde": "Aktuelle überstandene Runde, bei Eisen nur 1 bis 5.",
+    "name": "Anzeigename einer Kreatur, Fähigkeit, Person oder eines Relikts.",
+    "item": "Anzeigename des Gegenstands oder Rezepts.",
+    "eigenschaften": "Lesbare Liste der tatsächlich geerbten Relikteigenschaften."
+  },
+  "pfade": {
+    "laterne": {
+      "ritual": "s4r_laterne",
+      "meldungen": "s4r_laterne",
+      "waechter": "s4r_laterne",
+      "koop_zuschauer": "s4r_laterne",
+      "aktiv_flag": "s4r_laterne_aktiv",
+      "done_flag": "s4r_laterne_done",
+      "fehlschlag_flag": "s4r_laterne_fehlschlag",
+      "verlust_pct": 20,
+      "ereignisse": {
+        "laterne_aufgestellt": "laterne_aufgestellt",
+        "laterne_angegriffen": "laterne_angegriffen",
+        "laterne_schwach": "laterne_schwach",
+        "laterne_erloschen": "laterne_erloschen",
+        "nachfuellen_unterbrochen": "nachfuellen_unterbrochen",
+        "monster_weicht": "monster_weicht",
+        "monster_zerfaellt": "monster_zerfaellt",
+        "nerven_schwinden": "nerven_schwinden",
+        "unruhe_1": "unruhe_1",
+        "unruhe_2": "unruhe_2",
+        "unruhe_3": "unruhe_3",
+        "waechter_erscheint": "waechter_erscheint",
+        "waechter_immun": "waechter_immun",
+        "sonnenaufgang_moeglich": "sonnenaufgang_moeglich",
+        "sonnenaufgang": "sonnenaufgang",
+        "eigenlicht": "eigenlicht",
+        "schwaechste_laterne": "schwaechste_laterne",
+        "angriff_gesperrt": "angriff_gesperrt"
+      }
+    },
+    "faden": {
+      "ritual": "s4r_faden",
+      "meldungen": "s4r_faden",
+      "waechter": "s4r_faden",
+      "koop_zuschauer": "s4r_faden",
+      "aktiv_flag": "s4r_faden_aktiv",
+      "done_flag": "s4r_faden_done",
+      "fehlschlag_flag": "s4r_faden_fehlschlag",
+      "verlust_pct": "{pct}",
+      "ereignisse": {
+        "kreatur_markiert": "kreatur_markiert",
+        "gebiet_belegt": "gebiet_belegt",
+        "art_belegt": "art_belegt",
+        "alle_markiert": "alle_markiert",
+        "einschlafen": "einschlafen",
+        "traumbeginn": "traumbeginn",
+        "heilung_versagt": "heilung_versagt",
+        "erwachen": "erwachen",
+        "waechter_erscheint": "waechter_erscheint",
+        "markierung_bleibt": "markierung_bleibt"
+      }
+    },
+    "maske": {
+      "ritual": "s4r_maske",
+      "meldungen": "s4r_maske",
+      "waechter": "s4r_maske",
+      "koop_zuschauer": "s4r_maske",
+      "aktiv_flag": "s4r_maske_aktiv",
+      "done_flag": "s4r_maske_done",
+      "fehlschlag_flag": "s4r_maske_fehlschlag",
+      "verlust_pct": 20,
+      "ereignisse": {
+        "verwandlung": "verwandlung",
+        "herausforderung_angenommen": "herausforderung_angenommen",
+        "herausforderung_abgelehnt": "herausforderung_abgelehnt",
+        "faehigkeit_benutzt": "faehigkeit_benutzt",
+        "artefakt_abgelegt": "artefakt_abgelegt",
+        "verschonen_frage": "verschonen_frage",
+        "verschont": "verschont",
+        "gegner_tot": "gegner_tot",
+        "gegner_faehigkeiten": "gegner_faehigkeiten",
+        "waechter_erscheint": "waechter_erscheint",
+        "zweifel_bleibt": "zweifel_bleibt"
+      }
+    },
+    "echo": {
+      "ritual": "s4r_echo",
+      "meldungen": "s4r_echo",
+      "waechter": "s4r_echo",
+      "koop_zuschauer": "s4r_echo",
+      "aktiv_flag": "s4r_echo_aktiv",
+      "done_flag": "s4r_echo_done",
+      "fehlschlag_flag": "s4r_echo_fehlschlag",
+      "verlust_pct": 25,
+      "ereignisse": {
+        "taubheit_beginn": "taubheit_beginn",
+        "taubheit_ende": "taubheit_ende",
+        "gegner_besiegt": "gegner_besiegt",
+        "waechter_erscheint": "waechter_erscheint",
+        "ausweichen_gelungen": "ausweichen_gelungen",
+        "ausweichen_misslungen": "ausweichen_misslungen",
+        "parieren_gelungen": "parieren_gelungen",
+        "parieren_misslungen": "parieren_misslungen"
+      }
+    },
+    "kessel": {
+      "ritual": "s4r_kessel",
+      "meldungen": "s4r_kessel",
+      "waechter": "s4r_kessel",
+      "koop_zuschauer": "s4r_kessel",
+      "aktiv_flag": "s4r_kessel_aktiv",
+      "done_flag": "s4r_kessel_done",
+      "fehlschlag_flag": "s4r_kessel_fehlschlag",
+      "verlust_pct": 25,
+      "ereignisse": {
+        "rezept_frei": "rezept_frei",
+        "rezept_gesperrt": "rezept_gesperrt",
+        "gebraut": "gebraut",
+        "getrunken": "getrunken",
+        "waechter_erscheint": "waechter_erscheint",
+        "angriff_verboten": "angriff_verboten",
+        "trank_trifft": "trank_trifft",
+        "verdauung_fehlt": "verdauung_fehlt",
+        "formel_fehlt": "formel_fehlt",
+        "offensive_faehigkeit_verboten": "offensive_faehigkeit_verboten"
+      }
+    },
+    "eisen": {
+      "ritual": "s4r_eisen",
+      "meldungen": "s4r_eisen",
+      "waechter": "s4r_eisen",
+      "koop_zuschauer": "s4r_eisen",
+      "aktiv_flag": "s4r_eisen_aktiv",
+      "done_flag": "s4r_eisen_done",
+      "fehlschlag_flag": "s4r_eisen_fehlschlag",
+      "verlust_pct": "{pct}",
+      "ereignisse": {
+        "artefakte_fehlen": "artefakte_fehlen",
+        "traglast_fehlt": "traglast_fehlt",
+        "ruestung_an": "ruestung_an",
+        "helm_an": "helm_an",
+        "amulett_an": "amulett_an",
+        "bereit": "bereit",
+        "waechter_erscheint": "waechter_erscheint",
+        "runde_ueberstanden": "runde_ueberstanden",
+        "todesstoss_abgewehrt": "todesstoss_abgewehrt",
+        "verwundbar": "verwundbar",
+        "ausweichen_verboten": "ausweichen_verboten",
+        "bedingung_gebrochen": "bedingung_gebrochen"
+      }
+    },
+    "schluessel": {
+      "ritual": "s4r_schluessel",
+      "meldungen": "s4r_schluessel",
+      "waechter": "s4r_schluessel",
+      "koop_zuschauer": "s4r_schluessel",
+      "aktiv_flag": "s4r_schluessel_aktiv",
+      "done_flag": "s4r_schluessel_done",
+      "fehlschlag_flag": "s4r_schluessel_fehlschlag",
+      "verlust_pct": "{pct}",
+      "ereignisse": {
+        "schatten_getrennt": "schatten_getrennt",
+        "koerper_zurueck": "koerper_zurueck",
+        "faehigkeit_runde": "faehigkeit_runde",
+        "heilung_versagt": "heilung_versagt",
+        "parieren_unmoeglich": "parieren_unmoeglich",
+        "gegner_besiegt": "gegner_besiegt",
+        "waechter_erscheint": "waechter_erscheint",
+        "schatten_zurueck": "schatten_zurueck",
+        "schatten_zerfasert": "schatten_zerfasert",
+        "schattenattacke": "schattenattacke",
+        "ausruestung_gesperrt": "ausruestung_gesperrt"
+      }
+    },
+    "sq_waage": {
+      "ritual": "s4r_sq_waage",
+      "meldungen": "s4r_sq_waage",
+      "waechter": "s4r_sq_waage",
+      "koop_zuschauer": "s4r_sq_waage",
+      "aktiv_flag": "s4r_sq_waage_aktiv",
+      "done_flag": "s4r_sq_waage_done",
+      "fehlschlag_flag": "s4r_sq_waage_fehlschlag",
+      "verlust_pct": "{pct}",
+      "ereignisse": {
+        "besitz_versiegelt": "besitz_versiegelt",
+        "kapital_gewaehlt": "kapital_gewaehlt",
+        "kauf": "kauf",
+        "waren_offen": "waren_offen",
+        "kapital_zu_knapp": "kapital_zu_knapp",
+        "alles_gekauft": "alles_gekauft",
+        "waechter_erscheint": "waechter_erscheint",
+        "nur_gekauftes": "nur_gekauftes",
+        "besitz_zurueck": "besitz_zurueck",
+        "angebot_unveraendert": "angebot_unveraendert"
+      }
+    },
+    "sq_moor": {
+      "ritual": "s4r_sq_moor",
+      "meldungen": "s4r_sq_moor",
+      "waechter": "s4r_sq_moor",
+      "koop_zuschauer": "s4r_sq_moor",
+      "aktiv_flag": "s4r_sq_moor_aktiv",
+      "done_flag": "s4r_sq_moor_done",
+      "fehlschlag_flag": "s4r_sq_moor_fehlschlag",
+      "verlust_pct": 25,
+      "ereignisse": {
+        "zersetzt": "zersetzt",
+        "falsche_zersetzung": "falsche_zersetzung",
+        "relikt_geformt": "relikt_geformt",
+        "waechter_erscheint": "waechter_erscheint",
+        "moorwasser_getrunken": "moorwasser_getrunken",
+        "moorwasser_leer": "moorwasser_leer"
+      }
+    },
+    "sq_uhr": {
+      "ritual": "s4r_sq_uhr",
+      "meldungen": "s4r_sq_uhr",
+      "waechter": "s4r_sq_uhr",
+      "koop_zuschauer": "s4r_sq_uhr",
+      "aktiv_flag": "s4r_sq_uhr_aktiv",
+      "done_flag": "s4r_sq_uhr_done",
+      "fehlschlag_flag": "s4r_sq_uhr_fehlschlag",
+      "verlust_pct": "{pct}",
+      "ereignisse": {
+        "monster_angriff": "monster_angriff",
+        "perfekt": "perfekt",
+        "normal": "normal",
+        "waechter_fehler": "waechter_fehler",
+        "vierter_fehler": "vierter_fehler",
+        "parieren_verboten": "parieren_verboten",
+        "vorpruefung_fehler": "vorpruefung_fehler",
+        "gegner_ohne_angriff": "gegner_ohne_angriff",
+        "waechter_erscheint": "waechter_erscheint"
+      }
+    }
+  },
+  "gemeinsame_texte": {
+    "s4r_solo": "Diese Prüfung legst du allein ab; dein Begleiter schaut zu.",
+    "s4r_wiederholen": "Die Prüfung darf wiederholt werden, sobald du ihre Voraussetzungen wieder erfüllst.",
+    "s4r_trank_frei": "Der Schwellenwächter ist besiegt; du darfst den Trank der Sequenz 4 trinken.",
+    "s4r_ort_frei": "Kein fester Ritualort: Beginne dort, wo die Bedingungen deiner Prüfung erfüllt sind."
+  },
+  "offene_anschluesse": {
+    "faden": "Die Vorgabe verlangt den verstärkten Traumkampf und einen abschließenden Wächter, legt dessen Lage zum Erwachen aber nicht eindeutig fest; der Einbau muss sie bestimmen, ohne Heilung im Traum freizugeben.",
+    "maske": "Die Einschränkungen der Zivilistenprüfung sind verbindlich; ob sie auch im anschließenden Wächterkampf gelten, ist nicht ausdrücklich festgelegt und wird hier nicht erweitert.",
+    "schluessel": "Die zufällige eigene Fähigkeit darf Heil- und Parierverbot nicht umgehen; Auswahlfilter beziehungsweise gesperrte Verwendung muss der Regelkern festlegen.",
+    "laterne": "Kein Wechsel auf einen Kampfbildschirm, auch nicht für Sonnenaufgang; Fehlschlagbedingungen jenseits einer Niederlage werden hier nicht erfunden.",
+    "koop_echo": "Die beiden Zuschauerzeilen nur vor Eintritt beziehungsweise nach Ende der Taubheit zeigen; währenddessen keine hörbare Rede an den Aufsteigenden.",
+    "echo_waechter": "Sichttexte sind Atmosphäre, keine Angriffsvorwarnung; nicht an Angriffstiming koppeln.",
+    "moor_eigenschaften": "Vorschlagspool: zufällige Übernahme an die fünf tatsächlichen Opfergegenstände binden, nicht beliebige zusätzliche Eigenschaften garantieren.",
+    "wexmoor": "Kopfgelder als einmalige Ziele; Arbeiten wiederholbar, Funde erneut erbeutbar und beim Verkauf verbraucht; keine Auszahlung allein durch Dialogwiederholung."
+  }
+}

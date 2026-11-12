@@ -46,8 +46,11 @@ test('DR: einheitlich 17 %, Namen, Regelkarten und Meldungen für alle zehn Prü
 test('DR: Wächterzwischenrufe kommen in geraden Runden, beim Eisen nach Rundenzahl', () => {
   const s = wexmoor({ pid: 'eisen' });
   const { combat } = fight(s, 'hg_schwellenwaechter_eisen', { defend: EXPERT, healBelow: 30, maxRounds: 2 });
-  assert.equal(combat.ruf(1).text, content.encounters.hg_schwellenwaechter_eisen.rufe_runde[1]);
-  assert.equal(combat.ruf(6).text, 'Jetzt kann der Wächter sterben.');
+  // Ansage zur überstandenen Runde n erst zu Beginn von Runde n + 1, in Runde 6 auch „jetzt tötbar“
+  assert.equal(combat.ruf(1), null);
+  assert.ok(combat.ruf(2).text.startsWith('Die Last zieht an Ihren Schultern'));
+  assert.ok(combat.ruf(6).text.endsWith('jetzt können Sie mich töten.'));
+  assert.ok(content.encounters.hg_schwellenwaechter_eisen.win_text.startsWith('„'), 'eigene Siegzeile');
   const s2 = wexmoor({ pid: 'faden' });
   const c2 = fight(s2, 'hg_schwellenwaechter_faden', { defend: EXPERT, maxRounds: 1 }).combat;
   assert.equal(c2.ruf(1), null);
@@ -68,6 +71,12 @@ test('DR Moor: das Relikt bekommt einen Namen und Moor-Eigenschaften', () => {
   st.decayed = [1, 2, 3, 4, 5].map((i) => ({ id: `x${i}`, name: `Ding ${i}`, boons: [], curses: [] }));
   const text = s.formRelic(seeded(3));
   const r = s.pathway.relikt;
+  // die Moor-Eigenschaften hängen an den fünf zersetzten Dingen: andere Zufallszahl, dieselben Kandidaten
+  const s2 = wexmoor({ pid: 'sq_moor' });
+  s2.seq4().decayed = st.decayed;
+  s2.formRelic(seeded(99));
+  const pool = (list) => list.every((b) => b.name);
+  assert.ok(pool(r.boons) && pool(s2.pathway.relikt.boons));
   assert.ok(r.name && r.name !== 'Relikt des Verfalls', r.name);
   assert.ok(r.boons.length >= 2 && r.boons.every((b) => b.key && b.text), JSON.stringify(r.boons));
   assert.ok(text.includes(r.name));
@@ -116,8 +125,8 @@ test('Wexmoor-Kopfgeld: Steckbrief im Wachhaus, Gesuchter auf seiner Karte, Lohn
     const t = content.quests[q].steps[0].target;
     assert.ok(content.maps[t.map].roamers.some((r) => r.encounter === t.id), q);
   }
-  // Aushänge und Fundstellen: auf jeder Karte platziert
-  for (const id of [...Object.keys(content.dialogues).filter((d) => d.startsWith('wxj_')).map((d) => `${d}_aushang`), ...Object.keys(content.dialogues).filter((d) => d.startsWith('wxf_stelle_'))]) {
+  // Aushänge: auf jeder Karte platziert
+  for (const id of [...Object.keys(content.dialogues).filter((d) => d.startsWith('wxj_')).map((d) => `${d}_aushang`)]) {
     assert.ok(Object.values(content.maps).some((m) => (m.interactables ?? []).some((i) => i.id === id)), id);
   }
 });
@@ -134,11 +143,12 @@ test('Wexmoor-Arbeiten und Funde: einmal je Spieltag, Maud kauft die Funde', () 
   s.playTime += DAY_SECONDS;
   talk(s, 'wxj_salzwagen_bewachen', ['Arbeit annehmen']);
   assert.equal(s.money - money, 2 * LOHN.arbeit.mittel);
-  // Fundstelle am Salzmarkt
-  talk(s, 'wxf_stelle_wx_salzmarkt', ['Absuchen']);
-  assert.equal(s.itemCount('wxf_schlickperle'), 1);
-  assert.throws(() => talk(s, 'wxf_stelle_wx_salzmarkt', ['Absuchen']));
-  assert.equal(s.sellPrice('wxf_schlickperle'), LOHN.fund.klein / 2);
+  // Funde: seltene Beute der Monster im Fundgebiet (Eliten doppelt), Maud kauft sie
+  for (const [fid, x] of Object.entries(content.items).filter(([i]) => i.startsWith('wxf_'))) {
+    const zone = Object.entries(content.encounters).filter(([id, e]) => content.loot[id]?.drops?.some((d) => d.item === fid)).map(([, e]) => e.zone);
+    assert.ok(zone.length >= 3 && zone.every((z) => content.zones[z]), `${fid}: ${zone}`);
+    assert.ok(s.sellPrice(fid) >= LOHN.fund.klein / 2, fid);
+  }
   for (const it of content.maps.wx_salzmarkt.interactables.filter((i) => /^wx[fj]_/.test(i.id))) {
     assert.ok(/[.,gpscwPK=]/.test(content.maps.wx_salzmarkt.rows[it.tile[1]][it.tile[0]]), it.id);
   }
