@@ -62,7 +62,6 @@ export const auctionMethods = {
       else if (it.seq === this.pathway.seq - 1) info.notes.push('Dein Pfad, deine nächste Stufe.');
       else info.notes.push(`Dein Pfad, aber erst ${this.pathway.seq - 1 - it.seq} Stufe${this.pathway.seq - 1 - it.seq === 1 ? '' : 'n'} später dran.`);
       const ing = Object.entries(it.ingredients ?? {}).map(([iid, n]) => `${this.item(iid)?.name ?? iid}${n > 1 ? ` ×${n}` : ''}`);
-      if (it.zweitzutat?.from?.length) ing.push(`dazu eine zweite Kernzutat: ${it.zweitzutat.from.map((iid) => this.item(iid)?.name ?? iid).join(' oder ')}`);
       if (ing.length) info.notes.push(`Zutaten: ${ing.join(', ')}`);
     }
     if (it.kind === 'weapon') info.notes.push(`Angriff ${it.atk}${it.occult ? ', stark gegen Okkultes' : ''}`);
