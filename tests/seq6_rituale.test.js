@@ -82,15 +82,18 @@ test('Fadenprobe: vier Spuren richtig zugeordnet besteht, ein Fehler kostet Nerv
   assert.equal(s.pendingProbe(), null);
 });
 
-test('Stimmenprüfung: sechs Stimmen von vier Sprechern, drei Fragen', () => {
+test('Stimmenprüfung (leicht, Seb): drei Stimmen von drei Sprechern, eine hallt nach und wird zugeordnet', () => {
   const s = at('echo');
   s.startProbe(seeded(3));
   const pr = s.probe;
-  assert.equal(pr.listen.length, 6);
-  assert.equal(new Set(pr.listen.map((l) => l.who)).size, 4);
+  assert.equal(pr.listen.length, 3);
+  assert.equal(new Set(pr.listen.map((l) => l.who)).size, 3);
   for (const l of pr.listen) assert.ok(ECHO_STIMMEN[l.who].includes(l.text));
-  assert.equal(pr.rounds.length, 3);
-  for (const rd of pr.rounds) assert.ok(rd.options.includes(rd.answer) && rd.options.length === 4);
+  assert.equal(pr.rounds.length, 1);
+  const [rd] = pr.rounds;
+  assert.ok(rd.options.includes(rd.answer) && rd.options.length === 3);
+  const again = pr.listen.find((l) => l.who === rd.answer);
+  assert.ok(rd.prompt.includes(again.text), 'die wiederholte Stimme steht in der Frage');
   s.probeListened();
   let r;
   while (s.probe) { const rd = s.probe.rounds[s.probe.step]; r = s.probeAnswer(rd.options.indexOf(rd.answer)); }
