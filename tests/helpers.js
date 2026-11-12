@@ -4,6 +4,7 @@ import { buildK3Ruf } from '../src/data/k3Ruf.js';
 import { buildContent } from '../src/data/buildContent.js';
 import { runde8Packs, RUNDE8_FILES } from '../src/data/runde8.js';
 import { fasserinAuftragPack, halbgottPack, FASSERIN_AUFTRAG_FILES, HALBGOTT_FILES } from '../src/data/runde9.js';
+import { seq4DrPack, SEQ4_DR_FILES } from '../src/data/seq4Dr.js';
 
 const load = (p) => JSON.parse(readFileSync(new URL(`../src/data/${p}`, import.meta.url), 'utf8'));
 
@@ -64,6 +65,7 @@ export function loadContent({ sequenzen = true, without = [] } = {}) {
         dialog_zusaetze: load('packs/sekten/dialog_zusaetze.json'), platzierung: load('packs/sekten/platzierung.json'), zeitung: load('packs/sekten/zeitung.json'), gerede: load('packs/sekten/gerede.json'), geplauder: load('packs/sekten/geplauder.json'), sekten: load('packs/sekten/daten.json') }; })()]),
     // Codex-Runde 8: Vorrat, Kapitel 4 und 5, Feste-Leben (Zusammenstellung in src/data/runde8.js)
     ...(without.includes('runde8') ? [] : runde8Packs(Object.fromEntries(Object.entries(RUNDE8_FILES).map(([pack, files]) => [pack, Object.fromEntries(files.map((f) => [f, load(`packs/${pack}/${f}.json`)]))])))),
+    ...(without.includes('seq4_dr') ? [] : [seq4DrPack(Object.fromEntries(SEQ4_DR_FILES.map((f) => [f, load(`packs/seq4_dr/${f}.json`)])))]),
     ...(without.includes('koop_beute') ? [] : [{ name: 'koop_beute', dialog_zusaetze: load('packs/koop_beute/dialog_zusaetze.json'), ansprueche: load('packs/koop_beute/ansprueche.json'), ersatz: load('packs/koop_beute/ersatz.json'), texte: load('packs/koop_beute/texte.json') }])],
     beziehungen: load('beziehungen.json'),
     lore: Object.fromEntries(['bestiarium', 'gerede', 'item_texte', 'lesestuecke', 'zeitungen'].map((f) => [f, load(`packs/lore/${f}.json`)])),

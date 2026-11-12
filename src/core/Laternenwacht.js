@@ -135,6 +135,12 @@ export class Laternenwacht {
         this.hit(r.monsterHit, m, p);
       }
     }
+    // Laternen, die in dieser Zeitscheibe schwach geworden oder erloschen sind (für Meldungen)
+    for (const l of this.lanterns) {
+      const state = l.oil <= 0 ? 'out' : l.oil < 25 ? 'weak' : 'ok';
+      if (l.state && l.state !== state && state !== 'ok') this.events.push({ type: state === 'out' ? 'lantern_out' : 'lantern_weak', lantern: l.i });
+      l.state = state;
+    }
     const before = this.monsters.length;
     this.monsters = this.monsters.filter((m) => m.hp > 0);
     const died = before - this.monsters.length;
