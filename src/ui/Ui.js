@@ -1,3 +1,4 @@
+import { HOCH_SEQ1_VERSIEGELT } from '../data/seqHoch.js';
 import { NEWSPAPERS } from '../data/lore.js';
 import { uiSound, worldSound, sudZutatVariant, sudSounds, ruleBlockSound } from '../core/sounds.js';
 import { FESTE } from '../core/Clock.js';
@@ -2449,6 +2450,7 @@ export class Ui {
     const btn = (act, label, enabled = true) => `<button class="small ${enabled ? 'primary' : ''}" data-hoch="${act}" ${enabled ? '' : 'disabled'}>${esc(label)}</button>`;
     const acts = [];
     let more = '';
+    if (h.seq === 1 && HOCH_SEQ1_VERSIEGELT) return `${spurHtml}<p class="muted"><strong>Noch versiegelt.</strong> Das Ritual der ersten Sequenz ist noch nicht freigegeben.</p>`;
     if (!st.active) acts.push(btn('start', 'Prüfung beginnen'));
     if (step?.type === 'opfer' && step.artefakte) {
       const arts = Object.keys(s.inventory).filter((id) => s.item(id)?.kind === 'artifact' && s.itemCount(id));

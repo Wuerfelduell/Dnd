@@ -107,7 +107,7 @@ test('Seq 2: Weltwandel bleibt und macht alle Gegner stärker, dann Probe und br
 
 test('Seq 1: ohne Gegner; ein Kampf bricht die Zeitprüfung, Zeit zählt nur unter den Bedingungen', () => {
   const s = hero(2, 'laterne');
-  s.startHoch();
+  Object.assign(s.hochState(), { active: true, step: 0, n: 0, t: 0 }); // Seq 1 ist versiegelt, Zeitprüfung direkt prüfen
   s.map = ortMap('laterne');
   s.tick(10);
   assert.equal(s.hochState().t ?? 0, 0, 'ohne Geistsicht steht die Zeit');
@@ -117,10 +117,7 @@ test('Seq 1: ohne Gegner; ein Kampf bricht die Zeitprüfung, Zeit zählt nur unt
   end(s, wild, 'won');
   assert.equal(s.hochRunning(), false, 'Kampf = gescheitert');
   const w = hero(2, 'sq_waage');
-  w.startHoch();
-  w.money = 100000;
-  assert.equal(w.hochOpfer().ok, true);
-  assert.ok(w.hochPassed('sq_waage', 1));
+  assert.equal(w.startHoch().ok, false, 'Seq 1 noch versiegelt (Seb)');
 });
 
 test('Spieler 2: Prüfungsstand bleibt beim Speichern erhalten', () => {
