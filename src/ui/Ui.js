@@ -1834,6 +1834,8 @@ export class Ui {
       <span class="rar">${e.first ? 'erster Sieg' : chanceWord(e.chance)}${e.elite ? ' · Elite' : ''}</span></li>`);
     const [lo, hi] = p.money;
     if (hi) rows.unshift(`<li class="loot-row">${moneyIcon(hi)}<span>${lo === hi ? lo : `${lo}–${hi}`} Schilling</span></li>`);
+    if (p.alt) rows.push(`<li class="loot-row" title="Ein zufälliges Stück aus ${p.alt.n} alten Funden"><span>${esc(p.alt.label)}</span>
+      <span class="rar">${p.alt.chance ? chanceWord(p.alt.chance) : chanceWord(p.alt.elite) + ' · Elite'}</span></li>`);
     if (!rows.length) return '<p class="beast-noloot">Keine Beute bekannt.</p>';
     return `<h5>Beute${p.repeat ? '' : ' <span class="muted">(nur einmal)</span>'}</h5><ul class="loot beast-loot">${rows.join('')}</ul>`;
   }
