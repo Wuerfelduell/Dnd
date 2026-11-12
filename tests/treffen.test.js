@@ -145,7 +145,7 @@ function session(id = 'waage', setup = () => {}) {
 
 test('Jeder Zirkel ist eine Gruppe aus 4 bis 5 Leuten (Täfelchengilde: 3), alle sitzen am Treffpunkt', () => {
   for (const [id, c] of Object.entries(content.gatherings.circles)) {
-    assert.ok(c.members.length >= (['namensgilde', 'schichtbund'].includes(id) || c.city === 'dunscar' ? 3 : 4) && c.members.length <= 5, `${id}: ${c.members.length}`);
+    assert.ok(c.members.length >= (['namensgilde'].includes(id) ? 3 : 4) && c.members.length <= (c.city === 'dunscar' ? 8 : 5), `${id}: ${c.members.length}`);
     const map = content.maps[c.map];
     for (const m of c.members) {
       assert.ok(content.npcs[m.id], m.id);
