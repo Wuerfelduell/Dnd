@@ -1965,3 +1965,16 @@ Eigenes Haus: acht PNG-Atlanten, 40 Möbel mit Ofenanimation/Welkzustand, 32 Bos
 - Prüfung: `python tools/art/halbgott/check.py` (Pillow). Kontrolliert das vollständige Sollinventar, Maße, gemeinsame Palette, Alpha, Raster, Animationen, Baselines und exakte HUD-Verdopplung.
 
 Erzeugt mit dem eingebauten Bildgenerator, anschließend Nearest Neighbor und Palette-/Alpha-Bereinigung. Grafiklieferung ohne Spielcodeänderung; CP und der spätere Einbau übernehmen Ritual- und Kampfregeln.
+
+
+## Batch DC – Sequenz 3 und 1 (`seq31`)
+
+92 PNGs: sechs Trink-Sheets (Spieler 1, p2a, p2b), zwei Aufstiegssequenzen, zehn Letzte-Register-Kulissen, gemeinsames Register-Tileset und 40 Props, zehn Endgestalten auf Karte und im Kampf, 20 Auren, 20 Sequenzkarten, zwei HUD-Marken und elf Abspannbilder einschließlich Verzicht. Keine Spielcode-Änderungen.
+
+Das Manifest `public/sprites/manifest-seq31.json` verknüpft alle zehn kanonischen Pfade mit den DD-Karten `vm_register_<pfad>`, den Hintergründen, je vier Props und Abspannbildern. Die IDs `sq_waage`, `sq_moor`, `sq_uhr` bleiben unverändert. Namen stammen aus `seq_4_bis_1.json` beziehungsweise `neue_pfade.json` und sind gegen DD geprüft.
+
+**Rasterentscheidungen:** Die Vorgabe 32×48, vier Richtungen und zwei Frames ergäbe 64×192; verlangt ist 128×192. Deshalb bleiben vier Spalten erhalten, mit je zwei aktiven Zellen und zwei transparenten Restzellen pro Richtung (unten/links/rechts/oben). Kampf-Endgestalten: sechs Spalten, vier Reihen `idle`, `special`, `hurt`, `defeated`, 96×96 je Zelle. `special` zeigt in den mittleren zwei Frames denselben gewöhnlichen Menschen; die beiden unteren Reihen leiten sich mit kleinerer Haltung aus `idle` ab. Keine Angriffsreihen. Trink-Sheets: acht 16×32-Zellen; Aufstieg: acht 240×135-Zellen in einer Reihe. Die letzten beiden Seq 1-Trinkframes verwenden eine helle Grau-/Beinweiß-Palettenabbildung bei unverändertem Alpha.
+
+**Props:** 40 befüllte 16×16-Zellen im 256×128-Atlas; alle übrigen 88 Zellen sind transparent. Namen und Regionen stehen im Manifest. Tileset: 16 px-Raster, vier 64 px-hohe Bereiche für nassen Steinboden, Wände/Wasserlinie, Registerregale und Wasser/Stufen/Schwellen. Auren sind eigenständige transparente Effekt-Overlays ohne eingebrannte Figur. Helle Spuren in Torfschichten bleiben abstrakt gemäß der gemeinsamen Regel „kein Text“.
+
+Prüfung: `python tools/art/seq31/check.py` (Pillow). Manifest, Prompts, Quellbild-Hashes, Prüfbericht und Vorschau: `manifest-seq31.json`, `batch-seq31-generation.json`, `batch-seq31-validation.json`, `batch-seq31-preview.png`. Der Generator ist das eingebaute Bildwerkzeug; `tools/art/seq31/export.py` verarbeitet externe JSON-Masterdatensätze mit Bildpfaden. Gemeinsame 32-Farben-Palette aus Fasserin, Nearest Neighbor, binäres Alpha. Die PNGs sind die Übergabe; Einbau und Laufzeittests erfolgen separat.
