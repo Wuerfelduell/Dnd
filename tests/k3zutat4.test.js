@@ -78,5 +78,11 @@ test('Formel 4 braucht zwei Kernzutaten: die eigene plus eine eigene oder vom Na
   for (const pid of Object.keys(content.pathways)) {
     const f = content.items[`formel_${pid}_4`];
     if (f) assert.equal(f.zweitzutat?.from?.[0], `sq_zutat_${pid.replace(/^sq_/, '')}_4`, pid);
+    if (f) assert.equal(f.zweitzutat.from.length, 2, `${pid}: genau ein Nachbar`);
+  }
+  assert.deepEqual(content.items.formel_laterne_4.zweitzutat.from, ['sq_zutat_laterne_4', 'sq_zutat_schluessel_4']);
+  assert.deepEqual(content.items.formel_sq_uhr_4.zweitzutat.from, ['sq_zutat_uhr_4', 'sq_zutat_faden_4']);
+  for (const [a, b] of Object.entries(seq.NACHBARPFADE)) {
+    assert.deepEqual(seq.NACHBARPFADE[b[0]], [a], `${a} ↔ ${b[0]}`);
   }
 });

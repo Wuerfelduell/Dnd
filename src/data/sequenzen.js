@@ -98,9 +98,10 @@ const zutat = (pid, n) => `sq_zutat_${pid.replace(/^sq_/, '')}_${n}`;
 /**
  * Seb (2026-11-12): der Seq-4-Trank braucht ZWEI seltene Kernzutaten. Die erste ist immer die eigene, die zweite darf
  * die eigene oder die Kernzutat eines Nachbarpfads sein (so nützen Funde für den Pfad von Spieler 2).
- * Nachbarn je Pfad (beidseitig eintragen). Leer = nur die eigene zählt. Zuordnung wird noch mit Seb abgestimmt.
+ * Nachbarn je Pfad: fünf feste Paare.
  */
-export const NACHBARPFADE = {};
+const PAARE = [['laterne', 'schluessel'], ['echo', 'maske'], ['faden', 'sq_uhr'], ['sq_waage', 'eisen'], ['kessel', 'sq_moor']]; // Seb 2026-11-12: je Pfad genau ein Nachbar
+export const NACHBARPFADE = Object.fromEntries(PAARE.flatMap(([a, b]) => [[a, [b]], [b, [a]]]));
 /** Zweite Kernzutat der Formel 4 eines Pfades: { need, from: [eigene, Nachbarn...] } */
 export function zweitzutat4(pid, items = null) {
   const from = [pid, ...(NACHBARPFADE[pid] ?? [])].map((p) => zutat(p, 4)).filter((id) => !items || items[id]);
