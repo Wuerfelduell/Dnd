@@ -792,7 +792,7 @@ export class Ui {
 
     const path = this.$('.p2path');
     path.classList.toggle('hidden', !v.pathway && v.unruhe <= 0);
-    if (v.pathway) path.innerHTML = `<span style="color:${v.pathway.color}">Seq ${v.pathway.seq} ${esc(v.pathway.seqName)}</span> · ${Math.floor(v.pathway.digestion)} % · <span class="${v.unruhe >= 60 ? 'curse' : ''}">Unruhe ${Math.round(v.unruhe)}</span>`;
+    if (v.pathway) path.innerHTML = `<span style="color:${v.pathway.color}">Seq ${v.pathway.seq} ${esc(v.pathway.seqName)}</span> · ${v.pathway.seq <= 6 && v.pathway.digestion < 100 ? fmtDigest(v.pathway.digestion) : Math.floor(v.pathway.digestion)} % · <span class="${v.unruhe >= 60 ? 'curse' : ''}">Unruhe ${Math.round(v.unruhe)}</span>`;
     else if (v.unruhe > 0) path.innerHTML = `<span class="${v.unruhe >= 60 ? 'curse' : ''}">Unruhe ${Math.round(v.unruhe)}</span>`;
     const load = this.$('.p2load');
     load.classList.toggle('hidden', !v.overloaded);
@@ -2265,7 +2265,7 @@ export class Ui {
     return `
       <div class="pathhead"><div class="pathcard"><img src="${pathwayCardUrl(cur.id)}" alt="" width="96" height="128" onerror="this.parentNode.remove()"><span style="color:${p.color}">Sequenz ${cur.seq}<br>${esc(s.seqDef().name)}</span></div><div>${emblem(cur.id, 32)}<strong style="color:${p.color}">${esc(p.name)}</strong> · Sequenz ${cur.seq}: ${esc(s.seqDef().name)}</div></div>
       <div class="meters2">
-        <div class="meter"><span>Verdaut</span><div class="bar"><div class="dfill" style="width:${d}%"></div></div>${uiSprite('digest', `fill${Math.min(100, Math.floor(d / 20) * 20)}`, 1 / 8, 'digestbar')}${d >= 100 ? uiSprite('digest', 'digested', 1 / 12, 'digestico', 'Verdaut') : ''}<em>${d} %</em></div>
+        <div class="meter"><span>Verdaut</span><div class="bar"><div class="dfill" style="width:${d}%"></div></div>${uiSprite('digest', `fill${Math.min(100, Math.floor(d / 20) * 20)}`, 1 / 8, 'digestbar')}${d >= 100 ? uiSprite('digest', 'digested', 1 / 12, 'digestico', 'Verdaut') : ''}<em>${cur.seq <= 6 && cur.digestion < 100 ? fmtDigest(cur.digestion) : d} %</em></div>
         <div class="meter"><span>Unruhe</span><div class="bar"><div class="ufill ${s.unruhe >= 60 ? 'low' : ''}" style="width:${s.unruhe}%"></div></div>${s.unruhe >= 60 ? uiSprite('digest', 'warning', 1 / 12, 'digestico', 'Gefahr') : ''}<em>${Math.round(s.unruhe)}</em></div>
         <div class="meter vialm">${uiSprite('vial', `v${pctStep(s.composure / s.maxComposure(), 6)}`, 1 / 24, 'vial', 'Nerven')}<span>Nerven</span><em>${Math.round(s.composure)}/${s.maxComposure()}</em></div>
       </div>
