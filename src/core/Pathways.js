@@ -24,8 +24,8 @@ export const DIGEST_RATE = { 9: 1, 8: 0.7, 7: 0.5, 6: 0.05, 5: 0.005, 4: 0.0005,
 /** Verdauungstempo einer Sequenz im Verhältnis zu Sequenz 7 (1 bis Sequenz 7, danach 1/10, 1/100, ...). */
 /** Faktor für jede Unruhe-Steigerung ab Sequenz 5 (Seb 2026-11-12). */
 export const UNRUHE_GAIN_HOCH = 0.5;
-/** Spieler 2 verdaut zehnmal schneller (Seb 2026-11-12: kam ab Seq 5 nicht voran). */
-export const P2_DIGEST_MULT = 10;
+/** Spieler 2 verdaut dreißigmal schneller (Seb 2026-11-12: erst x10, dann nochmal x3). */
+export const P2_DIGEST_MULT = 30;
 export function digestSlowdown(seq) { return Math.min(1, (DIGEST_RATE[seq] ?? DIGEST_RATE[1]) / DIGEST_RATE[7]); }
 /** Prozentwert fürs Auge: große Werte mit einer Nachkommastelle, winzige mit zwei gültigen Ziffern. */
 export function fmtDigest(v) {
