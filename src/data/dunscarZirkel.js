@@ -1,19 +1,20 @@
 // Geheime Zirkel in Dunscar (Seb, 2026-11-12):
-//  - Die Auktionen in Dunscar spielen im Tausenderbereich (Gegner bringen hier ~90 Schilling, Kopfgelder 675–1200).
-//    Billiger Kram (Rufwachs, Schichtkappe …) fliegt aus den Losen; Formeln, Kernzutaten und seltene Stücke bleiben.
+//  - Alte Gegenstände zu alten Preisen, nur die neuen wertvollen Stücke im Tausenderbereich (Seb, nach PR #379).
 //  - Neue seltene und „unmögliche“ Stücke (starke Artefakte mit heftigem Fluch, zwei Waffen), Bilder aus dem Vorrat nebel200.
 //  - Zwei weitere Zirkel neben dem Schichtbund, ohne Aufnahme-Quest offen ab der Ankunft (offene, harte Welt):
 //      Der Kalte Ofen   (Alchemie: Halbgott-Formeln aller Pfade, Seq-5-Zutaten, Tränke-Artefakte), alter Kalkofen am Kalkmarkt
 //      Das Stumme Stellwerk (Formeln 6/5 der übrigen Pfade, Waffen, Schloss- und Signal-Artefakte), am Signalhang
 //    Die Treffen wechseln sich ab (Uhr wie bisher: alle 5 Minuten eines, also jeder Zirkel alle 15 Minuten).
-//  - Seq-3-Formeln gibt es hier NIE (nur später im pfadeigenen Gebiet). Seq-4-Formel nur hier oder als Elite-Fund.
+//  - Seq-3-Formeln nur mit 1 % je Los für 15.000 (Seb). Seq-4-Formel nur auf Treffen oder als Elite-Fund.
 
-/** Ausrufpreise (Startgebot = 60 %). */
+/**
+ * Ausrufpreise (Startgebot = 60 %). Seb (2026-11-12): alte Gegenstände zu alten Preisen (wie auf den Wexmoorer
+ * Treffen, data/sequenzen.js TREFFEN/ZUTAT_TREFFEN), nur die neuen, wertvolleren dsz_*-Stücke kosten Tausende.
+ */
 export const DS_LOS = {
-  formel: { 6: 2500, 5: 4000, 4: 9000 },
-  zutat4: { price: 7500, chance: 0.35 }, // Start 4500, etwa 10 % je Treffen für die eigene Zutat
-  zutat5: { price: 1800, chance: 0.3 },
-  min: 1500, // alles darunter ist kein Los für Dunscar
+  formel: { 6: 640, 5: 900, 4: 4000, 3: 15000 }, // Seq 3 (Seb 2026-11-12): 1 % je Treffen, 15.000
+  formel3Chance: 0.01,
+  zutat5: { price: 320, chance: 0.45 },
 };
 
 const art = (name, price, desc, boons, curses) => ({ name, source: 'treffen', price, weight: 1, desc, boons, curses });
@@ -192,7 +193,7 @@ export const DS_ZIRKEL_FIGUREN = Object.values(DS_ZIRKEL).flatMap((z) => Object.
 /** Alle neuen Gegenstände mit eigenem Bild. */
 export const DS_ZIRKEL_ICONS = [...Object.keys(DS_ARTEFAKTE), ...Object.keys(DS_ITEMS)];
 
-/** Billiger Kram, den der Schichtbund bisher versteigert hat, ersetzt durch seltene Stücke. */
+/** Seltene neue Stücke zusätzlich beim Schichtbund. */
 const SCHICHTBUND_NEU = {
   tm_ds_lampe: [L('dsz_geisterlaterne', 1500, 0.4)],
   tm_ds_kerbholz: [L('dsz_lohnbuch', 2800, 0.15, EINMAL)],
@@ -200,7 +201,7 @@ const SCHICHTBUND_NEU = {
 };
 
 /**
- * Nach applySequenzen: Preise aller Dunscar-Zirkel in den Tausenderbereich, billige Lose raus,
+ * Nach applySequenzen: neue Stücke in den Schichtbund (alte Lose bleiben zu alten Preisen),
  * Halbgott-Formeln (alle Pfade) und Seq-5-Zutaten in den Kalten Ofen, Formeln 6/5 der übrigen Pfade ins Stellwerk.
  */
 export function applyDunscarZirkel(content) {
@@ -225,20 +226,13 @@ export function applyDunscarZirkel(content) {
   });
   // Schichtbund: billiges raus, seltenes rein
   for (const m of circles.schichtbund?.members ?? []) m.offers.push(...(SCHICHTBUND_NEU[m.id] ?? []).map((o) => ({ ...o })));
-  // Alle Dunscar-Lose neu bepreisen
+  // Seq-3-Formel (Seb 2026-11-12): taucht mit 1 % auf, für 15.000; reihum über alle drei Dunscar-Zirkel
+  const seats3 = Object.values(circles).filter((c) => c.city === 'dunscar').flatMap((c) => c.members);
+  pids.filter((p) => has(`formel_${p}_3`)).forEach((p, i) => seats3[i % seats3.length].offers.push(
+    L(`formel_${p}_3`, DS_LOS.formel[3], DS_LOS.formel3Chance, { once: true, requires_pathway: [p, 4], locked_text: 'Erst ab Sequenz 4 dieses Pfades' })));
+  // Formeln unter Sequenz 3 nie
   for (const c of Object.values(circles)) {
     if (c.city !== 'dunscar') continue;
-    for (const m of c.members) {
-      m.offers = m.offers.flatMap((o) => {
-        const it = content.items[o.item];
-        if (!it) return [];
-        if (it.kind === 'formula') {
-          if (it.seq <= 3) return []; // Seq-3-Formeln nur im pfadeigenen Gebiet
-          return [{ ...o, price: DS_LOS.formel[it.seq] ?? o.price }];
-        }
-        if (/^sq_zutat_.+_4$/.test(o.item)) return [{ ...o, ...DS_LOS.zutat4 }];
-        return o.price >= DS_LOS.min ? [o] : [];
-      });
-    }
+    for (const m of c.members) m.offers = m.offers.filter((o) => content.items[o.item] && !(content.items[o.item].kind === 'formula' && content.items[o.item].seq <= 2));
   }
 }

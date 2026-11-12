@@ -12,20 +12,26 @@ const content = loadContent();
 const C = content.gatherings.circles;
 const dunscar = Object.entries(C).filter(([, c]) => c.city === 'dunscar');
 
-test('Drei Zirkel in Dunscar, alle Lose ab 1500 Schilling, keine Formel unter Sequenz 4', () => {
+test('Drei Zirkel in Dunscar: alte Stücke zu alten Preisen, neue im Tausenderbereich, Seq-3-Formeln selten und teuer', () => {
   assert.deepEqual(dunscar.map(([id]) => id).sort(), ['kalkofen', 'schichtbund', 'stellwerk']);
   for (const [id, c] of dunscar) {
     for (const m of c.members) for (const o of m.offers) {
-      assert.ok(o.price >= 1500, `${id}/${o.item}: ${o.price}`);
       const it = content.items[o.item];
-      if (it.kind === 'formula') assert.ok(it.seq >= 4, `${o.item}: Seq-3-Formeln nur im Pfadgebiet`);
+      if (it.kind === 'formula') {
+        assert.ok(it.seq >= 3, o.item);
+        assert.equal(o.price, { 6: 640, 5: 900, 4: 4000, 3: 15000 }[it.seq], o.item);
+        if (it.seq === 3) assert.equal(o.chance, 0.01, o.item);
+      }
+      if (o.item.startsWith('dsz_')) assert.ok(o.price >= 1500, `${id}/${o.item}: ${o.price}`);
     }
   }
   const lose = (cid) => C[cid].members.flatMap((m) => m.offers.map((o) => o.item));
-  for (const pid of Object.keys(content.pathways)) assert.ok(lose('kalkofen').includes(`formel_${pid}_4`), `Halbgott-Formel ${pid}`);
-  const z4 = C.schichtbund.members.flatMap((m) => m.offers).filter((o) => /^sq_zutat_.+_4$/.test(o.item));
-  assert.equal(z4.length, 10);
-  for (const o of z4) assert.equal(Math.round(o.price * 0.6), 4500);
+  for (const pid of Object.keys(content.pathways)) {
+    assert.ok(lose('kalkofen').includes(`formel_${pid}_4`), `Halbgott-Formel ${pid}`);
+    assert.ok(dunscar.some(([cid]) => lose(cid).includes(`formel_${pid}_3`)), `Seq-3-Formel ${pid}`);
+  }
+  assert.ok(lose('schichtbund').includes('k3o_rufwachs'), 'alte Schichtbund-Lose bleiben');
+  assert.equal(C.schichtbund.members.flatMap((m) => m.offers).filter((o) => /^sq_zutat_.+_4$/.test(o.item)).length, 10);
 });
 
 test('Neue Stücke haben Bilder, die Figuren Lauf-Sheets', () => {
@@ -51,5 +57,5 @@ test('Nach der Ankunft ist man in allen drei Zirkeln; die Treffen wechseln sich 
   s.playTime = s.gatheringSlot(c).start + 1;
   assert.ok(s.gatheringsUnlocked());
   assert.ok(s.startSession('kalkofen').ok);
-  assert.ok(s.auction.lot.price >= 900, `Startgebot ${s.auction.lot.price}`);
+  assert.ok(s.auction.lot.price > 0, `Startgebot ${s.auction.lot.price}`);
 });

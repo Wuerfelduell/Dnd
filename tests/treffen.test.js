@@ -393,7 +393,7 @@ test('Auf den Treffen gibt es nur seltene Dinge fürs große Geld, nichts vom no
   const regular = new Set(Object.values(content.market.merchants).filter((m) => !m.gathering)
     .flatMap((m) => m.stock.filter((e) => e.rare === undefined).map((e) => e.item)));
   // Einzige gewollte Überschneidung (Seb, 2026-11-11): die Halbgott-Formel (Seq 4) kostet 4000 bei Kittering wie auf den Treffen
-  for (const id of regular) if (/^formel_.*_4$/.test(id)) regular.delete(id);
+  for (const id of regular) if (/^formel_.*_[34]$/.test(id)) regular.delete(id); // Seq 3: 1 % für 15.000 auf den Dunscar-Treffen (Seb 2026-11-12)
   const arts = [];
   for (const [id, c] of Object.entries(content.gatherings.circles)) {
     if (id === 'schichtbund') continue; // BC: der Arbeiterzirkel in Dunscar handelt bewusst auch mit Alltagsware und billigen Zutaten
