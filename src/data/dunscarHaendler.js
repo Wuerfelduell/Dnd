@@ -60,7 +60,15 @@ function dialogue(id, h) {
   };
 }
 
+// Braukessel in Pfiffs Speisewagen (Seb, 2026-11-12): Unterkunft mit Koje und Lager, gleiche Kessel-Logik wie im Kahn.
+export const DS_KESSEL = {
+  id: 'ds_kessel', kind: 'brew', tile: [15, 5], prompt: 'Am Braukessel brauen', sprite: 'cauldron', marker: false,
+  solid: [14, 10], title: 'Pfiffs Kessel', anim: ['cauldron_bubble', 'bubble'], reach: 24,
+};
+
 export function applyDunscarHaendler(content) {
+  const wagen = content.maps.ds_speisewagen;
+  if (wagen && !wagen.interactables.some((i) => i.kind === 'brew')) wagen.interactables.push({ ...DS_KESSEL });
   const merchants = content.market?.merchants;
   const map = content.maps.ds_kalkmarkt;
   if (!merchants || !map) return;
