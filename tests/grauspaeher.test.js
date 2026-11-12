@@ -1,9 +1,12 @@
 // Wexmoor: Gestellt von den Grauspähern darf man kämpfen, aber die Streife besteht aus Beyondern (min_seq 4).
 // Seb (2026-11-11): Wer kein Halbgott ist, verliert, auch zu zweit; sonst wären sie keine Gefahr.
+// Seb (2026-11-12): aber nicht erzwungen (kein Schadensdeckel, keine Schranke): voller Schaden kommt an, dafür haben
+// sie brutal viel Leben und schlagen Nicht-Halbgötter in zwei Treffern um. Verlieren heißt Zelle.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
-import { loadContent, fight, talk, EXPERT, SKILLED, SKILLED_HIT } from './helpers.js';
+import { Combat } from '../src/core/Combat.js';
+import { loadContent, fight, talk, seeded, EXPERT, SKILLED, SKILLED_HIT } from './helpers.js';
 
 const content = loadContent();
 const ID = 'wx_grauspaeher_fight';
@@ -47,7 +50,7 @@ function bestTry(mk) {
   let best = null;
   for (const skill of skills) for (const chain of [false, true]) for (const defend of [EXPERT, SKILLED]) {
     const s = mk();
-    const { result, combat } = fight(s, ID, { defend, attack: SKILLED_HIT, skill, chain, healBelow: 25 });
+    const { result, combat } = fight(s, ID, { defend, attack: SKILLED_HIT, skill, chain, healBelow: Math.round(s.maxHp * 0.5) }); // heilt wie ein Mensch: bei halbem Leben
     const r = { won: result.outcome === 'won', round: combat.round, hpLeft: combat.enemy.hp, state: s };
     if (!best || (r.won && !best.won) || (r.won === best.won && (r.won ? r.round < best.round : r.hpLeft < best.hpLeft))) best = r;
   }
@@ -64,9 +67,48 @@ test('Regeln: in Wexmoor darf man sich der Streife stellen, in Kettlegate nicht'
   assert.equal(e.fleeable, true);
   assert.equal(e.flee_rounds, 2, 'wer gestellt ist, läuft nicht einfach weg: zwei Runden durchhalten');
   assert.equal(e.on_flee.wanted, 2, 'Flucht vor der Streife macht dich gesucht');
-  assert.ok(e.hp >= content.encounters.leuchtfeuer.hp * 0.9, 'so zäh wie ein Kapitelboss');
-  assert.ok(e.armor >= 3 && e.ramp >= 0.05 && e.max_round_dmg, 'Panzer, Steigerung und Schadensgrenze');
+  assert.ok(e.hp >= content.encounters.leuchtfeuer.hp * 2.5, 'brutal viel Leben: mehr als das Doppelte eines Kapitelbosses');
+  assert.equal(e.max_round_dmg, undefined, 'kein Schadensdeckel (Seb: fühlt sich erzwungen an)');
+  assert.equal(e.ward, false, 'keine Sequenz-Schranke: der Spieler macht vollen Schaden');
+  assert.ok(e.armor >= 3 && e.ramp > 0, 'Panzer und Steigerung');
   assert.ok(e.attacks.some((a) => a.action === 'heal'), 'die Salbe macht Nadelstiche zunichte');
+});
+
+test('Voller Schaden, aber zwei Treffer legen jeden Nicht-Halbgott um; Tricks prallen an ihnen ab', () => {
+  const c = new Combat(hero(7), ID);
+  assert.equal(c.wardMult(), 1, 'kein Bruchteil-Schaden mehr');
+  assert.equal(c.maxRoundDmg, 0);
+  const before = c.enemy.hp;
+  c.hurtEnemy(100);
+  assert.equal(before - c.enemy.hp, 100 - c.armor, 'ein Treffer zieht voll ab (nur Panzer)');
+  // Dienstgriff: jeder Treffer nimmt Sequenz 5–7 mindestens die Hälfte der Leben; der Wachsknüppel Seq 6/7 die Hälfte, Seq 5 ein Drittel
+  for (const seq of [7, 6, 5]) {
+    const s = hero(seq);
+    const k = new Combat(s, ID);
+    for (const [name, share] of [['Wachsknüppel', seq === 5 ? 1 / 3 : 1 / 2], ['Dienstgriff', 1 / 2]]) {
+      const atk = k.prepareAttack(k.enc.attacks.find((a) => a.name === name));
+      const taken = Math.round(atk.damage * s.passive('damage_taken'));
+      assert.ok(taken >= s.maxHp * share, `${name} gegen Seq ${seq}: ${taken} von ${s.maxHp} Leben`);
+    }
+  }
+  // Ein Halbgott steckt deutlich mehr weg
+  const h = hero(4);
+  const k4 = new Combat(h, ID);
+  const griff = k4.prepareAttack(k4.enc.attacks.find((a) => a.name === 'Dienstgriff'));
+  assert.ok(Math.round(griff.damage * h.passive('damage_taken')) < h.maxHp / 3, 'Halbgott: ein Dienstgriff ist kein Drittel');
+  // Rollentausch (Maske) und Laternenblende: unter Sequenz 4 lassen sich die Grauspäher nicht verwirren oder betäuben
+  const m = new Combat(hero(5, 'maske'), ID);
+  m.rng = seeded(1);
+  m.useSkill('rollentausch', ['perfect']);
+  assert.equal(m.confused, false);
+  const b = new Combat(hero(5, 'laterne'), ID);
+  b.rng = seeded(1);
+  b.useSkill('blind', ['perfect']);
+  assert.equal(b.stunned, false);
+  const m4 = new Combat(hero(4, 'maske'), ID);
+  m4.rng = seeded(1);
+  m4.useSkill('rollentausch', ['perfect']);
+  assert.equal(m4.confused, true, 'ein Halbgott verwirrt sie sehr wohl');
 });
 
 test('Gestellt: Gespräch mit Widerstand oder Mitgehen; Mitgehen ist die normale Festnahme', () => {
@@ -90,18 +132,19 @@ test('Gestellt: Gespräch mit Widerstand oder Mitgehen; Mitgehen ist die normale
 test('Verloren: Zelle, doppelte Beschlagnahme, Fahndungsstufe 2', () => {
   const s = hero(7);
   s.money = 100;
-  const { result } = fight(s, ID, { defend: EXPERT, attack: SKILLED_HIT, skill: 'double', healBelow: 25 });
+  const { result } = fight(s, ID, { defend: EXPERT, attack: SKILLED_HIT, skill: 'double', healBelow: 40 });
   assert.equal(result.outcome, 'lost');
+  assert.deepEqual(result.travel, { map: 'wx_zelle', spawn: 'default' }, 'der Kampf selbst schickt dich in die Zelle, nicht erst das Fenster');
   assert.equal(s.arrests, 1);
   assert.equal(s.money, 50, 'Widerstand kostet das Doppelte');
   assert.equal(s.wanted, 2);
   assert.ok(s.flags.has('k2_in_cell'));
-  assert.deepEqual(s.pendingTravel, { map: 'wx_zelle', spawn: 'default' });
+  assert.equal(s.pendingTravel, null, 'kein zweiter Ortswechsel nach dem Fenster');
   assert.ok(s.hp > 0);
 });
 
 test('Unter Sequenz 4 verliert jeder Pfad, allein wie zu zweit, auch mit bester Ausrüstung', () => {
-  for (const seq of [7, 5]) {
+  for (const seq of [7, 6, 5]) {
     for (const pid of PATHS) {
       const solo = bestTry(() => hero(seq, pid));
       assert.equal(solo.won, false, `${pid} Seq ${seq} allein darf die Streife nicht schaffen`);
@@ -115,7 +158,7 @@ test('Halbgötter (Sequenz 4) schaffen die Streife, allein und zu zweit; danach 
   for (const pid of PATHS) {
     const r = bestTry(() => hero(4, pid));
     assert.equal(r.won, true, `${pid} Seq 4 schafft die Streife`);
-    assert.ok(r.round <= 14, `${pid}: ein Halbgott braucht keine Ewigkeit (${r.round} Runden)`);
+    assert.ok(r.round <= 30, `${pid}: zäh, aber kein Ende offen (${r.round} Runden)`);
   }
   const duo = bestTry(() => pair(4));
   assert.equal(duo.won, true);
@@ -124,6 +167,5 @@ test('Halbgötter (Sequenz 4) schaffen die Streife, allein und zu zweit; danach 
   assert.ok(s.flags.has('k2_grauspaeher_besiegt'));
   assert.equal(s.arrests, 0);
   // Zu zweit schlägt die Streife voll zu (keine Duo-Milderung für höhere Wesen)
-  const mixed = bestTry(() => { const p = pair(4); p.withPlayer(2, () => { p.pathway.seq = 5; p.updateMaxHp(); p.hp = p.maxHp; }); return p; });
-  assert.equal(mixed.won, true, 'ein Halbgott trägt den Partner');
+  assert.equal(new Combat(pair(4), ID).duoFull, true);
 });
