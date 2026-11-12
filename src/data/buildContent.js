@@ -14,6 +14,7 @@ import { applyMoods } from './moods.js';
 import { applyRelations } from './relations.js';
 import { applySchmuggel } from './schmuggel.js';
 import { applyAltbeute } from './altbeute.js';
+import { applyVorratStuecke } from './vorratStuecke.js';
 import { applyDunscarHaendler } from './dunscarHaendler.js';
 import { applyDunscarKulisse } from './dunscarKulisse.js';
 import { applyBenannte } from './benannte.js';
@@ -108,6 +109,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyDunscarSchlacke(content); // Dunscar: Schlackengrube (Stufe 7) mit harten Farmgegnern, Mittelbossen und reicher Beute
   applyDunscarGeld(content); // Dunscar zahlt mehr als Wexmoor: Gegnergeld und Kopfgelder
   applyDunscarBeute(content); // Dunscar-Beute 3–5× so viel wert wie in Wexmoor
+  applyVorratStuecke(content); // Vorrat-Zips: neue Waffen, Kleidung, Artefakte, Wertstücke bei Händlern, in Gebieten und auf Treffen
   applyHaendlerAbgleich(content); // Händler aller Gebiete: Stärke und Preise je Gebiet, alte Stücke auch später
   applyZirkelAuftraege(content); // Dunscar: Zirkelmitglieder vergeben Aufträge (Monster, Polizisten)
   applyDunscarKulisse(content); // Dunscar: Ausgänge nach Himmelsrichtung mit Schild, Rückkehr an der passenden Tür, Requisiten je Viertel

@@ -5,6 +5,7 @@
 import { PATHWAY_STANDIN } from '../data/sequenzen.js';
 import { preloadRitualArt } from './ritualArt.js';
 import { DS_ZIRKEL_ICONS, DS_ZIRKEL_FIGUREN } from '../data/dunscarZirkel.js';
+import { VS_ICONS } from '../data/vorratStuecke.js';
 import { DS_ORTSKUNDIGE } from '../data/dunscarOrtskundige.js';
 
 const BASE = './sprites/';
@@ -1199,7 +1200,7 @@ const ICON32 = ['stimmphiole', 'verlorenes_gesangbuch', 'spiegelscherbe', ...F_E
   // Zirkelwaffen aus dem Vorrat nebel200 (geheime Treffen)
   'zirkel_ritualdolch', 'zirkel_bannglocke', 'zirkel_russhacke', 'zirkel_moorkette', 'zirkel_salzharpune',
   // Dunscar-Zirkel: seltene und unmögliche Stücke aus dem Vorrat nebel200
-  ...DS_ZIRKEL_ICONS];
+  ...DS_ZIRKEL_ICONS, ...VS_ICONS];
 export const itemIcon32Url = (id) => {
   const k = ITEM_ICON_ALIASES[id] ?? id;
   return k.startsWith('trank_') || ICON32.includes(k) || AG_ICONS(k) ? `${BASE}items/32/${standinIcon(k)}.png` : null;

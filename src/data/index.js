@@ -167,6 +167,7 @@ import k3h_platzierung from './packs/k3_handel/platzierung.json';
 import k3h_haendler from './packs/k3_handel/haendler.json';
 import k3h_treffen_schichtbund from './packs/k3_handel/treffen_schichtbund.json';
 import { dunscarZirkelPack } from './dunscarZirkel.js';
+import { vorratStueckePack } from './vorratStuecke.js';
 import k3h_einzelgaenger from './packs/k3_handel/einzelgaenger.json';
 import k3h_artifacts from './packs/k3_handel/artifacts.json';
 // Paket BD: Leben in Dunscar (Einwohner mit Tagesplan, Kopfgeld, Aufseher, Gerede, Zeitung, Wetter und Tiere)
@@ -528,7 +529,7 @@ export const content = buildContent({
   gatherings,
   city,
   wexmoor,
-  packs: [k1Finale, kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen, k3Handel, dunscarZirkelPack(), k3Leben, koopK3, koopBeute, k3Ruf, beziehungenPack, fasserinPack, fasserinAuftrag, halbgott, festePack, sektenPack, seq4Dr, erfolgePack({ erfolge: erf_erfolge, bedingungen: erf_bedingungen, meldungen: erf_meldungen }), postPack({ briefe: post_briefe, beilagen: post_beilagen, post: post_post }), benanntePack({ gegner: bn_gegner, bestiarium: bn_bestiarium, auftritt: bn_auftritt, beute: bn_beute }), ...runde8],
+  packs: [k1Finale, kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen, k3Handel, dunscarZirkelPack(), vorratStueckePack(), k3Leben, koopK3, koopBeute, k3Ruf, beziehungenPack, fasserinPack, fasserinAuftrag, halbgott, festePack, sektenPack, seq4Dr, erfolgePack({ erfolge: erf_erfolge, bedingungen: erf_bedingungen, meldungen: erf_meldungen }), postPack({ briefe: post_briefe, beilagen: post_beilagen, post: post_post }), benanntePack({ gegner: bn_gegner, bestiarium: bn_bestiarium, auftritt: bn_auftritt, beute: bn_beute }), ...runde8],
   lore: { bestiarium: lore_bestiarium, gerede: lore_gerede, item_texte: lore_item_texte, lesestuecke: lore_lesestuecke, zeitungen: lore_zeitungen },
   beziehungen,
   sequenzen: { neue_pfade: sq_neue_pfade, seq_4_bis_1: sq_seq_4_bis_1, zutaten: sq_zutaten, artefakte: sq_artefakte, rituale: k3p_rituale, faehigkeiten: sq_faehigkeiten },
