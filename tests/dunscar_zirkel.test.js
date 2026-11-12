@@ -59,3 +59,19 @@ test('Nach der Ankunft ist man in allen drei Zirkeln; die Treffen wechseln sich 
   assert.ok(s.startSession('kalkofen').ok);
   assert.ok(s.auction.lot.price > 0, `Startgebot ${s.auction.lot.price}`);
 });
+
+test('Eine Seq-3-Formel bringt beim Versteigern immer mindestens 10.000', () => {
+  for (let cycle = 0; cycle < 12; cycle++) {
+    const s = new GameState(content);
+    for (const f of ['k3_arrived', 'treffen_schichtbund', 'briefed_04']) s.flags.add(f);
+    s.map = 'ds_kalkmarkt';
+    s.playTime = s.gatheringSlot(cycle).start + 1;
+    const id = s.gatheringSlot(cycle).id;
+    assert.ok(s.startSession(id).ok);
+    s.auction.phase = 'own';
+    s.addItem('formel_laterne_3');
+    assert.ok(s.offerOwn('formel_laterne_3').ok);
+    assert.ok(s.auction.own.bids.length, `${id}: jemand bietet`);
+    for (const b of s.auction.own.bids) assert.ok(b.price >= 10000, `${id}: ${b.price}`);
+  }
+});

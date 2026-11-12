@@ -14,7 +14,9 @@ export const FRAUD_WRONG = { nerves: 15, unruhe: 10 };
 /** Aufschlag des überteuerten Loses auf den Schätzwert (ehrliche Lose starten bei 60 %). */
 export const FRAUD_MARKUP = { min: 1.8, max: 2.5 };
 
-const FORMULA_VALUE = { 9: 25, 8: 60, 7: 140, 6: 260, 5: 420 };
+const FORMULA_VALUE = { 9: 25, 8: 60, 7: 140, 6: 260, 5: 420, 3: 15000 };
+/** Seb (2026-11-12): eine Seq-3-Formel bringt beim Versteigern immer mindestens 10.000, und jemand bietet immer. */
+export const SEQ3_MIN_ERLOES = 10000;
 
 export const auctionMethods = {
   auctionRules() {
@@ -346,6 +348,11 @@ export const auctionMethods = {
     const hi = r.own_max ?? 1.5;
     const bids = a.members.map((m) => ({ member: m, price: rng() < 0.75 ? Math.round(e.value * (lo + rng() * (hi - lo))) : 0 }))
       .filter((b) => b.price > 0).sort((x, y) => y.price - x.price);
+    const it = this.item(itemId);
+    if (it?.kind === 'formula' && it.seq <= 3) {
+      if (!bids.length && a.members.length) bids.push({ member: a.members[0], price: SEQ3_MIN_ERLOES });
+      for (const b of bids) b.price = Math.max(SEQ3_MIN_ERLOES, b.price);
+    }
     a.own = { item: itemId, bids };
     a.phase = 'own_bids';
     if (!bids.length) {
