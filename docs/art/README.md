@@ -1817,6 +1817,18 @@ Prüfung: `python tools/art/calderwick2/check.py` (Pillow, aus jedem Arbeitsverz
 
 Keine Laufzeitintegration in diesem Paket.
 
+
+## Batch CY – Varrowmouth-Figuren (`varrowmouth3`)
+
+104 PNGs: 23 vierdirektionale Lauf-Sheets, 23 neutrale Portraits, 23 Emotions-Sheets, 23 Köpfe, neun Sonderposen-Sheets, beide Kampfphasen der Pegelherrin und der Namenslinien-Effekt. Figurenbeschreibungen folgen den CY-Kurzbeschreibungen, da `docs/story/k6_figuren/figuren.md` bei Erstellung fehlte. Keine Spielcode-Änderungen; Einbau separat.
+
+- [Manifest](../../public/sprites/manifest-varrowmouth3.json): Figuren-IDs, Raster, Regionen, Frame-Listen, Tempo und Leerfelder.
+- [Vorschau](batch-varrowmouth3-preview.png), [Prompts und Verarbeitung](batch-varrowmouth3-generation.json), [Prüfbericht](batch-varrowmouth3-validation.json).
+- [Export und Prüfung](../../tools/art/varrowmouth3/README.md), einschließlich normalisierter Generator-Master für reproduzierbare Exporte.
+
+Die widersprüchlichen Gesamtmaße der Emotions-Sheets sind zugunsten der geforderten 64×64-Portraitzellen aufgelöst: acht Stimmungen auf 256×128 (4×2), vier auf 256×64 (4×1). Reihenfolge wie im Auftrag. Alle Runtime-PNGs verwenden dieselben 32 sichtbaren Farben sowie binäres Alpha. Lauf-Grundlinie y=30; Nell ist kleiner. Pegelherrins steigende Wasserlinie verwendet sechs reine Farbzustände derselben Silhouette. Je Angriff bleiben zwei Ausholframes identisch.
+
+Validiert mit `python tools/art/varrowmouth3/check.py`: 104 PNGs, 694 belegte Frames; Maße, Pflichtumfang, Palette, Alpha, Raster, Grundlinien, Laufschritte, Gesichtsausdrücke, Posen und Ausholframes bestanden. Kontaktbögen zusätzlich visuell geprüft; keine Laufzeitintegration oder Spieltests.
 ## DE · Fahrende Auktion (`auktion`)
 
 55 PNGs: Vance, Träger, Glockenhund, drei Mitbieter, Portraits/Stimmungen/Köpfe, Wagen, zehn Los-Iconpaare, UI, Posen und Effekte. Manifest: `public/sprites/manifest-auktion.json`; Prompts, Vorschau und Prüfbericht: `batch-auktion-{generation.json,preview.png,validation.json}`. Texte und Einbauvertrag: `docs/story/fahrende_auktion/README.md`. Prüfung: `python tools/art/auktion/check.py` und `node docs/story/fahrende_auktion/pruefen.mjs`. Kein Runtime-Einbau.
