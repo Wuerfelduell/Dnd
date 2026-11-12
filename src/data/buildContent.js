@@ -1,6 +1,7 @@
 import { NIGHT_FLAG } from '../core/Clock.js';
 import { applyQuestPack } from './questPacks.js';
 import { applyDunscarZirkel } from './dunscarZirkel.js';
+import { applyZirkelAuftraege } from './zirkelAuftraege.js';
 import { applyLore } from './lore.js';
 import { withSequenzen, applySequenzen } from './sequenzen.js';
 import { applyPfadHandel } from './pfadHandel.js';
@@ -101,6 +102,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyDunscarGeld(content); // Dunscar zahlt mehr als Wexmoor: Gegnergeld und Kopfgelder
   applyDunscarBeute(content); // Dunscar-Beute 3–5× so viel wert wie in Wexmoor
   applyHaendlerAbgleich(content); // Händler aller Gebiete: Stärke und Preise je Gebiet, alte Stücke auch später
+  applyZirkelAuftraege(content); // Dunscar: Zirkelmitglieder vergeben Aufträge (Monster, Polizisten)
   applyDunscarKulisse(content); // Dunscar: Ausgänge nach Himmelsrichtung mit Schild, Rückkehr an der passenden Tür, Requisiten je Viertel
   return content;
 }
