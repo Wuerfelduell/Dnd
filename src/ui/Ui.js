@@ -1980,7 +1980,12 @@ export class Ui {
       <div class="feedback">${feedback}</div>
       <div class="actions"><button data-act="call" ${preview?.ok ? '' : 'disabled'}>Rufen (1 Ladung · ${s.signal.charges}/3)</button></div>
       ${bind}
-      <div class="actions"><button data-act="close">Gehen <span class="key">Esc</span></button></div>`, 'notebook shop');
+      <div class="actions"><button data-act="skip">Überspringen</button><button data-act="close">Gehen <span class="key">Esc</span></button></div>`, 'notebook shop');
+    el.querySelector('[data-act=skip]').onclick = () => {
+      const r = run(() => s.skipStation(stationId));
+      this.signalUi = null;
+      this.showMessage(STATION_NAMES[stationId] ?? 'Horchstelle', r.text);
+    };
     el.querySelectorAll('[data-pattern]').forEach((b) => { b.onclick = () => { sel.pattern = b.dataset.pattern; this.openSignalStation(stationId); }; });
     el.querySelectorAll('[data-dir]').forEach((b) => { b.onclick = () => { sel.dir = b.dataset.dir; this.openSignalStation(stationId); }; });
     el.querySelector('[data-act=close]').onclick = () => this.close();
