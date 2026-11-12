@@ -317,7 +317,7 @@
           "value": 2,
           "seconds": 300
         },
-        "desc": "Du spannst Fäden zwischen allem, was du weißt. 5 Minuten lang bringt jede Schlussfolgerung +2 Ansehen mehr."
+        "desc": "Du spannst Fäden zwischen allem, was du weißt. 5 Minuten lang bringt jede Schlussfolgerung +2 Ansehen mehr, ab Wexmoor dazu +60 Schilling von Informanten."
       }
     },
     "5": {
@@ -562,7 +562,8 @@
           "value": 20,
           "seconds": 120
         },
-        "desc": "Jede Tür hält dich für geladen. 2 Minuten lang öffnen sich gesperrte Schränke und Türen mit 20 Ansehen weniger."
+        "wanted": -1,
+        "desc": "Jede Tür hält dich für geladen. Fahndung sinkt um 1 Stufe. 2 Minuten lang öffnen sich gesperrte Schränke und Türen mit 20 Ansehen weniger, und die Wache verliert deine Spur schneller."
       }
     },
     "4": {
@@ -589,7 +590,7 @@
           "value": 0.5,
           "seconds": 300
         },
-        "desc": "Ein geliehenes Gesicht trägt die Schuld. Fahndung sinkt um 2 Stufen, 5 Minuten lang verlierst du nur halb so viel Ansehen."
+        "desc": "Ein geliehenes Gesicht trägt die Schuld. Fahndung sinkt um 2 Stufen, 5 Minuten lang verlierst du nur halb so viel Ansehen und Grauspäher brauchen doppelt so lange, bis sie dich erkennen."
       }
     },
     "3": {
@@ -1391,7 +1392,8 @@
           "value": 20,
           "seconds": 120
         },
-        "desc": "Du fragst das Schloss, wie es aufgehen will. 2 Minuten lang öffnen sich gesperrte Schränke und Türen mit 20 Ansehen weniger."
+        "wanted": -1,
+        "desc": "Du fragst das Schloss, wie es aufgehen will. Fahndung sinkt um 1 Stufe. 2 Minuten lang öffnen sich gesperrte Schränke und Türen mit 20 Ansehen weniger, und die Wache verliert deine Spur schneller."
       }
     },
     "7": {
@@ -1468,7 +1470,8 @@
           "seconds": 180
         },
         "reveal": 30,
-        "desc": "Kein Riegel hält. 3 Minuten lang öffnen sich Schlösser mit 35 Ansehen weniger, 30 Sekunden lang zeigen sich verborgene Spuren."
+        "wanted": -1,
+        "desc": "Kein Riegel hält. Fahndung sinkt um 1 Stufe. 3 Minuten lang öffnen sich Schlösser mit 35 Ansehen weniger und die Fahndung sinkt schneller, 30 Sekunden lang zeigen sich verborgene Spuren."
       }
     },
     "4": {
@@ -1551,7 +1554,8 @@
           "value": 40,
           "seconds": 300
         },
-        "desc": "Du stehst immer auf der abgewandten Seite. 10 Minuten lang kannst du aus jedem Kampf fliehen, 5 Minuten lang öffnen sich Schlösser mit 40 Ansehen weniger."
+        "wanted": -1,
+        "desc": "Du stehst immer auf der abgewandten Seite. 10 Minuten lang kannst du aus jedem Kampf fliehen, 5 Minuten lang öffnen sich Schlösser mit 40 Ansehen weniger und die Fahndung sinkt doppelt so schnell. Fahndung sinkt sofort um 1 Stufe."
       }
     },
     "1": {
@@ -1583,7 +1587,8 @@
           60
         ],
         "reveal": 60,
-        "desc": "Nichts ist dir verwehrt. 5 Minuten lang öffnet sich jedes Schloss, 30 bis 60 Schilling, eine Minute lang alle verborgenen Spuren."
+        "wanted": -1,
+        "desc": "Nichts ist dir verwehrt. Fahndung sinkt um 1 Stufe. 5 Minuten lang öffnet sich jedes Schloss und die Wache verliert deine Spur fast sofort, 30 bis 60 Schilling, eine Minute lang alle verborgenen Spuren."
       }
     }
   },
@@ -1772,7 +1777,7 @@
           "value": 0.5,
           "seconds": 300
         },
-        "desc": "Jede Zusage wird gewogen. 5 Minuten lang +2 Ansehen je Schlussfolgerung und nur halber Ansehensverlust."
+        "desc": "Jede Zusage wird gewogen. 5 Minuten lang +2 Ansehen je Schlussfolgerung (ab Wexmoor +60 Schilling) und nur halber Ansehensverlust, Grauspäher erkennen dich langsamer."
       }
     },
     "2": {

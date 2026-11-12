@@ -16,14 +16,18 @@
 //
 // Abklingzeiten und Buffs gehören jedem Spieler selbst (talentCd, buffs in Party.PERSONAL); Sichtbarkeit,
 // Furcht und die stehende Uhr gelten für die ganze Karte.
+import { DECAY_PER_LOCK } from './Wanted.js';
 import { digestSlowdown, fmtDigest, TALENT_DIGEST_PER_NERVES, TALENT_DIGEST_SPAN } from './Pathways.js';
+
+/** Ab Wexmoor (Flag kapitel1_done): Schilling je Punkt `conclusion_honor` und Schlussfolgerung (Ansehen zählt dort nicht mehr). */
+export const CONCLUSION_SCHILLING = 30;
 
 /** Lesbare Beschreibung eines zeitweiligen Passivs (für Pfad-Tab und Meldungen). */
 export const BUFF_LABELS = {
   vision_cost: (v) => `Geistsicht kostet ${Math.round((1 - v) * 100)} % weniger Nerven`,
   price: (v) => `Händler verlangen ${Math.round((1 - v) * 100)} % weniger`,
   sell: (v) => `Verkauf bringt ${Math.round((v - 1) * 100)} % mehr`,
-  lock_bonus: (v) => `Schlösser öffnen sich mit ${v} Ansehen weniger`,
+  lock_bonus: (v) => `Schlösser öffnen sich mit ${v} Ansehen weniger, Fahndung sinkt ${Math.round(v * DECAY_PER_LOCK * 100)} % schneller`,
   money_bonus: (v) => `+${Math.round((v - 1) * 100)} % Schilling aus Beute und Belohnungen`,
   dodge_window: (v) => `Ausweichfenster +${Math.round((v - 1) * 100)} %`,
   damage_taken: (v) => `${Math.round((1 - v) * 100)} % weniger Schaden`,
@@ -31,8 +35,8 @@ export const BUFF_LABELS = {
   occult_mult: (v) => `+${Math.round((v - 1) * 100)} % Schaden gegen Okkultes`,
   carry: (v) => `+${v} Pfund Tragkraft`,
   heal_bonus: (v) => `Heilmittel wirken ${Math.round((v - 1) * 100)} % stärker`,
-  honor_loss: (v) => `nur ${Math.round(v * 100)} % Ansehensverlust`,
-  conclusion_honor: (v) => `+${v} Ansehen je Schlussfolgerung`,
+  honor_loss: (v) => `nur ${Math.round(v * 100)} % Ansehensverlust, Grauspäher erkennen dich langsamer`,
+  conclusion_honor: (v) => `+${v} Ansehen je Schlussfolgerung (ab Wexmoor +${v * CONCLUSION_SCHILLING} Schilling)`,
   composure_regen: (v) => `Nerven erholen sich ${Math.round((v - 1) * 100)} % schneller`,
   hurry_cost: (v) => (v === 0 ? 'schnelle Reise kostet keine Nerven' : `schnelle Reise kostet ${Math.round((1 - v) * 100)} % weniger Nerven`),
   atk: (v) => `+${v} Angriff`,
