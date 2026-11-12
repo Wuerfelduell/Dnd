@@ -1150,13 +1150,9 @@ const standinIcon = (id) => {
   // Sequenz 4 bis 1 haben noch keine eigenen Trank- und Formelbilder: das Bild der Stufe 5 des Pfads
   return `${t[1]}_${PATHWAY_STANDIN[t[2]] ?? t[2]}_${Math.max(5, Number(t[3]))}`;
 };
-// Seq-4-Rituale (data/seq4.js): Wurfflaschen noch mit Leihbildern (nicht Teil von Codex DP)
-Object.assign(ITEM_ICON_ALIASES, {
-  wurf_saeure: 'giftflasche', wurf_gift: 'giftflasche', wurf_spreng: 'blutsalz_phiole',
-  // Codex DR: seltene Funde in Wexmoor (Leihbilder)
-  wxf_salzglas: 'salzkristall', wxf_moorbernstein: 'torfbernstein', wxf_schlickperle: 'schlickperle', wxf_gezeitenzahn: 'schlickzahn', wxf_schwarzlot: 'schwarzbernstein',
-  wxf_torfkompass: 'ski_art_flutkompass', wxf_silberalge: 'vi_m_grenzsteinmoos', wxf_nebelquarz: 'seufzerstein', wxf_ankerfossil: 'vt_all_grenzstein', wxf_wattspiegel: 'taschenspiegel',
-});
+/** Codex DT (Batch ritualicons2): eigene Icons in 16 und 32 für die Wurfflaschen der Seq-4-Rituale und die seltenen Wexmoor-Funde (Codex DR). */
+export const DT_ICONS = ['wurf_saeure', 'wurf_gift', 'wurf_spreng', 'wxf_salzglas', 'wxf_moorbernstein', 'wxf_schlickperle', 'wxf_gezeitenzahn', 'wxf_schwarzlot',
+  'wxf_torfkompass', 'wxf_silberalge', 'wxf_nebelquarz', 'wxf_ankerfossil', 'wxf_wattspiegel'];
 /** Codex DP (Batch ritualicons): eigene Icons in 16 und 32 für Seq-5-Rituale, freie Sude und die Seq-4-Rituale (ersetzen die Leihbilder). */
 export const DP_ICONS = ['leeres_gefaess', 'gefaess_erinnerung', 'uhr_taschen', 'sud_pfusch', 'sud_nebelsud', 'sud_silberklar', 'sud_mohnschlaf', 'sud_gluehtrunk',
   'sud_eisensud', 'sud_kroetenbitter', 'sud_wachsglanz', 'sud_grabruhe', 'sud_kraehenauge', 'sud_moosleuchte', 'sud_seidenschritt', 'sud_schattenhauch', 'sud_glockenruf',
@@ -1175,7 +1171,7 @@ const ICON32 = ['stimmphiole', 'verlorenes_gesangbuch', 'spiegelscherbe', ...F_E
   'rostwasser', 'schleierpuder', 'ankerhaken', 'schleierdolch', 'rostanker', 'porzellanmaske', 'rost_zeichen', 'schleier_zeichen',
   // Ausrüstung aus Paket G, J und K
   'mantel_moor', 'hut_schnabel', 'amulett_moorperle', 'knochenmesser', 'wachsamulett', 'glasfibel', 'sternglasdolch', 'geweihreif',
-  'amulett_wiegenlied', 'mantel_giesser', 'taktstock_vey', 'hut_chor', 'amulett_schatten', 'hut_maskenball', 'mantel_frack', 'blitzpulver', ...DP_ICONS];
+  'amulett_wiegenlied', 'mantel_giesser', 'taktstock_vey', 'hut_chor', 'amulett_schatten', 'hut_maskenball', 'mantel_frack', 'blitzpulver', ...DP_ICONS, ...DT_ICONS];
 export const itemIcon32Url = (id) => {
   const k = ITEM_ICON_ALIASES[id] ?? id;
   return k.startsWith('trank_') || ICON32.includes(k) || AG_ICONS(k) ? `${BASE}items/32/${standinIcon(k)}.png` : null;

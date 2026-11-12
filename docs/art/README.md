@@ -2078,3 +2078,13 @@ Vorhandene Braukessel-/Raub-/Fadenbilder bleiben bestehen. Die physische
 Ritual-Laterne kommt aus DN, die Item-Icons aus DP; DQ erzeugt dafür keine Duplikate.
 Die genaue Liste zählt 51 PNGs, einschließlich der separat exportierten
 Unterelemente und drei Größenableitungen; keine zusätzlichen Varianten.
+
+
+## DT — ritualicons2
+
+13 neue Item-Icons: drei Wurfflaschen und zehn seltene Wexmoor-Funde, je 16×16 und 32×32. DP-Palette, binäres Alpha. Leihbild-Zuordnungen im Manifest; kein Laufzeit-Einbau.
+
+- [Vorschau](batch-ritualicons2-preview.png)
+- [Prompts](batch-ritualicons2-generation.json)
+- [Prüfbericht](batch-ritualicons2-validation.json)
+- Prüfung: `python tools/art/ritualicons2/check.py` (Pillow).
