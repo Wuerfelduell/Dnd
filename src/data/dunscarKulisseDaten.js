@@ -10,8 +10,6 @@ const RAIL_H = 0; // ds_bahn: rail horizontal
 const PRELL = 8; // ds_bahn: buffer stop
 const MINE_H = 24; // ds_bruch: mine rail horizontal
 
-/** Hauptstraßen je Tileset: gepflastert in der Stadt, Bretter im Bruch. */
-export const DS_STRASSE = { ds_stadt: ['dst_stadt', 3], ds_bahn: ['dst_stadt', 3], ds_bruch: ['dst_bruch', 30] };
 
 /** Laternen an Platz und Straßenenden, in jedem Viertel gleich. */
 const LAMPEN = [[19, 13], [24, 13], [3, 9], [40, 9], [11, 12], [32, 12]];
@@ -20,24 +18,33 @@ const unten = (a, b, c, d) => [[a, 3, 20], [b, 11, 20], [c, 33, 20], [d, 40, 20]
 const P = (list, opt = {}) => list.map(([s, x, y]) => [s, x, y, typeof opt === 'function' ? opt(s) : opt]);
 const fest = { solid: true };
 const gleis = (y) => [['dst_bahn', RAIL_H, y, 2, 40]];
+/** Bahnband unten: Bahnsteigkante (17), zwei Gleise (18/19) mit Weichen links, Prellböcken rechts, Bahnübergang an der Hauptstraße. */
+const bahnband = {
+  reihen: [['dst_bahn', 10, 17, 1, 42], ['dst_bahn', RAIL_H, 18, 3, 40], ['dst_bahn', RAIL_H, 19, 3, 40], ['dst_bahn', 11, 20, 1, 42]],
+  zellen: [['dst_bahn', 6, 2, 18], ['dst_bahn', 7, 2, 19], ['dst_bahn', PRELL, 41, 18], ['dst_bahn', PRELL, 41, 19],
+    ['dst_bahn', 28, 21, 18], ['dst_bahn', 28, 22, 18], ['dst_bahn', 28, 21, 19], ['dst_bahn', 28, 22, 19]],
+};
 
 export const DS_KULISSE = {
   ds_endbahnhof: {
-    reihen: gleis(18), zellen: [['dst_bahn', PRELL, 41, 18]],
+    ...bahnband,
     props: P([...oben('dsp_endbahnhof_ticket_counter_with_iron_grille', 'dsp_endbahnhof_blank_timetable_board', 'dsp_endbahnhof_station_clock_without_numerals', 'dsp_endbahnhof_telegraph_desk'),
       ...unten('dsp_endbahnhof_waiting_bench', 'dsp_endbahnhof_luggage_trolley', 'dsp_endbahnhof_waiting_bench', 'dsp_endbahnhof_luggage_trolley')], fest),
-    lampen: LAMPEN, streu: [['dst_bahn', [46, 47], 0.02]],
+    lampen: LAMPEN, streu: [['dst_stadt', [5, 6], 0.03]],
   },
   ds_schwellenring: {
-    reihen: gleis(18), zellen: [['dst_bahn', PRELL, 41, 18]],
+    // Gleis vom Westrand in die Drehscheibe vor dem Lokschuppen
+    reihen: [['dst_bahn', RAIL_H, 18, 2, 32]],
+    zellen: [['dst_bahn', 6, 1, 18], ['dst_bahn', 28, 21, 18], ['dst_bahn', 28, 22, 18],
+      ...[[16, 17, 18, 19], [24, 25, 26, 27], [32, 33, 34, 35]].flatMap((row, dy) => row.map((f, dx) => ['dst_bahn', f, 33 + dx, 17 + dy]))],
     props: P([...oben('dsp_schwellenring_water_crane', 'dsp_schwellenring_signal', 'dsp_schwellenring_mechanic_workbench', 'dsp_schwellenring_coal_heap'),
       ...unten('dsp_schwellenring_coal_heap', 'dsp_schwellenring_locomotive_wheel', 'dsp_schwellenring_signal', 'dsp_schwellenring_water_crane')], (s) => (/signal|wheel/.test(s) ? {} : fest)),
-    lampen: LAMPEN, streu: [['dst_stadt', [5, 6], 0.02]],
+    lampen: LAMPEN, streu: [['dst_stadt', [5, 6], 0.03], ['dst_stadt', [7], 0.006]],
   },
   ds_arbeiterbogen: {
     props: P([...oben('dsp_arbeiterbogen_washing_line', 'dsp_arbeiterbogen_stone_well', 'dsp_arbeiterbogen_washing_line', 'dsp_arbeiterbogen_windblown_picnic_table'),
       ...unten('dsp_arbeiterbogen_outdoor_dinner_table_one_empty_place', 'dsp_arbeiterbogen_washing_line', 'dsp_arbeiterbogen_windblown_picnic_table', 'dsp_arbeiterbogen_stone_well')], (s) => (/washing/.test(s) ? {} : fest)),
-    lampen: LAMPEN, streu: [['dst_stadt', [5, 6], 0.02]],
+    lampen: LAMPEN, streu: [['dst_stadt', [5, 6], 0.03], ['dst_stadt', [7], 0.006]],
   },
   ds_kalkmarkt: {
     props: P([...oben('dsp_kalkmarkt_flea_stall_memory_plaques', 'dsp_kalkmarkt_stonemason_workshop', 'dsp_kalkmarkt_blank_gravestone_round', 'dsp_kalkmarkt_blank_gravestone_cross'),
@@ -51,16 +58,16 @@ export const DS_KULISSE = {
     lampen: LAMPEN, streu: [['dst_bruch', [4, 5], 0.025], ['dst_bruch', [6, 7], 0.01]],
   },
   ds_signalhang: {
-    reihen: gleis(18), zellen: [['dst_bahn', PRELL, 41, 18]],
+    ...bahnband,
     props: P([...oben('dsp_bruchsignal_signal_cabin', 'dsp_bruchsignal_listening', 'dsp_schwellenring_signal', 'dsp_bruchsignal_listening'),
       ...unten('dsp_bruchsignal_listening', 'dsp_schwellenring_signal', 'dsp_bruchsignal_signal_cabin', 'dsp_bruchsignal_listening')], (s) => (/listening/.test(s) ? { solid: true, light: '#6fe0d0' } : /cabin/.test(s) ? fest : {})),
-    lampen: LAMPEN, streu: [['dst_bahn', [46, 47], 0.02]],
+    lampen: LAMPEN, streu: [['dst_stadt', [5, 6], 0.03]],
   },
   ds_letzter_bahnsteig: {
-    reihen: gleis(18), zellen: [['dst_bahn', PRELL, 41, 18]],
+    ...bahnband,
     props: P([...oben('dsp_endbahnhof_waiting_bench', 'dsp_endbahnhof_station_clock_without_numerals', 'dsp_endbahnhof_blank_timetable_board', 'dsp_endbahnhof_waiting_bench'),
       ...unten('dsp_endbahnhof_luggage_trolley', 'dsp_endbahnhof_waiting_bench', 'dsp_endbahnhof_waiting_bench', 'dsp_endbahnhof_luggage_trolley')], fest),
-    lampen: LAMPEN, streu: [['dst_bahn', [46, 31], 0.02]],
+    lampen: LAMPEN, streu: [['dst_stadt', [5, 6], 0.03]],
   },
   // Gefahrengebiete behalten ihre Pfeilerreihen; Kulisse dort, wo kein Gegner oder Lager liegt
   ds_rangierwueste: {

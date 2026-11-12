@@ -19,7 +19,7 @@
  * dann die Gegner, der Gebietsboss am weitesten weg. Jede Tür trägt ein Schild (`label`), wer durch eine Tür kommt,
  * steht an der Tür, die zurückführt (Spawn `von_<karte>`).
  */
-import { DS_KULISSE, DS_STRASSE } from './dunscarKulisseDaten.js';
+import { DS_KULISSE } from './dunscarKulisseDaten.js';
 import { DS_ORTSKUNDIGE } from './dunscarOrtskundige.js';
 import { DS_ZIRKEL } from './dunscarZirkel.js';
 
@@ -95,6 +95,9 @@ function zonenPlaetze(rect, leute) {
 function viertel(content, id, m, pins, schilder, fest) {
   const fc = (m.rows.join('').match(/[.swg]/g) ?? ['.'])[0];
   const old = { ...m };
+  // Bahnviertel: gepflasterter Platz wie in der Stadt, Gleise und Bahnsteige liegen unten (Kulisse)
+  if (m.tiles === 'ds_bahn') m.bahnviertel = true;
+  if (m.tiles === 'ds_bahn') m.tiles = 'ds_stadt';
   // Horchstellen der Signalrouten (Paket BN) bleiben begehbar und an ihrem Platz, auch in der Häuserzeile (Nischen)
   m.rows = rasterZeilen(fc).map((row, y) => [...row].map((c, x) => (fest.has(key(x, y)) && x > 0 && x < RASTER.W - 1 && y > 0 && y < RASTER.H - 1 ? fc : c)).join(''));
   const taken = new Set(fest);
@@ -180,11 +183,7 @@ function viertel(content, id, m, pins, schilder, fest) {
   Object.assign(m, { interactables: inter, npcs, patrols, roamers, spawns });
   for (const a of ausgaenge) schilder.push([id, a]);
   // Straßen sichtbar machen
-  const st = DS_STRASSE[m.tiles];
-  if (st) {
-    for (let x = 1; x < RASTER.W - 1; x++) for (const y of RASTER.strasseY) m.decor.push({ sprite: st[0], frame: st[1], tile: [x, y], alpha: 1, depth: 40 });
-    for (let y = 4; y < RASTER.H - 1; y++) for (const x of RASTER.strasseX) if (!RASTER.strasseY.includes(y)) m.decor.push({ sprite: st[0], frame: st[1], tile: [x, y], alpha: 1, depth: 40 });
-  }
+  strassen(m);
   for (const a of inter.filter((d) => d.kind === 'door')) {
     const ziel = content.maps[a.to];
     if (!istAussen(ziel)) {
@@ -296,6 +295,7 @@ export function applyDunscarKulisse(content) {
     for (const o of [...m.interactables, ...m.npcs, ...(m.roamers ?? [])]) taken.add(key(...o.tile));
     for (const t of Object.values(m.spawns)) taken.add(key(...t));
     rand(m, !istGefahr(m));
+    m.ambient = { ...(m.ambient ?? {}), day: istGefahr(m) ? 0.5 : 0.32 }; // tagsüber heller, nachts bleibt es dunkel
     kulisse(m, DS_KULISSE[id], taken);
   }
   // Rückweg: wer aus Karte A nach B geht, steht in B an der Tür, die nach A zurückführt (B.spawns.von_A);
@@ -387,12 +387,7 @@ function rand(m, viertel) {
     if (!wall(x, y)) continue;
     const rahmen = x === 0 || x === W - 1 || y === H - 1 || (y === 0 && !viertel);
     if (viertel && y <= 3 && x > 0 && x < W - 1) {
-      // Häuserzeile
-      if (bruch) put('dst_bruch', y === 3 ? 9 : [0, 1, 2, 3][Math.floor(h(x, y, 1) * 4)], x, y);
-      else if (y === 3) put('dst_stadt', h(x, y, 2) < 0.45 ? (h(x, y, 3) < 0.5 ? 13 : 12) : 9, x, y);
-      else if (y === 2) put('dst_stadt', x % 3 === 1 ? 13 : 9, x, y);
-      else if (y === 1) put('dst_stadt', 8, x, y);
-      else put('dst_stadt', h(x, y, 4) < 0.15 ? 17 : 8, x, y);
+      haeuserzeile(m, x, y, bruch, put, h);
       continue;
     }
     if (rahmen) {
@@ -409,4 +404,55 @@ function rand(m, viertel) {
     else if (m.tiles === 'ds_bruch') put('dst_bruch', oben ? (links ? 12 : rechts ? 13 : 8) : links ? 14 : rechts ? 15 : 9, x, y);
     else put('dst_schlucht', h(x, y, 5) < 0.2 ? 21 : h(x, y, 6) < 0.5 ? 0 : 1, x, y);
   }
+  if (viertel && !bruch) fensterlicht(m, h);
+  if (viertel && bruch) {
+    // Bruch: Steintreppe durch die Terrasse nach Norden
+    for (const x of RASTER.strasseX) [16, 17, 18].forEach((f, i) => put('dst_bruch', f, x, i + 1));
+  }
+}
+
+/** Häuser der Nordzeile: je Haus Eckkanten, Fensterreihen, Schornstein; Haustüren (Fassaden) liegen davor. */
+const HAUS_GRENZEN = [[1, 6], [7, 12], [13, 19], [24, 29], [30, 35], [36, 42]];
+function haeuserzeile(m, x, y, bruch, put, h) {
+  if (bruch) {
+    // Kalkterrasse mit Leitern und Gerüstpfosten
+    if (y === 3) put('dst_bruch', x % 9 === 4 ? 21 : x % 9 === 7 ? 22 : 9, x, y);
+    else if (x % 9 === 4) put('dst_bruch', y === 2 ? 20 : 19, x, y);
+    else put('dst_bruch', [0, 1, 2, 3][Math.floor(h(x, y, 1) * 4)], x, y);
+    return;
+  }
+  const [a, b] = HAUS_GRENZEN.find(([l, r]) => x >= l && x <= r) ?? [x, x];
+  const i = x - a;
+  const kamin = a + 1 + Math.floor(h(a, 0, 7) * Math.max(1, b - a - 2));
+  const fenster = (salt) => (h(x, y, salt) < 0.55 ? 13 : 12); // erleuchtet oder dunkel
+  if (y === 0) put('dst_stadt', x === kamin ? 17 : 8, x, y);
+  else if (y === 1) put('dst_stadt', x === kamin ? 16 : 8, x, y);
+  else if (y === 2) put('dst_stadt', x === a ? 10 : x === b ? 11 : i % 2 === 1 ? fenster(3) : 9, x, y);
+  else put('dst_stadt', x === a ? 10 : x === b ? 11 : i % 2 === 1 ? fenster(5) : x === Math.floor((a + b) / 2) && h(a, 3, 9) < 0.5 ? 14 : 9, x, y);
+}
+
+/** Warmes Licht hinter den erleuchteten Fenstern (Rahmen 13) der Häuserzeile. */
+function fensterlicht(m, h) {
+  let n = 0;
+  for (const d of m.decor) {
+    if (d.sprite !== 'dst_stadt' || d.frame !== 13 || d.tile[1] !== 3 || n >= 10) continue;
+    if (h(d.tile[0], 3, 11) > 0.6) continue;
+    m.lights.push({ tile: d.tile, radius: 22, intensity: 0.4, color: '#ffc070', glow: 0.15, flicker: 0.05 });
+    n++;
+  }
+}
+
+/** Hauptstraßen: Pflaster mit Bordsteinkanten (Stadt) oder Bretterweg (Bruch). */
+function strassen(m) {
+  const put = (sheet, frame, x, y) => m.decor.push({ sprite: sheet, frame, tile: [x, y], alpha: 1, depth: 40 });
+  const [y0, y1] = RASTER.strasseY;
+  const [x0, x1] = RASTER.strasseX;
+  if (m.tiles === 'ds_bruch') {
+    for (let x = 1; x < RASTER.W - 1; x++) for (const y of RASTER.strasseY) put('dst_bruch', 30, x, y);
+    for (let y = 4; y < RASTER.H - 1; y++) for (const x of RASTER.strasseX) if (y !== y0 && y !== y1) put('dst_bruch', 30, x, y);
+    return;
+  }
+  const kreuz = (x, y) => x >= x0 && x <= x1 && y >= y0 && y <= y1;
+  for (let x = 1; x < RASTER.W - 1; x++) for (const y of RASTER.strasseY) put('dst_stadt', kreuz(x, y) ? 3 : y === y0 ? 24 : 25, x, y);
+  for (let y = 1; y < RASTER.H - 1; y++) for (const x of RASTER.strasseX) if (!kreuz(x, y)) put('dst_stadt', x === x0 ? 26 : 27, x, y);
 }
