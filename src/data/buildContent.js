@@ -92,6 +92,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyRelations(content, beziehungen, packs); // Beziehungen: Regeln, Vorlieben, Knoten-Wirkungen
   applyDunscarHaendler(content); // Dunscar: Waffen, Kleidung, Kräuter und Ankauf am Kalkmarkt (kein Zurück in alte Städte)
   applyAltbeute(content); // Wexmoor-Monster tragen ab und zu Kettlegater Beute (kein Zurück dorthin)
+  applyDunscarGebietsbosse(content); // Dunscar: je Gefahrengebiet ein frei stehender Gebietsboss wie in Wexmoor
   applyDunscarDichte(content); // Dunscar-Gefahrengebiete so dicht besetzt wie Wexmoor (vorher nur 3–4 Gegner)
   applyDunscarGeld(content); // Dunscar zahlt mehr als Wexmoor: Gegnergeld und Kopfgelder
   return content;
@@ -458,4 +459,35 @@ function applyDunscarGeld(content) {
   }
   content.dialogues = { ...content.dialogues, kopfgeldbrett_ds: { ...d, nodes } };
   for (const [qid, q] of Object.entries(content.quests)) if (qid.startsWith('kopfgeld_ds_')) content.quests[qid] = { ...q, summary: fix(q.summary) };
+}
+
+/** Seb 2026-11-12: Dunscars Monstergebiete hatten keine Bosse (die Story-Bosse kommen nur über die Akte).
+ *  Je Gebiet ein eigener Gebietsboss auf der Karte, aufgebaut auf dem Story-Boss des Gebiets, ohne Story-Flags. Bleibt besiegt (won_…). */
+export const DS_GEBIETSBOSSE = {
+  ds_rangierwueste: { id: 'ds_gb_weichenfresser', from: 'schwellenhund', name: 'Weichenfresser', intro: 'Zwischen den toten Waggons richtet sich etwas auf, das zu lange Eisen gefressen hat. Es kennt jede Weiche dieser Wüste.' },
+  ds_klopfbruch: { id: 'ds_gb_bruchmeister', from: 'vorhauer', name: 'Bruchmeister', intro: 'Der Bruchmeister schlägt den Takt, nach dem hier alles bricht. Seine Hämmer sind älter als die Stadt.' },
+  ds_rufschlucht: { id: 'ds_gb_schluchtrufer', from: 'vielrufer', name: 'Schluchtrufer', intro: 'Hundert Stimmen aus der Schlucht werden zu einer. Sie ruft deinen Namen, bevor du ihn sagst.' },
+  ds_unterschicht: { id: 'ds_gb_tiefenvorarbeiter', from: 'unterschicht', name: 'Tiefenvorarbeiter', intro: 'Ganz unten führt noch jemand die Schicht. Er hat nie aufgehört und lässt niemanden gehen.' },
+};
+function applyDunscarGebietsbosse(content) {
+  for (const [mapId, b] of Object.entries(DS_GEBIETSBOSSE)) {
+    const m = content.maps[mapId];
+    const base = content.encounters[b.from];
+    if (!m?.rows || !base || content.encounters[b.id]) continue;
+    const { weak_if, on_win, phase2, ...rest } = base;
+    content.encounters[b.id] = { ...rest, name: b.name, intro: b.intro, boss: true, chapter: 3, zone: mapId, on_win: {}, win_text: `${b.name} fällt. Das Gebiet atmet für einen Moment auf.` };
+    const l = content.loot[b.from] ?? {};
+    content.loot[b.id] = { ...l, repeat: false, money: [160, 240], drops: (l.drops ?? []).filter((d) => !String(d.item).startsWith('k3o_')) };
+    if (content.zones?.[mapId]?.encounters) content.zones[mapId].encounters[b.id] = content.encounters[b.id];
+    // Platz: begehbares Feld möglichst weit weg vom Eingang
+    const spawns = Object.values(m.spawns ?? {});
+    const taken = new Set([...(m.npcs ?? []), ...(m.interactables ?? []), ...(m.roamers ?? [])].filter((o) => o.tile).map((o) => `${o.tile[0]},${o.tile[1]}`));
+    let best = null;
+    m.rows.forEach((row, y) => [...row].forEach((ch, x) => {
+      if (!(ch === '.' || /[gpscwPK=,]/.test(ch)) || taken.has(`${x},${y}`)) return;
+      const d = Math.min(...spawns.map(([sx, sy]) => Math.abs(x - sx) + Math.abs(y - sy)));
+      if (!best || d > best.d) best = { d, tile: [x, y] };
+    }));
+    if (best) content.maps[mapId] = { ...m, roamers: [...(m.roamers ?? []), { id: `${mapId}_gebietsboss`, encounter: b.id, tile: best.tile, boss: true }] };
+  }
 }

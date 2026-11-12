@@ -25,7 +25,8 @@ test('dreizehn Gefahrengebiete (fünf in Wexmoor, vier in Dunscar) mit Karte, Re
     // Paket AM: die Torfbrüche sind ein Erzählort mit wenigen Gegnern; die Moorbraut stellt man bewusst am Brautbecken
     const story = STORY_ZONES[zid];
     assert.ok(roamers.length >= (story ? 3 : 15), `${zid}: nur ${roamers.length} Gegner`);
-    assert.equal(roamers.filter((r) => r.boss).length, story ? 0 : 1, `${zid}: ein Boss`);
+    // Dunscar: Story-Boss über die Akte, dazu ein frei stehender Gebietsboss (Seb 2026-11-12)
+    assert.equal(roamers.filter((r) => r.boss).length, story && !zid.startsWith('ds_') ? 0 : 1, `${zid}: ein Boss`);
     if (story) assert.ok(content.encounters[story]?.boss && Object.values(content.dialogues).some((d) => Object.values(d.nodes).some((n) => n.encounter === story || n.combat === story)), `${zid}: Boss ${story} im Gespräch`);
     const walk = new Set([...'.,gpscwPK=']);
     for (const r of roamers) {

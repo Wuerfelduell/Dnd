@@ -133,7 +133,8 @@ test('Paket AU: Hedda gibt die Prüfung nur dem eigenen Pfad ab Sequenz 5, die Z
 
 test('Balance Paket AU: jeder Prüfungsgegner ist mit Sequenz 5 schaffbar', () => {
   for (const id of Object.keys(content.encounters).filter((e) => e.startsWith('k3p_'))) {
-    const { result, combat } = fight(seq(5), id, { defend: EXPERT, skill: 'double', healBelow: 18 });
+    // Realistischer Build (verkettete Pfad-Fertigkeit) wie im Kapitel-3-Balance-Test
+    const { result, combat } = fight(seq(5), id, { defend: EXPERT, skill: 'wuchtschlag', chain: true, healBelow: 18 });
     assert.equal(result.outcome, 'won', `${id}: verloren in Runde ${combat.round}`);
   }
 });
@@ -203,11 +204,11 @@ test('Rufladungen: Ruf kostet eine Ladung, Notladung einmal je Station, Pfiff f�
   assert.deepEqual(t.signal.reserveUsed, ['k3o_horch_vorhauer'], 'Pfiff setzt keine Reserven zurück');
 });
 
-test('Ab Kapitel 3: Gegnerleben-Untergrenze (zu zweit 1300 / 2200 / 5000), Wächter und Ausreißer ausgenommen', async () => {
+test('Ab Kapitel 3: Gegnerleben-Untergrenze (zu zweit 2000 / 4000 / 8000), Wächter und Ausreißer ausgenommen', async () => {
   const { Combat, HP_FLOOR, DUO_HP_MULT } = await import('../src/core/Combat.js');
-  assert.equal(Math.round(HP_FLOOR.normal * DUO_HP_MULT), 1300);
-  assert.equal(Math.round(HP_FLOOR.elite * DUO_HP_MULT), 2200);
-  assert.equal(Math.round(HP_FLOOR.boss * DUO_HP_MULT), 5000);
+  assert.equal(Math.round(HP_FLOOR.normal * DUO_HP_MULT), 2000);
+  assert.equal(Math.round(HP_FLOOR.elite * DUO_HP_MULT), 4000);
+  assert.equal(Math.round(HP_FLOOR.boss * DUO_HP_MULT), 8000);
   const s = seq(5);
   assert.ok(new Combat(s, 'schichtgaenger').enemy.maxHp >= HP_FLOOR.normal);
   assert.ok(new Combat(s, 'nachhall_elite').enemy.maxHp >= HP_FLOOR.elite);
