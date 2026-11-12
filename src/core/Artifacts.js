@@ -42,6 +42,7 @@ export const artifactMethods = {
     const out = [];
     for (const id of this.activeArtifacts()) {
       const it = this.item(id);
+      if (id === 's4mo_relikt') { out.push(this.pathway?.relikt?.boons ?? [], this.pathway?.relikt?.curses ?? []); continue; } // Seq 4 (Moor): Eigenschaften je Spieler
       if (it) out.push(it.boons ?? [], it.curses ?? []);
     }
     return out;

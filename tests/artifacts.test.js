@@ -56,6 +56,7 @@ function ritual(s, pid, seq) {
   if (r.fraud) s.flags.add(s.fraudFlag(pid, seq));
   if (r.min_picks) s.picks = r.min_picks;
   if (r.trial) passTrial(s, r.trial); // Seq 5 (Seb 2026-11-12): die Prüfung des Pfads gilt als bestanden
+  if (r.hg) s.flags.add(s.hgFlag(pid)); // Seq 4: die Halbgott-Prüfung samt Wächter gilt als bestanden
   const res = s.performRitual();
   assert.equal(res.ok, true, `${pid} ${seq}: ${res.text}`);
   s.spiritVision = false;

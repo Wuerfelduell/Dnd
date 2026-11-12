@@ -23,6 +23,7 @@ import { talentMethods, CONCLUSION_SCHILLING } from './Talents.js';
 import { sektenMethods } from './Sekten.js';
 import { sudeMethods } from './Sude.js';
 import { seq5Methods } from './Seq5.js';
+import { seq4Methods } from './Seq4.js';
 
 /** Tragkraft in Pfund. Gegenstände ohne eigenes "weight" wiegen je nach Art so viel. */
 export const BASE_CARRY = 40;
@@ -629,6 +630,7 @@ export class GameState {
   }
 
   heal(n) {
+    if (this.healBlocked?.()) return 0; // Seq-4-Prüfungen: im Traum und als Schatten heilt nichts
     const before = this.hp;
     this.hp = Math.min(this.maxHp, this.hp + n);
     if (this.hp !== before) this.emit('hp', { value: this.hp, delta: this.hp - before });
@@ -739,6 +741,7 @@ export class GameState {
     this.tickWanted(dtSeconds);
     this.tickParty(dtSeconds);
     this.seq5Tick?.();
+    this.seq4Tick?.();
   }
 
   /**
@@ -854,4 +857,4 @@ export class GameState {
 /** Fortschrittsflags der verlängerten Akt-V-Fassung (AP), in Spielreihenfolge. */
 export const K2_AKT5_STEPS = ['k2v_boot_bereit', 'k2v_keller_passiert', 'k2v_aufstieg_passiert', 'k2v_abschied_done'];
 
-Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods, sudeMethods, seq5Methods);
+Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods, sudeMethods, seq5Methods, seq4Methods);

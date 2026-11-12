@@ -50,8 +50,12 @@ test('Rituale 4 bis 1: Tribut, Siege, Schlussfolgerungen, Nerven; 4 und 2 verlan
       const r = p.seqs[n].ritual;
       assert.equal(r.tribute, HOCH_RITUAL[n].tribute, `${pid} ${n}: Tribut`);
       assert.equal(r.requires.min_wins, HOCH_RITUAL[n].min_wins, `${pid} ${n}: Siege`);
-      assert.match(r.name, /offene Probe/, `${pid} ${n}: die Probe von AU bleibt`);
-      assert.ok(r.requires.requires_flags.includes('kapitel2_done'), `${pid} ${n}: Kapitelbedingung bleibt`);
+      if (n === 4) { // Seq-4-Prüfungen (core/Seq4.js): ortsunabhängig, ohne Fallbedingung
+        assert.ok(r.hg && !r.map && !r.also_maps && !r.requires.requires_flags, `${pid} 4: Halbgott-Prüfung ohne Ort und Fall`);
+      } else {
+        assert.match(r.name, /offene Probe/, `${pid} ${n}: die Probe von AU bleibt`);
+        assert.ok(r.requires.requires_flags.includes('kapitel2_done'), `${pid} ${n}: Kapitelbedingung bleibt`);
+      }
       if (n === 4 || n === 2) {
         assert.ok(r.ordeal && r.min_conclusions && r.min_nerves, `${pid} ${n}: schweres Ritual`);
         const enc = content.encounters[ordealId(pid, n)];
@@ -59,7 +63,6 @@ test('Rituale 4 bis 1: Tribut, Siege, Schlussfolgerungen, Nerven; 4 und 2 verlan
         assert.ok(enc.name.includes(p.name.replace(/^Pfad (der|des) /, '')), enc.name);
         assert.equal(enc.waechter, n === 4 ? 'hg_schwellenwaechter' : 'hg_grenzwaechter');
         assert.equal(ordealId(pid, n), `${enc.waechter}_${pid}`);
-        if (n === 4) assert.ok(r.map === 'ds_schwellenring' || r.also_maps.includes('ds_schwellenring'), `${pid}: Schwellenring`);
       } else assert.ok(!r.ordeal);
     }
   }
@@ -79,11 +82,12 @@ test('Schweres Ritual: erst steht alles, dann tritt der Schwellenwächter an, na
   s.money = 600;
   s.composure = s.maxComposure();
   s.conclusions = Array.from({ length: 10 }, (_, i) => `c${i}`);
-  assert.deepEqual(s.ritualSteps('laterne', 4).filter((x) => !x.done).map((x) => x.ordeal), [true]);
+  // Seq 4 (core/Seq4.js): der Wächter kommt nur aus der Prüfung heraus, nicht über den Ritualknopf
+  assert.ok(s.ritualSteps('laterne', 4).filter((x) => !x.done).every((x) => x.hg));
   const first = s.performRitual();
   assert.equal(first.ok, false);
-  assert.equal(first.fight, ordealId('laterne', 4));
-  assert.equal(s.pendingCombat, ordealId('laterne', 4), 'der Kampf ist vorgemerkt');
+  assert.equal(first.fight, undefined);
+  assert.match(first.text, /Prüfung/);
   assert.equal(s.ritualDone('laterne', 4), false);
   assert.equal(s.itemCount('nebeltau'), 2, 'noch nichts verbraucht');
   // Der Wächter ist für Sequenz 5 nur mit Übung zu schaffen, für Sequenz 6 gar nicht
@@ -92,7 +96,7 @@ test('Schweres Ritual: erst steht alles, dann tritt der Schwellenwächter an, na
   const won = fight(hero(5), ordealId('eisen', 4), { defend: EXPERT, skill: 'double', healBelow: 20 });
   assert.equal(won.result.outcome, 'won');
   assert.equal(fight(hero(5), ordealId('eisen', 4), { defend: SKILLED, skill: 'double', healBelow: 20 }).result.outcome, 'lost', 'ohne Übung nicht');
-  s.flags.add(ordealFlag('laterne', 4));
+  s.flags.add(s.hgFlag('laterne'));
   const done = s.performRitual();
   assert.equal(done.ok, true, done.text);
   assert.ok(s.ritualDone('laterne', 4) && s.money === 0 && s.itemCount('nebeltau') === 0);
