@@ -470,6 +470,13 @@ import post_beilagen from './packs/post/beilagen.json';
 import post_post from './packs/post/post.json';
 import erf_erfolge from './packs/erfolge/erfolge.json';
 import { tierePack } from './tiere.js';
+import { fahrendeAuktionPack } from './fahrendeAuktion.js';
+import fa2_vance from './packs/fahrende_auktion/vance.json';
+import fa2_bieter from './packs/fahrende_auktion/bieter.json';
+import fa2_lose from './packs/fahrende_auktion/lose.json';
+import fa2_gerede from './packs/fahrende_auktion/gerede.json';
+import fa2_lese from './packs/fahrende_auktion/lesestuecke.json';
+import fa2_zeitung from './packs/fahrende_auktion/zeitung.json';
 import tr_tiere from './packs/tiere/tiere.json';
 import tr_beziehung from './packs/tiere/beziehung.json';
 import tr_lese from './packs/tiere/lesestuecke.json';
@@ -534,7 +541,7 @@ export const content = buildContent({
   gatherings,
   city,
   wexmoor,
-  packs: [k1Finale, kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen, k3Handel, dunscarZirkelPack(), vorratStueckePack(), tierePack({ tiere: tr_tiere, beziehung: tr_beziehung, lesestuecke: tr_lese, zeitung: tr_zeitung }), k3Leben, koopK3, koopBeute, k3Ruf, beziehungenPack, fasserinPack, fasserinAuftrag, halbgott, festePack, sektenPack, seq4Dr, erfolgePack({ erfolge: erf_erfolge, bedingungen: erf_bedingungen, meldungen: erf_meldungen }), postPack({ briefe: post_briefe, beilagen: post_beilagen, post: post_post }), benanntePack({ gegner: bn_gegner, bestiarium: bn_bestiarium, auftritt: bn_auftritt, beute: bn_beute }), ...runde8],
+  packs: [k1Finale, kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen, k3Handel, dunscarZirkelPack(), vorratStueckePack(), tierePack({ tiere: tr_tiere, beziehung: tr_beziehung, lesestuecke: tr_lese, zeitung: tr_zeitung }), fahrendeAuktionPack({ vance: fa2_vance, bieter: fa2_bieter, lose: fa2_lose, gerede: fa2_gerede, lesestuecke: fa2_lese, zeitung: fa2_zeitung }), k3Leben, koopK3, koopBeute, k3Ruf, beziehungenPack, fasserinPack, fasserinAuftrag, halbgott, festePack, sektenPack, seq4Dr, erfolgePack({ erfolge: erf_erfolge, bedingungen: erf_bedingungen, meldungen: erf_meldungen }), postPack({ briefe: post_briefe, beilagen: post_beilagen, post: post_post }), benanntePack({ gegner: bn_gegner, bestiarium: bn_bestiarium, auftritt: bn_auftritt, beute: bn_beute }), ...runde8],
   lore: { bestiarium: lore_bestiarium, gerede: lore_gerede, item_texte: lore_item_texte, lesestuecke: lore_lesestuecke, zeitungen: lore_zeitungen },
   beziehungen,
   sequenzen: { neue_pfade: sq_neue_pfade, seq_4_bis_1: sq_seq_4_bis_1, zutaten: sq_zutaten, artefakte: sq_artefakte, rituale: k3p_rituale, faehigkeiten: sq_faehigkeiten },

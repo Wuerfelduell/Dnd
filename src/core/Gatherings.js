@@ -40,7 +40,7 @@ export const gatheringMethods = {
   },
 
   gatheringDef(id) {
-    return this.content.gatherings?.circles?.[id] ?? null;
+    return this.content.gatherings?.circles?.[id] ?? this.content.fa2Circles?.[id] ?? null; // Codex DE: Fahrende Auktion (eigener Fahrplan, kein Zirkel)
   },
 
   /** Ab wann gibt es die Treffen überhaupt (ab Fall 4)? */

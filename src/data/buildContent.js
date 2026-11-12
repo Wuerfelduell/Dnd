@@ -16,6 +16,7 @@ import { applySchmuggel } from './schmuggel.js';
 import { applyUebergaenge } from './uebergaenge.js';
 import { applyAltbeute } from './altbeute.js';
 import { applyVorratStuecke } from './vorratStuecke.js';
+import { applyFahrendeAuktion } from './fahrendeAuktion.js';
 import { applyDunscarHaendler } from './dunscarHaendler.js';
 import { applyDunscarKulisse } from './dunscarKulisse.js';
 import { applyDunscarAusbau, applyDunscarStaende } from './dunscarAusbau.js';
@@ -113,6 +114,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyDunscarGeld(content); // Dunscar zahlt mehr als Wexmoor: Gegnergeld und Kopfgelder
   applyDunscarBeute(content); // Dunscar-Beute 3–5× so viel wert wie in Wexmoor
   applyKapitelAusgleich(content); // Geld Kapitel 4 (×15) und Sekten-Häupter in Dunscar auf Gebietsboss-Niveau
+  applyFahrendeAuktion(content); // Codex DE: Vance und Träger auf Salzmarkt und Kalkmarkt
   applyVorratStuecke(content); // Vorrat-Zips: neue Waffen, Kleidung, Artefakte, Wertstücke bei Händlern, in Gebieten und auf Treffen
   applyHaendlerAbgleich(content); // Händler aller Gebiete: Stärke und Preise je Gebiet, alte Stücke auch später
   applyZirkelAuftraege(content); // Dunscar: Zirkelmitglieder vergeben Aufträge (Monster, Polizisten)
@@ -142,6 +144,7 @@ function withPackLore(content, pack) {
     content.tiere = pack.tiere;
     for (const p of pack.platzierung_tiere ?? []) { const q = withSpawnOffset(content, p); if (q && content.maps[q.map]) content.maps[q.map].interactables.push({ ...q.interactable, tile: q.tile }); }
   }
+  if (pack.fa2Circles) content.fa2Circles = pack.fa2Circles; // Codex DE
   if (pack.erfolge) content.erfolge = pack.erfolge; // Codex DL: Akte des Ermittlers
   if (pack.benannte) content.benannte = pack.benannte; // Codex DJ: benannte Gegner (Aufbau in applyBenannte)
   if (pack.post) { // Codex DI: Briefe; Beilagen als Andenken (nicht handelbar), vorhandene Items bleiben wie sie sind

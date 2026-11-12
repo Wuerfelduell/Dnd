@@ -6,6 +6,7 @@ import { PATHWAY_STANDIN } from '../data/sequenzen.js';
 import { preloadRitualArt } from './ritualArt.js';
 import { DS_ZIRKEL_ICONS, DS_ZIRKEL_FIGUREN } from '../data/dunscarZirkel.js';
 import { VS_ICONS } from '../data/vorratStuecke.js';
+import { FA2_FIGUREN } from '../data/fahrendeAuktion.js';
 import { DS_ORTSKUNDIGE } from '../data/dunscarOrtskundige.js';
 import { DSH_ICONS } from '../data/dunscarAusbau.js';
 
@@ -3037,3 +3038,12 @@ for (const id of BN_IDS) {
   HEAD_FILES[id] = `portraits/heads/${id}.png`;
 }
 ICON32.push('bnl_zollkrone', 'bnl_stilleschlacke', 'bnl_lohnwurzel', 'bnl_lochzange', 'bnl_kalkband', 'bnl_umkehrletter', 'bnl_kaltventil', 'bnl_gesichtsabdruck');
+
+/** Codex DE: Fahrende Auktion (Perpetua Vance, Träger, drei Mitbieter): Lauf-Sheets, Köpfe und Porträts. */
+for (const id of FA2_FIGUREN) {
+  SHEETS[id] = `characters/${id}.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = id;
+  HEADS.push(id);
+  PORTRAITS[id] = `${id}.png`;
+}
+ICON32.push('fa2_los_fingerhut', 'fa2_los_kamm', 'fa2_los_flakon', 'fa2_los_tuch', 'fa2_los_spule', 'fa2_los_medaillon', 'fa2_los_leisten', 'fa2_los_faecher', 'fa2_los_handwaermer', 'fa2_los_kiesel');
