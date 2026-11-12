@@ -6,8 +6,9 @@
 // opfer (Geld, Gegenstände, Artefakte), welt (Seq 2: Weltwandel, bleibt für immer), waechter (Seq 2: brutaler Grenzwächter).
 // Dazu die Spuren zum Ort der Sequenz 3: ab Sequenz 4 bringt ein Sieg in einem Monstergebiet ab Kapitel 3 manchmal eine Spur.
 import { ordealId } from './Pathways.js';
-import { HOCH_SEQ1_VERSIEGELT, HOCH, HOCH_FAIL_PCT, HOCH_FAIL_UNRUHE, HOCH_SCALE, GRENZ_SCALE, SPUR_CHANCE, SPUREN, WELT_MULT, ORTE, ortFlag } from '../data/seqHoch.js';
+import { ritualformel, gildeFlag, HOCH_SEQ1_VERSIEGELT, HOCH, HOCH_FAIL_PCT, HOCH_FAIL_UNRUHE, HOCH_SCALE, GRENZ_SCALE, WELT_MULT, ORTE } from '../data/seqHoch.js';
 import { PROBE_NAMEN } from './Proben.js';
+import { NACHBARPFADE } from '../data/nachbarpfade.js';
 
 const LATE = /^(ds_|cw_|bh_|o3_)/; // Monstergebiete ab Dunscar (Kapitel 3)
 
@@ -52,7 +53,12 @@ export const seqHochMethods = {
     const st = this.hochState();
     const done = this.hochPassed(h.pid, h.seq);
     const cur = st.active ? st.step ?? 0 : -1;
-    return h.steps.map((s, i) => {
+    // Seq 3: Ritualformel und Mitgliedschaft in der Gilde (Seb 2026-11-12)
+    const pre = h.seq === 3 ? [
+      { text: 'Ritualformel der dritten Sequenz dabei (getrennt von der Trankformel)', done: done || !!this.itemCount(ritualformel(h.pid)) },
+      { text: `Mitglied von ${ORTE[h.pid]?.gilde ?? 'der Gilde deines Pfades'}`, done: done || this.gildeMitglied(h.pid) },
+    ] : [];
+    return [...pre, ...h.steps.map((s, i) => {
       let text = s.text;
       if (i === cur) {
         if (s.type === 'kampf' || s.type === 'probe') text += ` (${st.n ?? 0}/${s.n})`;
@@ -60,7 +66,7 @@ export const seqHochMethods = {
         if (s.type === 'opfer' && s.artefakte) text += ` (${st.n ?? 0}/${s.artefakte})`;
       }
       return { text, done: done || (st.active && i < cur) };
-    });
+    })];
   },
 
   hochRunning() {
@@ -72,6 +78,8 @@ export const seqHochMethods = {
     const h = this.hochRitual();
     if (!h) return { ok: false, text: 'Dein nächstes Ritual hat keine solche Prüfung.' };
     if (this.hochPassed(h.pid, h.seq)) return { ok: false, text: 'Die Prüfung ist bestanden. Vollzieh das Ritual.' };
+    if (h.seq === 3 && !this.itemCount(ritualformel(h.pid))) return { ok: false, text: `Ohne die Ritualformel der dritten Sequenz geht es nicht. Sie ist so selten wie die Trankformel: Zirkel-Lose in Dunscar (15 000) oder sehr seltene Monster-Beute.` };
+    if (h.seq === 3 && !this.gildeMitglied(h.pid)) return { ok: false, text: `Erst ${ORTE[h.pid]?.gilde ?? 'der Gilde deines Pfades'} beitreten (Stadtkarte ab Dunscar).` };
     if (HOCH_SEQ1_VERSIEGELT && h.seq === 1) return { ok: false, text: 'Noch versiegelt: Das Ritual der ersten Sequenz ist noch nicht freigegeben.' }; // Seb 2026-11-12: Seq 1 erst nach Abstimmung
     const st = this.hochState();
     if (st.active) return { ok: false, text: 'Die Prüfung läuft schon.' };
@@ -228,7 +236,7 @@ export const seqHochMethods = {
 
   /** Nach jedem Kampf (Combat.finish), auch für den Zuschauer (bystander). */
   hochCombatEnd(combat, { bystander = false } = {}) {
-    const res = this.spurCheck(combat, bystander);
+    const res = null;
     const s = this.hochStep();
     if (!s) return res;
     if (s.type === 'zeit' && (s.forbid ?? []).includes('combat') && !combat.enc.practice) return this.hochFail(`${combat.enc.name} hat dich gestellt. Diese Prüfung verlangt, dass es zu keinem Kampf kommt.`);
@@ -313,9 +321,10 @@ export const seqHochMethods = {
   /** Teststart (?hoch=<pfad>&seq=<3|2|1>): eine Stufe über dem Ziel, voll verdaut, Ort gefunden, das Nötigste dabei. */
   hochProbeStart(pid, seq = 3) {
     if (!this.content.pathways?.[pid]?.seqs?.[seq]?.ritual?.hoch) return false;
-    for (const f of ['kapitel1_done', 'k2_arrived', 'k3_arrived', ortFlag(pid)]) this.flags.add(f);
+    for (const f of ['kapitel1_done', 'k2_arrived', 'k3_arrived', gildeFlag(pid, 'bekannt')]) this.flags.add(f);
     this.pathway = { id: pid, seq: seq + 1, digestion: 100 };
-    for (const [id, n] of Object.entries({ revolver: 1, tonikum: 6, verband: 6, [`formel_${pid}_${seq}`]: 1 })) if (this.item(id)) this.addItem(id, n);
+    if (seq === 3) this.flags.add(gildeFlag(pid, 'mitglied'));
+    for (const [id, n] of Object.entries({ revolver: 1, tonikum: 6, verband: 6, [`formel_${pid}_${seq}`]: 1, [ritualformel(pid)]: 1 })) if (this.item(id)) this.addItem(id, n);
     if (this.item('revolver')) this.equip?.('revolver');
     this.money = 30000;
     this.updateMaxHp();
@@ -328,32 +337,33 @@ export const seqHochMethods = {
     return true;
   },
 
-  // --- Spuren zum Ort der Sequenz 3 ---------------------------------------------------------------
-  /** Ab Sequenz 4: ein Sieg in einem Monstergebiet ab Dunscar bringt mit SPUR_CHANCE eine Spur, SPUREN zeigen den Ort. */
-  spurCheck(combat, bystander) {
-    const p = this.pathway;
-    if (!p || p.seq !== 4 || !ORTE[p.id] || this.flags.has(ortFlag(p.id))) return null;
-    if (combat.outcome !== 'won' || !combat.enc.zone || !LATE.test(combat.enc.zone) || /^o3_/.test(combat.enc.zone)) return null;
-    if ((this.rng ?? Math.random)() >= SPUR_CHANCE) return null;
-    const key = `${this.acting === 2 ? 'p2_' : ''}o3_spuren_${p.id}`;
-    const n = ([...this.flags].filter((f) => f.startsWith(`${key}_`)).length) + 1;
-    this.flags.add(`${key}_${n}`);
-    const o = ORTE[p.id];
-    if (n >= SPUREN) {
-      this.flags.add(ortFlag(p.id));
-      this.emit('notice', `Die dritte Spur. Jetzt weißt du, wo er liegt: ${o.name}. Er steht ab sofort auf der Stadtkarte.`);
-      this.emit('changed');
-      return `${bystander ? 'Spieler 2: ' : ''}Die dritte Spur deines Pfades. ${o.name} steht jetzt auf der Stadtkarte. ${o.text}`;
-    }
-    this.emit('changed');
-    return `${bystander ? 'Spieler 2: ' : ''}Eine Spur deines Pfades (${n}/${SPUREN}): ${['Im Staub ein Zeichen, das nur du lesen kannst.', 'Ein Geruch, ein Klang, eine Farbe, die zu deinem Pfad gehört.'][n - 1] ?? ''} Irgendwo wartet ein Ort auf dich.`;
+  // --- Gilden der Sequenz 3 -------------------------------------------------------------------------
+  /** Mitglied der Gilde dieses Pfades (eigener Pfad, oder Nachbarpfad beim Pfadwechsel). */
+  gildeMitglied(pid) {
+    return this.flags.has(gildeFlag(pid, 'mitglied'));
   },
 
-  /** Notizbuch/Pfad-Tab: wie weit die Suche nach dem Ort ist. */
-  spurStand(pid = this.pathway?.id) {
-    if (!ORTE[pid]) return null;
-    if (this.flags.has(ortFlag(pid))) return { found: true, name: ORTE[pid].name };
-    const key = `${this.acting === 2 ? 'p2_' : ''}o3_spuren_${pid}`;
-    return { found: false, n: [...this.flags].filter((f) => f.startsWith(`${key}_`)).length, of: SPUREN };
+  /** Ab Dunscar kennt man den Sitz der Gilde des eigenen Pfades, ab Sequenz 4 auch den des Nachbarpfads (je Spieler). */
+  gildeTick() {
+    if (!this.flags.has('k3_arrived')) return;
+    for (const n of this.hasP2?.() ? [1, 2] : [1]) {
+      const p = n === 1 && this.acting !== 2 ? this.pathway : this.withPlayer(n, () => this.pathway, { quiet: true });
+      if (!p) continue;
+      for (const pid of [p.id, ...(p.seq <= 4 && NACHBARPFADE[p.id] ? [NACHBARPFADE[p.id]] : [])]) {
+        if (!ORTE[pid] || this.flags.has(gildeFlag(pid, 'bekannt'))) continue;
+        this.flags.add(gildeFlag(pid, 'bekannt'));
+        const o = ORTE[pid];
+        // Seb (2026-11-12): ein Gildenmitglied sagt dir, dass es die Kernzutat 3 nur bei der Gilde gibt
+        this.emit('notice', `Ein Mitglied von ${o.gilde} spricht dich an: „Du trägst unseren Pfad. Die Kernzutat für die dritte Sequenz bekommst du nirgends sonst, nur bei uns. Tritt bei, steig durch die fünf Ränge und stell dich ${o.chef}. Wer das Oberhaupt besiegt, ob er es tötet oder selbst Oberhaupt wird, hält den Kern in der Hand. Unser Sitz: ${o.name}.“ (steht jetzt auf der Stadtkarte)`);
+      }
+    }
+  },
+
+  /** Pfad-Tab: Stand bei der Gilde. */
+  gildeStand(pid = this.pathway?.id) {
+    const o = ORTE[pid];
+    if (!o) return null;
+    return { gilde: o.gilde, ort: o.name, chef: o.chef, bekannt: this.flags.has(gildeFlag(pid, 'bekannt')), mitglied: this.gildeMitglied(pid),
+      kern: this.flags.has(gildeFlag(pid, 'chef')) ? 'chef' : this.flags.has(gildeFlag(pid, 'chef_tot')) ? 'tot' : null };
   },
 };

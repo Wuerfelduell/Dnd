@@ -139,15 +139,12 @@ test('Balance Paket AU: jeder Prüfungsgegner ist mit Sequenz 5 schaffbar', () =
   }
 });
 
-test('Kapitel 3: das Kernfach des Vorhauers gibt nur die Zutat des eigenen Pfads, einmal', () => {
+test('Kapitel 3: das Kernfach des Vorhauers gibt keine Kernzutat 3 mehr (Seb 2026-11-12: nur die Gilde)', () => {
   const s = seq(4);
   const fach = content.maps.ds_klopfbruch.interactables.find((i) => i.id === 'k3o_vorhauer_beute');
-  assert.equal(fach.kind, 'dialogue');
-  assert.throws(() => talk(s, fach.dialogue, ['Kernzutat']), /keine verfügbare Option/);
   s.flags.add('k3o_vorhauer_geloest');
-  talk(s, fach.dialogue, ['Kernzutat']);
-  assert.equal(s.itemCount('sq_zutat_eisen_3'), 1);
   assert.throws(() => talk(s, fach.dialogue, ['Kernzutat']), /keine verfügbare Option/);
+  assert.equal(s.itemCount('sq_zutat_eisen_3'), 0);
 });
 
 test('Epiloge (AP/AR): jedes Kapitel-2/3-Ende zeigt seine Szenen in Dateireihenfolge', () => {

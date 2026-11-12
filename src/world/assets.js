@@ -1167,6 +1167,7 @@ const AG_ICONS = (id) => AF_ARTIFACTS.includes(id) || /^sq_zutat_\w+_\d$/.test(i
 /** Trank/Formel eines neuen Pfads → Bild des Bestandspfads gleicher Stufe. */
 const standinIcon = (id) => {
   if (AG_ICONS(id)) return id; // Paket AG: eigene Bilder für Zutaten und Artefakte
+  if (id.startsWith('ritualformel_')) return standinIcon(id.replace(/^ritualformel_/, 'formel_')); // Seq-3-Ritualformel: Leihbild der Formel
   const t = /^(trank|formel)_(\w+)_(\d)$/.exec(id);
   if (!t) return id;
   // Sequenz 4 bis 1 haben noch keine eigenen Trank- und Formelbilder: das Bild der Stufe 5 des Pfads

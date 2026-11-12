@@ -2442,8 +2442,8 @@ export class Ui {
     const s = this.state;
     const h = r?.hoch;
     if (!h) return '';
-    const spur = h.seq === 3 ? s.spurStand(h.pid) : null;
-    const spurHtml = spur ? `<p class="muted">${spur.found ? `Dein Ort ist gefunden: <strong>${esc(spur.name)}</strong> (Stadtkarte). Dort liegen die Formeln der Sequenzen 3, 2 und 1.` : `Die Formel der 3 gibt es nur an einem Ort, der zu deinem Pfad gehört. Spuren dorthin findest du bei Siegen in Monstergebieten ab Dunscar (${spur.n}/${spur.of}).`}</p>` : '';
+    const g = h.seq === 3 ? s.gildeStand(h.pid) : null;
+    const spurHtml = g ? `<p class="muted"><strong>${esc(g.gilde)}:</strong> ${g.mitglied ? 'Du bist Mitglied.' : g.bekannt ? `Noch nicht beigetreten. Sitz: ${esc(g.ort)} (Stadtkarte).` : 'Ab Dunscar meldet sich die Gilde deines Pfades bei dir.'} ${g.kern ? `Kernzutat 3 erhalten (${g.kern === 'chef' ? 'du bist jetzt Oberhaupt' : 'Oberhaupt getötet'}).` : `Die Kernzutat 3 gibt es nur hier: ${esc(g.chef)} besiegen, dann töten oder selbst Oberhaupt werden.`} Die Formel 3 ist selten: Zirkel-Lose und sehr seltene Monster-Beute.</p>` : '';
     if (s.hochPassed(h.pid, h.seq)) return spurHtml;
     const st = s.hochState();
     const step = s.hochStep();
