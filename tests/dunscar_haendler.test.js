@@ -65,3 +65,15 @@ test('Wilma Rook führt das Wachsamulett gegen Unruhe', async () => {
   const e = content.market.merchants.ds_kleiderhaendlerin.stock.find((x) => x.item === 'wachsamulett');
   assert.ok(e && e.price === content.items.wachsamulett.price * 2);
 });
+
+test('Braukessel in Pfiffs Speisewagen (Unterkunft), auf freiem Boden, ohne Freischaltung', () => {
+  const map = content.maps.ds_speisewagen;
+  const k = map.interactables.filter((i) => i.kind === 'brew');
+  assert.equal(k.length, 1);
+  assert.equal(k[0].sprite, 'cauldron');
+  assert.equal(k[0].visible_if, undefined);
+  const [x, y] = k[0].tile;
+  assert.equal(map.rows[y][x], 'w');
+  const belegt = [...map.interactables, ...(map.npcs ?? []), ...(map.decor ?? [])].filter((i) => i !== k[0] && i.tile && i.tile[0] === x && i.tile[1] === y);
+  assert.equal(belegt.length, 0);
+});
