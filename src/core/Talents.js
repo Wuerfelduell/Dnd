@@ -113,7 +113,7 @@ export const talentMethods = {
       const p = this.pathway;
       const before = p.digestion;
       // Fähigkeiten verdauen auf tiefen Sequenzen genauso gebremst wie Handlungen (siehe DIGEST_RATE)
-      p.digestion = Math.min(100, p.digestion + t.digest * digestSlowdown(p.seq));
+      p.digestion = Math.min(100, p.digestion + t.digest * digestSlowdown(p.seq) * this.p2DigestMult());
       if (p.digestion > before) { parts.push(`+${fmtDigest(p.digestion - before)} % verdaut`); this.emit('digest', { value: p.digestion, delta: p.digestion - before, kind: 'talent', player: this.acting ?? 1 }); }
       if (before < 100 && p.digestion >= 100) this.emit('digested', { ...p, player: this.acting ?? 1 });
     }
