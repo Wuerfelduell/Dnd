@@ -1,0 +1,909 @@
+{
+  "batch": "seq4rit1",
+  "passed": true,
+  "assetCount": 59,
+  "checks": [
+    "dimensions",
+    "shared palette <=32",
+    "binary alpha",
+    "opaque coverage",
+    "transparent RGB cleanup",
+    "integer frame raster",
+    "active and empty cells",
+    "animation indices and speeds",
+    "walk baselines",
+    "identical windup frames",
+    "transparent screen centers",
+    "region bounds",
+    "ritual references"
+  ],
+  "limitations": [
+    "Technical validation does not replace visual review or runtime integration testing."
+  ],
+  "errors": [],
+  "assets": [
+    {
+      "file": "props/s4la_ritual_laterne.png",
+      "size": [
+        64,
+        192
+      ],
+      "visibleColors": 27,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "c10766be4cea0a6812ffc849cf5366a3907cafc8140ca9e9396214840ea754a4",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4la_lichtkreis.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 6,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "cc96b517996e55a21b1e8e4f1c34892c002c702ab2406743b51cf96052f078ec",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4la_spielerlicht.png",
+      "size": [
+        192,
+        48
+      ],
+      "visibleColors": 6,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "6fc753de76e901afdd27c1761bf7f5c2fcc7fdbe55a38e1c5f96d5b040e69c36",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4la_monster_licht.png",
+      "size": [
+        192,
+        32
+      ],
+      "visibleColors": 13,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "ba398eda4b0ff0d0b0a0bda650c4a75d95fa4ca0789f4c28052aace444e60668",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4la_monster_zerfall.png",
+      "size": [
+        192,
+        32
+      ],
+      "visibleColors": 10,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "7ba567547594f4d005bc1ea2fa6f5035527033506d6f62f208f29ff66838b9c1",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4la_rueckstoss.png",
+      "size": [
+        128,
+        32
+      ],
+      "visibleColors": 20,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "8c717803a650d7b17de322ce3626e183918b3ea6a6d50f4cff8924412c091972",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "ui/s4la_halten.png",
+      "size": [
+        144,
+        16
+      ],
+      "visibleColors": 16,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "ecc8e161bacb053bc9c9b23fab5d26f760e8f3ca8ffc027c565dff0ad433f78a",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "ui/s4la_hud.png",
+      "size": [
+        48,
+        16
+      ],
+      "visibleColors": 17,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "6d346bb01b6f9165c2157eca8ff95cf505d877f7af779ce8ae719f6ca7f18928",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "ui/s4la_hud_rahmen.png",
+      "size": [
+        96,
+        20
+      ],
+      "visibleColors": 17,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "635cbc55adec1627e645d79d8660ff2f5c7ac298675e49bb327823002efd75e6",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4la_sonnenaufgang.png",
+      "size": [
+        768,
+        96
+      ],
+      "visibleColors": 29,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "9674fc724c8ca6c0ff81bbb7cc41f83caec07fcccae6d592c7661798e07cceb6",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4la_unruhe.png",
+      "size": [
+        1920,
+        270
+      ],
+      "visibleColors": 9,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "ae4d1247810b51645644a39da7477b22e9260e19105299f1cef9fab5ae199ba8",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4fa_markieren.png",
+      "size": [
+        288,
+        48
+      ],
+      "visibleColors": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "44a8e7f6815f509dab2acb746f364b00ee7e174493323276c485e12fa27eef0c",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4fa_mark_welt.png",
+      "size": [
+        64,
+        16
+      ],
+      "visibleColors": 9,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "c41eb339b479a8e91b13a6908d68587aa7c9db6a72d1e41997edcbe065197d1d",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "ui/s4fa_hud.png",
+      "size": [
+        160,
+        16
+      ],
+      "visibleColors": 13,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "59536c03d816fa93335bb21f1b127c31e8c76e49dda65989158d0bd821e80077",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "ui/s4fa_hud_rahmen.png",
+      "size": [
+        96,
+        20
+      ],
+      "visibleColors": 20,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "e75571af37b6068b8a71e336e9b910501b153943457afb560272129958efb074",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4fa_einschlafen.png",
+      "size": [
+        2880,
+        270
+      ],
+      "visibleColors": 32,
+      "alpha": [
+        255
+      ],
+      "sha256": "dbb140579846f39af4865a5d8074b78899f3f0c5464e01e83ee0c983b584bd92",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "battle/bg_s4fa_traum.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 29,
+      "alpha": [
+        255
+      ],
+      "sha256": "a3a87c6f0401d380b02e712997e656f1c6905da2d3b84a859be5297d320acbb6",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4fa_traumschleier.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 9,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "7647ccfda7e24c341b432bb2393f80eeb6c8ae1eead94d811ac117527669150b",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4fa_heilung_gesperrt.png",
+      "size": [
+        32,
+        16
+      ],
+      "visibleColors": 14,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "37cab56076ee490da9b2c7460bdb6fe2706cf349f05b6e3f802ca82546b8fc8e",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "characters/s4ma_zivil_player.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 15,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "6c23254a7a86e30a0d48d58c538f0e2008916ce5f51c0359068d13019210d107",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "battle/s4ma_zivil_player.png",
+      "size": [
+        288,
+        432
+      ],
+      "visibleColors": 22,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "4442d09e9ee32ab0da0ae3e6aec5c8a004519b626fd25b1fa52d37c080ead33c",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "characters/s4ma_zivil_p2a.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 16,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "bcba7f71f718fa1fe995d4a57a0b6dfb28ca4f774b0f7803bb12838d1efac750",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "battle/s4ma_zivil_p2a.png",
+      "size": [
+        288,
+        432
+      ],
+      "visibleColors": 27,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "ed226f520c5b03da710ff1d5e125684b2aab4a9615b6b77855f368a586116342",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "characters/s4ma_zivil_p2b.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 15,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "36be2e9859122e2f4f6234acfa90fee3f0f9b62564914155ee2cf6eaf72703c2",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "battle/s4ma_zivil_p2b.png",
+      "size": [
+        288,
+        432
+      ],
+      "visibleColors": 23,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "6b985bbbd5e6fc3ba89c4df72ff24efa49c7f78b5418c741665d72f21ac3d31d",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4ma_verwandeln.png",
+      "size": [
+        256,
+        48
+      ],
+      "visibleColors": 19,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "2b31234ce1361a4f1ee885dc8f76dabf954eb45673f8fcb268d328faec2cda77",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4ma_herausforderung.png",
+      "size": [
+        192,
+        32
+      ],
+      "visibleColors": 16,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "644b192882587f58bdccf4a5346443db265c039316e9568610ad91591f7fd402",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4ma_gabe_verboten.png",
+      "size": [
+        192,
+        32
+      ],
+      "visibleColors": 17,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "2a5540c74549593aef6e247b5c8b0d05b37d702e3849df2c774c44871ac391fd",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4ma_zweifel.png",
+      "size": [
+        288,
+        48
+      ],
+      "visibleColors": 6,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "7c979e98233709e58575fa44ea9fddaa484d5f476efae88507b98e8b509ce190",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4ma_zweifel_welt.png",
+      "size": [
+        32,
+        16
+      ],
+      "visibleColors": 6,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "6357a891ca106ae6815c22c813161c90f2573d2a427bc60c6628ae0c8c033796",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4ec_taubheit_an.png",
+      "size": [
+        2880,
+        270
+      ],
+      "visibleColors": 10,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "286dc9c01a96022be9541f86dc03aca8a5aff7cadeb89eefa76cd5b84a559503",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4ec_taub_rand.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 7,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "484146bd81fb4d0a9feb172d4c6ad66a6dd568840637e91c7a8ec7fc42d7514c",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "ui/s4ec_taub_hud.png",
+      "size": [
+        48,
+        32
+      ],
+      "visibleColors": 9,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "ef7a965850a94408b6795bb2a8d785395eb7a35ae49f36e5b61f9f77da464cf3",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4ec_stille_treffer.png",
+      "size": [
+        128,
+        32
+      ],
+      "visibleColors": 6,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "043f6ef643065cf89d36d4836fdec8c2cb386a131ded4468f528f1bf66f1bf9d",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4ke_wurf_explosion.png",
+      "size": [
+        512,
+        64
+      ],
+      "visibleColors": 29,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "53305d0d18118bf0cc0e1bc9e46817ce9c377379ede0309dec041d8d8a25789f",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4ke_wurf_frost.png",
+      "size": [
+        384,
+        64
+      ],
+      "visibleColors": 24,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "6b9a6ee829df1fad697e304b364b566acd300a3f6188884c3c7039c6fc86e1d7",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4ke_wurf_glut.png",
+      "size": [
+        288,
+        48
+      ],
+      "visibleColors": 11,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "ec1ba44ac787db7f85346282c843587ff6db5f3c7c9c41e462ae6c8ac8b45fc6",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4ke_trinken_reihe.png",
+      "size": [
+        160,
+        32
+      ],
+      "visibleColors": 17,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "513cf56a455181eabfc3622658b4b6cab62dd0d780aa0e5afc7c2200cd64b06a",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "ui/s4ke_hud.png",
+      "size": [
+        160,
+        16
+      ],
+      "visibleColors": 28,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "88f5c761483d8b4791e674ccbc804fed734cc1500a89d43f163a431b62a7b277",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "ui/s4ke_hud_rahmen.png",
+      "size": [
+        96,
+        20
+      ],
+      "visibleColors": 24,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "e0067ce508467ee195a4ae7965a438bcddbbf27756cec44c55dba722617aad92",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "ui/s4ke_angriff_verboten.png",
+      "size": [
+        16,
+        16
+      ],
+      "visibleColors": 7,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "606b4b1534ab3af6fe5aac724f4287924933a7737cfd829b729fd690bd69b2aa",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4ei_ueberlast_welt.png",
+      "size": [
+        128,
+        32
+      ],
+      "visibleColors": 11,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "f15dd6857166e0ae71edb42760c132348fb603059118815c7b849ee8045b89a9",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4ei_ueberlast_kampf.png",
+      "size": [
+        256,
+        32
+      ],
+      "visibleColors": 17,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "b6dc5962092b6621111cc6cd418737000afefb047ecefb00ec63439b9d238dea",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "ui/s4ei_hud.png",
+      "size": [
+        160,
+        16
+      ],
+      "visibleColors": 20,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "833c1e1381db2a9fa96d9dd86db5977d00a5bc46232820a5d02ce39128608bbc",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "ui/s4ei_hud_rahmen.png",
+      "size": [
+        96,
+        20
+      ],
+      "visibleColors": 19,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "302925f37e87b2cb32a81779b6c0f1579c9931d519d5b111b154cc05d260f4f1",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "ui/s4ei_ausweichen_verboten.png",
+      "size": [
+        16,
+        16
+      ],
+      "visibleColors": 10,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "24eee7cdd5907fb97d8c721141311c79a90764dcdd090e03550aca4696e44368",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "ui/s4ei_bedingung_gebrochen.png",
+      "size": [
+        16,
+        16
+      ],
+      "visibleColors": 16,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "177e402338abb49902f252c8e08687c7006c263a4ba19ff72abe5d27b49b4bf1",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4ei_waechter_unsterblich.png",
+      "size": [
+        512,
+        96
+      ],
+      "visibleColors": 24,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "7296a90710c32655b7f613fd0a7cb1dc154ce7bb2df0f96e50c9f7fe31d88765",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4ei_waechter_frei.png",
+      "size": [
+        768,
+        96
+      ],
+      "visibleColors": 24,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "595ef9b55cd78b44ed93e86c9dc9bba76c21f1d5ddf1073dbb2020b984c0426a",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4uh_perfekt.png",
+      "size": [
+        512,
+        64
+      ],
+      "visibleColors": 18,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "2c8592524bbdbb928eba144020ddc11336fe973a8e61a6c7063fe136a6fa0e2f",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4uh_fehler.png",
+      "size": [
+        384,
+        64
+      ],
+      "visibleColors": 24,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "65949e5bc154f9970f945531b5fdd46cdad52950a30cb34430fe25a685e28c44",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "ui/s4uh_hud.png",
+      "size": [
+        96,
+        16
+      ],
+      "visibleColors": 16,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "232dba901497b2e1c1b9eb12b87eb8ab3ee61b0cdcc2d06564a9800b541154ed",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "ui/s4uh_monsterphase.png",
+      "size": [
+        16,
+        16
+      ],
+      "visibleColors": 14,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "14d56f20f6b253798142075015e92d3f75c5882744a49ef869804f49f9394eaf",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "ui/s4uh_hat_angegriffen.png",
+      "size": [
+        32,
+        16
+      ],
+      "visibleColors": 17,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "f27dcb188e090778ffc867c02fe7e6da1aa2d91ede60514689ff0bcec41bba29",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "characters/s4r_waechter_welt.png",
+      "size": [
+        192,
+        256
+      ],
+      "visibleColors": 28,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "1eed7b6f04c6884f669b11a52ab877e802fa05322e079df88d34cef4ac7bca99",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4r_waechter_erscheint.png",
+      "size": [
+        960,
+        96
+      ],
+      "visibleColors": 27,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "36a591ffa46276f4752a8c777572bdd423ce61ce9b5afffb23ec7aa99da1da98",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4r_waechter_immun.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 12,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "20014c21b08e7aa18c3b4494aaf48316a3e641b1290d4362ccd2d8240268cc5e",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "fx/s4r_ritual_gescheitert.png",
+      "size": [
+        512,
+        64
+      ],
+      "visibleColors": 18,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "5f0007049df626bf61e244114c6f20dabad640d2f0ff1a406afd942aa42ab910",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "file": "ui/s4r_regelkarte.png",
+      "size": [
+        48,
+        48
+      ],
+      "visibleColors": 18,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "b0567343c655ee8c64cf981d27760b8d880afdaedacfb5ef4e7c9f7fc3b3b7a7",
+      "passed": true,
+      "errors": []
+    }
+  ]
+}
