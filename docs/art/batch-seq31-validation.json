@@ -1,0 +1,1365 @@
+{
+  "batch": "seq31",
+  "passed": true,
+  "assetCount": 92,
+  "errors": [],
+  "checks": [
+    "independent92-file contract",
+    "exact dimensions",
+    "shared32-color palette",
+    "binary alpha and opacity",
+    "integer frame grid",
+    "occupied and empty cells",
+    "animation ranges and timing",
+    "sprite baselines",
+    "ordinary human two-frame hold",
+    "reduced hurt and defeated postures",
+    "regions",
+    "ten DD path/map/name/epilogue references",
+    "four props per path",
+    "SHA256"
+  ],
+  "limitations": [
+    "Visual art review is separate from structural validation.",
+    "No runtime integration or in-game tests in this graphics package.",
+    "Sheet dimensions take precedence over contradictory walk-frame arithmetic: two active and two empty cells per row."
+  ],
+  "assets": [
+    {
+      "file": "battle/bg_vm_register_echo.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 30,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "d9786a9c646404f45fbcf69caf7600a93f7b8b86b6795c9398c9eafdb47acce9"
+    },
+    {
+      "file": "battle/bg_vm_register_eisen.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 32,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "2606b243eeeaefd518faba7551035c6c40d8a6ed94ee0bc34ff8a75921134f71"
+    },
+    {
+      "file": "battle/bg_vm_register_faden.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 28,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "372a76c39a442d657eb0273c736f298ca0e5f1e9e0660de4a0b7a4fa5f24525d"
+    },
+    {
+      "file": "battle/bg_vm_register_kessel.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 31,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "421a6a1e783f8d033d08c02c330e7b410084fe97fc98d7bdd17f4e7feb8b8d55"
+    },
+    {
+      "file": "battle/bg_vm_register_laterne.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 31,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "e94da53e8e1144301f2bc25069fa36e3396fb18b3da2cb22d029e47c9dac361a"
+    },
+    {
+      "file": "battle/bg_vm_register_maske.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 32,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "ee1cf7d05280815536b522da2cf1996f616b68f661befc719ec0dccd87c45def"
+    },
+    {
+      "file": "battle/bg_vm_register_schluessel.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 31,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "6aefd5714f66ce3dc612a9f97ddc818b1186a5f5d0aafbf75bcad20033389944"
+    },
+    {
+      "file": "battle/bg_vm_register_sq_moor.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 31,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "79ed0e842e9fc3c53982ae8489ec9c48a87063c7074b6e49765bb1f98d35ebc1"
+    },
+    {
+      "file": "battle/bg_vm_register_sq_uhr.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 32,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "2cac9dd2f59081434f356553e669d7a5673ff846f7a81fc772c0d3498849c58d"
+    },
+    {
+      "file": "battle/bg_vm_register_sq_waage.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 31,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "ffcf3884e18b27018770d4fa8b830d3e04feb184444f6c8659552e776238b440"
+    },
+    {
+      "file": "battle/hg_form_echo_still.png",
+      "size": [
+        576,
+        384
+      ],
+      "visibleColors": 23,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 24,
+      "emptyCells": 0,
+      "sha256": "8814c167899908b8ca09876754c3193436fc0fa9ba505c81af8613245901ce33"
+    },
+    {
+      "file": "battle/hg_form_eisen_still.png",
+      "size": [
+        576,
+        384
+      ],
+      "visibleColors": 30,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 24,
+      "emptyCells": 0,
+      "sha256": "83e552baaf69b7ece45a5de885cd6d080593a524c0e5085eda8de0c8a9816fcf"
+    },
+    {
+      "file": "battle/hg_form_faden_still.png",
+      "size": [
+        576,
+        384
+      ],
+      "visibleColors": 27,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 24,
+      "emptyCells": 0,
+      "sha256": "66739c8fee3071d2cf82b15b1e1b250a20f8e06ca5ee2c387ed76d19f34462d4"
+    },
+    {
+      "file": "battle/hg_form_kessel_still.png",
+      "size": [
+        576,
+        384
+      ],
+      "visibleColors": 29,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 24,
+      "emptyCells": 0,
+      "sha256": "3778d688370e3123c86e9a7e3f7af261a93e0c26dd7c67cff908f19ea07c63ff"
+    },
+    {
+      "file": "battle/hg_form_laterne_still.png",
+      "size": [
+        576,
+        384
+      ],
+      "visibleColors": 30,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 24,
+      "emptyCells": 0,
+      "sha256": "74d311e24abb8f5690f71d851c8c6ae27c0e017bb4c78b6cb746fa97f6447746"
+    },
+    {
+      "file": "battle/hg_form_maske_still.png",
+      "size": [
+        576,
+        384
+      ],
+      "visibleColors": 27,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 24,
+      "emptyCells": 0,
+      "sha256": "7e204a993226ec2c207e81b971aa6513a242aaabc6327a3673f0bb9911b1793d"
+    },
+    {
+      "file": "battle/hg_form_schluessel_still.png",
+      "size": [
+        576,
+        384
+      ],
+      "visibleColors": 30,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 24,
+      "emptyCells": 0,
+      "sha256": "15d6664e9045d280121a35e682dffb59315ec8cfc1a5d5a506fe77ccb51726f9"
+    },
+    {
+      "file": "battle/hg_form_sq_moor_still.png",
+      "size": [
+        576,
+        384
+      ],
+      "visibleColors": 25,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 24,
+      "emptyCells": 0,
+      "sha256": "4e2804f484ba23fb3becb564d0bdd7d1fbb67fed5361b887ee14f64da5f18f6e"
+    },
+    {
+      "file": "battle/hg_form_sq_uhr_still.png",
+      "size": [
+        576,
+        384
+      ],
+      "visibleColors": 25,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 24,
+      "emptyCells": 0,
+      "sha256": "4764025b8ee2b749c476f569c631d8c67bf3f1bbca32a1e079b27d121d1e3b75"
+    },
+    {
+      "file": "battle/hg_form_sq_waage_still.png",
+      "size": [
+        576,
+        384
+      ],
+      "visibleColors": 27,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 24,
+      "emptyCells": 0,
+      "sha256": "7b2297b5520789b36d689827d96e7e4a876504e80bf8fa06a810c3b76aa72b1b"
+    },
+    {
+      "file": "characters/A_player_drink_seq1.png",
+      "size": [
+        128,
+        32
+      ],
+      "visibleColors": 25,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 8,
+      "emptyCells": 0,
+      "sha256": "4dd89f225383accead925a9f5c3bd9701a9a26d4df47a5b039bb6eab698525b4"
+    },
+    {
+      "file": "characters/A_player_drink_seq3.png",
+      "size": [
+        128,
+        32
+      ],
+      "visibleColors": 24,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 8,
+      "emptyCells": 0,
+      "sha256": "c0adf038cb04b927fe33444fc007270baa505708ceb681efedf8e4f39c0eb0cb"
+    },
+    {
+      "file": "characters/hg_form_echo_still.png",
+      "size": [
+        128,
+        192
+      ],
+      "visibleColors": 24,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 16,
+      "emptyCells": 8,
+      "sha256": "5fa74b9ed66bcc2c4bec81e782825c774b4e90f0d6f543dc5ebf2230c974bbe7"
+    },
+    {
+      "file": "characters/hg_form_eisen_still.png",
+      "size": [
+        128,
+        192
+      ],
+      "visibleColors": 29,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 16,
+      "emptyCells": 8,
+      "sha256": "569f02f362c7af84e5a1ae8414e08afedc0aab6fce9caf8ec61eb3504b2badd5"
+    },
+    {
+      "file": "characters/hg_form_faden_still.png",
+      "size": [
+        128,
+        192
+      ],
+      "visibleColors": 25,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 16,
+      "emptyCells": 8,
+      "sha256": "62e13d335d0997d0b4eb061d3d9bf72cbffd27a27d0f63ec311dfcef97f30c20"
+    },
+    {
+      "file": "characters/hg_form_kessel_still.png",
+      "size": [
+        128,
+        192
+      ],
+      "visibleColors": 24,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 16,
+      "emptyCells": 8,
+      "sha256": "ea0a4846dac2c79f5954ec7be30265773a414f7a65174664cfd67fcbb1bf248c"
+    },
+    {
+      "file": "characters/hg_form_laterne_still.png",
+      "size": [
+        128,
+        192
+      ],
+      "visibleColors": 30,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 16,
+      "emptyCells": 8,
+      "sha256": "5d3640975e473b463c98e3a12edeea17cca3ebcc0cf0f5e82a3c74d9d96e5da6"
+    },
+    {
+      "file": "characters/hg_form_maske_still.png",
+      "size": [
+        128,
+        192
+      ],
+      "visibleColors": 25,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 16,
+      "emptyCells": 8,
+      "sha256": "2da1f00a2fe02369b54d5b3e54dc1b6add3dc1a19645a869d6cee3802b0e4181"
+    },
+    {
+      "file": "characters/hg_form_schluessel_still.png",
+      "size": [
+        128,
+        192
+      ],
+      "visibleColors": 29,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 16,
+      "emptyCells": 8,
+      "sha256": "70efd43e5818a9dbbe50b7cbe8bc33fb073b74b1ec4ecaaf1616b6b091b3e0a0"
+    },
+    {
+      "file": "characters/hg_form_sq_moor_still.png",
+      "size": [
+        128,
+        192
+      ],
+      "visibleColors": 25,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 16,
+      "emptyCells": 8,
+      "sha256": "e661f203bce59b24f431eced401d25215147ed379110a8ec0a0c801b5462ae8d"
+    },
+    {
+      "file": "characters/hg_form_sq_uhr_still.png",
+      "size": [
+        128,
+        192
+      ],
+      "visibleColors": 23,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 16,
+      "emptyCells": 8,
+      "sha256": "177bd6cabde280c7beee102386562a8b3cecca44c51bb928af413f8c9df90b7b"
+    },
+    {
+      "file": "characters/hg_form_sq_waage_still.png",
+      "size": [
+        128,
+        192
+      ],
+      "visibleColors": 26,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 16,
+      "emptyCells": 8,
+      "sha256": "5f556269143577d4ca8c0ad164ba0d1490c64b4ea5a8f7ceb4fa6621ac07ed3a"
+    },
+    {
+      "file": "characters/p2a_drink_seq1.png",
+      "size": [
+        128,
+        32
+      ],
+      "visibleColors": 22,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 8,
+      "emptyCells": 0,
+      "sha256": "a7a949869da2308539e27e946d2735fd510d27c633dbdc3c97d199d7844310c5"
+    },
+    {
+      "file": "characters/p2a_drink_seq3.png",
+      "size": [
+        128,
+        32
+      ],
+      "visibleColors": 26,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 8,
+      "emptyCells": 0,
+      "sha256": "4713242ec4ebe157f6c8a0b01ab6b1f057d8b528076c088a7df95b05241e05d2"
+    },
+    {
+      "file": "characters/p2b_drink_seq1.png",
+      "size": [
+        128,
+        32
+      ],
+      "visibleColors": 21,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 8,
+      "emptyCells": 0,
+      "sha256": "1c8520c556dcc82217de9e41bd468f936b94c9a572b17743b61e21e0adbb503d"
+    },
+    {
+      "file": "characters/p2b_drink_seq3.png",
+      "size": [
+        128,
+        32
+      ],
+      "visibleColors": 21,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 8,
+      "emptyCells": 0,
+      "sha256": "79e660a30b1d4edd4d1a61a030fd4b83e0e1a0001fd21448fc9264101b439f5c"
+    },
+    {
+      "file": "fx/HG_aufstieg_1.png",
+      "size": [
+        1920,
+        135
+      ],
+      "visibleColors": 31,
+      "alpha": [
+        255
+      ],
+      "cells": 8,
+      "emptyCells": 0,
+      "sha256": "0c6015ac8d99ac9eb1885f0e60c7c667b57373f09c1373cddd668d94d79973c8"
+    },
+    {
+      "file": "fx/HG_aufstieg_3.png",
+      "size": [
+        1920,
+        135
+      ],
+      "visibleColors": 31,
+      "alpha": [
+        255
+      ],
+      "cells": 8,
+      "emptyCells": 0,
+      "sha256": "bb3894b9e1dbcb26bbb5816ca343a0ed2a5f04725a3bec487dc71d12c6151c09"
+    },
+    {
+      "file": "fx/aura_seq1_echo.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 4,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 4,
+      "emptyCells": 0,
+      "sha256": "4470f2762e912463e8648a80663ba680da568c8e40de7929a8c6f1572939bb32"
+    },
+    {
+      "file": "fx/aura_seq1_eisen.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 12,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 4,
+      "emptyCells": 0,
+      "sha256": "7937b57fa74d1a3c3dc85999459ef1a65de585cf82c487fcffe5c177e2e99e0c"
+    },
+    {
+      "file": "fx/aura_seq1_faden.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 10,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 4,
+      "emptyCells": 0,
+      "sha256": "ecb9f6c9cf025e2cee0834f45aa5821da3436ebabf601a81d216c432f77f489c"
+    },
+    {
+      "file": "fx/aura_seq1_kessel.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 6,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 4,
+      "emptyCells": 0,
+      "sha256": "d89c11003f130fb2e1707916cdb2f6845e35fd0fe09e6ecf010d7e174b86b032"
+    },
+    {
+      "file": "fx/aura_seq1_laterne.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 14,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 4,
+      "emptyCells": 0,
+      "sha256": "e3250ae4747eb4def30804c0166f236fc4e1dc882d081cd7d5a62876855da90e"
+    },
+    {
+      "file": "fx/aura_seq1_maske.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 14,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 4,
+      "emptyCells": 0,
+      "sha256": "53eea83c5f7a24132ab305924398a175fac407498cd056e4c6b779d99dd0e23f"
+    },
+    {
+      "file": "fx/aura_seq1_schluessel.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 4,
+      "emptyCells": 0,
+      "sha256": "90f29001f2b69e3290dfa8c722cb38428e5f52930fa483ca027738e432115981"
+    },
+    {
+      "file": "fx/aura_seq1_sq_moor.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 5,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 4,
+      "emptyCells": 0,
+      "sha256": "e9be987781d31d29c169f30f24bb22c263d4a3d92d13bb9e1ac498fac86b0c4b"
+    },
+    {
+      "file": "fx/aura_seq1_sq_uhr.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 11,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 4,
+      "emptyCells": 0,
+      "sha256": "c4dffedde4d11a49979ce922e23d652b1ec528d2bd3ade107605b1fb85faef3b"
+    },
+    {
+      "file": "fx/aura_seq1_sq_waage.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 5,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 4,
+      "emptyCells": 0,
+      "sha256": "4daf839fb4c38fd6fb10a303cd2a336e871c1e9df74bbc87fcce42d78e7a6c2e"
+    },
+    {
+      "file": "fx/aura_seq3_echo.png",
+      "size": [
+        384,
+        64
+      ],
+      "visibleColors": 7,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 6,
+      "emptyCells": 0,
+      "sha256": "28fc1fc613d3cf7f04920e5003d0e9431d836f6620303eb6d4d632d7d687f300"
+    },
+    {
+      "file": "fx/aura_seq3_eisen.png",
+      "size": [
+        384,
+        64
+      ],
+      "visibleColors": 11,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 6,
+      "emptyCells": 0,
+      "sha256": "1e6228d54c111ba2b2b3d745c9b34488620fddf5c60fe3fdadd3716fada65a67"
+    },
+    {
+      "file": "fx/aura_seq3_faden.png",
+      "size": [
+        384,
+        64
+      ],
+      "visibleColors": 9,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 6,
+      "emptyCells": 0,
+      "sha256": "bf410b85496de36f2bfbf5da10ef31532a26a004cd60aa337234a03246d4a42f"
+    },
+    {
+      "file": "fx/aura_seq3_kessel.png",
+      "size": [
+        384,
+        64
+      ],
+      "visibleColors": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 6,
+      "emptyCells": 0,
+      "sha256": "8c86f3facccf979ee3ddd6bc6fa67b63caedad672bf52431e365e1efb9e756c7"
+    },
+    {
+      "file": "fx/aura_seq3_laterne.png",
+      "size": [
+        384,
+        64
+      ],
+      "visibleColors": 13,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 6,
+      "emptyCells": 0,
+      "sha256": "50246261beddbce93cc7e8accfdc75d5451dbfc07e3d4c4e0e19bc349b7cd679"
+    },
+    {
+      "file": "fx/aura_seq3_maske.png",
+      "size": [
+        384,
+        64
+      ],
+      "visibleColors": 13,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 6,
+      "emptyCells": 0,
+      "sha256": "75b1bc85a3648a704faf109bd4a6f28650e3ca07dcb93252dcd8022573439807"
+    },
+    {
+      "file": "fx/aura_seq3_schluessel.png",
+      "size": [
+        384,
+        64
+      ],
+      "visibleColors": 12,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 6,
+      "emptyCells": 0,
+      "sha256": "ef643ba1e6fd4aa542fdda6c577dfb3a04ccef8a3e8ecf364be3be6bd7ce8e8f"
+    },
+    {
+      "file": "fx/aura_seq3_sq_moor.png",
+      "size": [
+        384,
+        64
+      ],
+      "visibleColors": 6,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 6,
+      "emptyCells": 0,
+      "sha256": "8994e9c8680ab019de79bdf836cfbbf0d19a69b99bcb2315b8c47326e1ad35b0"
+    },
+    {
+      "file": "fx/aura_seq3_sq_uhr.png",
+      "size": [
+        384,
+        64
+      ],
+      "visibleColors": 4,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 6,
+      "emptyCells": 0,
+      "sha256": "e991d0be7afe55bbea380e4c96055e7f5cc58287cd67de373e1f9bb7df99d0c6"
+    },
+    {
+      "file": "fx/aura_seq3_sq_waage.png",
+      "size": [
+        384,
+        64
+      ],
+      "visibleColors": 13,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 6,
+      "emptyCells": 0,
+      "sha256": "d0310386ed8e71e71af84c228a2318375d249d0c8da3ac5e8056f747fe0d737a"
+    },
+    {
+      "file": "props/vm_register_props.png",
+      "size": [
+        256,
+        128
+      ],
+      "visibleColors": 32,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 128,
+      "emptyCells": 88,
+      "sha256": "1962104be2875c15421ab46528d6361bc1b157f94f346a97744cc83b1d15e9a5"
+    },
+    {
+      "file": "sequences/abspann_echo.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 30,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "9fd7f4e092e2a3a576ecf0ff8639d23682ebb02b137ff30c20984cc68cd54e85"
+    },
+    {
+      "file": "sequences/abspann_eisen.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 32,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "f073815fa46e7c9905bcce03801fa491bdd798cc53f1053f481a3d40777e0cc4"
+    },
+    {
+      "file": "sequences/abspann_faden.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 32,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "49a41ec7c15940148db5ffa43c4339e1b25dd9825ce94bc80e7f6b0a55b14ae2"
+    },
+    {
+      "file": "sequences/abspann_kessel.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 32,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "fb0f1fa03e241c193271587629ff56228f881a19738649ba102933e5b22c37ce"
+    },
+    {
+      "file": "sequences/abspann_laterne.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 32,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "a28d9f8f2fc7c2cf21af3ed8ce6aa7d93bac0adbc81564df434e001142e651bd"
+    },
+    {
+      "file": "sequences/abspann_maske.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 32,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "ddb792fb66b9e8308ad74ae5dc59cd616b23db124df48c1d582ae7665b84c5a7"
+    },
+    {
+      "file": "sequences/abspann_schluessel.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 32,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "e7a10703687660a1f9ade41aa4acbe0bcea819288f7eefd8dac5613db3acd5a8"
+    },
+    {
+      "file": "sequences/abspann_sq_moor.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 32,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "1e8d71d0383ed0d844ed3167402e6b3142f274d1125b3cea376e41db04d9236c"
+    },
+    {
+      "file": "sequences/abspann_sq_uhr.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 30,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "0f3a6414ade92afc9f50c63d0aec9f5a54630d238b2ec54d2f70ef3ede5c77a6"
+    },
+    {
+      "file": "sequences/abspann_sq_waage.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 32,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "2f4d5c1ccc1d81c5edc39552643c6b911d04b5cb500a7a213a73b7ab981586ae"
+    },
+    {
+      "file": "sequences/abspann_verzicht.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 31,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "7d9226d728ff517eb197faeb68e74c924de76235de9c77210c8927cd36504a26"
+    },
+    {
+      "file": "tilesets/vm_register.png",
+      "size": [
+        256,
+        256
+      ],
+      "visibleColors": 31,
+      "alpha": [
+        255
+      ],
+      "cells": 256,
+      "emptyCells": 0,
+      "sha256": "9890a6ecf699194b20fc6bae5290183348d224a889fe9e72d4791a477b663090"
+    },
+    {
+      "file": "ui/hg_hud_seq31.png",
+      "size": [
+        64,
+        32
+      ],
+      "visibleColors": 24,
+      "alpha": [
+        0,
+        255
+      ],
+      "cells": 2,
+      "emptyCells": 0,
+      "sha256": "76b1afaacdc060bc5b2ba7ccc2f2e07a33523fdfbc6a5cd5d9f8eb79c65d2e2c"
+    },
+    {
+      "file": "ui/hg_seq1_echo.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 31,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "a27f2819ab4d3c8a29fd1a87fb8921f2f8d4a3fcedb97f33acc03c55bb2de1b8"
+    },
+    {
+      "file": "ui/hg_seq1_eisen.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 31,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "5759753db8fbe06ec7a5d72cf2b1e274beff436b99354376c3015b22ad1d8c59"
+    },
+    {
+      "file": "ui/hg_seq1_faden.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 31,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "56884e6fd7746ddd84ed022f0da2549a12799046c1cb3677167aaaca96f658d1"
+    },
+    {
+      "file": "ui/hg_seq1_kessel.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 32,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "b80a22e0896512660c0f0d1dd818188798b8acd31b7ff7fbcf67cfef251c7ec2"
+    },
+    {
+      "file": "ui/hg_seq1_laterne.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 30,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "c6cd93ea22a71b31c28428ce6461c76e75cf7431cebc0a3fcc86cdbb56190d1e"
+    },
+    {
+      "file": "ui/hg_seq1_maske.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 31,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "50c72b409e9ea4460579b70fe64db6f2f72aedef3a2a21181d4c9f829f1d5e7a"
+    },
+    {
+      "file": "ui/hg_seq1_schluessel.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 31,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "7a5b194c11c4923c4215bffed7f553ef23c2e9c29e25e642ea8733a0004c6436"
+    },
+    {
+      "file": "ui/hg_seq1_sq_moor.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 31,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "c8b39d7abc1d54c5867d8b01889f947bb3da3b90703a58db23d7af2bd2134613"
+    },
+    {
+      "file": "ui/hg_seq1_sq_uhr.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 30,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "e72eaf84202f52892ff8127914d64f867e01b7f236908af6ad25fa65d024e921"
+    },
+    {
+      "file": "ui/hg_seq1_sq_waage.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 31,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "468113389b9c5c0225375179241ffffe646b3c5c2ca110ef8057a1cce545e26e"
+    },
+    {
+      "file": "ui/hg_seq3_echo.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 32,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "818602cb1eccb881e1a480e93ee19fe05d08756fe7de14551f3f8b990c3380b9"
+    },
+    {
+      "file": "ui/hg_seq3_eisen.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 32,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "f1d56a3b37852fc4c01d4fc056184cf8126e7302c2569ed0499503dd8c235f9f"
+    },
+    {
+      "file": "ui/hg_seq3_faden.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 32,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "8e9fc25c6bd54431d55978b861205e1b7d9cc1dfeab05873f11c9c69fb5608f5"
+    },
+    {
+      "file": "ui/hg_seq3_kessel.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 32,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "e7897195f7035b945ef8650b0d393544d5026a340d8e918ab4d9247ad362d2ea"
+    },
+    {
+      "file": "ui/hg_seq3_laterne.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 31,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "56a835ece44c411674b1def2858acb14680c446e5d04d0413963a553bb07dac2"
+    },
+    {
+      "file": "ui/hg_seq3_maske.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 32,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "040a8c58a4c97637924df41980f25d53b1ba4062bddc3571013aec30655eebdc"
+    },
+    {
+      "file": "ui/hg_seq3_schluessel.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 32,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "8a2d9c952771e36cf4323bef705ccbb7017b6f3afda4c5310dff4a34f2641600"
+    },
+    {
+      "file": "ui/hg_seq3_sq_moor.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 32,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "375460408f04126a416f1e52d7d7a054a2c0dd061b1231d222c1d90e27eac067"
+    },
+    {
+      "file": "ui/hg_seq3_sq_uhr.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 30,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "8295d973e5bed27435ff4d598ce059c85e834f33f2657de720596fe80dc667de"
+    },
+    {
+      "file": "ui/hg_seq3_sq_waage.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 31,
+      "alpha": [
+        255
+      ],
+      "cells": 1,
+      "emptyCells": 0,
+      "sha256": "896708620fb770b501baa49eea2fbac0a7a7d43a695f2653d79d748396589264"
+    }
+  ]
+}

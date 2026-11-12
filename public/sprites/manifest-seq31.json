@@ -1,0 +1,3515 @@
+{
+  "version": 1,
+  "batch": "seq31",
+  "codex": "DC",
+  "status": "exported; runtime integration separate",
+  "paletteMaxVisibleColors": 32,
+  "palette": [
+    "#1a1c2c",
+    "#252b38",
+    "#303b49",
+    "#d0a050",
+    "#e8b860",
+    "#92745a",
+    "#58433c",
+    "#2d2629",
+    "#715648",
+    "#886332",
+    "#686850",
+    "#494b3a",
+    "#b3946e",
+    "#cfb18a",
+    "#f0ce80",
+    "#8b8870",
+    "#425360",
+    "#e0c9a1",
+    "#a8b4c0",
+    "#586c78",
+    "#71858b",
+    "#95a5a5",
+    "#eee2c5",
+    "#893e4e",
+    "#6fe0d0",
+    "#496b64",
+    "#334d47",
+    "#493d59",
+    "#665572",
+    "#877595",
+    "#835140",
+    "#a66c4d"
+  ],
+  "assets": [
+    {
+      "id": "battle_bg_vm_register_echo",
+      "file": "battle/bg_vm_register_echo.png",
+      "kind": "background",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "d9786a9c646404f45fbcf69caf7600a93f7b8b86b6795c9398c9eafdb47acce9",
+      "path": "echo"
+    },
+    {
+      "id": "battle_bg_vm_register_eisen",
+      "file": "battle/bg_vm_register_eisen.png",
+      "kind": "background",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "2606b243eeeaefd518faba7551035c6c40d8a6ed94ee0bc34ff8a75921134f71",
+      "path": "eisen"
+    },
+    {
+      "id": "battle_bg_vm_register_faden",
+      "file": "battle/bg_vm_register_faden.png",
+      "kind": "background",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "372a76c39a442d657eb0273c736f298ca0e5f1e9e0660de4a0b7a4fa5f24525d",
+      "path": "faden"
+    },
+    {
+      "id": "battle_bg_vm_register_kessel",
+      "file": "battle/bg_vm_register_kessel.png",
+      "kind": "background",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "421a6a1e783f8d033d08c02c330e7b410084fe97fc98d7bdd17f4e7feb8b8d55",
+      "path": "kessel"
+    },
+    {
+      "id": "battle_bg_vm_register_laterne",
+      "file": "battle/bg_vm_register_laterne.png",
+      "kind": "background",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "e94da53e8e1144301f2bc25069fa36e3396fb18b3da2cb22d029e47c9dac361a",
+      "path": "laterne"
+    },
+    {
+      "id": "battle_bg_vm_register_maske",
+      "file": "battle/bg_vm_register_maske.png",
+      "kind": "background",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "ee1cf7d05280815536b522da2cf1996f616b68f661befc719ec0dccd87c45def",
+      "path": "maske"
+    },
+    {
+      "id": "battle_bg_vm_register_schluessel",
+      "file": "battle/bg_vm_register_schluessel.png",
+      "kind": "background",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "6aefd5714f66ce3dc612a9f97ddc818b1186a5f5d0aafbf75bcad20033389944",
+      "path": "schluessel"
+    },
+    {
+      "id": "battle_bg_vm_register_sq_moor",
+      "file": "battle/bg_vm_register_sq_moor.png",
+      "kind": "background",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "79ed0e842e9fc3c53982ae8489ec9c48a87063c7074b6e49765bb1f98d35ebc1",
+      "path": "sq_moor"
+    },
+    {
+      "id": "battle_bg_vm_register_sq_uhr",
+      "file": "battle/bg_vm_register_sq_uhr.png",
+      "kind": "background",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "2cac9dd2f59081434f356553e669d7a5673ff846f7a81fc772c0d3498849c58d",
+      "path": "sq_uhr"
+    },
+    {
+      "id": "battle_bg_vm_register_sq_waage",
+      "file": "battle/bg_vm_register_sq_waage.png",
+      "kind": "background",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "ffcf3884e18b27018770d4fa8b830d3e04feb184444f6c8659552e776238b440",
+      "path": "sq_waage"
+    },
+    {
+      "id": "battle_hg_form_echo_still",
+      "file": "battle/hg_form_echo_still.png",
+      "kind": "battle",
+      "width": 576,
+      "height": 384,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 3,
+          "repeat": -1
+        },
+        "special": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 3,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 3,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 3,
+          "repeat": 0
+        }
+      },
+      "regions": {},
+      "sha256": "8814c167899908b8ca09876754c3193436fc0fa9ba505c81af8613245901ce33",
+      "baseline": 92,
+      "humanHoldFrames": [
+        8,
+        9
+      ],
+      "derivedPostures": {
+        "hurt": {
+          "source": "idle",
+          "scale": 0.92
+        },
+        "defeated": {
+          "source": "idle",
+          "scale": 0.86
+        }
+      },
+      "nonviolent": true,
+      "path": "echo"
+    },
+    {
+      "id": "battle_hg_form_eisen_still",
+      "file": "battle/hg_form_eisen_still.png",
+      "kind": "battle",
+      "width": 576,
+      "height": 384,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 3,
+          "repeat": -1
+        },
+        "special": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 3,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 3,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 3,
+          "repeat": 0
+        }
+      },
+      "regions": {},
+      "sha256": "83e552baaf69b7ece45a5de885cd6d080593a524c0e5085eda8de0c8a9816fcf",
+      "baseline": 92,
+      "humanHoldFrames": [
+        8,
+        9
+      ],
+      "derivedPostures": {
+        "hurt": {
+          "source": "idle",
+          "scale": 0.92
+        },
+        "defeated": {
+          "source": "idle",
+          "scale": 0.86
+        }
+      },
+      "nonviolent": true,
+      "path": "eisen"
+    },
+    {
+      "id": "battle_hg_form_faden_still",
+      "file": "battle/hg_form_faden_still.png",
+      "kind": "battle",
+      "width": 576,
+      "height": 384,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 3,
+          "repeat": -1
+        },
+        "special": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 3,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 3,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 3,
+          "repeat": 0
+        }
+      },
+      "regions": {},
+      "sha256": "66739c8fee3071d2cf82b15b1e1b250a20f8e06ca5ee2c387ed76d19f34462d4",
+      "baseline": 92,
+      "humanHoldFrames": [
+        8,
+        9
+      ],
+      "derivedPostures": {
+        "hurt": {
+          "source": "idle",
+          "scale": 0.92
+        },
+        "defeated": {
+          "source": "idle",
+          "scale": 0.86
+        }
+      },
+      "nonviolent": true,
+      "path": "faden"
+    },
+    {
+      "id": "battle_hg_form_kessel_still",
+      "file": "battle/hg_form_kessel_still.png",
+      "kind": "battle",
+      "width": 576,
+      "height": 384,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 3,
+          "repeat": -1
+        },
+        "special": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 3,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 3,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 3,
+          "repeat": 0
+        }
+      },
+      "regions": {},
+      "sha256": "3778d688370e3123c86e9a7e3f7af261a93e0c26dd7c67cff908f19ea07c63ff",
+      "baseline": 92,
+      "humanHoldFrames": [
+        8,
+        9
+      ],
+      "derivedPostures": {
+        "hurt": {
+          "source": "idle",
+          "scale": 0.92
+        },
+        "defeated": {
+          "source": "idle",
+          "scale": 0.86
+        }
+      },
+      "nonviolent": true,
+      "path": "kessel"
+    },
+    {
+      "id": "battle_hg_form_laterne_still",
+      "file": "battle/hg_form_laterne_still.png",
+      "kind": "battle",
+      "width": 576,
+      "height": 384,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 3,
+          "repeat": -1
+        },
+        "special": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 3,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 3,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 3,
+          "repeat": 0
+        }
+      },
+      "regions": {},
+      "sha256": "74d311e24abb8f5690f71d851c8c6ae27c0e017bb4c78b6cb746fa97f6447746",
+      "baseline": 92,
+      "humanHoldFrames": [
+        8,
+        9
+      ],
+      "derivedPostures": {
+        "hurt": {
+          "source": "idle",
+          "scale": 0.92
+        },
+        "defeated": {
+          "source": "idle",
+          "scale": 0.86
+        }
+      },
+      "nonviolent": true,
+      "path": "laterne"
+    },
+    {
+      "id": "battle_hg_form_maske_still",
+      "file": "battle/hg_form_maske_still.png",
+      "kind": "battle",
+      "width": 576,
+      "height": 384,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 3,
+          "repeat": -1
+        },
+        "special": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 3,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 3,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 3,
+          "repeat": 0
+        }
+      },
+      "regions": {},
+      "sha256": "7e204a993226ec2c207e81b971aa6513a242aaabc6327a3673f0bb9911b1793d",
+      "baseline": 92,
+      "humanHoldFrames": [
+        8,
+        9
+      ],
+      "derivedPostures": {
+        "hurt": {
+          "source": "idle",
+          "scale": 0.92
+        },
+        "defeated": {
+          "source": "idle",
+          "scale": 0.86
+        }
+      },
+      "nonviolent": true,
+      "path": "maske"
+    },
+    {
+      "id": "battle_hg_form_schluessel_still",
+      "file": "battle/hg_form_schluessel_still.png",
+      "kind": "battle",
+      "width": 576,
+      "height": 384,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 3,
+          "repeat": -1
+        },
+        "special": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 3,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 3,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 3,
+          "repeat": 0
+        }
+      },
+      "regions": {},
+      "sha256": "15d6664e9045d280121a35e682dffb59315ec8cfc1a5d5a506fe77ccb51726f9",
+      "baseline": 92,
+      "humanHoldFrames": [
+        8,
+        9
+      ],
+      "derivedPostures": {
+        "hurt": {
+          "source": "idle",
+          "scale": 0.92
+        },
+        "defeated": {
+          "source": "idle",
+          "scale": 0.86
+        }
+      },
+      "nonviolent": true,
+      "path": "schluessel"
+    },
+    {
+      "id": "battle_hg_form_sq_moor_still",
+      "file": "battle/hg_form_sq_moor_still.png",
+      "kind": "battle",
+      "width": 576,
+      "height": 384,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 3,
+          "repeat": -1
+        },
+        "special": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 3,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 3,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 3,
+          "repeat": 0
+        }
+      },
+      "regions": {},
+      "sha256": "4e2804f484ba23fb3becb564d0bdd7d1fbb67fed5361b887ee14f64da5f18f6e",
+      "baseline": 92,
+      "humanHoldFrames": [
+        8,
+        9
+      ],
+      "derivedPostures": {
+        "hurt": {
+          "source": "idle",
+          "scale": 0.92
+        },
+        "defeated": {
+          "source": "idle",
+          "scale": 0.86
+        }
+      },
+      "nonviolent": true,
+      "path": "sq_moor"
+    },
+    {
+      "id": "battle_hg_form_sq_uhr_still",
+      "file": "battle/hg_form_sq_uhr_still.png",
+      "kind": "battle",
+      "width": 576,
+      "height": 384,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 3,
+          "repeat": -1
+        },
+        "special": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 3,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 3,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 3,
+          "repeat": 0
+        }
+      },
+      "regions": {},
+      "sha256": "4764025b8ee2b749c476f569c631d8c67bf3f1bbca32a1e079b27d121d1e3b75",
+      "baseline": 92,
+      "humanHoldFrames": [
+        8,
+        9
+      ],
+      "derivedPostures": {
+        "hurt": {
+          "source": "idle",
+          "scale": 0.92
+        },
+        "defeated": {
+          "source": "idle",
+          "scale": 0.86
+        }
+      },
+      "nonviolent": true,
+      "path": "sq_uhr"
+    },
+    {
+      "id": "battle_hg_form_sq_waage_still",
+      "file": "battle/hg_form_sq_waage_still.png",
+      "kind": "battle",
+      "width": 576,
+      "height": 384,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 3,
+          "repeat": -1
+        },
+        "special": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 3,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 3,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 3,
+          "repeat": 0
+        }
+      },
+      "regions": {},
+      "sha256": "7b2297b5520789b36d689827d96e7e4a876504e80bf8fa06a810c3b76aa72b1b",
+      "baseline": 92,
+      "humanHoldFrames": [
+        8,
+        9
+      ],
+      "derivedPostures": {
+        "hurt": {
+          "source": "idle",
+          "scale": 0.92
+        },
+        "defeated": {
+          "source": "idle",
+          "scale": 0.86
+        }
+      },
+      "nonviolent": true,
+      "path": "sq_waage"
+    },
+    {
+      "id": "characters_A_player_drink_seq1",
+      "file": "characters/A_player_drink_seq1.png",
+      "kind": "drink",
+      "width": 128,
+      "height": 32,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 8,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "drink": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      },
+      "regions": {},
+      "sha256": "4dd89f225383accead925a9f5c3bd9701a9a26d4df47a5b039bb6eab698525b4",
+      "baseline": 30
+    },
+    {
+      "id": "characters_A_player_drink_seq3",
+      "file": "characters/A_player_drink_seq3.png",
+      "kind": "drink",
+      "width": 128,
+      "height": 32,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 8,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "drink": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      },
+      "regions": {},
+      "sha256": "c0adf038cb04b927fe33444fc007270baa505708ceb681efedf8e4f39c0eb0cb",
+      "baseline": 30
+    },
+    {
+      "id": "characters_hg_form_echo_still",
+      "file": "characters/hg_form_echo_still.png",
+      "kind": "walk",
+      "width": 128,
+      "height": 192,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        }
+      },
+      "regions": {},
+      "sha256": "5fa74b9ed66bcc2c4bec81e782825c774b4e90f0d6f543dc5ebf2230c974bbe7",
+      "baseline": 46,
+      "emptyFrames": [
+        2,
+        3,
+        6,
+        7,
+        10,
+        11,
+        14,
+        15
+      ],
+      "gridNote": "Two active cells per direction in a 4x4 canvas; two trailing cells per row intentionally empty.",
+      "path": "echo"
+    },
+    {
+      "id": "characters_hg_form_eisen_still",
+      "file": "characters/hg_form_eisen_still.png",
+      "kind": "walk",
+      "width": 128,
+      "height": 192,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        }
+      },
+      "regions": {},
+      "sha256": "569f02f362c7af84e5a1ae8414e08afedc0aab6fce9caf8ec61eb3504b2badd5",
+      "baseline": 46,
+      "emptyFrames": [
+        2,
+        3,
+        6,
+        7,
+        10,
+        11,
+        14,
+        15
+      ],
+      "gridNote": "Two active cells per direction in a 4x4 canvas; two trailing cells per row intentionally empty.",
+      "path": "eisen"
+    },
+    {
+      "id": "characters_hg_form_faden_still",
+      "file": "characters/hg_form_faden_still.png",
+      "kind": "walk",
+      "width": 128,
+      "height": 192,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        }
+      },
+      "regions": {},
+      "sha256": "62e13d335d0997d0b4eb061d3d9bf72cbffd27a27d0f63ec311dfcef97f30c20",
+      "baseline": 46,
+      "emptyFrames": [
+        2,
+        3,
+        6,
+        7,
+        10,
+        11,
+        14,
+        15
+      ],
+      "gridNote": "Two active cells per direction in a 4x4 canvas; two trailing cells per row intentionally empty.",
+      "path": "faden"
+    },
+    {
+      "id": "characters_hg_form_kessel_still",
+      "file": "characters/hg_form_kessel_still.png",
+      "kind": "walk",
+      "width": 128,
+      "height": 192,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        }
+      },
+      "regions": {},
+      "sha256": "ea0a4846dac2c79f5954ec7be30265773a414f7a65174664cfd67fcbb1bf248c",
+      "baseline": 46,
+      "emptyFrames": [
+        2,
+        3,
+        6,
+        7,
+        10,
+        11,
+        14,
+        15
+      ],
+      "gridNote": "Two active cells per direction in a 4x4 canvas; two trailing cells per row intentionally empty.",
+      "path": "kessel"
+    },
+    {
+      "id": "characters_hg_form_laterne_still",
+      "file": "characters/hg_form_laterne_still.png",
+      "kind": "walk",
+      "width": 128,
+      "height": 192,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        }
+      },
+      "regions": {},
+      "sha256": "5d3640975e473b463c98e3a12edeea17cca3ebcc0cf0f5e82a3c74d9d96e5da6",
+      "baseline": 46,
+      "emptyFrames": [
+        2,
+        3,
+        6,
+        7,
+        10,
+        11,
+        14,
+        15
+      ],
+      "gridNote": "Two active cells per direction in a 4x4 canvas; two trailing cells per row intentionally empty.",
+      "path": "laterne"
+    },
+    {
+      "id": "characters_hg_form_maske_still",
+      "file": "characters/hg_form_maske_still.png",
+      "kind": "walk",
+      "width": 128,
+      "height": 192,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        }
+      },
+      "regions": {},
+      "sha256": "2da1f00a2fe02369b54d5b3e54dc1b6add3dc1a19645a869d6cee3802b0e4181",
+      "baseline": 46,
+      "emptyFrames": [
+        2,
+        3,
+        6,
+        7,
+        10,
+        11,
+        14,
+        15
+      ],
+      "gridNote": "Two active cells per direction in a 4x4 canvas; two trailing cells per row intentionally empty.",
+      "path": "maske"
+    },
+    {
+      "id": "characters_hg_form_schluessel_still",
+      "file": "characters/hg_form_schluessel_still.png",
+      "kind": "walk",
+      "width": 128,
+      "height": 192,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        }
+      },
+      "regions": {},
+      "sha256": "70efd43e5818a9dbbe50b7cbe8bc33fb073b74b1ec4ecaaf1616b6b091b3e0a0",
+      "baseline": 46,
+      "emptyFrames": [
+        2,
+        3,
+        6,
+        7,
+        10,
+        11,
+        14,
+        15
+      ],
+      "gridNote": "Two active cells per direction in a 4x4 canvas; two trailing cells per row intentionally empty.",
+      "path": "schluessel"
+    },
+    {
+      "id": "characters_hg_form_sq_moor_still",
+      "file": "characters/hg_form_sq_moor_still.png",
+      "kind": "walk",
+      "width": 128,
+      "height": 192,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        }
+      },
+      "regions": {},
+      "sha256": "e661f203bce59b24f431eced401d25215147ed379110a8ec0a0c801b5462ae8d",
+      "baseline": 46,
+      "emptyFrames": [
+        2,
+        3,
+        6,
+        7,
+        10,
+        11,
+        14,
+        15
+      ],
+      "gridNote": "Two active cells per direction in a 4x4 canvas; two trailing cells per row intentionally empty.",
+      "path": "sq_moor"
+    },
+    {
+      "id": "characters_hg_form_sq_uhr_still",
+      "file": "characters/hg_form_sq_uhr_still.png",
+      "kind": "walk",
+      "width": 128,
+      "height": 192,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        }
+      },
+      "regions": {},
+      "sha256": "177bd6cabde280c7beee102386562a8b3cecca44c51bb928af413f8c9df90b7b",
+      "baseline": 46,
+      "emptyFrames": [
+        2,
+        3,
+        6,
+        7,
+        10,
+        11,
+        14,
+        15
+      ],
+      "gridNote": "Two active cells per direction in a 4x4 canvas; two trailing cells per row intentionally empty.",
+      "path": "sq_uhr"
+    },
+    {
+      "id": "characters_hg_form_sq_waage_still",
+      "file": "characters/hg_form_sq_waage_still.png",
+      "kind": "walk",
+      "width": 128,
+      "height": 192,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        }
+      },
+      "regions": {},
+      "sha256": "5f556269143577d4ca8c0ad164ba0d1490c64b4ea5a8f7ceb4fa6621ac07ed3a",
+      "baseline": 46,
+      "emptyFrames": [
+        2,
+        3,
+        6,
+        7,
+        10,
+        11,
+        14,
+        15
+      ],
+      "gridNote": "Two active cells per direction in a 4x4 canvas; two trailing cells per row intentionally empty.",
+      "path": "sq_waage"
+    },
+    {
+      "id": "characters_p2a_drink_seq1",
+      "file": "characters/p2a_drink_seq1.png",
+      "kind": "drink",
+      "width": 128,
+      "height": 32,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 8,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "drink": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      },
+      "regions": {},
+      "sha256": "a7a949869da2308539e27e946d2735fd510d27c633dbdc3c97d199d7844310c5",
+      "baseline": 30
+    },
+    {
+      "id": "characters_p2a_drink_seq3",
+      "file": "characters/p2a_drink_seq3.png",
+      "kind": "drink",
+      "width": 128,
+      "height": 32,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 8,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "drink": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      },
+      "regions": {},
+      "sha256": "4713242ec4ebe157f6c8a0b01ab6b1f057d8b528076c088a7df95b05241e05d2",
+      "baseline": 30
+    },
+    {
+      "id": "characters_p2b_drink_seq1",
+      "file": "characters/p2b_drink_seq1.png",
+      "kind": "drink",
+      "width": 128,
+      "height": 32,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 8,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "drink": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      },
+      "regions": {},
+      "sha256": "1c8520c556dcc82217de9e41bd468f936b94c9a572b17743b61e21e0adbb503d",
+      "baseline": 30
+    },
+    {
+      "id": "characters_p2b_drink_seq3",
+      "file": "characters/p2b_drink_seq3.png",
+      "kind": "drink",
+      "width": 128,
+      "height": 32,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 8,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "drink": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      },
+      "regions": {},
+      "sha256": "79e660a30b1d4edd4d1a61a030fd4b83e0e1a0001fd21448fc9264101b439f5c",
+      "baseline": 30
+    },
+    {
+      "id": "fx_HG_aufstieg_1",
+      "file": "fx/HG_aufstieg_1.png",
+      "kind": "cinematic",
+      "width": 1920,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 8,
+      "rows": 1,
+      "transparent": false,
+      "animations": {
+        "ascend": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 4,
+          "repeat": 0
+        }
+      },
+      "regions": {},
+      "sha256": "0c6015ac8d99ac9eb1885f0e60c7c667b57373f09c1373cddd668d94d79973c8"
+    },
+    {
+      "id": "fx_HG_aufstieg_3",
+      "file": "fx/HG_aufstieg_3.png",
+      "kind": "cinematic",
+      "width": 1920,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 8,
+      "rows": 1,
+      "transparent": false,
+      "animations": {
+        "ascend": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 4,
+          "repeat": 0
+        }
+      },
+      "regions": {},
+      "sha256": "bb3894b9e1dbcb26bbb5816ca343a0ed2a5f04725a3bec487dc71d12c6151c09"
+    },
+    {
+      "id": "fx_aura_seq1_echo",
+      "file": "fx/aura_seq1_echo.png",
+      "kind": "aura",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "aura": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        }
+      },
+      "regions": {},
+      "sha256": "4470f2762e912463e8648a80663ba680da568c8e40de7929a8c6f1572939bb32",
+      "path": "echo"
+    },
+    {
+      "id": "fx_aura_seq1_eisen",
+      "file": "fx/aura_seq1_eisen.png",
+      "kind": "aura",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "aura": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        }
+      },
+      "regions": {},
+      "sha256": "7937b57fa74d1a3c3dc85999459ef1a65de585cf82c487fcffe5c177e2e99e0c",
+      "path": "eisen"
+    },
+    {
+      "id": "fx_aura_seq1_faden",
+      "file": "fx/aura_seq1_faden.png",
+      "kind": "aura",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "aura": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        }
+      },
+      "regions": {},
+      "sha256": "ecb9f6c9cf025e2cee0834f45aa5821da3436ebabf601a81d216c432f77f489c",
+      "path": "faden"
+    },
+    {
+      "id": "fx_aura_seq1_kessel",
+      "file": "fx/aura_seq1_kessel.png",
+      "kind": "aura",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "aura": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        }
+      },
+      "regions": {},
+      "sha256": "d89c11003f130fb2e1707916cdb2f6845e35fd0fe09e6ecf010d7e174b86b032",
+      "path": "kessel"
+    },
+    {
+      "id": "fx_aura_seq1_laterne",
+      "file": "fx/aura_seq1_laterne.png",
+      "kind": "aura",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "aura": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        }
+      },
+      "regions": {},
+      "sha256": "e3250ae4747eb4def30804c0166f236fc4e1dc882d081cd7d5a62876855da90e",
+      "path": "laterne"
+    },
+    {
+      "id": "fx_aura_seq1_maske",
+      "file": "fx/aura_seq1_maske.png",
+      "kind": "aura",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "aura": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        }
+      },
+      "regions": {},
+      "sha256": "53eea83c5f7a24132ab305924398a175fac407498cd056e4c6b779d99dd0e23f",
+      "path": "maske"
+    },
+    {
+      "id": "fx_aura_seq1_schluessel",
+      "file": "fx/aura_seq1_schluessel.png",
+      "kind": "aura",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "aura": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        }
+      },
+      "regions": {},
+      "sha256": "90f29001f2b69e3290dfa8c722cb38428e5f52930fa483ca027738e432115981",
+      "path": "schluessel"
+    },
+    {
+      "id": "fx_aura_seq1_sq_moor",
+      "file": "fx/aura_seq1_sq_moor.png",
+      "kind": "aura",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "aura": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        }
+      },
+      "regions": {},
+      "sha256": "e9be987781d31d29c169f30f24bb22c263d4a3d92d13bb9e1ac498fac86b0c4b",
+      "path": "sq_moor"
+    },
+    {
+      "id": "fx_aura_seq1_sq_uhr",
+      "file": "fx/aura_seq1_sq_uhr.png",
+      "kind": "aura",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "aura": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        }
+      },
+      "regions": {},
+      "sha256": "c4dffedde4d11a49979ce922e23d652b1ec528d2bd3ade107605b1fb85faef3b",
+      "path": "sq_uhr"
+    },
+    {
+      "id": "fx_aura_seq1_sq_waage",
+      "file": "fx/aura_seq1_sq_waage.png",
+      "kind": "aura",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "aura": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        }
+      },
+      "regions": {},
+      "sha256": "4daf839fb4c38fd6fb10a303cd2a336e871c1e9df74bbc87fcce42d78e7a6c2e",
+      "path": "sq_waage"
+    },
+    {
+      "id": "fx_aura_seq3_echo",
+      "file": "fx/aura_seq3_echo.png",
+      "kind": "aura",
+      "width": 384,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "aura": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        }
+      },
+      "regions": {},
+      "sha256": "28fc1fc613d3cf7f04920e5003d0e9431d836f6620303eb6d4d632d7d687f300",
+      "path": "echo"
+    },
+    {
+      "id": "fx_aura_seq3_eisen",
+      "file": "fx/aura_seq3_eisen.png",
+      "kind": "aura",
+      "width": 384,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "aura": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        }
+      },
+      "regions": {},
+      "sha256": "1e6228d54c111ba2b2b3d745c9b34488620fddf5c60fe3fdadd3716fada65a67",
+      "path": "eisen"
+    },
+    {
+      "id": "fx_aura_seq3_faden",
+      "file": "fx/aura_seq3_faden.png",
+      "kind": "aura",
+      "width": 384,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "aura": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        }
+      },
+      "regions": {},
+      "sha256": "bf410b85496de36f2bfbf5da10ef31532a26a004cd60aa337234a03246d4a42f",
+      "path": "faden"
+    },
+    {
+      "id": "fx_aura_seq3_kessel",
+      "file": "fx/aura_seq3_kessel.png",
+      "kind": "aura",
+      "width": 384,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "aura": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        }
+      },
+      "regions": {},
+      "sha256": "8c86f3facccf979ee3ddd6bc6fa67b63caedad672bf52431e365e1efb9e756c7",
+      "path": "kessel"
+    },
+    {
+      "id": "fx_aura_seq3_laterne",
+      "file": "fx/aura_seq3_laterne.png",
+      "kind": "aura",
+      "width": 384,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "aura": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        }
+      },
+      "regions": {},
+      "sha256": "50246261beddbce93cc7e8accfdc75d5451dbfc07e3d4c4e0e19bc349b7cd679",
+      "path": "laterne"
+    },
+    {
+      "id": "fx_aura_seq3_maske",
+      "file": "fx/aura_seq3_maske.png",
+      "kind": "aura",
+      "width": 384,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "aura": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        }
+      },
+      "regions": {},
+      "sha256": "75b1bc85a3648a704faf109bd4a6f28650e3ca07dcb93252dcd8022573439807",
+      "path": "maske"
+    },
+    {
+      "id": "fx_aura_seq3_schluessel",
+      "file": "fx/aura_seq3_schluessel.png",
+      "kind": "aura",
+      "width": 384,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "aura": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        }
+      },
+      "regions": {},
+      "sha256": "ef643ba1e6fd4aa542fdda6c577dfb3a04ccef8a3e8ecf364be3be6bd7ce8e8f",
+      "path": "schluessel"
+    },
+    {
+      "id": "fx_aura_seq3_sq_moor",
+      "file": "fx/aura_seq3_sq_moor.png",
+      "kind": "aura",
+      "width": 384,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "aura": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        }
+      },
+      "regions": {},
+      "sha256": "8994e9c8680ab019de79bdf836cfbbf0d19a69b99bcb2315b8c47326e1ad35b0",
+      "path": "sq_moor"
+    },
+    {
+      "id": "fx_aura_seq3_sq_uhr",
+      "file": "fx/aura_seq3_sq_uhr.png",
+      "kind": "aura",
+      "width": 384,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "aura": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        }
+      },
+      "regions": {},
+      "sha256": "e991d0be7afe55bbea380e4c96055e7f5cc58287cd67de373e1f9bb7df99d0c6",
+      "path": "sq_uhr"
+    },
+    {
+      "id": "fx_aura_seq3_sq_waage",
+      "file": "fx/aura_seq3_sq_waage.png",
+      "kind": "aura",
+      "width": 384,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "aura": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        }
+      },
+      "regions": {},
+      "sha256": "d0310386ed8e71e71af84c228a2318375d249d0c8da3ac5e8056f747fe0d737a",
+      "path": "sq_waage"
+    },
+    {
+      "id": "props_vm_register_props",
+      "file": "props/vm_register_props.png",
+      "kind": "props",
+      "width": 256,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 16,
+      "rows": 8,
+      "transparent": true,
+      "animations": {},
+      "regions": {
+        "laterne_0": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16,
+          "label": "Linsenrahmen"
+        },
+        "laterne_1": {
+          "x": 160,
+          "y": 0,
+          "width": 16,
+          "height": 16,
+          "label": "Dochtschere"
+        },
+        "laterne_2": {
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16,
+          "label": "Ascheschale"
+        },
+        "laterne_3": {
+          "x": 224,
+          "y": 16,
+          "width": 16,
+          "height": 16,
+          "label": "offenes Register"
+        },
+        "faden_0": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16,
+          "label": "Spule"
+        },
+        "faden_1": {
+          "x": 176,
+          "y": 0,
+          "width": 16,
+          "height": 16,
+          "label": "offener Knoten"
+        },
+        "faden_2": {
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16,
+          "label": "Registerpult"
+        },
+        "faden_3": {
+          "x": 240,
+          "y": 16,
+          "width": 16,
+          "height": 16,
+          "label": "Wasserrost"
+        },
+        "maske_0": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16,
+          "label": "Spiegel"
+        },
+        "maske_1": {
+          "x": 192,
+          "y": 0,
+          "width": 16,
+          "height": 16,
+          "label": "Mantelhaken"
+        },
+        "maske_2": {
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16,
+          "label": "Maskenablage"
+        },
+        "maske_3": {
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16,
+          "label": "Vorhang"
+        },
+        "echo_0": {
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16,
+          "label": "Glockenmantel"
+        },
+        "echo_1": {
+          "x": 208,
+          "y": 0,
+          "width": 16,
+          "height": 16,
+          "label": "Hörrohr"
+        },
+        "echo_2": {
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16,
+          "label": "Protokollstuhl"
+        },
+        "echo_3": {
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16,
+          "label": "Filzauflage"
+        },
+        "kessel_0": {
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16,
+          "label": "Probenflasche"
+        },
+        "kessel_1": {
+          "x": 224,
+          "y": 0,
+          "width": 16,
+          "height": 16,
+          "label": "Rücklaufrohr"
+        },
+        "kessel_2": {
+          "x": 128,
+          "y": 16,
+          "width": 16,
+          "height": 16,
+          "label": "Messlöffel"
+        },
+        "kessel_3": {
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16,
+          "label": "Restgefäß"
+        },
+        "eisen_0": {
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16,
+          "label": "Lastplatte"
+        },
+        "eisen_1": {
+          "x": 240,
+          "y": 0,
+          "width": 16,
+          "height": 16,
+          "label": "Stützbock"
+        },
+        "eisen_2": {
+          "x": 144,
+          "y": 16,
+          "width": 16,
+          "height": 16,
+          "label": "Nietkasten"
+        },
+        "eisen_3": {
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16,
+          "label": "Prüflehre"
+        },
+        "schluessel_0": {
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16,
+          "label": "Schlüsselschale"
+        },
+        "schluessel_1": {
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16,
+          "label": "Namenslade"
+        },
+        "schluessel_2": {
+          "x": 160,
+          "y": 16,
+          "width": 16,
+          "height": 16,
+          "label": "Türangel"
+        },
+        "schluessel_3": {
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16,
+          "label": "Schwellenstein"
+        },
+        "sq_waage_0": {
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16,
+          "label": "leere Waagschale"
+        },
+        "sq_waage_1": {
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16,
+          "label": "Quittungsbrett"
+        },
+        "sq_waage_2": {
+          "x": 176,
+          "y": 16,
+          "width": 16,
+          "height": 16,
+          "label": "Gewichtsatz"
+        },
+        "sq_waage_3": {
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16,
+          "label": "Pfandablage"
+        },
+        "sq_moor_0": {
+          "x": 128,
+          "y": 0,
+          "width": 16,
+          "height": 16,
+          "label": "Torfkasten"
+        },
+        "sq_moor_1": {
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16,
+          "label": "Fundtiefenstab"
+        },
+        "sq_moor_2": {
+          "x": 192,
+          "y": 16,
+          "width": 16,
+          "height": 16,
+          "label": "leeres Blattfach"
+        },
+        "sq_moor_3": {
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16,
+          "label": "Tuchauflage"
+        },
+        "sq_uhr_0": {
+          "x": 144,
+          "y": 0,
+          "width": 16,
+          "height": 16,
+          "label": "Pendel"
+        },
+        "sq_uhr_1": {
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16,
+          "label": "Fahrkartenpult"
+        },
+        "sq_uhr_2": {
+          "x": 208,
+          "y": 16,
+          "width": 16,
+          "height": 16,
+          "label": "Stillsetzhebel"
+        },
+        "sq_uhr_3": {
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16,
+          "label": "Minutenring"
+        }
+      },
+      "sha256": "1962104be2875c15421ab46528d6361bc1b157f94f346a97744cc83b1d15e9a5",
+      "emptyFrames": [
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127
+      ],
+      "tileSize": 16
+    },
+    {
+      "id": "sequences_abspann_echo",
+      "file": "sequences/abspann_echo.png",
+      "kind": "epilogue",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "9fd7f4e092e2a3a576ecf0ff8639d23682ebb02b137ff30c20984cc68cd54e85",
+      "path": "echo"
+    },
+    {
+      "id": "sequences_abspann_eisen",
+      "file": "sequences/abspann_eisen.png",
+      "kind": "epilogue",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "f073815fa46e7c9905bcce03801fa491bdd798cc53f1053f481a3d40777e0cc4",
+      "path": "eisen"
+    },
+    {
+      "id": "sequences_abspann_faden",
+      "file": "sequences/abspann_faden.png",
+      "kind": "epilogue",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "49a41ec7c15940148db5ffa43c4339e1b25dd9825ce94bc80e7f6b0a55b14ae2",
+      "path": "faden"
+    },
+    {
+      "id": "sequences_abspann_kessel",
+      "file": "sequences/abspann_kessel.png",
+      "kind": "epilogue",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "fb0f1fa03e241c193271587629ff56228f881a19738649ba102933e5b22c37ce",
+      "path": "kessel"
+    },
+    {
+      "id": "sequences_abspann_laterne",
+      "file": "sequences/abspann_laterne.png",
+      "kind": "epilogue",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "a28d9f8f2fc7c2cf21af3ed8ce6aa7d93bac0adbc81564df434e001142e651bd",
+      "path": "laterne"
+    },
+    {
+      "id": "sequences_abspann_maske",
+      "file": "sequences/abspann_maske.png",
+      "kind": "epilogue",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "ddb792fb66b9e8308ad74ae5dc59cd616b23db124df48c1d582ae7665b84c5a7",
+      "path": "maske"
+    },
+    {
+      "id": "sequences_abspann_schluessel",
+      "file": "sequences/abspann_schluessel.png",
+      "kind": "epilogue",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "e7a10703687660a1f9ade41aa4acbe0bcea819288f7eefd8dac5613db3acd5a8",
+      "path": "schluessel"
+    },
+    {
+      "id": "sequences_abspann_sq_moor",
+      "file": "sequences/abspann_sq_moor.png",
+      "kind": "epilogue",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "1e8d71d0383ed0d844ed3167402e6b3142f274d1125b3cea376e41db04d9236c",
+      "path": "sq_moor"
+    },
+    {
+      "id": "sequences_abspann_sq_uhr",
+      "file": "sequences/abspann_sq_uhr.png",
+      "kind": "epilogue",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "0f3a6414ade92afc9f50c63d0aec9f5a54630d238b2ec54d2f70ef3ede5c77a6",
+      "path": "sq_uhr"
+    },
+    {
+      "id": "sequences_abspann_sq_waage",
+      "file": "sequences/abspann_sq_waage.png",
+      "kind": "epilogue",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "2f4d5c1ccc1d81c5edc39552643c6b911d04b5cb500a7a213a73b7ab981586ae",
+      "path": "sq_waage"
+    },
+    {
+      "id": "sequences_abspann_verzicht",
+      "file": "sequences/abspann_verzicht.png",
+      "kind": "epilogue",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "7d9226d728ff517eb197faeb68e74c924de76235de9c77210c8927cd36504a26"
+    },
+    {
+      "id": "tilesets_vm_register",
+      "file": "tilesets/vm_register.png",
+      "kind": "tileset",
+      "width": 256,
+      "height": 256,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 16,
+      "rows": 16,
+      "transparent": false,
+      "animations": {},
+      "regions": {
+        "wet_stone_floor": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 64
+        },
+        "walls_waterline": {
+          "x": 0,
+          "y": 64,
+          "width": 256,
+          "height": 64
+        },
+        "register_shelves": {
+          "x": 0,
+          "y": 128,
+          "width": 256,
+          "height": 64
+        },
+        "water_steps_thresholds": {
+          "x": 0,
+          "y": 192,
+          "width": 256,
+          "height": 64
+        }
+      },
+      "sha256": "9890a6ecf699194b20fc6bae5290183348d224a889fe9e72d4791a477b663090",
+      "sourceCrop": [
+        32,
+        32,
+        1222,
+        1222
+      ],
+      "tileSize": 16
+    },
+    {
+      "id": "ui_hg_hud_seq31",
+      "file": "ui/hg_hud_seq31.png",
+      "kind": "hud",
+      "width": 64,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 2,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "regions": {
+        "seq3": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "seq1": {
+          "x": 32,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        }
+      },
+      "sha256": "76b1afaacdc060bc5b2ba7ccc2f2e07a33523fdfbc6a5cd5d9f8eb79c65d2e2c"
+    },
+    {
+      "id": "ui_hg_seq1_echo",
+      "file": "ui/hg_seq1_echo.png",
+      "kind": "sequence",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "a27f2819ab4d3c8a29fd1a87fb8921f2f8d4a3fcedb97f33acc03c55bb2de1b8",
+      "path": "echo"
+    },
+    {
+      "id": "ui_hg_seq1_eisen",
+      "file": "ui/hg_seq1_eisen.png",
+      "kind": "sequence",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "5759753db8fbe06ec7a5d72cf2b1e274beff436b99354376c3015b22ad1d8c59",
+      "path": "eisen"
+    },
+    {
+      "id": "ui_hg_seq1_faden",
+      "file": "ui/hg_seq1_faden.png",
+      "kind": "sequence",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "56884e6fd7746ddd84ed022f0da2549a12799046c1cb3677167aaaca96f658d1",
+      "path": "faden"
+    },
+    {
+      "id": "ui_hg_seq1_kessel",
+      "file": "ui/hg_seq1_kessel.png",
+      "kind": "sequence",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "b80a22e0896512660c0f0d1dd818188798b8acd31b7ff7fbcf67cfef251c7ec2",
+      "path": "kessel"
+    },
+    {
+      "id": "ui_hg_seq1_laterne",
+      "file": "ui/hg_seq1_laterne.png",
+      "kind": "sequence",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "c6cd93ea22a71b31c28428ce6461c76e75cf7431cebc0a3fcc86cdbb56190d1e",
+      "path": "laterne"
+    },
+    {
+      "id": "ui_hg_seq1_maske",
+      "file": "ui/hg_seq1_maske.png",
+      "kind": "sequence",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "50c72b409e9ea4460579b70fe64db6f2f72aedef3a2a21181d4c9f829f1d5e7a",
+      "path": "maske"
+    },
+    {
+      "id": "ui_hg_seq1_schluessel",
+      "file": "ui/hg_seq1_schluessel.png",
+      "kind": "sequence",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "7a5b194c11c4923c4215bffed7f553ef23c2e9c29e25e642ea8733a0004c6436",
+      "path": "schluessel"
+    },
+    {
+      "id": "ui_hg_seq1_sq_moor",
+      "file": "ui/hg_seq1_sq_moor.png",
+      "kind": "sequence",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "c8b39d7abc1d54c5867d8b01889f947bb3da3b90703a58db23d7af2bd2134613",
+      "path": "sq_moor"
+    },
+    {
+      "id": "ui_hg_seq1_sq_uhr",
+      "file": "ui/hg_seq1_sq_uhr.png",
+      "kind": "sequence",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "e72eaf84202f52892ff8127914d64f867e01b7f236908af6ad25fa65d024e921",
+      "path": "sq_uhr"
+    },
+    {
+      "id": "ui_hg_seq1_sq_waage",
+      "file": "ui/hg_seq1_sq_waage.png",
+      "kind": "sequence",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "468113389b9c5c0225375179241ffffe646b3c5c2ca110ef8057a1cce545e26e",
+      "path": "sq_waage"
+    },
+    {
+      "id": "ui_hg_seq3_echo",
+      "file": "ui/hg_seq3_echo.png",
+      "kind": "sequence",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "818602cb1eccb881e1a480e93ee19fe05d08756fe7de14551f3f8b990c3380b9",
+      "path": "echo"
+    },
+    {
+      "id": "ui_hg_seq3_eisen",
+      "file": "ui/hg_seq3_eisen.png",
+      "kind": "sequence",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "f1d56a3b37852fc4c01d4fc056184cf8126e7302c2569ed0499503dd8c235f9f",
+      "path": "eisen"
+    },
+    {
+      "id": "ui_hg_seq3_faden",
+      "file": "ui/hg_seq3_faden.png",
+      "kind": "sequence",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "8e9fc25c6bd54431d55978b861205e1b7d9cc1dfeab05873f11c9c69fb5608f5",
+      "path": "faden"
+    },
+    {
+      "id": "ui_hg_seq3_kessel",
+      "file": "ui/hg_seq3_kessel.png",
+      "kind": "sequence",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "e7897195f7035b945ef8650b0d393544d5026a340d8e918ab4d9247ad362d2ea",
+      "path": "kessel"
+    },
+    {
+      "id": "ui_hg_seq3_laterne",
+      "file": "ui/hg_seq3_laterne.png",
+      "kind": "sequence",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "56a835ece44c411674b1def2858acb14680c446e5d04d0413963a553bb07dac2",
+      "path": "laterne"
+    },
+    {
+      "id": "ui_hg_seq3_maske",
+      "file": "ui/hg_seq3_maske.png",
+      "kind": "sequence",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "040a8c58a4c97637924df41980f25d53b1ba4062bddc3571013aec30655eebdc",
+      "path": "maske"
+    },
+    {
+      "id": "ui_hg_seq3_schluessel",
+      "file": "ui/hg_seq3_schluessel.png",
+      "kind": "sequence",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "8a2d9c952771e36cf4323bef705ccbb7017b6f3afda4c5310dff4a34f2641600",
+      "path": "schluessel"
+    },
+    {
+      "id": "ui_hg_seq3_sq_moor",
+      "file": "ui/hg_seq3_sq_moor.png",
+      "kind": "sequence",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "375460408f04126a416f1e52d7d7a054a2c0dd061b1231d222c1d90e27eac067",
+      "path": "sq_moor"
+    },
+    {
+      "id": "ui_hg_seq3_sq_uhr",
+      "file": "ui/hg_seq3_sq_uhr.png",
+      "kind": "sequence",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "8295d973e5bed27435ff4d598ce059c85e834f33f2657de720596fe80dc667de",
+      "path": "sq_uhr"
+    },
+    {
+      "id": "ui_hg_seq3_sq_waage",
+      "file": "ui/hg_seq3_sq_waage.png",
+      "kind": "sequence",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "regions": {},
+      "sha256": "896708620fb770b501baa49eea2fbac0a7a7d43a695f2653d79d748396589264",
+      "path": "sq_waage"
+    }
+  ],
+  "pathRegisters": {
+    "laterne": {
+      "map": "vm_register_laterne",
+      "background": "battle/bg_vm_register_laterne.png",
+      "seq1Name": "Das unbequeme Licht",
+      "props": [
+        "laterne_0",
+        "laterne_1",
+        "laterne_2",
+        "laterne_3"
+      ],
+      "epilogue": "sequences/abspann_laterne.png"
+    },
+    "faden": {
+      "map": "vm_register_faden",
+      "background": "battle/bg_vm_register_faden.png",
+      "seq1Name": "Der offene Zusammenhang",
+      "props": [
+        "faden_0",
+        "faden_1",
+        "faden_2",
+        "faden_3"
+      ],
+      "epilogue": "sequences/abspann_faden.png"
+    },
+    "maske": {
+      "map": "vm_register_maske",
+      "background": "battle/bg_vm_register_maske.png",
+      "seq1Name": "Das unvermietete Gesicht",
+      "props": [
+        "maske_0",
+        "maske_1",
+        "maske_2",
+        "maske_3"
+      ],
+      "epilogue": "sequences/abspann_maske.png"
+    },
+    "echo": {
+      "map": "vm_register_echo",
+      "background": "battle/bg_vm_register_echo.png",
+      "seq1Name": "Die letzte Zuhörstelle",
+      "props": [
+        "echo_0",
+        "echo_1",
+        "echo_2",
+        "echo_3"
+      ],
+      "epilogue": "sequences/abspann_echo.png"
+    },
+    "kessel": {
+      "map": "vm_register_kessel",
+      "background": "battle/bg_vm_register_kessel.png",
+      "seq1Name": "Der unverlorene Rest",
+      "props": [
+        "kessel_0",
+        "kessel_1",
+        "kessel_2",
+        "kessel_3"
+      ],
+      "epilogue": "sequences/abspann_kessel.png"
+    },
+    "eisen": {
+      "map": "vm_register_eisen",
+      "background": "battle/bg_vm_register_eisen.png",
+      "seq1Name": "Die bleibende Stütze",
+      "props": [
+        "eisen_0",
+        "eisen_1",
+        "eisen_2",
+        "eisen_3"
+      ],
+      "epilogue": "sequences/abspann_eisen.png"
+    },
+    "schluessel": {
+      "map": "vm_register_schluessel",
+      "background": "battle/bg_vm_register_schluessel.png",
+      "seq1Name": "Die unverwehrte Tür",
+      "props": [
+        "schluessel_0",
+        "schluessel_1",
+        "schluessel_2",
+        "schluessel_3"
+      ],
+      "epilogue": "sequences/abspann_schluessel.png"
+    },
+    "sq_waage": {
+      "map": "vm_register_sq_waage",
+      "background": "battle/bg_vm_register_sq_waage.png",
+      "seq1Name": "Die quittierte Last",
+      "props": [
+        "sq_waage_0",
+        "sq_waage_1",
+        "sq_waage_2",
+        "sq_waage_3"
+      ],
+      "epilogue": "sequences/abspann_sq_waage.png"
+    },
+    "sq_moor": {
+      "map": "vm_register_sq_moor",
+      "background": "battle/bg_vm_register_sq_moor.png",
+      "seq1Name": "Das erinnerte Fehlende",
+      "props": [
+        "sq_moor_0",
+        "sq_moor_1",
+        "sq_moor_2",
+        "sq_moor_3"
+      ],
+      "epilogue": "sequences/abspann_sq_moor.png"
+    },
+    "sq_uhr": {
+      "map": "vm_register_sq_uhr",
+      "background": "battle/bg_vm_register_sq_uhr.png",
+      "seq1Name": "Die gewährte Minute",
+      "props": [
+        "sq_uhr_0",
+        "sq_uhr_1",
+        "sq_uhr_2",
+        "sq_uhr_3"
+      ],
+      "epilogue": "sequences/abspann_sq_uhr.png"
+    }
+  },
+  "sourceReferences": [
+    "docs/art/codex_DC_seq31_grafik.md",
+    "public/sprites/manifest-halbgott.json",
+    "docs/story/seq31/register_seq1.json",
+    "src/data/packs/sequenzen/seq_4_bis_1.json",
+    "src/data/packs/sequenzen/neue_pfade.json"
+  ]
+}
