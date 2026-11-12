@@ -811,7 +811,7 @@ export class GameState {
     this.seq4Tick?.();
     this.hochTick?.(dtSeconds);
     this.gildeTick?.(); // Seq 3: Gilden des Pfades ab Dunscar
-    if (this.hasP2?.()) this.withPlayer(2, () => this.hochTick?.(dtSeconds), { quiet: true });
+    if (this.hasP2?.()) this.withPlayer(2, () => { this.seq5Tick?.(); this.seq4Tick?.(); this.hochTick?.(dtSeconds); }, { quiet: true }); // Koop: Prüfungen von Spieler 2
   }
 
   /**
