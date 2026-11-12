@@ -13,11 +13,15 @@ import { withFaehigkeiten } from './faehigkeiten.js';
 import { applyMoods } from './moods.js';
 import { applyRelations } from './relations.js';
 import { applySchmuggel } from './schmuggel.js';
+import { applyUebergaenge } from './uebergaenge.js';
 import { applyAltbeute } from './altbeute.js';
+import { applyVorratStuecke } from './vorratStuecke.js';
 import { applyDunscarHaendler } from './dunscarHaendler.js';
 import { applyDunscarKulisse } from './dunscarKulisse.js';
+import { applyDunscarAusbau, applyDunscarStaende } from './dunscarAusbau.js';
 import { applyBenannte } from './benannte.js';
 import { applyDunscarSchlacke } from './dunscarSchlacke.js';
+import { applyKapitelAusgleich } from './kapitelAusgleich.js';
 import { applyHaendlerAbgleich } from './haendlerAbgleich.js';
 // Fügt alle Inhaltsdateien zu einem Objekt zusammen (ohne JSON-Imports, damit Node-Tests es nutzen können).
 // Hinweise, Informationen, Schlussfolgerungen und Dialoge teilen sich jeweils einen Namensraum über alle Fälle.
@@ -108,9 +112,14 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyDunscarSchlacke(content); // Dunscar: Schlackengrube (Stufe 7) mit harten Farmgegnern, Mittelbossen und reicher Beute
   applyDunscarGeld(content); // Dunscar zahlt mehr als Wexmoor: Gegnergeld und Kopfgelder
   applyDunscarBeute(content); // Dunscar-Beute 3–5× so viel wert wie in Wexmoor
+  applyKapitelAusgleich(content); // Geld Kapitel 4 (×15) und Sekten-Häupter in Dunscar auf Gebietsboss-Niveau
+  applyVorratStuecke(content); // Vorrat-Zips: neue Waffen, Kleidung, Artefakte, Wertstücke bei Händlern, in Gebieten und auf Treffen
   applyHaendlerAbgleich(content); // Händler aller Gebiete: Stärke und Preise je Gebiet, alte Stücke auch später
   applyZirkelAuftraege(content); // Dunscar: Zirkelmitglieder vergeben Aufträge (Monster, Polizisten)
+  applyUebergaenge(content); // Kapitelübergänge: Abschied, Reise und Ankunft Kettlegate→Wexmoor→Dunscar
+  applyDunscarAusbau(content); // Dunscar: Gasthaus, Kalkapotheke, starke Heil-/Nerven-/Ruhemittel, möblierte Innenräume
   applyDunscarKulisse(content); // Dunscar: Ausgänge nach Himmelsrichtung mit Schild, Rückkehr an der passenden Tür, Requisiten je Viertel
+  applyDunscarStaende(content); // Dunscar: Marktstände mit Schild hinter den Händlern
   return content;
 }
 
@@ -129,6 +138,10 @@ function withPackLore(content, pack) {
   // Codex-Runde 9: Textvorräte für Halbgott/Engel (CP) und die Fasserin-Aufträge (CR) liegen als Ganzes im Inhalt
   if (pack.halbgott) content.halbgott = pack.halbgott;
   if (pack.fasserin_auftrag) content.fasserinAuftrag = pack.fasserin_auftrag;
+  if (pack.tiere) { // Codex DF: Tiergefährten, Fundplätze neben dem Ortseingang
+    content.tiere = pack.tiere;
+    for (const p of pack.platzierung_tiere ?? []) { const q = withSpawnOffset(content, p); if (q && content.maps[q.map]) content.maps[q.map].interactables.push({ ...q.interactable, tile: q.tile }); }
+  }
   if (pack.erfolge) content.erfolge = pack.erfolge; // Codex DL: Akte des Ermittlers
   if (pack.benannte) content.benannte = pack.benannte; // Codex DJ: benannte Gegner (Aufbau in applyBenannte)
   if (pack.post) { // Codex DI: Briefe; Beilagen als Andenken (nicht handelbar), vorhandene Items bleiben wie sie sind
@@ -141,7 +154,7 @@ function withPackLore(content, pack) {
 }
 
 /** Lesestück ohne feste Kachel (`spawn_offset`): neben dem Standard-Spawn seiner Karte; ohne Karte entfällt es. */
-function withSpawnOffset(content, p) {
+export function withSpawnOffset(content, p) {
   if (!p.spawn_offset) return p;
   const m = content.maps[p.map];
   const base = m?.spawns?.default ?? Object.values(m?.spawns ?? {})[0];

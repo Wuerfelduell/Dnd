@@ -42,10 +42,13 @@ export const HP_FLOOR = { normal: 800, elite: 1600, boss: 3200 }; // Seb 2026-11
 // Ab Kapitel 3 schlagen reguläre Gegner (die mit Lebens-Untergrenze) härter zu als in Wexmoor (dort ×1,5) und zu zweit ohne Abschlag.
 // Die Untergrenze macht sie nur zäher, nicht sanfter. Kapitel 4/5 tragen ihren Aufschlag schon in den Rohdaten (halbgott_skaliert).
 // Seb 2026-11-12: Ziel je Gegnerzug (nach Schadensminderung, Seq 5) normal ~40, Elite ~60, Boss 70–90. Bosse schafft man allein erst mit Seq 4.
-export const LATE_DMG_MULT = { 3: { normal: 2.1, elite: 2.35, boss: 2.6 } };
+// Kapitel 4 (Calderwick/Briarholt, Seq 4): Halbgötter machen gut doppelt so viel Schaden und haben doppelt so viel Leben
+// wie Seq 5 in Dunscar. Gleiche Untergrenze wie Kapitel 3 hieß: Kapitel 4 ist leichter als Dunscar. Darum dort ×2 Leben, ×1,4 Schaden.
+export const LATE_DMG_MULT = { 3: { normal: 2.1, elite: 2.35, boss: 2.6 }, 4: { normal: 1.4, elite: 1.4, boss: 1.4 } };
+export const HP_FLOOR_CHAPTER_MULT = { 4: 2 };
 export function hpFloor(enc) {
   if (enc.practice || enc.mirror || enc.waechter || enc.flees_after || !(enc.chapter >= HP_FLOOR_FROM_CHAPTER)) return 0;
-  return HP_FLOOR[enc.boss ? 'boss' : enc.elite ? 'elite' : 'normal'];
+  return HP_FLOOR[enc.boss ? 'boss' : enc.elite ? 'elite' : 'normal'] * (HP_FLOOR_CHAPTER_MULT[enc.chapter] ?? 1);
 }
 // Flächenangriff: zu zweit holt der Gegner manchmal zu einem Schlag aus, der beide Spieler zugleich trifft.
 // Jeder muss dann im selben Takt für sich abwehren. Eliten und Bosse tun das öfter.
@@ -278,6 +281,8 @@ export class Combat {
     this.killedBy = null; // womit der Gegner fiel (Seq-5-Ritual der Laterne verlangt ein Leuchten)
     this.voiceWindow = false; // Seq-5-Ritual des Echos: der Beyonder lag schon unter 10 % Leben
     state.seq5CombatStart?.(this);
+    this.tierSchutz = null; // Codex DF: Hund halbiert den ersten Treffer
+    state.tierKampfStart?.(this);
     // Seq 4: Schatten (eigenes Leben), Uhr (Fehler zählen), Moor (Moorwasser je Runde), Ausweichzähler
     this.ruleBroken = null; // Verstoß gegen die Prüfung: der Kampf endet als Niederlage
     this.enemyAttacks = 0;
@@ -937,6 +942,7 @@ export class Combat {
     const absorbed = Math.min(this.shield, incoming);
     this.shield -= absorbed;
     incoming -= absorbed;
+    if (this.tierSchutz === n && incoming > 0) { incoming = Math.max(1, Math.floor(incoming * 0.5)); this.tierSchutz = null; } // Codex DF: Hund
     const damage = this.state.damage(incoming);
     if (damage && attack.bleed) this.bleed = { damage: attack.bleed[0], rounds: attack.bleed[1] };
     // Treffer kosten Nerven: manche Angriffe von sich aus, manche Artefakte bei jedem Treffer (hit_nerves)

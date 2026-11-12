@@ -1,4 +1,5 @@
 import { HOCH_SEQ1_VERSIEGELT } from '../data/seqHoch.js';
+import { TIER_KAMPF } from '../core/Tiere.js';
 import { NEWSPAPERS } from '../data/lore.js';
 import { uiSound, worldSound, sudZutatVariant, sudSounds, ruleBlockSound } from '../core/sounds.js';
 import { FESTE } from '../core/Clock.js';
@@ -1591,6 +1592,7 @@ export class Ui {
     const rules = s.content.travelRules;
     if (d.direct) { // Zugfahrt zwischen den Städten: keine Reiseart, direkt hin
       this.sfx(worldSound('travel', { direct: true, to: d.map }));
+      if (d.dialogue) { this.close(); this.openDialogue({ name: d.name, role: 'Abreise', dialogue: d.dialogue }); return; } // Kapitelübergang: Bahnsteig, Fahrt, Einfahrt
       this.close();
       this.scene.travelTo(d.map, d.spawn);
       return;
@@ -1681,11 +1683,12 @@ export class Ui {
     const cases = all.filter((c) => !solved.includes(c));
     const beasts = this.knownBeasts();
     const papers = this.state.paperArchive();
-    const fixed = ['quests', 'items', 'pfad', 'personen', 'kulte', 'bestiar', 'zeitung', 'archiv', 'erfolge', 'post'];
+    const fixed = ['quests', 'items', 'pfad', 'personen', 'kulte', 'bestiar', 'zeitung', 'archiv', 'erfolge', 'post', 'tiere'];
     if (this.tab === 'kulte' && !this.state.sektenFrei?.()) this.tab = 'quests';
     if (this.tab === 'zeitung' && !papers.length) this.tab = 'quests';
     if (this.tab === 'archiv' && !solved.length) this.tab = 'quests';
     if (this.tab === 'post' && !this.state.post?.fach.length) this.tab = 'quests';
+    if (this.tab === 'tiere' && !this.state.tierListe?.().length) this.tab = 'quests';
     if (this.tab === 'bestiar' && !beasts.length) this.tab = 'quests';
     // Ein gelöster Fall wird im Archiv geöffnet
     if (solved.some((c) => c.id === this.tab)) { this.archiveCase = this.tab; this.tab = 'archiv'; }
@@ -1697,11 +1700,12 @@ export class Ui {
       ...(papers.length ? [{ id: 'zeitung', title: 'Zeitung' }] : []),
       ...cases.map((c) => ({ id: c.id, title: c.title.replace(/:.*/, '') })), ...(solved.length ? [{ id: 'archiv', title: `Archiv (${solved.length})` }] : []),
       ...(this.state.post?.fach.length ? [{ id: 'post', title: `Post${this.state.postUngelesen() ? ` (${this.state.postUngelesen()})` : ''}` }] : []), // Codex DI
+      ...(this.state.tierListe?.().length ? [{ id: 'tiere', title: 'Tiere' }] : []), // Codex DF
       ...(this.state.erfolgeDefs().length ? [{ id: 'erfolge', title: 'Akte' }] : [])]; // Codex DL
     const caseId = this.currentCase();
     const body = this.tab === 'quests' ? this.questsHtml() + this.signalJournalHtml() : this.tab === 'items' ? this.itemsHtml() : this.tab === 'pfad' ? this.pathwayTabHtml()
       : this.tab === 'personen' ? this.peopleHtml() : this.tab === 'kulte' ? this.kulteHtml() : this.tab === 'bestiar' ? this.bestiaryHtml(beasts) : this.tab === 'zeitung' ? this.papersHtml(papers)
-      : this.tab === 'archiv' ? this.archiveHtml(solved) : this.tab === 'erfolge' ? this.erfolgeHtml() : this.tab === 'post' ? this.postHtml() : this.caseHtml(this.tab);
+      : this.tab === 'archiv' ? this.archiveHtml(solved) : this.tab === 'erfolge' ? this.erfolgeHtml() : this.tab === 'post' ? this.postHtml() : this.tab === 'tiere' ? this.tiereHtml() : this.caseHtml(this.tab);
     const isCase = !!caseId;
     const el = this.open('notebook', `
       <div class="tabs">${tabs.map((t, i) => `<button class="tab ${t.id === this.tab ? 'sel' : ''}" data-tab="${t.id}"><span class="key">${i + 1}</span> ${uiSprite('icons', TAB_ICONS[t.id] ?? 'lupe', 1 / 16, 'tabico')}${esc(t.title)}</button>`).join('')}
@@ -1736,6 +1740,10 @@ export class Ui {
     el.querySelectorAll('[data-brief]').forEach((b) => { b.onclick = () => { this.sfx(uiSound('notebook', 'page')); this.postOpen = b.dataset.brief; this.state.postLesen(b.dataset.brief); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-antwort]').forEach((b) => { b.onclick = () => { const [id, i] = b.dataset.antwort.split('|'); this.renderNotebook(esc(this.state.postAntworten(id, Number(i)).text)); }; });
     el.querySelectorAll('[data-beilage]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(this.state.postBeilage(b.dataset.beilage).text)); });
+    // Codex DF: Tier wählen, füttern, Besitzertext lesen
+    el.querySelectorAll('[data-tier-waehlen]').forEach((b) => { b.onclick = () => { this.state.tierWaehlen(b.dataset.tierWaehlen || null); this.renderNotebook(''); }; });
+    el.querySelectorAll('[data-tier-futter]').forEach((b) => { b.onclick = () => { const [id, f] = b.dataset.tierFutter.split('|'); this.renderNotebook(esc(this.state.tierFuettern(id, f).text)); }; });
+    el.querySelectorAll('[data-tier-lesen]').forEach((b) => { b.onclick = () => { const l = this.state.tierDaten().lesestuecke.find((x) => x.id === b.dataset.tierLesen); this.renderNotebook(`<b>${esc(l.title)}</b><br>${esc(l.text)}`); }; });
     el.querySelector('[data-act=combine]')?.addEventListener('click', () => this.combine());
     el.querySelector('[data-act=autocombine]')?.addEventListener('click', () => this.autoCombine());
     const inv = (fn) => this.as(fn, this.tab === 'items' || this.tab === 'pfad' ? this.invPlayer : 1);
@@ -1857,6 +1865,28 @@ export class Ui {
   }
 
   /** Codex DI: Postfach – links die Briefe (neueste oben), rechts der geöffnete mit Antworten und Beilage. */
+  /** Codex DF: Tiergefährten (Folgen, Füttern, Stufe, Besitzertext). */
+  tiereHtml() {
+    const st = this.state;
+    const d = st.tierDaten();
+    const rows = st.tierListe().map((id) => {
+      const t = d.list[id];
+      const l = st.tierStufe(id);
+      const aktiv = st.tierAktiv() === id;
+      const fut = st.tierFutter(id);
+      const lese = d.lesestuecke.find((x) => x.requires_flags?.includes(`${id}_gefunden`));
+      const gaben = (d.beziehung.animals[id]?.levelBenefits ?? []).filter((g) => g.level <= l).map((g) => `<li>${esc(g.text)}</li>`).join('');
+      return `<div class="tier"><h3>${esc(t.name)} <span class="dim">Stufe ${l} von 3${aktiv ? ' · folgt dir' : ' · wartet'}</span></h3>
+        <p>${esc(t.description)}</p>
+        <p class="dim">Im Kampf: ${esc(TIER_KAMPF[id] ?? '')}. Nicht in Gefahrengebieten: dort versteckt es sich, greift im Kampf aber trotzdem ein.</p>
+        <ul class="dim">${gaben}</ul>
+        <p>${aktiv ? '<button data-tier-waehlen="">Warten lassen</button>' : `<button data-tier-waehlen="${id}">Mitnehmen</button>`}
+        ${fut.map((f) => `<button data-tier-futter="${id}|${f.id}">${esc(st.item(f.id).name)} füttern${f.gern ? '' : ' (mag es nicht)'}</button>`).join(' ')}
+        ${lese ? `<button data-tier-lesen="${lese.id}">${esc(lese.title)}</button>` : ''}</p></div>`;
+    }).join('');
+    return `${rows}<p class="dim">Einmal je Spieltag füttern lässt das Vertrauen wachsen (Salzbrot, Räucherfisch, Festbrot, Setzerbrot). Es folgt immer nur ein Tier.</p>`;
+  }
+
   postHtml() {
     const st = this.state;
     const fach = st.postFach();

@@ -73,7 +73,7 @@ test('Paket AD: Itemtexte, Lesestücke, Bestiarium und Gerede sind im Spiel', ()
   assert.ok(content.maps.revier.interactables.some((i) => i.id === 'lore_staubordnung'));
   assert.ok(content.bestiaryTexts.sparring.hinweis);
   assert.ok(content.gossip.kettlegate.altmarkt.length > 3);
-  assert.equal(content.newspapers.length, 42 + 12 + 9 + 8 + 26 + 2 + 36 + 3 + 9 + 8 + 9 + 8 + 12 + 12 + 18 + 20); // DR: 5 Seq-4-Meldungen je Stadtblatt (4) // Runde 9: Fasserin-Aufträge (CR) + Halbgott (CP) // CN: 12 Meldungen des Nebelboten // Runde 8: Anzeiger (CC + CF), Kurblatt (CG + CJ), Feste (CK) // 12 Meldungen aus Paket AL, 9 + 8 Ausgaben des Kalkblatts (Kapitel 3, AR + AT), 20 Meldungen + 6 Anzeigen (BD), 2 Zunftwarnungen (BO), 36 Sekten-Meldungen (BQ)
+  assert.equal(content.newspapers.length, 42 + 12 + 9 + 8 + 26 + 2 + 36 + 3 + 9 + 8 + 9 + 8 + 12 + 12 + 18 + 20 + 3); // DF: 3 Tier-Meldungen // DR: 5 Seq-4-Meldungen je Stadtblatt (4) // Runde 9: Fasserin-Aufträge (CR) + Halbgott (CP) // CN: 12 Meldungen des Nebelboten // Runde 8: Anzeiger (CC + CF), Kurblatt (CG + CJ), Feste (CK) // 12 Meldungen aus Paket AL, 9 + 8 Ausgaben des Kalkblatts (Kapitel 3, AR + AT), 20 Meldungen + 6 Anzeigen (BD), 2 Zunftwarnungen (BO), 36 Sekten-Meldungen (BQ)
 });
 
 test('Paket AD: eine Zeitungsausgabe erscheint mit dem Fallende und bleibt im Archiv', () => {

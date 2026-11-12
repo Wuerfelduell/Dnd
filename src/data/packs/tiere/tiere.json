@@ -1,0 +1,365 @@
+{
+ "tier_rabe": {
+  "id": "tier_rabe",
+  "name": "Kessel",
+  "species": "rabe",
+  "city": "kettlegate",
+  "map": "sternwarte",
+  "description": "Kessel ist ein schiefergrauer Rabe mit einem hellen Schnabelrand. Er sammelt keine glänzenden Dinge, sondern solche, die jemand übersehen hat. Auf deiner Schulter sitzt er nur, wenn du still genug bist.",
+  "flags": {
+   "found": "tier_rabe_gefunden",
+   "level": "tier_rabe_stufe",
+   "active": "tier_aktiv"
+  },
+  "fund": {
+   "start": "zeile_0",
+   "hide_if_flags": [
+    "tier_rabe_gefunden"
+   ],
+   "nodes": {
+    "zeile_0": {
+     "text": "Auf dem Geländer der Sternwarte sitzt ein Rabe neben einer abgerissenen Schlaufe.",
+     "next": "zeile_1"
+    },
+    "zeile_1": {
+     "text": "Er klopft dreimal auf das Blech und blickt in die Regenrinne.",
+     "next": "zeile_2"
+    },
+    "zeile_2": {
+     "text": "Du ziehst ein eingeklemmtes Etui aus dem Laub; darin liegt die Zeichnung einer Sitzstange.",
+     "next": "zeile_3"
+    },
+    "zeile_3": {
+     "text": "Auf der Rückseite steht: Für Kessel, falls ich die Leiter nicht mehr schaffe.",
+     "next": "zeile_4"
+    },
+    "zeile_4": {
+     "text": "Der Rabe steigt auf deine Hand, um das Papier besser sehen zu können.",
+     "next": "zeile_5"
+    },
+    "zeile_5": {
+     "text": "Als du dich bewegst, hüpft er zurück und wartet auf dem Geländer.",
+     "next": "zeile_6"
+    },
+    "zeile_6": {
+     "text": "Vom Hof dringt ein Pfiff herauf, aber Kessel dreht den Kopf nicht.",
+     "next": "zeile_7"
+    },
+    "zeile_7": {
+     "text": "Du kannst ihm einen Platz anbieten oder die Zeichnung wieder unter das Etui schieben.",
+     "choices": [
+      {
+       "text": "Einen Platz anbieten.",
+       "next": "zeile_8"
+      },
+      {
+       "text": "Später wiederkommen.",
+       "next": "zeile_9"
+      }
+     ]
+    },
+    "zeile_8": {
+     "text": "Kessel nimmt die Schlaufe und setzt sich neben deine Tasche. Du hast offenbar zugesagt.",
+     "effects": {
+      "set_flags": [
+       "tier_rabe_gefunden"
+      ],
+      "tier_claim": "tier_rabe"
+     },
+     "end": true
+    },
+    "zeile_9": {
+     "text": "Du lässt das Etui trocken liegen. Kessel bewacht es; du kannst später wiederkommen.",
+     "end": true
+    }
+   }
+  },
+  "feedReactions": {
+   "0": [
+    "Er prüft den Bissen von beiden Seiten, ehe er ihn nimmt.",
+    "Kessel wartet, bis deine Finger zurückgezogen sind."
+   ],
+   "1": [
+    "Er lässt die Schlaufe neben dem Futter liegen.",
+    "Ein kurzes Klopfen auf deinen Ärmel gilt wohl als Dank."
+   ],
+   "2": [
+    "Kessel nimmt den Bissen direkt von deiner Hand.",
+    "Er versteckt eine Hälfte und zeigt dir ohne Zögern das Versteck."
+   ],
+   "3": [
+    "Er frisst erst, nachdem er dir einen Krümel angeboten hat.",
+    "Kessel rückt auf der Stange zur Seite und lässt Platz für deine Hand."
+   ]
+  },
+  "giftMessages": [
+   "Kessel krächzt vor einer Fuge; dort liegt ein noch unbemerkter Hinweis.",
+   "Ein heller Schnabelschlag markiert die Stelle, die du übersehen hast.",
+   "Der Rabe wendet sich vom Fund ab. Nachsehen musst du selbst.",
+   "Kessel bleibt still. In seiner Reichweite ist kein zugänglicher Hinweis übrig."
+  ],
+  "battleMessages": [
+   "Kessel schneidet durch den Blick des Gegners; dessen nächster Zug entfällt.",
+   "Ein raues Krächzen unterbricht den Ansatz zum Angriff.",
+   "Der Gegner schlägt nach einem Schatten. Kessel ist längst wieder fort.",
+   "Der Rabe landet außer Reichweite, während dein Gegner den Faden verliert."
+  ],
+  "officeLines": [
+   "Kessel legt seine Schlaufe über die Sitzstange.",
+   "Er steigt auf, sobald du die Tasche öffnest.",
+   "Du lässt ihn auf der Stange zurück; er verfolgt deinen Weg bis zur Tür."
+  ],
+  "coopLines": [
+   "Kessel zählt zwei Reisende und schaut nach dem anderen Tier.",
+   "Der Rabe wartet, bis der zweite Gefährte vorbeigegangen ist."
+  ],
+  "art": {
+   "walk": "characters/tier_rabe.png",
+   "poses": "characters/tier_rabe_posen.png",
+   "battle": "battle/tier_rabe_eingriff.png",
+   "portrait": "portraits/tiere/tier_rabe.png"
+  }
+ },
+ "tier_kater": {
+  "id": "tier_kater",
+  "name": "Rußfleck",
+  "species": "kater",
+  "city": "wexmoor",
+  "map": "wx_salzmarkt",
+  "description": "Rußfleck ist ein schmaler grauer Kater mit hellem Fleck an der Schnauze. Er schläft zwischen Pfandscheinen, die Maud Keel längst abgeschrieben hat. Wer ihn mitnimmt, wird gelegentlich für seinen Träger gehalten.",
+  "flags": {
+   "found": "tier_kater_gefunden",
+   "level": "tier_kater_stufe",
+   "active": "tier_aktiv"
+  },
+  "fund": {
+   "start": "zeile_0",
+   "hide_if_flags": [
+    "tier_kater_gefunden"
+   ],
+   "nodes": {
+    "zeile_0": {
+     "text": "Unter Maud Keels Verkaufstisch raschelt eine leere Papiertüte.",
+     "next": "zeile_1"
+    },
+    "zeile_1": {
+     "text": "Ein grauer Kater schiebt die Tüte mit der Nase vor deine Schuhe.",
+     "next": "zeile_2"
+    },
+    "zeile_2": {
+     "text": "Maud sagt: „Rußfleck. Gehört niemandem. Meine Miete bezahlt er trotzdem nicht.“",
+     "next": "zeile_3"
+    },
+    "zeile_3": {
+     "text": "Der Kater zieht einen verknoteten Faden unter einem Stapel Pfandscheine hervor.",
+     "next": "zeile_4"
+    },
+    "zeile_4": {
+     "text": "Daran hängt der kleine Schlüssel einer inzwischen abgerissenen Wohnung.",
+     "next": "zeile_5"
+    },
+    "zeile_5": {
+     "text": "„Seine Frau kam nicht zurück“, sagt Maud, ohne vom Zählen aufzusehen.",
+     "next": "zeile_6"
+    },
+    "zeile_6": {
+     "text": "Rußfleck setzt eine Pfote auf deinen Mantelsaum und wartet.",
+     "next": "zeile_7"
+    },
+    "zeile_7": {
+     "text": "Du kannst ihm einen Schlafplatz anbieten oder Maud bitten, weiter auf ihn zu achten.",
+     "choices": [
+      {
+       "text": "Einen Platz anbieten.",
+       "next": "zeile_8"
+      },
+      {
+       "text": "Später wiederkommen.",
+       "next": "zeile_9"
+      }
+     ]
+    },
+    "zeile_8": {
+     "text": "Maud schiebt dir die leere Tüte zu. Rußfleck ist schon auf dem Weg zur Tür.",
+     "effects": {
+      "set_flags": [
+       "tier_kater_gefunden"
+      ],
+      "tier_claim": "tier_kater"
+     },
+     "end": true
+    },
+    "zeile_9": {
+     "text": "Maud nickt und legt die Tüte zurück. Der Kater bleibt hier, bis du wiederkommst.",
+     "end": true
+    }
+   }
+  },
+  "feedReactions": {
+   "0": [
+    "Rußfleck riecht lange an dem angebotenen Bissen.",
+    "Er nimmt das Futter und trägt es unter den Stuhl."
+   ],
+   "1": [
+    "Er frisst, ohne dich dabei aus den Augen zu lassen.",
+    "Ein kurzes Streifen um dein Bein ersetzt jeden Dank."
+   ],
+   "2": [
+    "Rußfleck lässt die Tüte liegen und frisst bei dir.",
+    "Er stupst die leere Hand an, als hätte er dort etwas vergessen."
+   ],
+   "3": [
+    "Nach dem letzten Bissen legt er sich auf deinen Fuß.",
+    "Er beginnt zu schnurren, noch bevor du das Futter ausgepackt hast."
+   ]
+  },
+  "giftMessages": [
+   "Rußfleck schiebt dir ein unbeschädigtes Vorratspäckchen zu.",
+   "In der Tüte steckt heute ein einzelner Grundvorrat.",
+   "Der Kater hat seinen Tagesfund sicher bei deinen Sachen abgelegt.",
+   "Rußfleck hat für diesen Tag bereits gesucht und rollt sich wieder ein."
+  ],
+  "battleMessages": [
+   "Rußfleck streift deine Hand; bis zu acht Nerven kehren zurück.",
+   "Ein vertrautes Schnurren bringt dich in den Augenblick zurück.",
+   "Du spürst kurz Fell am Knöchel und findest wieder Ruhe.",
+   "Rußfleck ist schon fort, doch dein Atem geht gleichmäßiger."
+  ],
+  "officeLines": [
+   "Rußfleck beansprucht das Kissen, bevor du es glattgezogen hast.",
+   "Er verlässt das Kissen erst beim zweiten Griff nach deinem Mantel.",
+   "Die leere Tüte bleibt auf seinem Platz liegen."
+  ],
+  "coopLines": [
+   "Rußfleck prüft beide Taschen und entscheidet sich dann für deine.",
+   "Der Kater lässt dem anderen Tier genau einen Kissenrand frei."
+  ],
+  "art": {
+   "walk": "characters/tier_kater.png",
+   "poses": "characters/tier_kater_posen.png",
+   "battle": "battle/tier_kater_eingriff.png",
+   "portrait": "portraits/tiere/tier_kater.png"
+  }
+ },
+ "tier_hund": {
+  "id": "tier_hund",
+  "name": "Pegel",
+  "species": "hund",
+  "city": "dunscar",
+  "map": "ds_endbahnhof",
+  "description": "Pegel ist eine drahthaarige Hündin mit einem verblichenen blauen Halsband. Sie gehörte einem Schaffner, dessen letzte Schicht im Fahrplan fehlt. Bei jedem langen Pfiff hebt sie zuerst den Kopf und sieht dann zu dir.",
+  "flags": {
+   "found": "tier_hund_gefunden",
+   "level": "tier_hund_stufe",
+   "active": "tier_aktiv"
+  },
+  "fund": {
+   "start": "zeile_0",
+   "hide_if_flags": [
+    "tier_hund_gefunden"
+   ],
+   "nodes": {
+    "zeile_0": {
+     "text": "Am Endbahnhof liegt eine Hündin unter einer Bank für Wartende.",
+     "next": "zeile_1"
+    },
+    "zeile_1": {
+     "text": "Als der Zug pfeift, steht sie auf, doch niemand steigt für sie aus.",
+     "next": "zeile_2"
+    },
+    "zeile_2": {
+     "text": "Am Halsband hängt ein leeres Fach für eine Fahrmarke.",
+     "next": "zeile_3"
+    },
+    "zeile_3": {
+     "text": "Ein Gepäckträger erzählt von einem Schaffner, dessen Name von der Schichttafel verschwand.",
+     "next": "zeile_4"
+    },
+    "zeile_4": {
+     "text": "„Pegel“, sagt er. „So hat er sie gerufen, wenn sie zu nah am Rand stand.“",
+     "next": "zeile_5"
+    },
+    "zeile_5": {
+     "text": "Du findest neben der Bank einen zusammengefalteten Fahrplan mit einer Hundepfote aus Kohlenstaub.",
+     "next": "zeile_6"
+    },
+    "zeile_6": {
+     "text": "Pegel legt die Nase auf deine Hand, ohne die Gleise aus dem Blick zu lassen.",
+     "next": "zeile_7"
+    },
+    "zeile_7": {
+     "text": "Du kannst ihr anbieten mitzukommen oder ihr den geschützten Platz unter der Bank lassen.",
+     "choices": [
+      {
+       "text": "Einen Platz anbieten.",
+       "next": "zeile_8"
+      },
+      {
+       "text": "Später wiederkommen.",
+       "next": "zeile_9"
+      }
+     ]
+    },
+    "zeile_8": {
+     "text": "Pegel wartet einen letzten Pfiff ab und folgt dann deinen Schritten.",
+     "effects": {
+      "set_flags": [
+       "tier_hund_gefunden"
+      ],
+      "tier_claim": "tier_hund"
+     },
+     "end": true
+    },
+    "zeile_9": {
+     "text": "Du stellst die Bank dichter an die Wand. Pegel bleibt sicher hier und erkennt dich später wieder.",
+     "end": true
+    }
+   }
+  },
+  "feedReactions": {
+   "0": [
+    "Pegel nimmt den Bissen vorsichtig mit den Vorderzähnen.",
+    "Sie sieht zwischen dir und dem Futter hin und her."
+   ],
+   "1": [
+    "Nach dem Fressen drückt sie die Nase gegen deinen Ärmel.",
+    "Pegel wartet geduldig, während du die Verpackung öffnest."
+   ],
+   "2": [
+    "Sie setzt sich dicht neben dich und lässt die Gleise aus dem Blick.",
+    "Der Schwanz schlägt einmal gegen die Bank."
+   ],
+   "3": [
+    "Pegel legt nach dem Fressen den Kopf auf dein Knie.",
+    "Sie dreht sich auf ihrer Decke herum und rückt näher zu deinem Stuhl."
+   ]
+  },
+  "giftMessages": [
+   "Pegel bleibt stehen; die Reisefalle ist nun vor dem Aufbruch erkennbar.",
+   "Ein kurzes Bellen lenkt deinen Blick auf die auffällige Route.",
+   "Die Hündin zeigt dir den Hinterhalt, entscheidet aber nicht über deinen Weg.",
+   "Pegel wittert an der Route. Hier liegt keine verborgene Reisefalle."
+  ],
+  "battleMessages": [
+   "Pegels Warnung lässt dich ausweichen: Der nächste gültige Treffer wird halbiert.",
+   "Ein Bellen gibt dir die halbe Sekunde, die du brauchst.",
+   "Du gehst in Deckung, bevor der angekündigte Schlag eintrifft.",
+   "Pegel bleibt in Sicherheit; ihre Warnung schützt deinen nächsten Schritt."
+  ],
+  "officeLines": [
+   "Pegel kreist einmal über der Decke und legt sich hin.",
+   "Beim Griff zur Türklinke ist sie bereits auf den Pfoten.",
+   "Sie wartet auf der Decke, ohne zur Tür zu drängen."
+  ],
+  "coopLines": [
+   "Pegel wartet am Ausgang, bis beide Reisenden bereit sind.",
+   "Sie hält dem zweiten Tier einen trockenen Streifen der Decke frei."
+  ],
+  "art": {
+   "walk": "characters/tier_hund.png",
+   "poses": "characters/tier_hund_posen.png",
+   "battle": "battle/tier_hund_eingriff.png",
+   "portrait": "portraits/tiere/tier_hund.png"
+  }
+ }
+}

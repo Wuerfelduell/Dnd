@@ -5,7 +5,9 @@
 import { PATHWAY_STANDIN } from '../data/sequenzen.js';
 import { preloadRitualArt } from './ritualArt.js';
 import { DS_ZIRKEL_ICONS, DS_ZIRKEL_FIGUREN } from '../data/dunscarZirkel.js';
+import { VS_ICONS } from '../data/vorratStuecke.js';
 import { DS_ORTSKUNDIGE } from '../data/dunscarOrtskundige.js';
+import { DSH_ICONS } from '../data/dunscarAusbau.js';
 
 const BASE = './sprites/';
 export const SPRITE_BASE = BASE;
@@ -644,6 +646,8 @@ export const moneyIconUrl = (n) => `${BASE}items/${n >= 60 ? 'geldbeutel' : n >=
 
 /** Texture-Key → [Pfad, Framebreite, Framehöhe = Breite]. Frames/Animationen: manifest-14b.json bzw. manifest-kampf.json. */
 export const BATTLE_SHEETS = {
+  // Codex DF: Tiergefährten (16er Lauf-Sheets: unten, links, rechts, oben, Flug)
+  tier_rabe: ['characters/tier_rabe.png', 16], tier_kater: ['characters/tier_kater.png', 16], tier_hund: ['characters/tier_hund.png', 16],
   battle_player: ['battle/battle_player.png', 48],
   enemy_holt: ['battle/enemy_holt.png', 48],
   enemy_nebelhund: ['battle/enemy_nebelhund.png', 64],
@@ -1027,6 +1031,8 @@ export const BH_SCENES = ['bh_ankunft', 'bh_trockenraum', 'bh_pfirsich'];
 /** Paket CE2: Szenen von Kapitel 4 (Aufzugsfahrt 480x270, zwei Teller 480x270, Sortierkabine 240x135). */
 export const CW_SCENES = ['cw_aufzug', 'cw_zwei_teller', 'cw_sortierkabine'];
 BH_SCENES.push(...CW_SCENES);
+/** Kapitelübergang Wexmoor → Dunscar: Nachtzug durch die Kalkberge (480x270, lag bisher ungenutzt). */
+BH_SCENES.push('ds_nachtzug');
 export const sceneUrl = (id) => (id?.startsWith('fest_') ? `${BASE}sequences/${id}.png` : /^hg_seq[24]_/.test(id ?? '') ? `${BASE}ui/${id}.png` : CHAPTER_CARDS.includes(id) || FX_SCENES.includes(id) || BH_SCENES.includes(id) ? `${BASE}ui/scenes/${id}.png` : SCENES.includes(id) ? `${BASE}ui/scenes/E_szene_${id}.png`
   : TRAVEL_SCENES.includes(id) ? `${BASE}ui/scenes/I_${id}.png`
     : J_SCENES.includes(id) ? `${BASE}ui/scenes/J_szene_${id}.png`
@@ -1199,7 +1205,7 @@ const ICON32 = ['stimmphiole', 'verlorenes_gesangbuch', 'spiegelscherbe', ...F_E
   // Zirkelwaffen aus dem Vorrat nebel200 (geheime Treffen)
   'zirkel_ritualdolch', 'zirkel_bannglocke', 'zirkel_russhacke', 'zirkel_moorkette', 'zirkel_salzharpune',
   // Dunscar-Zirkel: seltene und unmögliche Stücke aus dem Vorrat nebel200
-  ...DS_ZIRKEL_ICONS];
+  ...DS_ZIRKEL_ICONS, ...VS_ICONS];
 export const itemIcon32Url = (id) => {
   const k = ITEM_ICON_ALIASES[id] ?? id;
   return k.startsWith('trank_') || ICON32.includes(k) || AG_ICONS(k) ? `${BASE}items/32/${standinIcon(k)}.png` : null;
@@ -2420,7 +2426,14 @@ for (const [prefix, id] of [['dsp_endbahnhof', 'ds_endbahnhof'], ['dsp_schwellen
   SHEETS[prefix] = `props/${id}.png`;
   REGION_SHEETS[prefix] = ['manifestDunscar1', id];
 }
+/** AV-Innenmöbel (Speisewagen, Prüfhaus, Lohnbüro), platziert von data/dunscarAusbau.js. */
+for (const id of ['ds_speisewagen', 'ds_pruefhaus', 'ds_lohnbuero']) {
+  SHEETS[`dspi_${id.slice(3)}`] = `props/${id}.png`;
+  REGION_SHEETS[`dspi_${id.slice(3)}`] = ['manifestDunscar1', id];
+}
+Object.assign(ITEM_ICON_ALIASES, DSH_ICONS);
 Object.assign(REGION_ANIMS, {
+  dspi_speisewagen: { stove: [['coal_stove_fire_1', 'coal_stove_fire_2'], 4], phonograph: [['wax_cylinder_phonograph_rotation_1', 'wax_cylinder_phonograph_rotation_2', 'wax_cylinder_phonograph_rotation_3', 'wax_cylinder_phonograph_rotation_4'], 6] },
   dsp_schwellenring: { signal: [['signal_arm_up', 'signal_arm_down'], 1] },
   dsp_bruchsignal: { scaffold: [['scaffold_sway_left', 'scaffold_sway_right'], 2], listening: [['listening_horn_turquoise_pulse_1', 'listening_horn_turquoise_pulse_2', 'listening_horn_turquoise_pulse_3', 'listening_horn_turquoise_pulse_4'], 5] },
 });

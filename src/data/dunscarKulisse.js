@@ -34,6 +34,7 @@ const SEITE = { N: 'Norden', S: 'Süden', W: 'Westen', E: 'Osten' };
 const FASSADE = {
   ds_teesaal: 'dsp_kalkmarkt_tea_room_facade', ds_pruefhaus: 'dsp_bruchsignal_sound_testing_house_facade', ds_runddepot: 'dsp_schwellenring_roundhouse_doors',
   ds_lohnbuero: 'dsp_arbeiterbogen_limestone_doorway', ds_speisewagen: 'dsp_arbeiterbogen_limestone_doorway',
+  ds_gasthaus: 'dsp_arbeiterbogen_limestone_doorway', ds_apotheke: 'dsp_kalkmarkt_tea_room_facade', // dunscarAusbau.js
 };
 /** Zirkel, deren Treffpunkt nicht über DS_ZIRKEL läuft. */
 const ZIRKEL_EXTRA = { ds_schwellenring: 'Der Schichtbund (Eingang im Runddepot)' };

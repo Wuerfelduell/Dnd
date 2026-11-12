@@ -8,6 +8,8 @@ import { erfolgePack, ERFOLGE_FILES, postPack, POST_FILES } from '../src/data/ru
 import { benanntePack, BENANNTE_FILES } from '../src/data/benannte.js';
 import { seq4DrPack, SEQ4_DR_FILES } from '../src/data/seq4Dr.js';
 import { dunscarZirkelPack } from '../src/data/dunscarZirkel.js';
+import { vorratStueckePack } from '../src/data/vorratStuecke.js';
+import { tierePack, TIERE_FILES } from '../src/data/tiere.js';
 
 const load = (p) => JSON.parse(readFileSync(new URL(`../src/data/${p}`, import.meta.url), 'utf8'));
 
@@ -56,6 +58,8 @@ export function loadContent({ sequenzen = true, without = [] } = {}) {
         ...Object.fromEntries(['geplauder', 'kampf', 'bindung'].map((f) => [f, load(`packs/koop_k3/${f}.json`)])) } : {}) })),
     // Dunscar: zwei weitere Zirkel und Lose im Tausenderbereich (nach k3_handel)
     ...(without.includes('ds_zirkel') ? [] : [dunscarZirkelPack()]),
+    vorratStueckePack(),
+    ...(without.includes('tiere') ? [] : [tierePack(Object.fromEntries(TIERE_FILES.map((f) => [f, load(`packs/tiere/${f}.json`)])))]),
     // Kapitel-1-Finale: Epilogtafeln nach Fall 9 und Prices Fahndung in Kettlegate
     ...(without.includes('k1_finale') ? [] : [{ name: 'k1_finale', epiloge: load('packs/k1_finale/epiloge.json'), police: load('packs/k1_finale/police.json') }]),
     // Paket BG bringt nur Zusätze, Ansprüche, Ersatzzeilen und Texte
