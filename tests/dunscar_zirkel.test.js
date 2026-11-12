@@ -12,8 +12,11 @@ const content = loadContent();
 const C = content.gatherings.circles;
 const dunscar = Object.entries(C).filter(([, c]) => c.city === 'dunscar');
 
-test('Drei Zirkel in Dunscar: alte Stücke zu alten Preisen, neue im Tausenderbereich, Seq-3-Formeln selten und teuer', () => {
-  assert.deepEqual(dunscar.map(([id]) => id).sort(), ['kalkofen', 'schichtbund', 'stellwerk']);
+test('Vier Zirkel in Dunscar (alte Zirkel zusammengeführt): alte Stücke zu alten Preisen, neue im Tausenderbereich, Seq-3-Formeln selten und teuer', () => {
+  assert.deepEqual(dunscar.map(([id]) => id).sort(), ['kalkofen', 'salzds', 'schichtbund', 'stellwerk']);
+  // Seb 2026-11-12: die alten Zirkel sind nach Dunscar gezogen (Namen und Gastgeber wie früher)
+  assert.deepEqual(['schichtbund', 'stellwerk', 'kalkofen', 'salzds'].map((id) => [C[id].name, C[id].host]),
+    [['Die Stille Waage', 'tresswell'], ['Der Kreidezirkel', 'vellacourt'], ['Die Rußgesellschaft', 'kohlenjem'], ['Die Salzbrüder', 'zirkel_salzbruder']]);
   for (const [id, c] of dunscar) {
     for (const m of c.members) for (const o of m.offers) {
       const it = content.items[o.item];
@@ -48,7 +51,7 @@ test('Nach der Ankunft ist man in allen drei Zirkeln; die Treffen wechseln sich 
   s.flags.add('treffen_schichtbund');
   s.flags.add('briefed_04');
   s.map = 'ds_kalkmarkt';
-  for (const id of ['schichtbund', 'kalkofen', 'stellwerk']) assert.ok(s.isMember(id), id);
+  for (const id of ['schichtbund', 'kalkofen', 'stellwerk', 'salzds']) assert.ok(s.isMember(id), id);
   const seen = new Set([0, 1, 2].map((c) => s.gatheringSlot(c).id));
   assert.equal(seen.size, 3);
   // Eine Runde im Kalten Ofen eröffnen
