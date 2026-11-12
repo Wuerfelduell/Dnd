@@ -169,27 +169,27 @@ function waageSession() {
   return s;
 }
 
-/** Bis zum falsch gewogenen Los vorspulen (aussteigen, Gesuche ablehnen). */
+/** Bis zum überteuerten Los vorspulen (aussteigen, Gesuche ablehnen). */
 function toRiggedLot(s) {
   const a = s.auction;
   let guard = 0;
   while (guard++ < 40) {
     if (a.phase === 'lot' && a.lot.rigged) return a.lot;
-    if (a.phase === 'lot') { assert.equal(a.lot.declared, a.lot.onTable, 'ehrliche Lose stimmen'); s.passLot(); } else if (a.phase === 'request') s.declineRequest(); else break;
+    if (a.phase === 'lot') { assert.ok(a.lot.start <= a.lot.appraisal, 'ehrliche Lose starten unter Wert'); s.passLot(); } else if (a.phase === 'request') s.declineRequest(); else break;
   }
   return null;
 }
 
-test('Waage: in jeder Runde ist genau ein Los falsch gewogen, Angabe und Tisch stehen bei jedem Los', () => {
+test('Waage: in jeder Runde ist genau ein Los überteuert, Schätzwert und Ausruf stehen bei jedem Los', () => {
   const s = waageSession();
   assert.ok(s.fraudPending());
   assert.equal(s.startSession('waage').ok, true);
   const a = s.auction;
   assert.ok(a.fraud && a.fraud.turn >= 0 && a.fraud.turn < a.members.length);
   const lot = toRiggedLot(s);
-  assert.ok(lot, 'ein falsch gewogenes Los');
-  assert.ok(lot.declared > lot.onTable && lot.onTable >= 1, `${lot.declared} angesagt, ${lot.onTable} da`);
-  assert.ok(a.log.some((t) => new RegExp(`${lot.declared} Stück`).test(t)), a.log.join(' | '));
+  assert.ok(lot, 'ein überteuertes Los');
+  assert.ok(lot.start >= lot.appraisal * 1.8, `${lot.start} ausgerufen, ${lot.appraisal} wert`);
+  assert.ok(a.log.some((t) => new RegExp(`Start bei ${lot.start} Schilling`).test(t)), a.log.join(' | '));
   // Anprangern: Schritt erfüllt, Los verfällt
   const acc = s.accuseFraud();
   assert.equal(acc.exposed, true);
@@ -222,7 +222,7 @@ test('Ohne Waage-Ritual bleibt die Runde wie bisher', () => {
   assert.equal(s.auction.fraud, undefined);
   assert.equal(s.accuseFraud().ok, false);
   let guard = 0;
-  while (guard++ < 40 && s.auction.phase !== 'own') { if (s.auction.phase === 'lot') { assert.ok(!s.auction.lot.rigged && !s.auction.lot.declared); s.passLot(); } else if (s.auction.phase === 'request') s.declineRequest(); else break; }
+  while (guard++ < 40 && s.auction.phase !== 'own') { if (s.auction.phase === 'lot') { assert.ok(!s.auction.lot.rigged && !s.auction.lot.appraisal); s.passLot(); } else if (s.auction.phase === 'request') s.declineRequest(); else break; }
 });
 
 // --- Schlüssel: Schlösser knacken ---------------------------------------------------------------

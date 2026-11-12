@@ -2156,7 +2156,7 @@ export class Ui {
       <ul class="steps">${steps.map((x) => `<li class="${x.done ? 'done' : ''}">${x.done ? '✓' : '○'} ${esc(x.text)}</li>`).join('')}</ul>
       ${this.seq5Html(r)}
       ${probe ? `<p><button class="small primary" data-probe="1">${esc(probe.name)} antreten</button> <span class="muted">Eine zufällige Prüfung, überall ablegbar. Misslingt sie, kostet das ${PROBE_FAIL.nerves} Nerven und bringt ${PROBE_FAIL.unruhe} Unruhe; dann kannst du es gleich noch einmal versuchen.</span></p>` : ''}
-      ${steps.some((x) => x.fraud && !x.done) ? '<p class="muted">Auf jedem geheimen Treffen ist ein Los falsch gewogen: Bei jedem Los siehst du die Angabe des Anbieters und was wirklich auf dem Tisch liegt. Stimmt es nicht überein, „Betrug anprangern“.</p>' : ''}
+      ${steps.some((x) => x.fraud && !x.done) ? '<p class="muted">Auf jedem geheimen Treffen ist ein Los überteuert: Bei jedem Los siehst du den Schätzwert neben dem Ausruf. Ruft ein Anbieter weit über Wert aus, „Betrug anprangern“.</p>' : ''}
       <button class="small ${ready ? 'primary' : ''}" data-ritual="1" ${ready ? '' : 'disabled'}>${ready && r.ordeal && !s.ordealDone(s.pathway.id, seq) ? 'Schwellenwächter rufen' : 'Ritual vollziehen'}</button> <span class="muted">Kostet 20 Nerven und bringt 20 Unruhe.${r.ordeal ? ' Ein schweres Ritual: Wenn alles andere steht, tritt der Schwellenwächter deines Pfades an.' : ''}</span></div>`;
   }
 
@@ -2507,7 +2507,7 @@ export class Ui {
       const next = s.nextBid();
       stage = `${portrait(l.seller)}<div class="speaker">${esc(s.memberName(l.seller))} <span class="role">${esc(s.content.npcs[l.seller]?.role ?? '')}</span></div>
         <div class="lot">${itemIconBig(l.item)}<strong>${esc(it.name)}</strong>${s.itemCount(l.item) ? ` <span class="muted">(hast ${s.itemCount(l.item)})</span>` : ''}<br><span class="desc">${esc(it.desc ?? '')}</span>${offerHtml(s, l.item)}</div>
-        ${l.declared ? `<p class="bidline waage">Angabe: <b>${l.declared} Stück</b> · auf dem Tisch: <b>${l.onTable}</b></p>` : ''}
+        ${l.appraisal ? `<p class="bidline waage">Schätzwert: <b>${l.appraisal} Sch.</b> · Ausruf: <b>${l.start ?? l.price} Sch.</b></p>` : ''}
         <p class="bidline">${l.leader && l.leader !== 'player' ? headFace(l.leader, s.memberName(l.leader)) : ''}Gebot: <b>${l.price} Sch.</b> · führt: ${who(l.leader)}</p>`;
       if (l.leader !== 'player') acts.push({ label: `${l.leader ? 'Überbieten' : 'Bieten'}: ${next} Sch.`, fn: () => s.bid(), off: s.money < next });
       acts.push({ label: 'Aussteigen', fn: () => s.passLot() });

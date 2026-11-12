@@ -6,12 +6,13 @@
 // Lose und Gesuche stehen pro Treffen fest (Startwert aus Runde und Zirkel), damit man sie
 // vorher ankündigen kann und Neuladen nichts ändert.
 // Ritual der Waage (Seb, 2026-11-12): Wer auf dem Pfad der Waage vor seinem Seq-6-Ritual steht, sieht bei
-// jedem Los die Angabe des Anbieters („3 Stück“) neben dem, was wirklich auf dem Tisch liegt. In jeder Runde
-// stimmt das bei genau einem Los nicht (falsches Gewicht). „Betrug anprangern“ bei diesem Los deckt ihn auf;
-// beim falschen fliegt man aus der Runde.
+// jedem Los den Schätzwert neben dem Ausruf. In jeder Runde ruft genau ein Anbieter sein Los weit über Wert
+// aus (überteuerter Preis). „Betrug anprangern“ bei diesem Los deckt ihn auf; beim falschen fliegt man aus der Runde.
 import { seeded } from './Gatherings.js';
 
 export const FRAUD_WRONG = { nerves: 15, unruhe: 10 };
+/** Aufschlag des überteuerten Loses auf den Schätzwert (ehrliche Lose starten bei 60 %). */
+export const FRAUD_MARKUP = { min: 1.8, max: 2.5 };
 
 const FORMULA_VALUE = { 9: 25, 8: 60, 7: 140, 6: 260, 5: 420 };
 
@@ -166,18 +167,20 @@ export const auctionMethods = {
     const step = Math.max(1, Math.round(e.price * (r.step ?? 0.1)));
     a.phase = 'lot';
     a.lot = { seller, item: e.item, value: e.price, price: start, step, leader: null, ceilings };
-    // Ritual der Waage: Angabe des Anbieters gegen das, was auf dem Tisch liegt. Beim abgekarteten Los fehlt etwas.
+    // Ritual der Waage: neben dem Ausruf steht der Schätzwert. Beim abgekarteten Los ruft der Anbieter weit über Wert aus.
     if (a.fraud) {
-      const onTable = 1 + Math.floor(rng() * 3); // 1 bis 3 Stück
-      const rigged = !a.fraud.exposed && a.turn === a.fraud.turn;
-      a.lot.onTable = onTable;
-      a.lot.declared = rigged ? onTable + 1 + Math.floor(rng() * 2) : onTable;
-      if (rigged) a.lot.rigged = true;
+      a.lot.appraisal = e.price;
+      if (!a.fraud.exposed && a.turn === a.fraud.turn) {
+        a.lot.rigged = true;
+        a.lot.price = Math.round(e.price * (FRAUD_MARKUP.min + rng() * (FRAUD_MARKUP.max - FRAUD_MARKUP.min)));
+      }
     }
-    this.say(`${this.memberName(seller)} legt ${this.item(e.item).name} auf den Tisch${a.lot.declared ? ` („${a.lot.declared} Stück, gutes Gewicht“)` : ''}. Start bei ${start} Schilling.`);
+    const ask = a.lot.price;
+    a.lot.start = ask;
+    this.say(`${this.memberName(seller)} legt ${this.item(e.item).name} auf den Tisch. ${a.lot.rigged ? `„Ein seltenes Stück, unter Freunden.“ Start bei ${ask} Schilling.` : `Start bei ${ask} Schilling.`}`);
     // Der eifrigste Mitbieter eröffnet, wenn ihm der Startpreis recht ist
-    const [first] = this.rivalsAbove(start);
-    if (first) { a.lot.leader = first; this.say(`${this.memberName(first)} bietet ${start}.`); }
+    const [first] = this.rivalsAbove(ask);
+    if (first) { a.lot.leader = first; this.say(`${this.memberName(first)} bietet ${ask}.`); }
   },
 
   /** Mitbieter, die mindestens `price` zahlen würden, der höchste zuerst. */
@@ -246,7 +249,7 @@ export const auctionMethods = {
   },
 
   /**
-   * Der Spieler prangert das laufende Los als falsch gewogen an. Richtig: Angabe und Tisch stimmen nicht überein,
+   * Der Spieler prangert das laufende Los als überteuert an. Richtig: der Ausruf liegt weit über dem Schätzwert,
    * das Los verfällt, der Ritualschritt ist erfüllt. Falsch: Nerven und Unruhe, und der Gastgeber setzt einen vor die Tür.
    */
   accuseFraud() {
@@ -259,12 +262,12 @@ export const auctionMethods = {
       a.fraud.exposed = true;
       const p = this.pathway;
       this.flags.add(this.fraudFlag(p.id, p.seq - 1));
-      this.say(`Du zählst laut nach: ${l.declared} angesagt, ${l.onTable} auf dem Tisch. Stille. Dann schiebt ${seller} das Los zurück in die Tasche.`);
+      this.say(`Du nennst den Schätzwert laut: ${l.appraisal} Schilling, nicht ${l.start}. Stille. Dann schiebt ${seller} das Los zurück in die Tasche.`);
       this.act?.('fact_refuted');
       this.emit('fraud', { circle: a.circle, seller: l.seller });
       this.emit('changed');
       this.openRequest();
-      return { ok: true, exposed: true, text: `Betrug aufgedeckt: ${seller} hat ${l.declared} Stück angesagt, auf dem Tisch lagen ${l.onTable}. Die Waage hat gesprochen.` };
+      return { ok: true, exposed: true, text: `Betrug aufgedeckt: ${seller} wollte ${l.start} Schilling für ein Stück, das ${l.appraisal} wert ist. Die Waage hat gesprochen.` };
     }
     this.say(`Du nennst ${seller} einen Betrüger. Niemand am Tisch nickt. Der Gastgeber zeigt zur Tür.`);
     this.setComposure(this.composure - FRAUD_WRONG.nerves);
