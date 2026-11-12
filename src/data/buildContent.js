@@ -90,6 +90,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyRelations(content, beziehungen, packs); // Beziehungen: Regeln, Vorlieben, Knoten-Wirkungen
   applyDunscarHaendler(content); // Dunscar: Waffen, Kleidung, Kräuter und Ankauf am Kalkmarkt (kein Zurück in alte Städte)
   applyAltbeute(content); // Wexmoor-Monster tragen ab und zu Kettlegater Beute (kein Zurück dorthin)
+  applyDunscarDichte(content); // Dunscar-Gefahrengebiete so dicht besetzt wie Wexmoor (vorher nur 3–4 Gegner)
   return content;
 }
 
@@ -399,4 +400,36 @@ function wildContent(wilds) {
     }
   }
   return out;
+}
+
+/** Gegner je Dunscar-Gefahrengebiet (Wexmoor: 17–19 in den großen Gebieten). */
+export const DUNSCAR_ROAMERS = 18;
+/** Füllt die Dunscar-Gefahrengebiete mit weiteren Laufgegnern aus dem eigenen Gebiet auf, verteilt über die begehbaren Felder. */
+function applyDunscarDichte(content) {
+  for (const [id, m] of Object.entries(content.maps)) {
+    const zone = content.zones?.[id];
+    if (!id.startsWith('ds_') || !m.danger || !zone || !m.rows) continue;
+    const pool = Object.entries(zone.encounters ?? {}).filter(([k, e]) => !e.boss && !e.flees_after && !k.endsWith('_elite') && content.encounters[k]).map(([k]) => k);
+    const roamers = [...(m.roamers ?? [])];
+    if (!pool.length || roamers.length >= DUNSCAR_ROAMERS) continue;
+    const taken = [...(m.npcs ?? []), ...(m.interactables ?? []), ...roamers].filter((o) => o.tile).map((o) => o.tile);
+    const spawns = Object.values(m.spawns ?? {});
+    const free = [];
+    m.rows.forEach((row, y) => [...row].forEach((ch, x) => { if (ch === '.' || /[gpscwPK=,]/.test(ch)) free.push([x, y]); }));
+    const dist = (a, b) => Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]);
+    // Feste Reihenfolge (kein Zufall beim Laden): immer das Feld mit dem größten Abstand zu Eingängen und anderen Gegnern
+    let n = 0;
+    while (roamers.length < DUNSCAR_ROAMERS) {
+      let best = null;
+      for (const t of free) {
+        if (spawns.some((sp) => dist(t, sp) < 8)) continue;
+        const d = Math.min(99, ...taken.map((o) => dist(t, o)));
+        if (d >= 4 && (!best || d > best.d)) best = { d, t };
+      }
+      if (!best) break;
+      roamers.push({ id: `${id}_dichte${++n}`, encounter: pool[(roamers.length + n) % pool.length], tile: best.t, elite_chance: 0.12 });
+      taken.push(best.t);
+    }
+    content.maps[id] = { ...m, roamers };
+  }
 }
