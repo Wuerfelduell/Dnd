@@ -5,10 +5,10 @@
 // (core/Artisan.js, 30 %), kann man ihr dann Beutestücke zu Artefakten fassen lassen.
 // Lose und Gesuche stehen pro Treffen fest (Startwert aus Runde und Zirkel), damit man sie
 // vorher ankündigen kann und Neuladen nichts ändert.
-// Ritual der Waage (Seb, 2026-11-12): Wer auf dem Pfad der Waage vor seinem Seq-6-Ritual steht, erlebt in
-// jeder Runde einen abgekarteten Handel: ein Mitglied treibt als Strohmann des Anbieters den Preis hoch.
-// Man erkennt es am Blick zwischen den beiden und daran, dass der Strohmann ohne hinzusehen und in großen
-// Sprüngen bietet. „Betrug anprangern“ beim richtigen Los deckt ihn auf; beim falschen fliegt man aus der Runde.
+// Ritual der Waage (Seb, 2026-11-12): Wer auf dem Pfad der Waage vor seinem Seq-6-Ritual steht, sieht bei
+// jedem Los die Angabe des Anbieters („3 Stück“) neben dem, was wirklich auf dem Tisch liegt. In jeder Runde
+// stimmt das bei genau einem Los nicht (falsches Gewicht). „Betrug anprangern“ bei diesem Los deckt ihn auf;
+// beim falschen fliegt man aus der Runde.
 import { seeded } from './Gatherings.js';
 
 export const FRAUD_WRONG = { nerves: 15, unruhe: 10 };
@@ -166,15 +166,15 @@ export const auctionMethods = {
     const step = Math.max(1, Math.round(e.price * (r.step ?? 0.1)));
     a.phase = 'lot';
     a.lot = { seller, item: e.item, value: e.price, price: start, step, leader: null, ceilings };
-    // Das abgekartete Los: ein Strohmann des Anbieters bietet weit über Wert, damit andere mitziehen
-    if (a.fraud && !a.fraud.exposed && a.turn === a.fraud.turn) {
-      const others = a.members.filter((m) => m !== seller);
-      const shill = others[Math.floor(rng() * others.length)];
-      ceilings[shill] = Math.round(e.price * 2.4);
-      a.lot.shill = shill;
-      a.lot.step = step * 2;
-      this.say(`${this.memberName(seller)} legt ${this.item(e.item).name} auf den Tisch. Start bei ${start} Schilling. Dabei wirft ${this.memberName(seller)} ${this.memberName(shill)} einen kurzen Blick zu.`);
-    } else this.say(`${this.memberName(seller)} legt ${this.item(e.item).name} auf den Tisch. Start bei ${start} Schilling.`);
+    // Ritual der Waage: Angabe des Anbieters gegen das, was auf dem Tisch liegt. Beim abgekarteten Los fehlt etwas.
+    if (a.fraud) {
+      const onTable = 1 + Math.floor(rng() * 3); // 1 bis 3 Stück
+      const rigged = !a.fraud.exposed && a.turn === a.fraud.turn;
+      a.lot.onTable = onTable;
+      a.lot.declared = rigged ? onTable + 1 + Math.floor(rng() * 2) : onTable;
+      if (rigged) a.lot.rigged = true;
+    }
+    this.say(`${this.memberName(seller)} legt ${this.item(e.item).name} auf den Tisch${a.lot.declared ? ` („${a.lot.declared} Stück, gutes Gewicht“)` : ''}. Start bei ${start} Schilling.`);
     // Der eifrigste Mitbieter eröffnet, wenn ihm der Startpreis recht ist
     const [first] = this.rivalsAbove(start);
     if (first) { a.lot.leader = first; this.say(`${this.memberName(first)} bietet ${start}.`); }
@@ -208,7 +208,7 @@ export const auctionMethods = {
     if (rival) {
       l.price = price + l.step;
       l.leader = rival;
-      this.say(rival === l.shill ? `${this.memberName(rival)} hält dagegen, ohne das Stück anzusehen: ${l.price}.` : `${this.memberName(rival)} hält dagegen: ${l.price}.`);
+      this.say(`${this.memberName(rival)} hält dagegen: ${l.price}.`);
       return { ok: true, outbid: true };
     }
     // Niemand geht mit: Zuschlag
@@ -245,8 +245,8 @@ export const auctionMethods = {
   },
 
   /**
-   * Der Spieler prangert das laufende Los als abgekartet an. Richtig: der Strohmann ist enttarnt, das Los
-   * verfällt, der Ritualschritt ist erfüllt. Falsch: Nerven und Unruhe, und der Gastgeber setzt einen vor die Tür.
+   * Der Spieler prangert das laufende Los als falsch gewogen an. Richtig: Angabe und Tisch stimmen nicht überein,
+   * das Los verfällt, der Ritualschritt ist erfüllt. Falsch: Nerven und Unruhe, und der Gastgeber setzt einen vor die Tür.
    */
   accuseFraud() {
     const a = this.auction;
@@ -254,17 +254,16 @@ export const auctionMethods = {
     if (!l || a.phase !== 'lot') return { ok: false, text: 'Gerade steht nichts zum Verkauf.' };
     if (!a.fraud || a.fraud.exposed) return { ok: false, text: 'Heute hast du hier nichts aufzudecken.' };
     const seller = this.memberName(l.seller);
-    if (l.shill) {
-      const shill = this.memberName(l.shill);
+    if (l.rigged) {
       a.fraud.exposed = true;
       const p = this.pathway;
       this.flags.add(this.fraudFlag(p.id, p.seq - 1));
-      this.say(`Du legst den Finger auf den Tisch: ${shill} bietet für ${seller}, nicht für sich. Stille. Dann schiebt ${seller} das Los zurück in die Tasche.`);
+      this.say(`Du zählst laut nach: ${l.declared} angesagt, ${l.onTable} auf dem Tisch. Stille. Dann schiebt ${seller} das Los zurück in die Tasche.`);
       this.act?.('fact_refuted');
-      this.emit('fraud', { circle: a.circle, seller: l.seller, shill: l.shill });
+      this.emit('fraud', { circle: a.circle, seller: l.seller });
       this.emit('changed');
       this.openRequest();
-      return { ok: true, exposed: true, text: `Betrug aufgedeckt: ${shill} war der Strohmann von ${seller}. Die Waage hat gesprochen.` };
+      return { ok: true, exposed: true, text: `Betrug aufgedeckt: ${seller} hat ${l.declared} Stück angesagt, auf dem Tisch lagen ${l.onTable}. Die Waage hat gesprochen.` };
     }
     this.say(`Du nennst ${seller} einen Betrüger. Niemand am Tisch nickt. Der Gastgeber zeigt zur Tür.`);
     this.setComposure(this.composure - FRAUD_WRONG.nerves);
