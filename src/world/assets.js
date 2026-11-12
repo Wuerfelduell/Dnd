@@ -2385,6 +2385,11 @@ for (const [id, base] of [['k3o_gallowmere_phase2', 'gallowmere'], ['k3o_untersc
   ENCOUNTER_SHEETS[id] = `enemy_${base}`;
   BOSS_INTROS[id] = `${base}_ds`;
 }
+/** Gebietsbosse Dunscar (Klone der Story-Bosse): gleiches Kampf-Sheet, Bossbild und Bestiar-Bild. */
+for (const [id, base] of [['ds_gb_weichenfresser', 'schwellenhund'], ['ds_gb_bruchmeister', 'vorhauer'], ['ds_gb_schluchtrufer', 'vielrufer'], ['ds_gb_tiefenvorarbeiter', 'unterschicht']]) {
+  ENCOUNTER_SHEETS[id] = `enemy_${base}`;
+  BOSS_INTROS[id] = `${base}_ds`;
+}
 /** AV: Kampfkulissen der Viertel und Gefahrengebiete. */
 for (const id of ['endbahnhof', 'schwellenring', 'arbeiterbogen', 'bruchstufen', 'rangierwueste', 'klopfbruch', 'rufschlucht', 'letzter_bahnsteig', 'unterschicht']) {
   BATTLE_BACKGROUNDS[`ds_${id}`] = `bg_ds_${id}`;
