@@ -1817,6 +1817,39 @@ Prüfung: `python tools/art/calderwick2/check.py` (Pillow, aus jedem Arbeitsverz
 
 Keine Laufzeitintegration in diesem Paket.
 
+## CW — Varrowmouth 2 (`varrowmouth2`)
+
+61 PNGs: Kapitelkarte und Titelbild, zwei deckungsgleiche Gezeiten-Stadtkarten,
+zehn Kampfkulissen, elf Aktszenen (vier davon mit je vier Frames), vier Enden,
+scrollbarer Abspann, Gezeitenwechsel und Warnglocke, Pegeluhr-HUD, Zeiger,
+Pin-/Symbolstreifen sowie zwölf Item-Icons in 16 und 32 Pixeln.
+Manifest: `public/sprites/manifest-varrowmouth2.json`. Kein Spielcode geändert.
+
+- Szenen `K6_1`, `K6_5`, `K6_9`, `K6_10`: 240×135 pro Frame, vier Spalten,
+  3 fps, einmalig. Pegelherrin: sitzend → abgestützt → aufstehend → stehend.
+- Gezeiten-Sheet: 480×270 pro Frame, sechs Spalten, zwei Reihen; obere Reihe
+  Ebbe→Flut, untere Flut→Ebbe, 6 fps. Warnglocke: acht 32×32-Frames, 8 fps.
+- HUD: Zifferblatt `(0,0,48,48)`, Countdown-Rahmen `(48,0,80,24)`, Marken bei
+  `(48,32)` und `(64,32)`. Zeiger liegen separat in `ui/vm_zeiger.png`, zwölf
+  16×16-Zellen, Pivot `(8,8)`, Zielposition `(16,16)` relativ zum HUD. Die
+  Spielzeit wählt die Stellung; zwölf Schritte über einen ganzen 12-Minuten-Zyklus.
+- Karten: acht identische Pin-Koordinaten im Manifest. Nebel wird beim Einbau
+  anhand besuchter Bezirke ausgeschnitten; kein fest eingebauter Besuchsstand.
+- Die CU-Datendatei `docs/story/k6_orte/items.json` war am Ausgangscommit noch
+  nicht vorhanden. Zwölf IDs wurden aus der CU-Aufgabenliste abgeleitet; vor
+  Einbau mit CU abgleichen. Um die geforderten zwölf Gegenstände einzuhalten,
+  werden die letzten sechs UI-Symbole über `symbolItemAliases` zugeordnet:
+  Unverzeichnete/Namenlos-Ring → `vmi_namenlos_ring`, Pegelrat → `vmi_zollsiegel`,
+  Leuchtfeuer → `vmi_leuchtbank_linse`, Grenzzaun → `vmi_lotsenmarke`,
+  Schlicksohlen → `vmi_schlicksohlen`. Keine zusätzlichen Spielgegenstände.
+- Prompts und verworfene erste Animationsversuche stehen in
+  `batch-varrowmouth2-generation.json`. Bilder mit `image_gen.imagegen` erzeugt,
+  Nearest Neighbor, gemeinsame Calderwick/Briarholt-Palette, binäres Alpha.
+  Die breiten Szenenstreifen wurden aus 2×2-Generatorbögen neu angeordnet.
+- Prüfung: `python tools/art/varrowmouth2/check.py` (Pillow). Erzeugt den
+  Validation-Bericht und die Gesamtvorschau. Prüft auch Hashes, eindeutige
+  Animationsframes, Atlasregionen, leere HUD-Restflächen und Karten-Pins.
+  Visuelle Semantik und Runtime-Einbau bleiben getrennte Prüfungen.
 ## CZ: Varrowmouth-Gegner und Bosse (`varrowmouth4`)
 
 41 PNGs aus 27 eigenständigen Bildgenerator-Sheets: zehn Kampf-Sheets, sieben Karten-Sheets, sieben Köpfe, sieben Bestiariumsbilder, neun Effekte und das Wrack-Prop. Sechs normale Gegnerformen einschließlich Salzkrusten-Rest, eine Elite und drei Boss-Kampfverträge. Die zwei Pegelherrin-Sheets bleiben bei CY.
