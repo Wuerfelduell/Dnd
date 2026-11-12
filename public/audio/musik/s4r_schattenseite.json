@@ -1,0 +1,84 @@
+{
+  "format": "nebel-musik-1",
+  "id": "s4r_schattenseite",
+  "titel": "Vierzig Prozent eines Körpers",
+  "art": "musik",
+  "bpm": 52,
+  "takt": [
+    4,
+    4
+  ],
+  "loop": true,
+  "loop_ab": 1,
+  "lautstaerke": 0.52,
+  "hall": 0.12,
+  "spuren": {
+    "boden": {
+      "instrument": "kontrabass",
+      "lautstaerke": 0.32
+    },
+    "splitter": {
+      "instrument": "celesta",
+      "lautstaerke": 0.18,
+      "pan": 0.15
+    }
+  },
+  "muster": {
+    "boden_a": {
+      "spur": "boden",
+      "takte": 4,
+      "noten": "d2:4 r:12 | r:16 | a1:4 r:12 | r:16"
+    },
+    "boden_b": {
+      "spur": "boden",
+      "takte": 4,
+      "noten": "bb1:4 r:12 | r:16 | f2:4 r:12 | a1:4 r:12"
+    },
+    "boden_c": {
+      "spur": "boden",
+      "takte": 4,
+      "noten": "g1:4 r:12 | r:16 | a1:4 r:12 | r:16"
+    },
+    "splitter_a": {
+      "spur": "splitter",
+      "takte": 4,
+      "noten": "r:12 a4:2 r:2 | r:16 | r:8 eb5:2 r:6 | r:16"
+    },
+    "splitter_b": {
+      "spur": "splitter",
+      "takte": 4,
+      "noten": "r:16 | f4:2 r:14 | r:12 e5:2 r:2 | r:16"
+    },
+    "splitter_c": {
+      "spur": "splitter",
+      "takte": 4,
+      "noten": "r:8 d5:2 r:6 | r:16 | r:4 c#5:2 r:10 | r:16"
+    }
+  },
+  "abschnitte": {
+    "intro": [
+      "boden_a"
+    ],
+    "A": [
+      "boden_a",
+      "splitter_a"
+    ],
+    "B": [
+      "boden_b",
+      "splitter_b"
+    ],
+    "C": [
+      "boden_c",
+      "splitter_c"
+    ]
+  },
+  "ablauf": [
+    "intro",
+    "A",
+    "B",
+    "C",
+    "A",
+    "C",
+    "B"
+  ]
+}

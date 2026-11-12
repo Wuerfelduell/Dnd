@@ -1,0 +1,120 @@
+{
+  "format": "nebel-musik-1",
+  "id": "s4r_laternennacht",
+  "titel": "Öl für die letzte Nacht",
+  "art": "musik",
+  "bpm": 60,
+  "takt": [
+    4,
+    4
+  ],
+  "loop": true,
+  "loop_ab": 1,
+  "lautstaerke": 0.52,
+  "hall": 0.12,
+  "spuren": {
+    "voll": {
+      "instrument": "celesta",
+      "lautstaerke": 0.3,
+      "pan": 0.2
+    },
+    "halb": {
+      "instrument": "streicher",
+      "lautstaerke": 0.24,
+      "pan": -0.2
+    },
+    "rest": {
+      "instrument": "kontrabass",
+      "lautstaerke": 0.22
+    },
+    "puls": {
+      "instrument": "pauke",
+      "lautstaerke": 0.22
+    }
+  },
+  "muster": {
+    "rest_a": {
+      "spur": "rest",
+      "takte": 4,
+      "noten": "d2:8 r:8 | r:8 a2:4 r:4 | bb1:8 r:8 | a1:4 r:12"
+    },
+    "rest_b": {
+      "spur": "rest",
+      "takte": 4,
+      "noten": "g2:8 r:8 | r:8 d2:4 r:4 | bb1:8 r:8 | a1:4 r:12"
+    },
+    "rest_c": {
+      "spur": "rest",
+      "takte": 4,
+      "noten": "d2:4 r:12 | bb1:4 r:12 | g1:8 r:8 | a1:4 r:12"
+    },
+    "voll_a": {
+      "spur": "voll",
+      "takte": 4,
+      "noten": "a4:4 f4:4 e4:4 r:4 | d4:8 r:8 | f4:4 g4:4 a4:4 r:4 | e4:8 r:8"
+    },
+    "voll_b": {
+      "spur": "voll",
+      "takte": 4,
+      "noten": "g4:4 bb4:4 a4:4 r:4 | f4:8 r:8 | e4:4 f4:4 d4:4 r:4 | c#4:8 r:8"
+    },
+    "voll_c": {
+      "spur": "voll",
+      "takte": 4,
+      "noten": "f4:4 e4:4 d4:4 r:4 | a4:8 r:8 | g4:4 f4:4 e4:4 r:4 | c#4:8 r:8"
+    },
+    "halb_a": {
+      "spur": "halb",
+      "takte": 4,
+      "noten": "[d3,f3]:8 r:8 | [a2,e3]:8 r:8 | [bb2,d3]:8 r:8 | [a2,c#3]:8 r:8"
+    },
+    "halb_b": {
+      "spur": "halb",
+      "takte": 4,
+      "noten": "[g2,bb2]:8 r:8 | [d3,f3]:8 r:8 | [bb2,d3]:8 r:8 | [a2,e3]:8 r:8"
+    },
+    "halb_c": {
+      "spur": "halb",
+      "takte": 4,
+      "noten": "[d3,a3]:8 r:8 | [bb2,f3]:8 r:8 | [g2,d3]:8 r:8 | [a2,e3]:8 r:8"
+    },
+    "puls": {
+      "spur": "puls",
+      "takte": 2,
+      "noten": "x:2@0.5 r:14 | x:2@0.35 r:14"
+    }
+  },
+  "abschnitte": {
+    "intro": [
+      "rest_a",
+      "puls"
+    ],
+    "A": [
+      "voll_a",
+      "halb_a",
+      "rest_a",
+      "puls"
+    ],
+    "B": [
+      "voll_b",
+      "halb_b",
+      "rest_b",
+      "puls"
+    ],
+    "C": [
+      "voll_c",
+      "halb_c",
+      "rest_c",
+      "puls"
+    ]
+  },
+  "ablauf": [
+    "intro",
+    "A",
+    "B",
+    "C",
+    "A",
+    "C",
+    "B"
+  ]
+}
