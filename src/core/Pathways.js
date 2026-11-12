@@ -37,6 +37,9 @@ export const DEFAULT_GROWTH = { hp: 5, nerves: 5 };
 // Sequenz 5 ist der große Durchbruch (Kapitel 2); 4 bis 1 wie von AF/AU empfohlen auf den Bestand aufgesetzt
 /** Mindestsprung der maximalen Leben beim Aufstieg 6 → 5 (Seb 2026-11-12). */
 export const SEQ5_HP_JUMP = 1.35;
+/** Mindestsprung beim Aufstieg 5 → 4 (Seb 2026-11-12): doppelte Leben, +50 % Nerven gegenüber Sequenz 5. */
+export const SEQ4_HP_JUMP = 2;
+export const SEQ4_NERVES_JUMP = 1.5;
 export const SEQ_GROWTH_STEPS = { 7: 2, 6: 2, 5: 3, 4: 4, 3: 2, 2: 5, 1: 3 };
 /**
  * Die hohen Durchbrüche (Seb, 2026-11-11): Sequenz 4 macht einen Halbgott aus dem Ermittler, Sequenz 2 einen Engel.
@@ -48,10 +51,11 @@ export const HOCH_DURCHBRUCH = {
     titel: 'Halbgott',
     passives: [
       { key: 'ap_start', value: 2, text: 'Halbgott: Jeder Kampf beginnt mit zwei weiteren Punkten Konzentration.' },
+      { key: 'ap_max', value: 1, text: 'Halbgott: +1 maximale Konzentration.' },
       { key: 'dmg_mult', value: 1.6, text: 'Halbgott: +60 % Schaden mit allen Angriffen und Fertigkeiten.' },
       { key: 'damage_taken', value: 0.7, text: 'Halbgott: Du nimmst 30 % weniger Schaden.' },
-      { key: 'max_hp', value: 25, text: 'Halbgott: +25 Leben.' },
-      { key: 'max_nerves', value: 25, text: 'Halbgott: +25 Nerven.' },
+      { key: 'max_hp', value: 25, text: 'Halbgott: doppelt so viele Leben wie auf Sequenz 5.' },
+      { key: 'max_nerves', value: 25, text: 'Halbgott: mindestens 50 % mehr Nerven als auf Sequenz 5.' },
       { key: 'composure_regen', value: 1.25, text: 'Halbgott: Nerven erholen sich 25 % schneller.' },
     ],
   },
@@ -262,13 +266,13 @@ export const pathwayMethods = {
 
   /** Höchstwert der Nerven: Grundwert, Sequenzen, Passive und Artefakte. */
   maxComposure() {
-    return Math.max(20, COMPOSURE_BASE + this.growth().nerves * this.growthSteps() + this.passive('max_nerves'));
+    return Math.max(20, COMPOSURE_BASE + this.growth().nerves * this.growthSteps() + this.passive('max_nerves') + this.seq4NervesBonus());
   },
 
   /** Höchstwert des Lebens (ohne zu heilen oder zu verletzen). */
   calcMaxHp() {
     const base = this.content.start.hp ?? 40;
-    return Math.max(10, base + this.growth().hp * this.growthSteps() + this.passive('max_hp') + this.seq5HpBonus());
+    return Math.max(10, base + this.growth().hp * this.growthSteps() + this.passive('max_hp') + this.seq5HpBonus() + this.seq4HpBonus());
   },
 
   /** Leben allein aus Pfad und Sequenzen bis einschließlich `seq` (ohne Artefakte, Kleidung, Zauber). */
@@ -289,6 +293,38 @@ export const pathwayMethods = {
   seq5HpBonus() {
     if (!this.pathway || this.pathway.seq > 5) return 0;
     return Math.max(0, Math.ceil(this.seqCoreHp(6) * SEQ5_HP_JUMP) - this.seqCoreHp(5));
+  },
+
+  /** Leben aus Pfad und Sequenzen bis `seq` samt Seq-5-Ausgleich (ohne Artefakte, Kleidung, Zauber). */
+  seqCoreHpFull(seq) {
+    const n = this.seqCoreHp(seq);
+    return seq > 5 ? n : n + Math.max(0, Math.ceil(this.seqCoreHp(6) * SEQ5_HP_JUMP) - this.seqCoreHp(5));
+  },
+
+  /**
+   * Seb (2026-11-12): Sequenz 4 verdoppelt das Leben gegenüber Sequenz 5 (jeder Pfad, jeder Spieler).
+   * Der Halbgott-Durchbruch zählt mit; was fehlt, gleicht dieser Zuschlag aus. Er bleibt auf 3 bis 1.
+   */
+  seq4HpBonus() {
+    if (!this.pathway || this.pathway.seq > 4) return 0;
+    return Math.max(0, Math.ceil(this.seqCoreHpFull(5) * SEQ4_HP_JUMP) - this.seqCoreHpFull(4));
+  },
+
+  /** Nerven allein aus Pfad und Sequenzen bis einschließlich `seq`. */
+  seqCoreNerves(seq) {
+    if (!this.pathway) return 0;
+    let n = COMPOSURE_BASE;
+    for (let s = SEQ_START; s >= seq; s--) {
+      n += this.growth().nerves * (SEQ_GROWTH_STEPS[s] ?? 1);
+      for (const p of this.seqDef(this.pathway.id, s)?.passives ?? []) if (p.key === 'max_nerves') n += p.value;
+    }
+    return n;
+  },
+
+  /** Seb (2026-11-12): Sequenz 4 hat mindestens 50 % mehr maximale Nerven als Sequenz 5. */
+  seq4NervesBonus() {
+    if (!this.pathway || this.pathway.seq > 4) return 0;
+    return Math.max(0, Math.ceil(this.seqCoreNerves(5) * SEQ4_NERVES_JUMP) - this.seqCoreNerves(4));
   },
 
   /** Kampffertigkeiten des eigenen Pfades: { id: skill }. Jede erreichte Sequenz bringt zwei (skill und skill2). */

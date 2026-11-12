@@ -328,3 +328,25 @@ test('Seq 5 hebt die maximalen Leben jedes Pfades um mindestens 35 % gegenüber 
     assert.ok(s.calcMaxHp() >= hp6 * 1.35, `${id} Seq 4`);
   }
 });
+
+test('Seq 4 (Halbgott): doppelte Leben, +50 % Nerven, +1 max. Konzentration, mehr als +50 % Schaden gegenüber Seq 5, auch für Spieler 2', () => {
+  for (const id of Object.keys(content.pathways)) {
+    for (const n of [1, 2]) {
+      const s = new GameState(content);
+      s.addP2();
+      const at = (seq) => s.withPlayer(n, () => {
+        s.pathway = { id, seq, digestion: 0 };
+        s.updateMaxHp();
+        const c = new Combat(s, 'fog_hound');
+        return { hp: s.calcMaxHp(), nerves: s.maxComposure(), dmg: s.passive('dmg_mult'), ap: c.apMaxOf(n) };
+      });
+      const v5 = at(5);
+      const v4 = at(4);
+      assert.ok(v4.hp >= v5.hp * 2, `${id} P${n} Leben: ${v5.hp} → ${v4.hp}`);
+      assert.ok(v4.hp <= v5.hp * 2 + 30, `${id} P${n} Leben nicht unnötig mehr: ${v5.hp} → ${v4.hp}`);
+      assert.ok(v4.nerves >= v5.nerves * 1.5, `${id} P${n} Nerven: ${v5.nerves} → ${v4.nerves}`);
+      assert.ok(v4.dmg >= v5.dmg * 1.5, `${id} P${n} Schaden`);
+      assert.equal(v4.ap, v5.ap + 1, `${id} P${n} Konzentration`);
+    }
+  }
+});
