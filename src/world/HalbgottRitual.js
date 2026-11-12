@@ -7,7 +7,7 @@ import { laternenSound } from '../core/sounds.js';
 import { TRAUM_ID, HG_FAEDEN } from '../core/Seq4.js';
 import { hasArt, ritualFx, ritualAnim, playRitual, artFrame, artRegion, lookOf } from './ritualArt.js';
 const VIEW_W = 480; // wie WorldScene (kein Import, sonst Kreis)
-const VIEW_H = 270;
+const LIT = 2201; // knapp über der Dunkelheit (Lighting DEPTH.dark = 2200)
 const ESSENZ_FARBEN = ['tuerkis', 'gruen', 'amber', 'eisblau', 'rost'];
 
 const SHADOW_TINT = 0x2a2238;
@@ -247,8 +247,8 @@ export class HalbgottRitual {
     w.lanterns.forEach((l, i) => {
       let o = a.lanterns[i];
       if (!o) {
-        o = a.lanterns[i] = { spr: sc.add.sprite(l.x, l.y + 6, 's4la_ritual_laterne', 0).setOrigin(0.5, 1).setDepth(100 + l.y + 6), state: null };
-        if (hasArt(sc, 's4la_lichtkreis')) o.light = sc.add.sprite(l.x, l.y - 4, 's4la_lichtkreis', 0).setDepth(99 + l.y).setAlpha(0.85);
+        o = a.lanterns[i] = { spr: sc.add.sprite(l.x, l.y + 6, 's4la_ritual_laterne', 0).setOrigin(0.5, 1).setDepth(LIT + 2 + l.y / 1000), state: null }; // über der Nacht: sie sind das Licht
+        if (hasArt(sc, 's4la_lichtkreis')) o.light = sc.add.sprite(l.x, l.y - 4, 's4la_lichtkreis', 0).setDepth(LIT + 1).setAlpha(0.5);
         if (o.light) o.light.play(ritualAnim(sc, 's4la_lichtkreis'));
       }
       const k = l.oil / WACHT.oilMax;
@@ -289,7 +289,7 @@ export class HalbgottRitual {
         const dy = gd.y - (a.guardian.y ?? gd.y);
         const dir = Math.abs(dx) > Math.abs(dy) ? (dx < 0 ? 'left' : 'right') : dy < 0 ? 'up' : 'down';
         if (Math.abs(dx) + Math.abs(dy) > 0.01 && a.guardianDir !== dir) { a.guardianDir = dir; playRitual(a.guardian, 's4r_waechter_welt', dir); }
-        a.guardian.setPosition(gd.x, gd.y).setDepth(100 + gd.y);
+        a.guardian.setPosition(gd.x, gd.y).setDepth(LIT + 3 + gd.y / 1000);
         if (w.sunriseReady()) a.guardian.setTint(0xfff0c0); else a.guardian.clearTint();
       } else {
         g.fillStyle(0x10101c, 0.9).fillEllipse(gd.x, gd.y - 8, 18, 28);

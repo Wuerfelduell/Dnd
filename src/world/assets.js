@@ -1252,9 +1252,9 @@ export function preloadSprites(scene) {
     if (!scene.textures.exists(key)) scene.load.spritesheet(key, BASE + path, { frameWidth: w, frameHeight: h });
   }
   // Codex DN/DO/DQ: Ritualgrafiken der Sequenzen 6 bis 4 (Kampfblätter laufen über BATTLE_SHEETS, s. u.)
-  for (const [id, file] of [['manifestSeq4rit1', 'seq4rit1'], ['manifestSchatten', 'schatten'], ['manifestRituale56', 'rituale56']]) {
-    if (!scene.cache.json.exists(id)) scene.load.json(id, `${BASE}manifest-${file}.json`);
-  }
+  if (!scene.cache.json.exists('manifestSeq4rit1')) scene.load.json('manifestSeq4rit1', `${BASE}manifest-seq4rit1.json`);
+  if (!scene.cache.json.exists('manifestSchatten')) scene.load.json('manifestSchatten', `${BASE}manifest-schatten.json`);
+  if (!scene.cache.json.exists('manifestRituale56')) scene.load.json('manifestRituale56', `${BASE}manifest-rituale56.json`);
   preloadRitualArt(scene, BATTLE_SHEETS);
 }
 

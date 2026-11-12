@@ -18,7 +18,7 @@ export function ritualLook(state, combat, n) {
   return state.withPlayer?.(n, () => (state.seq4Masked?.() ? 'zivil' : null), { quiet: true }) ?? null;
 }
 
-const ICON_Y = 22;
+const ICON_Y = 96; // links über der Spielerfigur, frei von Meldungsfeld und Lebensleiste
 
 export class RitualCombat {
   constructor(scene) {
