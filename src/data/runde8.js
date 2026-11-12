@@ -33,7 +33,7 @@ export function runde8Packs(f) {
   const k4Akte = { ...std('k4_akte', f.k4_akte), faelle: f.k4_akte.faelle, zeitung: f.k4_akte.zeitung, boss_texte: f.k4_akte.boss_texte, epiloge: f.k4_akte.epiloge };
   const k4Neben = nebenPack('k4_nebenquests', f.k4_nebenquests);
   const warm = new Set(k5Orte.maps.filter((m) => m.id.endsWith(WARM)).map((m) => m.id));
-  const k5Akte = mirrorWarm({ ...std('k5_akte', f.k5_akte), zeitung: f.k5_akte.zeitung, boss_texte: f.k5_akte.boss_texte, epiloge: f.k5_akte.epiloge }, warm);
+  const k5Akte = mirrorWarm({ ...std('k5_akte', f.k5_akte), faelle: f.k5_akte.faelle, zeitung: f.k5_akte.zeitung, boss_texte: f.k5_akte.boss_texte, epiloge: f.k5_akte.epiloge }, warm);
   const k5Neben = mirrorWarm(nebenPack('k5_nebenquests', f.k5_nebenquests), warm);
   // Die Akte kommt vor den Orten: die Reisegespräche (CH) hängen Optionen an das Finale (CG)
   // CN: Kettlegate lebt (Einwohner mit Tag/Nacht, Stände als Gespräch, Ereignisse, Gerede, Nebelbote, Koop-Geplauder, Wetter und Tiere)
@@ -116,7 +116,7 @@ export const RUNDE8_FILES = {
   k4_akte: [...STD, 'faelle', 'zeitung', 'boss_texte', 'epiloge'],
   k4_nebenquests: [...STD, 'einwohner', 'leben', 'gerede', 'zeitung', 'lesestuecke', 'geplauder'],
   k5_orte: [...STD, 'maps', 'travel', 'zones', 'zonen_bindung', 'bosses', 'artifacts', 'city'],
-  k5_akte: [...STD, 'zeitung', 'boss_texte', 'epiloge'],
+  k5_akte: [...STD, 'faelle', 'zeitung', 'boss_texte', 'epiloge'],
   k5_nebenquests: [...STD, 'einwohner', 'leben', 'gerede', 'zeitung', 'lesestuecke', 'geplauder'],
   feste_leben: [...STD, 'feste', 'artefakte', 'zeitung', 'geplauder', 'texte', 'kalender', 'kalender_uebergaenge', 'wirkungen', 'wirkungen_platzierung'],
   kg_leben: [...STD, 'einwohner', 'leben', 'gerede', 'zeitung', 'geplauder', 'streifen'],

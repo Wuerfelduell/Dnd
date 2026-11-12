@@ -145,6 +145,7 @@ import k3a_encounters from './packs/k3_akte/encounters.json';
 import k3a_dialogues from './packs/k3_akte/dialogues.json';
 import k3a_npcs from './packs/k3_akte/npcs.json';
 import k3a_case from './packs/k3_akte/case.json';
+import k3a_faelle from './packs/k3_akte/faelle.json';
 import k3a_dialog_zusaetze from './packs/k3_akte/dialog_zusaetze.json';
 import k3a_platzierung from './packs/k3_akte/platzierung.json';
 import k3a_zeitung from './packs/k3_akte/zeitung.json';
@@ -391,6 +392,7 @@ import r8_k5_akte_encounters from './packs/k5_akte/encounters.json';
 import r8_k5_akte_dialogues from './packs/k5_akte/dialogues.json';
 import r8_k5_akte_npcs from './packs/k5_akte/npcs.json';
 import r8_k5_akte_case from './packs/k5_akte/case.json';
+import r8_k5_akte_faelle from './packs/k5_akte/faelle.json';
 import r8_k5_akte_dialog_zusaetze from './packs/k5_akte/dialog_zusaetze.json';
 import r8_k5_akte_platzierung from './packs/k5_akte/platzierung.json';
 import r8_k5_akte_zeitung from './packs/k5_akte/zeitung.json';
@@ -449,7 +451,7 @@ const runde8 = runde8Packs({
   k4_akte: { quests: r8_k4_akte_quests, items: r8_k4_akte_items, encounters: r8_k4_akte_encounters, dialogues: r8_k4_akte_dialogues, npcs: r8_k4_akte_npcs, case: r8_k4_akte_case, dialog_zusaetze: r8_k4_akte_dialog_zusaetze, platzierung: r8_k4_akte_platzierung, faelle: r8_k4_akte_faelle, zeitung: r8_k4_akte_zeitung, boss_texte: r8_k4_akte_boss_texte, epiloge: r8_k4_akte_epiloge },
   k4_nebenquests: { quests: r8_k4_nebenquests_quests, items: r8_k4_nebenquests_items, encounters: r8_k4_nebenquests_encounters, dialogues: r8_k4_nebenquests_dialogues, npcs: r8_k4_nebenquests_npcs, case: r8_k4_nebenquests_case, dialog_zusaetze: r8_k4_nebenquests_dialog_zusaetze, platzierung: r8_k4_nebenquests_platzierung, einwohner: r8_k4_nebenquests_einwohner, leben: r8_k4_nebenquests_leben, gerede: r8_k4_nebenquests_gerede, zeitung: r8_k4_nebenquests_zeitung, lesestuecke: r8_k4_nebenquests_lesestuecke, geplauder: r8_k4_nebenquests_geplauder },
   k5_orte: { quests: r8_k5_orte_quests, items: r8_k5_orte_items, encounters: r8_k5_orte_encounters, dialogues: r8_k5_orte_dialogues, npcs: r8_k5_orte_npcs, case: r8_k5_orte_case, dialog_zusaetze: r8_k5_orte_dialog_zusaetze, platzierung: r8_k5_orte_platzierung, maps: r8_k5_orte_maps, travel: r8_k5_orte_travel, zones: r8_k5_orte_zones, zonen_bindung: r8_k5_orte_zonen_bindung, bosses: r8_k5_orte_bosses, artifacts: r8_k5_orte_artifacts, city: r8_k5_orte_city },
-  k5_akte: { quests: r8_k5_akte_quests, items: r8_k5_akte_items, encounters: r8_k5_akte_encounters, dialogues: r8_k5_akte_dialogues, npcs: r8_k5_akte_npcs, case: r8_k5_akte_case, dialog_zusaetze: r8_k5_akte_dialog_zusaetze, platzierung: r8_k5_akte_platzierung, zeitung: r8_k5_akte_zeitung, boss_texte: r8_k5_akte_boss_texte, epiloge: r8_k5_akte_epiloge },
+  k5_akte: { quests: r8_k5_akte_quests, items: r8_k5_akte_items, encounters: r8_k5_akte_encounters, dialogues: r8_k5_akte_dialogues, npcs: r8_k5_akte_npcs, case: r8_k5_akte_case, faelle: r8_k5_akte_faelle, dialog_zusaetze: r8_k5_akte_dialog_zusaetze, platzierung: r8_k5_akte_platzierung, zeitung: r8_k5_akte_zeitung, boss_texte: r8_k5_akte_boss_texte, epiloge: r8_k5_akte_epiloge },
   k5_nebenquests: { quests: r8_k5_nebenquests_quests, items: r8_k5_nebenquests_items, encounters: r8_k5_nebenquests_encounters, dialogues: r8_k5_nebenquests_dialogues, npcs: r8_k5_nebenquests_npcs, case: r8_k5_nebenquests_case, dialog_zusaetze: r8_k5_nebenquests_dialog_zusaetze, platzierung: r8_k5_nebenquests_platzierung, einwohner: r8_k5_nebenquests_einwohner, leben: r8_k5_nebenquests_leben, gerede: r8_k5_nebenquests_gerede, zeitung: r8_k5_nebenquests_zeitung, lesestuecke: r8_k5_nebenquests_lesestuecke, geplauder: r8_k5_nebenquests_geplauder },
   feste_leben: { quests: r8_feste_leben_quests, items: r8_feste_leben_items, encounters: r8_feste_leben_encounters, dialogues: r8_feste_leben_dialogues, npcs: r8_feste_leben_npcs, case: r8_feste_leben_case, dialog_zusaetze: r8_feste_leben_dialog_zusaetze, platzierung: r8_feste_leben_platzierung, feste: r8_feste_leben_feste, artefakte: r8_feste_leben_artefakte, zeitung: r8_feste_leben_zeitung, geplauder: r8_feste_leben_geplauder, texte: r8_feste_leben_texte, kalender: r8_feste_leben_kalender, kalender_uebergaenge: r8_feste_leben_kalender_uebergaenge, wirkungen: r8_feste_leben_wirkungen, wirkungen_platzierung: r8_feste_leben_wirkungen_platzierung },
   kg_leben: { quests: r8_kg_leben_quests, items: r8_kg_leben_items, encounters: r8_kg_leben_encounters, dialogues: r8_kg_leben_dialogues, npcs: r8_kg_leben_npcs, case: r8_kg_leben_case, dialog_zusaetze: r8_kg_leben_dialog_zusaetze, platzierung: r8_kg_leben_platzierung, einwohner: r8_kg_leben_einwohner, leben: r8_kg_leben_leben, gerede: r8_kg_leben_gerede, zeitung: r8_kg_leben_zeitung, geplauder: r8_kg_leben_geplauder, streifen: r8_kg_leben_streifen },
@@ -490,7 +492,7 @@ const k3Handel = { name: 'k3_handel', quests: k3h_quests, items: k3h_items, enco
 // BD: Die Tagespositionen aus platzierung.json sind nur Vorschläge; die Figuren stehen über einwohner.json (Tag/Nacht) auf den Karten.
 const k3Leben = { name: 'k3_leben', quests: k3e_quests, items: k3e_items, encounters: k3e_encounters, dialogues: k3e_dialogues, npcs: k3e_npcs, case: k3e_case, dialog_zusaetze: k3e_dialog_zusaetze,
   platzierung: k3e_platzierung.filter((p) => !p.npc), einwohner: k3e_einwohner, stadtgegner: k3e_stadtgegner, phasen: k3e_phasen, streifen: k3e_streifen, gerede: k3e_gerede, zeitung: k3e_zeitung, leben: k3e_leben };
-const k3Akte = { name: 'k3_akte', quests: k3a_quests, items: k3a_items, encounters: k3a_encounters, dialogues: k3a_dialogues, npcs: k3a_npcs, case: k3a_case, dialog_zusaetze: k3a_dialog_zusaetze, platzierung: k3a_platzierung, zeitung: k3a_zeitung, boss_texte: k3a_boss_texte, epiloge: k3a_epiloge };
+const k3Akte = { name: 'k3_akte', quests: k3a_quests, items: k3a_items, encounters: k3a_encounters, dialogues: k3a_dialogues, npcs: k3a_npcs, case: k3a_case, faelle: k3a_faelle, dialog_zusaetze: k3a_dialog_zusaetze, platzierung: k3a_platzierung, zeitung: k3a_zeitung, boss_texte: k3a_boss_texte, epiloge: k3a_epiloge };
 const k2Gilde = { name: 'k2_gilde', quests: k2g_quests, items: k2g_items, encounters: k2g_encounters, dialogues: k2g_dialogues, npcs: k2g_npcs, case: k2g_case, dialog_zusaetze: k2g_dialog_zusaetze, platzierung: k2g_platzierung, artefakte: k2g_artefakte, treffen: k2g_treffen_namensgilde };
 /** Kapitel-1-Finale: Epilogtafeln nach Fall 9 und die Fahndung in Kettlegate (Price lässt nach dir suchen). */
 const k1Finale = { name: 'k1_finale', epiloge: k1_epiloge, police: k1_police };
