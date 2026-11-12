@@ -1478,6 +1478,19 @@
         "legs": "#2a3440",
         "scarf": "#c9c2ad"
       }
+    },
+    "wx_schneiderin": {
+      "name": "Schneiderin Ottilie Fenn",
+      "role": "Mäntel, Hüte und Anhänger, Salzmarkt",
+      "dialogue": "wx_schneiderin",
+      "palette": {
+        "coat": "#3e5a5e",
+        "hat": "#2a2a34",
+        "skin": "#d8b89a",
+        "hair": "#5a4a3a",
+        "legs": "#2a2a34",
+        "scarf": "#a8824a"
+      }
     }
   },
   "travel": [
@@ -4384,6 +4397,14 @@
           "id": "wx_pfandleiherin",
           "tile": [
             16,
+            4
+          ],
+          "facing": "down"
+        },
+        {
+          "id": "wx_schneiderin",
+          "tile": [
+            7,
             4
           ],
           "facing": "down"
@@ -15844,6 +15865,39 @@
           ]
         }
       }
+    },
+    "wx_schneiderin": {
+      "start": "start",
+      "nodes": {
+        "start": {
+          "text": "Eine Kleiderstange aus Treibholz, daran Mäntel, die nach Teer und Lavendel riechen. Dahinter eine schmale Frau, Nadeln zwischen den Lippen, Maßband um den Hals. „Fenn. Mäntel, Hüte, Anhänger. Was in Kettlegate auf dem Nachtmarkt hing, hängt jetzt hier, nur teurer. Der Kahn will bezahlt werden.“",
+          "choices": [
+            {
+              "text": "Kleidung und Schmuck ansehen.",
+              "shop": "wx_schneiderin"
+            },
+            {
+              "text": "Warum so teuer?",
+              "next": "preis"
+            },
+            {
+              "text": "Auf Wiedersehen."
+            }
+          ]
+        },
+        "preis": {
+          "text": "„Weil jeder Ballen Stoff im Torfkahn über das Moor kommt und Zunder für jede Fahrt die Hand aufhält.“ Sie zieht eine Nadel aus dem Mund. „Und weil hier keiner mehr nach Kettlegate fährt, um es billiger zu kaufen.“",
+          "choices": [
+            {
+              "text": "Dann zeigen Sie mal.",
+              "shop": "wx_schneiderin"
+            },
+            {
+              "text": "Später."
+            }
+          ]
+        }
+      }
     }
   },
   "police": {
@@ -18237,6 +18291,105 @@
         {
           "item": "moortee",
           "price": 14
+        }
+      ]
+    },
+    "wx_schneiderin": {
+      "name": "Schneiderin Ottilie Fenn",
+      "title": "Fenns Kleiderstube",
+      "greeting": "Gegen Salzwind hilft nur gute Wolle. Gegen alles andere ein guter Schnitt.",
+      "stock": [
+        {
+          "item": "hut_schirmmuetze",
+          "price": 12
+        },
+        {
+          "item": "hut_melone",
+          "price": 20
+        },
+        {
+          "item": "hut_kapuze",
+          "price": 25
+        },
+        {
+          "item": "hut_schutzbrille",
+          "price": 36
+        },
+        {
+          "item": "hut_zylinder",
+          "price": 42
+        },
+        {
+          "item": "hut_helm",
+          "price": 49
+        },
+        {
+          "item": "hut_witwenschleier",
+          "price": 56
+        },
+        {
+          "item": "mantel_wolle",
+          "price": 28
+        },
+        {
+          "item": "mantel_flicken",
+          "price": 34
+        },
+        {
+          "item": "mantel_gewachst",
+          "price": 39
+        },
+        {
+          "item": "mantel_chor",
+          "price": 49
+        },
+        {
+          "item": "mantel_polizei",
+          "price": 56
+        },
+        {
+          "item": "mantel_samt",
+          "price": 63
+        },
+        {
+          "item": "mantel_leder",
+          "price": 77
+        },
+        {
+          "item": "amulett_auge",
+          "price": 49
+        },
+        {
+          "item": "amulett_laterne",
+          "price": 63
+        },
+        {
+          "item": "amulett_faden",
+          "price": 63
+        },
+        {
+          "item": "amulett_maske",
+          "price": 63
+        },
+        {
+          "item": "amulett_echo",
+          "price": 63
+        },
+        {
+          "item": "amulett_kessel",
+          "price": 63
+        },
+        {
+          "item": "amulett_eisen",
+          "price": 63
+        },
+        {
+          "item": "amulett_schluessel",
+          "price": 63
+        },
+        {
+          "item": "amulett_stimme",
+          "price": 84
         }
       ]
     }
