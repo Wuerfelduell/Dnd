@@ -1,0 +1,278 @@
+{
+  "beutestuecke": {
+    "bnl_zollkrone": {
+      "id": "bnl_zollkrone",
+      "name": "Zehnte Zollkrone",
+      "kind": "trophy",
+      "rarity": "selten",
+      "price": 0,
+      "weight": 0.2,
+      "desc": "Ungültige Zollmarken, zu einer schiefen Krone vernietet. Die Nummern sind abgerieben, aber jede Marke zieht an der nächsten.",
+      "fasserin_artefakt": "fa_bnl_zollkrone",
+      "oda_pruefen": "Sieben von zehn halten. Die Marken sind ungültig, das Metall leider nicht.",
+      "einmalige_quelle": true
+    },
+    "bnl_stilleschlacke": {
+      "id": "bnl_stilleschlacke",
+      "name": "Stille Schlacke",
+      "kind": "trophy",
+      "rarity": "selten",
+      "price": 0,
+      "weight": 0.2,
+      "desc": "Ein kaltes Stück Schlacke aus der zugelöteten Wächterlaterne. Hältst du es ans Ohr, verstummt für einen Moment der Raum.",
+      "fasserin_artefakt": "fa_bnl_stilleschlacke",
+      "oda_pruefen": "Dreizehn von zwanzig halten. Kalt ist das Stück; ruhig habe ich nicht gesagt.",
+      "einmalige_quelle": true
+    },
+    "bnl_lohnwurzel": {
+      "id": "bnl_lohnwurzel",
+      "name": "Lohnwurzel",
+      "kind": "trophy",
+      "rarity": "selten",
+      "price": 0,
+      "weight": 0.2,
+      "desc": "Eine trockene Wurzel läuft durch die Naht einer alten Lohntüte. Das Papier lässt sich öffnen, die Wurzel nicht entknoten.",
+      "fasserin_artefakt": "fa_bnl_lohnwurzel",
+      "oda_pruefen": "Drei von fünf halten. Diese Naht will ihren Lohn auch noch.",
+      "einmalige_quelle": true
+    },
+    "bnl_lochzange": {
+      "id": "bnl_lochzange",
+      "name": "Letzte Lochzange",
+      "kind": "trophy",
+      "rarity": "selten",
+      "price": 0,
+      "weight": 0.2,
+      "desc": "Die Lochzange des Schaffners hat keinen Auffangbehälter mehr. Aus ihren Backen fällt trotzdem gelegentlich ein einzelner Papierkreis.",
+      "fasserin_artefakt": "fa_bnl_lochzange",
+      "oda_pruefen": "Elf von zwanzig halten. Die Zange entwertet notfalls sich selbst.",
+      "einmalige_quelle": true
+    },
+    "bnl_kalkband": {
+      "id": "bnl_kalkband",
+      "name": "Kalkband",
+      "kind": "trophy",
+      "rarity": "selten",
+      "price": 0,
+      "weight": 0.2,
+      "desc": "Filtergaze mit einem kalkigen Verschluss. In der innersten Falte liegt kein Staub, obwohl der Rest beim Berühren rieselt.",
+      "fasserin_artefakt": "fa_bnl_kalkband",
+      "oda_pruefen": "Jedes zweite hält. Ein Schleier ist keine tragende Wand.",
+      "einmalige_quelle": true
+    },
+    "bnl_umkehrletter": {
+      "id": "bnl_umkehrletter",
+      "name": "Umkehrletter",
+      "kind": "trophy",
+      "rarity": "selten",
+      "price": 0,
+      "weight": 0.2,
+      "desc": "Eine schwere Drucktype mit spiegelglatter Stirn. Ihr Fuß steht falsch herum und hinterlässt dennoch einen geschlossenen Abdruck.",
+      "fasserin_artefakt": "fa_bnl_umkehrletter",
+      "oda_pruefen": "Neun von zwanzig halten. Die falsche Seite hat erstaunlich viel Halt.",
+      "einmalige_quelle": true
+    },
+    "bnl_kaltventil": {
+      "id": "bnl_kaltventil",
+      "name": "Kaltventil",
+      "kind": "trophy",
+      "rarity": "selten",
+      "price": 0,
+      "weight": 0.2,
+      "desc": "Das Kupferventil ist innen vereist und außen handwarm. Sein Rad gibt genau eine Vierteldrehung nach.",
+      "fasserin_artefakt": "fa_bnl_kaltventil",
+      "oda_pruefen": "Zwei von fünf halten. Druck lässt sich verschieben, nicht beleidigen.",
+      "einmalige_quelle": true
+    },
+    "bnl_gesichtsabdruck": {
+      "id": "bnl_gesichtsabdruck",
+      "name": "Gesichtsabdruck",
+      "kind": "trophy",
+      "rarity": "selten",
+      "price": 0,
+      "weight": 0.2,
+      "desc": "Eine dünne Haut aus grauem Siegelwachs. Aus dem Augenwinkel trägt sie deine Züge, von vorn bleibt sie glatt.",
+      "fasserin_artefakt": "fa_bnl_gesichtsabdruck",
+      "oda_pruefen": "Zwei von fünf halten. Sehen Sie weg; das Material schaut schon genug.",
+      "einmalige_quelle": true
+    }
+  },
+  "artefakte": {
+    "fa_bnl_zollkrone": {
+      "id": "fa_bnl_zollkrone",
+      "name": "Reif der letzten Marke",
+      "beschreibung": "Oda hat die Marken zu einem flachen Reif gelegt. Beim ersten Stoß rutschen sie übereinander, als würden sie eine fremde Rechnung teilen.",
+      "untersuchen": "Du drückst eine Marke zur Seite. Die übrigen rücken nach, bis wieder ein geschlossener Kreis entsteht.",
+      "wirkung_text": "Der erste gegnerische Lebensschaden pro Kampf wird halbiert.",
+      "nachteil_text": "Nach dem Kampf erhältst du zwei Unruhe.",
+      "oda_zeile": "Die Krone bezahlt einmal mit. Danach sind wieder Sie dran.",
+      "beutestueck": "bnl_zollkrone",
+      "chance": 0.7,
+      "lohn_vorschlag": 80,
+      "oda_pruefen": "Sieben von zehn halten. Die Marken sind ungültig, das Metall leider nicht.",
+      "auftrag": {
+        "menge": 1,
+        "abholung": "naechstes_treffen_desselben_zirkels",
+        "wurf": "einmalig_beim_abholen_persistieren",
+        "misslungen": {
+          "stueck_verloren": true,
+          "lohn_rueckgabe_faktor": 0.5
+        }
+      }
+    },
+    "fa_bnl_stilleschlacke": {
+      "id": "fa_bnl_stilleschlacke",
+      "name": "Stillring",
+      "beschreibung": "Ein schmaler Ring hält die Schlacke hinter einem geschlossenen Deckel. Gegen die Haut fühlt sich das Metall an wie eine angehaltene Antwort.",
+      "untersuchen": "Du öffnest den Deckel einen Spalt. Das Scharnier bewegt sich ohne hörbares Knacken.",
+      "wirkung_text": "Der erste Nerven-Treffer jedes Kampfes wird verhindert.",
+      "nachteil_text": "Dein erster eigener Treffer verursacht ein Viertel weniger Schaden.",
+      "oda_zeile": "Den ersten Schrecken halte ich Ihnen fern. Ihre Hand braucht dafür länger.",
+      "beutestueck": "bnl_stilleschlacke",
+      "chance": 0.65,
+      "lohn_vorschlag": 100,
+      "oda_pruefen": "Dreizehn von zwanzig halten. Kalt ist das Stück; ruhig habe ich nicht gesagt.",
+      "auftrag": {
+        "menge": 1,
+        "abholung": "naechstes_treffen_desselben_zirkels",
+        "wurf": "einmalig_beim_abholen_persistieren",
+        "misslungen": {
+          "stueck_verloren": true,
+          "lohn_rueckgabe_faktor": 0.5
+        }
+      }
+    },
+    "fa_bnl_lohnwurzel": {
+      "id": "fa_bnl_lohnwurzel",
+      "name": "Wurzelbörse",
+      "beschreibung": "Die kleine Börse trägt eine Wurzel statt eines Verschlusses. Zieht sich etwas um dein Handgelenk, öffnet sie sich von selbst.",
+      "untersuchen": "Du spannst einen Faden um die Börse. Die Wurzel hebt ihn mit der Sorgfalt einer müden Hand ab.",
+      "wirkung_text": "Einmal je Kampf löst sich eine Fessel vor deinem Zug.",
+      "nachteil_text": "Der folgende eigene Angriff verursacht ein Viertel weniger Schaden.",
+      "oda_zeile": "Sie löst eine Bindung. Erwarten Sie danach keine schnelle Handarbeit.",
+      "beutestueck": "bnl_lohnwurzel",
+      "chance": 0.6,
+      "lohn_vorschlag": 120,
+      "oda_pruefen": "Drei von fünf halten. Diese Naht will ihren Lohn auch noch.",
+      "auftrag": {
+        "menge": 1,
+        "abholung": "naechstes_treffen_desselben_zirkels",
+        "wurf": "einmalig_beim_abholen_persistieren",
+        "misslungen": {
+          "stueck_verloren": true,
+          "lohn_rueckgabe_faktor": 0.5
+        }
+      }
+    },
+    "fa_bnl_lochzange": {
+      "id": "fa_bnl_lochzange",
+      "name": "Schaffnerklammer",
+      "beschreibung": "Die stumpfen Backen sitzen in einer Messingklammer. Beim Parieren schließt sie ein zweites Mal, obwohl deine Hand schon wieder stillsteht.",
+      "untersuchen": "Du klemmst ein leeres Blatt zwischen die Backen. Das zweite Loch liegt genau dort, wo du es nicht festgehalten hast.",
+      "wirkung_text": "Deine erste erfolgreiche Parade je Kampf verhindert auch den nächsten Einzeltreffer desselben Angriffs.",
+      "nachteil_text": "Du beginnst den Kampf mit zwei Nerven weniger.",
+      "oda_zeile": "Ein zweiter Griff, wenn der erste saß. Den Mut zum ersten kaufen Sie selbst.",
+      "beutestueck": "bnl_lochzange",
+      "chance": 0.55,
+      "lohn_vorschlag": 140,
+      "oda_pruefen": "Elf von zwanzig halten. Die Zange entwertet notfalls sich selbst.",
+      "auftrag": {
+        "menge": 1,
+        "abholung": "naechstes_treffen_desselben_zirkels",
+        "wurf": "einmalig_beim_abholen_persistieren",
+        "misslungen": {
+          "stueck_verloren": true,
+          "lohn_rueckgabe_faktor": 0.5
+        }
+      }
+    },
+    "fa_bnl_kalkband": {
+      "id": "fa_bnl_kalkband",
+      "name": "Reif aus Filtergaze",
+      "beschreibung": "Oda hat das Band um einen offenen Reif gewickelt. Die saubere Innenseite dreht sich regelmäßig nach außen und nimmt einen Teil des nächsten Stoßes auf.",
+      "untersuchen": "Du schiebst eine Lage Gaze zurück. Die darunterliegende Falte zieht sich langsam wieder darüber.",
+      "wirkung_text": "Der erste erhaltene Lebensschaden jeder dritten Runde sinkt um ein Viertel.",
+      "nachteil_text": "Deine Heilung ist während des Kampfes um ein Zehntel schwächer.",
+      "oda_zeile": "Es filtert Treffer. Gute Medizin leider gleich mit.",
+      "beutestueck": "bnl_kalkband",
+      "chance": 0.5,
+      "lohn_vorschlag": 160,
+      "oda_pruefen": "Jedes zweite hält. Ein Schleier ist keine tragende Wand.",
+      "auftrag": {
+        "menge": 1,
+        "abholung": "naechstes_treffen_desselben_zirkels",
+        "wurf": "einmalig_beim_abholen_persistieren",
+        "misslungen": {
+          "stueck_verloren": true,
+          "lohn_rueckgabe_faktor": 0.5
+        }
+      }
+    },
+    "fa_bnl_umkehrletter": {
+      "id": "fa_bnl_umkehrletter",
+      "name": "Wendereif",
+      "beschreibung": "Die Type sitzt quer in einem breiten Ring. Nach einer abgefangenen Bewegung zeigt ihre glatte Fläche kurz in die entgegengesetzte Richtung.",
+      "untersuchen": "Du drückst den Ring auf unbeschriebenes Papier. Der Abdruck erscheint auf der Rückseite.",
+      "wirkung_text": "Nach einer Parade verursacht dein nächster Treffer ein Viertel mehr Schaden.",
+      "nachteil_text": "Ein verfehlter eigener Angriff kostet zusätzlich zwei Nerven.",
+      "oda_zeile": "Der Gegenschlag sitzt besser. Danebenschlagen nimmt Ihnen das Stück persönlich.",
+      "beutestueck": "bnl_umkehrletter",
+      "chance": 0.45,
+      "lohn_vorschlag": 180,
+      "oda_pruefen": "Neun von zwanzig halten. Die falsche Seite hat erstaunlich viel Halt.",
+      "auftrag": {
+        "menge": 1,
+        "abholung": "naechstes_treffen_desselben_zirkels",
+        "wurf": "einmalig_beim_abholen_persistieren",
+        "misslungen": {
+          "stueck_verloren": true,
+          "lohn_rueckgabe_faktor": 0.5
+        }
+      }
+    },
+    "fa_bnl_kaltventil": {
+      "id": "fa_bnl_kaltventil",
+      "name": "Kesselruhe",
+      "beschreibung": "Drei Klammern halten das Ventil offen, ohne es zu lösen. Du kannst einen bevorstehenden Druckstoß einmal festhalten, bis die nächste Runde beginnt.",
+      "untersuchen": "Du drehst das Rad bis zum Anschlag. Hinter dem Kupfer sammelt sich ein Geräusch, das erst beim Loslassen herauskommt.",
+      "wirkung_text": "Einmal je Kampf kannst du eine angekündigte gegnerische Attacke um einen Zug verzögern.",
+      "nachteil_text": "Die verzögerte Attacke verursacht ein Viertel mehr Lebensschaden, falls sie trifft.",
+      "oda_zeile": "Sie gewinnen Zeit. Der Druck bekommt dieselbe Zeit.",
+      "beutestueck": "bnl_kaltventil",
+      "chance": 0.4,
+      "lohn_vorschlag": 220,
+      "oda_pruefen": "Zwei von fünf halten. Druck lässt sich verschieben, nicht beleidigen.",
+      "auftrag": {
+        "menge": 1,
+        "abholung": "naechstes_treffen_desselben_zirkels",
+        "wurf": "einmalig_beim_abholen_persistieren",
+        "misslungen": {
+          "stueck_verloren": true,
+          "lohn_rueckgabe_faktor": 0.5
+        }
+      }
+    },
+    "fa_bnl_gesichtsabdruck": {
+      "id": "fa_bnl_gesichtsabdruck",
+      "name": "Unbeschriebene Maske",
+      "beschreibung": "Die kleine Maske sitzt in einer offenen Fassung. Wenn jemand dich markieren will, nimmt sie für einen Augenblick deine Stelle ein.",
+      "untersuchen": "Du hältst die Maske neben dein Spiegelbild. Für einen Atemzug blickt nur eines von beiden zurück.",
+      "wirkung_text": "Einmal je Kampf verhindert die Maske eine Markierung oder einen Fluchtverschluss.",
+      "nachteil_text": "Nach dem Kampf erhältst du drei Unruhe.",
+      "oda_zeile": "Ein fremder Eintrag geht daneben. Ganz vergessen wird man Sie trotzdem nicht.",
+      "beutestueck": "bnl_gesichtsabdruck",
+      "chance": 0.4,
+      "lohn_vorschlag": 220,
+      "oda_pruefen": "Zwei von fünf halten. Sehen Sie weg; das Material schaut schon genug.",
+      "auftrag": {
+        "menge": 1,
+        "abholung": "naechstes_treffen_desselben_zirkels",
+        "wurf": "einmalig_beim_abholen_persistieren",
+        "misslungen": {
+          "stueck_verloren": true,
+          "lohn_rueckgabe_faktor": 0.5
+        }
+      }
+    }
+  }
+}
