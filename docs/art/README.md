@@ -1976,7 +1976,7 @@ Zwei Codex-Zips mit freien Motiven, keine Zuordnung zu Figuren oder Gegenstände
 
 ## Batch DP — ritualicons
 
-39 Gegenstands-IDs, jeweils 16×16 und 32×32 (78 PNGs), aus dem vorhandenen DP-Paket übernommen. Die 32er sind exakte Nearest-Neighbor-Vergrößerungen. Gemeinsame Palette: 19 sichtbare Farben, binäres Alpha. Abschnitt 3 zählt einschließlich `s4mo_reste` sieben IDs.
+39 Gegenstands-IDs, jeweils 16×16 und 32×32 (78 PNGs), in Revision 2 vollständig mit dem Bildgenerator neu gezeichnet. Die alten geometrischen Platzhalter sind ersetzt. Jedes Motiv besitzt ein eigenes Quellbild; die beiden Größen werden separat per Nearest Neighbor daraus reduziert, sodass die 32er zusätzliche Materialdetails zeigen. Gemeinsame Palette mit 29 Referenzfarben aus `manifest-fasserin.json` und drei gezielten Ergänzungen (Altrosa, Gift-Oliv, Eisblau), insgesamt höchstens 32 sichtbare Farben, binäres Alpha und dunkelblauer 1px-Kontur. Abschnitt 3 zählt einschließlich `s4mo_reste` sieben IDs. Die Vorschau zeigt alle 16er dreifach und die 32er zweifach vergrößert, mit vollständiger ID.
 
 [Manifest](../../public/sprites/manifest-ritualicons.json) · [Vorschau](batch-ritualicons-preview.png) · [Herkunft](batch-ritualicons-generation.json) · [Prüfbericht](batch-ritualicons-validation.json).
 
