@@ -1817,6 +1817,13 @@ Prüfung: `python tools/art/calderwick2/check.py` (Pillow, aus jedem Arbeitsverz
 
 Keine Laufzeitintegration in diesem Paket.
 
+## Batch CQ – Fasserin-Aufträge (`fasserin2`)
+
+54 PNGs für Auftragszustände, Chancenmarken, sechs Zirkelsiegel, HUD und Einladung, Odas Arbeit/Abwesenheit, zusätzliche Portraitstimmungen, Werkbank und Auftragsbrett, Fassungseffekte und Abholwürfel sowie 20 gefasste Artefakte in 16px und 32px. Kein Spielcode geändert.
+
+- [Manifest](../../public/sprites/manifest-fasserin2.json), [Vorschau](batch-fasserin2-preview.png), [Prompts](batch-fasserin2-generation.json)
+- [Übergabe und Einbauhinweise](fasserin2-uebergabe.md), [Prüfbericht](batch-fasserin2-validation.json)
+- Prüfung: `python tools/art/fasserin2/check.py` – 54/54 PNG, 136 Frames, gemeinsame Palette, binäres Alpha.
 
 ## Batch DM – Oberfläche 3 (`oberflaeche3`)
 
