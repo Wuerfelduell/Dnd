@@ -1,0 +1,5401 @@
+{
+  "version": 1,
+  "batch": "benannte",
+  "status": "exported; runtime integration pending",
+  "paletteMaxVisibleColors": 32,
+  "palette": [
+    "#1a1c2c",
+    "#252b38",
+    "#303b49",
+    "#d0a050",
+    "#e8b860",
+    "#92745a",
+    "#58433c",
+    "#2d2629",
+    "#715648",
+    "#886332",
+    "#686850",
+    "#494b3a",
+    "#b3946e",
+    "#cfb18a",
+    "#f0ce80",
+    "#8b8870",
+    "#425360",
+    "#e0c9a1",
+    "#a8b4c0",
+    "#586c78",
+    "#71858b",
+    "#95a5a5",
+    "#eee2c5",
+    "#893e4e",
+    "#6fe0d0",
+    "#496b64",
+    "#334d47",
+    "#493d59",
+    "#665572",
+    "#877595",
+    "#835140",
+    "#a66c4d"
+  ],
+  "assets": [
+    {
+      "id": "enemy_bn_der_zehnte_rattenkoenig",
+      "file": "battle/enemy_bn_der_zehnte_rattenkoenig.png",
+      "width": 576,
+      "height": 480,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 5,
+      "kind": "battle",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 576,
+          "height": 480
+        }
+      },
+      "gameId": "bn_der_zehnte_rattenkoenig",
+      "baseline": 93,
+      "heldRows": [
+        1,
+        2
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bestiar_bn_der_zehnte_rattenkoenig",
+      "file": "ui/bestiar/bn_der_zehnte_rattenkoenig.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "kind": "bestiary",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "gameId": "bn_der_zehnte_rattenkoenig"
+    },
+    {
+      "id": "head_bn_der_zehnte_rattenkoenig",
+      "file": "portraits/heads/bn_der_zehnte_rattenkoenig.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "kind": "head",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        }
+      },
+      "gameId": "bn_der_zehnte_rattenkoenig"
+    },
+    {
+      "id": "bn_der_zehnte_rattenkoenig",
+      "file": "characters/bn_der_zehnte_rattenkoenig.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "kind": "walk",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 128
+        }
+      },
+      "gameId": "bn_der_zehnte_rattenkoenig",
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_bn_schwester_glas",
+      "file": "battle/enemy_bn_schwester_glas.png",
+      "width": 384,
+      "height": 320,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "kind": "battle",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 384,
+          "height": 320
+        }
+      },
+      "gameId": "bn_schwester_glas",
+      "baseline": 61,
+      "heldRows": [
+        1,
+        2
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bestiar_bn_schwester_glas",
+      "file": "ui/bestiar/bn_schwester_glas.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "kind": "bestiary",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "gameId": "bn_schwester_glas"
+    },
+    {
+      "id": "head_bn_schwester_glas",
+      "file": "portraits/heads/bn_schwester_glas.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "kind": "head",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        }
+      },
+      "gameId": "bn_schwester_glas"
+    },
+    {
+      "id": "bn_schwester_glas",
+      "file": "characters/bn_schwester_glas.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "kind": "walk",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 128
+        }
+      },
+      "gameId": "bn_schwester_glas",
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_bn_der_leise_waechter",
+      "file": "battle/enemy_bn_der_leise_waechter.png",
+      "width": 384,
+      "height": 320,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "kind": "battle",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 384,
+          "height": 320
+        }
+      },
+      "gameId": "bn_der_leise_waechter",
+      "baseline": 61,
+      "heldRows": [
+        1,
+        2
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bestiar_bn_der_leise_waechter",
+      "file": "ui/bestiar/bn_der_leise_waechter.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "kind": "bestiary",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "gameId": "bn_der_leise_waechter"
+    },
+    {
+      "id": "head_bn_der_leise_waechter",
+      "file": "portraits/heads/bn_der_leise_waechter.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "kind": "head",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        }
+      },
+      "gameId": "bn_der_leise_waechter"
+    },
+    {
+      "id": "bn_der_leise_waechter",
+      "file": "characters/bn_der_leise_waechter.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "kind": "walk",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 128
+        }
+      },
+      "gameId": "bn_der_leise_waechter",
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_bn_holts_schatten",
+      "file": "battle/enemy_bn_holts_schatten.png",
+      "width": 288,
+      "height": 240,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 5,
+      "kind": "battle",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 288,
+          "height": 240
+        }
+      },
+      "gameId": "bn_holts_schatten",
+      "baseline": 45,
+      "heldRows": [
+        1,
+        2
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bestiar_bn_holts_schatten",
+      "file": "ui/bestiar/bn_holts_schatten.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "kind": "bestiary",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "gameId": "bn_holts_schatten"
+    },
+    {
+      "id": "head_bn_holts_schatten",
+      "file": "portraits/heads/bn_holts_schatten.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "kind": "head",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        }
+      },
+      "gameId": "bn_holts_schatten"
+    },
+    {
+      "id": "bn_holts_schatten",
+      "file": "characters/bn_holts_schatten.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "kind": "walk",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 128
+        }
+      },
+      "gameId": "bn_holts_schatten",
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_bn_die_alte_torfleiche",
+      "file": "battle/enemy_bn_die_alte_torfleiche.png",
+      "width": 384,
+      "height": 320,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "kind": "battle",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 384,
+          "height": 320
+        }
+      },
+      "gameId": "bn_die_alte_torfleiche",
+      "baseline": 61,
+      "heldRows": [
+        1,
+        2
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bestiar_bn_die_alte_torfleiche",
+      "file": "ui/bestiar/bn_die_alte_torfleiche.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "kind": "bestiary",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "gameId": "bn_die_alte_torfleiche"
+    },
+    {
+      "id": "head_bn_die_alte_torfleiche",
+      "file": "portraits/heads/bn_die_alte_torfleiche.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "kind": "head",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        }
+      },
+      "gameId": "bn_die_alte_torfleiche"
+    },
+    {
+      "id": "bn_die_alte_torfleiche",
+      "file": "characters/bn_die_alte_torfleiche.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "kind": "walk",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 128
+        }
+      },
+      "gameId": "bn_die_alte_torfleiche",
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_bn_grubenlicht_mutter",
+      "file": "battle/enemy_bn_grubenlicht_mutter.png",
+      "width": 384,
+      "height": 320,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "kind": "battle",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 384,
+          "height": 320
+        }
+      },
+      "gameId": "bn_grubenlicht_mutter",
+      "baseline": 61,
+      "heldRows": [
+        1,
+        2
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bestiar_bn_grubenlicht_mutter",
+      "file": "ui/bestiar/bn_grubenlicht_mutter.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "kind": "bestiary",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "gameId": "bn_grubenlicht_mutter"
+    },
+    {
+      "id": "head_bn_grubenlicht_mutter",
+      "file": "portraits/heads/bn_grubenlicht_mutter.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "kind": "head",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        }
+      },
+      "gameId": "bn_grubenlicht_mutter"
+    },
+    {
+      "id": "bn_grubenlicht_mutter",
+      "file": "characters/bn_grubenlicht_mutter.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "kind": "walk",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 128
+        }
+      },
+      "gameId": "bn_grubenlicht_mutter",
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_bn_der_wurm_mit_namen",
+      "file": "battle/enemy_bn_der_wurm_mit_namen.png",
+      "width": 384,
+      "height": 320,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "kind": "battle",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 384,
+          "height": 320
+        }
+      },
+      "gameId": "bn_der_wurm_mit_namen",
+      "baseline": 61,
+      "heldRows": [
+        1,
+        2
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bestiar_bn_der_wurm_mit_namen",
+      "file": "ui/bestiar/bn_der_wurm_mit_namen.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "kind": "bestiary",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "gameId": "bn_der_wurm_mit_namen"
+    },
+    {
+      "id": "head_bn_der_wurm_mit_namen",
+      "file": "portraits/heads/bn_der_wurm_mit_namen.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "kind": "head",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        }
+      },
+      "gameId": "bn_der_wurm_mit_namen"
+    },
+    {
+      "id": "bn_der_wurm_mit_namen",
+      "file": "characters/bn_der_wurm_mit_namen.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "kind": "walk",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 128
+        }
+      },
+      "gameId": "bn_der_wurm_mit_namen",
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_bn_schlickhund_koenig",
+      "file": "battle/enemy_bn_schlickhund_koenig.png",
+      "width": 288,
+      "height": 240,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 5,
+      "kind": "battle",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 288,
+          "height": 240
+        }
+      },
+      "gameId": "bn_schlickhund_koenig",
+      "baseline": 45,
+      "heldRows": [
+        1,
+        2
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bestiar_bn_schlickhund_koenig",
+      "file": "ui/bestiar/bn_schlickhund_koenig.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "kind": "bestiary",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "gameId": "bn_schlickhund_koenig"
+    },
+    {
+      "id": "head_bn_schlickhund_koenig",
+      "file": "portraits/heads/bn_schlickhund_koenig.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "kind": "head",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        }
+      },
+      "gameId": "bn_schlickhund_koenig"
+    },
+    {
+      "id": "bn_schlickhund_koenig",
+      "file": "characters/bn_schlickhund_koenig.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "kind": "walk",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 128
+        }
+      },
+      "gameId": "bn_schlickhund_koenig",
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_bn_schaffner_ohne_zug",
+      "file": "battle/enemy_bn_schaffner_ohne_zug.png",
+      "width": 288,
+      "height": 240,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 5,
+      "kind": "battle",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 288,
+          "height": 240
+        }
+      },
+      "gameId": "bn_schaffner_ohne_zug",
+      "baseline": 45,
+      "heldRows": [
+        1,
+        2
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bestiar_bn_schaffner_ohne_zug",
+      "file": "ui/bestiar/bn_schaffner_ohne_zug.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "kind": "bestiary",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "gameId": "bn_schaffner_ohne_zug"
+    },
+    {
+      "id": "head_bn_schaffner_ohne_zug",
+      "file": "portraits/heads/bn_schaffner_ohne_zug.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "kind": "head",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        }
+      },
+      "gameId": "bn_schaffner_ohne_zug"
+    },
+    {
+      "id": "bn_schaffner_ohne_zug",
+      "file": "characters/bn_schaffner_ohne_zug.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "kind": "walk",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 128
+        }
+      },
+      "gameId": "bn_schaffner_ohne_zug",
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_bn_schwellenhund_weiss",
+      "file": "battle/enemy_bn_schwellenhund_weiss.png",
+      "width": 576,
+      "height": 480,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 5,
+      "kind": "battle",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 576,
+          "height": 480
+        }
+      },
+      "gameId": "bn_schwellenhund_weiss",
+      "baseline": 93,
+      "heldRows": [
+        1,
+        2
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bestiar_bn_schwellenhund_weiss",
+      "file": "ui/bestiar/bn_schwellenhund_weiss.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "kind": "bestiary",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "gameId": "bn_schwellenhund_weiss"
+    },
+    {
+      "id": "head_bn_schwellenhund_weiss",
+      "file": "portraits/heads/bn_schwellenhund_weiss.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "kind": "head",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        }
+      },
+      "gameId": "bn_schwellenhund_weiss"
+    },
+    {
+      "id": "bn_schwellenhund_weiss",
+      "file": "characters/bn_schwellenhund_weiss.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "kind": "walk",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 128
+        }
+      },
+      "gameId": "bn_schwellenhund_weiss",
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_bn_der_zweite_vorhauer",
+      "file": "battle/enemy_bn_der_zweite_vorhauer.png",
+      "width": 576,
+      "height": 480,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 5,
+      "kind": "battle",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 576,
+          "height": 480
+        }
+      },
+      "gameId": "bn_der_zweite_vorhauer",
+      "baseline": 93,
+      "heldRows": [
+        1,
+        2
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bestiar_bn_der_zweite_vorhauer",
+      "file": "ui/bestiar/bn_der_zweite_vorhauer.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "kind": "bestiary",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "gameId": "bn_der_zweite_vorhauer"
+    },
+    {
+      "id": "head_bn_der_zweite_vorhauer",
+      "file": "portraits/heads/bn_der_zweite_vorhauer.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "kind": "head",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        }
+      },
+      "gameId": "bn_der_zweite_vorhauer"
+    },
+    {
+      "id": "bn_der_zweite_vorhauer",
+      "file": "characters/bn_der_zweite_vorhauer.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "kind": "walk",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 128
+        }
+      },
+      "gameId": "bn_der_zweite_vorhauer",
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_bn_kalkbraut",
+      "file": "battle/enemy_bn_kalkbraut.png",
+      "width": 384,
+      "height": 320,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "kind": "battle",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 384,
+          "height": 320
+        }
+      },
+      "gameId": "bn_kalkbraut",
+      "baseline": 61,
+      "heldRows": [
+        1,
+        2
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bestiar_bn_kalkbraut",
+      "file": "ui/bestiar/bn_kalkbraut.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "kind": "bestiary",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "gameId": "bn_kalkbraut"
+    },
+    {
+      "id": "head_bn_kalkbraut",
+      "file": "portraits/heads/bn_kalkbraut.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "kind": "head",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        }
+      },
+      "gameId": "bn_kalkbraut"
+    },
+    {
+      "id": "bn_kalkbraut",
+      "file": "characters/bn_kalkbraut.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "kind": "walk",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 128
+        }
+      },
+      "gameId": "bn_kalkbraut",
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_bn_der_letzte_setzer",
+      "file": "battle/enemy_bn_der_letzte_setzer.png",
+      "width": 384,
+      "height": 320,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "kind": "battle",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 384,
+          "height": 320
+        }
+      },
+      "gameId": "bn_der_letzte_setzer",
+      "baseline": 61,
+      "heldRows": [
+        1,
+        2
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bestiar_bn_der_letzte_setzer",
+      "file": "ui/bestiar/bn_der_letzte_setzer.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "kind": "bestiary",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "gameId": "bn_der_letzte_setzer"
+    },
+    {
+      "id": "head_bn_der_letzte_setzer",
+      "file": "portraits/heads/bn_der_letzte_setzer.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "kind": "head",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        }
+      },
+      "gameId": "bn_der_letzte_setzer"
+    },
+    {
+      "id": "bn_der_letzte_setzer",
+      "file": "characters/bn_der_letzte_setzer.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "kind": "walk",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 128
+        }
+      },
+      "gameId": "bn_der_letzte_setzer",
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_bn_die_linke_stempelhand",
+      "file": "battle/enemy_bn_die_linke_stempelhand.png",
+      "width": 288,
+      "height": 240,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 5,
+      "kind": "battle",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 288,
+          "height": 240
+        }
+      },
+      "gameId": "bn_die_linke_stempelhand",
+      "baseline": 45,
+      "heldRows": [
+        1,
+        2
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bestiar_bn_die_linke_stempelhand",
+      "file": "ui/bestiar/bn_die_linke_stempelhand.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "kind": "bestiary",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "gameId": "bn_die_linke_stempelhand"
+    },
+    {
+      "id": "head_bn_die_linke_stempelhand",
+      "file": "portraits/heads/bn_die_linke_stempelhand.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "kind": "head",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        }
+      },
+      "gameId": "bn_die_linke_stempelhand"
+    },
+    {
+      "id": "bn_die_linke_stempelhand",
+      "file": "characters/bn_die_linke_stempelhand.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "kind": "walk",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 128
+        }
+      },
+      "gameId": "bn_die_linke_stempelhand",
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_bn_frau_ohne_durchschlag",
+      "file": "battle/enemy_bn_frau_ohne_durchschlag.png",
+      "width": 384,
+      "height": 320,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "kind": "battle",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 384,
+          "height": 320
+        }
+      },
+      "gameId": "bn_frau_ohne_durchschlag",
+      "baseline": 61,
+      "heldRows": [
+        1,
+        2
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bestiar_bn_frau_ohne_durchschlag",
+      "file": "ui/bestiar/bn_frau_ohne_durchschlag.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "kind": "bestiary",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "gameId": "bn_frau_ohne_durchschlag"
+    },
+    {
+      "id": "head_bn_frau_ohne_durchschlag",
+      "file": "portraits/heads/bn_frau_ohne_durchschlag.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "kind": "head",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        }
+      },
+      "gameId": "bn_frau_ohne_durchschlag"
+    },
+    {
+      "id": "bn_frau_ohne_durchschlag",
+      "file": "characters/bn_frau_ohne_durchschlag.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "kind": "walk",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 128
+        }
+      },
+      "gameId": "bn_frau_ohne_durchschlag",
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_bn_der_bremser_von_sechs",
+      "file": "battle/enemy_bn_der_bremser_von_sechs.png",
+      "width": 384,
+      "height": 320,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "kind": "battle",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 384,
+          "height": 320
+        }
+      },
+      "gameId": "bn_der_bremser_von_sechs",
+      "baseline": 61,
+      "heldRows": [
+        1,
+        2
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bestiar_bn_der_bremser_von_sechs",
+      "file": "ui/bestiar/bn_der_bremser_von_sechs.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "kind": "bestiary",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "gameId": "bn_der_bremser_von_sechs"
+    },
+    {
+      "id": "head_bn_der_bremser_von_sechs",
+      "file": "portraits/heads/bn_der_bremser_von_sechs.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "kind": "head",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        }
+      },
+      "gameId": "bn_der_bremser_von_sechs"
+    },
+    {
+      "id": "bn_der_bremser_von_sechs",
+      "file": "characters/bn_der_bremser_von_sechs.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "kind": "walk",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 128
+        }
+      },
+      "gameId": "bn_der_bremser_von_sechs",
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_bn_schwester_kaltwasser",
+      "file": "battle/enemy_bn_schwester_kaltwasser.png",
+      "width": 384,
+      "height": 320,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "kind": "battle",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 384,
+          "height": 320
+        }
+      },
+      "gameId": "bn_schwester_kaltwasser",
+      "baseline": 61,
+      "heldRows": [
+        1,
+        2
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bestiar_bn_schwester_kaltwasser",
+      "file": "ui/bestiar/bn_schwester_kaltwasser.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "kind": "bestiary",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "gameId": "bn_schwester_kaltwasser"
+    },
+    {
+      "id": "head_bn_schwester_kaltwasser",
+      "file": "portraits/heads/bn_schwester_kaltwasser.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "kind": "head",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        }
+      },
+      "gameId": "bn_schwester_kaltwasser"
+    },
+    {
+      "id": "bn_schwester_kaltwasser",
+      "file": "characters/bn_schwester_kaltwasser.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "kind": "walk",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 128
+        }
+      },
+      "gameId": "bn_schwester_kaltwasser",
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_bn_der_gaertner_im_topf",
+      "file": "battle/enemy_bn_der_gaertner_im_topf.png",
+      "width": 384,
+      "height": 320,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "kind": "battle",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 384,
+          "height": 320
+        }
+      },
+      "gameId": "bn_der_gaertner_im_topf",
+      "baseline": 61,
+      "heldRows": [
+        1,
+        2
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bestiar_bn_der_gaertner_im_topf",
+      "file": "ui/bestiar/bn_der_gaertner_im_topf.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "kind": "bestiary",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "gameId": "bn_der_gaertner_im_topf"
+    },
+    {
+      "id": "head_bn_der_gaertner_im_topf",
+      "file": "portraits/heads/bn_der_gaertner_im_topf.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "kind": "head",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        }
+      },
+      "gameId": "bn_der_gaertner_im_topf"
+    },
+    {
+      "id": "bn_der_gaertner_im_topf",
+      "file": "characters/bn_der_gaertner_im_topf.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "kind": "walk",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 128
+        }
+      },
+      "gameId": "bn_der_gaertner_im_topf",
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_bn_die_motte_im_sonntagsglas",
+      "file": "battle/enemy_bn_die_motte_im_sonntagsglas.png",
+      "width": 288,
+      "height": 240,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 5,
+      "kind": "battle",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 288,
+          "height": 240
+        }
+      },
+      "gameId": "bn_die_motte_im_sonntagsglas",
+      "baseline": 45,
+      "heldRows": [
+        1,
+        2
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bestiar_bn_die_motte_im_sonntagsglas",
+      "file": "ui/bestiar/bn_die_motte_im_sonntagsglas.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "kind": "bestiary",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "gameId": "bn_die_motte_im_sonntagsglas"
+    },
+    {
+      "id": "head_bn_die_motte_im_sonntagsglas",
+      "file": "portraits/heads/bn_die_motte_im_sonntagsglas.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "kind": "head",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        }
+      },
+      "gameId": "bn_die_motte_im_sonntagsglas"
+    },
+    {
+      "id": "bn_die_motte_im_sonntagsglas",
+      "file": "characters/bn_die_motte_im_sonntagsglas.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "kind": "walk",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 128
+        }
+      },
+      "gameId": "bn_die_motte_im_sonntagsglas",
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_bn_der_absender_ohne_ort",
+      "file": "battle/enemy_bn_der_absender_ohne_ort.png",
+      "width": 288,
+      "height": 240,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 5,
+      "kind": "battle",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 288,
+          "height": 240
+        }
+      },
+      "gameId": "bn_der_absender_ohne_ort",
+      "baseline": 45,
+      "heldRows": [
+        1,
+        2
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bestiar_bn_der_absender_ohne_ort",
+      "file": "ui/bestiar/bn_der_absender_ohne_ort.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "kind": "bestiary",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "gameId": "bn_der_absender_ohne_ort"
+    },
+    {
+      "id": "head_bn_der_absender_ohne_ort",
+      "file": "portraits/heads/bn_der_absender_ohne_ort.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "kind": "head",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        }
+      },
+      "gameId": "bn_der_absender_ohne_ort"
+    },
+    {
+      "id": "bn_der_absender_ohne_ort",
+      "file": "characters/bn_der_absender_ohne_ort.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "kind": "walk",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 128
+        }
+      },
+      "gameId": "bn_der_absender_ohne_ort",
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_bn_der_zollgeist_mit_gesicht",
+      "file": "battle/enemy_bn_der_zollgeist_mit_gesicht.png",
+      "width": 288,
+      "height": 240,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 5,
+      "kind": "battle",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 288,
+          "height": 240
+        }
+      },
+      "gameId": "bn_der_zollgeist_mit_gesicht",
+      "baseline": 45,
+      "heldRows": [
+        1,
+        2
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bestiar_bn_der_zollgeist_mit_gesicht",
+      "file": "ui/bestiar/bn_der_zollgeist_mit_gesicht.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "kind": "bestiary",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "gameId": "bn_der_zollgeist_mit_gesicht"
+    },
+    {
+      "id": "head_bn_der_zollgeist_mit_gesicht",
+      "file": "portraits/heads/bn_der_zollgeist_mit_gesicht.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "kind": "head",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        }
+      },
+      "gameId": "bn_der_zollgeist_mit_gesicht"
+    },
+    {
+      "id": "bn_der_zollgeist_mit_gesicht",
+      "file": "characters/bn_der_zollgeist_mit_gesicht.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "kind": "walk",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 128
+        }
+      },
+      "gameId": "bn_der_zollgeist_mit_gesicht",
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_bn_die_witwe_auf_stelzen",
+      "file": "battle/enemy_bn_die_witwe_auf_stelzen.png",
+      "width": 384,
+      "height": 320,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "kind": "battle",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 384,
+          "height": 320
+        }
+      },
+      "gameId": "bn_die_witwe_auf_stelzen",
+      "baseline": 61,
+      "heldRows": [
+        1,
+        2
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bestiar_bn_die_witwe_auf_stelzen",
+      "file": "ui/bestiar/bn_die_witwe_auf_stelzen.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "kind": "bestiary",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "gameId": "bn_die_witwe_auf_stelzen"
+    },
+    {
+      "id": "head_bn_die_witwe_auf_stelzen",
+      "file": "portraits/heads/bn_die_witwe_auf_stelzen.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "kind": "head",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        }
+      },
+      "gameId": "bn_die_witwe_auf_stelzen"
+    },
+    {
+      "id": "bn_die_witwe_auf_stelzen",
+      "file": "characters/bn_die_witwe_auf_stelzen.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "kind": "walk",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 128
+        }
+      },
+      "gameId": "bn_die_witwe_auf_stelzen",
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_bn_der_salzmann_im_oelzeug",
+      "file": "battle/enemy_bn_der_salzmann_im_oelzeug.png",
+      "width": 288,
+      "height": 240,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 5,
+      "kind": "battle",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 288,
+          "height": 240
+        }
+      },
+      "gameId": "bn_der_salzmann_im_oelzeug",
+      "baseline": 45,
+      "heldRows": [
+        1,
+        2
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bestiar_bn_der_salzmann_im_oelzeug",
+      "file": "ui/bestiar/bn_der_salzmann_im_oelzeug.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "kind": "bestiary",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "gameId": "bn_der_salzmann_im_oelzeug"
+    },
+    {
+      "id": "head_bn_der_salzmann_im_oelzeug",
+      "file": "portraits/heads/bn_der_salzmann_im_oelzeug.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "kind": "head",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        }
+      },
+      "gameId": "bn_der_salzmann_im_oelzeug"
+    },
+    {
+      "id": "bn_der_salzmann_im_oelzeug",
+      "file": "characters/bn_der_salzmann_im_oelzeug.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "kind": "walk",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 128
+        }
+      },
+      "gameId": "bn_der_salzmann_im_oelzeug",
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_bn_der_knoten_der_nicht_loest",
+      "file": "battle/enemy_bn_der_knoten_der_nicht_loest.png",
+      "width": 384,
+      "height": 320,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "kind": "battle",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 384,
+          "height": 320
+        }
+      },
+      "gameId": "bn_der_knoten_der_nicht_loest",
+      "baseline": 61,
+      "heldRows": [
+        1,
+        2
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bestiar_bn_der_knoten_der_nicht_loest",
+      "file": "ui/bestiar/bn_der_knoten_der_nicht_loest.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "kind": "bestiary",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "gameId": "bn_der_knoten_der_nicht_loest"
+    },
+    {
+      "id": "head_bn_der_knoten_der_nicht_loest",
+      "file": "portraits/heads/bn_der_knoten_der_nicht_loest.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "kind": "head",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        }
+      },
+      "gameId": "bn_der_knoten_der_nicht_loest"
+    },
+    {
+      "id": "bn_der_knoten_der_nicht_loest",
+      "file": "characters/bn_der_knoten_der_nicht_loest.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "kind": "walk",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 128
+        }
+      },
+      "gameId": "bn_der_knoten_der_nicht_loest",
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "bnl_stilleschlacke",
+      "file": "items/bnl_stilleschlacke.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "bnl_stilleschlacke_32",
+      "file": "items/32/bnl_stilleschlacke.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        }
+      }
+    },
+    {
+      "id": "fa_bnl_stilleschlacke",
+      "file": "items/fa_bnl_stilleschlacke.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "fa_bnl_stilleschlacke_32",
+      "file": "items/32/fa_bnl_stilleschlacke.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        }
+      }
+    },
+    {
+      "id": "bnl_zollkrone",
+      "file": "items/bnl_zollkrone.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "bnl_zollkrone_32",
+      "file": "items/32/bnl_zollkrone.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        }
+      }
+    },
+    {
+      "id": "fa_bnl_zollkrone",
+      "file": "items/fa_bnl_zollkrone.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "fa_bnl_zollkrone_32",
+      "file": "items/32/fa_bnl_zollkrone.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        }
+      }
+    },
+    {
+      "id": "bnl_lohnwurzel",
+      "file": "items/bnl_lohnwurzel.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "bnl_lohnwurzel_32",
+      "file": "items/32/bnl_lohnwurzel.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        }
+      }
+    },
+    {
+      "id": "fa_bnl_lohnwurzel",
+      "file": "items/fa_bnl_lohnwurzel.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "fa_bnl_lohnwurzel_32",
+      "file": "items/32/fa_bnl_lohnwurzel.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        }
+      }
+    },
+    {
+      "id": "bnl_lochzange",
+      "file": "items/bnl_lochzange.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "bnl_lochzange_32",
+      "file": "items/32/bnl_lochzange.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        }
+      }
+    },
+    {
+      "id": "fa_bnl_lochzange",
+      "file": "items/fa_bnl_lochzange.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "fa_bnl_lochzange_32",
+      "file": "items/32/fa_bnl_lochzange.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        }
+      }
+    },
+    {
+      "id": "bnl_umkehrletter",
+      "file": "items/bnl_umkehrletter.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "bnl_umkehrletter_32",
+      "file": "items/32/bnl_umkehrletter.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        }
+      }
+    },
+    {
+      "id": "fa_bnl_umkehrletter",
+      "file": "items/fa_bnl_umkehrletter.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "fa_bnl_umkehrletter_32",
+      "file": "items/32/fa_bnl_umkehrletter.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        }
+      }
+    },
+    {
+      "id": "bnl_kalkband",
+      "file": "items/bnl_kalkband.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "bnl_kalkband_32",
+      "file": "items/32/bnl_kalkband.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        }
+      }
+    },
+    {
+      "id": "fa_bnl_kalkband",
+      "file": "items/fa_bnl_kalkband.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "fa_bnl_kalkband_32",
+      "file": "items/32/fa_bnl_kalkband.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        }
+      }
+    },
+    {
+      "id": "bnl_gesichtsabdruck",
+      "file": "items/bnl_gesichtsabdruck.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "bnl_gesichtsabdruck_32",
+      "file": "items/32/bnl_gesichtsabdruck.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        }
+      }
+    },
+    {
+      "id": "fa_bnl_gesichtsabdruck",
+      "file": "items/fa_bnl_gesichtsabdruck.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "fa_bnl_gesichtsabdruck_32",
+      "file": "items/32/fa_bnl_gesichtsabdruck.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        }
+      }
+    },
+    {
+      "id": "bnl_kaltventil",
+      "file": "items/bnl_kaltventil.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "bnl_kaltventil_32",
+      "file": "items/32/bnl_kaltventil.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        }
+      }
+    },
+    {
+      "id": "fa_bnl_kaltventil",
+      "file": "items/fa_bnl_kaltventil.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "fa_bnl_kaltventil_32",
+      "file": "items/32/fa_bnl_kaltventil.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "kind": "item",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        }
+      }
+    },
+    {
+      "id": "bn_auftritt",
+      "file": "fx/bn_auftritt.png",
+      "width": 768,
+      "height": 96,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 8,
+      "rows": 1,
+      "kind": "fx",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 768,
+          "height": 96
+        }
+      },
+      "animations": {
+        "appear": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bn_symbole",
+      "file": "ui/bn_symbole.png",
+      "width": 80,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 5,
+      "rows": 1,
+      "kind": "ui",
+      "transparent": true,
+      "regions": {
+        "full": {
+          "x": 0,
+          "y": 0,
+          "width": 80,
+          "height": 16
+        }
+      },
+      "symbols": [
+        "gesichtet",
+        "besiegt",
+        "beute",
+        "bestiarium_neu",
+        "fasserin_tauglich"
+      ]
+    }
+  ]
+}
