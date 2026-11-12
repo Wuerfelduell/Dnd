@@ -220,7 +220,7 @@ test('Kessel: Essenzen erst ab voll verdauter 5 mit Formel der 4; fünf getrunke
   assert.equal(s.hgRecipes().length, 0, 'erst voll verdaut');
   s.pathway.digestion = 100;
   assert.equal(s.hgRecipes().length, 5);
-  for (const [i, e] of HG_SUDE.entries()) {
+  for (const [i, e] of s.content.seq4Sude.entries()) {
     for (const [id, n] of Object.entries(e.zutaten)) s.addItem(id, n);
     s.addItem('leeres_gefaess');
     assert.equal(s.brewEssence(i).ok, true, e.id);

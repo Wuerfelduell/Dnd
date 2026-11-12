@@ -77,14 +77,22 @@ export class HalbgottRitual {
           p.setTint(0xff8080);
           this.scene.time.delayedCall(140, () => p.clearTint());
         } else if (e.type === 'kill') this.state.seq4().siegeKills = e.kills;
-        else if (e.type === 'sunrise') this.scene.cameras.main.flash(900, 255, 240, 200);
-        else if (e.type === 'sunrise_fail') this.scene.ui.toast?.('Er steht nicht zwischen drei brennenden Laternen.', 'warn');
+        else if (e.type === 'sunrise') { this.scene.cameras.main.flash(900, 255, 240, 200); this.toast('sonnenaufgang'); }
+        else if (e.type === 'sunrise_fail') this.scene.ui.toast?.(`Er steht nicht zwischen drei brennenden Laternen. ${this.state.seq4Msg?.('laterne', 'waechter_immun') ?? ''}`.trim(), 'warn');
         else if (e.type === 'tired') this.scene.ui.toast?.('Zu wenig Nerven zum Nachfüllen.', 'warn');
-        else if (e.type === 'guardian') { this.scene.cameras.main.shake(400, 0.006); this.scene.ui.toast?.('Der Wächter tritt aus dem Dunkel. Nur der Sonnenaufgang (F) zwischen drei Flammen fällt ihn.', 'warn'); }
+        else if (e.type === 'lantern_weak') this.toast('laterne_schwach', { n: e.lantern + 1 }, 'warn');
+        else if (e.type === 'lantern_out') this.toast('laterne_erloschen', { n: e.lantern + 1 }, 'warn');
+        else if (e.type === 'guardian') { this.scene.cameras.main.shake(400, 0.006); this.scene.ui.toast?.(`${this.state.seq4Msg?.('laterne', 'waechter_erscheint') || 'Der Wächter tritt aus dem Dunkel.'} Nur der Sonnenaufgang (F) zwischen drei Flammen fällt ihn.`, 'warn'); }
       }
       if (this.siege.outcome) { this.finishSiege({ won: this.siege.outcome === 'won', reason: this.siege.reason }); return; }
     }
     this.drawSiege();
+  }
+
+  /** Kurzmeldung aus Codex DR als Toast. */
+  toast(key, vars, kind = 'info') {
+    const t = this.state.seq4Msg?.('laterne', key, vars);
+    if (t) this.scene.ui.toast?.(t, kind);
   }
 
   drawSiege() {

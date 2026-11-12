@@ -252,6 +252,14 @@ import bn_bindungen from './packs/k3_ruf/bindungen.json';
 import bn_texte from './packs/k3_ruf/texte.json';
 import { buildK3Ruf } from './k3Ruf.js';
 import { runde8Packs } from './runde8.js';
+import { seq4DrPack } from './seq4Dr.js';
+import dr_rituale from './packs/seq4_dr/rituale.json';
+import dr_meldungen from './packs/seq4_dr/meldungen.json';
+import dr_waechter from './packs/seq4_dr/waechter.json';
+import dr_kessel_rezepte from './packs/seq4_dr/kessel_rezepte.json';
+import dr_moor_relikt from './packs/seq4_dr/moor_relikt.json';
+import dr_nebentexte from './packs/seq4_dr/nebentexte.json';
+import dr_wexmoor_einnahmen from './packs/seq4_dr/wexmoor_einnahmen.json';
 import bz_dialog_zusaetze from './packs/beziehungen/dialog_zusaetze.json';
 import bo_rezepte from './packs/fasserin/rezepte.json';
 import bo_gerede from './packs/fasserin/gerede.json';
@@ -465,6 +473,7 @@ import hg_lesestuecke from './packs/halbgott/lesestuecke.json';
 import hg_koop from './packs/halbgott/koop.json';
 /** Codex-Runde 9: CR Fasserin-Aufträge (20 fa_*-Artefakte) und CP Halbgott/Engel-Texte. */
 const fasserinAuftrag = fasserinAuftragPack({ oda: fa_oda, gastgeber: fa_gastgeber, texte: fa_texte, artefakte: fa_artefakte, gerede: fa_gerede, zeitung: fa_zeitung, lesestuecke: fa_lesestuecke });
+const seq4Dr = seq4DrPack({ rituale: dr_rituale, meldungen: dr_meldungen, waechter: dr_waechter, kessel_rezepte: dr_kessel_rezepte, moor_relikt: dr_moor_relikt, nebentexte: dr_nebentexte, wexmoor_einnahmen: dr_wexmoor_einnahmen }); // Codex DR: Seq-4-Texte, Wexmoor-Einnahmen
 const halbgott = halbgottPack({ trinktexte: hg_trinktexte, kreaturform: hg_kreaturform, furcht: hg_furcht, rituale: hg_rituale, encounters: hg_encounters, bestiarium: hg_bestiarium, zeitung: hg_zeitung, gerede: hg_gerede, lesestuecke: hg_lesestuecke, koop: hg_koop });
 const fasserinPack = { name: 'fasserin', rezepte: bo_rezepte.recipes, artifacts: bo_rezepte.artifacts, fasserin_texte: bo_texte, gerede: bo_gerede, zeitung: bo_zeitung };
 /** Paket AL: vier Wexmoorer Akten. */
@@ -503,7 +512,7 @@ export const content = buildContent({
   gatherings,
   city,
   wexmoor,
-  packs: [k1Finale, kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen, k3Handel, k3Leben, koopK3, koopBeute, k3Ruf, beziehungenPack, fasserinPack, fasserinAuftrag, halbgott, festePack, sektenPack, ...runde8],
+  packs: [k1Finale, kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen, k3Handel, k3Leben, koopK3, koopBeute, k3Ruf, beziehungenPack, fasserinPack, fasserinAuftrag, halbgott, festePack, sektenPack, seq4Dr, ...runde8],
   lore: { bestiarium: lore_bestiarium, gerede: lore_gerede, item_texte: lore_item_texte, lesestuecke: lore_lesestuecke, zeitungen: lore_zeitungen },
   beziehungen,
   sequenzen: { neue_pfade: sq_neue_pfade, seq_4_bis_1: sq_seq_4_bis_1, zutaten: sq_zutaten, artefakte: sq_artefakte, rituale: k3p_rituale, faehigkeiten: sq_faehigkeiten },

@@ -8,6 +8,7 @@
  * zehn der Abschluss der Prüfung selbst.
  */
 import { LEERES_GEFAESS } from './sude.js';
+import { applySeq4Dr, DR_KEY, pct } from './seq4Dr.js';
 
 export const HG_KIND = { laterne: 'laterne', faden: 'faden', maske: 'maske', echo: 'echo', kessel: 'kessel', eisen: 'eisen', schluessel: 'schluessel', sq_waage: 'waage', sq_moor: 'moor', sq_uhr: 'uhr' };
 
@@ -60,8 +61,21 @@ const STOCK = {
 /** Wexmoor-Einnahmen (Seb): wer für das Waage-Ritual bis zu 10 000 Schilling braucht, soll sie dort ehrlich erfarmen können. */
 export const WX_MONEY_MULT = 6;
 
-export function applySeq4(content) {
+/** Kessel-Essenzen mit den Zutaten und Wirkungstexten aus Codex DR (kessel_rezepte.json), je eine Zutat plus Leeres Gefäß. */
+function drSude(dr) {
+  return HG_SUDE.map((s) => {
+    const r = dr?.kessel_rezepte?.[s.id];
+    if (!r) return s;
+    return { ...s, name: r.name ?? s.name, zutaten: Object.fromEntries((r.zutaten_vorschlag ?? []).map((z) => [z, 1])), desc: `${r.desc} Getrunken: ${r.wirkung_trinken} Geworfen: ${r.wirkung_wurf}`, wirkung: r.wirkung_trinken };
+  });
+}
+
+/** dr: Codex-Paket DR (data/seq4Dr.js), optional. */
+export function applySeq4(content, dr = null) {
+  const sude = drSude(dr);
+  content.seq4Sude = sude;
   content.items = { ...content.items, ...SEQ4_ITEMS };
+  for (const s of sude) content.items[s.id] = { ...content.items[s.id], name: s.name, desc: `${s.desc} Nur für das Ritual des Kessels (Sequenz 4), im Pfad-Tab trinken.` };
   // Rituale der Sequenz 4: Prüfung statt Ortsbindung
   const pathways = {};
   for (const [pid, p] of Object.entries(content.pathways)) {
@@ -71,7 +85,8 @@ export function applySeq4(content) {
     const { map, also_maps, vision, requires, ...rest } = r;
     const req = { ...(requires ?? {}) };
     delete req.requires_flags;
-    pathways[pid] = { ...p, seqs: { ...p.seqs, 4: { ...p.seqs[4], ritual: { ...rest, name: HG_NAMES[kind], desc: HG_DESC[kind], hg: kind, ordeal: true, ...(Object.keys(req).length ? { requires: req } : {}) } } } };
+    const t = dr?.rituale?.[DR_KEY[kind]];
+    pathways[pid] = { ...p, seqs: { ...p.seqs, 4: { ...p.seqs[4], ritual: { ...rest, name: t?.name ?? HG_NAMES[kind], desc: t?.desc ? pct(t.desc) : HG_DESC[kind], hg: kind, ordeal: true, ...(Object.keys(req).length ? { requires: req } : {}) } } } };
   }
   content.pathways = pathways;
   const m = content.market;
@@ -92,6 +107,7 @@ export function applySeq4(content) {
     loot[id] = { ...loot[id], money: loot[id].money.map((v) => Math.round(v * WX_MONEY_MULT)), wx_buffed: true };
   }
   content.loot = loot;
+  applySeq4Dr(content, dr); // Codex DR: Texte, Wächterzeilen, Gerede, Zeitung, Wexmoor-Einnahmen
   return content;
 }
 
