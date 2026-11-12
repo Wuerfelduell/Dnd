@@ -3,6 +3,8 @@
 // weder gespeichert noch aus einem Spielstand übernommen; es folgt immer der Spielzeit.
 export const DAY_NIGHT_SECONDS = 15 * 60;
 export const NIGHT_FLAG = 'k3h_nacht';
+/** Pfad-Beyonder (Wexmoor): an geraden Tagen der Jahreszeit stehen die Einzelgänger tagsüber an ihrer zweiten Stelle. */
+export const DAY_B_FLAG = 'uhr_tag_b';
 
 export const isNightAt = (playTime) => Math.floor((playTime ?? 0) / DAY_NIGHT_SECONDS) % 2 === 1;
 
@@ -32,7 +34,7 @@ export const festAt = (playTime, city) => (seasonDayAt(playTime) === FEST_DAY
 export const isStillerAbendAt = (playTime) => seasonAt(playTime) === 'winter' && seasonDayAt(playTime) === FEST_DAY;
 const FS_SEASON = new Set(SEASONS.map((s) => `fs_${s}`));
 export const VOLATILE_FLAGS = (f) => f === NIGHT_FLAG || f.startsWith('saison_') || f.startsWith('fest_aktiv_') || FS_SEASON.has(f)
-  || /^fs_fest_\w+_aktiv$/.test(f) || /^fs_\w+_(ankuendigung|nachlese)$/.test(f) || f === 'fs_stiller_abend_aktiv';
+  || /^fs_fest_\w+_aktiv$/.test(f) || /^fs_\w+_(ankuendigung|nachlese)$/.test(f) || f === 'fs_stiller_abend_aktiv' || f === DAY_B_FLAG;
 /** Einmal je Jahreszeit nutzbare Wirkungen (CK wirkungen.json) werden mit der neuen Jahreszeit wieder frei. */
 const SEASON_USE = /^fs_\w+_wirkung_\d+_genutzt$/;
 const SEASON_MARK = 'fs_saison_stand_';
@@ -42,6 +44,7 @@ export function clockFlagsAt(playTime) {
   const season = seasonAt(playTime);
   const day = seasonDayAt(playTime);
   const want = new Set([`saison_${season}`, `fs_${season}`]);
+  if (day % 2 === 0) want.add(DAY_B_FLAG);
   for (const [id, f] of Object.entries(FESTE)) {
     if (festAt(playTime, f.city) === id) { want.add(`fest_aktiv_${id}`); want.add(`fs_fest_${id}_aktiv`); }
     if (f.season !== season) continue;

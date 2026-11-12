@@ -171,7 +171,7 @@ export class Combat {
     // Seq-4-Rituale (core/Seq4.js): Regeln der laufenden Prüfung, gelesen beim Prüfling. Solo: Spieler 2 schaut zu;
     // ist der Prüfling Spieler 2, tauschen die Werte für die Dauer des Kampfes (swapped), damit er Kämpfer 1 ist.
     const prover = state.combatBy ?? state.acting ?? 1;
-    this.rules = enc.practice ? null : state.withPlayer(prover, () => state.seq4CombatRules?.(encounterId, enc) ?? null, { quiet: true });
+    this.rules = enc.practice ? null : state.withPlayer(prover, () => state.pfadTaskRules?.(encounterId, enc) ?? state.seq4CombatRules?.(encounterId, enc) ?? state.pfadCombatRules?.(encounterId, enc) ?? null, { quiet: true }); // Pfad-Beyonder: Aufgaben mit Sonderregeln
     this.swapped = false;
     if (this.rules?.solo && prover === 2 && state.acting === 1 && state.p2) { state.swapPersonal(); this.swapped = true; }
     if (this.rules?.scale) enc = { ...enc, hp: Math.round(enc.hp * this.rules.scale.hp), attacks: enc.attacks.map((a) => (a.action ? a : { ...a, damage: Math.max(1, Math.round(a.damage * this.rules.scale.dmg)) })) };
@@ -1086,6 +1086,8 @@ export class Combat {
     if (trial) text += `\n\n${trial}`;
     const hg = s.seq4CombatEnd?.(this); // Seq-4-Prüfungen (core/Seq4.js)
     if (hg) text += `\n\n${hg}`;
+    const ph = s.pfadCombatEnd?.(this); // Pfad-Beyonder (core/PfadHandel.js)
+    if (ph) text += `\n\n${ph}`;
     if (this.swapped) { s.swapPersonal(); this.swapped = false; }
     s.emit('hp', { value: s.hp, delta: 0 });
     s.emit('party', { active: s.hasP2?.() ?? false });
@@ -1106,6 +1108,7 @@ export class Combat {
       loot.items = rolled.items;
       if (first) for (const [id, n] of Object.entries(table.items ?? {})) loot.items[id] = (loot.items[id] ?? 0) + n;
     }
+    this.state.pfadExtraLoot?.(this, loot); // Pfad-Beyonder: Hinweis-Beute, Torfproben, Seq-4-Formel bei Eliten
     this.state.seq5ExtraLoot?.(this, loot); // violette Spinnenfäden, solange der Kokon gesucht wird
     return loot;
   }

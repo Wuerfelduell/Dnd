@@ -14,6 +14,7 @@ import { signalRouteMethods } from './SignalRoutes.js';
 import { claimEinbauMethods } from './ClaimsEinbau.js';
 import { clockMethods, NIGHT_FLAG, VOLATILE_FLAGS } from './Clock.js';
 import { bondMethods } from './Bonds.js';
+import { pfadHandelMethods } from './PfadHandel.js';
 import { relationMethods } from './Relations.js';
 import { artifactMethods } from './Artifacts.js';
 import { partyMethods } from './Party.js';
@@ -71,6 +72,7 @@ export class GameState {
     this.spiritVision = false;
     this.endings = {}; // caseId -> endingId
     this.position = null;
+    this.pfadHandel = {}; // Pfad-Beyonder: laufende Aufgaben (core/PfadHandel.js)
     this.resetSude();
     this.maxHp = s.hp ?? DEFAULT_HP;
     this.hp = this.maxHp;
@@ -341,7 +343,8 @@ export class GameState {
       this.meetsRelation(o) &&
       this.meetsClaims(o) && // Paket BG: requires_claim, requires_claim_missing, requires_p2, requires_replacement
       this.meetsSignalRoutes(o) && // Paket BN: requires_route, requires_pattern, requires_binding
-      this.meetsDaily(o) // DR: requires_daily / hide_if_daily (einmal je Spieltag)
+      this.meetsDaily(o) && // DR: requires_daily / hide_if_daily (einmal je Spieltag)
+      this.meetsPfad(o) // Pfad-Beyonder: requires_item_counts, requires_artifacts, requires_ph_step
     );
   }
 
@@ -397,6 +400,7 @@ export class GameState {
     // Unruhe trifft nur Beyonder; wer keinen Trank hat, verliert stattdessen Nerven.
     if (e.unruhe) { if (this.isBeyonder()) this.setUnruhe(this.unruhe + e.unruhe); else this.setComposure(this.composure - e.unruhe); }
     if (e.combat) this.startCombat(e.combat);
+    if (e.pfad) this.pfadEffect(e.pfad); // Pfad-Beyonder (Wexmoor): Aufgaben, Schritte, Pfand
     // Fahndung: Zahl ≥ 0 = Mindeststufe (Ausbruch, Flucht), negative Zahl = um so viele Stufen senken (Paket AB)
     if (Number.isFinite(e.wanted) && this.policeRules()) this.setWanted(e.wanted < 0 ? Math.max(0, this.wanted + e.wanted) : Math.max(this.wanted, e.wanted), e.wanted_reason ?? '');
     for (const [id, n] of Object.entries(e.bond ?? {})) this.changeBond(id, n); // Einzelgänger: Freund oder Feind; Gefährten (Zunder): nur Vertrauen
@@ -799,6 +803,7 @@ export class GameState {
       ...this.serializeClaims(),
       ...this.serializeSekten(),
       ...this.serializeSude(),
+      ...this.serializePfadHandel(),
     };
   }
 
@@ -857,6 +862,7 @@ export class GameState {
     this.loadSignalRoutes(data); // BN: nach loadSignal, Ladungen bleiben
     this.loadSekten(data); // BQ: Umtriebe-Stufen und laufende Ereignisse
     this.loadSude(data);
+    this.loadPfadHandel(data);
     this.syncClock(); // Tag/Nacht folgt der Spielzeit, nicht dem Spielstand
     if (!this.content.maps[this.map]) { this.map = this.content.start.map; this.position = null; }
     this.map = this.variantOf(this.map); // CH: Briarholt kalt oder warm, je nach Ventilkreis
@@ -867,4 +873,4 @@ export class GameState {
 /** Fortschrittsflags der verlängerten Akt-V-Fassung (AP), in Spielreihenfolge. */
 export const K2_AKT5_STEPS = ['k2v_boot_bereit', 'k2v_keller_passiert', 'k2v_aufstieg_passiert', 'k2v_abschied_done'];
 
-Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods, sudeMethods, seq5Methods, seq4Methods);
+Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods, sudeMethods, seq5Methods, seq4Methods, pfadHandelMethods);

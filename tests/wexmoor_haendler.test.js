@@ -15,7 +15,7 @@ const sprite = (path) => new URL(`../public/sprites/${path}`, import.meta.url);
 test('Maud Keel steht am Salzmarkt, hat Figur, Lauf-Sheet, Gespräch und Laden mit Ankauf', () => {
   const sm = content.maps.wx_salzmarkt;
   const npc = sm.npcs.find((n) => n.id === ID);
-  assert.ok(npc && !npc.visible_if, 'immer da, sobald man den Salzmarkt betritt');
+  assert.ok(npc && (!npc.visible_if || new GameState(content).meets(npc.visible_if)), 'immer da, sobald man den Salzmarkt betritt (bis man sie als Beyonderin besiegt)');
   assert.ok(content.npcs[ID]?.palette && content.npcs[ID].dialogue === ID);
   assert.ok(existsSync(sprite(SHEETS[CHARACTER_SHEETS[`npc_${ID}`]])), 'Lauf-Sheet');
   const m = content.market.merchants[ID];

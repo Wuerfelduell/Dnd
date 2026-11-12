@@ -2,6 +2,7 @@ import { NIGHT_FLAG } from '../core/Clock.js';
 import { applyQuestPack } from './questPacks.js';
 import { applyLore } from './lore.js';
 import { withSequenzen, applySequenzen } from './sequenzen.js';
+import { applyPfadHandel } from './pfadHandel.js';
 import { applySeq5 } from './seq5.js';
 import { applySeq4 } from './seq4.js';
 import { withFaehigkeiten } from './faehigkeiten.js';
@@ -81,6 +82,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applySequenzen(content, sequenzen, sq); // Paket AF: Händler, Treffen und Funde für die neuen Pfade
   applySeq5(content); // Seq-5-Rituale: Gefäße, Fäden, Uhr, Sude, Laternenbestie und Kokonspinne
   applySeq4(content, packs.find((p) => p.seq4Dr)?.seq4Dr ?? null); // Seq-4-Rituale: zehn Halbgott-Prüfungen samt Wächter, Wurfflaschen, Relikt, Wexmoor-Einnahmen
+  applyPfadHandel(content); // Pfad-Beyonder in Wexmoor: Zutaten für Seq 5/4, drei neue Einzelgänger, Laufplan
   applySchmuggel(content); // Kein Zurück nach Kettlegate: Zirkelware von dort in Zunders Schmuggelkiste
   applyMoods(content); // Paket AK: Stimmungen für Schlüsselstellen
   applyRelations(content, beziehungen, packs); // Beziehungen: Regeln, Vorlieben, Knoten-Wirkungen

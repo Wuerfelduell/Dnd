@@ -23,8 +23,12 @@ function withOffer(s, merchant, item) {
 function brew(s, pid, seq) {
   s.money = 5000;
   s.honor = Math.max(s.honor, 165); // Formeln für 4 bis 1 verlangen bis zu 160 Ehre
-  withOffer(s, 'kittering', `formel_${pid}_${seq}`);
-  assert.equal(s.buy('kittering', `formel_${pid}_${seq}`).ok, true, `Formel ${pid} ${seq}`);
+  // Seb (2026-11-12): die Halbgott-Formel (4) gibt es nur auf geheimen Treffen oder als seltene Elite-Beute
+  if (seq === 4) s.addItem(`formel_${pid}_${seq}`);
+  else {
+    withOffer(s, 'kittering', `formel_${pid}_${seq}`);
+    assert.equal(s.buy('kittering', `formel_${pid}_${seq}`).ok, true, `Formel ${pid} ${seq}`);
+  }
   for (const [id, n] of Object.entries(content.items[`formel_${pid}_${seq}`].ingredients)) {
     const shop = ['nell', 'kittering'].find((m) => s.shopStock(m).some((e) => e.item === id));
     // Zutaten ab Sequenz 7 gibt es nur auf geheimen Treffen oder als Beute

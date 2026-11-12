@@ -9,7 +9,7 @@ import { travelFast } from '../src/core/Travel.js';
 import { loadContent, fight, seeded, EXPERT, SKILLED } from './helpers.js';
 
 const content = loadContent();
-const WX = Object.entries(content.encounters).filter(([, e]) => e.wild && e.zone.startsWith('wx_'));
+const WX = Object.entries(content.encounters).filter(([, e]) => e.wild && e.zone.startsWith('wx_') && !e.pfad_handel); // verstärkte Aufgaben-Gegner der Pfad-Beyonder zählen nicht
 // Ab Fall 5 hat man die Ossuarklinge aus den Katakomben; in Wexmoor rechnet niemand mehr mit weniger
 const GEAR = { 2: 'ossuarklinge', 3: 'ossuarklinge', 4: 'ossuarklinge' };
 const HALF = (i) => (i % 2 ? 'miss' : 'dodge');
