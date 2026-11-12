@@ -1,0 +1,1142 @@
+[
+  {
+    "id": "hg_ritual_laterne_4",
+    "pfad": "laterne",
+    "seq": 4,
+    "name": "Dochtgezeichneter: Schwellenprobe",
+    "map": "ds_schwellenring",
+    "ort_bindend": false,
+    "vorbereitung": [
+      "Befrage Hedda Quist nach deinem Anteil an der Probe: Welche Ihrer Gewissheiten hält ohne Beleuchtung stand?",
+      "Beschaffe Zeugendocht als Teil der unten genannten Opferzutaten und lege die Herkunft offen.",
+      "Warte bis zum Abend und sprich deinen Grundsatz ohne fremde Hilfe aus: Bring Licht ins Verborgene."
+    ],
+    "consumes": {
+      "sq_zutat_laterne_4": 1,
+      "nebeltau": 2,
+      "geisteressenz": 2,
+      "silberstaub": 2
+    },
+    "waechter": "hg_schwellenwaechter",
+    "requires": {
+      "pfad": "laterne",
+      "seq": 5,
+      "digest_min": 100,
+      "preparation_flag": "hg_ritual_laterne_4_bereit"
+    },
+    "desc": "Du legst die Zutaten getrennt um dein Siegel. Du legst deinen eigenen falschen Bericht offen und verzichtest auf seine Entlastung. Der Wächter wartet, bis du selbst den ersten Schritt machst.",
+    "bestanden": "Der Wächter gibt deinen Umriss frei. Die Probe für Dochtgezeichneter ist bestanden; der Trank muss noch gebraut und getrunken werden.",
+    "gescheitert": "Du wirst ohnmächtig und wachst am Rand der Probe auf. Die eingesetzten Zutaten sind verbraucht, der Wächter steht wieder. Du lebst und kannst dich auf einen neuen Versuch vorbereiten.",
+    "friedlich": {
+      "bedingung": "Verdauung der aktuellen Stufe 100 Prozent, alle drei Vorbereitungen abgeschlossen, keine Tränke in beiden Rucksäcken und keine fremde Hilfe während der drei Antworten; verzichte außerdem für einen Spieltag auf die Kreaturform.",
+      "requires": {
+        "digest_min": 100,
+        "no_carried_potions": "party",
+        "preparation_flag": "hg_ritual_laterne_4_bereit",
+        "answers_without_help": 3,
+        "accept_form_lock_days": 1
+      },
+      "text": "Du legst deinen eigenen falschen Bericht offen und verzichtest auf seine Entlastung. Du lässt das Siegel unberührt und beantwortest alle drei Fragen mit deiner eigenen Verantwortung."
+    },
+    "ablauf": {
+      "consumes_at": "confirmed_attempt_start",
+      "consume_once": true,
+      "refund_on_loss": false,
+      "refund_on_flee": false,
+      "unlock_flag": "hg_ritual_laterne_4",
+      "personal": true,
+      "retry": "new_preparation_and_ingredients",
+      "peaceful_same_offerings": true
+    },
+    "koop": {
+      "required_seq_each": 5,
+      "required_path_each": "own_ritual",
+      "consumes_each": true,
+      "success_each": "only_personally_passed_trial",
+      "failure": "partner_may_carry_no_shared_unlock"
+    }
+  },
+  {
+    "id": "hg_ritual_laterne_2",
+    "pfad": "laterne",
+    "seq": 2,
+    "name": "Rußhorizont: Grenzprobe",
+    "map": "hg_grenzbezirk",
+    "ort_bindend": false,
+    "vorbereitung": [
+      "Befrage Hedda Quist nach deinem Anteil an der Probe: Welche Ihrer Gewissheiten hält ohne Beleuchtung stand?",
+      "Beschaffe Horizontglas als Teil der unten genannten Opferzutaten und lege die Herkunft offen.",
+      "Warte bis vor Sonnenaufgang und sprich deinen Grundsatz ohne fremde Hilfe aus: Bring Licht ins Verborgene."
+    ],
+    "consumes": {
+      "sq_zutat_laterne_2": 1,
+      "nebeltau": 2,
+      "geisteressenz": 4,
+      "silberstaub": 4
+    },
+    "waechter": "hg_grenzwaechter",
+    "requires": {
+      "pfad": "laterne",
+      "seq": 3,
+      "digest_min": 100,
+      "preparation_flag": "hg_ritual_laterne_2_bereit"
+    },
+    "desc": "Du legst die Zutaten getrennt um dein Siegel. Du legst deinen eigenen falschen Bericht offen und verzichtest auf seine Entlastung. Der Wächter wartet, bis du selbst den ersten Schritt machst.",
+    "bestanden": "Der Wächter gibt deinen Umriss frei. Die Probe für Rußhorizont ist bestanden; der Trank muss noch gebraut und getrunken werden.",
+    "gescheitert": "Du wirst ohnmächtig und wachst am Rand der Probe auf. Die eingesetzten Zutaten sind verbraucht, der Wächter steht wieder. Du lebst und kannst dich auf einen neuen Versuch vorbereiten.",
+    "friedlich": {
+      "bedingung": "Verdauung der aktuellen Stufe 100 Prozent, alle drei Vorbereitungen abgeschlossen, keine Tränke in beiden Rucksäcken und keine fremde Hilfe während der drei Antworten; verzichte außerdem für einen Spieltag auf die Kreaturform.",
+      "requires": {
+        "digest_min": 100,
+        "no_carried_potions": "party",
+        "preparation_flag": "hg_ritual_laterne_2_bereit",
+        "answers_without_help": 3,
+        "accept_form_lock_days": 1
+      },
+      "text": "Du legst deinen eigenen falschen Bericht offen und verzichtest auf seine Entlastung. Du lässt das Siegel unberührt und beantwortest alle drei Fragen mit deiner eigenen Verantwortung."
+    },
+    "ablauf": {
+      "consumes_at": "confirmed_attempt_start",
+      "consume_once": true,
+      "refund_on_loss": false,
+      "refund_on_flee": false,
+      "unlock_flag": "hg_ritual_laterne_2",
+      "personal": true,
+      "retry": "new_preparation_and_ingredients",
+      "peaceful_same_offerings": true
+    },
+    "koop": {
+      "required_seq_each": 3,
+      "required_path_each": "own_ritual",
+      "consumes_each": true,
+      "success_each": "only_personally_passed_trial",
+      "failure": "partner_may_carry_no_shared_unlock"
+    }
+  },
+  {
+    "id": "hg_ritual_faden_4",
+    "pfad": "faden",
+    "seq": 4,
+    "name": "Nahtträger: Schwellenprobe",
+    "map": "ds_schwellenring",
+    "ort_bindend": false,
+    "vorbereitung": [
+      "Befrage Hedda Quist nach deinem Anteil an der Probe: Welche Verbindung haben Sie nur behauptet?",
+      "Beschaffe Lückenspule als Teil der unten genannten Opferzutaten und lege die Herkunft offen.",
+      "Warte bis zum Abend und sprich deinen Grundsatz ohne fremde Hilfe aus: Verknüpfe, was getrennt scheint."
+    ],
+    "consumes": {
+      "sq_zutat_faden_4": 1,
+      "nebeltau": 2,
+      "geisteressenz": 2,
+      "silberstaub": 2
+    },
+    "waechter": "hg_schwellenwaechter",
+    "requires": {
+      "pfad": "faden",
+      "seq": 5,
+      "digest_min": 100,
+      "preparation_flag": "hg_ritual_faden_4_bereit"
+    },
+    "desc": "Du legst die Zutaten getrennt um dein Siegel. Du löst eine selbst geschlossene Verbindung und lässt ihre Folgen unbeantwortet. Der Wächter wartet, bis du selbst den ersten Schritt machst.",
+    "bestanden": "Der Wächter gibt deinen Umriss frei. Die Probe für Nahtträger ist bestanden; der Trank muss noch gebraut und getrunken werden.",
+    "gescheitert": "Du wirst ohnmächtig und wachst am Rand der Probe auf. Die eingesetzten Zutaten sind verbraucht, der Wächter steht wieder. Du lebst und kannst dich auf einen neuen Versuch vorbereiten.",
+    "friedlich": {
+      "bedingung": "Verdauung der aktuellen Stufe 100 Prozent, alle drei Vorbereitungen abgeschlossen, keine Tränke in beiden Rucksäcken und keine fremde Hilfe während der drei Antworten; verzichte außerdem für einen Spieltag auf die Kreaturform.",
+      "requires": {
+        "digest_min": 100,
+        "no_carried_potions": "party",
+        "preparation_flag": "hg_ritual_faden_4_bereit",
+        "answers_without_help": 3,
+        "accept_form_lock_days": 1
+      },
+      "text": "Du löst eine selbst geschlossene Verbindung und lässt ihre Folgen unbeantwortet. Du lässt das Siegel unberührt und beantwortest alle drei Fragen mit deiner eigenen Verantwortung."
+    },
+    "ablauf": {
+      "consumes_at": "confirmed_attempt_start",
+      "consume_once": true,
+      "refund_on_loss": false,
+      "refund_on_flee": false,
+      "unlock_flag": "hg_ritual_faden_4",
+      "personal": true,
+      "retry": "new_preparation_and_ingredients",
+      "peaceful_same_offerings": true
+    },
+    "koop": {
+      "required_seq_each": 5,
+      "required_path_each": "own_ritual",
+      "consumes_each": true,
+      "success_each": "only_personally_passed_trial",
+      "failure": "partner_may_carry_no_shared_unlock"
+    }
+  },
+  {
+    "id": "hg_ritual_faden_2",
+    "pfad": "faden",
+    "seq": 2,
+    "name": "Stadtversäumer: Grenzprobe",
+    "map": "hg_grenzbezirk",
+    "ort_bindend": false,
+    "vorbereitung": [
+      "Befrage Hedda Quist nach deinem Anteil an der Probe: Welche Verbindung haben Sie nur behauptet?",
+      "Beschaffe Randspindel als Teil der unten genannten Opferzutaten und lege die Herkunft offen.",
+      "Warte bis vor Sonnenaufgang und sprich deinen Grundsatz ohne fremde Hilfe aus: Verknüpfe, was getrennt scheint."
+    ],
+    "consumes": {
+      "sq_zutat_faden_2": 1,
+      "nebeltau": 2,
+      "geisteressenz": 4,
+      "silberstaub": 4
+    },
+    "waechter": "hg_grenzwaechter",
+    "requires": {
+      "pfad": "faden",
+      "seq": 3,
+      "digest_min": 100,
+      "preparation_flag": "hg_ritual_faden_2_bereit"
+    },
+    "desc": "Du legst die Zutaten getrennt um dein Siegel. Du löst eine selbst geschlossene Verbindung und lässt ihre Folgen unbeantwortet. Der Wächter wartet, bis du selbst den ersten Schritt machst.",
+    "bestanden": "Der Wächter gibt deinen Umriss frei. Die Probe für Stadtversäumer ist bestanden; der Trank muss noch gebraut und getrunken werden.",
+    "gescheitert": "Du wirst ohnmächtig und wachst am Rand der Probe auf. Die eingesetzten Zutaten sind verbraucht, der Wächter steht wieder. Du lebst und kannst dich auf einen neuen Versuch vorbereiten.",
+    "friedlich": {
+      "bedingung": "Verdauung der aktuellen Stufe 100 Prozent, alle drei Vorbereitungen abgeschlossen, keine Tränke in beiden Rucksäcken und keine fremde Hilfe während der drei Antworten; verzichte außerdem für einen Spieltag auf die Kreaturform.",
+      "requires": {
+        "digest_min": 100,
+        "no_carried_potions": "party",
+        "preparation_flag": "hg_ritual_faden_2_bereit",
+        "answers_without_help": 3,
+        "accept_form_lock_days": 1
+      },
+      "text": "Du löst eine selbst geschlossene Verbindung und lässt ihre Folgen unbeantwortet. Du lässt das Siegel unberührt und beantwortest alle drei Fragen mit deiner eigenen Verantwortung."
+    },
+    "ablauf": {
+      "consumes_at": "confirmed_attempt_start",
+      "consume_once": true,
+      "refund_on_loss": false,
+      "refund_on_flee": false,
+      "unlock_flag": "hg_ritual_faden_2",
+      "personal": true,
+      "retry": "new_preparation_and_ingredients",
+      "peaceful_same_offerings": true
+    },
+    "koop": {
+      "required_seq_each": 3,
+      "required_path_each": "own_ritual",
+      "consumes_each": true,
+      "success_each": "only_personally_passed_trial",
+      "failure": "partner_may_carry_no_shared_unlock"
+    }
+  },
+  {
+    "id": "hg_ritual_maske_4",
+    "pfad": "maske",
+    "seq": 4,
+    "name": "Gesichtsvermieter: Schwellenprobe",
+    "map": "ds_schwellenring",
+    "ort_bindend": false,
+    "vorbereitung": [
+      "Befrage Hedda Quist nach deinem Anteil an der Probe: Welche Rolle haben Sie niemandem angekündigt?",
+      "Beschaffe Rückseitenwachs als Teil der unten genannten Opferzutaten und lege die Herkunft offen.",
+      "Warte bis zum Abend und sprich deinen Grundsatz ohne fremde Hilfe aus: Spiele jede Rolle, aber verliere dich nicht."
+    ],
+    "consumes": {
+      "sq_zutat_maske_4": 1,
+      "nebeltau": 2,
+      "geisteressenz": 2,
+      "silberstaub": 2
+    },
+    "waechter": "hg_schwellenwaechter",
+    "requires": {
+      "pfad": "maske",
+      "seq": 5,
+      "digest_min": 100,
+      "preparation_flag": "hg_ritual_maske_4_bereit"
+    },
+    "desc": "Du legst die Zutaten getrennt um dein Siegel. Du legst deine wirksamste Rolle ab und bekennst ihre bequeme Lüge ohne Zuhörer. Der Wächter wartet, bis du selbst den ersten Schritt machst.",
+    "bestanden": "Der Wächter gibt deinen Umriss frei. Die Probe für Gesichtsvermieter ist bestanden; der Trank muss noch gebraut und getrunken werden.",
+    "gescheitert": "Du wirst ohnmächtig und wachst am Rand der Probe auf. Die eingesetzten Zutaten sind verbraucht, der Wächter steht wieder. Du lebst und kannst dich auf einen neuen Versuch vorbereiten.",
+    "friedlich": {
+      "bedingung": "Verdauung der aktuellen Stufe 100 Prozent, alle drei Vorbereitungen abgeschlossen, keine Tränke in beiden Rucksäcken und keine fremde Hilfe während der drei Antworten; verzichte außerdem für einen Spieltag auf die Kreaturform.",
+      "requires": {
+        "digest_min": 100,
+        "no_carried_potions": "party",
+        "preparation_flag": "hg_ritual_maske_4_bereit",
+        "answers_without_help": 3,
+        "accept_form_lock_days": 1
+      },
+      "text": "Du legst deine wirksamste Rolle ab und bekennst ihre bequeme Lüge ohne Zuhörer. Du lässt das Siegel unberührt und beantwortest alle drei Fragen mit deiner eigenen Verantwortung."
+    },
+    "ablauf": {
+      "consumes_at": "confirmed_attempt_start",
+      "consume_once": true,
+      "refund_on_loss": false,
+      "refund_on_flee": false,
+      "unlock_flag": "hg_ritual_maske_4",
+      "personal": true,
+      "retry": "new_preparation_and_ingredients",
+      "peaceful_same_offerings": true
+    },
+    "koop": {
+      "required_seq_each": 5,
+      "required_path_each": "own_ritual",
+      "consumes_each": true,
+      "success_each": "only_personally_passed_trial",
+      "failure": "partner_may_carry_no_shared_unlock"
+    }
+  },
+  {
+    "id": "hg_ritual_maske_2",
+    "pfad": "maske",
+    "seq": 2,
+    "name": "Publikumsfremder: Grenzprobe",
+    "map": "hg_grenzbezirk",
+    "ort_bindend": false,
+    "vorbereitung": [
+      "Befrage Hedda Quist nach deinem Anteil an der Probe: Welche Rolle haben Sie niemandem angekündigt?",
+      "Beschaffe Parkettsilber als Teil der unten genannten Opferzutaten und lege die Herkunft offen.",
+      "Warte bis vor Sonnenaufgang und sprich deinen Grundsatz ohne fremde Hilfe aus: Spiele jede Rolle, aber verliere dich nicht."
+    ],
+    "consumes": {
+      "sq_zutat_maske_2": 1,
+      "nebeltau": 2,
+      "geisteressenz": 4,
+      "silberstaub": 4
+    },
+    "waechter": "hg_grenzwaechter",
+    "requires": {
+      "pfad": "maske",
+      "seq": 3,
+      "digest_min": 100,
+      "preparation_flag": "hg_ritual_maske_2_bereit"
+    },
+    "desc": "Du legst die Zutaten getrennt um dein Siegel. Du legst deine wirksamste Rolle ab und bekennst ihre bequeme Lüge ohne Zuhörer. Der Wächter wartet, bis du selbst den ersten Schritt machst.",
+    "bestanden": "Der Wächter gibt deinen Umriss frei. Die Probe für Publikumsfremder ist bestanden; der Trank muss noch gebraut und getrunken werden.",
+    "gescheitert": "Du wirst ohnmächtig und wachst am Rand der Probe auf. Die eingesetzten Zutaten sind verbraucht, der Wächter steht wieder. Du lebst und kannst dich auf einen neuen Versuch vorbereiten.",
+    "friedlich": {
+      "bedingung": "Verdauung der aktuellen Stufe 100 Prozent, alle drei Vorbereitungen abgeschlossen, keine Tränke in beiden Rucksäcken und keine fremde Hilfe während der drei Antworten; verzichte außerdem für einen Spieltag auf die Kreaturform.",
+      "requires": {
+        "digest_min": 100,
+        "no_carried_potions": "party",
+        "preparation_flag": "hg_ritual_maske_2_bereit",
+        "answers_without_help": 3,
+        "accept_form_lock_days": 1
+      },
+      "text": "Du legst deine wirksamste Rolle ab und bekennst ihre bequeme Lüge ohne Zuhörer. Du lässt das Siegel unberührt und beantwortest alle drei Fragen mit deiner eigenen Verantwortung."
+    },
+    "ablauf": {
+      "consumes_at": "confirmed_attempt_start",
+      "consume_once": true,
+      "refund_on_loss": false,
+      "refund_on_flee": false,
+      "unlock_flag": "hg_ritual_maske_2",
+      "personal": true,
+      "retry": "new_preparation_and_ingredients",
+      "peaceful_same_offerings": true
+    },
+    "koop": {
+      "required_seq_each": 3,
+      "required_path_each": "own_ritual",
+      "consumes_each": true,
+      "success_each": "only_personally_passed_trial",
+      "failure": "partner_may_carry_no_shared_unlock"
+    }
+  },
+  {
+    "id": "hg_ritual_echo_4",
+    "pfad": "echo",
+    "seq": 4,
+    "name": "Stilleverwahrer: Schwellenprobe",
+    "map": "ds_schwellenring",
+    "ort_bindend": false,
+    "vorbereitung": [
+      "Befrage Hedda Quist nach deinem Anteil an der Probe: Welche Stimme haben Sie mit Ihrer eigenen überdeckt?",
+      "Beschaffe Atempause als Teil der unten genannten Opferzutaten und lege die Herkunft offen.",
+      "Warte bis zum Abend und sprich deinen Grundsatz ohne fremde Hilfe aus: Höre, was nicht mehr spricht."
+    ],
+    "consumes": {
+      "sq_zutat_echo_4": 1,
+      "nebeltau": 2,
+      "geisteressenz": 2,
+      "silberstaub": 2
+    },
+    "waechter": "hg_schwellenwaechter",
+    "requires": {
+      "pfad": "echo",
+      "seq": 5,
+      "digest_min": 100,
+      "preparation_flag": "hg_ritual_echo_4_bereit"
+    },
+    "desc": "Du legst die Zutaten getrennt um dein Siegel. Du lässt die Frage unbeantwortet stehen, für deren Lösung du bisher eine fremde Stimme benutzt hast. Der Wächter wartet, bis du selbst den ersten Schritt machst.",
+    "bestanden": "Der Wächter gibt deinen Umriss frei. Die Probe für Stilleverwahrer ist bestanden; der Trank muss noch gebraut und getrunken werden.",
+    "gescheitert": "Du wirst ohnmächtig und wachst am Rand der Probe auf. Die eingesetzten Zutaten sind verbraucht, der Wächter steht wieder. Du lebst und kannst dich auf einen neuen Versuch vorbereiten.",
+    "friedlich": {
+      "bedingung": "Verdauung der aktuellen Stufe 100 Prozent, alle drei Vorbereitungen abgeschlossen, keine Tränke in beiden Rucksäcken und keine fremde Hilfe während der drei Antworten; verzichte außerdem für einen Spieltag auf die Kreaturform.",
+      "requires": {
+        "digest_min": 100,
+        "no_carried_potions": "party",
+        "preparation_flag": "hg_ritual_echo_4_bereit",
+        "answers_without_help": 3,
+        "accept_form_lock_days": 1
+      },
+      "text": "Du lässt die Frage unbeantwortet stehen, für deren Lösung du bisher eine fremde Stimme benutzt hast. Du lässt das Siegel unberührt und beantwortest alle drei Fragen mit deiner eigenen Verantwortung."
+    },
+    "ablauf": {
+      "consumes_at": "confirmed_attempt_start",
+      "consume_once": true,
+      "refund_on_loss": false,
+      "refund_on_flee": false,
+      "unlock_flag": "hg_ritual_echo_4",
+      "personal": true,
+      "retry": "new_preparation_and_ingredients",
+      "peaceful_same_offerings": true
+    },
+    "koop": {
+      "required_seq_each": 5,
+      "required_path_each": "own_ritual",
+      "consumes_each": true,
+      "success_each": "only_personally_passed_trial",
+      "failure": "partner_may_carry_no_shared_unlock"
+    }
+  },
+  {
+    "id": "hg_ritual_echo_2",
+    "pfad": "echo",
+    "seq": 2,
+    "name": "Schweigeufer: Grenzprobe",
+    "map": "hg_grenzbezirk",
+    "ort_bindend": false,
+    "vorbereitung": [
+      "Befrage Hedda Quist nach deinem Anteil an der Probe: Welche Stimme haben Sie mit Ihrer eigenen überdeckt?",
+      "Beschaffe Uferatem als Teil der unten genannten Opferzutaten und lege die Herkunft offen.",
+      "Warte bis vor Sonnenaufgang und sprich deinen Grundsatz ohne fremde Hilfe aus: Höre, was nicht mehr spricht."
+    ],
+    "consumes": {
+      "sq_zutat_echo_2": 1,
+      "nebeltau": 2,
+      "geisteressenz": 4,
+      "silberstaub": 4
+    },
+    "waechter": "hg_grenzwaechter",
+    "requires": {
+      "pfad": "echo",
+      "seq": 3,
+      "digest_min": 100,
+      "preparation_flag": "hg_ritual_echo_2_bereit"
+    },
+    "desc": "Du legst die Zutaten getrennt um dein Siegel. Du lässt die Frage unbeantwortet stehen, für deren Lösung du bisher eine fremde Stimme benutzt hast. Der Wächter wartet, bis du selbst den ersten Schritt machst.",
+    "bestanden": "Der Wächter gibt deinen Umriss frei. Die Probe für Schweigeufer ist bestanden; der Trank muss noch gebraut und getrunken werden.",
+    "gescheitert": "Du wirst ohnmächtig und wachst am Rand der Probe auf. Die eingesetzten Zutaten sind verbraucht, der Wächter steht wieder. Du lebst und kannst dich auf einen neuen Versuch vorbereiten.",
+    "friedlich": {
+      "bedingung": "Verdauung der aktuellen Stufe 100 Prozent, alle drei Vorbereitungen abgeschlossen, keine Tränke in beiden Rucksäcken und keine fremde Hilfe während der drei Antworten; verzichte außerdem für einen Spieltag auf die Kreaturform.",
+      "requires": {
+        "digest_min": 100,
+        "no_carried_potions": "party",
+        "preparation_flag": "hg_ritual_echo_2_bereit",
+        "answers_without_help": 3,
+        "accept_form_lock_days": 1
+      },
+      "text": "Du lässt die Frage unbeantwortet stehen, für deren Lösung du bisher eine fremde Stimme benutzt hast. Du lässt das Siegel unberührt und beantwortest alle drei Fragen mit deiner eigenen Verantwortung."
+    },
+    "ablauf": {
+      "consumes_at": "confirmed_attempt_start",
+      "consume_once": true,
+      "refund_on_loss": false,
+      "refund_on_flee": false,
+      "unlock_flag": "hg_ritual_echo_2",
+      "personal": true,
+      "retry": "new_preparation_and_ingredients",
+      "peaceful_same_offerings": true
+    },
+    "koop": {
+      "required_seq_each": 3,
+      "required_path_each": "own_ritual",
+      "consumes_each": true,
+      "success_each": "only_personally_passed_trial",
+      "failure": "partner_may_carry_no_shared_unlock"
+    }
+  },
+  {
+    "id": "hg_ritual_kessel_4",
+    "pfad": "kessel",
+    "seq": 4,
+    "name": "Rückstandsbrauer: Schwellenprobe",
+    "map": "ds_schwellenring",
+    "ort_bindend": false,
+    "vorbereitung": [
+      "Befrage Hedda Quist nach deinem Anteil an der Probe: Welchen Rest nennen Sie bequem verschwunden?",
+      "Beschaffe Fehlchargensalz als Teil der unten genannten Opferzutaten und lege die Herkunft offen.",
+      "Warte bis zum Abend und sprich deinen Grundsatz ohne fremde Hilfe aus: Nichts vergeht, alles verwandelt sich."
+    ],
+    "consumes": {
+      "sq_zutat_kessel_4": 1,
+      "nebeltau": 2,
+      "geisteressenz": 2,
+      "silberstaub": 2
+    },
+    "waechter": "hg_schwellenwaechter",
+    "requires": {
+      "pfad": "kessel",
+      "seq": 5,
+      "digest_min": 100,
+      "preparation_flag": "hg_ritual_kessel_4_bereit"
+    },
+    "desc": "Du legst die Zutaten getrennt um dein Siegel. Du nimmst deinen eigenen Rückstand zurück und verzichtest auf den nächsten bequemen Austausch. Der Wächter wartet, bis du selbst den ersten Schritt machst.",
+    "bestanden": "Der Wächter gibt deinen Umriss frei. Die Probe für Rückstandsbrauer ist bestanden; der Trank muss noch gebraut und getrunken werden.",
+    "gescheitert": "Du wirst ohnmächtig und wachst am Rand der Probe auf. Die eingesetzten Zutaten sind verbraucht, der Wächter steht wieder. Du lebst und kannst dich auf einen neuen Versuch vorbereiten.",
+    "friedlich": {
+      "bedingung": "Verdauung der aktuellen Stufe 100 Prozent, alle drei Vorbereitungen abgeschlossen, keine Tränke in beiden Rucksäcken und keine fremde Hilfe während der drei Antworten; verzichte außerdem für einen Spieltag auf die Kreaturform.",
+      "requires": {
+        "digest_min": 100,
+        "no_carried_potions": "party",
+        "preparation_flag": "hg_ritual_kessel_4_bereit",
+        "answers_without_help": 3,
+        "accept_form_lock_days": 1
+      },
+      "text": "Du nimmst deinen eigenen Rückstand zurück und verzichtest auf den nächsten bequemen Austausch. Du lässt das Siegel unberührt und beantwortest alle drei Fragen mit deiner eigenen Verantwortung."
+    },
+    "ablauf": {
+      "consumes_at": "confirmed_attempt_start",
+      "consume_once": true,
+      "refund_on_loss": false,
+      "refund_on_flee": false,
+      "unlock_flag": "hg_ritual_kessel_4",
+      "personal": true,
+      "retry": "new_preparation_and_ingredients",
+      "peaceful_same_offerings": true
+    },
+    "koop": {
+      "required_seq_each": 5,
+      "required_path_each": "own_ritual",
+      "consumes_each": true,
+      "success_each": "only_personally_passed_trial",
+      "failure": "partner_may_carry_no_shared_unlock"
+    }
+  },
+  {
+    "id": "hg_ritual_kessel_2",
+    "pfad": "kessel",
+    "seq": 2,
+    "name": "Abwärmesammler: Grenzprobe",
+    "map": "hg_grenzbezirk",
+    "ort_bindend": false,
+    "vorbereitung": [
+      "Befrage Hedda Quist nach deinem Anteil an der Probe: Welchen Rest nennen Sie bequem verschwunden?",
+      "Beschaffe Badekesselkern als Teil der unten genannten Opferzutaten und lege die Herkunft offen.",
+      "Warte bis vor Sonnenaufgang und sprich deinen Grundsatz ohne fremde Hilfe aus: Nichts vergeht, alles verwandelt sich."
+    ],
+    "consumes": {
+      "sq_zutat_kessel_2": 1,
+      "nebeltau": 2,
+      "geisteressenz": 4,
+      "silberstaub": 4
+    },
+    "waechter": "hg_grenzwaechter",
+    "requires": {
+      "pfad": "kessel",
+      "seq": 3,
+      "digest_min": 100,
+      "preparation_flag": "hg_ritual_kessel_2_bereit"
+    },
+    "desc": "Du legst die Zutaten getrennt um dein Siegel. Du nimmst deinen eigenen Rückstand zurück und verzichtest auf den nächsten bequemen Austausch. Der Wächter wartet, bis du selbst den ersten Schritt machst.",
+    "bestanden": "Der Wächter gibt deinen Umriss frei. Die Probe für Abwärmesammler ist bestanden; der Trank muss noch gebraut und getrunken werden.",
+    "gescheitert": "Du wirst ohnmächtig und wachst am Rand der Probe auf. Die eingesetzten Zutaten sind verbraucht, der Wächter steht wieder. Du lebst und kannst dich auf einen neuen Versuch vorbereiten.",
+    "friedlich": {
+      "bedingung": "Verdauung der aktuellen Stufe 100 Prozent, alle drei Vorbereitungen abgeschlossen, keine Tränke in beiden Rucksäcken und keine fremde Hilfe während der drei Antworten; verzichte außerdem für einen Spieltag auf die Kreaturform.",
+      "requires": {
+        "digest_min": 100,
+        "no_carried_potions": "party",
+        "preparation_flag": "hg_ritual_kessel_2_bereit",
+        "answers_without_help": 3,
+        "accept_form_lock_days": 1
+      },
+      "text": "Du nimmst deinen eigenen Rückstand zurück und verzichtest auf den nächsten bequemen Austausch. Du lässt das Siegel unberührt und beantwortest alle drei Fragen mit deiner eigenen Verantwortung."
+    },
+    "ablauf": {
+      "consumes_at": "confirmed_attempt_start",
+      "consume_once": true,
+      "refund_on_loss": false,
+      "refund_on_flee": false,
+      "unlock_flag": "hg_ritual_kessel_2",
+      "personal": true,
+      "retry": "new_preparation_and_ingredients",
+      "peaceful_same_offerings": true
+    },
+    "koop": {
+      "required_seq_each": 3,
+      "required_path_each": "own_ritual",
+      "consumes_each": true,
+      "success_each": "only_personally_passed_trial",
+      "failure": "partner_may_carry_no_shared_unlock"
+    }
+  },
+  {
+    "id": "hg_ritual_eisen_4",
+    "pfad": "eisen",
+    "seq": 4,
+    "name": "Lastnieter: Schwellenprobe",
+    "map": "ds_schwellenring",
+    "ort_bindend": false,
+    "vorbereitung": [
+      "Befrage Hedda Quist nach deinem Anteil an der Probe: Wo standen Sie nur, weil niemand Sie wegschicken konnte?",
+      "Beschaffe Tragende Niete als Teil der unten genannten Opferzutaten und lege die Herkunft offen.",
+      "Warte bis zum Abend und sprich deinen Grundsatz ohne fremde Hilfe aus: Stehe, wo andere fallen."
+    ],
+    "consumes": {
+      "sq_zutat_eisen_4": 1,
+      "nebeltau": 2,
+      "geisteressenz": 2,
+      "silberstaub": 2
+    },
+    "waechter": "hg_schwellenwaechter",
+    "requires": {
+      "pfad": "eisen",
+      "seq": 5,
+      "digest_min": 100,
+      "preparation_flag": "hg_ritual_eisen_4_bereit"
+    },
+    "desc": "Du legst die Zutaten getrennt um dein Siegel. Du legst eine fremde Last ab und bleibst allein bei deiner eigenen, ohne Schutzmittel. Der Wächter wartet, bis du selbst den ersten Schritt machst.",
+    "bestanden": "Der Wächter gibt deinen Umriss frei. Die Probe für Lastnieter ist bestanden; der Trank muss noch gebraut und getrunken werden.",
+    "gescheitert": "Du wirst ohnmächtig und wachst am Rand der Probe auf. Die eingesetzten Zutaten sind verbraucht, der Wächter steht wieder. Du lebst und kannst dich auf einen neuen Versuch vorbereiten.",
+    "friedlich": {
+      "bedingung": "Verdauung der aktuellen Stufe 100 Prozent, alle drei Vorbereitungen abgeschlossen, keine Tränke in beiden Rucksäcken und keine fremde Hilfe während der drei Antworten; verzichte außerdem für einen Spieltag auf die Kreaturform.",
+      "requires": {
+        "digest_min": 100,
+        "no_carried_potions": "party",
+        "preparation_flag": "hg_ritual_eisen_4_bereit",
+        "answers_without_help": 3,
+        "accept_form_lock_days": 1
+      },
+      "text": "Du legst eine fremde Last ab und bleibst allein bei deiner eigenen, ohne Schutzmittel. Du lässt das Siegel unberührt und beantwortest alle drei Fragen mit deiner eigenen Verantwortung."
+    },
+    "ablauf": {
+      "consumes_at": "confirmed_attempt_start",
+      "consume_once": true,
+      "refund_on_loss": false,
+      "refund_on_flee": false,
+      "unlock_flag": "hg_ritual_eisen_4",
+      "personal": true,
+      "retry": "new_preparation_and_ingredients",
+      "peaceful_same_offerings": true
+    },
+    "koop": {
+      "required_seq_each": 5,
+      "required_path_each": "own_ritual",
+      "consumes_each": true,
+      "success_each": "only_personally_passed_trial",
+      "failure": "partner_may_carry_no_shared_unlock"
+    }
+  },
+  {
+    "id": "hg_ritual_eisen_2",
+    "pfad": "eisen",
+    "seq": 2,
+    "name": "Stadtwiderlager: Grenzprobe",
+    "map": "hg_grenzbezirk",
+    "ort_bindend": false,
+    "vorbereitung": [
+      "Befrage Hedda Quist nach deinem Anteil an der Probe: Wo standen Sie nur, weil niemand Sie wegschicken konnte?",
+      "Beschaffe Torlagereisen als Teil der unten genannten Opferzutaten und lege die Herkunft offen.",
+      "Warte bis vor Sonnenaufgang und sprich deinen Grundsatz ohne fremde Hilfe aus: Stehe, wo andere fallen."
+    ],
+    "consumes": {
+      "sq_zutat_eisen_2": 1,
+      "nebeltau": 2,
+      "geisteressenz": 4,
+      "silberstaub": 4
+    },
+    "waechter": "hg_grenzwaechter",
+    "requires": {
+      "pfad": "eisen",
+      "seq": 3,
+      "digest_min": 100,
+      "preparation_flag": "hg_ritual_eisen_2_bereit"
+    },
+    "desc": "Du legst die Zutaten getrennt um dein Siegel. Du legst eine fremde Last ab und bleibst allein bei deiner eigenen, ohne Schutzmittel. Der Wächter wartet, bis du selbst den ersten Schritt machst.",
+    "bestanden": "Der Wächter gibt deinen Umriss frei. Die Probe für Stadtwiderlager ist bestanden; der Trank muss noch gebraut und getrunken werden.",
+    "gescheitert": "Du wirst ohnmächtig und wachst am Rand der Probe auf. Die eingesetzten Zutaten sind verbraucht, der Wächter steht wieder. Du lebst und kannst dich auf einen neuen Versuch vorbereiten.",
+    "friedlich": {
+      "bedingung": "Verdauung der aktuellen Stufe 100 Prozent, alle drei Vorbereitungen abgeschlossen, keine Tränke in beiden Rucksäcken und keine fremde Hilfe während der drei Antworten; verzichte außerdem für einen Spieltag auf die Kreaturform.",
+      "requires": {
+        "digest_min": 100,
+        "no_carried_potions": "party",
+        "preparation_flag": "hg_ritual_eisen_2_bereit",
+        "answers_without_help": 3,
+        "accept_form_lock_days": 1
+      },
+      "text": "Du legst eine fremde Last ab und bleibst allein bei deiner eigenen, ohne Schutzmittel. Du lässt das Siegel unberührt und beantwortest alle drei Fragen mit deiner eigenen Verantwortung."
+    },
+    "ablauf": {
+      "consumes_at": "confirmed_attempt_start",
+      "consume_once": true,
+      "refund_on_loss": false,
+      "refund_on_flee": false,
+      "unlock_flag": "hg_ritual_eisen_2",
+      "personal": true,
+      "retry": "new_preparation_and_ingredients",
+      "peaceful_same_offerings": true
+    },
+    "koop": {
+      "required_seq_each": 3,
+      "required_path_each": "own_ritual",
+      "consumes_each": true,
+      "success_each": "only_personally_passed_trial",
+      "failure": "partner_may_carry_no_shared_unlock"
+    }
+  },
+  {
+    "id": "hg_ritual_schluessel_4",
+    "pfad": "schluessel",
+    "seq": 4,
+    "name": "Schwellenlücke: Schwellenprobe",
+    "map": "ds_schwellenring",
+    "ort_bindend": false,
+    "vorbereitung": [
+      "Befrage Hedda Quist nach deinem Anteil an der Probe: Welcher verwehrte Zugang war nicht für Sie bestimmt?",
+      "Beschaffe Zollbart als Teil der unten genannten Opferzutaten und lege die Herkunft offen.",
+      "Warte bis zum Abend und sprich deinen Grundsatz ohne fremde Hilfe aus: Nimm, was man dir verwehrt."
+    ],
+    "consumes": {
+      "sq_zutat_schluessel_4": 1,
+      "nebeltau": 2,
+      "geisteressenz": 2,
+      "silberstaub": 2
+    },
+    "waechter": "hg_schwellenwaechter",
+    "requires": {
+      "pfad": "schluessel",
+      "seq": 5,
+      "digest_min": 100,
+      "preparation_flag": "hg_ritual_schluessel_4_bereit"
+    },
+    "desc": "Du legst die Zutaten getrennt um dein Siegel. Du gibst einen unrechtmäßig beanspruchten Zugang auf und lässt den Schlüssel vor der Schwelle liegen. Der Wächter wartet, bis du selbst den ersten Schritt machst.",
+    "bestanden": "Der Wächter gibt deinen Umriss frei. Die Probe für Schwellenlücke ist bestanden; der Trank muss noch gebraut und getrunken werden.",
+    "gescheitert": "Du wirst ohnmächtig und wachst am Rand der Probe auf. Die eingesetzten Zutaten sind verbraucht, der Wächter steht wieder. Du lebst und kannst dich auf einen neuen Versuch vorbereiten.",
+    "friedlich": {
+      "bedingung": "Verdauung der aktuellen Stufe 100 Prozent, alle drei Vorbereitungen abgeschlossen, keine Tränke in beiden Rucksäcken und keine fremde Hilfe während der drei Antworten; verzichte außerdem für einen Spieltag auf die Kreaturform.",
+      "requires": {
+        "digest_min": 100,
+        "no_carried_potions": "party",
+        "preparation_flag": "hg_ritual_schluessel_4_bereit",
+        "answers_without_help": 3,
+        "accept_form_lock_days": 1
+      },
+      "text": "Du gibst einen unrechtmäßig beanspruchten Zugang auf und lässt den Schlüssel vor der Schwelle liegen. Du lässt das Siegel unberührt und beantwortest alle drei Fragen mit deiner eigenen Verantwortung."
+    },
+    "ablauf": {
+      "consumes_at": "confirmed_attempt_start",
+      "consume_once": true,
+      "refund_on_loss": false,
+      "refund_on_flee": false,
+      "unlock_flag": "hg_ritual_schluessel_4",
+      "personal": true,
+      "retry": "new_preparation_and_ingredients",
+      "peaceful_same_offerings": true
+    },
+    "koop": {
+      "required_seq_each": 5,
+      "required_path_each": "own_ritual",
+      "consumes_each": true,
+      "success_each": "only_personally_passed_trial",
+      "failure": "partner_may_carry_no_shared_unlock"
+    }
+  },
+  {
+    "id": "hg_ritual_schluessel_2",
+    "pfad": "schluessel",
+    "seq": 2,
+    "name": "Innenrand: Grenzprobe",
+    "map": "hg_grenzbezirk",
+    "ort_bindend": false,
+    "vorbereitung": [
+      "Befrage Hedda Quist nach deinem Anteil an der Probe: Welcher verwehrte Zugang war nicht für Sie bestimmt?",
+      "Beschaffe Grenzangel als Teil der unten genannten Opferzutaten und lege die Herkunft offen.",
+      "Warte bis vor Sonnenaufgang und sprich deinen Grundsatz ohne fremde Hilfe aus: Nimm, was man dir verwehrt."
+    ],
+    "consumes": {
+      "sq_zutat_schluessel_2": 1,
+      "nebeltau": 2,
+      "geisteressenz": 4,
+      "silberstaub": 4
+    },
+    "waechter": "hg_grenzwaechter",
+    "requires": {
+      "pfad": "schluessel",
+      "seq": 3,
+      "digest_min": 100,
+      "preparation_flag": "hg_ritual_schluessel_2_bereit"
+    },
+    "desc": "Du legst die Zutaten getrennt um dein Siegel. Du gibst einen unrechtmäßig beanspruchten Zugang auf und lässt den Schlüssel vor der Schwelle liegen. Der Wächter wartet, bis du selbst den ersten Schritt machst.",
+    "bestanden": "Der Wächter gibt deinen Umriss frei. Die Probe für Innenrand ist bestanden; der Trank muss noch gebraut und getrunken werden.",
+    "gescheitert": "Du wirst ohnmächtig und wachst am Rand der Probe auf. Die eingesetzten Zutaten sind verbraucht, der Wächter steht wieder. Du lebst und kannst dich auf einen neuen Versuch vorbereiten.",
+    "friedlich": {
+      "bedingung": "Verdauung der aktuellen Stufe 100 Prozent, alle drei Vorbereitungen abgeschlossen, keine Tränke in beiden Rucksäcken und keine fremde Hilfe während der drei Antworten; verzichte außerdem für einen Spieltag auf die Kreaturform.",
+      "requires": {
+        "digest_min": 100,
+        "no_carried_potions": "party",
+        "preparation_flag": "hg_ritual_schluessel_2_bereit",
+        "answers_without_help": 3,
+        "accept_form_lock_days": 1
+      },
+      "text": "Du gibst einen unrechtmäßig beanspruchten Zugang auf und lässt den Schlüssel vor der Schwelle liegen. Du lässt das Siegel unberührt und beantwortest alle drei Fragen mit deiner eigenen Verantwortung."
+    },
+    "ablauf": {
+      "consumes_at": "confirmed_attempt_start",
+      "consume_once": true,
+      "refund_on_loss": false,
+      "refund_on_flee": false,
+      "unlock_flag": "hg_ritual_schluessel_2",
+      "personal": true,
+      "retry": "new_preparation_and_ingredients",
+      "peaceful_same_offerings": true
+    },
+    "koop": {
+      "required_seq_each": 3,
+      "required_path_each": "own_ritual",
+      "consumes_each": true,
+      "success_each": "only_personally_passed_trial",
+      "failure": "partner_may_carry_no_shared_unlock"
+    }
+  },
+  {
+    "id": "hg_ritual_sq_waage_4",
+    "pfad": "sq_waage",
+    "seq": 4,
+    "name": "Pfandkörper: Schwellenprobe",
+    "map": "ds_schwellenring",
+    "ort_bindend": false,
+    "vorbereitung": [
+      "Befrage Hedda Quist nach deinem Anteil an der Probe: Welchen Anteil haben Sie einer stillen Person zugeschoben?",
+      "Beschaffe Gleichfristblei als Teil der unten genannten Opferzutaten und lege die Herkunft offen.",
+      "Warte bis zum Abend und sprich deinen Grundsatz ohne fremde Hilfe aus: Trage deinen Anteil, bevor du fremde Schuld wiegst."
+    ],
+    "consumes": {
+      "sq_zutat_waage_4": 1,
+      "nebeltau": 2,
+      "geisteressenz": 2,
+      "silberstaub": 2
+    },
+    "waechter": "hg_schwellenwaechter",
+    "requires": {
+      "pfad": "sq_waage",
+      "seq": 5,
+      "digest_min": 100,
+      "preparation_flag": "hg_ritual_sq_waage_4_bereit"
+    },
+    "desc": "Du legst die Zutaten getrennt um dein Siegel. Du erkennst deine Schuld ohne Gegenforderung an und verzichtest auf ihre Verrechnung. Der Wächter wartet, bis du selbst den ersten Schritt machst.",
+    "bestanden": "Der Wächter gibt deinen Umriss frei. Die Probe für Pfandkörper ist bestanden; der Trank muss noch gebraut und getrunken werden.",
+    "gescheitert": "Du wirst ohnmächtig und wachst am Rand der Probe auf. Die eingesetzten Zutaten sind verbraucht, der Wächter steht wieder. Du lebst und kannst dich auf einen neuen Versuch vorbereiten.",
+    "friedlich": {
+      "bedingung": "Verdauung der aktuellen Stufe 100 Prozent, alle drei Vorbereitungen abgeschlossen, keine Tränke in beiden Rucksäcken und keine fremde Hilfe während der drei Antworten; verzichte außerdem für einen Spieltag auf die Kreaturform.",
+      "requires": {
+        "digest_min": 100,
+        "no_carried_potions": "party",
+        "preparation_flag": "hg_ritual_sq_waage_4_bereit",
+        "answers_without_help": 3,
+        "accept_form_lock_days": 1
+      },
+      "text": "Du erkennst deine Schuld ohne Gegenforderung an und verzichtest auf ihre Verrechnung. Du lässt das Siegel unberührt und beantwortest alle drei Fragen mit deiner eigenen Verantwortung."
+    },
+    "ablauf": {
+      "consumes_at": "confirmed_attempt_start",
+      "consume_once": true,
+      "refund_on_loss": false,
+      "refund_on_flee": false,
+      "unlock_flag": "hg_ritual_sq_waage_4",
+      "personal": true,
+      "retry": "new_preparation_and_ingredients",
+      "peaceful_same_offerings": true
+    },
+    "koop": {
+      "required_seq_each": 5,
+      "required_path_each": "own_ritual",
+      "consumes_each": true,
+      "success_each": "only_personally_passed_trial",
+      "failure": "partner_may_carry_no_shared_unlock"
+    }
+  },
+  {
+    "id": "hg_ritual_sq_waage_2",
+    "pfad": "sq_waage",
+    "seq": 2,
+    "name": "Schuldgegengewicht: Grenzprobe",
+    "map": "hg_grenzbezirk",
+    "ort_bindend": false,
+    "vorbereitung": [
+      "Befrage Hedda Quist nach deinem Anteil an der Probe: Welchen Anteil haben Sie einer stillen Person zugeschoben?",
+      "Beschaffe Haftlot als Teil der unten genannten Opferzutaten und lege die Herkunft offen.",
+      "Warte bis vor Sonnenaufgang und sprich deinen Grundsatz ohne fremde Hilfe aus: Trage deinen Anteil, bevor du fremde Schuld wiegst."
+    ],
+    "consumes": {
+      "sq_zutat_waage_2": 1,
+      "nebeltau": 2,
+      "geisteressenz": 4,
+      "silberstaub": 4
+    },
+    "waechter": "hg_grenzwaechter",
+    "requires": {
+      "pfad": "sq_waage",
+      "seq": 3,
+      "digest_min": 100,
+      "preparation_flag": "hg_ritual_sq_waage_2_bereit"
+    },
+    "desc": "Du legst die Zutaten getrennt um dein Siegel. Du erkennst deine Schuld ohne Gegenforderung an und verzichtest auf ihre Verrechnung. Der Wächter wartet, bis du selbst den ersten Schritt machst.",
+    "bestanden": "Der Wächter gibt deinen Umriss frei. Die Probe für Schuldgegengewicht ist bestanden; der Trank muss noch gebraut und getrunken werden.",
+    "gescheitert": "Du wirst ohnmächtig und wachst am Rand der Probe auf. Die eingesetzten Zutaten sind verbraucht, der Wächter steht wieder. Du lebst und kannst dich auf einen neuen Versuch vorbereiten.",
+    "friedlich": {
+      "bedingung": "Verdauung der aktuellen Stufe 100 Prozent, alle drei Vorbereitungen abgeschlossen, keine Tränke in beiden Rucksäcken und keine fremde Hilfe während der drei Antworten; verzichte außerdem für einen Spieltag auf die Kreaturform.",
+      "requires": {
+        "digest_min": 100,
+        "no_carried_potions": "party",
+        "preparation_flag": "hg_ritual_sq_waage_2_bereit",
+        "answers_without_help": 3,
+        "accept_form_lock_days": 1
+      },
+      "text": "Du erkennst deine Schuld ohne Gegenforderung an und verzichtest auf ihre Verrechnung. Du lässt das Siegel unberührt und beantwortest alle drei Fragen mit deiner eigenen Verantwortung."
+    },
+    "ablauf": {
+      "consumes_at": "confirmed_attempt_start",
+      "consume_once": true,
+      "refund_on_loss": false,
+      "refund_on_flee": false,
+      "unlock_flag": "hg_ritual_sq_waage_2",
+      "personal": true,
+      "retry": "new_preparation_and_ingredients",
+      "peaceful_same_offerings": true
+    },
+    "koop": {
+      "required_seq_each": 3,
+      "required_path_each": "own_ritual",
+      "consumes_each": true,
+      "success_each": "only_personally_passed_trial",
+      "failure": "partner_may_carry_no_shared_unlock"
+    }
+  },
+  {
+    "id": "hg_ritual_sq_moor_4",
+    "pfad": "sq_moor",
+    "seq": 4,
+    "name": "Schichtträger: Schwellenprobe",
+    "map": "ds_schwellenring",
+    "ort_bindend": false,
+    "vorbereitung": [
+      "Befrage Hedda Quist nach deinem Anteil an der Probe: Welche Herkunft haben Sie durch eine passende Geschichte ersetzt?",
+      "Beschaffe Schichtname als Teil der unten genannten Opferzutaten und lege die Herkunft offen.",
+      "Warte bis zum Abend und sprich deinen Grundsatz ohne fremde Hilfe aus: Bewahre die Herkunft, auch wenn der Name fehlt."
+    ],
+    "consumes": {
+      "sq_zutat_moor_4": 1,
+      "nebeltau": 2,
+      "geisteressenz": 2,
+      "silberstaub": 2
+    },
+    "waechter": "hg_schwellenwaechter",
+    "requires": {
+      "pfad": "sq_moor",
+      "seq": 5,
+      "digest_min": 100,
+      "preparation_flag": "hg_ritual_sq_moor_4_bereit"
+    },
+    "desc": "Du legst die Zutaten getrennt um dein Siegel. Du streichst deine erfundene Herkunft aus dem Bericht und bewahrst die unbeschriftete Lücke. Der Wächter wartet, bis du selbst den ersten Schritt machst.",
+    "bestanden": "Der Wächter gibt deinen Umriss frei. Die Probe für Schichtträger ist bestanden; der Trank muss noch gebraut und getrunken werden.",
+    "gescheitert": "Du wirst ohnmächtig und wachst am Rand der Probe auf. Die eingesetzten Zutaten sind verbraucht, der Wächter steht wieder. Du lebst und kannst dich auf einen neuen Versuch vorbereiten.",
+    "friedlich": {
+      "bedingung": "Verdauung der aktuellen Stufe 100 Prozent, alle drei Vorbereitungen abgeschlossen, keine Tränke in beiden Rucksäcken und keine fremde Hilfe während der drei Antworten; verzichte außerdem für einen Spieltag auf die Kreaturform.",
+      "requires": {
+        "digest_min": 100,
+        "no_carried_potions": "party",
+        "preparation_flag": "hg_ritual_sq_moor_4_bereit",
+        "answers_without_help": 3,
+        "accept_form_lock_days": 1
+      },
+      "text": "Du streichst deine erfundene Herkunft aus dem Bericht und bewahrst die unbeschriftete Lücke. Du lässt das Siegel unberührt und beantwortest alle drei Fragen mit deiner eigenen Verantwortung."
+    },
+    "ablauf": {
+      "consumes_at": "confirmed_attempt_start",
+      "consume_once": true,
+      "refund_on_loss": false,
+      "refund_on_flee": false,
+      "unlock_flag": "hg_ritual_sq_moor_4",
+      "personal": true,
+      "retry": "new_preparation_and_ingredients",
+      "peaceful_same_offerings": true
+    },
+    "koop": {
+      "required_seq_each": 5,
+      "required_path_each": "own_ritual",
+      "consumes_each": true,
+      "success_each": "only_personally_passed_trial",
+      "failure": "partner_may_carry_no_shared_unlock"
+    }
+  },
+  {
+    "id": "hg_ritual_sq_moor_2",
+    "pfad": "sq_moor",
+    "seq": 2,
+    "name": "Vergessensufer: Grenzprobe",
+    "map": "hg_grenzbezirk",
+    "ort_bindend": false,
+    "vorbereitung": [
+      "Befrage Hedda Quist nach deinem Anteil an der Probe: Welche Herkunft haben Sie durch eine passende Geschichte ersetzt?",
+      "Beschaffe Schweigeschicht als Teil der unten genannten Opferzutaten und lege die Herkunft offen.",
+      "Warte bis vor Sonnenaufgang und sprich deinen Grundsatz ohne fremde Hilfe aus: Bewahre die Herkunft, auch wenn der Name fehlt."
+    ],
+    "consumes": {
+      "sq_zutat_moor_2": 1,
+      "nebeltau": 2,
+      "geisteressenz": 4,
+      "silberstaub": 4
+    },
+    "waechter": "hg_grenzwaechter",
+    "requires": {
+      "pfad": "sq_moor",
+      "seq": 3,
+      "digest_min": 100,
+      "preparation_flag": "hg_ritual_sq_moor_2_bereit"
+    },
+    "desc": "Du legst die Zutaten getrennt um dein Siegel. Du streichst deine erfundene Herkunft aus dem Bericht und bewahrst die unbeschriftete Lücke. Der Wächter wartet, bis du selbst den ersten Schritt machst.",
+    "bestanden": "Der Wächter gibt deinen Umriss frei. Die Probe für Vergessensufer ist bestanden; der Trank muss noch gebraut und getrunken werden.",
+    "gescheitert": "Du wirst ohnmächtig und wachst am Rand der Probe auf. Die eingesetzten Zutaten sind verbraucht, der Wächter steht wieder. Du lebst und kannst dich auf einen neuen Versuch vorbereiten.",
+    "friedlich": {
+      "bedingung": "Verdauung der aktuellen Stufe 100 Prozent, alle drei Vorbereitungen abgeschlossen, keine Tränke in beiden Rucksäcken und keine fremde Hilfe während der drei Antworten; verzichte außerdem für einen Spieltag auf die Kreaturform.",
+      "requires": {
+        "digest_min": 100,
+        "no_carried_potions": "party",
+        "preparation_flag": "hg_ritual_sq_moor_2_bereit",
+        "answers_without_help": 3,
+        "accept_form_lock_days": 1
+      },
+      "text": "Du streichst deine erfundene Herkunft aus dem Bericht und bewahrst die unbeschriftete Lücke. Du lässt das Siegel unberührt und beantwortest alle drei Fragen mit deiner eigenen Verantwortung."
+    },
+    "ablauf": {
+      "consumes_at": "confirmed_attempt_start",
+      "consume_once": true,
+      "refund_on_loss": false,
+      "refund_on_flee": false,
+      "unlock_flag": "hg_ritual_sq_moor_2",
+      "personal": true,
+      "retry": "new_preparation_and_ingredients",
+      "peaceful_same_offerings": true
+    },
+    "koop": {
+      "required_seq_each": 3,
+      "required_path_each": "own_ritual",
+      "consumes_each": true,
+      "success_each": "only_personally_passed_trial",
+      "failure": "partner_may_carry_no_shared_unlock"
+    }
+  },
+  {
+    "id": "hg_ritual_sq_uhr_4",
+    "pfad": "sq_uhr",
+    "seq": 4,
+    "name": "Zwischentakter: Schwellenprobe",
+    "map": "ds_schwellenring",
+    "ort_bindend": false,
+    "vorbereitung": [
+      "Befrage Hedda Quist nach deinem Anteil an der Probe: Welche Verspätung haben Sie nachträglich aus dem Ablauf gestrichen?",
+      "Beschaffe Zwischensekunde als Teil der unten genannten Opferzutaten und lege die Herkunft offen.",
+      "Warte bis zum Abend und sprich deinen Grundsatz ohne fremde Hilfe aus: Erkenne die Abweichung, ohne den Ablauf zu leugnen."
+    ],
+    "consumes": {
+      "sq_zutat_uhr_4": 1,
+      "nebeltau": 2,
+      "geisteressenz": 2,
+      "silberstaub": 2
+    },
+    "waechter": "hg_schwellenwaechter",
+    "requires": {
+      "pfad": "sq_uhr",
+      "seq": 5,
+      "digest_min": 100,
+      "preparation_flag": "hg_ritual_sq_uhr_4_bereit"
+    },
+    "desc": "Du legst die Zutaten getrennt um dein Siegel. Du verzichtest auf die Korrektur deiner versäumten Frist und wartest ihren ganzen Ablauf ab. Der Wächter wartet, bis du selbst den ersten Schritt machst.",
+    "bestanden": "Der Wächter gibt deinen Umriss frei. Die Probe für Zwischentakter ist bestanden; der Trank muss noch gebraut und getrunken werden.",
+    "gescheitert": "Du wirst ohnmächtig und wachst am Rand der Probe auf. Die eingesetzten Zutaten sind verbraucht, der Wächter steht wieder. Du lebst und kannst dich auf einen neuen Versuch vorbereiten.",
+    "friedlich": {
+      "bedingung": "Verdauung der aktuellen Stufe 100 Prozent, alle drei Vorbereitungen abgeschlossen, keine Tränke in beiden Rucksäcken und keine fremde Hilfe während der drei Antworten; verzichte außerdem für einen Spieltag auf die Kreaturform.",
+      "requires": {
+        "digest_min": 100,
+        "no_carried_potions": "party",
+        "preparation_flag": "hg_ritual_sq_uhr_4_bereit",
+        "answers_without_help": 3,
+        "accept_form_lock_days": 1
+      },
+      "text": "Du verzichtest auf die Korrektur deiner versäumten Frist und wartest ihren ganzen Ablauf ab. Du lässt das Siegel unberührt und beantwortest alle drei Fragen mit deiner eigenen Verantwortung."
+    },
+    "ablauf": {
+      "consumes_at": "confirmed_attempt_start",
+      "consume_once": true,
+      "refund_on_loss": false,
+      "refund_on_flee": false,
+      "unlock_flag": "hg_ritual_sq_uhr_4",
+      "personal": true,
+      "retry": "new_preparation_and_ingredients",
+      "peaceful_same_offerings": true
+    },
+    "koop": {
+      "required_seq_each": 5,
+      "required_path_each": "own_ritual",
+      "consumes_each": true,
+      "success_each": "only_personally_passed_trial",
+      "failure": "partner_may_carry_no_shared_unlock"
+    }
+  },
+  {
+    "id": "hg_ritual_sq_uhr_2",
+    "pfad": "sq_uhr",
+    "seq": 2,
+    "name": "Wiederkehrsaum: Grenzprobe",
+    "map": "hg_grenzbezirk",
+    "ort_bindend": false,
+    "vorbereitung": [
+      "Befrage Hedda Quist nach deinem Anteil an der Probe: Welche Verspätung haben Sie nachträglich aus dem Ablauf gestrichen?",
+      "Beschaffe Rundgangzahn als Teil der unten genannten Opferzutaten und lege die Herkunft offen.",
+      "Warte bis vor Sonnenaufgang und sprich deinen Grundsatz ohne fremde Hilfe aus: Erkenne die Abweichung, ohne den Ablauf zu leugnen."
+    ],
+    "consumes": {
+      "sq_zutat_uhr_2": 1,
+      "nebeltau": 2,
+      "geisteressenz": 4,
+      "silberstaub": 4
+    },
+    "waechter": "hg_grenzwaechter",
+    "requires": {
+      "pfad": "sq_uhr",
+      "seq": 3,
+      "digest_min": 100,
+      "preparation_flag": "hg_ritual_sq_uhr_2_bereit"
+    },
+    "desc": "Du legst die Zutaten getrennt um dein Siegel. Du verzichtest auf die Korrektur deiner versäumten Frist und wartest ihren ganzen Ablauf ab. Der Wächter wartet, bis du selbst den ersten Schritt machst.",
+    "bestanden": "Der Wächter gibt deinen Umriss frei. Die Probe für Wiederkehrsaum ist bestanden; der Trank muss noch gebraut und getrunken werden.",
+    "gescheitert": "Du wirst ohnmächtig und wachst am Rand der Probe auf. Die eingesetzten Zutaten sind verbraucht, der Wächter steht wieder. Du lebst und kannst dich auf einen neuen Versuch vorbereiten.",
+    "friedlich": {
+      "bedingung": "Verdauung der aktuellen Stufe 100 Prozent, alle drei Vorbereitungen abgeschlossen, keine Tränke in beiden Rucksäcken und keine fremde Hilfe während der drei Antworten; verzichte außerdem für einen Spieltag auf die Kreaturform.",
+      "requires": {
+        "digest_min": 100,
+        "no_carried_potions": "party",
+        "preparation_flag": "hg_ritual_sq_uhr_2_bereit",
+        "answers_without_help": 3,
+        "accept_form_lock_days": 1
+      },
+      "text": "Du verzichtest auf die Korrektur deiner versäumten Frist und wartest ihren ganzen Ablauf ab. Du lässt das Siegel unberührt und beantwortest alle drei Fragen mit deiner eigenen Verantwortung."
+    },
+    "ablauf": {
+      "consumes_at": "confirmed_attempt_start",
+      "consume_once": true,
+      "refund_on_loss": false,
+      "refund_on_flee": false,
+      "unlock_flag": "hg_ritual_sq_uhr_2",
+      "personal": true,
+      "retry": "new_preparation_and_ingredients",
+      "peaceful_same_offerings": true
+    },
+    "koop": {
+      "required_seq_each": 3,
+      "required_path_each": "own_ritual",
+      "consumes_each": true,
+      "success_each": "only_personally_passed_trial",
+      "failure": "partner_may_carry_no_shared_unlock"
+    }
+  }
+]

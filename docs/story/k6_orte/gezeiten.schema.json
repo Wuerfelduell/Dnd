@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CU Gezeitenfeld einer Karte",
+  "type": "object",
+  "required": [
+    "ebbe",
+    "flut"
+  ],
+  "properties": {
+    "ebbe": {
+      "type": "object",
+      "required": [
+        "begehbar",
+        "offene_tueren",
+        "props",
+        "gegnerplaetze",
+        "zone_offen",
+        "rettung",
+        "meldung"
+      ],
+      "properties": {
+        "begehbar": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "minItems": 4,
+            "maxItems": 4,
+            "items": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "offene_tueren": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$"
+          }
+        },
+        "props": {
+          "type": "array"
+        },
+        "gegnerplaetze": {
+          "type": "array"
+        },
+        "zone_offen": {
+          "type": "boolean"
+        },
+        "rettung": {
+          "type": "object",
+          "required": [
+            "map",
+            "spawn"
+          ]
+        },
+        "meldung": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "flut": {
+      "type": "object",
+      "required": [
+        "begehbar",
+        "offene_tueren",
+        "props",
+        "gegnerplaetze",
+        "zone_offen",
+        "rettung",
+        "meldung"
+      ],
+      "properties": {
+        "begehbar": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "minItems": 4,
+            "maxItems": 4,
+            "items": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "offene_tueren": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$"
+          }
+        },
+        "props": {
+          "type": "array"
+        },
+        "gegnerplaetze": {
+          "type": "array"
+        },
+        "zone_offen": {
+          "type": "boolean"
+        },
+        "rettung": {
+          "type": "object",
+          "required": [
+            "map",
+            "spawn"
+          ]
+        },
+        "meldung": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

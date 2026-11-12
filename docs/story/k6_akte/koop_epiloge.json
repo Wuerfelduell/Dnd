@@ -1,0 +1,44 @@
+[
+  {
+    "id": "k6_epilog_koop_p1",
+    "ending": "k6_ende_schliessen",
+    "requires_flags": [
+      "k6_ende_schliessen",
+      "koop_aktiv",
+      "k6_schliessender_p1"
+    ],
+    "title": "Die erste Hand",
+    "text": "Spieler 1 trägt die Namen, Spieler 2 hält die übrigen Belege frei zugänglich. Die gemeinsame Reise endet nicht mit einer gleichen Last."
+  },
+  {
+    "id": "k6_epilog_koop_p2",
+    "ending": "k6_ende_schliessen",
+    "requires_flags": [
+      "k6_ende_schliessen",
+      "koop_aktiv",
+      "k6_schliessender_p2"
+    ],
+    "title": "Die zweite Hand",
+    "text": "Spieler 2 schreibt die Schlusszeile, während Spieler 1 den freien Ausgang bezeugt. Niemand darf den Träger später aus Gewohnheit zum ersten Spieler umbenennen."
+  },
+  {
+    "id": "k6_epilog_teilen_p1",
+    "ending": "k6_ende_teilen",
+    "requires_flags": [
+      "k6_ende_teilen",
+      "koop_aktiv"
+    ],
+    "title": "Spieler 1: die erste Wache",
+    "text": "Du merkst dir die Namen, die dein Gegenüber heute nicht tragen kann. Das ist eine Verabredung für diese Wache, kein ewiger Vorrang."
+  },
+  {
+    "id": "k6_epilog_teilen_p2",
+    "ending": "k6_ende_teilen",
+    "requires_flags": [
+      "k6_ende_teilen",
+      "koop_aktiv"
+    ],
+    "title": "Spieler 2: die nächste Wache",
+    "text": "Du übernimmst die Liste erst, als die Übergabe ausgesprochen ist. Gemeinsam zu bleiben bedeutet nicht, immer gleichzeitig antworten zu müssen."
+  }
+]
