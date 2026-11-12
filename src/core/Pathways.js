@@ -458,7 +458,8 @@ export const pathwayMethods = {
     }
     const first = !this.pathway;
     const carryBefore = this.carryCapacity();
-    this.pathway = { id: it.pathway, seq: it.seq, digestion: 0 };
+    const relikt = this.pathway?.relikt; // Seq 4 (Moor): das Relikt des Verfalls bleibt nach dem Aufstieg
+    this.pathway = { id: it.pathway, seq: it.seq, digestion: 0, ...(relikt ? { relikt } : {}) };
     if (HOCH_DURCHBRUCH[it.seq]) this.flags.add(`seq${it.seq}_erreicht`); // für Zeitung und Gerede (Paket CP)
     this.unruhe = Math.min(UNRUHE_MAX - 1, this.unruhe + 20 + premature * 0.4);
     this.updateMaxHp();
@@ -542,7 +543,9 @@ export const pathwayMethods = {
       if (paid) for (const s of steps) if (s.consume) s.done = true;
       steps.push(...this.seq5Steps(r).map((s) => ({ ...s, trial: r.trial })));
     }
-    if (r.ordeal) {
+    if (r.hg) { // Seq-4-Prüfungen (core/Seq4.js): der Wächter ist ihr letzter Schritt
+      steps.push(...this.seq4Steps(r).map((s, i, all) => ({ ...s, hg: r.hg, ...(i === all.length - 1 ? { ordeal: true } : {}) })));
+    } else if (r.ordeal) {
       const enc = this.content.encounters[ordealId(pid, seq)];
       steps.push({ text: `${enc?.name ?? 'Schwellenwächter'} besiegt (erscheint, sobald alles andere bereit ist)`, done: this.ordealDone(pid, seq), ordeal: true });
     }
@@ -552,6 +555,7 @@ export const pathwayMethods = {
 
   /** Ist der Schwellenwächter dieses Rituals schon besiegt? */
   ordealDone(pid, seq) {
+    if (this.ritualDef(pid, seq)?.hg) return this.hgPassed(pid); // Seq 4: nur der Sieg unter den Regeln der Prüfung zählt
     return this.flags.has(ordealFlag(pid, seq));
   },
 
@@ -606,6 +610,7 @@ export const pathwayMethods = {
     if (this.ritualDone(p.id, seq)) return { ok: false, text: 'Das Ritual ist schon vollzogen. Trink den Trank.' };
     const open = this.ritualSteps(p.id, seq).filter((x) => !x.done);
     // Die schweren Rituale (4 und 2): Steht alles andere, tritt der Schwellenwächter des Pfades aus dem Nebel
+    if (r.hg && open.some((x) => x.hg)) return { ok: false, text: `Erst die Prüfung: ${this.seq4Name(r.hg)}. Der Schwellenwächter kommt nur aus ihr heraus.` };
     if (open.length === 1 && open[0].ordeal) {
       const id = ordealId(p.id, seq);
       if (!this.content.encounters[id]) return { ok: false, text: 'Der Schwellenwächter dieses Pfades ist noch nicht im Spiel.' };

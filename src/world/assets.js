@@ -1155,6 +1155,9 @@ Object.assign(ITEM_ICON_ALIASES, {
   sud_nebelsud: 'tonikum', sud_silberklar: 'ruhetee', sud_mohnschlaf: 'schlaftee', sud_gluehtrunk: 'blutsalz_phiole', sud_eisensud: 'blutsalz_phiole',
   sud_kroetenbitter: 'giftflasche', sud_wachsglanz: 'k3o_schichttee', sud_grabruhe: 'moortee', sud_kraehenauge: 'stimmphiole', sud_moosleuchte: 'fremdlicht_phiole',
   sud_seidenschritt: 'ruhetee', sud_schattenhauch: 'fremdlicht_phiole', sud_glockenruf: 'blutsalz_phiole', sud_dreikraut: 'tonikum', sud_sternfunke: 'stimmphiole', sud_kesselzorn: 'giftflasche',
+  // Seq-4-Rituale (data/seq4.js): Leihbilder, bis Codex DP liefert
+  s4ke_nachtschierling: 'fremdlicht_phiole', s4ke_aetzwasser: 'giftflasche', s4ke_knallsud: 'blutsalz_phiole', s4ke_frostlauge: 'ruhetee', s4ke_glutschleim: 'blutsalz_phiole',
+  wurf_saeure: 'giftflasche', wurf_gift: 'giftflasche', wurf_spreng: 'blutsalz_phiole', s4mo_relikt: 'sq_torfsiegel',
 });
 export const itemIconUrl = (id) => `${BASE}items/${ITEM_ICON_ALIASES[id] ?? standinIcon(id)}.png`;
 /** 32x32-Fassung (gibt es für Tränke und die Stimmphiole). */

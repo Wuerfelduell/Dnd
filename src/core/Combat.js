@@ -16,6 +16,7 @@
 
 import { rollLoot, takeLoot } from './Loot.js';
 import { FIGHT_DIGEST_MULT, ZONE_DIGEST_STEP } from './Pathways.js';
+import { SCHATTEN_ATTACKE, PERFECT_DODGE, UHR as UHR4 } from './Seq4.js';
 
 export const WINDOW = { parry: 80, dodge: 140 }; // ± Millisekunden um den Einschlag
 export const ELITE_PARRY = 65; // Eliten und Bosse: noch engeres Parierfenster
@@ -125,6 +126,16 @@ export function judgeDefense(kind, offset, dodgeMult = 1, parryWindow = WINDOW.p
   return 'miss';
 }
 
+/** Perfektes Ausweichen (Ritual der Uhr): Druck höchstens PERFECT_DODGE ms neben dem Einschlag. */
+export function isPerfectDodge(kind, offset) {
+  return kind === 'dodge' && Math.abs(offset) <= PERFECT_DODGE;
+}
+
+/** Offensive Fertigkeit (Ritual des Kessels verbietet sie): Schaden, Brand, Betäuben, Verwirren, Schwächen, Stehlen. */
+export function isOffensive(sk) {
+  return !!(sk.hits || sk.flat || sk.burn || sk.extend_burn || sk.stun || sk.confuse || sk.weaken || sk.steal || sk.guard_break || sk.armor_break || sk.drain || sk.weak);
+}
+
 /** Bewertet einen Angriffs-Takt. pos und zone.center liegen zwischen 0 und 1. */
 export function judgeTiming(pos, zone) {
   if (pos === null || pos === undefined) return 'miss';
@@ -157,6 +168,13 @@ export class Combat {
     if (!enc) throw new Error(`Unbekannter Kampf: ${encounterId}`);
     this.state = state;
     this.id = encounterId;
+    // Seq-4-Rituale (core/Seq4.js): Regeln der laufenden Prüfung, gelesen beim Prüfling. Solo: Spieler 2 schaut zu;
+    // ist der Prüfling Spieler 2, tauschen die Werte für die Dauer des Kampfes (swapped), damit er Kämpfer 1 ist.
+    const prover = state.combatBy ?? state.acting ?? 1;
+    this.rules = enc.practice ? null : state.withPlayer(prover, () => state.seq4CombatRules?.(encounterId, enc) ?? null, { quiet: true });
+    this.swapped = false;
+    if (this.rules?.solo && prover === 2 && state.acting === 1 && state.p2) { state.swapPersonal(); this.swapped = true; }
+    if (this.rules?.scale) enc = { ...enc, hp: Math.round(enc.hp * this.rules.scale.hp), attacks: enc.attacks.map((a) => (a.action ? a : { ...a, damage: Math.max(1, Math.round(a.damage * this.rules.scale.dmg)) })) };
     // Seq-5-Ritual der Laterne: ein Spiegelgegner (`mirror`) ist so stark wie der, der ihn gerufen hat.
     // Leben als Vielfaches seines Höchstlebens, Schaden je Angriff als Vielfaches seiner Schlagkraft (ohne die üblichen Zuschläge).
     if (enc.mirror) {
@@ -166,7 +184,7 @@ export class Combat {
       enc = { ...enc, hp: Math.max(10, Math.round(maxHp * (enc.mirror.hp ?? 1) / ENEMY_HP_MULT)), attacks: enc.attacks.map((a) => ({ ...a, damage: Math.max(1, Math.round(a.damage * power * (enc.mirror.dmg ?? 1) / ENEMY_DMG_MULT)) })) };
     }
     this.enc = enc;
-    const duo = !!state.hasP2?.();
+    const duo = !!state.hasP2?.() && !this.rules?.solo;
     this.duoHpMult = duo ? duoHpMult(state) : 1;
     const zone = state.content.zones?.[enc.zone];
     // Härte des Gebiets (Kapitel 2, Wexmoor): `hp_mult` / `dmg_mult` auf Gegner oder Gebiet skalieren Leben und Schaden,
@@ -239,6 +257,21 @@ export class Combat {
     this.killedBy = null; // womit der Gegner fiel (Seq-5-Ritual der Laterne verlangt ein Leuchten)
     this.voiceWindow = false; // Seq-5-Ritual des Echos: der Beyonder lag schon unter 10 % Leben
     state.seq5CombatStart?.(this);
+    // Seq 4: Schatten (eigenes Leben), Uhr (Fehler zählen), Moor (Moorwasser je Runde), Ausweichzähler
+    this.ruleBroken = null; // Verstoß gegen die Prüfung: der Kampf endet als Niederlage
+    this.enemyAttacks = 0;
+    this.dodgeErrors = 0;
+    this.roundSkill = null;
+    this.itemHit = false;
+    state.combatRules = this.rules;
+    if (this.rules?.shadow) {
+      this.body = { hp: state.hp, maxHp: state.maxHp };
+      state.maxHp = this.rules.shadowMax;
+      state.hp = Math.max(1, Math.min(this.rules.shadowMax, this.rules.shadowHp));
+      this.fighters[1].hpBefore = state.hp;
+      this.pickRoundSkill();
+    }
+    if (this.rules?.moorwater) this.drinkMoor();
     this.roundDmg = 0; // Schaden am Gegner in dieser Runde (für max_round_dmg)
     this.capped = 0; // davon abgeprallt, für die Meldung der nächsten Aktion
   }
@@ -303,7 +336,27 @@ export class Combat {
 
   /** Grundfertigkeiten plus die Fähigkeiten des eigenen Pfades. */
   skillDef(id) {
+    if (this.rules?.shadow) {
+      if (id === 'attack') return SCHATTEN_ATTACKE;
+      if (id !== this.roundSkill) return undefined;
+    }
     return this.on(this.actor, () => SKILLS[id] ?? this.state.pathwaySkills()[id]);
+  }
+
+  /** Schattensteuerung: jede Runde genau eine zufällige eigene Fähigkeit. */
+  pickRoundSkill() {
+    const ids = Object.keys(this.on(this.actor, () => this.state.pathwaySkills()));
+    this.roundSkill = ids.length ? ids[Math.floor(this.rng() * ids.length)] : null;
+  }
+
+  /** Lässt die Prüfung diese Fertigkeit zu? */
+  ruleAllows(id, sk) {
+    const r = this.rules;
+    if (!r || !sk) return true;
+    if (r.onlyAttack && id !== 'attack') return false;
+    if (r.potionOnly && (id === 'attack' || isOffensive(sk))) return false;
+    if (r.noHeal && (sk.heal || sk.heal_all || sk.drain)) return false;
+    return true;
   }
 
   /** Nervenkosten einer Fertigkeit: Grundkosten nach Konzentration, Gewöhnung der Sequenz, Passive (Pfad des Echos, Artefakte). */
@@ -322,10 +375,11 @@ export class Combat {
   }
 
   skillsNow() {
-    const all = { ...SKILLS, ...this.state.pathwaySkills() };
+    let all = { ...SKILLS, ...this.state.pathwaySkills() };
+    if (this.rules?.shadow) all = { attack: SCHATTEN_ATTACKE, ...(this.roundSkill && all[this.roundSkill] ? { [this.roundSkill]: all[this.roundSkill] } : {}) };
     return Object.entries(all).map(([id, sk]) => ({
-      id, ...sk, composure: this.composureCost(sk),
-      usable: this.ap >= sk.cost && this.state.composure >= this.composureCost(sk),
+      id, ...sk, composure: this.composureCost(sk), forbidden: !this.ruleAllows(id, sk),
+      usable: this.ap >= sk.cost && this.state.composure >= this.composureCost(sk) && this.ruleAllows(id, sk),
     }));
   }
 
@@ -342,12 +396,19 @@ export class Combat {
   }
 
   canUseItem() {
-    return !this.itemUsed && !this.on(this.actor, () => this.state.passive('no_items'));
+    return !this.itemUsed && !this.rules?.noItems && !this.on(this.actor, () => this.state.passive('no_items'));
   }
 
   /** Warum gerade kein Gegenstand geht (Oberfläche). */
   itemBlockedText() {
+    if (this.rules?.noItems) return 'der Schatten trägt nichts';
     return this.on(this.actor, () => this.state.passive('no_items')) ? 'ein Artefakt verbietet es' : 'schon benutzt';
+  }
+
+  /** Lässt die Prüfung diesen Gegenstand zu? (keine Heilung im Traum) */
+  itemAllowed(id) {
+    const it = this.state.item(id);
+    return !(this.rules?.noHeal && it?.heal);
   }
 
   /** Neue Runde: alle Spieler dürfen wieder handeln, Spieler 1 beginnt (wenn er steht). */
@@ -485,14 +546,22 @@ export class Combat {
 
   useItemNow(id) {
     const it = this.state.item(id);
-    if (!it || it.kind !== 'consumable' || !this.state.itemCount(id) || this.itemUsed || this.state.passive('no_items')) return null;
+    if (!it || it.kind !== 'consumable' || !this.state.itemCount(id) || this.itemUsed || this.state.passive('no_items') || this.rules?.noItems || !this.itemAllowed(id)) return null;
     this.itemUsed = true;
     this.actions += 1;
     this.state.removeItem(id);
     const parts = this.state.applyConsumable(it);
     if (it.damage) {
-      const dmg = this.hurtEnemy(it.damage * (this.enemy.occult ? 2 : 1));
+      this.itemHit = true;
+      const dmg = this.hurtEnemy(it.damage * (this.enemy.occult ? 2 : 1) * (this.rules?.itemMult ?? 1));
+      this.itemHit = false;
       parts.push(`${dmg} Schaden`);
+    }
+    // Wurfgift: Brand oder Gift über Runden (zählt im Ritual des Kessels als Flaschenschaden)
+    if (it.burn && !this.outcome) {
+      const old = this.burn;
+      if (!old || old.damage <= it.burn[0]) this.burn = { damage: it.burn[0], rounds: Math.max(it.burn[1], old?.rounds ?? 0), source: id, item: true };
+      parts.push(`${it.burn[1]} Runden je ${it.burn[0]} Gift`);
     }
     // Blitzpulver: grelles Licht, der Gegner setzt eine Runde aus
     if (it.stun && !this.outcome) { this.stunned = true; parts.push('geblendet'); }
@@ -515,6 +584,48 @@ export class Combat {
     this.outcome = 'spared';
     this.log.push(text);
     return { text };
+  }
+
+  /** Seq-4-Ritual der Maske: den Beyonder unter 15 % Leben verschonen. */
+  canSpare() {
+    return !!this.rules?.spare && !this.outcome && this.enemy.hp > 0 && this.enemy.hp <= this.enemy.maxHp * 0.15;
+  }
+
+  spare() {
+    if (!this.canSpare()) return null;
+    this.outcome = 'spared';
+    const text = `Du senkst die Faust. ${this.enc.name} liegt da und versteht nicht, wie ein gewöhnlicher Mensch das getan hat.`;
+    this.log.push(text);
+    return { text };
+  }
+
+  /** Seq-4-Ritual des Fadens: einen Schicksalsfaden an dieses Wesen knüpfen (kostet die Aktion). */
+  canMarkFate() {
+    return !!this.rules?.mark && !this.outcome && !this.marked && !!this.state.canMarkFate?.(this.id);
+  }
+
+  markFate() {
+    if (!this.canMarkFate()) return null;
+    const text = this.state.markFate(this.id);
+    this.marked = true;
+    this.actions += 1;
+    this.log.push(text);
+    return { text };
+  }
+
+  /** Seq-4-Ritual des Moores: zu Beginn jeder Runde eine Flasche Moorwasser, sonst ist es vorbei. */
+  drinkMoor() {
+    if (this.outcome) return;
+    if (this.state.itemCount('moorwasser') > 0) { this.state.removeItem('moorwasser'); this.moorDrunk = (this.moorDrunk ?? 0) + 1; return; }
+    this.breakRule('Kein Moorwasser mehr. Das Moor lässt dich los.');
+  }
+
+  /** Verstoß gegen die Prüfung: der Kampf endet als Niederlage. */
+  breakRule(text) {
+    if (this.outcome) return;
+    this.ruleBroken = text;
+    this.outcome = 'lost';
+    this.log.push(text);
   }
 
   canFlee() {
@@ -587,6 +698,8 @@ export class Combat {
   }
 
   hurtEnemy(n, { pierce = false } = {}) {
+    // Ritual des Kessels: nur Flaschen (Wurf, Gift) richten Schaden an; Konter und Gegenschläge prallen ab
+    if (this.rules?.potionOnly && !this.itemHit && !this.burnTick) return 0;
     if (n > 0) n = Math.max(1, Math.round(n * this.wardMult()));
     if (this.armor && !pierce && n > 0) n = Math.max(1, n - this.armor);
     const absorbed = Math.min(this.enemyGuard, n);
@@ -599,6 +712,8 @@ export class Combat {
       if (dmg > room) { this.capped += dmg - room; dmg = room; }
       this.roundDmg += dmg;
     }
+    // Ritual des Eisens: vor Runde 6 fällt der Wächter nicht
+    if (this.rules?.minKillRound && this.round < this.rules.minKillRound && dmg >= this.enemy.hp) dmg = Math.max(0, this.enemy.hp - 1);
     this.enemy.hp = Math.max(0, this.enemy.hp - dmg);
     if (this.enemy.hp === 0 && !this.outcome) { this.outcome = 'won'; this.killedBy = this.curSkill ?? null; }
     if (this.enemy.hp > 0 && this.enemy.hp <= this.enemy.maxHp * 0.1 && this.state.isBeyonderFoe?.(this.id)) this.voiceWindow = true;
@@ -642,6 +757,7 @@ export class Combat {
       return null;
     }
     if (atk.action) { this.enemyAct(atk); return null; }
+    this.enemyAttacks += 1;
     return this.prepareAttack(atk);
   }
 
@@ -752,13 +868,26 @@ export class Combat {
    * n: welcher Spieler abwehrt (Flächenangriff: jeder Getroffene für sich).
    * Ergebnis: { damage, counter }
    */
-  resolveHit(attack, given, n = this.target) {
-    return this.on(n, () => this.resolveHitNow(attack, given, n));
+  resolveHit(attack, given, n = this.target, perfect = false) {
+    return this.on(n, () => this.resolveHitNow(attack, given, n, perfect));
   }
 
-  resolveHitNow(attack, given, n = this.target) {
+  resolveHitNow(attack, given, n = this.target, perfect = false) {
+    // 'perfect' (Tests, Ritual der Uhr) ist ein perfektes Ausweichen
+    if (given === 'perfect') { given = 'dodge'; perfect = true; }
     let result = this.evading && given === 'miss' ? 'dodge' : given;
     let note = null;
+    if (this.rules?.noDodge && result === 'dodge') { result = 'miss'; note = 'forbidden'; }
+    if (this.rules?.noParry && result === 'parry') { result = 'miss'; note = 'forbidden'; }
+    if (this.rules?.uhr) {
+      const clean = result === 'dodge' && given === 'dodge' && perfect;
+      if (!clean) {
+        this.dodgeErrors += 1;
+        note ??= 'imperfect';
+        const max = this.rules.uhr === 'guardian' ? UHR4.guardianMisses : 0;
+        if (this.dodgeErrors > max) this.breakRule(this.rules.uhr === 'guardian' ? `Der ${this.dodgeErrors}. verfehlte Augenblick. Die Uhr bleibt stehen.` : 'Ein Schlag, der nicht im perfekten Augenblick ausgewichen war. Die Uhr verlangt keinen einzigen Fehler.');
+      }
+    }
     if (result === 'parry' && attack.unparryable) { result = 'miss'; note = 'unparryable'; }
     if (result === 'dodge' && given === 'dodge' && !this.evading) {
       const cost = this.dodgeCost();
@@ -835,9 +964,13 @@ export class Combat {
     });
     this.focusRound();
     this.startTurn();
+    if (this.rules?.shadow) this.pickRoundSkill();
+    if (this.rules?.moorwater) this.drinkMoor();
     if (this.outcome) return 0;
     if (!this.burn) return 0;
+    this.burnTick = !!this.burn.item; // Gift aus der Flasche zählt im Ritual des Kessels
     const dmg = this.hurtEnemy(this.burn.damage);
+    this.burnTick = false;
     this.burn.rounds -= 1;
     if (this.burn.rounds <= 0) this.burn = null;
     return dmg;
@@ -923,9 +1056,20 @@ export class Combat {
     } else if (this.outcome === 'spared') {
       text = `${enc.name} bleibt liegen, lebt und schweigt. Du lässt ${enc.name.startsWith('Die ') ? 'sie' : 'ihn'} dort.`;
     }
+    if (this.ruleBroken) text = `${this.ruleBroken}\n\n${text}`;
+    // Schatten: sein Leben geht an die Prüfung zurück, der Körper hat nichts abbekommen
+    if (this.rules?.shadow && this.body) {
+      this.shadowHpLeft = this.outcome === 'lost' ? 0 : s.hp;
+      s.hp = this.body.hp;
+      s.maxHp = this.body.maxHp;
+    }
+    s.combatRules = null;
     // Seq-5-Prüfungen werten den Kampf aus (Laterne, Faden, Maske, Echo, Eisen, Schlüssel, Uhr)
     const trial = s.seq5CombatEnd?.(this);
     if (trial) text += `\n\n${trial}`;
+    const hg = s.seq4CombatEnd?.(this); // Seq-4-Prüfungen (core/Seq4.js)
+    if (hg) text += `\n\n${hg}`;
+    if (this.swapped) { s.swapPersonal(); this.swapped = false; }
     s.emit('hp', { value: s.hp, delta: 0 });
     s.emit('party', { active: s.hasP2?.() ?? false });
     s.emit('changed');

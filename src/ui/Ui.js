@@ -1687,6 +1687,24 @@ export class Ui {
       if (r.ok && r.active) { this.close(); this.showMessage('Mythische Gestalt', r.text); } else this.renderNotebook(esc(r.text));
     });
     el.querySelector('[data-probe]')?.addEventListener('click', () => this.openProbe());
+    // Seq-4-Prüfungen (core/Seq4.js): Knöpfe im Ritualblock
+    el.querySelectorAll('[data-seq4]').forEach((b) => {
+      b.onclick = () => {
+        const [act, arg] = b.dataset.seq4.split(':');
+        const st = this.state;
+        const call = {
+          laterne: () => st.startSiege(), maske: () => st.startMaske(), echo: () => st.startEcho(), schatten: () => st.startShadow(), uhr: () => st.startUhr4(),
+          waage: () => st.startWaage(el.querySelector('.hg-kapital')?.value), brew: () => st.brewEssence(Number(arg)), drink: () => st.drinkEssence(Number(arg)),
+          decay: () => st.decayItem(arg), moorwaechter: () => st.summonMoor(), abbrechen: () => st.seq4Cancel(),
+        }[act];
+        if (!call) return;
+        const r = inv(call);
+        const title = inv(() => this.state.seq4Name());
+        if (r.siege) { this.close(); this.scene?.hg?.startSiege(); this.toast(r.text, 'good'); return; }
+        if (r.fight || r.passed === false || r.shadow) { this.close(); this.showMessage(title, r.text); return; }
+        this.renderNotebook(esc(r.text));
+      };
+    });
     // Seq-5-Prüfungen (core/Seq5.js): Knöpfe im Ritualblock
     el.querySelectorAll('[data-seq5]').forEach((b) => {
       b.onclick = () => {
@@ -2237,7 +2255,7 @@ export class Ui {
     if (!r) return '';
     if (s.ritualDone(s.pathway.id, seq)) return `<div class="ritual done"><h4>Ritual: ${esc(r.name)} <span class="badge likely">vollzogen</span></h4><p class="muted">Du kannst den Trank der Sequenz ${seq} trinken.</p></div>`;
     const steps = s.ritualSteps();
-    const ready = steps.every((x) => x.done || x.ordeal);
+    const ready = r.hg ? steps.every((x) => x.done) : steps.every((x) => x.done || x.ordeal); // Seq 4: der Wächter kommt aus der Prüfung
     const probe = s.pendingProbe(s.pathway.id, seq); // Seq 6: zufällige, ortsunabhängige Prüfung
     // Paket CP: die persönliche Probe der schweren Rituale (4 und 2) mit ihren drei Vorbereitungen als Überlieferung
     const cp = s.content.halbgott?.rituale?.[`hg_ritual_${s.pathway.id}_${seq}`];
@@ -2247,9 +2265,42 @@ export class Ui {
       <p class="desc">${esc(r.desc)}</p>${cpHtml}
       <ul class="steps">${steps.map((x) => `<li class="${x.done ? 'done' : ''}">${x.done ? '✓' : '○'} ${esc(x.text)}</li>`).join('')}</ul>
       ${this.seq5Html(r)}
+      ${this.seq4Html(r)}
       ${probe ? `<p><button class="small primary" data-probe="1">${esc(probe.name)} antreten</button> <span class="muted">Eine zufällige Prüfung, überall ablegbar. Misslingt sie, kostet das ${PROBE_FAIL.nerves} Nerven und bringt ${PROBE_FAIL.unruhe} Unruhe; dann kannst du es gleich noch einmal versuchen.</span></p>` : ''}
       ${steps.some((x) => x.fraud && !x.done) ? '<p class="muted">Auf jedem geheimen Treffen ist ein Los überteuert: Bei jedem Los siehst du den Schätzwert neben dem Ausruf. Ruft ein Anbieter weit über Wert aus, „Betrug anprangern“.</p>' : ''}
       <button class="small ${ready ? 'primary' : ''}" data-ritual="1" ${ready ? '' : 'disabled'}>${ready && r.ordeal && !s.ordealDone(s.pathway.id, seq) ? 'Schwellenwächter rufen' : 'Ritual vollziehen'}</button> <span class="muted">Kostet 20 Nerven und bringt 20 Unruhe.${r.ordeal ? ' Ein schweres Ritual: Wenn alles andere steht, tritt der Schwellenwächter deines Pfades an.' : ''}</span></div>`;
+  }
+
+  /** Seq-4-Prüfung im Ritualblock: Regel, Knöpfe, Essenzen, Zersetzen (core/Seq4.js). */
+  seq4Html(r) {
+    const s = this.state;
+    if (!r?.hg || s.hgPassed()) return '';
+    const k = r.hg;
+    const st = s.seq4();
+    const btn = (act, label, enabled = true, extra = '') => `<button class="small ${enabled ? 'primary' : ''}" data-seq4="${act}" ${extra} ${enabled ? '' : 'disabled'}>${esc(label)}</button>`;
+    const acts = [];
+    let more = '';
+    const zone = !!s.content.zones?.[s.map];
+    if (k === 'laterne' && !st.siege) acts.push(btn('laterne', `Sechs Laternen aufstellen (${s.itemCount('lampenoel')}/6 Lampenöl)`, zone && s.itemCount('lampenoel') >= 6));
+    if (k === 'maske' && !st.masked) acts.push(btn('maske', 'Zivilistengestalt annehmen', !s.activeArtifacts().length));
+    if (k === 'echo' && !st.active) acts.push(btn('echo', 'Taub werden'));
+    if (k === 'schluessel' && !st.shadow) acts.push(btn('schatten', 'Den Schatten lösen', zone));
+    if (k === 'uhr' && !st.active) acts.push(btn('uhr', 'Zeitprüfung beginnen'));
+    if (k === 'waage' && !st.stash) more += `<p>Kapital: <input type="number" class="hg-kapital" min="0" max="${s.money}" step="100" value="${Math.min(s.money, 4000)}" style="width:7em"> von ${s.money} Schilling ${btn('waage', 'Allen Besitz ablegen')}</p>`;
+    if (k === 'kessel') {
+      const list = s.hgRecipes();
+      if (list.length) more += `<ul class="steps">${list.map((e) => `<li class="${e.drunk ? 'done' : ''}">${e.drunk ? '✓' : '○'} <strong>${esc(e.name)}</strong>: ${Object.entries(e.need).map(([id, n]) => `${esc(s.item(id)?.name ?? id)} ${e.have[id]}/${n}`).join(', ')}
+        ${e.drunk ? '' : `${btn(`brew:${e.i}`, 'Brauen', e.ready)} ${btn(`drink:${e.i}`, `Trinken (${e.owned})`, e.owned > 0)}`}</li>`).join('')}</ul>`;
+    }
+    if (k === 'moor') {
+      if (!s.pathway.relikt) {
+        const list = s.decayables();
+        more += list.length ? `<p class="muted">Zersetzbar: ${list.map((e) => btn(`decay:${e.id}`, `${e.name}${e.count > 1 ? ` ×${e.count}` : ''}`)).join(' ')}</p>` : '<p class="muted">Nichts Okkultes oder Seltenes im Gepäck.</p>';
+      } else if (!st.guardian) acts.push(btn('moorwaechter', 'Den Wächter rufen', s.itemCount('s4mo_relikt') > 0 && s.itemCount('moorwasser') > 0));
+    }
+    if (s.seq4Running()) acts.push('<button class="small" data-seq4="abbrechen">Prüfung abbrechen</button>');
+    return `<div class="seq5 seq4"><p class="desc"><strong>${esc(s.seq4Name(k))}.</strong> ${esc(s.seq4Hint(k))}</p>${more}
+      <p>${acts.join(' ')} <span class="muted">Solo: Spieler 2 schaut zu. Gescheitert: −17 % Verdauung, +10 Unruhe; wiederholen darfst du jederzeit.</span></p></div>`;
   }
 
   /** Seq-5-Prüfung im Ritualblock: Regel, Knöpfe, Steckbrief (core/Seq5.js). */
@@ -2945,13 +2996,17 @@ export class Ui {
     if (sub === 'main') {
       const items = mine(() => this.state.items().filter((i) => i.kind === 'consumable' && !i.cleanse).length);
       entries = [
-        { text: 'Angriff', ui: 'attack', info: `+${1 + mine(() => this.state.passive('attack_ap'))} K · beendet den Zug`, act: { type: 'skill', id: 'attack' } },
+        { text: c.rules?.shadow ? 'Schattenattacke' : 'Angriff', ui: 'attack', info: c.canUse('attack') ? `+${1 + mine(() => this.state.passive('attack_ap'))} K · beendet den Zug` : 'die Prüfung verbietet es', act: { type: 'skill', id: 'attack' }, disabled: !c.canUse('attack') },
         { text: 'Fertigkeiten', ui: 'skill', info: `${c.ap}/${c.apMax} K`, sub: 'skills' },
         { text: 'Gegenstände', ui: 'item', info: c.canUseItem() ? `${items}` : c.itemBlockedText(), sub: 'items', disabled: !c.canUseItem() },
         // Starke Gegner: Fliehen startet nur den Rückzug, man muss noch Runden durchhalten; läuft er, zeigt der Eintrag den Stand
         { text: 'Fliehen', ui: 'flee', info: c.fleeing ? `Rückzug läuft · ${c.fleeStatus()}` : c.canFlee() ? (c.fleeRounds > 0 ? `${c.fleeRounds} Runden durchhalten` : '') : 'unmöglich', act: { type: 'flee' }, disabled: !c.canFlee(),
           desc: c.fleeRounds > 0 && !c.fleeing ? `${esc(c.enemy.name)} lässt dich nicht einfach gehen: Nach „Fliehen“ ist dein Zug vorbei, und du musst noch ${c.fleeRounds} Runden durchhalten.` : '' },
       ];
+      // Seq-4-Prüfungen: Maske verschont, Faden knüpft den Schicksalsfaden
+      if (c.canSpare?.()) entries.splice(3, 0, { text: 'Verschonen', ui: 'skill', info: 'Maske · Ende des Kampfes', act: { type: 'spare' }, desc: `${esc(c.enemy.name)} liegt unter 15 % Leben. Verschone ihn: Er wird an seinen Kräften zweifeln, und der Wächter tritt an.` });
+      if (c.canMarkFate?.()) entries.splice(3, 0, { text: 'Schicksalsfaden', ui: 'skill', info: 'Faden · kostet die Aktion', act: { type: 'mark' }, desc: `Knüpfe einen Faden an ${esc(c.enemy.name)}. Fünf verschiedene Wesen aus fünf Gebieten, dann schlafen.` });
+      if (c.rules?.shadow && c.roundSkill) entries[1].info = `diese Runde: ${esc(c.skillDef(c.roundSkill)?.name ?? '')}`;
       if (c.canStealVoice?.()) entries.splice(3, 0, { text: 'Stimme rauben', ui: 'skill', info: 'verschonen · Zutaten gehen drauf', act: { type: 'voice' }, desc: `${esc(c.enemy.name)} liegt unter 10 % Leben. Nimm die Stimme statt das Leben: Der Kampf endet, keine Beute, das Ritual des Echos ist bestanden.` });
       const fleeNote = c.fleeing ? `<p class="flee-note">⏳ Rückzug läuft: ${c.fleeStatus()} durchhalten${c.duo ? ', dann seid ihr weg' : ', dann bist du weg'}.</p>` : '';
       if (c.actions) entries.push({ text: 'Zug beenden', ui: 'defend', info: '', act: { type: 'end' } });
@@ -2966,7 +3021,7 @@ export class Ui {
         desc: `${k.desc ?? ''}${isPrecise(k) ? ` ◎ Präzise: volle Wirkung${k.stun ? ' und Betäubung' : ''} nur bei perfektem Takt, das goldene Fenster ist winzig.` : ''}`, act: { type: 'skill', id: k.id }, disabled: !k.usable,
       }));
     } else {
-      entries = mine(() => this.state.items()).filter((i) => i.kind === 'consumable' && !i.cleanse).map((i) => ({ text: `${i.name} ×${i.count}`, icon: i.id, desc: i.desc, act: { type: 'item', id: i.id } }));
+      entries = mine(() => this.state.items()).filter((i) => i.kind === 'consumable' && !i.cleanse).map((i) => ({ text: `${i.name} ×${i.count}`, icon: i.id, desc: i.desc, act: { type: 'item', id: i.id }, disabled: !c.itemAllowed?.(i.id) }));
       if (!entries.length) entries = [{ text: 'Keine Gegenstände', disabled: true }];
     }
     if (sub !== 'main') entries.push({ text: 'Zurück', back: true });
