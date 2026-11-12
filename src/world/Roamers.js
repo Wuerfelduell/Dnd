@@ -39,7 +39,7 @@ export class Roamers {
     const fest = this.state.festAktiv?.(s.mapDef.city ?? (s.mapDef.id.startsWith('ds_') ? 'dunscar' : s.mapDef.id.startsWith('wx_') ? 'wexmoor' : 'kettlegate'));
     const festplatz = !!fest && (FEST_MAPS[fest] ?? []).includes(s.mapDef.id);
     for (const def of defs) {
-      if (def.boss && this.state.flags.has(`won_${def.encounter}`)) continue; // Bosse bleiben besiegt
+      if (def.boss && !def.respawn && this.state.flags.has(`won_${def.encounter}`)) continue; // Bosse bleiben besiegt (Gebietsbosse mit `respawn` kommen wieder)
       if (festplatz && encs[def.encounter]?.city && !def.boss) continue;
       if (def.visible_if && !this.state.meets(def.visible_if)) continue; // Stadtgegner: erst ab einem Fall, Kopfgeld-Ziele nur mit Auftrag
       const eliteId = `${def.encounter}_elite`;
