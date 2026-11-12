@@ -1820,3 +1820,12 @@ Keine Laufzeitintegration in diesem Paket.
 ## DE · Fahrende Auktion (`auktion`)
 
 55 PNGs: Vance, Träger, Glockenhund, drei Mitbieter, Portraits/Stimmungen/Köpfe, Wagen, zehn Los-Iconpaare, UI, Posen und Effekte. Manifest: `public/sprites/manifest-auktion.json`; Prompts, Vorschau und Prüfbericht: `batch-auktion-{generation.json,preview.png,validation.json}`. Texte und Einbauvertrag: `docs/story/fahrende_auktion/README.md`. Prüfung: `python tools/art/auktion/check.py` und `node docs/story/fahrende_auktion/pruefen.mjs`. Kein Runtime-Einbau.
+## CO: Halbgott und Engel (`halbgott`)
+
+73 PNGs für Sequenz 4 und 2: sechs Trink-Sheets, acht Effekte, zehn Kreaturformen jeweils für Karte und Kampf, zehn Zugportraits, zwei Ritualwächter mit Kartenfiguren, zehn Siegel, zwei Kampfkulissen, zwanzig Sequenzbilder und zwei HUD-Größen. Die 780 Rasterzellen verwenden die gemeinsame Palette aus `manifest-fasserin.json`; Alpha ist binär, Szenen sind opak.
+
+- [Manifest](../../public/sprites/manifest-halbgott.json), [Vorschau](batch-halbgott-preview.png), [Prompts und Herkunft](batch-halbgott-generation.json), [Prüfbericht](batch-halbgott-validation.json).
+- [Übergabe und Registrierungsstellen](halbgott-uebergabe.md): Framegrößen, Richtungen, Aushol-Holds, drei Wächterphasen, Rückverwandlung und getrennte Koop-Instanzen.
+- Prüfung: `python tools/art/halbgott/check.py` (Pillow). Kontrolliert das vollständige Sollinventar, Maße, gemeinsame Palette, Alpha, Raster, Animationen, Baselines und exakte HUD-Verdopplung.
+
+Erzeugt mit dem eingebauten Bildgenerator, anschließend Nearest Neighbor und Palette-/Alpha-Bereinigung. Grafiklieferung ohne Spielcodeänderung; CP und der spätere Einbau übernehmen Ritual- und Kampfregeln.

@@ -1,0 +1,56 @@
+[
+  {
+    "id": "wrackmutter",
+    "map": "vm_wrackfeld",
+    "tile": [
+      12,
+      6
+    ],
+    "trigger": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "gezeit": "ebbe",
+      "explicit_confirm": true
+    },
+    "done_flag": "k6_cu_wrackmutter_besiegt",
+    "values_owner": "cz",
+    "phase_count": 1
+  },
+  {
+    "id": "leuchtfeuerwaechter",
+    "map": "vm_leuchtbank",
+    "tile": [
+      12,
+      6
+    ],
+    "trigger": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "gezeit": "beide",
+      "explicit_confirm": true
+    },
+    "done_flag": "k6_cu_leuchtfeuerwaechter_besiegt",
+    "values_owner": "cz",
+    "phase_count": 1
+  },
+  {
+    "id": "pegelherrin",
+    "map": "vm_registerkeller",
+    "tile": [
+      12,
+      6
+    ],
+    "trigger": {
+      "requires_flags": [
+        "k6_cu_finale_bereit"
+      ],
+      "gezeit": "ebbe",
+      "explicit_confirm": true
+    },
+    "done_flag": "k6_cu_pegelherrin_besiegt",
+    "values_owner": "cz",
+    "phase_count": 2
+  }
+]

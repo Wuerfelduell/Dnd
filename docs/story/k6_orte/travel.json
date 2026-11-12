@@ -1,0 +1,481 @@
+[
+  {
+    "id": "vm_reise_01",
+    "map": "vm_zollhafen",
+    "spawn": "default",
+    "name": "Küstenbahn",
+    "desc": "Ein Fahrgast hält einen Brief mit viermal durchgestrichener Anrede.",
+    "city": "varrowmouth",
+    "once": true,
+    "gezeiten": [
+      "ebbe",
+      "flut"
+    ],
+    "speaker": "vmn_tam_verrin",
+    "requires_flags": [],
+    "hide_if_flags": [
+      "k6_arrived"
+    ],
+    "choices": [
+      {
+        "text": "Die Beobachtung festhalten.",
+        "result": "Du behältst den Hinweis und erreichst den sicheren Anleger.",
+        "set_flags": [
+          "k6_cu_reise_1_notiert"
+        ]
+      },
+      {
+        "text": "Still weiterfahren.",
+        "result": "Du kommst ohne Zwischenhalt am Anleger an."
+      }
+    ],
+    "koop": {
+      "only": false
+    },
+    "arrival_endings": [
+      "bha_end_wahl",
+      "bha_end_winter",
+      "bha_end_verwahrt",
+      "bha_end_schmerzlos"
+    ],
+    "enemy_reference": null,
+    "arrival_commit_flag": null
+  },
+  {
+    "id": "vm_reise_02",
+    "map": "vm_zollhafen",
+    "spawn": "default",
+    "name": "Küstenbahn",
+    "desc": "Die Scheiben der Küstenbahn werden salzig.",
+    "city": "varrowmouth",
+    "once": true,
+    "gezeiten": [
+      "ebbe",
+      "flut"
+    ],
+    "speaker": "vmn_tam_verrin",
+    "requires_flags": [],
+    "hide_if_flags": [
+      "k6_arrived"
+    ],
+    "choices": [
+      {
+        "text": "Die Beobachtung festhalten.",
+        "result": "Du behältst den Hinweis und erreichst den sicheren Anleger.",
+        "set_flags": [
+          "k6_cu_reise_2_notiert"
+        ]
+      },
+      {
+        "text": "Still weiterfahren.",
+        "result": "Du kommst ohne Zwischenhalt am Anleger an."
+      }
+    ],
+    "koop": {
+      "only": false
+    },
+    "arrival_endings": [
+      "bha_end_wahl",
+      "bha_end_winter",
+      "bha_end_verwahrt",
+      "bha_end_schmerzlos"
+    ],
+    "enemy_reference": null,
+    "arrival_commit_flag": null
+  },
+  {
+    "id": "vm_reise_03",
+    "map": "vm_zollhafen",
+    "spawn": "default",
+    "name": "Küstenbahn",
+    "desc": "Am Bahnende wartet Tam unter einem trockenen Segel.",
+    "city": "varrowmouth",
+    "once": true,
+    "gezeiten": [
+      "ebbe",
+      "flut"
+    ],
+    "speaker": "vmn_tam_verrin",
+    "requires_flags": [],
+    "hide_if_flags": [
+      "k6_arrived"
+    ],
+    "choices": [
+      {
+        "text": "Die Beobachtung festhalten.",
+        "result": "Du behältst den Hinweis und erreichst den sicheren Anleger.",
+        "set_flags": [
+          "k6_cu_reise_3_notiert"
+        ]
+      },
+      {
+        "text": "Still weiterfahren.",
+        "result": "Du kommst ohne Zwischenhalt am Anleger an."
+      }
+    ],
+    "koop": {
+      "only": false
+    },
+    "arrival_endings": [
+      "bha_end_wahl",
+      "bha_end_winter",
+      "bha_end_verwahrt",
+      "bha_end_schmerzlos"
+    ],
+    "enemy_reference": null,
+    "arrival_commit_flag": null
+  },
+  {
+    "id": "vm_reise_04",
+    "map": "vm_zollhafen",
+    "spawn": "default",
+    "name": "Fähre",
+    "desc": "Die Fähre führt keine Rückfahrkarten.",
+    "city": "varrowmouth",
+    "once": true,
+    "gezeiten": [
+      "ebbe",
+      "flut"
+    ],
+    "speaker": "vmn_tam_verrin",
+    "requires_flags": [],
+    "hide_if_flags": [
+      "k6_arrived"
+    ],
+    "choices": [
+      {
+        "text": "Die Beobachtung festhalten.",
+        "result": "Du behältst den Hinweis und erreichst den sicheren Anleger.",
+        "set_flags": [
+          "k6_cu_reise_4_notiert"
+        ]
+      },
+      {
+        "text": "Still weiterfahren.",
+        "result": "Du kommst ohne Zwischenhalt am Anleger an."
+      }
+    ],
+    "koop": {
+      "only": false
+    },
+    "arrival_endings": [
+      "bha_end_wahl",
+      "bha_end_winter",
+      "bha_end_verwahrt",
+      "bha_end_schmerzlos"
+    ],
+    "enemy_reference": null,
+    "arrival_commit_flag": null
+  },
+  {
+    "id": "vm_reise_05",
+    "map": "vm_zollhafen",
+    "spawn": "default",
+    "name": "Fähre",
+    "desc": "Unter dem Bug hängt ein Seil gegen die Strömung.",
+    "city": "varrowmouth",
+    "once": true,
+    "gezeiten": [
+      "ebbe",
+      "flut"
+    ],
+    "speaker": "vmn_tam_verrin",
+    "requires_flags": [],
+    "hide_if_flags": [
+      "k6_arrived"
+    ],
+    "choices": [
+      {
+        "text": "Die Beobachtung festhalten.",
+        "result": "Du behältst den Hinweis und erreichst den sicheren Anleger.",
+        "set_flags": [
+          "k6_cu_reise_5_notiert"
+        ]
+      },
+      {
+        "text": "Still weiterfahren.",
+        "result": "Du kommst ohne Zwischenhalt am Anleger an."
+      }
+    ],
+    "koop": {
+      "only": false
+    },
+    "arrival_endings": [
+      "bha_end_wahl",
+      "bha_end_winter",
+      "bha_end_verwahrt",
+      "bha_end_schmerzlos"
+    ],
+    "enemy_reference": "vme_tauwerk",
+    "arrival_commit_flag": null
+  },
+  {
+    "id": "vm_reise_06",
+    "map": "vm_zollhafen",
+    "spawn": "default",
+    "name": "Fähre",
+    "desc": "Tam zeigt auf eine freie Stufe am Zollhaus.",
+    "city": "varrowmouth",
+    "once": true,
+    "gezeiten": [
+      "ebbe",
+      "flut"
+    ],
+    "speaker": "vmn_tam_verrin",
+    "requires_flags": [],
+    "hide_if_flags": [
+      "k6_arrived"
+    ],
+    "choices": [
+      {
+        "text": "Die Beobachtung festhalten.",
+        "result": "Du behältst den Hinweis und erreichst den sicheren Anleger.",
+        "set_flags": [
+          "k6_cu_reise_6_notiert"
+        ]
+      },
+      {
+        "text": "Still weiterfahren.",
+        "result": "Du kommst ohne Zwischenhalt am Anleger an."
+      }
+    ],
+    "koop": {
+      "only": false
+    },
+    "arrival_endings": [
+      "bha_end_wahl",
+      "bha_end_winter",
+      "bha_end_verwahrt",
+      "bha_end_schmerzlos"
+    ],
+    "enemy_reference": null,
+    "arrival_commit_flag": "k6_arrived"
+  },
+  {
+    "id": "vm_reise_07",
+    "map": "vm_leuchtbank",
+    "spawn": "default",
+    "name": "Stadtboot",
+    "desc": "Ein Zollgeist zählt die Ruderzüge.",
+    "city": "varrowmouth",
+    "once": false,
+    "gezeiten": [
+      "ebbe",
+      "flut"
+    ],
+    "speaker": "vmn_tam_verrin",
+    "requires_flags": [
+      "k6_arrived"
+    ],
+    "hide_if_flags": [],
+    "choices": [
+      {
+        "text": "Die Beobachtung festhalten.",
+        "result": "Du behältst den Hinweis und erreichst den sicheren Anleger.",
+        "set_flags": [
+          "k6_cu_reise_7_notiert"
+        ]
+      },
+      {
+        "text": "Still weiterfahren.",
+        "result": "Du kommst ohne Zwischenhalt am Anleger an."
+      }
+    ],
+    "koop": {
+      "only": false
+    },
+    "arrival_endings": [],
+    "enemy_reference": "vme_zollgeist",
+    "arrival_commit_flag": null
+  },
+  {
+    "id": "vm_reise_08",
+    "map": "vm_zollhafen",
+    "spawn": "default",
+    "name": "Stadtboot",
+    "desc": "Das Leuchtfeuer bleibt unter einer Wolke sichtbar.",
+    "city": "varrowmouth",
+    "once": false,
+    "gezeiten": [
+      "ebbe",
+      "flut"
+    ],
+    "speaker": "vmn_tam_verrin",
+    "requires_flags": [
+      "k6_arrived"
+    ],
+    "hide_if_flags": [],
+    "choices": [
+      {
+        "text": "Die Beobachtung festhalten.",
+        "result": "Du behältst den Hinweis und erreichst den sicheren Anleger.",
+        "set_flags": [
+          "k6_cu_reise_8_notiert"
+        ]
+      },
+      {
+        "text": "Still weiterfahren.",
+        "result": "Du kommst ohne Zwischenhalt am Anleger an."
+      }
+    ],
+    "koop": {
+      "only": false
+    },
+    "arrival_endings": [],
+    "enemy_reference": null,
+    "arrival_commit_flag": null
+  },
+  {
+    "id": "vm_reise_09",
+    "map": "vm_wrackfeld",
+    "spawn": "default",
+    "name": "Stadtboot",
+    "desc": "Eine Hafenkraehe trägt einen Papierstreifen.",
+    "city": "varrowmouth",
+    "once": false,
+    "gezeiten": [
+      "flut"
+    ],
+    "speaker": "vmn_tam_verrin",
+    "requires_flags": [
+      "k6_arrived"
+    ],
+    "hide_if_flags": [],
+    "choices": [
+      {
+        "text": "Die Beobachtung festhalten.",
+        "result": "Du behältst den Hinweis und erreichst den sicheren Anleger.",
+        "set_flags": [
+          "k6_cu_reise_9_notiert"
+        ]
+      },
+      {
+        "text": "Still weiterfahren.",
+        "result": "Du kommst ohne Zwischenhalt am Anleger an."
+      }
+    ],
+    "koop": {
+      "only": false
+    },
+    "arrival_endings": [],
+    "enemy_reference": "vme_hafenkraehe",
+    "arrival_commit_flag": null
+  },
+  {
+    "id": "vm_reise_10",
+    "map": "vm_stegviertel",
+    "spawn": "default",
+    "name": "Stadtboot",
+    "desc": "Vom Oberdeck siehst du den versunkenen Kielraum.",
+    "city": "varrowmouth",
+    "once": false,
+    "gezeiten": [
+      "flut"
+    ],
+    "speaker": "vmn_tam_verrin",
+    "requires_flags": [
+      "k6_arrived"
+    ],
+    "hide_if_flags": [],
+    "choices": [
+      {
+        "text": "Die Beobachtung festhalten.",
+        "result": "Du behältst den Hinweis und erreichst den sicheren Anleger.",
+        "set_flags": [
+          "k6_cu_reise_10_notiert"
+        ]
+      },
+      {
+        "text": "Still weiterfahren.",
+        "result": "Du kommst ohne Zwischenhalt am Anleger an."
+      }
+    ],
+    "koop": {
+      "only": false
+    },
+    "arrival_endings": [],
+    "enemy_reference": null,
+    "arrival_commit_flag": null
+  },
+  {
+    "id": "vm_reise_11",
+    "map": "vm_zollhafen",
+    "spawn": "default",
+    "name": "Fähre",
+    "desc": "Zwei Namen stehen auf eurem Fahrschein.",
+    "city": "varrowmouth",
+    "once": true,
+    "gezeiten": [
+      "ebbe",
+      "flut"
+    ],
+    "speaker": "vmn_tam_verrin",
+    "requires_flags": [],
+    "hide_if_flags": [
+      "k6_arrived"
+    ],
+    "choices": [
+      {
+        "text": "Die Beobachtung festhalten.",
+        "result": "Du behältst den Hinweis und erreichst den sicheren Anleger.",
+        "set_flags": [
+          "k6_cu_reise_11_notiert"
+        ]
+      },
+      {
+        "text": "Still weiterfahren.",
+        "result": "Du kommst ohne Zwischenhalt am Anleger an."
+      }
+    ],
+    "koop": {
+      "only": true,
+      "resolution": "Beide bestätigen; jeder behält seinen eigenen Registereintrag."
+    },
+    "arrival_endings": [
+      "bha_end_wahl",
+      "bha_end_winter",
+      "bha_end_verwahrt",
+      "bha_end_schmerzlos"
+    ],
+    "enemy_reference": null,
+    "arrival_commit_flag": "k6_arrived"
+  },
+  {
+    "id": "vm_reise_12",
+    "map": "vm_leuchtbank",
+    "spawn": "default",
+    "name": "Stadtboot",
+    "desc": "Nur eines der beiden Ruder lässt sich bewegen.",
+    "city": "varrowmouth",
+    "once": false,
+    "gezeiten": [
+      "ebbe",
+      "flut"
+    ],
+    "speaker": "vmn_tam_verrin",
+    "requires_flags": [
+      "k6_arrived"
+    ],
+    "hide_if_flags": [],
+    "choices": [
+      {
+        "text": "Die Beobachtung festhalten.",
+        "result": "Du behältst den Hinweis und erreichst den sicheren Anleger.",
+        "set_flags": [
+          "k6_cu_reise_12_notiert"
+        ]
+      },
+      {
+        "text": "Still weiterfahren.",
+        "result": "Du kommst ohne Zwischenhalt am Anleger an."
+      }
+    ],
+    "koop": {
+      "only": true,
+      "resolution": "Beide bestätigen; jeder behält seinen eigenen Registereintrag."
+    },
+    "arrival_endings": [],
+    "enemy_reference": null,
+    "arrival_commit_flag": null
+  }
+]
