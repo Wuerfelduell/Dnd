@@ -1981,3 +1981,47 @@ Zwei Codex-Zips mit freien Motiven, keine Zuordnung zu Figuren oder Gegenstände
 [Manifest](../../public/sprites/manifest-ritualicons.json) · [Vorschau](batch-ritualicons-preview.png) · [Herkunft](batch-ritualicons-generation.json) · [Prüfbericht](batch-ritualicons-validation.json).
 
 Prüfung: `python3 tools/art/ritualicons/check.py` (Pillow). `items` ordnet jede ID beiden Dateien zu; `assets` beschreibt beide Größen separat. `ersetztLeihbild` kennzeichnet die 20 IDs aus Abschnitt 1; `replacesAlias` dokumentiert vorhandene Alias-Ziele. Statische Icons haben einen Frame und Geschwindigkeit 0. Die separaten Code-Arbeiten müssen die Aliase entfernen und 32er registrieren; hier wird kein Spielcode geändert.
+
+
+## Paket DN — Seq-4-Rituale, Teil 1 (`seq4rit1`)
+
+59 PNGs / 441 belegte Frames für Laterne, Faden, Maske, Echo, Kessel-Würfe,
+Eisen, Uhr und gemeinsame Schwellenwächter-Zusätze. Manifest:
+[`manifest-seq4rit1.json`](../../public/sprites/manifest-seq4rit1.json).
+[Vorschau](batch-seq4rit1-preview.png), [Prompts und Herkunft](batch-seq4rit1-generation.json),
+[Prüfbericht](batch-seq4rit1-validation.json). Kein Spielcode und keine CO-/DO-/DP-Dateien geändert.
+
+- Alle regulären Effektsequenzen sind horizontal angeordnet. Laterne: 4 Spalten,
+  sechs Zustandsreihen; Restzellen der Reihen `angegriffen` und `erloschen` transparent.
+- Die drei Zivilisten haben je ein Lauf- und ein Kampf-Sheet. Manifest-IDs enden
+  eindeutig auf `_walk` bzw. `_battle`; Dateinamen entsprechen dem Auftrag.
+  Kampfbelegung und Geschwindigkeiten entsprechen `manifest-14b.json` und
+  `manifest-spieler2.json`. `shoot` zeigt einen Steinwurf, `occult` einen vergeblichen
+  unmagischen Versuch; die Ritualregeln müssen Fähigkeiten weiterhin sperren.
+- HUD-Streifen sind Zustandsatlanten, keine automatischen Fortschrittsanimationen.
+  Gleichartige fünf Plätze: zuerst fünf offene/leere, danach fünf erfüllte Zustände.
+  Die Regionen und Einzelzustände stehen im Manifest. Haltering: Frames 0–7
+  Fortschritt, Frame 8 unterbrochen. Uhr: drei heile, danach drei gebrochene Zahnräder.
+- Zusätzlich verlangte Rahmen heißen `s4la_hud_rahmen`, `s4fa_hud_rahmen`,
+  `s4ke_hud_rahmen`, `s4ei_hud_rahmen`. Einzelzeichen:
+  `s4ke_angriff_verboten`, `s4ei_ausweichen_verboten`, `s4ei_bedingung_gebrochen`,
+  `s4uh_monsterphase`, `s4uh_hat_angegriffen`. Zusammen 59 statt der groben Schätzung
+  „etwa 70“; keine optionalen Varianten.
+- Ohr-Atlas: 16×16 bei (0,0), 32×32 bei (16,0). Regelkarte: 48×48,
+  16-Pixel-9-Slice; Text wird separat gerendert. Alle Rand-Overlays lassen mindestens
+  (96,54)–(384,216) transparent. Lichtkreise und Schutzschimmer verwenden binäres
+  Checker-Alpha. Traumübergang und Traumkulisse sind vollständig opak.
+- Wächter-Weltfigur: 48×64, vier Richtungen mit vier Frames, Grundlinie 62;
+  Spieler-Grundlinie 30. `baseline` bezeichnet die exklusive Unterkante der belegten
+  Pixel. Der bestehende CO-Kampf-Wächter bleibt die Vorlage und wird nicht ersetzt.
+- Körperunabhängige Effekte werden auf den aktiven Solo-Ritualspieler gelegt.
+  Uhr-Nachbild ist eine neutrale Bewegungsspur. Für Maske existieren alle drei
+  ausdrücklich angeforderten Körpervarianten. `rituals` ordnet Dateien ihren Pfaden zu.
+
+Prüfung: `python tools/art/seq4rit1/check.py` (Pillow). Sie prüft Maße, Palette,
+binäres Alpha, vollständige Belegung, Animationen, Grundlinien, transparente Mitten,
+Regionen, 9-Slice und Herkunftsprüfsummen. Die Grafik wurde auf Zielgröße gesichtet;
+der separate Einbau muss Positionierung, Timing und Ritualregeln im Spiel testen.
+`tools/art/seq4rit1/export.py` dokumentiert den Nearest-Neighbor-Export (Pillow/NumPy);
+Generator-Originale gehören nicht zum kleinen Runtime-Paket. Verwendet wurde das
+integrierte Bildwerkzeug, mit Palette aus `manifest-dunscar3.json`.

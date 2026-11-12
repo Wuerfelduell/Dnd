@@ -1,0 +1,2916 @@
+{
+  "version": 1,
+  "batch": "seq4rit1",
+  "status": "exported; runtime integration pending",
+  "paletteMaxVisibleColors": 32,
+  "palette": [
+    "#1a1c2c",
+    "#252d38",
+    "#35424a",
+    "#49535b",
+    "#626b70",
+    "#859091",
+    "#abb3ae",
+    "#d4d0bc",
+    "#e7dfc5",
+    "#c1ac84",
+    "#938365",
+    "#635744",
+    "#443d34",
+    "#704e3b",
+    "#996849",
+    "#bc9260",
+    "#d0a050",
+    "#e8b860",
+    "#b4a079",
+    "#a8b4c0",
+    "#92a6b2",
+    "#7d927e",
+    "#526953",
+    "#9ad06a",
+    "#e07a8a",
+    "#89596d",
+    "#c8b0e8",
+    "#78618e",
+    "#29545a",
+    "#418f91",
+    "#6fe0d0",
+    "#b1e7d5"
+  ],
+  "assets": [
+    {
+      "id": "s4la_ritual_laterne",
+      "file": "props/s4la_ritual_laterne.png",
+      "width": 64,
+      "height": 192,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 6,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        2,
+        1,
+        4
+      ],
+      "animations": {
+        "voll": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "halb": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "schwach": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "angegriffen": {
+          "frames": [
+            12,
+            13
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "erloschen": {
+          "frames": [
+            16
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "nachfuellen": {
+          "frames": [
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "description": "Iron stake ritual oil lantern. Six rows: full steady flame four poses; half smaller flame four; weak soot glass flicker four; attacked rattling glass sparks two then two empty; extinguished one then three empty; refilling oil flowing flame growing four."
+    },
+    {
+      "id": "s4la_lichtkreis",
+      "file": "fx/s4la_lichtkreis.png",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        4
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "description": "Amber circular light pool around lantern, binary alpha checker dither, gently breathing loop"
+    },
+    {
+      "id": "s4la_spielerlicht",
+      "file": "fx/s4la_spielerlicht.png",
+      "width": 192,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        4
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "description": "Weak pale amber circular player light halo, much fainter smaller than lantern pool, checker dither pulse"
+    },
+    {
+      "id": "s4la_monster_licht",
+      "file": "fx/s4la_monster_licht.png",
+      "width": 192,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 6,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        6
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Light damage sizzling smoke and bone-white sparks increasing then dissipating"
+    },
+    {
+      "id": "s4la_monster_zerfall",
+      "file": "fx/s4la_monster_zerfall.png",
+      "width": 192,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 6,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        6
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Monster disintegrates into ash: abstract smoky silhouette crumbling into dust then fading"
+    },
+    {
+      "id": "s4la_rueckstoss",
+      "file": "fx/s4la_rueckstoss.png",
+      "width": 128,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        4
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Knockback impact dust ring and small impact star expands and dissipates"
+    },
+    {
+      "id": "s4la_halten",
+      "file": "ui/s4la_halten.png",
+      "width": 144,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 9,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        9
+      ],
+      "animations": {
+        "fortschritt": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "unterbrochen": {
+          "frames": [
+            8
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      },
+      "description": "Hold progress ring: first eight icons progress clockwise from empty to full, ninth cracked rust-red interrupted ring"
+    },
+    {
+      "id": "s4la_hud",
+      "file": "ui/s4la_hud.png",
+      "width": 48,
+      "height": 16,
+      "frameWidth": 12,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        4
+      ],
+      "animations": {
+        "voll_0": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "halb_1": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "schwach_2": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "erloschen_3": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      },
+      "description": "Four tiny lantern state icons full, half, weak, extinguished in order",
+      "regions": {
+        "voll_0": {
+          "x": 0,
+          "y": 0,
+          "width": 12,
+          "height": 16
+        },
+        "halb_1": {
+          "x": 12,
+          "y": 0,
+          "width": 12,
+          "height": 16
+        },
+        "schwach_2": {
+          "x": 24,
+          "y": 0,
+          "width": 12,
+          "height": 16
+        },
+        "erloschen_3": {
+          "x": 36,
+          "y": 0,
+          "width": 12,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "s4la_hud_rahmen",
+      "file": "ui/s4la_hud_rahmen.png",
+      "width": 96,
+      "height": 20,
+      "frameWidth": 96,
+      "frameHeight": 20,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        1
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Long thin brass and soot HUD frame with six empty lantern spaces, no symbols no text",
+      "regions": {
+        "slot_0": {
+          "x": 0,
+          "y": 2,
+          "width": 16,
+          "height": 16
+        },
+        "slot_1": {
+          "x": 16,
+          "y": 2,
+          "width": 16,
+          "height": 16
+        },
+        "slot_2": {
+          "x": 32,
+          "y": 2,
+          "width": 16,
+          "height": 16
+        },
+        "slot_3": {
+          "x": 48,
+          "y": 2,
+          "width": 16,
+          "height": 16
+        },
+        "slot_4": {
+          "x": 64,
+          "y": 2,
+          "width": 16,
+          "height": 16
+        },
+        "slot_5": {
+          "x": 80,
+          "y": 2,
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "s4la_sonnenaufgang",
+      "file": "fx/s4la_sonnenaufgang.png",
+      "width": 768,
+      "height": 96,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 8,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        8
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Three burning lanterns arranged triangle. Rays connect, central sunrise grows amber to bone white, climactic light burst then resolves"
+    },
+    {
+      "id": "s4la_unruhe",
+      "file": "fx/s4la_unruhe.png",
+      "width": 1920,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        4
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Screen edge overlay: soot tendrils and deep violet veins increasingly uneasy. Only outer 12 percent border occupied, huge transparent rectangular center",
+      "transparentCenter": [
+        96,
+        54,
+        288,
+        162
+      ]
+    },
+    {
+      "id": "s4fa_markieren",
+      "file": "fx/s4fa_markieren.png",
+      "width": 288,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        6
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Violet fate thread winds around an invisible creature, developing a knot then gently glowing, transparent center no creature"
+    },
+    {
+      "id": "s4fa_mark_welt",
+      "file": "fx/s4fa_mark_welt.png",
+      "width": 64,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        4
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "description": "Small floating violet knot with loose trailing thread, gently moving loop"
+    },
+    {
+      "id": "s4fa_hud",
+      "file": "ui/s4fa_hud.png",
+      "width": 160,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 10,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        10
+      ],
+      "animations": {
+        "offen_0": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "offen_1": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "offen_2": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "offen_3": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "offen_4": {
+          "frames": [
+            4
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "markiert_5": {
+          "frames": [
+            5
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "markiert_6": {
+          "frames": [
+            6
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "markiert_7": {
+          "frames": [
+            7
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "markiert_8": {
+          "frames": [
+            8
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "markiert_9": {
+          "frames": [
+            9
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      },
+      "description": "Ten knot icons: first five open grey knots; next five marked violet tied knots",
+      "regions": {
+        "offen_0": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "offen_1": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "offen_2": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "offen_3": {
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "offen_4": {
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "markiert_5": {
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "markiert_6": {
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "markiert_7": {
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "markiert_8": {
+          "x": 128,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "markiert_9": {
+          "x": 144,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "s4fa_hud_rahmen",
+      "file": "ui/s4fa_hud_rahmen.png",
+      "width": 96,
+      "height": 20,
+      "frameWidth": 96,
+      "frameHeight": 20,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        1
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Thin grey violet threadwork frame for five empty knot slots, no text",
+      "regions": {
+        "slot_0": {
+          "x": 8,
+          "y": 2,
+          "width": 16,
+          "height": 16
+        },
+        "slot_1": {
+          "x": 24,
+          "y": 2,
+          "width": 16,
+          "height": 16
+        },
+        "slot_2": {
+          "x": 40,
+          "y": 2,
+          "width": 16,
+          "height": 16
+        },
+        "slot_3": {
+          "x": 56,
+          "y": 2,
+          "width": 16,
+          "height": 16
+        },
+        "slot_4": {
+          "x": 72,
+          "y": 2,
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "s4fa_einschlafen",
+      "file": "fx/s4fa_einschlafen.png",
+      "width": 2880,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 6,
+      "rows": 1,
+      "transparent": false,
+      "occupiedCounts": [
+        6
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Six full-bleed opaque consecutive transition scenes: Victorian bedroom gradually tilts into dream, violet threads draw edges closed, final woven dark dream threshold. No borders between frames"
+    },
+    {
+      "id": "bg_s4fa_traum",
+      "file": "battle/bg_s4fa_traum.png",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "occupiedCounts": [
+        1
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Full bleed opaque battle background: woven net floor five thread tracks converge toward center, desaturated Victorian city background no sky. Broad empty battle arena foreground"
+    },
+    {
+      "id": "s4fa_traumschleier",
+      "file": "fx/s4fa_traumschleier.png",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        4
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "description": "Transparent dream enemy overlay: violet threads dangling where limbs would be, faint doubled contour suggestions, no actual body, gently swaying loop"
+    },
+    {
+      "id": "s4fa_heilung_gesperrt",
+      "file": "fx/s4fa_heilung_gesperrt.png",
+      "width": 32,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 2,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        2
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Heart shaped healing vial crossed by severed violet thread, two pulsing warning states"
+    },
+    {
+      "id": "s4ma_zivil_player_walk",
+      "file": "characters/s4ma_zivil_player.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      },
+      "description": "Preserve referenced character body and face identity, replace clothing with plain wool coat flat cap no insignia or glow. Walking four directions rows down,left,right,up, four gait poses each.",
+      "baseline": 30,
+      "reference": "characters/03_01_investigator_walk.png"
+    },
+    {
+      "id": "s4ma_zivil_player_battle",
+      "file": "battle/s4ma_zivil_player.png",
+      "width": 288,
+      "height": 432,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 9,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        5,
+        4,
+        4,
+        4,
+        3,
+        4,
+        6
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "shoot": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "dodge": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 12,
+          "repeat": 0
+        },
+        "parry": {
+          "frames": [
+            24,
+            25,
+            26,
+            27
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "item": {
+          "frames": [
+            30,
+            31,
+            32,
+            33
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            36,
+            37,
+            38
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            42,
+            43,
+            44,
+            45
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "occult": {
+          "frames": [
+            48,
+            49,
+            50,
+            51,
+            52,
+            53
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "description": "Preserve reference body and face identity, plain woolcoat flatcap civilian disguise no insignia or glow. Facing RIGHT. Nine animation rows: idle4; fist or club melee6 (first two windup identical); mundane thrown stone5; dodge4; parry4; use item4; hurt3; defeated4; forbidden ability attempted but fails mundane gesture6. Remaining cells fully transparent. No magical trails. Exact six columns nine rows.",
+      "baseline": 47,
+      "heldRows": [
+        1
+      ],
+      "reference": "battle/battle_player.png",
+      "facing": "right",
+      "occultMeaning": "Mundane failed ability gesture; no usable ability in the mask ritual."
+    },
+    {
+      "id": "s4ma_zivil_p2a_walk",
+      "file": "characters/s4ma_zivil_p2a.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      },
+      "description": "Preserve referenced character body and face identity, replace clothing with plain wool coat flat cap no insignia or glow. Walking four directions rows down,left,right,up, four gait poses each.",
+      "baseline": 30,
+      "reference": "characters/p2a_walk.png"
+    },
+    {
+      "id": "s4ma_zivil_p2a_battle",
+      "file": "battle/s4ma_zivil_p2a.png",
+      "width": 288,
+      "height": 432,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 9,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        5,
+        4,
+        4,
+        4,
+        3,
+        4,
+        6
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "shoot": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "dodge": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 12,
+          "repeat": 0
+        },
+        "parry": {
+          "frames": [
+            24,
+            25,
+            26,
+            27
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "item": {
+          "frames": [
+            30,
+            31,
+            32,
+            33
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            36,
+            37,
+            38
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            42,
+            43,
+            44,
+            45
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "occult": {
+          "frames": [
+            48,
+            49,
+            50,
+            51,
+            52,
+            53
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "description": "Preserve reference body and face identity, plain woolcoat flatcap civilian disguise no insignia or glow. Facing RIGHT. Nine animation rows: idle4; fist or club melee6 (first two windup identical); mundane thrown stone5; dodge4; parry4; use item4; hurt3; defeated4; forbidden ability attempted but fails mundane gesture6. Remaining cells fully transparent. No magical trails. Exact six columns nine rows.",
+      "baseline": 47,
+      "heldRows": [
+        1
+      ],
+      "reference": "battle/p2a_battle.png",
+      "facing": "right",
+      "occultMeaning": "Mundane failed ability gesture; no usable ability in the mask ritual."
+    },
+    {
+      "id": "s4ma_zivil_p2b_walk",
+      "file": "characters/s4ma_zivil_p2b.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      },
+      "description": "Preserve referenced character body and face identity, replace clothing with plain wool coat flat cap no insignia or glow. Walking four directions rows down,left,right,up, four gait poses each.",
+      "baseline": 30,
+      "reference": "characters/p2b_walk.png"
+    },
+    {
+      "id": "s4ma_zivil_p2b_battle",
+      "file": "battle/s4ma_zivil_p2b.png",
+      "width": 288,
+      "height": 432,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 9,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        5,
+        4,
+        4,
+        4,
+        3,
+        4,
+        6
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "shoot": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "dodge": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 12,
+          "repeat": 0
+        },
+        "parry": {
+          "frames": [
+            24,
+            25,
+            26,
+            27
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "item": {
+          "frames": [
+            30,
+            31,
+            32,
+            33
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            36,
+            37,
+            38
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            42,
+            43,
+            44,
+            45
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "occult": {
+          "frames": [
+            48,
+            49,
+            50,
+            51,
+            52,
+            53
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "description": "Preserve reference body and face identity, plain woolcoat flatcap civilian disguise no insignia or glow. Facing RIGHT. Nine animation rows: idle4; fist or club melee6 (first two windup identical); mundane thrown stone5; dodge4; parry4; use item4; hurt3; defeated4; forbidden ability attempted but fails mundane gesture6. Remaining cells fully transparent. No magical trails. Exact six columns nine rows.",
+      "baseline": 47,
+      "heldRows": [
+        1
+      ],
+      "reference": "battle/p2b_battle.png",
+      "facing": "right",
+      "occultMeaning": "Mundane failed ability gesture; no usable ability in the mask ritual."
+    },
+    {
+      "id": "s4ma_verwandeln",
+      "file": "fx/s4ma_verwandeln.png",
+      "width": 256,
+      "height": 48,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "columns": 8,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        8
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Falling theatrical mask revealing ordinary anonymous face silhouette, transformation effect only, no full player body"
+    },
+    {
+      "id": "s4ma_herausforderung",
+      "file": "fx/s4ma_herausforderung.png",
+      "width": 192,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 6,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        6
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Victorian challenge glove arcs down then lands on floor, small bounce settles"
+    },
+    {
+      "id": "s4ma_gabe_verboten",
+      "file": "fx/s4ma_gabe_verboten.png",
+      "width": 192,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 6,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        6
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Forbidden ability warning theatrical mask cracks then shatters into fragments"
+    },
+    {
+      "id": "s4ma_zweifel",
+      "file": "fx/s4ma_zweifel.png",
+      "width": 288,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        6
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Aura of a spared occult adversary develops cracks and flickers out, no body, violet and turquoise broken halo"
+    },
+    {
+      "id": "s4ma_zweifel_welt",
+      "file": "fx/s4ma_zweifel_welt.png",
+      "width": 32,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 2,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        2
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Small fractured aura crack icon, two flickering states"
+    },
+    {
+      "id": "s4ec_taubheit_an",
+      "file": "fx/s4ec_taubheit_an.png",
+      "width": 2880,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 6,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        6
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Screen border sound waves freeze into slate blue brittle lines then fall as dust. Outer12percent only, fully transparent central rectangle",
+      "transparentCenter": [
+        96,
+        54,
+        288,
+        162
+      ]
+    },
+    {
+      "id": "s4ec_taub_rand",
+      "file": "fx/s4ec_taub_rand.png",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        1
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "description": "Silent deafness vignette desaturated blue, irregular soft-looking checker dither outer border only, transparent central rectangle",
+      "transparentCenter": [
+        96,
+        54,
+        288,
+        162
+      ]
+    },
+    {
+      "id": "s4ec_taub_hud",
+      "file": "ui/s4ec_taub_hud.png",
+      "width": 48,
+      "height": 32,
+      "frameWidth": 48,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        1
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Two matching deaf ear icons side by side: left small16x16 top-aligned, right large32x32. Ear with straight horizontal line instead of sound wave. No text",
+      "regions": {
+        "small": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "large": {
+          "x": 16,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        }
+      }
+    },
+    {
+      "id": "s4ec_stille_treffer",
+      "file": "fx/s4ec_stille_treffer.png",
+      "width": 128,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        4
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Silent hit only expanding dust ring, no stars no impact lines no sparks"
+    },
+    {
+      "id": "s4ke_wurf_explosion",
+      "file": "fx/s4ke_wurf_explosion.png",
+      "width": 512,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 8,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        8
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Thrown explosive glass flask bursts, glass shards amber rust fireball expands then smoke fades"
+    },
+    {
+      "id": "s4ke_wurf_frost",
+      "file": "fx/s4ke_wurf_frost.png",
+      "width": 384,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        6
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Frost lye glass flask shatters, icy blue hoarfrost spreads in crystalline ring"
+    },
+    {
+      "id": "s4ke_wurf_glut",
+      "file": "fx/s4ke_wurf_glut.png",
+      "width": 288,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        6
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Thrown ember slime splats and adheres, rust amber embers smolder then subside"
+    },
+    {
+      "id": "s4ke_trinken_reihe",
+      "file": "fx/s4ke_trinken_reihe.png",
+      "width": 160,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 5,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        5
+      ],
+      "animations": {
+        "tuerkis": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "gruen": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "amber": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "eisblau": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "rost": {
+          "frames": [
+            4
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      },
+      "description": "Five separate potion drinking vapor puffs, each distinct: turquoise, moss green, amber, iceblue, rust. No body or flask"
+    },
+    {
+      "id": "s4ke_hud",
+      "file": "ui/s4ke_hud.png",
+      "width": 160,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 10,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        10
+      ],
+      "animations": {
+        "leer_0": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "leer_1": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "leer_2": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "leer_3": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "leer_4": {
+          "frames": [
+            4
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "getrunken_5": {
+          "frames": [
+            5
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "getrunken_6": {
+          "frames": [
+            6
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "getrunken_7": {
+          "frames": [
+            7
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "getrunken_8": {
+          "frames": [
+            8
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "getrunken_9": {
+          "frames": [
+            9
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      },
+      "description": "Ten potion slot icons: first five empty bottle recesses, next five consumed potions marked small checks",
+      "regions": {
+        "leer_0": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "leer_1": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "leer_2": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "leer_3": {
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "leer_4": {
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "getrunken_5": {
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "getrunken_6": {
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "getrunken_7": {
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "getrunken_8": {
+          "x": 128,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "getrunken_9": {
+          "x": 144,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "s4ke_hud_rahmen",
+      "file": "ui/s4ke_hud_rahmen.png",
+      "width": 96,
+      "height": 20,
+      "frameWidth": 96,
+      "frameHeight": 20,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        1
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Thin brass alchemical HUD frame for five empty potion slots, no text",
+      "regions": {
+        "slot_0": {
+          "x": 8,
+          "y": 2,
+          "width": 16,
+          "height": 16
+        },
+        "slot_1": {
+          "x": 24,
+          "y": 2,
+          "width": 16,
+          "height": 16
+        },
+        "slot_2": {
+          "x": 40,
+          "y": 2,
+          "width": 16,
+          "height": 16
+        },
+        "slot_3": {
+          "x": 56,
+          "y": 2,
+          "width": 16,
+          "height": 16
+        },
+        "slot_4": {
+          "x": 72,
+          "y": 2,
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "s4ke_angriff_verboten",
+      "file": "ui/s4ke_angriff_verboten.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        1
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Crossed fist icon, attacks forbidden, muted rust slash"
+    },
+    {
+      "id": "s4ei_ueberlast_welt",
+      "file": "fx/s4ei_ueberlast_welt.png",
+      "width": 128,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        4
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "description": "Ground cracks under invisible player's feet and small dust puffs, loop, no player"
+    },
+    {
+      "id": "s4ei_ueberlast_kampf",
+      "file": "fx/s4ei_ueberlast_kampf.png",
+      "width": 256,
+      "height": 32,
+      "frameWidth": 64,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        4
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "description": "Wide battle floor cracks under invisible player's feet and dust puffs, loop, no player"
+    },
+    {
+      "id": "s4ei_hud",
+      "file": "ui/s4ei_hud.png",
+      "width": 160,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 10,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        10
+      ],
+      "animations": {
+        "offen_0": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "offen_1": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "offen_2": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "offen_3": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "offen_4": {
+          "frames": [
+            4
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "geschlagen_5": {
+          "frames": [
+            5
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "geschlagen_6": {
+          "frames": [
+            6
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "geschlagen_7": {
+          "frames": [
+            7
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "geschlagen_8": {
+          "frames": [
+            8
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "geschlagen_9": {
+          "frames": [
+            9
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      },
+      "description": "Ten rivet icons: first five open iron rivet holes, next five hammered brass rivets",
+      "regions": {
+        "offen_0": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "offen_1": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "offen_2": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "offen_3": {
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "offen_4": {
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "geschlagen_5": {
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "geschlagen_6": {
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "geschlagen_7": {
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "geschlagen_8": {
+          "x": 128,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "geschlagen_9": {
+          "x": 144,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "s4ei_hud_rahmen",
+      "file": "ui/s4ei_hud_rahmen.png",
+      "width": 96,
+      "height": 20,
+      "frameWidth": 96,
+      "frameHeight": 20,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        1
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Thin riveted iron HUD frame for five empty rivet slots, no text",
+      "regions": {
+        "slot_0": {
+          "x": 8,
+          "y": 2,
+          "width": 16,
+          "height": 16
+        },
+        "slot_1": {
+          "x": 24,
+          "y": 2,
+          "width": 16,
+          "height": 16
+        },
+        "slot_2": {
+          "x": 40,
+          "y": 2,
+          "width": 16,
+          "height": 16
+        },
+        "slot_3": {
+          "x": 56,
+          "y": 2,
+          "width": 16,
+          "height": 16
+        },
+        "slot_4": {
+          "x": 72,
+          "y": 2,
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "s4ei_ausweichen_verboten",
+      "file": "ui/s4ei_ausweichen_verboten.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        1
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Footprint crossed out by rust slash, dodging forbidden icon"
+    },
+    {
+      "id": "s4ei_bedingung_gebrochen",
+      "file": "ui/s4ei_bedingung_gebrochen.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        1
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Cracked iron support beam icon"
+    },
+    {
+      "id": "s4ei_waechter_unsterblich",
+      "file": "fx/s4ei_waechter_unsterblich.png",
+      "width": 512,
+      "height": 96,
+      "frameWidth": 128,
+      "frameHeight": 96,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        4
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "description": "Protective elliptical iron rivet ring surrounding invisible warden, checker-dither pale slate shimmer, hollow transparent center loop"
+    },
+    {
+      "id": "s4ei_waechter_frei",
+      "file": "fx/s4ei_waechter_frei.png",
+      "width": 768,
+      "height": 96,
+      "frameWidth": 128,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        6
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Protective elliptical rivet ring breaks open and scatters into iron fragments"
+    },
+    {
+      "id": "s4uh_perfekt",
+      "file": "fx/s4uh_perfekt.png",
+      "width": 512,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 8,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        8
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Perfect dodge time stop effect, clockface ring without digits, hands pause, abstract neutral shadow afterimage sweeps aside then fades; no identifiable player"
+    },
+    {
+      "id": "s4uh_fehler",
+      "file": "fx/s4uh_fehler.png",
+      "width": 384,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        6
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Failed dodge clock ring splits and hands break into fragments"
+    },
+    {
+      "id": "s4uh_hud",
+      "file": "ui/s4uh_hud.png",
+      "width": 96,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 6,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        6
+      ],
+      "animations": {
+        "heil_0": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "heil_1": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "heil_2": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "gebrochen_3": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "gebrochen_4": {
+          "frames": [
+            4
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "gebrochen_5": {
+          "frames": [
+            5
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      },
+      "description": "Six gear icons: first three intact brass gears, next three broken rust gears",
+      "regions": {
+        "heil_0": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "heil_1": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "heil_2": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "gebrochen_3": {
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "gebrochen_4": {
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "gebrochen_5": {
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "s4uh_monsterphase",
+      "file": "ui/s4uh_monsterphase.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        1
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Single brass gear with rust-red square border, zero-error monster phase indicator no numerals"
+    },
+    {
+      "id": "s4uh_hat_angegriffen",
+      "file": "ui/s4uh_hat_angegriffen.png",
+      "width": 32,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 2,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        2
+      ],
+      "animations": {
+        "offen_0": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "bestaetigt_1": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      },
+      "description": "Two monster attack confirmation states: empty grey checkbox, brass check tick",
+      "regions": {
+        "offen_0": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "bestaetigt_1": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "s4r_waechter_welt",
+      "file": "characters/s4r_waechter_welt.png",
+      "width": 192,
+      "height": 256,
+      "frameWidth": 48,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      },
+      "description": "Same threshold guardian as reference, bulky pale stone armored golem brass rivets, dark hollow head, small chimney on left shoulder and horizontal beam projecting right. Overworld walking rows down,left,right,up four gait frames each.",
+      "baseline": 62,
+      "reference": "battle/hg_schwellenwaechter.png"
+    },
+    {
+      "id": "s4r_waechter_erscheint",
+      "file": "fx/s4r_waechter_erscheint.png",
+      "width": 960,
+      "height": 96,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 10,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        10
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Chalk dust gathers into stone doorway threshold then reference guardian steps out, final pose fully manifested. Same pale stone golem brass rivets chimney left shoulder beam right.",
+      "reference": "battle/hg_schwellenwaechter.png"
+    },
+    {
+      "id": "s4r_waechter_immun",
+      "file": "fx/s4r_waechter_immun.png",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        4
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Hit ricochets from invisible guardian, pale slate shield arc deflecting small amber spark"
+    },
+    {
+      "id": "s4r_ritual_gescheitert",
+      "file": "fx/s4r_ritual_gescheitert.png",
+      "width": 512,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 8,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        8
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Neutral monochrome bone slate occult path seal cracks and shatters, no letters or digits, runtime tintable"
+    },
+    {
+      "id": "s4r_regelkarte",
+      "file": "ui/s4r_regelkarte.png",
+      "width": 48,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        1
+      ],
+      "animations": {
+        "play": {
+          "frames": [
+            0
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "description": "Parchment rule card nine-slice panel, 3x3 equal regions, 16pixel borders, dark outline, subtle blank seal recess at left, blank space for three rules no text no lines",
+      "nineSlice": {
+        "left": 16,
+        "right": 16,
+        "top": 16,
+        "bottom": 16
+      }
+    }
+  ],
+  "rituals": {
+    "laterne": [
+      "s4la_ritual_laterne",
+      "s4la_lichtkreis",
+      "s4la_spielerlicht",
+      "s4la_monster_licht",
+      "s4la_monster_zerfall",
+      "s4la_rueckstoss",
+      "s4la_halten",
+      "s4la_hud",
+      "s4la_hud_rahmen",
+      "s4la_sonnenaufgang",
+      "s4la_unruhe"
+    ],
+    "faden": [
+      "s4fa_markieren",
+      "s4fa_mark_welt",
+      "s4fa_hud",
+      "s4fa_hud_rahmen",
+      "s4fa_einschlafen",
+      "s4fa_traumschleier",
+      "s4fa_heilung_gesperrt",
+      "bg_s4fa_traum"
+    ],
+    "maske": [
+      "s4ma_zivil_player_walk",
+      "s4ma_zivil_player_battle",
+      "s4ma_zivil_p2a_walk",
+      "s4ma_zivil_p2a_battle",
+      "s4ma_zivil_p2b_walk",
+      "s4ma_zivil_p2b_battle",
+      "s4ma_verwandeln",
+      "s4ma_herausforderung",
+      "s4ma_gabe_verboten",
+      "s4ma_zweifel",
+      "s4ma_zweifel_welt"
+    ],
+    "echo": [
+      "s4ec_taubheit_an",
+      "s4ec_taub_rand",
+      "s4ec_taub_hud",
+      "s4ec_stille_treffer"
+    ],
+    "kessel": [
+      "s4ke_wurf_explosion",
+      "s4ke_wurf_frost",
+      "s4ke_wurf_glut",
+      "s4ke_trinken_reihe",
+      "s4ke_hud",
+      "s4ke_hud_rahmen",
+      "s4ke_angriff_verboten"
+    ],
+    "eisen": [
+      "s4ei_ueberlast_welt",
+      "s4ei_ueberlast_kampf",
+      "s4ei_hud",
+      "s4ei_hud_rahmen",
+      "s4ei_ausweichen_verboten",
+      "s4ei_bedingung_gebrochen",
+      "s4ei_waechter_unsterblich",
+      "s4ei_waechter_frei"
+    ],
+    "sq_uhr": [
+      "s4uh_perfekt",
+      "s4uh_fehler",
+      "s4uh_hud",
+      "s4uh_monsterphase",
+      "s4uh_hat_angegriffen"
+    ],
+    "shared": [
+      "s4r_waechter_welt",
+      "s4r_waechter_erscheint",
+      "s4r_waechter_immun",
+      "s4r_ritual_gescheitert",
+      "s4r_regelkarte"
+    ]
+  }
+}
