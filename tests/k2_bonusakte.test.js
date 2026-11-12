@@ -81,3 +81,17 @@ test('Dunscar: alle Gebiete offen, Hör-Fährte gestrichen, Schichtbund offen (a
   for (const f of ['k3a_14_geschlossen', 'treffen_schichtbund']) assert.ok(s.flags.has(f), f);
   assert.ok(s.hasConclusion('k3a_14_d'));
 });
+
+test('Dunscar: Trichter-/Drehscheiben-Aufträge sind gestrichen, laufende verschwinden', async () => {
+  const { GESTRICHENE_AUFTRAEGE } = await import('../src/core/GameState.js');
+  assert.ok(GESTRICHENE_AUFTRAEGE.includes('k3n_drehscheibe'));
+  assert.ok(!content.dialogues.k3a_oren.nodes[content.dialogues.k3a_oren.start ?? 'start']?.choices?.some?.((c) => c.next === 'k3n_drehscheibe_beginn'));
+  assert.ok(!content.maps.ds_schwellenring.interactables.some((i) => i.id === 'koop_ds_horchen_auftrag'));
+  const s = new GameState(content);
+  s.flags.add('k3_arrived');
+  s.quests.k3n_drehscheibe = 'active';
+  s.tracked = 'k3n_drehscheibe';
+  s.dunscarOffen();
+  assert.equal(s.quests.k3n_drehscheibe, undefined);
+  assert.equal(s.tracked, null);
+});
