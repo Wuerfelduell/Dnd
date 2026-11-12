@@ -36,9 +36,9 @@ export const DUO_POWER_MAX = 1.25; // ... und höchstens so viel wie 1,25 Ermitt
 export const DUO_HP_MULT = 1 + DUO_HP_SHARE; // bei gleich starken Spielern
 export const DUO_DMG_MULT = 0.85;
 // Ab Kapitel 3 (nach dem Leuchtfeuer): Untergrenze der Gegnerleben je Rang, allein gespielt (vor dem Koop-Aufschlag).
-// Zu zweit (gleich starke Spieler, ×2,5) ergibt das 1300 / 2200 / 5000. Wächter, Spiegel, Übungen und Ausreißer (flees_after) ausgenommen.
+// Zu zweit (gleich starke Spieler, ×2,5) ergibt das 2000 / 4000 / 8000. Wächter, Spiegel, Übungen und Ausreißer (flees_after) ausgenommen.
 export const HP_FLOOR_FROM_CHAPTER = 3;
-export const HP_FLOOR = { normal: 520, elite: 880, boss: 2000 };
+export const HP_FLOOR = { normal: 800, elite: 1600, boss: 3200 }; // Seb 2026-11-12: Duo mit Seq 5 macht ~1050/Runde → normal ~2, Elite ~4, Boss ~8 Runden
 // Ab Kapitel 3 schlagen reguläre Gegner (die mit Lebens-Untergrenze) härter zu als in Wexmoor (dort ×1,5) und zu zweit ohne Abschlag.
 // Die Untergrenze macht sie nur zäher, nicht sanfter. Kapitel 4/5 tragen ihren Aufschlag schon in den Rohdaten (halbgott_skaliert).
 // Seb 2026-11-12: Ziel je Gegnerzug (nach Schadensminderung, Seq 5) normal ~40, Elite ~60, Boss 70–90. Bosse schafft man allein erst mit Seq 4.
