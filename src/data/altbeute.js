@@ -7,6 +7,9 @@
  * Läuft in buildContent nach allen Paketen, damit auch nachträglich ergänzte Wexmoor-Gegner etwas bekommen.
  */
 export const ALT_ZONES = ['marsch', 'katakomben', 'pestgassen', 'kraterwald'];
+/** Kettlegater Zirkel: deren Zutaten (keine Formeln) kommen mit Gewicht 8 in den Topf. */
+export const ALT_CIRCLES = ['waage', 'russ'];
+export const ALT_CIRCLE_WEIGHT = 8;
 /** Chance auf einen Altfund je Sieg. */
 export const ALT_CHANCE = { normal: 0.08, elite: 0.3, boss: 0.35 };
 
@@ -27,6 +30,15 @@ export function applyAltbeute(content) {
       if (isFormel(d.item) || !content.items[d.item] || ['quest', 'key'].includes(content.items[d.item].kind)) continue;
       pool.set(d.item, altWeight(content.items[d.item]));
     }
+  }
+  // Zutaten der Kettlegater Zirkel (z. B. Nachtfalterstaub), die man sonst nur dort bekam
+  for (const cid of ALT_CIRCLES) {
+    const circle = content.gatherings?.circles?.[cid];
+    if (!circle) continue;
+    JSON.stringify(circle).replace(/"item":"([a-z0-9_]+)"/g, (m, id) => {
+      if (!isFormel(id) && content.items[id]?.kind === 'ingredient') pool.set(id, Math.max(pool.get(id) ?? 0, ALT_CIRCLE_WEIGHT));
+      return m;
+    });
   }
   if (!pool.size) return content;
   for (const [id, e] of Object.entries(content.encounters)) {
