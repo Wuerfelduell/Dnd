@@ -1,0 +1,2455 @@
+{
+  "bn_der_zehnte_rattenkoenig": {
+    "name": "Der zehnte Rattenkönig",
+    "sprite": "wild",
+    "sheet": "enemy_bn_der_zehnte_rattenkoenig",
+    "occult": true,
+    "fleeable": true,
+    "grundlage": "rattenkoenig",
+    "grundlage_quelle": "src/data/wilds.json",
+    "stadt": "kettlegate",
+    "zone": "pestgassen",
+    "faktoren": {
+      "hp": 1.8,
+      "damage": 1.6
+    },
+    "nerven_schaden": 4,
+    "erscheinen": {
+      "requires_flags": [],
+      "forbids_flags": [
+        "bn_der_zehnte_rattenkoenig_besiegt"
+      ],
+      "sequenz_fortschritt_ab": 6,
+      "sequenz_nummern": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "zeit": "nacht",
+      "gezeit": "beliebig",
+      "chance": 0.1,
+      "wurf_pro": "zone_spieltag_zeitfenster",
+      "sichtung_flag": "bn_der_zehnte_rattenkoenig_gesichtet",
+      "zonen": [
+        "pestgassen"
+      ]
+    },
+    "eigenheit": "Bei 70 und 35 Prozent Leben weicht er für eine Runde in den Nebel aus, ohne Heilung oder Beschwörung, und kehrt danach zurück.",
+    "schwaeche": "Nach jeder Rückkehr verursacht dein nächster Treffer 25 Prozent mehr Schaden.",
+    "beute_fest": {
+      "item": "bnl_zollkrone",
+      "n": 1
+    },
+    "einmalig": true,
+    "intro": "Unter den Ratten klappert eine kleine Krone. Zwei Fluchtwege sind bereits freigekratzt.",
+    "win_text": "Die letzte Marke fällt mit der leeren Seite nach oben.",
+    "on_win": {
+      "set_flags": [
+        "bn_der_zehnte_rattenkoenig_besiegt"
+      ]
+    },
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": [
+        {
+          "item": "bnl_zollkrone",
+          "chance": 1,
+          "n": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "darstellung": {
+      "merkmal": "Zollmarkenkrone und gebrochene Siegelkette; knochenhelles Fell",
+      "bestiarium": "ui/bestiar/bn_der_zehnte_rattenkoenig.png",
+      "kopf": "portraits/heads/bn_der_zehnte_rattenkoenig.png"
+    },
+    "integration": "Datenvertrag, kein Laufzeitanschluss",
+    "hp": 252,
+    "attacks": [
+      {
+        "name": "Schwanzknoten",
+        "damage": 13,
+        "hits": [
+          900,
+          1400
+        ],
+        "nerves": 4
+      },
+      {
+        "name": "Kronenbiss",
+        "damage": 16,
+        "hits": [
+          1100
+        ],
+        "nerves": 4
+      }
+    ],
+    "basis_snapshot": {
+      "hp": 140,
+      "damage": [
+        8,
+        10
+      ]
+    }
+  },
+  "bn_schwester_glas": {
+    "name": "Schwester Glas",
+    "sprite": "wild",
+    "sheet": "enemy_bn_schwester_glas",
+    "occult": true,
+    "fleeable": true,
+    "grundlage": "glasmoewe",
+    "grundlage_quelle": "src/data/wexmoor.json",
+    "stadt": "kettlegate",
+    "zone": "kraterwald",
+    "faktoren": {
+      "hp": 2,
+      "damage": 1.8
+    },
+    "nerven_schaden": 5,
+    "erscheinen": {
+      "requires_flags": [],
+      "forbids_flags": [
+        "bn_schwester_glas_besiegt"
+      ],
+      "sequenz_fortschritt_ab": 6,
+      "sequenz_nummern": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "zeit": "nacht",
+      "gezeit": "beliebig",
+      "chance": 0.1,
+      "wurf_pro": "zone_spieltag_zeitfenster",
+      "sichtung_flag": "bn_schwester_glas_gesichtet",
+      "zonen": [
+        "kraterwald"
+      ]
+    },
+    "eigenheit": "Sie bleibt unbeweglich und setzt ausschließlich angekündigte Splitterfächer gegen ihr gewähltes Ziel ein.",
+    "schwaeche": "Nach vollständig ausgewichenem Splitterfächer verliert sie für eine Runde ihre Rüstung.",
+    "beute_fest": {
+      "item": "glasfeder",
+      "n": 1
+    },
+    "einmalig": true,
+    "intro": "Eine Haube sitzt auf durchsichtigem Glas. Die großen Füße verlassen ihren Fleck nicht.",
+    "win_text": "Die Haube sinkt langsam durch die Splitter.",
+    "on_win": {
+      "set_flags": [
+        "bn_schwester_glas_besiegt"
+      ]
+    },
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": [
+        {
+          "item": "glasfeder",
+          "chance": 1,
+          "n": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "darstellung": {
+      "merkmal": "Aufrechte menschengroße Glasmöwe mit weißer Pflegerinnenhaube, blaugraues Glas",
+      "bestiarium": "ui/bestiar/bn_schwester_glas.png",
+      "kopf": "portraits/heads/bn_schwester_glas.png"
+    },
+    "integration": "Datenvertrag, kein Laufzeitanschluss",
+    "hp": 130,
+    "attacks": [
+      {
+        "name": "Splitterfächer",
+        "damage": 11,
+        "nerves": 5,
+        "hits": [
+          900,
+          1400,
+          1900
+        ]
+      }
+    ],
+    "basis_snapshot": {
+      "hp": 65,
+      "damage": [
+        6
+      ]
+    },
+    "roam": {
+      "speed": 0,
+      "chase": 0,
+      "aggro": 90
+    }
+  },
+  "bn_der_leise_waechter": {
+    "name": "Der leise Wächter",
+    "sprite": "wild",
+    "sheet": "enemy_bn_der_leise_waechter",
+    "occult": true,
+    "fleeable": true,
+    "grundlage": "ash_warden",
+    "grundlage_quelle": "src/data/encounters.json",
+    "stadt": "kettlegate",
+    "zone": "katakomben",
+    "faktoren": {
+      "hp": 2.2,
+      "damage": 2
+    },
+    "nerven_schaden": 8,
+    "erscheinen": {
+      "requires_flags": [],
+      "forbids_flags": [
+        "bn_der_leise_waechter_besiegt"
+      ],
+      "sequenz_fortschritt_ab": 6,
+      "sequenz_nummern": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "zeit": "nacht",
+      "gezeit": "beliebig",
+      "chance": 0.1,
+      "wurf_pro": "zone_spieltag_zeitfenster",
+      "sichtung_flag": "bn_der_leise_waechter_gesichtet",
+      "zonen": [
+        "katakomben"
+      ]
+    },
+    "eigenheit": "Seine Treffer verursachen ausschließlich Nerven-Schaden und niemals Lebensschaden.",
+    "schwaeche": "Eine erfolgreiche Parade senkt den Nerven-Schaden seines nächsten Angriffs um die Hälfte.",
+    "beute_fest": {
+      "item": "bnl_stilleschlacke",
+      "n": 1
+    },
+    "einmalig": true,
+    "intro": "Eine Laterne kommt ohne Licht um die Ecke. Du hörst deinen Atem zu deutlich.",
+    "win_text": "Der Schlüssel dreht sich in einem Schloss, das nicht da ist.",
+    "on_win": {
+      "set_flags": [
+        "bn_der_leise_waechter_besiegt"
+      ]
+    },
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": [
+        {
+          "item": "bnl_stilleschlacke",
+          "chance": 1,
+          "n": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "darstellung": {
+      "merkmal": "Kalte aschgraue Rüstung, zugelötete leere Laterne, keine Flamme",
+      "bestiarium": "ui/bestiar/bn_der_leise_waechter.png",
+      "kopf": "portraits/heads/bn_der_leise_waechter.png"
+    },
+    "integration": "Datenvertrag, kein Laufzeitanschluss",
+    "hp": 102,
+    "attacks": [
+      {
+        "name": "Aschenhieb",
+        "damage": 0,
+        "hits": [
+          1000
+        ],
+        "nerves": 8
+      },
+      {
+        "name": "Chorus",
+        "damage": 0,
+        "hits": [
+          700,
+          1000,
+          1300,
+          1600
+        ],
+        "nerves": 8
+      }
+    ],
+    "basis_snapshot": {
+      "hp": 46,
+      "damage": [
+        7,
+        4
+      ]
+    },
+    "schaden_ausnahme": "Ausschließlich Nerven; Lebensschadensfaktor ist für diese Variante absichtlich inaktiv."
+  },
+  "bn_holts_schatten": {
+    "name": "Holts Schatten",
+    "sprite": "wild",
+    "sheet": "enemy_bn_holts_schatten",
+    "occult": true,
+    "fleeable": true,
+    "grundlage": "mirror_shade",
+    "grundlage_quelle": "src/data/encounters.json",
+    "stadt": "kettlegate",
+    "zone": "marsch",
+    "faktoren": {
+      "hp": 1.6,
+      "damage": 1.7
+    },
+    "nerven_schaden": 4,
+    "erscheinen": {
+      "requires_flags": [],
+      "forbids_flags": [
+        "bn_holts_schatten_besiegt"
+      ],
+      "sequenz_fortschritt_ab": 6,
+      "sequenz_nummern": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "zeit": "nacht",
+      "gezeit": "beliebig",
+      "chance": 0.1,
+      "wurf_pro": "zone_spieltag_zeitfenster",
+      "sichtung_flag": "bn_holts_schatten_gesichtet",
+      "zonen": [
+        "marsch"
+      ]
+    },
+    "eigenheit": "Ab Runde zwei wiederholt er die zuletzt von seinem Ziel benutzte Angriffskategorie mit seinen eigenen Schadenswerten.",
+    "schwaeche": "Wechselst du die Angriffskategorie, ist seine nächste Wiederholung parierbar und um 25 Prozent schwächer.",
+    "beute_fest": {
+      "item": "geisterkern",
+      "n": 1
+    },
+    "einmalig": true,
+    "intro": "Eine vertraute Mütze wirft keinen eigenen Schatten. Die Hand hebt sich erst, nachdem du deine bewegst.",
+    "win_text": "Der Gruß bleibt einen Moment länger stehen als die Gestalt.",
+    "on_win": {
+      "set_flags": [
+        "bn_holts_schatten_besiegt"
+      ]
+    },
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": [
+        {
+          "item": "geisterkern",
+          "chance": 1,
+          "n": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "darstellung": {
+      "merkmal": "Dunkelvioletter Schatten mit Holts Dienstmützenkontur und leerer silberner Ärmelbinde",
+      "bestiarium": "ui/bestiar/bn_holts_schatten.png",
+      "kopf": "portraits/heads/bn_holts_schatten.png"
+    },
+    "integration": "Datenvertrag, kein Laufzeitanschluss",
+    "hp": 61,
+    "attacks": [
+      {
+        "name": "Kaltes Greifen",
+        "damage": 9,
+        "hits": [
+          800,
+          1100
+        ],
+        "nerves": 4
+      },
+      {
+        "name": "Splitterregen",
+        "damage": 6,
+        "hits": [
+          500,
+          750,
+          1000,
+          1250
+        ],
+        "nerves": 4
+      }
+    ],
+    "basis_snapshot": {
+      "hp": 38,
+      "damage": [
+        5,
+        3
+      ]
+    }
+  },
+  "bn_die_alte_torfleiche": {
+    "name": "Die alte Torfleiche",
+    "sprite": "wild",
+    "sheet": "enemy_bn_die_alte_torfleiche",
+    "occult": true,
+    "fleeable": true,
+    "grundlage": "torfleiche",
+    "grundlage_quelle": "src/data/packs/k2_orte/zone.json",
+    "stadt": "wexmoor",
+    "zone": "wx_torfbrueche",
+    "faktoren": {
+      "hp": 1.8,
+      "damage": 1.6
+    },
+    "nerven_schaden": 5,
+    "erscheinen": {
+      "requires_flags": [
+        "k2_arrived"
+      ],
+      "forbids_flags": [
+        "bn_die_alte_torfleiche_besiegt"
+      ],
+      "sequenz_fortschritt_ab": 6,
+      "sequenz_nummern": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "zeit": "nacht",
+      "gezeit": "beliebig",
+      "chance": 0.1,
+      "wurf_pro": "zone_spieltag_zeitfenster",
+      "sichtung_flag": "bn_die_alte_torfleiche_gesichtet",
+      "zonen": [
+        "wx_torfbrueche"
+      ]
+    },
+    "eigenheit": "Am Ende jeder dritten Runde bindet sie das zuletzt angreifende Ziel für dessen nächsten Zug, höchstens einmal hintereinander.",
+    "schwaeche": "Ein Treffer während des sichtbaren Wurzelwickelns verhindert die Bindung.",
+    "beute_fest": {
+      "item": "bnl_lohnwurzel",
+      "n": 1
+    },
+    "einmalig": true,
+    "intro": "Eine Lohntasche streift über den Boden. Die Wurzeln daran ziehen sich wie Finger zusammen.",
+    "win_text": "Die Tasche bleibt geschlossen, aber ihre Naht ist lose.",
+    "on_win": {
+      "set_flags": [
+        "bn_die_alte_torfleiche_besiegt"
+      ]
+    },
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": [
+        {
+          "item": "bnl_lohnwurzel",
+          "chance": 1,
+          "n": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "darstellung": {
+      "merkmal": "Moosgrauer Kittel mit langer wurzelvernähter Lohntasche",
+      "bestiarium": "ui/bestiar/bn_die_alte_torfleiche.png",
+      "kopf": "portraits/heads/bn_die_alte_torfleiche.png"
+    },
+    "integration": "Datenvertrag, kein Laufzeitanschluss",
+    "hp": 117,
+    "attacks": [
+      {
+        "name": "Schwere Hände",
+        "damage": 13,
+        "hits": [
+          850,
+          1350
+        ],
+        "nerves": 5
+      },
+      {
+        "name": "Torfwurf",
+        "damage": 21,
+        "hits": [
+          1500
+        ],
+        "nerves": 5
+      }
+    ],
+    "basis_snapshot": {
+      "hp": 65,
+      "damage": [
+        8,
+        13
+      ]
+    }
+  },
+  "bn_grubenlicht_mutter": {
+    "name": "Grubenlicht-Mutter",
+    "sprite": "wild",
+    "sheet": "enemy_bn_grubenlicht_mutter",
+    "occult": true,
+    "fleeable": true,
+    "grundlage": "grubenlicht",
+    "grundlage_quelle": "src/data/packs/k2_orte/zone.json",
+    "stadt": "wexmoor",
+    "zone": "wx_vergessmoor",
+    "faktoren": {
+      "hp": 2,
+      "damage": 1.8
+    },
+    "nerven_schaden": 7,
+    "erscheinen": {
+      "requires_flags": [
+        "k2_arrived"
+      ],
+      "forbids_flags": [
+        "bn_grubenlicht_mutter_besiegt"
+      ],
+      "sequenz_fortschritt_ab": 6,
+      "sequenz_nummern": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "zeit": "nacht",
+      "gezeit": "beliebig",
+      "chance": 0.1,
+      "wurf_pro": "zone_spieltag_zeitfenster",
+      "sichtung_flag": "bn_grubenlicht_mutter_gesichtet",
+      "zonen": [
+        "wx_vergessmoor",
+        "wx_leuchtturm"
+      ]
+    },
+    "eigenheit": "Jede dritte Runde kündigt sie einen Lichtstoß gegen beide Spieler an, statt weitere Grubenlichter zu rufen.",
+    "schwaeche": "Eine Parade des ersten Lichtstoßes unterbricht die zweite Trefferwelle.",
+    "beute_fest": {
+      "item": "irrlichtfunke",
+      "n": 1
+    },
+    "einmalig": true,
+    "intro": "Unter der großen Lampe schaukeln drei kleine. Keine davon wirft einen Schatten.",
+    "win_text": "Ein Bügel knackt, als werde eine schwere Hand losgelassen.",
+    "on_win": {
+      "set_flags": [
+        "bn_grubenlicht_mutter_besiegt"
+      ]
+    },
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": [
+        {
+          "item": "irrlichtfunke",
+          "chance": 1,
+          "n": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "darstellung": {
+      "merkmal": "Violette Grubenlaterne mit drei kleinen unbeleuchteten Lampen am Bügel",
+      "bestiarium": "ui/bestiar/bn_grubenlicht_mutter.png",
+      "kopf": "portraits/heads/bn_grubenlicht_mutter.png"
+    },
+    "integration": "Datenvertrag, kein Laufzeitanschluss",
+    "hp": 112,
+    "attacks": [
+      {
+        "name": "Flackerstöße",
+        "damage": 9,
+        "hits": [
+          700,
+          1050,
+          1400
+        ],
+        "nerves": 7
+      },
+      {
+        "name": "Linsensprung",
+        "damage": 22,
+        "hits": [
+          1300
+        ],
+        "nerves": 7
+      }
+    ],
+    "basis_snapshot": {
+      "hp": 56,
+      "damage": [
+        5,
+        12
+      ]
+    }
+  },
+  "bn_der_wurm_mit_namen": {
+    "name": "Der Wurm mit Namen",
+    "sprite": "wild",
+    "sheet": "enemy_bn_der_wurm_mit_namen",
+    "occult": true,
+    "fleeable": true,
+    "grundlage": "torfwurm",
+    "grundlage_quelle": "src/data/packs/k2_orte/zone.json",
+    "stadt": "wexmoor",
+    "zone": "wx_altstadt",
+    "faktoren": {
+      "hp": 2.2,
+      "damage": 2
+    },
+    "nerven_schaden": 4,
+    "erscheinen": {
+      "requires_flags": [
+        "k2_arrived"
+      ],
+      "forbids_flags": [
+        "bn_der_wurm_mit_namen_besiegt"
+      ],
+      "sequenz_fortschritt_ab": 6,
+      "sequenz_nummern": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "zeit": "nacht",
+      "gezeit": "beliebig",
+      "chance": 0.1,
+      "wurf_pro": "zone_spieltag_zeitfenster",
+      "sichtung_flag": "bn_der_wurm_mit_namen_gesichtet",
+      "zonen": [
+        "wx_altstadt"
+      ]
+    },
+    "eigenheit": "Sein erster Klammerangriff markiert ein Ziel für zwei Runden und alle weiteren Bisse treffen nur dieses Ziel.",
+    "schwaeche": "Eine Parade löst die Markierung sofort und lässt ihn einen Angriff aussetzen.",
+    "beute_fest": {
+      "item": "wurmseide",
+      "n": 1
+    },
+    "einmalig": true,
+    "intro": "Ein kleines Schild schleift vor dem Wurm her. Sein Kragen hebt sich, als lausche er.",
+    "win_text": "Das Schild liegt still, seine Rückseite ist glatt.",
+    "on_win": {
+      "set_flags": [
+        "bn_der_wurm_mit_namen_besiegt"
+      ]
+    },
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": [
+        {
+          "item": "wurmseide",
+          "chance": 1,
+          "n": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "darstellung": {
+      "merkmal": "Kalkheller Wurm mit rostigem Namensschild ohne lesbare Schrift und blauem Seidenkragen",
+      "bestiarium": "ui/bestiar/bn_der_wurm_mit_namen.png",
+      "kopf": "portraits/heads/bn_der_wurm_mit_namen.png"
+    },
+    "integration": "Datenvertrag, kein Laufzeitanschluss",
+    "hp": 146,
+    "attacks": [
+      {
+        "name": "Fadenschlag",
+        "damage": 16,
+        "hits": [
+          900,
+          1400
+        ],
+        "nerves": 4
+      },
+      {
+        "name": "Kieferklammer",
+        "damage": 26,
+        "hits": [
+          1500
+        ],
+        "nerves": 4
+      }
+    ],
+    "basis_snapshot": {
+      "hp": 66,
+      "damage": [
+        8,
+        13
+      ]
+    }
+  },
+  "bn_schlickhund_koenig": {
+    "name": "Schlickhund-König",
+    "sprite": "wild",
+    "sheet": "enemy_bn_schlickhund_koenig",
+    "occult": true,
+    "fleeable": true,
+    "grundlage": "schlickhund",
+    "grundlage_quelle": "src/data/packs/k2_orte/zone.json",
+    "stadt": "wexmoor",
+    "zone": "wx_salzwatt",
+    "faktoren": {
+      "hp": 1.6,
+      "damage": 1.7
+    },
+    "nerven_schaden": 4,
+    "erscheinen": {
+      "requires_flags": [
+        "k2_arrived"
+      ],
+      "forbids_flags": [
+        "bn_schlickhund_koenig_besiegt"
+      ],
+      "sequenz_fortschritt_ab": 6,
+      "sequenz_nummern": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "zeit": "nacht",
+      "gezeit": "beliebig",
+      "chance": 0.1,
+      "wurf_pro": "zone_spieltag_zeitfenster",
+      "sichtung_flag": "bn_schlickhund_koenig_gesichtet",
+      "zonen": [
+        "wx_salzwatt"
+      ]
+    },
+    "eigenheit": "Er kontert den ersten Nahkampftreffer jeder zweiten Runde mit genau einem angekündigten Sprung.",
+    "schwaeche": "Fernangriffe lösen den Konter nicht aus.",
+    "beute_fest": {
+      "item": "schlickzahn",
+      "n": 1
+    },
+    "einmalig": true,
+    "intro": "Schnallen stehen wie Zacken über seinem Kopf. Die Pfoten prüfen denselben Weg wie du.",
+    "win_text": "Die Krone sinkt nicht in den Schlick.",
+    "on_win": {
+      "set_flags": [
+        "bn_schlickhund_koenig_besiegt"
+      ]
+    },
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": [
+        {
+          "item": "schlickzahn",
+          "chance": 1,
+          "n": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "darstellung": {
+      "merkmal": "Schiefergrauer Hund mit Krone aus verbogenen Halsbandschnallen",
+      "bestiarium": "ui/bestiar/bn_schlickhund_koenig.png",
+      "kopf": "portraits/heads/bn_schlickhund_koenig.png"
+    },
+    "integration": "Datenvertrag, kein Laufzeitanschluss",
+    "hp": 95,
+    "attacks": [
+      {
+        "name": "Bissfolge",
+        "damage": 11,
+        "hits": [
+          750,
+          1100
+        ],
+        "nerves": 4
+      },
+      {
+        "name": "Sprung",
+        "damage": 21,
+        "hits": [
+          1300
+        ],
+        "nerves": 4
+      }
+    ],
+    "basis_snapshot": {
+      "hp": 59,
+      "damage": [
+        6,
+        12
+      ]
+    }
+  },
+  "bn_schaffner_ohne_zug": {
+    "name": "Schaffner ohne Zug",
+    "sprite": "wild",
+    "sheet": "enemy_bn_schaffner_ohne_zug",
+    "occult": true,
+    "fleeable": true,
+    "grundlage": "schichtgaenger",
+    "grundlage_quelle": "src/data/packs/k3_orte/zones.json",
+    "stadt": "dunscar",
+    "zone": "ds_rangierwueste",
+    "faktoren": {
+      "hp": 1.8,
+      "damage": 1.6
+    },
+    "nerven_schaden": 7,
+    "erscheinen": {
+      "requires_flags": [
+        "k3_arrived"
+      ],
+      "forbids_flags": [
+        "bn_schaffner_ohne_zug_besiegt"
+      ],
+      "sequenz_fortschritt_ab": 6,
+      "sequenz_nummern": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "zeit": "nacht",
+      "gezeit": "beliebig",
+      "chance": 0.1,
+      "wurf_pro": "zone_spieltag_zeitfenster",
+      "sichtung_flag": "bn_schaffner_ohne_zug_gesichtet",
+      "zonen": [
+        "ds_rangierwueste",
+        "ds_rufschlucht"
+      ]
+    },
+    "eigenheit": "Jede dritte Runde kündigt sein Pfiff einen Doppelangriff an, der nach der ersten Parade vollständig endet.",
+    "schwaeche": "Die Ausholzeit des Pfiffs beträgt 2400 Millisekunden und kann vollständig pariert werden.",
+    "beute_fest": {
+      "item": "bnl_lochzange",
+      "n": 1
+    },
+    "einmalig": true,
+    "intro": "Eine Lochzange klickt zwischen leeren Gleisen. Der Schaffner wartet, bis du stehen bleibst.",
+    "win_text": "Die Zange fällt zu, ohne etwas zu entwerten.",
+    "on_win": {
+      "set_flags": [
+        "bn_schaffner_ohne_zug_besiegt"
+      ]
+    },
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": [
+        {
+          "item": "bnl_lochzange",
+          "chance": 1,
+          "n": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "darstellung": {
+      "merkmal": "Rußblauer Uniformrock mit durchlöcherter Brustuhr und gelochtem Ärmelband",
+      "bestiarium": "ui/bestiar/bn_schaffner_ohne_zug.png",
+      "kopf": "portraits/heads/bn_schaffner_ohne_zug.png"
+    },
+    "integration": "Datenvertrag, kein Laufzeitanschluss",
+    "hp": 324,
+    "attacks": [
+      {
+        "name": "Schichtgriff",
+        "damage": 18,
+        "hits": [
+          1100,
+          1700
+        ],
+        "nerves": 7
+      },
+      {
+        "name": "Taumelnder Schritt …",
+        "damage": 23,
+        "hits": [
+          2200
+        ],
+        "nerves": 7
+      }
+    ],
+    "basis_snapshot": {
+      "hp": 180,
+      "damage": [
+        11,
+        14
+      ]
+    }
+  },
+  "bn_schwellenhund_weiss": {
+    "name": "Weißer Schwellenhund",
+    "sprite": "wild",
+    "sheet": "enemy_bn_schwellenhund_weiss",
+    "occult": true,
+    "fleeable": true,
+    "grundlage": "schwellenhund",
+    "grundlage_quelle": "src/data/packs/k3_orte/zones.json",
+    "stadt": "dunscar",
+    "zone": "ds_rangierwueste",
+    "faktoren": {
+      "hp": 2,
+      "damage": 1.8
+    },
+    "nerven_schaden": 5,
+    "erscheinen": {
+      "requires_flags": [
+        "k3_arrived"
+      ],
+      "forbids_flags": [
+        "bn_schwellenhund_weiss_besiegt"
+      ],
+      "sequenz_fortschritt_ab": 6,
+      "sequenz_nummern": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "zeit": "nacht",
+      "gezeit": "beliebig",
+      "chance": 0.1,
+      "wurf_pro": "zone_spieltag_zeitfenster",
+      "sichtung_flag": "bn_schwellenhund_weiss_gesichtet",
+      "zonen": [
+        "ds_rangierwueste"
+      ]
+    },
+    "eigenheit": "Unter halbem Leben wechselt sein angekündigter Suchlichtbogen nach jedem Angriff zwischen beiden Koop-Spielern.",
+    "schwaeche": "Nach einem verfehlten Suchlichtbogen bleibt er für einen Zug ohne Rüstung.",
+    "beute_fest": {
+      "item": "knochenmehl",
+      "n": 1
+    },
+    "einmalig": true,
+    "intro": "Ein weißer Rücken schiebt sich aus dem Ruß. Das Licht über seinem Auge zählt die Schwellen.",
+    "win_text": "Der Lichtkreis bleibt auf einer unbenutzten Schiene liegen.",
+    "on_win": {
+      "set_flags": [
+        "bn_schwellenhund_weiss_besiegt"
+      ]
+    },
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": [
+        {
+          "item": "knochenmehl",
+          "chance": 1,
+          "n": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "darstellung": {
+      "merkmal": "Kalkweißes Fell, gebrochener Messing-Suchscheinwerfer über einem Auge",
+      "bestiarium": "ui/bestiar/bn_schwellenhund_weiss.png",
+      "kopf": "portraits/heads/bn_schwellenhund_weiss.png"
+    },
+    "integration": "Datenvertrag, kein Laufzeitanschluss",
+    "hp": 420,
+    "attacks": [
+      {
+        "name": "Suchlichtbogen",
+        "damage": 18,
+        "hits": [
+          1400,
+          2100
+        ],
+        "nerves": 5
+      },
+      {
+        "name": "Schwellensprung …",
+        "damage": 22,
+        "hits": [
+          2400
+        ],
+        "nerves": 5
+      }
+    ],
+    "basis_snapshot": {
+      "hp": 210,
+      "damage": [
+        10,
+        12
+      ]
+    }
+  },
+  "bn_der_zweite_vorhauer": {
+    "name": "Der zweite Vorhauer",
+    "sprite": "wild",
+    "sheet": "enemy_bn_der_zweite_vorhauer",
+    "occult": true,
+    "fleeable": true,
+    "grundlage": "vorhauer",
+    "grundlage_quelle": "src/data/packs/k3_orte/zones.json",
+    "stadt": "dunscar",
+    "zone": "ds_klopfbruch",
+    "faktoren": {
+      "hp": 2.2,
+      "damage": 2
+    },
+    "nerven_schaden": 6,
+    "erscheinen": {
+      "requires_flags": [
+        "k3_arrived"
+      ],
+      "forbids_flags": [
+        "bn_der_zweite_vorhauer_besiegt"
+      ],
+      "sequenz_fortschritt_ab": 6,
+      "sequenz_nummern": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "zeit": "nacht",
+      "gezeit": "beliebig",
+      "chance": 0.1,
+      "wurf_pro": "zone_spieltag_zeitfenster",
+      "sichtung_flag": "bn_der_zweite_vorhauer_gesichtet",
+      "zonen": [
+        "ds_klopfbruch"
+      ]
+    },
+    "eigenheit": "Jeder dritte Werkzeughieb trifft nach 1400 und 2400 Millisekunden zweimal; der zweite Schlag entfällt nach einer Parade des ersten.",
+    "schwaeche": "Die Pause vor dem zweiten Schlag erlaubt einen Gegenangriff mit 25 Prozent Mehrschaden.",
+    "beute_fest": {
+      "item": "schaedelsplitter",
+      "n": 1
+    },
+    "einmalig": true,
+    "intro": "Zwei Helme drehen sich mit derselben Schulter. Der zweite Schlag ist schon im ersten Geräusch zu hören.",
+    "win_text": "Ein Helm rollt davon, der andere bleibt liegen.",
+    "on_win": {
+      "set_flags": [
+        "bn_der_zweite_vorhauer_besiegt"
+      ]
+    },
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": [
+        {
+          "item": "schaedelsplitter",
+          "chance": 1,
+          "n": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "darstellung": {
+      "merkmal": "Ockerner Steinpanzer mit zweitem leerem Helm auf der Schulter",
+      "bestiarium": "ui/bestiar/bn_der_zweite_vorhauer.png",
+      "kopf": "portraits/heads/bn_der_zweite_vorhauer.png"
+    },
+    "integration": "Datenvertrag, kein Laufzeitanschluss",
+    "hp": 903,
+    "attacks": [
+      {
+        "name": "Werkzeugspur",
+        "damage": 30,
+        "hits": [
+          1400,
+          2100
+        ],
+        "nerves": 6
+      },
+      {
+        "name": "Hammerschluss …",
+        "damage": 34,
+        "hits": [
+          2400
+        ],
+        "nerves": 6
+      }
+    ],
+    "basis_snapshot": {
+      "hp": 410,
+      "damage": [
+        15,
+        17
+      ]
+    }
+  },
+  "bn_kalkbraut": {
+    "name": "Kalkbraut",
+    "sprite": "wild",
+    "sheet": "enemy_bn_kalkbraut",
+    "occult": true,
+    "fleeable": true,
+    "grundlage": "kalkstaubgeist",
+    "grundlage_quelle": "src/data/packs/k3_orte/zones.json",
+    "stadt": "dunscar",
+    "zone": "ds_unterschicht",
+    "faktoren": {
+      "hp": 1.6,
+      "damage": 1.7
+    },
+    "nerven_schaden": 8,
+    "erscheinen": {
+      "requires_flags": [
+        "k3_arrived"
+      ],
+      "forbids_flags": [
+        "bn_kalkbraut_besiegt"
+      ],
+      "sequenz_fortschritt_ab": 6,
+      "sequenz_nummern": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "zeit": "nacht",
+      "gezeit": "beliebig",
+      "chance": 0.1,
+      "wurf_pro": "zone_spieltag_zeitfenster",
+      "sichtung_flag": "bn_kalkbraut_gesichtet",
+      "zonen": [
+        "ds_unterschicht"
+      ]
+    },
+    "eigenheit": "Ihr Schleier fängt den ersten Treffer jeder dritten Runde ab und zerfällt danach bis zur nächsten Auslösung.",
+    "schwaeche": "Ein schwacher Auftakttreffer verbraucht den Schleier vollständig.",
+    "beute_fest": {
+      "item": "bnl_kalkband",
+      "n": 1
+    },
+    "einmalig": true,
+    "intro": "Ein Schleier steht im Zug der stillgelegten Lüftung. Darunter ist nur die Form einer wartenden Person.",
+    "win_text": "Die Gaze faltet sich ordentlich auf dem Boden zusammen.",
+    "on_win": {
+      "set_flags": [
+        "bn_kalkbraut_besiegt"
+      ]
+    },
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": [
+        {
+          "item": "bnl_kalkband",
+          "chance": 1,
+          "n": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "darstellung": {
+      "merkmal": "Kalkweißer Staubschleier, violettes rostiges Brautband am Handgelenk",
+      "bestiarium": "ui/bestiar/bn_kalkbraut.png",
+      "kopf": "portraits/heads/bn_kalkbraut.png"
+    },
+    "integration": "Datenvertrag, kein Laufzeitanschluss",
+    "hp": 352,
+    "attacks": [
+      {
+        "name": "Staubhusten",
+        "damage": 19,
+        "hits": [
+          1100,
+          1700
+        ],
+        "nerves": 8
+      },
+      {
+        "name": "Kalkmantel …",
+        "damage": 24,
+        "hits": [
+          2200
+        ],
+        "nerves": 8
+      }
+    ],
+    "basis_snapshot": {
+      "hp": 220,
+      "damage": [
+        11,
+        14
+      ]
+    }
+  },
+  "bn_der_letzte_setzer": {
+    "name": "Der letzte Setzer",
+    "sprite": "wild",
+    "sheet": "enemy_bn_der_letzte_setzer",
+    "occult": true,
+    "fleeable": true,
+    "grundlage": "vg_cw_letternlaeufer",
+    "grundlage_quelle": "docs/story/vorrat_gegner/encounters.json",
+    "stadt": "calderwick",
+    "zone": "cw_alte_setzerei",
+    "faktoren": {
+      "hp": 1.8,
+      "damage": 1.6
+    },
+    "nerven_schaden": 7,
+    "erscheinen": {
+      "requires_flags": [
+        "k4_arrived"
+      ],
+      "forbids_flags": [
+        "bn_der_letzte_setzer_besiegt"
+      ],
+      "sequenz_fortschritt_ab": 6,
+      "sequenz_nummern": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "zeit": "nacht",
+      "gezeit": "beliebig",
+      "chance": 0.1,
+      "wurf_pro": "zone_spieltag_zeitfenster",
+      "sichtung_flag": "bn_der_letzte_setzer_gesichtet",
+      "zonen": [
+        "cw_alte_setzerei"
+      ]
+    },
+    "eigenheit": "Jede dritte Runde vertauscht er seine beiden Angriffsmuster, ohne deren sichtbare Vorwarnung zu ändern.",
+    "schwaeche": "Nach einem vollständig parierten Muster ist sein nächster Zug ausgesetzt.",
+    "beute_fest": {
+      "item": "bnl_umkehrletter",
+      "n": 1
+    },
+    "einmalig": true,
+    "intro": "Eine große Type sitzt verkehrt herum. Die Füße setzen lautlos neue Zeilen.",
+    "win_text": "Die umgedrehte Letter bleibt als letzte aufrecht.",
+    "on_win": {
+      "set_flags": [
+        "bn_der_letzte_setzer_besiegt"
+      ]
+    },
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": [
+        {
+          "item": "bnl_umkehrletter",
+          "chance": 1,
+          "n": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "darstellung": {
+      "merkmal": "Bleiheller Letternkörper mit einzelner großer kopfüber eingesetzter Type",
+      "bestiarium": "ui/bestiar/bn_der_letzte_setzer.png",
+      "kopf": "portraits/heads/bn_der_letzte_setzer.png"
+    },
+    "integration": "Datenvertrag, kein Laufzeitanschluss",
+    "hp": 422,
+    "attacks": [
+      {
+        "name": "Letterntritt: zieht den linken fuß ein",
+        "damage": 23,
+        "hits": [
+          950,
+          1650
+        ],
+        "unparryable": false,
+        "nerves": 7
+      },
+      {
+        "name": "Satzsturz: hält den setzkasten über den kopf – ausweichen",
+        "damage": 29,
+        "hits": [
+          2400
+        ],
+        "unparryable": true,
+        "nerves": 7
+      }
+    ],
+    "basis_snapshot": {
+      "hp": 234,
+      "damage": [
+        14,
+        18
+      ]
+    }
+  },
+  "bn_die_linke_stempelhand": {
+    "name": "Die linke Stempelhand",
+    "sprite": "wild",
+    "sheet": "enemy_bn_die_linke_stempelhand",
+    "occult": true,
+    "fleeable": true,
+    "grundlage": "vg_cw_stempelhand",
+    "grundlage_quelle": "docs/story/vorrat_gegner/encounters.json",
+    "stadt": "calderwick",
+    "zone": "cw_sortiergrube",
+    "faktoren": {
+      "hp": 2,
+      "damage": 1.8
+    },
+    "nerven_schaden": 6,
+    "erscheinen": {
+      "requires_flags": [
+        "k4_arrived"
+      ],
+      "forbids_flags": [
+        "bn_die_linke_stempelhand_besiegt"
+      ],
+      "sequenz_fortschritt_ab": 6,
+      "sequenz_nummern": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "zeit": "nacht",
+      "gezeit": "beliebig",
+      "chance": 0.1,
+      "wurf_pro": "zone_spieltag_zeitfenster",
+      "sichtung_flag": "bn_die_linke_stempelhand_gesichtet",
+      "zonen": [
+        "cw_sortiergrube"
+      ]
+    },
+    "eigenheit": "Jeder zweite Stempelstoß senkt den verursachten Schaden des Ziels für genau einen eigenen Zug um 25 Prozent.",
+    "schwaeche": "Eine Parade verhindert die gesamte Abschwächung.",
+    "beute_fest": {
+      "item": "vt_cw_stempelhand",
+      "n": 1
+    },
+    "einmalig": true,
+    "intro": "Eine linke Hand richtet den Ärmel. Der Stempel zeigt seine blanke Rückseite.",
+    "win_text": "Die Manschette liegt offen, als warte sie auf einen Arm.",
+    "on_win": {
+      "set_flags": [
+        "bn_die_linke_stempelhand_besiegt"
+      ]
+    },
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": [
+        {
+          "item": "vt_cw_stempelhand",
+          "chance": 1,
+          "n": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "darstellung": {
+      "merkmal": "Dunkelrote Manschette und übergroßer spiegelverkehrter Messingstempel",
+      "bestiarium": "ui/bestiar/bn_die_linke_stempelhand.png",
+      "kopf": "portraits/heads/bn_die_linke_stempelhand.png"
+    },
+    "integration": "Datenvertrag, kein Laufzeitanschluss",
+    "hp": 676,
+    "attacks": [
+      {
+        "name": "Ärmelgriff: rollt die manschette auf",
+        "damage": 31,
+        "hits": [
+          1100,
+          1800
+        ],
+        "unparryable": false,
+        "nerves": 6
+      },
+      {
+        "name": "Dienstschlag: hebt den stempel senkrecht – ausweichen",
+        "damage": 36,
+        "hits": [
+          2400
+        ],
+        "unparryable": true,
+        "nerves": 6
+      }
+    ],
+    "basis_snapshot": {
+      "hp": 338,
+      "damage": [
+        17,
+        20
+      ]
+    }
+  },
+  "bn_frau_ohne_durchschlag": {
+    "name": "Frau ohne Durchschlag",
+    "sprite": "wild",
+    "sheet": "enemy_bn_frau_ohne_durchschlag",
+    "occult": true,
+    "fleeable": true,
+    "grundlage": "vg_cw_tintenschatten",
+    "grundlage_quelle": "docs/story/vorrat_gegner/encounters.json",
+    "stadt": "calderwick",
+    "zone": "cw_nullfundament",
+    "faktoren": {
+      "hp": 2.2,
+      "damage": 2
+    },
+    "nerven_schaden": 8,
+    "erscheinen": {
+      "requires_flags": [
+        "k4_arrived"
+      ],
+      "forbids_flags": [
+        "bn_frau_ohne_durchschlag_besiegt"
+      ],
+      "sequenz_fortschritt_ab": 6,
+      "sequenz_nummern": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "zeit": "nacht",
+      "gezeit": "beliebig",
+      "chance": 0.1,
+      "wurf_pro": "zone_spieltag_zeitfenster",
+      "sichtung_flag": "bn_frau_ohne_durchschlag_gesichtet",
+      "zonen": [
+        "cw_nullfundament"
+      ]
+    },
+    "eigenheit": "Ihr erster erlittener Treffer jeder vierten Runde wird auf null gesetzt, danach bleibt sie normal verwundbar.",
+    "schwaeche": "Mehrfachangriffe verlieren nur ihren ersten Einzeltreffer.",
+    "beute_fest": {
+      "item": "vt_cw_tintenschatten",
+      "n": 1
+    },
+    "einmalig": true,
+    "intro": "Durch ihren Mantel siehst du eine rechteckige Leere. Tinte zieht sich vor deinen Schuhen zusammen.",
+    "win_text": "Der Fleck trocknet von innen nach außen.",
+    "on_win": {
+      "set_flags": [
+        "bn_frau_ohne_durchschlag_besiegt"
+      ]
+    },
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": [
+        {
+          "item": "vt_cw_tintenschatten",
+          "chance": 1,
+          "n": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "darstellung": {
+      "merkmal": "Blassvioletter Tintenmantel mit rechteckigem lichtlosem Loch in der Brust",
+      "bestiarium": "ui/bestiar/bn_frau_ohne_durchschlag.png",
+      "kopf": "portraits/heads/bn_frau_ohne_durchschlag.png"
+    },
+    "integration": "Datenvertrag, kein Laufzeitanschluss",
+    "hp": 630,
+    "attacks": [
+      {
+        "name": "Rinnenzug: sammelt sich entlang der bordkante",
+        "damage": 28,
+        "hits": [
+          1100,
+          1800
+        ],
+        "unparryable": false,
+        "nerves": 8
+      },
+      {
+        "name": "Schwärzeschwall: wölbt die oberfläche zur blase – ausweichen",
+        "damage": 36,
+        "hits": [
+          2700
+        ],
+        "unparryable": true,
+        "nerves": 8
+      }
+    ],
+    "basis_snapshot": {
+      "hp": 286,
+      "damage": [
+        14,
+        18
+      ]
+    }
+  },
+  "bn_der_bremser_von_sechs": {
+    "name": "Der Bremser von Sechs",
+    "sprite": "wild",
+    "sheet": "enemy_bn_der_bremser_von_sechs",
+    "occult": true,
+    "fleeable": true,
+    "grundlage": "vg_cw_seilbahnwaechter",
+    "grundlage_quelle": "docs/story/vorrat_gegner/encounters.json",
+    "stadt": "calderwick",
+    "zone": "cw_alte_setzerei",
+    "faktoren": {
+      "hp": 1.6,
+      "damage": 1.7
+    },
+    "nerven_schaden": 5,
+    "erscheinen": {
+      "requires_flags": [
+        "k4_arrived"
+      ],
+      "forbids_flags": [
+        "bn_der_bremser_von_sechs_besiegt"
+      ],
+      "sequenz_fortschritt_ab": 6,
+      "sequenz_nummern": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "zeit": "nacht",
+      "gezeit": "beliebig",
+      "chance": 0.1,
+      "wurf_pro": "zone_spieltag_zeitfenster",
+      "sichtung_flag": "bn_der_bremser_von_sechs_gesichtet",
+      "zonen": [
+        "cw_alte_setzerei",
+        "reise_landstrasse"
+      ]
+    },
+    "eigenheit": "Nach jedem dritten Angriff verriegelt er für eine Runde die Flucht, nie länger und nie zwei Runden hintereinander.",
+    "schwaeche": "Während der Verriegelung nimmt er 25 Prozent mehr Trefferschaden.",
+    "beute_fest": {
+      "item": "vt_cw_seilbahnwaechter",
+      "n": 1
+    },
+    "einmalig": true,
+    "intro": "Ein gerissenes Seil spannt sich zwischen seinen Händen. Die unsichtbare Gondel hält.",
+    "win_text": "Das Rad dreht sich zum ersten Mal frei.",
+    "on_win": {
+      "set_flags": [
+        "bn_der_bremser_von_sechs_besiegt"
+      ]
+    },
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": [
+        {
+          "item": "vt_cw_seilbahnwaechter",
+          "chance": 1,
+          "n": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "darstellung": {
+      "merkmal": "Moosgrüner Mantel, durchgerissenes rotes Bremsseil am Gürtel",
+      "bestiarium": "ui/bestiar/bn_der_bremser_von_sechs.png",
+      "kopf": "portraits/heads/bn_der_bremser_von_sechs.png"
+    },
+    "integration": "Datenvertrag, kein Laufzeitanschluss",
+    "hp": 541,
+    "attacks": [
+      {
+        "name": "Bremsgriff: schließt beide hände um das rad",
+        "damage": 29,
+        "hits": [
+          1100,
+          1800
+        ],
+        "unparryable": false,
+        "nerves": 5
+      },
+      {
+        "name": "Gegengewicht: lehnt den gesichtslosen kopf zurück – ausweichen",
+        "damage": 34,
+        "hits": [
+          2400
+        ],
+        "unparryable": true,
+        "nerves": 5
+      }
+    ],
+    "basis_snapshot": {
+      "hp": 338,
+      "damage": [
+        17,
+        20
+      ]
+    }
+  },
+  "bn_schwester_kaltwasser": {
+    "name": "Schwester Kaltwasser",
+    "sprite": "wild",
+    "sheet": "enemy_bn_schwester_kaltwasser",
+    "occult": true,
+    "fleeable": true,
+    "grundlage": "vg_bh_dampfschwester",
+    "grundlage_quelle": "docs/story/vorrat_gegner/encounters.json",
+    "stadt": "briarholt",
+    "zone": "bh_verlassene_waescherei",
+    "faktoren": {
+      "hp": 1.8,
+      "damage": 1.6
+    },
+    "nerven_schaden": 8,
+    "erscheinen": {
+      "requires_flags": [
+        "k5_arrived"
+      ],
+      "forbids_flags": [
+        "bn_schwester_kaltwasser_besiegt"
+      ],
+      "sequenz_fortschritt_ab": 6,
+      "sequenz_nummern": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "zeit": "nacht",
+      "gezeit": "beliebig",
+      "chance": 0.1,
+      "wurf_pro": "zone_spieltag_zeitfenster",
+      "sichtung_flag": "bn_schwester_kaltwasser_gesichtet",
+      "zonen": [
+        "bh_verlassene_waescherei",
+        "bh_verlassene_waescherei__warm"
+      ]
+    },
+    "eigenheit": "Jede dritte Runde kühlt sie einen angekündigten Angriff ab und verursacht dabei Nerven- statt Lebensschaden.",
+    "schwaeche": "Eine Parade des kalten Angriffs lässt ihre nächste normale Attacke ausfallen.",
+    "beute_fest": {
+      "item": "bnl_kaltventil",
+      "n": 1
+    },
+    "einmalig": true,
+    "intro": "Reif liegt auf einer warmen Kupferflasche. Die Haube neigt sich, als prüfe jemand die Temperatur.",
+    "win_text": "Der letzte Dampfstreifen zieht nach unten ab.",
+    "on_win": {
+      "set_flags": [
+        "bn_schwester_kaltwasser_besiegt"
+      ]
+    },
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": [
+        {
+          "item": "bnl_kaltventil",
+          "chance": 1,
+          "n": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "darstellung": {
+      "merkmal": "Kaltblaue Haube, gesprungene kupferne Wärmflasche mit Reifrand",
+      "bestiarium": "ui/bestiar/bn_schwester_kaltwasser.png",
+      "kopf": "portraits/heads/bn_schwester_kaltwasser.png"
+    },
+    "integration": "Datenvertrag, kein Laufzeitanschluss",
+    "hp": 515,
+    "attacks": [
+      {
+        "name": "Dampfgriff: faltet die haube nach vorn",
+        "damage": 23,
+        "hits": [
+          1100,
+          1800
+        ],
+        "unparryable": false,
+        "nerves": 8
+      },
+      {
+        "name": "Heißer Atem: sammelt dampf unter der schürze – ausweichen",
+        "damage": 29,
+        "hits": [
+          2400
+        ],
+        "unparryable": true,
+        "nerves": 8
+      }
+    ],
+    "basis_snapshot": {
+      "hp": 286,
+      "damage": [
+        14,
+        18
+      ]
+    }
+  },
+  "bn_der_gaertner_im_topf": {
+    "name": "Der Gärtner im Topf",
+    "sprite": "wild",
+    "sheet": "enemy_bn_der_gaertner_im_topf",
+    "occult": true,
+    "fleeable": true,
+    "grundlage": "vg_bh_wurzelgaenger",
+    "grundlage_quelle": "docs/story/vorrat_gegner/encounters.json",
+    "stadt": "briarholt",
+    "zone": "bh_wurzelkammer",
+    "faktoren": {
+      "hp": 2,
+      "damage": 1.8
+    },
+    "nerven_schaden": 7,
+    "erscheinen": {
+      "requires_flags": [
+        "k5_arrived"
+      ],
+      "forbids_flags": [
+        "bn_der_gaertner_im_topf_besiegt"
+      ],
+      "sequenz_fortschritt_ab": 6,
+      "sequenz_nummern": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "zeit": "nacht",
+      "gezeit": "beliebig",
+      "chance": 0.1,
+      "wurf_pro": "zone_spieltag_zeitfenster",
+      "sichtung_flag": "bn_der_gaertner_im_topf_gesichtet",
+      "zonen": [
+        "bh_wurzelkammer",
+        "bh_wurzelkammer__warm"
+      ]
+    },
+    "eigenheit": "Jede vierte Runde heilt er zehn Prozent seines Höchstlebens, sofern seit seiner Vorwarnung kein Treffer einging.",
+    "schwaeche": "Ein beliebiger Treffer während des Einwurzelns verhindert die Heilung.",
+    "beute_fest": {
+      "item": "vt_bh_wurzelgaenger",
+      "n": 1
+    },
+    "einmalig": true,
+    "intro": "Keramik schabt über dicke Wurzeln. Die Hände suchen einen Platz in der Erde.",
+    "win_text": "Der Topf bricht, ohne dass Erde herausfällt.",
+    "on_win": {
+      "set_flags": [
+        "bn_der_gaertner_im_topf_besiegt"
+      ]
+    },
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": [
+        {
+          "item": "vt_bh_wurzelgaenger",
+          "chance": 1,
+          "n": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "darstellung": {
+      "merkmal": "Graugrüne Wurzeln, zerbrochener Keramiktopf als Brustpanzer",
+      "bestiarium": "ui/bestiar/bn_der_gaertner_im_topf.png",
+      "kopf": "portraits/heads/bn_der_gaertner_im_topf.png"
+    },
+    "integration": "Datenvertrag, kein Laufzeitanschluss",
+    "hp": 676,
+    "attacks": [
+      {
+        "name": "Wurzelgriff: senkt die verwachsenen hände",
+        "damage": 31,
+        "hits": [
+          1100,
+          1800
+        ],
+        "unparryable": false,
+        "nerves": 7
+      },
+      {
+        "name": "Bodenriss: zieht beide arme aus dem boden – ausweichen",
+        "damage": 36,
+        "hits": [
+          2400
+        ],
+        "unparryable": true,
+        "nerves": 7
+      }
+    ],
+    "basis_snapshot": {
+      "hp": 338,
+      "damage": [
+        17,
+        20
+      ]
+    }
+  },
+  "bn_die_motte_im_sonntagsglas": {
+    "name": "Die Motte im Sonntagsglas",
+    "sprite": "wild",
+    "sheet": "enemy_bn_die_motte_im_sonntagsglas",
+    "occult": true,
+    "fleeable": true,
+    "grundlage": "vg_bh_glasmotte",
+    "grundlage_quelle": "docs/story/vorrat_gegner/encounters.json",
+    "stadt": "briarholt",
+    "zone": "bh_kaltes_palmhaus",
+    "faktoren": {
+      "hp": 2.2,
+      "damage": 2
+    },
+    "nerven_schaden": 7,
+    "erscheinen": {
+      "requires_flags": [
+        "k5_arrived"
+      ],
+      "forbids_flags": [
+        "bn_die_motte_im_sonntagsglas_besiegt"
+      ],
+      "sequenz_fortschritt_ab": 6,
+      "sequenz_nummern": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "zeit": "nacht",
+      "gezeit": "beliebig",
+      "chance": 0.1,
+      "wurf_pro": "zone_spieltag_zeitfenster",
+      "sichtung_flag": "bn_die_motte_im_sonntagsglas_gesichtet",
+      "zonen": [
+        "bh_kaltes_palmhaus",
+        "bh_kaltes_palmhaus__warm"
+      ]
+    },
+    "eigenheit": "Ihr Flügelschlag reflektiert jeden dritten Fernangriff mit einem angekündigten einzelnen Gegentreffer.",
+    "schwaeche": "Nahkampftreffer werden niemals reflektiert.",
+    "beute_fest": {
+      "item": "vt_bh_glasmotte",
+      "n": 1
+    },
+    "einmalig": true,
+    "intro": "Ein matter Kreis wandert über klares Glas. Die Flügel tragen den Riss mit sich.",
+    "win_text": "Der Kreis wird durchsichtig.",
+    "on_win": {
+      "set_flags": [
+        "bn_die_motte_im_sonntagsglas_besiegt"
+      ]
+    },
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": [
+        {
+          "item": "vt_bh_glasmotte",
+          "chance": 1,
+          "n": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "darstellung": {
+      "merkmal": "Rauchviolette Flügel, runder gesprungener Glasring um den Körper",
+      "bestiarium": "ui/bestiar/bn_die_motte_im_sonntagsglas.png",
+      "kopf": "portraits/heads/bn_die_motte_im_sonntagsglas.png"
+    },
+    "integration": "Datenvertrag, kein Laufzeitanschluss",
+    "hp": 572,
+    "attacks": [
+      {
+        "name": "Glasschnitt: legt die flügel übereinander",
+        "damage": 32,
+        "hits": [
+          950,
+          1650
+        ],
+        "unparryable": false,
+        "nerves": 7
+      },
+      {
+        "name": "Beschlagfächer: hält beide flügel breit und still – ausweichen",
+        "damage": 36,
+        "hits": [
+          2400
+        ],
+        "unparryable": true,
+        "nerves": 7
+      }
+    ],
+    "basis_snapshot": {
+      "hp": 260,
+      "damage": [
+        16,
+        18
+      ]
+    }
+  },
+  "bn_der_absender_ohne_ort": {
+    "name": "Der Absender ohne Ort",
+    "sprite": "wild",
+    "sheet": "enemy_bn_der_absender_ohne_ort",
+    "occult": true,
+    "fleeable": true,
+    "grundlage": "vg_bh_postkartenschreiber",
+    "grundlage_quelle": "docs/story/vorrat_gegner/encounters.json",
+    "stadt": "briarholt",
+    "zone": "bh_verlassene_waescherei",
+    "faktoren": {
+      "hp": 1.6,
+      "damage": 1.7
+    },
+    "nerven_schaden": 6,
+    "erscheinen": {
+      "requires_flags": [
+        "k5_arrived"
+      ],
+      "forbids_flags": [
+        "bn_der_absender_ohne_ort_besiegt"
+      ],
+      "sequenz_fortschritt_ab": 6,
+      "sequenz_nummern": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "zeit": "nacht",
+      "gezeit": "beliebig",
+      "chance": 0.1,
+      "wurf_pro": "zone_spieltag_zeitfenster",
+      "sichtung_flag": "bn_der_absender_ohne_ort_gesichtet",
+      "zonen": [
+        "bh_verlassene_waescherei",
+        "bh_verlassene_waescherei__warm"
+      ]
+    },
+    "eigenheit": "Jede dritte Runde verzögert er seinen Angriff um einen Zug und kündigt ihn während dieser ganzen Zeit sichtbar an.",
+    "schwaeche": "Ein Treffer vor Ablauf der Verzögerung reduziert den folgenden Schaden um die Hälfte.",
+    "beute_fest": {
+      "item": "vt_bh_postkartenschreiber",
+      "n": 1
+    },
+    "einmalig": true,
+    "intro": "Eine Postkarte wird umgedreht. Auch die Rückseite ist schon beschrieben, aber du kannst nichts lesen.",
+    "win_text": "Die letzte Karte fällt mit der Bildseite nach unten.",
+    "on_win": {
+      "set_flags": [
+        "bn_der_absender_ohne_ort_besiegt"
+      ]
+    },
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": [
+        {
+          "item": "vt_bh_postkartenschreiber",
+          "chance": 1,
+          "n": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "darstellung": {
+      "merkmal": "Beigegrauer Papiermantel, leerer Poststempel als Augenklappe",
+      "bestiarium": "ui/bestiar/bn_der_absender_ohne_ort.png",
+      "kopf": "portraits/heads/bn_der_absender_ohne_ort.png"
+    },
+    "integration": "Datenvertrag, kein Laufzeitanschluss",
+    "hp": 375,
+    "attacks": [
+      {
+        "name": "Federgriff: dreht die handfläche nach oben",
+        "damage": 24,
+        "hits": [
+          1100,
+          1800
+        ],
+        "unparryable": false,
+        "nerves": 6
+      },
+      {
+        "name": "Gleicher Satz: hebt die karte vor das gesicht – ausweichen",
+        "damage": 31,
+        "hits": [
+          2400
+        ],
+        "unparryable": true,
+        "nerves": 6
+      }
+    ],
+    "basis_snapshot": {
+      "hp": 234,
+      "damage": [
+        14,
+        18
+      ]
+    }
+  },
+  "bn_der_zollgeist_mit_gesicht": {
+    "name": "Der Zollgeist mit Gesicht",
+    "sprite": "wild",
+    "sheet": "enemy_bn_der_zollgeist_mit_gesicht",
+    "occult": true,
+    "fleeable": true,
+    "grundlage": "vme_zollgeist",
+    "grundlage_quelle": "docs/art/codex_CZ_varrowmouth_gegner.md",
+    "stadt": "varrowmouth",
+    "zone": "vm_grenzzaun",
+    "faktoren": {
+      "hp": 1.8,
+      "damage": 1.6
+    },
+    "nerven_schaden": 9,
+    "erscheinen": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "forbids_flags": [
+        "bn_der_zollgeist_mit_gesicht_besiegt"
+      ],
+      "sequenz_fortschritt_ab": 6,
+      "sequenz_nummern": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "zeit": "beliebig",
+      "gezeit": "ebbe",
+      "chance": 0.1,
+      "wurf_pro": "zone_spieltag_zeitfenster",
+      "sichtung_flag": "bn_der_zollgeist_mit_gesicht_gesichtet",
+      "zonen": [
+        "vm_grenzzaun"
+      ]
+    },
+    "eigenheit": "Er trägt dein Gesicht, im Koop das von Spieler zwei, und verhindert mit jedem dritten Stempel für einen Zug die Flucht.",
+    "schwaeche": "Eine Parade des Stempels verhindert den Fluchtverschluss vollständig.",
+    "beute_fest": {
+      "item": "bnl_gesichtsabdruck",
+      "n": 1
+    },
+    "einmalig": true,
+    "intro": "Der Beamte hebt den Kopf. Das Gesicht kennst du bis zur letzten Falte.",
+    "win_text": "Die Züge lösen sich, bevor der Rock den Boden berührt.",
+    "on_win": {
+      "set_flags": [
+        "bn_der_zollgeist_mit_gesicht_besiegt"
+      ]
+    },
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": [
+        {
+          "item": "bnl_gesichtsabdruck",
+          "chance": 1,
+          "n": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "darstellung": {
+      "merkmal": "Graublauer Zollrock, leere Gesichtsmaske als Laufzeitfläche für das Spielerporträt",
+      "bestiarium": "ui/bestiar/bn_der_zollgeist_mit_gesicht.png",
+      "kopf": "portraits/heads/bn_der_zollgeist_mit_gesicht.png",
+      "gesicht_overlay": {
+        "solo": "spieler_1",
+        "koop": "spieler_2",
+        "zielwahl_unabhaengig": true,
+        "neutrales_exportbild": true
+      }
+    },
+    "integration": "Datenvertrag, kein Laufzeitanschluss",
+    "ableitung": {
+      "hp": "ceil(grundlage.hp * faktoren.hp)",
+      "attacks": "Grundangriffe kopieren; jeden damage-Wert mit faktoren.damage multiplizieren und aufrunden; nerves ersetzen.",
+      "status": "CZ muss vor Einbau aufgelöst werden; keine erfundenen Basiswerte."
+    },
+    "zone_quelle": "CU PR #291: docs/story/k6_orte/zones.json",
+    "lose_to": {
+      "map": "vm_zollhafen",
+      "spawn": "default"
+    }
+  },
+  "bn_die_witwe_auf_stelzen": {
+    "name": "Die Witwe auf Stelzen",
+    "sprite": "wild",
+    "sheet": "enemy_bn_die_witwe_auf_stelzen",
+    "occult": true,
+    "fleeable": true,
+    "grundlage": "vme_gezeitenlaeufer",
+    "grundlage_quelle": "docs/art/codex_CZ_varrowmouth_gegner.md",
+    "stadt": "varrowmouth",
+    "zone": "vm_leuchtbank",
+    "faktoren": {
+      "hp": 2,
+      "damage": 1.8
+    },
+    "nerven_schaden": 8,
+    "erscheinen": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "forbids_flags": [
+        "bn_die_witwe_auf_stelzen_besiegt"
+      ],
+      "sequenz_fortschritt_ab": 6,
+      "sequenz_nummern": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "zeit": "beliebig",
+      "gezeit": "flut",
+      "chance": 0.1,
+      "wurf_pro": "zone_spieltag_zeitfenster",
+      "sichtung_flag": "bn_die_witwe_auf_stelzen_gesichtet",
+      "zonen": [
+        "vm_leuchtbank"
+      ]
+    },
+    "eigenheit": "Jede dritte Runde teilt sie ihren Schwall auf beide Spieler auf, mit separat ausweichbaren Treffern.",
+    "schwaeche": "Nach einem vollständig verfehlten Schwall nimmt sie einen Zug lang 25 Prozent Mehrschaden.",
+    "beute_fest": {
+      "item": "geisteressenz",
+      "n": 1
+    },
+    "einmalig": true,
+    "intro": "Ein Schleier hängt zwischen zwei Stelzen. Das Wasser darüber hält die Form einer wartenden Frau.",
+    "win_text": "Der Schleier schwimmt fort, obwohl kein Wind geht.",
+    "on_win": {
+      "set_flags": [
+        "bn_die_witwe_auf_stelzen_besiegt"
+      ]
+    },
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": [
+        {
+          "item": "geisteressenz",
+          "chance": 1,
+          "n": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "darstellung": {
+      "merkmal": "Dunkelvioletter Wasserschwall mit zerrissenem Trauerschleier zwischen hohen Stelzen",
+      "bestiarium": "ui/bestiar/bn_die_witwe_auf_stelzen.png",
+      "kopf": "portraits/heads/bn_die_witwe_auf_stelzen.png"
+    },
+    "integration": "Datenvertrag, kein Laufzeitanschluss",
+    "ableitung": {
+      "hp": "ceil(grundlage.hp * faktoren.hp)",
+      "attacks": "Grundangriffe kopieren; jeden damage-Wert mit faktoren.damage multiplizieren und aufrunden; nerves ersetzen.",
+      "status": "CZ muss vor Einbau aufgelöst werden; keine erfundenen Basiswerte."
+    },
+    "zone_quelle": "CU PR #291: docs/story/k6_orte/zones.json",
+    "lose_to": {
+      "map": "vm_zollhafen",
+      "spawn": "default"
+    }
+  },
+  "bn_der_salzmann_im_oelzeug": {
+    "name": "Der Salzmann im Ölzeug",
+    "sprite": "wild",
+    "sheet": "enemy_bn_der_salzmann_im_oelzeug",
+    "occult": true,
+    "fleeable": true,
+    "grundlage": "vme_salzkruste",
+    "grundlage_quelle": "docs/art/codex_CZ_varrowmouth_gegner.md",
+    "stadt": "varrowmouth",
+    "zone": "vm_wrackfeld",
+    "faktoren": {
+      "hp": 2.2,
+      "damage": 2
+    },
+    "nerven_schaden": 7,
+    "erscheinen": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "forbids_flags": [
+        "bn_der_salzmann_im_oelzeug_besiegt"
+      ],
+      "sequenz_fortschritt_ab": 6,
+      "sequenz_nummern": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "zeit": "beliebig",
+      "gezeit": "ebbe",
+      "chance": 0.1,
+      "wurf_pro": "zone_spieltag_zeitfenster",
+      "sichtung_flag": "bn_der_salzmann_im_oelzeug_gesichtet",
+      "zonen": [
+        "vm_wrackfeld"
+      ]
+    },
+    "eigenheit": "Er zerfällt unter halbem Leben nicht in weitere Gegner, sondern verliert seine Rüstung und erhöht seinen Schaden um 25 Prozent.",
+    "schwaeche": "Nach dem sichtbaren Aufbrechen der Kruste sind alle Treffer ohne Rüstungsabzug wirksam.",
+    "beute_fest": {
+      "item": "sternglas",
+      "n": 1
+    },
+    "einmalig": true,
+    "intro": "Salz rieselt aus einem geschlossenen Mantel. Der Verschluss arbeitet gegen den Druck darunter.",
+    "win_text": "Das Ölzeug klappt leer zusammen.",
+    "on_win": {
+      "set_flags": [
+        "bn_der_salzmann_im_oelzeug_besiegt"
+      ]
+    },
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": [
+        {
+          "item": "sternglas",
+          "chance": 1,
+          "n": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "darstellung": {
+      "merkmal": "Knochenweiße Kruste, offenes rostbraunes Ölzeug mit breitem Messingverschluss",
+      "bestiarium": "ui/bestiar/bn_der_salzmann_im_oelzeug.png",
+      "kopf": "portraits/heads/bn_der_salzmann_im_oelzeug.png"
+    },
+    "integration": "Datenvertrag, kein Laufzeitanschluss",
+    "ableitung": {
+      "hp": "ceil(grundlage.hp * faktoren.hp)",
+      "attacks": "Grundangriffe kopieren; jeden damage-Wert mit faktoren.damage multiplizieren und aufrunden; nerves ersetzen.",
+      "status": "CZ muss vor Einbau aufgelöst werden; keine erfundenen Basiswerte."
+    },
+    "zone_quelle": "CU PR #291: docs/story/k6_orte/zones.json",
+    "lose_to": {
+      "map": "vm_zollhafen",
+      "spawn": "default"
+    }
+  },
+  "bn_der_knoten_der_nicht_loest": {
+    "name": "Der Knoten, der nicht löst",
+    "sprite": "wild",
+    "sheet": "enemy_bn_der_knoten_der_nicht_loest",
+    "occult": true,
+    "fleeable": true,
+    "grundlage": "vme_tauwerk",
+    "grundlage_quelle": "docs/art/codex_CZ_varrowmouth_gegner.md",
+    "stadt": "varrowmouth",
+    "zone": "vm_wrackfeld",
+    "faktoren": {
+      "hp": 1.6,
+      "damage": 1.7
+    },
+    "nerven_schaden": 6,
+    "erscheinen": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "forbids_flags": [
+        "bn_der_knoten_der_nicht_loest_besiegt"
+      ],
+      "sequenz_fortschritt_ab": 6,
+      "sequenz_nummern": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "zeit": "beliebig",
+      "gezeit": "ebbe",
+      "chance": 0.1,
+      "wurf_pro": "zone_spieltag_zeitfenster",
+      "sichtung_flag": "bn_der_knoten_der_nicht_loest_gesichtet",
+      "zonen": [
+        "vm_wrackfeld"
+      ]
+    },
+    "eigenheit": "Jede dritte Runde fesselt sein angekündigter Haken das gewählte Ziel für genau einen Zug ohne direkt folgende erneute Fesselung.",
+    "schwaeche": "Eine Parade des Hakens löst die Fessel und setzt seinen nächsten Angriff aus.",
+    "beute_fest": {
+      "item": "wurmseide",
+      "n": 1
+    },
+    "einmalig": true,
+    "intro": "Ein Knoten zieht sich ohne Hände enger. Der Haken schleift stumpf über die Planken.",
+    "win_text": "Zum ersten Mal liegen beide Enden nebeneinander.",
+    "on_win": {
+      "set_flags": [
+        "bn_der_knoten_der_nicht_loest_besiegt"
+      ]
+    },
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": [
+        {
+          "item": "wurmseide",
+          "chance": 1,
+          "n": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "darstellung": {
+      "merkmal": "Schiefergrünes Tau mit einem riesigen violetten Siegelknoten und stumpfem Kupferhaken",
+      "bestiarium": "ui/bestiar/bn_der_knoten_der_nicht_loest.png",
+      "kopf": "portraits/heads/bn_der_knoten_der_nicht_loest.png"
+    },
+    "integration": "Datenvertrag, kein Laufzeitanschluss",
+    "ableitung": {
+      "hp": "ceil(grundlage.hp * faktoren.hp)",
+      "attacks": "Grundangriffe kopieren; jeden damage-Wert mit faktoren.damage multiplizieren und aufrunden; nerves ersetzen.",
+      "status": "CZ muss vor Einbau aufgelöst werden; keine erfundenen Basiswerte."
+    },
+    "zone_quelle": "CU PR #291: docs/story/k6_orte/zones.json",
+    "lose_to": {
+      "map": "vm_zollhafen",
+      "spawn": "default"
+    }
+  }
+}

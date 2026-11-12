@@ -459,6 +459,11 @@ const runde8 = runde8Packs({
 });
 import { fasserinAuftragPack, halbgottPack } from './runde9.js';
 import { erfolgePack, postPack } from './runde10.js';
+import { benanntePack } from './benannte.js';
+import bn_gegner from './packs/benannte_gegner/gegner.json';
+import bn_bestiarium from './packs/benannte_gegner/bestiarium.json';
+import bn_auftritt from './packs/benannte_gegner/auftritt.json';
+import bn_beute from './packs/benannte_gegner/beute.json';
 import post_briefe from './packs/post/briefe.json';
 import post_beilagen from './packs/post/beilagen.json';
 import post_post from './packs/post/post.json';
@@ -523,7 +528,7 @@ export const content = buildContent({
   gatherings,
   city,
   wexmoor,
-  packs: [k1Finale, kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen, k3Handel, dunscarZirkelPack(), k3Leben, koopK3, koopBeute, k3Ruf, beziehungenPack, fasserinPack, fasserinAuftrag, halbgott, festePack, sektenPack, seq4Dr, erfolgePack({ erfolge: erf_erfolge, bedingungen: erf_bedingungen, meldungen: erf_meldungen }), postPack({ briefe: post_briefe, beilagen: post_beilagen, post: post_post }), ...runde8],
+  packs: [k1Finale, kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen, k3Handel, dunscarZirkelPack(), k3Leben, koopK3, koopBeute, k3Ruf, beziehungenPack, fasserinPack, fasserinAuftrag, halbgott, festePack, sektenPack, seq4Dr, erfolgePack({ erfolge: erf_erfolge, bedingungen: erf_bedingungen, meldungen: erf_meldungen }), postPack({ briefe: post_briefe, beilagen: post_beilagen, post: post_post }), benanntePack({ gegner: bn_gegner, bestiarium: bn_bestiarium, auftritt: bn_auftritt, beute: bn_beute }), ...runde8],
   lore: { bestiarium: lore_bestiarium, gerede: lore_gerede, item_texte: lore_item_texte, lesestuecke: lore_lesestuecke, zeitungen: lore_zeitungen },
   beziehungen,
   sequenzen: { neue_pfade: sq_neue_pfade, seq_4_bis_1: sq_seq_4_bis_1, zutaten: sq_zutaten, artefakte: sq_artefakte, rituale: k3p_rituale, faehigkeiten: sq_faehigkeiten },

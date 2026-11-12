@@ -44,6 +44,7 @@ const COUNTERS = {
   dl_drei_feinde: (s) => Object.keys(s.content.npcs ?? {}).filter((id) => s.mood?.(id) === 'feindselig').length,
   dl_fasserin_bilanz: (s) => { const h = s.artisanHistory ?? []; return (h.some((x) => x.ok) ? 1 : 0) + (h.some((x) => !x.ok) ? 1 : 0); },
   zaehler_kaempfe: (s) => s.erfolgZaehler?.kaempfe ?? 0,
+  dl_benannte_gegner: (s) => [...s.flags].filter((f) => /^bn_.*_besiegt$/.test(f)).length, // Codex DJ
   zaehler_briefe: (s) => (s.post?.fach ?? []).filter((f) => f.gelesen).length, // Codex DI
   dl_koop_pfade: (s) => { const pw = players(s); return pw.length === 2 && pw[0].id !== pw[1].id ? 1 : 0; },
   ...Object.fromEntries(Object.entries(KAPITEL_FLAG).map(([k, f]) => [`dl_koop_kapitel_${k}`, (s) => (s.p2?.active && s.flags.has(f) ? 1 : 0)])),

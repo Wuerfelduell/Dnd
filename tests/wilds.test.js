@@ -21,7 +21,7 @@ test('dreizehn Gefahrengebiete (fünf in Wexmoor, vier in Dunscar) mit Karte, Re
     assert.ok(map, zid);
     assert.ok(map.danger >= 1, `${zid}: Gefahrenstufe`);
     assert.ok(content.travel.some((t) => t.map === zid), `${zid}: Reiseziel`);
-    const roamers = map.roamers.filter((r) => !content.encounters[r.encounter]?.city); // BD: Kopfgeld-Ziele am Rand der Rufschlucht zählen zur Stadt
+    const roamers = map.roamers.filter((r) => !content.encounters[r.encounter]?.city && !r.bn); // DJ: benannte Gegner erscheinen nur nachts (benannte.test.js) // BD: Kopfgeld-Ziele am Rand der Rufschlucht zählen zur Stadt
     // Paket AM: die Torfbrüche sind ein Erzählort mit wenigen Gegnern; die Moorbraut stellt man bewusst am Brautbecken
     const story = STORY_ZONES[zid];
     assert.ok(roamers.length >= (story ? 3 : 15), `${zid}: nur ${roamers.length} Gegner`);
@@ -150,7 +150,7 @@ const geared = (tier) => {
 
 test('Balance: Geübte schaffen normale Gegner ihres Gebiets, sehr Geübte auch Eliten und Bosse mit passender Ausrüstung', () => {
   for (const [id, e] of Object.entries(content.encounters)) {
-    if (!e.wild || e.chapter >= 3 || e.zone.startsWith('wx_')) continue; // Kapitel 2 bis 5 haben eine eigene Balance (tests/wexmoor_balance.test.js, tests/kapitel3.test.js)
+    if (!e.wild || e.benannt || e.chapter >= 3 || e.zone.startsWith('wx_')) continue; // DJ: benannte Gegner sind bewusst härter // Kapitel 2 bis 5 haben eine eigene Balance (tests/wexmoor_balance.test.js, tests/kapitel3.test.js)
     // Bosse sind für Ausrüstung der nächsten Stufe gedacht (die Waffe dafür liegt beim vorigen Boss bzw. im Schrein)
     const tier = Math.min(4, content.zones[e.zone].tier + (e.boss ? 1 : 0));
     const s = geared(tier);
