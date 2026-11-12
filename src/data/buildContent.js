@@ -19,6 +19,7 @@ import { applyDunscarHaendler } from './dunscarHaendler.js';
 import { applyDunscarKulisse } from './dunscarKulisse.js';
 import { applyBenannte } from './benannte.js';
 import { applyDunscarSchlacke } from './dunscarSchlacke.js';
+import { applyKapitelAusgleich } from './kapitelAusgleich.js';
 import { applyHaendlerAbgleich } from './haendlerAbgleich.js';
 // Fügt alle Inhaltsdateien zu einem Objekt zusammen (ohne JSON-Imports, damit Node-Tests es nutzen können).
 // Hinweise, Informationen, Schlussfolgerungen und Dialoge teilen sich jeweils einen Namensraum über alle Fälle.
@@ -109,6 +110,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyDunscarSchlacke(content); // Dunscar: Schlackengrube (Stufe 7) mit harten Farmgegnern, Mittelbossen und reicher Beute
   applyDunscarGeld(content); // Dunscar zahlt mehr als Wexmoor: Gegnergeld und Kopfgelder
   applyDunscarBeute(content); // Dunscar-Beute 3–5× so viel wert wie in Wexmoor
+  applyKapitelAusgleich(content); // Geld Kapitel 4 (×15) und Sekten-Häupter in Dunscar auf Gebietsboss-Niveau
   applyVorratStuecke(content); // Vorrat-Zips: neue Waffen, Kleidung, Artefakte, Wertstücke bei Händlern, in Gebieten und auf Treffen
   applyHaendlerAbgleich(content); // Händler aller Gebiete: Stärke und Preise je Gebiet, alte Stücke auch später
   applyZirkelAuftraege(content); // Dunscar: Zirkelmitglieder vergeben Aufträge (Monster, Polizisten)
