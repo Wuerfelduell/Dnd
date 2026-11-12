@@ -10,6 +10,8 @@ export const ALT_ZONES = ['marsch', 'katakomben', 'pestgassen', 'kraterwald'];
 /** Kettlegater Zirkel: deren Zutaten (keine Formeln) kommen mit Gewicht 8 in den Topf. */
 export const ALT_CIRCLES = ['waage', 'russ'];
 export const ALT_CIRCLE_WEIGHT = 8;
+/** Feste Extra-Drops je Wexmoor-Zone (Seb: Nachtfalterstaub 5 % im Leuchtturm). */
+export const ZONE_DROPS = { wx_leuchtturm: [{ item: 'nachtfalterstaub', chance: 0.05 }] };
 /** Chance auf einen Altfund je Sieg. */
 export const ALT_CHANCE = { normal: 0.08, elite: 0.3, boss: 0.35 };
 
@@ -43,8 +45,10 @@ export function applyAltbeute(content) {
   if (!pool.size) return content;
   for (const [id, e] of Object.entries(content.encounters)) {
     if (!String(e.zone ?? '').startsWith('wx_')) continue;
-    const table = content.loot[id];
+    let table = content.loot[id];
     if (!table) continue;
+    const extra = (ZONE_DROPS[e.zone] ?? []).filter((d) => content.items[d.item] && !(table.drops ?? []).some((x) => x.item === d.item));
+    if (extra.length) table = { ...table, drops: [...(table.drops ?? []), ...extra] };
     const own = new Set((table.drops ?? []).map((d) => d.item));
     const entries = [...pool].filter(([item]) => !own.has(item)).map(([item, w]) => ({ item, w }));
     const chance = e.boss ? ALT_CHANCE.boss : e.elite ? ALT_CHANCE.elite : ALT_CHANCE.normal;
