@@ -1972,3 +1972,18 @@ Zwei Codex-Zips mit freien Motiven, keine Zuordnung zu Figuren oder Gegenstände
 - `public/sprites/future200/` mit `public/sprites/manifest-future200.json`: 120 Icons 32×32, 40 Porträts 64×64, 40 Bodentexturen 16×16 (Beschreibung und Prompts in `docs/art/vorrat/`). Die 256-px-Quellbilder liegen nicht im Repo.
 - `public/sprites/items/reserve200/<kategorie>/` mit `public/sprites/manifest-reserve200.json`: 200 Icons 64×64 in zehn Kategorien; Vorschau `docs/art/vorrat/reserve200-vorschau.html` (erwartet den Ordner `icons/` daneben).
 - Eine dritte Zip (Nebelakten_200_Icons, 96 MB) kommt über den Laptop-Ordner und wird getrennt gesichtet.
+
+## DO — Schattensteuerung (2026-11-12)
+
+22 PNGs für „Der Schatten ohne Körper“: drei Lauf-, drei Körper- und drei Kampf-Sheets, Trennen/Rückkehr/Verloren, Band mit separatem Endstück, Schattenattacke mit Treffer und zwei Icon-Größen, Fähigkeitsslot, Rauchüberlagerung, HUD und Kampfkulisse. Die Abgabezeile des Auftrags zählt 21; das ausdrücklich verlangte 8×8-Endstück ergibt die 22. Datei `fx/schatten_band_ende.png`.
+
+- [Manifest](../../public/sprites/manifest-schatten.json), [Vorschau](batch-schatten-preview.png), [vollständige Prompts und Herkunft](batch-schatten-generation.json), [Prüfbericht](batch-schatten-validation.json).
+- Prüfung: `python tools/art/schatten/check.py` (Pillow). Kontrolliert Maße, gemeinsame 32-Farben-Palette, binäres Alpha, Raster, Framebelegung, leere verbotene Reihen, Baselines, Regionen, Aushol-Holds, Bandnaht und exakte Icon-Verdopplung.
+- Lauf: 4 Spalten × 4 Reihen, Richtungen unten/links/rechts/oben, 16×32, Grundlinie y=30. Körper: 4 Spalten × 2 Reihen; unten [0,1], links [2,3], rechts [4,5], oben [6,7]. Atmen 1 fps, nur minimale Bruständerung, kein Bodenschatten.
+- Kampf: wie `manifest-14b.json`, 6×9 Zellen à 48×48. Reihen (nullbasiert): idle 0, attack 1, shoot 2, dodge 3, **parry 4 leer**, **item 5 leer**, hurt 6, defeated 7, occult 8. Unbenutzte Restzellen ebenfalls leer. Die verbotenen Animationen dürfen nicht aufgerufen werden. Die vorhandene shoot-/occult-Belegung dient kopierten Fähigkeiten; sie gewährt keine Ausrüstung. Standardangriff verwendet zusätzlich `battle/schatten_attacke.png`.
+- Slot: Frames 0–7 auslosen, Frame 8 gesetzt. HUD: vier 16×16-Symbole in der oberen Reihe; 48×8-Leistenrahmen bei (0,16), Nine-Slice-Ränder links/rechts 3 px, oben/unten 2 px. Füllung zur Laufzeit innerhalb des Rahmens. Restfläche transparent.
+- Effekte Trennen/Rückkehr/Verloren werden am Körperfuß verankert; Bandsegmente verlaufen horizontal, dürfen zur Verbindung gedreht werden. Endstück am Körper. Rauchüberlagerung hält die zentrale 40×40-Fläche frei und verändert die Farbe der gewirkten Fähigkeit nicht.
+
+Einbau separat: Ritual immer solo, auch im Koop; Akteur über `actors` im Manifest auswählen. Körper bleibt stehen, Schatten hat 40 % Leben, keine Ausrüstung, Heilung oder Parade; Ausweichen erlaubt. Schattenattacke kostet keine Nerven und verursacht etwa 80 % Normalschaden; pro Runde genau eine zufällige eigene Fähigkeit. Zwei Gegner, danach vorhandener Schwellenwächter. Schattenverlust spielt `schatten_verloren`, lässt den Spieler leben und beendet den Versuch. Texte und Ton kommen aus DR/DS; dieses Paket ändert keine Spielregeln oder Dateien unter `src/`.
+
+Erzeugung mit dem eingebauten Bildgenerator anhand der drei Repo-Spieler; Export per Nearest Neighbor, gemeinsamer Palette und binärem Alpha. Originale und vorhandener Schwellenwächter bleiben unverändert. Technische Prüfungen ersetzen keinen späteren Laufzeittest nach der Integration.
