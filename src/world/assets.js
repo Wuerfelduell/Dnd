@@ -5,6 +5,7 @@
 import { PATHWAY_STANDIN } from '../data/sequenzen.js';
 import { preloadRitualArt } from './ritualArt.js';
 import { DS_ZIRKEL_ICONS, DS_ZIRKEL_FIGUREN } from '../data/dunscarZirkel.js';
+import { DS_ORTSKUNDIGE } from '../data/dunscarOrtskundige.js';
 
 const BASE = './sprites/';
 export const SPRITE_BASE = BASE;
@@ -2400,6 +2401,11 @@ Object.assign(REGION_ANIMS, {
   dsp_bruchsignal: { scaffold: [['scaffold_sway_left', 'scaffold_sway_right'], 2], listening: [['listening_horn_turquoise_pulse_1', 'listening_horn_turquoise_pulse_2', 'listening_horn_turquoise_pulse_3', 'listening_horn_turquoise_pulse_4'], 5] },
 });
 for (const t of ['stadt', 'bahn', 'bruch', 'schlucht']) ANIM_SHEETS[`dst_${t}`] = [`tilesets/ds_${t}.png`, 16, 16];
+/** Ortskundige je Viertel (data/dunscarOrtskundige.js): die Vorratsfiguren ds_einwohner_1–6 aus Paket AW. */
+for (const ok of Object.values(DS_ORTSKUNDIGE)) {
+  SHEETS[`dsok_${ok.sheet}`] = `characters/${ok.sheet}.png`;
+  CHARACTER_SHEETS[`npc_${ok.id}`] = `dsok_${ok.sheet}`;
+}
 /** AV: Kampfkulissen der Viertel und Gefahrengebiete. */
 for (const id of ['endbahnhof', 'schwellenring', 'arbeiterbogen', 'bruchstufen', 'rangierwueste', 'klopfbruch', 'rufschlucht', 'letzter_bahnsteig', 'unterschicht']) {
   BATTLE_BACKGROUNDS[`ds_${id}`] = `bg_ds_${id}`;
