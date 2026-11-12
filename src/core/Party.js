@@ -24,6 +24,7 @@ export const partyMethods = {
   resetParty() {
     this.p2 = null; // { active, hp, maxHp, inventory, weapon, composure, pathway, unruhe, spiritVision }
     this.acting = 1; // wessen Werte gerade in this.hp usw. stehen
+    this.splitOn = false; // Kapitel 4: Splitscreen in Calderwick (core/Split.js)
     this.koopSeen = new Set(); // Paket AI: schon gehörtes Geplauder
   },
 
@@ -89,7 +90,8 @@ export const partyMethods = {
   },
 
   swapPersonal() {
-    for (const k of PERSONAL) {
+    // Kapitel 4: im Splitscreen hat Spieler 2 eigene Karte, Ankunftsstelle und Position (core/Split.js)
+    for (const k of this.splitOn ? [...PERSONAL, 'map', 'spawn', 'position'] : PERSONAL) {
       const mine = this[k];
       this[k] = this.p2[k];
       this.p2[k] = mine;
@@ -211,7 +213,9 @@ export const partyMethods = {
       look: p.look === 'p2b' ? 'p2b' : 'p2a',
       corrupted: Object.fromEntries(Object.entries(p.corrupted ?? {}).filter(([i, n]) => inventory[i] && n > 0)), setAside: [], corruptionAcc: 0,
       talentCd: { ...(p.talentCd ?? {}) }, buffs: [...(p.buffs ?? [])],
+      ...(p.map && this.content.maps[p.map] ? { map: p.map, spawn: p.spawn ?? 'default', position: p.position ?? null } : {}), // Kapitel 4: Splitscreen
     };
+    this.splitOn = !!this.p2.map;
     this.p2.setAside = (p.setAside ?? []).filter((id) => this.p2.corrupted[id] && this.item(id)?.kind === 'artifact');
     // Höchstwerte aus Pfad, Artefakten und Kleidung neu rechnen
     this.withPlayer(2, () => { this.maxHp = this.calcMaxHp(); this.hp = Math.min(this.hp, this.maxHp); }, { quiet: true });

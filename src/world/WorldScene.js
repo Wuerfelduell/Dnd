@@ -20,6 +20,7 @@ import { footstepSound, ambienceFor, weatherLoop, randomSoundsFor, worldSound } 
 import { isOutdoorMap } from './assets.js';
 import { cityOf } from '../core/Travel.js';
 import { Combat } from '../core/Combat.js';
+import { p2View } from '../core/Split.js';
 
 export const VIEW_W = 480;
 export const VIEW_H = 270;
@@ -636,8 +637,10 @@ export function tileIndexFor(rows, x, y, theme = null, facade = null) {
 }
 
 export class WorldScene extends Phaser.Scene {
-  constructor() {
-    super('world');
+  /** Kapitel 4: 'world2' ist die rechte Hälfte des Splitscreens in Calderwick, dort läuft Spieler 2 auf seiner eigenen Karte. */
+  constructor(key = 'world') {
+    super(key);
+    this.splitRole = key === 'world2' ? 2 : 1;
   }
 
   preload() {
@@ -675,7 +678,7 @@ export class WorldScene extends Phaser.Scene {
   /** CM: zweite Schleife für Wetter und Feste neben der Ortsatmo; wechselt mit Jahreszeit und Festtag. */
   updateWeatherLoop() {
     const audio = this.registry.get('audio');
-    if (!audio) return;
+    if (!audio || this.splitRole === 2) return;
     const id = weatherLoop({ mapId: this.state.map, outdoor: this.outdoor, season: this.state.season?.(), fest: this.state.festAktiv?.(cityOf(this.state, this.state.map)) ?? null });
     if (audio.weather === id) return;
     if (audio.weather) audio.stopLoop(audio.weather, 800);
@@ -726,7 +729,8 @@ export class WorldScene extends Phaser.Scene {
   /** Paket Y: Hintergrundgeräusch des Ortes (eine Schleife, wechselt mit der Karte). */
   startAmbience() {
     const audio = this.registry.get('audio');
-    if (!audio) return;
+    if (!audio || this.splitRole === 2) return; // Klang folgt Spieler 1
+
     const id = ambienceFor(this.state.map, this.mapDef);
     if (audio.ambience && audio.ambience !== id) audio.stopLoop(audio.ambience, 600);
     audio.ambience = id;
@@ -739,7 +743,10 @@ export class WorldScene extends Phaser.Scene {
   }
 
   create() {
-    this.state = this.registry.get('state');
+    this.realState = this.registry.get('state');
+    // Splitscreen (core/Split.js): die rechte Welt sieht den Spielstand dauerhaft als Spieler 2
+    this.state = this.splitRole === 2 ? p2View(this.realState) : this.realState;
+    this.split = !!this.realState.splitOn;
     this.ui = this.registry.get('ui');
     this.mapDef = this.state.content.maps[this.state.map];
     this.interactables = [];
@@ -795,7 +802,7 @@ export class WorldScene extends Phaser.Scene {
     this.sekten = new SektenLife(this); // BQ/BR: Sekten-Ereignisse, abgeworbene Figuren, Sabotage
     this.sekten.build(this.freshVisit);
     this.feste = new Feste(this); // BV: Jahreszeit draußen, Fest in der Stadt
-    this.hg = new HalbgottRitual(this); // Seq-4-Rituale: Laternennacht, Schatten, Taubheit, Wächter des Eisens
+    this.hg = this.splitRole === 2 ? null : new HalbgottRitual(this); // Seq-4-Rituale: Laternennacht, Schatten, Taubheit, Wächter des Eisens
     this.feste.build();
     this.bindInput();
     this.bindState();
@@ -804,7 +811,39 @@ export class WorldScene extends Phaser.Scene {
 
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.cleanups.forEach((fn) => fn()));
     this.cameras.main.fadeIn(350, 0, 0, 0);
-    this.ui.onSceneReady(this);
+    this.layoutSplit();
+    if (this.splitRole === 2) this.ui.scene2 = this;
+    else this.ui.onSceneReady(this);
+  }
+
+  /**
+   * Kapitel 4: Splitscreen. Die Hauptwelt zeigt Spieler 1 links, 'world2' Spieler 2 rechts auf seiner eigenen Karte.
+   * Ändert sich der Zustand (Ankunft in Calderwick zu zweit, beide Seq 3), baut sich die Hauptwelt neu auf.
+   */
+  layoutSplit() {
+    const half = VIEW_W / 2;
+    if (this.splitRole === 2) {
+      this.koop = null;
+      this.tap = null;
+      this.cameras.main.setViewport(half, 0, half, VIEW_H);
+      this.add.rectangle(0, 0, 1, VIEW_H, 0x000000, 1).setOrigin(0).setScrollFactor(0).setDepth(100000); // Trennlinie
+      this.cleanups.push(this.realState.on('split', (on) => { if (!on) this.scene.stop(); }));
+      return;
+    }
+    this.cleanups.push(this.realState.on('split', () => { if (!this.leaving) this.scene.restart(); }));
+    const running = this.scene.isActive('world2') || this.scene.isPaused('world2');
+    if (this.split) {
+      this.cameras.main.setViewport(0, 0, half, VIEW_H);
+      if (!running && this.scene.get('world2')) this.scene.launch('world2');
+    } else if (running) this.scene.stop('world2');
+    this.ui.setSplit?.(this.split);
+  }
+
+  /** Die andere Hälfte des Splitscreens (oder null). */
+  splitOther() {
+    if (!this.split) return null;
+    const other = this.scene.get(this.splitRole === 2 ? 'world' : 'world2');
+    return other?.sys?.isActive() || other?.sys?.isPaused() ? other : null;
   }
 
   // --- Aufbau ---------------------------------------------------------------
@@ -1112,7 +1151,7 @@ export class WorldScene extends Phaser.Scene {
     const scene = this;
     this.p2Light = { get x() { return scene.p2?.x ?? scene.player.x; }, get y() { return scene.p2?.y ?? scene.player.y; } };
     this.lighting.add({ follow: this.p2Light, offsetX: 0, offsetY: -14, radius: 40, intensity: 0.5, color: 0xc8d8ff, glowAlpha: 0.1, flicker: 0.06, active: () => !!scene.p2 });
-    if (this.state.hasP2()) this.spawnP2();
+    if (this.state.hasP2() && !this.split) this.spawnP2();
   }
 
   // --- Spieler 2 (lokaler Koop) -----------------------------------------------------
@@ -1222,7 +1261,7 @@ export class WorldScene extends Phaser.Scene {
       const m = /^(Digit|Numpad)([1-9])$/.exec(e.code ?? '');
       if (!m || e.repeat) return;
       const slot = `talent:${Number(m[2]) - 1}`;
-      if (m[1] === 'Numpad' && this.p2) this.pending2 = slot;
+      if (m[1] === 'Numpad' && (this.p2 || this.splitRole === 2)) this.pending2 = slot;
       else this.pending = slot;
     });
     // Handy/Maus: hintippen zum Hinlaufen und Interagieren
@@ -1230,9 +1269,9 @@ export class WorldScene extends Phaser.Scene {
     this.setupSignalContext(); // BN: Kollision und Lauscher für Rufwege
     this.input.mouse?.disableContextMenu();
     // Spieler 2: Enter interagiert (Pfeile laufen, siehe updateMovement)
-    this.input.keyboard.on('keydown-ENTER', (e) => { if (!e.repeat && this.p2) this.pending2 = 'interact'; });
+    this.input.keyboard.on('keydown-ENTER', (e) => { if (!e.repeat && (this.p2 || this.splitRole === 2)) this.pending2 = 'interact'; });
     this.input.gamepad?.on('down', (pad, button) => {
-      if (!this.p2) return;
+      if (!this.p2 && this.splitRole !== 2) return;
       if (button.index === 0) this.pending2 = 'interact'; // A
       else if (button.index === 3) this.pending2 = 'inventory'; // Y
       else if (button.index === 2) this.pending2 = 'talent:sel'; // X: gewählte Welt-Fähigkeit
@@ -1262,7 +1301,7 @@ export class WorldScene extends Phaser.Scene {
       s.on('ascend', ({ pathway, player, ascension, seq }) => { this.playDrinkFx(pathway, player, seq); if (ascension) this.playAscension(ascension, player); }),
       s.on('form', () => this.updateForm()),
       s.on('unruhe', () => this.updateCracks()),
-      s.on('party', () => { if (s.hasP2()) this.spawnP2(); else this.despawnP2(); }),
+      s.on('party', () => { if (s.hasP2() && !this.split && this.splitRole !== 2) this.spawnP2(); else this.despawnP2(); }),
     );
     this.updateCracks();
     if (this.state.formActive?.()) this.updateForm();
@@ -1374,10 +1413,10 @@ export class WorldScene extends Phaser.Scene {
 
   update(time, delta) {
     const blocked = this.ui.isBlocking() || this.leaving;
-    if (!blocked) this.state.tick(delta / 1000);
+    if (!blocked && this.splitRole !== 2) this.state.tick(delta / 1000); // im Splitscreen tickt nur die Hauptwelt
     // Codex DL: Erfolge alle 1,5 s prüfen (die erste Prüfung trägt still nach)
     this.erfTimer = (this.erfTimer ?? 0) + delta;
-    if (this.erfTimer > 1500) { this.erfTimer = 0; this.state.checkPost?.(); this.state.checkErfolge?.(); }
+    if (this.erfTimer > 1500 && this.splitRole !== 2) { this.erfTimer = 0; this.state.checkPost?.(); this.state.checkErfolge?.(); }
     this.updateMovement(blocked);
     this.updateTier(delta);
     // Schlüssel Seq 5: die Schattengestalt ist durchscheinend
@@ -1391,7 +1430,7 @@ export class WorldScene extends Phaser.Scene {
     this.dsLife?.update(delta);
     this.kgLife?.update(delta);
     if (this.clockDirty && !blocked) { this.applyClock(); this.updateWeatherLoop(); }
-    if (!blocked) this.updateRandomSounds(delta);
+    if (!blocked && this.splitRole !== 2) this.updateRandomSounds(delta);
     this.koop?.update(delta, blocked);
     this.feste?.update(delta, blocked);
     this.hg?.update(delta, blocked || this.leaving);
@@ -1409,6 +1448,7 @@ export class WorldScene extends Phaser.Scene {
 
   /** Sheet der Spielerfigur: getragene Verkleidung (falls ihr Sheet geladen ist), sonst der Mantel. */
   skinKey() {
+    if (this.splitRole === 2) return this.p2SkinKey();
     const ritual = this.ritualSkin(1);
     if (ritual) return ritual;
     const form = this.formKey(1);
@@ -1458,9 +1498,18 @@ export class WorldScene extends Phaser.Scene {
     let vy = 0;
     if (!blocked) {
       // Zu zweit gehören die Pfeiltasten Spieler 2
-      const arrows = !this.p2;
-      vx = ((arrows && k.RIGHT.isDown) || k.D.isDown ? 1 : 0) - ((arrows && k.LEFT.isDown) || k.A.isDown ? 1 : 0);
-      vy = ((arrows && k.DOWN.isDown) || k.S.isDown ? 1 : 0) - ((arrows && k.UP.isDown) || k.W.isDown ? 1 : 0);
+      // Splitscreen: links nur WASD, rechts nur Pfeile und Gamepad
+      const arrows = !this.p2 && (!this.split || this.splitRole === 2);
+      const wasd = this.splitRole !== 2;
+      vx = ((arrows && k.RIGHT.isDown) || (wasd && k.D.isDown) ? 1 : 0) - ((arrows && k.LEFT.isDown) || (wasd && k.A.isDown) ? 1 : 0);
+      vy = ((arrows && k.DOWN.isDown) || (wasd && k.S.isDown) ? 1 : 0) - ((arrows && k.UP.isDown) || (wasd && k.W.isDown) ? 1 : 0);
+      const pad = this.splitRole === 2 && !vx && !vy ? this.pad() : null;
+      if (pad) {
+        const ax = pad.leftStick?.x ?? 0;
+        const ay = pad.leftStick?.y ?? 0;
+        vx = (pad.right || ax > 0.35 ? 1 : 0) - (pad.left || ax < -0.35 ? 1 : 0);
+        vy = (pad.down || ay > 0.35 ? 1 : 0) - (pad.up || ay < -0.35 ? 1 : 0);
+      }
       if (vx || vy) this.tap?.cancel(); // Tastatur hat Vorrang
       else if (this.tap?.active) [vx, vy] = this.tap.steer(this.game.loop.delta) ?? [0, 0];
       [vx, vy] = this.leash(this.player, this.p2, vx, vy);
@@ -1718,6 +1767,7 @@ export class WorldScene extends Phaser.Scene {
       }
     }
     this.focus = best;
+    if (this.splitRole === 2) { this.ui.setPrompt2?.(best?.prompt ?? null, 'Enter', best?.kind); return; }
     this.focus2 = this.p2 && !blocked ? this.nearestInteractable(this.p2.x, this.p2.y - 3) : null;
     if (best) this.ui.setPrompt(best.prompt, 'E', best.kind);
     else if (this.focus2) this.ui.setPrompt(`Spieler 2: ${this.focus2.prompt}`, 'Enter', this.focus2.kind);
@@ -1756,6 +1806,14 @@ export class WorldScene extends Phaser.Scene {
   handleKeys(blocked) {
     const a2 = this.pending2;
     this.pending2 = null;
+    if (this.splitRole === 2) { // rechte Hälfte: nur Spieler 2 (Enter, Ziffernblock, Gamepad)
+      this.pending = null;
+      if (blocked || !a2) return;
+      if (a2 === 'interact' && this.focus) this.interactAs2(this.focus);
+      else if (a2 === 'inventory') this.ui.openNotebook('items', 2);
+      else if (a2.startsWith('talent:')) this.useTalentKey(2, a2.slice(7));
+      return;
+    }
     if (!blocked && a2 && this.p2) {
       if (a2 === 'interact' && this.focus2) this.interactAs2(this.focus2);
       else if (a2 === 'inventory') this.ui.openNotebook('items', 2);
@@ -2023,6 +2081,9 @@ export class WorldScene extends Phaser.Scene {
     this.player.anims.stop();
     this.p2?.setVelocity(0, 0);
     this.p2?.anims.stop();
+    if (this.split) this.state.combatBy = this.splitRole; // Splitscreen: wer auf seiner Hälfte angegriffen wird, kämpft allein
+    const other = this.splitOther();
+    other?.scene.pause();
     this.scene.pause();
     this.scene.launch('combat', {
       id,
@@ -2030,6 +2091,7 @@ export class WorldScene extends Phaser.Scene {
       noLoot,
       onDone: (result) => {
         this.scene.resume();
+        if (other?.sys?.isPaused()) other.scene.resume();
         if (roamer) this.roamers.afterCombat(roamer, result);
         this.refreshVisibility();
         if (result.travel) this.travelTo(result.travel.map, result.travel.spawn);
@@ -2196,4 +2258,13 @@ export class WorldScene extends Phaser.Scene {
     this.player.setPosition(tx * TILE + 8, ty * TILE + 15);
     this.player.body.reset(this.player.x, this.player.y);
   }
+}
+
+/** Kapitel 4: rechte Hälfte des Splitscreens (Spieler 2 auf seiner eigenen Karte). */
+export class WorldScene2 extends WorldScene {
+  constructor() {
+    super('world2');
+  }
+
+  preload() {} // die Hauptwelt hat schon alles geladen
 }

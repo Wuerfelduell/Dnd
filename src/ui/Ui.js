@@ -423,6 +423,7 @@ export class Ui {
         <div class="talentbar p2 hidden" data-tbar="2"></div>
       </div>
       <button class="prompt hidden"></button>
+      <button class="prompt prompt2 hidden"></button>
       <div class="toasts"></div>
       <div class="layer"></div>
       <div class="floats"></div>`;
@@ -906,8 +907,32 @@ export class Ui {
     this.$('.repbar').innerHTML = uiSprite('repbar', `f${Math.max(0, Math.min(4, Math.round(pct / 25)))}`, 1 / 12.8);
   }
 
+  /** Kapitel 4: Splitscreen an/aus (Hinweise links und rechts statt in der Mitte). */
+  setSplit(on) {
+    this.root?.classList?.toggle('split', !!on);
+    if (!on) { this.scene2 = null; this.setPrompt2(null); }
+  }
+
+  /** Welt, in der ein Spieler gerade handelt (im Splitscreen hat Spieler 2 seine eigene). */
+  actScene(n = this.actor) {
+    return n === 2 && this.scene2?.sys?.isActive() ? this.scene2 : this.scene;
+  }
+
+  /** Hinweis der rechten Hälfte (Spieler 2 im Splitscreen). */
+  setPrompt2(text, key = 'Enter', kind = '') {
+    const el = this.$('.prompt2');
+    if (!el) return;
+    if (!text || this.modal) { el.classList.add('hidden'); return; }
+    if (el.dataset.text !== text) {
+      el.dataset.text = text;
+      const icon = kind === 'npc' ? 'sprechen' : kind === 'loot' ? 'hand' : 'lupe';
+      el.innerHTML = `${uiSprite('interact', `${icon}0`, 1 / 16, 'promptico')}<span class="key">${esc(key)}</span> ${esc(text)}`;
+    }
+    el.classList.remove('hidden');
+  }
+
   setPrompt(text, key = 'E', kind = '') {
-    const el = this.$('.prompt');
+    const el = this.$('.prompt:not(.prompt2)');
     if (!text || this.modal) { el.classList.add('hidden'); return; }
     if (el.dataset.text !== text || el.dataset.key !== key) {
       el.dataset.text = text;
@@ -1011,6 +1036,7 @@ export class Ui {
     if (this.modal === 'signal') { this.state.cancelPrivateAnswer?.(1); this.state.cancelPrivateAnswer?.(2); this.signalUi = null; } // BN: offenes Angebot verfällt
     this.forgetScroll();
     this.modal = null;
+    const by = this.actor; // Splitscreen: Reise oder Kampf danach in der Hälfte dessen, der das Fenster bedient hat
     this.actor = 1;
     this.layer.classList.remove('has-titlescene');
     this.layer.onpointermove = null;
@@ -1040,11 +1066,11 @@ export class Ui {
       this.pendingLost = null;
       this.showCorruption(title, text, corrupted, player);
     } else if (this.state.pendingCombat && this.scene) {
-      this.scene.startCombat(this.state.pendingCombat);
+      this.actScene(by).startCombat(this.state.pendingCombat);
     } else if (this.state.pendingTravel && this.scene) {
       const t = this.state.pendingTravel;
       this.state.pendingTravel = null;
-      this.scene.travelTo(t.map, t.spawn);
+      this.actScene(by).travelTo(t.map, t.spawn);
     } else if (this.afterClose) {
       const after = this.afterClose;
       this.afterClose = null;
@@ -1593,8 +1619,9 @@ export class Ui {
     if (d.direct) { // Zugfahrt zwischen den Städten: keine Reiseart, direkt hin
       this.sfx(worldSound('travel', { direct: true, to: d.map }));
       if (d.dialogue) { this.close(); this.openDialogue({ name: d.name, role: 'Abreise', dialogue: d.dialogue }); return; } // Kapitelübergang: Bahnsteig, Fahrt, Einfahrt
+      const sc = this.actScene();
       this.close();
-      this.scene.travelTo(d.map, d.spawn);
+      sc.travelTo(d.map, d.spawn);
       return;
     }
     this.travelPick = d;
@@ -1627,10 +1654,11 @@ export class Ui {
     const s = this.state;
     const fee = s.sektenReiseAufschlag?.(this.travelFrom) ?? 0;
     if (fee) { s.addMoney(-fee); this.toast(`Aufschlag an der Sperre: −${fee} Schilling`, 'warn'); }
-    const go = () => this.scene.travelTo(d.map, d.spawn);
+    const sc = this.actScene();
+    const go = () => sc.travelTo(d.map, d.spawn);
     this.sfx(worldSound('travel', { mode, city: cityOf(s, s.map) })); // Y: Kutsche rumpelt, in Wexmoor rudert man die Abkürzung
     if (mode === 'sicher') {
-      const r = travelSafe(s);
+      const r = this.as(() => travelSafe(s));
       const parts = [`Die Kutsche rumpelt über das Kopfsteinpflaster nach ${d.name}. Du lehnst dich zurück und schlägst dein Journal auf.`];
       if (r.hint) parts.push(`${r.hint.quest}: ${r.hint.text}`);
       if (r.review) parts.push(`Eine Notiz, die noch auf eine zweite Quelle wartet: „${r.review}“`);
@@ -1639,13 +1667,13 @@ export class Ui {
       this.showMessage('Unterwegs: Journal lesen', parts.join('\n\n'), { footer: gains || 'Du bist ausgeruht.', onClose: go });
       return;
     }
-    if (mode !== 'schnell' || !canHurry(s)) return;
-    const ev = travelFast(s);
+    if (mode !== 'schnell' || !this.as(() => canHurry(s))) return;
+    const ev = this.as(() => travelFast(s));
     if (ev.encounter) {
       this.showMessage(ev.title, ev.text, {
         scene: ev.id,
         footer: 'Ein Kampf steht bevor.',
-        onClose: () => this.scene.startCombat(ev.encounter, (result) => {
+        onClose: () => sc.startCombat(ev.encounter, (result) => {
           const loot = afterHurryFight(s, ev, result.outcome);
           // Nach der Kampfmeldung: Beute zeigen und weiterreisen
           this.afterClose = () => {
