@@ -33,6 +33,8 @@ export const COMPOSURE_BASE = 100;
 export const DEFAULT_GROWTH = { hp: 5, nerves: 5 };
 // Durchbrüche: Sequenz 7 und 6 zählen beim Wachstum doppelt (große Sprünge an Leben und Nerven).
 // Sequenz 5 ist der große Durchbruch (Kapitel 2); 4 bis 1 wie von AF/AU empfohlen auf den Bestand aufgesetzt
+/** Mindestsprung der maximalen Leben beim Aufstieg 6 → 5 (Seb 2026-11-12). */
+export const SEQ5_HP_JUMP = 1.35;
 export const SEQ_GROWTH_STEPS = { 7: 2, 6: 2, 5: 3, 4: 4, 3: 2, 2: 5, 1: 3 };
 /**
  * Die hohen Durchbrüche (Seb, 2026-11-11): Sequenz 4 macht einen Halbgott aus dem Ermittler, Sequenz 2 einen Engel.
@@ -264,7 +266,27 @@ export const pathwayMethods = {
   /** Höchstwert des Lebens (ohne zu heilen oder zu verletzen). */
   calcMaxHp() {
     const base = this.content.start.hp ?? 40;
-    return Math.max(10, base + this.growth().hp * this.growthSteps() + this.passive('max_hp'));
+    return Math.max(10, base + this.growth().hp * this.growthSteps() + this.passive('max_hp') + this.seq5HpBonus());
+  },
+
+  /** Leben allein aus Pfad und Sequenzen bis einschließlich `seq` (ohne Artefakte, Kleidung, Zauber). */
+  seqCoreHp(seq) {
+    if (!this.pathway) return 0;
+    let n = this.content.start.hp ?? 40;
+    for (let s = SEQ_START; s >= seq; s--) {
+      n += this.growth().hp * (SEQ_GROWTH_STEPS[s] ?? 1);
+      for (const p of this.seqDef(this.pathway.id, s)?.passives ?? []) if (p.key === 'max_hp') n += p.value;
+    }
+    return n;
+  },
+
+  /**
+   * Seb (2026-11-12): Der Aufstieg auf Sequenz 5 hebt das Leben um mindestens 35 % gegenüber Sequenz 6,
+   * für jeden Pfad und jeden Spieler. Fehlt dem Pfad etwas, gleicht dieser Zuschlag es aus; er bleibt auf 4 bis 1.
+   */
+  seq5HpBonus() {
+    if (!this.pathway || this.pathway.seq > 5) return 0;
+    return Math.max(0, Math.ceil(this.seqCoreHp(6) * SEQ5_HP_JUMP) - this.seqCoreHp(5));
   },
 
   /** Kampffertigkeiten des eigenen Pfades: { id: skill }. Jede erreichte Sequenz bringt zwei (skill und skill2). */

@@ -316,3 +316,15 @@ test('Mehr Verdauungsquellen: Bosse, Elite, Gefahrenstufe, Welt-Fähigkeiten, Ri
   const deep = won('starling_fight', 5);
   assert.ok(Math.abs(deep.got * 100 - boss.got) < 1e-6 || boss.got === 100, `Sequenz 5: ${deep.got}`);
 });
+
+test('Seq 5 hebt die maximalen Leben jedes Pfades um mindestens 35 % gegenüber Seq 6, auch für Spieler 2', () => {
+  for (const id of Object.keys(content.pathways)) {
+    const s = new GameState(content);
+    s.pathway = { id, seq: 6, digestion: 0 };
+    const hp6 = s.calcMaxHp();
+    s.pathway.seq = 5;
+    assert.ok(s.calcMaxHp() >= hp6 * 1.35, `${id}: ${hp6} → ${s.calcMaxHp()}`);
+    s.pathway.seq = 4;
+    assert.ok(s.calcMaxHp() >= hp6 * 1.35, `${id} Seq 4`);
+  }
+});
