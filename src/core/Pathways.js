@@ -241,7 +241,7 @@ export const pathwayMethods = {
   /** Zielpfad, wenn jetzt ein Wechsel zu `pid` erlaubt ist (Seq 4, Nachbarpfad, noch nie gewechselt), sonst null. */
   wechselZiel(pid) {
     const p = this.pathway;
-    return p && p.seq === WECHSEL_SEQ && !p.wechsel && NACHBARPFADE[p.id]?.includes(pid) ? pid : null;
+    return p && p.seq === WECHSEL_SEQ && !p.wechsel && NACHBARPFADE[p.id] === pid ? pid : null;
   },
 
   /** Alle erreichten Sequenzen, von 9 abwärts: [{seq, pid, ...def}] (nach einem Pfadwechsel gemischt). */
@@ -522,10 +522,10 @@ export const pathwayMethods = {
     }
     const wechsel = it.pathway !== p.id && it.seq === WECHSEL_SEQ - 1 && this.wechselZiel(it.pathway);
     if (it.pathway !== p.id && !wechsel) {
-      const nb = NACHBARPFADE[p.id]?.[0];
+      const nb = NACHBARPFADE[p.id];
       const nbName = nb ? this.pathwayDef(nb)?.name : null;
       const why = p.wechsel ? 'Du hast den Pfad schon einmal gewechselt. Ein zweites Mal zerreißt dich.'
-        : NACHBARPFADE[p.id]?.includes(it.pathway) ? `Erst als Halbgott (Sequenz ${WECHSEL_SEQ}) verträgt dein Blut den Schritt zum Nachbarpfad, und nur mit dessen Trank der Sequenz ${WECHSEL_SEQ - 1}.`
+        : NACHBARPFADE[p.id] === it.pathway ? `Erst als Halbgott (Sequenz ${WECHSEL_SEQ}) verträgt dein Blut den Schritt zum Nachbarpfad, und nur mit dessen Trank der Sequenz ${WECHSEL_SEQ - 1}.`
           : `Ein fremder Pfad in deinem Blut? Lieber nicht.${nbName ? ` Wechseln kannst du höchstens zum Nachbarpfad, ${nbName}, und erst ab Sequenz ${WECHSEL_SEQ}.` : ''}`;
       return { ok: false, reason: why };
     }
@@ -753,32 +753,15 @@ export const pathwayMethods = {
     return Object.keys(this.inventory).filter((id) => this.item(id)?.kind === 'formula').map((fid) => {
       const f = this.item(fid);
       const ingredients = Object.entries(f.ingredients).map(([id, need]) => ({ id, need, have: this.itemCount(id), name: this.item(id).name }));
-      const z = f.zweitzutat; // Formel 4: zweite Kernzutat, eigene oder vom Nachbarpfad
-      if (z?.from?.length) {
-        const avail = this.zweitzutatAvail(f);
-        const names = z.from.map((id) => this.item(id)?.name ?? id);
-        ingredients.push({ id: avail.find((a) => a.n > 0)?.id ?? z.from[0], need: z.need, have: avail.reduce((t, a) => t + a.n, 0), choice: true, avail,
-          name: names.length > 1 ? `Zweite Kernzutat (${names.join(' / ')})` : `${names[0]} (zweite)`, from: z.from });
-      }
       return { formula: fid, potion: f.potion, name: this.item(f.potion).name, seq: f.seq, pathway: f.pathway, ingredients, ready: ingredients.every((i) => i.have >= i.need) };
     }).sort((a, b) => b.seq - a.seq);
-  },
-
-  /** Verfügbare Stücke für die zweite Kernzutat: eigene zählt erst ab dem Exemplar, das nicht schon als erste Zutat gebunden ist. */
-  zweitzutatAvail(f) {
-    return (f.zweitzutat?.from ?? []).map((id) => ({ id, n: Math.max(0, this.itemCount(id) - (f.ingredients?.[id] ?? 0)) }));
   },
 
   brew(formulaId) {
     const r = this.recipes().find((x) => x.formula === formulaId);
     if (!r) return { ok: false, text: 'Dafür fehlt dir die Formel.' };
     if (!r.ready) return { ok: false, text: `Es fehlt: ${r.ingredients.filter((i) => i.have < i.need).map((i) => i.name).join(', ')}.` };
-    for (const i of r.ingredients) {
-      if (!i.choice) { this.removeItem(i.id, i.need); continue; }
-      // erst die eigene (zweites Exemplar), dann die Nachbarzutaten in Listenreihenfolge
-      let left = i.need;
-      for (const a of i.avail) { const k = Math.min(left, a.n); if (k) this.removeItem(a.id, k); left -= k; }
-    }
+    for (const i of r.ingredients) this.removeItem(i.id, i.need);
     this.addItem(r.potion);
     this.act('brew');
     this.emit('changed');
@@ -794,16 +777,18 @@ export const pathwayMethods = {
   shopStock(merchantId) {
     const m = this.merchant(merchantId);
     // Höhere Formeln anderer Pfade bleiben unsichtbar, sonst wird die Liste endlos
+    // also_pathways: Nachbarpfade dürfen mitkaufen (Seq-4-Kernzutaten, Seb 2026-11-12)
+    const fits = (e) => [e.requires_pathway[0], ...(e.also_pathways ?? [])].includes(this.pathway?.id);
     // Pfadwechsel (Seb 2026-11-12): Angebote mit `nachbar` (Formel 3) sieht und kauft auch, wer auf Seq 4 des Nachbarpfads steht
     const nb = (e) => e.nachbar && e.requires_pathway[1] === WECHSEL_SEQ && this.wechselZiel(e.requires_pathway[0]);
-    const visible = this.merchantStock(merchantId).filter((e) => !e.requires_pathway || this.pathway?.id === e.requires_pathway[0] || nb(e));
+    const visible = this.merchantStock(merchantId).filter((e) => !e.requires_pathway || fits(e) || nb(e));
     return visible.map((e) => {
       const it = this.item(e.item);
       const price = Math.max(1, Math.round(e.price * this.passive('price') * this.relationPriceFactor(merchantId))); // Stimmung des Händlers
       let locked = null;
       if (e.requires_pathway) {
         const [pid, seq] = e.requires_pathway;
-        if ((!this.pathway || this.pathway.id !== pid || this.pathway.seq > seq) && !nb(e)) locked = e.locked_text ?? 'Gesperrt';
+        if ((!this.pathway || !fits(e) || this.pathway.seq > seq) && !nb(e)) locked = e.locked_text ?? 'Gesperrt';
       }
       if (!locked && e.requires_honor !== undefined && this.honor < e.requires_honor) locked = `Rang ${this.rank(e.requires_honor).name} (Ansehen ${e.requires_honor}) nötig`;
       const owned = e.once && this.itemCount(e.item) > 0;

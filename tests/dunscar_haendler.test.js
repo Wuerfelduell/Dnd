@@ -37,6 +37,8 @@ test('Sortiment: alte Waffen, Kleidung, Amulette, Kräuter, teurer als in Kettle
 test('Keine Formeln, keine Zutaten ab Sequenz 7, keine Treffen-Lose im normalen Sortiment', () => {
   const high = new Set(Object.values(content.pathways).flatMap((p) => [7, 6, 5, 4, 3, 2, 1].flatMap((q) => Object.keys(p.seqs[q]?.ingredients ?? {}))));
   high.delete('nebeltau'); high.delete('silberstaub');
+  // Kräuter der Sequenz 9/8 dürfen bleiben, auch wenn die Formel 4 sie mitbraucht
+  for (const p of Object.values(content.pathways)) for (const q of [9, 8]) for (const id of Object.keys(p.seqs[q]?.ingredients ?? {})) high.delete(id);
   const lots = new Set(Object.values(content.gatherings.circles).flatMap((c) => (c.members ?? []).flatMap((m) => m.offers.map((e) => e.item))));
   for (const id of ['ds_waffenhaendlerin', 'ds_kleiderhaendlerin', 'ds_kraeuterfrau', 'k3h_troedlerin']) {
     for (const e of M[id].stock) {

@@ -36,8 +36,6 @@ function brew(s, pid, seq) {
     if (!shop) { s.addItem(id, n); continue; }
     for (let i = 0; i < n; i++) assert.equal(s.buy(shop, id).ok, true, `Zutat ${id} (Sequenz ${seq})`);
   }
-  const z = content.items[`formel_${pid}_${seq}`].zweitzutat; // Formel 4: zweite Kernzutat
-  if (z) s.addItem(z.from[0], z.need);
   assert.equal(s.brew(`formel_${pid}_${seq}`).ok, true);
   return `trank_${pid}_${seq}`;
 }

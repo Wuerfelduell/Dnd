@@ -98,15 +98,19 @@ const lockedIngredient = (id) => Number(/_(\d)$/.exec(id)?.[1]) < SEQ_HIGHEST;
 const zutat = (pid, n) => `sq_zutat_${pid.replace(/^sq_/, '')}_${n}`;
 
 /**
- * Seb (2026-11-12): der Seq-4-Trank braucht ZWEI seltene Kernzutaten. Die erste ist immer die eigene, die zweite darf
- * die eigene oder die Kernzutat eines Nachbarpfads sein (so nützen Funde für den Pfad von Spieler 2).
- * Nachbarn je Pfad: fünf feste Paare.
+ * Seb (2026-11-12): der Seq-4-Trank braucht ZWEI seltene Kernzutaten: die eigene UND die des Nachbarpfads.
+ * Beide Pfade eines Paares brauchen also dieselben zwei Hauptzutaten; sie unterscheiden sich in den Nebenzutaten
+ * (je 2× die pfadeigenen Kräuter der Sequenz 9 und 8, in Dunscar bei Hester Wynn käuflich).
  */
-export { NACHBARPFADE }; // Seb 2026-11-12: je Pfad genau ein Nachbar (data/nachbarpfade.js)
-/** Zweite Kernzutat der Formel 4 eines Pfades: { need, from: [eigene, Nachbarn...] } */
-export function zweitzutat4(pid, items = null) {
-  const from = [pid, ...(NACHBARPFADE[pid] ?? [])].map((p) => zutat(p, 4)).filter((id) => !items || items[id]);
-  return { need: 1, from };
+export { NACHBARPFADE }; // je Pfad genau ein Nachbar (data/nachbarpfade.js)
+const GRUND = ['nebeltau', 'silberstaub', 'geisteressenz'];
+/** Rezept der Formel 4 eines Pfades. */
+export function rezept4(pid, pathways) {
+  const kraut = (n) => Object.keys(pathways[pid]?.seqs?.[n]?.ingredients ?? {}).find((id) => !GRUND.includes(id));
+  const out = { [zutat(pid, 4)]: 1 };
+  if (NACHBARPFADE[pid]) out[zutat(NACHBARPFADE[pid], 4)] = 1;
+  for (const n of [9, 8]) if (kraut(n)) out[kraut(n)] = 2;
+  return { ...out, nebeltau: 2, geisteressenz: 2, silberstaub: 2 };
 }
 
 /** Vor buildContent: neue Pfade, Zutaten und Artefakte in die Pfaddaten einfügen. */
@@ -160,10 +164,13 @@ export function applySequenzen(content, sq, { highSeqs = {}, highItems = {} } = 
     }
   }
   content.encounters = encounters;
-  // Formel 4: zweite seltene Kernzutat (eigene oder Nachbarpfad)
-  for (const pid of Object.keys(content.pathways)) {
+  // Formel 4: eigene + Nachbar-Kernzutat, pfadeigene Nebenzutaten
+  for (const [pid, p] of Object.entries(content.pathways)) {
     const f = content.items[`formel_${pid}_4`];
-    if (f && content.items[zutat(pid, 4)]) content.items[`formel_${pid}_4`] = { ...f, zweitzutat: zweitzutat4(pid, content.items) };
+    if (!f || !p.seqs[4] || !content.items[zutat(pid, 4)]) continue;
+    const ingredients = rezept4(pid, content.pathways);
+    content.items[`formel_${pid}_4`] = { ...f, ingredients };
+    content.pathways[pid] = { ...p, seqs: { ...p.seqs, 4: { ...p.seqs[4], ingredients } } };
   }
   if (!sq?.neue_pfade) return content;
   const pids = Object.keys(sq.neue_pfade);
@@ -230,7 +237,8 @@ export function applySequenzen(content, sq, { highSeqs = {}, highItems = {} } = 
       const seats = ds[1].members.map((mem) => mem.id);
       Object.keys(content.pathways).filter((pid) => content.items[zutat(pid, 4)]).forEach((pid, i) => {
         offer([ds[0], seats[i % seats.length]], [{ item: zutat(pid, 4), ...ZUTAT_TREFFEN[4],
-          requires_pathway: [pid, 5], locked_text: 'Erst ab Sequenz 5 dieses Pfades' }]);
+          requires_pathway: [pid, 5], ...(NACHBARPFADE[pid] ? { also_pathways: [NACHBARPFADE[pid]] } : {}),
+          locked_text: 'Erst ab Sequenz 5 dieses Pfades oder seines Nachbarpfads' }]);
       });
     }
     content.gatherings = { ...content.gatherings, circles: copy };

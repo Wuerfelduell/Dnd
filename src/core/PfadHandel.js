@@ -4,8 +4,8 @@
 // Sonderregeln (keine Heilung, kein Ausweichen, Taubheit, Moorwasser), Hinweis-Beute und die Seq-4-Formel als seltene
 // Elite-Beute (0,5 %; sonst gibt es sie nur auf geheimen Treffen).
 import { DAY_NIGHT_SECONDS } from './Clock.js';
+import { NACHBARPFADE } from '../data/sequenzen.js';
 import { FORMEL_ELITE_CHANCE, FORMEL_K3_CHANCE, K3_ZUTAT4_CHANCE, SCHLEUSEN_FRIST, WX_ZONES } from '../data/pfadHandel.js';
-import { NACHBARPFADE } from '../data/nachbarpfade.js';
 
 /** Wie viele Schritte jede Aufgabe mit Stationen hat. */
 const STEPS = { laterne5: 3, uhr5: 4, echo4: 3 };
@@ -172,7 +172,7 @@ export const pfadHandelMethods = {
     const pws = [this.pathway, this.p2?.active ? this.p2.pathway : null].filter((pw) => pw?.id);
     const seen = new Set();
     // Pfadwechsel (Seb 2026-11-12): wer auf Seq 4 steht, kann auch die Formel 3 seines Nachbarpfads finden
-    const rolls = pws.flatMap((pw) => [pw, ...(pw.seq === 4 && !pw.wechsel ? (NACHBARPFADE[pw.id] ?? []).map((id) => ({ id, seq: 4 })) : [])]);
+    const rolls = pws.flatMap((pw) => [pw, ...(pw.seq === 4 && !pw.wechsel ? [NACHBARPFADE[pw.id]].filter(Boolean).map((id) => ({ id, seq: 4 })) : [])]);
     for (const pw of rolls) {
       const target = pw.seq - 1;
       const own = zone?.formel_chance?.[target]?.[rang];
@@ -189,7 +189,11 @@ export const pfadHandelMethods = {
     const k3 = enc.chapter === 3 && (zone?.zutat4_chance?.[rang] ?? (enc.boss ? K3_ZUTAT4_CHANCE.boss : enc.elite ? K3_ZUTAT4_CHANCE.elite : 0));
     if (k3) {
       const need = {};
-      for (const pw of [this.pathway, this.p2?.active ? this.p2.pathway : null]) if (pw?.seq === 5) need[pw.id] = (need[pw.id] ?? 0) + 2; // Formel 4 braucht zwei Kernzutaten
+      // Formel 4 braucht die eigene Kernzutat und die des Nachbarpfads (je eine)
+      for (const pw of [this.pathway, this.p2?.active ? this.p2.pathway : null]) {
+        if (pw?.seq !== 5) continue;
+        for (const pid of [pw.id, NACHBARPFADE[pw.id]].filter(Boolean)) need[pid] = (need[pid] ?? 0) + 1;
+      }
       for (const [pid, n] of Object.entries(need)) {
         const id = `sq_zutat_${pid.replace(/^sq_/, '')}_4`;
         const have = (this.inventory[id] ?? 0) + (this.p2?.inventory?.[id] ?? 0) + (this.storage?.[id] ?? 0) + (loot.items[id] ?? 0);
