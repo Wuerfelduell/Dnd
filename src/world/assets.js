@@ -4,6 +4,7 @@
 // bleibt automatisch beim Platzhalter.
 import { PATHWAY_STANDIN } from '../data/sequenzen.js';
 import { preloadRitualArt } from './ritualArt.js';
+import { DS_ZIRKEL_ICONS, DS_ZIRKEL_FIGUREN } from '../data/dunscarZirkel.js';
 
 const BASE = './sprites/';
 export const SPRITE_BASE = BASE;
@@ -1173,7 +1174,9 @@ const ICON32 = ['stimmphiole', 'verlorenes_gesangbuch', 'spiegelscherbe', ...F_E
   'mantel_moor', 'hut_schnabel', 'amulett_moorperle', 'knochenmesser', 'wachsamulett', 'glasfibel', 'sternglasdolch', 'geweihreif',
   'amulett_wiegenlied', 'mantel_giesser', 'taktstock_vey', 'hut_chor', 'amulett_schatten', 'hut_maskenball', 'mantel_frack', 'blitzpulver', ...DP_ICONS, ...DT_ICONS,
   // Zirkelwaffen aus dem Vorrat nebel200 (geheime Treffen)
-  'zirkel_ritualdolch', 'zirkel_bannglocke', 'zirkel_russhacke', 'zirkel_moorkette', 'zirkel_salzharpune'];
+  'zirkel_ritualdolch', 'zirkel_bannglocke', 'zirkel_russhacke', 'zirkel_moorkette', 'zirkel_salzharpune',
+  // Dunscar-Zirkel: seltene und unmögliche Stücke aus dem Vorrat nebel200
+  ...DS_ZIRKEL_ICONS];
 export const itemIcon32Url = (id) => {
   const k = ITEM_ICON_ALIASES[id] ?? id;
   return k.startsWith('trank_') || ICON32.includes(k) || AG_ICONS(k) ? `${BASE}items/32/${standinIcon(k)}.png` : null;
@@ -2262,6 +2265,11 @@ CHARACTER_SHEETS.npc_wx_pfandleiherin = 'wx_pfandleiherin';
 SHEETS.wx_schneiderin = 'characters/wx_schneiderin_walk.png';
 CHARACTER_SHEETS.npc_wx_schneiderin = 'wx_schneiderin';
 /** Händlerinnen am Kalkmarkt in Dunscar (Waffen, Kleidung, Kräuter): umgefärbte Figuren cwn_e_griffmacherin, cwn_e_waescherin, cwn_e_marktfrau, bis eigene Grafik kommt. */
+/** Zirkel in Dunscar (Kalter Ofen, Stummes Stellwerk): umgefärbte Vorratsfiguren ds_einwohner_* / k3e_*, bis eigene Grafik kommt. */
+for (const id of DS_ZIRKEL_FIGUREN) {
+  SHEETS[id] = `characters/${id}_walk.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = id;
+}
 for (const [id, file] of [['ds_waffenhaendlerin', 'ds_waffenhaendler_walk'], ['ds_kleiderhaendlerin', 'ds_schneider_walk'], ['ds_kraeuterfrau', 'ds_kraeuterfrau_walk']]) {
   SHEETS[id] = `characters/${file}.png`;
   CHARACTER_SHEETS[`npc_${id}`] = id;
@@ -2428,6 +2436,9 @@ export const BE_SCHICHTBUND_REGIONS = { kerbholz_wand: [0, 0, 48, 48], stempelti
   versammlungsbank: [0, 64, 48, 16], bodenmarke: [64, 64, 16, 16], stadtkarten_pin: [128, 64, 16, 16] };
 /** Stadtkarten-Pin des Schichtbund-Treffens: Feld 72 im 16er-Raster des Atlas (Spalte 8, Zeile 4). */
 export const BE_MAP_MARKERS = { treffen_schichtbund: [BE_SCHICHTBUND_URL, 72, 16, false, { rows: 8, row: 4 }] };
+// Kalter Ofen und Stummes Stellwerk (weitere Dunscar-Zirkel) tragen dasselbe Treffen-Zeichen
+BE_MAP_MARKERS.treffen_kalkofen = BE_MAP_MARKERS.treffen_schichtbund;
+BE_MAP_MARKERS.treffen_stellwerk = BE_MAP_MARKERS.treffen_schichtbund;
 /** Drei Werkstätten der Händler als ganze Props. */
 for (const id of ['BE_troedelstand', 'BE_steinmetzwerkbank', 'BE_schaltbuden_theke', 'BE_lichtkegel']) {
   WHOLE_PROPS[id] = `props/${id}.png`;

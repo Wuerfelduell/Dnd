@@ -5,6 +5,7 @@ import { buildContent } from '../src/data/buildContent.js';
 import { runde8Packs, RUNDE8_FILES } from '../src/data/runde8.js';
 import { fasserinAuftragPack, halbgottPack, FASSERIN_AUFTRAG_FILES, HALBGOTT_FILES } from '../src/data/runde9.js';
 import { seq4DrPack, SEQ4_DR_FILES } from '../src/data/seq4Dr.js';
+import { dunscarZirkelPack } from '../src/data/dunscarZirkel.js';
 
 const load = (p) => JSON.parse(readFileSync(new URL(`../src/data/${p}`, import.meta.url), 'utf8'));
 
@@ -51,6 +52,8 @@ export function loadContent({ sequenzen = true, without = [] } = {}) {
       ...(name === 'koop' ? { geplauder: load('packs/koop/geplauder.json'), kampf: load('packs/koop/kampf.json') } : {}),
       ...(name === 'koop_k3' ? { platzierung: load('packs/koop_k3/platzierung.json').filter((p) => !p.interactable.id.startsWith('koop_ds_schleuse')),
         ...Object.fromEntries(['geplauder', 'kampf', 'bindung'].map((f) => [f, load(`packs/koop_k3/${f}.json`)])) } : {}) })),
+    // Dunscar: zwei weitere Zirkel und Lose im Tausenderbereich (nach k3_handel)
+    ...(without.includes('ds_zirkel') ? [] : [dunscarZirkelPack()]),
     // Kapitel-1-Finale: Epilogtafeln nach Fall 9 und Prices Fahndung in Kettlegate
     ...(without.includes('k1_finale') ? [] : [{ name: 'k1_finale', epiloge: load('packs/k1_finale/epiloge.json'), police: load('packs/k1_finale/police.json') }]),
     // Paket BG bringt nur Zusätze, Ansprüche, Ersatzzeilen und Texte

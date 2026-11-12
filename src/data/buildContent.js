@@ -1,5 +1,6 @@
 import { NIGHT_FLAG } from '../core/Clock.js';
 import { applyQuestPack } from './questPacks.js';
+import { applyDunscarZirkel } from './dunscarZirkel.js';
 import { applyLore } from './lore.js';
 import { withSequenzen, applySequenzen } from './sequenzen.js';
 import { applyPfadHandel } from './pfadHandel.js';
@@ -82,6 +83,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   for (const pack of packs) withPackLeben(content, pack); // Paket BD: Einwohner mit Tagesplan, Aufseher-Streifen, Wetter und Tiere
   for (const pack of packs) withPackBosses(content, pack); // Kapitel 3: Bosse, Folgeabschnitte und Kampftexte
   applySequenzen(content, sequenzen, sq); // Paket AF: Händler, Treffen und Funde für die neuen Pfade
+  applyDunscarZirkel(content); // Dunscar: Zirkel-Lose im Tausenderbereich, Kalter Ofen + Stummes Stellwerk
   applySeq5(content); // Seq-5-Rituale: Gefäße, Fäden, Uhr, Sude, Laternenbestie und Kokonspinne
   applySeq4(content, packs.find((p) => p.seq4Dr)?.seq4Dr ?? null); // Seq-4-Rituale: zehn Halbgott-Prüfungen samt Wächter, Wurfflaschen, Relikt, Wexmoor-Einnahmen
   applyPfadHandel(content); // Pfad-Beyonder in Wexmoor: Zutaten für Seq 5/4, drei neue Einzelgänger, Laufplan
