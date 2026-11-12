@@ -81,6 +81,7 @@ export const WEAK_MULT = 1.5;
 /**
  * Sequenz-Schranke: Gegner mit `min_seq` (z. B. Starling 7, die Namenlose 6, das Leuchtfeuer 5) sind höhere Wesen.
  * Wer eine schwächere Sequenz hat (oder gar keinen Pfad), richtet nur einen Bruchteil seines Schadens an.
+ * Je Gegner überschreibbar mit `ward_mult` (Leuchtfeuer: 0.2).
  */
 export const SEQ_WARD_MULT = 0.08;
 /**
@@ -687,7 +688,7 @@ export class Combat {
     const min = this.enc.min_seq;
     // `ward: false`: höheres Wesen ohne Schranke (Grauspäher). Der Spieler macht vollen Schaden, die Härte steckt in Leben und Schlägen.
     if (!min || this.enc.practice || this.enc.ward === false) return 1;
-    return (this.state.pathway?.seq ?? 99) <= min ? 1 : SEQ_WARD_MULT;
+    return (this.state.pathway?.seq ?? 99) <= min ? 1 : this.enc.ward_mult ?? SEQ_WARD_MULT;
   }
 
   /**
