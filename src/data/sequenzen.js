@@ -78,8 +78,9 @@ const KITTERING = {
   6: { price: 260, honor: 50, rare: 0.08, rank: 'Vertrauter des Reviers' }, 5: { price: 420, honor: 70, rare: 0.05, rank: 'Geachteter Ermittler' },
 };
 const TREFFEN = { 6: 640, 5: 900, 4: 4000 };
-/** Kapitel 3: Formeln für Sequenz 4 bis 1 aller Pfade bei Kittering (Ehre nach AF, einmaliger Kauf). Seb (2026-11-11): die Halbgott-Formel kostet 4000. */
-const KITTERING_HOCH = { 4: { price: 4000, honor: 90 }, 3: { price: 260, honor: 110 }, 2: { price: 380, honor: 135 }, 1: { price: 560, honor: 160 } };
+/** Kapitel 3: Formeln für Sequenz 3 bis 1 aller Pfade bei Kittering (Ehre nach AF, einmaliger Kauf).
+ * Seb (2026-11-12): die Halbgott-Formel (4) gibt es NUR auf geheimen Treffen (TREFFEN[4]) oder mit 0,5 % bei Elite-Gegnern (core/PfadHandel.js). */
+const KITTERING_HOCH = { 3: { price: 260, honor: 110 }, 2: { price: 380, honor: 135 }, 1: { price: 560, honor: 160 } };
 /** Knapper Markt: Zutaten ab Sequenz 7 nur auf geheimen Treffen (7 und 6 in Kettlegate, der Kern für 5 in Wexmoor). */
 const ZUTAT_TREFFEN = { 7: { price: 120, chance: 0.45 }, 6: { price: 200, chance: 0.3 }, 5: { price: 320, chance: 0.45 } };
 /** Wer auf den Treffen Zutaten und Formeln der neuen Pfade anbietet: Kettlegate [Zirkel, Mitglied], Wexmoor [Zirkel, Mitglied]. */

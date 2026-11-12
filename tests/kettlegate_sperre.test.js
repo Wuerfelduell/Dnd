@@ -98,7 +98,8 @@ test('Jede Zutat der Sequenzen 7 bis 5 ist in Wexmoor zu haben (Händler, Schmug
     assert.equal(content.items[e.item].kind, 'ingredient');
     assert.ok(e.rare >= 0.3 && e.rare <= 1, `${e.item}: ${e.rare}`);
   }
-  // Kittering führt die Formeln bis Sequenz 1, also fehlt in Wexmoor keine Formel
+  // Kittering führt die Formeln 3 bis 1; die Halbgott-Formel (4) gibt es nur auf Treffen oder als Elite-Beute (Seb 2026-11-12)
   const kit = content.market.merchants.kittering.stock.map((e) => e.item);
-  for (const pid of Object.keys(content.pathways)) for (const n of [4, 3, 2, 1]) if (content.items[`formel_${pid}_${n}`]) assert.ok(kit.includes(`formel_${pid}_${n}`), `${pid} ${n}`);
+  for (const pid of Object.keys(content.pathways)) if (content.items[`formel_${pid}_4`]) assert.ok(sources.has(`formel_${pid}_4`), `${pid} 4 auf Wexmoorer Treffen`);
+  for (const pid of Object.keys(content.pathways)) for (const n of [3, 2, 1]) if (content.items[`formel_${pid}_${n}`]) assert.ok(kit.includes(`formel_${pid}_${n}`), `${pid} ${n}`);
 });

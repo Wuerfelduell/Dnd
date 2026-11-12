@@ -2928,3 +2928,14 @@ ENCOUNTER_SHEETS.laternenbestie = 'enemy_laternenbestie';
 ANIM_ALIASES.enemy_laternenbestie = { attack: 'attack1', heavy: 'attack2', double: 'attack2', cast: 'special', occult: 'special' };
 /** Ritual-Kampfblätter des Spielers: Zivilist (Maske) oder Schatten (Schlüssel) statt des Ermittlers. */
 export const ritualBattleSheet = (kind, look = 'player') => (kind ? `${kind === 'shadow' ? 'schatten' : 's4ma_zivil'}_${look}_battle` : null);
+
+// --- Pfad-Beyonder in Wexmoor (data/pfadHandel.js) ----------------------------------------------------------------
+/** Torfmutter (Moor) und Schleusenuhrmacher (Uhr): umgefärbte Vorratsfiguren ds_einwohner_2 und _1, bis eigene Grafik kommt.
+ * Kampf: Leih-Sheets der Dunscarer Einzelgänger; Maud Keel (Waage) kämpft mit dem Blatt der Walzenstimme. */
+for (const id of ['ez_torfmutter', 'ez_schleusenuhr']) {
+  SHEETS[`ph_${id}`] = `characters/ph_${id}_walk.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = `ph_${id}`;
+}
+Object.assign(ENCOUNTER_SHEETS, { ez_torfmutter: 'enemy_ez_ds_kalkbrennerin', ez_schleusenuhr: 'enemy_ez_ds_rangierer', wx_pfandleiherin: 'enemy_ez_ds_walzenstimme' });
+/** Aufgaben-Gegenstände der Pfad-Beyonder: Leihbilder, bis eigene Icons kommen. */
+Object.assign(ITEM_ICON_ALIASES, { ph_torfprobe: 'torfbernstein', ph_hales_siegel: 'siegelring' });

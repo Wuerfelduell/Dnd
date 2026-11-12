@@ -142,6 +142,7 @@ export const claimMethods = {
       if (this.itemCount(row.potion) > 0) return { reason: 'trank' };
       if (storedClaimCount(this, row.potion) > 0) return { reason: 'lager' };
       if (kind === 'formula') {
+        if (seq === 4) return { reason: 'formel_zirkel' }; // Seb (2026-11-12): Halbgott-Formel nur über Treffen oder Elite-Beute
         if (this.itemCount(row.formula) > 0 || storedClaimCount(this, row.formula) > 0) return { reason: 'formel' };
         if (this.honor < row.formula_honor) return { reason: 'ehre' };
         return { reason: null, offer: { item: row.formula, where: 'kittering', cost: row.formula_cost }, row };

@@ -999,8 +999,56 @@ export class WorldScene extends Phaser.Scene {
         kind: 'npc', def: { ...npc, ...def, dialogue: def.dialogue ?? npc.dialogue }, sprite, blocker, x, y: y - 4,
         prompt: `Mit ${npc.name} sprechen`, facing, reach: def.reach ?? INTERACT_RANGE, active: true, parts: [sprite],
       };
+      if (def.roam) item.roam = { home: [tx, ty], speed: def.roam.speed ?? 12, radius: def.roam.radius ?? 3, wait: 1500 + Math.random() * 3000, target: null, key };
       this.interactables.push(item);
       this.registerVisibility(item, def, item.parts);
+    }
+  }
+
+  /**
+   * Figuren mit `roam` (Einwohner mit Tagesplan, Pfad-Beyonder in Wexmoor) schlendern um ihre Stelle herum:
+   * Pause, dann ein paar Felder in eine Richtung, nie auf feste Kacheln, nie weiter als `radius` von zu Hause.
+   */
+  updateNpcRoam(delta, blocked) {
+    for (const it of this.interactables) {
+      const r = it.roam;
+      if (!r || !it.active || !it.sprite.visible) continue;
+      if (blocked) { if (r.target) { r.target = null; it.sprite.anims?.stop(); } continue; }
+      if (!r.target) {
+        r.wait -= delta;
+        if (r.wait > 0) continue;
+        r.wait = 2000 + Math.random() * 4000;
+        const [hx, hy] = r.home;
+        const tx = hx + Math.round((Math.random() * 2 - 1) * r.radius);
+        const ty = hy + Math.round((Math.random() * 2 - 1) * Math.max(1, Math.floor(r.radius / 2)));
+        const tile = this.groundLayer.getTileAt(tx, ty);
+        if (!tile || tile.collides) continue;
+        r.target = { x: tx * TILE + 8, y: ty * TILE + 15 };
+      }
+      const dx = r.target.x - it.sprite.x;
+      const dy = r.target.y - it.sprite.y;
+      const dist = Math.hypot(dx, dy);
+      const step = (r.speed * delta) / 1000;
+      if (dist <= step) {
+        it.sprite.setPosition(r.target.x, r.target.y);
+        r.target = null;
+        it.sprite.anims?.stop();
+        it.sprite.setFrame(DIRS.indexOf(it.facing) * 4);
+      } else {
+        const dir = Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 'right' : 'left') : (dy > 0 ? 'down' : 'up');
+        const anim = `${r.key}-walk-${dir}`;
+        if (!this.anims.exists(anim) && this.textures.exists(r.key) && this.textures.get(r.key).frameTotal > DIRS.indexOf(dir) * 4 + 3) {
+          this.anims.create({ key: anim, frames: this.anims.generateFrameNumbers(r.key, { start: DIRS.indexOf(dir) * 4, end: DIRS.indexOf(dir) * 4 + 3 }), frameRate: 6, repeat: -1 });
+        }
+        if (this.anims.exists(anim) && it.sprite.anims?.currentAnim?.key !== anim) it.sprite.play(anim);
+        it.facing = dir;
+        it.sprite.setPosition(it.sprite.x + (dx / dist) * step, it.sprite.y + (dy / dist) * step);
+      }
+      it.sprite.setDepth(100 + it.sprite.y);
+      it.x = it.sprite.x;
+      it.y = it.sprite.y - 4;
+      it.blocker.setPosition(it.sprite.x, it.sprite.y - 3);
+      it.blocker.body.updateFromGameObject();
     }
   }
 
@@ -1293,6 +1341,7 @@ export class WorldScene extends Phaser.Scene {
     this.roamers.update(time, delta, blocked || this.leaving || frozen);
     this.patrols.update(time, delta, blocked || this.leaving || frozen);
     this.critters.update(time, delta, blocked);
+    this.updateNpcRoam(delta, blocked || frozen);
     this.wexLife?.update(delta);
     this.dsLife?.update(delta);
     this.kgLife?.update(delta);

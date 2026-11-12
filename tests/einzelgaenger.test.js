@@ -5,7 +5,8 @@ import { GameState } from '../src/core/GameState.js';
 import { loadContent, talk, fight, EXPERT } from './helpers.js';
 
 const content = loadContent();
-const LONERS = Object.keys(content.loners.list).filter((id) => content.loners.list[id].map.startsWith('wx_')); // Dunscar (BC) prüft docs/story/k3_handel/pruefen.mjs
+// Dunscar (BC) prüft docs/story/k3_handel/pruefen.mjs; Maud Keel (Waage) hat als Pfandleiherin einen eigenen Ablauf (pfad_haendler.test.js)
+const LONERS = Object.keys(content.loners.list).filter((id) => content.loners.list[id].map.startsWith('wx_') && id !== 'wx_pfandleiherin');
 
 /** In Wexmoor angekommen, mit Unterschlupf. */
 function inWexmoor() {
@@ -20,6 +21,7 @@ function inWexmoor() {
 function bring(s, id) {
   const give = content.dialogues[id].nodes.hub.choices.find((c) => Array.isArray(c.next) && c.next.some((v) => v.node === 'dank'));
   for (const i of give.requires_items ?? []) s.addItem(i, 5);
+  for (const [i, n] of Object.entries(give.requires_item_counts ?? {})) s.addItem(i, n * 2);
 }
 
 /** Ausrüstung in Wexmoor: Ossuarklinge (ab Fall 5), Sequenz 7 (so kommt man in Kapitel 2 an), ein paar Tränke. */
@@ -37,8 +39,8 @@ function armed(s, seq = 7) {
 /** Geübte Spielweise: Pfad-Fertigkeit verkettet, dann der Angriff */
 const PLAY = (defend) => ({ defend, skill: 'wuchtschlag', chain: true, healBelow: 18 });
 
-test('Sieben Einzelgänger, je ein Pfad, alle mit Figur, Ort, Dialog und Kampf', () => {
-  assert.equal(LONERS.length, 7);
+test('Neun Einzelgänger (dazu Maud Keel), je ein Pfad, alle mit Figur, Ort, Dialog und Kampf', () => {
+  assert.equal(LONERS.length, 9);
   const paths = new Set();
   for (const id of LONERS) {
     const l = content.loners.list[id];
@@ -50,7 +52,7 @@ test('Sieben Einzelgänger, je ein Pfad, alle mit Figur, Ort, Dialog und Kampf',
     const ing = Object.keys(content.pathways[l.pathway].seqs[l.seq].ingredients)[0];
     assert.ok(content.loot[id].drops.some((d) => d.item === ing && d.chance === 1), `${id}: ${ing}`);
   }
-  assert.equal(paths.size, 7, 'jeder Pfad einmal');
+  assert.equal(paths.size, 9, 'jeder Pfad einmal');
 });
 
 test('Anfreunden: nett begegnen, Auftrag erledigen, Geschenk und Freundschaft', () => {

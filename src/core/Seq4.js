@@ -325,6 +325,7 @@ export const seq4Methods = {
   seq4CombatEnd(combat) {
     const k = this.seq4Kind();
     const rules = combat.rules;
+    if (rules?.pfad) return null; // Aufgabe eines Pfad-Beyonders, keine Prüfung
     if (!k || combat.enc.practice) return null;
     const st = this.seq4();
     const won = combat.outcome === 'won';
