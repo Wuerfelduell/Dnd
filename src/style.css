@@ -1091,3 +1091,7 @@ html.touch .talentbar .tslot { width: 3.2em; height: 3.2em; }
 .ladebild { position: absolute; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; background: #0b0c12; transition: opacity 0.5s; pointer-events: none; }
 .ladebild img { width: min(80%, 720px); aspect-ratio: 240 / 135; image-rendering: pixelated; border: 3px solid rgba(208, 160, 80, 0.5); }
 .ladebild.out { opacity: 0; }
+
+/* Kapitel 4: Splitscreen in Calderwick, Hinweise je Hälfte */
+#ui.split .prompt { left: 25%; max-width: 48%; overflow: hidden; text-overflow: ellipsis; }
+#ui.split .prompt.prompt2 { left: 75%; border-color: #9ab8ff; }

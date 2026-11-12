@@ -31,6 +31,7 @@ import { tiereMethods } from './Tiere.js';
 import { fahrendeAuktionMethods } from './FahrendeAuktion.js';
 import { benannteMethods } from './Benannte.js';
 import { seqHochMethods } from './SeqHoch.js';
+import { splitMethods } from './Split.js';
 import { CALDERWICK_WELT_FLAGS } from '../data/aufstieg.js';
 
 /** Tragkraft in Pfund. Gegenstände ohne eigenes "weight" wiegen je nach Art so viel. */
@@ -812,7 +813,8 @@ export class GameState {
     this.seq5Tick?.();
     this.seq4Tick?.();
     this.hochTick?.(dtSeconds);
-    this.gildeTick?.(); // Seq 3: Gilden des Pfades ab Dunscar
+    this.gildeTick?.(); // Seq 3: Gilden des Pfades ab Calderwick
+    this.splitTick(); // Kapitel 4: Splitscreen in Calderwick, bis beide Seq 3 haben
     if (this.hasP2?.()) this.withPlayer(2, () => { this.seq5Tick?.(); this.seq4Tick?.(); this.hochTick?.(dtSeconds); }, { quiet: true }); // Koop: Prüfungen von Spieler 2
   }
 
@@ -952,4 +954,4 @@ export class GameState {
 /** Fortschrittsflags der verlängerten Akt-V-Fassung (AP), in Spielreihenfolge. */
 export const K2_AKT5_STEPS = ['k2v_boot_bereit', 'k2v_keller_passiert', 'k2v_aufstieg_passiert', 'k2v_abschied_done'];
 
-Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods, sudeMethods, seq5Methods, seq4Methods, seqHochMethods, pfadHandelMethods, erfolgeMethods, postMethods, benannteMethods, tiereMethods, fahrendeAuktionMethods);
+Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods, sudeMethods, seq5Methods, seq4Methods, seqHochMethods, splitMethods, pfadHandelMethods, erfolgeMethods, postMethods, benannteMethods, tiereMethods, fahrendeAuktionMethods);

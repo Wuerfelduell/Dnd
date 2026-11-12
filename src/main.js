@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import './style.css';
 import { content } from './data/index.js';
 import { GameState } from './core/GameState.js';
-import { WorldScene, VIEW_W, VIEW_H } from './world/WorldScene.js';
+import { WorldScene, WorldScene2, VIEW_W, VIEW_H } from './world/WorldScene.js';
 import { Ui } from './ui/Ui.js';
 import { CombatScene } from './world/CombatScene.js';
 import { Audio } from './core/Audio.js';
@@ -26,6 +26,8 @@ function writeSave() {
   if (!started) return;
   const scene = game.scene.getScene('world');
   const pos = scene?.player && !scene.leaving ? scene.playerPosition() : null;
+  const w2 = game.scene.getScene('world2'); // Kapitel 4: Splitscreen, Spieler 2 merkt sich seine eigene Stelle
+  if (state.splitOn && state.p2 && w2?.player && w2.sys.isActive() && !w2.leaving) state.p2.position = w2.playerPosition();
   try { localStorage.setItem(SAVE_KEY, JSON.stringify(state.serialize(pos))); } catch { /* privat/kein Speicher */ }
 }
 function clearSave() {
@@ -64,6 +66,12 @@ const ui = new Ui(uiRoot, state, {
       if (auf === 'calderwick') state.applyEffects(STURZ_EFFECTS);
       else state.flags.delete('k4_arrived');
       state.map = { himmel: HIMMEL, calderwick: 'cw_gleisfuss' }[auf] ?? 'ds_endbahnhof';
+      // &koop=1 (&pfad2=laterne): Spieler 2 mit Seq 4 dazu, in Calderwick teilt sich dann der Bildschirm
+      if (new URLSearchParams(location.search).get('koop')) {
+        state.addP2();
+        state.p2.pathway = { id: new URLSearchParams(location.search).get('pfad2') ?? 'laterne', seq: 4, digestion: 100 };
+        state.withPlayer(2, () => { state.updateMaxHp(); state.hp = state.maxHp; }, { quiet: true });
+      }
     }
     started = true;
     restartWorld();
@@ -121,7 +129,7 @@ game = new Phaser.Game({
   physics: { default: 'arcade', arcade: { debug: false } },
   input: { gamepad: true }, // Gamepad steuert Spieler 2 (lokaler Koop)
   scale: { mode: Phaser.Scale.NONE },
-  scene: [WorldScene, CombatScene],
+  scene: [WorldScene, WorldScene2, CombatScene], // WorldScene2: rechte Hälfte des Splitscreens (Kapitel 4)
   callbacks: {
     preBoot: (g) => {
       g.registry.set('state', state);

@@ -197,7 +197,7 @@ export class Combat {
       if (r2) { this.rules = r2; prover = 2; }
     }
     this.swapped = false;
-    if (this.rules?.solo && prover === 2 && state.acting === 1 && state.p2) { state.swapPersonal(); this.swapped = true; }
+    if ((this.rules?.solo || state.splitOn) && prover === 2 && state.acting === 1 && state.p2) { state.swapPersonal(); this.swapped = true; } // Splitscreen: jeder kämpft allein auf seiner Karte
     if (this.rules?.scale) enc = { ...enc, hp: Math.round(enc.hp * this.rules.scale.hp), attacks: enc.attacks.map((a) => (a.action ? a : { ...a, damage: Math.max(1, Math.round(a.damage * this.rules.scale.dmg)) })) };
     // Seq-5-Ritual der Laterne: ein Spiegelgegner (`mirror`) ist so stark wie der, der ihn gerufen hat.
     // Leben als Vielfaches seines Höchstlebens, Schaden je Angriff als Vielfaches seiner Schlagkraft (ohne die üblichen Zuschläge).
@@ -211,7 +211,7 @@ export class Combat {
     const welt = enc.practice ? null : state.weltMult?.();
     if (welt && welt.dmg > 1) enc = { ...enc, attacks: enc.attacks.map((a) => (a.action ? a : { ...a, damage: Math.max(1, Math.round(a.damage * welt.dmg)) })) };
     this.enc = enc;
-    const duo = !!state.hasP2?.() && !this.rules?.solo;
+    const duo = !!state.hasP2?.() && !this.rules?.solo && !state.splitOn;
     this.duoHpMult = duo ? duoHpMult(state) : 1;
     const zone = state.content.zones?.[enc.zone];
     // Härte des Gebiets (Kapitel 2, Wexmoor): `hp_mult` / `dmg_mult` auf Gegner oder Gebiet skalieren Leben und Schaden,
