@@ -10,6 +10,7 @@ import { applyMoods } from './moods.js';
 import { applyRelations } from './relations.js';
 import { applySchmuggel } from './schmuggel.js';
 import { applyAltbeute } from './altbeute.js';
+import { applyDunscarHaendler } from './dunscarHaendler.js';
 // Fügt alle Inhaltsdateien zu einem Objekt zusammen (ohne JSON-Imports, damit Node-Tests es nutzen können).
 // Hinweise, Informationen, Schlussfolgerungen und Dialoge teilen sich jeweils einen Namensraum über alle Fälle.
 // factions.json (Sekten) bringt eigene Figuren, Reiseziele, Gegner, Beute, Aufträge und Hinweise mit.
@@ -87,6 +88,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applySchmuggel(content); // Kein Zurück nach Kettlegate: Zirkelware von dort in Zunders Schmuggelkiste
   applyMoods(content); // Paket AK: Stimmungen für Schlüsselstellen
   applyRelations(content, beziehungen, packs); // Beziehungen: Regeln, Vorlieben, Knoten-Wirkungen
+  applyDunscarHaendler(content); // Dunscar: Waffen, Kleidung, Kräuter und Ankauf am Kalkmarkt (kein Zurück in alte Städte)
   applyAltbeute(content); // Wexmoor-Monster tragen ab und zu Kettlegater Beute (kein Zurück dorthin)
   return content;
 }
