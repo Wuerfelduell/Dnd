@@ -136,6 +136,7 @@ export function applySeq4Dr(content, f) {
   applyGuardians(content);
   applyGerede(content, f.nebentexte ?? {});
   applyEinnahmen(content, f.wexmoor_einnahmen ?? {});
+  applyGesindel(content);
   return content;
 }
 
@@ -266,5 +267,57 @@ function applyEinnahmen(content, w) {
     choices.splice(Math.max(0, choices.length - 1), 0, { text: 'Was halten Sie von meinen Funden?', next: lines.map((_, i) => ({ node: `wxf_maud_${i}`, ...(i < lines.length - 1 ? { chance: 1 / (lines.length - i) } : {}) })) });
     const add = Object.fromEntries(lines.map((t, i) => [`wxf_maud_${i}`, { text: `„${t}“`, choices: [{ text: 'Zurück.', next: key }] }]));
     content.dialogues.wx_pfandleiherin = { ...maud, nodes: { ...maud.nodes, [key]: { ...start, choices }, ...add } };
+  }
+}
+
+/**
+ * Wexmoorer Gesindel (Seb 2026-11-12): die Kettlegater Straßengegner (Menschen mit Taschen) streifen auch durch Wexmoor,
+ * immer wieder, auf Wexmoor-Niveau. Ohne sie gab es nach der Abreise niemanden, dem man Schilling abnehmen konnte
+ * (Seq-5-Prüfung Schlüssel: 50 Schilling in einem Kampf stehlen).
+ */
+export const GESINDEL = {
+  laternendieb: { name: 'Laternendieb vom Salzmarkt', maps: ['wx_salzmarkt', 'wx_oberstadt'] },
+  kanalschmuggler: { name: 'Bojenschmuggler', maps: ['wx_bojenhafen', 'wx_pfahldorf'] },
+  nachtkraemer: { name: 'Fliegender Krämer', maps: ['wx_salzmarkt', 'wx_bahnhof'] },
+  falschgeldpraeger: { name: 'Salzgeldpräger', maps: ['wx_bahnhof', 'wx_torfstich'] },
+};
+/** Startpunkt der Platzsuche je Gegner: abseits der Eingänge, zwei Gegner auf derselben Karte nicht nebeneinander. */
+const GESINDEL_PLATZ = { laternendieb: 0.7, kanalschmuggler: 0.6, nachtkraemer: 0.4, falschgeldpraeger: 0.55 };
+/** Freies begehbares Feld nahe (Kartenbreite × frac, Mitte), mindestens 10 Felder von jedem Eingang. */
+function streetTile(m, frac) {
+  const rows = m.rows ?? [];
+  const taken = new Set([...(m.npcs ?? []), ...(m.interactables ?? []), ...(m.roamers ?? [])].filter((o) => o.tile).map((o) => `${o.tile[0]},${o.tile[1]}`));
+  const spawns = Object.values(m.spawns ?? {});
+  const goal = [Math.floor((rows[0]?.length ?? 0) * frac), Math.floor(rows.length / 2)];
+  let best = null;
+  rows.forEach((row, y) => [...row].forEach((ch, x) => {
+    if (!/[.,gpscwPK=]/.test(ch) || taken.has(`${x},${y}`)) return;
+    if (spawns.some(([sx, sy]) => Math.abs(x - sx) + Math.abs(y - sy) < 10)) return;
+    const d = Math.abs(x - goal[0]) + Math.abs(y - goal[1]);
+    if (!best || d < best.d) best = { d, tile: [x, y] };
+  }));
+  return best?.tile ?? null;
+}
+export const GESINDEL_FAKTOR = { hp: 4.5, dmg: 2.5, money: 4 };
+function applyGesindel(content) {
+  const f = GESINDEL_FAKTOR;
+  for (const [base, g] of Object.entries(GESINDEL)) {
+    const e = content.encounters[base];
+    if (!e) continue;
+    const id = `wxs_${base}`;
+    content.encounters[id] = {
+      ...e, name: g.name, sheet: `enemy_${base}`, chapter: 2, city: true, occult: false, fleeable: true,
+      hp: Math.round(e.hp * f.hp),
+      attacks: e.attacks.map((a) => ({ ...a, ...(a.damage ? { damage: Math.round(a.damage * f.dmg) } : {}), ...(a.action === 'heal' ? { value: Math.round(a.value * f.hp), text: `${a.text.split('+')[0]}+${Math.round(a.value * f.hp)} Leben.` } : {}) })),
+      lose_to: { map: 'wx_kahn', spawn: 'default' }, lose_money: 0.1,
+      lose_text: 'Jemand zieht dich in Zunders Kahn. Deine Taschen sind leichter.', flee_text: 'Du tauchst in einer Gasse unter.',
+    };
+    const l = content.loot[base] ?? {};
+    content.loot[id] = { ...l, repeat: true, money: (l.money ?? [3, 8]).map((m) => m * f.money) };
+    for (const mapId of g.maps) {
+      const m = content.maps[mapId];
+      const tile = m && streetTile(m, GESINDEL_PLATZ[base] ?? 0.5);
+      if (tile) addTo(content, mapId, 'roamers', { encounter: id, tile, visible_if: { requires_flags: ['k2_arrived'] } });
+    }
   }
 }

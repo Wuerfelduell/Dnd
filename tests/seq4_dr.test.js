@@ -181,3 +181,9 @@ test('Teststart ?probe=<pfad>: Sequenz 5 voll verdaut im Vergessmoor, Laternenna
   assert.equal(s.startSiege().ok, true);
   assert.equal(new GameState(content).seq4Probe('gibtsnicht'), false);
 });
+
+test('Wexmoorer Gesindel: Geübte mit Sequenz 7 schaffen jeden Straßengegner', () => {
+  for (const id of Object.keys(content.encounters).filter((i) => i.startsWith('wxs_'))) {
+    assert.equal(fight(hero(7), id, PLAY(SKILLED)).result.outcome, 'won', id);
+  }
+});
