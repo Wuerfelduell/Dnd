@@ -26,7 +26,7 @@ test('In jedem späteren Gebiet gibt es alte Stücke zu alten Preisen', () => {
   alt('wx_pfandleiherin', 'ossuarklinge', 220); // Kettlegater Zirkel
   alt('ds_waffenhaendlerin', 'zirkel_salzharpune', 560); // Wexmoorer Zirkel
   alt('k3h_troedlerin', 'hungriger_ring', 420); // altes Artefakt, Dunscar-Gegner droppen keine mehr
-  alt('vi_handel_reise', 'k3h_faeustel', 150);
+  alt('vi_handel_reise', 'k3h_faeustel', 900); // Dunscar-Preis (Steinmetz, dunscarAusbau.js)
   alt('ds_kleiderhaendlerin', 'wachsamulett', 80);
   assert.ok(M.vi_handel_reise.buys, 'Ankauf in Calderwick/Briarholt');
 });
