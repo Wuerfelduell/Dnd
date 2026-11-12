@@ -955,7 +955,7 @@ export class WorldScene extends Phaser.Scene {
       if (def.lamp) this.buildLamp(x, ty * TILE + 16, def.lamp);
       // Dunscar-Kulisse: Ausgänge tragen ein Schild mit dem Ziel
       if (def.label) {
-        const tag = this.add.text(x, y - 10, def.label, { fontFamily: 'monospace', fontSize: '8px', color: '#f0ce80', stroke: '#1a1c2c', strokeThickness: 3 })
+        const tag = this.add.text(x, y - (def.label_dy ?? 10), def.label, { fontFamily: 'monospace', fontSize: '8px', color: '#f0ce80', stroke: '#1a1c2c', strokeThickness: 3 })
           .setOrigin(0.5, 1).setDepth(4900).setResolution(2);
         item.parts.push(tag);
       }

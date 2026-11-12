@@ -51,3 +51,26 @@ test('Dunscar-Kulisse: feste Requisiten sperren keinen Weg zu Türen, Figuren un
     for (const o of [...m.interactables, ...(m.npcs ?? [])]) assert.ok(reach(o.tile), `${m.id}: ${o.id} nicht erreichbar`);
   }
 });
+
+test('Dunscar-Raster: jedes Viertel gleich angelegt (Häuser im Norden, Ausgänge an Straßenenden, Tafel und Ortskundiger am Platz)', async () => {
+  const { RASTER } = await import('../src/data/dunscarKulisse.js');
+  const { DS_ORTSKUNDIGE } = await import('../src/data/dunscarOrtskundige.js');
+  const { existsSync } = await import('node:fs');
+  const viertel = aussen.filter((m) => m.rows.length === RASTER.H);
+  assert.ok(viertel.length >= 6);
+  const enden = new Set(Object.values(RASTER.ausgang).flat().map(String));
+  const haeuser = new Set(RASTER.haeuser.map((x) => `${x},${RASTER.hausY}`));
+  for (const m of viertel) {
+    assert.ok(m.interactables.some((d) => d.id.startsWith('ds_tafel_') && `${d.tile}` === `${RASTER.tafel}`), `${m.id}: Viertelstafel`);
+    for (const d of m.interactables.filter((x) => x.kind === 'travel')) assert.equal(`${d.tile}`, `${RASTER.stadtkarte}`, `${m.id}: Stadtkarte`);
+    for (const d of m.interactables.filter((x) => x.kind === 'door')) {
+      const innen = !(content.maps[d.to].rows[0].length >= 40);
+      assert.ok((innen ? haeuser : enden).has(`${d.tile}`), `${m.id}: ${d.id} auf ${d.tile}`);
+    }
+    for (const n of m.npcs) assert.ok(floor(m, ...n.tile), `${m.id}: ${n.id} in der Wand`);
+  }
+  for (const ok of Object.values(DS_ORTSKUNDIGE)) {
+    assert.ok(content.dialogues[ok.id]?.nodes?.start, ok.id);
+    assert.ok(existsSync(new URL(`../public/sprites/characters/${ok.sheet}.png`, import.meta.url)), ok.sheet);
+  }
+});
