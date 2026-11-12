@@ -334,74 +334,6 @@
     }
   },
   {
-    "map": "ds_schwellenring",
-    "tile": [
-      15,
-      5
-    ],
-    "visible_if": {
-      "requires_flags": [
-        "k3_arrived"
-      ]
-    },
-    "interactable": {
-      "id": "k3a_14_obj1",
-      "kind": "read",
-      "title": "Streckenplan",
-      "prompt": "Streckenplan",
-      "text": "Eine dünne Wartungslinie verbindet diese Wand mit der Drehscheibe. Sie gehört nicht zum befahrbaren Hauptgleis.",
-      "done_flag": "k3a_14_gelesen1",
-      "effects": {
-        "gives_clues": [
-          "k3a_14_c1"
-        ]
-      }
-    }
-  },
-  {
-    "map": "ds_schwellenring",
-    "tile": [
-      14,
-      7
-    ],
-    "visible_if": {
-      "requires_flags": [
-        "k3_arrived"
-      ]
-    },
-    "interactable": {
-      "id": "k3a_14_obj2",
-      "kind": "read",
-      "title": "Schwellenkerbe",
-      "prompt": "Schwellenkerbe",
-      "text": "Unter dem Putz liegt eine Schwelle mit zwei kurzen Kerben und einem Bogen. Das Zeichen bedeutet laut Randlegende: Wartungsweg prüfen.",
-      "done_flag": "k3a_14_gelesen2",
-      "effects": {
-        "gives_clues": [
-          "k3a_14_c2"
-        ]
-      }
-    }
-  },
-  {
-    "map": "ds_schwellenring",
-    "tile": [
-      13,
-      11
-    ],
-    "visible_if": {
-      "requires_flags": [
-        "k3_arrived"
-      ]
-    },
-    "interactable": {
-      "id": "k3a_14_station",
-      "kind": "dialogue",
-      "dialogue": "k3a_14_dialog",
-      "prompt": "Der Ruf durch die Wand"
-    }
-  },
-  {
     "map": "ds_kalkmarkt",
     "tile": [
       9,
@@ -1735,10 +1667,23 @@
       "done_flag": "k3_arrived",
       "effects": {
         "sets_flags": [
-          "k3_arrived"
+          "k3_arrived",
+          "k3a_14_passage",
+          "k3a_14_geschlossen",
+          "treffen_schichtbund",
+          "k3h_aufnahme_done"
         ],
         "start_quests": [
           "k3a_akt1"
+        ],
+        "gives_clues": [
+          "k3a_14_c1",
+          "k3a_14_c2",
+          "k3a_14_c3",
+          "k3a_14_c4"
+        ],
+        "gives_conclusions": [
+          "k3a_14_d"
         ]
       }
     }

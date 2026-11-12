@@ -18,7 +18,7 @@ function atStation(st = hund) {
   return s;
 }
 
-test('BN: Rufdaten geladen, fünf Arbeitsstellen bieten die Rufaktion, der Trichter steht neben der Drehscheibe', () => {
+test('BN: Rufdaten geladen, fünf Arbeitsstellen bieten die Rufaktion, der Trichter an der Drehscheibe ist gestrichen', () => {
   assert.equal(sr.stationen.length, 6);
   assert.equal(Object.keys(sr.texte).length, 37);
   for (const [station, dialog] of Object.entries(STATION_DIALOGUES)) {
@@ -27,8 +27,7 @@ test('BN: Rufdaten geladen, fünf Arbeitsstellen bieten die Rufaktion, der Trich
     assert.ok(c, dialog);
     assert.ok(c.requires_items.includes('k3a_signalgeraet'));
   }
-  const ring = content.maps.ds_schwellenring.interactables.find((i) => i.id === 'k3r_trichter_drehscheibe');
-  assert.deepEqual([ring.kind, ring.station, ring.tile], ['signal', 'k3o_horch_drehscheibe', [35, 3]]);
+  assert.ok(!content.maps.ds_schwellenring.interactables.some((i) => i.id === 'k3r_trichter_drehscheibe'));
   const s = new GameState(content);
   assert.ok(s.signal.learnedPatterns instanceof Set);
 });
