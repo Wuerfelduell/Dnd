@@ -531,7 +531,8 @@ export class CombatScene extends Phaser.Scene {
     this.phase = 'qte';
     // Präzise Fertigkeiten (Betäubung, große Wucht): das goldene Fenster ist nur ein Fünftel so breit
     const precise = isPrecise(sk);
-    this.qte = { skillId, grades: [], total: bars, bar: null, precise };
+    // `window` in den Fertigkeitsdaten vergrößert das ganze Fenster (Gold + Silber), z. B. Kehlschnitt 1.1
+    this.qte = { skillId, grades: [], total: bars, bar: null, precise, win: sk.window || 1 };
     const keys = !this.combat.duo ? 'E oder Leertaste' : this.combat.actor === 2 ? 'Enter (Gamepad A)' : 'E oder Leertaste';
     this.ui.combatMessage(`${this.combat.duo ? `${this.who(this.combat.actor)}, ` : ''}${sk.name}: Drücke ${keys}, wenn der Zeiger im goldenen Bereich ist.${precise ? ` Nur ein präziser Treffer ${sk.stun ? 'betäubt' : 'entfaltet die volle Wucht'}.` : ''}`);
     this.nextBar();
@@ -540,7 +541,7 @@ export class CombatScene extends Phaser.Scene {
   nextBar() {
     const i = this.qte.grades.length;
     const center = 0.55 + Math.random() * 0.3;
-    this.qte.bar = { start: now() + 250, dur: i === 0 ? 950 : 750, zone: { center, perfect: 0.045 * (this.qte.precise ? PRECISE_WINDOW : 1), good: 0.13 }, done: false };
+    this.qte.bar = { start: now() + 250, dur: i === 0 ? 950 : 750, zone: { center, perfect: 0.045 * (this.qte.precise ? PRECISE_WINDOW : 1) * this.qte.win, good: 0.13 * this.qte.win }, done: false };
   }
 
   qtePos(t) {
