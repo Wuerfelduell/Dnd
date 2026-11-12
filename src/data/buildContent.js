@@ -90,6 +90,8 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyRelations(content, beziehungen, packs); // Beziehungen: Regeln, Vorlieben, Knoten-Wirkungen
   applyDunscarHaendler(content); // Dunscar: Waffen, Kleidung, Kräuter und Ankauf am Kalkmarkt (kein Zurück in alte Städte)
   applyAltbeute(content); // Wexmoor-Monster tragen ab und zu Kettlegater Beute (kein Zurück dorthin)
+  applyDunscarDichte(content); // Dunscar-Gefahrengebiete so dicht besetzt wie Wexmoor (vorher nur 3–4 Gegner)
+  applyDunscarGeld(content); // Dunscar zahlt mehr als Wexmoor: Gegnergeld und Kopfgelder
   return content;
 }
 
@@ -399,4 +401,59 @@ function wildContent(wilds) {
     }
   }
   return out;
+}
+
+/** Gegner je Dunscar-Gefahrengebiet (Wexmoor: 17–19 in den großen Gebieten). */
+export const DUNSCAR_ROAMERS = 18;
+/** Füllt die Dunscar-Gefahrengebiete mit weiteren Laufgegnern aus dem eigenen Gebiet auf, verteilt über die begehbaren Felder. */
+function applyDunscarDichte(content) {
+  for (const [id, m] of Object.entries(content.maps)) {
+    const zone = content.zones?.[id];
+    if (!id.startsWith('ds_') || !m.danger || !zone || !m.rows) continue;
+    const pool = Object.entries(zone.encounters ?? {}).filter(([k, e]) => !e.boss && !e.flees_after && !k.endsWith('_elite') && content.encounters[k]).map(([k]) => k);
+    const roamers = [...(m.roamers ?? [])];
+    if (!pool.length || roamers.length >= DUNSCAR_ROAMERS) continue;
+    const taken = [...(m.npcs ?? []), ...(m.interactables ?? []), ...roamers].filter((o) => o.tile).map((o) => o.tile);
+    const spawns = Object.values(m.spawns ?? {});
+    const free = [];
+    m.rows.forEach((row, y) => [...row].forEach((ch, x) => { if (ch === '.' || /[gpscwPK=,]/.test(ch)) free.push([x, y]); }));
+    const dist = (a, b) => Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]);
+    // Feste Reihenfolge (kein Zufall beim Laden): immer das Feld mit dem größten Abstand zu Eingängen und anderen Gegnern
+    let n = 0;
+    while (roamers.length < DUNSCAR_ROAMERS) {
+      let best = null;
+      for (const t of free) {
+        if (spawns.some((sp) => dist(t, sp) < 8)) continue;
+        const d = Math.min(99, ...taken.map((o) => dist(t, o)));
+        if (d >= 4 && (!best || d > best.d)) best = { d, t };
+      }
+      if (!best) break;
+      roamers.push({ id: `${id}_dichte${++n}`, encounter: pool[(roamers.length + n) % pool.length], tile: best.t, elite_chance: 0.12 });
+      taken.push(best.t);
+    }
+    content.maps[id] = { ...m, roamers };
+  }
+}
+
+/** Seb 2026-11-12: Dunscar zahlt mehr als Wexmoor (dort Gegnergeld ×3, Kopfgelder 150–800). */
+export const DS_MONEY_MULT = 4;
+export const DS_KOPFGELD_MULT = 15; // 45–80 → 675–1200 Schilling
+function applyDunscarGeld(content) {
+  const loot = { ...content.loot };
+  for (const [id, enc] of Object.entries(content.encounters)) {
+    if (enc.chapter !== 3 || !Array.isArray(loot[id]?.money) || loot[id].ds_buffed) continue;
+    loot[id] = { ...loot[id], money: loot[id].money.map((v) => Math.round(v * DS_MONEY_MULT)), ds_buffed: true };
+  }
+  content.loot = loot;
+  const d = content.dialogues?.kopfgeldbrett_ds;
+  if (!d) return;
+  const amounts = {};
+  for (const n of Object.values(d.nodes)) if (n.gives_money) amounts[n.gives_money] = n.gives_money * DS_KOPFGELD_MULT;
+  const fix = (t) => (typeof t === 'string' ? t.replace(/(\d+) Schilling/g, (m, v) => (amounts[v] ? `${amounts[v]} Schilling` : m)) : t);
+  const nodes = {};
+  for (const [k, n] of Object.entries(d.nodes)) {
+    nodes[k] = { ...n, text: fix(n.text), ...(n.gives_money ? { gives_money: amounts[n.gives_money] } : {}), ...(n.choices ? { choices: n.choices.map((c) => ({ ...c, text: fix(c.text) })) } : {}) };
+  }
+  content.dialogues = { ...content.dialogues, kopfgeldbrett_ds: { ...d, nodes } };
+  for (const [qid, q] of Object.entries(content.quests)) if (qid.startsWith('kopfgeld_ds_')) content.quests[qid] = { ...q, summary: fix(q.summary) };
 }

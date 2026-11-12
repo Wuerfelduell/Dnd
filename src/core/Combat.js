@@ -42,7 +42,7 @@ export const HP_FLOOR = { normal: 520, elite: 880, boss: 2000 };
 // Ab Kapitel 3 schlagen reguläre Gegner (die mit Lebens-Untergrenze) härter zu als in Wexmoor (dort ×1,5) und zu zweit ohne Abschlag.
 // Die Untergrenze macht sie nur zäher, nicht sanfter. Kapitel 4/5 tragen ihren Aufschlag schon in den Rohdaten (halbgott_skaliert).
 // Bosse etwas weniger, weil sie über die Untergrenze 2000 Leben tragen und sonst auch für sehr Geübte solo unschaffbar werden.
-export const LATE_DMG_MULT = { 3: { normal: 1.65, elite: 1.65, boss: 1.15 } };
+export const LATE_DMG_MULT = { 3: { normal: 2.8, elite: 2, boss: 1.15 } };
 export function hpFloor(enc) {
   if (enc.practice || enc.mirror || enc.waechter || enc.flees_after || !(enc.chapter >= HP_FLOOR_FROM_CHAPTER)) return 0;
   return HP_FLOOR[enc.boss ? 'boss' : enc.elite ? 'elite' : 'normal'];
