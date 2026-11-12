@@ -26,3 +26,25 @@ test('Kapitel-3-Elite droppt die Seq-4-Kernzutat nur auf Seq 5 und nur solange s
   s.pathway.seq = 6;
   assert.equal(roll().sq_zutat_laterne_4, undefined);
 });
+
+test('Dunscar-Gegner droppen Formel 4 (Seq 5) und Formel 3 (Seq 4, nur Elite/Boss) sehr selten, auch für Spieler 2', async () => {
+  const { FORMEL_K3_CHANCE } = await import('../src/data/pfadHandel.js');
+  const k3 = (pred) => Object.values(content.encounters).find((e) => e.chapter === 3 && pred(e));
+  const normal = k3((e) => !e.elite && !e.boss);
+  const elite = k3((e) => e.elite && !e.boss);
+  const boss = k3((e) => e.boss);
+  const roll = (s, enc, r) => { const loot = { items: {} }; s.pfadExtraLoot({ enc, id: 'x' }, loot, () => r); return loot.items; };
+  const s = new GameState(content);
+  s.pathway = { ...(s.pathway ?? {}), id: 'laterne', seq: 5 };
+  assert.equal(roll(s, normal, FORMEL_K3_CHANCE[4].normal + 0.0001).formel_laterne_4, undefined);
+  assert.equal(roll(s, normal, FORMEL_K3_CHANCE[4].normal - 0.0001).formel_laterne_4, 1);
+  assert.equal(roll(s, boss, 0).formel_laterne_4, undefined, 'nur einmal je Pfad');
+  s.pathway.seq = 4;
+  assert.equal(roll(s, normal, 0).formel_laterne_3, undefined, 'Formel 3 nie bei normalen Gegnern');
+  assert.equal(roll(s, elite, FORMEL_K3_CHANCE[3].elite + 0.0001).formel_laterne_3, undefined);
+  assert.equal(roll(s, boss, FORMEL_K3_CHANCE[3].boss - 0.0001).formel_laterne_3, 1);
+  const t = new GameState(content);
+  t.pathway = { ...(t.pathway ?? {}), id: 'laterne', seq: 7 };
+  t.p2 = { active: true, pathway: { id: 'eisen', seq: 5 }, inventory: {} };
+  assert.equal(roll(t, boss, 0).formel_eisen_4, 1, 'Spieler 2 zählt mit');
+});

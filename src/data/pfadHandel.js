@@ -15,6 +15,12 @@ import { NIGHT_FLAG, DAY_B_FLAG } from '../core/Clock.js';
 export const PH_BOND = 2;
 /** Wer die Seq-4-Formel ohne Treffen sucht: Chance je Sieg über einen Elite-Gegner. */
 export const FORMEL_ELITE_CHANCE = 0.005;
+/** Seb (2026-11-12): Dunscar-Gegner (Kapitel 3) lassen die nächste Formel des eigenen Pfades sehr selten fallen.
+ * Formel 4 für Spieler auf Seq 5, Formel 3 (nur Elite/Boss) für Spieler auf Seq 4; jede nur einmal je Pfad. */
+export const FORMEL_K3_CHANCE = {
+  4: { normal: 0.002, elite: 0.005, boss: 0.01 },
+  3: { normal: 0, elite: 0.001, boss: 0.002 },
+};
 /** Seb (2026-11-12): in Kapitel 3 (Dunscar) fallen Seq-4-Kernzutaten öfter, für Spieler auf Seq 5, solange sie fehlen.
  * Nur die Zutat, nie die Formel. */
 export const K3_ZUTAT4_CHANCE = { elite: 0.06, boss: 0.15 };
