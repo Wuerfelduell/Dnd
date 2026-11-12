@@ -129,6 +129,7 @@ export const auctionMethods = {
     this.say(`${this.gatheringDef(circleId).name}: Die Runde ist eröffnet.${artisan ? ` ${this.artisanName()} sitzt mit am Tisch.` : ''}`);
     // Was die Fasserin seit dem letzten Treffen dieses Zirkels fertig hat, übergibt der Gastgeber zuerst
     this.auction.collected = this.collectOrders?.(circleId, cycle) ?? [];
+    this.seq4SessionStart?.(); // Seq-4-Ritual der Waage: diese Runde zählt
     this.openLot();
     return { ok: true };
   },
@@ -167,6 +168,7 @@ export const auctionMethods = {
     const step = Math.max(1, Math.round(e.price * (r.step ?? 0.1)));
     a.phase = 'lot';
     a.lot = { seller, item: e.item, value: e.price, price: start, step, leader: null, ceilings };
+    this.seq4LotOffered?.();
     // Ritual der Waage: neben dem Ausruf steht der Schätzwert. Beim abgekarteten Los ruft der Anbieter weit über Wert aus.
     if (a.fraud) {
       a.lot.appraisal = e.price;
@@ -221,6 +223,7 @@ export const auctionMethods = {
     this.act?.('gathering');
     a.bought.push({ item: l.item, price });
     this.seq5Trade?.('buy', l.item); // Seq-5-Ritual der Waage zählt mit
+    this.seq4Lot?.('buy'); // Seq 4: jedes Los muss an dich gehen
     this.say(`Zuschlag! ${this.item(l.item).name} geht für ${price} Schilling an dich.`);
     this.emit('changed');
     this.openRequest();
@@ -234,6 +237,8 @@ export const auctionMethods = {
     if (!l || a.phase !== 'lot') return { ok: false };
     if (l.leader && l.leader !== 'player') this.say(`${this.item(l.item).name} geht für ${l.price} an ${this.memberName(l.leader)}.`);
     else this.say(`Niemand will ${this.item(l.item).name}. ${this.memberName(l.seller)} packt es wieder ein.`);
+    const failed = this.seq4Lot?.('pass'); // Seq 4: ein ausgelassenes Los lässt die Waage kippen
+    if (failed) this.say(failed.text);
     this.openRequest();
     return { ok: true };
   },
@@ -314,6 +319,7 @@ export const auctionMethods = {
     a.request = null;
     a.turn += 1;
     if (a.turn < a.members.length) { this.openLot(); return; }
+    this.seq4LotsDone?.();
     a.phase = 'own';
     this.say(`Alle waren dran. Jetzt darfst du selbst etwas anbieten.${a.artisan ? ` ${this.artisanName()} wartet auf Beute zum Fassen.` : ''}`);
   },
@@ -381,6 +387,7 @@ export const auctionMethods = {
     a.phase = 'done';
     const summary = { bought: a.bought, sold: a.sold, crafted: a.crafted ?? [], collected: a.collected ?? [] };
     this.seq5SessionEnd?.(); // Seq-5-Ritual der Waage: am Ende der Runde wird gewogen
+    this.seq4SessionEnd?.(); // Seq 4: alles gekauft? Dann tritt der Wächter an, sobald die Runde geschlossen ist
     this.auction = null;
     this.emit('changed');
     return summary;

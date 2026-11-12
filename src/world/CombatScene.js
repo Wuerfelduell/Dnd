@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { Combat, WINDOW, EARLY_LIMIT, DODGE_COST, RING_CURVES, judgeDefense, judgeTiming, isPrecise, skillBars, PRECISE_WINDOW } from '../core/Combat.js';
+import { Combat, WINDOW, EARLY_LIMIT, DODGE_COST, RING_CURVES, judgeDefense, judgeTiming, isPrecise, skillBars, PRECISE_WINDOW, isPerfectDodge } from '../core/Combat.js';
 import { createTextures, createCharacterSheet } from './textures.js';
 import {
   BATTLE_BACKGROUNDS, battleBackgroundFor, ENCOUNTER_BACKGROUNDS, ENEMY_BATTLE_SHEETS, ENCOUNTER_SHEETS, FADING_SHEETS,
@@ -70,6 +70,7 @@ export class CombatScene extends Phaser.Scene {
 
   /** Paket Y: Soundeffekt (still, wenn der Ton fehlt oder noch gesperrt ist). */
   sfx(id, opts) {
+    if (this.combat?.rules?.deaf) return; // Seq 4 (Echo): taub, kein einziger Klang
     if (id) this.registry.get('audio')?.play(id, opts);
   }
 
@@ -246,7 +247,7 @@ export class CombatScene extends Phaser.Scene {
       spr.homeX = h.x;
       spr.homeY = h.y;
       spr.sheets = sheets;
-      spr.baseTint = n === 2 && !sheets.own ? P2_TINT : null;
+      spr.baseTint = this.combat.rules?.shadow ? 0x2a2238 : n === 2 && !sheets.own ? P2_TINT : null; // Seq 4: der Schatten kämpft
       if (spr.baseTint) spr.setTint(spr.baseTint);
       this.players[n] = spr;
       this.add.ellipse(h.x, h.y, 34, 8, 0x000000, 0.35).setDepth(9);
@@ -472,6 +473,14 @@ export class CombatScene extends Phaser.Scene {
       if (c.state.item(action.id).damage) { this.flash(this.enemy); this.float(`-${c.state.item(action.id).damage * (c.enemy.occult ? 2 : 1)}`, 'enemy', 'dmg'); }
       this.phase = 'anim';
       this.time.delayedCall(600, () => this.afterAction(false));
+    } else if (action.type === 'spare' || action.type === 'mark') { // Seq 4: Maske verschont, Faden markiert
+      const r = action.type === 'spare' ? c.spare() : c.markFate();
+      if (!r) return;
+      this.ui.combatMessage(r.text);
+      this.ui.combatRefresh();
+      if (action.type === 'spare') { this.over(); return; }
+      this.float('Schicksalsfaden', 'enemy', 'good');
+      this.toMenu();
     } else if (action.type === 'voice') { // Seq-5-Ritual des Echos: verschonen und die Stimme rauben
       const r = c.stealVoice();
       if (!r) return;
@@ -668,7 +677,8 @@ export class CombatScene extends Phaser.Scene {
       impact: t0 + h, ring: atk.rings?.[i] ?? { curve: 'linear', lead: RING_LEAD },
       by: Object.fromEntries(c.targets.map((n) => [n, { result: null, applied: false }])),
     }));
-    const tags = [atk.sweep ? '⚠ Flächenangriff: trifft beide!' : '', atk.unparryable ? '⚠ nicht parierbar, ausweichen!' : '', atk.enraged ? 'in Rage' : '', atk.followup ? 'setzt nach!' : '', atk.bleed ? 'Treffer bluten nach' : '', atk.nerves ? `Treffer kosten ${atk.nerves} Nerven` : ''].filter(Boolean).join(' · ');
+    const deaf = !!c.rules?.deaf; // Seq 4 (Echo): keine Ankündigung, kein Hinweis
+    const tags = deaf ? '' : [atk.sweep ? '⚠ Flächenangriff: trifft beide!' : '', atk.unparryable ? '⚠ nicht parierbar, ausweichen!' : '', atk.enraged ? 'in Rage' : '', atk.followup ? 'setzt nach!' : '', atk.bleed ? 'Treffer bluten nach' : '', atk.nerves ? `Treffer kosten ${atk.nerves} Nerven` : ''].filter(Boolean).join(' · ');
     const evading = c.targets.every((n) => c.fighters[n].evading);
     const dodge = (n) => c.on(n, () => c.dodgeCost());
     const help1 = `Spieler 1 · Leertaste: ausweichen (${dodge(1)} Nerven) · F: parieren`;
@@ -676,7 +686,8 @@ export class CombatScene extends Phaser.Scene {
     const help = !c.duo ? `Leertaste: ausweichen (${dodge(1)} Nerven) · F: parieren`
       : atk.sweep ? `${help1}\n${help2}` : c.target === 2 ? help2 : help1;
     const whom = !c.duo ? '' : atk.sweep ? ' → beide Spieler' : ` → ${this.who(c.target)}`;
-    this.ui.combatMessage(`${c.enemy.name}: ${atk.name}${whom}${atk.hits.length > 1 ? ` (${atk.hits.length} Schläge)` : ''}${tags ? `\n\n${tags}` : ''}${evading ? '\n\nDu weißt schon, wohin er schlägt.' : ''}`, help);
+    if (deaf) this.ui.combatMessage(`${c.enemy.name} holt aus. Du hörst nichts.`, help);
+    else this.ui.combatMessage(`${c.enemy.name}: ${atk.name}${whom}${atk.hits.length > 1 ? ` (${atk.hits.length} Schläge)` : ''}${tags ? `\n\n${tags}` : ''}${evading ? '\n\nDu weißt schon, wohin er schlägt.' : ''}`, help);
     this.tweens.add({ targets: this.enemy, x: ENEMY_X + 8, duration: TELEGRAPH * 0.6, ease: 'Sine.out' });
     if (atk.sweep) this.cameras.main.shake(TELEGRAPH * 0.5, 0.003); // der Boden bebt: gleich trifft es beide
     // Paket-B-Gegner haben zwei Angriffe: mehrteilige Attacken und Flächenangriffe nutzen 'special'
@@ -691,6 +702,7 @@ export class CombatScene extends Phaser.Scene {
     if (!hit) return;
     const d = hit.by[n];
     d.result = judgeDefense(kind, t - hit.impact, this.combat.on(n, () => this.state.passive('dodge_window')), this.combat.parryWindow());
+    d.perfect = isPerfectDodge(kind, t - hit.impact); // Seq 4 (Uhr): perfektes Ausweichen
     if (d.result === 'miss') d.early = t < hit.impact;
     else this.applyHit(hit, n);
   }
@@ -701,8 +713,9 @@ export class CombatScene extends Phaser.Scene {
     if (!d || d.applied) return;
     d.applied = true;
     this.player = this.players[n] ?? this.player; // Zahlen und Animationen am Getroffenen
-    const r = this.combat.resolveHit(this.attack, d.result, n);
+    const r = this.combat.resolveHit(this.attack, d.result, n, !!d.perfect);
     d.result = r.result;
+    if (this.combat.rules?.uhr && d.perfect && r.result === 'dodge') this.float('Perfekt!', 'player', 'perfect');
     if (!this.attack?.sweep || n === this.combat.target) this.tweens.add({ targets: this.enemy, x: this.player.homeX + 70, duration: 90, yoyo: true, ease: 'Quad.in' });
     if (d.result === 'parry') {
       this.float('Parade!', 'player', 'perfect');
@@ -711,8 +724,9 @@ export class CombatScene extends Phaser.Scene {
       this.hitFx('parry', 'player');
       this.time.delayedCall(90, () => { this.flash(this.enemy); this.float(`-${r.counter}`, 'enemy', 'dmg'); });
       this.cameras.main.flash(60, 255, 240, 200);
-    } else if (hit.result === 'dodge') {
-      this.float('Ausgewichen', 'player', 'good');
+    } else if (d.result === 'dodge') {
+      if (r.note === 'imperfect') this.float('Nicht perfekt', 'player', 'miss');
+      else this.float('Ausgewichen', 'player', 'good');
       this.anim(this.player, 'dodge');
       this.hitFx('dodge', 'player');
       this.tweens.add({ targets: this.player, x: this.player.homeX - 26, duration: 110, yoyo: true, ease: 'Quad.out' });
@@ -721,6 +735,7 @@ export class CombatScene extends Phaser.Scene {
       if (d.early) this.float('Zu früh', 'player', 'miss');
       else if (r.note === 'unparryable') this.float('Nicht parierbar!', 'player', 'miss');
       else if (r.note === 'exhausted') this.float('Erschöpft', 'player', 'miss');
+      else if (r.note === 'forbidden') this.float('Verboten!', 'player', 'miss');
       if (r.down && !this.combat.outcome) this.knockedOut(this.player);
     }
     this.ui.combatRefresh();
@@ -873,9 +888,10 @@ export class CombatScene extends Phaser.Scene {
 
     if (this.phase === 'enemy') {
       // Ein Ring je Getroffenem (Flächenangriff: über beiden Spielern zugleich)
+      const deaf = !!this.combat.rules?.deaf; // Seq 4 (Echo): keine Angriffskreise
       for (const n of this.combat.targets) {
         const c = this.playerCenter(n);
-        g.lineStyle(1, 0xffffff, 0.35).strokeCircle(c.x, c.y, 16);
+        if (!deaf) g.lineStyle(1, 0xffffff, 0.35).strokeCircle(c.x, c.y, 16);
         for (const hit of this.hits) {
           const d = hit.by[n];
           if (!d || d.applied) continue;
@@ -883,7 +899,7 @@ export class CombatScene extends Phaser.Scene {
           if (d.result === 'miss' && left <= 0) { this.applyHit(hit, n); continue; }
           if (!d.result && left < -WINDOW.dodge) { d.result = 'miss'; this.applyHit(hit, n); continue; }
           const lead = hit.ring.lead;
-          if (left > lead || d.result) continue;
+          if (left > lead || d.result || deaf) continue;
           const u = Math.min(1, Math.max(0, 1 - left / lead));
           const closed = (RING_CURVES[hit.ring.curve] ?? RING_CURVES.linear)(u);
           const r = 16 + Math.max(0, 1 - closed) * 60;

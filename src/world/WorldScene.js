@@ -1,3 +1,4 @@
+import { HalbgottRitual } from './HalbgottRitual.js';
 import Phaser from 'phaser';
 import { questTarget, leadTarget, nextHop } from '../core/Guide.js';
 import { createTextures, createCharacterSheet, hash2, TILE, TILE_INDEX, SOLID_KEYS } from './textures.js';
@@ -788,6 +789,7 @@ export class WorldScene extends Phaser.Scene {
     this.sekten = new SektenLife(this); // BQ/BR: Sekten-Ereignisse, abgeworbene Figuren, Sabotage
     this.sekten.build(this.freshVisit);
     this.feste = new Feste(this); // BV: Jahreszeit draußen, Fest in der Stadt
+    this.hg = new HalbgottRitual(this); // Seq-4-Rituale: Laternennacht, Schatten, Taubheit, Wächter des Eisens
     this.feste.build();
     this.bindInput();
     this.bindState();
@@ -1280,8 +1282,9 @@ export class WorldScene extends Phaser.Scene {
     const blocked = this.ui.isBlocking() || this.leaving;
     if (!blocked) this.state.tick(delta / 1000);
     this.updateMovement(blocked);
-    this.roamers.update(time, delta, blocked || this.leaving);
-    this.patrols.update(time, delta, blocked || this.leaving);
+    const frozen = !!this.hg?.freezesWorld(); // Laternennacht: nur ihre eigenen Wesen bewegen sich
+    this.roamers.update(time, delta, blocked || this.leaving || frozen);
+    this.patrols.update(time, delta, blocked || this.leaving || frozen);
     this.critters.update(time, delta, blocked);
     this.wexLife?.update(delta);
     this.dsLife?.update(delta);
@@ -1290,6 +1293,7 @@ export class WorldScene extends Phaser.Scene {
     if (!blocked) this.updateRandomSounds(delta);
     this.koop?.update(delta, blocked);
     this.feste?.update(delta, blocked);
+    this.hg?.update(delta, blocked || this.leaving);
     if (!blocked) this.checkLocks(delta); // BN: Schallschleusen an den Ausgängen
     this.updateFocus(blocked);
     this.checkAuto(blocked);
@@ -1735,7 +1739,8 @@ export class WorldScene extends Phaser.Scene {
         this.state.setComposure(100);
         if (this.state.cityPolice()) this.state.restWanted(); // Untertauchen senkt die Fahndung (Wexmoor, nach Fall 9 auch Kettlegate)
         const calm = this.state.kahnRestBonus(); // Paket AB: Waschtisch im Kahn
-        this.ui.showMessage(def.title, def.text, { footer: (healed > 0 ? `+${healed} Leben, Nerven beruhigt.` : 'Du bist ausgeruht.') + (calm ? ` Am Waschtisch: -${calm} Unruhe.` : '') });
+        const dream = this.state.seq4Rest?.(); // Seq 4 (Faden): mit fünf Fäden zieht der Schlaf in den Traum
+        this.ui.showMessage(def.title, dream ? `${def.text}\n\n${dream}` : def.text, { footer: (healed > 0 ? `+${healed} Leben, Nerven beruhigt.` : 'Du bist ausgeruht.') + (calm ? ` Am Waschtisch: -${calm} Unruhe.` : '') });
         break;
       }
       case 'door':
@@ -1766,6 +1771,8 @@ export class WorldScene extends Phaser.Scene {
 
   travelTo(mapId, spawn) {
     if (this.leaving) return;
+    const hold = this.hg?.blocksTravel(); // Seq 4: Laternennacht und Schatten halten dich auf der Karte
+    if (hold && !this.state.pendingTravel) { this.ui.toast?.(hold, 'warn'); return; }
     if (!this.state.content.maps[mapId]) throw new Error(`Unbekannter Ort: ${mapId}`);
     mapId = this.state.variantOf?.(mapId) ?? mapId; // CH: Briarholt kalt oder warm
     this.leaving = true;
