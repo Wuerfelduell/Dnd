@@ -431,3 +431,16 @@ test('Unruhe steigt ab Seq 5 nur halb so stark, sinkt aber normal', () => {
   s.setUnruhe(2);
   assert.equal(s.unruhe, 2);
 });
+
+test('Artefakt-Sog ab Seq 5 nur halb so stark', () => {
+  const rate = (seq) => {
+    const s = new GameState(loadContent());
+    s.pathway = { id: 'starling', seq, digestion: 0 };
+    s.artifactUnruhe = () => 1;
+    s.passive = (k) => (k === 'calm_decay' ? 0 : 0);
+    s.tickPathway(1);
+    return s.unruhe;
+  };
+  assert.equal(rate(6), 1);
+  assert.equal(rate(5), 0.5);
+});
