@@ -4,8 +4,9 @@ import { createTextures, createCharacterSheet } from './textures.js';
 import {
   BATTLE_BACKGROUNDS, battleBackgroundFor, ENCOUNTER_BACKGROUNDS, ENEMY_BATTLE_SHEETS, ENCOUNTER_SHEETS, FADING_SHEETS,
   SKILL_FX, SELF_FX, AG_SKILL_FX, PATHWAY_POSES, WEAPON_POSES, battleSheetsOf, ENCOUNTER_FX, BOSS_INTROS, bossIntroImage, BOSS_FORMS, BOSS_FORM_BACKGROUNDS, BOSS_FORM_INTROS, battleSheetDef, CASE_SHEETS, playBattleAnim, playCaseAnim, HG_PATHS,
-  BATTLE_SHEET_SCALE, ENTER_ANIMS, ENCOUNTER_STAGE, STARLING2_HUD,
+  BATTLE_SHEET_SCALE, ENTER_ANIMS, ENCOUNTER_STAGE, STARLING2_HUD, ritualBattleSheet,
 } from './assets.js';
+import { RitualCombat, ritualBackground, ritualLook } from './RitualCombat.js';
 import { VIEW_W, VIEW_H, PLAYER_PALETTE } from './WorldScene.js';
 import { koopBark, koopStartEvent } from '../core/Koop.js';
 import { combatSound, skillSound, ritualSkillSound, kesselWurfSound } from '../core/sounds.js';
@@ -161,6 +162,7 @@ export class CombatScene extends Phaser.Scene {
       ?? { miss: 'verfehlt', critical: 'treffer_krit', parry: 'parade', dodge: 'ausweichen', heal: 'heilen', item: 'trank', nerves: 'nerven' }[kind]
       ?? (who === 'player' ? (this.combat?.rules?.shadow ? 'schatten_treffer' : 'treffer_spieler') : 'treffer'); // DS: der Schatten verliert Leben
     this.sfx(sound);
+    if (this.ritualArt?.hitFx(kind, who)) return; // Codex DN/DO: lautloser Staubring (Echo), Schattenfetzen (Schlüssel)
     this.playFx('hits', kind, p.x, p.y, 1);
   }
 
@@ -206,7 +208,7 @@ export class CombatScene extends Phaser.Scene {
   buildStage() {
     const map = this.state.content.maps[this.state.map];
     // Paket BU: vier Kulissen haben eine Nachtfassung
-    const bg = [ENCOUNTER_BACKGROUNDS[this.encounterId], battleBackgroundFor(map.id, this.state.isNight?.() ?? false), BATTLE_BACKGROUNDS[map.id]].find((k) => k && this.textures.exists(k));
+    const bg = [ritualBackground(this, this.combat), ENCOUNTER_BACKGROUNDS[this.encounterId], battleBackgroundFor(map.id, this.state.isNight?.() ?? false), BATTLE_BACKGROUNDS[map.id]].find((k) => k && this.textures.exists(k));
     this.bgImage = null;
     if (bg && this.textures.exists(bg)) {
       this.bgImage = this.add.image(0, 0, bg).setOrigin(0);
@@ -236,7 +238,10 @@ export class CombatScene extends Phaser.Scene {
       // Paket CO: wer seine Kreaturform trägt, kämpft mit ihrem 96er-Blatt (hg_battle_<pfad>), ohne eigene Posen-Sheets
       const formPid = this.state.withPlayer?.(n, () => (this.state.formActive?.() ? this.state.pathway?.id : null), { quiet: true });
       const formSheet = formPid && this.textures.exists(`hg_battle_${formPid}`) ? `hg_battle_${formPid}` : null;
-      const sheets = formSheet ? { base: formSheet, skills: formSheet, weapons: formSheet, own: true, form: true }
+      // Codex DN/DO: in der Maskenprüfung kämpft der Zivilist, beim Schlüssel der Schatten (eigene 6x9-Blätter je Figur)
+      const ritualSheet = ritualBattleSheet(ritualLook(this.state, this.combat, n), n === 2 ? look ?? 'p2a' : 'player');
+      const sheets = ritualSheet && this.textures.exists(ritualSheet) ? { base: ritualSheet, skills: ritualSheet, weapons: ritualSheet, own: true, ritual: true }
+        : formSheet ? { base: formSheet, skills: formSheet, weapons: formSheet, own: true, form: true }
         : look && this.textures.exists(`${look}_battle`) ? { ...battleSheetsOf(look), own: true } : battleSheetsOf(null);
       if (this.textures.exists(sheets.base)) {
         // Kampf-Sheet (48x48, Blick nach rechts); Füße liegen am unteren Zellrand. Kreaturformen (96x96) in Originalgröße.
@@ -248,7 +253,7 @@ export class CombatScene extends Phaser.Scene {
       spr.homeX = h.x;
       spr.homeY = h.y;
       spr.sheets = sheets;
-      spr.baseTint = this.combat.rules?.shadow ? 0x2a2238 : n === 2 && !sheets.own ? P2_TINT : null; // Seq 4: der Schatten kämpft
+      spr.baseTint = this.combat.rules?.shadow && !sheets.ritual ? 0x2a2238 : n === 2 && !sheets.own ? P2_TINT : null; // Seq 4: der Schatten kämpft
       if (spr.baseTint) spr.setTint(spr.baseTint);
       this.players[n] = spr;
       this.add.ellipse(h.x, h.y, 34, 8, 0x000000, 0.35).setDepth(9);
@@ -285,12 +290,15 @@ export class CombatScene extends Phaser.Scene {
       this.siegelOffset = -Math.round(this.enemy.displayHeight * 0.55);
     }
     this.buildStageExtras();
+    this.ritualArt = new RitualCombat(this);
+    this.events.once('shutdown', () => this.ritualArt?.destroy());
     this.add.ellipse(ENEMY_X, GROUND_Y + 14, 50, 10, 0x000000, 0.35).setDepth(9);
     if (this.combat.enemy.occult) {
       const aura = this.add.image(ENEMY_X, GROUND_Y - 30, 'glow').setScale(2.5).setTint(0x6fe0d0).setAlpha(0.25).setDepth(8);
       aura.setBlendMode(Phaser.BlendModes.ADD);
       this.tweens.add({ targets: aura, alpha: 0.4, duration: 900, yoyo: true, repeat: -1 });
     }
+    this.ritualArt.start();
   }
 
   /** BS: Kuppel-Overlay, Bodenstreifen, Sternen-HUD und Koop-Marken für Begegnungen mit eigener Bühne (ENCOUNTER_STAGE). */
@@ -454,6 +462,7 @@ export class CombatScene extends Phaser.Scene {
     this.phase = 'menu';
     this.focusPlayer(this.combat.actor);
     this.ui.combatMenu();
+    this.ritualArt?.menu();
   }
 
   /** Aus dem Menü: { type: 'skill', id } | { type: 'item', id } | { type: 'flee' } */
@@ -471,7 +480,7 @@ export class CombatScene extends Phaser.Scene {
       if (!this.anim(this.player, 'item')) this.flash(this.player);
       const used = c.state.item(action.id);
       if (c.rules?.potionOnly) this.sfx(kesselWurfSound(action.id, used)); // DS (Kessel): Druckstoß, Eis oder Glut
-      this.hitFx(used.damage ? 'item' : used.composure ? 'nerves' : 'heal', used.damage ? 'enemy' : 'player');
+      if (!this.ritualArt?.item(action.id, used)) this.hitFx(used.damage ? 'item' : used.composure ? 'nerves' : 'heal', used.damage ? 'enemy' : 'player');
       if (c.state.item(action.id).damage) { this.flash(this.enemy); this.float(`-${c.state.item(action.id).damage * (c.enemy.occult ? 2 : 1)}`, 'enemy', 'dmg'); }
       this.phase = 'anim';
       this.time.delayedCall(600, () => this.afterAction(false));
@@ -480,7 +489,8 @@ export class CombatScene extends Phaser.Scene {
       if (!r) return;
       this.ui.combatMessage(r.text);
       this.ui.combatRefresh();
-      if (action.type === 'spare') { this.over(); return; }
+      if (action.type === 'spare') { const wait = this.ritualArt?.spare() ?? 0; this.phase = 'anim'; this.time.delayedCall(wait, () => this.over()); return; }
+      this.ritualArt?.mark();
       this.float('Schicksalsfaden', 'enemy', 'good');
       this.toMenu();
     } else if (action.type === 'voice') { // Seq-5-Ritual des Echos: verschonen und die Stimme rauben
@@ -554,6 +564,7 @@ export class CombatScene extends Phaser.Scene {
     const c = this.combat;
     const sk = c.skillDef(skillId);
     const r = c.useSkill(skillId, grades);
+    this.ritualArt?.skill(skillId);
     this.sfx(ritualSkillSound(skillId, sk, c.rules) ?? skillSound(sk, c.on(c.actor, () => this.state.pathway?.id))); // Y: Pfadklang (Licht, Salz, Glocke, Geist, Feuer, Schwächung); DS: Schattenattacke, Faust der Maske
     if (!sk.hits) {
       if (!this.castAnim()) this.flash(this.player);
@@ -722,8 +733,10 @@ export class CombatScene extends Phaser.Scene {
     if (!d || d.applied) return;
     d.applied = true;
     this.player = this.players[n] ?? this.player; // Zahlen und Animationen am Getroffenen
+    const errorsBefore = this.combat.dodgeErrors ?? 0;
     const r = this.combat.resolveHit(this.attack, d.result, n, !!d.perfect);
     d.result = r.result;
+    this.ritualArt?.defense(r.result, !!d.perfect, r.note, errorsBefore);
     if (this.combat.rules?.uhr && d.perfect && r.result === 'dodge') this.float('Perfekt!', 'player', 'perfect');
     if (!this.attack?.sweep || n === this.combat.target) this.tweens.add({ targets: this.enemy, x: this.player.homeX + 70, duration: 90, yoyo: true, ease: 'Quad.in' });
     if (d.result === 'parry') {
@@ -803,6 +816,7 @@ export class CombatScene extends Phaser.Scene {
     this.ui.combatRefresh();
     if (this.combat.outcome) { this.over(); return; }
     const dot = this.combat.endRound();
+    this.ritualArt?.round();
     if (this.combat.outcome === 'fled') { this.ui.combatRefresh(); this.over(); return; } // Rückzug durchgehalten
     const bleed = this.combat.bleedTick;
     if (this.combat.drainTick) { this.focusPlayer(this.combat.actor); this.float(`-${this.combat.drainTick} Nerven`, 'player', 'hurt'); }

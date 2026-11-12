@@ -3,6 +3,7 @@
 // denselben Texture-Keys. Alles, was hier nicht zugeordnet ist (oder nicht lädt),
 // bleibt automatisch beim Platzhalter.
 import { PATHWAY_STANDIN } from '../data/sequenzen.js';
+import { preloadRitualArt } from './ritualArt.js';
 
 const BASE = './sprites/';
 export const SPRITE_BASE = BASE;
@@ -1254,6 +1255,11 @@ export function preloadSprites(scene) {
   for (const [key, [path, w, h]] of Object.entries(CASE_SHEETS)) {
     if (!scene.textures.exists(key)) scene.load.spritesheet(key, BASE + path, { frameWidth: w, frameHeight: h });
   }
+  // Codex DN/DO/DQ: Ritualgrafiken der Sequenzen 6 bis 4 (Kampfblätter laufen über BATTLE_SHEETS, s. u.)
+  for (const [id, file] of [['manifestSeq4rit1', 'seq4rit1'], ['manifestSchatten', 'schatten'], ['manifestRituale56', 'rituale56']]) {
+    if (!scene.cache.json.exists(id)) scene.load.json(id, `${BASE}manifest-${file}.json`);
+  }
+  preloadRitualArt(scene, BATTLE_SHEETS);
 }
 
 /**
@@ -1285,7 +1291,7 @@ function battleAnimDef(scene, sheet, name) {
   return null;
 }
 /** Manifeste mit Kampf-Sheets; spätere Pakete nennen ihre Einträge nicht nach dem Sheet, darum auch über die Datei. */
-export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3', 'manifestDunscar5', 'manifestStarling2', 'manifestSekten', 'manifestVorrat1', 'manifestVorrat2', 'manifestHalbgott', 'manifestFasserin2', 'manifestFigurenNachzuegler'];
+export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3', 'manifestDunscar5', 'manifestStarling2', 'manifestSekten', 'manifestVorrat1', 'manifestVorrat2', 'manifestHalbgott', 'manifestFasserin2', 'manifestFigurenNachzuegler', 'manifestSeq4rit1', 'manifestSchatten', 'manifestRituale56'];
 export function battleSheetDef(scene, sheet) {
   const file = BATTLE_SHEETS[sheet]?.[0];
   for (const m of BATTLE_MANIFESTS) {
@@ -2911,3 +2917,18 @@ UI_SHEETS.hghud = ['ui/HG_hud.png', 160, 16];
 UI_REGIONS.hghud = Object.fromEntries(HG_HUD.map((n, i) => [n, [i * 16, 0, 16, 16]]));
 UI_SHEETS.hghud32 = ['ui/HG_hud_32.png', 320, 32];
 UI_REGIONS.hghud32 = Object.fromEntries(HG_HUD.map((n, i) => [n, [i * 32, 0, 32, 32]]));
+
+// --- Codex DN, DO, DQ: Kampfblätter der Rituale (Zivilist, Schatten, Laternenbestie) ----------------------------------
+/** Maske (Seq 4): gewöhnlicher Zivilist; Schlüssel (Seq 4): der Schatten. Beide 6x9 wie battle_player, je Spielfigur. */
+for (const look of ['player', 'p2a', 'p2b']) {
+  BATTLE_SHEETS[`s4ma_zivil_${look}_battle`] = [`battle/s4ma_zivil_${look}.png`, 48];
+  BATTLE_SHEETS[`schatten_${look}_battle`] = [`battle/schatten_${look}.png`, 48];
+}
+/** Schattenattacke als eigener Schlag-Streifen (8 Frames, 48x48). */
+BATTLE_SHEETS.schatten_attacke = ['battle/schatten_attacke.png', 48];
+/** Seq 5 (Laterne): die Laternenbestie hat ihr eigenes Blatt (64x64). */
+BATTLE_SHEETS.enemy_laternenbestie = ['battle/enemy_laternenbestie.png', 64];
+ENCOUNTER_SHEETS.laternenbestie = 'enemy_laternenbestie';
+ANIM_ALIASES.enemy_laternenbestie = { attack: 'attack1', heavy: 'attack2', double: 'attack2', cast: 'special', occult: 'special' };
+/** Ritual-Kampfblätter des Spielers: Zivilist (Maske) oder Schatten (Schlüssel) statt des Ermittlers. */
+export const ritualBattleSheet = (kind, look = 'player') => (kind ? `${kind === 'shadow' ? 'schatten' : 's4ma_zivil'}_${look}_battle` : null);

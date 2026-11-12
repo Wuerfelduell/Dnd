@@ -591,7 +591,8 @@ export const pathwayMethods = {
       this.act('lock');
       this.emit('changed');
     }
-    return { ok: true, first, text: `Schloss geknackt. ${how}` };
+    const tool = this.passive('lock_bonus') > 0 ? 'pfad' : this.itemCount('brecheisen') ? 'brecheisen' : 'haarnadel'; // Codex DQ: passende Schloss-Animation
+    return { ok: true, first, tool, text: `Schloss geknackt. ${how}` };
   },
 
   /** Ritual der Waage: Betrug auf einem geheimen Treffen aufgedeckt (siehe Auction.js). */
