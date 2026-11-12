@@ -1,0 +1,821 @@
+{
+  "version": 1,
+  "batch": "tiere",
+  "codex": "DF",
+  "status": "exported; integration separate",
+  "paletteMaxVisibleColors": 32,
+  "palette": [
+    "#1a1c2c",
+    "#252b38",
+    "#303b49",
+    "#d0a050",
+    "#e8b860",
+    "#92745a",
+    "#58433c",
+    "#2d2629",
+    "#715648",
+    "#886332",
+    "#686850",
+    "#494b3a",
+    "#b3946e",
+    "#cfb18a",
+    "#f0ce80",
+    "#8b8870",
+    "#425360",
+    "#e0c9a1",
+    "#a8b4c0",
+    "#586c78",
+    "#71858b",
+    "#95a5a5",
+    "#eee2c5",
+    "#893e4e",
+    "#6fe0d0",
+    "#496b64",
+    "#334d47",
+    "#493d59",
+    "#665572",
+    "#877595",
+    "#835140",
+    "#a66c4d"
+  ],
+  "paletteReference": "manifest-fasserin.json",
+  "notes": [
+    "Kartenfiguren ausdrücklich 16x16 (Ausnahme zum allgemeinen Figurenformat).",
+    "Zusatzposen separat in 64x48-Atlanten: Ruhe 0/1, Gabe 4–7, Füttern 8–10; Rest transparent.",
+    "Kampfeingriff einmalige Cut-in-Animation, kein targetable actor.",
+    "Effekt tier_zufrieden ist Staub/Dampf, kein Herz."
+  ],
+  "assets": [
+    {
+      "id": "tier_rabe",
+      "file": "characters/tier_rabe.png",
+      "kind": "character",
+      "width": 64,
+      "height": 80,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 5,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "fly": {
+          "frames": [
+            16,
+            17,
+            18,
+            19
+          ],
+          "frameRate": 9,
+          "repeat": -1
+        }
+      },
+      "sha256": "1fd7b142080eb618f40ce8408ce0154ff195c29260edbafce7e2cedc0fee22a7",
+      "baselineExclusive": 15
+    },
+    {
+      "id": "tier_rabe_posen",
+      "file": "characters/tier_rabe_posen.png",
+      "kind": "poses",
+      "width": 64,
+      "height": 48,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 3,
+      "transparent": true,
+      "animations": {
+        "rest": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "gift": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        },
+        "feed": {
+          "frames": [
+            8,
+            9,
+            10
+          ],
+          "frameRate": 5,
+          "repeat": 0
+        }
+      },
+      "sha256": "a3170ad70dd30ecc416161b74c104dbcdf0445b039dfbebdda82e7c1107b2a2a",
+      "emptyFrames": [
+        2,
+        3,
+        11
+      ],
+      "baselineExclusive": 15
+    },
+    {
+      "id": "tier_rabe",
+      "file": "portraits/tiere/tier_rabe.png",
+      "kind": "portraits",
+      "width": 96,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 3,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "sha256": "f576d0a74a6d3d9889f67e46c3b9377ccbffdf1f7e54ab9da17fcf7d075ca626",
+      "states": {
+        "neutral": 0,
+        "aufmerksam": 1,
+        "zufrieden": 2
+      }
+    },
+    {
+      "id": "tier_rabe_eingriff",
+      "file": "battle/tier_rabe_eingriff.png",
+      "kind": "battle",
+      "width": 288,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "intervention": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "sha256": "e1d969384c65e6b62a6c05885a9869363069da79b1fa3172287021cde37dc0e4",
+      "effectFrame": 3,
+      "anchor": [
+        24,
+        44
+      ]
+    },
+    {
+      "id": "tier_kater",
+      "file": "characters/tier_kater.png",
+      "kind": "character",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "sha256": "47a8e26c67162320f663335e6040c34c3aa1b51e1ad509d5076dcfec6356ccef",
+      "baselineExclusive": 15
+    },
+    {
+      "id": "tier_kater_posen",
+      "file": "characters/tier_kater_posen.png",
+      "kind": "poses",
+      "width": 64,
+      "height": 48,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 3,
+      "transparent": true,
+      "animations": {
+        "rest": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "gift": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        },
+        "feed": {
+          "frames": [
+            8,
+            9,
+            10
+          ],
+          "frameRate": 5,
+          "repeat": 0
+        }
+      },
+      "sha256": "cf2fb81b0ac7877da1aca26c149100bd7d6a2b5a95f5e2f42a8dfd888f381547",
+      "emptyFrames": [
+        2,
+        3,
+        11
+      ],
+      "baselineExclusive": 15
+    },
+    {
+      "id": "tier_kater",
+      "file": "portraits/tiere/tier_kater.png",
+      "kind": "portraits",
+      "width": 96,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 3,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "sha256": "10623eddafd47414ca38150c0f13ff16ecea1565a020ab9f3f25c7aedf7f439e",
+      "states": {
+        "neutral": 0,
+        "aufmerksam": 1,
+        "zufrieden": 2
+      }
+    },
+    {
+      "id": "tier_kater_eingriff",
+      "file": "battle/tier_kater_eingriff.png",
+      "kind": "battle",
+      "width": 288,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "intervention": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "sha256": "ddea49f68e55b7e88ba6a51093e9f74d763458925d348d7c70c0624bfcc2fe27",
+      "effectFrame": 3,
+      "anchor": [
+        24,
+        44
+      ]
+    },
+    {
+      "id": "tier_hund",
+      "file": "characters/tier_hund.png",
+      "kind": "character",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "sha256": "0d6d2d21ccc63624d2e08d96710cd4a2a277c5f21ac41bf39f3cc49dd363da00",
+      "baselineExclusive": 15
+    },
+    {
+      "id": "tier_hund_posen",
+      "file": "characters/tier_hund_posen.png",
+      "kind": "poses",
+      "width": 64,
+      "height": 48,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 3,
+      "transparent": true,
+      "animations": {
+        "rest": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "gift": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        },
+        "feed": {
+          "frames": [
+            8,
+            9,
+            10
+          ],
+          "frameRate": 5,
+          "repeat": 0
+        }
+      },
+      "sha256": "e2993b6f7c3963bf2d5428e1b8e548f086da2c67bfb21ac8eb4e3e0bc7695b8a",
+      "emptyFrames": [
+        2,
+        3,
+        11
+      ],
+      "baselineExclusive": 15
+    },
+    {
+      "id": "tier_hund",
+      "file": "portraits/tiere/tier_hund.png",
+      "kind": "portraits",
+      "width": 96,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 3,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "sha256": "e7391e4e13b66547ec4fbf12f0d4960610f9398345762c62e9dd59f7dc333ab2",
+      "states": {
+        "neutral": 0,
+        "aufmerksam": 1,
+        "zufrieden": 2
+      }
+    },
+    {
+      "id": "tier_hund_eingriff",
+      "file": "battle/tier_hund_eingriff.png",
+      "kind": "battle",
+      "width": 288,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "intervention": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "sha256": "23a9e6c527b65301f801e37f44dd66c1bdbc203c912196019923e0c360a96386",
+      "effectFrame": 3,
+      "anchor": [
+        24,
+        44
+      ]
+    },
+    {
+      "id": "tier_ratte",
+      "file": "characters/tier_ratte.png",
+      "kind": "character",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "sha256": "f535e7b9b8ab9cd7b3b97c947aa0defafc719eb8277a68108a0d51bc0e6cf4ec",
+      "baselineExclusive": 15
+    },
+    {
+      "id": "tier_ratte_posen",
+      "file": "characters/tier_ratte_posen.png",
+      "kind": "poses",
+      "width": 64,
+      "height": 48,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 3,
+      "transparent": true,
+      "animations": {
+        "rest": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "gift": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        },
+        "feed": {
+          "frames": [
+            8,
+            9,
+            10
+          ],
+          "frameRate": 5,
+          "repeat": 0
+        }
+      },
+      "sha256": "51f93f8a27e4cbd0cb2cddcfe2356b5f8bfb496964635b20288953771093d1a9",
+      "emptyFrames": [
+        2,
+        3,
+        11
+      ],
+      "baselineExclusive": 15
+    },
+    {
+      "id": "tier_ratte",
+      "file": "portraits/tiere/tier_ratte.png",
+      "kind": "portraits",
+      "width": 96,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 3,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "sha256": "d1f96f9914479aa1de7c4c455e6c1a0726232ee680ac00ebc39ea9138f29552b",
+      "states": {
+        "neutral": 0,
+        "aufmerksam": 1,
+        "zufrieden": 2
+      }
+    },
+    {
+      "id": "tier_ratte_eingriff",
+      "file": "battle/tier_ratte_eingriff.png",
+      "kind": "battle",
+      "width": 288,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "intervention": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "sha256": "4a635fcea493f72132b42f89af68aa88179c5f52a881600d376d841e462d2d71",
+      "effectFrame": 3,
+      "anchor": [
+        24,
+        44
+      ]
+    },
+    {
+      "id": "tiere_symbole",
+      "file": "ui/tiere_symbole.png",
+      "kind": "icons",
+      "width": 176,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 11,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "sha256": "2eb30b8ddb10995a1d6530143522fe9d10df9c859a9439b1befdd8649e2d89d4",
+      "states": {
+        "tier_rabe": 0,
+        "tier_kater": 1,
+        "tier_hund": 2,
+        "tier_ratte": 3,
+        "fuettern": 4,
+        "gabe_bereit": 5,
+        "gabe_verbraucht": 6,
+        "buero": 7,
+        "stufe_1": 8,
+        "stufe_2": 9,
+        "stufe_3": 10
+      }
+    },
+    {
+      "id": "tier_marker",
+      "file": "fx/tier_marker.png",
+      "kind": "effect",
+      "width": 64,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": 0
+        }
+      },
+      "sha256": "61d064d8f063499aacbc332245fa615bab6deabef02e35c240316940393580b2"
+    },
+    {
+      "id": "tier_zufrieden",
+      "file": "fx/tier_zufrieden.png",
+      "kind": "effect",
+      "width": 64,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": 0
+        }
+      },
+      "sha256": "de4d247bc48adb70e2a3c15b0f1c37f7cb5ebda9006f0e372134ab91583987e3"
+    },
+    {
+      "id": "tiere_plaetze",
+      "file": "props/tiere_plaetze.png",
+      "kind": "props",
+      "width": 64,
+      "height": 32,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 2,
+      "transparent": true,
+      "animations": {},
+      "sha256": "7c4c4ba4e3402a8ec9c58ffad8b07e44ec2a453968e2a3d3c0e15c05df08a5c8",
+      "regions": {
+        "rabe_leer": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "rabe_besetzt": {
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "kater_leer": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "kater_besetzt": {
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "hund_leer": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "hund_besetzt": {
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "ratte_leer": {
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "ratte_besetzt": {
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        }
+      }
+    }
+  ]
+}

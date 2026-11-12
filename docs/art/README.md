@@ -1817,6 +1817,21 @@ Prüfung: `python tools/art/calderwick2/check.py` (Pillow, aus jedem Arbeitsverz
 
 Keine Laufzeitintegration in diesem Paket.
 
+### DF — Tiergefährten (`tiere`)
+
+20 PNGs für Kessel (Rabe), Rußfleck (Kater), Pegel (Hündin), Siebzehn (Ratte):
+16×16-Kartenfiguren mit vier Richtungen und vier Gangphasen (Rabe plus Flug),
+separate Ruhe-/Gabe-/Fütterposen, 6-Frame-Kampfeingriffe, drei Portraitstimmungen,
+11 UI-Symbole, Hinweis-/Zufriedenheitsanimationen und acht Büroplatz-Zustände.
+Gemeinsame Fasserin-Palette, binäres Alpha; ImageGen mit Nearest-Neighbor-Export.
+
+- Manifest: `public/sprites/manifest-tiere.json`.
+- [Vorschau](batch-tiere-preview.png), [Prompts und Herkunft](batch-tiere-generation.json),
+  [Grafikprüfung](batch-tiere-validation.json).
+- Prüfung: `python tools/art/tiere/check.py --write` (Pillow).
+- Texte/Verhalten: `docs/story/tiergefaehrten/`; Prüfung mit
+  `node docs/story/tiergefaehrten/pruefen.mjs`.
+- Integration separat; keinerlei Spielcode geändert.
 
 ## Batch CS – Figuren-Nachzügler
 
