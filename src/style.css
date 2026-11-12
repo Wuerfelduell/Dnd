@@ -1061,3 +1061,33 @@ html.touch .talentbar .tslot { width: 3.2em; height: 3.2em; }
 .sudfenster { position: relative; image-rendering: pixelated; margin: 0.4em 0; }
 .sudslot { position: absolute; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .waagefx { margin-right: 0.4em; vertical-align: middle; }
+
+/* Codex DL: Akte des Ermittlers */
+.erfakte h3.erfgruppe { margin: 0.8em 0 0.3em; display: flex; align-items: center; gap: 0.4em; }
+.erfliste { list-style: none; padding: 0; margin: 0; }
+.erfliste li.erf { display: flex; align-items: center; gap: 0.6em; padding: 0.25em 0; border-bottom: 1px solid rgba(208, 160, 80, 0.15); }
+.erfliste li.erf > div { flex: 1; }
+.erfliste li.offen b { opacity: 0.7; }
+.erfliste .erfico { flex: none; image-rendering: pixelated; }
+.erfstempel { color: var(--gold); font-weight: bold; }
+.toast.erfolg .erfico { margin-right: 0.4em; vertical-align: middle; image-rendering: pixelated; }
+
+/* Codex DI: Postfach */
+.postfach { display: flex; gap: 1em; align-items: flex-start; }
+.postliste { list-style: none; padding: 0; margin: 0; flex: 0 0 38%; max-height: 60vh; overflow-y: auto; }
+.postliste li { padding: 0.35em 0.5em; cursor: pointer; border-left: 3px solid transparent; }
+.postliste li.sel { border-left-color: var(--gold); background: rgba(208, 160, 80, 0.08); }
+.postliste li.neu b { color: var(--gold); }
+.postbrief { flex: 1; }
+.postbrief button.antwort { display: block; width: 100%; text-align: left; margin: 0.3em 0; }
+@media (max-width: 640px) { .postfach { flex-direction: column; } .postliste { flex: none; width: 100%; } }
+
+/* Codex DM: Spielstand-Karte im Titel, Ladebild beim Stadtwechsel */
+.panel.title { position: relative; }
+.savecard { position: absolute; top: 0.7em; right: 0.7em; display: flex; flex-direction: column; align-items: center; gap: 0.1em; }
+.savecard img { width: 96px; height: 54px; image-rendering: pixelated; border: 2px solid rgba(208, 160, 80, 0.6); }
+.savecard span { font-size: 0.7em; opacity: 0.8; }
+@media (max-width: 640px) { .savecard { display: none; } }
+.ladebild { position: absolute; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; background: #0b0c12; transition: opacity 0.5s; pointer-events: none; }
+.ladebild img { width: min(80%, 720px); aspect-ratio: 240 / 135; image-rendering: pixelated; border: 3px solid rgba(208, 160, 80, 0.5); }
+.ladebild.out { opacity: 0; }

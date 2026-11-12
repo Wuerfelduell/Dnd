@@ -495,6 +495,21 @@ export const TITLE_LAYERS = [
   { file: 'ebene_3_nebel', drift: 70 }, { file: 'ebene_4_stadt', depth: 2 }, { file: 'ebene_4_fenster', frames: 4, sec: 10, depth: 2 },
   { file: 'ebene_5_vorne', depth: 3 }, { file: 'ebene_5_laterne', frames: 4, sec: 0.5, depth: 3, box: [64, 96, 16, 16] }, { file: 'ebene_6_regen', frames: 4, sec: 0.4 },
 ].map((l) => ({ ...l, url: `${BASE}ui/AE_titel/${l.file}.png` }));
+/** Codex DM: Titelbild je Kapitel (Himmel, Stadt, Nebel, Vordergrund) für die Stadt des Spielstands; Kettlegate behält AE. */
+export const DM_CITIES = ['kettlegate', 'wexmoor', 'dunscar', 'calderwick', 'briarholt', 'varrowmouth'];
+export const dmTitleLayers = (city, { warm = false } = {}) => {
+  const k = DM_CITIES.indexOf(city) + 1;
+  if (k < 2 || k > 5) return null;
+  const f = (n) => `${BASE}ui/titel_k${k}_${n}.png`;
+  return [{ url: f('himmel') }, { url: f('stadt'), depth: 1 }, { url: f('nebel'), drift: 70 }, { url: f(warm && k === 5 ? 'vordergrund_warm' : 'vordergrund'), depth: 3 }];
+};
+/** Codex DM: Mini-Bild der Stadt für die Spielstand-Karte (96x54). */
+export const spielstandUrl = (city) => (DM_CITIES.includes(city) ? `${BASE}ui/spielstand_${city}.png` : null);
+/** Codex DM: Ladebild (240x135) – je Stadt drei (Straße, Innenraum, Gegenstand). */
+export const ladenUrl = (city, n = 0) => {
+  const i = DM_CITIES.indexOf(city);
+  return i < 0 ? null : `${BASE}ui/laden_${i * 3 + 1 + (Math.abs(n) % 3)}.png`;
+};
 export const MAP_WEATHER = { docks: 'rain_light', ebba: 'ash' };
 
 // --- Paket A: animierte Sheets (Frames/Animationen in manifest-pfade.json) ----------
@@ -1113,7 +1128,7 @@ export const BESTIARY = [...Object.keys(TURN_PORTRAITS).filter((id) => id !== 'p
 /** Paket → Präfix der Bestiariumsseite (Rest: F). */
 const BESTIARY_PACK = {};
 export const BESTIARY_FILES = {}; // Seiten ohne Paket-Präfix im Dateinamen (Paket AJ)
-export const bestiaryUrl = (id) => (BESTIARY_FILES[id] ? `${BASE}ui/bestiary/${BESTIARY_FILES[id]}.png` : `${BASE}ui/bestiary/${BESTIARY_PACK[id] ?? (G_MONSTERS[id] ? 'G' : 'F')}_${id}.png`);
+export const bestiaryUrl = (id) => (/^bn_/.test(id) ? `${BASE}ui/bestiar/${id}.png` : BESTIARY_FILES[id] ? `${BASE}ui/bestiary/${BESTIARY_FILES[id]}.png` : `${BASE}ui/bestiary/${BESTIARY_PACK[id] ?? (G_MONSTERS[id] ? 'G' : 'F')}_${id}.png`);
 /** Ausrüstung aus Paket F: Items mit 16er- und 32er-Icon unter items/ (Werte kommen mit den Daten). */
 export const F_EQUIPMENT = ['mantel_wolle', 'mantel_gewachst', 'mantel_polizei', 'mantel_samt', 'mantel_flicken', 'mantel_leder', 'mantel_chor',
   'mantel_nebel', 'hut_schirmmuetze', 'hut_melone', 'hut_zylinder', 'hut_helm', 'hut_kapuze', 'hut_schutzbrille', 'hut_witwenschleier', 'hut_maske',
@@ -1140,6 +1155,9 @@ export function playCaseAnim(sprite, sheet, then) {
 /** 16x16-Icon unter public/sprites/items/<id>.png (tests/sprites.test.js prüft, dass es zu jedem Item eins gibt). */
 /** Items ohne eigenes Bild (noch): Platzhalter aus einem ähnlichen Item. */
 export const ITEM_ICON_ALIASES = { // Paket AA/AB haben seit AJ eigene Symbole
+  // Codex DI: Post-Beilagen ohne eigenes Bild leihen aus Reserve200 (Fotos haben eigene aus DM)
+  post_schluessel_ohne_schloss: 'reserve200/fundstuecke/reserve_036_schluesselabdruck', post_leseblatt: 'reserve200/fundstuecke/reserve_021_zerrissener_brief',
+  post_fragen_vor_der_erklaerung: 'reserve200/fundstuecke/reserve_030_brandbrief',
   k2a_tinte_abschrift: 'pfaendungsbrief', k2a_bittere_mittel_abschrift: 'pfaendungsbrief', k2a_hafenrecht_abschrift: 'pfaendungsbrief', k2a_letztes_bild_abschrift: 'pfaendungsbrief' }; // Paket AL
 /** Zutaten und Artefakte aus Paket AF haben seit AG eigene Bilder (16 und 32). */
 const AF_ARTIFACTS = ['sq_offene_blende', 'sq_gegenakte', 'sq_ruecklaufbecher', 'sq_stegbolzen', 'sq_fristpendel', 'sq_torfsiegel'];
@@ -1242,6 +1260,7 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestHalbgott')) scene.load.json('manifestHalbgott', `${BASE}manifest-halbgott.json`);
   if (!scene.cache.json.exists('manifestFasserin2')) scene.load.json('manifestFasserin2', `${BASE}manifest-fasserin2.json`);
   if (!scene.cache.json.exists('manifestFigurenNachzuegler')) scene.load.json('manifestFigurenNachzuegler', `${BASE}manifest-figuren_nachzuegler.json`);
+  if (!scene.cache.json.exists('manifestBenannte')) scene.load.json('manifestBenannte', `${BASE}manifest-benannte.json`); // Codex DJ
   if (!scene.cache.json.exists('manifestBriarholt1')) scene.load.json('manifestBriarholt1', `${BASE}manifest-briarholt1.json`);
   if (!scene.cache.json.exists('manifestCalderwick1')) scene.load.json('manifestCalderwick1', `${BASE}manifest-calderwick1.json`);
   if (!scene.cache.json.exists('manifestNebenquests')) scene.load.json('manifestNebenquests', `${BASE}manifest-nebenquests.json`);
@@ -1293,7 +1312,7 @@ function battleAnimDef(scene, sheet, name) {
   return null;
 }
 /** Manifeste mit Kampf-Sheets; spätere Pakete nennen ihre Einträge nicht nach dem Sheet, darum auch über die Datei. */
-export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3', 'manifestDunscar5', 'manifestStarling2', 'manifestSekten', 'manifestVorrat1', 'manifestVorrat2', 'manifestHalbgott', 'manifestFasserin2', 'manifestFigurenNachzuegler', 'manifestSeq4rit1', 'manifestSchatten', 'manifestRituale56'];
+export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3', 'manifestDunscar5', 'manifestStarling2', 'manifestSekten', 'manifestVorrat1', 'manifestVorrat2', 'manifestHalbgott', 'manifestFasserin2', 'manifestFigurenNachzuegler', 'manifestSeq4rit1', 'manifestSchatten', 'manifestRituale56', 'manifestBenannte'];
 export function battleSheetDef(scene, sheet) {
   const file = BATTLE_SHEETS[sheet]?.[0];
   for (const m of BATTLE_MANIFESTS) {
@@ -2982,3 +3001,16 @@ for (const id of ['ez_torfmutter', 'ez_schleusenuhr']) {
 Object.assign(ENCOUNTER_SHEETS, { ez_torfmutter: 'enemy_ez_ds_kalkbrennerin', ez_schleusenuhr: 'enemy_ez_ds_rangierer', wx_pfandleiherin: 'enemy_ez_ds_walzenstimme' });
 /** Aufgaben-Gegenstände der Pfad-Beyonder: Leihbilder, bis eigene Icons kommen. */
 Object.assign(ITEM_ICON_ALIASES, { ph_torfprobe: 'torfbernstein', ph_hales_siegel: 'siegelring' });
+
+// --- Codex DJ: benannte Gegner (manifest-benannte.json) ---------------------------------------------------------
+/** Kampfblätter 64x64 (idle/attack1/attack2/hurt/defeated), Lauf-Sheets 16x32, Köpfe und Bestiariumsbilder je bn_*. */
+export const BN_IDS = ['bn_der_zehnte_rattenkoenig', 'bn_schwester_glas', 'bn_der_leise_waechter', 'bn_holts_schatten', 'bn_die_alte_torfleiche', 'bn_grubenlicht_mutter',
+  'bn_der_wurm_mit_namen', 'bn_schlickhund_koenig', 'bn_schaffner_ohne_zug', 'bn_schwellenhund_weiss', 'bn_der_zweite_vorhauer', 'bn_kalkbraut', 'bn_der_letzte_setzer',
+  'bn_die_linke_stempelhand', 'bn_frau_ohne_durchschlag', 'bn_der_bremser_von_sechs', 'bn_schwester_kaltwasser', 'bn_der_gaertner_im_topf', 'bn_die_motte_im_sonntagsglas', 'bn_der_absender_ohne_ort'];
+for (const id of BN_IDS) {
+  BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, 64];
+  OVERWORLD_SHEETS[id] = [`characters/${id}.png`, 16, 32];
+  HEADS.push(id);
+  HEAD_FILES[id] = `portraits/heads/${id}.png`;
+}
+ICON32.push('bnl_zollkrone', 'bnl_stilleschlacke', 'bnl_lohnwurzel', 'bnl_lochzange', 'bnl_kalkband', 'bnl_umkehrletter', 'bnl_kaltventil', 'bnl_gesichtsabdruck');

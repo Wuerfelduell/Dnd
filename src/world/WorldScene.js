@@ -1346,6 +1346,9 @@ export class WorldScene extends Phaser.Scene {
   update(time, delta) {
     const blocked = this.ui.isBlocking() || this.leaving;
     if (!blocked) this.state.tick(delta / 1000);
+    // Codex DL: Erfolge alle 1,5 s prüfen (die erste Prüfung trägt still nach)
+    this.erfTimer = (this.erfTimer ?? 0) + delta;
+    if (this.erfTimer > 1500) { this.erfTimer = 0; this.state.checkPost?.(); this.state.checkErfolge?.(); }
     this.updateMovement(blocked);
     // Schlüssel Seq 5: die Schattengestalt ist durchscheinend
     this.playerSprites().forEach((q, i) => q.setAlpha(this.state.inShadow?.(i + 1) ? 0.4 : 1));
@@ -1859,6 +1862,9 @@ export class WorldScene extends Phaser.Scene {
     this.state.cancelPrivateAnswer?.(1); // BN: offene Namensantwort verfällt beim Kartenwechsel
     this.state.cancelPrivateAnswer?.(2);
     this.state.setSpiritVision(false);
+    const maps = this.state.content.maps;
+    const toCity = maps[mapId]?.city ?? 'kettlegate';
+    if (toCity !== (maps[this.state.map]?.city ?? 'kettlegate')) this.ui.showLoading?.(toCity); // Codex DM: Ladebild beim Stadtwechsel
     this.cameras.main.fadeOut(300, 0, 0, 0);
     this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
       this.state.map = mapId;

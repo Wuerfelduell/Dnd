@@ -41,9 +41,10 @@ export class Roamers {
     for (const def of defs) {
       if (def.boss && !def.respawn && this.state.flags.has(`won_${def.encounter}`)) continue; // Bosse bleiben besiegt (Gebietsbosse mit `respawn` kommen wieder)
       if (festplatz && encs[def.encounter]?.city && !def.boss) continue;
-      if (def.visible_if && !this.state.meets(def.visible_if)) continue; // Stadtgegner: erst ab einem Fall, Kopfgeld-Ziele nur mit Auftrag
+      if (def.visible_if && !this.state.meets(def.visible_if)) continue;
+      if (def.bn && !this.state.bnErscheint?.(def.encounter, s.mapDef.id)) continue; // Codex DJ: benannte Gegner nur nachts, ab Seq 6, 10 % je Tag // Stadtgegner: erst ab einem Fall, Kopfgeld-Ziele nur mit Auftrag
       const eliteId = `${def.encounter}_elite`;
-      const elite = !def.boss && !!encs[eliteId] && Math.random() < (def.elite_chance ?? s.mapDef.elite_chance ?? ELITE_CHANCE);
+      const elite = !def.boss && !def.bn && !!encs[eliteId] && Math.random() < (def.elite_chance ?? s.mapDef.elite_chance ?? ELITE_CHANCE);
       const id = elite ? eliteId : def.encounter;
       const enc = encs[id];
       if (!enc) throw new Error(`Unbekannter Gegner auf ${s.mapDef.id}: ${id}`);
@@ -56,7 +57,7 @@ export class Roamers {
       s.physics.add.collider(body, s.groundLayer);
       s.physics.add.collider(body, s.blockers);
       const r = {
-        def, id, enc, body, elite, boss: !!def.boss, alive: true,
+        def, id, enc, body, elite: elite || !!enc.benannt, boss: !!def.boss, alive: true,
         home: { x, y }, mode: 'wander', target: null, wait: Math.random() * 1500, stunUntil: 0, noticed: false,
         roam: enc.roam ?? {}, phase: Math.random() * 6, lastPos: { x, y }, stuck: 0,
       };
