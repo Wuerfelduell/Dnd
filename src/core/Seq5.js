@@ -478,7 +478,8 @@ export const seq5Methods = {
 
   // --- Uhr -------------------------------------------------------------------------------------------
   hasWatch() {
-    return UHREN.some((id) => this.itemCount(id) > 0);
+    // Schlüsselgegenstände (die alte Taschenuhr) liegen immer beim Ermittler; im Koop zählt sie auch für Spieler 2
+    return UHREN.some((id) => this.itemCount(id) > 0 || (this.acting === 2 && this.item(id)?.kind === 'key' && (this.p2?.inventory?.[id] ?? 0) > 0));
   },
 
   startUhr() {

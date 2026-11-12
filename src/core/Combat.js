@@ -188,8 +188,14 @@ export class Combat {
     this.id = encounterId;
     // Seq-4-Rituale (core/Seq4.js): Regeln der laufenden Prüfung, gelesen beim Prüfling. Solo: Spieler 2 schaut zu;
     // ist der Prüfling Spieler 2, tauschen die Werte für die Dauer des Kampfes (swapped), damit er Kämpfer 1 ist.
-    const prover = state.combatBy ?? state.acting ?? 1;
-    this.rules = enc.practice ? null : state.withPlayer(prover, () => state.pfadTaskRules?.(encounterId, enc) ?? state.seq4CombatRules?.(encounterId, enc) ?? state.hochCombatRules?.(encounterId, enc) ?? state.pfadCombatRules?.(encounterId, enc) ?? null, { quiet: true }); // Pfad-Beyonder: Aufgaben mit Sonderregeln
+    let prover = state.combatBy ?? state.acting ?? 1;
+    const rulesOf = (n) => (enc.practice ? null : state.withPlayer(n, () => state.pfadTaskRules?.(encounterId, enc) ?? state.seq4CombatRules?.(encounterId, enc) ?? state.hochCombatRules?.(encounterId, enc) ?? state.pfadCombatRules?.(encounterId, enc) ?? null, { quiet: true })); // Pfad-Beyonder: Aufgaben mit Sonderregeln
+    this.rules = rulesOf(prover);
+    // Kartengegner startet die Welt als Spieler 1: steckt nur Spieler 2 in einer Prüfung (Echo taub, Uhr, Maske, Faden), gelten seine Regeln
+    if (!this.rules && prover === 1 && state.acting === 1 && state.hasP2?.()) {
+      const r2 = rulesOf(2);
+      if (r2) { this.rules = r2; prover = 2; }
+    }
     this.swapped = false;
     if (this.rules?.solo && prover === 2 && state.acting === 1 && state.p2) { state.swapPersonal(); this.swapped = true; }
     if (this.rules?.scale) enc = { ...enc, hp: Math.round(enc.hp * this.rules.scale.hp), attacks: enc.attacks.map((a) => (a.action ? a : { ...a, damage: Math.max(1, Math.round(a.damage * this.rules.scale.dmg)) })) };
@@ -281,6 +287,7 @@ export class Combat {
     this.killedBy = null; // womit der Gegner fiel (Seq-5-Ritual der Laterne verlangt ein Leuchten)
     this.voiceWindow = false; // Seq-5-Ritual des Echos: der Beyonder lag schon unter 10 % Leben
     state.seq5CombatStart?.(this);
+    if (this.duo && !this.swapped) this.on(2, () => state.seq5CombatStart?.(this)); // Koop: Zeitprüfung der Uhr von Spieler 2
     this.tierSchutz = null; // Codex DF: Hund halbiert den ersten Treffer
     state.tierKampfStart?.(this);
     // Seq 4: Schatten (eigenes Leben), Uhr (Fehler zählen), Moor (Moorwasser je Runde), Ausweichzähler
@@ -603,6 +610,10 @@ export class Combat {
 
   /** Seq-5-Ritual des Echos: der Beyonder liegt unter 10 % Leben, die Zutaten sind da, man kann ihm die Stimme nehmen statt ihn zu töten. */
   canStealVoice() {
+    return this.on(this.actor, () => this.canStealVoiceNow());
+  }
+
+  canStealVoiceNow() {
     if (this.outcome || this.enc.practice || !this.state.seq5VoicePending?.()) return false;
     if (!this.state.isBeyonderFoe(this.id) || this.enemy.hp <= 0 || this.enemy.hp > this.enemy.maxHp * 0.1) return false;
     return this.state.ritualConsumesReady();
@@ -611,7 +622,7 @@ export class Combat {
   /** Verschont den Beyonder und raubt seine Stimme (Kampf endet mit 'spared': keine Beute, keine Siegesflaggen). */
   stealVoice() {
     if (!this.canStealVoice()) return null;
-    const text = this.state.seq5StealVoice(this.id);
+    const text = this.on(this.actor, () => this.state.seq5StealVoice(this.id));
     this.outcome = 'spared';
     this.log.push(text);
     return { text };
@@ -632,12 +643,12 @@ export class Combat {
 
   /** Seq-4-Ritual des Fadens: einen Schicksalsfaden an dieses Wesen knüpfen (kostet die Aktion). */
   canMarkFate() {
-    return !!this.rules?.mark && !this.outcome && !this.marked && !!this.state.canMarkFate?.(this.id);
+    return !!this.rules?.mark && !this.outcome && !this.marked && !!this.on(this.actor, () => this.state.canMarkFate?.(this.id));
   }
 
   markFate() {
     if (!this.canMarkFate()) return null;
-    const text = this.state.markFate(this.id);
+    const text = this.on(this.actor, () => this.state.markFate(this.id));
     this.marked = true;
     this.actions += 1;
     this.log.push(text);
@@ -1153,6 +1164,7 @@ export class Combat {
     }
     this.state.pfadExtraLoot?.(this, loot); // Pfad-Beyonder: Hinweis-Beute, Torfproben, Seq-4-Formel bei Eliten
     this.state.seq5ExtraLoot?.(this, loot); // violette Spinnenfäden, solange der Kokon gesucht wird
+    if (this.duo && !this.swapped) this.on(2, () => this.state.seq5ExtraLoot?.(this, loot)); // Koop: auch für Spieler 2
     return loot;
   }
 }
