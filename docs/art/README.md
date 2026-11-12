@@ -1817,6 +1817,24 @@ Prüfung: `python tools/art/calderwick2/check.py` (Pillow, aus jedem Arbeitsverz
 
 Keine Laufzeitintegration in diesem Paket.
 
+### CV — Varrowmouth: Tilesets und Props (`varrowmouth1`)
+
+17 PNGs: sieben 256×256-Tilesets je bei Ebbe/Flut, Wasseranimation 256×64,
+60 Props im 512×256-Atlas und sechs Fassaden mit Tag-/Nachtregionen im 512×128-Atlas.
+Je Thema 64 belegte Zellen, 8 Bodenvarianten und ein nahtgeprüftes 16er-Corner-Wang-
+Wasserset (Bits NW=1, NE=2, SE=4, SW=8; gesetzte Ecke = Wasser). Zellen 8–15,
+32–35 und 38–41 wechseln mit dem Pegel; die übrige Architektur bleibt identisch.
+Die zwei 32×96-Leuchtfeuertürme liegen wegen der Atlashöhe nebeneinander bei
+x=416/448; die fünf übrigen Tag-/Nachtfassaden stehen in zwei Reihen.
+Regionen müssen beim separaten Einbau als Fassadenmaterialien registriert werden.
+
+- Manifest: `public/sprites/manifest-varrowmouth1.json` (`themes`, `anims`, `regions`, `facades`).
+- Vorschau: [14 Kacheltests à 8×8 und Atlasübersicht](batch-varrowmouth1-preview.png).
+- Prompts/Herkunft: [Generation](batch-varrowmouth1-generation.json).
+- Prüfung: `python tools/art/varrowmouth1/check.py --write` (Pillow).
+- Bericht: [Validation](batch-varrowmouth1-validation.json).
+- Erzeugung mit ImageGen; danach Nearest Neighbor, gemeinsame 32er-Palette,
+  binäres Alpha, Zellnormalisierung und Nahtkorrekturen. Keine Änderungen am Spielcode.
 
 ## Batch DL — Erfolge (`erfolge`)
 
