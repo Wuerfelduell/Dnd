@@ -582,6 +582,8 @@ export const pathwayMethods = {
   tryPick(lock, key) {
     if (!lock?.pick || !this.canPick()) return null;
     const how = this.passive('lock_bonus') > 0 ? 'Deine Finger finden die Zuhaltungen von selbst.' : this.itemCount('brecheisen') ? 'Das Brecheisen knirscht, das Schloss gibt nach.' : 'Die Haarnadel biegt sich, dann klickt es.';
+    // DS: Dietrich (geübte Finger oder Haarnadel) mit Riegel, oder das Brecheisen hebelt
+    if (this.passive('lock_bonus') > 0 || !this.itemCount('brecheisen')) { this.sfx?.('schloss_dietrich'); this.sfx?.('schloss_auf', { delay: 750 }); } else this.sfx?.('schloss_brecheisen');
     const first = key && !this.pickedLocks.has(key);
     if (first) {
       this.pickedLocks.add(key);

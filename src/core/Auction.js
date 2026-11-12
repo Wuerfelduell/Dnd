@@ -263,18 +263,21 @@ export const auctionMethods = {
     if (!l || a.phase !== 'lot') return { ok: false, text: 'Gerade steht nichts zum Verkauf.' };
     if (!a.fraud || a.fraud.exposed) return { ok: false, text: 'Heute hast du hier nichts aufzudecken.' };
     const seller = this.memberName(l.seller);
+    this.sfx?.('waage_anprangern'); // DS: Faust auf den Tisch
     if (l.rigged) {
       a.fraud.exposed = true;
       const p = this.pathway;
       this.flags.add(this.fraudFlag(p.id, p.seq - 1));
       this.say(`Du nennst den Schätzwert laut: ${l.appraisal} Schilling, nicht ${l.start}. Stille. Dann schiebt ${seller} das Los zurück in die Tasche.`);
       this.act?.('fact_refuted');
+      this.sfx?.('waage_betrug_aufgedeckt', { delay: 650 });
       this.emit('fraud', { circle: a.circle, seller: l.seller });
       this.emit('changed');
       this.openRequest();
       return { ok: true, exposed: true, text: `Betrug aufgedeckt: ${seller} wollte ${l.start} Schilling für ein Stück, das ${l.appraisal} wert ist. Die Waage hat gesprochen.` };
     }
     this.say(`Du nennst ${seller} einen Betrüger. Niemand am Tisch nickt. Der Gastgeber zeigt zur Tür.`);
+    this.sfx?.('waage_falsch_beschuldigt', { delay: 650 });
     this.setComposure(this.composure - FRAUD_WRONG.nerves);
     this.setUnruhe(this.unruhe + FRAUD_WRONG.unruhe);
     const summary = this.endSession();

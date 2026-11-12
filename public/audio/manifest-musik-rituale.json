@@ -1,0 +1,48 @@
+{
+  "format": "nebel-musik-1",
+  "base": "audio/musik/",
+  "tracks": {
+    "s4r_laternennacht": {
+      "file": "s4r_laternennacht.json",
+      "mood": "s4r_laternennacht",
+      "volume": 0.62
+    },
+    "s4r_traum": {
+      "file": "s4r_traum.json",
+      "mood": "s4r_traum",
+      "volume": 0.62
+    },
+    "s4r_schattenseite": {
+      "file": "s4r_schattenseite.json",
+      "mood": "s4r_schattenseite",
+      "volume": 0.62
+    },
+    "s4r_waechter": {
+      "file": "s4r_waechter.json",
+      "mood": "s4r_waechter",
+      "volume": 0.62
+    }
+  },
+  "zuordnung": {
+    "maps": {},
+    "kampf": {
+      "hg_schwellenwaechter_laterne": "s4r_waechter",
+      "hg_schwellenwaechter_faden": "s4r_waechter",
+      "hg_schwellenwaechter_maske": "s4r_waechter",
+      "hg_schwellenwaechter_echo": "s4r_waechter",
+      "hg_schwellenwaechter_kessel": "s4r_waechter",
+      "hg_schwellenwaechter_eisen": "s4r_waechter",
+      "hg_schwellenwaechter_schluessel": "s4r_waechter",
+      "hg_schwellenwaechter_sq_waage": "s4r_waechter",
+      "hg_schwellenwaechter_sq_moor": "s4r_waechter",
+      "hg_schwellenwaechter_sq_uhr": "s4r_waechter",
+      "hg_traumgeflecht": "s4r_traum"
+    },
+    "ereignisse": {
+      "laternennacht": "s4r_laternennacht",
+      "traum": "s4r_traum",
+      "schattenseite": "s4r_schattenseite"
+    }
+  },
+  "_hinweis": "DS (Codex, PR #331): Seq-4-Rituale. Echo hat bewusst kein Stück (völlige Stille). Laternen-Spuren voll/halb/rest dünnen je erloschener Laterne aus (musicCues.laternenFaktoren)."
+}

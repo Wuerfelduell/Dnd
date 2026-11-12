@@ -1,5 +1,5 @@
 import { NEWSPAPERS } from '../data/lore.js';
-import { uiSound, worldSound } from '../core/sounds.js';
+import { uiSound, worldSound, sudZutatVariant, sudSounds, ruleBlockSound } from '../core/sounds.js';
 import { FESTE } from '../core/Clock.js';
 import { DIGEST_LABELS, digestSlowdown, fmtDigest, FORM_SEQ, FORM_MIN_DIGEST, FORM_NERVES_PER_SEC, FORM_UNRUHE_PER_SEC, FORM_MIN_NERVES } from '../core/Pathways.js';
 import { buffLabel, fmtSec } from '../core/Talents.js';
@@ -2454,7 +2454,10 @@ export class Ui {
       <div class="feedback">${feedback}</div>
       <div class="actions"><button data-act="close">Fertig <span class="key">Esc</span></button></div>`, 'notebook brew');
     el.querySelectorAll('[data-brew]').forEach((b) => { b.onclick = () => this.brew(b.dataset.brew); });
-    el.querySelectorAll('[data-sud-add]').forEach((b) => { b.onclick = () => { if ((this.sudPick ??= []).length < SUD_MAX_ZUTATEN) this.sudPick.push(b.dataset.sudAdd); this.openBrew(''); }; });
+    el.querySelectorAll('[data-sud-add]').forEach((b) => { b.onclick = () => {
+      if ((this.sudPick ??= []).length < SUD_MAX_ZUTATEN) { this.sudPick.push(b.dataset.sudAdd); this.sfx('sud_zutat', { variant: sudZutatVariant(b.dataset.sudAdd, this.state.item(b.dataset.sudAdd)) }); } // DS: Pulver, Kraut oder Flüssigkeit
+      this.openBrew('');
+    }; });
     el.querySelectorAll('[data-sud-rm]').forEach((b) => { b.onclick = () => { this.sudPick?.splice(Number(b.dataset.sudRm), 1); this.openBrew(''); }; });
     el.querySelector('[data-sud-brew]')?.addEventListener('click', () => this.brewSud());
     el.querySelector('[data-act=close]').onclick = () => this.close();
@@ -2481,7 +2484,9 @@ export class Ui {
 
   brewSud() {
     const r = this.as(() => this.state.brewSud(this.sudPick ?? []));
-    this.sfx(worldSound('brew', r));
+    // DS: gelungen (heller Dampf) oder Trüber Sud (Asche), danach fließt er ins Glas
+    if (r.ok) sudSounds(r).forEach(([id, ms]) => (ms ? setTimeout(() => this.sfx(id), ms) : this.sfx(id)));
+    else this.sfx(worldSound('brew', r));
     this.scene?.playBrewFx?.(r.ok);
     if (r.ok) this.sudPick = [];
     this.openBrew(`<span class="${r.ok ? 'good' : ''}">${esc(r.text)}</span>`);
@@ -3061,6 +3066,7 @@ export class Ui {
   combatPick(i) {
     const m = this.combatMenuOpen;
     const e = m?.entries[i];
+    if (e?.disabled && e.act) this.sfx(ruleBlockSound(this.combatScene?.combat?.rules, e.act)); // DS: die Prüfung verbietet es hörbar
     if (!e || e.disabled) return;
     if (e.back) { this.combatMenu('main'); return; }
     if (e.sub) { this.combatMenu(e.sub); return; }

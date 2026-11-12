@@ -275,10 +275,14 @@ export function combatSound(event, data = {}) {
   switch (event) {
     case 'telegraph': return 'ausholen';
     case 'act': return data.action === 'taunt' || data.action === 'drain' || data.action === 'veil' ? 'debuff' : data.action === 'heal' ? 'heilen' : null;
-    case 'start': return /^enemy_sk_|^chorwaechter$|^reise_kultist$/.test(data.id ?? '') ? 'sk_ueberfall' : /^fs_boxer/.test(data.id ?? '') ? 'fest_boxring_gong'
+    // DS: Schwellenwächter rieselt Kalk, das Traumgeflecht spricht mit den Stimmen der fünf, die Laternenbestie ruft (Seq 5 schon beim Entzünden)
+    case 'start': return /^hg_schwellenwaechter_/.test(data.id ?? '') ? 'hg_schwellenwaechter_kalk' : data.id === 'hg_traumgeflecht' ? 'hg_kreatur_stimme' : data.id === 'laternenbestie' ? null
+      : /^enemy_sk_|^chorwaechter$|^reise_kultist$/.test(data.id ?? '') ? 'sk_ueberfall' : /^fs_boxer/.test(data.id ?? '') ? 'fest_boxring_gong'
       : /schlafkutsche/.test(data.id ?? '') ? 'ls_schlafkutsche' : data.id === 'starling_stern' ? 'starling_verwandlung' : data.boss ? 'boss_auftritt' : 'kampf_start';
-    case 'hit': return /^fs_boxer/.test(data.id ?? '') && (data.kind === 'blunt' || data.kind === 'slash' || data.kind === 'critical') ? 'fest_boxring_treffer' : null;
-    case 'defeated': return /schichtgaenger/.test(data.sheet ?? data.id ?? '') ? 'ds_schichtgaenger_fall' : data.human ? 'gegner_tod' : 'geist_tod';
+    case 'hit': return /^fs_boxer/.test(data.id ?? '') && (data.kind === 'blunt' || data.kind === 'slash' || data.kind === 'critical') ? 'fest_boxring_treffer'
+      : /^hg_schwellenwaechter_/.test(data.id ?? '') && (data.kind === 'blunt' || data.kind === 'critical') && data.who === 'player' ? 'hg_schwellenwaechter_schlag' : null; // DS: der Wächter trifft schwer
+    case 'defeated': return /^hg_schwellenwaechter_/.test(data.id ?? '') ? 'hg_schwellenwaechter_zerfall' : data.id === 'laternenbestie' || data.id === 'kokonspinne' ? null // DS: Glas klingt aus bzw. Kokon platzt (Seq5.js)
+      : /schichtgaenger/.test(data.sheet ?? data.id ?? '') ? 'ds_schichtgaenger_fall' : data.human ? 'gegner_tod' : 'geist_tod';
     case 'star': return 'starling_stern';
     case 'over': return data.id === 'starling_stern' && data.outcome === 'won' ? 'starling_ende' : { won: 'sieg', lost: 'niederlage', fled: 'flucht', escaped: 'flucht' }[data.outcome] ?? null;
     default: return null;
@@ -312,6 +316,19 @@ export function wireSounds(state, audio, uiRoot, { cityOf = null } = {}) {
       audio.play(id, variant ? { variant } : {});
     });
   }
+  // DS: Klänge aus den Kernmodulen (state.sfx), mit fester Variante, Verzögerung und Mindestabstand
+  const last = new Map();
+  state.on('sfx', ({ id, variant, delay, volume, throttle } = {}) => {
+    if (!id) return;
+    const t = Date.now();
+    if (throttle && t - (last.get(id) ?? -Infinity) < throttle) return;
+    last.set(id, t);
+    const opts = { ...(variant ? { variant } : {}), ...(volume ? { volume } : {}) };
+    if (delay) setTimeout(() => audio.play(id, opts), delay); else audio.play(id, opts);
+  });
+  state.on('seq4', (d) => {
+    for (const [id, ms] of seq4ResultSounds(d)) (ms ? setTimeout(() => audio.play(id), ms) : audio.play(id));
+  });
   uiRoot?.addEventListener('click', (e) => {
     if (e.target.closest?.('button')) audio.play('ui_klick');
   });
@@ -319,4 +336,119 @@ export function wireSounds(state, audio, uiRoot, { cityOf = null } = {}) {
   uiRoot?.addEventListener('pointerover', (e) => {
     if (e.pointerType === 'mouse' && e.target.closest?.('.panel button')) audio.play('ui_hover', { volume: 0.5 });
   });
+}
+
+// --- DS: Klänge der Rituale Seq 6 bis 4 (manifest-sfx4.json) ----------------------------------------------
+// Die meisten Ids spielen die Kernmodule selbst über state.sfx(id, { variant, delay }) (Seq4.js, Seq5.js, Combat.js, Proben.js,
+// Auction.js, Pathways.js); wireSounds reicht sie an Audio weiter. Hier stehen die Zuordnungen, die mehr als eine Id kennen.
+
+/** Ereignis der Laternennacht (core/Laternenwacht.js) → Klang. */
+export function laternenSound(ev = {}) {
+  switch (ev.type) {
+    case 'hit': return 's4la_rueckstoss';
+    case 'kill': return 's4la_monster_zerfall';
+    case 'scorch': return 's4la_monster_zischt';
+    case 'lantern_attacked': return 's4la_laterne_angegriffen';
+    case 'lantern_out': return 's4la_laterne_aus';
+    case 'refill': return 's4la_nachfuellen_voll';
+    case 'tired': return 's4la_nachfuellen_abbruch';
+    case 'guardian': return 's4r_waechter_erscheint_welt';
+    case 'sunrise': return 's4la_sonnenaufgang';
+    case 'sunrise_fail': return 's4r_waechter_immun';
+    default: return null;
+  }
+}
+
+/** Fertigkeit unter Ritualregeln: Schattenattacke, die bloße Faust der Maske, sonst null (dann der Pfadklang). */
+export function ritualSkillSound(skillId, sk = {}, rules = null) {
+  if (sk?.shadow) return 'schatten_attacke';
+  if (rules?.onlyAttack && skillId === 'attack') return 's4ma_faust';
+  return null;
+}
+
+/** Ritual des Kessels: Wurfflasche → Druckstoß, Eis oder Glut. */
+export function kesselWurfSound(id = '', it = {}) {
+  const t = `${id} ${it?.name ?? ''}`.toLowerCase();
+  if (/frost|eis|kalt|reif/.test(t)) return 's4ke_wurf_frost';
+  if (it?.burn || /glut|feuer|brand|gift|aetz|ätz|schierling|säure|saeure/.test(t)) return 's4ke_wurf_glut';
+  if (it?.damage || it?.stun) return 's4ke_wurf_explosion';
+  return null;
+}
+
+/** Freies Brauen: Variante von sud_zutat (1 Pulver, 2 Kraut, 3 Flüssigkeit). */
+export function sudZutatVariant(id = '', it = {}) {
+  const t = `${id} ${it?.name ?? ''}`.toLowerCase();
+  if (/staub|pulver|asche|salz|mehl|sand|kreide|kalk|glas/.test(t)) return 1;
+  if (/tau|schleim|blut|wasser|oel|öl|saft|tinte|essenz|milch|sud|harz/.test(t)) return 3;
+  return 2;
+}
+
+/** Ergebnis von brewSud → [[id, Verzögerung ms], …]: gelungen oder Pfusch, danach Abfüllen. */
+export function sudSounds(r = {}) {
+  if (!r.ok) return [];
+  return [[r.recipe ? 'sud_gelungen' : 'sud_pfusch', 0], ['sud_abfuellen', 900]];
+}
+
+/** Gesperrter Knopf im Kampfmenü unter Ritualregeln → Klang des Verbots (oder null). */
+export function ruleBlockSound(rules, act = {}) {
+  if (!rules || !act) return null;
+  if (act.type === 'skill' && rules.potionOnly) return 's4ke_angriff_verboten';
+  if (act.type === 'skill' && rules.onlyAttack) return 's4ma_gabe_verboten';
+  if (rules.noHeal && (act.type === 'item' || act.type === 'skill')) return rules.shadow ? 'schatten_heilung_versagt' : 's4fa_heilung_versagt';
+  return null;
+}
+
+/** Ende einer Seq-4-Prüfung ({ kind, passed }) → Klänge [[id, ms], …]: Siegel oder Fehlschlag, dazu Schatten und Traum. */
+export function seq4ResultSounds({ kind, passed } = {}) {
+  const out = [[passed ? 'hg_ritual_siegel' : 'ritual_fehlschlag', passed ? 600 : 400]];
+  if (kind === 'schluessel') out.unshift([passed ? 'schatten_rueckkehr' : 'schatten_verloren', 0]);
+  if (kind === 'faden') out.unshift(['s4fa_erwachen', 0]);
+  return out;
+}
+
+/**
+ * Schleifen, die gerade laufen sollen: Ritualnacht und Unruhepuls (Laterne), Traum (Faden), Schattenluft (Schlüssel),
+ * Brodeln am Braukessel (freies Brauen). ctx: { modal }.
+ */
+export function ritualLoops(state, { modal = null } = {}) {
+  const out = [];
+  const kind = state.seq4Kind?.();
+  const st = kind ? state.seq4?.() ?? {} : {};
+  if (kind === 'laterne' && st.siege) out.push('s4la_amb_nacht', 's4la_unruhe_puls');
+  if (kind === 'faden' && st.dream) out.push('s4fa_traum_amb');
+  if (state.shadowActive?.()) out.push('schatten_amb');
+  if (modal === 'brew' && state.freeBrewUnlocked?.()) out.push('sud_brodeln_loop');
+  return out;
+}
+export const RITUAL_LOOPS = ['s4la_amb_nacht', 's4la_unruhe_puls', 's4fa_traum_amb', 'schatten_amb', 'sud_brodeln_loop'];
+
+/**
+ * Alle halbe Sekunde aus main.js: Schleifen an- und abschalten, der Unruhepuls wird mit der Dauer der Laternennacht lauter,
+ * Übergänge klingen einmal (Kessel-Rezepte offenbart, Sudwirkung vorbei), die Wartepause der Uhr tickt jede Sekunde.
+ * Gibt den Merker zurück, den der nächste Aufruf braucht.
+ */
+export function updateRitualSounds(state, audio, memo = {}, { modal = null, now = Date.now() } = {}) {
+  const want = new Set(ritualLoops(state, { modal }));
+  for (const id of RITUAL_LOOPS) {
+    if (want.has(id) && !memo.loops?.has(id)) audio.loop(id);
+    if (!want.has(id) && memo.loops?.has(id)) audio.stopLoop(id, 400);
+  }
+  if (want.has('s4la_unruhe_puls')) {
+    memo.siegeStart ??= now;
+    audio.loopVolume?.('s4la_unruhe_puls', Math.min(1, 0.15 + (now - memo.siegeStart) / 240000));
+  } else memo.siegeStart = null;
+  memo.loops = want;
+  const recipes = !!state.hgRecipesUnlocked?.();
+  if (recipes && memo.recipes === false) audio.play('s4ke_rezept_frei');
+  memo.recipes = recipes;
+  const sud = !!state.activeSudBuff?.();
+  if (!sud && memo.sud) audio.play('sud_wirkung_endet');
+  memo.sud = sud;
+  // Seq-5-Ritual der Uhr: in den 20-s-Pausen einmal je Sekunde ein einzelner Tick
+  const st5 = state.seq5Kind?.() === 'uhr' ? state.seq5?.() ?? {} : {};
+  const waiting = (st5.phase === 'wait1' || st5.phase === 'wait2') && Number.isFinite(st5.t) && now - st5.t < 20000;
+  const sec = waiting ? Math.floor((now - st5.t) / 1000) : null;
+  if (waiting && sec !== memo.tick) audio.play('s5_uhr_warten_tick');
+  memo.tick = sec;
+  return memo;
 }

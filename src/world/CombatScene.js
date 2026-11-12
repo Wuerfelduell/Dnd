@@ -8,7 +8,7 @@ import {
 } from './assets.js';
 import { VIEW_W, VIEW_H, PLAYER_PALETTE } from './WorldScene.js';
 import { koopBark, koopStartEvent } from '../core/Koop.js';
-import { combatSound, skillSound } from '../core/sounds.js';
+import { combatSound, skillSound, ritualSkillSound, kesselWurfSound } from '../core/sounds.js';
 import { combatCue } from '../core/musicCues.js';
 import { speechBubble } from './WexmoorLife.js';
 
@@ -85,6 +85,7 @@ export class CombatScene extends Phaser.Scene {
       this.time.delayedCall(bust ? 2400 : 600, () => this.bark(special ?? (bust || this.combat.enc.boss ? 'koop_bossbeginn' : 'koop_kampfbeginn'), watcher));
     }
     this.sfx(combatSound('start', { id: this.encounterId, boss: !!bust })); // CM: Sekten überfallen aus dem Nebel, Starling verwandelt sich
+    if (this.combat.rules?.spare) this.time.delayedCall(500, () => this.sfx('s4ma_handschuh')); // DS (Maske): der Handschuh fällt auf Stein
     if (!bust || !this.textures.exists('F_08_boss_band')) return;
     const band = this.add.sprite(0, 0, 'F_08_boss_band', 0).setOrigin(0).setDepth(90);
     const key = 'F_08_boss_band-enter';
@@ -156,9 +157,9 @@ export class CombatScene extends Phaser.Scene {
   hitFx(kind, who) {
     const p = who === 'enemy' ? this.enemyCenter() : this.playerCenter();
     // Paket Y: passender Klang zum Treffer
-    const sound = combatSound('hit', { id: this.encounterId, kind }) // CM: gepolsterte Treffer im Fest-Boxring
+    const sound = combatSound('hit', { id: this.encounterId, kind, who }) // CM: gepolsterte Treffer im Fest-Boxring
       ?? { miss: 'verfehlt', critical: 'treffer_krit', parry: 'parade', dodge: 'ausweichen', heal: 'heilen', item: 'trank', nerves: 'nerven' }[kind]
-      ?? (who === 'player' ? 'treffer_spieler' : 'treffer');
+      ?? (who === 'player' ? (this.combat?.rules?.shadow ? 'schatten_treffer' : 'treffer_spieler') : 'treffer'); // DS: der Schatten verliert Leben
     this.sfx(sound);
     this.playFx('hits', kind, p.x, p.y, 1);
   }
@@ -469,6 +470,7 @@ export class CombatScene extends Phaser.Scene {
       this.ui.combatRefresh();
       if (!this.anim(this.player, 'item')) this.flash(this.player);
       const used = c.state.item(action.id);
+      if (c.rules?.potionOnly) this.sfx(kesselWurfSound(action.id, used)); // DS (Kessel): Druckstoß, Eis oder Glut
       this.hitFx(used.damage ? 'item' : used.composure ? 'nerves' : 'heal', used.damage ? 'enemy' : 'player');
       if (c.state.item(action.id).damage) { this.flash(this.enemy); this.float(`-${c.state.item(action.id).damage * (c.enemy.occult ? 2 : 1)}`, 'enemy', 'dmg'); }
       this.phase = 'anim';
@@ -552,7 +554,7 @@ export class CombatScene extends Phaser.Scene {
     const c = this.combat;
     const sk = c.skillDef(skillId);
     const r = c.useSkill(skillId, grades);
-    this.sfx(skillSound(sk, c.on(c.actor, () => this.state.pathway?.id))); // Y: Pfadklang (Licht, Salz, Glocke, Geist, Feuer, Schwächung)
+    this.sfx(ritualSkillSound(skillId, sk, c.rules) ?? skillSound(sk, c.on(c.actor, () => this.state.pathway?.id))); // Y: Pfadklang (Licht, Salz, Glocke, Geist, Feuer, Schwächung); DS: Schattenattacke, Faust der Maske
     if (!sk.hits) {
       if (!this.castAnim()) this.flash(this.player);
       this.skillFx(skillId);

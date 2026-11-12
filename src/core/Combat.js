@@ -347,6 +347,7 @@ export class Combat {
   pickRoundSkill() {
     const ids = Object.keys(this.on(this.actor, () => this.state.pathwaySkills()));
     this.roundSkill = ids.length ? ids[Math.floor(this.rng() * ids.length)] : null;
+    if (this.roundSkill) this.state.sfx?.('schatten_auslosen'); // DS: dunkler Würfel, eine Fähigkeit für diese Runde
   }
 
   /** Lässt die Prüfung diese Fertigkeit zu? */
@@ -616,7 +617,8 @@ export class Combat {
   /** Seq-4-Ritual des Moores: zu Beginn jeder Runde eine Flasche Moorwasser, sonst ist es vorbei. */
   drinkMoor() {
     if (this.outcome) return;
-    if (this.state.itemCount('moorwasser') > 0) { this.state.removeItem('moorwasser'); this.moorDrunk = (this.moorDrunk ?? 0) + 1; return; }
+    if (this.state.itemCount('moorwasser') > 0) { this.state.removeItem('moorwasser'); this.moorDrunk = (this.moorDrunk ?? 0) + 1; this.state.sfx?.('s4mo_moorwasser_trinken'); return; }
+    this.state.sfx?.('s4mo_moorwasser_leer');
     this.breakRule('Kein Moorwasser mehr. Das Moor lässt dich los.');
   }
 
@@ -624,6 +626,7 @@ export class Combat {
   breakRule(text) {
     if (this.outcome) return;
     this.ruleBroken = text;
+    this.state.sfx?.('s4r_regel_gebrochen'); // DS: trockener Riss, danach Stille
     this.outcome = 'lost';
     this.log.push(text);
   }
@@ -713,7 +716,7 @@ export class Combat {
       this.roundDmg += dmg;
     }
     // Ritual des Eisens: vor Runde 6 fällt der Wächter nicht
-    if (this.rules?.minKillRound && this.round < this.rules.minKillRound && dmg >= this.enemy.hp) dmg = Math.max(0, this.enemy.hp - 1);
+    if (this.rules?.minKillRound && this.round < this.rules.minKillRound && dmg >= this.enemy.hp) { dmg = Math.max(0, this.enemy.hp - 1); this.state.sfx?.('s4r_waechter_immun', { throttle: 800 }); }
     this.enemy.hp = Math.max(0, this.enemy.hp - dmg);
     if (this.enemy.hp === 0 && !this.outcome) { this.outcome = 'won'; this.killedBy = this.curSkill ?? null; }
     if (this.enemy.hp > 0 && this.enemy.hp <= this.enemy.maxHp * 0.1 && this.state.isBeyonderFoe?.(this.id)) this.voiceWindow = true;
@@ -758,6 +761,7 @@ export class Combat {
     }
     if (atk.action) { this.enemyAct(atk); return null; }
     this.enemyAttacks += 1;
+    if (this.rules?.uhr === 'monster' && this.enemyAttacks === 1) this.state.sfx?.('s4uh_monster_angriff_gezaehlt'); // DS: Pflichtangriff gezählt
     return this.prepareAttack(atk);
   }
 
@@ -877,10 +881,11 @@ export class Combat {
     if (given === 'perfect') { given = 'dodge'; perfect = true; }
     let result = this.evading && given === 'miss' ? 'dodge' : given;
     let note = null;
-    if (this.rules?.noDodge && result === 'dodge') { result = 'miss'; note = 'forbidden'; }
+    if (this.rules?.noDodge && result === 'dodge') { result = 'miss'; note = 'forbidden'; this.state.sfx?.('s4ei_ausweichen_verboten'); }
     if (this.rules?.noParry && result === 'parry') { result = 'miss'; note = 'forbidden'; }
     if (this.rules?.uhr) {
       const clean = result === 'dodge' && given === 'dodge' && perfect;
+      this.state.sfx?.(clean ? 's4uh_perfekt' : 's4uh_fehler');
       if (!clean) {
         this.dodgeErrors += 1;
         note ??= 'imperfect';
@@ -939,6 +944,8 @@ export class Combat {
 
   endRound() {
     this.round += 1;
+    // DS (Eisen): jede der ersten fünf Runden schlägt eine Niete ein, mit Runde 6 springt der Ring
+    if (this.rules?.minKillRound && !this.outcome) this.state.sfx?.(this.round === this.rules.minKillRound ? 's4ei_waechter_frei' : this.round < this.rules.minKillRound ? 's4ei_runde_ueberstanden' : null);
     this.roundDmg = 0;
     this.capped = 0;
     for (const f of Object.values(this.fighters)) { f.bleedTick = 0; f.focusTick = 0; f.focusGain = 0; }

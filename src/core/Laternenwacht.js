@@ -54,6 +54,7 @@ export class Laternenwacht {
     this.outcome = null; // 'won' | 'lost'
     this.reason = null;
     this.events = [];
+    this.soundT = { attacked: 0, scorch: 0 }; // DS: Klirren und Zischen höchstens so oft, dass es nicht rattert
   }
 
   lit() {
@@ -90,6 +91,10 @@ export class Laternenwacht {
     const r = this.r;
     const p = { x: input.x, y: input.y };
     this.t += dt;
+    this.soundT.attacked = Math.max(0, this.soundT.attacked - dt);
+    this.soundT.scorch = Math.max(0, this.soundT.scorch - dt);
+    let attacked = null;
+    let scorched = false;
     // Unruhe mit der Dauer
     this.unruheT += dt;
     while (this.unruheT >= r.unruheEvery) { this.unruheT -= r.unruheEvery; this.hooks.unruhe(1); }
@@ -115,19 +120,21 @@ export class Laternenwacht {
       } else if (target) {
         const d = dist(m, target);
         if (d > 8) { m.x += ((target.x - m.x) / d) * r.monsterSpeed * dt; m.y += ((target.y - m.y) / d) * r.monsterSpeed * dt; }
-        else target.oil = Math.max(0, target.oil - r.drainMonster * dt);
+        else { target.oil = Math.max(0, target.oil - r.drainMonster * dt); attacked = target.i; }
       }
       for (const l of this.lanterns) {
         if (l.oil <= 0) continue;
         const d = dist(m, l);
         if (d <= r.light) {
           m.hp -= r.lightDps * dt;
+          scorched = true;
           if (d > 0.1) { m.x += ((m.x - l.x) / d) * r.push * 0.35 * dt; m.y += ((m.y - l.y) / d) * r.push * 0.35 * dt; }
         }
       }
       const dp = dist(m, p);
       if (this.aura && dp <= r.auraRadius) {
         m.hp -= r.auraDps * dt;
+        scorched = true;
         if (dp > 0.1) { m.x += ((m.x - p.x) / dp) * r.push * dt; m.y += ((m.y - p.y) / dp) * r.push * dt; }
       }
       if (dp <= 10 && m.cd <= 0) {
@@ -135,6 +142,9 @@ export class Laternenwacht {
         this.hit(r.monsterHit, m, p);
       }
     }
+    // DS: ein Wesen saugt an einer Laterne (Glasklirren), Licht versengt Wesen (Zischen)
+    if (attacked !== null && this.soundT.attacked <= 0) { this.soundT.attacked = 1.4; this.events.push({ type: 'lantern_attacked', lantern: attacked }); }
+    if (scorched && this.soundT.scorch <= 0) { this.soundT.scorch = 1.8; this.events.push({ type: 'scorch' }); }
     // Laternen, die in dieser Zeitscheibe schwach geworden oder erloschen sind (für Meldungen)
     for (const l of this.lanterns) {
       const state = l.oil <= 0 ? 'out' : l.oil < 25 ? 'weak' : 'ok';

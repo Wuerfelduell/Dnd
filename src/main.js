@@ -6,9 +6,9 @@ import { WorldScene, VIEW_W, VIEW_H } from './world/WorldScene.js';
 import { Ui } from './ui/Ui.js';
 import { CombatScene } from './world/CombatScene.js';
 import { Audio } from './core/Audio.js';
-import { wireSounds } from './core/sounds.js';
+import { wireSounds, updateRitualSounds } from './core/sounds.js';
 import { MusicDirector } from './core/MusicDirector.js';
-import { wireMusicCues, modeFor } from './core/musicCues.js';
+import { wireMusicCues, modeFor, ritualMusic, laternenFaktoren } from './core/musicCues.js';
 import { isOutdoorMap } from './world/assets.js';
 import { cityOf } from './core/Travel.js';
 
@@ -40,7 +40,8 @@ let game;
 const restartWorld = () => game.scene.getScene('world').scene.restart();
 
 // Paket Y: Soundeffekte (eine Instanz für alle Szenen; spielt erst nach der ersten Eingabe)
-const audio = new Audio({ kinds: ['sfx', 'sfx2'] }); // Effekte aus Paket Y und CM; Musik kommt als Notendaten (Paket Z)
+// DS: dazu die Ritualklänge (sfx4) und aus Paket DB nur die Halbgott-Klänge (hg_*), die die Rituale wiederverwenden
+const audio = new Audio({ kinds: ['sfx', 'sfx2', 'sfx3:hg_', 'sfx4'] }); // Effekte aus Paket Y und CM; Musik kommt als Notendaten (Paket Z)
 wireSounds(state, audio, uiRoot, { cityOf: (m) => cityOf(state, m) });
 
 const ui = new Ui(uiRoot, state, {
@@ -70,10 +71,15 @@ audio.setVolumes = (v) => { const out = setVolumes(v); music.applyVolume(); retu
 const startMusic = () => music.start();
 for (const type of ['pointerdown', 'keydown', 'touchend']) document.addEventListener(type, startMusic, { once: true });
 document.addEventListener('visibilitychange', () => (document.hidden ? music.pause() : music.resume()));
+let ritualMemo = {};
 setInterval(() => {
   if (document.hidden || !game) return;
   const combat = game.scene.isActive('combat') ? game.scene.getScene('combat') : null;
+  ritualMemo = updateRitualSounds(state, audio, ritualMemo, { modal: ui.modal }); // DS: Ritualschleifen, Kessel-Rezepte, Uhr-Tick
+  const siege = game.scene.getScene('world')?.hg?.siege;
   music.update({
+    ritual: ritualMusic(state, combat?.encounterId ?? null), // DS: Laternennacht, Traum, Schattenseite
+    spuren: siege ? laternenFaktoren(siege.lit().length, siege.lanterns.length) : null,
     title: !started,
     combat: combat?.combat ? { id: combat.encounterId, enc: combat.combat.enc } : null,
     vision: state.spiritVision,

@@ -175,6 +175,7 @@ export const seq5Methods = {
       this.emit('digest', { value: p.digestion, delta: p.digestion - before, kind: 'seq5_fail', player: this.acting ?? 1 });
       this.setUnruhe(this.unruhe + FAIL_UNRUHE);
     }
+    this.sfx('s5_pruefung_gescheitert');
     const full = `${this.seq5Name(kind)}: misslungen. ${text} (−${pct} % Verdauung, +${FAIL_UNRUHE} Unruhe. Du kannst es noch einmal versuchen.)`;
     this.emit('seq5', { kind, passed: false, player: this.acting ?? 1, text: full });
     this.emit('notice', full);
@@ -224,6 +225,7 @@ export const seq5Methods = {
     st.lanterns = (st.lanterns ?? 0) + 1;
     this.emit('changed');
     if (st.lanterns >= LATERNEN) {
+      this.sfx('s5_laternenbestie_ruf'); // DS: tiefe Resonanz mit Glas
       this.startCombat('laternenbestie');
       return { ok: true, fight: 'laternenbestie', text: 'Die zehnte Laterne brennt. Das Licht zwischen ihnen wird dick wie Honig, und etwas richtet sich darin auf, das deine Haltung hat. Die Laternenbestie. Nur ein Leuchten darf sie beenden.' };
     }
@@ -246,6 +248,7 @@ export const seq5Methods = {
     if (this.itemCount(SPINNENFADEN) < KOKON_FAEDEN) return { ok: false, text: `Dafür brauchst du ${KOKON_FAEDEN} lila Spinnfäden (${this.itemCount(SPINNENFADEN)} dabei).` };
     this.removeItem(SPINNENFADEN, KOKON_FAEDEN);
     st.kokon = true;
+    this.sfx('s5_kokon_wickeln');
     this.emit('changed');
     return { ok: true, text: `Du wickelst die Fäden um Arme, Brust und Beine, bis sie dich halten wie ein zweiter Körper. Jeder Schritt wird schwer. Lass Leben und Nerven unter ${KOKON_PCT * 100} % fallen, dann lock die Spinne (Pfad-Tab).` };
   },
@@ -273,6 +276,7 @@ export const seq5Methods = {
     st.identity = { name: enc.name, enc: encId, pathway, city, mark: MARKS[Math.floor(rng() * MARKS.length)] };
     st.convinced = [];
     st.asked = [];
+    this.sfx('s5_gesicht_nehmen');
     this.emit('changed');
     return `Du beugst dich über ${enc.name} und nimmst, was die Maske nehmen kann: die Züge, den Gang, den Namen. Steckbrief im Pfad-Tab: ${this.content.pathways[pathway].name}, aus ${CITY_NAMES[city] ?? city}, ${st.identity.mark}. Überzeuge ${MASKE_PRUEFUNGEN} andere Beyonder, dass du diese Person bist.`;
   },
@@ -315,6 +319,7 @@ export const seq5Methods = {
     const npc = this.content.npcs[quiz.npc]?.name ?? quiz.npc;
     if (picked !== round.answer) {
       this.maskeQuiz = null;
+      this.sfx('s5_misstrauen');
       const asked = [...new Set([...(st.asked ?? []), quiz.npc])];
       for (const id of asked) { this.flags.add(`misstrauen_${id}`); this.changeRelation(id, MISSTRAUEN, 'Enttarnt'); }
       st.identity = null;
@@ -338,6 +343,7 @@ export const seq5Methods = {
     if (!quiz) return { ok: false };
     this.maskeQuiz = null;
     if (quiz.step === 0) return { ok: true };
+    this.sfx('s5_misstrauen');
     const st = this.seq5();
     const asked = [...new Set([...(st.asked ?? []), quiz.npc])];
     for (const id of asked) { this.flags.add(`misstrauen_${id}`); this.changeRelation(id, MISSTRAUEN, 'Enttarnt'); }
@@ -458,9 +464,11 @@ export const seq5Methods = {
     this.removeItem(LEERES_GEFAESS);
     this.flags.add(`erinnerung_${npcId}`);
     if (opt.herkunft) {
+      this.sfx('s5_erinnerung_verweigert');
       return this.seq5Fail('moor', `Du greifst nach dem, woher ${npc} kommt. Das Glas springt in deiner Hand. Das Moor bewahrt die Herkunft, auch wenn der Name fehlt. ${npc} behält sie, und du einen Schnitt im Daumen.`);
     }
     this.addItem(GEFAESS_ERINNERUNG);
+    this.sfx('s5_erinnerung_ziehen');
     this.changeRelation(npcId, -1, 'Erinnerung genommen');
     this.act('hidden_clue');
     this.emit('changed');
@@ -503,11 +511,12 @@ export const seq5Methods = {
     const won = combat.outcome === 'won';
     const id = combat.id;
     if (k === 'laterne' && id === 'laternenbestie') {
+      if (won) this.sfx('s5_laternenbestie_fall', { delay: 400 });
       if (won && combat.killedBy?.holy) return this.seq5Pass('laterne', 'Der letzte Schlag war Licht.').text;
       return this.seq5Fail('laterne', won ? 'Die Bestie fiel, aber nicht durch ein Leuchten. Das zählt nicht.' : 'Die Bestie steht noch.').text;
     }
     if (k === 'faden' && id === 'kokonspinne') {
-      if (won && st.kokon) { delete st.kokon; return this.seq5Pass('faden', 'Eingewickelt, halb tot, und die Spinne liegt.').text; }
+      if (won && st.kokon) { delete st.kokon; this.sfx('s5_kokon_platzt'); return this.seq5Pass('faden', 'Eingewickelt, halb tot, und die Spinne liegt.').text; }
       return this.seq5Fail('faden', 'Die Spinne lebt, der Kokon ist zerrissen.').text;
     }
     if (k === 'maske' && won && !st.identity && this.isBeyonderFoe(id)) return this.seq5TakeIdentity(id);
@@ -525,7 +534,7 @@ export const seq5Methods = {
       return `Kampfprüfung: ${st.wins}/${EISEN.wins} Siege, ${st.rounds}/${EISEN.rounds} Runden.`;
     }
     if (k === 'schluessel' && st.armed) {
-      if (won && combat.stolen >= DIEBSTAHL && this.moneyBonusFromGear() > 1) return this.seq5Pass('schluessel', `${combat.stolen} Schilling aus fremder Tasche, und der Kampf gewonnen. Sie bleiben bei dir.`).text;
+      if (won && combat.stolen >= DIEBSTAHL && this.moneyBonusFromGear() > 1) { this.sfx('s5_diebstahl'); return this.seq5Pass('schluessel', `${combat.stolen} Schilling aus fremder Tasche, und der Kampf gewonnen. Sie bleiben bei dir.`).text; }
       return this.seq5Fail('schluessel', !won ? 'Der Kampf ging verloren.' : this.moneyBonusFromGear() <= 1 ? 'Nichts mit Schillingbonus am Leib.' : `Nur ${combat.stolen} Schilling gestohlen statt ${DIEBSTAHL}.`).text;
     }
     if (k === 'uhr' && st.armed && (st.phase === 'fight1' || st.phase === 'fight2')) {

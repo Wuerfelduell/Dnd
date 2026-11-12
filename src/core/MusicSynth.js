@@ -332,7 +332,8 @@ export class MusicSynth {
       const attack = Math.max(.004, def.attack ?? .01), decay = Math.max(.004, def.decay ?? .1), release = Math.max(.004, def.release ?? .2);
       const sustain = def.sustain ?? .6, end = at + duration + release;
       const env = ctx.createGain(), pan = ctx.createStereoPanner(), nodes = [env, pan], sources = [];
-      const amp = .2 * event.velocity * (track.lautstaerke ?? .7) / Math.sqrt(pitches.length);
+      // DS: Spurfaktor von außen (Laternennacht: voll/halb/rest je brennender Laterne), wirkt ab der nächsten geplanten Note
+      const amp = .2 * event.velocity * (track.lautstaerke ?? .7) * (this.spurFaktor?.[event.track] ?? 1) / Math.sqrt(pitches.length);
       env.gain.setValueAtTime(0, at); const aEnd = at + Math.min(attack, duration * .45), dEnd = Math.min(at + duration, aEnd + decay);
       env.gain.linearRampToValueAtTime(amp, aEnd); env.gain.linearRampToValueAtTime(amp * sustain, dEnd); env.gain.setValueAtTime(amp * sustain, at + duration); env.gain.linearRampToValueAtTime(0, end);
       pan.pan.value = track.pan ?? 0; env.connect(pan); pan.connect(layer.input);
