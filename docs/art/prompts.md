@@ -2,6 +2,13 @@
 
 Jede Datei ist **eigenständig** (Regeln, Formate, Ablage stehen drin). Codex braucht immer nur **eine** Datei. Alle Pakete schreiben in getrennte Ordner und können **gleichzeitig** laufen. Jedes Paket endet mit einem eigenen Pull Request.
 
+## Runde 12 (2026-11-12): letzte Leihbilder der Seq-4-Rituale
+Nach dem Einbau von DP und DR v2 (PR #336) laufen nur noch 13 Gegenstände mit Leihbildern. Nächster freier Buchstabe danach: DU.
+
+| Datei | Art | Inhalt | schreibt nach |
+|---|---|---|---|
+| `codex_DT_ritualicons2.md` | Grafik | 13 Item-Icons (16+32): Wurfflaschen `wurf_saeure`, `wurf_gift`, `wurf_spreng`; 10 seltene Wexmoor-Funde `wxf_*` für Maud Keel; Prüfskript | Batch `ritualicons2` |
+
 ## Runde 11 (2026-11-12): Klang, Bild und Worte für die neuen Rituale (Seq 6, Seq 5, Seq 4); parallel startbar
 Sechs Pakete für die Rituale, die gerade gebaut werden oder gerade gebaut wurden: die zehn Seq-4-Rituale (inkl. Schattensteuerung, Moor-Relikt, Kessel-Ritualtränke, Schwellenwächter auf der Karte, perfektes Ausweichen, Einnahmen in Wexmoor), die Seq-5-Prüfungen und das freie Brauen (PR #320, Icons bisher Leihbilder) und die Seq-6-Proben, der Waage-Betrug und das Schlösserknacken (PR #316/#317/#322). DN, DO, DP, DR und DS teilen die Eckdaten „Seq-4-Rituale“ (Präfixe `s4r_` gemeinsam, je Pfad `s4la_`/`s4fa_`/`s4ma_`/`s4ec_`/`s4ke_`/`s4ei_`/`s4sc_`/`s4wa_`/`s4mo_`/`s4uh_`); der Schwellenwächter aus CO wird nur ergänzt, nicht neu gezeichnet. Nächster freier Buchstabe danach: DT.
 
