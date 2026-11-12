@@ -1,0 +1,33 @@
+[
+  {
+    "id": "vm_cu_unverzeichnete",
+    "map": "vm_wrackfeld",
+    "tile": [
+      5,
+      5
+    ],
+    "name": "Kielraum der Unverzeichneten",
+    "faction": "unverzeichnete",
+    "requires_relationship": {
+      "npc": "vmn_tam_verrin",
+      "min": 3
+    },
+    "gezeiten": [
+      "ebbe"
+    ],
+    "reward": "vmi_namenlos_ring"
+  },
+  {
+    "id": "vm_cu_linse",
+    "map": "vm_leuchtbank",
+    "tile": [
+      5,
+      6
+    ],
+    "item": "vmi_leuchtbank_linse",
+    "requires_flags": [
+      "k6_cu_leuchtfeuerwaechter_besiegt"
+    ],
+    "once_flag": "k6_cu_linse_entnommen"
+  }
+]

@@ -1,0 +1,69 @@
+{
+  "wrackmutter": {
+    "encounter": "wrackmutter",
+    "vorbereitung": [
+      "Ebbe abwarten; den markierten Rückweg freihalten.",
+      "Nell vorher zur Lotsenkammer begleiten."
+    ],
+    "requires_flags": [
+      "k6_akt1_done",
+      "k6_nell_gerettet",
+      "gezeit_ebbe"
+    ],
+    "abschluss_flag": "won_wrackmutter"
+  },
+  "leuchtfeuerwaechter": {
+    "encounter": "leuchtfeuerwaechter",
+    "vorbereitung": [
+      "Die Glockenanweisung lesen und den einzelnen Schlussklang vorbereiten.",
+      "Bei Flut Tams Ermittlungsfahrt nutzen; die Rückfahrt bleibt möglich."
+    ],
+    "requires_flags": [
+      "k6_akt3_done",
+      "k6_glocke_vorbereitet"
+    ],
+    "abschluss_flag": "won_leuchtfeuerwaechter"
+  },
+  "pegelherrin": {
+    "encounter": "pegelherrin",
+    "vorbereitung": [
+      "Vier Leuchtfeuerfährten belegen.",
+      "Den gewählten Zollherrn als Zeugen bestätigen."
+    ],
+    "requires_flags": [
+      "k6_akt4_done",
+      "gezeit_ebbe"
+    ],
+    "abschluss_flag": "won_pegelherrin"
+  },
+  "pegelherrin_register": {
+    "encounter": "pegelherrin_register",
+    "vorbereitung": [
+      "Den Zeugen gegen Eintragen bereithalten; Nells Namenlos-Ring ist eine zusätzliche CU-Option, keine Pflicht."
+    ],
+    "requires_flags": [
+      "won_pegelherrin",
+      "k6_akt4_done",
+      "gezeit_ebbe"
+    ],
+    "abschluss_flag": "won_pegelherrin_register",
+    "friedliche_loesung": {
+      "dialogue": "k6_harrow",
+      "node": "k6_harrow_vorlesen",
+      "requires_flags": [
+        "won_pegelherrin",
+        "k6_41_geschlossen",
+        "k6_42_geschlossen",
+        "k6_43_geschlossen",
+        "k6_44_geschlossen"
+      ],
+      "requires_relation": {
+        "vmn_osric_dale": 3
+      },
+      "sets_flags": [
+        "k6_pegelherrin_geloest",
+        "k6_pegelherrin_friedlich"
+      ]
+    }
+  }
+}
