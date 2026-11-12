@@ -89,9 +89,12 @@ export function chanceWord(chance) {
  * feste Items (nur beim ersten Sieg) und Elite-Extras, seltenes zuerst.
  * `elite` ist die Tabelle der Elite-Variante (oder null, wenn noch nicht besiegt).
  */
+/** Formeln droppen geheim: sie erscheinen nie in Beute-Vorschauen (Bestiarium, Kampf). */
+export const hiddenLoot = (id, items) => id.startsWith('formel_') || items?.[id]?.kind === 'formula';
+
 export function lootPreview(table, items, elite = null) {
   const entries = new Map();
-  const add = (id, data) => { if (!entries.has(id)) entries.set(id, { id, name: items[id]?.name ?? id, rarity: itemRarity(items[id]), ...data }); };
+  const add = (id, data) => { if (!hiddenLoot(id, items) && !entries.has(id)) entries.set(id, { id, name: items[id]?.name ?? id, rarity: itemRarity(items[id]), ...data }); };
   for (const d of table?.drops ?? []) add(d.item, { chance: d.chance ?? 1 });
   for (const id of Object.keys(table?.items ?? {})) add(id, { chance: 1, first: true });
   for (const d of elite?.drops ?? []) add(d.item, { chance: Math.min(1, d.chance ?? 1), elite: true });

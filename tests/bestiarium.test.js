@@ -22,3 +22,11 @@ test('Bestiarium: alle Beute-Items der Gegner existieren', () => {
     for (const e of lootPreview(table, c.items).items) assert.ok(c.items[e.id], `${id}: ${e.id}`);
   }
 });
+
+test('Bestiarium: Formeln stehen nie in der Beute-Vorschau, droppen aber weiter', () => {
+  const c = loadContent();
+  const t = c.loot.salzgeist_elite;
+  assert.ok(t.drops.some((d) => d.item.startsWith('formel_')));
+  const p = lootPreview(c.loot.salzgeist, c.items, t);
+  assert.ok(!p.items.some((e) => e.id.startsWith('formel_')));
+});
