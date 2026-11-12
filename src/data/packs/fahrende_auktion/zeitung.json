@@ -1,0 +1,58 @@
+[
+  {
+    "id": "fa2_zeitung_01",
+    "title": "Messing auf Rädern",
+    "text": "Perpetua Vances Fahrende Auktion erwartet Kundschaft in {stadt}. Sechs Lose, zwei Spieltage; die Anschlagtafel nennt den aktuellen Stand.",
+    "trigger": "halt_beginn",
+    "einmal_pro": "halt"
+  },
+  {
+    "id": "fa2_zeitung_02",
+    "title": "Die zweite Gelegenheit",
+    "text": "Auch Stücke aus bereits abgeschlossenen Ermittlungswegen können unter den Losen sein. Der Kauf ersetzt keinen Beweis und ändert keinen alten Entschluss.",
+    "trigger": "nachholangebot_im_katalog",
+    "einmal_pro": "halt"
+  },
+  {
+    "id": "fa2_zeitung_03",
+    "title": "Einlieferungen angenommen",
+    "text": "Einzelstücke mit geklärter Herkunft nimmt Vance gegen Quittung an. Die Abrechnung erfolgt beim nächsten Halt; fünfzehn Prozent des Verkaufserlöses bleiben beim Wagen.",
+    "trigger": "halt_beginn",
+    "einmal_pro": "halt"
+  },
+  {
+    "id": "fa2_zeitung_04",
+    "title": "Ein stiller Arm",
+    "text": "Die Dame mit dem Medaillon hat wieder mehrere Erinnerungsstücke ersteigert. Vance warnt vor jedem solchen Los: Diese Mitbieterin kennt dort keine Preisgrenze.",
+    "trigger": "witwe_gewinnt_erinnerung",
+    "einmal_pro": "halt"
+  },
+  {
+    "id": "fa2_zeitung_05",
+    "title": "Der Reeder kauft klein",
+    "text": "Ein Mann, der sonst ganze Laderäume bezahlt, hat heute ein einzelnes Stück mitgenommen. Über den Zweck wurde nur gesagt: Es müsse halten.",
+    "trigger": "reeder_gewinnt",
+    "einmal_pro": "halt"
+  },
+  {
+    "id": "fa2_zeitung_06",
+    "title": "Drei Tage unterwegs",
+    "text": "Die Fahrende Auktion hat eingepackt. Nach drei vollen Spieltagen Pause kommt der nächste zulässige Halt; offene Abrechnungen reisen mit.",
+    "trigger": "pause_beginn",
+    "einmal_pro": "halt"
+  },
+  {
+    "id": "fa2_zeitung_07",
+    "title": "Buden haben Vorrang",
+    "text": "Wegen des Festes bleibt Vances Pult geschlossen. Die Tafel wird nach dem Fest neu geprüft; niemand muss für eine ausgefallene Gebotsrunde zahlen.",
+    "trigger": "fest_sperre",
+    "einmal_pro": "halt"
+  },
+  {
+    "id": "fa2_zeitung_08",
+    "title": "Steg geräumt",
+    "text": "Bei Flut schließt die Fahrende Auktion am Steg. Offene Gebote bleiben bis zur Wiederöffnung innerhalb des Halts pausiert; bei Abreise werden sie aufgehoben.",
+    "trigger": "flut_sperre",
+    "einmal_pro": "halt"
+  }
+]

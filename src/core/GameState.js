@@ -28,6 +28,7 @@ import { seq4Methods } from './Seq4.js';
 import { erfolgeMethods } from './Erfolge.js';
 import { postMethods } from './Post.js';
 import { tiereMethods } from './Tiere.js';
+import { fahrendeAuktionMethods } from './FahrendeAuktion.js';
 import { benannteMethods } from './Benannte.js';
 import { seqHochMethods } from './SeqHoch.js';
 import { splitMethods } from './Split.js';
@@ -789,6 +790,7 @@ export class GameState {
   tick(dtSeconds) {
     this.tickTalents(dtSeconds);
     this.tierTick?.(); // Codex DF: Tagesfund des Katers
+    this.fa2Tick?.(); // Codex DE: Fahrende Auktion hält 2 von 5 Spieltagen
     this.tickSekten(); // BQ: Fristen und per Dialog aufgelöste Ereignisse
     const before = this.composure;
     if (this.spiritVision) {
@@ -813,7 +815,7 @@ export class GameState {
     this.hochTick?.(dtSeconds);
     this.gildeTick?.(); // Seq 3: Gilden des Pfades ab Calderwick
     this.splitTick(); // Kapitel 4: Splitscreen in Calderwick, bis beide Seq 3 haben
-    if (this.hasP2?.()) this.withPlayer(2, () => this.hochTick?.(dtSeconds), { quiet: true });
+    if (this.hasP2?.()) this.withPlayer(2, () => { this.seq5Tick?.(); this.seq4Tick?.(); this.hochTick?.(dtSeconds); }, { quiet: true }); // Koop: Prüfungen von Spieler 2
   }
 
   /**
@@ -952,4 +954,4 @@ export class GameState {
 /** Fortschrittsflags der verlängerten Akt-V-Fassung (AP), in Spielreihenfolge. */
 export const K2_AKT5_STEPS = ['k2v_boot_bereit', 'k2v_keller_passiert', 'k2v_aufstieg_passiert', 'k2v_abschied_done'];
 
-Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods, sudeMethods, seq5Methods, seq4Methods, seqHochMethods, splitMethods, pfadHandelMethods, erfolgeMethods, postMethods, benannteMethods, tiereMethods);
+Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods, sudeMethods, seq5Methods, seq4Methods, seqHochMethods, splitMethods, pfadHandelMethods, erfolgeMethods, postMethods, benannteMethods, tiereMethods, fahrendeAuktionMethods);
