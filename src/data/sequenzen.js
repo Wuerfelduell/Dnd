@@ -82,7 +82,7 @@ const TREFFEN = { 6: 640, 5: 900, 4: 4000 };
  * Seb (2026-11-12): die Halbgott-Formel (4) gibt es NUR auf geheimen Treffen (TREFFEN[4]) oder mit 0,5 % bei Elite-Gegnern (core/PfadHandel.js). */
 const KITTERING_HOCH = { 3: { price: 260, honor: 110 }, 2: { price: 380, honor: 135 }, 1: { price: 560, honor: 160 } };
 /** Knapper Markt: Zutaten ab Sequenz 7 nur auf geheimen Treffen (7 und 6 in Kettlegate, der Kern für 5 in Wexmoor). */
-const ZUTAT_TREFFEN = { 7: { price: 120, chance: 0.45 }, 6: { price: 200, chance: 0.3 }, 5: { price: 320, chance: 0.45 } };
+const ZUTAT_TREFFEN = { 7: { price: 120, chance: 0.45 }, 6: { price: 200, chance: 0.3 }, 5: { price: 320, chance: 0.45 }, 4: { price: 2000, chance: 0.5 } };
 /** Wer auf den Treffen Zutaten und Formeln der neuen Pfade anbietet: Kettlegate [Zirkel, Mitglied], Wexmoor [Zirkel, Mitglied]. */
 const TREFFEN_MEMBER = {
   sq_waage: { kg: ['waage', 'tm_ferro'], wx: ['salz', 'tm_tam'] },
@@ -202,6 +202,16 @@ export function applySequenzen(content, sq, { highSeqs = {}, highItems = {} } = 
         .find(([, , offers]) => offers.some((e) => e.item === `formel_${pid}_5`));
       if (!seat) continue;
       offer([seat[0], seat[1]], [{ item: id, price: TREFFEN[4], once: true, chance: 0.3, requires_pathway: [pid, 5], locked_text: 'Erst ab Sequenz 5 dieses Pfades' }]);
+    }
+    // Seb (2026-11-12): Kapitel 3 – die Seq-4-Kernzutaten aller Pfade liegen auch als Los beim Schichtbund in Dunscar,
+    // reihum auf die Mitglieder verteilt. Nur die Zutat; die Formel 4 bleibt bei TREFFEN[4] und dem Elite-Fund.
+    const ds = Object.entries(copy).find(([, c]) => c.city === 'dunscar');
+    if (ds) {
+      const seats = ds[1].members.map((mem) => mem.id);
+      Object.keys(content.pathways).filter((pid) => content.items[zutat(pid, 4)]).forEach((pid, i) => {
+        offer([ds[0], seats[i % seats.length]], [{ item: zutat(pid, 4), ...ZUTAT_TREFFEN[4],
+          requires_pathway: [pid, 5], locked_text: 'Erst ab Sequenz 5 dieses Pfades' }]);
+      });
     }
     content.gatherings = { ...content.gatherings, circles: copy };
   }
