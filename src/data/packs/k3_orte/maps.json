@@ -177,6 +177,32 @@
         ],
         "prompt": "Stadtkarte von Dunscar",
         "marker": false
+      },
+      {
+        "id": "k3o_endbahnhof_gepaeck",
+        "kind": "read",
+        "tile": [
+          40,
+          3
+        ],
+        "sprite": "file",
+        "prompt": "Gepäckaufbewahrung öffnen",
+        "marker": false,
+        "title": "Gepäckaufbewahrung",
+        "text": "Ein vergessener Koffer hinter dem Gitter der Aufbewahrung. Darin: zwei Rollen Verbandszeug, ein Tonikum und das Trinkgeld eines Gepäckträgers in einer Blechdose.",
+        "done_flag": "looted_ds_gepaeck",
+        "effects": {
+          "gives_items": {
+            "verband": 2,
+            "tonikum": 1
+          },
+          "gives_money": 60
+        },
+        "lock": {
+          "pick": true,
+          "text": "Das Gitter der Gepäckaufbewahrung ist verschlossen. Kein Beamter weit und breit.",
+          "footer": ""
+        }
       }
     ],
     "npcs": [

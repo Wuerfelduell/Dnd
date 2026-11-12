@@ -207,7 +207,7 @@ export function variantFor(id, data) {
 
 /** Y: Oberfläche. Fenster (Ui.open) nach Art: Karten entfalten, Zeitung rascheln, Notizbuch blättern, sonst Papier. */
 const UI_OPEN = { travel: 'ui_karte', personmap: 'ui_personen_karte', notebook: 'ui_seite', brew: 'ui_oeffnen', shop: 'ui_oeffnen', vault: 'ui_oeffnen', expert: 'ui_oeffnen',
-  auction: 'ui_oeffnen', storage: 'schublade', pause: 'ui_oeffnen', casewall: 'ui_oeffnen', signal: 'ds_horchstelle_an', gift: 'ui_seite', ending: null, dialogue: null, message: null, combat: null, clue: null, loot: 'truhe_auf' };
+  auction: 'ui_oeffnen', probe: 'ui_oeffnen', storage: 'schublade', pause: 'ui_oeffnen', casewall: 'ui_oeffnen', signal: 'ds_horchstelle_an', gift: 'ui_seite', ending: null, dialogue: null, message: null, combat: null, clue: null, loot: 'truhe_auf' };
 export function uiSound(kind, what = 'open') {
   if (what === 'close') return 'ui_schliessen';
   if (what === 'tab') return 'ui_tab';

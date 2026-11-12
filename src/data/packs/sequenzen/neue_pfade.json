@@ -154,19 +154,14 @@
         "digest_rate": 0.35,
         "veraenderung": "Deine Hand bleibt ruhig, wenn du den eigenen Anteil bezahlen musst.",
         "ritual": {
-          "name": "Die Probe des Ausgleichsführer",
-          "map": "nachtmarkt",
+          "name": "Die Probe des Ausgleichsführers",
           "vision": false,
           "consumes": {
             "silberstaub": 1,
             "nebeltau": 1
           },
-          "requires": {
-            "requires_flags": [
-              "case_01_closed"
-            ]
-          },
-          "desc": "Du prüfst eine offene Pfandforderung und berichtigst den Betrag zu deinen Ungunsten. Du legst die Quittung neben den Kessel."
+          "desc": "Auf jedem geheimen Treffen ist ein Los abgekartet: ein Strohmann treibt für den Anbieter den Preis hoch. Du deckst den Betrug vor allen auf, egal in welchem Zirkel, egal in welcher Stadt. Dann legst du Silberstaub und Nebeltau auf die stille Waage und trinkst.",
+          "fraud": true
         }
       },
       "5": {
@@ -581,19 +576,14 @@
         "digest_rate": 0.35,
         "veraenderung": "Du hältst Namen auseinander, die andere längst miteinander verwechseln.",
         "ritual": {
-          "name": "Die Probe des Namensbank",
-          "map": "wx_pfahldorf",
-          "vision": true,
+          "name": "Die Probe der Namensbank",
+          "vision": false,
           "consumes": {
             "silberstaub": 1,
             "nebeltau": 1
           },
-          "requires": {
-            "requires_flags": [
-              "case_01_closed"
-            ]
-          },
-          "desc": "Du verzeichnest die Fundschicht eines unbekannten Täfelchens. Du lässt das Namensfeld offen."
+          "desc": "Sieben Namen hängen am Schrein in deinem Kopf, egal wo du stehst. Du prägst sie dir ein. Dann kommt die Flut: einer fehlt, einer ist fremd. Du nennst beide. Du lässt das Namensfeld des Fremden offen.",
+          "probe": "moor"
         }
       },
       "5": {
@@ -1008,19 +998,14 @@
         "digest_rate": 0.35,
         "veraenderung": "Du bleibst bei einem gestörten Ablauf, bis sein wirklicher Takt hörbar wird.",
         "ritual": {
-          "name": "Die Probe des Gangbewahrer",
-          "map": "uhrturm",
+          "name": "Die Probe des Gangbewahrers",
           "vision": false,
           "consumes": {
             "silberstaub": 1,
             "nebeltau": 1
           },
-          "requires": {
-            "requires_flags": [
-              "case_01_closed"
-            ]
-          },
-          "desc": "Du hörst das Uhrwerk einen ganzen Umlauf lang ab und kennzeichnest den fehlenden Schlag. Du ersetzt kein Zahnrad nach bloßem Verdacht."
+          "desc": "Ohne Uhr, ohne Zählwerk, nur mit deinem Atem hältst du eine Frist: nach genau so vielen Sekunden, wie das Uhrwerk dir vorgibt, hältst du an. Du ersetzt kein Zahnrad nach bloßem Verdacht, du zählst den fehlenden Schlag selbst.",
+          "probe": "uhr"
         }
       },
       "5": {
