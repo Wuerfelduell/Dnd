@@ -252,7 +252,7 @@ function gefahrengebiet(content, id, m, side, fest) {
     return { ...d, tile: neu.get(`${d.tile}`) };
   });
   // Gegner: Gebietsboss hinten in der Mitte, die übrigen gleichmäßig verteilt (immer der Platz, der am weitesten von allen anderen liegt)
-  const feld = boden.filter((t) => tiefe(t) >= 9 && !taken.has(key(...t)));
+  const feld = boden.filter((t) => tiefe(t) >= 9 && dist(t) >= 11 && !taken.has(key(...t))); // Eingang sicher: kein Gegner näher als 10 Felder
   const quer = (t) => (side === 'N' || side === 'S' ? Math.abs(t[0] - W / 2) : Math.abs(t[1] - H / 2));
   const bossPlatz = [...feld].sort((a, b) => tiefe(b) - tiefe(a) || quer(a) - quer(b))[0];
   const gewaehlt = [tor, ...(bossPlatz ? [bossPlatz] : [])];

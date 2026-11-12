@@ -459,6 +459,7 @@ export const AN_MAP_MARKERS_URL = `${BASE}ui/AN_marker.png`;
 export const DS_MAP_MARKERS = Object.fromEntries(['ds_endbahnhof', 'ds_schwellenring', 'ds_arbeiterbogen', 'ds_kalkmarkt', 'ds_bruchstufen', 'ds_signalhang',
   'ds_speisewagen', 'ds_runddepot', 'ds_pruefhaus', 'ds_teesaal', 'ds_lohnbuero', 'ds_nachtzug_wagen', 'ds_nachtzug_lok', 'ds_rangierwueste', 'ds_klopfbruch',
   'ds_rufschlucht', 'ds_letzter_bahnsteig', 'ds_unterschicht'].map((id, i) => [id, i]));
+DS_MAP_MARKERS.ds_schlackengrube = DS_MAP_MARKERS.ds_unterschicht; // Schlackengrube: vorerst das Zeichen der Unterschicht
 export const DS_MAP_MARKERS_URL = `${BASE}ui/ds_marker.png`;
 /** Kapitel 5 (CI): Briarholt-Marker, 6x3 Felder zu 16x16 in Manifest-Reihenfolge; warme Zwillingskarten nutzen dasselbe Feld. */
 export const BH_MAP_IDS = ['bh_kutschenhof', 'bh_kesselgrund', 'bh_winterpromenade', 'bh_glasgaerten', 'bh_stillenhaeuser', 'bh_wurzelkranz', 'bh_buegelraum', 'bh_kutschenhalle',
@@ -2369,6 +2370,7 @@ Object.assign(ITEM_ICON_ALIASES, {
   k3a_signalgeraet: 'fahrkarte_wexmoor', k3a_depotmarke: 'ratssiegel', k3a_leitungspruefer: 'amulett_eisen', k3a_bahnkarte: 'fahrkarte_wexmoor',
   k3a_werkzeuge: 'ratssiegel', k3a_aufsichtsmarke: 'ratssiegel',
   ds_beute_messingmarke: 'ratssiegel', ds_beute_signalsilber: 'silberstaub', ds_beute_schichtgold: 'salzkristall', ds_beute_kalkopal: 'schlickperle',
+  ds_schlacke_glutperle: 'ski_glutkohle', ds_schlacke_ofenherz: 'flammenkern', ds_schlacke_kronglas: 'sternglas',
 });
 
 // --- Kapitel 3: Dunscar (AV Orte, AW Figuren, AX Gegner; manifest-dunscar1/2/3.json) ----------------------
@@ -2429,7 +2431,7 @@ for (const ok of Object.values(DS_ORTSKUNDIGE)) {
 for (const id of ['endbahnhof', 'schwellenring', 'arbeiterbogen', 'bruchstufen', 'rangierwueste', 'klopfbruch', 'rufschlucht', 'letzter_bahnsteig', 'unterschicht']) {
   BATTLE_BACKGROUNDS[`ds_${id}`] = `bg_ds_${id}`;
 }
-Object.assign(BATTLE_BACKGROUNDS, { ds_kalkmarkt: 'bg_ds_arbeiterbogen', ds_signalhang: 'bg_ds_bruchstufen', ds_nachtzug_wagen: 'bg_ds_nachtzug', ds_nachtzug_lok: 'bg_ds_nachtzug' });
+Object.assign(BATTLE_BACKGROUNDS, { ds_schlackengrube: 'bg_ds_bruch', ds_kalkmarkt: 'bg_ds_arbeiterbogen', ds_signalhang: 'bg_ds_bruchstufen', ds_nachtzug_wagen: 'bg_ds_nachtzug', ds_nachtzug_lok: 'bg_ds_nachtzug' });
 // Paket AT (Kapitel 3 Nebenaufträge): Zunders vier Begleitbriefe nutzen vorerst Ivys Brief, bis eigene Icons kommen
 for (const end of ['rein', 'moor', 'lichtmeister', 'meer']) ITEM_ICON_ALIASES[`k3n_brief_aus_wexmoor_brief_${end}`] = 'k2n_ivys_brief';
 /** AU/AX: die zehn Prüfungsgegner (keine Bosse im Kampfsinn, aber mit Auftrittsbild). */
@@ -3008,8 +3010,12 @@ Object.assign(ITEM_ICON_ALIASES, { ph_torfprobe: 'torfbernstein', ph_hales_siege
 export const BN_IDS = ['bn_der_zehnte_rattenkoenig', 'bn_schwester_glas', 'bn_der_leise_waechter', 'bn_holts_schatten', 'bn_die_alte_torfleiche', 'bn_grubenlicht_mutter',
   'bn_der_wurm_mit_namen', 'bn_schlickhund_koenig', 'bn_schaffner_ohne_zug', 'bn_schwellenhund_weiss', 'bn_der_zweite_vorhauer', 'bn_kalkbraut', 'bn_der_letzte_setzer',
   'bn_die_linke_stempelhand', 'bn_frau_ohne_durchschlag', 'bn_der_bremser_von_sechs', 'bn_schwester_kaltwasser', 'bn_der_gaertner_im_topf', 'bn_die_motte_im_sonntagsglas', 'bn_der_absender_ohne_ort'];
+/** Zellgröße weicht bei einigen Blättern ab (manifest-benannte.json): Bosse 96, kleine Gestalten 48. */
+const BN_FRAME = { bn_der_zehnte_rattenkoenig: 96, bn_schwellenhund_weiss: 96, bn_der_zweite_vorhauer: 96, bn_holts_schatten: 48, bn_schlickhund_koenig: 48,
+  bn_schaffner_ohne_zug: 48, bn_die_linke_stempelhand: 48, bn_die_motte_im_sonntagsglas: 48, bn_der_absender_ohne_ort: 48 };
 for (const id of BN_IDS) {
-  BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, 64];
+  BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, BN_FRAME[id] ?? 64];
+  ANIM_ALIASES[`enemy_${id}`] ??= { attack: 'attack1', special: 'attack2', cast: 'attack2' };
   OVERWORLD_SHEETS[id] = [`characters/${id}.png`, 16, 32];
   HEADS.push(id);
   HEAD_FILES[id] = `portraits/heads/${id}.png`;
