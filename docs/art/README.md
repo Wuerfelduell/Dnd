@@ -2088,3 +2088,8 @@ Unterelemente und drei Größenableitungen; keine zusätzlichen Varianten.
 - [Prompts](batch-ritualicons2-generation.json)
 - [Prüfbericht](batch-ritualicons2-validation.json)
 - Prüfung: `python tools/art/ritualicons2/check.py` (Pillow).
+
+
+## Vorrat nebel200 — Nebelakten_200_Icons
+
+200 weitere Item-Icons (zweite „Reserve 200“-Lieferung, andere Motive als `items/reserve200`), 64×64 mit Spielpalette unter `public/sprites/items/nebel200/`. Fünf davon sind als Zirkelwaffen im Spiel. Inventar und Zuordnung: [vorrat/nebel200-README.md](vorrat/nebel200-README.md).
