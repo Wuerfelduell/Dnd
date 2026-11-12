@@ -36,8 +36,8 @@ export const HOCH_SEQ1_VERSIEGELT = true;
 export const HOCH_FAIL_PCT = 17;
 export const HOCH_FAIL_UNRUHE = 10;
 /** Gegner im Ritual der Sequenz 3 (gestärkt) und Grenzwächter der Sequenz 2 (brutal). */
-export const HOCH_SCALE = { 3: { hp: 1.8, dmg: 1.5 }, 2: { hp: 2.4, dmg: 1.6 } };
-export const GRENZ_SCALE = { hp: 6, dmg: 1.5 };
+export const HOCH_SCALE = { 3: { hp: 2.6, dmg: 1.9 }, 2: { hp: 3.4, dmg: 2.1 } }; // Seb 2026-11-12: ab Seq 3 noch schwerer
+export const GRENZ_SCALE = { hp: 10, dmg: 1.8 };
 /** Spuren zum Ort: Chance je Sieg in einem Monstergebiet ab Kapitel 3, so viele braucht man. */
 export const SPUR_CHANCE = 0.2;
 export const SPUREN = 3;
@@ -58,63 +58,63 @@ const G = (rules, text) => ({ type: 'waechter', rules, text });
  */
 export const HOCH = {
   laterne: {
-    3: { name: 'Das Licht, das nur Okkultes trifft', steps: [K(8, 'okkult', { noItems: true, noParry: true }, 'Acht okkulte Wesen besiegen, ohne Gegenstände und ohne Parade')] },
+    3: { name: 'Das Licht, das nur Okkultes trifft', steps: [K(12, 'okkult', { noItems: true, noParry: true }, 'Zwölf okkulte Wesen besiegen, ohne Gegenstände und ohne Parade')] },
     2: { name: 'Die ewige Dämmerung', welt: { titel: 'Ewige Dämmerung', farbe: 0x3a2a10, alpha: 0.16, wanted: 1, text: 'Über allen Städten hängt ein bernsteinfarbenes Zwielicht. Die Sonne geht nicht mehr ganz auf, und was im Dunkeln lebt, wird mutiger.', gerede: 'Seit dem Tag mit dem bernsteinfarbenen Himmel wird es nicht mehr richtig hell. Die Laternenanzünder arbeiten jetzt rund um die Uhr.' },
-      steps: [W('Die ewige Dämmerung über die Welt legen'), Z(300, ['danger', 'vision'], [], '300 Sekunden Geistsicht in Monstergebieten'), G({ noItems: true }, 'Den Grenzwächter besiegen, ohne Gegenstände')] },
+      steps: [W('Die ewige Dämmerung über die Welt legen'), Z(600, ['danger', 'vision'], [], '600 Sekunden Geistsicht in Monstergebieten'), G({ noItems: true }, 'Den Grenzwächter besiegen, ohne Gegenstände')] },
     1: { name: 'Das Licht ohne Schatten', steps: [Z(1500, ['danger', 'vision'], ['combat'], '1500 Sekunden Geistsicht in Monstergebieten, ohne einen einzigen Kampf')] },
   },
   faden: {
-    3: { name: 'Der Faden reißt nicht zurück', steps: [K(6, 'wild', { noHeal: true }, 'Sechs Kämpfe in Folge gewinnen, ohne jede Heilung, auch nicht dazwischen', { noHealAll: true })] },
+    3: { name: 'Der Faden reißt nicht zurück', steps: [K(10, 'wild', { noHeal: true }, 'Zehn Kämpfe in Folge gewinnen, ohne jede Heilung, auch nicht dazwischen', { noHealAll: true })] },
     2: { name: 'Das gespannte Netz', welt: { titel: 'Gespanntes Netz', farbe: 0x4a2a5a, alpha: 0.12, wanted: 1, text: 'Über alle Gassen spannen sich unsichtbare Fäden. Menschen stolpern über Entscheidungen, die sie nie getroffen haben, und Wesen finden ihre Beute schneller.', gerede: 'Alle reden von Zufällen, die keine sind. Mein Nachbar hat dreimal am selben Tag denselben Fremden getroffen.' },
-      steps: [W('Das Netz über die Welt spannen'), P('faden', 5, 'Fünf Fadenproben ohne einen Fehler'), G({ noDodge: true }, 'Den Grenzwächter besiegen, ohne auszuweichen')] },
+      steps: [W('Das Netz über die Welt spannen'), P('faden', 10, 'Zehn Fadenproben ohne einen Fehler'), G({ noDodge: true }, 'Den Grenzwächter besiegen, ohne auszuweichen')] },
     1: { name: 'Das Garn aller Leben', steps: [P('faden', 25, 'Fünfundzwanzig Fadenproben ohne einen Fehler')] },
   },
   maske: {
-    3: { name: 'Hundert Gesichter, kein Toter', steps: [K(6, 'wild', { spare: true, noDodge: true }, 'Sechs Gegner unter 15 % Leben verschonen statt töten, ohne Ausweichen')] },
+    3: { name: 'Hundert Gesichter, kein Toter', steps: [K(10, 'wild', { spare: true, noDodge: true }, 'Zehn Gegner unter 15 % Leben verschonen statt töten, ohne Ausweichen')] },
     2: { name: 'Die Welt ohne Gesicht', welt: { titel: 'Welt ohne Gesicht', farbe: 0x5a4a5a, alpha: 0.12, wanted: 2, text: 'Niemand erkennt mehr ganz sicher den anderen. Die Wachen misstrauen jedem Gesicht und greifen härter durch.', gerede: 'Meine eigene Schwester stand vor der Tür, und ich war mir nicht sicher, ob sie es ist. Die Wache kontrolliert jetzt jeden.' },
-      steps: [W('Allen Gesichtern die Sicherheit nehmen'), Z(240, ['form'], [], '240 Sekunden in deiner mythischen Gestalt'), G({ noParry: true }, 'Den Grenzwächter besiegen, ohne Parade')] },
+      steps: [W('Allen Gesichtern die Sicherheit nehmen'), Z(480, ['form'], [], '480 Sekunden in deiner mythischen Gestalt'), G({ noParry: true }, 'Den Grenzwächter besiegen, ohne Parade')] },
     1: { name: 'Niemand', steps: [Z(1200, ['danger', 'noArtifacts'], ['combat'], '1200 Sekunden in Monstergebieten ohne Artefakt und ohne Kampf')] },
   },
   echo: {
-    3: { name: 'Der letzte Ton', steps: [K(6, 'wild', { maxRounds: 5 }, 'Sechs Kämpfe in Folge, jeder in höchstens fünf Runden gewonnen')] },
+    3: { name: 'Der letzte Ton', steps: [K(10, 'wild', { maxRounds: 4 }, 'Zehn Kämpfe in Folge, jeder in höchstens vier Runden gewonnen')] },
     2: { name: 'Die laute Welt', welt: { titel: 'Laute Welt', farbe: 0x203a4a, alpha: 0.12, wanted: 1, text: 'Jedes Geräusch trägt doppelt so weit. Wesen hören dich kommen, und in den Städten schläft niemand mehr ruhig.', gerede: 'Man hört das Flüstern drei Straßen weiter. Die Hunde bellen die ganze Nacht.' },
-      steps: [W('Den Klang der Welt aufreißen'), P('echo', 5, 'Fünf Stimmenprüfungen ohne einen Fehler'), G({ maxRounds: 30 }, 'Den Grenzwächter in höchstens 30 Runden besiegen')] },
+      steps: [W('Den Klang der Welt aufreißen'), P('echo', 10, 'Zehn Stimmenprüfungen ohne einen Fehler'), G({ maxRounds: 25 }, 'Den Grenzwächter in höchstens 25 Runden besiegen')] },
     1: { name: 'Das Echo aller Stimmen', steps: [P('echo', 25, 'Fünfundzwanzig Stimmenprüfungen ohne einen Fehler')] },
   },
   kessel: {
-    3: { name: 'Der lebende Kessel', steps: [K(6, 'wild', { minItems: 2 }, 'Sechs Kämpfe in Folge, in jedem mindestens zwei Gegenstände benutzt')] },
+    3: { name: 'Der lebende Kessel', steps: [K(10, 'wild', { minItems: 3 }, 'Zehn Kämpfe in Folge, in jedem mindestens drei Gegenstände benutzt')] },
     2: { name: 'Der vergiftete Brunnen', welt: { titel: 'Vergifteter Brunnen', farbe: 0x2a4a1a, alpha: 0.14, wanted: 1, text: 'Ein grüner Schimmer liegt auf jedem Wasser. Wer trinkt, wird gereizt, und die Wesen der Gebiete fressen sich stark.', gerede: 'Das Wasser schmeckt nach Kupfer und Kräutern. Der Apotheker verkauft keine Tropfen mehr, sagt, er traut seinen eigenen nicht.' },
-      steps: [W('Das Wasser der Welt vergiften'), O({ items: { wurf_spreng: 5, wurf_saeure: 5, wurf_gift: 5 } }, 'Fünfzehn Wurfflaschen in den Kessel geben (je 5 Spreng, Säure, Gift)'), G({ noHeal: true }, 'Den Grenzwächter besiegen, ohne Heilung')] },
+      steps: [W('Das Wasser der Welt vergiften'), O({ items: { wurf_spreng: 10, wurf_saeure: 10, wurf_gift: 10 } }, 'Dreißig Wurfflaschen in den Kessel geben (je 10 Spreng, Säure, Gift)'), G({ noHeal: true }, 'Den Grenzwächter besiegen, ohne Heilung')] },
     1: { name: 'Der Kessel der Welt', steps: [O({ items: { wurf_spreng: 25, wurf_saeure: 25, wurf_gift: 25 } }, 'Fünfundsiebzig Wurfflaschen in den Kessel geben'), Z(600, ['unruhe'], ['combat'], '600 Sekunden mit Unruhe 60 oder mehr, ohne Kampf und ohne die Kontrolle zu verlieren')] },
   },
   eisen: {
-    3: { name: 'Der Amboss', steps: [K(6, 'wild', { startHp: 0.25, noHeal: true }, 'Sechs Kämpfe, jeder mit 25 % Leben begonnen, ohne Heilung im Kampf')] },
+    3: { name: 'Der Amboss', steps: [K(10, 'wild', { startHp: 0.2, noHeal: true }, 'Zehn Kämpfe, jeder mit 20 % Leben begonnen, ohne Heilung im Kampf')] },
     2: { name: 'Die eiserne Ordnung', welt: { titel: 'Eiserne Ordnung', farbe: 0x3a3a3a, alpha: 0.14, wanted: 2, text: 'Die Städte verhärten. Mehr Wachen, schwerere Strafen, und selbst die Wesen tragen Panzer aus Rost.', gerede: 'Ausgangssperre ab der zehnten Stunde. Wer ohne Papiere gefunden wird, verschwindet.' },
-      steps: [W('Die Welt unter eiserne Ordnung zwingen'), O({ artefakte: 3 }, 'Drei Artefakte im Feuer opfern (für immer weg)'), G({ minKillRound: 12, noDodge: true }, 'Den Grenzwächter besiegen: er fällt nicht vor Runde 12, kein Ausweichen')] },
+      steps: [W('Die Welt unter eiserne Ordnung zwingen'), O({ artefakte: 5 }, 'Fünf Artefakte im Feuer opfern (für immer weg)'), G({ minKillRound: 15, noDodge: true }, 'Den Grenzwächter besiegen: er fällt nicht vor Runde 15, kein Ausweichen')] },
     1: { name: 'Die Last der Welt', steps: [Z(1500, ['danger', 'load'], ['combat'], '1500 Sekunden mit doppelter Last in Monstergebieten, ohne Kampf')] },
   },
   schluessel: {
-    3: { name: 'Tausend Türen', steps: [Z(240, ['danger'], ['combat'], '240 Sekunden unbemerkt in Monstergebieten (kein Kampf)'), K(5, 'wild', { noParry: true, noItems: true }, 'Danach fünf Siege ohne Parade und ohne Gegenstände')] },
+    3: { name: 'Tausend Türen', steps: [Z(480, ['danger'], ['combat'], '480 Sekunden unbemerkt in Monstergebieten (kein Kampf)'), K(8, 'wild', { noParry: true, noItems: true }, 'Danach acht Siege ohne Parade und ohne Gegenstände')] },
     2: { name: 'Alle Schlösser offen', welt: { titel: 'Offene Schlösser', farbe: 0x1a1a3a, alpha: 0.16, wanted: 2, text: 'In einer Nacht springen überall die Schlösser auf. Diebe werden dreist, Wachen nervös, und nichts ist mehr verschlossen, was dich aufhalten könnte.', gerede: 'Alle Türen der Straße standen heute Morgen offen. Nichts fehlte, aber jeder hat seither Angst.' },
-      steps: [W('Alle Schlösser der Welt öffnen'), O({ money: 20000 }, '20 000 Schilling an die Schatten zahlen'), G({ noParry: true, noItems: true }, 'Den Grenzwächter besiegen, ohne Parade und ohne Gegenstände')] },
+      steps: [W('Alle Schlösser der Welt öffnen'), O({ money: 50000 }, '50 000 Schilling an die Schatten zahlen'), G({ noParry: true, noItems: true }, 'Den Grenzwächter besiegen, ohne Parade und ohne Gegenstände')] },
     1: { name: 'Die letzte Tür', steps: [Z(1500, ['danger'], ['combat'], '1500 Sekunden in Monstergebieten ohne Kampf, dabei fünf verschiedene Gebiete betreten', { maps: 5 })] },
   },
   sq_waage: {
-    3: { name: 'Das Gleichgewicht', steps: [O({ money: 10000 }, '10 000 Schilling auf die Waage legen'), K(6, 'wild', { endMin: { hp: 0.5, nerves: 0.5 } }, 'Sechs Siege, jeder mit mindestens halbem Leben und halben Nerven beendet')] },
+    3: { name: 'Das Gleichgewicht', steps: [O({ money: 25000 }, '25 000 Schilling auf die Waage legen'), K(10, 'wild', { endMin: { hp: 0.5, nerves: 0.5 } }, 'Zehn Siege, jeder mit mindestens halbem Leben und halben Nerven beendet')] },
     2: { name: 'Der Preis der Welt', welt: { titel: 'Teure Welt', farbe: 0x4a3a10, alpha: 0.12, wanted: 1, text: 'Jeder Preis kippt. Brot kostet wie Silber, und wer Geld hat, wird gejagt. Die Wesen werden gieriger und stärker.', gerede: 'Ein Laib Brot für den Wochenlohn. Wer jetzt noch Geld hat, sollte es nicht zeigen.' },
-      steps: [W('Die Preise der Welt kippen'), O({ money: 20000 }, '20 000 Schilling auf die Waage legen'), G({ endMin: { hp: 0.5, nerves: 0 } }, 'Den Grenzwächter besiegen und dabei über halbem Leben bleiben')] },
+      steps: [W('Die Preise der Welt kippen'), O({ money: 50000 }, '50 000 Schilling auf die Waage legen'), G({ endMin: { hp: 0.5, nerves: 0 } }, 'Den Grenzwächter besiegen und dabei über halbem Leben bleiben')] },
     1: { name: 'Die leere Waagschale', steps: [O({ money: 100000 }, '100 000 Schilling auf die Waage legen')] },
   },
   sq_moor: {
-    3: { name: 'Alles verrottet', steps: [K(6, 'wild', { decayPct: 0.06 }, 'Sechs Siege in Folge, jede Runde zerfallen 6 % deines Lebens')] },
+    3: { name: 'Alles verrottet', steps: [K(10, 'wild', { decayPct: 0.08 }, 'Zehn Siege in Folge, jede Runde zerfallen 8 % deines Lebens')] },
     2: { name: 'Das steigende Moor', welt: { titel: 'Steigendes Moor', farbe: 0x1a2a1a, alpha: 0.16, wanted: 1, text: 'Das Moor kriecht in die Städte. Keller laufen voll, Holz fault in Tagen, und was im Torf schlief, wacht auf.', gerede: 'Unser Keller ist voll Torfwasser. Der Pfarrer sagt, das Moor holt sich zurück, was ihm gehört.' },
-      steps: [W('Das Moor in die Welt steigen lassen'), P('moor', 5, 'Fünf Namensproben ohne einen Fehler'), G({ decayPct: 0.02 }, 'Den Grenzwächter besiegen, jede Runde zerfallen 2 % deines Lebens')] },
+      steps: [W('Das Moor in die Welt steigen lassen'), P('moor', 10, 'Zehn Namensproben ohne einen Fehler'), G({ decayPct: 0.03 }, 'Den Grenzwächter besiegen, jede Runde zerfallen 3 % deines Lebens')] },
     1: { name: 'Das Gedächtnis des Moores', steps: [P('moor', 25, 'Fünfundzwanzig Namensproben ohne einen Fehler')] },
   },
   sq_uhr: {
-    3: { name: 'Die stehende Stunde', steps: [K(6, 'wild', { minKillRound: 6, maxRounds: 8 }, 'Sechs Siege, jeder genau in Runde 6 bis 8')] },
+    3: { name: 'Die stehende Stunde', steps: [K(10, 'wild', { minKillRound: 6, maxRounds: 8 }, 'Zehn Siege, jeder genau in Runde 6 bis 8')] },
     2: { name: 'Die verrückte Zeit', welt: { titel: 'Verrückte Zeit', farbe: 0x2a2a4a, alpha: 0.12, wanted: 1, text: 'Alle Uhren der Welt gehen falsch. Wachen kommen zu früh, Züge zu spät, und die Wesen sind schneller als ihre Schatten.', gerede: 'Die Rathausuhr hat heute dreimal Mitternacht geschlagen. Keiner weiß mehr, wann die Wache wechselt.' },
-      steps: [W('Die Zeit der Welt verrücken'), P('uhr', 5, 'Fünf Fristproben ohne einen Fehler'), G({ minKillRound: 10, maxRounds: 14 }, 'Den Grenzwächter genau in Runde 10 bis 14 besiegen')] },
+      steps: [W('Die Zeit der Welt verrücken'), P('uhr', 10, 'Zehn Fristproben ohne einen Fehler'), G({ minKillRound: 12, maxRounds: 15 }, 'Den Grenzwächter genau in Runde 12 bis 15 besiegen')] },
     1: { name: 'Die Uhr ohne Zeiger', steps: [P('uhr', 25, 'Fünfundzwanzig Fristproben ohne einen Fehler')] },
   },
 };

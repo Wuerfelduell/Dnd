@@ -70,15 +70,15 @@ test('Gilden: ab Dunscar meldet sich die eigene Gilde, ab Seq 4 auch die des Nac
   assert.ok(!content.dialogues.k3o_vorhauer_beute.nodes.k3o_start.choices.some((c) => /Kern/.test(c.text) && c.next), 'kein Kern 3 mehr aus dem Kernfach');
 });
 
-test('Seq 3 Echo: Kette von Siegen in höchstens fünf Runden, eine Flucht lässt scheitern (−17 %)', () => {
+test('Seq 3 Echo: Kette von Siegen in höchstens vier Runden, eine Flucht lässt scheitern (−17 %)', () => {
   const s = hero(4, 'echo');
   assert.equal(s.startHoch().ok, true);
   const c = new Combat(s, wild);
   assert.equal(c.rules.solo, true);
-  assert.equal(c.rules.maxRounds, 5);
-  c.round = 5;
+  assert.equal(c.rules.maxRounds, 4);
+  c.round = 4;
   c.endRound();
-  assert.ok(c.ruleBroken, 'nach Runde 5 gebrochen');
+  assert.ok(c.ruleBroken, 'nach Runde 4 gebrochen');
   s.combatRules = null;
   s.hochState().active = true;
   s.hochState().step = 0;
@@ -93,9 +93,9 @@ test('Seq 3 Eisen: Kampf beginnt mit 25 % Leben; sechs Siege bestehen die Prüfu
   const s = hero(4, 'eisen');
   s.startHoch();
   const c = new Combat(s, wild);
-  assert.ok(s.hp <= Math.round(s.maxHp * 0.25));
+  assert.ok(s.hp <= Math.round(s.maxHp * 0.2));
   s.combatRules = null;
-  for (let i = 0; i < 6; i++) end(s, wild, 'won');
+  for (let i = 0; i < 10; i++) end(s, wild, 'won');
   assert.ok(s.hochPassed('eisen', 3));
   s.addItem('trank_eisen_3');
   for (const [id, n] of Object.entries(s.ritualDef('eisen', 3).consumes ?? {})) s.addItem(id, n);
@@ -115,12 +115,12 @@ test('Seq 2: Weltwandel bleibt und macht alle Gegner stärker, dann Probe und br
   s.combatRules = null;
   assert.ok(after > before * 1.2, `${before} → ${after}`);
   assert.ok(s.weltTint());
-  for (let i = 0; i < 5; i++) { assert.ok(s.pendingProbe().hoch); s.probe = { ...s.pendingProbe(), step: 0, rounds: [] }; s.finishProbe(true, ''); }
+  for (let i = 0; i < 10; i++) { assert.ok(s.pendingProbe().hoch); s.probe = { ...s.pendingProbe(), step: 0, rounds: [] }; s.finishProbe(true, ''); }
   assert.equal(s.hochStep().type, 'waechter');
   const g = s.hochGuardian();
   assert.ok(g.fight);
   const c = new Combat(s, g.fight);
-  assert.ok(c.enemy.maxHp > 10000, `Grenzwächter ${c.enemy.maxHp}`);
+  assert.ok(c.enemy.maxHp > 15000, `Grenzwächter ${c.enemy.maxHp}`);
   assert.equal(c.rules.noDodge, true);
   c.outcome = 'won'; c.enemy.hp = 0; c.finish({ noLoot: true });
   assert.ok(s.hochPassed('faden', 2));
