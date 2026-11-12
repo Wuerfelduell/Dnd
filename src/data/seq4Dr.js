@@ -1,18 +1,19 @@
 /**
- * Codex-Paket DR (PR #326): Texte der zehn Seq-4-Rituale und die Wexmoor-Einnahmen.
+ * Codex-Paket DR (PR #326, überarbeitet in PR #333): Texte der zehn Seq-4-Rituale und die Wexmoor-Einnahmen.
  * Kopien der JSON-Dateien liegen in data/packs/seq4_dr (Original: docs/story/seq4_rituale).
  *
  * - Ritualtexte (Name, Beschreibung, Regelkarte, Vorbereitung, Beginn, Erfolg), Kurzmeldungen, Wächterzeilen,
  *   Kessel-Rezepte, Namen und Eigenschaften des Moor-Relikts, Gerede, Zeitungen und Lesestücke → content.seq4Texte.
- *   Der Prozentsatz `{pct}` ist überall 17 (Seb, 2026-11-12; das README nennt noch 20/25).
+ *   Der Prozentsatz `{pct}` ist überall 17 (Seb, 2026-11-12; das DR-README nennt noch 20/25).
  * - Wexmoor-Einnahmen: acht Kopfgelder (Brett im Wachhaus, Gesuchte als Gegner auf ihren Karten), sechs tägliche
- *   Arbeiten (Aushang am Ort, einmal je Spieltag, kosten Nerven) und zehn seltene Funde (Fundstelle je Ort, einmal je
- *   Spieltag), die Maud Keel ankauft. Geldwerte setzt LOHN, damit ~10 000 Schilling durch Farmen erreichbar sind.
+ *   Arbeiten (Aushang am Ort, einmal je Spieltag, kosten Nerven) und zehn seltene Funde, die als seltene Beute in den
+ *   Monstergebieten fallen (DR v2: `fundort` ist ein Gebiet) und die Maud Keel ankauft. Geldwerte setzt LOHN, damit
+ *   ~10 000 Schilling durch Farmen erreichbar sind.
  */
 /** Fehlschlag-Prozent aller Seq-4-Rituale (= HG_FAIL_PCT in core/Seq4.js; Test prüft die Gleichheit, Import wäre ein Kreis). */
 export const DR_PCT = 17;
 
-export const SEQ4_DR_FILES = ['rituale', 'meldungen', 'waechter', 'kessel_rezepte', 'moor_relikt', 'nebentexte', 'wexmoor_einnahmen'];
+export const SEQ4_DR_FILES = ['rituale', 'meldungen', 'waechter', 'kessel_rezepte', 'moor_relikt', 'nebentexte', 'wexmoor_einnahmen', 'einbau'];
 
 /** Ritual-Art (ritual.hg) → Schlüssel in den DR-Dateien. */
 export const DR_KEY = {
@@ -24,8 +25,10 @@ export const DR_KEY = {
 export const LOHN = {
   kopfgeld: { klein: 150, mittel: 350, gross: 800 },
   arbeit: { klein: 60, mittel: 120, gross: 200 },
-  fund: { klein: 120, mittel: 240, gross: 480 },
+  fund: { klein: 160, mittel: 320, gross: 640 },
 };
+/** Chance je Sieg im Fundgebiet (Eliten doppelt), je Lohnstufe. */
+export const FUND_CHANCE = { klein: 0.08, mittel: 0.05, gross: 0.03 };
 export const ARBEIT_NERVEN = 8;
 
 /** Gesuchte: Grafik und Stärke je Lohnstufe (Wexmoor-Niveau, gross = Boss mit Fluchtfrist). */
@@ -55,7 +58,7 @@ const RELIKT_WIRKUNG = {
 };
 
 /** Gerede (Index in nebentexte.gerede) und Zeitung je Ritual: erscheinen erst, wenn jemand dieses Ritual bestanden hat. */
-const GEREDE_ART = ['laterne', 'laterne', 'laterne', 'faden', 'faden', 'maske', 'maske', 'echo', 'echo', 'kessel', 'kessel', 'eisen', 'schluessel', 'schluessel', 'schluessel', 'waage', 'waage', 'moor', 'moor', 'uhr'];
+const GEREDE_ART = ['laterne', 'laterne', 'laterne', 'faden', 'faden', 'maske', 'maske', 'echo', 'echo', 'kessel', 'kessel', 'eisen', 'eisen', 'schluessel', 'schluessel', 'waage', 'waage', 'moor', 'moor', 'uhr'];
 const ZEITUNG_ART = ['laterne', 'faden', 'maske', 'waage', 'moor'];
 const BLATT = { wexmoor: 'bote', dunscar: 'dunscarer_kalkblatt', calderwick: 'calderwicker_anzeiger', briarholt: 'briarholter_kurblatt' };
 const GEREDE_STAEDTE = Object.keys(BLATT);
@@ -86,9 +89,16 @@ function texte(f) {
     waechter: by(f.waechter),
     zuschauer: by(f.nebentexte?.koop_zuschauer),
     zweifel: f.nebentexte?.maske_zweifel ?? [],
+    gemeinsam: Object.fromEntries(Object.entries(f.einbau?.gemeinsame_texte ?? {}).map(([k, v]) => [k, pct(v)])),
     relikt: f.moor_relikt ?? null,
     reliktWirkung: RELIKT_WIRKUNG,
   };
+}
+
+/** Konkreter Fehlschlaggrund aus rituale.json (`{pct}` = 17) oder ''. */
+export function drFehlschlag(content, kind, grund) {
+  const t = content.seq4Texte?.rituale?.[kind]?.fehlschlag?.[grund];
+  return t ? pct(t) : '';
 }
 
 /** Kurzmeldung (`{pct}` = 17, weitere Platzhalter aus vars). */
@@ -137,12 +147,16 @@ function applyGuardians(content) {
     const id = `hg_schwellenwaechter_${pid}`;
     const enc = content.encounters[id];
     if (!w || !enc) continue;
-    const rufe_runde = kind === 'eisen' ? { ...Object.fromEntries([1, 2, 3, 4, 5].map((n) => [n, w[`runde_${n}`]]).filter(([, t]) => t)), ...(w.verwundbar ? { 6: w.verwundbar } : {}) } : null;
+    // Eisen: Ansage zur überstandenen Runde n zu Beginn von Runde n + 1; zu Beginn der sechsten auch „jetzt tötbar“
+    const rufe_runde = kind === 'eisen' ? Object.fromEntries([1, 2, 3, 4, 5].map((n) => [n + 1, [w[`runde_${n}`], n === 5 ? w.verwundbar : ''].filter(Boolean).join(' ')]).filter(([, t]) => t)) : null;
+    const quote = (lines) => (kind === 'echo' ? lines.join(' ') : `„${lines.join(' ')}“`); // Echo: stumm, nur was man sieht
     content.encounters[id] = {
       ...enc,
       rufe: w.zwischenrufe ?? [],
       ...(rufe_runde ? { rufe_runde } : {}),
-      ...(kind === 'echo' ? { intro: (w.intro ?? []).join(' '), win_text: (w.sieg_spieler ?? []).join(' ') || enc.win_text } : {}),
+      ...(w.intro?.length ? { intro: kind === 'echo' ? quote(w.intro) : `${enc.intro.split('„')[0].trim()} ${quote(w.intro)}` } : {}),
+      ...(w.sieg_spieler?.length ? { win_text: quote(w.sieg_spieler) } : {}),
+      ...(w.sieg_waechter ? { lose_text: kind === 'echo' ? w.sieg_waechter : `„${w.sieg_waechter}“` } : {}),
     };
   }
 }
@@ -207,7 +221,7 @@ function applyEinnahmen(content, w) {
     );
     nodes[qid] = { text: `GESUCHT: ${name}. ${k.gesuchter?.steckbrief ?? k.summary} Lohn: ${lohn} Schilling. Zu finden: ${content.maps[target.map]?.name ?? target.map}.`, choices: [{ text: 'Steckbrief abnehmen.', next: `${qid}_nehmen` }, { text: 'Zurück.', next: 'start' }] };
     nodes[`${qid}_nehmen`] = { text: `Du nimmst den Steckbrief ab. ${k.summary}`, start_quests: [qid], choices: [{ text: 'Zurück zum Brett.', next: 'start' }] };
-    nodes[`${qid}_zahlen`] = { text: `${k.abgabetext ?? 'Die Wache zahlt.'} (${lohn} Schilling)`, sets_flags: [paid], complete_quests: [qid], gives_money: lohn, honor: 1, honor_reason: k.title, choices: [{ text: 'Zurück zum Brett.', next: 'start' }] };
+    nodes[`${qid}_zahlen`] = { text: `Der Wachtmeister am Brett liest deinen Bericht. „${k.abgabetext ?? 'Gut.'}“ (${lohn} Schilling)`, sets_flags: [paid], complete_quests: [qid], gives_money: lohn, honor: 1, honor_reason: k.title, choices: [{ text: 'Zurück zum Brett.', next: 'start' }] };
   }
   nodes.start.choices.push({ text: 'Weggehen.' });
   content.dialogues.wx_steckbriefe = { start: 'start', nodes };
@@ -217,38 +231,31 @@ function applyEinnahmen(content, w) {
   for (const [jid, j] of Object.entries(w.gelegenheitsarbeiten ?? {})) {
     const lohn = LOHN.arbeit[j.lohn_stufe] ?? LOHN.arbeit.klein;
     const zf = j.zwischenfaelle?.length ? j.zwischenfaelle : [''];
-    const d = { start: { text: `${j.title}. ${j.auftraggeber} Lohn: ${lohn} Schilling, einmal am Tag.`, choices: [
+    const d = { start: { text: `${j.title}. „${j.auftraggeber}“ Lohn: ${lohn} Schilling, einmal am Tag.`, choices: [
       { text: `Arbeit annehmen (${ARBEIT_NERVEN} Nerven)`, requires_daily: jid, requires_nerves: ARBEIT_NERVEN, next: zf.map((_, i) => ({ node: `z${i}`, ...(i < zf.length - 1 ? { chance: 1 / (zf.length - i) } : {}) })) },
       { text: 'Für heute ist die Arbeit getan.', hide_if_daily: jid, next: 'fertig' },
       { text: 'Weggehen.' },
     ] }, fertig: { text: 'Der Vorarbeiter winkt ab. Morgen wieder.' } };
-    zf.forEach((z, i) => { d[`z${i}`] = { text: `${j.ablauf} ${z} ${j.abschluss} (+${lohn} Schilling)`, daily: jid, nerves: -ARBEIT_NERVEN, gives_money: lohn, honor_reason: j.title }; });
+    zf.forEach((z, i) => { d[`z${i}`] = { text: `${j.ablauf} ${z} „${j.abschluss}“ (+${lohn} Schilling)`, daily: jid, nerves: -ARBEIT_NERVEN, gives_money: lohn, honor_reason: j.title }; });
     const { start, ...rest } = d;
     content.dialogues[jid] = { start: 'start', nodes: { start, ...rest } };
     addTo(content, j.ort, 'interactables', { id: `${jid}_aushang`, kind: 'dialogue', dialogue: jid, title: `Aushang: ${j.title}`, role: 'Arbeit', sprite: 'paper', marker: true, prompt: 'Aushang lesen', visible_if: { requires_flags: ['k2_arrived'] } }, [2, 1]);
   }
 
-  // Seltene Funde: eine Fundstelle je Ort, einmal je Spieltag; Maud kauft sie
+  // Seltene Funde: seltene Beute der Monster im Fundgebiet (DR v2), Maud kauft sie
   const sell = { ...(content.market?.sell_prices ?? {}) };
-  const byMap = {};
   for (const [fid, x] of Object.entries(w.seltene_funde ?? {})) {
     const wert = LOHN.fund[x.lohn_stufe] ?? LOHN.fund.klein;
     content.items[fid] = { name: x.name, kind: 'trophy', weight: 0.3, rarity: 'selten', price: wert, desc: `${x.desc} Maud Keel am Salzmarkt zahlt etwa ${Math.round(wert / 2)} Schilling.` };
     sell[fid] = wert;
-    (byMap[x.fundort] ??= []).push(fid);
+    const chance = FUND_CHANCE[x.lohn_stufe] ?? FUND_CHANCE.klein;
+    for (const [eid, e] of Object.entries(content.encounters)) {
+      if (e.zone !== x.fundort || !content.loot[eid]) continue;
+      const l = content.loot[eid];
+      content.loot[eid] = { ...l, drops: [...(l.drops ?? []), { item: fid, chance: Math.min(1, chance * (e.elite || e.boss ? 2 : 1)) }] };
+    }
   }
   if (content.market) content.market = { ...content.market, sell_prices: sell };
-  for (const [map, finds] of Object.entries(byMap)) {
-    const id = `wxf_stelle_${map}`;
-    const nodes2 = { start: { text: 'Aufgewühlter Grund, eine Stelle, an der die Gezeiten oder die Leute etwas liegen lassen.', choices: [
-      { text: 'Absuchen.', requires_daily: id, next: finds.map((fid, i) => ({ node: fid, ...(i < finds.length - 1 ? { chance: 1 / (finds.length - i) } : {}) })) },
-      { text: 'Heute ist hier nichts mehr.', hide_if_daily: id, next: 'leer' },
-      { text: 'Weggehen.' },
-    ] }, leer: { text: 'Nur Schlick und Scherben. Morgen vielleicht wieder.' } };
-    for (const fid of finds) nodes2[fid] = { text: `Zwischen Schlick und Kies: ${content.items[fid].name}. Maud Keel wird es ansehen wollen.`, daily: id, gives_items: { [fid]: 1 } };
-    content.dialogues[id] = { start: 'start', nodes: nodes2 };
-    addTo(content, map, 'interactables', { id, kind: 'dialogue', dialogue: id, title: 'Fundstelle', role: 'Seltene Funde', sprite: 'paper', marker: true, prompt: 'Absuchen', visible_if: { requires_flags: ['k2_arrived'] } }, [4, 2]);
-  }
   // Maud: kommentiert die Funde
   const maud = content.dialogues.wx_pfandleiherin;
   const lines = w.maud_keel ?? [];
