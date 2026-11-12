@@ -24,6 +24,8 @@ export const DIGEST_RATE = { 9: 1, 8: 0.7, 7: 0.5, 6: 0.05, 5: 0.005, 4: 0.0005,
 /** Verdauungstempo einer Sequenz im Verhältnis zu Sequenz 7 (1 bis Sequenz 7, danach 1/10, 1/100, ...). */
 /** Faktor für jede Unruhe-Steigerung ab Sequenz 5 (Seb 2026-11-12). */
 export const UNRUHE_GAIN_HOCH = 0.5;
+/** Spieler 2 verdaut zehnmal schneller (Seb 2026-11-12: kam ab Seq 5 nicht voran). */
+export const P2_DIGEST_MULT = 10;
 export function digestSlowdown(seq) { return Math.min(1, (DIGEST_RATE[seq] ?? DIGEST_RATE[1]) / DIGEST_RATE[7]); }
 /** Prozentwert fürs Auge: große Werte mit einer Nachkommastelle, winzige mit zwei gültigen Ziffern. */
 export function fmtDigest(v) {
@@ -357,7 +359,7 @@ export const pathwayMethods = {
     if (!p) return 0;
     const base = this.digestWeights()[kind];
     if (!base) return 0;
-    let pts = base * amount * (DIGEST_RATE[p.seq] ?? DIGEST_RATE[1]) * this.passive('digest_mult');
+    let pts = base * amount * (DIGEST_RATE[p.seq] ?? DIGEST_RATE[1]) * this.passive('digest_mult') * this.p2DigestMult();
     if (kind === 'vision') {
       if (this.visionDigest.map !== this.map) this.visionDigest = { map: this.map, total: 0 };
       pts = Math.min(pts, Math.max(0, VISION_DIGEST_CAP - this.visionDigest.total));
@@ -378,6 +380,9 @@ export const pathwayMethods = {
     return p.digestion - before;
   },
 
+  /** Spieler 2 verdaut schneller (P2_DIGEST_MULT), Spieler 1 normal. */
+  p2DigestMult() { return (this.acting ?? 1) === 2 ? P2_DIGEST_MULT : 1; },
+
   /** Grundpunkte je Handlung für den eigenen Pfad: die pfadeigene Tabelle über den gemeinsamen Quellen. */
   digestWeights() {
     return { ...COMMON_DIGEST, ...(this.pathwayDef()?.digest ?? {}) };
@@ -386,7 +391,7 @@ export const pathwayMethods = {
   /** Was den eigenen Pfad wie stark verdaut, auf der aktuellen Sequenz: [{kind, label, points}] */
   digestTable() {
     if (!this.pathway) return [];
-    const rate = (DIGEST_RATE[this.pathway.seq] ?? DIGEST_RATE[1]) * this.passive('digest_mult');
+    const rate = (DIGEST_RATE[this.pathway.seq] ?? DIGEST_RATE[1]) * this.passive('digest_mult') * this.p2DigestMult();
     return Object.entries(this.digestWeights())
       .map(([kind, v]) => ({ kind, label: DIGEST_LABELS[kind] ?? kind, points: v * rate, text: fmtDigest(v * rate) }))
       .sort((a, b) => b.points - a.points);
