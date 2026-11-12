@@ -74,6 +74,8 @@ export function applyDunscarHaendler(content) {
   if (!merchants || !map) return;
   const high = new Set(Object.values(content.pathways ?? {}).flatMap((p) => [7, 6, 5, 4, 3, 2, 1].flatMap((q) => Object.keys(p.seqs?.[q]?.ingredients ?? {}))));
   for (const basic of ['nebeltau', 'silberstaub']) high.delete(basic); // Grundzutaten, auch bei Nell frei käuflich
+  // Kräuter der Sequenz 9/8 bleiben käuflich, auch wenn ein höheres Rezept (Formel 4) sie mitbraucht
+  for (const p of Object.values(content.pathways ?? {})) for (const q of [9, 8]) for (const id of Object.keys(p.seqs?.[q]?.ingredients ?? {})) high.delete(id);
   for (const [id, h] of Object.entries(DS_HAENDLER)) {
     const stock = [];
     const seen = new Set();
