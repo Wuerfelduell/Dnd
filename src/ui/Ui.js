@@ -18,7 +18,7 @@ import {
   TURN_PORTRAITS, TURN_PORTRAITS_URL, TURN_PORTRAIT_URLS, BESTIARY, bestiaryUrl, TITLE_LAYERS,
   headUrl, ritualCardUrl, ZIRKEL_URL, ZIRKEL_ICONS, AUKTION_URL, AUKTION_REGIONS, LONER_UI_URL, LONER_UI, LONER_SEALS, S_ZIRKEL_URL, S_ZIRKEL, skillIconOf, talentIconOf, PULSE_ICONS, ARTIFACT_UI_URL, sourceKind, sourceKindUrl, inspectUrl, RISK_ICONS, RISK_ICONS_URL, JOURNAL_FRAME, JOURNAL_FRAME_URL, choiceRisk, riskOf,
   factionEmblemUrl, PLACE_PICTURES, TRAVEL_MODES_URL, TRAVEL_MODE_ICONS, TRAVEL_MARKER_URL,
-  DANGER_URL, DANGER_ICONS, DANGER_BANNER, RARITY_SHEET, RARITY_SHEET_URL, RARITY_GEMS,
+  DANGER_URL, DANGER_ICONS, DANGER_BANNER, RARITY_SHEET, RARITY_SHEET_URL, RARITY_GEMS, reliktIcon, SEQ4_RITUAL_ICONS,
 } from '../world/assets.js';
 import { sourceOf } from '../core/sources.js';
 import { openGuesses, gapText, knowledgeGaps, onlyKnowledgeMissing } from '../core/hints.js';
@@ -30,10 +30,13 @@ import { isSolved, knownPeople, journalQuestVisible } from '../core/journal.js';
 import { canHurry, hurryCost, travelSafe, travelFast, afterHurryFight, travelDestinations, cityOf } from '../core/Travel.js';
 import { questTarget, leadTarget, personPlaces, advice } from '../core/Guide.js';
 
+/** Spielstand für Icons, die vom Spieler abhängen (Relikt des Verfalls: Bild nach seiner stärksten Eigenschaft, Codex DP). */
+let iconState = null;
+const iconId = (id) => (id === 's4mo_relikt' ? reliktIcon(iconState?.pathway?.relikt?.look) : id);
 /** 16x16-Icon vor einem Item-Namen. Lädt es nicht, verschwindet es einfach. */
-const itemIcon = (id) => (PULSE_ICONS[id] ? `<span class="item-icon pulse" style="background-image:url(${PULSE_ICONS[id]})"></span>` : `<img class="item-icon" src="${itemIconUrl(id)}" alt="" width="16" height="16" onerror="this.remove()">`);
+const itemIcon = (id) => (PULSE_ICONS[id] ? `<span class="item-icon pulse" style="background-image:url(${PULSE_ICONS[id]})"></span>` : `<img class="item-icon" src="${itemIconUrl(iconId(id))}" alt="" width="16" height="16" onerror="this.remove()">`);
 /** Größeres Icon (Tränke in 32px, sonst das 16er doppelt). */
-const itemIconBig = (id) => `<img class="item-icon big" src="${itemIcon32Url(id) ?? itemIconUrl(id)}" alt="" width="32" height="32" onerror="this.remove()">`;
+const itemIconBig = (id) => `<img class="item-icon big" src="${itemIcon32Url(iconId(id)) ?? itemIconUrl(iconId(id))}" alt="" width="32" height="32" onerror="this.remove()">`;
 /** Vor- und Nachteile eines Artefakts als kleine Liste. */
 /** Rate pro Sekunde lesbar (0.12 → „0,12“). */
 const fmtRate = (v) => String(Math.round(v * 100) / 100).replace('.', ',');
@@ -160,7 +163,7 @@ const skillIconBig = (id) => {
 const artifactSlots = (ids, max, overloaded) => Array.from({ length: Math.max(max, ids.length) }, (_, i) => {
   const id = ids[i];
   const kind = !id ? 'empty' : overloaded ? 'overloaded' : 'equipped';
-  return `<span class="artslot ${kind}">${id ? `<img src="${itemIconUrl(id)}" alt="" width="12" height="12">` : ''}</span>`;
+  return `<span class="artslot ${kind}">${id ? `<img src="${itemIconUrl(iconId(id))}" alt="" width="12" height="12">` : ''}</span>`;
 }).join('');
 const statusIcon = (id, title) => atlasIcon(STATUS_ICONS_URL, STATUS_ICONS[id], 12, title);
 /** Portrait (64x64 aus einem 256x64-Streifen) für den Dialog. */
@@ -327,6 +330,7 @@ export class Ui {
     for (const [v, path] of Object.entries(UI_SKINS)) root.style.setProperty(`--${v}`, `url(${new URL(SPRITE_BASE + path, document.baseURI).href})`);
     cropSkins(root);
     this.state = state;
+    iconState = state;
     this.onNewGame = onNewGame;
     this.onContinue = onContinue;
     this.hasSave = hasSave;
@@ -2283,6 +2287,8 @@ export class Ui {
     const zone = !!s.content.zones?.[s.map];
     if (k === 'laterne' && !st.siege) acts.push(btn('laterne', `Sechs Laternen aufstellen (${s.itemCount('lampenoel')}/6 Lampenöl)`, zone && s.itemCount('lampenoel') >= 6));
     if (k === 'maske' && !st.masked) acts.push(btn('maske', 'Zivilistengestalt annehmen', !s.activeArtifacts().length));
+    if (k === 'maske' && st.masked) more += `<p class="muted">${itemIcon('s4ma_handschuh')} Als Niemand den Handschuh werfen: einen Beyonder der Sequenz 5 oder höher herausfordern.</p>`;
+    if (k === 'waage' && st.stash) more += `<p class="muted">${itemIcon('s4wa_plombe')} Dein Besitz liegt verplombt im Lager und kommt nach der Prüfung zurück.</p>`;
     if (k === 'echo' && !st.active) acts.push(btn('echo', 'Taub werden'));
     if (k === 'schluessel' && !st.shadow) acts.push(btn('schatten', 'Den Schatten lösen', zone));
     if (k === 'uhr' && !st.active) acts.push(btn('uhr', 'Zeitprüfung beginnen'));
@@ -2295,6 +2301,7 @@ export class Ui {
     if (k === 'moor') {
       if (!s.pathway.relikt) {
         const list = s.decayables();
+        if ((st.decayed ?? []).length) more += `<p class="muted">${itemIcon('s4mo_reste')} Zersetzt: ${st.decayed.map((d) => esc(d.name)).join(', ')} (${st.decayed.length}/5)</p>`;
         more += list.length ? `<p class="muted">Zersetzbar: ${list.map((e) => btn(`decay:${e.id}`, `${e.name}${e.count > 1 ? ` ×${e.count}` : ''}`)).join(' ')}</p>` : '<p class="muted">Nichts Okkultes oder Seltenes im Gepäck.</p>';
       } else if (!st.guardian) acts.push(btn('moorwaechter', 'Den Wächter rufen', s.itemCount('s4mo_relikt') > 0 && s.itemCount('moorwasser') > 0));
     }
@@ -2308,7 +2315,8 @@ export class Ui {
     const card = s.seq4Card(k);
     const rules = card?.regeln?.length ? `<p class="muted"><strong>Regeln:</strong> ${card.regeln.map(esc).join(' · ')}</p>` : '';
     const prep = card?.vorbereitung?.length && !s.seq4Running() ? `<p class="muted"><strong>Vorbereitung:</strong> ${card.vorbereitung.map(esc).join(' ')}</p>` : '';
-    return `<div class="seq5 seq4"><p class="desc"><strong>${esc(s.seq4Name(k))}.</strong> ${esc(s.seq4Hint(k))}</p>${rules}${prep}${more}
+    const head = SEQ4_RITUAL_ICONS[k] ? itemIconBig(k === 'moor' && s.pathway.relikt ? 's4mo_relikt' : SEQ4_RITUAL_ICONS[k]) : '';
+    return `<div class="seq5 seq4"><p class="desc">${head}<strong>${esc(s.seq4Name(k))}.</strong> ${esc(s.seq4Hint(k))}</p>${rules}${prep}${more}
       <p>${acts.join(' ')} <span class="muted">${esc(s.seq4Text('s4r_solo') || 'Solo: Spieler 2 schaut zu.')} Gescheitert: −17 % Verdauung, +10 Unruhe. ${esc(s.seq4Text('s4r_wiederholen'))}</span></p></div>`;
   }
 
