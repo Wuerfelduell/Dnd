@@ -2348,7 +2348,7 @@ Object.assign(ITEM_ICON_ALIASES, {
   k3o_leitungsklemme: 'glockenerz', k3o_stillkiesel: 'salzkristall', k3o_stillring: 'amulett_eisen', k3o_prueflinse: 'glasauge',
   k3a_signalgeraet: 'fahrkarte_wexmoor', k3a_depotmarke: 'ratssiegel', k3a_leitungspruefer: 'amulett_eisen', k3a_bahnkarte: 'fahrkarte_wexmoor',
   k3a_werkzeuge: 'ratssiegel', k3a_aufsichtsmarke: 'ratssiegel',
-  ds_beute_messingmarke: 'ratssiegel', ds_beute_signalsilber: 'silberstaub', ds_beute_schichtgold: 'salzkristall',
+  ds_beute_messingmarke: 'ratssiegel', ds_beute_signalsilber: 'silberstaub', ds_beute_schichtgold: 'salzkristall', ds_beute_kalkopal: 'schlickperle',
 });
 
 // --- Kapitel 3: Dunscar (AV Orte, AW Figuren, AX Gegner; manifest-dunscar1/2/3.json) ----------------------

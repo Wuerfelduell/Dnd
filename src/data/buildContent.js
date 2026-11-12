@@ -504,7 +504,11 @@ export const DS_BEUTE_ITEMS = {
   ds_beute_messingmarke: { name: 'Messing-Schichtmarke', kind: 'trophy', weight: 0.1, price: 160, desc: 'Eine schwere Marke aus der alten Schichtkasse. Die Pfandleiher zahlen gut dafür.' },
   ds_beute_signalsilber: { name: 'Signalsilber', kind: 'trophy', rarity: 'selten', weight: 0.2, price: 350, desc: 'Silberdraht aus den Signalleitungen, ungewöhnlich rein. Wird in Dunscar mit Gold aufgewogen.' },
   ds_beute_schichtgold: { name: 'Schichtgold', kind: 'trophy', rarity: 'selten', weight: 0.3, price: 900, desc: 'Ein Klumpen Gold aus der tiefsten Schicht. Niemand fragt, woher es kommt.' },
+  ds_beute_kalkopal: { name: 'Kalkopal', kind: 'trophy', rarity: 'selten', weight: 0.2, price: 2500, desc: 'Ein milchiger Opal, im Kalk der untersten Stollen gewachsen. Die Hehler am Kalkmarkt reißen sich darum.' },
 };
+/** Seb 2026-11-12: Dunscar-Gegner droppen keine alten Artefakte mehr (die aus Kettlegate/Wexmoor-Tabellen).
+ *  Ihre Chance geht stattdessen an den Kalkopal (2500). Dunscar-eigene Artefakte (z. B. Rangierlinse) bleiben. */
+export const DS_ALT_ERSATZ = 'ds_beute_kalkopal';
 const DS_BEUTE = {
   normal: [{ item: 'ds_beute_messingmarke', chance: 0.8 }, { item: 'ds_beute_signalsilber', chance: 0.15 }],
   elite: [{ item: 'ds_beute_signalsilber', chance: 1 }, { item: 'ds_beute_schichtgold', chance: 0.3 }],
@@ -513,6 +517,18 @@ const DS_BEUTE = {
 function applyDunscarBeute(content) {
   content.items = { ...content.items, ...DS_BEUTE_ITEMS };
   const loot = { ...content.loot };
+  // alte Artefakte = Artefakte, die auch ein Gegner vor Kapitel 3 droppt
+  const altArt = new Set();
+  for (const [id, t] of Object.entries(loot)) {
+    if ((content.encounters[id]?.chapter ?? 0) >= 3) continue;
+    for (const d of t.drops ?? []) if (content.items[d.item]?.kind === 'artifact') altArt.add(d.item);
+  }
+  for (const [id, e] of Object.entries(content.encounters)) {
+    if (e.chapter !== 3 || !loot[id]?.drops?.some((d) => altArt.has(d.item))) continue;
+    const alt = loot[id].drops.filter((d) => altArt.has(d.item));
+    const chance = Math.min(1, alt.reduce((s, d) => s + (d.chance ?? 1), 0));
+    loot[id] = { ...loot[id], drops: [...loot[id].drops.filter((d) => !altArt.has(d.item)), { item: DS_ALT_ERSATZ, chance }] };
+  }
   for (const [id, e] of Object.entries(content.encounters)) {
     if (e.chapter !== 3 || e.practice || e.mirror || e.waechter || id.startsWith('hg_') || !loot[id] || loot[id].ds_beute) continue;
     const rank = e.boss ? 'boss' : e.elite || id.endsWith('_elite') ? 'elite' : 'normal';

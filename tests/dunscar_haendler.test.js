@@ -77,3 +77,17 @@ test('Braukessel in Pfiffs Speisewagen (Unterkunft), auf freiem Boden, ohne Frei
   const belegt = [...map.interactables, ...(map.npcs ?? []), ...(map.decor ?? [])].filter((i) => i !== k[0] && i.tile && i.tile[0] === x && i.tile[1] === y);
   assert.equal(belegt.length, 0);
 });
+
+test('Dunscar-Gegner droppen keine alten Artefakte mehr, dafür den Kalkopal', () => {
+  const c = loadContent();
+  const alt = new Set();
+  for (const [id, t] of Object.entries(c.loot)) if ((c.encounters[id]?.chapter ?? 0) < 3) for (const d of t.drops ?? []) if (c.items[d.item]?.kind === 'artifact') alt.add(d.item);
+  let opal = 0;
+  for (const [id, e] of Object.entries(c.encounters)) {
+    if (e.chapter !== 3 || !c.loot[id]) continue;
+    for (const d of c.loot[id].drops ?? []) assert.ok(!alt.has(d.item), `${id} droppt altes Artefakt ${d.item}`);
+    if (c.loot[id].drops?.some((d) => d.item === 'ds_beute_kalkopal')) opal++;
+  }
+  assert.ok(opal > 0);
+  assert.ok(c.items.ds_beute_kalkopal.price >= 2000);
+});
