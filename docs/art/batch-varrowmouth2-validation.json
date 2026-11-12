@@ -1,0 +1,1029 @@
+{
+  "batch": "varrowmouth2",
+  "passed": true,
+  "assetCount": 61,
+  "checks": [
+    "required counts",
+    "dimensions",
+    "shared palette <=32",
+    "binary alpha / opacity",
+    "frame grid",
+    "animation indices, timing and distinct frames",
+    "regions / transparent remainder",
+    "eight aligned map pins",
+    "sha256"
+  ],
+  "limitations": [
+    "Raster check verifies integer pixel/frame geometry, not automatic semantic tile alignment or visual quality.",
+    "CU item IDs provisional until data package lands; symbol-to-item aliases documented in manifest."
+  ],
+  "errors": [],
+  "assets": [
+    {
+      "file": "battle/bg_vm_grenzzaun.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 24,
+      "alphaValues": [
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "7b4e47aa8d69b380c596399b38df3ba72ce93c049a1161e5f98d62981868b82c"
+    },
+    {
+      "file": "battle/bg_vm_leuchtbank_ebbe.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 28,
+      "alphaValues": [
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "1c14ac9638a220b9fbfc0c4d30a89ee04fd4946df65a460f94058c23e5e6586a"
+    },
+    {
+      "file": "battle/bg_vm_leuchtbank_flut.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 29,
+      "alphaValues": [
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "ae71933870a2ec8190b14148ff7d2a79f53a1c295a2a6cc58e772514530a393f"
+    },
+    {
+      "file": "battle/bg_vm_oberstrasse.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 28,
+      "alphaValues": [
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "6f4959b0bb4be79b2b24869d4eee00f8d474661cda80bfcc504fa2e66ba3b37d"
+    },
+    {
+      "file": "battle/bg_vm_registerkeller_ebbe.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 30,
+      "alphaValues": [
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "eab8d27d454f5a3f64bfe125cef5d3a342f0b930d0ac2af71d605158c153f2ba"
+    },
+    {
+      "file": "battle/bg_vm_schlick_ebbe.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 27,
+      "alphaValues": [
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "c50e5ec69ea6ddad1e30f1c41dff832f3e6c1beb1fb263b496076021a4b63a73"
+    },
+    {
+      "file": "battle/bg_vm_stege_flut.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 30,
+      "alphaValues": [
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "4947016e79c97b56060d996614bfa47532d15e3370aefd00cf65d05c40bf5ab7"
+    },
+    {
+      "file": "battle/bg_vm_wrackfeld_ebbe.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 26,
+      "alphaValues": [
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "d6160b16e93ef95d047bc3178ba357777e0ad63b6f3174ffaeb777a479c00589"
+    },
+    {
+      "file": "battle/bg_vm_zollhafen_ebbe.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 28,
+      "alphaValues": [
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "7b5fb4f908390b996ecea5c9a5dec163289d5e093201dcdf7b8b77d01e1815fe"
+    },
+    {
+      "file": "battle/bg_vm_zollhafen_flut.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 30,
+      "alphaValues": [
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "442b7d9ee9ba1257566136b2cb544ed80e1fa0f32912219f5a40e1081ec50541"
+    },
+    {
+      "file": "fx/vm_gezeiten.png",
+      "size": [
+        2880,
+        540
+      ],
+      "visibleColors": 27,
+      "alphaValues": [
+        255
+      ],
+      "grid": [
+        6,
+        2
+      ],
+      "sha256": "2e94e74fefee0f7cd9628418f899737bbb235cee526398c2dd43b2ed16c3581e"
+    },
+    {
+      "file": "fx/vm_warnung.png",
+      "size": [
+        256,
+        32
+      ],
+      "visibleColors": 18,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "grid": [
+        8,
+        1
+      ],
+      "sha256": "9745cf7179b0fcd1037a0c6b52b88f71b7a63466f1b6fea46204275cacd4fca5"
+    },
+    {
+      "file": "items/32/vmi_gezeitenkalender.png",
+      "size": [
+        32,
+        32
+      ],
+      "visibleColors": 21,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "06f5f86872e634aaf4473fcb47c113011eb941b7112e8c24d6301b2814151066"
+    },
+    {
+      "file": "items/32/vmi_leuchtbank_linse.png",
+      "size": [
+        32,
+        32
+      ],
+      "visibleColors": 21,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "3620a16685ff22ddbb9b9a29afd5bc4dc8b7d2a3f2b359d86d366090bb75254a"
+    },
+    {
+      "file": "items/32/vmi_lotsenmarke.png",
+      "size": [
+        32,
+        32
+      ],
+      "visibleColors": 19,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "3808db3ab1471fbc3e5da879d15e1b8a71c9e31535a175e0389ba19f30bc70ea"
+    },
+    {
+      "file": "items/32/vmi_namenlos_ring.png",
+      "size": [
+        32,
+        32
+      ],
+      "visibleColors": 15,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "52159ac9f16a89dab4ad545ba01be44ac04583487e82174fb93a07f572b9b2ef"
+    },
+    {
+      "file": "items/32/vmi_pegelglocke.png",
+      "size": [
+        32,
+        32
+      ],
+      "visibleColors": 14,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "1f1c303bb11f3ea2bd2bf4816702aa4f0bfa1c0ea1fd221bc2666be2ce1c21ff"
+    },
+    {
+      "file": "items/32/vmi_reeder_tinktur.png",
+      "size": [
+        32,
+        32
+      ],
+      "visibleColors": 16,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "95e0788484388e6ff39ed4127ff53209a8786adf16e64016ce9e78a1a80dc9ee"
+    },
+    {
+      "file": "items/32/vmi_registerseite.png",
+      "size": [
+        32,
+        32
+      ],
+      "visibleColors": 24,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "9e7a8b8a3aec210cf2feb8e03cab90a9987a11049992966853be5bbe8da62ade"
+    },
+    {
+      "file": "items/32/vmi_salzlaterne.png",
+      "size": [
+        32,
+        32
+      ],
+      "visibleColors": 22,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "369d797cc43218ed7fad240e24db10d7aa9a66cfb1dc2a4b00953d5fa9c1f051"
+    },
+    {
+      "file": "items/32/vmi_schlicksohlen.png",
+      "size": [
+        32,
+        32
+      ],
+      "visibleColors": 9,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "4ecde815fc917beb09310eb87f04991b0727717580f27e81a85b5f68db136074"
+    },
+    {
+      "file": "items/32/vmi_trockenfisch.png",
+      "size": [
+        32,
+        32
+      ],
+      "visibleColors": 21,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "3e60fec443d1ffd3367b3d169cec19118c4b619b600c798c0fc0270c2ef24b46"
+    },
+    {
+      "file": "items/32/vmi_zollkantinen_tee.png",
+      "size": [
+        32,
+        32
+      ],
+      "visibleColors": 21,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "8fd13c25e5a4ee8714d059897583d87303ddaa7687a96d83f0a52e1e67fa6c5e"
+    },
+    {
+      "file": "items/32/vmi_zollsiegel.png",
+      "size": [
+        32,
+        32
+      ],
+      "visibleColors": 10,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "a3e9305a3028cb7ae9ab5a9481bd3055ffbb845b80268e831c42e95fe5a06a33"
+    },
+    {
+      "file": "items/vmi_gezeitenkalender.png",
+      "size": [
+        16,
+        16
+      ],
+      "visibleColors": 18,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "6c971b180050d9955036e058f4ea3e99bf4537be236aeba21bb9f1d48adc826d"
+    },
+    {
+      "file": "items/vmi_leuchtbank_linse.png",
+      "size": [
+        16,
+        16
+      ],
+      "visibleColors": 14,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "24a1a5ad6387c57fde1456a1672fa79c2a48750b3605a4dc5bc0f5ada5e63273"
+    },
+    {
+      "file": "items/vmi_lotsenmarke.png",
+      "size": [
+        16,
+        16
+      ],
+      "visibleColors": 13,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "fc1eda81343fab490b84ec9d2bccd8ac907414458e47b4c42a24b4ddc43930ed"
+    },
+    {
+      "file": "items/vmi_namenlos_ring.png",
+      "size": [
+        16,
+        16
+      ],
+      "visibleColors": 13,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "1bcca133f9f80e4d70eab91ac1771ad5438ed18f4e9d3dc20031bcb21b832eb7"
+    },
+    {
+      "file": "items/vmi_pegelglocke.png",
+      "size": [
+        16,
+        16
+      ],
+      "visibleColors": 12,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "061482c15834503873b0a4164aeca45ce49f81fe3e77c1aa845dc5630f4a54fb"
+    },
+    {
+      "file": "items/vmi_reeder_tinktur.png",
+      "size": [
+        16,
+        16
+      ],
+      "visibleColors": 14,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "c10cc6afc00fbd0c5c439d1d0cdd50c2f60f808c3d0be1dfffb8e57f14b8e76b"
+    },
+    {
+      "file": "items/vmi_registerseite.png",
+      "size": [
+        16,
+        16
+      ],
+      "visibleColors": 18,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "407ffe7cef4d8a3621c5d39fc97bf255b71b1087108bd9ffaca2c486009238bc"
+    },
+    {
+      "file": "items/vmi_salzlaterne.png",
+      "size": [
+        16,
+        16
+      ],
+      "visibleColors": 16,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "7ab794aabfe52f03ff776a5c5e80d524d0f4c2f7ac74626b4d7da045e575f64f"
+    },
+    {
+      "file": "items/vmi_schlicksohlen.png",
+      "size": [
+        16,
+        16
+      ],
+      "visibleColors": 10,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "caaad007b8ee08d63ba986b1c584a1df29d06617b285e36ecfd480e4a1d83ece"
+    },
+    {
+      "file": "items/vmi_trockenfisch.png",
+      "size": [
+        16,
+        16
+      ],
+      "visibleColors": 18,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "da91313a6da2c60e8a38f9cc95afebb435699923d27096f2d27b1554c38d4487"
+    },
+    {
+      "file": "items/vmi_zollkantinen_tee.png",
+      "size": [
+        16,
+        16
+      ],
+      "visibleColors": 14,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "83504480162c27bf3a73ac5494e9777120a4cc9e9d3a058f015dcc5b62cc4920"
+    },
+    {
+      "file": "items/vmi_zollsiegel.png",
+      "size": [
+        16,
+        16
+      ],
+      "visibleColors": 8,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "4f9ea64a0798bcf28ffe2919fb1cf19b4bc20b5522d5a95a01d1dc94e8a29346"
+    },
+    {
+      "file": "sequences/K6_10_pegelherrin.png",
+      "size": [
+        960,
+        135
+      ],
+      "visibleColors": 31,
+      "alphaValues": [
+        255
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "sha256": "073645d4b85f8a67d891229c1d1d47f8ab9a05fa68d03c49916a4cab988062a9"
+    },
+    {
+      "file": "sequences/K6_11_pegelherrin_phase2.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 28,
+      "alphaValues": [
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "93ce99025f08443c1fe91de9cf37987ecea9fed5e39e06eb73e9760fd60f35a1"
+    },
+    {
+      "file": "sequences/K6_1_ankunft.png",
+      "size": [
+        960,
+        135
+      ],
+      "visibleColors": 29,
+      "alphaValues": [
+        255
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "sha256": "2e4a93ed1fe36403f1a02e0277916df05c0a20939b83bfeeb3422bdf4cf100bc"
+    },
+    {
+      "file": "sequences/K6_2_zollkontrolle.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 25,
+      "alphaValues": [
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "68722ec3f3cc6e41549fe02fafff05b94dfbd24a0bb174be74cb08a019d50365"
+    },
+    {
+      "file": "sequences/K6_3_schmuggel.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 29,
+      "alphaValues": [
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "54782e52cd4a91d7198f2825825396cf9660232b206e46e084b690eea645e506"
+    },
+    {
+      "file": "sequences/K6_4_schlickgassen.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 25,
+      "alphaValues": [
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "9218d05c41397b3862adadbddf8e985eb606b9800f182464f986b643671dd8b3"
+    },
+    {
+      "file": "sequences/K6_5_wrackmutter.png",
+      "size": [
+        960,
+        135
+      ],
+      "visibleColors": 28,
+      "alphaValues": [
+        255
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "sha256": "4dca9319e97397212dab56418149760af073a052799c1e4a7f73970e573a5a69"
+    },
+    {
+      "file": "sequences/K6_6_pegelrat.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 31,
+      "alphaValues": [
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "3e503612a19b4ea11d2791d2a3f67b692ed36fdea5371ac36aca9dbff2153a6f"
+    },
+    {
+      "file": "sequences/K6_7_leuchtfeuer.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 32,
+      "alphaValues": [
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "6489876f6b57f3c893177996cd99c2c52d5b9ba4bee26a56811c90ac4c0f27d8"
+    },
+    {
+      "file": "sequences/K6_8_leuchtfeuerwaechter.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 32,
+      "alphaValues": [
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "8c4226696278625464671fc495ed0dd1fbcd221fdd978e127ad326ffb387bc9a"
+    },
+    {
+      "file": "sequences/K6_9_registerkeller.png",
+      "size": [
+        960,
+        135
+      ],
+      "visibleColors": 30,
+      "alphaValues": [
+        255
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "sha256": "99013dc3a144d8c8c5f2d5ee9cce938592990abad622419da45e63d7985d92a9"
+    },
+    {
+      "file": "sequences/K6_abspann_hintergrund.png",
+      "size": [
+        480,
+        540
+      ],
+      "visibleColors": 14,
+      "alphaValues": [
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "a6eaa2237ef48150d799df1377861d9ff6f7d954222d3c86cc4b1461f68d2d53"
+    },
+    {
+      "file": "sequences/K6_ende_schliessen.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 31,
+      "alphaValues": [
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "e1beb12f4e5085123a39d15119f1911740b3b9138adb32450f41f8f9db266f2a"
+    },
+    {
+      "file": "sequences/K6_ende_teilen.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 32,
+      "alphaValues": [
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "1a207d6036aa7b1f2d9c4c8c97c85a32b48e05bab5ba6844231e5c8be944a946"
+    },
+    {
+      "file": "sequences/K6_ende_uebergeben.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 28,
+      "alphaValues": [
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "9f3e685fb5e116a313754a55692150d7798477aa524a9a2a3be80c2bdb954c62"
+    },
+    {
+      "file": "sequences/K6_ende_verbrennen.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 28,
+      "alphaValues": [
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "ad54e5c014ef7868de6b527d16de63a9daa111e117391229177b36491108e473"
+    },
+    {
+      "file": "sequences/K6_karte.png",
+      "size": [
+        240,
+        135
+      ],
+      "visibleColors": 28,
+      "alphaValues": [
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "622ac92f8aea3f9162571a54f77c507b0c21a8e103df13aae7bae1af32d3bb04"
+    },
+    {
+      "file": "ui/titel_k6.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 26,
+      "alphaValues": [
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "c5f17c0e5fb4e9829016de877533f08d31c7d5981a5b692446fec760259af80c"
+    },
+    {
+      "file": "ui/vm_hud.png",
+      "size": [
+        128,
+        64
+      ],
+      "visibleColors": 28,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "c0bfa4ae1242c4f09441a961b163512a3468fb5caaba75c2d9599293f50b479d"
+    },
+    {
+      "file": "ui/vm_nebel.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 5,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "d7714d7e918d75cdcb13e4ded59fd1c9c82c21bc3624800b9df5b9059354d68f"
+    },
+    {
+      "file": "ui/vm_pins.png",
+      "size": [
+        160,
+        16
+      ],
+      "visibleColors": 26,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "grid": [
+        10,
+        1
+      ],
+      "sha256": "32401bf529f0b8ca66f42632c0a0289009b2af9eb58d5db65922e7d97553fc93"
+    },
+    {
+      "file": "ui/vm_stadtkarte_ebbe.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 31,
+      "alphaValues": [
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "e889a0e1f8dd791db0a2c925b1ece68e242a99b55eebc473f2f9469a44ce0a0f"
+    },
+    {
+      "file": "ui/vm_stadtkarte_flut.png",
+      "size": [
+        480,
+        270
+      ],
+      "visibleColors": 30,
+      "alphaValues": [
+        255
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "sha256": "976287b111446ab8ec9c4ca33f9954013d1903914496a4a3dd8c41251c124fbe"
+    },
+    {
+      "file": "ui/vm_symbole.png",
+      "size": [
+        192,
+        16
+      ],
+      "visibleColors": 30,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "grid": [
+        12,
+        1
+      ],
+      "sha256": "e607576f8f37e8ca3e0a3e06e83fb470832246b41bd01d00c2958d080da318e7"
+    },
+    {
+      "file": "ui/vm_zeiger.png",
+      "size": [
+        192,
+        16
+      ],
+      "visibleColors": 5,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "grid": [
+        12,
+        1
+      ],
+      "sha256": "3de31eae4c911edd6da1e1bd5369023b6ef3fc0ca89a3e5de9608f53fa701036"
+    }
+  ]
+}
