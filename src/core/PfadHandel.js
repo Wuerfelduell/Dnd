@@ -4,7 +4,7 @@
 // Sonderregeln (keine Heilung, kein Ausweichen, Taubheit, Moorwasser), Hinweis-Beute und die Seq-4-Formel als seltene
 // Elite-Beute (0,5 %; sonst gibt es sie nur auf geheimen Treffen).
 import { DAY_NIGHT_SECONDS } from './Clock.js';
-import { FORMEL_ELITE_CHANCE, K3_ZUTAT4_CHANCE, SCHLEUSEN_FRIST, WX_ZONES } from '../data/pfadHandel.js';
+import { FORMEL_ELITE_CHANCE, FORMEL_K3_CHANCE, K3_ZUTAT4_CHANCE, SCHLEUSEN_FRIST, WX_ZONES } from '../data/pfadHandel.js';
 
 /** Wie viele Schritte jede Aufgabe mit Stationen hat. */
 const STEPS = { laterne5: 3, uhr5: 4, echo4: 3 };
@@ -161,13 +161,22 @@ export const pfadHandelMethods = {
         if (c && rng() < c) add(o.dropItem);
       }
     }
-    // Seb (2026-11-12): die Halbgott-Formel fällt nur selten bei Eliten (sonst nur auf geheimen Treffen)
-    if (enc.elite && this.pathway?.seq === 5) {
-      const id = `formel_${this.pathway.id}_4`;
-      if (this.item(id) && this.itemCount(id) === 0 && !this.flags.has(`ph_formel_${this.pathway.id}`) && rng() < FORMEL_ELITE_CHANCE) {
-        add(id);
-        this.flags.add(`ph_formel_${this.pathway.id}`);
-      }
+    // Seb (2026-11-12): die Halbgott-Formel fällt nur selten bei Eliten (sonst nur auf geheimen Treffen).
+    // In Kapitel 3 (Dunscar) fallen Formel 4 und 3 bei allen Gegnern mit sehr kleiner Chance, je Spieler-Pfad (auch Spieler 2).
+    const k3f = enc.chapter === 3;
+    const tier = enc.boss ? 'boss' : enc.elite ? 'elite' : 'normal';
+    const pws = [this.pathway, this.p2?.active ? this.p2.pathway : null].filter((pw) => pw?.id);
+    const seen = new Set();
+    for (const pw of pws) {
+      const target = pw.seq - 1;
+      const chance = target === 4 ? (k3f ? FORMEL_K3_CHANCE[4][tier] : enc.elite ? FORMEL_ELITE_CHANCE : 0)
+        : target === 3 && k3f ? FORMEL_K3_CHANCE[3][tier] : 0;
+      const id = `formel_${pw.id}_${target}`;
+      const flag = target === 4 ? `ph_formel_${pw.id}` : `ph_formel${target}_${pw.id}`;
+      if (!chance || seen.has(id) || !this.item(id) || this.flags.has(flag)) continue;
+      seen.add(id);
+      const have = (this.inventory[id] ?? 0) + (this.p2?.inventory?.[id] ?? 0) + (this.storage?.[id] ?? 0) + (loot.items[id] ?? 0);
+      if (have === 0 && rng() < chance) { add(id); this.flags.add(flag); }
     }
     // Kapitel 3: Seq-4-Kernzutat bei Eliten und Bossen, je Pfad, der auf Seq 5 steht (auch Spieler 2)
     const k3 = enc.chapter === 3 && (enc.boss ? K3_ZUTAT4_CHANCE.boss : enc.elite ? K3_ZUTAT4_CHANCE.elite : 0);
