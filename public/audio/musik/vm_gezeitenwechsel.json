@@ -1,0 +1,57 @@
+{
+  "format": "nebel-musik-1",
+  "id": "vm_gezeitenwechsel",
+  "titel": "Vm gezeitenwechsel",
+  "bpm": 80,
+  "takt": [
+    4,
+    4
+  ],
+  "loop": false,
+  "lautstaerke": 0.58,
+  "hall": 0.28,
+  "spuren": {
+    "melodie": {
+      "instrument": "harmonium",
+      "lautstaerke": 0.32,
+      "pan": 0.18
+    },
+    "gezeit": {
+      "instrument": "streicher",
+      "lautstaerke": 0.16,
+      "pan": -0.18
+    },
+    "pegel": {
+      "instrument": "kontrabass",
+      "lautstaerke": 0.16,
+      "pan": 0
+    }
+  },
+  "muster": {
+    "A_melodie": {
+      "spur": "melodie",
+      "takte": 4,
+      "noten": "d4:8 a4:4 r:4 | a4:8 f4:4 r:4 | f4:8 e4:4 r:4 | e4:8 d4:4 r:4"
+    },
+    "A_gezeit": {
+      "spur": "gezeit",
+      "takte": 4,
+      "noten": "[d3,a3]:16@0.45 | [d3,a3]:16@0.45 | [d3,a3]:16@0.45 | [d3,a3]:16@0.45"
+    },
+    "A_pegel": {
+      "spur": "pegel",
+      "takte": 4,
+      "noten": "d2:4@0.5 r:4 a2:4@0.35 r:4 | d2:4@0.5 r:4 a2:4@0.35 r:4 | d2:4@0.5 r:4 a2:4@0.35 r:4 | d2:4@0.5 r:4 a2:4@0.35 r:4"
+    }
+  },
+  "abschnitte": {
+    "A": [
+      "A_melodie",
+      "A_gezeit",
+      "A_pegel"
+    ]
+  },
+  "ablauf": [
+    "A"
+  ]
+}
