@@ -9,6 +9,7 @@
 // withPlayer(2, fn) tauscht für die Dauer von fn die persönlichen Werte von Spieler 2 ein,
 // so gelten dieselben Regeln (Tragkraft, Artefakte, Heilmittel, Ausrüsten) auch für ihn.
 // Gemeinsame Taten (Hinweise, Gespräche, Siege ...) verdauen die Tränke beider Spieler (siehe act()).
+import { keepWechsel } from './Pathways.js';
 
 /** Persönliche Werte, die zwischen den Spielern getauscht werden. */
 /** Flüchtige Platz-Flags der Koop-Rätsel (Paket AI). */
@@ -205,7 +206,7 @@ export const partyMethods = {
     this.p2 = {
       active: !!p.active, hp: Math.max(1, p.hp ?? 40), maxHp: p.maxHp ?? 40, inventory,
       weapon: inventory[p.weapon] ? p.weapon : null, gear: this.cleanGear(p.gear, inventory), composure: p.composure ?? 100,
-      pathway: path && this.seqDef(path.id, path.seq) ? { id: path.id, seq: path.seq, digestion: path.digestion ?? 0, ...(path.seq5 && typeof path.seq5 === 'object' ? { seq5: path.seq5 } : {}) } : null,
+      pathway: path && this.seqDef(path.id, path.seq) ? { id: path.id, seq: path.seq, digestion: path.digestion ?? 0, ...(path.seq5 && typeof path.seq5 === 'object' ? { seq5: path.seq5 } : {}), ...keepWechsel(path) } : null,
       unruhe: Math.max(0, Math.min(99, p.unruhe ?? 0)), spiritVision: false, visionDigest: { map: null, total: 0 },
       look: p.look === 'p2b' ? 'p2b' : 'p2a',
       corrupted: Object.fromEntries(Object.entries(p.corrupted ?? {}).filter(([i, n]) => inventory[i] && n > 0)), setAside: [], corruptionAcc: 0,

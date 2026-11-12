@@ -6,7 +6,7 @@
  */
 const FIG = { coat: '#4a4f58', hat: '#2a2c30', skin: '#c99f7b', hair: '#5a4a3a', legs: '#2a2c30' };
 
-function dialog({ gruss, viertel, wege, gefahr, gerede, gerede2, gott }) {
+function dialog({ gruss, viertel, wege, gefahr, gerede, gerede2, gott, wechsel }) {
   const zurueck = [{ text: 'Noch etwas.', next: 'start' }];
   return {
     start: 'start',
@@ -20,6 +20,7 @@ function dialog({ gruss, viertel, wege, gefahr, gerede, gerede2, gott }) {
           { text: 'Was erzählt man sich?', next: 'gerede', hide_if_flags: ['k3a_akt1_done'] },
           { text: 'Was erzählt man sich?', next: 'gerede2', requires_flags: ['k3a_akt1_done'] },
           { text: 'Ein Mann namens Starling. Und ein alter Gott?', next: 'gott' },
+          ...(wechsel ? [{ text: 'Kann man auf einen anderen Pfad wechseln?', next: 'wechsel' }] : []),
           { text: 'Auf Wiedersehen.' },
         ],
       },
@@ -30,6 +31,8 @@ function dialog({ gruss, viertel, wege, gefahr, gerede, gerede2, gott }) {
       gerede2: { text: gerede2, choices: zurueck },
       // Seb 2026-11-12: Kapitel 3 = Rache an Starling, den ein uralter Gott beschützt. Gerüchte zählen fürs Kapitelziel.
       gott: { text: gott, choices: zurueck, sets_flags: ['k3r_gott_gehoert'] },
+      // Seb 2026-11-12: Pfadwechsel ab Seq 4 zum Nachbarpfad (core/Pathways.js WECHSEL_SEQ)
+      ...(wechsel ? { wechsel: { text: wechsel, choices: zurueck, sets_flags: ['pfadwechsel_gehoert'] } } : {}),
     },
   };
 }
@@ -53,6 +56,7 @@ export const DS_ORTSKUNDIGE = {
     gefahr: '„Die Rangierwüste, Gefahr vier. Schichtgänger, Signalkrähen, und hinten der Weichenfresser. Den hält man nur mit einer starken Sequenz aus. Geh ausgeschlafen, und geh mit jemandem.“',
     gerede: '„Im Runddepot zählen sie neue Gesichter. Wer nicht zählbar ist, wird aufgeschrieben.“',
     gerede2: '„Die Weichen stellen sich nachts manchmal von selbst zurück. Ich stelle sie morgens wieder hin. Wir haben eine Abmachung.“',
+    wechsel: '„Umstellen? Davon verstehe ich was.“ Riegel klopft auf den Weichenhebel. „Bis Sequenz vier fährst du auf deinem Gleis, da gibt es keine Weiche. Wer Halbgott ist, Sequenz vier, kann einmal umstellen, aufs Nachbargleis, und nur dorthin. Laterne und Schlüssel liegen nebeneinander, Echo und Maske, Faden und Uhr, Waage und Eisen, Kessel und Moor. Du trinkst statt deiner dritten Stufe die dritte des Nachbarn. Das Ritual deiner Schwelle brauchst du trotzdem. Die Strecke hinter dir bleibt dir, deine alten Gaben auch. Aber zurückstellen geht nicht, und ein zweites Mal auch nicht. Die Formel dafür findest du hier: als seltenes Los bei den Zirkeln oder bei denen, die du in den Gruben erlegst.“',
     gott: '„Die Alten sagen, unter Dunscar schläft einer, der älter ist als jede Weiche. Er schläft nicht tief. Wer ihm etwas bringt, bekommt Schutz. Dein Starling hat ihm wohl etwas gebracht.“',
   }, 'Ortskundiger: Anton Riegel am Platz. Rast, Lager und Kessel im Speisewagen.'),
   ds_arbeiterbogen: ok('ds_ok_arbeiterbogen', 'ds_einwohner_3', 'Wäscherin Grete Lind', 'Ortskundige im Arbeiterbogen', '#6a5a4a', {

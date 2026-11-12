@@ -12911,6 +12911,10 @@
               ]
             },
             {
+              "text": "Kann man seinen Pfad verlassen?",
+              "next": "pfadwechsel"
+            },
+            {
               "text": "Ich gehe."
             }
           ]
@@ -13004,6 +13008,31 @@
           "choices": [
             {
               "text": "Danke, Mutter Sedge.",
+              "next": "start"
+            }
+          ]
+        },
+        "pfadwechsel": {
+          "text": "Mutter Sedge legt das Messer weg. „Verlassen? Nein. Aber das Moor wechselt sein Bett, und nie weit. So ist es mit dem Blut auch. Bis zur vierten Stufe trägt dich nur dein eigener Trank. Wer Halbgott geworden ist, Sequenz vier, dessen Blut verträgt einen Schritt zur Seite. Einen. Und nur auf den Steg nebenan, denn jeder Pfad hat genau einen Nachbarn: Laterne und Schlüssel. Echo und Maske. Faden und Uhr. Waage und Eisen. Kessel und Moor.“",
+          "choices": [
+            {
+              "text": "Und wie geht dieser Schritt?",
+              "next": "pfadwechsel2"
+            },
+            {
+              "text": "Danke.",
+              "next": "start"
+            }
+          ]
+        },
+        "pfadwechsel2": {
+          "text": "„Statt deiner dritten Stufe trinkst du die dritte des Nachbarn. Du brauchst seine Formel und seine Zutaten, die Schwelle deines eigenen Rituals musst du trotzdem überschreiten. Was du bis dahin warst, bleibt in dir, die alten Gaben verlierst du nicht. Von da an wächst du auf dem neuen Pfad weiter. Zurück führt kein Steg, und einen zweiten gibt es nicht.“ Sie schnitzt weiter. „Das gilt für jeden, der mit dir geht, für sich allein.“",
+          "sets_flags": [
+            "pfadwechsel_gehoert"
+          ],
+          "choices": [
+            {
+              "text": "Danke.",
               "next": "start"
             }
           ]

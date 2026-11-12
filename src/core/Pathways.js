@@ -14,6 +14,16 @@
 
 import { encounterSeq } from './Fear.js';
 import { PROBE_NAMEN } from './Proben.js';
+import { NACHBARPFADE } from '../data/nachbarpfade.js';
+
+/**
+ * Seb (2026-11-12): Pfadwechsel. Wer Sequenz 4 erreicht hat, darf statt der eigenen dritten Stufe einmal den
+ * Seq-3-Trank seines (einzigen) Nachbarpfads trinken. Die Stufen 9 bis 4 bleiben vom alten Pfad (Fähigkeiten, Passive),
+ * ab 3 wächst man auf dem neuen weiter. Je Spieler. Gespeichert als pathway.wechsel = { von, ab }.
+ */
+export const WECHSEL_SEQ = 4;
+/** Gültige Wechsel-Daten aus einem Spielstand übernehmen (oder {}). */
+export const keepWechsel = (p) => (p?.wechsel?.von && Number.isFinite(p.wechsel.ab) ? { wechsel: { von: p.wechsel.von, ab: p.wechsel.ab } } : {});
 
 export const SEQ_START = 9;
 export const SEQ_MAX = 1; // höchste erreichbare Stufe (Kapitel 3 bringt die Kernzutaten für 4 bis 1)
@@ -222,11 +232,23 @@ export const pathwayMethods = {
     return !!this.pathway;
   },
 
-  /** Alle erreichten Sequenzen des eigenen Pfades, von 9 abwärts: [{seq, ...def}] */
+  /** Pfad, aus dem die Sequenz `s` stammt: nach einem Pfadwechsel die Stufen über `ab` vom alten Pfad. */
+  seqPid(s) {
+    const p = this.pathway;
+    return p?.wechsel && s > p.wechsel.ab ? p.wechsel.von : p?.id;
+  },
+
+  /** Zielpfad, wenn jetzt ein Wechsel zu `pid` erlaubt ist (Seq 4, Nachbarpfad, noch nie gewechselt), sonst null. */
+  wechselZiel(pid) {
+    const p = this.pathway;
+    return p && p.seq === WECHSEL_SEQ && !p.wechsel && NACHBARPFADE[p.id] === pid ? pid : null;
+  },
+
+  /** Alle erreichten Sequenzen, von 9 abwärts: [{seq, pid, ...def}] (nach einem Pfadwechsel gemischt). */
   reachedSeqs() {
     if (!this.pathway) return [];
     const out = [];
-    for (let s = SEQ_START; s >= this.pathway.seq; s--) out.push({ seq: s, ...this.seqDef(this.pathway.id, s) });
+    for (let s = SEQ_START; s >= this.pathway.seq; s--) out.push({ seq: s, pid: this.seqPid(s), ...this.seqDef(this.seqPid(s), s) });
     return out;
   },
 
@@ -283,7 +305,7 @@ export const pathwayMethods = {
     let n = this.content.start.hp ?? 40;
     for (let s = SEQ_START; s >= seq; s--) {
       n += this.growth().hp * (SEQ_GROWTH_STEPS[s] ?? 1);
-      for (const p of this.seqDef(this.pathway.id, s)?.passives ?? []) if (p.key === 'max_hp') n += p.value;
+      for (const p of this.seqDef(this.seqPid(s), s)?.passives ?? []) if (p.key === 'max_hp') n += p.value;
     }
     return n;
   },
@@ -318,7 +340,7 @@ export const pathwayMethods = {
     let n = COMPOSURE_BASE;
     for (let s = SEQ_START; s >= seq; s--) {
       n += this.growth().nerves * (SEQ_GROWTH_STEPS[s] ?? 1);
-      for (const p of this.seqDef(this.pathway.id, s)?.passives ?? []) if (p.key === 'max_nerves') n += p.value;
+      for (const p of this.seqDef(this.seqPid(s), s)?.passives ?? []) if (p.key === 'max_nerves') n += p.value;
     }
     return n;
   },
@@ -333,8 +355,8 @@ export const pathwayMethods = {
   pathwaySkills() {
     const out = {};
     for (const s of this.reachedSeqs()) {
-      if (s.skill) out[s.skill.id] = { ...s.skill, pathway: this.pathway.id, seq: s.seq };
-      if (s.skill2) out[s.skill2.id] = { ...s.skill2, pathway: this.pathway.id, seq: s.seq, second: true };
+      if (s.skill) out[s.skill.id] = { ...s.skill, pathway: s.pid, seq: s.seq };
+      if (s.skill2) out[s.skill2.id] = { ...s.skill2, pathway: s.pid, seq: s.seq, second: true };
     }
     return out;
   },
@@ -498,11 +520,20 @@ export const pathwayMethods = {
       if (it.seq !== SEQ_START) return { ok: false, reason: 'Ohne die erste Stufe würde dich dieser Trank zerreißen. Beginne mit Sequenz 9.' };
       return { ok: true, risk: Math.min(0.9, this.unruhe / 200) };
     }
-    if (it.pathway !== p.id) return { ok: false, reason: 'Ein zweiter Pfad in deinem Blut? Sabeth hat dich gewarnt. Lieber nicht.' };
+    const wechsel = it.pathway !== p.id && it.seq === WECHSEL_SEQ - 1 && this.wechselZiel(it.pathway);
+    if (it.pathway !== p.id && !wechsel) {
+      const nb = NACHBARPFADE[p.id];
+      const nbName = nb ? this.pathwayDef(nb)?.name : null;
+      const why = p.wechsel ? 'Du hast den Pfad schon einmal gewechselt. Ein zweites Mal zerreißt dich.'
+        : NACHBARPFADE[p.id] === it.pathway ? `Erst als Halbgott (Sequenz ${WECHSEL_SEQ}) verträgt dein Blut den Schritt zum Nachbarpfad, und nur mit dessen Trank der Sequenz ${WECHSEL_SEQ - 1}.`
+          : `Ein fremder Pfad in deinem Blut? Lieber nicht.${nbName ? ` Wechseln kannst du höchstens zum Nachbarpfad, ${nbName}, und erst ab Sequenz ${WECHSEL_SEQ}.` : ''}`;
+      return { ok: false, reason: why };
+    }
     if (it.seq >= p.seq) return { ok: false, reason: 'Diese Stufe hast du längst erreicht.' };
     if (it.seq !== p.seq - 1) return { ok: false, reason: 'Du kannst keine Stufe überspringen.' };
-    const rit = this.ritualDef(p.id, it.seq);
-    if (rit && !this.ritualDone(p.id, it.seq)) return { ok: false, reason: `Ohne Ritual zerreißt dich dieser Trank. Vollziehe zuerst „${rit.name}“ (siehe Pfad).`, ritual: true };
+    // Beim Pfadwechsel zählt das Ritual der eigenen Schwelle (oder das des Nachbarpfads, falls schon vollzogen)
+    const rit = this.ritualDef(p.id, it.seq) ?? this.ritualDef(it.pathway, it.seq);
+    if (rit && !this.ritualDone(p.id, it.seq) && !(wechsel && this.ritualDone(it.pathway, it.seq))) return { ok: false, reason: `Ohne Ritual zerreißt dich dieser Trank. Vollziehe zuerst „${rit.name}“ (siehe Pfad).`, ritual: true };
     const block = rit && this.seq5DrinkBlock?.(p.id, it.seq);
     if (block) return { ok: false, reason: block, ritual: true };
     const missing = (100 - p.digestion) / 100;
@@ -529,7 +560,10 @@ export const pathwayMethods = {
     const first = !this.pathway;
     const carryBefore = this.carryCapacity();
     const relikt = this.pathway?.relikt; // Seq 4 (Moor): das Relikt des Verfalls bleibt nach dem Aufstieg
-    this.pathway = { id: it.pathway, seq: it.seq, digestion: 0, ...(relikt ? { relikt } : {}) };
+    const vorher = this.pathway;
+    const wechsel = vorher && vorher.id !== it.pathway ? { wechsel: { von: vorher.id, ab: it.seq } } : keepWechsel(vorher); // Pfadwechsel ab Seq 4
+    this.pathway = { id: it.pathway, seq: it.seq, digestion: 0, ...(relikt ? { relikt } : {}), ...wechsel };
+    if (wechsel.wechsel && vorher.id !== it.pathway) this.flags.add(`pfadwechsel_${it.pathway}`);
     if (HOCH_DURCHBRUCH[it.seq]) this.flags.add(`seq${it.seq}_erreicht`); // für Zeitung und Gerede (Paket CP)
     this.unruhe = Math.min(UNRUHE_MAX - 1, this.unruhe + (20 + premature * 0.4) * this.unruheGainMult());
     this.updateMaxHp();
@@ -539,14 +573,15 @@ export const pathwayMethods = {
     const gains = `Dein Körper wächst mit: ${this.maxHp} Leben, ${this.maxComposure()} Nerven, Tragkraft ${this.carryText().split('/')[1]}${carryGain > 0 ? ` (+${carryGain})` : ''}.`;
     const asc = ASCENSION_TEXT[it.seq];
     const cp = asc ? this.hgDrinkText(it.pathway, it.seq) : null; // Paket CP: eigener Trinktext je Pfad und Stufe
+    const wText = vorher && vorher.id !== it.pathway ? `Du verlässt den ${this.pathwayDef(vorher.id).name}. Was du bis Sequenz ${WECHSEL_SEQ} warst, bleibt in dir, deine alten Gaben auch. Von hier an wächst du auf dem ${pd.name} weiter.\n\n` : '';
     const formHint = it.seq === FORM_SEQ ? `\n\nAb ${FORM_MIN_DIGEST} % Verdauung kannst du im Pfad-Tab deine mythische Gestalt annehmen. Menschen ohne Pfad und schwächere Wesen brechen vor ihr zusammen.` : '';
-    const text = cp
+    const text = wText + (cp
       ? `${cp.trinken}\n\nDu bist jetzt Sequenz ${it.seq}: ${sd.name}. ${asc.rank}\n\n${sd.desc}\n\n${asc.outro}\n\n${gains}${formHint}`
       : first
       ? `Du trinkst. Es schmeckt nach Nebel und Kupfer. Dann wird die Welt für einen Herzschlag zu laut, zu hell, zu nah.\n\nDu bist jetzt Sequenz 9 des ${pd.name.replace('Pfad', 'Pfads')}: ${sd.name}.\n\n${sd.desc}\n\n${gains}\n\nGrundsatz: „${pd.principle}“ Handle danach, um den Trank zu verdauen.`
       : asc
         ? `${asc.intro}\n\nDu bist jetzt Sequenz ${it.seq}: ${sd.name}. ${asc.rank}\n\n${sd.desc}\n\n${asc.outro}\n\n${gains}${it.seq === FORM_SEQ ? `\n\nAb ${FORM_MIN_DIGEST} % Verdauung kannst du im Pfad-Tab deine mythische Gestalt annehmen. Menschen ohne Pfad und schwächere Wesen brechen vor ihr zusammen.` : ''}`
-        : `Der Trank schlägt ein wie ein Blitz. Als er abklingt, bist du jemand anderes. Ein bisschen.\n\nDu bist jetzt Sequenz ${sd ? it.seq : ''}: ${sd.name}.\n\n${sd.desc}\n\n${gains}`;
+        : `Der Trank schlägt ein wie ein Blitz. Als er abklingt, bist du jemand anderes. Ein bisschen.\n\nDu bist jetzt Sequenz ${sd ? it.seq : ''}: ${sd.name}.\n\n${sd.desc}\n\n${gains}`);
     this.emit('unruhe', this.unruhe);
     this.emit('ascend', { pathway: it.pathway, seq: it.seq, player: this.acting ?? 1, ascension: asc ? { ...asc, seq: it.seq, color: pd.color } : null });
     this.emit('changed');
@@ -744,14 +779,16 @@ export const pathwayMethods = {
     // Höhere Formeln anderer Pfade bleiben unsichtbar, sonst wird die Liste endlos
     // also_pathways: Nachbarpfade dürfen mitkaufen (Seq-4-Kernzutaten, Seb 2026-11-12)
     const fits = (e) => [e.requires_pathway[0], ...(e.also_pathways ?? [])].includes(this.pathway?.id);
-    const visible = this.merchantStock(merchantId).filter((e) => !e.requires_pathway || fits(e));
+    // Pfadwechsel (Seb 2026-11-12): Angebote mit `nachbar` (Formel 3) sieht und kauft auch, wer auf Seq 4 des Nachbarpfads steht
+    const nb = (e) => e.nachbar && e.requires_pathway[1] === WECHSEL_SEQ && this.wechselZiel(e.requires_pathway[0]);
+    const visible = this.merchantStock(merchantId).filter((e) => !e.requires_pathway || fits(e) || nb(e));
     return visible.map((e) => {
       const it = this.item(e.item);
       const price = Math.max(1, Math.round(e.price * this.passive('price') * this.relationPriceFactor(merchantId))); // Stimmung des Händlers
       let locked = null;
       if (e.requires_pathway) {
         const [pid, seq] = e.requires_pathway;
-        if (!this.pathway || !fits(e) || this.pathway.seq > seq) locked = e.locked_text ?? 'Gesperrt';
+        if ((!this.pathway || !fits(e) || this.pathway.seq > seq) && !nb(e)) locked = e.locked_text ?? 'Gesperrt';
       }
       if (!locked && e.requires_honor !== undefined && this.honor < e.requires_honor) locked = `Rang ${this.rank(e.requires_honor).name} (Ansehen ${e.requires_honor}) nötig`;
       const owned = e.once && this.itemCount(e.item) > 0;
@@ -947,7 +984,7 @@ export const pathwayMethods = {
   loadPathway(data) {
     this.money = data.money ?? this.money;
     const p = data.pathway;
-    this.pathway = p && this.seqDef(p.id, p.seq) ? { id: p.id, seq: p.seq, digestion: p.digestion ?? 0, ...(p.form ? { form: true } : {}), ...(p.seq5 && typeof p.seq5 === 'object' ? { seq5: p.seq5 } : {}), ...(p.hoch && typeof p.hoch === 'object' ? { hoch: p.hoch } : {}) } : null;
+    this.pathway = p && this.seqDef(p.id, p.seq) ? { id: p.id, seq: p.seq, digestion: p.digestion ?? 0, ...(p.form ? { form: true } : {}), ...(p.seq5 && typeof p.seq5 === 'object' ? { seq5: p.seq5 } : {}), ...(p.hoch && typeof p.hoch === 'object' ? { hoch: p.hoch } : {}), ...keepWechsel(p) } : null;
     this.unruhe = Math.max(0, Math.min(UNRUHE_MAX - 1, data.unruhe ?? 0));
     this.seenNodes = new Set(data.seenNodes ?? []);
     this.wins = data.wins ?? 0;
