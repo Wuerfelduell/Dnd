@@ -748,6 +748,8 @@ export class WorldScene extends Phaser.Scene {
     this.state = this.splitRole === 2 ? p2View(this.realState) : this.realState;
     this.split = !!this.realState.splitOn;
     this.ui = this.registry.get('ui');
+    const hausGedanke = this.state.hausBetreten?.(this.state.map); // Codex DG: Gast, Trophäen, Heimkehrgedanke
+    if (hausGedanke) this.time.delayedCall(600, () => this.state.emit('notice', hausGedanke));
     this.mapDef = this.state.content.maps[this.state.map];
     this.interactables = [];
     this.conditional = []; // Objekte mit visible_if
