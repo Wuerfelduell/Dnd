@@ -118,6 +118,28 @@ export const seq4Methods = {
     return this.content.seq4Texte?.gemeinsam?.[key] ?? '';
   },
 
+  /**
+   * Teststart (Seb kann nicht für jedes Ritual einen ganzen Lauf spielen): Spiel mit `?probe=<pfad>` öffnen und
+   * „Neues Spiel“ wählen. Man steht auf Sequenz 5 des Pfads, voll verdaut, in Wexmoors Vergessmoor, mit dem Nötigsten.
+   */
+  seq4Probe(pid) {
+    const p = this.content.pathways?.[pid];
+    if (!p?.seqs?.[4]?.ritual?.hg) return false;
+    for (const f of ['kapitel1_done', 'k2_arrived']) this.flags.add(f);
+    this.pathway = { id: pid, seq: 5, digestion: 100 };
+    for (const [id, n] of Object.entries({ ossuarklinge: 1, tonikum: 4, verband: 4, lampenoel: 12, moorwasser: 10, [`formel_${pid}_4`]: 1 })) if (this.item(id)) this.addItem(id, n);
+    if (this.item('ossuarklinge')) this.equip?.('ossuarklinge');
+    this.money = 5000;
+    this.updateMaxHp();
+    this.hp = this.maxHp;
+    this.composure = this.maxComposure();
+    this.map = 'wx_vergessmoor';
+    this.spawn = 'default';
+    this.position = null;
+    this.emit('changed');
+    return true;
+  },
+
   // --- Wexmoor-Einnahmen (DR): einmal je Spieltag -------------------------------------------------
   dailyFlag(id) {
     return `tag_${id}_${Math.floor((this.playTime ?? 0) / DAY_SECONDS)}`;

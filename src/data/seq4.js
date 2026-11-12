@@ -60,7 +60,7 @@ const STOCK = {
 };
 
 /** Wexmoor-Einnahmen (Seb): wer für das Waage-Ritual bis zu 10 000 Schilling braucht, soll sie dort ehrlich erfarmen können. */
-export const WX_MONEY_MULT = 6;
+export const WX_MONEY_MULT = 3; // Seb 2026-11-12: ×6 war viel zu viel
 
 /** Kessel-Essenzen mit den Zutaten und Wirkungstexten aus Codex DR (kessel_rezepte.json), je eine Zutat plus Leeres Gefäß. */
 function drSude(dr) {

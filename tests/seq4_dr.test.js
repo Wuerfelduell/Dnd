@@ -172,3 +172,12 @@ test('DR: Gerede und eine Zeitungsmeldung nach bestandenem Ritual', () => {
   const papers = s.papers.filter((id) => id.startsWith('s4r_zeitung_laterne'));
   assert.deepEqual(papers, ['s4r_zeitung_laterne_wexmoor']);
 });
+
+test('Teststart ?probe=<pfad>: Sequenz 5 voll verdaut im Vergessmoor, Laternennacht sofort möglich', () => {
+  const s = new GameState(content);
+  assert.equal(s.seq4Probe('laterne'), true);
+  assert.equal(s.seq4Kind(), 'laterne');
+  assert.equal(s.map, 'wx_vergessmoor');
+  assert.equal(s.startSiege().ok, true);
+  assert.equal(new GameState(content).seq4Probe('gibtsnicht'), false);
+});
