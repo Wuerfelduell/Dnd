@@ -9,7 +9,7 @@ const distance = (a, b) => Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]);
 const has = (set, value) => set instanceof Set ? set.has(value) : Array.isArray(set) && set.includes(value);
 const unique = (a) => [...new Set(Array.isArray(a) ? a.filter((s) => typeof s === 'string') : [])];
 /** Horchstellen, deren Überspringen zugleich eine Fährte der Hauptakte schließt. */
-const STATION_SKIP = { k3o_horch_drehscheibe: { dialogue: 'k3a_14_dialog', node: 'k3a_14_ueberspringen', done: 'k3a_14_geschlossen' } };
+const STATION_SKIP = { k3o_horch_drehscheibe: { dialogue: 'k3a_14_dialog', node: 'k3a_14_ueberspringen', done: 'k3a_14_geschlossen', name: 'Der Ruf durch die Wand' } };
 export const hearingOf = (id) => HEARING[String(id).replace(/_elite$/, '')] ?? 5;
 
 /** Current Dunscar rows: '.', 's', 'g', 'w' are floor, 'I' is solid.
@@ -184,9 +184,15 @@ export const signalRouteMethods = {
       if (a.flag) this.flags.add(a.flag);
     }
     const skip = STATION_SKIP[stationId];
-    if (skip && !this.flags.has(skip.done)) this.applyEffects(this.content.dialogues[skip.dialogue]?.nodes?.[skip.node]);
+    const lines = ['Pfiff übernimmt das Horchen für dich. Der Weg ist frei, keine Ladung verbraucht.'];
+    if (skip && !this.flags.has(skip.done)) {
+      this.applyEffects(this.content.dialogues[skip.dialogue]?.nodes?.[skip.node]);
+      lines.push(`✓ Fährte „${skip.name}“ abgeschlossen (Hinweise und Schluss im Notizbuch).`);
+    } else if (skip) lines.push(`Die Fährte „${skip.name}“ war schon abgeschlossen.`);
+    const route = st.accepted?.find((a) => a.kind === 'route');
+    if (route) this.emit('signal_route', { ok: true, kind: 'route', map: st.map, tiles: copy(st.routeTiles ?? []), safeTiles: copy(st.safeTiles ?? []), form: 'linie_aktiv' });
     this.emit('changed');
-    return { ok: true, text: 'Pfiff übernimmt das Horchen für dich. Der Weg ist frei, keine Ladung verbraucht.' };
+    return { ok: true, text: lines.join('\n\n') };
   },
   listen(stationId) {
     const st = station(this, stationId);

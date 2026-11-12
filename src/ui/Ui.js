@@ -1984,7 +1984,7 @@ export class Ui {
     el.querySelector('[data-act=skip]').onclick = () => {
       const r = run(() => s.skipStation(stationId));
       this.signalUi = null;
-      this.showMessage(STATION_NAMES[stationId] ?? 'Horchstelle', r.text);
+      this.showMessage('Übersprungen', r.text);
     };
     el.querySelectorAll('[data-pattern]').forEach((b) => { b.onclick = () => { sel.pattern = b.dataset.pattern; this.openSignalStation(stationId); }; });
     el.querySelectorAll('[data-dir]').forEach((b) => { b.onclick = () => { sel.dir = b.dataset.dir; this.openSignalStation(stationId); }; });
