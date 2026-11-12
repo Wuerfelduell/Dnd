@@ -1,0 +1,151 @@
+{
+  "format": "nebel-musik-1",
+  "id": "s4r_laternennacht",
+  "titel": "Die Nacht zählt ihre Flammen",
+  "bpm": 64,
+  "takt": [
+    4,
+    4
+  ],
+  "loop": true,
+  "lautstaerke": 0.48,
+  "hall": 0.1,
+  "spuren": {
+    "voll": {
+      "instrument": "celesta",
+      "lautstaerke": 0.3,
+      "pan": 0
+    },
+    "halb": {
+      "instrument": "pizzicato",
+      "lautstaerke": 0.24,
+      "pan": 0
+    },
+    "rest": {
+      "instrument": "kontrabass",
+      "lautstaerke": 0.2,
+      "pan": 0
+    },
+    "puls": {
+      "instrument": "pauke",
+      "lautstaerke": 0.24,
+      "pan": 0
+    }
+  },
+  "muster": {
+    "intro_voll": {
+      "spur": "voll",
+      "takte": 1,
+      "noten": "r:16"
+    },
+    "intro_halb": {
+      "spur": "halb",
+      "takte": 1,
+      "noten": "r:16"
+    },
+    "intro_rest": {
+      "spur": "rest",
+      "takte": 1,
+      "noten": "d2:4 r:12"
+    },
+    "intro_puls": {
+      "spur": "puls",
+      "takte": 1,
+      "noten": "c2:2@0.4 r:14"
+    },
+    "A_voll": {
+      "spur": "voll",
+      "takte": 4,
+      "noten": "d5:4 r:4 a4:4 r:4 | a4:4 r:4 a4:4 r:4 | f5:4 r:4 a4:4 r:4 | e5:4 r:4 a4:4 r:4"
+    },
+    "A_halb": {
+      "spur": "halb",
+      "takte": 4,
+      "noten": "d4:4 r:12 | a4:4 r:12 | f4:4 r:12 | e4:4 r:12"
+    },
+    "A_rest": {
+      "spur": "rest",
+      "takte": 4,
+      "noten": "d2:4 r:12 | d2:4 r:12 | d2:4 r:12 | d2:4 r:12"
+    },
+    "A_puls": {
+      "spur": "puls",
+      "takte": 4,
+      "noten": "c2:2@0.55 r:14 | c2:2@0.55 r:14 | c2:2@0.55 r:14 | c2:2@0.55 r:14"
+    },
+    "B_voll": {
+      "spur": "voll",
+      "takte": 4,
+      "noten": "f5:4 r:4 a4:4 r:4 | e5:4 r:4 a4:4 r:4 | c5:4 r:4 a4:4 r:4 | a4:4 r:4 a4:4 r:4"
+    },
+    "B_halb": {
+      "spur": "halb",
+      "takte": 4,
+      "noten": "f4:4 r:12 | e4:4 r:12 | c4:4 r:12 | a4:4 r:12"
+    },
+    "B_rest": {
+      "spur": "rest",
+      "takte": 4,
+      "noten": "bb1:4 r:12 | bb1:4 r:12 | bb1:4 r:12 | bb1:4 r:12"
+    },
+    "B_puls": {
+      "spur": "puls",
+      "takte": 4,
+      "noten": "c2:2@0.55 r:14 | c2:2@0.55 r:14 | c2:2@0.55 r:14 | c2:2@0.55 r:14"
+    },
+    "C_voll": {
+      "spur": "voll",
+      "takte": 4,
+      "noten": "e5:4 r:4 a4:4 r:4 | f5:4 r:4 a4:4 r:4 | a4:4 r:4 a4:4 r:4 | c#5:4 r:4 a4:4 r:4"
+    },
+    "C_halb": {
+      "spur": "halb",
+      "takte": 4,
+      "noten": "e4:4 r:12 | f4:4 r:12 | a4:4 r:12 | c#4:4 r:12"
+    },
+    "C_rest": {
+      "spur": "rest",
+      "takte": 4,
+      "noten": "a1:4 r:12 | a1:4 r:12 | a1:4 r:12 | a1:4 r:12"
+    },
+    "C_puls": {
+      "spur": "puls",
+      "takte": 4,
+      "noten": "c2:2@0.55 r:14 | c2:2@0.55 r:14 | c2:2@0.55 r:14 | c2:2@0.55 r:14"
+    }
+  },
+  "abschnitte": {
+    "intro": [
+      "intro_voll",
+      "intro_halb",
+      "intro_rest",
+      "intro_puls"
+    ],
+    "A": [
+      "A_voll",
+      "A_halb",
+      "A_rest",
+      "A_puls"
+    ],
+    "B": [
+      "B_voll",
+      "B_halb",
+      "B_rest",
+      "B_puls"
+    ],
+    "C": [
+      "C_voll",
+      "C_halb",
+      "C_rest",
+      "C_puls"
+    ]
+  },
+  "ablauf": [
+    "intro",
+    "A",
+    "B",
+    "A",
+    "C"
+  ],
+  "loop_ab": 1
+}

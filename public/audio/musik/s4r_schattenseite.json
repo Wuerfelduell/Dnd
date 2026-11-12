@@ -1,0 +1,93 @@
+{
+  "format": "nebel-musik-1",
+  "id": "s4r_schattenseite",
+  "titel": "Wo der Körper nicht folgt",
+  "bpm": 52,
+  "takt": [
+    4,
+    4
+  ],
+  "loop": true,
+  "lautstaerke": 0.48,
+  "hall": 0.1,
+  "spuren": {
+    "boden": {
+      "instrument": "kontrabass",
+      "lautstaerke": 0.28,
+      "pan": 0
+    },
+    "rand": {
+      "instrument": "celesta",
+      "lautstaerke": 0.22,
+      "pan": 0
+    }
+  },
+  "muster": {
+    "intro_boden": {
+      "spur": "boden",
+      "takte": 1,
+      "noten": "d2:4 r:12"
+    },
+    "intro_rand": {
+      "spur": "rand",
+      "takte": 1,
+      "noten": "r:16"
+    },
+    "A_boden": {
+      "spur": "boden",
+      "takte": 4,
+      "noten": "d2:4 r:12 | r:16 | d2:2 r:14 | r:16"
+    },
+    "A_rand": {
+      "spur": "rand",
+      "takte": 4,
+      "noten": "r:16 | eb5:2 r:14 | r:16 | r:8 d5:2 r:6"
+    },
+    "B_boden": {
+      "spur": "boden",
+      "takte": 4,
+      "noten": "bb1:4 r:12 | r:16 | bb1:2 r:14 | r:16"
+    },
+    "B_rand": {
+      "spur": "rand",
+      "takte": 4,
+      "noten": "r:16 | a4:2 r:14 | r:16 | r:8 d5:2 r:6"
+    },
+    "C_boden": {
+      "spur": "boden",
+      "takte": 4,
+      "noten": "a1:4 r:12 | r:16 | a1:2 r:14 | r:16"
+    },
+    "C_rand": {
+      "spur": "rand",
+      "takte": 4,
+      "noten": "r:16 | c5:2 r:14 | r:16 | r:8 d5:2 r:6"
+    }
+  },
+  "abschnitte": {
+    "intro": [
+      "intro_boden",
+      "intro_rand"
+    ],
+    "A": [
+      "A_boden",
+      "A_rand"
+    ],
+    "B": [
+      "B_boden",
+      "B_rand"
+    ],
+    "C": [
+      "C_boden",
+      "C_rand"
+    ]
+  },
+  "ablauf": [
+    "intro",
+    "A",
+    "B",
+    "A",
+    "C"
+  ],
+  "loop_ab": 1
+}
