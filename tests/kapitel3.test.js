@@ -201,3 +201,15 @@ test('Rufladungen: Ruf kostet eine Ladung, Notladung einmal je Station, Pfiff f�
   assert.equal(t.signal.charges, 3);
   assert.deepEqual(t.signal.reserveUsed, ['k3o_horch_vorhauer'], 'Pfiff setzt keine Reserven zurück');
 });
+
+test('Ab Kapitel 3: Gegnerleben-Untergrenze (zu zweit 1300 / 2200 / 5000), Wächter und Ausreißer ausgenommen', async () => {
+  const { Combat, HP_FLOOR, DUO_HP_MULT } = await import('../src/core/Combat.js');
+  assert.equal(Math.round(HP_FLOOR.normal * DUO_HP_MULT), 1300);
+  assert.equal(Math.round(HP_FLOOR.elite * DUO_HP_MULT), 2200);
+  assert.equal(Math.round(HP_FLOOR.boss * DUO_HP_MULT), 5000);
+  const s = seq(5);
+  assert.ok(new Combat(s, 'schichtgaenger').enemy.maxHp >= HP_FLOOR.normal);
+  assert.ok(new Combat(s, 'nachhall_elite').enemy.maxHp >= HP_FLOOR.elite);
+  assert.ok(new Combat(s, 'vorhauer').enemy.maxHp >= HP_FLOOR.boss);
+  assert.ok(new Combat(s, 'k3k_schienenlaeufer').enemy.maxHp < HP_FLOOR.normal, 'Ausreißer bleibt flink');
+});

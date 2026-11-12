@@ -35,6 +35,15 @@ export const DUO_POWER_MIN = 0.5; // Spieler 2 zählt mindestens halb ...
 export const DUO_POWER_MAX = 1.25; // ... und höchstens so viel wie 1,25 Ermittler
 export const DUO_HP_MULT = 1 + DUO_HP_SHARE; // bei gleich starken Spielern
 export const DUO_DMG_MULT = 0.85;
+// Ab Kapitel 3 (nach dem Leuchtfeuer): Untergrenze der Gegnerleben je Rang, allein gespielt (vor dem Koop-Aufschlag).
+// Zu zweit (gleich starke Spieler, ×2,5) ergibt das 1300 / 2200 / 5000. Wächter, Spiegel, Übungen und Ausreißer (flees_after) ausgenommen.
+export const HP_FLOOR_FROM_CHAPTER = 3;
+export const HP_FLOOR = { normal: 520, elite: 880, boss: 2000 };
+export const HP_FLOOR_DMG_MIN = 0.5;
+export function hpFloor(enc) {
+  if (enc.practice || enc.mirror || enc.waechter || enc.flees_after || !(enc.chapter >= HP_FLOOR_FROM_CHAPTER)) return 0;
+  return HP_FLOOR[enc.boss ? 'boss' : enc.elite ? 'elite' : 'normal'];
+}
 // Flächenangriff: zu zweit holt der Gegner manchmal zu einem Schlag aus, der beide Spieler zugleich trifft.
 // Jeder muss dann im selben Takt für sich abwehren. Eliten und Bosse tun das öfter.
 export const SWEEP_CHANCE = 0.3;
@@ -204,7 +213,11 @@ export class Combat {
     // Flucht: starke Gegner (Elite, Boss) halten dich noch FLEE_ROUNDS_TOUGH Runden fest, Daten können es überschreiben
     this.fleeRounds = enc.practice ? 0 : enc.flee_rounds ?? byRank(zone?.flee_rounds) ?? (enc.boss || enc.elite ? FLEE_ROUNDS_TOUGH : 0);
     this.fleeing = null; // { left, by }: Rückzug läuft, noch so viele Runden durchhalten (zu zweit gemeinsam)
-    const hp = enc.practice ? enc.hp : Math.round(enc.hp * ENEMY_HP_MULT * (enc.elite ? ELITE_HP_MULT : 1) * this.hpMult * this.duoHpMult);
+    const soloHp = enc.hp * ENEMY_HP_MULT * (enc.elite ? ELITE_HP_MULT : 1) * this.hpMult;
+    const floor = hpFloor(enc) * (this.rules?.scale?.hp ?? 1); // Ritualgegner mit eigener Stärke behalten ihren Vorsprung
+    const hp = enc.practice ? enc.hp : Math.round(Math.max(soloHp, floor) * this.duoHpMult);
+    // Zäher gemacht, nicht tödlicher: wer über die Untergrenze viel länger steht, schlägt etwas sanfter zu (Wurzel des Lebenssprungs, höchstens halbiert)
+    if (floor > soloHp) this.dmgMult *= Math.max(HP_FLOOR_DMG_MIN, Math.sqrt(soloHp / floor));
     // Panzer wächst mit der Gefahrenstufe des Gebiets (Marsch 1, ...), Bosse eine Stufe mehr
     const tier = zone?.tier ?? 2;
     this.zoneTier = tier;
