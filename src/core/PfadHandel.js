@@ -186,7 +186,7 @@ export const pfadHandelMethods = {
     const k3 = enc.chapter === 3 && (zone?.zutat4_chance?.[rang] ?? (enc.boss ? K3_ZUTAT4_CHANCE.boss : enc.elite ? K3_ZUTAT4_CHANCE.elite : 0));
     if (k3) {
       const need = {};
-      for (const pw of [this.pathway, this.p2?.active ? this.p2.pathway : null]) if (pw?.seq === 5) need[pw.id] = (need[pw.id] ?? 0) + 1;
+      for (const pw of [this.pathway, this.p2?.active ? this.p2.pathway : null]) if (pw?.seq === 5) need[pw.id] = (need[pw.id] ?? 0) + 2; // Formel 4 braucht zwei Kernzutaten
       for (const [pid, n] of Object.entries(need)) {
         const id = `sq_zutat_${pid.replace(/^sq_/, '')}_4`;
         const have = (this.inventory[id] ?? 0) + (this.p2?.inventory?.[id] ?? 0) + (this.storage?.[id] ?? 0) + (loot.items[id] ?? 0);
