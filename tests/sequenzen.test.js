@@ -78,9 +78,10 @@ test('Paket AF: Platzhalter für Embleme, Posen, Tränke, Zutaten und Artefakte'
   assert.equal(Object.keys(content.artifacts.list).filter((i) => i.startsWith('sq_')).length, 6);
 });
 
-test('Paket AF: Ritualbedingung „Fall abgeschlossen“ steht lesbar in der Liste', () => {
+test('Seq 5 der neuen Pfade: keine Fallbedingung mehr, die Prüfung des Pfads steht lesbar in der Liste', () => {
   const s = new GameState(content);
   s.pathway = { id: 'sq_waage', seq: 6, digestion: 100 };
   const steps = s.ritualSteps('sq_waage', 5);
-  assert.ok(steps.some((st) => st.text === 'Fall 9: Die Fahndung abgeschlossen' || /^Fall 9: .* abgeschlossen$/.test(st.text)), JSON.stringify(steps));
+  assert.ok(!steps.some((st) => /abgeschlossen$/.test(st.text)), JSON.stringify(steps));
+  assert.ok(steps.some((st) => st.trial === 'waage' && /geheimen Treffens/.test(st.text)), JSON.stringify(steps));
 });

@@ -153,10 +153,18 @@ export function duoHpMult(state) {
 
 export class Combat {
   constructor(state, encounterId) {
-    const enc = state.content.encounters[encounterId];
+    let enc = state.content.encounters[encounterId];
     if (!enc) throw new Error(`Unbekannter Kampf: ${encounterId}`);
     this.state = state;
     this.id = encounterId;
+    // Seq-5-Ritual der Laterne: ein Spiegelgegner (`mirror`) ist so stark wie der, der ihn gerufen hat.
+    // Leben als Vielfaches seines Höchstlebens, Schaden je Angriff als Vielfaches seiner Schlagkraft (ohne die üblichen Zuschläge).
+    if (enc.mirror) {
+      const by = state.combatBy ?? state.acting ?? 1;
+      const power = playerPower(state, by);
+      const maxHp = state.withPlayer(by, () => state.maxHp, { quiet: true });
+      enc = { ...enc, hp: Math.max(10, Math.round(maxHp * (enc.mirror.hp ?? 1) / ENEMY_HP_MULT)), attacks: enc.attacks.map((a) => ({ ...a, damage: Math.max(1, Math.round(a.damage * power * (enc.mirror.dmg ?? 1) / ENEMY_DMG_MULT)) })) };
+    }
     this.enc = enc;
     const duo = !!state.hasP2?.();
     this.duoHpMult = duo ? duoHpMult(state) : 1;
@@ -227,6 +235,10 @@ export class Combat {
     this.slowed = false; // sein nächster Angriff kommt gedehnt
     this.readNext = false; // sein nächster Angriff lässt sich parieren, auch wenn er sonst unparierbar wäre
     this.stolen = 0; // Schilling, die ihm im Kampf abgenommen wurden
+    this.curSkill = null; // { id, holy } während einer Fertigkeit, damit hurtEnemy den Todesstoß zuordnen kann
+    this.killedBy = null; // womit der Gegner fiel (Seq-5-Ritual der Laterne verlangt ein Leuchten)
+    this.voiceWindow = false; // Seq-5-Ritual des Echos: der Beyonder lag schon unter 10 % Leben
+    state.seq5CombatStart?.(this);
     this.roundDmg = 0; // Schaden am Gegner in dieser Runde (für max_round_dmg)
     this.capped = 0; // davon abgeprallt, für die Meldung der nächsten Aktion
   }
@@ -408,7 +420,9 @@ export class Combat {
       if (lost) effects.push('der Schleier schluckt jeden ungenauen Treffer');
     }
     const raw = hits.reduce((n, h) => n + h.damage, 0);
+    this.curSkill = { id: skillId, holy: !!(sk.holy || skillId === 'ward') };
     const total = this.hurtEnemy(raw, { pierce: !!sk.pierce });
+    this.curSkill = null;
     if (this.capped) { effects.push(`mehr steckt ${this.enc.name} in dieser Runde nicht weg (${this.capped} prallen ab)`); this.capped = 0; }
     else if (raw > total) effects.push(`Panzer fängt ${raw - total} ab`);
     if (skillId === 'attack') {
@@ -483,6 +497,22 @@ export class Combat {
     // Blitzpulver: grelles Licht, der Gegner setzt eine Runde aus
     if (it.stun && !this.outcome) { this.stunned = true; parts.push('geblendet'); }
     const text = `${it.name}: ${parts.join(', ')}`;
+    this.log.push(text);
+    return { text };
+  }
+
+  /** Seq-5-Ritual des Echos: der Beyonder liegt unter 10 % Leben, die Zutaten sind da, man kann ihm die Stimme nehmen statt ihn zu töten. */
+  canStealVoice() {
+    if (this.outcome || this.enc.practice || !this.state.seq5VoicePending?.()) return false;
+    if (!this.state.isBeyonderFoe(this.id) || this.enemy.hp <= 0 || this.enemy.hp > this.enemy.maxHp * 0.1) return false;
+    return this.state.ritualConsumesReady();
+  }
+
+  /** Verschont den Beyonder und raubt seine Stimme (Kampf endet mit 'spared': keine Beute, keine Siegesflaggen). */
+  stealVoice() {
+    if (!this.canStealVoice()) return null;
+    const text = this.state.seq5StealVoice(this.id);
+    this.outcome = 'spared';
     this.log.push(text);
     return { text };
   }
@@ -570,7 +600,8 @@ export class Combat {
       this.roundDmg += dmg;
     }
     this.enemy.hp = Math.max(0, this.enemy.hp - dmg);
-    if (this.enemy.hp === 0) this.outcome = 'won';
+    if (this.enemy.hp === 0 && !this.outcome) { this.outcome = 'won'; this.killedBy = this.curSkill ?? null; }
+    if (this.enemy.hp > 0 && this.enemy.hp <= this.enemy.maxHp * 0.1 && this.state.isBeyonderFoe?.(this.id)) this.voiceWindow = true;
     if (this.phase2 && !this.phased && this.enemy.hp > 0 && this.enemy.hp <= this.enemy.maxHp * 0.5) {
       this.phased = true;
       this.enc = { ...this.enc, attacks: this.phase2.attacks };
@@ -889,7 +920,12 @@ export class Combat {
       text = enc.flee_text ?? 'Du ziehst dich zurück.';
     } else if (this.outcome === 'escaped') {
       text = enc.escape_text ?? `${enc.name} entzieht sich dir.`;
+    } else if (this.outcome === 'spared') {
+      text = `${enc.name} bleibt liegen, lebt und schweigt. Du lässt ${enc.name.startsWith('Die ') ? 'sie' : 'ihn'} dort.`;
     }
+    // Seq-5-Prüfungen werten den Kampf aus (Laterne, Faden, Maske, Echo, Eisen, Schlüssel, Uhr)
+    const trial = s.seq5CombatEnd?.(this);
+    if (trial) text += `\n\n${trial}`;
     s.emit('hp', { value: s.hp, delta: 0 });
     s.emit('party', { active: s.hasP2?.() ?? false });
     s.emit('changed');
@@ -903,11 +939,13 @@ export class Combat {
   rollLoot(first) {
     const table = this.state.content.loot?.[this.id];
     const loot = { money: 0, items: {} };
-    if (!table || !(first || table.repeat)) return loot;
-    const rolled = rollLoot(table, this.rng);
-    loot.money = rolled.money;
-    loot.items = rolled.items;
-    if (first) for (const [id, n] of Object.entries(table.items ?? {})) loot.items[id] = (loot.items[id] ?? 0) + n;
+    if (table && (first || table.repeat)) {
+      const rolled = rollLoot(table, this.rng);
+      loot.money = rolled.money;
+      loot.items = rolled.items;
+      if (first) for (const [id, n] of Object.entries(table.items ?? {})) loot.items[id] = (loot.items[id] ?? 0) + n;
+    }
+    this.state.seq5ExtraLoot?.(this, loot); // violette Spinnenfäden, solange der Kokon gesucht wird
     return loot;
   }
 }

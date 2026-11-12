@@ -136,6 +136,16 @@ export const EXPERT = (i) => ['dodge', 'parry', 'dodge', 'parry', 'miss'][i % 5]
  * Spielt einen Kampf mit festen Ergebnissen durch (wie CombatScene, ohne Timing).
  * attack: Bewertung der Angriffe (fest oder (i, precise) => Bewertung), defend(i): Ergebnis des i-ten gegnerischen Schlags.
  */
+/** Seq-5-Prüfung (core/Seq5.js) als bestanden setzen, damit Tests das Ritual vollziehen können. */
+export function passTrial(state, kind, now = Date.now()) {
+  const st = state.seq5();
+  for (const key of Object.keys(st)) delete st[key];
+  if (kind === 'maske') { st.identity = { name: 'X', enc: 'x', pathway: 'maske', city: 'kettlegate', mark: 'x' }; st.convinced = ['a', 'b']; st.asked = ['a', 'b']; }
+  else if (kind === 'kessel') { state.sudeBekannt = ['nebelsud']; state.buffs ??= []; state.buffs.push({ key: 'dmg_mult', value: 1.15, until: (state.talentTime ?? 0) + 90, source: 'sud:test' }); }
+  else if (kind === 'uhr') { st.armed = true; st.phase = 'wait2'; st.t = now - 30000; if (!state.hasWatch()) state.addItem('uhr_taschen'); }
+  else if (kind !== 'moor') st.done = true;
+}
+
 export function fight(state, encounterId, { attack = 'good', defend = () => 'dodge', skill = 'attack', items = [], healBelow = 0, maxRounds = 60, chain = false, weak = false } = {}) {
   const c = new Combat(state, encounterId);
   c.rng = seeded(7); // fester Zufall: Takt und Nachsetzen sind in Tests reproduzierbar

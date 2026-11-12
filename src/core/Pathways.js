@@ -433,6 +433,8 @@ export const pathwayMethods = {
     if (it.seq !== p.seq - 1) return { ok: false, reason: 'Du kannst keine Stufe überspringen.' };
     const rit = this.ritualDef(p.id, it.seq);
     if (rit && !this.ritualDone(p.id, it.seq)) return { ok: false, reason: `Ohne Ritual zerreißt dich dieser Trank. Vollziehe zuerst „${rit.name}“ (siehe Pfad).`, ritual: true };
+    const block = rit && this.seq5DrinkBlock?.(p.id, it.seq);
+    if (block) return { ok: false, reason: block, ritual: true };
     const missing = (100 - p.digestion) / 100;
     const risk = Math.min(0.95, 0.03 + missing * 0.85 + this.unruhe / 250);
     return { ok: true, risk };
@@ -517,7 +519,7 @@ export const pathwayMethods = {
     const r = this.ritualDef(pid, seq);
     if (!r) return null;
     const steps = [];
-    for (const [id, n] of Object.entries(r.consumes ?? {})) steps.push({ text: `${this.item(id).name} ×${n} (wird verbraucht)`, done: this.itemCount(id) >= n });
+    for (const [id, n] of Object.entries(r.consumes ?? {})) steps.push({ text: `${this.item(id).name} ×${n} (wird verbraucht)`, done: this.itemCount(id) >= n, consume: true });
     if (r.vision) steps.push({ text: 'Geistsicht ist aktiv', done: !!this.spiritVision });
     if (r.min_nerves) steps.push({ text: `Mindestens ${r.min_nerves} Nerven`, done: this.composure >= r.min_nerves });
     if (r.max_hp_pct) steps.push({ text: `Verwundet: höchstens ${Math.round(r.max_hp_pct * 100)} % Leben`, done: this.hp <= this.maxHp * r.max_hp_pct });
@@ -535,6 +537,11 @@ export const pathwayMethods = {
     if (r.min_picks) steps.push({ text: `${r.min_picks === 1 ? 'Ein Schloss' : `${r.min_picks} Schlösser`} geknackt (${this.pickCount()})`, done: this.pickCount() >= r.min_picks });
     if (r.probe) steps.push({ text: `${PROBE_NAMEN[r.probe] ?? 'Probe'} bestanden`, done: this.probeDone(pid, seq), probe: r.probe });
     if (r.fraud) steps.push({ text: 'Einen Betrug auf einem geheimen Treffen aufgedeckt', done: this.fraudExposed(pid, seq), fraud: true });
+    if (r.trial) { // Seq-5-Prüfungen (core/Seq5.js); bezahlte Zutaten (Echo) gelten als erledigt
+      const paid = !!this.pathway?.seq5?.paid && this.pathway.id === pid;
+      if (paid) for (const s of steps) if (s.consume) s.done = true;
+      steps.push(...this.seq5Steps(r).map((s) => ({ ...s, trial: r.trial })));
+    }
     if (r.ordeal) {
       const enc = this.content.encounters[ordealId(pid, seq)];
       steps.push({ text: `${enc?.name ?? 'Schwellenwächter'} besiegt (erscheint, sobald alles andere bereit ist)`, done: this.ordealDone(pid, seq), ordeal: true });
@@ -606,13 +613,19 @@ export const pathwayMethods = {
       return { ok: false, fight: id, text: `${r.name}\n\nDer Kreis ist gezogen, der Tribut liegt bereit. Dann wird es still. Aus dem Nebel tritt ${this.content.encounters[id].name}: dein eigener Grundsatz, der wissen will, ob du ihn tragen kannst.` };
     }
     if (open.length) return { ok: false, text: `Es fehlt noch: ${open.map((x) => x.text).join(', ')}.` };
-    for (const [id, n] of Object.entries(r.consumes ?? {})) this.removeItem(id, n);
+    const paid = r.trial && !!this.seq5().paid;
+    if (!paid) for (const [id, n] of Object.entries(r.consumes ?? {})) this.removeItem(id, n);
     if (r.tribute) this.addMoney(-r.tribute, { reason: 'Tribut' });
     const rules = this.content.ritualRules ?? { unruhe: 20, nerves: 20 };
     this.flags.add(this.ritualFlag(p.id, seq));
     this.setComposure(this.composure - (rules.nerves ?? 20));
     this.setUnruhe(this.unruhe + (rules.unruhe ?? 20));
     this.act('ritual'); // das Ritual selbst ist ein Schritt auf dem Pfad
+    if (r.trial) { // Prüfungsstand räumen; der Kessel bleibt scharf, bis der Trank getrunken ist (oder die Wirkung verfliegt)
+      const st = this.seq5();
+      for (const key of Object.keys(st)) delete st[key];
+      if (r.trial === 'kessel') st.armed = true;
+    }
     this.emit('ritual', { pathway: p.id, seq, player: this.acting ?? 1 });
     this.emit('changed');
     return { ok: true, text: `${r.name}\n\n${r.desc}\n\nDas Ritual ist vollzogen. Die Luft um dich summt. Jetzt kannst du den Trank der Sequenz ${seq} trinken.` };
@@ -839,7 +852,7 @@ export const pathwayMethods = {
     const p = this.pathway;
     const enc = this.content.encounters[encounterId];
     if (!p?.form || !enc) return false;
-    if (enc.boss || enc.min_seq || enc.practice) return false;
+    if (enc.boss || enc.min_seq || enc.practice || enc.mirror) return false;
     if (!enc.occult) return true; // Nicht-Beyonder: Menschen, die dir nichts entgegenzusetzen haben
     return encounterSeq(enc, this.content) - p.seq >= FORM_MARGIN;
   },
@@ -851,7 +864,7 @@ export const pathwayMethods = {
   loadPathway(data) {
     this.money = data.money ?? this.money;
     const p = data.pathway;
-    this.pathway = p && this.seqDef(p.id, p.seq) ? { id: p.id, seq: p.seq, digestion: p.digestion ?? 0, ...(p.form ? { form: true } : {}) } : null;
+    this.pathway = p && this.seqDef(p.id, p.seq) ? { id: p.id, seq: p.seq, digestion: p.digestion ?? 0, ...(p.form ? { form: true } : {}), ...(p.seq5 && typeof p.seq5 === 'object' ? { seq5: p.seq5 } : {}) } : null;
     this.unruhe = Math.max(0, Math.min(UNRUHE_MAX - 1, data.unruhe ?? 0));
     this.seenNodes = new Set(data.seenNodes ?? []);
     this.wins = data.wins ?? 0;

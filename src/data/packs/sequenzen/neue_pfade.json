@@ -211,19 +211,13 @@
         "digest_rate": 0.25,
         "veraenderung": "Du hältst einen offenen Saldo aus, ohne ihn dem nächsten Schwächeren aufzubürden.",
         "ritual": {
-          "name": "Die Probe des Schuldenverwahrer",
-          "map": "nachtmarkt",
-          "vision": false,
+          "name": "Das Gleichgewicht des Handels",
+          "trial": "waage",
           "consumes": {
             "silberstaub": 1,
             "nebeltau": 1
           },
-          "requires": {
-            "requires_flags": [
-              "case_09_closed"
-            ]
-          },
-          "desc": "Du bewahrst das Pfand eines Fremden während der Abrechnung. Erst nach seiner Einlösung nimmst du den eigenen Lohn."
+          "desc": "Mit dreitausend Schilling trittst du vor die Waage: Auf einer Runde eines geheimen Treffens ersteigerst du genau drei Lose und gibst genau drei andere Dinge ab. Kein viertes Geschäft, nichts, das du nimmst und zugleich gibst."
         }
       },
       "4": {
@@ -633,19 +627,16 @@
         "digest_rate": 0.25,
         "veraenderung": "Du kannst eine Lücke offenlassen, ohne die Geschichte darum zu verlieren.",
         "ritual": {
-          "name": "Die Probe des Torfgedächtnis",
-          "map": "wx_pfahldorf",
-          "vision": true,
+          "name": "Der Namenlose",
+          "trial": "moor",
           "consumes": {
-            "silberstaub": 1,
-            "nebeltau": 1
+            "gefaess_erinnerung": 1,
+            "atemglas": 1,
+            "spindelknochen": 1,
+            "geisteressenz": 2,
+            "grabmoos": 3
           },
-          "requires": {
-            "requires_flags": [
-              "case_09_closed"
-            ]
-          },
-          "desc": "Du bringst zwei gleichlautende Namen an getrennte Plätze am Schrein. Niemand muss dafür seine Geschichte verlieren."
+          "desc": "Einem Bürger, der kein Beyonder ist, nimmst du im Gespräch eine Erinnerung und fängst sie im leeren Gefäß auf. Nie die seiner Herkunft, das Moor bewahrt sie. Das beschlagene Glas, Atemglas, Spindelknochen, zwei Geisteressenzen und Grabmoos gehen in den Torf."
         }
       },
       "4": {
@@ -1056,19 +1047,14 @@
         "digest_rate": 0.25,
         "veraenderung": "Du siehst den nächsten Schlag kommen, aber nicht die Entscheidung dahinter.",
         "ritual": {
-          "name": "Die Probe des Fristzeuge",
-          "map": "uhrturm",
-          "vision": false,
+          "name": "Der Rhythmus der Zeit",
+          "trial": "uhr",
           "consumes": {
             "silberstaub": 1,
-            "nebeltau": 1
+            "nebeltau": 1,
+            "glockenerz": 1
           },
-          "requires": {
-            "requires_flags": [
-              "case_09_closed"
-            ]
-          },
-          "desc": "Du rekonstruierst eine verpasste Abfahrt aus zwei unabhängigen Zeitangaben. Dann gibst du dem Wartenden seine Fahrkarte zurück."
+          "desc": "Eine Uhr in der Tasche, die bleibt. Ein Gegner in höchstens drei Runden, zwanzig Sekunden Stille, noch ein Gegner in höchstens drei Runden, zwanzig Sekunden Stille. Dann Ritual und Trank im Takt."
         }
       },
       "4": {
