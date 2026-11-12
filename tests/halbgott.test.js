@@ -90,12 +90,15 @@ test('Schweres Ritual: erst steht alles, dann tritt der Schwellenwächter an, na
   assert.match(first.text, /Prüfung/);
   assert.equal(s.ritualDone('laterne', 4), false);
   assert.equal(s.itemCount('nebeltau'), 2, 'noch nichts verbraucht');
-  // Der Wächter ist für Sequenz 5 nur mit Übung zu schaffen, für Sequenz 6 gar nicht
-  // (Maßstab wie in den Kapitel-Tests: Pfad des Eisens mit Revolver und Doppelschlag)
-  assert.equal(fight(hero(6), ordealId('eisen', 4), { defend: EXPERT, skill: 'double', healBelow: 20 }).result.outcome, 'lost');
-  const won = fight(hero(5), ordealId('eisen', 4), { defend: EXPERT, skill: 'double', healBelow: 20 });
+  // Der Wächter (2500 Leben, Seb 2026-11-12) ist für Sequenz 5 nur voll ausgerüstet und mit Übung zu schaffen, für Sequenz 6 gar nicht
+  // (Maßstab: Pfad des Eisens, Ossuarklinge, Wuchtschlag in Ketten, fünf Tonika)
+  const kit = (seq) => { const h = hero(seq); h.addItem('ossuarklinge'); h.equip('ossuarklinge'); h.removeItem('verband', 4); h.addItem('tonikum', 2); h.pathway.digestion = 100; h.updateMaxHp(); h.hp = h.maxHp; return h; };
+  const play = (defend) => ({ defend, skill: 'wuchtschlag', chain: true, healBelow: 25 });
+  assert.equal(fight(kit(6), ordealId('eisen', 4), play(EXPERT)).result.outcome, 'lost');
+  const won = fight(kit(5), ordealId('eisen', 4), play(EXPERT));
   assert.equal(won.result.outcome, 'won');
-  assert.equal(fight(hero(5), ordealId('eisen', 4), { defend: SKILLED, skill: 'double', healBelow: 20 }).result.outcome, 'lost', 'ohne Übung nicht');
+  assert.ok(won.combat.round >= 25, `lange Prüfung: ${won.combat.round} Runden`);
+  assert.equal(fight(kit(5), ordealId('eisen', 4), play(SKILLED)).result.outcome, 'lost', 'ohne Übung nicht');
   s.flags.add(s.hgFlag('laterne'));
   const done = s.performRitual();
   assert.equal(done.ok, true, done.text);

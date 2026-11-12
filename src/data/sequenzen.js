@@ -37,7 +37,7 @@ const hochSeqs = (pid, seqs) => Object.fromEntries(Object.entries(seqs).map(([n,
  * Ids nach den Codex-Paketen CO/CP. Bis deren Sheets, Phasen und Dialoge eingebaut sind, leihen sie sich Dunscarer Boss-Sheets.
  */
 export const SCHWELLE = {
-  4: { waechter: 'hg_schwellenwaechter', sheet: 'hg_schwellenwaechter', hp: 520, armor: 3, dmg: [16, 20, 14], titel: 'Schwellenwächter', chapter: 3,
+  4: { waechter: 'hg_schwellenwaechter', sheet: 'hg_schwellenwaechter', hp: 2500, armor: 3, dmg: [16, 20, 14], titel: 'Schwellenwächter', chapter: 3,
     schlag: 'Signalschlag', welle: 'Kalkstaub-Welle', welle_dmg: 12, nerves: 8, phase_text: '„Sie haben die Prüfung bewegt. Nun trägt sie zurück.“',
     bild: 'Kalk und alte Bahnsignale bilden einen Körper ohne Gesicht. Vor der Brust hängt dein Pfadsiegel.' },
   2: { waechter: 'hg_grenzwaechter', sheet: 'hg_grenzwaechter', hp: 1400, armor: 4, dmg: [26, 32, 23], titel: 'Grenzwächter', chapter: 4,
