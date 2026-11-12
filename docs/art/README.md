@@ -1817,6 +1817,9 @@ Prüfung: `python tools/art/calderwick2/check.py` (Pillow, aus jedem Arbeitsverz
 
 Keine Laufzeitintegration in diesem Paket.
 
+## Batch DG – haus
+
+Eigenes Haus: acht PNG-Atlanten, 40 Möbel mit Ofenanimation/Welkzustand, 32 Boss-Trophäen (46 Kampf-/Phasen-IDs), sechs Stadtwände und Türen, Umzugsbilder, Staub und Einrichtungs-UI. Siehe `../story/eigenes_haus/README.md`, `../../public/sprites/manifest-haus.json` und `batch-haus-preview.png`. Generierung: `batch-haus-generation.json`; Prüfung: `python tools/art/haus/check.py` und `node docs/story/eigenes_haus/pruefen.mjs`. Einbau separat; keine Tiermöbel aus DF enthalten.
 ## CO: Halbgott und Engel (`halbgott`)
 
 73 PNGs für Sequenz 4 und 2: sechs Trink-Sheets, acht Effekte, zehn Kreaturformen jeweils für Karte und Kampf, zehn Zugportraits, zwei Ritualwächter mit Kartenfiguren, zehn Siegel, zwei Kampfkulissen, zwanzig Sequenzbilder und zwei HUD-Größen. Die 780 Rasterzellen verwenden die gemeinsame Palette aus `manifest-fasserin.json`; Alpha ist binär, Szenen sind opak.

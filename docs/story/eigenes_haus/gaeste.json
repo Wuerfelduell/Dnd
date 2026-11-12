@@ -1,0 +1,1306 @@
+{
+  "schema": "nebel-haus-gaeste-1",
+  "rules": {
+    "max_per_evening": 1,
+    "global_world_day_key": true,
+    "selection": "oldest_last_visit_then_npc_id",
+    "revalidate_at_arrival": true,
+    "gift_atomic": true,
+    "reject_visit_cost": 0,
+    "defer_if_in_combat": true
+  },
+  "guests": [
+    {
+      "id": "haus_gast_holt",
+      "npc_id": "holt",
+      "name": "Sergeant Holt",
+      "city": "kettlegate",
+      "condition": {
+        "relation": {
+          "holt": 4
+        },
+        "requires_flags": [
+          "haus_owned",
+          "haus_eingeladen_holt"
+        ],
+        "period": "abend",
+        "npc_available": true,
+        "same_city": true
+      },
+      "invitation": {
+        "text": "Kommen Sie abends auf einen Tee vorbei.",
+        "set_flag": "haus_eingeladen_holt",
+        "requires_relation": 4
+      },
+      "dialogue": {
+        "start": "start",
+        "nodes": {
+          "start": {
+            "lines": [
+              "Holt hängt den Mantel so auf, dass die Tür frei bleibt.",
+              "„Ein guter Raum hat einen Ausgang, den man auch müde findet.“",
+              "Du räumst einen Platz am Tisch frei.",
+              "Draußen zieht ein Schritt an der Tür vorbei.",
+              "Für einen Moment muss niemand anfangen."
+            ],
+            "choices": [
+              {
+                "id": "tee",
+                "text": "Tee anbieten.",
+                "next": "tee"
+              },
+              {
+                "id": "geschichte",
+                "text": "Nach einer Geschichte fragen.",
+                "next": "geschichte"
+              },
+              {
+                "id": "fall",
+                "text": "Eine Frage zum Fall stellen.",
+                "next": "fall"
+              }
+            ]
+          },
+          "tee": {
+            "lines": [
+              "Du gießt langsam ein.",
+              "„So ist es gut. Wir müssen den Abend nicht füllen.“",
+              "Ihr lasst die Tassen eine Weile zwischen euch stehen."
+            ],
+            "next": "ende"
+          },
+          "geschichte": {
+            "lines": [
+              "Du fragst nach etwas, das in keiner Akte steht.",
+              "Sein erster Nachtposten endete mit einem verlorenen Stiefel im Kanal.",
+              "Ihr lacht leise über die Einzelheit, die sonst niemand aufgeschrieben hätte."
+            ],
+            "next": "ende"
+          },
+          "fall": {
+            "lines": [
+              "Du schlägst nur die Seite auf, die du bereits kennst.",
+              "„Schreiben Sie auf, was Sie gesehen haben. Den Rest dürfen Sie morgen prüfen.“",
+              "Du markierst eine offene Frage, ohne eine neue Tatsache daraus zu machen."
+            ],
+            "next": "ende"
+          },
+          "ende": {
+            "lines": [
+              "Sergeant Holt legt ein kleines Mitbringsel neben die Tasse.",
+              "An der Tür bleibt ein freundlicher Abschied, kein neuer Auftrag."
+            ],
+            "gift_once": {
+              "item": "verband",
+              "count": 1,
+              "flag": "haus_geschenk_holt"
+            },
+            "sets_flags": [
+              "haus_besuch_holt"
+            ]
+          }
+        }
+      },
+      "gift": {
+        "item": "verband",
+        "count": 1,
+        "once_per_campaign": true
+      },
+      "integration": {
+        "relation_key": "holt",
+        "add_relation_entry_if_missing": false
+      },
+      "coop": {
+        "players": [
+          "p1",
+          "p2"
+        ],
+        "choice_authority": "interaction_initiator",
+        "same_nodes": true,
+        "prepend": [
+          {
+            "speaker": "p1",
+            "text": "Wir haben zwei Stühle freigemacht."
+          },
+          {
+            "speaker": "p2",
+            "text": "Und eine dritte Tasse gefunden."
+          },
+          {
+            "speaker": "holt",
+            "text": "Dann bleibe ich, bis der Tee kalt ist."
+          }
+        ],
+        "gift_scope": "shared_once",
+        "relation_eligibility": "either_player_at_least_4",
+        "no_remote_player_teleport": true
+      }
+    },
+    {
+      "id": "haus_gast_greta",
+      "npc_id": "greta",
+      "name": "Greta",
+      "city": "kettlegate",
+      "condition": {
+        "relation": {
+          "greta": 4
+        },
+        "requires_flags": [
+          "haus_owned",
+          "haus_eingeladen_greta"
+        ],
+        "period": "abend",
+        "npc_available": true,
+        "same_city": true
+      },
+      "invitation": {
+        "text": "Kommen Sie abends auf einen Tee vorbei.",
+        "set_flag": "haus_eingeladen_greta",
+        "requires_relation": 4
+      },
+      "dialogue": {
+        "start": "start",
+        "nodes": {
+          "start": {
+            "lines": [
+              "Greta stellt ihr Bündel nicht auf die Akten, sondern daneben.",
+              "„Sie brauchen nicht jede freie Stelle mit Arbeit zu bepflanzen.“",
+              "Du räumst einen Platz am Tisch frei.",
+              "Draußen zieht ein Schritt an der Tür vorbei.",
+              "Für einen Moment muss niemand anfangen."
+            ],
+            "choices": [
+              {
+                "id": "tee",
+                "text": "Tee anbieten.",
+                "next": "tee"
+              },
+              {
+                "id": "geschichte",
+                "text": "Nach einer Geschichte fragen.",
+                "next": "geschichte"
+              },
+              {
+                "id": "fall",
+                "text": "Eine Frage zum Fall stellen.",
+                "next": "fall"
+              }
+            ]
+          },
+          "tee": {
+            "lines": [
+              "Du gießt langsam ein.",
+              "„So ist es gut. Wir müssen den Abend nicht füllen.“",
+              "Ihr lasst die Tassen eine Weile zwischen euch stehen."
+            ],
+            "next": "ende"
+          },
+          "geschichte": {
+            "lines": [
+              "Du fragst nach etwas, das in keiner Akte steht.",
+              "Sie erzählt von einer Rose, die nur auf der Schattenseite ihres Standes blühte.",
+              "Ihr lacht leise über die Einzelheit, die sonst niemand aufgeschrieben hätte."
+            ],
+            "next": "ende"
+          },
+          "fall": {
+            "lines": [
+              "Du schlägst nur die Seite auf, die du bereits kennst.",
+              "„Wer einen ganzen Tag am Stand steht, hört viel. Wahr wird es davon noch nicht.“",
+              "Du markierst eine offene Frage, ohne eine neue Tatsache daraus zu machen."
+            ],
+            "next": "ende"
+          },
+          "ende": {
+            "lines": [
+              "Greta legt ein kleines Mitbringsel neben die Tasse.",
+              "An der Tür bleibt ein freundlicher Abschied, kein neuer Auftrag."
+            ],
+            "gift_once": {
+              "item": "riechsalz",
+              "count": 1,
+              "flag": "haus_geschenk_greta"
+            },
+            "sets_flags": [
+              "haus_besuch_greta"
+            ]
+          }
+        }
+      },
+      "gift": {
+        "item": "riechsalz",
+        "count": 1,
+        "once_per_campaign": true
+      },
+      "integration": {
+        "relation_key": "greta",
+        "add_relation_entry_if_missing": false
+      }
+    },
+    {
+      "id": "haus_gast_pimm",
+      "npc_id": "pimm",
+      "name": "Archivar Pimm",
+      "city": "kettlegate",
+      "condition": {
+        "relation": {
+          "pimm": 4
+        },
+        "requires_flags": [
+          "haus_owned",
+          "haus_eingeladen_pimm"
+        ],
+        "period": "abend",
+        "npc_available": true,
+        "same_city": true
+      },
+      "invitation": {
+        "text": "Kommen Sie abends auf einen Tee vorbei.",
+        "set_flag": "haus_eingeladen_pimm",
+        "requires_relation": 4
+      },
+      "dialogue": {
+        "start": "start",
+        "nodes": {
+          "start": {
+            "lines": [
+              "Pimm prüft den Untersetzer, bevor er die Tasse abstellt.",
+              "„Ein Fleck ist rasch geschehen. Seine Geschichte bleibt länger.“",
+              "Du räumst einen Platz am Tisch frei.",
+              "Draußen zieht ein Schritt an der Tür vorbei.",
+              "Für einen Moment muss niemand anfangen."
+            ],
+            "choices": [
+              {
+                "id": "tee",
+                "text": "Tee anbieten.",
+                "next": "tee"
+              },
+              {
+                "id": "geschichte",
+                "text": "Nach einer Geschichte fragen.",
+                "next": "geschichte"
+              },
+              {
+                "id": "fall",
+                "text": "Eine Frage zum Fall stellen.",
+                "next": "fall"
+              }
+            ]
+          },
+          "tee": {
+            "lines": [
+              "Du gießt langsam ein.",
+              "„So ist es gut. Wir müssen den Abend nicht füllen.“",
+              "Ihr lasst die Tassen eine Weile zwischen euch stehen."
+            ],
+            "next": "ende"
+          },
+          "geschichte": {
+            "lines": [
+              "Du fragst nach etwas, das in keiner Akte steht.",
+              "Ein falsch einsortierter Liebesbrief lag dreißig Jahre zwischen Abwasserplänen.",
+              "Ihr lacht leise über die Einzelheit, die sonst niemand aufgeschrieben hätte."
+            ],
+            "next": "ende"
+          },
+          "fall": {
+            "lines": [
+              "Du schlägst nur die Seite auf, die du bereits kennst.",
+              "„Suchen Sie zuerst das Datum. Der schönste Zusammenhang kann zu spät gekommen sein.“",
+              "Du markierst eine offene Frage, ohne eine neue Tatsache daraus zu machen."
+            ],
+            "next": "ende"
+          },
+          "ende": {
+            "lines": [
+              "Archivar Pimm legt ein kleines Mitbringsel neben die Tasse.",
+              "An der Tür bleibt ein freundlicher Abschied, kein neuer Auftrag."
+            ],
+            "gift_once": {
+              "item": "taschentuch",
+              "count": 1,
+              "flag": "haus_geschenk_pimm"
+            },
+            "sets_flags": [
+              "haus_besuch_pimm"
+            ]
+          }
+        }
+      },
+      "gift": {
+        "item": "taschentuch",
+        "count": 1,
+        "once_per_campaign": true
+      },
+      "integration": {
+        "relation_key": "pimm",
+        "add_relation_entry_if_missing": false
+      }
+    },
+    {
+      "id": "haus_gast_zunder",
+      "npc_id": "zunder",
+      "name": "Juna „Zunder“ Fenn",
+      "city": "wexmoor",
+      "condition": {
+        "relation": {
+          "zunder": 4
+        },
+        "requires_flags": [
+          "haus_owned",
+          "haus_eingeladen_zunder"
+        ],
+        "period": "abend",
+        "npc_available": true,
+        "same_city": true
+      },
+      "invitation": {
+        "text": "Kommen Sie abends auf einen Tee vorbei.",
+        "set_flag": "haus_eingeladen_zunder",
+        "requires_relation": 4
+      },
+      "dialogue": {
+        "start": "start",
+        "nodes": {
+          "start": {
+            "lines": [
+              "Zunder streift den Torf von den Sohlen.",
+              "„Keine Sorge. Hier drin probiere ich nichts Brennbares aus.“",
+              "Du räumst einen Platz am Tisch frei.",
+              "Draußen zieht ein Schritt an der Tür vorbei.",
+              "Für einen Moment muss niemand anfangen."
+            ],
+            "choices": [
+              {
+                "id": "tee",
+                "text": "Tee anbieten.",
+                "next": "tee"
+              },
+              {
+                "id": "geschichte",
+                "text": "Nach einer Geschichte fragen.",
+                "next": "geschichte"
+              },
+              {
+                "id": "fall",
+                "text": "Eine Frage zum Fall stellen.",
+                "next": "fall"
+              }
+            ]
+          },
+          "tee": {
+            "lines": [
+              "Du gießt langsam ein.",
+              "„So ist es gut. Wir müssen den Abend nicht füllen.“",
+              "Ihr lasst die Tassen eine Weile zwischen euch stehen."
+            ],
+            "next": "ende"
+          },
+          "geschichte": {
+            "lines": [
+              "Du fragst nach etwas, das in keiner Akte steht.",
+              "Sie erzählt von einer Laterne, die erst nach einem Sturz ins Wasser wieder brannte.",
+              "Ihr lacht leise über die Einzelheit, die sonst niemand aufgeschrieben hätte."
+            ],
+            "next": "ende"
+          },
+          "fall": {
+            "lines": [
+              "Du schlägst nur die Seite auf, die du bereits kennst.",
+              "„Wenn etwas ungewöhnlich brennt, prüfen Sie den Docht, bevor Sie einen Fluch bestellen.“",
+              "Du markierst eine offene Frage, ohne eine neue Tatsache daraus zu machen."
+            ],
+            "next": "ende"
+          },
+          "ende": {
+            "lines": [
+              "Juna „Zunder“ Fenn legt ein kleines Mitbringsel neben die Tasse.",
+              "An der Tür bleibt ein freundlicher Abschied, kein neuer Auftrag."
+            ],
+            "gift_once": {
+              "item": "lampenoel",
+              "count": 1,
+              "flag": "haus_geschenk_zunder"
+            },
+            "sets_flags": [
+              "haus_besuch_zunder"
+            ]
+          }
+        }
+      },
+      "gift": {
+        "item": "lampenoel",
+        "count": 1,
+        "once_per_campaign": true
+      },
+      "integration": {
+        "relation_key": "zunder",
+        "add_relation_entry_if_missing": false
+      }
+    },
+    {
+      "id": "haus_gast_sedge",
+      "npc_id": "sedge",
+      "name": "Mutter Sedge",
+      "city": "wexmoor",
+      "condition": {
+        "relation": {
+          "sedge": 4
+        },
+        "requires_flags": [
+          "haus_owned",
+          "haus_eingeladen_sedge"
+        ],
+        "period": "abend",
+        "npc_available": true,
+        "same_city": true
+      },
+      "invitation": {
+        "text": "Kommen Sie abends auf einen Tee vorbei.",
+        "set_flag": "haus_eingeladen_sedge",
+        "requires_relation": 4
+      },
+      "dialogue": {
+        "start": "start",
+        "nodes": {
+          "start": {
+            "lines": [
+              "Sedge wärmt ihre Hände an der Tasse.",
+              "„Eine trockene Schwelle ist schon ein halbes Willkommen.“",
+              "Du räumst einen Platz am Tisch frei.",
+              "Draußen zieht ein Schritt an der Tür vorbei.",
+              "Für einen Moment muss niemand anfangen."
+            ],
+            "choices": [
+              {
+                "id": "tee",
+                "text": "Tee anbieten.",
+                "next": "tee"
+              },
+              {
+                "id": "geschichte",
+                "text": "Nach einer Geschichte fragen.",
+                "next": "geschichte"
+              },
+              {
+                "id": "fall",
+                "text": "Eine Frage zum Fall stellen.",
+                "next": "fall"
+              }
+            ]
+          },
+          "tee": {
+            "lines": [
+              "Du gießt langsam ein.",
+              "„So ist es gut. Wir müssen den Abend nicht füllen.“",
+              "Ihr lasst die Tassen eine Weile zwischen euch stehen."
+            ],
+            "next": "ende"
+          },
+          "geschichte": {
+            "lines": [
+              "Du fragst nach etwas, das in keiner Akte steht.",
+              "Als Kind fand sie ihren Heimweg an einem schiefen Zaunpfahl, der längst verschwunden ist.",
+              "Ihr lacht leise über die Einzelheit, die sonst niemand aufgeschrieben hätte."
+            ],
+            "next": "ende"
+          },
+          "fall": {
+            "lines": [
+              "Du schlägst nur die Seite auf, die du bereits kennst.",
+              "„Fragen Sie, wer die Geschichte zuerst erzählt hat. Ein Echo ist kein zweiter Zeuge.“",
+              "Du markierst eine offene Frage, ohne eine neue Tatsache daraus zu machen."
+            ],
+            "next": "ende"
+          },
+          "ende": {
+            "lines": [
+              "Mutter Sedge legt ein kleines Mitbringsel neben die Tasse.",
+              "An der Tür bleibt ein freundlicher Abschied, kein neuer Auftrag."
+            ],
+            "gift_once": {
+              "item": "gewuerzwein",
+              "count": 1,
+              "flag": "haus_geschenk_sedge"
+            },
+            "sets_flags": [
+              "haus_besuch_sedge"
+            ]
+          }
+        }
+      },
+      "gift": {
+        "item": "gewuerzwein",
+        "count": 1,
+        "once_per_campaign": true
+      },
+      "integration": {
+        "relation_key": "sedge",
+        "add_relation_entry_if_missing": false
+      }
+    },
+    {
+      "id": "haus_gast_hale",
+      "npc_id": "hale",
+      "name": "Bryony Hale",
+      "city": "wexmoor",
+      "condition": {
+        "relation": {
+          "hale": 4
+        },
+        "requires_flags": [
+          "haus_owned",
+          "haus_eingeladen_hale"
+        ],
+        "period": "abend",
+        "npc_available": true,
+        "same_city": true
+      },
+      "invitation": {
+        "text": "Kommen Sie abends auf einen Tee vorbei.",
+        "set_flag": "haus_eingeladen_hale",
+        "requires_relation": 4
+      },
+      "dialogue": {
+        "start": "start",
+        "nodes": {
+          "start": {
+            "lines": [
+              "Hale stellt ihre nassen Handschuhe auf die Stiefelbank.",
+              "„Heute habe ich keinen Bericht mitgebracht.“",
+              "Du räumst einen Platz am Tisch frei.",
+              "Draußen zieht ein Schritt an der Tür vorbei.",
+              "Für einen Moment muss niemand anfangen."
+            ],
+            "choices": [
+              {
+                "id": "tee",
+                "text": "Tee anbieten.",
+                "next": "tee"
+              },
+              {
+                "id": "geschichte",
+                "text": "Nach einer Geschichte fragen.",
+                "next": "geschichte"
+              },
+              {
+                "id": "fall",
+                "text": "Eine Frage zum Fall stellen.",
+                "next": "fall"
+              }
+            ]
+          },
+          "tee": {
+            "lines": [
+              "Du gießt langsam ein.",
+              "„So ist es gut. Wir müssen den Abend nicht füllen.“",
+              "Ihr lasst die Tassen eine Weile zwischen euch stehen."
+            ],
+            "next": "ende"
+          },
+          "geschichte": {
+            "lines": [
+              "Du fragst nach etwas, das in keiner Akte steht.",
+              "Sie berichtet von einer Nachtwache, bei der eine entlaufene Gans das ganze Viertel weckte.",
+              "Ihr lacht leise über die Einzelheit, die sonst niemand aufgeschrieben hätte."
+            ],
+            "next": "ende"
+          },
+          "fall": {
+            "lines": [
+              "Du schlägst nur die Seite auf, die du bereits kennst.",
+              "„Lassen Sie zwischen Vermutung und Festnahme eine überprüfbare Frage Platz.“",
+              "Du markierst eine offene Frage, ohne eine neue Tatsache daraus zu machen."
+            ],
+            "next": "ende"
+          },
+          "ende": {
+            "lines": [
+              "Bryony Hale legt ein kleines Mitbringsel neben die Tasse.",
+              "An der Tür bleibt ein freundlicher Abschied, kein neuer Auftrag."
+            ],
+            "gift_once": {
+              "item": "verband",
+              "count": 1,
+              "flag": "haus_geschenk_hale"
+            },
+            "sets_flags": [
+              "haus_besuch_hale"
+            ]
+          }
+        }
+      },
+      "gift": {
+        "item": "verband",
+        "count": 1,
+        "once_per_campaign": true
+      },
+      "integration": {
+        "relation_key": "hale",
+        "add_relation_entry_if_missing": false
+      }
+    },
+    {
+      "id": "haus_gast_k3_pfiff",
+      "npc_id": "k3_pfiff",
+      "name": "Ansel „Pfiff“ Cedrow",
+      "city": "dunscar",
+      "condition": {
+        "relation": {
+          "k3_pfiff": 4
+        },
+        "requires_flags": [
+          "haus_owned",
+          "haus_eingeladen_k3_pfiff"
+        ],
+        "period": "abend",
+        "npc_available": true,
+        "same_city": true
+      },
+      "invitation": {
+        "text": "Kommen Sie abends auf einen Tee vorbei.",
+        "set_flag": "haus_eingeladen_k3_pfiff",
+        "requires_relation": 4
+      },
+      "dialogue": {
+        "start": "start",
+        "nodes": {
+          "start": {
+            "lines": [
+              "Pfiff hört dem Haus zu, bevor er sich setzt.",
+              "„Ein Rohr. Kein Zug. Die Gewohnheit fährt länger als der Dienst.“",
+              "Du räumst einen Platz am Tisch frei.",
+              "Draußen zieht ein Schritt an der Tür vorbei.",
+              "Für einen Moment muss niemand anfangen."
+            ],
+            "choices": [
+              {
+                "id": "tee",
+                "text": "Tee anbieten.",
+                "next": "tee"
+              },
+              {
+                "id": "geschichte",
+                "text": "Nach einer Geschichte fragen.",
+                "next": "geschichte"
+              },
+              {
+                "id": "fall",
+                "text": "Eine Frage zum Fall stellen.",
+                "next": "fall"
+              }
+            ]
+          },
+          "tee": {
+            "lines": [
+              "Du gießt langsam ein.",
+              "„So ist es gut. Wir müssen den Abend nicht füllen.“",
+              "Ihr lasst die Tassen eine Weile zwischen euch stehen."
+            ],
+            "next": "ende"
+          },
+          "geschichte": {
+            "lines": [
+              "Du fragst nach etwas, das in keiner Akte steht.",
+              "Er beschreibt ein Signal, das im Schneefall nur noch am Rhythmus zu erkennen war.",
+              "Ihr lacht leise über die Einzelheit, die sonst niemand aufgeschrieben hätte."
+            ],
+            "next": "ende"
+          },
+          "fall": {
+            "lines": [
+              "Du schlägst nur die Seite auf, die du bereits kennst.",
+              "„Notieren Sie Pausen ebenso wie Geräusche. Manchmal fehlt genau dort der Mensch.“",
+              "Du markierst eine offene Frage, ohne eine neue Tatsache daraus zu machen."
+            ],
+            "next": "ende"
+          },
+          "ende": {
+            "lines": [
+              "Ansel „Pfiff“ Cedrow legt ein kleines Mitbringsel neben die Tasse.",
+              "An der Tür bleibt ein freundlicher Abschied, kein neuer Auftrag."
+            ],
+            "gift_once": {
+              "item": "taschentuch",
+              "count": 1,
+              "flag": "haus_geschenk_k3_pfiff"
+            },
+            "sets_flags": [
+              "haus_besuch_k3_pfiff"
+            ]
+          }
+        }
+      },
+      "gift": {
+        "item": "taschentuch",
+        "count": 1,
+        "once_per_campaign": true
+      },
+      "integration": {
+        "relation_key": "k3_pfiff",
+        "add_relation_entry_if_missing": false
+      },
+      "coop": {
+        "players": [
+          "p1",
+          "p2"
+        ],
+        "choice_authority": "interaction_initiator",
+        "same_nodes": true,
+        "prepend": [
+          {
+            "speaker": "p1",
+            "text": "Wir haben zwei Stühle freigemacht."
+          },
+          {
+            "speaker": "p2",
+            "text": "Und eine dritte Tasse gefunden."
+          },
+          {
+            "speaker": "k3_pfiff",
+            "text": "Dann bleibe ich, bis der Tee kalt ist."
+          }
+        ],
+        "gift_scope": "shared_once",
+        "relation_eligibility": "either_player_at_least_4",
+        "no_remote_player_teleport": true
+      }
+    },
+    {
+      "id": "haus_gast_k3_willa",
+      "npc_id": "k3_willa",
+      "name": "Willa Trentfold",
+      "city": "dunscar",
+      "condition": {
+        "relation": {
+          "k3_willa": 4
+        },
+        "requires_flags": [
+          "haus_owned",
+          "haus_eingeladen_k3_willa"
+        ],
+        "period": "abend",
+        "npc_available": true,
+        "same_city": true
+      },
+      "invitation": {
+        "text": "Kommen Sie abends auf einen Tee vorbei.",
+        "set_flag": "haus_eingeladen_k3_willa",
+        "requires_relation": 4
+      },
+      "dialogue": {
+        "start": "start",
+        "nodes": {
+          "start": {
+            "lines": [
+              "Willa stellt zwei Tassen mit Abstand auf das Holz.",
+              "„So hören wir, welche zuerst zittert.“",
+              "Du räumst einen Platz am Tisch frei.",
+              "Draußen zieht ein Schritt an der Tür vorbei.",
+              "Für einen Moment muss niemand anfangen."
+            ],
+            "choices": [
+              {
+                "id": "tee",
+                "text": "Tee anbieten.",
+                "next": "tee"
+              },
+              {
+                "id": "geschichte",
+                "text": "Nach einer Geschichte fragen.",
+                "next": "geschichte"
+              },
+              {
+                "id": "fall",
+                "text": "Eine Frage zum Fall stellen.",
+                "next": "fall"
+              }
+            ]
+          },
+          "tee": {
+            "lines": [
+              "Du gießt langsam ein.",
+              "„So ist es gut. Wir müssen den Abend nicht füllen.“",
+              "Ihr lasst die Tassen eine Weile zwischen euch stehen."
+            ],
+            "next": "ende"
+          },
+          "geschichte": {
+            "lines": [
+              "Du fragst nach etwas, das in keiner Akte steht.",
+              "Sie erzählt von einer Stimmgabel, deren Etikett richtig und deren Ton falsch war.",
+              "Ihr lacht leise über die Einzelheit, die sonst niemand aufgeschrieben hätte."
+            ],
+            "next": "ende"
+          },
+          "fall": {
+            "lines": [
+              "Du schlägst nur die Seite auf, die du bereits kennst.",
+              "„Vergleichen Sie unter denselben Bedingungen. Sonst messen Sie nur den Unterschied der Räume.“",
+              "Du markierst eine offene Frage, ohne eine neue Tatsache daraus zu machen."
+            ],
+            "next": "ende"
+          },
+          "ende": {
+            "lines": [
+              "Willa Trentfold legt ein kleines Mitbringsel neben die Tasse.",
+              "An der Tür bleibt ein freundlicher Abschied, kein neuer Auftrag."
+            ],
+            "gift_once": {
+              "item": "gewuerzwein",
+              "count": 1,
+              "flag": "haus_geschenk_k3_willa"
+            },
+            "sets_flags": [
+              "haus_besuch_k3_willa"
+            ]
+          }
+        }
+      },
+      "gift": {
+        "item": "gewuerzwein",
+        "count": 1,
+        "once_per_campaign": true
+      },
+      "integration": {
+        "relation_key": "k3_willa",
+        "add_relation_entry_if_missing": false
+      }
+    },
+    {
+      "id": "haus_gast_cw_crayford",
+      "npc_id": "cw_crayford",
+      "name": "Tilda „Klammer“ Crayford",
+      "city": "calderwick",
+      "condition": {
+        "relation": {
+          "cw_crayford": 4
+        },
+        "requires_flags": [
+          "haus_owned",
+          "haus_eingeladen_cw_crayford"
+        ],
+        "period": "abend",
+        "npc_available": true,
+        "same_city": true
+      },
+      "invitation": {
+        "text": "Kommen Sie abends auf einen Tee vorbei.",
+        "set_flag": "haus_eingeladen_cw_crayford",
+        "requires_relation": 4
+      },
+      "dialogue": {
+        "start": "start",
+        "nodes": {
+          "start": {
+            "lines": [
+              "Tilda sieht die offenen Buchrücken und lächelt müde.",
+              "„Die halten noch. Man muss sie nicht vorsorglich zerlegen.“",
+              "Du räumst einen Platz am Tisch frei.",
+              "Draußen zieht ein Schritt an der Tür vorbei.",
+              "Für einen Moment muss niemand anfangen."
+            ],
+            "choices": [
+              {
+                "id": "tee",
+                "text": "Tee anbieten.",
+                "next": "tee"
+              },
+              {
+                "id": "geschichte",
+                "text": "Nach einer Geschichte fragen.",
+                "next": "geschichte"
+              },
+              {
+                "id": "fall",
+                "text": "Eine Frage zum Fall stellen.",
+                "next": "fall"
+              }
+            ]
+          },
+          "tee": {
+            "lines": [
+              "Du gießt langsam ein.",
+              "„So ist es gut. Wir müssen den Abend nicht füllen.“",
+              "Ihr lasst die Tassen eine Weile zwischen euch stehen."
+            ],
+            "next": "ende"
+          },
+          "geschichte": {
+            "lines": [
+              "Du fragst nach etwas, das in keiner Akte steht.",
+              "Sie band einmal ein Kochbuch neu und ließ den Mehlfleck auf der liebsten Seite stehen.",
+              "Ihr lacht leise über die Einzelheit, die sonst niemand aufgeschrieben hätte."
+            ],
+            "next": "ende"
+          },
+          "fall": {
+            "lines": [
+              "Du schlägst nur die Seite auf, die du bereits kennst.",
+              "„Ein nachträglich eingesetztes Blatt verrät sich manchmal am Faden, nicht an der Tinte.“",
+              "Du markierst eine offene Frage, ohne eine neue Tatsache daraus zu machen."
+            ],
+            "next": "ende"
+          },
+          "ende": {
+            "lines": [
+              "Tilda „Klammer“ Crayford legt ein kleines Mitbringsel neben die Tasse.",
+              "An der Tür bleibt ein freundlicher Abschied, kein neuer Auftrag."
+            ],
+            "gift_once": {
+              "item": "taschentuch",
+              "count": 1,
+              "flag": "haus_geschenk_cw_crayford"
+            },
+            "sets_flags": [
+              "haus_besuch_cw_crayford"
+            ]
+          }
+        }
+      },
+      "gift": {
+        "item": "taschentuch",
+        "count": 1,
+        "once_per_campaign": true
+      },
+      "integration": {
+        "relation_key": "cw_crayford",
+        "add_relation_entry_if_missing": true
+      }
+    },
+    {
+      "id": "haus_gast_cw_noel_bellcross",
+      "npc_id": "cw_noel_bellcross",
+      "name": "Noel Bellcross",
+      "city": "calderwick",
+      "condition": {
+        "relation": {
+          "cw_noel_bellcross": 4
+        },
+        "requires_flags": [
+          "haus_owned",
+          "haus_eingeladen_cw_noel_bellcross"
+        ],
+        "period": "abend",
+        "npc_available": true,
+        "same_city": true
+      },
+      "invitation": {
+        "text": "Kommen Sie abends auf einen Tee vorbei.",
+        "set_flag": "haus_eingeladen_cw_noel_bellcross",
+        "requires_relation": 4
+      },
+      "dialogue": {
+        "start": "start",
+        "nodes": {
+          "start": {
+            "lines": [
+              "Noel rückt den Kessel vom Rand.",
+              "„Eine kleine Bewegung, und man hat morgen eine Sorge weniger.“",
+              "Du räumst einen Platz am Tisch frei.",
+              "Draußen zieht ein Schritt an der Tür vorbei.",
+              "Für einen Moment muss niemand anfangen."
+            ],
+            "choices": [
+              {
+                "id": "tee",
+                "text": "Tee anbieten.",
+                "next": "tee"
+              },
+              {
+                "id": "geschichte",
+                "text": "Nach einer Geschichte fragen.",
+                "next": "geschichte"
+              },
+              {
+                "id": "fall",
+                "text": "Eine Frage zum Fall stellen.",
+                "next": "fall"
+              }
+            ]
+          },
+          "tee": {
+            "lines": [
+              "Du gießt langsam ein.",
+              "„So ist es gut. Wir müssen den Abend nicht füllen.“",
+              "Ihr lasst die Tassen eine Weile zwischen euch stehen."
+            ],
+            "next": "ende"
+          },
+          "geschichte": {
+            "lines": [
+              "Du fragst nach etwas, das in keiner Akte steht.",
+              "Er erinnert sich an eine Suppe, deren Rezept nur aus den Namen der Nachbarn bestand.",
+              "Ihr lacht leise über die Einzelheit, die sonst niemand aufgeschrieben hätte."
+            ],
+            "next": "ende"
+          },
+          "fall": {
+            "lines": [
+              "Du schlägst nur die Seite auf, die du bereits kennst.",
+              "„Wenn jemand die Zeit nach Mahlzeiten nennt, fragen Sie, wer damals am Herd stand.“",
+              "Du markierst eine offene Frage, ohne eine neue Tatsache daraus zu machen."
+            ],
+            "next": "ende"
+          },
+          "ende": {
+            "lines": [
+              "Noel Bellcross legt ein kleines Mitbringsel neben die Tasse.",
+              "An der Tür bleibt ein freundlicher Abschied, kein neuer Auftrag."
+            ],
+            "gift_once": {
+              "item": "gewuerzwein",
+              "count": 1,
+              "flag": "haus_geschenk_cw_noel_bellcross"
+            },
+            "sets_flags": [
+              "haus_besuch_cw_noel_bellcross"
+            ]
+          }
+        }
+      },
+      "gift": {
+        "item": "gewuerzwein",
+        "count": 1,
+        "once_per_campaign": true
+      },
+      "integration": {
+        "relation_key": "cw_noel_bellcross",
+        "add_relation_entry_if_missing": true
+      }
+    },
+    {
+      "id": "haus_gast_bh_bellweather",
+      "npc_id": "bh_bellweather",
+      "name": "Ruben „Frost“ Bellweather",
+      "city": "briarholt",
+      "condition": {
+        "relation": {
+          "bh_bellweather": 4
+        },
+        "requires_flags": [
+          "haus_owned",
+          "haus_eingeladen_bh_bellweather"
+        ],
+        "period": "abend",
+        "npc_available": true,
+        "same_city": true
+      },
+      "invitation": {
+        "text": "Kommen Sie abends auf einen Tee vorbei.",
+        "set_flag": "haus_eingeladen_bh_bellweather",
+        "requires_relation": 4
+      },
+      "dialogue": {
+        "start": "start",
+        "nodes": {
+          "start": {
+            "lines": [
+              "Ruben hält eine Hand vor den Ofen, ohne ihn anzufassen.",
+              "„Wärme merkt man auch, ohne sie zu besitzen.“",
+              "Du räumst einen Platz am Tisch frei.",
+              "Draußen zieht ein Schritt an der Tür vorbei.",
+              "Für einen Moment muss niemand anfangen."
+            ],
+            "choices": [
+              {
+                "id": "tee",
+                "text": "Tee anbieten.",
+                "next": "tee"
+              },
+              {
+                "id": "geschichte",
+                "text": "Nach einer Geschichte fragen.",
+                "next": "geschichte"
+              },
+              {
+                "id": "fall",
+                "text": "Eine Frage zum Fall stellen.",
+                "next": "fall"
+              }
+            ]
+          },
+          "tee": {
+            "lines": [
+              "Du gießt langsam ein.",
+              "„So ist es gut. Wir müssen den Abend nicht füllen.“",
+              "Ihr lasst die Tassen eine Weile zwischen euch stehen."
+            ],
+            "next": "ende"
+          },
+          "geschichte": {
+            "lines": [
+              "Du fragst nach etwas, das in keiner Akte steht.",
+              "Er erzählt von einer Schicht, in der ein einziger trockener Handschuh abwechselnd getragen wurde.",
+              "Ihr lacht leise über die Einzelheit, die sonst niemand aufgeschrieben hätte."
+            ],
+            "next": "ende"
+          },
+          "fall": {
+            "lines": [
+              "Du schlägst nur die Seite auf, die du bereits kennst.",
+              "„Ein warmes Rohr beweist einen Durchfluss. Es sagt noch nicht, wer das Ventil gedreht hat.“",
+              "Du markierst eine offene Frage, ohne eine neue Tatsache daraus zu machen."
+            ],
+            "next": "ende"
+          },
+          "ende": {
+            "lines": [
+              "Ruben „Frost“ Bellweather legt ein kleines Mitbringsel neben die Tasse.",
+              "An der Tür bleibt ein freundlicher Abschied, kein neuer Auftrag."
+            ],
+            "gift_once": {
+              "item": "lampenoel",
+              "count": 1,
+              "flag": "haus_geschenk_bh_bellweather"
+            },
+            "sets_flags": [
+              "haus_besuch_bh_bellweather"
+            ]
+          }
+        }
+      },
+      "gift": {
+        "item": "lampenoel",
+        "count": 1,
+        "once_per_campaign": true
+      },
+      "integration": {
+        "relation_key": "bh_bellweather",
+        "add_relation_entry_if_missing": true
+      }
+    },
+    {
+      "id": "haus_gast_vmn_tam_verrin",
+      "npc_id": "vmn_tam_verrin",
+      "name": "Tam Verrin",
+      "city": "varrowmouth",
+      "condition": {
+        "relation": {
+          "vmn_tam_verrin": 4
+        },
+        "requires_flags": [
+          "haus_owned",
+          "haus_eingeladen_vmn_tam_verrin"
+        ],
+        "period": "abend",
+        "npc_available": true,
+        "same_city": true
+      },
+      "invitation": {
+        "text": "Kommen Sie abends auf einen Tee vorbei.",
+        "set_flag": "haus_eingeladen_vmn_tam_verrin",
+        "requires_relation": 4
+      },
+      "dialogue": {
+        "start": "start",
+        "nodes": {
+          "start": {
+            "lines": [
+              "Tam lässt ihr Ölzeug am Haken abtropfen.",
+              "„Eine Tür, für die ich keinen Eintrag brauche. Daran könnte ich mich gewöhnen.“",
+              "Du räumst einen Platz am Tisch frei.",
+              "Draußen zieht ein Schritt an der Tür vorbei.",
+              "Für einen Moment muss niemand anfangen."
+            ],
+            "choices": [
+              {
+                "id": "tee",
+                "text": "Tee anbieten.",
+                "next": "tee"
+              },
+              {
+                "id": "geschichte",
+                "text": "Nach einer Geschichte fragen.",
+                "next": "geschichte"
+              },
+              {
+                "id": "fall",
+                "text": "Eine Frage zum Fall stellen.",
+                "next": "fall"
+              }
+            ]
+          },
+          "tee": {
+            "lines": [
+              "Du gießt langsam ein.",
+              "„So ist es gut. Wir müssen den Abend nicht füllen.“",
+              "Ihr lasst die Tassen eine Weile zwischen euch stehen."
+            ],
+            "next": "ende"
+          },
+          "geschichte": {
+            "lines": [
+              "Du fragst nach etwas, das in keiner Akte steht.",
+              "Sie erzählt von einer Boje, die an Nebeltagen wie ein versetztes Fenster aussah.",
+              "Ihr lacht leise über die Einzelheit, die sonst niemand aufgeschrieben hätte."
+            ],
+            "next": "ende"
+          },
+          "fall": {
+            "lines": [
+              "Du schlägst nur die Seite auf, die du bereits kennst.",
+              "„Wer vom Pegel spricht, muss die Stunde nennen. Sonst stimmt jede Aussage irgendwann.“",
+              "Du markierst eine offene Frage, ohne eine neue Tatsache daraus zu machen."
+            ],
+            "next": "ende"
+          },
+          "ende": {
+            "lines": [
+              "Tam Verrin legt ein kleines Mitbringsel neben die Tasse.",
+              "An der Tür bleibt ein freundlicher Abschied, kein neuer Auftrag."
+            ],
+            "gift_once": {
+              "item": "taschentuch",
+              "count": 1,
+              "flag": "haus_geschenk_vmn_tam_verrin"
+            },
+            "sets_flags": [
+              "haus_besuch_vmn_tam_verrin"
+            ]
+          }
+        }
+      },
+      "gift": {
+        "item": "taschentuch",
+        "count": 1,
+        "once_per_campaign": true
+      },
+      "integration": {
+        "relation_key": "vmn_tam_verrin",
+        "add_relation_entry_if_missing": true,
+        "dependency": {
+          "package": "CX",
+          "source": "docs/art/codex_CY_varrowmouth_figuren.md",
+          "status": "NPC not in runtime at source commit; suppress visit until installed"
+        }
+      },
+      "coop": {
+        "players": [
+          "p1",
+          "p2"
+        ],
+        "choice_authority": "interaction_initiator",
+        "same_nodes": true,
+        "prepend": [
+          {
+            "speaker": "p1",
+            "text": "Wir haben zwei Stühle freigemacht."
+          },
+          {
+            "speaker": "p2",
+            "text": "Und eine dritte Tasse gefunden."
+          },
+          {
+            "speaker": "vmn_tam_verrin",
+            "text": "Dann bleibe ich, bis der Tee kalt ist."
+          }
+        ],
+        "gift_scope": "shared_once",
+        "relation_eligibility": "either_player_at_least_4",
+        "no_remote_player_teleport": true
+      }
+    }
+  ]
+}
