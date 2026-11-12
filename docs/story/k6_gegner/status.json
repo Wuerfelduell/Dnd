@@ -1,0 +1,39 @@
+{
+  "verzeichnet": {
+    "name": "Verzeichnet",
+    "duration_rounds": 3,
+    "icon": "fx/vm_verzeichnet.png",
+    "text": "Dein Name steht im Register. Du kannst drei Runden lang nicht fliehen.",
+    "effect": "block_voluntary_flee",
+    "tick": "end_of_target_turn_after_application_turn",
+    "stacking": "refresh_to_3_not_add",
+    "exceptions": [
+      "forced_tide_escape",
+      "scripted_peace"
+    ],
+    "clear_on_battle_end": true
+  },
+  "gefesselt": {
+    "name": "Gefesselt",
+    "duration_rounds": 1,
+    "icon": "fx/vm_gefesselt.png",
+    "text": "Das Tau hält dich fest. Deine nächste Aktion fällt aus.",
+    "effect": "skip_next_action",
+    "tick": "consume_on_next_target_action",
+    "stacking": "ignore_while_active",
+    "immunity_after_consumption_rounds": 1,
+    "clear_on_battle_end": true
+  },
+  "geblendet": {
+    "name": "Geblendet",
+    "duration_rounds": 2,
+    "icon": "fx/vm_geblendet.png",
+    "text": "Licht steht vor deinen Augen. Deine Angriffe treffen zwei Runden lang seltener.",
+    "effect": "accuracy_multiplier",
+    "value": 0.7,
+    "tick": "end_of_target_turn_after_application_turn",
+    "stacking": "refresh_to_2_not_add",
+    "never_hides_timing_prompts": true,
+    "clear_on_battle_end": true
+  }
+}

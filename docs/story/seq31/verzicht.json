@@ -1,0 +1,332 @@
+{
+  "vor_dem_verzicht": [
+    "Du beendest mit dieser Wahl deinen Aufstieg zur Sequenz 1.",
+    "Deine bisherige Stufe und ihre Fähigkeiten bleiben erhalten.",
+    "Das vorgemerkte Fähigkeitsopfer wird beim Verzicht nicht vollzogen.",
+    "Deine abgeschlossenen Fälle und Beziehungen bleiben bestehen.",
+    "Diese Entscheidung gilt nur für dich; dein Partner entscheidet selbst.",
+    "Du kannst jetzt noch vertagen; erst die ausdrückliche Bestätigung macht den Verzicht endgültig."
+  ],
+  "pfade": [
+    {
+      "id": "seq31_laterne_verzicht",
+      "pfad": "laterne",
+      "text": "Du schiebst die Flasche neben die Lampe. Die Berichtigung bleibt trotzdem hängen. Niemand nimmt deine Unterschrift vom Blatt, und niemand verlangt, dass du dafür heller wirst. Du löschst die Flamme erst, als die letzte Person ihre Abschrift eingesteckt hat. Deine Finger riechen nach kaltem Docht. Auf der Straße fragt dich jemand nach dem Weg zum Zollhaus. Du musst hinsehen, bevor du antwortest. Das ist langsam genug, um einen Irrtum zu bemerken. Am Abend sitzt du bei gewöhnlichem Licht und schreibst die fehlende Zeile zu Ende. Morgen kann jemand ihr widersprechen. Deine bisherige Stufe bleibt dir. Die Entscheidung ist abgeschlossen, doch dein Leben muss deshalb nicht aufhören. Du nimmst deinen Mantel und lässt die versiegelte Flasche zurück.",
+      "zeugen": [
+        {
+          "npc": "cw_crayford",
+          "text": "„Ihre Berichtigung bleibt bestehen.“"
+        },
+        {
+          "npc": "vmn_tam_verrin",
+          "text": "„Sie können mit demselben Namen weitergehen.“"
+        },
+        {
+          "npc": "ez_brennerin",
+          "text": "„Der Pfad endet nicht an dieser Flasche.“"
+        }
+      ],
+      "epilog_karte": {
+        "id": "seq31_laterne_epilog",
+        "bild": "sequences/abspann_verzicht.png",
+        "titel": "Die belastende Zeile",
+        "text": "Das eigene Fehlurteil bleibt öffentlich einsehbar. Du gehst auf deiner bisherigen Stufe weiter."
+      },
+      "abspann_satz": "Du hast die Flasche abgelegt; die Verantwortung trägst du weiter.",
+      "effects": {
+        "set_flags": [
+          "seq1_verzicht",
+          "seq31_verzicht_laterne"
+        ]
+      }
+    },
+    {
+      "id": "seq31_faden_verzicht",
+      "pfad": "faden",
+      "text": "Du wickelst den losen Faden um die verschlossene Flasche. Er wird dadurch weder Beweis noch Fessel. Die beiden Register liegen weiter nebeneinander, und die unbekannte Herkunft bleibt unbekannt. Du kannst mit dieser Lücke leben. Am Ausgang hängt deine Manschette kurz an einem Nagel. Du bleibst stehen, löst sie und gehst weiter. Niemand folgt dir an einem unsichtbaren Band. Später nähst du den Riss mit einem Faden anderer Farbe. Die Reparatur darf erkennbar sein. Als jemand nach dem fehlenden Blatt fragt, zeigst du auf die freie Stelle. Du versprichst keine Geschichte, die es ersetzen könnte. Deine bisherige Stufe bleibt dir. Die Entscheidung ist abgeschlossen, doch dein Leben muss deshalb nicht aufhören. Du nimmst deinen Mantel und lässt die versiegelte Flasche zurück.",
+      "zeugen": [
+        {
+          "npc": "cw_crayford",
+          "text": "„Ihre Berichtigung bleibt bestehen.“"
+        },
+        {
+          "npc": "vmn_tam_verrin",
+          "text": "„Sie können mit demselben Namen weitergehen.“"
+        },
+        {
+          "npc": "ez_spinnerin",
+          "text": "„Der Pfad endet nicht an dieser Flasche.“"
+        }
+      ],
+      "epilog_karte": {
+        "id": "seq31_faden_epilog",
+        "bild": "sequences/abspann_verzicht.png",
+        "titel": "Die lösbare Naht",
+        "text": "Die Lücke bleibt in beiden Abschriften offen. Du gehst auf deiner bisherigen Stufe weiter."
+      },
+      "abspann_satz": "Du hast die Flasche abgelegt; die Verantwortung trägst du weiter.",
+      "effects": {
+        "set_flags": [
+          "seq1_verzicht",
+          "seq31_verzicht_faden"
+        ]
+      }
+    },
+    {
+      "id": "seq31_maske_verzicht",
+      "pfad": "maske",
+      "text": "Du stellst die Flasche auf die leere Maskenablage. Für einen Augenblick passt dein Gesicht wieder zu keiner erwarteten Rolle. Dann bittest du um deinen Mantel. Die Bitte braucht keinen Titel. Der Spiegel zeigt dieselbe Müdigkeit wie vor dem Gespräch. Du nimmst sie mit. Ein Zeuge spricht deinen Namen aus, um dich an die liegengebliebenen Handschuhe zu erinnern. Mehr bedeutet der Name in diesem Augenblick nicht. Du holst sie und gehst. Später entschuldigst du dich bei einer Person ohne fremde Stimme und ohne vorgelerntes Ende. Sie hört zu. Ob sie dir verzeiht, bleibt ihre Sache. Deine bisherige Stufe bleibt dir. Die Entscheidung ist abgeschlossen, doch dein Leben muss deshalb nicht aufhören. Du nimmst deinen Mantel und lässt die versiegelte Flasche zurück.",
+      "zeugen": [
+        {
+          "npc": "cw_wicksend",
+          "text": "„Ihre Berichtigung bleibt bestehen.“"
+        },
+        {
+          "npc": "vmn_tam_verrin",
+          "text": "„Sie können mit demselben Namen weitergehen.“"
+        },
+        {
+          "npc": "ez_maskenwirt",
+          "text": "„Der Pfad endet nicht an dieser Flasche.“"
+        }
+      ],
+      "epilog_karte": {
+        "id": "seq31_maske_epilog",
+        "bild": "sequences/abspann_verzicht.png",
+        "titel": "Die zurückgegebene Rolle",
+        "text": "Die Amtsrolle bleibt nach der Probe gesperrt. Du gehst auf deiner bisherigen Stufe weiter."
+      },
+      "abspann_satz": "Du hast die Flasche abgelegt; die Verantwortung trägst du weiter.",
+      "effects": {
+        "set_flags": [
+          "seq1_verzicht",
+          "seq31_verzicht_maske"
+        ]
+      }
+    },
+    {
+      "id": "seq31_echo_verzicht",
+      "pfad": "echo",
+      "text": "Du setzt die Flasche ab, bevor das Hörrohr wieder warm wird. Die Aussage ist gehört worden. Sie braucht keinen höheren Rang in deinem Körper. Du gibst die letzte Aufnahme frei und hörst anschließend nur das Wasser unter dem Boden. Ein Zeuge räuspert sich. Diesmal ist es einfach seine eigene Kehle. Du fragst, ob das Fenster geöffnet werden soll. Auf dem Heimweg versuchst du nicht, aus jedem Schritt eine Botschaft zu lesen. Du bleibst dennoch stehen, als jemand dich anspricht. Zuhören bleibt möglich. Es dauert so lange, wie die andere Person dafür braucht, und du hast heute Zeit. Deine bisherige Stufe bleibt dir. Die Entscheidung ist abgeschlossen, doch dein Leben muss deshalb nicht aufhören. Du nimmst deinen Mantel und lässt die versiegelte Flasche zurück.",
+      "zeugen": [
+        {
+          "npc": "cw_noel_bellcross",
+          "text": "„Ihre Berichtigung bleibt bestehen.“"
+        },
+        {
+          "npc": "vmn_tam_verrin",
+          "text": "„Sie können mit demselben Namen weitergehen.“"
+        },
+        {
+          "npc": "ez_glockenfischer",
+          "text": "„Der Pfad endet nicht an dieser Flasche.“"
+        }
+      ],
+      "epilog_karte": {
+        "id": "seq31_echo_epilog",
+        "bild": "sequences/abspann_verzicht.png",
+        "titel": "Der ungeschönte Nachruf",
+        "text": "Die Aufnahme wird weder festgehalten noch als Lösung ausgegeben. Du gehst auf deiner bisherigen Stufe weiter."
+      },
+      "abspann_satz": "Du hast die Flasche abgelegt; die Verantwortung trägst du weiter.",
+      "effects": {
+        "set_flags": [
+          "seq1_verzicht",
+          "seq31_verzicht_echo"
+        ]
+      }
+    },
+    {
+      "id": "seq31_kessel_verzicht",
+      "pfad": "kessel",
+      "text": "Du stellst die Flasche zu den unbenutzten Gefäßen. Der sichere Rücklauf arbeitet weiter. Du hast ihn gebaut, nicht deine nächste Stufe. Eine kleine Blase wandert durch das Schauglas und platzt im Auffangtopf. Du prüfst noch einmal dessen Schild. Dann übergibst du den Messlöffel. Deine Hände werden kalt, sobald du sie vom Rohr nimmst. Du steckst sie in die Manteltaschen und wartest, bis die andere Person ihre Messung beendet hat. Sie erhält einen etwas anderen Wert. Ihr schreibt beide auf. Am Abend schmeckt der Tee nach Wasser und Blättern. Du musst daraus keine weitere Fraktion gewinnen. Deine bisherige Stufe bleibt dir. Die Entscheidung ist abgeschlossen, doch dein Leben muss deshalb nicht aufhören. Du nimmst deinen Mantel und lässt die versiegelte Flasche zurück.",
+      "zeugen": [
+        {
+          "npc": "cw_noel_bellcross",
+          "text": "„Ihre Berichtigung bleibt bestehen.“"
+        },
+        {
+          "npc": "vmn_tam_verrin",
+          "text": "„Sie können mit demselben Namen weitergehen.“"
+        },
+        {
+          "npc": "ez_reetkoenig",
+          "text": "„Der Pfad endet nicht an dieser Flasche.“"
+        }
+      ],
+      "epilog_karte": {
+        "id": "seq31_kessel_epilog",
+        "bild": "sequences/abspann_verzicht.png",
+        "titel": "Die beschriftete Restcharge",
+        "text": "Beide Rückläufe sind dokumentiert; nichts wird heimlich abgelassen. Du gehst auf deiner bisherigen Stufe weiter."
+      },
+      "abspann_satz": "Du hast die Flasche abgelegt; die Verantwortung trägst du weiter.",
+      "effects": {
+        "set_flags": [
+          "seq1_verzicht",
+          "seq31_verzicht_kessel"
+        ]
+      }
+    },
+    {
+      "id": "seq31_eisen_verzicht",
+      "pfad": "eisen",
+      "text": "Du legst die Flasche auf den Stützbock, weit weg von der Lastkante. Sie steht dort wie jedes andere abgestellte Gefäß. Die Brücke hält. Du musst weder unter ihr wohnen noch zu ihrem unsichtbaren Träger werden. Ein Arbeiter reicht dir deine Jacke, und du lässt dir beim Anziehen helfen. Die Schultern tun weh. Das macht die getane Arbeit nicht kleiner. Vor dem Gehen zeichnet ihr die Stellung der Stützen an die Wand. Wenn morgen etwas nachgibt, soll die nächste Schicht es erkennen können. Du gehst mit den anderen die Treppe hinauf. Niemand bleibt unten, um deine Stelle einzunehmen. Deine bisherige Stufe bleibt dir. Die Entscheidung ist abgeschlossen, doch dein Leben muss deshalb nicht aufhören. Du nimmst deinen Mantel und lässt die versiegelte Flasche zurück.",
+      "zeugen": [
+        {
+          "npc": "cw_hesk",
+          "text": "„Ihre Berichtigung bleibt bestehen.“"
+        },
+        {
+          "npc": "vmn_tam_verrin",
+          "text": "„Sie können mit demselben Namen weitergehen.“"
+        },
+        {
+          "npc": "ez_ds_rangierer",
+          "text": "„Der Pfad endet nicht an dieser Flasche.“"
+        }
+      ],
+      "epilog_karte": {
+        "id": "seq31_eisen_epilog",
+        "bild": "sequences/abspann_verzicht.png",
+        "titel": "Die verteilte Gegenlast",
+        "text": "Die Last bleibt verteilt, und alle Beteiligten verlassen freiwillig den Prüfbereich. Du gehst auf deiner bisherigen Stufe weiter."
+      },
+      "abspann_satz": "Du hast die Flasche abgelegt; die Verantwortung trägst du weiter.",
+      "effects": {
+        "set_flags": [
+          "seq1_verzicht",
+          "seq31_verzicht_eisen"
+        ]
+      }
+    },
+    {
+      "id": "seq31_schluessel_verzicht",
+      "pfad": "schluessel",
+      "text": "Du stellst die Flasche neben die Schlüsselschale. Das offene Tor bleibt benutzbar. Für seinen Zustand braucht es keinen dauernden Türhüter in deiner Brust. Du zählst die zurückgegebenen Täfelchen ein letztes Mal und schließt nur die Schublade, die vor Zugluft geschützt werden muss. Draußen hält dir jemand die Tür auf. Du bedankst dich und hältst sie der nächsten Person. Diese kleine Abfolge hat keinen Besitzer. Am Abend liegt dein eigener Schlüssel wieder in deiner Tasche. Er öffnet ein Zimmer, dessen Schwelle du teilen darfst. Mehr musst du heute nicht bewachen, und auch dort darfst du schlafen. Deine bisherige Stufe bleibt dir. Die Entscheidung ist abgeschlossen, doch dein Leben muss deshalb nicht aufhören. Du nimmst deinen Mantel und lässt die versiegelte Flasche zurück.",
+      "zeugen": [
+        {
+          "npc": "cw_malliver",
+          "text": "„Ihre Berichtigung bleibt bestehen.“"
+        },
+        {
+          "npc": "vmn_tam_verrin",
+          "text": "„Sie können mit demselben Namen weitergehen.“"
+        },
+        {
+          "npc": "ez_schleusendieb",
+          "text": "„Der Pfad endet nicht an dieser Flasche.“"
+        }
+      ],
+      "epilog_karte": {
+        "id": "seq31_schluessel_epilog",
+        "bild": "sequences/abspann_verzicht.png",
+        "titel": "Die unbesetzte Lade",
+        "text": "Der Zugang bleibt auch nach Abgabe deiner Vollmacht offen. Du gehst auf deiner bisherigen Stufe weiter."
+      },
+      "abspann_satz": "Du hast die Flasche abgelegt; die Verantwortung trägst du weiter.",
+      "effects": {
+        "set_flags": [
+          "seq1_verzicht",
+          "seq31_verzicht_schluessel"
+        ]
+      }
+    },
+    {
+      "id": "seq31_sq_waage_verzicht",
+      "pfad": "sq_waage",
+      "text": "Du legst die Flasche auf die leere Pfandablage. Sie dient niemandem als Sicherheit. Die quittierte Forderung bleibt quittiert, auch ohne deinen Aufstieg. Du streichst eine unbenutzte Zeile für mögliche Nachkommen durch und lässt genügend Platz, um den Grund zu notieren. Die Zeugen bekommen ihre Auslagen aus der vereinbarten Kasse. Danach reicht das Geld nur noch für einen einfachen Heimweg. Du zählst es ohne Bitterkeit. Niemand hat dir ewigen Ausgleich versprochen. Am Markt handelst du später um einen Mantelknopf und bezahlst den vereinbarten Preis. Das Gespräch endet, ohne dass eine neue Schuld zwischen euch stehen bleibt. Deine bisherige Stufe bleibt dir. Die Entscheidung ist abgeschlossen, doch dein Leben muss deshalb nicht aufhören. Du nimmst deinen Mantel und lässt die versiegelte Flasche zurück.",
+      "zeugen": [
+        {
+          "npc": "cw_wicksend",
+          "text": "„Ihre Berichtigung bleibt bestehen.“"
+        },
+        {
+          "npc": "vmn_tam_verrin",
+          "text": "„Sie können mit demselben Namen weitergehen.“"
+        },
+        {
+          "npc": "k3_weichenstellerin",
+          "text": "„Der Pfad endet nicht an dieser Flasche.“"
+        }
+      ],
+      "epilog_karte": {
+        "id": "seq31_sq_waage_epilog",
+        "bild": "sequences/abspann_verzicht.png",
+        "titel": "Die Schuld ohne Pfand",
+        "text": "Die empfangende Person schuldet weder Dienst noch Sicherheit. Du gehst auf deiner bisherigen Stufe weiter."
+      },
+      "abspann_satz": "Du hast die Flasche abgelegt; die Verantwortung trägst du weiter.",
+      "effects": {
+        "set_flags": [
+          "seq1_verzicht",
+          "seq31_verzicht_sq_waage"
+        ]
+      }
+    },
+    {
+      "id": "seq31_sq_moor_verzicht",
+      "pfad": "sq_moor",
+      "text": "Du stellst die Flasche auf einen trockenen Stein zwischen den Torfkästen. Kein Name wird dadurch gelöscht. Auch die fehlende Seite bleibt als Lücke verzeichnet. Du ziehst das Tuch über die Täfelchen, deren Besitzer Ruhe wollten. Dann wäschst du dir den Schlick von den Sohlen. Ein dunkler Rand bleibt, den du später ausbürsten kannst. Auf dem Steg fragt jemand, was unter dem Tuch lag. Du sagst, dass du darüber keine Auskunft geben wirst. Es ist eine kleine Grenze, die ohne neue Macht auskommt. Du gehst weiter und merkst dir den Fundort, ohne ihn jedem zu zeigen. Deine bisherige Stufe bleibt dir. Die Entscheidung ist abgeschlossen, doch dein Leben muss deshalb nicht aufhören. Du nimmst deinen Mantel und lässt die versiegelte Flasche zurück.",
+      "zeugen": [
+        {
+          "npc": "cw_malliver",
+          "text": "„Ihre Berichtigung bleibt bestehen.“"
+        },
+        {
+          "npc": "vmn_tam_verrin",
+          "text": "„Sie können mit demselben Namen weitergehen.“"
+        },
+        {
+          "npc": "ez_ds_schrankenkind",
+          "text": "„Der Pfad endet nicht an dieser Flasche.“"
+        }
+      ],
+      "epilog_karte": {
+        "id": "seq31_sq_moor_epilog",
+        "bild": "sequences/abspann_verzicht.png",
+        "titel": "Die getrennten Namen",
+        "text": "Die verweigerte Namensnennung bleibt respektiert und wird nicht umgangen. Du gehst auf deiner bisherigen Stufe weiter."
+      },
+      "abspann_satz": "Du hast die Flasche abgelegt; die Verantwortung trägst du weiter.",
+      "effects": {
+        "set_flags": [
+          "seq1_verzicht",
+          "seq31_verzicht_sq_moor"
+        ]
+      }
+    },
+    {
+      "id": "seq31_sq_uhr_verzicht",
+      "pfad": "sq_uhr",
+      "text": "Du legst die Flasche unter die Pegeluhr. Sie braucht nicht rechtzeitig geleert zu werden. Die zurückgegebene Minute bleibt bei dem Menschen, dessen Frist sie war. Dein Anschluss ist fort. Du suchst die nächste Abfahrt auf der Tafel und setzt dich bis dahin auf die Bank. Zum ersten Mal seit Tagen versuchst du nicht, diese Wartezeit nutzbar zu machen. Einer der Zeugen bleibt eine Weile neben dir sitzen. Als er gehen muss, hältst du ihn nicht auf. Später kommt die Fähre. Du steigst ein, nachdem die Reisenden vor dir an Bord sind. Der Tag reicht noch bis zum Abend. Deine bisherige Stufe bleibt dir. Die Entscheidung ist abgeschlossen, doch dein Leben muss deshalb nicht aufhören. Du nimmst deinen Mantel und lässt die versiegelte Flasche zurück.",
+      "zeugen": [
+        {
+          "npc": "cw_darnell",
+          "text": "„Ihre Berichtigung bleibt bestehen.“"
+        },
+        {
+          "npc": "vmn_tam_verrin",
+          "text": "„Sie können mit demselben Namen weitergehen.“"
+        },
+        {
+          "npc": "ez_ds_streckenlaeufer",
+          "text": "„Der Pfad endet nicht an dieser Flasche.“"
+        }
+      ],
+      "epilog_karte": {
+        "id": "seq31_sq_uhr_epilog",
+        "bild": "sequences/abspann_verzicht.png",
+        "titel": "Die fremde Frist",
+        "text": "Dein eigener Anschluss bleibt später; niemand verliert dafür seine Frist. Du gehst auf deiner bisherigen Stufe weiter."
+      },
+      "abspann_satz": "Du hast die Flasche abgelegt; die Verantwortung trägst du weiter.",
+      "effects": {
+        "set_flags": [
+          "seq1_verzicht",
+          "seq31_verzicht_sq_uhr"
+        ]
+      }
+    }
+  ]
+}

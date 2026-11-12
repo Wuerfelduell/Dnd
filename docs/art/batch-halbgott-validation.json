@@ -1,0 +1,826 @@
+{
+  "batch": "halbgott",
+  "ok": true,
+  "assets": 73,
+  "frames": 780,
+  "sharedColors": 32,
+  "errors": [],
+  "checks": [
+    "exact required inventory",
+    "dimensions and frame grid",
+    "shared existing palette <=32",
+    "binary alpha and opaque scenes",
+    "nonempty frames",
+    "animation indices and motion",
+    "attack anticipation duplicates",
+    "baseline 30/46 and angel lift",
+    "three boss idle phases",
+    "reverse transformation",
+    "HUD exact nearest-neighbor 2x"
+  ],
+  "files": [
+    {
+      "file": "battle/bg_hg_grenze.png",
+      "size": [
+        480,
+        270
+      ],
+      "colors": 22,
+      "frames": 1,
+      "sha256": "00b077dbdfce277c8a506887c43595da33d9c7aefc9c7e2bdfcaee7c841a6322",
+      "ok": true
+    },
+    {
+      "file": "battle/bg_hg_schwelle.png",
+      "size": [
+        480,
+        270
+      ],
+      "colors": 30,
+      "frames": 1,
+      "sha256": "f3ebdac860ff10acdb6251c1810c49b6fa82fcc2c9537678e8c4f2df99619999",
+      "ok": true
+    },
+    {
+      "file": "battle/hg_battle_echo.png",
+      "size": [
+        576,
+        576
+      ],
+      "colors": 25,
+      "frames": 36,
+      "sha256": "edb0a85c1838ed6c81c67ce6a1ed06f82651ce238fe46d0e12bde40266cdd85f",
+      "ok": true
+    },
+    {
+      "file": "battle/hg_battle_eisen.png",
+      "size": [
+        576,
+        576
+      ],
+      "colors": 31,
+      "frames": 36,
+      "sha256": "3acea6682df81b18cfa318b5e277c7f9553d8cb3c9477e5c108a5ea069adb721",
+      "ok": true
+    },
+    {
+      "file": "battle/hg_battle_faden.png",
+      "size": [
+        576,
+        576
+      ],
+      "colors": 26,
+      "frames": 36,
+      "sha256": "72287f83ad547f6978b03a9dcb0460fd567b4ce3c28aaf50389d1996d0a7d3fa",
+      "ok": true
+    },
+    {
+      "file": "battle/hg_battle_kessel.png",
+      "size": [
+        576,
+        576
+      ],
+      "colors": 32,
+      "frames": 36,
+      "sha256": "965a73f2e7461a30b132e19f4f354c5e43416434dd949517fb5bdcf08db265e4",
+      "ok": true
+    },
+    {
+      "file": "battle/hg_battle_laterne.png",
+      "size": [
+        576,
+        576
+      ],
+      "colors": 30,
+      "frames": 36,
+      "sha256": "a9d8cbad1178f6e9613ddf33d14d5d6aec1d4b69f7c36ba386db515762daffc1",
+      "ok": true
+    },
+    {
+      "file": "battle/hg_battle_maske.png",
+      "size": [
+        576,
+        576
+      ],
+      "colors": 26,
+      "frames": 36,
+      "sha256": "0aad45c91e1ef689b670ac70352c9b55d3fa653281933c91e9e8a5e19e3eb48c",
+      "ok": true
+    },
+    {
+      "file": "battle/hg_battle_schluessel.png",
+      "size": [
+        576,
+        576
+      ],
+      "colors": 26,
+      "frames": 36,
+      "sha256": "47aec007c7190abe70641e0540794caf49b1718d78ea25dc2fd6f98e7220a986",
+      "ok": true
+    },
+    {
+      "file": "battle/hg_battle_sq_moor.png",
+      "size": [
+        576,
+        576
+      ],
+      "colors": 28,
+      "frames": 36,
+      "sha256": "8bce0b591f414eccdec6d01e5e3bed79bdd687a1d8fdf64dfb606f2a179a0633",
+      "ok": true
+    },
+    {
+      "file": "battle/hg_battle_sq_uhr.png",
+      "size": [
+        576,
+        576
+      ],
+      "colors": 31,
+      "frames": 36,
+      "sha256": "284ad9cffe08136e7f6477c698abf4abc67f41af5564a85b5bd290e0b221bbeb",
+      "ok": true
+    },
+    {
+      "file": "battle/hg_battle_sq_waage.png",
+      "size": [
+        576,
+        576
+      ],
+      "colors": 30,
+      "frames": 36,
+      "sha256": "fcc0240c36c76a747ba684d8e8b957f7bd680543f147112214f29a180b2023d8",
+      "ok": true
+    },
+    {
+      "file": "battle/hg_grenzwaechter.png",
+      "size": [
+        768,
+        768
+      ],
+      "colors": 26,
+      "frames": 36,
+      "sha256": "971d673a5d9ff4ed92dc03a2c7dfdb96b9545859835914234cccb6251ddce424",
+      "ok": true
+    },
+    {
+      "file": "battle/hg_schwellenwaechter.png",
+      "size": [
+        768,
+        576
+      ],
+      "colors": 32,
+      "frames": 36,
+      "sha256": "27e20a8fdab3ee349b5dbab79e2e92ceda6df440720997586ca56ed42291f499",
+      "ok": true
+    },
+    {
+      "file": "battle/hg_siegel.png",
+      "size": [
+        320,
+        32
+      ],
+      "colors": 26,
+      "frames": 10,
+      "sha256": "9dd5f168dabeacfebe6533da1bae1394da34fd3b2d9e4d2dd9a7383c4590d89e",
+      "ok": true
+    },
+    {
+      "file": "characters/A_player_drink_engel.png",
+      "size": [
+        192,
+        32
+      ],
+      "colors": 22,
+      "frames": 12,
+      "sha256": "4c6d2b64e786d05d30f3e128a243c6be0e61e3c1c99b772f864ba50b8715dbb7",
+      "ok": true
+    },
+    {
+      "file": "characters/A_player_drink_halbgott.png",
+      "size": [
+        192,
+        32
+      ],
+      "colors": 24,
+      "frames": 12,
+      "sha256": "14b78c1013e265ec11fe623bf86ca02b91911f068f1a285678f1b0136a1a7308",
+      "ok": true
+    },
+    {
+      "file": "characters/hg_form_echo.png",
+      "size": [
+        128,
+        192
+      ],
+      "colors": 21,
+      "frames": 16,
+      "sha256": "9236b84a61a3af3119fe2d2ef3a57d76362175df03ce19936a2c1b7c041a4b18",
+      "ok": true
+    },
+    {
+      "file": "characters/hg_form_eisen.png",
+      "size": [
+        128,
+        192
+      ],
+      "colors": 26,
+      "frames": 16,
+      "sha256": "babeec8e26877004d1c8a837b58e712e6442e9b9b032d437022c1f2865a703ee",
+      "ok": true
+    },
+    {
+      "file": "characters/hg_form_faden.png",
+      "size": [
+        128,
+        192
+      ],
+      "colors": 23,
+      "frames": 16,
+      "sha256": "6baa38e82b1d395dc25a5b4c8f4638660c3a20f775f2070c3b3d34247c8d86da",
+      "ok": true
+    },
+    {
+      "file": "characters/hg_form_kessel.png",
+      "size": [
+        128,
+        192
+      ],
+      "colors": 21,
+      "frames": 16,
+      "sha256": "55451dfbc182cba0942a69141681ec99206cfde3d81d666fcf7ebda87035d769",
+      "ok": true
+    },
+    {
+      "file": "characters/hg_form_laterne.png",
+      "size": [
+        128,
+        192
+      ],
+      "colors": 26,
+      "frames": 16,
+      "sha256": "e52a46c4063cb15b94949009d93f05aa4ad2b706586311b73b134560b1abfd85",
+      "ok": true
+    },
+    {
+      "file": "characters/hg_form_maske.png",
+      "size": [
+        128,
+        192
+      ],
+      "colors": 20,
+      "frames": 16,
+      "sha256": "0495f699552c83aa9fe34eeb3662bfa3922b2fbb4623dd754f7228f51bc288f6",
+      "ok": true
+    },
+    {
+      "file": "characters/hg_form_schluessel.png",
+      "size": [
+        128,
+        192
+      ],
+      "colors": 22,
+      "frames": 16,
+      "sha256": "000fe52bba4a1d3d347c1d900c8a5e11b6489285cb5f0d89c78cb597f5d06727",
+      "ok": true
+    },
+    {
+      "file": "characters/hg_form_sq_moor.png",
+      "size": [
+        128,
+        192
+      ],
+      "colors": 15,
+      "frames": 16,
+      "sha256": "8550e8f15cf9471c565b0e3e05ba31c30a0dbacf23f91598c9c4be14d482539e",
+      "ok": true
+    },
+    {
+      "file": "characters/hg_form_sq_uhr.png",
+      "size": [
+        128,
+        192
+      ],
+      "colors": 29,
+      "frames": 16,
+      "sha256": "4a040b8ba252ffea63d4e8184bc5c2cd35d73f9e39630f12ced18fc696a99a11",
+      "ok": true
+    },
+    {
+      "file": "characters/hg_form_sq_waage.png",
+      "size": [
+        128,
+        192
+      ],
+      "colors": 20,
+      "frames": 16,
+      "sha256": "4a7743867cae4337759ff15be8dfc9a4a6d88a183da98cba327e1d84d67a0956",
+      "ok": true
+    },
+    {
+      "file": "characters/hg_grenzwaechter_karte.png",
+      "size": [
+        128,
+        48
+      ],
+      "colors": 18,
+      "frames": 4,
+      "sha256": "2af914bf22a3f2fe0c292d8aa6c798a8dca1d4da74403451d3d94a167ed51224",
+      "ok": true
+    },
+    {
+      "file": "characters/hg_schwellenwaechter_karte.png",
+      "size": [
+        128,
+        48
+      ],
+      "colors": 25,
+      "frames": 4,
+      "sha256": "5487866eb96ffe9d8fee72b80d42aedb2ff7a551a4976a0e36e43510704ee1e4",
+      "ok": true
+    },
+    {
+      "file": "characters/p2a_drink_engel.png",
+      "size": [
+        192,
+        32
+      ],
+      "colors": 20,
+      "frames": 12,
+      "sha256": "35a4292c87e7020587fc14f32018bc25273914836cc4862573459c5ec46a7c56",
+      "ok": true
+    },
+    {
+      "file": "characters/p2a_drink_halbgott.png",
+      "size": [
+        192,
+        32
+      ],
+      "colors": 22,
+      "frames": 12,
+      "sha256": "810ccc78ed7412632b2fe9f8ada304f68fb439c4d322ad50c1ee03b5a9a24ea3",
+      "ok": true
+    },
+    {
+      "file": "characters/p2b_drink_engel.png",
+      "size": [
+        192,
+        32
+      ],
+      "colors": 22,
+      "frames": 12,
+      "sha256": "7ac5b5f0d8b07f6059f76bbc1084daf632398d26d1d737877539e0f0e3efeb97",
+      "ok": true
+    },
+    {
+      "file": "characters/p2b_drink_halbgott.png",
+      "size": [
+        192,
+        32
+      ],
+      "colors": 22,
+      "frames": 12,
+      "sha256": "d4fa1176b3b21155c4d0a423e2a169771a91ef9e6c1211bd02275dbbed72fdf7",
+      "ok": true
+    },
+    {
+      "file": "fx/HG_aufstieg_2.png",
+      "size": [
+        1920,
+        135
+      ],
+      "colors": 17,
+      "frames": 8,
+      "sha256": "17e52cdeb00949855494b042752c2bcd7b4f78b0369d2e06fa553d3bfa547fcc",
+      "ok": true
+    },
+    {
+      "file": "fx/HG_aufstieg_4.png",
+      "size": [
+        1920,
+        135
+      ],
+      "colors": 18,
+      "frames": 8,
+      "sha256": "cc6beafa570eff7e57e313bdf14e49f3012972b16d85e4b3d20e3df749304745",
+      "ok": true
+    },
+    {
+      "file": "fx/HG_aura_engel.png",
+      "size": [
+        96,
+        36
+      ],
+      "colors": 8,
+      "frames": 4,
+      "sha256": "afb12d3bef0f6393cb7f6adc35ddfe51fa657d5be2c894bf93e11fd75efb89ae",
+      "ok": true
+    },
+    {
+      "file": "fx/HG_aura_halbgott.png",
+      "size": [
+        96,
+        36
+      ],
+      "colors": 2,
+      "frames": 4,
+      "sha256": "254a78ec24467ae606b4412b332ffe78652e6cfc48bf5c6ad4350125ef664bb8",
+      "ok": true
+    },
+    {
+      "file": "fx/HG_furcht.png",
+      "size": [
+        96,
+        16
+      ],
+      "colors": 15,
+      "frames": 6,
+      "sha256": "b1a440de6a93c337803a0ad6cd2862fb4a316512f35c4431805bdd67308e07d6",
+      "ok": true
+    },
+    {
+      "file": "fx/HG_kreatur_wechsel.png",
+      "size": [
+        512,
+        64
+      ],
+      "colors": 7,
+      "frames": 8,
+      "sha256": "cee8cecc9e4aad858de4999d3ac54aa03e9840585c15109249b7fe75d3e60f08",
+      "ok": true
+    },
+    {
+      "file": "fx/HG_umfallen.png",
+      "size": [
+        64,
+        32
+      ],
+      "colors": 13,
+      "frames": 4,
+      "sha256": "7ca09dba355fe3f42a5f5872eaa2c2856608b48133efbb837650d0ada364e5a3",
+      "ok": true
+    },
+    {
+      "file": "fx/HG_zoegern.png",
+      "size": [
+        128,
+        32
+      ],
+      "colors": 11,
+      "frames": 4,
+      "sha256": "f47ac77773bd92d15a83cf793c8de0f76d2e6f58b6f2d9fa5b19712459007820",
+      "ok": true
+    },
+    {
+      "file": "ui/HG_hud.png",
+      "size": [
+        160,
+        16
+      ],
+      "colors": 26,
+      "frames": 10,
+      "sha256": "5278ed955547bb335bacbea22acbc23dedf2969c30c782a139bd052e0fa5d217",
+      "ok": true
+    },
+    {
+      "file": "ui/HG_hud_32.png",
+      "size": [
+        320,
+        32
+      ],
+      "colors": 26,
+      "frames": 10,
+      "sha256": "0fe84adf2b0df737c7cb8bda8b9241c8244e21289efcf3c6f3ceb5e3de9d7bf6",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_seq2_echo.png",
+      "size": [
+        240,
+        135
+      ],
+      "colors": 31,
+      "frames": 1,
+      "sha256": "633796b8ab76aa701adf7f601c78e39d4020ff7e679005905adaf59eff60a660",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_seq2_eisen.png",
+      "size": [
+        240,
+        135
+      ],
+      "colors": 21,
+      "frames": 1,
+      "sha256": "a6127f1efeafe1b1bde17587214bb05ec2feccfa526ed3a0f085dd5b13c3f704",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_seq2_faden.png",
+      "size": [
+        240,
+        135
+      ],
+      "colors": 28,
+      "frames": 1,
+      "sha256": "887be213b69006824dafb4c480d302863b987b2c9987613a7687fa289f569423",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_seq2_kessel.png",
+      "size": [
+        240,
+        135
+      ],
+      "colors": 31,
+      "frames": 1,
+      "sha256": "167d608acf9a81ff8c217be0885b7f72c052f1421af1180e6e5daf25a76f643c",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_seq2_laterne.png",
+      "size": [
+        240,
+        135
+      ],
+      "colors": 32,
+      "frames": 1,
+      "sha256": "2137f2673925c01075842b14686a51ff0313d94de086b528b8fa744a53864804",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_seq2_maske.png",
+      "size": [
+        240,
+        135
+      ],
+      "colors": 27,
+      "frames": 1,
+      "sha256": "6acd8416d12163f5dc3888a0f43d7c073792d10f01a9ec28ab99eec60764eb9e",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_seq2_schluessel.png",
+      "size": [
+        240,
+        135
+      ],
+      "colors": 28,
+      "frames": 1,
+      "sha256": "cc52fa3474eaabe93d6bd45848a251949e99fd76a44d03abbb4d8a256bffcdc5",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_seq2_sq_moor.png",
+      "size": [
+        240,
+        135
+      ],
+      "colors": 23,
+      "frames": 1,
+      "sha256": "25ebc2be61e62517e4175b62ad34b6c27bc6d21e9f3f3987cdc4aba27fb114a3",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_seq2_sq_uhr.png",
+      "size": [
+        240,
+        135
+      ],
+      "colors": 28,
+      "frames": 1,
+      "sha256": "f17cb8e85b31e6ecbe5ef6d593d54dd065ab0d1f88eba29620afe4ad2d59c96c",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_seq2_sq_waage.png",
+      "size": [
+        240,
+        135
+      ],
+      "colors": 24,
+      "frames": 1,
+      "sha256": "134349e8cbddefcc37f231d745b6381830f3380de80dce8ecee2c10f6f1ee39e",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_seq4_echo.png",
+      "size": [
+        240,
+        135
+      ],
+      "colors": 32,
+      "frames": 1,
+      "sha256": "61402e8a43f49dc35e85d868a1af3b64292d5507e3e0715862d002c59bd2027a",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_seq4_eisen.png",
+      "size": [
+        240,
+        135
+      ],
+      "colors": 31,
+      "frames": 1,
+      "sha256": "3bf203dafa0114bb214f76644e5242c106f1d9ffd742299d50437781c660a1d1",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_seq4_faden.png",
+      "size": [
+        240,
+        135
+      ],
+      "colors": 30,
+      "frames": 1,
+      "sha256": "3a842850685c28c4d4dc0de2a35bc747c340881517527e3a68786a43e1167698",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_seq4_kessel.png",
+      "size": [
+        240,
+        135
+      ],
+      "colors": 31,
+      "frames": 1,
+      "sha256": "d18d213513fa405446e90f49017b6db69b3bd968b7c842d5fcf0adfa6fea82cd",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_seq4_laterne.png",
+      "size": [
+        240,
+        135
+      ],
+      "colors": 32,
+      "frames": 1,
+      "sha256": "57a7ea4644a64427fe8037815487451b4b031046bc03860f1ce8e6f646af08dc",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_seq4_maske.png",
+      "size": [
+        240,
+        135
+      ],
+      "colors": 31,
+      "frames": 1,
+      "sha256": "bae3efdd13dd49bcc110a131b6453a36ff2c98c96ffad9a0c4a07c7ddb78136e",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_seq4_schluessel.png",
+      "size": [
+        240,
+        135
+      ],
+      "colors": 31,
+      "frames": 1,
+      "sha256": "69c984e8b7f454e36013b9213c909ec5174c3ab9e2b8a462e67931dd8e7208c0",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_seq4_sq_moor.png",
+      "size": [
+        240,
+        135
+      ],
+      "colors": 31,
+      "frames": 1,
+      "sha256": "a73b08d0988f65496428d29a29fd566b7c590da77c02913416dc5fc5ae003a02",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_seq4_sq_uhr.png",
+      "size": [
+        240,
+        135
+      ],
+      "colors": 32,
+      "frames": 1,
+      "sha256": "f7b550ab7b15d75756efe8ee952a4b302f69bd775fc639dcbedac07560764fcf",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_seq4_sq_waage.png",
+      "size": [
+        240,
+        135
+      ],
+      "colors": 31,
+      "frames": 1,
+      "sha256": "372bac037ab35ecfadc6ba6cd6b22201ae22832400ea71212d7bdd6140ed2ffb",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_zug_echo.png",
+      "size": [
+        32,
+        32
+      ],
+      "colors": 20,
+      "frames": 1,
+      "sha256": "f4079df1002da3925bf510a52c5c2ffd05c54c4da0c6d316e444c0ef5c268f3d",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_zug_eisen.png",
+      "size": [
+        32,
+        32
+      ],
+      "colors": 17,
+      "frames": 1,
+      "sha256": "5b23b381eb08b0649c03c6ca6c1a4c04a04a4d91caa88e79d299c40bf19eb2fb",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_zug_faden.png",
+      "size": [
+        32,
+        32
+      ],
+      "colors": 20,
+      "frames": 1,
+      "sha256": "ace8868fce964a3eba30d7dd33495bdd7fa90a292b2b17b7f09f58112813ac48",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_zug_kessel.png",
+      "size": [
+        32,
+        32
+      ],
+      "colors": 23,
+      "frames": 1,
+      "sha256": "244cb262cb0bf44a020d86bf02de849256b662c114e3f37273396a0889ce0ec9",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_zug_laterne.png",
+      "size": [
+        32,
+        32
+      ],
+      "colors": 26,
+      "frames": 1,
+      "sha256": "1af64697903dad95cad48e6d749ed6ad5b87a723e1d54dced5051b98dfe96799",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_zug_maske.png",
+      "size": [
+        32,
+        32
+      ],
+      "colors": 21,
+      "frames": 1,
+      "sha256": "4ebf0c5464ac61d2492ae1d87b2b6b0b9291eadf3ca2174e17f2e50546afd35c",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_zug_schluessel.png",
+      "size": [
+        32,
+        32
+      ],
+      "colors": 18,
+      "frames": 1,
+      "sha256": "85b9f0c8807ff887200a7731e431c4b60b42e89a6daf73631e12767d15063d18",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_zug_sq_moor.png",
+      "size": [
+        32,
+        32
+      ],
+      "colors": 14,
+      "frames": 1,
+      "sha256": "4c0fa87c0ec9158621c987741a1b7f506efa7aafdc91c595cb2e5ee349f74349",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_zug_sq_uhr.png",
+      "size": [
+        32,
+        32
+      ],
+      "colors": 28,
+      "frames": 1,
+      "sha256": "4c536aede817a5a67bf7af2a237f06cef2e7c905889062aba385d59ab94a62f7",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_zug_sq_waage.png",
+      "size": [
+        32,
+        32
+      ],
+      "colors": 18,
+      "frames": 1,
+      "sha256": "af5c3eafed7952ff25d9334aff1f5e15db68359c1b6227b1e0abb22c49e629dc",
+      "ok": true
+    }
+  ]
+}

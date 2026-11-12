@@ -1,0 +1,672 @@
+{
+  "batch": "fasserin2",
+  "passed": true,
+  "assetCount": 54,
+  "frameCount": 136,
+  "paletteColors": 32,
+  "checks": [
+    "exact file set and dimensions",
+    "32-color shared palette",
+    "binary alpha and zero transparent RGB",
+    "integer frame grid and occupancy",
+    "animation indices, timing and variation",
+    "regions and fixed state ordering",
+    "baseline30",
+    "paired icon sizes",
+    "restricted occult accent",
+    "exact40-80percent fill",
+    "exclusive die outcomes",
+    "prompt provenance"
+  ],
+  "visualReview": "Contact sheet inspected separately; semantic art quality is not proven by pixel checks.",
+  "errors": [],
+  "assets": [
+    {
+      "file": "ui/CQ_auftrag.png",
+      "width": 80,
+      "height": 16,
+      "colors": 25,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 5,
+      "sha256": "7f955aa4b4e6d455ea706fcf809ef6f58aa5a90411628cd14f2657960072dd0a"
+    },
+    {
+      "file": "ui/CQ_auftrag_32.png",
+      "width": 160,
+      "height": 32,
+      "colors": 28,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 5,
+      "sha256": "652b55761961f66532a189cf172cdd8409c142410f9f42191d7b5b1ad60af474"
+    },
+    {
+      "file": "ui/CQ_chance.png",
+      "width": 80,
+      "height": 16,
+      "colors": 11,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 5,
+      "sha256": "02087c6ccdbc133b54071f8a5574509b6ddc431c798bb8e9f88af2c55d619dbc"
+    },
+    {
+      "file": "ui/CQ_zirkel_marke.png",
+      "width": 96,
+      "height": 16,
+      "colors": 25,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 6,
+      "sha256": "0408329de75a2d5e37d6930ba36e1f92cac9981dff4df3baae256ebdec9194c3"
+    },
+    {
+      "file": "ui/CQ_hud.png",
+      "width": 64,
+      "height": 16,
+      "colors": 22,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 4,
+      "sha256": "8c5621729c408b93715a3f7b99ca483a560edca22566c21915efdf2f509fd1ef"
+    },
+    {
+      "file": "ui/CQ_einladung.png",
+      "width": 96,
+      "height": 48,
+      "colors": 27,
+      "alpha": [
+        255
+      ],
+      "frames": 1,
+      "sha256": "fdd8b98febad9c8ab757be93561ac5f6c1c2495077dc9ca119c79a5738facf53"
+    },
+    {
+      "file": "ui/CQ_rahmen_auftrag.png",
+      "width": 48,
+      "height": 48,
+      "colors": 12,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 9,
+      "sha256": "0a24d7e5c7b940280fe10c5d9ad181d18a6bd7a4b4da992e62ff639744e517e9"
+    },
+    {
+      "file": "characters/fasserin_posen.png",
+      "width": 96,
+      "height": 160,
+      "colors": 26,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 30,
+      "sha256": "3078ff056389736c9d3100dfc0fcbc902c5110ff2a7a2e52e4a3c709a4e28257"
+    },
+    {
+      "file": "portraits/fasserin_emotions2.png",
+      "width": 256,
+      "height": 64,
+      "colors": 27,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 4,
+      "sha256": "4a3956290af84a1aa170e156e467b41c0fdf1352ac3e124984aab92c66c9a8be"
+    },
+    {
+      "file": "props/fasserin_werkbank_zustaende.png",
+      "width": 128,
+      "height": 32,
+      "colors": 30,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 4,
+      "sha256": "6bd4c541488d21f6ca27f77e922f10c49f8c90cf322972c6945d3c5214aa0632"
+    },
+    {
+      "file": "props/fasserin_auftragsbrett.png",
+      "width": 32,
+      "height": 48,
+      "colors": 13,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "b6f3a1491d6ce854ce51b6bcd82f43764f27fef08b76359c178d237ad0d50f24"
+    },
+    {
+      "file": "fx/CQ_fassung_erfolg.png",
+      "width": 256,
+      "height": 32,
+      "colors": 26,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 8,
+      "sha256": "274f10219a67e5f0959e421b47b73917046eecb848a798bf0771f55e803aeef0"
+    },
+    {
+      "file": "fx/CQ_fassung_misslungen.png",
+      "width": 256,
+      "height": 32,
+      "colors": 21,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 8,
+      "sha256": "5c597f07c99514976ed1a685c28fc4c44dbff8486b75e3383bfc4e57249a2cf6"
+    },
+    {
+      "file": "fx/CQ_wuerfel.png",
+      "width": 192,
+      "height": 32,
+      "colors": 24,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 6,
+      "sha256": "cc50ee6f3326d21b16da7307e36dfbbe3d0f7021975613cec9f997abfdea9414"
+    },
+    {
+      "file": "items/fa_rattenkrone.png",
+      "width": 16,
+      "height": 16,
+      "colors": 20,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "8f25da69add8631eee4dd69d9e18e4ef349f5ebe5033e347b319b5063df97201"
+    },
+    {
+      "file": "items/32/fa_rattenkrone.png",
+      "width": 32,
+      "height": 32,
+      "colors": 26,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "5c543d389ea5a8504c34d424099ea91ab3b69fb204cd06f3f0425cab4eb18345"
+    },
+    {
+      "file": "items/fa_sternhirschgeweih.png",
+      "width": 16,
+      "height": 16,
+      "colors": 14,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "1d9d841b62efdcc46255522acf047829a4e18d4e3e3c8a9359cf6cca50d5abeb"
+    },
+    {
+      "file": "items/32/fa_sternhirschgeweih.png",
+      "width": 32,
+      "height": 32,
+      "colors": 19,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "33c5f00d3bf31c221b0c783c8a2962773acb0a317b682fb5e791a23acf7ee25f"
+    },
+    {
+      "file": "items/fa_geweihreif.png",
+      "width": 16,
+      "height": 16,
+      "colors": 17,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "a19f4d095ad2b6884948a3bad03248d92f337c29b866eced3762ee715e5278eb"
+    },
+    {
+      "file": "items/32/fa_geweihreif.png",
+      "width": 32,
+      "height": 32,
+      "colors": 22,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "cb5a0b770b4c1cab56b1750cd8840611f823b40fc1c878ad7d52f8eb7cf08d7c"
+    },
+    {
+      "file": "items/fa_geisterkern.png",
+      "width": 16,
+      "height": 16,
+      "colors": 21,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "74612e6be7da71404ce3db7101d07e143fede291e471d2fb06dd543acb4f71a8"
+    },
+    {
+      "file": "items/32/fa_geisterkern.png",
+      "width": 32,
+      "height": 32,
+      "colors": 26,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "dfb9f2e9f7ef0f930e3208a2a001900fdeba9107a1861b6c18919e7edcb33a7d"
+    },
+    {
+      "file": "items/fa_glasfeder.png",
+      "width": 16,
+      "height": 16,
+      "colors": 19,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "b9d372af4c99cb2a41912a0651d98d1f1c825fabbbb1bda6cf107a818782f405"
+    },
+    {
+      "file": "items/32/fa_glasfeder.png",
+      "width": 32,
+      "height": 32,
+      "colors": 21,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "75dcf2d40a184afe19cc57ecf5cbcb5afb1dc5699732e39d6d9caea321f74423"
+    },
+    {
+      "file": "items/fa_wachsherz.png",
+      "width": 16,
+      "height": 16,
+      "colors": 17,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "1dd5eb4e2a933c4fab9623663537be228241d3e4133e2acbc70daac7afb11d78"
+    },
+    {
+      "file": "items/32/fa_wachsherz.png",
+      "width": 32,
+      "height": 32,
+      "colors": 21,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "ed5b8e61791af412ff4666230f3ab7c9b6bf55166e674175ff199550eec68673"
+    },
+    {
+      "file": "items/fa_moorperle.png",
+      "width": 16,
+      "height": 16,
+      "colors": 20,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "553da0d08aa0acfa25a6c543cf3a614e3088d0aa14b32af77ece930887c5f59b"
+    },
+    {
+      "file": "items/32/fa_moorperle.png",
+      "width": 32,
+      "height": 32,
+      "colors": 21,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "de196cb483e1b4d9d77caec5e08beb027e65e5fdc12048c459f0db7036f3d225"
+    },
+    {
+      "file": "items/fa_schlickperle.png",
+      "width": 16,
+      "height": 16,
+      "colors": 15,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "cd4947ba1af42eac3a479302129995d08ab2d8099de59bf6f47118cdbf7c2cf3"
+    },
+    {
+      "file": "items/32/fa_schlickperle.png",
+      "width": 32,
+      "height": 32,
+      "colors": 20,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "ce9c48c4d3d9a1274da3aa9e3249a76636f572b47d66d4c12505ad3901daa876"
+    },
+    {
+      "file": "items/fa_brutschale.png",
+      "width": 16,
+      "height": 16,
+      "colors": 21,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "d00aa5b7c43930a50763185e5a4e4ea8a31b3e06eacfa549ceb755d3c1349b58"
+    },
+    {
+      "file": "items/32/fa_brutschale.png",
+      "width": 32,
+      "height": 32,
+      "colors": 25,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "1351836c838ab032c6d1011490f64e779621dd773894e01f6c3040a59b48de62"
+    },
+    {
+      "file": "items/fa_moewenglas.png",
+      "width": 16,
+      "height": 16,
+      "colors": 19,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "de71de40147c5bd9cd028068467af60fab4fe301f05cf84bee0b8f6f6c02e373"
+    },
+    {
+      "file": "items/32/fa_moewenglas.png",
+      "width": 32,
+      "height": 32,
+      "colors": 24,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "38cfb5316a7ffa17ca9eeb7649766c8e50d208a509cc8751716518f2e5683fc2"
+    },
+    {
+      "file": "items/fa_irrlichtfunke.png",
+      "width": 16,
+      "height": 16,
+      "colors": 23,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "d1f621ce38e6e3bb1ecc76a36f58df3855aba4fd9bf82707ddc10e0937a01745"
+    },
+    {
+      "file": "items/32/fa_irrlichtfunke.png",
+      "width": 32,
+      "height": 32,
+      "colors": 23,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "d17c3e2eb83efad463c04a4c5b37c6e0b326a56d2c18983d1d7fba9ce2e1553f"
+    },
+    {
+      "file": "items/fa_schaedelsplitter.png",
+      "width": 16,
+      "height": 16,
+      "colors": 12,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "b664a685ec2b6612a7dffec7d938e39152ddc88defa953fea14495f0b4e6bada"
+    },
+    {
+      "file": "items/32/fa_schaedelsplitter.png",
+      "width": 32,
+      "height": 32,
+      "colors": 17,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "07ecfc263da08eb1efef3c802018ed90895b2c5e8898d54b42b41023dfc9877d"
+    },
+    {
+      "file": "items/fa_ratssiegel.png",
+      "width": 16,
+      "height": 16,
+      "colors": 14,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "99e752091cb8ae9695394d38d6f40867ba227b68e3ed9714b04b4d6e19f525e3"
+    },
+    {
+      "file": "items/32/fa_ratssiegel.png",
+      "width": 32,
+      "height": 32,
+      "colors": 18,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "76c188666fa2556ab5602f705f4f150bdb4e2f5d6fe253f067a5680bf451ad0b"
+    },
+    {
+      "file": "items/fa_medaille_polizei.png",
+      "width": 16,
+      "height": 16,
+      "colors": 16,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "e8bd498e1f540e2b569bd66c88ba6193b6579c8089b003d74fac3ca4815e0657"
+    },
+    {
+      "file": "items/32/fa_medaille_polizei.png",
+      "width": 32,
+      "height": 32,
+      "colors": 21,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "9922ba7aafea3013da2f2812516c40e15fb16e389db577f256169eca356ac50a"
+    },
+    {
+      "file": "items/fa_fernrohr_messing.png",
+      "width": 16,
+      "height": 16,
+      "colors": 16,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "fd305540df96023773cdc8354c1d10cfd8c6ffc27020fe4d0875b3ccc25f305c"
+    },
+    {
+      "file": "items/32/fa_fernrohr_messing.png",
+      "width": 32,
+      "height": 32,
+      "colors": 23,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "755ce25df9031351c8713e3d7ff8fc85a8b67a6f54eb3df776f0f788fcff37c8"
+    },
+    {
+      "file": "items/fa_bronzeglocke_klein.png",
+      "width": 16,
+      "height": 16,
+      "colors": 16,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "2796a8cdb5f3ba31a919d7d0fd6f3a0a4fa841357f28967c957888fd0ca9c829"
+    },
+    {
+      "file": "items/32/fa_bronzeglocke_klein.png",
+      "width": 32,
+      "height": 32,
+      "colors": 18,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "7942e453ff841c08826ffdb6fa8010dac868b71f595640f3a3c853bfd1f5d1bb"
+    },
+    {
+      "file": "items/fa_spinnfaden_lila.png",
+      "width": 16,
+      "height": 16,
+      "colors": 20,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "67651ed0a94fb514a43a43b975a079e79c335ee0dee9adb124c44ce3b56be4c6"
+    },
+    {
+      "file": "items/32/fa_spinnfaden_lila.png",
+      "width": 32,
+      "height": 32,
+      "colors": 23,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "040ae0ec19ee383c270f80a80620ad9846088fbc34876827264c6c2811e0ede7"
+    },
+    {
+      "file": "items/fa_linsenscherbe.png",
+      "width": 16,
+      "height": 16,
+      "colors": 17,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "78edc8281e3e89d63bbab40cb54f4ff916f95dc721e54964d93830695ae38633"
+    },
+    {
+      "file": "items/32/fa_linsenscherbe.png",
+      "width": 32,
+      "height": 32,
+      "colors": 24,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "7cbc983dcf64e636a265554d5f64e88e0b6e6e42e0677cbf9a26148b81d6b038"
+    },
+    {
+      "file": "items/fa_madenwachs.png",
+      "width": 16,
+      "height": 16,
+      "colors": 16,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "d6d6474b33bfcc4c133d37bf5333ed973e26e5b67f0093ee5ba304f957365ca0"
+    },
+    {
+      "file": "items/32/fa_madenwachs.png",
+      "width": 32,
+      "height": 32,
+      "colors": 25,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "f1dabc7ec53207c6774febed65557c5b2da8f15fcc7d0fb6a0a82486a9689694"
+    },
+    {
+      "file": "items/fa_russklumpen.png",
+      "width": 16,
+      "height": 16,
+      "colors": 15,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "c808af6485669c3303572bd4c3c737d5fa62d756475bd478d2dc126cbdb4fe11"
+    },
+    {
+      "file": "items/32/fa_russklumpen.png",
+      "width": 32,
+      "height": 32,
+      "colors": 22,
+      "alpha": [
+        0,
+        255
+      ],
+      "frames": 1,
+      "sha256": "3d3952a38a6a75e95c95dc2254f5ab835657f485ebd0af01ee9a775ccf89961a"
+    }
+  ]
+}

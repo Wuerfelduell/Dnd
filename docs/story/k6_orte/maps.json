@@ -1,0 +1,1607 @@
+[
+  {
+    "id": "vm_zollhafen",
+    "name": "Zollhafen",
+    "city": "varrowmouth",
+    "size": [
+      48,
+      32
+    ],
+    "tiles": "vm_hafen",
+    "rows": [
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+    ],
+    "spawns": {
+      "default": [
+        2,
+        4
+      ],
+      "boot": [
+        2,
+        4
+      ]
+    },
+    "interactables": [
+      {
+        "id": "vm_zollhafen_nach_stegviertel",
+        "kind": "door",
+        "tile": [
+          3,
+          4
+        ],
+        "to": "vm_stegviertel",
+        "spawn": "default",
+        "prompt": "Stegviertel",
+        "gezeiten": [
+          "ebbe",
+          "flut"
+        ],
+        "mode": "fuss"
+      },
+      {
+        "id": "vm_zollhafen_nach_oberstrasse",
+        "kind": "door",
+        "tile": [
+          6,
+          4
+        ],
+        "to": "vm_oberstrasse",
+        "spawn": "default",
+        "prompt": "Oberstraße",
+        "gezeiten": [
+          "ebbe",
+          "flut"
+        ],
+        "mode": "fuss"
+      },
+      {
+        "id": "vm_zollhafen_nach_leuchtbank",
+        "kind": "door",
+        "tile": [
+          9,
+          4
+        ],
+        "to": "vm_leuchtbank",
+        "spawn": "default",
+        "prompt": "Leuchtbank",
+        "gezeiten": [
+          "ebbe",
+          "flut"
+        ],
+        "mode": "boot"
+      },
+      {
+        "id": "vm_zollhafen_schild",
+        "kind": "read",
+        "tile": [
+          2,
+          3
+        ],
+        "title": "Zollhafen",
+        "prompt": "Pegelhinweis lesen",
+        "text": "Du prüfst die Hochwassermarke. Die Glocke kündigt den Wechsel an."
+      }
+    ],
+    "npcs": [
+      {
+        "id": "vmn_tam_verrin",
+        "tile": [
+          4,
+          6
+        ]
+      }
+    ],
+    "lights": [
+      {
+        "tile": [
+          2,
+          4
+        ],
+        "radius": 64,
+        "intensity": 0.7,
+        "color": "#e6c58a"
+      }
+    ],
+    "ambient": {
+      "night": 0.45,
+      "fog": 0.2
+    },
+    "nacht": {
+      "wege": "Unverändert; Gezeit bleibt unabhängig von Tageszeit.",
+      "handel": "Kantine offen; Markt und Apotheke bis Morgen geschlossen."
+    },
+    "gezeiten": {
+      "ebbe": {
+        "begehbar": [
+          [
+            1,
+            1,
+            46,
+            30
+          ]
+        ],
+        "offene_tueren": [
+          "vm_zollhafen_nach_stegviertel",
+          "vm_zollhafen_nach_oberstrasse",
+          "vm_zollhafen_nach_leuchtbank"
+        ],
+        "props": [
+          {
+            "asset": "vm_schlickrand",
+            "tile": [
+              44,
+              28
+            ]
+          }
+        ],
+        "gegnerplaetze": [],
+        "zone_offen": true,
+        "rettung": {
+          "map": "vm_stegviertel",
+          "spawn": "default"
+        },
+        "meldung": "Die Pegeluhr zeigt den neuen Stand."
+      },
+      "flut": {
+        "begehbar": [
+          [
+            1,
+            1,
+            46,
+            30
+          ]
+        ],
+        "offene_tueren": [
+          "vm_zollhafen_nach_stegviertel",
+          "vm_zollhafen_nach_oberstrasse",
+          "vm_zollhafen_nach_leuchtbank"
+        ],
+        "props": [
+          {
+            "asset": "vm_wasserlinie",
+            "tile": [
+              44,
+              28
+            ]
+          }
+        ],
+        "gegnerplaetze": [],
+        "zone_offen": true,
+        "rettung": {
+          "map": "vm_stegviertel",
+          "spawn": "default"
+        },
+        "meldung": "Die Pegeluhr zeigt den neuen Stand."
+      }
+    }
+  },
+  {
+    "id": "vm_stegviertel",
+    "name": "Stegviertel",
+    "city": "varrowmouth",
+    "size": [
+      48,
+      32
+    ],
+    "tiles": "vm_stege",
+    "rows": [
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+    ],
+    "spawns": {
+      "default": [
+        2,
+        4
+      ],
+      "boot": [
+        2,
+        4
+      ]
+    },
+    "interactables": [
+      {
+        "id": "vm_stegviertel_nach_zollhafen",
+        "kind": "door",
+        "tile": [
+          3,
+          4
+        ],
+        "to": "vm_zollhafen",
+        "spawn": "default",
+        "prompt": "Zollhafen",
+        "gezeiten": [
+          "ebbe",
+          "flut"
+        ],
+        "mode": "fuss"
+      },
+      {
+        "id": "vm_stegviertel_nach_schlickgassen",
+        "kind": "door",
+        "tile": [
+          6,
+          4
+        ],
+        "to": "vm_schlickgassen",
+        "spawn": "default",
+        "prompt": "Schlickgassen",
+        "gezeiten": [
+          "ebbe"
+        ],
+        "mode": "fuss"
+      },
+      {
+        "id": "vm_stegviertel_nach_wrackfeld",
+        "kind": "door",
+        "tile": [
+          9,
+          4
+        ],
+        "to": "vm_wrackfeld",
+        "spawn": "default",
+        "prompt": "Wrackfeld",
+        "gezeiten": [
+          "flut"
+        ],
+        "mode": "boot"
+      },
+      {
+        "id": "vm_stegviertel_schild",
+        "kind": "read",
+        "tile": [
+          2,
+          3
+        ],
+        "title": "Stegviertel",
+        "prompt": "Pegelhinweis lesen",
+        "text": "Du prüfst die Hochwassermarke. Die Glocke kündigt den Wechsel an."
+      }
+    ],
+    "npcs": [
+      {
+        "id": "vmn_tam_verrin",
+        "tile": [
+          4,
+          6
+        ]
+      }
+    ],
+    "lights": [
+      {
+        "tile": [
+          2,
+          4
+        ],
+        "radius": 64,
+        "intensity": 0.7,
+        "color": "#e6c58a"
+      }
+    ],
+    "ambient": {
+      "night": 0.45,
+      "fog": 0.2
+    },
+    "nacht": {
+      "wege": "Unverändert; Gezeit bleibt unabhängig von Tageszeit.",
+      "handel": "Kantine offen; Markt und Apotheke bis Morgen geschlossen."
+    },
+    "gezeiten": {
+      "ebbe": {
+        "begehbar": [
+          [
+            1,
+            1,
+            46,
+            30
+          ]
+        ],
+        "offene_tueren": [
+          "vm_stegviertel_nach_zollhafen",
+          "vm_stegviertel_nach_schlickgassen"
+        ],
+        "props": [
+          {
+            "asset": "vm_schlickrand",
+            "tile": [
+              44,
+              28
+            ]
+          }
+        ],
+        "gegnerplaetze": [],
+        "zone_offen": true,
+        "rettung": {
+          "map": "vm_stegviertel",
+          "spawn": "default"
+        },
+        "meldung": "Die Pegeluhr zeigt den neuen Stand."
+      },
+      "flut": {
+        "begehbar": [
+          [
+            1,
+            1,
+            46,
+            7
+          ],
+          [
+            1,
+            8,
+            7,
+            23
+          ]
+        ],
+        "offene_tueren": [
+          "vm_stegviertel_nach_zollhafen",
+          "vm_stegviertel_nach_wrackfeld"
+        ],
+        "props": [
+          {
+            "asset": "vm_wasserlinie",
+            "tile": [
+              44,
+              28
+            ]
+          }
+        ],
+        "gegnerplaetze": [],
+        "zone_offen": true,
+        "rettung": {
+          "map": "vm_stegviertel",
+          "spawn": "default"
+        },
+        "meldung": "Die Pegeluhr zeigt den neuen Stand."
+      }
+    }
+  },
+  {
+    "id": "vm_schlickgassen",
+    "name": "Schlickgassen",
+    "city": "varrowmouth",
+    "size": [
+      48,
+      32
+    ],
+    "tiles": "vm_schlick",
+    "rows": [
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+    ],
+    "spawns": {
+      "default": [
+        2,
+        4
+      ],
+      "boot": [
+        2,
+        4
+      ]
+    },
+    "interactables": [
+      {
+        "id": "vm_schlickgassen_nach_stegviertel",
+        "kind": "door",
+        "tile": [
+          3,
+          4
+        ],
+        "to": "vm_stegviertel",
+        "spawn": "default",
+        "prompt": "Stegviertel",
+        "gezeiten": [
+          "ebbe"
+        ],
+        "mode": "fuss"
+      },
+      {
+        "id": "vm_schlickgassen_nach_wrackfeld",
+        "kind": "door",
+        "tile": [
+          6,
+          4
+        ],
+        "to": "vm_wrackfeld",
+        "spawn": "default",
+        "prompt": "Wrackfeld",
+        "gezeiten": [
+          "ebbe"
+        ],
+        "mode": "fuss"
+      },
+      {
+        "id": "vm_schlickgassen_schild",
+        "kind": "read",
+        "tile": [
+          2,
+          3
+        ],
+        "title": "Schlickgassen",
+        "prompt": "Pegelhinweis lesen",
+        "text": "Du prüfst die Hochwassermarke. Die Glocke kündigt den Wechsel an."
+      }
+    ],
+    "npcs": [
+      {
+        "id": "vmn_nell_quarrie",
+        "tile": [
+          4,
+          6
+        ]
+      }
+    ],
+    "lights": [
+      {
+        "tile": [
+          2,
+          4
+        ],
+        "radius": 64,
+        "intensity": 0.7,
+        "color": "#e6c58a"
+      }
+    ],
+    "ambient": {
+      "night": 0.45,
+      "fog": 0.2
+    },
+    "nacht": {
+      "wege": "Unverändert; Gezeit bleibt unabhängig von Tageszeit.",
+      "handel": "Kantine offen; Markt und Apotheke bis Morgen geschlossen."
+    },
+    "gezeiten": {
+      "ebbe": {
+        "begehbar": [
+          [
+            1,
+            1,
+            46,
+            30
+          ]
+        ],
+        "offene_tueren": [
+          "vm_schlickgassen_nach_stegviertel",
+          "vm_schlickgassen_nach_wrackfeld"
+        ],
+        "props": [
+          {
+            "asset": "vm_schlickrand",
+            "tile": [
+              44,
+              28
+            ]
+          }
+        ],
+        "gegnerplaetze": [],
+        "zone_offen": true,
+        "rettung": {
+          "map": "vm_stegviertel",
+          "spawn": "default"
+        },
+        "meldung": "Die Pegeluhr zeigt den neuen Stand."
+      },
+      "flut": {
+        "begehbar": [],
+        "offene_tueren": [],
+        "props": [
+          {
+            "asset": "vm_wasserlinie",
+            "tile": [
+              44,
+              28
+            ]
+          }
+        ],
+        "gegnerplaetze": [],
+        "zone_offen": false,
+        "rettung": {
+          "map": "vm_stegviertel",
+          "spawn": "default"
+        },
+        "meldung": "Das Wasser kommt. Du erreichst den oberen Weg."
+      }
+    }
+  },
+  {
+    "id": "vm_oberstrasse",
+    "name": "Oberstraße",
+    "city": "varrowmouth",
+    "size": [
+      48,
+      32
+    ],
+    "tiles": "vm_oberstrasse",
+    "rows": [
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+    ],
+    "spawns": {
+      "default": [
+        2,
+        4
+      ],
+      "boot": [
+        2,
+        4
+      ]
+    },
+    "interactables": [
+      {
+        "id": "vm_oberstrasse_nach_zollhafen",
+        "kind": "door",
+        "tile": [
+          3,
+          4
+        ],
+        "to": "vm_zollhafen",
+        "spawn": "default",
+        "prompt": "Zollhafen",
+        "gezeiten": [
+          "ebbe",
+          "flut"
+        ],
+        "mode": "fuss"
+      },
+      {
+        "id": "vm_oberstrasse_nach_registerkeller",
+        "kind": "door",
+        "tile": [
+          6,
+          4
+        ],
+        "to": "vm_registerkeller",
+        "spawn": "default",
+        "prompt": "Registerkeller",
+        "gezeiten": [
+          "ebbe"
+        ],
+        "mode": "fuss"
+      },
+      {
+        "id": "vm_oberstrasse_nach_grenzzaun",
+        "kind": "door",
+        "tile": [
+          9,
+          4
+        ],
+        "to": "vm_grenzzaun",
+        "spawn": "default",
+        "prompt": "Grenzzaun",
+        "gezeiten": [
+          "ebbe",
+          "flut"
+        ],
+        "mode": "fuss"
+      },
+      {
+        "id": "vm_oberstrasse_schild",
+        "kind": "read",
+        "tile": [
+          2,
+          3
+        ],
+        "title": "Oberstraße",
+        "prompt": "Pegelhinweis lesen",
+        "text": "Du prüfst die Hochwassermarke. Die Glocke kündigt den Wechsel an."
+      }
+    ],
+    "npcs": [
+      {
+        "id": "vmn_rat_1",
+        "tile": [
+          4,
+          6
+        ]
+      },
+      {
+        "id": "vmn_rat_2",
+        "tile": [
+          7,
+          6
+        ]
+      },
+      {
+        "id": "vmn_rat_3",
+        "tile": [
+          10,
+          6
+        ]
+      },
+      {
+        "id": "vmn_rat_4",
+        "tile": [
+          13,
+          6
+        ]
+      },
+      {
+        "id": "vmn_rat_5",
+        "tile": [
+          16,
+          6
+        ]
+      },
+      {
+        "id": "vmn_rat_6",
+        "tile": [
+          19,
+          6
+        ]
+      },
+      {
+        "id": "vmn_rat_7",
+        "tile": [
+          22,
+          6
+        ]
+      }
+    ],
+    "lights": [
+      {
+        "tile": [
+          2,
+          4
+        ],
+        "radius": 64,
+        "intensity": 0.7,
+        "color": "#e6c58a"
+      }
+    ],
+    "ambient": {
+      "night": 0.45,
+      "fog": 0.2
+    },
+    "nacht": {
+      "wege": "Unverändert; Gezeit bleibt unabhängig von Tageszeit.",
+      "handel": "Kantine offen; Markt und Apotheke bis Morgen geschlossen."
+    },
+    "gezeiten": {
+      "ebbe": {
+        "begehbar": [
+          [
+            1,
+            1,
+            46,
+            30
+          ]
+        ],
+        "offene_tueren": [
+          "vm_oberstrasse_nach_zollhafen",
+          "vm_oberstrasse_nach_registerkeller",
+          "vm_oberstrasse_nach_grenzzaun"
+        ],
+        "props": [
+          {
+            "asset": "vm_schlickrand",
+            "tile": [
+              44,
+              28
+            ]
+          }
+        ],
+        "gegnerplaetze": [],
+        "zone_offen": true,
+        "rettung": {
+          "map": "vm_stegviertel",
+          "spawn": "default"
+        },
+        "meldung": "Die Pegeluhr zeigt den neuen Stand."
+      },
+      "flut": {
+        "begehbar": [
+          [
+            1,
+            1,
+            46,
+            30
+          ]
+        ],
+        "offene_tueren": [
+          "vm_oberstrasse_nach_zollhafen",
+          "vm_oberstrasse_nach_grenzzaun"
+        ],
+        "props": [
+          {
+            "asset": "vm_wasserlinie",
+            "tile": [
+              44,
+              28
+            ]
+          }
+        ],
+        "gegnerplaetze": [],
+        "zone_offen": true,
+        "rettung": {
+          "map": "vm_stegviertel",
+          "spawn": "default"
+        },
+        "meldung": "Die Pegeluhr zeigt den neuen Stand."
+      }
+    }
+  },
+  {
+    "id": "vm_wrackfeld",
+    "name": "Wrackfeld",
+    "city": "varrowmouth",
+    "size": [
+      48,
+      32
+    ],
+    "tiles": "vm_wrack",
+    "rows": [
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+    ],
+    "spawns": {
+      "default": [
+        2,
+        4
+      ],
+      "boot": [
+        2,
+        4
+      ]
+    },
+    "interactables": [
+      {
+        "id": "vm_wrackfeld_nach_schlickgassen",
+        "kind": "door",
+        "tile": [
+          3,
+          4
+        ],
+        "to": "vm_schlickgassen",
+        "spawn": "default",
+        "prompt": "Schlickgassen",
+        "gezeiten": [
+          "ebbe"
+        ],
+        "mode": "fuss"
+      },
+      {
+        "id": "vm_wrackfeld_nach_stegviertel",
+        "kind": "door",
+        "tile": [
+          6,
+          4
+        ],
+        "to": "vm_stegviertel",
+        "spawn": "default",
+        "prompt": "Stegviertel",
+        "gezeiten": [
+          "flut"
+        ],
+        "mode": "boot"
+      },
+      {
+        "id": "vm_wrackfeld_schild",
+        "kind": "read",
+        "tile": [
+          2,
+          3
+        ],
+        "title": "Wrackfeld",
+        "prompt": "Pegelhinweis lesen",
+        "text": "Du prüfst die Hochwassermarke. Die Glocke kündigt den Wechsel an."
+      }
+    ],
+    "npcs": [],
+    "lights": [
+      {
+        "tile": [
+          2,
+          4
+        ],
+        "radius": 64,
+        "intensity": 0.7,
+        "color": "#e6c58a"
+      }
+    ],
+    "ambient": {
+      "night": 0.45,
+      "fog": 0.2
+    },
+    "nacht": {
+      "wege": "Unverändert; Gezeit bleibt unabhängig von Tageszeit.",
+      "handel": "Kantine offen; Markt und Apotheke bis Morgen geschlossen."
+    },
+    "gezeiten": {
+      "ebbe": {
+        "begehbar": [
+          [
+            1,
+            1,
+            46,
+            30
+          ]
+        ],
+        "offene_tueren": [
+          "vm_wrackfeld_nach_schlickgassen"
+        ],
+        "props": [
+          {
+            "asset": "vm_schlickrand",
+            "tile": [
+              44,
+              28
+            ]
+          }
+        ],
+        "gegnerplaetze": [
+          {
+            "encounter": "vme_salzkruste",
+            "tile": [
+              4,
+              7
+            ],
+            "count": 1
+          },
+          {
+            "encounter": "vme_tauwerk",
+            "tile": [
+              6,
+              7
+            ],
+            "count": 1
+          },
+          {
+            "encounter": "vme_hafenkraehe",
+            "tile": [
+              8,
+              7
+            ],
+            "count": 1
+          }
+        ],
+        "zone_offen": true,
+        "rettung": {
+          "map": "vm_stegviertel",
+          "spawn": "default"
+        },
+        "meldung": "Das Wasser kommt. Du erreichst den oberen Weg."
+      },
+      "flut": {
+        "begehbar": [
+          [
+            1,
+            1,
+            46,
+            7
+          ],
+          [
+            1,
+            8,
+            7,
+            23
+          ]
+        ],
+        "offene_tueren": [
+          "vm_wrackfeld_nach_stegviertel"
+        ],
+        "props": [
+          {
+            "asset": "vm_wasserlinie",
+            "tile": [
+              44,
+              28
+            ]
+          }
+        ],
+        "gegnerplaetze": [],
+        "zone_offen": false,
+        "rettung": {
+          "map": "vm_stegviertel",
+          "spawn": "default"
+        },
+        "meldung": "Das Wasser kommt. Du erreichst den oberen Weg."
+      }
+    }
+  },
+  {
+    "id": "vm_leuchtbank",
+    "name": "Leuchtbank",
+    "city": "varrowmouth",
+    "size": [
+      48,
+      32
+    ],
+    "tiles": "vm_leuchtbank",
+    "rows": [
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+    ],
+    "spawns": {
+      "default": [
+        2,
+        4
+      ],
+      "boot": [
+        2,
+        4
+      ]
+    },
+    "interactables": [
+      {
+        "id": "vm_leuchtbank_nach_zollhafen",
+        "kind": "door",
+        "tile": [
+          3,
+          4
+        ],
+        "to": "vm_zollhafen",
+        "spawn": "default",
+        "prompt": "Zollhafen",
+        "gezeiten": [
+          "ebbe",
+          "flut"
+        ],
+        "mode": "boot"
+      },
+      {
+        "id": "vm_leuchtbank_schild",
+        "kind": "read",
+        "tile": [
+          2,
+          3
+        ],
+        "title": "Leuchtbank",
+        "prompt": "Pegelhinweis lesen",
+        "text": "Du prüfst die Hochwassermarke. Die Glocke kündigt den Wechsel an."
+      }
+    ],
+    "npcs": [
+      {
+        "id": "vmn_osric_dale",
+        "tile": [
+          4,
+          6
+        ]
+      }
+    ],
+    "lights": [
+      {
+        "tile": [
+          2,
+          4
+        ],
+        "radius": 64,
+        "intensity": 0.7,
+        "color": "#e6c58a"
+      }
+    ],
+    "ambient": {
+      "night": 0.45,
+      "fog": 0.2
+    },
+    "nacht": {
+      "wege": "Unverändert; Gezeit bleibt unabhängig von Tageszeit.",
+      "handel": "Kantine offen; Markt und Apotheke bis Morgen geschlossen."
+    },
+    "gezeiten": {
+      "ebbe": {
+        "begehbar": [
+          [
+            1,
+            1,
+            46,
+            30
+          ]
+        ],
+        "offene_tueren": [
+          "vm_leuchtbank_nach_zollhafen"
+        ],
+        "props": [
+          {
+            "asset": "vm_schlickrand",
+            "tile": [
+              44,
+              28
+            ]
+          }
+        ],
+        "gegnerplaetze": [
+          {
+            "encounter": "vme_gezeitenlaeufer",
+            "tile": [
+              4,
+              7
+            ],
+            "count": 1
+          },
+          {
+            "encounter": "vme_zollgeist",
+            "tile": [
+              6,
+              7
+            ],
+            "count": 1
+          }
+        ],
+        "zone_offen": true,
+        "rettung": {
+          "map": "vm_stegviertel",
+          "spawn": "default"
+        },
+        "meldung": "Die Pegeluhr zeigt den neuen Stand."
+      },
+      "flut": {
+        "begehbar": [
+          [
+            1,
+            1,
+            46,
+            7
+          ],
+          [
+            1,
+            8,
+            7,
+            23
+          ]
+        ],
+        "offene_tueren": [
+          "vm_leuchtbank_nach_zollhafen"
+        ],
+        "props": [
+          {
+            "asset": "vm_wasserlinie",
+            "tile": [
+              44,
+              28
+            ]
+          }
+        ],
+        "gegnerplaetze": [
+          {
+            "encounter": "vme_gezeitenlaeufer",
+            "tile": [
+              4,
+              7
+            ],
+            "count": 1
+          },
+          {
+            "encounter": "vme_zollgeist",
+            "tile": [
+              6,
+              7
+            ],
+            "count": 1
+          }
+        ],
+        "zone_offen": true,
+        "rettung": {
+          "map": "vm_stegviertel",
+          "spawn": "default"
+        },
+        "meldung": "Die Pegeluhr zeigt den neuen Stand."
+      }
+    }
+  },
+  {
+    "id": "vm_registerkeller",
+    "name": "Registerkeller",
+    "city": "varrowmouth",
+    "size": [
+      24,
+      16
+    ],
+    "tiles": "vm_innen",
+    "rows": [
+      "IIIIIIIIIIIIIIIIIIIIIIII",
+      "I......................I",
+      "I......................I",
+      "I......................I",
+      "I......................I",
+      "I......................I",
+      "I......................I",
+      "I......................I",
+      "I......................I",
+      "I......................I",
+      "I......................I",
+      "I......................I",
+      "I......................I",
+      "I......................I",
+      "I......................I",
+      "IIIIIIIIIIIIIIIIIIIIIIII"
+    ],
+    "spawns": {
+      "default": [
+        2,
+        4
+      ],
+      "boot": [
+        2,
+        4
+      ]
+    },
+    "interactables": [
+      {
+        "id": "vm_registerkeller_nach_oberstrasse",
+        "kind": "door",
+        "tile": [
+          3,
+          4
+        ],
+        "to": "vm_oberstrasse",
+        "spawn": "default",
+        "prompt": "Oberstraße",
+        "gezeiten": [
+          "ebbe"
+        ],
+        "mode": "fuss"
+      },
+      {
+        "id": "vm_registerkeller_schild",
+        "kind": "read",
+        "tile": [
+          2,
+          3
+        ],
+        "title": "Registerkeller",
+        "prompt": "Pegelhinweis lesen",
+        "text": "Du prüfst die Hochwassermarke. Die Glocke kündigt den Wechsel an."
+      }
+    ],
+    "npcs": [
+      {
+        "id": "vmn_pegelherrin",
+        "tile": [
+          4,
+          6
+        ]
+      }
+    ],
+    "lights": [
+      {
+        "tile": [
+          2,
+          4
+        ],
+        "radius": 64,
+        "intensity": 0.7,
+        "color": "#e6c58a"
+      }
+    ],
+    "ambient": {
+      "night": 0.45,
+      "fog": 0.2
+    },
+    "nacht": {
+      "wege": "Unverändert; Gezeit bleibt unabhängig von Tageszeit.",
+      "handel": "Kantine offen; Markt und Apotheke bis Morgen geschlossen."
+    },
+    "gezeiten": {
+      "ebbe": {
+        "begehbar": [
+          [
+            1,
+            1,
+            22,
+            14
+          ]
+        ],
+        "offene_tueren": [
+          "vm_registerkeller_nach_oberstrasse"
+        ],
+        "props": [
+          {
+            "asset": "vm_schlickrand",
+            "tile": [
+              20,
+              12
+            ]
+          }
+        ],
+        "gegnerplaetze": [],
+        "zone_offen": true,
+        "rettung": {
+          "map": "vm_oberstrasse",
+          "spawn": "default"
+        },
+        "meldung": "Die Pegeluhr zeigt den neuen Stand."
+      },
+      "flut": {
+        "begehbar": [],
+        "offene_tueren": [],
+        "props": [
+          {
+            "asset": "vm_wasserlinie",
+            "tile": [
+              20,
+              12
+            ]
+          }
+        ],
+        "gegnerplaetze": [],
+        "zone_offen": false,
+        "rettung": {
+          "map": "vm_oberstrasse",
+          "spawn": "default"
+        },
+        "meldung": "Das Wasser kommt. Du erreichst den oberen Weg."
+      }
+    }
+  },
+  {
+    "id": "vm_grenzzaun",
+    "name": "Grenzzaun",
+    "city": "varrowmouth",
+    "size": [
+      48,
+      32
+    ],
+    "tiles": "vm_oberstrasse",
+    "rows": [
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+    ],
+    "spawns": {
+      "default": [
+        2,
+        4
+      ],
+      "boot": [
+        2,
+        4
+      ]
+    },
+    "interactables": [
+      {
+        "id": "vm_grenzzaun_nach_oberstrasse",
+        "kind": "door",
+        "tile": [
+          3,
+          4
+        ],
+        "to": "vm_oberstrasse",
+        "spawn": "default",
+        "prompt": "Oberstraße",
+        "gezeiten": [
+          "ebbe",
+          "flut"
+        ],
+        "mode": "fuss"
+      },
+      {
+        "id": "vm_grenzzaun_nord",
+        "kind": "door",
+        "tile": [
+          24,
+          4
+        ],
+        "to": "hg_grenzbezirk",
+        "spawn": "default",
+        "prompt": "Grenzbezirk",
+        "gezeiten": [
+          "ebbe",
+          "flut"
+        ],
+        "requires_flags": [
+          "k6_cu_grenzpassage"
+        ]
+      },
+      {
+        "id": "vm_grenzzaun_schild",
+        "kind": "read",
+        "tile": [
+          2,
+          3
+        ],
+        "title": "Grenzzaun",
+        "prompt": "Pegelhinweis lesen",
+        "text": "Du prüfst die Hochwassermarke. Die Glocke kündigt den Wechsel an."
+      }
+    ],
+    "npcs": [],
+    "lights": [
+      {
+        "tile": [
+          2,
+          4
+        ],
+        "radius": 64,
+        "intensity": 0.7,
+        "color": "#e6c58a"
+      }
+    ],
+    "ambient": {
+      "night": 0.45,
+      "fog": 0.2
+    },
+    "nacht": {
+      "wege": "Unverändert; Gezeit bleibt unabhängig von Tageszeit.",
+      "handel": "Kantine offen; Markt und Apotheke bis Morgen geschlossen."
+    },
+    "gezeiten": {
+      "ebbe": {
+        "begehbar": [
+          [
+            1,
+            1,
+            46,
+            30
+          ]
+        ],
+        "offene_tueren": [
+          "vm_grenzzaun_nach_oberstrasse",
+          "vm_grenzzaun_nord"
+        ],
+        "props": [
+          {
+            "asset": "vm_schlickrand",
+            "tile": [
+              44,
+              28
+            ]
+          }
+        ],
+        "gegnerplaetze": [
+          {
+            "encounter": "vme_pegelknecht",
+            "tile": [
+              4,
+              7
+            ],
+            "count": 2
+          }
+        ],
+        "zone_offen": true,
+        "rettung": {
+          "map": "vm_stegviertel",
+          "spawn": "default"
+        },
+        "meldung": "Die Pegeluhr zeigt den neuen Stand."
+      },
+      "flut": {
+        "begehbar": [
+          [
+            1,
+            1,
+            46,
+            30
+          ]
+        ],
+        "offene_tueren": [
+          "vm_grenzzaun_nach_oberstrasse",
+          "vm_grenzzaun_nord"
+        ],
+        "props": [
+          {
+            "asset": "vm_wasserlinie",
+            "tile": [
+              44,
+              28
+            ]
+          }
+        ],
+        "gegnerplaetze": [
+          {
+            "encounter": "vme_pegelknecht",
+            "tile": [
+              4,
+              7
+            ],
+            "count": 2
+          }
+        ],
+        "zone_offen": true,
+        "rettung": {
+          "map": "vm_stegviertel",
+          "spawn": "default"
+        },
+        "meldung": "Die Pegeluhr zeigt den neuen Stand."
+      }
+    }
+  }
+]
