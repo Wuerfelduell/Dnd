@@ -1076,9 +1076,12 @@ export class WorldScene extends Phaser.Scene {
     this.playerKey = this.skinKey();
     let px;
     let py;
-    if (this.state.position) {
-      [px, py] = this.state.position;
-      this.state.position = null;
+    // Gespeicherte Stelle nur, wenn sie noch Boden ist (Karten können neu angeordnet worden sein, z. B. Dunscar-Raster)
+    const pos = this.state.position;
+    const onFloor = pos && /[^I#WDRf~]/.test(this.mapDef.rows?.[Math.floor((pos[1] - 1) / TILE)]?.[Math.floor(pos[0] / TILE)] ?? 'I');
+    this.state.position = null;
+    if (pos && onFloor) {
+      [px, py] = pos;
     } else {
       const spawns = this.mapDef.spawns;
       const [tx, ty] = spawns[this.state.spawn] ?? spawns.default;
