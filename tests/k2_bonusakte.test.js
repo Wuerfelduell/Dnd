@@ -1,0 +1,49 @@
+// Bonusakte nach Kapitel 2: nach Brandt zeigt das Notizbuch den Weg nach Dunscar (`npm test`)
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { GameState } from '../src/core/GameState.js';
+import { questTarget } from '../src/core/Guide.js';
+import { loadContent } from './helpers.js';
+
+const content = loadContent();
+const ZIEL = { rein: 'wx_kahn', moor: 'wx_kahn', lichtmeister: 'wx_leuchtturm', meer: 'wx_kahn' };
+
+test('Nach dem Leuchtfeuer zeigt der Wegweiser auf Brandt', () => {
+  const s = new GameState(content);
+  s.startQuest('k2_akt5');
+  for (const s0 of content.quests.k2_akt5.steps.slice(0, -1)) for (const f of s0.done.requires_flags) s.flags.add(f);
+  const t = questTarget(s, 'k2_akt5');
+  assert.equal(t.map, 'wx_leuchtturm');
+  assert.equal(t.id, 'brandt');
+});
+
+for (const [k, map] of Object.entries(ZIEL)) {
+  test(`Ende ${k}: Bonusakte führt zur Nachricht und zur Reise nach Dunscar`, () => {
+    const s = new GameState(content);
+    s.startQuest('k2_akt5');
+    s.applyEffects(content.endings[`k2_${k}`]);
+    const q = `k2_weiter_${k}`;
+    assert.equal(s.quests[q], 'active');
+    let t = questTarget(s, q);
+    assert.equal(t.map, map);
+    assert.equal(t.id, `k3a_anreise_${k}_brief`);
+    s.flags.add(`k3a_anreise_${k}_bereit`);
+    t = questTarget(s, q);
+    assert.equal(t.id, `k3a_anreise_${k}_reise`);
+    const node = content.dialogues[`k3a_anreise_${k}`].nodes[`k3a_anreise_${k}_fahrt`];
+    s.applyEffects(node);
+    assert.equal(s.quests[q], 'done');
+  });
+}
+
+test('Alte Spielstände nach Kapitel 2 bekommen die Bonusakte beim Laden', () => {
+  const s = new GameState(content);
+  s.flags.add('kapitel2_done');
+  s.flags.add('k2_end_rein');
+  s.startBonusakteK2();
+  assert.equal(s.quests.k2_weiter_rein, 'active');
+  const t = new GameState(content);
+  t.flags.add('kapitel2_done'); t.flags.add('k2_end_rein'); t.flags.add('k3_arrived');
+  t.startBonusakteK2();
+  assert.equal(t.quests.k2_weiter_rein, undefined);
+});
