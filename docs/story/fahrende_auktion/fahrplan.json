@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "reihenfolge": [
+    "kettlegate",
+    "wexmoor",
+    "dunscar",
+    "calderwick",
+    "briarholt",
+    "varrowmouth"
+  ],
+  "dauer_spieltage": 2,
+  "pause_spieltage": 3,
+  "lose_pro_halt": 6,
+  "start": "Erster sicherer Tageswechsel nach Erstkontakt; erste zulässige Stadt ab Kettlegate.",
+  "zeitbasis": "Vom Spieluhr-Adapter gelieferte absolute Tage, keine Echtzeit und keine eigene Sekundenkonstante.",
+  "flags": {
+    "fa2_tag": "Ganzzahliger absoluter Spieltag, monoton; Zeitadapter schreibt.",
+    "fa2_stadt_<city>": "Genau ein true während eines Halts; alle false in Pause/Warten."
+  },
+  "zustand_vorschlag": [
+    "fa2_halt_id",
+    "fa2_phase",
+    "fa2_starttag",
+    "fa2_endtag",
+    "fa2_naechster_fruehestens",
+    "fa2_route_cursor",
+    "fa2_lose",
+    "fa2_einlieferungen",
+    "fa2_erworben"
+  ],
+  "zugang": {
+    "alle_bedingungen": [
+      "Stadt tatsächlich schon besucht",
+      "Stadt und Veranstaltungsplatz aktuell freigeschaltet",
+      "kein aktives lokales Fest",
+      "kein Stiller Abend",
+      "bei Varrowmouth sicherer Steg bei Ebbe"
+    ],
+    "quelle": "Zentrale Besuchs-, Freischaltungs- und Kartenregistrierung beim Einbau anbinden; keine erfundenen vorhandenen reached-Flags.",
+    "unbekannter_zustand": "Stadt überspringen, niemals freischalten."
+  },
+  "ausnahmen": [
+    {
+      "city": "kettlegate",
+      "flag": "fs_fest_laternennacht_aktiv",
+      "quelle": "docs/story/feste_leben/kalender.json"
+    },
+    {
+      "city": "wexmoor",
+      "flag": "fs_fest_salzsegen_aktiv",
+      "quelle": "docs/story/feste_leben/kalender.json"
+    },
+    {
+      "city": "dunscar",
+      "flag": "fs_fest_schichtwechsel_aktiv",
+      "quelle": "docs/story/feste_leben/kalender.json"
+    },
+    {
+      "city": "alle",
+      "flag": "fs_stiller_abend_aktiv",
+      "quelle": "docs/story/feste_leben/kalender.json"
+    },
+    {
+      "city": "varrowmouth",
+      "flag": "gezeit_flut",
+      "quelle": "docs/art/codex_CU_k6_orte.md",
+      "status": "Vertrag CU, noch kein garantierter Runtime-Produzent",
+      "aktion": "Steg schließen; laufende Gebotsrunde ohne Abrechnung pausieren; bei Ebbe innerhalb des Halts fortsetzen."
+    }
+  ],
+  "routing": "Nach zwei Tagen: schließen, drei volle Tage Pause, anschließend ab dem nächsten Routenindex die erste zulässige Stadt wählen. Bei nur einer zulässigen Stadt darf dieselbe nach der Pause erneut besucht werden. Kein zulässiges Ziel: täglich erneut prüfen, kein Halt-ID-Verbrauch.",
+  "unterbrechung": "Fest oder Sperre während Halt: sofort keine neuen Aktionen; bei Wiederöffnung vor Endtag gleiche Lose. Endtag läuft weiter. Offenes Los dann unverkauft schließen, alle Reservierungen lösen.",
+  "zeitsprung": "Jede überschrittene Haltegrenze genau einmal chronologisch abrechnen; keine fingierten Spielergebote, keine neuen Lose beim erneuten Laden.",
+  "einlieferung_faellig": "Erst bei Beginn des nächsten tatsächlichen Halts; übersprungene Städte sind keine Halte. Unabgeholte Auszahlung bleibt beliebig lange bestehen."
+}

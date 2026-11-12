@@ -1,0 +1,642 @@
+{
+  "erf_fall_1": {
+    "gruppe": "faelle",
+    "motiv": "sealed folder",
+    "quelle": "src/data/case_01.json",
+    "status": "vorhandene Flags",
+    "regel": "Fall 1 wurde geschlossen.",
+    "index": 0
+  },
+  "erf_fall_2": {
+    "gruppe": "faelle",
+    "motiv": "ink bottle",
+    "quelle": "src/data/case_02.json",
+    "status": "vorhandene Flags",
+    "regel": "Fall 2 wurde geschlossen.",
+    "index": 1
+  },
+  "erf_fall_3": {
+    "gruppe": "faelle",
+    "motiv": "broken pocket watch",
+    "quelle": "src/data/case_03.json",
+    "status": "vorhandene Flags",
+    "regel": "Fall 3 wurde geschlossen.",
+    "index": 2
+  },
+  "erf_fall_4": {
+    "gruppe": "faelle",
+    "motiv": "folded veil",
+    "quelle": "src/data/case_04.json",
+    "status": "vorhandene Flags",
+    "regel": "Fall 4 wurde geschlossen.",
+    "index": 3
+  },
+  "erf_fall_5": {
+    "gruppe": "faelle",
+    "motiv": "photographic plate",
+    "quelle": "src/data/case_05.json",
+    "status": "vorhandene Flags",
+    "regel": "Fall 5 wurde geschlossen.",
+    "index": 4
+  },
+  "erf_fall_6": {
+    "gruppe": "faelle",
+    "motiv": "music box",
+    "quelle": "src/data/case_06.json",
+    "status": "vorhandene Flags",
+    "regel": "Fall 6 wurde geschlossen.",
+    "index": 5
+  },
+  "erf_fall_7": {
+    "gruppe": "faelle",
+    "motiv": "water jug",
+    "quelle": "src/data/case_07.json",
+    "status": "vorhandene Flags",
+    "regel": "Fall 7 wurde geschlossen.",
+    "index": 6
+  },
+  "erf_fall_8": {
+    "gruppe": "faelle",
+    "motiv": "spool of thread",
+    "quelle": "src/data/case_08.json",
+    "status": "vorhandene Flags",
+    "regel": "Fall 8 wurde geschlossen.",
+    "index": 7
+  },
+  "erf_fall_9": {
+    "gruppe": "faelle",
+    "motiv": "brass telescope",
+    "quelle": "src/data/case_09.json",
+    "status": "vorhandene Flags",
+    "regel": "Fall 9 wurde geschlossen.",
+    "index": 8
+  },
+  "erf_kapitel_2": {
+    "gruppe": "faelle",
+    "motiv": "peat brick",
+    "quelle": "src/data/wexmoor.json",
+    "status": "vorhandene Flags",
+    "regel": "Nach verbindlichem Kapitelabschluss einmal setzen; Kapitel 6 benötigt Paket CT.",
+    "index": 9
+  },
+  "erf_kapitel_3": {
+    "gruppe": "faelle",
+    "motiv": "quarry chisel",
+    "quelle": "src/data/packs/k3_akte/case.json",
+    "status": "vorhandene Flags",
+    "regel": "Nach verbindlichem Kapitelabschluss einmal setzen; Kapitel 6 benötigt Paket CT.",
+    "index": 10
+  },
+  "erf_kapitel_4": {
+    "gruppe": "faelle",
+    "motiv": "printing type block",
+    "quelle": "src/data/packs/k4_akte/case.json",
+    "status": "vorhandene Flags",
+    "regel": "Nach verbindlichem Kapitelabschluss einmal setzen; Kapitel 6 benötigt Paket CT.",
+    "index": 11
+  },
+  "erf_kapitel_5": {
+    "gruppe": "faelle",
+    "motiv": "herbarium leaf",
+    "quelle": "src/data/packs/k5_akte/case.json",
+    "status": "vorhandene Flags",
+    "regel": "Nach verbindlichem Kapitelabschluss einmal setzen; Kapitel 6 benötigt Paket CT.",
+    "index": 12
+  },
+  "erf_kapitel_6": {
+    "gruppe": "faelle",
+    "motiv": "tide gauge",
+    "quelle": "Noch nicht im gelesenen Quellstand vorhanden; Einbauvertrag DL.",
+    "status": "Zähler-Vorschlag",
+    "regel": "Nach verbindlichem Kapitelabschluss einmal setzen; Kapitel 6 benötigt Paket CT.",
+    "index": 13
+  },
+  "erf_vier_enden": {
+    "gruppe": "faelle",
+    "motiv": "four wax seals",
+    "quelle": "src/data/wexmoor.json; src/data/packs/k3_akte/case.json; src/data/packs/k4_akte/case.json; src/data/packs/k5_akte/case.json",
+    "status": "Zähler-Vorschlag",
+    "regel": "Profilweit: maximale Anzahl verschiedener kanonischer Ending-IDs eines einzelnen Kapitels, nicht vier Kapitel zusammen; Save-Import und Reload idempotent.",
+    "index": 14
+  },
+  "erf_irrtum_berichtigt": {
+    "gruppe": "faelle",
+    "motiv": "crossed out sheet",
+    "quelle": "src/data/case_07.json; src/data/case_08.json",
+    "status": "vorhandene Flags",
+    "regel": "UND aller drei Flags; wren_arrested schließt c8_piper als alleinigen Abschluss aus.",
+    "index": 15
+  },
+  "erf_sequenz_8": {
+    "gruppe": "sequenzen",
+    "motiv": "potion droplet",
+    "quelle": "src/core/Pathways.js (pathway.seq); src/data/packs/sequenzen/seq_4_bis_1.json",
+    "status": "Zähler-Vorschlag",
+    "regel": "Pro Spieler historischer Bool-Zähler: bei tatsächlich vollzogenem Trinken von Sequenz 8; Migration pathway.seq <= 8.",
+    "index": 16
+  },
+  "erf_sequenz_7": {
+    "gruppe": "sequenzen",
+    "motiv": "potion chain",
+    "quelle": "src/core/Pathways.js (pathway.seq); src/data/packs/sequenzen/seq_4_bis_1.json",
+    "status": "Zähler-Vorschlag",
+    "regel": "Pro Spieler historischer Bool-Zähler: bei tatsächlich vollzogenem Trinken von Sequenz 7; Migration pathway.seq <= 7.",
+    "index": 17
+  },
+  "erf_sequenz_6": {
+    "gruppe": "sequenzen",
+    "motiv": "potion root",
+    "quelle": "src/core/Pathways.js (pathway.seq); src/data/packs/sequenzen/seq_4_bis_1.json",
+    "status": "Zähler-Vorschlag",
+    "regel": "Pro Spieler historischer Bool-Zähler: bei tatsächlich vollzogenem Trinken von Sequenz 6; Migration pathway.seq <= 6.",
+    "index": 18
+  },
+  "erf_sequenz_5": {
+    "gruppe": "sequenzen",
+    "motiv": "potion eye",
+    "quelle": "src/core/Pathways.js (pathway.seq); src/data/packs/sequenzen/seq_4_bis_1.json",
+    "status": "Zähler-Vorschlag",
+    "regel": "Pro Spieler historischer Bool-Zähler: bei tatsächlich vollzogenem Trinken von Sequenz 5; Migration pathway.seq <= 5.",
+    "index": 19
+  },
+  "erf_sequenz_4": {
+    "gruppe": "sequenzen",
+    "motiv": "potion claw",
+    "quelle": "src/core/Pathways.js (pathway.seq); src/data/packs/sequenzen/seq_4_bis_1.json",
+    "status": "Zähler-Vorschlag",
+    "regel": "Pro Spieler historischer Bool-Zähler: bei tatsächlich vollzogenem Trinken von Sequenz 4; Migration pathway.seq <= 4.",
+    "index": 20
+  },
+  "erf_sequenz_3": {
+    "gruppe": "sequenzen",
+    "motiv": "potion spiral",
+    "quelle": "src/core/Pathways.js (pathway.seq); src/data/packs/sequenzen/seq_4_bis_1.json",
+    "status": "Zähler-Vorschlag",
+    "regel": "Pro Spieler historischer Bool-Zähler: bei tatsächlich vollzogenem Trinken von Sequenz 3; Migration pathway.seq <= 3.",
+    "index": 21
+  },
+  "erf_sequenz_2": {
+    "gruppe": "sequenzen",
+    "motiv": "potion double halo",
+    "quelle": "src/core/Pathways.js (pathway.seq); src/data/packs/sequenzen/seq_4_bis_1.json",
+    "status": "Zähler-Vorschlag",
+    "regel": "Pro Spieler historischer Bool-Zähler: bei tatsächlich vollzogenem Trinken von Sequenz 2; Migration pathway.seq <= 2.",
+    "index": 22
+  },
+  "erf_sequenz_1": {
+    "gruppe": "sequenzen",
+    "motiv": "potion closed crown seal",
+    "quelle": "src/core/Pathways.js (pathway.seq); src/data/packs/sequenzen/seq_4_bis_1.json",
+    "status": "Zähler-Vorschlag",
+    "regel": "Pro Spieler historischer Bool-Zähler: bei tatsächlich vollzogenem Trinken von Sequenz 1; Migration pathway.seq <= 1.",
+    "index": 23
+  },
+  "erf_kreaturform": {
+    "gruppe": "sequenzen",
+    "motiv": "folded claw",
+    "quelle": "src/core/Pathways.js",
+    "status": "Zähler-Vorschlag",
+    "regel": "Erste tatsächlich aktivierte Kreaturform, nicht bloße Freischaltung.",
+    "index": 24
+  },
+  "erf_halb_verdaut": {
+    "gruppe": "sequenzen",
+    "motiv": "half full vial",
+    "quelle": "src/core/Pathways.js (pathway.digestion)",
+    "status": "Zähler-Vorschlag",
+    "regel": "Pro Spieler und getrunkenem Trank: digestion >= 50 bei null Kontrollverlusten seit dessen Einnahme; danach dauerhaft merken.",
+    "index": 25
+  },
+  "erf_verzicht": {
+    "gruppe": "sequenzen",
+    "motiv": "empty goblet",
+    "quelle": "Noch nicht im gelesenen Quellstand vorhanden; Einbauvertrag DL.",
+    "status": "Zähler-Vorschlag",
+    "regel": "Nur bestätigtes Verzicht-Ende aus DD; kein Menüabbruch.",
+    "index": 26
+  },
+  "erf_zehn_pfade": {
+    "gruppe": "sequenzen",
+    "motiv": "ten notches seal",
+    "quelle": "src/data/pathways.json; src/data/packs/sequenzen/neue_pfade.json",
+    "status": "Zähler-Vorschlag",
+    "regel": "Profilweite Menge der zehn kanonischen Pfad-IDs nach erstem Trank; zählt verschiedene IDs, nicht Save-Dateien.",
+    "index": 27
+  },
+  "erf_zirkel_waage": {
+    "gruppe": "zirkel",
+    "motiv": "balance scale",
+    "quelle": "src/data/treffen.json",
+    "status": "vorhandene Flags",
+    "regel": "Die Mitgliedschaft wurde in das betreffende Zirkelbuch eingetragen.",
+    "index": 28
+  },
+  "erf_zirkel_kreide": {
+    "gruppe": "zirkel",
+    "motiv": "chalk ring",
+    "quelle": "src/data/treffen.json",
+    "status": "vorhandene Flags",
+    "regel": "Die Mitgliedschaft wurde in das betreffende Zirkelbuch eingetragen.",
+    "index": 29
+  },
+  "erf_zirkel_russ": {
+    "gruppe": "zirkel",
+    "motiv": "soot brush",
+    "quelle": "src/data/treffen.json",
+    "status": "vorhandene Flags",
+    "regel": "Die Mitgliedschaft wurde in das betreffende Zirkelbuch eingetragen.",
+    "index": 30
+  },
+  "erf_zirkel_lichtlose": {
+    "gruppe": "zirkel",
+    "motiv": "hooded lantern",
+    "quelle": "src/data/treffen.json",
+    "status": "vorhandene Flags",
+    "regel": "Die Mitgliedschaft wurde in das betreffende Zirkelbuch eingetragen.",
+    "index": 31
+  },
+  "erf_zirkel_salz": {
+    "gruppe": "zirkel",
+    "motiv": "salt pouch",
+    "quelle": "src/data/treffen.json",
+    "status": "vorhandene Flags",
+    "regel": "Die Mitgliedschaft wurde in das betreffende Zirkelbuch eingetragen.",
+    "index": 32
+  },
+  "erf_zirkel_schichtbund": {
+    "gruppe": "zirkel",
+    "motiv": "crossed mining tools",
+    "quelle": "src/data/packs/k3_handel/treffen_schichtbund.json",
+    "status": "vorhandene Flags",
+    "regel": "Die Mitgliedschaft wurde in das betreffende Zirkelbuch eingetragen.",
+    "index": 33
+  },
+  "erf_zwei_zirkel": {
+    "gruppe": "zirkel",
+    "motiv": "two linked rings",
+    "quelle": "src/data/treffen.json; src/data/packs/k3_handel/treffen_schichtbund.json",
+    "status": "Zähler-Vorschlag",
+    "regel": "Maximum gleichzeitig aktiver Mitgliedschaften; Menge der sechs member_flag aus den Zirkeldefinitionen.",
+    "index": 34
+  },
+  "erf_fuenf_freunde": {
+    "gruppe": "zirkel",
+    "motiv": "five folded letters",
+    "quelle": "src/data/beziehungen.json; src/core/Relations.js",
+    "status": "Zähler-Vorschlag",
+    "regel": "Maximum verschiedener Figuren gleichzeitig mit Beziehung >= +5; keine Summierung wiederholter Begegnungen.",
+    "index": 35
+  },
+  "erf_drei_feinde": {
+    "gruppe": "zirkel",
+    "motiv": "three closed shutters",
+    "quelle": "src/data/beziehungen.json; src/core/Relations.js",
+    "status": "Zähler-Vorschlag",
+    "regel": "Maximum verschiedener Figuren mit Relation <= feindselig_ab (aktuell -2), gleichzeitig.",
+    "index": 36
+  },
+  "erf_geschenk_abgelehnt": {
+    "gruppe": "zirkel",
+    "motiv": "returned parcel",
+    "quelle": "src/core/Relations.js",
+    "status": "Zähler-Vorschlag",
+    "regel": "Nur tatsächliche Ablehnung nach Angebot; Vorschau und eigener Abbruch zählen nicht.",
+    "index": 37
+  },
+  "erf_fasserin_bilanz": {
+    "gruppe": "zirkel",
+    "motiv": "mended broken clasp",
+    "quelle": "docs/art/codex_CR_fasserin_auftrag_texte.md",
+    "status": "Zähler-Vorschlag",
+    "regel": "Menge unterschiedlicher terminaler Auftragsergebnisse {erfolgreich, misslungen} aus CR; Abbruch nur wenn CR ihn als misslungen wertet.",
+    "index": 38
+  },
+  "erf_buerge": {
+    "gruppe": "zirkel",
+    "motiv": "signed quill pair",
+    "quelle": "src/data/packs/k4_akte/dialog_zusaetze.json",
+    "status": "Zähler-Vorschlag",
+    "regel": "Einmal bei cwa_wetherby_buerge ODER cwa_kuechenbuerge; nicht bloß Bekanntschaft.",
+    "index": 39
+  },
+  "erf_lesestuecke_stadt": {
+    "gruppe": "welt",
+    "motiv": "open archive book",
+    "quelle": "src/data/packs/lore/lesestuecke.json",
+    "status": "Zähler-Vorschlag",
+    "regel": "Mindestens eine Stadt mit vollständig gelesener, nicht leerer Liste kanonischer Lesestück-IDs; Lesen statt Besitz.",
+    "index": 40
+  },
+  "erf_lesestuecke_alle": {
+    "gruppe": "welt",
+    "motiv": "six book spines",
+    "quelle": "src/data/packs/lore/lesestuecke.json",
+    "status": "Zähler-Vorschlag",
+    "regel": "Menge vollständig gelesener Stadtarchive nach demselben Katalog wie lesestuecke_stadt; sechs feste Stadt-IDs.",
+    "index": 41
+  },
+  "erf_bestiarium_kettlegate": {
+    "gruppe": "welt",
+    "motiv": "rat specimen",
+    "quelle": "src/data/packs/lore/bestiarium.json; spätere Stadtkataloge ergänzen",
+    "status": "Zähler-Vorschlag",
+    "regel": "Alle kanonischen Einträge der nicht leeren Stadtliste kettlegate freigeschaltet; Varianten nur nach Katalog, keine bloße Kill-Zahl.",
+    "index": 42
+  },
+  "erf_bestiarium_wexmoor": {
+    "gruppe": "welt",
+    "motiv": "moth specimen",
+    "quelle": "src/data/packs/lore/bestiarium.json; spätere Stadtkataloge ergänzen",
+    "status": "Zähler-Vorschlag",
+    "regel": "Alle kanonischen Einträge der nicht leeren Stadtliste wexmoor freigeschaltet; Varianten nur nach Katalog, keine bloße Kill-Zahl.",
+    "index": 43
+  },
+  "erf_bestiarium_dunscar": {
+    "gruppe": "welt",
+    "motiv": "stone jaw",
+    "quelle": "src/data/packs/lore/bestiarium.json; spätere Stadtkataloge ergänzen",
+    "status": "Zähler-Vorschlag",
+    "regel": "Alle kanonischen Einträge der nicht leeren Stadtliste dunscar freigeschaltet; Varianten nur nach Katalog, keine bloße Kill-Zahl.",
+    "index": 44
+  },
+  "erf_bestiarium_calderwick": {
+    "gruppe": "welt",
+    "motiv": "ink beetle",
+    "quelle": "src/data/packs/lore/bestiarium.json; spätere Stadtkataloge ergänzen",
+    "status": "Zähler-Vorschlag",
+    "regel": "Alle kanonischen Einträge der nicht leeren Stadtliste calderwick freigeschaltet; Varianten nur nach Katalog, keine bloße Kill-Zahl.",
+    "index": 45
+  },
+  "erf_bestiarium_briarholt": {
+    "gruppe": "welt",
+    "motiv": "thorn specimen",
+    "quelle": "src/data/packs/lore/bestiarium.json; spätere Stadtkataloge ergänzen",
+    "status": "Zähler-Vorschlag",
+    "regel": "Alle kanonischen Einträge der nicht leeren Stadtliste briarholt freigeschaltet; Varianten nur nach Katalog, keine bloße Kill-Zahl.",
+    "index": 46
+  },
+  "erf_bestiarium_varrowmouth": {
+    "gruppe": "welt",
+    "motiv": "shell specimen",
+    "quelle": "src/data/packs/lore/bestiarium.json; spätere Stadtkataloge ergänzen",
+    "status": "Zähler-Vorschlag",
+    "regel": "Alle kanonischen Einträge der nicht leeren Stadtliste varrowmouth freigeschaltet; Varianten nur nach Katalog, keine bloße Kill-Zahl.",
+    "index": 47
+  },
+  "erf_benannte_gegner": {
+    "gruppe": "welt",
+    "motiv": "engraved tag",
+    "quelle": "Paket DJ",
+    "status": "Zähler-Vorschlag",
+    "regel": "Zehn verschiedene benannte Gegner-IDs aus DJ; Respawns nicht erneut zählen.",
+    "index": 48
+  },
+  "erf_auktion": {
+    "gruppe": "welt",
+    "motiv": "auction gavel",
+    "quelle": "Paket DE",
+    "status": "Zähler-Vorschlag",
+    "regel": "Abgeschlossener, bezahlter Kauf aus DE; Salzmarkt- und Zirkelauktion ausgeschlossen.",
+    "index": 49
+  },
+  "erf_tier": {
+    "gruppe": "welt",
+    "motiv": "paw print",
+    "quelle": "Paket DF",
+    "status": "Zähler-Vorschlag",
+    "regel": "Höchste erreichte Gefährtenstufe eines eigenen Tiers.",
+    "index": 50
+  },
+  "erf_haus": {
+    "gruppe": "welt",
+    "motiv": "furnished house",
+    "quelle": "Paket DG",
+    "status": "Zähler-Vorschlag",
+    "regel": "Alle Pflichtslots in vier Räumen laut DG gleichzeitig belegt; keine optionalen Erweiterungen zählen.",
+    "index": 51
+  },
+  "erf_nebelseiten": {
+    "gruppe": "welt",
+    "motiv": "fog doorway",
+    "quelle": "Paket DH",
+    "status": "Zähler-Vorschlag",
+    "regel": "Menge verschiedener Stadt-IDs mit tatsächlich betretenem Nebelseitengebiet.",
+    "index": 52
+  },
+  "erf_briefe": {
+    "gruppe": "welt",
+    "motiv": "mail bundle",
+    "quelle": "Paket DI",
+    "status": "Zähler-Vorschlag",
+    "regel": "Verschiedene Brief-IDs nach Öffnen der Leseansicht; Duplikate und Reloads zählen nicht.",
+    "index": 53
+  },
+  "erf_fest": {
+    "gruppe": "welt",
+    "motiv": "festival ribbon",
+    "quelle": "src/data/packs/feste",
+    "status": "Zähler-Vorschlag",
+    "regel": "Verschiedene Fest-IDs nach Teilnahme vor Ort bei aktivem Fest, nicht Kalenderansicht.",
+    "index": 54
+  },
+  "erf_drei_feste": {
+    "gruppe": "welt",
+    "motiv": "three ribbons",
+    "quelle": "src/data/packs/feste",
+    "status": "Zähler-Vorschlag",
+    "regel": "Derselbe Zähler wie fest; verschiedene kanonische Fest-IDs.",
+    "index": 55
+  },
+  "erf_boss_unberuehrt_1": {
+    "gruppe": "kampf",
+    "motiv": "unmarked shield folder",
+    "quelle": "Noch nicht im gelesenen Quellstand vorhanden; Einbauvertrag DL.",
+    "status": "Zähler-Vorschlag",
+    "regel": "Sieg über einen als Boss katalogisierten Gegner in Kapitel 1; null bestätigte feindliche Treffer auf eigene Figur, auch bei Absorption, über sämtliche Phasen. Ausweichen zählt nicht als Treffer; eigene HP-Kosten zählen nicht. Kein Sieg durch Flucht.",
+    "index": 56
+  },
+  "erf_boss_unberuehrt_2": {
+    "gruppe": "kampf",
+    "motiv": "unmarked shield peat",
+    "quelle": "Noch nicht im gelesenen Quellstand vorhanden; Einbauvertrag DL.",
+    "status": "Zähler-Vorschlag",
+    "regel": "Sieg über einen als Boss katalogisierten Gegner in Kapitel 2; null bestätigte feindliche Treffer auf eigene Figur, auch bei Absorption, über sämtliche Phasen. Ausweichen zählt nicht als Treffer; eigene HP-Kosten zählen nicht. Kein Sieg durch Flucht.",
+    "index": 57
+  },
+  "erf_boss_unberuehrt_3": {
+    "gruppe": "kampf",
+    "motiv": "unmarked shield stone",
+    "quelle": "Noch nicht im gelesenen Quellstand vorhanden; Einbauvertrag DL.",
+    "status": "Zähler-Vorschlag",
+    "regel": "Sieg über einen als Boss katalogisierten Gegner in Kapitel 3; null bestätigte feindliche Treffer auf eigene Figur, auch bei Absorption, über sämtliche Phasen. Ausweichen zählt nicht als Treffer; eigene HP-Kosten zählen nicht. Kein Sieg durch Flucht.",
+    "index": 58
+  },
+  "erf_boss_unberuehrt_4": {
+    "gruppe": "kampf",
+    "motiv": "unmarked shield type",
+    "quelle": "Noch nicht im gelesenen Quellstand vorhanden; Einbauvertrag DL.",
+    "status": "Zähler-Vorschlag",
+    "regel": "Sieg über einen als Boss katalogisierten Gegner in Kapitel 4; null bestätigte feindliche Treffer auf eigene Figur, auch bei Absorption, über sämtliche Phasen. Ausweichen zählt nicht als Treffer; eigene HP-Kosten zählen nicht. Kein Sieg durch Flucht.",
+    "index": 59
+  },
+  "erf_boss_unberuehrt_5": {
+    "gruppe": "kampf",
+    "motiv": "unmarked shield leaf",
+    "quelle": "Noch nicht im gelesenen Quellstand vorhanden; Einbauvertrag DL.",
+    "status": "Zähler-Vorschlag",
+    "regel": "Sieg über einen als Boss katalogisierten Gegner in Kapitel 5; null bestätigte feindliche Treffer auf eigene Figur, auch bei Absorption, über sämtliche Phasen. Ausweichen zählt nicht als Treffer; eigene HP-Kosten zählen nicht. Kein Sieg durch Flucht.",
+    "index": 60
+  },
+  "erf_boss_unberuehrt_6": {
+    "gruppe": "kampf",
+    "motiv": "unmarked shield shell",
+    "quelle": "Noch nicht im gelesenen Quellstand vorhanden; Einbauvertrag DL.",
+    "status": "Zähler-Vorschlag",
+    "regel": "Sieg über einen als Boss katalogisierten Gegner in Kapitel 6; null bestätigte feindliche Treffer auf eigene Figur, auch bei Absorption, über sämtliche Phasen. Ausweichen zählt nicht als Treffer; eigene HP-Kosten zählen nicht. Kein Sieg durch Flucht.",
+    "index": 61
+  },
+  "erf_nur_nerven": {
+    "gruppe": "kampf",
+    "motiv": "knotted nerve cord",
+    "quelle": "Noch nicht im gelesenen Quellstand vorhanden; Einbauvertrag DL.",
+    "status": "Zähler-Vorschlag",
+    "regel": "Sieg mit mindestens einer aktiven Aktion; alle eigenen aktiven Aktionen als Nerven-Fähigkeit katalogisiert, keine Angriffe, Gegenstände, Flucht oder Begleiterangriffe; passive Effekte erlaubt.",
+    "index": 62
+  },
+  "erf_grauspaeher_flucht": {
+    "gruppe": "kampf",
+    "motiv": "discarded grey hood",
+    "quelle": "src/data/wexmoor.json (wx_grauspaeher_fight)",
+    "status": "Zähler-Vorschlag",
+    "regel": "Bestätigter erfolgreicher Fluchtausgang aus wx_grauspaeher_fight, nicht Dialogvermeidung.",
+    "index": 63
+  },
+  "erf_grauspaeher_sieg": {
+    "gruppe": "kampf",
+    "motiv": "broken grey mask",
+    "quelle": "src/data/wexmoor.json",
+    "status": "vorhandene Flags",
+    "regel": "Der Grauspäher wurde besiegt.",
+    "index": 64
+  },
+  "erf_hundert_kaempfe": {
+    "gruppe": "kampf",
+    "motiv": "stack of shields",
+    "quelle": "Noch nicht im gelesenen Quellstand vorhanden; Einbauvertrag DL.",
+    "status": "Zähler-Vorschlag",
+    "regel": "Terminale reguläre Kämpfe (Sieg/Niederlage/erfolgreiche Flucht), eindeutige Kampf-Instanz; keine Trainingskämpfe, Abbrüche oder Reload-Duplikate.",
+    "index": 65
+  },
+  "erf_friedliche_stadt": {
+    "gruppe": "kampf",
+    "motiv": "blank battle docket",
+    "quelle": "Noch nicht im gelesenen Quellstand vorhanden; Einbauvertrag DL.",
+    "status": "Zähler-Vorschlag",
+    "regel": "Stadtkapitel tatsächlich beendet bei null Kampfeintritten seit erstmaliger Ankunft; Zähler-Latch erst am Abschluss, nie bei Ankunft. Nur Städte mit gültigem kampffreiem Hauptweg aktivieren; bis Einbauprüfung nicht erreichbar markieren.",
+    "index": 66
+  },
+  "erf_starling_fuenf": {
+    "gruppe": "kampf",
+    "motiv": "cracked telescope lens",
+    "quelle": "docs/art/codex_BS_starling_phase2_grafik.md; src/data/case_09.json",
+    "status": "Zähler-Vorschlag",
+    "regel": "Sieg zweite Phase BS bei Phasen-Rundenzahl <= 5; Eintritt startet Runde 1, ganze Initiativerunde zählt, keine Aktionszählung.",
+    "index": 67
+  },
+  "erf_koop_pfade": {
+    "gruppe": "koop",
+    "motiv": "two different potion bottles",
+    "quelle": "src/data/packs/koop; Paket DF",
+    "status": "Zähler-Vorschlag",
+    "regel": "Einmal setzen, wenn zwei aktive menschliche Spieler zugleich unterschiedliche nicht leere Pfad-IDs UND unterschiedliche eigene Tier-IDs haben; NPCs zählen nicht.",
+    "index": 68
+  },
+  "erf_koop_kapitel_2": {
+    "gruppe": "koop",
+    "motiv": "paired shields 2",
+    "quelle": "Noch nicht im gelesenen Quellstand vorhanden; Einbauvertrag DL.",
+    "status": "Zähler-Vorschlag",
+    "regel": "Regulärer Kampf in Kapitel 2 mit zwei aktiven menschlichen Teilnehmern gewonnen; keiner während dieses Kampfes besiegt/außer Gefecht, auch nicht nach Wiederbelebung. Beide erhalten den Eintrag.",
+    "index": 70
+  },
+  "erf_koop_kapitel_3": {
+    "gruppe": "koop",
+    "motiv": "paired shields 3",
+    "quelle": "Noch nicht im gelesenen Quellstand vorhanden; Einbauvertrag DL.",
+    "status": "Zähler-Vorschlag",
+    "regel": "Regulärer Kampf in Kapitel 3 mit zwei aktiven menschlichen Teilnehmern gewonnen; keiner während dieses Kampfes besiegt/außer Gefecht, auch nicht nach Wiederbelebung. Beide erhalten den Eintrag.",
+    "index": 71
+  },
+  "erf_koop_kapitel_4": {
+    "gruppe": "koop",
+    "motiv": "paired shields 4",
+    "quelle": "Noch nicht im gelesenen Quellstand vorhanden; Einbauvertrag DL.",
+    "status": "Zähler-Vorschlag",
+    "regel": "Regulärer Kampf in Kapitel 4 mit zwei aktiven menschlichen Teilnehmern gewonnen; keiner während dieses Kampfes besiegt/außer Gefecht, auch nicht nach Wiederbelebung. Beide erhalten den Eintrag.",
+    "index": 72
+  },
+  "erf_koop_kapitel_5": {
+    "gruppe": "koop",
+    "motiv": "paired shields 5",
+    "quelle": "Noch nicht im gelesenen Quellstand vorhanden; Einbauvertrag DL.",
+    "status": "Zähler-Vorschlag",
+    "regel": "Regulärer Kampf in Kapitel 5 mit zwei aktiven menschlichen Teilnehmern gewonnen; keiner während dieses Kampfes besiegt/außer Gefecht, auch nicht nach Wiederbelebung. Beide erhalten den Eintrag.",
+    "index": 73
+  },
+  "erf_koop_kapitel_6": {
+    "gruppe": "koop",
+    "motiv": "paired shields 6",
+    "quelle": "Noch nicht im gelesenen Quellstand vorhanden; Einbauvertrag DL.",
+    "status": "Zähler-Vorschlag",
+    "regel": "Regulärer Kampf in Kapitel 6 mit zwei aktiven menschlichen Teilnehmern gewonnen; keiner während dieses Kampfes besiegt/außer Gefecht, auch nicht nach Wiederbelebung. Beide erhalten den Eintrag.",
+    "index": 74
+  },
+  "erf_register_geteilt": {
+    "gruppe": "koop",
+    "motiv": "split ledger",
+    "quelle": "Noch nicht im gelesenen Quellstand vorhanden; Einbauvertrag DL.",
+    "status": "Zähler-Vorschlag",
+    "regel": "Finaleentscheidung Register teilen nach Bestätigung beider Spieler (CT/DD); bloßes Öffnen des Registers zählt nicht.",
+    "index": 75
+  },
+  "erf_alle_betten": {
+    "gruppe": "kuriositaeten",
+    "motiv": "bed and key",
+    "quelle": "Noch nicht im gelesenen Quellstand vorhanden; Einbauvertrag DL.",
+    "status": "Zähler-Vorschlag",
+    "regel": "Set der Häuser-IDs mit abgeschlossener Schlafaktion gegen versionierte vollständige Wohnhausliste aller sechs Städte prüfen; Gasthäuser nur wenn als Wohnhaus katalogisiert, keine unbetretbaren Kulissen.",
+    "index": 76
+  },
+  "erf_schlick": {
+    "gruppe": "kuriositaeten",
+    "motiv": "muddy boot",
+    "quelle": "Noch nicht im gelesenen Quellstand vorhanden; Einbauvertrag DL.",
+    "status": "Zähler-Vorschlag",
+    "regel": "Je tatsächlich betretenem Schlick-Tile ein Schritt; kein Stillstand, Teleport oder blockierter Bewegungsversuch; spielerbezogen.",
+    "index": 77
+  },
+  "erf_nell": {
+    "gruppe": "kuriositaeten",
+    "motiv": "cloth and nameplate",
+    "quelle": "Noch nicht im gelesenen Quellstand vorhanden; Einbauvertrag DL.",
+    "status": "Zähler-Vorschlag",
+    "regel": "Nur abgeschlossenes gemeinsames Namenswischen mit Nell aus Kapitel 6; konkretes Event im Einbau an CX/CT binden.",
+    "index": 78
+  },
+  "erf_letztes_glas": {
+    "gruppe": "kuriositaeten",
+    "motiv": "corked final bottle",
+    "quelle": "Noch nicht im gelesenen Quellstand vorhanden; Einbauvertrag DL.",
+    "status": "Zähler-Vorschlag",
+    "regel": "Finalen abgeschlossenen Ausgang ohne letzten Trank erfassen; weder Save-Ende noch Dialogabbruch. Falls DD-Verzicht identischer Ausgang: beide Erfolge bewusst gemeinsam auslösen.",
+    "index": 79
+  },
+  "erf_koop_kapitel_1": {
+    "gruppe": "koop",
+    "motiv": "paw and feather",
+    "quelle": "src/data/packs/koop",
+    "status": "Zähler-Vorschlag",
+    "regel": "Regulärer Kampf in Kapitel 1 mit zwei aktiven menschlichen Teilnehmern gewonnen; keiner während dieses Kampfes besiegt/außer Gefecht, auch nicht nach Wiederbelebung. Beide erhalten den Eintrag.",
+    "index": 69
+  }
+}
