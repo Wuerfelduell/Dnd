@@ -31,3 +31,9 @@ test('Altfunde: rollLoot zieht genau ein Stück, Bestiarium nennt den Altfund', 
   const p = lootPreview(c.loot.torfgaenger, c.items, c.loot.torfgaenger_elite);
   assert.ok(p.alt && p.alt.chance === alt.chance);
 });
+
+test('Altfunde: Nachtfalterstaub fällt im Leuchtturm fest mit 5 %', () => {
+  const ids = Object.keys(c.encounters).filter((id) => c.encounters[id].zone === 'wx_leuchtturm' && c.loot[id]);
+  assert.ok(ids.length);
+  for (const id of ids) assert.equal(c.loot[id].drops.find((d) => d.item === 'nachtfalterstaub')?.chance, 0.05, id);
+});
