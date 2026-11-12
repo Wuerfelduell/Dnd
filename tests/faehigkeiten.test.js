@@ -42,7 +42,7 @@ test('Jede Sequenz jedes Pfades hat zwei Kampffertigkeiten und eine Welt-Fähigk
   }
   const all = faehigkeitenIds(raw);
   assert.equal(all.kampf.length, 90);
-  assert.equal(all.welt.length, 90);
+  assert.equal(all.welt.length, 91); // + Schattengestalt (welt_50 Schlüssel Seq 5)
   // Geliehene Effekte zeigen auf bestehende Fertigkeiten des eigenen Pfades
   for (const [pid, p] of Object.entries(content.pathways)) {
     const own = new Set(Object.values(p.seqs).map((sd) => sd.skill.id));
@@ -330,4 +330,28 @@ test('Spielstände ohne Welt-Fähigkeiten laden sauber', () => {
 
 test('SLOW_MULT dehnt sichtbar', () => {
   assert.ok(SLOW_MULT > 1.2 && SLOW_MULT < 1.6);
+});
+
+test('Schlüssel Seq 5: ab 50 % Verdauung wird „Jede Tür“ zur Schattengestalt, für beide Spieler', () => {
+  const s = beyonder('schluessel', 5);
+  const ids = () => s.talents().map((t) => t.id);
+  assert.ok(ids().includes('jede_tuer') && !ids().includes('schattengestalt'));
+  s.pathway.digestion = 50;
+  assert.ok(ids().includes('schattengestalt') && !ids().includes('jede_tuer'));
+  s.pathway = { id: 'schluessel', seq: 4, digestion: 0 };
+  assert.ok(ids().includes('schattengestalt'), 'bleibt auf Seq 4');
+  s.pathway = { id: 'schluessel', seq: 5, digestion: 60 };
+  s.composure = 100;
+  assert.equal(s.inShadow(1), false);
+  assert.equal(s.useTalent('schattengestalt').ok, true);
+  assert.equal(s.inShadow(1), true);
+  assert.equal(s.inShadow(2), false);
+  s.tickTalents(61);
+  assert.equal(s.inShadow(1), false, 'nach 60 s vorbei');
+  // Spieler 2
+  s.addP2();
+  s.withPlayer(2, () => { s.pathway = { id: 'schluessel', seq: 5, digestion: 55 }; s.updateMaxHp(); s.composure = 100; });
+  assert.equal(s.withPlayer(2, () => s.useTalent('schattengestalt')).ok, true);
+  assert.equal(s.inShadow(2), true);
+  assert.equal(s.inShadow(1), false);
 });

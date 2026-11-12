@@ -43,8 +43,12 @@ export const BUFF_LABELS = {
   parry_ap: (v) => `Paraden geben ${v} Konzentration mehr`,
   ap_start: (v) => `Kämpfe beginnen mit +${v} Konzentration`,
   always_flee: () => 'aus jedem Kampf fliehen',
+  schattengestalt: () => 'Schattengestalt: Gegner und Streifen sehen dich nicht',
 };
 export const buffLabel = (b) => (BUFF_LABELS[b.key] ? BUFF_LABELS[b.key](b.value) : `${b.key} ${b.value}`);
+
+/** Ab dieser Verdauung der Sequenz gilt `talent_50` statt `talent`. */
+export const TALENT_UPGRADE_DIGEST = 50;
 
 export const fmtSec = (s) => (s >= 60 ? `${Math.floor(s / 60)}:${String(Math.ceil(s % 60)).padStart(2, '0')} min` : `${Math.ceil(s)} s`);
 
@@ -62,6 +66,9 @@ export const talentMethods = {
   talents() {
     this.talentCd ??= {};
     return this.reachedSeqs().filter((s) => s.talent).map((s) => {
+      // `talent_50` ersetzt die Fähigkeit, sobald die Sequenz zur Hälfte verdaut ist (Schlüssel Seq 5: Schattengestalt)
+      const upgraded = s.talent_50 && (this.pathway.seq < s.seq || (this.pathway.digestion ?? 0) >= TALENT_UPGRADE_DIGEST);
+      if (upgraded) s = { ...s, talent: s.talent_50 };
       const remaining = Math.max(0, (this.talentCd[s.talent.id] ?? 0) - this.talentTime);
       return { ...s.talent, seq: s.seq, remaining, remainingText: remaining ? fmtSec(remaining) : '', ready: remaining <= 0 && this.composure >= (s.talent.nerves ?? 0) };
     });
@@ -154,6 +161,12 @@ export const talentMethods = {
   /** Weichen gewöhnliche Gegner gerade vor dir zurück (Welt-Fähigkeit)? */
   scaresEnemies() {
     return this.scareUntil > this.talentTime;
+  },
+
+  /** Ist Spieler n gerade in der Schattengestalt (unsichtbar für Gegner und Streifen)? Buffs gehören jedem Spieler selbst. */
+  inShadow(n = 1) {
+    const own = n === (this.acting ?? 1) ? this.buffs : this.p2?.buffs;
+    return (own ?? []).some((b) => b.key === 'schattengestalt' && b.until > (this.talentTime ?? 0));
   },
 
   /** Steht die Uhr der Stadt (Treffen, Fahndung, Tageszeit)? */

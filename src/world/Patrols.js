@@ -98,7 +98,7 @@ export class Patrols {
     for (const g of this.list) {
       const cone = g.civil ? AUFSICHT.cone : policeCone;
       // Zu zweit: wer zuerst gesehen wird, verrät beide
-      const spotted = graced || (g.civil && exempt) ? null : (this.scene.playerSprites?.() ?? [p]).find((q) => this.sees(g, q.x, q.y - 8, cone));
+      const spotted = graced || (g.civil && exempt) ? null : (this.scene.playerSprites?.() ?? [p]).filter((q, i) => !this.state.inShadow?.(i + 1)).find((q) => this.sees(g, q.x, q.y - 8, cone));
       const seen = !!spotted;
       if (seen) {
         if (!g.spotting) this.scene.sfx?.(worldSound('spotted')); // Y: „?“ – die Streife stutzt
