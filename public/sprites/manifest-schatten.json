@@ -1,0 +1,1095 @@
+{
+  "version": 1,
+  "batch": "schatten",
+  "status": "exported; runtime integration pending",
+  "paletteMaxVisibleColors": 32,
+  "palette": [
+    "#1a1c2c",
+    "#252b38",
+    "#303b49",
+    "#d0a050",
+    "#e8b860",
+    "#92745a",
+    "#58433c",
+    "#2d2629",
+    "#715648",
+    "#886332",
+    "#686850",
+    "#494b3a",
+    "#b3946e",
+    "#cfb18a",
+    "#f0ce80",
+    "#8b8870",
+    "#425360",
+    "#e0c9a1",
+    "#a8b4c0",
+    "#586c78",
+    "#71858b",
+    "#95a5a5",
+    "#eee2c5",
+    "#893e4e",
+    "#6fe0d0",
+    "#496b64",
+    "#334d47",
+    "#493d59",
+    "#665572",
+    "#877595",
+    "#835140",
+    "#a66c4d"
+  ],
+  "paletteSource": "manifest-fasserin.json",
+  "assets": [
+    {
+      "id": "characters_schatten_player",
+      "file": "characters/schatten_player.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "baseline": 30
+    },
+    {
+      "id": "characters_schatten_koerper_player",
+      "file": "characters/schatten_koerper_player.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 2,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            2,
+            3
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            4,
+            5
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            6,
+            7
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      },
+      "baseline": 30
+    },
+    {
+      "id": "battle_schatten_player",
+      "file": "battle/schatten_player.png",
+      "width": 288,
+      "height": 432,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 9,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "shoot": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "dodge": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 12,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            36,
+            37,
+            38
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            42,
+            43,
+            44,
+            45
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "occult": {
+          "frames": [
+            48,
+            49,
+            50,
+            51,
+            52,
+            53
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "emptyRows": [
+        4,
+        5
+      ],
+      "disabledAnimations": [
+        "parry",
+        "item"
+      ],
+      "emptyFrames": [
+        4,
+        5,
+        17,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        39,
+        40,
+        41,
+        46,
+        47
+      ],
+      "facing": "right",
+      "identicalFramePairs": [
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "characters_schatten_p2a",
+      "file": "characters/schatten_p2a.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "baseline": 30
+    },
+    {
+      "id": "characters_schatten_koerper_p2a",
+      "file": "characters/schatten_koerper_p2a.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 2,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            2,
+            3
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            4,
+            5
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            6,
+            7
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      },
+      "baseline": 30
+    },
+    {
+      "id": "battle_schatten_p2a",
+      "file": "battle/schatten_p2a.png",
+      "width": 288,
+      "height": 432,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 9,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "shoot": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "dodge": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 12,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            36,
+            37,
+            38
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            42,
+            43,
+            44,
+            45
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "occult": {
+          "frames": [
+            48,
+            49,
+            50,
+            51,
+            52,
+            53
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "emptyRows": [
+        4,
+        5
+      ],
+      "disabledAnimations": [
+        "parry",
+        "item"
+      ],
+      "emptyFrames": [
+        4,
+        5,
+        17,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        39,
+        40,
+        41,
+        46,
+        47
+      ],
+      "facing": "right",
+      "identicalFramePairs": [
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "characters_schatten_p2b",
+      "file": "characters/schatten_p2b.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "baseline": 30
+    },
+    {
+      "id": "characters_schatten_koerper_p2b",
+      "file": "characters/schatten_koerper_p2b.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 2,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            2,
+            3
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            4,
+            5
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            6,
+            7
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      },
+      "baseline": 30
+    },
+    {
+      "id": "battle_schatten_p2b",
+      "file": "battle/schatten_p2b.png",
+      "width": 288,
+      "height": 432,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 9,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "shoot": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "dodge": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 12,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            36,
+            37,
+            38
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            42,
+            43,
+            44,
+            45
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "occult": {
+          "frames": [
+            48,
+            49,
+            50,
+            51,
+            52,
+            53
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "emptyRows": [
+        4,
+        5
+      ],
+      "disabledAnimations": [
+        "parry",
+        "item"
+      ],
+      "emptyFrames": [
+        4,
+        5,
+        17,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        39,
+        40,
+        41,
+        46,
+        47
+      ],
+      "facing": "right",
+      "identicalFramePairs": [
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "fx_schatten_trennen",
+      "file": "fx/schatten_trennen.png",
+      "width": 320,
+      "height": 48,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "columns": 10,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "frameRate": 12,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "fx_schatten_rueckkehr",
+      "file": "fx/schatten_rueckkehr.png",
+      "width": 256,
+      "height": 48,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "columns": 8,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 12,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "fx_schatten_verloren",
+      "file": "fx/schatten_verloren.png",
+      "width": 256,
+      "height": 48,
+      "frameWidth": 32,
+      "frameHeight": 48,
+      "columns": 8,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 12,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "fx_schatten_band",
+      "file": "fx/schatten_band.png",
+      "width": 64,
+      "height": 8,
+      "frameWidth": 16,
+      "frameHeight": 8,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 12,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "battle_schatten_attacke",
+      "file": "battle/schatten_attacke.png",
+      "width": 384,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 8,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 12,
+          "repeat": 0
+        }
+      },
+      "identicalFramePairs": [
+        [
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "fx_schatten_attacke_treffer",
+      "file": "fx/schatten_attacke_treffer.png",
+      "width": 288,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 12,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "ui_skills3_schattenattacke",
+      "file": "ui/skills3/schattenattacke.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 12,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "ui_schatten_wuerfelslot",
+      "file": "ui/schatten_wuerfelslot.png",
+      "width": 216,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 9,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "draw": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 12,
+          "repeat": 0
+        },
+        "set": {
+          "frames": [
+            8
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "fx_schatten_faehigkeit",
+      "file": "fx/schatten_faehigkeit.png",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 12,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "ui_schatten_hud",
+      "file": "ui/schatten_hud.png",
+      "width": 64,
+      "height": 32,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 2,
+      "transparent": true,
+      "animations": {},
+      "regions": {
+        "no_healing": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "no_parry": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "no_equipment": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "body_waiting": {
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "health_bar": {
+          "x": 0,
+          "y": 16,
+          "width": 48,
+          "height": 8,
+          "nineSlice": {
+            "left": 3,
+            "right": 3,
+            "top": 2,
+            "bottom": 2
+          }
+        }
+      },
+      "packing": "mixed_regions"
+    },
+    {
+      "id": "battle_bg_schattenseite",
+      "file": "battle/bg_schattenseite.png",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 12,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "ui_skills3_32_schattenattacke",
+      "file": "ui/skills3/32/schattenattacke.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "fx_schatten_band_ende",
+      "file": "fx/schatten_band_ende.png",
+      "width": 8,
+      "height": 8,
+      "frameWidth": 8,
+      "frameHeight": 8,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    }
+  ],
+  "actors": {
+    "player": {
+      "walk": "characters/schatten_player.png",
+      "body": "characters/schatten_koerper_player.png",
+      "battle": "battle/schatten_player.png"
+    },
+    "p2a": {
+      "walk": "characters/schatten_p2a.png",
+      "body": "characters/schatten_koerper_p2a.png",
+      "battle": "battle/schatten_p2a.png"
+    },
+    "p2b": {
+      "walk": "characters/schatten_p2b.png",
+      "body": "characters/schatten_koerper_p2b.png",
+      "battle": "battle/schatten_p2b.png"
+    }
+  },
+  "notes": [
+    "22 PNGs including separate 8x8 tether endcap; 21 in brief count excludes this required endcap.",
+    "Battle row indices are zero-based and match manifest-14b. Disabled rows 4 and 5 remain transparent.",
+    "Runtime integration and ritual rules are deliberately not included."
+  ]
+}
