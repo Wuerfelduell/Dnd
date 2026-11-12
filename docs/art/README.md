@@ -1823,3 +1823,12 @@ Keine Laufzeitintegration in diesem Paket.
 `manifest-figuren_nachzuegler.json` liefert 50 PNGs für 21 bestehende Figuren: 21 Laufblätter, 20 Köpfe, vier Porträtleisten, drei Kampfblätter und zwei Marktstände. Vier geliehene Laufblätter werden ersetzt. Gemeinsame Palette mit höchstens 32 sichtbaren Farben, binäres Alpha und feste Zellraster.
 
 [Übergabe und Einbau](figuren_nachzuegler-uebergabe.md) · [Vorschau](batch-figuren_nachzuegler-preview.png) · [Prüfbericht](batch-figuren_nachzuegler-validation.json) · [Prompts](batch-figuren_nachzuegler-generation.json). Prüfung: `python tools/art/figuren_nachzuegler/check.py`. Spielcode wird separat angeschlossen.
+## CO: Halbgott und Engel (`halbgott`)
+
+73 PNGs für Sequenz 4 und 2: sechs Trink-Sheets, acht Effekte, zehn Kreaturformen jeweils für Karte und Kampf, zehn Zugportraits, zwei Ritualwächter mit Kartenfiguren, zehn Siegel, zwei Kampfkulissen, zwanzig Sequenzbilder und zwei HUD-Größen. Die 780 Rasterzellen verwenden die gemeinsame Palette aus `manifest-fasserin.json`; Alpha ist binär, Szenen sind opak.
+
+- [Manifest](../../public/sprites/manifest-halbgott.json), [Vorschau](batch-halbgott-preview.png), [Prompts und Herkunft](batch-halbgott-generation.json), [Prüfbericht](batch-halbgott-validation.json).
+- [Übergabe und Registrierungsstellen](halbgott-uebergabe.md): Framegrößen, Richtungen, Aushol-Holds, drei Wächterphasen, Rückverwandlung und getrennte Koop-Instanzen.
+- Prüfung: `python tools/art/halbgott/check.py` (Pillow). Kontrolliert das vollständige Sollinventar, Maße, gemeinsame Palette, Alpha, Raster, Animationen, Baselines und exakte HUD-Verdopplung.
+
+Erzeugt mit dem eingebauten Bildgenerator, anschließend Nearest Neighbor und Palette-/Alpha-Bereinigung. Grafiklieferung ohne Spielcodeänderung; CP und der spätere Einbau übernehmen Ritual- und Kampfregeln.

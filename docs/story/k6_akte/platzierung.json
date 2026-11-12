@@ -1,0 +1,3056 @@
+[
+  {
+    "map": "vm_zollhafen",
+    "tile": [
+      3,
+      3
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_11_c1_fund",
+      "kind": "read",
+      "title": "Der Zollstempel · 1",
+      "text": "Der Abdruck enthält den Sprung im heutigen Zollstempel. Die Ränder des Papiers sind älter als die frische Farbe.",
+      "done_flag": "k6_11_c1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_11_c1"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_zollhafen",
+    "tile": [
+      6,
+      3
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_11_c2_fund",
+      "kind": "read",
+      "title": "Der Zollstempel · 2",
+      "text": "Unter der Griffplatte liegt ein Versandvermerk: Personen und schriftlich übermittelte Namen werden mit demselben Stempel angenommen.",
+      "done_flag": "k6_11_c2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_11_c2"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_zollhafen",
+    "tile": [
+      9,
+      3
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_11_c3_fund",
+      "kind": "read",
+      "title": "Der Zollstempel · 3",
+      "text": "Eine gestrichene Spalte unterscheidet Ankunft des Körpers und Eingang des Namens. Nur die zweite wurde bei dir ausgefüllt.",
+      "done_flag": "k6_11_c3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_11_c3"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_zollhafen",
+    "tile": [
+      12,
+      3
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_11_station",
+      "kind": "dialogue",
+      "dialogue": "k6_11_dialog",
+      "prompt": "Der Zollstempel"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_zollhafen",
+    "tile": [
+      15,
+      3
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_12_c1_fund",
+      "kind": "read",
+      "title": "Ein Datum ohne Reise · 1",
+      "text": "Dein Eintrag trägt das Datum der Beschlagnahme in Starlings Sternwarte. Daneben fehlt jedes Fahrkartenzeichen.",
+      "done_flag": "k6_12_c1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_12_c1"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_zollhafen",
+    "tile": [
+      18,
+      3
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_12_c2_fund",
+      "kind": "read",
+      "title": "Ein Datum ohne Reise · 2",
+      "text": "Im Postdurchschlag steht Kettlegate, Fall 9. Eine Abschrift mit deinem Namen ging als Anlage an das Hafenregister.",
+      "done_flag": "k6_12_c2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_12_c2"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_zollhafen",
+    "tile": [
+      3,
+      5
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_12_c3_fund",
+      "kind": "read",
+      "title": "Ein Datum ohne Reise · 3",
+      "text": "Die Rechnung berechnet Papiergewicht, keinen Sitzplatz. Der Schreiber hat den Brief als Eingang geführt.",
+      "done_flag": "k6_12_c3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_12_c3"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_zollhafen",
+    "tile": [
+      6,
+      5
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_12_station",
+      "kind": "dialogue",
+      "dialogue": "k6_12_dialog",
+      "prompt": "Ein Datum ohne Reise"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_stegviertel",
+    "tile": [
+      3,
+      3
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_13_c1_fund",
+      "kind": "read",
+      "title": "Eine gestohlene Lotsenmarke · 1",
+      "text": "Tams Marke trägt eine fremde Dienstnummer. Ihr Ölzeug ist an der Stelle blank, an der sie die Marke sonst verdeckt.",
+      "done_flag": "k6_13_c1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_13_c1"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_stegviertel",
+    "tile": [
+      6,
+      3
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_13_c2_fund",
+      "kind": "read",
+      "title": "Eine gestohlene Lotsenmarke · 2",
+      "text": "Auf dem Dienstplan ist die Nummer seit drei Monaten gestrichen. Die Durchlassklappe prüft Metall, nicht den Menschen davor.",
+      "done_flag": "k6_13_c2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_13_c2"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_stegviertel",
+    "tile": [
+      9,
+      3
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_13_c3_fund",
+      "kind": "read",
+      "title": "Eine gestohlene Lotsenmarke · 3",
+      "text": "Tam legt die Marke offen hin. „Geliehen wäre freundlicher. Gestohlen stimmt. Mein eigener Name würde die Klappe nicht öffnen.“",
+      "done_flag": "k6_13_c3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_13_c3"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_stegviertel",
+    "tile": [
+      12,
+      3
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_13_station",
+      "kind": "dialogue",
+      "dialogue": "k6_13_dialog",
+      "prompt": "Eine gestohlene Lotsenmarke"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_zollhafen",
+    "tile": [
+      9,
+      5
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_14_c1_fund",
+      "kind": "read",
+      "title": "Der stumme Schreiber · 1",
+      "text": "Auf dem Löschblatt steht: Mündliche Abmeldung unzulässig. Darunter hat jemand wieder und wieder ein Ausreisegesuch abgeschrieben.",
+      "done_flag": "k6_14_c1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_14_c1"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_zollhafen",
+    "tile": [
+      12,
+      5
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_14_c2_fund",
+      "kind": "read",
+      "title": "Der stumme Schreiber · 2",
+      "text": "Der Zollschreiber zeigt seinen eigenen Antrag. Sein Name wurde während des Schreibens in das Register zurückgetragen.",
+      "done_flag": "k6_14_c2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_14_c2"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_zollhafen",
+    "tile": [
+      15,
+      5
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_14_c3_fund",
+      "kind": "read",
+      "title": "Der stumme Schreiber · 3",
+      "text": "Auf eine Frage nach dem Rat schreibt er: „Ich kann Ihnen antworten. Ich kann mich nur nicht selbst entlassen.“ Seine Hand bleibt ruhig.",
+      "done_flag": "k6_14_c3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_14_c3"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_zollhafen",
+    "tile": [
+      18,
+      5
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_14_station",
+      "kind": "dialogue",
+      "dialogue": "k6_14_dialog",
+      "prompt": "Der stumme Schreiber"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_stegviertel",
+    "tile": [
+      15,
+      3
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_bilanz1_station",
+      "kind": "dialogue",
+      "dialogue": "k6_bilanz1",
+      "prompt": "Bilanz: Der Eintrag"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_schlickgassen",
+    "tile": [
+      3,
+      3
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_21_c1_fund",
+      "kind": "read",
+      "title": "Namen im Schlick · 1",
+      "text": "Unter der letzten Wasserlinie stehen Namen im weichen Boden. Eine laufende Fußspur schneidet sie, ohne dass die Buchstaben verschwinden.",
+      "done_flag": "k6_21_c1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_21_c1"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt1_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_schlickgassen",
+    "tile": [
+      6,
+      3
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_21_c2_fund",
+      "kind": "read",
+      "title": "Namen im Schlick · 2",
+      "text": "Nell zieht einen Strich um eine leere Stelle. Dort liegen zwei Kinderschuhe, deren Besitzerin im Küchenbuch nur noch als zusätzliche Portion erscheint.",
+      "done_flag": "k6_21_c2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_21_c2"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt1_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_schlickgassen",
+    "tile": [
+      9,
+      3
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_21_c3_fund",
+      "kind": "read",
+      "title": "Namen im Schlick · 3",
+      "text": "Das Küchenbuch zählt dieselbe Portion seit gestern. Ein fehlender Name hat weder den Hunger noch den Platz am Tisch entfernt.",
+      "done_flag": "k6_21_c3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_21_c3"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt1_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_schlickgassen",
+    "tile": [
+      12,
+      3
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_21_station",
+      "kind": "dialogue",
+      "dialogue": "k6_21_dialog",
+      "prompt": "Namen im Schlick"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt1_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_wrackfeld",
+    "tile": [
+      3,
+      3
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_22_c1_fund",
+      "kind": "read",
+      "title": "Die Seite im Wrack · 1",
+      "text": "Eine Registerseite klebt auf der Innenseite des Kiels. Die Zahl am Rand passt zum Zollregister, nicht zur Ladung des Wracks.",
+      "done_flag": "k6_22_c1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_22_c1"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt1_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_wrackfeld",
+    "tile": [
+      6,
+      3
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_22_c2_fund",
+      "kind": "read",
+      "title": "Die Seite im Wrack · 2",
+      "text": "Die Fasern zittern im Takt der Pegeluhr. Ein abgetrennter Streifen verliert den Takt erst außerhalb des Wasserzeichens.",
+      "done_flag": "k6_22_c2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_22_c2"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt1_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_wrackfeld",
+    "tile": [
+      9,
+      3
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_22_c3_fund",
+      "kind": "read",
+      "title": "Die Seite im Wrack · 3",
+      "text": "Die Rückseite nennt keinen Buchbinder. Stattdessen steht dort: Abschrift aus der Vorsitzenden, Ausgabe nur gegen neuen Eingang.",
+      "done_flag": "k6_22_c3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_22_c3"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt1_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_wrackfeld",
+    "tile": [
+      12,
+      3
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_22_station",
+      "kind": "dialogue",
+      "dialogue": "k6_22_dialog",
+      "prompt": "Die Seite im Wrack"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt1_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_schlickgassen",
+    "tile": [
+      15,
+      3
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_23_c1_fund",
+      "kind": "read",
+      "title": "Nells Lücke · 1",
+      "text": "Nell legt ihre Hand neben einen Namen. Sie berührt niemanden; nur der Strich unter dem Namen wird blasser.",
+      "done_flag": "k6_23_c1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_23_c1"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt1_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_schlickgassen",
+    "tile": [
+      18,
+      3
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_23_c2_fund",
+      "kind": "read",
+      "title": "Nells Lücke · 2",
+      "text": "Ein Zollgeist folgt der blassen Zeile nicht mehr. Nell nennt die betreffende Person weiterhin, leise und ohne Mühe.",
+      "done_flag": "k6_23_c2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_23_c2"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt1_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_schlickgassen",
+    "tile": [
+      3,
+      5
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_23_c3_fund",
+      "kind": "read",
+      "title": "Nells Lücke · 3",
+      "text": "Nach dem Versuch hält Nell die Mütze mit beiden Händen. „Ich kann das wieder machen. Ich will aber vorher gefragt werden.“",
+      "done_flag": "k6_23_c3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_23_c3"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt1_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_schlickgassen",
+    "tile": [
+      6,
+      5
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_23_station",
+      "kind": "dialogue",
+      "dialogue": "k6_23_dialog",
+      "prompt": "Nells Lücke"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt1_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_wrackfeld",
+    "tile": [
+      15,
+      3
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_24_c1_fund",
+      "kind": "read",
+      "title": "Die Wrackmutter · 1",
+      "text": "Die Netze um den Rumpf spannen sich vor jedem Schlag. Sie hängen an den angenagelten Namensstreifen, nicht an einer lebenden Besatzung.",
+      "done_flag": "k6_24_c1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_24_c1"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt1_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_wrackfeld",
+    "tile": [
+      18,
+      3
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_24_c2_fund",
+      "kind": "read",
+      "title": "Die Wrackmutter · 2",
+      "text": "Nach dem Kampf bleiben die Streifen lesbar. Im stillen Kielraum liegt ein Verzeichnis eingesammelter Seiten.",
+      "done_flag": "k6_24_c2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_24_c2"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt1_done",
+        "won_wrackmutter",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_wrackfeld",
+    "tile": [
+      3,
+      5
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_24_c3_fund",
+      "kind": "read",
+      "title": "Die Wrackmutter · 3",
+      "text": "Auf dem letzten Streifen steht eine Wartungsanweisung des Rats: Lose Abschriften dürfen die Grenze der Wasserzeichen nicht verlassen.",
+      "done_flag": "k6_24_c3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_24_c3"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt1_done",
+        "won_wrackmutter",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_wrackfeld",
+    "tile": [
+      6,
+      5
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_24_station",
+      "kind": "dialogue",
+      "dialogue": "k6_24_dialog",
+      "prompt": "Die Wrackmutter"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt1_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_stegviertel",
+    "tile": [
+      18,
+      3
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_bilanz2_station",
+      "kind": "dialogue",
+      "dialogue": "k6_bilanz2",
+      "prompt": "Bilanz: Ebbe"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt1_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_oberstrasse",
+    "tile": [
+      3,
+      3
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_31_c1_fund",
+      "kind": "read",
+      "title": "Die Einladung des Zollamts · 1",
+      "text": "Die Einladung enthält deine heutige Beschreibung, aber einen Empfangsstempel vom Vortag. Ein zweiter Stempel überdeckt nur die Uhrzeit.",
+      "done_flag": "k6_31_c1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_31_c1"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt2_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_oberstrasse",
+    "tile": [
+      6,
+      3
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_31_c2_fund",
+      "kind": "read",
+      "title": "Die Einladung des Zollamts · 2",
+      "text": "Im Ausgangsbuch des Zollamts fehlt die Nummer deiner Vorladung. Daneben wurde Platz für eine nachträgliche Ergänzung gelassen.",
+      "done_flag": "k6_31_c2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_31_c2"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt2_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_oberstrasse",
+    "tile": [
+      9,
+      3
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_31_station",
+      "kind": "dialogue",
+      "dialogue": "k6_31_dialog",
+      "prompt": "Die Einladung des Zollamts"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt2_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_oberstrasse",
+    "tile": [
+      12,
+      3
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_32_c1_fund",
+      "kind": "read",
+      "title": "Die glatte Pegelkurve · 1",
+      "text": "Die offizielle Kurve kennt seit vierzig Jahren keinen Sturm. Die Rohstreifen darunter zeigen erhebliche Ausschläge.",
+      "done_flag": "k6_32_c1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_32_c1"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt2_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_oberstrasse",
+    "tile": [
+      15,
+      3
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_32_c2_fund",
+      "kind": "read",
+      "title": "Die glatte Pegelkurve · 2",
+      "text": "Ein Randvermerk verlangt, jeden Ausschlag auf den mittleren Pegel zurückzurechnen. Die Wasserhöhe blieb nicht von allein gleich.",
+      "done_flag": "k6_32_c2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_32_c2"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt2_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_oberstrasse",
+    "tile": [
+      18,
+      3
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_32_station",
+      "kind": "dialogue",
+      "dialogue": "k6_32_dialog",
+      "prompt": "Die glatte Pegelkurve"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt2_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_oberstrasse",
+    "tile": [
+      3,
+      5
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_33_c1_fund",
+      "kind": "read",
+      "title": "Ein Amt ohne Puls · 1",
+      "text": "Auf der Besoldungsliste steht beim Registeramt seit vierzig Jahren kein Schlaf- oder Krankentag. Die Handschrift änderte sich trotzdem nicht.",
+      "done_flag": "k6_33_c1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_33_c1"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt2_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_oberstrasse",
+    "tile": [
+      6,
+      5
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_33_c2_fund",
+      "kind": "read",
+      "title": "Ein Amt ohne Puls · 2",
+      "text": "Das Siegel des Registeramts drückt durch das Papier auf den Tisch. Der Abdruck verschwindet mit dem nächsten Glockenschlag.",
+      "done_flag": "k6_33_c2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_33_c2"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt2_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_oberstrasse",
+    "tile": [
+      9,
+      5
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_33_station",
+      "kind": "dialogue",
+      "dialogue": "k6_33_dialog",
+      "prompt": "Ein Amt ohne Puls"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt2_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_oberstrasse",
+    "tile": [
+      12,
+      5
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_34_c1_fund",
+      "kind": "read",
+      "title": "Das Protokoll des Hafens · 1",
+      "text": "Das Sitzungsprotokoll vor vierzig Jahren nennt die Aufnahme aller Namen in Ismay Harrow als befristete Sturmmaßnahme. Ein Ablaufdatum blieb offen.",
+      "done_flag": "k6_34_c1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_34_c1"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt2_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_oberstrasse",
+    "tile": [
+      15,
+      5
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_34_c2_fund",
+      "kind": "read",
+      "title": "Das Protokoll des Hafens · 2",
+      "text": "Unter der Unterschrift des Hafenamts steht: Jede Erweiterung bedarf erneuter Zustimmung. Auf späteren Seiten fehlt diese Prüfung.",
+      "done_flag": "k6_34_c2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_34_c2"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt2_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_oberstrasse",
+    "tile": [
+      18,
+      5
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_34_station",
+      "kind": "dialogue",
+      "dialogue": "k6_34_dialog",
+      "prompt": "Das Protokoll des Hafens"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt2_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_stegviertel",
+    "tile": [
+      3,
+      5
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_bilanz3_station",
+      "kind": "dialogue",
+      "dialogue": "k6_bilanz3",
+      "prompt": "Bilanz: Der Pegelrat"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt2_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_leuchtbank",
+    "tile": [
+      3,
+      3
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_41_c1_fund",
+      "kind": "read",
+      "title": "Osrics Schreibbuch · 1",
+      "text": "Osrics altes Register enthält Abfahrten mit durchgestrichenen Einträgen. Menschen durften gehen, ohne einen Ersatznamen zu hinterlassen.",
+      "done_flag": "k6_41_c1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_41_c1"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt3_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_leuchtbank",
+    "tile": [
+      6,
+      3
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_41_c2_fund",
+      "kind": "read",
+      "title": "Osrics Schreibbuch · 2",
+      "text": "Auf der letzten Seite steht Harrows Bitte um eine einmalige Übertragung während der Sturmflut. Osric hat die Einleitung geschrieben.",
+      "done_flag": "k6_41_c2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_41_c2"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt3_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_leuchtbank",
+    "tile": [
+      9,
+      3
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_41_c3_fund",
+      "kind": "read",
+      "title": "Osrics Schreibbuch · 3",
+      "text": "Neben seiner Unterschrift steht später: Verlängerung ohne neue Vollmacht. Die Ergänzung ist in derselben Tinte wie seine privaten Warnbriefe.",
+      "done_flag": "k6_41_c3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_41_c3"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt3_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_leuchtbank",
+    "tile": [
+      12,
+      3
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_41_station",
+      "kind": "dialogue",
+      "dialogue": "k6_41_dialog",
+      "prompt": "Osrics Schreibbuch"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt3_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_leuchtbank",
+    "tile": [
+      15,
+      3
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_42_c1_fund",
+      "kind": "read",
+      "title": "Die Glocke der Leuchtbank · 1",
+      "text": "Die Glocke schlägt nicht nach Uhrzeit. Ihr alter Klöppel trägt die Kerbe für das Ende einer Namensverlesung.",
+      "done_flag": "k6_42_c1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_42_c1"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt3_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_leuchtbank",
+    "tile": [
+      18,
+      3
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_42_c2_fund",
+      "kind": "read",
+      "title": "Die Glocke der Leuchtbank · 2",
+      "text": "Unter dem Sockel liegt die Anweisung: Nach dem letzten Namen einmal läuten, damit die Aufnahme geschlossen wird.",
+      "done_flag": "k6_42_c2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_42_c2"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt3_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_leuchtbank",
+    "tile": [
+      3,
+      5
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_42_c3_fund",
+      "kind": "read",
+      "title": "Die Glocke der Leuchtbank · 3",
+      "text": "Ein jüngerer Befehl des Rats verbietet gerade diesen einzelnen Schlag. Die gewöhnlichen Pegelschläge bleiben erlaubt.",
+      "done_flag": "k6_42_c3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_42_c3"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt3_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_leuchtbank",
+    "tile": [
+      6,
+      5
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_42_station",
+      "kind": "dialogue",
+      "dialogue": "k6_42_dialog",
+      "prompt": "Die Glocke der Leuchtbank"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt3_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_leuchtbank",
+    "tile": [
+      9,
+      5
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_43_c1_fund",
+      "kind": "read",
+      "title": "Die Ertrunkenenliste · 1",
+      "text": "Die Totenliste der Sturmflut ist älter als Harrows Aufnahme. Die ersten Namen wurden von Hinterbliebenen bestätigt.",
+      "done_flag": "k6_43_c1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_43_c1"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt3_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_leuchtbank",
+    "tile": [
+      12,
+      5
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_43_c2_fund",
+      "kind": "read",
+      "title": "Die Ertrunkenenliste · 2",
+      "text": "Später kamen Lebende auf dieselben Bögen. Anstelle eines Todesdatums steht dort eine aufgeschobene Abreise.",
+      "done_flag": "k6_43_c2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_43_c2"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt3_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_leuchtbank",
+    "tile": [
+      15,
+      5
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_43_c3_fund",
+      "kind": "read",
+      "title": "Die Ertrunkenenliste · 3",
+      "text": "Eine Kontrollspalte trennt Verlust, Aufenthalt und bloßen Briefeingang. Die spätere Reinschrift hat diese Unterschiede entfernt.",
+      "done_flag": "k6_43_c3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_43_c3"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt3_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_leuchtbank",
+    "tile": [
+      18,
+      5
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_43_station",
+      "kind": "dialogue",
+      "dialogue": "k6_43_dialog",
+      "prompt": "Die Ertrunkenenliste"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt3_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_leuchtbank",
+    "tile": [
+      3,
+      7
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_44_c1_fund",
+      "kind": "read",
+      "title": "Kommt die Flut? · 1",
+      "text": "Die Klippenmessung zeigt langsamen Druckaufbau über Jahre. Ein geordneter Übergang lässt Zeit für neue Dämme.",
+      "done_flag": "k6_44_c1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_44_c1"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt3_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_leuchtbank",
+    "tile": [
+      6,
+      7
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_44_c2_fund",
+      "kind": "read",
+      "title": "Kommt die Flut? · 2",
+      "text": "Die Notfalltafel warnt: Zerstörung des lebenden Trägers löst den zurückgehaltenen Wasserstoß sofort. Die Rechnung setzt Harrows plötzlichen Tod voraus.",
+      "done_flag": "k6_44_c2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_44_c2"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt3_done",
+        "k6_leuchtfeuer_gesichert"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_leuchtbank",
+    "tile": [
+      9,
+      7
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_44_c3_fund",
+      "kind": "read",
+      "title": "Kommt die Flut? · 3",
+      "text": "Nach dem Leuchtfeuerkampf fällt die Lichtblende vom Messstreifen. Die gespeicherte Höhe und der heutige Außenpegel sind verschiedene Linien.",
+      "done_flag": "k6_44_c3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_44_c3"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt3_done",
+        "k6_leuchtfeuer_gesichert"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_leuchtbank",
+    "tile": [
+      12,
+      7
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_44_station",
+      "kind": "dialogue",
+      "dialogue": "k6_44_dialog",
+      "prompt": "Kommt die Flut?"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt3_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_stegviertel",
+    "tile": [
+      6,
+      5
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_bilanz4_station",
+      "kind": "dialogue",
+      "dialogue": "k6_bilanz4",
+      "prompt": "Bilanz: Das alte Leuchtfeuer"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt3_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_registerkeller",
+    "tile": [
+      3,
+      3
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_51_c1_fund",
+      "kind": "read",
+      "title": "Das lebende Register · 1",
+      "text": "Die Wandtabellen bewegen sich mit Harrows Atem. Zwischen ihren Fingern erscheinen Zeilen, bevor die Schreiber sie abschreiben.",
+      "done_flag": "k6_51_c1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_51_c1"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt4_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_registerkeller",
+    "tile": [
+      6,
+      3
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_51_c2_fund",
+      "kind": "read",
+      "title": "Das lebende Register · 2",
+      "text": "Unter der Amtskleidung liegt kein verborgenes Buch. Die Wasserzeichen enden auf ihrer Haut, an denselben Stellen wie auf den Seiten.",
+      "done_flag": "k6_51_c2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_51_c2"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt4_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_registerkeller",
+    "tile": [
+      9,
+      3
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_51_c3_fund",
+      "kind": "read",
+      "title": "Das lebende Register · 3",
+      "text": "Harrow sagt: „Ich habe sie aufgenommen. Nicht aufgeschrieben. Verwechseln Sie die Abschrift nicht mit der Last.“",
+      "done_flag": "k6_51_c3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_51_c3"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt4_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_registerkeller",
+    "tile": [
+      12,
+      3
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_51_station",
+      "kind": "dialogue",
+      "dialogue": "k6_51_dialog",
+      "prompt": "Das lebende Register"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt4_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_registerkeller",
+    "tile": [
+      15,
+      3
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_52_c1_fund",
+      "kind": "read",
+      "title": "Der Zeuge an der Schwelle · 1",
+      "text": "Die Schwellenmarke hat Platz für einen Zeugen. Ein zweiter Abdruck kann die Eintragung einer fremden Handlung bestreiten.",
+      "done_flag": "k6_52_c1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_52_c1"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt4_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_registerkeller",
+    "tile": [
+      18,
+      3
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_52_c2_fund",
+      "kind": "read",
+      "title": "Der Zeuge an der Schwelle · 2",
+      "text": "Der gewählte Zollherr legt seinen Amtsstempel außerhalb des Wasserzeichens ab. Er muss jeden Eintrag einzeln bezeugen; ein Titel allein genügt nicht.",
+      "done_flag": "k6_52_c2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_52_c2"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt4_done",
+        "gezeit_ebbe",
+        "k6_zeuge_bereit"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_registerkeller",
+    "tile": [
+      3,
+      5
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_52_c3_fund",
+      "kind": "read",
+      "title": "Der Zeuge an der Schwelle · 3",
+      "text": "Die Zeugenzeile bleibt lesbar, wenn Harrow eine Fähigkeit festhalten will. Die Sperre besteht kürzer, nicht gar nicht.",
+      "done_flag": "k6_52_c3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_52_c3"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt4_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_registerkeller",
+    "tile": [
+      6,
+      5
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_52_station",
+      "kind": "dialogue",
+      "dialogue": "k6_52_dialog",
+      "prompt": "Der Zeuge an der Schwelle"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt4_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_registerkeller",
+    "tile": [
+      9,
+      5
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_53_c1_fund",
+      "kind": "read",
+      "title": "Nells Antwort · 1",
+      "text": "Nell hält Abstand vom offenen Wasserzeichen. Sie kann einzelne Zugriffe lösen; die Summe aller Namen wäre eine andere Last.",
+      "done_flag": "k6_53_c1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_53_c1"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt4_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_registerkeller",
+    "tile": [
+      12,
+      5
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_53_c2_fund",
+      "kind": "read",
+      "title": "Nells Antwort · 2",
+      "text": "Osric liest ihr die Folgen vor: Wer das Register übernimmt, bleibt an Ort und Namen gebunden. Ein Schreiber kann helfen, aber das nicht rückgängig machen.",
+      "done_flag": "k6_53_c2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_53_c2"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt4_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_registerkeller",
+    "tile": [
+      15,
+      5
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_53_c3_fund",
+      "kind": "read",
+      "title": "Nells Antwort · 3",
+      "text": "Nell sagt: „Ich verstehe, dass ich dann bleiben muss. Du darfst mich trotzdem nicht einfach einsetzen.“ Ihre Antwort wird gesondert festgehalten.",
+      "done_flag": "k6_53_c3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_53_c3"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt4_done",
+        "gezeit_ebbe",
+        "k6_nell_gefragt"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_registerkeller",
+    "tile": [
+      18,
+      5
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_53_station",
+      "kind": "dialogue",
+      "dialogue": "k6_53_dialog",
+      "prompt": "Nells Antwort"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt4_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_registerkeller",
+    "tile": [
+      3,
+      7
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_54_c1_fund",
+      "kind": "read",
+      "title": "Die letzte Zeile · 1",
+      "text": "Nach dem Ende der Gegenwehr bleibt die Schlusszeile offen. Die Namen sind noch gebunden, bis jemand eine Entscheidung ausspricht.",
+      "done_flag": "k6_54_c1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_54_c1"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt4_done",
+        "k6_pegelherrin_geloest",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_registerkeller",
+    "tile": [
+      6,
+      7
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_54_c2_fund",
+      "kind": "read",
+      "title": "Die letzte Zeile · 2",
+      "text": "Die Ausgänge sind bezeichnet: Aufnahme, Zerstörung, Übergabe. Zwei Hände können die Last nur teilen, wenn beide der Bindung zustimmen.",
+      "done_flag": "k6_54_c2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_54_c2"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt4_done",
+        "k6_pegelherrin_geloest",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_registerkeller",
+    "tile": [
+      9,
+      7
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_54_c3_fund",
+      "kind": "read",
+      "title": "Die letzte Zeile · 3",
+      "text": "Auf dem trockenen Rand liegt Platz für einen späteren Verzicht. Die Erlaubnis zum Letzten Register ist noch kein vollzogenes Ritual.",
+      "done_flag": "k6_54_c3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k6_54_c3"
+        ]
+      }
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt4_done",
+        "k6_pegelherrin_geloest",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_registerkeller",
+    "tile": [
+      12,
+      7
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_54_station",
+      "kind": "dialogue",
+      "dialogue": "k6_54_dialog",
+      "prompt": "Die letzte Zeile"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt4_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_registerkeller",
+    "tile": [
+      15,
+      7
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_bilanz5_station",
+      "kind": "dialogue",
+      "dialogue": "k6_bilanz5",
+      "prompt": "Bilanz: Das Register schließen"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt4_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_zollhafen",
+    "tile": [
+      3,
+      7
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_anreise_koop_station",
+      "kind": "dialogue",
+      "dialogue": "k6_anreise_koop",
+      "prompt": "Zwei Namen unter einer Nummer"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived",
+        "koop_aktiv"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_oberstrasse",
+    "tile": [
+      3,
+      7
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_rat_1_station",
+      "kind": "dialogue",
+      "dialogue": "k6_rat_1",
+      "prompt": "Verhör: Zollamt"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt2_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_oberstrasse",
+    "tile": [
+      6,
+      7
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_rat_2_station",
+      "kind": "dialogue",
+      "dialogue": "k6_rat_2",
+      "prompt": "Verhör: Pegelamt"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt2_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_oberstrasse",
+    "tile": [
+      9,
+      7
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_rat_3_station",
+      "kind": "dialogue",
+      "dialogue": "k6_rat_3",
+      "prompt": "Verhör: Registeramt"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt2_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_oberstrasse",
+    "tile": [
+      12,
+      7
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_rat_4_station",
+      "kind": "dialogue",
+      "dialogue": "k6_rat_4",
+      "prompt": "Verhör: Hafenamt"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt2_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_oberstrasse",
+    "tile": [
+      15,
+      7
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_rat_5_station",
+      "kind": "dialogue",
+      "dialogue": "k6_rat_5",
+      "prompt": "Verhör: Zunftamt"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt2_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_oberstrasse",
+    "tile": [
+      18,
+      7
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_rat_6_station",
+      "kind": "dialogue",
+      "dialogue": "k6_rat_6",
+      "prompt": "Verhör: Kirchenamt"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt2_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_oberstrasse",
+    "tile": [
+      3,
+      9
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_rat_7_station",
+      "kind": "dialogue",
+      "dialogue": "k6_rat_7",
+      "prompt": "Verhör: Armenhausamt"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt2_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_zollhafen",
+    "tile": [
+      6,
+      7
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_zoll_station",
+      "kind": "dialogue",
+      "dialogue": "k6_zoll",
+      "prompt": "Zollkontrolle"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_stegviertel",
+    "tile": [
+      9,
+      5
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_tam_station",
+      "kind": "dialogue",
+      "dialogue": "k6_tam",
+      "prompt": "Tam Verrin"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_stegviertel",
+    "tile": [
+      12,
+      5
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_nell_station",
+      "kind": "dialogue",
+      "dialogue": "k6_nell",
+      "prompt": "Nell Quarrie"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt1_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_leuchtbank",
+    "tile": [
+      15,
+      7
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_osric_station",
+      "kind": "dialogue",
+      "dialogue": "k6_osric",
+      "prompt": "Pater Osric Dale"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt3_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_oberstrasse",
+    "tile": [
+      6,
+      9
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_vertrauen_station",
+      "kind": "dialogue",
+      "dialogue": "k6_vertrauen",
+      "prompt": "Einen Ratszeugen wählen"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt2_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_registerkeller",
+    "tile": [
+      18,
+      7
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_zeuge_station",
+      "kind": "dialogue",
+      "dialogue": "k6_zeuge",
+      "prompt": "Der Ratszeuge"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt4_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_wrackfeld",
+    "tile": [
+      9,
+      5
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_kampf_wrackmutter_station",
+      "kind": "dialogue",
+      "dialogue": "k6_kampf_wrackmutter",
+      "prompt": "Bosszugang: wrackmutter"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt1_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_leuchtbank",
+    "tile": [
+      18,
+      7
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_kampf_leuchtfeuerwaechter_station",
+      "kind": "dialogue",
+      "dialogue": "k6_kampf_leuchtfeuerwaechter",
+      "prompt": "Bosszugang: leuchtfeuerwaechter"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt3_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_registerkeller",
+    "tile": [
+      3,
+      9
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_harrow_station",
+      "kind": "dialogue",
+      "dialogue": "k6_harrow",
+      "prompt": "Ismay Harrow"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt4_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_registerkeller",
+    "tile": [
+      6,
+      9
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_traeger_station",
+      "kind": "dialogue",
+      "dialogue": "k6_traeger",
+      "prompt": "Die schließende Hand"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_pegelherrin_geloest",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_registerkeller",
+    "tile": [
+      9,
+      9
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_ende_station",
+      "kind": "dialogue",
+      "dialogue": "k6_ende",
+      "prompt": "Die offene Schlusszeile"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt5_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_zollhafen",
+    "tile": [
+      9,
+      7
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_szene_ankunft_station",
+      "kind": "dialogue",
+      "dialogue": "k6_szene_ankunft",
+      "prompt": "Zwischenszene: ankunft"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_stegviertel",
+    "tile": [
+      15,
+      5
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_szene_wartungsgang_station",
+      "kind": "dialogue",
+      "dialogue": "k6_szene_wartungsgang",
+      "prompt": "Zwischenszene: wartungsgang"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_tam_weg"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_schlickgassen",
+    "tile": [
+      9,
+      5
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_szene_portion_station",
+      "kind": "dialogue",
+      "dialogue": "k6_szene_portion",
+      "prompt": "Zwischenszene: portion"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt1_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_wrackfeld",
+    "tile": [
+      12,
+      5
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_szene_kielraum_station",
+      "kind": "dialogue",
+      "dialogue": "k6_szene_kielraum",
+      "prompt": "Zwischenszene: kielraum"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "won_wrackmutter",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_oberstrasse",
+    "tile": [
+      9,
+      9
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_szene_sieben_stuehle_station",
+      "kind": "dialogue",
+      "dialogue": "k6_szene_sieben_stuehle",
+      "prompt": "Zwischenszene: sieben_stuehle"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt2_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_oberstrasse",
+    "tile": [
+      12,
+      9
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_szene_zeugenwahl_station",
+      "kind": "dialogue",
+      "dialogue": "k6_szene_zeugenwahl",
+      "prompt": "Zwischenszene: zeugenwahl"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_vertrauen_gewaehlt"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_leuchtbank",
+    "tile": [
+      3,
+      9
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_szene_glockenseil_station",
+      "kind": "dialogue",
+      "dialogue": "k6_szene_glockenseil",
+      "prompt": "Zwischenszene: glockenseil"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_glocke_vorbereitet"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_leuchtbank",
+    "tile": [
+      6,
+      9
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_szene_mensch_im_rad_station",
+      "kind": "dialogue",
+      "dialogue": "k6_szene_mensch_im_rad",
+      "prompt": "Zwischenszene: mensch_im_rad"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_leuchtfeuer_gesichert"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_grenzzaun",
+    "tile": [
+      3,
+      3
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_szene_zollzaun_station",
+      "kind": "dialogue",
+      "dialogue": "k6_szene_zollzaun",
+      "prompt": "Zwischenszene: zollzaun"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt4_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_registerkeller",
+    "tile": [
+      12,
+      9
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_szene_erster_widerstand_station",
+      "kind": "dialogue",
+      "dialogue": "k6_szene_erster_widerstand",
+      "prompt": "Zwischenszene: erster_widerstand"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "won_pegelherrin",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_registerkeller",
+    "tile": [
+      15,
+      9
+    ],
+    "gezeit": "ebbe",
+    "interactable": {
+      "id": "k6_szene_stille_zeile_station",
+      "kind": "dialogue",
+      "dialogue": "k6_szene_stille_zeile",
+      "prompt": "Zwischenszene: stille_zeile"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_pegelherrin_geloest",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_stegviertel",
+    "tile": [
+      18,
+      5
+    ],
+    "gezeit": "beide",
+    "interactable": {
+      "id": "k6_szene_nach_der_wahl_station",
+      "kind": "dialogue",
+      "dialogue": "k6_szene_nach_der_wahl",
+      "prompt": "Zwischenszene: nach_der_wahl"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_stegviertel",
+    "tile": [
+      3,
+      7
+    ],
+    "npc": "vmn_tam_verrin",
+    "gezeit": "beide",
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_stegviertel",
+    "tile": [
+      6,
+      7
+    ],
+    "npc": "vmn_nell_quarrie",
+    "gezeit": "beide",
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt1_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_leuchtbank",
+    "tile": [
+      9,
+      9
+    ],
+    "npc": "vmn_osric_dale",
+    "gezeit": "beide",
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt3_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_registerkeller",
+    "tile": [
+      18,
+      9
+    ],
+    "npc": "vmn_pegelherrin",
+    "gezeit": "ebbe",
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt4_done",
+        "gezeit_ebbe"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_zollhafen",
+    "tile": [
+      12,
+      7
+    ],
+    "npc": "vmn_zollschreiber",
+    "gezeit": "beide",
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_oberstrasse",
+    "tile": [
+      15,
+      9
+    ],
+    "npc": "vmn_rat_1",
+    "gezeit": "beide",
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt2_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_oberstrasse",
+    "tile": [
+      18,
+      9
+    ],
+    "npc": "vmn_rat_2",
+    "gezeit": "beide",
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt2_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_oberstrasse",
+    "tile": [
+      3,
+      11
+    ],
+    "npc": "vmn_rat_3",
+    "gezeit": "beide",
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt2_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_oberstrasse",
+    "tile": [
+      6,
+      11
+    ],
+    "npc": "vmn_rat_4",
+    "gezeit": "beide",
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt2_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_oberstrasse",
+    "tile": [
+      9,
+      11
+    ],
+    "npc": "vmn_rat_5",
+    "gezeit": "beide",
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt2_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_oberstrasse",
+    "tile": [
+      12,
+      11
+    ],
+    "npc": "vmn_rat_6",
+    "gezeit": "beide",
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt2_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  },
+  {
+    "map": "vm_oberstrasse",
+    "tile": [
+      15,
+      11
+    ],
+    "npc": "vmn_rat_7",
+    "gezeit": "beide",
+    "visible_if": {
+      "requires_flags": [
+        "k6_akt2_done"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    }
+  }
+]
