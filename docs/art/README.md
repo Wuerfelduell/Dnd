@@ -1817,6 +1817,9 @@ Prüfung: `python tools/art/calderwick2/check.py` (Pillow, aus jedem Arbeitsverz
 
 Keine Laufzeitintegration in diesem Paket.
 
+## DE · Fahrende Auktion (`auktion`)
+
+55 PNGs: Vance, Träger, Glockenhund, drei Mitbieter, Portraits/Stimmungen/Köpfe, Wagen, zehn Los-Iconpaare, UI, Posen und Effekte. Manifest: `public/sprites/manifest-auktion.json`; Prompts, Vorschau und Prüfbericht: `batch-auktion-{generation.json,preview.png,validation.json}`. Texte und Einbauvertrag: `docs/story/fahrende_auktion/README.md`. Prüfung: `python tools/art/auktion/check.py` und `node docs/story/fahrende_auktion/pruefen.mjs`. Kein Runtime-Einbau.
 ## Batch DJ · Benannte Gegner (`benannte`)
 
 24 benannte Varianten, je vier pro Stadt, mit Kampfblatt (6×5 Frames), Kartenblatt (4×4 Richtungsframes), 24×24-Kopf und eigener 64×64-Bestiariumsansicht. Dazu acht neue Beutestücke und acht Fasserin-Artefakte in 16/32 Pixeln, acht Auftrittsframes und fünf UI-Symbole: insgesamt 130 PNGs.
