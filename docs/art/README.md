@@ -2093,3 +2093,10 @@ Unterelemente und drei Größenableitungen; keine zusätzlichen Varianten.
 ## Vorrat nebel200 — Nebelakten_200_Icons
 
 200 weitere Item-Icons (zweite „Reserve 200“-Lieferung, andere Motive als `items/reserve200`), 64×64 mit Spielpalette unter `public/sprites/items/nebel200/`. Fünf davon sind als Zirkelwaffen im Spiel. Inventar und Zuordnung: [vorrat/nebel200-README.md](vorrat/nebel200-README.md).
+
+## Runde 13 (2026-11-12): letzte Codex-Prompts, ersetzen heutige Platzhalter
+- DU `dunscarwert`: 3 Dunscar-Beutestücke + 14 dsz_*-Zirkelstücke (16+32)
+- DV `kalterofen`: Figuren Kalter Ofen + Flickerin Hanne Saum (Lauf + Kopf)
+- DW `stellwerk`: Figuren Stummes Stellwerk + 3 Kalkmarkt-Händlerinnen
+- DX `gebietsbosse`: 4 Dunscar-Gebietsbosse (Kampfblatt + Auftrittsbild)
+- DY `pfadbeyonder`: Wenna Kolk, Corvin Hake (Lauf + Kopf + Kampf), Maud Keel Kampfblatt
