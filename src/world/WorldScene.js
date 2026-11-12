@@ -1345,6 +1345,9 @@ export class WorldScene extends Phaser.Scene {
   update(time, delta) {
     const blocked = this.ui.isBlocking() || this.leaving;
     if (!blocked) this.state.tick(delta / 1000);
+    // Codex DL: Erfolge alle 1,5 s prüfen (die erste Prüfung trägt still nach)
+    this.erfTimer = (this.erfTimer ?? 0) + delta;
+    if (this.erfTimer > 1500) { this.erfTimer = 0; this.state.checkErfolge?.(); }
     this.updateMovement(blocked);
     // Schlüssel Seq 5: die Schattengestalt ist durchscheinend
     this.playerSprites().forEach((q, i) => q.setAlpha(this.state.inShadow?.(i + 1) ? 0.4 : 1));

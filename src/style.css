@@ -1061,3 +1061,13 @@ html.touch .talentbar .tslot { width: 3.2em; height: 3.2em; }
 .sudfenster { position: relative; image-rendering: pixelated; margin: 0.4em 0; }
 .sudslot { position: absolute; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .waagefx { margin-right: 0.4em; vertical-align: middle; }
+
+/* Codex DL: Akte des Ermittlers */
+.erfakte h3.erfgruppe { margin: 0.8em 0 0.3em; display: flex; align-items: center; gap: 0.4em; }
+.erfliste { list-style: none; padding: 0; margin: 0; }
+.erfliste li.erf { display: flex; align-items: center; gap: 0.6em; padding: 0.25em 0; border-bottom: 1px solid rgba(208, 160, 80, 0.15); }
+.erfliste li.erf > div { flex: 1; }
+.erfliste li.offen b { opacity: 0.7; }
+.erfliste .erfico { flex: none; image-rendering: pixelated; }
+.erfstempel { color: var(--gold); font-weight: bold; }
+.toast.erfolg .erfico { margin-right: 0.4em; vertical-align: middle; image-rendering: pixelated; }

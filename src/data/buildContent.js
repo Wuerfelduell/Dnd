@@ -116,6 +116,7 @@ function withPackLore(content, pack) {
   // Codex-Runde 9: Textvorräte für Halbgott/Engel (CP) und die Fasserin-Aufträge (CR) liegen als Ganzes im Inhalt
   if (pack.halbgott) content.halbgott = pack.halbgott;
   if (pack.fasserin_auftrag) content.fasserinAuftrag = pack.fasserin_auftrag;
+  if (pack.erfolge) content.erfolge = pack.erfolge; // Codex DL: Akte des Ermittlers
 }
 
 /** Lesestück ohne feste Kachel (`spawn_offset`): neben dem Standard-Spawn seiner Karte; ohne Karte entfällt es. */

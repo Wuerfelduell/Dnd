@@ -286,6 +286,13 @@ const damageDigits = (text, row, k) => [...text].map((ch) => {
   const r = DAMAGE_FONT.rows[row];
   return i < 0 ? '' : regionIcon(SPRITE_BASE + UI_SHEETS.dmg[0], [i * 8, r * 10, 8, 10], 96, 50, 'glyph', k);
 }).join('');
+/** Codex DL: Erfolgs-Icon (Atlas 10x8, 16px; offen = graue Prägung) und Gruppensymbole. */
+const ERF_GRUPPEN = { faelle: 'Fälle und Kapitel', sequenzen: 'Sequenzen', zirkel: 'Zirkel und Beziehungen', welt: 'Welt', kampf: 'Kampf', koop: 'Koop', kuriositaeten: 'Kuriositäten' };
+const erfIcon = (index, frei, k = 1 / 8, cls = '') => regionIcon(`${SPRITE_BASE}ui/erfolge_icons${frei ? '' : '_offen'}.png`, [(index % 10) * 16, Math.floor(index / 10) * 16, 16, 16], 160, 128, `erfico ${cls}`, k);
+const erfSymbol = (name, k = 1 / 16, title = '') => {
+  const i = ['faelle', 'sequenzen', 'zirkel', 'welt', 'kampf', 'koop', 'kuriositaeten', 'versteckt', 'neu'].indexOf(name);
+  return i < 0 ? '' : regionIcon(`${SPRITE_BASE}ui/erfolge_symbole.png`, [i * 16, 0, 16, 16], 144, 16, 'erfsym', k, title);
+};
 /**
  * Ausschnitte für 9-Slice-Rahmen und Zeiger: werden einmal auf ein Canvas kopiert und als CSS-Variable gesetzt
  * (border-image braucht ein eigenes Bild). Lädt ein Bogen nicht, bleibt der bisherige Rahmen.
@@ -319,7 +326,7 @@ function cropSkins(root) {
   }
 }
 /** Notizbuch-Reiter → Symbol aus 07_03_icons.png (Fallakten: Lupe). */
-const TAB_ICONS = { quests: 'ausruf', items: 'schluessel', pfad: 'auge', personen: 'sprechen', bestiar: 'spuren', archiv: 'notebook', kulte: 'spuren' };
+const TAB_ICONS = { erfolge: 'notebook', quests: 'ausruf', items: 'schluessel', pfad: 'auge', personen: 'sprechen', bestiar: 'spuren', archiv: 'notebook', kulte: 'spuren' };
 const pctStep = (frac, n) => Math.max(0, Math.min(n - 1, Math.round((1 - Math.max(0, Math.min(1, frac))) * (n - 1))));
 const moneyIcon = (n) => `<img class="coin" src="${moneyIconUrl(n)}" alt="" width="16" height="16" onerror="this.remove()">`;
 /** Beute als Liste mit Icon, Anzahl und Seltenheit (Farbe). */
@@ -424,6 +431,8 @@ export class Ui {
     state.on('vision', (on) => root.classList.toggle('vision', on));
     state.on('notice', (t) => { this.toast(t, 'warn'); if (/^Zu schwer/.test(t)) this.sfx(uiSound('notebook', 'heavy')); });
     state.on('clue', (id) => this.toast(`Neuer Hinweis: ${state.clue(id).name}`));
+    // Codex DL: neuer Erfolg – Einblendung mit Icon (still nachgetragene melden sich nicht)
+    state.on('erfolg', (def) => { this.toast(state.erfolgMeldung(def), 'gold erfolg'); this.$('.toasts')?.lastElementChild?.insertAdjacentHTML('afterbegin', erfIcon(def.index, true, 1 / 8, 'toastico')); });
     state.on('cross', ({ fact, case: c }) => {
       const title = state.content.cases.find((x) => x.id === c)?.title.split(':')[0] ?? 'einem anderen Fall';
       this.toast(`Querverbindung: „${state.fact(fact).text}“ gehört auch zu ${title}`, 'gold');
@@ -1654,7 +1663,7 @@ export class Ui {
     const cases = all.filter((c) => !solved.includes(c));
     const beasts = this.knownBeasts();
     const papers = this.state.paperArchive();
-    const fixed = ['quests', 'items', 'pfad', 'personen', 'kulte', 'bestiar', 'zeitung', 'archiv'];
+    const fixed = ['quests', 'items', 'pfad', 'personen', 'kulte', 'bestiar', 'zeitung', 'archiv', 'erfolge'];
     if (this.tab === 'kulte' && !this.state.sektenFrei?.()) this.tab = 'quests';
     if (this.tab === 'zeitung' && !papers.length) this.tab = 'quests';
     if (this.tab === 'archiv' && !solved.length) this.tab = 'quests';
@@ -1667,11 +1676,12 @@ export class Ui {
       ...(this.state.sektenFrei?.() ? [{ id: 'kulte', title: 'Kulte' }] : []), // BQ: Umtriebe der drei Sekten
       ...(beasts.length ? [{ id: 'bestiar', title: 'Bestiarium' }] : []),
       ...(papers.length ? [{ id: 'zeitung', title: 'Zeitung' }] : []),
-      ...cases.map((c) => ({ id: c.id, title: c.title.replace(/:.*/, '') })), ...(solved.length ? [{ id: 'archiv', title: `Archiv (${solved.length})` }] : [])];
+      ...cases.map((c) => ({ id: c.id, title: c.title.replace(/:.*/, '') })), ...(solved.length ? [{ id: 'archiv', title: `Archiv (${solved.length})` }] : []),
+      ...(this.state.erfolgeDefs().length ? [{ id: 'erfolge', title: 'Akte' }] : [])]; // Codex DL
     const caseId = this.currentCase();
     const body = this.tab === 'quests' ? this.questsHtml() + this.signalJournalHtml() : this.tab === 'items' ? this.itemsHtml() : this.tab === 'pfad' ? this.pathwayTabHtml()
       : this.tab === 'personen' ? this.peopleHtml() : this.tab === 'kulte' ? this.kulteHtml() : this.tab === 'bestiar' ? this.bestiaryHtml(beasts) : this.tab === 'zeitung' ? this.papersHtml(papers)
-      : this.tab === 'archiv' ? this.archiveHtml(solved) : this.caseHtml(this.tab);
+      : this.tab === 'archiv' ? this.archiveHtml(solved) : this.tab === 'erfolge' ? this.erfolgeHtml() : this.caseHtml(this.tab);
     const isCase = !!caseId;
     const el = this.open('notebook', `
       <div class="tabs">${tabs.map((t, i) => `<button class="tab ${t.id === this.tab ? 'sel' : ''}" data-tab="${t.id}"><span class="key">${i + 1}</span> ${uiSprite('icons', TAB_ICONS[t.id] ?? 'lupe', 1 / 16, 'tabico')}${esc(t.title)}</button>`).join('')}
@@ -1807,6 +1817,29 @@ export class Ui {
     const lore = this.state.content.bestiaryTexts ?? {};
     const extra = Object.keys(encounters).filter((id) => !id.endsWith('_elite') && !BESTIARY.includes(id) && (hasLoot(id) || lore[id]));
     return [...BESTIARY, ...extra].filter((id) => encounters[id] && won(id));
+  }
+
+  /** Codex DL: „Akte des Ermittlers“ – alle 80 Vermerke nach Gruppen, offene in grauer Prägung. */
+  erfolgeHtml() {
+    const st = this.state;
+    st.checkErfolge();
+    const neu = new Set(st.erfolgeProfil().neu);
+    const defs = st.erfolgeDefs();
+    const frei = defs.filter((d) => st.erfolgFrei(d.id)).length;
+    const rows = Object.entries(ERF_GRUPPEN).map(([g, title]) => {
+      const list = defs.filter((d) => d.gruppe === g);
+      if (!list.length) return '';
+      return `<h3 class="erfgruppe">${erfSymbol(g)} ${esc(title)} <span class="dim">${list.filter((d) => st.erfolgFrei(d.id)).length}/${list.length}</span></h3>
+        <ul class="erfliste">${list.map((d) => {
+          const ok = st.erfolgFrei(d.id);
+          const text = !ok && d.versteckt ? 'Vermerk noch versiegelt.' : d.text;
+          const hint = ok ? '' : st.erfolgMessbar(d) ? '' : ' <span class="dim">(noch nicht im Spiel)</span>';
+          return `<li class="erf ${ok ? 'frei' : 'offen'}">${erfIcon(d.index, ok, 1 / 8)}<div><b>${esc(d.name)}</b>${neu.has(d.id) ? ` ${erfSymbol('neu', 1 / 16, 'neu')}` : ''}${!ok && d.versteckt ? ` ${erfSymbol('versteckt', 1 / 16, 'versteckt')}` : ''}${d.koop ? ' <span class="dim">· Koop</span>' : ''}
+            <div class="dim">${esc(text)}${hint}</div></div>${ok ? '<span class="erfstempel" title="erfüllt">✓</span>' : ''}</li>`;
+        }).join('')}</ul>`;
+    }).join('');
+    st.erfolgeGesehen();
+    return `<div class="erfakte"><p><b>Akte des Ermittlers</b> · ${frei}/${defs.length}</p>${st.erfolgeSeitentext().map((t) => `<p class="dim">${esc(t)}</p>`).join('')}${rows}</div>`;
   }
 
   bestiaryHtml(ids) {

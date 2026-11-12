@@ -4,6 +4,7 @@ import { buildK3Ruf } from '../src/data/k3Ruf.js';
 import { buildContent } from '../src/data/buildContent.js';
 import { runde8Packs, RUNDE8_FILES } from '../src/data/runde8.js';
 import { fasserinAuftragPack, halbgottPack, FASSERIN_AUFTRAG_FILES, HALBGOTT_FILES } from '../src/data/runde9.js';
+import { erfolgePack, ERFOLGE_FILES } from '../src/data/runde10.js';
 import { seq4DrPack, SEQ4_DR_FILES } from '../src/data/seq4Dr.js';
 import { dunscarZirkelPack } from '../src/data/dunscarZirkel.js';
 
@@ -62,6 +63,7 @@ export function loadContent({ sequenzen = true, without = [] } = {}) {
     ...(without.includes('fasserin') ? [] : [(() => { const r = load('packs/fasserin/rezepte.json'); return { name: 'fasserin', rezepte: r.recipes, artifacts: r.artifacts, fasserin_texte: load('packs/fasserin/texte.json'), gerede: load('packs/fasserin/gerede.json'), zeitung: load('packs/fasserin/zeitung.json') }; })()]),
     ...(without.includes('feste') ? [] : [{ name: 'feste', zeitung: load('packs/feste/zeitung.json') }]),
     ...(without.includes('fasserin_auftrag') ? [] : [fasserinAuftragPack(Object.fromEntries(FASSERIN_AUFTRAG_FILES.map((f) => [f, load(`packs/fasserin_auftrag/${f}.json`)])))]),
+    ...(without.includes('erfolge') ? [] : [erfolgePack(Object.fromEntries(ERFOLGE_FILES.map((f) => [f, load(`packs/erfolge/${f}.json`)])))]),
     ...(without.includes('halbgott') ? [] : [halbgottPack(Object.fromEntries(HALBGOTT_FILES.map((f) => [f, load(`packs/halbgott/${f}.json`)])))]),
     ...(without.includes('sekten') ? [] : [(() => { const f = load('packs/sekten/figuren.json'); const g = load('packs/sekten/gegner.json'); const a = load('packs/sekten/auftraege.json');
       return { name: 'sekten', npcs: f.npcs, dialogues: f.dialogues, einwohner: f.einwohner, items: g.items, encounters: g.encounters, loot: g.loot, quests: a.quests, artifacts: a.artifacts,
