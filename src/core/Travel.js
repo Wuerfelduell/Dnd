@@ -29,7 +29,8 @@ export function cityOf(state, mapId) {
  * Kettlegate zurück. Dort läuft die Fahndung, und alles Nötige (Kessel, Formeln, Zutaten, Vorräte) steht im Unterschlupf.
  */
 export function lockedCities(state) {
-  return state.flags.has('k2_arrived') ? ['kettlegate'] : [];
+  // Kapitel 4: nach dem Sturz gibt es weder Dunscar noch die Himmelsstadt (erst beim zweiten Aufstieg wieder)
+  return [...(state.flags.has('k2_arrived') ? ['kettlegate'] : []), ...(state.flags.has('k4_arrived') ? ['dunscar', 'himmel'] : [])];
 }
 
 export function cityLocked(state, city) {
