@@ -412,8 +412,17 @@ export class CombatScene extends Phaser.Scene {
   }
 
   float(text, who, cls = '') {
-    const p = who === 'enemy' ? this.enemyCenter() : this.playerCenter();
-    this.ui.combatFloat(text, (p.x / VIEW_W) * 100, ((p.y - 30) / VIEW_H) * 100, cls);
+    if (who === 'enemy') {
+      const p = this.enemyCenter();
+      this.ui.combatFloat(text, (p.x / VIEW_W) * 100, ((p.y - 30) / VIEW_H) * 100, cls);
+      return;
+    }
+    // Zahlen stehen direkt über dem Kopf der getroffenen Figur; zu zweit mit Namensschild
+    const spr = this.player;
+    const x = spr?.homeX ?? PLAYER_X;
+    const top = (spr?.homeY ?? GROUND_Y + 14) - (spr?.displayHeight || 72) - 6;
+    const n = Number(Object.keys(this.players ?? {}).find((k) => this.players[k] === spr)) || 1;
+    this.ui.combatFloat(text, (x / VIEW_W) * 100, (top / VIEW_H) * 100, cls, this.combat.duo ? `Sp. ${n}` : null);
   }
 
   flash(target) {
@@ -753,7 +762,8 @@ export class CombatScene extends Phaser.Scene {
       this.hitFx('dodge', 'player');
       this.tweens.add({ targets: this.player, x: this.player.homeX - 26, duration: 110, yoyo: true, ease: 'Quad.out' });
     } else {
-      this.time.delayedCall(90, () => { this.flash(this.player); if (r.damage) this.hitFx('blunt', 'player'); this.float(r.damage ? `-${r.damage}` : 'Abgefangen', 'player', r.damage ? 'hurt' : 'good'); if (r.damage) this.cameras.main.shake(120, 0.01); });
+      const struck = this.player; // bei Flächenangriffen wechselt this.player vor Ablauf der Verzögerung
+      this.time.delayedCall(90, () => { this.player = struck; this.flash(struck); if (r.damage) this.hitFx('blunt', 'player'); this.float(r.damage ? `-${r.damage}` : 'Abgefangen', 'player', r.damage ? 'hurt' : 'good'); if (r.damage) this.cameras.main.shake(120, 0.01); });
       if (d.early) this.float('Zu früh', 'player', 'miss');
       else if (r.note === 'unparryable') this.float('Nicht parierbar!', 'player', 'miss');
       else if (r.note === 'exhausted') this.float('Erschöpft', 'player', 'miss');
