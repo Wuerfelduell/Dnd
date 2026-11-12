@@ -40,7 +40,8 @@ export const SCHWELLE = {
   4: { waechter: 'hg_schwellenwaechter', sheet: 'hg_schwellenwaechter', hp: 2500, armor: 3, dmg: [16, 20, 14], titel: 'Schwellenwächter', chapter: 3,
     schlag: 'Signalschlag', welle: 'Kalkstaub-Welle', welle_dmg: 12, nerves: 8, phase_text: '„Sie haben die Prüfung bewegt. Nun trägt sie zurück.“',
     bild: 'Kalk und alte Bahnsignale bilden einen Körper ohne Gesicht. Vor der Brust hängt dein Pfadsiegel.' },
-  2: { waechter: 'hg_grenzwaechter', sheet: 'hg_grenzwaechter', hp: 1400, armor: 4, dmg: [26, 32, 23], titel: 'Grenzwächter', chapter: 4,
+  2: { waechter: 'hg_grenzwaechter', sheet: 'hg_grenzwaechter', hp: 1850, // 1400 → 1850: Halbgott-Schaden +110 % statt +60 % (Seb 2026-11-12)
+     armor: 4, dmg: [26, 32, 23], titel: 'Grenzwächter', chapter: 4,
     schlag: 'Grenzschlag', welle: 'Grenznebel', welle_dmg: 20, nerves: 12, phase_text: '„Die Grenze antwortet jetzt mit Ihrer eigenen Haltung.“',
     bild: 'Grenzsteine halten einen Leib aus dichtem Nebel zusammen. Neben ihm steht ein leerer Umriss in deiner Haltung.' },
 };
@@ -82,7 +83,7 @@ const TREFFEN = { 6: 640, 5: 900, 4: 4000 };
  * Seb (2026-11-12): die Halbgott-Formel (4) gibt es NUR auf geheimen Treffen (TREFFEN[4]) oder mit 0,5 % bei Elite-Gegnern (core/PfadHandel.js). */
 const KITTERING_HOCH = { 3: { price: 260, honor: 110 }, 2: { price: 380, honor: 135 }, 1: { price: 560, honor: 160 } };
 /** Knapper Markt: Zutaten ab Sequenz 7 nur auf geheimen Treffen (7 und 6 in Kettlegate, der Kern für 5 in Wexmoor). */
-const ZUTAT_TREFFEN = { 7: { price: 120, chance: 0.45 }, 6: { price: 200, chance: 0.3 }, 5: { price: 320, chance: 0.45 }, 4: { price: 2000, chance: 0.5 } };
+const ZUTAT_TREFFEN = { 7: { price: 120, chance: 0.45 }, 6: { price: 200, chance: 0.3 }, 5: { price: 320, chance: 0.45 }, 4: { price: 4500, chance: 0.5 } }; // Seq-4-Zutat 4500 (Seb 2026-11-12)
 /** Wer auf den Treffen Zutaten und Formeln der neuen Pfade anbietet: Kettlegate [Zirkel, Mitglied], Wexmoor [Zirkel, Mitglied]. */
 const TREFFEN_MEMBER = {
   sq_waage: { kg: ['waage', 'tm_ferro'], wx: ['salz', 'tm_tam'] },

@@ -54,7 +54,7 @@ export const HOCH_DURCHBRUCH = {
     passives: [
       { key: 'ap_start', value: 2, text: 'Halbgott: Jeder Kampf beginnt mit zwei weiteren Punkten Konzentration.' },
       { key: 'ap_max', value: 1, text: 'Halbgott: +1 maximale Konzentration.' },
-      { key: 'dmg_mult', value: 1.6, text: 'Halbgott: +60 % Schaden mit allen Angriffen und Fertigkeiten.' },
+      { key: 'dmg_mult', value: 2.1, text: 'Halbgott: +110 % Schaden mit allen Angriffen und Fertigkeiten.' }, // +60 % (#378) und +50 % obendrauf (Seb 2026-11-12)
       { key: 'damage_taken', value: 0.7, text: 'Halbgott: Du nimmst 30 % weniger Schaden.' },
       { key: 'max_hp', value: 25, text: 'Halbgott: doppelt so viele Leben wie auf Sequenz 5.' },
       { key: 'max_nerves', value: 25, text: 'Halbgott: mindestens 50 % mehr Nerven als auf Sequenz 5.' },
