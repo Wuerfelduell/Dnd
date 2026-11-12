@@ -2068,7 +2068,7 @@ export class Ui {
       return `<li class="item${tainted ? ' tainted' : ''}"><div>${it.kind === 'potion' || it.kind === 'formula' ? itemIconBig(it.id) : itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${stat}${tainted ? ` ${korrBadge()}` : ''}<br><span class="desc">${esc(it.desc)}</span>${effects}${taint}</div><div>${action}</div></li>`;
     }).join('');
     const carried = s.activeArtifacts();
-    const maxArt = s.artifactRules().max_active ?? 3;
+    const maxArt = s.artifactMaxActive();
     const arts = carried.length
       ? `<div class="status"><span class="artslots">${artifactSlots(carried, maxArt, carried.length > maxArt || s.unruhe >= 60)}</span>Artefakte dabei <strong>${carried.length}</strong>${s.artifactUnruhe() ? ` · <span class="curse">Unruhe +${Math.round(s.artifactUnruhe() * s.unruheGainMult() * 100) / 100} pro Sekunde</span>` : ''} · Alles, was du bei dir trägst, wirkt: Vorteile wie Flüche. Was du nicht brauchst, lagere im Büro ein.${carried.length > maxArt ? ` <span class="curse">Mehr als ${maxArt} zerren heftig aneinander.</span>` : ''}</div>` : '';
     const drain = s.corruptionDrain();
