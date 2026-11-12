@@ -1972,3 +1972,12 @@ Zwei Codex-Zips mit freien Motiven, keine Zuordnung zu Figuren oder Gegenstände
 - `public/sprites/future200/` mit `public/sprites/manifest-future200.json`: 120 Icons 32×32, 40 Porträts 64×64, 40 Bodentexturen 16×16 (Beschreibung und Prompts in `docs/art/vorrat/`). Die 256-px-Quellbilder liegen nicht im Repo.
 - `public/sprites/items/reserve200/<kategorie>/` mit `public/sprites/manifest-reserve200.json`: 200 Icons 64×64 in zehn Kategorien; Vorschau `docs/art/vorrat/reserve200-vorschau.html` (erwartet den Ordner `icons/` daneben).
 - Eine dritte Zip (Nebelakten_200_Icons, 96 MB) kommt über den Laptop-Ordner und wird getrennt gesichtet.
+
+
+## Batch DP — ritualicons
+
+39 Gegenstands-IDs, jeweils 16×16 und 32×32 (78 PNGs), aus dem vorhandenen DP-Paket übernommen. Die 32er sind exakte Nearest-Neighbor-Vergrößerungen. Gemeinsame Palette: 19 sichtbare Farben, binäres Alpha. Abschnitt 3 zählt einschließlich `s4mo_reste` sieben IDs.
+
+[Manifest](../../public/sprites/manifest-ritualicons.json) · [Vorschau](batch-ritualicons-preview.png) · [Herkunft](batch-ritualicons-generation.json) · [Prüfbericht](batch-ritualicons-validation.json).
+
+Prüfung: `python3 tools/art/ritualicons/check.py` (Pillow). `items` ordnet jede ID beiden Dateien zu; `assets` beschreibt beide Größen separat. `ersetztLeihbild` kennzeichnet die 20 IDs aus Abschnitt 1; `replacesAlias` dokumentiert vorhandene Alias-Ziele. Statische Icons haben einen Frame und Geschwindigkeit 0. Die separaten Code-Arbeiten müssen die Aliase entfernen und 32er registrieren; hier wird kein Spielcode geändert.
