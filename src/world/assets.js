@@ -7,6 +7,7 @@ import { preloadRitualArt } from './ritualArt.js';
 import { DS_ZIRKEL_ICONS, DS_ZIRKEL_FIGUREN } from '../data/dunscarZirkel.js';
 import { VS_ICONS } from '../data/vorratStuecke.js';
 import { FA2_FIGUREN } from '../data/fahrendeAuktion.js';
+import { HAUS_MOEBEL } from '../data/eigenesHaus.js';
 import { DS_ORTSKUNDIGE } from '../data/dunscarOrtskundige.js';
 import { DSH_ICONS } from '../data/dunscarAusbau.js';
 
@@ -3047,3 +3048,10 @@ for (const id of FA2_FIGUREN) {
   PORTRAITS[id] = `${id}.png`;
 }
 ICON32.push('fa2_los_fingerhut', 'fa2_los_kamm', 'fa2_los_flakon', 'fa2_los_tuch', 'fa2_los_spule', 'fa2_los_medaillon', 'fa2_los_leisten', 'fa2_los_faecher', 'fa2_los_handwaermer', 'fa2_los_kiesel');
+
+/** Codex DG: Möbel und Trophäen (32er Atlanten), Maklerin vorerst mit der Marktfrau-Figur. */
+BATTLE_SHEETS.haus_stuecke = ['props/haus_stuecke.png', 32];
+BATTLE_SHEETS.haus_trophaeen = ['props/haus_trophaeen.png', 32];
+SHEETS.haus_maklerin = 'characters/E_marktfrau_walk.png';
+CHARACTER_SHEETS.npc_haus_maklerin = 'haus_maklerin';
+ICON32.push(...HAUS_MOEBEL);

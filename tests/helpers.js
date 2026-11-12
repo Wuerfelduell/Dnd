@@ -11,6 +11,7 @@ import { dunscarZirkelPack } from '../src/data/dunscarZirkel.js';
 import { vorratStueckePack } from '../src/data/vorratStuecke.js';
 import { tierePack, TIERE_FILES } from '../src/data/tiere.js';
 import { fahrendeAuktionPack, FA2_FILES } from '../src/data/fahrendeAuktion.js';
+import { eigenesHausPack, HAUS_FILES } from '../src/data/eigenesHaus.js';
 
 const load = (p) => JSON.parse(readFileSync(new URL(`../src/data/${p}`, import.meta.url), 'utf8'));
 
@@ -60,6 +61,7 @@ export function loadContent({ sequenzen = true, without = [] } = {}) {
     // Dunscar: zwei weitere Zirkel und Lose im Tausenderbereich (nach k3_handel)
     ...(without.includes('ds_zirkel') ? [] : [dunscarZirkelPack()]),
     vorratStueckePack(),
+    ...(without.includes('haus') ? [] : [eigenesHausPack(Object.fromEntries(HAUS_FILES.map((f) => [f, load(`packs/eigenes_haus/${f}.json`)])), JSON.parse(readFileSync(new URL('../public/sprites/manifest-haus.json', import.meta.url), 'utf8')))]),
     ...(without.includes('fa2') ? [] : [fahrendeAuktionPack(Object.fromEntries(FA2_FILES.map((f) => [f, load(`packs/fahrende_auktion/${f}.json`)])))]),
     ...(without.includes('tiere') ? [] : [tierePack(Object.fromEntries(TIERE_FILES.map((f) => [f, load(`packs/tiere/${f}.json`)])))]),
     // Kapitel-1-Finale: Epilogtafeln nach Fall 9 und Prices Fahndung in Kettlegate
