@@ -449,6 +449,11 @@ img.scene { display: block; width: 30em; height: 16.875em; margin: 0 auto 0.6em;
 .notebook .bestiary { display: grid; grid-template-columns: 1fr 1fr; align-items: start; }
 .notebook .bestiary li { flex-direction: row; align-items: flex-start; gap: 0.5em; padding: 0.3em; border: 0.125em solid #2a2630; }
 .notebook .bestiary > li > img { width: 6em; height: 8em; flex: 0 0 auto; }
+.beast-searchbar { display: flex; align-items: center; gap: 0.6em; margin: 0 0 0.4em; }
+.beast-search { flex: 1; max-width: 22em; font: inherit; padding: 0.25em 0.5em; background: #15131a; color: inherit; border: 0.125em solid #4a4252; }
+.beast-search:focus { outline: none; border-color: var(--gold); }
+.bestiary > li[hidden], .beast-none[hidden] { display: none; }
+.bestiary .loot-row.hit { background: rgba(214, 178, 92, 0.22); outline: 0.0625em solid var(--gold); }
 .bestiary .beast-info { display: flex; flex-direction: column; gap: 0.15em; min-width: 0; flex: 1; }
 .bestiary .beast-info h5 { margin: 0.35em 0 0; color: var(--gold); font-size: 0.95em; font-weight: normal; }
 .bestiary ul.beast-loot { margin: 0.1em 0 0; font-size: 0.9em; }
