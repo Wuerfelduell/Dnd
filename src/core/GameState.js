@@ -55,7 +55,10 @@ export const SAVE_VERSION = 4;
 export const DEFAULT_HP = 40;
 
 /** Von Seb gestrichene Aufträge (2026-11-12): Trichter und Drehscheibe in Dunscar. */
-export const GESTRICHENE_AUFTRAEGE = ['k3n_drehscheibe', 'koop_ds_horchen'];
+// Seb 2026-11-12: Zug-/Hör-Story in Dunscar gestrichen (k3a_akt1–5, Koop-Schleuse); Kapitel 3 = Rache an Starling (k3_rache)
+export const GESTRICHENE_AUFTRAEGE = ['k3n_drehscheibe', 'koop_ds_horchen', 'koop_ds_schleuse', 'k3a_akt1', 'k3a_akt2', 'k3a_akt3', 'k3a_akt4', 'k3a_akt5'];
+/** Flags, die Dunscars Welt so stellen, als liefe die Zug-Geschichte ohne dich weiter (öffnet Prüfungen, Aufträge, Gerede). */
+export const DUNSCAR_WELT_FLAGS = ['k3a_akt1_done', 'k3a_akt2_done', 'k3a_akt3_done', 'k3a_akt4_done'];
 
 export class GameState {
   constructor(content) {
@@ -443,13 +446,12 @@ export class GameState {
    */
   dunscarOffen() {
     if (!this.flags.has('k3_arrived')) return;
-    const e = { sets_flags: ['k3a_14_passage', 'k3a_14_geschlossen', 'treffen_schichtbund', 'k3h_aufnahme_done'], gives_clues: ['k3a_14_c1', 'k3a_14_c2', 'k3a_14_c3', 'k3a_14_c4'], gives_conclusions: ['k3a_14_d'] };
-    const neu = { sets_flags: (e.sets_flags ?? []).filter((f) => f !== 'k3_arrived' && !this.flags.has(f)), gives_clues: (e.gives_clues ?? []).filter((c) => this.content.clues?.[c]), gives_conclusions: (e.gives_conclusions ?? []).filter((c) => this.deduction(c) && !this.hasConclusion(c)) };
-    // Seb 2026-11-12: Trichter-/Drehscheiben-Aufträge gestrichen, laufende verschwinden aus dem Notizbuch
+    // Seb 2026-11-12: Trichter-/Drehscheiben-Aufträge und die ganze Zug-/Hör-Story gestrichen, laufende verschwinden aus dem Notizbuch
     for (const q of GESTRICHENE_AUFTRAEGE) if (this.quests[q] === 'active') { delete this.quests[q]; if (this.tracked === q) this.tracked = null; }
-    if (!neu.sets_flags.length && !neu.gives_conclusions.length) return;
-    this.applyEffects(neu);
+    const neu = ['treffen_schichtbund', 'k3h_aufnahme_done', ...DUNSCAR_WELT_FLAGS].filter((f) => !this.flags.has(f));
+    if (neu.length) this.applyEffects({ sets_flags: neu });
     if (this.quests.k3h_aufnahme === 'active') this.finishQuest('k3h_aufnahme', 'done');
+    if (this.quest('k3_rache') && this.quests.k3_rache === undefined && !this.flags.has('kapitel3_done')) this.startQuest('k3_rache'); // neues Kapitelziel auch für alte Stände
   }
 
   /** Bonusakte nach Kapitel 2: zeigt je nach Ende, wo die Nachricht nach Dunscar liegt. */

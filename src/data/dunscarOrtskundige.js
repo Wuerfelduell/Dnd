@@ -6,7 +6,7 @@
  */
 const FIG = { coat: '#4a4f58', hat: '#2a2c30', skin: '#c99f7b', hair: '#5a4a3a', legs: '#2a2c30' };
 
-function dialog({ gruss, viertel, wege, gefahr, gerede, gerede2 }) {
+function dialog({ gruss, viertel, wege, gefahr, gerede, gerede2, gott }) {
   const zurueck = [{ text: 'Noch etwas.', next: 'start' }];
   return {
     start: 'start',
@@ -19,6 +19,7 @@ function dialog({ gruss, viertel, wege, gefahr, gerede, gerede2 }) {
           { text: 'Worauf muss ich achten?', next: 'gefahr' },
           { text: 'Was erzählt man sich?', next: 'gerede', hide_if_flags: ['k3a_akt1_done'] },
           { text: 'Was erzählt man sich?', next: 'gerede2', requires_flags: ['k3a_akt1_done'] },
+          { text: 'Ein Mann namens Starling. Und ein alter Gott?', next: 'gott' },
           { text: 'Auf Wiedersehen.' },
         ],
       },
@@ -27,6 +28,8 @@ function dialog({ gruss, viertel, wege, gefahr, gerede, gerede2 }) {
       gefahr: { text: gefahr, choices: zurueck },
       gerede: { text: gerede, choices: zurueck },
       gerede2: { text: gerede2, choices: zurueck },
+      // Seb 2026-11-12: Kapitel 3 = Rache an Starling, den ein uralter Gott beschützt. Gerüchte zählen fürs Kapitelziel.
+      gott: { text: gott, choices: zurueck, sets_flags: ['k3r_gott_gehoert'] },
     },
   };
 }
@@ -41,6 +44,7 @@ export const DS_ORTSKUNDIGE = {
     gefahr: '„Am Bahnhof selbst tut dir keiner was, außer der Aufsicht, wenn du gesucht wirst. Die schlimmen Ecken haben ein rotes Licht am Ausgang und eine Zahl auf dem Schild. Je höher die Zahl, desto weniger kommen zurück.“',
     gerede: '„Die Uhr da oben hat keine Ziffern. Trotzdem sagen alle, sie geht vor.“',
     gerede2: '„Seit der Sache am Ruf schläft die Stadt unruhiger. Die Gleise summen nachts, als würde ein Zug kommen. Es kommt keiner.“',
+    gott: '„Heller Mantel, ruhige Hände? Der kam ohne Billett an und ist ohne Billett weiter. Der Schalter hat sich vor ihm verbeugt. Ich schwöre es, die Klappe ging runter wie ein Kopf.“',
   }, 'Ortskundige: Lotte Brack am Platz kennt jeden Weg.'),
   ds_schwellenring: ok('ds_ok_schwellenring', 'ds_einwohner_2', 'Weichenwärter Anton Riegel', 'Ortskundiger am Schwellenring', '#5a4a3a', {
     gruss: 'Ein Mann mit Ölkanne prüft eine Weiche, die längst nirgends mehr hinführt. „Riegel. Ich stelle die Weichen, damit sie nicht vergessen, wie es geht.“',
@@ -49,6 +53,7 @@ export const DS_ORTSKUNDIGE = {
     gefahr: '„Die Rangierwüste, Gefahr vier. Schichtgänger, Signalkrähen, und hinten der Weichenfresser. Den hält man nur mit einer starken Sequenz aus. Geh ausgeschlafen, und geh mit jemandem.“',
     gerede: '„Im Runddepot zählen sie neue Gesichter. Wer nicht zählbar ist, wird aufgeschrieben.“',
     gerede2: '„Die Weichen stellen sich nachts manchmal von selbst zurück. Ich stelle sie morgens wieder hin. Wir haben eine Abmachung.“',
+    gott: '„Die Alten sagen, unter Dunscar schläft einer, der älter ist als jede Weiche. Er schläft nicht tief. Wer ihm etwas bringt, bekommt Schutz. Dein Starling hat ihm wohl etwas gebracht.“',
   }, 'Ortskundiger: Anton Riegel am Platz. Rast, Lager und Kessel im Speisewagen.'),
   ds_arbeiterbogen: ok('ds_ok_arbeiterbogen', 'ds_einwohner_3', 'Wäscherin Grete Lind', 'Ortskundige im Arbeiterbogen', '#6a5a4a', {
     gruss: 'Eine Frau mit nassen Ärmeln hängt Hemden auf, die nie ganz trocken werden. „Lind. Bei dem Staub wäscht man zweimal am Tag oder gar nicht.“',
@@ -57,6 +62,7 @@ export const DS_ORTSKUNDIGE = {
     gefahr: '„Hier ist es ruhig. Nachts gehen die Aufseher die Hauptstraße ab. Wer gesucht wird, nimmt die Ecken.“',
     gerede: '„Am Abendtisch ist immer ein Platz leer. Keiner deckt ihn ab, keiner setzt sich hin.“',
     gerede2: '„Seit dem Ruf hängen die Leute ihre Wäsche anders herum. Sagen, dann hört sie nicht zu.“',
+    gott: '„Eine Frau aus dem Teesaal hat ihn gesehen, deinen Starling. Sie sagt, sein Schatten fiel in die falsche Richtung. Zur Erde hin, nicht vom Licht weg.“',
   }, 'Ortskundige: Grete Lind am Platz. Gegen Unruhe hilft Mabels Tee im Teesaal.'),
   ds_kalkmarkt: ok('ds_ok_kalkmarkt', 'ds_einwohner_4', 'Marktruferin Paula Kreid', 'Ortskundige am Kalkmarkt', '#7a5a3a', {
     gruss: 'Eine Frau mit Kreidetafel um den Hals ruft Preise aus, die niemand bezahlt. „Kreid! Ich rufe, die anderen verkaufen. Was suchst du?“',
@@ -65,6 +71,7 @@ export const DS_ORTSKUNDIGE = {
     gefahr: '„Auf dem Markt passiert nichts, solange du zahlst. Die Preise sind doppelt so hoch wie in Kettlegate, das ist die einzige Gefahr hier.“',
     gerede: '„Die Grabsteine beim Steinmetz sind alle leer. Er sagt, die Namen bringt jeder selbst mit.“',
     gerede2: '„Im Kalten Ofen sollen sie Dinge versteigern, die es gar nicht geben dürfte. Ich rufe sie nicht aus. Ich bin nicht verrückt.“',
+    gott: '„Im Kalten Ofen handeln sie mit Zeug, das nach dem Alten riecht. Kalt, auch wenn es glüht. Wer so etwas trägt, steht unter seiner Hand. Gegen den kommst du mit Fäusten nicht an.“',
   }, 'Ortskundige: Paula Kreid am Platz kennt alle Stände.'),
   ds_bruchstufen: ok('ds_ok_bruchstufen', 'ds_einwohner_5', 'Steinbrecher Matthis Hauer', 'Ortskundiger an den Bruchstufen', '#4a4a3a', {
     gruss: 'Ein Mann mit Kalk im Bart sitzt auf einem Gerüstbalken. „Hauer. Ich klopfe Stein, und manchmal klopft er zurück.“',
@@ -73,6 +80,7 @@ export const DS_ORTSKUNDIGE = {
     gefahr: '„Klopfbruch, Gefahr vier. Gerüstklang, Kalkstaubgeister, und hinten der Bruchmeister. Im Lager gleich hinter dem Eingang liegen Notizen von denen, die vor dir drin waren. Lies sie, bevor du weitergehst.“',
     gerede: '„Wenn du im Bruch dein Klopfen zurückhörst, bevor du klopfst, geh heim.“',
     gerede2: '„Der Bruchmeister steht wieder. Man hat ihn umgeworfen, und er steht wieder. Wie die Gerüste.“',
+    gott: '„Ganz unten im Bruch sind Zeichen im Fels, die hat kein Mensch geschlagen. Ein Auge, das nach innen schaut. Seit dein Starling hier war, sind sie frisch nachgezogen.“',
   }, 'Ortskundiger: Matthis Hauer am Platz.'),
   ds_signalhang: ok('ds_ok_signalhang', 'ds_einwohner_6', 'Signalgehilfe Fritz Lauscher', 'Ortskundiger am Signalhang', '#3a4a5a', {
     gruss: 'Ein junger Mann mit Hörrohr am Ohr zuckt bei jedem Geräusch. „Lauscher. Das ist mein Name und mein Beruf. Sprich bitte leise.“',
@@ -81,5 +89,6 @@ export const DS_ORTSKUNDIGE = {
     gefahr: '„Rufschlucht, Gefahr fünf. Da antwortet die Wand, und der Schluchtrufer am Ende ruft dich mit deiner eigenen Stimme. Unterschicht, Gefahr sechs. Da unten arbeitet noch einer, der Tiefenvorarbeiter. Ohne Sequenz vier kommst du an ihm nicht vorbei.“',
     gerede: '„Die Hörrohre am Hang drehen sich nachts in Richtung Schlucht. Keiner dreht sie.“',
     gerede2: '„Seit dem Ruf ist es in der Schlucht stiller. Stille ist schlimmer. Stille hört zu.“',
+    gott: '„Der Alte frisst keine Leute. Er leiht ihnen Kraft und holt sie sich später. Wenn du an seinen Diener willst, musst du selbst so stark sein, dass er überlegen muss, ob es sich lohnt.“',
   }, 'Ortskundiger: Fritz Lauscher am Platz. Rote Lichter an den Ausgängen heißen Gefahr.'),
 };

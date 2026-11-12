@@ -350,5 +350,38 @@
         }
       }
     ]
+  },
+  "k3_rache": {
+    "title": "Kapitel 3: Rache an Starling",
+    "kind": "main",
+    "case": "kapitel3",
+    "summary": "Starling wird von einem uralten Gott beschützt. Werde stärker, bis du ihn stellen kannst. Wie du das schaffst, ist deine Sache: Kämpfe, Zirkel, Rituale, Aufträge.",
+    "steps": [
+      {
+        "text": "Hör dich in Dunscar nach Starling und dem alten Gott um",
+        "done": {
+          "requires_flags": [
+            "k3r_gott_gehoert"
+          ]
+        },
+        "target": {
+          "map": "ds_speisewagen",
+          "id": "k3_pfiff",
+          "label": "Pfiff im Speisewagen"
+        }
+      },
+      {
+        "text": "Werde stärker: Sequenz 5",
+        "done": {
+          "requires_seq": 5
+        }
+      },
+      {
+        "text": "Werde stärker: Sequenz 4 (Halbgott)",
+        "done": {
+          "requires_seq": 4
+        }
+      }
+    ]
   }
 }

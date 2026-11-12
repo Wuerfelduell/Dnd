@@ -3,83 +3,11 @@
     "start": "k3a_start",
     "nodes": {
       "k3a_start": {
-        "text": "Ansel „Pfiff“ Cedrow wartet, bis du deine Unterlagen geordnet hast. Zwischen euch bleibt Platz für eine unbequeme Frage.",
+        "text": "Ansel „Pfiff“ Cedrow schiebt dir einen Becher Tee hin. „Bett, Lager und Kessel stehen dir offen. Was brauchst du?“",
         "choices": [
           {
-            "text": "Akt 1: Die vier Fährten besprechen.",
-            "next": "k3a_abschluss1",
-            "requires_flags": [
-              "k3a_11_geschlossen",
-              "k3a_12_geschlossen",
-              "k3a_13_geschlossen",
-              "k3a_14_geschlossen"
-            ],
-            "hide_if_flags": [
-              "k3a_akt1_done"
-            ]
-          },
-          {
-            "text": "Akt 2: Die vier Fährten besprechen.",
-            "next": "k3a_abschluss2",
-            "requires_flags": [
-              "k3a_21_geschlossen",
-              "k3a_22_geschlossen",
-              "k3a_23_geschlossen",
-              "k3a_24_geschlossen"
-            ],
-            "hide_if_flags": [
-              "k3a_akt2_done"
-            ]
-          },
-          {
-            "text": "Akt 3: Die vier Fährten besprechen.",
-            "next": "k3a_abschluss3",
-            "requires_flags": [
-              "k3a_31_geschlossen",
-              "k3a_32_geschlossen",
-              "k3a_33_geschlossen",
-              "k3a_34_geschlossen"
-            ],
-            "hide_if_flags": [
-              "k3a_akt3_done"
-            ]
-          },
-          {
-            "text": "Akt 4: Die vier Fährten besprechen.",
-            "next": "k3a_abschluss4",
-            "requires_flags": [
-              "k3a_41_geschlossen",
-              "k3a_42_geschlossen",
-              "k3a_43_geschlossen",
-              "k3a_44_geschlossen"
-            ],
-            "hide_if_flags": [
-              "k3a_akt4_done"
-            ]
-          },
-          {
-            "text": "Akt 5: Die vier Fährten besprechen.",
-            "next": "k3a_abschluss5",
-            "requires_flags": [
-              "k3a_51_geschlossen",
-              "k3a_52_geschlossen",
-              "k3a_53_geschlossen",
-              "k3a_54_geschlossen"
-            ],
-            "hide_if_flags": [
-              "k3a_bilanz5"
-            ]
-          },
-          {
-            "text": "Was kostet mich die Gegenstimme?",
-            "next": "k3a_anker_warnung",
-            "requires_conclusions": [
-              "k3a_43_d",
-              "k3a_52_d"
-            ],
-            "hide_if_flags": [
-              "kapitel3_done"
-            ]
+            "text": "Was weißt du über Starling?",
+            "next": "k3r_starling"
           },
           {
             "text": "Das Signalgerät füllen und an der Schallschleuse warten.",
@@ -279,6 +207,18 @@
           "k3a_privatruf_gebunden"
         ],
         "signal": "fill"
+      },
+      "k3r_starling": {
+        "text": "Pfiff senkt die Stimme. „Ein Mann in hellem Mantel ist vor Wochen mit dem letzten Zug durch. Er hat nichts bezahlt, und der Schalter hat ihn trotzdem durchgelassen. Die Alten unten im Bruch sagen, es gibt da einen, der war schon vor den Städten da. Der Alte unter dem Fels, sagen sie, und mehr Namen hat er nicht. Wer ihm dient, den rührt man nicht an. Wenn du deinen Starling willst, musst du stärker sein als das, was ihn trägt.“",
+        "choices": [
+          {
+            "text": "Dann werde ich stärker.",
+            "next": "k3a_start"
+          }
+        ],
+        "sets_flags": [
+          "k3r_gott_gehoert"
+        ]
       }
     }
   },

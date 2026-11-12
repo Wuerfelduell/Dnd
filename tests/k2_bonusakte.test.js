@@ -78,8 +78,8 @@ test('Dunscar: alle Gebiete offen, Hör-Fährte gestrichen, Schichtbund offen (a
   const s = new GameState(content);
   s.flags.add('k3_arrived');
   s.dunscarOffen();
-  for (const f of ['k3a_14_geschlossen', 'treffen_schichtbund']) assert.ok(s.flags.has(f), f);
-  assert.ok(s.hasConclusion('k3a_14_d'));
+  for (const f of ['treffen_schichtbund', 'k3a_akt2_done', 'k3a_akt4_done']) assert.ok(s.flags.has(f), f);
+  assert.ok(!s.flags.has('kapitel3_done'));
 });
 
 test('Dunscar: Trichter-/Drehscheiben-Aufträge sind gestrichen, laufende verschwinden', async () => {
@@ -93,5 +93,28 @@ test('Dunscar: Trichter-/Drehscheiben-Aufträge sind gestrichen, laufende versch
   s.tracked = 'k3n_drehscheibe';
   s.dunscarOffen();
   assert.equal(s.quests.k3n_drehscheibe, undefined);
-  assert.equal(s.tracked, null);
+  assert.notEqual(s.tracked, 'k3n_drehscheibe');
+});
+
+test('Dunscar: Zug-/Hör-Story raus, Kapitelziel Rache an Starling (Seb 2026-11-12)', () => {
+  // keine Fährten-Stationen mehr auf den Karten
+  for (const m of Object.values(content.maps)) for (const i of m.interactables ?? []) assert.ok(!/^k3a_\d\d_/.test(i.id) && i.id !== 'k3a_urteil_station', i.id);
+  const pfiff = content.dialogues.k3a_pfiff.nodes.k3a_start.choices;
+  assert.ok(!pfiff.some((c) => (c.next ?? '').startsWith('k3a_abschluss')));
+  // Ankunft startet das neue Ziel statt Akt 1
+  const ank = content.maps.ds_endbahnhof.interactables.find((i) => i.id === 'k3a_ankunft');
+  assert.deepEqual(ank.effects.start_quests, ['k3_rache']);
+  // alter Stand mitten in Akt 2: Akt verschwindet, Ziel kommt
+  const s = new GameState(content);
+  s.flags.add('k3_arrived'); s.flags.add('k3a_akt1_done');
+  s.quests.k3a_akt2 = 'active'; s.tracked = 'k3a_akt2';
+  s.dunscarOffen();
+  assert.equal(s.quests.k3a_akt2, undefined);
+  assert.equal(s.quests.k3_rache, 'active');
+  assert.ok(s.questSteps('k3_rache').every((st) => !st.done));
+  s.applyEffects(content.dialogues.k3a_pfiff.nodes.k3r_starling);
+  assert.ok(s.questSteps('k3_rache')[0].done);
+  // Gerüchte über den alten Gott auch bei den Ortskundigen
+  const ok = content.dialogues.ds_ok_bruchstufen ?? Object.values(content.dialogues).find((d) => d.nodes?.gott);
+  assert.ok(ok.nodes.gott.sets_flags.includes('k3r_gott_gehoert'));
 });
