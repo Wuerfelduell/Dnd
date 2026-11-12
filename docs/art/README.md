@@ -1850,3 +1850,12 @@ Manifest: `public/sprites/manifest-varrowmouth2.json`. Kein Spielcode geändert.
   Validation-Bericht und die Gesamtvorschau. Prüft auch Hashes, eindeutige
   Animationsframes, Atlasregionen, leere HUD-Restflächen und Karten-Pins.
   Visuelle Semantik und Runtime-Einbau bleiben getrennte Prüfungen.
+## CO: Halbgott und Engel (`halbgott`)
+
+73 PNGs für Sequenz 4 und 2: sechs Trink-Sheets, acht Effekte, zehn Kreaturformen jeweils für Karte und Kampf, zehn Zugportraits, zwei Ritualwächter mit Kartenfiguren, zehn Siegel, zwei Kampfkulissen, zwanzig Sequenzbilder und zwei HUD-Größen. Die 780 Rasterzellen verwenden die gemeinsame Palette aus `manifest-fasserin.json`; Alpha ist binär, Szenen sind opak.
+
+- [Manifest](../../public/sprites/manifest-halbgott.json), [Vorschau](batch-halbgott-preview.png), [Prompts und Herkunft](batch-halbgott-generation.json), [Prüfbericht](batch-halbgott-validation.json).
+- [Übergabe und Registrierungsstellen](halbgott-uebergabe.md): Framegrößen, Richtungen, Aushol-Holds, drei Wächterphasen, Rückverwandlung und getrennte Koop-Instanzen.
+- Prüfung: `python tools/art/halbgott/check.py` (Pillow). Kontrolliert das vollständige Sollinventar, Maße, gemeinsame Palette, Alpha, Raster, Animationen, Baselines und exakte HUD-Verdopplung.
+
+Erzeugt mit dem eingebauten Bildgenerator, anschließend Nearest Neighbor und Palette-/Alpha-Bereinigung. Grafiklieferung ohne Spielcodeänderung; CP und der spätere Einbau übernehmen Ritual- und Kampfregeln.
