@@ -228,6 +228,7 @@ export const seq4Methods = {
     this.flags.add(`hg_zeitung_${kind}`);
     const back = this._waageBack ? this.seq4Msg('waage', 'besitz_zurueck') : '';
     this._waageBack = false;
+    if (kind === 'schluessel' && !this.itemCount('s4sc_schattenband')) this.addItem('s4sc_schattenband'); // Codex DP: Andenken an den Schatten
     const full = `${this.seq4Name(kind)}: bestanden. ${this.seq4Join(text, this.seq4Card(kind)?.erfolg, kind === 'echo' ? this.seq4Msg('echo', 'taubheit_ende') : '', back, this.seq4Zuschauer(kind, 1))} ${this.seq4Text('s4r_trank_frei') || 'Der Wächter ist gefallen.'} Das Ritual kann vollzogen werden (Pfad-Tab).`;
     this.emit('seq4', { kind, passed: true, player: this.acting ?? 1, text: full });
     this.emit('notice', full);
@@ -723,7 +724,7 @@ export const seq4Methods = {
     // Jedes zersetzte Ding vererbt genau eine Moor-Eigenschaft (fest an seine Id gebunden), gezogen wird nur aus diesen fünf
     const pool = (dr?.eigenschaften ?? []).filter((e) => wirkung[e.id]);
     const hash = (t) => [...t].reduce((h, ch) => (h * 31 + ch.charCodeAt(0)) >>> 0, 7);
-    const moorPool = pool.length ? (st.decayed ?? []).map((d) => pool[hash(d.id) % pool.length]).map((e) => ({ key: wirkung[e.id][0], value: wirkung[e.id][1], text: `${e.name}: ${wirkung[e.id][2]}.`, name: e.name })) : [];
+    const moorPool = pool.length ? (st.decayed ?? []).map((d) => pool[hash(d.id) % pool.length]).map((e) => ({ key: wirkung[e.id][0], value: wirkung[e.id][1], text: `${e.name}: ${wirkung[e.id][2]}.`, name: e.name, kat: e.kategorie })) : [];
     for (const b of pick(moorPool, 5)) if (boons.length < 3 && !boons.some((o) => o.key === b.key)) boons.push(b);
     if (!boons.length) boons.push({ key: 'occult_mult', value: 1.2, text: 'Verfall frisst Okkultes: +20 % Schaden gegen okkulte Wesen.' });
     const curses = pick(cursePool, 1);
@@ -733,7 +734,10 @@ export const seq4Methods = {
     const names = boons.map((b) => b.name ?? b.text.replace(/[.:].*$/, '')).join(', ');
     const tpl = dr?.desc_vorlagen ?? [];
     const desc = tpl.length ? tpl[Math.floor(rng() * tpl.length)].replaceAll('{name}', name).replaceAll('{eigenschaften}', names) : '';
-    this.pathway.relikt = { boons, curses, name, desc };
+    // Codex DP: das Bild folgt der häufigsten Moor-Kategorie der Eigenschaften (glut, faden, stein, schatten, salz)
+    const kats = boons.map((b) => b.kat).filter(Boolean);
+    const look = kats.sort((a, b) => kats.filter((x) => x === b).length - kats.filter((x) => x === a).length)[0] ?? null;
+    this.pathway.relikt = { boons, curses, name, desc, ...(look ? { look } : {}) };
     this.addItem(RELIKT);
     this.emit('changed');
     const msg = this.seq4Msg('moor', 'relikt_geformt', { name, eigenschaften: names });
