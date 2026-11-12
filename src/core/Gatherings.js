@@ -30,6 +30,7 @@ export const gatheringMethods = {
     this.gatheringBought = { cycle: -1, items: {} };
     this.lastGatheringCycle = null;
     this.auction = null; // laufende Runde (core/Auction.js), wird nicht gespeichert
+    this.probe = null; // laufende Probe eines Seq-6-Rituals (core/Proben.js), wird nicht gespeichert
     this.sessionsHeld = []; // "zirkel:runde" – pro Treffen nur eine Runde
     this.resetArtisan?.();
   },

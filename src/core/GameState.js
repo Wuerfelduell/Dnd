@@ -3,6 +3,7 @@ import { journalQuestVisible, leftKettlegate } from './journal.js';
 import { pathwayMethods } from './Pathways.js';
 import { gatheringMethods } from './Gatherings.js';
 import { auctionMethods } from './Auction.js';
+import { probeMethods } from './Proben.js';
 import { artisanMethods } from './Artisan.js';
 import { wantedMethods } from './Wanted.js';
 import { kahnMethods } from './Kahn.js';
@@ -841,4 +842,4 @@ export class GameState {
 /** Fortschrittsflags der verlängerten Akt-V-Fassung (AP), in Spielreihenfolge. */
 export const K2_AKT5_STEPS = ['k2v_boot_bereit', 'k2v_keller_passiert', 'k2v_aufstieg_passiert', 'k2v_abschied_done'];
 
-Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods);
+Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods);

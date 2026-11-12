@@ -13,6 +13,7 @@
 // Die Methoden werden in GameState eingehängt (siehe unten in GameState.js).
 
 import { encounterSeq } from './Fear.js';
+import { PROBE_NAMEN } from './Proben.js';
 
 export const SEQ_START = 9;
 export const SEQ_MAX = 1; // höchste erreichbare Stufe (Kapitel 3 bringt die Kernzutaten für 4 bis 1)
@@ -193,6 +194,8 @@ export const pathwayMethods = {
     this.seenNodes = new Set();
     this.visionDigest = { map: null, total: 0 };
     this.wins = 0; // gewonnene Kämpfe (für Rituale)
+    this.picks = 0; // geknackte Schlösser (Ritual des Schlüssels)
+    this.pickedLocks = new Set(); // welche Schlösser schon geknackt sind (Karte:Objekt)
     this.resetArtifacts();
   },
 
@@ -491,7 +494,9 @@ export const pathwayMethods = {
 
   // --- Rituale ---------------------------------------------------------------------------
   // Ab Sequenz 6 verlangt jeder Trank ein ortsunabhängiges Ritual mit Zutaten, die dabei
-  // verbraucht werden, und einer Bedingung (Geistsicht, Nerven, Wunden, Schlussfolgerungen, Siege, Tribut).
+  // verbraucht werden, und einer Bedingung (Geistsicht, Nerven, Wunden, Schlussfolgerungen, Siege, Tribut,
+  // geknackte Schlösser, eine zufällige Probe (core/Proben.js) oder ein aufgedeckter Betrug (core/Auction.js)).
+  // Keine Bedingung der Sequenz 6 hängt an einem Ort oder Fall, den man verpasst haben kann (keine Rückreise).
   // Danach darf genau dieser Trank getrunken werden (Flag ritual_<pfad>_<seq>).
 
   ritualDef(pid = this.pathway?.id, seq = (this.pathway?.seq ?? 0) - 1) {
@@ -526,6 +531,10 @@ export const pathwayMethods = {
       }
     }
     if (r.tribute) steps.push({ text: `${r.tribute} Schilling als Tribut`, done: this.money >= r.tribute });
+    // Seb (2026-11-12): ortsunabhängige Bedingungen, weil es keine Rückreise in frühere Städte gibt
+    if (r.min_picks) steps.push({ text: `${r.min_picks === 1 ? 'Ein Schloss' : `${r.min_picks} Schlösser`} geknackt (${this.pickCount()})`, done: this.pickCount() >= r.min_picks });
+    if (r.probe) steps.push({ text: `${PROBE_NAMEN[r.probe] ?? 'Probe'} bestanden`, done: this.probeDone(pid, seq), probe: r.probe });
+    if (r.fraud) steps.push({ text: 'Einen Betrug auf einem geheimen Treffen aufgedeckt', done: this.fraudExposed(pid, seq), fraud: true });
     if (r.ordeal) {
       const enc = this.content.encounters[ordealId(pid, seq)];
       steps.push({ text: `${enc?.name ?? 'Schwellenwächter'} besiegt (erscheint, sobald alles andere bereit ist)`, done: this.ordealDone(pid, seq), ordeal: true });
@@ -537,6 +546,48 @@ export const pathwayMethods = {
   /** Ist der Schwellenwächter dieses Rituals schon besiegt? */
   ordealDone(pid, seq) {
     return this.flags.has(ordealFlag(pid, seq));
+  },
+
+  // --- Schlösser knacken (Ritual des Schlüssels) -----------------------------------------------
+  /** Geknackte Schlösser, dazu das Zellenschloss in Wexmoor (Gespräch wx_zelle, Flag k2_zelle_geknackt). */
+  pickCount() {
+    return (this.picks ?? 0) + (this.flags.has('k2_zelle_geknackt') ? 1 : 0);
+  },
+
+  /** Wer kann ein knackbares Schloss (`lock.pick`) öffnen: der Pfad des Schlüssels, oder wer Brecheisen oder Haarnadel dabeihat. */
+  canPick() {
+    return this.passive('lock_bonus') > 0 || this.itemCount('brecheisen') > 0 || this.itemCount('haarnadel') > 0;
+  },
+
+  /** Wie man dieses Schloss knacken würde (für die Sperrmeldung). */
+  pickHint() {
+    return 'Knackbar mit geübten Fingern (Pfad des Schlüssels), einem Brecheisen oder einer Haarnadel.';
+  },
+
+  /**
+   * Versucht, ein verschlossenes Objekt zu knacken statt es regulär zu öffnen. `key` ist Karte:Objekt, damit
+   * jedes Schloss nur einmal zählt. Ergebnis { ok, text } oder null, wenn das Schloss nicht knackbar ist.
+   */
+  tryPick(lock, key) {
+    if (!lock?.pick || !this.canPick()) return null;
+    const how = this.passive('lock_bonus') > 0 ? 'Deine Finger finden die Zuhaltungen von selbst.' : this.itemCount('brecheisen') ? 'Das Brecheisen knirscht, das Schloss gibt nach.' : 'Die Haarnadel biegt sich, dann klickt es.';
+    const first = key && !this.pickedLocks.has(key);
+    if (first) {
+      this.pickedLocks.add(key);
+      this.picks = (this.picks ?? 0) + 1;
+      this.act('lock');
+      this.emit('changed');
+    }
+    return { ok: true, first, text: `Schloss geknackt. ${how}` };
+  },
+
+  /** Ritual der Waage: Betrug auf einem geheimen Treffen aufgedeckt (siehe Auction.js). */
+  fraudFlag(pid, seq) {
+    return `${this.acting === 2 ? 'p2_' : ''}fraud_${pid}_${seq}`;
+  },
+
+  fraudExposed(pid, seq) {
+    return this.flags.has(this.fraudFlag(pid, seq));
   },
 
   /** Vollzieht das Ritual für den nächsten Trank. Ergebnis: { ok, text } */
@@ -794,7 +845,7 @@ export const pathwayMethods = {
   },
 
   serializePathway() {
-    return { money: this.money, pathway: this.pathway, unruhe: Math.round(this.unruhe), seenNodes: [...this.seenNodes], wins: this.wins, formShown: this.formShown ?? 0, ...this.serializeArtifacts() };
+    return { money: this.money, pathway: this.pathway, unruhe: Math.round(this.unruhe), seenNodes: [...this.seenNodes], wins: this.wins, picks: this.picks ?? 0, pickedLocks: [...(this.pickedLocks ?? [])], formShown: this.formShown ?? 0, ...this.serializeArtifacts() };
   },
 
   loadPathway(data) {
@@ -804,6 +855,8 @@ export const pathwayMethods = {
     this.unruhe = Math.max(0, Math.min(UNRUHE_MAX - 1, data.unruhe ?? 0));
     this.seenNodes = new Set(data.seenNodes ?? []);
     this.wins = data.wins ?? 0;
+    this.picks = data.picks ?? 0;
+    this.pickedLocks = new Set(data.pickedLocks ?? []);
     this.formShown = data.formShown ?? 0;
     this.loadArtifacts(data);
     this.maxHp = this.calcMaxHp();

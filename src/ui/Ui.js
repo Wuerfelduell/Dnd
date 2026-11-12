@@ -3,6 +3,7 @@ import { uiSound, worldSound } from '../core/sounds.js';
 import { FESTE } from '../core/Clock.js';
 import { DIGEST_LABELS, digestSlowdown, fmtDigest, FORM_SEQ, FORM_MIN_DIGEST, FORM_NERVES_PER_SEC, FORM_UNRUHE_PER_SEC, FORM_MIN_NERVES } from '../core/Pathways.js';
 import { buffLabel, fmtSec } from '../core/Talents.js';
+import { PROBE_FAIL } from '../core/Proben.js';
 import { CARRY_PER_STEP } from '../core/GameState.js';
 import { GEAR_SLOT_NAMES } from '../core/Gear.js';
 import { isPrecise } from '../core/Combat.js';
@@ -1520,6 +1521,7 @@ export class Ui {
       const r = inv(() => this.state.toggleForm());
       if (r.ok && r.active) { this.close(); this.showMessage('Mythische Gestalt', r.text); } else this.renderNotebook(esc(r.text));
     });
+    el.querySelector('[data-probe]')?.addEventListener('click', () => this.openProbe());
     el.querySelector('[data-ritual]')?.addEventListener('click', () => {
       const who = this.state.hasP2() ? this.invPlayer : 1;
       const r = inv(() => this.state.performRitual());
@@ -2060,6 +2062,7 @@ export class Ui {
     if (s.ritualDone(s.pathway.id, seq)) return `<div class="ritual done"><h4>Ritual: ${esc(r.name)} <span class="badge likely">vollzogen</span></h4><p class="muted">Du kannst den Trank der Sequenz ${seq} trinken.</p></div>`;
     const steps = s.ritualSteps();
     const ready = steps.every((x) => x.done || x.ordeal);
+    const probe = s.pendingProbe(s.pathway.id, seq); // Seq 6: zufällige, ortsunabhängige Prüfung
     // Paket CP: die persönliche Probe der schweren Rituale (4 und 2) mit ihren drei Vorbereitungen als Überlieferung
     const cp = s.content.halbgott?.rituale?.[`hg_ritual_${s.pathway.id}_${seq}`];
     const cpHtml = cp ? `<p class="desc"><strong>${esc(cp.name)}.</strong> ${esc(cp.desc)}</p>${cp.vorbereitung?.length ? `<ul class="steps muted">${cp.vorbereitung.map((v) => `<li>✎ ${esc(v)}</li>`).join('')}</ul>` : ''}` : '';
@@ -2067,7 +2070,78 @@ export class Ui {
       <p><strong>Überall ausführbar.</strong> Die genannten Orte sind Teil der Überlieferung und keine Voraussetzung.</p>
       <p class="desc">${esc(r.desc)}</p>${cpHtml}
       <ul class="steps">${steps.map((x) => `<li class="${x.done ? 'done' : ''}">${x.done ? '✓' : '○'} ${esc(x.text)}</li>`).join('')}</ul>
+      ${probe ? `<p><button class="small primary" data-probe="1">${esc(probe.name)} antreten</button> <span class="muted">Eine zufällige Prüfung, überall ablegbar. Misslingt sie, kostet das ${PROBE_FAIL.nerves} Nerven und bringt ${PROBE_FAIL.unruhe} Unruhe; dann kannst du es gleich noch einmal versuchen.</span></p>` : ''}
+      ${steps.some((x) => x.fraud && !x.done) ? '<p class="muted">Auf jedem geheimen Treffen ist ein Los abgekartet: Achte auf den Blick zwischen Anbieter und Strohmann und auf Gebote, die ohne Hinsehen in großen Sprüngen kommen. Dann „Betrug anprangern“.</p>' : ''}
       <button class="small ${ready ? 'primary' : ''}" data-ritual="1" ${ready ? '' : 'disabled'}>${ready && r.ordeal && !s.ordealDone(s.pathway.id, seq) ? 'Schwellenwächter rufen' : 'Ritual vollziehen'}</button> <span class="muted">Kostet 20 Nerven und bringt 20 Unruhe.${r.ordeal ? ' Ein schweres Ritual: Wenn alles andere steht, tritt der Schwellenwächter deines Pfades an.' : ''}</span></div>`;
+  }
+
+  // --- Proben der Seq-6-Rituale (core/Proben.js) -------------------------------------------------
+  openProbe() {
+    const who = this.state.hasP2() ? this.invPlayer : 1;
+    const r = this.state.withPlayer(who, () => this.state.startProbe(), { quiet: true });
+    if (!r.ok) { this.renderNotebook(esc(r.text)); return; }
+    this.probePlayer = who;
+    this.renderProbe();
+  }
+
+  renderProbe(feedback = '') {
+    const s = this.state;
+    const pr = s.probe;
+    if (!pr) { this.close(); return; }
+    const acts = [];
+    let body = '';
+    const asking = pr.rounds.length && (pr.kind === 'faden' || pr.phase === 'fragen');
+    if (pr.kind === 'uhr') {
+      body = pr.startedAt === null
+        ? `<p class="lead">${esc(pr.intro)}</p>`
+        : `<p class="lead">Die Frist läuft. Halte nach <b>${pr.target} Sekunden</b> an.</p><p class="muted">Kein Zählwerk hilft dir. Nur dein Takt.</p>`;
+      if (pr.startedAt === null) acts.push({ label: 'Die Frist beginnt', fn: () => s.probeStart() });
+      else acts.push({ label: 'Jetzt!', fn: () => s.probeStop() });
+    } else if (!asking) {
+      body = `<p class="lead">${esc(pr.intro)}</p>`;
+      if (pr.kind === 'echo') body += `<ul class="voices">${pr.listen.map((l) => `<li><b>${esc(l.who)}:</b> ${esc(l.text)}</li>`).join('')}</ul>`;
+      if (pr.kind === 'moor') body += `<ul class="voices names">${pr.listen.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>`;
+      acts.push({ label: pr.kind === 'echo' ? 'Ich habe gelauscht' : 'Ich habe sie mir eingeprägt', fn: () => s.probeListened() });
+    } else {
+      const round = pr.rounds[pr.step];
+      body = `<p class="lead muted">${esc(pr.intro)}</p>`;
+      if (pr.kind === 'moor') body += `<ul class="voices names">${pr.second.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>`;
+      body += `<p class="lead"><b>${pr.step + 1} von ${pr.rounds.length}:</b> ${esc(round.prompt)}</p>`;
+      for (const o of round.options) acts.push({ label: o, fn: () => s.probeAnswer(round.options.indexOf(o)) });
+    }
+    this.probeActs = acts;
+    let n = 0;
+    const el = this.open('probe', `
+      <h3>${esc(pr.name)} <span class="muted">Ritual für Sequenz ${pr.seq}${this.probePlayer === 2 ? ' · Spieler 2' : ''}</span></h3>
+      <div class="stage">${body}</div>
+      ${pr.log?.length ? `<ul class="alog">${pr.log.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>` : ''}
+      ${feedback ? `<p class="feedback">${feedback}</p>` : ''}
+      <div class="actions">${acts.map((x, i) => `<button class="small" data-act-i="${i}"><span class="key">${++n}</span> ${esc(x.label)}</button>`).join('')}
+        <button data-act="leave">Abbrechen <span class="key">Esc</span></button></div>`, 'notebook auction probe');
+    el.querySelectorAll('[data-act-i]').forEach((b) => { b.onclick = () => this.probePick(Number(b.dataset.actI)); });
+    el.querySelector('[data-act=leave]').onclick = () => this.cancelProbe();
+  }
+
+  probePick(i) {
+    const x = this.probeActs?.[i];
+    if (!x) return;
+    const r = this.state.withPlayer(this.probePlayer ?? 1, () => x.fn(), { quiet: true });
+    if (r && r.passed !== undefined) { this.finishProbe(r); return; }
+    if (r && r.ok === false) this.sfx(uiSound('probe', 'error'));
+    this.renderProbe(r?.text ? esc(r.text) : '');
+  }
+
+  cancelProbe() {
+    const r = this.state.withPlayer(this.probePlayer ?? 1, () => this.state.cancelProbe(), { quiet: true });
+    if (r && r.passed !== undefined) { this.finishProbe(r); return; }
+    this.close();
+    this.openNotebook('pfad');
+  }
+
+  finishProbe(r) {
+    this.sfx(worldSound('ritual', { ok: r.passed }));
+    this.close();
+    this.showMessage(r.passed ? 'Probe bestanden' : 'Probe misslungen', r.text, { onClose: () => this.openNotebook('pfad') });
   }
 
   recipesHtml(withButtons) {
@@ -2295,6 +2369,7 @@ export class Ui {
         <p class="bidline">${l.leader && l.leader !== 'player' ? headFace(l.leader, s.memberName(l.leader)) : ''}Gebot: <b>${l.price} Sch.</b> · führt: ${who(l.leader)}</p>`;
       if (l.leader !== 'player') acts.push({ label: `${l.leader ? 'Überbieten' : 'Bieten'}: ${next} Sch.`, fn: () => s.bid(), off: s.money < next });
       acts.push({ label: 'Aussteigen', fn: () => s.passLot() });
+      if (a.fraud && !a.fraud.exposed) acts.push({ label: 'Betrug anprangern', fn: () => s.accuseFraud() }); // Ritual der Waage
     } else if (a.phase === 'request') {
       const q = a.request;
       const it = s.item(q.item);
@@ -2376,6 +2451,8 @@ export class Ui {
     else if (r && r.ok === false) this.sfx(uiSound('auction', 'error'));
     const a1 = this.state.auction;
     if (a1 && a1.bought.length + a1.sold.length > before) this.sfx(worldSound('hammer'));
+    if (r?.exposed !== undefined) this.sfx(worldSound('ritual', { ok: r.exposed }));
+    if (r?.ended) { this.close(); this.showMessage('Vor die Tür gesetzt', r.text, { footer: 'Bis zum nächsten Treffen.' }); return; } // falsche Anschuldigung (Waage)
     if (!this.state.auction) return;
     this.renderAuction(r?.text ? esc(r.text) : '');
   }
@@ -2800,6 +2877,8 @@ export class Ui {
     else if (this.modal === 'shop' && num >= 0) this.shopPick(num);
     else if (this.modal === 'auction' && num >= 0) this.auctionPick(num);
     else if (this.modal === 'auction' && k === 'escape') this.finishAuction();
+    else if (this.modal === 'probe' && num >= 0) this.probePick(num);
+    else if (this.modal === 'probe' && k === 'escape') this.cancelProbe();
     else if (this.modal === 'shop' && k === 'v' && this.state.merchant(this.shop.id).buys) this.openShop(this.shop.id, this.shop.mode === 'buy' ? 'sell' : 'buy');
     else if ((this.modal === 'shop' || this.modal === 'brew' || this.modal === 'storage' || this.modal === 'vault') && (k === 'escape' || k === 'e')) this.close();
     else if (this.modal === 'vault' && num >= 0) this.vaultPick(num);

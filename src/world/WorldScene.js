@@ -1660,9 +1660,15 @@ export class WorldScene extends Phaser.Scene {
     const warehouseOpen = def.to === 'warehouse'
       && (this.state.flags.has('briefed_05') || ['active', 'done'].includes(this.state.quests.case_05));
     if (def.lock && !warehouseOpen && !this.state.meetsLock(def.lock)) {
-      this.sfx(worldSound('locked'));
-      this.ui.showMessage(def.title ?? def.prompt, def.lock.text, { footer: def.lock.footer ?? '' });
-      return;
+      // Knackbare Schlösser (lock.pick): Pfad des Schlüssels, Brecheisen oder Haarnadel öffnen sie trotzdem (Ritual des Schlüssels zählt mit)
+      const picked = this.state.tryPick(def.lock, `${this.state.map}:${def.id}`);
+      if (!picked) {
+        this.sfx(worldSound('locked'));
+        this.ui.showMessage(def.title ?? def.prompt, def.lock.text, { footer: [def.lock.footer, def.lock.pick ? this.state.pickHint() : ''].filter(Boolean).join(' ') });
+        return;
+      }
+      this.sfx(worldSound('door', { to: def.to, from: this.state.map }));
+      if (picked.first) this.ui.toast(picked.text, 'good');
     }
     switch (it.kind) {
       case 'npc': {

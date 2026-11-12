@@ -51,6 +51,10 @@ function ritual(s, pid, seq) {
   for (const f of r.requires?.requires_flags ?? []) s.flags.add(f);
   if (r.tribute) s.money += r.tribute;
   if (r.ordeal) s.flags.add(ordealFlag(pid, seq)); // Schwellenwächter (Sequenz 4 und 2) gilt als besiegt
+  // Seq 6, ortsunabhängig (Seb 2026-11-12): Probe bestanden, Betrug aufgedeckt, Schloss geknackt
+  if (r.probe) s.flags.add(s.probeFlag(pid, seq));
+  if (r.fraud) s.flags.add(s.fraudFlag(pid, seq));
+  if (r.min_picks) s.picks = r.min_picks;
   const res = s.performRitual();
   assert.equal(res.ok, true, `${pid} ${seq}: ${res.text}`);
   s.spiritVision = false;
@@ -279,7 +283,8 @@ test('Ab Sequenz 6 braucht jeder Trank ein Ritual: Ort, Zutaten, Bedingung', () 
   for (const [pid, p] of Object.entries(content.pathways)) {
     for (const seq of ['6', '5']) {
       const r = p.seqs[seq].ritual;
-      assert.ok(r?.name && r.desc && content.maps[r.map], `${pid} ${seq}: Ritual mit Ort`);
+      assert.ok(r?.name && r.desc, `${pid} ${seq}: Ritual mit Name und Text`);
+      if (r.map) assert.ok(content.maps[r.map], `${pid} ${seq}: Ritualort ${r.map}`); // Seq 6 ist ortsunabhängig, Seq 5 nennt noch einen Ort der Überlieferung
       for (const id of Object.keys(r.consumes)) assert.ok(content.items[id], `${pid} ${seq}: ${id}`);
     }
     for (const seq of ['9', '8', '7']) assert.ok(!p.seqs[seq].ritual, `${pid} ${seq}: kein Ritual`);

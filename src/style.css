@@ -480,6 +480,11 @@ img.scene { display: block; width: 30em; height: 16.875em; margin: 0 auto 0.6em;
 .ritual { border: 0.125em solid #4a3a5a; padding: 0.4em 0.6em; margin: 0.5em 0; }
 .ritual h4 { margin: 0 0 0.3em; color: var(--occult); }
 .ritual .steps { margin: 0.3em 0; }
+/* Proben der Seq-6-Rituale: Stimmen und Namen zum Einprägen */
+.probe .voices { margin: 0.5em 0; padding-left: 1.2em; }
+.probe .voices li { margin: 0.2em 0; }
+.probe .voices.names { columns: 2; list-style: none; padding: 0; }
+.probe .voices.names li { border: 0.125em solid #4a3a5a; padding: 0.2em 0.5em; margin: 0.2em 0; break-inside: avoid; }
 
 /* Tragkraft */
 .carry { display: flex; align-items: center; gap: 0.5em; flex-wrap: wrap; font-size: 0.85em; color: var(--muted); margin-bottom: 0.5em; }

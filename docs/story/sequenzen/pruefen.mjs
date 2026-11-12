@@ -17,7 +17,7 @@ const seqFields = new Set('name desc ingredients skill passives ritual honor gro
 const skillFields = new Set('id name desc cost hits flat mult holy burn stun weak pierce shield heal drain evade confuse sure composure'.split(' '));
 const passiveKeys = new Set('max_hp max_nerves atk ap_start dmg_mult occult_mult damage_taken dodge_window parry_ap heal_bonus vision_cost composure_regen skill_composure calm_decay use_calm unruhe_tick digest_mult price sell money_bonus honor_loss conclusion_honor link_hints lock_bonus carry always_flee'.split(' '));
 const multipliers = new Set('vision_cost composure_regen heal_bonus price sell honor_loss occult_mult money_bonus skill_composure calm_decay dodge_window damage_taken digest_mult dmg_mult'.split(' '));
-const ritualFields = new Set('name map vision consumes requires desc also_maps min_nerves max_hp_pct min_conclusions tribute'.split(' '));
+const ritualFields = new Set('name map vision consumes requires desc also_maps min_nerves max_hp_pct min_conclusions tribute probe fraud min_picks'.split(' '));
 const liveFlags=new Set();
 function walk(v,fn,path='') { if(!v || typeof v!=='object')return; fn(v,path); for(const [k,x] of Object.entries(v))walk(x,fn,`${path}.${k}`); }
 for(const f of files(join(root,'src/data')).filter(f=>f.endsWith('.json')&&!f.startsWith(pkgDir)))walk(read(f),v=>{
@@ -60,7 +60,7 @@ function validate(data) {
     if(sk.burn)ok(Array.isArray(sk.burn)&&sk.burn.length===2&&sk.burn.every(n=>Number.isInteger(n)&&n>0),`${label}: burn ungültig`);
     for(const k of ['holy','stun','weak','pierce','evade','confuse','sure'])if(k in sk)ok(typeof sk[k]==='boolean',`${label}: ${k} muss boolean sein`);
     if(Number(s)<=6)ok(d.ritual,`${label}: Ritual fehlt`);
-    if(d.ritual){counts.rituals++;const r=d.ritual;allowed(r,ritualFields,label+'.ritual');for(const k of ['name','desc'])ok(text(r[k]),`${label}: Ritual-${k} fehlt`);map(r.map,label);for(const m of r.also_maps??[])map(m,label);ok(typeof r.vision==='boolean',`${label}: vision fehlt`);quantities(r.consumes,label+'.consumes');ok(r.requires&&typeof r.requires==='object',`${label}: requires fehlt`);allowed(r.requires,new Set(['requires_flags','min_wins']),label+'.requires');}
+    if(d.ritual){counts.rituals++;const r=d.ritual;allowed(r,ritualFields,label+'.ritual');for(const k of ['name','desc'])ok(text(r[k]),`${label}: Ritual-${k} fehlt`);if(r.map!==undefined)map(r.map,label);for(const m of r.also_maps??[])map(m,label);ok(typeof r.vision==='boolean'||r.probe||r.fraud,`${label}: vision fehlt`);quantities(r.consumes,label+'.consumes');ok(r.probe||r.fraud||(r.requires&&typeof r.requires==='object'),`${label}: requires fehlt`);allowed(r.requires,new Set(['requires_flags','min_wins']),label+'.requires');}
     if(Number(s)<=4){ok(typeof d.desc==='string'&&d.desc.includes(d.veraenderung),`${label}: Veränderung nicht in desc`);ok(Object.keys(d.ingredients).some(id=>ingredients[id]?.desc.includes('Bosses')),`${label}: seltene Bosszutat fehlt`);}
     if(Number(s)===4)ok(d.passives.some(p=>['price','honor_loss','vision_cost','damage_taken'].includes(p.key)&&p.value>1||['composure_regen','calm_decay'].includes(p.key)&&p.value<1||['max_hp','max_nerves'].includes(p.key)&&p.value<0),`${label}: wirksamer Nachteil fehlt`);
   }

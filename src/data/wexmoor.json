@@ -1771,6 +1771,32 @@
           "text": "Zunder zischt das Wort, und schon ist sie hinter einem Kohlenwagen verschwunden.\n\nDie Schleusenbrücke herauf kommt ein Grauspäher, eine Sturmlaterne in der Hand. Der Lichtkegel wandert über Pflaster und Bretter. Ein zweiter dreht seine Runde über den Hof.",
           "footer": "Bleib aus den Lichtkegeln. Wirst du gesehen, lauf aus dem Licht oder hinter Deckung, bevor das Ausrufezeichen dich festnagelt. Der Ausgang zur Stadtkarte ist ganz links.",
           "done_flag": "k2_patrol_tip"
+        },
+        {
+          "id": "schliessfach",
+          "kind": "read",
+          "tile": [
+            37,
+            4
+          ],
+          "sprite": "file",
+          "prompt": "Gepäckschließfach öffnen",
+          "marker": false,
+          "title": "Gepäckschließfach",
+          "text": "Ein Reisender hat sein Fach nie geleert. Darin: ein gefaltetes Hemd, eine Rolle Verbandszeug, eine Flasche Tonikum und ein Beutel Schilling, mit Kreide beschriftet: „Für die Rückfahrt.“ Es gibt keine Rückfahrt.",
+          "done_flag": "looted_wx_schliessfach",
+          "effects": {
+            "gives_items": {
+              "verband": 2,
+              "tonikum": 1
+            },
+            "gives_money": 40
+          },
+          "lock": {
+            "pick": true,
+            "text": "Ein Blechfach mit Zahlenschloss. Der Schlüssel des Reisenden ist mit ihm verschwunden.",
+            "footer": ""
+          }
         }
       ],
       "npcs": [
@@ -12161,7 +12187,8 @@
         "pick_ok": {
           "text": "Ein Haken, zwei Minuten Geduld, drei Zuhaltungen, ein leises Klicken. Der Wachmann schnarcht weiter. Die Tür schwingt einen Spalt auf.",
           "sets_flags": [
-            "k2_zelle_offen"
+            "k2_zelle_offen",
+            "k2_zelle_geknackt"
           ],
           "choices": [
             {

@@ -362,16 +362,11 @@
           ],
           "ritual": {
             "name": "Der rote Faden",
-            "map": "revier",
-            "also_maps": [
-              "revier_fluegel",
-              "buero"
-            ],
-            "min_conclusions": 12,
             "consumes": {
               "spinnenseide": 3
             },
-            "desc": "Spann im Revier Fäden zwischen allen Schlüssen, die du je gezogen hast: auf dem Hof, im Seitenflügel oder an der Fallwand in deinem Büro. Erst wenn das Netz trägt, darfst du trinken."
+            "desc": "Spann drei Fäden Spinnenseide zwischen deinen Fingern und leg die Fadenprobe ab: vier Spuren, die dir der Nebel zuwirft, und jede muss an den Schluss geknüpft werden, der sie trägt. Fremde Fälle, fremde Spuren. Wo das Netz hält, darfst du trinken.",
+            "probe": "faden"
           }
         },
         "5": {
@@ -779,13 +774,12 @@
           ],
           "ritual": {
             "name": "Die Stimmen zählen",
-            "map": "ebba",
-            "vision": true,
             "consumes": {
               "grabmoos": 3,
               "glockenstaub": 1
             },
-            "desc": "In St. Ebba streust du Glockenstaub auf den Boden und lauschst in der Geistsicht, bis du jede Stimme der Toten beim Namen kennst."
+            "desc": "Streu Glockenstaub und Grabmoos im Kreis um dich, wo immer du stehst, und lausche: Stimmen aus dem Nebel reden durcheinander. Nenn drei von ihnen beim Namen. Jedes Mal sind es andere. Dann trink.",
+            "probe": "echo"
           }
         },
         "5": {
@@ -1427,13 +1421,13 @@
           ],
           "ritual": {
             "name": "Die hundert Schlösser",
-            "map": "warehouse",
             "consumes": {
               "kraehenfeder": 3,
               "schattenpilz": 1
             },
             "tribute": 100,
-            "desc": "Im Lagerhaus 7 öffnest du jedes Schloss, das du findest, und legst 100 Schilling als Tribut in die letzte Kiste. Was man nimmt, muss man auch geben."
+            "desc": "Knack ein Schloss, das nicht für dich gemacht war: eine Truhe im Wilden, die Tür von Lagerhaus 7, einen Asservatenschrank, ein Schließfach am Bahnhof. Dann leg drei Krähenfedern, einen Schattenpilz und 100 Schilling Tribut in das, was du geöffnet hast. Was man nimmt, muss man auch geben.",
+            "min_picks": 1
           }
         },
         "5": {
