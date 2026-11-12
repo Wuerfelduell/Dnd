@@ -1829,3 +1829,12 @@ Die Nachspiel-Vordergründe verwenden neutrales Morgenlicht gemäß DK (`ffde9aa
 Die aktive Spielschrift ist Pixelify Sans als Webfont, kein vollständiges Bitmap-Font-Sheet. `schrift_gross.png` rastert den vollständigen druckbaren cmap direkt aus den Schriftkonturen bei 16 px (UI-Basis 8 px), ohne Hochskalieren kleiner Glyphen. 24×24-Zellen enthalten Grundlinie, Vorschub und Unicode-Zuordnung im Manifest; Fontquelle und SIL-OFL-Lizenz liegen bei den Exportwerkzeugen. Die Touch-Symbole übernehmen beide Zustände und alle zehn Aktionen aus AE in doppelter Größe.
 
 Prüfung: `python tools/art/oberflaeche3/check.py` (Pillow, fontTools). Bericht und Kontaktbogen: `batch-oberflaeche3-validation.json`, `batch-oberflaeche3-preview.png`. Prompts, Quellbild-Hashes und Verarbeitung: `batch-oberflaeche3-generation.json`. `export.py` erwartet eine externe JSON-Liste der Generator-Master; Originalbilder werden nicht im Repository verdoppelt. Der Einbau und Tests im Spiel erfolgen separat.
+## CO: Halbgott und Engel (`halbgott`)
+
+73 PNGs für Sequenz 4 und 2: sechs Trink-Sheets, acht Effekte, zehn Kreaturformen jeweils für Karte und Kampf, zehn Zugportraits, zwei Ritualwächter mit Kartenfiguren, zehn Siegel, zwei Kampfkulissen, zwanzig Sequenzbilder und zwei HUD-Größen. Die 780 Rasterzellen verwenden die gemeinsame Palette aus `manifest-fasserin.json`; Alpha ist binär, Szenen sind opak.
+
+- [Manifest](../../public/sprites/manifest-halbgott.json), [Vorschau](batch-halbgott-preview.png), [Prompts und Herkunft](batch-halbgott-generation.json), [Prüfbericht](batch-halbgott-validation.json).
+- [Übergabe und Registrierungsstellen](halbgott-uebergabe.md): Framegrößen, Richtungen, Aushol-Holds, drei Wächterphasen, Rückverwandlung und getrennte Koop-Instanzen.
+- Prüfung: `python tools/art/halbgott/check.py` (Pillow). Kontrolliert das vollständige Sollinventar, Maße, gemeinsame Palette, Alpha, Raster, Animationen, Baselines und exakte HUD-Verdopplung.
+
+Erzeugt mit dem eingebauten Bildgenerator, anschließend Nearest Neighbor und Palette-/Alpha-Bereinigung. Grafiklieferung ohne Spielcodeänderung; CP und der spätere Einbau übernehmen Ritual- und Kampfregeln.

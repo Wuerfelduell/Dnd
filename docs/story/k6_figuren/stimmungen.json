@@ -1,0 +1,687 @@
+{
+  "emotions": [
+    "neutral",
+    "misstrauisch",
+    "erschrocken",
+    "lächelnd",
+    "wütend",
+    "traurig",
+    "nachdenklich",
+    "entschlossen"
+  ],
+  "selection": "Höchste zutreffende priority gewinnt; andernfalls neutral. Szenenflags unmittelbar nach der Szene löschen.",
+  "figuren": {
+    "vmn_tam_verrin": [
+      {
+        "id": "k6_cx_tam_verrin_stimmung_1",
+        "emotion": "neutral",
+        "when": {
+          "dialogue": "k6_cx_tam_verrin_ebbe_1"
+        },
+        "priority": 1,
+        "note": "Offene Grundhaltung ohne Lächeln.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_tam_verrin_stimmung_2",
+        "emotion": "misstrauisch",
+        "when": {
+          "relation_max": -1
+        },
+        "priority": 2,
+        "note": "Augen prüfen den Abstand, Mund geschlossen.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_tam_verrin_stimmung_3",
+        "emotion": "erschrocken",
+        "when": {
+          "requires_flags": [
+            "k6_cx_pegelstoss"
+          ]
+        },
+        "priority": 3,
+        "note": "Kurzer Atemstillstand; kein Schrei.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_tam_verrin_stimmung_4",
+        "emotion": "lächelnd",
+        "when": {
+          "relation_min": 3,
+          "requires_flags": [
+            "gezeit_ebbe"
+          ]
+        },
+        "priority": 4,
+        "note": "Nur ein kleines Lösen der Mundwinkel.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_tam_verrin_stimmung_5",
+        "emotion": "wütend",
+        "when": {
+          "requires_flags": [
+            "k6_cx_vertrauen_verletzt"
+          ],
+          "scene_actor": "vmn_tam_verrin"
+        },
+        "priority": 5,
+        "note": "Kiefer angespannt, Hände bleiben unten.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_tam_verrin_stimmung_6",
+        "emotion": "traurig",
+        "when": {
+          "requires_flags": [
+            "k6_done",
+            "k6_ende_uebergeben"
+          ]
+        },
+        "priority": 6,
+        "note": "Blick auf die kleine Schreibhand, nicht auf das Amt.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_tam_verrin_stimmung_7",
+        "emotion": "nachdenklich",
+        "when": {
+          "dialogue": "k6_cx_tam_verrin_flut_4"
+        },
+        "priority": 7,
+        "note": "Blick kurz vom Gegenüber lösen.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_tam_verrin_stimmung_8",
+        "emotion": "entschlossen",
+        "when": {
+          "requires_flags": [
+            "k6_done",
+            "k6_ende_schliessen"
+          ]
+        },
+        "priority": 8,
+        "note": "Gerader Blick und ruhige Schultern.",
+        "mode": "portrait"
+      }
+    ],
+    "vmn_osric_dale": [
+      {
+        "id": "k6_cx_osric_dale_stimmung_1",
+        "emotion": "neutral",
+        "when": {
+          "dialogue": "k6_cx_osric_dale_ebbe_1"
+        },
+        "priority": 1,
+        "note": "Offene Grundhaltung ohne Lächeln.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_osric_dale_stimmung_2",
+        "emotion": "misstrauisch",
+        "when": {
+          "relation_max": -1
+        },
+        "priority": 2,
+        "note": "Augen prüfen den Abstand, Mund geschlossen.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_osric_dale_stimmung_3",
+        "emotion": "erschrocken",
+        "when": {
+          "requires_flags": [
+            "k6_cx_pegelstoss"
+          ]
+        },
+        "priority": 3,
+        "note": "Kurzer Atemstillstand; kein Schrei.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_osric_dale_stimmung_4",
+        "emotion": "lächelnd",
+        "when": {
+          "relation_min": 3,
+          "requires_flags": [
+            "gezeit_ebbe"
+          ]
+        },
+        "priority": 4,
+        "note": "Nur ein kleines Lösen der Mundwinkel.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_osric_dale_stimmung_5",
+        "emotion": "wütend",
+        "when": {
+          "requires_flags": [
+            "k6_cx_vertrauen_verletzt"
+          ],
+          "scene_actor": "vmn_osric_dale"
+        },
+        "priority": 5,
+        "note": "Kiefer angespannt, Hände bleiben unten.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_osric_dale_stimmung_6",
+        "emotion": "traurig",
+        "when": {
+          "requires_flags": [
+            "k6_done",
+            "k6_ende_uebergeben"
+          ]
+        },
+        "priority": 6,
+        "note": "Blick auf die kleine Schreibhand, nicht auf das Amt.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_osric_dale_stimmung_7",
+        "emotion": "nachdenklich",
+        "when": {
+          "dialogue": "k6_cx_osric_dale_flut_4"
+        },
+        "priority": 7,
+        "note": "Blick kurz vom Gegenüber lösen.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_osric_dale_stimmung_8",
+        "emotion": "entschlossen",
+        "when": {
+          "requires_flags": [
+            "k6_done",
+            "k6_ende_schliessen"
+          ]
+        },
+        "priority": 8,
+        "note": "Gerader Blick und ruhige Schultern.",
+        "mode": "portrait"
+      }
+    ],
+    "vmn_nell_quarrie": [
+      {
+        "id": "k6_cx_nell_quarrie_stimmung_1",
+        "emotion": "neutral",
+        "when": {
+          "dialogue": "k6_cx_nell_quarrie_ebbe_1"
+        },
+        "priority": 1,
+        "note": "Offene Grundhaltung ohne Lächeln.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_nell_quarrie_stimmung_2",
+        "emotion": "misstrauisch",
+        "when": {
+          "relation_max": -1
+        },
+        "priority": 2,
+        "note": "Augen prüfen den Abstand, Mund geschlossen.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_nell_quarrie_stimmung_3",
+        "emotion": "erschrocken",
+        "when": {
+          "requires_flags": [
+            "k6_cx_pegelstoss"
+          ]
+        },
+        "priority": 3,
+        "note": "Kurzer Atemstillstand; kein Schrei.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_nell_quarrie_stimmung_4",
+        "emotion": "lächelnd",
+        "when": {
+          "relation_min": 3,
+          "requires_flags": [
+            "gezeit_ebbe"
+          ]
+        },
+        "priority": 4,
+        "note": "Nur ein kleines Lösen der Mundwinkel.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_nell_quarrie_stimmung_5",
+        "emotion": "wütend",
+        "when": {
+          "requires_flags": [
+            "k6_cx_vertrauen_verletzt"
+          ],
+          "scene_actor": "vmn_nell_quarrie"
+        },
+        "priority": 5,
+        "note": "Kiefer angespannt, Hände bleiben unten.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_nell_quarrie_stimmung_6",
+        "emotion": "traurig",
+        "when": {
+          "requires_flags": [
+            "k6_done",
+            "k6_ende_uebergeben"
+          ]
+        },
+        "priority": 6,
+        "note": "Blick auf die kleine Schreibhand, nicht auf das Amt.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_nell_quarrie_stimmung_7",
+        "emotion": "nachdenklich",
+        "when": {
+          "dialogue": "k6_cx_nell_quarrie_flut_4"
+        },
+        "priority": 7,
+        "note": "Blick kurz vom Gegenüber lösen.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_nell_quarrie_stimmung_8",
+        "emotion": "entschlossen",
+        "when": {
+          "requires_flags": [
+            "k6_done",
+            "k6_ende_schliessen"
+          ]
+        },
+        "priority": 8,
+        "note": "Gerader Blick und ruhige Schultern.",
+        "mode": "portrait"
+      }
+    ],
+    "vmn_pegelherrin": [
+      {
+        "id": "k6_cx_pegelherrin_stimmung_1",
+        "emotion": "neutral",
+        "when": {
+          "dialogue": "k6_cx_pegelherrin_ebbe_1"
+        },
+        "priority": 1,
+        "note": "Offene Grundhaltung ohne Lächeln.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_pegelherrin_stimmung_2",
+        "emotion": "misstrauisch",
+        "when": {
+          "relation_max": -1
+        },
+        "priority": 2,
+        "note": "Augen prüfen den Abstand, Mund geschlossen.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_pegelherrin_stimmung_3",
+        "emotion": "erschrocken",
+        "when": {
+          "requires_flags": [
+            "k6_cx_pegelstoss"
+          ]
+        },
+        "priority": 3,
+        "note": "Kurzer Atemstillstand; kein Schrei.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_pegelherrin_stimmung_4",
+        "emotion": "lächelnd",
+        "when": {
+          "relation_min": 3,
+          "requires_flags": [
+            "gezeit_ebbe"
+          ]
+        },
+        "priority": 4,
+        "note": "Nur ein kleines Lösen der Mundwinkel.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_pegelherrin_stimmung_5",
+        "emotion": "wütend",
+        "when": {
+          "requires_flags": [
+            "k6_cx_vertrauen_verletzt"
+          ],
+          "scene_actor": "vmn_pegelherrin"
+        },
+        "priority": 5,
+        "note": "Kiefer angespannt, Hände bleiben unten.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_pegelherrin_stimmung_6",
+        "emotion": "traurig",
+        "when": {
+          "requires_flags": [
+            "k6_done",
+            "k6_ende_uebergeben"
+          ]
+        },
+        "priority": 6,
+        "note": "Blick auf die kleine Schreibhand, nicht auf das Amt.",
+        "mode": "erinnerungsbild"
+      },
+      {
+        "id": "k6_cx_pegelherrin_stimmung_7",
+        "emotion": "nachdenklich",
+        "when": {
+          "dialogue": "k6_cx_pegelherrin_flut_4"
+        },
+        "priority": 7,
+        "note": "Blick kurz vom Gegenüber lösen.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_pegelherrin_stimmung_8",
+        "emotion": "entschlossen",
+        "when": {
+          "requires_flags": [
+            "k6_done",
+            "k6_ende_schliessen"
+          ]
+        },
+        "priority": 8,
+        "note": "Gerader Blick und ruhige Schultern.",
+        "mode": "erinnerungsbild"
+      }
+    ],
+    "vmn_rat_1": [
+      {
+        "id": "k6_cx_rat_1_stimmung_1",
+        "emotion": "neutral",
+        "when": {
+          "dialogue": "k6_cx_rat_1_ebbe_1"
+        },
+        "priority": 1,
+        "note": "Offene Grundhaltung ohne Lächeln.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_rat_1_stimmung_2",
+        "emotion": "misstrauisch",
+        "when": {
+          "relation_max": -1
+        },
+        "priority": 2,
+        "note": "Augen prüfen den Abstand, Mund geschlossen.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_rat_1_stimmung_3",
+        "emotion": "erschrocken",
+        "when": {
+          "requires_flags": [
+            "k6_cx_pegelstoss"
+          ]
+        },
+        "priority": 3,
+        "note": "Kurzer Atemstillstand; kein Schrei.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_rat_1_stimmung_4",
+        "emotion": "lächelnd",
+        "when": {
+          "relation_min": 3,
+          "requires_flags": [
+            "gezeit_ebbe"
+          ]
+        },
+        "priority": 4,
+        "note": "Nur ein kleines Lösen der Mundwinkel.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_rat_1_stimmung_5",
+        "emotion": "wütend",
+        "when": {
+          "requires_flags": [
+            "k6_cx_vertrauen_verletzt"
+          ],
+          "scene_actor": "vmn_rat_1"
+        },
+        "priority": 5,
+        "note": "Kiefer angespannt, Hände bleiben unten.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_rat_1_stimmung_6",
+        "emotion": "traurig",
+        "when": {
+          "requires_flags": [
+            "k6_done",
+            "k6_ende_uebergeben"
+          ]
+        },
+        "priority": 6,
+        "note": "Blick auf die kleine Schreibhand, nicht auf das Amt.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_rat_1_stimmung_7",
+        "emotion": "nachdenklich",
+        "when": {
+          "dialogue": "k6_cx_rat_1_flut_4"
+        },
+        "priority": 7,
+        "note": "Blick kurz vom Gegenüber lösen.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_rat_1_stimmung_8",
+        "emotion": "entschlossen",
+        "when": {
+          "requires_flags": [
+            "k6_done",
+            "k6_ende_schliessen"
+          ]
+        },
+        "priority": 8,
+        "note": "Gerader Blick und ruhige Schultern.",
+        "mode": "portrait"
+      }
+    ],
+    "vmn_rat_2": [
+      {
+        "id": "k6_cx_rat_2_stimmung_1",
+        "emotion": "neutral",
+        "when": {
+          "dialogue": "k6_cx_rat_2_ebbe_1"
+        },
+        "priority": 1,
+        "note": "Offene Grundhaltung ohne Lächeln.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_rat_2_stimmung_2",
+        "emotion": "misstrauisch",
+        "when": {
+          "relation_max": -1
+        },
+        "priority": 2,
+        "note": "Augen prüfen den Abstand, Mund geschlossen.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_rat_2_stimmung_3",
+        "emotion": "erschrocken",
+        "when": {
+          "requires_flags": [
+            "k6_cx_pegelstoss"
+          ]
+        },
+        "priority": 3,
+        "note": "Kurzer Atemstillstand; kein Schrei.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_rat_2_stimmung_4",
+        "emotion": "lächelnd",
+        "when": {
+          "relation_min": 3,
+          "requires_flags": [
+            "gezeit_ebbe"
+          ]
+        },
+        "priority": 4,
+        "note": "Nur ein kleines Lösen der Mundwinkel.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_rat_2_stimmung_5",
+        "emotion": "wütend",
+        "when": {
+          "requires_flags": [
+            "k6_cx_vertrauen_verletzt"
+          ],
+          "scene_actor": "vmn_rat_2"
+        },
+        "priority": 5,
+        "note": "Kiefer angespannt, Hände bleiben unten.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_rat_2_stimmung_6",
+        "emotion": "traurig",
+        "when": {
+          "requires_flags": [
+            "k6_done",
+            "k6_ende_uebergeben"
+          ]
+        },
+        "priority": 6,
+        "note": "Blick auf die kleine Schreibhand, nicht auf das Amt.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_rat_2_stimmung_7",
+        "emotion": "nachdenklich",
+        "when": {
+          "dialogue": "k6_cx_rat_2_flut_4"
+        },
+        "priority": 7,
+        "note": "Blick kurz vom Gegenüber lösen.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_rat_2_stimmung_8",
+        "emotion": "entschlossen",
+        "when": {
+          "requires_flags": [
+            "k6_done",
+            "k6_ende_schliessen"
+          ]
+        },
+        "priority": 8,
+        "note": "Gerader Blick und ruhige Schultern.",
+        "mode": "portrait"
+      }
+    ],
+    "vmn_rat_3": [
+      {
+        "id": "k6_cx_rat_3_stimmung_1",
+        "emotion": "neutral",
+        "when": {
+          "dialogue": "k6_cx_rat_3_ebbe_1"
+        },
+        "priority": 1,
+        "note": "Offene Grundhaltung ohne Lächeln.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_rat_3_stimmung_2",
+        "emotion": "misstrauisch",
+        "when": {
+          "relation_max": -1
+        },
+        "priority": 2,
+        "note": "Augen prüfen den Abstand, Mund geschlossen.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_rat_3_stimmung_3",
+        "emotion": "erschrocken",
+        "when": {
+          "requires_flags": [
+            "k6_cx_pegelstoss"
+          ]
+        },
+        "priority": 3,
+        "note": "Kurzer Atemstillstand; kein Schrei.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_rat_3_stimmung_4",
+        "emotion": "lächelnd",
+        "when": {
+          "relation_min": 3,
+          "requires_flags": [
+            "gezeit_ebbe"
+          ]
+        },
+        "priority": 4,
+        "note": "Nur ein kleines Lösen der Mundwinkel.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_rat_3_stimmung_5",
+        "emotion": "wütend",
+        "when": {
+          "requires_flags": [
+            "k6_cx_vertrauen_verletzt"
+          ],
+          "scene_actor": "vmn_rat_3"
+        },
+        "priority": 5,
+        "note": "Kiefer angespannt, Hände bleiben unten.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_rat_3_stimmung_6",
+        "emotion": "traurig",
+        "when": {
+          "requires_flags": [
+            "k6_done",
+            "k6_ende_uebergeben"
+          ]
+        },
+        "priority": 6,
+        "note": "Blick auf die kleine Schreibhand, nicht auf das Amt.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_rat_3_stimmung_7",
+        "emotion": "nachdenklich",
+        "when": {
+          "dialogue": "k6_cx_rat_3_flut_4"
+        },
+        "priority": 7,
+        "note": "Blick kurz vom Gegenüber lösen.",
+        "mode": "portrait"
+      },
+      {
+        "id": "k6_cx_rat_3_stimmung_8",
+        "emotion": "entschlossen",
+        "when": {
+          "requires_flags": [
+            "k6_done",
+            "k6_ende_schliessen"
+          ]
+        },
+        "priority": 8,
+        "note": "Gerader Blick und ruhige Schultern.",
+        "mode": "portrait"
+      }
+    ]
+  }
+}
