@@ -243,7 +243,7 @@ export const THEME_TILES = {
   o_russ: { sheet: 'o_russ', fallback: 'stone', floor: [0, 1, 2, 3], ash: [6], wallTop: [16, 17], wallFace: [20, 21, 23],
     door: [18, 19] },
   // Paket AV (Kapitel 3, Dunscar): Zellindex im 8er-Raster laut manifest-dunscar1.json
-  ds_stadt: { sheet: 'ds_stadt', fallback: 'cobble0', floor: [0, 1, 2], chalk: [4], debris: [5, 6, 7], wallTop: [8], wallFace: [9], window: [12, 13] },
+  ds_stadt: { sheet: 'ds_stadt', fallback: 'cobble0', floor: [0, 1], chalk: [4], debris: [5, 6], wallTop: [8], wallFace: [9], window: [12, 13] },
   ds_bahn: { sheet: 'ds_bahn', fallback: 'stone', floor: [9, 45], debris: [31, 46, 47], rails: [0] },
   ds_bruch: { sheet: 'ds_bruch', fallback: 'stone', floor: [0, 1, 2, 3], debris: [4, 5], wet: [6, 7], wallTop: [8], wallFace: [9] },
   ds_schlucht: { sheet: 'ds_schlucht', fallback: 'stone', floor: [16, 17, 18, 19], debris: [22], wallTop: [20], wallFace: [0, 1], grooves: [2, 3] },
@@ -2390,6 +2390,16 @@ for (const [id, base] of [['ds_gb_weichenfresser', 'schwellenhund'], ['ds_gb_bru
   ENCOUNTER_SHEETS[id] = `enemy_${base}`;
   BOSS_INTROS[id] = `${base}_ds`;
 }
+/** AV: Requisiten der Viertel (props/ds_*.png) als `dsp_<blatt>_<region>` und Tilesets als 16er-Zellen `dst_<blatt>` (Kulisse, data/dunscarKulisse.js). */
+for (const [prefix, id] of [['dsp_endbahnhof', 'ds_endbahnhof'], ['dsp_schwellenring', 'ds_schwellenring'], ['dsp_arbeiterbogen', 'ds_arbeiterbogen'], ['dsp_kalkmarkt', 'ds_kalkmarkt'], ['dsp_bruchsignal', 'ds_bruchstufen_signalhang']]) {
+  SHEETS[prefix] = `props/${id}.png`;
+  REGION_SHEETS[prefix] = ['manifestDunscar1', id];
+}
+Object.assign(REGION_ANIMS, {
+  dsp_schwellenring: { signal: [['signal_arm_up', 'signal_arm_down'], 1] },
+  dsp_bruchsignal: { scaffold: [['scaffold_sway_left', 'scaffold_sway_right'], 2], listening: [['listening_horn_turquoise_pulse_1', 'listening_horn_turquoise_pulse_2', 'listening_horn_turquoise_pulse_3', 'listening_horn_turquoise_pulse_4'], 5] },
+});
+for (const t of ['stadt', 'bahn', 'bruch', 'schlucht']) ANIM_SHEETS[`dst_${t}`] = [`tilesets/ds_${t}.png`, 16, 16];
 /** AV: Kampfkulissen der Viertel und Gefahrengebiete. */
 for (const id of ['endbahnhof', 'schwellenring', 'arbeiterbogen', 'bruchstufen', 'rangierwueste', 'klopfbruch', 'rufschlucht', 'letzter_bahnsteig', 'unterschicht']) {
   BATTLE_BACKGROUNDS[`ds_${id}`] = `bg_ds_${id}`;

@@ -137,7 +137,7 @@ test('Paket C: Portraits, Lauf-Sheets und Kartenmarker sind vollständig', () =>
 
 // --- Paket D (Stadt) und E (Fälle) -------------------------------------------------
 const manifest = (name) => JSON.parse(readFileSync(sprite(`manifest-${name}.json`), 'utf8'));
-const MANIFEST_FILES = { manifestStadt: manifest('stadt'), manifestFaelle: manifest('faelle'), manifestJournal: manifest('journal'), manifestReise: manifest('reise'), manifestWildnis: manifest('wildnis'), manifestGegner3: manifest('gegner3'), manifestFall5: manifest('fall5'), manifestFall6: manifest('fall6'), manifestFall78: manifest('fall78'), manifestTreffen: manifest('treffen'), manifestSequenzen2: manifest('sequenzen2'), manifestWexmoor: manifest('wexmoor'), manifestRituale: manifest('rituale'), manifestWexmoor2: manifest('wexmoor2'), manifestWexmoor3: manifest('wexmoor3'), manifestWexmoor4: manifest('wexmoor4'), manifestWexmoor5: manifest('wexmoor5'), manifestPlatzhalter: manifest('platzhalter'), manifestSpieler2: manifest('spieler2'), manifestNebenquests: manifest('nebenquests'), manifestBriarholt1: manifest('briarholt1'), manifestCalderwick1: manifest('calderwick1'), manifestHalbgott: manifest('halbgott'), manifestFasserin2: manifest('fasserin2'), manifestFigurenNachzuegler: manifest('figuren_nachzuegler') };
+const MANIFEST_FILES = { manifestStadt: manifest('stadt'), manifestFaelle: manifest('faelle'), manifestJournal: manifest('journal'), manifestReise: manifest('reise'), manifestWildnis: manifest('wildnis'), manifestGegner3: manifest('gegner3'), manifestFall5: manifest('fall5'), manifestFall6: manifest('fall6'), manifestFall78: manifest('fall78'), manifestTreffen: manifest('treffen'), manifestSequenzen2: manifest('sequenzen2'), manifestWexmoor: manifest('wexmoor'), manifestRituale: manifest('rituale'), manifestWexmoor2: manifest('wexmoor2'), manifestWexmoor3: manifest('wexmoor3'), manifestWexmoor4: manifest('wexmoor4'), manifestWexmoor5: manifest('wexmoor5'), manifestPlatzhalter: manifest('platzhalter'), manifestSpieler2: manifest('spieler2'), manifestNebenquests: manifest('nebenquests'), manifestBriarholt1: manifest('briarholt1'), manifestCalderwick1: manifest('calderwick1'), manifestHalbgott: manifest('halbgott'), manifestFasserin2: manifest('fasserin2'), manifestFigurenNachzuegler: manifest('figuren_nachzuegler'), manifestDunscar1: manifest('dunscar1') };
 const regionNames = (def) => {
   const regions = Array.isArray(def.regions) ? def.regions.map((r) => r.name) : Object.keys(def.regions ?? {});
   return [...regions, ...Object.keys(def.animations ?? {}), ...Object.keys(def.regionAnimations ?? {})];
@@ -168,7 +168,7 @@ test('Paket D/E: Karten-Deko nutzt nur vorhandene Regionen', () => {
     for (const n of Object.keys(MANIFEST_FILES.manifestFaelle.assets.find((a) => a.id === id).icons)) known.add(`${prefix}_${n}`);
   }
   for (const map of Object.values(content.maps)) {
-    for (const d of map.decor ?? []) if (/^[bdehigjkmoqrsvw]_/.test(d.sprite)) assert.ok(known.has(d.sprite), `${map.id}: ${d.sprite}`);
+    for (const d of map.decor ?? []) if (/^([bdehigjkmoqrsvw]|dsp|dst)_/.test(d.sprite)) assert.ok(known.has(d.sprite), `${map.id}: ${d.sprite}`);
     for (const d of map.interactables ?? []) if (/^[bdehigjkmoqrsvw]_/.test(d.sprite ?? '')) assert.ok(known.has(d.sprite), `${map.id}: ${d.sprite}`);
     if (map.facade) assert.ok(FACADES.includes(map.facade), `${map.id}: Fassade ${map.facade}`);
   }
