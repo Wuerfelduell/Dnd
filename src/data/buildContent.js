@@ -117,6 +117,13 @@ function withPackLore(content, pack) {
   if (pack.halbgott) content.halbgott = pack.halbgott;
   if (pack.fasserin_auftrag) content.fasserinAuftrag = pack.fasserin_auftrag;
   if (pack.erfolge) content.erfolge = pack.erfolge; // Codex DL: Akte des Ermittlers
+  if (pack.post) { // Codex DI: Briefe; Beilagen als Andenken (nicht handelbar), vorhandene Items bleiben wie sie sind
+    content.post = pack.post;
+    for (const b of pack.post.beilagen) {
+      if (content.items[b.id] || b.kind === 'currency') continue;
+      content.items[b.id] = { name: b.name, desc: b.text, weight: b.gewicht ?? 0, price: 0, kind: 'key', post: true };
+    }
+  }
 }
 
 /** Lesestück ohne feste Kachel (`spawn_offset`): neben dem Standard-Spawn seiner Karte; ohne Karte entfällt es. */

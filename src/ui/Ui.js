@@ -1663,10 +1663,11 @@ export class Ui {
     const cases = all.filter((c) => !solved.includes(c));
     const beasts = this.knownBeasts();
     const papers = this.state.paperArchive();
-    const fixed = ['quests', 'items', 'pfad', 'personen', 'kulte', 'bestiar', 'zeitung', 'archiv', 'erfolge'];
+    const fixed = ['quests', 'items', 'pfad', 'personen', 'kulte', 'bestiar', 'zeitung', 'archiv', 'erfolge', 'post'];
     if (this.tab === 'kulte' && !this.state.sektenFrei?.()) this.tab = 'quests';
     if (this.tab === 'zeitung' && !papers.length) this.tab = 'quests';
     if (this.tab === 'archiv' && !solved.length) this.tab = 'quests';
+    if (this.tab === 'post' && !this.state.post?.fach.length) this.tab = 'quests';
     if (this.tab === 'bestiar' && !beasts.length) this.tab = 'quests';
     // Ein gelöster Fall wird im Archiv geöffnet
     if (solved.some((c) => c.id === this.tab)) { this.archiveCase = this.tab; this.tab = 'archiv'; }
@@ -1677,11 +1678,12 @@ export class Ui {
       ...(beasts.length ? [{ id: 'bestiar', title: 'Bestiarium' }] : []),
       ...(papers.length ? [{ id: 'zeitung', title: 'Zeitung' }] : []),
       ...cases.map((c) => ({ id: c.id, title: c.title.replace(/:.*/, '') })), ...(solved.length ? [{ id: 'archiv', title: `Archiv (${solved.length})` }] : []),
+      ...(this.state.post?.fach.length ? [{ id: 'post', title: `Post${this.state.postUngelesen() ? ` (${this.state.postUngelesen()})` : ''}` }] : []), // Codex DI
       ...(this.state.erfolgeDefs().length ? [{ id: 'erfolge', title: 'Akte' }] : [])]; // Codex DL
     const caseId = this.currentCase();
     const body = this.tab === 'quests' ? this.questsHtml() + this.signalJournalHtml() : this.tab === 'items' ? this.itemsHtml() : this.tab === 'pfad' ? this.pathwayTabHtml()
       : this.tab === 'personen' ? this.peopleHtml() : this.tab === 'kulte' ? this.kulteHtml() : this.tab === 'bestiar' ? this.bestiaryHtml(beasts) : this.tab === 'zeitung' ? this.papersHtml(papers)
-      : this.tab === 'archiv' ? this.archiveHtml(solved) : this.tab === 'erfolge' ? this.erfolgeHtml() : this.caseHtml(this.tab);
+      : this.tab === 'archiv' ? this.archiveHtml(solved) : this.tab === 'erfolge' ? this.erfolgeHtml() : this.tab === 'post' ? this.postHtml() : this.caseHtml(this.tab);
     const isCase = !!caseId;
     const el = this.open('notebook', `
       <div class="tabs">${tabs.map((t, i) => `<button class="tab ${t.id === this.tab ? 'sel' : ''}" data-tab="${t.id}"><span class="key">${i + 1}</span> ${uiSprite('icons', TAB_ICONS[t.id] ?? 'lupe', 1 / 16, 'tabico')}${esc(t.title)}</button>`).join('')}
@@ -1712,6 +1714,10 @@ export class Ui {
     }; });
     el.querySelector('[data-act=quests]')?.addEventListener('click', () => { this.sfx(uiSound('notebook', 'page')); this.forgetScroll(); this.openNotebook('quests'); });
     el.querySelectorAll('[data-archive]').forEach((b) => { b.onclick = () => { this.sfx(uiSound('notebook', 'page')); this.archiveCase = b.dataset.archive; this.selected = []; this.forgetScroll(); this.renderNotebook(''); }; });
+    // Codex DI: Briefe öffnen, beantworten, Beilage nehmen
+    el.querySelectorAll('[data-brief]').forEach((b) => { b.onclick = () => { this.sfx(uiSound('notebook', 'page')); this.postOpen = b.dataset.brief; this.state.postLesen(b.dataset.brief); this.renderNotebook(''); }; });
+    el.querySelectorAll('[data-antwort]').forEach((b) => { b.onclick = () => { const [id, i] = b.dataset.antwort.split('|'); this.renderNotebook(esc(this.state.postAntworten(id, Number(i)).text)); }; });
+    el.querySelectorAll('[data-beilage]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(this.state.postBeilage(b.dataset.beilage).text)); });
     el.querySelector('[data-act=combine]')?.addEventListener('click', () => this.combine());
     el.querySelector('[data-act=autocombine]')?.addEventListener('click', () => this.autoCombine());
     const inv = (fn) => this.as(fn, this.tab === 'items' || this.tab === 'pfad' ? this.invPlayer : 1);
@@ -1817,6 +1823,26 @@ export class Ui {
     const lore = this.state.content.bestiaryTexts ?? {};
     const extra = Object.keys(encounters).filter((id) => !id.endsWith('_elite') && !BESTIARY.includes(id) && (hasLoot(id) || lore[id]));
     return [...BESTIARY, ...extra].filter((id) => encounters[id] && won(id));
+  }
+
+  /** Codex DI: Postfach – links die Briefe (neueste oben), rechts der geöffnete mit Antworten und Beilage. */
+  postHtml() {
+    const st = this.state;
+    const fach = st.postFach();
+    if (!fach.some((f) => f.id === this.postOpen)) this.postOpen = fach.find((f) => !f.gelesen)?.id ?? fach[0]?.id;
+    const list = fach.map((f) => {
+      const b = st.postBrief(f.id);
+      return `<li class="${f.id === this.postOpen ? 'sel' : ''} ${f.gelesen ? '' : 'neu'}" data-brief="${f.id}"><b>${esc(b.betreff)}</b><br><span class="dim">${esc(st.postAbsender(b))}${f.gelesen ? '' : ' · ungelesen'}${f.antwort === null && f.gelesen ? ' · Antwort offen' : ''}</span></li>`;
+    }).join('');
+    const f = fach.find((x) => x.id === this.postOpen);
+    const b = f && st.postBrief(f.id);
+    const brief = !b ? '' : `<div class="postbrief"><h3>${esc(b.betreff)}</h3><p class="dim">Von ${esc(st.postAbsender(b))}${b.absendeort ? `, ${esc(b.absendeort)}` : ''}</p>
+      ${st.postText(f.id).split(/\n\n/).map((t) => `<p>${esc(t)}</p>`).join('')}
+      ${f.beilage === false ? `<button data-beilage="${f.id}">Beilage nehmen</button>` : f.beilage ? '<p class="dim">Beilage genommen.</p>' : ''}
+      ${f.antwort === null ? (b.antworten ?? []).map((a, i) => `<button class="antwort" data-antwort="${f.id}|${i}">${esc(a.text)}</button>`).join('')
+        : `<p class="dim">Deine Antwort: „${esc(b.antworten?.[f.antwort]?.text ?? '')}“</p><p class="dim">${esc(b.antworten?.[f.antwort]?.abschluss_text ?? '')}</p>`}</div>`;
+    const tipp = st.postDaten()?.post?.notizbuch?.[0]?.text;
+    return `<div class="postfach"><ul class="postliste">${list}</ul>${brief}</div>${tipp ? `<p class="dim">Pro Spieltag kommen höchstens zwei neue Briefe. Lesen und Antworten geht von überall.</p>` : ''}`;
   }
 
   /** Codex DL: „Akte des Ermittlers“ – alle 80 Vermerke nach Gruppen, offene in grauer Prägung. */

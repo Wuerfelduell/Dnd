@@ -26,6 +26,7 @@ import { sudeMethods } from './Sude.js';
 import { seq5Methods } from './Seq5.js';
 import { seq4Methods } from './Seq4.js';
 import { erfolgeMethods } from './Erfolge.js';
+import { postMethods } from './Post.js';
 
 /** Tragkraft in Pfund. Gegenstände ohne eigenes "weight" wiegen je nach Art so viel. */
 export const BASE_CARRY = 40;
@@ -65,6 +66,7 @@ export class GameState {
   reset() {
     const s = this.content.start;
     this.erfolgZaehler = {};
+    this.loadPost(null);
     this.map = s.map;
     this.spawn = s.spawn;
     this.clues = [];
@@ -831,6 +833,7 @@ export class GameState {
       gear: this.gear,
       tracked: this.tracked,
       erfolgZaehler: this.erfolgZaehler ?? {},
+      ...this.serializePost(),
       ...this.serializePathway(),
       ...this.serializeTalents(),
       ...this.serializeCorruption(),
@@ -864,6 +867,7 @@ export class GameState {
     this.honorCarry = data.honorCarry ?? 0;
     this.endings = data.endings ?? {};
     this.erfolgZaehler = data.erfolgZaehler ?? {};
+    this.loadPost(data);
     // Freischaltungen aus erreichten Enden nachtragen (z. B. der Kanalhafen nach dem falschen Ende von Fall 3,
     // das ihn in älteren Ständen nicht freigeschaltet hat). Ortsfreigaben werden nie zurückgenommen.
     for (const id of Object.values(this.endings)) {
@@ -918,4 +922,4 @@ export class GameState {
 /** Fortschrittsflags der verlängerten Akt-V-Fassung (AP), in Spielreihenfolge. */
 export const K2_AKT5_STEPS = ['k2v_boot_bereit', 'k2v_keller_passiert', 'k2v_aufstieg_passiert', 'k2v_abschied_done'];
 
-Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods, sudeMethods, seq5Methods, seq4Methods, pfadHandelMethods, erfolgeMethods);
+Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods, sudeMethods, seq5Methods, seq4Methods, pfadHandelMethods, erfolgeMethods, postMethods);

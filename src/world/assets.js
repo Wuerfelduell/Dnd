@@ -1140,6 +1140,11 @@ export function playCaseAnim(sprite, sheet, then) {
 /** 16x16-Icon unter public/sprites/items/<id>.png (tests/sprites.test.js prüft, dass es zu jedem Item eins gibt). */
 /** Items ohne eigenes Bild (noch): Platzhalter aus einem ähnlichen Item. */
 export const ITEM_ICON_ALIASES = { // Paket AA/AB haben seit AJ eigene Symbole
+  // Codex DI: Post-Beilagen leihen Bilder aus dem Vorrat Reserve200
+  post_foto_1: 'reserve200/ermittlung/reserve_015_fotoplatte', post_foto_2: 'reserve200/ermittlung/reserve_015_fotoplatte', post_foto_3: 'reserve200/ermittlung/reserve_015_fotoplatte',
+  post_foto_4: 'reserve200/fundstuecke/reserve_039_medaillonfoto', post_foto_5: 'reserve200/fundstuecke/reserve_039_medaillonfoto', post_foto_6: 'reserve200/fundstuecke/reserve_039_medaillonfoto',
+  post_schluessel_ohne_schloss: 'reserve200/fundstuecke/reserve_036_schluesselabdruck', post_leseblatt: 'reserve200/fundstuecke/reserve_021_zerrissener_brief',
+  post_fragen_vor_der_erklaerung: 'reserve200/fundstuecke/reserve_030_brandbrief',
   k2a_tinte_abschrift: 'pfaendungsbrief', k2a_bittere_mittel_abschrift: 'pfaendungsbrief', k2a_hafenrecht_abschrift: 'pfaendungsbrief', k2a_letztes_bild_abschrift: 'pfaendungsbrief' }; // Paket AL
 /** Zutaten und Artefakte aus Paket AF haben seit AG eigene Bilder (16 und 32). */
 const AF_ARTIFACTS = ['sq_offene_blende', 'sq_gegenakte', 'sq_ruecklaufbecher', 'sq_stegbolzen', 'sq_fristpendel', 'sq_torfsiegel'];

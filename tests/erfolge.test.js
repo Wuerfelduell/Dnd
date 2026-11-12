@@ -58,3 +58,47 @@ test('DL: Systeme, die es noch nicht gibt, lösen nichts aus', () => {
     assert.ok(!s.erfolgErfuellt(d), id);
   }
 });
+
+// Codex DI: Post
+import { DAY_SECONDS } from '../src/core/Clock.js';
+
+test('DI: Kontakt aus Gespräch, Zustellung nach Ankunft, höchstens zwei pro Tag, Antwort öffnet Folgebrief', () => {
+  const s = new GameState(content);
+  const ivy = content.npcs.ivy;
+  s.seenNodes = new Set([`${ivy.dialogue}.start`, `${content.npcs.holt.dialogue}.start`, `${content.npcs.molly.dialogue}.start`]);
+  s.playTime = 0;
+  assert.deepEqual(s.checkPost(), []);
+  s.flags.add('k2_arrived');
+  const first = s.checkPost();
+  assert.equal(first.length, 2);
+  assert.deepEqual(s.checkPost(), []);
+  s.playTime = DAY_SECONDS * 1.2;
+  const more = s.checkPost();
+  assert.ok(more.length >= 1);
+  const id = 'post_ivy_1';
+  assert.ok(s.post.fach.some((f) => f.id === id));
+  s.postLesen(id);
+  assert.ok(s.flags.has('post_ivy_1_gelesen'));
+  assert.ok(s.postAntworten(id, 0).ok);
+  assert.ok(!s.postAntworten(id, 1).ok);
+  assert.ok(s.flags.has('post_antwort_ivy_1_1'));
+  s.flags.add('k4_arrived');
+  s.playTime = DAY_SECONDS * 5;
+  for (let d = 5; d < 10; d++) { s.playTime = DAY_SECONDS * d; s.checkPost(); }
+  assert.ok(s.post.fach.some((f) => f.id === 'post_ivy_2'));
+  // Spielstand
+  const t = new GameState(content);
+  t.load(s.serialize(null));
+  assert.equal(t.post.fach.length, s.post.fach.length);
+});
+
+test('DI: Beilage einmalig, Beilagen-Gegenstände sind registriert', () => {
+  for (const b of content.post.beilagen) if (b.kind !== 'currency') assert.ok(content.items[b.id], b.id);
+  const s = new GameState(content);
+  const brief = content.post.briefe.find((b) => Object.keys(b.beilage).some((k) => k !== 'schilling'));
+  s.post.fach.push({ id: brief.id, tag: 0, gelesen: true, antwort: null, beilage: false });
+  const item = Object.keys(brief.beilage)[0];
+  assert.ok(s.postBeilage(brief.id).ok);
+  assert.equal(s.itemCount(item), 1);
+  assert.ok(!s.postBeilage(brief.id).ok);
+});

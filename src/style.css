@@ -1071,3 +1071,13 @@ html.touch .talentbar .tslot { width: 3.2em; height: 3.2em; }
 .erfliste .erfico { flex: none; image-rendering: pixelated; }
 .erfstempel { color: var(--gold); font-weight: bold; }
 .toast.erfolg .erfico { margin-right: 0.4em; vertical-align: middle; image-rendering: pixelated; }
+
+/* Codex DI: Postfach */
+.postfach { display: flex; gap: 1em; align-items: flex-start; }
+.postliste { list-style: none; padding: 0; margin: 0; flex: 0 0 38%; max-height: 60vh; overflow-y: auto; }
+.postliste li { padding: 0.35em 0.5em; cursor: pointer; border-left: 3px solid transparent; }
+.postliste li.sel { border-left-color: var(--gold); background: rgba(208, 160, 80, 0.08); }
+.postliste li.neu b { color: var(--gold); }
+.postbrief { flex: 1; }
+.postbrief button.antwort { display: block; width: 100%; text-align: left; margin: 0.3em 0; }
+@media (max-width: 640px) { .postfach { flex-direction: column; } .postliste { flex: none; width: 100%; } }

@@ -6,3 +6,10 @@ export function erfolgePack({ erfolge, bedingungen, meldungen }) {
   const list = erfolge.map((e, i) => ({ ...e, gruppe: bedingungen[e.id]?.gruppe ?? 'kurios', index: bedingungen[e.id]?.index ?? i }));
   return { name: 'erfolge', erfolge: { list, meldungen } };
 }
+
+export const POST_FILES = ['briefe', 'beilagen', 'post'];
+
+/** DI Post: 91 Briefe, 11 Beilagen, Schalter-/Büro-/Notizbuchzeilen. */
+export function postPack({ briefe, beilagen, post }) {
+  return { name: 'post', post: { briefe, beilagen, post } };
+}

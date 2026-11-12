@@ -1,0 +1,3669 @@
+[
+  {
+    "id": "post_ivy_1",
+    "absender": "ivy",
+    "stadt": "kettlegate",
+    "kapitel": 2,
+    "reihe": "post_reihe_ivy",
+    "ausloeser": {
+      "requires_flags": [
+        "k2_arrived",
+        "post_kontakt_ivy"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_2"
+    },
+    "betreff": "Die Hand an der Klinke",
+    "text": "Sie sind fort, und die Leute fragen jetzt mich, wann Sie zurückkommen. Ich sage ihnen, dass ich keine Auskunftsstelle bin. Gestern hat jemand einen Stuhl vor unser Fenster gestellt. Angeblich wollte er nur auf den Regen warten. Hester braucht keine Zuschauer. Ich möchte einen Vorhang anbringen, doch dann erzählt man, wir hätten etwas zu verbergen. Können Sie mir schreiben, ob ich die Besucher beim Revier melden soll? Bitte versprechen Sie keine Rückkehr. Ein klarer Rat passt in diesen Umschlag und hilft uns mehr als eine große Zusage.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Bitten Sie Holt um Hilfe.",
+        "folge_flag": "post_antwort_ivy_1_1",
+        "folge_brief": "post_ivy_2",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Ich kann Ihnen keinen Rat zu den Besuchern geben.",
+        "folge_flag": "post_antwort_ivy_1_2",
+        "folge_brief": null,
+        "abschluss_text": "Du gibst keinen Rat zum Thema „Ein Fenster ohne neugierige Besucher“. Die Briefreihe endet offen. Es werden weder ein Erfolg noch ein Scheitern und keine Beziehungseinbuße behauptet."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_ivy_2",
+    "absender": "ivy",
+    "stadt": "kettlegate",
+    "kapitel": 4,
+    "reihe": "post_reihe_ivy",
+    "ausloeser": {
+      "requires_flags": [
+        "k4_arrived",
+        "post_kontakt_ivy",
+        "post_antwort_ivy_1_1"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "zeitanker": "post_ivy_1_beantwortet"
+    },
+    "betreff": "Ein Vorhang für uns",
+    "text": "Ihren Rat habe ich Holt gezeigt. Nur den Satz über die Besucher, nicht den ganzen Brief. Er kam ohne Begleitung und ließ den Stuhl forttragen. Seitdem klopft jeder zweimal, als sei nun auch das eine Vorschrift. Hester hat den Stoff für den Vorhang selbst angefasst. Mehr schreibe ich über sie nicht. Der Vermieter verlangt eine Erklärung für die neuen Haken im Fensterrahmen. Ich könnte eine lange geben. Lieber würde ich ihm eine kurze Grenze setzen. Soll ich das Fenster ausdrücklich als unsere Sache bezeichnen? Sie kennen seine Art nicht, aber Sie kennen unsere Lage.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Schreiben Sie die Grenze auf.",
+        "folge_flag": "post_antwort_ivy_2_1",
+        "folge_brief": "post_ivy_3",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Schreiben Sie die Grenze auf. Bitte halten Sie meinen Rat privat.",
+        "folge_flag": "post_antwort_ivy_2_2",
+        "folge_brief": "post_ivy_3",
+        "abschluss_text": "Dein Rat wird vertraulich versandt. Der nächste Brief bestätigt ausdrücklich diese Grenze."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_ivy_3",
+    "absender": "ivy",
+    "stadt": "kettlegate",
+    "kapitel": 6,
+    "reihe": "post_reihe_ivy",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_ivy"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "requires_any_flags": [
+        "post_antwort_ivy_2_1",
+        "post_antwort_ivy_2_2"
+      ],
+      "zeitanker": "post_ivy_2_beantwortet"
+    },
+    "betreff": "Das Fenster steht offen",
+    "text": "Der Vermieter bekam die kurze Erklärung. Die Haken bleiben. Heute habe ich den Vorhang aufgezogen, weil ich Licht zum Ausbessern brauchte. Niemand saß davor. Ich schreibe Ihnen das nicht als Beweis, dass alles gut geworden ist. Wir haben nur ein Stück gewöhnlichen Alltag zurück, das vorher jedem zur Besichtigung offenstand. Hester entscheidet selbst, ob sie am Fenster sitzt. Ich entscheide, wem ich öffne. Ihre Briefe dürfen weiter durch den Schlitz kommen. Auch wenn Sie nur einen Satz übrig haben, lese ich ihn am Tisch und nicht mehr mit der Hand an der Klinke.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Ich freue mich über Ihre Ruhe.",
+        "folge_flag": "post_antwort_ivy_3_1",
+        "folge_brief": null,
+        "abschluss_text": "Du bestätigst den berichteten Abschluss und bewahrst die Briefe auf."
+      },
+      {
+        "text": "Danke. Ich möchte diesen Austausch nun beenden.",
+        "folge_flag": "post_antwort_ivy_3_2",
+        "folge_brief": null,
+        "abschluss_text": "Du beendest den Austausch. Der bereits berichtete Ausgang bleibt bestehen."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "nachsatz_varianten": [
+      {
+        "requires_flags": [
+          "post_antwort_ivy_2_1"
+        ],
+        "text": "Ihr letzter Rat hat mir beim nächsten Schritt geholfen. Ich wollte Ihnen den Ausgang selbst mitteilen."
+      },
+      {
+        "requires_flags": [
+          "post_antwort_ivy_2_2"
+        ],
+        "text": "Ihr letzter Rat bleibt privat, wie Sie es gewünscht haben. Ich nenne Ihren Namen deshalb nicht weiter."
+      }
+    ]
+  },
+  {
+    "id": "post_holt_1",
+    "absender": "holt",
+    "stadt": "kettlegate",
+    "kapitel": 2,
+    "reihe": "post_reihe_holt",
+    "ausloeser": {
+      "requires_flags": [
+        "k2_arrived",
+        "post_kontakt_holt"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_2"
+    },
+    "betreff": "Eine Lücke im Wachbuch",
+    "text": "Wachbuch, letzte Woche, dritte Nacht. Zwischen zwei Einträgen fehlen vier Stunden. Die Kollegen erklären es mit einer umgefallenen Kanne. Das Papier ist trocken. Ich verlange keinen Namen von Ihnen und schicke auch keine Akte hinterher. Mich beschäftigt, ob ich alle Unterschriften einzeln nachfordern soll. Das kostet Zeit und macht mich unbeliebt. Beides ist dienstlich vorgesehen, steht aber selten ausdrücklich dabei. Schreiben Sie mir, ob ich bei den Zeiten beginnen soll. Über Ihre eigenen Angelegenheiten schreibe ich nichts auf diese Rückseite. Der Brief geht durch genug fremde Hände, bevor er Sie erreicht.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Prüfen Sie zuerst die Zeiten.",
+        "folge_flag": "post_antwort_holt_1_1",
+        "folge_brief": "post_holt_2",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Prüfen Sie das ohne meinen Rat im Dienstweg.",
+        "folge_flag": "post_antwort_holt_1_2",
+        "folge_brief": null,
+        "abschluss_text": "Du gibst keinen Rat zum Thema „Unterschriften unter einer Nachtwache“. Die Briefreihe endet offen. Es werden weder ein Erfolg noch ein Scheitern und keine Beziehungseinbuße behauptet."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_holt_2",
+    "absender": "holt",
+    "stadt": "kettlegate",
+    "kapitel": 3,
+    "reihe": "post_reihe_holt",
+    "ausloeser": {
+      "requires_flags": [
+        "k3_arrived",
+        "post_kontakt_holt",
+        "post_antwort_holt_1_1"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "zeitanker": "post_holt_1_beantwortet"
+    },
+    "betreff": "Zwei Unterschriften fehlen noch",
+    "text": "Die Zeiten sind nachgetragen. Zwei Kollegen waren länger draußen, als der Dienstplan erlaubte. Sie hatten einer Frau den Ofen wieder zusammengesetzt. Dafür brauchten sie keine Heldengeschichte, nur eine ehrliche Uhrzeit. Nun fehlen ihre Unterschriften unter der Berichtigung. Einer fürchtet eine Geldbuße, der andere behauptet, seine Hand sei verstaucht. Beim Kartenspiel bemerkt man davon nichts. Ich will die Hilfe nicht bestrafen und den falschen Eintrag nicht stehenlassen. Soll ich beides getrennt protokollieren? Auf Ihrem früheren Platz liegt jetzt ein Ersatzmantel. Niemand hat ihn bewusst dorthin gelegt. Deshalb bleibt er vorerst dort.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Trennen Sie Hilfe und Falscheintrag.",
+        "folge_flag": "post_antwort_holt_2_1",
+        "folge_brief": "post_holt_3",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Trennen Sie Hilfe und Falscheintrag. Bitte halten Sie meinen Rat privat.",
+        "folge_flag": "post_antwort_holt_2_2",
+        "folge_brief": "post_holt_3",
+        "abschluss_text": "Dein Rat wird vertraulich versandt. Der nächste Brief bestätigt ausdrücklich diese Grenze."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_holt_3",
+    "absender": "holt",
+    "stadt": "kettlegate",
+    "kapitel": 5,
+    "reihe": "post_reihe_holt",
+    "ausloeser": {
+      "requires_flags": [
+        "k5_arrived",
+        "post_kontakt_holt"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "requires_any_flags": [
+        "post_antwort_holt_2_1",
+        "post_antwort_holt_2_2"
+      ],
+      "zeitanker": "post_holt_2_beantwortet"
+    },
+    "betreff": "Die Wache ist vermerkt",
+    "text": "Zwei Unterschriften, ein berichtigter Dienstplan, keine erfundene Kanne. Die Hilfe am Ofen steht in einer eigenen Zeile. Das Revier ist deswegen nicht ehrlicher geworden, aber diese vier Stunden gehören wieder den Leuten, die sie gearbeitet haben. Der Ersatzmantel hängt inzwischen am Haken. Ihr Platz ist frei, was keine Aufforderung zur Rückreise sein soll. Ich weiß, wie die Strecke liegt. Schreiben Sie bei Gelegenheit, ob Ihre Stiefel halten. Das ist eine persönliche Frage. Ich habe sie vorsichtshalber außerhalb des Wachbuchs gestellt und werde die Antwort auch nicht zwischen die Dienstzeiten heften.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Danke für die saubere Berichtigung.",
+        "folge_flag": "post_antwort_holt_3_1",
+        "folge_brief": null,
+        "abschluss_text": "Du bestätigst den berichteten Abschluss und bewahrst die Briefe auf."
+      },
+      {
+        "text": "Danke. Ich möchte diesen Austausch nun beenden.",
+        "folge_flag": "post_antwort_holt_3_2",
+        "folge_brief": null,
+        "abschluss_text": "Du beendest den Austausch. Der bereits berichtete Ausgang bleibt bestehen."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "nachsatz_varianten": [
+      {
+        "requires_flags": [
+          "post_antwort_holt_2_1"
+        ],
+        "text": "Ihr letzter Rat hat mir beim nächsten Schritt geholfen. Ich wollte Ihnen den Ausgang selbst mitteilen."
+      },
+      {
+        "requires_flags": [
+          "post_antwort_holt_2_2"
+        ],
+        "text": "Ihr letzter Rat bleibt privat, wie Sie es gewünscht haben. Ich nenne Ihren Namen deshalb nicht weiter."
+      }
+    ]
+  },
+  {
+    "id": "post_gouvernante_1",
+    "absender": "gouvernante",
+    "stadt": "kettlegate",
+    "kapitel": 2,
+    "reihe": "post_reihe_gouvernante",
+    "ausloeser": {
+      "requires_flags": [
+        "k2_arrived",
+        "post_kontakt_gouvernante"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_2"
+    },
+    "betreff": "Das Feld bleibt leer",
+    "text": "Im Aufnahmebuch ist ein Feld leer. Das Kind kann seine Herkunft nicht nennen, und die Verwaltung möchte dennoch eine ordentliche Abschrift. Ich habe bisher einen Strich gesetzt. Nun verlangt man einen Ortsnamen, irgendeinen wahrscheinlichen. Eine solche Genauigkeit kommt mir bequemer vor, als sie sein sollte. Sie haben bei Ihren Besuchen Fragen gestellt, auf die nicht sofort Antworten kamen. Soll ich ausdrücklich vermerken, dass wir nichts wissen? Das Kind fragt nach dem Unterschied zwischen einem Strich und einem Wort. Ich würde ihm gern einen nennen, den ich später nicht wieder zurücknehmen muss.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Vermerken Sie ehrlich, was unbekannt ist.",
+        "folge_flag": "post_antwort_gouvernante_1_1",
+        "folge_brief": "post_gouvernante_2",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Ich möchte über die Aufnahmeunterlagen nicht mitentscheiden.",
+        "folge_flag": "post_antwort_gouvernante_1_2",
+        "folge_brief": null,
+        "abschluss_text": "Du gibst keinen Rat zum Thema „Ein leeres Namensfeld im Waisenhaus“. Die Briefreihe endet offen. Es werden weder ein Erfolg noch ein Scheitern und keine Beziehungseinbuße behauptet."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_gouvernante_2",
+    "absender": "gouvernante",
+    "stadt": "kettlegate",
+    "kapitel": 4,
+    "reihe": "post_reihe_gouvernante",
+    "ausloeser": {
+      "requires_flags": [
+        "k4_arrived",
+        "post_kontakt_gouvernante",
+        "post_antwort_gouvernante_1_1"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "zeitanker": "post_gouvernante_1_beantwortet"
+    },
+    "betreff": "Ein Blatt ohne Herkunft",
+    "text": "Der Vermerk lautet jetzt: Herkunft nicht bekannt. Die Verwaltung sandte das Blatt zurück, diesmal mit einer vorgedruckten Auswahl. Kein Kästchen passt. Das Kind hat am Rand ein Haus mit vier Fenstern gezeichnet und gefragt, ob das als Ort genügt. Ich habe die Zeichnung nicht abgenommen. Zwischen Formular und Frühstück bleibt wenig Zeit für solche Dinge, und gerade deshalb möchte ich sie nicht verlieren. Darf die eigene Zeichnung bei der Abschrift bleiben? Ich bitte Sie um eine Meinung, nicht um ein Gutachten. Für ein Gutachten würde man hier vermutlich ein weiteres unpassendes Kästchen drucken.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Lassen Sie die Zeichnung beim Blatt.",
+        "folge_flag": "post_antwort_gouvernante_2_1",
+        "folge_brief": "post_gouvernante_3",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Lassen Sie die Zeichnung beim Blatt. Bitte halten Sie meinen Rat privat.",
+        "folge_flag": "post_antwort_gouvernante_2_2",
+        "folge_brief": "post_gouvernante_3",
+        "abschluss_text": "Dein Rat wird vertraulich versandt. Der nächste Brief bestätigt ausdrücklich diese Grenze."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_gouvernante_3",
+    "absender": "gouvernante",
+    "stadt": "kettlegate",
+    "kapitel": 6,
+    "reihe": "post_reihe_gouvernante",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_gouvernante"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "requires_any_flags": [
+        "post_antwort_gouvernante_2_1",
+        "post_antwort_gouvernante_2_2"
+      ],
+      "zeitanker": "post_gouvernante_2_beantwortet"
+    },
+    "betreff": "Die eigene kleine Unterschrift",
+    "text": "Die Zeichnung blieb beim Blatt. In der Abschrift steht, dass das Kind sie selbst hinzugefügt hat. Keine Straße wurde daraus gemacht, keine Herkunft bewiesen. Heute hat es zum ersten Mal seinen eigenen Namenszug daneben versucht. Drei Buchstaben stehen verkehrt. Ich habe sie nicht verbessert. Die Verwaltung erhält eine lesbare Abschrift, das Kind behält sein Blatt. Das scheint mir eine brauchbare Aufteilung. Sie müssen daraus kein Lob für unsere Einrichtung machen. Es ist ein kleiner Vorgang, der besser ausging, weil jemand auf einer Lücke bestand. Ich werde versuchen, mich beim nächsten Formular daran zu erinnern.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Bewahren Sie das Original beim Kind.",
+        "folge_flag": "post_antwort_gouvernante_3_1",
+        "folge_brief": null,
+        "abschluss_text": "Du bestätigst den berichteten Abschluss und bewahrst die Briefe auf."
+      },
+      {
+        "text": "Danke. Ich möchte diesen Austausch nun beenden.",
+        "folge_flag": "post_antwort_gouvernante_3_2",
+        "folge_brief": null,
+        "abschluss_text": "Du beendest den Austausch. Der bereits berichtete Ausgang bleibt bestehen."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "nachsatz_varianten": [
+      {
+        "requires_flags": [
+          "post_antwort_gouvernante_2_1"
+        ],
+        "text": "Ihr letzter Rat hat mir beim nächsten Schritt geholfen. Ich wollte Ihnen den Ausgang selbst mitteilen."
+      },
+      {
+        "requires_flags": [
+          "post_antwort_gouvernante_2_2"
+        ],
+        "text": "Ihr letzter Rat bleibt privat, wie Sie es gewünscht haben. Ich nenne Ihren Namen deshalb nicht weiter."
+      }
+    ]
+  },
+  {
+    "id": "post_elsbeth_1",
+    "absender": "elsbeth",
+    "stadt": "kettlegate",
+    "kapitel": 3,
+    "reihe": "post_reihe_elsbeth",
+    "ausloeser": {
+      "requires_flags": [
+        "k3_arrived",
+        "post_kontakt_elsbeth"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_3"
+    },
+    "betreff": "Ein Name im Saum",
+    "text": "Rowe. Ich habe den Namen zuerst geschrieben, damit ich ihn nicht zwischen den anderen Worten verliere. Hier liegt ein Rock zur Ausbesserung. Im Saum steckt ein Schild, dessen Schrift beim Berühren kalt wird. Der Name gehört weder der Kundin noch mir. Ich möchte ihn nicht einfach heraustrennen und wegwerfen. Sie wissen, wie schnell etwas Verschwiegenes für etwas Vergessenes gehalten wird. Soll ich das Schild getrennt aufbewahren und der Kundin zeigen? Für heute nähe ich an einem anderen Stück. Es ist angenehm, wenn eine offene Naht wirklich nur eine offene Naht ist.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Zeigen Sie der Kundin das Schild.",
+        "folge_flag": "post_antwort_elsbeth_1_1",
+        "folge_brief": "post_elsbeth_2",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Bitte entscheiden Sie mit der Kundin ohne meine Beteiligung.",
+        "folge_flag": "post_antwort_elsbeth_1_2",
+        "folge_brief": null,
+        "abschluss_text": "Du gibst keinen Rat zum Thema „Der eigene Name auf einer Naht“. Die Briefreihe endet offen. Es werden weder ein Erfolg noch ein Scheitern und keine Beziehungseinbuße behauptet."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "absendeort": "wexmoor"
+  },
+  {
+    "id": "post_elsbeth_2",
+    "absender": "elsbeth",
+    "stadt": "kettlegate",
+    "kapitel": 4,
+    "reihe": "post_reihe_elsbeth",
+    "ausloeser": {
+      "requires_flags": [
+        "k4_arrived",
+        "post_kontakt_elsbeth",
+        "post_antwort_elsbeth_1_1"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "zeitanker": "post_elsbeth_1_beantwortet"
+    },
+    "betreff": "Die Naht unter Licht",
+    "text": "Die Kundin kannte das Schild. Der Rock gehörte ihrer Mutter. Sie hatte den Namen absichtlich nach innen wenden lassen, weil jedes Gespräch darüber in einer Rechnung endete. Ich habe Ihre Bitte befolgt und ihr das Stück nur gezeigt. Nun möchte sie selbst entscheiden, was bleibt. Sie fragte, ob ich bei ihr sitzen könne, während sie den Faden löst. Das kostet eine Stunde, die niemand bezahlen wird. Ich denke, ich kann sie trotzdem haben. Schreiben Sie mir, ob ich das Schild bei ihr lassen soll. Es ist nicht meine Erinnerung, auch wenn es auf meinem Tisch liegt.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Lassen Sie ihr die Entscheidung.",
+        "folge_flag": "post_antwort_elsbeth_2_1",
+        "folge_brief": "post_elsbeth_3",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Lassen Sie ihr die Entscheidung. Bitte halten Sie meinen Rat privat.",
+        "folge_flag": "post_antwort_elsbeth_2_2",
+        "folge_brief": "post_elsbeth_3",
+        "abschluss_text": "Dein Rat wird vertraulich versandt. Der nächste Brief bestätigt ausdrücklich diese Grenze."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "absendeort": "wexmoor"
+  },
+  {
+    "id": "post_elsbeth_3",
+    "absender": "elsbeth",
+    "stadt": "kettlegate",
+    "kapitel": 6,
+    "reihe": "post_reihe_elsbeth",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_elsbeth"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "requires_any_flags": [
+        "post_antwort_elsbeth_2_1",
+        "post_antwort_elsbeth_2_2"
+      ],
+      "zeitanker": "post_elsbeth_2_beantwortet"
+    },
+    "betreff": "Rowe steht wieder außen",
+    "text": "Das Schild liegt bei seiner Besitzerin. Sie hat es nicht wieder eingenäht und nicht fortgeworfen. Was sie später damit macht, gehört nicht in mein Auftragsbuch. Auf dessen erster Seite steht jetzt Elsbeth Rowe, gut lesbar. Es hat mich mehr Mühe gekostet als die ganze Naht. Sie bekommen keinen Stoffrest als Beweis. Ein solcher Rest würde Ihnen nur eine weitere kleine Pflicht in die Tasche legen. Ich wollte Ihnen sagen, dass ich Arbeit annehmen kann, ohne gleich die Geschichte dazu besitzen zu müssen. Heute sind es zwei Ärmel und ein gerissener Taschenboden.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Ihr eigener Name genügt mir.",
+        "folge_flag": "post_antwort_elsbeth_3_1",
+        "folge_brief": null,
+        "abschluss_text": "Du bestätigst den berichteten Abschluss und bewahrst die Briefe auf."
+      },
+      {
+        "text": "Danke. Ich möchte diesen Austausch nun beenden.",
+        "folge_flag": "post_antwort_elsbeth_3_2",
+        "folge_brief": null,
+        "abschluss_text": "Du beendest den Austausch. Der bereits berichtete Ausgang bleibt bestehen."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "nachsatz_varianten": [
+      {
+        "requires_flags": [
+          "post_antwort_elsbeth_2_1"
+        ],
+        "text": "Ihr letzter Rat hat mir beim nächsten Schritt geholfen. Ich wollte Ihnen den Ausgang selbst mitteilen."
+      },
+      {
+        "requires_flags": [
+          "post_antwort_elsbeth_2_2"
+        ],
+        "text": "Ihr letzter Rat bleibt privat, wie Sie es gewünscht haben. Ich nenne Ihren Namen deshalb nicht weiter."
+      }
+    ],
+    "absendeort": "wexmoor"
+  },
+  {
+    "id": "post_waescherin_1",
+    "absender": "waescherin",
+    "stadt": "kettlegate",
+    "kapitel": 2,
+    "reihe": "post_reihe_waescherin",
+    "ausloeser": {
+      "requires_flags": [
+        "k2_arrived",
+        "post_kontakt_waescherin"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_2"
+    },
+    "betreff": "Drei Laken fehlen noch",
+    "text": "Wenn Sie Hemden haben, schicken Sie keine. Die Post ist teuer, und mein Hof hängt voll. Ich schreibe wegen drei Laken, die in meinem Buch bezahlt heißen und im nächsten Buch als Schulden stehen. Das Papier wurde nass. Sehr gelegen, findet der Besitzer des zweiten Buches. Meine Hände sind oft nass, meine Zahlen deshalb noch lange nicht erfunden. Soll ich die Kundinnen ihre Abholtage einzeln bestätigen lassen? Eine Kopie Ihrer Antwort brauche ich nicht. Hier wird genug Papier doppelt gewaschen, bis nur die angenehmste Zahl darauf übrig bleibt. Ich möchte meine behalten.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Lassen Sie die Abholtage bestätigen.",
+        "folge_flag": "post_antwort_waescherin_1_1",
+        "folge_brief": "post_waescherin_2",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Ich kann die fehlende Rechnung aus der Ferne nicht beurteilen.",
+        "folge_flag": "post_antwort_waescherin_1_2",
+        "folge_brief": null,
+        "abschluss_text": "Du gibst keinen Rat zum Thema „Eine verschwundene Waschrechnung“. Die Briefreihe endet offen. Es werden weder ein Erfolg noch ein Scheitern und keine Beziehungseinbuße behauptet."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_waescherin_2",
+    "absender": "waescherin",
+    "stadt": "kettlegate",
+    "kapitel": 4,
+    "reihe": "post_reihe_waescherin",
+    "ausloeser": {
+      "requires_flags": [
+        "k4_arrived",
+        "post_kontakt_waescherin",
+        "post_antwort_waescherin_1_1"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "zeitanker": "post_waescherin_1_beantwortet"
+    },
+    "betreff": "Die Rechnung wird trocken",
+    "text": "Die Abholtage passen zusammen. Zwei Kundinnen brachten ihre Zettel, eine nur einen genähten Knopf als Merkzeichen. Ich kenne den Knopf. Ihre Aussage will ich trotzdem nicht besser machen, als sie ist. Der Besitzer des anderen Buches bietet jetzt die halbe Summe und ein freundliches Schweigen. Freundlichkeit bezahlt keine Kohlen. Ich könnte die Belege offen an die Hofwand hängen, ohne Namen, nur mit Tagen und Beträgen. Raten Sie mir dazu? Die Laken sind inzwischen längst wieder schmutzig. So sieht man wenigstens, dass die Welt weiterarbeitet, auch wenn eine Rechnung noch auf dem Brett liegt.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Zeigen Sie Beträge ohne Kundennamen.",
+        "folge_flag": "post_antwort_waescherin_2_1",
+        "folge_brief": "post_waescherin_3",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Zeigen Sie Beträge ohne Kundennamen. Bitte halten Sie meinen Rat privat.",
+        "folge_flag": "post_antwort_waescherin_2_2",
+        "folge_brief": "post_waescherin_3",
+        "abschluss_text": "Dein Rat wird vertraulich versandt. Der nächste Brief bestätigt ausdrücklich diese Grenze."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_waescherin_3",
+    "absender": "waescherin",
+    "stadt": "kettlegate",
+    "kapitel": 5,
+    "reihe": "post_reihe_waescherin",
+    "ausloeser": {
+      "requires_flags": [
+        "k5_arrived",
+        "post_kontakt_waescherin"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "requires_any_flags": [
+        "post_antwort_waescherin_2_1",
+        "post_antwort_waescherin_2_2"
+      ],
+      "zeitanker": "post_waescherin_2_beantwortet"
+    },
+    "betreff": "Ein sauberer offener Posten",
+    "text": "Die Tage und Beträge hingen drei Morgen an der Wand. Am vierten kam das Geld. Ohne Entschuldigung, aber mit allen Münzen. Ich habe die Zettel abgenommen, bevor jemand die Kundinnen daraus erraten konnte. Ein kleiner Rest der Zahlung liegt bei. Kein Lohn für Ihre Ermittlungen, nur die Rückgabe eines Gefallens. Kaufen Sie etwas Warmes davon. Falls es dort ebenfalls nur dünne Suppe gibt, verlangen Sie wenigstens einen sauberen Löffel. Mein Buch hat jetzt eine gestrichene Schuld weniger. Für den nächsten Regen hängt es höher, und der Nagel sitzt endlich fest.",
+    "beilage": {
+      "schilling": 8
+    },
+    "antworten": [
+      {
+        "text": "Danke, ich nehme den kleinen Anteil an.",
+        "folge_flag": "post_antwort_waescherin_3_1",
+        "folge_brief": null,
+        "abschluss_text": "Du bestätigst den berichteten Abschluss und bewahrst die Briefe auf."
+      },
+      {
+        "text": "Danke. Ich möchte diesen Austausch nun beenden.",
+        "folge_flag": "post_antwort_waescherin_3_2",
+        "folge_brief": null,
+        "abschluss_text": "Du beendest den Austausch. Der bereits berichtete Ausgang bleibt bestehen."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "nachsatz_varianten": [
+      {
+        "requires_flags": [
+          "post_antwort_waescherin_2_1"
+        ],
+        "text": "Ihr letzter Rat hat mir beim nächsten Schritt geholfen. Ich wollte Ihnen den Ausgang selbst mitteilen."
+      },
+      {
+        "requires_flags": [
+          "post_antwort_waescherin_2_2"
+        ],
+        "text": "Ihr letzter Rat bleibt privat, wie Sie es gewünscht haben. Ich nenne Ihren Namen deshalb nicht weiter."
+      }
+    ]
+  },
+  {
+    "id": "post_molly_1",
+    "absender": "molly",
+    "stadt": "kettlegate",
+    "kapitel": 2,
+    "reihe": "post_reihe_molly",
+    "ausloeser": {
+      "requires_flags": [
+        "k2_arrived",
+        "post_kontakt_molly"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_2"
+    },
+    "betreff": "Vier Bretter für ein Bett",
+    "text": "Miss Wren sagt, auf Briefe an Erwachsene gehört Sie. Also schreibe ich Ihnen. Meine Puppe hat jetzt ein Bett aus vier Brettern. Das fünfte Brett fehlt, deshalb rutscht sie nachts durch. Nan sagt, ich soll eine Schachtel nehmen. Die Schachtel riecht aber nach Seife, und ich will kein Bett, das jemand vorher weggeworfen hat. Können Sie mir schreiben, ob ein Stück Stoff als Boden reicht? Ich kann selber nähen, wenn mir jemand den Anfang zeigt. Bitte schicken Sie keine große neue Puppe. Meine kennt die fehlende Stelle schon und passt genau zwischen die Bretter.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Ein Stoffboden reicht, wenn er fest sitzt.",
+        "folge_flag": "post_antwort_molly_1_1",
+        "folge_brief": "post_molly_2",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Bitte fragen Sie jemanden vor Ort nach dem Bettboden.",
+        "folge_flag": "post_antwort_molly_1_2",
+        "folge_brief": null,
+        "abschluss_text": "Du gibst keinen Rat zum Thema „Ein Puppenbett mit eigener Grenze“. Die Briefreihe endet offen. Es werden weder ein Erfolg noch ein Scheitern und keine Beziehungseinbuße behauptet."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_molly_2",
+    "absender": "molly",
+    "stadt": "kettlegate",
+    "kapitel": 3,
+    "reihe": "post_reihe_molly",
+    "ausloeser": {
+      "requires_flags": [
+        "k3_arrived",
+        "post_kontakt_molly",
+        "post_antwort_molly_1_1"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "zeitanker": "post_molly_1_beantwortet"
+    },
+    "betreff": "Die Puppe schläft quer",
+    "text": "Der Stoff hält. Ich habe ihn dreimal angenäht, weil die erste Naht wie eine Treppe aussah. Nun schläft die Puppe quer. Das ist keine Vorschrift, nur ihre beste Lage. Ein anderes Kind möchte das Bett haben. Ich habe gesagt, es darf es ansehen. Es sagt, Teilen heißt Hergeben. Stimmt das? Miss Wren hat gemeint, ich soll selbst antworten. Darum frage ich Sie vorher. Wenn ich ein zweites Bett bauen helfe, ist das dann auch Teilen? Vier neue Bretter liegen schon bereit. Ich habe diesmal nach einem Boden gesucht, bevor ich mit den Seiten anfange.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Helfen Sie beim zweiten Bett.",
+        "folge_flag": "post_antwort_molly_2_1",
+        "folge_brief": "post_molly_3",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Helfen Sie beim zweiten Bett. Bitte halten Sie meinen Rat privat.",
+        "folge_flag": "post_antwort_molly_2_2",
+        "folge_brief": "post_molly_3",
+        "abschluss_text": "Dein Rat wird vertraulich versandt. Der nächste Brief bestätigt ausdrücklich diese Grenze."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_molly_3",
+    "absender": "molly",
+    "stadt": "kettlegate",
+    "kapitel": 6,
+    "reihe": "post_reihe_molly",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_molly"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "requires_any_flags": [
+        "post_antwort_molly_2_1",
+        "post_antwort_molly_2_2"
+      ],
+      "zeitanker": "post_molly_2_beantwortet"
+    },
+    "betreff": "Ein Bett bleibt meines",
+    "text": "Es gibt jetzt zwei Betten. Das andere hat einen richtigen Boden, meines den Stoff. Wir haben sie nicht getauscht. Ich durfte beim Nageln helfen und habe die Nägel in einer Tasse gezählt. Einer war krumm. Den haben wir aufgehoben, weil er vielleicht einen Haken abgibt. Die Puppe schläft weiterhin quer. Auf dem beiliegenden Bild halte ich das Bett fest, damit man sieht, welches mir gehört. Sie müssen kein Bild zurückschicken. Schreiben Sie lieber, ob in Ihrer neuen Stadt auch die Fenster morgens so blind werden. Ich male dann einen Fingerkreis in unseres und schaue hindurch.",
+    "beilage": {
+      "post_foto_1": 1
+    },
+    "antworten": [
+      {
+        "text": "Ich behalte Ihr Bild bei mir.",
+        "folge_flag": "post_antwort_molly_3_1",
+        "folge_brief": null,
+        "abschluss_text": "Du bestätigst den berichteten Abschluss und bewahrst die Briefe auf."
+      },
+      {
+        "text": "Danke. Ich möchte diesen Austausch nun beenden.",
+        "folge_flag": "post_antwort_molly_3_2",
+        "folge_brief": null,
+        "abschluss_text": "Du beendest den Austausch. Der bereits berichtete Ausgang bleibt bestehen."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "nachsatz_varianten": [
+      {
+        "requires_flags": [
+          "post_antwort_molly_2_1"
+        ],
+        "text": "Ihr letzter Rat hat mir beim nächsten Schritt geholfen. Ich wollte Ihnen den Ausgang selbst mitteilen."
+      },
+      {
+        "requires_flags": [
+          "post_antwort_molly_2_2"
+        ],
+        "text": "Ihr letzter Rat bleibt privat, wie Sie es gewünscht haben. Ich nenne Ihren Namen deshalb nicht weiter."
+      }
+    ]
+  },
+  {
+    "id": "post_dunn_1",
+    "absender": "dunn",
+    "stadt": "kettlegate",
+    "kapitel": 2,
+    "reihe": "post_reihe_dunn",
+    "ausloeser": {
+      "requires_flags": [
+        "k2_arrived",
+        "post_kontakt_dunn"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_2"
+    },
+    "betreff": "Der Deckel passt nicht",
+    "text": "Tee oder Suppe, Sie erinnern sich. Inzwischen kann man beides unterscheiden. Der Kessel hat einen neuen Deckel, der leider zu einem anderen Kessel gehört. Oben steht meine Ausgabe, unten fehlt mein Geld. Die Beschaffung erklärt, runde Deckel seien grundsätzlich austauschbar. Ich lade sie gern ein, diese Ansicht mit heißem Dampf zu prüfen. Soll ich den Rand ausmessen und die Zahlen schicken? Holt meint, ich solle nicht schon wieder mit einer Kelle ins Büro gehen. Ich gehe auch ungern hin. Dort wird alles kalt, bevor jemand zugibt, dass ein halber Fingerbreit eine wirkliche Lücke ist.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Schicken Sie die genauen Maße.",
+        "folge_flag": "post_antwort_dunn_1_1",
+        "folge_brief": "post_dunn_2",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Ich überlasse die Beschaffung Ihnen und dem Revier.",
+        "folge_flag": "post_antwort_dunn_1_2",
+        "folge_brief": null,
+        "abschluss_text": "Du gibst keinen Rat zum Thema „Der falsche Deckel in der Kantine“. Die Briefreihe endet offen. Es werden weder ein Erfolg noch ein Scheitern und keine Beziehungseinbuße behauptet."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_dunn_2",
+    "absender": "dunn",
+    "stadt": "kettlegate",
+    "kapitel": 4,
+    "reihe": "post_reihe_dunn",
+    "ausloeser": {
+      "requires_flags": [
+        "k4_arrived",
+        "post_kontakt_dunn",
+        "post_antwort_dunn_1_1"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "zeitanker": "post_dunn_1_beantwortet"
+    },
+    "betreff": "Eine Kelle als Zeuge",
+    "text": "Die Maße sind angekommen. Zurück kam eine Forderung nach einem Beweis für die Messung. Ich habe die Kelle daneben gelegt und die Archivarin um eine Abschrift gebeten. Nun kann niemand behaupten, ich hätte einen größeren Kessel gezeichnet. Der Lieferant bietet einen kleinen Topf als Ausgleich. Für sechs Leute wäre er gut. Hier essen mehr. Soll ich auf dem passenden Deckel bestehen? Es klingt kleinlich, aber die Küche wird jeden Mittag feucht, und die Mäntel bleiben bis zur Nacht klamm. Sie kennen den Geruch. Ein Amtsfehler hat manchmal sehr gewöhnliche Folgen unter dem Kragen.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Bestehen Sie auf dem passenden Deckel.",
+        "folge_flag": "post_antwort_dunn_2_1",
+        "folge_brief": "post_dunn_3",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Bestehen Sie auf dem passenden Deckel. Bitte halten Sie meinen Rat privat.",
+        "folge_flag": "post_antwort_dunn_2_2",
+        "folge_brief": "post_dunn_3",
+        "abschluss_text": "Dein Rat wird vertraulich versandt. Der nächste Brief bestätigt ausdrücklich diese Grenze."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_dunn_3",
+    "absender": "dunn",
+    "stadt": "kettlegate",
+    "kapitel": 6,
+    "reihe": "post_reihe_dunn",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_dunn"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "requires_any_flags": [
+        "post_antwort_dunn_2_1",
+        "post_antwort_dunn_2_2"
+      ],
+      "zeitanker": "post_dunn_2_beantwortet"
+    },
+    "betreff": "Suppe unter richtigem Deckel",
+    "text": "Der Deckel sitzt. Die Beschaffung nennt das eine freiwillige Nachbesserung. Ich nenne es einen Deckel. Heute blieb der Dampf im Kessel, und die Mäntel an der Tür waren abends trocken. Holt bekam die erste Schüssel, obwohl er mit der Angelegenheit nichts zu tun haben wollte. Ich habe ihm das nicht vorgehalten. Es gibt genug Dinge, die man täglich aufwärmt. Ihr Platz am Tisch ist inzwischen anderweitig besetzt, aber Ihre Kelle hängt noch da. Nicht als Andenken. Es war immer eine brauchbare Kelle, und gute Geräte muss man nicht mit einer Geschichte aus dem Dienst nehmen.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Benutzen Sie die Kelle weiter.",
+        "folge_flag": "post_antwort_dunn_3_1",
+        "folge_brief": null,
+        "abschluss_text": "Du bestätigst den berichteten Abschluss und bewahrst die Briefe auf."
+      },
+      {
+        "text": "Danke. Ich möchte diesen Austausch nun beenden.",
+        "folge_flag": "post_antwort_dunn_3_2",
+        "folge_brief": null,
+        "abschluss_text": "Du beendest den Austausch. Der bereits berichtete Ausgang bleibt bestehen."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "nachsatz_varianten": [
+      {
+        "requires_flags": [
+          "post_antwort_dunn_2_1"
+        ],
+        "text": "Ihr letzter Rat hat mir beim nächsten Schritt geholfen. Ich wollte Ihnen den Ausgang selbst mitteilen."
+      },
+      {
+        "requires_flags": [
+          "post_antwort_dunn_2_2"
+        ],
+        "text": "Ihr letzter Rat bleibt privat, wie Sie es gewünscht haben. Ich nenne Ihren Namen deshalb nicht weiter."
+      }
+    ]
+  },
+  {
+    "id": "post_pip_1",
+    "absender": "pip",
+    "stadt": "kettlegate",
+    "kapitel": 2,
+    "reihe": "post_reihe_pip",
+    "ausloeser": {
+      "requires_flags": [
+        "k2_arrived",
+        "post_kontakt_pip"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_2"
+    },
+    "betreff": "Ein Wort zu viel",
+    "text": "Extrablatt wäre übertrieben. Es geht nur um eine Zeile. Ich habe geschrieben, eine Frau sei verschwunden. Tatsächlich wollte sie bloß nicht mehr mit dem Reporter reden. Jetzt stehen Leute vor ihrem Haus und fragen, ob sie schon wieder da sei. Der Setzer sagt, für eine Berichtigung sei kein Platz. Für einen neuen Verdacht hätte er welchen. Sie kennen das Geschäft. Soll ich auf meinen eigenen Bericht verzichten, damit die richtige Zeile hineinpasst? Ich verdiene damit weniger. Die Frau verdient mit der ganzen Sache gar nichts und muss trotzdem jeden Morgen zuerst die Vorhänge prüfen.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Drucken Sie die Berichtigung statt Ihres Berichts.",
+        "folge_flag": "post_antwort_pip_1_1",
+        "folge_brief": "post_pip_2",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Entscheiden Sie selbst, welche Berichtigung Sie verantworten.",
+        "folge_flag": "post_antwort_pip_1_2",
+        "folge_brief": null,
+        "abschluss_text": "Du gibst keinen Rat zum Thema „Eine Berichtigung statt einer Schlagzeile“. Die Briefreihe endet offen. Es werden weder ein Erfolg noch ein Scheitern und keine Beziehungseinbuße behauptet."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_pip_2",
+    "absender": "pip",
+    "stadt": "kettlegate",
+    "kapitel": 4,
+    "reihe": "post_reihe_pip",
+    "ausloeser": {
+      "requires_flags": [
+        "k4_arrived",
+        "post_kontakt_pip",
+        "post_antwort_pip_1_1"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "zeitanker": "post_pip_1_beantwortet"
+    },
+    "betreff": "Die kleine zweite Spalte",
+    "text": "Die Berichtigung steht unter den Marktpreisen. Man braucht gute Augen, aber wenigstens steht sie da. Die Frau hat mir einen trockenen Platz für meinen Stapel angeboten. Ich habe angenommen und nichts darüber geschrieben. Nun will der Setzer wissen, wer mich zu der Berichtigung gebracht hat. Ihr Name würde das Blatt verkaufen. Ich kann stattdessen meinen eigenen daruntersetzen. Das wäre nicht so eindrucksvoll und wahrscheinlich richtiger. Schreiben Sie, ob Sie damit einverstanden sind. Ich frage ausdrücklich, bevor ich etwas drucke. Das spart später Papier, auch wenn es den Leuten am Tresen weniger gefällt als eine neue Enthüllung.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Setzen Sie Ihren eigenen Namen darunter.",
+        "folge_flag": "post_antwort_pip_2_1",
+        "folge_brief": "post_pip_3",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Setzen Sie Ihren eigenen Namen darunter. Bitte halten Sie meinen Rat privat.",
+        "folge_flag": "post_antwort_pip_2_2",
+        "folge_brief": "post_pip_3",
+        "abschluss_text": "Dein Rat wird vertraulich versandt. Der nächste Brief bestätigt ausdrücklich diese Grenze."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_pip_3",
+    "absender": "pip",
+    "stadt": "kettlegate",
+    "kapitel": 6,
+    "reihe": "post_reihe_pip",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_pip"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "requires_any_flags": [
+        "post_antwort_pip_2_1",
+        "post_antwort_pip_2_2"
+      ],
+      "zeitanker": "post_pip_2_beantwortet"
+    },
+    "betreff": "Heute ohne falschen Namen",
+    "text": "Unter der Berichtigung steht Benji. Der Setzer fand den Namen zu kurz für die Zeile. Ich fand ihn lang genug für meinen Fehler. Die Frau kann wieder die Tür öffnen, ohne ihre eigene Rückkehr bestätigen zu müssen. Ich liefere ihr das Blatt jetzt mit der Schrift nach innen. Heute gibt es Regen, Kohlenpreise und einen verlorenen Handschuh. Keine gute Ausgabe, sagt mein Chef. Mir ist eine langweilige Ausgabe recht, solange ich niemanden hineinlügen muss. Falls Sie mir schreiben, vermerke ich auf dem Umschlag privat. Das ist neu bei mir. Ich übe noch, den Vermerk auch zu beachten.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Behalten Sie meinen Brief privat.",
+        "folge_flag": "post_antwort_pip_3_1",
+        "folge_brief": null,
+        "abschluss_text": "Du bestätigst den berichteten Abschluss und bewahrst die Briefe auf."
+      },
+      {
+        "text": "Danke. Ich möchte diesen Austausch nun beenden.",
+        "folge_flag": "post_antwort_pip_3_2",
+        "folge_brief": null,
+        "abschluss_text": "Du beendest den Austausch. Der bereits berichtete Ausgang bleibt bestehen."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "nachsatz_varianten": [
+      {
+        "requires_flags": [
+          "post_antwort_pip_2_1"
+        ],
+        "text": "Ihr letzter Rat hat mir beim nächsten Schritt geholfen. Ich wollte Ihnen den Ausgang selbst mitteilen."
+      },
+      {
+        "requires_flags": [
+          "post_antwort_pip_2_2"
+        ],
+        "text": "Ihr letzter Rat bleibt privat, wie Sie es gewünscht haben. Ich nenne Ihren Namen deshalb nicht weiter."
+      }
+    ]
+  },
+  {
+    "id": "post_tresswell_1",
+    "absender": "tresswell",
+    "stadt": "kettlegate",
+    "kapitel": 2,
+    "reihe": "post_reihe_tresswell",
+    "ausloeser": {
+      "requires_flags": [
+        "k2_arrived",
+        "post_kontakt_tresswell"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_2"
+    },
+    "betreff": "Das kleine fremde Gewicht",
+    "text": "Ein Gewicht liegt seit drei Treffen bei mir. Es ist zu leicht für seinen Stempel und zu schwer für eine bloße Attrappe. Niemand beansprucht es. Ich habe es außerhalb der Waage verwahrt. Das klingt selbstverständlich, ist es bei ungeduldigen Käufern aber nicht. Sie haben Dinge schon ohne Kaufabsicht betrachtet. Würden Sie die Abweichung öffentlich benennen oder zunächst alle alten Gewichte vergleichen lassen? Ich neige zum Vergleich. Ein falsches Stück beweist noch keinen falschen Besitzer. Bitte nennen Sie keine Namen auf dem Umschlag. Die Post wiegt nach Entfernung, doch manche Leser rechnen nach Beziehungen.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Vergleichen Sie zunächst die alten Gewichte.",
+        "folge_flag": "post_antwort_tresswell_1_1",
+        "folge_brief": "post_tresswell_2",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Ich möchte keine Prüfung Ihrer Handelsgewichte begleiten.",
+        "folge_flag": "post_antwort_tresswell_1_2",
+        "folge_brief": null,
+        "abschluss_text": "Du gibst keinen Rat zum Thema „Ein Gewicht ohne Besitzer“. Die Briefreihe endet offen. Es werden weder ein Erfolg noch ein Scheitern und keine Beziehungseinbuße behauptet."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_tresswell_2",
+    "absender": "tresswell",
+    "stadt": "kettlegate",
+    "kapitel": 4,
+    "reihe": "post_reihe_tresswell",
+    "ausloeser": {
+      "requires_flags": [
+        "k4_arrived",
+        "post_kontakt_tresswell",
+        "post_antwort_tresswell_1_1"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "zeitanker": "post_tresswell_1_beantwortet"
+    },
+    "betreff": "Eine Kerbe unter Messing",
+    "text": "Der Vergleich zeigte dieselbe Kerbe an zwei weiteren Gewichten. Beide stimmen. Die Kerbe bezeichnet also eine Werkstatt, keine Schuld. Ihr Rat hat mir einen voreiligen Ausschluss erspart. Das falsche Stück bleibt übrig. Ein Händler möchte es nun zum Materialwert kaufen. Er verspricht, den Stempel abzufeilen. Versprechen sind leicht, Messing ist schwerer. Soll ich das Gewicht unbrauchbar machen und als Anschauungsstück behalten? Es wäre ein Verlust, aber ein begrenzter. Die anderen fragen schon, warum meine Schublade geschlossen bleibt. Ich möchte ihnen etwas zeigen können, ohne ihnen dabei gleich einen Verdächtigen verkaufen zu müssen.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Machen Sie das falsche Gewicht unbrauchbar.",
+        "folge_flag": "post_antwort_tresswell_2_1",
+        "folge_brief": "post_tresswell_3",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Machen Sie das falsche Gewicht unbrauchbar. Bitte halten Sie meinen Rat privat.",
+        "folge_flag": "post_antwort_tresswell_2_2",
+        "folge_brief": "post_tresswell_3",
+        "abschluss_text": "Dein Rat wird vertraulich versandt. Der nächste Brief bestätigt ausdrücklich diese Grenze."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_tresswell_3",
+    "absender": "tresswell",
+    "stadt": "kettlegate",
+    "kapitel": 6,
+    "reihe": "post_reihe_tresswell",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_tresswell"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "requires_any_flags": [
+        "post_antwort_tresswell_2_1",
+        "post_antwort_tresswell_2_2"
+      ],
+      "zeitanker": "post_tresswell_2_beantwortet"
+    },
+    "betreff": "Die Waage bleibt unbeladen",
+    "text": "Durch das Gewicht geht jetzt ein Loch. Es kann keine Prüfung mehr bestehen und keine Ware mehr falsch bewerten. Ich lege es bei den Treffen neben die leere Waage. Wer fragt, erfährt die gemessene Abweichung, nicht eine erfundene Geschichte über den Besitzer. Die Gespräche sind seitdem langsamer. Das ist kein Verlust, den ich ersetzen lassen werde. Für Ihren Rat schulde ich Ihnen keinen Eintritt und kein geheimes Recht. Ich schicke lediglich eine kleine, ordentlich bestimmte Zutat. Sie dürfen sie benutzen, ohne dafür später eine unbekannte Rechnung anzunehmen. Diese Zusicherung gilt auch dann, wenn Sie mir nicht wieder schreiben.",
+    "beilage": {
+      "silberstaub": 1
+    },
+    "antworten": [
+      {
+        "text": "Ich nehme die Zutat ohne Verpflichtung an.",
+        "folge_flag": "post_antwort_tresswell_3_1",
+        "folge_brief": null,
+        "abschluss_text": "Du bestätigst den berichteten Abschluss und bewahrst die Briefe auf."
+      },
+      {
+        "text": "Danke. Ich möchte diesen Austausch nun beenden.",
+        "folge_flag": "post_antwort_tresswell_3_2",
+        "folge_brief": null,
+        "abschluss_text": "Du beendest den Austausch. Der bereits berichtete Ausgang bleibt bestehen."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "nachsatz_varianten": [
+      {
+        "requires_flags": [
+          "post_antwort_tresswell_2_1"
+        ],
+        "text": "Ihr letzter Rat hat mir beim nächsten Schritt geholfen. Ich wollte Ihnen den Ausgang selbst mitteilen."
+      },
+      {
+        "requires_flags": [
+          "post_antwort_tresswell_2_2"
+        ],
+        "text": "Ihr letzter Rat bleibt privat, wie Sie es gewünscht haben. Ich nenne Ihren Namen deshalb nicht weiter."
+      }
+    ]
+  },
+  {
+    "id": "post_quill_1",
+    "absender": "quill",
+    "stadt": "kettlegate",
+    "kapitel": 2,
+    "reihe": "post_reihe_quill",
+    "ausloeser": {
+      "requires_flags": [
+        "k2_arrived",
+        "post_kontakt_quill"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_2"
+    },
+    "betreff": "Ein Schlüssel ohne Auftrag",
+    "text": "Ein Schlüssel ohne Schloss ist gewöhnlich ein Verkaufsproblem. Dieser hier ist anders. Seine Zähne sind glatt abgenutzt, doch im Loch des Kopfes sitzt feiner heller Staub. Ich lege ihn bei, weil Sie Dinge betrachten können, ohne sofort eine Tür aufzubrechen. Bitte versuchen Sie ihn nirgends mit Gewalt. Auf einem alten Warenzettel finde ich die Bemerkung: vor dem Licht halten. Mehr nicht. Soll ich nach dem restlichen Zettel suchen? Der Schlüssel ist kein Auftrag zur Rückkehr. Vielleicht können wir diese kleine Angelegenheit zwischen zwei Schreibtischen klären. Meine Vitrine hat inzwischen genug Gegenstände, die angeblich auf jemanden warten.",
+    "beilage": {
+      "post_schluessel_ohne_schloss": 1
+    },
+    "antworten": [
+      {
+        "text": "Suchen Sie den restlichen Warenzettel.",
+        "folge_flag": "post_antwort_quill_1_1",
+        "folge_brief": "post_quill_2",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Ich behalte den Schlüssel, suche aber nicht nach seiner Verwendung.",
+        "folge_flag": "post_antwort_quill_1_2",
+        "folge_brief": null,
+        "abschluss_text": "Du gibst keinen Rat zum Thema „Ein Schlüssel ohne Schloss“. Die Briefreihe endet offen. Es werden weder ein Erfolg noch ein Scheitern und keine Beziehungseinbuße behauptet."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_quill_2",
+    "absender": "quill",
+    "stadt": "kettlegate",
+    "kapitel": 4,
+    "reihe": "post_reihe_quill",
+    "ausloeser": {
+      "requires_flags": [
+        "k4_arrived",
+        "post_kontakt_quill",
+        "post_antwort_quill_1_1"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "zeitanker": "post_quill_1_beantwortet"
+    },
+    "betreff": "Die Zähne zeigen nichts",
+    "text": "Der restliche Zettel lag unter einer Einlage. Dort steht: Loch über Punkt, Bart nach unten. Kein Schloss wird erwähnt. Ich habe einen gleich großen Ring auf Papier gelegt. Sein Schatten umschließt genau eine Druckstelle am Rand. Offenbar diente der Schlüssel als Blende beim Betrachten eines Blattes. Die Zähne waren nur ein Griff. Halten Sie das beiliegende Lesestück dahinter, ohne es zu falten. Soll ich die winzige Schrift am Rand vollständig abschreiben? Ich habe die Lupe bereits gereinigt. Zum ersten Mal seit Wochen erwartet ein Gegenstand von mir keine Mutprobe, sondern schlicht eine ruhige Hand.",
+    "beilage": {
+      "post_leseblatt": 1
+    },
+    "antworten": [
+      {
+        "text": "Schreiben Sie die Randzeile vollständig ab.",
+        "folge_flag": "post_antwort_quill_2_1",
+        "folge_brief": "post_quill_3",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Schreiben Sie die Randzeile vollständig ab. Bitte halten Sie meinen Rat privat.",
+        "folge_flag": "post_antwort_quill_2_2",
+        "folge_brief": "post_quill_3",
+        "abschluss_text": "Dein Rat wird vertraulich versandt. Der nächste Brief bestätigt ausdrücklich diese Grenze."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_quill_3",
+    "absender": "quill",
+    "stadt": "kettlegate",
+    "kapitel": 6,
+    "reihe": "post_reihe_quill",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_quill"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "requires_any_flags": [
+        "post_antwort_quill_2_1",
+        "post_antwort_quill_2_2"
+      ],
+      "zeitanker": "post_quill_2_beantwortet"
+    },
+    "betreff": "Das Loch war entscheidend",
+    "text": "Die Randzeile lautet: Eigentum bleibt bei der abgebildeten Person. Das runde Loch machte die kleine Schrift lesbar, indem es das seitliche Licht abschirmte. Ein Schlüssel zu keinem Schloss, aber eine ziemlich bestimmte Anweisung. Sie dürfen ihn behalten. Er öffnet keine neue Tür und fordert keinen Besuch an einem vergessenen Ort. Das Lesestück gehört dazu, nicht in meine Vitrine. Ich habe den Warenzettel berichtigt: Leseblende, Herkunft unvollständig bekannt. Das verkauft sich schlechter als ein verfluchter Schlüssel. Dafür muss ich beim Verkauf nicht mehr hoffen, dass die Geschichte möglichst lange ungeprüft bleibt.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Ich bewahre Schlüssel und Lesestück zusammen.",
+        "folge_flag": "post_antwort_quill_3_1",
+        "folge_brief": null,
+        "abschluss_text": "Du bestätigst den berichteten Abschluss und bewahrst die Briefe auf."
+      },
+      {
+        "text": "Danke. Ich möchte diesen Austausch nun beenden.",
+        "folge_flag": "post_antwort_quill_3_2",
+        "folge_brief": null,
+        "abschluss_text": "Du beendest den Austausch. Der bereits berichtete Ausgang bleibt bestehen."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "nachsatz_varianten": [
+      {
+        "requires_flags": [
+          "post_antwort_quill_2_1"
+        ],
+        "text": "Ihr letzter Rat hat mir beim nächsten Schritt geholfen. Ich wollte Ihnen den Ausgang selbst mitteilen."
+      },
+      {
+        "requires_flags": [
+          "post_antwort_quill_2_2"
+        ],
+        "text": "Ihr letzter Rat bleibt privat, wie Sie es gewünscht haben. Ich nenne Ihren Namen deshalb nicht weiter."
+      }
+    ]
+  },
+  {
+    "id": "post_wx_pfandleiherin_1",
+    "absender": "wx_pfandleiherin",
+    "stadt": "wexmoor",
+    "kapitel": 3,
+    "reihe": "post_reihe_wx_pfandleiherin",
+    "ausloeser": {
+      "requires_flags": [
+        "k3_arrived",
+        "post_kontakt_wx_pfandleiherin"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_3"
+    },
+    "betreff": "Ein Ring bleibt liegen",
+    "text": "Keel. Pfand, Ankauf, Verkauf. Heute ausnahmsweise eine Frage. Eine Kundin hat einen Ring dagelassen und kann ihren Namen nicht aussprechen. Ich brauche keine Namen für mein Geschäft, aber einen Beleg für die Rückgabe brauche ich schon. Sie beschrieb die kleine Druckstelle innen am Ring, bevor ich ihn umdrehte. Ich könnte das als Merkmal notieren. Oder ich warte, bis ihr Name zurückkommt. Warten kostet sie Geld und mich keinen Mut. Soll ich die Druckstelle als Nachweis gelten lassen? Schreiben Sie deutlich. Ich möchte Ihren Rat nicht erst unter einer Lupe von einer höflichen Ausflucht unterscheiden müssen.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Notieren Sie das besondere Merkmal.",
+        "folge_flag": "post_antwort_wx_pfandleiherin_1_1",
+        "folge_brief": "post_wx_pfandleiherin_2",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Entscheiden Sie das Pfandgeschäft ohne meinen Rat.",
+        "folge_flag": "post_antwort_wx_pfandleiherin_1_2",
+        "folge_brief": null,
+        "abschluss_text": "Du gibst keinen Rat zum Thema „Ein Pfandring ohne aussprechbaren Namen“. Die Briefreihe endet offen. Es werden weder ein Erfolg noch ein Scheitern und keine Beziehungseinbuße behauptet."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_wx_pfandleiherin_2",
+    "absender": "wx_pfandleiherin",
+    "stadt": "wexmoor",
+    "kapitel": 4,
+    "reihe": "post_reihe_wx_pfandleiherin",
+    "ausloeser": {
+      "requires_flags": [
+        "k4_arrived",
+        "post_kontakt_wx_pfandleiherin",
+        "post_antwort_wx_pfandleiherin_1_1"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "zeitanker": "post_wx_pfandleiherin_1_beantwortet"
+    },
+    "betreff": "Die Quittung ohne Namen",
+    "text": "Die Druckstelle steht auf der Quittung. Die Kundin kam mit dem passenden Gegenstück: einem abgegriffenen Fingerhut. Beide tragen dieselbe kleine Schramme. Das beweist nicht alles, aber mehr als ein Name, den jeder am Schalter mithören könnte. Sie kann den Ring noch nicht auslösen. Zwei Tage fehlen ihr zum Lohn. Ich könnte die Frist verlängern, ohne den Preis zu ändern. Meine Nachbarin nennt das einen schlechten Anfang für ein Geschäft. Ich nenne es zwei Tage. Soll ich diese Grenze schriftlich festhalten? Dann wissen wir wenigstens beide, woran wir sind, auch wenn der Name weiterhin nicht über ihre Lippen kommt.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Verlängern Sie die Frist schriftlich.",
+        "folge_flag": "post_antwort_wx_pfandleiherin_2_1",
+        "folge_brief": "post_wx_pfandleiherin_3",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Verlängern Sie die Frist schriftlich. Bitte halten Sie meinen Rat privat.",
+        "folge_flag": "post_antwort_wx_pfandleiherin_2_2",
+        "folge_brief": "post_wx_pfandleiherin_3",
+        "abschluss_text": "Dein Rat wird vertraulich versandt. Der nächste Brief bestätigt ausdrücklich diese Grenze."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_wx_pfandleiherin_3",
+    "absender": "wx_pfandleiherin",
+    "stadt": "wexmoor",
+    "kapitel": 5,
+    "reihe": "post_reihe_wx_pfandleiherin",
+    "ausloeser": {
+      "requires_flags": [
+        "k5_arrived",
+        "post_kontakt_wx_pfandleiherin"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "requires_any_flags": [
+        "post_antwort_wx_pfandleiherin_2_1",
+        "post_antwort_wx_pfandleiherin_2_2"
+      ],
+      "zeitanker": "post_wx_pfandleiherin_2_beantwortet"
+    },
+    "betreff": "Ein Preis für Geduld",
+    "text": "Die zwei Tage stehen fest. Nun liegt das Geld vor mir, und der Ring sitzt der Kundin nicht mehr. Ihre Finger sind von der Arbeit angeschwollen. Sie bittet mich, ihn bis zum Abend in meiner Schublade zu lassen. Ich habe ihr angeboten, die Quittung trotzdem schon zu schließen. Das Pfand wäre dann ausgelöst, auch wenn der Ring noch hier liegt. Es ist eine kleine Unterscheidung. Auf Rechnungen sind kleine Unterscheidungen manchmal die teuersten. Soll ich Verwahrung und Schuld sauber trennen? Das wäre ein neuer Vermerk im Buch. Ich habe unten noch Platz und oben keine Lust auf weitere Zinsen.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Trennen Sie Verwahrung und Schuld.",
+        "folge_flag": "post_antwort_wx_pfandleiherin_3_1",
+        "folge_brief": "post_wx_pfandleiherin_4",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Trennen Sie Verwahrung und Schuld. Bitte halten Sie meinen Rat privat.",
+        "folge_flag": "post_antwort_wx_pfandleiherin_3_2",
+        "folge_brief": "post_wx_pfandleiherin_4",
+        "abschluss_text": "Dein Rat wird vertraulich versandt. Der nächste Brief bestätigt ausdrücklich diese Grenze."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "nachsatz_varianten": [
+      {
+        "requires_flags": [
+          "post_antwort_wx_pfandleiherin_2_1"
+        ],
+        "text": "Ihr letzter Rat hat mir beim nächsten Schritt geholfen. Ich wollte Ihnen den Ausgang selbst mitteilen."
+      },
+      {
+        "requires_flags": [
+          "post_antwort_wx_pfandleiherin_2_2"
+        ],
+        "text": "Ihr letzter Rat bleibt privat, wie Sie es gewünscht haben. Ich nenne Ihren Namen deshalb nicht weiter."
+      }
+    ]
+  },
+  {
+    "id": "post_wx_pfandleiherin_4",
+    "absender": "wx_pfandleiherin",
+    "stadt": "wexmoor",
+    "kapitel": 6,
+    "reihe": "post_reihe_wx_pfandleiherin",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_wx_pfandleiherin"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "requires_any_flags": [
+        "post_antwort_wx_pfandleiherin_3_1",
+        "post_antwort_wx_pfandleiherin_3_2"
+      ],
+      "zeitanker": "post_wx_pfandleiherin_3_beantwortet"
+    },
+    "betreff": "Das Pfand ist abgeholt",
+    "text": "Der Ring wurde abgeholt. Keine Schuld blieb übrig, nur die bestätigte Verwahrung bis zum Abend. Die Kundin steckte ihn in die Tasche, weil er noch immer nicht passte. Ich fragte nicht, wann ihre Hände wieder schmaler würden. Das gehört nicht zur Quittung. Ihr Name kam auch heute nicht zurück. Trotzdem wusste ich, wem ich etwas aushändigte. Ich werde aus der Sache kein Schild über meinem Tisch machen. Hier wird weiterhin gehandelt. Aber unter Pfand steht jetzt eine zweite Zeile für Dinge, die uns nur kurz anvertraut werden. Diese Zeile verdient nichts. Sie verhindert immerhin eine falsche Forderung.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Lassen Sie die zweite Zeile im Buch.",
+        "folge_flag": "post_antwort_wx_pfandleiherin_4_1",
+        "folge_brief": null,
+        "abschluss_text": "Du bestätigst den berichteten Abschluss und bewahrst die Briefe auf."
+      },
+      {
+        "text": "Danke. Ich möchte diesen Austausch nun beenden.",
+        "folge_flag": "post_antwort_wx_pfandleiherin_4_2",
+        "folge_brief": null,
+        "abschluss_text": "Du beendest den Austausch. Der bereits berichtete Ausgang bleibt bestehen."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "nachsatz_varianten": [
+      {
+        "requires_flags": [
+          "post_antwort_wx_pfandleiherin_3_1"
+        ],
+        "text": "Ihr letzter Rat hat mir beim nächsten Schritt geholfen. Ich wollte Ihnen den Ausgang selbst mitteilen."
+      },
+      {
+        "requires_flags": [
+          "post_antwort_wx_pfandleiherin_3_2"
+        ],
+        "text": "Ihr letzter Rat bleibt privat, wie Sie es gewünscht haben. Ich nenne Ihren Namen deshalb nicht weiter."
+      }
+    ]
+  },
+  {
+    "id": "post_wxn_krabbe_1",
+    "absender": "wxn_krabbe",
+    "stadt": "wexmoor",
+    "kapitel": 3,
+    "reihe": "post_reihe_wxn_krabbe",
+    "ausloeser": {
+      "requires_flags": [
+        "k3_arrived",
+        "post_kontakt_wxn_krabbe"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_3"
+    },
+    "betreff": "Der Sack wird nass",
+    "text": "Mein Sack ist unten nass. Oben ist er auch nass, aber anders. Ich habe die kleinen Sachen herausgelegt und weiß jetzt nicht, wie sie wieder hineinpassen sollen. Wenn ich sie alle verkaufe, ist das leicht. Dann weiß ich nur später nicht mehr, was ich weggegeben habe. Sie haben damals nicht gleich nach dem Preis gefragt. Soll ich aufschreiben, was ich behalte? Jemand hilft mir bei den langen Wörtern. Den Knoten mache ich selbst. Bitte schicken Sie keinen Namen für jemanden, den Sie nicht gefunden haben. Mit Namen allein kann ich keine trockene Ecke für den Sack bauen.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Schreiben Sie auf, was Sie behalten.",
+        "folge_flag": "post_antwort_wxn_krabbe_1_1",
+        "folge_brief": "post_wxn_krabbe_2",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Behalten Sie Ihre Fundstücke; entscheiden Sie selbst über die Liste.",
+        "folge_flag": "post_antwort_wxn_krabbe_1_2",
+        "folge_brief": null,
+        "abschluss_text": "Du gibst keinen Rat zum Thema „Ein trockener Platz für die Fundstücke“. Die Briefreihe endet offen. Es werden weder ein Erfolg noch ein Scheitern und keine Beziehungseinbuße behauptet."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_wxn_krabbe_2",
+    "absender": "wxn_krabbe",
+    "stadt": "wexmoor",
+    "kapitel": 4,
+    "reihe": "post_reihe_wxn_krabbe",
+    "ausloeser": {
+      "requires_flags": [
+        "k4_arrived",
+        "post_kontakt_wxn_krabbe",
+        "post_antwort_wxn_krabbe_1_1"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "zeitanker": "post_wxn_krabbe_1_beantwortet"
+    },
+    "betreff": "Eine Kiste über Wasser",
+    "text": "Die Liste ist fertig. Da steht Knopf, Holz und etwas, das ich noch nicht benennen kann. Das letzte Wort hat am meisten Platz gebraucht. Ich habe eine Kiste gefunden, die über der nassen Stelle stehen kann. Ihr Deckel geht nicht ganz zu. Ein Händler möchte die Kiste gegen meinen ganzen Sack tauschen. Er sagt, ohne Deckel tauge sie nichts. Aber die Sachen wären trocken. Soll ich erst einen Stoff darüber spannen und sehen, ob das reicht? Ich kann bis morgen warten. Früher musste alles sofort fort, bevor jemand kam und sagte, es gehöre schon ihm.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Versuchen Sie zuerst den Stoff.",
+        "folge_flag": "post_antwort_wxn_krabbe_2_1",
+        "folge_brief": "post_wxn_krabbe_3",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Versuchen Sie zuerst den Stoff. Bitte halten Sie meinen Rat privat.",
+        "folge_flag": "post_antwort_wxn_krabbe_2_2",
+        "folge_brief": "post_wxn_krabbe_3",
+        "abschluss_text": "Dein Rat wird vertraulich versandt. Der nächste Brief bestätigt ausdrücklich diese Grenze."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_wxn_krabbe_3",
+    "absender": "wxn_krabbe",
+    "stadt": "wexmoor",
+    "kapitel": 5,
+    "reihe": "post_reihe_wxn_krabbe",
+    "ausloeser": {
+      "requires_flags": [
+        "k5_arrived",
+        "post_kontakt_wxn_krabbe"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "requires_any_flags": [
+        "post_antwort_wxn_krabbe_2_1",
+        "post_antwort_wxn_krabbe_2_2"
+      ],
+      "zeitanker": "post_wxn_krabbe_2_beantwortet"
+    },
+    "betreff": "Der Knoten hält allein",
+    "text": "Der Stoff hält den Regen ab. Die Kiste musste ich nur höher stellen. Ich habe den Händler nicht ausgelacht, obwohl ich kurz wollte. Er hat meine Liste gesehen und gesagt, das seien keine Preise. Stimmt. Jetzt möchte jemand ein Bild von mir mit dem Sack machen. Ich darf eine Kopie behalten. Ich würde lieber die geschlossene Kiste halten. Dann sieht niemand, was drin ist. Meinen Sie, das geht? Falls ja, schicke ich Ihnen die Kopie. Es ist keine Suchanzeige. Ich möchte einmal selbst bestimmen, was auf einem Bild von mir zu sehen ist und was draußen bleibt.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Lassen Sie sich mit geschlossener Kiste abbilden.",
+        "folge_flag": "post_antwort_wxn_krabbe_3_1",
+        "folge_brief": "post_wxn_krabbe_4",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Lassen Sie sich mit geschlossener Kiste abbilden. Bitte halten Sie meinen Rat privat.",
+        "folge_flag": "post_antwort_wxn_krabbe_3_2",
+        "folge_brief": "post_wxn_krabbe_4",
+        "abschluss_text": "Dein Rat wird vertraulich versandt. Der nächste Brief bestätigt ausdrücklich diese Grenze."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "nachsatz_varianten": [
+      {
+        "requires_flags": [
+          "post_antwort_wxn_krabbe_2_1"
+        ],
+        "text": "Ihr letzter Rat hat mir beim nächsten Schritt geholfen. Ich wollte Ihnen den Ausgang selbst mitteilen."
+      },
+      {
+        "requires_flags": [
+          "post_antwort_wxn_krabbe_2_2"
+        ],
+        "text": "Ihr letzter Rat bleibt privat, wie Sie es gewünscht haben. Ich nenne Ihren Namen deshalb nicht weiter."
+      }
+    ]
+  },
+  {
+    "id": "post_wxn_krabbe_4",
+    "absender": "wxn_krabbe",
+    "stadt": "wexmoor",
+    "kapitel": 6,
+    "reihe": "post_reihe_wxn_krabbe",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_wxn_krabbe"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "requires_any_flags": [
+        "post_antwort_wxn_krabbe_3_1",
+        "post_antwort_wxn_krabbe_3_2"
+      ],
+      "zeitanker": "post_wxn_krabbe_3_beantwortet"
+    },
+    "betreff": "Etwas bleibt bei mir",
+    "text": "Auf dem Bild halte ich die Kiste. Der Sack liegt daneben, leer genug zum Trocknen. Die Liste bleibt unter dem Deckel. Ich habe kein Fundstück verkauft, nur damit das Bild ordentlicher aussieht. Auch die unbekannte Sache steht noch darauf. Es darf etwas da sein, das ich nicht erklären kann. Das habe ich selbst geschrieben. Der Mann mit dem Bild meinte, ich solle freundlicher schauen. Ich habe so geschaut, wie ich gerade war. Wenn Sie mir antworten, fragen Sie bitte nicht zuerst nach dem Preis der Kiste. Fragen Sie lieber, ob sie noch trocken steht. Darauf weiß ich eine Antwort.",
+    "beilage": {
+      "post_foto_2": 1
+    },
+    "antworten": [
+      {
+        "text": "Steht Ihre Kiste weiterhin trocken?",
+        "folge_flag": "post_antwort_wxn_krabbe_4_1",
+        "folge_brief": null,
+        "abschluss_text": "Du bestätigst den berichteten Abschluss und bewahrst die Briefe auf."
+      },
+      {
+        "text": "Danke. Ich möchte diesen Austausch nun beenden.",
+        "folge_flag": "post_antwort_wxn_krabbe_4_2",
+        "folge_brief": null,
+        "abschluss_text": "Du beendest den Austausch. Der bereits berichtete Ausgang bleibt bestehen."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "nachsatz_varianten": [
+      {
+        "requires_flags": [
+          "post_antwort_wxn_krabbe_3_1"
+        ],
+        "text": "Ihr letzter Rat hat mir beim nächsten Schritt geholfen. Ich wollte Ihnen den Ausgang selbst mitteilen."
+      },
+      {
+        "requires_flags": [
+          "post_antwort_wxn_krabbe_3_2"
+        ],
+        "text": "Ihr letzter Rat bleibt privat, wie Sie es gewünscht haben. Ich nenne Ihren Namen deshalb nicht weiter."
+      }
+    ]
+  },
+  {
+    "id": "post_zirkel_lichtlose_1",
+    "absender": "zirkel_lichtlose",
+    "stadt": "wexmoor",
+    "kapitel": 3,
+    "reihe": "post_reihe_zirkel_lichtlose",
+    "ausloeser": {
+      "requires_flags": [
+        "k3_arrived",
+        "post_kontakt_zirkel_lichtlose"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_3"
+    },
+    "betreff": "Ein Zeichen auf Decken",
+    "text": "Eine Lieferung Decken trägt unser Zeichen außen am Saum. Es war als Hilfe beim Verteilen gedacht. Nun sieht jeder, wer eine Decke von uns bekommen hat. Nicht jeder möchte das gesehen wissen. Die Kälte fragt nicht nach Zugehörigkeit, die Aufsicht tut es sehr wohl. Ich könnte die Zeichen abtrennen lassen. Dann müsste jede Ausgabe von Hand gezählt werden. Sie kennen den Wert einer unbequemen Unterscheidung. Schreiben Sie, ob wir die Arbeit auf uns nehmen sollen. Eine Antwort braucht weder ein Kennwort noch eine Unterschrift unter unseren Regeln. Für diese Frage genügt ein ordentlich lesbarer Satz ohne fremde Namen.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Trennen Sie die sichtbaren Zeichen ab.",
+        "folge_flag": "post_antwort_zirkel_lichtlose_1_1",
+        "folge_brief": "post_zirkel_lichtlose_2",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Ich möchte an der Organisation der Ausgabe nicht mitwirken.",
+        "folge_flag": "post_antwort_zirkel_lichtlose_1_2",
+        "folge_brief": null,
+        "abschluss_text": "Du gibst keinen Rat zum Thema „Decken mit einem verräterischen Zeichen“. Die Briefreihe endet offen. Es werden weder ein Erfolg noch ein Scheitern und keine Beziehungseinbuße behauptet."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_zirkel_lichtlose_2",
+    "absender": "zirkel_lichtlose",
+    "stadt": "wexmoor",
+    "kapitel": 4,
+    "reihe": "post_reihe_zirkel_lichtlose",
+    "ausloeser": {
+      "requires_flags": [
+        "k4_arrived",
+        "post_kontakt_zirkel_lichtlose",
+        "post_antwort_zirkel_lichtlose_1_1"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "zeitanker": "post_zirkel_lichtlose_1_beantwortet"
+    },
+    "betreff": "Die Naht bleibt dunkel",
+    "text": "Die Zeichen sind abgetrennt. Darunter blieb heller Stoff, an dem man sie noch erkennen kann. Eine Frau hat vorgeschlagen, alle Säume gleichmäßig zu übernähen. Das dauert länger als die Ausgabe selbst. Manche möchten die sichtbare Spur behalten, weil sie den Lichtlosen danken wollen. Andere nicht. Ich möchte beide Wünsche gelten lassen, ohne zwei Reihen vor der Tür zu bilden. Soll die Entscheidung erst beim Einpacken fallen? Dann muss niemand vor den anderen erklären, weshalb er einen unauffälligen Saum braucht. Es ist erstaunlich, wie viel man über eine Person verraten kann, während man ihr angeblich nur etwas Warmes reicht.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Fragen Sie erst beim einzelnen Einpacken.",
+        "folge_flag": "post_antwort_zirkel_lichtlose_2_1",
+        "folge_brief": "post_zirkel_lichtlose_3",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Fragen Sie erst beim einzelnen Einpacken. Bitte halten Sie meinen Rat privat.",
+        "folge_flag": "post_antwort_zirkel_lichtlose_2_2",
+        "folge_brief": "post_zirkel_lichtlose_3",
+        "abschluss_text": "Dein Rat wird vertraulich versandt. Der nächste Brief bestätigt ausdrücklich diese Grenze."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_zirkel_lichtlose_3",
+    "absender": "zirkel_lichtlose",
+    "stadt": "wexmoor",
+    "kapitel": 6,
+    "reihe": "post_reihe_zirkel_lichtlose",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_zirkel_lichtlose"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "requires_any_flags": [
+        "post_antwort_zirkel_lichtlose_2_1",
+        "post_antwort_zirkel_lichtlose_2_2"
+      ],
+      "zeitanker": "post_zirkel_lichtlose_2_beantwortet"
+    },
+    "betreff": "Wärme ohne fremde Schuld",
+    "text": "Die Decken werden einzeln eingepackt. Wer das Zeichen möchte, erhält es auf einem losen Stück Stoff. Wer keines möchte, schuldet uns keine Begründung. Die Ausgabe dauert länger. Niemand ist dadurch kälter heimgegangen, denn wir beginnen früher. Diesen Erfolg kann ich nicht in einer Liste unserer Anhänger zählen. Das ist in Ordnung. Ihr Brief wird ohne Namen bei den Arbeitsnotizen aufbewahrt. Wenn Sie das nicht wünschen, nehmen wir ihn wieder heraus. Auch eine gute Anregung bleibt kein Pfand auf ihren Absender. Die nächste Lieferung liegt schon bereit. Diesmal haben wir die Säume zuerst geprüft und erst danach die Menge gezählt.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Bewahren Sie den Rat ohne meinen Namen auf.",
+        "folge_flag": "post_antwort_zirkel_lichtlose_3_1",
+        "folge_brief": null,
+        "abschluss_text": "Du bestätigst den berichteten Abschluss und bewahrst die Briefe auf."
+      },
+      {
+        "text": "Danke. Ich möchte diesen Austausch nun beenden.",
+        "folge_flag": "post_antwort_zirkel_lichtlose_3_2",
+        "folge_brief": null,
+        "abschluss_text": "Du beendest den Austausch. Der bereits berichtete Ausgang bleibt bestehen."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "nachsatz_varianten": [
+      {
+        "requires_flags": [
+          "post_antwort_zirkel_lichtlose_2_1"
+        ],
+        "text": "Ihr letzter Rat hat mir beim nächsten Schritt geholfen. Ich wollte Ihnen den Ausgang selbst mitteilen."
+      },
+      {
+        "requires_flags": [
+          "post_antwort_zirkel_lichtlose_2_2"
+        ],
+        "text": "Ihr letzter Rat bleibt privat, wie Sie es gewünscht haben. Ich nenne Ihren Namen deshalb nicht weiter."
+      }
+    ]
+  },
+  {
+    "id": "post_wxn_maler_1",
+    "absender": "wxn_maler",
+    "stadt": "wexmoor",
+    "kapitel": 3,
+    "reihe": "post_reihe_wxn_maler",
+    "ausloeser": {
+      "requires_flags": [
+        "k3_arrived",
+        "post_kontakt_wxn_maler"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_3"
+    },
+    "betreff": "Die Augen bleiben geschlossen",
+    "text": "Ich habe einen Auftrag zurückgestellt. Die Angehörigen wünschen offene Augen auf einem Bild, für das mir nur eine Aufnahme mit geschlossenen Augen vorliegt. Man nennt es eine kleine Verbesserung. Die Person selbst kann dazu nichts sagen, und ich habe keine andere Vorlage. Ich könnte einen Blick erfinden. Das Handwerk reicht dafür. Genau das macht die Sache unangenehm. Soll ich bei der vorhandenen Aufnahme bleiben und den Wunsch am Rand vermerken? Bitte halten Sie meine Frage nicht für Bescheidenheit. Ich weiß ziemlich genau, was ich malen kann. Ich bin mir nur nicht sicher, was ich deshalb malen darf.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Bleiben Sie bei der belegten Vorlage.",
+        "folge_flag": "post_antwort_wxn_maler_1_1",
+        "folge_brief": "post_wxn_maler_2",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Ich überlasse die Entscheidung Ihnen und den Angehörigen.",
+        "folge_flag": "post_antwort_wxn_maler_1_2",
+        "folge_brief": null,
+        "abschluss_text": "Du gibst keinen Rat zum Thema „Ein Bild ohne erfundenen Blick“. Die Briefreihe endet offen. Es werden weder ein Erfolg noch ein Scheitern und keine Beziehungseinbuße behauptet."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_wxn_maler_2",
+    "absender": "wxn_maler",
+    "stadt": "wexmoor",
+    "kapitel": 5,
+    "reihe": "post_reihe_wxn_maler",
+    "ausloeser": {
+      "requires_flags": [
+        "k5_arrived",
+        "post_kontakt_wxn_maler",
+        "post_antwort_wxn_maler_1_1"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "zeitanker": "post_wxn_maler_1_beantwortet"
+    },
+    "betreff": "Eine Zustimmung am Rand",
+    "text": "Der Wunsch steht am Rand, das Bild bleibt unverändert. Nun brachte eine Angehörige eine frühere Zeichnung mit. Darauf sind die Augen offen, aber sie weiß nicht, ob die dargestellte Person das Bild je gesehen hat. Eine Vorlage ist noch keine Zustimmung. Ich habe beide Blätter nebeneinander gelegt und nicht angefangen. Die Familie möchte vor allem ein Gesicht betrachten können, ohne jedes Mal über seine Herstellung streiten zu müssen. Soll ich die geschlossenen Augen behalten und die frühere Zeichnung getrennt beilegen? Das wäre weniger einheitlich. Vielleicht ist Einheitlichkeit hier ohnehin nur der bequemere Name für eine neue Behauptung.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Legen Sie beide Bilder getrennt bei.",
+        "folge_flag": "post_antwort_wxn_maler_2_1",
+        "folge_brief": "post_wxn_maler_3",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Legen Sie beide Bilder getrennt bei. Bitte halten Sie meinen Rat privat.",
+        "folge_flag": "post_antwort_wxn_maler_2_2",
+        "folge_brief": "post_wxn_maler_3",
+        "abschluss_text": "Dein Rat wird vertraulich versandt. Der nächste Brief bestätigt ausdrücklich diese Grenze."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_wxn_maler_3",
+    "absender": "wxn_maler",
+    "stadt": "wexmoor",
+    "kapitel": 6,
+    "reihe": "post_reihe_wxn_maler",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_wxn_maler"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "requires_any_flags": [
+        "post_antwort_wxn_maler_2_1",
+        "post_antwort_wxn_maler_2_2"
+      ],
+      "zeitanker": "post_wxn_maler_2_beantwortet"
+    },
+    "betreff": "Das Bild ohne Korrektur",
+    "text": "Die beiden Bilder liegen getrennt in einer Mappe. Unter jedem steht, was über seine Entstehung bekannt ist. Niemand hat gewonnen, aber niemand muss einen erfundenen Blick als letzten Willen hinnehmen. Ich habe für die unterbliebene Retusche nichts berechnet. Das macht mich nicht großzügig; ich habe sie schließlich nicht ausgeführt. Auf meinem Tisch bleibt ein heller rechteckiger Fleck, wo das Bild während unserer Briefe lag. Morgen liegt dort ein anderer Auftrag. Ich wollte Ihnen vorher schreiben, dass eine ungemalte Stelle nicht immer unvollendete Arbeit bedeutet. Manchmal ist sie der einzige Teil, für den man keine falsche Erklärung braucht.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Die ungemalte Stelle darf bleiben.",
+        "folge_flag": "post_antwort_wxn_maler_3_1",
+        "folge_brief": null,
+        "abschluss_text": "Du bestätigst den berichteten Abschluss und bewahrst die Briefe auf."
+      },
+      {
+        "text": "Danke. Ich möchte diesen Austausch nun beenden.",
+        "folge_flag": "post_antwort_wxn_maler_3_2",
+        "folge_brief": null,
+        "abschluss_text": "Du beendest den Austausch. Der bereits berichtete Ausgang bleibt bestehen."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "nachsatz_varianten": [
+      {
+        "requires_flags": [
+          "post_antwort_wxn_maler_2_1"
+        ],
+        "text": "Ihr letzter Rat hat mir beim nächsten Schritt geholfen. Ich wollte Ihnen den Ausgang selbst mitteilen."
+      },
+      {
+        "requires_flags": [
+          "post_antwort_wxn_maler_2_2"
+        ],
+        "text": "Ihr letzter Rat bleibt privat, wie Sie es gewünscht haben. Ich nenne Ihren Namen deshalb nicht weiter."
+      }
+    ]
+  },
+  {
+    "id": "post_sedge_1",
+    "absender": "sedge",
+    "stadt": "wexmoor",
+    "kapitel": 3,
+    "reihe": "post_reihe_sedge",
+    "ausloeser": {
+      "requires_flags": [
+        "k3_arrived",
+        "post_kontakt_sedge"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_3"
+    },
+    "betreff": "Das Holz hört nicht",
+    "text": "Ich schreibe Ihren Namen nicht auf dieses Blatt. Die Post findet Sie auch über den Umschlag. Vor dem Schrein liegt ein Täfelchen ohne Kerbe. Jemand hat es für eine Frau bestellt, die nicht genannt werden möchte. Die anderen fragen, was ein unbeschriftetes Täfelchen nützen soll. Ich frage zurück, wem die Kerbe nützen würde. Darauf werden sie still. Soll ich das Holz unberührt liegen lassen? Es ist kein Beweis für eine Rückkehr und keine Nachricht aus dem Wasser. Nur ein freigehaltener Platz. Hier verlangt man oft zu schnell, dass aus einem Platz eine Geschichte und aus einer Geschichte ein Name wird.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Lassen Sie den Platz unbeschriftet.",
+        "folge_flag": "post_antwort_sedge_1_1",
+        "folge_brief": "post_sedge_2",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Die Entscheidung über das Täfelchen soll bei Ihnen vor Ort bleiben.",
+        "folge_flag": "post_antwort_sedge_1_2",
+        "folge_brief": null,
+        "abschluss_text": "Du gibst keinen Rat zum Thema „Ein unbeschriftetes Täfelchen am Wasser“. Die Briefreihe endet offen. Es werden weder ein Erfolg noch ein Scheitern und keine Beziehungseinbuße behauptet."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_sedge_2",
+    "absender": "sedge",
+    "stadt": "wexmoor",
+    "kapitel": 4,
+    "reihe": "post_reihe_sedge",
+    "ausloeser": {
+      "requires_flags": [
+        "k4_arrived",
+        "post_kontakt_sedge",
+        "post_antwort_sedge_1_1"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "zeitanker": "post_sedge_1_beantwortet"
+    },
+    "betreff": "Ein Name bleibt ausgespart",
+    "text": "Das Holz liegt noch dort. Heute hat jemand einen Namen daneben geritzt, in die Bank, nicht in das Täfelchen. Das soll angeblich niemanden zwingen. Die Frau hat die Bank gesehen und ist weitergegangen. Ich könnte die Kerbe glätten. Das Holz würde die Stelle behalten, aber nicht mehr die lesbaren Buchstaben. Sie rieten dazu, den Platz frei zu lassen. Soll ich diese Grenze auch gegen die gut gemeinte Ergänzung durchsetzen? Wer den Namen ritzte, ist beleidigt. Das Wetter kümmert sich nicht darum. Es hat den frischen Schnitt schon dunkler gemacht als die alte Sitzfläche, und jeder sieht zuerst dorthin.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Glätten Sie die unerlaubte Ergänzung.",
+        "folge_flag": "post_antwort_sedge_2_1",
+        "folge_brief": "post_sedge_3",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Glätten Sie die unerlaubte Ergänzung. Bitte halten Sie meinen Rat privat.",
+        "folge_flag": "post_antwort_sedge_2_2",
+        "folge_brief": "post_sedge_3",
+        "abschluss_text": "Dein Rat wird vertraulich versandt. Der nächste Brief bestätigt ausdrücklich diese Grenze."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_sedge_3",
+    "absender": "sedge",
+    "stadt": "wexmoor",
+    "kapitel": 6,
+    "reihe": "post_reihe_sedge",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_sedge"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "requires_any_flags": [
+        "post_antwort_sedge_2_1",
+        "post_antwort_sedge_2_2"
+      ],
+      "zeitanker": "post_sedge_2_beantwortet"
+    },
+    "betreff": "Der Platz vor dem Schrein",
+    "text": "Die Kerbe ist geglättet. Man sieht eine helle Stelle, keinen Namen. Die Frau saß heute dort und legte die Hände nebeneinander auf die Bank. Ich fragte nichts. Das Täfelchen nahm sie später mit. Vielleicht beschriftet sie es, vielleicht heizt sie damit, vielleicht trägt sie es nur in der Tasche. Keine dieser Möglichkeiten macht den Platz wertlos. Sie müssen mir nicht sagen, welche Sie für die schönste halten. Ich schicke Ihnen lieber diese genaue Nachricht: Jemand konnte sitzen, ohne vorgestellt zu werden. Wenn das Wetter so bleibt, öle ich die Bank morgen. Die helle Stelle braucht denselben Schutz wie das übrige Holz.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Schützen Sie die ganze Bank gleich.",
+        "folge_flag": "post_antwort_sedge_3_1",
+        "folge_brief": null,
+        "abschluss_text": "Du bestätigst den berichteten Abschluss und bewahrst die Briefe auf."
+      },
+      {
+        "text": "Danke. Ich möchte diesen Austausch nun beenden.",
+        "folge_flag": "post_antwort_sedge_3_2",
+        "folge_brief": null,
+        "abschluss_text": "Du beendest den Austausch. Der bereits berichtete Ausgang bleibt bestehen."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "nachsatz_varianten": [
+      {
+        "requires_flags": [
+          "post_antwort_sedge_2_1"
+        ],
+        "text": "Ihr letzter Rat hat mir beim nächsten Schritt geholfen. Ich wollte Ihnen den Ausgang selbst mitteilen."
+      },
+      {
+        "requires_flags": [
+          "post_antwort_sedge_2_2"
+        ],
+        "text": "Ihr letzter Rat bleibt privat, wie Sie es gewünscht haben. Ich nenne Ihren Namen deshalb nicht weiter."
+      }
+    ]
+  },
+  {
+    "id": "post_druce_1",
+    "absender": "druce",
+    "stadt": "wexmoor",
+    "kapitel": 3,
+    "reihe": "post_reihe_druce",
+    "ausloeser": {
+      "requires_flags": [
+        "k3_arrived",
+        "post_kontakt_druce"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_3"
+    },
+    "betreff": "Das Seil liegt quer",
+    "text": "Ich sehe aufs Wasser. Das wissen Sie. Neuerdings sehe ich auch auf ein Seil, das quer über meinem Arbeitsplatz liegt. Es gehört angeblich zur zusätzlichen Sicherung. Niemand weiß, wer es lösen darf. Ein beladenes Boot wartet inzwischen jedes Mal länger, und die Leute steigen an einer nassen Stelle aus. Ich möchte das Seil höher führen, ohne eine neue Regel für den ganzen Hafen zu erfinden. Soll ich die gefährliche Stelle markieren und den Weg einmal ohne Fahrgäste prüfen? Ich schreibe Ihnen, weil ein Brief nicht gleich sechs Leute ans Rad stellt, die alle zugleich erklären, wie Wasser funktioniert.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Prüfen Sie die Stelle ohne Fahrgäste.",
+        "folge_flag": "post_antwort_druce_1_1",
+        "folge_brief": "post_druce_2",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Lassen Sie die Schleuse vor Ort prüfen, ohne mich einzubeziehen.",
+        "folge_flag": "post_antwort_druce_1_2",
+        "folge_brief": null,
+        "abschluss_text": "Du gibst keinen Rat zum Thema „Ein unbeaufsichtigtes Schleusenseil“. Die Briefreihe endet offen. Es werden weder ein Erfolg noch ein Scheitern und keine Beziehungseinbuße behauptet."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_druce_2",
+    "absender": "druce",
+    "stadt": "wexmoor",
+    "kapitel": 5,
+    "reihe": "post_reihe_druce",
+    "ausloeser": {
+      "requires_flags": [
+        "k5_arrived",
+        "post_kontakt_druce",
+        "post_antwort_druce_1_1"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "zeitanker": "post_druce_1_beantwortet"
+    },
+    "betreff": "Eine Markierung am Pfosten",
+    "text": "Die Markierung steht. Beim Versuch ohne Fahrgäste blieb das Seil zweimal hängen. Nicht am Boot, am Pfosten. Ich habe die Scheuerstelle gezeigt, bevor jemand die Schuld beim Ruderer suchte. Jetzt will man das Seil einfach ganz fortnehmen. Das wäre leicht, aber bei starkem Zug hielt es tatsächlich eine Last zurück. Ich könnte eine andere Führung vorschlagen und die Stelle trocken halten. Soll ich beides als zusammengehörig notieren? Sonst bezahlt man mir vielleicht nur einen neuen Haken und erklärt den nassen Boden zur Natur. Natur kann rutschig sein. Eine Rechnung dafür muss trotzdem nicht blind unterschrieben werden.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Fordern Sie Haken und sicheren Boden zusammen.",
+        "folge_flag": "post_antwort_druce_2_1",
+        "folge_brief": "post_druce_3",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Fordern Sie Haken und sicheren Boden zusammen. Bitte halten Sie meinen Rat privat.",
+        "folge_flag": "post_antwort_druce_2_2",
+        "folge_brief": "post_druce_3",
+        "abschluss_text": "Dein Rat wird vertraulich versandt. Der nächste Brief bestätigt ausdrücklich diese Grenze."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_druce_3",
+    "absender": "druce",
+    "stadt": "wexmoor",
+    "kapitel": 6,
+    "reihe": "post_reihe_druce",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_druce"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "requires_any_flags": [
+        "post_antwort_druce_2_1",
+        "post_antwort_druce_2_2"
+      ],
+      "zeitanker": "post_druce_2_beantwortet"
+    },
+    "betreff": "Die Hand bleibt am Rad",
+    "text": "Der Haken sitzt höher, unter dem Pfosten liegt ein raues Brett. Wir haben beides zusammen geprüft. Kein Fahrgast musste dabei den Versuch machen. Das Seil bleibt erreichbar, ohne quer vor den Füßen zu liegen. Mehr ist es nicht. Falls jemand später erzählt, ich hätte die Schleuse neu erfunden, widersprechen Sie ihm bitte. Ich habe nur einen Haken versetzt und auf einem Brett bestanden. Das Rad geht noch genauso schwer. Ich lege Ihnen ein kleines Bild bei, auf dem meine Hand daran liegt. Der Fotograf wollte, dass ich loslasse. Dann wäre das Bild freundlicher geworden und die Schleuse unbewacht gewesen.",
+    "beilage": {
+      "post_foto_3": 1
+    },
+    "antworten": [
+      {
+        "text": "Halten Sie die Hand ruhig weiter am Rad.",
+        "folge_flag": "post_antwort_druce_3_1",
+        "folge_brief": null,
+        "abschluss_text": "Du bestätigst den berichteten Abschluss und bewahrst die Briefe auf."
+      },
+      {
+        "text": "Danke. Ich möchte diesen Austausch nun beenden.",
+        "folge_flag": "post_antwort_druce_3_2",
+        "folge_brief": null,
+        "abschluss_text": "Du beendest den Austausch. Der bereits berichtete Ausgang bleibt bestehen."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "nachsatz_varianten": [
+      {
+        "requires_flags": [
+          "post_antwort_druce_2_1"
+        ],
+        "text": "Ihr letzter Rat hat mir beim nächsten Schritt geholfen. Ich wollte Ihnen den Ausgang selbst mitteilen."
+      },
+      {
+        "requires_flags": [
+          "post_antwort_druce_2_2"
+        ],
+        "text": "Ihr letzter Rat bleibt privat, wie Sie es gewünscht haben. Ich nenne Ihren Namen deshalb nicht weiter."
+      }
+    ]
+  },
+  {
+    "id": "post_zirkel_schichtbund_1",
+    "absender": "zirkel_schichtbund",
+    "stadt": "dunscar",
+    "kapitel": 4,
+    "reihe": "post_reihe_zirkel_schichtbund",
+    "ausloeser": {
+      "requires_flags": [
+        "k4_arrived",
+        "post_kontakt_zirkel_schichtbund"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_4"
+    },
+    "betreff": "Zwei Marken ein Name",
+    "text": "Der Schichtbund bewahrt Namen, keine Arbeitsplätze. Heute muss ich zwei Marken mit demselben Namen verwahren. Die Arbeit dahinter wurde an verschiedenen Tagen getan. Die Verwaltung möchte eine Marke einziehen, weil ein Name angeblich nur einmal in die Liste gehört. Das wäre ordentlich und falsch. Ich kann die Schichten getrennt aufführen. Dazu müsste jemand die abgenutzten Randkerben vergleichen. Soll ich diesen langsamen Weg wählen? Sie bekommen keine Bitte, sich für eine fremde Stelle zu verbürgen. Ich möchte nur verhindern, dass eine Person für die Übersichtlichkeit einer Liste einen Teil ihrer geleisteten Arbeit verlieren soll, während alle zufrieden auf die Summe sehen.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Vergleichen Sie die Kerben beider Marken.",
+        "folge_flag": "post_antwort_zirkel_schichtbund_1_1",
+        "folge_brief": "post_zirkel_schichtbund_2",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Ich kann über fremde Schichtansprüche nicht mitentscheiden.",
+        "folge_flag": "post_antwort_zirkel_schichtbund_1_2",
+        "folge_brief": null,
+        "abschluss_text": "Du gibst keinen Rat zum Thema „Ein Name auf zwei Schichtmarken“. Die Briefreihe endet offen. Es werden weder ein Erfolg noch ein Scheitern und keine Beziehungseinbuße behauptet."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_zirkel_schichtbund_2",
+    "absender": "zirkel_schichtbund",
+    "stadt": "dunscar",
+    "kapitel": 5,
+    "reihe": "post_reihe_zirkel_schichtbund",
+    "ausloeser": {
+      "requires_flags": [
+        "k5_arrived",
+        "post_kontakt_zirkel_schichtbund",
+        "post_antwort_zirkel_schichtbund_1_1"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "zeitanker": "post_zirkel_schichtbund_1_beantwortet"
+    },
+    "betreff": "Die Kerbe ist verschieden",
+    "text": "Die Randkerben unterscheiden sich. Zwei Schichten, zwei Ansprüche, derselbe Name. Die Verwaltung erkennt jetzt die Tage an, möchte aber eine neue Marke ausstellen und beide alten vernichten. Eine davon trägt noch den Abdruck eines Daumens im weichen Rand. Für den Besitzer ist sie mehr als ein Beleg. Ich könnte die alten Marken entwerten, ohne sie einzuziehen. Dann wären sie als Zahlungsmittel unbrauchbar und könnten trotzdem bleiben. Halten Sie das für den richtigen nächsten Schritt? Hier werden gern Gegenstände weggenommen, sobald ihr amtlicher Zweck erfüllt ist. Als ob Hände nach der letzten Quittung nichts mehr erinnern dürften.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Entwerten Sie die Marken und geben Sie sie zurück.",
+        "folge_flag": "post_antwort_zirkel_schichtbund_2_1",
+        "folge_brief": "post_zirkel_schichtbund_3",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Entwerten Sie die Marken und geben Sie sie zurück. Bitte halten Sie meinen Rat privat.",
+        "folge_flag": "post_antwort_zirkel_schichtbund_2_2",
+        "folge_brief": "post_zirkel_schichtbund_3",
+        "abschluss_text": "Dein Rat wird vertraulich versandt. Der nächste Brief bestätigt ausdrücklich diese Grenze."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_zirkel_schichtbund_3",
+    "absender": "zirkel_schichtbund",
+    "stadt": "dunscar",
+    "kapitel": 6,
+    "reihe": "post_reihe_zirkel_schichtbund",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_zirkel_schichtbund"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "requires_any_flags": [
+        "post_antwort_zirkel_schichtbund_2_1",
+        "post_antwort_zirkel_schichtbund_2_2"
+      ],
+      "zeitanker": "post_zirkel_schichtbund_2_beantwortet"
+    },
+    "betreff": "Ein Recht auf Berichtigung",
+    "text": "Die entwerteten Marken sind zurückgegeben. Nun beanstandet jemand, dass die Berichtigung nur auf der Rückseite der Liste steht. Wer die Vorderseite abschreibt, übernimmt den alten Fehler. Ich möchte einen Hinweis neben den ursprünglichen Eintrag setzen. Er soll keine Erklärung der Lebensgeschichte enthalten, nur den Verweis auf zwei bestätigte Schichten. Soll ich darauf bestehen? Es kostet weder Lohn noch Material, aber einigen Leuten ist eine sichtbare Korrektur peinlicher als eine unsichtbare Unterschlagung. Ich halte den Stempel bereit. Diesmal wird er keine Zugehörigkeit bestätigen. Er soll bloß zeigen, dass auch eine saubere Liste einen nachprüfbaren Fehler haben darf.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Vermerken Sie die Korrektur auch vorne.",
+        "folge_flag": "post_antwort_zirkel_schichtbund_3_1",
+        "folge_brief": "post_zirkel_schichtbund_4",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Vermerken Sie die Korrektur auch vorne. Bitte halten Sie meinen Rat privat.",
+        "folge_flag": "post_antwort_zirkel_schichtbund_3_2",
+        "folge_brief": "post_zirkel_schichtbund_4",
+        "abschluss_text": "Dein Rat wird vertraulich versandt. Der nächste Brief bestätigt ausdrücklich diese Grenze."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "nachsatz_varianten": [
+      {
+        "requires_flags": [
+          "post_antwort_zirkel_schichtbund_2_1"
+        ],
+        "text": "Ihr letzter Rat hat mir beim nächsten Schritt geholfen. Ich wollte Ihnen den Ausgang selbst mitteilen."
+      },
+      {
+        "requires_flags": [
+          "post_antwort_zirkel_schichtbund_2_2"
+        ],
+        "text": "Ihr letzter Rat bleibt privat, wie Sie es gewünscht haben. Ich nenne Ihren Namen deshalb nicht weiter."
+      }
+    ]
+  },
+  {
+    "id": "post_zirkel_schichtbund_4",
+    "absender": "zirkel_schichtbund",
+    "stadt": "dunscar",
+    "kapitel": 6,
+    "reihe": "post_reihe_zirkel_schichtbund",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_zirkel_schichtbund"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "requires_any_flags": [
+        "post_antwort_zirkel_schichtbund_3_1",
+        "post_antwort_zirkel_schichtbund_3_2"
+      ],
+      "zeitanker": "post_zirkel_schichtbund_3_beantwortet"
+    },
+    "betreff": "Beide Schichten sind gezählt",
+    "text": "Vorne steht jetzt der Hinweis, hinten die Berichtigung. Beide Schichten wurden bezahlt. Der Besitzer brachte seine Marken zum Treffen und steckte sie danach wieder ein. Niemand verlangte, sie als gutes Beispiel auszustellen. Damit ist die Sache für den Schichtbund abgeschlossen. Es bleibt eine kleine Regel im Buch: Eine Korrektur muss dort auffindbar sein, wo der Fehler weitergetragen wird. Ihr Name steht nicht darunter. Sie haben mir einen Rat gegeben, keine dauernde Bürgschaft für unsere Buchführung. Wenn Sie antworten, legen wir den Brief zu den Arbeitsunterlagen. Falls Sie lieber schweigen, zählt das nicht als Widerruf der geleisteten Hilfe.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Bewahren Sie den Rat bei den Unterlagen.",
+        "folge_flag": "post_antwort_zirkel_schichtbund_4_1",
+        "folge_brief": null,
+        "abschluss_text": "Du bestätigst den berichteten Abschluss und bewahrst die Briefe auf."
+      },
+      {
+        "text": "Danke. Ich möchte diesen Austausch nun beenden.",
+        "folge_flag": "post_antwort_zirkel_schichtbund_4_2",
+        "folge_brief": null,
+        "abschluss_text": "Du beendest den Austausch. Der bereits berichtete Ausgang bleibt bestehen."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "nachsatz_varianten": [
+      {
+        "requires_flags": [
+          "post_antwort_zirkel_schichtbund_3_1"
+        ],
+        "text": "Ihr letzter Rat hat mir beim nächsten Schritt geholfen. Ich wollte Ihnen den Ausgang selbst mitteilen."
+      },
+      {
+        "requires_flags": [
+          "post_antwort_zirkel_schichtbund_3_2"
+        ],
+        "text": "Ihr letzter Rat bleibt privat, wie Sie es gewünscht haben. Ich nenne Ihren Namen deshalb nicht weiter."
+      }
+    ]
+  },
+  {
+    "id": "post_fasserin_1",
+    "absender": "fasserin",
+    "stadt": "dunscar",
+    "kapitel": 4,
+    "reihe": "post_reihe_fasserin",
+    "ausloeser": {
+      "requires_flags": [
+        "k4_arrived",
+        "post_kontakt_fasserin",
+        "post_fasserin_auftrag_offen"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_4"
+    },
+    "betreff": "Die Fassung bleibt offen",
+    "text": "Die Fassung hält noch nicht. Ich gebe Ihnen nichts zurück, das nur von außen fertig aussieht.\nWarten Sie auf die gewöhnliche Abholung beim Zirkel; dieser Brief ersetzt weder Auftrag noch Bezahlung.\nSchreiben Sie, ob ich Ihnen künftig den Befund erklären soll. Einen zweiten Brief verspreche ich nicht.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Erklären Sie mir den Befund bei der Abholung.",
+        "folge_flag": "post_antwort_fasserin_1_1",
+        "folge_brief": null,
+        "abschluss_text": "Bei der regulären Abholung darf Oda den Befund erläutern. Der Auftrag bleibt unverändert."
+      },
+      {
+        "text": "Der gewöhnliche Abholbescheid genügt mir.",
+        "folge_flag": "post_antwort_fasserin_1_2",
+        "folge_brief": null,
+        "abschluss_text": "Du erhältst nur den regulären Abholbescheid. Der Auftrag bleibt unverändert."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "kurzbrief_ausnahme": "oda_drei_zeilen"
+  },
+  {
+    "id": "post_k3_oren_1",
+    "absender": "k3_oren",
+    "stadt": "dunscar",
+    "kapitel": 4,
+    "reihe": "post_reihe_k3_oren",
+    "ausloeser": {
+      "requires_flags": [
+        "k4_arrived",
+        "post_kontakt_k3_oren"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_4"
+    },
+    "betreff": "Die Stufe trägt nicht",
+    "text": "Eine Wagenstufe liegt bei mir auf der Werkbank. Sie sieht heil aus und gibt unter Last nach. Der Schaden sitzt hinter der Befestigung, wo niemand putzt. Man möchte sie wieder anschrauben, bis das Ersatzstück kommt. Ich habe sie vorerst mit Kreide markiert. Kreide lässt sich abwischen, ein verbogener Fuß nicht so leicht richten. Soll ich die Stufe aus dem Betrieb nehmen und den anderen Einstieg kennzeichnen? Das kostet Zeit beim Einsteigen. Ich möchte die Verzögerung benennen, bevor jemand sie gegen eine Verletzung aufrechnet. Wenn Sie antworten, schreiben Sie ruhig kurz. Die Werkbank steht voll genug mit Dingen, die lange Erklärungen tragen.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Nehmen Sie die Stufe aus dem Betrieb.",
+        "folge_flag": "post_antwort_k3_oren_1_1",
+        "folge_brief": "post_k3_oren_2",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Bitte prüfen Sie die Stufe im örtlichen Dienstweg.",
+        "folge_flag": "post_antwort_k3_oren_1_2",
+        "folge_brief": null,
+        "abschluss_text": "Du gibst keinen Rat zum Thema „Eine ausgemusterte Stufe am Wagen“. Die Briefreihe endet offen. Es werden weder ein Erfolg noch ein Scheitern und keine Beziehungseinbuße behauptet."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_k3_oren_2",
+    "absender": "k3_oren",
+    "stadt": "dunscar",
+    "kapitel": 5,
+    "reihe": "post_reihe_k3_oren",
+    "ausloeser": {
+      "requires_flags": [
+        "k5_arrived",
+        "post_kontakt_k3_oren",
+        "post_antwort_k3_oren_1_1"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "zeitanker": "post_k3_oren_1_beantwortet"
+    },
+    "betreff": "Eine Probe ohne Fahrgäste",
+    "text": "Die Stufe bleibt ausgebaut. Der andere Einstieg wurde markiert, und die Leute kommen langsamer, aber ordentlich in den Wagen. Beim Prüfen brach die alte Befestigung unter einer Last, die ein Erwachsener leicht erreicht. Niemand stand darauf. Jetzt soll ich die Bruchstelle sofort wegwerfen, damit das Werkstück nicht mit einem brauchbaren verwechselt wird. Ich würde sie lieber getrennt und beschriftet aufbewahren, bis die Ersatzlieferung geprüft ist. Stimmen Sie zu? Eine ausgeschiedene Stufe ist kein Schaustück. Aber sie kann noch zeigen, weshalb wir nicht wieder dieselbe dünne Befestigung bestellen sollten, nur weil sie auf dem Papier immer gepasst hat.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Bewahren Sie die Bruchstelle getrennt auf.",
+        "folge_flag": "post_antwort_k3_oren_2_1",
+        "folge_brief": "post_k3_oren_3",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Bewahren Sie die Bruchstelle getrennt auf. Bitte halten Sie meinen Rat privat.",
+        "folge_flag": "post_antwort_k3_oren_2_2",
+        "folge_brief": "post_k3_oren_3",
+        "abschluss_text": "Dein Rat wird vertraulich versandt. Der nächste Brief bestätigt ausdrücklich diese Grenze."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_k3_oren_3",
+    "absender": "k3_oren",
+    "stadt": "dunscar",
+    "kapitel": 6,
+    "reihe": "post_reihe_k3_oren",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_k3_oren"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "requires_any_flags": [
+        "post_antwort_k3_oren_2_1",
+        "post_antwort_k3_oren_2_2"
+      ],
+      "zeitanker": "post_k3_oren_2_beantwortet"
+    },
+    "betreff": "Das Ersatzstück im Regen",
+    "text": "Das Ersatzstück ist da. Die Befestigung ist dicker, die Trittfläche aber glatt wie ein Teller. Im Trockenen merkt man das kaum. Ich habe die alte Bruchstelle daneben gelegt, damit niemand denkt, mit mehr Metall sei schon jede Frage erledigt. Wir könnten eine raue Auflage ergänzen und das Ganze bei Nässe prüfen. Soll ich die zusätzliche Stunde anmelden? Der Fahrplan wartet nicht gern auf eine Werkbank. Die Füße der Reisenden warten später noch weniger gern auf einen Arzt. Ich formuliere das im Antrag sachlicher. Ihnen kann ich es so schreiben, weil Sie den Unterschied zwischen Zeitverlust und verschwiegener Arbeit kennen.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Prüfen Sie die neue Stufe auch bei Nässe.",
+        "folge_flag": "post_antwort_k3_oren_3_1",
+        "folge_brief": "post_k3_oren_4",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Prüfen Sie die neue Stufe auch bei Nässe. Bitte halten Sie meinen Rat privat.",
+        "folge_flag": "post_antwort_k3_oren_3_2",
+        "folge_brief": "post_k3_oren_4",
+        "abschluss_text": "Dein Rat wird vertraulich versandt. Der nächste Brief bestätigt ausdrücklich diese Grenze."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "nachsatz_varianten": [
+      {
+        "requires_flags": [
+          "post_antwort_k3_oren_2_1"
+        ],
+        "text": "Ihr letzter Rat hat mir beim nächsten Schritt geholfen. Ich wollte Ihnen den Ausgang selbst mitteilen."
+      },
+      {
+        "requires_flags": [
+          "post_antwort_k3_oren_2_2"
+        ],
+        "text": "Ihr letzter Rat bleibt privat, wie Sie es gewünscht haben. Ich nenne Ihren Namen deshalb nicht weiter."
+      }
+    ]
+  },
+  {
+    "id": "post_k3_oren_4",
+    "absender": "k3_oren",
+    "stadt": "dunscar",
+    "kapitel": 6,
+    "reihe": "post_reihe_k3_oren",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_k3_oren"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "requires_any_flags": [
+        "post_antwort_k3_oren_3_1",
+        "post_antwort_k3_oren_3_2"
+      ],
+      "zeitanker": "post_k3_oren_3_beantwortet"
+    },
+    "betreff": "Der erste sichere Tritt",
+    "text": "Die nasse Probe ist bestanden. Eine raue Auflage sitzt fest, die Befestigung bleibt unter Last gerade. Die alte Bruchstelle kommt nun in den gekennzeichneten Schrott. Sie muss nicht auf ewig beweisen, dass wir einmal recht hatten. Heute stieg die erste Frau ein, ohne auf die Stufe zu achten. Das war der beste Teil der Arbeit. Ich habe nichts gesagt. Im beiliegenden Bild sehe ich müde aus, weil es nach Dienstschluss gemacht wurde. Sie dürfen das Bild so behalten. Für einen frischen Gesichtsausdruck hätte ich eine zweite Schicht Schlaf gebraucht, und die lässt sich schlecht zwischen zwei Wagen einschieben.",
+    "beilage": {
+      "post_foto_4": 1
+    },
+    "antworten": [
+      {
+        "text": "Das Bild darf Sie müde zeigen.",
+        "folge_flag": "post_antwort_k3_oren_4_1",
+        "folge_brief": null,
+        "abschluss_text": "Du bestätigst den berichteten Abschluss und bewahrst die Briefe auf."
+      },
+      {
+        "text": "Danke. Ich möchte diesen Austausch nun beenden.",
+        "folge_flag": "post_antwort_k3_oren_4_2",
+        "folge_brief": null,
+        "abschluss_text": "Du beendest den Austausch. Der bereits berichtete Ausgang bleibt bestehen."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "nachsatz_varianten": [
+      {
+        "requires_flags": [
+          "post_antwort_k3_oren_3_1"
+        ],
+        "text": "Ihr letzter Rat hat mir beim nächsten Schritt geholfen. Ich wollte Ihnen den Ausgang selbst mitteilen."
+      },
+      {
+        "requires_flags": [
+          "post_antwort_k3_oren_3_2"
+        ],
+        "text": "Ihr letzter Rat bleibt privat, wie Sie es gewünscht haben. Ich nenne Ihren Namen deshalb nicht weiter."
+      }
+    ]
+  },
+  {
+    "id": "post_k3_nellie_1",
+    "absender": "k3_nellie",
+    "stadt": "dunscar",
+    "kapitel": 4,
+    "reihe": "post_reihe_k3_nellie",
+    "ausloeser": {
+      "requires_flags": [
+        "k4_arrived",
+        "post_kontakt_k3_nellie"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_4"
+    },
+    "betreff": "Die Quittung ist leer",
+    "text": "Ich trage Nachrichten aus, keine Vermutungen. Heute fehlt auf einer Zustellquittung die Unterschrift. Das Telegramm liegt nicht mehr in meiner Tasche. Im Buch steht erledigt, weil ich nach der Runde zu schnell einen Haken gesetzt habe. Ich weiß noch, an welcher Tür ich wartete. Ich weiß nicht mehr, welche Hand das Blatt nahm. Soll ich den Fehler sofort melden und die Zustellung nachprüfen lassen? Die Meldung kostet mich einen guten Eintrag. Schweigen könnte jemand anderen eine wichtige Nachricht kosten. Ich hätte gern vor dem nächsten Dienst einen Satz von Ihnen, der nicht bloß sagt, ich solle mich weniger sorgen.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Melden Sie den Fehler und prüfen Sie nach.",
+        "folge_flag": "post_antwort_k3_nellie_1_1",
+        "folge_brief": "post_k3_nellie_2",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Ich überlasse die Zustellprüfung Ihrem Dienst.",
+        "folge_flag": "post_antwort_k3_nellie_1_2",
+        "folge_brief": null,
+        "abschluss_text": "Du gibst keinen Rat zum Thema „Ein Telegramm mit unklarer Zustellung“. Die Briefreihe endet offen. Es werden weder ein Erfolg noch ein Scheitern und keine Beziehungseinbuße behauptet."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_k3_nellie_2",
+    "absender": "k3_nellie",
+    "stadt": "dunscar",
+    "kapitel": 5,
+    "reihe": "post_reihe_k3_nellie",
+    "ausloeser": {
+      "requires_flags": [
+        "k5_arrived",
+        "post_kontakt_k3_nellie",
+        "post_antwort_k3_nellie_1_1"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "zeitanker": "post_k3_nellie_1_beantwortet"
+    },
+    "betreff": "Ein Brief am falschen Tisch",
+    "text": "Der Fehler ist gemeldet. Das Telegramm wurde auf einem gemeinsamen Tisch gefunden, ungeöffnet und feucht am Rand. Niemand wollte es an sich nehmen. Der Haken im Buch hat verhindert, dass noch jemand danach fragte. Ich habe ihn gestrichen, so dass man die erste Eintragung weiter lesen kann. Jetzt bittet man mich, eine frische Abschrift zu bringen. Ich möchte die beschädigte Nachricht ebenfalls mitgeben. Darf der Empfänger selbst entscheiden, was er behält? Auf einer Abschrift sieht alles aus, als sei es pünktlich angekommen. Das stimmt nicht, auch wenn die Worte darin dieselben bleiben und meine Tasche diesmal besser geschlossen ist.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Geben Sie Original und Abschrift zusammen aus.",
+        "folge_flag": "post_antwort_k3_nellie_2_1",
+        "folge_brief": "post_k3_nellie_3",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Geben Sie Original und Abschrift zusammen aus. Bitte halten Sie meinen Rat privat.",
+        "folge_flag": "post_antwort_k3_nellie_2_2",
+        "folge_brief": "post_k3_nellie_3",
+        "abschluss_text": "Dein Rat wird vertraulich versandt. Der nächste Brief bestätigt ausdrücklich diese Grenze."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_k3_nellie_3",
+    "absender": "k3_nellie",
+    "stadt": "dunscar",
+    "kapitel": 6,
+    "reihe": "post_reihe_k3_nellie",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_k3_nellie"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "requires_any_flags": [
+        "post_antwort_k3_nellie_2_1",
+        "post_antwort_k3_nellie_2_2"
+      ],
+      "zeitanker": "post_k3_nellie_2_beantwortet"
+    },
+    "betreff": "Ein zweiter Zustellversuch heute",
+    "text": "Beide Blätter liegen bereit. Beim zweiten Zustellversuch war niemand da. Ein Nachbar bot an, für den Empfänger zu unterschreiben. Ich habe abgelehnt, weil genau diese Hand nicht als Empfangshand vereinbart war. Nun nennt man mich umständlich. Ich könnte einen Abholzettel hinterlassen, der nichts über den Inhalt verrät. Soll ich das tun? Die Nachricht wird dadurch nicht schneller alt, als sie ohnehin schon ist. Aber sie könnte endlich bei der richtigen Person landen. Ich kenne inzwischen jede Stufe vor dieser Tür. Es wäre angenehm, sie einmal hinunterzugehen, ohne im Kopf eine fehlende Unterschrift durch eine Erklärung ersetzen zu müssen.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Hinterlassen Sie einen neutralen Abholzettel.",
+        "folge_flag": "post_antwort_k3_nellie_3_1",
+        "folge_brief": "post_k3_nellie_4",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Hinterlassen Sie einen neutralen Abholzettel. Bitte halten Sie meinen Rat privat.",
+        "folge_flag": "post_antwort_k3_nellie_3_2",
+        "folge_brief": "post_k3_nellie_4",
+        "abschluss_text": "Dein Rat wird vertraulich versandt. Der nächste Brief bestätigt ausdrücklich diese Grenze."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "nachsatz_varianten": [
+      {
+        "requires_flags": [
+          "post_antwort_k3_nellie_2_1"
+        ],
+        "text": "Ihr letzter Rat hat mir beim nächsten Schritt geholfen. Ich wollte Ihnen den Ausgang selbst mitteilen."
+      },
+      {
+        "requires_flags": [
+          "post_antwort_k3_nellie_2_2"
+        ],
+        "text": "Ihr letzter Rat bleibt privat, wie Sie es gewünscht haben. Ich nenne Ihren Namen deshalb nicht weiter."
+      }
+    ]
+  },
+  {
+    "id": "post_k3_nellie_4",
+    "absender": "k3_nellie",
+    "stadt": "dunscar",
+    "kapitel": 6,
+    "reihe": "post_reihe_k3_nellie",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_k3_nellie"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "requires_any_flags": [
+        "post_antwort_k3_nellie_3_1",
+        "post_antwort_k3_nellie_3_2"
+      ],
+      "zeitanker": "post_k3_nellie_3_beantwortet"
+    },
+    "betreff": "Die Hand hat quittiert",
+    "text": "Der Empfänger hat selbst quittiert. Er nahm beide Blätter und fragte nach der verlorenen Zeit. Ich sagte, was ich wusste, und nannte auch meinen falschen Haken. Er wurde nicht freundlich. Das musste er nicht. Im Buch steht nun der tatsächliche Tag. Ich kann die Verspätung nicht abtragen, indem ich die nächste Runde renne. Ich kann nur richtig festhalten, was passiert ist. Ihr Brief liegt zwischen meinen leeren Quittungen. Er erinnert mich daran, dass ein freies Feld besser ist als ein eiliges Zeichen, das eine andere Hand behauptet. Heute habe ich vor jedem Haken noch einmal auf die zugehörige Unterschrift gesehen.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Bleiben Sie beim tatsächlichen Zustelltag.",
+        "folge_flag": "post_antwort_k3_nellie_4_1",
+        "folge_brief": null,
+        "abschluss_text": "Du bestätigst den berichteten Abschluss und bewahrst die Briefe auf."
+      },
+      {
+        "text": "Danke. Ich möchte diesen Austausch nun beenden.",
+        "folge_flag": "post_antwort_k3_nellie_4_2",
+        "folge_brief": null,
+        "abschluss_text": "Du beendest den Austausch. Der bereits berichtete Ausgang bleibt bestehen."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "nachsatz_varianten": [
+      {
+        "requires_flags": [
+          "post_antwort_k3_nellie_3_1"
+        ],
+        "text": "Ihr letzter Rat hat mir beim nächsten Schritt geholfen. Ich wollte Ihnen den Ausgang selbst mitteilen."
+      },
+      {
+        "requires_flags": [
+          "post_antwort_k3_nellie_3_2"
+        ],
+        "text": "Ihr letzter Rat bleibt privat, wie Sie es gewünscht haben. Ich nenne Ihren Namen deshalb nicht weiter."
+      }
+    ]
+  },
+  {
+    "id": "post_k3_weichenstellerin_1",
+    "absender": "k3_weichenstellerin",
+    "stadt": "dunscar",
+    "kapitel": 4,
+    "reihe": "post_reihe_k3_weichenstellerin",
+    "ausloeser": {
+      "requires_flags": [
+        "k4_arrived",
+        "post_kontakt_k3_weichenstellerin"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_4"
+    },
+    "betreff": "Der Hebel bleibt stehen",
+    "text": "Sie dürfen auch ohne Prüfung einen Rat geben. Hier wartet jemand am Hebel und fragt nach der richtigen Entscheidung. Es fährt kein Zug, es steht kein Mensch auf dem Gleis. Trotzdem ist die Hand so verkrampft, als hinge alles daran. Ich habe gesagt, dass heute keine Prüfung stattfindet. Das wurde für eine versteckte Aufgabe gehalten. Soll ich den Hebel sichern und die Pause ausdrücklich als Pause benennen? Man kann aus Vorsicht eine Gewohnheit machen, die irgendwann jede Ruhe verdächtig erscheinen lässt. Ich möchte niemanden für dieses Misstrauen belohnen, aber auch nicht beschämen, indem ich es vor anderen vorführe.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Sichern Sie den Hebel und benennen Sie die Pause.",
+        "folge_flag": "post_antwort_k3_weichenstellerin_1_1",
+        "folge_brief": "post_k3_weichenstellerin_2",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Ich möchte zu dieser Pause keinen Rat geben.",
+        "folge_flag": "post_antwort_k3_weichenstellerin_1_2",
+        "folge_brief": null,
+        "abschluss_text": "Du gibst keinen Rat zum Thema „Eine Entscheidung ohne Prüfungsnote“. Die Briefreihe endet offen. Es werden weder ein Erfolg noch ein Scheitern und keine Beziehungseinbuße behauptet."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_k3_weichenstellerin_2",
+    "absender": "k3_weichenstellerin",
+    "stadt": "dunscar",
+    "kapitel": 5,
+    "reihe": "post_reihe_k3_weichenstellerin",
+    "ausloeser": {
+      "requires_flags": [
+        "k5_arrived",
+        "post_kontakt_k3_weichenstellerin",
+        "post_antwort_k3_weichenstellerin_1_1"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "zeitanker": "post_k3_weichenstellerin_1_beantwortet"
+    },
+    "betreff": "Eine Pause ohne Wertung",
+    "text": "Der Hebel ist gesichert, die Pause benannt. Die Hand löste sich erst nach einer Weile. Dann kam die Frage, ob das Loslassen richtig gewesen sei. Ich habe keine Note gegeben. Nun möchte die Person morgen wiederkommen, ohne Prüfung und ohne Aufgabe. Ich könnte einen zweiten Stuhl bereitstellen. Das klingt einfach, solange niemand darin eine neue Belohnung vermutet. Soll ich den Stuhl hinstellen und das Gespräch dem Gast überlassen? Sie kennen Prüfungen. Nicht alles, was danach kommt, sollte wieder eine sein. Ich schreibe Ihnen deshalb ohne versiegeltes Blatt und ohne eine Zeile, deren richtige Deutung ich später gegen Sie verwenden könnte.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Stellen Sie den Stuhl ohne Aufgabe bereit.",
+        "folge_flag": "post_antwort_k3_weichenstellerin_2_1",
+        "folge_brief": "post_k3_weichenstellerin_3",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Stellen Sie den Stuhl ohne Aufgabe bereit. Bitte halten Sie meinen Rat privat.",
+        "folge_flag": "post_antwort_k3_weichenstellerin_2_2",
+        "folge_brief": "post_k3_weichenstellerin_3",
+        "abschluss_text": "Dein Rat wird vertraulich versandt. Der nächste Brief bestätigt ausdrücklich diese Grenze."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_k3_weichenstellerin_3",
+    "absender": "k3_weichenstellerin",
+    "stadt": "dunscar",
+    "kapitel": 6,
+    "reihe": "post_reihe_k3_weichenstellerin",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_k3_weichenstellerin"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "requires_any_flags": [
+        "post_antwort_k3_weichenstellerin_2_1",
+        "post_antwort_k3_weichenstellerin_2_2"
+      ],
+      "zeitanker": "post_k3_weichenstellerin_2_beantwortet"
+    },
+    "betreff": "Heute gibt es keine Note",
+    "text": "Der zweite Stuhl wurde benutzt. Wir sprachen zuerst über die Kälte und dann eine Weile gar nicht. Niemand fasste den Hebel an. Zum Abschied kam keine Frage nach einer Note. Ich habe auch ungefragt keine verteilt. Das ist der ganze Bericht. Er beweist weder Heilung noch besondere Standhaftigkeit. Ein Nachmittag konnte einfach aufhören, ohne dass jemand ihn bestehen musste. Ihre Antwort bewahre ich in der Schublade mit gewöhnlichem Papier auf. Dort liegt sie richtig. Falls Sie selbst einmal nicht wissen, was Ihr nächster Schritt beweisen soll, dürfen Sie daran denken: Vielleicht soll er heute überhaupt nichts beweisen, sondern nur Sie weiterbringen.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Danke für einen Bericht ohne Note.",
+        "folge_flag": "post_antwort_k3_weichenstellerin_3_1",
+        "folge_brief": null,
+        "abschluss_text": "Du bestätigst den berichteten Abschluss und bewahrst die Briefe auf."
+      },
+      {
+        "text": "Danke. Ich möchte diesen Austausch nun beenden.",
+        "folge_flag": "post_antwort_k3_weichenstellerin_3_2",
+        "folge_brief": null,
+        "abschluss_text": "Du beendest den Austausch. Der bereits berichtete Ausgang bleibt bestehen."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "nachsatz_varianten": [
+      {
+        "requires_flags": [
+          "post_antwort_k3_weichenstellerin_2_1"
+        ],
+        "text": "Ihr letzter Rat hat mir beim nächsten Schritt geholfen. Ich wollte Ihnen den Ausgang selbst mitteilen."
+      },
+      {
+        "requires_flags": [
+          "post_antwort_k3_weichenstellerin_2_2"
+        ],
+        "text": "Ihr letzter Rat bleibt privat, wie Sie es gewünscht haben. Ich nenne Ihren Namen deshalb nicht weiter."
+      }
+    ]
+  },
+  {
+    "id": "post_cw_crayford_1",
+    "absender": "cw_crayford",
+    "stadt": "calderwick",
+    "kapitel": 5,
+    "reihe": "post_reihe_cw_crayford",
+    "ausloeser": {
+      "requires_flags": [
+        "k5_arrived",
+        "post_kontakt_cw_crayford"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_5"
+    },
+    "betreff": "Der Einband hält fremd",
+    "text": "Legen Sie beim Lesen die Hände sichtbar hin. Nicht wegen mir, wegen der losen Klammer im Umschlag. Sie stammt aus einem Buch, dessen Einband eine Bürgschaft enthält. Das Blatt wurde beim Binden mitgefasst. Der Besitzer hat nur das Buch bestellt, nicht die Verpflichtung zwischen den Deckeln. Ich könnte die Lage lösen, müsste dabei aber den Rücken öffnen. Soll ich den Schaden am Einband hinnehmen, bevor jemand das Blatt als angenommene Bürgschaft auslegt? Papier hält manchmal besser als das Gedächtnis der Leute, die etwas hineinlegen. Ich möchte diesmal wenigstens wissen, was ich mit meinen eigenen Händen festhalte.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Öffnen Sie den Einband vorsichtig.",
+        "folge_flag": "post_antwort_cw_crayford_1_1",
+        "folge_brief": "post_cw_crayford_2",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Ich kann die Bürgschaft aus der Ferne nicht beurteilen.",
+        "folge_flag": "post_antwort_cw_crayford_1_2",
+        "folge_brief": null,
+        "abschluss_text": "Du gibst keinen Rat zum Thema „Eine Bürgschaft im falschen Einband“. Die Briefreihe endet offen. Es werden weder ein Erfolg noch ein Scheitern und keine Beziehungseinbuße behauptet."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_cw_crayford_2",
+    "absender": "cw_crayford",
+    "stadt": "calderwick",
+    "kapitel": 6,
+    "reihe": "post_reihe_cw_crayford",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_cw_crayford",
+        "post_antwort_cw_crayford_1_1"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "zeitanker": "post_cw_crayford_1_beantwortet"
+    },
+    "betreff": "Eine Klammer am Rand",
+    "text": "Die Lage ist offen. Auf dem Blatt steht eine fremde Unterschrift, auf der Rückseite die Bestellnummer des Buches. Offenbar hat jemand zwei Stapel zusammengelegt und sich dann auf die Klammer verlassen. Der Besitzer möchte das Blatt sofort verbrennen. Ich möchte ihm zuerst eine Abschrift des Fundorts geben, damit er später erklären kann, weshalb er es hatte. Halten Sie das für vernünftig? Ich bürge dafür, wo das Papier lag, nicht dafür, was sein Verfasser wollte. Das sind zwei verschiedene Arbeiten. Die erste kann ich mit gutem Gewissen tun. Für die zweite wäre selbst mein stärkster Buchrücken ein ziemlich schlechter Ersatz.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Bestätigen Sie nur den tatsächlichen Fundort.",
+        "folge_flag": "post_antwort_cw_crayford_2_1",
+        "folge_brief": "post_cw_crayford_3",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Bestätigen Sie nur den tatsächlichen Fundort. Bitte halten Sie meinen Rat privat.",
+        "folge_flag": "post_antwort_cw_crayford_2_2",
+        "folge_brief": "post_cw_crayford_3",
+        "abschluss_text": "Dein Rat wird vertraulich versandt. Der nächste Brief bestätigt ausdrücklich diese Grenze."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_cw_crayford_3",
+    "absender": "cw_crayford",
+    "stadt": "calderwick",
+    "kapitel": 6,
+    "reihe": "post_reihe_cw_crayford",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_cw_crayford"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "requires_any_flags": [
+        "post_antwort_cw_crayford_2_1",
+        "post_antwort_cw_crayford_2_2"
+      ],
+      "zeitanker": "post_cw_crayford_2_beantwortet"
+    },
+    "betreff": "Das Buch gehört zurück",
+    "text": "Das Buch ist zurückgegeben, die lose Bürgschaft getrennt verwahrt. Der Besitzer hat eine Bestätigung über den Fundort. Er schuldet niemandem eine Unterschrift, nur weil ein anderer einen Stapel falsch geklammert hat. Der neue Rücken sieht schlichter aus als der alte. Dafür lässt sich jede Lage einzeln prüfen. Ich habe Ihre Antwort nicht eingebunden. Sie liegt lose bei den Arbeitszetteln, wo sie niemand aus Versehen für einen Vertrag halten kann. Heute kam ein Auftrag für ein leeres Heft. Ich habe zweimal nachgesehen, ob es wirklich leer ist. Danach konnte ich es guten Gewissens schließen und die Klammern aus der Schale zählen.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Lassen Sie meinen Brief lose bei den Zetteln.",
+        "folge_flag": "post_antwort_cw_crayford_3_1",
+        "folge_brief": null,
+        "abschluss_text": "Du bestätigst den berichteten Abschluss und bewahrst die Briefe auf."
+      },
+      {
+        "text": "Danke. Ich möchte diesen Austausch nun beenden.",
+        "folge_flag": "post_antwort_cw_crayford_3_2",
+        "folge_brief": null,
+        "abschluss_text": "Du beendest den Austausch. Der bereits berichtete Ausgang bleibt bestehen."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "nachsatz_varianten": [
+      {
+        "requires_flags": [
+          "post_antwort_cw_crayford_2_1"
+        ],
+        "text": "Ihr letzter Rat hat mir beim nächsten Schritt geholfen. Ich wollte Ihnen den Ausgang selbst mitteilen."
+      },
+      {
+        "requires_flags": [
+          "post_antwort_cw_crayford_2_2"
+        ],
+        "text": "Ihr letzter Rat bleibt privat, wie Sie es gewünscht haben. Ich nenne Ihren Namen deshalb nicht weiter."
+      }
+    ]
+  },
+  {
+    "id": "post_cw_darnell_1",
+    "absender": "cw_darnell",
+    "stadt": "calderwick",
+    "kapitel": 5,
+    "reihe": "post_reihe_cw_darnell",
+    "ausloeser": {
+      "requires_flags": [
+        "k5_arrived",
+        "post_kontakt_cw_darnell"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_5"
+    },
+    "betreff": "Die Linie bleibt sichtbar",
+    "text": "Hinter der Linie, bitte. Das gilt inzwischen auch für meine Unterschrift. Eine Reisende bat mich, den Empfang ihres Gepäcks zu bestätigen. Unter derselben Zeile steht klein, dass ich für seinen Inhalt bürge. Ich habe den Koffer nur von außen gesehen. Die Abfertigung sagt, niemand lese den Zusatz, also störe er niemanden. Ich finde, gerade deshalb stört er. Soll ich den Empfang auf einem eigenen Blatt bestätigen? Die Reisende wartet schon lange und hält mich für den Grund der Verzögerung. Ich will ihr helfen, ohne aus einer gesehenen Kofferklappe eine ungesehene ganze Lebensgeschichte zu machen.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Bestätigen Sie den Empfang auf einem eigenen Blatt.",
+        "folge_flag": "post_antwort_cw_darnell_1_1",
+        "folge_brief": "post_cw_darnell_2",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Klären Sie die Bestätigung ohne meine Beteiligung.",
+        "folge_flag": "post_antwort_cw_darnell_1_2",
+        "folge_brief": null,
+        "abschluss_text": "Du gibst keinen Rat zum Thema „Ein Bürge hinter der Bahnsteiglinie“. Die Briefreihe endet offen. Es werden weder ein Erfolg noch ein Scheitern und keine Beziehungseinbuße behauptet."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_cw_darnell_2",
+    "absender": "cw_darnell",
+    "stadt": "calderwick",
+    "kapitel": 6,
+    "reihe": "post_reihe_cw_darnell",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_cw_darnell",
+        "post_antwort_cw_darnell_1_1"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "zeitanker": "post_cw_darnell_1_beantwortet"
+    },
+    "betreff": "Eine Unterschrift zu viel",
+    "text": "Der Empfang ist gesondert bestätigt. Der Koffer konnte weiter, meine Unterschrift blieb außerhalb des Zusatzes. Jetzt verlangt die Abfertigung, dass ich die gewöhnlichen Formulare trotzdem nachträglich zeichne, damit die Zählung stimmt. Ich könnte stattdessen meine Bestätigung mit derselben Vorgangsnummer beilegen. Das ergäbe einen weniger gleichmäßigen Stapel. Soll ich darauf bestehen? Manchmal scheint hier ein gerader Papierrand wichtiger als eine gerade Aussage. Die Linie auf dem Bahnsteig wurde heute nachgezogen. Jeder versteht, weshalb sie sichtbar sein muss. Bei einem Satz auf einem Formular muss ich dieselbe Erklärung anscheinend länger führen, obwohl niemand dafür einen Pinsel tragen muss.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Legen Sie Ihre Bestätigung unter derselben Nummer bei.",
+        "folge_flag": "post_antwort_cw_darnell_2_1",
+        "folge_brief": "post_cw_darnell_3",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Legen Sie Ihre Bestätigung unter derselben Nummer bei. Bitte halten Sie meinen Rat privat.",
+        "folge_flag": "post_antwort_cw_darnell_2_2",
+        "folge_brief": "post_cw_darnell_3",
+        "abschluss_text": "Dein Rat wird vertraulich versandt. Der nächste Brief bestätigt ausdrücklich diese Grenze."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_cw_darnell_3",
+    "absender": "cw_darnell",
+    "stadt": "calderwick",
+    "kapitel": 6,
+    "reihe": "post_reihe_cw_darnell",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_cw_darnell"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "requires_any_flags": [
+        "post_antwort_cw_darnell_2_1",
+        "post_antwort_cw_darnell_2_2"
+      ],
+      "zeitanker": "post_cw_darnell_2_beantwortet"
+    },
+    "betreff": "Die Grenze auf dem Blatt",
+    "text": "Meine Bestätigung liegt beim Vorgang. Der Stapel ist an einer Stelle dicker, die Aussage bleibt richtig. Die Reisende schrieb, der Koffer sei angekommen. Über seinen Inhalt schrieb sie nichts. Das darf so bleiben. Ich habe das Formular mit dem Zusatz zur Überprüfung weitergegeben und weder ein Verbot noch eine neue Vorschrift erfunden. Es reicht mir, dass meine Unterschrift nicht mehr als ihre eigene Zeile behauptet. Wenn Sie an mich denken, müssen Sie sich keinen großen Streit vorstellen. Es waren drei Wege zwischen Schalter und Ablage. Nur beim dritten durfte das Blatt endlich liegenbleiben, ohne dass jemand einen fremden Satz von mir verlangte.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Ihre Unterschrift soll nur Ihre Aussage tragen.",
+        "folge_flag": "post_antwort_cw_darnell_3_1",
+        "folge_brief": null,
+        "abschluss_text": "Du bestätigst den berichteten Abschluss und bewahrst die Briefe auf."
+      },
+      {
+        "text": "Danke. Ich möchte diesen Austausch nun beenden.",
+        "folge_flag": "post_antwort_cw_darnell_3_2",
+        "folge_brief": null,
+        "abschluss_text": "Du beendest den Austausch. Der bereits berichtete Ausgang bleibt bestehen."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "nachsatz_varianten": [
+      {
+        "requires_flags": [
+          "post_antwort_cw_darnell_2_1"
+        ],
+        "text": "Ihr letzter Rat hat mir beim nächsten Schritt geholfen. Ich wollte Ihnen den Ausgang selbst mitteilen."
+      },
+      {
+        "requires_flags": [
+          "post_antwort_cw_darnell_2_2"
+        ],
+        "text": "Ihr letzter Rat bleibt privat, wie Sie es gewünscht haben. Ich nenne Ihren Namen deshalb nicht weiter."
+      }
+    ]
+  },
+  {
+    "id": "post_cw_pritch_1",
+    "absender": "cw_pritch",
+    "stadt": "calderwick",
+    "kapitel": 5,
+    "reihe": "post_reihe_cw_pritch",
+    "ausloeser": {
+      "requires_flags": [
+        "k5_arrived",
+        "post_kontakt_cw_pritch"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_5"
+    },
+    "betreff": "Noch eine Schüssel frei",
+    "text": "Wer zuhören will, darf mitessen. Neuerdings soll ich vorher fragen, wer für die Kosten bürgt. Ein Spender möchte Namen für jede Schüssel. Ich kann die ausgegebenen Portionen zählen, ohne die Leute aufzuschreiben. Er meint, das sei nicht dasselbe. Da hat er recht. Soll ich ihm eine Mengenliste anbieten und die Namen verweigern? Der Topf wird davon nicht voller. Die Schlange aber vielleicht kürzer, und das wäre ein schlechter Erfolg. Ich bitte nicht um Geld aus Ihrer Reisetasche. Schreiben Sie mir, wie eng ich die Zusage fassen soll, damit Hilfe nicht heimlich zur Aufnahme in ein fremdes Verzeichnis wird.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Bieten Sie eine reine Mengenliste an.",
+        "folge_flag": "post_antwort_cw_pritch_1_1",
+        "folge_brief": "post_cw_pritch_2",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Ich möchte Ihnen keine Bürgschaft empfehlen.",
+        "folge_flag": "post_antwort_cw_pritch_1_2",
+        "folge_brief": null,
+        "abschluss_text": "Du gibst keinen Rat zum Thema „Der Streiktopf und eine offene Bürgschaft“. Die Briefreihe endet offen. Es werden weder ein Erfolg noch ein Scheitern und keine Beziehungseinbuße behauptet."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_cw_pritch_2",
+    "absender": "cw_pritch",
+    "stadt": "calderwick",
+    "kapitel": 6,
+    "reihe": "post_reihe_cw_pritch",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_cw_pritch",
+        "post_antwort_cw_pritch_1_1"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "zeitanker": "post_cw_pritch_1_beantwortet"
+    },
+    "betreff": "Die Bürgschaft am Topf",
+    "text": "Die Mengenliste wurde angenommen, vorläufig. Nun soll ich persönlich für den nächsten Einkauf bürgen. Das könnte ich tun, wenn ich eine feste Obergrenze kenne. Auf dem Blatt fehlt sie. Der Spender sagt, unter anständigen Leuten brauche es keine Grenze. Ich kenne anständige Leute mit leeren Taschen. Soll ich nur für einen genau bezifferten Einkauf unterschreiben? Wer am Topf wartet, braucht keine Vorstellung darüber, wie mutig ich auf Papier sein kann. Er braucht Essen, das morgen nicht durch eine unbezahlbare Forderung wieder verschwindet. Ich habe noch nichts gezeichnet. Die Kreide für die Portionszahlen liegt neben dem Stift und ist deutlich kürzer.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Bürgen Sie nur für eine feste Summe.",
+        "folge_flag": "post_antwort_cw_pritch_2_1",
+        "folge_brief": "post_cw_pritch_3",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Bürgen Sie nur für eine feste Summe. Bitte halten Sie meinen Rat privat.",
+        "folge_flag": "post_antwort_cw_pritch_2_2",
+        "folge_brief": "post_cw_pritch_3",
+        "abschluss_text": "Dein Rat wird vertraulich versandt. Der nächste Brief bestätigt ausdrücklich diese Grenze."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_cw_pritch_3",
+    "absender": "cw_pritch",
+    "stadt": "calderwick",
+    "kapitel": 6,
+    "reihe": "post_reihe_cw_pritch",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_cw_pritch"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "requires_any_flags": [
+        "post_antwort_cw_pritch_2_1",
+        "post_antwort_cw_pritch_2_2"
+      ],
+      "zeitanker": "post_cw_pritch_2_beantwortet"
+    },
+    "betreff": "Eine Mahlzeit ohne Vertrag",
+    "text": "Die Bürgschaft gilt für einen Einkauf mit fester Summe. Danach endet sie, ohne dass ich einen zweiten Brief schreiben muss, um sie wieder loszuwerden. Der Topf war heute voll. Die Gäste blieben namenlos, soweit sie das wollten. Ich habe die Schüsseln gezählt und mich dabei zweimal verzählt. Das ließ sich berichtigen, ohne eine Person neu zu erfassen. Ihr Rat steht als kurzer Satz am Rand meiner Einkaufsliste. Die Liste geht morgen in die Küche. Dort wird sie Flecken bekommen. Das ist ein brauchbareres Ende für gutes Papier als eine saubere Unterschrift unter einer Schuld, die niemand begrenzen möchte.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Eine Mahlzeit soll ohne Namensliste bleiben.",
+        "folge_flag": "post_antwort_cw_pritch_3_1",
+        "folge_brief": null,
+        "abschluss_text": "Du bestätigst den berichteten Abschluss und bewahrst die Briefe auf."
+      },
+      {
+        "text": "Danke. Ich möchte diesen Austausch nun beenden.",
+        "folge_flag": "post_antwort_cw_pritch_3_2",
+        "folge_brief": null,
+        "abschluss_text": "Du beendest den Austausch. Der bereits berichtete Ausgang bleibt bestehen."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "nachsatz_varianten": [
+      {
+        "requires_flags": [
+          "post_antwort_cw_pritch_2_1"
+        ],
+        "text": "Ihr letzter Rat hat mir beim nächsten Schritt geholfen. Ich wollte Ihnen den Ausgang selbst mitteilen."
+      },
+      {
+        "requires_flags": [
+          "post_antwort_cw_pritch_2_2"
+        ],
+        "text": "Ihr letzter Rat bleibt privat, wie Sie es gewünscht haben. Ich nenne Ihren Namen deshalb nicht weiter."
+      }
+    ]
+  },
+  {
+    "id": "post_cwn_e_griffmacherin_1",
+    "absender": "cwn_e_griffmacherin",
+    "stadt": "calderwick",
+    "kapitel": 5,
+    "reihe": "post_reihe_cwn_e_griffmacherin",
+    "ausloeser": {
+      "requires_flags": [
+        "k5_arrived",
+        "post_kontakt_cwn_e_griffmacherin"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_5"
+    },
+    "betreff": "Der Griff sitzt schief",
+    "text": "Ein Topfgriff muss zwei Hände aushalten. Eine trägt, die andere weiß es besser. Diesmal trug die kleinere Hand schlechter, weil ich den Griff nach einem einzigen Maß gefertigt hatte. Die Käuferin gab ihn zurück. Ich könnte sagen, sie solle anders zugreifen. Das wäre billig und würde nichts reparieren. Soll ich ihr beide Größen zur Probe geben und erst danach entscheiden? Die Werkstatt verliert dabei Zeit. Aber auf ihrem Herd steht ein voller Topf, kein Musterstück. Ich schreibe Ihnen, weil Sie schon Fragen gestellt haben, die ein fertiges Stück wieder unfertig machten. Vielleicht war genau das damals die nötige Arbeit.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Geben Sie beide Größen zur Probe.",
+        "folge_flag": "post_antwort_cwn_e_griffmacherin_1_1",
+        "folge_brief": "post_cwn_e_griffmacherin_2",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Fragen Sie die Käuferin, ohne mich an der Probe zu beteiligen.",
+        "folge_flag": "post_antwort_cwn_e_griffmacherin_1_2",
+        "folge_brief": null,
+        "abschluss_text": "Du gibst keinen Rat zum Thema „Ein Griff für zwei ungleiche Hände“. Die Briefreihe endet offen. Es werden weder ein Erfolg noch ein Scheitern und keine Beziehungseinbuße behauptet."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_cwn_e_griffmacherin_2",
+    "absender": "cwn_e_griffmacherin",
+    "stadt": "calderwick",
+    "kapitel": 6,
+    "reihe": "post_reihe_cwn_e_griffmacherin",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_cwn_e_griffmacherin",
+        "post_antwort_cwn_e_griffmacherin_1_1"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "zeitanker": "post_cwn_e_griffmacherin_1_beantwortet"
+    },
+    "betreff": "Die zweite Hand zählt",
+    "text": "Beide Größen waren zur Probe da. Die Käuferin wählte keine davon. Sie braucht einen breiteren Abstand zum heißen Rand, nicht einen kleineren Bogen. Ich hatte die falsche Frage gestellt. Nun habe ich den Ansatz verlängert. Mein Nachbar sagt, der Griff sehe ungeschickt aus. In der Hand liegt er besser. Soll ich die neue Form kennzeichnen und nach dem Gebrauch fragen, bevor ich mehr davon mache? Ein einzelner Versuch ist kein Maß für alle. Das habe ich jetzt zweimal gelernt. Beim zweiten Mal kostete es weniger Material, aber mehr Geduld mit meinem eigenen Wunsch, endlich fertig zu sein.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Fragen Sie erst nach einer Woche Gebrauch.",
+        "folge_flag": "post_antwort_cwn_e_griffmacherin_2_1",
+        "folge_brief": "post_cwn_e_griffmacherin_3",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Fragen Sie erst nach einer Woche Gebrauch. Bitte halten Sie meinen Rat privat.",
+        "folge_flag": "post_antwort_cwn_e_griffmacherin_2_2",
+        "folge_brief": "post_cwn_e_griffmacherin_3",
+        "abschluss_text": "Dein Rat wird vertraulich versandt. Der nächste Brief bestätigt ausdrücklich diese Grenze."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_cwn_e_griffmacherin_3",
+    "absender": "cwn_e_griffmacherin",
+    "stadt": "calderwick",
+    "kapitel": 6,
+    "reihe": "post_reihe_cwn_e_griffmacherin",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_cwn_e_griffmacherin"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "requires_any_flags": [
+        "post_antwort_cwn_e_griffmacherin_2_1",
+        "post_antwort_cwn_e_griffmacherin_2_2"
+      ],
+      "zeitanker": "post_cwn_e_griffmacherin_2_beantwortet"
+    },
+    "betreff": "Zwei Hände tragen wieder",
+    "text": "Der neue Ansatz hält. Nach einer Woche kam die Käuferin mit dem Topf zurück, um es zu zeigen. Die zweite Hand hatte ebenfalls Platz. Ich habe die Form nicht zur einzig richtigen erklärt. Sie hängt neben den anderen, mit einer Notiz über den größeren Abstand. Das beiliegende Bild zeigt meine Hände an zwei Griffen. Das Gesicht ist nur am oberen Rand zu sehen. Mir gefällt das. Es zeigt wenigstens, worum wir geschrieben haben. Wenn Sie das nächste Mal einen Topf tragen, müssen Sie nicht an mich denken. Prüfen Sie nur vor dem Anheben, ob Ihre Finger genug Platz zum Bleiben haben.",
+    "beilage": {
+      "post_foto_5": 1
+    },
+    "antworten": [
+      {
+        "text": "Ich achte auf den Abstand zum heißen Rand.",
+        "folge_flag": "post_antwort_cwn_e_griffmacherin_3_1",
+        "folge_brief": null,
+        "abschluss_text": "Du bestätigst den berichteten Abschluss und bewahrst die Briefe auf."
+      },
+      {
+        "text": "Danke. Ich möchte diesen Austausch nun beenden.",
+        "folge_flag": "post_antwort_cwn_e_griffmacherin_3_2",
+        "folge_brief": null,
+        "abschluss_text": "Du beendest den Austausch. Der bereits berichtete Ausgang bleibt bestehen."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person.",
+    "nachsatz_varianten": [
+      {
+        "requires_flags": [
+          "post_antwort_cwn_e_griffmacherin_2_1"
+        ],
+        "text": "Ihr letzter Rat hat mir beim nächsten Schritt geholfen. Ich wollte Ihnen den Ausgang selbst mitteilen."
+      },
+      {
+        "requires_flags": [
+          "post_antwort_cwn_e_griffmacherin_2_2"
+        ],
+        "text": "Ihr letzter Rat bleibt privat, wie Sie es gewünscht haben. Ich nenne Ihren Namen deshalb nicht weiter."
+      }
+    ]
+  },
+  {
+    "id": "post_bhn_e_patientin_1",
+    "absender": "bhn_e_patientin",
+    "stadt": "briarholt",
+    "kapitel": 6,
+    "reihe": "post_reihe_bhn_e_patientin",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_bhn_e_patientin"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_6"
+    },
+    "betreff": "Ein Stuhl ohne Bestellung",
+    "text": "Mara reicht. Auf dem Entlassungsschein steht mein voller Name, auf diesem Brief muss er nicht größer werden. Ich habe einen Stuhl ans Fenster gestellt und ein kleines Rechnungsbuch daneben. Früher hätte ich sofort angefangen, Ausgaben einzutragen. Heute sah ich die Spalten an und bekam kalte Finger. Eine Nachbarin meint, Beschäftigung helfe immer. Ich möchte zuerst das Fenster öffnen. Soll ich das Buch für eine Woche geschlossen lassen? Das ist keine Bitte um eine Diagnose. Ich frage nur, ob eine Pause in einem leeren Zimmer auch eine Entscheidung sein darf, die nicht sofort mit etwas Nützlichem gefüllt werden muss.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Lassen Sie das Buch eine Woche geschlossen.",
+        "folge_flag": "post_antwort_bhn_e_patientin_1_1",
+        "folge_brief": "post_bhn_e_patientin_2",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Ich möchte Ihnen weder Arbeit noch Pause vorgeben.",
+        "folge_flag": "post_antwort_bhn_e_patientin_1_2",
+        "folge_brief": null,
+        "abschluss_text": "Du gibst keinen Rat zum Thema „Eine entlassene Buchhalterin behält ihren Stuhl“. Die Briefreihe endet offen. Es werden weder ein Erfolg noch ein Scheitern und keine Beziehungseinbuße behauptet."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_bhn_e_patientin_2",
+    "absender": "bhn_e_patientin",
+    "stadt": "briarholt",
+    "kapitel": 6,
+    "reihe": "post_reihe_bhn_e_patientin",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_bhn_e_patientin",
+        "post_antwort_bhn_e_patientin_1_1"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "zeitanker": "post_bhn_e_patientin_1_beantwortet"
+    },
+    "betreff": "Heute steht er richtig",
+    "text": "Das Buch blieb eine Woche geschlossen. Heute habe ich eine Ausgabe eingetragen: einen Filzstreifen für das Stuhlbein. Der Stuhl wackelt nicht mehr. Mehr musste ich nicht rechnen. Ich schicke Ihnen ein Bild vom Fensterplatz. Darauf steht der zweite Stuhl noch schräg. Niemand soll denken, er sei für einen verpflichtenden Besuch vorbereitet. Wenn jemand kommt, rücke ich ihn hin. Wenn niemand kommt, bleibt er dort. Ihren Brief habe ich im Rechnungsbuch aufbewahrt, ohne ihm einen Wert zuzuteilen. Das ist ungewohnt. Vielleicht lerne ich gerade, dass nicht jede nützliche Sache eine Spalte braucht und nicht jede freie Spalte auf mich wartet.",
+    "beilage": {
+      "post_foto_6": 1
+    },
+    "antworten": [
+      {
+        "text": "Ihr freier Platz braucht keinen Eintrag.",
+        "folge_flag": "post_antwort_bhn_e_patientin_2_1",
+        "folge_brief": null,
+        "abschluss_text": "Du bestätigst den berichteten Abschluss und bewahrst die Briefe auf."
+      },
+      {
+        "text": "Danke. Ich möchte diesen Austausch nun beenden.",
+        "folge_flag": "post_antwort_bhn_e_patientin_2_2",
+        "folge_brief": null,
+        "abschluss_text": "Du beendest den Austausch. Der bereits berichtete Ausgang bleibt bestehen."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_bhn_e_lehrer_1",
+    "absender": "bhn_e_lehrer",
+    "stadt": "briarholt",
+    "kapitel": 6,
+    "reihe": "post_reihe_bhn_e_lehrer",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_bhn_e_lehrer"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_6"
+    },
+    "betreff": "Das Heft bleibt namenlos",
+    "text": "Nach vierzig Jahren frage ich noch zu selten, ob jemand unterrichtet werden möchte. Gestern erklärte ich einem Kurgast seine eigene Rechnung, bevor er mich überhaupt ansah. Er legte das Blatt weg. Ich wollte helfen und machte aus seinem Frühstück eine Prüfung. Im neuen Rechenheft stehen keine Schülernamen. Das ist ein Anfang, aber vielleicht nur ein ordentlicher Umschlag für dieselbe Gewohnheit. Soll ich vor jeder Erklärung ausdrücklich fragen? Schreiben Sie ruhig ja. Ich werde darin keine Benotung Ihrer Höflichkeit suchen. Die schwerste Übung im Ruhestand scheint mir zu sein, eine richtige Lösung bei mir zu behalten, bis jemand nach ihr verlangt.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Fragen Sie vor jeder Erklärung ausdrücklich.",
+        "folge_flag": "post_antwort_bhn_e_lehrer_1_1",
+        "folge_brief": "post_bhn_e_lehrer_2",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Treffen Sie diese Entscheidung ohne meinen Rat.",
+        "folge_flag": "post_antwort_bhn_e_lehrer_1_2",
+        "folge_brief": null,
+        "abschluss_text": "Du gibst keinen Rat zum Thema „Ein Unterricht ohne fremde Namen“. Die Briefreihe endet offen. Es werden weder ein Erfolg noch ein Scheitern und keine Beziehungseinbuße behauptet."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_bhn_e_lehrer_2",
+    "absender": "bhn_e_lehrer",
+    "stadt": "briarholt",
+    "kapitel": 6,
+    "reihe": "post_reihe_bhn_e_lehrer",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_bhn_e_lehrer",
+        "post_antwort_bhn_e_lehrer_1_1"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "zeitanker": "post_bhn_e_lehrer_1_beantwortet"
+    },
+    "betreff": "Eine Aufgabe wird gestrichen",
+    "text": "Ich habe gefragt. Der Kurgast sagte nein. Danach frühstückten wir eine Weile, und ich erklärte ihm nichts. Später fragte er nach einer Summe. Wir rechneten sie gemeinsam aus, ohne ein Heft zu öffnen. Im Heft habe ich eine Aufgabe gestrichen, die niemand bestellt hatte. Die Seite ist dadurch weniger voll und der Tag nicht weniger brauchbar geworden. Ich lege ein kleines Lesestück bei: drei Fragen, mit denen man vor einer Erklärung um Erlaubnis bitten kann. Sie müssen es nicht studieren. Vielleicht genügt Ihnen, dass ich es selbst gelesen habe, bevor ich Ihnen wieder einen ungebetenen Unterricht in den Umschlag stecke.",
+    "beilage": {
+      "post_fragen_vor_der_erklaerung": 1
+    },
+    "antworten": [
+      {
+        "text": "Behalten Sie auch ein Nein als gültige Antwort.",
+        "folge_flag": "post_antwort_bhn_e_lehrer_2_1",
+        "folge_brief": null,
+        "abschluss_text": "Du bestätigst den berichteten Abschluss und bewahrst die Briefe auf."
+      },
+      {
+        "text": "Danke. Ich möchte diesen Austausch nun beenden.",
+        "folge_flag": "post_antwort_bhn_e_lehrer_2_2",
+        "folge_brief": null,
+        "abschluss_text": "Du beendest den Austausch. Der bereits berichtete Ausgang bleibt bestehen."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_bh_orla_fencrest_1",
+    "absender": "bh_orla_fencrest",
+    "stadt": "briarholt",
+    "kapitel": 6,
+    "reihe": "post_reihe_bh_orla_fencrest",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_bh_orla_fencrest"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_6"
+    },
+    "betreff": "Eine Frage pro Blatt",
+    "text": "Stellen Sie Fragen einzeln. Ich versuche dasselbe mit meinen Antworten. Auf meiner Besuchsliste stehen drei Namen, die andere für mich eingetragen haben. Man meint es gut und erwartet, dass ich mich freue. Ich möchte einen davon heute nicht sehen. Das sagt nichts über morgen und nichts über die ganze Person. Soll ich nur den heutigen Besuch absagen, ohne einen langen Grund beizulegen? Die Leute behandeln eine kurze Absage gern wie eine unvollständige Erklärung. Ich habe vollständige Erklärungen gehört, die mir weniger Luft ließen als dieser eine leere Nachmittag. Ihren Rat lese ich selbst. Er muss nicht erst durch eine andere Hand gehen.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Sagen Sie nur den heutigen Besuch ab.",
+        "folge_flag": "post_antwort_bh_orla_fencrest_1_1",
+        "folge_brief": "post_bh_orla_fencrest_2",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Über Ihren Besuch entscheiden nur Sie, auch ohne meinen Rat.",
+        "folge_flag": "post_antwort_bh_orla_fencrest_1_2",
+        "folge_brief": null,
+        "abschluss_text": "Du gibst keinen Rat zum Thema „Eine Besuchsliste bleibt freiwillig“. Die Briefreihe endet offen. Es werden weder ein Erfolg noch ein Scheitern und keine Beziehungseinbuße behauptet."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_bh_orla_fencrest_2",
+    "absender": "bh_orla_fencrest",
+    "stadt": "briarholt",
+    "kapitel": 6,
+    "reihe": "post_reihe_bh_orla_fencrest",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_bh_orla_fencrest",
+        "post_antwort_bh_orla_fencrest_1_1"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "zeitanker": "post_bh_orla_fencrest_1_beantwortet"
+    },
+    "betreff": "Der Besuch wurde abgesagt",
+    "text": "Der Besuch ist für heute abgesagt. Kein Grund wurde nachgetragen. Zuerst wollte ich ständig zur Tür sehen. Später ging ich zum Fenster und blieb dort, weil mir das Licht gefiel. Das ist keine Nachricht über meine ganze Zukunft. Es ist ein Nachmittag, den ich nicht weiter begründen musste. Die Liste liegt jetzt bei mir. Morgen kann ich etwas anderes entscheiden. Bitte schreiben Sie daraus keinen Erfolg für jemanden, der mich früher übergangen hat. Ihre Antwort war hilfreich, weil sie mir nichts abnahm. Ich möchte genau diesen Unterschied behalten, auch wenn der nächste Umschlag wieder freundlich erklärt, was angeblich am besten für mich wäre.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Die Liste soll bei Ihnen bleiben.",
+        "folge_flag": "post_antwort_bh_orla_fencrest_2_1",
+        "folge_brief": null,
+        "abschluss_text": "Du bestätigst den berichteten Abschluss und bewahrst die Briefe auf."
+      },
+      {
+        "text": "Danke. Ich möchte diesen Austausch nun beenden.",
+        "folge_flag": "post_antwort_bh_orla_fencrest_2_2",
+        "folge_brief": null,
+        "abschluss_text": "Du beendest den Austausch. Der bereits berichtete Ausgang bleibt bestehen."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_bh_henshall_1",
+    "absender": "bh_henshall",
+    "stadt": "briarholt",
+    "kapitel": 6,
+    "reihe": "post_reihe_bh_henshall",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_bh_henshall"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_6"
+    },
+    "betreff": "Der Ton ist geblieben",
+    "text": "Ich kenne den Ton Ihrer Stimme noch. Die Worte dazu kommen nicht alle wieder. Am Pavillon spielte jemand eine Melodie, die mir vertraut war. Als ich das sagte, wollte man sofort wissen, woher. Ich wusste es nicht und hörte danach nur noch auf die Frage. Vielleicht könnte ich beim nächsten Mal einfach zuhören, ohne meine Erinnerung vorzuführen. Soll ich das den anderen vorher sagen? Bitte schicken Sie keinen Titel, den ich mir merken soll. Ein richtiger Titel würde die Unsicherheit nur ordentlich beschriften. Ich möchte wissen dürfen, dass mir etwas vertraut ist, ohne daraus einen Beleg über mein früheres Leben herstellen zu müssen.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Bitten Sie darum, einfach zuhören zu dürfen.",
+        "folge_flag": "post_antwort_bh_henshall_1_1",
+        "folge_brief": "post_bh_henshall_2",
+        "abschluss_text": "Dein Rat wird als Antwort versandt. Ein späterer Brief berichtet über den nächsten Schritt."
+      },
+      {
+        "text": "Sie brauchen für das Zuhören keine Empfehlung von mir.",
+        "folge_flag": "post_antwort_bh_henshall_1_2",
+        "folge_brief": null,
+        "abschluss_text": "Du gibst keinen Rat zum Thema „Eine Melodie ohne Gedächtnisprüfung“. Die Briefreihe endet offen. Es werden weder ein Erfolg noch ein Scheitern und keine Beziehungseinbuße behauptet."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_bh_henshall_2",
+    "absender": "bh_henshall",
+    "stadt": "briarholt",
+    "kapitel": 6,
+    "reihe": "post_reihe_bh_henshall",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "post_kontakt_bh_henshall",
+        "post_antwort_bh_henshall_1_1"
+      ],
+      "tage_nach": 1,
+      "beziehung_min": 0,
+      "zeitanker": "post_bh_henshall_1_beantwortet"
+    },
+    "betreff": "Ein Lied ohne Verhör",
+    "text": "Ich habe darum gebeten, nicht gefragt zu werden. Die Melodie wurde gespielt, und niemand hielt danach eine Antwort von mir auf. Ein Stück davon blieb bis zum Abend. Ich summte es beim Schließen des Fensters. Ob es genau stimmte, weiß ich nicht. Es musste auch niemand prüfen. Ihre Nachricht lag auf dem Tisch. Ich erkannte die Handschrift nicht sofort, aber den ersten Satz konnte ich lesen, ohne mich dabei zu verteidigen. Das war genug für diesen Tag. Wenn Sie wieder schreiben, dürfen gewöhnliche Dinge darin stehen: Wetter, eine Mahlzeit, ein unbequemer Stuhl. Nicht jeder Brief muss etwas Verlorenes zurückbringen, um willkommen zu sein.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Ich schreibe Ihnen auch von gewöhnlichen Dingen.",
+        "folge_flag": "post_antwort_bh_henshall_2_1",
+        "folge_brief": null,
+        "abschluss_text": "Du bestätigst den berichteten Abschluss und bewahrst die Briefe auf."
+      },
+      {
+        "text": "Danke. Ich möchte diesen Austausch nun beenden.",
+        "folge_flag": "post_antwort_bh_henshall_2_2",
+        "folge_brief": null,
+        "abschluss_text": "Du beendest den Austausch. Der bereits berichtete Ausgang bleibt bestehen."
+      }
+    ],
+    "koop": "Der Brief gilt der angeschriebenen Person. Du darfst ihn deinem Gegenüber zeigen; antworten darf nur die angeschriebene Person."
+  },
+  {
+    "id": "post_ohne_absender_1",
+    "absender": null,
+    "stadt": "kettlegate",
+    "kapitel": 2,
+    "reihe": "post_reihe_ohne_absender",
+    "ausloeser": {
+      "requires_flags": [
+        "k2_arrived"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_2"
+    },
+    "betreff": "Der Umschlag kennt Sie",
+    "text": "Sie haben diesen Brief nicht bestellt. Das Feld für den Absender ist leer, doch die Anschrift kennt Ihren Namen. Unter dem gegenwärtigen Ziel steht ein älterer Abdruck, so schwach, dass sich nur einzelne Striche erkennen lassen. Das Papier hat ein Wasserzeichen: einen Stern. Es ist keine neue Anklage. Die Zeilen über Ihre Fälle wurden nicht noch einmal abgeschrieben. Stattdessen findet sich unten der Satz: Die Zustellung ging weiter. Bewahren Sie den Umschlag auf, wenn Sie seine Strecke prüfen wollen. Antworten können Sie am Schalter hinterlegen. Es ist kein Empfänger angegeben, und niemand kann Ihnen versprechen, wer eine solche Antwort später liest.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Ich bewahre den Umschlag für den Vergleich auf.",
+        "folge_flag": "post_antwort_ohne_absender_1_1",
+        "folge_brief": null,
+        "abschluss_text": "Du vermerkst den Vergleich im Notizbuch. Die weitere Zustellung bleibt unabhängig von deiner Antwort."
+      },
+      {
+        "text": "Ich möchte diesen Durchschlag nicht weiter untersuchen.",
+        "folge_flag": "post_antwort_ohne_absender_1_2",
+        "folge_brief": null,
+        "abschluss_text": "Du legst den Durchschlag ungedeutet ab. Eine persönliche Zustimmung erteilst du damit nicht."
+      }
+    ],
+    "koop": "Ihr erhaltet diese Nachricht gemeinsam. Eine Antwort wird erst nach eurer gemeinsamen Bestätigung versandt."
+  },
+  {
+    "id": "post_ohne_absender_2",
+    "absender": null,
+    "stadt": "kettlegate",
+    "kapitel": 3,
+    "reihe": "post_reihe_ohne_absender",
+    "ausloeser": {
+      "requires_flags": [
+        "k3_arrived"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_3"
+    },
+    "betreff": "Ein Abdruck ohne Antwort",
+    "text": "Sie müssen auf den vorigen Brief nicht geantwortet haben, damit dieser ankommt. Die Zustellung folgt Ihrer Reise, nicht Ihrer Einwilligung. Im Papier liegt derselbe Stern, diesmal schwächer. Unter dem Abdruck Ihrer Anschrift zeichnet sich eine längere Zeile ab. Noch ist sie nicht lesbar. An der Falte bleibt ein kalter, körniger Belag zurück. Wenn Sie ihn berühren, werden die Fingerspitzen steif, bis das Papier wieder liegt. Daraus folgt kein Auftrag, etwas einzunehmen oder ein fremdes Siegel zu öffnen. Legen Sie beide Umschläge nebeneinander. Die zweite Falte setzt die erste fort. Jemand hat eine alte Sendung nicht abgeschlossen, sondern weitergeleitet.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Ich vermerke die fortgesetzte Falte.",
+        "folge_flag": "post_antwort_ohne_absender_2_1",
+        "folge_brief": null,
+        "abschluss_text": "Du vermerkst den Vergleich im Notizbuch. Die weitere Zustellung bleibt unabhängig von deiner Antwort."
+      },
+      {
+        "text": "Ich möchte diesen Durchschlag nicht weiter untersuchen.",
+        "folge_flag": "post_antwort_ohne_absender_2_2",
+        "folge_brief": null,
+        "abschluss_text": "Du legst den Durchschlag ungedeutet ab. Eine persönliche Zustimmung erteilst du damit nicht."
+      }
+    ],
+    "koop": "Ihr erhaltet diese Nachricht gemeinsam. Eine Antwort wird erst nach eurer gemeinsamen Bestätigung versandt."
+  },
+  {
+    "id": "post_ohne_absender_3",
+    "absender": null,
+    "stadt": "kettlegate",
+    "kapitel": 4,
+    "reihe": "post_reihe_ohne_absender",
+    "ausloeser": {
+      "requires_flags": [
+        "k4_arrived"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_4"
+    },
+    "betreff": "Die Fasern halten Salz",
+    "text": "Das dritte Blatt trägt keine neue Anschuldigung. Es enthält die Abschrift eines Zustellvermerks: Name übernommen, Sendung fortgesetzt. Die anschließende Ortszeile bleibt durchgestrichen, doch am Ende sind mehrere Buchstaben von Varrowmouth erkennbar. Das ist ein Hinweis auf einen Weg, keine Erklärung seines Zwecks. Den Belag müssen Sie nicht kosten. Am Rand ist sichtbar Salz ausgetrocknet. Wenn Sie eine Notiz machen, unterscheiden Sie den lesbaren Vermerk von Ihrer Vermutung. Der Stern im Papier verbindet die Sendung mit Fall 9. Er beweist noch nicht, wer an der Küste Ihren Namen lesen wollte oder welche Verwendung dort auf ihn wartete.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Ich trenne den Befund von meiner Vermutung.",
+        "folge_flag": "post_antwort_ohne_absender_3_1",
+        "folge_brief": null,
+        "abschluss_text": "Du vermerkst den Vergleich im Notizbuch. Die weitere Zustellung bleibt unabhängig von deiner Antwort."
+      },
+      {
+        "text": "Ich möchte diesen Durchschlag nicht weiter untersuchen.",
+        "folge_flag": "post_antwort_ohne_absender_3_2",
+        "folge_brief": null,
+        "abschluss_text": "Du legst den Durchschlag ungedeutet ab. Eine persönliche Zustimmung erteilst du damit nicht."
+      }
+    ],
+    "koop": "Ihr erhaltet diese Nachricht gemeinsam. Eine Antwort wird erst nach eurer gemeinsamen Bestätigung versandt."
+  },
+  {
+    "id": "post_ohne_absender_4",
+    "absender": null,
+    "stadt": "kettlegate",
+    "kapitel": 5,
+    "reihe": "post_reihe_ohne_absender",
+    "ausloeser": {
+      "requires_flags": [
+        "k5_arrived"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_5"
+    },
+    "betreff": "Die Anschrift wandert weiter",
+    "text": "Die Anschrift endet jetzt lesbar in Varrowmouth. Unter Ihrem Namen steht kein Beruf, keine Schuld und kein Auftrag. Nur übernommen. Der Absender bleibt leer. Ein Durchdruck zeigt dieselbe Wortfolge, die auf dem früheren Blatt teilweise verdeckt war. Die Sendung hat also einen Namen getragen, nicht bloß Nachrichten über eine Person. Ob Ihre bisherigen Antworten aufbewahrt oder verworfen wurden, sagt dieses Blatt nicht. Es verlangt keine weitere Unterschrift. Sie können die Umschläge am Ziel vergleichen lassen. Erwarten Sie von ihrer Ankunft keine Erlaubnis zum Eintritt. Ein Name kann irgendwo angekommen sein, lange bevor der Mensch dort gefragt wurde, ob er bleiben möchte.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Ich prüfe die Anschrift erst am Ziel.",
+        "folge_flag": "post_antwort_ohne_absender_4_1",
+        "folge_brief": null,
+        "abschluss_text": "Du vermerkst den Vergleich im Notizbuch. Die weitere Zustellung bleibt unabhängig von deiner Antwort."
+      },
+      {
+        "text": "Ich möchte diesen Durchschlag nicht weiter untersuchen.",
+        "folge_flag": "post_antwort_ohne_absender_4_2",
+        "folge_brief": null,
+        "abschluss_text": "Du legst den Durchschlag ungedeutet ab. Eine persönliche Zustimmung erteilst du damit nicht."
+      }
+    ],
+    "koop": "Ihr erhaltet diese Nachricht gemeinsam. Eine Antwort wird erst nach eurer gemeinsamen Bestätigung versandt."
+  },
+  {
+    "id": "post_ohne_absender_5",
+    "absender": null,
+    "stadt": "kettlegate",
+    "kapitel": 6,
+    "reihe": "post_reihe_ohne_absender",
+    "ausloeser": {
+      "requires_flags": [
+        "k6_arrived",
+        "k6_akt4_done"
+      ],
+      "tage_nach": 0,
+      "beziehung_min": 0,
+      "zeitanker": "post_ankunft_6"
+    },
+    "betreff": "Ihr Name kam zuerst",
+    "text": "Sie kennen nun das Register und wissen, dass die Pegelherrin selbst die Namen trägt. Dieser letzte Zustellvermerk erklärt die Verbindung: Der Brief aus Kettlegate, der in Fall 9 Ihren Namen führte, wurde nach Varrowmouth weitergeleitet. Dort genügte der übermittelte Name für den Eintrag. Ihre späteren Antworten waren weder Zustimmung noch Ursache. Die wiederkehrenden Blätter sind Durchschläge dieses Zustellwegs, keine Briefe eines heimlichen Freundes. Unter dem Stern steht abschließend: Übertragung belegt. Über Ihr Ende entscheidet das nicht. Der Vermerk gibt Ihnen nur einen prüfbaren Zusammenhang zurück. Was mit dem Register geschieht, müssen Sie mit dem Wissen aus der Stadt entscheiden, nicht auf Befehl eines Umschlags.",
+    "beilage": {},
+    "antworten": [
+      {
+        "text": "Ich lege den Zustellweg zu meinen Belegen.",
+        "folge_flag": "post_antwort_ohne_absender_5_1",
+        "folge_brief": null,
+        "abschluss_text": "Du vermerkst den Vergleich im Notizbuch. Die weitere Zustellung bleibt unabhängig von deiner Antwort."
+      },
+      {
+        "text": "Ich möchte diesen Durchschlag nicht weiter untersuchen.",
+        "folge_flag": "post_antwort_ohne_absender_5_2",
+        "folge_brief": null,
+        "abschluss_text": "Du legst den Durchschlag ungedeutet ab. Eine persönliche Zustimmung erteilst du damit nicht."
+      }
+    ],
+    "koop": "Ihr erhaltet diese Nachricht gemeinsam. Eine Antwort wird erst nach eurer gemeinsamen Bestätigung versandt."
+  }
+]
