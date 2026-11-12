@@ -14,8 +14,8 @@ const STORY_ZONES = { wx_torfbrueche: 'moorbraut', ds_rangierwueste: 'schwellenh
 /** Feste Zufallsfolge für reproduzierbare Würfe. */
 const seq = (...values) => { let i = 0; return () => values[i++ % values.length]; };
 
-test('dreizehn Gefahrengebiete (fünf in Wexmoor, vier in Dunscar) mit Karte, Reiseziel, vielen Gegnern und einem Boss', () => {
-  assert.deepEqual(ZONES, ['marsch', 'katakomben', 'pestgassen', 'kraterwald', 'wx_vergessmoor', 'wx_leuchtturm', 'wx_salzwatt', 'wx_altstadt', 'wx_torfbrueche', 'ds_rangierwueste', 'ds_klopfbruch', 'ds_rufschlucht', 'ds_unterschicht']);
+test('vierzehn Gefahrengebiete (fünf in Wexmoor, fünf in Dunscar) mit Karte, Reiseziel, vielen Gegnern und einem Boss', () => {
+  assert.deepEqual(ZONES, ['marsch', 'katakomben', 'pestgassen', 'kraterwald', 'wx_vergessmoor', 'wx_leuchtturm', 'wx_salzwatt', 'wx_altstadt', 'wx_torfbrueche', 'ds_rangierwueste', 'ds_klopfbruch', 'ds_rufschlucht', 'ds_unterschicht', 'ds_schlackengrube']);
   for (const zid of ZONES) {
     const map = content.maps[zid];
     assert.ok(map, zid);

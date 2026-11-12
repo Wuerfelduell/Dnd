@@ -12,8 +12,8 @@ const pub = (url) => new URL(`../public/${url.replace(/^\.?\//, '')}`, import.me
 const sprite = (p) => new URL(`../public/sprites/${p}`, import.meta.url);
 const DS_MAPS = Object.keys(content.maps).filter((id) => id.startsWith('ds_'));
 
-test('Kapitel 3: 18 Dunscarer Karten, eigene Stadtkarte mit Pins und Markern', () => {
-  assert.equal(DS_MAPS.length, 18);
+test('Kapitel 3: 19 Dunscarer Karten, eigene Stadtkarte mit Pins und Markern', () => {
+  assert.equal(DS_MAPS.length, 19);
   const city = content.travelRules.cities.dunscar;
   assert.ok(city, 'Stadt Dunscar');
   assert.ok(existsSync(sprite(city.map_image)) && existsSync(sprite(city.fog_image)));
@@ -77,7 +77,7 @@ test('Balance Kapitel 3: mit Sequenz 5 schaffen sehr Geübte jeden Gegner, Elite
   for (const [id, e] of ch3) {
     if (id.startsWith('hg_schwellenwaechter') || e.benannt) continue; // DJ: benannte Gegner sind bewusst härter (ab Seq 6, selten) // Seq-4-Prüfung, eigener Maßstab in halbgott.test.js
     // Realistischer Build wie in Wexmoor: Pfad-Fertigkeit verkettet. Eliten ~60, Bosse 70–90 pro Zug (Seb), allein braucht es dafür Seq 4
-    const { result, combat } = fight(seq(e.boss || id.endsWith('_elite') ? 4 : 5), id, { defend: EXPERT, skill: 'wuchtschlag', chain: true, healBelow: 18 });
+    const { result, combat } = fight(seq(e.boss || e.elite || id.endsWith('_elite') ? 4 : 5), id, { defend: EXPERT, skill: 'wuchtschlag', chain: true, healBelow: 18 });
     assert.equal(result.outcome, 'won', `${id}: verloren in Runde ${combat.round}`);
   }
 });
