@@ -12,8 +12,8 @@ const pub = (url) => new URL(`../public/${url.replace(/^\.?\//, '')}`, import.me
 const sprite = (p) => new URL(`../public/sprites/${p}`, import.meta.url);
 const DS_MAPS = Object.keys(content.maps).filter((id) => id.startsWith('ds_'));
 
-test('Kapitel 3: 19 Dunscarer Karten, eigene Stadtkarte mit Pins und Markern', () => {
-  assert.equal(DS_MAPS.length, 19);
+test('Kapitel 3: 21 Dunscarer Karten, eigene Stadtkarte mit Pins und Markern', () => {
+  assert.equal(DS_MAPS.length, 21); // + Gasthaus und Kalkapotheke (dunscarAusbau.js)
   const city = content.travelRules.cities.dunscar;
   assert.ok(city, 'Stadt Dunscar');
   assert.ok(existsSync(sprite(city.map_image)) && existsSync(sprite(city.fog_image)));

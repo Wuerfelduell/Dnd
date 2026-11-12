@@ -18,6 +18,7 @@ import { applyAltbeute } from './altbeute.js';
 import { applyVorratStuecke } from './vorratStuecke.js';
 import { applyDunscarHaendler } from './dunscarHaendler.js';
 import { applyDunscarKulisse } from './dunscarKulisse.js';
+import { applyDunscarAusbau, applyDunscarStaende } from './dunscarAusbau.js';
 import { applyBenannte } from './benannte.js';
 import { applyDunscarSchlacke } from './dunscarSchlacke.js';
 import { applyHaendlerAbgleich } from './haendlerAbgleich.js';
@@ -114,7 +115,9 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyHaendlerAbgleich(content); // Händler aller Gebiete: Stärke und Preise je Gebiet, alte Stücke auch später
   applyZirkelAuftraege(content); // Dunscar: Zirkelmitglieder vergeben Aufträge (Monster, Polizisten)
   applyUebergaenge(content); // Kapitelübergänge: Abschied, Reise und Ankunft Kettlegate→Wexmoor→Dunscar
+  applyDunscarAusbau(content); // Dunscar: Gasthaus, Kalkapotheke, starke Heil-/Nerven-/Ruhemittel, möblierte Innenräume
   applyDunscarKulisse(content); // Dunscar: Ausgänge nach Himmelsrichtung mit Schild, Rückkehr an der passenden Tür, Requisiten je Viertel
+  applyDunscarStaende(content); // Dunscar: Marktstände mit Schild hinter den Händlern
   return content;
 }
 
