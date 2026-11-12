@@ -1,0 +1,157 @@
+[
+  {
+    "id": "k6_anreise_wahl",
+    "map": "bh_buegelraum",
+    "zeilen": [
+      "Du verlässt Briarholt mit einzeln beschrifteten Abschriften.",
+      "Niemand hat dir ein allgemeines Heilversprechen mitgegeben.",
+      "Die Küstenbahn trägt noch den Geruch warmer Erde.",
+      "Am letzten Bahnhof enden die Rückfahrkarten.",
+      "Du bestätigst die Weiterreise, bevor die Fähre ablegt.",
+      "Auf dem Wasser verlieren die Gleise ihren Lärm.",
+      "Im Nebel erscheint zuerst ein Zeiger, dann der Turm darum.",
+      "Die Pegeluhr steht nicht auf einer Uhrzeit, sondern auf Flut.",
+      "Tam Verrin nimmt die Leine ohne deinen Namen zu fragen.",
+      "„Den werden andere früh genug verlangen“, sagt sie."
+    ],
+    "interactable": {
+      "id": "k6_anreise_wahl_station",
+      "kind": "dialogue",
+      "dialogue": "k6_anreise_wahl",
+      "prompt": "Küstenbahn und Fähre"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "kapitel5_done",
+        "bha_end_wahl"
+      ],
+      "hide_if_flags": [
+        "k6_arrived"
+      ]
+    }
+  },
+  {
+    "id": "k6_anreise_winter",
+    "map": "bh_buegelraum",
+    "zeilen": [
+      "Die Kälte Briarholts steckt noch in deinem Mantel.",
+      "Hinter dir bleiben geräumte Räume und gewöhnliche Feuerstellen.",
+      "Die Küstenbahn fährt an Gärten ohne Licht vorbei.",
+      "Am Fähranleger wird deine Fahrkarte einbehalten.",
+      "Du bestätigst die Weiterreise ohne Rückfahrt.",
+      "Ein Matrose löst das Brett zwischen Zug und Schiff.",
+      "Im Nebel schlägt eine Glocke zweimal, dann bleibt es still.",
+      "Die Pegeluhr wächst über dem Zollhafen aus dem Grau.",
+      "Tam Verrin zeigt dir die obere Stufe des Stegs.",
+      "„Die untere gehört in einer Stunde dem Wasser.“"
+    ],
+    "interactable": {
+      "id": "k6_anreise_winter_station",
+      "kind": "dialogue",
+      "dialogue": "k6_anreise_winter",
+      "prompt": "Küstenbahn und Fähre"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "kapitel5_done",
+        "bha_end_winter"
+      ],
+      "hide_if_flags": [
+        "k6_arrived"
+      ]
+    }
+  },
+  {
+    "id": "k6_anreise_verwahrt",
+    "map": "bh_buegelraum",
+    "zeilen": [
+      "Die versiegelten Bestände bleiben in Briarholt.",
+      "Du trägst nur die Abschrift der Verwahrung bei dir.",
+      "In der Küstenbahn schlägt das Papier gegen das Fenster.",
+      "Am Anleger endet die Zuständigkeit der bisherigen Stadt.",
+      "Du bestätigst die einfache Fahrt nach Varrowmouth.",
+      "Die Fähre hat keine verschlossenen Abteile.",
+      "Trotzdem prüfst du zweimal, wo der Ausgang liegt.",
+      "Vor dem Hafen zeigt die Pegeluhr einen langsam steigenden Strich.",
+      "Tam Verrin sieht auf deine verschnürte Mappe.",
+      "„Hier hält man selbst leere Umschläge für einen Anfang.“"
+    ],
+    "interactable": {
+      "id": "k6_anreise_verwahrt_station",
+      "kind": "dialogue",
+      "dialogue": "k6_anreise_verwahrt",
+      "prompt": "Küstenbahn und Fähre"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "kapitel5_done",
+        "bha_end_verwahrt"
+      ],
+      "hide_if_flags": [
+        "k6_arrived"
+      ]
+    }
+  },
+  {
+    "id": "k6_anreise_schmerzlos",
+    "map": "bh_buegelraum",
+    "zeilen": [
+      "Briarholt bleibt still hinter dem Zug zurück.",
+      "Die Gleichmäßigkeit seiner Stimmen reist eine Weile mit dir.",
+      "An der Küste klappert eine lose Scheibe ganz ohne Takt.",
+      "Du merkst erst jetzt, wie sehr dir dieses Geräusch gefehlt hat.",
+      "Am Fähranleger bestätigst du die Weiterreise ohne Rückfahrt.",
+      "Ein Fahrgast verbessert seinen eigenen Namen auf dem Gepäckzettel.",
+      "Niemand beruhigt ihn deswegen.",
+      "Im Nebel zeigt die Pegeluhr eine Linie, die weitersteigt.",
+      "Tam Verrin hält den Steg mit dem Fuß fest.",
+      "„Vorsicht. Hier passen die Dinge selten zweimal.“"
+    ],
+    "interactable": {
+      "id": "k6_anreise_schmerzlos_station",
+      "kind": "dialogue",
+      "dialogue": "k6_anreise_schmerzlos",
+      "prompt": "Küstenbahn und Fähre"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "kapitel5_done",
+        "bha_end_schmerzlos"
+      ],
+      "hide_if_flags": [
+        "k6_arrived"
+      ]
+    }
+  },
+  {
+    "id": "k6_anreise_koop",
+    "map": "vm_zollhafen",
+    "zeilen": [
+      "Ihr habt beide die letzte Fahrt bestätigt.",
+      "Die Küstenbahn hat für euch zwei Plätze, die Fähre nur eine gemeinsame Bank.",
+      "Auf euren Gepäckzetteln stehen verschiedene Namen.",
+      "Am Zollanleger gibt es trotzdem nur eine Nummer.",
+      "Tam Verrin betrachtet erst den Zettel, dann eure Hände.",
+      "„Zwei Einträge“, sagt sie. „Eine Abfertigung ist keine einzelne Person.“",
+      "Die Pegeluhr schlägt über euch, ohne einen von euch vorzuziehen.",
+      "Ihr behaltet die beiden Zettel getrennt.",
+      "Später wird eine Schlusszeile nur eine Hand aufnehmen können.",
+      "Noch unterschreibt niemand für den anderen."
+    ],
+    "interactable": {
+      "id": "k6_anreise_koop_station",
+      "kind": "dialogue",
+      "dialogue": "k6_anreise_koop",
+      "prompt": "Zwei Einträge"
+    },
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived",
+        "koop_aktiv"
+      ],
+      "hide_if_flags": [
+        "k6_anreise_koop"
+      ]
+    }
+  }
+]
