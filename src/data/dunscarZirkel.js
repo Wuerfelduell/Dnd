@@ -15,6 +15,19 @@ export const DS_LOS = {
   formel: { 6: 640, 5: 900, 4: 4000, 3: 15000 }, // Seq 3 (Seb 2026-11-12): 1 % je Treffen, 15.000
   formel3Chance: 0.01,
   zutat5: { price: 320, chance: 0.45 },
+  formel4Chance: 0.3, // Seb 2026-11-12: Zirkel voller, Chancen spürbar höher (vorher 0,12)
+  formel65Chance: 0.3, // vorher 0,2
+};
+
+/**
+ * Gesuche der Dunscar-Zirkel (Seb 2026-11-12): die Leute kaufen die seltenen Dunscar-Wertstücke oft und teuer an,
+ * nie unter 1000 Schilling, damit man nach dem ersten Treffen weiß: das lohnt sich zu farmen.
+ */
+export const DS_GESUCHE = {
+  wants: ['ds_beute_signalsilber', 'ds_beute_schichtgold', 'ds_beute_kalkopal'],
+  request_chance: 0.95,
+  request_min: 1000,
+  request_markup: 1.8,
 };
 
 const art = (name, price, desc, boons, curses) => ({ name, source: 'treffen', price, weight: 1, desc, boons, curses });
@@ -82,17 +95,29 @@ export const DS_ZIRKEL = {
       dsz_brenner: npc('Jonas Brenn', 'Kalkbrenner', '#5a4a3a'),
       dsz_aschenleserin: npc('Ilse Aschgrund', 'Aschenleserin', '#4a3a5a'),
       dsz_loeschmeister: npc('Ruben Lösch', 'Löschmeister', '#3a4a3a'),
+      dsz_glasblaeserin: npc('Greta Glut', 'Glasbläserin', '#7a4a2a'),
+      dsz_schlackenwirt: npc('Hagen Schlack', 'Schlackenwirt', '#4a3a2a'),
+      dsz_kalkhexe: npc('Alma Kalk', 'Kalkhexe', '#5a5a4a'),
+      dsz_apotheker: npc('Doktor Fenwick Staub', 'Apotheker ohne Apotheke', '#3a3a4a'),
     },
     members: [
       { id: 'dsz_brenner', offers: [L('dsz_ofenhammer', 6500, 0.15, EINMAL), L('dsz_kalkherz', 3500, 0.25, EINMAL), L('dsz_herzwalze', 14000, 0.06, EINMAL)], wants: ['k3o_schichtknopf', 'k3o_stillkiesel'] },
       { id: 'dsz_aschenleserin', offers: [L('dsz_geisterlaterne', 1500, 0.5), L('dsz_spiegel', 10000, 0.07, EINMAL)], wants: ['k3o_schraubenzahn', 'k3o_schichtknopf'] },
       { id: 'dsz_loeschmeister', offers: [L('dsz_lohnbuch', 2800, 0.25, EINMAL), L('dsz_sanduhr', 12000, 0.06, EINMAL)], wants: ['k3o_stillkiesel', 'k3o_schraubenzahn'] },
+      { id: 'dsz_glasblaeserin', offers: [L('dsz_geisterlaterne', 1500, 0.5)] },
+      { id: 'dsz_schlackenwirt', offers: [] },
+      { id: 'dsz_kalkhexe', offers: [] },
+      { id: 'dsz_apotheker', offers: [L('dsz_geisterlaterne', 1500, 0.5)] },
     ],
     say: {
       dsz_ofenmutter: '„Der Ofen ist kalt, seit die Bank fiel“, sagt Selma. „Was hier brennt, brennt nicht für Kalk. Wer in Dunscar lebt, darf zusehen. Wer bieten will, bringt Tausender mit.“',
       dsz_brenner: 'Jonas wischt Ruß von einem Hammerkopf. „Alles hier hat einmal jemandem gehört, der es nicht hergeben wollte.“',
       dsz_aschenleserin: 'Ilse streut Asche auf ein Blech und liest darin. „Du suchst etwas, das es nicht geben dürfte. Gut. Ich habe es.“',
       dsz_loeschmeister: 'Ruben zählt Münzen in einen Eimer. „Ich lösche keine Feuer. Ich lösche Schulden.“',
+      dsz_glasblaeserin: 'Greta dreht eine Glaskugel in der Glut, die es nicht mehr gibt. „Bring mir Signalsilber, und ich zahle dir mehr, als die Bank je hatte.“',
+      dsz_schlackenwirt: 'Hagen schenkt etwas Graues in Becher. „Schichtgold. Wer welches hat, trinkt hier umsonst und geht reich.“',
+      dsz_kalkhexe: 'Alma kratzt mit dem Fingernagel Kalk von der Ofenwand. „Ein Kalkopal aus den unteren Stollen, und du kannst dir aussuchen, was auf dem Tisch liegt.“',
+      dsz_apotheker: 'Doktor Staub sortiert Fläschchen ohne Etikett. „Rezepte, Zutaten, Wertstücke. Ich kaufe alles, was die Gegner da draußen bei sich tragen.“',
     },
   },
   stellwerk: {
@@ -110,19 +135,43 @@ export const DS_ZIRKEL = {
       dsz_telegrafistin: npc('Mira Tackt', 'Telegrafistin', '#5a2a3a'),
       dsz_weichenwaerter: npc('Ansgar Weich', 'Weichenwärter', '#3a5a4a'),
       dsz_fundsammler: npc('Bertolt Fund', 'Sammler aus den Gleisen', '#4a4a3a'),
+      dsz_rangierer: npc('Kurt Rangier', 'Rangierer', '#3a3a5a'),
+      dsz_schrankenwaerterin: npc('Lene Schrank', 'Schrankenwärterin', '#5a3a4a'),
+      dsz_lampenputzer: npc('Otto Docht', 'Signallampenputzer', '#4a5a3a'),
+      dsz_fahrdienstleiterin: npc('Vera Takt', 'Fahrdienstleiterin', '#2a4a5a'),
     },
     members: [
       { id: 'dsz_telegrafistin', offers: [L('dsz_rohrpost', 2600, 0.3, EINMAL), L('dsz_weichenuhr', 4800, 0.2, EINMAL)], wants: ['k3o_schichtknopf', 'k3o_stillkiesel'] },
       { id: 'dsz_weichenwaerter', offers: [L('dsz_schienennagel', 5000, 0.2, EINMAL), L('dsz_signallinse', 3200, 0.25, EINMAL), L('dsz_augenamulett', 3800, 0.2, EINMAL)], wants: ['k3o_schraubenzahn', 'k3o_schichtknopf'] },
       { id: 'dsz_fundsammler', offers: [L('dsz_glasschluessel', 2200, 0.3, EINMAL), L('dsz_tresorscheibe', 9000, 0.07, EINMAL)], wants: ['k3o_stillkiesel', 'k3o_schraubenzahn'] },
+      { id: 'dsz_rangierer', offers: [L('dsz_geisterlaterne', 1500, 0.5)] },
+      { id: 'dsz_schrankenwaerterin', offers: [] },
+      { id: 'dsz_lampenputzer', offers: [L('dsz_geisterlaterne', 1500, 0.5)] },
+      { id: 'dsz_fahrdienstleiterin', offers: [] },
     ],
     say: {
       dsz_stellwerker: '„Hier wird nichts mehr gestellt“, sagt Corvin und legt die Hand auf einen Hebel. „Nur noch gehandelt. Wer in Dunscar angekommen ist, sitzt mit am Pult.“',
       dsz_telegrafistin: 'Mira tippt ohne Strom auf die Morsetaste. „Die Leitung ist tot. Antworten kommen trotzdem.“',
       dsz_weichenwaerter: 'Ansgar ölt einen Nagel, als wäre er eine Klinge. „Auf der falschen Weiche fährt man nur einmal.“',
       dsz_fundsammler: 'Bertolt kippt einen Sack Gleisschotter aus und sortiert mit spitzen Fingern. „Die Gleise geben alles zurück. Irgendwann.“',
+      dsz_rangierer: 'Kurt hat Öl bis zu den Ellbogen. „Signalsilber aus den Leitungen? Her damit. Ich zahle besser als jeder Pfandleiher.“',
+      dsz_schrankenwaerterin: 'Lene kurbelt an einer Schranke, die nirgends mehr hängt. „Schichtgold geht hier nicht durch, ohne dass ich es kaufe.“',
+      dsz_lampenputzer: 'Otto putzt ein rotes Glas, bis es glüht. „Wer aus den Gefahrengebieten kommt, hat meistens etwas für mich in der Tasche.“',
+      dsz_fahrdienstleiterin: 'Vera blättert in einem Fahrplan von vor zwanzig Jahren. „Jeder Zug hat seinen Preis. Kalkopal hat den höchsten.“',
     },
   },
+};
+
+/** Vier weitere Leute beim Schichtbund (Seb 2026-11-12: zu wenig Leute im Zirkel). */
+const SCHICHTBUND_LEUTE = {
+  dsz_sb_hauer: { ...npc('Hauer Mats Stollen', 'Hauer der Nachtschicht', '#4a4030'),
+    say: 'Mats klopft Kalk aus den Stiefeln. „Wer aus den Stollen Schichtgold mitbringt, kriegt hier mehr als in der Bank, die es nicht mehr gibt.“' },
+  dsz_sb_kassiererin: { ...npc('Kassiererin Ada Pfennig', 'Führt die Schichtkasse', '#5a4a2a'),
+    say: 'Ada schiebt Münzen zu ordentlichen Türmen. „Signalsilber, Schichtgold, Kalkopal. Die Kasse zahlt für alles, was rar ist.“' },
+  dsz_sb_heizer: { ...npc('Heizer Lutz Kohl', 'Heizer der letzten Lok', '#3a3030'),
+    say: 'Lutz wärmt sich die Hände an einem kalten Kessel. „Die Gegner da draußen tragen Silber in den Taschen. Bring es her.“' },
+  dsz_sb_vorarbeiterin: { ...npc('Vorarbeiterin Grete Hub', 'Teilt die Schichten ein', '#3a4a4a'),
+    say: 'Grete hakt Namen auf einer Tafel ab. „Wer viel bringt, sitzt vorn. Wer nichts bringt, schaut zu.“' },
 };
 
 /** Flickerin: bei jedem Dunscar-Treffen dabei, repariert korrumpierte Stücke (core/Corruption.js repairAt, 500). */
@@ -132,8 +181,9 @@ const FLICKERIN_DIALOG = { start: 'start', nodes: { start: {
   text: 'Eine Frau mit Kalkstaub im Haar sitzt auf einer Kiste, eine lange Nadel zwischen den Lippen. „Hanne Saum. Ich gehe von Treffen zu Treffen und flicke, was das Andere angefressen hat. Fünfhundert das Stück.“',
   choices: [{ text: 'Korrumpierte Stücke reparieren lassen.', repair: true }, { text: 'Auf Wiedersehen.' }] } } };
 
-/** Sitzplätze im Raum (Gastgeber oben, drei Mitglieder unten). */
-const SEATS = [[12, 4], [5, 7], [12, 8], [19, 7]];
+/** Sitzplätze im Raum (Gastgeber oben, sieben Mitglieder ringsum). */
+const SEATS = [[12, 4], [5, 7], [12, 8], [19, 7], [8, 5], [16, 5], [8, 10], [16, 10]];
+const SCHICHTBUND_SEATS = SEATS.slice(4);
 
 function room(id, z) {
   return {
@@ -178,12 +228,17 @@ export function dunscarZirkelPack() {
   let dlg = {};
   for (const [id, z] of Object.entries(DS_ZIRKEL)) {
     circles[id] = { name: z.name, member_flag: 'k3_arrived', map: `treffen_${id}`, short: z.short, city: 'dunscar', invite: z.invite, host: z.host,
-      members: z.members.map((m) => ({ id: m.id, offers: m.offers.map((o) => ({ ...o })), wants: ['k3o_schichtknopf', 'k3o_stillkiesel'] })) };
+      members: z.members.map((m) => ({ id: m.id, offers: m.offers.map((o) => ({ ...o })), wants: [...DS_GESUCHE.wants] })) };
     pins[`treffen_${id}`] = z.pin;
     travel.push({ map: `treffen_${id}`, spawn: 'default', name: z.name, desc: `${z.desc} Nur während eines offenen Treffens.`, requires_gathering: id, requires_flags: ['k3_arrived'], city: 'dunscar' });
     maps.push(room(id, z));
     npcs = { ...npcs, ...Object.fromEntries(Object.entries(z.npcs).map(([n, d]) => [n, { ...d, dialogue: n }])) };
     dlg = { ...dlg, ...dialogues(id, z) };
+  }
+  for (const [n, { say, ...d }] of Object.entries(SCHICHTBUND_LEUTE)) {
+    npcs[n] = { ...d, dialogue: n };
+    dlg[n] = { start: 'start', nodes: { start: { text: say, choices: [
+      { text: 'Die Angebote der Runde ansehen.', auction: 'schichtbund', requires_gathering: 'schichtbund' }, { text: 'Auf Wiedersehen.' }] } } };
   }
   npcs[FLICKERIN] = { ...npc('Flickerin Hanne Saum', 'Repariert Korrumpiertes, jedes Treffen', '#3a5a5a'), dialogue: FLICKERIN };
   dlg[FLICKERIN] = FLICKERIN_DIALOG;
@@ -198,7 +253,7 @@ export function dunscarZirkelPack() {
 }
 
 /** Alle Figuren der neuen Zirkel (für Lauf-Sheets in assets.js). */
-export const DS_ZIRKEL_FIGUREN = [...Object.values(DS_ZIRKEL).flatMap((z) => Object.keys(z.npcs)), 'dsz_flickerin'];
+export const DS_ZIRKEL_FIGUREN = [...Object.values(DS_ZIRKEL).flatMap((z) => Object.keys(z.npcs)), ...Object.keys(SCHICHTBUND_LEUTE), 'dsz_flickerin'];
 /** Alle neuen Gegenstände mit eigenem Bild. */
 export const DS_ZIRKEL_ICONS = [...Object.keys(DS_ARTEFAKTE), ...Object.keys(DS_ITEMS)];
 
@@ -219,12 +274,18 @@ export function applyDunscarZirkel(content) {
   // Die Flickerin sitzt auch beim Schichtbund
   const bundMap = content.maps[circles.schichtbund?.map];
   if (bundMap && !bundMap.npcs.some((n) => n.id === FLICKERIN)) bundMap.npcs = [...bundMap.npcs, { id: FLICKERIN, tile: FLICKERIN_PLATZ }];
+  // Vier weitere Leute beim Schichtbund (Angebote werden unten neu verteilt)
+  if (circles.schichtbund && !circles.schichtbund.members.some((m) => m.id in SCHICHTBUND_LEUTE)) {
+    const neu = Object.keys(SCHICHTBUND_LEUTE);
+    circles.schichtbund = { ...circles.schichtbund, members: [...circles.schichtbund.members, ...neu.map((id) => ({ id, offers: [], wants: [] }))] };
+    if (bundMap) bundMap.npcs = [...bundMap.npcs, ...neu.map((id, i) => ({ id, tile: SCHICHTBUND_SEATS[i] }))];
+  }
   const pids = Object.keys(content.pathways ?? {});
   const has = (id) => !!content.items[id];
   const seat = (cid, i) => circles[cid].members[i % circles[cid].members.length];
   // Halbgott-Formel (Seq 4): nur auf Treffen oder als Elite-Fund, nie bei Pfad-Beyondern. Seq-5-Zutaten dazu.
   pids.filter((p) => has(`formel_${p}_4`)).forEach((p, i) => seat('kalkofen', i).offers.push(
-    L(`formel_${p}_4`, DS_LOS.formel[4], 0.12, { once: true, requires_pathway: [p, 5], locked_text: 'Erst ab Sequenz 5 dieses Pfades' })));
+    L(`formel_${p}_4`, DS_LOS.formel[4], DS_LOS.formel4Chance, { once: true, requires_pathway: [p, 5], locked_text: 'Erst ab Sequenz 5 dieses Pfades' })));
   // Kernzutat der Formel 5 (die erste Zutat, z. B. Lichtperle oder sq_zutat_waage_5)
   const kern5 = (p) => Object.keys(content.items[`formel_${p}_5`]?.ingredients ?? {})[0];
   pids.filter((p) => kern5(p) && has(kern5(p))).forEach((p, i) => seat('kalkofen', i + 1).offers.push(
@@ -233,7 +294,7 @@ export function applyDunscarZirkel(content) {
   const bund = new Set((circles.schichtbund?.members ?? []).flatMap((m) => m.offers.map((o) => o.item)));
   pids.filter((p) => !bund.has(`formel_${p}_5`)).forEach((p, i) => {
     for (const s of [6, 5]) {
-      if (has(`formel_${p}_${s}`)) seat('stellwerk', i).offers.push(L(`formel_${p}_${s}`, DS_LOS.formel[s], 0.2, { once: true, requires_pathway: [p, s + 1], locked_text: `Erst ab Sequenz ${s + 1} dieses Pfades` }));
+      if (has(`formel_${p}_${s}`)) seat('stellwerk', i).offers.push(L(`formel_${p}_${s}`, DS_LOS.formel[s], DS_LOS.formel65Chance, { once: true, requires_pathway: [p, s + 1], locked_text: `Erst ab Sequenz ${s + 1} dieses Pfades` }));
     }
   });
   // Schichtbund: billiges raus, seltenes rein
@@ -246,5 +307,15 @@ export function applyDunscarZirkel(content) {
   for (const c of Object.values(circles)) {
     if (c.city !== 'dunscar') continue;
     for (const m of c.members) m.offers = m.offers.filter((o) => content.items[o.item] && !(content.items[o.item].kind === 'formula' && content.items[o.item].seq <= 2));
+  }
+  // Seb 2026-11-12: Jedes Mitglied legt pro Runde genau ein Los auf. Darum alle Lose eines Dunscar-Zirkels gleichmäßig
+  // auf alle Leute verteilen (häufige zuerst, damit jeder etwas Gängiges hat). Mehr Leute = mehr Lose je Runde,
+  // kleinere Töpfe je Person = bessere Chance für jedes einzelne Stück. Alle kaufen Dunscar-Wertstücke teuer an.
+  for (const [cid, c] of Object.entries(circles)) {
+    if (c.city !== 'dunscar') continue;
+    const all = c.members.flatMap((m) => m.offers).sort((x, y) => (y.chance ?? 1) - (x.chance ?? 1));
+    const members = c.members.map((m) => ({ ...m, offers: [], wants: [...DS_GESUCHE.wants] }));
+    all.forEach((o, i) => members[i % members.length].offers.push(o));
+    circles[cid] = { ...c, members, request_chance: DS_GESUCHE.request_chance, request_min: DS_GESUCHE.request_min, request_markup: DS_GESUCHE.request_markup };
   }
 }
