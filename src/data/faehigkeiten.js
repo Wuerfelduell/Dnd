@@ -3,7 +3,8 @@
  * - `kampf`: eine zweite Kampffertigkeit neben der bestehenden (`skill`), eher Tempo, Schutz und Kniffe als rohe Wucht.
  *   Landet als `skill2` an der Sequenz und läuft über dieselbe Kampflogik (Combat.js, Fertigkeitenmenü).
  * - `welt`: eine Fähigkeit außerhalb des Kampfes (Erkundung, Ermittlung, Handel, Reisen), eingesetzt im Pfad-Tab (Talents.js).
- *   Landet als `talent` an der Sequenz. Kosten: Nerven und Unruhe, danach Abklingzeit in Sekunden Spielzeit.
+ *   Landet als `talent` an der Sequenz. Optional `welt_50`: ersetzt sie, sobald die Sequenz zur Hälfte verdaut ist
+ *   (Schlüssel Seq 5: Schattengestalt statt Jede Tür). Kosten: Nerven und Unruhe, danach Abklingzeit in Sekunden Spielzeit.
  *
  * Beides gilt nur für erreichte Sequenzen. Ohne Daten (alte Tests) ändert sich nichts.
  */
@@ -16,6 +17,7 @@ export function faehigkeitenIds(data) {
     for (const sd of Object.values(seqs)) {
       if (sd?.kampf?.id) out.kampf.push(sd.kampf.id);
       if (sd?.welt?.id) out.welt.push(sd.welt.id);
+      if (sd?.welt_50?.id) out.welt.push(sd.welt_50.id);
     }
   }
   return out;
@@ -35,6 +37,7 @@ export function withFaehigkeiten(pathways, data) {
         ...seqs[n],
         ...(extra.kampf ? { skill2: { ...extra.kampf } } : {}),
         ...(extra.welt ? { talent: { ...extra.welt } } : {}),
+        ...(extra.welt_50 ? { talent_50: { ...extra.welt_50 } } : {}), // ersetzt `talent` ab 50 % Verdauung dieser Sequenz
       };
     }
     out[pid] = { ...p, seqs };

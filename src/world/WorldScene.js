@@ -1337,6 +1337,8 @@ export class WorldScene extends Phaser.Scene {
     const blocked = this.ui.isBlocking() || this.leaving;
     if (!blocked) this.state.tick(delta / 1000);
     this.updateMovement(blocked);
+    // Schlüssel Seq 5: die Schattengestalt ist durchscheinend
+    this.playerSprites().forEach((q, i) => q.setAlpha(this.state.inShadow?.(i + 1) ? 0.4 : 1));
     const frozen = !!this.hg?.freezesWorld(); // Laternennacht: nur ihre eigenen Wesen bewegen sich
     this.roamers.update(time, delta, blocked || this.leaving || frozen);
     this.patrols.update(time, delta, blocked || this.leaving || frozen);

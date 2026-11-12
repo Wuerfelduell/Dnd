@@ -145,10 +145,10 @@ export class Roamers {
       if (!r.alive) continue;
       const b = r.body.body;
       if (blocked) { b.setVelocity(0, 0); this.sync(r, time); continue; }
-      const p = s.nearestPlayer?.(r.body.x, r.body.y) ?? s.player; // zu zweit: wer näher ist
-      const dx = p.x - r.body.x;
-      const dy = (p.y - 3) - r.body.y;
-      const d = Math.hypot(dx, dy);
+      const p = this.visiblePlayer(r.body.x, r.body.y); // zu zweit: wer näher ist; die Schattengestalt sieht keiner
+      const dx = p ? p.x - r.body.x : 0;
+      const dy = p ? (p.y - 3) - r.body.y : 0;
+      const d = p ? Math.hypot(dx, dy) : Infinity;
       const roam = r.roam;
       const aggro = (roam.aggro ?? 72) * (r.elite ? 1.15 : 1) * (s.state.spiritVision ? 1.25 : 1);
       const home = Math.hypot(r.body.x - r.home.x, r.body.y - r.home.y);
@@ -196,6 +196,19 @@ export class Roamers {
       r.lastPos = { x: r.body.x, y: r.body.y };
       this.sync(r, time);
     }
+  }
+
+  /** Nächster Spieler, den Gegner sehen können (Schlüssel Seq 5: Schattengestalt macht unsichtbar), oder null. */
+  visiblePlayer(x, y) {
+    const s = this.scene;
+    let best = null;
+    let bd = Infinity;
+    (s.playerSprites?.() ?? [s.player]).forEach((q, i) => {
+      if (s.state.inShadow?.(i + 1)) return;
+      const d = Math.hypot(q.x - x, q.y - y);
+      if (d < bd) { bd = d; best = q; }
+    });
+    return best;
   }
 
   /** Paket BN: gehörte Lauscher suchen am Ende der Ruflinie, nicht beim Spieler. */
