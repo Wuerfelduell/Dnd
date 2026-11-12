@@ -2480,6 +2480,7 @@ export const BE_MAP_MARKERS = { treffen_schichtbund: [BE_SCHICHTBUND_URL, 72, 16
 // Kalter Ofen und Stummes Stellwerk (weitere Dunscar-Zirkel) tragen dasselbe Treffen-Zeichen
 BE_MAP_MARKERS.treffen_kalkofen = BE_MAP_MARKERS.treffen_schichtbund;
 BE_MAP_MARKERS.treffen_stellwerk = BE_MAP_MARKERS.treffen_schichtbund;
+BE_MAP_MARKERS.treffen_salzds = BE_MAP_MARKERS.treffen_schichtbund;
 /** Drei Werkstätten der Händler als ganze Props. */
 for (const id of ['BE_troedelstand', 'BE_steinmetzwerkbank', 'BE_schaltbuden_theke', 'BE_lichtkegel']) {
   WHOLE_PROPS[id] = `props/${id}.png`;
