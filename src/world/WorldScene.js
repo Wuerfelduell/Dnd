@@ -9,7 +9,7 @@ import { DunscarLife, preloadDunscarLife } from './DunscarLife.js';
 import { KettlegateLife, preloadKettlegateLife } from './KettlegateLife.js';
 import { KoopLife } from './Koop.js';
 import { SektenLife } from './SektenLife.js';
-import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, facadeAtNight, buildingFacades, WX2_TILE_ANIMS, PROP_ORIGINS, MAP_WEATHER, DISGUISE_SHEETS, pathwayArt, P2_LOOKS, skinKeyOf , leseSceneOf, BH_THEME_KEYS, CW_THEME_KEYS } from './assets.js';
+import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, facadeAtNight, buildingFacades, WX2_TILE_ANIMS, PROP_ORIGINS, MAP_WEATHER, DISGUISE_SHEETS, pathwayArt, P2_LOOKS, skinKeyOf , leseSceneOf, BH_THEME_KEYS, CW_THEME_KEYS, HG_PATHS, HG_FURCHT } from './assets.js';
 import { Roamers } from './Roamers.js';
 import { Critters } from './Critters.js';
 import { Patrols } from './Patrols.js';
@@ -1002,11 +1002,12 @@ export class WorldScene extends Phaser.Scene {
     // Lauf-Animationen für den Mantel und jede Verkleidung (Paket R), Schlüssel <sheet>-walk-<dir>
     // Paket AH: dazu die beiden Figuren von Spieler 2 mit ihren Verkleidungen
     const worn = Object.keys(DISGUISE_SHEETS);
-    for (const key of ['player', ...Object.keys(P2_LOOKS)].flatMap((b) => [b, ...worn.map((w) => skinKeyOf(b, w))])) {
+    // Paket CO: die zehn Kreaturformen (32x48) laufen mit demselben Schlüsselschema, etwas langsamer (6 fps)
+    for (const key of [...['player', ...Object.keys(P2_LOOKS)].flatMap((b) => [b, ...worn.map((w) => skinKeyOf(b, w))]), ...HG_PATHS.map((p) => `hg_form_${p}`)]) {
       if (!this.textures.exists(key)) continue;
       DIRS.forEach((dir, row) => {
         if (this.anims.exists(`${key}-walk-${dir}`)) return;
-        this.anims.create({ key: `${key}-walk-${dir}`, frames: this.anims.generateFrameNumbers(key, { start: row * 4, end: row * 4 + 3 }), frameRate: 8, repeat: -1 });
+        this.anims.create({ key: `${key}-walk-${dir}`, frames: this.anims.generateFrameNumbers(key, { start: row * 4, end: row * 4 + 3 }), frameRate: key.startsWith('hg_form_') ? 6 : 8, repeat: -1 });
       });
     }
     this.playerKey = this.skinKey();
@@ -1179,7 +1180,7 @@ export class WorldScene extends Phaser.Scene {
       s.on('signal_alarm_end', () => this.roamers?.alarmEnd()),
       s.on('signal_lock', () => this.roamers?.alarmEnd()),
       s.on('quest', refresh),
-      s.on('ascend', ({ pathway, player, ascension }) => { this.playDrinkFx(pathway, player); if (ascension) this.playAscension(ascension, player); }),
+      s.on('ascend', ({ pathway, player, ascension, seq }) => { this.playDrinkFx(pathway, player, seq); if (ascension) this.playAscension(ascension, player); }),
       s.on('form', () => this.updateForm()),
       s.on('unruhe', () => this.updateCracks()),
       s.on('party', () => { if (s.hasP2()) this.spawnP2(); else this.despawnP2(); }),
@@ -1293,12 +1294,29 @@ export class WorldScene extends Phaser.Scene {
 
   /** Sheet der Spielerfigur: getragene Verkleidung (falls ihr Sheet geladen ist), sonst der Mantel. */
   skinKey() {
+    const form = this.formKey(1);
+    if (form) return form;
     const key = skinKeyOf('player', this.state.disguise?.());
     return this.textures.exists(key) ? key : 'player';
   }
 
+  /** Paket CO: Sheet der Kreaturform (hg_form_<pfad>), wenn dieser Spieler seine Gestalt trägt und das Sheet geladen ist; sonst null. */
+  formKey(n) {
+    const pid = this.state.withPlayer(n, () => (this.state.formActive?.() ? this.state.pathway?.id : null), { quiet: true });
+    const key = pid && `hg_form_${pid}`;
+    return key && this.textures.exists(key) ? key : null;
+  }
+
+  /** Kollisionskörper je nach Sheetgröße: Figuren 16x32, Kreaturformen 32x48 (Fußpunkt bleibt derselbe). */
+  fitBody(sprite, key) {
+    if (key.startsWith('hg_form_')) sprite.body.setSize(10, 6).setOffset(11, 42);
+    else sprite.body.setSize(10, 6).setOffset(3, 26);
+  }
+
   /** Paket AH: Sheet von Spieler 2 (gewählte Figur, ggf. verkleidet); ohne Sheet der getönte Ermittler. */
   p2SkinKey() {
+    const form = this.formKey(2);
+    if (form) return form;
     const look = this.state.p2Look?.();
     if (!look || !this.textures.exists(look)) return 'player';
     const key = skinKeyOf(look, this.state.withPlayer(2, () => this.state.disguise?.(), { quiet: true }));
@@ -1322,10 +1340,11 @@ export class WorldScene extends Phaser.Scene {
     } else this.tap?.cancel();
     const skin = this.skinKey();
     if (skin !== this.playerKey) { // Verkleidung an- oder abgelegt
-      this.sfx(worldSound('disguise'));
+      if (!skin.startsWith('hg_form_') && !this.playerKey.startsWith('hg_form_')) this.sfx(worldSound('disguise'));
       this.playerKey = skin;
       this.player.anims.stop();
       this.player.setTexture(skin, DIRS.indexOf(this.facing) * 4);
+      this.fitBody(this.player, skin);
     }
     const v = new Phaser.Math.Vector2(vx, vy).normalize().scale(PLAYER_SPEED * (this.state.isOverloaded() ? OVERLOAD_SPEED : 1));
     this.player.setVelocity(v.x, v.y);
@@ -1338,6 +1357,7 @@ export class WorldScene extends Phaser.Scene {
       this.player.setFrame(DIRS.indexOf(this.facing) * 4);
     }
     this.player.setDepth(100 + this.player.y);
+    if (this.formAura?.follow) this.formAura.setPosition(this.formAura.follow.x, this.formAura.follow.y + 1).setDepth(this.formAura.follow.depth - 1);
     this.gearOverlay?.sync();
     if (this.aura) {
       this.aura.setPosition(this.player.x, this.player.y + 2);
@@ -1391,6 +1411,7 @@ export class WorldScene extends Phaser.Scene {
       this.p2Key = skin;
       p.anims.stop();
       p.setTexture(skin, DIRS.indexOf(this.p2Facing) * 4);
+      this.fitBody(p, skin);
       if (skin === 'player') p.setTint(P2_TINT); else p.clearTint();
     }
     if (this.p2Busy) {
@@ -1411,16 +1432,19 @@ export class WorldScene extends Phaser.Scene {
   // --- Paket A: Trank, Kessel, Aura, Kontrollrisse --------------------------------------
 
   /** Trinkanimation und Aufstiegs-Funken (nach erfolgreichem Trank). */
-  playDrinkFx(pathway, player = 1) {
+  playDrinkFx(pathway, player = 1, seq = null) {
     const p = player === 2 && this.p2 ? this.p2 : this.player;
+    // Paket CO: eigene Trink-Sheets für die großen Tränke (Sequenz 4 = halbgott, 2 = engel)
+    const big = seq === 4 ? 'halbgott' : seq === 2 ? 'engel' : null;
     if (p === this.player) {
       const done = () => { this.playerBusy = false; p.setTexture(this.playerKey, DIRS.indexOf(this.facing) * 4); this.updateAura(); };
-      if (playSheetAnim(p, 'player_drink', 'drink', done)) this.playerBusy = true;
+      if ((big && playSheetAnim(p, `player_drink_${big}`, 'drink', done)) || playSheetAnim(p, 'player_drink', 'drink', done)) this.playerBusy = true;
       else this.updateAura();
     } else if (this.p2Key !== 'player') {
       // Paket AH: Spieler 2 trinkt mit seiner eigenen Figur
       const done = () => { this.p2Busy = false; p.setTexture(this.p2Key, DIRS.indexOf(this.p2Facing ?? 'down') * 4); };
-      if (playSheetAnim(p, `${this.state.p2Look()}_drink`, 'drink', done)) this.p2Busy = true;
+      const look = this.state.p2Look();
+      if ((big && playSheetAnim(p, `${look}_drink_${big}`, 'drink', done)) || playSheetAnim(p, `${look}_drink`, 'drink', done)) this.p2Busy = true;
     }
     if (!this.textures.exists('potion_ascend')) return;
     const fx = this.add.sprite(p.x, p.y - 12, 'potion_ascend').setDepth(p.depth + 1).setBlendMode(Phaser.BlendModes.ADD);
@@ -1439,6 +1463,12 @@ export class WorldScene extends Phaser.Scene {
     if (!who) return;
     const cam = this.cameras.main;
     const color = Number.parseInt((asc.color ?? '#e8c070').slice(1), 16);
+    // Paket CO: das Aufstiegs-Vollbild (240x135, acht Frames) liegt bildschirmfüllend hinter der Lichtflut der Oberfläche
+    const sheet = `HG_aufstieg_${asc.seq}`;
+    if (this.textures.exists(sheet)) {
+      const full = this.add.sprite(VIEW_W / 2, VIEW_H / 2, sheet, 0).setScrollFactor(0).setDepth(DEPTH.vision + 2).setScale(VIEW_W / 240).setAlpha(0.92);
+      if (!playSheetAnim(full, sheet, 'ascend', () => this.tweens.add({ targets: full, alpha: 0, duration: 700, onComplete: () => full.destroy() }))) full.destroy();
+    }
     cam.flash(900, 255, 255, 255);
     cam.shake(1200, 0.006);
     const zoom0 = cam.zoom;
@@ -1461,9 +1491,25 @@ export class WorldScene extends Phaser.Scene {
     const who = this.state.acting === 2 && this.p2 ? this.p2 : this.player;
     if (!who) return;
     const color = this.state.content.pathways[this.state.pathway?.id]?.color;
+    const own = !!this.formKey(who === this.p2 ? 2 : 1); // Paket CO: echtes Formen-Sheet statt vergrößerter Figur
+    if (active !== !!this.formWas && this.textures.exists('HG_kreatur_wechsel')) {
+      const fx = this.add.sprite(who.x, who.y - 16, 'HG_kreatur_wechsel', 0).setDepth(who.depth + 2);
+      if (!playSheetAnim(fx, 'HG_kreatur_wechsel', active ? 'transform' : 'revert', () => fx.destroy())) fx.destroy();
+    }
+    this.formWas = active;
+    this.formAura?.destroy();
+    this.formAura = null;
+    if (active && own) {
+      const auraKey = (this.state.pathway?.seq ?? 4) <= 2 ? 'HG_aura_engel' : 'HG_aura_halbgott';
+      if (this.textures.exists(auraKey)) {
+        this.formAura = this.add.sprite(who.x, who.y, auraKey, 0).setOrigin(0.5, 1).setDepth(who.depth - 1).setBlendMode(Phaser.BlendModes.ADD).setAlpha(0.8);
+        this.formAura.follow = who;
+        if (!playSheetAnim(this.formAura, auraKey, 'loop')) { this.formAura.destroy(); this.formAura = null; }
+      }
+    }
     if (active) {
-      who.setScale(1.3);
-      if (color) who.setTint(Number.parseInt(color.slice(1), 16));
+      who.setScale(own ? 1 : 1.3);
+      if (color && !own) who.setTint(Number.parseInt(color.slice(1), 16));
       if (!this.formLight) {
         // Das Licht bleibt an der Figur, solange die Gestalt steht (active fragt den Spielstand)
         this.lighting?.add({ follow: { get x() { return who.x; }, get y() { return who.y - 12; } }, radius: 80, intensity: 0.9, color: color ? Number.parseInt(color.slice(1), 16) : 0xffd98a, glowAlpha: 0.4, flicker: 0.12, active: () => !!this.state.formActive?.() });
@@ -1796,7 +1842,20 @@ export class WorldScene extends Phaser.Scene {
       c.outcome = 'won';
       const result = c.finish({ deferLoot: !!roamer, noLoot });
       this.cameras.main.flash(250, 255, 240, 200);
-      this.ui.toast?.(`${c.enc.name} bricht vor deiner Gestalt zusammen.`, 'good');
+      // Paket CP/CO: Reaktion nach Klasse (Bürger, Polizei, Händler, Tiere, schwache Beyonder) mit Furcht-Zeichen und Umfallen
+      const fear = this.state.formFearReaction?.(id);
+      this.ui.toast?.(fear?.text ? `${c.enc.name}: ${fear.text}` : `${c.enc.name} bricht vor deiner Gestalt zusammen.`, 'good');
+      if (roamer?.body) {
+        const { x, y } = roamer.body;
+        if (this.textures.exists('HG_furcht')) {
+          const mark = this.add.image(x, y - 24, 'HG_furcht', HG_FURCHT[fear?.wirkung === 'fliehen' ? 'schreck' : 'ohnmacht'] ?? 5).setDepth(100 + y + 40);
+          this.tweens.add({ targets: mark, y: y - 34, alpha: 0, duration: 1100, onComplete: () => mark.destroy() });
+        }
+        if (fear?.wirkung === 'umfallen' && this.textures.exists('HG_umfallen')) {
+          const fall = this.add.sprite(x, y + 8, 'HG_umfallen', 0).setOrigin(0.5, 1).setDepth(100 + y + 8);
+          if (!playSheetAnim(fall, 'HG_umfallen', 'loop', () => this.tweens.add({ targets: fall, alpha: 0, delay: 1500, duration: 600, onComplete: () => fall.destroy() }))) fall.destroy();
+        }
+      }
       if (roamer) this.roamers.afterCombat(roamer, result);
       this.refreshVisibility();
       if (result.travel) this.travelTo(result.travel.map, result.travel.spawn);

@@ -1965,3 +1965,10 @@ Eigenes Haus: acht PNG-Atlanten, 40 Möbel mit Ofenanimation/Welkzustand, 32 Bos
 - Prüfung: `python tools/art/halbgott/check.py` (Pillow). Kontrolliert das vollständige Sollinventar, Maße, gemeinsame Palette, Alpha, Raster, Animationen, Baselines und exakte HUD-Verdopplung.
 
 Erzeugt mit dem eingebauten Bildgenerator, anschließend Nearest Neighbor und Palette-/Alpha-Bereinigung. Grafiklieferung ohne Spielcodeänderung; CP und der spätere Einbau übernehmen Ritual- und Kampfregeln.
+
+## Vorrat ohne Spiel-IDs — Future 200 und Reserve 200 (2026-11-12)
+
+Zwei Codex-Zips mit freien Motiven, keine Zuordnung zu Figuren oder Gegenständen des Spiels. Nur abgelegt, nichts registriert.
+- `public/sprites/future200/` mit `public/sprites/manifest-future200.json`: 120 Icons 32×32, 40 Porträts 64×64, 40 Bodentexturen 16×16 (Beschreibung und Prompts in `docs/art/vorrat/`). Die 256-px-Quellbilder liegen nicht im Repo.
+- `public/sprites/items/reserve200/<kategorie>/` mit `public/sprites/manifest-reserve200.json`: 200 Icons 64×64 in zehn Kategorien; Vorschau `docs/art/vorrat/reserve200-vorschau.html` (erwartet den Ordner `icons/` daneben).
+- Eine dritte Zip (Nebelakten_200_Icons, 96 MB) kommt über den Laptop-Ordner und wird getrennt gesichtet.

@@ -445,6 +445,27 @@ const runde8 = runde8Packs({
   feste_leben: { quests: r8_feste_leben_quests, items: r8_feste_leben_items, encounters: r8_feste_leben_encounters, dialogues: r8_feste_leben_dialogues, npcs: r8_feste_leben_npcs, case: r8_feste_leben_case, dialog_zusaetze: r8_feste_leben_dialog_zusaetze, platzierung: r8_feste_leben_platzierung, feste: r8_feste_leben_feste, artefakte: r8_feste_leben_artefakte, zeitung: r8_feste_leben_zeitung, geplauder: r8_feste_leben_geplauder, texte: r8_feste_leben_texte, kalender: r8_feste_leben_kalender, kalender_uebergaenge: r8_feste_leben_kalender_uebergaenge, wirkungen: r8_feste_leben_wirkungen, wirkungen_platzierung: r8_feste_leben_wirkungen_platzierung },
   kg_leben: { quests: r8_kg_leben_quests, items: r8_kg_leben_items, encounters: r8_kg_leben_encounters, dialogues: r8_kg_leben_dialogues, npcs: r8_kg_leben_npcs, case: r8_kg_leben_case, dialog_zusaetze: r8_kg_leben_dialog_zusaetze, platzierung: r8_kg_leben_platzierung, einwohner: r8_kg_leben_einwohner, leben: r8_kg_leben_leben, gerede: r8_kg_leben_gerede, zeitung: r8_kg_leben_zeitung, geplauder: r8_kg_leben_geplauder, streifen: r8_kg_leben_streifen },
 });
+import { fasserinAuftragPack, halbgottPack } from './runde9.js';
+import fa_oda from './packs/fasserin_auftrag/oda.json';
+import fa_gastgeber from './packs/fasserin_auftrag/gastgeber.json';
+import fa_texte from './packs/fasserin_auftrag/texte.json';
+import fa_artefakte from './packs/fasserin_auftrag/artefakte.json';
+import fa_gerede from './packs/fasserin_auftrag/gerede.json';
+import fa_zeitung from './packs/fasserin_auftrag/zeitung.json';
+import fa_lesestuecke from './packs/fasserin_auftrag/lesestuecke.json';
+import hg_trinktexte from './packs/halbgott/trinktexte.json';
+import hg_kreaturform from './packs/halbgott/kreaturform.json';
+import hg_furcht from './packs/halbgott/furcht.json';
+import hg_rituale from './packs/halbgott/rituale.json';
+import hg_encounters from './packs/halbgott/encounters.json';
+import hg_bestiarium from './packs/halbgott/bestiarium.json';
+import hg_zeitung from './packs/halbgott/zeitung.json';
+import hg_gerede from './packs/halbgott/gerede.json';
+import hg_lesestuecke from './packs/halbgott/lesestuecke.json';
+import hg_koop from './packs/halbgott/koop.json';
+/** Codex-Runde 9: CR Fasserin-Aufträge (20 fa_*-Artefakte) und CP Halbgott/Engel-Texte. */
+const fasserinAuftrag = fasserinAuftragPack({ oda: fa_oda, gastgeber: fa_gastgeber, texte: fa_texte, artefakte: fa_artefakte, gerede: fa_gerede, zeitung: fa_zeitung, lesestuecke: fa_lesestuecke });
+const halbgott = halbgottPack({ trinktexte: hg_trinktexte, kreaturform: hg_kreaturform, furcht: hg_furcht, rituale: hg_rituale, encounters: hg_encounters, bestiarium: hg_bestiarium, zeitung: hg_zeitung, gerede: hg_gerede, lesestuecke: hg_lesestuecke, koop: hg_koop });
 const fasserinPack = { name: 'fasserin', rezepte: bo_rezepte.recipes, artifacts: bo_rezepte.artifacts, fasserin_texte: bo_texte, gerede: bo_gerede, zeitung: bo_zeitung };
 /** Paket AL: vier Wexmoorer Akten. */
 const k2Akten = { name: 'k2_akten', quests: k2a_quests, items: k2a_items, encounters: k2a_encounters, dialogues: k2a_dialogues, npcs: k2a_npcs, case: k2a_case, dialog_zusaetze: k2a_dialog_zusaetze, platzierung: k2a_platzierung, faelle: k2a_faelle, zeitung: k2a_zeitung };
@@ -482,7 +503,7 @@ export const content = buildContent({
   gatherings,
   city,
   wexmoor,
-  packs: [k1Finale, kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen, k3Handel, k3Leben, koopK3, koopBeute, k3Ruf, beziehungenPack, fasserinPack, festePack, sektenPack, ...runde8],
+  packs: [k1Finale, kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen, k3Handel, k3Leben, koopK3, koopBeute, k3Ruf, beziehungenPack, fasserinPack, fasserinAuftrag, halbgott, festePack, sektenPack, ...runde8],
   lore: { bestiarium: lore_bestiarium, gerede: lore_gerede, item_texte: lore_item_texte, lesestuecke: lore_lesestuecke, zeitungen: lore_zeitungen },
   beziehungen,
   sequenzen: { neue_pfade: sq_neue_pfade, seq_4_bis_1: sq_seq_4_bis_1, zutaten: sq_zutaten, artefakte: sq_artefakte, rituale: k3p_rituale, faehigkeiten: sq_faehigkeiten },

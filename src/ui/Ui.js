@@ -1989,7 +1989,8 @@ export class Ui {
       const socket = uiSprite('ladder', !reached ? (n === cur.seq - 1 ? 'empty' : 'locked') : n === cur.seq && s.unruhe >= 60 ? 'cracked' : 'unlocked', 1 / 12, 'socket');
       if (!reached) return `<li class="seq locked">${socket}<strong>Sequenz ${n}: ${esc(sd.name)}</strong> <span class="muted">noch nicht erreicht${sd.skill2 || sd.talent ? ` · bringt ${[sd.skill.name, sd.skill2?.name, sd.talent?.name].filter(Boolean).map(esc).join(', ')}` : ''}</span></li>`;
       const talent = sd.talent ? this.talentRowHtml(s, sd.talent) : '';
-      return `<li class="seq${sd.durchbruch ? ' durchbruch' : ''}">${socket}<strong>Sequenz ${n}: ${esc(sd.name)}</strong> ${sd.durchbruch ? `<span class="badge halbgott">${esc(sd.durchbruch)}</span>` : ''}${n === cur.seq ? '<span class="badge likely">aktuell</span>' : ''}<br>
+      const hgScene = (n === 4 || n === 2) && n === cur.seq ? sceneImg(`hg_seq${n}_${cur.id}`) : ''; // Paket CO: Sequenzbild der großen Stufen
+      return `<li class="seq${sd.durchbruch ? ' durchbruch' : ''}">${socket}<strong>Sequenz ${n}: ${esc(sd.name)}</strong> ${sd.durchbruch ? `<span class="badge halbgott">${esc(sd.durchbruch)}</span>` : ''}${n === cur.seq ? '<span class="badge likely">aktuell</span>' : ''}${hgScene}<br>
         <span class="desc">${esc(sd.desc)}</span><br>
         ${skillIcon(sd.skill.id) || '⚔ '}<strong>${esc(sd.skill.name)}</strong> <span class="muted">(${sd.skill.cost} K${s.skillComposureCost({ ...sd.skill, seq: n }) ? ` · ${s.skillComposureCost({ ...sd.skill, seq: n })} Nerven` : ''})</span> ${esc(sd.skill.desc)}
         ${sd.skill2 ? `<br>${skillIcon(sd.skill2.id) || '⚔ '}<strong>${esc(sd.skill2.name)}</strong> <span class="muted">(${sd.skill2.cost} K${s.skillComposureCost({ ...sd.skill2, seq: n }) ? ` · ${s.skillComposureCost({ ...sd.skill2, seq: n })} Nerven` : ''})</span> ${esc(sd.skill2.desc)}` : ''}
@@ -2039,7 +2040,10 @@ export class Ui {
     if (!s.pathway || s.pathway.seq > FORM_SEQ) return '';
     const active = s.formActive();
     const block = active ? null : s.formBlock();
-    return `<div class="gestalt ${active ? 'active' : ''}"><h4>Mythische Gestalt ${active ? '<span class="badge halbgott">angenommen</span>' : ''}</h4>
+    const form = s.formDef?.();
+    const hud = uiSprite('hghud32', active ? 'form_an' : block ? 'verdauung_gesperrt' : 'form_aus', 1 / 10, 'hgicon');
+    const cp = form?.beschreibung ? `<p class="desc"><strong>${esc(form.name)}.</strong> ${esc(form.beschreibung)}${form.karte ? ` <span class="muted">${esc(form.karte)}</span>` : ''}</p>` : '';
+    return `<div class="gestalt ${active ? 'active' : ''}"><h4>${hud}Mythische Gestalt ${active ? '<span class="badge halbgott">angenommen</span>' : ''}</h4>${cp}
       <p class="muted">${active
         ? `Menschen ohne Pfad und Wesen, die deutlich unter dir stehen, brechen beim Anblick zusammen (Sieg samt Beute, ohne Kampf). Kostet ${FORM_NERVES_PER_SEC} Nerven und ${FORM_UNRUHE_PER_SEC} Unruhe je Sekunde; fällt ab, wenn die Nerven unter ${FORM_MIN_NERVES} sinken. Bosse und höhere Wesen bleiben.`
         : `Ab ${FORM_MIN_DIGEST} % Verdauung auf Sequenz ${FORM_SEQ}: die wahre Gestalt des Pfades. Nicht-Beyonder und schwächere Monster fallen vor ihr um. Zehrt an Nerven und Unruhe.`}</p>
@@ -2056,9 +2060,12 @@ export class Ui {
     if (s.ritualDone(s.pathway.id, seq)) return `<div class="ritual done"><h4>Ritual: ${esc(r.name)} <span class="badge likely">vollzogen</span></h4><p class="muted">Du kannst den Trank der Sequenz ${seq} trinken.</p></div>`;
     const steps = s.ritualSteps();
     const ready = steps.every((x) => x.done || x.ordeal);
-    return `<div class="ritual"><h4>Ritual für Sequenz ${seq}: ${esc(r.name)}</h4>
+    // Paket CP: die persönliche Probe der schweren Rituale (4 und 2) mit ihren drei Vorbereitungen als Überlieferung
+    const cp = s.content.halbgott?.rituale?.[`hg_ritual_${s.pathway.id}_${seq}`];
+    const cpHtml = cp ? `<p class="desc"><strong>${esc(cp.name)}.</strong> ${esc(cp.desc)}</p>${cp.vorbereitung?.length ? `<ul class="steps muted">${cp.vorbereitung.map((v) => `<li>✎ ${esc(v)}</li>`).join('')}</ul>` : ''}` : '';
+    return `<div class="ritual"><h4>${r.ordeal ? uiSprite('hghud', s.ordealDone(s.pathway.id, seq) ? 'ritual_bestanden' : 'ritual_offen', 1 / 6, 'hgicon') : ''}Ritual für Sequenz ${seq}: ${esc(r.name)}</h4>
       <p><strong>Überall ausführbar.</strong> Die genannten Orte sind Teil der Überlieferung und keine Voraussetzung.</p>
-      <p class="desc">${esc(r.desc)}</p>
+      <p class="desc">${esc(r.desc)}</p>${cpHtml}
       <ul class="steps">${steps.map((x) => `<li class="${x.done ? 'done' : ''}">${x.done ? '✓' : '○'} ${esc(x.text)}</li>`).join('')}</ul>
       <button class="small ${ready ? 'primary' : ''}" data-ritual="1" ${ready ? '' : 'disabled'}>${ready && r.ordeal && !s.ordealDone(s.pathway.id, seq) ? 'Schwellenwächter rufen' : 'Ritual vollziehen'}</button> <span class="muted">Kostet 20 Nerven und bringt 20 Unruhe.${r.ordeal ? ' Ein schweres Ritual: Wenn alles andere steht, tritt der Schwellenwächter deines Pfades an.' : ''}</span></div>`;
   }
@@ -2308,17 +2315,27 @@ export class Ui {
     } else if (a.phase === 'artisan') {
       const recipes = s.artisanRecipes(a.circle, a.cycle);
       const pct = (c) => `${Math.round(c * 100)} %`;
+      // Paket CQ/CR: Chancenmarke (Zehnerstufe) neben dem exakten Wert, Rückgabe bei Fehlschlag, Odas Zeile am Stück, Zirkelmarke
+      const chanceIcon = (c) => uiSprite('cqchance', String(Math.min(80, Math.max(40, Math.floor(c * 10) * 10))), 1 / 6, 'cqicon', pct(c));
+      const stateIcon = (st) => uiSprite('cqauftrag', st, 1 / 6, 'cqicon', s.faTexte?.()?.texte?.auftragskarte?.zustand?.[st] ?? st);
+      const zirkelIcon = (id) => uiSprite('cqzirkel', id, 1 / 6, 'cqicon', s.gatheringDef(id)?.name ?? id);
+      const erst = s.artisanDef()?.erfolg?.erstattung ?? 0.5;
       const rows = recipes.map((r) => {
         const c = s.recipeCheck(r);
         const it = s.item(c.artifact);
         const needs = c.needs.map((x) => `<span class="${x.have >= x.n ? 'got' : 'lack'}">${itemIcon(x.item)}${esc(s.item(x.item)?.name ?? x.item)} ${x.have}/${x.n}</span>`).join(' · ');
-        return `<li class="recipe ${c.ok ? 'ready' : ''}">${itemIconBig(c.artifact)}<strong>${esc(it?.name ?? c.artifact)}</strong> <span class="muted">Lohn ${c.fee} Sch. · gelingt zu ${pct(c.chance)}</span>${artifactEffectsHtml(it ?? {})}<span class="needs">Aus: ${needs}</span></li>`;
+        const oda = it?.oda ? `<br><span class="muted">„${esc(it.oda)}“</span>` : '';
+        return `<li class="recipe ${c.ok ? 'ready' : ''}">${itemIconBig(c.artifact)}<strong>${esc(it?.name ?? c.artifact)}</strong> <span class="muted">Lohn ${c.fee} Sch. · ${chanceIcon(c.chance)}gelingt zu ${pct(c.chance)} · Rückgabe ${Math.floor(c.fee * erst)} Sch.</span>${artifactEffectsHtml(it ?? {})}<span class="needs">Aus: ${needs}</span>${oda}</li>`;
       }).join('');
       const pending = s.pendingOrders();
-      const pendingHtml = pending.length ? `<p class="lead muted">In Arbeit: ${pending.map((o) => `${esc(s.item(o.artifact)?.name ?? o.artifact)} (${esc(s.gatheringDef(o.circle)?.name ?? o.circle)})`).join(', ')}.</p>` : '';
-      stage = `${portrait(s.artisanId())}<div class="speaker">${esc(s.artisanName())} <span class="role">${esc(s.content.npcs[s.artisanId()]?.role ?? 'Fasserin')}</span></div>
-        <p class="lead">„${esc(s.artisanGreeting(a.circle, a.cycle))}“ <span class="muted">Ein Stück, fester Lohn. Fertig ist es beim nächsten Treffen dieses Zirkels; misslingt die Fassung, ist das Stück hin und die Hälfte des Lohns kommt zurück.</span></p>
-        <ul class="recipes">${rows || '<li class="muted">Heute hat sie nichts auf dem Tisch.</li>'}</ul>${pendingHtml}`;
+      const openMax = s.maxOpenOrders?.() ?? 2;
+      const pendingHtml = pending.length ? `<p class="lead muted">Offen (${pending.length} von ${openMax}): ${pending.map((o) => `${stateIcon(s.orderState?.(o, a.cycle) ?? 'in_arbeit')}${esc(s.item(o.artifact)?.name ?? o.artifact)} (${zirkelIcon(o.circle)}${esc(s.gatheringDef(o.circle)?.name ?? o.circle)}${o.owner === 2 ? ', Spieler 2' : ''})`).join(', ')}.</p>` : '';
+      const history = (s.artisanHistory ?? []).slice(-3).reverse();
+      const historyHtml = history.length ? `<p class="lead muted">Zuletzt: ${history.map((h) => `${stateIcon(h.ok ? 'abgeholt' : 'misslungen')}${esc(s.item(h.artifact)?.name ?? h.artifact)}${h.ok ? '' : ` (${h.refund} Sch. zurück)`}`).join(', ')}.</p>` : '';
+      const zirkelZeile = s.artisanCircleLine?.(a.circle);
+      stage = `${portrait(s.artisanId(), 'pruefend')}<div class="speaker">${esc(s.artisanName())} <span class="role">${esc(s.content.npcs[s.artisanId()]?.role ?? 'Fasserin')}</span></div>
+        <p class="lead">„${esc(s.artisanGreeting(a.circle, a.cycle))}${zirkelZeile ? ` ${esc(zirkelZeile)}` : ''}“ <span class="muted">Ein Stück, fester Lohn. Fertig ist es beim nächsten Treffen dieses Zirkels; misslingt die Fassung, ist das Stück hin und die Hälfte des Lohns kommt zurück. Höchstens ${openMax} Aufträge gleichzeitig.</span></p>
+        <ul class="recipes">${rows || '<li class="muted">Heute hat sie nichts auf dem Tisch.</li>'}</ul>${pendingHtml}${historyHtml}`;
       for (const r of recipes) {
         const c = s.recipeCheck(r);
         acts.push({ label: `${s.item(c.artifact)?.name ?? r.id} in Auftrag geben (${c.fee} Sch., ${pct(c.chance)})`, fn: () => s.orderArtifact(r.id), off: !c.ok, icon: c.artifact });

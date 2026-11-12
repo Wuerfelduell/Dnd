@@ -3,7 +3,7 @@ import { Combat, WINDOW, EARLY_LIMIT, DODGE_COST, RING_CURVES, judgeDefense, jud
 import { createTextures, createCharacterSheet } from './textures.js';
 import {
   BATTLE_BACKGROUNDS, battleBackgroundFor, ENCOUNTER_BACKGROUNDS, ENEMY_BATTLE_SHEETS, ENCOUNTER_SHEETS, FADING_SHEETS,
-  SKILL_FX, SELF_FX, AG_SKILL_FX, PATHWAY_POSES, WEAPON_POSES, battleSheetsOf, ENCOUNTER_FX, BOSS_INTROS, bossIntroImage, BOSS_FORMS, BOSS_FORM_BACKGROUNDS, BOSS_FORM_INTROS, battleSheetDef, CASE_SHEETS, playBattleAnim, playCaseAnim,
+  SKILL_FX, SELF_FX, AG_SKILL_FX, PATHWAY_POSES, WEAPON_POSES, battleSheetsOf, ENCOUNTER_FX, BOSS_INTROS, bossIntroImage, BOSS_FORMS, BOSS_FORM_BACKGROUNDS, BOSS_FORM_INTROS, battleSheetDef, CASE_SHEETS, playBattleAnim, playCaseAnim, HG_PATHS,
   BATTLE_SHEET_SCALE, ENTER_ANIMS, ENCOUNTER_STAGE, STARLING2_HUD,
 } from './assets.js';
 import { VIEW_W, VIEW_H, PLAYER_PALETTE } from './WorldScene.js';
@@ -231,10 +231,14 @@ export class CombatScene extends Phaser.Scene {
       let spr;
       // Paket AH: Spieler 2 kämpft mit seiner eigenen Figur, sonst getönt mit dem Ermittler-Sheet
       const look = n === 2 ? this.state.p2Look?.() : null;
-      const sheets = look && this.textures.exists(`${look}_battle`) ? { ...battleSheetsOf(look), own: true } : battleSheetsOf(null);
+      // Paket CO: wer seine Kreaturform trägt, kämpft mit ihrem 96er-Blatt (hg_battle_<pfad>), ohne eigene Posen-Sheets
+      const formPid = this.state.withPlayer?.(n, () => (this.state.formActive?.() ? this.state.pathway?.id : null), { quiet: true });
+      const formSheet = formPid && this.textures.exists(`hg_battle_${formPid}`) ? `hg_battle_${formPid}` : null;
+      const sheets = formSheet ? { base: formSheet, skills: formSheet, weapons: formSheet, own: true, form: true }
+        : look && this.textures.exists(`${look}_battle`) ? { ...battleSheetsOf(look), own: true } : battleSheetsOf(null);
       if (this.textures.exists(sheets.base)) {
-        // Kampf-Sheet (48x48, Blick nach rechts); Füße liegen am unteren Zellrand.
-        spr = this.add.sprite(h.x, h.y, sheets.base, 0).setOrigin(0.5, 1).setScale(1.5).setDepth(n === 2 ? 11 : 10);
+        // Kampf-Sheet (48x48, Blick nach rechts); Füße liegen am unteren Zellrand. Kreaturformen (96x96) in Originalgröße.
+        spr = this.add.sprite(h.x, h.y, sheets.base, 0).setOrigin(0.5, 1).setScale(sheets.form ? 1 : 1.5).setDepth(n === 2 ? 11 : 10);
       } else {
         createCharacterSheet(this, 'player', PLAYER_PALETTE);
         spr = this.add.sprite(h.x, h.y, 'player', 8).setOrigin(0.5, 1).setScale(2).setDepth(n === 2 ? 11 : 10);
@@ -272,6 +276,12 @@ export class CombatScene extends Phaser.Scene {
     if (enc.elite || enc.boss) this.enemy.setScale(this.enemy.scaleX * (enc.boss ? 1.35 : 1.18));
     if (battleSheet && BATTLE_SHEET_SCALE[battleSheet]) this.enemy.setScale(BATTLE_SHEET_SCALE[battleSheet]);
     if (battleSheet && ENTER_ANIMS[battleSheet]) this.anim(this.enemy, ENTER_ANIMS[battleSheet]); // BS: Starling fährt als Sternsammler ein
+    // Paket CO: der Schwellen-/Grenzwächter trägt das Siegel des geprüften Pfades vor der Brust (eigenes Overlay, 32x32)
+    this.siegel = null;
+    if (enc.waechter && this.textures.exists('hg_siegel') && HG_PATHS.includes(enc.pathway)) {
+      this.siegel = this.add.image(this.enemy.x, this.enemy.y, 'hg_siegel', HG_PATHS.indexOf(enc.pathway)).setDepth(11).setScale(0.75);
+      this.siegelOffset = -Math.round(this.enemy.displayHeight * 0.55);
+    }
     this.buildStageExtras();
     this.add.ellipse(ENEMY_X, GROUND_Y + 14, 50, 10, 0x000000, 0.35).setDepth(9);
     if (this.combat.enemy.occult) {
@@ -836,6 +846,7 @@ export class CombatScene extends Phaser.Scene {
     const g = this.gfx;
     g.clear();
     this.fog.tilePositionX += 0.15;
+    if (this.siegel && this.enemy) this.siegel.setPosition(this.enemy.x, this.enemy.y + this.siegelOffset).setAlpha(this.enemy.alpha).setVisible(this.enemy.visible);
     if (this.stars && this.combat.round !== this.starRound) this.updateStars();
 
     if (this.phase === 'qte' && this.qte?.bar) {

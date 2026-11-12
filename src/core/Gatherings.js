@@ -159,7 +159,11 @@ export const gatheringMethods = {
       const artisan = this.artisanPresent?.(cur.id, cur.cycle) ? ` ${this.artisanName()} ist dabei und fasst Beute zu Artefakten.` : '';
       const ready = this.readyOrders?.(cur.id, cur.cycle) ?? [];
       const orders = ready.length ? ` Deine Fassung${ready.length > 1 ? 'en' : ''} (${ready.map((o) => this.item(o.artifact)?.name ?? o.artifact).join(', ')}) liegt beim Gastgeber bereit.` : '';
-      this.emit('gathering', { id: cur.id, open: true, text: `${g.invite}${wants.length ? ` Gesucht wird: ${wants.join(', ')}.` : ''}${artisan}${orders}` });
+      // CR: Einladungszusätze der Fasserin-Aufträge (Oda angekündigt, Abholung fällig), fest je Runde gewählt
+      const fa = this.faTexte?.()?.texte;
+      const faOda = artisan && fa?.einladung_oda_dabei?.length ? ` ${this.faFill(this.faLine(fa.einladung_oda_dabei, cur.cycle), { circle: cur.id })}` : '';
+      const faAbholung = ready.length && fa?.einladung_mit_abholung?.length ? ` ${this.faFill(this.faLine(fa.einladung_mit_abholung, cur.cycle), { circle: cur.id })}` : '';
+      this.emit('gathering', { id: cur.id, open: true, text: `${g.invite}${wants.length ? ` Gesucht wird: ${wants.join(', ')}.` : ''}${artisan}${faOda}${orders}${faAbholung}` });
       this.emit('changed');
     } else if (!cur && prev !== null) {
       const slot = this.gatheringSlot(prev);
