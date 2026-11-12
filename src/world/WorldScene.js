@@ -765,7 +765,8 @@ export class WorldScene extends Phaser.Scene {
     this.buildMap();
     const amb = this.mapDef.ambient ?? {};
     this.lighting = new Lighting(this, { width: VIEW_W, height: VIEW_H });
-    this.baseNight = amb.night ?? 0.88;
+    // Kartendunkel; Karten mit `day` sind tagsüber heller (Dunscar: Kalkstadt im Tageslicht)
+    this.baseNight = (!this.state.isNight?.() && amb.day !== undefined ? amb.day : amb.night) ?? 0.88;
     this.blockers = this.physics.add.staticGroup();
     this.critters = new Critters(this);
     this.buildLamps();

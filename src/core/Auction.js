@@ -89,18 +89,21 @@ export const auctionMethods = {
     const mem = this.circleMembers(circleId).find((m) => m.id === memberId);
     const rng = this.sessionRng(circleId, cycle, `lot:${memberId}`);
     const pool = mem.offers.filter((e) => rng() < (e.chance ?? 1));
-    if (!pool.length) return mem.offers.length ? { ...mem.offers[Math.floor(rng() * mem.offers.length)] } : null;
+    // Leerer Topf: ein gängiges Stück, nie ein seltenes (sonst käme z. B. die 1-%-Formel viel zu oft)
+    const common = mem.offers.filter((e) => (e.chance ?? 1) >= 0.2);
+    if (!pool.length) return common.length ? { ...common[Math.floor(rng() * common.length)] } : null;
     return { ...pool[Math.floor(rng() * pool.length)] };
   },
 
   /** Das Gesuch eines Mitglieds in dieser Runde: { member, item, price } oder null. */
   memberRequest(circleId, cycle, memberId) {
     const r = this.auctionRules();
+    const c = this.gatheringDef(circleId) ?? {}; // Zirkel dürfen eigene Gesuchsregeln haben (Dunscar: oft, mind. 1000)
     const mem = this.circleMembers(circleId).find((m) => m.id === memberId);
     const rng = this.sessionRng(circleId, cycle, `want:${memberId}`);
-    if (!mem?.wants.length || rng() >= (r.request_chance ?? 0.75)) return null;
+    if (!mem?.wants.length || rng() >= (c.request_chance ?? r.request_chance ?? 0.75)) return null;
     const item = mem.wants[Math.floor(rng() * mem.wants.length)];
-    const price = Math.max(8, Math.round(this.itemValue(item) * (r.request_markup ?? 1.8)));
+    const price = Math.max(c.request_min ?? 8, Math.round(this.itemValue(item) * (c.request_markup ?? r.request_markup ?? 1.8)));
     return { member: memberId, item, price };
   },
 

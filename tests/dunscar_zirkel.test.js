@@ -89,3 +89,19 @@ test('Flickerin sitzt bei jedem Dunscar-Treffen und repariert Korrumpiertes für
   assert.ok(!s.isCorrupted('dsz_spiegel'));
   assert.ok(!s.repairAt('dsz_spiegel', 1).ok);
 });
+
+test('Dunscar-Zirkel sind voll besetzt und kaufen Dunscar-Wertstücke oft für mindestens 1000 an (Seb 2026-11-12)', () => {
+  const s = new GameState(content);
+  for (const [id, c] of dunscar) {
+    assert.ok(c.members.length >= 7, `${id}: ${c.members.length} Leute`);
+    let reqs = 0;
+    for (let cy = 0; cy < 200; cy++) for (const m of c.members) {
+      assert.ok(m.offers.length, `${m.id} hat Lose`);
+      const r = s.memberRequest(id, cy, m.id);
+      if (!r) continue;
+      reqs++;
+      assert.ok(r.item.startsWith('ds_beute_') && r.price >= 1000, `${id}: ${r.item} für ${r.price}`);
+    }
+    assert.ok(reqs / 200 >= 5, `${id}: ${reqs / 200} Gesuche je Runde`);
+  }
+});
