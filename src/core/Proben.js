@@ -2,7 +2,7 @@
 // darf ein Ritual nicht an Orte oder Fälle hängen, die man verpasst haben kann. Vier Pfade legen stattdessen
 // eine zufällige Probe ab, die überall geht und jedes Mal anders ausfällt:
 // - faden: vier Spuren ihrem Schluss zuordnen (Zufallsauswahl aus einem Vorrat, mit falschen Fährten).
-// - echo:  sechs Stimmen lauschen, dann drei davon dem Sprecher zuordnen (Stimmenprüfung).
+// - echo:  drei Stimmen lauschen, eine hallt nach und wird dem Sprecher zugeordnet (Stimmenprüfung).
 // - moor:  sieben Namen merken; dann fehlt einer und einer ist neu.
 // - uhr:   eine Frist ohne Uhr abzählen: nach genau n Sekunden anhalten.
 // Bestanden setzt das Flag probe_<pfad>_<seq> (Spieler 2: p2_…), das der Ritualschritt abfragt.
@@ -91,17 +91,13 @@ export const probeMethods = {
       probe.rounds = pairs.map(([spur, schluss]) => ({ prompt: spur, options: shuffle(answers, rng), answer: schluss }));
       probe.intro = 'Vier Spuren, vier Schlüsse. Knüpf jede an den Faden, der trägt. Ein falscher Knoten, und das Netz reißt.';
     } else if (p.kind === 'echo') {
-      const speakers = shuffle(Object.keys(ECHO_STIMMEN), rng).slice(0, 4);
-      // Sechs Stimmen im Nebel: jeder der vier Sprecher sagt etwas, zwei sagen noch ein Zweites
-      const lines = [];
-      for (const s of speakers) lines.push({ who: s, text: ECHO_STIMMEN[s][Math.floor(rng() * ECHO_STIMMEN[s].length)] });
-      for (const s of shuffle(speakers, rng).slice(0, 2)) {
-        const rest = ECHO_STIMMEN[s].filter((t) => !lines.some((l) => l.text === t));
-        lines.push({ who: s, text: rest[Math.floor(rng() * rest.length)] });
-      }
+      // Seb (2026-11-12): leicht halten. Drei Stimmen von drei Sprechern; eine hallt nach und muss zugeordnet werden.
+      const speakers = shuffle(Object.keys(ECHO_STIMMEN), rng).slice(0, 3);
+      const lines = speakers.map((s) => ({ who: s, text: ECHO_STIMMEN[s][Math.floor(rng() * ECHO_STIMMEN[s].length)] }));
       probe.listen = shuffle(lines, rng);
-      probe.rounds = shuffle(probe.listen, rng).slice(0, 3).map((l) => ({ prompt: `Wer sagte: ${l.text}`, options: shuffle(speakers, rng), answer: l.who }));
-      probe.intro = 'Streu den Staub, schließ die Augen. Sechs Stimmen reden durcheinander. Danach musst du drei von ihnen beim Namen nennen.';
+      const again = probe.listen[Math.floor(rng() * probe.listen.length)];
+      probe.rounds = [{ prompt: `Eine Stimme hallt nach: ${again.text} Wer war das?`, options: shuffle(speakers, rng), answer: again.who }];
+      probe.intro = 'Streu den Staub, schließ die Augen. Drei Stimmen reden aus dem Nebel. Eine davon kommt als Nachhall zurück, und du nennst ihren Namen.';
     } else if (p.kind === 'moor') {
       const pool = shuffle(MOOR_NAMEN, rng);
       const shown = pool.slice(0, 7);
@@ -169,7 +165,7 @@ export const probeMethods = {
     pr.step += 1;
     pr.log.push(`✓ ${round.answer}`);
     if (pr.step >= pr.rounds.length) {
-      const done = { faden: 'Alle vier Knoten halten. Das Netz trägt.', echo: 'Drei Stimmen, drei Namen. Du kennst sie alle.', moor: 'Was fehlte und was fremd war: beides hast du gesehen.' }[pr.kind];
+      const done = { faden: 'Alle vier Knoten halten. Das Netz trägt.', echo: 'Der Nachhall hat einen Namen. Du kennst ihn.', moor: 'Was fehlte und was fremd war: beides hast du gesehen.' }[pr.kind];
       return this.finishProbe(true, done);
     }
     this.emit('changed');
