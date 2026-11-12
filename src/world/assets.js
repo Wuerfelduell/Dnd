@@ -3,6 +3,7 @@
 // denselben Texture-Keys. Alles, was hier nicht zugeordnet ist (oder nicht lädt),
 // bleibt automatisch beim Platzhalter.
 import { PATHWAY_STANDIN } from '../data/sequenzen.js';
+import { preloadRitualArt } from './ritualArt.js';
 
 const BASE = './sprites/';
 export const SPRITE_BASE = BASE;
@@ -1149,13 +1150,9 @@ const standinIcon = (id) => {
   // Sequenz 4 bis 1 haben noch keine eigenen Trank- und Formelbilder: das Bild der Stufe 5 des Pfads
   return `${t[1]}_${PATHWAY_STANDIN[t[2]] ?? t[2]}_${Math.max(5, Number(t[3]))}`;
 };
-// Seq-4-Rituale (data/seq4.js): Wurfflaschen noch mit Leihbildern (nicht Teil von Codex DP)
-Object.assign(ITEM_ICON_ALIASES, {
-  wurf_saeure: 'giftflasche', wurf_gift: 'giftflasche', wurf_spreng: 'blutsalz_phiole',
-  // Codex DR: seltene Funde in Wexmoor (Leihbilder)
-  wxf_salzglas: 'salzkristall', wxf_moorbernstein: 'torfbernstein', wxf_schlickperle: 'schlickperle', wxf_gezeitenzahn: 'schlickzahn', wxf_schwarzlot: 'schwarzbernstein',
-  wxf_torfkompass: 'ski_art_flutkompass', wxf_silberalge: 'vi_m_grenzsteinmoos', wxf_nebelquarz: 'seufzerstein', wxf_ankerfossil: 'vt_all_grenzstein', wxf_wattspiegel: 'taschenspiegel',
-});
+/** Codex DT (Batch ritualicons2): eigene Icons in 16 und 32 für die Wurfflaschen der Seq-4-Rituale und die seltenen Wexmoor-Funde (Codex DR). */
+export const DT_ICONS = ['wurf_saeure', 'wurf_gift', 'wurf_spreng', 'wxf_salzglas', 'wxf_moorbernstein', 'wxf_schlickperle', 'wxf_gezeitenzahn', 'wxf_schwarzlot',
+  'wxf_torfkompass', 'wxf_silberalge', 'wxf_nebelquarz', 'wxf_ankerfossil', 'wxf_wattspiegel'];
 /** Codex DP (Batch ritualicons): eigene Icons in 16 und 32 für Seq-5-Rituale, freie Sude und die Seq-4-Rituale (ersetzen die Leihbilder). */
 export const DP_ICONS = ['leeres_gefaess', 'gefaess_erinnerung', 'uhr_taschen', 'sud_pfusch', 'sud_nebelsud', 'sud_silberklar', 'sud_mohnschlaf', 'sud_gluehtrunk',
   'sud_eisensud', 'sud_kroetenbitter', 'sud_wachsglanz', 'sud_grabruhe', 'sud_kraehenauge', 'sud_moosleuchte', 'sud_seidenschritt', 'sud_schattenhauch', 'sud_glockenruf',
@@ -1174,7 +1171,7 @@ const ICON32 = ['stimmphiole', 'verlorenes_gesangbuch', 'spiegelscherbe', ...F_E
   'rostwasser', 'schleierpuder', 'ankerhaken', 'schleierdolch', 'rostanker', 'porzellanmaske', 'rost_zeichen', 'schleier_zeichen',
   // Ausrüstung aus Paket G, J und K
   'mantel_moor', 'hut_schnabel', 'amulett_moorperle', 'knochenmesser', 'wachsamulett', 'glasfibel', 'sternglasdolch', 'geweihreif',
-  'amulett_wiegenlied', 'mantel_giesser', 'taktstock_vey', 'hut_chor', 'amulett_schatten', 'hut_maskenball', 'mantel_frack', 'blitzpulver', ...DP_ICONS];
+  'amulett_wiegenlied', 'mantel_giesser', 'taktstock_vey', 'hut_chor', 'amulett_schatten', 'hut_maskenball', 'mantel_frack', 'blitzpulver', ...DP_ICONS, ...DT_ICONS];
 export const itemIcon32Url = (id) => {
   const k = ITEM_ICON_ALIASES[id] ?? id;
   return k.startsWith('trank_') || ICON32.includes(k) || AG_ICONS(k) ? `${BASE}items/32/${standinIcon(k)}.png` : null;
@@ -1254,6 +1251,11 @@ export function preloadSprites(scene) {
   for (const [key, [path, w, h]] of Object.entries(CASE_SHEETS)) {
     if (!scene.textures.exists(key)) scene.load.spritesheet(key, BASE + path, { frameWidth: w, frameHeight: h });
   }
+  // Codex DN/DO/DQ: Ritualgrafiken der Sequenzen 6 bis 4 (Kampfblätter laufen über BATTLE_SHEETS, s. u.)
+  if (!scene.cache.json.exists('manifestSeq4rit1')) scene.load.json('manifestSeq4rit1', `${BASE}manifest-seq4rit1.json`);
+  if (!scene.cache.json.exists('manifestSchatten')) scene.load.json('manifestSchatten', `${BASE}manifest-schatten.json`);
+  if (!scene.cache.json.exists('manifestRituale56')) scene.load.json('manifestRituale56', `${BASE}manifest-rituale56.json`);
+  preloadRitualArt(scene, BATTLE_SHEETS);
 }
 
 /**
@@ -1285,7 +1287,7 @@ function battleAnimDef(scene, sheet, name) {
   return null;
 }
 /** Manifeste mit Kampf-Sheets; spätere Pakete nennen ihre Einträge nicht nach dem Sheet, darum auch über die Datei. */
-export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3', 'manifestDunscar5', 'manifestStarling2', 'manifestSekten', 'manifestVorrat1', 'manifestVorrat2', 'manifestHalbgott', 'manifestFasserin2', 'manifestFigurenNachzuegler'];
+export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3', 'manifestDunscar5', 'manifestStarling2', 'manifestSekten', 'manifestVorrat1', 'manifestVorrat2', 'manifestHalbgott', 'manifestFasserin2', 'manifestFigurenNachzuegler', 'manifestSeq4rit1', 'manifestSchatten', 'manifestRituale56'];
 export function battleSheetDef(scene, sheet) {
   const file = BATTLE_SHEETS[sheet]?.[0];
   for (const m of BATTLE_MANIFESTS) {
@@ -2911,3 +2913,18 @@ UI_SHEETS.hghud = ['ui/HG_hud.png', 160, 16];
 UI_REGIONS.hghud = Object.fromEntries(HG_HUD.map((n, i) => [n, [i * 16, 0, 16, 16]]));
 UI_SHEETS.hghud32 = ['ui/HG_hud_32.png', 320, 32];
 UI_REGIONS.hghud32 = Object.fromEntries(HG_HUD.map((n, i) => [n, [i * 32, 0, 32, 32]]));
+
+// --- Codex DN, DO, DQ: Kampfblätter der Rituale (Zivilist, Schatten, Laternenbestie) ----------------------------------
+/** Maske (Seq 4): gewöhnlicher Zivilist; Schlüssel (Seq 4): der Schatten. Beide 6x9 wie battle_player, je Spielfigur. */
+for (const look of ['player', 'p2a', 'p2b']) {
+  BATTLE_SHEETS[`s4ma_zivil_${look}_battle`] = [`battle/s4ma_zivil_${look}.png`, 48];
+  BATTLE_SHEETS[`schatten_${look}_battle`] = [`battle/schatten_${look}.png`, 48];
+}
+/** Schattenattacke als eigener Schlag-Streifen (8 Frames, 48x48). */
+BATTLE_SHEETS.schatten_attacke = ['battle/schatten_attacke.png', 48];
+/** Seq 5 (Laterne): die Laternenbestie hat ihr eigenes Blatt (64x64). */
+BATTLE_SHEETS.enemy_laternenbestie = ['battle/enemy_laternenbestie.png', 64];
+ENCOUNTER_SHEETS.laternenbestie = 'enemy_laternenbestie';
+ANIM_ALIASES.enemy_laternenbestie = { attack: 'attack1', heavy: 'attack2', double: 'attack2', cast: 'special', occult: 'special' };
+/** Ritual-Kampfblätter des Spielers: Zivilist (Maske) oder Schatten (Schlüssel) statt des Ermittlers. */
+export const ritualBattleSheet = (kind, look = 'player') => (kind ? `${kind === 'shadow' ? 'schatten' : 's4ma_zivil'}_${look}_battle` : null);

@@ -26,6 +26,7 @@ import { guessMood } from '../core/Moods.js';
 import { MOOD_LABEL, GIFT_KINDS } from '../core/Relations.js';
 import { koopGreeting } from '../core/Koop.js';
 import { STATION_NAMES, DIRECTION_NAMES } from '../data/k3Ruf.js';
+import { RITUAL_ART, artCss } from '../world/ritualArt.js';
 import { isSolved, knownPeople, journalQuestVisible } from '../core/journal.js';
 import { canHurry, hurryCost, travelSafe, travelFast, afterHurryFight, travelDestinations, cityOf } from '../core/Travel.js';
 import { questTarget, leadTarget, personPlaces, advice } from '../core/Guide.js';
@@ -90,6 +91,40 @@ const auktionIcon = (name, cls = '', k = 1 / 8) => {
 };
 /** Ausschnitt [x, y, w, h] aus einem Atlas der Größe sw x sh, k = em pro Pixel. */
 const regionIcon = (url, [x, y, w, h], sw, sh, cls = '', k = 1 / 8, title = '') => `<span class="auk ${cls}" title="${title}" style="width:${w * k}em;height:${h * k}em;background-image:url(${url});background-size:${sw * k}em ${sh * k}em;background-position:-${x * k}em -${y * k}em"></span>`;
+/** Codex DN/DO/DQ: ein Frame eines Ritualblatts als Symbol (Zustandsname wie 'aktiv' oder Index). */
+const artIcon = (key, frame = 0, k = 1 / 8, cls = '', title = '') => {
+  const a = artCss(key, frame);
+  return a ? regionIcon(a[0], a[1], a[2], a[3], `art ${cls}`, k, title) : '';
+};
+/**
+ * Codex DN/DO/DQ: Animation eines Ritualblatts als CSS-Streifen (nur zusammenhängende Frames einer Reihe, sonst Standbild).
+ * Einmalige Animationen bleiben auf dem letzten Frame stehen.
+ */
+const artAnim = (key, anim = 'play', k = 1 / 8, cls = '') => {
+  const e = RITUAL_ART[key];
+  const a = e?.anims?.[anim] ?? Object.values(e?.anims ?? {})[0];
+  if (!a) return '';
+  const [frames, fps, repeat] = a;
+  const cols = Math.max(1, Math.round(e.sw / e.w));
+  const f0 = frames[0];
+  const n = frames.length;
+  if (n < 2 || frames.some((f, i) => f !== f0 + i) || Math.floor(f0 / cols) !== Math.floor((f0 + n - 1) / cols)) return artIcon(key, f0, k, cls);
+  const x0 = (f0 % cols) * e.w * k;
+  const y0 = Math.floor(f0 / cols) * e.h * k;
+  const loop = repeat === -1;
+  const x1 = x0 + (loop ? n : n - 1) * e.w * k;
+  return `<span class="auk art art-anim ${cls}" style="width:${e.w * k}em;height:${e.h * k}em;background-image:url(./sprites/${e.file});background-size:${e.sw * k}em ${e.sh * k}em;background-position:-${x0}em -${y0}em;--art-x0:-${x0}em;--art-x1:-${x1}em;animation:art-strip ${(n / (fps || 8)).toFixed(2)}s steps(${loop ? n : n - 1}${loop ? '' : ', jump-none'}) ${loop ? 'infinite' : '1 forwards'}"></span>`;
+};
+
+/** Codex DQ: Name auf einer Moortafel (Seq-6-Probe des Moors); ohne Bild nur der Name. */
+const moorTafel = (name, state = 'normal') => {
+  const a = artCss('probe_moor_tafel', state);
+  if (!a) return esc(name);
+  const [url, [x], sw, sh] = a;
+  const k = 1 / 4;
+  return `<span class="moortafel" style="background-image:url(${url});background-size:${sw * k}em ${sh * k}em;background-position:-${x * k}em 0">${esc(name)}</span>`;
+};
+
 /** Paket S: Beziehung zu einem Einzelgänger (Abzeichen, Pfadsiegel, Leiste von Feind bis Freund, Sequenz-Punkte). */
 const lonerBar = (s, id) => {
   const l = s.loner?.(id);
@@ -2313,7 +2348,7 @@ export class Ui {
     if (s.seq4Running()) acts.push('<button class="small" data-seq4="abbrechen">Prüfung abbrechen</button>');
     // Codex DR: Regelkarte und Vorbereitung
     const card = s.seq4Card(k);
-    const rules = card?.regeln?.length ? `<p class="muted"><strong>Regeln:</strong> ${card.regeln.map(esc).join(' · ')}</p>` : '';
+    const rules = card?.regeln?.length ? `<p class="muted regelkarte"><strong>Regeln:</strong> ${card.regeln.map(esc).join(' · ')}</p>` : ''; // Codex DN: Pergamentrahmen (ui/s4r_regelkarte.png, 9-Slice)
     const prep = card?.vorbereitung?.length && !s.seq4Running() ? `<p class="muted"><strong>Vorbereitung:</strong> ${card.vorbereitung.map(esc).join(' ')}</p>` : '';
     const head = SEQ4_RITUAL_ICONS[k] ? itemIconBig(k === 'moor' && s.pathway.relikt ? 's4mo_relikt' : SEQ4_RITUAL_ICONS[k]) : '';
     return `<div class="seq5 seq4"><p class="desc">${head}<strong>${esc(s.seq4Name(k))}.</strong> ${esc(s.seq4Hint(k))}</p>${rules}${prep}${more}
@@ -2339,9 +2374,17 @@ export class Ui {
       const running = !!(st.armed || st.active || st.kokon || (st.lanterns ?? 0) > 0 || st.identity);
       if (running) acts.push(`<button class="small" data-seq5="abbrechen">Prüfung abbrechen</button>`);
     }
+    // Codex DQ: Fortschritt als Bildleiste (Siege der Kampfprüfung, Käufe/Verkäufe, Wartezeit der Uhr)
+    let marks = '';
+    if (k === 'eisen' && st.active) marks = Array.from({ length: 5 }, (_, i) => artIcon('s5_eisen_hud', `sieg_${i + 1}_${i < (st.wins ?? 0) ? 'erledigt' : 'offen'}`, 1 / 8, '', `Sieg ${i + 1}`)).join('');
+    if (k === 'waage' && st.armed) marks = [...[1, 2, 3].map((i) => artIcon('s5_handel_hud', `kauf_${i}_${i <= st.bought.length ? 'erledigt' : 'offen'}`, 1 / 8, '', `Kauf ${i}`)), ...[1, 2, 3].map((i) => artIcon('s5_handel_hud', `verkauf_${i}_${i <= st.sold.length ? 'erledigt' : 'offen'}`, 1 / 8, '', `Verkauf ${i}`))].join('');
+    if (k === 'uhr' && st.armed) marks = /^wait/.test(st.phase ?? '') ? artAnim('s5_uhr_warten', 'play', 1 / 8) : artIcon('s5_runden_uhr', 'offen', 1 / 8);
+    if (k === 'schluessel' && st.armed) marks = artIcon('s5_diebstahl_zaehler', 'stufe_0', 1 / 8, '', 'Diebstahl angesetzt');
+    if (k === 'maske' && st.identity) marks = artIcon('s5_gesicht_marke_32', 0, 1 / 8, '', 'Fremdes Gesicht');
+    if (marks) marks = `<p class="seq5marks">${marks}</p>`;
     const ident = k === 'maske' && st.identity ? `<p class="desc"><strong>Steckbrief:</strong> ${esc(s.identityText())}${st.convinced?.length ? ` Überzeugt: ${st.convinced.map((id) => s.content.npcs[id]?.name ?? id).join(', ')}.` : ''}</p>` : '';
     const sude = k === 'kessel' ? `<p class="muted">Eigene Sude bisher: ${(s.sudeBekannt ?? []).length}. Die Wirkung muss mindestens ${SUD_MIN_SEC} Sekunden halten und noch laufen, wenn du Ritual und Trank vollziehst.</p>` : '';
-    return `<div class="seq5"><p class="desc"><strong>${esc(s.seq5Name(k))}.</strong> ${esc(s.seq5Hint(k))}</p>${ident}${sude}
+    return `<div class="seq5"><p class="desc"><strong>${esc(s.seq5Name(k))}.</strong> ${esc(s.seq5Hint(k))}</p>${marks}${ident}${sude}
       <p>${acts.join(' ')} <span class="muted">Misslingt die Prüfung: −${FAIL_PCT[k]} % Verdauung, +${FAIL_UNRUHE} Unruhe; wiederholen darfst du jederzeit.</span></p></div>`;
   }
 
@@ -2362,28 +2405,30 @@ export class Ui {
     let body = '';
     const asking = pr.rounds.length && (pr.kind === 'faden' || pr.phase === 'fragen');
     if (pr.kind === 'uhr') {
-      body = pr.startedAt === null
+      // Codex DQ: Taschenuhr ohne Zeiger; läuft die Frist, pulsiert der Ring
+      const face = RITUAL_ART.probe_uhr ? `<span class="probe-uhr">${artIcon('probe_uhr', 0, 1 / 4)}${pr.startedAt === null ? '' : artAnim('probe_uhr_puls', 'play', 1 / 4, 'puls')}</span>` : '';
+      body = face + (pr.startedAt === null
         ? `<p class="lead">${esc(pr.intro)}</p>`
-        : `<p class="lead">Die Frist läuft. Halte nach <b>${pr.target} Sekunden</b> an.</p><p class="muted">Kein Zählwerk hilft dir. Nur dein Takt.</p>`;
+        : `<p class="lead">Die Frist läuft. Halte nach <b>${pr.target} Sekunden</b> an.</p><p class="muted">Kein Zählwerk hilft dir. Nur dein Takt.</p>`);
       if (pr.startedAt === null) acts.push({ label: 'Die Frist beginnt', fn: () => s.probeStart() });
       else acts.push({ label: 'Jetzt!', fn: () => s.probeStop() });
     } else if (!asking) {
       body = `<p class="lead">${esc(pr.intro)}</p>`;
-      if (pr.kind === 'echo') body += `<ul class="voices">${pr.listen.map((l) => `<li><b>${esc(l.who)}:</b> ${esc(l.text)}</li>`).join('')}</ul>`;
-      if (pr.kind === 'moor') body += `<ul class="voices names">${pr.listen.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>`;
+      if (pr.kind === 'echo') body += `<ul class="voices">${pr.listen.map((l) => `<li>${artAnim('probe_echo_stimme', 'spricht', 1 / 8, 'voiceico')}<b>${esc(l.who)}:</b> ${esc(l.text)}</li>`).join('')}</ul>`;
+      if (pr.kind === 'moor') body += `<ul class="voices names tafeln">${pr.listen.map((n) => `<li>${moorTafel(n)}</li>`).join('')}</ul>`;
       acts.push({ label: pr.kind === 'echo' ? 'Ich habe gelauscht' : 'Ich habe sie mir eingeprägt', fn: () => s.probeListened() });
     } else {
       const round = pr.rounds[pr.step];
       body = `<p class="lead muted">${esc(pr.intro)}</p>`;
-      if (pr.kind === 'moor') body += `<ul class="voices names">${pr.second.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>`;
+      if (pr.kind === 'moor') body += `<ul class="voices names tafeln">${pr.second.map((n) => `<li>${moorTafel(n)}</li>`).join('')}</ul>`;
       body += `<p class="lead"><b>${pr.step + 1} von ${pr.rounds.length}:</b> ${esc(round.prompt)}</p>`;
       for (const o of round.options) acts.push({ label: o, fn: () => s.probeAnswer(round.options.indexOf(o)) });
     }
     this.probeActs = acts;
     let n = 0;
     const el = this.open('probe', `
-      <h3>${esc(pr.name)} <span class="muted">Ritual für Sequenz ${pr.seq}${this.probePlayer === 2 ? ' · Spieler 2' : ''}</span></h3>
-      <div class="stage">${body}</div>
+      <h3>${artIcon('probe_symbole', pr.kind, 1 / 8, 'probesym')}${esc(pr.name)} <span class="muted">Ritual für Sequenz ${pr.seq}${this.probePlayer === 2 ? ' · Spieler 2' : ''}</span></h3>
+      <div class="stage probe-stage">${body}</div>
       ${pr.log?.length ? `<ul class="alog">${pr.log.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>` : ''}
       ${feedback ? `<p class="feedback">${feedback}</p>` : ''}
       <div class="actions">${acts.map((x, i) => `<button class="small" data-act-i="${i}"><span class="key">${++n}</span> ${esc(x.label)}</button>`).join('')}
@@ -2411,7 +2456,8 @@ export class Ui {
   finishProbe(r) {
     this.sfx(worldSound('ritual', { ok: r.passed }));
     this.close();
-    this.showMessage(r.passed ? 'Probe bestanden' : 'Probe misslungen', r.text, { onClose: () => this.openNotebook('pfad') });
+    const aside = artAnim(r.passed ? 'probe_bestanden' : 'probe_fehlversuch', 'play', 1 / 4, 'probe-ende');
+    this.showMessage(r.passed ? 'Probe bestanden' : 'Probe misslungen', r.text, { onClose: () => this.openNotebook('pfad'), aside: aside ? `<div class="probe-ende-wrap">${aside}</div>` : '' });
   }
 
   recipesHtml(withButtons) {
@@ -2487,15 +2533,38 @@ export class Ui {
     const known = s.knownSude();
     const vessels = s.itemCount(LEERES_GEFAESS);
     return `<div class="sud"><h4>Eigener Sud <span class="muted">ohne Formel · bis zu ${SUD_MAX_ZUTATEN} Zutaten · leere Gefäße: ${vessels}</span></h4>
+      ${this.sudWindow(pick, vessels)}
       <p class="muted">Was zusammenpasst, wird ein Sud mit Wirkung; was nicht passt, ein Trüber Sud. Jedes neue Rezept gilt als eigene Schöpfung.</p>
       <p>Im Kessel: ${pick.length ? pick.map((id, i) => `<button class="small" data-sud-rm="${i}" title="Herausnehmen">${itemIcon(id)}${esc(s.item(id).name)} ✕</button>`).join(' ') : '<span class="muted">nichts</span>'}
         <button class="small ${pick.length && vessels ? 'primary' : ''}" data-sud-brew="1" ${pick.length && vessels ? '' : 'disabled'}>Abfüllen</button></p>
       <ul class="choices giftlist">${ingredients.map((z) => `<li><button data-sud-add="${z.id}" ${pick.length >= SUD_MAX_ZUTATEN ? 'disabled' : ''}>${itemIcon(z.id)}${esc(z.name)} <span class="muted">×${z.count - (used[z.id] ?? 0)}</span></button></li>`).join('') || '<li class="empty">Keine Zutaten in der Tasche.</li>'}</ul>
-      ${known.length ? `<h4>Deine Rezepte</h4><ul class="steps">${known.map((k) => `<li>${itemIcon(k.item)}<strong>${esc(k.name)}</strong>: ${k.zutaten.map((z) => esc(z.name)).join(' + ')} <span class="muted">(${esc(sudEffectText(s.item(k.item), buffLabel))})</span></li>`).join('')}</ul>` : ''}</div>`;
+      ${known.length ? `<h4>${artIcon('sud_rezeptbuch', 0, 1 / 16)}Deine Rezepte</h4><ul class="steps">${known.map((k) => `<li>${itemIcon(k.item)}<strong>${esc(k.name)}</strong>: ${k.zutaten.map((z) => esc(z.name)).join(' + ')} <span class="muted">(${esc(sudEffectText(s.item(k.item), buffLabel))})</span></li>`).join('')}</ul>` : ''}</div>`;
+  }
+
+  /**
+   * Codex DQ: das Kesselfenster (160x96) mit drei Zutatenplätzen, dem Gefäß und dem Sud im Kessel.
+   * Ruhig, solange nichts drin ist; brodelt mit Zutaten; nach dem Abfüllen kurz „gelungen“ bzw. der Pfusch.
+   */
+  sudWindow(pick, vessels) {
+    const e = RITUAL_ART.sud_kessel_fenster;
+    if (!e) return '';
+    const k = 1 / 5;
+    const at = (name, inner) => {
+      const r = e.regions?.[name];
+      return r ? `<span class="sudslot" style="left:${r[0] * k}em;top:${r[1] * k}em;width:${r[2] * k}em;height:${r[3] * k}em">${inner}</span>` : '';
+    };
+    const last = this.sudLast;
+    this.sudLast = null;
+    const brew = last === 'pfusch' ? artAnim('sud_kessel_pfusch', 'play', k) : artAnim('sud_kessel_blubbern', last === 'ok' ? 'gelungen' : pick.length ? 'brodelt' : 'ruhig', k);
+    return `<div class="sudfenster" style="width:${e.sw * k}em;height:${e.sh * k}em;background-image:url(./sprites/${e.file});background-size:100% 100%">
+      ${[0, 1, 2].map((i) => at(`zutat_${i + 1}`, pick[i] ? itemIcon(pick[i]) : '')).join('')}
+      ${at('gefaess', last === 'ok' ? artAnim('sud_abfuellen', 'play', k / 1.6) : vessels ? itemIcon(LEERES_GEFAESS) : '')}
+      ${at('kessel_inhalt', brew)}</div>`;
   }
 
   brewSud() {
     const r = this.as(() => this.state.brewSud(this.sudPick ?? []));
+    this.sudLast = r.ok ? (r.recipe ? 'ok' : 'pfusch') : null; // Codex DQ: gelungen oder Trüber Sud im Kesselfenster
     // DS: gelungen (heller Dampf) oder Trüber Sud (Asche), danach fließt er ins Glas
     if (r.ok) sudSounds(r).forEach(([id, ms]) => (ms ? setTimeout(() => this.sfx(id), ms) : this.sfx(id)));
     else this.sfx(worldSound('brew', r));
@@ -2672,11 +2741,11 @@ export class Ui {
       const next = s.nextBid();
       stage = `${portrait(l.seller)}<div class="speaker">${esc(s.memberName(l.seller))} <span class="role">${esc(s.content.npcs[l.seller]?.role ?? '')}</span></div>
         <div class="lot">${itemIconBig(l.item)}<strong>${esc(it.name)}</strong>${s.itemCount(l.item) ? ` <span class="muted">(hast ${s.itemCount(l.item)})</span>` : ''}<br><span class="desc">${esc(it.desc ?? '')}</span>${offerHtml(s, l.item)}</div>
-        ${l.appraisal ? `<p class="bidline waage">Schätzwert: <b>${l.appraisal} Sch.</b> · Ausruf: <b>${l.start ?? l.price} Sch.</b></p>` : ''}
+        ${l.appraisal ? `<p class="bidline waage">${artIcon('waage_schaetzwert', 'schaetzwert', 1 / 8)}Schätzwert: <b>${l.appraisal} Sch.</b> · Ausruf: <b>${l.start ?? l.price} Sch.</b></p>` : ''}
         <p class="bidline">${l.leader && l.leader !== 'player' ? headFace(l.leader, s.memberName(l.leader)) : ''}Gebot: <b>${l.price} Sch.</b> · führt: ${who(l.leader)}</p>`;
       if (l.leader !== 'player') acts.push({ label: `${l.leader ? 'Überbieten' : 'Bieten'}: ${next} Sch.`, fn: () => s.bid(), off: s.money < next });
       acts.push({ label: 'Aussteigen', fn: () => s.passLot() });
-      if (a.fraud && !a.fraud.exposed) acts.push({ label: 'Betrug anprangern', fn: () => s.accuseFraud() }); // Ritual der Waage
+      if (a.fraud && !a.fraud.exposed) acts.push({ label: 'Betrug anprangern', fn: () => { const r = s.accuseFraud(); this.waageFx = r?.ok ? (r.exposed ? 'waage_betrug_aufgedeckt' : 'waage_falsch_beschuldigt') : null; return r; }, art: artIcon('waage_anprangern', 'aktiv', 1 / 8) }); // Ritual der Waage
     } else if (a.phase === 'request') {
       const q = a.request;
       const it = s.item(q.item);
@@ -2738,9 +2807,9 @@ export class Ui {
       <ul class="seats">${seats}</ul>
       <div class="stage">${stage}</div>
       <ul class="alog">${a.log.map((t) => `<li>${t.startsWith('Zuschlag') ? auktionIcon('sold', 'sold', 1 / 12) : ''}${esc(t)}</li>`).join('')}</ul>
-      ${feedback ? `<p class="feedback">${feedback}</p>` : ''}
+      ${feedback ? `<p class="feedback">${this.waageFx ? artAnim(this.waageFx, 'play', 1 / 4, 'waagefx') : ''}${feedback}</p>` : ''}
       <div class="actions"><span class="purse">${moneyIcon(s.money)}${s.money} Schilling</span>
-        ${acts.map((x, i) => `<button class="small" data-act-i="${i}" ${x.off ? 'disabled' : ''}><span class="key">${++n}</span> ${x.icon ? itemIcon(x.icon) : ''}${esc(x.label)}</button>`).join('')}
+        ${acts.map((x, i) => `<button class="small" data-act-i="${i}" ${x.off ? 'disabled' : ''}><span class="key">${++n}</span> ${x.art ?? (x.icon ? itemIcon(x.icon) : '')}${esc(x.label)}</button>`).join('')}
         <button data-act="leave">Gehen <span class="key">Esc</span></button></div>`, 'notebook auction');
     el.querySelectorAll('[data-act-i]').forEach((b) => { b.onclick = () => this.auctionPick(Number(b.dataset.actI)); });
     el.querySelector('[data-act=leave]').onclick = () => this.finishAuction();
@@ -2759,9 +2828,11 @@ export class Ui {
     const a1 = this.state.auction;
     if (a1 && a1.bought.length + a1.sold.length > before) this.sfx(worldSound('hammer'));
     if (r?.exposed !== undefined) this.sfx(worldSound('ritual', { ok: r.exposed }));
+    if (r?.ended) { this.close(); this.showMessage('Vor die Tür gesetzt', r.text, { footer: 'Bis zum nächsten Treffen.', aside: `<div class="probe-ende-wrap">${artAnim('waage_falsch_beschuldigt', 'play', 1 / 4, 'waagefx')}</div>` }); this.waageFx = null; return; }
     if (r?.ended) { this.close(); this.showMessage('Vor die Tür gesetzt', r.text, { footer: 'Bis zum nächsten Treffen.' }); return; } // falsche Anschuldigung (Waage)
     if (!this.state.auction) return;
     this.renderAuction(r?.text ? esc(r.text) : '');
+    this.waageFx = null;
   }
 
   finishAuction() {
@@ -3018,7 +3089,7 @@ export class Ui {
     if (sub === 'main') {
       const items = mine(() => this.state.items().filter((i) => i.kind === 'consumable' && !i.cleanse).length);
       entries = [
-        { text: c.rules?.shadow ? 'Schattenattacke' : 'Angriff', ui: 'attack', info: c.canUse('attack') ? `+${1 + mine(() => this.state.passive('attack_ap'))} K · beendet den Zug` : 'die Prüfung verbietet es', act: { type: 'skill', id: 'attack' }, disabled: !c.canUse('attack') },
+        { text: c.rules?.shadow ? 'Schattenattacke' : 'Angriff', ui: 'attack', art: c.rules?.shadow ? artIcon('schattenattacke', 0, 1 / 8, 'cbicon') : '', info: c.canUse('attack') ? `+${1 + mine(() => this.state.passive('attack_ap'))} K · beendet den Zug` : 'die Prüfung verbietet es', act: { type: 'skill', id: 'attack' }, disabled: !c.canUse('attack') },
         { text: 'Fertigkeiten', ui: 'skill', info: `${c.ap}/${c.apMax} K`, sub: 'skills' },
         { text: 'Gegenstände', ui: 'item', info: c.canUseItem() ? `${items}` : c.itemBlockedText(), sub: 'items', disabled: !c.canUseItem() },
         // Starke Gegner: Fliehen startet nur den Rückzug, man muss noch Runden durchhalten; läuft er, zeigt der Eintrag den Stand
@@ -3027,9 +3098,9 @@ export class Ui {
       ];
       // Seq-4-Prüfungen: Maske verschont, Faden knüpft den Schicksalsfaden
       if (c.canSpare?.()) entries.splice(3, 0, { text: 'Verschonen', ui: 'skill', info: 'Maske · Ende des Kampfes', act: { type: 'spare' }, desc: `${esc(c.enemy.name)} liegt unter 15 % Leben. Verschone ihn: Er wird an seinen Kräften zweifeln, und der Wächter tritt an.` });
-      if (c.canMarkFate?.()) entries.splice(3, 0, { text: 'Schicksalsfaden', ui: 'skill', info: 'Faden · kostet die Aktion', act: { type: 'mark' }, desc: `Knüpfe einen Faden an ${esc(c.enemy.name)}. Fünf verschiedene Wesen aus fünf Gebieten, dann schlafen.` });
+      if (c.canMarkFate?.()) entries.splice(3, 0, { text: 'Schicksalsfaden', ui: 'skill', art: artIcon('s4fa_mark_welt', 0, 1 / 8, 'cbicon'), info: 'Faden · kostet die Aktion', act: { type: 'mark' }, desc: `Knüpfe einen Faden an ${esc(c.enemy.name)}. Fünf verschiedene Wesen aus fünf Gebieten, dann schlafen.` });
       if (c.rules?.shadow && c.roundSkill) entries[1].info = `diese Runde: ${esc(c.skillDef(c.roundSkill)?.name ?? '')}`;
-      if (c.canStealVoice?.()) entries.splice(3, 0, { text: 'Stimme rauben', ui: 'skill', info: 'verschonen · Zutaten gehen drauf', act: { type: 'voice' }, desc: `${esc(c.enemy.name)} liegt unter 10 % Leben. Nimm die Stimme statt das Leben: Der Kampf endet, keine Beute, das Ritual des Echos ist bestanden.` });
+      if (c.canStealVoice?.()) entries.splice(3, 0, { text: 'Stimme rauben', ui: 'skill', art: artIcon('s5_stimme_rauben_knopf_16', 'aktiv', 1 / 8, 'cbicon'), info: 'verschonen · Zutaten gehen drauf', act: { type: 'voice' }, desc: `${esc(c.enemy.name)} liegt unter 10 % Leben. Nimm die Stimme statt das Leben: Der Kampf endet, keine Beute, das Ritual des Echos ist bestanden.` });
       const fleeNote = c.fleeing ? `<p class="flee-note">⏳ Rückzug läuft: ${c.fleeStatus()} durchhalten${c.duo ? ', dann seid ihr weg' : ', dann bist du weg'}.</p>` : '';
       if (c.actions) entries.push({ text: 'Zug beenden', ui: 'defend', info: '', act: { type: 'end' } });
       else this.combatTurn('player');
@@ -3054,7 +3125,7 @@ export class Ui {
     const key = (e, i) => (e.back ? 'Esc' : i < 9 ? i + 1 : '');
     const btn = (e, i, inner) => `<li><button data-i="${i}" ${e.disabled ? 'disabled' : ''} title="${esc(e.desc ?? '')}">${inner}</button></li>`;
     if (sub === 'main') {
-      menu.innerHTML = `<ol class="choices">${entries.map((e, i) => btn(e, i, `<span class="key">${key(e, i)}</span> ${e.ui ? uiSprite('bmenu', e.disabled ? `${e.ui}_off` : e.ui, 1 / 8, 'cbicon') : ''}${esc(e.text)} <span class="muted">${esc(e.info ?? '')}</span>`)).join('')}</ol>
+      menu.innerHTML = `<ol class="choices">${entries.map((e, i) => btn(e, i, `<span class="key">${key(e, i)}</span> ${e.art ? e.art : e.ui ? uiSprite('bmenu', e.disabled ? `${e.ui}_off` : e.ui, 1 / 8, 'cbicon') : ''}${esc(e.text)} <span class="muted">${esc(e.info ?? '')}</span>`)).join('')}</ol>
         <div class="cb-desc"></div>`;
     } else {
       // Fertigkeiten und Gegenstände: kompakte Kacheln mit großem Icon in der alten Fensterhöhe, damit der Gegner sichtbar bleibt;

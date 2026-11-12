@@ -1,4 +1,5 @@
 import { HalbgottRitual } from './HalbgottRitual.js';
+import { ritualFx } from './ritualArt.js';
 import Phaser from 'phaser';
 import { questTarget, leadTarget, nextHop } from '../core/Guide.js';
 import { createTextures, createCharacterSheet, hash2, TILE, TILE_INDEX, SOLID_KEYS } from './textures.js';
@@ -1009,7 +1010,9 @@ export class WorldScene extends Phaser.Scene {
     // Paket AH: dazu die beiden Figuren von Spieler 2 mit ihren Verkleidungen
     const worn = Object.keys(DISGUISE_SHEETS);
     // Paket CO: die zehn Kreaturformen (32x48) laufen mit demselben Schlüsselschema, etwas langsamer (6 fps)
-    for (const key of [...['player', ...Object.keys(P2_LOOKS)].flatMap((b) => [b, ...worn.map((w) => skinKeyOf(b, w))]), ...HG_PATHS.map((p) => `hg_form_${p}`)]) {
+    // Codex DN/DO: Zivilistengestalt der Maske und der Schatten des Schlüssels, je Spielfigur
+    const ritualSkins = ['player', ...Object.keys(P2_LOOKS)].flatMap((b) => [`s4ma_zivil_${b}`, `schatten_${b}`]);
+    for (const key of [...['player', ...Object.keys(P2_LOOKS)].flatMap((b) => [b, ...worn.map((w) => skinKeyOf(b, w))]), ...HG_PATHS.map((p) => `hg_form_${p}`), ...ritualSkins]) {
       if (!this.textures.exists(key)) continue;
       DIRS.forEach((dir, row) => {
         if (this.anims.exists(`${key}-walk-${dir}`)) return;
@@ -1312,10 +1315,20 @@ export class WorldScene extends Phaser.Scene {
 
   /** Sheet der Spielerfigur: getragene Verkleidung (falls ihr Sheet geladen ist), sonst der Mantel. */
   skinKey() {
+    const ritual = this.ritualSkin(1);
+    if (ritual) return ritual;
     const form = this.formKey(1);
     if (form) return form;
     const key = skinKeyOf('player', this.state.disguise?.());
     return this.textures.exists(key) ? key : 'player';
+  }
+
+  /** Codex DN/DO: Schatten (Schlüssel, Seq 4) oder Zivilist (Maske, Seq 4) als eigenes Laufblatt der gewählten Figur; sonst null. */
+  ritualSkin(n) {
+    if (n === 2 && !this.state.p2) return null;
+    const kind = this.state.withPlayer(n, () => (this.state.shadowActive?.() ? 'schatten' : this.state.seq4Masked?.() ? 's4ma_zivil' : null), { quiet: true });
+    const key = kind && `${kind}_${n === 2 ? this.state.p2Look?.() ?? 'p2a' : 'player'}`;
+    return key && this.textures.exists(key) ? key : null;
   }
 
   /** Paket CO: Sheet der Kreaturform (hg_form_<pfad>), wenn dieser Spieler seine Gestalt trägt und das Sheet geladen ist; sonst null. */
@@ -1333,6 +1346,8 @@ export class WorldScene extends Phaser.Scene {
 
   /** Paket AH: Sheet von Spieler 2 (gewählte Figur, ggf. verkleidet); ohne Sheet der getönte Ermittler. */
   p2SkinKey() {
+    const ritual = this.ritualSkin(2);
+    if (ritual) return ritual;
     const form = this.formKey(2);
     if (form) return form;
     const look = this.state.p2Look?.();
@@ -1693,6 +1708,7 @@ export class WorldScene extends Phaser.Scene {
         return;
       }
       if (picked.first) this.ui.toast(picked.text, 'good'); // DS: Dietrich/Brecheisen klingen aus tryPick
+      ritualFx(this, { pfad: 'schloss_knacken', brecheisen: 'schloss_brecheisen', haarnadel: 'schloss_haarnadel' }[picked.tool] ?? 'schloss_knacken', it.x ?? this.player.x, (it.y ?? this.player.y) - 18, { depth: DEPTH.vision + 1 }); // Codex DQ
     }
     switch (it.kind) {
       case 'npc': {

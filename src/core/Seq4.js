@@ -217,6 +217,7 @@ export const seq4Methods = {
     const p = this.pathway;
     const st = this.seq4();
     this.seq4Cleanup(st);
+    this.emit('ritualFx', { fx: 's4r_ritual_gescheitert', pathway: p?.id, player: this.acting ?? 1 }); // Codex DN: das Siegel springt
     const keep = { marks: st.marks }; // Fäden bleiben
     for (const key of Object.keys(st)) delete st[key];
     if (kind === 'faden' && keep.marks) st.marks = keep.marks;
@@ -529,6 +530,11 @@ export const seq4Methods = {
     this.sfx('s4ma_verwandeln');
     this.emit('changed');
     return { ok: true, text: this.seq4Join(this.seq4Card('maske')?.beginn, this.seq4Msg('maske', 'verwandlung')) + ' Du nimmst das Gesicht eines Menschen an, den niemand ansieht: Mantel vom Trödler, krumme Schultern, leere Hände. Jetzt such dir einen Beyonder der Sequenz 5 oder höher. Nur der einfache Angriff, Tränke sind erlaubt. Verschone ihn.' };
+  },
+
+  /** Trägt der Spieler gerade die Zivilistengestalt der Maske? (Codex DN: eigene Karten- und Kampfblätter) */
+  seq4Masked() {
+    return this.seq4Kind() === 'maske' && !!this.seq4().masked;
   },
 
   // --- Echo ------------------------------------------------------------------------------------------

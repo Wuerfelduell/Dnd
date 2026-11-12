@@ -1035,3 +1035,20 @@ img.scene.koop2trennung { display: block; width: 15em; height: auto; margin: 0 a
 .talentbar.p2 .tslot .key::before { content: 'N'; opacity: 0.7; }
 html.touch .talentbar { bottom: 0.6em; gap: 0.4em; }
 html.touch .talentbar .tslot { width: 3.2em; height: 3.2em; }
+
+/* Codex DN/DO/DQ: Ritualgrafiken in der Oberfläche */
+@keyframes art-strip { from { background-position-x: var(--art-x0); } to { background-position-x: var(--art-x1); } }
+.art { image-rendering: pixelated; }
+.probesym { margin-right: 0.3em; vertical-align: -0.2em; }
+.probe .voices .voiceico { margin-right: 0.3em; }
+.probe .voices.tafeln li { border: none; padding: 0; }
+.moortafel { display: inline-flex; align-items: center; justify-content: center; width: 12em; height: 4em; background-repeat: no-repeat; image-rendering: pixelated; color: #e8dcc0; text-shadow: 0 0.1em 0 #000; font-size: 0.9em; }
+.probe-uhr { position: relative; display: inline-block; float: right; width: 12em; height: 12em; margin: 0 0 0.5em 0.5em; }
+.probe-uhr .auk { position: absolute; left: 0; top: 0; }
+.probe-ende-wrap { text-align: center; margin: 0.4em 0; }
+.seq5marks .auk { margin-right: 0.15em; }
+.regelkarte { border: 1em solid transparent; border-image: url(./sprites/ui/s4r_regelkarte.png) 16 fill / 1em; image-rendering: pixelated; padding: 0.2em 0.4em; color: #3a2a1a; }
+.regelkarte strong { color: #2a1a10; }
+.sudfenster { position: relative; image-rendering: pixelated; margin: 0.4em 0; }
+.sudslot { position: absolute; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.waagefx { margin-right: 0.4em; vertical-align: middle; }

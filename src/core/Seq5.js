@@ -176,6 +176,7 @@ export const seq5Methods = {
       this.setUnruhe(this.unruhe + FAIL_UNRUHE);
     }
     this.sfx('s5_pruefung_gescheitert');
+    this.emit('ritualFx', { fx: 's5_pruefung_gescheitert', pathway: p?.id, player: this.acting ?? 1 }); // Codex DQ: das Siegel bricht
     const full = `${this.seq5Name(kind)}: misslungen. ${text} (−${pct} % Verdauung, +${FAIL_UNRUHE} Unruhe. Du kannst es noch einmal versuchen.)`;
     this.emit('seq5', { kind, passed: false, player: this.acting ?? 1, text: full });
     this.emit('notice', full);

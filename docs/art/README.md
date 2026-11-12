@@ -2025,3 +2025,66 @@ der separate Einbau muss Positionierung, Timing und Ritualregeln im Spiel testen
 `tools/art/seq4rit1/export.py` dokumentiert den Nearest-Neighbor-Export (Pillow/NumPy);
 Generator-Originale gehören nicht zum kleinen Runtime-Paket. Verwendet wurde das
 integrierte Bildwerkzeug, mit Palette aus `manifest-dunscar3.json`.
+## DO — Schattensteuerung (2026-11-12)
+
+22 PNGs für „Der Schatten ohne Körper“: drei Lauf-, drei Körper- und drei Kampf-Sheets, Trennen/Rückkehr/Verloren, Band mit separatem Endstück, Schattenattacke mit Treffer und zwei Icon-Größen, Fähigkeitsslot, Rauchüberlagerung, HUD und Kampfkulisse. Die Abgabezeile des Auftrags zählt 21; das ausdrücklich verlangte 8×8-Endstück ergibt die 22. Datei `fx/schatten_band_ende.png`.
+
+- [Manifest](../../public/sprites/manifest-schatten.json), [Vorschau](batch-schatten-preview.png), [vollständige Prompts und Herkunft](batch-schatten-generation.json), [Prüfbericht](batch-schatten-validation.json).
+- Prüfung: `python tools/art/schatten/check.py` (Pillow). Kontrolliert Maße, gemeinsame 32-Farben-Palette, binäres Alpha, Raster, Framebelegung, leere verbotene Reihen, Baselines, Regionen, Aushol-Holds, Bandnaht und exakte Icon-Verdopplung.
+- Lauf: 4 Spalten × 4 Reihen, Richtungen unten/links/rechts/oben, 16×32, Grundlinie y=30. Körper: 4 Spalten × 2 Reihen; unten [0,1], links [2,3], rechts [4,5], oben [6,7]. Atmen 1 fps, nur minimale Bruständerung, kein Bodenschatten.
+- Kampf: wie `manifest-14b.json`, 6×9 Zellen à 48×48. Reihen (nullbasiert): idle 0, attack 1, shoot 2, dodge 3, **parry 4 leer**, **item 5 leer**, hurt 6, defeated 7, occult 8. Unbenutzte Restzellen ebenfalls leer. Die verbotenen Animationen dürfen nicht aufgerufen werden. Die vorhandene shoot-/occult-Belegung dient kopierten Fähigkeiten; sie gewährt keine Ausrüstung. Standardangriff verwendet zusätzlich `battle/schatten_attacke.png`.
+- Slot: Frames 0–7 auslosen, Frame 8 gesetzt. HUD: vier 16×16-Symbole in der oberen Reihe; 48×8-Leistenrahmen bei (0,16), Nine-Slice-Ränder links/rechts 3 px, oben/unten 2 px. Füllung zur Laufzeit innerhalb des Rahmens. Restfläche transparent.
+- Effekte Trennen/Rückkehr/Verloren werden am Körperfuß verankert; Bandsegmente verlaufen horizontal, dürfen zur Verbindung gedreht werden. Endstück am Körper. Rauchüberlagerung hält die zentrale 40×40-Fläche frei und verändert die Farbe der gewirkten Fähigkeit nicht.
+
+Einbau separat: Ritual immer solo, auch im Koop; Akteur über `actors` im Manifest auswählen. Körper bleibt stehen, Schatten hat 40 % Leben, keine Ausrüstung, Heilung oder Parade; Ausweichen erlaubt. Schattenattacke kostet keine Nerven und verursacht etwa 80 % Normalschaden; pro Runde genau eine zufällige eigene Fähigkeit. Zwei Gegner, danach vorhandener Schwellenwächter. Schattenverlust spielt `schatten_verloren`, lässt den Spieler leben und beendet den Versuch. Texte und Ton kommen aus DR/DS; dieses Paket ändert keine Spielregeln oder Dateien unter `src/`.
+
+Erzeugung mit dem eingebauten Bildgenerator anhand der drei Repo-Spieler; Export per Nearest Neighbor, gemeinsamer Palette und binärem Alpha. Originale und vorhandener Schwellenwächter bleiben unverändert. Technische Prüfungen ersetzen keinen späteren Laufzeittest nach der Integration.
+## DQ – Rituale Sequenz 5 und 6 (`rituale56`)
+
+51 PNGs / 341 Zellen für freies Brauen, Laternenbestie, Kokon, Maske, Echo,
+Erinnerungen, Eisen-/Handelsprüfung, vier Probenfenster, Waage und Schlösser.
+Manifest: `public/sprites/manifest-rituale56.json`; Vorschau:
+`docs/art/batch-rituale56-preview.png`. Generationsprotokoll und Validierung liegen
+unter demselben Batch-Präfix. Kein Spielcode geändert; Einbau separat.
+
+`python tools/art/rituale56/check.py` prüft Maße, gemeinsame 32-Farben-Palette,
+binäres Alpha, Raster, Frames, transparente Restfelder, Größenableitungen,
+Ausholpausen, Kokon-Bereich, Fadennaht, 9-Slice-Insets und Regionsgrenzen.
+
+Die Zuordnung Pfad/Prüfung → IDs steht unter `mapping`, alle Frame-Listen und
+Geschwindigkeiten unter `assets[].animations` (zeilenweise, nullbasiert).
+Zustandsanzeigen werden durch den Spielzustand ausgewählt, nicht abgespielt.
+Die Warten-Uhr hat 12 Frames mit 0,6 fps = 20 Sekunden; den echten Timer führt
+der Einbau. Der Proben-Puls spielt einmal zwei Schläge, Frame 5 ist leer.
+Kokon-Sheets liegen direkt über den angegebenen Lauf-Sheets (Grundlinie 30).
+
+| Zusatzdatei / Konvention | Verwendung |
+|---|---|
+| `s5_eisen_rundenbalken.png` | 96×8, zwölf Kerben, separate 9-Slice-Leiste |
+| `s5_eisen_grenzlinie.png` | 8×16, Nadel bei 40 % Lebensgrenze |
+| `probe_uhr_ergebnis.png` | 48×16, früh / genau / spät |
+| `s5_gesicht_marke_32.png` | 32×32, NN-Ableitung des 16er-Symbols |
+| `s5_stimme_rauben_knopf.png` / `_16.png` | aktiv/gesperrt, 64×32 bzw. 32×16 |
+| `waage_anprangern.png` / `_32.png` | aktiv/gesperrt, 32×16 bzw. 64×32 |
+
+Fenster-Slots und Textflächen stehen unter `regions`; Koordinaten beziehen
+sich bei Mehrfachzuständen auf die erste Zelle. Rezeptbuch und Probenrahmen
+haben 8-Pixel-Ränder. Die zwölf Kerben des Eisenbalkens beim Einbau erhalten
+und bei Bedarf den mittleren Abschnitt kacheln statt beliebig skalieren.
+Die Schloss-Effekte sind stilisierte Fantasy-Animationen mit einem sichtbaren
+Werkzeugsymbol und öffnendem Bügel, ohne Darstellung realer Schlossmechanik.
+
+Vorhandene Braukessel-/Raub-/Fadenbilder bleiben bestehen. Die physische
+Ritual-Laterne kommt aus DN, die Item-Icons aus DP; DQ erzeugt dafür keine Duplikate.
+Die genaue Liste zählt 51 PNGs, einschließlich der separat exportierten
+Unterelemente und drei Größenableitungen; keine zusätzlichen Varianten.
+
+
+## DT — ritualicons2
+
+13 neue Item-Icons: drei Wurfflaschen und zehn seltene Wexmoor-Funde, je 16×16 und 32×32. DP-Palette, binäres Alpha. Leihbild-Zuordnungen im Manifest; kein Laufzeit-Einbau.
+
+- [Vorschau](batch-ritualicons2-preview.png)
+- [Prompts](batch-ritualicons2-generation.json)
+- [Prüfbericht](batch-ritualicons2-validation.json)
+- Prüfung: `python tools/art/ritualicons2/check.py` (Pillow).
