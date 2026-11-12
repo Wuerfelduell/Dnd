@@ -1,0 +1,120 @@
+{
+  "id": "varrowmouth",
+  "name": "Varrowmouth",
+  "desc": "Die Mündung trägt Salz bis in die Amtsstuben. Zweimal am Tag verschwinden die unteren Straßen unter Wasser. Im Register steht dein Name bereits vor deiner Ankunft.",
+  "arrival_map": "vm_zollhafen",
+  "pins": [
+    {
+      "map": "vm_zollhafen",
+      "name": "Zollhafen",
+      "position": [
+        15,
+        25
+      ]
+    },
+    {
+      "map": "vm_stegviertel",
+      "name": "Stegviertel",
+      "position": [
+        38,
+        25
+      ]
+    },
+    {
+      "map": "vm_schlickgassen",
+      "name": "Schlickgassen",
+      "position": [
+        61,
+        25
+      ]
+    },
+    {
+      "map": "vm_oberstrasse",
+      "name": "Oberstraße",
+      "position": [
+        84,
+        25
+      ]
+    },
+    {
+      "map": "vm_wrackfeld",
+      "name": "Wrackfeld",
+      "position": [
+        15,
+        70
+      ]
+    },
+    {
+      "map": "vm_leuchtbank",
+      "name": "Leuchtbank",
+      "position": [
+        38,
+        70
+      ]
+    },
+    {
+      "map": "vm_registerkeller",
+      "name": "Registerkeller",
+      "position": [
+        61,
+        70
+      ]
+    },
+    {
+      "map": "vm_grenzzaun",
+      "name": "Grenzzaun",
+      "position": [
+        84,
+        70
+      ]
+    }
+  ],
+  "merchants": [
+    {
+      "id": "vm_cu_fischerin",
+      "name": "Stegmarkt-Fischerin",
+      "map": "vm_stegviertel",
+      "stock": [
+        "vmi_trockenfisch",
+        "vmi_schlicksohlen",
+        "vmi_lotsenmarke"
+      ]
+    },
+    {
+      "id": "vm_cu_kantine",
+      "name": "Zollhaus-Kantine",
+      "map": "vm_zollhafen",
+      "stock": [
+        "vmi_zollkantinen_tee",
+        "vmi_gezeitenkalender",
+        "verband"
+      ]
+    },
+    {
+      "id": "vm_cu_apotheke",
+      "name": "Reederei-Apotheke",
+      "map": "vm_oberstrasse",
+      "stock": [
+        "vmi_reeder_tinktur",
+        "vmi_salzlaterne",
+        "tonikum"
+      ]
+    }
+  ],
+  "sleep": {
+    "name": "Tams Lotsenkammer",
+    "map": "vm_stegviertel",
+    "requires_flags": [
+      "k6_cu_akt1"
+    ]
+  },
+  "office": {
+    "name": "Altes Zollarchiv",
+    "map": "vm_oberstrasse",
+    "requires_flags": [
+      "k6_cu_akt3"
+    ]
+  },
+  "night_train": false,
+  "return_travel": false
+}

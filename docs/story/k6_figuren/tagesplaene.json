@@ -1,0 +1,1703 @@
+[
+  {
+    "id": "vmn_tam_verrin",
+    "name": "Tam Verrin",
+    "roam": {
+      "speed": 0
+    },
+    "zeit": [
+      {
+        "von": 6,
+        "bis": 10,
+        "taetigkeit": "Vorbereitung: Sie prüft Leinen und hält einen freien Platz im Boot bereit.",
+        "haltung": "nachdenklich",
+        "ebbe": {
+          "map": "vm_zollhafen",
+          "position_hint": "Bootspoller unterhalb der Pegeluhr",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_stegviertel",
+          "position_hint": "Bootsanleger am oberen Marktsteg",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 10,
+        "bis": 18,
+        "taetigkeit": "Dienst: Sie prüft Leinen und hält einen freien Platz im Boot bereit.",
+        "haltung": "neutral",
+        "ebbe": {
+          "map": "vm_zollhafen",
+          "position_hint": "Bootspoller unterhalb der Pegeluhr",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_stegviertel",
+          "position_hint": "Bootsanleger am oberen Marktsteg",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 18,
+        "bis": 24,
+        "taetigkeit": "Aufräumen: Sie prüft Leinen und hält einen freien Platz im Boot bereit.",
+        "haltung": "entschlossen",
+        "ebbe": {
+          "map": "vm_zollhafen",
+          "position_hint": "Bootspoller unterhalb der Pegeluhr",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_stegviertel",
+          "position_hint": "Bootsanleger am oberen Marktsteg",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      }
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    },
+    "nachtregel": "24 bis 6 Uhr unsichtbar; keine questkritische Frist.",
+    "finale_override": "Nach k6_done ausschließlich die Endszene verwenden, keine Stadtroutine nach einer Räumung.",
+    "service_override": {
+      "requires_relation": 4,
+      "uhrzeit": "jederzeit",
+      "map": "vm_stegviertel",
+      "position_hint": "Bootsanleger am oberen Marktsteg",
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ],
+      "text": "Bootsdienst am sicheren Anleger auch 24–6 Uhr; ersetzt dort die Routinefigur, keine zweite Tam."
+    }
+  },
+  {
+    "id": "vmn_osric_dale",
+    "name": "Pater Osric Dale",
+    "roam": {
+      "speed": 0
+    },
+    "zeit": [
+      {
+        "von": 6,
+        "bis": 10,
+        "taetigkeit": "Vorbereitung: Er reinigt das Lampenglas und trocknet Papier zwischen Löschblättern.",
+        "haltung": "nachdenklich",
+        "ebbe": {
+          "map": "vm_leuchtbank",
+          "position_hint": "Lampensockel des Leuchtfeuers",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_zollhafen",
+          "position_hint": "trockene Nische am oberen Zollhauspodest",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 10,
+        "bis": 18,
+        "taetigkeit": "Dienst: Er reinigt das Lampenglas und trocknet Papier zwischen Löschblättern.",
+        "haltung": "neutral",
+        "ebbe": {
+          "map": "vm_leuchtbank",
+          "position_hint": "Lampensockel des Leuchtfeuers",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_zollhafen",
+          "position_hint": "trockene Nische am oberen Zollhauspodest",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 18,
+        "bis": 24,
+        "taetigkeit": "Aufräumen: Er reinigt das Lampenglas und trocknet Papier zwischen Löschblättern.",
+        "haltung": "entschlossen",
+        "ebbe": {
+          "map": "vm_leuchtbank",
+          "position_hint": "Lampensockel des Leuchtfeuers",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_zollhafen",
+          "position_hint": "trockene Nische am oberen Zollhauspodest",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      }
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    },
+    "nachtregel": "24 bis 6 Uhr unsichtbar; keine questkritische Frist.",
+    "finale_override": "Nach k6_done ausschließlich die Endszene verwenden, keine Stadtroutine nach einer Räumung."
+  },
+  {
+    "id": "vmn_nell_quarrie",
+    "name": "Nell Quarrie",
+    "roam": {
+      "speed": 0
+    },
+    "zeit": [
+      {
+        "von": 6,
+        "bis": 10,
+        "taetigkeit": "Vorbereitung: Sie zeichnet trockene Tritte auf und ruht sich nach jeder Anwendung ihrer Gabe aus.",
+        "haltung": "nachdenklich",
+        "ebbe": {
+          "map": "vm_schlickgassen",
+          "position_hint": "dritter Trittstein vor Ressas Schwelle",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_stegviertel",
+          "position_hint": "breite obere Treppenstufe neben Ressas Flickplatz",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 10,
+        "bis": 18,
+        "taetigkeit": "Dienst: Sie zeichnet trockene Tritte auf und ruht sich nach jeder Anwendung ihrer Gabe aus.",
+        "haltung": "neutral",
+        "ebbe": {
+          "map": "vm_schlickgassen",
+          "position_hint": "dritter Trittstein vor Ressas Schwelle",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_stegviertel",
+          "position_hint": "breite obere Treppenstufe neben Ressas Flickplatz",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 18,
+        "bis": 24,
+        "taetigkeit": "Aufräumen: Sie zeichnet trockene Tritte auf und ruht sich nach jeder Anwendung ihrer Gabe aus.",
+        "haltung": "entschlossen",
+        "ebbe": {
+          "map": "vm_schlickgassen",
+          "position_hint": "dritter Trittstein vor Ressas Schwelle",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_stegviertel",
+          "position_hint": "breite obere Treppenstufe neben Ressas Flickplatz",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      }
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    },
+    "nachtregel": "24 bis 6 Uhr unsichtbar; keine questkritische Frist.",
+    "finale_override": "Nach k6_done ausschließlich die Endszene verwenden, keine Stadtroutine nach einer Räumung."
+  },
+  {
+    "id": "vmn_pegelherrin",
+    "name": "Ismay Harrow",
+    "roam": {
+      "speed": 0
+    },
+    "zeit": [
+      {
+        "von": 6,
+        "bis": 10,
+        "taetigkeit": "Vorbereitung: Sie hört Eingaben an, ohne den Blick von der Wasserlinie am Fenster zu nehmen.",
+        "haltung": "nachdenklich",
+        "ebbe": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Audienzfenster an der Ratsfassade",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Audienzfenster an der Ratsfassade",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 10,
+        "bis": 18,
+        "taetigkeit": "Dienst: Sie hört Eingaben an, ohne den Blick von der Wasserlinie am Fenster zu nehmen.",
+        "haltung": "neutral",
+        "ebbe": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Audienzfenster an der Ratsfassade",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Audienzfenster an der Ratsfassade",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 18,
+        "bis": 24,
+        "taetigkeit": "Aufräumen: Sie hört Eingaben an, ohne den Blick von der Wasserlinie am Fenster zu nehmen.",
+        "haltung": "entschlossen",
+        "ebbe": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Audienzfenster an der Ratsfassade",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Audienzfenster an der Ratsfassade",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      }
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    },
+    "nachtregel": "24 bis 6 Uhr unsichtbar; keine questkritische Frist.",
+    "finale_override": "Nach k6_done ausschließlich die Endszene verwenden, keine Stadtroutine nach einer Räumung."
+  },
+  {
+    "id": "vmn_rat_1",
+    "name": "Merren Voss",
+    "roam": {
+      "speed": 0
+    },
+    "zeit": [
+      {
+        "von": 6,
+        "bis": 10,
+        "taetigkeit": "Vorbereitung: Er gleicht Frachtzettel ab und lässt unleserliche Namen zunächst offen.",
+        "haltung": "nachdenklich",
+        "ebbe": {
+          "map": "vm_zollhafen",
+          "position_hint": "Frachtwaage vor dem Zollhaus",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Seitentisch auf dem Ratsabsatz",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 10,
+        "bis": 18,
+        "taetigkeit": "Dienst: Er gleicht Frachtzettel ab und lässt unleserliche Namen zunächst offen.",
+        "haltung": "neutral",
+        "ebbe": {
+          "map": "vm_zollhafen",
+          "position_hint": "Frachtwaage vor dem Zollhaus",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Seitentisch auf dem Ratsabsatz",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 18,
+        "bis": 24,
+        "taetigkeit": "Aufräumen: Er gleicht Frachtzettel ab und lässt unleserliche Namen zunächst offen.",
+        "haltung": "entschlossen",
+        "ebbe": {
+          "map": "vm_zollhafen",
+          "position_hint": "Frachtwaage vor dem Zollhaus",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Seitentisch auf dem Ratsabsatz",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      }
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    },
+    "nachtregel": "24 bis 6 Uhr unsichtbar; keine questkritische Frist.",
+    "finale_override": "Nach k6_done ausschließlich die Endszene verwenden, keine Stadtroutine nach einer Räumung."
+  },
+  {
+    "id": "vmn_rat_2",
+    "name": "Selda Rusk",
+    "roam": {
+      "speed": 0
+    },
+    "zeit": [
+      {
+        "von": 6,
+        "bis": 10,
+        "taetigkeit": "Vorbereitung: Sie liest die Pegelmarken ab und vergleicht sie mit alten Kerben.",
+        "haltung": "nachdenklich",
+        "ebbe": {
+          "map": "vm_zollhafen",
+          "position_hint": "Messlatte am sicheren Rand der Zolltreppe",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Fensterbank mit Sicht auf die Pegeluhr",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 10,
+        "bis": 18,
+        "taetigkeit": "Dienst: Sie liest die Pegelmarken ab und vergleicht sie mit alten Kerben.",
+        "haltung": "neutral",
+        "ebbe": {
+          "map": "vm_zollhafen",
+          "position_hint": "Messlatte am sicheren Rand der Zolltreppe",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Fensterbank mit Sicht auf die Pegeluhr",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 18,
+        "bis": 24,
+        "taetigkeit": "Aufräumen: Sie liest die Pegelmarken ab und vergleicht sie mit alten Kerben.",
+        "haltung": "entschlossen",
+        "ebbe": {
+          "map": "vm_zollhafen",
+          "position_hint": "Messlatte am sicheren Rand der Zolltreppe",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Fensterbank mit Sicht auf die Pegeluhr",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      }
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    },
+    "nachtregel": "24 bis 6 Uhr unsichtbar; keine questkritische Frist.",
+    "finale_override": "Nach k6_done ausschließlich die Endszene verwenden, keine Stadtroutine nach einer Räumung."
+  },
+  {
+    "id": "vmn_rat_3",
+    "name": "Edren Pell",
+    "roam": {
+      "speed": 0
+    },
+    "zeit": [
+      {
+        "von": 6,
+        "bis": 10,
+        "taetigkeit": "Vorbereitung: Er sortiert Abschriften nach Alter und hält einen leeren Evakuierungsplan daneben.",
+        "haltung": "nachdenklich",
+        "ebbe": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Planschrank unter dem Ratsvordach",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Planschrank unter dem Ratsvordach",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 10,
+        "bis": 18,
+        "taetigkeit": "Dienst: Er sortiert Abschriften nach Alter und hält einen leeren Evakuierungsplan daneben.",
+        "haltung": "neutral",
+        "ebbe": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Planschrank unter dem Ratsvordach",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Planschrank unter dem Ratsvordach",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 18,
+        "bis": 24,
+        "taetigkeit": "Aufräumen: Er sortiert Abschriften nach Alter und hält einen leeren Evakuierungsplan daneben.",
+        "haltung": "entschlossen",
+        "ebbe": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Planschrank unter dem Ratsvordach",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Planschrank unter dem Ratsvordach",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      }
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    },
+    "nachtregel": "24 bis 6 Uhr unsichtbar; keine questkritische Frist.",
+    "finale_override": "Nach k6_done ausschließlich die Endszene verwenden, keine Stadtroutine nach einer Räumung."
+  },
+  {
+    "id": "vmn_rat_4",
+    "name": "Orven Tebb",
+    "roam": {
+      "speed": 0
+    },
+    "zeit": [
+      {
+        "von": 6,
+        "bis": 10,
+        "taetigkeit": "Vorbereitung: Er misst Liegeplätze mit Schritten und wartet auf Schiffe aus alten Listen.",
+        "haltung": "nachdenklich",
+        "ebbe": {
+          "map": "vm_zollhafen",
+          "position_hint": "landseitiger Kopf des alten Liegekais",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Bank mit Blick auf die Liegeplätze",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 10,
+        "bis": 18,
+        "taetigkeit": "Dienst: Er misst Liegeplätze mit Schritten und wartet auf Schiffe aus alten Listen.",
+        "haltung": "neutral",
+        "ebbe": {
+          "map": "vm_zollhafen",
+          "position_hint": "landseitiger Kopf des alten Liegekais",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Bank mit Blick auf die Liegeplätze",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 18,
+        "bis": 24,
+        "taetigkeit": "Aufräumen: Er misst Liegeplätze mit Schritten und wartet auf Schiffe aus alten Listen.",
+        "haltung": "entschlossen",
+        "ebbe": {
+          "map": "vm_zollhafen",
+          "position_hint": "landseitiger Kopf des alten Liegekais",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Bank mit Blick auf die Liegeplätze",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      }
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    },
+    "nachtregel": "24 bis 6 Uhr unsichtbar; keine questkritische Frist.",
+    "finale_override": "Nach k6_done ausschließlich die Endszene verwenden, keine Stadtroutine nach einer Räumung."
+  },
+  {
+    "id": "vmn_rat_5",
+    "name": "Bessa Kelm",
+    "roam": {
+      "speed": 0
+    },
+    "zeit": [
+      {
+        "von": 6,
+        "bis": 10,
+        "taetigkeit": "Vorbereitung: Sie sammelt Lohnbeschwerden und prüft Reparaturbedarf an den Stegen.",
+        "haltung": "nachdenklich",
+        "ebbe": {
+          "map": "vm_stegviertel",
+          "position_hint": "Reparaturbock am Marktsteg",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Werkbank am überdachten Ratsabsatz",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 10,
+        "bis": 18,
+        "taetigkeit": "Dienst: Sie sammelt Lohnbeschwerden und prüft Reparaturbedarf an den Stegen.",
+        "haltung": "neutral",
+        "ebbe": {
+          "map": "vm_stegviertel",
+          "position_hint": "Reparaturbock am Marktsteg",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Werkbank am überdachten Ratsabsatz",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 18,
+        "bis": 24,
+        "taetigkeit": "Aufräumen: Sie sammelt Lohnbeschwerden und prüft Reparaturbedarf an den Stegen.",
+        "haltung": "entschlossen",
+        "ebbe": {
+          "map": "vm_stegviertel",
+          "position_hint": "Reparaturbock am Marktsteg",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Werkbank am überdachten Ratsabsatz",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      }
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    },
+    "nachtregel": "24 bis 6 Uhr unsichtbar; keine questkritische Frist.",
+    "finale_override": "Nach k6_done ausschließlich die Endszene verwenden, keine Stadtroutine nach einer Räumung."
+  },
+  {
+    "id": "vmn_rat_6",
+    "name": "Hester Rill",
+    "roam": {
+      "speed": 0
+    },
+    "zeit": [
+      {
+        "von": 6,
+        "bis": 10,
+        "taetigkeit": "Vorbereitung: Sie hört Verlustberichte an und lässt freie Stellen auf der Gedenkliste.",
+        "haltung": "nachdenklich",
+        "ebbe": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Gedenktafel an der Ratsfassade",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_stegviertel",
+          "position_hint": "windgeschützte Sitzbank oberhalb des Marktes",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 10,
+        "bis": 18,
+        "taetigkeit": "Dienst: Sie hört Verlustberichte an und lässt freie Stellen auf der Gedenkliste.",
+        "haltung": "neutral",
+        "ebbe": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Gedenktafel an der Ratsfassade",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_stegviertel",
+          "position_hint": "windgeschützte Sitzbank oberhalb des Marktes",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 18,
+        "bis": 24,
+        "taetigkeit": "Aufräumen: Sie hört Verlustberichte an und lässt freie Stellen auf der Gedenkliste.",
+        "haltung": "entschlossen",
+        "ebbe": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Gedenktafel an der Ratsfassade",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_stegviertel",
+          "position_hint": "windgeschützte Sitzbank oberhalb des Marktes",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      }
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    },
+    "nachtregel": "24 bis 6 Uhr unsichtbar; keine questkritische Frist.",
+    "finale_override": "Nach k6_done ausschließlich die Endszene verwenden, keine Stadtroutine nach einer Räumung."
+  },
+  {
+    "id": "vmn_rat_7",
+    "name": "Jorin Fane",
+    "roam": {
+      "speed": 0
+    },
+    "zeit": [
+      {
+        "von": 6,
+        "bis": 10,
+        "taetigkeit": "Vorbereitung: Er zählt Schüsseln statt Köpfe und trägt Decken zur oberen Treppe.",
+        "haltung": "nachdenklich",
+        "ebbe": {
+          "map": "vm_stegviertel",
+          "position_hint": "Ausgabetisch am oberen Marktsteg",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Deckenkiste beim oberen Ratszugang",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 10,
+        "bis": 18,
+        "taetigkeit": "Dienst: Er zählt Schüsseln statt Köpfe und trägt Decken zur oberen Treppe.",
+        "haltung": "neutral",
+        "ebbe": {
+          "map": "vm_stegviertel",
+          "position_hint": "Ausgabetisch am oberen Marktsteg",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Deckenkiste beim oberen Ratszugang",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 18,
+        "bis": 24,
+        "taetigkeit": "Aufräumen: Er zählt Schüsseln statt Köpfe und trägt Decken zur oberen Treppe.",
+        "haltung": "entschlossen",
+        "ebbe": {
+          "map": "vm_stegviertel",
+          "position_hint": "Ausgabetisch am oberen Marktsteg",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Deckenkiste beim oberen Ratszugang",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      }
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    },
+    "nachtregel": "24 bis 6 Uhr unsichtbar; keine questkritische Frist.",
+    "finale_override": "Nach k6_done ausschließlich die Endszene verwenden, keine Stadtroutine nach einer Räumung."
+  },
+  {
+    "id": "vmn_zollschreiber",
+    "name": "Iven Dorr",
+    "roam": {
+      "speed": 0
+    },
+    "zeit": [
+      {
+        "von": 6,
+        "bis": 10,
+        "taetigkeit": "Vorbereitung: Er trocknet Durchschläge und legt lesbare Seiten zur Seite.",
+        "haltung": "nachdenklich",
+        "ebbe": {
+          "map": "vm_zollhafen",
+          "position_hint": "Schreibpult im trockenen Zollhausbereich",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_zollhafen",
+          "position_hint": "Schreibpult im trockenen Zollhausbereich",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 10,
+        "bis": 18,
+        "taetigkeit": "Dienst: Er trocknet Durchschläge und legt lesbare Seiten zur Seite.",
+        "haltung": "neutral",
+        "ebbe": {
+          "map": "vm_zollhafen",
+          "position_hint": "Schreibpult im trockenen Zollhausbereich",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_zollhafen",
+          "position_hint": "Schreibpult im trockenen Zollhausbereich",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 18,
+        "bis": 24,
+        "taetigkeit": "Aufräumen: Er trocknet Durchschläge und legt lesbare Seiten zur Seite.",
+        "haltung": "entschlossen",
+        "ebbe": {
+          "map": "vm_zollhafen",
+          "position_hint": "Schreibpult im trockenen Zollhausbereich",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_zollhafen",
+          "position_hint": "Schreibpult im trockenen Zollhausbereich",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      }
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    },
+    "nachtregel": "24 bis 6 Uhr unsichtbar; keine questkritische Frist.",
+    "finale_override": "Nach k6_done ausschließlich die Endszene verwenden, keine Stadtroutine nach einer Räumung."
+  },
+  {
+    "id": "vmn_fischerin",
+    "name": "Marda Sennick",
+    "roam": {
+      "speed": 0
+    },
+    "zeit": [
+      {
+        "von": 6,
+        "bis": 10,
+        "taetigkeit": "Vorbereitung: Sie salzt den Fang und hebt die Körbe vor dem Pegelwechsel an.",
+        "haltung": "nachdenklich",
+        "ebbe": {
+          "map": "vm_stegviertel",
+          "position_hint": "Fischstand am inneren Marktsteg",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_stegviertel",
+          "position_hint": "oberer Hakenstand neben dem Fischstand",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 10,
+        "bis": 18,
+        "taetigkeit": "Dienst: Sie salzt den Fang und hebt die Körbe vor dem Pegelwechsel an.",
+        "haltung": "neutral",
+        "ebbe": {
+          "map": "vm_stegviertel",
+          "position_hint": "Fischstand am inneren Marktsteg",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_stegviertel",
+          "position_hint": "oberer Hakenstand neben dem Fischstand",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 18,
+        "bis": 24,
+        "taetigkeit": "Aufräumen: Sie salzt den Fang und hebt die Körbe vor dem Pegelwechsel an.",
+        "haltung": "entschlossen",
+        "ebbe": {
+          "map": "vm_stegviertel",
+          "position_hint": "Fischstand am inneren Marktsteg",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_stegviertel",
+          "position_hint": "oberer Hakenstand neben dem Fischstand",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      }
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    },
+    "nachtregel": "24 bis 6 Uhr unsichtbar; keine questkritische Frist.",
+    "finale_override": "Nach k6_done ausschließlich die Endszene verwenden, keine Stadtroutine nach einer Räumung."
+  },
+  {
+    "id": "vmn_kantinenwirt",
+    "name": "Uldren Beck",
+    "roam": {
+      "speed": 0
+    },
+    "zeit": [
+      {
+        "von": 6,
+        "bis": 10,
+        "taetigkeit": "Vorbereitung: Er kocht Gerste und trägt den Kessel rechtzeitig auf den oberen Steg.",
+        "haltung": "nachdenklich",
+        "ebbe": {
+          "map": "vm_zollhafen",
+          "position_hint": "Kantinentisch am trockenen Zollpodest",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_stegviertel",
+          "position_hint": "Kesseltisch am oberen Marktsteg",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 10,
+        "bis": 18,
+        "taetigkeit": "Dienst: Er kocht Gerste und trägt den Kessel rechtzeitig auf den oberen Steg.",
+        "haltung": "neutral",
+        "ebbe": {
+          "map": "vm_zollhafen",
+          "position_hint": "Kantinentisch am trockenen Zollpodest",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_stegviertel",
+          "position_hint": "Kesseltisch am oberen Marktsteg",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 18,
+        "bis": 24,
+        "taetigkeit": "Aufräumen: Er kocht Gerste und trägt den Kessel rechtzeitig auf den oberen Steg.",
+        "haltung": "entschlossen",
+        "ebbe": {
+          "map": "vm_zollhafen",
+          "position_hint": "Kantinentisch am trockenen Zollpodest",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_stegviertel",
+          "position_hint": "Kesseltisch am oberen Marktsteg",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      }
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    },
+    "nachtregel": "24 bis 6 Uhr unsichtbar; keine questkritische Frist.",
+    "finale_override": "Nach k6_done ausschließlich die Endszene verwenden, keine Stadtroutine nach einer Räumung."
+  },
+  {
+    "id": "vmn_apothekerin",
+    "name": "Veyla Mossen",
+    "roam": {
+      "speed": 0
+    },
+    "zeit": [
+      {
+        "von": 6,
+        "bis": 10,
+        "taetigkeit": "Vorbereitung: Sie prüft Flaschenverschlüsse und gibt Mittel nur mit verständlicher Dosierung aus.",
+        "haltung": "nachdenklich",
+        "ebbe": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Ausgabefenster der Reeder-Apotheke",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Ausgabefenster der Reeder-Apotheke",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 10,
+        "bis": 18,
+        "taetigkeit": "Dienst: Sie prüft Flaschenverschlüsse und gibt Mittel nur mit verständlicher Dosierung aus.",
+        "haltung": "neutral",
+        "ebbe": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Ausgabefenster der Reeder-Apotheke",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Ausgabefenster der Reeder-Apotheke",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 18,
+        "bis": 24,
+        "taetigkeit": "Aufräumen: Sie prüft Flaschenverschlüsse und gibt Mittel nur mit verständlicher Dosierung aus.",
+        "haltung": "entschlossen",
+        "ebbe": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Ausgabefenster der Reeder-Apotheke",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Ausgabefenster der Reeder-Apotheke",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      }
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    },
+    "nachtregel": "24 bis 6 Uhr unsichtbar; keine questkritische Frist.",
+    "finale_override": "Nach k6_done ausschließlich die Endszene verwenden, keine Stadtroutine nach einer Räumung."
+  },
+  {
+    "id": "vmn_faehrmann",
+    "name": "Roven Ilt",
+    "roam": {
+      "speed": 0
+    },
+    "zeit": [
+      {
+        "von": 6,
+        "bis": 10,
+        "taetigkeit": "Vorbereitung: Er prüft Ruder und verteilt das Gewicht im Boot.",
+        "haltung": "nachdenklich",
+        "ebbe": {
+          "map": "vm_zollhafen",
+          "position_hint": "landseitiger Fährpoller am Zollhafen",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_stegviertel",
+          "position_hint": "breiter Fähranleger am oberen Steg",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 10,
+        "bis": 18,
+        "taetigkeit": "Dienst: Er prüft Ruder und verteilt das Gewicht im Boot.",
+        "haltung": "neutral",
+        "ebbe": {
+          "map": "vm_zollhafen",
+          "position_hint": "landseitiger Fährpoller am Zollhafen",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_stegviertel",
+          "position_hint": "breiter Fähranleger am oberen Steg",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 18,
+        "bis": 24,
+        "taetigkeit": "Aufräumen: Er prüft Ruder und verteilt das Gewicht im Boot.",
+        "haltung": "entschlossen",
+        "ebbe": {
+          "map": "vm_zollhafen",
+          "position_hint": "landseitiger Fährpoller am Zollhafen",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_stegviertel",
+          "position_hint": "breiter Fähranleger am oberen Steg",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      }
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    },
+    "nachtregel": "24 bis 6 Uhr unsichtbar; keine questkritische Frist.",
+    "finale_override": "Nach k6_done ausschließlich die Endszene verwenden, keine Stadtroutine nach einer Räumung."
+  },
+  {
+    "id": "vmn_kielwirtin",
+    "name": "Dessa Orren",
+    "roam": {
+      "speed": 0
+    },
+    "zeit": [
+      {
+        "von": 6,
+        "bis": 10,
+        "taetigkeit": "Vorbereitung: Sie lüftet den Kielraum und verlegt Vorräte vor der Flut auf den oberen Steg.",
+        "haltung": "nachdenklich",
+        "ebbe": {
+          "map": "vm_wrackfeld",
+          "position_hint": "trockener Tisch im landseitigen Kielraum",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten.",
+          "requires_flags": [
+            "k6_cx_zirkelzugang"
+          ]
+        },
+        "flut": {
+          "map": "vm_stegviertel",
+          "position_hint": "Tassenkiste am oberen Steg, abseits des Anlegerbetriebs",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 10,
+        "bis": 18,
+        "taetigkeit": "Dienst: Sie lüftet den Kielraum und verlegt Vorräte vor der Flut auf den oberen Steg.",
+        "haltung": "neutral",
+        "ebbe": {
+          "map": "vm_wrackfeld",
+          "position_hint": "trockener Tisch im landseitigen Kielraum",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten.",
+          "requires_flags": [
+            "k6_cx_zirkelzugang"
+          ]
+        },
+        "flut": {
+          "map": "vm_stegviertel",
+          "position_hint": "Tassenkiste am oberen Steg, abseits des Anlegerbetriebs",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 18,
+        "bis": 24,
+        "taetigkeit": "Aufräumen: Sie lüftet den Kielraum und verlegt Vorräte vor der Flut auf den oberen Steg.",
+        "haltung": "entschlossen",
+        "ebbe": {
+          "map": "vm_wrackfeld",
+          "position_hint": "trockener Tisch im landseitigen Kielraum",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten.",
+          "requires_flags": [
+            "k6_cx_zirkelzugang"
+          ]
+        },
+        "flut": {
+          "map": "vm_stegviertel",
+          "position_hint": "Tassenkiste am oberen Steg, abseits des Anlegerbetriebs",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      }
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    },
+    "nachtregel": "24 bis 6 Uhr unsichtbar; keine questkritische Frist.",
+    "finale_override": "Nach k6_done ausschließlich die Endszene verwenden, keine Stadtroutine nach einer Räumung."
+  },
+  {
+    "id": "vmn_mutter",
+    "name": "Ressa Quarrie",
+    "roam": {
+      "speed": 0
+    },
+    "zeit": [
+      {
+        "von": 6,
+        "bis": 10,
+        "taetigkeit": "Vorbereitung: Sie flickt Kleidung und prüft Nells Müdigkeit, bevor sie weitere Besuche zulässt.",
+        "haltung": "nachdenklich",
+        "ebbe": {
+          "map": "vm_schlickgassen",
+          "position_hint": "Flicktisch an der trockenen Hausschwelle",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_stegviertel",
+          "position_hint": "Flickplatz hinter der breiten oberen Treppenstufe",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 10,
+        "bis": 18,
+        "taetigkeit": "Dienst: Sie flickt Kleidung und prüft Nells Müdigkeit, bevor sie weitere Besuche zulässt.",
+        "haltung": "neutral",
+        "ebbe": {
+          "map": "vm_schlickgassen",
+          "position_hint": "Flicktisch an der trockenen Hausschwelle",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_stegviertel",
+          "position_hint": "Flickplatz hinter der breiten oberen Treppenstufe",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 18,
+        "bis": 24,
+        "taetigkeit": "Aufräumen: Sie flickt Kleidung und prüft Nells Müdigkeit, bevor sie weitere Besuche zulässt.",
+        "haltung": "entschlossen",
+        "ebbe": {
+          "map": "vm_schlickgassen",
+          "position_hint": "Flicktisch an der trockenen Hausschwelle",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_stegviertel",
+          "position_hint": "Flickplatz hinter der breiten oberen Treppenstufe",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      }
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    },
+    "nachtregel": "24 bis 6 Uhr unsichtbar; keine questkritische Frist.",
+    "finale_override": "Nach k6_done ausschließlich die Endszene verwenden, keine Stadtroutine nach einer Räumung."
+  },
+  {
+    "id": "vmn_mechaniker",
+    "name": "Belven Kett",
+    "roam": {
+      "speed": 0
+    },
+    "zeit": [
+      {
+        "von": 6,
+        "bis": 10,
+        "taetigkeit": "Vorbereitung: Er ölt die Achse und kontrolliert beide Zeiger an einer echten Pegelmarke.",
+        "haltung": "nachdenklich",
+        "ebbe": {
+          "map": "vm_zollhafen",
+          "position_hint": "Wartungsklappe an der Pegeluhr",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_zollhafen",
+          "position_hint": "oberes Wartungspodest an der Pegeluhr",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 10,
+        "bis": 18,
+        "taetigkeit": "Dienst: Er ölt die Achse und kontrolliert beide Zeiger an einer echten Pegelmarke.",
+        "haltung": "neutral",
+        "ebbe": {
+          "map": "vm_zollhafen",
+          "position_hint": "Wartungsklappe an der Pegeluhr",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_zollhafen",
+          "position_hint": "oberes Wartungspodest an der Pegeluhr",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 18,
+        "bis": 24,
+        "taetigkeit": "Aufräumen: Er ölt die Achse und kontrolliert beide Zeiger an einer echten Pegelmarke.",
+        "haltung": "entschlossen",
+        "ebbe": {
+          "map": "vm_zollhafen",
+          "position_hint": "Wartungsklappe an der Pegeluhr",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_zollhafen",
+          "position_hint": "oberes Wartungspodest an der Pegeluhr",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      }
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    },
+    "nachtregel": "24 bis 6 Uhr unsichtbar; keine questkritische Frist.",
+    "finale_override": "Nach k6_done ausschließlich die Endszene verwenden, keine Stadtroutine nach einer Räumung."
+  },
+  {
+    "id": "vmn_zollknecht",
+    "name": "Tavin Murr",
+    "roam": {
+      "speed": 0
+    },
+    "zeit": [
+      {
+        "von": 6,
+        "bis": 10,
+        "taetigkeit": "Vorbereitung: Er prüft den Riegel und hält den seitlichen Durchgang im Blick.",
+        "haltung": "nachdenklich",
+        "ebbe": {
+          "map": "vm_grenzzaun",
+          "position_hint": "seitliche Tür am oberen Wachgang",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_grenzzaun",
+          "position_hint": "seitliche Tür am oberen Wachgang",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 10,
+        "bis": 18,
+        "taetigkeit": "Dienst: Er prüft den Riegel und hält den seitlichen Durchgang im Blick.",
+        "haltung": "neutral",
+        "ebbe": {
+          "map": "vm_grenzzaun",
+          "position_hint": "seitliche Tür am oberen Wachgang",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_grenzzaun",
+          "position_hint": "seitliche Tür am oberen Wachgang",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 18,
+        "bis": 24,
+        "taetigkeit": "Aufräumen: Er prüft den Riegel und hält den seitlichen Durchgang im Blick.",
+        "haltung": "entschlossen",
+        "ebbe": {
+          "map": "vm_grenzzaun",
+          "position_hint": "seitliche Tür am oberen Wachgang",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_grenzzaun",
+          "position_hint": "seitliche Tür am oberen Wachgang",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      }
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    },
+    "nachtregel": "24 bis 6 Uhr unsichtbar; keine questkritische Frist.",
+    "finale_override": "Nach k6_done ausschließlich die Endszene verwenden, keine Stadtroutine nach einer Räumung."
+  },
+  {
+    "id": "vmn_taucherin",
+    "name": "Edda Vey",
+    "roam": {
+      "speed": 0
+    },
+    "zeit": [
+      {
+        "von": 6,
+        "bis": 10,
+        "taetigkeit": "Vorbereitung: Sie prüft den Luftschlauch und betritt das Wrackfeld ausschließlich bei Ebbe.",
+        "haltung": "nachdenklich",
+        "ebbe": {
+          "map": "vm_wrackfeld",
+          "position_hint": "Schlauchablage am landseitigen Wrackzugang",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_stegviertel",
+          "position_hint": "Helmablage am inneren oberen Marktsteg",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 10,
+        "bis": 18,
+        "taetigkeit": "Dienst: Sie prüft den Luftschlauch und betritt das Wrackfeld ausschließlich bei Ebbe.",
+        "haltung": "neutral",
+        "ebbe": {
+          "map": "vm_wrackfeld",
+          "position_hint": "Schlauchablage am landseitigen Wrackzugang",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_stegviertel",
+          "position_hint": "Helmablage am inneren oberen Marktsteg",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 18,
+        "bis": 24,
+        "taetigkeit": "Aufräumen: Sie prüft den Luftschlauch und betritt das Wrackfeld ausschließlich bei Ebbe.",
+        "haltung": "entschlossen",
+        "ebbe": {
+          "map": "vm_wrackfeld",
+          "position_hint": "Schlauchablage am landseitigen Wrackzugang",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_stegviertel",
+          "position_hint": "Helmablage am inneren oberen Marktsteg",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      }
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    },
+    "nachtregel": "24 bis 6 Uhr unsichtbar; keine questkritische Frist.",
+    "finale_override": "Nach k6_done ausschließlich die Endszene verwenden, keine Stadtroutine nach einer Räumung."
+  },
+  {
+    "id": "vmn_zeuge_kettlegate",
+    "name": "Corven Nall",
+    "roam": {
+      "speed": 0
+    },
+    "zeit": [
+      {
+        "von": 6,
+        "bis": 10,
+        "taetigkeit": "Vorbereitung: Er sortiert Muster und bewahrt den Durchschlag seines Briefes getrennt davon auf.",
+        "haltung": "nachdenklich",
+        "ebbe": {
+          "map": "vm_zollhafen",
+          "position_hint": "Musterkofferbank neben dem Zollhaus",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Besucherbank am Anfang der Oberstraße",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 10,
+        "bis": 18,
+        "taetigkeit": "Dienst: Er sortiert Muster und bewahrt den Durchschlag seines Briefes getrennt davon auf.",
+        "haltung": "neutral",
+        "ebbe": {
+          "map": "vm_zollhafen",
+          "position_hint": "Musterkofferbank neben dem Zollhaus",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Besucherbank am Anfang der Oberstraße",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 18,
+        "bis": 24,
+        "taetigkeit": "Aufräumen: Er sortiert Muster und bewahrt den Durchschlag seines Briefes getrennt davon auf.",
+        "haltung": "entschlossen",
+        "ebbe": {
+          "map": "vm_zollhafen",
+          "position_hint": "Musterkofferbank neben dem Zollhaus",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_oberstrasse",
+          "position_hint": "Besucherbank am Anfang der Oberstraße",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      }
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    },
+    "nachtregel": "24 bis 6 Uhr unsichtbar; keine questkritische Frist.",
+    "finale_override": "Nach k6_done ausschließlich die Endszene verwenden, keine Stadtroutine nach einer Räumung."
+  },
+  {
+    "id": "vmn_kurgast",
+    "name": "Alwen Tor",
+    "roam": {
+      "speed": 0
+    },
+    "zeit": [
+      {
+        "von": 6,
+        "bis": 10,
+        "taetigkeit": "Vorbereitung: Sie sucht einen trockenen Sitz und liest nur so lange, wie die Hände ruhig bleiben.",
+        "haltung": "nachdenklich",
+        "ebbe": {
+          "map": "vm_stegviertel",
+          "position_hint": "trockene Sitzbank fern der Fischkörbe",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_oberstrasse",
+          "position_hint": "windgeschützter Mauervorsprung an der Oberstraße",
+          "haltung": "nachdenklich",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 10,
+        "bis": 18,
+        "taetigkeit": "Dienst: Sie sucht einen trockenen Sitz und liest nur so lange, wie die Hände ruhig bleiben.",
+        "haltung": "neutral",
+        "ebbe": {
+          "map": "vm_stegviertel",
+          "position_hint": "trockene Sitzbank fern der Fischkörbe",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_oberstrasse",
+          "position_hint": "windgeschützter Mauervorsprung an der Oberstraße",
+          "haltung": "neutral",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      },
+      {
+        "von": 18,
+        "bis": 24,
+        "taetigkeit": "Aufräumen: Sie sucht einen trockenen Sitz und liest nur so lange, wie die Hände ruhig bleiben.",
+        "haltung": "entschlossen",
+        "ebbe": {
+          "map": "vm_stegviertel",
+          "position_hint": "trockene Sitzbank fern der Fischkörbe",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        },
+        "flut": {
+          "map": "vm_oberstrasse",
+          "position_hint": "windgeschützter Mauervorsprung an der Oberstraße",
+          "haltung": "entschlossen",
+          "gezeitenregel": "Bei Pegelwechsel auf den sicheren Zielstandplatz versetzen; kein Weg durch überflutete Karten."
+        }
+      }
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k6_arrived"
+      ],
+      "hide_if_flags": [
+        "k6_done"
+      ]
+    },
+    "nachtregel": "24 bis 6 Uhr unsichtbar; keine questkritische Frist.",
+    "finale_override": "Nach k6_done ausschließlich die Endszene verwenden, keine Stadtroutine nach einer Räumung."
+  }
+]

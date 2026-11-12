@@ -1,0 +1,92 @@
+{
+  "vm_cu_zoll": {
+    "start": [
+      {
+        "node": "vm_cu_zoll_start"
+      }
+    ],
+    "nodes": {
+      "vm_cu_zoll_start": {
+        "speaker": "vmn_rat_1",
+        "text": "Ihr Name steht schon hier. Prüfen Sie die Pegeluhr, bevor Sie nach unten gehen.",
+        "choices": [
+          {
+            "text": "Den Weg erklären lassen.",
+            "next": "vm_cu_zoll_weg"
+          },
+          {
+            "text": "Weitergehen."
+          }
+        ]
+      },
+      "vm_cu_zoll_weg": {
+        "text": "Du merkst dir den oberen Anleger. Die Pegelglocke warnt eine halbe Minute vor dem Wechsel.",
+        "choices": [
+          {
+            "text": "Verstanden."
+          }
+        ]
+      }
+    }
+  },
+  "vm_cu_markt": {
+    "start": [
+      {
+        "node": "vm_cu_markt_start"
+      }
+    ],
+    "nodes": {
+      "vm_cu_markt_start": {
+        "speaker": "vmn_tam_verrin",
+        "text": "Am Stegmarkt bleiben Ihre Füße trocken. Die unteren Gassen gehören bei Flut dem Wasser.",
+        "choices": [
+          {
+            "text": "Den Weg erklären lassen.",
+            "next": "vm_cu_markt_weg"
+          },
+          {
+            "text": "Weitergehen."
+          }
+        ]
+      },
+      "vm_cu_markt_weg": {
+        "text": "Du merkst dir den oberen Anleger. Die Pegelglocke warnt eine halbe Minute vor dem Wechsel.",
+        "choices": [
+          {
+            "text": "Verstanden."
+          }
+        ]
+      }
+    }
+  },
+  "vm_cu_faehre": {
+    "start": [
+      {
+        "node": "vm_cu_faehre_start"
+      }
+    ],
+    "nodes": {
+      "vm_cu_faehre_start": {
+        "speaker": "vmn_tam_verrin",
+        "text": "Ich bringe Sie zum Leuchtfeuer. Zurück fahre ich auch ohne Geld.",
+        "choices": [
+          {
+            "text": "Den Weg erklären lassen.",
+            "next": "vm_cu_faehre_weg"
+          },
+          {
+            "text": "Weitergehen."
+          }
+        ]
+      },
+      "vm_cu_faehre_weg": {
+        "text": "Du merkst dir den oberen Anleger. Die Pegelglocke warnt eine halbe Minute vor dem Wechsel.",
+        "choices": [
+          {
+            "text": "Verstanden."
+          }
+        ]
+      }
+    }
+  }
+}
