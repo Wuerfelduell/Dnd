@@ -111,6 +111,11 @@ export class GameState {
     for (const fn of this.listeners.get(event) ?? []) fn(payload);
   }
 
+  /** DS: Klang aus den Kernmodulen (Rituale, Proben, Sude). core/sounds.js wireSounds spielt ihn; opts: { variant, delay, volume }. */
+  sfx(id, opts = {}) {
+    if (id) this.emit('sfx', { id, ...opts });
+  }
+
   // --- Nachschlagen ----------------------------------------------------------
   clue(id) {
     return this.content.clues[id];
@@ -632,7 +637,10 @@ export class GameState {
   }
 
   heal(n) {
-    if (this.healBlocked?.()) return 0; // Seq-4-Prüfungen: im Traum und als Schatten heilt nichts
+    if (this.healBlocked?.()) { // Seq-4-Prüfungen: im Traum und als Schatten heilt nichts
+      if (n > 0) this.sfx(this.combatRules?.shadow ? 'schatten_heilung_versagt' : 's4fa_heilung_versagt', { throttle: 3000 });
+      return 0;
+    }
     const before = this.hp;
     this.hp = Math.min(this.maxHp, this.hp + n);
     if (this.hp !== before) this.emit('hp', { value: this.hp, delta: this.hp - before });

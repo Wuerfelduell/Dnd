@@ -119,6 +119,9 @@ export const probeMethods = {
       return { ok: false, text: `Unbekannte Probe: ${p.kind}` };
     }
     this.probe = probe;
+    this.sfx('probe_start');
+    // DS: drei Nebelstimmen ohne Worte, nacheinander (Varianten 1 bis 3)
+    if (p.kind === 'echo') probe.listen.forEach((_, i) => this.sfx('probe_echo_stimme', { variant: i + 1, delay: 700 + i * 1500 }));
     this.emit('changed');
     return { ok: true, probe };
   },
@@ -128,6 +131,8 @@ export const probeMethods = {
     const pr = this.probe;
     if (!pr || pr.phase === 'fragen') return { ok: false };
     pr.phase = 'fragen';
+    if (pr.kind === 'echo') this.sfx('probe_echo_nachhall'); // DS: eine Stimme kommt gedämpft zurück
+    if (pr.kind === 'moor') this.sfx('probe_moor_name_weg'); // DS: die Flut nimmt einen Namen mit
     return { ok: true };
   },
 
@@ -136,6 +141,7 @@ export const probeMethods = {
     const pr = this.probe;
     if (!pr || pr.kind !== 'uhr') return { ok: false };
     pr.startedAt = now;
+    this.sfx('probe_uhr_puls'); // DS: zwei Schläge, dann zählst du allein
     return { ok: true };
   },
 
@@ -164,6 +170,7 @@ export const probeMethods = {
     }
     pr.step += 1;
     pr.log.push(`✓ ${round.answer}`);
+    if (pr.kind === 'faden') this.sfx('probe_faden_verbinden');
     if (pr.step >= pr.rounds.length) {
       const done = { faden: 'Alle vier Knoten halten. Das Netz trägt.', echo: 'Der Nachhall hat einen Namen. Du kennst ihn.', moor: 'Was fehlte und was fremd war: beides hast du gesehen.' }[pr.kind];
       return this.finishProbe(true, done);
@@ -187,10 +194,12 @@ export const probeMethods = {
     this.probe = null;
     if (passed) {
       this.flags.add(this.probeFlag(pr.pid, pr.seq));
+      this.sfx('probe_bestanden', { delay: pr.kind === 'faden' ? 500 : 0 });
       this.emit('probe', { pathway: pr.pid, seq: pr.seq, passed: true, player: this.acting ?? 1 });
       this.emit('changed');
       return { ok: true, passed: true, text: `${pr.name}: bestanden. ${text}` };
     }
+    this.sfx('probe_fehlversuch');
     this.setComposure(this.composure - PROBE_FAIL.nerves);
     if (this.pathway) this.setUnruhe(this.unruhe + PROBE_FAIL.unruhe);
     this.emit('probe', { pathway: pr.pid, seq: pr.seq, passed: false, player: this.acting ?? 1 });

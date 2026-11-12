@@ -657,8 +657,12 @@ export class WorldScene extends Phaser.Scene {
     const tx = Math.floor(this.player.x / TILE);
     const ty = Math.floor(this.player.y / TILE);
     // CM: im Winter Schnee, im Herbst Laub unter den Schritten im Freien
-    const step = footstepSound(this.mapDef.tiles, this.mapDef.rows?.[ty]?.[tx], { season: this.state.season?.(), outdoor: this.outdoor });
+    // DS: der Schatten (Seq-4-Ritual des Schlüssels) streift nur leise über den Boden
+    const shadow = !!this.state.shadowActive?.();
+    const step = shadow ? 'schatten_schritt' : footstepSound(this.mapDef.tiles, this.mapDef.rows?.[ty]?.[tx], { season: this.state.season?.(), outdoor: this.outdoor });
     this.registry.get('audio')?.play(step, { volume: 0.6 });
+    // DS: unter doppelter Last (Ritual des Eisens) ächzt das Metall bei jedem dritten, vierten Schritt
+    if (!shadow && this.state.seq4Kind?.() === 'eisen' && this.state.eisenConditions?.().load >= 1 && Math.random() < 0.25) this.sfx('s4ei_last_aechzt', { volume: 0.7 });
     if (step === 'schritt_laub' && Math.random() < 0.15) this.sfx('saison_laub', { volume: 0.4 }); // Herbstlaub raschelt hin und wieder lauter
   }
 
@@ -1684,12 +1688,11 @@ export class WorldScene extends Phaser.Scene {
       // Knackbare Schlösser (lock.pick): Pfad des Schlüssels, Brecheisen oder Haarnadel öffnen sie trotzdem (Ritual des Schlüssels zählt mit)
       const picked = this.state.tryPick(def.lock, `${this.state.map}:${def.id}`);
       if (!picked) {
-        this.sfx(worldSound('locked'));
+        this.sfx(def.lock.pick ? 'schloss_misslungen' : worldSound('locked')); // DS: knackbar, aber ohne Werkzeug springt der Stift zurück
         this.ui.showMessage(def.title ?? def.prompt, def.lock.text, { footer: [def.lock.footer, def.lock.pick ? this.state.pickHint() : ''].filter(Boolean).join(' ') });
         return;
       }
-      this.sfx(worldSound('door', { to: def.to, from: this.state.map }));
-      if (picked.first) this.ui.toast(picked.text, 'good');
+      if (picked.first) this.ui.toast(picked.text, 'good'); // DS: Dietrich/Brecheisen klingen aus tryPick
     }
     switch (it.kind) {
       case 'npc': {

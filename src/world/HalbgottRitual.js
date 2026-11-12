@@ -3,6 +3,7 @@
 // und der Wächter des Eisens, der kommt, wo man steht (vorgemerkter Kampf startet von selbst).
 import Phaser from 'phaser';
 import { Laternenwacht, WACHT } from '../core/Laternenwacht.js';
+import { laternenSound } from '../core/sounds.js';
 const VIEW_W = 480; // wie WorldScene (kein Import, sonst Kreis)
 
 const SHADOW_TINT = 0x2a2238;
@@ -48,9 +49,16 @@ export class HalbgottRitual {
     this.siegeText = this.scene.add.text(VIEW_W / 2, 6, '', { fontFamily: 'monospace', fontSize: '8px', color: '#ffe8b0', stroke: '#000', strokeThickness: 3, align: 'center' })
       .setOrigin(0.5, 0).setScrollFactor(0).setDepth(5001);
     this.scene.cameras.main.flash(300, 255, 220, 140);
+    this.wasRefilling = false;
+  }
+
+  /** DS: Klang (still ohne Audio). */
+  sfx(id, opts) {
+    if (id) this.scene.registry.get('audio')?.play(id, opts);
   }
 
   finishSiege(result) {
+    this.scene.registry.get('audio')?.stopLoop('s4la_nachfuellen_loop', 30);
     const r = this.state.endSiege?.(result);
     this.siege = null;
     this.siegeText?.destroy();
@@ -69,7 +77,19 @@ export class HalbgottRitual {
     const p = this.scene.player;
     if (!blocked) {
       const events = this.siege.update(dt, { x: p.x, y: p.y - 6, refill: this.keys.R.isDown, sunrise: Phaser.Input.Keyboard.JustDown(this.keys.F) });
+      // DS: Ölgluckern nur, solange R gehalten wird; Loslassen ohne vollen Behälter bricht hörbar ab
+      const refilling = !!this.siege.refill;
+      const audio = this.scene.registry.get('audio');
+      if (refilling && !this.wasRefilling) audio?.loop('s4la_nachfuellen_loop');
+      if (!refilling && this.wasRefilling) {
+        audio?.stopLoop('s4la_nachfuellen_loop', 30);
+        if (!events.some((e) => e.type === 'refill' || e.type === 'tired')) this.sfx('s4la_nachfuellen_abbruch');
+      }
+      this.wasRefilling = refilling;
       for (const e of events) {
+        const sound = laternenSound(e);
+        if (sound) this.sfx(sound);
+        if (e.type === 'guardian') this.scene.time.delayedCall(1200, () => this.sfx('hg_schwellenwaechter_kalk'));
         if (e.type === 'hit') {
           p.x += e.knock.x;
           p.y += e.knock.y;
@@ -131,14 +151,23 @@ export class HalbgottRitual {
     this.siegeText?.setText(`${this.state.seq4Name?.('laterne') ?? ''} · Laternen ${lit}/${WACHT.lanterns} · ${w.guardian ? 'WÄCHTER' : `Wesen ${w.kills}/${WACHT.monsters}`}\nR halten: nachfüllen · F: Sonnenaufgang${w.guardian && w.sunriseReady() ? ' · JETZT!' : ''}`);
   }
 
-  /** Echo: völlige Taubheit, solange die Prüfung läuft. */
+  /**
+   * Echo: völlige Taubheit, solange die Prüfung läuft. DS: s4ec_taub_an verliert in 1,5 s alle Höhen, erst dann verstummt alles
+   * (Musik sofort); beim Verlassen kommt der Ton zurück und s4ec_taub_aus führt sanft in die Welt.
+   */
   updateDeaf() {
     const deaf = !!this.state.seq4Deaf?.();
     if (deaf === this.deaf) return;
     this.deaf = deaf;
-    this.scene.sound.mute = deaf;
     const music = this.scene.registry.get('music');
     if (music?.synth) { if (deaf) music.synth.lautstaerke = 0; else music.applyVolume?.(); }
+    if (deaf) {
+      this.sfx('s4ec_taub_an');
+      this.scene.time.delayedCall(1500, () => { if (this.deaf) this.scene.sound.mute = true; });
+    } else {
+      this.scene.sound.mute = false;
+      this.sfx('s4ec_taub_aus');
+    }
   }
 
   /** Schlüssel: der Körper bleibt als regungslose Gestalt stehen, die Spielfigur ist der Schatten. */

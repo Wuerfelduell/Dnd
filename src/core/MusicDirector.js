@@ -6,7 +6,7 @@ import { DAY_NIGHT_SECONDS, isNightAt } from './Clock.js';
  * aus der Zuordnung der Manifeste: Titel, Kampf (Boss je Kapitel, Okkultes, Standard), Geistsicht,
  * Karte (Tag/Nacht), Gefahrengebiet und zuletzt die Stadt. Startet erst nach der ersten Eingabe.
  */
-export const MUSIC_MANIFESTS = ['basis', 'kettlegate', 'wexmoor', 'dunscar', 'k4k5', 'feste'].map((n) => `audio/manifest-musik-${n}.json`); // CL: Kapitel 4/5 und Feste
+export const MUSIC_MANIFESTS = ['basis', 'kettlegate', 'wexmoor', 'dunscar', 'k4k5', 'feste', 'rituale'].map((n) => `audio/manifest-musik-${n}.json`); // CL: Kapitel 4/5 und Feste; DS: Seq-4-Rituale
 
 /** Stadtmusik, wenn eine Karte keine eigene Zuordnung hat. */
 const CITY_MUSIC = {
@@ -32,6 +32,8 @@ const variant = (entry, night) => (entry && typeof entry === 'object' ? entry[ni
  * ctx: { title, combat: { id, enc } | null, vision, map, city, zone, playTime, fest, season, stinger, mode }
  * `stinger` ist ein zeitlich begrenztes Ereignisstück (Sieg, Fall gelöst, Ende, Jahreszeit, Ankunft; MusicDirector.cue),
  * `mode` eine Lage, die eine Schleife aus `ereignisse` verlangt (horchen, treffen, streife), solange sie anhält.
+ * `ritual` (DS) ein laufendes Seq-4-Ritual (laternennacht, schattenseite, traum): geht vor Karte, Geistsicht und Lage und
+ * auch vor dem gewöhnlichen Kampf (Schattenkämpfe); Kämpfe mit eigenem Stück (Wächter, Traumgeflecht) behalten ihres.
  */
 export function pickTrack(z, ctx) {
   if (ctx.title) return z.ereignisse?.titel ?? 'titel';
@@ -43,6 +45,7 @@ export function pickTrack(z, ctx) {
     // Kapitel 3 (AY): eigene Stücke für Gallowmere und die Unterschicht (auch ihre Folgeabschnitte) und die Pfadprüfungen
     const named = k[id] ?? k[/^k3o_(\w+?)_phase\d$/.exec(id)?.[1]] ?? k[/^(vg_\w+?)_phase\d$/.exec(id)?.[1]] ?? (id.startsWith('k3p_') ? k.pruefung : undefined);
     if (named) return named;
+    if (ctx.ritual && z.ereignisse?.[ctx.ritual]) return z.ereignisse[ctx.ritual];
     // CL: Calderwick, Briarholt und die Landstraße haben eigene Kampfstücke
     const where = ctx.map === 'reise_landstrasse' ? 'landstrasse' : CITY_COMBAT[ctx.city];
     if (where && k[where]) return k[where];
@@ -51,6 +54,7 @@ export function pickTrack(z, ctx) {
     if (OCCULT.test(id)) return k.okkult ?? k.standard ?? 'kampf';
     return k.standard ?? 'kampf';
   }
+  if (ctx.ritual && z.ereignisse?.[ctx.ritual]) return z.ereignisse[ctx.ritual];
   if (ctx.vision) return z.ereignisse?.geistsicht ?? 'geistsicht';
   if (ctx.mode && z.ereignisse?.[ctx.mode]) return z.ereignisse[ctx.mode];
   // CL: am Festtag spielt auf den Festplätzen die Festmusik; im Kettlegater Winter die Winterfassung des Tages
@@ -122,6 +126,7 @@ export class MusicDirector {
   /** Wechselt das Stück, wenn sich die Lage geändert hat. */
   update(ctx) {
     if (!this.synth || this.failed || !this.synth.zuordnung || !this.synth.tracks.size) return;
+    this.synth.spurFaktor = ctx.spuren ?? null; // DS: Laternenmusik dünnt mit jeder erloschenen Laterne aus
     if (this.stinger && this.now() >= this.stinger.until) this.stinger = null;
     const id = pickTrack(this.synth.zuordnung, this.stinger ? { ...ctx, stinger: this.stinger.id, stingerTrack: this.stinger.track } : ctx);
     if (!id || id === this.current || !this.synth.tracks.has(id)) return;

@@ -262,6 +262,7 @@ export const seq4Methods = {
     const id = this.hgGuardianId();
     if (!this.content.encounters[id]) return text;
     st.guardian = true;
+    this.sfx('s4r_waechter_erscheint_welt'); // DS: Kalk rieselt, die schwere Tür geht auf
     this.startCombat(id);
     this.emit('changed');
     const kind = this.seq4Kind();
@@ -309,6 +310,7 @@ export const seq4Methods = {
     const broken = combat.ruleBroken;
     if (k === 'faden' && rules?.dream) {
       if (id === TRAUM_ID) {
+        if (won) this.sfx('s4r_bedingung_erfuellt');
         if (!won) return this.seq4Fail('faden', combat.outcome === 'lost' ? 'Die fünf Fäden ziehen sich zu, und du wachst schweißnass auf.' : 'Du reißt dich aus dem Traum. Die Fäden sind schlaff.', 'niederlage').text;
         st.dreamWon = true;
         return this.seq4Summon('Die fünf Gestalten lösen sich in Garn auf. Der Traum aber endet nicht.');
@@ -321,6 +323,8 @@ export const seq4Methods = {
         if (combat.outcome === 'spared') {
           st.spared = combat.enc.name;
           this.flags.add(`zweifel_${id}`);
+          this.sfx('s4ma_verschonen');
+          this.sfx('s4ma_zweifel', { delay: 1900 }); // DS: der Zweifel bleibt
           const zw = this.content.seq4Texte?.zweifel ?? [];
           const line = zw.length ? `„${zw[Math.floor(this.random() * zw.length)].replaceAll('{name}', combat.enc.name)}“` : '';
           return this.seq4Summon(this.seq4Join(this.seq4Msg('maske', 'verschont'), `${combat.enc.name} starrt auf die eigenen Hände. Ein Mensch ohne Pfad hat das getan.`, line, 'Dieser Zweifel bleibt.'));
@@ -335,6 +339,7 @@ export const seq4Methods = {
       if (!won) return this.seq4Fail('echo', combat.outcome === 'lost' ? 'Die Stille hat dich gefällt.' : 'Du bist der Stille ausgewichen. Das zählt nicht.', 'niederlage').text;
       if (g) return this.seq4Pass('echo', 'In der Stille hast du den Schlag gesehen, bevor er kam.').text;
       st.wins = (st.wins ?? 0) + 1;
+      this.sfx('s4r_bedingung_erfuellt');
       if (st.wins >= ECHO_FIGHTS) return this.seq4Summon(this.seq4Join(this.seq4Msg('echo', 'gegner_besiegt', { n: st.wins }), `${ECHO_FIGHTS} Kämpfe in völliger Stille.`));
       this.emit('changed');
       return this.seq4Msg('echo', 'gegner_besiegt', { n: st.wins }) || `${this.seq4Name('echo')}: ${st.wins}/${ECHO_FIGHTS} Kämpfe.`;
@@ -356,6 +361,7 @@ export const seq4Methods = {
       if (!won) { this.emit('changed'); return null; }
       if (g) return this.seq4Pass('schluessel', this.seq4Join(this.seq4Msg('schluessel', 'schatten_zurueck'), 'Er gleitet zurück an deine Füße.')).text;
       st.wins = (st.wins ?? 0) + 1;
+      this.sfx('s4r_bedingung_erfuellt');
       if (st.wins >= SCHATTEN.fights) return this.seq4Summon(this.seq4Join(this.seq4Msg('schluessel', 'gegner_besiegt', { n: st.wins }), 'Zwei Gegner, gefällt von einem Schatten.'));
       this.emit('changed');
       return `${this.seq4Msg('schluessel', 'gegner_besiegt', { n: st.wins }) || `${this.seq4Name('schluessel')}: ${st.wins}/${SCHATTEN.fights} Gegner.`} ${st.shadowHp}/${st.shadowMax} Leben übrig.`;
@@ -372,6 +378,7 @@ export const seq4Methods = {
       if (g) return this.seq4Pass('uhr', `${combat.dodgeErrors} ${combat.dodgeErrors === 1 ? 'Fehler' : 'Fehler'} beim Wächter.`).text;
       if (!combat.enemyAttacks) return this.seq4Fail('uhr', `${combat.enc.name} hat nicht ein einziges Mal angegriffen.`, 'gegner_ohne_angriff').text; // DR v2: Sieg ohne Gegnerangriff scheitert
       st.count = (st.count ?? 0) + 1;
+      this.sfx('s4r_bedingung_erfuellt');
       if (st.count >= UHR.monsters) return this.seq4Summon(this.seq4Join(this.seq4Msg('uhr', 'monster_angriff', { n: st.count }), 'Drei Monster, kein einziger verfehlter Augenblick.'));
       this.emit('changed');
       return `${this.seq4Name('uhr')}: ${st.count}/${UHR.monsters} Monster ohne Fehler.`;
@@ -401,6 +408,8 @@ export const seq4Methods = {
     if (this.itemCount('lampenoel') < HG_LATERNEN) return { ok: false, text: `Dafür brauchst du ${HG_LATERNEN} Lampenöl (${this.itemCount('lampenoel')} dabei).` };
     this.removeItem('lampenoel', HG_LATERNEN);
     st.siege = true;
+    this.sfx('hg_ritual_beginn');
+    for (let i = 0; i < HG_LATERNEN; i++) this.sfx('s4la_laterne_aufstellen', { delay: 300 + i * 420 }); // DS: sechs Pfähle in die Erde
     st.siegeMap = this.map;
     st.siegeKills = 0;
     this.emit('changed');
@@ -433,6 +442,7 @@ export const seq4Methods = {
     const st = this.seq4();
     const enc = this.content.encounters[id];
     st.marks = [...(st.marks ?? []), { enc: id, name: enc.name, area: this.map, hp: enc.hp, attacks: enc.attacks }];
+    this.sfx('s4fa_markieren');
     this.emit('changed');
     const n = st.marks.length;
     return this.seq4Join(n === 1 ? this.seq4Card('faden')?.beginn : '', `Ein violetter Faden spannt sich von deinem Finger zu ${enc.name}.`, this.seq4Msg('faden', 'kreatur_markiert', { name: enc.name, n }) || `Schicksalsfaden ${n}/${HG_FAEDEN}.`,
@@ -445,6 +455,7 @@ export const seq4Methods = {
     const st = this.seq4();
     if ((st.marks ?? []).length < HG_FAEDEN || st.dream) return null;
     st.dream = true;
+    this.sfx('s4fa_einschlafen');
     this.buildDream();
     this.startCombat(TRAUM_ID);
     return this.seq4Join(this.seq4Msg('faden', 'einschlafen'), 'Kaum sind die Augen zu, ziehen die fünf Fäden. Sie ziehen dich hinab, und am anderen Ende warten alle fünf zugleich.', this.seq4Msg('faden', 'traumbeginn'), 'Im Traum heilt nichts.');
@@ -493,6 +504,7 @@ export const seq4Methods = {
     if (arts) return { ok: false, text: `Ein Zivilist trägt keine Artefakte. Lagere sie ein (${arts} dabei).` };
     if (this.formActive?.()) return { ok: false, text: 'Leg erst die mythische Gestalt ab.' };
     st.masked = true;
+    this.sfx('s4ma_verwandeln');
     this.emit('changed');
     return { ok: true, text: this.seq4Join(this.seq4Card('maske')?.beginn, this.seq4Msg('maske', 'verwandlung')) + ' Du nimmst das Gesicht eines Menschen an, den niemand ansieht: Mantel vom Trödler, krumme Schultern, leere Hände. Jetzt such dir einen Beyonder der Sequenz 5 oder höher. Nur der einfache Angriff, Tränke sind erlaubt. Verschone ihn.' };
   },
@@ -504,7 +516,7 @@ export const seq4Methods = {
     if (st.active) return { ok: false, text: 'Die Welt ist schon still.' };
     st.active = true;
     st.wins = 0;
-    this.emit('changed');
+    this.emit('changed'); // DS: s4ec_taub_an spielt die Karte (HalbgottRitual.updateDeaf), bevor der Ton verstummt
     return { ok: true, text: `${this.seq4Join(this.seq4Zuschauer('echo', 0), this.seq4Card('echo')?.beginn, this.seq4Msg('echo', 'taubheit_beginn'))} Du drückst die Hände auf die Ohren, bis das Rauschen aufhört. Dann ist es still. Ganz still. ${ECHO_FIGHTS} Kämpfe und der Wächter, ohne Ringe, ohne Warnklang.` };
   },
 
@@ -537,6 +549,7 @@ export const seq4Methods = {
     if (!r.ready) return { ok: false, text: `Es fehlt: ${Object.entries(r.need).filter(([id, n]) => this.itemCount(id) < n).map(([id, n]) => `${this.item(id)?.name ?? id} ×${n}`).join(', ')}.` };
     for (const [id, n] of Object.entries(r.need)) this.removeItem(id, n);
     this.addItem(r.id);
+    this.sfx('s4ke_ritualtrank_gebraut');
     this.act('brew');
     this.emit('changed');
     const n = (st0) => (st0.drunk ?? []).length + this.hgRecipes().filter((x) => x.owned).length;
@@ -551,6 +564,7 @@ export const seq4Methods = {
     this.removeItem(r.id);
     st.drunk = [...(st.drunk ?? []), r.id];
     st.active = true;
+    this.sfx('s4ke_trinken_reihe', { variant: st.drunk.length }); // DS: jede der fünf Essenzen schluckt sich anders
     this.emit('changed');
     const msg = this.seq4Msg('kessel', 'getrunken', { n: st.drunk.length });
     if (st.drunk.length >= 5) return { ok: true, fight: this.hgGuardianId(), text: this.seq4Summon(this.seq4Join(msg, 'Die fünfte Essenz brennt hinab. Fünf Feuer in einem Bauch, und sie werden eins.')) };
@@ -574,6 +588,7 @@ export const seq4Methods = {
     if (st.shadow) return { ok: false, text: 'Der Schatten läuft schon.' };
     if (!this.content.zones?.[this.map]) return { ok: false, text: 'Den Schatten löst man in einem Monstergebiet, wo es etwas zu jagen gibt.' };
     st.shadow = true;
+    this.sfx('schatten_trennen');
     st.shadowMax = Math.max(1, Math.round(this.maxHp * SCHATTEN.hp));
     st.shadowHp = st.shadowMax;
     st.shadowMap = this.map;
@@ -608,6 +623,7 @@ export const seq4Methods = {
     this.weapon = null;
     this.money = capital;
     st.capital = capital;
+    this.sfx('s4wa_besitz_versiegeln');
     this.updateMaxHp();
     this.emit('money', this.money);
     this.emit('changed');
@@ -647,7 +663,8 @@ export const seq4Methods = {
   seq4Lot(kind) {
     const st = this.seq4();
     if (this.seq4Kind() !== 'waage' || !st.inSession) return null;
-    if (kind === 'buy') { st.bought = (st.bought ?? 0) + 1; this.emit('changed'); return null; }
+    if (kind === 'buy') { st.bought = (st.bought ?? 0) + 1; this.sfx('s4wa_kauf'); this.emit('changed'); return null; }
+    this.sfx('s4wa_kapital_knapp');
     return this.seq4Fail('waage', this.seq4Join('Ein Los ist an dir vorbeigegangen.', this.seq4Msg('waage', 'kapital_zu_knapp')), 'zu_wenig_kapital');
   },
 
@@ -659,6 +676,7 @@ export const seq4Methods = {
     if (!st.offered) return; // heute lag kein Los auf dem Tisch: die nächste Runde zählt
     st.allBought = true;
     st.guardianDue = true;
+    this.sfx('s4wa_alles_gekauft');
   },
 
   /** Aus Auction.endSession: Runde vorbei. */
@@ -696,6 +714,7 @@ export const seq4Methods = {
     this.removeItem(id);
     this.dropArtifactIfGone?.(id);
     st.decayed = [...(st.decayed ?? []), { id, name: it.name, boons: it.boons ?? [], curses: it.curses ?? [] }];
+    this.sfx('s4mo_zersetzen');
     this.act('use_item');
     const z = this.content.seq4Texte?.relikt?.zersetzen ?? {};
     const cat = it.kind === 'artifact' ? 'artefakt' : it.kind === 'ingredient' ? 'zutat' : /knochen|schädel|zahn|geweih/i.test(it.name) ? 'knochen' : /glas|linse|scherbe/i.test(it.name) ? 'glas'
@@ -738,6 +757,7 @@ export const seq4Methods = {
     const kats = boons.map((b) => b.kat).filter(Boolean);
     const look = kats.sort((a, b) => kats.filter((x) => x === b).length - kats.filter((x) => x === a).length)[0] ?? null;
     this.pathway.relikt = { boons, curses, name, desc, ...(look ? { look } : {}) };
+    this.sfx('s4mo_relikt_formen', { delay: 900 });
     this.addItem(RELIKT);
     this.emit('changed');
     const msg = this.seq4Msg('moor', 'relikt_geformt', { name, eigenschaften: names });
@@ -761,6 +781,7 @@ export const seq4Methods = {
     if (st.active) return { ok: false, text: 'Die Zeitprüfung läuft schon.' };
     st.active = true;
     st.count = 0;
+    this.sfx('hg_ritual_beginn');
     this.emit('changed');
     return { ok: true, text: `${this.seq4Card('uhr')?.beginn ?? ''} Der Augenblick zählt. ${UHR.monsters} Monster, jedes muss angreifen, jeder Schlag perfekt ausgewichen. Kein Fehler.` };
   },

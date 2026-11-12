@@ -50,6 +50,27 @@ export function modeFor({ modal = null, auction = false, wanted = 0, police = fa
   return null;
 }
 
+/**
+ * DS: laufendes Seq-4-Ritual → Ereignisschlüssel der Musik (oder null). Echo bleibt still (Taubheit), der Wächter hat sein
+ * Kampfstück über `kampf`. combatId: der laufende Kampf (Schattenkämpfe behalten die Schattenseite).
+ */
+export function ritualMusic(state, combatId = null) {
+  const kind = state.seq4Kind?.();
+  if (!kind) return null;
+  const st = state.seq4?.() ?? {};
+  if (kind === 'laterne' && st.siege) return 'laternennacht';
+  if (kind === 'faden' && st.dream && combatId) return 'traum';
+  if (state.shadowActive?.()) return 'schattenseite';
+  return null;
+}
+
+/** DS: Spurfaktoren der Laternenmusik bei `lit` von `total` brennenden Laternen (Codex: voll L/N, halb (L/N)², rest L/N, Puls bleibt). */
+export function laternenFaktoren(lit, total) {
+  if (!total) return null;
+  const k = Math.max(0, Math.min(1, lit / total));
+  return { voll: k, halb: k * k, rest: k, puls: 1 };
+}
+
 /** Hängt die Stinger an den Spielzustand. `music.cue(id, seconds)`/`music.clearCue(id)` wie in MusicDirector. */
 export function wireMusicCues(state, music) {
   const seen = new Set();

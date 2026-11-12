@@ -63,7 +63,7 @@ test('CL: Calderwick, Briarholt (kalt/warm), Landstraße, Bosse, Feste und der K
 });
 
 // --- Z/AY/CL: Ereignisstücke (Stinger und Lagen), die keine Karte und kein Kampf auslöst -------------------------
-import { endingCue, arrivalCue, flagCue, combatCue, modeFor, wireMusicCues } from '../src/core/musicCues.js';
+import { endingCue, arrivalCue, flagCue, combatCue, modeFor, wireMusicCues, ritualMusic, laternenFaktoren } from '../src/core/musicCues.js';
 import { MusicDirector } from '../src/core/MusicDirector.js';
 
 test('Musik: Stinger schlägt alles außer dem Titel, Lagen schlagen die Karte', () => {
@@ -88,6 +88,9 @@ test('Musik: jedes Ereignisstück der Manifeste hat einen Auslöser', () => {
   for (const s of ['herbst', 'winter', 'fruehling', 'sommer']) cues.add(`saison_${s}`);
   for (const f of ['laternennacht', 'salzsegen', 'schichtwechsel']) cues.add(`fest_${f}`);
   cues.add('ritual'); cues.add('fest_feuerwerk'); cues.add('feuerwerk'); cues.add('ls_ereignis'); cues.add('geistsicht'); cues.add('cw_wetherby'); cues.add('bh_greavesend'); cues.add('titel'); cues.add('kettlegate_winter_tag'); cues.add('bh_zustand_kalt'); cues.add('bh_zustand_warm'); // Verhöre über ihre Karten, Reiseereignis über den Dialog, Feuerwerk über die Festnacht
+  // DS: Seq-4-Rituale (Laternennacht, Traumkampf, Schatten) über ritualMusic
+  const rs = (kind, st, shadow = false) => ({ seq4Kind: () => kind, seq4: () => st, shadowActive: () => shadow });
+  for (const [s, c] of [[rs('laterne', { siege: true }), null], [rs('faden', { dream: true }), 'hg_traumgeflecht'], [rs('schluessel', {}, true), null]]) cues.add(ritualMusic(s, c));
   const unused = Object.keys(z.ereignisse).filter((k) => !cues.has(k));
   assert.deepEqual(unused, []);
   for (const c of cues) assert.ok(z.ereignisse[c] || tracks.has(c), c);
@@ -122,4 +125,25 @@ test('Musik: MusicDirector.cue legt ein Stück für begrenzte Zeit vor die Lage'
   handlers.fact({ id: 'bha_ventil_tee_offen', status: true }); handlers.fact({ id: 'cwa_abgleich1_done', status: true });
   handlers.ritual({}); handlers.season({ season: 'herbst' }); handlers.season({ season: 'winter' });
   assert.deepEqual(cues, [['fall_geloest', null], ['bh_ende_wahl', null], ['cw_ankunft', 40], ['bh_leitungen', 45], ['clear', 'cw_abgleich'], ['ritual', 25], ['saison_winter', null]]);
+});
+
+test('DS: Ritualmusik – Laternennacht, Traum, Schattenseite und der Wächter; Echo bleibt still, Laternen dünnen die Spuren aus', () => {
+  const rs = (kind, st, shadow = false) => ({ seq4Kind: () => kind, seq4: () => st, shadowActive: () => shadow });
+  const ctx = { map: 'wx_vergessmoor', city: 'wexmoor', playTime: 0 };
+  assert.equal(pickTrack(z, { ...ctx, ritual: ritualMusic(rs('laterne', { siege: true })) }), 's4r_laternennacht');
+  assert.equal(pickTrack(z, { ...ctx, ritual: ritualMusic(rs('schluessel', { shadow: true }, true)) }), 's4r_schattenseite');
+  assert.equal(pickTrack(z, { ...ctx, ritual: ritualMusic(rs('schluessel', { shadow: true }, true), 'moorleiche'), combat: { id: 'moorleiche', enc: {} } }), 's4r_schattenseite', 'Schattenkämpfe behalten die Schattenseite');
+  assert.equal(pickTrack(z, { ...ctx, ritual: ritualMusic(rs('faden', { dream: true }), 'hg_traumgeflecht'), combat: { id: 'hg_traumgeflecht', enc: { boss: true } } }), 's4r_traum');
+  for (const p of ['laterne', 'faden', 'maske', 'echo', 'kessel', 'eisen', 'schluessel', 'sq_waage', 'sq_moor', 'sq_uhr']) {
+    assert.equal(pickTrack(z, { ...ctx, combat: { id: `hg_schwellenwaechter_${p}`, enc: { boss: true } } }), 's4r_waechter', p);
+    assert.ok(content.encounters[`hg_schwellenwaechter_${p}`], p);
+  }
+  assert.equal(ritualMusic(rs('echo', { active: true })), null);
+  assert.equal(ritualMusic(rs('faden', { dream: true })), null, 'außerhalb des Kampfes kein Traumstück');
+  assert.equal(ritualMusic({ seq4Kind: () => null }), null);
+  assert.deepEqual(laternenFaktoren(6, 6), { voll: 1, halb: 1, rest: 1, puls: 1 });
+  assert.deepEqual(laternenFaktoren(3, 6), { voll: 0.5, halb: 0.25, rest: 0.5, puls: 1 });
+  assert.deepEqual(laternenFaktoren(0, 6), { voll: 0, halb: 0, rest: 0, puls: 1 });
+  const lanterns = JSON.parse(readFileSync(new URL('../public/audio/musik/s4r_laternennacht.json', import.meta.url), 'utf8'));
+  for (const k of ['voll', 'halb', 'rest']) assert.ok(lanterns.spuren[k], k);
 });

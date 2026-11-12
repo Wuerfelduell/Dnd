@@ -91,16 +91,18 @@ export class Audio {
       scene.load.on('loaderror', failed);
       this.listeners.push([scene.load, 'complete', complete], [scene.load, 'loaderror', failed]);
     }
-    for (const kind of this.kinds) {
+    for (const spec of this.kinds) {
+      // DS: 'sfx3:hg_' lädt aus manifest-sfx3.json nur die Ids mit diesem Anfang (die Halbgott-Klänge, ohne Varrowmouth)
+      const [kind, prefix = ''] = spec.split(':');
       const key = `nebelakten:manifest:${kind}`;
       if (scene.cache.json.exists(key)) {
-        this.register(scene, kind, scene.cache.json.get(key));
+        this.register(scene, kind, scene.cache.json.get(key), prefix);
       } else if (!this.loading.has(key)) {
         this.loading.add(key);
         const event = `filecomplete-json-${key}`;
         const receive = (_key, _type, data) => {
           this.loading.delete(key);
-          if (!this.destroyed) this.register(scene, kind, data);
+          if (!this.destroyed) this.register(scene, kind, data, prefix);
         };
         scene.load.once(event, receive);
         this.listeners.push([scene.load, event, receive]);
@@ -109,12 +111,12 @@ export class Audio {
     }
   }
 
-  register(scene, kind, manifest) {
+  register(scene, kind, manifest, prefix = '') {
     const bucket = kind.startsWith('sfx') ? 'sfx' : kind; // CM: manifest-sfx2.json ergänzt die Effekte aus manifest-sfx.json
     const entries = manifest?.[bucket === 'sfx' ? 'sounds' : 'tracks'];
     if (!entries || typeof manifest.base !== 'string') return;
     for (const [id, raw] of Object.entries(entries)) {
-      if (!raw || !/^[a-z0-9_]+$/.test(id)) continue;
+      if (!raw || !/^[a-z0-9_]+$/.test(id) || !id.startsWith(prefix)) continue;
       const variants = Number.isInteger(raw.variants) && raw.variants > 1 ? raw.variants : 1;
       const entry = { ...raw, volume: clamp(raw.volume), variants };
       this.entries[bucket].set(id, entry);
@@ -201,6 +203,14 @@ export class Audio {
     this.pendingLoops.delete(id);
     this.loops.set(id, record);
     return record.sound;
+  }
+
+  /** DS: Lautstärke einer laufenden Schleife (0 bis 1, z. B. der Unruhepuls der Laternennacht). */
+  loopVolume(id, value) {
+    const record = this.loops.get(id);
+    if (!record) return;
+    record.gain = clamp(value, record.gain);
+    this.mix(record);
   }
 
   stopLoop(id, fadeMs = 250) {
