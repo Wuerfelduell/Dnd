@@ -6,7 +6,7 @@
 // opfer (Geld, Gegenstände, Artefakte), welt (Seq 2: Weltwandel, bleibt für immer), waechter (Seq 2: brutaler Grenzwächter).
 // Dazu die Spuren zum Ort der Sequenz 3: ab Sequenz 4 bringt ein Sieg in einem Monstergebiet ab Kapitel 3 manchmal eine Spur.
 import { ordealId } from './Pathways.js';
-import { HOCH, HOCH_FAIL_PCT, HOCH_FAIL_UNRUHE, HOCH_SCALE, GRENZ_SCALE, SPUR_CHANCE, SPUREN, WELT_MULT, ORTE, ortFlag } from '../data/seqHoch.js';
+import { HOCH_SEQ1_VERSIEGELT, HOCH, HOCH_FAIL_PCT, HOCH_FAIL_UNRUHE, HOCH_SCALE, GRENZ_SCALE, SPUR_CHANCE, SPUREN, WELT_MULT, ORTE, ortFlag } from '../data/seqHoch.js';
 import { PROBE_NAMEN } from './Proben.js';
 
 const LATE = /^(ds_|cw_|bh_|o3_)/; // Monstergebiete ab Dunscar (Kapitel 3)
@@ -72,6 +72,7 @@ export const seqHochMethods = {
     const h = this.hochRitual();
     if (!h) return { ok: false, text: 'Dein nächstes Ritual hat keine solche Prüfung.' };
     if (this.hochPassed(h.pid, h.seq)) return { ok: false, text: 'Die Prüfung ist bestanden. Vollzieh das Ritual.' };
+    if (HOCH_SEQ1_VERSIEGELT && h.seq === 1) return { ok: false, text: 'Noch versiegelt: Das Ritual der ersten Sequenz ist noch nicht freigegeben.' }; // Seb 2026-11-12: Seq 1 erst nach Abstimmung
     const st = this.hochState();
     if (st.active) return { ok: false, text: 'Die Prüfung läuft schon.' };
     for (const k of Object.keys(st)) delete st[k];

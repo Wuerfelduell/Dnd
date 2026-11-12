@@ -15,6 +15,8 @@
  */
 import { seeded } from '../core/Gatherings.js';
 
+/** Seb (2026-11-12): Seq 3 und 2 passen, Seq 1 ist noch nicht abgestimmt und bleibt bis dahin versiegelt. */
+export const HOCH_SEQ1_VERSIEGELT = true;
 export const HOCH_FAIL_PCT = 17;
 export const HOCH_FAIL_UNRUHE = 10;
 /** Gegner im Ritual der Sequenz 3 (gestärkt) und Grenzwächter der Sequenz 2 (brutal). */
