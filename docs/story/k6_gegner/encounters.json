@@ -1,0 +1,758 @@
+{
+  "vme_zollgeist": {
+    "name": "Zollgeist",
+    "sprite": "enemy_vme_zollgeist",
+    "boss": false,
+    "fleeable": true,
+    "chapter": 6,
+    "hp": 480,
+    "armor": 6,
+    "occult": true,
+    "sequence_expectation": [
+      4,
+      3
+    ],
+    "intro": "Zollgeist versperrt dir den Weg.",
+    "attacks": [
+      {
+        "id": "stempelschlag",
+        "name": "Stempelschlag",
+        "damage": 26,
+        "damage_range": [
+          22,
+          30
+        ],
+        "nerve_damage": 2,
+        "hits": [
+          1400
+        ],
+        "unparryable": false,
+        "animation": "attack1",
+        "target": "one_player",
+        "effect": "fx/vm_stempel.png"
+      },
+      {
+        "id": "eintragen",
+        "name": "Eintragen",
+        "damage": 15,
+        "damage_range": [
+          12,
+          18
+        ],
+        "nerve_damage": 4,
+        "hits": [
+          1400
+        ],
+        "unparryable": false,
+        "animation": "attack2",
+        "target": "one_player",
+        "effect": "fx/vm_stempel.png",
+        "apply_status": "verzeichnet"
+      }
+    ],
+    "resistances": {
+      "physical": 0.8,
+      "fire": 1.0,
+      "occult": 1.0
+    },
+    "loot": {
+      "money": [
+        10,
+        20
+      ],
+      "drops": [
+        {
+          "item": "bannsalz",
+          "chance": 1.0,
+          "count": 1
+        }
+      ]
+    },
+    "on_win": {
+      "sets_flags": []
+    },
+    "win_text": "Der Weg ist frei.",
+    "lose_to": {
+      "map": "vm_zollhafen",
+      "spawn": "default"
+    },
+    "lose_money": 0,
+    "lose_text": "Tam bringt dich zum Zollhafen zurück.",
+    "balance": {
+      "minimum_rounds": 4,
+      "incoming_damage_cap_per_round": 120,
+      "scope": "per_enemy_shared_by_all_players_and_all_damage_sources",
+      "includes": [
+        "attacks",
+        "skills",
+        "critical",
+        "damage_over_time",
+        "reflection",
+        "summons",
+        "environment"
+      ],
+      "reset": "start_of_full_combat_round",
+      "overflow": "discard",
+      "instant_kill": "treated_as_damage_subject_to_cap"
+    },
+    "integration": "data_contract_not_runtime_registered",
+    "spawn": {
+      "maps": [
+        "vm_zollhafen",
+        "vm_leuchtbank",
+        "vm_registerkeller"
+      ],
+      "gezeit": "beide"
+    }
+  },
+  "vme_gezeitenlaeufer": {
+    "name": "Gezeitenläufer",
+    "sprite": "enemy_vme_gezeitenlaeufer",
+    "boss": false,
+    "fleeable": true,
+    "chapter": 6,
+    "hp": 560,
+    "armor": 3,
+    "occult": true,
+    "sequence_expectation": [
+      4,
+      3
+    ],
+    "intro": "Gezeitenläufer versperrt dir den Weg.",
+    "attacks": [
+      {
+        "id": "schwall",
+        "name": "Schwall",
+        "damage": 22,
+        "damage_range": [
+          18,
+          26
+        ],
+        "nerve_damage": 3,
+        "hits": [
+          1400
+        ],
+        "unparryable": false,
+        "animation": "attack1",
+        "target": "all_players",
+        "effect": "fx/vm_schwall.png"
+      },
+      {
+        "id": "stelzentritt",
+        "name": "Stelzentritt",
+        "damage": 28,
+        "damage_range": [
+          24,
+          32
+        ],
+        "nerve_damage": 1,
+        "hits": [
+          1400
+        ],
+        "unparryable": false,
+        "animation": "attack2",
+        "target": "one_player"
+      }
+    ],
+    "resistances": {
+      "physical": 0.75,
+      "fire": 1.25,
+      "occult": 1.0
+    },
+    "loot": {
+      "money": [
+        10,
+        20
+      ],
+      "drops": [
+        {
+          "item": "lampenoel",
+          "chance": 1.0,
+          "count": 1
+        }
+      ]
+    },
+    "on_win": {
+      "sets_flags": []
+    },
+    "win_text": "Der Weg ist frei.",
+    "lose_to": {
+      "map": "vm_zollhafen",
+      "spawn": "default"
+    },
+    "lose_money": 0,
+    "lose_text": "Tam bringt dich zum Zollhafen zurück.",
+    "balance": {
+      "minimum_rounds": 4,
+      "incoming_damage_cap_per_round": 140,
+      "scope": "per_enemy_shared_by_all_players_and_all_damage_sources",
+      "includes": [
+        "attacks",
+        "skills",
+        "critical",
+        "damage_over_time",
+        "reflection",
+        "summons",
+        "environment"
+      ],
+      "reset": "start_of_full_combat_round",
+      "overflow": "discard",
+      "instant_kill": "treated_as_damage_subject_to_cap"
+    },
+    "integration": "data_contract_not_runtime_registered",
+    "spawn": {
+      "maps": [
+        "vm_leuchtbank",
+        "vm_stegviertel"
+      ],
+      "requires_flags": [
+        "gezeit_flut"
+      ],
+      "outdoors_only": true
+    }
+  },
+  "vme_salzkruste": {
+    "name": "Salzkruste",
+    "sprite": "enemy_vme_salzkruste",
+    "boss": false,
+    "fleeable": true,
+    "chapter": 6,
+    "hp": 760,
+    "armor": 10,
+    "occult": true,
+    "sequence_expectation": [
+      4,
+      3
+    ],
+    "intro": "Salzkruste versperrt dir den Weg.",
+    "attacks": [
+      {
+        "id": "krustenfaust",
+        "name": "Krustenfaust",
+        "damage": 30,
+        "damage_range": [
+          26,
+          34
+        ],
+        "nerve_damage": 1,
+        "hits": [
+          1400
+        ],
+        "unparryable": false,
+        "animation": "attack1",
+        "target": "one_player"
+      },
+      {
+        "id": "salzstoss",
+        "name": "Salzstoß",
+        "damage": 26,
+        "damage_range": [
+          22,
+          30
+        ],
+        "nerve_damage": 2,
+        "hits": [
+          1400
+        ],
+        "unparryable": false,
+        "animation": "attack2",
+        "target": "one_player",
+        "effect": "fx/vm_salzbruch.png"
+      }
+    ],
+    "resistances": {
+      "physical": 0.65,
+      "fire": 1.3,
+      "occult": 1.0
+    },
+    "loot": {
+      "money": [
+        10,
+        20
+      ],
+      "drops": [
+        {
+          "item": "laeutersalz",
+          "chance": 1.0,
+          "count": 1
+        }
+      ]
+    },
+    "on_win": {
+      "sets_flags": []
+    },
+    "win_text": "Der Weg ist frei.",
+    "lose_to": {
+      "map": "vm_zollhafen",
+      "spawn": "default"
+    },
+    "lose_money": 0,
+    "lose_text": "Tam bringt dich zum Zollhafen zurück.",
+    "balance": {
+      "minimum_rounds": 4,
+      "incoming_damage_cap_per_round": 190,
+      "scope": "per_enemy_shared_by_all_players_and_all_damage_sources",
+      "includes": [
+        "attacks",
+        "skills",
+        "critical",
+        "damage_over_time",
+        "reflection",
+        "summons",
+        "environment"
+      ],
+      "reset": "start_of_full_combat_round",
+      "overflow": "discard",
+      "instant_kill": "treated_as_damage_subject_to_cap"
+    },
+    "integration": "data_contract_not_runtime_registered",
+    "initiative": -3,
+    "split": {
+      "trigger": "hp_zero",
+      "once_per_instance": true,
+      "spawn": [
+        {
+          "enemy": "vme_salzkruste_rest",
+          "count": 2
+        }
+      ],
+      "effect": "fx/vm_salzbruch.png",
+      "reward_policy": "parent_loot_once_after_both_children_defeated",
+      "children_act": "next_full_round"
+    },
+    "spawn": {
+      "maps": [
+        "vm_wrackfeld",
+        "vm_schlickgassen"
+      ],
+      "gezeit": "ebbe"
+    }
+  },
+  "vme_salzkruste_rest": {
+    "name": "Salzkrusten-Rest",
+    "sprite": "enemy_vme_salzkruste_rest",
+    "boss": false,
+    "fleeable": true,
+    "chapter": 6,
+    "hp": 160,
+    "armor": 2,
+    "occult": true,
+    "sequence_expectation": [
+      4,
+      3
+    ],
+    "intro": "Salzkrusten-Rest versperrt dir den Weg.",
+    "attacks": [
+      {
+        "id": "reststoss",
+        "name": "Reststoß",
+        "damage": 13,
+        "damage_range": [
+          10,
+          16
+        ],
+        "nerve_damage": 0,
+        "hits": [
+          1400
+        ],
+        "unparryable": false,
+        "animation": "attack1",
+        "target": "one_player"
+      }
+    ],
+    "resistances": {
+      "physical": 1.0,
+      "fire": 1.3,
+      "occult": 1.0
+    },
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": []
+    },
+    "on_win": {
+      "sets_flags": []
+    },
+    "win_text": "Der Weg ist frei.",
+    "lose_to": {
+      "map": "vm_zollhafen",
+      "spawn": "default"
+    },
+    "lose_money": 0,
+    "lose_text": "Tam bringt dich zum Zollhafen zurück.",
+    "balance": {
+      "minimum_rounds": 4,
+      "incoming_damage_cap_per_round": 40,
+      "scope": "per_enemy_shared_by_all_players_and_all_damage_sources",
+      "includes": [
+        "attacks",
+        "skills",
+        "critical",
+        "damage_over_time",
+        "reflection",
+        "summons",
+        "environment"
+      ],
+      "reset": "start_of_full_combat_round",
+      "overflow": "discard",
+      "instant_kill": "treated_as_damage_subject_to_cap"
+    },
+    "integration": "data_contract_not_runtime_registered",
+    "spawn": {
+      "summon_only": true,
+      "parent": "vme_salzkruste"
+    }
+  },
+  "vme_tauwerk": {
+    "name": "Tauwerk",
+    "sprite": "enemy_vme_tauwerk",
+    "boss": false,
+    "fleeable": true,
+    "chapter": 6,
+    "hp": 440,
+    "armor": 4,
+    "occult": true,
+    "sequence_expectation": [
+      4,
+      3
+    ],
+    "intro": "Tauwerk versperrt dir den Weg.",
+    "attacks": [
+      {
+        "id": "hakenhieb",
+        "name": "Hakenhieb",
+        "damage": 24,
+        "damage_range": [
+          20,
+          28
+        ],
+        "nerve_damage": 1,
+        "hits": [
+          1400
+        ],
+        "unparryable": false,
+        "animation": "attack1",
+        "target": "one_player"
+      },
+      {
+        "id": "fesselschlinge",
+        "name": "Fesselschlinge",
+        "damage": 11,
+        "damage_range": [
+          8,
+          14
+        ],
+        "nerve_damage": 1,
+        "hits": [
+          1400
+        ],
+        "unparryable": false,
+        "animation": "attack2",
+        "target": "one_player",
+        "effect": "fx/vm_fessel.png",
+        "apply_status": "gefesselt"
+      }
+    ],
+    "resistances": {
+      "physical": 0.85,
+      "fire": 1.4,
+      "occult": 1.0
+    },
+    "loot": {
+      "money": [
+        10,
+        20
+      ],
+      "drops": [
+        {
+          "item": "verband",
+          "chance": 1.0,
+          "count": 1
+        }
+      ]
+    },
+    "on_win": {
+      "sets_flags": []
+    },
+    "win_text": "Der Weg ist frei.",
+    "lose_to": {
+      "map": "vm_zollhafen",
+      "spawn": "default"
+    },
+    "lose_money": 0,
+    "lose_text": "Tam bringt dich zum Zollhafen zurück.",
+    "balance": {
+      "minimum_rounds": 4,
+      "incoming_damage_cap_per_round": 110,
+      "scope": "per_enemy_shared_by_all_players_and_all_damage_sources",
+      "includes": [
+        "attacks",
+        "skills",
+        "critical",
+        "damage_over_time",
+        "reflection",
+        "summons",
+        "environment"
+      ],
+      "reset": "start_of_full_combat_round",
+      "overflow": "discard",
+      "instant_kill": "treated_as_damage_subject_to_cap"
+    },
+    "integration": "data_contract_not_runtime_registered",
+    "ai": {
+      "fesselschlinge_cooldown_rounds": 3,
+      "never_target_fettered_player": true
+    },
+    "spawn": {
+      "maps": [
+        "vm_wrackfeld"
+      ],
+      "gezeit": "ebbe"
+    }
+  },
+  "vme_hafenkraehe": {
+    "name": "Hafenkrähenschwarm",
+    "sprite": "enemy_vme_hafenkraehe",
+    "boss": false,
+    "fleeable": true,
+    "chapter": 6,
+    "hp": 400,
+    "armor": 0,
+    "occult": true,
+    "sequence_expectation": [
+      4,
+      3
+    ],
+    "intro": "Hafenkrähenschwarm versperrt dir den Weg.",
+    "attacks": [
+      {
+        "id": "sturzflug",
+        "name": "Sturzflug",
+        "damage": 20,
+        "damage_range": [
+          16,
+          24
+        ],
+        "nerve_damage": 2,
+        "hits": [
+          1400
+        ],
+        "unparryable": false,
+        "animation": "attack1",
+        "target": "one_player"
+      },
+      {
+        "id": "vorratsraub",
+        "name": "Vorratsraub",
+        "damage": 8,
+        "damage_range": [
+          6,
+          10
+        ],
+        "nerve_damage": 2,
+        "hits": [
+          1400
+        ],
+        "unparryable": false,
+        "animation": "attack2",
+        "target": "one_player"
+      }
+    ],
+    "resistances": {
+      "physical": 0.8,
+      "fire": 1.0,
+      "occult": 1.0
+    },
+    "loot": {
+      "money": [
+        10,
+        20
+      ],
+      "drops": [
+        {
+          "item": "riechsalz",
+          "chance": 1.0,
+          "count": 1
+        }
+      ]
+    },
+    "on_win": {
+      "sets_flags": []
+    },
+    "win_text": "Der Weg ist frei.",
+    "lose_to": {
+      "map": "vm_zollhafen",
+      "spawn": "default"
+    },
+    "lose_money": 0,
+    "lose_text": "Tam bringt dich zum Zollhafen zurück.",
+    "balance": {
+      "minimum_rounds": 4,
+      "incoming_damage_cap_per_round": 50,
+      "scope": "per_enemy_shared_by_all_players_and_all_damage_sources",
+      "includes": [
+        "attacks",
+        "skills",
+        "critical",
+        "damage_over_time",
+        "reflection",
+        "summons",
+        "environment"
+      ],
+      "reset": "start_of_full_combat_round",
+      "overflow": "discard",
+      "instant_kill": "treated_as_damage_subject_to_cap"
+    },
+    "integration": "data_contract_not_runtime_registered",
+    "steal": {
+      "attack": "vorratsraub",
+      "max_items_per_battle": 1,
+      "count": 1,
+      "eligible_items": [
+        "verband",
+        "lampenoel",
+        "riechsalz"
+      ],
+      "exclude": [
+        "quest",
+        "equipped",
+        "artifact",
+        "premium"
+      ],
+      "selection": "first_available_in_list_from_target_inventory",
+      "if_none": "damage_only",
+      "return_on_player_win": true,
+      "keep_on_enemy_escape": true,
+      "coop": "one_total_shared_budget"
+    },
+    "escape": {
+      "hp_ratio_lte": 0.5,
+      "evaluate": "after_damage",
+      "not_before_round": 4,
+      "effect": "fx/vm_kraehen_abflug.png",
+      "reward": false,
+      "counts_as_clear": true
+    },
+    "spawn": {
+      "maps": [
+        "vm_wrackfeld"
+      ],
+      "gezeit": "ebbe"
+    }
+  },
+  "vme_pegelknecht": {
+    "name": "Pegelknecht",
+    "sprite": "enemy_vme_pegelknecht",
+    "boss": false,
+    "fleeable": true,
+    "chapter": 6,
+    "hp": 680,
+    "armor": 9,
+    "occult": true,
+    "sequence_expectation": [
+      4,
+      3
+    ],
+    "intro": "Pegelknecht versperrt dir den Weg.",
+    "attacks": [
+      {
+        "id": "hakenbogen",
+        "name": "Hakenbogen",
+        "damage": 28,
+        "damage_range": [
+          24,
+          32
+        ],
+        "nerve_damage": 2,
+        "hits": [
+          1400
+        ],
+        "unparryable": false,
+        "animation": "attack1",
+        "target": "one_player"
+      },
+      {
+        "id": "amtsstoss",
+        "name": "Amtsstoß",
+        "damage": 32,
+        "damage_range": [
+          28,
+          36
+        ],
+        "nerve_damage": 3,
+        "hits": [
+          1400
+        ],
+        "unparryable": false,
+        "animation": "attack2",
+        "target": "one_player"
+      }
+    ],
+    "resistances": {
+      "physical": 1.0,
+      "fire": 1.0,
+      "occult": 1.0
+    },
+    "loot": {
+      "money": [
+        10,
+        20
+      ],
+      "drops": [
+        {
+          "item": "vmi_zollsiegel",
+          "chance": 1.0,
+          "count": 1
+        }
+      ]
+    },
+    "on_win": {
+      "sets_flags": []
+    },
+    "win_text": "Der Weg ist frei.",
+    "lose_to": {
+      "map": "vm_zollhafen",
+      "spawn": "default"
+    },
+    "lose_money": 0,
+    "lose_text": "Tam bringt dich zum Zollhafen zurück.",
+    "balance": {
+      "minimum_rounds": 4,
+      "incoming_damage_cap_per_round": 170,
+      "scope": "per_enemy_shared_by_all_players_and_all_damage_sources",
+      "includes": [
+        "attacks",
+        "skills",
+        "critical",
+        "damage_over_time",
+        "reflection",
+        "summons",
+        "environment"
+      ],
+      "reset": "start_of_full_combat_round",
+      "overflow": "discard",
+      "instant_kill": "treated_as_damage_subject_to_cap"
+    },
+    "integration": "data_contract_not_runtime_registered",
+    "elite": true,
+    "spawn": {
+      "maps": [
+        "vm_grenzzaun"
+      ],
+      "group_size": 2,
+      "bypass_item": "vmi_zollsiegel"
+    },
+    "partner_fall": {
+      "trigger": "paired_partner_defeated",
+      "once": true,
+      "damage_multiplier": 1.35,
+      "armor_add": 3,
+      "heal": 0,
+      "stacking": false,
+      "simultaneous_death": "no_buff",
+      "text": "Der verbliebene Pegelknecht senkt die Messingmaske und greift fester zu."
+    }
+  }
+}
