@@ -95,6 +95,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyDunscarGebietsbosse(content); // Dunscar: je Gefahrengebiet ein frei stehender Gebietsboss wie in Wexmoor
   applyDunscarDichte(content); // Dunscar-Gefahrengebiete so dicht besetzt wie Wexmoor (vorher nur 3–4 Gegner)
   applyDunscarGeld(content); // Dunscar zahlt mehr als Wexmoor: Gegnergeld und Kopfgelder
+  applyDunscarBeute(content); // Dunscar-Beute 3–5× so viel wert wie in Wexmoor
   return content;
 }
 
@@ -490,4 +491,27 @@ function applyDunscarGebietsbosse(content) {
     }));
     if (best) content.maps[mapId] = { ...m, roamers: [...(m.roamers ?? []), { id: `${mapId}_gebietsboss`, encounter: b.id, tile: best.tile, boss: true }] };
   }
+}
+
+/** Seb 2026-11-12: Beute der Dunscar-Gegner wertvoller (Wexmoor ~58 Schilling Beutewert je Kampf, Dunscar vorher ~10).
+ *  Drei Wertstücke nur für Verkauf, je Rang: normal ~190, Elite ~620, Boss ~1250 erwarteter Beutewert. */
+export const DS_BEUTE_ITEMS = {
+  ds_beute_messingmarke: { name: 'Messing-Schichtmarke', kind: 'trophy', weight: 0.1, price: 160, desc: 'Eine schwere Marke aus der alten Schichtkasse. Die Pfandleiher zahlen gut dafür.' },
+  ds_beute_signalsilber: { name: 'Signalsilber', kind: 'trophy', rarity: 'selten', weight: 0.2, price: 350, desc: 'Silberdraht aus den Signalleitungen, ungewöhnlich rein. Wird in Dunscar mit Gold aufgewogen.' },
+  ds_beute_schichtgold: { name: 'Schichtgold', kind: 'trophy', rarity: 'selten', weight: 0.3, price: 900, desc: 'Ein Klumpen Gold aus der tiefsten Schicht. Niemand fragt, woher es kommt.' },
+};
+const DS_BEUTE = {
+  normal: [{ item: 'ds_beute_messingmarke', chance: 0.8 }, { item: 'ds_beute_signalsilber', chance: 0.15 }],
+  elite: [{ item: 'ds_beute_signalsilber', chance: 1 }, { item: 'ds_beute_schichtgold', chance: 0.3 }],
+  boss: [{ item: 'ds_beute_schichtgold', chance: 1 }, { item: 'ds_beute_signalsilber', chance: 1 }],
+};
+function applyDunscarBeute(content) {
+  content.items = { ...content.items, ...DS_BEUTE_ITEMS };
+  const loot = { ...content.loot };
+  for (const [id, e] of Object.entries(content.encounters)) {
+    if (e.chapter !== 3 || e.practice || e.mirror || e.waechter || id.startsWith('hg_') || !loot[id] || loot[id].ds_beute) continue;
+    const rank = e.boss ? 'boss' : e.elite || id.endsWith('_elite') ? 'elite' : 'normal';
+    loot[id] = { ...loot[id], drops: [...(loot[id].drops ?? []), ...DS_BEUTE[rank]], ds_beute: true };
+  }
+  content.loot = loot;
 }
