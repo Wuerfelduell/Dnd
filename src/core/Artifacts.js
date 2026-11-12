@@ -14,8 +14,11 @@
 // fertige Tränke aus, jede Sequenz einmal, sobald der passende Fall gelöst ist. Nur bis Sequenz 7:
 // höhere Stufen gibt es nur bei geheimen Treffen (Auktionen) oder als seltenen Fund.
 
-/** Seq 4: bis `free` Artefakte ohne Unruhe, bis `light` nur leichte (Unruhe/s je Stück über `free`). */
-export const SEQ4_ART = { seq: 4, free: 4, light: 6, light_tick: 0.1 };
+/**
+ * Seq 4 (Seb 2026-11-12): bis `free` Artefakte ganz ohne Unruhe, auch Flüche schweigen.
+ * Bis `light` nur leichte Unruhe (Streit je Stück über `free`, Fluch-Unruhe zu `curse_light`), darüber heftig.
+ */
+export const SEQ4_ART = { seq: 4, free: 5, light: 6, light_tick: 0.1, curse_light: 0.5 };
 
 export const artifactMethods = {
   resetArtifacts() {
@@ -68,15 +71,19 @@ export const artifactMethods = {
     const rules = this.artifactRules();
     let clash;
     let over;
+    let tick = this.passive('unruhe_tick');
     if (this.artifactHalbgott()) {
-      // Bis 4 Artefakte kein Streit, 5 und 6 nur leicht, darüber wie gewohnt heftig.
+      // Bis 5 Artefakte keine Unruhe (auch keine Flüche), das 6. nur leicht, darüber wie gewohnt heftig.
+      const curse = this.artifactEffects().flat().reduce((sum, p) => sum + (p.key === 'unruhe_tick' && typeof p.value === 'number' ? p.value : 0), 0);
+      const k = n <= SEQ4_ART.free ? 0 : n <= SEQ4_ART.light ? SEQ4_ART.curse_light : 1;
+      tick -= curse * (1 - k);
       clash = SEQ4_ART.light_tick * Math.max(0, Math.min(n, SEQ4_ART.light) - SEQ4_ART.free);
       over = (rules.overload_tick ?? 0.6) * Math.max(0, n - SEQ4_ART.light);
     } else {
       clash = (rules.clash_tick ?? 0.2) * Math.max(0, n - 1);
       over = (rules.overload_tick ?? 0.6) * Math.max(0, n - (rules.max_active ?? 3));
     }
-    return Math.max(0, this.passive('unruhe_tick') + clash + over);
+    return Math.max(0, tick + clash + over);
   },
 
   /** Wird aufgerufen, wenn ein Artefakt neu ins Inventar kommt. */

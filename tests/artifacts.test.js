@@ -324,24 +324,30 @@ test('Ab Sequenz 6 braucht jeder Trank ein Ritual: Ort, Zutaten, Bedingung', () 
   assert.ok(t.ritualDone('eisen', 6));
 });
 
-test('Ab Seq 4: vier Artefakte ohne Streit-Unruhe, fünf und sechs nur leicht, auch für Spieler 2', () => {
-  const ids = Object.keys(content.artifacts.list).filter((id) => content.items[id]?.kind === 'artifact' && !content.artifacts.list[id].konzentration).slice(0, 7);
+test('Ab Seq 4: fünf Artefakte ganz ohne Unruhe (auch Flüche), das sechste leicht, auch für Spieler 2', () => {
+  const list = content.artifacts.list;
+  const tickOf = (id) => [...(content.items[id].boons ?? []), ...(content.items[id].curses ?? [])].reduce((a, p) => a + (p.key === 'unruhe_tick' && typeof p.value === 'number' ? p.value : 0), 0);
+  const all = Object.keys(list).filter((id) => content.items[id]?.kind === 'artifact' && !list[id].konzentration && id !== 's4mo_relikt');
+  const cursed = all.filter((id) => tickOf(id) > 0);
+  assert.ok(cursed.length >= 1, 'mindestens ein Artefakt mit Fluch-Unruhe');
+  const ids = [...cursed.slice(0, 1), ...all.filter((id) => id !== cursed[0])].slice(0, 7);
   for (const n of [1, 2]) {
     const s = new GameState(content);
     s.addP2();
     s.withPlayer(n, () => {
       s.pathway = { id: 'eisen', seq: 4, digestion: 0 };
-      const curse = () => Math.max(0, s.passive('unruhe_tick'));
-      for (const id of ids.slice(0, 4)) s.addItem(id);
-      assert.equal(s.activeArtifacts().length, 4);
-      assert.ok(Math.abs(s.artifactUnruhe() - curse()) < 1e-9, `P${n}: vier ohne Streit`);
-      s.addItem(ids[4]);
+      const u0 = s.unruhe;
+      for (const id of ids.slice(0, 5)) s.addItem(id);
+      assert.equal(s.activeArtifacts().length, 5);
+      assert.equal(s.unruhe, u0, `P${n}: Aufnehmen bis fünf ohne Unruhe`);
+      assert.equal(s.artifactUnruhe(), 0, `P${n}: fünf ganz ohne Unruhe, auch ohne Fluch`);
       s.addItem(ids[5]);
-      assert.ok(Math.abs(s.artifactUnruhe() - curse() - 0.2) < 1e-9, `P${n}: sechs nur leicht`);
+      const curse6 = ids.slice(0, 6).reduce((a, id) => a + tickOf(id), 0);
+      assert.ok(Math.abs(s.artifactUnruhe() - (0.1 + curse6 * 0.5)) < 1e-9, `P${n}: das sechste nur leicht`);
       s.addItem(ids[6]);
-      assert.ok(s.artifactUnruhe() - curse() > 0.7, `P${n}: ab sieben heftig`);
+      assert.ok(s.artifactUnruhe() > 0.7, `P${n}: ab sieben heftig`);
       s.pathway.seq = 5;
-      assert.ok(s.artifactUnruhe() - curse() > 2, `P${n}: Seq 5 bleibt wie bisher`);
+      assert.ok(s.artifactUnruhe() > 2, `P${n}: Seq 5 bleibt wie bisher`);
     });
   }
 });
