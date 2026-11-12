@@ -1828,6 +1828,31 @@ Keine Laufzeitintegration in diesem Paket.
 - Daten/Anschlussentscheidungen: [k6_gegner/README.md](../story/k6_gegner/README.md); Prüfung `node docs/story/k6_gegner/pruefen.mjs`.
 
 Kein Spielcode geändert. CU/CT binden Item- und Story-Eingänge beim späteren Einbau. Die begrenzte Ring-/Zeugen-Sperrdauer ist ausdrücklich dokumentiert, weil „bis Kampfende halbieren“ keine feste Rundenzahl definiert.
+### CV — Varrowmouth: Tilesets und Props (`varrowmouth1`)
+
+17 PNGs: sieben 256×256-Tilesets je bei Ebbe/Flut, Wasseranimation 256×64,
+60 Props im 512×256-Atlas und sechs Fassaden mit Tag-/Nachtregionen im 512×128-Atlas.
+Je Thema 64 belegte Zellen, 8 Bodenvarianten und ein nahtgeprüftes 16er-Corner-Wang-
+Wasserset (Bits NW=1, NE=2, SE=4, SW=8; gesetzte Ecke = Wasser). Zellen 8–15,
+32–35 und 38–41 wechseln mit dem Pegel; die übrige Architektur bleibt identisch.
+Die zwei 32×96-Leuchtfeuertürme liegen wegen der Atlashöhe nebeneinander bei
+x=416/448; die fünf übrigen Tag-/Nachtfassaden stehen in zwei Reihen.
+Regionen müssen beim separaten Einbau als Fassadenmaterialien registriert werden.
+
+- Manifest: `public/sprites/manifest-varrowmouth1.json` (`themes`, `anims`, `regions`, `facades`).
+- Vorschau: [14 Kacheltests à 8×8 und Atlasübersicht](batch-varrowmouth1-preview.png).
+- Prompts/Herkunft: [Generation](batch-varrowmouth1-generation.json).
+- Prüfung: `python tools/art/varrowmouth1/check.py --write` (Pillow).
+- Bericht: [Validation](batch-varrowmouth1-validation.json).
+- Erzeugung mit ImageGen; danach Nearest Neighbor, gemeinsame 32er-Palette,
+  binäres Alpha, Zellnormalisierung und Nahtkorrekturen. Keine Änderungen am Spielcode.
+
+## Batch DL — Erfolge (`erfolge`)
+
+80 stille Aktenvermerke, acht PNGs: Atlas 16/32px jeweils erfüllt/offen, 9-Slice-Rahmen, sechs Stempelframes, neun Gruppensymbole und Meldungsrahmen. Manifest: `public/sprites/manifest-erfolge.json`; Daten und Einbauvertrag: `docs/story/erfolge/`. Vorschau: `batch-erfolge-preview.png`, Prompts: `batch-erfolge-generation.json`, Abnahme: `batch-erfolge-validation.json`. Kein Laufzeitcode. Prüfung: `node docs/story/erfolge/pruefen.mjs` und `python tools/art/erfolge/check.py`.
+## Batch DG – haus
+
+Eigenes Haus: acht PNG-Atlanten, 40 Möbel mit Ofenanimation/Welkzustand, 32 Boss-Trophäen (46 Kampf-/Phasen-IDs), sechs Stadtwände und Türen, Umzugsbilder, Staub und Einrichtungs-UI. Siehe `../story/eigenes_haus/README.md`, `../../public/sprites/manifest-haus.json` und `batch-haus-preview.png`. Generierung: `batch-haus-generation.json`; Prüfung: `python tools/art/haus/check.py` und `node docs/story/eigenes_haus/pruefen.mjs`. Einbau separat; keine Tiermöbel aus DF enthalten.
 ## CO: Halbgott und Engel (`halbgott`)
 
 73 PNGs für Sequenz 4 und 2: sechs Trink-Sheets, acht Effekte, zehn Kreaturformen jeweils für Karte und Kampf, zehn Zugportraits, zwei Ritualwächter mit Kartenfiguren, zehn Siegel, zwei Kampfkulissen, zwanzig Sequenzbilder und zwei HUD-Größen. Die 780 Rasterzellen verwenden die gemeinsame Palette aus `manifest-fasserin.json`; Alpha ist binär, Szenen sind opak.
