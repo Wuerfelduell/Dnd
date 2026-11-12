@@ -759,6 +759,17 @@ export class GameState {
   }
 
   /**
+   * Während eines Kampfs (WorldScene pausiert) läuft nur die Uhr der Stadt weiter: Tageszeit, geheime Treffen,
+   * Sektenfristen und Alarmdauer. Fahndung, Nerven, Verdauung und Ritual-Auslöser bleiben bewusst beim Welt-Tick.
+   */
+  tickClock(dtSeconds) {
+    if (!Number.isFinite(dtSeconds) || dtSeconds <= 0) return;
+    this.tickSekten();
+    this.tickSignalRoutes(dtSeconds);
+    this.tickGatherings(dtSeconds);
+  }
+
+  /**
    * Kapitel 5 (CH): Briarholts Orte haben eine warme Zwillingskarte `<id>__warm`, deren Bedingung `warm_if` am Ventilkreis hängt
    * (Bügelraum: immer warm). Jede Reise und jede Tür landet über diese Funktion auf der passenden Fassung.
    */

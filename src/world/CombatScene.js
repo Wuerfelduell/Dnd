@@ -886,7 +886,9 @@ export class CombatScene extends Phaser.Scene {
 
   // --- Zeichnen & Timing ---------------------------------------------------------
 
-  update() {
+  update(time, delta) {
+    // Die Spielzeit läuft im Kampf weiter (Seb 2026-11-12); nur im Pausenmenü o. Ä. steht sie
+    if (this.ui.modal === 'combat' && delta > 0) this.state.tickClock(Math.min(delta, 250) / 1000);
     const t = now();
     const g = this.gfx;
     g.clear();
