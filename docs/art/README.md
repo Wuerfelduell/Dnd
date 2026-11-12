@@ -1817,6 +1817,145 @@ Prüfung: `python tools/art/calderwick2/check.py` (Pillow, aus jedem Arbeitsverz
 
 Keine Laufzeitintegration in diesem Paket.
 
+## Batch DH – Nebelseite
+
+35 PNGs für Geisterwelt-Tiles, Props, fünf Kartenwesen, vier Kampf-Sheets, Spieler-/Spiegel-Overlays, Übergang, HUD, sechs Stadt-Hintergründe sowie Köpfe und Bestiariumsbilder. Gemeinsame Palette aus `manifest-fasserin.json`, maximal 32 sichtbare Farben, binäres Alpha, explizite Atlasregionen und Frame-Listen in `public/sprites/manifest-nebelseite.json`.
+
+- Texte, Kartenersatz und Einbauvertrag: `docs/story/nebelseite/README.md`.
+- Bildgenerator-Prompts und Verarbeitung: `batch-nebelseite-generation.json`.
+- Vorschau: [batch-nebelseite-preview.png](batch-nebelseite-preview.png).
+- Prüfung: `python tools/art/nebelseite/check.py` und `node docs/story/nebelseite/pruefen.mjs`.
+- Bericht: `batch-nebelseite-validation.json`. Kein Spielcode geändert; Laufzeiteinbau und Balanceprüfung folgen separat.
+## Batch CQ – Fasserin-Aufträge (`fasserin2`)
+
+54 PNGs für Auftragszustände, Chancenmarken, sechs Zirkelsiegel, HUD und Einladung, Odas Arbeit/Abwesenheit, zusätzliche Portraitstimmungen, Werkbank und Auftragsbrett, Fassungseffekte und Abholwürfel sowie 20 gefasste Artefakte in 16px und 32px. Kein Spielcode geändert.
+
+- [Manifest](../../public/sprites/manifest-fasserin2.json), [Vorschau](batch-fasserin2-preview.png), [Prompts](batch-fasserin2-generation.json)
+- [Übergabe und Einbauhinweise](fasserin2-uebergabe.md), [Prüfbericht](batch-fasserin2-validation.json)
+- Prüfung: `python tools/art/fasserin2/check.py` – 54/54 PNG, 136 Frames, gemeinsame Palette, binäres Alpha.
+
+## Batch DM – Oberfläche 3 (`oberflaeche3`)
+
+89 PNGs: sechs Kapitel-Titelsätze mit vier Ebenen, Briarholt warm/kalt und Varrowmouth Ebbe/Flut, sechs Nachspiel-Vordergründe und Verzicht; 24 Ladebilder; Spielstandkarten, Post- und Foto-Icons; Abspann; größere Schrift, Cursor und Touch-Icons sowie 30 monochrome Formzeichen. Keine Spielcode-Änderungen.
+
+`public/sprites/manifest-oberflaeche3.json` enthält Ebenen-Reihenfolge, Parallax-Vorschläge, Varianten, Regionen, Atlas-Indizes, Animationslisten und Nine-Slice-Ränder (8 px). Basisdatei K5-Vordergrund = kalt, Basisdatei K6-Himmel = Ebbe. `post_symbole_32.png` ergänzt den 16-px-Streifen. Animierter Abspann: acht Zellen à 480×270, ein horizontaler Streifen; Ladepunkte: vier Zellen à 16×16.
+
+Die Nachspiel-Vordergründe verwenden neutrales Morgenlicht gemäß DK (`ffde9aa715695e64a707d6dc27b8eb6c5aaaf708`): Sie behaupten keine Wiederbesiedlung oder Reparatur. Für evakuiertes Calderwick beziehungsweise verbranntes Varrowmouth muss der Einbau den zustandsgerechten Stadt-Hintergrund wählen.
+
+Die aktive Spielschrift ist Pixelify Sans als Webfont, kein vollständiges Bitmap-Font-Sheet. `schrift_gross.png` rastert den vollständigen druckbaren cmap direkt aus den Schriftkonturen bei 16 px (UI-Basis 8 px), ohne Hochskalieren kleiner Glyphen. 24×24-Zellen enthalten Grundlinie, Vorschub und Unicode-Zuordnung im Manifest; Fontquelle und SIL-OFL-Lizenz liegen bei den Exportwerkzeugen. Die Touch-Symbole übernehmen beide Zustände und alle zehn Aktionen aus AE in doppelter Größe.
+
+Prüfung: `python tools/art/oberflaeche3/check.py` (Pillow, fontTools). Bericht und Kontaktbogen: `batch-oberflaeche3-validation.json`, `batch-oberflaeche3-preview.png`. Prompts, Quellbild-Hashes und Verarbeitung: `batch-oberflaeche3-generation.json`. `export.py` erwartet eine externe JSON-Liste der Generator-Master; Originalbilder werden nicht im Repository verdoppelt. Der Einbau und Tests im Spiel erfolgen separat.
+### DF — Tiergefährten (`tiere`)
+
+20 PNGs für Kessel (Rabe), Rußfleck (Kater), Pegel (Hündin), Siebzehn (Ratte):
+16×16-Kartenfiguren mit vier Richtungen und vier Gangphasen (Rabe plus Flug),
+separate Ruhe-/Gabe-/Fütterposen, 6-Frame-Kampfeingriffe, drei Portraitstimmungen,
+11 UI-Symbole, Hinweis-/Zufriedenheitsanimationen und acht Büroplatz-Zustände.
+Gemeinsame Fasserin-Palette, binäres Alpha; ImageGen mit Nearest-Neighbor-Export.
+
+- Manifest: `public/sprites/manifest-tiere.json`.
+- [Vorschau](batch-tiere-preview.png), [Prompts und Herkunft](batch-tiere-generation.json),
+  [Grafikprüfung](batch-tiere-validation.json).
+- Prüfung: `python tools/art/tiere/check.py --write` (Pillow).
+- Texte/Verhalten: `docs/story/tiergefaehrten/`; Prüfung mit
+  `node docs/story/tiergefaehrten/pruefen.mjs`.
+- Integration separat; keinerlei Spielcode geändert.
+
+## Batch CS – Figuren-Nachzügler
+
+`manifest-figuren_nachzuegler.json` liefert 50 PNGs für 21 bestehende Figuren: 21 Laufblätter, 20 Köpfe, vier Porträtleisten, drei Kampfblätter und zwei Marktstände. Vier geliehene Laufblätter werden ersetzt. Gemeinsame Palette mit höchstens 32 sichtbaren Farben, binäres Alpha und feste Zellraster.
+
+[Übergabe und Einbau](figuren_nachzuegler-uebergabe.md) · [Vorschau](batch-figuren_nachzuegler-preview.png) · [Prüfbericht](batch-figuren_nachzuegler-validation.json) · [Prompts](batch-figuren_nachzuegler-generation.json). Prüfung: `python tools/art/figuren_nachzuegler/check.py`. Spielcode wird separat angeschlossen.
+## Batch CY – Varrowmouth-Figuren (`varrowmouth3`)
+
+104 PNGs: 23 vierdirektionale Lauf-Sheets, 23 neutrale Portraits, 23 Emotions-Sheets, 23 Köpfe, neun Sonderposen-Sheets, beide Kampfphasen der Pegelherrin und der Namenslinien-Effekt. Figurenbeschreibungen folgen den CY-Kurzbeschreibungen, da `docs/story/k6_figuren/figuren.md` bei Erstellung fehlte. Keine Spielcode-Änderungen; Einbau separat.
+
+- [Manifest](../../public/sprites/manifest-varrowmouth3.json): Figuren-IDs, Raster, Regionen, Frame-Listen, Tempo und Leerfelder.
+- [Vorschau](batch-varrowmouth3-preview.png), [Prompts und Verarbeitung](batch-varrowmouth3-generation.json), [Prüfbericht](batch-varrowmouth3-validation.json).
+- [Export und Prüfung](../../tools/art/varrowmouth3/README.md), einschließlich normalisierter Generator-Master für reproduzierbare Exporte.
+
+Die widersprüchlichen Gesamtmaße der Emotions-Sheets sind zugunsten der geforderten 64×64-Portraitzellen aufgelöst: acht Stimmungen auf 256×128 (4×2), vier auf 256×64 (4×1). Reihenfolge wie im Auftrag. Alle Runtime-PNGs verwenden dieselben 32 sichtbaren Farben sowie binäres Alpha. Lauf-Grundlinie y=30; Nell ist kleiner. Pegelherrins steigende Wasserlinie verwendet sechs reine Farbzustände derselben Silhouette. Je Angriff bleiben zwei Ausholframes identisch.
+
+Validiert mit `python tools/art/varrowmouth3/check.py`: 104 PNGs, 694 belegte Frames; Maße, Pflichtumfang, Palette, Alpha, Raster, Grundlinien, Laufschritte, Gesichtsausdrücke, Posen und Ausholframes bestanden. Kontaktbögen zusätzlich visuell geprüft; keine Laufzeitintegration oder Spieltests.
+## DE · Fahrende Auktion (`auktion`)
+
+55 PNGs: Vance, Träger, Glockenhund, drei Mitbieter, Portraits/Stimmungen/Köpfe, Wagen, zehn Los-Iconpaare, UI, Posen und Effekte. Manifest: `public/sprites/manifest-auktion.json`; Prompts, Vorschau und Prüfbericht: `batch-auktion-{generation.json,preview.png,validation.json}`. Texte und Einbauvertrag: `docs/story/fahrende_auktion/README.md`. Prüfung: `python tools/art/auktion/check.py` und `node docs/story/fahrende_auktion/pruefen.mjs`. Kein Runtime-Einbau.
+## Batch DJ · Benannte Gegner (`benannte`)
+
+24 benannte Varianten, je vier pro Stadt, mit Kampfblatt (6×5 Frames), Kartenblatt (4×4 Richtungsframes), 24×24-Kopf und eigener 64×64-Bestiariumsansicht. Dazu acht neue Beutestücke und acht Fasserin-Artefakte in 16/32 Pixeln, acht Auftrittsframes und fünf UI-Symbole: insgesamt 130 PNGs.
+
+Manifest: `public/sprites/manifest-benannte.json`; Daten und Anschlussregeln: `docs/story/benannte_gegner/README.md`. ImageGen-Prompts und Quellhashes: `batch-benannte-generation.json`; Sichtübersicht: `batch-benannte-preview.png`; technischer Bericht: `batch-benannte-validation.json`. Export über `tools/art/benannte/export.py`, Pillow-Prüfung über `tools/art/benannte/check.py`, Datenprüfung über `node docs/story/benannte_gegner/pruefen.mjs --art`.
+
+Alle Exporte verwenden die 32 Farben aus `manifest-fasserin.json`, Nearest Neighbor und binäres Alpha. Die Kampfzellen behalten die Größe der Grundlage, auch deren 96×96-Ausnahmen. Beim Zollgeist wird das neutrale Gesicht erst im Laufzeiteinbau durch das aktuelle Spielerporträt ersetzt (Koop Spieler 2). CZ-Basiswerte sind noch aufzulösen; CU-Fundorte wurden gegen PR #291 gelesen. Kein Spielcode geändert.
+## CW — Varrowmouth 2 (`varrowmouth2`)
+
+61 PNGs: Kapitelkarte und Titelbild, zwei deckungsgleiche Gezeiten-Stadtkarten,
+zehn Kampfkulissen, elf Aktszenen (vier davon mit je vier Frames), vier Enden,
+scrollbarer Abspann, Gezeitenwechsel und Warnglocke, Pegeluhr-HUD, Zeiger,
+Pin-/Symbolstreifen sowie zwölf Item-Icons in 16 und 32 Pixeln.
+Manifest: `public/sprites/manifest-varrowmouth2.json`. Kein Spielcode geändert.
+
+- Szenen `K6_1`, `K6_5`, `K6_9`, `K6_10`: 240×135 pro Frame, vier Spalten,
+  3 fps, einmalig. Pegelherrin: sitzend → abgestützt → aufstehend → stehend.
+- Gezeiten-Sheet: 480×270 pro Frame, sechs Spalten, zwei Reihen; obere Reihe
+  Ebbe→Flut, untere Flut→Ebbe, 6 fps. Warnglocke: acht 32×32-Frames, 8 fps.
+- HUD: Zifferblatt `(0,0,48,48)`, Countdown-Rahmen `(48,0,80,24)`, Marken bei
+  `(48,32)` und `(64,32)`. Zeiger liegen separat in `ui/vm_zeiger.png`, zwölf
+  16×16-Zellen, Pivot `(8,8)`, Zielposition `(16,16)` relativ zum HUD. Die
+  Spielzeit wählt die Stellung; zwölf Schritte über einen ganzen 12-Minuten-Zyklus.
+- Karten: acht identische Pin-Koordinaten im Manifest. Nebel wird beim Einbau
+  anhand besuchter Bezirke ausgeschnitten; kein fest eingebauter Besuchsstand.
+- Die CU-Datendatei `docs/story/k6_orte/items.json` war am Ausgangscommit noch
+  nicht vorhanden. Zwölf IDs wurden aus der CU-Aufgabenliste abgeleitet; vor
+  Einbau mit CU abgleichen. Um die geforderten zwölf Gegenstände einzuhalten,
+  werden die letzten sechs UI-Symbole über `symbolItemAliases` zugeordnet:
+  Unverzeichnete/Namenlos-Ring → `vmi_namenlos_ring`, Pegelrat → `vmi_zollsiegel`,
+  Leuchtfeuer → `vmi_leuchtbank_linse`, Grenzzaun → `vmi_lotsenmarke`,
+  Schlicksohlen → `vmi_schlicksohlen`. Keine zusätzlichen Spielgegenstände.
+- Prompts und verworfene erste Animationsversuche stehen in
+  `batch-varrowmouth2-generation.json`. Bilder mit `image_gen.imagegen` erzeugt,
+  Nearest Neighbor, gemeinsame Calderwick/Briarholt-Palette, binäres Alpha.
+  Die breiten Szenenstreifen wurden aus 2×2-Generatorbögen neu angeordnet.
+- Prüfung: `python tools/art/varrowmouth2/check.py` (Pillow). Erzeugt den
+  Validation-Bericht und die Gesamtvorschau. Prüft auch Hashes, eindeutige
+  Animationsframes, Atlasregionen, leere HUD-Restflächen und Karten-Pins.
+  Visuelle Semantik und Runtime-Einbau bleiben getrennte Prüfungen.
+## CZ: Varrowmouth-Gegner und Bosse (`varrowmouth4`)
+
+41 PNGs aus 27 eigenständigen Bildgenerator-Sheets: zehn Kampf-Sheets, sieben Karten-Sheets, sieben Köpfe, sieben Bestiariumsbilder, neun Effekte und das Wrack-Prop. Sechs normale Gegnerformen einschließlich Salzkrusten-Rest, eine Elite und drei Boss-Kampfverträge. Die zwei Pegelherrin-Sheets bleiben bei CY.
+
+- Manifest: `public/sprites/manifest-varrowmouth4.json`, mit Frame-Listen, Tempo, Regionen und externen CY-Verweisen.
+- Vorschau: [batch-varrowmouth4-preview.png](batch-varrowmouth4-preview.png).
+- Prompts, Korrekturläufe und Quellprüfsummen: `batch-varrowmouth4-generation.json`. Erzeugung mit dem integrierten Bildgenerator; Nearest Neighbor, gemeinsame 32-Farben-Palette aus `manifest-dunscar3.json`, indizierte PNGs und binäres Alpha. Köpfe und Bestiarium sind dokumentierte Ableitungen der Idle-Posen.
+- Grafikprüfung: `python tools/art/varrowmouth4/check.py`; Bericht `batch-varrowmouth4-validation.json`.
+- Daten/Anschlussentscheidungen: [k6_gegner/README.md](../story/k6_gegner/README.md); Prüfung `node docs/story/k6_gegner/pruefen.mjs`.
+
+Kein Spielcode geändert. CU/CT binden Item- und Story-Eingänge beim späteren Einbau. Die begrenzte Ring-/Zeugen-Sperrdauer ist ausdrücklich dokumentiert, weil „bis Kampfende halbieren“ keine feste Rundenzahl definiert.
+### CV — Varrowmouth: Tilesets und Props (`varrowmouth1`)
+
+17 PNGs: sieben 256×256-Tilesets je bei Ebbe/Flut, Wasseranimation 256×64,
+60 Props im 512×256-Atlas und sechs Fassaden mit Tag-/Nachtregionen im 512×128-Atlas.
+Je Thema 64 belegte Zellen, 8 Bodenvarianten und ein nahtgeprüftes 16er-Corner-Wang-
+Wasserset (Bits NW=1, NE=2, SE=4, SW=8; gesetzte Ecke = Wasser). Zellen 8–15,
+32–35 und 38–41 wechseln mit dem Pegel; die übrige Architektur bleibt identisch.
+Die zwei 32×96-Leuchtfeuertürme liegen wegen der Atlashöhe nebeneinander bei
+x=416/448; die fünf übrigen Tag-/Nachtfassaden stehen in zwei Reihen.
+Regionen müssen beim separaten Einbau als Fassadenmaterialien registriert werden.
+
+- Manifest: `public/sprites/manifest-varrowmouth1.json` (`themes`, `anims`, `regions`, `facades`).
+- Vorschau: [14 Kacheltests à 8×8 und Atlasübersicht](batch-varrowmouth1-preview.png).
+- Prompts/Herkunft: [Generation](batch-varrowmouth1-generation.json).
+- Prüfung: `python tools/art/varrowmouth1/check.py --write` (Pillow).
+- Bericht: [Validation](batch-varrowmouth1-validation.json).
+- Erzeugung mit ImageGen; danach Nearest Neighbor, gemeinsame 32er-Palette,
+  binäres Alpha, Zellnormalisierung und Nahtkorrekturen. Keine Änderungen am Spielcode.
+
+## Batch DL — Erfolge (`erfolge`)
+
+80 stille Aktenvermerke, acht PNGs: Atlas 16/32px jeweils erfüllt/offen, 9-Slice-Rahmen, sechs Stempelframes, neun Gruppensymbole und Meldungsrahmen. Manifest: `public/sprites/manifest-erfolge.json`; Daten und Einbauvertrag: `docs/story/erfolge/`. Vorschau: `batch-erfolge-preview.png`, Prompts: `batch-erfolge-generation.json`, Abnahme: `batch-erfolge-validation.json`. Kein Laufzeitcode. Prüfung: `node docs/story/erfolge/pruefen.mjs` und `python tools/art/erfolge/check.py`.
+## Batch DG – haus
+
+Eigenes Haus: acht PNG-Atlanten, 40 Möbel mit Ofenanimation/Welkzustand, 32 Boss-Trophäen (46 Kampf-/Phasen-IDs), sechs Stadtwände und Türen, Umzugsbilder, Staub und Einrichtungs-UI. Siehe `../story/eigenes_haus/README.md`, `../../public/sprites/manifest-haus.json` und `batch-haus-preview.png`. Generierung: `batch-haus-generation.json`; Prüfung: `python tools/art/haus/check.py` und `node docs/story/eigenes_haus/pruefen.mjs`. Einbau separat; keine Tiermöbel aus DF enthalten.
 ## CO: Halbgott und Engel (`halbgott`)
 
 73 PNGs für Sequenz 4 und 2: sechs Trink-Sheets, acht Effekte, zehn Kreaturformen jeweils für Karte und Kampf, zehn Zugportraits, zwei Ritualwächter mit Kartenfiguren, zehn Siegel, zwei Kampfkulissen, zwanzig Sequenzbilder und zwei HUD-Größen. Die 780 Rasterzellen verwenden die gemeinsame Palette aus `manifest-fasserin.json`; Alpha ist binär, Szenen sind opak.

@@ -1,0 +1,1311 @@
+[
+  {
+    "id": "ns_altmarkt",
+    "city": "kettlegate",
+    "original_map": "altmarkt",
+    "source": "src/data/maps/altmarkt.json",
+    "intended_original": "altmarkt",
+    "description": "Die Stände werfen Schatten in offene Kisten. Der Brunnen spiegelt einen trockenen Platz. Unter den Pflasterfugen liegt Licht wie verlorener Faden.",
+    "geometry": {
+      "mode": "copy_original_then_apply_proposals",
+      "width": 56,
+      "height": 32,
+      "changes_are_proposals": true,
+      "path": {
+        "description": "Der Gang hinter der Ostzeile führt ohne Umweg zum Brunnen.",
+        "from": [
+          2,
+          16
+        ],
+        "to": [
+          53,
+          16
+        ]
+      },
+      "open_door": {
+        "description": "Die verschlossene Kontortür steht als leerer Rahmen.",
+        "tile": [
+          28,
+          2
+        ]
+      },
+      "find_location": {
+        "description": "Unter der trockenen Brunnenschale",
+        "tile": [
+          28,
+          16
+        ]
+      }
+    },
+    "items": [
+      {
+        "id": "nsi_altmarkt_1",
+        "name": "Marktgewicht ohne Zahl",
+        "description": "Das Gewicht hebt sich, sobald du es abstellen willst.",
+        "category": "nebelseite",
+        "outside_tint": "#95a5a5",
+        "effect_proposal": {
+          "kind": "casebook_observation",
+          "text": "Vergleich eines Gewichts ohne Namensprägung",
+          "evidence_id": "ns_hinweis_altmarkt_1",
+          "mandatory_for_main_case": false
+        },
+        "unique_per_player": true,
+        "tradeable": false,
+        "consumable": false
+      },
+      {
+        "id": "nsi_altmarkt_2",
+        "name": "Unbezahlte Quittung",
+        "description": "Der Abdruck enthält eine Lücke dort, wo eine Hand unterschrieben hätte.",
+        "category": "nebelseite",
+        "outside_tint": "#95a5a5",
+        "effect_proposal": {
+          "kind": "casebook_observation",
+          "text": "Beobachtung eines fehlenden Abdrucks",
+          "evidence_id": "ns_hinweis_altmarkt_2",
+          "mandatory_for_main_case": false
+        },
+        "unique_per_player": true,
+        "tradeable": false,
+        "consumable": false
+      }
+    ],
+    "enemy_spawns": [
+      {
+        "id": "nsw_umrissgaenger",
+        "tile": [
+          26,
+          14
+        ],
+        "expected_sequence": 5
+      }
+    ],
+    "unruhe_hint": "Alle 20 Sekunden hier steigt deine Unruhe um 1. Den Rückweg findest du nur am Übergang.",
+    "visited_flag": "ns_betreten_altmarkt",
+    "return_guarantee": "entry_transition_remains_open"
+  },
+  {
+    "id": "ns_sternwarte",
+    "city": "kettlegate",
+    "original_map": "sternwarte",
+    "source": "src/data/maps/sternwarte.json",
+    "intended_original": "sternwarte",
+    "description": "Die Kuppel steht offen, obwohl ihre Schienen zusammengewachsen sind. Sterne liegen als matte Flecken auf dem Boden. Das Fernrohr schaut durch seinen eigenen Sockel.",
+    "geometry": {
+      "mode": "copy_original_then_apply_proposals",
+      "width": 18,
+      "height": 14,
+      "changes_are_proposals": true,
+      "path": {
+        "description": "Eine Lichttreppe führt unter statt auf die Galerie.",
+        "from": [
+          2,
+          7
+        ],
+        "to": [
+          15,
+          7
+        ]
+      },
+      "open_door": {
+        "description": "Die Wartungsklappe öffnet sich ohne Scharnier.",
+        "tile": [
+          9,
+          2
+        ]
+      },
+      "find_location": {
+        "description": "Im umgedrehten Fernrohrsockel",
+        "tile": [
+          9,
+          7
+        ]
+      }
+    },
+    "items": [
+      {
+        "id": "nsi_sternwarte_1",
+        "name": "Kalter Glaskeil",
+        "description": "Im Keil bleibt ein Lichtpunkt stehen, während du ihn drehst.",
+        "category": "nebelseite",
+        "outside_tint": "#95a5a5",
+        "effect_proposal": {
+          "kind": "casebook_observation",
+          "text": "Vergleich der Richtung eines feststehenden Lichtpunkts",
+          "evidence_id": "ns_hinweis_sternwarte_1",
+          "mandatory_for_main_case": false
+        },
+        "unique_per_player": true,
+        "tradeable": false,
+        "consumable": false
+      },
+      {
+        "id": "nsi_sternwarte_2",
+        "name": "Sternenstaub im Fingerhut",
+        "description": "Die Körner fallen zur Öffnung hinauf.",
+        "category": "nebelseite",
+        "outside_tint": "#95a5a5",
+        "effect_proposal": {
+          "kind": "casebook_observation",
+          "text": "Beobachtung der umgekehrten Fallrichtung",
+          "evidence_id": "ns_hinweis_sternwarte_2",
+          "mandatory_for_main_case": false
+        },
+        "unique_per_player": true,
+        "tradeable": false,
+        "consumable": false
+      }
+    ],
+    "enemy_spawns": [
+      {
+        "id": "nsw_lampenfresser",
+        "tile": [
+          7,
+          5
+        ],
+        "expected_sequence": 5
+      }
+    ],
+    "unruhe_hint": "Alle 20 Sekunden hier steigt deine Unruhe um 1. Den Rückweg findest du nur am Übergang.",
+    "visited_flag": "ns_betreten_sternwarte",
+    "return_guarantee": "entry_transition_remains_open"
+  },
+  {
+    "id": "ns_katakomben",
+    "city": "kettlegate",
+    "original_map": "katakomben",
+    "source": "src/data/maps/katakomben.json",
+    "intended_original": "katakomben",
+    "description": "Die Nischen tragen nur die Umrisse ihrer Steine. An jedem Bogen hängt ein Atemzug, der niemandem gehört. Eine Treppe endet auf ihrer eigenen Unterseite.",
+    "geometry": {
+      "mode": "copy_original_then_apply_proposals",
+      "width": 52,
+      "height": 38,
+      "changes_are_proposals": true,
+      "path": {
+        "description": "Der Mittelgang läuft quer durch die leeren Nischen.",
+        "from": [
+          2,
+          19
+        ],
+        "to": [
+          49,
+          19
+        ]
+      },
+      "open_door": {
+        "description": "Die vermauerte Seitentür ist von innen offen.",
+        "tile": [
+          26,
+          2
+        ]
+      },
+      "find_location": {
+        "description": "Hinter der letzten leeren Nische",
+        "tile": [
+          26,
+          19
+        ]
+      }
+    },
+    "items": [
+      {
+        "id": "nsi_katakomben_1",
+        "name": "Ungeschlagene Glockenzunge",
+        "description": "Das Metall ist dort blank, wo es nie eine Glocke berührt hat.",
+        "category": "nebelseite",
+        "outside_tint": "#95a5a5",
+        "effect_proposal": {
+          "kind": "casebook_observation",
+          "text": "Vergleich von Abrieb und fehlendem Klang",
+          "evidence_id": "ns_hinweis_katakomben_1",
+          "mandatory_for_main_case": false
+        },
+        "unique_per_player": true,
+        "tradeable": false,
+        "consumable": false
+      },
+      {
+        "id": "nsi_katakomben_2",
+        "name": "Faden aus Stein",
+        "description": "Ein grauer Faden behält die Krümmung einer Mauerfuge.",
+        "category": "nebelseite",
+        "outside_tint": "#95a5a5",
+        "effect_proposal": {
+          "kind": "casebook_observation",
+          "text": "Markierung eines untersuchten Bogens",
+          "evidence_id": "ns_hinweis_katakomben_2",
+          "mandatory_for_main_case": false
+        },
+        "unique_per_player": true,
+        "tradeable": false,
+        "consumable": false
+      }
+    ],
+    "enemy_spawns": [
+      {
+        "id": "nsw_rueckwaertsgeher",
+        "tile": [
+          24,
+          17
+        ],
+        "expected_sequence": 5
+      }
+    ],
+    "unruhe_hint": "Alle 20 Sekunden hier steigt deine Unruhe um 1. Den Rückweg findest du nur am Übergang.",
+    "visited_flag": "ns_betreten_katakomben",
+    "return_guarantee": "entry_transition_remains_open"
+  },
+  {
+    "id": "ns_salzmarkt",
+    "city": "wexmoor",
+    "original_map": "wx_salzmarkt",
+    "source": "src/data/wexmoor.json",
+    "intended_original": "wx_salzmarkt",
+    "description": "Das Salz liegt als dunkles Wasser auf den Tischen. Die Waage hält zwei Schatten im Gleichgewicht. Alle Standdächer öffnen sich zur falschen Seite.",
+    "geometry": {
+      "mode": "copy_original_then_apply_proposals",
+      "width": 40,
+      "height": 14,
+      "changes_are_proposals": true,
+      "path": {
+        "description": "Die Gasse läuft unter den Waagschalen hindurch.",
+        "from": [
+          2,
+          7
+        ],
+        "to": [
+          37,
+          7
+        ]
+      },
+      "open_door": {
+        "description": "Das verriegelte Salzlager zeigt einen offenen Rahmen.",
+        "tile": [
+          20,
+          2
+        ]
+      },
+      "find_location": {
+        "description": "Unter der Schattenwaage",
+        "tile": [
+          20,
+          7
+        ]
+      }
+    },
+    "items": [
+      {
+        "id": "nsi_salzmarkt_1",
+        "name": "Salz ohne Geschmack",
+        "description": "Die Kristalle lösen sich nur im Spiegelbild deiner Hand.",
+        "category": "nebelseite",
+        "outside_tint": "#95a5a5",
+        "effect_proposal": {
+          "kind": "casebook_observation",
+          "text": "Vergleich von Stoff und Spiegelbild",
+          "evidence_id": "ns_hinweis_salzmarkt_1",
+          "mandatory_for_main_case": false
+        },
+        "unique_per_player": true,
+        "tradeable": false,
+        "consumable": false
+      },
+      {
+        "id": "nsi_salzmarkt_2",
+        "name": "Leere Waagschale",
+        "description": "Die Schale bleibt waagrecht, selbst wenn du sie hochkant hältst.",
+        "category": "nebelseite",
+        "outside_tint": "#95a5a5",
+        "effect_proposal": {
+          "kind": "casebook_observation",
+          "text": "Untersuchung eines unveränderlichen Gleichgewichts",
+          "evidence_id": "ns_hinweis_salzmarkt_2",
+          "mandatory_for_main_case": false
+        },
+        "unique_per_player": true,
+        "tradeable": false,
+        "consumable": false
+      }
+    ],
+    "enemy_spawns": [
+      {
+        "id": "nsw_umrissgaenger",
+        "tile": [
+          18,
+          5
+        ],
+        "expected_sequence": 5
+      }
+    ],
+    "unruhe_hint": "Alle 20 Sekunden hier steigt deine Unruhe um 1. Den Rückweg findest du nur am Übergang.",
+    "visited_flag": "ns_betreten_salzmarkt",
+    "return_guarantee": "entry_transition_remains_open"
+  },
+  {
+    "id": "ns_flossfriedhof",
+    "city": "wexmoor",
+    "original_map": "wx_flossfriedhof",
+    "source": "src/data/packs/k2_orte/maps.json",
+    "intended_original": "wx_flossfriedhof",
+    "description": "Die Flöße hängen eine Handbreit über ihrem Spiegelbild. Zwischen ihnen wächst kein Schilf, nur dessen Umriss. Seile verschwinden in Knoten ohne Mitte.",
+    "geometry": {
+      "mode": "copy_original_then_apply_proposals",
+      "width": 40,
+      "height": 18,
+      "changes_are_proposals": true,
+      "path": {
+        "description": "Ein Lichtsteg verbindet die getrennten Flöße.",
+        "from": [
+          2,
+          9
+        ],
+        "to": [
+          37,
+          9
+        ]
+      },
+      "open_door": {
+        "description": "Eine festgenagelte Kajütentür steht neben ihrem Schloss.",
+        "tile": [
+          20,
+          2
+        ]
+      },
+      "find_location": {
+        "description": "Im hohlen Knoten am Stegende",
+        "tile": [
+          20,
+          9
+        ]
+      }
+    },
+    "items": [
+      {
+        "id": "nsi_flossfriedhof_1",
+        "name": "Trockener Seilknoten",
+        "description": "Das Seil hat keine Enden und riecht nach Regen.",
+        "category": "nebelseite",
+        "outside_tint": "#95a5a5",
+        "effect_proposal": {
+          "kind": "casebook_observation",
+          "text": "Vergleich eines Knotens mit den Anlegerleinen",
+          "evidence_id": "ns_hinweis_flossfriedhof_1",
+          "mandatory_for_main_case": false
+        },
+        "unique_per_player": true,
+        "tradeable": false,
+        "consumable": false
+      },
+      {
+        "id": "nsi_flossfriedhof_2",
+        "name": "Fährspan",
+        "description": "Der Splitter zeigt die Maserung auf beiden Seiten rückwärts.",
+        "category": "nebelseite",
+        "outside_tint": "#95a5a5",
+        "effect_proposal": {
+          "kind": "casebook_observation",
+          "text": "Beobachtung einer gespiegelten Holzfaser",
+          "evidence_id": "ns_hinweis_flossfriedhof_2",
+          "mandatory_for_main_case": false
+        },
+        "unique_per_player": true,
+        "tradeable": false,
+        "consumable": false
+      }
+    ],
+    "enemy_spawns": [
+      {
+        "id": "nsw_lampenfresser",
+        "tile": [
+          18,
+          7
+        ],
+        "expected_sequence": 5
+      }
+    ],
+    "unruhe_hint": "Alle 20 Sekunden hier steigt deine Unruhe um 1. Den Rückweg findest du nur am Übergang.",
+    "visited_flag": "ns_betreten_flossfriedhof",
+    "return_guarantee": "entry_transition_remains_open"
+  },
+  {
+    "id": "ns_torfbrueche",
+    "city": "wexmoor",
+    "original_map": "wx_torfbrueche",
+    "source": "src/data/packs/k2_orte/maps.json",
+    "intended_original": "wx_torfbrueche",
+    "description": "Die Gruben sind mit hellem Himmel gefüllt. Torfblöcke tragen Abdrücke von Schuhen, die nicht einsinken. Eine Nebelbank liegt aufrecht wie eine Wand.",
+    "geometry": {
+      "mode": "copy_original_then_apply_proposals",
+      "width": 48,
+      "height": 30,
+      "changes_are_proposals": true,
+      "path": {
+        "description": "Ein schmaler Randweg führt über die tiefste Grube.",
+        "from": [
+          2,
+          15
+        ],
+        "to": [
+          45,
+          15
+        ]
+      },
+      "open_door": {
+        "description": "Der Geräteverschlag hat seine Tür nach innen verloren.",
+        "tile": [
+          24,
+          2
+        ]
+      },
+      "find_location": {
+        "description": "Unter dem schwebenden Torfblock",
+        "tile": [
+          24,
+          15
+        ]
+      }
+    },
+    "items": [
+      {
+        "id": "nsi_torfbrueche_1",
+        "name": "Heller Torfkern",
+        "description": "Der Kern färbt Papier grau und Finger sauber.",
+        "category": "nebelseite",
+        "outside_tint": "#95a5a5",
+        "effect_proposal": {
+          "kind": "casebook_observation",
+          "text": "Vergleich von Rückstand und sauberer Haut",
+          "evidence_id": "ns_hinweis_torfbrueche_1",
+          "mandatory_for_main_case": false
+        },
+        "unique_per_player": true,
+        "tradeable": false,
+        "consumable": false
+      },
+      {
+        "id": "nsi_torfbrueche_2",
+        "name": "Schuhsohle ohne Profil",
+        "description": "Im Spiegel zeigt die glatte Sohle einen fremden Schritt.",
+        "category": "nebelseite",
+        "outside_tint": "#95a5a5",
+        "effect_proposal": {
+          "kind": "casebook_observation",
+          "text": "Dokumentation eines nur gespiegelten Profils",
+          "evidence_id": "ns_hinweis_torfbrueche_2",
+          "mandatory_for_main_case": false
+        },
+        "unique_per_player": true,
+        "tradeable": false,
+        "consumable": false
+      }
+    ],
+    "enemy_spawns": [
+      {
+        "id": "nsw_rueckwaertsgeher",
+        "tile": [
+          22,
+          13
+        ],
+        "expected_sequence": 5
+      }
+    ],
+    "unruhe_hint": "Alle 20 Sekunden hier steigt deine Unruhe um 1. Den Rückweg findest du nur am Übergang.",
+    "visited_flag": "ns_betreten_torfbrueche",
+    "return_guarantee": "entry_transition_remains_open"
+  },
+  {
+    "id": "ns_bahnhof",
+    "city": "dunscar",
+    "original_map": "ds_endbahnhof",
+    "source": "src/data/packs/k3_orte/maps.json",
+    "intended_original": "ds_endbahnhof",
+    "description": "Die Schienen laufen über die Wand der Wartehalle. An der Uhr fehlt nicht der Zeiger, sondern sein Schatten. Auf dem Bahnsteig steht der Umriss einer Schlange.",
+    "geometry": {
+      "mode": "copy_original_then_apply_proposals",
+      "width": 44,
+      "height": 22,
+      "changes_are_proposals": true,
+      "path": {
+        "description": "Der Wartesaal verbindet beide Bahnsteigenden.",
+        "from": [
+          2,
+          11
+        ],
+        "to": [
+          41,
+          11
+        ]
+      },
+      "open_door": {
+        "description": "Der verriegelte Schalter ist von hinten zugänglich.",
+        "tile": [
+          22,
+          2
+        ]
+      },
+      "find_location": {
+        "description": "Im leeren Fahrkartenschieber",
+        "tile": [
+          22,
+          11
+        ]
+      }
+    },
+    "items": [
+      {
+        "id": "nsi_bahnhof_1",
+        "name": "Ungelochte Fahrkarte",
+        "description": "Das Papier trägt den Druck eines Lochs, aber keine Öffnung.",
+        "category": "nebelseite",
+        "outside_tint": "#95a5a5",
+        "effect_proposal": {
+          "kind": "casebook_observation",
+          "text": "Vergleich von Prägung und Durchbruch",
+          "evidence_id": "ns_hinweis_bahnhof_1",
+          "mandatory_for_main_case": false
+        },
+        "unique_per_player": true,
+        "tradeable": false,
+        "consumable": false
+      },
+      {
+        "id": "nsi_bahnhof_2",
+        "name": "Schienenkreide",
+        "description": "Die Kreide zieht auf Eisen eine Linie aus Nebel.",
+        "category": "nebelseite",
+        "outside_tint": "#95a5a5",
+        "effect_proposal": {
+          "kind": "casebook_observation",
+          "text": "Markierung einer untersuchten Schienenkante",
+          "evidence_id": "ns_hinweis_bahnhof_2",
+          "mandatory_for_main_case": false
+        },
+        "unique_per_player": true,
+        "tradeable": false,
+        "consumable": false
+      }
+    ],
+    "enemy_spawns": [
+      {
+        "id": "nsw_umrissgaenger",
+        "tile": [
+          20,
+          9
+        ],
+        "expected_sequence": 5
+      }
+    ],
+    "unruhe_hint": "Alle 20 Sekunden hier steigt deine Unruhe um 1. Den Rückweg findest du nur am Übergang.",
+    "visited_flag": "ns_betreten_bahnhof",
+    "return_guarantee": "entry_transition_remains_open"
+  },
+  {
+    "id": "ns_schwellenring",
+    "city": "dunscar",
+    "original_map": "ds_schwellenring",
+    "source": "src/data/packs/k3_orte/maps.json",
+    "intended_original": "ds_schwellenring",
+    "description": "Jede Schwelle liegt einen Schritt neben ihrem Gleis. Die innere Mauer ist durchsichtig und bleibt dennoch kalt. Unter dem Ring zieht eine gerade Straße vorbei.",
+    "geometry": {
+      "mode": "copy_original_then_apply_proposals",
+      "width": 44,
+      "height": 22,
+      "changes_are_proposals": true,
+      "path": {
+        "description": "Eine Querung schneidet den Ring ohne Kreisbewegung.",
+        "from": [
+          2,
+          11
+        ],
+        "to": [
+          41,
+          11
+        ]
+      },
+      "open_door": {
+        "description": "Die Wartungspforte öffnet sich in beide Richtungen.",
+        "tile": [
+          22,
+          2
+        ]
+      },
+      "find_location": {
+        "description": "Unter der versetzten Innenschwelle",
+        "tile": [
+          22,
+          11
+        ]
+      }
+    },
+    "items": [
+      {
+        "id": "nsi_schwellenring_1",
+        "name": "Versetzter Nagel",
+        "description": "Der Kopf sitzt neben dem Schaft, ohne sich zu lösen.",
+        "category": "nebelseite",
+        "outside_tint": "#95a5a5",
+        "effect_proposal": {
+          "kind": "casebook_observation",
+          "text": "Dokumentation einer seitlichen Verschiebung",
+          "evidence_id": "ns_hinweis_schwellenring_1",
+          "mandatory_for_main_case": false
+        },
+        "unique_per_player": true,
+        "tradeable": false,
+        "consumable": false
+      },
+      {
+        "id": "nsi_schwellenring_2",
+        "name": "Stumme Signalscheibe",
+        "description": "Die Scheibe wechselt ihre helle Seite nur beim Wegsehen.",
+        "category": "nebelseite",
+        "outside_tint": "#95a5a5",
+        "effect_proposal": {
+          "kind": "casebook_observation",
+          "text": "Beobachtung des Blickwechsels",
+          "evidence_id": "ns_hinweis_schwellenring_2",
+          "mandatory_for_main_case": false
+        },
+        "unique_per_player": true,
+        "tradeable": false,
+        "consumable": false
+      }
+    ],
+    "enemy_spawns": [
+      {
+        "id": "nsw_lampenfresser",
+        "tile": [
+          20,
+          9
+        ],
+        "expected_sequence": 5
+      }
+    ],
+    "unruhe_hint": "Alle 20 Sekunden hier steigt deine Unruhe um 1. Den Rückweg findest du nur am Übergang.",
+    "visited_flag": "ns_betreten_schwellenring",
+    "return_guarantee": "entry_transition_remains_open"
+  },
+  {
+    "id": "ns_speisewagen",
+    "city": "dunscar",
+    "original_map": "ds_speisewagen",
+    "source": "src/data/packs/k3_orte/maps.json",
+    "intended_original": "ds_speisewagen",
+    "description": "Die Tische stehen außerhalb der Wagenwände. Aus den Tassen steigt der Umriss von Dampf. Ein unbesetzter Stuhl fährt langsam gegen die Reiserichtung.",
+    "geometry": {
+      "mode": "copy_original_then_apply_proposals",
+      "width": 24,
+      "height": 14,
+      "changes_are_proposals": true,
+      "path": {
+        "description": "Der Bediengang führt um die Außenseite des Wagens.",
+        "from": [
+          2,
+          7
+        ],
+        "to": [
+          21,
+          7
+        ]
+      },
+      "open_door": {
+        "description": "Die Speisekammertür bleibt offen, obwohl ihr Riegel sitzt.",
+        "tile": [
+          12,
+          2
+        ]
+      },
+      "find_location": {
+        "description": "Unter dem rückwärts fahrenden Stuhl",
+        "tile": [
+          12,
+          7
+        ]
+      }
+    },
+    "items": [
+      {
+        "id": "nsi_speisewagen_1",
+        "name": "Löffel ohne Mulde",
+        "description": "Der Schatten des Löffels hält einen Tropfen fest.",
+        "category": "nebelseite",
+        "outside_tint": "#95a5a5",
+        "effect_proposal": {
+          "kind": "casebook_observation",
+          "text": "Vergleich von Gegenstand und Schatten",
+          "evidence_id": "ns_hinweis_speisewagen_1",
+          "mandatory_for_main_case": false
+        },
+        "unique_per_player": true,
+        "tradeable": false,
+        "consumable": false
+      },
+      {
+        "id": "nsi_speisewagen_2",
+        "name": "Gefaltete Serviette",
+        "description": "Die Falte zeigt auf eine Sitzstelle außerhalb des Wagens.",
+        "category": "nebelseite",
+        "outside_tint": "#95a5a5",
+        "effect_proposal": {
+          "kind": "casebook_observation",
+          "text": "Dokumentation eines verschobenen Sitzplatzes",
+          "evidence_id": "ns_hinweis_speisewagen_2",
+          "mandatory_for_main_case": false
+        },
+        "unique_per_player": true,
+        "tradeable": false,
+        "consumable": false
+      }
+    ],
+    "enemy_spawns": [
+      {
+        "id": "nsw_rueckwaertsgeher",
+        "tile": [
+          10,
+          5
+        ],
+        "expected_sequence": 5
+      }
+    ],
+    "unruhe_hint": "Alle 20 Sekunden hier steigt deine Unruhe um 1. Den Rückweg findest du nur am Übergang.",
+    "visited_flag": "ns_betreten_speisewagen",
+    "return_guarantee": "entry_transition_remains_open"
+  },
+  {
+    "id": "ns_terrasse_3",
+    "city": "calderwick",
+    "original_map": "cw_quittungsmarkt",
+    "source": "src/data/packs/k4_orte/maps.json",
+    "intended_original": "terrasse_3",
+    "description": "Die Terrasse besteht aus übereinanderliegenden Blatträndern. Zwischen den Stufen laufen Fugen wie Druckzeilen. Ein Geländer hält die Form einer ausgestreckten Hand.",
+    "geometry": {
+      "mode": "copy_original_then_apply_proposals",
+      "width": 44,
+      "height": 22,
+      "changes_are_proposals": true,
+      "path": {
+        "description": "Die dritte Treppe führt zurück unter ihren Ansatz.",
+        "from": [
+          2,
+          11
+        ],
+        "to": [
+          41,
+          11
+        ]
+      },
+      "open_door": {
+        "description": "Der Quittungsschalter steht ohne Laden offen.",
+        "tile": [
+          22,
+          2
+        ]
+      },
+      "find_location": {
+        "description": "In der unbedruckten Bodenzeile",
+        "tile": [
+          22,
+          11
+        ]
+      }
+    },
+    "items": [
+      {
+        "id": "nsi_terrasse_3_1",
+        "name": "Blindletter",
+        "description": "Der kleine Druckstock hat eine glatte Fläche und hinterlässt einen Rand.",
+        "category": "nebelseite",
+        "outside_tint": "#95a5a5",
+        "effect_proposal": {
+          "kind": "casebook_observation",
+          "text": "Vergleich zwischen Rand und fehlendem Zeichen",
+          "evidence_id": "ns_hinweis_terrasse_3_1",
+          "mandatory_for_main_case": false
+        },
+        "unique_per_player": true,
+        "tradeable": false,
+        "consumable": false
+      },
+      {
+        "id": "nsi_terrasse_3_2",
+        "name": "Unterschriftsstaub",
+        "description": "Der Staub ordnet sich um die Stelle, die du leer lässt.",
+        "category": "nebelseite",
+        "outside_tint": "#95a5a5",
+        "effect_proposal": {
+          "kind": "casebook_observation",
+          "text": "Beobachtung einer ausgesparten Namensstelle",
+          "evidence_id": "ns_hinweis_terrasse_3_2",
+          "mandatory_for_main_case": false
+        },
+        "unique_per_player": true,
+        "tradeable": false,
+        "consumable": false
+      }
+    ],
+    "enemy_spawns": [
+      {
+        "id": "nsw_umrissgaenger",
+        "tile": [
+          20,
+          9
+        ],
+        "expected_sequence": 4
+      }
+    ],
+    "unruhe_hint": "Alle 20 Sekunden hier steigt deine Unruhe um 1. Den Rückweg findest du nur am Übergang.",
+    "visited_flag": "ns_betreten_terrasse_3",
+    "return_guarantee": "entry_transition_remains_open"
+  },
+  {
+    "id": "ns_landstrasse",
+    "city": "calderwick",
+    "original_map": "reise_landstrasse",
+    "source": "src/data/packs/k4_orte/maps.json",
+    "intended_original": "reise_landstrasse",
+    "description": "Die Straße läuft neben ihren Radspuren. Grenzsteine zeigen ihre unbeschrifteten Rückseiten. Hinter der nächsten Kurve steht der Nebel still.",
+    "geometry": {
+      "mode": "copy_original_then_apply_proposals",
+      "width": 48,
+      "height": 30,
+      "changes_are_proposals": true,
+      "path": {
+        "description": "Ein kurzer Lichtweg verbindet zwei Stellen derselben Kurve.",
+        "from": [
+          2,
+          15
+        ],
+        "to": [
+          45,
+          15
+        ]
+      },
+      "open_door": {
+        "description": "Das Tor der verfallenen Wegekammer steht frei im Feld.",
+        "tile": [
+          24,
+          2
+        ]
+      },
+      "find_location": {
+        "description": "Im Spalt des umgedrehten Grenzsteins",
+        "tile": [
+          24,
+          15
+        ]
+      }
+    },
+    "items": [
+      {
+        "id": "nsi_landstrasse_1",
+        "name": "Grenzsteinsplitter",
+        "description": "Der Splitter bleibt auf jeder Karte knapp neben der eingezeichneten Grenze.",
+        "category": "nebelseite",
+        "outside_tint": "#95a5a5",
+        "effect_proposal": {
+          "kind": "casebook_observation",
+          "text": "Dokumentation einer ungenauen Grenze",
+          "evidence_id": "ns_hinweis_landstrasse_1",
+          "mandatory_for_main_case": false
+        },
+        "unique_per_player": true,
+        "tradeable": false,
+        "consumable": false
+      },
+      {
+        "id": "nsi_landstrasse_2",
+        "name": "Radspurband",
+        "description": "Der Papierstreifen trägt einen Abdruck ohne Fahrtrichtung.",
+        "category": "nebelseite",
+        "outside_tint": "#95a5a5",
+        "effect_proposal": {
+          "kind": "casebook_observation",
+          "text": "Vergleich von Spur und Bewegungsrichtung",
+          "evidence_id": "ns_hinweis_landstrasse_2",
+          "mandatory_for_main_case": false
+        },
+        "unique_per_player": true,
+        "tradeable": false,
+        "consumable": false
+      }
+    ],
+    "enemy_spawns": [
+      {
+        "id": "nsw_lampenfresser",
+        "tile": [
+          22,
+          13
+        ],
+        "expected_sequence": 4
+      }
+    ],
+    "unruhe_hint": "Alle 20 Sekunden hier steigt deine Unruhe um 1. Den Rückweg findest du nur am Übergang.",
+    "visited_flag": "ns_betreten_landstrasse",
+    "return_guarantee": "entry_transition_remains_open"
+  },
+  {
+    "id": "ns_kurhaus",
+    "city": "briarholt",
+    "original_map": "bh_speisesaal",
+    "source": "src/data/packs/k5_orte/maps.json",
+    "intended_original": "kurhaus",
+    "description": "Die Tische tragen kalte Kreise statt Teller. In den Fenstern sitzen die Umrisse geschlossener Vorhänge. Ein Heizrohr atmet, ohne warm zu werden.",
+    "geometry": {
+      "mode": "copy_original_then_apply_proposals",
+      "width": 24,
+      "height": 14,
+      "changes_are_proposals": true,
+      "path": {
+        "description": "Der Speisesaal führt hinter seiner Fensterwand weiter.",
+        "from": [
+          2,
+          7
+        ],
+        "to": [
+          21,
+          7
+        ]
+      },
+      "open_door": {
+        "description": "Die Teeküchentür lässt sich ohne Berührung durchschreiten.",
+        "tile": [
+          12,
+          2
+        ]
+      },
+      "find_location": {
+        "description": "Am Ende des kalten Heizrohrs",
+        "tile": [
+          12,
+          7
+        ]
+      }
+    },
+    "items": [
+      {
+        "id": "nsi_kurhaus_1",
+        "name": "Kalte Teemarke",
+        "description": "Die Marke hält die Temperatur eines längst geleerten Bechers.",
+        "category": "nebelseite",
+        "outside_tint": "#95a5a5",
+        "effect_proposal": {
+          "kind": "casebook_observation",
+          "text": "Vergleich von Erinnerung und messbarer Wärme",
+          "evidence_id": "ns_hinweis_kurhaus_1",
+          "mandatory_for_main_case": false
+        },
+        "unique_per_player": true,
+        "tradeable": false,
+        "consumable": false
+      },
+      {
+        "id": "nsi_kurhaus_2",
+        "name": "Leerer Sitzplan",
+        "description": "Falten grenzen Plätze ab, ohne jemanden einzuteilen.",
+        "category": "nebelseite",
+        "outside_tint": "#95a5a5",
+        "effect_proposal": {
+          "kind": "casebook_observation",
+          "text": "Dokumentation eines Sitzplatzes ohne Zuordnung",
+          "evidence_id": "ns_hinweis_kurhaus_2",
+          "mandatory_for_main_case": false
+        },
+        "unique_per_player": true,
+        "tradeable": false,
+        "consumable": false
+      }
+    ],
+    "enemy_spawns": [
+      {
+        "id": "nsw_rueckwaertsgeher",
+        "tile": [
+          10,
+          5
+        ],
+        "expected_sequence": 4
+      }
+    ],
+    "unruhe_hint": "Alle 20 Sekunden hier steigt deine Unruhe um 1. Den Rückweg findest du nur am Übergang.",
+    "visited_flag": "ns_betreten_kurhaus",
+    "return_guarantee": "entry_transition_remains_open"
+  },
+  {
+    "id": "ns_leitungsplan",
+    "city": "briarholt",
+    "original_map": "bh_verteilanlage",
+    "source": "src/data/packs/k5_orte/maps.json",
+    "intended_original": "leitungsplan",
+    "description": "Die Rohre verlaufen als helle Linien über dem Boden. Jeder Hahn wirft den Schatten eines geschlossenen Auges. Am Verteiler ist das Geräusch wärmer als das Metall.",
+    "geometry": {
+      "mode": "copy_original_then_apply_proposals",
+      "width": 24,
+      "height": 14,
+      "changes_are_proposals": true,
+      "path": {
+        "description": "Eine Querleitung wird zum begehbaren Steg.",
+        "from": [
+          2,
+          7
+        ],
+        "to": [
+          21,
+          7
+        ]
+      },
+      "open_door": {
+        "description": "Die verschlossene Prüfnische hat eine offene Rückwand.",
+        "tile": [
+          12,
+          2
+        ]
+      },
+      "find_location": {
+        "description": "Im Knoten der unbeschrifteten Leitung",
+        "tile": [
+          12,
+          7
+        ]
+      }
+    },
+    "items": [
+      {
+        "id": "nsi_leitungsplan_1",
+        "name": "Stummer Ventilring",
+        "description": "Der Ring dreht sich, ohne eine Stellung zu wechseln.",
+        "category": "nebelseite",
+        "outside_tint": "#95a5a5",
+        "effect_proposal": {
+          "kind": "casebook_observation",
+          "text": "Vergleich einer Drehung ohne Umschaltung",
+          "evidence_id": "ns_hinweis_leitungsplan_1",
+          "mandatory_for_main_case": false
+        },
+        "unique_per_player": true,
+        "tradeable": false,
+        "consumable": false
+      },
+      {
+        "id": "nsi_leitungsplan_2",
+        "name": "Rohrabdruck",
+        "description": "Der Abdruck zeigt einen Abzweig, der diesseits fehlt.",
+        "category": "nebelseite",
+        "outside_tint": "#95a5a5",
+        "effect_proposal": {
+          "kind": "casebook_observation",
+          "text": "Dokumentation eines fehlenden Abzweigs",
+          "evidence_id": "ns_hinweis_leitungsplan_2",
+          "mandatory_for_main_case": false
+        },
+        "unique_per_player": true,
+        "tradeable": false,
+        "consumable": false
+      }
+    ],
+    "enemy_spawns": [
+      {
+        "id": "nsw_umrissgaenger",
+        "tile": [
+          10,
+          5
+        ],
+        "expected_sequence": 4
+      }
+    ],
+    "unruhe_hint": "Alle 20 Sekunden hier steigt deine Unruhe um 1. Den Rückweg findest du nur am Übergang.",
+    "visited_flag": "ns_betreten_leitungsplan",
+    "return_guarantee": "entry_transition_remains_open"
+  },
+  {
+    "id": "ns_zollhafen",
+    "city": "varrowmouth",
+    "original_map": "docks",
+    "source": "src/data/maps/docks.json",
+    "intended_original": "vm_zollhafen",
+    "description": "Die Masten reichen unter den Kai statt über ihn. Das Wasser spiegelt nur die freien Stellen zwischen den Schiffen. Jede Pollerreihe endet in einer leeren Namensmulde.",
+    "geometry": {
+      "mode": "copy_original_then_apply_proposals",
+      "width": 34,
+      "height": 14,
+      "changes_are_proposals": true,
+      "path": {
+        "description": "Ein trockener Lichtsteg führt unter der Kaimauer hindurch.",
+        "from": [
+          2,
+          7
+        ],
+        "to": [
+          31,
+          7
+        ]
+      },
+      "open_door": {
+        "description": "Die versiegelte Zollnische steht zum Wasser offen.",
+        "tile": [
+          17,
+          2
+        ]
+      },
+      "find_location": {
+        "description": "In der letzten leeren Pollermulde",
+        "tile": [
+          17,
+          7
+        ]
+      }
+    },
+    "items": [
+      {
+        "id": "nsi_zollhafen_1",
+        "name": "Zollblei ohne Siegel",
+        "description": "Das Blei trägt nur den Rand einer amtlichen Prägung.",
+        "category": "nebelseite",
+        "outside_tint": "#95a5a5",
+        "effect_proposal": {
+          "kind": "casebook_observation",
+          "text": "Vergleich von Siegelrand und fehlendem Zeichen",
+          "evidence_id": "ns_hinweis_zollhafen_1",
+          "mandatory_for_main_case": false
+        },
+        "unique_per_player": true,
+        "tradeable": false,
+        "consumable": false
+      },
+      {
+        "id": "nsi_zollhafen_2",
+        "name": "Trockene Gezeitenlinie",
+        "description": "Ein Streifen Schlick bleibt im Glas auf derselben Höhe.",
+        "category": "nebelseite",
+        "outside_tint": "#95a5a5",
+        "effect_proposal": {
+          "kind": "casebook_observation",
+          "text": "Beobachtung eines feststehenden Wasserstands",
+          "evidence_id": "ns_hinweis_zollhafen_2",
+          "mandatory_for_main_case": false
+        },
+        "unique_per_player": true,
+        "tradeable": false,
+        "consumable": false
+      }
+    ],
+    "enemy_spawns": [
+      {
+        "id": "nsw_lampenfresser",
+        "tile": [
+          15,
+          5
+        ],
+        "expected_sequence": 3
+      },
+      {
+        "id": "nsw_namenlose_kutsche",
+        "tile": [
+          3,
+          3
+        ],
+        "expected_sequence": 3,
+        "optional": true
+      }
+    ],
+    "unruhe_hint": "Alle 20 Sekunden hier steigt deine Unruhe um 1. Den Rückweg findest du nur am Übergang.",
+    "visited_flag": "ns_betreten_zollhafen",
+    "return_guarantee": "entry_transition_remains_open"
+  },
+  {
+    "id": "ns_registerkeller",
+    "city": "varrowmouth",
+    "original_map": "crypt",
+    "source": "src/data/maps/crypt.json",
+    "intended_original": "vm_registerkeller",
+    "description": "Die Regale stehen als Zeilen quer zum Boden. Zwischen ihnen hängen Umrisse von geschlossenen Büchern. Ein leerer Stuhl spiegelt jede Bewegung einen Atemzug zu spät.",
+    "geometry": {
+      "mode": "copy_original_then_apply_proposals",
+      "width": 20,
+      "height": 12,
+      "changes_are_proposals": true,
+      "path": {
+        "description": "Der Mittelgang durchquert die geschlossenen Regalrücken.",
+        "from": [
+          2,
+          6
+        ],
+        "to": [
+          17,
+          6
+        ]
+      },
+      "open_door": {
+        "description": "Die eiserne Lesetür steht im Umriss offen.",
+        "tile": [
+          10,
+          2
+        ]
+      },
+      "find_location": {
+        "description": "Unter dem verzögerten Stuhl",
+        "tile": [
+          10,
+          6
+        ]
+      }
+    },
+    "items": [
+      {
+        "id": "nsi_registerkeller_1",
+        "name": "Namenszwischenraum",
+        "description": "Das graue Blatt ist um eine schmale freie Stelle herum schwer.",
+        "category": "nebelseite",
+        "outside_tint": "#95a5a5",
+        "effect_proposal": {
+          "kind": "casebook_observation",
+          "text": "Dokumentation einer Lücke zwischen Einträgen",
+          "evidence_id": "ns_hinweis_registerkeller_1",
+          "mandatory_for_main_case": false
+        },
+        "unique_per_player": true,
+        "tradeable": false,
+        "consumable": false
+      },
+      {
+        "id": "nsi_registerkeller_2",
+        "name": "Nachlaufender Faden",
+        "description": "Der Faden bewegt sich erst, wenn deine Hand wieder still ist.",
+        "category": "nebelseite",
+        "outside_tint": "#95a5a5",
+        "effect_proposal": {
+          "kind": "casebook_observation",
+          "text": "Beobachtung einer verspäteten Bewegung",
+          "evidence_id": "ns_hinweis_registerkeller_2",
+          "mandatory_for_main_case": false
+        },
+        "unique_per_player": true,
+        "tradeable": false,
+        "consumable": false
+      }
+    ],
+    "enemy_spawns": [
+      {
+        "id": "nsw_rueckwaertsgeher",
+        "tile": [
+          8,
+          4
+        ],
+        "expected_sequence": 3
+      },
+      {
+        "id": "nsw_spiegelspieler",
+        "tile": [
+          3,
+          3
+        ],
+        "expected_sequence": 3,
+        "optional": true,
+        "absent_if": "ns_spiegelspieler_done"
+      }
+    ],
+    "unruhe_hint": "Alle 20 Sekunden hier steigt deine Unruhe um 1. Den Rückweg findest du nur am Übergang.",
+    "visited_flag": "ns_betreten_registerkeller",
+    "return_guarantee": "entry_transition_remains_open"
+  }
+]
