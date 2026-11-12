@@ -7,6 +7,7 @@ import { preloadRitualArt } from './ritualArt.js';
 import { DS_ZIRKEL_ICONS, DS_ZIRKEL_FIGUREN } from '../data/dunscarZirkel.js';
 import { VS_ICONS } from '../data/vorratStuecke.js';
 import { DS_ORTSKUNDIGE } from '../data/dunscarOrtskundige.js';
+import { DSH_ICONS } from '../data/dunscarAusbau.js';
 
 const BASE = './sprites/';
 export const SPRITE_BASE = BASE;
@@ -2425,7 +2426,14 @@ for (const [prefix, id] of [['dsp_endbahnhof', 'ds_endbahnhof'], ['dsp_schwellen
   SHEETS[prefix] = `props/${id}.png`;
   REGION_SHEETS[prefix] = ['manifestDunscar1', id];
 }
+/** AV-Innenmöbel (Speisewagen, Prüfhaus, Lohnbüro), platziert von data/dunscarAusbau.js. */
+for (const id of ['ds_speisewagen', 'ds_pruefhaus', 'ds_lohnbuero']) {
+  SHEETS[`dspi_${id.slice(3)}`] = `props/${id}.png`;
+  REGION_SHEETS[`dspi_${id.slice(3)}`] = ['manifestDunscar1', id];
+}
+Object.assign(ITEM_ICON_ALIASES, DSH_ICONS);
 Object.assign(REGION_ANIMS, {
+  dspi_speisewagen: { stove: [['coal_stove_fire_1', 'coal_stove_fire_2'], 4], phonograph: [['wax_cylinder_phonograph_rotation_1', 'wax_cylinder_phonograph_rotation_2', 'wax_cylinder_phonograph_rotation_3', 'wax_cylinder_phonograph_rotation_4'], 6] },
   dsp_schwellenring: { signal: [['signal_arm_up', 'signal_arm_down'], 1] },
   dsp_bruchsignal: { scaffold: [['scaffold_sway_left', 'scaffold_sway_right'], 2], listening: [['listening_horn_turquoise_pulse_1', 'listening_horn_turquoise_pulse_2', 'listening_horn_turquoise_pulse_3', 'listening_horn_turquoise_pulse_4'], 5] },
 });
