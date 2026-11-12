@@ -8,7 +8,7 @@
  */
 export const ALT_ZONES = ['marsch', 'katakomben', 'pestgassen', 'kraterwald'];
 /** Chance auf einen Altfund je Sieg. */
-export const ALT_CHANCE = { normal: 0.08, elite: 0.16, boss: 0.35 };
+export const ALT_CHANCE = { normal: 0.08, elite: 0.3, boss: 0.35 };
 
 /** Gewicht eines Stücks im Altfund-Topf. */
 export function altWeight(item) {
