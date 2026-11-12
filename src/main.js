@@ -11,6 +11,7 @@ import { MusicDirector } from './core/MusicDirector.js';
 import { wireMusicCues, modeFor, ritualMusic, laternenFaktoren } from './core/musicCues.js';
 import { isOutdoorMap } from './world/assets.js';
 import { cityOf } from './core/Travel.js';
+import { HIMMEL, STURZ_EFFECTS } from './data/aufstieg.js';
 
 const SAVE_KEY = 'nebelakten-save';
 const state = new GameState(content);
@@ -55,6 +56,15 @@ const ui = new Ui(uiRoot, state, {
     // Seq 3 bis 1: ?hoch=laterne&seq=3 → eine Stufe darüber, voll verdaut, Ort gefunden (Seq 3: man steht im Ort)
     const hoch = new URLSearchParams(location.search).get('hoch');
     if (hoch) state.hochProbeStart(hoch, Number(new URLSearchParams(location.search).get('seq') ?? 3));
+    // Kapitel 4: ?aufstieg=dunscar|himmel|calderwick (&pfad=eisen) → Seq 4, voll verdaut, am Endbahnhof, oben oder nach dem Sturz
+    const auf = new URLSearchParams(location.search).get('aufstieg');
+    if (auf) {
+      state.hochProbeStart(new URLSearchParams(location.search).get('pfad') ?? 'eisen', 3);
+      for (const f of [...state.flags]) if (/^gilde_.*_mitglied$/.test(f)) state.flags.delete(f);
+      if (auf === 'calderwick') state.applyEffects(STURZ_EFFECTS);
+      else state.flags.delete('k4_arrived');
+      state.map = { himmel: HIMMEL, calderwick: 'cw_gleisfuss' }[auf] ?? 'ds_endbahnhof';
+    }
     started = true;
     restartWorld();
     saveSoon();

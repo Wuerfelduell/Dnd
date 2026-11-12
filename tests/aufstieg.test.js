@@ -65,3 +65,36 @@ test('Der Thron verbrennt immer; danach Calderwick, kein Zurück nach Dunscar od
   assert.ok(travelDestinations(s, s.map).every((t) => content.maps[t.map].city === 'calderwick'));
   assert.ok(visible(s, 'cw_gleisfuss', 'auf_cw_aufschlag'));
 });
+
+test('Calderwick: zehn verdorbene Pfadgebiete mit Gildensitz, je zwei benannte Beyonder, Monster in Halbgott-Stärke, keine Akte mehr', async () => {
+  const { CW_GEBIETE } = await import('../src/data/aufstieg.js');
+  assert.equal(Object.keys(CW_GEBIETE).length, 10);
+  const names = new Set();
+  for (const [pid, cw] of Object.entries(CW_GEBIETE)) {
+    const m = content.maps[`o3_${pid}`];
+    assert.equal(m.city, 'calderwick');
+    assert.ok(m.danger >= 7, `${pid}: Gefahr (keine Angst vor Seq-4-Spielern)`);
+    assert.ok(m.roamers.length >= 18, `${pid}: ${m.roamers.length} Monster`);
+    for (const r of [...m.roamers, ...m.interactables]) assert.notEqual(m.rows[r.tile[1]][r.tile[0]], 'I', `${pid}: ${r.id}`);
+    assert.ok(content.encounters[`o3_${pid}_tiefe`].name.startsWith(cw.oberhaupt));
+    assert.ok(content.encounters[`o3_${pid}_vize`].name.startsWith(cw.vize));
+    assert.ok(m.interactables.some((i) => i.encounter === `o3_${pid}_vize`));
+    for (const n of [cw.oberhaupt, cw.vize]) { assert.ok(!names.has(n), n); names.add(n); }
+    assert.ok(content.travelRules.cities.calderwick.pins[`o3_${pid}`]);
+  }
+  for (const m of Object.values(content.maps).filter((x) => x.city === 'calderwick')) assert.ok(!m.interactables?.some((i) => i.id.startsWith('cwa_')), m.id);
+  // Nach dem Sturz sind alle Viertel offen
+  const s = fresh();
+  s.applyEffects({ sets_flags: ['k4_arrived', ...['cwa_ankunft_sicher', 'cwa_werkstatt', 'cwa_akt1_done', 'cwa_akt2_done', 'cwa_akt3_done', 'cwa_akt4_done']] });
+  s.map = 'cw_gleisfuss';
+  const ziele = travelDestinations(s, s.map).map((t) => t.map);
+  for (const id of ['cw_kronenarchiv', 'cw_witwenterrasse', 'o3_eisen', 'o3_laterne']) assert.ok(ziele.includes(id), id);
+  // Alte Stände in Calderwick: Akte weg, neues Kapitelziel
+  const alt = fresh();
+  alt.flags.add('k4_arrived');
+  alt.quests.cwa_akt1 = 'active';
+  alt.calderwickOffen();
+  assert.equal(alt.quests.cwa_akt1, undefined);
+  assert.equal(alt.quests.k4_aufstieg, 'active');
+  assert.ok(alt.flags.has('cwa_akt4_done'));
+});

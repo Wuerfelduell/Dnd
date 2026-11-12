@@ -46,16 +46,20 @@ test('Alle zehn Pfade: Rituale 3/2/1 mit eigenen Schritten, 2 mit Weltwandel und
     assert.deepEqual(join.map((i) => i.visible_if.requires_pathway), [[pid, 9], [NACHBARPFADE[pid], 4]], `${pid}: Beitritt eigener Pfad oder Nachbar ab 4`);
     assert.ok(m.interactables.some((i) => /nirgends sonst/.test(i.text ?? '')), `${pid}: ein Mitglied erklärt den Kern`);
     assert.ok(content.items[`ritualformel_${pid}_3`], `${pid}: Ritualformel`);
-    for (const city of ['dunscar', 'calderwick', 'briarholt']) assert.ok(content.travel.some((t) => t.map === m.id && t.city === city && t.requires_flags.includes(gildeFlag(pid, 'bekannt'))));
+    // Kapitel 4 (Seb 2026-11-12): die Gildensitze sind die verdorbenen Pfadgebiete von Calderwick, nur noch von dort erreichbar
+    assert.equal(m.city, 'calderwick');
+    assert.deepEqual(content.travel.filter((t) => t.map === m.id).map((t) => t.city), ['calderwick']);
   }
   assert.ok(!content.market.merchants.kittering.stock.some((e) => /^formel_\w+_[123]$/.test(e.item)), 'Kittering ohne Formeln 3 bis 1');
 });
 
-test('Gilden: ab Dunscar meldet sich die eigene Gilde, ab Seq 4 auch die des Nachbarpfads; Seq 3 verlangt Ritualformel und Mitgliedschaft', () => {
+test('Gilden: ab Calderwick meldet sich die eigene Gilde, ab Seq 4 auch die des Nachbarpfads; Seq 3 verlangt Ritualformel und Mitgliedschaft', () => {
   const s = hero(5, 'eisen');
   s.tick(1);
-  assert.ok(!s.flags.has(gildeFlag('eisen', 'bekannt')), 'vor Dunscar nicht');
   s.flags.add('k3_arrived');
+  s.tick(1);
+  assert.ok(!s.flags.has(gildeFlag('eisen', 'bekannt')), 'in Dunscar noch nicht');
+  s.flags.add('k4_arrived');
   s.tick(1);
   assert.ok(s.flags.has(gildeFlag('eisen', 'bekannt')));
   assert.ok(!s.flags.has(gildeFlag(NACHBARPFADE.eisen, 'bekannt')));
