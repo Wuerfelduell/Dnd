@@ -72,6 +72,8 @@ export const probeMethods = {
 
   /** Welche Probe das nächste Ritual verlangt (oder null). */
   pendingProbe(pid = this.pathway?.id, seq = (this.pathway?.seq ?? 0) - 1) {
+    const hp = this.hochProbe?.(); // Seq 3 bis 1: Probenreihen ohne Fehler (core/SeqHoch.js)
+    if (hp) return hp;
     const r = this.ritualDef(pid, seq);
     if (!r?.probe || this.probeDone(pid, seq) || this.ritualDone(pid, seq)) return null;
     return { kind: r.probe, pid, seq, name: PROBE_NAMEN[r.probe] ?? 'Die Probe' };
@@ -192,6 +194,12 @@ export const probeMethods = {
     const pr = this.probe;
     if (!pr) return { ok: false };
     this.probe = null;
+    if (pr.hoch) { // Seq 3 bis 1: zählt mit oder lässt die Prüfung scheitern
+      this.sfx(passed ? 'probe_bestanden' : 'probe_fehlversuch');
+      const t = this.hochProbeResult?.(passed) ?? '';
+      this.emit('changed');
+      return { ok: true, passed, text: `${pr.name}: ${passed ? 'bestanden' : 'misslungen'}. ${text} ${t}` };
+    }
     if (passed) {
       this.flags.add(this.probeFlag(pr.pid, pr.seq));
       this.sfx('probe_bestanden', { delay: pr.kind === 'faden' ? 500 : 0 });

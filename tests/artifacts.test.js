@@ -24,7 +24,8 @@ function brew(s, pid, seq) {
   s.money = 5000;
   s.honor = Math.max(s.honor, 165); // Formeln für 4 bis 1 verlangen bis zu 160 Ehre
   // Seb (2026-11-12): die Halbgott-Formel (4) gibt es nur auf geheimen Treffen oder als seltene Elite-Beute
-  if (seq === 4) s.addItem(`formel_${pid}_${seq}`);
+  // Seb (2026-11-12): die Formeln 3 bis 1 liegen am eigenen Ort des Pfades (data/seqHoch.js)
+  if (seq <= 4) s.addItem(`formel_${pid}_${seq}`);
   else {
     withOffer(s, 'kittering', `formel_${pid}_${seq}`);
     assert.equal(s.buy('kittering', `formel_${pid}_${seq}`).ok, true, `Formel ${pid} ${seq}`);
@@ -63,6 +64,7 @@ function ritual(s, pid, seq) {
   if (r.min_picks) s.picks = r.min_picks;
   if (r.trial) passTrial(s, r.trial); // Seq 5 (Seb 2026-11-12): die Prüfung des Pfads gilt als bestanden
   if (r.hg) s.flags.add(s.hgFlag(pid)); // Seq 4: die Halbgott-Prüfung samt Wächter gilt als bestanden
+  if (r.hoch) s.flags.add(s.hochFlag(pid, seq)); // Seq 3 bis 1: die Prüfung gilt als bestanden
   const res = s.performRitual();
   assert.equal(res.ok, true, `${pid} ${seq}: ${res.text}`);
   s.spiritVision = false;

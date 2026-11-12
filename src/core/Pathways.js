@@ -454,6 +454,7 @@ export const pathwayMethods = {
     if (this.pathway) this.pathway.digestion = Math.max(0, this.pathway.digestion - 20);
     this.unruhe = 40;
     this.spiritVision = false;
+    this.hochLostControl?.(); // Seq 1 (Kessel): Kontrollverlust bricht die Unruhe-Prüfung
     const shame = this.artifactShame();
     const hit = this.corruptEquipment();
     const names = hit.map((id) => this.item(id).name);
@@ -614,6 +615,8 @@ export const pathwayMethods = {
     }
     if (r.hg) { // Seq-4-Prüfungen (core/Seq4.js): der Wächter ist ihr letzter Schritt
       steps.push(...this.seq4Steps(r).map((s, i, all) => ({ ...s, hg: r.hg, ...(i === all.length - 1 ? { ordeal: true } : {}) })));
+    } else if (r.hoch) { // Seq 3 bis 1 (core/SeqHoch.js): Schritte der Prüfung
+      steps.push(...this.hochSteps(r).map((s) => ({ ...s, hoch: true })));
     } else if (r.ordeal) {
       const enc = this.content.encounters[ordealId(pid, seq)];
       steps.push({ text: `${enc?.name ?? 'Schwellenwächter'} besiegt (erscheint, sobald alles andere bereit ist)`, done: this.ordealDone(pid, seq), ordeal: true });
@@ -682,6 +685,7 @@ export const pathwayMethods = {
     if (this.ritualDone(p.id, seq)) return { ok: false, text: 'Das Ritual ist schon vollzogen. Trink den Trank.' };
     const open = this.ritualSteps(p.id, seq).filter((x) => !x.done);
     // Die schweren Rituale (4 und 2): Steht alles andere, tritt der Schwellenwächter des Pfades aus dem Nebel
+    if (r.hoch && open.some((x) => x.hoch)) return { ok: false, text: `Erst die Prüfung: ${r.name}. Starte sie im Pfad-Tab.` };
     if (r.hg && open.some((x) => x.hg)) return { ok: false, text: `Erst die Prüfung: ${this.seq4Name(r.hg)}. Der Schwellenwächter kommt nur aus ihr heraus.` };
     if (open.length === 1 && open[0].ordeal) {
       const id = ordealId(p.id, seq);
@@ -958,7 +962,7 @@ export const pathwayMethods = {
   loadPathway(data) {
     this.money = data.money ?? this.money;
     const p = data.pathway;
-    this.pathway = p && this.seqDef(p.id, p.seq) ? { id: p.id, seq: p.seq, digestion: p.digestion ?? 0, ...(p.form ? { form: true } : {}), ...(p.seq5 && typeof p.seq5 === 'object' ? { seq5: p.seq5 } : {}) } : null;
+    this.pathway = p && this.seqDef(p.id, p.seq) ? { id: p.id, seq: p.seq, digestion: p.digestion ?? 0, ...(p.form ? { form: true } : {}), ...(p.seq5 && typeof p.seq5 === 'object' ? { seq5: p.seq5 } : {}), ...(p.hoch && typeof p.hoch === 'object' ? { hoch: p.hoch } : {}) } : null;
     this.unruhe = Math.max(0, Math.min(UNRUHE_MAX - 1, data.unruhe ?? 0));
     this.seenNodes = new Set(data.seenNodes ?? []);
     this.wins = data.wins ?? 0;

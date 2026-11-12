@@ -468,6 +468,7 @@ export const BH_MAP_MARKERS = Object.fromEntries(BH_MAP_IDS.flatMap((id, i) => [
 export const BH_MAP_MARKERS_URL = `${BASE}ui/bh_marker.png`;
 /** Marker eines Ortes: [Bild-URL, Feld, Spalten im Bild, live, Raster ohne Hervorhebungszeile {rows, row}]. */
 export const mapMarkerOf = (map) => {
+  if (map?.startsWith('o3_')) return mapMarkerOf('ds_rufschlucht'); // Orte der Sequenz 3 leihen sich einen Dunscarer Marker
   if (O_MAP_MARKERS[map] !== undefined) return [O_MAP_MARKERS_URL, O_MAP_MARKERS[map], 3, true];
   if (X_MAP_MARKERS[map] !== undefined) return [X_MAP_MARKERS_URL, X_MAP_MARKERS[map], 2, true];
   if (Q_MAP_MARKERS[map] !== undefined) return [Q_MAP_MARKERS_URL, Q_MAP_MARKERS[map], 7];
