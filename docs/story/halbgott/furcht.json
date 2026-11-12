@@ -1,0 +1,346 @@
+{
+  "klassen": {
+    "buerger": {
+      "wirkung": "umfallen",
+      "dauer_sek": 25,
+      "beim_anblick": [
+        "Die Frau setzt zum Gruß an und sinkt auf die Knie, dann auf die Seite.",
+        "Ein Passant lässt die Zeitung los und wird still ohnmächtig.",
+        "Zwei Nachbarn greifen nach derselben Bank und finden den Boden.",
+        "Der Mann lehnt sich an die Wand; seine Beine halten ihn nicht mehr."
+      ],
+      "danach": [
+        "„Mir fehlt eine Minute. Meine Tasche ist noch da.“",
+        "„Bitte kündigen Sie sich künftig anders an.“"
+      ]
+    },
+    "polizei": {
+      "wirkung": "umfallen",
+      "dauer_sek": 20,
+      "beim_anblick": [
+        "Die Dienstpfeife bleibt unbenutzt, als die Wache zusammensackt.",
+        "Der Helm rollt zur Bordsteinkante, sein Träger liegt reglos daneben.",
+        "Die Streife versucht Haltung anzunehmen und verliert das Bewusstsein.",
+        "Die erhobene Hand sinkt; die Wache fällt ohne einen Laut."
+      ],
+      "danach": [
+        "Im Revier: „Wir nehmen Ihre Aussage im Sitzen auf. Sie bleiben bitte in Ihrer gewöhnlichen Gestalt.“",
+        "Im Revier: „Der Bericht nennt Kreislaufversagen. Der Bericht muss nicht alles wissen.“"
+      ]
+    },
+    "haendler": {
+      "wirkung": "umfallen",
+      "dauer_sek": 30,
+      "beim_anblick": [
+        "Die Händlerin hält sich am Ladentisch fest und rutscht dahinter zu Boden.",
+        "Das Wechselgeld fällt aus der Hand des bewusstlosen Verkäufers.",
+        "Der Kaufmann klappt das Kassenbuch zu, bevor seine Knie nachgeben.",
+        "Die Waage schwingt weiter, während ihr Besitzer ohnmächtig daliegt."
+      ],
+      "danach": [
+        "Ein Schild hängt in der Tür: „Heute geschlossen. Morgen versuchen wir es wieder.“",
+        "„Sie haben nichts gestohlen. Einen Geschäftstag habe ich trotzdem verloren.“"
+      ],
+      "laden_zu_spieltage": 1
+    },
+    "zirkel": {
+      "wirkung": "senken",
+      "dauer_sek": 4,
+      "beim_anblick": [
+        "Die Runde senkt gleichzeitig den Blick auf den Tisch.",
+        "Eine Gastgeberin dreht ihr Glas weg und bleibt sitzen.",
+        "Die Mitglieder betrachten beharrlich ihre eigenen Hände.",
+        "Ein freier Stuhl wird vorgeschoben, ohne dass jemand aufblickt."
+      ],
+      "danach": [
+        "„Setzen Sie sich. Wir kennen den Unterschied zwischen Macht und Benehmen.“",
+        "„Das Siegel haben wir gesehen. Die Bedingungen gelten trotzdem.“"
+      ]
+    },
+    "beyonder_schwach": {
+      "wirkung": "fliehen",
+      "dauer_sek": 8,
+      "beim_anblick": [
+        "Der Angreifer verliert seine Drohung und sucht den nächsten Ausgang.",
+        "Eine schwache Gabe flackert auf und erlischt sofort; ihr Träger weicht zurück.",
+        "Die Gestalt gegenüber tastet nach der Wand und flieht seitwärts.",
+        "Der Gegner lässt die Waffe sinken und läuft, ohne sich umzusehen."
+      ],
+      "danach": [
+        "„Das war keine gewöhnliche Verkleidung.“",
+        "„Den Auftrag kann jemand anders übernehmen.“"
+      ],
+      "seq_min": 7
+    },
+    "beyonder_mittel": {
+      "wirkung": "zoegern",
+      "dauer_sek": 0,
+      "beim_anblick": [
+        "Der Gegner hebt den Arm, beendet die Bewegung aber nicht.",
+        "Eine vorbereitete Gabe bleibt ungenutzt zwischen zwei Atemzügen.",
+        "Dein Gegenüber sucht eine verwundbare Stelle und verliert den Einsatz.",
+        "Der Blick bleibt an deiner Form hängen; der erste Angriff unterbleibt."
+      ],
+      "danach": [
+        "„Gut. Jetzt weiß ich, was ich vor mir habe.“",
+        "„Noch einmal nehme ich mir diese Pause nicht.“"
+      ],
+      "skip_first_turn": 1,
+      "seq_range": [
+        5,
+        6
+      ]
+    },
+    "beyonder_stark": {
+      "wirkung": "nichts",
+      "dauer_sek": 0,
+      "beim_anblick": [
+        "„Eine Form ist noch kein Argument.“",
+        "„Sie halten den Umriss besser als beim ersten Mal.“",
+        "„Das erklärt einiges. Es entscheidet nichts.“",
+        "„Sie können so bleiben. Ich habe Zeit.“"
+      ],
+      "danach": [
+        "„Jetzt zählen wieder Ihre Handlungen.“",
+        "„Das nächste Mal sparen wir uns die Vorstellung.“"
+      ],
+      "seq_max": 4
+    },
+    "tiere": {
+      "wirkung": "fliehen",
+      "dauer_sek": 12,
+      "beim_anblick": [
+        "Eine Katze verschwindet unter der Treppe.",
+        "Die Tauben lösen sich geschlossen vom Dach.",
+        "Ein Hund zieht die Leine vom Platz weg.",
+        "Ratten verlassen die Rinne und suchen dunkle Öffnungen."
+      ],
+      "danach": [
+        "Die Katze kehrt erst zurück, als deine Form verschwunden ist.",
+        "Der Hund prüft die Ecke aus sicherer Entfernung."
+      ]
+    },
+    "sekten": {
+      "wirkung": "knien",
+      "dauer_sek": 6,
+      "beim_anblick": [
+        "Die Kultisten knien, ohne ihr Zeichen zu verbergen.",
+        "Eine verhüllte Gestalt legt die Stirn auf die eigenen Hände.",
+        "Die Gruppe lässt eine freie Stelle für dich und sinkt auf die Knie.",
+        "Ein Abzeichen wird hochgehalten, dann vorsichtig niedergelegt."
+      ],
+      "danach": [
+        "„Wir hätten einen Platz für Sie. Niemand müsste Ihren Namen wissen.“",
+        "„Sie müssen nur erscheinen. Die anderen erklären den Rest.“"
+      ]
+    }
+  },
+  "folgen": [
+    {
+      "id": "hg_folge_01",
+      "ausloeser": "polizei_sieht_form",
+      "wirkung": "ansehen_minus",
+      "text": "Die Wache notiert die Ohnmacht als Gefährdung der Straße.",
+      "werte": {
+        "honor": -3
+      }
+    },
+    {
+      "id": "hg_folge_02",
+      "ausloeser": "erste_oeffentliche_form",
+      "wirkung": "gerede_freischalten",
+      "text": "Bis zum Abend kennt jede Ecke eine andere Beschreibung.",
+      "werte": {
+        "flag": "hg_form_oeffentlich"
+      }
+    },
+    {
+      "id": "hg_folge_03",
+      "ausloeser": "dritte_oeffentliche_form",
+      "wirkung": "zeitungsnotiz",
+      "text": "Eine dritte unabhängige Beobachtung reicht der Redaktion.",
+      "werte": {
+        "flag": "kreaturform_gezeigt_3",
+        "threshold": 3
+      }
+    },
+    {
+      "id": "hg_folge_04",
+      "ausloeser": "sekten_sehen_form",
+      "wirkung": "umtriebe_plus",
+      "text": "Die Knieenden erzählen von Zustimmung, die du nicht gegeben hast.",
+      "werte": {
+        "umtriebe": 1,
+        "scope": "witnessing_cult",
+        "flag": "hg_sekten_form_gesehen"
+      }
+    },
+    {
+      "id": "hg_folge_05",
+      "ausloeser": "haendler_sieht_form",
+      "wirkung": "laden_schliessen",
+      "text": "Die Kasse bleibt bis morgen zu; das Wechselgeld liegt noch da.",
+      "werte": {
+        "days": 1,
+        "scope": "witnessing_shop"
+      }
+    },
+    {
+      "id": "hg_folge_06",
+      "ausloeser": "buerger_ohnmacht",
+      "wirkung": "hilfe_markieren",
+      "text": "Du räumst den Weg frei und legst den Mantel unter einen Kopf.",
+      "werte": {
+        "flag": "hg_hilfe_moeglich"
+      }
+    },
+    {
+      "id": "hg_folge_07",
+      "ausloeser": "nach_form_hilfe_leisten",
+      "wirkung": "ansehen_teilweise_zurueck",
+      "text": "Die Betroffenen erinnern sich auch daran, wer geblieben ist.",
+      "werte": {
+        "honor": 1,
+        "max_per_event": 1
+      }
+    },
+    {
+      "id": "hg_folge_08",
+      "ausloeser": "form_vor_zeugen_ablegen",
+      "wirkung": "beruhigung",
+      "text": "Als deine Hände wieder Hände sind, kommt das erste vorsichtige Wort.",
+      "werte": {
+        "clear_local_panic": true
+      }
+    }
+  ],
+  "ausnahmen": [
+    {
+      "id": "k3_weichenstellerin",
+      "name": "Hedda Quist",
+      "text": "„Sie tragen es jetzt sichtbar. Setzen Sie sich trotzdem ordentlich hin.“",
+      "requires": {
+        "alive": true
+      },
+      "wirkung": "nichts"
+    },
+    {
+      "id": "kittering",
+      "name": "Cornelius Kittering",
+      "text": "„Die Flasche war bezahlt. Für die Folgen gibt es keinen Rücknahmeschein.“",
+      "requires": {
+        "alive": true
+      },
+      "wirkung": "nichts"
+    },
+    {
+      "id": "varga",
+      "name": "Dr. Ilse Varga",
+      "text": "„Bleiben Sie stehen. Ich möchte Ihren Puls messen, solange Sie noch einen anbieten.“",
+      "requires": {
+        "alive": true
+      },
+      "wirkung": "nichts"
+    },
+    {
+      "id": "fasserin",
+      "name": "Oda Kessel",
+      "text": "„Rühren Sie nichts an; meine Fassungen sind nicht für Ihre neue Hand gemacht.“",
+      "requires": {
+        "alive": true
+      },
+      "wirkung": "nichts"
+    },
+    {
+      "id": "tresswell",
+      "name": "Ignaz Tresswell",
+      "text": "„Die Waage bleibt dieselbe. Legen Sie nur nicht Ihren ganzen Leib darauf.“",
+      "requires": {
+        "alive": true
+      },
+      "wirkung": "nichts"
+    },
+    {
+      "id": "vellacourt",
+      "name": "Ada Vellacourt",
+      "text": "„Ich habe Ihre Gestalt zur Kenntnis genommen. Die Einladung gilt der Person.“",
+      "requires": {
+        "alive": true
+      },
+      "wirkung": "nichts"
+    },
+    {
+      "id": "zirkel_lichtlose",
+      "name": "Schwester Asche",
+      "text": "„Lassen Sie uns wenigstens den Schatten unter dem Tisch.“",
+      "requires": {
+        "alive": true
+      },
+      "wirkung": "nichts"
+    },
+    {
+      "id": "zirkel_salzbruder",
+      "name": "Bruder Kliff",
+      "text": "„Das Salz liegt trocken. Ich bitte um dieselbe Rücksicht.“",
+      "requires": {
+        "alive": true
+      },
+      "wirkung": "nichts"
+    },
+    {
+      "id": "zirkel_schichtbund",
+      "name": "Agathe Rooke",
+      "text": "„Auch dafür gibt es keine zusätzliche Schichtmarke.“",
+      "requires": {
+        "alive": true
+      },
+      "wirkung": "nichts"
+    },
+    {
+      "id": "lichtmann",
+      "name": "Lucius Starling",
+      "text": "„Sie sehen den Rand nun auch. Halten Sie ihn nicht für das Ende.“",
+      "requires": {
+        "alive": true
+      },
+      "wirkung": "nichts"
+    },
+    {
+      "id": "wyle",
+      "name": "Magistra Edda Wyle",
+      "text": "„Eine Beobachtung weniger aus zweiter Hand. Ich hätte lieber darauf verzichtet.“",
+      "requires": {
+        "alive": true
+      },
+      "wirkung": "nichts"
+    },
+    {
+      "id": "sabeth",
+      "name": "Sabeth Orr",
+      "text": "„Sie können zurück. Erinnern Sie sich daran, bevor Sie weitergehen.“",
+      "requires": {
+        "alive": true
+      },
+      "wirkung": "nichts"
+    }
+  ],
+  "regeln": {
+    "prioritaet": [
+      "dead_or_absent_ignore",
+      "boss_or_seq4_and_stronger",
+      "named_exception",
+      "class"
+    ],
+    "ohnmacht_toedlich": false,
+    "trigger": "form_annehmen_or_new_witness",
+    "dedupe": "one_per_witness_and_form_event",
+    "public_count": "one_per_form_event_with_public_witness",
+    "anti_farm": "one_public_event_per_city_per_game_day",
+    "sekten_limit": "one_per_cult_per_game_day",
+    "haendler_verlaengerung": false,
+    "panik_dauer": "game_seconds",
+    "kampfrunden": "separate_from_duration_seconds",
+    "koop": "one_event_per_transformation_not_per_observer",
+    "strong_boss_priority": true
+  }
+}

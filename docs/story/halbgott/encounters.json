@@ -1,0 +1,583 @@
+{
+  "hg_schwellenwaechter": {
+    "name": "Schwellenwächter",
+    "hp": 520,
+    "min_seq": 5,
+    "occult": true,
+    "boss": true,
+    "fleeable": true,
+    "chapter": 3,
+    "sprite": "wild",
+    "sheet": "hg_schwellenwaechter",
+    "intro": "Der Wächter trägt dein Pfadsiegel vor der Brust. Er wartet auf deinen ersten Angriff.",
+    "attacks": [
+      {
+        "name": "Signalschlag",
+        "damage": 18,
+        "hits": [
+          1400
+        ]
+      },
+      {
+        "name": "Kalkstaub-Welle",
+        "damage": 12,
+        "hits": [
+          900,
+          1800
+        ],
+        "target": "all_players",
+        "nerves_loss": 8,
+        "telegraph": "Der Wächter senkt beide Arme; der Boden wird vor der Welle hell."
+      }
+    ],
+    "phases": [
+      {
+        "id": "hg_schwellenwaechter_pruefung",
+        "name": "Prüfung",
+        "from_hp_ratio": 1,
+        "until_hp_ratio": 0.6,
+        "behavior": "counter_only",
+        "counter_trigger": "player_direct_damage_action",
+        "counter_max_per_player_action": 1,
+        "dot_triggers_counter": false,
+        "attacks": [
+          {
+            "name": "Signalschlag",
+            "damage": 18,
+            "hits": [
+              1400
+            ]
+          }
+        ],
+        "text": "„Zeigen Sie mir, was Sie selbst verantworten.“"
+      },
+      {
+        "id": "hg_schwellenwaechter_zorn",
+        "name": "Zorn",
+        "from_hp_ratio": 0.6,
+        "until_hp_ratio": 0.25,
+        "behavior": "alternate_attacks",
+        "attacks": [
+          {
+            "name": "Kalkstaub-Welle",
+            "damage": 12,
+            "hits": [
+              900,
+              1800
+            ],
+            "target": "all_players",
+            "nerves_loss": 8,
+            "telegraph": "Der Wächter senkt beide Arme; der Boden wird vor der Welle hell."
+          },
+          {
+            "name": "Signalschlag",
+            "damage": 18,
+            "hits": [
+              1400
+            ]
+          }
+        ],
+        "text": "„Sie haben die Prüfung bewegt. Nun trägt sie zurück.“"
+      },
+      {
+        "id": "hg_schwellenwaechter_schwelle",
+        "name": "Schwelle",
+        "from_hp_ratio": 0.25,
+        "until_hp_ratio": 0,
+        "behavior": "seal_window",
+        "window_player_turns": 1,
+        "repeat_every_boss_turns": 2,
+        "on_window_failure": {
+          "heal_max_hp_ratio": 0.15
+        },
+        "attacks": [
+          {
+            "name": "Signalschlag",
+            "damage": 18,
+            "hits": [
+              1400
+            ]
+          }
+        ],
+        "siegel_wirkung": {
+          "laterne": {
+            "text": "Das Siegel löscht die Blende des Wächters und verlängert sein offenes Fenster.",
+            "key": "blende",
+            "value": 1,
+            "effect": "extend_current_window",
+            "unit": "player_turns",
+            "duration": "current_window"
+          },
+          "faden": {
+            "text": "Das Siegel hält die Brustnaht des Wächters einen weiteren Zug offen.",
+            "key": "naht",
+            "value": 1,
+            "effect": "extend_current_window",
+            "unit": "player_turns",
+            "duration": "current_window"
+          },
+          "maske": {
+            "text": "Das Siegel nimmt dem Wächter seine Deckrolle und senkt seine Deckung.",
+            "key": "maske",
+            "value": 0.25,
+            "effect": "reduce_guardian_damage_reduction",
+            "unit": "fraction",
+            "duration": "next_player_hit"
+          },
+          "echo": {
+            "text": "Das Siegel unterbricht den nächsten Nervenschlag des Wächters.",
+            "key": "stille",
+            "value": 1,
+            "effect": "cancel_nerves_loss",
+            "unit": "attacks",
+            "duration": "next_nerves_attack"
+          },
+          "kessel": {
+            "text": "Das Siegel führt einen Teil der Wächterheilung ins Leere.",
+            "key": "kreislauf",
+            "value": 0.5,
+            "effect": "reduce_window_failure_heal",
+            "unit": "fraction",
+            "duration": "next_failed_window"
+          },
+          "eisen": {
+            "text": "Das Siegel drückt den Wächter in die offene Haltung und erhöht den Trefferschaden.",
+            "key": "last",
+            "value": 0.3,
+            "effect": "increase_seal_hit_damage",
+            "unit": "fraction",
+            "duration": "current_hit"
+          },
+          "schluessel": {
+            "text": "Das Siegel löst den inneren Riegel und verhindert die nächste Brustheilung.",
+            "key": "riegel",
+            "value": 1,
+            "effect": "cancel_window_failure_heal",
+            "unit": "windows",
+            "duration": "next_failed_window"
+          },
+          "sq_waage": {
+            "text": "Das Siegel belastet den nächsten Gegenschlag mit seinem eigenen Gewicht und mindert ihn.",
+            "key": "saldo",
+            "value": 0.4,
+            "effect": "reduce_guardian_hit_damage",
+            "unit": "fraction",
+            "duration": "next_guardian_attack"
+          },
+          "sq_moor": {
+            "text": "Das Siegel legt die ältere Bruchschicht des Wächters frei und verstärkt den nächsten Treffer.",
+            "key": "schicht",
+            "value": 0.25,
+            "effect": "increase_damage_taken",
+            "unit": "fraction",
+            "duration": "next_player_hit"
+          },
+          "sq_uhr": {
+            "text": "Das Siegel verzögert den nächsten Angriff des Wächters um einen Zug.",
+            "key": "takt",
+            "value": 1,
+            "effect": "skip_guardian_attack",
+            "unit": "turns",
+            "duration": "next_guardian_turn"
+          }
+        },
+        "text": "„Jetzt. Ihr Zeichen, nicht Ihre Ausrede.“"
+      }
+    ],
+    "seal_action": {
+      "id": "hg_schwellenwaechter_siegelschlag",
+      "available": "only_in_open_window",
+      "cost": 0,
+      "damage_max_hp_ratio": 0.08,
+      "uses": "unlimited_during_window",
+      "select_path": "acting_player_path",
+      "consumes_window": true,
+      "success": "valid_hit_applies_path_effect_and_cancels_window_heal",
+      "koop_window": "one_turn_for_each_eligible_player",
+      "bonus_effects_stack": false,
+      "support_extension": "extension_is_for_normal_actions_no_second_seal_in_same_window"
+    },
+    "on_win": {
+      "sets_personal_flag_from": "active_ritual.id",
+      "bestiary_unlock": "hg_schwellenwaechter",
+      "sets_flags": [
+        "hg_schwellenwaechter_bekannt"
+      ],
+      "ritual_success_condition": "guardian_defeated_and_each_claimant_landed_own_seal_once",
+      "missing_seal": "no_personal_unlock_retry_required"
+    },
+    "loot": {
+      "money": 0,
+      "items": {}
+    },
+    "lose_to": {
+      "map": "ds_schwellenring",
+      "spawn": "hg_rand"
+    },
+    "lose_text": "Du erwachst am Rand. Die Zutaten sind fort, der Wächter wartet wieder.",
+    "win_text": "Der Wächter zerfällt ohne Körper darin. Dein Siegel bleibt in der Luft stehen.",
+    "on_loss": {
+      "game_over": false,
+      "revive_hp_ratio": 0.25,
+      "revive_nerves_ratio": 0.25,
+      "personal_ritual_success": false,
+      "reset_on_next_visit": true
+    },
+    "on_flee": {
+      "personal_ritual_success": false,
+      "reset_encounter": true
+    },
+    "koop": [
+      "Der Wächter prüft euch nacheinander; jeder trägt sein eigenes Siegel und erfüllt die Stufenvoraussetzung.",
+      "In der offenen Brust erhält jeder einen eigenen Zug; nur die persönlich bestandene Probe wird freigegeben."
+    ],
+    "koop_rules": {
+      "required_current_seq_each": 5,
+      "hp_mult": 1.7,
+      "damage_mult": 1,
+      "target_order": "alternate_eligible_players",
+      "downed_partner": "carrying_ends_attempt_without_victory",
+      "phases_shared": true
+    },
+    "mechanics": {
+      "phase_order": [
+        1,
+        2,
+        3
+      ],
+      "phase_latched": true,
+      "crossed_multiple_thresholds": "enter_lowest_reached_once",
+      "seal_hp_heal_never_reverts_phase": true,
+      "counter_disabled_during_window": true,
+      "strong_fear_immune": true,
+      "form_fear_immune": true,
+      "status_turn_skip_max_consecutive": 1,
+      "cooldown_after_skip": 1,
+      "rounding": "floor_damage_min_1",
+      "seal_damage_bypasses_base_reduction": true,
+      "buff_expiry": "consumption_or_encounter_end",
+      "same_seal_refresh_only": true
+    },
+    "base_damage_reduction": 0.25
+  },
+  "hg_grenzwaechter": {
+    "name": "Grenzwächter",
+    "hp": 1400,
+    "min_seq": 3,
+    "occult": true,
+    "boss": true,
+    "fleeable": true,
+    "chapter": 4,
+    "sprite": "wild",
+    "sheet": "hg_grenzwaechter",
+    "intro": "Der Wächter trägt dein Pfadsiegel vor der Brust. Er wartet auf deinen ersten Angriff.",
+    "attacks": [
+      {
+        "name": "Grenzschlag",
+        "damage": 32,
+        "hits": [
+          1400
+        ]
+      },
+      {
+        "name": "Grenznebel",
+        "damage": 20,
+        "hits": [
+          900,
+          1800
+        ],
+        "target": "all_players",
+        "nerves_loss": 12,
+        "telegraph": "Der Wächter senkt beide Arme; der Boden wird vor der Welle hell."
+      }
+    ],
+    "phases": [
+      {
+        "id": "hg_grenzwaechter_pruefung",
+        "name": "Prüfung",
+        "from_hp_ratio": 1,
+        "until_hp_ratio": 0.6,
+        "behavior": "counter_only",
+        "counter_trigger": "player_direct_damage_action",
+        "counter_max_per_player_action": 1,
+        "dot_triggers_counter": false,
+        "attacks": [
+          {
+            "name": "Grenzschlag",
+            "damage": 32,
+            "hits": [
+              1400
+            ]
+          }
+        ],
+        "text": "„Zeigen Sie mir, was Sie selbst verantworten.“"
+      },
+      {
+        "id": "hg_grenzwaechter_zorn",
+        "name": "Zorn",
+        "from_hp_ratio": 0.6,
+        "until_hp_ratio": 0.25,
+        "behavior": "alternate_attacks",
+        "attacks": [
+          {
+            "name": "Grenznebel",
+            "damage": 20,
+            "hits": [
+              900,
+              1800
+            ],
+            "target": "all_players",
+            "nerves_loss": 12,
+            "telegraph": "Der Wächter senkt beide Arme; der Boden wird vor der Welle hell."
+          },
+          {
+            "name": "Grenzschlag",
+            "damage": 32,
+            "hits": [
+              1400
+            ]
+          }
+        ],
+        "text": "„Sie haben die Prüfung bewegt. Nun trägt sie zurück.“"
+      },
+      {
+        "id": "hg_grenzwaechter_schwelle",
+        "name": "Schwelle",
+        "from_hp_ratio": 0.25,
+        "until_hp_ratio": 0,
+        "behavior": "seal_window",
+        "window_player_turns": 1,
+        "repeat_every_boss_turns": 2,
+        "on_window_failure": {
+          "heal_max_hp_ratio": 0.15
+        },
+        "attacks": [
+          {
+            "name": "Grenzschlag",
+            "damage": 32,
+            "hits": [
+              1400
+            ]
+          }
+        ],
+        "siegel_wirkung": {
+          "laterne": {
+            "text": "Das Siegel löscht die Blende des Wächters und verlängert sein offenes Fenster.",
+            "key": "blende",
+            "value": 1,
+            "effect": "extend_current_window",
+            "unit": "player_turns",
+            "duration": "current_window"
+          },
+          "faden": {
+            "text": "Das Siegel hält die Brustnaht des Wächters einen weiteren Zug offen.",
+            "key": "naht",
+            "value": 1,
+            "effect": "extend_current_window",
+            "unit": "player_turns",
+            "duration": "current_window"
+          },
+          "maske": {
+            "text": "Das Siegel nimmt dem Wächter seine Deckrolle und senkt seine Deckung.",
+            "key": "maske",
+            "value": 0.25,
+            "effect": "reduce_guardian_damage_reduction",
+            "unit": "fraction",
+            "duration": "next_player_hit"
+          },
+          "echo": {
+            "text": "Das Siegel unterbricht den nächsten Nervenschlag des Wächters.",
+            "key": "stille",
+            "value": 1,
+            "effect": "cancel_nerves_loss",
+            "unit": "attacks",
+            "duration": "next_nerves_attack"
+          },
+          "kessel": {
+            "text": "Das Siegel führt einen Teil der Wächterheilung ins Leere.",
+            "key": "kreislauf",
+            "value": 0.5,
+            "effect": "reduce_window_failure_heal",
+            "unit": "fraction",
+            "duration": "next_failed_window"
+          },
+          "eisen": {
+            "text": "Das Siegel drückt den Wächter in die offene Haltung und erhöht den Trefferschaden.",
+            "key": "last",
+            "value": 0.3,
+            "effect": "increase_seal_hit_damage",
+            "unit": "fraction",
+            "duration": "current_hit"
+          },
+          "schluessel": {
+            "text": "Das Siegel löst den inneren Riegel und verhindert die nächste Brustheilung.",
+            "key": "riegel",
+            "value": 1,
+            "effect": "cancel_window_failure_heal",
+            "unit": "windows",
+            "duration": "next_failed_window"
+          },
+          "sq_waage": {
+            "text": "Das Siegel belastet den nächsten Gegenschlag mit seinem eigenen Gewicht und mindert ihn.",
+            "key": "saldo",
+            "value": 0.4,
+            "effect": "reduce_guardian_hit_damage",
+            "unit": "fraction",
+            "duration": "next_guardian_attack"
+          },
+          "sq_moor": {
+            "text": "Das Siegel legt die ältere Bruchschicht des Wächters frei und verstärkt den nächsten Treffer.",
+            "key": "schicht",
+            "value": 0.25,
+            "effect": "increase_damage_taken",
+            "unit": "fraction",
+            "duration": "next_player_hit"
+          },
+          "sq_uhr": {
+            "text": "Das Siegel verzögert den nächsten Angriff des Wächters um einen Zug.",
+            "key": "takt",
+            "value": 1,
+            "effect": "skip_guardian_attack",
+            "unit": "turns",
+            "duration": "next_guardian_turn"
+          }
+        },
+        "text": "„Jetzt. Ihr Zeichen, nicht Ihre Ausrede.“",
+        "spawn_once": "hg_leerer_umriss",
+        "spawn_before_first_window": true
+      }
+    ],
+    "seal_action": {
+      "id": "hg_grenzwaechter_siegelschlag",
+      "available": "only_in_open_window",
+      "cost": 0,
+      "damage_max_hp_ratio": 0.08,
+      "uses": "unlimited_during_window",
+      "select_path": "acting_player_path",
+      "consumes_window": true,
+      "success": "valid_hit_applies_path_effect_and_cancels_window_heal",
+      "koop_window": "one_turn_for_each_eligible_player",
+      "bonus_effects_stack": false,
+      "support_extension": "extension_is_for_normal_actions_no_second_seal_in_same_window"
+    },
+    "on_win": {
+      "sets_personal_flag_from": "active_ritual.id",
+      "bestiary_unlock": "hg_grenzwaechter",
+      "sets_flags": [
+        "hg_grenzwaechter_bekannt"
+      ],
+      "ritual_success_condition": "guardian_defeated_and_each_claimant_landed_own_seal_once",
+      "missing_seal": "no_personal_unlock_retry_required"
+    },
+    "loot": {
+      "money": 0,
+      "items": {}
+    },
+    "lose_to": {
+      "map": "hg_grenzbezirk",
+      "spawn": "hg_rand"
+    },
+    "lose_text": "Du erwachst am Rand. Die Zutaten sind fort, der Wächter wartet wieder.",
+    "win_text": "Der Wächter zerfällt ohne Körper darin. Dein Siegel bleibt in der Luft stehen.",
+    "on_loss": {
+      "game_over": false,
+      "revive_hp_ratio": 0.25,
+      "revive_nerves_ratio": 0.25,
+      "personal_ritual_success": false,
+      "reset_on_next_visit": true
+    },
+    "on_flee": {
+      "personal_ritual_success": false,
+      "reset_encounter": true
+    },
+    "koop": [
+      "Der Wächter prüft euch nacheinander; jeder trägt sein eigenes Siegel und erfüllt die Stufenvoraussetzung.",
+      "In der offenen Brust erhält jeder einen eigenen Zug; nur die persönlich bestandene Probe wird freigegeben."
+    ],
+    "koop_rules": {
+      "required_current_seq_each": 3,
+      "hp_mult": 1.7,
+      "damage_mult": 1,
+      "target_order": "alternate_eligible_players",
+      "downed_partner": "carrying_ends_attempt_without_victory",
+      "phases_shared": true
+    },
+    "mechanics": {
+      "phase_order": [
+        1,
+        2,
+        3
+      ],
+      "phase_latched": true,
+      "crossed_multiple_thresholds": "enter_lowest_reached_once",
+      "seal_hp_heal_never_reverts_phase": true,
+      "counter_disabled_during_window": true,
+      "strong_fear_immune": true,
+      "form_fear_immune": true,
+      "status_turn_skip_max_consecutive": 1,
+      "cooldown_after_skip": 1,
+      "rounding": "floor_damage_min_1",
+      "seal_damage_bypasses_base_reduction": true,
+      "buff_expiry": "consumption_or_encounter_end",
+      "same_seal_refresh_only": true
+    },
+    "base_damage_reduction": 0.25
+  },
+  "hg_leerer_umriss": {
+    "name": "Leerer Umriss",
+    "hp": 300,
+    "min_seq": 3,
+    "occult": true,
+    "boss": true,
+    "sprite": "wild",
+    "sheet": "hg_leerer_umriss",
+    "fleeable": true,
+    "intro": "Der zweite Umriss löst sich vom Grenzwächter und nimmt deine letzte Haltung an.",
+    "attacks": [
+      {
+        "name": "Nachgesetzte Hand",
+        "damage": 16,
+        "hits": [
+          1600
+        ]
+      }
+    ],
+    "copy": {
+      "source": "last_resolved_player_combat_skill",
+      "snapshot_at": "end_of_player_action",
+      "target": "original_actor",
+      "max_hits": 3,
+      "max_total_damage": 36,
+      "nerves_loss_max": 6,
+      "telegraph_ms": 1200,
+      "fallback": "Nachgesetzte Hand",
+      "allow": [
+        "direct_damage",
+        "nerves_loss"
+      ],
+      "exclude": [
+        "summon",
+        "instant_kill",
+        "inventory",
+        "ritual_flags",
+        "healing",
+        "revive",
+        "permanent_status",
+        "form",
+        "recursive_copy"
+      ],
+      "consume_player_resources": false,
+      "randomness": "fixed_at_snapshot",
+      "once_per_own_turn": true
+    },
+    "on_win": {},
+    "loot": {
+      "money": 0,
+      "items": {}
+    },
+    "lifecycle": "spawn_once_in_guardian_phase3_despawn_when_guardian_defeated_or_attempt_ends",
+    "independent_ritual_unlock": false,
+    "lose_text": "Du sinkst am Rand der Probe nieder; der leere Umriss fällt in den Wächter zurück.",
+    "win_text": "Der leere Umriss knickt lautlos ein. Die eigentliche Prüfung steht noch."
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "vm_wrackfeld": {
+    "name": "Wrackfeld",
+    "tier": 6,
+    "travel": {
+      "name": "Wrackfeld",
+      "desc": "Du folgst den Pegelmarken.",
+      "city": "varrowmouth",
+      "requires_flags": [
+        "k6_arrived"
+      ]
+    },
+    "lose_to": {
+      "map": "vm_zollhafen",
+      "spawn": "default"
+    },
+    "lose_money": 0,
+    "lose_text": "Tam bringt dich zum Zollhafen. Deine Funde bleiben bei dir.",
+    "flee_text": "Das Wasser kommt",
+    "elite_drops": [],
+    "loot_tables": {
+      "vm_wrackfeld_beute": {
+        "money": [
+          8,
+          16
+        ],
+        "drops": [
+          {
+            "item": "vmi_registerseite",
+            "chance": 1
+          },
+          {
+            "item": "sq_zutat_moor_2",
+            "chance": 0.25
+          },
+          {
+            "item": "sq_zutat_moor_1",
+            "chance": 0.25
+          },
+          {
+            "item": "sq_zutat_laterne_2",
+            "chance": 0.25
+          },
+          {
+            "item": "sq_zutat_laterne_1",
+            "chance": 0.25
+          }
+        ]
+      }
+    },
+    "encounters": {}
+  },
+  "vm_leuchtbank": {
+    "name": "Leuchtbank",
+    "tier": 6,
+    "travel": {
+      "name": "Leuchtbank",
+      "desc": "Du folgst den Pegelmarken.",
+      "city": "varrowmouth",
+      "requires_flags": [
+        "k6_arrived"
+      ]
+    },
+    "lose_to": {
+      "map": "vm_zollhafen",
+      "spawn": "default"
+    },
+    "lose_money": 0,
+    "lose_text": "Tam bringt dich zum Zollhafen. Deine Funde bleiben bei dir.",
+    "flee_text": "Du erreichst den sicheren Steg.",
+    "elite_drops": [],
+    "loot_tables": {
+      "vm_leuchtbank_beute": {
+        "money": [
+          8,
+          16
+        ],
+        "drops": []
+      }
+    },
+    "encounters": {}
+  },
+  "vm_grenzzaun": {
+    "name": "Grenzzaun",
+    "tier": 7,
+    "travel": {
+      "name": "Grenzzaun",
+      "desc": "Du folgst den Pegelmarken.",
+      "city": "varrowmouth",
+      "requires_flags": [
+        "k6_arrived"
+      ]
+    },
+    "lose_to": {
+      "map": "vm_zollhafen",
+      "spawn": "default"
+    },
+    "lose_money": 0,
+    "lose_text": "Tam bringt dich zum Zollhafen. Deine Funde bleiben bei dir.",
+    "flee_text": "Du erreichst den sicheren Steg.",
+    "elite_drops": [],
+    "loot_tables": {
+      "vm_grenzzaun_beute": {
+        "money": [
+          8,
+          16
+        ],
+        "drops": []
+      }
+    },
+    "encounters": {}
+  }
+}
