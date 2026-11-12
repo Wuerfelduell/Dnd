@@ -319,7 +319,7 @@ export const seq4Methods = {
 
   /** Darf in einem Kampf mit diesen Regeln gerade geheilt werden? (GameState.heal fragt) */
   healBlocked() {
-    return !!this.combatRules?.noHeal;
+    return !!this.combatRules?.noHeal || !!this.hochHealBlocked?.();
   },
 
   /** Nach dem Kampf (aus Combat.finish): wertet die Prüfung aus. Gibt Text für die Siegmeldung oder null. */

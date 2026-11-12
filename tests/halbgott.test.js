@@ -52,18 +52,23 @@ test('Rituale 4 bis 1: Tribut, Siege, Schlussfolgerungen, Nerven; 4 und 2 verlan
       assert.equal(r.requires.min_wins, HOCH_RITUAL[n].min_wins, `${pid} ${n}: Siege`);
       if (n === 4) { // Seq-4-Prüfungen (core/Seq4.js): ortsunabhängig, ohne Fallbedingung
         assert.ok(r.hg && !r.map && !r.also_maps && !r.requires.requires_flags, `${pid} 4: Halbgott-Prüfung ohne Ort und Fall`);
-      } else {
-        assert.match(r.name, /offene Probe/, `${pid} ${n}: die Probe von AU bleibt`);
-        assert.ok(r.requires.requires_flags.includes('kapitel2_done'), `${pid} ${n}: Kapitelbedingung bleibt`);
+      } else { // Seq 3 bis 1 (core/SeqHoch.js): Prüfung aus Schritten, ortsunabhängig, ohne Fallbedingung
+        assert.ok(r.hoch?.steps?.length && !r.map && !r.requires.requires_flags, `${pid} ${n}: Prüfung ohne Ort und Fall`);
+        if (n === 2) assert.ok(r.hoch.steps.some((s) => s.type === 'waechter') && r.hoch.welt, `${pid} 2: Weltwandel und Grenzwächter`);
+        if (n === 1) assert.ok(!r.hoch.steps.some((s) => ['kampf', 'waechter'].includes(s.type)), `${pid} 1: ohne Gegner`);
       }
-      if (n === 4 || n === 2) {
+      if (n === 2) {
+        const enc = content.encounters[ordealId(pid, n)];
+        assert.ok(enc?.boss && enc.waechter === 'hg_grenzwaechter', `${pid} 2: Grenzwächter`);
+      }
+      if (n === 4) {
         assert.ok(r.ordeal && r.min_conclusions && r.min_nerves, `${pid} ${n}: schweres Ritual`);
         const enc = content.encounters[ordealId(pid, n)];
         assert.ok(enc?.boss && enc.occult && enc.hp >= 400 && enc.max_round_dmg, `${pid} ${n}: Schwellenwächter`);
         assert.ok(enc.name.includes(p.name.replace(/^Pfad (der|des) /, '')), enc.name);
         assert.equal(enc.waechter, n === 4 ? 'hg_schwellenwaechter' : 'hg_grenzwaechter');
         assert.equal(ordealId(pid, n), `${enc.waechter}_${pid}`);
-      } else assert.ok(!r.ordeal);
+      } else assert.ok(!r.ordeal); // Seq 2: der Grenzwächter ist der letzte Schritt der Prüfung
     }
   }
 });

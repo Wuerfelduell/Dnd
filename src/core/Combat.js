@@ -186,7 +186,7 @@ export class Combat {
     // Seq-4-Rituale (core/Seq4.js): Regeln der laufenden Prüfung, gelesen beim Prüfling. Solo: Spieler 2 schaut zu;
     // ist der Prüfling Spieler 2, tauschen die Werte für die Dauer des Kampfes (swapped), damit er Kämpfer 1 ist.
     const prover = state.combatBy ?? state.acting ?? 1;
-    this.rules = enc.practice ? null : state.withPlayer(prover, () => state.pfadTaskRules?.(encounterId, enc) ?? state.seq4CombatRules?.(encounterId, enc) ?? state.pfadCombatRules?.(encounterId, enc) ?? null, { quiet: true }); // Pfad-Beyonder: Aufgaben mit Sonderregeln
+    this.rules = enc.practice ? null : state.withPlayer(prover, () => state.pfadTaskRules?.(encounterId, enc) ?? state.seq4CombatRules?.(encounterId, enc) ?? state.hochCombatRules?.(encounterId, enc) ?? state.pfadCombatRules?.(encounterId, enc) ?? null, { quiet: true }); // Pfad-Beyonder: Aufgaben mit Sonderregeln
     this.swapped = false;
     if (this.rules?.solo && prover === 2 && state.acting === 1 && state.p2) { state.swapPersonal(); this.swapped = true; }
     if (this.rules?.scale) enc = { ...enc, hp: Math.round(enc.hp * this.rules.scale.hp), attacks: enc.attacks.map((a) => (a.action ? a : { ...a, damage: Math.max(1, Math.round(a.damage * this.rules.scale.dmg)) })) };
@@ -198,6 +198,9 @@ export class Combat {
       const maxHp = state.withPlayer(by, () => state.maxHp, { quiet: true });
       enc = { ...enc, hp: Math.max(10, Math.round(maxHp * (enc.mirror.hp ?? 1) / ENEMY_HP_MULT)), attacks: enc.attacks.map((a) => ({ ...a, damage: Math.max(1, Math.round(a.damage * power * (enc.mirror.dmg ?? 1) / ENEMY_DMG_MULT)) })) };
     }
+    // Seq 2 (core/SeqHoch.js): jeder Weltwandel macht alle Gegner der Welt dauerhaft stärker
+    const welt = enc.practice ? null : state.weltMult?.();
+    if (welt && welt.dmg > 1) enc = { ...enc, attacks: enc.attacks.map((a) => (a.action ? a : { ...a, damage: Math.max(1, Math.round(a.damage * welt.dmg)) })) };
     this.enc = enc;
     const duo = !!state.hasP2?.() && !this.rules?.solo;
     this.duoHpMult = duo ? duoHpMult(state) : 1;
@@ -219,7 +222,7 @@ export class Combat {
     this.fleeing = null; // { left, by }: Rückzug läuft, noch so viele Runden durchhalten (zu zweit gemeinsam)
     const soloHp = enc.hp * ENEMY_HP_MULT * (enc.elite ? ELITE_HP_MULT : 1) * this.hpMult;
     const floor = hpFloor(enc) * (this.rules?.scale?.hp ?? 1); // Ritualgegner mit eigener Stärke behalten ihren Vorsprung
-    const hp = enc.practice ? enc.hp : Math.round(Math.max(soloHp, floor) * this.duoHpMult);
+    const hp = enc.practice ? enc.hp : Math.round(Math.max(soloHp, floor) * this.duoHpMult * (welt?.hp ?? 1)); // Weltwandel nach der Untergrenze
     // Panzer wächst mit der Gefahrenstufe des Gebiets (Marsch 1, ...), Bosse eine Stufe mehr
     const tier = zone?.tier ?? 2;
     this.zoneTier = tier;
@@ -290,6 +293,8 @@ export class Combat {
       this.pickRoundSkill();
     }
     if (this.rules?.moorwater) this.drinkMoor();
+    if (this.rules?.startHp) state.hp = Math.max(1, Math.min(state.hp, Math.round(state.maxHp * this.rules.startHp))); // Seq 3 (Eisen)
+    this.itemsUsedTotal = 0;
     this.roundDmg = 0; // Schaden am Gegner in dieser Runde (für max_round_dmg)
     this.capped = 0; // davon abgeprallt, für die Meldung der nächsten Aktion
   }
@@ -568,6 +573,7 @@ export class Combat {
     const it = this.state.item(id);
     if (!it || it.kind !== 'consumable' || !this.state.itemCount(id) || this.itemUsed || this.state.passive('no_items') || this.rules?.noItems || !this.itemAllowed(id)) return null;
     this.itemUsed = true;
+    this.itemsUsedTotal = (this.itemsUsedTotal ?? 0) + 1;
     this.actions += 1;
     this.state.removeItem(id);
     const parts = this.state.applyConsumable(it);
@@ -973,6 +979,9 @@ export class Combat {
     if (!this.outcome && this.fleeing && --this.fleeing.left <= 0) this.outcome = 'fled';
     // BD: Gegner mit `flees_after` entziehen sich nach so vielen vollständigen Runden ohne Spielersieg (kein Sieg, keine Beute)
     if (!this.outcome && this.enc.flees_after && this.round > this.enc.flees_after) this.outcome = 'escaped';
+    // Seq 3/2 (core/SeqHoch.js): Rundenfrist und Verfall
+    if (!this.outcome && this.rules?.maxRounds && this.round > this.rules.maxRounds) this.breakRule(`Runde ${this.rules.maxRounds} ist vorbei, der Gegner steht noch.`);
+    if (!this.outcome && this.rules?.decayPct) this.on(1, () => { this.state.damage(Math.max(1, Math.round(this.state.maxHp * this.rules.decayPct))); if (this.state.hp === 0) this.knockOut(1); });
     if (this.outcome) { this.startTurn(); return 0; }
     for (const n of this.standing()) {
       const f = this.fighters[n];
@@ -1108,6 +1117,10 @@ export class Combat {
     if (trial2) text += `\n\nSpieler 2: ${trial2}`;
     const hg = s.seq4CombatEnd?.(this); // Seq-4-Prüfungen (core/Seq4.js)
     if (hg) text += `\n\n${hg}`;
+    const hoch = s.hochCombatEnd?.(this); // Seq 3 bis 1 (core/SeqHoch.js) und Spuren zum Ort
+    if (hoch) text += `\n\n${hoch}`;
+    const hoch2 = this.duo && !this.swapped ? this.on(2, () => s.hochCombatEnd?.(this, { bystander: true })) : null;
+    if (hoch2) text += `\n\nSpieler 2: ${hoch2}`;
     const ph = s.pfadCombatEnd?.(this); // Pfad-Beyonder (core/PfadHandel.js)
     if (ph) text += `\n\n${ph}`;
     if (this.swapped) { s.swapPersonal(); this.swapped = false; }

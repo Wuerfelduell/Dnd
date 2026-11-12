@@ -1169,6 +1169,8 @@ export class WorldScene extends Phaser.Scene {
     const fog = amb.fog ?? 0.4;
     this.fogA = this.add.tileSprite(0, 0, VIEW_W, VIEW_H, 'fog_a').setOrigin(0).setScrollFactor(0).setDepth(DEPTH.fog).setAlpha(fog);
     this.fogB = this.add.tileSprite(0, 0, VIEW_W, VIEW_H, 'fog_b').setOrigin(0).setScrollFactor(0).setDepth(DEPTH.fog).setAlpha(fog * 0.6);
+    const welt = this.state.weltTint?.(); // Seq 2: der Weltwandel färbt jede Karte
+    if (welt) this.add.rectangle(0, 0, VIEW_W, VIEW_H, welt.color, welt.alpha).setOrigin(0).setScrollFactor(0).setDepth(DEPTH.vision - 1);
     this.visionOverlay = this.add.rectangle(0, 0, VIEW_W, VIEW_H, 0x30c0a8, 0.1)
       .setOrigin(0).setScrollFactor(0).setDepth(DEPTH.vision).setBlendMode(Phaser.BlendModes.ADD).setVisible(false);
     this.applyVision(this.state.spiritVision);
@@ -1797,6 +1799,12 @@ export class WorldScene extends Phaser.Scene {
       case 'brew':
         this.ui.openBrew();
         break;
+      case 'ort3_exit': { // Ort der Sequenz 3: zurück, woher man kam
+        this.playPlayerAction('door');
+        const back = [...this.state.flags].find((f) => f.startsWith('o3_rueck:'))?.slice(9);
+        this.travelTo(back && this.state.content.maps[back] ? back : 'ds_speisewagen', 'default');
+        break;
+      }
       case 'storage':
         this.playPlayerAction('pickup');
         this.ui.openStorage('', def.store ?? 'buero', def.store_title);
@@ -1861,6 +1869,10 @@ export class WorldScene extends Phaser.Scene {
     this.state.setSpiritVision(false);
     this.cameras.main.fadeOut(300, 0, 0, 0);
     this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
+      if (mapId.startsWith('o3_') && !this.state.map.startsWith('o3_')) { // Ort der Sequenz 3: Rückweg merken
+        for (const f of [...this.state.flags]) if (f.startsWith('o3_rueck:')) this.state.flags.delete(f);
+        this.state.flags.add(`o3_rueck:${this.state.map}`);
+      }
       this.state.map = mapId;
       this.state.spawn = spawn ?? 'default';
       this.state.position = null;

@@ -1753,6 +1753,19 @@ export class Ui {
         this.renderNotebook(esc(r.text));
       };
     });
+    // Seq 3 bis 1 (core/SeqHoch.js)
+    el.querySelectorAll('[data-hoch]').forEach((b) => {
+      b.onclick = () => {
+        const [act, arg] = b.dataset.hoch.split(':');
+        const st = this.state;
+        const call = { start: () => st.startHoch(), opfer: () => st.hochOpfer(), art: () => st.hochOpfer(arg), welt: () => st.hochWelt(), waechter: () => st.hochGuardian(), abbrechen: () => st.hochCancel() }[act];
+        if (!call) return;
+        const r = inv(call);
+        const title = inv(() => this.state.hochName());
+        if (r.fight || r.passed === false || r.welt) { this.close(); this.showMessage(title, r.text); return; }
+        this.renderNotebook(esc(r.text));
+      };
+    });
     // Seq-5-Prüfungen (core/Seq5.js): Knöpfe im Ritualblock
     el.querySelectorAll('[data-seq5]').forEach((b) => {
       b.onclick = () => {
@@ -2341,9 +2354,35 @@ export class Ui {
       <ul class="steps">${steps.map((x) => `<li class="${x.done ? 'done' : ''}">${x.done ? '✓' : '○'} ${esc(x.text)}</li>`).join('')}</ul>
       ${this.seq5Html(r)}
       ${this.seq4Html(r)}
+      ${this.hochHtml(r)}
       ${probe ? `<p><button class="small primary" data-probe="1">${esc(probe.name)} antreten</button> <span class="muted">Eine zufällige Prüfung, überall ablegbar. Misslingt sie, kostet das ${PROBE_FAIL.nerves} Nerven und bringt ${PROBE_FAIL.unruhe} Unruhe; dann kannst du es gleich noch einmal versuchen.</span></p>` : ''}
       ${steps.some((x) => x.fraud && !x.done) ? '<p class="muted">Auf jedem geheimen Treffen ist ein Los überteuert: Bei jedem Los siehst du den Schätzwert neben dem Ausruf. Ruft ein Anbieter weit über Wert aus, „Betrug anprangern“.</p>' : ''}
       <button class="small ${ready ? 'primary' : ''}" data-ritual="1" ${ready ? '' : 'disabled'}>${ready && r.ordeal && !s.ordealDone(s.pathway.id, seq) ? 'Schwellenwächter rufen' : 'Ritual vollziehen'}</button> <span class="muted">Kostet 20 Nerven und bringt 20 Unruhe.${r.ordeal ? ' Ein schweres Ritual: Wenn alles andere steht, tritt der Schwellenwächter deines Pfades an.' : ''}</span></div>`;
+  }
+
+  /** Seq 3 bis 1 im Ritualblock: Spuren zum Ort, Start, Opfer, Weltwandel, Grenzwächter (core/SeqHoch.js). */
+  hochHtml(r) {
+    const s = this.state;
+    const h = r?.hoch;
+    if (!h) return '';
+    const spur = h.seq === 3 ? s.spurStand(h.pid) : null;
+    const spurHtml = spur ? `<p class="muted">${spur.found ? `Dein Ort ist gefunden: <strong>${esc(spur.name)}</strong> (Stadtkarte). Dort liegen die Formeln der Sequenzen 3, 2 und 1.` : `Die Formel der 3 gibt es nur an einem Ort, der zu deinem Pfad gehört. Spuren dorthin findest du bei Siegen in Monstergebieten ab Dunscar (${spur.n}/${spur.of}).`}</p>` : '';
+    if (s.hochPassed(h.pid, h.seq)) return spurHtml;
+    const st = s.hochState();
+    const step = s.hochStep();
+    const btn = (act, label, enabled = true) => `<button class="small ${enabled ? 'primary' : ''}" data-hoch="${act}" ${enabled ? '' : 'disabled'}>${esc(label)}</button>`;
+    const acts = [];
+    let more = '';
+    if (!st.active) acts.push(btn('start', 'Prüfung beginnen'));
+    if (step?.type === 'opfer' && step.artefakte) {
+      const arts = Object.keys(s.inventory).filter((id) => s.item(id)?.kind === 'artifact' && s.itemCount(id));
+      more += arts.length ? `<p class="muted">Opfern: ${arts.map((id) => btn(`art:${id}`, s.item(id).name)).join(' ')}</p>` : '<p class="muted">Kein Artefakt im Gepäck.</p>';
+    } else if (step?.type === 'opfer') acts.push(btn('opfer', 'Opfern'));
+    if (step?.type === 'welt') acts.push(btn('welt', `${h.welt?.titel ?? 'Weltwandel'} wirken`));
+    if (step?.type === 'waechter') acts.push(btn('waechter', 'Den Grenzwächter rufen'));
+    if (st.active) acts.push('<button class="small" data-hoch="abbrechen">Prüfung abbrechen</button>');
+    const welt = h.welt ? `<p class="muted"><strong>Weltwandel „${esc(h.welt.titel)}“:</strong> ${esc(h.welt.text)} Er bleibt für immer und macht alle Gegner der Welt stärker.</p>` : '';
+    return `<div class="seq5 seq4">${spurHtml}${welt}${more}<p>${acts.join(' ')} <span class="muted">Solo: Spieler 2 kann nicht helfen. Kämpfe zählen nur in Folge, verlieren oder fliehen heißt scheitern. Gescheitert: −17 % Verdauung, +10 Unruhe.</span></p></div>`;
   }
 
   /** Seq-4-Prüfung im Ritualblock: Regel, Knöpfe, Essenzen, Zersetzen (core/Seq4.js). */

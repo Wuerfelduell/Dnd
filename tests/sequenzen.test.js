@@ -17,7 +17,7 @@ test('Paket AF + Kapitel 3: alle zehn Pfade spielbar bis Sequenz 1, die Proben v
     for (const n of [4, 3, 2, 1]) {
       assert.ok(content.items[`trank_${pid}_${n}`] && content.items[`formel_${pid}_${n}`], `${pid} ${n}`);
       if (n === 4) assert.ok(content.pathways[pid].seqs[n].ritual.hg, `${pid} 4: Halbgott-Prüfung (Seq4.js)`);
-      else assert.match(content.pathways[pid].seqs[n].ritual.name, /offene Probe/, `${pid} ${n}`);
+      else assert.ok(content.pathways[pid].seqs[n].ritual.hoch, `${pid} ${n}: Prüfung (SeqHoch.js)`);
     }
   }
   assert.ok(content.items.sq_zutat_laterne_4 && content.items.sq_zutat_uhr_1);

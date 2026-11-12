@@ -52,6 +52,9 @@ const ui = new Ui(uiRoot, state, {
     // Teststart für die Seq-4-Rituale: ?probe=laterne (oder ein anderer Pfad) → Sequenz 5, voll verdaut, im Vergessmoor
     const probe = new URLSearchParams(location.search).get('probe');
     if (probe) state.seq4Probe(probe);
+    // Seq 3 bis 1: ?hoch=laterne&seq=3 → eine Stufe darüber, voll verdaut, Ort gefunden (Seq 3: man steht im Ort)
+    const hoch = new URLSearchParams(location.search).get('hoch');
+    if (hoch) state.hochProbeStart(hoch, Number(new URLSearchParams(location.search).get('seq') ?? 3));
     started = true;
     restartWorld();
     saveSoon();
