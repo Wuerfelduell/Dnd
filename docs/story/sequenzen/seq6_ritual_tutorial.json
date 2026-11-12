@@ -1,0 +1,207 @@
+{
+  "schema_version": 1,
+  "scope": "sequence_6_only",
+  "purpose": "Einführung in das Ritualsystem",
+  "status": "design_data_not_yet_wired_to_runtime",
+  "shared": {
+    "estimated_minutes": [
+      3,
+      5
+    ],
+    "phases": [
+      "preparation",
+      "trial",
+      "ascension"
+    ],
+    "wrong_answer_nerves": 5,
+    "max_wrong_answers": 2,
+    "second_wrong_unruhe": 10,
+    "lose_side_ingredient_on_failure": 1,
+    "keep_core_ingredient": true,
+    "retry": true,
+    "completion_choice_affects": "flavor_only",
+    "co_op": "only_ascending_player_commits_choice"
+  },
+  "rituals": {
+    "laterne": {
+      "name": "Die Wache im Gaskanal",
+      "preparation": "Zwei Lampen entzünden und die Geistsicht öffnen.",
+      "trial": {
+        "question": "Zwei Lampen zeigen verschiedene Spuren. Welcher vertraust du?",
+        "options": [
+          "Der hellsten Spur.",
+          "Der mit Geistsicht bestätigten Spur.",
+          "Beiden ohne Prüfung."
+        ],
+        "correct_index": 1
+      },
+      "final_choices": [
+        "Geisterspur dokumentieren",
+        "Licht für Nachfolgende zurücklassen"
+      ],
+      "ascension_effect_text": "Blaues Licht zieht über deine Hände."
+    },
+    "faden": {
+      "name": "Der rote Faden",
+      "preparation": "Drei Seidenfäden an der Fallwand befestigen.",
+      "trial": {
+        "question": "Zwei Aussagen widersprechen sich. Was verbindest du?",
+        "options": [
+          "Beide als bewiesen.",
+          "Den Widerspruch markieren und offenlassen.",
+          "Das Fundstück vernichten."
+        ],
+        "correct_index": 1
+      },
+      "final_choices": [
+        "Widerspruch archivieren",
+        "Prüfvermerk anbringen"
+      ],
+      "ascension_effect_text": "Ein roter Faden spannt sich zwischen deinen Fingern."
+    },
+    "maske": {
+      "name": "Ein fremdes Gesicht",
+      "preparation": "Eine fremde Wachsmaske formen und aufsetzen.",
+      "trial": {
+        "question": "Der Spiegel fragt: Wem gehört das Gesicht?",
+        "options": [
+          "Mir, weil ich es trage.",
+          "Niemandem; ich leihe nur die Rolle.",
+          "Dem Spiegel."
+        ],
+        "correct_index": 1
+      },
+      "final_choices": [
+        "Maske ablegen",
+        "Maske versiegeln"
+      ],
+      "ascension_effect_text": "Dein Spiegelbild bewegt sich einen Atemzug später."
+    },
+    "echo": {
+      "name": "Die Stimmen zählen",
+      "preparation": "Grabmoos auslegen und Glockenstaub verstreuen.",
+      "trial": {
+        "question": "Zwei Stimmen sind belegbar, die dritte nicht. Was tust du?",
+        "options": [
+          "Der dritten einen Namen erfinden.",
+          "Nur die belegten Namen nennen.",
+          "Alle Stimmen vertreiben."
+        ],
+        "correct_index": 1
+      },
+      "final_choices": [
+        "Stimmen abschreiben",
+        "Stillen Gedenkvermerk hinterlassen"
+      ],
+      "ascension_effect_text": "Eine unsichtbare Glocke schlägt."
+    },
+    "kessel": {
+      "name": "Der Dreifachsud",
+      "preparation": "Gift, Arznei und Mischsud nacheinander aufkochen.",
+      "trial": {
+        "question": "Welcher Sud ist für die letzte Probe geeignet?",
+        "options": [
+          "Nur das Gift.",
+          "Der dokumentierte dritte Sud.",
+          "Alle ungeprüft vermengen."
+        ],
+        "correct_index": 1
+      },
+      "final_choices": [
+        "Rückstände versiegeln",
+        "Rückstände untersuchen lassen"
+      ],
+      "ascension_effect_text": "Drei Dampfringe steigen auf."
+    },
+    "eisen": {
+      "name": "Die Blutprobe",
+      "preparation": "Verwundet den Eisenkreis betreten und die Zutaten ablegen.",
+      "trial": {
+        "question": "Eine schwere Last droht zu stürzen. Wie reagierst du?",
+        "options": [
+          "Mit bloßen Händen stemmen.",
+          "Stütze sichern und Last ableiten.",
+          "Unkontrolliert fallen lassen."
+        ],
+        "correct_index": 1
+      },
+      "final_choices": [
+        "Tragwerk sichern",
+        "Gefahrenzone sperren"
+      ],
+      "ascension_effect_text": "Ein metallischer Herzschlag hallt."
+    },
+    "schluessel": {
+      "name": "Die hundert Schlösser",
+      "preparation": "Schlösser prüfen und den Tribut bereitstellen.",
+      "trial": {
+        "question": "Eine offene Truhe enthält fremdes Eigentum. Was tust du?",
+        "options": [
+          "Alles nehmen.",
+          "Zugang nutzen, Eigentum unangetastet lassen.",
+          "Truhe zerstören."
+        ],
+        "correct_index": 1
+      },
+      "final_choices": [
+        "Zugang dokumentieren",
+        "Ersatzschlüssel verwahren"
+      ],
+      "ascension_effect_text": "Alle Schlösser klicken zugleich."
+    },
+    "sq_waage": {
+      "name": "Die Probe des Ausgleichsführers",
+      "preparation": "Forderung und Quittung auf den Ritualtisch legen.",
+      "trial": {
+        "question": "Eine doppelte Forderung begünstigt dich. Wie entscheidest du?",
+        "options": [
+          "Vorteil behalten.",
+          "Betrag korrigieren und Vorteil zurückgeben.",
+          "Buch vernichten."
+        ],
+        "correct_index": 1
+      },
+      "final_choices": [
+        "Korrektur veröffentlichen",
+        "Geschädigten informieren"
+      ],
+      "ascension_effect_text": "Schattengewichte senken sich."
+    },
+    "sq_moor": {
+      "name": "Die Probe der Namensbank",
+      "preparation": "Täfelchen samt Fundschicht untersuchen.",
+      "trial": {
+        "question": "Die Inschrift ist unlesbar. Wie dokumentierst du sie?",
+        "options": [
+          "Einen Namen ergänzen.",
+          "Fundschicht erfassen, Namensfeld offenlassen.",
+          "Spuren wegwaschen."
+        ],
+        "correct_index": 1
+      },
+      "final_choices": [
+        "Täfelchen am Ort schützen",
+        "Täfelchen archivieren"
+      ],
+      "ascension_effect_text": "Schriftzeichen glimmen im Schlick."
+    },
+    "sq_uhr": {
+      "name": "Die Probe des Gangbewahrers",
+      "preparation": "Einen Umlauf des Uhrwerks abhören.",
+      "trial": {
+        "question": "Ein Schlag fehlt, die Ursache ist unbekannt. Was tust du?",
+        "options": [
+          "Zahnrad sofort ersetzen.",
+          "Fehlenden Schlag notieren und weiter prüfen.",
+          "Uhr anhalten."
+        ],
+        "correct_index": 1
+      },
+      "final_choices": [
+        "Wartungsvermerk hinterlassen",
+        "Schlagfolge als Beweis sichern"
+      ],
+      "ascension_effect_text": "Die Zeiger halten für einen Herzschlag."
+    }
+  }
+}
