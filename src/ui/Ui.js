@@ -1591,6 +1591,7 @@ export class Ui {
     const rules = s.content.travelRules;
     if (d.direct) { // Zugfahrt zwischen den Städten: keine Reiseart, direkt hin
       this.sfx(worldSound('travel', { direct: true, to: d.map }));
+      if (d.dialogue) { this.close(); this.openDialogue({ name: d.name, role: 'Abreise', dialogue: d.dialogue }); return; } // Kapitelübergang: Bahnsteig, Fahrt, Einfahrt
       this.close();
       this.scene.travelTo(d.map, d.spawn);
       return;

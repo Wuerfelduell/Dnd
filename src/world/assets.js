@@ -1028,6 +1028,8 @@ export const BH_SCENES = ['bh_ankunft', 'bh_trockenraum', 'bh_pfirsich'];
 /** Paket CE2: Szenen von Kapitel 4 (Aufzugsfahrt 480x270, zwei Teller 480x270, Sortierkabine 240x135). */
 export const CW_SCENES = ['cw_aufzug', 'cw_zwei_teller', 'cw_sortierkabine'];
 BH_SCENES.push(...CW_SCENES);
+/** Kapitelübergang Wexmoor → Dunscar: Nachtzug durch die Kalkberge (480x270, lag bisher ungenutzt). */
+BH_SCENES.push('ds_nachtzug');
 export const sceneUrl = (id) => (id?.startsWith('fest_') ? `${BASE}sequences/${id}.png` : /^hg_seq[24]_/.test(id ?? '') ? `${BASE}ui/${id}.png` : CHAPTER_CARDS.includes(id) || FX_SCENES.includes(id) || BH_SCENES.includes(id) ? `${BASE}ui/scenes/${id}.png` : SCENES.includes(id) ? `${BASE}ui/scenes/E_szene_${id}.png`
   : TRAVEL_SCENES.includes(id) ? `${BASE}ui/scenes/I_${id}.png`
     : J_SCENES.includes(id) ? `${BASE}ui/scenes/J_szene_${id}.png`

@@ -30,7 +30,7 @@ for (const [k, map] of Object.entries(ZIEL)) {
     s.flags.add(`k3a_anreise_${k}_bereit`);
     t = questTarget(s, q);
     assert.equal(t.id, `k3a_anreise_${k}_reise`);
-    const node = content.dialogues[`k3a_anreise_${k}`].nodes[`k3a_anreise_${k}_fahrt`];
+    const node = content.dialogues[`k3a_anreise_${k}`].nodes[`k3a_anreise_${k}_ankunft`];
     s.applyEffects(node);
     assert.equal(s.quests[q], 'done');
   });
