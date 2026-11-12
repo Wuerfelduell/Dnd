@@ -95,6 +95,18 @@ const TREFFEN_MEMBER = {
 const lockedIngredient = (id) => Number(/_(\d)$/.exec(id)?.[1]) < SEQ_HIGHEST;
 const zutat = (pid, n) => `sq_zutat_${pid.replace(/^sq_/, '')}_${n}`;
 
+/**
+ * Seb (2026-11-12): der Seq-4-Trank braucht ZWEI seltene Kernzutaten. Die erste ist immer die eigene, die zweite darf
+ * die eigene oder die Kernzutat eines Nachbarpfads sein (so nützen Funde für den Pfad von Spieler 2).
+ * Nachbarn je Pfad (beidseitig eintragen). Leer = nur die eigene zählt. Zuordnung wird noch mit Seb abgestimmt.
+ */
+export const NACHBARPFADE = {};
+/** Zweite Kernzutat der Formel 4 eines Pfades: { need, from: [eigene, Nachbarn...] } */
+export function zweitzutat4(pid, items = null) {
+  const from = [pid, ...(NACHBARPFADE[pid] ?? [])].map((p) => zutat(p, 4)).filter((id) => !items || items[id]);
+  return { need: 1, from };
+}
+
 /** Vor buildContent: neue Pfade, Zutaten und Artefakte in die Pfaddaten einfügen. */
 export function withSequenzen(pathways, sq) {
   if (!pathways || !sq) return { pathways, highSeqs: {}, highItems: {} };
@@ -146,6 +158,11 @@ export function applySequenzen(content, sq, { highSeqs = {}, highItems = {} } = 
     }
   }
   content.encounters = encounters;
+  // Formel 4: zweite seltene Kernzutat (eigene oder Nachbarpfad)
+  for (const pid of Object.keys(content.pathways)) {
+    const f = content.items[`formel_${pid}_4`];
+    if (f && content.items[zutat(pid, 4)]) content.items[`formel_${pid}_4`] = { ...f, zweitzutat: zweitzutat4(pid, content.items) };
+  }
   if (!sq?.neue_pfade) return content;
   const pids = Object.keys(sq.neue_pfade);
   const m = content.market;

@@ -714,15 +714,32 @@ export const pathwayMethods = {
     return Object.keys(this.inventory).filter((id) => this.item(id)?.kind === 'formula').map((fid) => {
       const f = this.item(fid);
       const ingredients = Object.entries(f.ingredients).map(([id, need]) => ({ id, need, have: this.itemCount(id), name: this.item(id).name }));
+      const z = f.zweitzutat; // Formel 4: zweite Kernzutat, eigene oder vom Nachbarpfad
+      if (z?.from?.length) {
+        const avail = this.zweitzutatAvail(f);
+        const names = z.from.map((id) => this.item(id)?.name ?? id);
+        ingredients.push({ id: avail.find((a) => a.n > 0)?.id ?? z.from[0], need: z.need, have: avail.reduce((t, a) => t + a.n, 0), choice: true, avail,
+          name: names.length > 1 ? `Zweite Kernzutat (${names.join(' / ')})` : `${names[0]} (zweite)`, from: z.from });
+      }
       return { formula: fid, potion: f.potion, name: this.item(f.potion).name, seq: f.seq, pathway: f.pathway, ingredients, ready: ingredients.every((i) => i.have >= i.need) };
     }).sort((a, b) => b.seq - a.seq);
+  },
+
+  /** Verfügbare Stücke für die zweite Kernzutat: eigene zählt erst ab dem Exemplar, das nicht schon als erste Zutat gebunden ist. */
+  zweitzutatAvail(f) {
+    return (f.zweitzutat?.from ?? []).map((id) => ({ id, n: Math.max(0, this.itemCount(id) - (f.ingredients?.[id] ?? 0)) }));
   },
 
   brew(formulaId) {
     const r = this.recipes().find((x) => x.formula === formulaId);
     if (!r) return { ok: false, text: 'Dafür fehlt dir die Formel.' };
     if (!r.ready) return { ok: false, text: `Es fehlt: ${r.ingredients.filter((i) => i.have < i.need).map((i) => i.name).join(', ')}.` };
-    for (const i of r.ingredients) this.removeItem(i.id, i.need);
+    for (const i of r.ingredients) {
+      if (!i.choice) { this.removeItem(i.id, i.need); continue; }
+      // erst die eigene (zweites Exemplar), dann die Nachbarzutaten in Listenreihenfolge
+      let left = i.need;
+      for (const a of i.avail) { const k = Math.min(left, a.n); if (k) this.removeItem(a.id, k); left -= k; }
+    }
     this.addItem(r.potion);
     this.act('brew');
     this.emit('changed');

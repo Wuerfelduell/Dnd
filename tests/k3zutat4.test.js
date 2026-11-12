@@ -14,13 +14,15 @@ test('Schichtbund (Dunscar) bietet die Seq-4-Kernzutaten aller Pfade, aber keine
   assert.ok(!offers.some((i) => /^formel_.*_4$/.test(i)));
 });
 
-test('Kapitel-3-Elite droppt die Seq-4-Kernzutat nur auf Seq 5 und nur solange sie fehlt', () => {
+test('Kapitel-3-Elite droppt die Seq-4-Kernzutat nur auf Seq 5 und nur bis zwei da sind', () => {
   const s = new GameState(content);
   s.pathway = { ...(s.pathway ?? {}), id: 'laterne', seq: 5 };
   const enc = Object.values(content.encounters).find((e) => e.chapter === 3 && e.elite);
   const roll = () => { const loot = { items: {} }; s.pfadExtraLoot({ enc, id: 'x', rng: () => 0.9 }, loot, () => 0.01); return loot.items; };
   assert.equal(roll().sq_zutat_laterne_4, 1);
   s.inventory.sq_zutat_laterne_4 = 1;
+  assert.equal(roll().sq_zutat_laterne_4, 1, 'Formel 4 braucht zwei Kernzutaten');
+  s.inventory.sq_zutat_laterne_4 = 2;
   assert.equal(roll().sq_zutat_laterne_4, undefined);
   delete s.inventory.sq_zutat_laterne_4;
   s.pathway.seq = 6;
@@ -47,4 +49,34 @@ test('Dunscar-Gegner droppen Formel 4 (Seq 5) und Formel 3 (Seq 4, nur Elite/Bos
   t.pathway = { ...(t.pathway ?? {}), id: 'laterne', seq: 7 };
   t.p2 = { active: true, pathway: { id: 'eisen', seq: 5 }, inventory: {} };
   assert.equal(roll(t, boss, 0).formel_eisen_4, 1, 'Spieler 2 zählt mit');
+});
+
+test('Formel 4 braucht zwei Kernzutaten: die eigene plus eine eigene oder vom Nachbarpfad', async () => {
+  const seq = await import('../src/data/sequenzen.js');
+  const s = new GameState(content);
+  const base = { nebeltau: 2, geisteressenz: 2, silberstaub: 2 };
+  s.inventory = { formel_laterne_4: 1, ...base, sq_zutat_laterne_4: 1 };
+  let r = s.recipes().find((x) => x.formula === 'formel_laterne_4');
+  assert.equal(r.ready, false, 'eine Kernzutat reicht nicht');
+  assert.equal(s.brew('formel_laterne_4').ok, false);
+  s.inventory.sq_zutat_laterne_4 = 2;
+  assert.equal(s.brew('formel_laterne_4').ok, true);
+  assert.equal(s.itemCount('sq_zutat_laterne_4'), 0);
+  assert.equal(s.itemCount('trank_laterne_4'), 1);
+  // Nachbarpfad: mit Testnachbarn neu bauen
+  const n = Object.keys(content.pathways).find((p) => p !== 'laterne' && content.pathways[p].seqs[4]);
+  const nz = `sq_zutat_${n.replace(/^sq_/, '')}_4`;
+  content.items.formel_laterne_4 = { ...content.items.formel_laterne_4, zweitzutat: { need: 1, from: ['sq_zutat_laterne_4', nz] } };
+  s.inventory = { formel_laterne_4: 1, ...base, sq_zutat_laterne_4: 1, [nz]: 1 };
+  r = s.recipes().find((x) => x.formula === 'formel_laterne_4');
+  assert.equal(r.ready, true);
+  assert.equal(s.brew('formel_laterne_4').ok, true);
+  assert.equal(s.itemCount(nz), 0);
+  assert.equal(s.itemCount('sq_zutat_laterne_4'), 0);
+  content.items.formel_laterne_4 = { ...content.items.formel_laterne_4, zweitzutat: seq.zweitzutat4('laterne', content.items) };
+  // alle Formeln 4 tragen die Zweitzutat, eigene immer zuerst
+  for (const pid of Object.keys(content.pathways)) {
+    const f = content.items[`formel_${pid}_4`];
+    if (f) assert.equal(f.zweitzutat?.from?.[0], `sq_zutat_${pid.replace(/^sq_/, '')}_4`, pid);
+  }
 });
