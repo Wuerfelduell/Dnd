@@ -7,7 +7,7 @@ import { withSequenzen, applySequenzen } from './sequenzen.js';
 import { applyPfadHandel } from './pfadHandel.js';
 import { applySeq5 } from './seq5.js';
 import { applySeq4 } from './seq4.js';
-import { applySeqHoch } from './seqHoch.js';
+import { applySeqHoch, addRitualformeln } from './seqHoch.js';
 import { withFaehigkeiten } from './faehigkeiten.js';
 import { applyMoods } from './moods.js';
 import { applyRelations } from './relations.js';
@@ -89,6 +89,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   for (const pack of packs) withPackLeben(content, pack); // Paket BD: Einwohner mit Tagesplan, Aufseher-Streifen, Wetter und Tiere
   for (const pack of packs) withPackBosses(content, pack); // Kapitel 3: Bosse, Folgeabschnitte und Kampftexte
   applySequenzen(content, sequenzen, sq); // Paket AF: Händler, Treffen und Funde für die neuen Pfade
+  addRitualformeln(content); // Seq 3: eigene Ritualformel je Pfad (Zirkel-Los und Monster-Beute wie die Trankformel)
   applyDunscarZirkel(content); // Dunscar: Zirkel-Lose im Tausenderbereich, Kalter Ofen + Stummes Stellwerk
   applySeq5(content); // Seq-5-Rituale: Gefäße, Fäden, Uhr, Sude, Laternenbestie und Kokonspinne
   applySeq4(content, packs.find((p) => p.seq4Dr)?.seq4Dr ?? null); // Seq-4-Rituale: zehn Halbgott-Prüfungen samt Wächter, Wurfflaschen, Relikt, Wexmoor-Einnahmen

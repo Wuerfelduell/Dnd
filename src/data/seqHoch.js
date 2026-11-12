@@ -9,11 +9,27 @@
  *   dann ein Mittelschritt und am Ende der brutale Grenzwächter des Pfades.
  * - Sequenz 1: fünfmal so schwer wie 2, aber ohne einen einzigen Gegner (Zeit, Proben, Opfer).
  *
- * Die Formel der 3 gibt es nur am eigenen Ort des Pfades (o3_<pfad>), den man erst finden muss: ab Sequenz 4 bringt
- * jeder Sieg in einem Monstergebiet ab Dunscar mit etwas Glück eine Spur, drei Spuren zeigen den Weg.
- * Dort liegen auch die Formeln der 2 (hinter dem Tiefenhüter) und der 1 (fünf Inschriften gelesen).
+ * Sequenz 3 (Seb 2026-11-12, nach #411 umgebaut): Trankformel und Ritualformel getrennt, beide selten (Zirkel-Los 15 000,
+ * sehr seltene Monster-Beute). Man tritt der Gilde seines Pfades bei (Sitz o3_<pfad>), die Kernzutat 3 gibt nur ihr Oberhaupt.
+ * Im Sitz liegen außerdem die Formeln der 2 (Archiv nach dem Oberhaupt) und der 1 (fünf Inschriften).
  */
 import { seeded } from '../core/Gatherings.js';
+import { NACHBARPFADE } from './nachbarpfade.js';
+
+/** Kernzutat eines Pfades für Sequenz n (Paket AF: sq_zutat_<pfad ohne sq_>_<n>). */
+export const kernzutat = (pid, n) => `sq_zutat_${pid.replace(/^sq_/, '')}_${n}`;
+/** Seb (2026-11-12): Seq 3 hat Trankformel (formel_<pfad>_3) und Ritualformel getrennt, „immerhin wirst du ein Heiliger“. */
+export const ritualformel = (pid) => `ritualformel_${pid}_3`;
+/** Vor applyDunscarZirkel: die Ritualformeln als Gegenstände (gleich selten und teuer wie die Trankformel). */
+export function addRitualformeln(content) {
+  for (const [pid, p] of Object.entries(content.pathways)) {
+    const r = p.seqs?.[3]?.ritual;
+    if (!r || content.items[ritualformel(pid)]) continue;
+    content.items[ritualformel(pid)] = { name: `Ritualformel: ${p.seqs[3].name}`, kind: 'trophy', weight: 0, price: 0, pathway: pid,
+      desc: `Die Ritualformel der dritten Sequenz (${p.name}). Ohne sie lässt sich das Ritual nicht beginnen; die Trankformel allein reicht nicht.` };
+  }
+}
+export const gildeFlag = (pid, what) => `gilde_${pid}_${what}`; // bekannt, mitglied, chef, chef_tot
 
 /** Seb (2026-11-12): Seq 3 und 2 passen, Seq 1 ist noch nicht abgestimmt und bleibt bis dahin versiegelt. */
 export const HOCH_SEQ1_VERSIEGELT = true;
@@ -106,18 +122,23 @@ export const HOCH = {
 HOCH.faden[3].steps[0].noHealAll = true;
 HOCH.schluessel[1].steps[0].maps = 5;
 
-/** Die Orte der Sequenz 3: eigene Karte je Pfad aus vorhandenen Kacheln und Gegnerbildern. */
+/**
+ * Seb (2026-11-12): für Sequenz 3 tritt man der Gilde (Sekte) seines Pfades bei, zehn Gilden ab Dunscar, je eine pro Pfad.
+ * Die Kernzutat 3 gibt es nur von der eigenen Gilde: wenn man ihr Oberhaupt tötet oder selbst Oberhaupt wird.
+ * Die Formel 3 bleibt selten (Zirkel-Los, sehr seltener Monster-Drop, data/dunscarZirkel.js + PfadHandel). Pfadwechsel (#413):
+ * wer auf Sequenz 4 steht, darf auch der Gilde seines Nachbarpfads beitreten. Sitz der Gilde: eigene Karte aus vorhandenen Kacheln.
+ */
 export const ORTE = {
-  laterne: { name: 'Die gläserne Leuchtkammer', tiles: 'bh_glas_warm', floor: 'g', from: 'bh_kaltes_palmhaus', adj: 'Lichtloser', farbe: '#ffd27a', text: 'Ein Gewächshaus aus Glas, in dem nie ein Licht brennt. Die Scheiben zeigen Bilder von Dingen, die gleich geschehen.' },
-  faden: { name: 'Der Spinnboden', tiles: 'cw_sortierhalle', floor: '.', from: 'cw_sortiergrube', adj: 'Verknoteter', farbe: '#c8a0ff', text: 'Ein Dachboden voller Garn. Jeder Faden führt zu einem Leben, und manche davon zu deinem.' },
-  maske: { name: 'Das Haus der leeren Gesichter', tiles: 'cw_druckerei', floor: '.', from: 'cw_alte_setzerei', adj: 'Gesichtsloser', farbe: '#e0c0d0', text: 'Eine Setzerei, in der statt Lettern Gesichter in den Kästen liegen. Keines davon gehört jemandem.' },
-  echo: { name: 'Die Schweigeschlucht', tiles: 'ds_schlucht', floor: 'g', from: 'ds_rufschlucht', adj: 'Stummer', farbe: '#9ad0ff', text: 'Eine Schlucht, die jeden Laut verschluckt und Tage später an anderer Stelle wieder ausspuckt.' },
-  kessel: { name: 'Der Siedegrund', tiles: 'bh_kessel_warm', floor: 's', from: 'bh_verlassene_waescherei', adj: 'Kochender', farbe: '#a0ff80', text: 'Ein Kesselhaus unter der Erde. Was hier siedet, war einmal lebendig.' },
-  eisen: { name: 'Die Schmiede unter dem Fundament', tiles: 'cw_fundament', floor: '.', from: 'cw_nullfundament', adj: 'Genieteter', farbe: '#c0c0c0', text: 'Ein Gewölbe aus Nieten und Ambossen. Jeder Schritt wiegt hier doppelt.' },
-  schluessel: { name: 'Das Gewölbe der Türen', tiles: 'g_katakomben', floor: 's', from: 'katakomben', adj: 'Verschlossener', farbe: '#7080ff', text: 'Ein Gang aus Türen, die alle irgendwohin führen, nur nie dorthin, wo man hinwollte.' },
-  sq_waage: { name: 'Die leere Börse', tiles: 'ds_bahn', floor: '.', from: 'ds_unterschicht', adj: 'Gewogener', farbe: '#ffe080', text: 'Ein Handelssaal ohne Händler. Auf jeder Waage liegt ein Gewicht, das niemandem gehört.' },
-  sq_moor: { name: 'Der Wurzelgrund', tiles: 'bh_wurzel_kalt', floor: 'g', from: 'bh_wurzelkammer', adj: 'Fauliger', farbe: '#80a060', text: 'Unter den Wurzeln eines alten Baums liegt ein Moor, das nicht nass ist, sondern sich erinnert.' },
-  sq_uhr: { name: 'Das Stillwerk', tiles: 'ds_bruch', floor: 's', from: 'ds_klopfbruch', adj: 'Stehengebliebener', farbe: '#d0d0ff', text: 'Ein Uhrwerk so groß wie ein Steinbruch. Die Zahnräder stehen, und doch hört man es ticken.' },
+  laterne: { gilde: 'Der Orden der stillen Flamme', chef: 'Großlampenmeister', name: 'Die gläserne Leuchtkammer', tiles: 'bh_glas_warm', floor: 'g', from: 'bh_kaltes_palmhaus', adj: 'Lichtloser', farbe: '#ffd27a', text: 'Ein Gewächshaus aus Glas, in dem nie ein Licht brennt. Die Scheiben zeigen Bilder von Dingen, die gleich geschehen.' },
+  faden: { gilde: 'Die Spinnergilde', chef: 'Erste Spinnerin', name: 'Der Spinnboden', tiles: 'cw_sortierhalle', floor: '.', from: 'cw_sortiergrube', adj: 'Verknoteter', farbe: '#c8a0ff', text: 'Ein Dachboden voller Garn. Jeder Faden führt zu einem Leben, und manche davon zu deinem.' },
+  maske: { gilde: 'Die Gesellschaft der hundert Gesichter', chef: 'Gesichtsloser Vorsitz', name: 'Das Haus der leeren Gesichter', tiles: 'cw_druckerei', floor: '.', from: 'cw_alte_setzerei', adj: 'Gesichtsloser', farbe: '#e0c0d0', text: 'Eine Setzerei, in der statt Lettern Gesichter in den Kästen liegen. Keines davon gehört jemandem.' },
+  echo: { gilde: 'Der Chor der Schweigenden', chef: 'Stimmführer', name: 'Die Schweigeschlucht', tiles: 'ds_schlucht', floor: 'g', from: 'ds_rufschlucht', adj: 'Stummer', farbe: '#9ad0ff', text: 'Eine Schlucht, die jeden Laut verschluckt und Tage später an anderer Stelle wieder ausspuckt.' },
+  kessel: { gilde: 'Die Brühgilde', chef: 'Obersieder', name: 'Der Siedegrund', tiles: 'bh_kessel_warm', floor: 's', from: 'bh_verlassene_waescherei', adj: 'Kochender', farbe: '#a0ff80', text: 'Ein Kesselhaus unter der Erde. Was hier siedet, war einmal lebendig.' },
+  eisen: { gilde: 'Die Ambossbruderschaft', chef: 'Schmiedeherr', name: 'Die Schmiede unter dem Fundament', tiles: 'cw_fundament', floor: '.', from: 'cw_nullfundament', adj: 'Genieteter', farbe: '#c0c0c0', text: 'Ein Gewölbe aus Nieten und Ambossen. Jeder Schritt wiegt hier doppelt.' },
+  schluessel: { gilde: 'Die Gilde der offenen Türen', chef: 'Türvater', name: 'Das Gewölbe der Türen', tiles: 'g_katakomben', floor: 's', from: 'katakomben', adj: 'Verschlossener', farbe: '#7080ff', text: 'Ein Gang aus Türen, die alle irgendwohin führen, nur nie dorthin, wo man hinwollte.' },
+  sq_waage: { gilde: 'Das Haus der rechten Waage', chef: 'Erster Wäger', name: 'Die leere Börse', tiles: 'ds_bahn', floor: '.', from: 'ds_unterschicht', adj: 'Gewogener', farbe: '#ffe080', text: 'Ein Handelssaal ohne Händler. Auf jeder Waage liegt ein Gewicht, das niemandem gehört.' },
+  sq_moor: { gilde: 'Die Torfgemeinde', chef: 'Moorälteste', name: 'Der Wurzelgrund', tiles: 'bh_wurzel_kalt', floor: 'g', from: 'bh_wurzelkammer', adj: 'Fauliger', farbe: '#80a060', text: 'Unter den Wurzeln eines alten Baums liegt ein Moor, das nicht nass ist, sondern sich erinnert.' },
+  sq_uhr: { gilde: 'Die Zunft der stehenden Stunde', chef: 'Zeitmeister', name: 'Das Stillwerk', tiles: 'ds_bruch', floor: 's', from: 'ds_klopfbruch', adj: 'Stehengebliebener', farbe: '#d0d0ff', text: 'Ein Uhrwerk so groß wie ein Steinbruch. Die Zahnräder stehen, und doch hört man es ticken.' },
 };
 export const ORT_STAEDTE = ['dunscar', 'calderwick', 'briarholt'];
 const SIEGEL = 5;
@@ -155,13 +176,13 @@ function ortEncounters(content, pid, o) {
   for (let i = 0; i < SIEGEL; i++) {
     const [, e] = normal[i % normal.length];
     const nid = `o3_${pid}_siegel${i + 1}`;
-    out[nid] = { ...scale(base(e), 3.2, 1.6), id: nid, name: `Siegelhüter: ${o.adj} ${e.name}`, elite: true, boss: false, fleeable: true,
-      intro: `Ein ${o.adj.toLowerCase()} Wächter steht vor dem ${i + 1}. Siegel. ${o.text}`, win_text: `Das ${i + 1}. Siegel zerspringt.` };
+    out[nid] = { ...scale(base(e), 3.2, 1.6), id: nid, name: `${i + 1}. Rangprüfung: ${o.adj} ${e.name}`, elite: true, boss: false, fleeable: true,
+      intro: `${o.gilde}: Wer aufsteigen will, besteht den ${i + 1}. Rang gegen das, was die Gilde hütet. ${o.text}`, win_text: `Der ${i + 1}. Rang ist dein.` };
     loot[nid] = { money: [400, 700], drops: [] };
   }
   const [, b] = strongest;
-  out[`o3_${pid}_tiefe`] = { ...scale(base(b), 7, 1.9), id: `o3_${pid}_tiefe`, name: `Tiefenhüter: ${o.adj} ${b.name}`, boss: true, elite: false, fleeable: true, max_round_dmg: 0.15,
-    intro: 'Aus der Tiefe des Ortes steigt etwas, das die Formel der zweiten Stufe bewacht. Es ist älter als die Stadt über dir.', win_text: 'Der Tiefenhüter sinkt in den Boden zurück. Der Weg zum zweiten Schrein ist frei.' };
+  out[`o3_${pid}_tiefe`] = { ...scale(base(b), 7, 1.9), id: `o3_${pid}_tiefe`, name: `${o.chef} der ${o.gilde.replace(/^(Der|Die|Das) /, '')}`, boss: true, elite: false, fleeable: true, max_round_dmg: 0.15,
+    intro: `${o.chef} der Gilde erhebt sich. Wer das Oberhaupt besiegt, hält die Kernzutat der dritten Sequenz in der Hand, ob als Mörder oder als Nachfolger.`, win_text: `${o.chef} liegt am Boden. Jetzt entscheidest du: töten oder selbst Oberhaupt werden.` };
   loot[`o3_${pid}_tiefe`] = { money: [2000, 3000], drops: [] };
   return { encounters: out, loot, normal: Object.keys(out).filter((k) => /_g\d$/.test(k)) };
 }
@@ -178,7 +199,7 @@ function ortMapDef(pid, o, enc) {
   }
   const siegel = [[8, 4], [40, 4], [44, 15], [40, 25], [8, 25]];
   const insch = [[4, 9], [24, 2], [44, 9], [24, 27], [4, 20]];
-  for (const [tx, ty] of [...siegel, ...insch, [1, 15], [2, 15], [22, 14], [26, 14], [24, 18]]) { // um Siegel, Schreine und Eingang frei
+  for (const [tx, ty] of [...siegel, ...insch, [1, 15], [2, 15], [4, 15], [4, 13], [22, 14], [24, 14], [26, 14], [24, 18], [26, 18]]) { // um Siegel, Schreine und Eingang frei
     for (let y = ty - 1; y <= ty + 1; y++) for (let x = tx - 1; x <= tx + 1; x++) if (x > 0 && y > 0 && x < W - 1 && y < H - 1) g[y][x] = o.floor;
   }
   const rows = g.map((r) => r.join(''));
@@ -187,17 +208,30 @@ function ortMapDef(pid, o, enc) {
   const pick = () => free.splice(Math.floor(rng() * free.length), 1)[0];
   const won = (n) => `won_o3_${pid}_siegel${n}`;
   const allSeals = Array.from({ length: SIEGEL }, (_, i) => won(i + 1));
+  const nb = NACHBARPFADE[pid];
+  const mit = gildeFlag(pid, 'mitglied');
+  const chefDone = [gildeFlag(pid, 'chef'), gildeFlag(pid, 'chef_tot')];
+  const kern = { [kernzutat(pid, 3)]: 1 };
   const interactables = [
-    { id: `o3_${pid}_ausgang`, kind: 'ort3_exit', tile: [1, 15], prompt: 'Den Ort verlassen', marker: true, label: '← Zurück' },
-    ...siegel.map((t, i) => ({ id: `o3_${pid}_siegel${i + 1}`, kind: 'combat', encounter: `o3_${pid}_siegel${i + 1}`, tile: t, prompt: `Das ${i + 1}. Siegel brechen`, marker: true, visible_if: { hide_if_flags: [won(i + 1)] } })),
+    { id: `o3_${pid}_ausgang`, kind: 'ort3_exit', tile: [1, 15], prompt: 'Den Sitz verlassen', marker: true, label: '← Zurück' },
+    { id: `o3_${pid}_bote`, kind: 'read', tile: [4, 13], prompt: `Mitglied von ${o.gilde}`, title: `Ein Mitglied von ${o.gilde}`, marker: true,
+      text: `„Die Kernzutat für die dritte Sequenz gibt es nirgends sonst, nicht auf den Treffen, nicht bei den Händlern. Nur hier, beim Oberhaupt. Tritt bei, besteh die fünf Ränge und stell dich ${o.chef}. Töte das Oberhaupt oder werde selbst eins, für den Kern ist es fast dasselbe. Die Formel musst du dir woanders suchen: selten auf den Zirkeln, noch seltener bei Monstern.“` },
+    // Beitreten: eigener Pfad, oder ab Sequenz 4 der Nachbarpfad (Pfadwechsel #413)
+    ...[[pid, 9], ...(nb ? [[nb, 4]] : [])].map(([req, max], i) => ({ id: `o3_${pid}_beitritt${i ? '_nachbar' : ''}`, kind: 'read', tile: [4, 15], prompt: `${o.gilde} beitreten`, title: o.gilde, marker: true,
+      text: `${o.text}\n\nDu legst die Hand auf das Zeichen der Gilde. Ab jetzt gehörst du zu ${o.gilde}. Die fünf Ränge stehen dir offen, und am Ende ${o.chef}.${i ? ' Dein Nachbarpfad öffnet dir diese Tür.' : ''}`,
+      effects: { sets_flags: [mit] }, visible_if: { requires_pathway: [req, max], hide_if_flags: [mit] } })),
+    ...siegel.map((t, i) => ({ id: `o3_${pid}_siegel${i + 1}`, kind: 'combat', encounter: `o3_${pid}_siegel${i + 1}`, tile: t, prompt: `${i + 1}. Rangprüfung`, marker: true, visible_if: { requires_flags: [mit], hide_if_flags: [won(i + 1)] } })),
     ...insch.map((t, i) => ({ id: `o3_${pid}_inschrift${i + 1}`, kind: 'read', tile: t, prompt: 'Inschrift', title: `${o.name}: Inschrift ${i + 1}`, text: INSCHRIFTEN[i], marker: false, done_flag: `o3_${pid}_gelesen${i + 1}` })),
-    { id: `o3_${pid}_schrein3`, kind: 'read', tile: [22, 14], prompt: 'Der erste Schrein', title: `${o.name}: der erste Schrein`, marker: true,
-      text: `Fünf Siegel sind gebrochen. Im Schrein liegt, in Haut gebunden, die Formel der dritten Sequenz deines Pfades. ${o.text}`,
-      done_flag: `o3_${pid}_formel3`, effects: { gives_items: { [`formel_${pid}_3`]: 1 } }, visible_if: { requires_flags: allSeals, hide_if_flags: [`o3_${pid}_formel3`] } },
-    { id: `o3_${pid}_tiefe`, kind: 'combat', encounter: `o3_${pid}_tiefe`, tile: [26, 14], prompt: 'In die Tiefe steigen', marker: true,
-      visible_if: { requires_flags: [`o3_${pid}_formel3`], hide_if_flags: [`won_o3_${pid}_tiefe`] } },
-    { id: `o3_${pid}_schrein2`, kind: 'read', tile: [26, 14], prompt: 'Der zweite Schrein', title: `${o.name}: der zweite Schrein`, marker: true,
-      text: 'Unter dem Tiefenhüter lag ein zweiter Schrein. Darin die Formel der zweiten Sequenz, mit einer Warnung am Rand: Wer sie braut, verändert die Welt.',
+    { id: `o3_${pid}_tiefe`, kind: 'combat', encounter: `o3_${pid}_tiefe`, tile: [26, 14], prompt: `${o.chef} herausfordern`, marker: true,
+      visible_if: { requires_flags: [mit, ...allSeals], hide_if_flags: [`won_o3_${pid}_tiefe`] } },
+    { id: `o3_${pid}_chef_toeten`, kind: 'read', tile: [24, 14], prompt: `${o.chef} töten`, title: o.gilde, marker: true,
+      text: `Du tötest ${o.chef}. Aus dem Gewand fällt das Kernstück der Gilde: die Kernzutat der dritten Sequenz. Die Gilde schweigt, und keiner wird dir das je verzeihen.`,
+      effects: { sets_flags: [gildeFlag(pid, 'chef_tot')], gives_items: kern }, visible_if: { requires_flags: [`won_o3_${pid}_tiefe`], hide_if_flags: chefDone } },
+    { id: `o3_${pid}_chef_werden`, kind: 'read', tile: [22, 14], prompt: `Selbst ${o.chef} werden`, title: o.gilde, marker: true,
+      text: `Du lässt ${o.chef} leben und nimmst den Platz ein. Mit dem Amt geht dir die Kernzutat der dritten Sequenz zu, die das Oberhaupt verwahrt. Fast dasselbe wie ein Mord, nur dass dich jetzt alle grüßen.`,
+      effects: { sets_flags: [gildeFlag(pid, 'chef')], gives_items: kern }, visible_if: { requires_flags: [`won_o3_${pid}_tiefe`], hide_if_flags: chefDone } },
+    { id: `o3_${pid}_schrein2`, kind: 'read', tile: [26, 18], prompt: 'Das Archiv des Oberhaupts', title: `${o.gilde}: das Archiv`, marker: true,
+      text: 'Hinter dem Sitz des Oberhaupts liegt das Archiv. Darin die Formel der zweiten Sequenz, mit einer Warnung am Rand: Wer sie braut, verändert die Welt.',
       done_flag: `o3_${pid}_formel2`, effects: { gives_items: { [`formel_${pid}_2`]: 1 } }, visible_if: { requires_flags: [`won_o3_${pid}_tiefe`], hide_if_flags: [`o3_${pid}_formel2`] } },
     { id: `o3_${pid}_schrein1`, kind: 'read', tile: [24, 18], prompt: 'Der letzte Schrein', title: `${o.name}: der letzte Schrein`, marker: true,
       text: 'Die fünf Inschriften fügen sich zu einem Satz, und der Boden öffnet sich. Im letzten Schrein liegt die Formel der ersten Sequenz. Sie ist kurz. Fast zu kurz.',
@@ -247,9 +281,20 @@ export function applySeqHoch(content) {
       const c = content.travelRules?.cities?.[city];
       if (c?.pins) c.pins = { ...c.pins, [ortMap(pid)]: [24 + 38 * Object.keys(ORTE).indexOf(pid), 248] };
     });
-    for (const city of ORT_STAEDTE) travel.push({ map: ortMap(pid), spawn: 'default', city, name: o.name, desc: `Dein eigener Ort (${content.pathways[pid].name}). ${o.text}`, requires_flags: [ortFlag(pid)] });
+    for (const city of ORT_STAEDTE) travel.push({ map: ortMap(pid), spawn: 'default', city, name: `${o.gilde} (${o.name})`, desc: `Sitz: ${o.gilde} (${content.pathways[pid].name}). ${o.text}`, requires_flags: [gildeFlag(pid, 'bekannt')] });
   }
   Object.assign(content, { maps, encounters, loot, travel });
+  // Seb (2026-11-12): die Kernzutat 3 gibt es nur von der eigenen Gilde. Andere Gesprächsausgaben der Kern-3-Zutat fallen weg.
+  const kern3 = /^sq_zutat_\w+_3$/;
+  for (const d of Object.values(content.dialogues)) {
+    const gives3 = new Set(Object.entries(d.nodes ?? {}).filter(([, n]) => Object.keys(n.gives_items ?? {}).some((id) => kern3.test(id))).map(([id]) => id));
+    if (!gives3.size) continue;
+    for (const n of Object.values(d.nodes)) if (n.choices) n.choices = n.choices.filter((c) => !gives3.has(c.next));
+  }
+  // dasselbe für die Koop-Ansprüche (Paket BG): Bosse zahlen keine Kernzutat 3 mehr aus
+  if (content.claimSources) {
+    content.claimSources = Object.fromEntries(Object.entries(content.claimSources).map(([id, c]) => [id, { ...c, rewards: (c.rewards ?? []).filter((r) => !kern3.test(r.item)) }]));
+  }
   // Weltwandel: Gerede in allen späteren Städten
   content.gossip ??= {};
   for (const [pid, d] of Object.entries(HOCH)) {

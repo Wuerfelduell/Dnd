@@ -178,12 +178,14 @@ export const pfadHandelMethods = {
       const own = zone?.formel_chance?.[target]?.[rang];
       const chance = own !== undefined && k3f ? own : target === 4 ? (k3f ? FORMEL_K3_CHANCE[4][tier] : enc.elite ? FORMEL_ELITE_CHANCE : 0)
         : target === 3 && k3f ? FORMEL_K3_CHANCE[3][tier] : 0;
-      const id = `formel_${pw.id}_${target}`;
-      const flag = target === 4 ? `ph_formel_${pw.id}` : `ph_formel${target}_${pw.id}`;
-      if (!chance || seen.has(id) || !this.item(id) || this.flags.has(flag)) continue;
-      seen.add(id);
-      const have = (this.inventory[id] ?? 0) + (this.p2?.inventory?.[id] ?? 0) + (this.storage?.[id] ?? 0) + (loot.items[id] ?? 0);
-      if (have === 0 && rng() < chance) { add(id); this.flags.add(flag); }
+      // Seb (2026-11-12): Seq 3 hat Trankformel und Ritualformel getrennt, beide gleich selten
+      for (const id of [`formel_${pw.id}_${target}`, ...(target === 3 ? [`ritualformel_${pw.id}_3`] : [])]) {
+        const flag = target === 4 ? `ph_formel_${pw.id}` : id.startsWith('ritual') ? `ph_ritualformel3_${pw.id}` : `ph_formel${target}_${pw.id}`;
+        if (!chance || seen.has(id) || !this.item(id) || this.flags.has(flag)) continue;
+        seen.add(id);
+        const have = (this.inventory[id] ?? 0) + (this.p2?.inventory?.[id] ?? 0) + (this.storage?.[id] ?? 0) + (loot.items[id] ?? 0);
+        if (have === 0 && rng() < chance) { add(id); this.flags.add(flag); }
+      }
     }
     // Kapitel 3: Seq-4-Kernzutat bei Eliten und Bossen, je Pfad, der auf Seq 5 steht (auch Spieler 2)
     const k3 = enc.chapter === 3 && (zone?.zutat4_chance?.[rang] ?? (enc.boss ? K3_ZUTAT4_CHANCE.boss : enc.elite ? K3_ZUTAT4_CHANCE.elite : 0));

@@ -29,19 +29,11 @@ test('BG: Quellen, Ersatzzeilen und Texte sind geladen, Hedda/Pfiff/Kittering ha
   assert.equal(Object.keys(s.claims).length, 0);
 });
 
-test('BG: gewonnener Hüterkampf gibt beiden ihre Kernzutat, das Kernfach bleibt danach zu', () => {
+test('BG: gewonnener Hüterkampf gibt keine Kernzutat 3 mehr (Seb 2026-11-12: nur von der eigenen Gilde)', () => {
   const s = duo('eisen', 'laterne');
   s.applyEffects({ sets_flags: ['won_vorhauer'] });
-  assert.equal(s.claims.won_vorhauer[1], 'offen');
-  const lines = s.claimAfterWin('vorhauer', [1, 2]);
-  assert.equal(lines.length, 2);
-  assert.match(lines[0], /^Spieler 1 nimmt /);
-  assert.equal(s.itemCount('sq_zutat_eisen_3'), 1);
-  assert.equal(s.withPlayer(2, () => s.itemCount('sq_zutat_laterne_3'), { quiet: true }), 1);
-  assert.equal(s.claimAfterWin('vorhauer', [1, 2]).length, 0, 'kein zweites Mal');
-  const fach = content.dialogues.k3o_vorhauer_beute.nodes.k3o_start.choices.find((c) => c.requires_pathway?.[0] === 'eisen');
-  s.flags.add('k3o_vorhauer_geloest');
-  assert.equal(s.meets(fach), false, 'Anspruch schon eingelöst');
+  assert.equal(s.claimAfterWin('vorhauer', [1, 2]).length, 0);
+  assert.equal(s.itemCount('sq_zutat_eisen_3'), 0);
   // Prüfungen werden im Kampf nur geöffnet, nicht ausgezahlt
   assert.equal(s.claimAfterWin('k3p_lampengutachter', [1]).length, 0);
 });
@@ -70,14 +62,14 @@ test('BG: Heddas Belohnung erfüllt den eigenen Anspruch, der Partner holt seine
 });
 
 test('BG: Ansprüche überleben Speichern und Laden, alte Spielstände rechnen Spieler 1 ab', () => {
-  const s = duo('eisen', 'eisen');
-  s.applyEffects({ sets_flags: ['won_vorhauer'] });
-  s.claimAfterWin('vorhauer', [1]);
+  const s = duo('sq_waage', 'sq_waage');
+  s.applyEffects({ sets_flags: ['won_schwellenhund'] });
+  s.claimAfterWin('schwellenhund', [1]);
   const data = JSON.parse(JSON.stringify(s.serialize(null)));
   const t = new GameState(content);
   t.load(data);
-  assert.equal(t.claims.won_vorhauer[1], 'eingeloest');
-  assert.equal(t.claims.won_vorhauer[2], 'offen');
+  assert.equal(t.claims.won_schwellenhund[1], 'eingeloest');
+  assert.equal(t.claims.won_schwellenhund[2], 'offen');
   assert.equal(t.openClaimTexts(2).length, 1);
   delete data.claims; delete data.claimCommands; delete data.claimAcquisitions; delete data.claimSelections;
   data.flags.push('k3o_schwellenhund_geloest', 'k3o_schwellenhund_kern_abgeholt', 'k3p_laterne_bewaeltigt', 'k3p_laterne_done');
@@ -86,7 +78,6 @@ test('BG: Ansprüche überleben Speichern und Laden, alte Spielstände rechnen S
   assert.equal(old.claims.won_schwellenhund[1], 'eingeloest');
   assert.equal(old.claims.won_schwellenhund[2], 'offen');
   assert.equal(old.claims.k3p_laterne_bewaeltigt[1], 'eingeloest');
-  assert.equal(old.claims.won_vorhauer[1], 'offen', 'ohne Merkflag bleibt der Anspruch offen');
 });
 
 test('BG: Kauf quittiert den Erwerb, Pfiff ersetzt den verlorenen Trank aus dem gemeinsamen Beutel', () => {

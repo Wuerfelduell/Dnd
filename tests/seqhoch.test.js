@@ -3,12 +3,14 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
 import { Combat } from '../src/core/Combat.js';
-import { HOCH, ORTE, ortMap, ortFlag, SPUREN } from '../src/data/seqHoch.js';
+import { HOCH, ORTE, ortMap, gildeFlag, kernzutat } from '../src/data/seqHoch.js';
+import { NACHBARPFADE } from '../src/data/nachbarpfade.js';
 import { loadContent } from './helpers.js';
 
 const content = loadContent();
 const hero = (seq, pid) => {
   const s = new GameState(content);
+  if (seq === 4) { s.addItem(`ritualformel_${pid}_3`); s.flags.add(gildeFlag(pid, 'mitglied')); } // Seq 3: Ritualformel + Gilde
   s.addItem('revolver');
   s.weapon = 'revolver';
   s.pathway = { id: pid, seq, digestion: 100 };
@@ -35,18 +37,37 @@ test('Alle zehn Pfade: Rituale 3/2/1 mit eigenen Schritten, 2 mit Weltwandel und
     assert.ok(m && ORTE[pid], pid);
     for (const r of m.roamers) assert.notEqual(m.rows[r.tile[1]][r.tile[0]], 'I', `${pid}: ${r.id} in der Wand`);
     for (const it of m.interactables) assert.notEqual(m.rows[it.tile[1]][it.tile[0]], 'I', `${pid}: ${it.id} in der Wand`);
-    for (const n of [3, 2, 1]) assert.ok(m.interactables.some((i) => i.effects?.gives_items?.[`formel_${pid}_${n}`]), `${pid}: Formel ${n}`);
-    for (const city of ['dunscar', 'calderwick', 'briarholt']) assert.ok(content.travel.some((t) => t.map === m.id && t.city === city && t.requires_flags.includes(ortFlag(pid))));
+    for (const n of [2, 1]) assert.ok(m.interactables.some((i) => i.effects?.gives_items?.[`formel_${pid}_${n}`]), `${pid}: Formel ${n}`);
+    // Seb (2026-11-12): Gildensitz. Formel 3 nicht hier; Kernzutat 3 nur beim Oberhaupt (töten oder selbst Oberhaupt werden)
+    assert.ok(!m.interactables.some((i) => i.effects?.gives_items?.[`formel_${pid}_3`]), `${pid}: Formel 3 nicht am Sitz`);
+    const kern = m.interactables.filter((i) => i.effects?.gives_items?.[kernzutat(pid, 3)]);
+    assert.equal(kern.length, 2, `${pid}: töten oder Oberhaupt werden`);
+    const join = m.interactables.filter((i) => i.effects?.sets_flags?.includes(gildeFlag(pid, 'mitglied')));
+    assert.deepEqual(join.map((i) => i.visible_if.requires_pathway), [[pid, 9], [NACHBARPFADE[pid], 4]], `${pid}: Beitritt eigener Pfad oder Nachbar ab 4`);
+    assert.ok(m.interactables.some((i) => /nirgends sonst/.test(i.text ?? '')), `${pid}: ein Mitglied erklärt den Kern`);
+    assert.ok(content.items[`ritualformel_${pid}_3`], `${pid}: Ritualformel`);
+    for (const city of ['dunscar', 'calderwick', 'briarholt']) assert.ok(content.travel.some((t) => t.map === m.id && t.city === city && t.requires_flags.includes(gildeFlag(pid, 'bekannt'))));
   }
   assert.ok(!content.market.merchants.kittering.stock.some((e) => /^formel_\w+_[123]$/.test(e.item)), 'Kittering ohne Formeln 3 bis 1');
 });
 
-test('Spuren: ab Sequenz 4 führen Siege in späten Monstergebieten zum Ort', () => {
-  const s = hero(4, 'eisen');
-  s.rng = () => 0;
-  for (let i = 0; i < SPUREN; i++) end(s, wild, 'won');
-  assert.ok(s.flags.has(ortFlag('eisen')));
-  assert.equal(s.spurStand('eisen').found, true);
+test('Gilden: ab Dunscar meldet sich die eigene Gilde, ab Seq 4 auch die des Nachbarpfads; Seq 3 verlangt Ritualformel und Mitgliedschaft', () => {
+  const s = hero(5, 'eisen');
+  s.tick(1);
+  assert.ok(!s.flags.has(gildeFlag('eisen', 'bekannt')), 'vor Dunscar nicht');
+  s.flags.add('k3_arrived');
+  s.tick(1);
+  assert.ok(s.flags.has(gildeFlag('eisen', 'bekannt')));
+  assert.ok(!s.flags.has(gildeFlag(NACHBARPFADE.eisen, 'bekannt')));
+  s.pathway.seq = 4;
+  s.tick(1);
+  assert.ok(s.flags.has(gildeFlag(NACHBARPFADE.eisen, 'bekannt')));
+  assert.equal(s.startHoch().ok, false, 'ohne Ritualformel');
+  s.addItem('ritualformel_eisen_3');
+  assert.match(s.startHoch().text, /beitreten/);
+  s.flags.add(gildeFlag('eisen', 'mitglied'));
+  assert.equal(s.startHoch().ok, true);
+  assert.ok(!content.dialogues.k3o_vorhauer_beute.nodes.k3o_start.choices.some((c) => /Kern/.test(c.text) && c.next), 'kein Kern 3 mehr aus dem Kernfach');
 });
 
 test('Seq 3 Echo: Kette von Siegen in höchstens fünf Runden, eine Flucht lässt scheitern (−17 %)', () => {
