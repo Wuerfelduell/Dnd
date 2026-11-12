@@ -1981,3 +1981,12 @@ Zwei Codex-Zips mit freien Motiven, keine Zuordnung zu Figuren oder Gegenstände
 [Manifest](../../public/sprites/manifest-ritualicons.json) · [Vorschau](batch-ritualicons-preview.png) · [Herkunft](batch-ritualicons-generation.json) · [Prüfbericht](batch-ritualicons-validation.json).
 
 Prüfung: `python3 tools/art/ritualicons/check.py` (Pillow). `items` ordnet jede ID beiden Dateien zu; `assets` beschreibt beide Größen separat. `ersetztLeihbild` kennzeichnet die 20 IDs aus Abschnitt 1; `replacesAlias` dokumentiert vorhandene Alias-Ziele. Statische Icons haben einen Frame und Geschwindigkeit 0. Die separaten Code-Arbeiten müssen die Aliase entfernen und 32er registrieren; hier wird kein Spielcode geändert.
+
+## DT — ritualicons2
+
+13 neue Item-Icons: drei Wurfflaschen und zehn seltene Wexmoor-Funde, je 16×16 und 32×32. DP-Palette, binäres Alpha. Leihbild-Zuordnungen im Manifest; kein Laufzeit-Einbau.
+
+- [Vorschau](batch-ritualicons2-preview.png)
+- [Prompts](batch-ritualicons2-generation.json)
+- [Prüfbericht](batch-ritualicons2-validation.json)
+- Prüfung: `python tools/art/ritualicons2/check.py` (Pillow).
