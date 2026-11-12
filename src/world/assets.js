@@ -645,6 +645,8 @@ export const moneyIconUrl = (n) => `${BASE}items/${n >= 60 ? 'geldbeutel' : n >=
 
 /** Texture-Key → [Pfad, Framebreite, Framehöhe = Breite]. Frames/Animationen: manifest-14b.json bzw. manifest-kampf.json. */
 export const BATTLE_SHEETS = {
+  // Codex DF: Tiergefährten (16er Lauf-Sheets: unten, links, rechts, oben, Flug)
+  tier_rabe: ['characters/tier_rabe.png', 16], tier_kater: ['characters/tier_kater.png', 16], tier_hund: ['characters/tier_hund.png', 16],
   battle_player: ['battle/battle_player.png', 48],
   enemy_holt: ['battle/enemy_holt.png', 48],
   enemy_nebelhund: ['battle/enemy_nebelhund.png', 64],

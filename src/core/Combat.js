@@ -278,6 +278,8 @@ export class Combat {
     this.killedBy = null; // womit der Gegner fiel (Seq-5-Ritual der Laterne verlangt ein Leuchten)
     this.voiceWindow = false; // Seq-5-Ritual des Echos: der Beyonder lag schon unter 10 % Leben
     state.seq5CombatStart?.(this);
+    this.tierSchutz = null; // Codex DF: Hund halbiert den ersten Treffer
+    state.tierKampfStart?.(this);
     // Seq 4: Schatten (eigenes Leben), Uhr (Fehler zählen), Moor (Moorwasser je Runde), Ausweichzähler
     this.ruleBroken = null; // Verstoß gegen die Prüfung: der Kampf endet als Niederlage
     this.enemyAttacks = 0;
@@ -937,6 +939,7 @@ export class Combat {
     const absorbed = Math.min(this.shield, incoming);
     this.shield -= absorbed;
     incoming -= absorbed;
+    if (this.tierSchutz === n && incoming > 0) { incoming = Math.max(1, Math.floor(incoming * 0.5)); this.tierSchutz = null; } // Codex DF: Hund
     const damage = this.state.damage(incoming);
     if (damage && attack.bleed) this.bleed = { damage: attack.bleed[0], rounds: attack.bleed[1] };
     // Treffer kosten Nerven: manche Angriffe von sich aus, manche Artefakte bei jedem Treffer (hit_nerves)

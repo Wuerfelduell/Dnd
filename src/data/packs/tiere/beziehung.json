@@ -1,0 +1,255 @@
+{
+ "schema": "df-companion-proposal-1",
+ "status": "Einbauvorschlag; keine Laufzeitlogik enthalten",
+ "foodSources": {
+  "salzbrot": "src/data/wexmoor.json#/items/salzbrot",
+  "vi_v_setzerbrot": "src/data/packs/vorrat_items/items.json#/vi_v_setzerbrot",
+  "fs_salzsegen_raeucherfisch": "src/data/packs/feste_leben/items.json#/fs_salzsegen_raeucherfisch",
+  "fs_salzsegen_brot": "src/data/packs/feste_leben/items.json#/fs_salzsegen_brot",
+  "fs_laternennacht_apfel": "src/data/packs/feste_leben/items.json#/fs_laternennacht_apfel"
+ },
+ "feeding": {
+  "likedPoints": 1,
+  "dislikedPoints": 0,
+  "dislikedConsumesItem": false,
+  "maxProgressFeedsPerAnimalPerDay": 1,
+  "thresholds": [
+   0,
+   2,
+   5,
+   9
+  ],
+  "levelNeverDecreases": true,
+  "unknownItem": "nicht anbieten",
+  "foodAvailability": "Nur bestehende Items, abhängig von Festen/Stadtzugang. Erwerb und Basisgabe verlangen kein Futter; der Einbau darf frühe Händlerbestände mit bestehenden IDs ergänzen.",
+  "preparation": "Nur kleine ungewürzte Portion des dargestellten Lebensmittels; feste Fremdkörper des Setzerbrots werden entfernt. Keine Aussage über reale Tierfütterung.",
+  "bondPointCap": 9,
+  "dislikedMessage": "Der Bissen bleibt liegen. Du packst ihn wieder ein; nichts wurde verbraucht."
+ },
+ "levels": [
+  {
+   "level": 0,
+   "points": 0,
+   "ravenRadius": 3,
+   "catDailyCount": 1,
+   "dogWarningSteps": 1,
+   "ratDailyCrates": 1,
+   "combatUses": 1
+  },
+  {
+   "level": 1,
+   "points": 2,
+   "ravenRadius": 4,
+   "catDailyCount": 1,
+   "dogWarningSteps": 2,
+   "ratDailyCrates": 1,
+   "combatUses": 1
+  },
+  {
+   "level": 2,
+   "points": 5,
+   "ravenRadius": 4,
+   "catDailyCount": 2,
+   "dogWarningSteps": 2,
+   "ratDailyCrates": 2,
+   "combatUses": 1
+  },
+  {
+   "level": 3,
+   "points": 9,
+   "ravenRadius": 5,
+   "catDailyCount": 2,
+   "dogWarningSteps": 3,
+   "ratDailyCrates": 2,
+   "combatUses": 2
+  }
+ ],
+ "animals": {
+  "tier_rabe": {
+   "likes": [
+    "fs_salzsegen_raeucherfisch",
+    "salzbrot",
+    "vi_v_setzerbrot"
+   ],
+   "dislikes": [
+    "fs_laternennacht_apfel"
+   ],
+   "levelBenefits": [
+    {
+     "level": 0,
+     "text": "Vertrauen beginnt; die Basisgabe ist sofort verfügbar."
+    },
+    {
+     "level": 1,
+     "text": "Hinweisradius steigt auf vier Tiles."
+    },
+    {
+     "level": 2,
+     "text": "Bereits markierte Hinweise bleiben bis zum Kartenwechsel sichtbar."
+    },
+    {
+     "level": 3,
+     "text": "Zwei Eingriffe je Kampf statt eines; keine Wirkungsstapelung."
+    }
+   ]
+  },
+  "tier_kater": {
+   "likes": [
+    "fs_salzsegen_raeucherfisch",
+    "salzbrot",
+    "fs_salzsegen_brot"
+   ],
+   "dislikes": [
+    "fs_laternennacht_apfel"
+   ],
+   "levelBenefits": [
+    {
+     "level": 0,
+     "text": "Vertrauen beginnt; die Basisgabe ist sofort verfügbar."
+    },
+    {
+     "level": 1,
+     "text": "Der Tagesfund kann zwischen Salzbrot und Verband gewählt werden."
+    },
+    {
+     "level": 2,
+     "text": "Zwei einzelne Grundvorräte statt eines."
+    },
+    {
+     "level": 3,
+     "text": "Zwei Eingriffe je Kampf statt eines; keine Wirkungsstapelung."
+    }
+   ]
+  },
+  "tier_hund": {
+   "likes": [
+    "fs_salzsegen_raeucherfisch",
+    "salzbrot",
+    "vi_v_setzerbrot"
+   ],
+   "dislikes": [
+    "fs_laternennacht_apfel"
+   ],
+   "levelBenefits": [
+    {
+     "level": 0,
+     "text": "Vertrauen beginnt; die Basisgabe ist sofort verfügbar."
+    },
+    {
+     "level": 1,
+     "text": "Zwei bereits bekannte Reiseabschnitte werden vorausgeprüft."
+    },
+    {
+     "level": 2,
+     "text": "Eine Warnung zeigt zusätzlich die Kategorie der Reisefalle."
+    },
+    {
+     "level": 3,
+     "text": "Zwei Eingriffe je Kampf statt eines; keine Wirkungsstapelung."
+    }
+   ]
+  },
+  "tier_ratte": {
+   "likes": [
+    "salzbrot",
+    "fs_salzsegen_brot",
+    "vi_v_setzerbrot"
+   ],
+   "dislikes": [
+    "fs_laternennacht_apfel"
+   ],
+   "levelBenefits": [
+    {
+     "level": 0,
+     "text": "Vertrauen beginnt; die Basisgabe ist sofort verfügbar."
+    },
+    {
+     "level": 1,
+     "text": "Kistentyp und Eignung werden vor dem Öffnen angezeigt."
+    },
+    {
+     "level": 2,
+     "text": "Zwei geeignete Kisten je Tag statt einer."
+    },
+    {
+     "level": 3,
+     "text": "Zwei Eingriffe je Kampf statt eines; keine Wirkungsstapelung."
+    }
+   ]
+  }
+ },
+ "mechanics": {
+  "raven": {
+   "distance": "Chebyshev",
+   "requiresClueEligible": true,
+   "bypassesLocks": false,
+   "autoCollect": false,
+   "markerSeconds": 6,
+   "repeatCooldownSeconds": 10
+  },
+  "cat": {
+   "defaultItem": "salzbrot",
+   "choiceAtLevel1": [
+    "salzbrot",
+    "verband"
+   ],
+   "onlySafeMap": true,
+   "carryMissedDays": false,
+   "inventoryFull": "Einmaliger Pending-Fund mit Tages-ID; kein Verlust, keine Neuauslosung."
+  },
+  "dog": {
+   "reveals": "nur bereits generierte Reisefallen auf bekannten Routen",
+   "reroll": false,
+   "forcedTravelCancelled": false
+  },
+  "rat": {
+   "crateEligibility": "ordinaryLock && tier_openable && !questLock && !occultSeal",
+   "remoteUse": false,
+   "loot": "unveränderte vorhandene Kistenbeute"
+  },
+  "battle": {
+   "button": "Tiergabe neben Fähigkeiten",
+   "actionCost": 0,
+   "usesPerAnimalPerCombat": [
+    1,
+    1,
+    1,
+    2
+   ],
+   "raven": {
+    "skipNextAction": 1,
+    "immuneTarget": "Knopf deaktiviert; keine Ladung verbraucht",
+    "stack": false
+   },
+   "cat": {
+    "restoreNerves": 8,
+    "cap": "Nervenmaximum",
+    "atFull": "Knopf deaktiviert"
+   },
+   "dog": {
+    "nextDirectHitMultiplier": 0.5,
+    "round": "floor; mindestens 1 bei ursprünglichem Schaden >0",
+    "exclude": [
+     "Selbstkosten",
+     "Statusschaden",
+     "Umweltschaden"
+    ],
+    "stack": false
+   },
+   "rat": {
+    "count": 1,
+    "source": "vor Kampfbeginn festgelegte erlaubte Gegnerbeute",
+    "exclude": [
+     "Questgegenstand",
+     "einmaliges Artefakt",
+     "Bossbelohnung"
+    ],
+    "removeFromEndLoot": true,
+    "noEligibleLoot": "Knopf deaktiviert"
+   },
+   "consumeOn": "erfolgreich angewendeter Effekt",
+   "blockedByDangerMap": false,
+   "animalTargetable": false
+  }
+ }
+}

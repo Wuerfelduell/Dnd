@@ -1345,6 +1345,33 @@ export class WorldScene extends Phaser.Scene {
 
   // --- Spielschleife ----------------------------------------------------------
 
+  /** Codex DF: das aktive Tier läuft ein Stück hinter Spieler 1 her (nicht in Gefahrengebieten). */
+  updateTier(delta) {
+    const id = this.state.tierAktiv?.();
+    const show = id && this.player && !this.state.tierGefahr() && this.textures.exists(id);
+    if (!show) { if (this.tierSprite) { this.tierSprite.destroy(); this.tierSprite = null; } return; }
+    if (!this.tierSprite || this.tierSprite.texture.key !== id) {
+      this.tierSprite?.destroy();
+      this.tierSprite = this.add.sprite(this.player.x - 12, this.player.y, id, 0).setOrigin(0.5, 1);
+      this.tierStep = 0;
+    }
+    const t = this.tierSprite;
+    const dx = this.player.x - t.x;
+    const dy = this.player.y - t.y;
+    const dist = Math.hypot(dx, dy);
+    if (dist > 120) { t.setPosition(this.player.x - 12, this.player.y); return; } // Kartenwechsel oder Sprung
+    const moving = dist > 18;
+    if (moving) {
+      const sp = Math.min(dist - 18, (dist > 40 ? 0.11 : 0.07) * delta);
+      t.x += (dx / dist) * sp;
+      t.y += (dy / dist) * sp;
+      this.tierStep = (this.tierStep + delta / 140) % 4;
+    }
+    const row = Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 2 : 1) : dy > 0 ? 0 : 3;
+    t.setFrame(row * 4 + (moving ? Math.floor(this.tierStep) : 0));
+    t.setDepth(100 + t.y);
+  }
+
   update(time, delta) {
     const blocked = this.ui.isBlocking() || this.leaving;
     if (!blocked) this.state.tick(delta / 1000);
@@ -1352,6 +1379,7 @@ export class WorldScene extends Phaser.Scene {
     this.erfTimer = (this.erfTimer ?? 0) + delta;
     if (this.erfTimer > 1500) { this.erfTimer = 0; this.state.checkPost?.(); this.state.checkErfolge?.(); }
     this.updateMovement(blocked);
+    this.updateTier(delta);
     // Schlüssel Seq 5: die Schattengestalt ist durchscheinend
     this.playerSprites().forEach((q, i) => q.setAlpha(this.state.inShadow?.(i + 1) ? 0.4 : 1));
     const frozen = !!this.hg?.freezesWorld(); // Laternennacht: nur ihre eigenen Wesen bewegen sich
