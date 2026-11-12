@@ -2305,7 +2305,11 @@ export class Ui {
         more += list.length ? `<p class="muted">Zersetzbar: ${list.map((e) => btn(`decay:${e.id}`, `${e.name}${e.count > 1 ? ` ×${e.count}` : ''}`)).join(' ')}</p>` : '<p class="muted">Nichts Okkultes oder Seltenes im Gepäck.</p>';
       } else if (!st.guardian) acts.push(btn('moorwaechter', 'Den Wächter rufen', s.itemCount('s4mo_relikt') > 0 && s.itemCount('moorwasser') > 0));
     }
-    if (k === 'kessel' && !s.hgRecipesUnlocked()) more += `<p class="muted">${esc(s.seq4Msg('kessel', 'rezept_gesperrt'))}</p>`;
+    if (k === 'kessel' && !s.hgRecipesUnlocked()) {
+      const p = s.pathway;
+      const why = p?.digestion < 100 ? s.seq4Msg('kessel', 'verdauung_fehlt') : !s.itemCount(`formel_${p?.id}_4`) ? s.seq4Msg('kessel', 'formel_fehlt') : '';
+      more += `<p class="muted">${esc(why || s.seq4Msg('kessel', 'rezept_gesperrt'))}</p>`;
+    }
     if (s.seq4Running()) acts.push('<button class="small" data-seq4="abbrechen">Prüfung abbrechen</button>');
     // Codex DR: Regelkarte und Vorbereitung
     const card = s.seq4Card(k);
@@ -2313,7 +2317,7 @@ export class Ui {
     const prep = card?.vorbereitung?.length && !s.seq4Running() ? `<p class="muted"><strong>Vorbereitung:</strong> ${card.vorbereitung.map(esc).join(' ')}</p>` : '';
     const head = SEQ4_RITUAL_ICONS[k] ? itemIconBig(k === 'moor' && s.pathway.relikt ? 's4mo_relikt' : SEQ4_RITUAL_ICONS[k]) : '';
     return `<div class="seq5 seq4"><p class="desc">${head}<strong>${esc(s.seq4Name(k))}.</strong> ${esc(s.seq4Hint(k))}</p>${rules}${prep}${more}
-      <p>${acts.join(' ')} <span class="muted">Solo: Spieler 2 schaut zu. Gescheitert: −17 % Verdauung, +10 Unruhe; wiederholen darfst du jederzeit.</span></p></div>`;
+      <p>${acts.join(' ')} <span class="muted">${esc(s.seq4Text('s4r_solo') || 'Solo: Spieler 2 schaut zu.')} Gescheitert: −17 % Verdauung, +10 Unruhe. ${esc(s.seq4Text('s4r_wiederholen'))}</span></p></div>`;
   }
 
   /** Seq-5-Prüfung im Ritualblock: Regel, Knöpfe, Steckbrief (core/Seq5.js). */

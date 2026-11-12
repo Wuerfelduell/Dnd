@@ -4,7 +4,7 @@
     "laterne_angegriffen": "Monster greifen Laterne {n} an.",
     "laterne_schwach": "Laterne {n} brennt schwach.",
     "laterne_erloschen": "Laterne {n} ist erloschen.",
-    "nachfuellen_unterbrochen": "Ein Treffer unterbricht das Nachfüllen.",
+    "nachfuellen_unterbrochen": "Der Treffer unterbricht dich, schadet dir und stößt dich zurück.",
     "monster_weicht": "Das Monster weicht vor deinem Licht zurück.",
     "monster_zerfaellt": "Das Monster zerfällt im Licht.",
     "nerven_schwinden": "Das Licht zehrt an deinen Nerven und deiner Spiritualität.",
@@ -14,7 +14,10 @@
     "waechter_erscheint": "Der Schwellenwächter steht zwischen den Flammen.",
     "waechter_immun": "Eine einzelne Laterne lässt ihn unberührt.",
     "sonnenaufgang_moeglich": "Drei nahe Laternen brennen. Sonnenaufgang ist möglich.",
-    "sonnenaufgang": "Das Licht der drei Laternen trifft zusammen."
+    "sonnenaufgang": "Das Licht der drei Laternen trifft zusammen.",
+    "eigenlicht": "Dein schwaches Licht verletzt das Monster und drängt es zurück.",
+    "schwaechste_laterne": "Die Monster wenden sich der schwächsten Laterne zu.",
+    "angriff_gesperrt": "Du kannst hier nicht angreifen. Nur Licht tötet die Monster."
   },
   "s4r_faden": {
     "kreatur_markiert": "{name} markiert ({n}/5).",
@@ -22,9 +25,11 @@
     "art_belegt": "Diese Kreaturenart wurde bereits markiert.",
     "alle_markiert": "Fünf Fäden sind gespannt.",
     "einschlafen": "Du schläfst mit den Fäden an den Händen ein.",
-    "traumbeginn": "Alle fünf stehen zugleich vor dir.",
+    "traumbeginn": "Alle fünf greifen zugleich an, deutlich stärker als zuvor.",
     "heilung_versagt": "Im Traum bleibt die Heilung aus.",
-    "erwachen": "Du erwachst. Die Fäden sind fort."
+    "erwachen": "Du erwachst. Die Fäden sind fort.",
+    "waechter_erscheint": "Nach den fünf Gegnern bleibt der Schwellenwächter als Abschluss.",
+    "markierung_bleibt": "Der Faden bleibt gespannt, auch über den Kapitelwechsel hinaus."
   },
   "s4r_maske": {
     "verwandlung": "Du siehst aus wie ein gewöhnlicher Zivilist.",
@@ -34,7 +39,10 @@
     "artefakt_abgelegt": "Das Artefakt ist abgelegt.",
     "verschonen_frage": "Der Gegner liegt am Boden. Verschonen?",
     "verschont": "Du lässt den Gegner am Leben.",
-    "gegner_tot": "Der Gegner ist tot. Die Prüfung scheitert."
+    "gegner_tot": "Der Gegner ist tot. Die Prüfung scheitert.",
+    "gegner_faehigkeiten": "Dein Gegner behält seine Fähigkeiten.",
+    "waechter_erscheint": "Der Gegner lebt. Jetzt steht der Schwellenwächter vor dir.",
+    "zweifel_bleibt": "Der Verschonte prüft seine Hände. Sein Zweifel bleibt."
   },
   "s4r_echo": {
     "taubheit_beginn": "Kein Laut erreicht dich.",
@@ -42,7 +50,9 @@
     "gegner_besiegt": "Gegner {n}/3 ist besiegt.",
     "waechter_erscheint": "Ein Umriss tritt aus dem grauen Licht.",
     "ausweichen_gelungen": "Du gleitest am Schlag vorbei.",
-    "ausweichen_misslungen": "Der Schlag trifft dich."
+    "ausweichen_misslungen": "Der Schlag trifft dich.",
+    "parieren_gelungen": "Du fängst den Schlag ab.",
+    "parieren_misslungen": "Deine Parade hält den Schlag nicht auf."
   },
   "s4r_kessel": {
     "rezept_frei": "Rezept {item} ist freigeschaltet.",
@@ -51,7 +61,10 @@
     "getrunken": "Ritual-Trank {n}/5 getrunken.",
     "waechter_erscheint": "Der Wächter tritt an den Kessel.",
     "angriff_verboten": "Nur Trankwirkungen dürfen den Wächter verletzen.",
-    "trank_trifft": "Die Trankwirkung trifft den Wächter."
+    "trank_trifft": "Die Trankwirkung trifft den Wächter.",
+    "verdauung_fehlt": "Sequenz 5 ist noch nicht vollständig verdaut.",
+    "formel_fehlt": "Dir fehlt die Formel der Sequenz 4.",
+    "offensive_faehigkeit_verboten": "Offensive Fähigkeiten sind gesperrt. Nutze Trankwirkungen."
   },
   "s4r_eisen": {
     "artefakte_fehlen": "Artefakte: {n}/5.",
@@ -62,10 +75,10 @@
     "bereit": "Alle Bedingungen sind erfüllt.",
     "waechter_erscheint": "Der Wächter erscheint an deinem Standort.",
     "runde_ueberstanden": "Runde {runde}/5 überstanden.",
-    "todesstoss_abgewehrt": "Der Wächter kann noch nicht sterben.",
-    "verwundbar": "Ab Runde 6 ist der Wächter verwundbar.",
-    "ausweichen_verboten": "Ausweichen bricht die Prüfung.",
-    "bedingung_gebrochen": "Eine Lastbedingung wurde gebrochen."
+    "todesstoss_abgewehrt": "Dein Treffer schadet ihm, doch vor Runde 6 kann er nicht sterben.",
+    "verwundbar": "Runde 6: Der Wächter kann jetzt sterben.",
+    "ausweichen_verboten": "Du versuchst auszuweichen. Die Prüfung scheitert.",
+    "bedingung_gebrochen": "Eine Lastbedingung ist gebrochen. Das Ritual scheitert."
   },
   "s4r_schluessel": {
     "schatten_getrennt": "Der Schatten löst sich von dir.",
@@ -76,18 +89,21 @@
     "gegner_besiegt": "Gegner {n}/2 besiegt.",
     "waechter_erscheint": "Der Wächter wendet sich dem Schatten zu.",
     "schatten_zurueck": "Der Schatten kehrt zurück.",
-    "schatten_zerfasert": "Der Schatten zerfasert. Dein Körper bleibt am Leben."
+    "schatten_zerfasert": "Der Schatten zerfasert. Dein Körper bleibt am Leben.",
+    "schattenattacke": "Schattenattacke bleibt verfügbar und kostet keine Nerven.",
+    "ausruestung_gesperrt": "Der Schatten trägt keine Ausrüstung."
   },
   "s4r_sq_waage": {
     "besitz_versiegelt": "Dein Besitz liegt versiegelt im Lager.",
     "kapital_gewaehlt": "Du betrittst den Zirkel mit {n} Schilling.",
     "kauf": "{item} gekauft. {n} Schilling übrig.",
     "waren_offen": "Noch {n} Waren offen.",
-    "kapital_zu_knapp": "Das Kapital reicht nicht.",
+    "kapital_zu_knapp": "Dein Kapital reicht nicht für alle Waren. Das Ritual scheitert.",
     "alles_gekauft": "Der gesamte Zirkelmarkt ist leergekauft.",
     "waechter_erscheint": "Der Wächter wartet am leeren Verkaufstisch.",
     "nur_gekauftes": "Nur im Zirkel Gekauftes ist zulässig.",
-    "besitz_zurueck": "Dein versiegelter Besitz wird zurückgegeben."
+    "besitz_zurueck": "Dein versiegelter Besitz wird zurückgegeben.",
+    "angebot_unveraendert": "Der Zirkel behält sein gewöhnliches Angebot."
   },
   "s4r_sq_moor": {
     "zersetzt": "{item} zersetzt ({n}/5).",
@@ -103,6 +119,9 @@
     "normal": "Nur normales Ausweichen: Fehler.",
     "waechter_fehler": "Ausweichfehler beim Wächter: {n}/3.",
     "vierter_fehler": "Vierter Fehler. Die Prüfung scheitert.",
-    "parieren_verboten": "Parieren ist verboten."
+    "parieren_verboten": "Parieren ist verboten.",
+    "vorpruefung_fehler": "Kein perfektes Ausweichen: Die Vorprüfung scheitert.",
+    "gegner_ohne_angriff": "Das Monster fiel ohne eigenen Angriff. Die Prüfung scheitert.",
+    "waechter_erscheint": "Drei Monster ohne Fehler besiegt. Der Schwellenwächter tritt vor."
   }
 }
