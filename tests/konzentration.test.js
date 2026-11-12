@@ -163,3 +163,13 @@ test('Revier-Artefakte liegen in der Asservatenkammer, Treffen-Artefakte sind im
   const offered = new Set(Object.values(content.gatherings.circles).flatMap((c) => c.members.flatMap((m) => m.offers.map((e) => e.item))));
   for (const [id, a] of focusArts) if (a.source === 'treffen') assert.ok(offered.has(id), id);
 });
+
+test('Sequenz 5 gibt +2 maximale Konzentration (alle Pfade, je Spieler)', () => {
+  const s = hero();
+  const c0 = new Combat(s, 'fog_hound');
+  const base = c0.apMaxOf(1);
+  s.pathway = { ...(s.pathway || { id: 'eisen' }), seq: 5 };
+  assert.equal(new Combat(s, 'fog_hound').apMaxOf(1), Math.min(AP_MAX_CAP, base + 2));
+  s.pathway.seq = 6;
+  assert.equal(new Combat(s, 'fog_hound').apMaxOf(1), base);
+});

@@ -64,6 +64,8 @@ export const ENRAGE_AT = 0.4; // unter 40 % Leben wird der Gegner schneller und 
 export const EARLY_LIMIT = 450; // frühere Tastendrücke zählen noch nicht
 export const AP_MAX = 6;
 export const AP_START = 1;
+export const SEQ5_AP_SEQ = 5; // ab Sequenz 5 (alle Pfade) …
+export const SEQ5_AP_BONUS = 2; // … +2 maximale Konzentration
 export const AP_MAX_CAP = 10; // mehr Pips passen nicht in die Leiste
 export const GRADE_MULT = { perfect: 1.3, good: 1, miss: 0.4 };
 /**
@@ -289,7 +291,8 @@ export class Combat {
 
   /** Höchstwert der Konzentration eines Spielers (Grundwert plus Artefakte, höchstens AP_MAX_CAP, mindestens 1). */
   apMaxOf(n) {
-    return Math.max(1, Math.min(AP_MAX_CAP, AP_MAX + this.state.withPlayer(n, () => this.state.passive('ap_max'), { quiet: true })));
+    const bonus = this.state.withPlayer(n, () => this.state.passive('ap_max') + ((this.state.pathway?.seq ?? 9) <= SEQ5_AP_SEQ ? SEQ5_AP_BONUS : 0), { quiet: true });
+    return Math.max(1, Math.min(AP_MAX_CAP, AP_MAX + bonus));
   }
 
   get apMax() {
