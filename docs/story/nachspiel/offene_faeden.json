@@ -1,0 +1,2505 @@
+{
+  "bestand": [
+    {
+      "id": "np_faden_kg_waschtag",
+      "quest": "kg_waschtag",
+      "source": "src/data/packs/kg_nebenquests/quests.json",
+      "city": "kettlegate",
+      "title": "Das Hemd vom Donnerstag",
+      "empfang_text": "Das Hemd ist trocken; Ihre Frage dazu noch nicht erledigt.",
+      "empfang": {
+        "npc": "waescherin",
+        "map": "ashgrove"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "kg_waschtag_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_kg_schornstein",
+      "quest": "kg_schornstein",
+      "source": "src/data/packs/kg_nebenquests/quests.json",
+      "city": "kettlegate",
+      "title": "Feierabend im Schornstein",
+      "empfang_text": "Der Ruß wartet nicht auf Reisende. Gut, dass Sie trotzdem kommen.",
+      "empfang": {
+        "npc": "kaminkehrer",
+        "map": "docks"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "kg_schornstein_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_kg_nachtschicht",
+      "quest": "kg_nachtschicht",
+      "source": "src/data/packs/kg_nebenquests/quests.json",
+      "city": "kettlegate",
+      "title": "Das Fenster ohne Zimmer",
+      "empfang_text": "Das Fenster ist noch da. Heute sehen wir bei Licht nach.",
+      "empfang": {
+        "npc": "nachtwaechter",
+        "map": "giesserei"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "kg_nachtschicht_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_kg_letzte_fahrt",
+      "quest": "kg_letzte_fahrt",
+      "source": "src/data/packs/kg_nebenquests/quests.json",
+      "city": "kettlegate",
+      "title": "Die letzte Fahrt",
+      "empfang_text": "Sie haben viele Gleise gesehen; meine letzte Fahrt blieb offen.",
+      "empfang": {
+        "npc": "kutscher",
+        "map": "nordtor"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "kg_letzte_fahrt_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_kg_totenbild",
+      "quest": "kg_totenbild",
+      "source": "src/data/packs/kg_nebenquests/quests.json",
+      "city": "kettlegate",
+      "title": "Die offenen Augen",
+      "empfang_text": "Die Platte ist sorgfältig verwahrt. Wir können weiterprüfen.",
+      "empfang": {
+        "npc": "fotografin",
+        "map": "atelier"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "kg_totenbild_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_kg_gezinkt",
+      "quest": "kg_gezinkt",
+      "source": "src/data/packs/kg_nebenquests/quests.json",
+      "city": "kettlegate",
+      "title": "Unter Kollegen",
+      "empfang_text": "Mein Brief liegt noch am Stand. Lesen Sie die Rückseite ebenfalls.",
+      "empfang": {
+        "source_target": {
+          "map": "nachtmarkt",
+          "id": "kg_pratt_brief",
+          "label": "Pratt oder sein Brief am Stand"
+        },
+        "darstellung": "brief_oder_brett"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "kg_gezinkt_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_kg_kartenlegerin",
+      "quest": "kg_kartenlegerin",
+      "source": "src/data/packs/kg_nebenquests/quests.json",
+      "city": "kettlegate",
+      "title": "Das verschlossene Haus",
+      "empfang_text": "Die Karten sind eingepackt; über das Haus können wir trotzdem sprechen.",
+      "empfang": {
+        "npc": "wahrsagerin",
+        "map": "nachtmarkt"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "kg_kartenlegerin_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_kg_landgang",
+      "quest": "kg_landgang",
+      "source": "src/data/packs/kg_nebenquests/quests.json",
+      "city": "kettlegate",
+      "title": "Landgang ohne Rückkehr",
+      "empfang_text": "Ich bin noch nicht zu meiner eigenen Ankunft gekommen.",
+      "empfang": {
+        "npc": "matrose",
+        "map": "docks"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "kg_landgang_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_kg_kodizill",
+      "quest": "kg_kodizill",
+      "source": "src/data/packs/kg_nebenquests/quests.json",
+      "city": "kettlegate",
+      "title": "Licht für einen Schuldner",
+      "empfang_text": "Der Nachtrag liegt getrennt vom Testament. Genau wie damals.",
+      "empfang": {
+        "npc": "erbe",
+        "map": "kontor_thorne"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "kg_kodizill_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_kg_rattenkoenig",
+      "quest": "kg_rattenkoenig",
+      "source": "src/data/packs/kg_nebenquests/quests.json",
+      "city": "kettlegate",
+      "title": "Ein König aus Draht",
+      "empfang_text": "Den Draht habe ich behalten, nicht den angeblichen König.",
+      "empfang": {
+        "npc": "rattenfaenger",
+        "map": "ashgrove"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "kg_rattenkoenig_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_kg_flugblatt",
+      "quest": "kg_flugblatt",
+      "source": "src/data/packs/kg_nebenquests/quests.json",
+      "city": "kettlegate",
+      "title": "Die falsche Druckzeile",
+      "empfang_text": "Die Druckzeile ist noch lesbar. Wollen wir endlich den Ursprung klären?",
+      "empfang": {
+        "npc": "kind_streuner",
+        "map": "nachtmarkt"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "kg_flugblatt_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_kg_kopfgeld_siegelbrecher",
+      "quest": "kg_kopfgeld_siegelbrecher",
+      "source": "src/data/packs/kg_nebenquests/quests.json",
+      "city": "kettlegate",
+      "title": "Kopfgeld: Leda Marn, die Siegelbrecherin",
+      "empfang_text": "Der Aushang ist noch offen. Prüfen Sie vor der Suche den aktuellen Vermerk.",
+      "empfang": {
+        "source_target": {
+          "map": "revier",
+          "id": "kopfgeldbrett",
+          "label": "Kopfgeldbrett"
+        },
+        "darstellung": "brief_oder_brett"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "kg_kopfgeld_siegelbrecher_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_kg_kopfgeld_schichtdieb",
+      "quest": "kg_kopfgeld_schichtdieb",
+      "source": "src/data/packs/kg_nebenquests/quests.json",
+      "city": "kettlegate",
+      "title": "Kopfgeld: Bramwell Silt, der Schichtdieb",
+      "empfang_text": "Der Schichtdieb ist nicht durch Ihre Abreise abgegolten. Lesen Sie den Nachtrag.",
+      "empfang": {
+        "source_target": {
+          "map": "revier",
+          "id": "kopfgeldbrett",
+          "label": "Kopfgeldbrett"
+        },
+        "darstellung": "brief_oder_brett"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "kg_kopfgeld_schichtdieb_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_kg_kopfgeld_pfandvogt",
+      "quest": "kg_kopfgeld_pfandvogt",
+      "source": "src/data/packs/kg_nebenquests/quests.json",
+      "city": "kettlegate",
+      "title": "Kopfgeld: Nessa Rusk, die Pfandvögtin",
+      "empfang_text": "Das Pfand liegt nicht automatisch beim Sieger. Wir prüfen die offene Forderung.",
+      "empfang": {
+        "source_target": {
+          "map": "revier",
+          "id": "kopfgeldbrett",
+          "label": "Kopfgeldbrett"
+        },
+        "darstellung": "brief_oder_brett"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "kg_kopfgeld_pfandvogt_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k2n_reetdach",
+      "quest": "k2n_reetdach",
+      "source": "src/data/packs/wx_nebenquests/quests.json",
+      "city": "wexmoor",
+      "title": "Das Dach ohne Morgen",
+      "empfang_text": "Das Dach hält bis zur nächsten Frage. Haben Sie die Kerbe noch notiert?",
+      "empfang": {
+        "npc": "sedge",
+        "map": "wx_pfahldorf"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k2n_reetdach_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k2n_salzwaage",
+      "quest": "k2n_salzwaage",
+      "source": "src/data/packs/wx_nebenquests/quests.json",
+      "city": "wexmoor",
+      "title": "Was vom Gewicht bleibt",
+      "empfang_text": "Das Gewicht liegt versiegelt. Ihre Reise war kein Eichversuch.",
+      "empfang": {
+        "npc": "k2n_eichmeisterin",
+        "map": "wx_salzmarkt"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k2n_salzwaage_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k2n_bojenlied",
+      "quest": "k2n_bojenlied",
+      "source": "src/data/packs/wx_nebenquests/quests.json",
+      "city": "wexmoor",
+      "title": "Das Lied vom freien Platz",
+      "empfang_text": "Die freie Boje ist noch auf meiner Liste.",
+      "empfang": {
+        "npc": "brack",
+        "map": "wx_bojenhafen"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k2n_bojenlied_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k2n_falsches_gesicht",
+      "quest": "k2n_falsches_gesicht",
+      "source": "src/data/packs/wx_nebenquests/quests.json",
+      "city": "wexmoor",
+      "title": "Das absichtlich falsche Gesicht",
+      "empfang_text": "Ich habe das falsche Gesicht nicht heimlich verbessert.",
+      "empfang": {
+        "npc": "k2n_zeichner",
+        "map": "wx_oberstadt"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k2n_falsches_gesicht_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k2n_kuestengift",
+      "quest": "k2n_kuestengift",
+      "source": "src/data/packs/wx_nebenquests/quests.json",
+      "city": "wexmoor",
+      "title": "Was Jorin nach Hause folgt",
+      "empfang_text": "Die Proben stehen getrennt. Verwechseln Sie mir die Zeiten nicht.",
+      "empfang": {
+        "npc": "k2n_student",
+        "map": "wx_akademie"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k2n_kuestengift_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k2n_pfandzettel",
+      "quest": "k2n_pfandzettel",
+      "source": "src/data/packs/wx_nebenquests/quests.json",
+      "city": "wexmoor",
+      "title": "Post für ein geschlossenes Büro",
+      "empfang_text": "Der Pfandzettel ist trocken geblieben. Das Büro muss trotzdem antworten.",
+      "empfang": {
+        "npc": "hesper",
+        "map": "wx_salzmarkt"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k2n_pfandzettel_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k2n_schleusenwaerter",
+      "quest": "k2n_schleusenwaerter",
+      "source": "src/data/packs/wx_nebenquests/quests.json",
+      "city": "wexmoor",
+      "title": "Boote ohne Laternen",
+      "empfang_text": "Die unbeleuchteten Boote stehen noch im Dienstbuch.",
+      "empfang": {
+        "npc": "druce",
+        "map": "wx_bahnhof"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k2n_schleusenwaerter_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k2n_moorkind",
+      "quest": "k2n_moorkind",
+      "source": "src/data/packs/wx_nebenquests/quests.json",
+      "city": "wexmoor",
+      "title": "Der Name hinter den Zähnen",
+      "empfang_text": "Wir fragen nach dem Namen, ohne ihn dem Kind in den Mund zu legen.",
+      "empfang": {
+        "npc": "sedge",
+        "map": "wx_pfahldorf"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k2n_moorkind_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k2n_zunders_liste",
+      "quest": "k2n_zunders_liste",
+      "source": "src/data/packs/wx_nebenquests/quests.json",
+      "city": "wexmoor",
+      "title": "Drei Zeilen nach der Haft",
+      "empfang_text": "Drei Zeilen warten noch. Keine davon wird wegen Ihrer Verspätung teurer.",
+      "empfang": {
+        "npc": "zunder",
+        "map": "wx_kahn"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k2n_zunders_liste_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k2n_letztes_licht",
+      "quest": "k2n_letztes_licht",
+      "source": "src/data/packs/wx_nebenquests/quests.json",
+      "city": "wexmoor",
+      "title": "Das letzte Dienstlicht",
+      "empfang_text": "Die Lampe bleibt aus, bis wir wissen, welchen Dienst sie tat.",
+      "empfang": {
+        "npc": "k2n_waerter",
+        "map": "wx_salzwatt"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k2n_letztes_licht_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k3n_tischgedeck",
+      "quest": "k3n_tischgedeck",
+      "source": "src/data/packs/k3_nebenquests/quests.json",
+      "city": "dunscar",
+      "title": "Ein Platz seit siebzig Jahren",
+      "empfang_text": "Der freie Platz ist kein Vorwurf. Setzen Sie sich zur Gegenprobe.",
+      "empfang": {
+        "npc": "k3_mabel",
+        "map": "ds_arbeiterbogen"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3n_tischgedeck_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k3n_grabstein_ohne_namen",
+      "quest": "k3n_grabstein_ohne_namen",
+      "source": "src/data/packs/k3_nebenquests/quests.json",
+      "city": "dunscar",
+      "title": "Der Stein mit deinem Namen",
+      "empfang_text": "Der Stein steht umgedreht. Ihr Name ist deshalb nicht verschwunden.",
+      "empfang": {
+        "npc": "k3_pelham",
+        "map": "ds_kalkmarkt"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3n_grabstein_ohne_namen_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k3n_falsche_zeit",
+      "quest": "k3n_falsche_zeit",
+      "source": "src/data/packs/k3_nebenquests/quests.json",
+      "city": "dunscar",
+      "title": "Eine Minute außerhalb der Schicht",
+      "empfang_text": "Ich habe die Empfangsminute nicht an den Fahrplan angepasst.",
+      "empfang": {
+        "npc": "k3_nellie",
+        "map": "ds_endbahnhof"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3n_falsche_zeit_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k3n_attest",
+      "quest": "k3n_attest",
+      "source": "src/data/packs/k3_nebenquests/quests.json",
+      "city": "dunscar",
+      "title": "Ein Zeuge ohne Fahrkarte",
+      "empfang_text": "Das Attest wartet auf einen Zeugen, nicht auf Ihre Rangbezeichnung.",
+      "empfang": {
+        "npc": "k3_huxford",
+        "map": "ds_arbeiterbogen"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3n_attest_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k3n_vermessung",
+      "quest": "k3n_vermessung",
+      "source": "src/data/packs/k3_nebenquests/quests.json",
+      "city": "dunscar",
+      "title": "Der wandernde Nullpunkt",
+      "empfang_text": "Die alte Messmarke ist noch kenntlich.",
+      "empfang": {
+        "npc": "k3_adaine",
+        "map": "ds_bruchstufen"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3n_vermessung_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k3n_schichtmarke",
+      "quest": "k3n_schichtmarke",
+      "source": "src/data/packs/k3_nebenquests/quests.json",
+      "city": "dunscar",
+      "title": "Heute geprägt, gestern bezahlt",
+      "empfang_text": "Die Marke liegt getrennt von den gültigen Löhnen.",
+      "empfang": {
+        "npc": "k3_mabel",
+        "map": "ds_teesaal"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3n_schichtmarke_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k3n_secondhand",
+      "quest": "k3n_secondhand",
+      "source": "src/data/packs/k3_nebenquests/quests.json",
+      "city": "dunscar",
+      "title": "Die falsche Begrüßung",
+      "empfang_text": "Die Platte sagt noch immer das Falsche. Hören wir genau hin.",
+      "empfang": {
+        "npc": "k3n_secondhaendler",
+        "map": "ds_kalkmarkt"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3n_secondhand_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k3n_drehscheibe",
+      "quest": "k3n_drehscheibe",
+      "source": "src/data/packs/k3_nebenquests/quests.json",
+      "city": "dunscar",
+      "title": "Ein Weg ohne Aufruf",
+      "empfang_text": "Der freie Weg ist markiert. Er braucht keinen neuen Aufruf.",
+      "empfang": {
+        "npc": "k3_oren",
+        "map": "ds_schwellenring"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3n_drehscheibe_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k3n_brief_aus_wexmoor",
+      "quest": "k3n_brief_aus_wexmoor",
+      "source": "src/data/packs/k3_nebenquests/quests.json",
+      "city": "dunscar",
+      "title": "Ein Paket, das schwimmen konnte",
+      "empfang_text": "Das Paket hat die Feuchtigkeit überstanden. Ihre Fragen hoffentlich auch.",
+      "empfang": {
+        "npc": "k3_pfiff",
+        "map": "ds_speisewagen"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3n_brief_aus_wexmoor_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k3n_kettlegate",
+      "quest": "k3n_kettlegate",
+      "source": "src/data/packs/k3_nebenquests/quests.json",
+      "city": "dunscar",
+      "title": "Eine alte Rechnung reist weiter",
+      "empfang_text": "Die Rechnung ist älter geworden, nicht richtiger.",
+      "empfang": {
+        "npc": "k3_nellie",
+        "map": "ds_endbahnhof"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3n_kettlegate_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k3n_kalkkinder",
+      "quest": "k3n_kalkkinder",
+      "source": "src/data/packs/k3_nebenquests/quests.json",
+      "city": "dunscar",
+      "title": "Feierabend im Kreidekreis",
+      "empfang_text": "Die Kinder haben den Kreis nicht für Ihre Rückkehr festgehalten.",
+      "empfang": {
+        "npc": "k3_pfiff",
+        "map": "ds_arbeiterbogen"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3n_kalkkinder_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k3n_letzte_lohnliste",
+      "quest": "k3n_letzte_lohnliste",
+      "source": "src/data/packs/k3_nebenquests/quests.json",
+      "city": "dunscar",
+      "title": "Die letzte Lohnliste",
+      "empfang_text": "Die letzte Lohnliste liegt offen. Es kommen keine fremden Namen hinzu.",
+      "empfang": {
+        "npc": "k3_esther",
+        "map": "ds_lohnbuero"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3n_letzte_lohnliste_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_cwn_zwei_teller",
+      "quest": "cwn_zwei_teller",
+      "source": "src/data/packs/k4_nebenquests/quests.json",
+      "city": "calderwick",
+      "title": "Zwei Teller, eine Rechnung",
+      "empfang_text": "Der zweite Teller ist geblieben. Die Rechnung prüfen wir noch.",
+      "empfang": {
+        "npc": "cw_noel_bellcross",
+        "map": "cw_kueche"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "cwn_zwei_teller_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_cwn_brotdose",
+      "quest": "cwn_brotdose",
+      "source": "src/data/packs/k4_nebenquests/quests.json",
+      "city": "calderwick",
+      "title": "Der Name in der Brotdose",
+      "empfang_text": "Die Brotdose ist leer, aber ihre Spur nicht erledigt.",
+      "empfang": {
+        "npc": "cw_pritch",
+        "map": "cw_setzergasse"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "cwn_brotdose_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_cwn_falscher_pfand",
+      "quest": "cwn_falscher_pfand",
+      "source": "src/data/packs/k4_nebenquests/quests.json",
+      "city": "calderwick",
+      "title": "Drei Haushalte, ein Pfand",
+      "empfang_text": "Drei Haushalte warten auf eine genaue Trennung.",
+      "empfang": {
+        "npc": "cw_wicksend",
+        "map": "cw_pfandhaus"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "cwn_falscher_pfand_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_cwn_klopfzeichen",
+      "quest": "cwn_klopfzeichen",
+      "source": "src/data/packs/k4_nebenquests/quests.json",
+      "city": "calderwick",
+      "title": "Die Wohnung antwortet",
+      "empfang_text": "Die Wohnung antwortet nicht auf jeden. Warten wir auf die richtige Gelegenheit.",
+      "empfang": {
+        "npc": "cw_bexley",
+        "map": "cw_witwenterrasse"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "cwn_klopfzeichen_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_cwn_durchschlaege",
+      "quest": "cwn_durchschlaege",
+      "source": "src/data/packs/k4_nebenquests/quests.json",
+      "city": "calderwick",
+      "title": "Papier ohne Stempel",
+      "empfang_text": "Die Durchschläge liegen nach Datum, nicht nach Amtsrang.",
+      "empfang": {
+        "npc": "cw_darnell",
+        "map": "cw_gepaeckhalle"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "cwn_durchschlaege_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_cwn_falsche_adresse",
+      "quest": "cwn_falsche_adresse",
+      "source": "src/data/packs/k4_nebenquests/quests.json",
+      "city": "calderwick",
+      "title": "Die Last der falschen Adresse",
+      "empfang_text": "Die Kiste wurde nicht an die falsche Adresse ausgeliefert.",
+      "empfang": {
+        "npc": "cw_hesk",
+        "map": "cw_roehrenhof"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "cwn_falsche_adresse_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_cwn_restaurierung",
+      "quest": "cwn_restaurierung",
+      "source": "src/data/packs/k4_nebenquests/quests.json",
+      "city": "calderwick",
+      "title": "Der nachgezogene Aktenrand",
+      "empfang_text": "Der nachgezogene Rand bleibt sichtbar.",
+      "empfang": {
+        "npc": "cw_malliver",
+        "map": "cw_archivsaal"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "cwn_restaurierung_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_cwn_warnbrief",
+      "quest": "cwn_warnbrief",
+      "source": "src/data/packs/k4_nebenquests/quests.json",
+      "city": "calderwick",
+      "title": "Ein Brief vor dem Abend",
+      "empfang_text": "Der Warnbrief ist aufbewahrt. Wir prüfen seine damalige Bedeutung.",
+      "empfang": {
+        "npc": "cw_crayford",
+        "map": "cw_buchbinderei"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "cwn_warnbrief_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_cwn_seilbahn",
+      "quest": "cwn_seilbahn",
+      "source": "src/data/packs/k4_nebenquests/quests.json",
+      "city": "calderwick",
+      "title": "Die siebte Haltestelle",
+      "empfang_text": "Die zusätzliche Haltestelle steht nicht plötzlich im Fahrplan.",
+      "empfang": {
+        "npc": "cwn_aufzugswaerter",
+        "map": "cw_gleisfuss"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "cwn_seilbahn_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_cwn_brief_aus_dunscar",
+      "quest": "cwn_brief_aus_dunscar",
+      "source": "src/data/packs/k4_nebenquests/quests.json",
+      "city": "calderwick",
+      "title": "Ein Paket von Pfiff",
+      "empfang_text": "Pfiffs Paket blieb ungeöffnet, soweit es Ihnen zusteht.",
+      "empfang": {
+        "npc": "cw_darnell",
+        "map": "cw_gepaeckhalle"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "cwn_brief_aus_dunscar_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_cwn_telegramm_kettlegate",
+      "quest": "cwn_telegramm_kettlegate",
+      "source": "src/data/packs/k4_nebenquests/quests.json",
+      "city": "calderwick",
+      "title": "Wer liest die Revierakten?",
+      "empfang_text": "Die Revierfrage kam vor Ihnen zurück.",
+      "empfang": {
+        "npc": "cw_crayford",
+        "map": "cw_buchbinderei"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "cwn_telegramm_kettlegate_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_cwn_letzte_terrasse",
+      "quest": "cwn_letzte_terrasse",
+      "source": "src/data/packs/k4_nebenquests/quests.json",
+      "city": "calderwick",
+      "title": "Die letzte Terrasse",
+      "empfang_text": "Die Terrasse wartet nicht auf einen neuen Erlöser, nur auf die offene Arbeit.",
+      "empfang": {
+        "npc": "cw_noel_bellcross",
+        "map": "cw_kueche"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "cwn_letzte_terrasse_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_bhn_gepaeckschein",
+      "quest": "bhn_gepaeckschein",
+      "source": "src/data/packs/k5_nebenquests/quests.json",
+      "city": "briarholt",
+      "title": "Der Koffer ohne Einweisung",
+      "empfang_text": "Der doppelte Gepäckschein ist noch hier.",
+      "empfang": {
+        "npc": "bh_felix_fencrest",
+        "map": "bh_kutschenhalle"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "bhn_gepaeckschein_bezahlt"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_bhn_postkarten",
+      "quest": "bhn_postkarten",
+      "source": "src/data/packs/k5_nebenquests/quests.json",
+      "city": "briarholt",
+      "title": "Eine Adresse ohne fremden Namen",
+      "empfang_text": "Die Adresse darf weiterhin Ihre eigene Entscheidung sein.",
+      "empfang": {
+        "npc": "bh_henshall",
+        "map": "bh_pavillon"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "bhn_postkarten_bezahlt"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_bhn_umgedrehte_schilder",
+      "quest": "bhn_umgedrehte_schilder",
+      "source": "src/data/packs/k5_nebenquests/quests.json",
+      "city": "briarholt",
+      "title": "Die Rückseite der Beete",
+      "empfang_text": "Die Rückseiten der Schilder sind nicht übermalt worden.",
+      "empfang": {
+        "npc": "bh_vellish",
+        "map": "bh_verkaufshalle"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "bhn_umgedrehte_schilder_bezahlt"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_bhn_waermeschwarz",
+      "quest": "bhn_waermeschwarz",
+      "source": "src/data/packs/k5_nebenquests/quests.json",
+      "city": "briarholt",
+      "title": "Armenwärme im Nebenrohr",
+      "empfang_text": "Das Nebenrohr bleibt markiert. Prüfen wir die Herkunft der Wärme.",
+      "empfang": {
+        "npc": "bh_malkin",
+        "map": "bh_kesselgrund"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "bhn_waermeschwarz_bezahlt"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_bhn_namensheft",
+      "quest": "bhn_namensheft",
+      "source": "src/data/packs/k5_nebenquests/quests.json",
+      "city": "briarholt",
+      "title": "Ein Heft in Reichweite",
+      "empfang_text": "Das Heft bleibt in Reichweite seiner Besitzer.",
+      "empfang": {
+        "npc": "bh_rookwell",
+        "map": "bh_speisesaal"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "bhn_namensheft_bezahlt"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_bhn_frachtbelege",
+      "quest": "bhn_frachtbelege",
+      "source": "src/data/packs/k5_nebenquests/quests.json",
+      "city": "briarholt",
+      "title": "Der Preis einer leeren Kiste",
+      "empfang_text": "Die leere Kiste ist noch keine erledigte Rechnung.",
+      "empfang": {
+        "npc": "bh_crowther",
+        "map": "bh_wurzelkranz"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "bhn_frachtbelege_bezahlt"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_bhn_wurzelzeichnungen",
+      "quest": "bhn_wurzelzeichnungen",
+      "source": "src/data/packs/k5_nebenquests/quests.json",
+      "city": "briarholt",
+      "title": "Zwei Kanten, zwei Zeiten",
+      "empfang_text": "Beide Zeichnungen liegen nebeneinander.",
+      "empfang": {
+        "npc": "bh_dipple",
+        "map": "bh_mutterhaus"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "bhn_wurzelzeichnungen_bezahlt"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_bhn_schraubenschluessel",
+      "quest": "bhn_schraubenschluessel",
+      "source": "src/data/packs/k5_nebenquests/quests.json",
+      "city": "briarholt",
+      "title": "Der gute Schlüssel",
+      "empfang_text": "Der gute Schlüssel wird nicht als Reisepfand einbehalten.",
+      "empfang": {
+        "npc": "bh_bellweather",
+        "map": "bh_buegelraum"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "bhn_schraubenschluessel_bezahlt"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_bhn_kurkonzert",
+      "quest": "bhn_kurkonzert",
+      "source": "src/data/packs/k5_nebenquests/quests.json",
+      "city": "briarholt",
+      "title": "Die ungeschriebene Zeile",
+      "empfang_text": "Die Pause im Konzert bleibt frei.",
+      "empfang": {
+        "npc": "bhn_e_kapellmeister",
+        "map": "bh_pavillon"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "bhn_kurkonzert_bezahlt"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_bhn_brief_aus_calderwick",
+      "quest": "bhn_brief_aus_calderwick",
+      "source": "src/data/packs/k5_nebenquests/quests.json",
+      "city": "briarholt",
+      "title": "Ein Paket ohne Vorladung",
+      "empfang_text": "Das Paket war keine Vorladung und ist es noch immer nicht.",
+      "empfang": {
+        "npc": "bh_bellweather",
+        "map": "bh_buegelraum"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "bhn_brief_aus_calderwick_bezahlt"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_bhn_elsbeth",
+      "quest": "bhn_elsbeth",
+      "source": "src/data/packs/k5_nebenquests/quests.json",
+      "city": "briarholt",
+      "title": "Keine Unterschrift für die Werbung",
+      "empfang_text": "Die fehlende Unterschrift wird durch Zeitablauf keine Zustimmung.",
+      "empfang": {
+        "npc": "bhn_e_patientin",
+        "map": "bh_speisesaal"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "bhn_elsbeth_bezahlt"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_bhn_wintervorrat",
+      "quest": "bhn_wintervorrat",
+      "source": "src/data/packs/k5_nebenquests/quests.json",
+      "city": "briarholt",
+      "title": "Vier Türen vor dem Winter",
+      "empfang_text": "Die vier Türen werden einzeln geprüft. Sie kommen gerade recht.",
+      "empfang": {
+        "npc": "bh_bellweather",
+        "map": "bh_buegelraum"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "bhn_reserve_geprueft"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k3p_laterne_pruefung",
+      "quest": "k3p_laterne_pruefung",
+      "source": "src/data/packs/k3_pruefungen/quests.json",
+      "city": "dunscar",
+      "title": "Das Licht unter dem Lack",
+      "empfang_text": "Die Probe „Das Licht unter dem Lack“ bleibt offen. Ihr bisheriger Befund bleibt erhalten; wir beginnen nicht wieder bei der ersten Spur.",
+      "empfang": {
+        "npc": "k3_weichenstellerin",
+        "map": "ds_schwellenring"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3p_laterne_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k3p_ritual1_laterne",
+      "quest": "k3p_ritual1_laterne",
+      "source": "src/data/packs/k3_pruefungen/quests.json",
+      "city": "dunscar",
+      "title": "Letzte Probe: Das unbequeme Licht",
+      "empfang_text": "Die Probe „Letzte Probe: Das unbequeme Licht“ bleibt offen. Ihr bisheriger Befund bleibt erhalten; wir beginnen nicht wieder bei der ersten Spur.",
+      "empfang": {
+        "npc": "k3_weichenstellerin",
+        "map": "ds_schwellenring"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3p_laterne_ritual1_paid"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": true
+    },
+    {
+      "id": "np_faden_k3p_faden_pruefung",
+      "quest": "k3p_faden_pruefung",
+      "source": "src/data/packs/k3_pruefungen/quests.json",
+      "city": "dunscar",
+      "title": "Die Naht zwischen zwei Zeiten",
+      "empfang_text": "Die Probe „Die Naht zwischen zwei Zeiten“ bleibt offen. Ihr bisheriger Befund bleibt erhalten; wir beginnen nicht wieder bei der ersten Spur.",
+      "empfang": {
+        "npc": "k3_weichenstellerin",
+        "map": "ds_schwellenring"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3p_faden_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k3p_ritual1_faden",
+      "quest": "k3p_ritual1_faden",
+      "source": "src/data/packs/k3_pruefungen/quests.json",
+      "city": "dunscar",
+      "title": "Letzte Probe: Der offene Zusammenhang",
+      "empfang_text": "Die Probe „Letzte Probe: Der offene Zusammenhang“ bleibt offen. Ihr bisheriger Befund bleibt erhalten; wir beginnen nicht wieder bei der ersten Spur.",
+      "empfang": {
+        "npc": "k3_weichenstellerin",
+        "map": "ds_schwellenring"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3p_faden_ritual1_paid"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": true
+    },
+    {
+      "id": "np_faden_k3p_maske_pruefung",
+      "quest": "k3p_maske_pruefung",
+      "source": "src/data/packs/k3_pruefungen/quests.json",
+      "city": "dunscar",
+      "title": "Der Mantel des Widerspruchs",
+      "empfang_text": "Die Probe „Der Mantel des Widerspruchs“ bleibt offen. Ihr bisheriger Befund bleibt erhalten; wir beginnen nicht wieder bei der ersten Spur.",
+      "empfang": {
+        "npc": "k3_weichenstellerin",
+        "map": "ds_schwellenring"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3p_maske_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k3p_ritual1_maske",
+      "quest": "k3p_ritual1_maske",
+      "source": "src/data/packs/k3_pruefungen/quests.json",
+      "city": "dunscar",
+      "title": "Letzte Probe: Das unvermietete Gesicht",
+      "empfang_text": "Die Probe „Letzte Probe: Das unvermietete Gesicht“ bleibt offen. Ihr bisheriger Befund bleibt erhalten; wir beginnen nicht wieder bei der ersten Spur.",
+      "empfang": {
+        "npc": "k3_weichenstellerin",
+        "map": "ds_schwellenring"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3p_maske_ritual1_paid"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": true
+    },
+    {
+      "id": "np_faden_k3p_echo_pruefung",
+      "quest": "k3p_echo_pruefung",
+      "source": "src/data/packs/k3_pruefungen/quests.json",
+      "city": "dunscar",
+      "title": "Der Satz, der fehlen darf",
+      "empfang_text": "Die Probe „Der Satz, der fehlen darf“ bleibt offen. Ihr bisheriger Befund bleibt erhalten; wir beginnen nicht wieder bei der ersten Spur.",
+      "empfang": {
+        "npc": "k3_weichenstellerin",
+        "map": "ds_schwellenring"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3p_echo_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k3p_ritual1_echo",
+      "quest": "k3p_ritual1_echo",
+      "source": "src/data/packs/k3_pruefungen/quests.json",
+      "city": "dunscar",
+      "title": "Letzte Probe: Die letzte Zuhörstelle",
+      "empfang_text": "Die Probe „Letzte Probe: Die letzte Zuhörstelle“ bleibt offen. Ihr bisheriger Befund bleibt erhalten; wir beginnen nicht wieder bei der ersten Spur.",
+      "empfang": {
+        "npc": "k3_weichenstellerin",
+        "map": "ds_schwellenring"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3p_echo_ritual1_paid"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": true
+    },
+    {
+      "id": "np_faden_k3p_kessel_pruefung",
+      "quest": "k3p_kessel_pruefung",
+      "source": "src/data/packs/k3_pruefungen/quests.json",
+      "city": "dunscar",
+      "title": "Die saubere Rückstandsprobe",
+      "empfang_text": "Die Probe „Die saubere Rückstandsprobe“ bleibt offen. Ihr bisheriger Befund bleibt erhalten; wir beginnen nicht wieder bei der ersten Spur.",
+      "empfang": {
+        "npc": "k3_weichenstellerin",
+        "map": "ds_schwellenring"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3p_kessel_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k3p_ritual1_kessel",
+      "quest": "k3p_ritual1_kessel",
+      "source": "src/data/packs/k3_pruefungen/quests.json",
+      "city": "dunscar",
+      "title": "Letzte Probe: Der unverlorene Rest",
+      "empfang_text": "Die Probe „Letzte Probe: Der unverlorene Rest“ bleibt offen. Ihr bisheriger Befund bleibt erhalten; wir beginnen nicht wieder bei der ersten Spur.",
+      "empfang": {
+        "npc": "k3_weichenstellerin",
+        "map": "ds_schwellenring"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3p_kessel_ritual1_paid"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": true
+    },
+    {
+      "id": "np_faden_k3p_eisen_pruefung",
+      "quest": "k3p_eisen_pruefung",
+      "source": "src/data/packs/k3_pruefungen/quests.json",
+      "city": "dunscar",
+      "title": "Die Last mit zwei Schultern",
+      "empfang_text": "Die Probe „Die Last mit zwei Schultern“ bleibt offen. Ihr bisheriger Befund bleibt erhalten; wir beginnen nicht wieder bei der ersten Spur.",
+      "empfang": {
+        "npc": "k3_weichenstellerin",
+        "map": "ds_schwellenring"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3p_eisen_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k3p_ritual1_eisen",
+      "quest": "k3p_ritual1_eisen",
+      "source": "src/data/packs/k3_pruefungen/quests.json",
+      "city": "dunscar",
+      "title": "Letzte Probe: Die bleibende Stütze",
+      "empfang_text": "Die Probe „Letzte Probe: Die bleibende Stütze“ bleibt offen. Ihr bisheriger Befund bleibt erhalten; wir beginnen nicht wieder bei der ersten Spur.",
+      "empfang": {
+        "npc": "k3_weichenstellerin",
+        "map": "ds_schwellenring"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3p_eisen_ritual1_paid"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": true
+    },
+    {
+      "id": "np_faden_k3p_schluessel_pruefung",
+      "quest": "k3p_schluessel_pruefung",
+      "source": "src/data/packs/k3_pruefungen/quests.json",
+      "city": "dunscar",
+      "title": "Die Tür ohne Pfand",
+      "empfang_text": "Die Probe „Die Tür ohne Pfand“ bleibt offen. Ihr bisheriger Befund bleibt erhalten; wir beginnen nicht wieder bei der ersten Spur.",
+      "empfang": {
+        "npc": "k3_weichenstellerin",
+        "map": "ds_schwellenring"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3p_schluessel_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k3p_ritual1_schluessel",
+      "quest": "k3p_ritual1_schluessel",
+      "source": "src/data/packs/k3_pruefungen/quests.json",
+      "city": "dunscar",
+      "title": "Letzte Probe: Die unverwehrte Tür",
+      "empfang_text": "Die Probe „Letzte Probe: Die unverwehrte Tür“ bleibt offen. Ihr bisheriger Befund bleibt erhalten; wir beginnen nicht wieder bei der ersten Spur.",
+      "empfang": {
+        "npc": "k3_weichenstellerin",
+        "map": "ds_schwellenring"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3p_schluessel_ritual1_paid"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": true
+    },
+    {
+      "id": "np_faden_k3p_waage_pruefung",
+      "quest": "k3p_waage_pruefung",
+      "source": "src/data/packs/k3_pruefungen/quests.json",
+      "city": "dunscar",
+      "title": "Die doppelte Forderung",
+      "empfang_text": "Die Probe „Die doppelte Forderung“ bleibt offen. Ihr bisheriger Befund bleibt erhalten; wir beginnen nicht wieder bei der ersten Spur.",
+      "empfang": {
+        "npc": "k3_weichenstellerin",
+        "map": "ds_schwellenring"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3p_waage_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k3p_ritual1_sq_waage",
+      "quest": "k3p_ritual1_sq_waage",
+      "source": "src/data/packs/k3_pruefungen/quests.json",
+      "city": "dunscar",
+      "title": "Letzte Probe: Die quittierte Last",
+      "empfang_text": "Die Probe „Letzte Probe: Die quittierte Last“ bleibt offen. Ihr bisheriger Befund bleibt erhalten; wir beginnen nicht wieder bei der ersten Spur.",
+      "empfang": {
+        "npc": "k3_weichenstellerin",
+        "map": "ds_schwellenring"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3p_waage_ritual1_paid"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": true
+    },
+    {
+      "id": "np_faden_k3p_moor_pruefung",
+      "quest": "k3p_moor_pruefung",
+      "source": "src/data/packs/k3_pruefungen/quests.json",
+      "city": "dunscar",
+      "title": "Der Name im falschen Torf",
+      "empfang_text": "Die Probe „Der Name im falschen Torf“ bleibt offen. Ihr bisheriger Befund bleibt erhalten; wir beginnen nicht wieder bei der ersten Spur.",
+      "empfang": {
+        "npc": "k3_weichenstellerin",
+        "map": "ds_schwellenring"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3p_moor_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k3p_ritual1_sq_moor",
+      "quest": "k3p_ritual1_sq_moor",
+      "source": "src/data/packs/k3_pruefungen/quests.json",
+      "city": "dunscar",
+      "title": "Letzte Probe: Das erinnerte Fehlende",
+      "empfang_text": "Die Probe „Letzte Probe: Das erinnerte Fehlende“ bleibt offen. Ihr bisheriger Befund bleibt erhalten; wir beginnen nicht wieder bei der ersten Spur.",
+      "empfang": {
+        "npc": "k3_weichenstellerin",
+        "map": "ds_schwellenring"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3p_moor_ritual1_paid"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": true
+    },
+    {
+      "id": "np_faden_k3p_uhr_pruefung",
+      "quest": "k3p_uhr_pruefung",
+      "source": "src/data/packs/k3_pruefungen/quests.json",
+      "city": "dunscar",
+      "title": "Die Pause im Gangrad",
+      "empfang_text": "Die Probe „Die Pause im Gangrad“ bleibt offen. Ihr bisheriger Befund bleibt erhalten; wir beginnen nicht wieder bei der ersten Spur.",
+      "empfang": {
+        "npc": "k3_weichenstellerin",
+        "map": "ds_schwellenring"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3p_uhr_done"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": false
+    },
+    {
+      "id": "np_faden_k3p_ritual1_sq_uhr",
+      "quest": "k3p_ritual1_sq_uhr",
+      "source": "src/data/packs/k3_pruefungen/quests.json",
+      "city": "dunscar",
+      "title": "Letzte Probe: Die gewährte Minute",
+      "empfang_text": "Die Probe „Letzte Probe: Die gewährte Minute“ bleibt offen. Ihr bisheriger Befund bleibt erhalten; wir beginnen nicht wieder bei der ersten Spur.",
+      "empfang": {
+        "npc": "k3_weichenstellerin",
+        "map": "ds_schwellenring"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "k3p_uhr_ritual1_paid"
+        ]
+      },
+      "fortsetzung": "originalschritte_und_belohnung_beibehalten",
+      "zugang": "np_offene_auftraege",
+      "legacy_ritual": true
+    },
+    {
+      "id": "np_faden_s3p_laterne",
+      "quest": "s3p_laterne",
+      "source": "docs/story/seq31/pruefungen_seq3.json",
+      "city": "calderwick",
+      "alternative_city": "briarholt",
+      "path": "laterne",
+      "empfang_text": "Ihr eigener unbequemer Beleg ist nicht verjährt.",
+      "empfang": {
+        "npc": "cw_crayford",
+        "map": "cw_buchbinderei"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "seq3_pruefung_laterne_done"
+        ]
+      },
+      "fortsetzung": "dd_teile_probe_und_persoenliche_stufe_beibehalten",
+      "alternative_empfang": {
+        "npc": "bh_rookwell",
+        "map": "bh_aktenraum"
+      },
+      "requires": {
+        "sequence": 4,
+        "digestion_min": 100
+      },
+      "dd_ref": "s3p_laterne"
+    },
+    {
+      "id": "np_faden_s3p_faden",
+      "quest": "s3p_faden",
+      "source": "docs/story/seq31/pruefungen_seq3.json",
+      "city": "calderwick",
+      "alternative_city": "briarholt",
+      "path": "faden",
+      "empfang_text": "Die getrennten Spuren warten noch auf Ihre Gegenprobe.",
+      "empfang": {
+        "npc": "cw_crayford",
+        "map": "cw_buchbinderei"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "seq3_pruefung_faden_done"
+        ]
+      },
+      "fortsetzung": "dd_teile_probe_und_persoenliche_stufe_beibehalten",
+      "alternative_empfang": {
+        "npc": "bh_dipple",
+        "map": "bh_aktenraum"
+      },
+      "requires": {
+        "sequence": 4,
+        "digestion_min": 100
+      },
+      "dd_ref": "s3p_faden"
+    },
+    {
+      "id": "np_faden_s3p_maske",
+      "quest": "s3p_maske",
+      "source": "docs/story/seq31/pruefungen_seq3.json",
+      "city": "calderwick",
+      "alternative_city": "briarholt",
+      "path": "maske",
+      "empfang_text": "Die abgelegte Rolle muss nicht für Ihre Rückkehr neu gespielt werden.",
+      "empfang": {
+        "npc": "cw_wicksend",
+        "map": "cw_quittungsmarkt"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "seq3_pruefung_maske_done"
+        ]
+      },
+      "fortsetzung": "dd_teile_probe_und_persoenliche_stufe_beibehalten",
+      "alternative_empfang": {
+        "npc": "bh_henshall",
+        "map": "bh_pavillon"
+      },
+      "requires": {
+        "sequence": 4,
+        "digestion_min": 100
+      },
+      "dd_ref": "s3p_maske"
+    },
+    {
+      "id": "np_faden_s3p_echo",
+      "quest": "s3p_echo",
+      "source": "docs/story/seq31/pruefungen_seq3.json",
+      "city": "calderwick",
+      "alternative_city": "briarholt",
+      "path": "echo",
+      "empfang_text": "Auch nach langer Zeit darf eine Antwort ausbleiben.",
+      "empfang": {
+        "npc": "cw_noel_bellcross",
+        "map": "cw_kueche"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "seq3_pruefung_echo_done"
+        ]
+      },
+      "fortsetzung": "dd_teile_probe_und_persoenliche_stufe_beibehalten",
+      "alternative_empfang": {
+        "npc": "bh_henshall",
+        "map": "bh_pavillon"
+      },
+      "requires": {
+        "sequence": 4,
+        "digestion_min": 100
+      },
+      "dd_ref": "s3p_echo"
+    },
+    {
+      "id": "np_faden_s3p_kessel",
+      "quest": "s3p_kessel",
+      "source": "docs/story/seq31/pruefungen_seq3.json",
+      "city": "calderwick",
+      "alternative_city": "briarholt",
+      "path": "kessel",
+      "empfang_text": "Die Rückstände sind beschriftet. Verwechseln wir sie nicht mit einer Lösung.",
+      "empfang": {
+        "npc": "cw_noel_bellcross",
+        "map": "cw_kueche"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "seq3_pruefung_kessel_done"
+        ]
+      },
+      "fortsetzung": "dd_teile_probe_und_persoenliche_stufe_beibehalten",
+      "alternative_empfang": {
+        "npc": "bh_malkin",
+        "map": "bh_kesselgrund"
+      },
+      "requires": {
+        "sequence": 4,
+        "digestion_min": 100
+      },
+      "dd_ref": "s3p_kessel"
+    },
+    {
+      "id": "np_faden_s3p_eisen",
+      "quest": "s3p_eisen",
+      "source": "docs/story/seq31/pruefungen_seq3.json",
+      "city": "calderwick",
+      "alternative_city": "briarholt",
+      "path": "eisen",
+      "empfang_text": "Die Last wurde nicht auf den Nächsten übertragen.",
+      "empfang": {
+        "npc": "cw_hesk",
+        "map": "cw_roehrenhof"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "seq3_pruefung_eisen_done"
+        ]
+      },
+      "fortsetzung": "dd_teile_probe_und_persoenliche_stufe_beibehalten",
+      "alternative_empfang": {
+        "npc": "bh_bellweather",
+        "map": "bh_kesselgrund"
+      },
+      "requires": {
+        "sequence": 4,
+        "digestion_min": 100
+      },
+      "dd_ref": "s3p_eisen"
+    },
+    {
+      "id": "np_faden_s3p_schluessel",
+      "quest": "s3p_schluessel",
+      "source": "docs/story/seq31/pruefungen_seq3.json",
+      "city": "calderwick",
+      "alternative_city": "briarholt",
+      "path": "schluessel",
+      "empfang_text": "Die offene Tür verlangt noch immer kein fremdes Pfand.",
+      "empfang": {
+        "npc": "cw_malliver",
+        "map": "cw_archivsaal"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "seq3_pruefung_schluessel_done"
+        ]
+      },
+      "fortsetzung": "dd_teile_probe_und_persoenliche_stufe_beibehalten",
+      "alternative_empfang": {
+        "npc": "bh_dipple",
+        "map": "bh_aktenraum"
+      },
+      "requires": {
+        "sequence": 4,
+        "digestion_min": 100
+      },
+      "dd_ref": "s3p_schluessel"
+    },
+    {
+      "id": "np_faden_s3p_sq_waage",
+      "quest": "s3p_sq_waage",
+      "source": "docs/story/seq31/pruefungen_seq3.json",
+      "city": "calderwick",
+      "alternative_city": "briarholt",
+      "path": "sq_waage",
+      "empfang_text": "Die Schuld wartet auf Einlösung, nicht auf einen neuen Bürgen.",
+      "empfang": {
+        "npc": "cw_wicksend",
+        "map": "cw_pfandhaus"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "seq3_pruefung_sq_waage_done"
+        ]
+      },
+      "fortsetzung": "dd_teile_probe_und_persoenliche_stufe_beibehalten",
+      "alternative_empfang": {
+        "npc": "bh_crowther",
+        "map": "bh_verkaufshalle"
+      },
+      "requires": {
+        "sequence": 4,
+        "digestion_min": 100
+      },
+      "dd_ref": "s3p_sq_waage"
+    },
+    {
+      "id": "np_faden_s3p_sq_moor",
+      "quest": "s3p_sq_moor",
+      "source": "docs/story/seq31/pruefungen_seq3.json",
+      "city": "calderwick",
+      "alternative_city": "briarholt",
+      "path": "sq_moor",
+      "empfang_text": "Die fehlende Erinnerung wird durch Ihre Rückkehr nicht erfunden.",
+      "empfang": {
+        "npc": "cw_malliver",
+        "map": "cw_archivsaal"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "seq3_pruefung_sq_moor_done"
+        ]
+      },
+      "fortsetzung": "dd_teile_probe_und_persoenliche_stufe_beibehalten",
+      "alternative_empfang": {
+        "npc": "bh_vellish",
+        "map": "bh_glasgaerten"
+      },
+      "requires": {
+        "sequence": 4,
+        "digestion_min": 100
+      },
+      "dd_ref": "s3p_sq_moor"
+    },
+    {
+      "id": "np_faden_s3p_sq_uhr",
+      "quest": "s3p_sq_uhr",
+      "source": "docs/story/seq31/pruefungen_seq3.json",
+      "city": "calderwick",
+      "alternative_city": "briarholt",
+      "path": "sq_uhr",
+      "empfang_text": "Die gewährte Zeit ist keine Einladung zum Zurücksetzen.",
+      "empfang": {
+        "npc": "cw_darnell",
+        "map": "cw_gepaeckhalle"
+      },
+      "abgeschlossen_wenn": {
+        "requires_flags": [
+          "seq3_pruefung_sq_uhr_done"
+        ]
+      },
+      "fortsetzung": "dd_teile_probe_und_persoenliche_stufe_beibehalten",
+      "alternative_empfang": {
+        "npc": "bh_felix_fencrest",
+        "map": "bh_kutschenhalle"
+      },
+      "requires": {
+        "sequence": 4,
+        "digestion_min": 100
+      },
+      "dd_ref": "s3p_sq_uhr"
+    }
+  ],
+  "neu": [
+    {
+      "id": "np_ruecknahme",
+      "city": "kettlegate",
+      "title": "Ein Blatt weniger",
+      "kind": "side",
+      "case": "side",
+      "npc": "marlowe",
+      "summary": "Eine kleine Rückgabe nach deiner langen Reise.",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "hide_if_flags": [
+        "np_ruecknahme_bezahlt"
+      ],
+      "annehmen": {
+        "sets_flags": [
+          "np_ruecknahme_angenommen"
+        ],
+        "text": "Ich kümmere mich darum."
+      },
+      "steps": [
+        {
+          "text": "Vergleiche im Revier die alte Fahndung mit den datierten Akten der abgeschlossenen Fälle.",
+          "done": {
+            "requires_flags": [
+              "np_ruecknahme_schritt_1"
+            ]
+          },
+          "target": {
+            "map": "revier",
+            "npc": "marlowe"
+          },
+          "requires_flags": [
+            "np_ruecknahme_angenommen"
+          ],
+          "sets_flags": [
+            "np_ruecknahme_schritt_1"
+          ]
+        },
+        {
+          "text": "Lass Holt die Rücknahme mit Datum an die erreichbaren Reviere zustellen.",
+          "done": {
+            "requires_flags": [
+              "np_ruecknahme_schritt_2"
+            ]
+          },
+          "target": {
+            "map": "revier",
+            "npc": "holt"
+          },
+          "requires_flags": [
+            "np_ruecknahme_angenommen",
+            "np_ruecknahme_schritt_1"
+          ],
+          "sets_flags": [
+            "np_ruecknahme_schritt_2"
+          ]
+        },
+        {
+          "text": "Hole bei Marlowe den Durchschlag und die bestätigte Rücknahme ab.",
+          "done": {
+            "requires_flags": [
+              "np_ruecknahme_schritt_3"
+            ]
+          },
+          "target": {
+            "map": "revier",
+            "npc": "marlowe"
+          },
+          "requires_flags": [
+            "np_ruecknahme_angenommen",
+            "np_ruecknahme_schritt_2"
+          ],
+          "sets_flags": [
+            "np_ruecknahme_schritt_3"
+          ]
+        }
+      ],
+      "reward": {
+        "quantity": 1,
+        "gives_money": 0,
+        "once_flag": "np_ruecknahme_bezahlt",
+        "requires_flags": [
+          "np_ruecknahme_schritt_3"
+        ],
+        "sets_flags": [
+          "np_ruecknahme_bezahlt",
+          "np_fahndung_aufgehoben"
+        ],
+        "furniture": "haus_sessel",
+        "storage": "hausrat.furniture_owned",
+        "already_owned": "quittieren_ohne_duplikat",
+        "scope": "gemeinsamer_haushalt"
+      },
+      "abschluss_text": "Die Arbeit ist quittiert. Das Haus-Stück wird in deinem gemeinsamen Hausrat vermerkt.",
+      "ersatzort": {
+        "modus": "originalort"
+      }
+    },
+    {
+      "id": "np_trockene_tafel",
+      "city": "wexmoor",
+      "title": "Die trockene Rückseite",
+      "kind": "side",
+      "case": "side",
+      "npc": "sedge",
+      "summary": "Eine kleine Rückgabe nach deiner langen Reise.",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "hide_if_flags": [
+        "np_trockene_tafel_bezahlt"
+      ],
+      "annehmen": {
+        "sets_flags": [
+          "np_trockene_tafel_angenommen"
+        ],
+        "text": "Ich kümmere mich darum."
+      },
+      "steps": [
+        {
+          "text": "Bitte Sedge um die Erlaubnis, eine beschädigte Abschrift zu trocknen.",
+          "done": {
+            "requires_flags": [
+              "np_trockene_tafel_schritt_1"
+            ]
+          },
+          "target": {
+            "map": "wx_pfahldorf",
+            "npc": "sedge"
+          },
+          "requires_flags": [
+            "np_trockene_tafel_angenommen"
+          ],
+          "sets_flags": [
+            "np_trockene_tafel_schritt_1"
+          ]
+        },
+        {
+          "text": "Vergleiche auf dem Salzmarkt die lesbaren Buchstaben; ergänze keinen fehlenden Namen.",
+          "done": {
+            "requires_flags": [
+              "np_trockene_tafel_schritt_2"
+            ]
+          },
+          "target": {
+            "map": "wx_salzmarkt",
+            "npc": "k2n_eichmeisterin"
+          },
+          "requires_flags": [
+            "np_trockene_tafel_angenommen",
+            "np_trockene_tafel_schritt_1"
+          ],
+          "sets_flags": [
+            "np_trockene_tafel_schritt_2"
+          ]
+        },
+        {
+          "text": "Gib Sedge Blatt und Gegenprobe zurück.",
+          "done": {
+            "requires_flags": [
+              "np_trockene_tafel_schritt_3"
+            ]
+          },
+          "target": {
+            "map": "wx_pfahldorf",
+            "npc": "sedge"
+          },
+          "requires_flags": [
+            "np_trockene_tafel_angenommen",
+            "np_trockene_tafel_schritt_2"
+          ],
+          "sets_flags": [
+            "np_trockene_tafel_schritt_3"
+          ]
+        }
+      ],
+      "reward": {
+        "quantity": 1,
+        "gives_money": 0,
+        "once_flag": "np_trockene_tafel_bezahlt",
+        "requires_flags": [
+          "np_trockene_tafel_schritt_3"
+        ],
+        "sets_flags": [
+          "np_trockene_tafel_bezahlt"
+        ],
+        "furniture": "haus_vorhang",
+        "storage": "hausrat.furniture_owned",
+        "already_owned": "quittieren_ohne_duplikat",
+        "scope": "gemeinsamer_haushalt"
+      },
+      "abschluss_text": "Die Arbeit ist quittiert. Das Haus-Stück wird in deinem gemeinsamen Hausrat vermerkt.",
+      "ersatzort": {
+        "modus": "originalort"
+      }
+    },
+    {
+      "id": "np_fahrplanrand",
+      "city": "dunscar",
+      "title": "Die wirkliche Minute",
+      "kind": "side",
+      "case": "side",
+      "npc": "k3_nellie",
+      "summary": "Eine kleine Rückgabe nach deiner langen Reise.",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "hide_if_flags": [
+        "np_fahrplanrand_bezahlt"
+      ],
+      "annehmen": {
+        "sets_flags": [
+          "np_fahrplanrand_angenommen"
+        ],
+        "text": "Ich kümmere mich darum."
+      },
+      "steps": [
+        {
+          "text": "Hole bei Nellie den Durchschlag einer verspäteten Küstenbahn-Ankunft.",
+          "done": {
+            "requires_flags": [
+              "np_fahrplanrand_schritt_1"
+            ]
+          },
+          "target": {
+            "map": "ds_endbahnhof",
+            "npc": "k3_nellie"
+          },
+          "requires_flags": [
+            "np_fahrplanrand_angenommen"
+          ],
+          "sets_flags": [
+            "np_fahrplanrand_schritt_1"
+          ]
+        },
+        {
+          "text": "Vergleiche mit Oren am Endbahnhof die Uhr am gewöhnlichen Gleis.",
+          "done": {
+            "requires_flags": [
+              "np_fahrplanrand_schritt_2"
+            ]
+          },
+          "target": {
+            "map": "ds_endbahnhof",
+            "npc": "k3_oren"
+          },
+          "requires_flags": [
+            "np_fahrplanrand_angenommen",
+            "np_fahrplanrand_schritt_1"
+          ],
+          "sets_flags": [
+            "np_fahrplanrand_schritt_2"
+          ]
+        },
+        {
+          "text": "Trage die tatsächliche Minute bei Nellie ein.",
+          "done": {
+            "requires_flags": [
+              "np_fahrplanrand_schritt_3"
+            ]
+          },
+          "target": {
+            "map": "ds_endbahnhof",
+            "npc": "k3_nellie"
+          },
+          "requires_flags": [
+            "np_fahrplanrand_angenommen",
+            "np_fahrplanrand_schritt_2"
+          ],
+          "sets_flags": [
+            "np_fahrplanrand_schritt_3"
+          ]
+        }
+      ],
+      "reward": {
+        "quantity": 1,
+        "gives_money": 0,
+        "once_flag": "np_fahrplanrand_bezahlt",
+        "requires_flags": [
+          "np_fahrplanrand_schritt_3"
+        ],
+        "sets_flags": [
+          "np_fahrplanrand_bezahlt"
+        ],
+        "furniture": "haus_lampe_tisch",
+        "storage": "hausrat.furniture_owned",
+        "already_owned": "quittieren_ohne_duplikat",
+        "scope": "gemeinsamer_haushalt"
+      },
+      "abschluss_text": "Die Arbeit ist quittiert. Das Haus-Stück wird in deinem gemeinsamen Hausrat vermerkt.",
+      "ersatzort": {
+        "modus": "originalort"
+      }
+    },
+    {
+      "id": "np_lose_lage",
+      "city": "calderwick",
+      "title": "Eine ungebundene Seite",
+      "kind": "side",
+      "case": "side",
+      "npc": "cw_crayford",
+      "summary": "Eine kleine Rückgabe nach deiner langen Reise.",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "hide_if_flags": [
+        "np_lose_lage_bezahlt"
+      ],
+      "annehmen": {
+        "sets_flags": [
+          "np_lose_lage_angenommen"
+        ],
+        "text": "Ich kümmere mich darum."
+      },
+      "steps": [
+        {
+          "text": "Nimm mit Klammer eine lose Buchlage auf; lasse die Herkunft am Blatt.",
+          "done": {
+            "requires_flags": [
+              "np_lose_lage_schritt_1"
+            ]
+          },
+          "target": {
+            "map": "cw_buchbinderei",
+            "npc": "cw_crayford"
+          },
+          "requires_flags": [
+            "np_lose_lage_angenommen"
+          ],
+          "sets_flags": [
+            "np_lose_lage_schritt_1"
+          ]
+        },
+        {
+          "text": "Bitte Ida um eine eigene Korrektur, ohne ihre Zustimmung vorzugeben.",
+          "done": {
+            "requires_flags": [
+              "np_lose_lage_schritt_2"
+            ]
+          },
+          "target": {
+            "map": "cw_setzergasse",
+            "npc": "cw_ida_bellcross"
+          },
+          "requires_flags": [
+            "np_lose_lage_angenommen",
+            "np_lose_lage_schritt_1"
+          ],
+          "sets_flags": [
+            "np_lose_lage_schritt_2"
+          ]
+        },
+        {
+          "text": "Gib die getrennten Blätter an Klammer zurück.",
+          "done": {
+            "requires_flags": [
+              "np_lose_lage_schritt_3"
+            ]
+          },
+          "target": {
+            "map": "cw_buchbinderei",
+            "npc": "cw_crayford"
+          },
+          "requires_flags": [
+            "np_lose_lage_angenommen",
+            "np_lose_lage_schritt_2"
+          ],
+          "sets_flags": [
+            "np_lose_lage_schritt_3"
+          ]
+        }
+      ],
+      "reward": {
+        "quantity": 1,
+        "gives_money": 0,
+        "once_flag": "np_lose_lage_bezahlt",
+        "requires_flags": [
+          "np_lose_lage_schritt_3"
+        ],
+        "sets_flags": [
+          "np_lose_lage_bezahlt"
+        ],
+        "furniture": "haus_reisekoffer",
+        "storage": "hausrat.furniture_owned",
+        "already_owned": "quittieren_ohne_duplikat",
+        "scope": "gemeinsamer_haushalt"
+      },
+      "abschluss_text": "Die Arbeit ist quittiert. Das Haus-Stück wird in deinem gemeinsamen Hausrat vermerkt.",
+      "ersatzort": {
+        "map": "cw_gleisfuss",
+        "when": "cwa_end_buecher"
+      }
+    },
+    {
+      "id": "np_ofenblech",
+      "city": "briarholt",
+      "title": "Die kleine Klappe",
+      "kind": "side",
+      "case": "side",
+      "npc": "bh_bellweather",
+      "summary": "Eine kleine Rückgabe nach deiner langen Reise.",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "hide_if_flags": [
+        "np_ofenblech_bezahlt"
+      ],
+      "annehmen": {
+        "sets_flags": [
+          "np_ofenblech_angenommen"
+        ],
+        "text": "Ich kümmere mich darum."
+      },
+      "steps": [
+        {
+          "text": "Bitte Frost, die abgekühlte Ofenklappe zur Prüfung herauszugeben.",
+          "done": {
+            "requires_flags": [
+              "np_ofenblech_schritt_1"
+            ]
+          },
+          "target": {
+            "map": "bh_buegelraum",
+            "npc": "bh_bellweather"
+          },
+          "requires_flags": [
+            "np_ofenblech_angenommen"
+          ],
+          "sets_flags": [
+            "np_ofenblech_schritt_1"
+          ]
+        },
+        {
+          "text": "Vergleiche mit Malkin die Halterung ohne Verbindung zur Pflanzenanlage.",
+          "done": {
+            "requires_flags": [
+              "np_ofenblech_schritt_2"
+            ]
+          },
+          "target": {
+            "map": "bh_kesselgrund",
+            "npc": "bh_malkin"
+          },
+          "requires_flags": [
+            "np_ofenblech_angenommen",
+            "np_ofenblech_schritt_1"
+          ],
+          "sets_flags": [
+            "np_ofenblech_schritt_2"
+          ]
+        },
+        {
+          "text": "Setze die Klappe unter Frosts Aufsicht zurück und prüfe den gewöhnlichen Zug.",
+          "done": {
+            "requires_flags": [
+              "np_ofenblech_schritt_3"
+            ]
+          },
+          "target": {
+            "map": "bh_buegelraum",
+            "npc": "bh_bellweather"
+          },
+          "requires_flags": [
+            "np_ofenblech_angenommen",
+            "np_ofenblech_schritt_2"
+          ],
+          "sets_flags": [
+            "np_ofenblech_schritt_3"
+          ]
+        }
+      ],
+      "reward": {
+        "quantity": 1,
+        "gives_money": 0,
+        "once_flag": "np_ofenblech_bezahlt",
+        "requires_flags": [
+          "np_ofenblech_schritt_3"
+        ],
+        "sets_flags": [
+          "np_ofenblech_bezahlt"
+        ],
+        "furniture": "haus_buecherstapel",
+        "storage": "hausrat.furniture_owned",
+        "already_owned": "quittieren_ohne_duplikat",
+        "scope": "gemeinsamer_haushalt"
+      },
+      "abschluss_text": "Die Arbeit ist quittiert. Das Haus-Stück wird in deinem gemeinsamen Hausrat vermerkt.",
+      "ersatzort": {
+        "modus": "originalort"
+      }
+    },
+    {
+      "id": "np_trockener_rand",
+      "city": "varrowmouth",
+      "title": "Salz am Topf",
+      "kind": "side",
+      "case": "side",
+      "npc": "vmn_tam_verrin",
+      "summary": "Eine kleine Rückgabe nach deiner langen Reise.",
+      "requires_flags": [
+        "k6_done"
+      ],
+      "hide_if_flags": [
+        "np_trockener_rand_bezahlt"
+      ],
+      "annehmen": {
+        "sets_flags": [
+          "np_trockener_rand_angenommen"
+        ],
+        "text": "Ich kümmere mich darum."
+      },
+      "steps": [
+        {
+          "text": "Bitte Tam am sicheren Halt, den salzigen Pflanztopf aus der Transportkiste nehmen zu dürfen.",
+          "done": {
+            "requires_flags": [
+              "np_trockener_rand_schritt_1"
+            ]
+          },
+          "target": {
+            "map": "vm_zollhafen",
+            "npc": "vmn_tam_verrin"
+          },
+          "requires_flags": [
+            "np_trockener_rand_angenommen"
+          ],
+          "sets_flags": [
+            "np_trockener_rand_schritt_1"
+          ]
+        },
+        {
+          "text": "Säubere den Topfrand außerhalb der Ruine mit dem bereitgestellten Tuch; lasse die Wurzeln unberührt.",
+          "done": {
+            "requires_flags": [
+              "np_trockener_rand_schritt_2"
+            ]
+          },
+          "target": {
+            "map": "vm_zollhafen",
+            "npc": "vmn_tam_verrin"
+          },
+          "requires_flags": [
+            "np_trockener_rand_angenommen",
+            "np_trockener_rand_schritt_1"
+          ],
+          "sets_flags": [
+            "np_trockener_rand_schritt_2"
+          ]
+        },
+        {
+          "text": "Zeige Tam den gereinigten Rand und nimm den ausdrücklich freigegebenen Farn für dein Haus an.",
+          "done": {
+            "requires_flags": [
+              "np_trockener_rand_schritt_3"
+            ]
+          },
+          "target": {
+            "map": "vm_zollhafen",
+            "npc": "vmn_tam_verrin"
+          },
+          "requires_flags": [
+            "np_trockener_rand_angenommen",
+            "np_trockener_rand_schritt_2"
+          ],
+          "sets_flags": [
+            "np_trockener_rand_schritt_3"
+          ]
+        }
+      ],
+      "reward": {
+        "quantity": 1,
+        "gives_money": 0,
+        "once_flag": "np_trockener_rand_bezahlt",
+        "requires_flags": [
+          "np_trockener_rand_schritt_3"
+        ],
+        "sets_flags": [
+          "np_trockener_rand_bezahlt"
+        ],
+        "furniture": "haus_pflanze_farn",
+        "storage": "hausrat.furniture_owned",
+        "already_owned": "quittieren_ohne_duplikat",
+        "scope": "gemeinsamer_haushalt"
+      },
+      "abschluss_text": "Die Arbeit ist quittiert. Das Haus-Stück wird in deinem gemeinsamen Hausrat vermerkt.",
+      "ersatzort": {
+        "map": "bh_kutschenhof",
+        "when": "k6_ende_verbrennen"
+      }
+    }
+  ],
+  "regeln": {
+    "id": "np_offene_auftraege",
+    "keine_reset_flags": true,
+    "keine_neuen_belohnungen_fuer_alte_abschluesse": true,
+    "sichtbarkeit": "nicht_abgeschlossen_und_persoenlich_zulaessig",
+    "kapitelgrenzen": "nur_zeitliche_verbergung_aufheben",
+    "moralische_folgen": "bleiben",
+    "abwesende_auftraggeber": "schriftliche_fortsetzung_ohne_fremde_zustimmung",
+    "gesperrte_fundorte": "belegidentische_archivabschrift_am_sicheren_halt",
+    "vernichtete_belege": "nur_bereits_existierenden_durchschlag_nutzen_sonst_offen_melden",
+    "legacy_ritual1": "kein_neuer_seq1_zugang_keine_erneute_stufenvergabe"
+  }
+}

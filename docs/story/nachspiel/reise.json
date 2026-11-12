@@ -1,0 +1,286 @@
+{
+  "id": "nachspiel_bahn",
+  "requires_flags": [
+    "k6_done"
+  ],
+  "zeitbasis": "spieluhr_stunden",
+  "halte": [
+    {
+      "city": "kettlegate",
+      "map": "nordtor",
+      "minute_ab_start": 0,
+      "sicherer_zugang": "aeusserer_halt_auch_bei_stadtsperre"
+    },
+    {
+      "city": "wexmoor",
+      "map": "wx_bahnhof",
+      "minute_ab_start": 30,
+      "sicherer_zugang": "aeusserer_halt_auch_bei_stadtsperre"
+    },
+    {
+      "city": "dunscar",
+      "map": "ds_endbahnhof",
+      "minute_ab_start": 60,
+      "sicherer_zugang": "aeusserer_halt_auch_bei_stadtsperre"
+    },
+    {
+      "city": "calderwick",
+      "map": "cw_gleisfuss",
+      "minute_ab_start": 90,
+      "sicherer_zugang": "aeusserer_halt_auch_bei_stadtsperre"
+    },
+    {
+      "city": "briarholt",
+      "map": "bh_kutschenhof",
+      "minute_ab_start": 120,
+      "sicherer_zugang": "aeusserer_halt_auch_bei_stadtsperre"
+    },
+    {
+      "city": "varrowmouth",
+      "map": "vm_zollhafen",
+      "minute_ab_start": 150,
+      "sicherer_zugang": "aeusserer_halt_auch_bei_stadtsperre"
+    }
+  ],
+  "fahrten": [
+    {
+      "richtung": 1,
+      "abfahrt_stunden": [
+        6,
+        12,
+        18
+      ]
+    },
+    {
+      "richtung": -1,
+      "abfahrt_stunden": [
+        6,
+        12,
+        18
+      ]
+    }
+  ],
+  "verbindungen": [
+    {
+      "von": "kettlegate",
+      "nach": "wexmoor",
+      "dauer_minuten": 30,
+      "kosten": 0
+    },
+    {
+      "von": "kettlegate",
+      "nach": "dunscar",
+      "dauer_minuten": 60,
+      "kosten": 0
+    },
+    {
+      "von": "kettlegate",
+      "nach": "calderwick",
+      "dauer_minuten": 90,
+      "kosten": 0
+    },
+    {
+      "von": "kettlegate",
+      "nach": "briarholt",
+      "dauer_minuten": 120,
+      "kosten": 0
+    },
+    {
+      "von": "kettlegate",
+      "nach": "varrowmouth",
+      "dauer_minuten": 150,
+      "kosten": 0
+    },
+    {
+      "von": "wexmoor",
+      "nach": "kettlegate",
+      "dauer_minuten": 30,
+      "kosten": 0
+    },
+    {
+      "von": "wexmoor",
+      "nach": "dunscar",
+      "dauer_minuten": 30,
+      "kosten": 0
+    },
+    {
+      "von": "wexmoor",
+      "nach": "calderwick",
+      "dauer_minuten": 60,
+      "kosten": 0
+    },
+    {
+      "von": "wexmoor",
+      "nach": "briarholt",
+      "dauer_minuten": 90,
+      "kosten": 0
+    },
+    {
+      "von": "wexmoor",
+      "nach": "varrowmouth",
+      "dauer_minuten": 120,
+      "kosten": 0
+    },
+    {
+      "von": "dunscar",
+      "nach": "kettlegate",
+      "dauer_minuten": 60,
+      "kosten": 0
+    },
+    {
+      "von": "dunscar",
+      "nach": "wexmoor",
+      "dauer_minuten": 30,
+      "kosten": 0
+    },
+    {
+      "von": "dunscar",
+      "nach": "calderwick",
+      "dauer_minuten": 30,
+      "kosten": 0
+    },
+    {
+      "von": "dunscar",
+      "nach": "briarholt",
+      "dauer_minuten": 60,
+      "kosten": 0
+    },
+    {
+      "von": "dunscar",
+      "nach": "varrowmouth",
+      "dauer_minuten": 90,
+      "kosten": 0
+    },
+    {
+      "von": "calderwick",
+      "nach": "kettlegate",
+      "dauer_minuten": 90,
+      "kosten": 0
+    },
+    {
+      "von": "calderwick",
+      "nach": "wexmoor",
+      "dauer_minuten": 60,
+      "kosten": 0
+    },
+    {
+      "von": "calderwick",
+      "nach": "dunscar",
+      "dauer_minuten": 30,
+      "kosten": 0
+    },
+    {
+      "von": "calderwick",
+      "nach": "briarholt",
+      "dauer_minuten": 30,
+      "kosten": 0
+    },
+    {
+      "von": "calderwick",
+      "nach": "varrowmouth",
+      "dauer_minuten": 60,
+      "kosten": 0
+    },
+    {
+      "von": "briarholt",
+      "nach": "kettlegate",
+      "dauer_minuten": 120,
+      "kosten": 0
+    },
+    {
+      "von": "briarholt",
+      "nach": "wexmoor",
+      "dauer_minuten": 90,
+      "kosten": 0
+    },
+    {
+      "von": "briarholt",
+      "nach": "dunscar",
+      "dauer_minuten": 60,
+      "kosten": 0
+    },
+    {
+      "von": "briarholt",
+      "nach": "calderwick",
+      "dauer_minuten": 30,
+      "kosten": 0
+    },
+    {
+      "von": "briarholt",
+      "nach": "varrowmouth",
+      "dauer_minuten": 30,
+      "kosten": 0
+    },
+    {
+      "von": "varrowmouth",
+      "nach": "kettlegate",
+      "dauer_minuten": 150,
+      "kosten": 0
+    },
+    {
+      "von": "varrowmouth",
+      "nach": "wexmoor",
+      "dauer_minuten": 120,
+      "kosten": 0
+    },
+    {
+      "von": "varrowmouth",
+      "nach": "dunscar",
+      "dauer_minuten": 90,
+      "kosten": 0
+    },
+    {
+      "von": "varrowmouth",
+      "nach": "calderwick",
+      "dauer_minuten": 60,
+      "kosten": 0
+    },
+    {
+      "von": "varrowmouth",
+      "nach": "briarholt",
+      "dauer_minuten": 30,
+      "kosten": 0
+    }
+  ],
+  "ereignisse": [
+    {
+      "id": "np_bahn_fenster",
+      "text": "Du wischst einen schmalen Streifen im beschlagenen Fenster frei. Dahinter laufen Zäune rückwärts. Niemand im Abteil verlangt eine Erklärung für dein Ziel."
+    },
+    {
+      "id": "np_bahn_personal",
+      "text": "Oren hält ein frisch geprüftes Kupplungsstück gegen das Licht. „Eigene Leitung, eigene Wagen“, sagt er. „Die Küstenbahn ist kein Ersatzdienst für die alte Anlage.“ Er legt das Stück zurück in seine Werkzeugtasche.",
+      "npc": "k3_oren",
+      "when_city": "dunscar"
+    },
+    {
+      "id": "np_bahn_tee",
+      "text": "Der Tee riecht schwächer, als seine Farbe verspricht. Du hältst den Becher mit beiden Händen. Zwischen zwei Halten wird er endlich trinkbar."
+    },
+    {
+      "id": "np_bahn_knopf",
+      "text": "Ein Knopf rollt unter die Bank. Du schiebst ihn mit der Schuhspitze in den Gang. Eine Hand hebt ihn auf; der Besitzer nickt und näht weiter."
+    },
+    {
+      "id": "np_bahn_durchschlag",
+      "text": "Der Schaffner prüft den Durchschlag deiner Fahrkarte. Ein Buchstabe ist verrutscht. Er fragt nach deinem Ziel und berichtigt ihn, ohne einen zweiten Namen zu verlangen."
+    },
+    {
+      "id": "np_bahn_licht",
+      "text": "Am letzten Fenster des Wagens flackert das Licht. Dann brennt es wieder gleichmäßig. Du siehst eine leere Bank und die gewöhnlichen Kratzer in ihrem Holz."
+    }
+  ],
+  "ereigniswahl": "pro_reise_eines_round_robin_nach_reisezaehler_personal_nur_bei_dunscar_und_anwesenheit",
+  "verbrennen": {
+    "anreise": "nur_ebbe_ruinenbesuch_sonst_am_sicheren_halt_warten",
+    "rueckreise": "immer_ausserhalb_der_ruine",
+    "flutwechsel": "sicherer_halt_vor_ueberflutung_ohne_schaden",
+    "haus": "haus_briarholt_als_letzte_sichere_unterkunft"
+  },
+  "koop": {
+    "zustimmung": "beide",
+    "kosten": 0,
+    "zeit": "einmal_fuer_die_gruppe",
+    "position": "gemeinsam_am_ziel"
+  }
+}
