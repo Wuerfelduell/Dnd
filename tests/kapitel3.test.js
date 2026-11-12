@@ -71,13 +71,13 @@ const seq = (n) => {
   return s;
 };
 
-test('Balance Kapitel 3: mit Sequenz 5 schaffen sehr Geübte jeden Gegner und jeden Bossabschnitt', () => {
+test('Balance Kapitel 3: mit Sequenz 5 schaffen sehr Geübte jeden Gegner, Eliten und Bossabschnitte allein erst mit Sequenz 4', () => {
   const ch3 = Object.entries(content.encounters).filter(([, e]) => e.chapter === 3);
   assert.ok(ch3.length >= 20);
   for (const [id, e] of ch3) {
     if (id.startsWith('hg_schwellenwaechter')) continue; // Seq-4-Prüfung, eigener Maßstab in halbgott.test.js
-    // Realistischer Build wie in Wexmoor: Pfad-Fertigkeit verkettet (seit Kapitel 3 schlagen die Gegner ×1,65, Bosse ×1,15)
-    const { result, combat } = fight(seq(5), id, { defend: EXPERT, skill: 'wuchtschlag', chain: true, healBelow: 18 });
+    // Realistischer Build wie in Wexmoor: Pfad-Fertigkeit verkettet. Eliten ~60, Bosse 70–90 pro Zug (Seb), allein braucht es dafür Seq 4
+    const { result, combat } = fight(seq(e.boss || id.endsWith('_elite') ? 4 : 5), id, { defend: EXPERT, skill: 'wuchtschlag', chain: true, healBelow: 18 });
     assert.equal(result.outcome, 'won', `${id}: verloren in Runde ${combat.round}`);
   }
 });
