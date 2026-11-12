@@ -27,7 +27,7 @@ test('Nacht: das Flag folgt der Spielzeit und steht nie im Spielstand', () => {
 
 test('Schichtbund: Zirkel, Treffpunkt, Pin und Händler sind im Spiel', () => {
   assert.ok(content.gatherings.circles.schichtbund);
-  assert.deepEqual(content.gatherings.rules.orders.dunscar, ['schichtbund']);
+  assert.deepEqual(content.gatherings.rules.orders.dunscar, ['schichtbund', 'kalkofen', 'stellwerk']); // Seb 2026-11-12: zwei weitere Zirkel
   assert.ok(content.gatherings.rules.order.length && content.gatherings.rules.orders.wexmoor?.length, 'Kettlegate und Wexmoor bleiben');
   assert.ok(content.maps.treffen_schichtbund && content.travelRules.cities.dunscar.pins.treffen_schichtbund);
   assert.ok(content.travel.some((t) => t.map === 'treffen_schichtbund' && t.city === 'dunscar'));

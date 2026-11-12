@@ -145,7 +145,7 @@ function session(id = 'waage', setup = () => {}) {
 
 test('Jeder Zirkel ist eine Gruppe aus 4 bis 5 Leuten (Täfelchengilde: 3), alle sitzen am Treffpunkt', () => {
   for (const [id, c] of Object.entries(content.gatherings.circles)) {
-    assert.ok(c.members.length >= (['namensgilde', 'schichtbund'].includes(id) ? 3 : 4) && c.members.length <= 5, `${id}: ${c.members.length}`);
+    assert.ok(c.members.length >= (['namensgilde', 'schichtbund'].includes(id) || c.city === 'dunscar' ? 3 : 4) && c.members.length <= 5, `${id}: ${c.members.length}`);
     const map = content.maps[c.map];
     for (const m of c.members) {
       assert.ok(content.npcs[m.id], m.id);
@@ -401,13 +401,14 @@ test('Auf den Treffen gibt es nur seltene Dinge fürs große Geld, nichts vom no
       for (const e of m.offers) {
         assert.ok(!regular.has(e.item), `${id}/${m.id} bietet ${e.item} an, das gibt es auch so`);
         assert.ok(e.price >= 90, `${id}/${m.id}: ${e.item} für ${e.price} ist zu billig`);
-        if (content.items[e.item].kind === 'artifact') arts.push(e);
+        if (content.items[e.item].kind === 'artifact') arts.push({ ...e, dunscar: c.city === 'dunscar' });
       }
       for (const w of m.wants) assert.ok(!regular.has(w), `${id}/${m.id} sucht ${w}, das gibt es auch so`);
     }
   }
   assert.ok(arts.length >= 8, 'Artefakte als Lose');
-  for (const e of arts) assert.ok(e.price >= 390 && e.price <= 650, `${e.item}: ${e.price}`); // seit dem Balancing teurer (vorher 300–500)
+  // seit dem Balancing teurer (vorher 300–500); Dunscar (Seb, 2026-11-12) spielt im Tausenderbereich
+  for (const e of arts) assert.ok(e.dunscar ? e.price >= 1500 : e.price >= 390 && e.price <= 650, `${e.item}: ${e.price}`);
   // Eigene Artefakte bringen beim Versteigern auch ordentlich Geld
   const s = new GameState(content);
   assert.ok(s.itemValue('hungriger_ring') >= 300);
