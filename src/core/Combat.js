@@ -1101,6 +1101,9 @@ export class Combat {
     // Seq-5-Prüfungen werten den Kampf aus (Laterne, Faden, Maske, Echo, Eisen, Schlüssel, Uhr)
     const trial = s.seq5CombatEnd?.(this);
     if (trial) text += `\n\n${trial}`;
+    // Koop: auch Spieler 2 kann mitten in einer Seq-5-Prüfung stecken (z. B. Schlüssel-Diebstahl)
+    const trial2 = this.duo && !this.swapped ? this.on(2, () => s.seq5CombatEnd?.(this)) : null;
+    if (trial2) text += `\n\nSpieler 2: ${trial2}`;
     const hg = s.seq4CombatEnd?.(this); // Seq-4-Prüfungen (core/Seq4.js)
     if (hg) text += `\n\n${hg}`;
     const ph = s.pfadCombatEnd?.(this); // Pfad-Beyonder (core/PfadHandel.js)

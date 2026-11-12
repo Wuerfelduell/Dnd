@@ -507,3 +507,23 @@ test('Balance: die Kokonspinne ist eine gewöhnliche Spinne, die man mit Sequenz
   const { result } = fight(s, 'kokonspinne', { defend: (i) => (i % 3 === 0 ? 'parry' : 'dodge') });
   assert.equal(result.outcome, 'won');
 });
+
+test('Schlüssel im Koop: der Diebstahl von Spieler 2 zählt auch', () => {
+  const s = new GameState(content);
+  s.pathway = { id: 'eisen', seq: 6, digestion: 0 };
+  s.addP2();
+  s.withPlayer(2, () => {
+    s.pathway = { id: 'schluessel', seq: 6, digestion: 100 };
+    for (const [id, n] of Object.entries(s.ritualDef('schluessel', 5).consumes ?? {})) s.addItem(id, n);
+    s.addItem('trank_schluessel_5');
+    s.addItem('hut_maskenball');
+    s.wear('hut_maskenball');
+    assert.equal(s.startDiebstahl().ok, true);
+  });
+  const c = new Combat(s, 'archive_rats');
+  assert.ok(c.duo);
+  c.stolen = DIEBSTAHL;
+  c.outcome = 'won';
+  assert.match(c.finish().text, /Spieler 2: .*bestanden/);
+  assert.ok(s.withPlayer(2, () => s.seq5().done));
+});
