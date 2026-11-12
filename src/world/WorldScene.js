@@ -1861,6 +1861,9 @@ export class WorldScene extends Phaser.Scene {
     this.state.cancelPrivateAnswer?.(1); // BN: offene Namensantwort verfällt beim Kartenwechsel
     this.state.cancelPrivateAnswer?.(2);
     this.state.setSpiritVision(false);
+    const maps = this.state.content.maps;
+    const toCity = maps[mapId]?.city ?? 'kettlegate';
+    if (toCity !== (maps[this.state.map]?.city ?? 'kettlegate')) this.ui.showLoading?.(toCity); // Codex DM: Ladebild beim Stadtwechsel
     this.cameras.main.fadeOut(300, 0, 0, 0);
     this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
       this.state.map = mapId;

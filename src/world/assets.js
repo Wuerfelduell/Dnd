@@ -495,6 +495,21 @@ export const TITLE_LAYERS = [
   { file: 'ebene_3_nebel', drift: 70 }, { file: 'ebene_4_stadt', depth: 2 }, { file: 'ebene_4_fenster', frames: 4, sec: 10, depth: 2 },
   { file: 'ebene_5_vorne', depth: 3 }, { file: 'ebene_5_laterne', frames: 4, sec: 0.5, depth: 3, box: [64, 96, 16, 16] }, { file: 'ebene_6_regen', frames: 4, sec: 0.4 },
 ].map((l) => ({ ...l, url: `${BASE}ui/AE_titel/${l.file}.png` }));
+/** Codex DM: Titelbild je Kapitel (Himmel, Stadt, Nebel, Vordergrund) für die Stadt des Spielstands; Kettlegate behält AE. */
+export const DM_CITIES = ['kettlegate', 'wexmoor', 'dunscar', 'calderwick', 'briarholt', 'varrowmouth'];
+export const dmTitleLayers = (city, { warm = false } = {}) => {
+  const k = DM_CITIES.indexOf(city) + 1;
+  if (k < 2 || k > 5) return null;
+  const f = (n) => `${BASE}ui/titel_k${k}_${n}.png`;
+  return [{ url: f('himmel') }, { url: f('stadt'), depth: 1 }, { url: f('nebel'), drift: 70 }, { url: f(warm && k === 5 ? 'vordergrund_warm' : 'vordergrund'), depth: 3 }];
+};
+/** Codex DM: Mini-Bild der Stadt für die Spielstand-Karte (96x54). */
+export const spielstandUrl = (city) => (DM_CITIES.includes(city) ? `${BASE}ui/spielstand_${city}.png` : null);
+/** Codex DM: Ladebild (240x135) – je Stadt drei (Straße, Innenraum, Gegenstand). */
+export const ladenUrl = (city, n = 0) => {
+  const i = DM_CITIES.indexOf(city);
+  return i < 0 ? null : `${BASE}ui/laden_${i * 3 + 1 + (Math.abs(n) % 3)}.png`;
+};
 export const MAP_WEATHER = { docks: 'rain_light', ebba: 'ash' };
 
 // --- Paket A: animierte Sheets (Frames/Animationen in manifest-pfade.json) ----------
@@ -1140,9 +1155,7 @@ export function playCaseAnim(sprite, sheet, then) {
 /** 16x16-Icon unter public/sprites/items/<id>.png (tests/sprites.test.js prüft, dass es zu jedem Item eins gibt). */
 /** Items ohne eigenes Bild (noch): Platzhalter aus einem ähnlichen Item. */
 export const ITEM_ICON_ALIASES = { // Paket AA/AB haben seit AJ eigene Symbole
-  // Codex DI: Post-Beilagen leihen Bilder aus dem Vorrat Reserve200
-  post_foto_1: 'reserve200/ermittlung/reserve_015_fotoplatte', post_foto_2: 'reserve200/ermittlung/reserve_015_fotoplatte', post_foto_3: 'reserve200/ermittlung/reserve_015_fotoplatte',
-  post_foto_4: 'reserve200/fundstuecke/reserve_039_medaillonfoto', post_foto_5: 'reserve200/fundstuecke/reserve_039_medaillonfoto', post_foto_6: 'reserve200/fundstuecke/reserve_039_medaillonfoto',
+  // Codex DI: Post-Beilagen ohne eigenes Bild leihen aus Reserve200 (Fotos haben eigene aus DM)
   post_schluessel_ohne_schloss: 'reserve200/fundstuecke/reserve_036_schluesselabdruck', post_leseblatt: 'reserve200/fundstuecke/reserve_021_zerrissener_brief',
   post_fragen_vor_der_erklaerung: 'reserve200/fundstuecke/reserve_030_brandbrief',
   k2a_tinte_abschrift: 'pfaendungsbrief', k2a_bittere_mittel_abschrift: 'pfaendungsbrief', k2a_hafenrecht_abschrift: 'pfaendungsbrief', k2a_letztes_bild_abschrift: 'pfaendungsbrief' }; // Paket AL

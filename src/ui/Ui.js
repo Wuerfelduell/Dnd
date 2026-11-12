@@ -15,7 +15,7 @@ import {
   itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, moneyIconUrl, UI_SKINS, UI_SHEETS, UI_REGIONS, DAMAGE_FONT, STATUS_ICONS, STATUS_ICONS_URL,
   portraitUrl, portraitFor, AK_FIGURES, P2_LOOKS, P2_CHOICE_URL, p2HeadUrl, p2PortraitUrl, KOOP2_TRENNUNG_URL, festBannerUrl, mapMarkerOf, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
   endingImageUrl, caseFileUrl, sceneUrl, wantedUrl, wantedSingle, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
-  TURN_PORTRAITS, TURN_PORTRAITS_URL, TURN_PORTRAIT_URLS, BESTIARY, bestiaryUrl, TITLE_LAYERS,
+  TURN_PORTRAITS, TURN_PORTRAITS_URL, TURN_PORTRAIT_URLS, BESTIARY, bestiaryUrl, TITLE_LAYERS, dmTitleLayers, spielstandUrl, ladenUrl,
   headUrl, ritualCardUrl, ZIRKEL_URL, ZIRKEL_ICONS, AUKTION_URL, AUKTION_REGIONS, LONER_UI_URL, LONER_UI, LONER_SEALS, S_ZIRKEL_URL, S_ZIRKEL, skillIconOf, talentIconOf, PULSE_ICONS, ARTIFACT_UI_URL, sourceKind, sourceKindUrl, inspectUrl, RISK_ICONS, RISK_ICONS_URL, JOURNAL_FRAME, JOURNAL_FRAME_URL, choiceRisk, riskOf,
   factionEmblemUrl, PLACE_PICTURES, TRAVEL_MODES_URL, TRAVEL_MODE_ICONS, TRAVEL_MARKER_URL,
   DANGER_URL, DANGER_ICONS, DANGER_BANNER, RARITY_SHEET, RARITY_SHEET_URL, RARITY_GEMS, reliktIcon, SEQ4_RITUAL_ICONS,
@@ -1053,6 +1053,10 @@ export class Ui {
   showTitle() {
     const c = this.state.content;
     const save = this.hasSave();
+    // Codex DM: Stadt des Spielstands (Titelbild des Kapitels und Spielstand-Karte)
+    const saved = save ? (() => { try { return JSON.parse(localStorage.getItem('nebelakten-save') ?? 'null'); } catch { return null; } })() : null;
+    const city = saved?.map ? (c.maps[saved.map]?.city ?? 'kettlegate') : null;
+    const card = city && spielstandUrl(city) ? `<div class="savecard"><img src="${spielstandUrl(city)}" alt="" onerror="this.parentNode.remove()"><span>${esc(c.maps[saved.map]?.name ?? '')}</span></div>` : '';
     const el = this.open('title', `
       <h1>${esc(c.title)}</h1>
       <h2>Ein Mystery in Kettlegate</h2>
@@ -1072,12 +1076,13 @@ export class Ui {
         <div><span class="key">J</span> Notizbuch: Aufträge, Quellen, Schlussfolgerungen</div>
         <div><span class="key">Esc</span> Menü: Spieler 2 hinzufügen oder entfernen</div>
       </div>
+      ${card}
       <div class="actions center">
         ${save ? '<button class="primary" data-act="continue">Fortsetzen <span class="key">E</span></button>' : ''}
         <button class="${save ? '' : 'primary'}" data-act="new">Neues Spiel ${save ? '<span class="key">N</span>' : '<span class="key">E</span>'}</button>
         <button data-act="fullscreen">${this.fullscreenLabel()}</button>
       </div>`, 'title');
-    this.titleScene();
+    this.titleScene(dmTitleLayers(city, { warm: /__warm$/.test(saved?.map ?? '') }) ?? TITLE_LAYERS);
     el.querySelector('[data-act=fullscreen]').onclick = () => this.toggleFullscreen();
     this.titleContinue = save ? () => { this.close(); this.onContinue(); } : null;
     this.titleNew = () => {
@@ -1093,14 +1098,14 @@ export class Ui {
    * Paket AE: Titelbild in Ebenen hinter dem Titelfenster. Mond, Fenster, Laterne und Regen laufen als Streifen,
    * der Nebel zieht langsam, und die Häuser verschieben sich leicht mit der Maus (Parallax).
    */
-  titleScene() {
+  titleScene(layers = TITLE_LAYERS) {
     const box = (l) => (l.box ? `left:${(l.box[0] / 480) * 100}%;top:${(l.box[1] / 270) * 100}%;width:${(l.box[2] / 480) * 100}%;height:${(l.box[3] / 270) * 100}%;right:auto;bottom:auto` : '');
     const layer = (l) => `<div class="tl${l.depth ? ` d${l.depth}` : ''}" style="${box(l)}">${l.drift
       ? `<div class="drift" style="animation-duration:${l.drift}s"><img src="${l.url}" alt=""><img src="${l.url}" alt=""></div>`
       : `<img src="${l.url}" alt="" class="${l.frames ? `f${l.frames}` : ''}" style="${l.frames ? `width:${l.frames * 100}%;animation-duration:${l.sec}s` : ''}">`}</div>`;
     const scene = document.createElement('div');
     scene.className = 'titlescene';
-    scene.innerHTML = TITLE_LAYERS.map(layer).join('');
+    scene.innerHTML = layers.map(layer).join('');
     // Fehlt eine Ebene, bleibt das alte Titelbild sichtbar
     scene.querySelector('img')?.addEventListener('load', () => this.layer.classList.add('has-titlescene'), { once: true });
     this.layer.prepend(scene);
@@ -1108,6 +1113,18 @@ export class Ui {
       const r = this.layer.getBoundingClientRect();
       scene.style.setProperty('--px', ((e.clientX - r.left) / r.width - 0.5).toFixed(3));
     };
+  }
+
+  /** Codex DM: Ladebild der Zielstadt beim Stadtwechsel (kurz über dem Abblenden). */
+  showLoading(city) {
+    const url = ladenUrl(city, Math.floor(Math.random() * 3));
+    if (!url) return;
+    const el = document.createElement('div');
+    el.className = 'ladebild';
+    el.innerHTML = `<img src="${url}" alt="" onerror="this.parentNode.remove()">`;
+    (this.layer.parentNode ?? this.layer).appendChild(el); // neben dem Fensterlayer, damit ein neues Fenster es nicht löscht
+    setTimeout(() => el.classList.add('out'), 1400);
+    setTimeout(() => el.remove(), 1900);
   }
 
   /** Dialogportrait als HTML (z. B. für Meldungen außerhalb von Gesprächen). */

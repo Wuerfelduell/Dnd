@@ -1081,3 +1081,13 @@ html.touch .talentbar .tslot { width: 3.2em; height: 3.2em; }
 .postbrief { flex: 1; }
 .postbrief button.antwort { display: block; width: 100%; text-align: left; margin: 0.3em 0; }
 @media (max-width: 640px) { .postfach { flex-direction: column; } .postliste { flex: none; width: 100%; } }
+
+/* Codex DM: Spielstand-Karte im Titel, Ladebild beim Stadtwechsel */
+.panel.title { position: relative; }
+.savecard { position: absolute; top: 0.7em; right: 0.7em; display: flex; flex-direction: column; align-items: center; gap: 0.1em; }
+.savecard img { width: 96px; height: 54px; image-rendering: pixelated; border: 2px solid rgba(208, 160, 80, 0.6); }
+.savecard span { font-size: 0.7em; opacity: 0.8; }
+@media (max-width: 640px) { .savecard { display: none; } }
+.ladebild { position: absolute; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; background: #0b0c12; transition: opacity 0.5s; pointer-events: none; }
+.ladebild img { width: min(80%, 720px); aspect-ratio: 240 / 135; image-rendering: pixelated; border: 3px solid rgba(208, 160, 80, 0.5); }
+.ladebild.out { opacity: 0; }
