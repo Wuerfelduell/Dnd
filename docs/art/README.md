@@ -1981,3 +1981,44 @@ Zwei Codex-Zips mit freien Motiven, keine Zuordnung zu Figuren oder Gegenstände
 [Manifest](../../public/sprites/manifest-ritualicons.json) · [Vorschau](batch-ritualicons-preview.png) · [Herkunft](batch-ritualicons-generation.json) · [Prüfbericht](batch-ritualicons-validation.json).
 
 Prüfung: `python3 tools/art/ritualicons/check.py` (Pillow). `items` ordnet jede ID beiden Dateien zu; `assets` beschreibt beide Größen separat. `ersetztLeihbild` kennzeichnet die 20 IDs aus Abschnitt 1; `replacesAlias` dokumentiert vorhandene Alias-Ziele. Statische Icons haben einen Frame und Geschwindigkeit 0. Die separaten Code-Arbeiten müssen die Aliase entfernen und 32er registrieren; hier wird kein Spielcode geändert.
+
+
+## DQ – Rituale Sequenz 5 und 6 (`rituale56`)
+
+51 PNGs / 341 Zellen für freies Brauen, Laternenbestie, Kokon, Maske, Echo,
+Erinnerungen, Eisen-/Handelsprüfung, vier Probenfenster, Waage und Schlösser.
+Manifest: `public/sprites/manifest-rituale56.json`; Vorschau:
+`docs/art/batch-rituale56-preview.png`. Generationsprotokoll und Validierung liegen
+unter demselben Batch-Präfix. Kein Spielcode geändert; Einbau separat.
+
+`python tools/art/rituale56/check.py` prüft Maße, gemeinsame 32-Farben-Palette,
+binäres Alpha, Raster, Frames, transparente Restfelder, Größenableitungen,
+Ausholpausen, Kokon-Bereich, Fadennaht, 9-Slice-Insets und Regionsgrenzen.
+
+Die Zuordnung Pfad/Prüfung → IDs steht unter `mapping`, alle Frame-Listen und
+Geschwindigkeiten unter `assets[].animations` (zeilenweise, nullbasiert).
+Zustandsanzeigen werden durch den Spielzustand ausgewählt, nicht abgespielt.
+Die Warten-Uhr hat 12 Frames mit 0,6 fps = 20 Sekunden; den echten Timer führt
+der Einbau. Der Proben-Puls spielt einmal zwei Schläge, Frame 5 ist leer.
+Kokon-Sheets liegen direkt über den angegebenen Lauf-Sheets (Grundlinie 30).
+
+| Zusatzdatei / Konvention | Verwendung |
+|---|---|
+| `s5_eisen_rundenbalken.png` | 96×8, zwölf Kerben, separate 9-Slice-Leiste |
+| `s5_eisen_grenzlinie.png` | 8×16, Nadel bei 40 % Lebensgrenze |
+| `probe_uhr_ergebnis.png` | 48×16, früh / genau / spät |
+| `s5_gesicht_marke_32.png` | 32×32, NN-Ableitung des 16er-Symbols |
+| `s5_stimme_rauben_knopf.png` / `_16.png` | aktiv/gesperrt, 64×32 bzw. 32×16 |
+| `waage_anprangern.png` / `_32.png` | aktiv/gesperrt, 32×16 bzw. 64×32 |
+
+Fenster-Slots und Textflächen stehen unter `regions`; Koordinaten beziehen
+sich bei Mehrfachzuständen auf die erste Zelle. Rezeptbuch und Probenrahmen
+haben 8-Pixel-Ränder. Die zwölf Kerben des Eisenbalkens beim Einbau erhalten
+und bei Bedarf den mittleren Abschnitt kacheln statt beliebig skalieren.
+Die Schloss-Effekte sind stilisierte Fantasy-Animationen mit einem sichtbaren
+Werkzeugsymbol und öffnendem Bügel, ohne Darstellung realer Schlossmechanik.
+
+Vorhandene Braukessel-/Raub-/Fadenbilder bleiben bestehen. Die physische
+Ritual-Laterne kommt aus DN, die Item-Icons aus DP; DQ erzeugt dafür keine Duplikate.
+Die genaue Liste zählt 51 PNGs, einschließlich der separat exportierten
+Unterelemente und drei Größenableitungen; keine zusätzlichen Varianten.

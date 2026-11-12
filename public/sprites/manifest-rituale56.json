@@ -1,0 +1,2083 @@
+{
+  "version": 1,
+  "batch": "rituale56",
+  "status": "exported; runtime integration pending",
+  "paletteMaxVisibleColors": 32,
+  "palette": [
+    "#1a1c2c",
+    "#252b38",
+    "#303b49",
+    "#d0a050",
+    "#e8b860",
+    "#92745a",
+    "#58433c",
+    "#2d2629",
+    "#715648",
+    "#886332",
+    "#686850",
+    "#494b3a",
+    "#b3946e",
+    "#cfb18a",
+    "#f0ce80",
+    "#8b8870",
+    "#425360",
+    "#e0c9a1",
+    "#a8b4c0",
+    "#586c78",
+    "#71858b",
+    "#95a5a5",
+    "#eee2c5",
+    "#893e4e",
+    "#6fe0d0",
+    "#496b64",
+    "#334d47",
+    "#493d59",
+    "#665572",
+    "#877595",
+    "#835140",
+    "#a66c4d"
+  ],
+  "assets": [
+    {
+      "id": "sud_kessel_fenster",
+      "file": "ui/sud_kessel_fenster.png",
+      "frameWidth": 160,
+      "frameHeight": 96,
+      "columns": 1,
+      "rows": 1,
+      "group": "kessel",
+      "description": "Copper cauldron window, three empty round ingredient sockets on left, empty vessel socket on right, wooden frame, no items inside sockets.",
+      "animations": {
+        "play": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      },
+      "width": 160,
+      "height": 96,
+      "transparent": true,
+      "regions": {
+        "zutat_1": {
+          "x": 10,
+          "y": 8,
+          "width": 20,
+          "height": 20
+        },
+        "zutat_2": {
+          "x": 10,
+          "y": 34,
+          "width": 20,
+          "height": 20
+        },
+        "zutat_3": {
+          "x": 10,
+          "y": 60,
+          "width": 20,
+          "height": 20
+        },
+        "gefaess": {
+          "x": 124,
+          "y": 34,
+          "width": 20,
+          "height": 20
+        },
+        "kessel_inhalt": {
+          "x": 40,
+          "y": 28,
+          "width": 64,
+          "height": 32
+        }
+      }
+    },
+    {
+      "id": "sud_kessel_blubbern",
+      "file": "ui/sud_kessel_blubbern.png",
+      "frameWidth": 64,
+      "frameHeight": 32,
+      "columns": 6,
+      "rows": 3,
+      "group": "kessel",
+      "description": "Only liquid contents of a cauldron, horizontal oval, not pot. Row1 six quiet liquid ripple frames. Row2 six increasing bubbles on ingredient addition. Row3 six success frames clear steam ring forms and disperses, tiny glint. Muted moss/turquoise.",
+      "animations": {
+        "ruhig": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 10,
+          "repeat": -1
+        },
+        "brodelt": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "gelungen": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "width": 384,
+      "height": 96,
+      "transparent": true
+    },
+    {
+      "id": "sud_kessel_pfusch",
+      "file": "ui/sud_kessel_pfusch.png",
+      "frameWidth": 64,
+      "frameHeight": 32,
+      "columns": 6,
+      "rows": 1,
+      "group": "kessel",
+      "description": "Failed brew: six evolving puffs of grey flaky smoke over low horizontal oval liquid surface, smoke rises then disperses.",
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "width": 384,
+      "height": 32,
+      "transparent": true
+    },
+    {
+      "id": "sud_abfuellen",
+      "file": "fx/sud_abfuellen.png",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 8,
+      "rows": 1,
+      "group": "kessel",
+      "description": "Eight stages: ladle at top left tips, continuous stream flows into small empty bottle bottom right, bottle fills, ladle retracts. No person.",
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "width": 256,
+      "height": 32,
+      "transparent": true
+    },
+    {
+      "id": "sud_wirkung",
+      "file": "fx/sud_wirkung.png",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 1,
+      "group": "kessel",
+      "description": "Tiny hovering own-brew buff indicator, drop enclosed in alchemical steam loop, four subtle pulsing frames.",
+      "animations": {
+        "wirkt": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 10,
+          "repeat": -1
+        }
+      },
+      "width": 64,
+      "height": 16,
+      "transparent": true
+    },
+    {
+      "id": "sud_timer",
+      "file": "ui/sud_timer.png",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 1,
+      "group": "kessel",
+      "description": "Eight hourglass icons encircled by timer ring. Ring depletes in eight discrete steps from full to empty, sand transfers upper bulb to lower; no numerals.",
+      "animations": {
+        "stufe_0": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "stufe_1": {
+          "frames": [
+            1
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "stufe_2": {
+          "frames": [
+            2
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "stufe_3": {
+          "frames": [
+            3
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "stufe_4": {
+          "frames": [
+            4
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "stufe_5": {
+          "frames": [
+            5
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "stufe_6": {
+          "frames": [
+            6
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "stufe_7": {
+          "frames": [
+            7
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      },
+      "width": 128,
+      "height": 16,
+      "transparent": true
+    },
+    {
+      "id": "sud_rezeptbuch",
+      "file": "ui/sud_rezeptbuch.png",
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 1,
+      "rows": 1,
+      "group": "kessel",
+      "description": "9-slice parchment recipebook frame, transparent blank center, 8px border, tiny cauldron emblem confined to upper left corner. Repeatable plain straight edges.",
+      "animations": {
+        "play": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      },
+      "width": 48,
+      "height": 48,
+      "transparent": true,
+      "nineSlice": {
+        "left": 8,
+        "top": 8,
+        "right": 8,
+        "bottom": 8
+      }
+    },
+    {
+      "id": "enemy_laternenbestie",
+      "file": "battle/enemy_laternenbestie.png",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 6,
+      "group": "laterne",
+      "description": "One consistent quadruped beast made of glass and supernatural pale turquoise flame, lantern head, brass skeleton. SIX ROWS in order: idle breathing; light-bite attack; blinding leap attack; spark shower special; hurt recoil; defeated dissolves into pale light. SIX FRAMES per row with coherent action progression. First two attack frames show SAME anticipation pose. Stable baseline near bottom. No dog fur, no background.",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 10,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "width": 384,
+      "height": 384,
+      "transparent": true
+    },
+    {
+      "id": "s5_laternen_kreis",
+      "file": "fx/s5_laternen_kreis.png",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 8,
+      "rows": 1,
+      "group": "laterne",
+      "description": "Eight frames of ten pools of lamp-light arranged in a ring, light converges toward central emerging beast silhouette. Effects only, no physical lantern props (another package supplies lamps). Exactly ten glowing points around ring; last frame central light condensed.",
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "width": 768,
+      "height": 96,
+      "transparent": true
+    },
+    {
+      "id": "s5_kokon_player",
+      "file": "characters/s5_kokon_player.png",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "group": "faden",
+      "description": "OVERLAY ONLY for supplied walk-sheet reference. Purple yarn wound around arms and torso of matching pose. Four rows down,left,right,up, four walking frames per row. Reference character has feet baseline y30. Retain character position but REMOVE all body, clothing, face, hair and feet: draw ONLY sparse violet threads floating at arms and torso positions on transparent background. No enclosing cocoon outline.",
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 10,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 10,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 10,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 10,
+          "repeat": -1
+        }
+      },
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "reference": "characters/03_01_investigator_walk.png",
+      "baseline": 30,
+      "overlayRegion": {
+        "x": 2,
+        "y": 10,
+        "width": 12,
+        "height": 14
+      }
+    },
+    {
+      "id": "s5_kokon_p2a",
+      "file": "characters/s5_kokon_p2a.png",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "group": "faden",
+      "description": "OVERLAY ONLY for supplied walk-sheet reference. Purple yarn wound around arms and torso of matching pose. Four rows down,left,right,up, four walking frames per row. Reference character has feet baseline y30. Retain character position but REMOVE all body, clothing, face, hair and feet: draw ONLY sparse violet threads floating at arms and torso positions on transparent background. No enclosing cocoon outline.",
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 10,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 10,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 10,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 10,
+          "repeat": -1
+        }
+      },
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "reference": "characters/p2a_walk.png",
+      "baseline": 30,
+      "overlayRegion": {
+        "x": 2,
+        "y": 10,
+        "width": 12,
+        "height": 14
+      }
+    },
+    {
+      "id": "s5_kokon_p2b",
+      "file": "characters/s5_kokon_p2b.png",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "group": "faden",
+      "description": "OVERLAY ONLY for supplied walk-sheet reference. Purple yarn wound around arms and torso of matching pose. Four rows down,left,right,up, four walking frames per row. Reference character has feet baseline y30. Retain character position but REMOVE all body, clothing, face, hair and feet: draw ONLY sparse violet threads floating at arms and torso positions on transparent background. No enclosing cocoon outline.",
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 10,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 10,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 10,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 10,
+          "repeat": -1
+        }
+      },
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "reference": "characters/p2b_walk.png",
+      "baseline": 30,
+      "overlayRegion": {
+        "x": 2,
+        "y": 10,
+        "width": 12,
+        "height": 14
+      }
+    },
+    {
+      "id": "s5_kokon_platzt",
+      "file": "fx/s5_kokon_platzt.png",
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 8,
+      "rows": 1,
+      "group": "faden",
+      "description": "Eight stages: violet yarn cocoon cracks, threads snap outward, small grey-violet spider crawls out, discarded threads settle. Non-gory. No character or background.",
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "width": 384,
+      "height": 48,
+      "transparent": true
+    },
+    {
+      "id": "s5_gesicht_nehmen",
+      "file": "fx/s5_gesicht_nehmen.png",
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 10,
+      "rows": 1,
+      "group": "maske",
+      "description": "Ten-frame magical transfer: porcelain half-mask lifts from left origin, floats to center/right player destination, settles as translucent face overlay, fades. ONLY mask, occult wisps and transfer trail, no bodies or flesh, non-gory.",
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "width": 480,
+      "height": 48,
+      "transparent": true
+    },
+    {
+      "id": "s5_gesicht_marke",
+      "file": "ui/s5_gesicht_marke.png",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "group": "maske",
+      "description": "Tiny bone-white porcelain half-mask status icon, dark eye slit, restrained violet edge.",
+      "animations": {
+        "play": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      },
+      "width": 16,
+      "height": 16,
+      "transparent": true
+    },
+    {
+      "id": "s5_gesicht_marke_32",
+      "file": "ui/s5_gesicht_marke_32.png",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "group": "maske",
+      "description": "Large face status marker.",
+      "animations": {
+        "play": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      },
+      "width": 32,
+      "height": 32,
+      "transparent": true,
+      "derivedFrom": "ui/s5_gesicht_marke.png",
+      "scaleFilter": "nearest"
+    },
+    {
+      "id": "s5_misstrauen",
+      "file": "ui/s5_misstrauen.png",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 2,
+      "rows": 1,
+      "group": "maske",
+      "description": "Two frames of narrowed suspicious eye status marker, muted rust-red eyelid, one subtly narrowing blink.",
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "width": 32,
+      "height": 16,
+      "transparent": true
+    },
+    {
+      "id": "s5_stimme_rauben_knopf",
+      "file": "ui/s5_stimme_rauben_knopf.png",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 2,
+      "rows": 1,
+      "group": "echo",
+      "description": "Two button icons: mouth with thin thread drawn into small bottle. Left active turquoise occult thread, right locked desaturated with tiny lock corner. Both same layout.",
+      "animations": {
+        "aktiv": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "gesperrt": {
+          "frames": [
+            1
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      },
+      "width": 64,
+      "height": 32,
+      "transparent": true
+    },
+    {
+      "id": "s5_stimme_rauben_knopf_16",
+      "file": "ui/s5_stimme_rauben_knopf_16.png",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 2,
+      "rows": 1,
+      "group": "echo",
+      "description": "Small voice button states.",
+      "animations": {
+        "aktiv": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "gesperrt": {
+          "frames": [
+            1
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      },
+      "width": 32,
+      "height": 16,
+      "transparent": true,
+      "derivedFrom": "ui/s5_stimme_rauben_knopf.png",
+      "scaleFilter": "nearest"
+    },
+    {
+      "id": "s5_diebstahl",
+      "file": "fx/s5_diebstahl.png",
+      "frameWidth": 48,
+      "frameHeight": 32,
+      "columns": 8,
+      "rows": 1,
+      "group": "schluessel",
+      "description": "Eight frames of small brass shilling coins jumping in an arc from right enemy origin to left player destination, accumulating on left then fading. No figures, no numbers.",
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "width": 384,
+      "height": 32,
+      "transparent": true
+    },
+    {
+      "id": "s5_diebstahl_zaehler",
+      "file": "ui/s5_diebstahl_zaehler.png",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 5,
+      "rows": 1,
+      "group": "schluessel",
+      "description": "Five coin stack stages increasing from one short stack to five layers, stable bottom baseline, no numbers.",
+      "animations": {
+        "stufe_0": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "stufe_1": {
+          "frames": [
+            1
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "stufe_2": {
+          "frames": [
+            2
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "stufe_3": {
+          "frames": [
+            3
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "stufe_4": {
+          "frames": [
+            4
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      },
+      "width": 80,
+      "height": 16,
+      "transparent": true
+    },
+    {
+      "id": "s5_erinnerung_ziehen",
+      "file": "fx/s5_erinnerung_ziehen.png",
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 10,
+      "rows": 1,
+      "group": "moor",
+      "description": "Ten frames: pale turquoise fog-thread starts at upper left forehead origin, curves into open small memory vessel lower right, coils and settles inside. Effects only, no person.",
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "width": 480,
+      "height": 48,
+      "transparent": true
+    },
+    {
+      "id": "s5_erinnerung_verweigert",
+      "file": "fx/s5_erinnerung_verweigert.png",
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 1,
+      "group": "moor",
+      "description": "Six frames: pale turquoise memory thread stretches from left origin toward vessel right, recoils sharply back to left before entering bottle, dissipates. No person. Refused memory, not successful extraction.",
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "width": 288,
+      "height": 48,
+      "transparent": true
+    },
+    {
+      "id": "s5_uhr_warten",
+      "file": "ui/s5_uhr_warten.png",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 12,
+      "rows": 1,
+      "group": "uhr",
+      "description": "Twelve pocketwatch frames, same empty unnumbered dial, hand rotates clockwise in 30-degree increments through full turn. Mechanical brass body, slate dial.",
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 0.6,
+          "repeat": 0
+        }
+      },
+      "width": 384,
+      "height": 32,
+      "transparent": true,
+      "durationMs": 20000
+    },
+    {
+      "id": "s5_runden_uhr",
+      "file": "ui/s5_runden_uhr.png",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 2,
+      "rows": 1,
+      "group": "uhr",
+      "description": "Two states of clock with THREE quarter-segment marks, open pale outline versus spent dark filled. No digits.",
+      "animations": {
+        "offen": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "verbraucht": {
+          "frames": [
+            1
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      },
+      "width": 32,
+      "height": 16,
+      "transparent": true
+    },
+    {
+      "id": "s5_eisen_hud",
+      "file": "ui/s5_eisen_hud.png",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 10,
+      "rows": 1,
+      "group": "eisen",
+      "description": "Ten shield-shaped iron victory markers, FIVE pairs left to right. Each pair first open hollow, second achieved with riveted center. No stars, no text.",
+      "animations": {
+        "sieg_1_offen": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "sieg_1_erledigt": {
+          "frames": [
+            1
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "sieg_2_offen": {
+          "frames": [
+            2
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "sieg_2_erledigt": {
+          "frames": [
+            3
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "sieg_3_offen": {
+          "frames": [
+            4
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "sieg_3_erledigt": {
+          "frames": [
+            5
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "sieg_4_offen": {
+          "frames": [
+            6
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "sieg_4_erledigt": {
+          "frames": [
+            7
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "sieg_5_offen": {
+          "frames": [
+            8
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "sieg_5_erledigt": {
+          "frames": [
+            9
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      },
+      "width": 160,
+      "height": 16,
+      "transparent": true
+    },
+    {
+      "id": "s5_eisen_rundenbalken",
+      "file": "ui/s5_eisen_rundenbalken.png",
+      "frameWidth": 96,
+      "frameHeight": 8,
+      "columns": 1,
+      "rows": 1,
+      "group": "eisen",
+      "description": "Thin horizontal iron round counter bar, EXACTLY twelve evenly spaced recessed notches; squared end caps for 9-slice, no text.",
+      "animations": {
+        "play": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      },
+      "width": 96,
+      "height": 8,
+      "transparent": true,
+      "nineSlice": {
+        "left": 4,
+        "top": 2,
+        "right": 4,
+        "bottom": 2
+      },
+      "notches": 12
+    },
+    {
+      "id": "s5_eisen_grenzlinie",
+      "file": "ui/s5_eisen_grenzlinie.png",
+      "frameWidth": 8,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "group": "eisen",
+      "description": "Small muted rust-red pointer needle pointing LEFT, narrow metal stem on right, used as 40-percent health threshold, no digits.",
+      "animations": {
+        "play": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      },
+      "width": 8,
+      "height": 16,
+      "transparent": true,
+      "healthThreshold": 0.4
+    },
+    {
+      "id": "s5_handel_hud",
+      "file": "ui/s5_handel_hud.png",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 12,
+      "rows": 1,
+      "group": "waage",
+      "description": "Twelve trade markers. First six: three buy pairs (open then completed), arrow into pouch. Last six: three sell pairs (open then completed), arrow out of pouch. Readably different inward/outward arrows, no text.",
+      "animations": {
+        "kauf_1_offen": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "kauf_1_erledigt": {
+          "frames": [
+            1
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "kauf_2_offen": {
+          "frames": [
+            2
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "kauf_2_erledigt": {
+          "frames": [
+            3
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "kauf_3_offen": {
+          "frames": [
+            4
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "kauf_3_erledigt": {
+          "frames": [
+            5
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "verkauf_1_offen": {
+          "frames": [
+            6
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "verkauf_1_erledigt": {
+          "frames": [
+            7
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "verkauf_2_offen": {
+          "frames": [
+            8
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "verkauf_2_erledigt": {
+          "frames": [
+            9
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "verkauf_3_offen": {
+          "frames": [
+            10
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "verkauf_3_erledigt": {
+          "frames": [
+            11
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      },
+      "width": 192,
+      "height": 16,
+      "transparent": true
+    },
+    {
+      "id": "s5_pruefung_gescheitert",
+      "file": "fx/s5_pruefung_gescheitert.png",
+      "frameWidth": 64,
+      "frameHeight": 32,
+      "columns": 8,
+      "rows": 1,
+      "group": "all_seq5",
+      "description": "Eight-frame failure effect: small framed digestion bar recoils visibly to lower fill then cracks; restrained violet then rust, no writing.",
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "width": 512,
+      "height": 32,
+      "transparent": true
+    },
+    {
+      "id": "probe_rahmen",
+      "file": "ui/probe_rahmen.png",
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 1,
+      "rows": 1,
+      "group": "probe",
+      "description": "9-slice slate/brass examination window frame, transparent center, 8px plain repeatable edges, small riveted corners, no symbols or text.",
+      "animations": {
+        "play": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      },
+      "width": 48,
+      "height": 48,
+      "transparent": true,
+      "nineSlice": {
+        "left": 8,
+        "top": 8,
+        "right": 8,
+        "bottom": 8
+      }
+    },
+    {
+      "id": "probe_symbole",
+      "file": "ui/probe_symbole.png",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 1,
+      "group": "probe",
+      "description": "Four corner emblems: violet thread spool, turquoise echo rings, mossy peat leaf, brass clock with no digits.",
+      "animations": {
+        "faden": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "echo": {
+          "frames": [
+            1
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "moor": {
+          "frames": [
+            2
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "uhr": {
+          "frames": [
+            3
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      },
+      "width": 64,
+      "height": 16,
+      "transparent": true
+    },
+    {
+      "id": "probe_faden_karte",
+      "file": "ui/probe_faden_karte.png",
+      "frameWidth": 64,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 4,
+      "group": "probe_faden",
+      "description": "Four vertically stacked pinned blank paper evidence cards: normal bone, selected violet border, correct moss border with tiny complete seal, incorrect rust border with broken seal. Center completely blank for engine text, no lines resembling writing.",
+      "animations": {
+        "normal": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "gewaehlt": {
+          "frames": [
+            1
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "richtig": {
+          "frames": [
+            2
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "falsch": {
+          "frames": [
+            3
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      },
+      "width": 64,
+      "height": 96,
+      "transparent": true,
+      "regions": {
+        "text": {
+          "x": 8,
+          "y": 7,
+          "width": 48,
+          "height": 12
+        }
+      }
+    },
+    {
+      "id": "probe_faden_verbinden",
+      "file": "fx/probe_faden_verbinden.png",
+      "frameWidth": 16,
+      "frameHeight": 4,
+      "columns": 4,
+      "rows": 1,
+      "group": "probe_faden",
+      "description": "Four frames of thin violet horizontal thread, subtle traveling knot. Tile seamlessly horizontally, equal thread endpoints at left and right edge in every frame, no dangling ends.",
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "width": 64,
+      "height": 4,
+      "transparent": true
+    },
+    {
+      "id": "probe_echo_stimme",
+      "file": "ui/probe_echo_stimme.png",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 8,
+      "rows": 1,
+      "group": "probe_echo",
+      "description": "Eight frames of SAME faceless mist head with subtle mouth. Frame1 still, frames2-4 speaking mouth movement, frames5-8 echo ring turquoise expands and fades. No facial features except mouth.",
+      "animations": {
+        "still": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "spricht": {
+          "frames": [
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "hallt_nach": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "width": 256,
+      "height": 32,
+      "transparent": true
+    },
+    {
+      "id": "probe_moor_tafel",
+      "file": "ui/probe_moor_tafel.png",
+      "frameWidth": 48,
+      "frameHeight": 16,
+      "columns": 7,
+      "rows": 1,
+      "group": "probe_moor",
+      "description": "Seven peat name tablets with blank center: frame1 normal, frames2-5 vanishes by erosion progressively, frames6-7 newly appeared with fresh moss. No writing.",
+      "animations": {
+        "normal": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "verschwindet": {
+          "frames": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "neu": {
+          "frames": [
+            5,
+            6
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      },
+      "width": 336,
+      "height": 16,
+      "transparent": true,
+      "regions": {
+        "text": {
+          "x": 6,
+          "y": 4,
+          "width": 36,
+          "height": 8
+        }
+      }
+    },
+    {
+      "id": "probe_uhr",
+      "file": "ui/probe_uhr.png",
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 1,
+      "rows": 1,
+      "group": "probe_uhr",
+      "description": "Single circular unnumbered clock face with NO HANDS, simple brass/slate, subtle tick marks but no digits. Empty center. Used for estimating time without clock.",
+      "animations": {
+        "play": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      },
+      "width": 48,
+      "height": 48,
+      "transparent": true
+    },
+    {
+      "id": "probe_uhr_puls",
+      "file": "ui/probe_uhr_puls.png",
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 1,
+      "group": "probe_uhr",
+      "description": "Six pulse ring frames on transparent: first pulse small ring then large fading ring, second small ring then large fading ring, sparse fading remnants, final entirely transparent. TWO beats only, no clock body.",
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      },
+      "width": 288,
+      "height": 48,
+      "transparent": true,
+      "emptyFrames": [
+        5
+      ]
+    },
+    {
+      "id": "probe_uhr_ergebnis",
+      "file": "ui/probe_uhr_ergebnis.png",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 3,
+      "rows": 1,
+      "group": "probe_uhr",
+      "description": "Three result marks: left-pointing arrow with clock (too early), aligned clock needle centered in ring (exact), right-pointing arrow with clock (too late). Distinct shapes, no letters or numbers.",
+      "animations": {
+        "zu_frueh": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "genau": {
+          "frames": [
+            1
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "zu_spaet": {
+          "frames": [
+            2
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      },
+      "width": 48,
+      "height": 16,
+      "transparent": true
+    },
+    {
+      "id": "probe_bestanden",
+      "file": "fx/probe_bestanden.png",
+      "frameWidth": 64,
+      "frameHeight": 32,
+      "columns": 8,
+      "rows": 1,
+      "group": "probe",
+      "description": "Eight stages of wax seal closing and becoming intact, bone/brass and quiet turquoise success accent, no letters or ticks shaped as characters.",
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "width": 512,
+      "height": 32,
+      "transparent": true
+    },
+    {
+      "id": "probe_fehlversuch",
+      "file": "fx/probe_fehlversuch.png",
+      "frameWidth": 64,
+      "frameHeight": 32,
+      "columns": 8,
+      "rows": 1,
+      "group": "probe",
+      "description": "Eight stages of wax seal cracking then breaking in two and settling, muted rust, no letters.",
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "width": 512,
+      "height": 32,
+      "transparent": true
+    },
+    {
+      "id": "waage_schaetzwert",
+      "file": "ui/waage_schaetzwert.png",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 2,
+      "rows": 1,
+      "group": "waage",
+      "description": "Two icons side-by-side: brass weighing pan for estimate; rust wooden gavel for asking price. No numerals.",
+      "animations": {
+        "schaetzwert": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "ausruf": {
+          "frames": [
+            1
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      },
+      "width": 32,
+      "height": 16,
+      "transparent": true
+    },
+    {
+      "id": "waage_anprangern",
+      "file": "ui/waage_anprangern.png",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 2,
+      "rows": 1,
+      "group": "waage",
+      "description": "Two states of pointing finger above tilted balance scale: active brass/rust, disabled grey with tiny lock. Same silhouette.",
+      "animations": {
+        "aktiv": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "gesperrt": {
+          "frames": [
+            1
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      },
+      "width": 32,
+      "height": 16,
+      "transparent": true
+    },
+    {
+      "id": "waage_anprangern_32",
+      "file": "ui/waage_anprangern_32.png",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 2,
+      "rows": 1,
+      "group": "waage",
+      "description": "Large accuse button states.",
+      "animations": {
+        "aktiv": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "gesperrt": {
+          "frames": [
+            1
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      },
+      "width": 64,
+      "height": 32,
+      "transparent": true,
+      "derivedFrom": "ui/waage_anprangern.png",
+      "scaleFilter": "nearest"
+    },
+    {
+      "id": "waage_betrug_aufgedeckt",
+      "file": "fx/waage_betrug_aufgedeckt.png",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 8,
+      "rows": 1,
+      "group": "waage",
+      "description": "Eight frames: tilted unfair weighing scales, red wax stamp descends and stamps beside scale, reveals unequal weights, stamp rebounds leaving seal bearing tilted scale picture. No letters or text.",
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "width": 512,
+      "height": 64,
+      "transparent": true
+    },
+    {
+      "id": "waage_falsch_beschuldigt",
+      "file": "fx/waage_falsch_beschuldigt.png",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 1,
+      "group": "waage",
+      "description": "Six frames: weighing balance tips sharply toward viewer/left player side, pans tilt, small rust recoil marks, settles unfavorable; no figure or text.",
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "width": 384,
+      "height": 64,
+      "transparent": true
+    },
+    {
+      "id": "schloss_zustaende",
+      "file": "ui/schloss_zustaende.png",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 1,
+      "group": "schluessel",
+      "description": "Four lock status icons: closed dark, magically pickable turquoise outline, opened shackle, failed jammed crooked pin rust. Same padlock.",
+      "animations": {
+        "verschlossen": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "pfad": {
+          "frames": [
+            1
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "geknackt": {
+          "frames": [
+            2
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "misslungen": {
+          "frames": [
+            3
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      },
+      "width": 64,
+      "height": 16,
+      "transparent": true
+    },
+    {
+      "id": "schloss_knacken",
+      "file": "fx/schloss_knacken.png",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 8,
+      "rows": 1,
+      "group": "schluessel",
+      "description": "Eight frames: lockpick enters keyhole, turns mechanism, bolt springs open, pick withdraws. Same bronze lock at fixed center.",
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "width": 256,
+      "height": 32,
+      "transparent": true
+    },
+    {
+      "id": "schloss_brecheisen",
+      "file": "fx/schloss_brecheisen.png",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 6,
+      "rows": 1,
+      "group": "schluessel",
+      "description": "Six frames: small crowbar pries bronze lock, metal bends, bolt opens, tool withdraws. Same lock fixed center, no hands.",
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "width": 192,
+      "height": 32,
+      "transparent": true
+    },
+    {
+      "id": "schloss_haarnadel",
+      "file": "fx/schloss_haarnadel.png",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 6,
+      "rows": 1,
+      "group": "schluessel",
+      "description": "Six frames: thin bent hairpin enters bronze keyhole, jiggles, bolt opens, pin withdraws. Same lock fixed center, no hands.",
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "width": 192,
+      "height": 32,
+      "transparent": true
+    },
+    {
+      "id": "schloss_zaehler",
+      "file": "ui/schloss_zaehler.png",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 1,
+      "group": "schluessel",
+      "description": "Four keyring stages, one two three four hanging keys, clearly increasing count and same ring anchor, no numbers.",
+      "animations": {
+        "stufe_0": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "stufe_1": {
+          "frames": [
+            1
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "stufe_2": {
+          "frames": [
+            2
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "stufe_3": {
+          "frames": [
+            3
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      },
+      "width": 64,
+      "height": 16,
+      "transparent": true
+    }
+  ],
+  "mapping": {
+    "kessel": [
+      "sud_kessel_fenster",
+      "sud_kessel_blubbern",
+      "sud_kessel_pfusch",
+      "sud_abfuellen",
+      "sud_wirkung",
+      "sud_timer",
+      "sud_rezeptbuch"
+    ],
+    "laterne": [
+      "enemy_laternenbestie",
+      "s5_laternen_kreis"
+    ],
+    "faden": [
+      "s5_kokon_player",
+      "s5_kokon_p2a",
+      "s5_kokon_p2b",
+      "s5_kokon_platzt"
+    ],
+    "maske": [
+      "s5_gesicht_nehmen",
+      "s5_gesicht_marke",
+      "s5_gesicht_marke_32",
+      "s5_misstrauen"
+    ],
+    "echo": [
+      "s5_stimme_rauben_knopf",
+      "s5_stimme_rauben_knopf_16"
+    ],
+    "schluessel": [
+      "s5_diebstahl",
+      "s5_diebstahl_zaehler",
+      "schloss_zustaende",
+      "schloss_knacken",
+      "schloss_brecheisen",
+      "schloss_haarnadel",
+      "schloss_zaehler"
+    ],
+    "moor": [
+      "s5_erinnerung_ziehen",
+      "s5_erinnerung_verweigert"
+    ],
+    "uhr": [
+      "s5_uhr_warten",
+      "s5_runden_uhr"
+    ],
+    "eisen": [
+      "s5_eisen_hud",
+      "s5_eisen_rundenbalken",
+      "s5_eisen_grenzlinie"
+    ],
+    "waage": [
+      "s5_handel_hud",
+      "waage_schaetzwert",
+      "waage_anprangern",
+      "waage_anprangern_32",
+      "waage_betrug_aufgedeckt",
+      "waage_falsch_beschuldigt"
+    ],
+    "all_seq5": [
+      "s5_pruefung_gescheitert"
+    ],
+    "probe": [
+      "probe_rahmen",
+      "probe_symbole",
+      "probe_bestanden",
+      "probe_fehlversuch"
+    ],
+    "probe_faden": [
+      "probe_faden_karte",
+      "probe_faden_verbinden"
+    ],
+    "probe_echo": [
+      "probe_echo_stimme"
+    ],
+    "probe_moor": [
+      "probe_moor_tafel"
+    ],
+    "probe_uhr": [
+      "probe_uhr",
+      "probe_uhr_puls",
+      "probe_uhr_ergebnis"
+    ]
+  },
+  "existingDependencies": [
+    "props/cauldron.png",
+    "fx/E_01_stimme_raub.png",
+    "fx/fx_namensraub.png",
+    "fx/fx_fadennetz.png",
+    "fx/fx_schicksalsfaden.png",
+    "fx/fx_spiegelbild.png",
+    "fx/fx_taschenspiel.png",
+    "fx/fx_zersetzung.png",
+    "ui/A_11_digestion.png",
+    "battle/enemy_fadenspinne.png"
+  ],
+  "externalPackageDependencies": {
+    "DN": "props/s4la_ritual_laterne.png",
+    "DP": "Item-Icons für Gefäß, Sude und Taschenuhr"
+  }
+}
