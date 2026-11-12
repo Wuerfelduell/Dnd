@@ -57,3 +57,15 @@ test('Kapitel 3: „Der Ruf durch die Wand“ lässt sich bei Pfiff überspringe
   assert.ok(s.hasConclusion('k3a_14_d'));
   assert.ok(s.clues.has?.('k3a_14_c2') ?? s.clues.includes('k3a_14_c2'));
 });
+
+test('Kapitel 3: Horchstelle an der Drehscheibe lässt sich überspringen', () => {
+  const s = new GameState(content);
+  s.flags.add('k3_arrived');
+  s.startQuest('k3a_akt1');
+  const before = s.signal.charges;
+  assert.ok(s.skipStation('k3o_horch_drehscheibe').ok);
+  assert.ok(s.flags.has('k3a_14_geschlossen'));
+  assert.ok(s.hasConclusion('k3a_14_d'));
+  assert.ok(s.signal.revealedRoutes.has('k3o_horch_drehscheibe:east'));
+  assert.equal(s.signal.charges, before);
+});
