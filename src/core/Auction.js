@@ -217,6 +217,7 @@ export const auctionMethods = {
     this.act?.('trade');
     this.act?.('gathering');
     a.bought.push({ item: l.item, price });
+    this.seq5Trade?.('buy', l.item); // Seq-5-Ritual der Waage zählt mit
     this.say(`Zuschlag! ${this.item(l.item).name} geht für ${price} Schilling an dich.`);
     this.emit('changed');
     this.openRequest();
@@ -292,6 +293,7 @@ export const auctionMethods = {
     this.removeItem(q.item);
     this.addMoney(q.price, { reason: 'Gesuch erfüllt' });
     a.sold.push({ item: q.item, price: q.price });
+    this.seq5Trade?.('sell', q.item);
     this.say(`Du gibst ${this.item(q.item).name} ab und bekommst ${q.price} Schilling.`);
     this.nextTurn();
     return { ok: true };
@@ -353,6 +355,7 @@ export const auctionMethods = {
     this.removeItem(o.item);
     this.addMoney(best.price, { reason: 'Eigenes Los' });
     a.sold.push({ item: o.item, price: best.price });
+    this.seq5Trade?.('sell', o.item);
     this.say(`Zuschlag: ${name} geht für ${best.price} Schilling an ${this.memberName(best.member)}.`);
     a.own = null;
     a.phase = 'own';
@@ -375,6 +378,7 @@ export const auctionMethods = {
     if (!a) return null;
     a.phase = 'done';
     const summary = { bought: a.bought, sold: a.sold, crafted: a.crafted ?? [], collected: a.collected ?? [] };
+    this.seq5SessionEnd?.(); // Seq-5-Ritual der Waage: am Ende der Runde wird gewogen
     this.auction = null;
     this.emit('changed');
     return summary;

@@ -1149,6 +1149,13 @@ const standinIcon = (id) => {
   // Sequenz 4 bis 1 haben noch keine eigenen Trank- und Formelbilder: das Bild der Stufe 5 des Pfads
   return `${t[1]}_${PATHWAY_STANDIN[t[2]] ?? t[2]}_${Math.max(5, Number(t[3]))}`;
 };
+// Seq-5-Rituale und eigene Sude (data/seq5.js, data/sude.js): Leihbilder, bis eigene da sind
+Object.assign(ITEM_ICON_ALIASES, {
+  leeres_gefaess: 'fa2_los_flakon', gefaess_erinnerung: 'fremdlicht_phiole', uhr_taschen: 'taschenuhr', sud_pfusch: 'moortee',
+  sud_nebelsud: 'tonikum', sud_silberklar: 'ruhetee', sud_mohnschlaf: 'schlaftee', sud_gluehtrunk: 'blutsalz_phiole', sud_eisensud: 'blutsalz_phiole',
+  sud_kroetenbitter: 'giftflasche', sud_wachsglanz: 'k3o_schichttee', sud_grabruhe: 'moortee', sud_kraehenauge: 'stimmphiole', sud_moosleuchte: 'fremdlicht_phiole',
+  sud_seidenschritt: 'ruhetee', sud_schattenhauch: 'fremdlicht_phiole', sud_glockenruf: 'blutsalz_phiole', sud_dreikraut: 'tonikum', sud_sternfunke: 'stimmphiole', sud_kesselzorn: 'giftflasche',
+});
 export const itemIconUrl = (id) => `${BASE}items/${ITEM_ICON_ALIASES[id] ?? standinIcon(id)}.png`;
 /** 32x32-Fassung (gibt es für Tränke und die Stimmphiole). */
 const ICON32 = ['stimmphiole', 'verlorenes_gesangbuch', 'spiegelscherbe', ...F_EQUIPMENT,

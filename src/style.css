@@ -480,6 +480,12 @@ img.scene { display: block; width: 30em; height: 16.875em; margin: 0 auto 0.6em;
 .ritual { border: 0.125em solid #4a3a5a; padding: 0.4em 0.6em; margin: 0.5em 0; }
 .ritual h4 { margin: 0 0 0.3em; color: var(--occult); }
 .ritual .steps { margin: 0.3em 0; }
+/* Seq-5-Prüfungen im Ritualblock und freies Brauen am Kessel */
+.ritual .seq5 { border-top: 0.125em dashed #4a3a5a; margin-top: 0.4em; padding-top: 0.3em; }
+.ritual .seq5 .desc { margin: 0.2em 0; }
+.brew .sud { border: 0.125em solid #4a3a5a; padding: 0.4em 0.6em; margin: 0.5em 0; }
+.brew .sud h4 { margin: 0 0 0.3em; color: var(--occult); }
+.brew .sud .giftlist { max-height: 9em; overflow-y: auto; }
 /* Proben der Seq-6-Rituale: Stimmen und Namen zum Einprägen */
 .probe .voices { margin: 0.5em 0; padding-left: 1.2em; }
 .probe .voices li { margin: 0.2em 0; }

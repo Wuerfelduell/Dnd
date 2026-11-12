@@ -205,7 +205,7 @@ export const partyMethods = {
     this.p2 = {
       active: !!p.active, hp: Math.max(1, p.hp ?? 40), maxHp: p.maxHp ?? 40, inventory,
       weapon: inventory[p.weapon] ? p.weapon : null, gear: this.cleanGear(p.gear, inventory), composure: p.composure ?? 100,
-      pathway: path && this.seqDef(path.id, path.seq) ? { id: path.id, seq: path.seq, digestion: path.digestion ?? 0 } : null,
+      pathway: path && this.seqDef(path.id, path.seq) ? { id: path.id, seq: path.seq, digestion: path.digestion ?? 0, ...(path.seq5 && typeof path.seq5 === 'object' ? { seq5: path.seq5 } : {}) } : null,
       unruhe: Math.max(0, Math.min(99, p.unruhe ?? 0)), spiritVision: false, visionDigest: { map: null, total: 0 },
       look: p.look === 'p2b' ? 'p2b' : 'p2a',
       corrupted: Object.fromEntries(Object.entries(p.corrupted ?? {}).filter(([i, n]) => inventory[i] && n > 0)), setAside: [], corruptionAcc: 0,

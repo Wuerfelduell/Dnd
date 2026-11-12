@@ -21,6 +21,8 @@ import { gearMethods } from './Gear.js';
 import { corruptionMethods } from './Corruption.js';
 import { talentMethods } from './Talents.js';
 import { sektenMethods } from './Sekten.js';
+import { sudeMethods } from './Sude.js';
+import { seq5Methods } from './Seq5.js';
 
 /** Tragkraft in Pfund. Gegenstände ohne eigenes "weight" wiegen je nach Art so viel. */
 export const BASE_CARRY = 40;
@@ -68,6 +70,7 @@ export class GameState {
     this.spiritVision = false;
     this.endings = {}; // caseId -> endingId
     this.position = null;
+    this.resetSude();
     this.maxHp = s.hp ?? DEFAULT_HP;
     this.hp = this.maxHp;
     this.inventory = { ...(s.items ?? {}) }; // id -> Anzahl
@@ -539,7 +542,7 @@ export class GameState {
   }
 
   isOverloaded() {
-    return this.carryWeight() > this.carryCapacity();
+    return this.carryWeight() > this.carryCapacity() || this.cocoonActive?.(); // Seq-5-Ritual des Fadens: im Kokon läuft man schwer
   }
 
   carryText() {
@@ -626,6 +629,7 @@ export class GameState {
     const before = this.hp;
     this.hp = Math.min(this.maxHp, this.hp + n);
     if (this.hp !== before) this.emit('hp', { value: this.hp, delta: this.hp - before });
+    if (this.hp > before) this.seq5Heal?.(this.hp - before); // Kampfprüfung des Eisens verbietet jede Heilung
     return this.hp - before;
   }
 
@@ -665,6 +669,8 @@ export class GameState {
     if (it.composure) { this.setComposure(this.composure + it.composure); parts.push(`+${it.composure} Nerven`); }
     const calm = (it.calm ?? 0) + (it.heal ? this.passive('use_calm') : 0);
     if (calm && this.unruhe > 0) { this.setUnruhe(this.unruhe - calm); parts.push(`-${calm} Unruhe`); }
+    const buff = this.applySudBuff?.(it); // eigene Sude wirken auf Zeit
+    if (buff) parts.push(buff);
     this.act('use_item');
     return parts;
   }
@@ -729,6 +735,7 @@ export class GameState {
     this.tickGatherings(dtSeconds);
     this.tickWanted(dtSeconds);
     this.tickParty(dtSeconds);
+    this.seq5Tick?.();
   }
 
   /**
@@ -775,6 +782,7 @@ export class GameState {
       ...this.serializeSignalRoutes(),
       ...this.serializeClaims(),
       ...this.serializeSekten(),
+      ...this.serializeSude(),
     };
   }
 
@@ -832,6 +840,7 @@ export class GameState {
     this.loadSignal(data);
     this.loadSignalRoutes(data); // BN: nach loadSignal, Ladungen bleiben
     this.loadSekten(data); // BQ: Umtriebe-Stufen und laufende Ereignisse
+    this.loadSude(data);
     this.syncClock(); // Tag/Nacht folgt der Spielzeit, nicht dem Spielstand
     if (!this.content.maps[this.map]) { this.map = this.content.start.map; this.position = null; }
     this.map = this.variantOf(this.map); // CH: Briarholt kalt oder warm, je nach Ventilkreis
@@ -842,4 +851,4 @@ export class GameState {
 /** Fortschrittsflags der verlängerten Akt-V-Fassung (AP), in Spielreihenfolge. */
 export const K2_AKT5_STEPS = ['k2v_boot_bereit', 'k2v_keller_passiert', 'k2v_aufstieg_passiert', 'k2v_abschied_done'];
 
-Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods);
+Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods, sudeMethods, seq5Methods);

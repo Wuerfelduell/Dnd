@@ -472,6 +472,12 @@ export class CombatScene extends Phaser.Scene {
       if (c.state.item(action.id).damage) { this.flash(this.enemy); this.float(`-${c.state.item(action.id).damage * (c.enemy.occult ? 2 : 1)}`, 'enemy', 'dmg'); }
       this.phase = 'anim';
       this.time.delayedCall(600, () => this.afterAction(false));
+    } else if (action.type === 'voice') { // Seq-5-Ritual des Echos: verschonen und die Stimme rauben
+      const r = c.stealVoice();
+      if (!r) return;
+      this.ui.combatMessage(r.text);
+      this.ui.combatRefresh();
+      this.over();
     } else if (action.type === 'end') {
       this.phase = 'anim';
       this.afterPlayer();
@@ -821,7 +827,8 @@ export class CombatScene extends Phaser.Scene {
       this.bark(close ? 'koop_knapper_sieg' : 'koop_sieg', null, true);
     } else if (c.outcome === 'fled') this.bark('koop_flucht', null, true);
     if (c.outcome === 'escaped') this.tweens.add({ targets: this.enemy, alpha: 0, x: '-=40', duration: 600 }); // BD: der Gegner macht sich davon
-    const title = { won: 'Sieg', lost: 'Ohnmacht', fled: 'Rückzug', escaped: 'Entkommen' }[c.outcome];
+    if (c.outcome === 'spared') this.tweens.add({ targets: this.enemy, alpha: 0.5, y: '+=6', duration: 700 });
+    const title = { won: 'Sieg', lost: 'Ohnmacht', fled: 'Rückzug', escaped: 'Entkommen', spared: 'Verschont' }[c.outcome];
     this.ui.combatOver(title);
   }
 
