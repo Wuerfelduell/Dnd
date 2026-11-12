@@ -472,6 +472,14 @@ import erf_erfolge from './packs/erfolge/erfolge.json';
 import { tierePack } from './tiere.js';
 import { fahrendeAuktionPack } from './fahrendeAuktion.js';
 import { eigenesHausPack } from './eigenesHaus.js';
+import { nebelseitePack } from './nebelseite.js';
+import ns_karten from './packs/nebelseite/karten.json';
+import ns_still from './packs/nebelseite/stilles_wesen.json';
+import ns_wesen from './packs/nebelseite/wesen.json';
+import ns_ueb from './packs/nebelseite/uebergaenge.json';
+import ns_gerede from './packs/nebelseite/gerede.json';
+import ns_lese from './packs/nebelseite/lesestuecke.json';
+import ns_zeitung from './packs/nebelseite/zeitung.json';
 import dg_haus from './packs/eigenes_haus/haus.json';
 import dg_gaeste from './packs/eigenes_haus/gaeste.json';
 import dg_gedanken from './packs/eigenes_haus/gedanken.json';
@@ -548,7 +556,7 @@ export const content = buildContent({
   gatherings,
   city,
   wexmoor,
-  packs: [k1Finale, kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen, k3Handel, dunscarZirkelPack(), vorratStueckePack(), tierePack({ tiere: tr_tiere, beziehung: tr_beziehung, lesestuecke: tr_lese, zeitung: tr_zeitung }), eigenesHausPack({ haus: dg_haus, gaeste: dg_gaeste, gedanken: dg_gedanken, gerede: dg_gerede, zeitung: dg_zeitung }, dg_manifest), fahrendeAuktionPack({ vance: fa2_vance, bieter: fa2_bieter, lose: fa2_lose, gerede: fa2_gerede, lesestuecke: fa2_lese, zeitung: fa2_zeitung }), k3Leben, koopK3, koopBeute, k3Ruf, beziehungenPack, fasserinPack, fasserinAuftrag, halbgott, festePack, sektenPack, seq4Dr, erfolgePack({ erfolge: erf_erfolge, bedingungen: erf_bedingungen, meldungen: erf_meldungen }), postPack({ briefe: post_briefe, beilagen: post_beilagen, post: post_post }), benanntePack({ gegner: bn_gegner, bestiarium: bn_bestiarium, auftritt: bn_auftritt, beute: bn_beute }), ...runde8],
+  packs: [k1Finale, kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen, k3Handel, dunscarZirkelPack(), vorratStueckePack(), tierePack({ tiere: tr_tiere, beziehung: tr_beziehung, lesestuecke: tr_lese, zeitung: tr_zeitung }), nebelseitePack({ karten: ns_karten, stilles_wesen: ns_still, wesen: ns_wesen, uebergaenge: ns_ueb, gerede: ns_gerede, lesestuecke: ns_lese, zeitung: ns_zeitung }), eigenesHausPack({ haus: dg_haus, gaeste: dg_gaeste, gedanken: dg_gedanken, gerede: dg_gerede, zeitung: dg_zeitung }, dg_manifest), fahrendeAuktionPack({ vance: fa2_vance, bieter: fa2_bieter, lose: fa2_lose, gerede: fa2_gerede, lesestuecke: fa2_lese, zeitung: fa2_zeitung }), k3Leben, koopK3, koopBeute, k3Ruf, beziehungenPack, fasserinPack, fasserinAuftrag, halbgott, festePack, sektenPack, seq4Dr, erfolgePack({ erfolge: erf_erfolge, bedingungen: erf_bedingungen, meldungen: erf_meldungen }), postPack({ briefe: post_briefe, beilagen: post_beilagen, post: post_post }), benanntePack({ gegner: bn_gegner, bestiarium: bn_bestiarium, auftritt: bn_auftritt, beute: bn_beute }), ...runde8],
   lore: { bestiarium: lore_bestiarium, gerede: lore_gerede, item_texte: lore_item_texte, lesestuecke: lore_lesestuecke, zeitungen: lore_zeitungen },
   beziehungen,
   sequenzen: { neue_pfade: sq_neue_pfade, seq_4_bis_1: sq_seq_4_bis_1, zutaten: sq_zutaten, artefakte: sq_artefakte, rituale: k3p_rituale, faehigkeiten: sq_faehigkeiten },

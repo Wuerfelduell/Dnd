@@ -66,7 +66,7 @@ function graph(content) {
   for (const [mapId, map] of Object.entries(content.maps)) {
     g[mapId] = [];
     for (const def of map.interactables ?? []) {
-      if (def.kind === 'door' && def.to) g[mapId].push({ to: def.to, via: def.id });
+      if ((def.kind === 'door' || def.kind === 'nebel') && def.to) g[mapId].push({ to: def.to, via: def.id });
       if (def.kind === 'travel') for (const t of travelMaps) if (t !== mapId) g[mapId].push({ to: t, via: def.id, travel: true });
     }
   }

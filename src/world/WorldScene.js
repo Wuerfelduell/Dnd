@@ -1922,6 +1922,7 @@ export class WorldScene extends Phaser.Scene {
         this.ui.showMessage(def.title, dream ? `${def.text}\n\n${dream}` : def.text, { footer: (healed > 0 ? `+${healed} Leben, Nerven beruhigt.` : 'Du bist ausgeruht.') + (calm ? ` Am Waschtisch: -${calm} Unruhe.` : '') });
         break;
       }
+      case 'nebel': // Codex DH: Übergang zur Nebelseite (keine Straßentür)
       case 'door':
         this.playPlayerAction('door');
         this.sfx(worldSound('door', { to: def.to, from: this.state.map }));
