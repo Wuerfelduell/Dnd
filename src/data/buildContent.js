@@ -480,14 +480,19 @@ function applyDunscarGebietsbosse(content) {
     const l = content.loot[b.from] ?? {};
     content.loot[b.id] = { ...l, repeat: false, money: [160, 240], drops: (l.drops ?? []).filter((d) => !String(d.item).startsWith('k3o_')) };
     if (content.zones?.[mapId]?.encounters) content.zones[mapId].encounters[b.id] = content.encounters[b.id];
-    // Platz: begehbares Feld möglichst weit weg vom Eingang
+    // Platz: gut sichtbar mitten im Gebiet, auf der dem Eingang abgewandten Seite (wie die Wexmoor-Bosse), nicht in einer Ecke
     const spawns = Object.values(m.spawns ?? {});
     const taken = new Set([...(m.npcs ?? []), ...(m.interactables ?? []), ...(m.roamers ?? [])].filter((o) => o.tile).map((o) => `${o.tile[0]},${o.tile[1]}`));
+    const w = m.rows[0].length;
+    const h = m.rows.length;
+    const sx = spawns[0]?.[0] ?? 0;
+    const goal = [sx < w / 2 ? Math.round(w * 0.75) : Math.round(w * 0.25), Math.round(h / 2)];
     let best = null;
     m.rows.forEach((row, y) => [...row].forEach((ch, x) => {
       if (!(ch === '.' || /[gpscwPK=,]/.test(ch)) || taken.has(`${x},${y}`)) return;
-      const d = Math.min(...spawns.map(([sx, sy]) => Math.abs(x - sx) + Math.abs(y - sy)));
-      if (!best || d > best.d) best = { d, tile: [x, y] };
+      if (spawns.some(([a, b]) => Math.abs(x - a) + Math.abs(y - b) < 12)) return;
+      const d = Math.abs(x - goal[0]) + Math.abs(y - goal[1]);
+      if (!best || d < best.d) best = { d, tile: [x, y] };
     }));
     if (best) content.maps[mapId] = { ...m, roamers: [...(m.roamers ?? []), { id: `${mapId}_gebietsboss`, encounter: b.id, tile: best.tile, boss: true }] };
   }
