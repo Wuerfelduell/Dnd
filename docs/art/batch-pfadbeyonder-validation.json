@@ -1,0 +1,113 @@
+{
+  "batch": "pfadbeyonder",
+  "checks": {
+    "exact_dimensions": true,
+    "max_32_opaque_colors": true,
+    "binary_alpha": true,
+    "pixel_grid": "native integer-coordinate Pillow drawing; no resampling",
+    "attack_windup_hold": true,
+    "git_baseline": "not available: workspace is not a Git checkout; placeholder pixel-comparison skipped"
+  },
+  "files": {
+    "characters/ez_torfmutter_walk.png": {
+      "size": [
+        64,
+        128
+      ],
+      "expected_size": [
+        64,
+        128
+      ],
+      "opaque_colors": 10,
+      "binary_alpha": true,
+      "transparent_pixels": 3916,
+      "pass": true
+    },
+    "portraits/heads/ez_torfmutter.png": {
+      "size": [
+        24,
+        24
+      ],
+      "expected_size": [
+        24,
+        24
+      ],
+      "opaque_colors": 7,
+      "binary_alpha": true,
+      "transparent_pixels": 289,
+      "pass": true
+    },
+    "characters/ez_schleusenuhr_walk.png": {
+      "size": [
+        64,
+        128
+      ],
+      "expected_size": [
+        64,
+        128
+      ],
+      "opaque_colors": 8,
+      "binary_alpha": true,
+      "transparent_pixels": 4260,
+      "pass": true
+    },
+    "portraits/heads/ez_schleusenuhr.png": {
+      "size": [
+        24,
+        24
+      ],
+      "expected_size": [
+        24,
+        24
+      ],
+      "opaque_colors": 8,
+      "binary_alpha": true,
+      "transparent_pixels": 290,
+      "pass": true
+    },
+    "battle/enemy_ez_torfmutter.png": {
+      "size": [
+        288,
+        240
+      ],
+      "expected_size": [
+        288,
+        240
+      ],
+      "opaque_colors": 12,
+      "binary_alpha": true,
+      "transparent_pixels": 45251,
+      "pass": true
+    },
+    "battle/enemy_ez_schleusenuhr.png": {
+      "size": [
+        288,
+        240
+      ],
+      "expected_size": [
+        288,
+        240
+      ],
+      "opaque_colors": 12,
+      "binary_alpha": true,
+      "transparent_pixels": 45871,
+      "pass": true
+    },
+    "battle/enemy_wx_pfandleiherin.png": {
+      "size": [
+        288,
+        240
+      ],
+      "expected_size": [
+        288,
+        240
+      ],
+      "opaque_colors": 11,
+      "binary_alpha": true,
+      "transparent_pixels": 45873,
+      "pass": true
+    }
+  },
+  "errors": [],
+  "pass": true
+}
