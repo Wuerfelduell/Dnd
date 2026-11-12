@@ -91,6 +91,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyDunscarHaendler(content); // Dunscar: Waffen, Kleidung, Kräuter und Ankauf am Kalkmarkt (kein Zurück in alte Städte)
   applyAltbeute(content); // Wexmoor-Monster tragen ab und zu Kettlegater Beute (kein Zurück dorthin)
   applyDunscarDichte(content); // Dunscar-Gefahrengebiete so dicht besetzt wie Wexmoor (vorher nur 3–4 Gegner)
+  applyDunscarGeld(content); // Dunscar zahlt mehr als Wexmoor: Gegnergeld und Kopfgelder
   return content;
 }
 
@@ -432,4 +433,27 @@ function applyDunscarDichte(content) {
     }
     content.maps[id] = { ...m, roamers };
   }
+}
+
+/** Seb 2026-11-12: Dunscar zahlt mehr als Wexmoor (dort Gegnergeld ×3, Kopfgelder 150–800). */
+export const DS_MONEY_MULT = 4;
+export const DS_KOPFGELD_MULT = 15; // 45–80 → 675–1200 Schilling
+function applyDunscarGeld(content) {
+  const loot = { ...content.loot };
+  for (const [id, enc] of Object.entries(content.encounters)) {
+    if (enc.chapter !== 3 || !Array.isArray(loot[id]?.money) || loot[id].ds_buffed) continue;
+    loot[id] = { ...loot[id], money: loot[id].money.map((v) => Math.round(v * DS_MONEY_MULT)), ds_buffed: true };
+  }
+  content.loot = loot;
+  const d = content.dialogues?.kopfgeldbrett_ds;
+  if (!d) return;
+  const amounts = {};
+  for (const n of Object.values(d.nodes)) if (n.gives_money) amounts[n.gives_money] = n.gives_money * DS_KOPFGELD_MULT;
+  const fix = (t) => (typeof t === 'string' ? t.replace(/(\d+) Schilling/g, (m, v) => (amounts[v] ? `${amounts[v]} Schilling` : m)) : t);
+  const nodes = {};
+  for (const [k, n] of Object.entries(d.nodes)) {
+    nodes[k] = { ...n, text: fix(n.text), ...(n.gives_money ? { gives_money: amounts[n.gives_money] } : {}), ...(n.choices ? { choices: n.choices.map((c) => ({ ...c, text: fix(c.text) })) } : {}) };
+  }
+  content.dialogues = { ...content.dialogues, kopfgeldbrett_ds: { ...d, nodes } };
+  for (const [qid, q] of Object.entries(content.quests)) if (qid.startsWith('kopfgeld_ds_')) content.quests[qid] = { ...q, summary: fix(q.summary) };
 }
