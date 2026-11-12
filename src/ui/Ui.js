@@ -1047,6 +1047,7 @@ export class Ui {
     const el = this.open('title', `
       <h1>${esc(c.title)}</h1>
       <h2>Ein Mystery in Kettlegate</h2>
+      <div class="build-stamp" style="font-size:9px;opacity:.55">Stand ${esc(typeof __BUILD__ !== 'undefined' ? __BUILD__ : 'dev')}</div>
       <div class="controls touch-only">
         <div>Tippen: hinlaufen · auf Personen und Dinge tippen: sprechen / untersuchen</div>
         <div>Finger halten und ziehen: die Figur folgt dem Finger</div>

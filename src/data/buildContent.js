@@ -440,7 +440,7 @@ function applyDunscarDichte(content) {
 }
 
 /** Seb 2026-11-12: Dunscar zahlt mehr als Wexmoor (dort Gegnergeld ×3, Kopfgelder 150–800). */
-export const DS_MONEY_MULT = 4;
+export const DS_MONEY_MULT = 10; // Seb 2026-11-12: ×4 war noch zu wenig
 export const DS_KOPFGELD_MULT = 15; // 45–80 → 675–1200 Schilling
 function applyDunscarGeld(content) {
   const loot = { ...content.loot };
@@ -463,7 +463,7 @@ function applyDunscarGeld(content) {
 }
 
 /** Seb 2026-11-12: Dunscars Monstergebiete hatten keine Bosse (die Story-Bosse kommen nur über die Akte).
- *  Je Gebiet ein eigener Gebietsboss auf der Karte, aufgebaut auf dem Story-Boss des Gebiets, ohne Story-Flags. Bleibt besiegt (won_…). */
+ *  Je Gebiet ein eigener Gebietsboss auf der Karte, aufgebaut auf dem Story-Boss des Gebiets, ohne Story-Flags. Kommt nach dem Verlassen des Gebiets wieder (respawn). */
 export const DS_GEBIETSBOSSE = {
   ds_rangierwueste: { id: 'ds_gb_weichenfresser', from: 'schwellenhund', name: 'Weichenfresser', intro: 'Zwischen den toten Waggons richtet sich etwas auf, das zu lange Eisen gefressen hat. Es kennt jede Weiche dieser Wüste.' },
   ds_klopfbruch: { id: 'ds_gb_bruchmeister', from: 'vorhauer', name: 'Bruchmeister', intro: 'Der Bruchmeister schlägt den Takt, nach dem hier alles bricht. Seine Hämmer sind älter als die Stadt.' },
@@ -478,7 +478,7 @@ function applyDunscarGebietsbosse(content) {
     const { weak_if, on_win, phase2, ...rest } = base;
     content.encounters[b.id] = { ...rest, name: b.name, intro: b.intro, boss: true, chapter: 3, zone: mapId, on_win: {}, win_text: `${b.name} fällt. Das Gebiet atmet für einen Moment auf.` };
     const l = content.loot[b.from] ?? {};
-    content.loot[b.id] = { ...l, repeat: false, money: [160, 240], drops: (l.drops ?? []).filter((d) => !String(d.item).startsWith('k3o_')) };
+    content.loot[b.id] = { ...l, repeat: true, money: [160, 240], drops: (l.drops ?? []).filter((d) => !String(d.item).startsWith('k3o_')) };
     if (content.zones?.[mapId]?.encounters) content.zones[mapId].encounters[b.id] = content.encounters[b.id];
     // Platz: gut sichtbar mitten im Gebiet, auf der dem Eingang abgewandten Seite (wie die Wexmoor-Bosse), nicht in einer Ecke
     const spawns = Object.values(m.spawns ?? {});
@@ -494,7 +494,7 @@ function applyDunscarGebietsbosse(content) {
       const d = Math.abs(x - goal[0]) + Math.abs(y - goal[1]);
       if (!best || d < best.d) best = { d, tile: [x, y] };
     }));
-    if (best) content.maps[mapId] = { ...m, roamers: [...(m.roamers ?? []), { id: `${mapId}_gebietsboss`, encounter: b.id, tile: best.tile, boss: true }] };
+    if (best) content.maps[mapId] = { ...m, roamers: [...(m.roamers ?? []), { id: `${mapId}_gebietsboss`, encounter: b.id, tile: best.tile, boss: true, respawn: true }] };
   }
 }
 
