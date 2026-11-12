@@ -19,7 +19,7 @@ import { artifactMethods } from './Artifacts.js';
 import { partyMethods } from './Party.js';
 import { gearMethods } from './Gear.js';
 import { corruptionMethods } from './Corruption.js';
-import { talentMethods } from './Talents.js';
+import { talentMethods, CONCLUSION_SCHILLING } from './Talents.js';
 import { sektenMethods } from './Sekten.js';
 import { sudeMethods } from './Sude.js';
 import { seq5Methods } from './Seq5.js';
@@ -208,6 +208,9 @@ export class GameState {
     this.conclusions.push(id);
     this.emit('conclusion', id);
     this.addHonor((d.honor ?? 2) + (d.honor === 0 ? 0 : this.passive('conclusion_honor')), `Schlussfolgerung: ${d.name}`);
+    // Ab Wexmoor zählt Ansehen nicht mehr: Wer für Schlussfolgerungen Ansehen bekäme, bekommt dort Schilling von Informanten
+    const bonus = d.honor === 0 || !this.flags.has('kapitel1_done') ? 0 : this.passive('conclusion_honor');
+    if (bonus > 0) this.addMoney(bonus * CONCLUSION_SCHILLING, { reason: `Informanten zahlen: ${d.name}` });
     this.act('conclusion');
     return true;
   }

@@ -11,6 +11,11 @@
 // - Widerstand (Regel `resist`, Wexmoor): Wer gestellt wird, darf kämpfen (Gespräch `resist_dialogue`). Die Grauspäher sind
 //   Beyonder mit min_seq 4: unter Sequenz 4 verliert man den Kampf auch zu zweit und landet mit doppelter Beschlagnahme in der Zelle.
 
+/** Erkennungszeit der Grauspäher mal 1/honor_loss, begrenzt auf [min, max]. */
+export const RECOGNIZE_MULT = [0.75, 2.5];
+/** Fahndung sinkt je Punkt lock_bonus um diesen Anteil schneller. */
+export const DECAY_PER_LOCK = 0.025;
+
 /** Flags der Ausbruchsschritte, die eine neue Festnahme zurücksetzt (der Alarm k2_zelle_alarm bleibt). */
 const ESCAPE_STEP_FLAGS = ['k2_zelle_werkzeug', 'k2_zelle_offen', 'k2_zelle_fehl1'];
 
@@ -50,8 +55,22 @@ export const wantedMethods = {
     return {
       range: (r.cone.range + r.cone.range_per_level * l) * mod.range,
       angle: r.cone.angle + r.cone.angle_per_level * l,
-      catchSec: Math.max(r.catch_min_sec, r.catch_sec - r.catch_per_level * l) * mod.catch,
+      catchSec: Math.max(r.catch_min_sec, r.catch_sec - r.catch_per_level * l) * mod.catch * this.recognizeMult(),
     };
+  },
+
+  /**
+   * Fähigkeiten gegen Ansehensverlust (Pfad der Maske, `honor_loss` < 1) wirken bei den Grauspähern als Unauffälligkeit:
+   * Sie brauchen länger, bis sie dich erkennen. Nachteile (`honor_loss` > 1) machen dich schneller erkannt.
+   */
+  recognizeMult() {
+    const v = this.passive('honor_loss');
+    return v > 0 ? Math.max(RECOGNIZE_MULT[0], Math.min(RECOGNIZE_MULT[1], 1 / v)) : RECOGNIZE_MULT[1];
+  },
+
+  /** Schlösser-Fähigkeiten (`lock_bonus`): Wer jede Hintertür kennt, aus dessen Spur verliert die Wache schneller (+25 % je 10). */
+  wantedDecaySec(r = this.policeRules()) {
+    return r.decay_sec / (1 + Math.max(0, this.passive('lock_bonus')) * DECAY_PER_LOCK);
   },
 
   /** Getragene Verkleidung (Flag k2_wear_<id>, gesetzt am Kleiderhaken im Unterschlupf) oder null. */
@@ -75,12 +94,12 @@ export const wantedMethods = {
     return this.setWanted(this.wanted + 1, 'Einer Streife entkommen');
   },
 
-  /** Zeit verstreicht (nur ungestörte Spielzeit): alle decay_sec sinkt die Stufe um eins. */
+  /** Zeit verstreicht (nur ungestörte Spielzeit): alle decay_sec (Schlösser-Fähigkeiten: kürzer) sinkt die Stufe um eins. */
   tickWanted(dt) {
     const r = this.policeRules();
     if (!r || this.wanted <= 0 || this.clockStopped?.()) return;
     this.wantedClock += dt;
-    if (this.wantedClock >= r.decay_sec) this.setWanted(this.wanted - 1, 'Die Wache sucht woanders');
+    if (this.wantedClock >= this.wantedDecaySec(r)) this.setWanted(this.wanted - 1, 'Die Wache sucht woanders');
   },
 
   /** In der Koje des Unterschlupfs geschlafen. */
