@@ -2261,6 +2261,11 @@ CHARACTER_SHEETS.npc_wx_pfandleiherin = 'wx_pfandleiherin';
 /** Schneiderin Ottilie Fenn am Salzmarkt (Kleiderladen Wexmoor): umgefärbte Figur bhn_e_naeherin, bis eigene Grafik kommt. */
 SHEETS.wx_schneiderin = 'characters/wx_schneiderin_walk.png';
 CHARACTER_SHEETS.npc_wx_schneiderin = 'wx_schneiderin';
+/** Händlerinnen am Kalkmarkt in Dunscar (Waffen, Kleidung, Kräuter): umgefärbte Figuren cwn_e_griffmacherin, cwn_e_waescherin, cwn_e_marktfrau, bis eigene Grafik kommt. */
+for (const [id, file] of [['ds_waffenhaendlerin', 'ds_waffenhaendler_walk'], ['ds_kleiderhaendlerin', 'ds_schneider_walk'], ['ds_kraeuterfrau', 'ds_kraeuterfrau_walk']]) {
+  SHEETS[id] = `characters/${file}.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = id;
+}
 BATTLE_SHEETS.enemy_wxn_maler = ['battle/enemy_wxn_maler.png', 48];
 BATTLE_SHEETS.enemy_gemalte_frau = ['battle/enemy_gemalte_frau.png', 64];
 ANIM_ALIASES.enemy_wxn_maler = { attack: 'brush_slash', special: 'paint_throw' };
