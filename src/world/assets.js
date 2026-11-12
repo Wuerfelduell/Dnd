@@ -1149,26 +1149,32 @@ const standinIcon = (id) => {
   // Sequenz 4 bis 1 haben noch keine eigenen Trank- und Formelbilder: das Bild der Stufe 5 des Pfads
   return `${t[1]}_${PATHWAY_STANDIN[t[2]] ?? t[2]}_${Math.max(5, Number(t[3]))}`;
 };
-// Seq-5-Rituale und eigene Sude (data/seq5.js, data/sude.js): Leihbilder, bis eigene da sind
+// Seq-4-Rituale (data/seq4.js): Wurfflaschen noch mit Leihbildern (nicht Teil von Codex DP)
 Object.assign(ITEM_ICON_ALIASES, {
-  leeres_gefaess: 'fa2_los_flakon', gefaess_erinnerung: 'fremdlicht_phiole', uhr_taschen: 'taschenuhr', sud_pfusch: 'moortee',
-  sud_nebelsud: 'tonikum', sud_silberklar: 'ruhetee', sud_mohnschlaf: 'schlaftee', sud_gluehtrunk: 'blutsalz_phiole', sud_eisensud: 'blutsalz_phiole',
-  sud_kroetenbitter: 'giftflasche', sud_wachsglanz: 'k3o_schichttee', sud_grabruhe: 'moortee', sud_kraehenauge: 'stimmphiole', sud_moosleuchte: 'fremdlicht_phiole',
-  sud_seidenschritt: 'ruhetee', sud_schattenhauch: 'fremdlicht_phiole', sud_glockenruf: 'blutsalz_phiole', sud_dreikraut: 'tonikum', sud_sternfunke: 'stimmphiole', sud_kesselzorn: 'giftflasche',
-  // Seq-4-Rituale (data/seq4.js): Leihbilder, bis Codex DP liefert
-  s4ke_nachtschierling: 'fremdlicht_phiole', s4ke_aetzwasser: 'giftflasche', s4ke_knallsud: 'blutsalz_phiole', s4ke_frostlauge: 'ruhetee', s4ke_glutschleim: 'blutsalz_phiole',
-  wurf_saeure: 'giftflasche', wurf_gift: 'giftflasche', wurf_spreng: 'blutsalz_phiole', s4mo_relikt: 'sq_torfsiegel',
+  wurf_saeure: 'giftflasche', wurf_gift: 'giftflasche', wurf_spreng: 'blutsalz_phiole',
   // Codex DR: seltene Funde in Wexmoor (Leihbilder)
   wxf_salzglas: 'salzkristall', wxf_moorbernstein: 'torfbernstein', wxf_schlickperle: 'schlickperle', wxf_gezeitenzahn: 'schlickzahn', wxf_schwarzlot: 'schwarzbernstein',
   wxf_torfkompass: 'ski_art_flutkompass', wxf_silberalge: 'vi_m_grenzsteinmoos', wxf_nebelquarz: 'seufzerstein', wxf_ankerfossil: 'vt_all_grenzstein', wxf_wattspiegel: 'taschenspiegel',
 });
+/** Codex DP (Batch ritualicons): eigene Icons in 16 und 32 für Seq-5-Rituale, freie Sude und die Seq-4-Rituale (ersetzen die Leihbilder). */
+export const DP_ICONS = ['leeres_gefaess', 'gefaess_erinnerung', 'uhr_taschen', 'sud_pfusch', 'sud_nebelsud', 'sud_silberklar', 'sud_mohnschlaf', 'sud_gluehtrunk',
+  'sud_eisensud', 'sud_kroetenbitter', 'sud_wachsglanz', 'sud_grabruhe', 'sud_kraehenauge', 'sud_moosleuchte', 'sud_seidenschritt', 'sud_schattenhauch', 'sud_glockenruf',
+  'sud_dreikraut', 'sud_sternfunke', 'sud_kesselzorn', 's4ke_nachtschierling', 's4ke_aetzwasser', 's4ke_knallsud', 's4ke_frostlauge', 's4ke_glutschleim',
+  's4mo_relikt', 's4mo_relikt_glut', 's4mo_relikt_faden', 's4mo_relikt_stein', 's4mo_relikt_schatten', 's4mo_relikt_salz', 's4mo_reste',
+  's4la_ritual_laterne', 's4fa_schicksalsfaden', 's4ma_zivilkleid', 's4ma_handschuh', 's4wa_plombe', 's4wa_kapital', 's4sc_schattenband'];
+/** Relikt des Verfalls: Bild nach der stärksten Eigenschaft (Kategorie aus Codex DR moor_relikt). */
+export const RELIKT_LOOKS = ['glut', 'faden', 'stein', 'schatten', 'salz'];
+export const reliktIcon = (look) => (RELIKT_LOOKS.includes(look) ? `s4mo_relikt_${look}` : 's4mo_relikt');
+/** Bild je Seq-4-Ritual (Kopf des Prüfungsblocks im Pfad-Tab). */
+export const SEQ4_RITUAL_ICONS = { laterne: 's4la_ritual_laterne', faden: 's4fa_schicksalsfaden', maske: 's4ma_zivilkleid', kessel: 's4ke_knallsud', waage: 's4wa_kapital',
+  moor: 's4mo_reste', schluessel: 's4sc_schattenband', uhr: 'uhr_taschen' };
 export const itemIconUrl = (id) => `${BASE}items/${ITEM_ICON_ALIASES[id] ?? standinIcon(id)}.png`;
 /** 32x32-Fassung (gibt es für Tränke und die Stimmphiole). */
 const ICON32 = ['stimmphiole', 'verlorenes_gesangbuch', 'spiegelscherbe', ...F_EQUIPMENT,
   'rostwasser', 'schleierpuder', 'ankerhaken', 'schleierdolch', 'rostanker', 'porzellanmaske', 'rost_zeichen', 'schleier_zeichen',
   // Ausrüstung aus Paket G, J und K
   'mantel_moor', 'hut_schnabel', 'amulett_moorperle', 'knochenmesser', 'wachsamulett', 'glasfibel', 'sternglasdolch', 'geweihreif',
-  'amulett_wiegenlied', 'mantel_giesser', 'taktstock_vey', 'hut_chor', 'amulett_schatten', 'hut_maskenball', 'mantel_frack', 'blitzpulver'];
+  'amulett_wiegenlied', 'mantel_giesser', 'taktstock_vey', 'hut_chor', 'amulett_schatten', 'hut_maskenball', 'mantel_frack', 'blitzpulver', ...DP_ICONS];
 export const itemIcon32Url = (id) => {
   const k = ITEM_ICON_ALIASES[id] ?? id;
   return k.startsWith('trank_') || ICON32.includes(k) || AG_ICONS(k) ? `${BASE}items/32/${standinIcon(k)}.png` : null;
