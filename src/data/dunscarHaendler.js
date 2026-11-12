@@ -30,6 +30,7 @@ export const DS_HAENDLER = {
     greeting: 'Kalkstaub frisst jeden Stoff. Kauf lieber zwei.',
     from: [['wx_schneiderin', () => true]],
     base: { wx_schneiderin: 1.4 }, // Fenns Preise sind schon Wexmoor-Preise
+    extra: ['wachsamulett'], // sonst nur Beute; senkt Unruhe beim Heilen (Seb, 2026-11-12)
     text: 'Eine Stange voller Mäntel, darüber Hüte an Nägeln, in einer Zigarrenkiste Anhänger an Lederbändern. „Rook. Was in Kettlegate auf dem Nachtmarkt hing und in Wexmoor bei Fenn, hängt jetzt hier.“',
     why: '„Fenn schickt mir die Ballen mit dem Kahn bis zur Bahn, dann geht es über die Schienen. Jeder will seinen Teil.“',
     shopText: 'Kleidung und Schmuck ansehen.',
@@ -77,6 +78,9 @@ export function applyDunscarHaendler(content) {
         seen.add(e.item);
         stock.push({ item: e.item, price: Math.round(e.price * mult) });
       }
+    }
+    for (const item of h.extra ?? []) {
+      if (content.items[item] && !seen.has(item)) stock.push({ item, price: Math.round((content.items[item].price ?? 20) * DS_PREIS) });
     }
     merchants[id] = { name: h.npc.name, title: h.title, greeting: h.greeting, stock };
     content.npcs[id] = { ...h.npc, dialogue: id };
