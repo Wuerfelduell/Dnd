@@ -1,0 +1,858 @@
+{
+  "hg_schwellenwaechter": {
+    "start": "ankunft",
+    "nodes": {
+      "ankunft": {
+        "text": "„Sie stehen an einer Grenze. Das ist noch kein Verdienst.“",
+        "options": [
+          {
+            "text": "Was prüfen Sie?",
+            "next": "erklaerung",
+            "requires": {},
+            "effects": {}
+          },
+          {
+            "text": "Ich bin bereit.",
+            "next": "frage_1",
+            "requires": {},
+            "effects": {}
+          },
+          {
+            "text": "Noch nicht.",
+            "next": "gehen",
+            "requires": {},
+            "effects": {}
+          }
+        ]
+      },
+      "erklaerung": {
+        "text": "„Drei Fragen, dann Ihre Entscheidung. Ein Sieg trägt Ihr Siegel weiter; eine ehrliche Antwort kann schwerer wiegen.“",
+        "options": [
+          {
+            "text": "Fragen Sie.",
+            "next": "frage_1",
+            "requires": {},
+            "effects": {}
+          },
+          {
+            "text": "Welchen Preis hat das?",
+            "next": "preis",
+            "requires": {},
+            "effects": {}
+          }
+        ]
+      },
+      "preis": {
+        "text": "„Die Zutaten werden beim bestätigten Beginn eingesetzt. Eine Niederlage kostet sie, nicht Ihr Leben; der friedliche Weg kostet zusätzlich einen Tag ohne Ihre Form.“",
+        "options": [
+          {
+            "text": "Ich weiß genug.",
+            "next": "ankunft",
+            "requires": {},
+            "effects": {}
+          }
+        ]
+      },
+      "frage_1": {
+        "text": "„Beginnen wir bei Ihrer Handlung.“",
+        "je_pfad": {
+          "laterne": "Welche Ihrer Gewissheiten hält ohne Beleuchtung stand?",
+          "faden": "Welche Verbindung haben Sie nur behauptet?",
+          "maske": "Welche Rolle haben Sie niemandem angekündigt?",
+          "echo": "Welche Stimme haben Sie mit Ihrer eigenen überdeckt?",
+          "kessel": "Welchen Rest nennen Sie bequem verschwunden?",
+          "eisen": "Wo standen Sie nur, weil niemand Sie wegschicken konnte?",
+          "schluessel": "Welcher verwehrte Zugang war nicht für Sie bestimmt?",
+          "sq_waage": "Welchen Anteil haben Sie einer stillen Person zugeschoben?",
+          "sq_moor": "Welche Herkunft haben Sie durch eine passende Geschichte ersetzt?",
+          "sq_uhr": "Welche Verspätung haben Sie nachträglich aus dem Ablauf gestrichen?"
+        },
+        "options": [
+          {
+            "text": "Ich benenne meinen Anteil.",
+            "next": "frage_2",
+            "requires": {},
+            "effects": {
+              "record_answer": 1
+            }
+          }
+        ],
+        "antwort_je_pfad": {
+          "laterne": "Ich kann mich irren, auch wenn ich etwas sehe.",
+          "faden": "Eine ähnliche Spur ist noch keine Verbindung.",
+          "maske": "Ich spielte Sicherheit, obwohl ich nichts wusste.",
+          "echo": "Ich hörte lieber meine Erklärung als den Rest.",
+          "kessel": "Den Rest, dessen Weg ich nicht verfolgt habe.",
+          "eisen": "Ich verwechselte meinen Platz mit einem Recht.",
+          "schluessel": "Nicht jede Sperre ist eine Einladung.",
+          "sq_waage": "Den Anteil, für den niemand laut genug widersprach.",
+          "sq_moor": "Ich habe eine Lücke zu schnell gefüllt.",
+          "sq_uhr": "Ich habe den Bericht auf eine bequemere Minute gestellt."
+        }
+      },
+      "frage_2": {
+        "text": "„Nun die Folgen.“",
+        "je_pfad": {
+          "laterne": "Wessen Irrtum haben Sie heller gezeigt als Ihren eigenen?",
+          "faden": "Wen haben Sie festgehalten, obwohl er gehen wollte?",
+          "maske": "Wer kennt Sie ohne Ihre nützlichste Miene?",
+          "echo": "Welches Schweigen haben Sie als Zustimmung verkauft?",
+          "kessel": "Wer trägt die Wärme Ihrer Arbeit?",
+          "eisen": "Wessen Last haben Sie ohne Erlaubnis übernommen?",
+          "schluessel": "Was nahmen Sie nur, weil Sie hineinkamen?",
+          "sq_waage": "Welche Zahlung macht Ihre Tat nicht ungeschehen?",
+          "sq_moor": "Welchen Namen wissen Sie nicht mehr sicher?",
+          "sq_uhr": "Wer wartete auf eine Frist, die Sie verschoben haben?"
+        },
+        "options": [
+          {
+            "text": "Ich lasse die Folge bei mir.",
+            "next": "frage_3",
+            "requires": {},
+            "effects": {
+              "record_answer": 2
+            }
+          }
+        ],
+        "antwort_je_pfad": {
+          "laterne": "Meinen eigenen Bericht habe ich zu sauber gehalten.",
+          "faden": "Ich hielt einen Menschen mit einer Erklärung fest.",
+          "maske": "Es gibt jemanden, dem ich keine Erklärung schulde.",
+          "echo": "Eine fehlende Antwort war keine Erlaubnis.",
+          "kessel": "Zu oft jemand außerhalb meines Blicks.",
+          "eisen": "Ich habe Hilfe mit Festhalten verwechselt.",
+          "schluessel": "Ich machte aus Zugang einen Anspruch.",
+          "sq_waage": "Keine Zahlung ersetzt eine ehrliche Berichtigung.",
+          "sq_moor": "Ich werde die unsichere Lesung als unsicher markieren.",
+          "sq_uhr": "Die wartende Person trug meinen Vorteil."
+        }
+      },
+      "frage_3": {
+        "text": "„Und ohne Zuschauer?“",
+        "je_pfad": {
+          "laterne": "Was lassen Sie sichtbar, wenn niemand Sie dafür lobt?",
+          "faden": "Welche Naht lassen Sie offen?",
+          "maske": "Welche Antwort geben Sie ohne Publikum?",
+          "echo": "Können Sie eine Antwort unvollständig lassen?",
+          "kessel": "Was behalten Sie, obwohl es Ihnen nichts nützt?",
+          "eisen": "Was tragen Sie, wenn niemand es bemerkt?",
+          "schluessel": "Welche Tür lassen Sie freiwillig geschlossen?",
+          "sq_waage": "Was tragen Sie ohne Gegenforderung?",
+          "sq_moor": "Was bewahren Sie ohne es zu benennen?",
+          "sq_uhr": "Was lassen Sie geschehen, obwohl Sie die Abweichung sehen?"
+        },
+        "options": [
+          {
+            "text": "Ich stehe für diese Antwort ein.",
+            "next": "entscheidung",
+            "requires": {},
+            "effects": {
+              "record_answer": 3
+            }
+          }
+        ],
+        "antwort_je_pfad": {
+          "laterne": "Die Korrektur bleibt neben meiner Unterschrift.",
+          "faden": "Die, deren Enden jemand selbst verbinden muss.",
+          "maske": "Dieselbe, auch wenn sie mir nichts einbringt.",
+          "echo": "Ich werde warten, ohne den Satz zu ergänzen.",
+          "kessel": "Den Rückstand, bis sein weiterer Weg geklärt ist.",
+          "eisen": "Meinen Anteil, auch wenn er klein bleibt.",
+          "schluessel": "Die, hinter der jemand Schutz und keinen Besitz sucht.",
+          "sq_waage": "Die Folge meiner Entscheidung bleibt bei mir.",
+          "sq_moor": "Den Fundort und den Zweifel, bis jemand mehr weiß.",
+          "sq_uhr": "Die Zeit der anderen bleibt ihre eigene."
+        }
+      },
+      "entscheidung": {
+        "text": "„Sie können angreifen, verzichten oder gehen. Ich werde Ihre Wahl nicht für Sie treffen.“",
+        "options": [
+          {
+            "text": "Die Probe im Kampf beginnen.",
+            "next": "kampf",
+            "requires": {
+              "active_ritual_ready": true
+            },
+            "effects": {}
+          },
+          {
+            "text": "Ich verzichte und trage den Preis.",
+            "next": "friedlich",
+            "requires": {
+              "active_ritual_peaceful": true
+            },
+            "effects": {}
+          },
+          {
+            "text": "Ich komme wieder.",
+            "next": "gehen",
+            "requires": {},
+            "effects": {}
+          }
+        ]
+      },
+      "kampf": {
+        "text": "„Dann machen Sie den ersten Schritt.“",
+        "effects": {
+          "begin_ritual_attempt": "combat",
+          "consume_active_ritual_once": true,
+          "combat": "hg_schwellenwaechter"
+        },
+        "options": []
+      },
+      "phase_2": {
+        "text": "„Was Sie bewegen, bewegt auch Sie.“",
+        "options": []
+      },
+      "phase_3": {
+        "text": "„Die Brust ist offen. Sie haben einen eigenen Zug.“",
+        "options": []
+      },
+      "sieg": {
+        "text": "Der Wächter zerfällt. Dein Pfadsiegel bleibt einen Augenblick frei über dem Kalk stehen.",
+        "requires": {
+          "encounter_won": "hg_schwellenwaechter",
+          "own_seal_landed": true
+        },
+        "effects": {
+          "complete_active_personal_ritual": true,
+          "unlock_bestiary": "hg_schwellenwaechter",
+          "sets_flags": [
+            "hg_schwellenwaechter_bekannt"
+          ]
+        },
+        "options": [
+          {
+            "text": "Ich nehme die Probe an.",
+            "requires": {},
+            "effects": {}
+          }
+        ]
+      },
+      "friedlich": {
+        "text": "„Dann lassen Sie Ihre bequeme Antwort hier. Einen Tag lang bleiben Sie in Ihrer gewöhnlichen Gestalt.“",
+        "requires": {
+          "active_ritual_peaceful": true
+        },
+        "effects": {
+          "begin_ritual_attempt": "peaceful",
+          "consume_active_ritual_once": true,
+          "form_lock_days": 1,
+          "complete_active_personal_ritual": true,
+          "unlock_bestiary": "hg_schwellenwaechter",
+          "sets_flags": [
+            "hg_schwellenwaechter_bekannt"
+          ]
+        },
+        "options": [
+          {
+            "text": "Ich trage den Preis.",
+            "requires": {},
+            "effects": {}
+          }
+        ]
+      },
+      "niederlage": {
+        "text": "Du kommst am Rand zu dir. „Die Grenze steht noch“, sagt der Wächter. „Sie ebenfalls, sobald Sie sich erholt haben.“",
+        "options": [
+          {
+            "text": "Langsam aufstehen.",
+            "requires": {},
+            "effects": {}
+          }
+        ]
+      },
+      "wiederkehr": {
+        "text": "„Sie sind wieder da. Ich behalte Ihren Namen, nicht Ihren Fehlschlag.“",
+        "options": [
+          {
+            "text": "Ich bereite einen neuen Versuch vor.",
+            "next": "ankunft",
+            "requires": {},
+            "effects": {}
+          }
+        ]
+      },
+      "gehen": {
+        "text": "Der Wächter rückt zur Seite. Du nimmst die noch nicht eingesetzten Zutaten wieder an dich.",
+        "options": [
+          {
+            "text": "Gehen.",
+            "requires": {},
+            "effects": {}
+          }
+        ]
+      }
+    },
+    "pfadfragen": {
+      "laterne": {
+        "id": "hg_fragen_laterne_4",
+        "fragen": [
+          "Welche Ihrer Gewissheiten hält ohne Beleuchtung stand?",
+          "Wessen Irrtum haben Sie heller gezeigt als Ihren eigenen?",
+          "Was lassen Sie sichtbar, wenn niemand Sie dafür lobt?"
+        ],
+        "antworten": [
+          "Ich kann mich irren, auch wenn ich etwas sehe.",
+          "Meinen eigenen Bericht habe ich zu sauber gehalten.",
+          "Die Korrektur bleibt neben meiner Unterschrift."
+        ]
+      },
+      "faden": {
+        "id": "hg_fragen_faden_4",
+        "fragen": [
+          "Welche Verbindung haben Sie nur behauptet?",
+          "Wen haben Sie festgehalten, obwohl er gehen wollte?",
+          "Welche Naht lassen Sie offen?"
+        ],
+        "antworten": [
+          "Eine ähnliche Spur ist noch keine Verbindung.",
+          "Ich hielt einen Menschen mit einer Erklärung fest.",
+          "Die, deren Enden jemand selbst verbinden muss."
+        ]
+      },
+      "maske": {
+        "id": "hg_fragen_maske_4",
+        "fragen": [
+          "Welche Rolle haben Sie niemandem angekündigt?",
+          "Wer kennt Sie ohne Ihre nützlichste Miene?",
+          "Welche Antwort geben Sie ohne Publikum?"
+        ],
+        "antworten": [
+          "Ich spielte Sicherheit, obwohl ich nichts wusste.",
+          "Es gibt jemanden, dem ich keine Erklärung schulde.",
+          "Dieselbe, auch wenn sie mir nichts einbringt."
+        ]
+      },
+      "echo": {
+        "id": "hg_fragen_echo_4",
+        "fragen": [
+          "Welche Stimme haben Sie mit Ihrer eigenen überdeckt?",
+          "Welches Schweigen haben Sie als Zustimmung verkauft?",
+          "Können Sie eine Antwort unvollständig lassen?"
+        ],
+        "antworten": [
+          "Ich hörte lieber meine Erklärung als den Rest.",
+          "Eine fehlende Antwort war keine Erlaubnis.",
+          "Ich werde warten, ohne den Satz zu ergänzen."
+        ]
+      },
+      "kessel": {
+        "id": "hg_fragen_kessel_4",
+        "fragen": [
+          "Welchen Rest nennen Sie bequem verschwunden?",
+          "Wer trägt die Wärme Ihrer Arbeit?",
+          "Was behalten Sie, obwohl es Ihnen nichts nützt?"
+        ],
+        "antworten": [
+          "Den Rest, dessen Weg ich nicht verfolgt habe.",
+          "Zu oft jemand außerhalb meines Blicks.",
+          "Den Rückstand, bis sein weiterer Weg geklärt ist."
+        ]
+      },
+      "eisen": {
+        "id": "hg_fragen_eisen_4",
+        "fragen": [
+          "Wo standen Sie nur, weil niemand Sie wegschicken konnte?",
+          "Wessen Last haben Sie ohne Erlaubnis übernommen?",
+          "Was tragen Sie, wenn niemand es bemerkt?"
+        ],
+        "antworten": [
+          "Ich verwechselte meinen Platz mit einem Recht.",
+          "Ich habe Hilfe mit Festhalten verwechselt.",
+          "Meinen Anteil, auch wenn er klein bleibt."
+        ]
+      },
+      "schluessel": {
+        "id": "hg_fragen_schluessel_4",
+        "fragen": [
+          "Welcher verwehrte Zugang war nicht für Sie bestimmt?",
+          "Was nahmen Sie nur, weil Sie hineinkamen?",
+          "Welche Tür lassen Sie freiwillig geschlossen?"
+        ],
+        "antworten": [
+          "Nicht jede Sperre ist eine Einladung.",
+          "Ich machte aus Zugang einen Anspruch.",
+          "Die, hinter der jemand Schutz und keinen Besitz sucht."
+        ]
+      },
+      "sq_waage": {
+        "id": "hg_fragen_sq_waage_4",
+        "fragen": [
+          "Welchen Anteil haben Sie einer stillen Person zugeschoben?",
+          "Welche Zahlung macht Ihre Tat nicht ungeschehen?",
+          "Was tragen Sie ohne Gegenforderung?"
+        ],
+        "antworten": [
+          "Den Anteil, für den niemand laut genug widersprach.",
+          "Keine Zahlung ersetzt eine ehrliche Berichtigung.",
+          "Die Folge meiner Entscheidung bleibt bei mir."
+        ]
+      },
+      "sq_moor": {
+        "id": "hg_fragen_sq_moor_4",
+        "fragen": [
+          "Welche Herkunft haben Sie durch eine passende Geschichte ersetzt?",
+          "Welchen Namen wissen Sie nicht mehr sicher?",
+          "Was bewahren Sie ohne es zu benennen?"
+        ],
+        "antworten": [
+          "Ich habe eine Lücke zu schnell gefüllt.",
+          "Ich werde die unsichere Lesung als unsicher markieren.",
+          "Den Fundort und den Zweifel, bis jemand mehr weiß."
+        ]
+      },
+      "sq_uhr": {
+        "id": "hg_fragen_sq_uhr_4",
+        "fragen": [
+          "Welche Verspätung haben Sie nachträglich aus dem Ablauf gestrichen?",
+          "Wer wartete auf eine Frist, die Sie verschoben haben?",
+          "Was lassen Sie geschehen, obwohl Sie die Abweichung sehen?"
+        ],
+        "antworten": [
+          "Ich habe den Bericht auf eine bequemere Minute gestellt.",
+          "Die wartende Person trug meinen Vorteil.",
+          "Die Zeit der anderen bleibt ihre eigene."
+        ]
+      }
+    },
+    "contract": {
+      "options": "choice_array",
+      "requires": "all_conditions",
+      "effects": "transactional_authoritative",
+      "je_pfad": "resolve_with_acting_player_path",
+      "answer_source": "antwort_je_pfad",
+      "phase_nodes": "encounter_events_only",
+      "sieg_idempotent": "active_attempt_id",
+      "peaceful_recheck_before_effects": true
+    }
+  },
+  "hg_grenzwaechter": {
+    "start": "ankunft",
+    "nodes": {
+      "ankunft": {
+        "text": "„Sie stehen an einer Grenze. Das ist noch kein Verdienst.“",
+        "options": [
+          {
+            "text": "Was prüfen Sie?",
+            "next": "erklaerung",
+            "requires": {},
+            "effects": {}
+          },
+          {
+            "text": "Ich bin bereit.",
+            "next": "frage_1",
+            "requires": {},
+            "effects": {}
+          },
+          {
+            "text": "Noch nicht.",
+            "next": "gehen",
+            "requires": {},
+            "effects": {}
+          }
+        ]
+      },
+      "erklaerung": {
+        "text": "„Drei Fragen, dann Ihre Entscheidung. Ein Sieg trägt Ihr Siegel weiter; eine ehrliche Antwort kann schwerer wiegen.“",
+        "options": [
+          {
+            "text": "Fragen Sie.",
+            "next": "frage_1",
+            "requires": {},
+            "effects": {}
+          },
+          {
+            "text": "Welchen Preis hat das?",
+            "next": "preis",
+            "requires": {},
+            "effects": {}
+          }
+        ]
+      },
+      "preis": {
+        "text": "„Die Zutaten werden beim bestätigten Beginn eingesetzt. Eine Niederlage kostet sie, nicht Ihr Leben; der friedliche Weg kostet zusätzlich einen Tag ohne Ihre Form.“",
+        "options": [
+          {
+            "text": "Ich weiß genug.",
+            "next": "ankunft",
+            "requires": {},
+            "effects": {}
+          }
+        ]
+      },
+      "frage_1": {
+        "text": "„Beginnen wir bei Ihrer Handlung.“",
+        "je_pfad": {
+          "laterne": "Welche Ihrer Gewissheiten hält ohne Beleuchtung stand?",
+          "faden": "Welche Verbindung haben Sie nur behauptet?",
+          "maske": "Welche Rolle haben Sie niemandem angekündigt?",
+          "echo": "Welche Stimme haben Sie mit Ihrer eigenen überdeckt?",
+          "kessel": "Welchen Rest nennen Sie bequem verschwunden?",
+          "eisen": "Wo standen Sie nur, weil niemand Sie wegschicken konnte?",
+          "schluessel": "Welcher verwehrte Zugang war nicht für Sie bestimmt?",
+          "sq_waage": "Welchen Anteil haben Sie einer stillen Person zugeschoben?",
+          "sq_moor": "Welche Herkunft haben Sie durch eine passende Geschichte ersetzt?",
+          "sq_uhr": "Welche Verspätung haben Sie nachträglich aus dem Ablauf gestrichen?"
+        },
+        "options": [
+          {
+            "text": "Ich benenne meinen Anteil.",
+            "next": "frage_2",
+            "requires": {},
+            "effects": {
+              "record_answer": 1
+            }
+          }
+        ],
+        "antwort_je_pfad": {
+          "laterne": "Ich kann mich irren, auch wenn ich etwas sehe.",
+          "faden": "Eine ähnliche Spur ist noch keine Verbindung.",
+          "maske": "Ich spielte Sicherheit, obwohl ich nichts wusste.",
+          "echo": "Ich hörte lieber meine Erklärung als den Rest.",
+          "kessel": "Den Rest, dessen Weg ich nicht verfolgt habe.",
+          "eisen": "Ich verwechselte meinen Platz mit einem Recht.",
+          "schluessel": "Nicht jede Sperre ist eine Einladung.",
+          "sq_waage": "Den Anteil, für den niemand laut genug widersprach.",
+          "sq_moor": "Ich habe eine Lücke zu schnell gefüllt.",
+          "sq_uhr": "Ich habe den Bericht auf eine bequemere Minute gestellt."
+        }
+      },
+      "frage_2": {
+        "text": "„Nun die Folgen.“",
+        "je_pfad": {
+          "laterne": "Wessen Irrtum haben Sie heller gezeigt als Ihren eigenen?",
+          "faden": "Wen haben Sie festgehalten, obwohl er gehen wollte?",
+          "maske": "Wer kennt Sie ohne Ihre nützlichste Miene?",
+          "echo": "Welches Schweigen haben Sie als Zustimmung verkauft?",
+          "kessel": "Wer trägt die Wärme Ihrer Arbeit?",
+          "eisen": "Wessen Last haben Sie ohne Erlaubnis übernommen?",
+          "schluessel": "Was nahmen Sie nur, weil Sie hineinkamen?",
+          "sq_waage": "Welche Zahlung macht Ihre Tat nicht ungeschehen?",
+          "sq_moor": "Welchen Namen wissen Sie nicht mehr sicher?",
+          "sq_uhr": "Wer wartete auf eine Frist, die Sie verschoben haben?"
+        },
+        "options": [
+          {
+            "text": "Ich lasse die Folge bei mir.",
+            "next": "frage_3",
+            "requires": {},
+            "effects": {
+              "record_answer": 2
+            }
+          }
+        ],
+        "antwort_je_pfad": {
+          "laterne": "Meinen eigenen Bericht habe ich zu sauber gehalten.",
+          "faden": "Ich hielt einen Menschen mit einer Erklärung fest.",
+          "maske": "Es gibt jemanden, dem ich keine Erklärung schulde.",
+          "echo": "Eine fehlende Antwort war keine Erlaubnis.",
+          "kessel": "Zu oft jemand außerhalb meines Blicks.",
+          "eisen": "Ich habe Hilfe mit Festhalten verwechselt.",
+          "schluessel": "Ich machte aus Zugang einen Anspruch.",
+          "sq_waage": "Keine Zahlung ersetzt eine ehrliche Berichtigung.",
+          "sq_moor": "Ich werde die unsichere Lesung als unsicher markieren.",
+          "sq_uhr": "Die wartende Person trug meinen Vorteil."
+        }
+      },
+      "frage_3": {
+        "text": "„Und ohne Zuschauer?“",
+        "je_pfad": {
+          "laterne": "Was lassen Sie sichtbar, wenn niemand Sie dafür lobt?",
+          "faden": "Welche Naht lassen Sie offen?",
+          "maske": "Welche Antwort geben Sie ohne Publikum?",
+          "echo": "Können Sie eine Antwort unvollständig lassen?",
+          "kessel": "Was behalten Sie, obwohl es Ihnen nichts nützt?",
+          "eisen": "Was tragen Sie, wenn niemand es bemerkt?",
+          "schluessel": "Welche Tür lassen Sie freiwillig geschlossen?",
+          "sq_waage": "Was tragen Sie ohne Gegenforderung?",
+          "sq_moor": "Was bewahren Sie ohne es zu benennen?",
+          "sq_uhr": "Was lassen Sie geschehen, obwohl Sie die Abweichung sehen?"
+        },
+        "options": [
+          {
+            "text": "Ich stehe für diese Antwort ein.",
+            "next": "entscheidung",
+            "requires": {},
+            "effects": {
+              "record_answer": 3
+            }
+          }
+        ],
+        "antwort_je_pfad": {
+          "laterne": "Die Korrektur bleibt neben meiner Unterschrift.",
+          "faden": "Die, deren Enden jemand selbst verbinden muss.",
+          "maske": "Dieselbe, auch wenn sie mir nichts einbringt.",
+          "echo": "Ich werde warten, ohne den Satz zu ergänzen.",
+          "kessel": "Den Rückstand, bis sein weiterer Weg geklärt ist.",
+          "eisen": "Meinen Anteil, auch wenn er klein bleibt.",
+          "schluessel": "Die, hinter der jemand Schutz und keinen Besitz sucht.",
+          "sq_waage": "Die Folge meiner Entscheidung bleibt bei mir.",
+          "sq_moor": "Den Fundort und den Zweifel, bis jemand mehr weiß.",
+          "sq_uhr": "Die Zeit der anderen bleibt ihre eigene."
+        }
+      },
+      "entscheidung": {
+        "text": "„Sie können angreifen, verzichten oder gehen. Ich werde Ihre Wahl nicht für Sie treffen.“",
+        "options": [
+          {
+            "text": "Die Probe im Kampf beginnen.",
+            "next": "kampf",
+            "requires": {
+              "active_ritual_ready": true
+            },
+            "effects": {}
+          },
+          {
+            "text": "Ich verzichte und trage den Preis.",
+            "next": "friedlich",
+            "requires": {
+              "active_ritual_peaceful": true
+            },
+            "effects": {}
+          },
+          {
+            "text": "Ich komme wieder.",
+            "next": "gehen",
+            "requires": {},
+            "effects": {}
+          }
+        ]
+      },
+      "kampf": {
+        "text": "„Dann machen Sie den ersten Schritt.“",
+        "effects": {
+          "begin_ritual_attempt": "combat",
+          "consume_active_ritual_once": true,
+          "combat": "hg_grenzwaechter"
+        },
+        "options": []
+      },
+      "phase_2": {
+        "text": "„Was Sie bewegen, bewegt auch Sie.“",
+        "options": []
+      },
+      "phase_3": {
+        "text": "„Die Brust ist offen. Sie haben einen eigenen Zug.“",
+        "options": []
+      },
+      "sieg": {
+        "text": "Der Wächter zerfällt. Dein Pfadsiegel bleibt einen Augenblick frei über dem Kalk stehen.",
+        "requires": {
+          "encounter_won": "hg_grenzwaechter",
+          "own_seal_landed": true
+        },
+        "effects": {
+          "complete_active_personal_ritual": true,
+          "unlock_bestiary": "hg_grenzwaechter",
+          "sets_flags": [
+            "hg_grenzwaechter_bekannt"
+          ]
+        },
+        "options": [
+          {
+            "text": "Ich nehme die Probe an.",
+            "requires": {},
+            "effects": {}
+          }
+        ]
+      },
+      "friedlich": {
+        "text": "„Dann lassen Sie Ihre bequeme Antwort hier. Einen Tag lang bleiben Sie in Ihrer gewöhnlichen Gestalt.“",
+        "requires": {
+          "active_ritual_peaceful": true
+        },
+        "effects": {
+          "begin_ritual_attempt": "peaceful",
+          "consume_active_ritual_once": true,
+          "form_lock_days": 1,
+          "complete_active_personal_ritual": true,
+          "unlock_bestiary": "hg_grenzwaechter",
+          "sets_flags": [
+            "hg_grenzwaechter_bekannt"
+          ]
+        },
+        "options": [
+          {
+            "text": "Ich trage den Preis.",
+            "requires": {},
+            "effects": {}
+          }
+        ]
+      },
+      "niederlage": {
+        "text": "Du kommst am Rand zu dir. „Die Grenze steht noch“, sagt der Wächter. „Sie ebenfalls, sobald Sie sich erholt haben.“",
+        "options": [
+          {
+            "text": "Langsam aufstehen.",
+            "requires": {},
+            "effects": {}
+          }
+        ]
+      },
+      "wiederkehr": {
+        "text": "„Sie sind wieder da. Ich behalte Ihren Namen, nicht Ihren Fehlschlag.“",
+        "options": [
+          {
+            "text": "Ich bereite einen neuen Versuch vor.",
+            "next": "ankunft",
+            "requires": {},
+            "effects": {}
+          }
+        ]
+      },
+      "gehen": {
+        "text": "Der Wächter rückt zur Seite. Du nimmst die noch nicht eingesetzten Zutaten wieder an dich.",
+        "options": [
+          {
+            "text": "Gehen.",
+            "requires": {},
+            "effects": {}
+          }
+        ]
+      }
+    },
+    "pfadfragen": {
+      "laterne": {
+        "id": "hg_fragen_laterne_2",
+        "fragen": [
+          "Welche Ihrer Gewissheiten hält ohne Beleuchtung stand?",
+          "Wessen Irrtum haben Sie heller gezeigt als Ihren eigenen?",
+          "Was lassen Sie sichtbar, wenn niemand Sie dafür lobt?"
+        ],
+        "antworten": [
+          "Ich kann mich irren, auch wenn ich etwas sehe.",
+          "Meinen eigenen Bericht habe ich zu sauber gehalten.",
+          "Die Korrektur bleibt neben meiner Unterschrift."
+        ]
+      },
+      "faden": {
+        "id": "hg_fragen_faden_2",
+        "fragen": [
+          "Welche Verbindung haben Sie nur behauptet?",
+          "Wen haben Sie festgehalten, obwohl er gehen wollte?",
+          "Welche Naht lassen Sie offen?"
+        ],
+        "antworten": [
+          "Eine ähnliche Spur ist noch keine Verbindung.",
+          "Ich hielt einen Menschen mit einer Erklärung fest.",
+          "Die, deren Enden jemand selbst verbinden muss."
+        ]
+      },
+      "maske": {
+        "id": "hg_fragen_maske_2",
+        "fragen": [
+          "Welche Rolle haben Sie niemandem angekündigt?",
+          "Wer kennt Sie ohne Ihre nützlichste Miene?",
+          "Welche Antwort geben Sie ohne Publikum?"
+        ],
+        "antworten": [
+          "Ich spielte Sicherheit, obwohl ich nichts wusste.",
+          "Es gibt jemanden, dem ich keine Erklärung schulde.",
+          "Dieselbe, auch wenn sie mir nichts einbringt."
+        ]
+      },
+      "echo": {
+        "id": "hg_fragen_echo_2",
+        "fragen": [
+          "Welche Stimme haben Sie mit Ihrer eigenen überdeckt?",
+          "Welches Schweigen haben Sie als Zustimmung verkauft?",
+          "Können Sie eine Antwort unvollständig lassen?"
+        ],
+        "antworten": [
+          "Ich hörte lieber meine Erklärung als den Rest.",
+          "Eine fehlende Antwort war keine Erlaubnis.",
+          "Ich werde warten, ohne den Satz zu ergänzen."
+        ]
+      },
+      "kessel": {
+        "id": "hg_fragen_kessel_2",
+        "fragen": [
+          "Welchen Rest nennen Sie bequem verschwunden?",
+          "Wer trägt die Wärme Ihrer Arbeit?",
+          "Was behalten Sie, obwohl es Ihnen nichts nützt?"
+        ],
+        "antworten": [
+          "Den Rest, dessen Weg ich nicht verfolgt habe.",
+          "Zu oft jemand außerhalb meines Blicks.",
+          "Den Rückstand, bis sein weiterer Weg geklärt ist."
+        ]
+      },
+      "eisen": {
+        "id": "hg_fragen_eisen_2",
+        "fragen": [
+          "Wo standen Sie nur, weil niemand Sie wegschicken konnte?",
+          "Wessen Last haben Sie ohne Erlaubnis übernommen?",
+          "Was tragen Sie, wenn niemand es bemerkt?"
+        ],
+        "antworten": [
+          "Ich verwechselte meinen Platz mit einem Recht.",
+          "Ich habe Hilfe mit Festhalten verwechselt.",
+          "Meinen Anteil, auch wenn er klein bleibt."
+        ]
+      },
+      "schluessel": {
+        "id": "hg_fragen_schluessel_2",
+        "fragen": [
+          "Welcher verwehrte Zugang war nicht für Sie bestimmt?",
+          "Was nahmen Sie nur, weil Sie hineinkamen?",
+          "Welche Tür lassen Sie freiwillig geschlossen?"
+        ],
+        "antworten": [
+          "Nicht jede Sperre ist eine Einladung.",
+          "Ich machte aus Zugang einen Anspruch.",
+          "Die, hinter der jemand Schutz und keinen Besitz sucht."
+        ]
+      },
+      "sq_waage": {
+        "id": "hg_fragen_sq_waage_2",
+        "fragen": [
+          "Welchen Anteil haben Sie einer stillen Person zugeschoben?",
+          "Welche Zahlung macht Ihre Tat nicht ungeschehen?",
+          "Was tragen Sie ohne Gegenforderung?"
+        ],
+        "antworten": [
+          "Den Anteil, für den niemand laut genug widersprach.",
+          "Keine Zahlung ersetzt eine ehrliche Berichtigung.",
+          "Die Folge meiner Entscheidung bleibt bei mir."
+        ]
+      },
+      "sq_moor": {
+        "id": "hg_fragen_sq_moor_2",
+        "fragen": [
+          "Welche Herkunft haben Sie durch eine passende Geschichte ersetzt?",
+          "Welchen Namen wissen Sie nicht mehr sicher?",
+          "Was bewahren Sie ohne es zu benennen?"
+        ],
+        "antworten": [
+          "Ich habe eine Lücke zu schnell gefüllt.",
+          "Ich werde die unsichere Lesung als unsicher markieren.",
+          "Den Fundort und den Zweifel, bis jemand mehr weiß."
+        ]
+      },
+      "sq_uhr": {
+        "id": "hg_fragen_sq_uhr_2",
+        "fragen": [
+          "Welche Verspätung haben Sie nachträglich aus dem Ablauf gestrichen?",
+          "Wer wartete auf eine Frist, die Sie verschoben haben?",
+          "Was lassen Sie geschehen, obwohl Sie die Abweichung sehen?"
+        ],
+        "antworten": [
+          "Ich habe den Bericht auf eine bequemere Minute gestellt.",
+          "Die wartende Person trug meinen Vorteil.",
+          "Die Zeit der anderen bleibt ihre eigene."
+        ]
+      }
+    },
+    "contract": {
+      "options": "choice_array",
+      "requires": "all_conditions",
+      "effects": "transactional_authoritative",
+      "je_pfad": "resolve_with_acting_player_path",
+      "answer_source": "antwort_je_pfad",
+      "phase_nodes": "encounter_events_only",
+      "sieg_idempotent": "active_attempt_id",
+      "peaceful_recheck_before_effects": true
+    }
+  }
+}
