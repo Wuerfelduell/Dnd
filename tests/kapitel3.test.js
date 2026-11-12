@@ -214,3 +214,9 @@ test('Ab Kapitel 3: Gegnerleben-Untergrenze (zu zweit 1300 / 2200 / 5000), Wäch
   assert.ok(new Combat(s, 'vorhauer').enemy.maxHp >= HP_FLOOR.boss);
   assert.ok(new Combat(s, 'k3k_schienenlaeufer').enemy.maxHp < HP_FLOOR.normal, 'Ausreißer bleibt flink');
 });
+
+test('Jede Schlussfolgerung hat eine Fallakte im Notizbuch (Kapitel 3 und 5 fehlten)', () => {
+  const ids = new Set(content.cases.map((c) => c.id));
+  for (const d of content.deductions) assert.ok(ids.has(d.case), `${d.id}: Fall ${d.case} ohne Fallakte`);
+  for (const [id, q] of Object.entries(content.quests)) if (q.kind === 'main' && q.case) assert.ok(ids.has(q.case), `${id}: Fall ${q.case} ohne Fallakte`);
+});
