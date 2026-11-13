@@ -46,12 +46,12 @@ export const gatheringMethods = {
   /** Ab wann gibt es die Treffen überhaupt (ab Fall 4)? */
   gatheringsUnlocked() {
     const r = this.gatheringRules();
-    return !!r && this.meets(r.unlock);
+    return !!r && (this.testmodus || this.meets(r.unlock));
   },
 
   isMember(id) {
     const g = this.gatheringDef(id);
-    return !!g && this.flags.has(g.member_flag);
+    return !!g && (this.testmodus && !!this.content.gatherings?.circles?.[id] || this.flags.has(g.member_flag));
   },
 
   memberships() {
@@ -88,6 +88,7 @@ export const gatheringMethods = {
 
   /** Ist das Treffen dieses Zirkels gerade offen? */
   gatheringOpen(id) {
+    if (this.testmodus) return !!this.content.gatherings?.circles?.[id]; // Testmodus: immer offen
     return this.gatheringsUnlocked() && this.currentGathering()?.id === id;
   },
 

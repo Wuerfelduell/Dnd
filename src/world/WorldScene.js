@@ -1344,7 +1344,7 @@ export class WorldScene extends Phaser.Scene {
       l.frost.setVisible(!on);
     }
     for (const c of this.conditional) {
-      const on = this.state.meets(c.def.visible_if);
+      const on = this.state.sichtbar(c.def);
       if (c.obj) c.obj.active = on;
       for (const p of c.parts) {
         if (!p.active) continue;
@@ -1365,7 +1365,7 @@ export class WorldScene extends Phaser.Scene {
     const hiddenOn = on || this.state.seesHidden(); // Welt-Fähigkeiten zeigen Spuren auch ohne Geistsicht
     for (const o of this.hidden) {
       const owner = this.conditional.find((c) => c.parts.includes(o));
-      o.setVisible(hiddenOn && (!owner || this.state.meets(owner.def.visible_if)));
+      o.setVisible(hiddenOn && (!owner || this.state.sichtbar(owner.def)));
     }
     this.visionOverlay.setVisible(on);
     this.setVisionFx(on);
