@@ -148,8 +148,8 @@ test('Marlowes Rat: nennt Schritt, fehlende zweite Quelle und Fundort, in ihrer 
   const lines = advice(s, 'marlowe');
   assert.match(lines[0], /^Fall 7, Ertrunken im Trockenen, als Nächstes: „Berichte Marlowe/);
   assert.match(lines[0], /Ich brauche (für den besten Ausgang )?erst:/);
-  assert.match(lines[0], /im Ort „Kontor Thorne am Altmarkt“ umsehen/);
-  assert.ok(!lines[0].includes('Pult'));
+  // Seb 2026-11-13: Marlowe sagt eindeutig, wohin und wonach suchen (der Wegweiser bleibt beim Gebiet)
+  assert.match(lines[0], /Gehen Sie zum Ort „Kontor Thorne am Altmarkt“ (\(Altmarkt\) )?und suchen Sie nach: „/);
   assert.ok(!lines[0].includes('Inspektorin Marlowe braucht'));
 });
 
@@ -160,7 +160,7 @@ test('Marlowes Rat am Anfang eines Falls: wo nachsehen, wen fragen', () => {
   s.addClue('police_thorne');
   const lines = advice(s, 'marlowe');
   assert.match(lines[0], /Sieh dir das Kontor Thorne am Altmarkt an/);
-  assert.match(lines[0], /Sehen Sie sich das an|Fragen Sie/);
+  assert.match(lines[0], /Gehen Sie zum Ort „.*“ .*und (reden Sie mit|suchen Sie nach)/);
   assert.ok(lines.length >= 2, 'dazu der Hinweis auf die schwache Information');
   assert.match(lines[1], /steht erst auf einer Quelle|haben Sie noch nichts in der Hand/);
   assert.match(lines.at(-1), /Nan Kettle hat nach Ihnen gefragt/);

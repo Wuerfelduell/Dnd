@@ -24,7 +24,6 @@ import {
   DANGER_URL, DANGER_ICONS, DANGER_BANNER, RARITY_SHEET, RARITY_SHEET_URL, RARITY_GEMS, reliktIcon, SEQ4_RITUAL_ICONS,
 } from '../world/assets.js';
 import { sourceOf } from '../core/sources.js';
-import { openGuesses, gapText, knowledgeGaps, onlyKnowledgeMissing } from '../core/hints.js';
 import { guessMood } from '../core/Moods.js';
 import { MOOD_LABEL, GIFT_KINDS } from '../core/Relations.js';
 import { koopGreeting } from '../core/Koop.js';
@@ -682,7 +681,7 @@ export class Ui {
     // Ohne verfolgten Auftrag zeigt der Wegweiser die nächste offene Spur (z. B. Nan Kettle für Fall 8).
     const t = s.tracked && journalQuestVisible(s, s.tracked) ? questTarget(s, s.tracked) : leadTarget(s, s.openLeads()[0]);
     el.classList.toggle('hidden', !t);
-    if (t) el.innerHTML = `<span class="arrow">➤</span> ${esc(this.goalText(t))}<span class="gstep">${esc(t.lead ? `Neue Spur: ${s.quest(t.quest).title}` : t.step)}</span>${t.because ? `<span class="gwhy">${esc(t.because.length > 150 ? `${t.because.slice(0, 147)}…` : t.because)}</span>` : ''}`;
+    if (t) el.innerHTML = `<span class="arrow">➤</span> ${esc(this.goalText(t))}<span class="gstep">${esc(t.lead ? `Neue Spur: ${s.quest(t.quest).title}` : t.step)}</span>`;
   }
 
   updateGathering() {
@@ -1265,25 +1264,9 @@ export class Ui {
     }
     // Rat der Inspektorin: konkrete Hinweise, wo man schauen und wen man fragen soll (Guide.advice)
     if (node.hint) text += `\n\n${advice(s, npc.id).map((l) => `„${l}“`).join('\n\n')}`;
-    // Hierher kam man nur, weil der bessere Zweig am Wissen scheiterte: dann steht dabei, was genau fehlt
-    if (this.dialogue.blockedNote) { text += `\n\n${this.dialogue.blockedNote}`; this.dialogue.blockedNote = null; }
-    // Sichtbare Optionen + wegen Ansehen gesperrte Optionen (ausgegraut mit Hinweis)
+    // Nur offene Optionen (Seb 2026-11-13): gesperrte Fragen samt Erklärung nehmen zu viel Platz weg, Tipps gibt Marlowe
     const choices = [];
-    this.as(() => { for (const c of node.choices ?? []) { // Bedingungen gelten für den Spieler, der das Gespräch führt (Pfad, Tasche, Ansprüche)
-      if (s.meets(c)) {
-        // Die Option geht, aber ihr bester Zweig scheitert noch am Wissen (z. B. „zweite Quelle“): das steht gleich dabei
-        const weak = Array.isArray(c.next) ? c.next.find((v) => !s.meets(v)) : null;
-        const chosen = Array.isArray(c.next) ? c.next.find((v) => s.meets(v)) : null;
-        const gaps = weak && chosen && c.next.indexOf(weak) < c.next.indexOf(chosen) && onlyKnowledgeMissing(s, weak) ? knowledgeGaps(s, weak) : [];
-        choices.push({ ...c, ...(gaps.length ? { note: `Noch nicht wasserdicht: ${gaps.map((g) => gapText(g)).join(' ')}` } : {}) });
-      } else if (c.requires_honor !== undefined && s.honor < c.requires_honor && s.meets({ ...c, requires_honor: undefined })) {
-        choices.push({ ...c, locked: `Rang ${s.rank(c.requires_honor).name} (Ansehen ${c.requires_honor}) nötig` });
-      } else if (onlyKnowledgeMissing(s, c) && !c.hidden_lock) {
-        // Fehlt nur Wissen, bleibt die Option sichtbar und sagt, was noch fehlt
-        const gaps = knowledgeGaps(s, c);
-        if (gaps.length) choices.push({ ...c, locked: gaps.map((g) => gapText(g)).join(' ') });
-      }
-    } });
+    this.as(() => { for (const c of node.choices ?? []) if (s.meets(c)) choices.push({ ...c }); }); // Bedingungen gelten für den Spieler, der das Gespräch führt
     // Beziehung: Geschenke im Menü einer Figur (Start- oder Hub-Knoten), vor der letzten Option
     const menu = nodeId === (tree.nodes.start ? 'start' : tree.start && tree.nodes[tree.start] ? tree.start : 'hub');
     if (menu && npc.id && !npc.item && s.content.npcs[npc.id] && !node.ending && !node.combat && (node.choices ?? []).length) {
@@ -1333,12 +1316,6 @@ export class Ui {
     }
     const next = this.as(() => this.state.pick(choice.next));
     if (next) {
-      if (Array.isArray(choice.next)) {
-        const chosen = choice.next.find((v) => v.node === next && this.as(() => this.state.meets(v)));
-        const skipped = choice.next.slice(0, choice.next.indexOf(chosen)).filter((v) => onlyKnowledgeMissing(this.state, v));
-        const gaps = skipped.flatMap((v) => knowledgeGaps(this.state, v));
-        if (gaps.length) this.dialogue.blockedNote = `Dir fehlt noch: ${[...new Set(gaps.map((g) => gapText(g)))].join(' ')}`;
-      }
       this.showNode(next);
       return;
     }
@@ -1671,8 +1648,7 @@ export class Ui {
       const r = this.as(() => travelSafe(s));
       const parts = [`Die Kutsche rumpelt über das Kopfsteinpflaster nach ${d.name}. Du lehnst dich zurück und schlägst dein Journal auf.`];
       if (r.hint) parts.push(`${r.hint.quest}: ${r.hint.text}`);
-      if (r.review) parts.push(`Eine Notiz, die noch auf eine zweite Quelle wartet: „${r.review}“`);
-      if (!r.hint && !r.review) parts.push('Keine offenen Fragen. Du genießt den Blick auf die nebligen Straßen.');
+      if (!r.hint) parts.push('Keine offenen Fragen. Du genießt den Blick auf die nebligen Straßen.');
       const gains = [r.healed > 0 ? `+${r.healed} Leben` : '', r.nerves > 0 ? `+${r.nerves} Nerven` : ''].filter(Boolean).join(', ');
       this.showMessage('Unterwegs: Journal lesen', parts.join('\n\n'), { footer: gains || 'Du bist ausgeruht.', onClose: go });
       return;
@@ -2040,7 +2016,7 @@ export class Ui {
       const tracked = s.tracked === id;
       const steps = active ? `<ul class="steps">${s.questSteps(id).map((x) => `<li class="${x.done ? 'done' : ''}">${x.done ? '✓' : '○'} ${esc(x.text)}</li>`).join('')}</ul>` : '';
       const t = active ? questTarget(s, id) : null;
-      const goal = active ? `<div class="qgoal">➤ ${t ? esc(this.goalText(t)) : 'Kein fester Ort bekannt'}</div>${t?.because ? `<div class="qwhy">${esc(t.because)}</div>` : ''}` : '';
+      const goal = active ? `<div class="qgoal">➤ ${t ? esc(this.goalText(t)) : 'Kein fester Ort bekannt'}</div>` : '';
       const caseLink = s.content.cases.some((c) => c.id === q.case)
         ? `<button class="small" data-quest-case="${esc(q.case)}" aria-label="${esc(q.title)}: Schlüsse ziehen">Schlüsse ziehen</button>` : '';
       return `<li class="quest ${st} ${tracked ? 'tracked' : ''}" ${active ? `data-track="${id}"` : ''}><div class="qtitle">${uiSprite('qstatus', !active ? 'q1' : tracked ? 'q6' : q.kind === 'main' ? 'q5' : 'q2', 1 / 12, 'qico')}<span class="qkind">${q.kind === 'main' ? 'Hauptfall' : 'Nebenauftrag'}</span> ${esc(q.title)} ${!active ? '<span class="badge likely">erledigt</span>' : ''}${tracked ? '<span class="badge track">verfolgt</span>' : ''}</div>
@@ -2266,13 +2242,7 @@ export class Ui {
     }).join('');
     const ded = s.content.deductions.filter((d) => d.case === caseId && s.hasConclusion(d.id));
     // Eine Vermutung sagt gleich, welche Information noch eine Quelle braucht und wo es eine gibt
-    const guesses = Object.fromEntries(openGuesses(s, caseId).map((g) => [g.deduction.id, g]));
-    const needLine = (d) => (guesses[d.id] ? `<div class="need">${esc(gapText(guesses[d.id]).replace(/^„[^“]*“ ist erst eine Vermutung: /, 'Braucht noch: '))}</div>` : '');
-    const concl = ded.map((d) => `<li class="${guesses[d.id] ? 'open' : ''}"><strong>${esc(d.name)}</strong> ${s.isCertain(d.id) ? '<span class="badge likely">gesichert</span>' : '<span class="badge suspected">Vermutung</span>'}<br>${esc(d.text)}${needLine(d)}</li>`).join('');
-    // Warum blockiert der Auftraggeber? Der Wegweiser des Hauptauftrags weiß es (z. B. „Marlowe braucht erst …“)
-    const mainQuest = Object.keys(s.quests).find((q) => s.quests[q] === 'active' && s.quest(q).case === caseId && s.quest(q).kind === 'main');
-    const mainTarget = mainQuest ? questTarget(s, mainQuest) : null;
-    const blockBox = mainTarget?.because ? `<div class="blockbox">${uiSprite('locked', 'gespraech', 1 / 16, 'lockico')}<strong>Was noch fehlt:</strong> ${esc(mainTarget.because)}</div>` : '';
+    const concl = ded.map((d) => `<li class="${s.isCertain(d.id) ? '' : 'open'}"><strong>${esc(d.name)}</strong> ${s.isCertain(d.id) ? '<span class="badge likely">gesichert</span>' : '<span class="badge suspected">Vermutung</span>'}<br>${esc(d.text)}</li>`).join('');
     const total = s.content.deductions.filter((d) => d.case === caseId && d.honor !== 0).length;
     const detailId = this.selected[this.selected.length - 1];
     const detail = detailId
@@ -2282,7 +2252,6 @@ export class Ui {
     return `
       <div class="actions"><button class="small" data-act="quests">← Zurück zu den Aufträgen</button></div>
       <h4>${esc(s.content.cases.find((c) => c.id === caseId)?.title ?? 'Fallakte')}</h4>
-      ${blockBox}
       <div class="cols">
         <div class="col">
           <h4>Informationen (${facts.length})</h4>

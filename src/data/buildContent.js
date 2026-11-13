@@ -11,6 +11,7 @@ import { applySeq5 } from './seq5.js';
 import { applySeq4 } from './seq4.js';
 import { applySeqHoch, addRitualformeln } from './seqHoch.js';
 import { applyAufstieg } from './aufstieg.js';
+import { applyMarloweTelegramm } from './marloweTelegramm.js';
 import { withFaehigkeiten } from './faehigkeiten.js';
 import { applyMoods } from './moods.js';
 import { applyRelations } from './relations.js';
@@ -134,6 +135,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyDunscarStaende(content); // Dunscar: Marktstände mit Schild hinter den Händlern
   applyDunscarStimmen(content); // Dunscar: eigene Stimmen, wechselnde Begrüßungen und Themen je Figur
   applyDunscarPassanten(content); // Dunscar: Passanten mit Tagesablauf, Gemurmel und Straßenereignissen in den Vierteln
+  applyMarloweTelegramm(content); // Tipps nur von Marlowe: Telegrammschalter in jeder späteren Stadt
   return content;
 }
 
