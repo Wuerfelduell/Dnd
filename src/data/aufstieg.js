@@ -190,7 +190,19 @@ export const CW_GEBIETE = {
   sq_moor: { viertel: 'Das Faulviertel', oberhaupt: 'Mutter Torva', vize: 'Jorin Ried', verderbnis: 'Torf quillt aus den Kellern. Die Straßen erinnern sich an jeden, der sie betreten hat, und manche halten ihn fest.' },
   sq_uhr: { viertel: 'Das Stillviertel', oberhaupt: 'Severin Unruh', vize: 'Klara Hemmung', verderbnis: 'Die Zeit läuft hier in Stücken. Ein Schritt dauert eine Stunde, der nächste einen Herzschlag. Die Monster sind schneller als ihre Schatten.' },
 };
-const CW_MONSTER = { hp: 2.2, dmg: 1.3 }; // Monster mit Halbgott-Stärke: Seq 4 (Eisen, geübt) gewinnt etwa 65 % der Kämpfe (Seb 2026-11-13)
+// Seb 2026-11-13: Die Pfadgebiete stammen aus alten Seq-3-Entwürfen und waren je Pfad völlig ungleich (Schlüssel 136 Leben, Moor 2394).
+// Darum bekommen alle zehn Viertel dieselben Werte je Rang, unabhängig vom Pfad und vom Spieler: Leben, stärkster Schlag (die übrigen
+// Angriffe behalten ihr Verhältnis dazu) und Rundendeckel. Ziel: Seq 4 (Eisen, geübt) gewinnt etwa 65 % der normalen Kämpfe.
+export const CW_MONSTER = {
+  normal: { hp: 1700, dmg: 54, max_round_dmg: 0.34 },
+  elite: { hp: 1850, dmg: 52, max_round_dmg: 0.34 },
+  boss: { hp: 8500, dmg: 72, max_round_dmg: 0.15 },
+};
+function cwAngleichen(e, rang) {
+  const z = CW_MONSTER[rang];
+  const top = Math.max(1, ...e.attacks.filter((a) => !a.action).map((a) => a.damage ?? 0));
+  Object.assign(e, { cw_stark: true, hp: z.hp, max_round_dmg: z.max_round_dmg, attacks: e.attacks.map((a) => (a.action ? a : { ...a, damage: Math.round(((a.damage ?? 0) * z.dmg) / top) })) });
+}
 const CW_STREIFEN = 18;
 const SEQ0_TEXT = 'Sequenz 0. Über dem Engel, über der ersten Sequenz, steht keine Stufe mehr, sondern ein Thron. Wer Sequenz 0 erreicht, wird kein Heiliger und kein Engel. Er wird ein Gott, wie der Alte. Jeder in Calderwick will dorthin. Niemand von ihnen ist je angekommen.';
 
@@ -208,11 +220,13 @@ function calderwickGebiete(content) {
     for (const id of normal) {
       const e = content.encounters[id];
       if (e.cw_stark) continue;
-      Object.assign(e, { cw_stark: true, hp: Math.round(e.hp * CW_MONSTER.hp), attacks: e.attacks.map((a) => (a.action ? a : { ...a, damage: Math.round(a.damage * CW_MONSTER.dmg) })) });
+      cwAngleichen(e, 'normal');
       content.loot[id] = { ...(content.loot[id] ?? {}), repeat: true, money: [600, 1200], drops: content.loot[id]?.drops ?? [] };
     }
+    for (const id of Object.keys(content.encounters).filter((x) => new RegExp(`^${o3}_siegel\\d+$`).test(x))) if (!content.encounters[id].cw_stark) cwAngleichen(content.encounters[id], 'elite');
     // Oberhaupt (Seq 3, Heiliger) bekommt einen Namen
     const chef = content.encounters[`${o3}_tiefe`];
+    if (chef && !chef.cw_stark) cwAngleichen(chef, 'boss');
     if (chef && !chef.name.startsWith(cw.oberhaupt)) chef.name = `${cw.oberhaupt}, ${chef.name}`;
     // Stellvertreter (Seq 4, Halbgott): frei herausforderbar, kommt nicht wieder
     const vizeId = `${o3}_vize`;
