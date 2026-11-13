@@ -197,9 +197,7 @@ export class Combat {
       if (r2) { this.rules = r2; prover = 2; }
     }
     this.swapped = false;
-    this.prover = prover;
-    const soloJe = !!enc.solo_je_spieler; // Zug nach oben: im Koop kämpft jeder allein (data/aufstieg.js)
-    if ((this.rules?.solo || soloJe || state.splitOn) && prover === 2 && state.acting === 1 && state.p2) { state.swapPersonal(); this.swapped = true; } // Splitscreen: jeder kämpft allein auf seiner Karte
+    if ((this.rules?.solo || state.splitOn) && prover === 2 && state.acting === 1 && state.p2) { state.swapPersonal(); this.swapped = true; } // Splitscreen: jeder kämpft allein auf seiner Karte
     if (this.rules?.scale) enc = { ...enc, hp: Math.round(enc.hp * this.rules.scale.hp), attacks: enc.attacks.map((a) => (a.action ? a : { ...a, damage: Math.max(1, Math.round(a.damage * this.rules.scale.dmg)) })) };
     // Seq-5-Ritual der Laterne: ein Spiegelgegner (`mirror`) ist so stark wie der, der ihn gerufen hat.
     // Leben als Vielfaches seines Höchstlebens, Schaden je Angriff als Vielfaches seiner Schlagkraft (ohne die üblichen Zuschläge).
@@ -213,8 +211,8 @@ export class Combat {
     const welt = enc.practice ? null : state.weltMult?.();
     if (welt && welt.dmg > 1) enc = { ...enc, attacks: enc.attacks.map((a) => (a.action ? a : { ...a, damage: Math.max(1, Math.round(a.damage * welt.dmg)) })) };
     this.enc = enc;
-    const duo = !!state.hasP2?.() && !this.rules?.solo && !soloJe && !state.splitOn;
-    this.duoHpMult = duo ? duoHpMult(state) : 1;
+    const duo = !!state.hasP2?.() && !this.rules?.solo && !state.splitOn;
+    this.duoHpMult = duo ? enc.duo_hp_mult ?? duoHpMult(state) : 1; // `duo_hp_mult`: fester Koop-Aufschlag, ein schwacher Partner macht den Gegner nicht leichter
     const zone = state.content.zones?.[enc.zone];
     // Härte des Gebiets (Kapitel 2, Wexmoor): `hp_mult` / `dmg_mult` auf Gegner oder Gebiet skalieren Leben und Schaden,
     // `duo_full` lässt den Gegner zu zweit ohne Abschlag zuschlagen (sonst DUO_DMG_MULT)
@@ -1077,7 +1075,7 @@ export class Combat {
     if (this.outcome !== 'lost') each((f) => { if (f.down || s.hp <= 0) s.hp = Math.max(1, Math.round(s.maxHp * 0.25)); });
     if (this.outcome === 'won') {
       const first = !s.flags.has(firstFlag);
-      s.applyEffects({ ...enc.on_win, sets_flags: [...(enc.on_win?.sets_flags ?? []), firstFlag, ...(enc.sieg_flag ? [`${enc.sieg_flag}_p${this.prover ?? 1}`] : [])] });
+      s.applyEffects({ ...enc.on_win, sets_flags: [...(enc.on_win?.sets_flags ?? []), firstFlag, ...(enc.sieg_flag ? Object.keys(this.fighters).filter((n) => !this.fighters[n].down).map((n) => `${enc.sieg_flag}_p${this.swapped ? 2 : n}`) : [])] });
       if (first && enc.first_win) s.applyEffects(enc.first_win);
       if (!enc.practice) s.erfolgKampf?.(); // Codex DL: „Hundert Kämpfe“
       if (!enc.practice) {

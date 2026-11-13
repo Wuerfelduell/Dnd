@@ -2,7 +2,7 @@
  * Kapitel 4: Der Aufstieg (Seb, 2026-11-12, Konzept „Nach Dunscar: Der Aufstieg“).
  *
  * - Auslöser: Starling flieht am Endbahnhof von Dunscar in den Zug nach OBEN. Einsteigen darf nur, wer den Schaffner des Alten
- *   besiegt (Seq 4 schafft ihn, Seq 5 praktisch nie; im Koop jeder allein). Keine Sequenz-Abfrage (Seb 2026-11-13).
+ *   besiegt (Seq 4 schafft ihn, Seq 5 praktisch nie; im Koop gemeinsam). Keine Sequenz-Abfrage (Seb 2026-11-13).
  * - Die Himmelsstadt: keine Monster, nur Halbgötter (Vorhof), Heilige/Halbengel (Höfe) und Engel (Grat), dazu Starling vor dem
  *   Thron des Alten. Echte Kämpfe, man darf versuchen alle zu töten, aber niemand dort fällt (`unbesiegbar` in Combat.js).
  * - Die Verbrennung: man wird IMMER verbrannt, egal wie stark (jede Niederlage oben, spätestens am Thron).
@@ -34,26 +34,28 @@ const schlag = (name, damage, hits, extra = {}) => ({ name, damage, hits, ...ext
 /**
  * Prüfung vor dem Zug nach oben (Seb 2026-11-13): keine Sequenz-Abfrage, sondern ein Gegner, den ein Seq-5-Held praktisch nie
  * schafft und ein Seq-4-Held meist (tools/sim/zugwaechter.mjs). Calderwick ist eine Einbahnstraße und das Seq-3-Ritual gibt es nur dort.
- * Im Koop kämpft jeder allein (`solo_je_spieler`), der Zug nimmt nur mit, wer gewonnen hat (Flag auf_schaffner_p1/_p2).
+ * Im Koop kämpft man zusammen (Seb 2026-11-13), schaffbar nur mit 4+4: Mitfahren darf nur, wer am Ende noch steht (Flag
+ * auf_schaffner_p1/_p2); seine Schläge legen einen Seq-5-Partner um. Wer später dazukommt, muss noch einmal mit.
  */
 export const SCHAFFNER = 'auf_schaffner';
 export const SCHAFFNER_FLAG = (n) => `auf_schaffner_p${n}`;
 function schaffnerKampf() {
   return {
     id: SCHAFFNER, name: 'Der Schaffner des Alten', sprite: 'wild', sheet: 'enemy_bn_schaffner_ohne_zug', tint: '#fff2c8', occult: true,
-    chapter: 3, boss: false, elite: true, tier_seq: 4, hp: 1600, armor: 35, fleeable: true, solo_je_spieler: true, sieg_flag: 'auf_schaffner',
+    chapter: 3, boss: false, elite: true, tier_seq: 4, hp: 1600, armor: 40, fleeable: true, duo_hp_mult: 2.5, sieg_flag: 'auf_schaffner',
     intro: 'Vor der offenen Tür steht ein Schaffner ohne Gesicht. Er hält die Zange hoch wie eine Waage. „Fahrkarte“, sagt er. „Oben zahlt man mit Gewicht. Wer zu leicht ist, kommt nicht an, er verbrennt unterwegs. Zeig mir, was du wiegst.“',
-    attacks: [schlag('Lochzange', 14, [1200, 1900]), schlag('Pfiff zur Abfahrt', 13, [900, 1400, 1900], { nerves: 8 }),
-      { name: 'Fahrplan', action: 'guard', value: 8, text: 'Er schlägt im Fahrplan nach. Seine Uniform wird schwer wie Gusseisen: +8 Abwehr.' }, schlag('Türen schließen', 17, [1500, 2400], { unparryable: true })],
-    phase2: { meldung: 'Der Schaffner reißt die Uniform auf. Darunter ist nur Licht.', attacks: [schlag('Licht aus dem Waggon', 15, [1000, 1600, 2200], { unparryable: true }), schlag('Lochzange', 17, [1100, 1700]),
-      { name: 'Nachzahlung', action: 'heal', value: 300, text: 'Er bucht nach: +300 Leben.' }, schlag('Letzter Pfiff', 20, [1800], { nerves: 10 })] },
+    attacks: [schlag('Lochzange', 25, [1200, 1900]), schlag('Pfiff zur Abfahrt', 23, [900, 1400, 1900], { nerves: 8 }),
+      { name: 'Fahrplan', action: 'guard', value: 8, text: 'Er schlägt im Fahrplan nach. Seine Uniform wird schwer wie Gusseisen: +8 Abwehr.' }, schlag('Türen schließen', 30, [1500, 2400], { unparryable: true })],
+    phase2: { meldung: 'Der Schaffner reißt die Uniform auf. Darunter ist nur Licht.', attacks: [schlag('Licht aus dem Waggon', 26, [1000, 1600, 2200], { unparryable: true }), schlag('Lochzange', 30, [1100, 1700]),
+      { name: 'Nachzahlung', action: 'heal', value: 300, text: 'Er bucht nach: +300 Leben.' }, schlag('Letzter Pfiff', 35, [1800], { nerves: 10 })] },
     on_win: {}, lose_money: 0,
+    win_text: 'Der Schaffner sinkt auf die Knie und locht die Fahrkarten. „Wer noch steht, hat Gewicht genug. Wer am Boden liegt, ist zu leicht für die Fahrt.“',
     lose_text: 'Der Schaffner tippt dir mit der Zange gegen die Brust, fast freundlich. „Zu leicht. Komm wieder, wenn du ein Halbgott bist.“ Du wachst auf dem Bahnsteig auf, der Zug wartet immer noch.',
   };
 }
 
 const STARLING_TEXT = 'Er steht am Ende des Bahnsteigs, wo die Gleise nicht weiterführen, sondern nach oben. Professor Lucius Starling, unverändert, nur heller.\n\n„Sie sind also gekommen“, sagt er, ohne sich umzudrehen. „Er hat mir gesagt, dass Sie kommen. Er hat mir auch gesagt, was dann geschieht.“\n\nEin Zug ohne Lok fährt ein. Starling steigt ein, die Türen bleiben offen. Der Zug fährt nicht los. Er wartet. Auf dich. Vor der offenen Tür steht ein Schaffner ohne Gesicht.';
-const SCHAFFNER_TEXT = 'Der Schaffner hebt die Zange. „Oben zahlt man mit Gewicht, nicht mit Geld. Wer leichter ist als ein Halbgott, verbrennt schon auf der Fahrt, und dort, wo der Zug am Ende hält, gibt es keinen Weg zurück.“\n\nEr tritt dir in den Weg. „Zeig mir, was du wiegst. Wer reist, zahlt selbst: Jeder von euch kommt einzeln an mir vorbei.“';
+const SCHAFFNER_TEXT = 'Der Schaffner hebt die Zange. „Oben zahlt man mit Gewicht, nicht mit Geld. Wer leichter ist als ein Halbgott, verbrennt schon auf der Fahrt, und dort, wo der Zug am Ende hält, gibt es keinen Weg zurück.“\n\nEr tritt dir in den Weg. „Zeig mir, was du wiegst. Wer reist, zahlt selbst.“';
 
 /** Halbgötter im Vorhof (Seq 4), Heilige in den Höfen (Seq 3), Engel am Grat (Seq 2), Starling vor dem Thron. */
 function himmelsEncounters(content) {
@@ -178,7 +180,7 @@ export function applyAufstieg(content) {
   const rache = content.quests.k3_rache;
   if (rache && !rache.steps.some((s) => s.done?.requires_flags?.includes('auf_starling_gesehen'))) {
     rache.steps = [...rache.steps, { text: 'Starling am Endbahnhof stellen', done: { requires_flags: ['auf_starling_gesehen'] }, target: { map: 'ds_endbahnhof', id: 'auf_starling_bahnsteig', label: 'Endbahnhof' } },
-      { text: 'Den Schaffner des Alten besiegen (im Koop jeder selbst)', done: { requires_alle_flag: 'auf_schaffner' }, target: { map: 'ds_endbahnhof', id: 'auf_schaffner_tuer', label: 'Endbahnhof' } },
+      { text: 'Den Schaffner des Alten besiegen', done: { requires_alle_flag: 'auf_schaffner' }, target: { map: 'ds_endbahnhof', id: 'auf_schaffner_tuer', label: 'Endbahnhof' } },
       { text: 'Ihm in den Zug nach oben folgen', done: { requires_flags: ['auf_verbrannt'] }, target: { map: 'ds_endbahnhof', id: 'auf_zug_nach_oben', label: 'Endbahnhof' } }];
   }
   // Kapitel 4: Der Sturz. Calderwick, die Stadt der Gefallenen
