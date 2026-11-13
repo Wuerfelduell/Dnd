@@ -3,26 +3,81 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
 import { travelDestinations, lockedCities } from '../src/core/Travel.js';
-import { HIMMEL, STURZ_ZIEL } from '../src/data/aufstieg.js';
+import { HIMMEL, STURZ_ZIEL, SCHAFFNER, SCHAFFNER_FLAG } from '../src/data/aufstieg.js';
+import { Combat } from '../src/core/Combat.js';
 import { loadContent, use, fight, EXPERT } from './helpers.js';
 
 const content = loadContent();
 const fresh = () => new GameState(content);
 const visible = (s, map, id) => s.meets(content.maps[map].interactables.find((i) => i.id === id).visible_if);
 
-test('Aufstieg: Starling erst ab Sequenz 4 am Endbahnhof, dann der Zug nach oben', () => {
+test('Aufstieg: Starling am Endbahnhof ohne Sequenz-Abfrage, einsteigen erst nach dem Sieg über den Schaffner', () => {
   const s = fresh();
   s.flags.add('k3_arrived');
-  s.pathway = { id: 'eisen', seq: 5, digestion: 0 };
-  assert.equal(visible(s, 'ds_endbahnhof', 'auf_starling_bahnsteig'), false);
-  s.pathway.seq = 4;
+  s.pathway = { id: 'eisen', seq: 6, digestion: 0 };
   assert.ok(visible(s, 'ds_endbahnhof', 'auf_starling_bahnsteig'));
+  s.flags.add('auf_starling_gesehen'); // done_flag der Lesestelle
+  assert.ok(visible(s, 'ds_endbahnhof', 'auf_schaffner_tuer'));
   assert.equal(visible(s, 'ds_endbahnhof', 'auf_zug_nach_oben'), false);
-  s.flags.add('auf_starling_gesehen');
+  use(s, 'ds_endbahnhof', 'auf_schaffner_tuer');
+  assert.equal(s.pendingCombat, SCHAFFNER);
+  s.flags.add(SCHAFFNER_FLAG(1));
+  assert.equal(visible(s, 'ds_endbahnhof', 'auf_schaffner_tuer'), false);
   assert.ok(visible(s, 'ds_endbahnhof', 'auf_zug_nach_oben'));
   use(s, 'ds_endbahnhof', 'auf_zug_nach_oben');
   assert.deepEqual(s.pendingTravel, { map: HIMMEL, spawn: 'default' });
   assert.ok(content.quests.k3_rache.steps.some((st) => st.done.requires_flags?.includes('auf_verbrannt')));
+});
+
+test('Schaffner: Seq 5 verliert, Seq 4 gewinnt (tools/sim/zugwaechter.mjs für alle Pfade)', () => {
+  const held = (seq) => { const s = fresh(); s.addItem('dsz_schienennagel'); s.equip('dsz_schienennagel'); s.addItem('verband', 4); s.addItem('tonikum', 4); s.pathway = { id: 'eisen', seq, digestion: 100 }; s.updateMaxHp(); s.hp = s.maxHp; return s; };
+  const s5 = held(5);
+  const a = fight(s5, SCHAFFNER, { defend: EXPERT, chain: true, skill: 'double', healBelow: s5.maxHp * 0.4 });
+  assert.equal(a.combat.outcome, 'lost');
+  assert.ok(!s5.flags.has(SCHAFFNER_FLAG(1)));
+  const s4 = held(4);
+  const b = fight(s4, SCHAFFNER, { defend: EXPERT, chain: true, skill: 'double', healBelow: s4.maxHp * 0.4 });
+  assert.equal(b.combat.outcome, 'won');
+  assert.ok(s4.flags.has(SCHAFFNER_FLAG(1)));
+});
+
+test('Schaffner im Koop: jeder kämpft allein, der Zug fährt erst, wenn beide gewonnen haben', () => {
+  const s = fresh();
+  s.flags.add('k3_arrived'); s.flags.add('auf_starling_gesehen');
+  s.pathway = { id: 'eisen', seq: 4, digestion: 0 }; s.updateMaxHp(); s.hp = s.maxHp;
+  s.addP2();
+  s.withPlayer(2, () => { s.pathway = { id: 'laterne', seq: 4, digestion: 0 }; s.updateMaxHp(); s.hp = s.maxHp; });
+  s.withPlayer(2, () => s.startCombat(SCHAFFNER));
+  const c = new Combat(s, SCHAFFNER);
+  assert.ok(!c.duo && c.swapped, 'Spieler 2 kämpft allein');
+  assert.equal(s.pathway.id, 'laterne');
+  c.outcome = 'won'; c.finish();
+  assert.equal(s.pathway.id, 'eisen');
+  assert.ok(s.flags.has(SCHAFFNER_FLAG(2)));
+  assert.equal(visible(s, 'ds_endbahnhof', 'auf_zug_nach_oben'), false, 'Spieler 1 fehlt noch');
+  assert.ok(visible(s, 'ds_endbahnhof', 'auf_schaffner_tuer'));
+  s.flags.add(SCHAFFNER_FLAG(1));
+  assert.ok(visible(s, 'ds_endbahnhof', 'auf_zug_nach_oben'));
+});
+
+test('Alte Stände zu früh in Calderwick: Lastenzug nach Dunscar, zurück nur am Schaffner vorbei', () => {
+  const s = fresh();
+  s.applyEffects({ sets_flags: ['k3_arrived', 'auf_starling_gesehen', 'k4_arrived', 'auf_verbrannt'] });
+  s.pathway = { id: 'eisen', seq: 4, digestion: 0 };
+  assert.equal(visible(s, 'cw_gleisfuss', 'auf_cw_lastenzug'), false, 'Seq 4 braucht keinen Rückweg');
+  s.addP2();
+  s.withPlayer(2, () => { s.pathway = { id: 'faden', seq: 5, digestion: 0 }; });
+  assert.ok(visible(s, 'cw_gleisfuss', 'auf_cw_lastenzug'), 'Spieler 2 ist noch Seq 5');
+  use(s, 'cw_gleisfuss', 'auf_cw_lastenzug');
+  assert.deepEqual(s.pendingTravel, { map: 'ds_endbahnhof', spawn: 'default' });
+  assert.ok(!lockedCities(s).includes('dunscar') && lockedCities(s).includes('calderwick'));
+  assert.equal(visible(s, 'ds_endbahnhof', 'auf_zug_nach_oben'), false);
+  assert.equal(visible(s, 'ds_endbahnhof', 'auf_zug_zurueck'), false);
+  s.flags.add(SCHAFFNER_FLAG(1)); s.flags.add(SCHAFFNER_FLAG(2));
+  assert.ok(visible(s, 'ds_endbahnhof', 'auf_zug_zurueck'));
+  use(s, 'ds_endbahnhof', 'auf_zug_zurueck');
+  assert.deepEqual(s.pendingTravel, STURZ_ZIEL);
+  assert.ok(!s.flags.has('auf_rueckweg') && lockedCities(s).includes('dunscar'));
 });
 
 test('Himmelsstadt: keine Monster, nur Halbgötter, Heilige, Engel und Starling; keiner fällt, jede Niederlage stürzt nach Calderwick', () => {
