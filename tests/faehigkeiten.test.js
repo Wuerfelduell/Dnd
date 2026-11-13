@@ -2,6 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
+import { TALENT_NERVES_MULT } from '../src/core/Pathways.js';
 import { Combat, SLOW_MULT, ENEMY_DMG_MULT } from '../src/core/Combat.js';
 import { hurryCost, canHurry } from '../src/core/Travel.js';
 import { faehigkeitenIds } from '../src/data/faehigkeiten.js';
@@ -202,7 +203,7 @@ test('Welt-Fähigkeit: Kosten, Abklingzeit, Buff zählt in passive() und läuft 
   assert.equal(s.passive('price'), 0.85); // Sequenz-Passive
   const r = s.useTalent('gefaellige_miene');
   assert.equal(r.ok, true, r.text);
-  assert.equal(s.composure, 44);
+  assert.equal(s.composure, 50 - Math.round(6 * TALENT_NERVES_MULT), 'Welt-Fähigkeiten kosten das 2,5-Fache ihres Grundwerts');
   // +2 Unruhe durch die Fähigkeit, aber ihr Einsatz verdaut den Trank und beruhigt dabei (6 Nerven = 0.6 Schritt · 6 Punkte · halb)
   assert.ok(Math.abs(s.unruhe - 0.2) < 1e-9, `Unruhe ${s.unruhe}`);
   assert.ok(Math.abs(s.pathway.digestion - 3.6) < 1e-9, `Welt-Fähigkeit verdaut: ${s.pathway.digestion}`);

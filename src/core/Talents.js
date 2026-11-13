@@ -71,7 +71,8 @@ export const talentMethods = {
       const upgraded = s.talent_50 && (this.pathway.seq < s.seq || (this.pathway.digestion ?? 0) >= TALENT_UPGRADE_DIGEST);
       if (upgraded) s = { ...s, talent: s.talent_50 };
       const remaining = Math.max(0, (this.talentCd[s.talent.id] ?? 0) - this.talentTime);
-      return { ...s.talent, seq: s.seq, remaining, remainingText: remaining ? fmtSec(remaining) : '', ready: remaining <= 0 && this.composure >= (s.talent.nerves ?? 0) };
+      const nerves = this.talentNerves(s.talent);
+      return { ...s.talent, baseNerves: s.talent.nerves ?? 0, nerves, seq: s.seq, remaining, remainingText: remaining ? fmtSec(remaining) : '', ready: remaining <= 0 && this.composure >= nerves };
     });
   },
 
@@ -113,7 +114,7 @@ export const talentMethods = {
     if (t.clock) { this.clockFrozen = Math.max(this.clockFrozen, t.clock); parts.push(`die Uhr der Stadt steht ${fmtSec(t.clock)}`); }
     // Die eigene Kraft außerhalb des Kampfes zu wirken, verdaut den Trank: je 10 Nerven Einsatz ein Schritt
     if (this.pathway) {
-      const amount = Math.min(TALENT_DIGEST_SPAN[1], Math.max(TALENT_DIGEST_SPAN[0], (t.nerves ?? 0) / TALENT_DIGEST_PER_NERVES));
+      const amount = Math.min(TALENT_DIGEST_SPAN[1], Math.max(TALENT_DIGEST_SPAN[0], (t.baseNerves ?? 0) / TALENT_DIGEST_PER_NERVES)); // Verdauung nach Grundkosten, der Nerven-Abgleich beschleunigt sie nicht
       const got = this.act('talent', amount);
       if (got > 0) parts.push(`+${fmtDigest(got)} % verdaut`);
     }

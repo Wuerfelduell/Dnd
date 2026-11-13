@@ -41,8 +41,9 @@ test('Jede Fertigkeit mit Konzentrationskosten kostet Nerven, je dicker, desto m
   }
   const s1 = hero(1);
   const top = new Combat(s1, 'moorleiche').skills();
-  assert.equal(top.find((k) => k.id === 'eisen_hoch_1').composure, 42, 'die neueste kostet voll');
-  assert.ok(top.find((k) => k.id === 'eisen_hoch_4').composure < 18, 'die ältere ist Gewohnheit');
+  assert.equal(top.find((k) => k.id === 'eisen_hoch_1').composure, Math.round(42 * s1.nervePoolFactor()), 'die neueste kostet voll (mit dem Nervenvorrat hochgerechnet)');
+  assert.ok(s1.nervePoolFactor() > 2, 'Sequenz 1: dicke Fertigkeiten wachsen mit dem Vorrat');
+  assert.ok(top.find((k) => k.id === 'eisen_hoch_4').composure < Math.round(18 * s1.nervePoolFactor()), 'die ältere ist Gewohnheit');
   // Bannwort behält seine eigenen Kosten (ohne Pfad: keine Gewöhnung)
   assert.equal(new Combat(hero(0), 'ash_warden').skills().find((k) => k.id === 'ward').composure, SKILLS.ward.composure);
 });
@@ -50,10 +51,12 @@ test('Jede Fertigkeit mit Konzentrationskosten kostet Nerven, je dicker, desto m
 test('Gewöhnung: mit jeder höheren Sequenz kosten die älteren Fertigkeiten weniger Nerven, die neueste immer voll', () => {
   const at = (seq) => Object.fromEntries(new Combat(hero(seq), 'moorleiche').skills().map((k) => [k.id, k.composure]));
   const s9 = at(9), s7 = at(7), s5 = at(5);
+  const f5 = hero(5).nervePoolFactor(); // Nerven-Abgleich: Kosten wachsen mit dem Vorrat über 120 (bis Seq 6: 1)
+  assert.equal(hero(7).nervePoolFactor(), 1);
   assert.equal(s9.wuchtschlag, SKILL_COMPOSURE_BY_COST[2]);
   assert.equal(s7.wuchtschlag, Math.round(SKILL_COMPOSURE_BY_COST[2] * (1 - 2 * HABIT_STEP)));
-  assert.equal(s5.wuchtschlag, Math.round(SKILL_COMPOSURE_BY_COST[2] * HABIT_MIN), 'Sequenz 9 ist mit 5 bei der Untergrenze');
-  assert.equal(s5.hammerfall, SKILL_COMPOSURE_BY_COST[5], 'die Fertigkeit der aktuellen Sequenz kostet voll');
+  assert.equal(s5.wuchtschlag, Math.round(SKILL_COMPOSURE_BY_COST[2] * HABIT_MIN * f5), 'Sequenz 9 ist mit 5 bei der Untergrenze');
+  assert.equal(s5.hammerfall, Math.round(SKILL_COMPOSURE_BY_COST[5] * f5), 'die Fertigkeit der aktuellen Sequenz kostet voll');
   assert.ok(s5.klingenwirbel < s7.klingenwirbel);
   // Grundfertigkeiten gewöhnt man sich mit jeder Sequenz nach der ersten an
   assert.equal(s9.double, SKILL_COMPOSURE_BY_COST[2]);
@@ -202,4 +205,20 @@ test('Alle Nerven-Artefakte sind erreichbar: Asservatenkammer, Beute in ihren Ge
   }
   // Keine doppelten Ids mit den Konzentrations-Artefakten aus PR #227
   assert.equal(new Set(Object.keys(list)).size, Object.keys(list).length);
+});
+
+test('Nerven-Abgleich: Geistsicht wird mit jeder Sequenz billiger, dicke Fertigkeiten und Welt-Fähigkeiten wachsen mit dem Vorrat', () => {
+  const drain = (seq, pid = 'eisen') => hero(seq, pid).visionDrainPerSec();
+  assert.equal(new GameState(content).visionDrainPerSec(), 6, 'ohne Pfad 6 Nerven pro Sekunde');
+  assert.ok(drain(9) > drain(7) && drain(7) > drain(5), `${drain(9)} > ${drain(7)} > ${drain(5)}`);
+  assert.ok(drain(1) >= 3 - 1e-9, 'höchstens halbiert');
+  // Seq 5 hält die Geistsicht von voll an mindestens eine halbe Minute
+  for (const pid of Object.keys(content.pathways)) { const s = hero(5, pid); assert.ok(s.maxComposure() / s.visionDrainPerSec() >= 30, pid); }
+  // Gegenstände mit mehr Nerven machen die Fertigkeiten nicht teurer
+  const a = hero(5, 'laterne'), b = hero(5, 'laterne');
+  b.buffs = [{ key: 'max_nerves', value: 80, until: 1e9, source: 'test' }];
+  assert.equal(a.nervePoolFactor(), b.nervePoolFactor());
+  // Welt-Fähigkeiten: Grundwert × 2,5 × Vorrat; die Verdauung richtet sich weiter nach dem Grundwert
+  const t = a.talents().find((x) => x.seq === 5);
+  assert.equal(t.nerves, Math.round(t.baseNerves * 2.5 * a.nervePoolFactor()));
 });
