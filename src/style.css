@@ -673,7 +673,7 @@ html.touch .cb-menu.tiles .choices { max-height: 5.9em; }
 .cb-turn { position: absolute; left: 50%; top: 22%; width: 16em; height: 2.4em; transform: translateX(-50%); opacity: 0; pointer-events: none; white-space: nowrap; }
 .cb-turn.show { animation: turnBanner 1.3s ease-out forwards; }
 @keyframes turnBanner { 0% { opacity: 0; transform: translate(-50%, -0.5em); } 15%, 70% { opacity: 1; transform: translate(-50%, 0); } 100% { opacity: 0; } }
-.cb-target { position: absolute; left: 71.9%; top: 69%; transform: translate(-50%, -50%); pointer-events: none; line-height: 0; }
+.cb-target { position: absolute; left: 71.9%; top: 57%; /* Bühne 32 px angehoben (STAGE_LIFT in CombatScene.js) */ transform: translate(-50%, -50%); pointer-events: none; line-height: 0; }
 .cb-target .reticle { animation: reticle 0.66s steps(4) infinite; }
 @keyframes reticle { to { background-position-x: -16em; } }
 .float.digits { display: flex; gap: 0.05em; line-height: 0; }
