@@ -1264,6 +1264,7 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestSequenzen3')) scene.load.json('manifestSequenzen3', `${BASE}manifest-sequenzen3.json`);
   if (!scene.cache.json.exists('manifestDunscar1')) scene.load.json('manifestDunscar1', `${BASE}manifest-dunscar1.json`);
   if (!scene.cache.json.exists('manifestDunscar3')) scene.load.json('manifestDunscar3', `${BASE}manifest-dunscar3.json`);
+  if (!scene.cache.json.exists('manifestAnschlag')) scene.load.json('manifestAnschlag', `${BASE}manifest-anschlag.json`);
   if (!scene.cache.json.exists('manifestDunscar5')) scene.load.json('manifestDunscar5', `${BASE}manifest-dunscar5.json`);
   if (!scene.cache.json.exists('manifestStarling2')) scene.load.json('manifestStarling2', `${BASE}manifest-starling2.json`);
   if (!scene.cache.json.exists('manifestSekten')) scene.load.json('manifestSekten', `${BASE}manifest-sekten.json`);
@@ -1325,7 +1326,7 @@ function battleAnimDef(scene, sheet, name) {
   return null;
 }
 /** Manifeste mit Kampf-Sheets; spätere Pakete nennen ihre Einträge nicht nach dem Sheet, darum auch über die Datei. */
-export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3', 'manifestDunscar5', 'manifestStarling2', 'manifestSekten', 'manifestVorrat1', 'manifestVorrat2', 'manifestHalbgott', 'manifestFasserin2', 'manifestFigurenNachzuegler', 'manifestSeq4rit1', 'manifestSchatten', 'manifestRituale56', 'manifestBenannte', 'manifestNebelseite'];
+export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3', 'manifestDunscar5', 'manifestStarling2', 'manifestSekten', 'manifestVorrat1', 'manifestVorrat2', 'manifestHalbgott', 'manifestFasserin2', 'manifestFigurenNachzuegler', 'manifestSeq4rit1', 'manifestSchatten', 'manifestRituale56', 'manifestBenannte', 'manifestNebelseite', 'manifestAnschlag'];
 export function battleSheetDef(scene, sheet) {
   const file = BATTLE_SHEETS[sheet]?.[0];
   for (const m of BATTLE_MANIFESTS) {
@@ -3069,4 +3070,23 @@ for (const c of ['kettlegate', 'wexmoor', 'dunscar']) {
   CHARACTER_SHEETS[`npc_nsw_still_${c}`] = `nsw_still_${c}`;
   HEADS.push(`nsw_still_${c}`);
   HEAD_FILES[`nsw_still_${c}`] = 'ui/heads/nsw_still.png';
+}
+
+// --- Anschlagbrett Dunscar (data/dunscarAnschlag.js): umgefärbte Vorratsblätter (tools/art/anschlag/make.py), bis eigene Grafik kommt ---
+SHEETS.dan_anschlagschreiber = 'characters/dan_anschlagschreiber_walk.png';
+CHARACTER_SHEETS.npc_dan_anschlagschreiber = 'dan_anschlagschreiber';
+PORTRAITS.dan_anschlagschreiber = 'dan_anschlagschreiber_emotions.png';
+HEADS.push('dan_anschlagschreiber');
+HEAD_FILES.dan_anschlagschreiber = 'portraits/heads/dan_anschlagschreiber.png';
+/** Benannte Ziele: [Grundgegner, Kampf-Frame] — Blatt enemy_dan_<id>, Kartenfigur F_ow_dan_<id>. */
+export const DAN_ZIELE = { weisse_kraehe: 'signalkraehe', staubkoenig: 'kalkstaubgeist', falsches_signal: 'nachhall', lohnfresserin: 'lohnlistenmotte',
+  vorarbeiterin: 'geruestklang', schichtbaron: 'schichtgaenger', aschenmutter: 'lohnlistenmotte', eiserner_kessel: 'geruestklang',
+  bote: 'schichtgaenger', hueter: 'bn_der_zweite_vorhauer' };
+for (const [id, base] of Object.entries(DAN_ZIELE)) {
+  const [w, h] = BATTLE_SHEETS[`enemy_${base}`].slice(1);
+  BATTLE_SHEETS[`enemy_dan_${id}`] = [`battle/enemy_dan_${id}.png`, w, h ?? w];
+  if (ANIM_ALIASES[`enemy_${base}`]) ANIM_ALIASES[`enemy_dan_${id}`] = ANIM_ALIASES[`enemy_${base}`];
+  if (FADING_SHEETS.includes(`enemy_${base}`)) FADING_SHEETS.push(`enemy_dan_${id}`);
+  OVERWORLD_SHEETS[`dan_${id}`] = [`characters/F_ow_dan_${id}.png`, 16, 32];
+  PROP_ORIGINS[`ow_dan_${id}`] = PROP_ORIGINS[`ow_${base}`] ?? 0.85;
 }
