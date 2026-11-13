@@ -29,6 +29,8 @@ test('Kapitel-4/5-Ware schlägt auch die Dunscar-Zirkelware (Seb: 27er-Zirkelwaf
   const zirkelAtk = zirkel.filter((i) => i?.kind === 'weapon').map((i) => i.atk);
   assert.ok(Math.min(...ladenWaffen) > median(zirkelAtk), 'schwächste K4-Waffe über dem Zirkel-Median');
   assert.ok(Math.max(...ladenWaffen) > Math.max(...zirkelAtk), 'stärkste K4-Waffe über der stärksten Zirkelwaffe');
+  assert.equal(Math.max(...ladenWaffen), 50, 'Seb: Waffen bis 50');
+  for (const [id, it] of Object.entries(content.items)) if (it.kind === 'weapon' && it.atk >= 50) assert.ok(it.price >= 25000, `${id}: eine 50er kostet mindestens 25.000`);
   const hp = (i) => (i.boons ?? []).filter((b) => b.key === 'max_hp').reduce((a, b) => a + b.value, 0);
   const ladenHp = Math.max(...['vi_handel_druckerei', 'vi_handel_garten', 'vi_handel_reise'].flatMap((m) => M[m].stock.filter((e) => e.rare === undefined).map((e) => content.items[e.item]).filter((i) => i.kind === 'gear').map(hp)));
   assert.ok(ladenHp > Math.max(...zirkel.filter((i) => i?.kind === 'gear').map(hp)), 'K4-Kleidung über Zirkelkleidung');

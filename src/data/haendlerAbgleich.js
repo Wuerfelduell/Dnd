@@ -11,7 +11,7 @@
 //    Dunscar-Ware selbst wird stärker: Kupplungsring, Filzverband, Schichttee.
 //  Calderwick/Briarholt (Seq 4–3): Kleidung und Waffen dort lagen unter Dunscar-Niveau (Atk 9–12, +6–10 Leben).
 //    Jetzt Atk 16–18, +25–40 Leben, −20 % Schaden; dazu Verpflegung zum Heilen und ein Restposten-Kasten mit allem Alten.
-//    Endwerte (Atk 32–42, +80–180 Leben über den Dunscar-Zirkelstücken, Heilung 60–260) setzt seit 2026-11-13 preisAbgleich.js.
+//    Endwerte (Atk 32–50, +100–300 Leben über den Dunscar-Zirkelstücken, Heilung 60–260) setzt seit 2026-11-13 preisAbgleich.js.
 
 /** Kettlegater Läden und Zirkel, deren Preise als „alte Preise“ gelten. */
 const ALT_LAEDEN = ['gorse', 'kittering'];
