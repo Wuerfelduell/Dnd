@@ -1,3 +1,4 @@
+import { applyDunscarPassanten } from './dunscarPassanten.js';
 import { NIGHT_FLAG } from '../core/Clock.js';
 import { applyQuestPack } from './questPacks.js';
 import { applyDunscarZirkel } from './dunscarZirkel.js';
@@ -128,6 +129,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyEigenesHaus(content); // Codex DG: Häuser in Wexmoor und Dunscar, Maklerin, Türen (nach der Kulisse, die Dunscar-Karten neu baut)
   applyDunscarStaende(content); // Dunscar: Marktstände mit Schild hinter den Händlern
   applyDunscarStimmen(content); // Dunscar: eigene Stimmen, wechselnde Begrüßungen und Themen je Figur
+  applyDunscarPassanten(content); // Dunscar: Passanten mit Tagesablauf, Gemurmel und Straßenereignissen in den Vierteln
   return content;
 }
 

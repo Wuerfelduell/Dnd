@@ -31,6 +31,13 @@ export class Lighting {
     return light;
   }
 
+  /** Nimmt ein Licht wieder heraus (z. B. die Laterne eines Passanten, der die Karte verlässt). */
+  remove(light) {
+    const i = this.lights.indexOf(light);
+    if (i >= 0) this.lights.splice(i, 1);
+    light?.glow?.destroy();
+  }
+
   update(time) {
     const cam = this.scene.cameras.main;
     const view = cam.worldView;
