@@ -6,7 +6,6 @@ import { existsSync } from 'node:fs';
 import { GameState } from '../src/core/GameState.js';
 import { Combat } from '../src/core/Combat.js';
 import { DAY_NIGHT_SECONDS, NIGHT_FLAG } from '../src/core/Clock.js';
-import { AUFSICHT } from '../src/core/Aufsicht.js';
 import { BD_FIGURES, K3K_ENEMIES, CHARACTER_SHEETS, SHEETS, BATTLE_SHEETS, OVERWORLD_SHEETS, headUrl, itemIconUrl, wantedUrl, bestiaryUrl, ANIM_SHEETS } from '../src/world/assets.js';
 import { loadContent, fight, EXPERT } from './helpers.js';
 
@@ -104,21 +103,11 @@ test('Schienenläufer: entzieht sich nach drei Runden ohne Sieg, Trophäe oder F
   assert.equal(c.outcome, null);
 });
 
-test('Aufseher: nachts je einer am Endbahnhof und am Signalhang, zivil, Bahnkarte oder Marke befreit', () => {
-  const patrols = DS_MAPS.flatMap((m) => (m.patrols ?? []).map((p) => ({ ...p, map: m.id })));
-  assert.equal(patrols.length, 2);
-  for (const p of patrols) {
-    assert.equal(p.kind, 'aufsicht');
-    assert.ok(['ds_endbahnhof', 'ds_signalhang'].includes(p.map));
-    assert.ok(arrived({ night: true }).meets(p.visible_if), `${p.id} nachts`);
-    assert.ok(!arrived().meets(p.visible_if), `${p.id} tags nicht`);
-    assert.ok(!content.maps[p.map].police, 'keine Polizei in Dunscar');
+test('Dunscar hat keine Streifen: keine Polizei, keine uniformierte Bahnaufsicht mehr', () => {
+  for (const m of DS_MAPS) {
+    assert.equal((m.patrols ?? []).length, 0, `${m.id}: Streife`);
+    assert.ok(!m.police, `${m.id}: Polizei`);
   }
-  assert.deepEqual(AUFSICHT.passes, ['k3a_bahnkarte', 'k3a_aufsichtsmarke']);
-  assert.deepEqual(AUFSICHT.to, { map: 'ds_speisewagen', spawn: 'default' });
-  assert.equal(AUFSICHT.nerves, -5);
-  for (const id of AUFSICHT.figures) assert.ok(content.npcs[id] && existsSync(pub(`sprites/${SHEETS[CHARACTER_SHEETS[`npc_${id}`]]}`)), id);
-  for (const id of ['k3a_bahnkarte', 'k3a_aufsichtsmarke']) assert.ok(content.items[id], id);
 });
 
 test('Zeitung, Gerede, Wetter, Tiere und Stände sind im Spiel', () => {

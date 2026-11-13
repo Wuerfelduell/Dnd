@@ -44,7 +44,7 @@ export const DS_ORTSKUNDIGE = {
     gruss: 'Eine Frau mit Messingmarke an der Mütze lehnt an einem leeren Gepäckkarren. „Brack. Ich trage nichts mehr, seit keiner mehr abfährt. Aber ich weiß, wo alles steht.“',
     viertel: '„Der Endbahnhof. Schalter und Fahrplantafel oben an der Nordwand, die Wartebänke unten am Gleis. Hier kommt jeder an, und hier bleibt jeder hängen. In der Nordwestecke hängen die Aushänge, da liest du, wer gerade wen sucht.“',
     wege: '„Nach Norden die Straße hoch zum Schwellenring, da ist Pfiffs Speisewagen, dein Bett und dein Kessel. Nach Osten raus zum Signalhang. Die Stadtkarte hängt hier am Platz, wenn du schneller woanders sein willst.“',
-    gefahr: '„Am Bahnhof selbst tut dir keiner was, außer der Aufsicht, wenn du gesucht wirst. Die schlimmen Ecken haben ein rotes Licht am Ausgang und eine Zahl auf dem Schild. Je höher die Zahl, desto weniger kommen zurück.“',
+    gefahr: '„Am Bahnhof selbst tut dir keiner was. Polizei gibt’s hier nicht, nur den Fels. Die schlimmen Ecken haben ein rotes Licht am Ausgang und eine Zahl auf dem Schild. Je höher die Zahl, desto weniger kommen zurück.“',
     gerede: '„Die Uhr da oben hat keine Ziffern. Trotzdem sagen alle, sie geht vor.“',
     gerede2: '„Seit der Sache am Ruf schläft die Stadt unruhiger. Die Gleise summen nachts, als würde ein Zug kommen. Es kommt keiner.“',
     gott: '„Heller Mantel, ruhige Hände? Der kam ohne Billett an und ist ohne Billett weiter. Der Schalter hat sich vor ihm verbeugt. Ich schwöre es, die Klappe ging runter wie ein Kopf.“',
