@@ -58,16 +58,60 @@ export const DS_ARTEFAKTE = {
   dsz_herzwalze: art('Walze, die dein Herz spielt', 14000, 'Eine Spieluhrwalze, gestanzt nach deinem Puls. Solange sie läuft, stirbst du schwer, und du verdaust schwer.',
     [b('max_hp', 150, '+150 maximales Leben.'), b('heal_bonus', 1.5, 'Heilmittel wirken 50 % stärker.')],
     [b('digest_mult', 0.6, 'Tränke verdauen 40 % langsamer.'), b('honor_loss', 1.3, 'Ansehensverluste wiegen 30 % schwerer.')]),
+  // Seb 2026-11-13: „Kappe +12 Nerven interessiert mich in Dunscar nicht mehr“ → brutale Stücke zu brutalen Preisen
+  dsz_schwellenherz: art('Nebelherz der Ersten Schwelle', 16000, 'Schlägt nur, wenn etwas nach dir greift. Dann schlägt es zurück, für dich.',
+    [b('damage_taken', 0.7, '30 % weniger Schaden.'), b('max_hp', 60, '+60 maximales Leben.')], [b('unruhe_tick', 0.3, '+0,3 Unruhe pro Sekunde.')]),
+  dsz_lohnherz: art('Schwarzes Lohnherz', 18000, 'Das Herz der Toten Schicht, ausgezahlt in Wut. Jeder Schlag rechnet ab.',
+    [b('dmg_mult', 1.45, 'Schaden ×1,45.'), b('max_hp', 50, '+50 maximales Leben.')], [b('dodge_window', 0.75, 'Ausweichfenster −25 %.'), b('heal_bonus', 0.8, 'Heilmittel wirken nur zu 80 %.')]),
+  dsz_signalzunge: art('Eiserne Signalzunge', 15000, 'Aus der Glocke des letzten Signals gebrochen. Wer sie trägt, schlägt, als läutete er Alarm.',
+    [b('atk', 10, '+10 Angriff.'), b('attack_ap', 1, 'Angriffe bringen +1 Konzentration.')], [b('composure_regen', 0.6, 'Nervenerholung nur 60 %.')]),
+  dsz_siebenkrone: art('Krone der Sieben Schichten', 30000, 'Unmöglich, sagt das Stellwerk. Sieben Schichten, sieben Tote, sieben Zacken. Wer sie trägt, ist für einen Kampf lang ein kleiner Gott.',
+    [b('dmg_mult', 1.6, 'Schaden ×1,60.'), b('damage_taken', 0.75, '25 % weniger Schaden.'), b('ap_max', 2, '+2 Höchstkonzentration.'), b('max_hp', 120, '+120 maximales Leben.')],
+    [b('unruhe_tick', 0.6, '+0,6 Unruhe pro Sekunde.'), b('honor_loss', 2, 'Ansehensverluste wiegen doppelt.')]),
   dsz_tresorscheibe: art('Tresorscheibe der Dunscar-Bank', 9000, 'Die Bank gibt es nicht mehr. Die Scheibe dreht sich weiter und rechnet für dich.',
     [b('price', 0.75, 'Einkaufen kostet 25 % weniger.'), b('sell', 1.4, '40 % höherer Erlös beim Verkaufen.')], [b('money_bonus', 0.6, 'Geldbeute fällt 40 % geringer aus.')]),
 };
 
 /** Neue Waffen und Verbrauchsgüter. */
 export const DS_ITEMS = {
-  dsz_schienennagel: { weight: 2, name: 'Geweihter Schienennagel', kind: 'weapon', atk: 16, occult: 1.8, price: 1200,
+  // Seb 2026-11-13: Waffen weit über dem Laden (Dunscar-Steinmetz 13/15, K4/K5 16–18), Preise im Zehntausenderbereich
+  dsz_schienennagel: { weight: 2, name: 'Geweihter Schienennagel', kind: 'weapon', atk: 23, occult: 1.9, price: 3000,
     desc: 'Ein Nagel aus der ersten Schwelle von Dunscar, über drei Schichten mit Namen beschrieben. Trifft, was keinen Körper hat.' },
-  dsz_ofenhammer: { weight: 4, name: 'Hammer der Ofenmutter', kind: 'weapon', atk: 19, occult: 1.3, price: 1500,
+  dsz_ofenhammer: { weight: 4, name: 'Hammer der Ofenmutter', kind: 'weapon', atk: 27, occult: 1.3, price: 4000,
     desc: 'Damit wurde der Kalte Ofen zum letzten Mal geschlossen. Unmöglich schwer für seine Größe.' },
+  dsz_kalkklinge: { weight: 2, name: 'Kalkklinge der Stollenwache', kind: 'weapon', atk: 26, price: 3500,
+    desc: 'In Kalk gehärtet, bis sie weiß wurde. Sie schneidet Stein, Knochen und alles dazwischen.' },
+  dsz_rangiersaebel: { weight: 3, name: 'Rangiersäbel der Ersten Schicht', kind: 'weapon', atk: 25, occult: 1.2, price: 3200,
+    desc: 'Die Rangierer trugen ihn gegen das, was nachts auf den Gleisen stand. Die Kerben zählen nicht Menschen.' },
+  dsz_signaldegen: { weight: 2, name: 'Signaldegen', kind: 'weapon', atk: 24, occult: 1.7, price: 3200,
+    desc: 'Eine rote Linse im Korb. Wenn sie aufleuchtet, ist es für den Gegner schon zu spät.' },
+  dsz_splitterklinge: { weight: 2, name: 'Splitterklinge aus dem Runddepot', kind: 'weapon', atk: 28, price: 4500,
+    desc: 'Aus den Schienen geschmiedet, auf denen der Unglückszug stand. Sie will zu Ende bringen, was er angefangen hat.' },
+  dsz_bankrevolver: { weight: 2, name: 'Revolver des Bankwächters', kind: 'weapon', atk: 31, price: 6000,
+    desc: 'Sechs Kammern, sechs Kugeln mit eingeritzten Kontonummern. Der Wächter hat die Bank überlebt, die Bank ihn nicht.' },
+  dsz_ofenkette: { weight: 4, name: 'Glühende Ofenkette', kind: 'weapon', atk: 30, occult: 1.5, price: 6000,
+    desc: 'Die Kette, an der die Ofentür hing. Sie ist kalt und brennt trotzdem.' },
+  dsz_schichtglocke: { weight: 5, name: 'Glühende Schichtglocke', kind: 'weapon', atk: 36, occult: 1.6, price: 9000,
+    desc: 'Unmöglich, sagt die Rußgesellschaft. Sie läutete das Ende jeder Schicht. Wen sie trifft, für den ist Feierabend.' },
+  // Kleidung: Leben, Schutz und Schaden auf Halbgott-Niveau
+  dsz_nebelpanzer: { weight: 5, name: 'Nebelpanzer der Toten Schicht', kind: 'gear', slot: 'mantel', price: 4000,
+    boons: [b('max_hp', 110, '+110 maximales Leben.'), b('damage_taken', 0.85, '15 % weniger Schaden.')],
+    desc: 'Ein Mantel aus Kalkfilz und Nebel, genäht für die Schicht, die nie zurückkam. Er hält, was sie nicht hielt.' },
+  dsz_direktorenmantel: { weight: 3, name: 'Samtmantel des Bankdirektors', kind: 'gear', slot: 'mantel', price: 4500,
+    boons: [b('dmg_mult', 1.2, 'Schaden ×1,20.'), b('max_hp', 60, '+60 maximales Leben.'), b('price', 0.85, 'Händlerpreise ×0,85.')],
+    desc: 'Der Direktor ist mit der Bank untergegangen. Der Mantel nicht. Er macht aus jedem, der ihn trägt, einen, der fordert.' },
+  dsz_stollenhelm: { weight: 3, name: 'Kalkhelm der Stollenwache', kind: 'gear', slot: 'hut', price: 3000,
+    boons: [b('damage_taken', 0.85, '15 % weniger Schaden.'), b('max_nerves', 35, '+35 maximale Nerven.')],
+    desc: 'Mit Kalk ausgegossen, bis kein Schlag mehr durchkommt. Auch keiner, der auf den Verstand zielt.' },
+  dsz_stellwerkkrone: { weight: 1, name: 'Kupferkrone des Stellwerks', kind: 'gear', slot: 'hut', price: 3500,
+    boons: [b('dmg_mult', 1.15, 'Schaden ×1,15.'), b('occult_mult', 1.3, '30 % mehr Schaden gegen Okkultes.')],
+    desc: 'Aus den Kupferleitungen der toten Signale gebogen. Sie summt, wenn etwas aus dem Nebel kommt.' },
+  dsz_bankkette: { weight: 1, name: 'Amtskette der Dunscar-Bank', kind: 'gear', slot: 'amulett', price: 3500,
+    boons: [b('max_hp', 80, '+80 maximales Leben.'), b('heal_bonus', 1.4, 'Heilmittel wirken 40 % stärker.')],
+    desc: 'Jedes Glied ein Tresorschlüssel. Sie schließt nichts mehr auf, außer dem Leben in dir.' },
+  dsz_salzrosenkranz: { weight: 1, name: 'Salzrosenkranz der Brüder', kind: 'gear', slot: 'amulett', price: 3000,
+    boons: [b('max_nerves', 45, '+45 maximale Nerven.'), b('composure_regen', 1.5, 'Nerven erholen sich 50 % schneller.'), b('calm_decay', 1.3, 'Unruhe klingt 30 % schneller ab.')],
+    desc: 'Jede Perle ein Korn Salz aus Wexmoor, in Dunscar geweiht. Wer ihn zählt, verliert sich nicht.' },
   dsz_geisterlaterne: { weight: 1, name: 'Geisterlaterne', kind: 'consumable', price: 300, calm: 60, composure: 40,
     desc: 'Brennt mit einem Licht, das nicht wärmt. Ein Atemzug davon beruhigt Kopf und Nerven. Senkt die Unruhe um 60 und beruhigt die Nerven (+40).' },
 };
@@ -102,10 +146,10 @@ export const DS_ZIRKEL = {
       { id: 'tm_dot', offers: [] },
       { id: 'tm_brann', offers: [] },
       { id: 'dsz_ofenmutter', offers: [] },
-      { id: 'dsz_brenner', offers: [L('dsz_ofenhammer', 6500, 0.15, EINMAL), L('dsz_kalkherz', 3500, 0.25, EINMAL), L('dsz_herzwalze', 14000, 0.06, EINMAL)], wants: ['k3o_schichtknopf', 'k3o_stillkiesel'] },
-      { id: 'dsz_aschenleserin', offers: [L('dsz_geisterlaterne', 1500, 0.5), L('dsz_spiegel', 10000, 0.07, EINMAL)], wants: ['k3o_schraubenzahn', 'k3o_schichtknopf'] },
-      { id: 'dsz_loeschmeister', offers: [L('dsz_lohnbuch', 2800, 0.25, EINMAL), L('dsz_sanduhr', 12000, 0.06, EINMAL)], wants: ['k3o_stillkiesel', 'k3o_schraubenzahn'] },
-      { id: 'dsz_glasblaeserin', offers: [L('dsz_geisterlaterne', 1500, 0.5)] },
+      { id: 'dsz_brenner', offers: [L('dsz_ofenhammer', 11000, 0.2, EINMAL), L('dsz_ofenkette', 16000, 0.18, EINMAL), L('dsz_kalkherz', 3500, 0.25, EINMAL), L('dsz_herzwalze', 14000, 0.06, EINMAL)], wants: ['k3o_schichtknopf', 'k3o_stillkiesel'] },
+      { id: 'dsz_aschenleserin', offers: [L('dsz_geisterlaterne', 1500, 0.5), L('dsz_spiegel', 10000, 0.07, EINMAL), L('dsz_lohnherz', 18000, 0.12, EINMAL)], wants: ['k3o_schraubenzahn', 'k3o_schichtknopf'] },
+      { id: 'dsz_loeschmeister', offers: [L('dsz_lohnbuch', 2800, 0.25, EINMAL), L('dsz_sanduhr', 12000, 0.06, EINMAL), L('dsz_schichtglocke', 28000, 0.06, EINMAL)], wants: ['k3o_stillkiesel', 'k3o_schraubenzahn'] },
+      { id: 'dsz_glasblaeserin', offers: [L('dsz_kalkklinge', 9500, 0.25, EINMAL), L('dsz_bankkette', 9000, 0.25, EINMAL)] },
     ],
     say: {
       dsz_ofenmutter: '„Der Ofen ist kalt, seit die Bank fiel“, sagt Selma. „Was hier brennt, brennt nicht für Kalk. Wer in Dunscar lebt, darf zusehen. Wer bieten will, bringt Tausender mit.“',
@@ -137,10 +181,10 @@ export const DS_ZIRKEL = {
       { id: 'tm_sallow', offers: [] },
       { id: 'tm_corve', offers: [] },
       { id: 'dsz_stellwerker', offers: [] },
-      { id: 'dsz_telegrafistin', offers: [L('dsz_rohrpost', 2600, 0.3, EINMAL), L('dsz_weichenuhr', 4800, 0.2, EINMAL)], wants: ['k3o_schichtknopf', 'k3o_stillkiesel'] },
-      { id: 'dsz_weichenwaerter', offers: [L('dsz_schienennagel', 5000, 0.2, EINMAL), L('dsz_signallinse', 3200, 0.25, EINMAL), L('dsz_augenamulett', 3800, 0.2, EINMAL)], wants: ['k3o_schraubenzahn', 'k3o_schichtknopf'] },
-      { id: 'dsz_fundsammler', offers: [L('dsz_glasschluessel', 2200, 0.3, EINMAL), L('dsz_tresorscheibe', 9000, 0.07, EINMAL)], wants: ['k3o_stillkiesel', 'k3o_schraubenzahn'] },
-      { id: 'dsz_rangierer', offers: [L('dsz_geisterlaterne', 1500, 0.5)] },
+      { id: 'dsz_telegrafistin', offers: [L('dsz_rohrpost', 2600, 0.3, EINMAL), L('dsz_weichenuhr', 4800, 0.2, EINMAL), L('dsz_signalzunge', 15000, 0.12, EINMAL)], wants: ['k3o_schichtknopf', 'k3o_stillkiesel'] },
+      { id: 'dsz_weichenwaerter', offers: [L('dsz_schienennagel', 8500, 0.25, EINMAL), L('dsz_signaldegen', 9000, 0.25, EINMAL), L('dsz_signallinse', 3200, 0.25, EINMAL), L('dsz_augenamulett', 3800, 0.2, EINMAL)], wants: ['k3o_schraubenzahn', 'k3o_schichtknopf'] },
+      { id: 'dsz_fundsammler', offers: [L('dsz_glasschluessel', 2200, 0.3, EINMAL), L('dsz_tresorscheibe', 9000, 0.07, EINMAL), L('dsz_siebenkrone', 30000, 0.05, EINMAL)], wants: ['k3o_stillkiesel', 'k3o_schraubenzahn'] },
+      { id: 'dsz_rangierer', offers: [L('dsz_stollenhelm', 8000, 0.25, EINMAL), L('dsz_stellwerkkrone', 10000, 0.2, EINMAL)] },
     ],
     say: {
       dsz_stellwerker: '„Hier wird nichts mehr gestellt“, sagt Corvin und legt die Hand auf einen Hebel. „Nur noch gehandelt. Wer in Dunscar angekommen ist, sitzt mit am Pult.“',
@@ -169,8 +213,8 @@ export const DS_ZIRKEL = {
       { id: 'tm_gischt', offers: [] },
       { id: 'tm_lake', offers: [] },
       { id: 'dsz_sb_kassiererin', offers: [L('dsz_geisterlaterne', 1500, 0.5)] },
-      { id: 'dsz_sb_heizer', offers: [] },
-      { id: 'dsz_sb_vorarbeiterin', offers: [] },
+      { id: 'dsz_sb_heizer', offers: [L('dsz_rangiersaebel', 8500, 0.25, EINMAL), L('dsz_nebelpanzer', 12000, 0.2, EINMAL)] },
+      { id: 'dsz_sb_vorarbeiterin', offers: [L('dsz_salzrosenkranz', 8000, 0.25, EINMAL), L('dsz_schwellenherz', 16000, 0.12, EINMAL)] },
       { id: 'dsz_kalkhexe', offers: [] },
       { id: 'dsz_apotheker', offers: [L('dsz_geisterlaterne', 1500, 0.5)] },
     ],
@@ -298,6 +342,18 @@ const SCHICHTBUND_NEU = {
   tm_ds_kerbholz: [L('dsz_lohnbuch', 2800, 0.15, EINMAL)],
   tm_ds_stimme: [L('dsz_rohrpost', 2600, 0.15, EINMAL)],
 };
+const SCHICHTBUND_BRUTAL = [L('dsz_splitterklinge', 12000, 0.2, EINMAL), L('dsz_bankrevolver', 17000, 0.15, EINMAL), L('dsz_direktorenmantel', 13000, 0.2, EINMAL)];
+
+/**
+ * Seb 2026-11-13: „eine Kappe, die +12 Nerven gibt, interessiert mich in Dunscar nicht mehr, dort will ich brutale Items zu brutalen Preisen“.
+ * Raus aus den Dunscar-Zirkeln: alte Kleinware (Kleidung, Fundstücke, Verbrauchsgüter, Waffen aus dem Vorrat) und alles unter 2000.
+ * Formeln, Zutaten und die neuen dsz_*-Stücke bleiben.
+ */
+export const DS_MINDESTPREIS = 2000;
+export function istKleinware(item, offer) {
+  if (!item || item.kind === 'formula' || item.kind === 'ingredient' || offer.item.startsWith('dsz_') || /^(ritualformel|sq_zutat)_/.test(offer.item)) return false;
+  return offer.price < DS_MINDESTPREIS || item.kind !== 'artifact';
+}
 
 /**
  * Nach applySequenzen: neue Stücke in den Schichtbund (alte Lose bleiben zu alten Preisen),
@@ -358,6 +414,7 @@ export function applyDunscarZirkel(content) {
   });
   // Schichtbund: billiges raus, seltenes rein
   for (const m of circles.schichtbund?.members ?? []) m.offers.push(...(SCHICHTBUND_NEU[m.id] ?? []).map((o) => ({ ...o })));
+  if (circles.schichtbund) circles.schichtbund.members[0].offers.push(...SCHICHTBUND_BRUTAL.map((o) => ({ ...o })));
   // Seq-3-Formel (Seb 2026-11-12): taucht mit 1 % auf, für 15.000; reihum über alle drei Dunscar-Zirkel
   const seats3 = Object.values(circles).filter((c) => c.city === 'dunscar').flatMap((c) => c.members);
   pids.filter((p) => has(`formel_${p}_3`)).forEach((p, i) => seats3[i % seats3.length].offers.push(
@@ -367,7 +424,8 @@ export function applyDunscarZirkel(content) {
   // Formeln unter Sequenz 3 nie
   for (const c of Object.values(circles)) {
     if (c.city !== 'dunscar') continue;
-    for (const m of c.members) m.offers = m.offers.filter((o) => content.items[o.item] && !(content.items[o.item].kind === 'formula' && content.items[o.item].seq <= 2));
+    for (const m of c.members) m.offers = m.offers.filter((o) => content.items[o.item] && !(content.items[o.item].kind === 'formula' && content.items[o.item].seq <= 2)
+      && !istKleinware(content.items[o.item], o));
   }
   // Seb 2026-11-12: Jedes Mitglied legt pro Runde genau ein Los auf. Darum alle Lose eines Dunscar-Zirkels gleichmäßig
   // auf alle Leute verteilen (häufige zuerst, damit jeder etwas Gängiges hat). Mehr Leute = mehr Lose je Runde,

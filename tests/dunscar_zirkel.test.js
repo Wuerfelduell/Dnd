@@ -33,7 +33,18 @@ test('Vier Zirkel in Dunscar (alte Zirkel zusammengeführt): alte Stücke zu alt
     assert.ok(lose('kalkofen').includes(`formel_${pid}_4`), `Halbgott-Formel ${pid}`);
     assert.ok(dunscar.some(([cid]) => lose(cid).includes(`formel_${pid}_3`)), `Seq-3-Formel ${pid}`);
   }
-  assert.ok(lose('schichtbund').includes('k3o_rufwachs'), 'alte Schichtbund-Lose bleiben');
+  // Seb 2026-11-13: keine Kleinware mehr (Kappe +12 Nerven usw.), nur Formeln, Zutaten und Stücke ab 2000
+  for (const [cid] of dunscar) for (const id of lose(cid)) {
+    const it = content.items[id];
+    assert.ok(['formula', 'ingredient', 'artifact'].includes(it.kind) || id.startsWith('dsz_') || /^(ritualformel|sq_zutat)_/.test(id), `${cid}: Kleinware ${id}`);
+    assert.ok(!['k3h_schichtkappe', 'k3o_rufwachs', 'vs_bannnagel'].includes(id), `${cid}: ${id}`);
+  }
+  // Brutale Waffen und Kleidung, teuer
+  const stuecke = dunscar.flatMap(([, c]) => c.members.flatMap((m) => m.offers)).filter((o) => o.item.startsWith('dsz_'));
+  const waffen = stuecke.filter((o) => content.items[o.item].kind === 'weapon');
+  assert.ok(waffen.length >= 9 && waffen.every((o) => content.items[o.item].atk >= 23 && o.price >= 8500), 'Waffen Atk ≥ 23, ab 8500');
+  assert.ok(stuecke.filter((o) => content.items[o.item].kind === 'gear').length >= 6);
+  assert.ok(stuecke.some((o) => o.price >= 28000), 'unmögliche Stücke im Zehntausenderbereich');
   assert.equal(C.schichtbund.members.flatMap((m) => m.offers).filter((o) => /^sq_zutat_.+_4$/.test(o.item)).length, 10);
 });
 
