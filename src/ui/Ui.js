@@ -1241,12 +1241,16 @@ export class Ui {
     const { npc, tree } = this.dialogue;
     const node = tree.nodes[nodeId];
     if (!node) throw new Error(`Dialogknoten fehlt: ${npc.dialogue}.${nodeId}`);
+    // Textvariante vor den Effekten wählen (Merker wie „schon getroffen“ gelten erst ab dem nächsten Gespräch)
+    const erneut = !!this.dialogue.seen?.has(nodeId);
+    (this.dialogue.seen ??= new Set()).add(nodeId);
+    const nodeText = this.as(() => s.nodeText(node, { erneut }));
     this.sfx(uiSound('dialogue', 'dialog'), { volume: 0.7 });
     if (s.map === 'reise_landstrasse' && !this.dialogue.greeted) this.music?.cue?.('ls_ereignis', 45); // CL: Reiseereignis auf der Landstraße
     this.as(() => s.applyEffects(node, { nodeKey: `${npc.dialogue}.${nodeId}`, commandId: `${npc.dialogue}.${nodeId}@${Date.now()}` })); // BG: jeder bestätigte Schritt ist ein eigener Befehl
     if (node.combat) { this.dialogue.combat = true; if (npc.id) s.hostileAfterFight(npc.id, node.combat); }
     s.visitNode(npc.dialogue, nodeId);
-    let text = node.text;
+    let text = nodeText;
     // Beziehung: ein Begrüßungssatz je Stimmung, einmal pro Gespräch (nicht für Fundstücke und Objekte)
     if (!this.dialogue.greeted && npc.id && !npc.item) {
       this.dialogue.greeted = true;

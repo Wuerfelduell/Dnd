@@ -24,6 +24,7 @@ import { applyDunscarKulisse } from './dunscarKulisse.js';
 import { applyDunscarAusbau, applyDunscarStaende } from './dunscarAusbau.js';
 import { applyBenannte } from './benannte.js';
 import { applyDunscarSchlacke } from './dunscarSchlacke.js';
+import { applyDunscarStimmen } from './dunscarStimmen.js';
 import { applyKapitelAusgleich } from './kapitelAusgleich.js';
 import { applyHaendlerAbgleich } from './haendlerAbgleich.js';
 // Fügt alle Inhaltsdateien zu einem Objekt zusammen (ohne JSON-Imports, damit Node-Tests es nutzen können).
@@ -126,6 +127,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyNebelseite(content); // Codex DH: Spiegelkarten und verborgene Übergänge
   applyEigenesHaus(content); // Codex DG: Häuser in Wexmoor und Dunscar, Maklerin, Türen (nach der Kulisse, die Dunscar-Karten neu baut)
   applyDunscarStaende(content); // Dunscar: Marktstände mit Schild hinter den Händlern
+  applyDunscarStimmen(content); // Dunscar: eigene Stimmen, wechselnde Begrüßungen und Themen je Figur
   return content;
 }
 
