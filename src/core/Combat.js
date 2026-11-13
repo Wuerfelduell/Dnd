@@ -115,6 +115,10 @@ export const FLEE_ROUNDS_TOUGH = 2;
 // Zweite Pfadfertigkeiten (faehigkeiten2.json): `slow` dehnt den nächsten gegnerischen Angriff (Ringe laufen langsamer),
 // `weaken` [mult, rounds] dämpft seinen Schaden, `focus` hebt die Bewertung der nächsten eigenen Fertigkeit um eine Stufe.
 export const SLOW_MULT = 1.35;
+// Laterne ist Okkultjäger (Seb 2026-11-13): ab Seq 8 gegen Okkultes stark (occult_mult), dafür gegen
+// nicht-okkulte Gegner (Menschen, Tiere, Schichtgänger) nur 70 % Schaden. Mal ein Hoch, mal ein Tief.
+export const LATERNE_PROFAN_MULT = 0.7;
+export const LATERNE_PROFAN_SEQ = 8;
 // Verwirrung (Seb 2026-11-13: Schlüssel schaffte jeden Gebietsboss, weil er ihn jede Runde verwirren konnte):
 // Eliten und Bosse durchschauen die Täuschung danach so viele Runden lang, bevor sie wieder greift.
 export const CONFUSE_LOCK = { elite: 1, boss: 2 };
@@ -471,11 +475,18 @@ export class Combat {
   }
 
   /** Schaden eines Treffers mit Waffe und Bewertung. */
+  /** Schadensfaktor nach Gegnerart: okkult → occult_mult, sonst bei der Laterne (ab Seq 8) LATERNE_PROFAN_MULT. */
+  occultFactor() {
+    if (this.enemy.occult) return this.state.passive('occult_mult');
+    const p = this.state.pathway;
+    return !this.enc.practice && p?.id === 'laterne' && p.seq <= LATERNE_PROFAN_SEQ ? LATERNE_PROFAN_MULT : 1;
+  }
+
   hitDamage(mult, grade, gradeMult = GRADE_MULT) {
     const w = this.state.weaponStats();
     let dmg = w.atk * mult * gradeMult[grade];
     if (this.enemy.occult && w.occult) dmg *= w.occult;
-    if (this.enemy.occult) dmg *= this.state.passive('occult_mult');
+    dmg *= this.occultFactor();
     if (this.weak) dmg *= WEAK_MULT;
     dmg *= this.state.passive('dmg_mult');
     return Math.max(1, Math.round(dmg));
@@ -515,7 +526,7 @@ export class Combat {
       if (sk.flat) {
         const holy = sk.holy || skillId === 'ward';
         damage = sk.flat * gradeMult[grade] * (this.enemy.occult && holy ? 2 : 1) * (this.weak ? WEAK_MULT : 1);
-        if (this.enemy.occult) damage *= this.state.passive('occult_mult');
+        damage *= this.occultFactor();
         damage *= this.state.passive('dmg_mult');
         damage = Math.max(1, Math.round(damage));
       } else {
