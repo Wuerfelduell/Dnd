@@ -30,6 +30,8 @@ export const SEQ_MAX = 1; // höchste erreichbare Stufe (Kapitel 3 bringt die Ke
 // Verdauungstempo je Sequenz. Bis Sequenz 7 wie gehabt; ab Sequenz 6 wird es brutal:
 // jede weitere Sequenz verdaut zehnmal so langsam wie die davor (6 = 1/10 von 7, 5 = 1/100, ...).
 export const DIGEST_SLOW_FACTOR = 10;
+/** Sequenz, auf der `digest_pct` voll zählt. */
+export const DIGEST_FIXED_SEQ = 5;
 export const DIGEST_RATE = { 9: 1, 8: 0.7, 7: 0.5, 6: 0.05, 5: 0.005, 4: 0.0005, 3: 0.00005, 2: 0.000005, 1: 0.0000005 };
 /** Verdauungstempo einer Sequenz im Verhältnis zu Sequenz 7 (1 bis Sequenz 7, danach 1/10, 1/100, ...). */
 /** Faktor für jede Unruhe-Steigerung ab Sequenz 5 (Seb 2026-11-12). */
@@ -186,7 +188,7 @@ export const DIGEST_LABELS = {
   trade: 'gehandelt', brew: 'Trank gebraut', use_item: 'Heilmittel benutzt', lock: 'Verschlossenes geöffnet',
   loot: 'Belohnung eingestrichen',
   boss_win: 'Boss besiegt', elite_win: 'Elitegegner besiegt', talent: 'Welt-Fähigkeit eingesetzt (je 10 Nerven)',
-  ritual: 'Ritual vollzogen', gathering: 'Zuschlag auf einem geheimen Treffen',
+  ritual: 'Ritual vollzogen', gathering: 'Zuschlag auf einem geheimen Treffen', tat: 'große Tat in Dunscar',
 };
 /**
  * Was jeden Pfad verdaut, ganz gleich nach welchem Grundsatz: die großen Prüfungen und das Wirken der eigenen Kraft.
@@ -426,7 +428,13 @@ export const pathwayMethods = {
     if (pts <= 0) return 0;
     // Wer nach seinem Grundsatz handelt, kommt zur Ruhe
     this.setUnruhe(this.unruhe - pts * 0.5);
-    if (p.digestion >= 100) return 0;
+    return this.addDigestion(pts, kind);
+  },
+
+  /** Verdauung direkt gutschreiben (ohne Tempo-Umrechnung) und melden. Gibt den Zuwachs zurück. */
+  addDigestion(pts, kind) {
+    const p = this.pathway;
+    if (!p || p.digestion >= 100 || !(pts > 0)) return 0;
     const before = p.digestion;
     p.digestion = Math.min(100, p.digestion + pts);
     const player = this.acting ?? 1;
@@ -436,6 +444,23 @@ export const pathwayMethods = {
       this.emit('digested', { ...p, player });
     }
     return p.digestion - before;
+  },
+
+  /**
+   * Feste Verdauung aus großen Taten (Effekt `digest_pct`, z. B. Dunscar-Anschläge, Seb 2026-11-13): `pct` Prozent auf
+   * Sequenz 5 (DIGEST_FIXED_SEQ), höhere Sequenzen nur ihren Tempo-Anteil davon (Seq 4 ein Zehntel), niedrigere nie mehr
+   * als `pct`. Gilt für beide Spieler, ohne den Schnell-Faktor von Spieler 2. Gibt den Zuwachs des Handelnden zurück.
+   */
+  digestFixed(pct) {
+    const one = () => {
+      const seq = this.pathway?.seq;
+      if (seq == null) return 0;
+      const f = Math.min(1, (DIGEST_RATE[seq] ?? DIGEST_RATE[1]) / DIGEST_RATE[DIGEST_FIXED_SEQ]);
+      return this.addDigestion(pct * f, 'tat');
+    };
+    const gained = one();
+    if (this.hasP2?.()) this.withPartner(one);
+    return gained;
   },
 
   /** Spieler 2 verdaut schneller (P2_DIGEST_MULT), Spieler 1 normal. */
