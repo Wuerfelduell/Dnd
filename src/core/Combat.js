@@ -110,6 +110,9 @@ export const FLEE_ROUNDS_TOUGH = 2;
 // Zweite Pfadfertigkeiten (faehigkeiten2.json): `slow` dehnt den nächsten gegnerischen Angriff (Ringe laufen langsamer),
 // `weaken` [mult, rounds] dämpft seinen Schaden, `focus` hebt die Bewertung der nächsten eigenen Fertigkeit um eine Stufe.
 export const SLOW_MULT = 1.35;
+// Verwirrung (Seb 2026-11-13: Schlüssel schaffte jeden Gebietsboss, weil er ihn jede Runde verwirren konnte):
+// Eliten und Bosse durchschauen die Täuschung danach so viele Runden lang, bevor sie wieder greift.
+export const CONFUSE_LOCK = { elite: 1, boss: 2 };
 export const GRADE_UP = { miss: 'good', good: 'perfect', perfect: 'perfect' };
 
 export const SKILLS = {
@@ -273,6 +276,7 @@ export class Combat {
     this.log = [];
     if (this.wardMult() < 1) this.log.push(`${enc.name} ist zu mächtig für dich: Ohne Sequenz ${enc.min_seq} prallt fast alles an ${enc.name.startsWith('Die ') ? 'ihr' : 'ihm'} ab.`);
     this.confused = false; // nächster gegnerischer Angriff trifft den Gegner selbst
+    this.confuseLock = 0; // Eliten/Bosse: Runden, in denen eine neue Verwirrung nicht greift (CONFUSE_LOCK)
     // Kurglocke (Kapitel 4): gewöhnliche Gegner schlafen zu Beginn und setzen ihren ersten Zug aus.
     if (!enc.boss && !enc.practice && [1, 2].some((n) => this.fighters[n] && state.withPlayer(n, () => state.passive('opening_stun'), { quiet: true }))) {
       this.stunned = true;
@@ -551,7 +555,12 @@ export class Combat {
     if (sk.drain && total) effects.push(`+${this.state.heal(Math.round(total * sk.drain))} Leben`);
     if (sk.shield) { this.shield += sk.shield; effects.push(`Schutz ${this.shield}`); }
     if (sk.evade) { this.evading = true; effects.push('nächster Angriff geht ins Leere'); }
-    if (sk.confuse && landed) { if (this.unshakable()) effects.push(`${this.enemy.name} lässt sich nicht verwirren`); else { this.confused = true; effects.push('Gegner verwirrt'); } }
+    if (sk.confuse && landed) {
+      const lock = this.enc.practice ? 0 : this.enc.boss ? CONFUSE_LOCK.boss : this.enc.elite ? CONFUSE_LOCK.elite : 0;
+      if (this.unshakable()) effects.push(`${this.enemy.name} lässt sich nicht verwirren`);
+      else if (this.confuseLock > 0) effects.push(`${this.enemy.name} durchschaut die Täuschung noch`);
+      else { this.confused = true; this.confuseLock = lock ? lock + 1 : 0; effects.push('Gegner verwirrt'); }
+    }
     if (sk.burn && landed) {
       // Ein stärkerer oder längerer Brand ersetzt den alten, ein schwächerer verlängert ihn nur (extend_burn)
       const old = this.burn;
@@ -1000,6 +1009,7 @@ export class Combat {
     this.capped = 0;
     for (const f of Object.values(this.fighters)) { f.bleedTick = 0; f.focusTick = 0; f.focusGain = 0; }
     if (this.weakened && --this.weakened.rounds <= 0) this.weakened = null;
+    if (this.confuseLock > 0) this.confuseLock -= 1;
     // Rückzug vor einem starken Gegner: eine Runde überstanden, nach der letzten ist man weg
     if (!this.outcome && this.fleeing && --this.fleeing.left <= 0) this.outcome = 'fled';
     // BD: Gegner mit `flees_after` entziehen sich nach so vielen vollständigen Runden ohne Spielersieg (kein Sieg, keine Beute)
