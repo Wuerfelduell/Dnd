@@ -24,6 +24,7 @@ export const CONCLUSION_SCHILLING = 30;
 
 /** Lesbare Beschreibung eines zeitweiligen Passivs (für Pfad-Tab und Meldungen). */
 export const BUFF_LABELS = {
+  unruhe_gain: (v) => (v === 0 ? 'Keine neue Unruhe' : `Unruhe steigt ${Math.round((1 - v) * 100)} % langsamer`),
   vision_cost: (v) => `Geistsicht kostet ${Math.round((1 - v) * 100)} % weniger Nerven`,
   price: (v) => `Händler verlangen ${Math.round((1 - v) * 100)} % weniger`,
   sell: (v) => `Verkauf bringt ${Math.round((v - 1) * 100)} % mehr`,

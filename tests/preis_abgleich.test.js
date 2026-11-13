@@ -22,6 +22,18 @@ test('Kapitel-4/5-Waffen liegen über allem aus Dunscar-Läden', () => {
   assert.ok(Math.min(...spaet) > ds);
 });
 
+test('Kapitel-4/5-Ware schlägt auch die Dunscar-Zirkelware (Seb: 27er-Zirkelwaffe machte sie zu Müll)', () => {
+  const zirkel = ['schichtbund', 'kalkofen', 'stellwerk', 'salzds'].flatMap((c) => content.gatherings.circles[c].members.flatMap((m) => m.offers ?? [])).map((e) => content.items[e.item]);
+  const median = (a) => a.sort((x, y) => x - y)[a.length >> 1];
+  const ladenWaffen = ['vi_handel_druckerei', 'vi_handel_garten', 'vi_handel_reise'].flatMap((m) => M[m].stock.filter((e) => e.rare === undefined).map((e) => content.items[e.item]).filter((i) => i.kind === 'weapon').map((i) => i.atk));
+  const zirkelAtk = zirkel.filter((i) => i?.kind === 'weapon').map((i) => i.atk);
+  assert.ok(Math.min(...ladenWaffen) > median(zirkelAtk), 'schwächste K4-Waffe über dem Zirkel-Median');
+  assert.ok(Math.max(...ladenWaffen) > Math.max(...zirkelAtk), 'stärkste K4-Waffe über der stärksten Zirkelwaffe');
+  const hp = (i) => (i.boons ?? []).filter((b) => b.key === 'max_hp').reduce((a, b) => a + b.value, 0);
+  const ladenHp = Math.max(...['vi_handel_druckerei', 'vi_handel_garten', 'vi_handel_reise'].flatMap((m) => M[m].stock.filter((e) => e.rare === undefined).map((e) => content.items[e.item]).filter((i) => i.kind === 'gear').map(hp)));
+  assert.ok(ladenHp > Math.max(...zirkel.filter((i) => i?.kind === 'gear').map(hp)), 'K4-Kleidung über Zirkelkleidung');
+});
+
 test('Alle Artefakte haben mindestens eine echte Wirkung', () => {
   for (const [id, it] of Object.entries(content.items)) {
     if (it.kind !== 'artifact' || id === 's4mo_relikt') continue;
@@ -43,4 +55,18 @@ test('Kurglocke: gewöhnliche Gegner setzen den ersten Zug aus', () => {
   s.addItem('vi_art_die_kurglocke');
   assert.ok(s.passive('opening_stun')); // Artefakte wirken beim Mitführen
   assert.equal(new Combat(s, 'miriam').stunned, !content.encounters.miriam.boss);
+});
+
+test('Geisterlaterne: eine Minute lang keine neue Unruhe, alter Preis', () => {
+  const s = new GameState(content);
+  s.pathway = { id: 'eisen', seq: 6, digestion: 0 };
+  s.addItem('dsz_geisterlaterne');
+  s.useItem('dsz_geisterlaterne');
+  s.setUnruhe(10);
+  assert.equal(s.unruhe, 0);
+  s.talentTime = (s.talentTime ?? 0) + 61;
+  s.setUnruhe(10);
+  assert.equal(s.unruhe, 10);
+  const lose = Object.values(content.gatherings.circles).flatMap((c) => c.members.flatMap((m) => m.offers ?? [])).filter((e) => e.item === 'dsz_geisterlaterne');
+  assert.ok(lose.length && lose.every((e) => e.price === 1500));
 });

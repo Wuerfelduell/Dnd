@@ -205,7 +205,7 @@ export const TALENT_DIGEST_SPAN = [0.5, 2.5];
 /** Handlungen, die nur den Pfad dessen verdauen, der sie selbst tut. Alles andere verdaut beide Spieler. */
 export const PERSONAL_DIGEST = new Set(['parry', 'vision', 'use_item', 'brew', 'talent', 'ritual']);
 const MULT_KEYS = new Set(['vision_cost', 'composure_regen', 'heal_bonus', 'price', 'sell', 'honor_loss', 'occult_mult',
-  'money_bonus', 'skill_composure', 'calm_decay', 'dodge_window', 'damage_taken', 'digest_mult', 'dmg_mult', 'hurry_cost']);
+  'money_bonus', 'skill_composure', 'calm_decay', 'dodge_window', 'damage_taken', 'digest_mult', 'dmg_mult', 'hurry_cost', 'unruhe_gain']);
 
 
 export const pathwayMethods = {
@@ -482,7 +482,7 @@ export const pathwayMethods = {
 
   // --- Unruhe ------------------------------------------------------------------------
   /** Ab Sequenz 5 steigt die Unruhe nur noch halb so stark (je Spieler, alle Pfade). */
-  unruheGainMult() { const q = this.pathway?.seq; return q != null && q <= 5 ? UNRUHE_GAIN_HOCH : 1; },
+  unruheGainMult() { const q = this.pathway?.seq; return (q != null && q <= 5 ? UNRUHE_GAIN_HOCH : 1) * (this.activeBuffs?.() ?? []).filter((b) => b.key === 'unruhe_gain').reduce((m, b) => m * b.value, 1); }, // unruhe_gain: Geisterlaterne (0 = eine Minute keine neue Unruhe)
 
   setUnruhe(v) {
     const before = this.unruhe;

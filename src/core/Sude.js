@@ -78,7 +78,7 @@ export const sudeMethods = {
   applySudBuff(it) {
     if (!it.buff) return null;
     this.buffs ??= [];
-    const source = `sud:${it.sud ?? it.name}`;
+    const source = it.sud ? `sud:${it.sud}` : `item:${it.name}`; // gekaufte Mittel (Geisterlaterne) zählen nicht als eigener Sud
     this.buffs = this.buffs.filter((x) => !(x.source === source && x.key === it.buff.key));
     this.buffs.push({ key: it.buff.key, value: it.buff.value, until: (this.talentTime ?? 0) + it.buff.seconds, source });
     return `${buffLabel(it.buff)} (${fmtSec(it.buff.seconds)})`;
