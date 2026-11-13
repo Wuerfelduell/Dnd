@@ -153,7 +153,7 @@ export const VS_LOSE = {
   salz: [['vs_geisterglocke', 620, 0.3], ['vs_runenknochen', 600, 0.25], ['vs_ritualkelch', 580, 0.15]],
   namensgilde: [['vs_ascheurne', 540, 0.2]],
   kalkofen: [['vs_sternenscherbe', 3000, 0.2], ['vs_opferkerze', 2000, 0.2]],
-  stellwerk: [['vs_blinder_spiegel', 2400, 0.25], ['vs_bannnagel', 1600, 0.3]],
+  stellwerk: [['vs_blinder_spiegel', 2400, 0.25]], // Seb 2026-11-13: keine schwachen Waffen in Dunscar-Zirkeln (Bannnagel raus)
   schichtbund: [['vs_schicksalsspindel', 2200, 0.25], ['vs_orakelkugel', 3600, 0.15]],
   salzds: [['vs_augentalisman', 2600, 0.25], ['vs_dornenkrone', 2800, 0.1]],
 };

@@ -22,7 +22,9 @@ test('Kleidung hat Icon, Platz und Wirkung', () => {
 test('Jedes neue Stück gibt es zu kaufen oder als Beute', () => {
   const sold = new Set(Object.values(content.market.merchants).flatMap((m) => m.stock.map((e) => e.item)));
   const dropped = new Set(Object.values(content.loot).flatMap((l) => [...(l.drops ?? []).map((d) => d.item), ...Object.keys(l.items ?? {})]));
-  const ids = [...gearIds, 'revolver', 'messingschlagring', 'brecheisen', 'regenschirmdegen', 'taktstock_silber', 'kette_rauchfass', 'laterne_kampf',
+  // Seb 2026-11-13: brutale Dunscar-Kleidung gibt es nur auf den Zirkeltreffen
+  const auctioned = new Set(Object.values(content.gatherings.circles).flatMap((c) => c.members.flatMap((m) => m.offers.map((o) => o.item))));
+  const ids = [...gearIds.filter((id) => !auctioned.has(id)), 'revolver', 'messingschlagring', 'brecheisen', 'regenschirmdegen', 'taktstock_silber', 'kette_rauchfass', 'laterne_kampf',
     'stimmgabel_gross', 'knochenmesser', 'sternglasdolch', 'taktstock_vey', 'blitzpulver', 'taschentuch', 'glasauge', 'taschenspiegel', 'geisterkern'];
   for (const id of ids) {
     assert.ok(content.items[id], `${id} fehlt`);
