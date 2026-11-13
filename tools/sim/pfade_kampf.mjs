@@ -1,8 +1,8 @@
 // Kampf-Sweep: jeder Pfad, Seq 9 bis 4, solo und zu zweit, gegen die Gebiete von Kettlegate, Wexmoor und Dunscar.
-// node tools/sim/pfade_kampf.mjs  → Tabelle: Siegquote, Runden, Restleben
+// node tools/sim/pfade_kampf.mjs [out.json] [--seeds 30] [--only miss_wren,namenlose]  → Tabelle: Siegquote, Runden, Restleben
 import { GameState } from '../../src/core/GameState.js';
-import { Combat } from '../../src/core/Combat.js';
-import { loadContent, seeded, SKILLED } from '../../tests/helpers.js';
+import { Combat, isPrecise } from '../../src/core/Combat.js';
+import { loadContent, seeded, SKILLED, SKILLED_HIT } from '../../tests/helpers.js';
 
 const content = loadContent();
 const STAGES = [
@@ -14,7 +14,9 @@ const STAGES = [
   { seq: 4, weapon: 'dsz_schienennagel', zones: ['ds_rufschlucht', 'ds_unterschicht'], bosses: [] },
 ];
 const PIDS = Object.keys(content.pathways);
-const SEEDS = [1, 2, 3, 4, 5, 6];
+const arg = (k) => { const i = process.argv.indexOf(k); return i > 0 ? process.argv[i + 1] : null; };
+const SEEDS = Array.from({ length: +(arg('--seeds') ?? 6) }, (_, i) => i + 1);
+const ONLY = arg('--only')?.split(',');
 
 function equip(s, pid, seq, weapon) {
   s.addItem(weapon); s.equip(weapon); s.addItem('verband', 3); s.addItem('tonikum', 2);
@@ -30,18 +32,20 @@ function play(s, enc, seed) {
   const c = new Combat(s, enc);
   c.rng = seeded(seed);
   let n = 0;
+  let k = 0; // Angriffstakt wie SKILLED_HIT: jeder dritte Druck präzise, bei Präzisionsfertigkeiten jeder sechste
+  const hit = (sk, bars) => Array.from({ length: bars }, () => SKILLED_HIT(k++, isPrecise(sk)));
   while (!c.outcome && c.round <= 60) {
     for (const p of [1, 2]) {
       if (!c.fighters[p] || c.fighters[p].down || c.outcome) continue;
       c.actor = p;
-      c.on(p, () => { const h = ['tonikum', 'verband'].find((i) => s.itemCount(i)); if (s.hp < s.maxHp * 0.35 && h && c.canUseItem()) c.useItemNow(h); });
+      c.on(p, () => { const h = ['tonikum', 'verband'].find((i) => s.itemCount(i)); if (s.hp < s.maxHp * 0.5 && h && c.canUseItem()) c.useItemNow(h); });
       let guard = 0;
       while (!c.outcome && guard++ < 5) {
         const sk = c.skills().filter((x) => x.usable && x.cost > 0 && x.hits > 0 && !['blind', 'ward'].includes(x.id)).sort((a, b) => (b.flat ?? b.mult * 10) * b.hits - (a.flat ?? a.mult * 10) * a.hits)[0];
         if (!sk) break;
-        c.useSkill(sk.id, Array(sk.hits).fill('good'));
+        c.useSkill(sk.id, hit(sk, sk.hits));
       }
-      if (!c.outcome) c.useSkill('attack', ['good']);
+      if (!c.outcome) c.useSkill('attack', hit({ id: 'attack' }, 1));
     }
     if (c.outcome) break;
     do {
@@ -81,6 +85,7 @@ for (const st of STAGES) {
 const fmt = (x) => (x.err ? `ERR ${x.err.slice(0, 40)}` : `${Math.round(x.win * 100)}%/${x.rounds ? x.rounds.toFixed(1) : '-'}r/${Math.round(x.hp * 100)}hp`);
 const out = [];
 for (const row of rows) {
+  if (ONLY && !ONLY.includes(row.enc)) continue;
   const e = content.encounters[row.enc];
   const kind = e.boss ? 'Boss' : e.elite ? 'Elite' : 'normal';
   const line = { seq: row.seq, where: row.where, enc: row.enc, kind };
@@ -88,4 +93,4 @@ for (const row of rows) {
   out.push(line);
   console.log([row.seq, row.where, row.enc, kind, ...PIDS.map((p) => `${p}:${line[p]} duo:${line[`${p}+`]}`)].join(' | '));
 }
-if (process.argv[2]) (await import('node:fs')).writeFileSync(process.argv[2], JSON.stringify(out, null, 1));
+if (process.argv[2] && !process.argv[2].startsWith('--')) (await import('node:fs')).writeFileSync(process.argv[2], JSON.stringify(out, null, 1));
