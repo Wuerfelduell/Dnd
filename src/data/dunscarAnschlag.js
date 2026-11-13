@@ -88,6 +88,7 @@ function ziel(content, { encId, base, map, name, boss = false, haerte, intro, wi
   content.encounters[encId] = {
     ...b, name, elite: !boss, boss, mittelboss: undefined, chapter: 3, city: 'dunscar', fleeable: true, wild: undefined, zone: undefined,
     respawn: undefined, intro, win_text, on_win,
+    sheet: `enemy_dan_${encId.replace(/^dan_|_elite$|_boss$/g, '')}`, tint: undefined, // umgefärbtes Blatt (assets.js DAN_ZIELE)
     anschlag: true, hp_floor_mult: haerte.hp, dmg_mult: (b.dmg_mult ?? LATE_DMG_MULT[3][boss ? 'boss' : 'elite']) * haerte.dmg,
   };
   content.loot[encId] = { ...(content.loot[base] ?? {}), repeat: false };
