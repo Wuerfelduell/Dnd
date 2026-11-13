@@ -1,3 +1,4 @@
+import { getLang, setLang } from '../core/I18n.js';
 import { HOCH_SEQ1_VERSIEGELT } from '../data/seqHoch.js';
 import { TIER_KAMPF } from '../core/Tiere.js';
 import { NEWSPAPERS } from '../data/lore.js';
@@ -1109,9 +1110,11 @@ export class Ui {
         ${save ? '<button class="primary" data-act="continue">Fortsetzen <span class="key">E</span></button>' : ''}
         <button class="${save ? '' : 'primary'}" data-act="new">Neues Spiel ${save ? '<span class="key">N</span>' : '<span class="key">E</span>'}</button>
         <button data-act="fullscreen">${this.fullscreenLabel()}</button>
+        ${this.langButton()}
       </div>`, 'title');
     this.titleScene(dmTitleLayers(city, { warm: /__warm$/.test(saved?.map ?? '') }) ?? TITLE_LAYERS);
     el.querySelector('[data-act=fullscreen]').onclick = () => this.toggleFullscreen();
+    this.bindLang(el);
     this.titleContinue = save ? () => { this.close(); this.onContinue(); } : null;
     this.titleNew = () => {
       this.close();
@@ -3141,6 +3144,7 @@ export class Ui {
         <button data-act="p2">${uiSprite('ahkoop', on ? 'verlassen' : 'beitreten', 1 / 12, 'aeicon')}<span class="key">2</span> ${label}</button>
         <button data-act="fullscreen">${setIcon(this.isFullscreen() ? 'fenster' : 'vollbild')}${this.fullscreenLabel()}</button>
         <button data-act="sound">${setIcon((this.audio?.master ?? 0) <= 0 ? 'stumm' : 'lautstaerke')}${this.soundLabel()}</button>
+        ${this.langButton()}
       </div>
       <div class="feedback">${feedback}</div>
       ${on ? this.p2LookPicker() : ''}
@@ -3167,6 +3171,23 @@ export class Ui {
     el.querySelectorAll('[data-look]').forEach((b) => { b.onclick = () => { this.state.setP2Look(b.dataset.look); this.openPause(`Spieler 2 spielt jetzt mit ${P2_LOOKS[b.dataset.look].name}.`); }; });
     el.querySelector('[data-act=fullscreen]').onclick = () => this.toggleFullscreen();
     el.querySelector('[data-act=sound]').onclick = (e) => { this.cycleSound(); e.currentTarget.textContent = this.soundLabel(); };
+    this.bindLang(el);
+  }
+
+  /** Sprachwahl Deutsch / Englisch (Knopf selbst wird nicht übersetzt). */
+  langButton() {
+    const en = getLang() === 'en';
+    return `<button data-act="lang" data-no-tr title="Sprache / Language">🌐 ${en ? '<span class="muted">Deutsch</span> · <b class="lang-on">English</b>' : '<b class="lang-on">Deutsch</b> · <span class="muted">English</span>'}</button>`;
+  }
+
+  bindLang(el) {
+    const b = el.querySelector('[data-act=lang]');
+    if (!b) return;
+    b.onclick = () => {
+      setLang(getLang() === 'en' ? 'de' : 'en');
+      b.outerHTML = this.langButton();
+      this.bindLang(el);
+    };
   }
 
   /** Paket AH: Auswahl der Figur von Spieler 2 (Auswahlbild mit beiden Figuren). */
