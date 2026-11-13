@@ -32,9 +32,9 @@ export const SG_ITEMS = {
 };
 
 const LOOT = {
-  normal: { money: [25, 40], drops: [{ item: 'ds_schlacke_glutperle', chance: 0.4 }] },
-  elite: { money: [70, 100], drops: [{ item: 'ds_schlacke_ofenherz', chance: 0.5 }, { item: 'ds_schlacke_glutperle', chance: 1 }] },
-  mittel: { money: [150, 200], drops: [{ item: 'ds_schlacke_ofenherz', chance: 1 }, { item: 'ds_schlacke_kronglas', chance: 0.25 }] },
+  normal: { money: [25, 40], drops: [{ item: 'ds_schlacke_glutperle', chance: 0.25 }] },
+  elite: { money: [70, 100], drops: [{ item: 'ds_schlacke_ofenherz', chance: 0.3 }, { item: 'ds_schlacke_glutperle', chance: 1 }] },
+  mittel: { money: [150, 200], drops: [{ item: 'ds_schlacke_ofenherz', chance: 1 }, { item: 'ds_schlacke_kronglas', chance: 0.15 }] },
   boss: { money: [300, 400], drops: [{ item: 'ds_schlacke_kronglas', chance: 1 }, { item: 'ds_schlacke_ofenherz', chance: 1 }] },
 };
 
