@@ -365,8 +365,25 @@ export class GameState {
       this.meetsClaims(o) && // Paket BG: requires_claim, requires_claim_missing, requires_p2, requires_replacement
       this.meetsSignalRoutes(o) && // Paket BN: requires_route, requires_pattern, requires_binding
       this.meetsDaily(o) && // DR: requires_daily / hide_if_daily (einmal je Spieltag)
-      this.meetsPfad(o) // Pfad-Beyonder: requires_item_counts, requires_artifacts, requires_ph_step
+      this.meetsPfad(o) && // Pfad-Beyonder: requires_item_counts, requires_artifacts, requires_ph_step
+      this.meetsAufstieg(o) // Zug nach oben: requires_alle_flag, hide_if_alle_flag, requires_einer_unter_seq
     );
+  }
+
+  /**
+   * Zug nach oben (data/aufstieg.js): `requires_alle_flag: f` verlangt f_p1 und, wenn Spieler 2 mitspielt, auch f_p2
+   * (jeder hat den Schaffner selbst besiegt). `requires_einer_unter_seq: n`: mindestens ein Spieler ist schwächer als
+   * Sequenz n (Rückweg für alte Spielstände, die zu früh nach Calderwick kamen). Beide Spieler, egal wer gerade handelt.
+   */
+  meetsAufstieg(o) {
+    const alle = (f) => this.flags.has(`${f}_p1`) && (!this.hasP2?.() || this.flags.has(`${f}_p2`));
+    if (o.requires_alle_flag !== undefined && !alle(o.requires_alle_flag)) return false;
+    if (o.hide_if_alle_flag !== undefined && alle(o.hide_if_alle_flag)) return false;
+    if (o.requires_einer_unter_seq !== undefined) {
+      const seqs = [this.pathway, ...(this.hasP2?.() ? [this.p2?.pathway] : [])].map((p) => p?.seq ?? 9);
+      if (!seqs.some((q) => q > o.requires_einer_unter_seq)) return false;
+    }
+    return true;
   }
 
   /**
