@@ -41,23 +41,28 @@ test('Schaffner: Seq 5 verliert, Seq 4 gewinnt (tools/sim/zugwaechter.mjs für a
   assert.ok(s4.flags.has(SCHAFFNER_FLAG(1)));
 });
 
-test('Schaffner im Koop: jeder kämpft allein, der Zug fährt erst, wenn beide gewonnen haben', () => {
-  const s = fresh();
-  s.flags.add('k3_arrived'); s.flags.add('auf_starling_gesehen');
-  s.pathway = { id: 'eisen', seq: 4, digestion: 0 }; s.updateMaxHp(); s.hp = s.maxHp;
-  s.addP2();
-  s.withPlayer(2, () => { s.pathway = { id: 'laterne', seq: 4, digestion: 0 }; s.updateMaxHp(); s.hp = s.maxHp; });
-  s.withPlayer(2, () => s.startCombat(SCHAFFNER));
+test('Schaffner im Koop: gemeinsamer Kampf, mitfahren darf nur, wer am Ende noch steht', () => {
+  const pair = () => {
+    const s = fresh();
+    s.flags.add('k3_arrived'); s.flags.add('auf_starling_gesehen');
+    s.pathway = { id: 'eisen', seq: 4, digestion: 0 }; s.updateMaxHp(); s.hp = s.maxHp;
+    s.addP2();
+    s.withPlayer(2, () => { s.pathway = { id: 'laterne', seq: 4, digestion: 0 }; s.updateMaxHp(); s.hp = s.maxHp; });
+    return s;
+  };
+  const s = pair();
   const c = new Combat(s, SCHAFFNER);
-  assert.ok(!c.duo && c.swapped, 'Spieler 2 kämpft allein');
-  assert.equal(s.pathway.id, 'laterne');
+  assert.ok(c.duo, 'zu zweit');
+  assert.equal(c.duoHpMult, 2.5, 'fester Koop-Aufschlag, ein schwacher Partner macht ihn nicht leichter');
   c.outcome = 'won'; c.finish();
-  assert.equal(s.pathway.id, 'eisen');
-  assert.ok(s.flags.has(SCHAFFNER_FLAG(2)));
-  assert.equal(visible(s, 'ds_endbahnhof', 'auf_zug_nach_oben'), false, 'Spieler 1 fehlt noch');
-  assert.ok(visible(s, 'ds_endbahnhof', 'auf_schaffner_tuer'));
-  s.flags.add(SCHAFFNER_FLAG(1));
+  assert.ok(s.flags.has(SCHAFFNER_FLAG(1)) && s.flags.has(SCHAFFNER_FLAG(2)));
   assert.ok(visible(s, 'ds_endbahnhof', 'auf_zug_nach_oben'));
+  const t = pair();
+  const d = new Combat(t, SCHAFFNER);
+  d.fighters[2].down = true; d.outcome = 'won'; d.finish();
+  assert.ok(t.flags.has(SCHAFFNER_FLAG(1)) && !t.flags.has(SCHAFFNER_FLAG(2)), 'wer am Boden liegt, ist zu leicht');
+  assert.equal(visible(t, 'ds_endbahnhof', 'auf_zug_nach_oben'), false);
+  assert.ok(visible(t, 'ds_endbahnhof', 'auf_schaffner_tuer'));
 });
 
 test('Alte Stände zu früh in Calderwick: Lastenzug nach Dunscar, zurück nur am Schaffner vorbei', () => {
