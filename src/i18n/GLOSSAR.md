@@ -39,3 +39,21 @@ Damit alle Übersetzungen (src/i18n/en/*.json) dieselben Begriffe nutzen.
 | Wexmoor, Kettlegate, Dunscar, Ashgrove … | bleiben |
 
 Eigennamen von Personen bleiben unverändert; Titel werden übersetzt (Pater → Father, Meisterin → Master, Küster → Sexton).
+
+## Pfade und Kampf (ergänzt)
+
+| Deutsch | Englisch |
+|---|---|
+| Pfad der Laterne / des Fadens / der Maske / des Echos / des Kessels / des Eisens / des Schlüssels | Pathway of the Lantern / Thread / Mask / Echo / Cauldron / Iron / Key |
+| Laterne, Faden, Maske, Echo, Kessel, Eisen, Schlüssel | Lantern, Thread, Mask, Echo, Cauldron, Iron, Key |
+| Beyonder | Beyonder |
+| Grauspäher | Grey Scouts |
+| Fahndung | manhunt (Anzeige: Wanted) |
+| Verdauung / verdauen | digestion / digest |
+| Schwachstelle | weak spot |
+| Ausweichfenster | dodge window |
+| Höchstkonzentration | max focus |
+| Tragkraft | carrying capacity |
+| Durchbruch | breakthrough |
+| Geisteressenz | spirit essence |
+| Sternglas | star glass |
