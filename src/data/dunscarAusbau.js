@@ -264,6 +264,11 @@ export function applyDunscarAusbau(content) {
     // Wynn führt die einfachen neuen Heilmittel mit
     const wynn = merchants.ds_kraeuterfrau;
     if (wynn) for (const [item, price] of [['dsh_verbandrolle', 130], ['dsh_honigtopf', 260], ['dsh_bruchriechsalz', 220]]) if (!wynn.stock.some((e) => e.item === item)) wynn.stock.push({ item, price });
+    // Seb 2026-11-13: „in Dunscar brauchen wir stärkere Heiltränke“: Kalkverband (50) und Schichttonikum (110) auch dort, wo man zuerst einkauft
+    for (const id of ['k3h_troedlerin', 'k3_mabel']) {
+      const m = merchants[id];
+      if (m) for (const [item, price] of [['dsh_verbandrolle', 120], ['dsh_schichttonikum', 320]]) if (!m.stock.some((e) => e.item === item)) m.stock.push({ item, price });
+    }
   }
   for (const [bau, viertel] of NEUE_HAEUSER) {
     const m = bau();
