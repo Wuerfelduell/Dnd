@@ -733,7 +733,7 @@
     ]
    },
    {
-    "node": "cwn_brief_aus_dunscar_spur1_offen"
+    "node": "cwn_brief_aus_dunscar_spur1_sturz"
    }
   ],
   "nodes": {
@@ -813,8 +813,17 @@
      }
     ]
    },
-   "cwn_brief_aus_dunscar_spur1_offen": {
-    "text": "Der Absendervermerk ist unvollständig. Ohne Dunscars Abschlusssiegel wird das Paket noch nicht geöffnet.",
+   "cwn_brief_aus_dunscar_spur1_sturz": {
+    "text": "Pfiff hat ein Brot in Zeitungspapier gewickelt. „Der Zug nach oben ist ohne dich zurückgekommen. In Dunscar sagen sie, du seist gefallen. Ich glaube das erst, wenn mir die Post zurückkommt. Iss etwas. Starling sitzt noch da oben.“",
+    "sets_flags": [
+     "cwn_brief_aus_dunscar_spur1"
+    ],
+    "gives_clues": [
+     "cwn_brief_aus_dunscar_spur1_hinweis"
+    ],
+    "gives_items": {
+     "vi_v_setzerbrot": 1
+    },
     "choices": [
      {
       "text": "Für heute genug."

@@ -35,14 +35,35 @@ function questCities(content) {
   return cities;
 }
 
-/** Nur unerledigte, ausschließlich zu Kettlegate gehörende Aufträge ausblenden. */
+/**
+ * Städte, in die man nie mehr zurückkommt (keine Rückreise): Kettlegate ab Wexmoor, Wexmoor ab Dunscar,
+ * Dunscar und die Himmelsstadt ab dem Sturz nach Calderwick (außer auf dem Lastenzug-Rückweg, data/aufstieg.js).
+ */
+export function leftCities(state) {
+  const f = state.flags;
+  return [
+    ...(leftKettlegate(state) ? ['kettlegate'] : []),
+    ...(f?.has('k3_arrived') ? ['wexmoor'] : []),
+    ...(f?.has('k4_arrived') && !f?.has('auf_rueckweg') ? ['dunscar', 'himmel'] : []),
+  ];
+}
+
+/**
+ * Unerledigte Aufträge, die nur in verlassenen Städten zu erledigen sind, ausblenden: sonst stehen sie für immer
+ * offen im Notizbuch und der Wegweiser zeigt auf einen Ort, den man nie wieder erreicht (Sackgasse).
+ */
 export function journalQuestVisible(state, id) {
-  if (!leftKettlegate(state) || state.quests[id] === 'done') return true;
+  if (state.quests[id] === 'done') return true;
+  const left = leftCities(state);
+  if (!left.length) return true;
   const q = state.content.quests?.[id];
   if (!q) return false;
-  if (q.chapter > 1 || /^kapitel[2-9]/.test(q.case ?? '')) return true;
   const cities = questCities(state.content).get(id);
-  return !!cities && [...cities].some((city) => city !== 'kettlegate');
+  // Kapitelaufträge ohne eigenen Ort (vom Code gestartet) bleiben sichtbar
+  if (!cities) return q.chapter > 1 || /^kapitel[2-9]/.test(q.case ?? '');
+  // Bisherige Regel für Kettlegate: Kapitelaufträge zählen nie als Kettlegate-Auftrag
+  const only = [...cities].filter((city) => !(city === 'kettlegate' && (q.chapter > 1 || /^kapitel[2-9]/.test(q.case ?? ''))));
+  return only.length === 0 || only.some((city) => !left.includes(city));
 }
 
 /** Mehrteilige Hauptfälle bleiben bis zum letzten Akt außerhalb des Archivs. */
