@@ -11,6 +11,11 @@ test('Wörterbuch: exakt und mit Zahlen-Platzhaltern', () => {
   assert.equal(lookup('Unbekannt'), null);
 });
 
+test('Absätze werden einzeln nachgeschlagen', () => {
+  setDict({ 'Erster Absatz.\n\nZweiter Absatz.': 'First paragraph.\n\nSecond paragraph.' });
+  assert.equal(lookup('Zweiter Absatz.'), 'Second paragraph.');
+});
+
 test('tr übersetzt nur auf Englisch und behält Leerraum', () => {
   setDict({ 'Neues Spiel': 'New Game' });
   setLang('de');
