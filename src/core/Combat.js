@@ -82,16 +82,21 @@ export const AP_START = 1;
 export const SEQ5_AP_SEQ = 5; // ab Sequenz 5 (alle Pfade) …
 export const SEQ5_AP_BONUS = 1; // … +1 maximale Konzentration
 export const AP_MAX_CAP = 10; // mehr Pips passen nicht in die Leiste
-export const GRADE_MULT = { perfect: 1.3, good: 1, miss: 0.4 };
+// Meistertreffer (Seb 2026-11-13): ein winziger roter Kern mitten im Gold, so klein wie das alte Präzisionsfenster,
+// bei jeder Fertigkeit und beim Angriff. Trifft stärker als Gold und zählt sonst wie ein präziser Treffer.
+export const MEISTER_WINDOW = 0.2; // Anteil des normalen Gold-Fensters
+export const GRADE_MULT = { meister: 1.6, perfect: 1.3, good: 1, miss: 0.4 };
+/** Zählt die Bewertung als präziser Treffer (Gold oder Meister)? */
+export const isPerfectGrade = (g) => g === 'perfect' || g === 'meister';
 /**
  * Präzise Fertigkeiten: alles, was betäubt oder richtig viel Schaden macht, wirkt nur bei einem präzisen Treffer voll.
  * Ein guter Treffer richtet nur noch einen Bruchteil an und betäubt nicht; dafür ist das goldene Fenster auf ein Fünftel
- * geschrumpft (PRECISE_WINDOW). So lässt sich Betäuben + Angriff nicht endlos wiederholen.
+ * geschrumpft (PRECISE_WINDOW, seit 2026-11-13 zwei Fünftel: Betäuben war kaum zu treffen). So lässt sich Betäuben + Angriff nicht endlos wiederholen.
  * Als „richtig viel Schaden“ gilt: Treffer × Waffenfaktor ≥ HEAVY_MULT oder Treffer × Grundschaden ≥ HEAVY_FLAT.
  * In den Daten lässt sich das je Fertigkeit mit `precise: true/false` überschreiben.
  */
-export const PRECISE_WINDOW = 0.2; // Anteil des normalen Perfect-Fensters
-export const PRECISE_GRADE_MULT = { perfect: 1.3, good: 0.45, miss: 0.25 };
+export const PRECISE_WINDOW = 0.4; // Anteil des normalen Perfect-Fensters
+export const PRECISE_GRADE_MULT = { meister: 1.6, perfect: 1.3, good: 0.45, miss: 0.25 };
 export const HEAVY_MULT = 3.5;
 export const HEAVY_FLAT = 24;
 export const WEAK_MULT = 1.5;
@@ -113,7 +118,7 @@ export const SLOW_MULT = 1.35;
 // Verwirrung (Seb 2026-11-13: Schlüssel schaffte jeden Gebietsboss, weil er ihn jede Runde verwirren konnte):
 // Eliten und Bosse durchschauen die Täuschung danach so viele Runden lang, bevor sie wieder greift.
 export const CONFUSE_LOCK = { elite: 1, boss: 2 };
-export const GRADE_UP = { miss: 'good', good: 'perfect', perfect: 'perfect' };
+export const GRADE_UP = { miss: 'good', good: 'perfect', perfect: 'perfect', meister: 'meister' };
 
 export const SKILLS = {
   attack: { name: 'Angriff', cost: 0, hits: 1, mult: 1, desc: 'Ein Schlag im Takt. +1 Konzentration, +2 bei präzisem Treffer.' },
@@ -161,6 +166,7 @@ export function isOffensive(sk) {
 export function judgeTiming(pos, zone) {
   if (pos === null || pos === undefined) return 'miss';
   const d = Math.abs(pos - zone.center);
+  if (zone.meister && d <= zone.meister) return 'meister';
   if (d <= zone.perfect) return 'perfect';
   if (d <= zone.good) return 'good';
   return 'miss';
@@ -476,7 +482,7 @@ export class Combat {
   }
 
   /**
-   * Führt eine Fertigkeit aus. grades: Bewertungen der Takt-Drücke ('perfect'|'good'|'miss').
+   * Führt eine Fertigkeit aus. grades: Bewertungen der Takt-Drücke ('meister'|'perfect'|'good'|'miss').
    * Ergebnis: { hits: [{grade, damage}], total, stunned }
    */
   useSkill(skillId, grades = []) {
@@ -523,7 +529,7 @@ export class Combat {
       // Schleier: nur präzise Treffer finden das echte Gesicht
       this.veiled = false;
       let lost = false;
-      for (const h of hits) if (h.grade !== 'perfect' && h.damage) { h.damage = 0; lost = true; }
+      for (const h of hits) if (!isPerfectGrade(h.grade) && h.damage) { h.damage = 0; lost = true; }
       if (lost) effects.push('der Schleier schluckt jeden ungenauen Treffer');
     }
     const raw = hits.reduce((n, h) => n + h.damage, 0);
@@ -533,9 +539,9 @@ export class Combat {
     if (this.capped) { effects.push(`mehr steckt ${this.enc.name} in dieser Runde nicht weg (${this.capped} prallen ab)`); this.capped = 0; }
     else if (raw > total) effects.push(`Panzer fängt ${raw - total} ab`);
     if (skillId === 'attack') {
-      this.gainAp((hits[0]?.grade === 'perfect' ? 2 : 1) + this.state.passive('attack_ap'));
+      this.gainAp((isPerfectGrade(hits[0]?.grade) ? 2 : 1) + this.state.passive('attack_ap'));
       // Atem holen: Wer nicht nur Fertigkeiten spammt, sondern im Takt schlägt, sammelt Nerven zurück
-      const breath = hits[0]?.grade === 'perfect' ? ATTACK_NERVES_PERFECT : ATTACK_NERVES;
+      const breath = isPerfectGrade(hits[0]?.grade) ? ATTACK_NERVES_PERFECT : ATTACK_NERVES;
       const before = this.state.composure;
       this.state.setComposure(before + breath);
       if (this.state.composure > before) effects.push(`+${this.state.composure - before} Nerven`);
@@ -547,9 +553,9 @@ export class Combat {
     let stunMissed = false;
     if (sk.stun && !this.outcome) {
       if (this.unshakable()) { stunMissed = true; effects.push(`${this.enemy.name} lässt sich nicht betäuben`); }
-      else if (graded.some((g) => g === 'perfect')) { this.stunned = true; stunned = true; } else { stunMissed = true; effects.push('nur ein präziser Treffer hätte betäubt'); }
+      else if (graded.some(isPerfectGrade)) { this.stunned = true; stunned = true; } else { stunMissed = true; effects.push('nur ein präziser Treffer hätte betäubt'); }
     }
-    if (precise && !stunned && !stunMissed && hits.length && !graded.some((g) => g === 'perfect')) effects.push('ungenau, nur ein Bruchteil der Wucht');
+    if (precise && !stunned && !stunMissed && hits.length && !graded.some(isPerfectGrade)) effects.push('ungenau, nur ein Bruchteil der Wucht');
     if (sk.weak && landed && !this.weak) { this.weak = true; effects.push('Schwachstelle erkannt'); }
     if (sk.heal) effects.push(`+${this.state.heal(sk.heal)} Leben`);
     if (sk.drain && total) effects.push(`+${this.state.heal(Math.round(total * sk.drain))} Leben`);

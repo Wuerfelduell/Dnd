@@ -324,7 +324,7 @@ test('Präzise Fertigkeiten: Betäuben und große Wucht nur bei perfektem Takt, 
   // Fangnetz (ohne Treffer) verlangt jetzt einen Takt für die Betäubung
   assert.equal(skillBars(P.faden.seqs[6].skill), 1);
   assert.equal(skillBars(P.faden.seqs[8].skill), 0);
-  assert.equal(PRECISE_WINDOW, 0.2);
+  assert.equal(PRECISE_WINDOW, 0.4, 'Seb 2026-11-13: Betäuben war mit 0,2 kaum zu treffen');
   assert.ok(PRECISE_GRADE_MULT.good < GRADE_MULT.good / 2 && PRECISE_GRADE_MULT.perfect === GRADE_MULT.perfect);
   // Hammerfall: gut getroffen nur ein Bruchteil, präzise die volle Wucht
   const sk = P.eisen.seqs[5].skill;
@@ -333,6 +333,9 @@ test('Präzise Fertigkeiten: Betäuben und große Wucht nur bei perfektem Takt, 
   const perfect = heavy(['perfect', 'perfect']);
   assert.ok(!good.stunned && good.stunMissed && good.precise);
   assert.ok(perfect.stunned && !perfect.stunMissed);
+  // Meistertreffer: roter Kern, betäubt wie Gold und trifft stärker
+  const meister = heavy(['meister', 'meister']);
+  assert.ok(meister.stunned && meister.total > perfect.total);
   assert.ok(perfect.total > good.total * 2.5, `${perfect.total} vs ${good.total}`);
   assert.ok(good.effects.some((e) => /präziser Treffer/.test(e)));
   // Ein präziser von zwei Takten reicht zum Betäuben, nur dieser Schlag sitzt voll
@@ -346,4 +349,17 @@ test('Präzise Fertigkeiten: Betäuben und große Wucht nur bei perfektem Takt, 
   c.ap = 6;
   assert.ok(c.useSkill(net.id, ['perfect']).stunned);
   function c0() { return new Combat(fresh(), 'ash_warden'); }
+});
+
+test('Meistertreffer: winziger Kern in jedem Taktbalken, stärker als Gold', async () => {
+  const { MEISTER_WINDOW, isPerfectGrade } = await import('../src/core/Combat.js');
+  assert.equal(MEISTER_WINDOW, 0.2, 'so klein wie das alte Präzisionsfenster');
+  assert.ok(MEISTER_WINDOW < PRECISE_WINDOW);
+  const zone = { center: 0.5, meister: 0.045 * MEISTER_WINDOW, perfect: 0.045, good: 0.13 };
+  assert.equal(judgeTiming(0.5, zone), 'meister');
+  assert.equal(judgeTiming(0.5 + 0.02, zone), 'perfect');
+  assert.equal(judgeTiming(0.5 + 0.1, zone), 'good');
+  assert.equal(judgeTiming(0.5, { center: 0.5, perfect: 0.045, good: 0.13 }), 'perfect', 'ohne Kern wie bisher');
+  assert.ok(GRADE_MULT.meister > GRADE_MULT.perfect && PRECISE_GRADE_MULT.meister > PRECISE_GRADE_MULT.perfect);
+  assert.ok(isPerfectGrade('meister') && isPerfectGrade('perfect') && !isPerfectGrade('good'));
 });

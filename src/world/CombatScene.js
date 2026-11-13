@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { Combat, WINDOW, EARLY_LIMIT, DODGE_COST, RING_CURVES, judgeDefense, judgeTiming, isPrecise, skillBars, PRECISE_WINDOW, isPerfectDodge } from '../core/Combat.js';
+import { Combat, WINDOW, EARLY_LIMIT, DODGE_COST, RING_CURVES, judgeDefense, judgeTiming, isPrecise, skillBars, PRECISE_WINDOW, MEISTER_WINDOW, isPerfectGrade, isPerfectDodge } from '../core/Combat.js';
 import { createTextures, createCharacterSheet } from './textures.js';
 import {
   BATTLE_BACKGROUNDS, battleBackgroundFor, ENCOUNTER_BACKGROUNDS, ENEMY_BATTLE_SHEETS, ENCOUNTER_SHEETS, FADING_SHEETS,
@@ -535,14 +535,14 @@ export class CombatScene extends Phaser.Scene {
     // `window` in den Fertigkeitsdaten vergrößert das ganze Fenster (Gold + Silber), z. B. Kehlschnitt 1.1
     this.qte = { skillId, grades: [], total: bars, bar: null, precise, win: sk.window || 1 };
     const keys = !this.combat.duo ? (this.combat.swapped ? 'Enter oder E' : 'E oder Leertaste') : this.combat.actor === 2 ? 'Enter (Gamepad A)' : 'E oder Leertaste';
-    this.ui.combatMessage(`${this.combat.duo ? `${this.who(this.combat.actor)}, ` : ''}${sk.name}: Drücke ${keys}, wenn der Zeiger im goldenen Bereich ist.${precise ? ` Nur ein präziser Treffer ${sk.stun ? 'betäubt' : 'entfaltet die volle Wucht'}.` : ''}`);
+    this.ui.combatMessage(`${this.combat.duo ? `${this.who(this.combat.actor)}, ` : ''}${sk.name}: Drücke ${keys}, wenn der Zeiger im goldenen Bereich ist, im roten Kern trifft es meisterhaft.${precise ? ` Nur ein präziser Treffer ${sk.stun ? 'betäubt' : 'entfaltet die volle Wucht'}.` : ''}`);
     this.nextBar();
   }
 
   nextBar() {
     const i = this.qte.grades.length;
     const center = 0.55 + Math.random() * 0.3;
-    this.qte.bar = { start: now() + 250, dur: i === 0 ? 950 : 750, zone: { center, perfect: 0.045 * (this.qte.precise ? PRECISE_WINDOW : 1) * this.qte.win, good: 0.13 * this.qte.win }, done: false };
+    this.qte.bar = { start: now() + 250, dur: i === 0 ? 950 : 750, zone: { center, meister: 0.045 * MEISTER_WINDOW, perfect: 0.045 * (this.qte.precise ? PRECISE_WINDOW : 1) * this.qte.win, good: 0.13 * this.qte.win }, done: false };
   }
 
   qtePos(t) {
@@ -561,7 +561,7 @@ export class CombatScene extends Phaser.Scene {
     b.done = true;
     b.grade = grade;
     this.qte.grades.push(grade);
-    this.float({ perfect: 'Präzise!', good: 'Treffer', miss: 'Daneben' }[grade], 'player', grade);
+    this.float({ meister: 'Meisterhaft!', perfect: 'Präzise!', good: 'Treffer', miss: 'Daneben' }[grade], 'player', grade === 'meister' ? 'perfect' : grade);
     this.time.delayedCall(320, () => {
       if (this.qte.grades.length < this.qte.total) this.nextBar();
       else this.resolveSkill();
@@ -581,7 +581,7 @@ export class CombatScene extends Phaser.Scene {
       if (!this.castAnim()) this.flash(this.player);
       this.skillFx(skillId);
       if (sk.heal) this.hitFx('heal', 'player');
-      this.float(sk.name, 'player', grades[0] === 'perfect' ? 'perfect' : 'good');
+      this.float(sk.name, 'player', isPerfectGrade(grades[0]) ? 'perfect' : 'good');
       if (r.stunned) this.flash(this.enemy);
       this.ui.combatMessage(`${sk.name}: ${r.effects.join(', ') || 'wirkt'}.${r.stunned ? ` ${c.enemy.name} setzt eine Runde aus.` : ''}`);
       this.ui.combatRefresh();
@@ -595,8 +595,8 @@ export class CombatScene extends Phaser.Scene {
       onYoyo: () => {
         r.hits.forEach((h, i) => this.time.delayedCall(i * 140, () => {
           this.flash(this.enemy);
-          this.hitFx(h.grade === 'miss' ? 'miss' : h.grade === 'perfect' ? 'critical' : blade ? 'slash' : 'blunt', 'enemy');
-          this.float(`-${h.damage}`, 'enemy', h.grade === 'perfect' ? 'crit' : 'dmg');
+          this.hitFx(h.grade === 'miss' ? 'miss' : isPerfectGrade(h.grade) ? 'critical' : blade ? 'slash' : 'blunt', 'enemy');
+          this.float(`-${h.damage}`, 'enemy', isPerfectGrade(h.grade) ? 'crit' : 'dmg');
         }));
         this.cameras.main.shake(90, 0.006);
       },
@@ -916,6 +916,7 @@ export class CombatScene extends Phaser.Scene {
       g.fillStyle(0x3a3d48, 1).fillRect(x, y, w, h);
       g.fillStyle(0x8a6a2a, 1).fillRect(x + (z.center - z.good) * w, y, z.good * 2 * w, h);
       g.fillStyle(0xffd890, 1).fillRect(x + (z.center - z.perfect) * w, y, z.perfect * 2 * w, h);
+      if (z.meister) g.fillStyle(0xd8402a, 1).fillRect(x + (z.center - z.meister) * w, y, Math.max(2, z.meister * 2 * w), h); // Meistertreffer: roter Kern
       const pos = b.done ? null : this.qtePos(t);
       if (pos !== null && t >= b.start) {
         g.fillStyle(0xffffff, 1).fillRect(x + pos * w - 1, y - 4, 2, h + 8);
