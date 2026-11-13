@@ -22,18 +22,22 @@ export async function testCodeOk(text) {
 // Tasten: Ä, Ö, Ü (deutsches Layout: Quote, Semicolon, BracketLeft) gleichzeitig mit Umschalt
 const UMLAUT = { ä: 'ae', ö: 'oe', ü: 'ue', Quote: 'ae', Semicolon: 'oe', BracketLeft: 'ue' };
 
-/** Merkt sich gedrückte Umlaute. `onCombo` läuft, sobald Umschalt + Ä + Ö + Ü zusammen gedrückt sind. */
-export function watchUmlautCombo(target, onCombo) {
-  const held = new Set();
+/**
+ * Umschalt + Ä + Ö + Ü. Gezählt wird, wenn alle drei Umlaute mit gehaltener Umschalttaste innerhalb von 1,5 s
+ * gedrückt wurden (viele Tastaturen melden vier gleichzeitig gehaltene Tasten nicht zuverlässig).
+ */
+export function watchUmlautCombo(target, onCombo, windowMs = 1500) {
+  let times = {};
   const id = (e) => UMLAUT[e.key?.toLowerCase()] ?? UMLAUT[e.code];
   target.addEventListener('keydown', (e) => {
     const k = id(e);
-    if (!k) return;
-    held.add(k);
-    if (e.shiftKey && held.size === 3 && !e.repeat) { held.clear(); onCombo(e); }
+    if (!k || e.repeat) return;
+    if (!e.shiftKey) { times = {}; return; }
+    const now = performance.now();
+    times[k] = now;
+    if (['ae', 'oe', 'ue'].every((x) => times[x] !== undefined && now - times[x] <= windowMs)) { times = {}; onCombo(e); }
   }, true);
-  target.addEventListener('keyup', (e) => { const k = id(e); if (k) held.delete(k); }, true);
-  target.addEventListener('blur', () => held.clear());
+  target.addEventListener('blur', () => { times = {}; });
 }
 
 export const testmodusMethods = {

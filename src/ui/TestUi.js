@@ -24,8 +24,8 @@ function testCombo(ui) {
     if (!(await testCodeOk(input.value))) { msg.textContent = 'Falsch.'; input.select(); return; }
     ui.testArmed = false;
     ui.state.startTestmodus();
-    ui.close();
-    ui.scene?.travelTo?.(ui.state.map, ui.state.spawn ?? 'default'); // Karte neu aufbauen
+    openTestReise(ui); // gleich die Liste aller Orte zeigen (ohne Wahl: Karte neu aufbauen)
+    ui.testRebuild = true;
   };
   input.onkeydown = (e) => {
     e.stopPropagation(); // Tasten gehören dem Feld (Phaser und Ui.onKey bleiben draußen)
@@ -43,6 +43,22 @@ function openTestReise(ui) {
     <div class="testreise">${maps.map((m) => `<button data-map="${esc(m.id)}" style="margin:1px">${esc(m.name)}</button>`).join('')}</div>`).join('');
   const el = ui.open('testreise', `<div data-no-tr><h3>Testmodus</h3><div style="max-height:60vh;overflow:auto">${groups}</div>
     <div class="actions center"><button data-act="x">Schließen <span class="key">Esc</span></button></div></div>`);
-  el.querySelectorAll('[data-map]').forEach((b) => { b.onclick = () => { ui.close(); ui.scene?.travelTo?.(b.dataset.map, 'default'); }; });
-  el.querySelector('[data-act=x]').onclick = () => ui.close();
+  el.querySelectorAll('[data-map]').forEach((b) => { b.onclick = () => { ui.testRebuild = false; ui.close(); ui.scene?.travelTo?.(b.dataset.map, 'default'); }; });
+  el.querySelector('[data-act=x]').onclick = () => closeTestReise(ui);
+}
+
+/** Schließen; direkt nach dem Freischalten wird die Karte neu aufgebaut (Bosse, Gegner, Zirkel). */
+export function closeTestReise(ui) {
+  ui.close();
+  if (ui.testRebuild) { ui.testRebuild = false; ui.scene?.travelTo?.(ui.state.map, ui.state.spawn ?? 'default'); }
+}
+
+/** Knopf im Pausemenü, nur wenn der Testmodus an ist. */
+export function testPauseButton(ui) {
+  return ui.state.testmodus ? '<button data-act="testreise" data-no-tr>Testreise</button>' : '';
+}
+
+export function bindTestPause(ui, el) {
+  const b = el.querySelector('[data-act=testreise]');
+  if (b) b.onclick = () => openTestReise(ui);
 }

@@ -33,7 +33,7 @@ import { RITUAL_ART, artCss } from '../world/ritualArt.js';
 import { isSolved, knownPeople, journalQuestVisible } from '../core/journal.js';
 import { canHurry, hurryCost, travelSafe, travelFast, afterHurryFight, travelDestinations, cityOf } from '../core/Travel.js';
 import { questTarget, leadTarget, personPlaces, advice } from '../core/Guide.js';
-import { installTestmodus } from './TestUi.js';
+import { installTestmodus, testPauseButton, bindTestPause, closeTestReise } from './TestUi.js';
 
 /** Spielstand für Icons, die vom Spieler abhängen (Relikt des Verfalls: Bild nach seiner stärksten Eigenschaft, Codex DP). */
 let iconState = null;
@@ -3148,6 +3148,7 @@ export class Ui {
         <button data-act="fullscreen">${setIcon(this.isFullscreen() ? 'fenster' : 'vollbild')}${this.fullscreenLabel()}</button>
         <button data-act="sound">${setIcon((this.audio?.master ?? 0) <= 0 ? 'stumm' : 'lautstaerke')}${this.soundLabel()}</button>
         ${this.langButton()}
+        ${testPauseButton(this)}
       </div>
       <div class="feedback">${feedback}</div>
       ${on ? this.p2LookPicker() : ''}
@@ -3170,6 +3171,7 @@ export class Ui {
         </div>
       </div>`, 'pause');
     el.querySelector('[data-act=resume]').onclick = () => this.close();
+    bindTestPause(this, el);
     el.querySelector('[data-act=p2]').onclick = () => this.togglePlayer2();
     el.querySelectorAll('[data-look]').forEach((b) => { b.onclick = () => { this.state.setP2Look(b.dataset.look); this.openPause(`Spieler 2 spielt jetzt mit ${P2_LOOKS[b.dataset.look].name}.`); }; });
     el.querySelector('[data-act=fullscreen]').onclick = () => this.toggleFullscreen();
@@ -3508,7 +3510,7 @@ export class Ui {
     else if (this.modal === 'title' && k === 'n') this.titleNew();
     else if ((this.modal === 'message' || this.modal === 'ending') && (confirm || k === 'escape')) this.close();
     else if (this.modal === 'pause' && (k === 'escape' || confirm)) this.close();
-    else if (this.modal === 'testreise' && k === 'escape') this.close();
+    else if (this.modal === 'testreise' && k === 'escape') closeTestReise(this);
     else if (this.modal === 'pause' && k === '2') this.togglePlayer2();
     else if (this.modal === 'dialogue' && num >= 0) this.choose(this.dialogue.keyMap[num]);
     else if (this.modal === 'gift' && num >= 0 && this.giftIds?.[num]) this.giveGift(this.giftIds[num]);
