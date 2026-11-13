@@ -18,7 +18,9 @@ export class HalbgottRitual {
     this.state = scene.state;
     this.siege = null;
     this.gfx = scene.add.graphics().setDepth(5000);
-    this.keys = scene.input.keyboard.addKeys('R,F');
+    this.keys = scene.input.keyboard.addKeys('R,F,ENTER,NUMPAD_ZERO,BACKSPACE');
+    this.siegeWho = 1; // wer die Laternennacht hält (Koop: Spieler 2 legt sein Ritual selbst ab)
+    this.shadowWho = 1; // wessen Schatten läuft
     this.deaf = false;
     this.body = null;
     // Codex DN/DO/DQ: Ritualgrafiken auf der Karte
@@ -32,14 +34,48 @@ export class HalbgottRitual {
     scene.events.once('shutdown', () => { off?.(); this.scene.registry.get('audio')?.stopLoop?.('s4la_nachfuellen_loop', 30); });
     scene.events.once('destroy', () => off?.());
     // Wer mitten in der Laternennacht die Karte verlässt oder neu lädt, hat den Kreis verlassen
-    const st = this.state.seq4?.() ?? {};
-    if (st.siege) this.scene.time.delayedCall(300, () => this.finishSiege({ won: false, reason: 'Du hast den Kreis der Laternen verlassen.' }));
+    const who = this.players().find((n) => this.as(n, () => !!this.state.seq4?.()?.siege));
+    if (who) { this.siegeWho = who; this.scene.time.delayedCall(300, () => this.finishSiege({ won: false, reason: 'Du hast den Kreis der Laternen verlassen.' })); }
+  }
+
+  /** Spieler auf der Karte (zu zweit beide). */
+  players() {
+    return this.state.hasP2?.() ? [1, 2] : [1];
+  }
+
+  /** fn mit den Werten von Spieler n. */
+  as(n, fn) {
+    return this.state.withPlayer ? this.state.withPlayer(n, fn, { quiet: true }) : fn();
+  }
+
+  /** Figur von Spieler n. */
+  spriteOf(n) {
+    return n === 2 && this.scene.p2 ? this.scene.p2 : this.scene.player;
+  }
+
+  /** Wessen Schatten gerade läuft (oder null). */
+  shadowOwner() {
+    return this.players().find((n) => this.as(n, () => !!this.state.shadowActive?.())) ?? null;
+  }
+
+  /** Tasten der Laternennacht: Spieler 1 R/F, Spieler 2 Enter (Gamepad A) halten / Ziffernblock 0, Rücktaste (Gamepad B). */
+  siegeInput() {
+    if (this.siegeWho !== 2) return { refill: this.keys.R.isDown, sunrise: Phaser.Input.Keyboard.JustDown(this.keys.F) };
+    const pad = this.scene.input.gamepad?.pad1;
+    const b = !!pad?.buttons?.[1]?.pressed;
+    const sunrise = Phaser.Input.Keyboard.JustDown(this.keys.NUMPAD_ZERO) || Phaser.Input.Keyboard.JustDown(this.keys.BACKSPACE) || (b && !this.padB);
+    this.padB = b;
+    return { refill: this.keys.ENTER.isDown || !!pad?.buttons?.[0]?.pressed, sunrise };
+  }
+
+  siegeKeysText() {
+    return this.siegeWho === 2 ? 'Spieler 2: Enter/A halten: nachfüllen · Ziffernblock 0/B: Sonnenaufgang' : 'R halten: nachfüllen · F: Sonnenaufgang';
   }
 
   /** Blockiert die Laternennacht oder der Schatten den Kartenwechsel? Gibt den Grund zurück oder null. */
   blocksTravel() {
     if (this.siege) return 'Wer den Kreis verlässt, lässt die Laternen allein. Halte das Licht.';
-    if (this.state.shadowActive?.()) return 'Der Schatten reicht nicht weiter als bis hierher. Dein Körper wartet.';
+    if (this.shadowOwner()) return 'Der Schatten reicht nicht weiter als bis hierher. Dein Körper wartet.';
     return null;
   }
 
@@ -51,13 +87,16 @@ export class HalbgottRitual {
   startSiege() {
     if (this.siege) return;
     const s = this.state;
-    const p = this.scene.player;
+    const who = this.players().find((n) => this.as(n, () => !!s.seq4?.()?.siege)) ?? 1;
+    this.siegeWho = who;
+    const as = (fn) => this.as(who, fn);
+    const p = this.spriteOf(who);
     this.siege = new Laternenwacht({ x: p.x, y: p.y - 6 }, {
       hooks: {
-        nerves: () => s.composure,
-        spend: (n) => s.setComposure(s.composure - n),
-        hurt: (n) => { s.damage(n); if (s.hp < 1) s.hp = 1; return s.hp; },
-        unruhe: (n) => s.setUnruhe(s.unruhe + n),
+        nerves: () => as(() => s.composure),
+        spend: (n) => as(() => s.setComposure(s.composure - n)),
+        hurt: (n) => as(() => { s.damage(n); if (s.hp < 1) s.hp = 1; return s.hp; }),
+        unruhe: (n) => as(() => s.setUnruhe(s.unruhe + n)),
       },
     });
     this.siegeText = this.scene.add.text(VIEW_W / 2, 6, '', { fontFamily: 'monospace', fontSize: '8px', color: '#ffe8b0', stroke: '#000', strokeThickness: 3, align: 'center' })
@@ -73,7 +112,7 @@ export class HalbgottRitual {
 
   finishSiege(result) {
     this.scene.registry.get('audio')?.stopLoop('s4la_nachfuellen_loop', 30);
-    const r = this.state.endSiege?.(result);
+    const r = this.as(this.siegeWho, () => this.state.endSiege?.(result));
     this.siege = null;
     this.siegeText?.destroy();
     this.siegeText = null;
@@ -90,9 +129,9 @@ export class HalbgottRitual {
     if (!blocked && this.state.pendingCombat && !this.scene.scene.isActive('combat') && !this.combatIntro(this.state.pendingCombat)) this.scene.startCombat(this.state.pendingCombat);
     if (!this.siege) return;
     const dt = Math.min(0.1, delta / 1000);
-    const p = this.scene.player;
+    const p = this.spriteOf(this.siegeWho);
     if (!blocked) {
-      const events = this.siege.update(dt, { x: p.x, y: p.y - 6, refill: this.keys.R.isDown, sunrise: Phaser.Input.Keyboard.JustDown(this.keys.F) });
+      const events = this.siege.update(dt, { x: p.x, y: p.y - 6, ...this.siegeInput() });
       // DS: Ölgluckern nur, solange R gehalten wird; Loslassen ohne vollen Behälter bricht hörbar ab
       const refilling = !!this.siege.refill;
       const audio = this.scene.registry.get('audio');
@@ -114,7 +153,7 @@ export class HalbgottRitual {
           this.scene.cameras.main.shake(120, 0.01);
           p.setTint(0xff8080);
           this.scene.time.delayedCall(140, () => p.clearTint());
-        } else if (e.type === 'kill') this.state.seq4().siegeKills = e.kills;
+        } else if (e.type === 'kill') this.as(this.siegeWho, () => { this.state.seq4().siegeKills = e.kills; });
         else if (e.type === 'sunrise') { this.sunriseFx(); this.scene.cameras.main.flash(900, 255, 240, 200); this.toast('sonnenaufgang'); }
         else if (e.type === 'lantern_attacked') this.siegeArt?.lanterns[e.lantern]?.spr && playRitual(this.siegeArt.lanterns[e.lantern].spr, 's4la_ritual_laterne', 'angegriffen', () => { if (this.siegeArt?.lanterns[e.lantern]) this.siegeArt.lanterns[e.lantern].state = null; });
         else if (e.type === 'refill' && this.siegeArt?.lanterns[e.lantern]?.spr) { const l = this.siegeArt.lanterns[e.lantern]; playRitual(l.spr, 's4la_ritual_laterne', 'nachfuellen', () => { l.state = null; }); l.state = 'nachfuellen'; }
@@ -163,14 +202,14 @@ export class HalbgottRitual {
       g.lineStyle(1, ready ? 0xfff0b0 : 0x8070a0, 1).strokeEllipse(gd.x, gd.y - 8, 20, 30);
       g.fillStyle(0xe8c070, 1).fillCircle(gd.x, gd.y - 12, 2);
     }
-    const p = this.scene.player;
+    const p = this.spriteOf(this.siegeWho);
     if (w.aura) g.lineStyle(1, 0xffe8b0, 0.35).strokeCircle(p.x, p.y - 6, WACHT.auraRadius);
     if (w.refill) {
       const k = w.refill.t / WACHT.refillSec;
       g.lineStyle(2, 0xffe8a0, 1).beginPath().arc(p.x, p.y - 24, 5, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * k).strokePath();
     }
     const lit = w.lit().length;
-    this.siegeText?.setText(`${this.state.seq4Name?.('laterne') ?? ''} · Laternen ${lit}/${WACHT.lanterns} · ${w.guardian ? 'WÄCHTER' : `Wesen ${w.kills}/${WACHT.monsters}`}\nR halten: nachfüllen · F: Sonnenaufgang${w.guardian && w.sunriseReady() ? ' · JETZT!' : ''}`);
+    this.siegeText?.setText(`${this.state.seq4Name?.('laterne') ?? ''} · Laternen ${lit}/${WACHT.lanterns} · ${w.guardian ? 'WÄCHTER' : `Wesen ${w.kills}/${WACHT.monsters}`}\n${this.siegeKeysText()}${w.guardian && w.sunriseReady() ? ' · JETZT!' : ''}`);
   }
 
   /**
@@ -194,13 +233,15 @@ export class HalbgottRitual {
 
   /** Schlüssel: der Körper bleibt als regungslose Gestalt stehen, die Spielfigur ist der Schatten. */
   updateShadow() {
-    const active = !!this.state.shadowActive?.();
-    const p = this.scene.player;
+    const owner = this.shadowOwner();
+    const active = !!owner;
+    if (owner) this.shadowWho = owner;
+    const p = this.spriteOf(this.shadowWho);
     if (active && !this.body) {
-      const st = this.state.seq4();
+      const st = this.as(this.shadowWho, () => this.state.seq4());
       st.body ??= { x: p.x, y: p.y, facing: this.scene.facing ?? 'down' };
       // Codex DO: der zurückgelassene Körper atmet regungslos (eigenes Blatt je Spielfigur), sonst das Standbild der Figur
-      const bodyKey = `schatten_koerper_${lookOf(this.state, 1)}`;
+      const bodyKey = `schatten_koerper_${lookOf(this.state, this.shadowWho)}`;
       if (hasArt(this.scene, bodyKey)) {
         this.body = this.scene.add.sprite(st.body.x, st.body.y, bodyKey, 0).setOrigin(0.5, 1).setDepth(100 + st.body.y);
         playRitual(this.body, bodyKey, st.body.facing ?? 'down');
@@ -212,7 +253,7 @@ export class HalbgottRitual {
       this.bodyMark = this.scene.add.text(st.body.x, st.body.y - 34, '◇', { fontFamily: 'monospace', fontSize: '8px', color: '#c0b0ff' }).setOrigin(0.5).setDepth(5000);
     }
     if (active) {
-      if (!this.scene.playerKey?.startsWith('schatten_')) { p.setTint(SHADOW_TINT); p.setAlpha(0.8); } // ohne eigenes Schattenblatt: getönt
+      if (!p.texture?.key?.startsWith('schatten_')) { p.setTint(SHADOW_TINT); p.setAlpha(0.8); } // ohne eigenes Schattenblatt: getönt
       this.drawBand();
       return;
     }
@@ -260,7 +301,7 @@ export class HalbgottRitual {
     });
     // Wesen: dunkle Schemen; im Licht zischt es (monster_licht), wer fällt, zerfällt zu Asche
     const lit = w.lanterns.filter((l) => l.oil > 0);
-    const p = sc.player;
+    const p = this.spriteOf(this.siegeWho);
     const alive = new Set();
     for (const m of w.monsters) {
       alive.add(m.id);
@@ -313,7 +354,7 @@ export class HalbgottRitual {
     a.unruhe?.setAlpha(Math.min(0.85, (w.t ?? 0) / 150));
     this.drawSiegeHud(a, w);
     const n = w.lanterns.filter((l) => l.oil > 0).length;
-    this.siegeText?.setY(30).setText(`${this.state.seq4Name?.('laterne') ?? ''} · ${w.guardian ? 'WÄCHTER' : `Wesen ${w.kills}/${WACHT.monsters}`} · Laternen ${n}/${WACHT.lanterns}\nR halten: nachfüllen · F: Sonnenaufgang${w.guardian && w.sunriseReady() ? ' · JETZT!' : ''}`);
+    this.siegeText?.setY(30).setText(`${this.state.seq4Name?.('laterne') ?? ''} · ${w.guardian ? 'WÄCHTER' : `Wesen ${w.kills}/${WACHT.monsters}`} · Laternen ${n}/${WACHT.lanterns}\n${this.siegeKeysText()}${w.guardian && w.sunriseReady() ? ' · JETZT!' : ''}`);
     return true;
   }
 
@@ -358,7 +399,7 @@ export class HalbgottRitual {
   drawBand() {
     const sc = this.scene;
     if (!this.band || !this.body || !hasArt(sc, 'schatten_band')) return;
-    const p = sc.player;
+    const p = this.spriteOf(this.shadowWho);
     const from = { x: this.body.x, y: this.body.y - 2 };
     const to = { x: p.x, y: p.y - 2 };
     const d = Math.hypot(to.x - from.x, to.y - from.y);

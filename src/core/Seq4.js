@@ -425,7 +425,6 @@ export const seq4Methods = {
   // --- Laterne ---------------------------------------------------------------------------------------
   /** Beginnt die Laternennacht (die Szene übernimmt mit core/Laternenwacht.js). */
   startSiege() {
-    if (this.acting === 2) return { ok: false, text: this.seq4Join('Die Laternennacht führt die Hauptfigur auf der Karte; als Spieler 2 geht das noch nicht.', this.seq4Zuschauer('laterne')) };
     if (this.seq4Kind() !== 'laterne') return { ok: false, text: 'Das verlangt dein Ritual nicht.' };
     const st = this.seq4();
     if (st.siege) return { ok: false, text: 'Die Laternen brennen schon.' };
@@ -612,7 +611,6 @@ export const seq4Methods = {
 
   // --- Schlüssel: Schattensteuerung -------------------------------------------------------------------
   startShadow() {
-    if (this.acting === 2) return { ok: false, text: 'Den Schatten führt die Hauptfigur auf der Karte; als Spieler 2 geht das noch nicht.' };
     if (this.seq4Kind() !== 'schluessel') return { ok: false, text: 'Das verlangt dein Ritual nicht.' };
     const st = this.seq4();
     if (st.shadow) return { ok: false, text: 'Der Schatten läuft schon.' };
