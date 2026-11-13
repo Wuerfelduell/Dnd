@@ -12,11 +12,15 @@ import { wireMusicCues, modeFor, ritualMusic, laternenFaktoren } from './core/mu
 import { isOutdoorMap } from './world/assets.js';
 import { cityOf } from './core/Travel.js';
 import { HIMMEL, STURZ_EFFECTS } from './data/aufstieg.js';
+import { watchDom, patchPhaser } from './core/I18n.js';
 
 const SAVE_KEY = 'nebelakten-save';
 const state = new GameState(content);
 const frame = document.getElementById('frame');
 const uiRoot = document.getElementById('ui');
+// Sprachwahl: angezeigte Texte (DOM + Phaser) werden bei Englisch übersetzt
+patchPhaser(Phaser);
+watchDom(uiRoot, document.getElementById('rotate'));
 
 // --- Spielstand (localStorage, Fehler werden still ignoriert) ---------------------
 function readSave() {
