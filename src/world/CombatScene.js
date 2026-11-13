@@ -16,7 +16,10 @@ import { speechBubble } from './WexmoorLife.js';
 // Kampfbildschirm in Seitenansicht: Spieler links, Gegner rechts, Bodenstreifen unten.
 // Die Regeln stecken in core/Combat.js, hier nur Timing, Eingabe und Animation.
 
-const GROUND_Y = 200;
+// Die ganze Bühne (Kulisse + Figuren) sitzt STAGE_LIFT Pixel höher, damit das Kampfmenü unten
+// die Füße von Spieler und Gegner nicht verdeckt. Den frei werdenden Streifen unten füllt ein dunkler Boden.
+const STAGE_LIFT = 32;
+const GROUND_Y = 200 - STAGE_LIFT;
 const PLAYER_X = 140;
 const ENEMY_X = 345;
 const RING_LEAD = 750; // so lange vor dem Einschlag erscheint der Ring
@@ -212,7 +215,8 @@ export class CombatScene extends Phaser.Scene {
     const bg = [ritualBackground(this, this.combat), ENCOUNTER_BACKGROUNDS[this.encounterId], battleBackgroundFor(map.id, this.state.isNight?.() ?? false), BATTLE_BACKGROUNDS[map.id]].find((k) => k && this.textures.exists(k));
     this.bgImage = null;
     if (bg && this.textures.exists(bg)) {
-      this.bgImage = this.add.image(0, 0, bg).setOrigin(0);
+      this.add.rectangle(0, VIEW_H - STAGE_LIFT - 2, VIEW_W, STAGE_LIFT + 2, 0x0b0a0c).setOrigin(0);
+      this.bgImage = this.add.image(0, -STAGE_LIFT, bg).setOrigin(0);
     } else {
       const ground = { revier: 0x3a2e24, crypt: 0x2e2e36, ebba: 0x26301e }[map.id] ?? 0x343744;
       this.add.rectangle(0, 0, VIEW_W, VIEW_H, 0x080a12).setOrigin(0);
@@ -308,10 +312,10 @@ export class CombatScene extends Phaser.Scene {
     this.stars = null;
     if (!st) return;
     if (st.dome && this.textures.exists(st.dome[0])) {
-      const dome = this.add.sprite(0, 0, st.dome[0], 0).setOrigin(0).setDepth(5).setAlpha(0.9);
+      const dome = this.add.sprite(0, -STAGE_LIFT, st.dome[0], 0).setOrigin(0).setDepth(5).setAlpha(0.9);
       playBattleAnim(dome, st.dome[1], null, st.dome[0]);
     }
-    if (st.ground && this.textures.exists(st.ground)) this.add.image(0, VIEW_H, st.ground).setOrigin(0, 1).setDepth(12);
+    if (st.ground && this.textures.exists(st.ground)) this.add.image(0, VIEW_H - STAGE_LIFT, st.ground).setOrigin(0, 1).setDepth(12);
     if (st.hud && this.textures.exists(st.hud) && this.textures.exists('starling2_sterne')) {
       const H = STARLING2_HUD;
       // Die Leiste liegt auf dem Boden zwischen den Kämpfern, wo weder Meldung noch Gegnerkarte sie verdecken
