@@ -94,3 +94,10 @@ test('Dunscar-Gegner droppen keine alten Artefakte mehr, dafür den Kalkopal', (
   assert.ok(opal > 0);
   assert.ok(c.items.ds_beute_kalkopal.price >= 2000);
 });
+
+test('Dunscar: Ida Marrow und Mabel führen die starken Heilmittel (Kalkverband, Schichttonikum)', async () => {
+  const { loadContent } = await import('./helpers.js');
+  const C = loadContent();
+  for (const id of ['k3h_troedlerin', 'k3_mabel']) for (const item of ['dsh_verbandrolle', 'dsh_schichttonikum'])
+    assert.ok(C.market.merchants[id].stock.some((e) => e.item === item), `${id} ${item}`);
+});
