@@ -57,3 +57,21 @@ Eigennamen von Personen bleiben unverändert; Titel werden übersetzt (Pater →
 | Durchbruch | breakthrough |
 | Geisteressenz | spirit essence |
 | Sternglas | star glass |
+
+## Kapitel 2 Wexmoor
+
+| Deutsch | Englisch |
+|---|---|
+| Zunder (Juna Fenn) | Tinder |
+| Lichtamt / Lichtmeisterin | Lamp Office / Lightmistress |
+| Grauspäher | Grey Scouts |
+| Vergessmoor | Forgetting Moor |
+| Torfstich / Torfkahn / Torfwand | peat cutting / peat barge / peat wall |
+| Salzmarkt / Bojenhafen / Oberstadt / Pfahldorf | Salt Market / Buoy Harbour / Upper Town / stilt village (Old Stilt Village) |
+| Güterbahnhof / Schleusenviertel | freight yard / Lock Quarter |
+| Versunkene Altstadt / Salzwatt | Sunken Old Town / salt flats |
+| Zur Ertrunkenen Glocke | The Drowned Bell |
+| Akademie der Sternkunde | Academy of Astronomy |
+| Glockenmutter / Namenlose | Bell Mother / Nameless One |
+| Einzelgänger | Loner |
+| Sammelfahrt / Nachtrecht | collection trip / night law |
