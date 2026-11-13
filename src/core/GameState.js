@@ -387,6 +387,23 @@ export class GameState {
     return spec.find((v) => this.meets(v) && (v.chance === undefined || this.random() < this.chanceOf(v.chance)))?.node;
   }
 
+  /**
+   * Text eines Dialogknotens (Seb 2026-11-13: Gespräche sollen sich nicht gleich anfühlen).
+   * `texte`: Varianten [{text | zufall: [...], ...bedingungen, chance?, erneut?}], die erste passende gewinnt, sonst `text`.
+   * `erneut: true` gilt nur, wenn man im selben Gespräch zum Knoten zurückkehrt, `erneut: false` nur beim ersten Mal.
+   * `zufall` wählt zufällig einen Satz aus der Liste (Alltagsvarianten).
+   */
+  nodeText(node, { erneut = false } = {}) {
+    for (const v of node?.texte ?? []) {
+      if (v.erneut !== undefined && v.erneut !== erneut) continue;
+      if (!this.meets(v)) continue;
+      if (v.chance !== undefined && this.random() >= this.chanceOf(v.chance)) continue;
+      if (v.zufall?.length) return v.zufall[Math.floor(this.random() * v.zufall.length) % v.zufall.length];
+      if (v.text) return v.text;
+    }
+    return node?.text;
+  }
+
   /** Chance einer Wagnis-Variante: Zahl oder benannte Chance (Wanted.escapeChance). */
   chanceOf(c) {
     return typeof c === 'string' ? this.escapeChance(c) : c;
