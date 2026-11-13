@@ -3541,6 +3541,10 @@ export class Ui {
         if (k === 'enter') who = 2;
         else if (k === 'arrowleft') { kind = 'dodge'; who = 2; } else if (k === 'arrowright') { kind = 'parry'; who = 2; }
       }
+      // Splitscreen/Solo-Prüfung: kämpft Spieler 2 allein, gelten auch seine Tasten (Enter, ←, →, Ziffernblock fürs Menü)
+      else if (sc.combat?.swapped) {
+        if (k === 'arrowleft') kind = 'dodge'; else if (k === 'arrowright') kind = 'parry';
+      }
       if (kind) handled = sc.onKey(kind, who);
     }
     if (handled || k === ' ' || k === 'tab') { e.preventDefault(); e.stopPropagation(); }
