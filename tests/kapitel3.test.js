@@ -75,7 +75,7 @@ test('Balance Kapitel 3: mit Sequenz 5 schaffen sehr Geübte jeden Gegner, Elite
   const ch3 = Object.entries(content.encounters).filter(([, e]) => e.chapter === 3);
   assert.ok(ch3.length >= 20);
   for (const [id, e] of ch3) {
-    if (id.startsWith('hg_schwellenwaechter') || e.benannt) continue; // DJ: benannte Gegner sind bewusst härter (ab Seq 6, selten) // Seq-4-Prüfung, eigener Maßstab in halbgott.test.js
+    if (id.startsWith('hg_schwellenwaechter') || e.benannt || e.anschlag) continue; // Anschlagziele: eigener Maßstab in dunscar_anschlag.test.js; // DJ: benannte Gegner sind bewusst härter (ab Seq 6, selten) // Seq-4-Prüfung, eigener Maßstab in halbgott.test.js
     // Realistischer Build wie in Wexmoor: Pfad-Fertigkeit verkettet. Eliten ~60, Bosse 70–90 pro Zug (Seb), allein braucht es dafür Seq 4
     const { result, combat } = fight(seq(e.boss || e.elite || id.endsWith('_elite') ? 4 : 5), id, { defend: EXPERT, skill: 'wuchtschlag', chain: true, healBelow: 18 });
     assert.equal(result.outcome, 'won', `${id}: verloren in Runde ${combat.round}`);

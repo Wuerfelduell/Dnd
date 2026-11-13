@@ -230,7 +230,7 @@ export class Combat {
     this.fleeRounds = enc.practice ? 0 : enc.flee_rounds ?? byRank(zone?.flee_rounds) ?? (enc.boss || enc.elite ? FLEE_ROUNDS_TOUGH : 0);
     this.fleeing = null; // { left, by }: Rückzug läuft, noch so viele Runden durchhalten (zu zweit gemeinsam)
     const soloHp = enc.hp * ENEMY_HP_MULT * (enc.elite ? ELITE_HP_MULT : 1) * this.hpMult;
-    const floor = hpFloor(enc) * (this.rules?.scale?.hp ?? 1); // Ritualgegner mit eigener Stärke behalten ihren Vorsprung
+    const floor = hpFloor(enc) * (this.rules?.scale?.hp ?? 1) * (enc.hp_floor_mult ?? 1); // `hp_floor_mult`: benannte Ziele (Anschlagbrett) über der Untergrenze; // Ritualgegner mit eigener Stärke behalten ihren Vorsprung
     const hp = enc.practice ? enc.hp : Math.round(Math.max(soloHp, floor) * this.duoHpMult * (welt?.hp ?? 1)); // Weltwandel nach der Untergrenze
     // Panzer wächst mit der Gefahrenstufe des Gebiets (Marsch 1, ...), Bosse eine Stufe mehr
     const tier = zone?.tier ?? 2;

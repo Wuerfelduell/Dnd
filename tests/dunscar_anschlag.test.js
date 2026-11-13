@@ -2,6 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
+import { Combat } from '../src/core/Combat.js';
 import { ANSCHLAG_NPC, JAGDEN, JAGD_STUFE2_AB, LIEFERUNGEN, SPUR } from '../src/data/dunscarAnschlag.js';
 import { loadContent } from './helpers.js';
 
@@ -95,4 +96,15 @@ test('Spur des Alten: erst nach dem Gerücht, Marken → Bote → Hüter → Ber
   assert.equal(s.quests[SPUR.quest], 'done');
   const erwartet = 10 + SPUR.marken.length * SPUR.markeDigest + SPUR.bote.digest + SPUR.hueter.digest;
   assert.ok(Math.abs(s.pathway.digestion - erwartet) < 0.2, `${s.pathway.digestion} ≈ ${erwartet}`);
+});
+
+test('Ziele sind Seq-5-würdig: ein Duo mit ~1600 Schaden je Runde (Seb) braucht Stufe 1 ≥5, Stufe 2 ≥7, Hüter ≥12 Runden', () => {
+  const s = new GameState(content);
+  s.pathway = { id: 'schluessel', seq: 5, digestion: 50 };
+  s.addP2();
+  s.withPlayer(2, () => { s.pathway = { id: 'eisen', seq: 5, digestion: 50 }; });
+  const runden = (id) => new Combat(s, id).enemy.maxHp / 1600;
+  for (const j of JAGDEN) assert.ok(runden(`dan_${j.id}_elite`) >= (j.stufe === 1 ? 5 : 7), j.id);
+  assert.ok(runden('dan_bote_elite') >= 6);
+  assert.ok(runden('dan_hueter_boss') >= 12);
 });

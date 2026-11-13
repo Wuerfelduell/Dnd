@@ -6,6 +6,15 @@
 //  - Die Spur des Alten: kurzer Strang zur Rache an Starling (Opfermarken, sein Bote, der Hüter der Opfergrube).
 // Auftraggeber ist der Anschlagschreiber Ezra Pell am Endbahnhof. Lohn holt man bei ihm ab.
 
+import { LATE_DMG_MULT } from '../core/Combat.js';
+
+/**
+ * Härte der benannten Ziele (Seb 2026-11-13: Schlüssel + Eisen auf Seq 5 machen zu zweit ~1600 Schaden je Runde).
+ * `hp`: Faktor auf die Kapitel-3-Untergrenze (Elite 1600 / Boss 3200 solo, zu zweit ×2,34).
+ * Ziel zu zweit: Stufe 1 ~6 Runden, Bote ~7, Stufe 2 ~8, Hüter ~14. `dmg`: Faktor auf den Spätschaden des Rangs.
+ */
+export const ZIEL_HAERTE = { stufe1: { hp: 2.5, dmg: 2 }, stufe2: { hp: 3.5, dmg: 1.6 }, bote: { hp: 3, dmg: 2 }, hueter: { hp: 3, dmg: 1 } };
+
 export const ANSCHLAG_NPC = 'dan_anschlagschreiber';
 /** Wie viele Jagden der ersten Stufe man braucht, bis die zweite aushängt. */
 export const JAGD_STUFE2_AB = 3;
@@ -72,13 +81,14 @@ const itemName = (content, id) => content.items[id]?.name ?? id;
 const lieferText = (content, items) => Object.entries(items).map(([id, n]) => `${n}× ${itemName(content, id)}`).join(', ');
 
 /** Ein Ziel-Gegner auf Grundlage eines vorhandenen Gegners, sichtbar nur solange `visible_if` gilt. */
-function ziel(content, { encId, base, map, name, boss = false, intro, win_text, on_win, visible_if, roamerId }) {
+function ziel(content, { encId, base, map, name, boss = false, haerte, intro, win_text, on_win, visible_if, roamerId }) {
   const b = content.encounters[base];
   const m = content.maps[map];
   if (!b || !m) return false;
   content.encounters[encId] = {
     ...b, name, elite: !boss, boss, mittelboss: undefined, chapter: 3, city: 'dunscar', fleeable: true, wild: undefined, zone: undefined,
     respawn: undefined, intro, win_text, on_win,
+    anschlag: true, hp_floor_mult: haerte.hp, dmg_mult: (b.dmg_mult ?? LATE_DMG_MULT[3][boss ? 'boss' : 'elite']) * haerte.dmg,
   };
   content.loot[encId] = { ...(content.loot[base] ?? {}), repeat: false };
   const vorbild = (m.roamers ?? [])[0]?.tile ?? [5, 5];
@@ -97,7 +107,7 @@ export function applyDunscarAnschlag(content) {
   const stufe1 = JAGDEN.filter((j) => j.stufe === 1);
   for (const j of JAGDEN) {
     const ok = ziel(content, {
-      encId: jEnc(j), base: j.base, map: j.map, name: j.name, roamerId: `dan_${j.id}_ziel`,
+      encId: jEnc(j), base: j.base, haerte: ZIEL_HAERTE[`stufe${j.stufe}`], map: j.map, name: j.name, roamerId: `dan_${j.id}_ziel`,
       intro: `${j.name}. Das Gesicht vom Anschlag, nur größer.`,
       win_text: `${j.name} fällt. Ezra Pell wird einen Zettel weniger am Brett haben.`,
       on_win: { sets_flags: [jWon(j)] },
@@ -158,14 +168,14 @@ export function applyDunscarAnschlag(content) {
   }
   const alleMarken = markenOk.map(markeFlag);
   ziel(content, {
-    encId: BOTE_ENC, base: sp.bote.base, map: sp.bote.map, name: sp.bote.name, roamerId: 'dan_bote_ziel',
+    encId: BOTE_ENC, base: sp.bote.base, haerte: ZIEL_HAERTE.bote, map: sp.bote.map, name: sp.bote.name, roamerId: 'dan_bote_ziel',
     intro: 'Ein Mann in einem Mantel, der ihm nicht gehört, die Hände kalkweiß. „Er hat gesagt, du kommst. Er hat gesagt, du bist zu klein.“',
     win_text: 'Der Bote sackt zusammen. In seiner Manteltasche steckt ein gefalteter Fahrschein ohne Zielbahnhof. Auf der Rückseite: „Opfergrube, Schlackengrund. Der Hüter wartet.“',
     on_win: { sets_flags: ['dan_bote_besiegt'], digest_pct: sp.bote.digest, gives_money: sp.bote.geld },
     visible_if: { requires_quests_active: [sp.quest], requires_flags: alleMarken, hide_if_flags: ['dan_bote_besiegt'] },
   });
   ziel(content, {
-    encId: HUETER_ENC, base: sp.hueter.base, map: sp.hueter.map, name: sp.hueter.name, boss: true, roamerId: 'dan_hueter_ziel',
+    encId: HUETER_ENC, base: sp.hueter.base, haerte: ZIEL_HAERTE.hueter, map: sp.hueter.map, name: sp.hueter.name, boss: true, roamerId: 'dan_hueter_ziel',
     intro: 'Aus der Schlacke steigt etwas, das einmal ein Vorarbeiter war. Auf seiner Brust brennt dieselbe bleiche Hand wie auf den Marken. Der Boden unter dir atmet.',
     win_text: 'Der Hüter zerfällt zu Asche. Tief unten im Fels dreht sich etwas im Schlaf um. Irgendwo in Dunscar hebt Starling den Kopf.',
     on_win: { sets_flags: ['dan_hueter_besiegt'], digest_pct: sp.hueter.digest, gives_money: sp.hueter.geld, gives_items: { ds_schlacke_kronglas: 1 } },
