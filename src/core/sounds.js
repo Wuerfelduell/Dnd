@@ -99,6 +99,11 @@ export function randomSoundsFor(mapId, map = {}, { night = false, fest = null } 
   if (/^cw_(alte_setzerei|setzergasse)/.test(mapId)) out.push({ id: 'cw_letter_fall', every: 28 });
   if (/^ds_(signalhang|letzter_bahnsteig|endbahnhof|rangier)/.test(mapId)) out.push({ id: 'ds_zug_fern', every: 90 });
   if (/^ds_(bruchstufen|klopfbruch)/.test(mapId)) out.push({ id: 'ds_kalk_rieseln', every: 16 });
+  // Dunscar lebt: Münzen am Markt, Türen in der Wohnstraße, ferne Pfiffe über den Bahnvierteln
+  if (!night && mapId === 'ds_kalkmarkt') out.push({ id: 'ds_lohntuete', every: 55 });
+  if (mapId === 'ds_arbeiterbogen') out.push({ id: 'tuer_zu', every: night ? 90 : 40 });
+  if (/^ds_(endbahnhof|schwellenring|letzter_bahnsteig|signalhang)$/.test(mapId)) out.push({ id: 'zug_pfeife', every: 140 });
+  if (mapId === 'ds_schwellenring') out.push({ id: 'ds_zug_fern', every: 90 });
   return out;
 }
 

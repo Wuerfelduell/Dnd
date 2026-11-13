@@ -8,6 +8,7 @@ import { WexmoorLife, preloadWexmoorLife, speechBubble } from './WexmoorLife.js'
 import { GearOverlay, preloadGear } from './GearOverlay.js';
 import { Feste, preloadFeste } from './Feste.js';
 import { DunscarLife, preloadDunscarLife } from './DunscarLife.js';
+import { DunscarPassanten } from './DunscarPassanten.js';
 import { KettlegateLife, preloadKettlegateLife } from './KettlegateLife.js';
 import { KoopLife } from './Koop.js';
 import { SektenLife } from './SektenLife.js';
@@ -796,6 +797,8 @@ export class WorldScene extends Phaser.Scene {
     this.wexLife.build();
     this.dsLife = new DunscarLife(this); // Paket BA/BD: Kalkstaub, Nachtnebel, Krähen, Ziegen, Motten in Dunscar
     this.dsLife.build();
+    this.passanten = new DunscarPassanten(this); // Dunscar: Leute auf den Straßen, Tagesablauf, Gemurmel, Straßenereignisse
+    this.passanten.build();
     this.kgLife = new KettlegateLife(this); // Paket CN: Nebel, Niesel, Rußschnee, Tauben, Katzen, Stände und Nachtfenster in Kettlegate
     this.kgLife.build();
     // Paket AI: Koop-Rätsel, Platz-Flags und Geplauder zu zweit (Platz-Flags fallen beim Kartenwechsel weg)
@@ -1334,6 +1337,7 @@ export class WorldScene extends Phaser.Scene {
     this.roamers?.rebuild();
     this.patrols?.rebuild();
     this.dsLife?.rebuild();
+    this.passanten?.rebuild();
     this.kgLife?.rebuild();
   }
 
@@ -1438,6 +1442,7 @@ export class WorldScene extends Phaser.Scene {
     this.updateNpcRoam(delta, blocked || frozen);
     this.wexLife?.update(delta);
     this.dsLife?.update(delta);
+    this.passanten?.update(delta, blocked || frozen);
     this.kgLife?.update(delta);
     if (this.clockDirty && !blocked) { this.applyClock(); this.updateWeatherLoop(); }
     if (!blocked && this.splitRole !== 2) this.updateRandomSounds(delta);
