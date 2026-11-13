@@ -101,7 +101,10 @@ check('s4 laterne (Laternennacht)', () => {
 });
 check('s4 schluessel (Schatten)', () => {
   const s = pair('schluessel', 5); s.map = 'marsch';
-  const r = me(s, () => s.startShadow()); return r.ok || r.text.slice(0, 70);
+  const r = me(s, () => s.startShadow()); if (!r.ok) return r.text.slice(0, 70);
+  const { c } = mapFight(s, 'moorleiche');
+  if (!c.rules?.shadow) return 'Kartenkampf ohne Schattenregeln';
+  return me(s, () => s.seq4().wins) === 1 || `Schatten-Siege ${me(s, () => s.seq4().wins)}`;
 });
 check('s4 maske (Kartenkampf mit Regeln)', () => {
   const s = pair('maske', 5);

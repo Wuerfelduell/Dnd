@@ -1271,10 +1271,11 @@ export class WorldScene extends Phaser.Scene {
     this.setupSignalContext(); // BN: Kollision und Lauscher für Rufwege
     this.input.mouse?.disableContextMenu();
     // Spieler 2: Enter interagiert (Pfeile laufen, siehe updateMovement)
-    this.input.keyboard.on('keydown-ENTER', (e) => { if (!e.repeat && (this.p2 || this.splitRole === 2)) this.pending2 = 'interact'; });
+    const p2Siege = () => !!this.hg?.siege && this.hg.siegeWho === 2; // Laternennacht von Spieler 2: Enter/A füllt nach statt zu interagieren
+    this.input.keyboard.on('keydown-ENTER', (e) => { if (!e.repeat && (this.p2 || this.splitRole === 2) && !p2Siege()) this.pending2 = 'interact'; });
     this.input.gamepad?.on('down', (pad, button) => {
       if (!this.p2 && this.splitRole !== 2) return;
-      if (button.index === 0) this.pending2 = 'interact'; // A
+      if (button.index === 0) { if (!p2Siege()) this.pending2 = 'interact'; } // A
       else if (button.index === 3) this.pending2 = 'inventory'; // Y
       else if (button.index === 2) this.pending2 = 'talent:sel'; // X: gewählte Welt-Fähigkeit
       else if (button.index === 4 || button.index === 5) this.ui.moveTalentSel2(button.index === 4 ? -1 : 1); // LB/RB
