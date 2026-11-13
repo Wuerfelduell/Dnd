@@ -1260,6 +1260,7 @@ export class WorldScene extends Phaser.Scene {
     this.input.keyboard.on('keydown-P', queue('pathway'));
     // Welt-Fähigkeiten: Zahlenreihe 1–9 für Spieler 1, Ziffernblock für Spieler 2 (allein auch für Spieler 1)
     this.input.keyboard.on('keydown', (e) => {
+      if (e.code === 'Numpad0' && !e.repeat && (this.p2 || this.splitRole === 2)) { this.pending2 = 'vision'; return; } // Seb: Ziffernblock 0 = Geistsicht von Spieler 2
       const m = /^(Digit|Numpad)([1-9])$/.exec(e.code ?? '');
       if (!m || e.repeat) return;
       const slot = `talent:${Number(m[2]) - 1}`;
@@ -1285,7 +1286,7 @@ export class WorldScene extends Phaser.Scene {
     const s = this.state;
     const refresh = () => this.refreshVisibility();
     this.cleanups.push(
-      s.on('vision', (on) => this.applyVision(on)),
+      s.on('vision', () => this.time.delayedCall(0, () => this.applyVision(this.visionOn()))), // nach einem Tausch: wer hier gerade sieht (Spieler 2 per Ziffernblock 0)
       s.on('talent', (e) => { if (e.effect === 'scout') this.scoutEnemies(); }),
       s.on('clue', (id) => {
         for (const it of this.interactables) {
@@ -1351,6 +1352,12 @@ export class WorldScene extends Phaser.Scene {
       }
       if (c.obj?.blocker) c.obj.blocker.body.enable = on;
     }
+  }
+
+  /** Geistsicht auf dieser Karte: Spieler 1, oder Spieler 2, wenn er hier mitläuft (rechte Hälfte: nur Spieler 2). */
+  visionOn() {
+    if (this.state.spiritVision) return true;
+    return !!this.p2 && !!this.realState.withPlayer(2, () => this.realState.spiritVision, { quiet: true });
   }
 
   applyVision(on) {
@@ -1812,12 +1819,14 @@ export class WorldScene extends Phaser.Scene {
       this.pending = null;
       if (blocked || !a2) return;
       if (a2 === 'interact' && this.focus) this.interactAs2(this.focus);
+      else if (a2 === 'vision') this.state.setSpiritVision(!this.state.spiritVision);
       else if (a2 === 'inventory') this.ui.openNotebook('items', 2);
       else if (a2.startsWith('talent:')) this.useTalentKey(2, a2.slice(7));
       return;
     }
     if (!blocked && a2 && this.p2) {
       if (a2 === 'interact' && this.focus2) this.interactAs2(this.focus2);
+      else if (a2 === 'vision') this.state.withPlayer(2, () => this.state.setSpiritVision(!this.state.spiritVision));
       else if (a2 === 'inventory') this.ui.openNotebook('items', 2);
       else if (a2.startsWith('talent:')) this.useTalentKey(2, a2.slice(7));
     }

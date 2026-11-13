@@ -56,9 +56,10 @@ export class CombatScene extends Phaser.Scene {
     // Gamepad (Spieler 2): A Takt/Aktion, X ausweichen, B parieren
     this.padHandler = (pad, button) => {
       const kind = { 0: 'confirm', 2: 'dodge', 1: 'parry' }[button.index];
-      if (!kind || !this.combat.duo) return;
-      if (this.phase === 'menu' && kind === 'confirm' && this.combat.actor === 2) { this.ui.combatPadPick?.(); return; }
-      this.onKey(kind, 2);
+      const solo2 = !this.combat.duo && this.combat.swapped; // Spieler 2 kämpft allein (Splitscreen, Solo-Prüfung): sein Gamepad gilt
+      if (!kind || (!this.combat.duo && !solo2)) return;
+      if (this.phase === 'menu' && kind === 'confirm' && (this.combat.actor === 2 || solo2)) { this.ui.combatPadPick?.(); return; }
+      this.onKey(kind, solo2 ? 1 : 2);
     };
     this.input.gamepad?.on('down', this.padHandler);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.input.gamepad?.off('down', this.padHandler));
@@ -533,7 +534,7 @@ export class CombatScene extends Phaser.Scene {
     const precise = isPrecise(sk);
     // `window` in den Fertigkeitsdaten vergrößert das ganze Fenster (Gold + Silber), z. B. Kehlschnitt 1.1
     this.qte = { skillId, grades: [], total: bars, bar: null, precise, win: sk.window || 1 };
-    const keys = !this.combat.duo ? 'E oder Leertaste' : this.combat.actor === 2 ? 'Enter (Gamepad A)' : 'E oder Leertaste';
+    const keys = !this.combat.duo ? (this.combat.swapped ? 'Enter oder E' : 'E oder Leertaste') : this.combat.actor === 2 ? 'Enter (Gamepad A)' : 'E oder Leertaste';
     this.ui.combatMessage(`${this.combat.duo ? `${this.who(this.combat.actor)}, ` : ''}${sk.name}: Drücke ${keys}, wenn der Zeiger im goldenen Bereich ist.${precise ? ` Nur ein präziser Treffer ${sk.stun ? 'betäubt' : 'entfaltet die volle Wucht'}.` : ''}`);
     this.nextBar();
   }
@@ -713,7 +714,7 @@ export class CombatScene extends Phaser.Scene {
     const dodge = (n) => c.on(n, () => c.dodgeCost());
     const help1 = `Spieler 1 · Leertaste: ausweichen (${dodge(1)} Nerven) · F: parieren`;
     const help2 = `Spieler 2 · ←: ausweichen (${dodge(2)} Nerven) · →: parieren (Gamepad X / B)`;
-    const help = !c.duo ? `Leertaste: ausweichen (${dodge(1)} Nerven) · F: parieren`
+    const help = !c.duo ? (c.swapped ? `Leertaste oder ←: ausweichen (${dodge(1)} Nerven) · F oder →: parieren` : `Leertaste: ausweichen (${dodge(1)} Nerven) · F: parieren`)
       : atk.sweep ? `${help1}\n${help2}` : c.target === 2 ? help2 : help1;
     const whom = !c.duo ? '' : atk.sweep ? ' → beide Spieler' : ` → ${this.who(c.target)}`;
     if (deaf) this.ui.combatMessage(`${c.enemy.name} holt aus. Du hörst nichts.`, help);
