@@ -33,7 +33,7 @@ test('Schlackengrube: Ausgang vom Kalkmarkt mit Gefahrenstufe, Reiseziel und Pin
 
 test('Schlackengrube: 9 normale, 5 Elite, 3 Mittelbosse und ein wiederkehrender Gebietsboss mit eigenen Mechaniken', () => {
   const rang = (r) => sgRang(content.encounters[r.encounter]);
-  const n = (k) => map.roamers.filter((r) => rang(r) === k).length;
+  const n = (k) => map.roamers.filter((r) => !r.visible_if?.requires_quests_active && rang(r) === k).length; // Auftragsziele (Anschlagbrett) zählen nicht
   assert.deepEqual([n('normal'), n('elite'), n('mittel'), n('boss')], [9, 5, 3, 1]);
   assert.ok(map.roamers.find((r) => r.boss).respawn);
   const sg = Object.entries(content.encounters).filter(([id]) => id.startsWith('sg_') && !id.endsWith('_elite'));

@@ -336,6 +336,7 @@ export class GameState {
       all(o.requires_conclusions, (c) => this.hasConclusion(c)) &&
       all(o.requires_certain, (c) => this.isCertain(c)) &&
       all(o.requires_flags, (f) => this.flags.has(f)) &&
+      (!o.requires_n_flags || o.requires_n_flags.of.filter((f) => this.flags.has(f)).length >= o.requires_n_flags.n) && // mindestens n dieser Flags
       all(o.requires_quests_active, (q) => this.quests[q] === 'active') &&
       (!o.requires_any_quests_active || o.requires_any_quests_active.some((q) => this.quests[q] === 'active')) &&
       all(o.requires_quests_done, (q) => this.quests[q] === 'done') &&
@@ -457,6 +458,7 @@ export class GameState {
     // Unruhe trifft nur Beyonder; wer keinen Trank hat, verliert stattdessen Nerven.
     if (e.unruhe) { if (this.isBeyonder()) this.setUnruhe(this.unruhe + e.unruhe); else this.setComposure(this.composure - e.unruhe); }
     if (e.combat) this.startCombat(e.combat);
+    if (e.digest_pct) this.digestFixed(e.digest_pct); // feste Verdauung aus großen Taten (Dunscar-Anschläge)
     if (e.pfad) this.pfadEffect(e.pfad); // Pfad-Beyonder (Wexmoor): Aufgaben, Schritte, Pfand
     // Fahndung: Zahl ≥ 0 = Mindeststufe (Ausbruch, Flucht), negative Zahl = um so viele Stufen senken (Paket AB)
     if (Number.isFinite(e.wanted) && this.policeRules()) this.setWanted(e.wanted < 0 ? Math.max(0, this.wanted + e.wanted) : Math.max(this.wanted, e.wanted), e.wanted_reason ?? '');

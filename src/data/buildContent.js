@@ -2,6 +2,7 @@ import { applyDunscarPassanten } from './dunscarPassanten.js';
 import { NIGHT_FLAG } from '../core/Clock.js';
 import { applyQuestPack } from './questPacks.js';
 import { applyDunscarZirkel } from './dunscarZirkel.js';
+import { applyDunscarAnschlag } from './dunscarAnschlag.js';
 import { applyZirkelAuftraege } from './zirkelAuftraege.js';
 import { applyLore } from './lore.js';
 import { withSequenzen, applySequenzen } from './sequenzen.js';
@@ -122,6 +123,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyVorratStuecke(content); // Vorrat-Zips: neue Waffen, Kleidung, Artefakte, Wertstücke bei Händlern, in Gebieten und auf Treffen
   applyHaendlerAbgleich(content); // Händler aller Gebiete: Stärke und Preise je Gebiet, alte Stücke auch später
   applyZirkelAuftraege(content); // Dunscar: Zirkelmitglieder vergeben Aufträge (Monster, Polizisten)
+  applyDunscarAnschlag(content); // Dunscar: Anschlagbrett (Jagden, Lieferungen, Spur des Alten) mit fester Verdauung für Seq 5→4
   applyUebergaenge(content); // Kapitelübergänge: Abschied, Reise und Ankunft Kettlegate→Wexmoor→Dunscar
   applyDunscarAusbau(content); // Dunscar: Gasthaus, Kalkapotheke, starke Heil-/Nerven-/Ruhemittel, möblierte Innenräume
   applyDunscarKulisse(content); // Dunscar: Ausgänge nach Himmelsrichtung mit Schild, Rückkehr an der passenden Tür, Requisiten je Viertel
