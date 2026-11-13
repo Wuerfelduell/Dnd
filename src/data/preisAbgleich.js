@@ -63,18 +63,18 @@ const DUNSCAR_PREIS = { dsh_kaffee: 120 };
 /** Kleidung Calderwick/Briarholt: [Wirkungen, Preis]. Muss über der Dunscar-Zirkelkleidung liegen
  *  (dsz_*: +60–120 Leben, −15 % Schaden, +35–45 Nerven, 8.000–13.000), sonst ist sie nach Dunscar wertlos. */
 export const SPAET_GEAR = {
-  vi_hut_setzerkappe: [[['max_nerves', 70, '+70 maximale Nerven.']], 7000],
+  vi_hut_setzerkappe: [[['max_nerves', 70, '+70 maximale Nerven.'], ['dmg_mult', 1.1, 'Du richtest 10 % mehr Schaden an.']], 7000],
   vi_hut_kurhaube: [[['max_hp', 220, '+220 maximales Leben.'], ['max_nerves', -10, '−10 maximale Nerven.']], 14000],
-  vi_hut_zylinder_vermesser: [[['sell', 1.3, '30 % höherer Erlös beim Verkaufen.']], 6000],
+  vi_hut_zylinder_vermesser: [[['sell', 1.3, '30 % höherer Erlös beim Verkaufen, auch bei Geboten und Gesuchen auf den Treffen.']], 6000],
   vi_hut_fuhrmannshut: [[['max_hp', 180, '+180 maximales Leben.']], 11000],
   vi_mantel_druckerschurz: [[['max_nerves', 80, '+80 maximale Nerven.'], ['max_hp', 100, '+100 maximales Leben.'], ['damage_taken', 0.85, '15 % weniger erlittener Schaden.']], 17000],
   vi_mantel_dampfmantel: [[['max_hp', 300, '+300 maximales Leben.']], 22000],
   vi_mantel_reisepelerine: [[['carry', 30, '+30 Pfund Tragkraft.'], ['max_hp', 130, '+130 maximales Leben.']], 10000],
   vi_mantel_archivrobe: [[['lock_bonus', 25, 'Amtsschlösser verlangen 25 Ansehen weniger.'], ['honor_loss', 0.6, '40 % weniger Ansehensverlust.']], 6000],
   vi_amulett_bleiletter: [[['vision_cost', 0.5, 'Geistsicht kostet 50 % weniger Nerven.']], 6000],
-  vi_amulett_pfirsichkern: [[['calm_decay', 0.7, 'Unruhe klingt 30 % langsamer ab.'], ['max_nerves', 70, '+70 maximale Nerven.']], 9000],
+  vi_amulett_pfirsichkern: [[['unruhe_gain', 0.7, 'Unruhe steigt 30 % langsamer.'], ['max_nerves', 70, '+70 maximale Nerven.']], 14000],
   vi_amulett_grenzsteinsplitter: [[['dodge_window', 1.4, 'Ausweichfenster +40 %.']], 8000],
-  vi_amulett_rohrpostkapsel: [[['damage_taken', 0.7, '30 % weniger erlittener Schaden.']], 18000],
+  vi_amulett_rohrpostkapsel: [[['damage_taken', 0.7, '30 % weniger erlittener Schaden.'], ['max_hp', 40, '+40 maximales Leben.']], 18000],
 };
 
 /** Waffen Calderwick/Briarholt: [Atk, Preis]. Dunscar: Läden 13–17, Zirkel 23–36 (8.500–28.000).
