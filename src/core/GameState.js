@@ -2,6 +2,7 @@ import { journalQuestVisible, leftKettlegate } from './journal.js';
 // Reiner Spielzustand ohne Phaser-Abhängigkeit, damit er auch in Node-Tests läuft.
 import { pathwayMethods } from './Pathways.js';
 import { gatheringMethods } from './Gatherings.js';
+import { testmodusMethods } from './Testmodus.js';
 import { auctionMethods } from './Auction.js';
 import { probeMethods } from './Proben.js';
 import { artisanMethods } from './Artisan.js';
@@ -77,6 +78,7 @@ export class GameState {
   reset() {
     const s = this.content.start;
     this.erfolgZaehler = {};
+    this.testmodus = false;
     this.tiere = { owned: {}, aktiv: null, fundTag: -1 }; // Codex DF: Tiergefährten
     this.loadPost(null);
     this.map = s.map;
@@ -864,6 +866,7 @@ export class GameState {
       gear: this.gear,
       tracked: this.tracked,
       erfolgZaehler: this.erfolgZaehler ?? {},
+      ...(this.testmodus ? { testmodus: true } : {}),
       ...this.serializePost(),
       ...this.serializeTiere(),
       ...this.serializePathway(),
@@ -887,6 +890,7 @@ export class GameState {
   load(data) {
     if (!data || ![2, 3, SAVE_VERSION].includes(data.v)) return false;
     this.reset();
+    this.testmodus = !!data.testmodus;
     this.map = data.map;
     this.spawn = null;
     this.position = data.position;
@@ -911,7 +915,7 @@ export class GameState {
     if (this.flags.has('won_leuchtfeuer') || this.flags.has('kapitel2_done')) for (const f of K2_AKT5_STEPS) this.flags.add(f);
     else if (this.flags.has('k2_am_turm')) this.flags.add('k2v_boot_bereit');
     // Kein Zurück nach Kettlegate: Stände, die nach der Ankunft in Wexmoor noch dort stehen (alter Nachtzug), wachen im Unterschlupf auf
-    if (this.flags.has('k2_arrived') && (this.content.maps[this.map]?.city ?? 'kettlegate') === 'kettlegate') {
+    if (!this.testmodus && this.flags.has('k2_arrived') && (this.content.maps[this.map]?.city ?? 'kettlegate') === 'kettlegate') {
       this.map = this.content.maps.wx_kahn ? 'wx_kahn' : this.map;
       this.spawn = 'default';
       this.position = null;
@@ -957,4 +961,4 @@ export class GameState {
 /** Fortschrittsflags der verlängerten Akt-V-Fassung (AP), in Spielreihenfolge. */
 export const K2_AKT5_STEPS = ['k2v_boot_bereit', 'k2v_keller_passiert', 'k2v_aufstieg_passiert', 'k2v_abschied_done'];
 
-Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods, sudeMethods, seq5Methods, seq4Methods, seqHochMethods, splitMethods, pfadHandelMethods, erfolgeMethods, postMethods, benannteMethods, tiereMethods, fahrendeAuktionMethods, hausMethods, nebelseiteMethods);
+Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods, sudeMethods, seq5Methods, seq4Methods, seqHochMethods, splitMethods, pfadHandelMethods, erfolgeMethods, postMethods, benannteMethods, tiereMethods, fahrendeAuktionMethods, hausMethods, nebelseiteMethods, testmodusMethods);

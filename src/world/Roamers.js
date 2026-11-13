@@ -41,7 +41,7 @@ export class Roamers {
     for (const def of defs) {
       if (def.boss && !def.respawn && this.state.flags.has(`won_${def.encounter}`)) continue; // Bosse bleiben besiegt (Gebietsbosse mit `respawn` kommen wieder)
       if (festplatz && encs[def.encounter]?.city && !def.boss) continue;
-      if (def.visible_if && !this.state.meets(def.visible_if)) continue;
+      if (!this.state.sichtbar(def)) continue;
       if (def.bn && !this.state.bnErscheint?.(def.encounter, s.mapDef.id)) continue; // Codex DJ: benannte Gegner nur nachts, ab Seq 6, 10 % je Tag // Stadtgegner: erst ab einem Fall, Kopfgeld-Ziele nur mit Auftrag
       const eliteId = `${def.encounter}_elite`;
       // Gegner, die schon in den Daten Elite sind (Schlackengrube), gelten immer als Elite
@@ -155,7 +155,7 @@ export class Roamers {
       const aggro = (roam.aggro ?? 72) * (r.elite ? 1.15 : 1) * (s.state.spiritVision ? 1.25 : 1);
       const home = Math.hypot(r.body.x - r.home.x, r.body.y - r.home.y);
       const graced = time < this.graceUntil;
-      const afraid = fearsPlayer(s.state.pathway?.seq, r.def, s.mapDef) || (s.state.scaresEnemies?.() && !r.boss); // Welt-Fähigkeiten: gewöhnliche Gegner weichen
+      const afraid = s.state.testmodus || fearsPlayer(s.state.pathway?.seq, r.def, s.mapDef) || (s.state.scaresEnemies?.() && !r.boss); // Welt-Fähigkeiten: gewöhnliche Gegner weichen
       if (time < r.stunUntil) {
         b.setVelocity(0, 0);
         r.mode = 'wander';

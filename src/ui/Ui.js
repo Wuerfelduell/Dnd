@@ -33,6 +33,7 @@ import { RITUAL_ART, artCss } from '../world/ritualArt.js';
 import { isSolved, knownPeople, journalQuestVisible } from '../core/journal.js';
 import { canHurry, hurryCost, travelSafe, travelFast, afterHurryFight, travelDestinations, cityOf } from '../core/Travel.js';
 import { questTarget, leadTarget, personPlaces, advice } from '../core/Guide.js';
+import { installTestmodus } from './TestUi.js';
 
 /** Spielstand für Icons, die vom Spieler abhängen (Relikt des Verfalls: Bild nach seiner stärksten Eigenschaft, Codex DP). */
 let iconState = null;
@@ -547,6 +548,7 @@ export class Ui {
     ['item', 'changed', 'pathway'].forEach((ev) => state.on(ev, () => this.updateLoad()));
     ['party', 'hp', 'composure', 'item', 'changed'].forEach((ev) => state.on(ev, () => this.updateP2()));
     window.addEventListener('keydown', (e) => this.onKey(e), true);
+    installTestmodus(this);
     this.bindTouch();
     this.bindTalentBar();
     this.updateComposure(state.composure);
@@ -1117,6 +1119,7 @@ export class Ui {
     this.bindLang(el);
     this.titleContinue = save ? () => { this.close(); this.onContinue(); } : null;
     this.titleNew = () => {
+      this.testArmed = true;
       this.close();
       this.onNewGame();
       this.showMessage(c.start.intro_title, c.start.intro, { scene: 'kapitel1_karte', footer: this.touch ? 'Tipp: Im Notizbuch (Knopf oben rechts) siehst du deine Aufträge.' : 'Tipp: Im Notizbuch (J) siehst du deine Aufträge.' });
@@ -3484,7 +3487,7 @@ export class Ui {
   // --- Tastatur ---------------------------------------------------------------
 
   onKey(e) {
-    if (e.target?.classList?.contains('beast-search')) return; // Suchfeld im Bestiarium: Tasten gehören dem Textfeld
+    if (e.target?.classList?.contains('beast-search') || e.target?.classList?.contains('testcode')) return; // Suchfeld im Bestiarium: Tasten gehören dem Textfeld
     if (!this.modal) {
       // Esc in der Welt: Pausemenü (Spieler 2 hinzufügen oder entfernen)
       if (e.key === 'Escape' && !e.repeat && this.scene && !this.combatScene && performance.now() >= this.blockedUntil) {
@@ -3505,6 +3508,7 @@ export class Ui {
     else if (this.modal === 'title' && k === 'n') this.titleNew();
     else if ((this.modal === 'message' || this.modal === 'ending') && (confirm || k === 'escape')) this.close();
     else if (this.modal === 'pause' && (k === 'escape' || confirm)) this.close();
+    else if (this.modal === 'testreise' && k === 'escape') this.close();
     else if (this.modal === 'pause' && k === '2') this.togglePlayer2();
     else if (this.modal === 'dialogue' && num >= 0) this.choose(this.dialogue.keyMap[num]);
     else if (this.modal === 'gift' && num >= 0 && this.giftIds?.[num]) this.giveGift(this.giftIds[num]);

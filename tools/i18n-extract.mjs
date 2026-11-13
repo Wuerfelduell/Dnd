@@ -67,6 +67,7 @@ function fromJson(v, file, key = '') {
 
 for (const f of files) {
   const src = fs.readFileSync(f, 'utf8');
+  if (src.startsWith('// i18n: ignorieren')) continue;
   if (f.endsWith('.json')) { try { fromJson(JSON.parse(src), f); } catch { /* kaputt */ } } else fromJs(src, f);
 }
 

@@ -114,6 +114,7 @@ export const auctionMethods = {
 
   /** Hat die Runde in diesem Treffen schon stattgefunden? */
   sessionHeld(circleId, cycle = this.marketCycle()) {
+    if (this.testmodus && !this.fa2Cycle?.(circleId) && this.content.gatherings?.circles?.[circleId]) return false; // Testmodus: keine Wartezeit
     return this.sessionsHeld.includes(`${circleId}:${cycle}`);
   },
 
@@ -122,7 +123,7 @@ export const auctionMethods = {
     const fa2 = this.fa2Cycle?.(circleId); // Codex DE: Fahrende Auktion (eigener Fahrplan, eine Runde je Halt)
     if (fa2 === null) return { ok: false, text: 'Der Wagen ist weitergefahren. Er kommt wieder, wohin die Kundschaft fährt.' };
     if (fa2 === undefined && (!this.gatheringOpen(circleId) || !this.isMember(circleId))) return { ok: false, text: 'Das Treffen ist vorbei.' };
-    const cycle = fa2 ?? this.marketCycle();
+    const cycle = fa2 ?? (this.testmodus ? this.marketCycle() + (this.testRunden = (this.testRunden ?? 0) + 1) : this.marketCycle()); // Testmodus: jede Runde neue Lose
     if (this.sessionHeld(circleId, cycle)) return { ok: false, text: fa2 ? 'Für diesen Halt sind alle Lose ausgerufen. Beim nächsten Halt gibt es neue.' : 'Die Runde ist für heute durch. Wartet auf das nächste Treffen.' };
     this.sessionsHeld = [...this.sessionsHeld.filter((k) => k.split(':')[0] !== circleId ? Number(k.split(':')[1]) >= Math.min(cycle, this.marketCycle()) - 1 || Number(k.split(':')[1]) >= 1000000 : Number(k.split(':')[1]) >= cycle - 1), `${circleId}:${cycle}`];
     const members = this.circleMembers(circleId).map((m) => m.id);
