@@ -80,12 +80,12 @@ export const SPAET_GEAR = {
 /** Waffen Calderwick/Briarholt: [Atk, Preis]. Dunscar: Läden 13–17, Zirkel 23–36 (8.500–28.000).
  *  Die schwächste Kapitel-4-Waffe liegt über den gängigen Zirkelwaffen (~27), die stärkste über der Schichtglocke (36). */
 export const SPAET_WAFFEN = {
-  vi_waffe_setzhaken: [32, 9000],
-  vi_waffe_kutschpeitsche: [35, 12000],
-  vi_waffe_veredelungsschere: [38, 15000],
-  vi_waffe_richterstab: [42, 19000],
-  vi_waffe_dampfrohr: [46, 23000],
-  vi_waffe_bleihammer: [50, 28000], // Seb 2026-11-13: Waffen bis 50, eine 50er mindestens 25.000
+  vi_waffe_setzhaken: [32, 12000],
+  vi_waffe_kutschpeitsche: [35, 15000],
+  vi_waffe_veredelungsschere: [38, 18000],
+  vi_waffe_richterstab: [42, 22000],
+  vi_waffe_dampfrohr: [46, 26000],
+  vi_waffe_bleihammer: [50, 31000], // Seb 2026-11-13: Waffen bis 50, eine 50er mindestens 25.000
 };
 
 /** Artefakte Calderwick/Briarholt: echte Wirkungen statt Entwurfstext, stärker als die gängigen Dunscar-Zirkelartefakte. */
