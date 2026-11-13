@@ -75,3 +75,11 @@ Eigennamen von Personen bleiben unverändert; Titel werden übersetzt (Pater →
 | Glockenmutter / Namenlose | Bell Mother / Nameless One |
 | Einzelgänger | Loner |
 | Sammelfahrt / Nachtrecht | collection trip / night law |
+
+## Kapitel 3 Dunscar
+- Pfiff (Ansel „Pfiff“ Cedrow) → Whistle (Ansel “Whistle” Cedrow); Pfiffs Kessel → Whistle's Kettle
+- Kalkbahn → Lime Railway; Bruchstrecke → quarry line; Klopfbruch → Knock Quarry; Arbeiterbogen → Workers' Arch; Schwellenring → Sleeper Ring
+- Fahrmeister → Trainmaster; Schichtwalze/Walze → shift cylinder/cylinder; Schallschleuse → sound lock; Rundruf → broadcast call
+- Schwellenhund → Sleeper Hound; Vorhauer → Fore-Hewer; Vielrufer → Many-Caller
+- Hunger (unter den Städten) → the Hunger; Der Alte unter dem Fels → The Old One Under the Rock
+- Kalkblatt → Lime Sheet; Namenstäfelchen → name tablet; Riedwacht → Reedwatch
