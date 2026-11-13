@@ -81,6 +81,8 @@ test('Calderwick: zehn verdorbene Pfadgebiete mit Gildensitz, je zwei benannte B
     assert.ok(m.interactables.some((i) => i.encounter === `o3_${pid}_vize`));
     for (const n of [cw.oberhaupt, cw.vize]) { assert.ok(!names.has(n), n); names.add(n); }
     assert.ok(content.travelRules.cities.calderwick.pins[`o3_${pid}`]);
+    // Alle Viertel gleich stark, egal welcher Pfad (Seb 2026-11-13: Stillviertel hatte nur 800 Leben)
+    for (const id of Object.keys(content.encounters).filter((x) => x.startsWith(`o3_${pid}_g`))) assert.ok(content.encounters[id].hp >= 1700, id);
   }
   for (const m of Object.values(content.maps).filter((x) => x.city === 'calderwick')) assert.ok(!m.interactables?.some((i) => i.id.startsWith('cwa_')), m.id);
   // Nach dem Sturz sind alle Viertel offen
