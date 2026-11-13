@@ -190,7 +190,7 @@ export const CW_GEBIETE = {
   sq_moor: { viertel: 'Das Faulviertel', oberhaupt: 'Mutter Torva', vize: 'Jorin Ried', verderbnis: 'Torf quillt aus den Kellern. Die Straßen erinnern sich an jeden, der sie betreten hat, und manche halten ihn fest.' },
   sq_uhr: { viertel: 'Das Stillviertel', oberhaupt: 'Severin Unruh', vize: 'Klara Hemmung', verderbnis: 'Die Zeit läuft hier in Stücken. Ein Schritt dauert eine Stunde, der nächste einen Herzschlag. Die Monster sind schneller als ihre Schatten.' },
 };
-const CW_MONSTER = { hp: 1.8, dmg: 1.2 }; // Monster mit Halbgott-Stärke (auf die schon gestärkten Ortsgegner)
+const CW_MONSTER = { hp: 2.2, dmg: 1.3 }; // Monster mit Halbgott-Stärke: Seq 4 (Eisen, geübt) gewinnt etwa 65 % der Kämpfe (Seb 2026-11-13)
 const CW_STREIFEN = 18;
 const SEQ0_TEXT = 'Sequenz 0. Über dem Engel, über der ersten Sequenz, steht keine Stufe mehr, sondern ein Thron. Wer Sequenz 0 erreicht, wird kein Heiliger und kein Engel. Er wird ein Gott, wie der Alte. Jeder in Calderwick will dorthin. Niemand von ihnen ist je angekommen.';
 
