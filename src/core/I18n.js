@@ -22,6 +22,25 @@ try {
   const mods = import.meta.glob('../i18n/en/*.json', { eager: true, import: 'default' });
   for (const m of Object.values(mods)) Object.assign(DICT, m);
 } catch { /* außerhalb von Vite (Node-Tests): leeres Wörterbuch */ }
+DICT = splitParagraphs(DICT);
+
+/**
+ * Lange Texte stehen im Spiel als einzelne Absätze im DOM (<p> je Absatz, <br> je Zeile). Einträge mit
+ * Absätzen werden deshalb zusätzlich Absatz für Absatz (und Zeile für Zeile) eingetragen, wenn die Anzahl passt.
+ */
+function splitParagraphs(d) {
+  const out = { ...d };
+  for (const [de, en] of Object.entries(d)) {
+    for (const sep of ['\n\n', '\n']) {
+      if (!de.includes(sep)) continue;
+      const a = de.split(sep);
+      const b = en.split(sep);
+      if (a.length !== b.length) continue;
+      a.forEach((x, i) => { const k = x.trim(); if (k && !(k in out)) out[k] = b[i].trim(); });
+    }
+  }
+  return out;
+}
 
 let lang = 'de';
 try { lang = localStorage.getItem(LANG_KEY) === 'en' ? 'en' : 'de'; } catch { /* kein Speicher */ }
@@ -36,7 +55,7 @@ export function getLang() { return lang; }
 export function isEnglish() { return lang === 'en'; }
 export function onLangChange(fn) { listeners.add(fn); return () => listeners.delete(fn); }
 /** Nur für Tests: eigenes Wörterbuch setzen. */
-export function setDict(d) { DICT = d; }
+export function setDict(d) { DICT = splitParagraphs(d); }
 
 export function setLang(l) {
   lang = l === 'en' ? 'en' : 'de';
