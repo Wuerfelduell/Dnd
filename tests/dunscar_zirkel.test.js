@@ -114,8 +114,8 @@ test('Dunscar-Zirkel sind voll besetzt und kaufen Dunscar-Wertstücke oft für m
       const r = s.memberRequest(id, cy, m.id);
       if (!r) continue;
       reqs++;
-      assert.ok(r.item.startsWith('ds_beute_') && r.price >= 1000, `${id}: ${r.item} für ${r.price}`);
+      assert.ok(r.item.startsWith('ds_beute_') && r.price >= 500, `${id}: ${r.item} für ${r.price}`);
     }
-    assert.ok(reqs / 200 >= 5, `${id}: ${reqs / 200} Gesuche je Runde`);
+    assert.ok(reqs / 200 >= 3, `${id}: ${reqs / 200} Gesuche je Runde`);
   }
 });

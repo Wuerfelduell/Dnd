@@ -21,13 +21,13 @@ export const DS_LOS = {
 
 /**
  * Gesuche der Dunscar-Zirkel (Seb 2026-11-12): die Leute kaufen die seltenen Dunscar-Wertstücke oft und teuer an,
- * nie unter 1000 Schilling, damit man nach dem ersten Treffen weiß: das lohnt sich zu farmen.
+ * nie unter 500 Schilling (vorher 1000, Seb 2026-11-13: zu leicht zu farmen), damit man nach dem ersten Treffen weiß: das lohnt sich zu farmen.
  */
 export const DS_GESUCHE = {
   wants: ['ds_beute_signalsilber', 'ds_beute_schichtgold', 'ds_beute_kalkopal'],
-  request_chance: 0.95,
-  request_min: 1000,
-  request_markup: 1.8,
+  request_chance: 0.5, // Seb 2026-11-13: 30.000 in 30 Min war zu leicht (vorher 0.95 / 1000 / 1.8)
+  request_min: 500,
+  request_markup: 1.3,
 };
 
 const art = (name, price, desc, boons, curses) => ({ name, source: 'treffen', price, weight: 1, desc, boons, curses });

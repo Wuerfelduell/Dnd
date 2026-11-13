@@ -492,7 +492,7 @@ function applyDunscarDichte(content) {
 }
 
 /** Seb 2026-11-12: Dunscar zahlt mehr als Wexmoor (dort Gegnergeld ×3, Kopfgelder 150–800). */
-export const DS_MONEY_MULT = 10; // Seb 2026-11-12: ×4 war noch zu wenig
+export const DS_MONEY_MULT = 7; // Seb 2026-11-12: ×4 war zu wenig; 2026-11-13: ×10 zu viel (30.000 in 30 Min)
 export const DS_KOPFGELD_MULT = 15; // 45–80 → 675–1200 Schilling
 function applyDunscarGeld(content) {
   const loot = { ...content.loot };
@@ -561,10 +561,13 @@ export const DS_BEUTE_ITEMS = {
 /** Seb 2026-11-12: Dunscar-Gegner droppen keine alten Artefakte mehr (die aus Kettlegate/Wexmoor-Tabellen).
  *  Ihre Chance geht stattdessen an den Kalkopal (2500). Dunscar-eigene Artefakte (z. B. Rangierlinse) bleiben. */
 export const DS_ALT_ERSATZ = 'ds_beute_kalkopal';
+/** Seb 2026-11-13: Kalkopal halb so oft wie die alten Artefakte (sonst zu leicht zu farmen). */
+const DS_ALT_ERSATZ_FAKTOR = 0.5;
 const DS_BEUTE = {
-  normal: [{ item: 'ds_beute_messingmarke', chance: 0.8 }, { item: 'ds_beute_signalsilber', chance: 0.15 }],
-  elite: [{ item: 'ds_beute_signalsilber', chance: 1 }, { item: 'ds_beute_schichtgold', chance: 0.3 }],
-  boss: [{ item: 'ds_beute_schichtgold', chance: 1 }, { item: 'ds_beute_signalsilber', chance: 1 }],
+  // Seb 2026-11-13: etwas runter (vorher normal 0,8/0,15, Elite 1/0,3, Boss 1/1)
+  normal: [{ item: 'ds_beute_messingmarke', chance: 0.5 }, { item: 'ds_beute_signalsilber', chance: 0.08 }],
+  elite: [{ item: 'ds_beute_signalsilber', chance: 0.6 }, { item: 'ds_beute_schichtgold', chance: 0.15 }],
+  boss: [{ item: 'ds_beute_schichtgold', chance: 1 }, { item: 'ds_beute_signalsilber', chance: 0.5 }],
 };
 function applyDunscarBeute(content) {
   content.items = { ...content.items, ...DS_BEUTE_ITEMS };
@@ -578,7 +581,7 @@ function applyDunscarBeute(content) {
   for (const [id, e] of Object.entries(content.encounters)) {
     if (e.chapter !== 3 || !loot[id]?.drops?.some((d) => altArt.has(d.item))) continue;
     const alt = loot[id].drops.filter((d) => altArt.has(d.item));
-    const chance = Math.min(1, alt.reduce((s, d) => s + (d.chance ?? 1), 0));
+    const chance = Math.min(1, alt.reduce((s, d) => s + (d.chance ?? 1), 0)) * DS_ALT_ERSATZ_FAKTOR;
     loot[id] = { ...loot[id], drops: [...loot[id].drops.filter((d) => !altArt.has(d.item)), { item: DS_ALT_ERSATZ, chance }] };
   }
   for (const [id, e] of Object.entries(content.encounters)) {
