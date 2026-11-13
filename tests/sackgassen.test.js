@@ -46,3 +46,11 @@ test('Offene Aufträge aus verlassenen Städten verschwinden aus dem Notizbuch, 
   assert.equal(journalQuestVisible(s, 'k3h_nachtwalze'), true, 'Lastenzug-Rückweg: Dunscar wieder erreichbar');
   assert.equal(s.quests.k2v_krabbe, 'active', 'nur ausgeblendet, kein Fortschritt verloren');
 });
+
+test('Tipps nur von Marlowe: in jeder späteren Stadt ein Telegrammschalter mit ihrem Rat', () => {
+  for (const m of ['wx_bahnhof', 'ds_speisewagen', 'cw_gleisfuss', 'bh_kutschenhof']) {
+    const t = content.maps[m].interactables.find((i) => i.id === 'marlowe_telegramm');
+    assert.ok(t, `${m}: kein Telegrammschalter`);
+    assert.ok(content.dialogues[t.dialogue].nodes.rat.hint);
+  }
+});

@@ -282,7 +282,9 @@ export function questTarget(state, questId) {
       // Nur das Gebiet verraten, nicht den Fleck: ohne `id` gibt es in der Welt keine Markierung, nur den Weg zum Ort
       if (sub) {
         const t = finish(sub);
-        return { ...t, id: c.npcs[sub.id] ? t.id : null, name: c.npcs[sub.id] ? t.name : 'Genauer umsehen', vague: !c.npcs[sub.id], because, via: best.name };
+        // Marlowe nennt den genauen Fleck (exact), der Wegweiser nur das Gebiet
+        return { ...t, id: c.npcs[sub.id] ? t.id : null, name: c.npcs[sub.id] ? t.name : 'Genauer umsehen', vague: !c.npcs[sub.id], because, via: best.name,
+          exact: { name: t.name, npc: !!c.npcs[sub.id], hidden: !!sub.def?.hidden } };
       }
       if (blockers.some((b) => b.notebook)) return { ...base, notebook: 'Im Notizbuch zwei Informationen verknüpfen', because };
       return { ...finish(best), because };
@@ -308,7 +310,15 @@ export function advice(state, speaker = null) {
     const where = t.map === state.map ? 'gleich hier' : t.map === t.district ? `im ${t.mapName}`.replace('im Polizeirevier', 'hier im Revier') : `im ${t.mapName} (${c.maps[t.district]?.name ?? t.mapName})`;
     return t.locked ? `${where}. ${t.locked.name} ist noch gesperrt: ${t.locked.how}` : where;
   };
-  const goTo = (t) => (c.npcs[t.id] ? `Fragen Sie ${t.name}, ${place(t)}.` : `Sehen Sie sich ${place(t)} genauer um.`);
+  // Eindeutig (Seb 2026-11-13): wohin und mit wem reden, oder wohin und wonach suchen
+  const goTo = (t) => {
+    const e = t.exact ?? { name: t.name, npc: !!c.npcs[t.id], hidden: !!t.hidden };
+    const where = t.map === state.map ? null : `zum Ort „${t.mapName}“${t.district && t.map !== t.district ? ` (${c.maps[t.district]?.name ?? t.district})` : ''}`;
+    const lock = t.locked ? ` ${t.locked.name} ist noch gesperrt: ${t.locked.how}` : '';
+    const go = where ? `Gehen Sie ${where} und ` : '';
+    const say = e.npc ? `${go ? `${go}reden Sie` : 'Reden Sie gleich hier'} mit ${e.name}.` : `${go ? `${go}suchen Sie` : 'Suchen Sie gleich hier'} nach: „${e.name}“.${e.hidden ? ' Das sehen Sie nur mit der Geistsicht.' : ''}`;
+    return say + lock;
+  };
   const lines = [];
   const active = Object.keys(state.quests).filter((id) => state.quests[id] === 'active' && journalQuestVisible(state, id));
   const mains = active.filter((id) => c.quests[id].kind === 'main').sort((a, b) => (a === state.tracked ? -1 : 0) - (b === state.tracked ? -1 : 0));
@@ -320,7 +330,7 @@ export function advice(state, speaker = null) {
     // Ein Paar, das sich schon verknüpfen lässt (beide Informationen bekannt, nichts widerlegt)
     const known = (f) => !['unknown', 'refuted'].includes(state.factStatus(f));
     const pair = c.deductions.filter((d) => d.case === quest.case && d.honor !== 0 && !state.hasConclusion(d.id)).flatMap((d) => d.pairs).find((p) => p.every(known));
-    if (t.because) line += ` ${own(t.because)}`;
+    if (t.because) line += ` ${own(t.because)}${t.exact ? ` ${goTo(t)}` : ''}`;
     else if (t.notebook) line += pair ? ` Das klären Sie in Ihrem Notizbuch: Verknüpfen Sie ${q(state.fact(pair[0]).text)} mit ${q(state.fact(pair[1]).text)}.` : ' Das klären Sie in Ihrem Notizbuch: Zwei Ihrer Informationen gehören zusammen.';
     else if (t.id === speaker) line += ' Dafür sind Sie bei mir richtig.';
     else line += ` ${goTo(t)}`;
@@ -332,7 +342,7 @@ export function advice(state, speaker = null) {
         const weakIdx = d.status.findIndex((x) => x !== 'likely');
         if (weakIdx < 0) lines.push(`Verknüpfen Sie ${q(state.fact(d.pair[0]).text)} mit ${q(state.fact(d.pair[1]).text)}. Das trägt.`);
         else {
-          const g = factGap(state, d.pair[weakIdx]);
+          const g = factGap(state, d.pair[weakIdx], { exact: true });
           const where = g.where.slice(0, 2).join('; ');
           if (g.status === 'unknown') lines.push(`Zu ${q(g.text)} haben Sie noch nichts in der Hand.${where ? ` Versuchen Sie es hier: ${where}.` : ' Reden Sie mit den Leuten des Falls und sehen Sie sich die Orte genau an.'}`);
           else lines.push(`${q(g.text)} steht erst auf einer Quelle. ${where ? `Eine zweite: ${where}.` : 'Eine zweite finden Sie bei Leuten und an Orten, die Sie noch nicht ganz ausgeschöpft haben.'}`);

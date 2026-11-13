@@ -90,11 +90,12 @@ export function originPending(state, o) {
 }
 
 /** Fundorte der fehlenden Hinweise einer Information: erst die erreichbaren, dann Gespräche, die noch Vorfragen brauchen. */
-export function whereToFind(state, missing) {
+export function whereToFind(state, missing, { exact = false } = {}) {
   const origins = clueOrigins(state.content);
   const all = missing.flatMap((c) => origins[c] ?? []);
-  const open = all.filter((o) => originOpen(state, o)).map((o) => o.hint);
-  const pending = all.filter((o) => originPending(state, o)).map((o) => o.hint.replace(/ fragen \(/, ' weiter ausfragen ('));
+  const pick = (o) => (exact ? o.text.replace(/^Sprich mit /, 'Reden Sie mit ') : o.hint); // Marlowe nennt den genauen Fleck, sonst nur das Gebiet
+  const open = all.filter((o) => originOpen(state, o)).map(pick);
+  const pending = all.filter((o) => originPending(state, o)).map((o) => pick(o).replace(/ fragen \(/, ' weiter ausfragen ('));
   return [...new Set([...open, ...pending.filter((h) => !open.includes(h.replace(' weiter ausfragen (', ' fragen (')))])];
 }
 
@@ -154,12 +155,12 @@ export function caseHints(state, caseId, level = 1) {
 const quote = (t) => `„${t}“`;
 
 /** Hinweise zu einer Information, die noch fehlen, und ihre gerade erreichbaren Fundorte. */
-export function factGap(state, factId) {
+export function factGap(state, factId, { exact = false } = {}) {
   const f = state.fact(factId);
   const have = state.factSources(factId).length;
   const status = state.factStatus(factId);
   const missing = Object.entries(state.content.clues).filter(([id, c]) => c.fact === factId && !state.hasClue(id)).map(([id]) => id);
-  const where = whereToFind(state, missing);
+  const where = whereToFind(state, missing, { exact });
   return { fact: factId, text: f?.text ?? factId, status, have, need: LIKELY_SOURCES, missing, where };
 }
 
