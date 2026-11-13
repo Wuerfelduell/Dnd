@@ -179,6 +179,12 @@ export const SKILL_COMPOSURE_BY_COST = { 0: 0, 1: 4, 2: 6, 3: 10, 4: 16, 5: 22, 
 // Die Fertigkeit der aktuellen Sequenz kostet immer voll, die aus Sequenz 9 ist mit Sequenz 5 schon zu 60 % Gewohnheit.
 export const HABIT_STEP = 0.15;
 export const HABIT_MIN = 0.4;
+// Nerven-Abgleich (Seb 2026-11-13): Fähigkeiten zogen zu wenig, weil der Nervenvorrat mit den Sequenzen wächst, die Kosten
+// aber nicht. Jetzt wachsen sie mit dem Vorrat der Sequenz (ohne Gegenstände/Artefakte) über 120 hinaus: bis Seq 6 bleibt
+// alles beim Alten, Seq 5 ~×1,1–1,5, Seq 4 ~×1,6–2,4, Seq 1 ~×2,5–3,6. Welt-Fähigkeiten kosten dazu das 2,5-Fache ihrer Grundwerte.
+export const SKILL_NERVES_MULT = 1;
+export const NERVE_POOL_BASE = 120;
+export const TALENT_NERVES_MULT = 2.5;
 /** Was hinter den Verdauungs-Schlüsseln steckt (für Anzeige und Rückmeldungen). */
 export const DIGEST_LABELS = {
   clue: 'Hinweis gefunden', hidden_clue: 'verborgene Spur gefunden', fact_likely: 'Information bestätigt',
@@ -377,7 +383,22 @@ export const pathwayMethods = {
   skillComposureCost(sk) {
     const base = sk.composure ?? SKILL_COMPOSURE_BY_COST[sk.cost] ?? 0;
     if (!base) return 0;
-    return Math.max(1, Math.round(base * this.skillHabit(sk.seq) * this.passive('skill_composure')));
+    return Math.max(1, Math.round(base * SKILL_NERVES_MULT * this.nervePoolFactor() * this.skillHabit(sk.seq) * this.passive('skill_composure')));
+  },
+
+  /** Nervenvorrat der Sequenz (ohne Gegenstände und Artefakte) / NERVE_POOL_BASE, mindestens 1; ohne Pfad 1. */
+  nervePoolFactor() {
+    if (!this.pathway) return 1;
+    const seqBonus = this.reachedSeqs().flatMap((x) => x.passives ?? []).filter((p) => p.key === 'max_nerves').reduce((a, p) => a + p.value, 0);
+    const pool = COMPOSURE_BASE + this.growth().nerves * this.growthSteps() + this.seq4NervesBonus() + seqBonus;
+    return Math.max(1, pool / NERVE_POOL_BASE);
+  },
+
+  /** Nervenkosten einer Welt-Fähigkeit (Grundwert aus den Daten, hochgerechnet wie die Kampffertigkeiten). */
+  talentNerves(t) {
+    const base = t?.nerves ?? 0;
+    if (!base) return 0;
+    return Math.max(1, Math.round(base * TALENT_NERVES_MULT * this.nervePoolFactor()));
   },
 
   // --- Schilling ------------------------------------------------------------------

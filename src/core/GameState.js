@@ -54,7 +54,10 @@ export const KIND_WEIGHT = { weapon: 4, gear: 2, artifact: 2, consumable: 1, pot
 // - Leben (hp) und Inventar: Gegenstände heilen, beruhigen die Nerven oder helfen im Kampf.
 
 export const COMPOSURE_MAX = 100; // Grundwert; der echte Höchstwert ist maxComposure() (wächst mit den Sequenzen)
-export const VISION_DRAIN_PER_SEC = 9;
+export const VISION_DRAIN_PER_SEC = 6; // Seb 2026-11-13: war 9, Geistsicht zog zu viel
+// Gewöhnung an die Geistsicht: jede Sequenz nach der ersten senkt den Verbrauch um 10 %, höchstens auf die Hälfte.
+export const VISION_HABIT_STEP = 0.1;
+export const VISION_HABIT_MIN = 0.5;
 export const VISION_REGEN_PER_SEC = 6;
 export const LIKELY_SOURCES = 2;
 /** Anteil, zu dem Ansehens-Gewinne zählen (Verluste zählen voll). So kommt Rang 4 etwa ab Fall 6/7, nicht schon nach Fall 3. */
@@ -827,6 +830,12 @@ export class GameState {
     return true;
   }
 
+  /** Nervenverbrauch der Geistsicht pro Sekunde: Grundwert, Gewöhnung über die Sequenzen, Passive (Amulette usw.). */
+  visionDrainPerSec() {
+    const steps = this.pathway ? Math.max(0, this.seqSteps() - 1) : 0;
+    return VISION_DRAIN_PER_SEC * Math.max(VISION_HABIT_MIN, 1 - VISION_HABIT_STEP * steps) * this.passive('vision_cost');
+  }
+
   tick(dtSeconds) {
     this.tickTalents(dtSeconds);
     this.tierTick?.(); // Codex DF: Tagesfund des Katers
@@ -835,7 +844,7 @@ export class GameState {
     this.tickSekten(); // BQ: Fristen und per Dialog aufgelöste Ereignisse
     const before = this.composure;
     if (this.spiritVision) {
-      this.composure = Math.max(0, this.composure - VISION_DRAIN_PER_SEC * this.passive('vision_cost') * dtSeconds);
+      this.composure = Math.max(0, this.composure - this.visionDrainPerSec() * dtSeconds);
       if (this.composure === 0) {
         this.setSpiritVision(false);
         this.emit('notice', 'Ein stechender Kopfschmerz reißt dich aus der Geistsicht.');

@@ -2450,7 +2450,7 @@ export class Ui {
   /** Welt-Fähigkeit einer Sequenz: Kosten, Abklingzeit und Knopf zum Einsetzen (nur außerhalb von Kämpfen). */
   talentRowHtml(s, def) {
     const t = s.talentDef(def.id) ?? def;
-    const cost = [def.nerves ? `${def.nerves} Nerven` : '', def.unruhe ? `+${def.unruhe} Unruhe` : '', `${fmtSec(def.cooldown)} Pause`].filter(Boolean).join(' · ');
+    const cost = [t.nerves ? `${t.nerves} Nerven` : '', def.unruhe ? `+${def.unruhe} Unruhe` : '', `${fmtSec(def.cooldown)} Pause`].filter(Boolean).join(' · ');
     const block = s.talentBlock(def.id);
     const label = t.remaining > 0 ? `bereit in ${t.remainingText}` : block ? 'zu wenig Nerven' : 'Einsetzen';
     return `<br>${talentIcon(def.id)}<strong>${esc(def.name)}</strong> <span class="muted">(${cost})</span> ${esc(def.desc)} <button class="small talentbtn ${block ? '' : 'primary'}" data-talent="${def.id}" ${block ? 'disabled' : ''}>${label}</button>`;
