@@ -14,7 +14,7 @@
 //  - Calderwick/Briarholt (Seq 4, 175–275 Leben) verkauften Verpflegung mit 14–45 Heilung und Riechsalz mit +10 Nerven.
 //    Das lag unter Dunscar (Verbandrolle 50 bis Kalkelixier 260). Jetzt 60–260 Leben und 120/220 Nerven.
 //  - Waffen und Kleidung dort lagen unter dem, was man aus Dunscar mitbringt (Atk 16–18 gegen Zirkel 23–36).
-//    Jetzt Atk 32–42 und +80–180 Leben (über den Dunscar-Zirkelstücken), Preise 6.000–26.000.
+//    Jetzt Atk 32–50 und +100–300 Leben (über den Dunscar-Zirkelstücken), Preise 6.000–26.000.
 //  - Die acht Artefakte aus Calderwick/Briarholt hatten nur Beschreibungen ohne Wirkung (Codex-Entwurf). Jetzt echte
 //    Wirkungen mit vorhandenen Schlüsseln, kurze Texte, Preise auf Kapitel-4-Niveau.
 //  - Konzentration: Es gab kein Mittel, das im Kampf Konzentration bringt. Rangiererkaffee (Dunscar) und Terrassentee
@@ -64,12 +64,12 @@ const DUNSCAR_PREIS = { dsh_kaffee: 120 };
  *  (dsz_*: +60–120 Leben, −15 % Schaden, +35–45 Nerven, 8.000–13.000), sonst ist sie nach Dunscar wertlos. */
 export const SPAET_GEAR = {
   vi_hut_setzerkappe: [[['max_nerves', 70, '+70 maximale Nerven.']], 7000],
-  vi_hut_kurhaube: [[['max_hp', 140, '+140 maximales Leben.'], ['max_nerves', -10, '−10 maximale Nerven.']], 11000],
+  vi_hut_kurhaube: [[['max_hp', 220, '+220 maximales Leben.'], ['max_nerves', -10, '−10 maximale Nerven.']], 14000],
   vi_hut_zylinder_vermesser: [[['sell', 1.3, '30 % höherer Erlös beim Verkaufen.']], 6000],
-  vi_hut_fuhrmannshut: [[['max_hp', 120, '+120 maximales Leben.']], 9000],
-  vi_mantel_druckerschurz: [[['max_nerves', 80, '+80 maximale Nerven.'], ['damage_taken', 0.85, '15 % weniger erlittener Schaden.']], 15000],
-  vi_mantel_dampfmantel: [[['max_hp', 180, '+180 maximales Leben.']], 16000],
-  vi_mantel_reisepelerine: [[['carry', 30, '+30 Pfund Tragkraft.'], ['max_hp', 80, '+80 maximales Leben.']], 8000],
+  vi_hut_fuhrmannshut: [[['max_hp', 180, '+180 maximales Leben.']], 11000],
+  vi_mantel_druckerschurz: [[['max_nerves', 80, '+80 maximale Nerven.'], ['max_hp', 100, '+100 maximales Leben.'], ['damage_taken', 0.85, '15 % weniger erlittener Schaden.']], 17000],
+  vi_mantel_dampfmantel: [[['max_hp', 300, '+300 maximales Leben.']], 22000],
+  vi_mantel_reisepelerine: [[['carry', 30, '+30 Pfund Tragkraft.'], ['max_hp', 130, '+130 maximales Leben.']], 10000],
   vi_mantel_archivrobe: [[['lock_bonus', 25, 'Amtsschlösser verlangen 25 Ansehen weniger.'], ['honor_loss', 0.6, '40 % weniger Ansehensverlust.']], 6000],
   vi_amulett_bleiletter: [[['vision_cost', 0.5, 'Geistsicht kostet 50 % weniger Nerven.']], 6000],
   vi_amulett_pfirsichkern: [[['calm_decay', 0.7, 'Unruhe klingt 30 % langsamer ab.'], ['max_nerves', 70, '+70 maximale Nerven.']], 9000],
@@ -81,11 +81,11 @@ export const SPAET_GEAR = {
  *  Die schwächste Kapitel-4-Waffe liegt über den gängigen Zirkelwaffen (~27), die stärkste über der Schichtglocke (36). */
 export const SPAET_WAFFEN = {
   vi_waffe_setzhaken: [32, 9000],
-  vi_waffe_kutschpeitsche: [33, 10000],
-  vi_waffe_veredelungsschere: [35, 13000],
-  vi_waffe_richterstab: [37, 16000],
-  vi_waffe_dampfrohr: [39, 20000],
-  vi_waffe_bleihammer: [42, 26000],
+  vi_waffe_kutschpeitsche: [35, 12000],
+  vi_waffe_veredelungsschere: [38, 15000],
+  vi_waffe_richterstab: [42, 19000],
+  vi_waffe_dampfrohr: [46, 23000],
+  vi_waffe_bleihammer: [50, 28000], // Seb 2026-11-13: Waffen bis 50, eine 50er mindestens 25.000
 };
 
 /** Artefakte Calderwick/Briarholt: echte Wirkungen statt Entwurfstext, stärker als die gängigen Dunscar-Zirkelartefakte. */
