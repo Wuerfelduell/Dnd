@@ -4,7 +4,7 @@ export const DS_ORTSKUNDIGE_EN = {
     gruss: 'A woman with a brass badge on her cap leans against an empty luggage cart. “Brack. I haven’t carried anything since nobody leaves any more. But I know where everything is.”',
     viertel: '“The terminus. Ticket window and timetable board up on the north wall, waiting benches down by the track. Everyone arrives here, and everyone gets stuck here. The notices hang in the north-west corner, that’s where you read who’s looking for whom.”',
     wege: '“North up the street to the Sleeper Ring, that’s Whistle’s dining car, your bed and your kettle. East out to the Signal Slope. The town map hangs here on the square if you want to be somewhere else quicker.”',
-    gefahr: '“Nobody does you any harm at the station itself, except Supervision if you’re wanted. The bad corners have a red light at the exit and a number on the sign. The higher the number, the fewer come back.”',
+    gefahr: '“Nobody does you any harm at the station itself. There are no police here, only the rock. The bad corners have a red light at the exit and a number on the sign. The higher the number, the fewer come back.”',
     gerede: '“The clock up there has no numerals. Still, everyone says it runs fast.”',
     gerede2: '“Since that business with the call, the town sleeps more restlessly. The rails hum at night, as if a train were coming. None comes.”',
     gott: '“Pale coat, calm hands? He arrived without a ticket and left without one. The ticket window bowed to him. I swear it, the shutter came down like a head.”',
