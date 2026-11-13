@@ -482,7 +482,7 @@ export const pathwayMethods = {
 
   // --- Unruhe ------------------------------------------------------------------------
   /** Ab Sequenz 5 steigt die Unruhe nur noch halb so stark (je Spieler, alle Pfade). */
-  unruheGainMult() { const q = this.pathway?.seq; return (q != null && q <= 5 ? UNRUHE_GAIN_HOCH : 1) * (this.activeBuffs?.() ?? []).filter((b) => b.key === 'unruhe_gain').reduce((m, b) => m * b.value, 1); }, // unruhe_gain: Geisterlaterne (0 = eine Minute keine neue Unruhe)
+  unruheGainMult() { const q = this.pathway?.seq; return (q != null && q <= 5 ? UNRUHE_GAIN_HOCH : 1) * [...(this.activeBuffs?.() ?? []), ...(this.gearEffects?.() ?? []).flat(), ...(this.artifactEffects?.() ?? []).flat()].filter((b) => b.key === 'unruhe_gain').reduce((m, b) => m * b.value, 1); }, // unruhe_gain: Geisterlaterne (0 = eine Minute keine neue Unruhe)
 
   setUnruhe(v) {
     const before = this.unruhe;

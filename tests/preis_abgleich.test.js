@@ -72,3 +72,18 @@ test('Geisterlaterne: eine Minute lang keine neue Unruhe, alter Preis', () => {
   const lose = Object.values(content.gatherings.circles).flatMap((c) => c.members.flatMap((m) => m.offers ?? [])).filter((e) => e.item === 'dsz_geisterlaterne');
   assert.ok(lose.length && lose.every((e) => e.price === 1500));
 });
+
+test('Pfirsichkern-Amulett: Unruhe steigt 30 % langsamer', () => {
+  const s = new GameState(content);
+  s.pathway = { id: 'eisen', seq: 6, digestion: 0 };
+  s.addItem('vi_amulett_pfirsichkern');
+  s.wear('vi_amulett_pfirsichkern');
+  s.setUnruhe(10);
+  assert.equal(Math.round(s.unruhe * 10) / 10, 7);
+});
+
+test('Vermesser-Zylinder wirkt auch auf den Treffen', async () => {
+  const src = (await import('node:fs')).readFileSync(new URL('../src/core/Auction.js', import.meta.url), 'utf8');
+  assert.ok(src.includes("req.price = Math.round(req.price * (this.passive?.('sell')"));
+  assert.ok(/e\.value \* \(lo \+ rng\(\) \* \(hi - lo\)\) \* sell/.test(src));
+});

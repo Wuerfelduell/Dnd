@@ -298,6 +298,7 @@ export const auctionMethods = {
     a.lot = null;
     const req = this.memberRequest(a.circle, a.cycle, a.members[a.turn]);
     if (!req) { this.nextTurn(); return; }
+    req.price = Math.round(req.price * (this.passive?.('sell') ?? 1)); // Erlös-Bonus gilt auch für Gesuche
     a.phase = 'request';
     a.request = req;
     this.say(`${this.memberName(req.member)} sucht ${this.item(req.item).name} und zahlt ${req.price} Schilling.`);
@@ -352,7 +353,8 @@ export const auctionMethods = {
     const rng = this.sessionRng(a.circle, a.cycle, `own:${itemId}:${a.sold.length}`);
     const lo = r.own_min ?? 0.55;
     const hi = r.own_max ?? 1.5;
-    const bids = a.members.map((m) => ({ member: m, price: rng() < 0.75 ? Math.round(e.value * (lo + rng() * (hi - lo))) : 0 }))
+    const sell = this.passive?.('sell') ?? 1; // Vermesser-Zylinder u. a.: höherer Erlös auch auf den Treffen
+    const bids = a.members.map((m) => ({ member: m, price: rng() < 0.75 ? Math.round(e.value * (lo + rng() * (hi - lo)) * sell) : 0 }))
       .filter((b) => b.price > 0).sort((x, y) => y.price - x.price);
     const it = this.item(itemId);
     if (it?.kind === 'formula' && it.seq <= 3) {
