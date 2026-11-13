@@ -29,6 +29,7 @@ import { applyDunscarSchlacke } from './dunscarSchlacke.js';
 import { applyDunscarStimmen } from './dunscarStimmen.js';
 import { applyKapitelAusgleich } from './kapitelAusgleich.js';
 import { applyHaendlerAbgleich } from './haendlerAbgleich.js';
+import { applyPreisAbgleich } from './preisAbgleich.js';
 // Fügt alle Inhaltsdateien zu einem Objekt zusammen (ohne JSON-Imports, damit Node-Tests es nutzen können).
 // Hinweise, Informationen, Schlussfolgerungen und Dialoge teilen sich jeweils einen Namensraum über alle Fälle.
 // factions.json (Sekten) bringt eigene Figuren, Reiseziele, Gegner, Beute, Aufträge und Hinweise mit.
@@ -126,6 +127,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyDunscarAnschlag(content); // Dunscar: Anschlagbrett (Jagden, Lieferungen, Spur des Alten) mit fester Verdauung für Seq 5→4
   applyUebergaenge(content); // Kapitelübergänge: Abschied, Reise und Ankunft Kettlegate→Wexmoor→Dunscar
   applyDunscarAusbau(content); // Dunscar: Gasthaus, Kalkapotheke, starke Heil-/Nerven-/Ruhemittel, möblierte Innenräume
+  applyPreisAbgleich(content); // Preise, Heilung, Nerven, Konzentration und Artefakte je Kapitel (nach Dunscar-Ausbau)
   applyDunscarKulisse(content); // Dunscar: Ausgänge nach Himmelsrichtung mit Schild, Rückkehr an der passenden Tür, Requisiten je Viertel
   applyNebelseite(content); // Codex DH: Spiegelkarten und verborgene Übergänge
   applyEigenesHaus(content); // Codex DG: Häuser in Wexmoor und Dunscar, Maklerin, Türen (nach der Kulisse, die Dunscar-Karten neu baut)

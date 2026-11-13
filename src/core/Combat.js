@@ -273,6 +273,11 @@ export class Combat {
     this.log = [];
     if (this.wardMult() < 1) this.log.push(`${enc.name} ist zu mächtig für dich: Ohne Sequenz ${enc.min_seq} prallt fast alles an ${enc.name.startsWith('Die ') ? 'ihr' : 'ihm'} ab.`);
     this.confused = false; // nächster gegnerischer Angriff trifft den Gegner selbst
+    // Kurglocke (Kapitel 4): gewöhnliche Gegner schlafen zu Beginn und setzen ihren ersten Zug aus.
+    if (!enc.boss && !enc.practice && [1, 2].some((n) => this.fighters[n] && state.withPlayer(n, () => state.passive('opening_stun'), { quiet: true }))) {
+      this.stunned = true;
+      this.log.push(`${enc.name} schläft beim ersten Ton der Glocke ein.`);
+    }
     this.burn = null; // { damage, rounds, source } Brand oder Gift
     // Menschliche Gegner (Sekten) haben Kniffe: Panzer, Schleier, Blutung, Einschüchterung
     this.enemyGuard = 0; // fängt Schaden am Gegner ab
@@ -603,6 +608,8 @@ export class Combat {
     }
     // Blitzpulver: grelles Licht, der Gegner setzt eine Runde aus
     if (it.stun && !this.outcome) { this.stunned = true; parts.push('geblendet'); }
+    // Konzentration aus Verbrauchsgütern (Rangiererkaffee, Terrassentee; Preisabgleich 2026-11-13)
+    if (it.ap && !this.outcome) { this.gainAp(it.ap); parts.push(`+${it.ap} Konzentration`); }
     const text = `${it.name}: ${parts.join(', ')}`;
     this.log.push(text);
     return { text };
