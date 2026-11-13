@@ -363,3 +363,19 @@ test('Meistertreffer: winziger Kern in jedem Taktbalken, stärker als Gold', asy
   assert.ok(GRADE_MULT.meister > GRADE_MULT.perfect && PRECISE_GRADE_MULT.meister > PRECISE_GRADE_MULT.perfect);
   assert.ok(isPerfectGrade('meister') && isPerfectGrade('perfect') && !isPerfectGrade('good'));
 });
+
+test('Laterne ab Seq 8: gegen nicht-okkulte Gegner nur 70 % Schaden, gegen Okkultes voll mit Bonus', async () => {
+  const { GameState } = await import('../src/core/GameState.js');
+  const { LATERNE_PROFAN_MULT } = await import('../src/core/Combat.js');
+  const content = (await import('./helpers.js')).loadContent();
+  const dmg = (pid, seq, occult) => {
+    const s = new GameState(content); s.addItem('dsz_rangiersaebel'); s.equip('dsz_rangiersaebel'); s.pathway = { id: pid, seq, digestion: 0 }; s.updateMaxHp();
+    const c = new Combat(s, 'schichtgaenger'); c.enemy.occult = occult; c.armor = 0;
+    return c.occultFactor();
+  };
+  assert.equal(LATERNE_PROFAN_MULT, 0.7);
+  assert.equal(dmg('laterne', 6, false), 0.7);
+  assert.equal(dmg('eisen', 6, false), 1);
+  assert.ok(dmg('laterne', 6, true) > 1, 'gegen Okkultes der Bonus');
+  assert.equal(dmg('laterne', 9, false), 1, 'Seq 9 noch ohne Spezialisierung');
+});
