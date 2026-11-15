@@ -13,6 +13,7 @@ import { applySeqHoch, addRitualformeln } from './seqHoch.js';
 import { applyAufstieg } from './aufstieg.js';
 import { applyCalderwickStory } from './calderwickStory.js';
 import { applyBriarholtStory } from './briarholtStory.js';
+import { applyPfadviertel } from './pfadviertel.js';
 import { applyMarloweTelegramm } from './marloweTelegramm.js';
 import { withFaehigkeiten } from './faehigkeiten.js';
 import { applyMoods } from './moods.js';
@@ -111,6 +112,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applySeqHoch(content); // Seq 3 bis 1: Rituale, Orte der Sequenz 3 mit den Formeln 3/2/1, Weltwandel-Gerede
   applyAufstieg(content); // Kapitel 4: Zug nach oben, Himmelsstadt (immer verbrannt), Sturz nach Calderwick
   applyCalderwickStory(content); // Kapitel 4 ausgebaut: Die Ernte der Gefallenen, Wetherby, Linie nach Briarholt
+  applyPfadviertel(content); // Calderwick-Pfadviertel: Herzkette je Pfad, Kernzutaten 2/1, Krämer mit Formel 3 (15.000) und Grundzutaten
   applyPfadHandel(content); // Pfad-Beyonder in Wexmoor: Zutaten für Seq 5/4, drei neue Einzelgänger, Laufplan
   applySchmuggel(content); // Kein Zurück nach Kettlegate: Zirkelware von dort in Zunders Schmuggelkiste
   applyMoods(content); // Paket AK: Stimmungen für Schlüsselstellen
