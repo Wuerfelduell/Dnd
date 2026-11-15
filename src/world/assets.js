@@ -1166,6 +1166,7 @@ export function playCaseAnim(sprite, sheet, then) {
 /** 16x16-Icon unter public/sprites/items/<id>.png (tests/sprites.test.js prüft, dass es zu jedem Item eins gibt). */
 /** Items ohne eigenes Bild (noch): Platzhalter aus einem ähnlichen Item. */
 export const ITEM_ICON_ALIASES = { // Paket AA/AB haben seit AJ eigene Symbole
+  k4s_akte_starling: 'sq_gegenakte', // Kapitel 4: Akte Starling (Klammer bindet sie)
   // Codex DI: Post-Beilagen ohne eigenes Bild leihen aus Reserve200 (Fotos haben eigene aus DM)
   post_schluessel_ohne_schloss: 'reserve200/fundstuecke/reserve_036_schluesselabdruck', post_leseblatt: 'reserve200/fundstuecke/reserve_021_zerrissener_brief',
   post_fragen_vor_der_erklaerung: 'reserve200/fundstuecke/reserve_030_brandbrief',
