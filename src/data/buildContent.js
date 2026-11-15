@@ -11,6 +11,8 @@ import { applySeq5 } from './seq5.js';
 import { applySeq4 } from './seq4.js';
 import { applySeqHoch, addRitualformeln } from './seqHoch.js';
 import { applyAufstieg } from './aufstieg.js';
+import { applyCalderwickStory } from './calderwickStory.js';
+import { applyBriarholtStory } from './briarholtStory.js';
 import { applyMarloweTelegramm } from './marloweTelegramm.js';
 import { withFaehigkeiten } from './faehigkeiten.js';
 import { applyMoods } from './moods.js';
@@ -108,12 +110,14 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applySeq4(content, packs.find((p) => p.seq4Dr)?.seq4Dr ?? null); // Seq-4-Rituale: zehn Halbgott-Prüfungen samt Wächter, Wurfflaschen, Relikt, Wexmoor-Einnahmen
   applySeqHoch(content); // Seq 3 bis 1: Rituale, Orte der Sequenz 3 mit den Formeln 3/2/1, Weltwandel-Gerede
   applyAufstieg(content); // Kapitel 4: Zug nach oben, Himmelsstadt (immer verbrannt), Sturz nach Calderwick
+  applyCalderwickStory(content); // Kapitel 4 ausgebaut: Die Ernte der Gefallenen, Wetherby, Linie nach Briarholt
   applyPfadHandel(content); // Pfad-Beyonder in Wexmoor: Zutaten für Seq 5/4, drei neue Einzelgänger, Laufplan
   applySchmuggel(content); // Kein Zurück nach Kettlegate: Zirkelware von dort in Zunders Schmuggelkiste
   applyMoods(content); // Paket AK: Stimmungen für Schlüsselstellen
   applyRelations(content, beziehungen, packs); // Beziehungen: Regeln, Vorlieben, Knoten-Wirkungen
   applyDunscarHaendler(content); // Dunscar: Waffen, Kleidung, Kräuter und Ankauf am Kalkmarkt (kein Zurück in alte Städte)
   applyBenannte(content); // Codex DJ: benannte Gegner auf den Grundgegnern, nachts in ihren Gebieten
+  applyBriarholtStory(content); // Kapitel 5 ausgebaut: Kur der Gefallenen, Briarholt auf Seq 3, Sammler der Linie (nach den benannten Gegnern)
   applyAltbeute(content); // Wexmoor-Monster tragen ab und zu Kettlegater Beute (kein Zurück dorthin)
   applyDunscarGebietsbosse(content); // Dunscar: je Gefahrengebiet ein frei stehender Gebietsboss wie in Wexmoor
   applyDunscarDichte(content); // Dunscar-Gefahrengebiete so dicht besetzt wie Wexmoor (vorher nur 3–4 Gegner)

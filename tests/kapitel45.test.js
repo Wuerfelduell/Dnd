@@ -174,8 +174,9 @@ test('Balance Kapitel 4/5: mit Ausrüstung der Stufe 4 und Sequenz 4 (Halbgott) 
   const normal = Object.entries(content.encounters).filter(([, e]) => e.wild && e.chapter >= 4 && !e.boss && !e.elite);
   assert.ok(normal.length >= 20);
   let won = 0;
-  for (const [id] of normal) {
-    const { result } = fight(geared(), id, { defend: EXPERT, skill: 'double', healBelow: 20 });
+  for (const [id, e] of normal) {
+    // Briarholt ist seit dem Ausbau (2026-11-15) Gebiet für Sequenz 3 (bh_seq3)
+    const { result } = fight(geared(e.bh_seq3 ? 3 : 4), id, { defend: EXPERT, skill: 'double', healBelow: 20 });
     if (result.outcome === 'won') won++;
   }
   assert.ok(won >= normal.length * 0.8, `nur ${won} von ${normal.length} Siege`);
