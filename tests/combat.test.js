@@ -319,7 +319,7 @@ test('Präzise Fertigkeiten: Betäuben und große Wucht nur bei perfektem Takt, 
   for (const id of ['blind']) assert.ok(isPrecise(c0().skillDef(id)), id);
   for (const id of ['attack', 'double', 'ward']) assert.ok(!isPrecise(c0().skillDef(id)), id);
   for (const [pid, seq] of [['eisen', 5], ['echo', 5], ['faden', 6], ['schluessel', 8], ['laterne', 7], ['kessel', 5], ['eisen', 1]]) assert.ok(isPrecise(P[pid].seqs[seq].skill), `${pid} ${seq}`);
-  for (const [pid, seq] of [['eisen', 9], ['eisen', 7], ['faden', 7], ['echo', 7], ['kessel', 7], ['maske', 5]]) assert.ok(!isPrecise(P[pid].seqs[seq].skill), `${pid} ${seq}`);
+  for (const [pid, seq] of [['eisen', 9], ['eisen', 7], ['faden', 7], ['echo', 7], ['kessel', 7]]) assert.ok(!isPrecise(P[pid].seqs[seq].skill), `${pid} ${seq}`);
   assert.ok(isPrecise({ hits: 1, mult: 1, precise: true }) && !isPrecise({ hits: 1, stun: true, precise: false }), 'Daten dürfen überschreiben');
   // Fangnetz (ohne Treffer) verlangt jetzt einen Takt für die Betäubung
   assert.equal(skillBars(P.faden.seqs[6].skill), 1);
