@@ -70,7 +70,7 @@ function himmelsEncounters(content) {
       intro: `Ein Halbgott des Pfades ${pn}, so alt wie eine Stadt. Er sieht dich an wie einen Gast, der den falschen Eingang genommen hat. „Noch einer von unten. Zeig, was du mitgebracht hast.“`,
     });
     out[`hs_heiliger_${pid}`] = himmelsGegner(`hs_heiliger_${pid}`, `${seqName(pid, 3)} der Höfe`, {
-      sheet: `hg_battle_${pid}`, tint: '#fff0c0', pathway: pid, hp: 180000, armor: 50,
+      sheet: `enemy_hs_heiliger_${pid}`, pathway: pid, hp: 180000, armor: 50,
       attacks: [schlag('Heiliges Urteil', 900, [1200], { unparryable: true }), schlag('Lichtkette', 520, [700, 1300, 1900]), schlag('Segen, der brennt', 1400, [2400])],
       intro: `Ein Heiliger des Pfades ${pn} unterbricht sein Gebet. „Ein Halbgott. Wie rührend. Hier oben bist du ein Kind mit einem Streichholz.“`,
     });

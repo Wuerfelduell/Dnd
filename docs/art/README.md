@@ -2197,3 +2197,28 @@ Geliefert von Grok (Paket GA Teil 4). Eingebaut: stille Gestalten bei Seq 1 auf 
 - Manifest: `public/sprites/manifest-seq31a.json`
 - [Vorschau](batch-seq31a-preview.png) · [Vorlage | neu](batch-seq31a-vorlage-neu.png) · [Prompts](batch-seq31a-generation.json) · [Prüfbericht](batch-seq31a-validation.json)
 - Export: `python3 tools/art/seq31a/export.py`, Prüfung: `python3 tools/art/seq31a/check.py --write` (Pillow, numpy, scipy)
+
+## Batch heilige – Heilige der Höfe (Seq 3), Kampfblätter
+
+Zehn Kampfblätter `battle/enemy_hs_heiliger_<pfad>.png` (laterne, faden, maske, echo, kessel, eisen, schluessel, sq_waage, sq_moor, sq_uhr).
+Raster, Reihen, Frameraten und Halteframes sind exakt die der Vorlage `battle/hg_battle_<pfad>.png` aus `manifest-halbgott.json`:
+576x576, 96x96, 6x6, Fußlinie 93, Halteframes attack1 7/8 und attack2 13/14. Inhalt ist die Halbgott-Gestalt eine Stufe weiter:
+ruhiger und heller, mit einem Heiligenschein aus dem Pfadsymbol und einem Gewand in der Pfadfarbe. Sie ersetzen den gelb getönten Halbgott (`#fff0c0`).
+
+- Je Pfad gibt es sieben Konzeptbilder: idle, attack1, strike, attack2, special, hurt, defeated. Der Style-Block aus CO 0.1 steht jedem Prompt voran.
+  Sie liegen in `heilige-raw/`; verworfene Fassungen heißen `try_*`.
+- Jeder Frame wird einzeln gesetzt. Grundlage ist eine Pose plus eine ganzzahlige Variante: Atemzeile, 1–2px Neigung oder ein Lichtpuls durch Umfärben.
+- Technik: ein Blockfaktor je Pfad, nur ganzzahlig NN, indizierte Palette, binäres Alpha, 1px Umriss `#1a1c2c`.
+- Palette: Halbgott-Palette plus Gewandtöne. Jedes Blatt hat höchstens 32 Farben, warmes Bein-Weiß und Türkis höchstens 0,3 %.
+- Blickrichtung: Die Vorlagen schauen nach rechts. Die Heiligen sind zellweise gespiegelt und schauen nach links (`facing: 'left'`).
+
+Figur-85%-Regel (hart, `check.py`): In jedem Frame muss die Kern-Box der Figur in Breite UND Höhe mindestens 85 % der Kern-Box
+desselben Vorlagen-Frames erreichen. Kern-Box heißt: binäres Öffnen 3x3, dann die größte Komponente; Vorlage und neu werden gleich behandelt.
+Füllmittel gibt es keine, also keinen Bodenschein, keine Lichtbögen und keine prozeduralen Formen. Wo ein Konzept zu schmal war, wurde ein breiteres erzeugt.
+Ergebnis: 360/360 Frames bestehen, Minimum B 0,851 und H 0,901.
+
+Geliefert von Grok (Paket GA Teil 5). Eingebaut: `BATTLE_SHEETS`/`ANIM_ALIASES` in `src/world/assets.js`, Heilige in `src/data/aufstieg.js` ohne Tönung.
+
+- Manifest: `public/sprites/manifest-heilige.json`
+- [Vorschau](batch-heilige-preview.png) · [Vorlage | neu](batch-heilige-vorlage-neu.png) · [Generierung](batch-heilige-generation.json) · [Prüfbericht](batch-heilige-validation.json)
+- Export: `python3 tools/art/heilige/export.py`, Prüfung: `python3 tools/art/heilige/check.py --write` (Pillow, numpy, scipy)
