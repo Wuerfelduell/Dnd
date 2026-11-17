@@ -31,7 +31,7 @@ export const LOHN = {
 export const FUND_CHANCE = { klein: 0.08, mittel: 0.05, gross: 0.03 };
 export const ARBEIT_NERVEN = 8;
 
-/** Gesuchte: Grafik und Stärke je Lohnstufe (Wexmoor-Niveau, gross = Boss mit Fluchtfrist). */
+/** Gesuchte: Basisgrafik (umgefärbt als enemy_<id>, tools/art/varianten/gegner.py) und Stärke je Lohnstufe (Wexmoor-Niveau, gross = Boss mit Fluchtfrist). */
 const GESUCHT_SHEET = {
   wxk_gleispluenderer: 'enemy_ez_schleusendieb', wxk_torfschneider: 'enemy_k3k_kupferdieb', wxk_salzfaelscher: 'enemy_falschgeldpraeger',
   wxk_bojenbrecher: 'enemy_kanalschmuggler', wxk_pfahlraeuber: 'enemy_pfandeintreiber', wxk_wattgaenger: 'enemy_vg_all_wegelagerer',
@@ -198,7 +198,7 @@ function applyEinnahmen(content, w) {
     const won = `won_${qid}`;
     const paid = `${qid}_bezahlt`;
     content.encounters[encId] = {
-      name, sprite: 'wild', sheet: GESUCHT_SHEET[encId] ?? 'enemy_kanalschmuggler', chapter: 2, city: true, fleeable: true, occult: false,
+      name, sprite: 'wild', sheet: GESUCHT_SHEET[encId] ? `enemy_${encId}` : 'enemy_kanalschmuggler', chapter: 2, city: true, fleeable: true, occult: false,
       hp: st.hp, armor: st.armor, ...(st.boss ? { boss: true } : {}),
       intro: `${k.summary.split('.')[0]}. ${k.gesuchter?.steckbrief ?? ''}`.trim(),
       attacks: st.attacks.map(([n, damage, hits, unparryable]) => ({ name: n, damage, hits, ...(unparryable ? { unparryable: true } : {}) })),
@@ -306,7 +306,7 @@ function applyGesindel(content) {
     if (!e) continue;
     const id = `wxs_${base}`;
     content.encounters[id] = {
-      ...e, name: g.name, sheet: `enemy_${base}`, chapter: 2, city: true, occult: false, fleeable: true,
+      ...e, name: g.name, sheet: `enemy_wxs_${base}`, chapter: 2, city: true, occult: false, fleeable: true,
       hp: Math.round(e.hp * f.hp),
       attacks: e.attacks.map((a) => ({ ...a, ...(a.damage ? { damage: Math.round(a.damage * f.dmg) } : {}), ...(a.action === 'heal' ? { value: Math.round(a.value * f.hp), text: `${a.text.split('+')[0]}+${Math.round(a.value * f.hp)} Leben.` } : {}) })),
       lose_to: { map: 'wx_kahn', spawn: 'default' }, lose_money: 0.1,

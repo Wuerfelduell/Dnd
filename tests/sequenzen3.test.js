@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
-import { AG_SKILL_FX, BATTLE_SHEETS, BATTLE_MANIFESTS, ANIM_SHEETS, pathwayEmblemUrl, pathwayCardUrl, ritualCardUrl, itemIconUrl, itemIcon32Url } from '../src/world/assets.js';
+import { AG_SKILL_FX, BATTLE_SHEETS, GEGNER_VARIANTEN, BATTLE_MANIFESTS, ANIM_SHEETS, pathwayEmblemUrl, pathwayCardUrl, ritualCardUrl, itemIconUrl, itemIcon32Url } from '../src/world/assets.js';
 import { loadContent } from './helpers.js';
 
 const content = loadContent();
@@ -50,6 +50,8 @@ test('Paket AG: Zutaten und Artefakte haben eigene Icons in 16 und 32', () => {
 test('Jedes Gegner-Kampfsheet hat seine Animationen in einem geladenen Manifest', () => {
   for (const [key, [file]] of Object.entries(BATTLE_SHEETS)) {
     if (!key.startsWith('enemy_') || !existsSync(sprite(file))) continue;
-    assert.ok(manifests.some((m) => m.assets.some((a) => (a.file === file || a.id === key) && a.animations)), key);
+    const base = GEGNER_VARIANTEN[key]; // Skript-Variante nutzt die Animationen ihres Basis-Sheets
+    const [k, f] = base ? [base, BATTLE_SHEETS[base][0]] : [key, file];
+    assert.ok(manifests.some((m) => m.assets.some((a) => (a.file === f || a.id === k) && a.animations)), key);
   }
 });

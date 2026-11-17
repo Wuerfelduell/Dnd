@@ -287,3 +287,89 @@ def sheet(images, cols, scale=3, bg=(40, 40, 48, 255), pad=2):
     for n, i in enumerate(images):
         out.alpha_composite(i, ((n % cols) * w + 1, (n // cols) * h + 1))
     return out.resize((out.width * scale, out.height * scale), Image.NEAREST)
+
+
+def is_skin(c):
+    h, s, v = colorsys.rgb_to_hsv(c[0] / 255, c[1] / 255, c[2] / 255)
+    return 0.02 <= h <= 0.12 and 0.2 <= s <= 0.62 and v >= 0.55
+
+
+def cloth(im, target, amount=0.75, min_sat=0.08, val=1.0):
+    """Kleidung umfärben: farbige Pixel zum Zielton ziehen, Haut und Umriss bleiben."""
+    th, ts, tv = colorsys.rgb_to_hsv(*(v / 255 for v in target))
+    def f(c, x, y):
+        if is_outline(c) or is_skin(c):
+            return c
+        h, s, v = colorsys.rgb_to_hsv(c[0] / 255, c[1] / 255, c[2] / 255)
+        if s < min_sat and v > 0.7:  # Weiß/Grau-Lichter bleiben
+            return c
+        ns = s + (ts - s) * amount
+        nv = min(1, (v + (tv - v) * amount * 0.35) * val)
+        r, g, b = colorsys.hsv_to_rgb(th, ns, nv)
+        return (round(r * 255), round(g * 255), round(b * 255), c[3])
+    return _map(im, f)
+
+
+def swap_top(target, donor, rows, fw=16, fh=32):
+    """Teiletausch: oberste `rows` Zeilen jedes Frames (Hut, Kapuze, Haare) aus einer anderen Figur übernehmen."""
+    out = target.copy()
+    for fy in range(0, target.height, fh):
+        for fx in range(0, target.width, fw):
+            for y in range(rows):
+                for x in range(fw):
+                    out.putpixel((fx + x, fy + y), donor.getpixel((fx + x, fy + y)))
+            # Übergang: Lücken in Zeile `rows` mit Spenderpixeln schließen
+            for x in range(fw):
+                if out.getpixel((fx + x, fy + rows))[3] == 0 and donor.getpixel((fx + x, fy + rows))[3]:
+                    out.putpixel((fx + x, fy + rows), donor.getpixel((fx + x, fy + rows)))
+    return out
+
+
+def _hsv(c):
+    return colorsys.rgb_to_hsv(c[0] / 255, c[1] / 255, c[2] / 255)
+
+
+def face_colors(im, fw=16, fh=32):
+    """Hautfarben aus dem Gesicht des ersten Frames (Blick nach vorn)."""
+    cols = set()
+    for y in range(int(fh * 0.12), int(fh * 0.42)):
+        for x in range(int(fw * 0.18), int(fw * 0.82)):
+            c = im.getpixel((x, y))
+            if c[3] and not is_outline(c):
+                h, s, v = _hsv(c)
+                if (h <= 0.14 or h >= 0.95) and 0.12 <= s <= 0.75 and v >= 0.42:
+                    cols.add(c[:3])
+    return cols
+
+
+def recolor_main(im, target, spread=0.09, keep=(), rank=0, val=1.0, sat=None, fw=16, fh=32):
+    """Hauptfarbe der Kleidung (häufigster Farbton am Körper) zum Ziel drehen; Haut, Umriss und `keep` bleiben."""
+    skin = face_colors(im, fw, fh) | set(keep)
+    hist = {}
+    for fy in range(0, im.height - fh + 1, fh):
+        for fx in range(0, im.width - fw + 1, fw):
+            for y in range(int(fh * 0.4), int(fh * 0.88)):
+                for x in range(fw):
+                    c = im.getpixel((fx + x, fy + y))
+                    if c[3] and not is_outline(c) and c[:3] not in skin:
+                        h, s, v = _hsv(c)
+                        if s >= 0.08:
+                            b = round(h * 24) % 24
+                            hist[b] = hist.get(b, 0) + 1
+    if not hist:
+        return im
+    main = sorted(hist, key=lambda b: -hist[b])[rank] / 24
+    th, ts, tv = _hsv(target)
+    def f(c, x, y):
+        if is_outline(c) or c[:3] in skin:
+            return c
+        h, s, v = _hsv(c)
+        d = min(abs(h - main), 1 - abs(h - main))
+        if s < 0.08 or d > spread:
+            return c
+        ns = ts if sat is None else min(1, s * sat)
+        ns = (s + ns) / 2 if sat is None else ns
+        nv = min(1, v * val * (0.6 + 0.8 * tv))
+        r, g, b = colorsys.hsv_to_rgb(th, ns, nv)
+        return (round(r * 255), round(g * 255), round(b * 255), c[3])
+    return _map(im, f)

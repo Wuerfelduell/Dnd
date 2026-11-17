@@ -1331,7 +1331,7 @@ export function battleSheetDef(scene, sheet) {
     const def = assets.find((a) => a.id === sheet && a.animations) ?? (file && assets.find((a) => a.file === file && a.animations));
     if (def) return def;
   }
-  return null;
+  return GEGNER_VARIANTEN[sheet] ? battleSheetDef(scene, GEGNER_VARIANTEN[sheet]) : null; // Skript-Variante: Animationen des Basis-Sheets
 }
 /** Paket F: Bosse nennen ihre Animationen anders als der Kampfablauf. */
 const ANIM_ALIASES = {
@@ -3018,7 +3018,7 @@ for (const id of ['ez_torfmutter', 'ez_schleusenuhr']) {
   SHEETS[`ph_${id}`] = `characters/ph_${id}_walk.png`;
   CHARACTER_SHEETS[`npc_${id}`] = `ph_${id}`;
 }
-Object.assign(ENCOUNTER_SHEETS, { ez_torfmutter: 'enemy_ez_ds_kalkbrennerin', ez_schleusenuhr: 'enemy_ez_ds_rangierer', wx_pfandleiherin: 'enemy_ez_ds_walzenstimme' });
+Object.assign(ENCOUNTER_SHEETS, { ez_torfmutter: 'enemy_ez_ds_kalkbrennerin', ez_schleusenuhr: 'enemy_ez_ds_rangierer', wx_pfandleiherin: 'enemy_wx_pfandleiherin' });
 /** Aufgaben-Gegenstände der Pfad-Beyonder: Leihbilder, bis eigene Icons kommen. */
 Object.assign(ITEM_ICON_ALIASES, { ph_torfprobe: 'torfbernstein', ph_hales_siegel: 'siegelring' });
 
@@ -3111,3 +3111,33 @@ export const EIGENE_ICONS = ['k2g_zeugenklammer', 'k2g_nachhallspule', 'k2g_kerb
   'ds_schlacke_glutperle', 'ds_schlacke_ofenherz', 'ds_schlacke_kronglas', 'ds_beute_messingmarke', 'ds_beute_signalsilber', 'ds_beute_schichtgold', 'ds_beute_kalkopal',
   ...['laterne', 'faden', 'maske', 'echo', 'kessel', 'eisen', 'schluessel', 'sq_waage', 'sq_moor', 'sq_uhr'].map((p) => `ritualformel_${p}_3`)];
 for (const id of EIGENE_ICONS) delete ITEM_ICON_ALIASES[id];
+
+/** Figuren, die bisher als Platzhalter-Kasten liefen: umgefärbte Codex-Figuren mit getauschten Mützen (tools/art/varianten/figuren.py). */
+export const SKRIPT_FIGUREN = ['dsg_wirtin', 'dsg_heizer', 'dsg_naeherin', 'dsa_apothekerin', 'dsa_lehrling', 'cwn_aufzugswaerter'];
+for (const id of SKRIPT_FIGUREN) {
+  SHEETS[id] = `characters/${id}_walk.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = id;
+}
+
+/** Menschliche Gegner ohne eigene Grafik: umgefärbte Codex-Gegner (tools/art/varianten/gegner.py). Neu → Basis-Sheet (Größe und Animationen). */
+export const GEGNER_VARIANTEN = {
+  enemy_wxs_laternendieb: 'enemy_laternendieb',
+  enemy_wxs_kanalschmuggler: 'enemy_kanalschmuggler',
+  enemy_wxs_nachtkraemer: 'enemy_nachtkraemer',
+  enemy_wxs_falschgeldpraeger: 'enemy_falschgeldpraeger',
+  enemy_wxk_gleispluenderer: 'enemy_ez_schleusendieb',
+  enemy_wxk_torfschneider: 'enemy_k3k_kupferdieb',
+  enemy_wxk_salzfaelscher: 'enemy_falschgeldpraeger',
+  enemy_wxk_bojenbrecher: 'enemy_kanalschmuggler',
+  enemy_wxk_pfahlraeuber: 'enemy_pfandeintreiber',
+  enemy_wxk_wattgaenger: 'enemy_vg_all_wegelagerer',
+  enemy_wxk_moorhehler: 'enemy_k3k_walzenhehler',
+  enemy_wxk_linsendieb: 'enemy_laternendieb',
+  enemy_wx_pfandleiherin: 'enemy_ez_ds_walzenstimme',
+  enemy_k5s_sammler: 'enemy_starling',
+};
+for (const [neu, base] of Object.entries(GEGNER_VARIANTEN)) {
+  BATTLE_SHEETS[neu] = [`battle/${neu}.png`, ...BATTLE_SHEETS[base].slice(1)];
+  if (ANIM_ALIASES[base]) ANIM_ALIASES[neu] = ANIM_ALIASES[base];
+  if (BATTLE_SHEET_SCALE[base]) BATTLE_SHEET_SCALE[neu] = BATTLE_SHEET_SCALE[base];
+}
