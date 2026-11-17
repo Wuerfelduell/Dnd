@@ -1390,14 +1390,36 @@
           "requires_conclusions": [
             "d9_falle"
           ]
+        },
+        "skip_if": {
+          "requires_flags": [
+            "starling_beaten"
+          ]
         }
       },
       {
         "text": "Stelle den Drahtzieher",
         "done": {
+          "requires_n_flags": {
+            "n": 1,
+            "of": [
+              "starling_beaten",
+              "case_09_closed"
+            ]
+          }
+        }
+      },
+      {
+        "text": "Tritt vor den Spiegel des Teleskops und entscheide",
+        "done": {
           "requires_flags": [
             "case_09_closed"
           ]
+        },
+        "target": {
+          "map": "sternwarte",
+          "id": "spiegel9",
+          "label": "Spiegel des Teleskops"
         }
       }
     ],

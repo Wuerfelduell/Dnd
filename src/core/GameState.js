@@ -994,6 +994,11 @@ export class GameState {
     this.loadPfadHandel(data);
     this.syncClock(); // Tag/Nacht folgt der Spielzeit, nicht dem Spielstand
     if (this.flags.has('kapitel1_done') && !this.flags.has('k2_arrived') && this.quest('k1_abreise') && this.quests.k1_abreise === undefined) this.startQuest('k1_abreise'); // alte Stände: Wegweiser zum Zug
+    // alte Stände: Kapitel 1 vorbei, aber die Fahrkarte fehlt (z. B. bei Spieler 2 gelandet) → ohne sie gibt es keinen Zug nach Wexmoor
+    if (this.flags.has('kapitel1_done') && !this.flags.has('k2_arrived') && this.item('fahrkarte_wexmoor') && !this.itemCount('fahrkarte_wexmoor')) {
+      if (this.p2?.inventory?.fahrkarte_wexmoor) delete this.p2.inventory.fahrkarte_wexmoor;
+      this.inventory.fahrkarte_wexmoor = 1;
+    }
     this.startBonusakteK2(); // alte Stände: Kapitel 2 fertig, aber noch kein Wegweiser nach Dunscar
     this.dunscarOffen(); // Seb 2026-11-12: Hör-Fährte gestrichen, Schichtbund offen
     this.calderwickOffen(); // Kapitel 4: Calderwick ohne Akte, alle Viertel offen

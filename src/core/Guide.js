@@ -251,7 +251,8 @@ export function questTarget(state, questId) {
   const c = state.content;
   const q = c.quests[questId];
   if (!q || state.quests[questId] !== 'active' || !journalQuestVisible(state, questId)) return null;
-  const step = (q.steps ?? []).find((s) => !state.meets(s.done));
+  // `skip_if`: ein Schritt (meist optional), der nicht mehr wichtig ist, sobald die Bedingung gilt (z. B. Fall 9 nach Starlings Sturz)
+  const step = (q.steps ?? []).find((s) => !state.meets(s.done) && !(s.skip_if && state.meets(s.skip_if)));
   if (!step) return null;
   const base = { quest: questId, step: step.text };
   const finish = (src) => finishTarget(state, base, src);
