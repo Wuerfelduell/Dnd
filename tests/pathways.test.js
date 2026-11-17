@@ -258,8 +258,8 @@ test('Verdauung ab Sequenz 6: jede Stufe zehnmal so langsam wie die davor', () =
   d.act('combat_win');
   const p1 = d.pathway.digestion;
   const p2 = d.withPlayer(2, () => d.pathway.digestion);
-  // Spieler 2 auf Sequenz 6 mit Bonus x3: 3/10 von Spieler 1 auf 7
-  assert.ok(p1 > 0 && Math.abs(p2 - p1 * 0.3) < 1e-9, `Koop: Spieler 2 auf Sequenz 6 (${p2}) mit Bonus x3 = 0,3x Spieler 1 auf 7 (${p1})`);
+  // Spieler 2 auf Sequenz 6 mit Bonus x2: 2/10 von Spieler 1 auf 7
+  assert.ok(p1 > 0 && Math.abs(p2 - p1 * 0.2) < 1e-9, `Koop: Spieler 2 auf Sequenz 6 (${p2}) mit Bonus x2 = 0,2x Spieler 1 auf 7 (${p1})`);
   // Niedrige Sequenzen: Spieler 2 verdaut genau wie Spieler 1; ab Sequenz 5 x30
   const e = new GameState(content);
   e.pathway = { id: 'eisen', seq: 8, digestion: 0 };
