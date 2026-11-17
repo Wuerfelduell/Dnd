@@ -521,11 +521,12 @@
         "name": "Zweite Haut",
         "cost": 2,
         "hits": 1,
-        "shield": 16,
+        "shield": 10,
         "nerves_gain": 10,
         "fx": "spiegelbild",
-        "desc": "Die zweite Maske fängt den Schlag und schlägt zurück. 120 % Waffenschaden, Schutz 16 und 10 Nerven zurück.",
-        "mult": 1.2
+        "desc": "Die zweite Maske fängt den Schlag und merkt sich, wie der Gegner sich bewegt. 120 % Waffenschaden, Schutz 10, 10 Nerven zurück, und deine nächste Fertigkeit trifft eine Stufe genauer.",
+        "mult": 1.2,
+        "focus": true
       },
       "welt": {
         "id": "unauffaellig",
@@ -545,12 +546,10 @@
         "hits": 2,
         "mult": 1.1,
         "confuse": true,
-        "weaken": [
-          0.8,
-          2
-        ],
         "fx": "maskenball",
-        "desc": "Zwei Schläge aus wechselnden Gesichtern. Der Gegner schlägt sich selbst und trifft 2 Runden lang 20 % schwächer."
+        "desc": "Zwei Schläge aus wechselnden Gesichtern, je 110 % Waffenschaden. Der Gegner schlägt sich selbst, sein nächster Angriff kommt langsam, und du gewinnst 1 Konzentration zurück.",
+        "slow": true,
+        "ap_gain": 1
       },
       "welt": {
         "id": "gastgesicht",
@@ -1934,7 +1933,8 @@
         "heal_all": 12,
         "shield_all": 6,
         "fx": "moor_stufe_6",
-        "desc": "Das Ufer hält dich und deine Begleitung. 12 Leben und Schutz 6 für jeden Stehenden."
+        "desc": "Das Ufer hält dich und deine Begleitung. 12 Leben und Schutz 6 für jeden Stehenden, deine Blutung versiegt.",
+        "cleanse": true
       },
       "welt": {
         "id": "moor_bodenhaftung",
@@ -1960,7 +1960,8 @@
         "weak": true,
         "evade": true,
         "fx": "moor_stufe_5",
-        "desc": "Du lässt eine Lücke, in die der Gegner fällt. Zwei Treffer mit je 10 Schaden, Schwachstelle offen, der nächste Angriff geht ins Leere."
+        "desc": "Du lässt eine Lücke, in die der Gegner fällt. Zwei Treffer mit je 10 Schaden, sein Panzer bricht, Schwachstelle offen, der nächste Angriff geht ins Leere.",
+        "guard_break": true
       },
       "welt": {
         "id": "moor_torfgedaechtnis",
