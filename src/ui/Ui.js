@@ -1340,7 +1340,7 @@ export class Ui {
     if (choice.gift) { this.openGift(); return; }
     if (choice.moor) { this.openMoor(); return; }
     if (choice.maske) { this.openMaske(); return; }
-    if (choice.repair) { const { onClose } = this.dialogue; this.dialogue = null; onClose?.(); this.openRepair(); return; }
+    if (choice.repair) { const { onClose } = this.dialogue; this.dialogue = null; onClose?.(); this.openRepair('', choice.repair === 'maud' ? 'maud' : 'flickerin'); return; }
     if (choice.shop || choice.vault || choice.expert || choice.auction || choice.signal_station) {
       const { onClose } = this.dialogue;
       this.dialogue = null;
@@ -2869,15 +2869,17 @@ export class Ui {
   // --- Revier: Asservatenkammer und Gutachterin ---------------------------------------
 
   /** Flickerin Hanne Saum auf den Dunscar-Treffen: korrumpierte Stücke beider Spieler für je 500 reparieren. */
-  openRepair(feedback = '') {
+  openRepair(feedback = '', who = 'flickerin') {
     const s = this.state;
-    const offers = s.repairOffers();
-    this.vault = offers.map((o) => ({ type: 'repair', id: o.id, player: o.player, disabled: !o.affordable }));
+    const offers = s.repairOffers(who);
+    this.vault = offers.map((o) => ({ type: 'repair', id: o.id, player: o.player, who, disabled: !o.affordable }));
+    const head = who === 'maud'
+      ? '<h3>Maud Keel <span class="muted">Pfandleiherin, flickt Korrumpiertes</span></h3>\n      <p class="lead">„Was das Andere angefressen hat, wiege ich aus. Kostet etwas mehr als bei den Ärzten in Kettlegate. Aber die sind weit weg.“</p>'
+      : '<h3>Hanne Saum <span class="muted">Flickerin der Zirkel</span></h3>\n      <p class="lead">„Was die Tentakel angefressen haben, nähe ich wieder zu. Fünfhundert das Stück, egal was es ist.“</p>';
     const rows = offers.map((o, i) => `<li class="item tainted"><div>${itemIcon(o.id)}<strong>${esc(o.name)}</strong> ${korrBadge()}${s.p2 ? ` <span class="muted">Spieler ${o.player}</span>` : ''}</div>
         <div><button class="small" data-vault="${i}" ${o.affordable ? '' : 'disabled'}><span class="key">${i + 1}</span> Reparieren · ${coin}${o.price}</button></div></li>`).join('');
     const el = this.open('vault', `
-      <h3>Hanne Saum <span class="muted">Flickerin der Zirkel</span></h3>
-      <p class="lead">„Was die Tentakel angefressen haben, nähe ich wieder zu. Fünfhundert das Stück, egal was es ist.“</p>
+      ${head}
       <ul class="items shoplist">${rows || '<li class="empty">Nichts Korrumpiertes dabei.</li>'}</ul>
       <div class="feedback">${feedback}</div>
       <div class="actions"><button data-act="close">Gehen <span class="key">Esc</span></button></div>`, 'notebook shop');
@@ -2913,8 +2915,8 @@ export class Ui {
       return;
     }
     if (e.type === 'repair') {
-      const r = this.state.repairAt(e.id, e.player);
-      this.openRepair(`<span class="${r.ok ? 'good' : ''}">${esc(r.text)}</span>`);
+      const r = this.state.repairAt(e.id, e.player, e.who);
+      this.openRepair(`<span class="${r.ok ? 'good' : ''}">${esc(r.text)}</span>`, e.who);
       return;
     }
     if (e.type === 'cleanse') {
