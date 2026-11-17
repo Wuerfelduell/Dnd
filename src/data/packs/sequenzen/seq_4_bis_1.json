@@ -23,7 +23,8 @@
             3
           ],
           "composure": 18,
-          "desc": "1 Treffer mit je 45 Grundschaden. Grundschaden gegen Okkultes verdoppelt. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. 3 Runden je 8 Folgeschaden; ersetzt vorhandenen Brand. Kostet vor Passiven 18 Nerven."
+          "desc": "1 Treffer mit je 45 Grundschaden. Grundschaden gegen Okkultes verdoppelt. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. 3 Runden je 8 Folgeschaden; ersetzt vorhandenen Brand. Bricht den Panzer. Kostet vor Passiven 18 Nerven.",
+          "guard_break": true
         },
         "passives": [
           {
@@ -80,7 +81,11 @@
             3
           ],
           "composure": 24,
-          "desc": "1 Treffer mit je 59 Grundschaden. Grundschaden gegen Okkultes verdoppelt. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. 3 Runden je 10 Folgeschaden; ersetzt vorhandenen Brand. Kostet vor Passiven 24 Nerven."
+          "desc": "1 Treffer mit je 59 Grundschaden. Grundschaden gegen Okkultes verdoppelt. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. 3 Runden je 10 Folgeschaden; ersetzt vorhandenen Brand. Der Gegner trifft 2 Runden lang 20 % schwächer. Kostet vor Passiven 24 Nerven.",
+          "weaken": [
+            0.8,
+            2
+          ]
         },
         "passives": [
           {
@@ -132,7 +137,8 @@
             3
           ],
           "composure": 32,
-          "desc": "1 Treffer mit je 76 Grundschaden. Grundschaden gegen Okkultes verdoppelt. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. 3 Runden je 13 Folgeschaden; ersetzt vorhandenen Brand. Kostet vor Passiven 32 Nerven."
+          "desc": "1 Treffer mit je 76 Grundschaden. Grundschaden gegen Okkultes verdoppelt. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. 3 Runden je 13 Folgeschaden; ersetzt vorhandenen Brand. Rüstung -2. Kostet vor Passiven 32 Nerven.",
+          "armor_break": 2
         },
         "passives": [
           {
@@ -184,7 +190,8 @@
             3
           ],
           "composure": 42,
-          "desc": "1 Treffer mit je 99 Grundschaden. Grundschaden gegen Okkultes verdoppelt. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. 3 Runden je 16 Folgeschaden; ersetzt vorhandenen Brand. Kostet vor Passiven 42 Nerven."
+          "desc": "1 Treffer mit je 99 Grundschaden. Grundschaden gegen Okkultes verdoppelt. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. 3 Runden je 16 Folgeschaden; ersetzt vorhandenen Brand. Deckt die Schwachstelle auf. Kostet vor Passiven 42 Nerven.",
+          "weak": true
         },
         "passives": [
           {
@@ -235,8 +242,9 @@
           "mult": 1.35,
           "sure": true,
           "weak": true,
-          "desc": "4 Treffer mit je 135 % Waffenschaden. Verfehlter Takt zählt als normaler Treffer. Deckt nach einem Treffer die Schwachstelle für weitere Angriffe auf. Kostet vor Passiven 18 Nerven.",
-          "composure": 18
+          "desc": "4 Treffer mit je 135 % Waffenschaden. Verfehlter Takt zählt als normaler Treffer. Deckt nach einem Treffer die Schwachstelle für weitere Angriffe auf. Den nächsten Angriff kannst du lesen und parieren. Kostet vor Passiven 18 Nerven.",
+          "composure": 18,
+          "read": true
         },
         "passives": [
           {
@@ -288,8 +296,9 @@
           "mult": 1.755,
           "sure": true,
           "weak": true,
-          "desc": "4 Treffer mit je 175.5 % Waffenschaden. Verfehlter Takt zählt als normaler Treffer. Deckt nach einem Treffer die Schwachstelle für weitere Angriffe auf. Kostet vor Passiven 24 Nerven.",
-          "composure": 24
+          "desc": "4 Treffer mit je 175.5 % Waffenschaden. Verfehlter Takt zählt als normaler Treffer. Deckt nach einem Treffer die Schwachstelle für weitere Angriffe auf. Der nächste Angriff des Gegners kommt langsam. Kostet vor Passiven 24 Nerven.",
+          "composure": 24,
+          "slow": true
         },
         "passives": [
           {
@@ -336,8 +345,9 @@
           "mult": 2.282,
           "sure": true,
           "weak": true,
-          "desc": "4 Treffer mit je 228.2 % Waffenschaden. Verfehlter Takt zählt als normaler Treffer. Deckt nach einem Treffer die Schwachstelle für weitere Angriffe auf. Kostet vor Passiven 32 Nerven.",
-          "composure": 32
+          "desc": "4 Treffer mit je 228.2 % Waffenschaden. Verfehlter Takt zählt als normaler Treffer. Deckt nach einem Treffer die Schwachstelle für weitere Angriffe auf. Die nächste Fertigkeit trifft eine Stufe genauer. Kostet vor Passiven 32 Nerven.",
+          "composure": 32,
+          "focus": true
         },
         "passives": [
           {
@@ -384,8 +394,9 @@
           "mult": 2.966,
           "sure": true,
           "weak": true,
-          "desc": "4 Treffer mit je 296.6 % Waffenschaden. Verfehlter Takt zählt als normaler Treffer. Deckt nach einem Treffer die Schwachstelle für weitere Angriffe auf. Kostet vor Passiven 42 Nerven.",
-          "composure": 42
+          "desc": "4 Treffer mit je 296.6 % Waffenschaden. Verfehlter Takt zählt als normaler Treffer. Deckt nach einem Treffer die Schwachstelle für weitere Angriffe auf. Durchschlägt Rüstung. Kostet vor Passiven 42 Nerven.",
+          "composure": 42,
+          "pierce": true
         },
         "passives": [
           {
@@ -436,8 +447,9 @@
           "mult": 2.2,
           "evade": true,
           "confuse": true,
-          "desc": "3 Treffer mit je 220 % Waffenschaden. Du weichst im nächsten Gegnerzug aus. Der nächste nicht ausgesetzte Gegnerzug trifft den Gegner selbst. Kostet vor Passiven 18 Nerven.",
-          "composure": 18
+          "desc": "3 Treffer mit je 220 % Waffenschaden. Du weichst im nächsten Gegnerzug aus. Der nächste nicht ausgesetzte Gegnerzug trifft den Gegner selbst. Menschen verlieren 20 Schilling an dich. Kostet vor Passiven 18 Nerven.",
+          "composure": 18,
+          "steal": 20
         },
         "passives": [
           {
@@ -489,8 +501,9 @@
           "mult": 2.85,
           "evade": true,
           "confuse": true,
-          "desc": "3 Treffer mit je 285 % Waffenschaden. Du weichst im nächsten Gegnerzug aus. Der nächste nicht ausgesetzte Gegnerzug trifft den Gegner selbst. Kostet vor Passiven 24 Nerven.",
-          "composure": 24
+          "desc": "3 Treffer mit je 285 % Waffenschaden. Du weichst im nächsten Gegnerzug aus. Der nächste nicht ausgesetzte Gegnerzug trifft den Gegner selbst. Der nächste Angriff des Gegners kommt langsam. Kostet vor Passiven 24 Nerven.",
+          "composure": 24,
+          "slow": true
         },
         "passives": [
           {
@@ -537,8 +550,9 @@
           "mult": 3.7,
           "evade": true,
           "confuse": true,
-          "desc": "3 Treffer mit je 370 % Waffenschaden. Du weichst im nächsten Gegnerzug aus. Der nächste nicht ausgesetzte Gegnerzug trifft den Gegner selbst. Kostet vor Passiven 32 Nerven.",
-          "composure": 32
+          "desc": "3 Treffer mit je 370 % Waffenschaden. Du weichst im nächsten Gegnerzug aus. Der nächste nicht ausgesetzte Gegnerzug trifft den Gegner selbst. Bricht den Panzer. Kostet vor Passiven 32 Nerven.",
+          "composure": 32,
+          "guard_break": true
         },
         "passives": [
           {
@@ -585,8 +599,12 @@
           "mult": 4.8,
           "evade": true,
           "confuse": true,
-          "desc": "3 Treffer mit je 480 % Waffenschaden. Du weichst im nächsten Gegnerzug aus. Der nächste nicht ausgesetzte Gegnerzug trifft den Gegner selbst. Kostet vor Passiven 42 Nerven.",
-          "composure": 42
+          "desc": "3 Treffer mit je 480 % Waffenschaden. Du weichst im nächsten Gegnerzug aus. Der nächste nicht ausgesetzte Gegnerzug trifft den Gegner selbst. Der Gegner trifft 2 Runden lang 30 % schwächer. Kostet vor Passiven 42 Nerven.",
+          "composure": 42,
+          "weaken": [
+            0.7,
+            2
+          ]
         },
         "passives": [
           {
@@ -638,7 +656,8 @@
           "drain": 0.6,
           "stun": true,
           "composure": 45,
-          "desc": "1 Treffer mit je 36 Grundschaden. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. Heilt 60 % des tatsächlich verursachten Direktschadens. Kostet vor Passiven 45 Nerven."
+          "desc": "1 Treffer mit je 36 Grundschaden. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. Heilt 60 % des tatsächlich verursachten Direktschadens. 10 Nerven zurück. Kostet vor Passiven 45 Nerven.",
+          "nerves_gain": 10
         },
         "passives": [
           {
@@ -691,7 +710,11 @@
           "drain": 0.6,
           "stun": true,
           "composure": 60,
-          "desc": "1 Treffer mit je 47 Grundschaden. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. Heilt 60 % des tatsächlich verursachten Direktschadens. Kostet vor Passiven 60 Nerven."
+          "desc": "1 Treffer mit je 47 Grundschaden. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. Heilt 60 % des tatsächlich verursachten Direktschadens. Der Gegner trifft 2 Runden lang 20 % schwächer. Kostet vor Passiven 60 Nerven.",
+          "weaken": [
+            0.8,
+            2
+          ]
         },
         "passives": [
           {
@@ -739,7 +762,8 @@
           "drain": 0.6,
           "stun": true,
           "composure": 80,
-          "desc": "1 Treffer mit je 61 Grundschaden. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. Heilt 60 % des tatsächlich verursachten Direktschadens. Kostet vor Passiven 80 Nerven."
+          "desc": "1 Treffer mit je 61 Grundschaden. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. Heilt 60 % des tatsächlich verursachten Direktschadens. Der Gegner schlägt beim nächsten Mal sich selbst. Kostet vor Passiven 80 Nerven.",
+          "confuse": true
         },
         "passives": [
           {
@@ -787,7 +811,8 @@
           "drain": 0.6,
           "stun": true,
           "composure": 105,
-          "desc": "1 Treffer mit je 79 Grundschaden. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. Heilt 60 % des tatsächlich verursachten Direktschadens. Kostet vor Passiven 105 Nerven."
+          "desc": "1 Treffer mit je 79 Grundschaden. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. Heilt 60 % des tatsächlich verursachten Direktschadens. 20 Leben für jeden Stehenden. Kostet vor Passiven 105 Nerven.",
+          "heal_all": 20
         },
         "passives": [
           {
@@ -841,8 +866,9 @@
             3
           ],
           "weak": true,
-          "desc": "2 Treffer mit je 18 Grundschaden. Deckt nach einem Treffer die Schwachstelle für weitere Angriffe auf. 3 Runden je 12 Folgeschaden; ersetzt vorhandenen Brand. Kostet vor Passiven 18 Nerven.",
-          "composure": 18
+          "desc": "2 Treffer mit je 18 Grundschaden. Deckt nach einem Treffer die Schwachstelle für weitere Angriffe auf. 3 Runden je 12 Folgeschaden; ersetzt vorhandenen Brand. Der nächste Angriff des Gegners kommt langsam. Kostet vor Passiven 18 Nerven.",
+          "composure": 18,
+          "slow": true
         },
         "passives": [
           {
@@ -897,8 +923,9 @@
             3
           ],
           "weak": true,
-          "desc": "2 Treffer mit je 23 Grundschaden. Deckt nach einem Treffer die Schwachstelle für weitere Angriffe auf. 3 Runden je 16 Folgeschaden; ersetzt vorhandenen Brand. Kostet vor Passiven 24 Nerven.",
-          "composure": 24
+          "desc": "2 Treffer mit je 23 Grundschaden. Deckt nach einem Treffer die Schwachstelle für weitere Angriffe auf. 3 Runden je 16 Folgeschaden; ersetzt vorhandenen Brand. Rüstung -2. Kostet vor Passiven 24 Nerven.",
+          "composure": 24,
+          "armor_break": 2
         },
         "passives": [
           {
@@ -948,8 +975,9 @@
             3
           ],
           "weak": true,
-          "desc": "2 Treffer mit je 30 Grundschaden. Deckt nach einem Treffer die Schwachstelle für weitere Angriffe auf. 3 Runden je 20 Folgeschaden; ersetzt vorhandenen Brand. Kostet vor Passiven 32 Nerven.",
-          "composure": 32
+          "desc": "2 Treffer mit je 30 Grundschaden. Deckt nach einem Treffer die Schwachstelle für weitere Angriffe auf. 3 Runden je 20 Folgeschaden; ersetzt vorhandenen Brand. Brand hält 1 Runde länger. Kostet vor Passiven 32 Nerven.",
+          "composure": 32,
+          "extend_burn": 1
         },
         "passives": [
           {
@@ -999,8 +1027,12 @@
             3
           ],
           "weak": true,
-          "desc": "2 Treffer mit je 40 Grundschaden. Deckt nach einem Treffer die Schwachstelle für weitere Angriffe auf. 3 Runden je 26 Folgeschaden; ersetzt vorhandenen Brand. Kostet vor Passiven 42 Nerven.",
-          "composure": 42
+          "desc": "2 Treffer mit je 40 Grundschaden. Deckt nach einem Treffer die Schwachstelle für weitere Angriffe auf. 3 Runden je 26 Folgeschaden; ersetzt vorhandenen Brand. Der Gegner trifft 2 Runden lang 30 % schwächer. Kostet vor Passiven 42 Nerven.",
+          "composure": 42,
+          "weaken": [
+            0.7,
+            2
+          ]
         },
         "passives": [
           {
@@ -1050,8 +1082,9 @@
           "hits": 2,
           "mult": 3.3,
           "stun": true,
-          "desc": "2 Treffer mit je 330 % Waffenschaden. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. Kostet vor Passiven 18 Nerven.",
-          "composure": 18
+          "desc": "2 Treffer mit je 330 % Waffenschaden. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. Rüstung -2. Kostet vor Passiven 18 Nerven.",
+          "composure": 18,
+          "armor_break": 2
         },
         "passives": [
           {
@@ -1102,8 +1135,9 @@
           "hits": 2,
           "mult": 4.29,
           "stun": true,
-          "desc": "2 Treffer mit je 429 % Waffenschaden. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. Kostet vor Passiven 24 Nerven.",
-          "composure": 24
+          "desc": "2 Treffer mit je 429 % Waffenschaden. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. Bricht den Panzer. Kostet vor Passiven 24 Nerven.",
+          "composure": 24,
+          "guard_break": true
         },
         "passives": [
           {
@@ -1149,8 +1183,9 @@
           "hits": 2,
           "mult": 5.577,
           "stun": true,
-          "desc": "2 Treffer mit je 557.7 % Waffenschaden. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. Kostet vor Passiven 32 Nerven.",
-          "composure": 32
+          "desc": "2 Treffer mit je 557.7 % Waffenschaden. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. Schutz 30. Kostet vor Passiven 32 Nerven.",
+          "composure": 32,
+          "shield": 30
         },
         "passives": [
           {
@@ -1196,8 +1231,9 @@
           "hits": 2,
           "mult": 7.25,
           "stun": true,
-          "desc": "2 Treffer mit je 725 % Waffenschaden. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. Kostet vor Passiven 42 Nerven.",
-          "composure": 42
+          "desc": "2 Treffer mit je 725 % Waffenschaden. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. Durchschlägt Rüstung. Kostet vor Passiven 42 Nerven.",
+          "composure": 42,
+          "pierce": true
         },
         "passives": [
           {
@@ -1248,8 +1284,9 @@
           "mult": 2.1,
           "sure": true,
           "evade": true,
-          "desc": "3 Treffer mit je 210 % Waffenschaden. Verfehlter Takt zählt als normaler Treffer. Du weichst im nächsten Gegnerzug aus. Kostet vor Passiven 18 Nerven.",
-          "composure": 18
+          "desc": "3 Treffer mit je 210 % Waffenschaden. Verfehlter Takt zählt als normaler Treffer. Du weichst im nächsten Gegnerzug aus. Menschen verlieren 20 Schilling an dich. Kostet vor Passiven 18 Nerven.",
+          "composure": 18,
+          "steal": 20
         },
         "passives": [
           {
@@ -1301,8 +1338,9 @@
           "mult": 2.73,
           "sure": true,
           "evade": true,
-          "desc": "3 Treffer mit je 273 % Waffenschaden. Verfehlter Takt zählt als normaler Treffer. Du weichst im nächsten Gegnerzug aus. Kostet vor Passiven 24 Nerven.",
-          "composure": 24
+          "desc": "3 Treffer mit je 273 % Waffenschaden. Verfehlter Takt zählt als normaler Treffer. Du weichst im nächsten Gegnerzug aus. Bricht den Panzer. Kostet vor Passiven 24 Nerven.",
+          "composure": 24,
+          "guard_break": true
         },
         "passives": [
           {
@@ -1349,8 +1387,9 @@
           "mult": 3.549,
           "sure": true,
           "evade": true,
-          "desc": "3 Treffer mit je 354.9 % Waffenschaden. Verfehlter Takt zählt als normaler Treffer. Du weichst im nächsten Gegnerzug aus. Kostet vor Passiven 32 Nerven.",
-          "composure": 32
+          "desc": "3 Treffer mit je 354.9 % Waffenschaden. Verfehlter Takt zählt als normaler Treffer. Du weichst im nächsten Gegnerzug aus. Durchschlägt Rüstung. Kostet vor Passiven 32 Nerven.",
+          "composure": 32,
+          "pierce": true
         },
         "passives": [
           {
@@ -1397,8 +1436,9 @@
           "mult": 4.614,
           "sure": true,
           "evade": true,
-          "desc": "3 Treffer mit je 461.4 % Waffenschaden. Verfehlter Takt zählt als normaler Treffer. Du weichst im nächsten Gegnerzug aus. Kostet vor Passiven 42 Nerven.",
-          "composure": 42
+          "desc": "3 Treffer mit je 461.4 % Waffenschaden. Verfehlter Takt zählt als normaler Treffer. Du weichst im nächsten Gegnerzug aus. +2 Konzentration. Kostet vor Passiven 42 Nerven.",
+          "composure": 42,
+          "ap_gain": 2
         },
         "passives": [
           {

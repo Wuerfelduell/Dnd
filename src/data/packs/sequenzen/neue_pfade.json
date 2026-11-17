@@ -60,7 +60,8 @@
           "hits": 1,
           "flat": 10,
           "shield": 6,
-          "desc": "1 Treffer mit je 10 Grundschaden. Gewährt 6 Schutz."
+          "desc": "1 Treffer mit je 10 Grundschaden. Gewährt 6 Schutz. Menschen verlieren 8 Schilling an dich.",
+          "steal": 8
         },
         "passives": [
           {
@@ -90,7 +91,8 @@
           "hits": 2,
           "flat": 8,
           "shield": 8,
-          "desc": "2 Treffer mit je 8 Grundschaden. Gewährt 8 Schutz."
+          "desc": "2 Treffer mit je 8 Grundschaden. Gewährt 8 Schutz. Bricht den Panzer.",
+          "guard_break": true
         },
         "passives": [
           {
@@ -130,7 +132,8 @@
           "hits": 2,
           "flat": 10,
           "shield": 10,
-          "desc": "2 Treffer mit je 10 Grundschaden. Gewährt 10 Schutz."
+          "desc": "2 Treffer mit je 10 Grundschaden. Gewährt 10 Schutz. Den nächsten Angriff kannst du lesen und parieren.",
+          "read": true
         },
         "passives": [
           {
@@ -182,7 +185,8 @@
           "flat": 13,
           "shield": 12,
           "composure": 10,
-          "desc": "2 Treffer mit je 13 Grundschaden. Gewährt 12 Schutz. Kostet vor Passiven 10 Nerven."
+          "desc": "2 Treffer mit je 13 Grundschaden. Gewährt 12 Schutz. Deckt die Schwachstelle auf. Kostet vor Passiven 10 Nerven.",
+          "weak": true
         },
         "passives": [
           {
@@ -237,7 +241,11 @@
           "flat": 20,
           "shield": 18,
           "composure": 18,
-          "desc": "2 Treffer mit je 20 Grundschaden. Gewährt 18 Schutz. Kostet vor Passiven 18 Nerven."
+          "desc": "2 Treffer mit je 20 Grundschaden. Gewährt 18 Schutz. Der Gegner trifft 2 Runden lang 20 % schwächer. Kostet vor Passiven 18 Nerven.",
+          "weaken": [
+            0.8,
+            2
+          ]
         },
         "passives": [
           {
@@ -289,7 +297,8 @@
           "flat": 25,
           "shield": 23,
           "composure": 24,
-          "desc": "2 Treffer mit je 25 Grundschaden. Gewährt 23 Schutz. Kostet vor Passiven 24 Nerven."
+          "desc": "2 Treffer mit je 25 Grundschaden. Gewährt 23 Schutz. Menschen verlieren 30 Schilling an dich. Kostet vor Passiven 24 Nerven.",
+          "steal": 30
         },
         "passives": [
           {
@@ -336,7 +345,8 @@
           "flat": 33,
           "shield": 30,
           "composure": 32,
-          "desc": "2 Treffer mit je 33 Grundschaden. Gewährt 30 Schutz. Kostet vor Passiven 32 Nerven."
+          "desc": "2 Treffer mit je 33 Grundschaden. Gewährt 30 Schutz. Schutz 15 für jeden Stehenden. Kostet vor Passiven 32 Nerven.",
+          "shield_all": 15
         },
         "passives": [
           {
@@ -383,7 +393,8 @@
           "flat": 43,
           "shield": 40,
           "composure": 42,
-          "desc": "2 Treffer mit je 43 Grundschaden. Gewährt 40 Schutz. Kostet vor Passiven 42 Nerven."
+          "desc": "2 Treffer mit je 43 Grundschaden. Gewährt 40 Schutz. Den nächsten Angriff kannst du lesen und parieren. Kostet vor Passiven 42 Nerven.",
+          "read": true
         },
         "passives": [
           {
@@ -661,7 +672,11 @@
           "flat": 30,
           "heal": 26,
           "composure": 18,
-          "desc": "2 Treffer mit je 30 Grundschaden. Heilt 26 Leben. Kostet vor Passiven 18 Nerven."
+          "desc": "2 Treffer mit je 30 Grundschaden. Heilt 26 Leben. Gift: 3 Runden je 16 Schaden. Kostet vor Passiven 18 Nerven.",
+          "burn": [
+            16,
+            3
+          ]
         },
         "passives": [
           {
@@ -713,7 +728,8 @@
           "flat": 39,
           "heal": 34,
           "composure": 24,
-          "desc": "2 Treffer mit je 39 Grundschaden. Heilt 34 Leben. Kostet vor Passiven 24 Nerven."
+          "desc": "2 Treffer mit je 39 Grundschaden. Heilt 34 Leben. Deckt die Schwachstelle auf. Kostet vor Passiven 24 Nerven.",
+          "weak": true
         },
         "passives": [
           {
@@ -760,7 +776,8 @@
           "flat": 51,
           "heal": 44,
           "composure": 32,
-          "desc": "2 Treffer mit je 51 Grundschaden. Heilt 44 Leben. Kostet vor Passiven 32 Nerven."
+          "desc": "2 Treffer mit je 51 Grundschaden. Heilt 44 Leben. Der nächste Angriff des Gegners kommt langsam. Kostet vor Passiven 32 Nerven.",
+          "slow": true
         },
         "passives": [
           {
@@ -807,7 +824,8 @@
           "flat": 66,
           "heal": 57,
           "composure": 42,
-          "desc": "2 Treffer mit je 66 Grundschaden. Heilt 57 Leben. Kostet vor Passiven 42 Nerven."
+          "desc": "2 Treffer mit je 66 Grundschaden. Heilt 57 Leben. Schutz 20 für jeden Stehenden. Kostet vor Passiven 42 Nerven.",
+          "shield_all": 20
         },
         "passives": [
           {
@@ -930,7 +948,8 @@
           "hits": 2,
           "flat": 8,
           "sure": true,
-          "desc": "2 Treffer mit je 8 Grundschaden. Verfehlter Takt zählt als normaler Treffer."
+          "desc": "2 Treffer mit je 8 Grundschaden. Verfehlter Takt zählt als normaler Treffer. Der nächste Angriff des Gegners kommt langsam.",
+          "slow": true
         },
         "passives": [
           {
@@ -970,7 +989,8 @@
           "hits": 2,
           "flat": 10,
           "evade": true,
-          "desc": "2 Treffer mit je 10 Grundschaden. Du weichst im nächsten Gegnerzug aus."
+          "desc": "2 Treffer mit je 10 Grundschaden. Du weichst im nächsten Gegnerzug aus. +1 Konzentration.",
+          "ap_gain": 1
         },
         "passives": [
           {
@@ -1023,7 +1043,8 @@
           "sure": true,
           "evade": true,
           "composure": 10,
-          "desc": "2 Treffer mit je 13 Grundschaden. Verfehlter Takt zählt als normaler Treffer. Du weichst im nächsten Gegnerzug aus. Kostet vor Passiven 10 Nerven."
+          "desc": "2 Treffer mit je 13 Grundschaden. Verfehlter Takt zählt als normaler Treffer. Du weichst im nächsten Gegnerzug aus. Den nächsten Angriff kannst du lesen und parieren. Kostet vor Passiven 10 Nerven.",
+          "read": true
         },
         "passives": [
           {
@@ -1080,7 +1101,8 @@
           "sure": true,
           "evade": true,
           "composure": 18,
-          "desc": "2 Treffer mit je 20 Grundschaden. Verfehlter Takt zählt als normaler Treffer. Du weichst im nächsten Gegnerzug aus. Kostet vor Passiven 18 Nerven."
+          "desc": "2 Treffer mit je 20 Grundschaden. Verfehlter Takt zählt als normaler Treffer. Du weichst im nächsten Gegnerzug aus. Der nächste Angriff des Gegners kommt langsam. Kostet vor Passiven 18 Nerven.",
+          "slow": true
         },
         "passives": [
           {
@@ -1133,7 +1155,8 @@
           "sure": true,
           "evade": true,
           "composure": 24,
-          "desc": "2 Treffer mit je 25 Grundschaden. Verfehlter Takt zählt als normaler Treffer. Du weichst im nächsten Gegnerzug aus. Kostet vor Passiven 24 Nerven."
+          "desc": "2 Treffer mit je 25 Grundschaden. Verfehlter Takt zählt als normaler Treffer. Du weichst im nächsten Gegnerzug aus. Den nächsten Angriff kannst du lesen und parieren. Kostet vor Passiven 24 Nerven.",
+          "read": true
         },
         "passives": [
           {
@@ -1181,7 +1204,8 @@
           "sure": true,
           "evade": true,
           "composure": 32,
-          "desc": "2 Treffer mit je 33 Grundschaden. Verfehlter Takt zählt als normaler Treffer. Du weichst im nächsten Gegnerzug aus. Kostet vor Passiven 32 Nerven."
+          "desc": "2 Treffer mit je 33 Grundschaden. Verfehlter Takt zählt als normaler Treffer. Du weichst im nächsten Gegnerzug aus. Die nächste Fertigkeit trifft eine Stufe genauer. Kostet vor Passiven 32 Nerven.",
+          "focus": true
         },
         "passives": [
           {
@@ -1229,7 +1253,8 @@
           "sure": true,
           "evade": true,
           "composure": 42,
-          "desc": "2 Treffer mit je 43 Grundschaden. Verfehlter Takt zählt als normaler Treffer. Du weichst im nächsten Gegnerzug aus. Kostet vor Passiven 42 Nerven."
+          "desc": "2 Treffer mit je 43 Grundschaden. Verfehlter Takt zählt als normaler Treffer. Du weichst im nächsten Gegnerzug aus. +2 Konzentration. Kostet vor Passiven 42 Nerven.",
+          "ap_gain": 2
         },
         "passives": [
           {
