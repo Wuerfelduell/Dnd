@@ -1,6 +1,5 @@
 // Hauptzutaten als seltene Monsterbeute (Seb, 2026-11-17): Jede Hauptzutat hat genau EIN Monster, das sie tragen kann.
-//  - Kettlegate (Marsch, Katakomben, Pestgassen, Kraterwald): Sequenz 7, je ein normaler Gegner (und seine Elite) 3 %,
-//    Puppenaugen 5 % (Sebs eigener Wert).
+//  - Kettlegate (Marsch, Katakomben, Pestgassen, Kraterwald): Sequenz 7, je ein normaler Gegner (und seine Elite) 8 % (Seb, vorher 3 %).
 //  - Wexmoor: Sequenz 6 je eine Elite 8 %, Sequenz 5 je eine Elite 1 %.
 // Andere Gegner dieser Gebiete verlieren ihre bisherigen Drops dieser Zutaten; Bosse (einmalig) behalten ihre.
 // Formeln stehen ohnehin nie in der Beute-Anzeige (hiddenLoot in core/Loot.js).
@@ -9,10 +8,10 @@ export const KG_ZONES = ['marsch', 'katakomben', 'pestgassen', 'kraterwald'];
 
 /** Zutat → [Gegner, Chance]. Kettlegate: Gegner samt `_elite`; Wexmoor: nur die genannte Elite. */
 export const KG_SEQ7 = {
-  sternglas: ['glaskraehe', 0.03], sternschlacke: ['kraterbrut', 0.03], spiegelquecksilber: ['splitterling', 0.03],
-  seufzerstein: ['schaedelschwarm', 0.03], puppenglas: ['schnabelmaske', 0.05], schwarzbernstein: ['schlammegel', 0.03],
-  nachtfalterstaub: ['kerzenfresser', 0.03], sq_zutat_waage_7: ['pestratte', 0.03], sq_zutat_moor_7: ['moorleiche', 0.03],
-  sq_zutat_uhr_7: ['knochenwurm', 0.03],
+  sternglas: ['glaskraehe', 0.08], sternschlacke: ['kraterbrut', 0.08], spiegelquecksilber: ['splitterling', 0.08],
+  seufzerstein: ['schaedelschwarm', 0.08], puppenglas: ['schnabelmaske', 0.08], schwarzbernstein: ['schlammegel', 0.08],
+  nachtfalterstaub: ['kerzenfresser', 0.08], sq_zutat_waage_7: ['pestratte', 0.08], sq_zutat_moor_7: ['moorleiche', 0.08],
+  sq_zutat_uhr_7: ['knochenwurm', 0.08],
 };
 export const WX_SEQ6 = {
   flammenkern: 'lichtbrut_elite', knotengarn: 'reetmann_elite', spiegelwachs: 'ratsherr_elite', glockenerz: 'bojenglocke_elite',

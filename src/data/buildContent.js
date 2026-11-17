@@ -124,7 +124,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyBenannte(content); // Codex DJ: benannte Gegner auf den Grundgegnern, nachts in ihren Gebieten
   applyBriarholtStory(content); // Kapitel 5 ausgebaut: Kur der Gefallenen, Briarholt auf Seq 3, Sammler der Linie (nach den benannten Gegnern)
   applyAltbeute(content); // Wexmoor-Monster tragen ab und zu Kettlegater Beute (kein Zurück dorthin)
-  applyZutatDrops(content); // Hauptzutaten: je genau ein Monster (Kettlegate Seq 7 3 %, Wexmoor-Eliten Seq 6 8 % / Seq 5 1 %)
+  applyZutatDrops(content); // Hauptzutaten: je genau ein Monster (Kettlegate Seq 7 8 %, Wexmoor-Eliten Seq 6 8 % / Seq 5 1 %)
   applyDunscarGebietsbosse(content); // Dunscar: je Gefahrengebiet ein frei stehender Gebietsboss wie in Wexmoor
   applyDunscarDichte(content); // Dunscar-Gefahrengebiete so dicht besetzt wie Wexmoor (vorher nur 3–4 Gegner)
   applyDunscarSchlacke(content); // Dunscar: Schlackengrube (Stufe 7) mit harten Farmgegnern, Mittelbossen und reicher Beute
