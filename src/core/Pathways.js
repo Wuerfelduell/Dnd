@@ -38,8 +38,8 @@ export const DIGEST_RATE = { 9: 1, 8: 0.7, 7: 0.5, 6: 0.05, 5: 0.005, 4: 0.0005,
 export const UNRUHE_GAIN_HOCH = 0.5;
 /** Spieler 2 verdaut ab Sequenz 5 dreißigmal schneller (Seb 2026-11-12: erst x10, dann nochmal x3). */
 export const P2_DIGEST_MULT = 30;
-/** Bonus für Spieler 2 je Sequenz (Seb 2026-11-17): bis Sequenz 7 wie Spieler 1, auf 6 leicht, erst ab 5 voll. */
-export const P2_DIGEST_BY_SEQ = { 9: 1, 8: 1, 7: 1, 6: 3 };
+/** Bonus für Spieler 2 je Sequenz (Seb 2026-11-17): bis Sequenz 7 wie Spieler 1, auf 6 x2, erst ab 5 voll. */
+export const P2_DIGEST_BY_SEQ = { 9: 1, 8: 1, 7: 1, 6: 2 };
 export const p2DigestFor = (seq) => P2_DIGEST_BY_SEQ[seq] ?? P2_DIGEST_MULT;
 export function digestSlowdown(seq) { return Math.min(1, (DIGEST_RATE[seq] ?? DIGEST_RATE[1]) / DIGEST_RATE[7]); }
 /** Prozentwert fürs Auge: große Werte mit einer Nachkommastelle, winzige mit zwei gültigen Ziffern. */
