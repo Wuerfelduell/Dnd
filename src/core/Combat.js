@@ -193,6 +193,9 @@ export function duoHpMult(state) {
   return 1 + share;
 }
 
+/** Pfade, deren Einzelheilung im Koop auch den Partner treffen kann (Seb 2026-11-17: Moor). */
+export const HEAL_TARGET_PATHS = new Set(['sq_moor']);
+
 export class Combat {
   constructor(state, encounterId) {
     let enc = state.content.encounters[encounterId];
@@ -497,7 +500,26 @@ export class Combat {
    * Ergebnis: { hits: [{grade, damage}], total, stunned }
    */
   useSkill(skillId, grades = []) {
-    return this.on(this.actor, () => this.useSkillNow(skillId, grades));
+    try {
+      return this.on(this.actor, () => this.useSkillNow(skillId, grades));
+    } finally {
+      this.healTarget = null; // Heilziel gilt nur für diese eine Fertigkeit
+    }
+  }
+
+  /** Stehender Mitspieler des Handelnden (Koop), sonst null. */
+  partnerOf(n = this.actor) {
+    return this.duo ? this.standing().find((m) => m !== n) ?? null : null;
+  }
+
+  /**
+   * Koop: Heilt die Fertigkeit genau ein Ziel (`heal`, nicht Lebensraub), darf der Moor-Pfad wählen, wen sie heilt.
+   * Solo oder liegender Partner: keine Wahl, es heilt wie immer einen selbst.
+   */
+  canChooseHealTarget(skillId) {
+    const sk = this.skillDef(skillId);
+    if (!sk?.heal || this.partnerOf() === null) return false;
+    return HEAL_TARGET_PATHS.has(this.on(this.actor, () => this.state.pathway?.id));
   }
 
   useSkillNow(skillId, grades) {
@@ -568,7 +590,12 @@ export class Combat {
     }
     if (precise && !stunned && !stunMissed && hits.length && !graded.some(isPerfectGrade)) effects.push('ungenau, nur ein Bruchteil der Wucht');
     if (sk.weak && landed && !this.weak) { this.weak = true; effects.push('Schwachstelle erkannt'); }
-    if (sk.heal) effects.push(`+${this.state.heal(sk.heal)} Leben`);
+    if (sk.heal) {
+      // Moor im Koop: Heilung auf den Partner gelenkt (healTarget aus der Zielwahl im Menü)
+      const toPartner = this.healTarget && this.healTarget !== this.actor && this.partnerOf() === this.healTarget;
+      if (toPartner) effects.push(`+${this.state.withPartner(() => this.state.heal(sk.heal)) ?? 0} Leben für Spieler ${this.healTarget}`);
+      else effects.push(`+${this.state.heal(sk.heal)} Leben`);
+    }
     if (sk.drain && total) effects.push(`+${this.state.heal(Math.round(total * sk.drain))} Leben`);
     if (sk.shield) { this.shield += sk.shield; effects.push(`Schutz ${this.shield}`); }
     if (sk.evade) { this.evading = true; effects.push('nächster Angriff geht ins Leere'); }

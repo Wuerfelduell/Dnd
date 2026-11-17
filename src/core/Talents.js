@@ -6,7 +6,7 @@
 //
 // Wirkungen (mehrere je Fähigkeit möglich):
 // - buff / buff2 {key, value, seconds}: zeitweiliges Passiv, zählt in state.passive() wie eine Sequenz-Passive
-// - calm n: Unruhe -n · nerves_gain n: Nerven +n · heal_pct p: Leben +p·maxHp
+// - calm n: Unruhe -n · nerves_gain n: Nerven +n · heal_pct p: Leben +p·maxHp (heal_partner: im Koop auch der Partner)
 // - hint: nächster offener Schritt des wichtigsten Auftrags · review: eine Vermutung ohne zweite Quelle
 // - reveal s: verborgene Spuren s Sekunden ohne Geistsicht sichtbar (WorldScene fragt state.seesHidden())
 // - scare s: gewöhnliche Gegner auf der Karte weichen s Sekunden (Roamers fragt state.scaresEnemies())
@@ -109,6 +109,8 @@ export const talentMethods = {
     if (t.calm && this.unruhe > 0) { const before = this.unruhe; this.setUnruhe(this.unruhe - t.calm); parts.push(`-${Math.round(before - this.unruhe)} Unruhe`); }
     if (t.nerves_gain) { const before = this.composure; this.setComposure(this.composure + t.nerves_gain); parts.push(`+${Math.round(this.composure - before)} Nerven`); }
     if (t.heal_pct) { const got = this.heal(Math.max(1, Math.round(this.maxHp * t.heal_pct))); if (got) parts.push(`+${got} Leben`); }
+    // Moor im Koop: die Heilung erreicht auch den Partner (heal_partner)
+    if (t.heal_pct && t.heal_partner && this.hasP2?.()) { const got = this.withPartner(() => this.heal(Math.max(1, Math.round(this.maxHp * t.heal_pct)))) ?? 0; if (got) parts.push(`+${got} Leben für ${this.acting === 2 ? 'Spieler 1' : 'Spieler 2'}`); }
     if (t.reveal) { this.revealUntil = Math.max(this.revealUntil, this.talentTime + t.reveal); parts.push(`verborgene Spuren ${fmtSec(t.reveal)} sichtbar`); this.emit('vision', this.spiritVision); }
     if (t.scare) { this.scareUntil = Math.max(this.scareUntil, this.talentTime + t.scare); parts.push(`Gegner weichen ${fmtSec(t.scare)}`); }
     if (t.clock) { this.clockFrozen = Math.max(this.clockFrozen, t.clock); parts.push(`die Uhr der Stadt steht ${fmtSec(t.clock)}`); }

@@ -485,6 +485,7 @@ export class CombatScene extends Phaser.Scene {
     const c = this.combat;
     if (action.type === 'skill') {
       if (!c.canUse(action.id)) return;
+      c.healTarget = action.target ?? null; // Moor im Koop: gewähltes Heilziel
       this.startQte(action.id);
     } else if (action.type === 'item') {
       const r = c.useItem(action.id);

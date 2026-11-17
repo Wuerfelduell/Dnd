@@ -3350,7 +3350,7 @@ export class Ui {
   }
 
   /** Hauptmenü bzw. Untermenüs ('skills', 'items'). */
-  combatMenu(sub = 'main') {
+  combatMenu(sub = 'main', skillId = null) {
     const sc = this.combatScene;
     const c = sc.combat;
     let entries;
@@ -3383,11 +3383,21 @@ export class Ui {
         text: k.name, skill: k.id, info: `${k.cost} K${k.composure ? ` · ${k.composure} Nerven` : ''}${isPrecise(k) ? ' · ◎ präzise' : ''}`,
         desc: `${k.desc ?? ''}${isPrecise(k) ? ` ◎ Präzise: volle Wirkung${k.stun ? ' und Betäubung' : ''} nur bei perfektem Takt, das goldene Fenster ist winzig.` : ''}`, act: { type: 'skill', id: k.id }, disabled: !k.usable,
       }));
+    } else if (sub === 'target') {
+      // Moor im Koop: wen heilt die Fertigkeit? Erst man selbst, dann der stehende Partner
+      const sk = c.skillDef(skillId);
+      const partner = c.partnerOf();
+      const hp = (n) => { const v = this.state.playerView(n); return `${v.hp}/${v.maxHp} Leben`; };
+      entries = [
+        { text: 'Dich selbst', skill: skillId, info: hp(c.actor), desc: `Heilt dich um ${sk.heal} Leben.`, act: { type: 'skill', id: skillId, target: c.actor } },
+        { text: `Spieler ${partner}`, skill: skillId, info: hp(partner), desc: `Heilt Spieler ${partner} um ${sk.heal} Leben.`, act: { type: 'skill', id: skillId, target: partner } },
+      ];
+      this.layer.querySelector('.cb-text').innerHTML = `<p>${esc(sk.name)}</p><p>Wen willst du heilen?</p>`;
     } else {
       entries = mine(() => this.state.items()).filter((i) => i.kind === 'consumable' && !i.cleanse).map((i) => ({ text: `${i.name} ×${i.count}`, icon: i.id, desc: i.desc, act: { type: 'item', id: i.id }, disabled: !c.itemAllowed?.(i.id) }));
       if (!entries.length) entries = [{ text: 'Keine Gegenstände', disabled: true }];
     }
-    if (sub !== 'main') entries.push({ text: 'Zurück', back: true });
+    if (sub !== 'main') entries.push({ text: 'Zurück', back: sub === 'target' ? 'skills' : true });
     this.combatMenuOpen = { sub, entries };
     this.layer.querySelector('.cb-target')?.classList.remove('hidden');
     const menu = this.layer.querySelector('.cb-menu');
@@ -3421,8 +3431,10 @@ export class Ui {
     const e = m?.entries[i];
     if (e?.disabled && e.act) this.sfx(ruleBlockSound(this.combatScene?.combat?.rules, e.act)); // DS: die Prüfung verbietet es hörbar
     if (!e || e.disabled) return;
-    if (e.back) { this.combatMenu('main'); return; }
+    if (e.back) { this.combatMenu(e.back === true ? 'main' : e.back); return; }
     if (e.sub) { this.combatMenu(e.sub); return; }
+    // Moor im Koop: Heilfertigkeit fragt erst nach dem Ziel
+    if (e.act?.type === 'skill' && e.act.target === undefined && this.combatScene?.combat?.canChooseHealTarget?.(e.act.id)) { this.combatMenu('target', e.act.id); return; }
     this.combatScene.choose(e.act);
   }
 
@@ -3570,7 +3582,7 @@ export class Ui {
     const num = /^[1-9]$/.test(k) ? Number(k) - 1 : -1;
     if (sc.phase === 'menu' && this.combatMenuOpen) {
       if (num >= 0) { this.combatPick(num); handled = true; }
-      else if ((k === 'escape' || k === 'backspace') && this.combatMenuOpen.sub !== 'main') { this.combatMenu('main'); handled = true; }
+      else if ((k === 'escape' || k === 'backspace') && this.combatMenuOpen.sub !== 'main') { this.combatMenu(this.combatMenuOpen.sub === 'target' ? 'skills' : 'main'); handled = true; }
     } else {
       // Zu zweit: Spieler 1 E/Leertaste/F, Spieler 2 Enter/←/→
       let kind = k === ' ' ? 'dodge' : k === 'f' ? 'parry' : (k === 'e' || k === 'enter') ? 'confirm' : null;

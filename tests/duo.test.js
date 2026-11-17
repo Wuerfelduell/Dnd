@@ -286,3 +286,40 @@ test('Balance zu zweit: Bosse bleiben fordernd, gleich starke Paare schaffen sie
   // Ohne Durchbruch reicht es auch zu zweit nicht gegen Starling, wenn man nur mittelmäßig verteidigt
   assert.notEqual(duoFight(pair(8), 'starling_fight', SKILLED).outcome, 'won');
 });
+
+// --- Moor heilt im Koop auch den Partner (Seb 2026-11-17) ---------------------------------
+
+test('Moor im Koop: Heilfertigkeit darf den Partner heilen, Solo und andere Pfade ohne Wahl', () => {
+  const s = pair(7, 7, 'sq_moor');
+  const c = new Combat(s, 'fog_hound');
+  c.actor = 2;
+  c.ap = 10;
+  assert.equal(c.canChooseHealTarget('moor_stufe_7'), true);
+  assert.equal(c.canChooseHealTarget('attack'), false, 'ohne heal keine Wahl');
+  s.hp = 10;
+  const p2Hp = s.p2.hp;
+  c.healTarget = 1;
+  const r = c.useSkill('moor_stufe_7', ['perfect', 'perfect']);
+  assert.equal(s.hp, 10 + content.pathways.sq_moor.seqs[7].skill.heal, 'Spieler 1 bekommt die Heilung');
+  assert.equal(s.p2.hp, p2Hp);
+  assert.ok(r.effects.some((e) => e.includes('für Spieler 1')));
+  assert.equal(c.healTarget, null, 'Ziel gilt nur einmal');
+  // Liegt der Partner, gibt es keine Wahl
+  c.fighters[1].down = true;
+  assert.equal(c.canChooseHealTarget('moor_stufe_7'), false);
+  // Anderer Pfad (Eisen, Spieler 1) und Solo: keine Wahl
+  const e = new Combat(pair(7, 7, 'sq_moor'), 'fog_hound');
+  assert.equal(e.canChooseHealTarget('attack'), false);
+  const solo = new Combat(hero(7, 'sq_moor'), 'fog_hound');
+  assert.equal(solo.canChooseHealTarget('moor_stufe_7'), false);
+});
+
+test('Moor-Weltfähigkeit Vergessensufer heilt im Koop auch den Partner', () => {
+  const s = pair(7, 2, 'sq_moor');
+  s.hp = 5;
+  s.withPlayer(2, () => { s.hp = 5; s.setComposure(s.maxComposure); });
+  const r = s.withPlayer(2, () => s.useTalent('moor_ufer'));
+  assert.equal(r.ok !== false, true, r.text);
+  assert.ok(s.hp > 5, 'Spieler 1 wird mitgeheilt');
+  assert.ok(s.p2.hp > 5, 'Spieler 2 heilt sich selbst');
+});
