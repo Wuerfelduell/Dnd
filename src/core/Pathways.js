@@ -197,7 +197,7 @@ export const DIGEST_LABELS = {
   side_quest: 'Nebenauftrag erledigt', combat_win: 'Kampf gewonnen', occult_win: 'okkultes Wesen besiegt',
   parry: 'Schlag pariert', vision: 'Geistsicht (pro Sekunde)', dialogue: 'neues Gespräch geführt',
   trade: 'gehandelt', brew: 'Trank gebraut', use_item: 'Heilmittel benutzt', lock: 'Verschlossenes geöffnet',
-  loot: 'Belohnung eingestrichen',
+  loot: 'Belohnung eingestrichen', heal_partner: 'Partner im Kampf geheilt',
   boss_win: 'Boss besiegt', elite_win: 'Elitegegner besiegt', talent: 'Welt-Fähigkeit eingesetzt (je 10 Nerven)',
   ritual: 'Ritual vollzogen', gathering: 'Zuschlag auf einem geheimen Treffen', tat: 'große Tat in Dunscar',
 };

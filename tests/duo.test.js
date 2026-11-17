@@ -339,3 +339,22 @@ test('Moor-Heilung wächst mit dem Höchstleben, präzise und meisterhafte Takte
   assert.ok(heal(['perfect', 'good']) > good);
   assert.ok(heal(['meister', 'good']) > heal(['perfect', 'good']));
 });
+
+test('Moor: Partner im Kampf heilen verdaut den eigenen Trank, Selbstheilung nicht', () => {
+  const s = pair(7, 7, 'sq_moor');
+  s.p2.pathway.digestion = 10;
+  const c = new Combat(s, 'fog_hound');
+  c.actor = 2;
+  c.ap = 10;
+  s.hp = 10;
+  const p1Digest = s.pathway.digestion;
+  c.healTarget = 1;
+  c.useSkill('moor_stufe_7', ['good', 'good']);
+  const after = s.p2.pathway.digestion;
+  assert.ok(after > 10, 'Heiler verdaut');
+  assert.equal(s.pathway.digestion, p1Digest, 'der Geheilte verdaut nicht mit');
+  c.ap = 10;
+  c.useSkill('moor_stufe_7', ['good', 'good']); // ohne Ziel: heilt sich selbst
+  assert.equal(s.p2.pathway.digestion, after, 'Selbstheilung verdaut nicht');
+  assert.ok(s.withPlayer(2, () => s.digestTable()).some((r) => r.kind === 'heal_partner'), 'steht in der Pfadübersicht');
+});

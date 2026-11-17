@@ -524,6 +524,12 @@ export class Combat {
     return Math.round((base + this.state.maxHp * HEAL_HP_PCT) * (HEAL_GRADE_MULT[best] ?? 1));
   }
 
+  /** Moor (Seb 2026-11-17): Den Partner im Kampf zu heilen verdaut den eigenen Trank (nur der Heiler, wie Parieren gewichtet). */
+  digestPartnerHeal() {
+    if (this.enc.practice) return;
+    this.state.digestOwn('heal_partner', this.enc.boss ? FIGHT_DIGEST_MULT.boss : this.enc.elite ? FIGHT_DIGEST_MULT.elite : 1);
+  }
+
   /** Stehender Mitspieler des Handelnden (Koop), sonst null. */
   partnerOf(n = this.actor) {
     return this.duo ? this.standing().find((m) => m !== n) ?? null : null;
@@ -611,7 +617,11 @@ export class Combat {
       const amount = this.skillHeal(sk.heal, graded);
       // Moor im Koop: Heilung auf den Partner gelenkt (healTarget aus der Zielwahl im Menü)
       const toPartner = this.healTarget && this.healTarget !== this.actor && this.partnerOf() === this.healTarget;
-      if (toPartner) effects.push(`+${this.state.withPartner(() => this.state.heal(amount)) ?? 0} Leben für Spieler ${this.healTarget}`);
+      if (toPartner) {
+        const got = this.state.withPartner(() => this.state.heal(amount)) ?? 0;
+        effects.push(`+${got} Leben für Spieler ${this.healTarget}`);
+        if (got > 0) this.digestPartnerHeal();
+      }
       else effects.push(`+${this.state.heal(amount)} Leben`);
     }
     if (sk.drain && total) effects.push(`+${this.state.heal(Math.round(total * sk.drain))} Leben`);
@@ -639,7 +649,10 @@ export class Combat {
       // Wir stehen schon in on(actor): der andere Spieler ist der Partner (withPartner), egal ob er 1 oder 2 ist
       const amount = this.skillHeal(sk.heal_all, graded);
       let got = this.state.heal(amount);
-      for (const n of this.standing()) if (n !== this.actor) got += this.state.withPartner(() => this.state.heal(amount)) ?? 0;
+      let partnerGot = 0;
+      for (const n of this.standing()) if (n !== this.actor) partnerGot += this.state.withPartner(() => this.state.heal(amount)) ?? 0;
+      got += partnerGot;
+      if (partnerGot > 0) this.digestPartnerHeal();
       effects.push(`+${got} Leben${this.standing().length > 1 ? ' (alle)' : ''}`);
     }
     if (sk.focus) { this.focused = true; effects.push('nächste Fertigkeit im Fokus'); }
