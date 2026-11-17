@@ -493,6 +493,14 @@ export function applyPfadHandel(content) {
       on_win: {}, win_text: `${cp.name} sinkt zurück. Diesmal für immer.`, pfad_handel: true,
     };
   }
+  // Die sieben Einzelgänger aus wexmoor.json tragen ihre Sequenz nur in der Rolle („Sequenz 5: Knotenmeister“).
+  // Ohne `tier_seq` schätzt Fear.encounterSeq sie nach Gebiet auf 8, dann zählen sie nicht für die Maskenprüfung der 4
+  // (Seb 2026-11-17: Agathe Garn provoziert, Kampf lief zu zweit und ohne Regeln).
+  for (const [id, e] of Object.entries(enc)) {
+    if (!e.loner || e.tier_seq) continue;
+    const m = /Sequenz (\d)/.exec(content.npcs[id]?.role ?? '');
+    if (m) enc[id] = { ...e, tier_seq: Number(m[1]) };
+  }
   content.encounters = enc;
   // Wie die sieben aus wexmoor.json: Besiegte lassen die Zutat ihrer eigenen Sequenz fallen
   const ownIng = (id) => { const l = NEW_LONERS[id]; return Object.keys(content.pathways[l.pathway]?.seqs[l.seq]?.ingredients ?? {})[0]; };
