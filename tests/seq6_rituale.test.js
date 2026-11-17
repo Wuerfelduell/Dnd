@@ -7,6 +7,7 @@ import { loadContent, talk } from './helpers.js';
 import { GameState } from '../src/core/GameState.js';
 import { PROBE_FAIL, FADEN_PAARE, ECHO_STIMMEN, MOOR_NAMEN } from '../src/core/Proben.js';
 import { FRAUD_WRONG } from '../src/core/Auction.js';
+import { RITUAL6_LAEDEN, RITUAL6_TREFFEN, ritual6Zutaten, treffenWare } from '../src/data/ritual6Vorrat.js';
 
 const content = loadContent();
 const seeded = (seed) => { let x = seed; return () => { x = (x * 1664525 + 1013904223) % 4294967296; return x / 4294967296; }; };
@@ -23,7 +24,7 @@ test('Keine Seq-6-Bedingung hängt an Ort, Fall oder alten Schlussfolgerungen', 
     const r = p.seqs['6'].ritual;
     assert.ok(r, `${pid}: Ritual 6`);
     // Der Ort war schon vorher nur Überlieferung (ritualHtml: „Überall ausführbar“); die umgebauten Rituale nennen keinen mehr
-    if (['faden', 'echo', 'schluessel', 'sq_waage', 'sq_moor', 'sq_uhr'].includes(pid)) assert.equal(r.map, undefined, `${pid} 6: kein Ritualort`);
+    assert.equal(r.map, undefined, `${pid} 6: kein Ritualort`); // Seb 2026-11-17: alle zehn, auch Laterne/Maske/Kessel/Eisen
     assert.equal(r.min_conclusions, undefined, `${pid} 6: keine alten Schlüsse`);
     for (const f of r.requires?.requires_flags ?? []) assert.ok(!/^(case_|kapitel|won_)/.test(f), `${pid} 6: hängt an ${f}`);
     assert.ok(r.desc && r.name, pid);
@@ -33,6 +34,8 @@ test('Keine Seq-6-Bedingung hängt an Ort, Fall oder alten Schlussfolgerungen', 
   assert.equal(content.pathways.maske.seqs['6'].ritual.min_nerves, 60);
   assert.deepEqual(content.pathways.kessel.seqs['6'].ritual.consumes, { bitterwurz: 2, kroetenschleim: 2, tonikum: 1 });
   assert.equal(content.pathways.eisen.seqs['6'].ritual.max_hp_pct, 0.5);
+  // Die Texte nennen keinen Kettlegater Ort mehr
+  for (const pid of ['laterne', 'maske', 'kessel', 'eisen']) assert.ok(!/Gaskan|Theater|Nachtmarkt|Schlachthof/.test(content.pathways[pid].seqs['6'].ritual.desc + content.pathways[pid].seqs['6'].ritual.name), pid);
   // Die geänderten
   assert.equal(content.pathways.faden.seqs['6'].ritual.probe, 'faden');
   assert.equal(content.pathways.echo.seqs['6'].ritual.probe, 'echo');
@@ -291,4 +294,22 @@ test('Geknackte Schlösser und bestandene Proben überleben Speichern und Laden'
   assert.equal(t.pickCount(), 1);
   assert.ok(t.pickedLocks.has('docks:door7'));
   assert.ok(t.probeDone('faden', 6));
+});
+
+test('Jede Seq-6-Ritualzutat ist in jeder späteren Stadt zu kaufen (keine Rückreise)', () => {
+  const high = treffenWare(content);
+  const zutaten = ritual6Zutaten(content).filter((id) => !high.has(id));
+  assert.ok(zutaten.length >= 15);
+  // Puppenglas (Maske) bleibt Treffen-Ware: Wexmoor Schmuggelkiste, Dunscar Schichtbund
+  assert.ok(content.market.merchants.schmuggel.stock.some((e) => e.item === 'puppenglas'));
+  assert.ok(content.gatherings.circles[RITUAL6_TREFFEN.circle].members.some((m) => m.offers.some((o) => o.item === 'puppenglas')));
+  for (const [stadt, { shops }] of Object.entries(RITUAL6_LAEDEN)) {
+    for (const sid of shops) assert.ok(content.market.merchants[sid], `${stadt}: Laden ${sid}`);
+    for (const id of zutaten) {
+      assert.ok(shops.some((sid) => content.market.merchants[sid].stock.some((e) => e.item === id && !e.rare && !e.requires_flags)), `${stadt}: ${id} zu kaufen`);
+    }
+  }
+  // Wexmoor: Maud Keel führt jetzt auch die Ritualzutaten, etwas teurer als bei Nell
+  const maud = content.market.merchants.wx_pfandleiherin.stock;
+  assert.equal(maud.find((e) => e.item === 'spinnenseide').price, 15);
 });
