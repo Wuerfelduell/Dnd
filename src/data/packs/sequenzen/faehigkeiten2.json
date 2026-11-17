@@ -520,11 +520,12 @@
         "id": "zweite_haut",
         "name": "Zweite Haut",
         "cost": 2,
-        "hits": 0,
-        "shield": 14,
+        "hits": 1,
+        "shield": 16,
         "nerves_gain": 10,
         "fx": "spiegelbild",
-        "desc": "Die zweite Maske fängt den Schlag. Schutz 14 und 10 Nerven zurück."
+        "desc": "Die zweite Maske fängt den Schlag und schlägt zurück. 120 % Waffenschaden, Schutz 16 und 10 Nerven zurück.",
+        "mult": 1.2
       },
       "welt": {
         "id": "unauffaellig",
@@ -571,12 +572,12 @@
         "id": "geliehene_miene",
         "name": "Geliehene Miene",
         "cost": 3,
-        "hits": 1,
-        "mult": 1.6,
+        "hits": 2,
+        "mult": 1.5,
         "steal": 10,
         "evade": true,
         "fx": "maske_hoch_4",
-        "desc": "Du trägst für einen Schlag das Gesicht des Gegners. 160 % Waffenschaden, der nächste Angriff geht ins Leere, und von Menschen fallen 10 Schilling ab."
+        "desc": "Du trägst für zwei Schläge das Gesicht des Gegners. Je 150 % Waffenschaden, der nächste Angriff geht ins Leere, und von Menschen fallen 10 Schilling ab."
       },
       "welt": {
         "id": "mietgesicht",
@@ -597,13 +598,14 @@
       "kampf": {
         "id": "stehendes_gesicht",
         "name": "Stehendes Gesicht",
-        "cost": 3,
-        "hits": 0,
-        "shield": 22,
+        "cost": 4,
+        "hits": 2,
+        "shield": 26,
         "confuse": true,
         "cleanse": true,
         "fx": "maske_hoch_3",
-        "desc": "Dein Gesicht bleibt stehen, wo du warst. Schutz 22, der Gegner schlägt ins alte Bild und sich selbst, deine Blutung versiegt."
+        "desc": "Dein Gesicht bleibt stehen, wo du warst, und du schlägst von der Seite. Zwei Schläge mit je 170 % Waffenschaden, Schutz 26, der Gegner schlägt ins alte Bild und sich selbst, deine Blutung versiegt.",
+        "mult": 1.7
       },
       "welt": {
         "id": "rollenverwahrung",
@@ -625,11 +627,12 @@
         "name": "Leeres Gesicht",
         "cost": 4,
         "hits": 3,
-        "mult": 1.4,
+        "mult": 1.5,
         "evade": true,
         "slow": true,
         "fx": "maske_hoch_2",
-        "desc": "Drei Schläge von jemandem, den der Gegner nicht sieht. Der nächste Angriff geht ins Leere, der danach kommt langsam."
+        "desc": "Drei Schläge von jemandem, den der Gegner nicht sieht, je 150 % Waffenschaden. Der nächste Angriff geht ins Leere, der danach kommt langsam.",
+        "precise": false
       },
       "welt": {
         "id": "publikum_verlieren",
@@ -647,8 +650,8 @@
         "id": "eigenes_gesicht",
         "name": "Eigenes Gesicht",
         "cost": 4,
-        "hits": 1,
-        "mult": 2.2,
+        "hits": 2,
+        "mult": 2.6,
         "confuse": true,
         "weaken": [
           0.6,
@@ -656,7 +659,8 @@
         ],
         "nerves_gain": 20,
         "fx": "maske_hoch_1",
-        "desc": "Du zeigst dem Gegner dein wahres Gesicht. 220 % Waffenschaden, er schlägt sich selbst, 3 Runden lang 40 % schwächer, und du findest 20 Nerven wieder."
+        "desc": "Du zeigst dem Gegner dein wahres Gesicht. Zwei Schläge mit je 260 % Waffenschaden, er schlägt sich selbst, 3 Runden lang 40 % schwächer, und du findest 20 Nerven wieder.",
+        "precise": false
       },
       "welt": {
         "id": "hundert_gesichter",
@@ -1951,12 +1955,12 @@
         "id": "moor_luecke",
         "name": "Offene Lücke",
         "cost": 3,
-        "hits": 1,
-        "flat": 12,
+        "hits": 2,
+        "flat": 10,
         "weak": true,
         "evade": true,
         "fx": "moor_stufe_5",
-        "desc": "Du lässt eine Lücke, in die der Gegner fällt. 12 Schaden, Schwachstelle offen, der nächste Angriff geht ins Leere."
+        "desc": "Du lässt eine Lücke, in die der Gegner fällt. Zwei Treffer mit je 10 Schaden, Schwachstelle offen, der nächste Angriff geht ins Leere."
       },
       "welt": {
         "id": "moor_torfgedaechtnis",
@@ -1974,11 +1978,11 @@
         "name": "Schichtendruck",
         "cost": 3,
         "hits": 2,
-        "flat": 16,
-        "heal": 10,
+        "flat": 22,
+        "heal": 14,
         "slow": true,
         "fx": "moor_hoch_4",
-        "desc": "Zwei Schläge, schwer wie nasser Torf. Je 16 Schaden, 10 Leben zurück, der Gegner wird langsam."
+        "desc": "Zwei Schläge, schwer wie nasser Torf. Je 22 Schaden, 14 Leben zurück, der Gegner wird langsam."
       },
       "welt": {
         "id": "moor_lesbare_haut",
@@ -1995,15 +1999,16 @@
       "kampf": {
         "id": "moor_bodennamen",
         "name": "Namen im Boden",
-        "cost": 3,
-        "hits": 0,
+        "cost": 4,
+        "hits": 2,
         "weaken": [
           0.65,
           3
         ],
-        "heal_all": 18,
+        "heal_all": 24,
         "fx": "moor_hoch_3",
-        "desc": "Der Boden kennt den Gegner. 3 Runden lang 35 % weniger Schaden von ihm, 18 Leben für jeden Stehenden."
+        "desc": "Der Boden kennt den Gegner und greift nach ihm. Zwei Treffer mit je 30 Schaden, 3 Runden lang 35 % weniger Schaden von ihm, 24 Leben für jeden Stehenden.",
+        "flat": 30
       },
       "welt": {
         "id": "moor_sediment",
@@ -2022,11 +2027,11 @@
         "name": "Vergessensrand",
         "cost": 4,
         "hits": 2,
-        "flat": 26,
-        "heal": 20,
+        "flat": 38,
+        "heal": 26,
         "confuse": true,
         "fx": "moor_hoch_2",
-        "desc": "Der Gegner vergisst, wen er angreift. Je 26 Schaden, 20 Leben zurück, er schlägt beim nächsten Mal sich selbst."
+        "desc": "Der Gegner vergisst, wen er angreift. Je 38 Schaden, 26 Leben zurück, er schlägt beim nächsten Mal sich selbst."
       },
       "welt": {
         "id": "moor_ufer",
@@ -2045,16 +2050,16 @@
         "id": "moor_fehlstelle",
         "name": "Fehlstelle",
         "cost": 4,
-        "hits": 1,
-        "flat": 34,
-        "heal_all": 30,
+        "hits": 2,
+        "flat": 48,
+        "heal_all": 38,
         "weak": true,
         "weaken": [
           0.6,
           3
         ],
         "fx": "moor_hoch_1",
-        "desc": "Der Gegner hört seinen vergessenen Namen in deiner Fehlstelle. 34 Schaden, Schwachstelle offen, 3 Runden lang 40 % weniger Schaden von ihm, 30 Leben für jeden Stehenden."
+        "desc": "Der Gegner hört seinen vergessenen Namen in deiner Fehlstelle. Zwei Treffer mit je 48 Schaden, Schwachstelle offen, 3 Runden lang 40 % weniger Schaden von ihm, 38 Leben für jeden Stehenden."
       },
       "welt": {
         "id": "moor_erinnertes",
