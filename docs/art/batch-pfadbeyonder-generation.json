@@ -1,0 +1,523 @@
+{
+  "batch": "pfadbeyonder",
+  "styleBlock": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.",
+  "method": "Konzeptbild je Kampfpose und je Ansicht (Style-Block vorangestellt), dann jede Animationspose einzeln per Skript gesetzt; kein Gesamtsheet generiert",
+  "postprocess": [
+    "Median 5px, Magenta freistellen, Helligkeit/Kontrast leicht angehoben",
+    "Palettenabgleich im Lab-Raum, Türkis/Violett nur für Effekte",
+    "ganzzahliger Blockfaktor: Kampf 22, Lauf 23/25, Kopf 11/9 (Kern-Mehrheit je Block)",
+    "binäres Alpha, Einzelpixel entfernt, 1px Löcher gefüllt",
+    "1px Außenumriss #1a1c2c, nach jeder Pose neu geschlossen",
+    "Handretusche: Augen, Mund, Lupenbrille, Halme (figures.RETOUCH)",
+    "Fußlinie Lauf y=30, Kampf y=46 wie Vorlagen",
+    "Ausholpose attack/special je zwei identische Frames"
+  ],
+  "figures": {
+    "ez_torfmutter": {
+      "name": "Wenna Kolk, Torfmutter (Moor)",
+      "concepts": {
+        "kampf_idle": {
+          "raw": "docs/art/pfadbeyonder-raw/torfmutter_kampf_idle.jpg",
+          "reference": "public/sprites/battle/enemy_ez_ds_kalkbrennerin.png Frame 0 (16x, Magenta)",
+          "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: battle sprite concept, single character, 3/4 view facing LEFT, calm idle battle stance, full body, feet on a flat ground line at the bottom, same proportions and pixel style as the reference fighter. Wenna Kolk, the 'Torfmutter' (Peat Mother) of the moor town Wexmoor: a broad, sturdy OLD woman, slightly stooped, wearing many layered skirts and shawls in peat brown and dark moss green, patches of living moss on her shoulders and hem, grey-white hair full of dry reeds and grass stalks tied in a loose bun, weathered kind face, wrinkles. She leans on a long wooden peat spade (Torfspaten) like a walking staff, held upright in her front hand, the iron blade worn and muddy at the bottom. Small pouch and a peat sample at her belt. Colors: peat browns, moss greens, slate, bone grey hair, dull iron. Chunky readable pixel art, about 42 pixels tall character scaled up 20x with perfectly square pixel blocks. Background: completely flat solid magenta #ff00ff, no shadow, no floor, nothing else."
+        },
+        "kampf_attack1": {
+          "raw": "docs/art/pfadbeyonder-raw/torfmutter_kampf_attack1.jpg",
+          "reference": "docs/art/pfadbeyonder-raw/torfmutter_kampf_idle.jpg",
+          "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: the SAME old woman as in the reference image (identical face, grey hair with reeds, layered peat-brown skirts, moss patches, brown scarf, pouch), battle pose, 3/4 view facing LEFT, full body, feet on the ground line. Pose: wind-up of a spade strike: she grips the long peat spade with both hands and has swung it high back over her right shoulder, the iron blade raised behind her head, body twisted back, weight on her back foot, determined tired face. Same scale and pixel style as the reference. Background: completely flat solid magenta #ff00ff, no shadow, no floor, nothing else."
+        },
+        "kampf_strike": {
+          "raw": "docs/art/pfadbeyonder-raw/torfmutter_kampf_strike.jpg",
+          "reference": "docs/art/pfadbeyonder-raw/torfmutter_kampf_idle.jpg",
+          "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: the SAME old woman as in the reference image (identical face, grey hair with reeds, layered peat-brown skirts, moss patches, brown scarf, pouch), battle pose, 3/4 view facing LEFT, full body, feet on the ground line. Pose: follow-through of a spade strike: she has just swung the long peat spade down and forward to the left with both hands, the iron blade low in front of her near the ground at the far left, body bent forward, front knee bent, skirts swinging. Same scale and pixel style as the reference. Background: completely flat solid magenta #ff00ff, no shadow, no floor, nothing else."
+        },
+        "kampf_attack2": {
+          "raw": "docs/art/pfadbeyonder-raw/torfmutter_kampf_attack2.jpg",
+          "reference": "docs/art/pfadbeyonder-raw/torfmutter_kampf_idle.jpg",
+          "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: the SAME old woman as in the reference image (identical face, grey hair with reeds, layered peat-brown skirts, moss patches, brown scarf, pouch), battle pose, 3/4 view facing LEFT, full body, feet on the ground line. Pose: summoning: she has rammed the peat spade blade-down into the ground in front of her and holds its handle with one hand, the other hand stretched forward-left, palm down, fingers spread, as if calling something up from the bog; eyes half closed. No effects in this image, only the woman and the spade. Same scale and pixel style as the reference. Background: completely flat solid magenta #ff00ff, no shadow, no floor, nothing else."
+        },
+        "lauf_ansichten": {
+          "raw": "docs/art/pfadbeyonder-raw/torfmutter_lauf_ansichten.jpg",
+          "reference": "torfmutter_kampf_idle.jpg + public/sprites/characters/wx_pfandleiherin_walk.png (6x)",
+          "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: overworld character turnaround for a tiny 16x32 walking sprite: the SAME old woman as in the reference image (grey hair bun with reeds, layered peat-brown skirts, moss green shawl, brown scarf, peat spade as walking stick in her right hand), drawn THREE times side by side in a row, all standing, same size, chunky simplified shapes readable at very small size, big head proportion like small RPG overworld sprites (head about one third of body height): LEFT figure seen from the FRONT (facing the viewer), MIDDLE figure seen from the SIDE walking toward the left, RIGHT figure seen from the BACK. Feet of all three on one flat ground line. Wide gaps between the figures. Background: completely flat solid magenta #ff00ff, no shadow, no floor, nothing else."
+        }
+      },
+      "walkViewsCrop": [
+        [
+          98,
+          0,
+          428,
+          720
+        ],
+        [
+          468,
+          0,
+          808,
+          720
+        ],
+        [
+          874,
+          0,
+          1195,
+          720
+        ]
+      ],
+      "walkFrames": [
+        {
+          "row": "down",
+          "frame": 0,
+          "pose": "walk_down 1/4: steht (Kontakt)"
+        },
+        {
+          "row": "down",
+          "frame": 1,
+          "pose": "walk_down 2/4: Schritt, linkes Bein gehoben, Körper 1px hoch"
+        },
+        {
+          "row": "down",
+          "frame": 2,
+          "pose": "walk_down 3/4: Durchgang, Saum/Beine 1px versetzt"
+        },
+        {
+          "row": "down",
+          "frame": 3,
+          "pose": "walk_down 4/4: Schritt, rechtes Bein gehoben, Körper 1px hoch"
+        },
+        {
+          "row": "left",
+          "frame": 0,
+          "pose": "walk_left 1/4: steht (Kontakt)"
+        },
+        {
+          "row": "left",
+          "frame": 1,
+          "pose": "walk_left 2/4: Schritt, linkes Bein gehoben, Körper 1px hoch, Beine nur vertikal versetzt (Zellbreite)"
+        },
+        {
+          "row": "left",
+          "frame": 2,
+          "pose": "walk_left 3/4: Durchgang, Saum/Beine 1px versetzt"
+        },
+        {
+          "row": "left",
+          "frame": 3,
+          "pose": "walk_left 4/4: Schritt, rechtes Bein gehoben, Körper 1px hoch, Beine nur vertikal versetzt (Zellbreite)"
+        },
+        {
+          "row": "right",
+          "frame": 0,
+          "pose": "walk_right 1/4: steht (Kontakt) (gespiegelte Seitenansicht)"
+        },
+        {
+          "row": "right",
+          "frame": 1,
+          "pose": "walk_right 2/4: Schritt, linkes Bein gehoben, Körper 1px hoch, Beine nur vertikal versetzt (Zellbreite) (gespiegelte Seitenansicht)"
+        },
+        {
+          "row": "right",
+          "frame": 2,
+          "pose": "walk_right 3/4: Durchgang, Saum/Beine 1px versetzt, Beine nur vertikal versetzt (Zellbreite) (gespiegelte Seitenansicht)"
+        },
+        {
+          "row": "right",
+          "frame": 3,
+          "pose": "walk_right 4/4: Schritt, rechtes Bein gehoben, Körper 1px hoch, Beine nur vertikal versetzt (Zellbreite) (gespiegelte Seitenansicht)"
+        },
+        {
+          "row": "up",
+          "frame": 0,
+          "pose": "walk_up 1/4: steht (Kontakt)"
+        },
+        {
+          "row": "up",
+          "frame": 1,
+          "pose": "walk_up 2/4: Schritt, linkes Bein gehoben, Körper 1px hoch"
+        },
+        {
+          "row": "up",
+          "frame": 2,
+          "pose": "walk_up 3/4: Durchgang, Saum/Beine 1px versetzt"
+        },
+        {
+          "row": "up",
+          "frame": 3,
+          "pose": "walk_up 4/4: Schritt, rechtes Bein gehoben, Körper 1px hoch"
+        }
+      ],
+      "battleFrames": [
+        {
+          "row": "idle",
+          "frame": 0,
+          "pose": "idle 1/4: ruhiger Stand, Atem hebt/senkt den Oberkörper (0px)"
+        },
+        {
+          "row": "idle",
+          "frame": 1,
+          "pose": "idle 2/4: ruhiger Stand, Atem hebt/senkt den Oberkörper (1px)"
+        },
+        {
+          "row": "idle",
+          "frame": 2,
+          "pose": "idle 3/4: ruhiger Stand, Atem hebt/senkt den Oberkörper (1px), Kopf/Schultern 1px nach hinten geneigt"
+        },
+        {
+          "row": "idle",
+          "frame": 3,
+          "pose": "idle 4/4: Gewicht leicht nach vorn verlagert (1px)"
+        },
+        {
+          "row": "attack",
+          "frame": 0,
+          "pose": "attack1 1/6: Ansatz, lehnt sich zurück"
+        },
+        {
+          "row": "attack",
+          "frame": 1,
+          "pose": "attack1 2-3/6 (Ausholpose gehalten): Torfspaten hoch über der Schulter"
+        },
+        {
+          "row": "attack",
+          "frame": 2,
+          "pose": "attack1 2-3/6 (Ausholpose gehalten): Torfspaten hoch über der Schulter"
+        },
+        {
+          "row": "attack",
+          "frame": 3,
+          "pose": "attack1 4/6: Spatenhieb nach vorn unten"
+        },
+        {
+          "row": "attack",
+          "frame": 4,
+          "pose": "attack1 5/6: Torfbrocken spritzen vom Spatenblatt"
+        },
+        {
+          "row": "attack",
+          "frame": 5,
+          "pose": "attack1 6/6: zurück in den Stand"
+        },
+        {
+          "row": "special",
+          "frame": 0,
+          "pose": "attack2 1/6: rammt den Spaten in den Boden"
+        },
+        {
+          "row": "special",
+          "frame": 1,
+          "pose": "attack2 2-3/6 (gehalten): Hand über dem Moor, ruft"
+        },
+        {
+          "row": "special",
+          "frame": 2,
+          "pose": "attack2 2-3/6 (gehalten): Hand über dem Moor, ruft"
+        },
+        {
+          "row": "special",
+          "frame": 3,
+          "pose": "attack2 4/6: Torfranken greifen aus dem Boden (Höhe bis 3px, türkise Spitzen)"
+        },
+        {
+          "row": "special",
+          "frame": 4,
+          "pose": "attack2 5/6: Torfranken greifen aus dem Boden (Höhe bis 8px, türkise Spitzen)"
+        },
+        {
+          "row": "special",
+          "frame": 5,
+          "pose": "attack2 6/6: Torfranken greifen aus dem Boden (Höhe bis 13px, türkise Spitzen)"
+        },
+        {
+          "row": "hurt",
+          "frame": 0,
+          "pose": "hurt 1/3: getroffen, weicht 2px zurück, Funken am Kopf"
+        },
+        {
+          "row": "hurt",
+          "frame": 1,
+          "pose": "hurt 2/3: getroffen, weicht 1px zurück, Funken am Kopf"
+        },
+        {
+          "row": "hurt",
+          "frame": 2,
+          "pose": "hurt 3/3: getroffen, weicht 0px zurück"
+        },
+        {
+          "row": "defeated",
+          "frame": 0,
+          "pose": "defeated 1/4: sinkt erschöpft auf die Knie (Beinhöhe 85%), vornübergebeugt"
+        },
+        {
+          "row": "defeated",
+          "frame": 1,
+          "pose": "defeated 2/4: sinkt erschöpft auf die Knie (Beinhöhe 60%), vornübergebeugt"
+        },
+        {
+          "row": "defeated",
+          "frame": 2,
+          "pose": "defeated 3/4: sinkt erschöpft auf die Knie (Beinhöhe 40%), vornübergebeugt"
+        },
+        {
+          "row": "defeated",
+          "frame": 3,
+          "pose": "defeated 4/4: sinkt erschöpft auf die Knie (Beinhöhe 25%), vornübergebeugt"
+        }
+      ],
+      "head": {
+        "file": "portraits/heads/ez_torfmutter.png",
+        "source": "Ansichtsbogen, Vorderansicht Kopf/Schultern, Blockfaktor 11"
+      }
+    },
+    "ez_schleusenuhr": {
+      "name": "Corvin Hake, Schleusenuhrmacher (Uhr)",
+      "concepts": {
+        "kampf_idle": {
+          "raw": "docs/art/pfadbeyonder-raw/schleusenuhr_kampf_idle.jpg",
+          "reference": "public/sprites/battle/enemy_ez_ds_rangierer.png Frame 0 (16x, Magenta)",
+          "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: battle sprite concept, single character, 3/4 view facing LEFT, calm idle battle stance, full body, feet on a flat ground line at the bottom, same proportions and pixel style as the reference fighter. Corvin Hake, the 'Schleusenuhrmacher' (lock-clock maker) of the canal town Wexmoor: a very THIN, tall, slightly hunched middle-aged man, long narrow face, wearing a pair of brass loupe goggles (jeweller's magnifying lenses) pushed onto his eyes, one lens bigger; rolled-up shirt sleeves, a slate-blue waistcoat covered with small brass gears and cogs pinned all over it like medals, dark narrow trousers, worn boots. On his belt hangs a huge iron canal-lock key (Schleusenschlüssel, crank key with a square socket and a T-handle) almost as long as his leg, he rests one hand on it. Colors: slate blue, soot grey, dull brass, pale skin, dark iron. Chunky readable pixel art, about 42 pixels tall character scaled up 20x with perfectly square pixel blocks. Background: completely flat solid magenta #ff00ff, no shadow, no floor, nothing else."
+        },
+        "kampf_attack1": {
+          "raw": "docs/art/pfadbeyonder-raw/schleusenuhr_kampf_attack1.jpg",
+          "reference": "docs/art/pfadbeyonder-raw/schleusenuhr_kampf_idle.jpg",
+          "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: the SAME thin man as in the reference image (identical face, brass loupe goggles, slate-blue waistcoat with brass gears, rolled shirt sleeves, dark trousers, boots, huge iron lock key), battle pose, 3/4 view facing LEFT, full body, feet on the ground line. Pose: wind-up of a key strike: he holds the huge iron canal-lock key with both hands by its ring handle and has swung it up and back over his shoulder like a club, the long shaft and square bit raised behind his head, body leaning back, weight on his back foot. Same scale and pixel style as the reference. Background: completely flat solid magenta #ff00ff, no shadow, no floor, nothing else."
+        },
+        "kampf_strike": {
+          "raw": "docs/art/pfadbeyonder-raw/schleusenuhr_kampf_strike.jpg",
+          "reference": "docs/art/pfadbeyonder-raw/schleusenuhr_kampf_idle.jpg",
+          "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: the SAME thin man as in the reference image (identical face, brass loupe goggles, slate-blue waistcoat with brass gears, rolled shirt sleeves, dark trousers, boots, huge iron lock key), battle pose, 3/4 view facing LEFT, full body, feet on the ground line. Pose: follow-through of a key strike: he has just swung the huge iron canal-lock key down and forward to the left with both hands, the long shaft pointing forward-down to the far left, square bit low in front of him, body lunging forward, front knee bent. Same scale and pixel style as the reference. Background: completely flat solid magenta #ff00ff, no shadow, no floor, nothing else."
+        },
+        "kampf_attack2": {
+          "raw": "docs/art/pfadbeyonder-raw/schleusenuhr_kampf_attack2.jpg",
+          "reference": "docs/art/pfadbeyonder-raw/schleusenuhr_kampf_idle.jpg",
+          "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: the SAME thin man as in the reference image (identical face, brass loupe goggles, slate-blue waistcoat with brass gears, rolled shirt sleeves, dark trousers, boots, huge iron lock key now hanging at his belt), battle pose, 3/4 view facing LEFT, full body, feet on the ground line. Pose: casting a time push: he stretches his front arm forward-left with an open palm, holding a single brass gear wheel between his fingers, the other hand at the loupe goggles, focused, leaning slightly forward. No effects in this image, only the man. Same scale and pixel style as the reference. Background: completely flat solid magenta #ff00ff, no shadow, no floor, nothing else."
+        },
+        "lauf_ansichten": {
+          "raw": "docs/art/pfadbeyonder-raw/schleusenuhr_lauf_ansichten.jpg",
+          "reference": "schleusenuhr_kampf_idle.jpg + public/sprites/characters/wx_pfandleiherin_walk.png (6x)",
+          "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: overworld character turnaround for a tiny 16x32 walking sprite: the SAME thin man as in the reference image (brown messy hair, brass loupe goggles, slate-blue waistcoat with brass gears, light rolled shirt sleeves, dark trousers, brown boots, huge iron lock key hanging at his belt), drawn THREE times side by side in a row, all standing, same size, chunky simplified shapes readable at very small size, big head proportion like small RPG overworld sprites (head about one third of body height): LEFT figure seen from the FRONT (facing the viewer), MIDDLE figure seen from the SIDE walking toward the left, RIGHT figure seen from the BACK. Feet of all three on one flat ground line. Wide gaps between the figures. Background: completely flat solid magenta #ff00ff, no shadow, no floor, nothing else."
+        }
+      },
+      "walkViewsCrop": [
+        [
+          214,
+          0,
+          476,
+          720
+        ],
+        [
+          560,
+          0,
+          730,
+          720
+        ],
+        [
+          813,
+          0,
+          1068,
+          720
+        ]
+      ],
+      "walkFrames": [
+        {
+          "row": "down",
+          "frame": 0,
+          "pose": "walk_down 1/4: steht (Kontakt)"
+        },
+        {
+          "row": "down",
+          "frame": 1,
+          "pose": "walk_down 2/4: Schritt, linkes Bein gehoben, Körper 1px hoch"
+        },
+        {
+          "row": "down",
+          "frame": 2,
+          "pose": "walk_down 3/4: Durchgang, Saum/Beine 1px versetzt"
+        },
+        {
+          "row": "down",
+          "frame": 3,
+          "pose": "walk_down 4/4: Schritt, rechtes Bein gehoben, Körper 1px hoch"
+        },
+        {
+          "row": "left",
+          "frame": 0,
+          "pose": "walk_left 1/4: steht (Kontakt)"
+        },
+        {
+          "row": "left",
+          "frame": 1,
+          "pose": "walk_left 2/4: Schritt, linkes Bein gehoben, Körper 1px hoch"
+        },
+        {
+          "row": "left",
+          "frame": 2,
+          "pose": "walk_left 3/4: Durchgang, Saum/Beine 1px versetzt"
+        },
+        {
+          "row": "left",
+          "frame": 3,
+          "pose": "walk_left 4/4: Schritt, rechtes Bein gehoben, Körper 1px hoch"
+        },
+        {
+          "row": "right",
+          "frame": 0,
+          "pose": "walk_right 1/4: steht (Kontakt) (gespiegelte Seitenansicht)"
+        },
+        {
+          "row": "right",
+          "frame": 1,
+          "pose": "walk_right 2/4: Schritt, linkes Bein gehoben, Körper 1px hoch (gespiegelte Seitenansicht)"
+        },
+        {
+          "row": "right",
+          "frame": 2,
+          "pose": "walk_right 3/4: Durchgang, Saum/Beine 1px versetzt (gespiegelte Seitenansicht)"
+        },
+        {
+          "row": "right",
+          "frame": 3,
+          "pose": "walk_right 4/4: Schritt, rechtes Bein gehoben, Körper 1px hoch (gespiegelte Seitenansicht)"
+        },
+        {
+          "row": "up",
+          "frame": 0,
+          "pose": "walk_up 1/4: steht (Kontakt)"
+        },
+        {
+          "row": "up",
+          "frame": 1,
+          "pose": "walk_up 2/4: Schritt, linkes Bein gehoben, Körper 1px hoch"
+        },
+        {
+          "row": "up",
+          "frame": 2,
+          "pose": "walk_up 3/4: Durchgang, Saum/Beine 1px versetzt"
+        },
+        {
+          "row": "up",
+          "frame": 3,
+          "pose": "walk_up 4/4: Schritt, rechtes Bein gehoben, Körper 1px hoch"
+        }
+      ],
+      "battleFrames": [
+        {
+          "row": "idle",
+          "frame": 0,
+          "pose": "idle 1/4: ruhiger Stand, Atem hebt/senkt den Oberkörper (0px)"
+        },
+        {
+          "row": "idle",
+          "frame": 1,
+          "pose": "idle 2/4: ruhiger Stand, Atem hebt/senkt den Oberkörper (1px)"
+        },
+        {
+          "row": "idle",
+          "frame": 2,
+          "pose": "idle 3/4: ruhiger Stand, Atem hebt/senkt den Oberkörper (1px), Kopf/Schultern 1px nach hinten geneigt"
+        },
+        {
+          "row": "idle",
+          "frame": 3,
+          "pose": "idle 4/4: Gewicht leicht nach vorn verlagert (1px)"
+        },
+        {
+          "row": "attack",
+          "frame": 0,
+          "pose": "attack1 1/6: Ansatz, lehnt sich zurück"
+        },
+        {
+          "row": "attack",
+          "frame": 1,
+          "pose": "attack1 2-3/6 (Ausholpose gehalten): Schleusenschlüssel wie eine Keule über der Schulter"
+        },
+        {
+          "row": "attack",
+          "frame": 2,
+          "pose": "attack1 2-3/6 (Ausholpose gehalten): Schleusenschlüssel wie eine Keule über der Schulter"
+        },
+        {
+          "row": "attack",
+          "frame": 3,
+          "pose": "attack1 4/6: Schlüsselschlag nach vorn unten"
+        },
+        {
+          "row": "attack",
+          "frame": 4,
+          "pose": "attack1 5/6: Messingfunken am Schlüsselbart"
+        },
+        {
+          "row": "attack",
+          "frame": 5,
+          "pose": "attack1 6/6: zurück in den Stand"
+        },
+        {
+          "row": "special",
+          "frame": 0,
+          "pose": "attack2 1/6: hebt das Zahnrad"
+        },
+        {
+          "row": "special",
+          "frame": 1,
+          "pose": "attack2 2-3/6 (gehalten): Zahnrad zwischen den Fingern, Blick durch die Lupe"
+        },
+        {
+          "row": "special",
+          "frame": 2,
+          "pose": "attack2 2-3/6 (gehalten): Zahnrad zwischen den Fingern, Blick durch die Lupe"
+        },
+        {
+          "row": "special",
+          "frame": 3,
+          "pose": "attack2 4/6: türkiser Zahnradkreis löst sich von der Hand"
+        },
+        {
+          "row": "special",
+          "frame": 4,
+          "pose": "attack2 5/6: Zeitstoß – Bild kurz doppelt (versetzte türkise Kopie), Zahnrad wächst"
+        },
+        {
+          "row": "special",
+          "frame": 5,
+          "pose": "attack2 6/6: Nachbild zittert beidseitig, Zahnrad verblasst"
+        },
+        {
+          "row": "hurt",
+          "frame": 0,
+          "pose": "hurt 1/3: getroffen, weicht 2px zurück, Funken am Kopf"
+        },
+        {
+          "row": "hurt",
+          "frame": 1,
+          "pose": "hurt 2/3: getroffen, weicht 1px zurück, Funken am Kopf"
+        },
+        {
+          "row": "hurt",
+          "frame": 2,
+          "pose": "hurt 3/3: getroffen, weicht 0px zurück"
+        },
+        {
+          "row": "defeated",
+          "frame": 0,
+          "pose": "defeated 1/4: sinkt erschöpft auf die Knie (Beinhöhe 85%), vornübergebeugt"
+        },
+        {
+          "row": "defeated",
+          "frame": 1,
+          "pose": "defeated 2/4: sinkt erschöpft auf die Knie (Beinhöhe 60%), vornübergebeugt"
+        },
+        {
+          "row": "defeated",
+          "frame": 2,
+          "pose": "defeated 3/4: sinkt erschöpft auf die Knie (Beinhöhe 40%), vornübergebeugt"
+        },
+        {
+          "row": "defeated",
+          "frame": 3,
+          "pose": "defeated 4/4: sinkt erschöpft auf die Knie (Beinhöhe 25%), vornübergebeugt"
+        }
+      ],
+      "head": {
+        "file": "portraits/heads/ez_schleusenuhr.png",
+        "source": "Ansichtsbogen, Vorderansicht Kopf/Schultern, Blockfaktor 9"
+      }
+    }
+  }
+}
