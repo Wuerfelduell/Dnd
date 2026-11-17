@@ -242,7 +242,8 @@ export class CombatScene extends Phaser.Scene {
       const look = n === 2 ? this.state.p2Look?.() : null;
       // Paket CO: wer seine Kreaturform trägt, kämpft mit ihrem 96er-Blatt (hg_battle_<pfad>), ohne eigene Posen-Sheets
       const formPid = this.state.withPlayer?.(n, () => (this.state.formActive?.() ? this.state.pathway?.id : null), { quiet: true });
-      const formSheet = formPid && this.textures.exists(`hg_battle_${formPid}`) ? `hg_battle_${formPid}` : null;
+      const stillKey = formPid && this.state.withPlayer?.(n, () => this.state.pathway?.seq === 1, { quiet: true }) && `hg_form_${formPid}_still_battle`; // Seq 1: stille Endgestalt
+      const formSheet = stillKey && this.textures.exists(stillKey) ? stillKey : formPid && this.textures.exists(`hg_battle_${formPid}`) ? `hg_battle_${formPid}` : null;
       // Codex DN/DO: in der Maskenprüfung kämpft der Zivilist, beim Schlüssel der Schatten (eigene 6x9-Blätter je Figur)
       const ritualSheet = ritualBattleSheet(ritualLook(this.state, this.combat, n), n === 2 ? look ?? 'p2a' : 'player');
       const sheets = ritualSheet && this.textures.exists(ritualSheet) ? { base: ritualSheet, skills: ritualSheet, weapons: ritualSheet, own: true, ritual: true }

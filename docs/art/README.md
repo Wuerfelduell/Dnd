@@ -2165,3 +2165,35 @@ per Skript gesetzt. Geliefert von Grok (Paket GA Teil 3). Eingebaut: `aufstieg.j
 - Manifest: `public/sprites/manifest-engel.json`
 - [Vorschau](batch-engel-preview.png) · [Vorlage | neu](batch-engel-vorlage-neu.png) · [Prompts](batch-engel-generation.json) · [Prüfbericht](batch-engel-validation.json)
 - Export: `python3 tools/art/engel/export.py`, Prüfung: `python3 tools/art/engel/check.py --write` (Pillow, numpy, scipy)
+
+## Sequenz 3 und 1: Aufstieg und stille Endgestalten (`seq31a`)
+
+Codex DC1 (`codex_DC1_seq31_gestalten.md`), nur die Abschnitte 2 (Aufstiegs-Vollbilder) und 3 (Endgestalten). Die Abschnitte 1 (Trinken)
+und 4 (Auren/HUD) gehören nicht zu dieser Lieferung. Der Style-Block steht vor jedem Prompt. Die Palette ist `manifest-halbgott.json`,
+unverändert; die Endgestalten kommen ohne Türkis aus und haben Licht in Amber und Bein-Weiß.
+
+- `fx/HG_aufstieg_3.png`: 1920x135, 8 Frames 240x135, opak. Wie `HG_aufstieg_4`, nur kürzer (frameRate 8, Höhepunkt schon in Frame 2/3)
+  und ohne Furcht-Welle (keine Risse).
+- `fx/HG_aufstieg_1.png`: 1920x135, 8 Frames, opak. Der Spieler blickt in einen Zollregister-Raum, der hell wird; am Rand stehen Zeugen.
+  Kein Effekt-Feuerwerk; am Ende ist der Raum leer und hell.
+- `characters/hg_form_<pfad>_still.png`: 128x192, Raster genau wie `hg_form_<pfad>.png` (32x48, 4 Richtungen x 4 Frames, Grundlinie 46).
+- `battle/hg_form_<pfad>_still.png`: 576x576, Raster genau wie `hg_battle_<pfad>.png`, also 96x96 in 6x6 mit den Reihen
+  idle / attack1 / attack2 / special / hurt / defeated. Fußlinie 93, Haltepaare 7/8 und 13/14.
+  Die Reihen bedeuten:
+  - attack1: abwehrende offene Hand
+  - attack2: Darreichen
+  - special: „Schließen“; in den Frames 20/21 steht ein schlichter Mensch im Lichtring
+  - hurt/defeated: idle mit kleinerer Haltung
+
+Abweichung vom Codex: Der Codex nennt 6x4 Zellen (576x384) und 2 Frames je Richtung. Geliefert wird das Raster der CO-Vorlage, damit
+die Sheets wie `hg_battle_*`/`hg_form_*` laufen. Die Codex-Reihen stehen im Manifest unter `codexRows`.
+
+Füllregel: In jedem Frame müssen Breite und Höhe der bbox (deckende Pixel einschließlich der ruhigen Lichteffekte) mindestens 85 %
+desselben Vorlagen-Frames erreichen. Bei Vollbildern zählt als Motiv jedes Pixel, das nicht die häufigste Farbe hat. Zur Information
+steht im Prüfbericht zusätzlich die Kern-bbox (Öffnen 3x3, größte Komponente). Die Konzeptbilder liegen in `seq31a-raw/`.
+Geliefert von Grok (Paket GA Teil 4). Eingebaut: stille Gestalten bei Seq 1 auf Karte (`formKey`) und im Kampf
+(`hg_form_<pfad>_still_battle`), `HG_aufstieg_1` im Aufstieg. `HG_aufstieg_3` liegt bei, ist aber nicht registriert (Platzhalter-Ellipsen, Neuzeichnung offen).
+
+- Manifest: `public/sprites/manifest-seq31a.json`
+- [Vorschau](batch-seq31a-preview.png) · [Vorlage | neu](batch-seq31a-vorlage-neu.png) · [Prompts](batch-seq31a-generation.json) · [Prüfbericht](batch-seq31a-validation.json)
+- Export: `python3 tools/art/seq31a/export.py`, Prüfung: `python3 tools/art/seq31a/check.py --write` (Pillow, numpy, scipy)
