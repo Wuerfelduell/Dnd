@@ -36,8 +36,11 @@ export const DIGEST_RATE = { 9: 1, 8: 0.7, 7: 0.5, 6: 0.05, 5: 0.005, 4: 0.0005,
 /** Verdauungstempo einer Sequenz im Verhältnis zu Sequenz 7 (1 bis Sequenz 7, danach 1/10, 1/100, ...). */
 /** Faktor für jede Unruhe-Steigerung ab Sequenz 5 (Seb 2026-11-12). */
 export const UNRUHE_GAIN_HOCH = 0.5;
-/** Spieler 2 verdaut dreißigmal schneller (Seb 2026-11-12: erst x10, dann nochmal x3). */
+/** Spieler 2 verdaut ab Sequenz 5 dreißigmal schneller (Seb 2026-11-12: erst x10, dann nochmal x3). */
 export const P2_DIGEST_MULT = 30;
+/** Bonus für Spieler 2 je Sequenz (Seb 2026-11-17): bis Sequenz 7 wie Spieler 1, auf 6 leicht, erst ab 5 voll. */
+export const P2_DIGEST_BY_SEQ = { 9: 1, 8: 1, 7: 1, 6: 3 };
+export const p2DigestFor = (seq) => P2_DIGEST_BY_SEQ[seq] ?? P2_DIGEST_MULT;
 export function digestSlowdown(seq) { return Math.min(1, (DIGEST_RATE[seq] ?? DIGEST_RATE[1]) / DIGEST_RATE[7]); }
 /** Prozentwert fürs Auge: große Werte mit einer Nachkommastelle, winzige mit zwei gültigen Ziffern. */
 export function fmtDigest(v) {
@@ -484,8 +487,8 @@ export const pathwayMethods = {
     return gained;
   },
 
-  /** Spieler 2 verdaut schneller (P2_DIGEST_MULT), Spieler 1 normal. */
-  p2DigestMult() { return (this.acting ?? 1) === 2 ? P2_DIGEST_MULT : 1; },
+  /** Spieler 2 verdaut ab Sequenz 6 schneller (p2DigestFor), Spieler 1 normal. */
+  p2DigestMult() { return (this.acting ?? 1) === 2 ? p2DigestFor(this.pathway?.seq) : 1; },
 
   /** Grundpunkte je Handlung für den eigenen Pfad: die pfadeigene Tabelle über den gemeinsamen Quellen. */
   digestWeights() {
