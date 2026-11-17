@@ -33,6 +33,7 @@ import { applyDunscarSchlacke } from './dunscarSchlacke.js';
 import { applyDunscarStimmen } from './dunscarStimmen.js';
 import { applyKapitelAusgleich } from './kapitelAusgleich.js';
 import { applyHaendlerAbgleich } from './haendlerAbgleich.js';
+import { applyKettlegateZirkel } from './kettlegateZirkel.js';
 import { applyPreisAbgleich } from './preisAbgleich.js';
 import { applyRitual6Vorrat } from './ritual6Vorrat.js';
 // Fügt alle Inhaltsdateien zu einem Objekt zusammen (ohne JSON-Imports, damit Node-Tests es nutzen können).
@@ -144,6 +145,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyDunscarStimmen(content); // Dunscar: eigene Stimmen, wechselnde Begrüßungen und Themen je Figur
   applyDunscarPassanten(content); // Dunscar: Passanten mit Tagesablauf, Gemurmel und Straßenereignissen in den Vierteln
   applyMarloweTelegramm(content); // Tipps nur von Marlowe: Telegrammschalter in jeder späteren Stadt
+  applyKettlegateZirkel(content); // Kettlegater Zirkel: nur Zutaten 7/6, Formeln, Artefakte; keine Trophäen-Gesuche (zuletzt)
   return content;
 }
 
