@@ -1261,6 +1261,7 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestSequenzen3')) scene.load.json('manifestSequenzen3', `${BASE}manifest-sequenzen3.json`);
   if (!scene.cache.json.exists('manifestDunscar1')) scene.load.json('manifestDunscar1', `${BASE}manifest-dunscar1.json`);
   if (!scene.cache.json.exists('manifestDunscar3')) scene.load.json('manifestDunscar3', `${BASE}manifest-dunscar3.json`);
+  if (!scene.cache.json.exists('manifestSeq31a')) scene.load.json('manifestSeq31a', `${BASE}manifest-seq31a.json`);
   if (!scene.cache.json.exists('manifestEngel')) scene.load.json('manifestEngel', `${BASE}manifest-engel.json`);
   if (!scene.cache.json.exists('manifestPfadbeyonder')) scene.load.json('manifestPfadbeyonder', `${BASE}manifest-pfadbeyonder.json`);
   if (!scene.cache.json.exists('manifestGebietsbosse')) scene.load.json('manifestGebietsbosse', `${BASE}manifest-gebietsbosse.json`);
@@ -1326,7 +1327,7 @@ function battleAnimDef(scene, sheet, name) {
   return null;
 }
 /** Manifeste mit Kampf-Sheets; spätere Pakete nennen ihre Einträge nicht nach dem Sheet, darum auch über die Datei. */
-export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3', 'manifestGebietsbosse', 'manifestPfadbeyonder', 'manifestEngel', 'manifestDunscar5', 'manifestStarling2', 'manifestSekten', 'manifestVorrat1', 'manifestVorrat2', 'manifestHalbgott', 'manifestFasserin2', 'manifestFigurenNachzuegler', 'manifestSeq4rit1', 'manifestSchatten', 'manifestRituale56', 'manifestBenannte', 'manifestNebelseite', 'manifestAnschlag'];
+export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3', 'manifestGebietsbosse', 'manifestPfadbeyonder', 'manifestEngel', 'manifestSeq31a', 'manifestDunscar5', 'manifestStarling2', 'manifestSekten', 'manifestVorrat1', 'manifestVorrat2', 'manifestHalbgott', 'manifestFasserin2', 'manifestFigurenNachzuegler', 'manifestSeq4rit1', 'manifestSchatten', 'manifestRituale56', 'manifestBenannte', 'manifestNebelseite', 'manifestAnschlag'];
 export function battleSheetDef(scene, sheet) {
   const file = BATTLE_SHEETS[sheet]?.[0];
   for (const m of BATTLE_MANIFESTS) {
@@ -2963,6 +2964,8 @@ for (const look of ['p2a', 'p2b']) for (const t of ['halbgott', 'engel']) ANIM_S
 /** Aufstiegs-Vollbilder (240x135, acht Frames, auf Bildschirmgröße skaliert), Wechsel-, Furcht-, Umfall- und Zögern-Effekte, Auren. */
 ANIM_SHEETS.HG_aufstieg_4 = ['fx/HG_aufstieg_4.png', 240, 135];
 ANIM_SHEETS.HG_aufstieg_2 = ['fx/HG_aufstieg_2.png', 240, 135];
+/** Grok GA Teil 4 (manifest-seq31a.json): Aufstieg Seq 1. HG_aufstieg_3 liegt bei, bleibt aber bis zur Neuzeichnung unregistriert (Seq 3 ohne Vollbild). */
+ANIM_SHEETS.HG_aufstieg_1 = ['fx/HG_aufstieg_1.png', 240, 135];
 ANIM_SHEETS.HG_kreatur_wechsel = ['fx/HG_kreatur_wechsel.png', 64, 64];
 ANIM_SHEETS.HG_furcht = ['fx/HG_furcht.png', 16, 16];
 export const HG_FURCHT = { schreck: 0, schweiss: 1, zittern: 2, augen_zu: 3, nebel_frage: 4, ohnmacht: 5 };
@@ -2989,6 +2992,12 @@ for (const id of ['hs_engel_1', 'hs_engel_2', 'hs_engel_3', 'k4s_wetherby']) {
   ANIM_ALIASES[`enemy_${id}`] = ANIM_ALIASES.hg_grenzwaechter;
 }
 for (const p of HG_PATHS) ANIM_ALIASES[`hg_battle_${p}`] = { attack: 'attack1', heavy: 'attack2', double: 'attack2', occult: 'special', cast: 'special', victory: 'idle', hit: 'hurt', death: 'defeated' };
+/** Grok GA Teil 4: stille Endgestalten bei Seq 1 (Raster wie die CO-Formen; Kampftextur mit _battle, damit sie nicht mit dem Kartenblatt kollidiert). */
+for (const p of HG_PATHS) {
+  ANIM_SHEETS[`hg_form_${p}_still`] = [`characters/hg_form_${p}_still.png`, 32, 48];
+  BATTLE_SHEETS[`hg_form_${p}_still_battle`] = [`battle/hg_form_${p}_still.png`, 96];
+  ANIM_ALIASES[`hg_form_${p}_still_battle`] = ANIM_ALIASES[`hg_battle_${p}`];
+}
 /** Kampfkulissen der beiden Wächter, je Pfad-Begegnung (hg_schwellenwaechter_<pfad>, hg_grenzwaechter_<pfad>). */
 for (const p of HG_PATHS) {
   ENCOUNTER_BACKGROUNDS[`hg_schwellenwaechter_${p}`] = 'bg_hg_schwelle';
