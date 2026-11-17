@@ -12,8 +12,6 @@ export const ALT_CIRCLES = ['waage', 'russ'];
 export const ALT_CIRCLE_WEIGHT = 8;
 /** Feste Extra-Drops je Wexmoor-Zone (Seb: Nachtfalterstaub 5 % im Leuchtturm). */
 export const ZONE_DROPS = { wx_leuchtturm: [{ item: 'nachtfalterstaub', chance: 0.05 }] };
-/** Fester Extra-Drop in den Kettlegater Gefahrengebieten (ALT_ZONES). */
-export const KG_PUPPENAUGEN = { item: 'puppenglas', chance: 0.05 };
 /** Chance auf einen Altfund je Sieg. */
 export const ALT_CHANCE = { normal: 0.08, elite: 0.3, boss: 0.35 };
 
@@ -43,13 +41,6 @@ export function applyAltbeute(content) {
       if (!isFormel(id) && content.items[id]?.kind === 'ingredient') pool.set(id, Math.max(pool.get(id) ?? 0, ALT_CIRCLE_WEIGHT));
       return m;
     });
-  }
-  // Seb (2026-11-17): Puppenaugen (Maske Seq 7) fallen in den Kettlegater Gefahrengebieten mit 5 % je Sieg
-  for (const [id, e] of Object.entries(content.encounters)) {
-    const table = content.loot[id];
-    if (!ALT_ZONES.includes(e.zone) || !table || !content.items[KG_PUPPENAUGEN.item]) continue;
-    if ((table.drops ?? []).some((d) => d.item === KG_PUPPENAUGEN.item)) continue;
-    content.loot[id] = { ...table, drops: [...(table.drops ?? []), { ...KG_PUPPENAUGEN }] };
   }
   if (!pool.size) return content;
   for (const [id, e] of Object.entries(content.encounters)) {
