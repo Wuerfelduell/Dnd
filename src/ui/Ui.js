@@ -369,7 +369,7 @@ const ITEM_CATS = [
 ];
 
 export class Ui {
-  constructor(root, state, { onNewGame, onContinue, hasSave }) {
+  constructor(root, state, { onNewGame, onContinue, slots, activeSlot, onDeleteSlot }) {
     this.root = root;
     root.style.setProperty('--artui', `url(${new URL(ARTIFACT_UI_URL, document.baseURI).href})`);
     for (const [v, path] of Object.entries(UI_SKINS)) root.style.setProperty(`--${v}`, `url(${new URL(SPRITE_BASE + path, document.baseURI).href})`);
@@ -378,7 +378,9 @@ export class Ui {
     iconState = state;
     this.onNewGame = onNewGame;
     this.onContinue = onContinue;
-    this.hasSave = hasSave;
+    this.slots = slots;
+    this.activeSlot = activeSlot;
+    this.onDeleteSlot = onDeleteSlot;
     this.modal = null; // 'title' | 'message' | 'dialogue' | 'notebook' | 'travel' | 'ending'
     this.blockedUntil = 0;
     this.selected = [];
@@ -1082,15 +1084,18 @@ export class Ui {
 
   showTitle() {
     const c = this.state.content;
-    const save = this.hasSave();
-    // Codex DM: Stadt des Spielstands (Titelbild des Kapitels und Spielstand-Karte)
-    const saved = save ? (() => { try { return JSON.parse(localStorage.getItem('nebelakten-save') ?? 'null'); } catch { return null; } })() : null;
+    // Drei lokale Speicherplätze; der zuletzt benutzte bestimmt Titelbild und Spielstand-Karte
+    const slots = this.slots();
+    const active = this.activeSlot();
+    const saved = slots.find((x) => x.n === active)?.save ?? null;
+    const save = !!saved;
     const city = saved?.map ? (c.maps[saved.map]?.city ?? 'kettlegate') : null;
     const card = city && spielstandUrl(city) ? `<div class="savecard"><img src="${spielstandUrl(city)}" alt="" onerror="this.parentNode.remove()"><span>${esc(c.maps[saved.map]?.name ?? '')}</span></div>` : '';
     const el = this.open('title', `
       <h1>${esc(c.title)}</h1>
       <h2>Ein Mystery in Kettlegate</h2>
       <div class="build-stamp" style="font-size:9px;opacity:.55">Stand ${esc(typeof __BUILD__ !== 'undefined' ? __BUILD__ : 'dev')}</div>
+      <div class="saveslots">${slots.map(({ n, save: d }) => this.slotRow(n, d, n === active)).join('')}</div>
       <div class="controls touch-only">
         <div>Tippen: hinlaufen · auf Personen und Dinge tippen: sprechen / untersuchen</div>
         <div>Finger halten und ziehen: die Figur folgt dem Finger</div>
@@ -1108,23 +1113,56 @@ export class Ui {
       </div>
       ${card}
       <div class="actions center">
-        ${save ? '<button class="primary" data-act="continue">Fortsetzen <span class="key">E</span></button>' : ''}
-        <button class="${save ? '' : 'primary'}" data-act="new">Neues Spiel ${save ? '<span class="key">N</span>' : '<span class="key">E</span>'}</button>
         <button data-act="fullscreen">${this.fullscreenLabel()}</button>
         ${this.langButton()}
       </div>`, 'title');
     this.titleScene(dmTitleLayers(city, { warm: /__warm$/.test(saved?.map ?? '') }) ?? TITLE_LAYERS);
     el.querySelector('[data-act=fullscreen]').onclick = () => this.toggleFullscreen();
     this.bindLang(el);
-    this.titleContinue = save ? () => { this.close(); this.onContinue(); } : null;
-    this.titleNew = () => {
+    // E: zuletzt benutzten Platz fortsetzen (leer: dort neu beginnen) · N: neues Spiel im ersten freien Platz
+    this.titleContinue = save ? () => { this.close(); this.onContinue(active); } : null;
+    const free = slots.find((x) => !x.save)?.n ?? null;
+    this.titleNew = (n = save ? free : active) => {
+      if (n == null) return; // alle Plätze belegt: erst einen löschen oder per Knopf überschreiben
       this.testArmed = true;
       this.close();
-      this.onNewGame();
+      this.onNewGame(n);
       this.showMessage(c.start.intro_title, c.start.intro, { scene: 'kapitel1_karte', footer: this.touch ? 'Tipp: Im Notizbuch (Knopf oben rechts) siehst du deine Aufträge.' : 'Tipp: Im Notizbuch (J) siehst du deine Aufträge.' });
     };
-    el.querySelector('[data-act=new]').onclick = this.titleNew;
-    el.querySelector('[data-act=continue]')?.addEventListener('click', this.titleContinue);
+    // Überschreiben und Löschen brauchen einen zweiten Klick
+    const armed = (btn, run) => () => {
+      if (btn.dataset.armed) return run();
+      el.querySelectorAll('[data-armed]').forEach((b) => { delete b.dataset.armed; b.textContent = b.dataset.label; });
+      btn.dataset.armed = '1';
+      btn.textContent = 'Sicher? Nochmal klicken';
+    };
+    el.querySelectorAll('.saveslot').forEach((row) => {
+      const n = Number(row.dataset.slot);
+      const has = !!slots.find((x) => x.n === n)?.save;
+      row.querySelector('[data-act=load]')?.addEventListener('click', () => { this.close(); this.onContinue(n); });
+      const nb = row.querySelector('[data-act=new]');
+      nb.onclick = has ? armed(nb, () => this.titleNew(n)) : () => this.titleNew(n);
+      const db = row.querySelector('[data-act=delete]');
+      if (db) db.onclick = armed(db, () => { this.onDeleteSlot(n); this.showTitle(); });
+    });
+  }
+
+  /** Eine Zeile im Titelmenü: Platz n mit Ort, Sequenz und Spielzeit, dazu Laden / Neu / Löschen. */
+  slotRow(n, d, active) {
+    const c = this.state.content;
+    let info = '<span class="slotinfo muted">leer</span>';
+    if (d) {
+      const ort = c.maps[d.map]?.name ?? '';
+      const pfad = d.pathway?.id ? `<span>${esc(c.pathways?.[d.pathway.id]?.name ?? '')}</span> <span>Seq ${d.pathway.seq}</span>` : '';
+      const min = Math.floor((d.playTime ?? 0) / 60);
+      const zeit = `<span>${Math.floor(min / 60)} Std ${min % 60} Min</span>`;
+      info = `<span class="slotinfo">${ort ? `<span>${esc(ort)}</span> · ` : ''}${pfad ? `${pfad} · ` : ''}${zeit}</span>`;
+    }
+    const btn = (act, label, cls = '') => `<button class="${cls}" data-act="${act}" data-label="${label}">${label}</button>`;
+    return `<div class="saveslot${active ? ' active' : ''}" data-slot="${n}">
+      <span class="slotname">Platz ${n}</span>${info}
+      <span class="slotbtns">${d ? btn('load', 'Laden', active ? 'primary' : '') : ''}${btn('new', 'Neu', d ? '' : (active ? 'primary' : ''))}${d ? btn('delete', 'Löschen') : ''}</span>
+    </div>`;
   }
 
   /**

@@ -14,7 +14,15 @@ import { cityOf } from './core/Travel.js';
 import { HIMMEL, STURZ_EFFECTS } from './data/aufstieg.js';
 import { watchDom, patchPhaser } from './core/I18n.js';
 
-const SAVE_KEY = 'nebelakten-save';
+// Drei lokale Speicherplätze. Platz 1 nutzt den alten Schlüssel, damit bestehende Spielstände dort bleiben.
+const SLOTS = [1, 2, 3];
+const SLOT_KEY = 'nebelakten-slot';
+const saveKey = (n) => (n === 1 ? 'nebelakten-save' : `nebelakten-save-${n}`);
+let slot = (() => { try { const n = Number(localStorage.getItem(SLOT_KEY)); return SLOTS.includes(n) ? n : 1; } catch { return 1; } })();
+function setSlot(n) {
+  slot = n;
+  try { localStorage.setItem(SLOT_KEY, String(n)); } catch { /* egal */ }
+}
 const state = new GameState(content);
 const frame = document.getElementById('frame');
 const uiRoot = document.getElementById('ui');
@@ -23,19 +31,20 @@ patchPhaser(Phaser);
 watchDom(uiRoot, document.getElementById('rotate'));
 
 // --- Spielstand (localStorage, Fehler werden still ignoriert) ---------------------
-function readSave() {
-  try { return JSON.parse(localStorage.getItem(SAVE_KEY) ?? 'null'); } catch { return null; }
+function readSave(n = slot) {
+  try { return JSON.parse(localStorage.getItem(saveKey(n)) ?? 'null'); } catch { return null; }
 }
+const validSave = (n) => { const d = readSave(n); return [2, 3, 4].includes(d?.v) ? d : null; };
 function writeSave() {
   if (!started) return;
   const scene = game.scene.getScene('world');
   const pos = scene?.player && !scene.leaving ? scene.playerPosition() : null;
   const w2 = game.scene.getScene('world2'); // Kapitel 4: Splitscreen, Spieler 2 merkt sich seine eigene Stelle
   if (state.splitOn && state.p2 && w2?.player && w2.sys.isActive() && !w2.leaving) state.p2.position = w2.playerPosition();
-  try { localStorage.setItem(SAVE_KEY, JSON.stringify(state.serialize(pos))); } catch { /* privat/kein Speicher */ }
+  try { localStorage.setItem(saveKey(slot), JSON.stringify(state.serialize(pos))); } catch { /* privat/kein Speicher */ }
 }
-function clearSave() {
-  try { localStorage.removeItem(SAVE_KEY); } catch { /* egal */ }
+function clearSave(n = slot) {
+  try { localStorage.removeItem(saveKey(n)); } catch { /* egal */ }
 }
 let saveTimer = null;
 const saveSoon = () => { clearTimeout(saveTimer); saveTimer = setTimeout(writeSave, 300); };
@@ -52,8 +61,11 @@ const audio = new Audio({ kinds: ['sfx', 'sfx2', 'sfx3:hg_', 'sfx4'] }); // Effe
 wireSounds(state, audio, uiRoot, { cityOf: (m) => cityOf(state, m) });
 
 const ui = new Ui(uiRoot, state, {
-  hasSave: () => [2, 3, 4].includes(readSave()?.v),
-  onNewGame: () => {
+  slots: () => SLOTS.map((n) => ({ n, save: validSave(n) })),
+  activeSlot: () => slot,
+  onDeleteSlot: (n) => clearSave(n),
+  onNewGame: (n = slot) => {
+    setSlot(n);
     clearSave();
     state.reset();
     // Teststart für die Seq-4-Rituale: ?probe=laterne (oder ein anderer Pfad) → Sequenz 5, voll verdaut, im Vergessmoor
@@ -81,7 +93,8 @@ const ui = new Ui(uiRoot, state, {
     restartWorld();
     saveSoon();
   },
-  onContinue: () => {
+  onContinue: (n = slot) => {
+    setSlot(n);
     if (!state.load(readSave())) state.reset();
     started = true;
     restartWorld();

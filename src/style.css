@@ -1096,3 +1096,13 @@ html.touch .talentbar .tslot { width: 3.2em; height: 3.2em; }
 #ui.split .prompt { left: 25%; max-width: 48%; overflow: hidden; text-overflow: ellipsis; }
 #ui.split .prompt.prompt2 { left: 75%; border-color: #9ab8ff; }
 .lang-on { color: #f0ce80; }
+/* Drei lokale Speicherplätze im Titelmenü */
+.saveslots { display: grid; gap: 0.35em; margin: 0 auto 0.9em; width: min(100%, 30em); }
+.saveslot { display: grid; grid-template-columns: 4.2em 1fr auto; align-items: center; gap: 0.5em; padding: 0.3em 0.5em; border: 1px solid rgba(208, 160, 80, 0.25); background: rgba(0, 0, 0, 0.25); text-align: left; }
+.saveslot.active { border-color: rgba(208, 160, 80, 0.7); }
+.saveslot .slotname { font-weight: bold; }
+.saveslot .slotinfo { font-size: 0.8em; opacity: 0.85; }
+.saveslot .slotinfo.muted { opacity: 0.5; }
+.saveslot .slotbtns { display: flex; gap: 0.3em; }
+.saveslot .slotbtns button { padding: 0.2em 0.6em; font-size: 0.85em; }
+@media (max-width: 640px) { .saveslot { grid-template-columns: 1fr auto; } .saveslot .slotinfo { grid-column: 1 / -1; grid-row: 2; } }
