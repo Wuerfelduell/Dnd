@@ -58,6 +58,7 @@ export const talentMethods = {
     this.talentTime = 0; // läuft immer (auch wenn die Uhr der Stadt steht), für Abklingzeiten und Buffs
     this.talentCd = {}; // id -> talentTime, ab dem die Fähigkeit wieder bereit ist
     this.buffs = []; // [{key, value, until, source}]
+    this.skillHidden = []; // Kampffertigkeiten, die im Kampfmenü ausgeblendet sind (je Spieler, Pfad-Tab)
     this.revealUntil = 0;
     this.scareUntil = 0;
     this.clockFrozen = 0; // Sekunden, die die Uhr der Stadt noch steht
@@ -189,14 +190,27 @@ export const talentMethods = {
     if (this.p2) this.p2.buffs = (this.p2.buffs ?? []).filter((b) => b.until > this.talentTime);
   },
 
+  /** Kampffertigkeit im Kampfmenü ausgeblendet? (nur Anzeige, die Fertigkeit bleibt erlernt) */
+  skillHiddenInCombat(id) {
+    return (this.skillHidden ?? []).includes(id);
+  },
+
+  toggleSkillHidden(id) {
+    this.skillHidden ??= [];
+    const hide = !this.skillHidden.includes(id);
+    this.skillHidden = hide ? [...this.skillHidden, id] : this.skillHidden.filter((x) => x !== id);
+    return { ok: true, hidden: hide };
+  },
+
   serializeTalents() {
-    return { talentTime: Math.round(this.talentTime), talentCd: this.talentCd, buffs: this.buffs, revealUntil: Math.round(this.revealUntil), scareUntil: Math.round(this.scareUntil), clockFrozen: Math.round(this.clockFrozen) };
+    return { talentTime: Math.round(this.talentTime), talentCd: this.talentCd, buffs: this.buffs, revealUntil: Math.round(this.revealUntil), scareUntil: Math.round(this.scareUntil), clockFrozen: Math.round(this.clockFrozen), skillHidden: this.skillHidden ?? [] };
   },
 
   loadTalents(data) {
     this.talentTime = data.talentTime ?? 0;
     this.talentCd = { ...(data.talentCd ?? {}) };
     this.buffs = [...(data.buffs ?? [])];
+    this.skillHidden = [...(data.skillHidden ?? [])];
     this.revealUntil = data.revealUntil ?? 0;
     this.scareUntil = data.scareUntil ?? 0;
     this.clockFrozen = data.clockFrozen ?? 0;

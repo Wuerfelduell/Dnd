@@ -1817,6 +1817,9 @@ export class Ui {
       };
     });
     el.querySelectorAll('[data-drink]').forEach((b) => { b.onclick = () => this.drink(b.dataset.drink); });
+    el.querySelectorAll('[data-skillvis]').forEach((b) => {
+      b.onclick = () => { inv(() => this.state.toggleSkillHidden(b.dataset.skillvis)); this.renderNotebook(); };
+    });
     el.querySelectorAll('[data-talent]').forEach((b) => {
       b.onclick = () => {
         const r = inv(() => this.state.useTalent(b.dataset.talent));
@@ -2428,8 +2431,8 @@ export class Ui {
       const hgScene = (n === 4 || n === 2) && n === cur.seq ? sceneImg(`hg_seq${n}_${cur.id}`) : ''; // Paket CO: Sequenzbild der großen Stufen
       return `<li class="seq${sd.durchbruch ? ' durchbruch' : ''}">${socket}<strong>Sequenz ${n}: ${esc(sd.name)}</strong> ${sd.durchbruch ? `<span class="badge halbgott">${esc(sd.durchbruch)}</span>` : ''}${n === cur.seq ? '<span class="badge likely">aktuell</span>' : ''}${hgScene}<br>
         <span class="desc">${esc(sd.desc)}</span><br>
-        ${skillIcon(sd.skill.id) || '⚔ '}<strong>${esc(sd.skill.name)}</strong> <span class="muted">(${sd.skill.cost} K${s.skillComposureCost({ ...sd.skill, seq: n }) ? ` · ${s.skillComposureCost({ ...sd.skill, seq: n })} Nerven` : ''})</span> ${esc(sd.skill.desc)}
-        ${sd.skill2 ? `<br>${skillIcon(sd.skill2.id) || '⚔ '}<strong>${esc(sd.skill2.name)}</strong> <span class="muted">(${sd.skill2.cost} K${s.skillComposureCost({ ...sd.skill2, seq: n }) ? ` · ${s.skillComposureCost({ ...sd.skill2, seq: n })} Nerven` : ''})</span> ${esc(sd.skill2.desc)}` : ''}
+        ${skillIcon(sd.skill.id) || '⚔ '}<strong>${esc(sd.skill.name)}</strong> <span class="muted">(${sd.skill.cost} K${s.skillComposureCost({ ...sd.skill, seq: n }) ? ` · ${s.skillComposureCost({ ...sd.skill, seq: n })} Nerven` : ''})</span> ${esc(sd.skill.desc)} ${this.skillVisBtn(s, sd.skill.id)}
+        ${sd.skill2 ? `<br>${skillIcon(sd.skill2.id) || '⚔ '}<strong>${esc(sd.skill2.name)}</strong> <span class="muted">(${sd.skill2.cost} K${s.skillComposureCost({ ...sd.skill2, seq: n }) ? ` · ${s.skillComposureCost({ ...sd.skill2, seq: n })} Nerven` : ''})</span> ${esc(sd.skill2.desc)} ${this.skillVisBtn(s, sd.skill2.id)}` : ''}
         ${talent}
         ${(sd.passives ?? []).map((x) => `<br>✧ ${esc(x.text)}`).join('')}</li>`;
     }).join('');
@@ -2452,6 +2455,12 @@ export class Ui {
         <li class="muted">Alles andere verdaut diesen Pfad nicht. Bosse zählen vierfach, Elitegegner doppelt, gefährliche Gebiete bringen je Stufe ein Viertel mehr. Ab Sequenz 6 verdaut jede Stufe zehnmal so langsam wie die davor.</li></ul>
       <ul class="seqs">${rows}</ul>
       ${this.recipesHtml(false)}`;
+  }
+
+  /** Häkchen-Knopf: Kampffertigkeit im Kampfmenü zeigen oder ausblenden (gegen eine zu volle Kampfleiste). */
+  skillVisBtn(s, id) {
+    const hidden = s.skillHiddenInCombat(id);
+    return `<button class="small skillvis${hidden ? '' : ' primary'}" data-skillvis="${id}" title="Im Kampfmenü zeigen oder ausblenden">${hidden ? '☐ im Kampf ausgeblendet' : '☑ im Kampf zeigen'}</button>`;
   }
 
   /** Welt-Fähigkeit einer Sequenz: Kosten, Abklingzeit und Knopf zum Einsetzen (nur außerhalb von Kämpfen). */
@@ -3381,10 +3390,14 @@ export class Ui {
     } else if (sub === 'skills') {
       // Moor: Heilung wächst mit dem Leben, die echte Menge steht hinter der Beschreibung
       const healNote = (k) => { const b = k.heal ?? k.heal_all; const h = b ? c.on(c.actor, () => c.skillHeal(b)) : b; return h && h !== b ? ` Mit deinem Leben: heilt ${h}, präzise Takte etwas mehr.` : ''; };
-      entries = c.skills().filter((k) => k.id !== 'attack').map((k) => ({
+      // Im Pfad-Tab ausgeblendete Fertigkeiten fehlen hier (nicht in der Schattensteuerung, die lost eine aus)
+      const shown = (k) => c.rules?.shadow || !mine(() => this.state.skillHiddenInCombat(k.id));
+      const all = c.skills().filter((k) => k.id !== 'attack');
+      entries = all.filter(shown).map((k) => ({
         text: k.name, skill: k.id, info: `${k.cost} K${k.composure ? ` · ${k.composure} Nerven` : ''}${isPrecise(k) ? ' · ◎ präzise' : ''}`,
         desc: `${k.desc ?? ''}${healNote(k)}${isPrecise(k) ? ` ◎ Präzise: volle Wirkung${k.stun ? ' und Betäubung' : ''} nur bei perfektem Takt, das goldene Fenster ist winzig.` : ''}`, act: { type: 'skill', id: k.id }, disabled: !k.usable,
       }));
+      if (!entries.length && all.length) entries = [{ text: 'Alle Fertigkeiten ausgeblendet', disabled: true, desc: 'Im Notizbuch unter „Pfad“ kannst du sie wieder einblenden.' }];
     } else if (sub === 'target') {
       // Moor im Koop: wen heilt die Fertigkeit? Erst man selbst, dann der stehende Partner
       const sk = c.skillDef(skillId);
