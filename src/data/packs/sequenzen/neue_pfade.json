@@ -596,11 +596,14 @@
           "name": "Schichtschluss",
           "cost": 5,
           "hits": 2,
-          "flat": 20,
-          "heal": 18,
+          "flat": 22,
+          "heal": 20,
           "composure": 10,
-          "desc": "Die Schicht schließt sich über dem Gegner und zerdrückt seine Rüstung. 2 Treffer mit je 20 Grundschaden, Rüstung -2, heilt 18 Leben. Kostet vor Passiven 10 Nerven.",
-          "armor_break": 2
+          "desc": "Die Schicht schließt sich über dem Gegner und vergiftet ihn mit Moorwasser. 2 Treffer mit je 22 Grundschaden, Gift für 3 Runden je 12 Schaden, heilt 20 Leben. Kostet vor Passiven 10 Nerven.",
+          "burn": [
+            12,
+            3
+          ]
         },
         "passives": [
           {
