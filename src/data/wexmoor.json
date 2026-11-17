@@ -12097,6 +12097,10 @@
               ]
             },
             {
+              "text": "Die Strafe absitzen.",
+              "next": "absitzen"
+            },
+            {
               "text": "Noch nicht."
             }
           ]
@@ -12172,6 +12176,10 @@
               "next": "halbgott"
             },
             {
+              "text": "Die Strafe absitzen.",
+              "next": "absitzen"
+            },
+            {
               "text": "Noch nicht."
             }
           ]
@@ -12193,7 +12201,9 @@
             {
               "text": "Raus hier."
             }
-          ]
+          ],
+          "wanted": -2,
+          "wanted_reason": "Zunder hat dich rausgeholt"
         },
         "bail_pay": {
           "text": "Eine lange Nacht auf der Pritsche. Zunder kommt erst am Mittag durch die Vordertür, mit einem Beutel Münzen und einem Lächeln, das dem Wachmann nicht gefällt. „Kaution. Für meinen Cousin, den Dummkopf.“\n\nDraußen hält sie die Hand auf. „Fünfzehn. Ich bin nicht die Heilsarmee.“",
@@ -12213,7 +12223,9 @@
             {
               "text": "Danke, Zunder."
             }
-          ]
+          ],
+          "wanted": -2,
+          "wanted_reason": "Zunder hat dich rausgeholt"
         },
         "bail_broke": {
           "text": "Zunder zahlt die Kaution aus eigener Tasche und redet den ganzen Heimweg nicht mit dir. Erst am Kahn sagt sie: „Das nächste Mal lass ich dich drin.“ Sie meint es nicht so. Hoffentlich.",
@@ -12232,7 +12244,9 @@
             {
               "text": "Es tut mir leid."
             }
-          ]
+          ],
+          "wanted": -2,
+          "wanted_reason": "Zunder hat dich rausgeholt"
         },
         "bail_hot": {
           "text": "Nach einem Ausbruch hängt dein Zettel an jeder Laterne, und das Wachhaus hat doppelte Besetzung. Zunder braucht zwei Tage und einen dicken Beutel. „Vierzig. Der Sergeant wollte sechzig, aber er mag meinen Cousin nicht so wie ich.“",
@@ -12252,7 +12266,9 @@
             {
               "text": "Danke, Zunder."
             }
-          ]
+          ],
+          "wanted": -2,
+          "wanted_reason": "Zunder hat dich rausgeholt"
         },
         "bail_hot_broke": {
           "text": "Nach einem Ausbruch hängt dein Zettel an jeder Laterne, und das Wachhaus hat doppelte Besetzung. Zunder pfeift nachts einmal unter dem Fenster durch und verschwindet wieder. Vierzig Schilling wollen sie für dich, und so viel hast du nicht.",
@@ -12261,6 +12277,10 @@
             {
               "text": "Dann eben selbst.",
               "next": "start"
+            },
+            {
+              "text": "Die Strafe absitzen.",
+              "next": "absitzen"
             }
           ]
         },
@@ -12284,6 +12304,10 @@
             {
               "text": "Dann eben selbst.",
               "next": "start"
+            },
+            {
+              "text": "Die Strafe absitzen.",
+              "next": "absitzen"
             }
           ]
         },
@@ -12433,6 +12457,28 @@
           "choices": [
             {
               "text": "Weg hier."
+            }
+          ]
+        },
+        "absitzen": {
+          "text": "Du hörst auf, an den Stäben zu rütteln. Tage vergehen: Wassersuppe, Verhöre, ein Schreiber, der deinen Namen dreimal falsch schreibt. Dann schließt ein müder Sergeant auf. „Abgesessen. Und jetzt raus, bevor ich es mir anders überlege.“\n\nDie Grauspäher haben dein Gesicht gesehen, aber deine Akte ist geschlossen. Fürs Erste.",
+          "nerves": -20,
+          "wanted": -3,
+          "wanted_reason": "Strafe abgesessen",
+          "clears_flags": [
+            "k2_in_cell",
+            "k2_zelle_werkzeug",
+            "k2_zelle_offen",
+            "k2_zelle_fehl1",
+            "k2_zelle_alarm"
+          ],
+          "travel": {
+            "map": "wx_bahnhof",
+            "spawn": "default"
+          },
+          "choices": [
+            {
+              "text": "Endlich."
             }
           ]
         }
