@@ -95,8 +95,8 @@ export const auctionMethods = {
     // Leerer Topf: ein gängiges Stück, nie ein seltenes (sonst käme z. B. die 1-%-Formel viel zu oft)
     const common = mem.offers.filter((e) => (e.chance ?? 1) >= 0.2);
     if (!pool.length) return common.length ? { ...common[Math.floor(rng() * common.length)] } : null;
-    // Seb (2026-11-17): Formeln des eigenen Pfads (Spieler 1 oder 2) wiegen im Topf dreifach, sonst gehen sie zwischen den vielen Losen unter
-    const mine = new Set([this.pathway?.id, this.p2?.active ? this.p2.pathway?.id : null].filter(Boolean));
+    // Seb (2026-11-17): Formeln des Pfads von Spieler 1 wiegen im Topf dreifach (nur Spieler 1, nicht Spieler 2)
+    const mine = new Set([this.acting === 2 ? this.p2?.pathway?.id : this.pathway?.id].filter(Boolean));
     const weight = (e) => (/^formel_/.test(e.item) && mine.has(/^formel_(.+)_\d$/.exec(e.item)?.[1]) ? OWN_FORMULA_WEIGHT : 1);
     let roll = rng() * pool.reduce((sum, e) => sum + weight(e), 0);
     return { ...(pool.find((e) => (roll -= weight(e)) < 0) ?? pool[pool.length - 1]) };
