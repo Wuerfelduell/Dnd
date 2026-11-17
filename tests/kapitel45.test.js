@@ -190,7 +190,7 @@ test('Balance Kapitel 4/5: mit Ausrüstung der Stufe 4 und Sequenz 4 (Halbgott) 
   assert.ok(wonSeq5 <= normal.length * 0.5, `Sequenz 5 gewinnt ${wonSeq5} von ${normal.length}`);
 });
 
-test('Feste-Leben (CK): Buden, Gäste und Auftrag nur am Festtag; Saisonwirkungen liegen einmal je Jahreszeit auf den Märkten; Stiller Abend', () => {
+test('Feste-Leben (CK): Buden, Gäste und Auftrag nur am Festtag; Saisonwirkungen liegen einmal je Jahreszeit auf den Märkten; kein Stiller Abend', () => {
   const s = fresh();
   s.syncClock();
   const gast = content.maps.altmarkt.npcs.find((n) => n.id === 'fs_laternennacht_gast_1');
@@ -212,10 +212,10 @@ test('Feste-Leben (CK): Buden, Gäste und Auftrag nur am Festtag; Saisonwirkunge
   s.playTime = 4 * SEASON_SECONDS + 1;
   s.tick(0);
   assert.ok(s.meets(w.visible_if), 'im nächsten Herbst wieder frei');
-  // Stiller Abend: vierter Wintertag
+  // Stiller Abend entfernt (Seb 2026-11-17): am vierten Wintertag bleibt alles offen
   s.playTime = SEASON_SECONDS + 3 * DAY_SECONDS + 1;
   s.tick(0);
-  assert.ok(s.stillerAbend() && s.flags.has('fs_stiller_abend_aktiv'));
+  assert.ok(!s.flags.has('fs_stiller_abend_aktiv'));
   // Gerede und Händlersprüche je Jahreszeit sind im Spiel
   assert.ok(content.gossip.kettlegate.altmarkt.some((g) => g.requires_flags?.includes('fs_winter')));
   assert.ok(content.festeLeben.haendler.fs_winter.altmarkt.text.length > 5 && content.festeLeben.hud.fs_herbst.length >= 2);

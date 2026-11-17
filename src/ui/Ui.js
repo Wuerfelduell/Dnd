@@ -489,8 +489,7 @@ export class Ui {
       this.seasonSeen = key;
       const lines = state.content.festeLeben?.hud?.[`fs_${season}`] ?? [];
       const fest = Object.keys(FESTE).find((f) => state.flags.has(`fs_fest_${f}_aktiv`));
-      const text = state.flags.has('fs_stiller_abend_aktiv') ? 'Stiller Abend: Heute ruht der Verkauf, nicht deine Ermittlung.'
-        : fest ? `${FESTE[fest].name}: Heute feiert ${FESTE[fest].city === 'kettlegate' ? 'Kettlegate' : FESTE[fest].city === 'wexmoor' ? 'Wexmoor' : 'Dunscar'}.`
+      const text = fest ? `${FESTE[fest].name}: Heute feiert ${FESTE[fest].city === 'kettlegate' ? 'Kettlegate' : FESTE[fest].city === 'wexmoor' ? 'Wexmoor' : 'Dunscar'}.`
           : lines[(day - 1) % Math.max(1, lines.length)];
       if (text) this.toast(text, 'gold');
     });
@@ -2818,12 +2817,6 @@ export class Ui {
   }
 
   openShop(merchantId, mode = 'buy', feedback = '') {
-    // CK: am Stillen Abend (vierter Wintertag) bleiben alle Verkaufstische leer; Zeugen, Fälle und Unterschlüpfe bleiben offen
-    if (this.state.stillerAbend?.()) {
-      const m = this.state.merchant(merchantId);
-      this.showMessage('Stiller Abend', `${m?.name ?? 'Der Händler'} hat heute nichts ausgelegt. Am Stillen Abend ruht der Verkauf in allen Städten, nicht deine Ermittlung. Morgen geht es weiter.`);
-      return;
-    }
     this.state.withPlayer(this.actor, () => this.renderShop(merchantId, mode, feedback), { quiet: true });
   }
 

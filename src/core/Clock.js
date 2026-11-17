@@ -10,9 +10,9 @@ export const isNightAt = (playTime) => Math.floor((playTime ?? 0) / DAY_NIGHT_SE
 
 // Paket BV/CK: Jahreszeiten und Feste. Ein Spieltag hat Tag und Nacht (30 Minuten), eine Jahreszeit sechs Spieltage,
 // das Jahr beginnt im Herbst. Am vierten Tag jeder Jahreszeit feiert eine Stadt (den ganzen Tag); an Tag 2 und 3
-// kündigt sich das Fest an, an Tag 5 und 6 wird nachgelesen. Am vierten Wintertag ruht überall der Handel (Stiller Abend).
-// Flüchtige Flags (`saison_<name>`, `fs_<name>`, `fest_aktiv_<id>`, `fs_fest_<id>_aktiv`, `fs_<id>_ankuendigung|nachlese`,
-// `fs_stiller_abend_aktiv`) stehen wie das Nachtflag nur zur Laufzeit in den Flags.
+// kündigt sich das Fest an, an Tag 5 und 6 wird nachgelesen.
+// Flüchtige Flags (`saison_<name>`, `fs_<name>`, `fest_aktiv_<id>`, `fs_fest_<id>_aktiv`, `fs_<id>_ankuendigung|nachlese`)
+// stehen wie das Nachtflag nur zur Laufzeit in den Flags. Der frühere Stille Abend ist entfernt (Seb 2026-11-17).
 export const SEASONS = ['herbst', 'winter', 'fruehling', 'sommer'];
 export const DAY_SECONDS = DAY_NIGHT_SECONDS * 2;
 export const SEASON_DAYS = 6;
@@ -30,11 +30,11 @@ export const FESTE = {
 /** Fest einer Stadt am Festtag ihrer Jahreszeit (den ganzen Tag), sonst null. */
 export const festAt = (playTime, city) => (seasonDayAt(playTime) === FEST_DAY
   ? Object.entries(FESTE).find(([, f]) => f.city === city && f.season === seasonAt(playTime))?.[0] ?? null : null);
-/** Stiller Abend: vierter Wintertag, in allen Städten. */
-export const isStillerAbendAt = (playTime) => seasonAt(playTime) === 'winter' && seasonDayAt(playTime) === FEST_DAY;
 const FS_SEASON = new Set(SEASONS.map((s) => `fs_${s}`));
 export const VOLATILE_FLAGS = (f) => f === NIGHT_FLAG || f.startsWith('saison_') || f.startsWith('fest_aktiv_') || FS_SEASON.has(f)
-  || /^fs_fest_\w+_aktiv$/.test(f) || /^fs_\w+_(ankuendigung|nachlese)$/.test(f) || f === 'fs_stiller_abend_aktiv' || f === DAY_B_FLAG;
+  || /^fs_fest_\w+_aktiv$/.test(f) || /^fs_\w+_(ankuendigung|nachlese)$/.test(f) || f === DAY_B_FLAG;
+/** Reste des entfernten Stillen Abends (Flags aus alten Spielständen). */
+export const OBSOLETE_FLAG = (f) => f.startsWith('fs_stiller_abend');
 /** Einmal je Jahreszeit nutzbare Wirkungen (CK wirkungen.json) werden mit der neuen Jahreszeit wieder frei. */
 const SEASON_USE = /^fs_\w+_wirkung_\d+_genutzt$/;
 const SEASON_MARK = 'fs_saison_stand_';
@@ -51,7 +51,6 @@ export function clockFlagsAt(playTime) {
     if (day < FEST_DAY) want.add(`fs_${id}_ankuendigung`);
     if (day > FEST_DAY) want.add(`fs_${id}_nachlese`);
   }
-  if (isStillerAbendAt(playTime)) want.add('fs_stiller_abend_aktiv');
   return want;
 }
 
@@ -72,11 +71,6 @@ export const clockMethods = {
   /** Fest, das gerade in einer Stadt gefeiert wird (Id oder null). */
   festAktiv(city) {
     return festAt(this.playTime, city);
-  },
-
-  /** Stiller Abend: Läden geschlossen, Türen zu Zeugen und Fällen offen. */
-  stillerAbend() {
-    return isStillerAbendAt(this.playTime);
   },
 
   /** Nachtflag an die Spielzeit angleichen; meldet true, wenn sich die Phase geändert hat. */

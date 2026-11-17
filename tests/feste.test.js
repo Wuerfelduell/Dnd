@@ -2,7 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
-import { DAY_NIGHT_SECONDS, DAY_SECONDS, SEASONS, SEASON_SECONDS, seasonAt, seasonDayAt, festAt, isStillerAbendAt, FESTE } from '../src/core/Clock.js';
+import { DAY_NIGHT_SECONDS, DAY_SECONDS, SEASONS, SEASON_SECONDS, seasonAt, seasonDayAt, festAt, FESTE } from '../src/core/Clock.js';
 import { FEST_MAPS, SEASON_FACADE, isOutdoorMap } from '../src/world/assets.js';
 import { loadContent } from './helpers.js';
 
@@ -27,6 +27,10 @@ test('Jahreszeiten (CK): sechs Spieltage je Jahreszeit, Jahr beginnt im Herbst, 
   const t = new GameState(content);
   t.load({ ...saved, playTime: 2 * SEASON_SECONDS + 5 });
   assert.ok(t.flags.has('saison_fruehling') && t.flags.has('fs_fruehling'));
+  // Alte Stände: Reste des entfernten Stillen Abends fliegen beim Laden raus
+  const u = new GameState(content);
+  u.load({ ...saved, flags: [...saved.flags, 'fs_stiller_abend_aktiv', 'fs_stiller_abend_geruht', 'fs_stiller_abend_buero_gelesen'] });
+  assert.ok(![...u.flags].some((f) => f.startsWith('fs_stiller_abend')));
 });
 
 test('Jahreszeiten (CK): Saisonwirkungen sind einmal je Jahreszeit frei, auch über Speichern und Laden hinweg', () => {
@@ -44,7 +48,7 @@ test('Jahreszeiten (CK): Saisonwirkungen sind einmal je Jahreszeit frei, auch ü
   assert.ok(content.festeLeben.wirkungen.fs_herbst.length >= 3);
 });
 
-test('Feste (CK): Festtag ist der vierte Tag der Jahreszeit, Ankündigung davor, Nachlese danach, Stiller Abend am vierten Wintertag', () => {
+test('Feste (CK): Festtag ist der vierte Tag der Jahreszeit, Ankündigung davor, Nachlese danach, kein Stiller Abend mehr', () => {
   const day = (season, d) => SEASONS.indexOf(season) * SEASON_SECONDS + (d - 1) * DAY_SECONDS + 1;
   assert.equal(festAt(day('herbst', 1), 'kettlegate'), null);
   assert.equal(festAt(day('herbst', 4), 'kettlegate'), 'laternennacht');
@@ -53,7 +57,6 @@ test('Feste (CK): Festtag ist der vierte Tag der Jahreszeit, Ankündigung davor,
   assert.equal(festAt(day('fruehling', 4), 'wexmoor'), 'salzsegen');
   assert.equal(festAt(day('fruehling', 5), 'wexmoor'), null);
   assert.equal(festAt(day('sommer', 4), 'dunscar'), 'schichtwechsel');
-  assert.ok(isStillerAbendAt(day('winter', 4)) && !isStillerAbendAt(day('winter', 3)) && !isStillerAbendAt(day('herbst', 4)));
   const s = new GameState(content);
   s.playTime = day('herbst', 4);
   s.tick(0);
@@ -64,7 +67,7 @@ test('Feste (CK): Festtag ist der vierte Tag der Jahreszeit, Ankündigung davor,
   assert.ok(!s.flags.has('fest_aktiv_laternennacht') && !s.flags.has('fs_fest_laternennacht_aktiv') && s.flags.has('fs_laternennacht_nachlese'));
   s.playTime = day('winter', 4);
   s.tick(0);
-  assert.ok(s.stillerAbend() && s.flags.has('fs_stiller_abend_aktiv'));
+  assert.ok(!s.stillerAbend && !s.flags.has('fs_stiller_abend_aktiv'), 'Stiller Abend ist entfernt');
   for (const [id, f] of Object.entries(FESTE)) {
     assert.ok(f.name && f.text.length > 40, id);
     for (const m of FEST_MAPS[id]) {

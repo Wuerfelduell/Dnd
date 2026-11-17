@@ -1,5 +1,5 @@
 {
- "beschreibung": "Vorschlag: Spieltag = floor(playTime / 1800) + 1. Saisonindex = floor((Spieltag - 1) / 6) modulo 4; Saisontag = ((Spieltag - 1) modulo 6) + 1. Start Herbst. Fest und Stiller Abend an Saisontag 4, Ankündigung an Tag 2, Nachlese ab Tag 5. Ein Fest dauert 1800 Sekunden. Der aktuelle Zwei-Tage-Kalender muss ausdrücklich migriert werden.",
+ "beschreibung": "Vorschlag: Spieltag = floor(playTime / 1800) + 1. Saisonindex = floor((Spieltag - 1) / 6) modulo 4; Saisontag = ((Spieltag - 1) modulo 6) + 1. Start Herbst. Fest an Saisontag 4, Ankündigung an Tag 2, Nachlese ab Tag 5. Ein Fest dauert 1800 Sekunden. Der aktuelle Zwei-Tage-Kalender muss ausdrücklich migriert werden.",
  "jahreszeiten": {
   "fs_herbst": {
    "name": "Herbst",
@@ -153,23 +153,6 @@
     "clears_flags": [
      "fs_schichtwechsel_ankuendigung",
      "fs_schichtwechsel_nachlese"
-    ]
-   }
-  },
-  "fs_stiller_abend": {
-   "name": "Stiller Abend",
-   "stadt": "alle",
-   "karten": [
-    "buero",
-    "wx_kahn",
-    "ds_speisewagen"
-   ],
-   "jahreszeit": "fs_winter",
-   "dauer_tage": 1,
-   "beschreibung": "Am vierten Wintertag bleiben die Verkaufstische leer. Türen zu Zeugen, Fällen und Unterschlüpfen bleiben offen.",
-   "effects": {
-    "sets_flags": [
-     "fs_stiller_abend_aktiv"
     ]
    }
   }
