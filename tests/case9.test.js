@@ -176,3 +176,25 @@ test('Finale: nach dem Kampf folgen Epilogtafeln (Flucht, Steckbrief, Güterbahn
   assert.ok(content.encounters.starling_stern.min_seq === 7 && content.encounters.starling_stern.boss);
   assert.ok(Object.keys(content.dialogues.sternspiegel9.nodes).includes('briefe'));
 });
+
+test('Fall 9: nach Starlings Sturz zeigt der Wegweiser auf den Spiegel, alte Stände ohne Fahrkarte bekommen sie beim Laden', async () => {
+  const { questTarget } = await import('../src/core/Guide.js');
+  const s = afterCase8();
+  brief(s);
+  investigate(s);
+  s.combine('harvest', 'sky_lights');
+  s.combine('star_near', 'star_night');
+  talk(s, 'marlowe', ['hinter allen Fällen', 'Professor Starling']);
+  ['sternlicht_defeated', 'starling_phase1', 'starling_beaten'].forEach((f) => s.flags.add(f));
+  assert.ok(!s.hasConclusion('d9_falle'), 'die optionale Spur fehlt');
+  const t = questTarget(s, 'case_09');
+  assert.equal(t.id, 'spiegel9', 'nicht mehr auf die optionale Briefspur, sondern zum Spiegel');
+  // Alter Stand: Kapitel 1 vorbei, Fahrkarte weg → beim Laden wieder da, der Zug steht auf der Stadtkarte
+  const old = afterCase8();
+  old.applyEffects(content.endings.c9_good);
+  old.removeItem('fahrkarte_wexmoor');
+  const fresh = new GameState(content);
+  fresh.load(JSON.parse(JSON.stringify(old.serialize())));
+  assert.equal(fresh.itemCount('fahrkarte_wexmoor'), 1);
+  assert.ok(content.travel.some((x) => x.map === 'wx_bahnhof' && x.spawn === 'zug' && fresh.meets(x)));
+});
