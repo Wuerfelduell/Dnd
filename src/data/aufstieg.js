@@ -83,7 +83,7 @@ function himmelsEncounters(content) {
     });
   }
   out.hs_starling = himmelsGegner('hs_starling', 'Lucius Starling, Hand des Alten', {
-    sprite: 'npc:cultist', tint: '#fff2b0', hp: 999999, armor: 80, boss: true,
+    sprite: 'npc:cultist', sheet: 'enemy_starling2', tint: '#fff2b0', hp: 999999, armor: 80, boss: true,
     attacks: [schlag('Brennglas des Alten', 1800, [900, 1300]), schlag('Sternregen', 700, [500, 750, 1000, 1250, 1500]), schlag('Ernte', 5000, [2400], { unparryable: true })],
     intro: 'Starling sitzt auf der untersten Stufe des Thrones, die Beine übereinandergeschlagen. „Mein bester Ermittler. Sie sind wirklich hinterhergekommen.“ Er lacht leise. „Hier oben bin ich nicht mehr der Professor aus Kettlegate. Hier bin ich, was Er aus mir gemacht hat.“',
   });

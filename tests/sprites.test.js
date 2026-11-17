@@ -658,16 +658,16 @@ test('Runde 7: Nerven-, Konzentrations-, Fasserin- und Dunscar-Gegenstände nutz
   }
 });
 
-test('BO: Oda Kessel hat Laufbild, Sitzbild, Portrait, Kopf und Werkbank; die Vorrats-Rezepte zeigen ihr Hauptbeutestück', async () => {
+test('BO: Oda Kessel hat Laufbild, Sitzbild, Portrait, Kopf und Werkbank; die Vorrats-Rezepte haben eigene Bilder', async () => {
   const A = await import('../src/world/assets.js');
   assert.equal(SHEETS[CHARACTER_SHEETS.npc_fasserin], 'characters/fasserin_walk.png');
   assert.ok(existsSync(sprite(`portraits/${PORTRAITS.fasserin}`)));
   assert.ok(existsSync(file(A.headUrl('fasserin'))));
   for (const key of ['fasserin_sit']) assert.ok(existsSync(sprite(ANIM_SHEETS[key][0])), key);
   for (const id of ['fasserin_werkbank', 'fasserin_zangen']) assert.ok(existsSync(sprite(A.WHOLE_PROPS[id])), id);
-  for (const [id, icon] of Object.entries(A.FASS_ICONS)) {
+  for (const id of Object.keys(A.FASS_ICONS)) { // seit den Skript-Varianten eigenes Bild statt Hauptbeutestück
     assert.ok(content.items[id]?.kind === 'artifact', id);
-    assert.equal(itemIconUrl(id), `./sprites/items/${icon}.png`);
+    assert.equal(itemIconUrl(id), `./sprites/items/${id}.png`);
     assert.ok(existsSync(file(itemIconUrl(id))), id);
   }
 });

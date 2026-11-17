@@ -1174,14 +1174,10 @@ export const ITEM_ICON_ALIASES = { // Paket AA/AB haben seit AJ eigene Symbole
 /** Zutaten und Artefakte aus Paket AF haben seit AG eigene Bilder (16 und 32). */
 const AF_ARTIFACTS = ['sq_offene_blende', 'sq_gegenakte', 'sq_ruecklaufbecher', 'sq_stegbolzen', 'sq_fristpendel', 'sq_torfsiegel'];
 const AG_ICONS = (id) => AF_ARTIFACTS.includes(id) || /^sq_zutat_\w+_\d$/.test(id);
-/** Trank/Formel eines neuen Pfads → Bild des Bestandspfads gleicher Stufe. */
+/** Bild-Id eines Items (früher Leihbild für Tränke/Formeln der neuen Pfade, inzwischen alle eigen). */
 const standinIcon = (id) => {
   if (AG_ICONS(id)) return id; // Paket AG: eigene Bilder für Zutaten und Artefakte
-  if (id.startsWith('ritualformel_')) return standinIcon(id.replace(/^ritualformel_/, 'formel_')); // Seq-3-Ritualformel: Leihbild der Formel
-  const t = /^(trank|formel)_(\w+)_(\d)$/.exec(id);
-  if (!t) return id;
-  // Sequenz 4 bis 1 haben noch keine eigenen Trank- und Formelbilder: das Bild der Stufe 5 des Pfads
-  return `${t[1]}_${PATHWAY_STANDIN[t[2]] ?? t[2]}_${Math.max(5, Number(t[3]))}`;
+  return id; // Tränke und Formeln haben für alle Pfade und Sequenzen 9–1 eigene Bilder (16 und 32)
 };
 /** Codex DT (Batch ritualicons2): eigene Icons in 16 und 32 für die Wurfflaschen der Seq-4-Rituale und die seltenen Wexmoor-Funde (Codex DR). */
 export const DT_ICONS = ['wurf_saeure', 'wurf_gift', 'wurf_spreng', 'wxf_salzglas', 'wxf_moorbernstein', 'wxf_schlickperle', 'wxf_gezeitenzahn', 'wxf_schwarzlot',
@@ -1335,7 +1331,7 @@ export function battleSheetDef(scene, sheet) {
     const def = assets.find((a) => a.id === sheet && a.animations) ?? (file && assets.find((a) => a.file === file && a.animations));
     if (def) return def;
   }
-  return null;
+  return GEGNER_VARIANTEN[sheet] ? battleSheetDef(scene, GEGNER_VARIANTEN[sheet]) : null; // Skript-Variante: Animationen des Basis-Sheets
 }
 /** Paket F: Bosse nennen ihre Animationen anders als der Kampfablauf. */
 const ANIM_ALIASES = {
@@ -3022,7 +3018,7 @@ for (const id of ['ez_torfmutter', 'ez_schleusenuhr']) {
   SHEETS[`ph_${id}`] = `characters/ph_${id}_walk.png`;
   CHARACTER_SHEETS[`npc_${id}`] = `ph_${id}`;
 }
-Object.assign(ENCOUNTER_SHEETS, { ez_torfmutter: 'enemy_ez_ds_kalkbrennerin', ez_schleusenuhr: 'enemy_ez_ds_rangierer', wx_pfandleiherin: 'enemy_ez_ds_walzenstimme' });
+Object.assign(ENCOUNTER_SHEETS, { ez_torfmutter: 'enemy_ez_ds_kalkbrennerin', ez_schleusenuhr: 'enemy_ez_ds_rangierer', wx_pfandleiherin: 'enemy_wx_pfandleiherin' });
 /** Aufgaben-Gegenstände der Pfad-Beyonder: Leihbilder, bis eigene Icons kommen. */
 Object.assign(ITEM_ICON_ALIASES, { ph_torfprobe: 'torfbernstein', ph_hales_siegel: 'siegelring' });
 
@@ -3090,4 +3086,58 @@ for (const [id, base] of Object.entries(DAN_ZIELE)) {
   if (FADING_SHEETS.includes(`enemy_${base}`)) FADING_SHEETS.push(`enemy_dan_${id}`);
   OVERWORLD_SHEETS[`dan_${id}`] = [`characters/F_ow_dan_${id}.png`, 16, 32];
   PROP_ORIGINS[`ow_dan_${id}`] = PROP_ORIGINS[`ow_${base}`] ?? 0.85;
+}
+
+/** Gegenstände, die inzwischen ein eigenes Bild haben: Codex-Lieferungen, die noch auf ein Leihbild zeigten, und
+ *  Skript-Varianten aus tools/art/varianten/items.py (Umfärben, Material, Abnutzung, Okkult-Saum aus vorhandenen Icons). */
+export const EIGENE_ICONS = ['k2g_zeugenklammer', 'k2g_nachhallspule', 'k2g_kerbstaub', 'k2g_moorharz', 'k2g_rufpastille', 'k2g_schreinbruehe',
+  'k2a_tinte_abschrift', 'k2a_bittere_mittel_abschrift', 'k2a_hafenrecht_abschrift', 'k2a_letztes_bild_abschrift', 'k2o_amtsschluessel',
+  'k2v_drucksplitter', 'k2v_messingknopf', 'k2v_fahrkartenhaelfte', 'k2v_saumbrief', 'k2v_tonnenholz',
+  'k3o_stillring', 'k3o_prueflinse', 'k3o_kalkpastille', 'k3o_schichttee', 'k3o_filzverband', 'k3o_ventilspan', 'k3o_kreidestaub', 'k3o_rufwachs',
+  'k3o_schraubenzahn', 'k3o_schlagkern', 'k3o_trichterglas', 'k3o_schichtknopf', 'k3o_leitungsklemme', 'k3o_stillkiesel',
+  'k3a_signalgeraet', 'k3a_depotmarke', 'k3a_leitungspruefer', 'k3a_bahnkarte', 'k3a_werkzeuge', 'k3a_aufsichtsmarke',
+  'k3n_brief_aus_wexmoor_brief_rein', 'k3n_brief_aus_wexmoor_brief_moor', 'k3n_brief_aus_wexmoor_brief_lichtmeister', 'k3n_brief_aus_wexmoor_brief_meer',
+  ...['aschenlicht', 'salzspange', 'pfahlherz', 'kerbhuelse', 'wattpendel', 'pausendose', 'regenzeuge', 'gassenfuchs', 'schalenfunke', 'knochenkiel'].map((n) => `fass_${n}`),
+  ...['laternennacht_andenken', 'salzsegen_andenken', 'schichtwechsel_andenken', 'laternennacht_papierlaterne', 'laternennacht_kerzenboot',
+    'laternennacht_gluehwein', 'laternennacht_kastanien', 'laternennacht_kandis', 'laternennacht_apfel', 'laternennacht_docht', 'laternennacht_tee',
+    'salzsegen_raeucherfisch', 'salzsegen_salzkranz', 'salzsegen_bruehe', 'salzsegen_brot', 'salzsegen_birne', 'salzsegen_kraeuter', 'salzsegen_wasser',
+    'salzsegen_bonbon', 'schichtwechsel_lohntuetenlos', 'schichtwechsel_bierkrug', 'schichtwechsel_kandis', 'schichtwechsel_stulle', 'schichtwechsel_kaffee',
+    'schichtwechsel_gurke', 'schichtwechsel_wasser', 'schichtwechsel_gebinde'].map((n) => `fs_${n}`),
+  'cwo_getrennte_klammer', 'cwo_aufzugsmarke', 'cwo_aufzugsschluessel', 'cwo_letternset', 'cwo_terrassen_kaltbrot', 'cwo_walzenkeil',
+  'cwo_kabinenfenster_scherbe', 'cwo_haushaltsknoten', 'cwo_satzwinkel', 'cwo_gartenetikett', 'cwo_ruecklaufpfropfen',
+  'cwa_rohrpostsiegel', 'cwa_originalsatz', 'cwa_zeugensiegel', 'cwa_amtsschluessel', 'bha_heizvorrat', 'bha_kapselhalter', 'bha_formelbeleg', 'bha_laborschluessel',
+  'bho_kalte_handhabe', 'bho_ventilschluessel', 'bho_kondensatglas', 'bho_kurgastmarke', 'bho_palmhausdattel', 'bho_ruecklaufplombe', 'bho_porzellanschieber',
+  'bho_reifkamm', 'bho_ventilrose', 'bho_kuehlfilz', 'bho_ruecklaufstreifen', 'k4s_akte_starling', 'ph_torfprobe', 'ph_hales_siegel',
+  'ds_schlacke_glutperle', 'ds_schlacke_ofenherz', 'ds_schlacke_kronglas', 'ds_beute_messingmarke', 'ds_beute_signalsilber', 'ds_beute_schichtgold', 'ds_beute_kalkopal',
+  ...['laterne', 'faden', 'maske', 'echo', 'kessel', 'eisen', 'schluessel', 'sq_waage', 'sq_moor', 'sq_uhr'].map((p) => `ritualformel_${p}_3`)];
+for (const id of EIGENE_ICONS) delete ITEM_ICON_ALIASES[id];
+
+/** Figuren, die bisher als Platzhalter-Kasten liefen: umgefärbte Codex-Figuren mit getauschten Mützen (tools/art/varianten/figuren.py). */
+export const SKRIPT_FIGUREN = ['dsg_wirtin', 'dsg_heizer', 'dsg_naeherin', 'dsa_apothekerin', 'dsa_lehrling', 'cwn_aufzugswaerter'];
+for (const id of SKRIPT_FIGUREN) {
+  SHEETS[id] = `characters/${id}_walk.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = id;
+}
+
+/** Menschliche Gegner ohne eigene Grafik: umgefärbte Codex-Gegner (tools/art/varianten/gegner.py). Neu → Basis-Sheet (Größe und Animationen). */
+export const GEGNER_VARIANTEN = {
+  enemy_wxs_laternendieb: 'enemy_laternendieb',
+  enemy_wxs_kanalschmuggler: 'enemy_kanalschmuggler',
+  enemy_wxs_nachtkraemer: 'enemy_nachtkraemer',
+  enemy_wxs_falschgeldpraeger: 'enemy_falschgeldpraeger',
+  enemy_wxk_gleispluenderer: 'enemy_ez_schleusendieb',
+  enemy_wxk_torfschneider: 'enemy_k3k_kupferdieb',
+  enemy_wxk_salzfaelscher: 'enemy_falschgeldpraeger',
+  enemy_wxk_bojenbrecher: 'enemy_kanalschmuggler',
+  enemy_wxk_pfahlraeuber: 'enemy_pfandeintreiber',
+  enemy_wxk_wattgaenger: 'enemy_vg_all_wegelagerer',
+  enemy_wxk_moorhehler: 'enemy_k3k_walzenhehler',
+  enemy_wxk_linsendieb: 'enemy_laternendieb',
+  enemy_wx_pfandleiherin: 'enemy_ez_ds_walzenstimme',
+  enemy_k5s_sammler: 'enemy_starling',
+};
+for (const [neu, base] of Object.entries(GEGNER_VARIANTEN)) {
+  BATTLE_SHEETS[neu] = [`battle/${neu}.png`, ...BATTLE_SHEETS[base].slice(1)];
+  if (ANIM_ALIASES[base]) ANIM_ALIASES[neu] = ANIM_ALIASES[base];
+  if (BATTLE_SHEET_SCALE[base]) BATTLE_SHEET_SCALE[neu] = BATTLE_SHEET_SCALE[base];
 }

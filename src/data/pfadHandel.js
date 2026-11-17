@@ -180,7 +180,7 @@ function lonerFight(id, name, title, sheet, text, intro) {
 }
 
 const NEW_FIGHTS = {
-  wx_pfandleiherin: lonerFight('wx_pfandleiherin', 'Maud Keel', 'die Pfandleiherin', 'enemy_ez_ds_walzenstimme', 'Einzelgänger · Pfad der Waage, Sequenz 6: Ausgleichsführer',
+  wx_pfandleiherin: lonerFight('wx_pfandleiherin', 'Maud Keel', 'die Pfandleiherin', 'enemy_wx_pfandleiherin', 'Einzelgänger · Pfad der Waage, Sequenz 6: Ausgleichsführer',
     'Maud legt die Lupe weg. „Du hast mich verpfändet. An die Grauspäher.“ Sie hebt eine Hand, und auf einmal ist alles, was du trägst, doppelt so schwer.'),
   ez_torfmutter: lonerFight('ez_torfmutter', 'Wenna Kolk', 'die Torfmutter', 'enemy_ez_ds_kalkbrennerin', 'Einzelgänger · Pfad des Moores, Sequenz 6: Namensbank',
     'Wenna steht bis zu den Knien im Wasser. „Du hast ihnen gesagt, wo ich die Namen verwahre.“ Das Moor um sie herum flüstert dir deinen eigenen zu.'),

@@ -18,7 +18,7 @@ export const BH_SEQ3 = { hp_floor_mult: 1.4, dmg_mult: 1.75, boss_hp_floor_mult:
 
 function sammlerKampf() {
   return {
-    id: K5S_SAMMLER, name: 'Der Sammler der Linie, Heiliger', sprite: 'npc:cultist', tint: '#fff2b0', occult: true,
+    id: K5S_SAMMLER, name: 'Der Sammler der Linie, Heiliger', sprite: 'npc:cultist', sheet: 'enemy_k5s_sammler', tint: '#fff2b0', occult: true,
     chapter: 5, boss: true, elite: false, tier_seq: 3, hp: 7500, armor: 9, dmg_mult: 1, max_round_dmg: 0.2, fleeable: true, duo_hp_mult: 2.2,
     intro: 'An der Verteilanlage steht ein Mann im hellen Mantel, so hell wie Starlings. Er hält eine Kapsel gegen das Licht, in der etwas Warmes schwappt. „Die letzte Lieferung“, sagt er. „Der Professor braucht sie. Oben ist es kalt, wenn man nicht genug wiegt.“',
     attacks: [schlag('Heiliges Urteil', 82, [900, 1500]), schlag('Lichtkette', 56, [700, 1100, 1500], { nerves: 14 }),
