@@ -11,7 +11,7 @@
 
 /** Laden je Stadt und Preisfaktor gegenüber Nell (Kettlegate). Calderwick: die Krämer der Pfadviertel. */
 export const RITUAL6_LAEDEN = {
-  wexmoor: { shops: ['wx_pfandleiherin'], mult: 1.5 },
+  wexmoor: { shops: ['wx_pfandleiherin'], mult: 1.5, treffenWare: true }, // Seb 2026-11-17: Maud führt auch Puppenaugen (Maske-Ritual)
   dunscar: { shops: ['ds_kraeuterfrau'], mult: 2 },
   calderwick: { shops: ['o3_laterne_kraemer', 'o3_faden_kraemer', 'o3_maske_kraemer', 'o3_echo_kraemer', 'o3_kessel_kraemer', 'o3_eisen_kraemer', 'o3_schluessel_kraemer', 'o3_sq_waage_kraemer', 'o3_sq_moor_kraemer', 'o3_sq_uhr_kraemer'], mult: 3 },
   briarholt: { shops: ['vi_handel_garten'], mult: 3 },
@@ -46,14 +46,14 @@ export function applyRitual6Vorrat(content) {
   const high = treffenWare(content);
   const alle = ritual6Zutaten(content).filter((id) => content.items[id]);
   const zutaten = alle.filter((id) => !high.has(id));
-  for (const { shops, mult } of Object.values(RITUAL6_LAEDEN)) {
+  for (const { shops, mult, treffenWare: auchTreffen } of Object.values(RITUAL6_LAEDEN)) {
     for (const sid of shops) {
       const m = merchants[sid];
       if (!m) continue;
       m.stock ??= [];
-      for (const id of zutaten) {
+      for (const id of auchTreffen ? alle : zutaten) {
         if (m.stock.some((s) => s.item === id && !s.rare && !s.requires_flags)) continue;
-        m.stock.push({ item: id, price: Math.max(1, Math.round(grundpreis(content, id) * mult)) });
+        m.stock.push({ item: id, price: Math.max(1, Math.round(grundpreis(content, id) * mult)), ...(high.has(id) ? { ritual_ausnahme: true } : {}) });
       }
     }
   }

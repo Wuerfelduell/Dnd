@@ -39,7 +39,8 @@ test('Normaler Markt: Zutaten ab Sequenz 7 (auch 6 und 5) sind nicht mehr käufl
   assert.ok(highIngredients.includes('sternglas') && highIngredients.includes('geisteressenz'));
   for (const [id, m] of Object.entries(content.market.merchants)) {
     if (m.gathering || m.treffen_ersatz) continue; // Zunders Schmuggelkiste vertritt die Kettlegate-Treffen in Wexmoor
-    for (const e of m.stock) assert.ok(!highIngredients.includes(e.item), `${id} verkauft ${e.item}`);
+    // Seb 2026-11-17: Maud (Wexmoor) führt Puppenaugen als Seq-6-Ritualzutat (ritual_ausnahme)
+    for (const e of m.stock) if (!e.ritual_ausnahme) assert.ok(!highIngredients.includes(e.item), `${id} verkauft ${e.item}`);
   }
 });
 
@@ -391,7 +392,7 @@ test('Besuchte Treffen verschwinden sofort und die Anzeige zählt auf das nächs
 
 test('Auf den Treffen gibt es nur seltene Dinge fürs große Geld, nichts vom normalen Markt', () => {
   const regular = new Set(Object.values(content.market.merchants).filter((m) => !m.gathering)
-    .flatMap((m) => m.stock.filter((e) => e.rare === undefined).map((e) => e.item)));
+    .flatMap((m) => m.stock.filter((e) => e.rare === undefined && !e.ritual_ausnahme).map((e) => e.item)));
   // Einzige gewollte Überschneidung (Seb, 2026-11-11): die Halbgott-Formel (Seq 4) kostet 4000 bei Kittering wie auf den Treffen
   for (const id of regular) if (/^(ritual)?formel_.*_[34]$/.test(id)) regular.delete(id); // Seq 3: 1 % für 15.000 auf den Dunscar-Treffen (Seb 2026-11-12), seit 2026-11-15 auch beim Krämer im Pfadviertel
   const arts = [];
