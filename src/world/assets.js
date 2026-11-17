@@ -1263,6 +1263,7 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestDunscar3')) scene.load.json('manifestDunscar3', `${BASE}manifest-dunscar3.json`);
   if (!scene.cache.json.exists('manifestSeq31a')) scene.load.json('manifestSeq31a', `${BASE}manifest-seq31a.json`);
   if (!scene.cache.json.exists('manifestEngel')) scene.load.json('manifestEngel', `${BASE}manifest-engel.json`);
+  if (!scene.cache.json.exists('manifestHeilige')) scene.load.json('manifestHeilige', `${BASE}manifest-heilige.json`);
   if (!scene.cache.json.exists('manifestPfadbeyonder')) scene.load.json('manifestPfadbeyonder', `${BASE}manifest-pfadbeyonder.json`);
   if (!scene.cache.json.exists('manifestGebietsbosse')) scene.load.json('manifestGebietsbosse', `${BASE}manifest-gebietsbosse.json`);
   if (!scene.cache.json.exists('manifestAnschlag')) scene.load.json('manifestAnschlag', `${BASE}manifest-anschlag.json`);
@@ -1327,7 +1328,7 @@ function battleAnimDef(scene, sheet, name) {
   return null;
 }
 /** Manifeste mit Kampf-Sheets; spätere Pakete nennen ihre Einträge nicht nach dem Sheet, darum auch über die Datei. */
-export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3', 'manifestGebietsbosse', 'manifestPfadbeyonder', 'manifestEngel', 'manifestSeq31a', 'manifestDunscar5', 'manifestStarling2', 'manifestSekten', 'manifestVorrat1', 'manifestVorrat2', 'manifestHalbgott', 'manifestFasserin2', 'manifestFigurenNachzuegler', 'manifestSeq4rit1', 'manifestSchatten', 'manifestRituale56', 'manifestBenannte', 'manifestNebelseite', 'manifestAnschlag'];
+export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3', 'manifestGebietsbosse', 'manifestPfadbeyonder', 'manifestEngel', 'manifestSeq31a', 'manifestHeilige', 'manifestDunscar5', 'manifestStarling2', 'manifestSekten', 'manifestVorrat1', 'manifestVorrat2', 'manifestHalbgott', 'manifestFasserin2', 'manifestFigurenNachzuegler', 'manifestSeq4rit1', 'manifestSchatten', 'manifestRituale56', 'manifestBenannte', 'manifestNebelseite', 'manifestAnschlag'];
 export function battleSheetDef(scene, sheet) {
   const file = BATTLE_SHEETS[sheet]?.[0];
   for (const m of BATTLE_MANIFESTS) {
@@ -2997,6 +2998,11 @@ for (const p of HG_PATHS) {
   ANIM_SHEETS[`hg_form_${p}_still`] = [`characters/hg_form_${p}_still.png`, 32, 48];
   BATTLE_SHEETS[`hg_form_${p}_still_battle`] = [`battle/hg_form_${p}_still.png`, 96];
   ANIM_ALIASES[`hg_form_${p}_still_battle`] = ANIM_ALIASES[`hg_battle_${p}`];
+}
+/** Grok GA Teil 5 (manifest-heilige.json): Heilige der Höfe (Seq 3), Raster wie hg_battle_<pfad>, nach links schauend wie alle Gegner. */
+for (const p of HG_PATHS) {
+  BATTLE_SHEETS[`enemy_hs_heiliger_${p}`] = [`battle/enemy_hs_heiliger_${p}.png`, 96];
+  ANIM_ALIASES[`enemy_hs_heiliger_${p}`] = ANIM_ALIASES[`hg_battle_${p}`];
 }
 /** Kampfkulissen der beiden Wächter, je Pfad-Begegnung (hg_schwellenwaechter_<pfad>, hg_grenzwaechter_<pfad>). */
 for (const p of HG_PATHS) {

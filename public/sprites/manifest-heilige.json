@@ -1,0 +1,1494 @@
+{
+  "version": 1,
+  "batch": "heilige",
+  "codex": "docs/art/codex_CO_halbgott_grafik.md (Style-Block 0.1 vollständig vor jedem Prompt)",
+  "status": "eingebaut",
+  "paletteMaxVisibleColors": 32,
+  "palette": [
+    "#1a1c2c",
+    "#252b38",
+    "#303b49",
+    "#d0a050",
+    "#e8b860",
+    "#92745a",
+    "#58433c",
+    "#2d2629",
+    "#715648",
+    "#886332",
+    "#686850",
+    "#494b3a",
+    "#b3946e",
+    "#cfb18a",
+    "#f0ce80",
+    "#8b8870",
+    "#425360",
+    "#e0c9a1",
+    "#a8b4c0",
+    "#586c78",
+    "#71858b",
+    "#95a5a5",
+    "#eee2c5",
+    "#893e4e",
+    "#6fe0d0",
+    "#496b64",
+    "#334d47",
+    "#493d59",
+    "#665572",
+    "#877595",
+    "#835140",
+    "#a66c4d",
+    "#c8b0e8",
+    "#a08cc0",
+    "#e07a8a",
+    "#b4586a",
+    "#8fbcb0",
+    "#9ad06a",
+    "#6f9a4c",
+    "#4a6a3a",
+    "#b4a079",
+    "#7d927e",
+    "#5b6e5c",
+    "#92a6b2"
+  ],
+  "paletteNote": "Gesamtpalette = manifest-halbgott.json (32) + Gewandtöne in der Pfadfarbe; jedes Blatt nutzt höchstens 32 davon (eigene indizierte PNG-Palette je Blatt, siehe assets[].palette). Warmes Bein-Weiß #eee2c5 statt Weiß, Türkis <= 0,3 %.",
+  "facingNote": "Vorlagen hg_battle_* schauen nach rechts; die Heiligen sind zellweise gespiegelt und schauen nach links (zum Spieler), wie Gegnerblätter enemy_*. Falls die Engine die Halbgott-Blätter selbst spiegelt: Einbau-Hinweis in PROPOSAL-einbau.md.",
+  "assets": [
+    {
+      "id": "enemy_hs_heiliger_laterne",
+      "file": "battle/enemy_hs_heiliger_laterne.png",
+      "gameId": "hs_heiliger_laterne",
+      "path": "laterne",
+      "name": "Heiliger der Höfe – Aschenprotokollant",
+      "form": "Leuchtgestalt",
+      "halo": "Ring aus Gaslaternen",
+      "template": "battle/hg_battle_laterne.png",
+      "width": 576,
+      "height": 576,
+      "kind": "battle",
+      "transparent": true,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 6,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "anticipationHoldFrames": {
+        "attack1": [
+          7,
+          8
+        ],
+        "attack2": [
+          13,
+          14
+        ]
+      },
+      "baseline": 93,
+      "facing": "left",
+      "occupiedCounts": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "replacesTint": "#fff0c0",
+      "palette": [
+        "#1a1c2c",
+        "#252b38",
+        "#303b49",
+        "#d0a050",
+        "#e8b860",
+        "#92745a",
+        "#58433c",
+        "#2d2629",
+        "#715648",
+        "#886332",
+        "#686850",
+        "#494b3a",
+        "#b3946e",
+        "#cfb18a",
+        "#f0ce80",
+        "#8b8870",
+        "#425360",
+        "#e0c9a1",
+        "#a8b4c0",
+        "#586c78",
+        "#71858b",
+        "#95a5a5",
+        "#eee2c5",
+        "#893e4e",
+        "#334d47",
+        "#493d59",
+        "#665572",
+        "#835140",
+        "#a66c4d"
+      ]
+    },
+    {
+      "id": "enemy_hs_heiliger_faden",
+      "file": "battle/enemy_hs_heiliger_faden.png",
+      "gameId": "hs_heiliger_faden",
+      "path": "faden",
+      "name": "Heiliger der Höfe – Bruchhefter",
+      "form": "Nahtgespinst",
+      "halo": "Fadenring mit Nadel",
+      "template": "battle/hg_battle_faden.png",
+      "width": 576,
+      "height": 576,
+      "kind": "battle",
+      "transparent": true,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 6,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "anticipationHoldFrames": {
+        "attack1": [
+          7,
+          8
+        ],
+        "attack2": [
+          13,
+          14
+        ]
+      },
+      "baseline": 93,
+      "facing": "left",
+      "occupiedCounts": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "replacesTint": "#fff0c0",
+      "palette": [
+        "#1a1c2c",
+        "#252b38",
+        "#303b49",
+        "#d0a050",
+        "#e8b860",
+        "#92745a",
+        "#58433c",
+        "#2d2629",
+        "#715648",
+        "#886332",
+        "#686850",
+        "#494b3a",
+        "#b3946e",
+        "#cfb18a",
+        "#f0ce80",
+        "#8b8870",
+        "#425360",
+        "#e0c9a1",
+        "#a8b4c0",
+        "#586c78",
+        "#71858b",
+        "#95a5a5",
+        "#eee2c5",
+        "#493d59",
+        "#665572",
+        "#877595",
+        "#a66c4d",
+        "#c8b0e8",
+        "#a08cc0"
+      ]
+    },
+    {
+      "id": "enemy_hs_heiliger_maske",
+      "file": "battle/enemy_hs_heiliger_maske.png",
+      "gameId": "hs_heiliger_maske",
+      "path": "maske",
+      "name": "Heiliger der Höfe – Rollenverwahrer",
+      "form": "Hundertmiene",
+      "halo": "Maskenkranz",
+      "template": "battle/hg_battle_maske.png",
+      "width": 576,
+      "height": 576,
+      "kind": "battle",
+      "transparent": true,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 6,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "anticipationHoldFrames": {
+        "attack1": [
+          7,
+          8
+        ],
+        "attack2": [
+          13,
+          14
+        ]
+      },
+      "baseline": 93,
+      "facing": "left",
+      "occupiedCounts": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "replacesTint": "#fff0c0",
+      "palette": [
+        "#1a1c2c",
+        "#252b38",
+        "#303b49",
+        "#d0a050",
+        "#e8b860",
+        "#92745a",
+        "#58433c",
+        "#2d2629",
+        "#715648",
+        "#886332",
+        "#686850",
+        "#494b3a",
+        "#b3946e",
+        "#cfb18a",
+        "#f0ce80",
+        "#8b8870",
+        "#425360",
+        "#e0c9a1",
+        "#a8b4c0",
+        "#586c78",
+        "#71858b",
+        "#95a5a5",
+        "#eee2c5",
+        "#893e4e",
+        "#6fe0d0",
+        "#334d47",
+        "#493d59",
+        "#665572",
+        "#a66c4d",
+        "#e07a8a",
+        "#b4586a"
+      ]
+    },
+    {
+      "id": "enemy_hs_heiliger_echo",
+      "file": "battle/enemy_hs_heiliger_echo.png",
+      "gameId": "hs_heiliger_echo",
+      "path": "echo",
+      "name": "Heiliger der Höfe – Nachrufgefäß",
+      "form": "Hohlklang",
+      "halo": "Glockenkranz",
+      "template": "battle/hg_battle_echo.png",
+      "width": 576,
+      "height": 576,
+      "kind": "battle",
+      "transparent": true,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 6,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "anticipationHoldFrames": {
+        "attack1": [
+          7,
+          8
+        ],
+        "attack2": [
+          13,
+          14
+        ]
+      },
+      "baseline": 93,
+      "facing": "left",
+      "occupiedCounts": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "replacesTint": "#fff0c0",
+      "palette": [
+        "#1a1c2c",
+        "#252b38",
+        "#303b49",
+        "#d0a050",
+        "#e8b860",
+        "#92745a",
+        "#58433c",
+        "#2d2629",
+        "#715648",
+        "#886332",
+        "#686850",
+        "#494b3a",
+        "#b3946e",
+        "#cfb18a",
+        "#f0ce80",
+        "#8b8870",
+        "#425360",
+        "#e0c9a1",
+        "#a8b4c0",
+        "#586c78",
+        "#71858b",
+        "#95a5a5",
+        "#eee2c5",
+        "#6fe0d0",
+        "#496b64",
+        "#334d47",
+        "#493d59",
+        "#665572",
+        "#877595",
+        "#835140",
+        "#a66c4d",
+        "#8fbcb0"
+      ]
+    },
+    {
+      "id": "enemy_hs_heiliger_kessel",
+      "file": "battle/enemy_hs_heiliger_kessel.png",
+      "gameId": "hs_heiliger_kessel",
+      "path": "kessel",
+      "name": "Heiliger der Höfe – Kreislaufgefäß",
+      "form": "Siedeleib",
+      "halo": "Kesselring",
+      "template": "battle/hg_battle_kessel.png",
+      "width": 576,
+      "height": 576,
+      "kind": "battle",
+      "transparent": true,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 6,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "anticipationHoldFrames": {
+        "attack1": [
+          7,
+          8
+        ],
+        "attack2": [
+          13,
+          14
+        ]
+      },
+      "baseline": 93,
+      "facing": "left",
+      "occupiedCounts": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "replacesTint": "#fff0c0",
+      "palette": [
+        "#1a1c2c",
+        "#252b38",
+        "#303b49",
+        "#d0a050",
+        "#e8b860",
+        "#92745a",
+        "#58433c",
+        "#2d2629",
+        "#715648",
+        "#886332",
+        "#686850",
+        "#494b3a",
+        "#b3946e",
+        "#cfb18a",
+        "#f0ce80",
+        "#8b8870",
+        "#425360",
+        "#e0c9a1",
+        "#a8b4c0",
+        "#586c78",
+        "#71858b",
+        "#95a5a5",
+        "#eee2c5",
+        "#496b64",
+        "#334d47",
+        "#493d59",
+        "#665572",
+        "#a66c4d",
+        "#4a6a3a"
+      ]
+    },
+    {
+      "id": "enemy_hs_heiliger_eisen",
+      "file": "battle/enemy_hs_heiliger_eisen.png",
+      "gameId": "hs_heiliger_eisen",
+      "path": "eisen",
+      "name": "Heiliger der Höfe – Gegenlast",
+      "form": "Nietkoloss",
+      "halo": "Nietenring/Eisenrad",
+      "template": "battle/hg_battle_eisen.png",
+      "width": 576,
+      "height": 576,
+      "kind": "battle",
+      "transparent": true,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 6,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "anticipationHoldFrames": {
+        "attack1": [
+          7,
+          8
+        ],
+        "attack2": [
+          13,
+          14
+        ]
+      },
+      "baseline": 93,
+      "facing": "left",
+      "occupiedCounts": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "replacesTint": "#fff0c0",
+      "palette": [
+        "#1a1c2c",
+        "#252b38",
+        "#303b49",
+        "#d0a050",
+        "#e8b860",
+        "#92745a",
+        "#58433c",
+        "#2d2629",
+        "#715648",
+        "#886332",
+        "#686850",
+        "#494b3a",
+        "#b3946e",
+        "#cfb18a",
+        "#f0ce80",
+        "#8b8870",
+        "#425360",
+        "#e0c9a1",
+        "#a8b4c0",
+        "#586c78",
+        "#71858b",
+        "#95a5a5",
+        "#eee2c5",
+        "#893e4e",
+        "#493d59",
+        "#665572",
+        "#877595",
+        "#835140",
+        "#a66c4d"
+      ]
+    },
+    {
+      "id": "enemy_hs_heiliger_schluessel",
+      "file": "battle/enemy_hs_heiliger_schluessel.png",
+      "gameId": "hs_heiliger_schluessel",
+      "path": "schluessel",
+      "name": "Heiliger der Höfe – Riegelabwesenheit",
+      "form": "Türhüter",
+      "halo": "Schlüsselkranz um großen Schlüssel",
+      "template": "battle/hg_battle_schluessel.png",
+      "width": 576,
+      "height": 576,
+      "kind": "battle",
+      "transparent": true,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 6,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "anticipationHoldFrames": {
+        "attack1": [
+          7,
+          8
+        ],
+        "attack2": [
+          13,
+          14
+        ]
+      },
+      "baseline": 93,
+      "facing": "left",
+      "occupiedCounts": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "replacesTint": "#fff0c0",
+      "palette": [
+        "#1a1c2c",
+        "#252b38",
+        "#303b49",
+        "#d0a050",
+        "#e8b860",
+        "#92745a",
+        "#58433c",
+        "#2d2629",
+        "#715648",
+        "#886332",
+        "#686850",
+        "#494b3a",
+        "#b3946e",
+        "#cfb18a",
+        "#f0ce80",
+        "#8b8870",
+        "#425360",
+        "#e0c9a1",
+        "#586c78",
+        "#71858b",
+        "#95a5a5",
+        "#eee2c5",
+        "#893e4e",
+        "#6fe0d0",
+        "#496b64",
+        "#334d47",
+        "#493d59",
+        "#835140",
+        "#a66c4d"
+      ]
+    },
+    {
+      "id": "enemy_hs_heiliger_sq_waage",
+      "file": "battle/enemy_hs_heiliger_sq_waage.png",
+      "gameId": "hs_heiliger_sq_waage",
+      "path": "sq_waage",
+      "name": "Heiliger der Höfe – Saldenhüter",
+      "form": "Gewichtsträger",
+      "halo": "Goldring mit Waage",
+      "template": "battle/hg_battle_sq_waage.png",
+      "width": 576,
+      "height": 576,
+      "kind": "battle",
+      "transparent": true,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 6,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "anticipationHoldFrames": {
+        "attack1": [
+          7,
+          8
+        ],
+        "attack2": [
+          13,
+          14
+        ]
+      },
+      "baseline": 93,
+      "facing": "left",
+      "occupiedCounts": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "replacesTint": "#fff0c0",
+      "palette": [
+        "#1a1c2c",
+        "#252b38",
+        "#303b49",
+        "#d0a050",
+        "#e8b860",
+        "#92745a",
+        "#58433c",
+        "#2d2629",
+        "#715648",
+        "#886332",
+        "#686850",
+        "#494b3a",
+        "#b3946e",
+        "#cfb18a",
+        "#f0ce80",
+        "#425360",
+        "#e0c9a1",
+        "#586c78",
+        "#71858b",
+        "#eee2c5",
+        "#493d59",
+        "#665572",
+        "#877595",
+        "#835140",
+        "#a66c4d",
+        "#b4a079"
+      ]
+    },
+    {
+      "id": "enemy_hs_heiliger_sq_moor",
+      "file": "battle/enemy_hs_heiliger_sq_moor.png",
+      "gameId": "hs_heiliger_sq_moor",
+      "path": "sq_moor",
+      "name": "Heiliger der Höfe – Namensediment",
+      "form": "Torfleib",
+      "halo": "Ring aus Schilf und Torf",
+      "template": "battle/hg_battle_sq_moor.png",
+      "width": 576,
+      "height": 576,
+      "kind": "battle",
+      "transparent": true,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 6,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "anticipationHoldFrames": {
+        "attack1": [
+          7,
+          8
+        ],
+        "attack2": [
+          13,
+          14
+        ]
+      },
+      "baseline": 93,
+      "facing": "left",
+      "occupiedCounts": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "replacesTint": "#fff0c0",
+      "palette": [
+        "#1a1c2c",
+        "#252b38",
+        "#303b49",
+        "#d0a050",
+        "#e8b860",
+        "#92745a",
+        "#58433c",
+        "#2d2629",
+        "#715648",
+        "#886332",
+        "#686850",
+        "#494b3a",
+        "#b3946e",
+        "#cfb18a",
+        "#f0ce80",
+        "#8b8870",
+        "#e0c9a1",
+        "#eee2c5",
+        "#334d47",
+        "#493d59",
+        "#665572",
+        "#a66c4d"
+      ]
+    },
+    {
+      "id": "enemy_hs_heiliger_sq_uhr",
+      "file": "battle/enemy_hs_heiliger_sq_uhr.png",
+      "gameId": "hs_heiliger_sq_uhr",
+      "path": "sq_uhr",
+      "name": "Heiliger der Höfe – Fristlauscher",
+      "form": "Pendelgestalt",
+      "halo": "Zifferblatt-Ring mit Pendel",
+      "template": "battle/hg_battle_sq_uhr.png",
+      "width": 576,
+      "height": 576,
+      "kind": "battle",
+      "transparent": true,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 6,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack1": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack2": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "anticipationHoldFrames": {
+        "attack1": [
+          7,
+          8
+        ],
+        "attack2": [
+          13,
+          14
+        ]
+      },
+      "baseline": 93,
+      "facing": "left",
+      "occupiedCounts": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "replacesTint": "#fff0c0",
+      "palette": [
+        "#1a1c2c",
+        "#252b38",
+        "#303b49",
+        "#d0a050",
+        "#e8b860",
+        "#92745a",
+        "#58433c",
+        "#2d2629",
+        "#715648",
+        "#886332",
+        "#686850",
+        "#494b3a",
+        "#b3946e",
+        "#cfb18a",
+        "#f0ce80",
+        "#8b8870",
+        "#425360",
+        "#e0c9a1",
+        "#a8b4c0",
+        "#586c78",
+        "#71858b",
+        "#95a5a5",
+        "#eee2c5",
+        "#6fe0d0",
+        "#496b64",
+        "#334d47",
+        "#493d59",
+        "#665572",
+        "#835140",
+        "#a66c4d",
+        "#92a6b2"
+      ]
+    }
+  ]
+}
