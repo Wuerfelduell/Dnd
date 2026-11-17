@@ -1261,6 +1261,7 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestSequenzen3')) scene.load.json('manifestSequenzen3', `${BASE}manifest-sequenzen3.json`);
   if (!scene.cache.json.exists('manifestDunscar1')) scene.load.json('manifestDunscar1', `${BASE}manifest-dunscar1.json`);
   if (!scene.cache.json.exists('manifestDunscar3')) scene.load.json('manifestDunscar3', `${BASE}manifest-dunscar3.json`);
+  if (!scene.cache.json.exists('manifestPfadbeyonder')) scene.load.json('manifestPfadbeyonder', `${BASE}manifest-pfadbeyonder.json`);
   if (!scene.cache.json.exists('manifestGebietsbosse')) scene.load.json('manifestGebietsbosse', `${BASE}manifest-gebietsbosse.json`);
   if (!scene.cache.json.exists('manifestAnschlag')) scene.load.json('manifestAnschlag', `${BASE}manifest-anschlag.json`);
   if (!scene.cache.json.exists('manifestDunscar5')) scene.load.json('manifestDunscar5', `${BASE}manifest-dunscar5.json`);
@@ -1324,7 +1325,7 @@ function battleAnimDef(scene, sheet, name) {
   return null;
 }
 /** Manifeste mit Kampf-Sheets; spätere Pakete nennen ihre Einträge nicht nach dem Sheet, darum auch über die Datei. */
-export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3', 'manifestGebietsbosse', 'manifestDunscar5', 'manifestStarling2', 'manifestSekten', 'manifestVorrat1', 'manifestVorrat2', 'manifestHalbgott', 'manifestFasserin2', 'manifestFigurenNachzuegler', 'manifestSeq4rit1', 'manifestSchatten', 'manifestRituale56', 'manifestBenannte', 'manifestNebelseite', 'manifestAnschlag'];
+export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3', 'manifestGebietsbosse', 'manifestPfadbeyonder', 'manifestDunscar5', 'manifestStarling2', 'manifestSekten', 'manifestVorrat1', 'manifestVorrat2', 'manifestHalbgott', 'manifestFasserin2', 'manifestFigurenNachzuegler', 'manifestSeq4rit1', 'manifestSchatten', 'manifestRituale56', 'manifestBenannte', 'manifestNebelseite', 'manifestAnschlag'];
 export function battleSheetDef(scene, sheet) {
   const file = BATTLE_SHEETS[sheet]?.[0];
   for (const m of BATTLE_MANIFESTS) {
@@ -3016,13 +3017,19 @@ ANIM_ALIASES.enemy_laternenbestie = { attack: 'attack1', heavy: 'attack2', doubl
 export const ritualBattleSheet = (kind, look = 'player') => (kind ? `${kind === 'shadow' ? 'schatten' : 's4ma_zivil'}_${look}_battle` : null);
 
 // --- Pfad-Beyonder in Wexmoor (data/pfadHandel.js) ----------------------------------------------------------------
-/** Torfmutter (Moor) und Schleusenuhrmacher (Uhr): umgefärbte Vorratsfiguren ds_einwohner_2 und _1, bis eigene Grafik kommt.
- * Kampf: Leih-Sheets der Dunscarer Einzelgänger; Maud Keel (Waage) kämpft mit dem Blatt der Walzenstimme. */
+/** Torfmutter (Moor) und Schleusenuhrmacher (Uhr): eigene Laufblätter von Grok (GA Teil 2); Maud Keel (Waage) kämpft mit ihrer Skript-Variante. */
 for (const id of ['ez_torfmutter', 'ez_schleusenuhr']) {
   SHEETS[`ph_${id}`] = `characters/ph_${id}_walk.png`;
   CHARACTER_SHEETS[`npc_${id}`] = `ph_${id}`;
 }
-Object.assign(ENCOUNTER_SHEETS, { ez_torfmutter: 'enemy_ez_ds_kalkbrennerin', ez_schleusenuhr: 'enemy_ez_ds_rangierer', wx_pfandleiherin: 'enemy_wx_pfandleiherin' });
+/** Grok GA Teil 2 (manifest-pfadbeyonder.json): eigene Lauf-, Kopf- und Kampfbilder, Raster wie Kalkbrennerin/Rangierer. */
+for (const [id, base] of [['ez_torfmutter', 'ez_ds_kalkbrennerin'], ['ez_schleusenuhr', 'ez_ds_rangierer']]) {
+  BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, ...BATTLE_SHEETS[`enemy_${base}`].slice(1)];
+  if (ANIM_ALIASES[`enemy_${base}`]) ANIM_ALIASES[`enemy_${id}`] = ANIM_ALIASES[`enemy_${base}`];
+  HEADS.push(id);
+  HEAD_FILES[id] = `portraits/heads/${id}.png`;
+}
+Object.assign(ENCOUNTER_SHEETS, { ez_torfmutter: 'enemy_ez_torfmutter', ez_schleusenuhr: 'enemy_ez_schleusenuhr', wx_pfandleiherin: 'enemy_wx_pfandleiherin' });
 /** Aufgaben-Gegenstände der Pfad-Beyonder: Leihbilder, bis eigene Icons kommen. */
 Object.assign(ITEM_ICON_ALIASES, { ph_torfprobe: 'torfbernstein', ph_hales_siegel: 'siegelring' });
 

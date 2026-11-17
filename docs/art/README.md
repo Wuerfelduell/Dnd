@@ -2113,3 +2113,22 @@ eingebaut in `src/world/assets.js` (eigene `BATTLE_SHEETS`, `ENCOUNTER_SHEETS`, 
 - Manifest: `public/sprites/manifest-gebietsbosse.json`
 - [Vorschau](batch-gebietsbosse-preview.png) · [Prompts](batch-gebietsbosse-generation.json) · [Prüfbericht](batch-gebietsbosse-validation.json)
 - Export: `python3 tools/art/gebietsbosse/export.py`, Prüfung: `python3 tools/art/gebietsbosse/check.py --write` (Pillow, numpy)
+
+## DY — Wexmoor-Pfadfiguren (`pfadbeyonder`)
+
+Lauf-, Kopf- und Kampfbilder für `ez_torfmutter` (Wenna Kolk) und `ez_schleusenuhr` (Corvin Hake). Maud Keel
+(`wx_pfandleiherin`) ist nicht Teil dieser Lieferung. Kampfblätter `battle/enemy_ez_<id>.png` 288x240: Raster, Reihen,
+Fußlinie und Animationen genau wie bei `enemy_ez_ds_kalkbrennerin` bzw. `enemy_ez_ds_rangierer`. Angriffe:
+- Torfmutter: Spatenhieb / Torfranken.
+- Schleusenuhr: Schlüsselschlag / Zahnrad-Zeitstoß, bei dem das Bild kurz doppelt erscheint.
+
+Okkultes ist nur türkis bzw. violett. Köpfe `portraits/heads/ez_<id>.png` sind 24x24. Palette: Wexmoor-Figuren
+(`manifest-figuren_nachzuegler.json`) mit zwei Türkis-Tönen statt zwei Grautönen, indiziert, binäres Alpha.
+
+Für jede Figur gibt es Konzeptbilder für Kampfposen und Laufansichten (Rohbilder in `pfadbeyonder-raw/`). Jede Pose wurde
+einzeln per Skript gesetzt. Eingebaut: Laufblätter ersetzen
+`public/sprites/characters/ph_ez_<id>_walk.png`, Kampfblätter über `ENCOUNTER_SHEETS`, Köpfe über `HEAD_FILES` in `src/world/assets.js`. Geliefert von Grok (Paket GA Teil 2).
+
+- Manifest: `public/sprites/manifest-pfadbeyonder.json`
+- [Vorschau](batch-pfadbeyonder-preview.png) · [Vorlage | neu](batch-pfadbeyonder-vorlage-neu.png) · [Prompts](batch-pfadbeyonder-generation.json) · [Prüfbericht](batch-pfadbeyonder-validation.json)
+- Export: `python3 tools/art/pfadbeyonder/export.py`, Prüfung: `python3 tools/art/pfadbeyonder/check.py --write` (Pillow, numpy)

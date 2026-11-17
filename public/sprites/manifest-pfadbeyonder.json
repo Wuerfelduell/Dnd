@@ -1,0 +1,379 @@
+{
+  "version": 1,
+  "batch": "pfadbeyonder",
+  "codex": "docs/art/codex_DY_wexmoor_pfadbeyonder.md",
+  "scope": "nur ez_torfmutter und ez_schleusenuhr (Maud Keel ausgenommen)",
+  "status": "eingebaut",
+  "paletteMaxVisibleColors": 32,
+  "palette": [
+    "#4e7484",
+    "#2a3440",
+    "#d8b89a",
+    "#8a8e96",
+    "#c9c2ad",
+    "#6fe0d0",
+    "#746255",
+    "#e0c0a0",
+    "#334d47",
+    "#756956",
+    "#444450",
+    "#c4aa91",
+    "#6a5e55",
+    "#3d414a",
+    "#626c79",
+    "#68725d",
+    "#566065",
+    "#363640",
+    "#c8ac8c",
+    "#655847",
+    "#8eb5a7",
+    "#665572",
+    "#252b38",
+    "#cfb18a",
+    "#8b8870",
+    "#303b49",
+    "#586c78",
+    "#715648",
+    "#496b64",
+    "#1a1c2c",
+    "#b3946e",
+    "#eee2c5"
+  ],
+  "paletteNote": "manifest-figuren_nachzuegler.json (Wexmoor-Figuren, Maud Keel) mit #2a2a40->#6fe0d0 und #34333a->#8eb5a7 für Okkultes",
+  "assets": [
+    {
+      "id": "ph_ez_torfmutter_walk",
+      "file": "characters/ph_ez_torfmutter_walk.png",
+      "stagedAt": "docs/art/pfadbeyonder-ersatz/characters/ph_ez_torfmutter_walk.png",
+      "replaces": "public/sprites/characters/ph_ez_torfmutter_walk.png (Platzhalter, Umfärbung)",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "baselineY": 30,
+      "npc": "ez_torfmutter",
+      "template": "characters/wx_pfandleiherin_walk.png",
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "ez_torfmutter_head",
+      "file": "portraits/heads/ez_torfmutter.png",
+      "kind": "head",
+      "width": 24,
+      "height": 24,
+      "transparent": true,
+      "npc": "ez_torfmutter",
+      "template": "portraits/heads/wx_pfandleiherin.png",
+      "derivedFrom": "torfmutter_lauf_ansichten.jpg (Vorderansicht, Kopf/Schultern)"
+    },
+    {
+      "id": "enemy_ez_torfmutter",
+      "file": "battle/enemy_ez_torfmutter.png",
+      "gameId": "ez_torfmutter",
+      "name": "Wenna Kolk, Torfmutter (Moor)",
+      "template": "battle/enemy_ez_ds_kalkbrennerin.png",
+      "attackNames": [
+        "Spatenhieb",
+        "Torfranken greifen aus dem Boden"
+      ],
+      "width": 288,
+      "height": 240,
+      "transparent": true,
+      "kind": "battle",
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 5,
+      "occupiedCounts": [
+        4,
+        6,
+        6,
+        3,
+        4
+      ],
+      "baseline": 46,
+      "facing": "left",
+      "heldRows": [
+        1,
+        2
+      ],
+      "windupFrames": {
+        "attack": [
+          7,
+          8
+        ],
+        "special": [
+          13,
+          14
+        ]
+      },
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "ph_ez_schleusenuhr_walk",
+      "file": "characters/ph_ez_schleusenuhr_walk.png",
+      "stagedAt": "docs/art/pfadbeyonder-ersatz/characters/ph_ez_schleusenuhr_walk.png",
+      "replaces": "public/sprites/characters/ph_ez_schleusenuhr_walk.png (Platzhalter, Umfärbung)",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "baselineY": 30,
+      "npc": "ez_schleusenuhr",
+      "template": "characters/wx_pfandleiherin_walk.png",
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "ez_schleusenuhr_head",
+      "file": "portraits/heads/ez_schleusenuhr.png",
+      "kind": "head",
+      "width": 24,
+      "height": 24,
+      "transparent": true,
+      "npc": "ez_schleusenuhr",
+      "template": "portraits/heads/wx_pfandleiherin.png",
+      "derivedFrom": "schleusenuhr_lauf_ansichten.jpg (Vorderansicht, Kopf/Schultern)"
+    },
+    {
+      "id": "enemy_ez_schleusenuhr",
+      "file": "battle/enemy_ez_schleusenuhr.png",
+      "gameId": "ez_schleusenuhr",
+      "name": "Corvin Hake, Schleusenuhrmacher (Uhr)",
+      "template": "battle/enemy_ez_ds_rangierer.png",
+      "attackNames": [
+        "Schlüsselschlag",
+        "Zahnrad-Zeitstoß (Bild kurz doppelt)"
+      ],
+      "width": 288,
+      "height": 240,
+      "transparent": true,
+      "kind": "battle",
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 5,
+      "occupiedCounts": [
+        4,
+        6,
+        6,
+        3,
+        4
+      ],
+      "baseline": 46,
+      "facing": "left",
+      "heldRows": [
+        1,
+        2
+      ],
+      "windupFrames": {
+        "attack": [
+          7,
+          8
+        ],
+        "special": [
+          13,
+          14
+        ]
+      },
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      }
+    }
+  ]
+}
