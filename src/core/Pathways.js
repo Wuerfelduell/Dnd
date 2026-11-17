@@ -29,17 +29,19 @@ export const SEQ_START = 9;
 export const SEQ_MAX = 1; // höchste erreichbare Stufe (Kapitel 3 bringt die Kernzutaten für 4 bis 1)
 // Verdauungstempo je Sequenz. Bis Sequenz 7 wie gehabt; ab Sequenz 6 wird es brutal:
 // jede weitere Sequenz verdaut zehnmal so langsam wie die davor (6 = 1/10 von 7, 5 = 1/100, ...).
+// Ausnahme Sequenz 6 (Seb 2026-11-17): x1,5, also 0,075 statt 0,05.
 export const DIGEST_SLOW_FACTOR = 10;
 /** Sequenz, auf der `digest_pct` voll zählt. */
 export const DIGEST_FIXED_SEQ = 5;
-export const DIGEST_RATE = { 9: 1, 8: 0.7, 7: 0.5, 6: 0.05, 5: 0.005, 4: 0.0005, 3: 0.00005, 2: 0.000005, 1: 0.0000005 };
+export const DIGEST_RATE = { 9: 1, 8: 0.7, 7: 0.5, 6: 0.075, 5: 0.005, 4: 0.0005, 3: 0.00005, 2: 0.000005, 1: 0.0000005 };
 /** Verdauungstempo einer Sequenz im Verhältnis zu Sequenz 7 (1 bis Sequenz 7, danach 1/10, 1/100, ...). */
 /** Faktor für jede Unruhe-Steigerung ab Sequenz 5 (Seb 2026-11-12). */
 export const UNRUHE_GAIN_HOCH = 0.5;
 /** Spieler 2 verdaut ab Sequenz 5 dreißigmal schneller (Seb 2026-11-12: erst x10, dann nochmal x3). */
 export const P2_DIGEST_MULT = 30;
 /** Bonus für Spieler 2 je Sequenz (Seb 2026-11-17): bis Sequenz 7 wie Spieler 1, auf 6 x2, erst ab 5 voll. */
-export const P2_DIGEST_BY_SEQ = { 9: 1, 8: 1, 7: 1, 6: 2 };
+// Seq 6: x2 auf die alte Rate 0,05; seit der x1,5 für Spieler 1 bleibt Spieler 2 gleich schnell (0,1 = 0,075 * 4/3).
+export const P2_DIGEST_BY_SEQ = { 9: 1, 8: 1, 7: 1, 6: 4 / 3 };
 export const p2DigestFor = (seq) => P2_DIGEST_BY_SEQ[seq] ?? P2_DIGEST_MULT;
 export function digestSlowdown(seq) { return Math.min(1, (DIGEST_RATE[seq] ?? DIGEST_RATE[1]) / DIGEST_RATE[7]); }
 /** Prozentwert fürs Auge: große Werte mit einer Nachkommastelle, winzige mit zwei gültigen Ziffern. */
