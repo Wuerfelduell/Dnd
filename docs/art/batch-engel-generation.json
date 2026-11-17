@@ -1,0 +1,1349 @@
+{
+  "batch": "engel",
+  "method": "Ein Konzeptbild je Pose und Figur (Magenta-Grund, Style-Block aus codex_CO vorangestellt), Pose einzeln ins Raster gesetzt: Median 5, Magenta-Key, ganzzahliger Blockfaktor (Kern-Mehrheit, Phasensuche), Lab-Palettenabbildung, Aufräumen, Außenumriss #1a1c2c; Augenlicht aus den Leuchtflecken des Konzeptbilds übernommen; Effekte pro Frame gezeichnet.",
+  "prompts": {
+    "style": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.",
+    "styleSource": "docs/art/codex_CO_halbgott_grafik.md, Abschnitt 0.1",
+    "figures": {
+      "engel_1": {
+        "file": "battle/enemy_hs_engel_1.png",
+        "name": "Engel des Grats",
+        "concepts": {
+          "kampf_idle": {
+            "raw": "engel_1_kampf_idle.jpg",
+            "reference": [
+              "docs/art/engel-raw/ref_hg_battle_echo_10x.png"
+            ],
+            "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: boss battle sprite concept, single figure, 3/4 view facing LEFT, full body. the Angel of the Ridge: a very tall, narrow, slender humanoid being, much taller than a man, elongated thin limbs, smooth hairless head with NO eyes at all – only two small soft amber light glows where eyes would be, otherwise a calm smooth face. A long robe that looks like burnt paper: pale bone-colored paper-like fabric with charred, curled, blackened edges and tiny glowing ember rims, torn ragged hem hanging down, no feet visible. Wings NOT made of feathers: from the shoulders fan three long, straight, bright bands of light per side, like rays or ribbons of amber and bone-white light, angled up and back. It hovers calmly a little above the ground, robe hanging down. Pose: calm idle, arms slightly away from the body, palms down, wings spread at rest. Colors: whites only as warm bone white (#ebcd8d, #bbae95), light only as warm amber (#f0ce80, #e8b860, #d0a050), turquoise #6fe0d0 only as one or two tiny accents; muted slate and soot tones elsewhere. Chunky readable pixel art in the style of the reference sprite, figure fills most of the image height, scaled up about 9x with perfectly square pixel blocks. Background: completely flat solid magenta #ff00ff, no shadow, no floor, no light glow on the background, nothing else."
+          },
+          "kampf_attack1": {
+            "raw": "engel_1_kampf_attack1.jpg",
+            "reference": [
+              "docs/art/engel-raw/engel_1_kampf_idle.jpg"
+            ],
+            "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: boss battle sprite concept, single figure, 3/4 view facing LEFT, full body. the SAME figure as in the first reference image (identical design, face, proportions, colors and pixel style): the Angel of the Ridge: a very tall, narrow, slender humanoid being, much taller than a man, elongated thin limbs, smooth hairless head with NO eyes at all – only two small soft amber light glows where eyes would be, otherwise a calm smooth face. A long robe that looks like burnt paper: pale bone-colored paper-like fabric with charred, curled, blackened edges and tiny glowing ember rims, torn ragged hem hanging down, no feet visible. Wings NOT made of feathers: from the shoulders fan three long, straight, bright bands of light per side, like rays or ribbons of amber and bone-white light, angled up and back. It hovers calmly a little above the ground, robe hanging down. Pose: wind-up of a wing strike: both wings raised high and swept far back behind the body, body leaning back, arms pulled back, tense. Colors: whites only as warm bone white (#ebcd8d, #bbae95), light only as warm amber (#f0ce80, #e8b860, #d0a050), turquoise #6fe0d0 only as one or two tiny accents; muted slate and soot tones elsewhere. Chunky readable pixel art in the style of the reference sprite, figure fills most of the image height, scaled up about 9x with perfectly square pixel blocks. Background: completely flat solid magenta #ff00ff, no shadow, no floor, no light glow on the background, nothing else."
+          },
+          "kampf_strike": {
+            "raw": "engel_1_kampf_strike.jpg",
+            "reference": [
+              "docs/art/engel-raw/engel_1_kampf_idle.jpg"
+            ],
+            "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: boss battle sprite concept, single figure, 3/4 view facing LEFT, full body. the SAME figure as in the first reference image (identical design, face, proportions, colors and pixel style): the Angel of the Ridge: a very tall, narrow, slender humanoid being, much taller than a man, elongated thin limbs, smooth hairless head with NO eyes at all – only two small soft amber light glows where eyes would be, otherwise a calm smooth face. A long robe that looks like burnt paper: pale bone-colored paper-like fabric with charred, curled, blackened edges and tiny glowing ember rims, torn ragged hem hanging down, no feet visible. Wings NOT made of feathers: from the shoulders fan three long, straight, bright bands of light per side, like rays or ribbons of amber and bone-white light, angled up and back. It hovers calmly a little above the ground, robe hanging down. Pose: follow-through of the wing strike: both wings swung forcefully forward to the LEFT around the body like two blades, wing tips pointing forward-left and down, body leaning forward. Colors: whites only as warm bone white (#ebcd8d, #bbae95), light only as warm amber (#f0ce80, #e8b860, #d0a050), turquoise #6fe0d0 only as one or two tiny accents; muted slate and soot tones elsewhere. Chunky readable pixel art in the style of the reference sprite, figure fills most of the image height, scaled up about 9x with perfectly square pixel blocks. Background: completely flat solid magenta #ff00ff, no shadow, no floor, no light glow on the background, nothing else."
+          },
+          "kampf_attack2": {
+            "raw": "engel_1_kampf_attack2.jpg",
+            "reference": [
+              "docs/art/engel-raw/engel_1_kampf_idle.jpg"
+            ],
+            "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: boss battle sprite concept, single figure, 3/4 view facing LEFT, full body. the SAME figure as in the first reference image (identical design, face, proportions, colors and pixel style): the Angel of the Ridge: a very tall, narrow, slender humanoid being, much taller than a man, elongated thin limbs, smooth hairless head with NO eyes at all – only two small soft amber light glows where eyes would be, otherwise a calm smooth face. A long robe that looks like burnt paper: pale bone-colored paper-like fabric with charred, curled, blackened edges and tiny glowing ember rims, torn ragged hem hanging down, no feet visible. Wings NOT made of feathers: from the shoulders fan three long, straight, bright bands of light per side, like rays or ribbons of amber and bone-white light, angled up and back. It hovers calmly a little above the ground, robe hanging down. Pose: calling the chorus: both hands raised forward-left in front of the chest, palms open toward the left, head slightly tilted up as if singing silently, wings half open. No effects in this image, only the figure. Colors: whites only as warm bone white (#ebcd8d, #bbae95), light only as warm amber (#f0ce80, #e8b860, #d0a050), turquoise #6fe0d0 only as one or two tiny accents; muted slate and soot tones elsewhere. Chunky readable pixel art in the style of the reference sprite, figure fills most of the image height, scaled up about 9x with perfectly square pixel blocks. Background: completely flat solid magenta #ff00ff, no shadow, no floor, no light glow on the background, nothing else."
+          },
+          "kampf_special": {
+            "raw": "engel_1_kampf_special.jpg",
+            "reference": [
+              "docs/art/engel-raw/engel_1_kampf_idle.jpg"
+            ],
+            "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: boss battle sprite concept, single figure, 3/4 view facing LEFT, full body. the SAME figure as in the first reference image (identical design, face, proportions, colors and pixel style): the Angel of the Ridge: a very tall, narrow, slender humanoid being, much taller than a man, elongated thin limbs, smooth hairless head with NO eyes at all – only two small soft amber light glows where eyes would be, otherwise a calm smooth face. A long robe that looks like burnt paper: pale bone-colored paper-like fabric with charred, curled, blackened edges and tiny glowing ember rims, torn ragged hem hanging down, no feet visible. Wings NOT made of feathers: from the shoulders fan three long, straight, bright bands of light per side, like rays or ribbons of amber and bone-white light, angled up and back. It hovers calmly a little above the ground, robe hanging down. Pose: speaking the Word: both arms spread wide and raised up, head tilted back, wings fully spread wide open, body upright and tall. No effects in this image, only the figure. Colors: whites only as warm bone white (#ebcd8d, #bbae95), light only as warm amber (#f0ce80, #e8b860, #d0a050), turquoise #6fe0d0 only as one or two tiny accents; muted slate and soot tones elsewhere. Chunky readable pixel art in the style of the reference sprite, figure fills most of the image height, scaled up about 9x with perfectly square pixel blocks. Background: completely flat solid magenta #ff00ff, no shadow, no floor, no light glow on the background, nothing else."
+          }
+        }
+      },
+      "engel_2": {
+        "file": "battle/enemy_hs_engel_2.png",
+        "name": "Engel der Schwelle",
+        "concepts": {
+          "kampf_idle": {
+            "raw": "engel_2_kampf_idle.jpg",
+            "reference": [
+              "docs/art/engel-raw/engel_1_kampf_idle.jpg"
+            ],
+            "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: boss battle sprite concept, single figure, 3/4 view facing LEFT, full body. the Angel of the Threshold: the SAME kind of being as the Angel of the Ridge in the first reference image – identical very tall, narrow, slender body, identical smooth bald head with NO hood and NO eyes, only two small amber light glows where eyes would be, the same robe like burnt paper (bone-colored, charred curled edges, ember rims, ragged hem, no feet). Its wings are NOT feathers but door frames and thresholds made of light: on each side two or three nested upright rectangular door-frame outlines of amber light with a glowing threshold bar at the bottom, like open doorways floating behind its shoulders. In its front hand it holds a big old iron key ring with several long antique keys hanging from it. It hovers calmly a little above the ground, robe hanging down. Pose: calm idle, arms slightly away from the body, palms down, wings spread at rest. Colors: whites only as warm bone white (#ebcd8d, #bbae95), light only as warm amber (#f0ce80, #e8b860, #d0a050), turquoise #6fe0d0 only as one or two tiny accents; muted slate and soot tones elsewhere. Chunky readable pixel art in the style of the reference sprite, figure fills most of the image height, scaled up about 9x with perfectly square pixel blocks. Background: completely flat solid magenta #ff00ff, no shadow, no floor, no light glow on the background, nothing else."
+          },
+          "kampf_attack1": {
+            "raw": "engel_2_kampf_attack1.jpg",
+            "reference": [
+              "docs/art/engel-raw/engel_2_kampf_idle.jpg",
+              "docs/art/engel-raw/engel_1_kampf_attack1.jpg"
+            ],
+            "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: boss battle sprite concept, single figure, 3/4 view facing LEFT, full body. the SAME figure as in the first reference image (identical design, face, proportions, colors and pixel style): the Angel of the Threshold: the SAME kind of being as the Angel of the Ridge in the first reference image – identical very tall, narrow, slender body, identical smooth bald head with NO hood and NO eyes, only two small amber light glows where eyes would be, the same robe like burnt paper (bone-colored, charred curled edges, ember rims, ragged hem, no feet). Its wings are NOT feathers but door frames and thresholds made of light: on each side two or three nested upright rectangular door-frame outlines of amber light with a glowing threshold bar at the bottom, like open doorways floating behind its shoulders. In its front hand it holds a big old iron key ring with several long antique keys hanging from it. It hovers calmly a little above the ground, robe hanging down. Pose: wind-up of a wing strike, clearly different from the reference: the door-frame wings are swung UP and far BACK, tilted diagonally behind and above its head, the front arm with the key ring raised high above its shoulder, the body leaning back, tense. Colors: whites only as warm bone white (#ebcd8d, #bbae95), light only as warm amber (#f0ce80, #e8b860, #d0a050), turquoise #6fe0d0 only as one or two tiny accents; muted slate and soot tones elsewhere. Chunky readable pixel art in the style of the reference sprite, figure fills most of the image height, scaled up about 9x with perfectly square pixel blocks. Background: completely flat solid magenta #ff00ff, no shadow, no floor, no light glow on the background, nothing else."
+          },
+          "kampf_strike": {
+            "raw": "engel_2_kampf_strike.jpg",
+            "reference": [
+              "docs/art/engel-raw/engel_2_kampf_idle.jpg",
+              "docs/art/engel-raw/engel_1_kampf_strike.jpg"
+            ],
+            "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: boss battle sprite concept, single figure, 3/4 view facing LEFT, full body. the SAME figure as in the first reference image (identical design, face, proportions, colors and pixel style): the Angel of the Threshold: the SAME kind of being as the Angel of the Ridge in the first reference image – identical very tall, narrow, slender body, identical smooth bald head with NO hood and NO eyes, only two small amber light glows where eyes would be, the same robe like burnt paper (bone-colored, charred curled edges, ember rims, ragged hem, no feet). Its wings are NOT feathers but door frames and thresholds made of light: on each side two or three nested upright rectangular door-frame outlines of amber light with a glowing threshold bar at the bottom, like open doorways floating behind its shoulders. In its front hand it holds a big old iron key ring with several long antique keys hanging from it. It hovers calmly a little above the ground, robe hanging down. Pose: follow-through of the wing strike, clearly different from the reference: the door-frame wings are swung forcefully FORWARD to the LEFT in front of the body, tilted diagonally down like slamming doors, the key ring swung forward-down in the front hand, body leaning forward. Colors: whites only as warm bone white (#ebcd8d, #bbae95), light only as warm amber (#f0ce80, #e8b860, #d0a050), turquoise #6fe0d0 only as one or two tiny accents; muted slate and soot tones elsewhere. Chunky readable pixel art in the style of the reference sprite, figure fills most of the image height, scaled up about 9x with perfectly square pixel blocks. Background: completely flat solid magenta #ff00ff, no shadow, no floor, no light glow on the background, nothing else."
+          },
+          "kampf_attack2": {
+            "raw": "engel_2_kampf_attack2.jpg",
+            "reference": [
+              "docs/art/engel-raw/engel_2_kampf_idle.jpg"
+            ],
+            "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: boss battle sprite concept, single figure, 3/4 view facing LEFT, full body. the SAME figure as in the first reference image (identical design, face, proportions, colors and pixel style): the Angel of the Threshold: the SAME kind of being as the Angel of the Ridge in the first reference image – identical very tall, narrow, slender body, identical smooth bald head with NO hood and NO eyes, only two small amber light glows where eyes would be, the same robe like burnt paper (bone-colored, charred curled edges, ember rims, ragged hem, no feet). Its wings are NOT feathers but door frames and thresholds made of light: on each side two or three nested upright rectangular door-frame outlines of amber light with a glowing threshold bar at the bottom, like open doorways floating behind its shoulders. In its front hand it holds a big old iron key ring with several long antique keys hanging from it. It hovers calmly a little above the ground, robe hanging down. Pose: calling the chorus: both hands raised forward-left in front of the chest, palms open toward the left, head slightly tilted up as if singing silently, wings half open. No effects in this image, only the figure. Colors: whites only as warm bone white (#ebcd8d, #bbae95), light only as warm amber (#f0ce80, #e8b860, #d0a050), turquoise #6fe0d0 only as one or two tiny accents; muted slate and soot tones elsewhere. Chunky readable pixel art in the style of the reference sprite, figure fills most of the image height, scaled up about 9x with perfectly square pixel blocks. Background: completely flat solid magenta #ff00ff, no shadow, no floor, no light glow on the background, nothing else."
+          },
+          "kampf_special": {
+            "raw": "engel_2_kampf_special.jpg",
+            "reference": [
+              "docs/art/engel-raw/engel_2_kampf_idle.jpg"
+            ],
+            "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: boss battle sprite concept, single figure, 3/4 view facing LEFT, full body. the SAME figure as in the first reference image (identical design, face, proportions, colors and pixel style): the Angel of the Threshold: the SAME kind of being as the Angel of the Ridge in the first reference image – identical very tall, narrow, slender body, identical smooth bald head with NO hood and NO eyes, only two small amber light glows where eyes would be, the same robe like burnt paper (bone-colored, charred curled edges, ember rims, ragged hem, no feet). Its wings are NOT feathers but door frames and thresholds made of light: on each side two or three nested upright rectangular door-frame outlines of amber light with a glowing threshold bar at the bottom, like open doorways floating behind its shoulders. In its front hand it holds a big old iron key ring with several long antique keys hanging from it. It hovers calmly a little above the ground, robe hanging down. Pose: speaking the Word: both arms spread wide and raised up, head tilted back, wings fully spread wide open, body upright and tall. No effects in this image, only the figure. Colors: whites only as warm bone white (#ebcd8d, #bbae95), light only as warm amber (#f0ce80, #e8b860, #d0a050), turquoise #6fe0d0 only as one or two tiny accents; muted slate and soot tones elsewhere. Chunky readable pixel art in the style of the reference sprite, figure fills most of the image height, scaled up about 9x with perfectly square pixel blocks. Background: completely flat solid magenta #ff00ff, no shadow, no floor, no light glow on the background, nothing else."
+          }
+        }
+      },
+      "engel_3": {
+        "file": "battle/enemy_hs_engel_3.png",
+        "name": "Engel des Thrones",
+        "concepts": {
+          "kampf_idle": {
+            "raw": "engel_3_kampf_idle.jpg",
+            "reference": [
+              "docs/art/engel-raw/engel_1_kampf_idle.jpg"
+            ],
+            "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: boss battle sprite concept, single figure, 3/4 view facing LEFT, full body. the Angel of the Throne: the largest and tallest of the angels, the SAME kind of being as the Angel of the Ridge in the first reference image – very tall, narrow, regal, identical smooth bald head with NO hood and NO eyes, only two amber light glows where eyes would be, long flowing robe like burnt paper (bone-colored, charred curled edges, ember rims, long ragged train, no feet). Wings with absolutely NO feathers: SIX long, straight, bright rays of amber and bone-white light like in the reference image, three per side – one pair rising up, one pair spreading sideways, one pair sweeping down along the robe. Above its head, floating and not touching it, a crown made of grey ash and charred flakes, slowly crumbling, faint ember glints. It hovers calmly a little above the ground, robe hanging down. Pose: calm idle, arms slightly away from the body, palms down, wings spread at rest. Colors: whites only as warm bone white (#ebcd8d, #bbae95), light only as warm amber (#f0ce80, #e8b860, #d0a050), turquoise #6fe0d0 only as one or two tiny accents; muted slate and soot tones elsewhere. Chunky readable pixel art in the style of the reference sprite, figure fills most of the image height, scaled up about 9x with perfectly square pixel blocks. Background: completely flat solid magenta #ff00ff, no shadow, no floor, no light glow on the background, nothing else."
+          },
+          "kampf_attack1": {
+            "raw": "engel_3_kampf_attack1.jpg",
+            "reference": [
+              "docs/art/engel-raw/engel_3_kampf_idle.jpg"
+            ],
+            "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: boss battle sprite concept, single figure, 3/4 view facing LEFT, full body. the SAME figure as in the first reference image (identical design, face, proportions, colors and pixel style): the Angel of the Throne: the largest and tallest of the angels, the SAME kind of being as the Angel of the Ridge in the first reference image – very tall, narrow, regal, identical smooth bald head with NO hood and NO eyes, only two amber light glows where eyes would be, long flowing robe like burnt paper (bone-colored, charred curled edges, ember rims, long ragged train, no feet). Wings with absolutely NO feathers: SIX long, straight, bright rays of amber and bone-white light like in the reference image, three per side – one pair rising up, one pair spreading sideways, one pair sweeping down along the robe. Above its head, floating and not touching it, a crown made of grey ash and charred flakes, slowly crumbling, faint ember glints. It hovers calmly a little above the ground, robe hanging down. Pose: wind-up of a wing strike: both wings raised high and swept far back behind the body, body leaning back, arms pulled back, tense. Colors: whites only as warm bone white (#ebcd8d, #bbae95), light only as warm amber (#f0ce80, #e8b860, #d0a050), turquoise #6fe0d0 only as one or two tiny accents; muted slate and soot tones elsewhere. Chunky readable pixel art in the style of the reference sprite, figure fills most of the image height, scaled up about 9x with perfectly square pixel blocks. Background: completely flat solid magenta #ff00ff, no shadow, no floor, no light glow on the background, nothing else."
+          },
+          "kampf_strike": {
+            "raw": "engel_3_kampf_strike.jpg",
+            "reference": [
+              "docs/art/engel-raw/engel_3_kampf_idle.jpg"
+            ],
+            "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: boss battle sprite concept, single figure, 3/4 view facing LEFT, full body. the SAME figure as in the first reference image (identical design, face, proportions, colors and pixel style): the Angel of the Throne: the largest and tallest of the angels, the SAME kind of being as the Angel of the Ridge in the first reference image – very tall, narrow, regal, identical smooth bald head with NO hood and NO eyes, only two amber light glows where eyes would be, long flowing robe like burnt paper (bone-colored, charred curled edges, ember rims, long ragged train, no feet). Wings with absolutely NO feathers: SIX long, straight, bright rays of amber and bone-white light like in the reference image, three per side – one pair rising up, one pair spreading sideways, one pair sweeping down along the robe. Above its head, floating and not touching it, a crown made of grey ash and charred flakes, slowly crumbling, faint ember glints. It hovers calmly a little above the ground, robe hanging down. Pose: follow-through of the wing strike: both wings swung forcefully forward to the LEFT around the body like two blades, wing tips pointing forward-left and down, body leaning forward. Colors: whites only as warm bone white (#ebcd8d, #bbae95), light only as warm amber (#f0ce80, #e8b860, #d0a050), turquoise #6fe0d0 only as one or two tiny accents; muted slate and soot tones elsewhere. Chunky readable pixel art in the style of the reference sprite, figure fills most of the image height, scaled up about 9x with perfectly square pixel blocks. Background: completely flat solid magenta #ff00ff, no shadow, no floor, no light glow on the background, nothing else."
+          },
+          "kampf_attack2": {
+            "raw": "engel_3_kampf_attack2.jpg",
+            "reference": [
+              "docs/art/engel-raw/engel_3_kampf_idle.jpg"
+            ],
+            "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: boss battle sprite concept, single figure, 3/4 view facing LEFT, full body. the SAME figure as in the first reference image (identical design, face, proportions, colors and pixel style): the Angel of the Throne: the largest and tallest of the angels, the SAME kind of being as the Angel of the Ridge in the first reference image – very tall, narrow, regal, identical smooth bald head with NO hood and NO eyes, only two amber light glows where eyes would be, long flowing robe like burnt paper (bone-colored, charred curled edges, ember rims, long ragged train, no feet). Wings with absolutely NO feathers: SIX long, straight, bright rays of amber and bone-white light like in the reference image, three per side – one pair rising up, one pair spreading sideways, one pair sweeping down along the robe. Above its head, floating and not touching it, a crown made of grey ash and charred flakes, slowly crumbling, faint ember glints. It hovers calmly a little above the ground, robe hanging down. Pose: calling the chorus: both hands raised forward-left in front of the chest, palms open toward the left, head slightly tilted up as if singing silently, wings half open. No effects in this image, only the figure. Colors: whites only as warm bone white (#ebcd8d, #bbae95), light only as warm amber (#f0ce80, #e8b860, #d0a050), turquoise #6fe0d0 only as one or two tiny accents; muted slate and soot tones elsewhere. Chunky readable pixel art in the style of the reference sprite, figure fills most of the image height, scaled up about 9x with perfectly square pixel blocks. Background: completely flat solid magenta #ff00ff, no shadow, no floor, no light glow on the background, nothing else."
+          },
+          "kampf_special": {
+            "raw": "engel_3_kampf_special.jpg",
+            "reference": [
+              "docs/art/engel-raw/engel_3_kampf_idle.jpg"
+            ],
+            "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: boss battle sprite concept, single figure, 3/4 view facing LEFT, full body. the SAME figure as in the first reference image (identical design, face, proportions, colors and pixel style): the Angel of the Throne: the largest and tallest of the angels, the SAME kind of being as the Angel of the Ridge in the first reference image – very tall, narrow, regal, identical smooth bald head with NO hood and NO eyes, only two amber light glows where eyes would be, long flowing robe like burnt paper (bone-colored, charred curled edges, ember rims, long ragged train, no feet). Wings with absolutely NO feathers: SIX long, straight, bright rays of amber and bone-white light like in the reference image, three per side – one pair rising up, one pair spreading sideways, one pair sweeping down along the robe. Above its head, floating and not touching it, a crown made of grey ash and charred flakes, slowly crumbling, faint ember glints. It hovers calmly a little above the ground, robe hanging down. Pose: speaking the Word: both arms spread wide and raised up, head tilted back, wings fully spread wide open, body upright and tall. No effects in this image, only the figure. Colors: whites only as warm bone white (#ebcd8d, #bbae95), light only as warm amber (#f0ce80, #e8b860, #d0a050), turquoise #6fe0d0 only as one or two tiny accents; muted slate and soot tones elsewhere. Chunky readable pixel art in the style of the reference sprite, figure fills most of the image height, scaled up about 9x with perfectly square pixel blocks. Background: completely flat solid magenta #ff00ff, no shadow, no floor, no light glow on the background, nothing else."
+          }
+        }
+      },
+      "wetherby": {
+        "file": "battle/enemy_k4s_wetherby.png",
+        "name": "Oswin Wetherby, gefallener Engel",
+        "concepts": {
+          "kampf_idle": {
+            "raw": "wetherby_kampf_idle.jpg",
+            "reference": [
+              "docs/art/engel-raw/ref_wetherby_16x.png"
+            ],
+            "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: boss battle sprite concept, single figure, 3/4 view facing LEFT, full body. the SAME old man as in the reference image (identical face: long gaunt face, high forehead, swept-back white-grey hair, tired heavy-lidded eyes, thin mouth; olive-grey long frock coat, dark waistcoat and trousers, the same upright, slightly stooped posture of an old civil servant), now as a fallen angel: from his back break two charred, broken wings of light with NO feathers: each wing is a few bare, blackened, cracked struts like burnt bones or burnt sticks, with short broken, flickering bands of amber light between them like snapped rays; the left wing is visibly snapped in the middle and hangs down limp, the right wing is shorter and ragged. His face is tired and sad, not evil. He stands on the ground line, feet visible. Pose: calm idle, arms slightly away from the body, palms down, wings spread at rest. Colors: whites only as warm bone white (#ebcd8d, #bbae95), light only as warm amber (#f0ce80, #e8b860, #d0a050), turquoise #6fe0d0 only as one or two tiny accents; muted slate and soot tones elsewhere. Chunky readable pixel art in the style of the reference sprite, figure fills most of the image height, scaled up about 9x with perfectly square pixel blocks. Background: completely flat solid magenta #ff00ff, no shadow, no floor, no light glow on the background, nothing else."
+          },
+          "kampf_attack1": {
+            "raw": "wetherby_kampf_attack1.jpg",
+            "reference": [
+              "docs/art/engel-raw/wetherby_kampf_idle.jpg",
+              "docs/art/engel-raw/ref_wetherby_16x.png"
+            ],
+            "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: boss battle sprite concept, single figure, 3/4 view facing LEFT, full body. the SAME figure as in the first reference image (identical design, face, proportions, colors and pixel style): the SAME old man as in the reference image (identical face: long gaunt face, high forehead, swept-back white-grey hair, tired heavy-lidded eyes, thin mouth; olive-grey long frock coat, dark waistcoat and trousers, the same upright, slightly stooped posture of an old civil servant), now as a fallen angel: from his back break two charred, broken wings of light with NO feathers: each wing is a few bare, blackened, cracked struts like burnt bones or burnt sticks, with short broken, flickering bands of amber light between them like snapped rays; the left wing is visibly snapped in the middle and hangs down limp, the right wing is shorter and ragged. His face is tired and sad, not evil. He stands on the ground line, feet visible. Pose: wind-up of a wing strike: both wings raised high and swept far back behind the body, body leaning back, arms pulled back, tense. Colors: whites only as warm bone white (#ebcd8d, #bbae95), light only as warm amber (#f0ce80, #e8b860, #d0a050), turquoise #6fe0d0 only as one or two tiny accents; muted slate and soot tones elsewhere. Chunky readable pixel art in the style of the reference sprite, figure fills most of the image height, scaled up about 9x with perfectly square pixel blocks. Background: completely flat solid magenta #ff00ff, no shadow, no floor, no light glow on the background, nothing else."
+          },
+          "kampf_strike": {
+            "raw": "wetherby_kampf_strike.jpg",
+            "reference": [
+              "docs/art/engel-raw/wetherby_kampf_idle.jpg",
+              "docs/art/engel-raw/ref_wetherby_16x.png"
+            ],
+            "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: boss battle sprite concept, single figure, 3/4 view facing LEFT, full body. the SAME figure as in the first reference image (identical design, face, proportions, colors and pixel style): the SAME old man as in the reference image (identical face: long gaunt face, high forehead, swept-back white-grey hair, tired heavy-lidded eyes, thin mouth; olive-grey long frock coat, dark waistcoat and trousers, the same upright, slightly stooped posture of an old civil servant), now as a fallen angel: from his back break two charred, broken wings of light with NO feathers: each wing is a few bare, blackened, cracked struts like burnt bones or burnt sticks, with short broken, flickering bands of amber light between them like snapped rays; the left wing is visibly snapped in the middle and hangs down limp, the right wing is shorter and ragged. His face is tired and sad, not evil. He stands on the ground line, feet visible. Pose: follow-through of the wing strike: both wings swung forcefully forward to the LEFT around the body like two blades, wing tips pointing forward-left and down, body leaning forward. Colors: whites only as warm bone white (#ebcd8d, #bbae95), light only as warm amber (#f0ce80, #e8b860, #d0a050), turquoise #6fe0d0 only as one or two tiny accents; muted slate and soot tones elsewhere. Chunky readable pixel art in the style of the reference sprite, figure fills most of the image height, scaled up about 9x with perfectly square pixel blocks. Background: completely flat solid magenta #ff00ff, no shadow, no floor, no light glow on the background, nothing else."
+          },
+          "kampf_attack2": {
+            "raw": "wetherby_kampf_attack2.jpg",
+            "reference": [
+              "docs/art/engel-raw/wetherby_kampf_idle.jpg",
+              "docs/art/engel-raw/ref_wetherby_16x.png"
+            ],
+            "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: boss battle sprite concept, single figure, 3/4 view facing LEFT, full body. the SAME figure as in the first reference image (identical design, face, proportions, colors and pixel style): the SAME old man as in the reference image (identical face: long gaunt face, high forehead, swept-back white-grey hair, tired heavy-lidded eyes, thin mouth; olive-grey long frock coat, dark waistcoat and trousers, the same upright, slightly stooped posture of an old civil servant), now as a fallen angel: from his back break two charred, broken wings of light with NO feathers: each wing is a few bare, blackened, cracked struts like burnt bones or burnt sticks, with short broken, flickering bands of amber light between them like snapped rays; the left wing is visibly snapped in the middle and hangs down limp, the right wing is shorter and ragged. His face is tired and sad, not evil. He stands on the ground line, feet visible. Pose: calling the chorus: both hands raised forward-left in front of the chest, palms open toward the left, head slightly tilted up as if singing silently, wings half open. No effects in this image, only the figure. Colors: whites only as warm bone white (#ebcd8d, #bbae95), light only as warm amber (#f0ce80, #e8b860, #d0a050), turquoise #6fe0d0 only as one or two tiny accents; muted slate and soot tones elsewhere. Chunky readable pixel art in the style of the reference sprite, figure fills most of the image height, scaled up about 9x with perfectly square pixel blocks. Background: completely flat solid magenta #ff00ff, no shadow, no floor, no light glow on the background, nothing else."
+          },
+          "kampf_special": {
+            "raw": "wetherby_kampf_special.jpg",
+            "reference": [
+              "docs/art/engel-raw/wetherby_kampf_idle.jpg",
+              "docs/art/engel-raw/ref_wetherby_16x.png"
+            ],
+            "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: boss battle sprite concept, single figure, 3/4 view facing LEFT, full body. the SAME figure as in the first reference image (identical design, face, proportions, colors and pixel style): the SAME old man as in the reference image (identical face: long gaunt face, high forehead, swept-back white-grey hair, tired heavy-lidded eyes, thin mouth; olive-grey long frock coat, dark waistcoat and trousers, the same upright, slightly stooped posture of an old civil servant), now as a fallen angel: from his back break two charred, broken wings of light with NO feathers: each wing is a few bare, blackened, cracked struts like burnt bones or burnt sticks, with short broken, flickering bands of amber light between them like snapped rays; the left wing is visibly snapped in the middle and hangs down limp, the right wing is shorter and ragged. His face is tired and sad, not evil. He stands on the ground line, feet visible. Pose: summoning a storm of files: both arms raised up and out to the sides, coat flapping, wings spread as far as they still can, tired face looking up. No paper and no effects in this image, only the man. Colors: whites only as warm bone white (#ebcd8d, #bbae95), light only as warm amber (#f0ce80, #e8b860, #d0a050), turquoise #6fe0d0 only as one or two tiny accents; muted slate and soot tones elsewhere. Chunky readable pixel art in the style of the reference sprite, figure fills most of the image height, scaled up about 9x with perfectly square pixel blocks. Background: completely flat solid magenta #ff00ff, no shadow, no floor, no light glow on the background, nothing else."
+          }
+        }
+      }
+    },
+    "rejected": [
+      {
+        "raw": "try_engel_2_idle_a.jpg",
+        "why": "Kapuze statt glattem Kopf wie Engel 1 -> neu mit Engel 1 als Referenz"
+      },
+      {
+        "raw": "try_engel_3_idle_a.jpg",
+        "why": "Federflügel statt Lichtbahnen -> neu mit Engel 1 als Referenz"
+      },
+      {
+        "raw": "try_wetherby_idle_a.jpg",
+        "why": "Flügel wirkten gefiedert, nicht gebrochen -> neu mit \"keine Federn, verkohlte Streben\""
+      },
+      {
+        "raw": "try_engel_2_attack1_a.jpg",
+        "why": "Pose identisch mit idle (kein Ausholen) -> neu mit ausdrücklicher Flügelstellung"
+      }
+    ]
+  },
+  "figures": {
+    "engel_1": {
+      "file": "public/sprites/battle/enemy_hs_engel_1.png",
+      "factor": 10,
+      "gain": [
+        1.0,
+        1.1
+      ],
+      "motifSizes": {
+        "idle": [
+          91,
+          56
+        ],
+        "attack1": [
+          88,
+          59
+        ],
+        "strike": [
+          78,
+          79
+        ],
+        "attack2": [
+          90,
+          64
+        ],
+        "special": [
+          87,
+          62
+        ]
+      },
+      "eyeLight": {
+        "idle": [
+          [
+            11,
+            19
+          ],
+          [
+            11,
+            21
+          ]
+        ],
+        "attack1": [
+          [
+            16,
+            7
+          ],
+          [
+            16,
+            9
+          ]
+        ],
+        "strike": [
+          [
+            7,
+            43
+          ],
+          [
+            7,
+            45
+          ]
+        ],
+        "attack2": [
+          [
+            9,
+            28
+          ],
+          [
+            9,
+            30
+          ]
+        ],
+        "special": [
+          [
+            11,
+            27
+          ],
+          [
+            11,
+            29
+          ]
+        ]
+      },
+      "frames": [
+        {
+          "row": 0,
+          "col": 0,
+          "index": 0,
+          "pose": "idle_p1 1/2: ruhiges Schweben, 0px höher"
+        },
+        {
+          "row": 0,
+          "col": 1,
+          "index": 1,
+          "pose": "idle_p1 2/2: ruhiges Schweben, 2px höher"
+        },
+        {
+          "row": 0,
+          "col": 2,
+          "index": 2,
+          "pose": "idle_p2 1/2: ruhiges Schweben, 0px höher – mehr Licht (Funken)"
+        },
+        {
+          "row": 0,
+          "col": 3,
+          "index": 3,
+          "pose": "idle_p2 2/2: ruhiges Schweben, 2px höher – mehr Licht (Funken)"
+        },
+        {
+          "row": 0,
+          "col": 4,
+          "index": 4,
+          "pose": "idle_p3 1/2: ruhiges Schweben, 0px höher – mehr Licht (Funken), ein türkiser Funke"
+        },
+        {
+          "row": 0,
+          "col": 5,
+          "index": 5,
+          "pose": "idle_p3 2/2: ruhiges Schweben, 2px höher – mehr Licht (Funken), ein türkiser Funke"
+        },
+        {
+          "row": 1,
+          "col": 0,
+          "index": 6,
+          "pose": "attack1 1/6: Ansatz, Licht in den Flügeln schwillt an"
+        },
+        {
+          "row": 1,
+          "col": 1,
+          "index": 7,
+          "pose": "attack1 2-3/6 (Ausholpose gehalten): Flügel hoch und weit zurück"
+        },
+        {
+          "row": 1,
+          "col": 2,
+          "index": 8,
+          "pose": "attack1 2-3/6 (Ausholpose gehalten): Flügel hoch und weit zurück"
+        },
+        {
+          "row": 1,
+          "col": 3,
+          "index": 9,
+          "pose": "attack1 4/6: Flügelschlag nach vorn links"
+        },
+        {
+          "row": 1,
+          "col": 4,
+          "index": 10,
+          "pose": "attack1 5/6: Lichtbögen der Schwinge fegen nach links"
+        },
+        {
+          "row": 1,
+          "col": 5,
+          "index": 11,
+          "pose": "attack1 6/6: zurück ins Schweben, Restfunken"
+        },
+        {
+          "row": 2,
+          "col": 0,
+          "index": 12,
+          "pose": "attack2 1/6: sinkt kurz, sammelt Stimme"
+        },
+        {
+          "row": 2,
+          "col": 1,
+          "index": 13,
+          "pose": "attack2 2-3/6 (gehalten): Hände vor der Brust, stummer Chor"
+        },
+        {
+          "row": 2,
+          "col": 2,
+          "index": 14,
+          "pose": "attack2 2-3/6 (gehalten): Hände vor der Brust, stummer Chor"
+        },
+        {
+          "row": 2,
+          "col": 3,
+          "index": 15,
+          "pose": "attack2 4/6: erste Glieder der Lichtkette lösen sich von den Händen, ein Chor-Bogen"
+        },
+        {
+          "row": 2,
+          "col": 4,
+          "index": 16,
+          "pose": "attack2 5/6: Kette schnellt nach links, zwei Chor-Bögen"
+        },
+        {
+          "row": 2,
+          "col": 5,
+          "index": 17,
+          "pose": "attack2 6/6: Kette bis zum Rand, drei Bögen, Funken (einer türkis)"
+        },
+        {
+          "row": 3,
+          "col": 0,
+          "index": 18,
+          "pose": "special 1/6: Arme auf, Licht gedämpft"
+        },
+        {
+          "row": 3,
+          "col": 1,
+          "index": 19,
+          "pose": "special 2/6: das Wort sammelt sich"
+        },
+        {
+          "row": 3,
+          "col": 2,
+          "index": 20,
+          "pose": "special 3/6: das Wort – Lichtring um den Engel (Radius 14px)"
+        },
+        {
+          "row": 3,
+          "col": 3,
+          "index": 21,
+          "pose": "special 4/6: das Wort – Lichtring um den Engel (Radius 24px)"
+        },
+        {
+          "row": 3,
+          "col": 4,
+          "index": 22,
+          "pose": "special 5/6: das Wort – Lichtring um den Engel (Radius 34px)"
+        },
+        {
+          "row": 3,
+          "col": 5,
+          "index": 23,
+          "pose": "special 6/6: das Wort – Lichtring um den Engel (Radius 42px)"
+        },
+        {
+          "row": 4,
+          "col": 0,
+          "index": 24,
+          "pose": "hurt 1/6: getroffen, Lichtblitz, weicht 3px zurück"
+        },
+        {
+          "row": 4,
+          "col": 1,
+          "index": 25,
+          "pose": "hurt 2/6: weiter zurück, Flügellicht gedämpft"
+        },
+        {
+          "row": 4,
+          "col": 2,
+          "index": 26,
+          "pose": "hurt 3/6: zweiter Blitz, Funken"
+        },
+        {
+          "row": 4,
+          "col": 3,
+          "index": 27,
+          "pose": "hurt 4/6: fängt sich"
+        },
+        {
+          "row": 4,
+          "col": 4,
+          "index": 28,
+          "pose": "hurt 5/6: richtet sich auf"
+        },
+        {
+          "row": 4,
+          "col": 5,
+          "index": 29,
+          "pose": "hurt 6/6: wieder im Schweben"
+        },
+        {
+          "row": 5,
+          "col": 0,
+          "index": 30,
+          "pose": "defeated 1/6: Licht erlischt, sinkt"
+        },
+        {
+          "row": 5,
+          "col": 1,
+          "index": 31,
+          "pose": "defeated 2/6: berührt fast den Boden"
+        },
+        {
+          "row": 5,
+          "col": 2,
+          "index": 32,
+          "pose": "defeated 3/6: sinkt zusammen, Flügel dunkel"
+        },
+        {
+          "row": 5,
+          "col": 3,
+          "index": 33,
+          "pose": "defeated 4/6: Lichtbahnen zerfallen"
+        },
+        {
+          "row": 5,
+          "col": 4,
+          "index": 34,
+          "pose": "defeated 5/6: kniet, Gewand liegt am Boden"
+        },
+        {
+          "row": 5,
+          "col": 5,
+          "index": 35,
+          "pose": "defeated 6/6: zusammengesunken, Asche steigt auf"
+        }
+      ]
+    },
+    "engel_2": {
+      "file": "public/sprites/battle/enemy_hs_engel_2.png",
+      "factor": 10,
+      "gain": [
+        1.0,
+        1.1
+      ],
+      "motifSizes": {
+        "idle": [
+          88,
+          53
+        ],
+        "attack1": [
+          95,
+          53
+        ],
+        "strike": [
+          76,
+          83
+        ],
+        "attack2": [
+          87,
+          58
+        ],
+        "special": [
+          84,
+          61
+        ]
+      },
+      "eyeLight": {
+        "idle": [
+          [
+            8,
+            22
+          ],
+          [
+            8,
+            24
+          ]
+        ],
+        "attack1": [
+          [
+            32,
+            10
+          ],
+          [
+            32,
+            12
+          ]
+        ],
+        "strike": [
+          [
+            9,
+            39
+          ],
+          [
+            9,
+            41
+          ]
+        ],
+        "attack2": [
+          [
+            10,
+            28
+          ],
+          [
+            10,
+            30
+          ]
+        ],
+        "special": [
+          [
+            10,
+            32
+          ],
+          [
+            10,
+            34
+          ]
+        ]
+      },
+      "frames": [
+        {
+          "row": 0,
+          "col": 0,
+          "index": 0,
+          "pose": "idle_p1 1/2: ruhiges Schweben, 0px höher"
+        },
+        {
+          "row": 0,
+          "col": 1,
+          "index": 1,
+          "pose": "idle_p1 2/2: ruhiges Schweben, 2px höher"
+        },
+        {
+          "row": 0,
+          "col": 2,
+          "index": 2,
+          "pose": "idle_p2 1/2: ruhiges Schweben, 0px höher – mehr Licht (Funken)"
+        },
+        {
+          "row": 0,
+          "col": 3,
+          "index": 3,
+          "pose": "idle_p2 2/2: ruhiges Schweben, 2px höher – mehr Licht (Funken)"
+        },
+        {
+          "row": 0,
+          "col": 4,
+          "index": 4,
+          "pose": "idle_p3 1/2: ruhiges Schweben, 0px höher – mehr Licht (Funken), ein türkiser Funke"
+        },
+        {
+          "row": 0,
+          "col": 5,
+          "index": 5,
+          "pose": "idle_p3 2/2: ruhiges Schweben, 2px höher – mehr Licht (Funken), ein türkiser Funke"
+        },
+        {
+          "row": 1,
+          "col": 0,
+          "index": 6,
+          "pose": "attack1 1/6: Ansatz, Licht in den Flügeln schwillt an"
+        },
+        {
+          "row": 1,
+          "col": 1,
+          "index": 7,
+          "pose": "attack1 2-3/6 (Ausholpose gehalten): Flügel hoch und weit zurück"
+        },
+        {
+          "row": 1,
+          "col": 2,
+          "index": 8,
+          "pose": "attack1 2-3/6 (Ausholpose gehalten): Flügel hoch und weit zurück"
+        },
+        {
+          "row": 1,
+          "col": 3,
+          "index": 9,
+          "pose": "attack1 4/6: Flügelschlag nach vorn links"
+        },
+        {
+          "row": 1,
+          "col": 4,
+          "index": 10,
+          "pose": "attack1 5/6: Lichtbögen der Schwinge fegen nach links"
+        },
+        {
+          "row": 1,
+          "col": 5,
+          "index": 11,
+          "pose": "attack1 6/6: zurück ins Schweben, Restfunken"
+        },
+        {
+          "row": 2,
+          "col": 0,
+          "index": 12,
+          "pose": "attack2 1/6: sinkt kurz, sammelt Stimme"
+        },
+        {
+          "row": 2,
+          "col": 1,
+          "index": 13,
+          "pose": "attack2 2-3/6 (gehalten): Hände vor der Brust, stummer Chor"
+        },
+        {
+          "row": 2,
+          "col": 2,
+          "index": 14,
+          "pose": "attack2 2-3/6 (gehalten): Hände vor der Brust, stummer Chor"
+        },
+        {
+          "row": 2,
+          "col": 3,
+          "index": 15,
+          "pose": "attack2 4/6: erste Glieder der Lichtkette lösen sich von den Händen, ein Chor-Bogen"
+        },
+        {
+          "row": 2,
+          "col": 4,
+          "index": 16,
+          "pose": "attack2 5/6: Kette schnellt nach links, zwei Chor-Bögen"
+        },
+        {
+          "row": 2,
+          "col": 5,
+          "index": 17,
+          "pose": "attack2 6/6: Kette bis zum Rand, drei Bögen, Funken (einer türkis)"
+        },
+        {
+          "row": 3,
+          "col": 0,
+          "index": 18,
+          "pose": "special 1/6: Arme auf, Licht gedämpft"
+        },
+        {
+          "row": 3,
+          "col": 1,
+          "index": 19,
+          "pose": "special 2/6: das Wort sammelt sich"
+        },
+        {
+          "row": 3,
+          "col": 2,
+          "index": 20,
+          "pose": "special 3/6: eine Schwelle aus Licht erscheint vor ihm"
+        },
+        {
+          "row": 3,
+          "col": 3,
+          "index": 21,
+          "pose": "special 4/6: der Türrahmen wächst"
+        },
+        {
+          "row": 3,
+          "col": 4,
+          "index": 22,
+          "pose": "special 5/6: die Tür steht offen, Licht fällt hindurch"
+        },
+        {
+          "row": 3,
+          "col": 5,
+          "index": 23,
+          "pose": "special 6/6: Tür flackert (einzelner türkiser Funke)"
+        },
+        {
+          "row": 4,
+          "col": 0,
+          "index": 24,
+          "pose": "hurt 1/6: getroffen, Lichtblitz, weicht 3px zurück"
+        },
+        {
+          "row": 4,
+          "col": 1,
+          "index": 25,
+          "pose": "hurt 2/6: weiter zurück, Flügellicht gedämpft"
+        },
+        {
+          "row": 4,
+          "col": 2,
+          "index": 26,
+          "pose": "hurt 3/6: zweiter Blitz, Funken"
+        },
+        {
+          "row": 4,
+          "col": 3,
+          "index": 27,
+          "pose": "hurt 4/6: fängt sich"
+        },
+        {
+          "row": 4,
+          "col": 4,
+          "index": 28,
+          "pose": "hurt 5/6: richtet sich auf"
+        },
+        {
+          "row": 4,
+          "col": 5,
+          "index": 29,
+          "pose": "hurt 6/6: wieder im Schweben"
+        },
+        {
+          "row": 5,
+          "col": 0,
+          "index": 30,
+          "pose": "defeated 1/6: Licht erlischt, sinkt"
+        },
+        {
+          "row": 5,
+          "col": 1,
+          "index": 31,
+          "pose": "defeated 2/6: berührt fast den Boden"
+        },
+        {
+          "row": 5,
+          "col": 2,
+          "index": 32,
+          "pose": "defeated 3/6: sinkt zusammen, Flügel dunkel"
+        },
+        {
+          "row": 5,
+          "col": 3,
+          "index": 33,
+          "pose": "defeated 4/6: Lichtbahnen zerfallen"
+        },
+        {
+          "row": 5,
+          "col": 4,
+          "index": 34,
+          "pose": "defeated 5/6: kniet, Gewand liegt am Boden"
+        },
+        {
+          "row": 5,
+          "col": 5,
+          "index": 35,
+          "pose": "defeated 6/6: zusammengesunken, Asche steigt auf"
+        }
+      ]
+    },
+    "engel_3": {
+      "file": "public/sprites/battle/enemy_hs_engel_3.png",
+      "factor": 9,
+      "gain": [
+        1.0,
+        1.1
+      ],
+      "motifSizes": {
+        "idle": [
+          102,
+          62
+        ],
+        "attack1": [
+          100,
+          67
+        ],
+        "strike": [
+          97,
+          98
+        ],
+        "attack2": [
+          98,
+          68
+        ],
+        "special": [
+          101,
+          73
+        ]
+      },
+      "eyeLight": {
+        "idle": [
+          [
+            14,
+            21
+          ],
+          [
+            14,
+            23
+          ]
+        ],
+        "attack1": [
+          [
+            19,
+            22
+          ],
+          [
+            19,
+            24
+          ]
+        ],
+        "strike": [
+          [
+            17,
+            58
+          ],
+          [
+            17,
+            60
+          ]
+        ],
+        "attack2": [
+          [
+            17,
+            25
+          ],
+          [
+            17,
+            27
+          ]
+        ],
+        "special": [
+          [
+            17,
+            30
+          ],
+          [
+            17,
+            32
+          ]
+        ]
+      },
+      "frames": [
+        {
+          "row": 0,
+          "col": 0,
+          "index": 0,
+          "pose": "idle_p1 1/2: ruhiges Schweben, 0px höher"
+        },
+        {
+          "row": 0,
+          "col": 1,
+          "index": 1,
+          "pose": "idle_p1 2/2: ruhiges Schweben, 2px höher"
+        },
+        {
+          "row": 0,
+          "col": 2,
+          "index": 2,
+          "pose": "idle_p2 1/2: ruhiges Schweben, 0px höher – mehr Licht (Funken)"
+        },
+        {
+          "row": 0,
+          "col": 3,
+          "index": 3,
+          "pose": "idle_p2 2/2: ruhiges Schweben, 2px höher – mehr Licht (Funken)"
+        },
+        {
+          "row": 0,
+          "col": 4,
+          "index": 4,
+          "pose": "idle_p3 1/2: ruhiges Schweben, 0px höher – mehr Licht (Funken), ein türkiser Funke"
+        },
+        {
+          "row": 0,
+          "col": 5,
+          "index": 5,
+          "pose": "idle_p3 2/2: ruhiges Schweben, 2px höher – mehr Licht (Funken), ein türkiser Funke"
+        },
+        {
+          "row": 1,
+          "col": 0,
+          "index": 6,
+          "pose": "attack1 1/6: Ansatz, Licht in den Flügeln schwillt an"
+        },
+        {
+          "row": 1,
+          "col": 1,
+          "index": 7,
+          "pose": "attack1 2-3/6 (Ausholpose gehalten): Flügel hoch und weit zurück"
+        },
+        {
+          "row": 1,
+          "col": 2,
+          "index": 8,
+          "pose": "attack1 2-3/6 (Ausholpose gehalten): Flügel hoch und weit zurück"
+        },
+        {
+          "row": 1,
+          "col": 3,
+          "index": 9,
+          "pose": "attack1 4/6: Flügelschlag nach vorn links"
+        },
+        {
+          "row": 1,
+          "col": 4,
+          "index": 10,
+          "pose": "attack1 5/6: Lichtbögen der Schwinge fegen nach links"
+        },
+        {
+          "row": 1,
+          "col": 5,
+          "index": 11,
+          "pose": "attack1 6/6: zurück ins Schweben, Restfunken"
+        },
+        {
+          "row": 2,
+          "col": 0,
+          "index": 12,
+          "pose": "attack2 1/6: sinkt kurz, sammelt Stimme"
+        },
+        {
+          "row": 2,
+          "col": 1,
+          "index": 13,
+          "pose": "attack2 2-3/6 (gehalten): Hände vor der Brust, stummer Chor"
+        },
+        {
+          "row": 2,
+          "col": 2,
+          "index": 14,
+          "pose": "attack2 2-3/6 (gehalten): Hände vor der Brust, stummer Chor"
+        },
+        {
+          "row": 2,
+          "col": 3,
+          "index": 15,
+          "pose": "attack2 4/6: erste Glieder der Lichtkette lösen sich von den Händen, ein Chor-Bogen"
+        },
+        {
+          "row": 2,
+          "col": 4,
+          "index": 16,
+          "pose": "attack2 5/6: Kette schnellt nach links, zwei Chor-Bögen"
+        },
+        {
+          "row": 2,
+          "col": 5,
+          "index": 17,
+          "pose": "attack2 6/6: Kette bis zum Rand, drei Bögen, Funken (einer türkis)"
+        },
+        {
+          "row": 3,
+          "col": 0,
+          "index": 18,
+          "pose": "special 1/6: Arme auf, Licht noch gedämpft"
+        },
+        {
+          "row": 3,
+          "col": 1,
+          "index": 19,
+          "pose": "special 2/6: das Wort sammelt sich vor dem Mund"
+        },
+        {
+          "row": 3,
+          "col": 2,
+          "index": 20,
+          "pose": "special 3/6: schmale Lichtsäule fällt"
+        },
+        {
+          "row": 3,
+          "col": 3,
+          "index": 21,
+          "pose": "special 4/6: das Wort – volle Lichtsäule bis zum Boden"
+        },
+        {
+          "row": 3,
+          "col": 4,
+          "index": 22,
+          "pose": "special 5/6: Säule am breitesten, Lichtring am Boden"
+        },
+        {
+          "row": 3,
+          "col": 5,
+          "index": 23,
+          "pose": "special 6/6: Säule zerfällt (gerastert), zwei türkise Funken"
+        },
+        {
+          "row": 4,
+          "col": 0,
+          "index": 24,
+          "pose": "hurt 1/6: getroffen, Lichtblitz, weicht 3px zurück"
+        },
+        {
+          "row": 4,
+          "col": 1,
+          "index": 25,
+          "pose": "hurt 2/6: weiter zurück, Flügellicht gedämpft"
+        },
+        {
+          "row": 4,
+          "col": 2,
+          "index": 26,
+          "pose": "hurt 3/6: zweiter Blitz, Funken"
+        },
+        {
+          "row": 4,
+          "col": 3,
+          "index": 27,
+          "pose": "hurt 4/6: fängt sich"
+        },
+        {
+          "row": 4,
+          "col": 4,
+          "index": 28,
+          "pose": "hurt 5/6: richtet sich auf"
+        },
+        {
+          "row": 4,
+          "col": 5,
+          "index": 29,
+          "pose": "hurt 6/6: wieder im Schweben"
+        },
+        {
+          "row": 5,
+          "col": 0,
+          "index": 30,
+          "pose": "defeated 1/6: Licht erlischt, sinkt"
+        },
+        {
+          "row": 5,
+          "col": 1,
+          "index": 31,
+          "pose": "defeated 2/6: berührt fast den Boden"
+        },
+        {
+          "row": 5,
+          "col": 2,
+          "index": 32,
+          "pose": "defeated 3/6: sinkt zusammen, Flügel dunkel"
+        },
+        {
+          "row": 5,
+          "col": 3,
+          "index": 33,
+          "pose": "defeated 4/6: Lichtbahnen zerfallen"
+        },
+        {
+          "row": 5,
+          "col": 4,
+          "index": 34,
+          "pose": "defeated 5/6: kniet, Gewand liegt am Boden"
+        },
+        {
+          "row": 5,
+          "col": 5,
+          "index": 35,
+          "pose": "defeated 6/6: zusammengesunken, Asche steigt auf"
+        }
+      ]
+    },
+    "wetherby": {
+      "file": "public/sprites/battle/enemy_k4s_wetherby.png",
+      "factor": 11,
+      "gain": [
+        1.0,
+        1.1
+      ],
+      "motifSizes": {
+        "idle": [
+          88,
+          74
+        ],
+        "attack1": [
+          80,
+          84
+        ],
+        "strike": [
+          85,
+          78
+        ],
+        "attack2": [
+          85,
+          74
+        ],
+        "special": [
+          81,
+          83
+        ]
+      },
+      "eyeLight": null,
+      "frames": [
+        {
+          "row": 0,
+          "col": 0,
+          "index": 0,
+          "pose": "idle_p1 1/2: steht müde, 3 Aktenblätter kreisen um ihn"
+        },
+        {
+          "row": 0,
+          "col": 1,
+          "index": 1,
+          "pose": "idle_p1 2/2: steht müde, 3 Aktenblätter kreisen um ihn"
+        },
+        {
+          "row": 0,
+          "col": 2,
+          "index": 2,
+          "pose": "idle_p2 1/2: steht müde, 4 Aktenblätter kreisen um ihn"
+        },
+        {
+          "row": 0,
+          "col": 3,
+          "index": 3,
+          "pose": "idle_p2 2/2: steht müde, 4 Aktenblätter kreisen um ihn"
+        },
+        {
+          "row": 0,
+          "col": 4,
+          "index": 4,
+          "pose": "idle_p3 1/2: steht müde, 6 Aktenblätter kreisen um ihn, Glutfunken"
+        },
+        {
+          "row": 0,
+          "col": 5,
+          "index": 5,
+          "pose": "idle_p3 2/2: steht müde, 6 Aktenblätter kreisen um ihn, Glutfunken"
+        },
+        {
+          "row": 1,
+          "col": 0,
+          "index": 6,
+          "pose": "attack1 1/6: Ansatz, Licht in den Flügeln schwillt an"
+        },
+        {
+          "row": 1,
+          "col": 1,
+          "index": 7,
+          "pose": "attack1 2-3/6 (Ausholpose gehalten): Flügel hoch und weit zurück"
+        },
+        {
+          "row": 1,
+          "col": 2,
+          "index": 8,
+          "pose": "attack1 2-3/6 (Ausholpose gehalten): Flügel hoch und weit zurück"
+        },
+        {
+          "row": 1,
+          "col": 3,
+          "index": 9,
+          "pose": "attack1 4/6: Flügelschlag nach vorn links"
+        },
+        {
+          "row": 1,
+          "col": 4,
+          "index": 10,
+          "pose": "attack1 5/6: Lichtbögen der Schwinge fegen nach links"
+        },
+        {
+          "row": 1,
+          "col": 5,
+          "index": 11,
+          "pose": "attack1 6/6: zurück ins Schweben, Restfunken"
+        },
+        {
+          "row": 2,
+          "col": 0,
+          "index": 12,
+          "pose": "attack2 1/6: sinkt kurz, sammelt Stimme"
+        },
+        {
+          "row": 2,
+          "col": 1,
+          "index": 13,
+          "pose": "attack2 2-3/6 (gehalten): Hände vor der Brust, stummer Chor"
+        },
+        {
+          "row": 2,
+          "col": 2,
+          "index": 14,
+          "pose": "attack2 2-3/6 (gehalten): Hände vor der Brust, stummer Chor"
+        },
+        {
+          "row": 2,
+          "col": 3,
+          "index": 15,
+          "pose": "attack2 4/6: erste Glieder der Lichtkette lösen sich von den Händen, ein Chor-Bogen"
+        },
+        {
+          "row": 2,
+          "col": 4,
+          "index": 16,
+          "pose": "attack2 5/6: Kette schnellt nach links, zwei Chor-Bögen"
+        },
+        {
+          "row": 2,
+          "col": 5,
+          "index": 17,
+          "pose": "attack2 6/6: Kette bis zum Rand, drei Bögen, Funken (einer türkis)"
+        },
+        {
+          "row": 3,
+          "col": 0,
+          "index": 18,
+          "pose": "special 1/6: Aktensturm – 3 Blätter kreisen"
+        },
+        {
+          "row": 3,
+          "col": 1,
+          "index": 19,
+          "pose": "special 2/6: Aktensturm – 5 Blätter kreisen"
+        },
+        {
+          "row": 3,
+          "col": 2,
+          "index": 20,
+          "pose": "special 3/6: Aktensturm – 7 Blätter kreisen"
+        },
+        {
+          "row": 3,
+          "col": 3,
+          "index": 21,
+          "pose": "special 4/6: Aktensturm – 9 Blätter kreisen + innerer Wirbel"
+        },
+        {
+          "row": 3,
+          "col": 4,
+          "index": 22,
+          "pose": "special 5/6: Aktensturm – 10 Blätter kreisen + innerer Wirbel"
+        },
+        {
+          "row": 3,
+          "col": 5,
+          "index": 23,
+          "pose": "special 6/6: Aktensturm – 6 Blätter kreisen + innerer Wirbel"
+        },
+        {
+          "row": 4,
+          "col": 0,
+          "index": 24,
+          "pose": "hurt 1/6: getroffen, Lichtblitz, weicht 3px zurück"
+        },
+        {
+          "row": 4,
+          "col": 1,
+          "index": 25,
+          "pose": "hurt 2/6: weiter zurück, Flügellicht gedämpft"
+        },
+        {
+          "row": 4,
+          "col": 2,
+          "index": 26,
+          "pose": "hurt 3/6: zweiter Blitz, Funken"
+        },
+        {
+          "row": 4,
+          "col": 3,
+          "index": 27,
+          "pose": "hurt 4/6: fängt sich"
+        },
+        {
+          "row": 4,
+          "col": 4,
+          "index": 28,
+          "pose": "hurt 5/6: richtet sich auf"
+        },
+        {
+          "row": 4,
+          "col": 5,
+          "index": 29,
+          "pose": "hurt 6/6: steht wieder"
+        },
+        {
+          "row": 5,
+          "col": 0,
+          "index": 30,
+          "pose": "defeated 1/6: Flügel erlöschen"
+        },
+        {
+          "row": 5,
+          "col": 1,
+          "index": 31,
+          "pose": "defeated 2/6: knickt ein"
+        },
+        {
+          "row": 5,
+          "col": 2,
+          "index": 32,
+          "pose": "defeated 3/6: sinkt zusammen, Blätter fallen"
+        },
+        {
+          "row": 5,
+          "col": 3,
+          "index": 33,
+          "pose": "defeated 4/6: Lichtreste zerfallen"
+        },
+        {
+          "row": 5,
+          "col": 4,
+          "index": 34,
+          "pose": "defeated 5/6: kniet"
+        },
+        {
+          "row": 5,
+          "col": 5,
+          "index": 35,
+          "pose": "defeated 6/6: zusammengesunken, die Akten liegen am Boden"
+        }
+      ]
+    }
+  }
+}

@@ -2132,3 +2132,36 @@ einzeln per Skript gesetzt. Eingebaut: Laufblätter ersetzen
 - Manifest: `public/sprites/manifest-pfadbeyonder.json`
 - [Vorschau](batch-pfadbeyonder-preview.png) · [Vorlage | neu](batch-pfadbeyonder-vorlage-neu.png) · [Prompts](batch-pfadbeyonder-generation.json) · [Prüfbericht](batch-pfadbeyonder-validation.json)
 - Export: `python3 tools/art/pfadbeyonder/export.py`, Prüfung: `python3 tools/art/pfadbeyonder/check.py --write` (Pillow, numpy)
+
+## Engel und Wetherby (`engel`)
+
+Eigene Kampfblätter für die drei Himmelsstadt-Engel (Seq 2) und Oswin Wetherby als gefallenen Engel (Kap. 4, Calderwick).
+Bisher liefen alle vier als getönter `hg_grenzwaechter`. Es gibt keine eigene Codex-Vorlage; der Style-Block stammt aus
+`codex_CO_halbgott_grafik.md`.
+
+Raster, Reihen, Reihenfolge, Animationen und Haltepaare sind genau wie bei `battle/hg_grenzwaechter.png`: 768x768,
+Zellen 128x128, 6x6, Fußlinie 125.
+
+| Reihe | Frames | Inhalt |
+|---|---|---|
+| idle | `idle_p1`, `idle_p2`, `idle_p3` | ruhiges Schweben, mit jeder Phase mehr Licht |
+| attack1 | 6–11 (Haltepaar 7/8) | Flügelschlag |
+| attack2 | 12–17 (Haltepaar 13/14) | Chor mit Lichtkette |
+| special | 18–23 | das Wort bzw. der Aktensturm |
+| hurt | 24–29 | Treffer |
+| defeated | 30–35 | Niederlage |
+
+Dateien unter `public/sprites/battle/`:
+- `enemy_hs_engel_1.png`: Engel des Grats, das Wort als Lichtring.
+- `enemy_hs_engel_2.png`: Engel der Schwelle, das Wort als Tür aus Licht.
+- `enemy_hs_engel_3.png`: Engel des Thrones, das Wort als Lichtsäule, Krone aus Asche.
+- `enemy_k4s_wetherby.png`: Oswin Wetherby. Identitätsreferenz ist `enemy_cw_wetherby.png`; um ihn kreisen Aktenblätter.
+
+Palette ist `manifest-halbgott.json`, nur mit warmem Bein-Weiß (#ebcd8d/#bbae95) statt #eee2c5/#a8b4c0. Licht ist Amber,
+Türkis kommt nur als einzelne Funken vor. Je Pose gibt es ein Konzeptbild (Rohbilder in `engel-raw/`), jede Pose ist einzeln
+per Skript gesetzt. Geliefert von Grok (Paket GA Teil 3). Eingebaut: `aufstieg.js` (hs_engel_1–3) und
+`calderwickStory.js` (k4s_wetherby) nutzen die Blätter ohne Tönung, Manifest in `assets.js` geladen.
+
+- Manifest: `public/sprites/manifest-engel.json`
+- [Vorschau](batch-engel-preview.png) · [Vorlage | neu](batch-engel-vorlage-neu.png) · [Prompts](batch-engel-generation.json) · [Prüfbericht](batch-engel-validation.json)
+- Export: `python3 tools/art/engel/export.py`, Prüfung: `python3 tools/art/engel/check.py --write` (Pillow, numpy, scipy)

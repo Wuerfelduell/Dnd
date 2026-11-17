@@ -77,7 +77,7 @@ function himmelsEncounters(content) {
   });
   for (let i = 1; i <= 3; i++) {
     out[`hs_engel_${i}`] = himmelsGegner(`hs_engel_${i}`, ['Engel des Grats', 'Engel der Schwelle', 'Engel des Thrones'][i - 1], {
-      sheet: 'hg_grenzwaechter', tint: '#fff8e0', hp: 999999, armor: 80, boss: true,
+      sheet: `enemy_hs_engel_${i}`, hp: 999999, armor: 80, boss: true,
       attacks: [schlag('Flügelschlag aus Licht', 2400, [1100]), schlag('Chor der Zerstörung', 1200, [800, 1400, 2000], { unparryable: true }), schlag('Das Wort', 6000, [2600], { unparryable: true })],
       intro: 'Er hat keine Augen, nur Licht, das dorthin fällt, wo Augen wären. Er sagt nichts. Er muss nichts sagen.',
     });

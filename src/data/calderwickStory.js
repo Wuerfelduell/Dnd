@@ -47,9 +47,9 @@ export const K4S_ERNTEHELFER = 'k4s_erntehelfer';
 /** Oswin Wetherby, gefallener Engel. Ziel: Seq 3 gewinnt meist, Seq 4 fast nie. */
 function wetherbyKampf() {
   return {
-    id: K4S_WETHERBY, name: 'Oswin Wetherby, gefallener Engel', sprite: 'wild', sheet: 'hg_grenzwaechter', tint: '#e8dcc0', occult: true,
+    id: K4S_WETHERBY, name: 'Oswin Wetherby, gefallener Engel', sprite: 'wild', sheet: 'enemy_k4s_wetherby', occult: true,
     chapter: 5, boss: true, elite: false, tier_seq: 3, hp: 7000, armor: 8, dmg_mult: 1, max_round_dmg: 0.2, fleeable: true, duo_hp_mult: 2.2,
-    intro: 'Wetherby legt den Federhalter ab. Hinter ihm entfaltet sich etwas, das einmal Flügel waren und jetzt aus Aktendeckeln besteht. „Ich war ein Engel“, sagt er ruhig. „Gefallen bin ich bis auf das Gewicht eines Halbgotts. Den Rest trage ich als Erinnerung. Sie wiegen weniger, als Sie glauben.“',
+    intro: 'Wetherby legt den Federhalter ab. Hinter ihm entfaltet sich etwas, das einmal Flügel aus Licht waren und jetzt verkohlt und gebrochen von ihm absteht. Lose Aktenblätter kreisen um ihn. „Ich war ein Engel“, sagt er ruhig. „Gefallen bin ich bis auf das Gewicht eines Halbgotts. Den Rest trage ich als Erinnerung. Sie wiegen weniger, als Sie glauben.“',
     attacks: [schlag('Stempel des Archivs', 75, [900, 1500]), schlag('Gestrichener Name', 52, [700, 1100, 1500], { nerves: 14 }),
       { name: 'Ablage', action: 'guard', value: 8, text: 'Er legt sich selbst ab. Papier schichtet sich vor ihn: +8 Abwehr.' }, schlag('Flügel aus Akten', 115, [1800], { unparryable: true })],
     phase2: { meldung: 'Die Aktendeckel brennen. Darunter ist Licht, das nicht mehr ganz hell ist.', attacks: [schlag('Engelslicht, getrübt', 95, [1000, 1700], { unparryable: true }),
