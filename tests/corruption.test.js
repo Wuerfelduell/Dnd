@@ -171,3 +171,21 @@ test('Paket BP: Kontrollverlust-Grafik ist registriert und passt zum Manifest', 
   assert.equal(UI_SKINS.korrframe, asset('BP_korruption_rahmen').file);
   assert.ok(existsSync(new URL(`../public/sprites/${UI_SKINS.korrframe}`, import.meta.url)));
 });
+
+test('Maud Keel (Wexmoor) flickt zum Stadtpreis ×1,5, Nebelherz fällt bei Wexmoor- und Dunscar-Eliten', () => {
+  const s = fallen();
+  s.money = 5000;
+  const offers = s.repairOffers('maud');
+  assert.ok(offers.length > 0);
+  for (const o of offers) assert.equal(o.price, Math.ceil(s.cleansePrice(o.id) * 1.5));
+  const o = offers[0];
+  const before = s.money;
+  assert.ok(s.repairAt(o.id, o.player, 'maud').ok);
+  assert.equal(s.money, before - o.price);
+  assert.ok(!s.isCorrupted(o.id));
+  const maud = content.dialogues.wx_pfandleiherin;
+  assert.ok(maud.nodes.start.choices.some((c) => c.repair === 'maud'));
+  for (const z of ['wx_salzwatt', 'wx_leuchtturm', 'ds_rangierwueste', 'ds_klopfbruch', 'ds_rufschlucht', 'ds_unterschicht']) {
+    assert.ok(content.zones[z].elite_drops.some((d) => d.item === 'nebelherz'), z);
+  }
+});

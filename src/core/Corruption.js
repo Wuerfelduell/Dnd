@@ -24,6 +24,9 @@ export const DEFAULT_CORRUPTION = {
 
 /** Flickerin auf den Dunscar-Treffen (Seb, 2026-11-12): repariert jedes korrumpierte Stück für 500, beide Spieler. */
 export const REPAIR_PRICE = 500;
+/** Maud Keel am Salzmarkt (Wexmoor, Seb 2026-11-17): flickt wie Dr. Varga, aber zum Wexmoorer Stadtpreis (×1,5). */
+export const MAUD_REPAIR_MULT = 1.5;
+export const REPAIRERS = ['flickerin', 'maud'];
 
 export const corruptionMethods = {
   resetCorruption() {
@@ -168,21 +171,29 @@ export const corruptionMethods = {
   },
 
   /** Angebot der Flickerin: korrumpierte Stücke beider Spieler [{player, id, name, price, affordable}]. */
-  repairOffers() {
-    const players = this.p2 ? [1, 2] : [1];
-    return players.flatMap((n) => this.withPlayer(n, () => this.corruptedItems().filter((id) => this.itemCount(id) > 0)
-      .map((id) => ({ player: n, id, name: this.item(id)?.name ?? id, price: REPAIR_PRICE, affordable: this.money >= REPAIR_PRICE })), { quiet: true }));
+  /** Preis einer Reparatur: Flickerin pauschal 500, Maud Keel Dr. Vargas Preis ×1,5 (aufgerundet). */
+  repairPrice(id, who = 'flickerin') {
+    return who === 'maud' ? Math.ceil(this.cleansePrice(id) * MAUD_REPAIR_MULT) : REPAIR_PRICE;
   },
 
-  /** Repariert ein korrumpiertes Stück von Spieler n für REPAIR_PRICE (Geld ist gemeinsam). */
-  repairAt(id, n = 1) {
+  repairOffers(who = 'flickerin') {
+    const players = this.p2 ? [1, 2] : [1];
+    return players.flatMap((n) => this.withPlayer(n, () => this.corruptedItems().filter((id) => this.itemCount(id) > 0)
+      .map((id) => { const price = this.repairPrice(id, who); return { player: n, id, name: this.item(id)?.name ?? id, price, affordable: this.money >= price }; }), { quiet: true }));
+  },
+
+  /** Repariert ein korrumpiertes Stück von Spieler n (Geld ist gemeinsam). */
+  repairAt(id, n = 1, who = 'flickerin') {
     return this.withPlayer(n, () => {
       if (!this.isCorrupted(id) || !this.itemCount(id)) return { ok: false, text: 'Daran ist nichts zu flicken.' };
-      if (this.money < REPAIR_PRICE) return { ok: false, text: `Das Flicken kostet ${REPAIR_PRICE} Schilling. So viel habt ihr nicht.` };
-      this.money -= REPAIR_PRICE;
-      this.emit('money', { delta: -REPAIR_PRICE, value: this.money, reason: 'Reparatur' });
+      const price = this.repairPrice(id, who);
+      if (this.money < price) return { ok: false, text: `Das Flicken kostet ${price} Schilling. So viel habt ihr nicht.` };
+      this.money -= price;
+      this.emit('money', { delta: -price, value: this.money, reason: 'Reparatur' });
+      const name = this.item(id).name;
       this.purify(id);
-      return { ok: true, text: `Hanne zieht mit einer Kalknadel den schwarzen Faden aus ${this.item(id).name}, Stich für Stich, bis nichts mehr zuckt. „Fünfhundert. Und halt die Tentakel bei dir.“` };
+      if (who === 'maud') return { ok: true, text: `Maud legt ${name} in eine Schale mit Salzwasser aus dem Watt und drückt es mit der flachen Hand hinunter, bis etwas Schwarzes aufsteigt und zerfällt. „${price} Schilling. Gleich schwer wie vorher, nur sauber.“` };
+      return { ok: true, text: `Hanne zieht mit einer Kalknadel den schwarzen Faden aus ${name}, Stich für Stich, bis nichts mehr zuckt. „Fünfhundert. Und halt die Tentakel bei dir.“` };
     });
   },
 

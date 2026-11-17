@@ -273,6 +273,7 @@ function withMaud(d) {
         { text: 'Kann ich etwas für Sie tun?', next: 'ph_auftrag', requires_flags: [`${id}_ph_gemerkt`], hide_if_flags: [`${id}_auftrag`, ...hideOpen] },
         { text: 'Hier, zwei Moorperlen.', next: 'ph_dank', requires_flags: [`${id}_auftrag`], requires_item_counts: { moorperle: 2 }, hide_if_flags: [`${id}_erledigt`, ...hideOpen] },
         { text: 'Was sind Sie, wenn ich fragen darf?', next: 'ph_pfad', requires_flags: [`${id}_ph_gemerkt`] },
+        { text: 'Können Sie korrumpierte Stücke reinigen?', repair: 'maud' },
         { text: 'Ihren Pfandtisch den Grauspähern melden.', next: [{ node: 'ph_kampf', requires_bond_max: { [id]: -1 } }, { node: 'ph_verrat' }], requires_flags: [`${id}_ph_gemerkt`], hide_if_flags: hideOpen },
         start.choices.at(-1),
       ] },
