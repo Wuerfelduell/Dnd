@@ -195,6 +195,13 @@ export function duoHpMult(state) {
 
 /** Pfade, deren Einzelheilung im Koop auch den Partner treffen kann (Seb 2026-11-17: Moor). */
 export const HEAL_TARGET_PATHS = new Set(['sq_moor']);
+/**
+ * Heiler-Pfade (Moor): Fertigkeitsheilung wächst mit dem eigenen Höchstleben (Grundwert + Anteil von maxHp),
+ * sonst fällt sie ab Seq 5 weit hinter den Gegnerschaden zurück. Präzise/meisterhafte Takte heilen etwas mehr.
+ */
+export const HEAL_SCALE_PATHS = new Set(['sq_moor']);
+export const HEAL_HP_PCT = 0.08;
+export const HEAL_GRADE_MULT = { meister: 1.3, perfect: 1.15 };
 
 export class Combat {
   constructor(state, encounterId) {
@@ -507,6 +514,16 @@ export class Combat {
     }
   }
 
+  /**
+   * Heilmenge einer Fertigkeit für den Handelnden (in on(actor) aufrufen). Moor: + HEAL_HP_PCT des Höchstlebens
+   * (bei Partnerheilung zählt das Leben des Heilers) und Bonus für den besten Takt.
+   */
+  skillHeal(base, graded = []) {
+    if (!base || !HEAL_SCALE_PATHS.has(this.state.pathway?.id)) return base;
+    const best = graded.includes('meister') ? 'meister' : graded.includes('perfect') ? 'perfect' : null;
+    return Math.round((base + this.state.maxHp * HEAL_HP_PCT) * (HEAL_GRADE_MULT[best] ?? 1));
+  }
+
   /** Stehender Mitspieler des Handelnden (Koop), sonst null. */
   partnerOf(n = this.actor) {
     return this.duo ? this.standing().find((m) => m !== n) ?? null : null;
@@ -591,10 +608,11 @@ export class Combat {
     if (precise && !stunned && !stunMissed && hits.length && !graded.some(isPerfectGrade)) effects.push('ungenau, nur ein Bruchteil der Wucht');
     if (sk.weak && landed && !this.weak) { this.weak = true; effects.push('Schwachstelle erkannt'); }
     if (sk.heal) {
+      const amount = this.skillHeal(sk.heal, graded);
       // Moor im Koop: Heilung auf den Partner gelenkt (healTarget aus der Zielwahl im Menü)
       const toPartner = this.healTarget && this.healTarget !== this.actor && this.partnerOf() === this.healTarget;
-      if (toPartner) effects.push(`+${this.state.withPartner(() => this.state.heal(sk.heal)) ?? 0} Leben für Spieler ${this.healTarget}`);
-      else effects.push(`+${this.state.heal(sk.heal)} Leben`);
+      if (toPartner) effects.push(`+${this.state.withPartner(() => this.state.heal(amount)) ?? 0} Leben für Spieler ${this.healTarget}`);
+      else effects.push(`+${this.state.heal(amount)} Leben`);
     }
     if (sk.drain && total) effects.push(`+${this.state.heal(Math.round(total * sk.drain))} Leben`);
     if (sk.shield) { this.shield += sk.shield; effects.push(`Schutz ${this.shield}`); }
@@ -619,8 +637,9 @@ export class Combat {
     if (sk.shield_all) { for (const n of this.standing()) this.fighters[n].shield += sk.shield_all; effects.push(`Schutz ${sk.shield_all} für ${this.standing().length > 1 ? 'alle' : 'dich'}`); }
     if (sk.heal_all) {
       // Wir stehen schon in on(actor): der andere Spieler ist der Partner (withPartner), egal ob er 1 oder 2 ist
-      let got = this.state.heal(sk.heal_all);
-      for (const n of this.standing()) if (n !== this.actor) got += this.state.withPartner(() => this.state.heal(sk.heal_all)) ?? 0;
+      const amount = this.skillHeal(sk.heal_all, graded);
+      let got = this.state.heal(amount);
+      for (const n of this.standing()) if (n !== this.actor) got += this.state.withPartner(() => this.state.heal(amount)) ?? 0;
       effects.push(`+${got} Leben${this.standing().length > 1 ? ' (alle)' : ''}`);
     }
     if (sk.focus) { this.focused = true; effects.push('nächste Fertigkeit im Fokus'); }

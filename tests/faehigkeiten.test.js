@@ -101,7 +101,8 @@ test('Kampf: Konzentration zurück, Nerven zurück, Schutz und Heilung für alle
   cm.ap = 6;
   m.hp = 10;
   cm.useSkill('moor_uferhalt', []);
-  assert.equal(m.hp, 22);
+  assert.equal(m.hp, 10 + cm.on(1, () => cm.skillHeal(12)), 'Moor: 12 plus Anteil am Höchstleben');
+  assert.ok(m.hp > 22);
   assert.equal(cm.shield, 6);
 });
 
