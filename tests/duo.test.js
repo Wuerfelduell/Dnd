@@ -300,7 +300,7 @@ test('Moor im Koop: Heilfertigkeit darf den Partner heilen, Solo und andere Pfad
   const p2Hp = s.p2.hp;
   c.healTarget = 1;
   const r = c.useSkill('moor_stufe_7', ['perfect', 'perfect']);
-  assert.equal(s.hp, 10 + content.pathways.sq_moor.seqs[7].skill.heal, 'Spieler 1 bekommt die Heilung');
+  assert.equal(s.hp, 10 + c.on(2, () => c.skillHeal(content.pathways.sq_moor.seqs[7].skill.heal, ['perfect'])), 'Spieler 1 bekommt die Heilung');
   assert.equal(s.p2.hp, p2Hp);
   assert.ok(r.effects.some((e) => e.includes('für Spieler 1')));
   assert.equal(c.healTarget, null, 'Ziel gilt nur einmal');
@@ -322,4 +322,20 @@ test('Moor-Weltfähigkeit Vergessensufer heilt im Koop auch den Partner', () => 
   assert.equal(r.ok !== false, true, r.text);
   assert.ok(s.hp > 5, 'Spieler 1 wird mitgeheilt');
   assert.ok(s.p2.hp > 5, 'Spieler 2 heilt sich selbst');
+});
+
+test('Moor-Heilung wächst mit dem Höchstleben, präzise und meisterhafte Takte heilen mehr', () => {
+  const heal = (grades, seq = 5) => {
+    const s = hero(seq, 'sq_moor');
+    const c = new Combat(s, 'fog_hound');
+    c.ap = 10;
+    s.hp = 1;
+    c.useSkill(`moor_stufe_${seq}`, grades);
+    return s.hp - 1;
+  };
+  const base = content.pathways.sq_moor.seqs[5].skill.heal;
+  const good = heal(['good', 'good']);
+  assert.ok(good > base, `skaliert: ${good} > ${base}`);
+  assert.ok(heal(['perfect', 'good']) > good);
+  assert.ok(heal(['meister', 'good']) > heal(['perfect', 'good']));
 });

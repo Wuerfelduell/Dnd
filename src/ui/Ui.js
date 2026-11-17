@@ -3379,18 +3379,21 @@ export class Ui {
         : `<p>Runde ${c.round}. ${turn}Was tust du? Solange die Konzentration reicht, kannst du mehrere Fertigkeiten nacheinander einsetzen.</p>`);
       this.layer.querySelector('.cb-help').textContent = '';
     } else if (sub === 'skills') {
+      // Moor: Heilung wächst mit dem Leben, die echte Menge steht hinter der Beschreibung
+      const healNote = (k) => { const b = k.heal ?? k.heal_all; const h = b ? c.on(c.actor, () => c.skillHeal(b)) : b; return h && h !== b ? ` Mit deinem Leben: heilt ${h}, präzise Takte etwas mehr.` : ''; };
       entries = c.skills().filter((k) => k.id !== 'attack').map((k) => ({
         text: k.name, skill: k.id, info: `${k.cost} K${k.composure ? ` · ${k.composure} Nerven` : ''}${isPrecise(k) ? ' · ◎ präzise' : ''}`,
-        desc: `${k.desc ?? ''}${isPrecise(k) ? ` ◎ Präzise: volle Wirkung${k.stun ? ' und Betäubung' : ''} nur bei perfektem Takt, das goldene Fenster ist winzig.` : ''}`, act: { type: 'skill', id: k.id }, disabled: !k.usable,
+        desc: `${k.desc ?? ''}${healNote(k)}${isPrecise(k) ? ` ◎ Präzise: volle Wirkung${k.stun ? ' und Betäubung' : ''} nur bei perfektem Takt, das goldene Fenster ist winzig.` : ''}`, act: { type: 'skill', id: k.id }, disabled: !k.usable,
       }));
     } else if (sub === 'target') {
       // Moor im Koop: wen heilt die Fertigkeit? Erst man selbst, dann der stehende Partner
       const sk = c.skillDef(skillId);
       const partner = c.partnerOf();
       const hp = (n) => { const v = this.state.playerView(n); return `${v.hp}/${v.maxHp} Leben`; };
+      const heal = c.on(c.actor, () => c.skillHeal(sk.heal));
       entries = [
-        { text: 'Dich selbst', skill: skillId, info: hp(c.actor), desc: `Heilt dich um ${sk.heal} Leben.`, act: { type: 'skill', id: skillId, target: c.actor } },
-        { text: `Spieler ${partner}`, skill: skillId, info: hp(partner), desc: `Heilt Spieler ${partner} um ${sk.heal} Leben.`, act: { type: 'skill', id: skillId, target: partner } },
+        { text: 'Dich selbst', skill: skillId, info: hp(c.actor), desc: `Heilt dich um ${heal} Leben.`, act: { type: 'skill', id: skillId, target: c.actor } },
+        { text: `Spieler ${partner}`, skill: skillId, info: hp(partner), desc: `Heilt Spieler ${partner} um ${heal} Leben.`, act: { type: 'skill', id: skillId, target: partner } },
       ];
       this.layer.querySelector('.cb-text').innerHTML = `<p>${esc(sk.name)}</p><p>Wen willst du heilen?</p>`;
     } else {
