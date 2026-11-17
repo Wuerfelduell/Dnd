@@ -279,7 +279,7 @@ export const GESINDEL = {
   laternendieb: { name: 'Laternendieb vom Salzmarkt', maps: ['wx_salzmarkt', 'wx_oberstadt'] },
   kanalschmuggler: { name: 'Bojenschmuggler', maps: ['wx_bojenhafen', 'wx_pfahldorf'] },
   nachtkraemer: { name: 'Fliegender Krämer', maps: ['wx_salzmarkt', 'wx_bahnhof'] },
-  falschgeldpraeger: { name: 'Salzgeldpräger', maps: ['wx_bahnhof', 'wx_torfstich'] },
+  falschgeldpraeger: { name: 'Salzgeldpräger', maps: ['wx_bahnhof'] }, // Seb 2026-11-17: nicht mehr auf der Torfstich-Brücke zum Kahn
 };
 /** Startpunkt der Platzsuche je Gegner: abseits der Eingänge, zwei Gegner auf derselben Karte nicht nebeneinander. */
 const GESINDEL_PLATZ = { laternendieb: 0.7, kanalschmuggler: 0.6, nachtkraemer: 0.4, falschgeldpraeger: 0.55 };
