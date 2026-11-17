@@ -24,8 +24,8 @@ export const WX_SEQ5 = {
   sq_zutat_waage_5: 'ratsherr_elite', sq_zutat_moor_5: 'torfleiche_elite', sq_zutat_uhr_5: 'kellerkrebs_elite',
 };
 export const WX_CHANCE = { 6: 0.18, 5: 0.01 };
-/** Einzelne Ausnahmen bei Seq 5 (Seb 2026-11-17: Atemglas beim Elite-Salzgeist 10 %). */
-export const WX_SEQ5_CHANCE = { atemglas: 0.1 };
+/** Einzelne Ausnahmen bei Seq 5 (Seb 2026-11-17: Atemglas beim Elite-Salzgeist 20 %, vorher 10 %). */
+export const WX_SEQ5_CHANCE = { atemglas: 0.2 };
 /** Seq 6: der normale Gegner zur genannten Elite. */
 export const WX_SEQ6_NORMAL = 0.08;
 
