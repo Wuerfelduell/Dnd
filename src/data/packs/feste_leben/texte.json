@@ -240,12 +240,6 @@
       ]
      },
      {
-      "text": "Am Stillen Abend bleibt die Rechnung im Schubfach.",
-      "requires_flags": [
-       "fs_winter"
-      ]
-     },
-     {
       "text": "Die Pflastersteine glänzen, als hätten sie etwas vor.",
       "requires_flags": [
        "fs_winter"
@@ -878,7 +872,7 @@
     "kind": "read",
     "sprite": "paper",
     "title": "Aushang im Winter",
-    "text": "Am Stillen Abend wird nichts verkauft. Medikamente für laufende Fälle, Auskünfte, kostenlose Wärme und alle Hauptwege bleiben erreichbar.",
+    "text": "Im Winter bleiben kostenlose Wärmeplätze, Auskünfte und alle Hauptwege erreichbar.",
     "footer": "Eine saisonale Notiz ohne Folgen für deine Fälle.",
     "prompt": "Lesen"
    }
@@ -1038,7 +1032,7 @@
   ],
   "fs_winter": [
    "Winter: Wärmeplätze bleiben kostenlos erreichbar.",
-   "Am Stillen Abend ruht der Verkauf, nicht deine Ermittlung."
+   "Winterabende sind kurz. Die Fälle warten nicht."
   ],
   "fs_fruehling": [
    "Frühling: Regen und Salzkränze begleiten die offenen Wege.",
@@ -1269,40 +1263,5 @@
    ]
   }
  },
- "reserve_lesestuecke": [
-  {
-   "npc": "cw_crayford",
-   "visible_if": {
-    "requires_flags": [
-     "fs_stiller_abend_aktiv"
-    ]
-   },
-   "interactable": {
-    "id": "fs_stiller_abend_werkstatt",
-    "kind": "read",
-    "sprite": "paper",
-    "title": "Stiller Abend",
-    "text": "Klammer legt zwei unbeschriebene Seiten in die Presse. Heute müssen sie weder einen Namen bewahren noch einen Fehler verdecken.",
-    "footer": "Für den späteren Unterschlupf vorgemerkt.",
-    "prompt": "In Ruhe lesen"
-   }
-  },
-  {
-   "npc": "bh_bellweather",
-   "visible_if": {
-    "requires_flags": [
-     "fs_stiller_abend_aktiv"
-    ]
-   },
-   "interactable": {
-    "id": "fs_stiller_abend_buegelraum",
-    "kind": "read",
-    "sprite": "paper",
-    "title": "Stiller Abend",
-    "text": "Frost stellt einen Becher neben das kalte Bügeleisen. „Heute reicht es, wenn der Raum warm wird.“",
-    "footer": "Für den späteren Unterschlupf vorgemerkt.",
-    "prompt": "In Ruhe lesen"
-   }
-  }
- ]
+ "reserve_lesestuecke": []
 }

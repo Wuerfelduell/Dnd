@@ -13,7 +13,7 @@ import { signalMethods } from './Signals.js';
 import { claimMethods } from './Claims.js';
 import { signalRouteMethods } from './SignalRoutes.js';
 import { claimEinbauMethods } from './ClaimsEinbau.js';
-import { clockMethods, NIGHT_FLAG, VOLATILE_FLAGS } from './Clock.js';
+import { clockMethods, NIGHT_FLAG, VOLATILE_FLAGS, OBSOLETE_FLAG } from './Clock.js';
 import { bondMethods } from './Bonds.js';
 import { pfadHandelMethods } from './PfadHandel.js';
 import { relationMethods } from './Relations.js';
@@ -942,7 +942,7 @@ export class GameState {
     // Nur noch existierende Inhalte übernehmen (falls sich die Daten geändert haben)
     this.clues = data.clues.filter((c) => this.clue(c));
     this.conclusions = data.conclusions.filter((c) => this.deduction(c));
-    this.flags = new Set(data.flags);
+    this.flags = new Set((data.flags ?? []).filter((f) => !OBSOLETE_FLAG(f)));
     this.quests = Object.fromEntries(Object.entries(data.quests).filter(([q]) => this.quest(q)));
     this.honor = data.honor;
     this.honorCarry = data.honorCarry ?? 0;

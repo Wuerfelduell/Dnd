@@ -1505,156 +1505,6 @@
    }
   }
  },
- "fs_stiller_abend_buero": {
-  "start": [
-   {
-    "node": "fs_ruht",
-    "requires_flags": [
-     "fs_stiller_abend_geruht"
-    ]
-   },
-   {
-    "node": "fs_start"
-   }
-  ],
-  "nodes": {
-   "fs_start": {
-    "text": "Eine leere Bestellliste liegt neben der Teekanne. Heute muss selbst das Papier nichts leisten.",
-    "choices": [
-     {
-      "text": "Eine Weile ausruhen.",
-      "next": "fs_pause",
-      "requires_flags": [
-       "fs_stiller_abend_aktiv"
-      ]
-     },
-     {
-      "text": "Bis später."
-     }
-    ]
-   },
-   "fs_pause": {
-    "text": "Du setzt dich hin und lässt die Hände ruhen. Niemand zählt, wie lange du brauchst.",
-    "choices": [
-     {
-      "text": "Bis später."
-     }
-    ],
-    "nerves": 5,
-    "sets_flags": [
-     "fs_stiller_abend_geruht"
-    ]
-   },
-   "fs_ruht": {
-    "text": "Die Ruhe bleibt dir zugänglich. Für diesen Stillen Abend hast du ihre zusätzliche Stärkung bereits erhalten.",
-    "choices": [
-     {
-      "text": "Bis später."
-     }
-    ]
-   }
-  }
- },
- "fs_stiller_abend_wx_kahn": {
-  "start": [
-   {
-    "node": "fs_ruht",
-    "requires_flags": [
-     "fs_stiller_abend_geruht"
-    ]
-   },
-   {
-    "node": "fs_start"
-   }
-  ],
-  "nodes": {
-   "fs_start": {
-    "text": "Zunder hat die Ruder festgebunden und ein trockenes Tuch über den Tisch gelegt. Draußen klopft Eis, drinnen niemand.",
-    "choices": [
-     {
-      "text": "Eine Weile ausruhen.",
-      "next": "fs_pause",
-      "requires_flags": [
-       "fs_stiller_abend_aktiv"
-      ]
-     },
-     {
-      "text": "Bis später."
-     }
-    ]
-   },
-   "fs_pause": {
-    "text": "Du setzt dich hin und lässt die Hände ruhen. Niemand zählt, wie lange du brauchst.",
-    "choices": [
-     {
-      "text": "Bis später."
-     }
-    ],
-    "nerves": 5,
-    "sets_flags": [
-     "fs_stiller_abend_geruht"
-    ]
-   },
-   "fs_ruht": {
-    "text": "Die Ruhe bleibt dir zugänglich. Für diesen Stillen Abend hast du ihre zusätzliche Stärkung bereits erhalten.",
-    "choices": [
-     {
-      "text": "Bis später."
-     }
-    ]
-   }
-  }
- },
- "fs_stiller_abend_ds_speisewagen": {
-  "start": [
-   {
-    "node": "fs_ruht",
-    "requires_flags": [
-     "fs_stiller_abend_geruht"
-    ]
-   },
-   {
-    "node": "fs_start"
-   }
-  ],
-  "nodes": {
-   "fs_start": {
-    "text": "Pfiff hat die Uhr umgedreht, ohne sie anzuhalten. Mabel stellt eine zweite Schale hin, bevor du etwas bestellst.",
-    "choices": [
-     {
-      "text": "Eine Weile ausruhen.",
-      "next": "fs_pause",
-      "requires_flags": [
-       "fs_stiller_abend_aktiv"
-      ]
-     },
-     {
-      "text": "Bis später."
-     }
-    ]
-   },
-   "fs_pause": {
-    "text": "Du setzt dich hin und lässt die Hände ruhen. Niemand zählt, wie lange du brauchst.",
-    "choices": [
-     {
-      "text": "Bis später."
-     }
-    ],
-    "nerves": 5,
-    "sets_flags": [
-     "fs_stiller_abend_geruht"
-    ]
-   },
-   "fs_ruht": {
-    "text": "Die Ruhe bleibt dir zugänglich. Für diesen Stillen Abend hast du ihre zusätzliche Stärkung bereits erhalten.",
-    "choices": [
-     {
-      "text": "Bis später."
-     }
-    ]
-   }
-  }
- },
  "fs_herbst_kettlegate_saisonplatz": {
   "start": "fs_start",
   "nodes": {
@@ -2022,7 +1872,7 @@
     ]
    },
    "fs_winter_wirkung_1": {
-    "text": "Eine gewöhnliche warme Pause, unabhängig vom Stillen Abend. Danach bleibt der Platz für andere frei.",
+    "text": "Eine gewöhnliche warme Pause. Danach bleibt der Platz für andere frei.",
     "choices": [
      {
       "text": "Bis später."
@@ -2125,7 +1975,7 @@
     ]
    },
    "fs_winter_wirkung_1": {
-    "text": "Eine gewöhnliche warme Pause, unabhängig vom Stillen Abend. Danach bleibt der Platz für andere frei.",
+    "text": "Eine gewöhnliche warme Pause. Danach bleibt der Platz für andere frei.",
     "choices": [
      {
       "text": "Bis später."
@@ -2228,7 +2078,7 @@
     ]
    },
    "fs_winter_wirkung_1": {
-    "text": "Eine gewöhnliche warme Pause, unabhängig vom Stillen Abend. Danach bleibt der Platz für andere frei.",
+    "text": "Eine gewöhnliche warme Pause. Danach bleibt der Platz für andere frei.",
     "choices": [
      {
       "text": "Bis später."
