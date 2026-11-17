@@ -10,6 +10,9 @@
 // aus (überteuerter Preis). „Betrug anprangern“ bei diesem Los deckt ihn auf; beim falschen fliegt man aus der Runde.
 import { seeded } from './Gatherings.js';
 
+/** Gewicht der Formeln des eigenen Pfads bei der Loswahl eines Mitglieds. */
+export const OWN_FORMULA_WEIGHT = 3;
+
 export const FRAUD_WRONG = { nerves: 15, unruhe: 10 };
 /** Aufschlag des überteuerten Loses auf den Schätzwert (ehrliche Lose starten bei 60 %). */
 export const FRAUD_MARKUP = { min: 1.8, max: 2.5 };
@@ -92,7 +95,11 @@ export const auctionMethods = {
     // Leerer Topf: ein gängiges Stück, nie ein seltenes (sonst käme z. B. die 1-%-Formel viel zu oft)
     const common = mem.offers.filter((e) => (e.chance ?? 1) >= 0.2);
     if (!pool.length) return common.length ? { ...common[Math.floor(rng() * common.length)] } : null;
-    return { ...pool[Math.floor(rng() * pool.length)] };
+    // Seb (2026-11-17): Formeln des eigenen Pfads (Spieler 1 oder 2) wiegen im Topf dreifach, sonst gehen sie zwischen den vielen Losen unter
+    const mine = new Set([this.pathway?.id, this.p2?.active ? this.p2.pathway?.id : null].filter(Boolean));
+    const weight = (e) => (/^formel_/.test(e.item) && mine.has(/^formel_(.+)_\d$/.exec(e.item)?.[1]) ? OWN_FORMULA_WEIGHT : 1);
+    let roll = rng() * pool.reduce((sum, e) => sum + weight(e), 0);
+    return { ...(pool.find((e) => (roll -= weight(e)) < 0) ?? pool[pool.length - 1]) };
   },
 
   /** Das Gesuch eines Mitglieds in dieser Runde: { member, item, price } oder null. */
