@@ -220,6 +220,24 @@ export function applySequenzen(content, sq, { highSeqs = {}, highItems = {} } = 
       offer(at.wx, [ing(5), ...[6, 5].map((seq) => ({ item: `formel_${pid}_${seq}`, price: TREFFEN[seq], once: true, chance: 0.4,
         requires_pathway: [pid, seq + 1], locked_text: `Erst ab Sequenz ${seq + 1} dieses Pfades` }))]);
     }
+    // Seb (2026-11-17): auch die Kettlegater Zirkel (Waage/Kreide/Ruß) führen die Formeln der neuen Pfade,
+    // genau dort und in den Stufen, wo der Vorbild-Pfad (PATHWAY_STANDIN) seine Formeln anbietet (7 bis 5, nie 4).
+    for (const pid of pids) {
+      const standin = PATHWAY_STANDIN[pid];
+      if (!standin) continue;
+      for (const [cid, c] of Object.entries(copy)) {
+        if (c.city) continue; // nur Kettlegate (ohne city)
+        for (const mem of c.members) {
+          const add = mem.offers.flatMap((e) => {
+            const m = new RegExp(`^formel_${standin}_([5-7])$`).exec(e.item);
+            const id = m && `formel_${pid}_${m[1]}`;
+            if (!id || !content.items[id] || mem.offers.some((x) => x.item === id)) return [];
+            return [{ ...e, item: id, ...(e.requires_pathway ? { requires_pathway: [pid, e.requires_pathway[1]] } : {}) }];
+          });
+          if (add.length) offer([cid, mem.id], add);
+        }
+      }
+    }
     // Seb (2026-11-11): die Halbgott-Formel (Sequenz 4) jedes Pfades liegt auch als Los auf den Wexmoorer Treffen,
     // beim Mitglied, das schon die Formel 5 dieses Pfades anbietet. Teuer (TREFFEN[4]), aber öfter da als bei Kittering.
     for (const pid of Object.keys(content.pathways)) {

@@ -448,3 +448,12 @@ test('offerInfo: Formeln sagen, ob sie zum eigenen Pfad passen', () => {
   s.pathway = { id: 'faden', seq: 9 };
   assert.match(s.offerInfo(fid).notes[0], /Nicht dein Pfad/);
 });
+
+test('Kettlegater Zirkel führen Formeln aller zehn Pfade (Seq 7–5, nie 4)', () => {
+  const kg = Object.values(content.gatherings.circles).filter((c) => !c.city);
+  const ids = new Set(kg.flatMap((c) => c.members.flatMap((m) => m.offers.map((o) => o.item))));
+  for (const pid of Object.keys(content.pathways)) {
+    for (const seq of [7, 6, 5]) assert.ok(ids.has(`formel_${pid}_${seq}`), `formel_${pid}_${seq} fehlt in Kettlegate`);
+    assert.ok(!ids.has(`formel_${pid}_4`), `formel_${pid}_4 darf nicht in Kettlegate liegen`);
+  }
+});
