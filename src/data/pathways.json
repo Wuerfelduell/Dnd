@@ -538,8 +538,9 @@
             "hits": 2,
             "shield": 24,
             "confuse": true,
-            "desc": "Ein zweites Du tritt hervor. Zwei Schläge mit je 145 % Waffenschaden, es fängt 24 Schaden ab, und der Gegner schlägt beim nächsten Mal sich selbst.",
-            "mult": 1.45
+            "desc": "Ein zweites Du tritt hervor und spielt dem Gegner seinen eigenen Angriff vor. Zwei Schläge mit je 145 % Waffenschaden, Schutz 24, er schlägt beim nächsten Mal sich selbst, und seinen nächsten Angriff kannst du lesen und parieren.",
+            "mult": 1.45,
+            "read": true
           },
           "passives": [
             {
@@ -584,8 +585,9 @@
             "hits": 3,
             "mult": 1.15,
             "evade": true,
-            "confuse": true,
-            "desc": "Drei Schläge aus drei Gesichtern, je 115 % Waffenschaden. Der Gegner verliert dich aus den Augen, schlägt sich selbst und dann ins Leere."
+            "desc": "Ein Tanz durch drei Gesichter, je 115 % Waffenschaden. Du wirbelst durch seine Deckung, brichst seinen Panzer, greifst Menschen 12 Schilling aus der Tasche und bist beim nächsten Angriff nicht mehr da.",
+            "guard_break": true,
+            "steal": 12
           },
           "passives": [
             {
