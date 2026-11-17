@@ -164,7 +164,8 @@ const PH_COPIES = {
 /** Einzelgänger-Kämpfe der drei neuen (Verrat oder Feindschaft), nach dem Muster der sieben aus wexmoor.json. */
 function lonerFight(id, name, title, sheet, text, intro) {
   return {
-    name: `${name}, ${title}`, sprite: `npc:${id}`, sheet, loner: true, occult: true, fleeable: false, hp: 130,
+    name: `${name}, ${title}`, sprite: `npc:${id}`, sheet, loner: true, occult: true, tier_seq: 6, // Sequenz 6 (zählt für die Maskenprüfung der 4)
+    fleeable: false, hp: 130,
     intro: `${intro}\n\n${text}`,
     attacks: [
       { name: 'Erster Schlag', damage: 9, hits: [800, 1200] },

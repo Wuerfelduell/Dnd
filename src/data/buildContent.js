@@ -37,6 +37,7 @@ import { applyHaendlerAbgleich } from './haendlerAbgleich.js';
 import { applyKettlegateZirkel } from './kettlegateZirkel.js';
 import { applyPreisAbgleich } from './preisAbgleich.js';
 import { applyRitual6Vorrat } from './ritual6Vorrat.js';
+import { applyRitual4Vorrat } from './ritual4Vorrat.js';
 // Fügt alle Inhaltsdateien zu einem Objekt zusammen (ohne JSON-Imports, damit Node-Tests es nutzen können).
 // Hinweise, Informationen, Schlussfolgerungen und Dialoge teilen sich jeweils einen Namensraum über alle Fälle.
 // factions.json (Sekten) bringt eigene Figuren, Reiseziele, Gegner, Beute, Aufträge und Hinweise mit.
@@ -140,6 +141,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyDunscarAusbau(content); // Dunscar: Gasthaus, Kalkapotheke, starke Heil-/Nerven-/Ruhemittel, möblierte Innenräume
   applyPreisAbgleich(content); // Preise, Heilung, Nerven, Konzentration und Artefakte je Kapitel (nach Dunscar-Ausbau)
   applyRitual6Vorrat(content); // Seq-6-Ritualzutaten in jeder späteren Stadt zu kaufen (keine Rückreise)
+  applyRitual4Vorrat(content); // Seq-4-Rituale in Wexmoor und Dunscar: Kessel-Zutaten, Moorwasser in der Unterschicht
   applyDunscarKulisse(content); // Dunscar: Ausgänge nach Himmelsrichtung mit Schild, Rückkehr an der passenden Tür, Requisiten je Viertel
   applyNebelseite(content); // Codex DH: Spiegelkarten und verborgene Übergänge
   applyEigenesHaus(content); // Codex DG: Häuser in Wexmoor und Dunscar, Maklerin, Türen (nach der Kulisse, die Dunscar-Karten neu baut)

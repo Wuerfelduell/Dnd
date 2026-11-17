@@ -157,6 +157,11 @@ export const FORM_MIN_DIGEST = 50;
 export const FORM_NERVES_PER_SEC = 1.5;
 export const FORM_UNRUHE_PER_SEC = 0.4;
 export const FORM_MIN_NERVES = 15;
+/** Im Kampf (Seb 2026-11-17: Gestalt soll stark spürbar sein): gegen alles, was nicht vor ihr umfällt, kämpft man in der Gestalt härter. */
+export const FORM_KAMPF = [
+  { key: 'dmg_mult', value: 1.3, text: 'Mythische Gestalt: +30 % Schaden.' },
+  { key: 'damage_taken', value: 0.8, text: 'Mythische Gestalt: 20 % weniger Schaden.' },
+];
 export const FORM_MARGIN = 2; // so viele Sequenzen muss ein Monster unter dir liegen
 /** Worte für die großen Tränke: Halbgott (4) und Engel (2). Die Oberfläche spielt dazu die Aufstiegs-Szene. */
 export const ASCENSION_TEXT = {
@@ -272,7 +277,7 @@ export const pathwayMethods = {
   passive(key) {
     const mult = MULT_KEYS.has(key);
     let v = mult ? 1 : 0;
-    const lists = [...this.reachedSeqs().map((s) => s.passives ?? []), ...this.artifactEffects(), ...this.gearEffects(), this.bindingPassive?.(this.acting ?? 1) ?? [], this.buffEffects?.() ?? [], this.tierEffects?.() ?? []]; // Codex DF: aktives Tier // BN: persönliche Rufbindung; Welt-Fähigkeiten (Talents.js)
+    const lists = [...this.reachedSeqs().map((s) => s.passives ?? []), ...this.artifactEffects(), ...this.gearEffects(), this.bindingPassive?.(this.acting ?? 1) ?? [], this.buffEffects?.() ?? [], this.tierEffects?.() ?? [], this.pathway?.form ? FORM_KAMPF : []]; // Codex DF: aktives Tier // BN: persönliche Rufbindung; Welt-Fähigkeiten (Talents.js)
     for (const list of lists) {
       for (const p of list) {
         if (p.key !== key) continue;
@@ -991,7 +996,7 @@ export const pathwayMethods = {
     this.emit('form', { active: true, player: this.acting ?? 1, form: form.id });
     this.emit('form_annehmen', { player: this.acting ?? 1, form: form.id });
     this.emit('changed');
-    const rules = `Menschen ohne Pfad und schwächere Wesen brechen zusammen, wenn sie dich sehen. Die Gestalt kostet ${FORM_NERVES_PER_SEC} Nerven und ${FORM_UNRUHE_PER_SEC} Unruhe je Sekunde.`;
+    const rules = `Menschen ohne Pfad und schwächere Wesen brechen zusammen, wenn sie dich sehen. Gegen alle anderen kämpfst du mit 30 % mehr Schaden und nimmst 20 % weniger. Die Gestalt kostet ${FORM_NERVES_PER_SEC} Nerven und ${FORM_UNRUHE_PER_SEC} Unruhe je Sekunde.`;
     return { ok: true, active: true, text: form.annehmen ? `${form.annehmen} ${form.name}${form.beschreibung ? `: ${form.beschreibung}` : '.'}\n\n${rules}` : `Du lässt los. Was unter deiner Haut gewartet hat, richtet sich auf: ${form.name}, die wahre Gestalt des ${pd.name.replace('Pfad', 'Pfads')}. ${rules}` };
   },
 
