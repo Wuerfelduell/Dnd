@@ -24,6 +24,8 @@ export const WX_SEQ5 = {
   sq_zutat_waage_5: 'ratsherr_elite', sq_zutat_moor_5: 'torfleiche_elite', sq_zutat_uhr_5: 'kellerkrebs_elite',
 };
 export const WX_CHANCE = { 6: 0.18, 5: 0.01 };
+/** Einzelne Ausnahmen bei Seq 5 (Seb 2026-11-17: Atemglas beim Elite-Salzgeist 10 %). */
+export const WX_SEQ5_CHANCE = { atemglas: 0.1 };
 /** Seq 6: der normale Gegner zur genannten Elite. */
 export const WX_SEQ6_NORMAL = 0.08;
 
@@ -32,7 +34,7 @@ export function applyZutatDrops(content) {
   const put = (enc, item, chance) => { if (content.encounters[enc] && content.items[item]) want.set(enc, [...(want.get(enc) ?? []), { item, chance }]); };
   for (const [item, [enc, ch]] of Object.entries(KG_SEQ7)) { put(enc, item, ch); put(`${enc}_elite`, item, ch); }
   for (const [item, enc] of Object.entries(WX_SEQ6)) { put(enc, item, WX_CHANCE[6]); put(enc.replace(/_elite$/, ''), item, WX_SEQ6_NORMAL); }
-  for (const [item, enc] of Object.entries(WX_SEQ5)) put(enc, item, WX_CHANCE[5]);
+  for (const [item, enc] of Object.entries(WX_SEQ5)) put(enc, item, WX_SEQ5_CHANCE[item] ?? WX_CHANCE[5]);
   const kg = new Set(Object.keys(KG_SEQ7));
   const wx = new Set([...Object.keys(WX_SEQ6), ...Object.keys(WX_SEQ5)]);
   for (const [id, e] of Object.entries(content.encounters)) {
