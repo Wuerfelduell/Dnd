@@ -239,7 +239,9 @@ test('Speichern und Laden behält Schilling, Pfad und Unruhe', () => {
 
 test('Verdauung ab Sequenz 6: jede Stufe zehnmal so langsam wie die davor', () => {
   assert.equal(DIGEST_RATE[7], 0.5, 'Sequenz 7 bleibt wie gehabt');
-  for (let seq = 6; seq >= 1; seq--) {
+  assert.equal(DIGEST_RATE[6], 0.075, 'Sequenz 6 = ein Zehntel von 7, mal 1,5 (Seb 2026-11-17)');
+  assert.equal(DIGEST_RATE[5], 0.005, 'Sequenz 5 = ein Hundertstel von 7');
+  for (let seq = 4; seq >= 1; seq--) {
     assert.ok(Math.abs(DIGEST_RATE[seq] * DIGEST_SLOW_FACTOR - DIGEST_RATE[seq + 1]) < 1e-12, `Sequenz ${seq} = Sequenz ${seq + 1} / 10`);
   }
   const s = new GameState(content);
@@ -248,7 +250,7 @@ test('Verdauung ab Sequenz 6: jede Stufe zehnmal so langsam wie die davor', () =
   const at6 = gain(6);
   const at5 = gain(5);
   assert.ok(at7 > 0);
-  assert.ok(Math.abs(at6 * 10 - at7) < 1e-9, `Sequenz 6 (${at6}) ist ein Zehntel von 7 (${at7})`);
+  assert.ok(Math.abs(at6 * 10 / 1.5 - at7) < 1e-9, `Sequenz 6 (${at6}) ist 1,5 Zehntel von 7 (${at7})`);
   assert.ok(Math.abs(at5 * 100 - at7) < 1e-9, `Sequenz 5 (${at5}) ist ein Hundertstel von 7 (${at7})`);
   // Zu zweit: Spieler 2 verdaut nach seiner eigenen Sequenz
   const d = new GameState(content);
@@ -258,8 +260,8 @@ test('Verdauung ab Sequenz 6: jede Stufe zehnmal so langsam wie die davor', () =
   d.act('combat_win');
   const p1 = d.pathway.digestion;
   const p2 = d.withPlayer(2, () => d.pathway.digestion);
-  // Spieler 2 auf Sequenz 6 mit Bonus x2: 2/10 von Spieler 1 auf 7
-  assert.ok(p1 > 0 && Math.abs(p2 - p1 * 0.2) < 1e-9, `Koop: Spieler 2 auf Sequenz 6 (${p2}) mit Bonus x2 = 0,2x Spieler 1 auf 7 (${p1})`);
+  // Spieler 2 auf Sequenz 6: 2/10 von Spieler 1 auf 7 (unverändert trotz x1,5 für Spieler 1)
+  assert.ok(p1 > 0 && Math.abs(p2 - p1 * 0.2) < 1e-9, `Koop: Spieler 2 auf Sequenz 6 (${p2}) = 0,2x Spieler 1 auf 7 (${p1})`);
   // Niedrige Sequenzen: Spieler 2 verdaut genau wie Spieler 1; ab Sequenz 5 x30
   const e = new GameState(content);
   e.pathway = { id: 'eisen', seq: 8, digestion: 0 };
