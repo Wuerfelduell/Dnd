@@ -1,6 +1,6 @@
 // Hauptzutaten als seltene Monsterbeute (Seb, 2026-11-17): Jede Hauptzutat hat genau EIN Monster, das sie tragen kann.
 //  - Kettlegate (Marsch, Katakomben, Pestgassen, Kraterwald): Sequenz 7, je ein normaler Gegner (und seine Elite) 8 % (Seb, vorher 3 %).
-//  - Wexmoor: Sequenz 6 je eine Elite 8 %, Sequenz 5 je eine Elite 1 %.
+//  - Wexmoor: Sequenz 6 je ein Gegner 8 % und seine Elite 18 % (Seb), Sequenz 5 je eine Elite 1 %.
 // Andere Gegner dieser Gebiete verlieren ihre bisherigen Drops dieser Zutaten; Bosse (einmalig) behalten ihre.
 // Formeln stehen ohnehin nie in der Beute-Anzeige (hiddenLoot in core/Loot.js).
 
@@ -23,13 +23,15 @@ export const WX_SEQ5 = {
   goldschimmel: 'torfwurm_elite', schwertsplitter: 'schlickhund_elite', schattenseide: 'nebelfischer_elite',
   sq_zutat_waage_5: 'ratsherr_elite', sq_zutat_moor_5: 'torfleiche_elite', sq_zutat_uhr_5: 'kellerkrebs_elite',
 };
-export const WX_CHANCE = { 6: 0.08, 5: 0.01 };
+export const WX_CHANCE = { 6: 0.18, 5: 0.01 };
+/** Seq 6: der normale Gegner zur genannten Elite. */
+export const WX_SEQ6_NORMAL = 0.08;
 
 export function applyZutatDrops(content) {
   const want = new Map(); // Gegner → [{item, chance}]
   const put = (enc, item, chance) => { if (content.encounters[enc] && content.items[item]) want.set(enc, [...(want.get(enc) ?? []), { item, chance }]); };
   for (const [item, [enc, ch]] of Object.entries(KG_SEQ7)) { put(enc, item, ch); put(`${enc}_elite`, item, ch); }
-  for (const [item, enc] of Object.entries(WX_SEQ6)) put(enc, item, WX_CHANCE[6]);
+  for (const [item, enc] of Object.entries(WX_SEQ6)) { put(enc, item, WX_CHANCE[6]); put(enc.replace(/_elite$/, ''), item, WX_SEQ6_NORMAL); }
   for (const [item, enc] of Object.entries(WX_SEQ5)) put(enc, item, WX_CHANCE[5]);
   const kg = new Set(Object.keys(KG_SEQ7));
   const wx = new Set([...Object.keys(WX_SEQ6), ...Object.keys(WX_SEQ5)]);
