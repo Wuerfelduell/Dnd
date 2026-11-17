@@ -2965,7 +2965,8 @@ for (const look of ['p2a', 'p2b']) for (const t of ['halbgott', 'engel']) ANIM_S
 /** Aufstiegs-Vollbilder (240x135, acht Frames, auf Bildschirmgröße skaliert), Wechsel-, Furcht-, Umfall- und Zögern-Effekte, Auren. */
 ANIM_SHEETS.HG_aufstieg_4 = ['fx/HG_aufstieg_4.png', 240, 135];
 ANIM_SHEETS.HG_aufstieg_2 = ['fx/HG_aufstieg_2.png', 240, 135];
-/** Grok GA Teil 4 (manifest-seq31a.json): Aufstieg Seq 1. HG_aufstieg_3 liegt bei, bleibt aber bis zur Neuzeichnung unregistriert (Seq 3 ohne Vollbild). */
+/** Grok GA Teil 4 + Nachbesserung (manifest-seq31a.json): Aufstiegs-Vollbilder Seq 3 und Seq 1. */
+ANIM_SHEETS.HG_aufstieg_3 = ['fx/HG_aufstieg_3.png', 240, 135];
 ANIM_SHEETS.HG_aufstieg_1 = ['fx/HG_aufstieg_1.png', 240, 135];
 ANIM_SHEETS.HG_kreatur_wechsel = ['fx/HG_kreatur_wechsel.png', 64, 64];
 ANIM_SHEETS.HG_furcht = ['fx/HG_furcht.png', 16, 16];

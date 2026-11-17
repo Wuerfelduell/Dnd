@@ -2192,7 +2192,7 @@ Füllregel: In jedem Frame müssen Breite und Höhe der bbox (deckende Pixel ein
 desselben Vorlagen-Frames erreichen. Bei Vollbildern zählt als Motiv jedes Pixel, das nicht die häufigste Farbe hat. Zur Information
 steht im Prüfbericht zusätzlich die Kern-bbox (Öffnen 3x3, größte Komponente). Die Konzeptbilder liegen in `seq31a-raw/`.
 Geliefert von Grok (Paket GA Teil 4). Eingebaut: stille Gestalten bei Seq 1 auf Karte (`formKey`) und im Kampf
-(`hg_form_<pfad>_still_battle`), `HG_aufstieg_1` im Aufstieg. `HG_aufstieg_3` liegt bei, ist aber nicht registriert (Platzhalter-Ellipsen, Neuzeichnung offen).
+(`hg_form_<pfad>_still_battle`), `HG_aufstieg_1` im Aufstieg. `HG_aufstieg_3` ist seit der Nachbesserung neu gezeichnet und eingebaut (Seq 3).
 
 - Manifest: `public/sprites/manifest-seq31a.json`
 - [Vorschau](batch-seq31a-preview.png) · [Vorlage | neu](batch-seq31a-vorlage-neu.png) · [Prompts](batch-seq31a-generation.json) · [Prüfbericht](batch-seq31a-validation.json)
@@ -2222,3 +2222,14 @@ Geliefert von Grok (Paket GA Teil 5). Eingebaut: `BATTLE_SHEETS`/`ANIM_ALIASES` 
 - Manifest: `public/sprites/manifest-heilige.json`
 - [Vorschau](batch-heilige-preview.png) · [Vorlage | neu](batch-heilige-vorlage-neu.png) · [Generierung](batch-heilige-generation.json) · [Prüfbericht](batch-heilige-validation.json)
 - Export: `python3 tools/art/heilige/export.py`, Prüfung: `python3 tools/art/heilige/check.py --write` (Pillow, numpy, scipy)
+
+## Nachbesserungsrunde (nach GA Teil 5)
+
+Geliefert von Grok als Zip mit Patch (Branch `art/nachbesserung`). Raster, Reihenfolge, Fußlinie und Dateinamen unverändert; Dateien unter `public/sprites/` direkt ersetzt, keine Manifest- oder Code-Änderung (Vorschläge in `PROPOSAL-einbau.md` im Zip).
+
+- HG_aufstieg_3 als eigene Szene (8 Frames, Höhepunkt Frame 2/3, Türkis 0 %), HG_aufstieg_1 Frames 2/5 ohne Doppelkontur: `python3 tools/art/nachbesserung/aufstieg.py`
+- Größen: Bruchmeister (`gebietsbosse_gross.py`), Engel 1/2/3 (`engel_gross.py 8 9`), Schleusenuhr (`schleusenuhr.py`), Laterne/Eisen-Endgestalt und Echo ohne Klangfahnen (`endgestalt.py`)
+- Heilige: eigene Klinge je Pfad, echte Niederlage (`heilige_nb.py`)
+- Konzepte: `docs/art/nachbesserung-raw/`, Prompts: `tools/art/nachbesserung/prompts.json`
+- Prüfung: `python3 tools/art/nachbesserung/check.py` (Kern-Box >= 85 % der Vorlage als harter Fehler)
+- Vorschauen „Vorlage | alt | neu“ (3x): [Aufstieg](nachbesserung-preview-aufstieg.png) · [Bosse/Endgestalt](nachbesserung-preview-bosse.png) · [Heilige](nachbesserung-preview-heilige.png)
