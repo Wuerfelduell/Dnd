@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
 import { Combat } from '../src/core/Combat.js';
-import { DIGEST_RATE, DIGEST_SLOW_FACTOR, fmtDigest, COMMON_DIGEST, FIGHT_DIGEST_MULT, ZONE_DIGEST_STEP } from '../src/core/Pathways.js';
+import { DIGEST_RATE, DIGEST_SLOW_FACTOR, fmtDigest, COMMON_DIGEST, FIGHT_DIGEST_MULT, ZONE_DIGEST_STEP, P2_DIGEST_MULT, p2DigestFor } from '../src/core/Pathways.js';
 import { loadContent, talk, fight } from './helpers.js';
 
 const content = loadContent();
@@ -258,8 +258,18 @@ test('Verdauung ab Sequenz 6: jede Stufe zehnmal so langsam wie die davor', () =
   d.act('combat_win');
   const p1 = d.pathway.digestion;
   const p2 = d.withPlayer(2, () => d.pathway.digestion);
-  // Spieler 2 verdaut dreißigmal schneller (P2_DIGEST_MULT): auf Sequenz 6 dreimal so viel wie Spieler 1 auf 7
-  assert.ok(p1 > 0 && Math.abs(p2 - p1 * 3) < 1e-9, `Koop: Spieler 2 auf Sequenz 6 (${p2}) mit Bonus x30 = 3x Spieler 1 auf 7 (${p1})`);
+  // Spieler 2 auf Sequenz 6 mit Bonus x3: 3/10 von Spieler 1 auf 7
+  assert.ok(p1 > 0 && Math.abs(p2 - p1 * 0.3) < 1e-9, `Koop: Spieler 2 auf Sequenz 6 (${p2}) mit Bonus x3 = 0,3x Spieler 1 auf 7 (${p1})`);
+  // Niedrige Sequenzen: Spieler 2 verdaut genau wie Spieler 1; ab Sequenz 5 x30
+  const e = new GameState(content);
+  e.pathway = { id: 'eisen', seq: 8, digestion: 0 };
+  e.addP2();
+  e.withPlayer(2, () => { e.pathway = { id: 'eisen', seq: 8, digestion: 0 }; });
+  e.act('combat_win');
+  assert.ok(Math.abs(e.pathway.digestion - e.withPlayer(2, () => e.pathway.digestion)) < 1e-9, 'Sequenz 8: beide gleich schnell');
+  assert.equal(p2DigestFor(9), 1);
+  assert.equal(p2DigestFor(7), 1);
+  assert.equal(p2DigestFor(5), P2_DIGEST_MULT);
   assert.equal(fmtDigest(0.014), '0.014');
   assert.equal(fmtDigest(14), '14');
 });
@@ -313,7 +323,7 @@ test('Mehr Verdauungsquellen: Bosse, Elite, Gefahrenstufe, Welt-Fähigkeiten, Ri
   d.act('talent', 1);
   assert.equal(d.withPlayer(2, () => d.pathway.digestion), 0, 'Fähigkeit von Spieler 1 verdaut Spieler 2 nicht');
   d.act('boss_win');
-  assert.equal(d.withPlayer(2, () => d.pathway.digestion), 100, 'Boss verdaut auch Spieler 2 (Bonus x30, gedeckelt bei 100)');
+  assert.equal(d.withPlayer(2, () => d.pathway.digestion), 30, 'Boss verdaut auch Spieler 2 (Sequenz 9: so viel wie Spieler 1)');
   // Gefahrenstufe und Bremse ab Sequenz 6 greifen zusammen
   const deep = won('starling_fight', 5);
   assert.ok(Math.abs(deep.got * 100 - boss.got) < 1e-6 || boss.got === 100, `Sequenz 5: ${deep.got}`);
