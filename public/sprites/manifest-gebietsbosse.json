@@ -1,0 +1,471 @@
+{
+  "version": 1,
+  "batch": "gebietsbosse",
+  "codex": "docs/art/codex_DX_dunscar_gebietsbosse.md",
+  "status": "exported; runtime integration pending (assets.js mappt ds_gb_* noch auf die Story-Boss-Sheets)",
+  "paletteMaxVisibleColors": 32,
+  "palette": [
+    "#1a1c2c",
+    "#252d38",
+    "#35424a",
+    "#49535b",
+    "#626b70",
+    "#859091",
+    "#abb3ae",
+    "#d4d0bc",
+    "#e7dfc5",
+    "#c1ac84",
+    "#938365",
+    "#635744",
+    "#443d34",
+    "#704e3b",
+    "#996849",
+    "#bc9260",
+    "#d0a050",
+    "#e8b860",
+    "#b4a079",
+    "#a8b4c0",
+    "#92a6b2",
+    "#7d927e",
+    "#526953",
+    "#9ad06a",
+    "#e07a8a",
+    "#89596d",
+    "#c8b0e8",
+    "#78618e",
+    "#29545a",
+    "#418f91",
+    "#6fe0d0",
+    "#b1e7d5"
+  ],
+  "assets": [
+    {
+      "id": "enemy_ds_gb_weichenfresser",
+      "file": "battle/enemy_ds_gb_weichenfresser.png",
+      "gameId": "ds_gb_weichenfresser",
+      "name": "Weichenfresser",
+      "template": "battle/enemy_schwellenhund.png",
+      "rowNames": [
+        "idle",
+        "attack",
+        "hurt",
+        "defeated"
+      ],
+      "width": 576,
+      "height": 384,
+      "transparent": true,
+      "kind": "battle",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 4,
+      "baseline": 94,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "defeatMeaning": "defeated"
+    },
+    {
+      "id": "DS_boss_ds_gb_weichenfresser",
+      "file": "ui/DS_boss_ds_gb_weichenfresser.png",
+      "width": 160,
+      "height": 160,
+      "transparent": true,
+      "gameId": "ds_gb_weichenfresser",
+      "kind": "bossBand",
+      "frameWidth": 160,
+      "frameHeight": 160,
+      "columns": 1,
+      "rows": 1,
+      "template": "ui/DS_boss_schwellenhund.png",
+      "derivedFrom": "docs/art/gebietsbosse-raw/weichenfresser_konzept.jpg",
+      "note": "eigenes Motiv aus dem Konzept, Blockfaktor 8"
+    },
+    {
+      "id": "enemy_ds_gb_bruchmeister",
+      "file": "battle/enemy_ds_gb_bruchmeister.png",
+      "gameId": "ds_gb_bruchmeister",
+      "name": "Bruchmeister",
+      "template": "battle/enemy_vorhauer.png",
+      "rowNames": [
+        "idle",
+        "attack",
+        "hurt",
+        "defeated"
+      ],
+      "width": 576,
+      "height": 384,
+      "transparent": true,
+      "kind": "battle",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 4,
+      "baseline": 94,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "defeatMeaning": "defeated"
+    },
+    {
+      "id": "DS_boss_ds_gb_bruchmeister",
+      "file": "ui/DS_boss_ds_gb_bruchmeister.png",
+      "width": 160,
+      "height": 160,
+      "transparent": true,
+      "gameId": "ds_gb_bruchmeister",
+      "kind": "bossBand",
+      "frameWidth": 160,
+      "frameHeight": 160,
+      "columns": 1,
+      "rows": 1,
+      "template": "ui/DS_boss_vorhauer.png",
+      "derivedFrom": "docs/art/gebietsbosse-raw/bruchmeister_konzept.jpg",
+      "note": "eigenes Motiv aus dem Konzept, Blockfaktor 7"
+    },
+    {
+      "id": "enemy_ds_gb_schluchtrufer",
+      "file": "battle/enemy_ds_gb_schluchtrufer.png",
+      "gameId": "ds_gb_schluchtrufer",
+      "name": "Schluchtrufer",
+      "template": "battle/enemy_vielrufer.png",
+      "rowNames": [
+        "idle",
+        "attack",
+        "hurt",
+        "defeated",
+        "phase2"
+      ],
+      "width": 576,
+      "height": 480,
+      "transparent": true,
+      "kind": "battle",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 5,
+      "baseline": 94,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4,
+        6
+      ],
+      "heldRows": [
+        1,
+        4
+      ],
+      "facing": "left",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "phase2": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "defeatMeaning": "defeated"
+    },
+    {
+      "id": "DS_boss_ds_gb_schluchtrufer",
+      "file": "ui/DS_boss_ds_gb_schluchtrufer.png",
+      "width": 160,
+      "height": 160,
+      "transparent": true,
+      "gameId": "ds_gb_schluchtrufer",
+      "kind": "bossBand",
+      "frameWidth": 160,
+      "frameHeight": 160,
+      "columns": 1,
+      "rows": 1,
+      "template": "ui/DS_boss_vielrufer.png",
+      "derivedFrom": "docs/art/gebietsbosse-raw/schluchtrufer_konzept.jpg",
+      "note": "eigenes Motiv aus dem Konzept, Blockfaktor 7"
+    },
+    {
+      "id": "enemy_ds_gb_tiefenvorarbeiter",
+      "file": "battle/enemy_ds_gb_tiefenvorarbeiter.png",
+      "gameId": "ds_gb_tiefenvorarbeiter",
+      "name": "Tiefenvorarbeiter",
+      "template": "battle/enemy_unterschicht.png",
+      "rowNames": [
+        "idle",
+        "attack",
+        "hurt",
+        "defeated",
+        "phase1",
+        "phase2",
+        "phase3"
+      ],
+      "width": 768,
+      "height": 672,
+      "transparent": true,
+      "kind": "battle",
+      "frameWidth": 128,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 7,
+      "baseline": 94,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4,
+        6,
+        6,
+        6
+      ],
+      "heldRows": [
+        1,
+        4,
+        5,
+        6
+      ],
+      "facing": "left",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "phase1": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "phase2": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "phase3": {
+          "frames": [
+            36,
+            37,
+            38,
+            39,
+            40,
+            41
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "defeatMeaning": "defeated"
+    },
+    {
+      "id": "DS_boss_ds_gb_tiefenvorarbeiter",
+      "file": "ui/DS_boss_ds_gb_tiefenvorarbeiter.png",
+      "width": 160,
+      "height": 160,
+      "transparent": true,
+      "gameId": "ds_gb_tiefenvorarbeiter",
+      "kind": "bossBand",
+      "frameWidth": 160,
+      "frameHeight": 160,
+      "columns": 1,
+      "rows": 1,
+      "template": "ui/DS_boss_unterschicht.png",
+      "derivedFrom": "docs/art/gebietsbosse-raw/tiefenvorarbeiter_konzept.jpg",
+      "note": "eigenes Motiv aus dem Konzept, Blockfaktor 6"
+    }
+  ]
+}
