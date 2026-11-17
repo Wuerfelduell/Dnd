@@ -1,0 +1,645 @@
+{
+  "batch": "gebietsbosse",
+  "method": "image_gen Konzept je Boss (Style-Block vorangestellt) -> ganzzahliger Blockfaktor aufs Zielraster -> jede Pose einzeln per Skript aus Teilen + Effekten gezeichnet (kein Gesamtsheet generiert)",
+  "styleBlock": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.",
+  "postprocess": [
+    "Median 5px auf dem Konzept (JPEG-Rauschen), Magenta-Freistellung",
+    "ganzzahliger Blockfaktor (Kern-Mehrheit je Block = ein Motivpixel), Phasenlage mit minimaler Blockvarianz",
+    "Palette dunscar3 (32 Farben), je Boss Teilmenge",
+    "binäres Alpha, isolierte Pixel entfernt, 1px Löcher gefüllt",
+    "1px Außenumriss #1a1c2c, nach jeder Pose neu geschlossen",
+    "Fußlinie y=93 (bbox unten 94) wie Vorlage",
+    "Ausholpose = zwei identische Frames (heldRows)",
+    "leere Zellen voll transparent"
+  ],
+  "bosses": {
+    "ds_gb_weichenfresser": {
+      "template": "battle/enemy_schwellenhund.png",
+      "raw": "docs/art/gebietsbosse-raw/weichenfresser_konzept.jpg",
+      "reference": "public/sprites/battle/enemy_schwellenhund.png (Frame 0, 8x auf Magenta)",
+      "aspectRatio": "4:3",
+      "conceptPrompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Boss battle sprite concept, single creature, side view facing LEFT, idle stance, full body, feet on a flat ground line at the bottom. 'Weichenfresser' (Switch-Eater): an elder, larger relative of the reference lantern-headed rail hound, but it has eaten iron for too long. Bigger, heavier, hunched, damaged. Instead of a lantern head it has a long heavy rusted jaw like a railway buffer/coupling, the rust maw slightly open with small amber sparks glowing in its throat. Its ribs are curved railway switch blades (Weichenzungen) bursting outward along its flank like a cage, rusty iron plates, broken rivets, bent rail pieces as spine spikes, four thick iron-and-sinew legs. Colors: rust brown, soot brown, iron slate grey, dull brass, a little amber only in the sparks. Chunky readable pixel art, about 90 pixels wide sprite scaled up 10x with perfectly square pixel blocks. Background: completely flat solid magenta #ff00ff, no shadow, no floor, nothing else.",
+      "sheetBlockFactor": 12,
+      "baseSpriteSize": [
+        88,
+        52
+      ],
+      "portraitBlockFactor": 8,
+      "frames": [
+        {
+          "index": 0,
+          "row": "idle",
+          "frame": 0,
+          "pose": "idle 1/4: steht schwer auf vier Eisenbeinen, Rumpf 0px gesenkt, Kopf 0px hängend, Glutfunken flackern im Rostmaul"
+        },
+        {
+          "index": 1,
+          "row": "idle",
+          "frame": 1,
+          "pose": "idle 2/4: steht schwer auf vier Eisenbeinen, Rumpf 1px gesenkt, Kopf 1px hängend, Glutfunken flackern im Rostmaul"
+        },
+        {
+          "index": 2,
+          "row": "idle",
+          "frame": 2,
+          "pose": "idle 3/4: steht schwer auf vier Eisenbeinen, Rumpf 1px gesenkt, Kopf 2px hängend, Glutfunken flackern im Rostmaul"
+        },
+        {
+          "index": 3,
+          "row": "idle",
+          "frame": 3,
+          "pose": "idle 4/4: steht schwer auf vier Eisenbeinen, Rumpf 0px gesenkt, Kopf 1px hängend, Glutfunken flackern im Rostmaul"
+        },
+        {
+          "index": 6,
+          "row": "attack",
+          "frame": 0,
+          "pose": "attack 1-2/6 (Ausholpose gehalten): weicht nach hinten, Kopf hochgerissen, Rachen glüht auf"
+        },
+        {
+          "index": 7,
+          "row": "attack",
+          "frame": 1,
+          "pose": "attack 1-2/6 (Ausholpose gehalten): weicht nach hinten, Kopf hochgerissen, Rachen glüht auf"
+        },
+        {
+          "index": 8,
+          "row": "attack",
+          "frame": 2,
+          "pose": "attack 3/6: Vorstoß nach links, Maul vorgeschoben"
+        },
+        {
+          "index": 9,
+          "row": "attack",
+          "frame": 3,
+          "pose": "attack 4/6: Biss, Kopf tief, Funkenregen aus dem Schlund"
+        },
+        {
+          "index": 10,
+          "row": "attack",
+          "frame": 4,
+          "pose": "attack 5/6: Funken verglühen, Rumpf noch vorn"
+        },
+        {
+          "index": 11,
+          "row": "attack",
+          "frame": 5,
+          "pose": "attack 6/6: zurück in den Stand"
+        },
+        {
+          "index": 12,
+          "row": "hurt",
+          "frame": 0,
+          "pose": "hurt 1/3: zurückgeworfen 3px, Kopf zuckt, Rostsplitter am Kopf"
+        },
+        {
+          "index": 13,
+          "row": "hurt",
+          "frame": 1,
+          "pose": "hurt 2/3: zurückgeworfen 2px, Kopf zuckt, Rostsplitter am Kopf"
+        },
+        {
+          "index": 14,
+          "row": "hurt",
+          "frame": 2,
+          "pose": "hurt 3/3: zurückgeworfen 1px, Kopf zuckt"
+        },
+        {
+          "index": 18,
+          "row": "defeated",
+          "frame": 0,
+          "pose": "defeated 1/4: Beine knicken ein (Beinhöhe 80%), Rumpf sinkt auf den Boden, Kopf liegt auf, Glut glimmt, Rost staubt"
+        },
+        {
+          "index": 19,
+          "row": "defeated",
+          "frame": 1,
+          "pose": "defeated 2/4: Beine knicken ein (Beinhöhe 50%), Rumpf sinkt auf den Boden, Kopf liegt auf, Glut glimmt, Rost staubt"
+        },
+        {
+          "index": 20,
+          "row": "defeated",
+          "frame": 2,
+          "pose": "defeated 3/4: Beine knicken ein (Beinhöhe 28%), Rumpf sinkt auf den Boden, Kopf liegt auf, Glut glimmt, Rost staubt"
+        },
+        {
+          "index": 21,
+          "row": "defeated",
+          "frame": 3,
+          "pose": "defeated 4/4: Beine knicken ein (Beinhöhe 12%), Rumpf sinkt auf den Boden, Kopf liegt auf, Glut erloschen, Rost staubt"
+        }
+      ],
+      "portrait": {
+        "file": "ui/DS_boss_ds_gb_weichenfresser.png",
+        "prompt": "identisch mit conceptPrompt (gleiches Rohbild), feinerer Blockfaktor"
+      }
+    },
+    "ds_gb_bruchmeister": {
+      "template": "battle/enemy_vorhauer.png",
+      "raw": "docs/art/gebietsbosse-raw/bruchmeister_konzept.jpg",
+      "reference": "public/sprites/battle/enemy_vorhauer.png (Frame 0, 8x auf Magenta)",
+      "aspectRatio": "1:1",
+      "conceptPrompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Boss battle sprite concept, single figure, 3/4 side view facing LEFT, idle stance, full body, feet on a flat ground line at the bottom. 'Bruchmeister' (Quarry Master): an elder, taller relative of the reference limestone-fisted quarry golem in a worker apron. Taller and leaner-shouldered silhouette, hunched like an old foreman, cracked and damaged: its head is a split limestone block with a dark crack and a rusty iron band holding it together (different from the reference rounded head). In each hand it holds an ancient heavy sledgehammer with a worn wooden shaft and a chipped iron head, one hammer raised resting on its shoulder, one hanging down. Small chalk/limestone splinters float around it. Torn leather straps, old brass buckles, slate grey apron with patches. Colors: bone-white limestone, slate grey, soot brown leather, dull brass, rust. Chunky readable pixel art, about 80 pixels tall sprite scaled up 10x with perfectly square pixel blocks. Background: completely flat solid magenta #ff00ff, no shadow, no floor, nothing else.",
+      "sheetBlockFactor": 12,
+      "baseSpriteSize": [
+        61,
+        78
+      ],
+      "portraitBlockFactor": 7,
+      "frames": [
+        {
+          "index": 0,
+          "row": "idle",
+          "frame": 0,
+          "pose": "idle 1/4: steht gebückt mit zwei uralten Hämmern, Atem hebt die Schultern (0px), Kalksplitter kreisen langsam"
+        },
+        {
+          "index": 1,
+          "row": "idle",
+          "frame": 1,
+          "pose": "idle 2/4: steht gebückt mit zwei uralten Hämmern, Atem hebt die Schultern (1px), Kalksplitter kreisen langsam"
+        },
+        {
+          "index": 2,
+          "row": "idle",
+          "frame": 2,
+          "pose": "idle 3/4: steht gebückt mit zwei uralten Hämmern, Atem hebt die Schultern (1px), Kalksplitter kreisen langsam"
+        },
+        {
+          "index": 3,
+          "row": "idle",
+          "frame": 3,
+          "pose": "idle 4/4: steht gebückt mit zwei uralten Hämmern, Atem hebt die Schultern (0px), Kalksplitter kreisen langsam"
+        },
+        {
+          "index": 6,
+          "row": "attack",
+          "frame": 0,
+          "pose": "attack 1-2/6 (Ausholpose gehalten): richtet sich auf, lehnt zurück, Schulterhammer hoch über den Kopf"
+        },
+        {
+          "index": 7,
+          "row": "attack",
+          "frame": 1,
+          "pose": "attack 1-2/6 (Ausholpose gehalten): richtet sich auf, lehnt zurück, Schulterhammer hoch über den Kopf"
+        },
+        {
+          "index": 8,
+          "row": "attack",
+          "frame": 2,
+          "pose": "attack 3/6: erster Takt, schwingt nach vorn"
+        },
+        {
+          "index": 9,
+          "row": "attack",
+          "frame": 3,
+          "pose": "attack 4/6: Schlag, Oberkörper tief, Kalk spritzt am Boden"
+        },
+        {
+          "index": 10,
+          "row": "attack",
+          "frame": 4,
+          "pose": "attack 5/6: zweiter Takt mit dem unteren Hammer, Splitter fliegen hoch"
+        },
+        {
+          "index": 11,
+          "row": "attack",
+          "frame": 5,
+          "pose": "attack 6/6: richtet sich wieder auf"
+        },
+        {
+          "index": 12,
+          "row": "hurt",
+          "frame": 0,
+          "pose": "hurt 1/3: Treffer, Kopfblock splittert, 3px zurück"
+        },
+        {
+          "index": 13,
+          "row": "hurt",
+          "frame": 1,
+          "pose": "hurt 2/3: Treffer, Kopfblock splittert, 2px zurück"
+        },
+        {
+          "index": 14,
+          "row": "hurt",
+          "frame": 2,
+          "pose": "hurt 3/3: Treffer, Kopfblock splittert, 1px zurück"
+        },
+        {
+          "index": 18,
+          "row": "defeated",
+          "frame": 0,
+          "pose": "defeated 1/4: sinkt vornüber auf die Knie (85%), Hämmer gleiten zu Boden, Kalk bröckelt"
+        },
+        {
+          "index": 19,
+          "row": "defeated",
+          "frame": 1,
+          "pose": "defeated 2/4: sinkt vornüber auf die Knie (60%), Hämmer gleiten zu Boden, Kalk bröckelt"
+        },
+        {
+          "index": 20,
+          "row": "defeated",
+          "frame": 2,
+          "pose": "defeated 3/4: sinkt vornüber auf die Knie (40%), Hämmer gleiten zu Boden, Kalk bröckelt"
+        },
+        {
+          "index": 21,
+          "row": "defeated",
+          "frame": 3,
+          "pose": "defeated 4/4: sinkt vornüber auf die Knie (30%), Hämmer gleiten zu Boden, Kalk bröckelt"
+        }
+      ],
+      "portrait": {
+        "file": "ui/DS_boss_ds_gb_bruchmeister.png",
+        "prompt": "identisch mit conceptPrompt (gleiches Rohbild), feinerer Blockfaktor"
+      }
+    },
+    "ds_gb_schluchtrufer": {
+      "template": "battle/enemy_vielrufer.png",
+      "raw": "docs/art/gebietsbosse-raw/schluchtrufer_konzept.jpg",
+      "reference": "public/sprites/battle/enemy_vielrufer.png (Frame 0, 8x auf Magenta)",
+      "aspectRatio": "1:1",
+      "conceptPrompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Boss battle sprite concept, single creature, side view facing LEFT, idle, full body standing on a small cracked stone base at the bottom. 'Schluchtrufer' (Gorge Caller): an elder, bigger relative of the reference brass-horn tangle creature with many small toothed mouths. Here the hundred small mouths have merged into ONE huge open maw: a tall bulb of dark tangled cables and old brass speaking-tubes, with a single great round open mouth facing left, ringed with blunt bone-white teeth like old piano keys, dark inside with a faint turquoise glow deep in the throat. Several dented, broken brass gramophone horns stick out of its back like a crown, some cracked. Damaged, sagging, patched with rivets. Colors: dark slate and soot cables, dull brass, bone white teeth, a touch of turquoise inside the mouth only. Chunky readable pixel art, about 85 pixels tall sprite scaled up 10x with perfectly square pixel blocks. Background: completely flat solid magenta #ff00ff, no shadow, no floor, nothing else.",
+      "sheetBlockFactor": 11,
+      "baseSpriteSize": [
+        66,
+        85
+      ],
+      "portraitBlockFactor": 7,
+      "frames": [
+        {
+          "index": 0,
+          "row": "idle",
+          "frame": 0,
+          "pose": "idle 1/4: der eine große Schlund atmet (0px offen), Hörner wippen, leises Summen als schwacher Ring"
+        },
+        {
+          "index": 1,
+          "row": "idle",
+          "frame": 1,
+          "pose": "idle 2/4: der eine große Schlund atmet (1px offen), Hörner wippen, leises Summen als schwacher Ring"
+        },
+        {
+          "index": 2,
+          "row": "idle",
+          "frame": 2,
+          "pose": "idle 3/4: der eine große Schlund atmet (2px offen), Hörner wippen, leises Summen als schwacher Ring"
+        },
+        {
+          "index": 3,
+          "row": "idle",
+          "frame": 3,
+          "pose": "idle 4/4: der eine große Schlund atmet (1px offen), Hörner wippen, leises Summen als schwacher Ring"
+        },
+        {
+          "index": 6,
+          "row": "attack",
+          "frame": 0,
+          "pose": "attack 1-2/6 (Ausholpose gehalten): reißt den Schlund weit auf, holt Luft"
+        },
+        {
+          "index": 7,
+          "row": "attack",
+          "frame": 1,
+          "pose": "attack 1-2/6 (Ausholpose gehalten): reißt den Schlund weit auf, holt Luft"
+        },
+        {
+          "index": 8,
+          "row": "attack",
+          "frame": 2,
+          "pose": "attack 3/6: Ruf, Schallring 1 läuft nach links (Radius 5)"
+        },
+        {
+          "index": 9,
+          "row": "attack",
+          "frame": 3,
+          "pose": "attack 4/6: Ruf, Schallring 2 läuft nach links (Radius 9)"
+        },
+        {
+          "index": 10,
+          "row": "attack",
+          "frame": 4,
+          "pose": "attack 5/6: Ruf, Schallring 3 läuft nach links (Radius 13)"
+        },
+        {
+          "index": 11,
+          "row": "attack",
+          "frame": 5,
+          "pose": "attack 6/6: Ruf, Schallring 4 läuft nach links (Radius 17)"
+        },
+        {
+          "index": 12,
+          "row": "hurt",
+          "frame": 0,
+          "pose": "hurt 1/3: zuckt zurück, Kiefer schnappt, Hörner verbiegen"
+        },
+        {
+          "index": 13,
+          "row": "hurt",
+          "frame": 1,
+          "pose": "hurt 2/3: zuckt zurück, Kiefer schnappt, Hörner verbiegen"
+        },
+        {
+          "index": 14,
+          "row": "hurt",
+          "frame": 2,
+          "pose": "hurt 3/3: zuckt zurück, Kiefer schnappt, Hörner verbiegen"
+        },
+        {
+          "index": 18,
+          "row": "defeated",
+          "frame": 0,
+          "pose": "defeated 1/4: Kabel sacken zusammen (92%), Schlund schließt sich, letzter Laut"
+        },
+        {
+          "index": 19,
+          "row": "defeated",
+          "frame": 1,
+          "pose": "defeated 2/4: Kabel sacken zusammen (78%), Schlund schließt sich, Stille"
+        },
+        {
+          "index": 20,
+          "row": "defeated",
+          "frame": 2,
+          "pose": "defeated 3/4: Kabel sacken zusammen (62%), Schlund schließt sich, Stille"
+        },
+        {
+          "index": 21,
+          "row": "defeated",
+          "frame": 3,
+          "pose": "defeated 4/4: Kabel sacken zusammen (48%), Schlund schließt sich, Stille"
+        },
+        {
+          "index": 24,
+          "row": "phase2",
+          "frame": 0,
+          "pose": "special 1-2/6 (gehalten): Schlund maximal offen, Türkis-Glut steigt im Rachen, Hörner richten sich auf"
+        },
+        {
+          "index": 25,
+          "row": "phase2",
+          "frame": 1,
+          "pose": "special 1-2/6 (gehalten): Schlund maximal offen, Türkis-Glut steigt im Rachen, Hörner richten sich auf"
+        },
+        {
+          "index": 26,
+          "row": "phase2",
+          "frame": 2,
+          "pose": "special 3/6: Schallringe, 1 konzentrische Ringe laufen aus dem Schlund über das Feld"
+        },
+        {
+          "index": 27,
+          "row": "phase2",
+          "frame": 3,
+          "pose": "special 4/6: Schallringe, 2 konzentrische Ringe laufen aus dem Schlund über das Feld"
+        },
+        {
+          "index": 28,
+          "row": "phase2",
+          "frame": 4,
+          "pose": "special 5/6: Schallringe, 3 konzentrische Ringe laufen aus dem Schlund über das Feld"
+        },
+        {
+          "index": 29,
+          "row": "phase2",
+          "frame": 5,
+          "pose": "special 6/6: Schallringe, 4 konzentrische Ringe laufen aus dem Schlund über das Feld"
+        }
+      ],
+      "portrait": {
+        "file": "ui/DS_boss_ds_gb_schluchtrufer.png",
+        "prompt": "identisch mit conceptPrompt (gleiches Rohbild), feinerer Blockfaktor"
+      }
+    },
+    "ds_gb_tiefenvorarbeiter": {
+      "template": "battle/enemy_unterschicht.png",
+      "raw": "docs/art/gebietsbosse-raw/tiefenvorarbeiter_konzept.jpg",
+      "reference": "public/sprites/battle/enemy_unterschicht.png (Frame 0, 8x auf Magenta)",
+      "aspectRatio": "4:3",
+      "conceptPrompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Boss battle sprite concept, wide composition, side view facing LEFT, idle, full body on a flat ground line at the bottom. 'Tiefenvorarbeiter' (Deep Foreman): the relative of the reference living mine-gallery rock mass, but here it has risen up as a hulking, stooped mine foreman made of layered stratified rock and old timber pit props, wider than tall, heavy shoulders, long arms reaching the ground. His head is a battered miner's helmet with a lit brass pit lamp glowing amber in front, no visible face below it, just shadow. A long clay pipe in the shadow of the face, a thin wisp of smoke. Around his neck and across his chest hangs a long rusty chain full of small round brass shift tokens (tally tags). Cracked rock body with dark tunnel holes and a faint turquoise seam in the cracks. Tired, endless, never stops working, melancholic not evil. Colors: sandstone beige rock, soot brown timber, slate shadows, dull brass, amber lamp, tiny turquoise. Chunky readable pixel art, about 110 pixels wide and 85 tall sprite scaled up 8x with perfectly square pixel blocks. Background: completely flat solid magenta #ff00ff, no shadow, no floor, nothing else.",
+      "sheetBlockFactor": 9,
+      "baseSpriteSize": [
+        95,
+        90
+      ],
+      "portraitBlockFactor": 6,
+      "frames": [
+        {
+          "index": 0,
+          "row": "idle",
+          "frame": 0,
+          "pose": "idle 1/4: gebückter Fels-Vorarbeiter, Grubenlampe flackert, Pfeife qualmt, Atem 0px"
+        },
+        {
+          "index": 1,
+          "row": "idle",
+          "frame": 1,
+          "pose": "idle 2/4: gebückter Fels-Vorarbeiter, Grubenlampe flackert, Pfeife qualmt, Atem 1px"
+        },
+        {
+          "index": 2,
+          "row": "idle",
+          "frame": 2,
+          "pose": "idle 3/4: gebückter Fels-Vorarbeiter, Grubenlampe flackert, Pfeife qualmt, Atem 1px"
+        },
+        {
+          "index": 3,
+          "row": "idle",
+          "frame": 3,
+          "pose": "idle 4/4: gebückter Fels-Vorarbeiter, Grubenlampe flackert, Pfeife qualmt, Atem 0px"
+        },
+        {
+          "index": 6,
+          "row": "attack",
+          "frame": 0,
+          "pose": "attack 1-2/6 (Ausholpose gehalten): hebt den linken Felsarm, lehnt zurück"
+        },
+        {
+          "index": 7,
+          "row": "attack",
+          "frame": 1,
+          "pose": "attack 1-2/6 (Ausholpose gehalten): hebt den linken Felsarm, lehnt zurück"
+        },
+        {
+          "index": 8,
+          "row": "attack",
+          "frame": 2,
+          "pose": "attack 3/6: Arm fährt herab"
+        },
+        {
+          "index": 9,
+          "row": "attack",
+          "frame": 3,
+          "pose": "attack 4/6: Schlag auf den Boden, Gestein springt"
+        },
+        {
+          "index": 10,
+          "row": "attack",
+          "frame": 4,
+          "pose": "attack 5/6: Staub legt sich"
+        },
+        {
+          "index": 11,
+          "row": "attack",
+          "frame": 5,
+          "pose": "attack 6/6: zurück an die Arbeit"
+        },
+        {
+          "index": 12,
+          "row": "hurt",
+          "frame": 0,
+          "pose": "hurt 1/3: Treffer am Helm, Lampe flackert, Gestein platzt ab"
+        },
+        {
+          "index": 13,
+          "row": "hurt",
+          "frame": 1,
+          "pose": "hurt 2/3: Treffer am Helm, Lampe flackert, Gestein platzt ab"
+        },
+        {
+          "index": 14,
+          "row": "hurt",
+          "frame": 2,
+          "pose": "hurt 3/3: Treffer am Helm, Lampe flackert, Gestein platzt ab"
+        },
+        {
+          "index": 18,
+          "row": "defeated",
+          "frame": 0,
+          "pose": "defeated 1/4: setzt sich schwer ab (93%), Lampe wird schwächer"
+        },
+        {
+          "index": 19,
+          "row": "defeated",
+          "frame": 1,
+          "pose": "defeated 2/4: setzt sich schwer ab (80%), Lampe wird schwächer"
+        },
+        {
+          "index": 20,
+          "row": "defeated",
+          "frame": 2,
+          "pose": "defeated 3/4: setzt sich schwer ab (64%), Lampe wird schwächer"
+        },
+        {
+          "index": 21,
+          "row": "defeated",
+          "frame": 3,
+          "pose": "defeated 4/4: setzt sich schwer ab (48%), Lampe wird schwächer, erlischt"
+        },
+        {
+          "index": 24,
+          "row": "phase1",
+          "frame": 0,
+          "pose": "phase1 1-2/6 (gehalten): hebt den Kopf, die Grubenlampe glüht auf"
+        },
+        {
+          "index": 25,
+          "row": "phase1",
+          "frame": 1,
+          "pose": "phase1 1-2/6 (gehalten): hebt den Kopf, die Grubenlampe glüht auf"
+        },
+        {
+          "index": 26,
+          "row": "phase1",
+          "frame": 2,
+          "pose": "phase1 3/6: Lampenkegel schwenkt über das Feld (Länge 12) – die Schicht beginnt"
+        },
+        {
+          "index": 27,
+          "row": "phase1",
+          "frame": 3,
+          "pose": "phase1 4/6: Lampenkegel schwenkt über das Feld (Länge 20) – die Schicht beginnt"
+        },
+        {
+          "index": 28,
+          "row": "phase1",
+          "frame": 4,
+          "pose": "phase1 5/6: Lampenkegel schwenkt über das Feld (Länge 26) – die Schicht beginnt"
+        },
+        {
+          "index": 29,
+          "row": "phase1",
+          "frame": 5,
+          "pose": "phase1 6/6: Lampenkegel schwenkt über das Feld (Länge 18) – die Schicht beginnt"
+        },
+        {
+          "index": 30,
+          "row": "phase2",
+          "frame": 0,
+          "pose": "phase2 1-2/6 (gehalten): greift an die Kette mit den Schichtmarken"
+        },
+        {
+          "index": 31,
+          "row": "phase2",
+          "frame": 1,
+          "pose": "phase2 1-2/6 (gehalten): greift an die Kette mit den Schichtmarken"
+        },
+        {
+          "index": 32,
+          "row": "phase2",
+          "frame": 2,
+          "pose": "phase2 3/6: schleudert die Kette, Schichtmarken klirren nach links (10px), Adern glimmen"
+        },
+        {
+          "index": 33,
+          "row": "phase2",
+          "frame": 3,
+          "pose": "phase2 4/6: schleudert die Kette, Schichtmarken klirren nach links (16px), Adern glimmen"
+        },
+        {
+          "index": 34,
+          "row": "phase2",
+          "frame": 4,
+          "pose": "phase2 5/6: schleudert die Kette, Schichtmarken klirren nach links (22px), Adern glimmen"
+        },
+        {
+          "index": 35,
+          "row": "phase2",
+          "frame": 5,
+          "pose": "phase2 6/6: schleudert die Kette, Schichtmarken klirren nach links (28px), Adern glimmen"
+        },
+        {
+          "index": 36,
+          "row": "phase3",
+          "frame": 0,
+          "pose": "phase3 1-2/6 (gehalten): richtet sich auf, Adern im Fels leuchten türkis"
+        },
+        {
+          "index": 37,
+          "row": "phase3",
+          "frame": 1,
+          "pose": "phase3 1-2/6 (gehalten): richtet sich auf, Adern im Fels leuchten türkis"
+        },
+        {
+          "index": 38,
+          "row": "phase3",
+          "frame": 2,
+          "pose": "phase3 3/6: Gestein hebt sich ringsum, Adern pulsieren – er hört nie auf"
+        },
+        {
+          "index": 39,
+          "row": "phase3",
+          "frame": 3,
+          "pose": "phase3 4/6: Gestein hebt sich ringsum, Adern pulsieren – er hört nie auf"
+        },
+        {
+          "index": 40,
+          "row": "phase3",
+          "frame": 4,
+          "pose": "phase3 5/6: Gestein hebt sich ringsum, Adern pulsieren – er hört nie auf"
+        },
+        {
+          "index": 41,
+          "row": "phase3",
+          "frame": 5,
+          "pose": "phase3 6/6: Gestein hebt sich ringsum, Adern pulsieren – er hört nie auf"
+        }
+      ],
+      "portrait": {
+        "file": "ui/DS_boss_ds_gb_tiefenvorarbeiter.png",
+        "prompt": "identisch mit conceptPrompt (gleiches Rohbild), feinerer Blockfaktor"
+      }
+    }
+  }
+}

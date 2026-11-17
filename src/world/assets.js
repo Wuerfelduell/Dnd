@@ -1261,6 +1261,7 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestSequenzen3')) scene.load.json('manifestSequenzen3', `${BASE}manifest-sequenzen3.json`);
   if (!scene.cache.json.exists('manifestDunscar1')) scene.load.json('manifestDunscar1', `${BASE}manifest-dunscar1.json`);
   if (!scene.cache.json.exists('manifestDunscar3')) scene.load.json('manifestDunscar3', `${BASE}manifest-dunscar3.json`);
+  if (!scene.cache.json.exists('manifestGebietsbosse')) scene.load.json('manifestGebietsbosse', `${BASE}manifest-gebietsbosse.json`);
   if (!scene.cache.json.exists('manifestAnschlag')) scene.load.json('manifestAnschlag', `${BASE}manifest-anschlag.json`);
   if (!scene.cache.json.exists('manifestDunscar5')) scene.load.json('manifestDunscar5', `${BASE}manifest-dunscar5.json`);
   if (!scene.cache.json.exists('manifestStarling2')) scene.load.json('manifestStarling2', `${BASE}manifest-starling2.json`);
@@ -1323,7 +1324,7 @@ function battleAnimDef(scene, sheet, name) {
   return null;
 }
 /** Manifeste mit Kampf-Sheets; spätere Pakete nennen ihre Einträge nicht nach dem Sheet, darum auch über die Datei. */
-export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3', 'manifestDunscar5', 'manifestStarling2', 'manifestSekten', 'manifestVorrat1', 'manifestVorrat2', 'manifestHalbgott', 'manifestFasserin2', 'manifestFigurenNachzuegler', 'manifestSeq4rit1', 'manifestSchatten', 'manifestRituale56', 'manifestBenannte', 'manifestNebelseite', 'manifestAnschlag'];
+export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3', 'manifestGebietsbosse', 'manifestDunscar5', 'manifestStarling2', 'manifestSekten', 'manifestVorrat1', 'manifestVorrat2', 'manifestHalbgott', 'manifestFasserin2', 'manifestFigurenNachzuegler', 'manifestSeq4rit1', 'manifestSchatten', 'manifestRituale56', 'manifestBenannte', 'manifestNebelseite', 'manifestAnschlag'];
 export function battleSheetDef(scene, sheet) {
   const file = BATTLE_SHEETS[sheet]?.[0];
   for (const m of BATTLE_MANIFESTS) {
@@ -2417,10 +2418,13 @@ for (const [id, base] of [['k3o_gallowmere_phase2', 'gallowmere'], ['k3o_untersc
   ENCOUNTER_SHEETS[id] = `enemy_${base}`;
   BOSS_INTROS[id] = `${base}_ds`;
 }
-/** Gebietsbosse Dunscar (Klone der Story-Bosse): gleiches Kampf-Sheet, Bossbild und Bestiar-Bild. */
+/** Gebietsbosse Dunscar: eigene Kampfblätter und Auftrittsbilder (Grok-Paket GA Teil 1, manifest-gebietsbosse.json), Raster wie der Story-Boss. */
 for (const [id, base] of [['ds_gb_weichenfresser', 'schwellenhund'], ['ds_gb_bruchmeister', 'vorhauer'], ['ds_gb_schluchtrufer', 'vielrufer'], ['ds_gb_tiefenvorarbeiter', 'unterschicht']]) {
-  ENCOUNTER_SHEETS[id] = `enemy_${base}`;
-  BOSS_INTROS[id] = `${base}_ds`;
+  BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, ...BATTLE_SHEETS[`enemy_${base}`].slice(1)];
+  if (ANIM_ALIASES[`enemy_${base}`]) ANIM_ALIASES[`enemy_${id}`] = ANIM_ALIASES[`enemy_${base}`];
+  ENCOUNTER_SHEETS[id] = `enemy_${id}`;
+  BOSS_INTROS[id] = `${id}_ds`;
+  BOSS_INTRO_IMAGES[`${id}_ds`] = [`DS_boss_${id}`, `ui/DS_boss_${id}.png`];
 }
 /** AV: Requisiten der Viertel (props/ds_*.png) als `dsp_<blatt>_<region>` und Tilesets als 16er-Zellen `dst_<blatt>` (Kulisse, data/dunscarKulisse.js). */
 for (const [prefix, id] of [['dsp_endbahnhof', 'ds_endbahnhof'], ['dsp_schwellenring', 'ds_schwellenring'], ['dsp_arbeiterbogen', 'ds_arbeiterbogen'], ['dsp_kalkmarkt', 'ds_kalkmarkt'], ['dsp_bruchsignal', 'ds_bruchstufen_signalhang']]) {

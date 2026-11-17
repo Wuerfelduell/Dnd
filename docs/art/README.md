@@ -2100,3 +2100,16 @@ Unterelemente und drei Größenableitungen; keine zusätzlichen Varianten.
 - DW `stellwerk`: Figuren Stummes Stellwerk + 3 Kalkmarkt-Händlerinnen
 - DX `gebietsbosse`: 4 Dunscar-Gebietsbosse (Kampfblatt + Auftrittsbild)
 - DY `pfadbeyonder`: Wenna Kolk, Corvin Hake (Lauf + Kopf + Kampf), Maud Keel Kampfblatt
+
+## DX — Dunscar-Gebietsbosse (`gebietsbosse`)
+
+Vier eigene Kampfblätter und Auftrittsbilder für die Gebietsbosse `ds_gb_weichenfresser`, `ds_gb_bruchmeister`,
+`ds_gb_schluchtrufer`, `ds_gb_tiefenvorarbeiter` (bisher Klone der Story-Bosse). Raster, Reihen, Fußlinie und Animationen
+exakt wie die Vorlagen `enemy_schwellenhund`, `enemy_vorhauer`, `enemy_vielrufer` (mit phase2), `enemy_unterschicht`
+(128x96, phase1–3); Auftrittsbilder 160x160 unter `ui/DS_boss_ds_gb_<name>.png`. Palette dunscar3, indiziert, binäres Alpha.
+Ein Konzeptbild je Boss (Rohbilder in `gebietsbosse-raw/`), jede Pose einzeln per Skript gesetzt. Geliefert von Grok (Paket GA Teil 1),
+eingebaut in `src/world/assets.js` (eigene `BATTLE_SHEETS`, `ENCOUNTER_SHEETS`, Auftrittsbilder `ds_gb_*_ds`).
+
+- Manifest: `public/sprites/manifest-gebietsbosse.json`
+- [Vorschau](batch-gebietsbosse-preview.png) · [Prompts](batch-gebietsbosse-generation.json) · [Prüfbericht](batch-gebietsbosse-validation.json)
+- Export: `python3 tools/art/gebietsbosse/export.py`, Prüfung: `python3 tools/art/gebietsbosse/check.py --write` (Pillow, numpy)
