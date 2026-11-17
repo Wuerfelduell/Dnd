@@ -444,3 +444,27 @@ test('Artefakt-Sog ab Seq 5 nur halb so stark', () => {
   assert.equal(rate(6), 1);
   assert.equal(rate(5), 0.5);
 });
+
+test('Maske im Koop: Spieler 2 provoziert einen Einzelgänger, der Kampf läuft solo und nur mit dem einfachen Angriff', () => {
+  const s = at('eisen');
+  s.addP2();
+  s.withPlayer(2, () => { s.pathway = { id: 'maske', seq: 5, digestion: 100 }; s.updateMaxHp(); s.hp = s.maxHp; });
+  assert.equal(s.withPlayer(2, () => s.startMaske()).ok, true);
+  // Einzelgänger aus wexmoor.json zählen nach der Sequenz in ihrer Rolle (Agathe Garn: 5, Seq-7-Einzelgänger nicht)
+  assert.equal(content.encounters.ez_spinnerin.tier_seq, 5);
+  assert.ok(s.withPlayer(2, () => s.maskeTarget('ez_spinnerin')), 'Agathe Garn zählt');
+  assert.ok(!s.withPlayer(2, () => s.maskeTarget('ez_brennerin')), 'Sequenz 7 zählt nicht');
+  s.withPlayer(2, () => s.startCombat('ez_spinnerin')); // Provokation im Gespräch durch Spieler 2
+  const c = new Combat(s, 'ez_spinnerin');
+  assert.ok(c.rules?.solo && c.rules.onlyAttack && c.rules.spare);
+  assert.equal(c.swapped, true, 'Spieler 2 kämpft als Kämpfer 1');
+  assert.deepEqual(Object.keys(c.fighters), ['1'], 'Spieler 1 ist nicht im Kampf');
+  c.fighters[1].ap = 6;
+  assert.ok(c.skills().filter((k) => k.id !== 'attack').every((k) => !k.usable), 'keine Fähigkeit');
+  beatDown(c);
+  c.spare();
+  c.finish();
+  assert.equal(s.acting, 1);
+  assert.equal(s.p2.pathway.seq4.spared, c.enc.name, 'zählt für Spieler 2');
+  assert.ok(!s.pathway.seq4?.spared, 'nicht für Spieler 1');
+});
