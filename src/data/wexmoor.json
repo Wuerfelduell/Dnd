@@ -5705,9 +5705,13 @@
           "marker": true,
           "reach": 26,
           "lock": {
-            "requires_flags": [
-              "k2_zunder_gone"
-            ],
+            "requires_n_flags": {
+              "of": [
+                "k2_zunder_gone",
+                "k2_zunder_free"
+              ],
+              "n": 1
+            },
             "text": "Graue Mauern, vergitterte Fenster, eine Laterne über jeder Tür. Hier landest du, wenn ein Grauspäher dich erwischt.\n\nÜber dem Eingang hängt kein Stadtwappen, sondern ein Leuchtturm in einem Kreis.",
             "footer": "Freiwillig gehst du da nicht rein. Noch nicht."
           }
