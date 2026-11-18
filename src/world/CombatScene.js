@@ -397,6 +397,24 @@ export class CombatScene extends Phaser.Scene {
     return sprite?.sheets ?? battleSheetsOf(null);
   }
 
+  /**
+   * Seq 4 (Echo): taub gibt es keinen Ring und keinen Klang. Stattdessen fliegt eine stumme Schallwelle vom Gegner zum Spieler
+   * und trifft genau im Moment des Einschlags (gleiche Vorlaufzeit und Kurve wie der Ring). p: 0 beim Gegner, 1 am Spieler.
+   */
+  drawSchallwelle(g, target, p, near) {
+    const from = this.enemyCenter();
+    const x = from.x + (target.x - from.x) * p;
+    const y = from.y + (target.y - from.y) * p;
+    const color = near ? 0xffffff : 0x9fd8ff;
+    for (let i = 0; i < 3; i++) {
+      const r = 10 + i * 7 + (1 - p) * 8;
+      g.lineStyle(near ? 3 : 2, color, (0.95 - i * 0.25) * (0.4 + 0.6 * p));
+      g.beginPath();
+      g.arc(x + i * 6, y, r, Math.PI * 0.7, Math.PI * 1.3); // nach links offen: die Welle läuft auf den Spieler zu
+      g.strokePath();
+    }
+  }
+
   playerCenter(n = null) {
     const p = n ? this.players?.[n] ?? this.player : this.player;
     return { x: p?.homeX ?? PLAYER_X, y: (p?.homeY ?? GROUND_Y + 14) - 44 };
@@ -723,7 +741,7 @@ export class CombatScene extends Phaser.Scene {
     const help = !c.duo ? (c.swapped ? `Leertaste oder ←: ausweichen (${dodge(1)} Nerven) · F oder →: parieren` : `Leertaste: ausweichen (${dodge(1)} Nerven) · F: parieren`)
       : atk.sweep ? `${help1}\n${help2}` : c.target === 2 ? help2 : help1;
     const whom = !c.duo ? '' : atk.sweep ? ' → beide Spieler' : ` → ${this.who(c.target)}`;
-    if (deaf) this.ui.combatMessage(`${c.enemy.name} holt aus. Du hörst nichts.`, help);
+    if (deaf) this.ui.combatMessage(`${c.enemy.name} holt aus. Du hörst nichts, du siehst nur die Welle.`, help);
     else this.ui.combatMessage(`${c.enemy.name}: ${atk.name}${whom}${atk.hits.length > 1 ? ` (${atk.hits.length} Schläge)` : ''}${tags ? `\n\n${tags}` : ''}${evading ? '\n\nDu weißt schon, wohin er schlägt.' : ''}`, help);
     this.tweens.add({ targets: this.enemy, x: ENEMY_X + 8, duration: TELEGRAPH * 0.6, ease: 'Sine.out' });
     if (atk.sweep) this.cameras.main.shake(TELEGRAPH * 0.5, 0.003); // der Boden bebt: gleich trifft es beide
@@ -943,11 +961,12 @@ export class CombatScene extends Phaser.Scene {
           if (d.result === 'miss' && left <= 0) { this.applyHit(hit, n); continue; }
           if (!d.result && left < -WINDOW.dodge) { d.result = 'miss'; this.applyHit(hit, n); continue; }
           const lead = hit.ring.lead;
-          if (left > lead || d.result || deaf) continue;
+          if (left > lead || d.result) continue;
           const u = Math.min(1, Math.max(0, 1 - left / lead));
           const closed = (RING_CURVES[hit.ring.curve] ?? RING_CURVES.linear)(u);
-          const r = 16 + Math.max(0, 1 - closed) * 60;
           const near = Math.abs(left) <= this.combat.parryWindow();
+          if (deaf) { this.drawSchallwelle(g, c, closed, near); continue; } // Seq 4 (Echo, Seb 2026-11-18): Schallwelle statt Ring
+          const r = 16 + Math.max(0, 1 - closed) * 60;
           const color = this.attack?.unparryable ? (near ? 0xff70ff : 0xa040e0) : near ? 0xffd890 : 0xe05050;
           g.lineStyle(this.attack?.unparryable ? 3 : 2, color, 0.95).strokeCircle(c.x, c.y, r);
         }
