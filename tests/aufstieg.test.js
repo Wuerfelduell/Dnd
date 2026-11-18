@@ -15,6 +15,8 @@ test('Aufstieg: Starling am Endbahnhof ohne Sequenz-Abfrage, einsteigen erst nac
   const s = fresh();
   s.flags.add('k3_arrived');
   s.pathway = { id: 'eisen', seq: 6, digestion: 0 };
+  assert.equal(visible(s, 'ds_endbahnhof', 'auf_starling_bahnsteig'), false, 'erst im Fall „Finde Starling“');
+  s.flags.add('k3_starling_suche'); s.flags.add('k3r_gott_gehoert');
   assert.ok(visible(s, 'ds_endbahnhof', 'auf_starling_bahnsteig'));
   s.flags.add('auf_starling_gesehen'); // done_flag der Lesestelle
   assert.ok(visible(s, 'ds_endbahnhof', 'auf_schaffner_tuer'));
@@ -26,7 +28,7 @@ test('Aufstieg: Starling am Endbahnhof ohne Sequenz-Abfrage, einsteigen erst nac
   assert.ok(visible(s, 'ds_endbahnhof', 'auf_zug_nach_oben'));
   use(s, 'ds_endbahnhof', 'auf_zug_nach_oben');
   assert.deepEqual(s.pendingTravel, { map: HIMMEL, spawn: 'default' });
-  assert.ok(content.quests.k3_rache.steps.some((st) => st.done.requires_flags?.includes('auf_verbrannt')));
+  assert.ok(content.quests.k3_starling.steps.some((st) => st.done.requires_flags?.includes('auf_verbrannt')));
 });
 
 test('Schaffner: Seq 5 verliert, Seq 4 gewinnt (tools/sim/zugwaechter.mjs für alle Pfade)', () => {

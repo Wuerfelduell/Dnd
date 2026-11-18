@@ -35,7 +35,7 @@ import { nebelseiteMethods } from './Nebelseite.js';
 import { benannteMethods } from './Benannte.js';
 import { seqHochMethods } from './SeqHoch.js';
 import { splitMethods } from './Split.js';
-import { CALDERWICK_WELT_FLAGS } from '../data/aufstieg.js';
+import { CALDERWICK_WELT_FLAGS, SUCHE_FLAG, SUCHE_QUEST, SUCHE_EFFECTS } from '../data/aufstieg.js';
 
 /** Tragkraft in Pfund. Gegenstände ohne eigenes "weight" wiegen je nach Art so viel. */
 export const BASE_CARRY = 40;
@@ -383,6 +383,10 @@ export class GameState {
     const alle = (f) => this.flags.has(`${f}_p1`) && (!this.hasP2?.() || this.flags.has(`${f}_p2`));
     if (o.requires_alle_flag !== undefined && !alle(o.requires_alle_flag)) return false;
     if (o.hide_if_alle_flag !== undefined && alle(o.hide_if_alle_flag)) return false;
+    if (o.requires_alle_seq !== undefined) { // Seb 2026-11-18: alle Spieler mindestens Sequenz n (Lock für „Finde Starling“)
+      const seqs = [this.pathway, ...(this.hasP2?.() ? [this.p2?.pathway] : [])].map((p) => p?.seq ?? 9);
+      if (!seqs.every((q) => q <= o.requires_alle_seq)) return false;
+    }
     if (o.requires_einer_unter_seq !== undefined) {
       const seqs = [this.pathway, ...(this.hasP2?.() ? [this.p2?.pathway] : [])].map((p) => p?.seq ?? 9);
       if (!seqs.some((q) => q > o.requires_einer_unter_seq)) return false;
@@ -502,6 +506,16 @@ export class GameState {
     if (neu.length) this.applyEffects({ sets_flags: neu });
     if (this.quests.k3h_aufnahme === 'active') this.finishQuest('k3h_aufnahme', 'done');
     if (this.quest('k3_rache') && this.quests.k3_rache === undefined && !this.flags.has('kapitel3_done')) this.startQuest('k3_rache'); // neues Kapitelziel auch für alte Stände
+    // Seb 2026-11-18: keine Starling-Hinweise vor „Finde Starling“; wer Starling schon gesehen hat, ist mitten in der Suche
+    if (!this.flags.has(SUCHE_FLAG) && !this.flags.has('auf_starling_gesehen')) this.flags.delete('k3r_gott_gehoert');
+    this.starlingSuche();
+  }
+
+  /** „Finde Starling“ startet, sobald alle Spieler Halbgott sind (zu zweit beide), oder für alte Stände, die Starling schon sahen. */
+  starlingSuche() {
+    if (!this.flags.has('k3_arrived') || this.flags.has('kapitel3_done') || this.flags.has(SUCHE_FLAG) || !this.content.quests?.[SUCHE_QUEST]) return;
+    if (!this.flags.has('auf_starling_gesehen') && !this.meets({ requires_alle_seq: 4 })) return;
+    this.applyEffects(SUCHE_EFFECTS);
   }
 
   /**
@@ -837,6 +851,7 @@ export class GameState {
   }
 
   tick(dtSeconds) {
+    if ((this.acting ?? 1) === 1) this.starlingSuche(); // Halbgott-Lock: zu zweit erst, wenn beide Sequenz 4 sind
     this.tickTalents(dtSeconds);
     this.tierTick?.(); // Codex DF: Tagesfund des Katers
     this.nsTick?.(dtSeconds); // Codex DH: Nebelseite

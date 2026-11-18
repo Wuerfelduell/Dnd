@@ -11,6 +11,7 @@ const fresh = () => new GameState(content);
 test('Jeder Auftrag hat für seinen ersten Schritt ein Ziel', () => {
   const s = fresh();
   for (const q of Object.keys(content.quests)) {
+    if (content.quests[q].frei) continue; // Seb 2026-11-18: „Steige zum Halbgott auf“ führt bewusst nicht
     s.quests[q] = 'active';
     const t = questTarget(s, q);
     assert.ok(t && (t.map || t.notebook), `Kein Ziel für ${q}`);
