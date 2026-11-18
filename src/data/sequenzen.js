@@ -38,8 +38,7 @@ const hochSeqs = (pid, seqs) => Object.fromEntries(Object.entries(seqs).map(([n,
  * Ids nach den Codex-Paketen CO/CP. Bis deren Sheets, Phasen und Dialoge eingebaut sind, leihen sie sich Dunscarer Boss-Sheets.
  */
 export const SCHWELLE = {
-  4: { waechter: 'hg_schwellenwaechter', sheet: 'hg_schwellenwaechter', hp: 2000, hp_mult: 1 / 1.4, // Seb 2026-11-17: im Kampf genau 2000 Leben (hp_mult hebt ENEMY_HP_MULT 1,4 auf; vorher 2500 → 3500)
-     armor: 3, dmg: [16, 20, 14], titel: 'Schwellenwächter', chapter: 3,
+  4: { waechter: 'hg_schwellenwaechter', sheet: 'hg_schwellenwaechter', hp: 2500, armor: 3, dmg: [16, 20, 14], titel: 'Schwellenwächter', chapter: 3,
     schlag: 'Signalschlag', welle: 'Kalkstaub-Welle', welle_dmg: 12, nerves: 8, phase_text: '„Sie haben die Prüfung bewegt. Nun trägt sie zurück.“',
     bild: 'Kalk und alte Bahnsignale bilden einen Körper ohne Gesicht. Vor der Brust hängt dein Pfadsiegel.' },
   2: { waechter: 'hg_grenzwaechter', sheet: 'hg_grenzwaechter', hp: 1850, // 1400 → 1850: Halbgott-Schaden +110 % statt +60 % (Seb 2026-11-12)
@@ -53,7 +52,7 @@ export function schwelleEncounter(pid, p, seq) {
   const [a, b, c] = w.dmg;
   return {
     name: `${w.titel} ${p.name.replace('Pfad der', 'der').replace('Pfad des', 'des')}`,
-    sprite: 'wild', sheet: w.sheet, waechter: w.waechter, pathway: pid, boss: true, occult: true, fleeable: true, hp: w.hp, ...(w.hp_mult ? { hp_mult: w.hp_mult } : {}), armor: w.armor, max_round_dmg: 0.2, ramp: 0.02, chapter: w.chapter,
+    sprite: 'wild', sheet: w.sheet, waechter: w.waechter, pathway: pid, boss: true, occult: true, fleeable: true, hp: w.hp, armor: w.armor, max_round_dmg: 0.2, ramp: 0.02, chapter: w.chapter,
     intro: `${w.bild} Aus dem Nebel spricht es mit deiner Stimme: „${p.principle}“ – „Zeigen Sie mir, was Sie selbst verantworten.“`,
     attacks: [
       { name: `${w.schlag} ${was}: zwei Schläge`, damage: a, hits: [1100, 1800] },
