@@ -1,7 +1,7 @@
 """Vorschauen 'Vorlage | alt | neu' (3x, nearest) für alle geänderten Blätter der Nachbesserungsrunde.
 Je Blatt eine Zeile mit drei Feldern; je Feld bis zu vier repräsentative Frames (erster, Angriff/Mitte, vorletzte Reihe, letzter belegter).
 Vollbilder (fx/HG_aufstieg_*): Vorlage = HG_aufstieg_1 auf origin/main, je Feld Frames 0, 2, 5 (die korrigierten Frames 2 und 5).
-Ausgabe: docs/art/nachbesserung-preview-{aufstieg,bosse,heilige}.png"""
+Ausgabe: docs/art/<PREFIX>-preview-{aufstieg,bosse,heilige}.png (PREFIX = 1. Argument, Standard nachbesserung)"""
 import sys, io, json, glob, subprocess
 import numpy as np
 from PIL import Image, ImageDraw
@@ -44,7 +44,7 @@ def row(rel, scale=S):
         pk = [(0, 0), (0, 2), (0, 5)]; ta = idx.get(tpl_rel, a)
         tpl = load(f'public/sprites/{tpl_rel}', BASE)
     else:
-        pk = picks(new, a); tpl = load(f'public/sprites/{tpl_rel}') if tpl_rel else None; ta = idx.get(tpl_rel, a)
+        pk = [(0, 0), (1, 3), (5, 3), (5, 5)] if 'heiliger' in rel and PREFIX != 'nachbesserung' else picks(new, a); tpl = load(f'public/sprites/{tpl_rel}') if tpl_rel else None; ta = idx.get(tpl_rel, a)
     parts = [strip(cells(tpl, ta, pk), scale) if tpl is not None else strip([], scale), strip(cells(old, a, pk), scale), strip(cells(new, a, pk), scale)]
     W = sum(p.width for p in parts) + 2*SEP*2; H = max(p.height for p in parts) + 16
     im = Image.new('RGBA', (W, H), (30, 30, 40, 255)); d = ImageDraw.Draw(im); x = 0
@@ -53,11 +53,14 @@ def row(rel, scale=S):
     d.text((W - 6*len(rel) - 4, 2), rel, fill=(240, 206, 128, 255))
     return im
 def sheet(rels, out, scale=S):
+    if not rels: return
+    out = out.replace('nachbesserung-', PREFIX + '-')
     rows = [row(r, scale) for r in rels]
     W = max(r.width for r in rows); H = sum(r.height for r in rows) + SEP*len(rows)
     im = Image.new('RGBA', (W, H), (20, 20, 28, 255)); y = 0
     for r in rows: im.alpha_composite(r, (0, y)); y += r.height + SEP
     im.convert('RGB').save(f'{ROOT}/docs/art/{out}', optimize=True); print(out, im.size)
+PREFIX = sys.argv[1] if len(sys.argv) > 1 else 'nachbesserung'  # z. B. nachbesserung2
 changed = [f[len('public/sprites/'):] for f in git('diff', '--name-only', BASE).decode().split() if f.startswith('public/sprites/') and f.endswith('.png')]
 sheet([r for r in changed if r.startswith('fx/')], 'nachbesserung-preview-aufstieg.png')
 sheet([r for r in changed if not r.startswith('fx/') and 'heiliger' not in r], 'nachbesserung-preview-bosse.png')

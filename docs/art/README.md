@@ -2233,3 +2233,12 @@ Geliefert von Grok als Zip mit Patch (Branch `art/nachbesserung`). Raster, Reihe
 - Konzepte: `docs/art/nachbesserung-raw/`, Prompts: `tools/art/nachbesserung/prompts.json`
 - Prüfung: `python3 tools/art/nachbesserung/check.py` (Kern-Box >= 85 % der Vorlage als harter Fehler)
 - Vorschauen „Vorlage | alt | neu“ (3x): [Aufstieg](nachbesserung-preview-aufstieg.png) · [Bosse/Endgestalt](nachbesserung-preview-bosse.png) · [Heilige](nachbesserung-preview-heilige.png)
+
+## Nachbesserung 2 (letzte Etappe)
+
+Geliefert von Grok als Zip mit Patch (Branch `art/nachbesserung2`). Raster und Dateinamen unverändert, keine Manifest- oder Code-Änderung.
+
+- Engel 2 mit massiven Türflügeln (neue Konzepte idle/attack1/strike/attack2/special), Engel 1 mit breiteren Lichtschwingen (idle/attack1/attack2/special): `python3 tools/art/nachbesserung/engel_gross.py 8 9 9`
+- Heilige: Schlüssel liegt angelehnt, Echo liegt flach (defeated), Waage-Schwert mit Parierstück in Waagenform, Echo mit geradem Glasschwert statt Trompetenklinge: `python3 tools/art/nachbesserung/heilige_nb.py echo schluessel sq_waage`
+- Prompts: `tools/art/nachbesserung/prompts.json` → `nachbesserung2`
+- Vorschauen „Vorlage | alt | neu“ (3x): [Engel](nachbesserung2-preview-bosse.png) · [Heilige](nachbesserung2-preview-heilige.png) (`python3 tools/art/nachbesserung/vorschau.py nachbesserung2`)
