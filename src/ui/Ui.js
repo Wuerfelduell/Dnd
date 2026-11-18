@@ -2485,9 +2485,10 @@ export class Ui {
     const active = s.formActive();
     const block = active ? null : s.formBlock();
     const form = s.formDef?.();
+    const stufe = s.pathway.seq === 3 || s.pathway.seq <= 1 ? uiSprite('hghudseq31', s.pathway.seq === 3 ? 'seq3' : 'seq1', 1 / 10, 'hgicon') : ''; // GB1
     const hud = uiSprite('hghud32', active ? 'form_an' : block ? 'verdauung_gesperrt' : 'form_aus', 1 / 10, 'hgicon');
     const cp = form?.beschreibung ? `<p class="desc"><strong>${esc(form.name)}.</strong> ${esc(form.beschreibung)}${form.karte ? ` <span class="muted">${esc(form.karte)}</span>` : ''}</p>` : '';
-    return `<div class="gestalt ${active ? 'active' : ''}"><h4>${hud}Mythische Gestalt ${active ? '<span class="badge halbgott">angenommen</span>' : ''}</h4>${cp}
+    return `<div class="gestalt ${active ? 'active' : ''}"><h4>${stufe}${hud}Mythische Gestalt ${active ? '<span class="badge halbgott">angenommen</span>' : ''}</h4>${cp}
       <p class="muted">${active
         ? `Menschen ohne Pfad und Wesen, die deutlich unter dir stehen, brechen beim Anblick zusammen (Sieg samt Beute, ohne Kampf). Kostet ${FORM_NERVES_PER_SEC} Nerven und ${FORM_UNRUHE_PER_SEC} Unruhe je Sekunde; fällt ab, wenn die Nerven unter ${FORM_MIN_NERVES} sinken. Bosse und höhere Wesen bleiben.`
         : `Ab ${FORM_MIN_DIGEST} % Verdauung auf Sequenz ${FORM_SEQ}: die wahre Gestalt des Pfades. Nicht-Beyonder und schwächere Monster fallen vor ihr um. Zehrt an Nerven und Unruhe.`}</p>

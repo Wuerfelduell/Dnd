@@ -2975,6 +2975,20 @@ ANIM_SHEETS.HG_umfallen = ['fx/HG_umfallen.png', 16, 32];
 ANIM_SHEETS.HG_aura_halbgott = ['fx/HG_aura_halbgott.png', 24, 36];
 ANIM_SHEETS.HG_aura_engel = ['fx/HG_aura_engel.png', 24, 36];
 ANIM_SHEETS.HG_zoegern = ['fx/HG_zoegern.png', 32, 32];
+/** GB1 per Skript (tools/art/varianten/gb1.py): Trinken Seq 3/1, Auren Seq 3/1 je Pfad; Raster und Animationen wie die CO-Vorlagen. */
+for (const t of ['seq3', 'seq1']) {
+  const vorlage = t === 'seq3' ? 'halbgott' : 'engel';
+  ANIM_SHEETS[`player_drink_${t}`] = [`characters/A_player_drink_${t}.png`, 16, 32];
+  MANIFEST_IDS[`player_drink_${t}`] = `A_player_drink_${vorlage}`;
+  for (const look of ['p2a', 'p2b']) {
+    ANIM_SHEETS[`${look}_drink_${t}`] = [`characters/${look}_drink_${t}.png`, 16, 32];
+    MANIFEST_IDS[`${look}_drink_${t}`] = `${look}_drink_${vorlage}`;
+  }
+  for (const p of HG_PATHS) {
+    ANIM_SHEETS[`aura_${t}_${p}`] = [`fx/aura_${t}_${p}.png`, 24, 36];
+    MANIFEST_IDS[`aura_${t}_${p}`] = 'HG_aura_halbgott';
+  }
+}
 /** Kreaturformen auf der Karte (32x48, Reihen unten/links/rechts/oben, Fußpunkt y=46) und im Kampf (96x96). */
 for (const p of HG_PATHS) {
   ANIM_SHEETS[`hg_form_${p}`] = [`characters/hg_form_${p}.png`, 32, 48];
@@ -3022,6 +3036,9 @@ UI_SHEETS.hghud = ['ui/HG_hud.png', 160, 16];
 UI_REGIONS.hghud = Object.fromEntries(HG_HUD.map((n, i) => [n, [i * 16, 0, 16, 16]]));
 UI_SHEETS.hghud32 = ['ui/HG_hud_32.png', 320, 32];
 UI_REGIONS.hghud32 = Object.fromEntries(HG_HUD.map((n, i) => [n, [i * 32, 0, 32, 32]]));
+/** GB1: Stufen-Marken Sequenz 3 und 1 (links seq3, rechts seq1). */
+UI_SHEETS.hghudseq31 = ['ui/hg_hud_seq31_32.png', 64, 32];
+UI_REGIONS.hghudseq31 = { seq3: [0, 0, 32, 32], seq1: [32, 0, 32, 32] };
 
 // --- Codex DN, DO, DQ: Kampfblätter der Rituale (Zivilist, Schatten, Laternenbestie) ----------------------------------
 /** Maske (Seq 4): gewöhnlicher Zivilist; Schlüssel (Seq 4): der Schatten. Beide 6x9 wie battle_player, je Spielfigur. */

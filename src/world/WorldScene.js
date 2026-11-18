@@ -1628,7 +1628,7 @@ export class WorldScene extends Phaser.Scene {
   playDrinkFx(pathway, player = 1, seq = null) {
     const p = player === 2 && this.p2 ? this.p2 : this.player;
     // Paket CO: eigene Trink-Sheets für die großen Tränke (Sequenz 4 = halbgott, 2 = engel)
-    const big = seq === 4 ? 'halbgott' : seq === 2 ? 'engel' : null;
+    const big = seq === 4 ? 'halbgott' : seq === 3 ? 'seq3' : seq === 2 ? 'engel' : seq === 1 ? 'seq1' : null; // GB1: Seq 3/1 per Skript
     if (p === this.player) {
       const done = () => { this.playerBusy = false; p.setTexture(this.playerKey, DIRS.indexOf(this.facing) * 4); this.updateAura(); };
       if ((big && playSheetAnim(p, `player_drink_${big}`, 'drink', done)) || playSheetAnim(p, 'player_drink', 'drink', done)) this.playerBusy = true;
@@ -1693,9 +1693,11 @@ export class WorldScene extends Phaser.Scene {
     this.formAura?.destroy();
     this.formAura = null;
     if (active && own) {
-      const auraKey = (this.state.pathway?.seq ?? 4) <= 2 ? 'HG_aura_engel' : 'HG_aura_halbgott';
+      const sq = this.state.pathway?.seq ?? 4;
+      const stufe = sq === 3 || sq <= 1 ? `aura_seq${sq === 3 ? 3 : 1}_${this.state.pathway?.id}` : null; // GB1: Pfadaura Seq 3, fast unsichtbarer Rand Seq 1
+      const auraKey = stufe && this.textures.exists(stufe) ? stufe : sq <= 2 ? 'HG_aura_engel' : 'HG_aura_halbgott';
       if (this.textures.exists(auraKey)) {
-        this.formAura = this.add.sprite(who.x, who.y, auraKey, 0).setOrigin(0.5, 1).setDepth(who.depth - 1).setBlendMode(Phaser.BlendModes.ADD).setAlpha(0.8);
+        this.formAura = this.add.sprite(who.x, who.y, auraKey, 0).setOrigin(0.5, 1).setDepth(who.depth - 1).setBlendMode(Phaser.BlendModes.ADD).setAlpha(sq <= 1 ? 0.5 : 0.8);
         this.formAura.follow = who;
         if (!playSheetAnim(this.formAura, auraKey, 'loop')) { this.formAura.destroy(); this.formAura = null; }
       }
