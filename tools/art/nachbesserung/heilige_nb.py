@@ -42,17 +42,27 @@ figures._cache = lambda key, fn: _cache('nb|' + key + '|' + str(MERGED / key.spl
 FADEN_DEF = [['hurt.pulse_down1', 'hurt.leanL2', 'hurt.up2'], ['hurt.leanR2', 'hurt.pulse_leanR'], ['hurt.pulse_leanL', 'hurt.down2'],
              ['defeated.up4'], ['defeated.up4_leanL'], ['defeated.pulse_up4']]
 
+# Seit Nachbesserung 2 liegen auch Schlüssel (angelehnt) und Echo (flach) im defeated; Echo wie Faden mit Hüftzeilen.
+LYING = ('faden', 'echo')  # Schlüssel liegt angelehnt und ist hoch genug (65 px), braucht keine Hüftzeilen
+# Echo: das flache Liegen ist nur 42 px hoch, die kniende Vorlage in defeated 4-6 um 62 px – die 85-%-Regel ist dort mit einer liegenden
+# Figur nicht erreichbar. Auf Wunsch (liegen statt sitzen) werden diese drei Frames trotzdem mit der liegenden Pose belegt und offen als
+# Kern-Box-Fehler gemeldet (kein Füllmittel, kein Ausweichen auf hurt).
+FORCE_LYING = {'echo'}
 if __name__ == '__main__':
     paths = sys.argv[1:] or figures.PATHS
     ROWS0 = dict(figures.ROWS)
     for p in paths:
         figures.ROWS.clear(); figures.ROWS.update(ROWS0)
-        if p == 'faden':
+        if p in LYING:
             figures.VARIANTS.update({'up4': lambda m: figures.bob(m, -4), 'up4_leanL': lambda m: figures.lean(figures.bob(m, -4), -1),
                                      'pulse_up4': lambda m: figures.recolor(figures.bob(m, -4), figures.PULSE)})
             figures.ROWS['defeated'] = FADEN_DEF
+        RP0 = dict(figures.ROW_POSES)
+        if p in FORCE_LYING: figures.ROW_POSES['defeated'] = ['defeated']
         p_, s, D, F, FAIL, tq, tqfix = E.build(p)
-        if FAIL: print('FAIL', p, FAIL); continue
+        figures.ROW_POSES.clear(); figures.ROW_POSES.update(RP0)
+        if p in FORCE_LYING and FAIL and all(r == 5 and c >= 3 for r, c, _ in FAIL): print('bewusst unter 85 % (liegend):', p, FAIL)
+        elif FAIL: print('FAIL', p, FAIL); continue
         used = E.sheet_palette(s)
         E.save_indexed(s, used, E.SPR / f'battle/enemy_hs_heiliger_{p}.png')
         print('ok', p, F, len(used), tq, tqfix, {k: v for k, v in D.items() if k[0] in (1, 5)})

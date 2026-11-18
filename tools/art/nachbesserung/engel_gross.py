@@ -11,7 +11,7 @@ sys.path.insert(0, str(HERE.parent / 'engel'))
 import base, figures, export as E
 
 NB = base.ROOT / 'docs/art/nachbesserung-raw'
-FACT = {'engel_1': int(sys.argv[2]) if len(sys.argv) > 2 else 9, 'engel_2': 9, 'engel_3': int(sys.argv[1]) if len(sys.argv) > 1 else 7}
+FACT = {'engel_1': int(sys.argv[2]) if len(sys.argv) > 2 else 9, 'engel_2': int(sys.argv[3]) if len(sys.argv) > 3 else 9, 'engel_3': int(sys.argv[1]) if len(sys.argv) > 1 else 7}
 def raw(fig, pose):
     p = NB / f'{fig}_kampf_{pose}.jpg'
     return p if p.exists() else base.RAW / f'{fig}_kampf_{pose}.jpg'
