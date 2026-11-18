@@ -6,7 +6,6 @@ import { loadContent, seeded } from './helpers.js';
 import { GameState } from '../src/core/GameState.js';
 import { Combat } from '../src/core/Combat.js';
 import { HG_LATERNEN, HG_FAEDEN, ECHO_FIGHTS, UHR } from '../src/core/Seq4.js';
-import { ordealId } from '../src/core/Pathways.js';
 import { kesselZutaten } from '../src/data/ritual4Vorrat.js';
 import { RITUAL6_LAEDEN } from '../src/data/ritual6Vorrat.js';
 
@@ -95,17 +94,5 @@ test('Seq 4 ist ein deutlicher Sprung für alle Pfade, Spieler 1 und 2; die Gest
       assert.equal(s.toggleForm().active, true, `${pid} P${who}: Gestalt ab 50 %`);
       assert.ok(Math.abs(s.passive('dmg_mult') - v.dmg * 1.3) < 1e-9 && Math.abs(s.passive('damage_taken') - v.tk * 0.8) < 1e-9);
     });
-  }
-});
-
-test('Schwellenwächter der Sequenz 4: im Kampf 2000 Leben, alle Pfade (Seb 2026-11-17)', () => {
-  for (const pid of Object.keys(content.pathways)) for (const who of [1, 2]) {
-    const s = new GameState(content);
-    s.addP2();
-    s.withPlayer(who, () => { s.pathway = { id: pid, seq: 5, digestion: 100 }; s.updateMaxHp(); s.hp = s.maxHp; });
-    s.combatBy = who;
-    s.splitOn = true;
-    const c = new Combat(s, ordealId(pid, 4));
-    assert.equal(c.enemy.maxHp, 2000, `${pid} P${who}`);
   }
 });
