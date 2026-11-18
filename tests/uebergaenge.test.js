@@ -55,6 +55,6 @@ for (const k of ['rein', 'moor', 'lichtmeister', 'meer']) {
     assert.deepEqual([...nodes].filter((id) => tree.nodes[id].travel), [`k3a_anreise_${k}_ankunft`]);
     const s = new GameState(content);
     s.applyEffects(tree.nodes[`k3a_anreise_${k}_bergmann`]);
-    assert.ok(s.flags.has('k3r_gott_gehoert'), 'Der Bergmann erzählt vom Alten unter dem Fels');
+    assert.ok(!s.flags.has('k3r_gott_gehoert'), 'Seb 2026-11-18: der Bergmann erzählt, zählt aber nicht als Hinweis (erst im Fall „Finde Starling“)');
   });
 }

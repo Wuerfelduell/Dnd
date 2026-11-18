@@ -10,7 +10,7 @@ import { applyPfadHandel } from './pfadHandel.js';
 import { applySeq5 } from './seq5.js';
 import { applySeq4 } from './seq4.js';
 import { applySeqHoch, addRitualformeln } from './seqHoch.js';
-import { applyAufstieg } from './aufstieg.js';
+import { applyAufstieg, gateStarlingHinweise } from './aufstieg.js';
 import { applyCalderwickStory } from './calderwickStory.js';
 import { applyBriarholtStory } from './briarholtStory.js';
 import { applyPfadviertel } from './pfadviertel.js';
@@ -150,6 +150,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyDunscarPassanten(content); // Dunscar: Passanten mit Tagesablauf, Gemurmel und Straßenereignissen in den Vierteln
   applyMarloweTelegramm(content); // Tipps nur von Marlowe: Telegrammschalter in jeder späteren Stadt
   applyKettlegateZirkel(content); // Kettlegater Zirkel: nur Zutaten 7/6, Formeln, Artefakte; keine Trophäen-Gesuche (zuletzt)
+  gateStarlingHinweise(content); // Seb 2026-11-18: Starling-Gerüchte erst im Fall „Finde Starling“ (ganz zuletzt)
   return content;
 }
 

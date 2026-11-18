@@ -112,9 +112,41 @@ test('Dunscar: Zug-/Hör-Story raus, Kapitelziel Rache an Starling (Seb 2026-11-
   assert.equal(s.quests.k3a_akt2, undefined);
   assert.equal(s.quests.k3_rache, 'active');
   assert.ok(s.questSteps('k3_rache').every((st) => !st.done));
-  s.applyEffects(content.dialogues.k3a_pfiff.nodes.k3r_starling);
-  assert.ok(s.questSteps('k3_rache')[0].done);
   // Gerüchte über den alten Gott auch bei den Ortskundigen
   const ok = content.dialogues.ds_ok_bruchstufen ?? Object.values(content.dialogues).find((d) => d.nodes?.gott);
   assert.ok(ok.nodes.gott.sets_flags.includes('k3r_gott_gehoert'));
+});
+
+test('Kapitel 3: „Steige zum Halbgott auf“, dann „Finde Starling“; zu zweit erst, wenn beide Halbgott sind (Seb 2026-11-18)', () => {
+  const s = new GameState(content);
+  s.flags.add('k3_arrived'); s.flags.add('k3r_gott_gehoert'); // alter Stand hatte schon ein Gerücht
+  s.pathway = { id: 'eisen', seq: 5, digestion: 0 };
+  s.dunscarOffen();
+  assert.equal(content.quests.k3_rache.title, 'Steige zum Halbgott auf');
+  assert.equal(s.quests.k3_rache, 'active');
+  assert.equal(s.quests.k3_starling, undefined);
+  assert.ok(!s.flags.has('k3r_gott_gehoert'), 'vor dem Fall keine Hinweise');
+  // keine Gerüchte, kein Starling vor dem Fall
+  const pfiff = content.dialogues.k3a_pfiff.nodes.k3a_start.choices.find((c) => c.next === 'k3r_starling');
+  assert.equal(s.meets(pfiff), false);
+  const stimmen = Object.values(content.dialogues).flatMap((d) => Object.values(d.nodes ?? {}).flatMap((n) => (n.choices ?? []).filter((c) => d.nodes[c.next]?.sets_flags?.includes('k3r_gott_gehoert'))));
+  assert.ok(stimmen.length > 5 && stimmen.every((c) => !s.meets(c)));
+  const starling = content.maps.ds_endbahnhof.interactables.find((i) => i.id === 'auf_starling_bahnsteig');
+  assert.equal(s.meets(starling.visible_if), false);
+  // zu zweit: Spieler 1 Halbgott, Spieler 2 noch nicht → Lock
+  s.addP2();
+  s.p2.pathway = { id: 'laterne', seq: 5, digestion: 0 };
+  s.pathway.seq = 4;
+  s.tick(0.1);
+  assert.equal(s.quests.k3_starling, undefined, 'Mitspieler muss auch Halbgott sein');
+  s.p2.pathway.seq = 4;
+  s.tick(0.1);
+  assert.equal(s.quests.k3_starling, 'active');
+  assert.equal(s.quests.k3_rache, 'done');
+  // jetzt gibt es Hinweise, und nach einem Hinweis steht Starling am Endbahnhof
+  assert.ok(s.meets(pfiff));
+  assert.equal(s.meets(starling.visible_if), false);
+  s.applyEffects(content.dialogues.k3a_pfiff.nodes.k3r_starling);
+  assert.ok(s.questSteps('k3_starling')[0].done);
+  assert.ok(s.meets(starling.visible_if));
 });

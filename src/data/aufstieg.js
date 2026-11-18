@@ -14,7 +14,58 @@ export const HIMMEL = 'hs_himmelsstadt';
 export const STURZ_ZIEL = { map: 'cw_gleisfuss', spawn: 'default' };
 /** Was die Verbrennung setzt: Kapitel 3 ist vorbei, Calderwick erreicht, Kapitel 4 beginnt. */
 export const STURZ_FLAGS = ['auf_verbrannt', 'k4_arrived', 'kapitel3_done', 'cwa_ankunft_sicher', 'cwa_werkstatt', 'cwa_akt1_done', 'cwa_akt2_done', 'cwa_akt3_done', 'cwa_akt4_done'];
-export const STURZ_EFFECTS = { sets_flags: STURZ_FLAGS, complete_quests: ['k3_rache'], start_quests: ['k4_aufstieg'] };
+export const STURZ_EFFECTS = { sets_flags: STURZ_FLAGS, complete_quests: ['k3_rache', 'k3_starling'], start_quests: ['k4_aufstieg'] };
+/**
+ * Kapitel 3 in zwei Fällen (Seb 2026-11-18): Erst „Steige zum Halbgott auf“ (k3_rache, nur Sequenz 5 und 4, keine Hinweise,
+ * man wird nicht geführt und macht, was man will). Sind alle Spieler Halbgott (zu zweit auch der Mitspieler), startet „Finde Starling“
+ * (k3_starling, GameState.starlingSuche). Erst dann gibt es Gerüchte über Starling und den Alten und Starling am Endbahnhof.
+ */
+export const SUCHE_FLAG = 'k3_starling_suche';
+export const SUCHE_QUEST = 'k3_starling';
+export const SUCHE_EFFECTS = { sets_flags: ['k3_starling_suche'], complete_quests: ['k3_rache'], start_quests: ['k3_starling'] };
+
+function applyStarlingSuche(content) {
+  const rache = content.quests.k3_rache;
+  if (rache) Object.assign(rache, {
+    frei: true, // kein Wegweiser: man wird nicht geführt
+    title: 'Steige zum Halbgott auf',
+    summary: 'Starling ist dir entkommen, und so wie du jetzt bist, kommst du nicht an ihn heran. Werde ein Halbgott (Sequenz 4). Wie, ist deine Sache: Kämpfe, Zirkel, Rituale, Aufträge. Spielt ihr zu zweit, müsst ihr beide Halbgötter sein.',
+    steps: [
+      { text: 'Werde stärker: Sequenz 5', done: { requires_seq: 5 } },
+      { text: 'Steige zum Halbgott auf: Sequenz 4', done: { requires_seq: 4 } },
+      { text: 'Zu zweit: auch dein Mitspieler ist Halbgott', done: { requires_alle_seq: 4 } },
+    ],
+  });
+  content.cases = [...(content.cases ?? []).filter((c) => c.id !== 'kapitel3_starling'), { id: 'kapitel3_starling', title: 'Finde Starling' }];
+  content.quests[SUCHE_QUEST] = {
+    title: 'Finde Starling', kind: 'main', case: 'kapitel3_starling',
+    summary: 'Du bist ein Halbgott. Jetzt kannst du Starling suchen. Er ist in Dunscar, und etwas Uraltes hält die Hand über ihn. Hör dich um: bei Pfiff, bei den Ortskundigen, bei den Leuten auf der Straße.',
+    steps: [
+      { text: 'Hör dich in Dunscar nach Starling um', done: { requires_flags: ['k3r_gott_gehoert'] } },
+      { text: 'Starling am Endbahnhof stellen', done: { requires_flags: ['auf_starling_gesehen'] }, target: { map: 'ds_endbahnhof', id: 'auf_starling_bahnsteig', label: 'Endbahnhof' } },
+      { text: 'Den Schaffner des Alten besiegen', done: { requires_alle_flag: 'auf_schaffner' }, target: { map: 'ds_endbahnhof', id: 'auf_schaffner_tuer', label: 'Endbahnhof' } },
+      { text: 'Ihm in den Zug nach oben folgen', done: { requires_flags: ['auf_verbrannt'] }, target: { map: 'ds_endbahnhof', id: 'auf_zug_nach_oben', label: 'Endbahnhof' } },
+    ],
+  };
+
+}
+
+/** Ganz am Ende des Aufbaus (nach Stimmen, Anschlag, Übergängen): keine Starling-Hinweise vor „Finde Starling“. */
+export function gateStarlingHinweise(content) {
+  // Keine Hinweise vor dem Fall: jede Gesprächswahl, die ein Starling-Gerücht gibt, verlangt den Fall; die Anreise erzählt nur noch
+  for (const [did, d] of Object.entries(content.dialogues)) {
+    const gibt = new Set(Object.entries(d.nodes ?? {}).filter(([, n]) => n.sets_flags?.includes('k3r_gott_gehoert')).map(([id]) => id));
+    if (!gibt.size) continue;
+    if (did.startsWith('k3a_anreise_')) {
+      for (const id of gibt) d.nodes[id].sets_flags = d.nodes[id].sets_flags.filter((f) => f !== 'k3r_gott_gehoert');
+      continue;
+    }
+    for (const n of Object.values(d.nodes)) for (const c of n.choices ?? []) {
+      if (gibt.has(c.next) && !(c.requires_flags ?? []).includes(SUCHE_FLAG)) c.requires_flags = [...(c.requires_flags ?? []), SUCHE_FLAG];
+    }
+  }
+}
+
 const STURZ_TEXT = 'Das Licht frisst dich nicht, es wiegt dich. Du bist zu leicht für diesen Ort. Der Boden der Himmelsstadt lässt dich los, und du fällst, durch Wolken, durch Rauch, durch die Nacht, bis Stein dich auffängt.\n\nDu liegst in einer fremden Stadt. Über dir hängt kein Himmel, nur eine Narbe aus Licht, wo du durchgebrochen bist. Calderwick.';
 
 const PFADE = ['laterne', 'faden', 'maske', 'echo', 'kessel', 'eisen', 'schluessel', 'sq_waage', 'sq_moor', 'sq_uhr'];
@@ -160,7 +211,7 @@ export function applyAufstieg(content) {
   if (bahnhof) {
     bahnhof.interactables = [...(bahnhof.interactables ?? []),
       { id: 'auf_starling_bahnsteig', kind: 'read', tile: [8, 10], prompt: 'Ein Mann im hellen Mantel', title: 'Starling', marker: true, done_flag: 'auf_starling_gesehen',
-        visible_if: { requires_flags: ['k3_arrived'], hide_if_flags: ['auf_starling_gesehen'] },
+        visible_if: { requires_flags: ['k3_arrived', SUCHE_FLAG, 'k3r_gott_gehoert'], hide_if_flags: ['auf_starling_gesehen'] }, // erst im Fall „Finde Starling“, nach einem Hinweis
         text: STARLING_TEXT },
       { id: 'auf_schaffner_tuer', kind: 'read', tile: [5, 10], prompt: 'Der Schaffner an der Zugtür', title: 'Der Schaffner des Alten', marker: true,
         visible_if: { requires_flags: ['auf_starling_gesehen'], hide_if_alle_flag: 'auf_schaffner' },
@@ -176,13 +227,7 @@ export function applyAufstieg(content) {
         effects: { clears_flags: ['auf_rueckweg'], travel: STURZ_ZIEL } },
     ];
   }
-  // Kapitel 3 bekommt sein Ende: Starling am Endbahnhof
-  const rache = content.quests.k3_rache;
-  if (rache && !rache.steps.some((s) => s.done?.requires_flags?.includes('auf_starling_gesehen'))) {
-    rache.steps = [...rache.steps, { text: 'Starling am Endbahnhof stellen', done: { requires_flags: ['auf_starling_gesehen'] }, target: { map: 'ds_endbahnhof', id: 'auf_starling_bahnsteig', label: 'Endbahnhof' } },
-      { text: 'Den Schaffner des Alten besiegen', done: { requires_alle_flag: 'auf_schaffner' }, target: { map: 'ds_endbahnhof', id: 'auf_schaffner_tuer', label: 'Endbahnhof' } },
-      { text: 'Ihm in den Zug nach oben folgen', done: { requires_flags: ['auf_verbrannt'] }, target: { map: 'ds_endbahnhof', id: 'auf_zug_nach_oben', label: 'Endbahnhof' } }];
-  }
+  applyStarlingSuche(content);
   // Kapitel 4: Der Sturz. Calderwick, die Stadt der Gefallenen
   content.cases = [...(content.cases ?? []).filter((c) => c.id !== 'kapitel4_aufstieg'), { id: 'kapitel4_aufstieg', title: 'Kapitel 4: Der Aufstieg' }];
   content.quests.k4_aufstieg = {
