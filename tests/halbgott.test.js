@@ -36,7 +36,9 @@ test('Durchbrüche: Sequenz 4 und 2 sind brutale Sprünge, 3 und 1 gute; jeder P
   const taken = (seq) => hero(seq).passive('damage_taken');
   assert.ok(dmg(4) / dmg(5) >= 1.5 && taken(4) / taken(5) <= 0.75, 'Halbgott');
   assert.ok(dmg(2) / dmg(3) >= 1.5 && taken(2) / taken(3) <= 0.75, 'Engel');
-  assert.ok(dmg(3) / dmg(4) < 1.3 && dmg(1) / dmg(2) < 1.3, 'dazwischen moderat');
+  // Verglichen mit der verdauten Vorstufe (ab 50 % Verdauung auf Seq 4 gilt dauerhaft der +10 %-Reifebonus)
+  const dmgVerdaut = (seq) => { const s = hero(seq); s.pathway.digestion = 100; return s.passive('dmg_mult'); };
+  assert.ok(dmg(3) / dmgVerdaut(4) < 1.3 && dmg(1) / dmgVerdaut(2) < 1.3, 'dazwischen moderat');
   assert.ok(SEQ_GROWTH_STEPS[4] >= 4 && SEQ_GROWTH_STEPS[2] >= 4);
   assert.ok(hero(4).maxHp - hero(5).maxHp >= 50, `Leben 5 → 4: ${hero(5).maxHp} → ${hero(4).maxHp}`);
   assert.ok(hero(2).maxHp - hero(3).maxHp >= 60, `Leben 3 → 2: ${hero(3).maxHp} → ${hero(2).maxHp}`);

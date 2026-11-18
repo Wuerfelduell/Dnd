@@ -162,6 +162,10 @@ export const FORM_KAMPF = [
   { key: 'dmg_mult', value: 1.3, text: 'Mythische Gestalt: +30 % Schaden.' },
   { key: 'damage_taken', value: 0.8, text: 'Mythische Gestalt: 20 % weniger Schaden.' },
 ];
+/** Seb 2026-11-18: ab Seq 4 mit halb verdautem Trank (gleiche Schwelle wie die stärkere Aura) wirken die Fähigkeiten dauerhaft stärker, auch ohne Gestalt. */
+export const FORM_REIFE = [{ key: 'dmg_mult', value: 1.1, text: 'Halb verdaut: Fähigkeiten +10 %.' }];
+/** Gilt ab Seq 4 mit mindestens 50 % Verdauung und auf allen höheren Stufen. */
+export const formReif = (p) => !!p && (p.seq < FORM_SEQ || (p.seq === FORM_SEQ && (p.digestion ?? 0) >= FORM_MIN_DIGEST));
 export const FORM_MARGIN = 2; // so viele Sequenzen muss ein Monster unter dir liegen
 /** Worte für die großen Tränke: Halbgott (4) und Engel (2). Die Oberfläche spielt dazu die Aufstiegs-Szene. */
 export const ASCENSION_TEXT = {
@@ -277,7 +281,7 @@ export const pathwayMethods = {
   passive(key) {
     const mult = MULT_KEYS.has(key);
     let v = mult ? 1 : 0;
-    const lists = [...this.reachedSeqs().map((s) => s.passives ?? []), ...this.artifactEffects(), ...this.gearEffects(), this.bindingPassive?.(this.acting ?? 1) ?? [], this.buffEffects?.() ?? [], this.tierEffects?.() ?? [], this.pathway?.form ? FORM_KAMPF : []]; // Codex DF: aktives Tier // BN: persönliche Rufbindung; Welt-Fähigkeiten (Talents.js)
+    const lists = [...this.reachedSeqs().map((s) => s.passives ?? []), ...this.artifactEffects(), ...this.gearEffects(), this.bindingPassive?.(this.acting ?? 1) ?? [], this.buffEffects?.() ?? [], this.tierEffects?.() ?? [], this.pathway?.form ? FORM_KAMPF : [], formReif(this.pathway) ? FORM_REIFE : []]; // Codex DF: aktives Tier // BN: persönliche Rufbindung; Welt-Fähigkeiten (Talents.js)
     for (const list of lists) {
       for (const p of list) {
         if (p.key !== key) continue;

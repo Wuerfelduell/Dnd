@@ -22,6 +22,7 @@ import { isOutdoorMap } from './assets.js';
 import { cityOf } from '../core/Travel.js';
 import { Combat } from '../core/Combat.js';
 import { p2View } from '../core/Split.js';
+import { FORM_SEQ, formReif } from '../core/Pathways.js';
 
 export const VIEW_W = 480;
 export const VIEW_H = 270;
@@ -1555,6 +1556,8 @@ export class WorldScene extends Phaser.Scene {
     if (this.aura) {
       this.aura.setPosition(this.player.x, this.player.y + 2);
     }
+    // Ständige Aura ab Seq 4: Stärke (50 % Verdauung) und Sichtbarkeit etwa jede Sekunde nachziehen
+    if (this.time.now > (this.auraCheck ?? 0)) { this.auraCheck = this.time.now + 1000; this.updateAura(); }
     this.updateCamTarget();
   }
 
@@ -1749,9 +1752,14 @@ export class WorldScene extends Phaser.Scene {
   /** Pfad-Aura um die Figur, sichtbar mit Geistsicht. */
   updateAura() {
     const pid = this.state.pathway?.id;
-    const show = pid && (this.state.spiritVision || this.state.formActive?.()) && this.textures.exists('aura_pfade');
+    const seq = this.state.pathway?.seq ?? 9;
+    const hell = this.state.spiritVision || this.state.formActive?.();
+    // Ab Seq 4 umhüllt die Pfad-Aura die Figur ständig: schwach, ab 50 % Verdauung (bzw. unter Seq 4) etwas stärker
+    const staendig = seq <= FORM_SEQ;
+    const show = pid && (hell || staendig) && this.textures.exists('aura_pfade');
     if (!show) { this.aura?.setVisible(false); return; }
-    if (!this.aura) this.aura = this.add.sprite(0, 0, 'aura_pfade').setOrigin(0.5, 1).setAlpha(0.7).setBlendMode(Phaser.BlendModes.ADD).setDepth(DEPTH.dark + 1); // über der Dunkelheit, wie ein Leuchten
+    const alpha = hell ? 0.7 : formReif(this.state.pathway) ? 0.45 : 0.25;
+    if (!this.aura) this.aura = this.add.sprite(0, 0, 'aura_pfade').setOrigin(0.5, 1).setBlendMode(Phaser.BlendModes.ADD).setDepth(DEPTH.dark + 1); // über der Dunkelheit, wie ein Leuchten
     // Paket AG: Waage, Moor und Uhr haben eine eigene Aura (48x64), sonst die eines Bestandspfads
     const own = pid.startsWith('sq_') ? `sq_aura_${pid.slice(3)}` : null;
     if (own && this.textures.exists(own)) {
@@ -1760,7 +1768,7 @@ export class WorldScene extends Phaser.Scene {
       const art = pathwayArt(pid);
       if (this.aura.anims.currentAnim?.key !== `aura_pfade-${art}`) playSheetAnim(this.aura, 'aura_pfade', art);
     }
-    this.aura.setVisible(true).setPosition(this.player.x, this.player.y + 2);
+    this.aura.setVisible(true).setAlpha(alpha).setPosition(this.player.x, this.player.y + 2);
   }
 
   /** Risse am Bildrand, wenn die Unruhe hoch ist (ab 50). */

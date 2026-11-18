@@ -90,9 +90,10 @@ test('Seq 4 ist ein deutlicher Sprung für alle Pfade, Spieler 1 und 2; die Gest
       const v = at(4, 0);
       assert.ok(v.hp >= f.hp * 1.9 && v.nerv >= f.nerv * 1.4 && v.dmg >= f.dmg * 2 && v.tk <= f.tk * 0.71, `${pid} P${who}: ${JSON.stringify({ f, v })}`);
       s.pathway.digestion = 50;
+      // Ab 50 % Verdauung: dauerhaft +10 % (FORM_REIFE), die Gestalt kommt obendrauf
       s.composure = s.maxComposure();
       assert.equal(s.toggleForm().active, true, `${pid} P${who}: Gestalt ab 50 %`);
-      assert.ok(Math.abs(s.passive('dmg_mult') - v.dmg * 1.3) < 1e-9 && Math.abs(s.passive('damage_taken') - v.tk * 0.8) < 1e-9);
+      assert.ok(Math.abs(s.passive('dmg_mult') - v.dmg * 1.3 * 1.1) < 1e-9 && Math.abs(s.passive('damage_taken') - v.tk * 0.8) < 1e-9);
     });
   }
 });
