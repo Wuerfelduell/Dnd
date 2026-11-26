@@ -15,6 +15,9 @@
 import { encounterSeq } from './Fear.js';
 import { PROBE_NAMEN } from './Proben.js';
 import { NACHBARPFADE } from '../data/nachbarpfade.js';
+import { REST_RISIKO, restId, restTrankId, hauptzutat } from '../data/beyonderRest.js';
+import { MACKE_TRANK_RISIKO } from '../data/macken.js';
+import { cleanMacken } from './Macken.js';
 
 /**
  * Seb (2026-11-12): Pfadwechsel. Wer Sequenz 4 erreicht hat, darf statt der eigenen dritten Stufe einmal den
@@ -264,6 +267,7 @@ export const pathwayMethods = {
     this.wins = 0; // gewonnene Kämpfe (für Rituale)
     this.picks = 0; // geknackte Schlösser (Ritual des Schlüssels)
     this.pickedLocks = new Set(); // welche Schlösser schon geknackt sind (Karte:Objekt)
+    this.macken = cleanMacken(null); // Bleibende Macken (core/Macken.js)
     this.resetArtifacts();
   },
 
@@ -307,7 +311,7 @@ export const pathwayMethods = {
   passive(key) {
     const mult = MULT_KEYS.has(key);
     let v = mult ? 1 : 0;
-    const lists = [...this.reachedSeqs().map((s) => s.passives ?? []), ...this.artifactEffects(), ...this.gearEffects(), this.bindingPassive?.(this.acting ?? 1) ?? [], this.buffEffects?.() ?? [], this.tierEffects?.() ?? [], this.pathway?.form ? FORM_KAMPF : [], formReif(this.pathway) ? FORM_REIFE : []]; // Codex DF: aktives Tier // BN: persönliche Rufbindung; Welt-Fähigkeiten (Talents.js)
+    const lists = [...this.reachedSeqs().map((s) => s.passives ?? []), ...this.artifactEffects(), ...this.gearEffects(), this.bindingPassive?.(this.acting ?? 1) ?? [], this.buffEffects?.() ?? [], this.tierEffects?.() ?? [], this.pathway?.form ? FORM_KAMPF : [], formReif(this.pathway) ? FORM_REIFE : [], this.mackenEffects?.() ?? []]; // Bleibende Macken // Codex DF: aktives Tier // BN: persönliche Rufbindung; Welt-Fähigkeiten (Talents.js)
     for (const list of lists) {
       for (const p of list) {
         if (p.key !== key) continue;
@@ -556,6 +560,7 @@ export const pathwayMethods = {
     if (v > before) v = before + (v - before) * this.unruheGainMult();
     this.unruhe = Math.max(0, Math.min(UNRUHE_MAX, v));
     if (Math.round(this.unruhe) !== Math.round(before)) this.emit('unruhe', this.unruhe);
+    this.mackenUnruhe?.(before, this.unruhe); // Bleibende Macken: knapp vorbei?
     if (this.unruhe >= UNRUHE_MAX && before < UNRUHE_MAX) this.loseControl('Die Stimmen werden zu laut.');
   },
 
@@ -567,6 +572,7 @@ export const pathwayMethods = {
     this.composure = 30;
     if (this.pathway) this.pathway.digestion = Math.max(0, this.pathway.digestion - 20);
     this.unruhe = 40;
+    this.mackenKontrollverlust?.(); // kein knappes Vorbeischrammen
     if (this.pathway) { this.endForm?.(); delete this.pathway.formUnruhe; }
     this.spiritVision = false;
     this.hochLostControl?.(); // Seq 1 (Kessel): Kontrollverlust bricht die Unruhe-Prüfung
@@ -631,8 +637,8 @@ export const pathwayMethods = {
     const block = rit && this.seq5DrinkBlock?.(p.id, it.seq);
     if (block) return { ok: false, reason: block, ritual: true };
     const missing = (100 - p.digestion) / 100;
-    const risk = Math.min(0.95, 0.03 + missing * 0.85 + this.unruhe / 250);
-    return { ok: true, risk };
+    const risk = Math.min(0.95, 0.03 + missing * 0.85 + this.unruhe / 250 + (it.rest ? REST_RISIKO : 0)); // Beyonder-Rest: Trank aus einem Rest schlägt öfter fehl
+    return { ok: true, risk, ...(it.rest ? { rest: true } : {}) };
   },
 
   /**
@@ -659,7 +665,11 @@ export const pathwayMethods = {
     this.pathway = { id: it.pathway, seq: it.seq, digestion: 0, ...(relikt ? { relikt } : {}), ...wechsel };
     if (wechsel.wechsel && vorher.id !== it.pathway) this.flags.add(`pfadwechsel_${it.pathway}`);
     if (HOCH_DURCHBRUCH[it.seq]) this.flags.add(`seq${it.seq}_erreicht`); // für Zeitung und Gerede (Paket CP)
+    const unruheVorher = this.unruhe;
     this.unruhe = this.testmodus ? 0 : Math.min(UNRUHE_MAX - 1, this.unruhe + (20 + premature * 0.4) * this.unruheGainMult());
+    this.mackenUnruhe?.(unruheVorher, this.unruhe);
+    // Bleibende Macken: ein riskanter Trank, der trotzdem gelingt, ist knapp vorbei
+    if (!this.testmodus && check.risk >= MACKE_TRANK_RISIKO) this.mackeWurf?.('Der Trank hätte dich beinahe zerrissen.', rng); // meldet sich selbst ('macke')
     this.updateMaxHp();
     const pd = this.pathwayDef();
     // Aufstiegsmeldung: was der Körper dazugewonnen hat (Leben, Nerven, Tragkraft)
@@ -751,7 +761,7 @@ export const pathwayMethods = {
       const enc = this.content.encounters[ordealId(pid, seq)];
       steps.push({ text: `${enc?.name ?? 'Schwellenwächter'} besiegt (erscheint, sobald alles andere bereit ist)`, done: this.ordealDone(pid, seq), ordeal: true });
     }
-    if (!this.itemCount(`trank_${pid}_${seq}`)) steps.push({ text: `Trank der Sequenz ${seq} dabei`, done: false });
+    if (!this.itemCount(`trank_${pid}_${seq}`) && !this.itemCount(restTrankId(pid, seq))) steps.push({ text: `Trank der Sequenz ${seq} dabei`, done: false });
     return steps;
   },
 
@@ -856,15 +866,33 @@ export const pathwayMethods = {
     return Object.keys(this.inventory).filter((id) => this.item(id)?.kind === 'formula').map((fid) => {
       const f = this.item(fid);
       const ingredients = Object.entries(f.ingredients).map(([id, need]) => ({ id, need, have: this.itemCount(id), name: this.item(id).name }));
-      return { formula: fid, potion: f.potion, name: this.item(f.potion).name, seq: f.seq, pathway: f.pathway, ingredients, ready: ingredients.every((i) => i.have >= i.need) };
+      const ready = ingredients.every((i) => i.have >= i.need);
+      // Beyonder-Rest: ersetzt die Hauptzutat (erste Zutat), der Trank schlägt dann öfter fehl
+      const rid = restId(f.pathway, f.seq);
+      const main = hauptzutat(f);
+      const rest = this.item(rid) && this.itemCount(rid) > 0 ? { id: rid, have: this.itemCount(rid), name: this.item(rid).name, replaces: main } : null;
+      const restReady = !!rest && ingredients.every((i) => i.id === main || i.have >= i.need) && (f.ingredients[main] ?? 1) <= rest.have;
+      return { formula: fid, potion: f.potion, name: this.item(f.potion).name, seq: f.seq, pathway: f.pathway, ingredients, ready, ...(rest ? { rest, restReady } : {}) };
     }).sort((a, b) => b.seq - a.seq);
   },
 
-  brew(formulaId) {
+  /** Braut eine Formel. Fehlt die Hauptzutat, aber ein passender Beyonder-Rest ist da, nimmt der Kessel den Rest (oder auf Wunsch: useRest). */
+  brew(formulaId, { useRest = false } = {}) {
     const r = this.recipes().find((x) => x.formula === formulaId);
     if (!r) return { ok: false, text: 'Dafür fehlt dir die Formel.' };
-    if (!r.ready) return { ok: false, text: `Es fehlt: ${r.ingredients.filter((i) => i.have < i.need).map((i) => i.name).join(', ')}.` };
-    for (const i of r.ingredients) this.removeItem(i.id, i.need);
+    const mitRest = r.restReady && (useRest || !r.ready);
+    if (!r.ready && !mitRest) return { ok: false, text: `Es fehlt: ${r.ingredients.filter((i) => i.have < i.need).map((i) => i.name).join(', ')}.` };
+    for (const i of r.ingredients) {
+      if (mitRest && i.id === r.rest.replaces) this.removeItem(r.rest.id, i.need);
+      else this.removeItem(i.id, i.need);
+    }
+    if (mitRest) {
+      const potion = restTrankId(r.pathway, r.seq);
+      this.addItem(potion);
+      this.act('brew');
+      this.emit('changed');
+      return { ok: true, rest: true, text: `Der Rest löst sich im Kessel auf, zäh und widerwillig. Der Dampf riecht nach jemand anderem. Du füllst ${this.item(potion).name} in eine Phiole. Dieser Trank wehrt sich öfter als einer aus der echten Hauptzutat.` };
+    }
     this.addItem(r.potion);
     this.act('brew');
     this.emit('changed');
@@ -1105,6 +1133,7 @@ export const pathwayMethods = {
     this.unruhe = Math.min(UNRUHE_MAX, before + n);
     p.formUnruhe = Math.min(this.unruhe, (p.formUnruhe ?? 0) + (this.unruhe - before));
     if (Math.round(this.unruhe) !== Math.round(before)) this.emit('unruhe', this.unruhe);
+    this.mackenUnruhe?.(before, this.unruhe);
     if (this.unruhe >= UNRUHE_MAX && before < UNRUHE_MAX) this.loseControl('Die Gestalt frisst dich von innen. Die Stimmen werden zu laut.');
   },
 
@@ -1139,7 +1168,7 @@ export const pathwayMethods = {
   },
 
   serializePathway() {
-    return { money: this.money, pathway: this.pathway, unruhe: Math.round(this.unruhe), seenNodes: [...this.seenNodes], wins: this.wins, picks: this.picks ?? 0, pickedLocks: [...(this.pickedLocks ?? [])], formShown: this.formShown ?? 0, ...this.serializeArtifacts() };
+    return { money: this.money, pathway: this.pathway, unruhe: Math.round(this.unruhe), seenNodes: [...this.seenNodes], wins: this.wins, picks: this.picks ?? 0, pickedLocks: [...(this.pickedLocks ?? [])], formShown: this.formShown ?? 0, macken: cleanMacken(this.macken), ...this.serializeArtifacts() };
   },
 
   loadPathway(data) {
@@ -1152,6 +1181,7 @@ export const pathwayMethods = {
     this.picks = data.picks ?? 0;
     this.pickedLocks = new Set(data.pickedLocks ?? []);
     this.formShown = data.formShown ?? 0;
+    this.macken = cleanMacken(data.macken); // alte Stände: keine Macken
     this.loadArtifacts(data);
     this.maxHp = this.calcMaxHp();
     this.hp = Math.max(1, Math.min(this.maxHp, data.hp ?? this.maxHp));
