@@ -297,6 +297,7 @@ export function applyDunscarKulisse(content) {
     for (const t of Object.values(m.spawns)) taken.add(key(...t));
     rand(m, !istGefahr(m));
     m.ambient = { ...(m.ambient ?? {}), day: istGefahr(m) ? 0.5 : 0.32 }; // tagsüber heller, nachts bleibt es dunkel
+    if (DS_KULISSE[id]?.fog != null) m.ambient.fog = DS_KULISSE[id].fog;
     kulisse(m, DS_KULISSE[id], taken);
   }
   // Rückweg: wer aus Karte A nach B geht, steht in B an der Tür, die nach A zurückführt (B.spawns.von_A);
@@ -341,11 +342,15 @@ function kulisse(m, k, taken) {
     for (let y = y0; y <= y1; y++) if (isFloor(m, x, y)) m.decor.push({ sprite: sheet, frame, tile: [x, y], alpha: 1, depth: 40 });
   }
   for (const [sheet, frame, x, y] of k.zellen ?? []) if (isFloor(m, x, y)) m.decor.push({ sprite: sheet, frame, tile: [x, y], alpha: 1, depth: 40 });
-  for (const [sprite, x, y, opt = {}] of k.props ?? []) {
-    // Grundfläche 3x1 am Fuß, Bild reicht 4 Kacheln nach oben; nichts davon darf auf einem Spielobjekt liegen
+  // Grundfläche 3x1 am Fuß, Bild reicht 4 Kacheln nach oben; nichts davon darf auf einem Spielobjekt liegen
+  const passt = (x, y) => [-1, 0, 1].every((dx) => frei(x + dx, y)) && ![-1, 0, 1].some((dx) => [1, 2, 3].some((dy) => taken.has(key(x + dx, y - dy))));
+  // Monstergebiete (k.ausweichen): ist der Platz belegt, rückt das Stück bis zu 3 Felder zur Seite
+  const NAEHE = [[0, 0], ...[1, 2, 3].flatMap((r) => [[r, 0], [-r, 0], [0, r], [0, -r], [r, r], [-r, r], [r, -r], [-r, -r]])];
+  for (const [sprite, x0, y0, opt = {}] of k.props ?? []) {
+    const platz = (k.ausweichen ? NAEHE : [[0, 0]]).map(([dx, dy]) => [x0 + dx, y0 + dy]).find(([px, py]) => passt(px, py));
+    if (!platz) continue;
+    const [x, y] = platz;
     const foot = [[x - 1, y], [x, y], [x + 1, y]];
-    const bild = [-1, 0, 1].flatMap((dx) => [1, 2, 3].map((dy) => [x + dx, y - dy]));
-    if (!foot.every(([fx, fy]) => frei(fx, fy)) || bild.some(([bx, by]) => taken.has(key(bx, by)))) continue;
     for (const [fx, fy] of foot) taken.add(key(fx, fy));
     m.decor.push({ sprite, tile: [x, y], offset: [0, 8], origin: [0.5, 1], alpha: 1, ysort: true, ...(opt.solid ? { solid: [40, 8, 0, -4] } : {}), ...(opt.anim ? { anim: opt.anim } : {}) });
     if (opt.light) m.lights.push({ tile: [x, y - 2], radius: 50, intensity: 0.6, color: opt.light, flicker: 0.08 });
@@ -357,6 +362,22 @@ function kulisse(m, k, taken) {
       if (r < anteil && frei(x, y)) m.decor.push({ sprite: sheet, frame: frames[Math.floor(r * 1000) % frames.length], tile: [x, y], alpha: 1, depth: 40 });
     }
   }
+  // Flecken: zusammenhängende Bodenstellen (Rost, Schlacke, Kalkstaub) statt gleichmäßigem Rauschen, fest ausgewürfelt
+  for (const [sheet, frames, anzahl, r0 = 2] of k.flecken ?? []) {
+    for (let i = 0; i < anzahl; i++) {
+      const zufall = (n) => Math.abs(Math.sin((i + 1) * 91.17 + n * 13.31 + frames[0] * 7.7) * 24634.6345) % 1;
+      const cx = 2 + Math.floor(zufall(1) * (W - 4));
+      const cy = 2 + Math.floor(zufall(2) * (H - 4));
+      const r = r0 + zufall(3) * 1.5;
+      for (let y = Math.floor(cy - r); y <= cy + r; y++) for (let x = Math.floor(cx - r); x <= cx + r; x++) {
+        const rand = Math.abs(Math.sin(x * 3.1 + y * 5.7 + i) * 9182.3) % 1;
+        if (Math.hypot(x - cx, y - cy) > r - rand * 0.9 || !frei(x, y)) continue;
+        m.decor.push({ sprite: sheet, frame: frames[Math.floor(rand * 97) % frames.length], tile: [x, y], alpha: 1, depth: 39 });
+      }
+    }
+  }
+  // Glut, Horchlicht, Kalkschimmer: Lichtpunkte ohne Bild
+  for (const [x, y, color, radius = 46, intensity = 0.55] of k.lichter ?? []) m.lights.push({ tile: [x, y], radius, intensity, color, glow: 0.3, flicker: 0.25 });
   for (const [x, y] of k.lampen ?? []) {
     if (!frei(x, y)) continue;
     taken.add(key(x, y));
