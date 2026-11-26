@@ -1,4 +1,4 @@
-// Seb 2026-11-26: Moor ab Seq 4 verdaut fest 0,2 % je echter Heilung und 0,05 % je Schaden, den sein Schutz abfängt (je Kampf gedeckelt).
+// Seb 2026-11-26: Moor ab Seq 5 verdaut fest 0,2 % je echter Heilung und 0,05 % je Schaden, den sein Schutz abfängt (je Kampf gedeckelt).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
@@ -15,8 +15,8 @@ const hero = (seq) => {
   return s;
 };
 
-test('Seq 4: echte Heilung gibt fest 0,2 %, volle Leben nichts, je Kampf gedeckelt', () => {
-  const s = hero(4);
+test('Seq 5: echte Heilung gibt fest 0,2 %, volle Leben nichts, je Kampf gedeckelt', () => {
+  const s = hero(5);
   const c = new Combat(s, 'rook_fight');
   assert.equal(c.moorDigest('heal'), MOOR_DIGEST.heal);
   assert.ok(Math.abs(s.pathway.digestion - 0.2) < 1e-9);
@@ -29,8 +29,8 @@ test('Seq 4: echte Heilung gibt fest 0,2 %, volle Leben nichts, je Kampf gedecke
   assert.equal(s.pathway.digestion, before);
 });
 
-test('Seq 5: keine feste Moor-Verdauung', () => {
-  const s = hero(5);
+test('Seq 6: keine feste Moor-Verdauung', () => {
+  const s = hero(6);
   const c = new Combat(s, 'rook_fight');
   assert.equal(c.moorDigest('heal'), 0);
   assert.equal(c.moorDigest('shield'), 0);

@@ -238,11 +238,11 @@ export const FIGHT_DIGEST_MULT = { boss: 4, elite: 2 };
 /** Jeder besiegte Boss verdaut auf jeder Sequenz mindestens so viele Prozent, unabhängig von DIGEST_RATE (Seb 2026-11-26). */
 export const BOSS_DIGEST_FIXED = 3;
 /**
- * Seb (2026-11-26): Ab Seq 4 verdaut das Moor fest über seine Pfadhandlung. Jede Heilung, die wirklich Leben zurückgibt
+ * Seb (2026-11-26): Ab Seq 5 verdaut das Moor fest über seine Pfadhandlung. Jede Heilung, die wirklich Leben zurückgibt
  * (sich selbst oder den Partner), bringt `heal` Prozent; jeder Moor-Schutz, der wirklich Schaden abfängt, `shield` Prozent
  * dem, der ihn gewirkt hat. Spam-Schutz: je Kampf und Spieler höchstens `cap` Heilungen bzw. Abfänge, nicht im Übungskampf.
  */
-export const MOOR_DIGEST = { path: 'sq_moor', fromSeq: 4, heal: 0.2, shield: 0.05, cap: { heal: 5, shield: 6 } };
+export const MOOR_DIGEST = { path: 'sq_moor', fromSeq: 5, heal: 0.2, shield: 0.05, cap: { heal: 5, shield: 6 } };
 /** Ab dieser Sequenz zählen die pfadeigenen Handlungen (eigene `digest`-Tabelle, Grundsatz) mehrfach (Seb 2026-11-26). */
 export const PATH_DIGEST_HIGH_SEQ = 4;
 export const PATH_DIGEST_HIGH_MULT = 3;
@@ -551,7 +551,7 @@ export const pathwayMethods = {
     const rate = (DIGEST_RATE[this.pathway.seq] ?? DIGEST_RATE[1]) * this.passive('digest_mult');
     const own = this.pathwayDef()?.digest ?? {};
     const pm = pathDigestMult(this.pathway.seq);
-    // Moor ab Seq 4: Heilung und Schutz verdauen fest (MOOR_DIGEST), statt der Partnerheilung aus der Tabelle
+    // Moor ab Seq 5: Heilung und Schutz verdauen fest (MOOR_DIGEST), statt der Partnerheilung aus der Tabelle
     const moorHigh = this.pathway.id === MOOR_DIGEST.path && this.pathway.seq <= MOOR_DIGEST.fromSeq;
     const fixed = moorHigh ? [['moor_heal', MOOR_DIGEST.heal], ['moor_shield', MOOR_DIGEST.shield]] : [];
     return Object.entries(this.digestWeights())

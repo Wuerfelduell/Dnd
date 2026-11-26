@@ -675,14 +675,14 @@ export class Combat {
     this.state.digestOwn('heal_partner', this.enc.boss ? FIGHT_DIGEST_MULT.boss : this.enc.elite ? FIGHT_DIGEST_MULT.elite : 1);
   }
 
-  /** Moor ab Seq 4: Spieler `n` hat gerade als Moor-Wirker gehandelt? */
+  /** Moor ab Seq 5: Spieler `n` hat gerade als Moor-Wirker gehandelt? */
   moorHigh(n = this.actor) {
     if (this.enc.practice) return false;
     const p = this.state.withPlayer(n, () => this.state.pathway, { quiet: true });
     return p?.id === MOOR_DIGEST.path && p.seq <= MOOR_DIGEST.fromSeq;
   }
 
-  /** Moor ab Seq 4: feste Verdauung für Spieler n (kind 'heal' oder 'shield'), je Kampf gedeckelt. Gibt den Zuwachs zurück. */
+  /** Moor ab Seq 5: feste Verdauung für Spieler n (kind 'heal' oder 'shield'), je Kampf gedeckelt. Gibt den Zuwachs zurück. */
   moorDigest(kind, n = this.actor) {
     if (!this.moorHigh(n)) return 0;
     this.moorDigestCount ??= {};
@@ -1249,7 +1249,7 @@ export class Combat {
     const absorbed = Math.min(this.shield, incoming);
     this.shield -= absorbed;
     incoming -= absorbed;
-    // Moor ab Seq 4: abgefangener Schaden verdaut den Trank dessen, der den Schutz gewirkt hat
+    // Moor ab Seq 5: abgefangener Schaden verdaut den Trank dessen, der den Schutz gewirkt hat
     if (absorbed > 0 && this.fighters[n].shieldFrom) this.moorDigest('shield', this.fighters[n].shieldFrom);
     if (this.tierSchutz === n && incoming > 0) { incoming = Math.max(1, Math.floor(incoming * 0.5)); this.tierSchutz = null; } // Codex DF: Hund
     const damage = this.state.damage(incoming);
