@@ -20,6 +20,7 @@ export { MOOR_DIGEST };
 import { SCHATTEN_ATTACKE, PERFECT_DODGE, UHR as UHR4 } from './Seq4.js';
 import { NEBELNACHT } from './Wetter.js';
 import { narbeMult } from './Narbe.js';
+import { RELIKT_STAERKE } from './Artifacts.js';
 import { KOOP_GELD_SPAET } from '../data/kapitelAusgleich.js';
 
 export const WINDOW = { parry: 80, dodge: 140 }; // ± Millisekunden um den Einschlag
@@ -1415,6 +1416,7 @@ export class Combat {
     if (this.rules?.shadow) this.pickRoundSkill();
     if (this.rules?.moorwater) this.drinkMoor();
     if (this.outcome) return 0;
+    this.reliktRound();
     // Brand und Gift wirken auf jeden stehenden Gegner; `dots` sagt der Oberfläche, wen es wie hart traf
     let sum = 0;
     for (const i of this.livingFoes()) this.withFoe(i, () => {
@@ -1427,6 +1429,26 @@ export class Combat {
       sum += dmg;
     });
     return sum;
+  }
+
+  /**
+   * Relikt des Verfalls (Moorkern, Passiv `moor_relikt`): heilt seinen Träger (und etwas den Partner)
+   * und vergiftet jeden stehenden Gegner, der noch kein Gift trägt. Wirkt für jeden Spieler, der es trägt.
+   */
+  reliktRound() {
+    if (this.enc.practice) return;
+    const R = RELIKT_STAERKE;
+    for (const n of this.standing()) {
+      if (!this.on(n, () => this.state.passive('moor_relikt') > 0)) continue;
+      this.on(n, () => this.state.heal(Math.max(1, Math.round(this.state.maxHp * R.heal))));
+      const p = this.partnerOf(n);
+      if (p != null && this.standing().includes(p)) this.on(p, () => this.state.heal(Math.max(1, Math.round(this.state.maxHp * R.heal_partner))));
+      for (const i of this.livingFoes()) this.withFoe(i, () => {
+        if (this.burn) return;
+        const big = this.foes[i]?.enc?.boss || this.foes[i]?.enc?.elite;
+        this.burn = { damage: Math.max(2, Math.round(this.enemy.maxHp * (big ? R.gift_gross : R.gift))), rounds: R.gift_runden, relikt: true };
+      });
+    }
   }
 
   /**

@@ -110,3 +110,27 @@ test('Torf-Retter: Moor auf Seq 5 und andere Pfade retten nicht', () => {
   s.hp = 1;
   assert.ok(c.resolveHit({ damage: 9999 }, 'none', 1).down);
 });
+
+// Seb 2026-11-26: Das Relikt des Verfalls soll richtig stark sein (auch Relikte aus alten Spielständen).
+test('Relikt des Verfalls: verstärkte Eigenschaften, Moorkern, Rundenheilung und Moorgift', async () => {
+  const { reliktEffects } = await import('../src/core/Artifacts.js');
+  const alt = { boons: [{ key: 'dmg_mult', value: 1.4, text: 'Schaden ×1,40.' }, { key: 'damage_taken', value: 0.95, text: 'X: −5 %.', name: 'X', kat: 'stein' }], curses: [{ key: 'unruhe_tick', value: 0.4, text: 'Fluch.' }], name: 'Altes', desc: '' };
+  const w = reliktEffects(alt);
+  assert.equal(w.boons[0].value, 1.6, 'geerbt ×1,5');
+  assert.equal(w.boons[1].value, 0.85, 'Moor-Eigenschaft ×3');
+  assert.equal(w.curses[0].value, 0.2, 'Fluch halb');
+  assert.ok(w.boons.some((b) => b.key === 'moor_relikt'));
+  const s = hero(4);
+  const hp0 = s.maxHp;
+  s.pathway.relikt = alt;
+  s.addItem('s4mo_relikt');
+  s.updateMaxHp();
+  assert.ok(s.maxHp >= hp0 + 100);
+  assert.ok(s.passive('dmg_mult') > 1.9);
+  assert.equal(s.item('s4mo_relikt').boons.length, w.boons.length, 'Anzeige zeigt die echte Wirkung');
+  s.hp = 50;
+  const c = new Combat(s, 'fog_hound');
+  c.reliktRound();
+  assert.ok(s.hp > 50);
+  assert.ok(c.withFoe(0, () => c.burn?.relikt));
+});
