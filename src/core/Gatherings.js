@@ -5,6 +5,8 @@
 // steht pro Treffen fest (Würfel mit festem Startwert), damit Laden und Neuladen nichts ändert.
 // Dieselbe Uhr steuert die seltenen Angebote (`rare`) auf dem normalen Markt.
 
+import { DAY_NIGHT_SECONDS } from './Clock.js';
+
 /** Kleiner Zufallsgenerator mit Startwert: gleicher Text, gleiches Ergebnis. */
 export function seeded(text) {
   let h = 2166136261;
@@ -185,6 +187,10 @@ export const gatheringMethods = {
     const m = this.merchant(merchantId);
     const cycle = this.marketCycle();
     const roll = (e) => seeded(`${cycle}|${merchantId}|${e.item}`)();
+    if (m.nebel) { // Nebelkrämerin (data/nebelnacht.js): je Nebelnacht drei feste Stücke
+      const night = Math.floor((this.playTime ?? 0) / DAY_NIGHT_SECONDS);
+      return [...m.stock].map((e) => [seeded(`nebel|${night}|${e.item}`)(), e]).sort((a, b) => a[0] - b[0]).slice(0, m.angebot ?? 3).map(([, e]) => e);
+    }
     if (!m.gathering) return m.stock.filter((e) => e.rare === undefined || roll(e) < e.rare);
     const pool = m.stock.filter((e) => e.chance === undefined || roll(e) < e.chance);
     return pool.length ? pool : m.stock.slice(0, 1);

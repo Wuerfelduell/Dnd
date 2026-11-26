@@ -27,6 +27,7 @@ import { applyAltbeute } from './altbeute.js';
 import { applyZutatDrops } from './zutatDrops.js';
 import { applyVorratStuecke } from './vorratStuecke.js';
 import { applyFahrendeAuktion } from './fahrendeAuktion.js';
+import { applyNebelnacht } from './nebelnacht.js';
 import { applyEigenesHaus } from './eigenesHaus.js';
 import { applyNebelseite } from './nebelseite.js';
 import { applyDunscarHaendler } from './dunscarHaendler.js';
@@ -158,6 +159,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyDunscarPassanten(content); // Dunscar: Passanten mit Tagesablauf, Gemurmel und Straßenereignissen in den Vierteln
   applyMarloweTelegramm(content); // Tipps nur von Marlowe: Telegrammschalter in jeder späteren Stadt
   applyKettlegateZirkel(content); // Kettlegater Zirkel: nur Zutaten 7/6, Formeln, Artefakte; keine Trophäen-Gesuche (zuletzt)
+  applyNebelnacht(content); // Nebelnächte: Nebelkrämerin auf dem Markt jeder Stadt (nach allen Kulissen)
   gateStarlingHinweise(content); // Seb 2026-11-18: Starling-Gerüchte erst im Fall „Finde Starling“ (ganz zuletzt)
   return content;
 }

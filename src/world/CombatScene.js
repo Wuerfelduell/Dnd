@@ -96,7 +96,13 @@ export class CombatScene extends Phaser.Scene {
     const ward = this.combat.wardMult() < 1 ? `\n\n${this.combat.log[0]}` : ''; // Sequenz-Schranke
     const more = this.combat.foes.length - 1; // Gegnergruppe
     const pack = more === 1 ? '\n\nNicht allein: Ein weiterer Gegner tritt dazu.' : more > 1 ? `\n\nNicht allein: ${more} weitere Gegner treten dazu.` : '';
-    this.ui.combatMessage(this.combat.enc.intro + (this.combat.weak ? `\n\n${this.combat.enc.weak_text}` : '') + ward + pack, 'Weiter mit E', this.combat.enc.scene);
+    const wt = this.combat.wetterText?.(); // Wetter und Nebelnacht (core/Wetter.js)
+    if (this.combat.wetter) {
+      const w = this.combat.wetter;
+      const label = w.nebelnacht ? '≋ Nebelnacht' : `${w.def.icon} ${w.def.name}`;
+      this.add.text(VIEW_W - 4, 4, label, { fontFamily: 'monospace', fontSize: '9px', color: w.nebelnacht ? '#9fd0b0' : '#c8d0e0', stroke: '#1a1c2c', strokeThickness: 3 }).setOrigin(1, 0).setDepth(80);
+    }
+    this.ui.combatMessage(this.combat.enc.intro + (this.combat.weak ? `\n\n${this.combat.enc.weak_text}` : '') + ward + pack + (wt ? `\n\n${wt}` : ''), 'Weiter mit E', this.combat.enc.scene);
     // transition_out deckt auf (Schwarz → Bild), transition_in deckt zu
     this.playTransition('transition_out', () => this.bossIntro()) || (this.cameras.main.fadeIn(250, 0, 0, 0), this.bossIntro());
   }

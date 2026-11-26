@@ -115,6 +115,12 @@ export class WexmoorLife {
     return c;
   }
 
+  /** Wetterzyklus (core/Wetter.js): Niesel nur, wenn es gerade regnet oder stürmt. */
+  nass() {
+    const w = this.scene.state.wetter?.();
+    return !w || w === 'regen' || w === 'sturm';
+  }
+
   build() {
     if (!this.def) return;
     const s = this.scene;
@@ -124,7 +130,7 @@ export class WexmoorLife {
     if (wx2) {
       // Paket BT: Nebelbank kriecht, Nieselregen fällt, Seewind trägt Gischtfetzen, Irrlichter schweben (sparsam)
       if (this.def.weather.includes('nebel')) { this.weatherGrid('nebelbank', { alpha: 0.34, speed: 9 }); this.weatherGrid('nebelbank', { alpha: 0.2, speed: -5 }); }
-      if (this.def.weather.includes('niesel')) this.weatherGrid('nieselregen', { alpha: 0.38, depth: DEPTH.dark + 2, speed: 0 });
+      if (this.def.weather.includes('niesel') && this.nass()) this.weatherGrid('nieselregen', { alpha: 0.38, depth: DEPTH.dark + 2, speed: 0 });
       if (this.def.weather.includes('seewind')) this.weatherGrid('seewind', { alpha: 0.28, depth: DEPTH.dark + 2, speed: 26 });
       if (this.def.weather.includes('irrlicht')) {
         for (let i = 0; i < 3; i++) {
@@ -146,7 +152,7 @@ export class WexmoorLife {
           this.fog.push(t);
         }
       }
-      if (this.def.weather.includes('niesel')) {
+      if (this.def.weather.includes('niesel') && this.nass()) {
         for (let gy = 0; gy < 2; gy++) {
           for (let gx = 0; gx < 2; gx++) {
             const r = s.add.sprite(gx * 240, gy * 135, AE_WEATHER_KEY, 'nieselregen_0').setOrigin(0).setScrollFactor(0)

@@ -32,7 +32,10 @@ export const festAt = (playTime, city) => (seasonDayAt(playTime) === FEST_DAY
   ? Object.entries(FESTE).find(([, f]) => f.city === city && f.season === seasonAt(playTime))?.[0] ?? null : null);
 const FS_SEASON = new Set(SEASONS.map((s) => `fs_${s}`));
 export const VOLATILE_FLAGS = (f) => f === NIGHT_FLAG || f.startsWith('saison_') || f.startsWith('fest_aktiv_') || FS_SEASON.has(f)
-  || /^fs_fest_\w+_aktiv$/.test(f) || /^fs_\w+_(ankuendigung|nachlese)$/.test(f) || f === DAY_B_FLAG;
+  || /^fs_fest_\w+_aktiv$/.test(f) || /^fs_\w+_(ankuendigung|nachlese)$/.test(f) || f === DAY_B_FLAG
+  || WETTER_FLAG(f);
+/** Wetter (core/Wetter.js) folgt nur der Spielzeit; seine Flags pflegt wetterTick. */
+export const WETTER_FLAG = (f) => f === 'nebelnacht' || f.startsWith('wetter_');
 /** Reste des entfernten Stillen Abends (Flags aus alten Spielständen). */
 export const OBSOLETE_FLAG = (f) => f.startsWith('fs_stiller_abend');
 /** Einmal je Jahreszeit nutzbare Wirkungen (CK wirkungen.json) werden mit der neuen Jahreszeit wieder frei. */
@@ -88,7 +91,7 @@ export const clockMethods = {
     const season = this.season();
     const want = clockFlagsAt(this.playTime);
     let changed = false;
-    for (const f of [...this.flags]) if (VOLATILE_FLAGS(f) && f !== NIGHT_FLAG && !want.has(f)) { this.flags.delete(f); changed = true; }
+    for (const f of [...this.flags]) if (VOLATILE_FLAGS(f) && f !== NIGHT_FLAG && !WETTER_FLAG(f) && !want.has(f)) { this.flags.delete(f); changed = true; }
     for (const f of want) if (!this.flags.has(f)) { this.flags.add(f); changed = true; }
     // Die Saison-Marke bleibt im Spielstand: wechselt die Jahreszeit (auch zwischen Speichern und Laden), sind die Saisonwirkungen wieder frei
     const mark = `${SEASON_MARK}${season}`;
