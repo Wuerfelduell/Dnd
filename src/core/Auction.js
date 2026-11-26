@@ -28,6 +28,14 @@ export const ZIRKEL_FORMEL3_PREIS = 20000;
 /** Seb (2026-11-12): eine Seq-3-Formel bringt beim Versteigern immer mindestens 10.000, und jemand bietet immer. */
 export const SEQ3_MIN_ERLOES = 10000;
 
+/**
+ * Beyonder-Reste als eigenes Los (Seb 2026-11-26: „Beyonderreste sollen verkaufbar sein in Zirkeln“).
+ * Ausrufwert nach Sequenz des Rests, am Calderwick-Geld gemessen (normaler Kampf ~500, Boss ~2900, PR #578):
+ * ein Seq-4-Rest bringt etwa 800–2250. Reste kann man nirgends kaufen, also kein Kauf-und-Verkauf-Kreislauf;
+ * der Erlös-Deckel sellMult (TRADE_SELL_MAX, PR #552) gilt wie bei jedem eigenen Los.
+ */
+export const REST_ZIRKEL_WERT = { 9: 40, 8: 60, 7: 120, 6: 250, 5: 500, 4: 1500, 3: 4000, 2: 9000, 1: 15000 };
+
 export const auctionMethods = {
   auctionRules() {
     return this.gatheringRules()?.auction ?? {};
@@ -38,6 +46,7 @@ export const auctionMethods = {
     const it = this.item(id);
     if (!it) return 0;
     if (it.kind === 'formula') return FORMULA_VALUE[it.seq] ?? 50;
+    if (it.rest && it.kind === 'ingredient') return REST_ZIRKEL_WERT[it.seq] ?? 100;
     if (it.kind === 'artifact') {
       // Auf den Treffen sind gute Artefakte ein paar hundert Schilling wert
       const lot = Math.max(0, ...Object.values(this.content.gatherings?.circles ?? {}).flatMap((c) => (c.members ?? []).flatMap((m) => m.offers.filter((e) => e.item === id).map((e) => e.price))));
@@ -377,10 +386,11 @@ export const auctionMethods = {
     this.say(`Alle waren dran. Jetzt darfst du selbst etwas anbieten.${a.artisan ? ` ${this.artisanName()} wartet auf Beute zum Fassen.` : ''}`);
   },
 
-  /** Was man selbst versteigern darf: eigene (nicht geliehene) Artefakte und Formeln. */
+  /** Was man selbst versteigern darf: eigene (nicht geliehene) Artefakte und Formeln, dazu Beyonder-Reste. */
   ownOfferables() {
+    const ok = (it) => ['artifact', 'formula'].includes(it?.kind) || (it?.rest && it.kind === 'ingredient');
     return Object.keys(this.inventory)
-      .filter((id) => ['artifact', 'formula'].includes(this.item(id)?.kind) && !(this.borrowed ?? []).includes(id))
+      .filter((id) => this.inventory[id] > 0 && ok(this.item(id)) && !(this.borrowed ?? []).includes(id))
       .map((id) => ({ id, name: this.item(id).name, kind: this.item(id).kind, value: this.itemValue(id) }));
   },
 

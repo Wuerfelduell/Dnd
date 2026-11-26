@@ -402,7 +402,7 @@ test('Auf den Treffen gibt es nur seltene Dinge fürs große Geld, nichts vom no
       for (const e of m.offers) {
         assert.ok(!regular.has(e.item), `${id}/${m.id} bietet ${e.item} an, das gibt es auch so`);
         assert.ok(e.price >= 90, `${id}/${m.id}: ${e.item} für ${e.price} ist zu billig`);
-        if (content.items[e.item].kind === 'artifact') arts.push({ ...e, dunscar: c.city === 'dunscar' });
+        if (content.items[e.item].kind === 'artifact') arts.push({ ...e, dunscar: ['dunscar', 'calderwick'].includes(c.city) }); // Calderwick (Seb 2026-11-26) wie Dunscar im Tausenderbereich
       }
       for (const w of m.wants) assert.ok(!regular.has(w), `${id}/${m.id} sucht ${w}, das gibt es auch so`);
     }
