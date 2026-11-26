@@ -540,6 +540,12 @@ export class Ui {
       if (this.modal) { this.pendingLost = { title, text, corrupted, player }; return; }
       this.showCorruption(title, text, corrupted, player);
     });
+    // Bleibende Macken: knapp am Kontrollverlust vorbei, etwas ist geblieben
+    state.on('macke', ({ text, player = 1 }) => {
+      const title = player === 2 ? 'Spieler 2: Bleibende Macke' : 'Bleibende Macke';
+      if (this.modal) this.toast(title, 'warn');
+      else this.showMessage(title, text);
+    });
     state.on('cleansed', ({ id }) => this.toast(`${this.state.item(id)?.name ?? 'Das Stück'} ist gereinigt.`, 'gold'));
     // Flüstern bei hoher Unruhe
     this.whisperTimer = setInterval(() => {
@@ -2444,6 +2450,7 @@ export class Ui {
       <p class="muted">Jede Sequenz dieses Pfades: +${s.growth().hp} Leben, +${s.growth().nerves} Nerven, +${CARRY_PER_STEP} Pfund Tragkraft, die Durchbrüche 7 und 6 das Doppelte. Gerade: ${s.maxHp} Leben, ${s.maxComposure()} Nerven, ${esc(s.carryBreakdown())} = ${fmtLb(s.carryCapacity())} Pfund Tragkraft.</p>
       ${s.corruptionDrain().count ? `<p class="curse">Korruption: ${s.corruptionDrain().count} Stück an dir zehrt an Leben und Nerven (siehe Inventar). Bei 100 Unruhe wachsen die Tentakel erneut und treffen alles, was du dann trägst.</p>` : '<p class="muted">Bei 100 Unruhe verlierst du die Kontrolle: Tentakel korrumpieren Waffe, Kleidung und Artefakte am Leib, die dich danach Leben und Nerven kosten, solange du sie trägst.</p>'}
       ${this.buffsHtml(s)}
+      ${this.mackenHtml(s)}
       ${this.formHtml(s)}
       ${this.narbeHtml(s)}
       ${this.ritualHtml()}
@@ -2452,6 +2459,13 @@ export class Ui {
         <li class="muted">Alles andere verdaut diesen Pfad nicht. Bosse zählen vierfach, Elitegegner doppelt, gefährliche Gebiete bringen je Stufe ein Viertel mehr. Ab Sequenz 6 verdaut jede Stufe zehnmal so langsam wie die davor.</li></ul>
       <ul class="seqs">${rows}</ul>
       ${this.recipesHtml(false)}`;
+  }
+
+  /** Bleibende Macken (core/Macken.js): was nach knappen Momenten geblieben ist. */
+  mackenHtml(s) {
+    const list = s.mackenList?.() ?? [];
+    if (!list.length) return '';
+    return `<h4>Bleibende Macken</h4><ul class="steps">${list.map((m) => `<li><strong>${esc(m.name)}</strong>: ${esc(m.text)} <span class="muted">${m.effects.map((e) => esc(e.text)).join(' ')}</span></li>`).join('')}</ul>`;
   }
 
   /** Häkchen-Knopf: Kampffertigkeit im Kampfmenü zeigen oder ausblenden (gegen eine zu volle Kampfleiste). */
@@ -2706,8 +2720,8 @@ export class Ui {
     const list = this.state.recipes();
     if (!list.length) return withButtons ? '<p class="empty">Du besitzt keine Formel. Cornelius Kittering verkauft welche.</p>' : '';
     return `<h4>Formeln</h4><ul class="recipes">${list.map((r, i) => `<li><div>${itemIconBig(r.potion)}<strong>${esc(r.name)}</strong> <span class="muted">Seq. ${r.seq}</span><br>
-      ${r.ingredients.map((x) => `<span class="ing ${x.have >= x.need ? 'good' : 'muted'}">${itemIcon(x.id)}${esc(x.name)} ${x.have}/${x.need}</span>`).join(' · ')}</div>
-      ${withButtons ? `<div><button class="small" data-brew="${r.formula}" ${r.ready ? '' : 'disabled'}><span class="key">${i + 1}</span> Brauen</button></div>` : ''}</li>`).join('')}</ul>`;
+      ${r.ingredients.map((x) => `<span class="ing ${x.have >= x.need ? 'good' : 'muted'}">${itemIcon(x.id)}${esc(x.name)} ${x.have}/${x.need}</span>${r.rest?.replaces === x.id ? ` <span class="ing ${r.restReady ? 'good' : 'muted'}" title="Ersetzt die Hauptzutat. Der Trank schlägt öfter fehl.">oder ${itemIcon(r.rest.id)}${esc(r.rest.name)} ${r.rest.have}/${x.need}</span>` : ''}`).join(' · ')}</div>
+      ${withButtons ? `<div><button class="small" data-brew="${r.formula}" ${r.ready || r.restReady ? '' : 'disabled'}><span class="key">${i + 1}</span> ${!r.ready && r.restReady ? 'Mit Rest brauen' : 'Brauen'}</button>${r.ready && r.restReady ? ` <button class="small" data-brew-rest="${r.formula}">Mit Rest brauen</button>` : ''}</div>` : ''}</li>`).join('')}</ul>`;
   }
 
   drink(itemId) {
@@ -2761,6 +2775,7 @@ export class Ui {
       <div class="feedback">${feedback}</div>
       <div class="actions"><button data-act="close">Fertig <span class="key">Esc</span></button></div>`, 'notebook brew');
     el.querySelectorAll('[data-brew]').forEach((b) => { b.onclick = () => this.brew(b.dataset.brew); });
+    el.querySelectorAll('[data-brew-rest]').forEach((b) => { b.onclick = () => this.brew(b.dataset.brewRest, { useRest: true }); });
     el.querySelectorAll('[data-sud-add]').forEach((b) => { b.onclick = () => {
       if ((this.sudPick ??= []).length < SUD_MAX_ZUTATEN) { this.sudPick.push(b.dataset.sudAdd); this.sfx('sud_zutat', { variant: sudZutatVariant(b.dataset.sudAdd, this.state.item(b.dataset.sudAdd)) }); } // DS: Pulver, Kraut oder Flüssigkeit
       this.openBrew('');
@@ -2822,8 +2837,8 @@ export class Ui {
     this.openBrew(`<span class="${r.ok ? 'good' : ''}">${esc(r.text)}</span>`);
   }
 
-  brew(formulaId) {
-    const r = this.as(() => this.state.brew(formulaId));
+  brew(formulaId, opts = {}) {
+    const r = this.as(() => this.state.brew(formulaId, opts));
     this.sfx(worldSound('brew', r));
     this.scene?.playBrewFx?.(r.ok);
     this.openBrew(`<span class="${r.ok ? 'good' : ''}">${esc(r.text)}</span>`);
