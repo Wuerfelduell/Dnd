@@ -1111,6 +1111,12 @@ export class WorldScene extends Phaser.Scene {
         kind: 'npc', def: { ...npc, ...def, dialogue: def.dialogue ?? npc.dialogue }, sprite, blocker, x, y: y - 4,
         prompt: `Mit ${npc.name} sprechen`, facing, reach: def.reach ?? INTERACT_RANGE, active: true, parts: [sprite],
       };
+      // Schild über dem Kopf (Dunscarer Einzelgänger: Name und Pfad, damit man sie zwischen den Leuten findet)
+      if (def.label) {
+        const tag = this.add.text(x, y - 18, def.label, { fontFamily: 'monospace', fontSize: '8px', color: '#f0ce80', stroke: '#1a1c2c', strokeThickness: 3 })
+          .setOrigin(0.5, 1).setDepth(4900).setResolution(2);
+        item.parts.push(tag);
+      }
       if (def.roam) item.roam = { home: [tx, ty], speed: def.roam.speed ?? 12, radius: def.roam.radius ?? 3, wait: 1500 + Math.random() * 3000, target: null, key };
       this.interactables.push(item);
       this.registerVisibility(item, def, item.parts);

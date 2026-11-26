@@ -549,6 +549,27 @@ function scheduleNpcs(content) {
   }
 }
 
+/** Seb (2026-11-26, „finde Jory nicht“): Die fünf Dunscarer Einzelgänger sahen alle gleich aus und standen zwischen den
+ * Leuten. Jetzt hat jeder eigene Farben, ein Schild mit Name und Pfad und steht im Personen-Wegweiser, sobald er da ist. */
+const DS_LOOK = {
+  ez_ds_rangierer: { pfad: 'Eisen', palette: { coat: '#6a3a2a', hat: '#2a1a14', scarf: '#c0c0c8' } },
+  ez_ds_kalkbrennerin: { pfad: 'Kessel', palette: { coat: '#d8d0b8', hat: '#8a8070', scarf: '#5a8a4a' } },
+  ez_ds_streckenlaeufer: { pfad: 'Uhr', palette: { coat: '#2a3a5a', hat: '#141a2a', scarf: '#d0a040' } },
+  ez_ds_walzenstimme: { pfad: 'Echo', palette: { coat: '#5a2a5a', hat: '#2a142a', scarf: '#e0c070' } },
+  ez_ds_schrankenkind: { pfad: 'Moor', palette: { coat: '#c03a2a', hat: '#f0f0e0', scarf: '#f0f0e0' } },
+};
+function markDsLoners(content) {
+  for (const [id, look] of Object.entries(DS_LOOK)) {
+    const npc = content.npcs[id];
+    if (!npc) continue;
+    content.npcs[id] = { ...npc, wegweiser: true, palette: { ...npc.palette, ...look.palette } };
+    for (const [mid, m] of Object.entries(content.maps)) {
+      if (!(m.npcs ?? []).some((n) => n.id === id)) continue;
+      content.maps[mid] = { ...m, npcs: m.npcs.map((n) => (n.id === id ? { ...n, label: `${npc.name} · ${look.pfad}` } : n)) };
+    }
+  }
+}
+
 /** Nach applySeq4 in buildContent. */
 export function applyPfadHandel(content) {
   if (!content.loners || !content.maps.wx_salzmarkt) return content;
@@ -584,6 +605,7 @@ export function applyPfadHandel(content) {
   dialogues.wx_pfandleiherin = withMaud(dialogues.wx_pfandleiherin);
   const byNpc = {};
   const offers = [...PH_OFFERS, ...(content.maps.ds_endbahnhof ? DS_PH_OFFERS : [])];
+  if (content.maps.ds_endbahnhof) markDsLoners(content);
   for (const o of offers) (byNpc[o.npc] ??= []).push(o);
   for (const [npc, offers] of Object.entries(byNpc)) {
     if (!dialogues[npc]) throw new Error(`Pfad-Beyonder: Dialog ${npc} fehlt`);
