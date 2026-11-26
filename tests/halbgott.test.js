@@ -133,11 +133,19 @@ test('Trinken auf Sequenz 4 und 2: Halbgott- und Engel-Text samt Aufstiegs-Szene
   assert.match(halb.text, /Halbgott/);
   assert.match(halb.text, new RegExp(`${FORM_MIN_DIGEST} % Verdauung`));
   assert.match(halb.text, /Sequenz 4: Lastnieter/);
-  assert.equal(drinkTo(3).ascension, null);
+  const heilig = drinkTo(3);
+  assert.equal(heilig.ascension?.title, 'Heiliger');
+  assert.equal(heilig.ascension.stufe, 2);
+  assert.ok(heilig.ascension.dauer > halb.ascension.dauer, 'Heiliger brutaler als Halbgott');
   const engel = drinkTo(2);
   assert.equal(engel.ascension?.title, 'Engel');
   assert.match(engel.text, /Engel/);
-  assert.deepEqual(Object.keys(ASCENSION_TEXT).map(Number), [2, 4]);
+  assert.equal(engel.ascension.stufe, 3);
+  const koenig = drinkTo(1);
+  assert.equal(koenig.ascension?.title, 'Engelskönig');
+  assert.equal(koenig.ascension.stufe, 4);
+  assert.ok(koenig.ascension.dauer > engel.ascension.dauer && engel.ascension.dauer > heilig.ascension.dauer);
+  assert.deepEqual(Object.keys(ASCENSION_TEXT).map(Number), [1, 2, 3, 4]);
   // Das Ereignis trägt die Szene für die Welt
   const s = hero(5, 'kessel');
   s.pathway.digestion = 100;
