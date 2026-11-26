@@ -3,7 +3,8 @@
 // Im Testmodus: alle Gebiete erreichbar, Monster laufen weg, Zirkel immer offen ohne Wartezeit,
 // Geschichte erledigt, Bosse aber noch am Leben (keine won_*-Flags).
 // Für Sequenz-Tests: alle Zutaten und alle Formeln (alle Pfade, alle Sequenzen) liegen immer im Inventar
-// (beider Spieler), Verdauung immer 100 %, keine Tragkraftgrenze, keine Unruhe.
+// (beider Spieler), Verdauung immer 100 %, keine Tragkraftgrenze, keine Unruhe, alle Rituale vollzogen,
+// Schwellen- und Grenzwächter mit 1 Leben (Combat.js).
 
 const TEST_ZUTATEN = 10; // so viele von jeder Zutat werden immer wieder aufgefüllt
 const TEST_FUELL_SEK = 3; // Abstand der Auffüllung in Sekunden

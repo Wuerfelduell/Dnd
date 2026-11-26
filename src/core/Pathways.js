@@ -670,6 +670,7 @@ export const pathwayMethods = {
   },
 
   ritualDone(pid, seq) {
+    if (this.testmodus) return true; // Testmodus: jedes Ritual gilt als vollzogen (beide Spieler)
     return this.flags.has(this.ritualFlag(pid, seq));
   },
 
