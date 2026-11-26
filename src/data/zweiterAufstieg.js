@@ -261,7 +261,7 @@ function zugAmArchiv(content) {
   const near = zug2?.tile ?? archiv.spawns?.oben ?? archiv.spawns?.default;
   const t1 = freieKachel(archiv, { near: [near[0] + 2, near[1]], seed: 'k6_tuer' });
   archiv.interactables.push({ id: 'k6_schaffner2_tuer', kind: 'read', tile: t1, prompt: 'Den Bürgschein vorzeigen', title: 'Der Schaffner ohne Gesicht', marker: true,
-    visible_if: { requires_flags: ['k4_arrived', 'auf_zug2_gesehen'], requires_n_flags: { n: K6_BUERGEN_NOETIG, of: BUERGEN_FLAGS }, hide_if_alle_flag: SCHAFFNER2 },
+    visible_if: { requires_flags: ['k4_arrived', 'auf_zug2_gesehen', 'kapitel5_done'], requires_n_flags: { n: K6_BUERGEN_NOETIG, of: BUERGEN_FLAGS }, hide_if_alle_flag: SCHAFFNER2 },
     text: TUER_TEXT, effects: { start_quests: [K6_QUEST], combat: SCHAFFNER2 } });
   const t2 = freieKachel(archiv, { near: t1, seed: 'k6_zug' });
   archiv.interactables.push({ id: 'k6_zug_hoch', kind: 'read', tile: t2, prompt: 'Mit dem zweiten Zug hinauf', title: 'Der zweite Zug', marker: true,

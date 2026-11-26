@@ -65,6 +65,8 @@ test('Zweiter Zug: fünf Bürgen, dann der Schaffner (Koop: beide), dann hinauf'
   BUERGEN_FLAGS.slice(0, 4).forEach((f) => s.flags.add(f));
   assert.ok(!s.meets(tuer.visible_if));
   s.flags.add(BUERGEN_FLAGS[4]);
+  assert.ok(!s.meets(tuer.visible_if), 'Seb 2026-11-26: erst nach Briarholt hinauf');
+  s.flags.add('kapitel5_done');
   assert.ok(s.meets(tuer.visible_if) && !s.meets(zug.visible_if));
   assert.equal(tuer.effects.combat, SCHAFFNER2);
   assert.equal(content.encounters[SCHAFFNER2].min_seq, 3, 'höheres Wesen: schwächer als Heiliger kratzt nur');

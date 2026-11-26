@@ -30,9 +30,9 @@ export function cityOf(state, mapId) {
  */
 export function lockedCities(state) {
   if (state.testmodus) return [];
-  // Kapitel 4: nach dem Sturz gibt es weder Dunscar noch die Himmelsstadt (erst beim zweiten Aufstieg wieder).
+  // Kapitel 4: nach dem Sturz keine Himmelsstadt (erst beim zweiten Aufstieg). Dunscar bleibt per Bahn ab Gleisfuß erreichbar (Seb 2026-11-26).
   // Ausnahme auf_rueckweg: zu früh Gestürzte sind per Lastenzug zurück in Dunscar, bis sie am Schaffner vorbeikommen (data/aufstieg.js).
-  return [...(state.flags.has('k2_arrived') ? ['kettlegate'] : []), ...(state.flags.has('k4_arrived') ? (state.flags.has('auf_rueckweg') ? ['himmel', 'calderwick'] : ['dunscar', 'himmel']) : [])];
+  return [...(state.flags.has('k2_arrived') ? ['kettlegate'] : []), ...(state.flags.has('k4_arrived') ? (state.flags.has('auf_rueckweg') ? ['himmel', 'calderwick'] : ['himmel']) : [])];
 }
 
 export function cityLocked(state, city) {

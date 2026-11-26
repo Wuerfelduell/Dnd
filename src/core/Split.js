@@ -34,6 +34,11 @@ export const splitMethods = {
       this.flags.add(SPLIT_ENDE_FLAG);
       if (this.splitOn) this.emit('notice', 'Ihr habt beide das Ritual der dritten Sequenz geschafft. Ihr seid Heilige, und der Bildschirm wird wieder eins.');
     }
+    // Seb 2026-11-26: Reist Spieler 2 im Splitscreen in eine andere Stadt (Pendelzug, Lastenzug), kommt Spieler 1 mit.
+    // Nie getrennt in zwei Städten. Repariert auch Spielstände, in denen einer in Dunscar und einer in Calderwick steht.
+    if (this.hasP2?.() && this.p2?.map && this.content.maps[this.p2.map] && cityOf(this, this.p2.map) !== cityOf(this, this.map) && cityOf(this, this.map) === SPLIT_STADT) {
+      Object.assign(this, { map: this.p2.map, spawn: this.p2.spawn ?? 'default', position: this.p2.position ?? null });
+    }
     const soll = this.splitSoll();
     if (soll === !!this.splitOn) return false;
     if (soll) {

@@ -15,7 +15,7 @@ test('Jeder Schritt jedes startbaren Auftrags ist erreichbar', () => {
 });
 
 test('Jeder Ort ist erreichbar (die Zelle in Wexmoor nur über eine Festnahme)', () => {
-  assert.deepEqual(Object.keys(content.maps).filter((m) => !a.R.map.has(m) && m !== 'wx_zelle'), []);
+  assert.deepEqual(Object.keys(content.maps).filter((m) => !a.R.map.has(m) && m !== 'wx_zelle' && m !== 'hs_himmelsstadt'), []); // erste Himmelsstadt nur noch für alte Stände (Seb 2026-11-26)
 });
 
 test('Pfiffs Paket in Calderwick kommt auch nach dem neuen Kapitel-3-Ende (Sturz) an', () => {
@@ -41,7 +41,7 @@ test('Offene Aufträge aus verlassenen Städten verschwinden aus dem Notizbuch, 
   assert.equal(journalQuestVisible(s, 'k3h_nachtwalze'), true);
   s.flags.add('k4_arrived');
   s.map = 'cw_gleisfuss';
-  assert.equal(journalQuestVisible(s, 'k3h_nachtwalze'), false, 'Dunscar-Auftrag nach dem Sturz');
+  assert.equal(journalQuestVisible(s, 'k3h_nachtwalze'), true, 'Seb 2026-11-26: Dunscar per Pendelzug erreichbar');
   s.flags.add('auf_rueckweg');
   assert.equal(journalQuestVisible(s, 'k3h_nachtwalze'), true, 'Lastenzug-Rückweg: Dunscar wieder erreichbar');
   assert.equal(s.quests.k2v_krabbe, 'active', 'nur ausgeblendet, kein Fortschritt verloren');
