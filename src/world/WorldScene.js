@@ -1335,6 +1335,10 @@ export class WorldScene extends Phaser.Scene {
     // Welt-Fähigkeiten: Zahlenreihe 1–9 für Spieler 1, Ziffernblock für Spieler 2 (allein auch für Spieler 1)
     this.input.keyboard.on('keydown', (e) => {
       if (e.code === 'Numpad0' && !e.repeat && (this.p2 || this.splitRole === 2)) { this.pending2 = 'vision'; return; } // Seb: Ziffernblock 0 = Geistsicht von Spieler 2
+      if ((e.code === 'Digit0' || e.code === 'NumpadDecimal') && !e.repeat) { // Seb: mythische Gestalt (Taste 0, Spieler 2 Ziffernblock-Komma)
+        if (e.code === 'NumpadDecimal' && (this.p2 || this.splitRole === 2)) this.pending2 = 'talent:form'; else this.pending = 'talent:form';
+        return;
+      }
       const m = /^(Digit|Numpad)([1-9])$/.exec(e.code ?? '');
       if (!m || e.repeat) return;
       const slot = `talent:${Number(m[2]) - 1}`;
@@ -2165,7 +2169,7 @@ export class WorldScene extends Phaser.Scene {
 
   /** Taste 1–9 / Ziffernblock / Gamepad-X: Welt-Fähigkeit aus der Schnellleiste. */
   useTalentKey(n, slot) {
-    this.ui.useTalentSlot(n, slot === 'sel' ? 'sel' : Number(slot));
+    this.ui.useTalentSlot(n, slot === 'sel' || slot === 'form' ? slot : Number(slot));
   }
 
   /** Spieler 2 benutzt etwas: Beute, Käufe und Gesprächsbelohnungen landen in seiner Tasche. */
