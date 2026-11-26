@@ -11,7 +11,7 @@ import { readFileSync } from 'node:fs';
 
 const content = loadContent();
 const raw = JSON.parse(readFileSync(new URL('../src/data/packs/sequenzen/faehigkeiten2.json', import.meta.url), 'utf8'));
-const KAMPF_KEYS = new Set(['id', 'name', 'precise', 'waffenfrei', 'cost', 'hits', 'flat', 'mult', 'holy', 'sure', 'pierce', 'stun', 'weak', 'evade', 'confuse', 'shield', 'heal', 'drain', 'burn', 'composure', 'desc', 'fx',
+const KAMPF_KEYS = new Set(['id', 'name', 'precise', 'waffenfrei', 'hg', 'cost', 'hits', 'flat', 'mult', 'holy', 'sure', 'pierce', 'stun', 'weak', 'evade', 'confuse', 'shield', 'heal', 'drain', 'burn', 'composure', 'desc', 'fx',
   'ap_gain', 'nerves_gain', 'calm', 'weaken', 'slow', 'armor_break', 'guard_break', 'steal', 'cleanse', 'read', 'focus', 'shield_all', 'heal_all', 'extend_burn']);
 const WELT_KEYS = new Set(['id', 'name', 'nerves', 'unruhe', 'cooldown', 'desc', 'buff', 'buff2', 'calm', 'nerves_gain', 'heal_pct', 'heal_partner', 'hint', 'review', 'reveal', 'scare', 'clock', 'digest', 'wanted', 'money', 'scout', 'gimmick']);
 

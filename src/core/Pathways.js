@@ -149,7 +149,12 @@ export const HG_FORMS = {
 export const FORM_SEQ = 4;
 export const FORM_MIN_DIGEST = 50;
 export const FORM_NERVES_PER_SEC = 1.5;
-export const FORM_UNRUHE_PER_SEC = 0.4;
+export const FORM_UNRUHE_PER_SEC = 1.5; // Seq 4 (Seb 2026-11-26), siehe FORM_UNRUHE
+// Seb 2026-11-26: Die Gestalt treibt die Unruhe drastisch hoch (je Sekunde, ohne Halbierung ab Seq 5): Seq 4 1,5, Seq 3 0,7,
+// ab Seq 2 beherrscht man sie (0). Diese Gestalt-Unruhe ist „speziell“: Ruhetee, Fähigkeiten und andere Mittel senken sie
+// nicht (pathway.formUnruhe ist ihr Boden), nur das natürliche Abklingen. Annehmen nur unter FORM_MAX_UNRUHE.
+export const FORM_UNRUHE = { 4: 1.5, 3: 0.7 };
+export const FORM_MAX_UNRUHE = 15;
 export const FORM_MIN_NERVES = 15;
 /** Im Kampf (Seb 2026-11-17: Gestalt soll stark spürbar sein): gegen alles, was nicht vor ihr umfällt, kämpft man in der Gestalt härter. */
 export const FORM_KAMPF = [
@@ -385,9 +390,11 @@ export const pathwayMethods = {
   /** Kampffertigkeiten des eigenen Pfades: { id: skill }. Jede erreichte Sequenz bringt zwei (skill und skill2). */
   pathwaySkills() {
     const out = {};
+    const form = !!this.pathway?.form; // ab Seq 4: in der Gestalt die waffenunabhängige, starke Fassung (halbgottFertigkeiten.js)
+    const pick = (sk) => (form && sk.hg ? { ...sk, ...sk.hg } : sk);
     for (const s of this.reachedSeqs()) {
-      if (s.skill) out[s.skill.id] = { ...s.skill, pathway: s.pid, seq: s.seq };
-      if (s.skill2) out[s.skill2.id] = { ...s.skill2, pathway: s.pid, seq: s.seq, second: true };
+      if (s.skill) out[s.skill.id] = { ...pick(s.skill), pathway: s.pid, seq: s.seq };
+      if (s.skill2) out[s.skill2.id] = { ...pick(s.skill2), pathway: s.pid, seq: s.seq, second: true };
     }
     return out;
   },
@@ -471,7 +478,7 @@ export const pathwayMethods = {
     }
     if (pts <= 0) return 0;
     // Wer nach seinem Grundsatz handelt, kommt zur Ruhe
-    this.setUnruhe(this.unruhe - pts * 0.5);
+    this.calmUnruhe(pts * 0.5);
     return this.addDigestion(pts, kind);
   },
 
@@ -543,6 +550,7 @@ export const pathwayMethods = {
     this.composure = 30;
     if (this.pathway) this.pathway.digestion = Math.max(0, this.pathway.digestion - 20);
     this.unruhe = 40;
+    if (this.pathway) { this.endForm?.(); delete this.pathway.formUnruhe; }
     this.spiritVision = false;
     this.hochLostControl?.(); // Seq 1 (Kessel): Kontrollverlust bricht die Unruhe-Prüfung
     const shame = this.artifactShame();
@@ -572,10 +580,11 @@ export const pathwayMethods = {
     if (this.spiritVision && this.pathway) {
       u += UNRUHE_VISION_PER_SEC * dt;
       this.act('vision', dt);
-    } else {
-      u -= UNRUHE_DECAY_PER_SEC * this.passive('calm_decay') * dt;
+    } else if (!this.pathway?.form) {
+      u -= UNRUHE_DECAY_PER_SEC * this.passive('calm_decay') * dt; // in der Gestalt klingt nichts ab
     }
     this.setUnruhe(u);
+    if (this.pathway?.formUnruhe) this.pathway.formUnruhe = Math.min(this.pathway.formUnruhe, this.unruhe); // natürliches Abklingen nimmt auch die Gestalt-Unruhe mit
   },
 
   // --- Trinken -------------------------------------------------------------------------
@@ -993,6 +1002,7 @@ export const pathwayMethods = {
     if (!p || p.seq > FORM_SEQ) return `Erst ab Sequenz ${FORM_SEQ}.`;
     if (!this.formUnlocked()) return `Der Trank der Sequenz ${FORM_SEQ} muss zur Hälfte verdaut sein (${Math.floor(p.digestion)} von ${FORM_MIN_DIGEST} %).${this.formDef()?.gesperrt ? ` ${this.formDef().gesperrt}` : ''}`;
     if (!p.form && this.composure < FORM_MIN_NERVES * 2) return `Dafür fehlen dir die Nerven (mindestens ${FORM_MIN_NERVES * 2}).`;
+    if (!p.form && this.unruhe >= FORM_MAX_UNRUHE) return `Zu viel Unruhe: Die Gestalt lässt sich nur unter ${FORM_MAX_UNRUHE} % Unruhe annehmen.`;
     return null;
   },
 
@@ -1007,7 +1017,7 @@ export const pathwayMethods = {
     const block = this.formBlock();
     if (block) return { ok: false, active: false, text: block };
     p.form = true;
-    this.setUnruhe(this.unruhe + 5);
+    this.addFormUnruhe(5);
     // Merker für Zeitung, Gerede und Lesestücke (Paket CP): kreaturform_an, kreaturform_gezeigt, kreaturform_gezeigt_<n>
     this.formShown = (this.formShown ?? 0) + 1;
     this.flags.add('kreaturform_an');
@@ -1017,7 +1027,7 @@ export const pathwayMethods = {
     this.emit('form', { active: true, player: this.acting ?? 1, form: form.id });
     this.emit('form_annehmen', { player: this.acting ?? 1, form: form.id });
     this.emit('changed');
-    const rules = `Menschen ohne Pfad und schwächere Wesen brechen zusammen, wenn sie dich sehen. Gegen alle anderen kämpfst du mit 30 % mehr Schaden und nimmst 20 % weniger. Die Gestalt kostet ${FORM_NERVES_PER_SEC} Nerven und ${FORM_UNRUHE_PER_SEC} Unruhe je Sekunde.`;
+    const rules = `Menschen ohne Pfad und schwächere Wesen brechen zusammen, wenn sie dich sehen. Gegen alle anderen kämpfst du mit 30 % mehr Schaden und nimmst 20 % weniger. Die Gestalt kostet ${FORM_NERVES_PER_SEC} Nerven je Sekunde${this.formUnruheRate() ? ` und ${String(this.formUnruheRate()).replace('.', ',')} Unruhe je Sekunde, die kein Tee und kein Mittel senkt` : ''}. Deine Pfadfertigkeiten treffen in ihr waffenunabhängig und weit stärker.`;
     return { ok: true, active: true, text: form.annehmen ? `${form.annehmen} ${form.name}${form.beschreibung ? `: ${form.beschreibung}` : '.'}\n\n${rules}` : `Du lässt los. Was unter deiner Haut gewartet hat, richtet sich auf: ${form.name}, die wahre Gestalt des ${pd.name.replace('Pfad', 'Pfads')}. ${rules}` };
   },
 
@@ -1032,13 +1042,38 @@ export const pathwayMethods = {
     this.emit('changed');
   },
 
+  /** Unruhe je Sekunde in der Gestalt (Seq 4 1,5, Seq 3 0,7, ab Seq 2 beherrscht: 0). */
+  formUnruheRate(p = this.pathway) {
+    return FORM_UNRUHE[p?.seq] ?? 0;
+  },
+
+  /** Gestalt-Unruhe: steigt ohne Dämpfung und merkt sich ihren Anteil als Boden, den keine Beruhigung unterschreitet. */
+  addFormUnruhe(n) {
+    const p = this.pathway;
+    if (!p || n <= 0) return;
+    if (this.testmodus) { this.setUnruhe(0); return; }
+    const before = this.unruhe;
+    this.unruhe = Math.min(UNRUHE_MAX, before + n);
+    p.formUnruhe = Math.min(this.unruhe, (p.formUnruhe ?? 0) + (this.unruhe - before));
+    if (Math.round(this.unruhe) !== Math.round(before)) this.emit('unruhe', this.unruhe);
+    if (this.unruhe >= UNRUHE_MAX && before < UNRUHE_MAX) this.loseControl('Die Gestalt frisst dich von innen. Die Stimmen werden zu laut.');
+  },
+
+  /** Beruhigung durch Mittel (Tee, Fähigkeiten, Kahn, Handeln nach dem Grundsatz): senkt nie unter die Gestalt-Unruhe. Gibt die Senkung zurück. */
+  calmUnruhe(n) {
+    const before = this.unruhe;
+    const floor = Math.min(before, this.pathway?.formUnruhe ?? 0);
+    this.setUnruhe(Math.max(floor, before - n));
+    return before - this.unruhe;
+  },
+
   /** Wird aus tickPathway aufgerufen: die Gestalt zehrt und fällt ab, wenn die Nerven ausgehen. */
   tickForm(dt) {
     const p = this.pathway;
     if (!p?.form) return;
     this.setComposure(this.composure - FORM_NERVES_PER_SEC * dt);
-    this.unruhe += FORM_UNRUHE_PER_SEC * this.unruheGainMult() * dt; // setUnruhe folgt in tickPathway
-    if (this.composure < FORM_MIN_NERVES) {
+    this.addFormUnruhe(this.formUnruheRate() * dt);
+    if (p.form && this.composure < FORM_MIN_NERVES) {
       this.endForm();
       this.emit('notice', this.formDef()?.zu_lange ?? 'Die Nerven reichen nicht mehr. Deine Gestalt schrumpft zurück in den Körper eines Menschen.');
     }

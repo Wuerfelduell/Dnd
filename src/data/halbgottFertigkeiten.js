@@ -1,5 +1,7 @@
 // Seb 2026-11-26: Ab dem Halbgott (Seq 4, und damit auch Seq 3–1) sind die Kampffertigkeiten (`skill`, `skill2`)
-// waffenunabhängig und teilen richtig aus. Die Daten bleiben wie sie sind; hier wird beim Aufbau umgerechnet:
+// IN DER MYTHISCHEN GESTALT waffenunabhängig und teilen richtig aus; in normaler Form gehen sie wie gehabt über die Waffe.
+// Die Daten bleiben wie sie sind; hier wird beim Aufbau die Gestalt-Fassung als `hg` an die Fertigkeit gehängt
+// (Pathways.pathwaySkills nimmt sie, solange die Gestalt angenommen ist):
 // - Waffenfertigkeiten (`mult`) bekommen festen Grundschaden: mult × HG_WAFFENWERT (eine „Halbgott-Waffe“, stärker als jede echte).
 // - Grundschaden-Fertigkeiten (`flat`) werden auf dieselbe Stufe gehoben: flat × HG_GRUND_MULT.
 // - Brand/Gift (`burn`) steigt mit: × HG_BRAND_MULT (Brand bekommt keinen dmg_mult, daher etwas weniger als die Treffer).
@@ -73,11 +75,21 @@ export function halbgottTextEn(sk, en) {
   return w ? rewrite(en, sk, w, 'en') : en;
 }
 
+/** Zusatzsatz für die normale Fassung: was die Fertigkeit in der Gestalt macht. */
+export function halbgottHinweis(sk, lang = 'de') {
+  const w = halbgottWerte(sk);
+  if (!w) return '';
+  const de = lang === 'de';
+  const parts = [];
+  if (w.flat) parts.push(de ? `${w.flat} Grundschaden je Treffer` : `${w.flat} base damage per hit`);
+  if (w.burn) parts.push(de ? `${w.burn[0]} Folgeschaden je Runde` : `${w.burn[0]} follow-up damage per round`);
+  return de ? ` In mythischer Gestalt waffenunabhängig: ${parts.join(', ')}.` : ` In mythic form, weapon-independent: ${parts.join(', ')}.`;
+}
+
 function convert(sk) {
   const w = halbgottWerte(sk);
-  if (!w || sk.waffenfrei) return sk;
-  const { mult, ...rest } = sk;
-  return { ...rest, ...w, desc: halbgottText(sk) };
+  if (!w || sk.hg) return sk;
+  return { ...sk, desc: sk.desc + halbgottHinweis(sk), hg: { ...w, mult: undefined, desc: halbgottText(sk) } };
 }
 
 /** Nach withFaehigkeiten: skill und skill2 aller Sequenzen ≤ HG_SKILL_SEQ umrechnen. */

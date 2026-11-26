@@ -208,6 +208,7 @@ test('Mythische Gestalt: ab Sequenz 4 und halber Verdauung; Nicht-Beyonder und s
   assert.ok(!s.flags.has('kreaturform_an') && s.flags.has('kreaturform_gezeigt'));
   // Ablegen von Hand und Spielstand
   s.composure = s.maxComposure();
+  s.unruhe = 0; s.pathway.formUnruhe = 0; // Annehmen nur unter 15 % Unruhe
   assert.ok(s.toggleForm().active);
   const data = s.serialize({ map: 'altmarkt', x: 0, y: 0 });
   const t = new GameState(content);

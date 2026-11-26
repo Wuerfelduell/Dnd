@@ -28,7 +28,6 @@ export const kahnMethods = {
   kahnRestBonus() {
     if (!this.inKahn() || !this.flags.has('k2n_kahn_waschtisch') || !this.isBeyonder() || this.unruhe <= 0) return 0;
     const n = Math.min(5, this.unruhe);
-    this.setUnruhe(this.unruhe - n);
-    return n;
+    return this.calmUnruhe(n);
   },
 };

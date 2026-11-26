@@ -141,6 +141,7 @@ test('CO/CP: Kreaturformen mit Texten und Sheets, Wächter mit CO-Blatt, Siegel,
       assert.ok(enc.phase2.attacks.some((a) => a.nerves > 0), 'die Welle senkt Nerven');
       assert.equal(ENCOUNTER_BACKGROUNDS[ordealId(pid, seq)], seq === 4 ? 'bg_hg_schwelle' : 'bg_hg_grenze');
     }
+    s.unruhe = 0; // Annehmen nur unter 15 % Unruhe (jedes Annehmen bringt 5)
     const on = s.toggleForm();
     assert.ok(on.ok && on.text.includes(s.formDef().annehmen), `${pid}: Annehmen-Text`);
     s.endForm();

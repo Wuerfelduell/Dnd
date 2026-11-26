@@ -643,7 +643,7 @@ export class Combat {
     // Zweite Pfadfertigkeiten: Tempo, Nerven, Deckung für alle, Kniffe gegen den Gegner
     if (sk.ap_gain) { this.gainAp(sk.ap_gain); effects.push(`+${sk.ap_gain} Konzentration`); }
     if (sk.nerves_gain) { const before = this.state.composure; this.state.setComposure(before + sk.nerves_gain); effects.push(`+${Math.round(this.state.composure - before)} Nerven`); }
-    if (sk.calm && this.state.unruhe > 0) { this.state.setUnruhe(this.state.unruhe - sk.calm); effects.push(`-${sk.calm} Unruhe`); }
+    if (sk.calm && this.state.unruhe > 0) { const got = this.state.calmUnruhe(sk.calm); if (got > 0) effects.push(`-${Math.round(got)} Unruhe`); }
     if (sk.cleanse && this.bleed) { this.bleed = null; effects.push('Blutung versiegt'); }
     if (sk.shield_all) { for (const n of this.standing()) this.fighters[n].shield += sk.shield_all; effects.push(`Schutz ${sk.shield_all} für ${this.standing().length > 1 ? 'alle' : 'dich'}`); }
     if (sk.heal_all) {
