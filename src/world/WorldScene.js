@@ -651,6 +651,38 @@ export const MACHT = {
   1: { scale: 2.1, alpha: 1.9, puls: 0.42, funken: 14, rot: 0.6, licht: 125, welle: 1300, gestalt: 1.5 },
 };
 const MACHT_LEER = { scale: 1, alpha: 1, puls: 0, funken: 0, rot: 0, licht: 0, welle: 0, gestalt: 1 };
+/**
+ * Gefahrenrand: dunkler Rost, der vom Bildschirmrand weich nach innen ausläuft (2-px-Blöcke, geordnet gerastert,
+ * damit es zum Pixelbild passt). Einmal je Größe gebaut.
+ */
+const BAYER4 = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
+export function gefahrRand(scene, w, h) {
+  const key = `gefahr_rand_${w}x${h}`;
+  if (scene.textures.exists(key)) return key;
+  const tex = scene.textures.createCanvas(key, w, h);
+  const ctx = tex.getContext();
+  const reach = Math.min(w, h) * 0.22; // so weit reicht der Rand ins Bild
+  const B = 2;
+  for (let y = 0; y < h; y += B) {
+    for (let x = 0; x < w; x += B) {
+      const dx = Math.min(x, w - B - x);
+      const dy = Math.min(y, h - B - y);
+      // innere Kante als abgerundetes Rechteck: Ecken laufen rund aus statt mit Naht
+      const d = dx < reach && dy < reach ? Math.max(0, reach - Math.hypot(reach - dx, reach - dy)) : Math.min(dx, dy);
+      const t = Math.max(0, 1 - d / reach);
+      if (t <= 0) continue;
+      const v = t * t;
+      const q = (BAYER4[((y / B) % 4) * 4 + ((x / B) % 4)] + 0.5) / 16;
+      const step = Math.floor(v * 4 + q) / 4; // vier Stufen, gerastert ineinander
+      if (step <= 0) continue;
+      ctx.fillStyle = `rgba(34, 14, 12, ${Math.min(1, step).toFixed(2)})`;
+      ctx.fillRect(x, y, B, B);
+    }
+  }
+  tex.refresh();
+  return key;
+}
+
 export const machtOf = (seq) => MACHT[seq] ?? (seq < 1 ? MACHT[1] : MACHT_LEER);
 
 export class WorldScene extends Phaser.Scene {
@@ -1333,9 +1365,14 @@ export class WorldScene extends Phaser.Scene {
     this.updateCracks();
     if (this.state.formActive?.()) this.updateForm();
     // Paket G: pulsierender Rand in Gefahrengebieten
-    if (this.mapDef.danger && this.textures.exists('g_gefahr_vignette')) {
-      this.add.sprite(0, 0, 'g_gefahr_vignette').setOrigin(0).setScrollFactor(0).setDepth(DEPTH.vision + 1)
-        .setAlpha(0.35 + 0.08 * this.mapDef.danger).play('g_gefahr_vignette');
+    // (Seb 2026-11-26: die Bilder aus G_01_gefahr.png saßen versetzt im Rahmen und zeigten harte Kanten mitten im Bild,
+    // darum ein selbst gezeichneter Rand, der weich vom Bildschirmrand nach innen ausläuft)
+    if (this.mapDef.danger) {
+      const cam = this.cameras.main;
+      const key = gefahrRand(this, cam.width, cam.height);
+      const a = Math.min(0.9, 0.35 + 0.08 * Number(this.mapDef.danger));
+      const rand = this.add.image(0, 0, key).setOrigin(0).setScrollFactor(0).setDepth(DEPTH.vision + 1).setAlpha(a);
+      this.tweens.add({ targets: rand, alpha: a * 0.7, duration: 900, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
     }
     // Bereits bekannte Hinweise: kein Funkeln mehr
     for (const it of this.interactables) {
