@@ -27,7 +27,8 @@ test('Aufstieg: Starling am Endbahnhof ohne Sequenz-Abfrage, einsteigen erst nac
   assert.equal(visible(s, 'ds_endbahnhof', 'auf_schaffner_tuer'), false);
   assert.ok(visible(s, 'ds_endbahnhof', 'auf_zug_nach_oben'));
   use(s, 'ds_endbahnhof', 'auf_zug_nach_oben');
-  assert.deepEqual(s.pendingTravel, { map: HIMMEL, spawn: 'default' });
+  assert.deepEqual(s.pendingTravel, STURZ_ZIEL, 'Seb 2026-11-26: Dunscar → Calderwick → Briarholt → Himmelsstadt');
+  assert.ok(s.flags.has('auf_verbrannt') && s.flags.has('k4_arrived'));
   assert.ok(content.quests.k3_starling.steps.some((st) => st.done.requires_flags?.includes('auf_verbrannt')));
 });
 
@@ -84,7 +85,8 @@ test('Alte Stände zu früh in Calderwick: Lastenzug nach Dunscar, zurück nur a
   assert.ok(visible(s, 'ds_endbahnhof', 'auf_zug_zurueck'));
   use(s, 'ds_endbahnhof', 'auf_zug_zurueck');
   assert.deepEqual(s.pendingTravel, STURZ_ZIEL);
-  assert.ok(!s.flags.has('auf_rueckweg') && lockedCities(s).includes('dunscar'));
+  assert.ok(!s.flags.has('auf_rueckweg') && lockedCities(s).includes('himmel') && !lockedCities(s).includes('dunscar'), 'Seb 2026-11-26: Pendelzug nach Dunscar');
+  assert.ok(visible(s, 'cw_gleisfuss', 'auf_pendel_ds') && visible(s, 'ds_endbahnhof', 'auf_pendel_cw'));
 });
 
 test('Himmelsstadt: keine Monster, nur Halbgötter, Heilige, Engel und Starling; keiner fällt, jede Niederlage stürzt nach Calderwick', () => {
@@ -114,7 +116,7 @@ test('Himmelsstadt: keine Monster, nur Halbgötter, Heilige, Engel und Starling;
   }
 });
 
-test('Der Thron verbrennt immer; danach Calderwick, kein Zurück nach Dunscar oder nach oben', () => {
+test('Der Thron verbrennt immer; danach Calderwick, nicht nach oben, nach Dunscar nur per Pendelzug', () => {
   const s = fresh();
   s.flags.add('k3_arrived');
   s.startQuest('k3_rache');
@@ -122,7 +124,9 @@ test('Der Thron verbrennt immer; danach Calderwick, kein Zurück nach Dunscar od
   assert.deepEqual(s.pendingTravel, STURZ_ZIEL);
   assert.equal(s.quests.k3_rache, 'done');
   assert.ok(s.flags.has('kapitel3_done'));
-  assert.ok(lockedCities(s).includes('dunscar') && lockedCities(s).includes('himmel'));
+  assert.ok(!lockedCities(s).includes('dunscar') && lockedCities(s).includes('himmel'));
+  use(s, 'cw_gleisfuss', 'auf_pendel_ds');
+  assert.deepEqual(s.pendingTravel, { map: 'ds_endbahnhof', spawn: 'default' });
   s.map = STURZ_ZIEL.map;
   assert.ok(travelDestinations(s, s.map).every((t) => content.maps[t.map].city === 'calderwick'));
   assert.ok(visible(s, 'cw_gleisfuss', 'auf_cw_aufschlag'));
@@ -161,4 +165,19 @@ test('Calderwick: zehn verdorbene Pfadgebiete mit Gildensitz, je zwei benannte B
   assert.equal(alt.quests.cwa_akt1, undefined);
   assert.equal(alt.quests.k4_aufstieg, 'active');
   assert.ok(alt.flags.has('cwa_akt4_done'));
+});
+
+test('Koop im Splitscreen: reist Spieler 2 nach Dunscar, kommt Spieler 1 mit (nie zwei Städte)', () => {
+  const s = fresh();
+  s.applyEffects({ sets_flags: ['k3_arrived', 'k4_arrived', 'auf_verbrannt'] });
+  s.pathway = { id: 'eisen', seq: 4, digestion: 0 };
+  s.addP2();
+  s.withPlayer(2, () => { s.pathway = { id: 'faden', seq: 4, digestion: 0 }; });
+  s.map = 'cw_gleisfuss';
+  s.splitTick();
+  assert.ok(s.splitOn);
+  Object.assign(s.p2, { map: 'ds_endbahnhof', spawn: 'default', position: null }); // gespaltener Spielstand
+  s.splitTick();
+  assert.equal(s.map, 'ds_endbahnhof');
+  assert.ok(!s.splitOn && !s.p2.map, 'Bild wieder eins, beide in Dunscar');
 });

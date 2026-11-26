@@ -9,6 +9,7 @@
  * - Der Sturz: man stirbt nicht, man fällt nach Calderwick. Dort beginnt Kapitel 4 (k4_aufstieg).
  */
 import { seeded } from '../core/Gatherings.js';
+import { freieKachel } from './calderwickStory.js';
 
 export const HIMMEL = 'hs_himmelsstadt';
 export const STURZ_ZIEL = { map: 'cw_gleisfuss', spawn: 'default' };
@@ -67,6 +68,9 @@ export function gateStarlingHinweise(content) {
 }
 
 const STURZ_TEXT = 'Das Licht frisst dich nicht, es wiegt dich. Du bist zu leicht für diesen Ort. Der Boden der Himmelsstadt lässt dich los, und du fällst, durch Wolken, durch Rauch, durch die Nacht, bis Stein dich auffängt.\n\nDu liegst in einer fremden Stadt. Über dir hängt kein Himmel, nur eine Narbe aus Licht, wo du durchgebrochen bist. Calderwick.';
+
+const PENDEL_CW_TEXT = 'Am Rand des Gleisfußes hält ein rußiger Pendelzug. Auf der Tafel steht in Kreide: DUNSCAR, ENDBAHNHOF. „Runter geht immer“, sagt der Bremser. „Rauf nur, wenn man Gewicht hat.“ Du steigst ein, und der Zug rollt durch Kalk und Rauch hinab nach Dunscar.';
+const PENDEL_DS_TEXT = 'Der rußige Pendelzug wartet am Bahnsteig. Auf der Tafel steht in Kreide: CALDERWICK, GLEISFUSS. Der Bremser winkt dich durch, und der Zug klettert durch Rauch und Wolken hinauf, bis Calderwick dich wieder hat.';
 
 const PFADE = ['laterne', 'faden', 'maske', 'echo', 'kessel', 'eisen', 'schluessel', 'sq_waage', 'sq_moor', 'sq_uhr'];
 
@@ -218,8 +222,9 @@ export function applyAufstieg(content) {
         text: SCHAFFNER_TEXT, effects: { combat: SCHAFFNER } },
       { id: 'auf_zug_nach_oben', kind: 'read', tile: [4, 10], prompt: 'Der Zug nach oben', title: 'Der Zug nach oben', marker: true,
         visible_if: { requires_flags: ['auf_starling_gesehen'], requires_alle_flag: 'auf_schaffner', hide_if_flags: ['k4_arrived'] },
-        text: 'Du steigst ein. Die Türen schließen sich ohne Laut, und der Boden unter dem Zug kippt weg. Kein Rattern, kein Pfiff, nur ein langes Steigen durch Rauch, dann durch Wolken, dann durch etwas, das heller ist als jedes Licht, das du kennst.\n\nDunscar bleibt unter dir zurück. Du wirst es nicht wiedersehen.',
-        effects: { travel: { map: HIMMEL, spawn: 'default' } } },
+        text: 'Du steigst ein. Die Türen schließen sich ohne Laut, und der Boden unter dem Zug kippt weg. Kein Rattern, kein Pfiff, nur ein langes Steigen durch Rauch, dann durch Wolken, dann durch etwas, das heller ist als jedes Licht, das du kennst.\n\nGanz oben siehst du die Himmelsstadt nur einen Atemzug lang. Dann trifft dich das Licht. Es frisst dich nicht, es wiegt dich, und du bist zu leicht. Die Türen springen auf, und du fällst, durch Wolken, durch Rauch, durch die Nacht, bis Stein dich auffängt.\n\nDunscar wirst du nicht wiedersehen. Du liegst in Calderwick, und über dir hängt eine Narbe aus Licht, wo du durchgebrochen bist. Hinauf kommst du erst, wenn du schwer genug bist.',
+        // Seb 2026-11-26: Reihenfolge Dunscar → Calderwick → Briarholt → Himmelsstadt. Der erste Zug kommt nicht an, man stürzt nach Calderwick.
+        effects: { ...STURZ_EFFECTS, travel: STURZ_ZIEL } },
       // Rückkehrer (alte Spielstände, die zu früh gestürzt sind): der Zug bringt sie ohne zweite Himmelsstadt zurück nach Calderwick
       { id: 'auf_zug_zurueck', kind: 'read', tile: [4, 10], prompt: 'Der Zug nach oben', title: 'Zurück nach Calderwick', marker: true,
         visible_if: { requires_flags: ['k4_arrived', 'auf_rueckweg'], requires_alle_flag: 'auf_schaffner' },
@@ -228,6 +233,9 @@ export function applyAufstieg(content) {
     ];
   }
   applyStarlingSuche(content);
+  // Seb 2026-11-26: Pendelzug Calderwick ↔ Dunscar, damit man nach dem Sturz in Dunscar weitermachen kann (Hauptfall, Aufträge, Zirkel)
+  if (bahnhof) bahnhof.interactables.push({ id: 'auf_pendel_cw', kind: 'read', tile: freieKachel(bahnhof, { near: [21, 12], seed: 'auf_pendel_cw' }), prompt: 'Pendelzug nach Calderwick', title: 'Pendelzug nach Calderwick', marker: true,
+    visible_if: { requires_flags: ['k4_arrived'], hide_if_flags: ['auf_rueckweg'] }, text: PENDEL_DS_TEXT, effects: { travel: STURZ_ZIEL } });
   // Kapitel 4: Der Sturz. Calderwick, die Stadt der Gefallenen
   content.cases = [...(content.cases ?? []).filter((c) => c.id !== 'kapitel4_aufstieg'), { id: 'kapitel4_aufstieg', title: 'Kapitel 4: Der Aufstieg' }];
   content.quests.k4_aufstieg = {
@@ -250,6 +258,8 @@ export function applyAufstieg(content) {
         visible_if: { requires_flags: ['k4_arrived'], requires_einer_unter_seq: 4, hide_if_flags: ['auf_rueckweg'] },
         text: 'Am Rand der Aufschlagstelle steht ein Lastenzug, der Kalk und Schutt nach unten bringt. Ein Bremser mustert dich. „Du bist zu leicht für Calderwick. Hier oben wirst du nie ein Heiliger, dir fehlt das Gewicht eines Halbgotts. Ich nehm dich mit nach Dunscar. Komm wieder, wenn du Sequenz 4 bist, der Schaffner am Endbahnhof lässt dich dann durch.“',
         effects: { sets_flags: ['auf_rueckweg'], travel: { map: 'ds_endbahnhof', spawn: 'default' } } },
+      { id: 'auf_pendel_ds', kind: 'read', tile: freieKachel(fuss, { near: [8, 17], seed: 'auf_pendel_ds' }), prompt: 'Pendelzug nach Dunscar', title: 'Pendelzug nach Dunscar', marker: true,
+        visible_if: { requires_flags: ['k4_arrived'], hide_if_flags: ['auf_rueckweg'] }, text: PENDEL_CW_TEXT, effects: { travel: { map: 'ds_endbahnhof', spawn: 'default' } } },
     ];
   }
   applyCalderwick(content);

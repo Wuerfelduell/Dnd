@@ -44,7 +44,7 @@ export function leftCities(state) {
   return [
     ...(leftKettlegate(state) ? ['kettlegate'] : []),
     ...(f?.has('k3_arrived') ? ['wexmoor'] : []),
-    ...(f?.has('k4_arrived') && !f?.has('auf_rueckweg') ? ['dunscar', 'himmel'] : []),
+    ...(f?.has('k4_arrived') && !f?.has('auf_rueckweg') ? ['himmel'] : []), // Dunscar per Bahn erreichbar (Seb 2026-11-26)
   ];
 }
 
