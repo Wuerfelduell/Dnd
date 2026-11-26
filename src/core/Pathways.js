@@ -236,6 +236,7 @@ export const DIGEST_LABELS = {
   uhr_perfekt: 'im perfekten Augenblick ausgewichen (max. 6× je Kampf)', uhr_vorhersage: 'Ablauf vorhergesehen oder verlangsamt (max. 3× je Kampf)',
   boss_win: 'Boss besiegt', elite_win: 'Elitegegner besiegt', talent: 'Welt-Fähigkeit eingesetzt (je 10 Nerven)',
   ritual: 'Ritual vollzogen', gathering: 'Zuschlag auf einem geheimen Treffen', tat: 'große Tat in Dunscar',
+  verdau_probe: 'Prüfstein im Pfadviertel bestanden (1× je Spieltag)', verdau_trost: 'Prüfstein im Pfadviertel: Trostpreis',
 };
 /**
  * Was jeden Pfad verdaut, ganz gleich nach welchem Grundsatz: die großen Prüfungen und das Wirken der eigenen Kraft.
@@ -590,6 +591,7 @@ export const pathwayMethods = {
       .filter(([kind]) => !(moorHigh && kind === 'heal_partner'))
       .map(([kind, v]) => { let pts = v * rate * (own[kind] ? pm : 1); if (kind === 'boss_win') pts = Math.max(pts, BOSS_DIGEST_FIXED); return [kind, pts]; })
       .concat(fixed)
+      .concat(this.content?.encounters?.[`o3_${this.pathway.id}_verdau`] && this.pathway.seq <= 4 ? [['verdau_probe', 15]] : []) // Prüfstein im Pfadviertel (core/VerdauProbe.js)
       .map(([kind, pts]) => ({ kind, label: DIGEST_LABELS[kind] ?? kind, points: pts, text: fmtDigest(pts) }))
       .sort((a, b) => b.points - a.points);
   },

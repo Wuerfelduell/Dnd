@@ -35,6 +35,7 @@ import { hausMethods } from './Haus.js';
 import { nebelseiteMethods } from './Nebelseite.js';
 import { benannteMethods } from './Benannte.js';
 import { seqHochMethods } from './SeqHoch.js';
+import { verdauProbeMethods } from './VerdauProbe.js';
 import { bedarfMethods } from './Bedarf.js';
 import { splitMethods } from './Split.js';
 import { mackenMethods } from './Macken.js';
@@ -476,6 +477,7 @@ export class GameState {
     if (e.unruhe) { if (this.isBeyonder()) this.setUnruhe(this.unruhe + e.unruhe); else this.setComposure(this.composure - e.unruhe); }
     if (e.combat) this.startCombat(e.combat);
     if (e.digest_pct) this.digestFixed(e.digest_pct); // feste Verdauung aus großen Taten (Dunscar-Anschläge)
+    if (e.verdau_probe) this.startVerdauProbe(e.verdau_probe); // Prüfstein im Pfadviertel (core/VerdauProbe.js)
     if (e.pfad) this.pfadEffect(e.pfad); // Pfad-Beyonder (Wexmoor): Aufgaben, Schritte, Pfand
     // Fahndung: Zahl ≥ 0 = Mindeststufe (Ausbruch, Flucht), negative Zahl = um so viele Stufen senken (Paket AB)
     if (Number.isFinite(e.wanted) && this.policeRules()) this.setWanted(e.wanted < 0 ? Math.max(0, this.wanted + e.wanted) : Math.max(this.wanted, e.wanted), e.wanted_reason ?? '');
@@ -1057,4 +1059,4 @@ export class GameState {
 /** Fortschrittsflags der verlängerten Akt-V-Fassung (AP), in Spielreihenfolge. */
 export const K2_AKT5_STEPS = ['k2v_boot_bereit', 'k2v_keller_passiert', 'k2v_aufstieg_passiert', 'k2v_abschied_done'];
 
-Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods, sudeMethods, seq5Methods, seq4Methods, seqHochMethods, bedarfMethods, splitMethods, pfadHandelMethods, erfolgeMethods, postMethods, benannteMethods, tiereMethods, fahrendeAuktionMethods, hausMethods, nebelseiteMethods, testmodusMethods, mackenMethods, kopfgeldjaegerMethods, wetterMethods, rivaleMethods);
+Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods, sudeMethods, seq5Methods, seq4Methods, seqHochMethods, bedarfMethods, splitMethods, pfadHandelMethods, erfolgeMethods, postMethods, benannteMethods, tiereMethods, fahrendeAuktionMethods, hausMethods, nebelseiteMethods, testmodusMethods, mackenMethods, kopfgeldjaegerMethods, wetterMethods, rivaleMethods, verdauProbeMethods);

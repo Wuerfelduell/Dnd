@@ -15,6 +15,7 @@ import { applyCalderwickStory } from './calderwickStory.js';
 import { applyBriarholtStory } from './briarholtStory.js';
 import { applyZweiterAufstieg } from './zweiterAufstieg.js';
 import { applyPfadviertel } from './pfadviertel.js';
+import { applyVerdauProbe } from './verdauProbe.js';
 import { applyMarloweTelegramm } from './marloweTelegramm.js';
 import { withFaehigkeiten } from './faehigkeiten.js';
 import { withHalbgottFertigkeiten } from './halbgottFertigkeiten.js';
@@ -130,6 +131,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyAufstieg(content); // Kapitel 4: Zug nach oben, Himmelsstadt (immer verbrannt), Sturz nach Calderwick
   applyCalderwickStory(content); // Kapitel 4 ausgebaut: Die Ernte der Gefallenen, Wetherby, Linie nach Briarholt
   applyPfadviertel(content); // Calderwick-Pfadviertel: Herzkette je Pfad, Kernzutaten 2/1, Krämer mit Formel 3 (30.000) und Grundzutaten
+  applyVerdauProbe(content); // Prüfstein je Pfadviertel: Verdauungs-Herausforderung 1× je Spieltag (core/VerdauProbe.js)
   applyPfadHandel(content); // Pfad-Beyonder in Wexmoor: Zutaten für Seq 5/4, drei neue Einzelgänger, Laufplan
   applySchmuggel(content); // Kein Zurück nach Kettlegate: Zirkelware von dort in Zunders Schmuggelkiste
   applyMoods(content); // Paket AK: Stimmungen für Schlüsselstellen
