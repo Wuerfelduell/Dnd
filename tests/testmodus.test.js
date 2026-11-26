@@ -51,6 +51,10 @@ test('Testmodus: alle Zutaten und Formeln im Inventar, keine Tragkraftgrenze, ke
   assert.ok(zutaten.every((id) => s.itemCount(id) >= 10));
   assert.ok(formeln.every((id) => s.itemCount(id) >= 1));
   assert.equal(s.unruhe, 0);
+  assert.equal(s.pathway.digestion, 100);
+  s.pathway.digestion = 0;
+  s.tick(5);
+  assert.equal(s.pathway.digestion, 100);
   assert.ok(s.carryWeight() > s.carryCapacity());
   assert.equal(s.isOverloaded(), false);
   s.setUnruhe(90);
