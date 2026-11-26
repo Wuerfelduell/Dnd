@@ -124,7 +124,7 @@ export const talentMethods = {
       this.buffs.push({ key: b.key, value: b.value, until: this.talentTime + b.seconds, source: id });
       parts.push(`${buffLabel(b)} (${fmtSec(b.seconds)})`);
     }
-    if (t.calm && this.unruhe > 0) { const before = this.unruhe; this.setUnruhe(this.unruhe - t.calm); parts.push(`-${Math.round(before - this.unruhe)} Unruhe`); }
+    if (t.calm && this.unruhe > 0) { const before = this.unruhe; this.calmUnruhe(t.calm); parts.push(`-${Math.round(before - this.unruhe)} Unruhe`); }
     if (t.nerves_gain) { const before = this.composure; this.setComposure(this.composure + t.nerves_gain); parts.push(`+${Math.round(this.composure - before)} Nerven`); }
     if (t.heal_pct) { const got = this.heal(Math.max(1, Math.round(this.maxHp * t.heal_pct))); if (got) parts.push(`+${got} Leben`); }
     // Moor im Koop: die Heilung erreicht auch den Partner (heal_partner)

@@ -802,7 +802,7 @@ export class GameState {
     if (it.heal) parts.push(`+${this.heal(Math.max(1, Math.round(it.heal * this.passive('heal_bonus') * (this.sektenHeilFaktor?.() ?? 1))))} Leben`); // BQ: vergifteter Brunnen halbiert Tränke vor Ort
     if (it.composure) { this.setComposure(this.composure + it.composure); parts.push(`+${it.composure} Nerven`); }
     const calm = (it.calm ?? 0) + (it.heal ? this.passive('use_calm') : 0);
-    if (calm && this.unruhe > 0) { this.setUnruhe(this.unruhe - calm); parts.push(`-${calm} Unruhe`); }
+    if (calm && this.unruhe > 0) { const got = this.calmUnruhe(calm); parts.push(got > 0 ? `-${Math.round(got)} Unruhe` : 'die Unruhe der Gestalt weicht nicht'); }
     const buff = this.applySudBuff?.(it); // eigene Sude wirken auf Zeit
     if (buff) parts.push(buff);
     this.act('use_item');
