@@ -77,7 +77,7 @@ export const seqHochMethods = {
     const h = this.hochRitual();
     if (!h) return { ok: false, text: 'Dein nächstes Ritual hat keine solche Prüfung.' };
     if (this.hochPassed(h.pid, h.seq)) return { ok: false, text: 'Die Prüfung ist bestanden. Vollzieh das Ritual.' };
-    if (h.seq === 3 && !this.itemCount(ritualformel(h.pid))) return { ok: false, text: `Ohne die Ritualformel der dritten Sequenz geht es nicht. Sie ist so selten wie die Trankformel: Zirkel-Lose in Dunscar (15 000) oder sehr seltene Monster-Beute.` };
+    if (h.seq === 3 && !this.itemCount(ritualformel(h.pid))) return { ok: false, text: `Ohne die Ritualformel der dritten Sequenz geht es nicht. Der Gildenkrämer im Pfadviertel verkauft sie für 30.000, ab Sequenz 4 legt jedes Zirkeltreffen eine zufällige Seq-3-Formel auf, selten fällt eine als Beute.` };
     // Seb 2026-11-26: in Dunscar wie in Briarholt ausführbar, deshalb ohne Gildenbeitritt (die Kernzutat 3 gibt es weiter nur bei der Gilde)
     if (HOCH_SEQ1_VERSIEGELT && h.seq === 1) return { ok: false, text: 'Noch versiegelt: Das Ritual der ersten Sequenz ist noch nicht freigegeben.' }; // Seb 2026-11-12: Seq 1 erst nach Abstimmung
     const st = this.hochState();

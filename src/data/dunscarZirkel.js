@@ -5,7 +5,7 @@
 //      Der Kalte Ofen   (Alchemie: Halbgott-Formeln aller Pfade, Seq-5-Zutaten, Tränke-Artefakte), alter Kalkofen am Kalkmarkt
 //      Das Stumme Stellwerk (Formeln 6/5 der übrigen Pfade, Waffen, Schloss- und Signal-Artefakte), am Signalhang
 //    Die Treffen wechseln sich ab (Uhr wie bisher: alle 5 Minuten eines, also jeder Zirkel alle 15 Minuten).
-//  - Seq-3-Formeln nur mit 1 % je Los für 15.000 (Seb). Seq-4-Formel nur auf Treffen oder als Elite-Fund.
+//  - Seq-3-Formeln: ab Seq 4 eine feste je Treffen (core/Auction.js, Seb 2026-11-26). Seq-4-Formel nur auf Treffen oder als Elite-Fund.
 
 /**
  * Ausrufpreise (Startgebot = 60 %). Seb (2026-11-12): alte Gegenstände zu alten Preisen (wie auf den Wexmoorer
@@ -13,8 +13,7 @@
  */
 import { ZIRKEL_RAEUME } from './dunscarZirkelRaeume.js';
 export const DS_LOS = {
-  formel: { 6: 640, 5: 900, 4: 4000, 3: 15000 }, // Seq 3 (Seb 2026-11-12): 1 % je Treffen, 15.000
-  formel3Chance: 0.01,
+  formel: { 6: 640, 5: 900, 4: 4000 },
   zutat5: { price: 320, chance: 0.45 },
   formel4Chance: 0.3, // Seb 2026-11-12: Zirkel voller, Chancen spürbar höher (vorher 0,12)
   formel65Chance: 0.3, // vorher 0,2
@@ -419,12 +418,7 @@ export function applyDunscarZirkel(content) {
   // Schichtbund: billiges raus, seltenes rein
   for (const m of circles.schichtbund?.members ?? []) m.offers.push(...(SCHICHTBUND_NEU[m.id] ?? []).map((o) => ({ ...o })));
   if (circles.schichtbund) circles.schichtbund.members[0].offers.push(...SCHICHTBUND_BRUTAL.map((o) => ({ ...o })));
-  // Seq-3-Formel (Seb 2026-11-12): taucht mit 1 % auf, für 15.000; reihum über alle drei Dunscar-Zirkel
-  const seats3 = Object.values(circles).filter((c) => c.city === 'dunscar').flatMap((c) => c.members);
-  pids.filter((p) => has(`formel_${p}_3`)).forEach((p, i) => seats3[i % seats3.length].offers.push(
-    L(`formel_${p}_3`, DS_LOS.formel[3], DS_LOS.formel3Chance, { once: true, requires_pathway: [p, 4], nachbar: true, locked_text: 'Erst ab Sequenz 4 dieses Pfades oder seines Nachbarpfads' }),
-    // Seb (2026-11-12): Seq 3 hat eine eigene Ritualformel, gleich selten und gleich teuer
-    ...(has(`ritualformel_${p}_3`) ? [L(`ritualformel_${p}_3`, DS_LOS.formel[3], DS_LOS.formel3Chance, { once: true, requires_pathway: [p, 4], nachbar: true, locked_text: 'Erst ab Sequenz 4 dieses Pfades oder seines Nachbarpfads' })] : [])));
+  // Seq-3-Formeln: keine Lose mehr hier. Seb 2026-11-26: ab Seq 4 legt jeder Zirkel je Treffen genau eine auf (core/Auction.js zirkelFormel3).
   // Formeln unter Sequenz 3 nie
   for (const c of Object.values(circles)) {
     if (c.city !== 'dunscar') continue;

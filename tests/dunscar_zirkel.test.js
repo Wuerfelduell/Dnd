@@ -21,9 +21,8 @@ test('Vier Zirkel in Dunscar (alte Zirkel zusammengeführt): alte Stücke zu alt
     for (const m of c.members) for (const o of m.offers) {
       const it = content.items[o.item];
       if (it.kind === 'formula') {
-        assert.ok(it.seq >= 3, o.item);
-        assert.equal(o.price, { 6: 640, 5: 900, 4: 4000, 3: 15000 }[it.seq], o.item);
-        if (it.seq === 3) assert.equal(o.chance, 0.01, o.item);
+        assert.ok(it.seq >= 4, `${o.item}: Seq-3-Formeln nur noch als festes Zirkel-Los (Auction.zirkelFormel3)`);
+        assert.equal(o.price, { 6: 640, 5: 900, 4: 4000 }[it.seq], o.item);
       }
       if (o.item.startsWith('dsz_')) assert.ok(o.price >= 1500, `${id}/${o.item}: ${o.price}`);
     }
@@ -31,7 +30,6 @@ test('Vier Zirkel in Dunscar (alte Zirkel zusammengeführt): alte Stücke zu alt
   const lose = (cid) => C[cid].members.flatMap((m) => m.offers.map((o) => o.item));
   for (const pid of Object.keys(content.pathways)) {
     assert.ok(lose('kalkofen').includes(`formel_${pid}_4`), `Halbgott-Formel ${pid}`);
-    assert.ok(dunscar.some(([cid]) => lose(cid).includes(`formel_${pid}_3`)), `Seq-3-Formel ${pid}`);
   }
   // Seb 2026-11-13: keine Kleinware mehr (Kappe +12 Nerven usw.), nur Formeln, Zutaten und Stücke ab 2000
   for (const [cid] of dunscar) for (const id of lose(cid)) {

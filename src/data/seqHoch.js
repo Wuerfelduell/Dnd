@@ -7,7 +7,7 @@
  * Seb 2026-11-26 („immer nach oben“, Aufbau siehe HOCH): 3 Kette + Pfadschritt + Heiligenwächter, 2 Weltwandel + Kette +
  * Pfadschritt + Grenzwächter, 1 nahezu unmöglich: langer Schritt ohne Kampf + Kette + Grenz- und Engelswächter am Stück.
  *
- * Sequenz 3 (Seb 2026-11-12, nach #411 umgebaut): Trankformel und Ritualformel getrennt, beide selten (Zirkel-Los 15 000,
+ * Sequenz 3 (Seb 2026-11-12, nach #411 umgebaut): Trankformel und Ritualformel getrennt, beide beim Gildenkrämer 30 000 oder ab Seq 4 zufällig je Zirkeltreffen (Seb 2026-11-26),
  * sehr seltene Monster-Beute). Man tritt der Gilde seines Pfades bei (Sitz o3_<pfad>), die Kernzutat 3 gibt nur ihr Oberhaupt.
  * Im Sitz liegen außerdem die Formeln der 2 (Archiv nach dem Oberhaupt) und der 1 (fünf Inschriften).
  */
