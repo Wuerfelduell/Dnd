@@ -27,6 +27,7 @@
 import { ordealId } from './Pathways.js';
 import { isBeyonderFoe } from './Seq5.js';
 import { encounterSeq } from './Fear.js';
+import { hpFloor, ENEMY_HP_MULT } from './Combat.js';
 import { HG_NAMES, HG_SUDE, MOORWASSER, RELIKT } from '../data/seq4.js';
 import { LEERES_GEFAESS } from '../data/sude.js';
 import { seeded } from './Gatherings.js';
@@ -45,9 +46,15 @@ export const ECHO_FIGHTS = 3;
 export const EISEN = { artifacts: 5, load: 2, slots: ['hut', 'mantel', 'amulett'], killRound: 6 };
 export const SCHATTEN = { hp: 0.4, fights: 2, mult: 0.8 };
 export const SCHATTEN_ATTACKE = { name: 'Schattenattacke', cost: 0, hits: 1, mult: SCHATTEN.mult, shadow: true, desc: 'Ein Hieb aus Dunkelheit. Immer verfügbar, kostet keine Nerven, etwa vier Fünftel deiner gewohnten Wucht.' };
-export const MOOR = { items: 5 };
+export const MOOR = { items: 5, water: 30 }; // water: Flaschen, die der Wächterkampf (eine je Runde, Sim ~29 Runden) etwa braucht
 export const UHR = { monsters: 3, guardianMisses: 3 };
 export const PERFECT_DODGE = 45; // ± ms um den Einschlag: perfektes Ausweichen (Ritual der Uhr)
+/**
+ * Wächter unter harten Einschränkungen (Sim tools/sim/seq4_waechter.mjs, 2026-11-26): mit vollen 3500 Leben war er für Maske
+ * (nur Angriff), Faden (nach dem Traum, ohne Heilung) und Schlüssel (Schatten mit 40 % Leben) auch geübt nicht zu schaffen.
+ * So gewinnt ein sehr geübter Seq-5-Spieler knapp, ein geübter nicht. Eisen, Kessel, Moor, Echo, Waage: volle Stärke.
+ */
+export const WAECHTER_SCALE = { maske: { hp: 0.4, dmg: 0.6 }, faden: { hp: 0.35, dmg: 0.5 }, schluessel: { hp: 0.25, dmg: 0.3 } };
 export const ESSENZ_BONUS = 0.1; // je getrunkener Essenz +10 % Flaschenschaden im Kampf gegen den Wächter des Kessels
 
 const HINTS = {
@@ -206,7 +213,7 @@ export const seq4Methods = {
     }
     if (k === 'schluessel') return [s(st.shadow ? `Der Schatten läuft: ${st.wins ?? 0}/${SCHATTEN.fights} Gegner, ${st.shadowHp}/${st.shadowMax} Leben` : `Mit dem Schatten ${SCHATTEN.fights} Gegner besiegt`, (st.wins ?? 0) >= SCHATTEN.fights), g];
     if (k === 'waage') return [s(st.stash ? `Besitz verwahrt, Kapital ${st.capital} Schilling` : 'Allen Besitz abgelegt und Kapital gewählt', st.stash), s(st.bought ? `Jedes Los einer Zirkelrunde gekauft (${st.bought})` : 'Jedes Los einer Zirkelrunde gekauft', st.allBought), g];
-    if (k === 'moor') return [s(`${MOOR.items} okkulte oder seltene Dinge mit Moorkraft zersetzt (${(st.decayed ?? []).length}/${MOOR.items})`, (st.decayed ?? []).length >= MOOR.items), s('Das Relikt des Verfalls geformt', this.pathway?.relikt), s(`Moorwasser für den Kampf (${this.itemCount(MOORWASSER)} Flaschen)`, this.itemCount(MOORWASSER) >= 8), g];
+    if (k === 'moor') return [s(`${MOOR.items} okkulte oder seltene Dinge mit Moorkraft zersetzt (${(st.decayed ?? []).length}/${MOOR.items})`, (st.decayed ?? []).length >= MOOR.items), s('Das Relikt des Verfalls geformt', this.pathway?.relikt), s(`Moorwasser für den Kampf: eine Flasche je Runde, rechne mit ${MOOR.water} (${this.itemCount(MOORWASSER)} dabei)`, this.itemCount(MOORWASSER) >= MOOR.water), g];
     if (k === 'uhr') return [s(st.active ? `Zeitprüfung: ${st.count ?? 0}/${UHR.monsters} Monster ohne Fehler` : `${UHR.monsters} Monster, nur perfekt ausgewichen, kein Fehler`, (st.count ?? 0) >= UHR.monsters), g];
     return [];
   },
@@ -302,15 +309,15 @@ export const seq4Methods = {
     const st = this.seq4();
     const g = id === this.hgGuardianId() && !!st.guardian;
     if (k === 'faden') {
-      if (id === TRAUM_ID || (g && st.dream)) return { solo: true, noHeal: true, dream: true };
+      if (id === TRAUM_ID || (g && st.dream)) return { solo: true, noHeal: true, dream: true, ...(g ? { scale: WAECHTER_SCALE.faden } : {}) };
       if (!st.dreamWon && (st.marks ?? []).length < HG_FAEDEN && markable(id, enc)) return { mark: true };
       return null;
     }
-    if (k === 'maske' && st.masked && (g || this.maskeTarget(id))) return { solo: true, onlyAttack: true, spare: !g, scale: g ? null : this.maskeScale(id) };
+    if (k === 'maske' && st.masked && (g || this.maskeTarget(id))) return { solo: true, onlyAttack: true, spare: !g, scale: g ? WAECHTER_SCALE.maske : this.maskeScale(id) };
     if (k === 'echo' && st.active) return { solo: true, deaf: true };
     if (k === 'kessel' && g) return { solo: true, potionOnly: true, itemMult: 1 + ESSENZ_BONUS * (st.drunk?.length ?? 0) };
     if (k === 'eisen' && g) return { solo: true, noDodge: true, minKillRound: EISEN.killRound };
-    if (k === 'schluessel' && st.shadow) return { solo: true, shadow: true, noHeal: true, noParry: true, noItems: true, shadowHp: st.shadowHp, shadowMax: st.shadowMax };
+    if (k === 'schluessel' && st.shadow) return { solo: true, shadow: true, noHeal: true, noParry: true, noItems: true, shadowHp: st.shadowHp, shadowMax: st.shadowMax, ...(g ? { scale: WAECHTER_SCALE.schluessel } : {}) };
     if (k === 'waage' && g) return { solo: true };
     if (k === 'moor' && g) return { solo: true, moorwater: true };
     if (k === 'uhr' && st.active) return { solo: true, uhr: g ? 'guardian' : 'monster', noParry: true };
@@ -381,7 +388,7 @@ export const seq4Methods = {
       return this.seq4Pass('eisen', 'Unter doppelter Last, ohne zu weichen.').text;
     }
     if (k === 'schluessel' && rules?.shadow) {
-      st.shadowHp = Math.max(0, combat.shadowHpLeft ?? st.shadowHp);
+      st.shadowHp = Math.max(0, Math.min(st.shadowMax ?? Infinity, combat.shadowHpLeft ?? st.shadowHp));
       if (combat.outcome === 'lost') return this.seq4Fail('schluessel', this.seq4Msg('schluessel', 'schatten_zerfasert') || 'Der Schatten zerreißt und kriecht zurück in deinen Körper. Du lebst.', 'schatten_tot').text;
       if (!won) { this.emit('changed'); return null; }
       if (g) return this.seq4Pass('schluessel', this.seq4Join(this.seq4Msg('schluessel', 'schatten_zurueck'), 'Er gleitet zurück an deine Füße.')).text;
@@ -496,9 +503,13 @@ export const seq4Methods = {
       const strongest = [...list].sort((a, b) => b.damage * b.hits.length - a.damage * a.hits.length)[0];
       attacks.push({ ...strongest, name: `${enc.name}: ${strongest.name}`, damage: Math.max(1, Math.round(strongest.damage * TRAUM_BOOST.dmg)), unparryable: undefined });
     }
-    const hp = Math.round(marks.reduce((n, m) => n + (this.content.encounters[m.enc]?.hp ?? m.hp ?? 40), 0) * TRAUM_BOOST.hp);
+    // Leben je Wesen wie in seinem eigenen Kampf (Untergrenze ab Kapitel 3 eingerechnet), nicht die Boss-Untergrenze des Geflechts:
+    // die griff vorher immer (3200 Leben), und danach kam ohne Heilung noch der Wächter
+    const lifeOf = (m) => { const e = this.content.encounters[m.enc]; return e ? Math.max(e.hp ?? 40, hpFloor(e) / ENEMY_HP_MULT) : (m.hp ?? 40); };
+    const hp = Math.round(marks.reduce((n, m) => n + lifeOf(m), 0) * TRAUM_BOOST.hp);
+    const chapter = Math.max(2, ...marks.map((m) => this.content.encounters[m.enc]?.chapter ?? 2));
     this.content.encounters[TRAUM_ID] = {
-      name: 'Das Traumgeflecht', sprite: 'wild', sheet: 'enemy_fadenspinne', occult: true, boss: true, fleeable: true, chapter: 3, hp: Math.max(120, hp), dream: true,
+      name: 'Das Traumgeflecht', sprite: 'wild', sheet: 'enemy_fadenspinne', occult: true, boss: true, fleeable: true, chapter, hp_floor_mult: 0, hp: Math.max(120, hp), dream: true,
       intro: `Fünf Fäden, fünf Gestalten: ${marks.map((m) => m.name).join(', ')}. Sie stehen nicht nebeneinander, sie stehen ineinander, und jede schlägt zu. Im Traum heilt nichts.`,
       attacks: attacks.length ? attacks : [{ name: 'Fadenriss', damage: 14, hits: [900, 1500] }],
       on_win: {}, on_lose: {},

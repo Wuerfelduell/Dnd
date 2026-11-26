@@ -468,3 +468,31 @@ test('Maske im Koop: Spieler 2 provoziert einen Einzelgänger, der Kampf läuft 
   assert.equal(s.p2.pathway.seq4.spared, c.enc.name, 'zählt für Spieler 2');
   assert.ok(!s.pathway.seq4?.spared, 'nicht für Spieler 1');
 });
+
+test('Wächter unter harten Regeln: Traum ohne Boss-Untergrenze, Maske/Faden/Schlüssel gedämpft, Zorn-Phase mit', async () => {
+  const { WAECHTER_SCALE, TRAUM_ID: TID } = await import('../src/core/Seq4.js');
+  const content = loadContent();
+  const mk = (pid) => { const s = new GameState(content); s.pathway = { id: pid, seq: 5, digestion: 100 }; s.updateMaxHp(); s.hp = s.maxHp; return s; };
+  const full = new Combat(mk('eisen'), ordealId('eisen', 4)).enemy.maxHp;
+  // Faden: das Traumgeflecht aus fünf Wexmoor-Wesen erbt nicht die Boss-Untergrenze von Kapitel 3 (vorher immer 3200 Leben)
+  const f = mk('faden');
+  const ids = Object.keys(content.zones.wx_vergessmoor.encounters).filter((e) => content.encounters[e]).slice(0, 5);
+  f.seq4().marks = ids.map((e) => ({ enc: e, name: content.encounters[e].name }));
+  f.seq4().dream = true;
+  f.buildDream();
+  assert.ok(new Combat(f, TID).enemy.maxHp < 1000, 'Traum ohne Boss-Untergrenze');
+  f.seq4().guardian = true;
+  assert.equal(new Combat(f, ordealId('faden', 4)).enemy.maxHp, Math.round(full * WAECHTER_SCALE.faden.hp));
+  const m = mk('maske');
+  Object.assign(m.seq4(), { masked: true, guardian: true });
+  const g = new Combat(m, ordealId('maske', 4));
+  assert.equal(g.enemy.maxHp, Math.round(full * WAECHTER_SCALE.maske.hp));
+  const base = content.encounters[ordealId('maske', 4)];
+  assert.ok(g.enc.phase2.attacks[0].damage < base.phase2.attacks[0].damage, 'Zorn-Phase gedämpft');
+  const k = mk('schluessel');
+  Object.assign(k.seq4(), { shadow: true, shadowMax: 30, shadowHp: 30, guardian: true });
+  assert.equal(new Combat(k, ordealId('schluessel', 4)).enemy.maxHp, Math.round(full * WAECHTER_SCALE.schluessel.hp));
+  const e = mk('eisen');
+  e.seq4().guardian = true;
+  assert.equal(new Combat(e, ordealId('eisen', 4)).enemy.maxHp, full, 'Eisen bleibt voll');
+});
