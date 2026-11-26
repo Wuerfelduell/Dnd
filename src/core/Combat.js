@@ -264,7 +264,8 @@ export class Combat {
     this.ambushed = null; // wird beim ersten ambush() entschieden (nach dem Setzen von rng)
     this.drainTick = 0;
     this.armor = enc.practice ? 0 : enc.armor ?? (enc.boss ? Math.min(ARMOR.boss, tier) : enc.elite ? Math.min(ARMOR.elite, tier - 1) : 0);
-    this.enemy = { name: enc.name, hp, maxHp: hp, occult: !!enc.occult };
+    const testHp = state.testmodus && /^hg_(schwellen|grenz)waechter_/.test(this.id ?? '') ? 1 : hp; // Testmodus: Wächter mit 1 Leben
+    this.enemy = { name: enc.name, hp: testHp, maxHp: testHp, occult: !!enc.occult };
     this.rng = state.rng ?? Math.random;
     // BQ: Haupt einer Sekte wechselt bei halben Leben einmal die Angriffe (`phase2`: attacks, meldung), ohne Heilung oder Extra-Beute
     this.phase2 = enc.phase2 ?? null;

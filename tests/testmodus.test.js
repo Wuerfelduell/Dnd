@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
 import { testCodeOk } from '../src/core/Testmodus.js';
 import { lockedCities } from '../src/core/Travel.js';
+import { Combat } from '../src/core/Combat.js';
 import { loadContent } from './helpers.js';
 
 const content = loadContent();
@@ -66,4 +67,17 @@ test('Testmodus: alle Zutaten und Formeln im Inventar, keine Tragkraftgrenze, ke
   const t = new GameState(content);
   assert.ok(t.load(JSON.parse(JSON.stringify(s.serialize()))));
   assert.ok(formeln.every((id) => t.itemCount(id) >= 1));
+});
+
+test('Testmodus: Rituale vollzogen, Wächter mit 1 Leben', () => {
+  const s = new GameState(content);
+  s.pathway = { id: 'eisen', seq: 5, digestion: 100 };
+  assert.equal(s.ritualDone('eisen', 4), false);
+  const normal = new Combat(s, 'hg_schwellenwaechter_eisen');
+  assert.ok(normal.enemy.hp > 1);
+  s.startTestmodus();
+  assert.equal(s.ritualDone('eisen', 4), true);
+  assert.equal(s.drinkCheck('trank_eisen_4').ok, true);
+  assert.equal(new Combat(s, 'hg_schwellenwaechter_eisen').enemy.hp, 1);
+  assert.equal(new Combat(s, 'hg_grenzwaechter_eisen').enemy.hp, 1);
 });
