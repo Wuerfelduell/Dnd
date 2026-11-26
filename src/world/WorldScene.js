@@ -14,6 +14,7 @@ import { KoopLife } from './Koop.js';
 import { SektenLife } from './SektenLife.js';
 import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, facadeAtNight, buildingFacades, WX2_TILE_ANIMS, PROP_ORIGINS, MAP_WEATHER, DISGUISE_SHEETS, pathwayArt, P2_LOOKS, skinKeyOf , leseSceneOf, BH_THEME_KEYS, CW_THEME_KEYS, HG_PATHS, HG_FURCHT } from './assets.js';
 import { Roamers } from './Roamers.js';
+import { installWeltGimmicks, applyGimmick } from './WeltGimmicks.js';
 import { Critters } from './Critters.js';
 import { Patrols } from './Patrols.js';
 import { TapMove } from './TapMove.js';
@@ -791,6 +792,7 @@ export class WorldScene extends Phaser.Scene {
     this.roamers.buildCaches();
     this.patrols = new Patrols(this);
     this.patrols.build();
+    installWeltGimmicks(this); // Welt-Fähigkeiten ab Seq 4: eigene Kniffe auf der Karte
     this.buildAtmosphere(amb);
     this.buildWeather();
     this.gearOverlay = new GearOverlay(this); // Paket BU: Hut, Mantel, Waffe, Amulett über der Figur
@@ -1292,7 +1294,7 @@ export class WorldScene extends Phaser.Scene {
     const refresh = () => this.refreshVisibility();
     this.cleanups.push(
       s.on('vision', () => this.time.delayedCall(0, () => this.applyVision(this.visionOn()))), // nach einem Tausch: wer hier gerade sieht (Spieler 2 per Ziffernblock 0)
-      s.on('talent', (e) => { if (e.effect === 'scout') this.scoutEnemies(); }),
+      s.on('talent', (e) => { if (e.effect === 'scout') this.scoutEnemies(); else if (e.effect === 'gimmick') this.time.delayedCall(0, () => applyGimmick(this, e)); }), // erst nach withPlayer(2) zurück
       s.on('clue', (id) => {
         for (const it of this.interactables) {
           if (it.def.clue === id && it.glint) { it.glint.destroy(); it.parts = it.parts.filter((p) => p !== it.glint); it.glint = null; }
@@ -1540,7 +1542,7 @@ export class WorldScene extends Phaser.Scene {
       this.player.setTexture(skin, DIRS.indexOf(this.facing) * 4);
       this.fitBody(this.player, skin);
     }
-    const v = new Phaser.Math.Vector2(vx, vy).normalize().scale(PLAYER_SPEED * (this.state.isOverloaded() ? OVERLOAD_SPEED : 1));
+    const v = new Phaser.Math.Vector2(vx, vy).normalize().scale(PLAYER_SPEED * (this.state.isOverloaded() ? OVERLOAD_SPEED : 1) * (this.state.buffOf?.('move_speed', 1) ?? 1)); // Welt-Fähigkeiten: schneller laufen
     this.player.setVelocity(v.x, v.y);
     if (vx || vy) {
       this.facing = Math.abs(vx) > Math.abs(vy) ? (vx > 0 ? 'right' : 'left') : vy > 0 ? 'down' : 'up';
@@ -1600,7 +1602,7 @@ export class WorldScene extends Phaser.Scene {
       [vx, vy] = this.leash(p, this.player, vx, vy);
     }
     const heavy = this.state.withPlayer(2, () => this.state.isOverloaded(), { quiet: true });
-    const v = new Phaser.Math.Vector2(vx, vy).normalize().scale(PLAYER_SPEED * (heavy ? OVERLOAD_SPEED : 1));
+    const v = new Phaser.Math.Vector2(vx, vy).normalize().scale(PLAYER_SPEED * (heavy ? OVERLOAD_SPEED : 1) * (this.state.buffOf?.('move_speed', 2) ?? 1));
     p.setVelocity(v.x, v.y);
     const skin = this.p2Busy ? this.p2Key : this.p2SkinKey();
     if (skin !== this.p2Key) { // andere Figur gewählt oder Verkleidung gewechselt

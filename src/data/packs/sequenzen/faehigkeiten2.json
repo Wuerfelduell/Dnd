@@ -141,7 +141,14 @@
         "unruhe": 3,
         "cooldown": 300,
         "reveal": 60,
-        "desc": "Du nimmst den Schirm von der Lampe. Eine Minute lang sind alle verborgenen Spuren der Karte sichtbar."
+        "gimmick": {
+          "freeze": {
+            "radius": 5,
+            "seconds": 8,
+            "color": "#ffd98a"
+          }
+        },
+        "desc": "Du nimmst den Schirm von der Lampe. Gegner im Umkreis von 5 Feldern stehen 8 Sekunden geblendet still, eine Minute lang sind alle verborgenen Spuren sichtbar."
       }
     },
     "3": {
@@ -166,7 +173,10 @@
         "unruhe": 0,
         "cooldown": 240,
         "review": true,
-        "desc": "Du liest in der Asche: Eine Vermutung, der noch eine zweite Quelle fehlt, kommt dir wieder in den Sinn."
+        "gimmick": {
+          "harvest": true
+        },
+        "desc": "Du liest in der Asche. Alle liegenden Beutebehälter dieser Karte glühen auf und wandern zu dir, und eine offene Vermutung kommt dir wieder in den Sinn."
       }
     },
     "2": {
@@ -192,11 +202,11 @@
         "unruhe": 4,
         "cooldown": 420,
         "buff": {
-          "key": "occult_mult",
-          "value": 1.3,
-          "seconds": 180
+          "key": "lichtschranke",
+          "value": 1,
+          "seconds": 120
         },
-        "desc": "Du stellst dich in dein eigenes Licht. 3 Minuten lang +30 % Schaden gegen Okkultes."
+        "desc": "Du stellst dich in dein eigenes Licht. 2 Minuten lang kommt kein gewöhnlicher Gegner an dich heran: Wer dir zu nahe kommt, weicht geblendet zurück."
       }
     },
     "1": {
@@ -221,8 +231,13 @@
         "unruhe": 5,
         "cooldown": 480,
         "reveal": 120,
-        "scare": 60,
-        "desc": "Alle Fenster der Stadt leuchten für dich. 2 Minuten lang sind verborgene Spuren sichtbar, eine Minute lang weichen gewöhnliche Gegner."
+        "gimmick": {
+          "smite": {
+            "radius": 7,
+            "max": 12
+          }
+        },
+        "desc": "Alle Fenster der Stadt leuchten für dich. Gewöhnliche Gegner im Umkreis von 7 Feldern verglühen auf der Stelle, 2 Minuten lang sind verborgene Spuren sichtbar."
       }
     }
   },
@@ -357,16 +372,16 @@
       },
       "welt": {
         "id": "nahtgefuehl",
-        "name": "Nahtgefühl",
+        "name": "Fadenzug",
         "nerves": 12,
         "unruhe": 3,
         "cooldown": 420,
-        "buff": {
-          "key": "dodge_window",
-          "value": 1.6,
-          "seconds": 300
+        "gimmick": {
+          "blink": {
+            "tiles": 6
+          }
         },
-        "desc": "Du fühlst die Nähte der Welt. 5 Minuten lang ist das Ausweichfenster 60 % größer."
+        "desc": "Du wirfst einen Faden voraus und ziehst dich daran: ein Satz bis zu 6 Felder in Blickrichtung, bis zur ersten Wand."
       }
     },
     "3": {
@@ -383,12 +398,19 @@
       },
       "welt": {
         "id": "bruchstellen",
-        "name": "Bruchstellen",
+        "name": "Marionette",
         "nerves": 12,
         "unruhe": 4,
         "cooldown": 360,
         "scout": true,
-        "desc": "Du siehst, wo auf dieser Karte Gewalt lauert: Der Pfad zählt dir die Gegner und ihre Eliten."
+        "gimmick": {
+          "smite": {
+            "radius": 6,
+            "max": 2,
+            "text": "Marionette"
+          }
+        },
+        "desc": "Du fädelst den nächsten Gegner auf und lässt ihn auf seinen Nachbarn los. Bis zu 2 gewöhnliche Gegner im Umkreis von 6 Feldern fallen, und der Pfad zählt die übrigen."
       }
     },
     "2": {
@@ -414,7 +436,15 @@
           "value": 0.0,
           "seconds": 300
         },
-        "desc": "Du kennst jede Gasse am Faden. 5 Minuten lang kostet die schnelle Reise keine Nerven."
+        "buff2": {
+          "key": "move_speed",
+          "value": 1.3,
+          "seconds": 120
+        },
+        "gimmick": {
+          "tether": true
+        },
+        "desc": "Du kennst jede Gasse am Faden. Im Koop zieht der Faden deinen Partner an deine Seite. 2 Minuten lang läufst du 30 % schneller, 5 Minuten lang kostet die schnelle Reise keine Nerven."
       }
     },
     "1": {
@@ -439,7 +469,13 @@
         "hint": true,
         "review": true,
         "reveal": 60,
-        "desc": "Für einen Augenblick siehst du das ganze Gewebe: nächster Schritt, offene Vermutung und eine Minute lang alle verborgenen Spuren."
+        "gimmick": {
+          "rob": {
+            "radius": 99,
+            "max": 99
+          }
+        },
+        "desc": "Du siehst das ganze Gewebe und zupfst daran: Jeder Gegner dieser Karte verliert seine Beute an dich, ohne es zu merken. Dazu nächster Schritt, offene Vermutung und eine Minute lang alle verborgenen Spuren."
       }
     }
   },
@@ -586,12 +622,12 @@
         "unruhe": 4,
         "cooldown": 420,
         "wanted": -2,
-        "desc": "Ein geliehenes Gesicht trägt die Schuld. Fahndung sinkt um 2 Stufen, 6 Minuten lang brauchen Grauspäher mehr als doppelt so lange, bis sie dich erkennen.",
         "buff": {
-          "key": "recognize",
-          "value": 0.45,
-          "seconds": 360
-        }
+          "key": "gegnergesicht",
+          "value": 1,
+          "seconds": 120
+        },
+        "desc": "Du leihst dir das Gesicht der Gegend. 2 Minuten lang halten dich Kartengegner für einen der ihren und lassen dich vorbei, die Fahndung sinkt um 2 Stufen."
       }
     },
     "3": {
@@ -614,11 +650,16 @@
         "unruhe": 4,
         "cooldown": 480,
         "buff": {
+          "key": "patrol_blind",
+          "value": 1,
+          "seconds": 240
+        },
+        "buff2": {
           "key": "price",
           "value": 0.7,
           "seconds": 240
         },
-        "desc": "Du spielst den Stammkunden, den jeder kennt. 4 Minuten lang verlangen Händler 30 % weniger."
+        "desc": "Du spielst den Stammkunden, den jeder kennt. 4 Minuten lang übersehen dich Streifen und Aufseher, und Händler verlangen 30 % weniger."
       }
     },
     "2": {
@@ -641,8 +682,13 @@
         "unruhe": 5,
         "cooldown": 600,
         "wanted": -3,
-        "scare": 60,
-        "desc": "Du verschwindest aus jedem Blick. Die Fahndung sinkt um 3 Stufen, eine Minute lang weichen gewöhnliche Gegner."
+        "gimmick": {
+          "lure": {
+            "seconds": 30,
+            "where": "here"
+          }
+        },
+        "desc": "Du lässt eine leere Maske an deiner Stelle zurück. 30 Sekunden lang laufen alle Gegner der Karte zu deinem Doppelgänger statt zu dir, die Fahndung sinkt um 3 Stufen."
       }
     },
     "1": {
@@ -668,13 +714,14 @@
         "nerves": 16,
         "unruhe": 6,
         "cooldown": 600,
-        "buff": {
-          "key": "price",
-          "value": 0.6,
-          "seconds": 300
-        },
         "wanted": -3,
-        "desc": "Du bist jeder Kunde, jeder Nachbar, jeder Gast. 5 Minuten lang 40 % günstigere Preise, die Fahndung sinkt um 3 Stufen."
+        "gimmick": {
+          "infight": {
+            "seconds": 60,
+            "max": 8
+          }
+        },
+        "desc": "Du gibst jedem Gegner der Karte ein Gesicht, das er hasst. Eine Minute lang halten sie einander für dich und gehen aufeinander los: Bis zu 8 gewöhnliche Gegner fallen. Die Fahndung sinkt um 3 Stufen."
       }
     }
   },
@@ -808,16 +855,17 @@
       },
       "welt": {
         "id": "stilleverwahrung",
-        "name": "Stilleverwahrung",
+        "name": "Stimmwurf",
         "nerves": 0,
         "unruhe": 0,
         "cooldown": 480,
-        "buff": {
-          "key": "composure_regen",
-          "value": 2.0,
-          "seconds": 240
+        "gimmick": {
+          "lure": {
+            "seconds": 25,
+            "where": "ahead"
+          }
         },
-        "desc": "Du verwahrst die Stille in dir. 4 Minuten lang erholen sich deine Nerven doppelt so schnell."
+        "desc": "Du wirfst deine Stimme weit voraus. 25 Sekunden lang laufen alle Gegner der Karte dorthin, wo sie dich zu hören glauben."
       }
     },
     "3": {
@@ -839,8 +887,12 @@
         "unruhe": 4,
         "cooldown": 420,
         "review": true,
-        "hint": true,
-        "desc": "Die Toten des Ortes halten dir ihren Nachruf: nächster Schritt und eine offene Vermutung."
+        "buff": {
+          "key": "lautlos",
+          "value": 1,
+          "seconds": 240
+        },
+        "desc": "Du gehst so leise wie die Toten des Ortes. 4 Minuten lang bemerken dich Gegner erst, wenn du fast vor ihnen stehst, und eine offene Vermutung kommt dir in den Sinn."
       }
     },
     "2": {
@@ -862,9 +914,14 @@
         "nerves": 14,
         "unruhe": 4,
         "cooldown": 480,
-        "scare": 60,
         "calm": 15,
-        "desc": "Um dich wird es so still, dass niemand näherkommen mag. Eine Minute lang weichen gewöhnliche Gegner, die Unruhe sinkt um 15."
+        "gimmick": {
+          "knockback": {
+            "radius": 5,
+            "seconds": 6
+          }
+        },
+        "desc": "Ein Schlag aus Stille. Gegner im Umkreis von 5 Feldern werden zurückgeschleudert und stehen 6 Sekunden taub da, die Unruhe sinkt um 15."
       }
     },
     "1": {
@@ -890,8 +947,19 @@
         "unruhe": 0,
         "cooldown": 600,
         "nerves_gain": 60,
-        "calm": 30,
-        "desc": "Du setzt dich an die Stelle, an der alles gehört wird. 60 Nerven zurück, Unruhe sinkt um 30."
+        "buff": {
+          "key": "lautlos",
+          "value": 1,
+          "seconds": 300
+        },
+        "gimmick": {
+          "freeze": {
+            "radius": 99,
+            "seconds": 20,
+            "color": "#bfd8ff"
+          }
+        },
+        "desc": "Du nimmst der ganzen Karte den Ton. Alle Gegner erstarren 20 Sekunden lang, 5 Minuten lang bemerken sie dich erst ganz aus der Nähe, 60 Nerven kommen zurück."
       }
     }
   },
@@ -1033,11 +1101,16 @@
         "unruhe": 3,
         "cooldown": 420,
         "buff": {
+          "key": "move_speed",
+          "value": 1.35,
+          "seconds": 300
+        },
+        "buff2": {
           "key": "carry",
           "value": 25,
           "seconds": 300
         },
-        "desc": "Deine Säfte setzen sich dichter. 5 Minuten lang +25 Pfund Tragkraft."
+        "desc": "Deine Säfte setzen sich leichter und dichter. 5 Minuten lang läufst du 35 % schneller und trägst 25 Pfund mehr."
       }
     },
     "3": {
@@ -1057,12 +1130,15 @@
         "nerves": 12,
         "unruhe": 4,
         "cooldown": 420,
-        "buff": {
-          "key": "damage_taken",
-          "value": 0.8,
-          "seconds": 300
+        "gimmick": {
+          "smite": {
+            "radius": 4,
+            "max": 1,
+            "heal": 0.25,
+            "text": "Zehrende Wandlung"
+          }
         },
-        "desc": "Deine Haut gerbt sich von innen. 5 Minuten lang nimmst du 20 % weniger Schaden."
+        "desc": "Du greifst in den nächsten Gegner hinein und wandelst ihn um. Ein gewöhnlicher Gegner im Umkreis von 4 Feldern zerfließt, seine Beute bleibt liegen, und du heilst 25 % deines Lebens."
       }
     },
     "2": {
@@ -1086,9 +1162,12 @@
         "nerves": 0,
         "unruhe": 0,
         "cooldown": 480,
-        "heal_pct": 0.5,
+        "heal_pct": 0.3,
         "nerves_gain": 25,
-        "desc": "Du sammelst die Wärme ein, die andere verlieren. Heilt 50 % deines Lebens und 25 Nerven."
+        "gimmick": {
+          "brew": 2
+        },
+        "desc": "Du braust aus der Wärme, die andere verlieren. 2 Heilmittel aus deinem Kessel, 30 % Leben und 25 Nerven zurück."
       }
     },
     "1": {
@@ -1110,8 +1189,17 @@
         "unruhe": 0,
         "cooldown": 600,
         "heal_pct": 1.0,
+        "heal_partner": true,
         "calm": 40,
-        "desc": "Dein Körper kehrt in den Zustand zurück, in dem er sein sollte. Volles Leben, Unruhe sinkt um 40."
+        "gimmick": {
+          "smite": {
+            "radius": 6,
+            "max": 10,
+            "heal": 0.1,
+            "text": "Kreislauf"
+          }
+        },
+        "desc": "Alles fließt zurück in den Kessel. Gewöhnliche Gegner im Umkreis von 6 Feldern lösen sich auf und nähren dich, volles Leben für dich und deinen Partner, Unruhe sinkt um 40."
       }
     }
   },
@@ -1259,9 +1347,13 @@
         "nerves": 10,
         "unruhe": 3,
         "cooldown": 420,
-        "scare": 45,
         "heal_pct": 0.2,
-        "desc": "Du stellst dich breit hin, und die Gasse weiß Bescheid. 45 Sekunden lang weichen gewöhnliche Gegner, 20 % Leben zurück."
+        "buff": {
+          "key": "ironskin",
+          "value": 1,
+          "seconds": 180
+        },
+        "desc": "Du stellst dich breit hin. 3 Minuten lang prallen gewöhnliche Gegner, die dich anrennen, an dir ab und bleiben benommen liegen, statt dich in einen Kampf zu ziehen. 20 % Leben zurück."
       }
     },
     "3": {
@@ -1282,12 +1374,13 @@
         "nerves": 12,
         "unruhe": 4,
         "cooldown": 480,
-        "buff": {
-          "key": "dmg_mult",
-          "value": 1.2,
-          "seconds": 240
+        "gimmick": {
+          "blink": {
+            "tiles": 7,
+            "smite": true
+          }
         },
-        "desc": "Jeder Schritt drückt sich in den Stein. 4 Minuten lang +20 % Schaden mit allem."
+        "desc": "Du rennst los wie ein Rammbock: bis zu 7 Felder in Blickrichtung, und jeder gewöhnliche Gegner auf deinem Weg bleibt zerdrückt liegen."
       }
     },
     "2": {
@@ -1308,13 +1401,18 @@
         "nerves": 14,
         "unruhe": 4,
         "cooldown": 480,
+        "heal_pct": 0.3,
         "buff": {
+          "key": "ironskin",
+          "value": 2,
+          "seconds": 150
+        },
+        "buff2": {
           "key": "damage_taken",
           "value": 0.6,
           "seconds": 240
         },
-        "heal_pct": 0.3,
-        "desc": "Du wirst zum Teil der Stadtmauer. 4 Minuten lang 40 % weniger Schaden, 30 % Leben zurück."
+        "desc": "Du wirst zum Teil der Stadtmauer. 150 Sekunden lang zerbricht jeder gewöhnliche Gegner, der dich berührt, 4 Minuten lang 40 % weniger Schaden, 30 % Leben zurück."
       }
     },
     "1": {
@@ -1340,11 +1438,22 @@
         "cooldown": 600,
         "scare": 120,
         "buff": {
+          "key": "ironskin",
+          "value": 2,
+          "seconds": 300
+        },
+        "buff2": {
           "key": "carry",
           "value": 60,
           "seconds": 300
         },
-        "desc": "Dein Schatten bleibt stehen, und niemand wagt sich an ihm vorbei. 2 Minuten lang weichen gewöhnliche Gegner, 5 Minuten lang +60 Pfund Tragkraft."
+        "gimmick": {
+          "knockback": {
+            "radius": 8,
+            "seconds": 8
+          }
+        },
+        "desc": "Dein Schatten fällt wie ein Hammer. Alle Gegner im Umkreis von 8 Feldern fliegen zurück, 2 Minuten lang weichen gewöhnliche Gegner, 5 Minuten lang zerbricht, wer dich berührt, und du trägst 60 Pfund mehr."
       }
     }
   },
@@ -1515,7 +1624,13 @@
           "value": 1.5,
           "seconds": 300
         },
-        "desc": "Du weißt, wo das Geld liegt. 5 Minuten lang +50 % Schilling aus Belohnungen und Beute."
+        "gimmick": {
+          "rob": {
+            "radius": 4,
+            "max": 1
+          }
+        },
+        "desc": "Deine Finger sind schon in der Tasche des nächsten Gegners. Er lässt seine Beute fallen, ohne es zu merken, und 5 Minuten lang +50 % Schilling aus Beute und Belohnungen."
       }
     },
     "3": {
@@ -1536,12 +1651,14 @@
         "nerves": 12,
         "unruhe": 4,
         "cooldown": 480,
-        "money": [
-          15,
-          35
-        ],
         "wanted": -1,
-        "desc": "Deine Hand ist schon auf der anderen Seite der Scheibe. 15 bis 35 Schilling, die Fahndung sinkt um eine Stufe."
+        "gimmick": {
+          "blink": {
+            "tiles": 5,
+            "through": true
+          }
+        },
+        "desc": "Deine Hand ist schon auf der anderen Seite. Du trittst bis zu 5 Felder in Blickrichtung durch Wände und Türen hindurch, die Fahndung sinkt um eine Stufe."
       }
     },
     "2": {
@@ -1562,18 +1679,24 @@
         "nerves": 14,
         "unruhe": 4,
         "cooldown": 480,
+        "wanted": -1,
         "buff": {
           "key": "always_flee",
           "value": true,
           "seconds": 600
         },
-        "wanted": -1,
-        "desc": "Du stehst immer auf der abgewandten Seite. 10 Minuten lang kannst du aus jedem Kampf fliehen, 6 Minuten lang knackst du Schlösser mühelos und die Fahndung sinkt mehr als doppelt so schnell. Fahndung sinkt sofort um 1 Stufe.",
         "buff2": {
           "key": "lock_skill",
           "value": 48,
           "seconds": 360
-        }
+        },
+        "gimmick": {
+          "rob": {
+            "radius": 6,
+            "max": 3
+          }
+        },
+        "desc": "Du stehst immer auf der abgewandten Seite. Bis zu 3 Gegner im Umkreis von 6 Feldern verlieren ihre Beute an dich, 10 Minuten lang kannst du aus jedem Kampf fliehen, 6 Minuten lang knackst du Schlösser mühelos. Fahndung sinkt um 1 Stufe."
       }
     },
     "1": {
@@ -1595,18 +1718,28 @@
         "nerves": 16,
         "unruhe": 5,
         "cooldown": 600,
+        "wanted": -1,
         "money": [
           30,
           60
         ],
-        "reveal": 60,
-        "wanted": -1,
-        "desc": "Nichts ist dir verwehrt. Fahndung sinkt um 1 Stufe. 6 Minuten lang öffnet sich jedes knackbare Schloss und die Wache verliert deine Spur fast sofort, 30 bis 60 Schilling, eine Minute lang alle verborgenen Spuren.",
         "buff": {
+          "key": "schattengestalt",
+          "value": true,
+          "seconds": 90
+        },
+        "buff2": {
           "key": "lock_skill",
           "value": 96,
           "seconds": 360
-        }
+        },
+        "gimmick": {
+          "blink": {
+            "tiles": 10,
+            "through": true
+          }
+        },
+        "desc": "Nichts ist dir verwehrt. Du gehst bis zu 10 Felder durch jede Wand und bist danach 90 Sekunden lang Schatten, den niemand sieht. 6 Minuten lang öffnet sich jedes Schloss, 30 bis 60 Schilling, Fahndung sinkt um 1 Stufe."
       }
     }
   },
@@ -1756,12 +1889,10 @@
         "nerves": 10,
         "unruhe": 3,
         "cooldown": 420,
-        "buff": {
-          "key": "carry",
-          "value": 35,
-          "seconds": 300
+        "gimmick": {
+          "balance": true
         },
-        "desc": "Du trägst Gewichte, die niemand sieht, also trägst du auch die, die man sieht. 5 Minuten lang +35 Pfund Tragkraft."
+        "desc": "Du legst Leben und Nerven auf die Waage. Was niedriger steht, steigt auf den Mittelwert, im Koop auch zwischen dir und deinem Partner. Niemand verliert dabei etwas."
       }
     },
     "3": {
@@ -1790,12 +1921,14 @@
           "value": 2,
           "seconds": 300
         },
-        "buff2": {
-          "key": "recognize",
-          "value": 0.45,
-          "seconds": 300
+        "gimmick": {
+          "tribute": {
+            "min": 8,
+            "max": 15,
+            "seconds": 90
+          }
         },
-        "desc": "Jede Zusage wird gewogen. 5 Minuten lang +80 Schilling je Schlussfolgerung, und Grauspäher brauchen mehr als doppelt so lange, bis sie dich erkennen."
+        "desc": "Jeder auf dieser Karte schuldet dir etwas. Jeder gewöhnliche Gegner zahlt 8 bis 15 Schilling Schutzgeld und lässt dich 90 Sekunden lang in Ruhe. 5 Minuten lang +80 Schilling je Schlussfolgerung."
       }
     },
     "2": {
@@ -1812,7 +1945,7 @@
       },
       "welt": {
         "id": "waage_zusagen",
-        "name": "Zusagen senken",
+        "name": "Urteil",
         "nerves": 14,
         "unruhe": 4,
         "cooldown": 480,
@@ -1826,7 +1959,14 @@
           "value": 1.4,
           "seconds": 300
         },
-        "desc": "Dein Schatten senkt sich unter die Zusagen der Händler. 5 Minuten lang 30 % günstiger kaufen, 40 % teurer verkaufen."
+        "gimmick": {
+          "smite": {
+            "radius": 6,
+            "max": 6,
+            "text": "Urteil"
+          }
+        },
+        "desc": "Du sprichst ein Urteil. Gewöhnliche Gegner im Umkreis von 6 Feldern werden auf der Stelle gerichtet. 5 Minuten lang 30 % günstiger kaufen, 40 % teurer verkaufen."
       }
     },
     "1": {
@@ -1848,12 +1988,21 @@
         "nerves": 16,
         "unruhe": 5,
         "cooldown": 600,
+        "wanted": -9,
         "money": [
           50,
           90
         ],
         "calm": 30,
-        "desc": "Jemand erlässt freiwillig eine Schuld, und in deiner Handfläche erscheint die Quittung. 50 bis 90 Schilling, Unruhe sinkt um 30."
+        "gimmick": {
+          "balance": true,
+          "tribute": {
+            "min": 15,
+            "max": 30,
+            "seconds": 120
+          }
+        },
+        "desc": "Alle Schulden werden beglichen, deine zuerst. Die Fahndung fällt auf null, jeder gewöhnliche Gegner der Karte zahlt 15 bis 30 Schilling und hält 2 Minuten Frieden, Leben und Nerven gleichen sich aus. Dazu 50 bis 90 Schilling, Unruhe sinkt um 30."
       }
     }
   },
@@ -1994,7 +2143,12 @@
         "cooldown": 420,
         "reveal": 60,
         "review": true,
-        "desc": "Die Namen in deiner Haut zeigen dir, was hier verborgen liegt: eine Minute lang verborgene Spuren und eine offene Vermutung."
+        "buff": {
+          "key": "moorgrund",
+          "value": 1,
+          "seconds": 180
+        },
+        "desc": "Um dich wird der Boden weich. 3 Minuten lang waten Gegner in deiner Nähe nur halb so schnell, eine Minute lang verborgene Spuren und eine offene Vermutung."
       }
     },
     "3": {
@@ -2020,7 +2174,14 @@
         "cooldown": 480,
         "digest": 15,
         "calm": 15,
-        "desc": "Du lässt dich absetzen wie Schlick. Verdaut deinen Trank um 15 % (gerechnet auf Sequenz 7; ab Sequenz 6 entsprechend gebremst), Unruhe sinkt um 15."
+        "gimmick": {
+          "freeze": {
+            "radius": 5,
+            "seconds": 12,
+            "color": "#8fa36b"
+          }
+        },
+        "desc": "Du lässt dich absetzen wie Schlick, und alles um dich mit. Gegner im Umkreis von 5 Feldern versinken 12 Sekunden lang bis zur Hüfte. Verdaut deinen Trank um 15 % (gerechnet auf Sequenz 7; ab Sequenz 6 entsprechend gebremst), Unruhe sinkt um 15."
       }
     },
     "2": {
@@ -2041,10 +2202,13 @@
         "nerves": 14,
         "unruhe": 4,
         "cooldown": 480,
-        "scare": 60,
         "heal_pct": 0.4,
         "heal_partner": true,
-        "desc": "Um dich bleiben vergessene Wörter stehen, und niemand kommt näher. Eine Minute lang weichen gewöhnliche Gegner, 40 % Leben zurück, im Koop auch für deinen Partner."
+        "wanted": -1,
+        "gimmick": {
+          "forget": true
+        },
+        "desc": "Das Moor nimmt die Erinnerung an dich. Jeder Gegner der Karte vergisst, dass er dich gejagt hat, und kehrt um, die Fahndung sinkt um 1 Stufe. 40 % Leben zurück, im Koop auch für deinen Partner."
       }
     },
     "1": {
@@ -2071,8 +2235,19 @@
         "cooldown": 600,
         "digest": 25,
         "hint": true,
-        "review": true,
-        "desc": "Alles, was fehlt, ist für einen Augenblick da: 25 % Verdauung (gerechnet auf Sequenz 7; ab Sequenz 6 entsprechend gebremst), nächster Schritt und eine offene Vermutung."
+        "buff": {
+          "key": "moorgrund",
+          "value": 1,
+          "seconds": 300
+        },
+        "gimmick": {
+          "smite": {
+            "radius": 6,
+            "max": 8,
+            "text": "Das Moor"
+          }
+        },
+        "desc": "Das Moor holt sich, was es vergessen hat. Gewöhnliche Gegner im Umkreis von 6 Feldern versinken für immer, 5 Minuten lang waten Gegner in deiner Nähe nur halb so schnell. 25 % Verdauung (gerechnet auf Sequenz 7; ab Sequenz 6 entsprechend gebremst) und der nächste Schritt."
       }
     }
   },
@@ -2214,13 +2389,12 @@
         "nerves": 10,
         "unruhe": 3,
         "cooldown": 420,
-        "buff": {
-          "key": "dodge_window",
-          "value": 1.6,
-          "seconds": 300
+        "gimmick": {
+          "rewind": {
+            "seconds": 10
+          }
         },
-        "scout": true,
-        "desc": "Dein Schatten läuft zwischen den Schlägen. 5 Minuten lang Ausweichfenster +60 %, und du zählst die Gegner der Karte."
+        "desc": "Dein Schatten ist zehn Sekunden hinter dir. Du springst an den Ort zurück, an dem du vor 10 Sekunden standest, und bekommst Leben und Nerven von damals zurück, wenn es mehr waren."
       }
     },
     "3": {
@@ -2246,7 +2420,14 @@
         "unruhe": 4,
         "cooldown": 540,
         "clock": 120,
-        "desc": "Zwei Minuten lang stehen Treffen, Fahndung und Tageszeit für dich still."
+        "gimmick": {
+          "freeze": {
+            "radius": 99,
+            "seconds": 10,
+            "color": "#9aa8c8"
+          }
+        },
+        "desc": "Du hältst den Zeiger an. Alle Gegner der Karte erstarren 10 Sekunden lang, zwei Minuten lang stehen Treffen, Fahndung und Tageszeit still."
       }
     },
     "2": {
@@ -2269,11 +2450,16 @@
         "cooldown": 480,
         "scare": 60,
         "buff": {
+          "key": "move_speed",
+          "value": 1.6,
+          "seconds": 90
+        },
+        "buff2": {
           "key": "hurry_cost",
           "value": 0.0,
           "seconds": 300
         },
-        "desc": "Dein Umriss geht voraus. Eine Minute lang weichen gewöhnliche Gegner, 5 Minuten lang kostet die schnelle Reise nichts."
+        "desc": "Dein Umriss geht voraus und du holst ihn ein. 90 Sekunden lang läufst du 60 % schneller, eine Minute lang weichen gewöhnliche Gegner, 5 Minuten lang kostet die schnelle Reise nichts."
       }
     },
     "1": {
@@ -2301,7 +2487,17 @@
         "cooldown": 600,
         "clock": 240,
         "nerves_gain": 30,
-        "desc": "Alle Uhren zeigen denselben fehlenden Strich. 4 Minuten lang stehen Treffen, Fahndung und Tageszeit still, 30 Nerven kehren zurück."
+        "gimmick": {
+          "freeze": {
+            "radius": 99,
+            "seconds": 30,
+            "color": "#9aa8c8"
+          },
+          "rewind": {
+            "seconds": 20
+          }
+        },
+        "desc": "Alle Uhren zeigen denselben fehlenden Strich. Du springst 20 Sekunden zurück, alle Gegner der Karte stehen 30 Sekunden still, 4 Minuten lang ruhen Treffen, Fahndung und Tageszeit, 30 Nerven kehren zurück."
       }
     }
   }
