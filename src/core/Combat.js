@@ -226,6 +226,12 @@ export const HEAL_SCALE_PATHS = new Set(['sq_moor']);
 export const HEAL_HP_PCT = 0.08;
 export const HEAL_GRADE_MULT = { meister: 1.3, perfect: 1.15 };
 /**
+ * Seb (2026-11-26): Ab Seq 4 verdaut das Moor fest über seine Pfadhandlung. Jede Heilung, die wirklich Leben zurückgibt
+ * (sich selbst oder den Partner), bringt `heal` Prozent; jeder Moor-Schutz, der wirklich Schaden abfängt, `shield` Prozent
+ * dem, der ihn gewirkt hat. Spam-Schutz: je Kampf und Spieler höchstens `cap` Heilungen bzw. Abfänge, nicht im Übungskampf.
+ */
+export const MOOR_DIGEST = { path: 'sq_moor', fromSeq: 4, heal: 0.2, shield: 0.05, cap: { heal: 5, shield: 6 } };
+/**
  * Seb (2026-11-26): Schutz-Fertigkeiten (shield, shield_all) wachsen mit dem Leben des Wirkenden mit,
  * sonst fangen sie ab Dunscar kaum einen Bruchteil eines Schlags ab. Die Datenwerte gelten bis SHIELD_HP_REF Leben
  * (etwa Seq 7/6); darüber steigt der Schutz im selben Verhältnis wie das Höchstleben. Gestapelt höchstens SHIELD_CAP_PCT des Lebens.
@@ -674,6 +680,29 @@ export class Combat {
     this.state.digestOwn('heal_partner', this.enc.boss ? FIGHT_DIGEST_MULT.boss : this.enc.elite ? FIGHT_DIGEST_MULT.elite : 1);
   }
 
+  /** Moor ab Seq 4: Spieler `n` hat gerade als Moor-Wirker gehandelt? */
+  moorHigh(n = this.actor) {
+    if (this.enc.practice) return false;
+    const p = this.state.withPlayer(n, () => this.state.pathway, { quiet: true });
+    return p?.id === MOOR_DIGEST.path && p.seq <= MOOR_DIGEST.fromSeq;
+  }
+
+  /** Moor ab Seq 4: feste Verdauung für Spieler n (kind 'heal' oder 'shield'), je Kampf gedeckelt. Gibt den Zuwachs zurück. */
+  moorDigest(kind, n = this.actor) {
+    if (!this.moorHigh(n)) return 0;
+    this.moorDigestCount ??= {};
+    const key = `${n}:${kind}`;
+    if ((this.moorDigestCount[key] ?? 0) >= MOOR_DIGEST.cap[kind]) return 0;
+    this.moorDigestCount[key] = (this.moorDigestCount[key] ?? 0) + 1;
+    return this.state.withPlayer(n, () => this.state.addDigestion(MOOR_DIGEST[kind], kind === 'heal' ? 'moor_heal' : 'moor_shield')) ?? 0;
+  }
+
+  /** Heilung verdauen: ab Seq 4 fest (moorDigest), darunter wie bisher nur Partnerheilung über die Pfad-Tabelle. */
+  digestHeal(selfGot, partnerGot) {
+    if (this.moorHigh()) { if (selfGot + partnerGot > 0) this.moorDigest('heal'); return; }
+    if (partnerGot > 0) this.digestPartnerHeal();
+  }
+
   /** Stehender Mitspieler des Handelnden (Koop), sonst null. */
   partnerOf(n = this.actor) {
     return this.duo ? this.standing().find((m) => m !== n) ?? null : null;
@@ -802,12 +831,12 @@ export class Combat {
       if (toPartner) {
         const got = this.state.withPartner(() => this.state.heal(amount)) ?? 0;
         effects.push(`+${got} Leben für Spieler ${this.healTarget}`);
-        if (got > 0) this.digestPartnerHeal();
+        this.digestHeal(0, got);
       }
-      else effects.push(`+${this.state.heal(amount)} Leben`);
+      else { const got = this.state.heal(amount); effects.push(`+${got} Leben`); this.digestHeal(got, 0); }
     }
     if (sk.drain && total) effects.push(`+${this.state.heal(Math.round(total * sk.drain))} Leben`);
-    if (sk.shield) { this.shield = this.addShield(this.shield, this.skillShield(sk.shield)); effects.push(`Schutz ${this.shield}`); }
+    if (sk.shield) { this.shield = this.addShield(this.shield, this.skillShield(sk.shield)); if (this.moorHigh()) this.fighter().shieldFrom = this.actor; effects.push(`Schutz ${this.shield}`); }
     if (sk.evade) { this.evading = true; effects.push('nächster Angriff geht ins Leere'); }
     // Zweite Pfadfertigkeiten: Tempo, Nerven, Deckung für alle
     if (sk.ap_gain) { this.gainAp(sk.ap_gain); effects.push(`+${sk.ap_gain} Konzentration`); }
@@ -816,7 +845,8 @@ export class Combat {
     if (sk.cleanse && this.bleed) { this.bleed = null; effects.push('Blutung versiegt'); }
     if (sk.shield_all) {
       const amount = this.skillShield(sk.shield_all);
-      for (const n of this.standing()) this.fighters[n].shield = this.addShield(this.fighters[n].shield, amount, n);
+      const moor = this.moorHigh();
+      for (const n of this.standing()) { this.fighters[n].shield = this.addShield(this.fighters[n].shield, amount, n); if (moor) this.fighters[n].shieldFrom = this.actor; }
       effects.push(`Schutz ${amount} für ${this.standing().length > 1 ? 'alle' : 'dich'}`);
     }
     if (sk.heal_all) {
@@ -825,8 +855,8 @@ export class Combat {
       let got = this.state.heal(amount);
       let partnerGot = 0;
       for (const n of this.standing()) if (n !== this.actor) partnerGot += this.state.withPartner(() => this.state.heal(amount)) ?? 0;
+      this.digestHeal(got, partnerGot);
       got += partnerGot;
-      if (partnerGot > 0) this.digestPartnerHeal();
       effects.push(`+${got} Leben${this.standing().length > 1 ? ' (alle)' : ''}`);
     }
     if (sk.focus) { this.focused = true; effects.push('nächste Fertigkeit im Fokus'); }
@@ -1224,6 +1254,8 @@ export class Combat {
     const absorbed = Math.min(this.shield, incoming);
     this.shield -= absorbed;
     incoming -= absorbed;
+    // Moor ab Seq 4: abgefangener Schaden verdaut den Trank dessen, der den Schutz gewirkt hat
+    if (absorbed > 0 && this.fighters[n].shieldFrom) this.moorDigest('shield', this.fighters[n].shieldFrom);
     if (this.tierSchutz === n && incoming > 0) { incoming = Math.max(1, Math.floor(incoming * 0.5)); this.tierSchutz = null; } // Codex DF: Hund
     const damage = this.state.damage(incoming);
     if (damage && attack.bleed) this.bleed = { damage: attack.bleed[0], rounds: attack.bleed[1] };

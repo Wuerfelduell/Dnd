@@ -224,6 +224,7 @@ export const DIGEST_LABELS = {
   parry: 'Schlag pariert', vision: 'Geistsicht (pro Sekunde)', dialogue: 'neues Gespräch geführt',
   trade: 'gehandelt', brew: 'Trank gebraut', use_item: 'Heilmittel benutzt', lock: 'Verschlossenes geöffnet',
   loot: 'Belohnung eingestrichen', heal_partner: 'Partner im Kampf geheilt',
+  moor_heal: 'im Kampf geheilt (Moor ab Seq 4)', moor_shield: 'Schaden mit Moor-Schutz abgefangen',
   boss_win: 'Boss besiegt', elite_win: 'Elitegegner besiegt', talent: 'Welt-Fähigkeit eingesetzt (je 10 Nerven)',
   ritual: 'Ritual vollzogen', gathering: 'Zuschlag auf einem geheimen Treffen', tat: 'große Tat in Dunscar',
 };
