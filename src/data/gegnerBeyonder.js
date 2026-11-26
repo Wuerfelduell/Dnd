@@ -129,7 +129,7 @@ export function beyonderSatz(content, pid, seq) {
 }
 
 /** Macht aus einem Gegner einen Beyonder ohne Zirkel mit den Fertigkeiten seines Pfades. */
-export function machBeyonder(content, id, pid, seq) {
+export function machBeyonder(content, id, pid, seq, { formel: mitFormel = true, rest_chance = undefined } = {}) {
   const enc = content.encounters?.[id];
   if (!enc || !content.pathways?.[pid]?.seqs?.[seq]) return false;
   const extra = pfadAngriffe(content, pid, seq, enc);
@@ -140,9 +140,10 @@ export function machBeyonder(content, id, pid, seq) {
     attacks: einmischen(enc.attacks, extra),
     ...(enc.phase2?.attacks ? { phase2: { ...enc.phase2, attacks: einmischen(enc.phase2.attacks, extra) } } : {}),
     intro: enc.intro?.includes(satz) ? enc.intro : `${enc.intro ?? ''}${enc.intro ? '\n\n' : ''}${satz}`,
+    ...(rest_chance !== undefined ? { rest_chance } : {}),
   };
   const formel = `formel_${pid}_${seq}`;
-  if (content.items?.[formel]) {
+  if (mitFormel && content.items?.[formel]) {
     const loot = content.loot[id] ?? {};
     const drops = (loot.drops ?? []).filter((d) => d.item !== formel);
     drops.push({ item: formel, chance: seq <= 4 ? FORMEL_CHANCE_SEQ4 : FORMEL_CHANCE });
@@ -154,4 +155,36 @@ export function machBeyonder(content, id, pid, seq) {
 /** In buildContent (nach allen Kopfgeld-Bausteinen): Kopfgeld-Ziele werden Beyonder ihres Pfades. */
 export function applyGegnerBeyonder(content) {
   for (const [id, [pid, seq]] of Object.entries(KOPFGELD_BEYONDER)) machBeyonder(content, id, pid, seq);
+}
+
+/**
+ * Wilde Beyonder (Seb 2026-11-26: „von den Beyonder-Fähigkeiten der Gegner nix mitbekommen“): Bis dahin trugen nur
+ * Kopfgeld-Ziele, Kopfgeldjäger, der Rivale und die Ritualwächter Pfad-Fertigkeiten, also fast nur Kämpfe, die man
+ * gezielt sucht. Ab Dunscar ist jetzt jede ELITE-Spielart der Gebietsgegner (die 12 % stärkeren Laufgegner) ein
+ * Beyonder ohne Zirkel: fester Pfad je Gegnerart, Sequenz nach Kapitel. Keine Formel als Beute (Seb: Formeln nur
+ * über Zirkel/Kopfgeld), der Beyonder-Rest nur selten.
+ */
+export const WILDE_SEQ = { 3: 5, 4: 4, 5: 3, 6: 3 };
+export const WILDE_REST_CHANCE = { 5: 0.02, 4: 0.01, 3: 0.01 };
+const PFAD_REIHE = ['laterne', 'faden', 'maske', 'echo', 'kessel', 'eisen', 'schluessel', 'sq_waage', 'sq_moor', 'sq_uhr'];
+
+/** Fester Pfad je Gegnerart (gleicher Name → gleicher Pfad, unabhängig von der Ladereihenfolge). */
+export function wilderPfad(id) {
+  let h = 0;
+  for (const ch of id) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+  return PFAD_REIHE[h % PFAD_REIHE.length];
+}
+
+export function applyWildeBeyonder(content) {
+  const out = [];
+  for (const [id, enc] of Object.entries(content.encounters)) {
+    if (!id.endsWith('_elite') || enc.beyonder || enc.boss || enc.practice) continue;
+    const base = id.slice(0, -'_elite'.length);
+    const ch = enc.chapter ?? content.encounters[base]?.chapter;
+    const seq = WILDE_SEQ[ch];
+    if (!seq) continue;
+    const pid = wilderPfad(base);
+    if (machBeyonder(content, id, pid, seq, { formel: false, rest_chance: WILDE_REST_CHANCE[seq] })) out.push(id);
+  }
+  return out;
 }
