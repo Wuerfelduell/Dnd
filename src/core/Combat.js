@@ -125,6 +125,14 @@ export const LATERNE_PROFAN_SEQ = 8;
 // Verwirrung (Seb 2026-11-13: Schlüssel schaffte jeden Gebietsboss, weil er ihn jede Runde verwirren konnte):
 // Eliten und Bosse durchschauen die Täuschung danach so viele Runden lang, bevor sie wieder greift.
 export const CONFUSE_LOCK = { elite: 1, boss: 2 };
+// Moor Seq 4 (Seb 2026-11-26): Begraben (`bury`) lässt den Gegner eine Runde aussetzen. Eliten und Bosse graben sich danach
+// so viele Runden lang frei, bevor es wieder greift (wie die Verwirrung). Bei mehreren Gegnern springt das Gift des
+// Begrabenen auf den nächsten Gegner über, der keines (oder ein schwächeres) trägt.
+export const BURY_LOCK = { elite: 1, boss: 2 };
+// Torfschicht (Moor ab Seq 4, Passiv `torfschicht`): Überheilung aus Fertigkeiten wird zu Schutz für den Geheilten.
+// Torf-Retter (Halbgott-Eigenheit des Moors, Passiv `torf_retter`): einmal je Kampf und Moor-Spieler fängt der Torf
+// einen tödlichen Treffer am Moor-Spieler oder seinem Partner ab: 1 Leben, dazu Schutz in Höhe von TORF_RETTER_SHIELD des Höchstlebens.
+export const TORF_RETTER_SHIELD = 0.25;
 export const GRADE_UP = { miss: 'good', good: 'perfect', perfect: 'perfect', meister: 'meister' };
 /**
  * Gegnergruppen (Seb 2026-11-26): ein Kampf kann gegen 1 bis 3 Gegner gehen. Der erste ist der Anführer (seine Daten
@@ -146,7 +154,7 @@ export const AOE_DMG_MULT = 0.75;
 // Werte, die jeder Gegner für sich hat (Gruppen); lesen und schreiben sich über `this.fi` (aktueller Gegner).
 const PER_FOE = ['id', 'enc', 'enemy', 'armor', 'unparryable', 'weak', 'stunned', 'confused', 'confuseLock', 'burn', 'enemyGuard', 'veiled',
   'weakened', 'slowed', 'readNext', 'attackIndex', 'phase2', 'phased', 'phaseNote', 'roundDmg', 'capped', 'selfHit', 'struck',
-  'hpMult', 'dmgMult', 'duoFull', 'maxRoundDmg', 'share', 'zoneTier'];
+  'hpMult', 'dmgMult', 'duoFull', 'maxRoundDmg', 'share', 'zoneTier', 'buryLock'];
 
 export const SKILLS = {
   attack: { name: 'Angriff', cost: 0, hits: 1, mult: 1, desc: 'Ein Schlag im Takt. +1 Konzentration, +2 bei präzisem Treffer.' },
@@ -401,6 +409,7 @@ export class Combat {
     this.stunned = false;
     this.confused = false;
     this.confuseLock = 0;
+    this.buryLock = 0;
     this.burn = null;
     this.enemyGuard = 0;
     this.veiled = false;
@@ -527,9 +536,52 @@ export class Combat {
 
   /** Ein Spieler geht zu Boden. Erst wenn alle liegen, ist der Kampf verloren. */
   knockOut(n) {
+    if (this.torfRetter(n)) return;
     this.fighters[n].down = true;
     this.fighters[n].bleed = null;
     if (!this.standing().length) this.outcome = 'lost';
+  }
+
+  /**
+   * Torf-Retter: Steht ein Moor-Halbgott (er selbst oder sein Partner) mit unverbrauchtem Retter, bleibt Spieler n
+   * mit 1 Leben und Schutz stehen. Gibt true zurück, wenn der Torf gehalten hat (rescued merkt sich, wen, für die Anzeige).
+   */
+  torfRetter(n) {
+    if (this.enc.practice || !this.fighters[n]) return false;
+    this.torfUsed ??= {};
+    const by = [n, ...Object.keys(this.fighters).map(Number).filter((m) => m !== n && !this.fighters[m].down)]
+      .find((m) => !this.torfUsed[m] && this.asPlayer(m, () => this.state.passive('torf_retter')) > 0);
+    if (by == null) return false;
+    this.torfUsed[by] = true;
+    this.asPlayer(n, () => {
+      this.state.hp = Math.max(1, this.state.hp); // auch dort, wo nichts heilen darf
+      this.state.emit?.('hp', { value: this.state.hp, delta: 1 });
+      const f = this.fighters[n];
+      f.shield = this.addShield(f.shield, Math.round(this.state.maxHp * TORF_RETTER_SHIELD), n);
+      f.shieldFrom = by;
+    });
+    this.rescued = { n, by };
+    this.log.push(n === by ? 'Der Torf hält dich' : `Der Torf hält Spieler ${n}`);
+    return true;
+  }
+
+  /** Spieler n, egal ob gerade Spieler 1 oder 2 eingetauscht ist (withPlayer(1) tauscht im Kontext von 2 nicht zurück). */
+  asPlayer(n, fn) {
+    const acting = this.state.acting ?? 1;
+    if (acting === n || !this.state.p2) return fn();
+    return acting === 2 ? this.state.withPartner(fn) : this.state.withPlayer(n, fn, { quiet: true });
+  }
+
+  /** Torfschicht: was über das Höchstleben hinaus geheilt würde, wird Schutz für den Geheilten (in on(actor) aufrufen). */
+  torfschicht(amount, got, n) {
+    const over = amount - got;
+    if (over <= 0 || this.enc.practice || !(this.state.passive('torfschicht') > 0)) return 0;
+    const f = this.fighters[n];
+    if (!f || f.down) return 0;
+    const before = f.shield;
+    f.shield = this.addShield(f.shield, over, n);
+    if (f.shield > before) f.shieldFrom = this.actor;
+    return f.shield - before;
   }
 
   /** Grundfertigkeiten plus die Fähigkeiten des eigenen Pfades. */
@@ -713,6 +765,15 @@ export class Combat {
     return HEAL_TARGET_PATHS.has(this.on(this.actor, () => this.state.pathway?.id));
   }
 
+  /** Begraben: Gift des Gegners `from` springt auf den nächsten stehenden Gegner ohne (oder mit schwächerem) Gift über. */
+  spreadPoison(from, effects) {
+    const burn = this.withFoe(from, () => (this.enemy.hp > 0 ? this.burn : null));
+    if (!burn) return;
+    const to = this.livingFoes().find((j) => j !== from && this.withFoe(j, () => !this.burn || this.burn.damage < burn.damage));
+    if (to == null) return;
+    this.withFoe(to, () => { this.burn = { ...burn }; effects.push(`Gift springt auf ${this.enemy.name} über`); });
+  }
+
   useSkillNow(skillId, grades) {
     const sk = this.skillDef(skillId);
     if (!this.canUse(skillId)) throw new Error(`Fertigkeit nicht möglich: ${skillId}`);
@@ -793,6 +854,12 @@ export class Combat {
         else if (this.confuseLock > 0) effects.push(`${this.enemy.name} durchschaut die Täuschung noch`);
         else { this.confused = true; this.confuseLock = lock ? lock + 1 : 0; effects.push('Gegner verwirrt'); }
       }
+      if (sk.bury && landed && !done) {
+        const lock = this.enc.practice ? 0 : this.enc.boss ? BURY_LOCK.boss : this.enc.elite ? BURY_LOCK.elite : 0;
+        if (this.unshakable()) effects.push(`${this.enemy.name} lässt sich nicht begraben`);
+        else if (this.buryLock > 0) effects.push(`${this.enemy.name} gräbt sich noch frei`);
+        else { this.stunned = true; stunned = true; this.buryLock = lock ? lock + 1 : 0; effects.push('Gegner begraben, setzt eine Runde aus'); }
+      }
       if (sk.burn && landed && !done) {
         // Ein stärkerer oder längerer Brand ersetzt den alten, ein schwächerer verlängert ihn nur (extend_burn)
         const dmg = Math.max(1, Math.round(sk.burn[0] * aoeMult));
@@ -808,6 +875,7 @@ export class Combat {
       if (sk.steal && landed && i === main && !this.enc.practice && !this.enemy.occult) { const got = this.state.addMoney(sk.steal, { loot: true, reason: sk.name }); this.stolen += got; effects.push(`+${got} Schilling`); }
     });
     const hits = per.find((p) => p.i === main)?.hits ?? [];
+    if (sk.bury && anyLanded) this.spreadPoison(main, effects);
     if (sk.aoe && targets.length > 1) effects.unshift(`trifft ${targets.length} Gegner`);
     if (skillId === 'attack') {
       this.gainAp((isPerfectGrade(hits[0]?.grade) ? 2 : 1) + this.state.passive('attack_ap'));
@@ -827,8 +895,14 @@ export class Combat {
         const got = this.state.withPartner(() => this.state.heal(amount)) ?? 0;
         effects.push(`+${got} Leben für Spieler ${this.healTarget}`);
         this.digestHeal(0, got);
+        const sh = this.torfschicht(amount, got, this.healTarget);
+        if (sh) effects.push(`Torfschicht: Schutz +${sh} für Spieler ${this.healTarget}`);
       }
-      else { const got = this.state.heal(amount); effects.push(`+${got} Leben`); this.digestHeal(got, 0); }
+      else {
+        const got = this.state.heal(amount); effects.push(`+${got} Leben`); this.digestHeal(got, 0);
+        const sh = this.torfschicht(amount, got, this.actor);
+        if (sh) effects.push(`Torfschicht: Schutz +${sh}`);
+      }
     }
     if (sk.drain && total) effects.push(`+${this.state.heal(Math.round(total * sk.drain))} Leben`);
     if (sk.shield) { this.shield = this.addShield(this.shield, this.skillShield(sk.shield)); if (this.moorHigh()) this.fighter().shieldFrom = this.actor; effects.push(`Schutz ${this.shield}`); }
@@ -848,11 +922,17 @@ export class Combat {
       // Wir stehen schon in on(actor): der andere Spieler ist der Partner (withPartner), egal ob er 1 oder 2 ist
       const amount = this.skillHeal(sk.heal_all, graded);
       let got = this.state.heal(amount);
+      let layer = this.torfschicht(amount, got, this.actor);
       let partnerGot = 0;
-      for (const n of this.standing()) if (n !== this.actor) partnerGot += this.state.withPartner(() => this.state.heal(amount)) ?? 0;
+      for (const n of this.standing()) if (n !== this.actor) {
+        const g = this.state.withPartner(() => this.state.heal(amount)) ?? 0;
+        partnerGot += g;
+        layer += this.torfschicht(amount, g, n);
+      }
       this.digestHeal(got, partnerGot);
       got += partnerGot;
       effects.push(`+${got} Leben${this.standing().length > 1 ? ' (alle)' : ''}`);
+      if (layer) effects.push(`Torfschicht: Schutz +${layer}`);
     }
     if (sk.focus) { this.focused = true; effects.push('nächste Fertigkeit im Fokus'); }
     this.log.push(`${sk.name}: ${total} Schaden`);
@@ -1257,8 +1337,9 @@ export class Combat {
     // Treffer kosten Nerven: manche Angriffe von sich aus, manche Artefakte bei jedem Treffer (hit_nerves)
     const shock = (attack.nerves ?? 0) + Math.max(0, this.state.passive('hit_nerves'));
     if (damage && shock) this.state.setComposure(this.state.composure - shock);
+    this.rescued = null;
     if (this.state.hp === 0) this.knockOut(n);
-    return { damage, counter: 0, result, absorbed, note, down: this.fighters[n].down };
+    return { damage, counter: 0, result, absorbed, note, down: this.fighters[n].down, rescued: this.rescued };
   }
 
   /** Ende des gegnerischen Zuges: Ausweichen verfällt. */
@@ -1292,6 +1373,7 @@ export class Combat {
       f.capped = 0;
       if (f.weakened && --f.weakened.rounds <= 0) f.weakened = null;
       if (f.confuseLock > 0) f.confuseLock -= 1;
+      if (f.buryLock > 0) f.buryLock -= 1;
     }
     for (const f of Object.values(this.fighters)) { f.bleedTick = 0; f.focusTick = 0; f.focusGain = 0; }
     this.dots = [];

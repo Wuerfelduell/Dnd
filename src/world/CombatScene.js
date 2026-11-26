@@ -889,6 +889,7 @@ export class CombatScene extends Phaser.Scene {
       else if (r.note === 'exhausted') this.float('Erschöpft', 'player', 'miss');
       else if (r.note === 'forbidden') this.float('Verboten!', 'player', 'miss');
       if (r.down && !this.combat.outcome) this.knockedOut(this.player);
+      if (r.rescued) this.time.delayedCall(260, () => this.float('Der Torf hält!', 'player', 'perfect'));
     }
     this.ui.combatRefresh();
   }
