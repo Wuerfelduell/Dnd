@@ -19,7 +19,7 @@ import { applyMarloweTelegramm } from './marloweTelegramm.js';
 import { withFaehigkeiten } from './faehigkeiten.js';
 import { withHalbgottFertigkeiten } from './halbgottFertigkeiten.js';
 import { withFlaechenFaehigkeiten } from './flaechenFaehigkeiten.js';
-import { applyGegnerBeyonder } from './gegnerBeyonder.js';
+import { applyGegnerBeyonder, applyWildeBeyonder } from './gegnerBeyonder.js';
 import { applyBeyonderRest } from './beyonderRest.js';
 import { applyRivale } from './rivale.js';
 import { applyKopfgeldjaeger } from './kopfgeldjaeger.js';
@@ -152,6 +152,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyZirkelAuftraege(content); // Dunscar: Zirkelmitglieder vergeben Aufträge (Monster, Polizisten)
   applyDunscarAnschlag(content); // Dunscar: Anschlagbrett (Jagden, Lieferungen, Spur des Alten) mit fester Verdauung für Seq 5→4
   applyGegnerBeyonder(content); // Kopfgeld-Ziele sind Beyonder ohne Zirkel: Pfad-Fertigkeiten ihrer Sequenz, seltene Formel als Beute
+  applyWildeBeyonder(content); // Ab Dunscar: Elite-Spielarten der Gebietsgegner sind Beyonder ohne Zirkel (Pfad je Art, keine Formel)
   applyKopfgeldjaeger(content); // Kopfgeld auf den Spieler: Kopfgeldjäger (Beyonder, Boss-Rang) ab Dunscar, je Stadt höchstens einer pro Spieltag
   applyBeyonderRest(content); // Beyonder-Rest: gefallene Beyonder lassen selten ihren Rest fallen (Ersatz-Hauptzutat, Trank schlägt öfter fehl)
   applyRivale(content); // Rivale auf dem eigenen Pfad (ab Wexmoor): Gegner je Pfad und Sequenz, Rest als Beute

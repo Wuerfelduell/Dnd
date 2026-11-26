@@ -244,6 +244,19 @@ export const HEAL_GRADE_MULT = { meister: 1.3, perfect: 1.15 };
 export const SHIELD_HP_REF = 80;
 export const SHIELD_CAP_PCT = 0.75;
 
+/** Beyonder-Gegner (gegnerBeyonder.js): Pfad, Sequenz, Farbe für Kennzeichnung und Ankündigung. */
+export function beyonderInfo(content, enc) {
+  if (!enc?.beyonder_pfad) return null;
+  const p = content?.pathways?.[enc.beyonder_pfad];
+  const seq = enc.beyonder_seq ?? enc.tier_seq ?? null;
+  return { pid: enc.beyonder_pfad, seq, pfad: p?.name ?? enc.beyonder_pfad, rang: p?.seqs?.[seq]?.name ?? '', color: p?.color ?? '#c8b0e8' };
+}
+
+/** Kampfprotokoll: „Name: Fertigkeit (Pfad der …)“. */
+export function pfadZeile(enemy, atk) {
+  return `${enemy?.name ?? '?'}: ${atk.name}${enemy?.beyonder ? ` (${enemy.beyonder.pfad})` : ''}`;
+}
+
 export class Combat {
   constructor(state, encounterId, { pack = [] } = {}) {
     let enc = state.content.encounters[encounterId];
@@ -397,7 +410,7 @@ export class Combat {
     this.zoneTier = tier;
     this.armor = enc.practice ? 0 : enc.armor ?? (enc.boss ? Math.min(ARMOR.boss, tier) : enc.elite ? Math.min(ARMOR.elite, tier - 1) : 0);
     const testHp = state.testmodus && /^hg_\w+waechter_/.test(encounterId ?? '') ? 1 : hp; // Testmodus: Wächter mit 1 Leben
-    this.enemy = { name: enc.name, hp: testHp, maxHp: testHp, occult: !!enc.occult };
+    this.enemy = { name: enc.name, hp: testHp, maxHp: testHp, occult: !!enc.occult, beyonder: beyonderInfo(state.content, enc) };
     // BQ: Haupt einer Sekte wechselt bei halben Leben einmal die Angriffe (`phase2`: attacks, meldung), ohne Heilung oder Extra-Beute
     this.phase2 = enc.phase2 ?? null;
     this.phased = false;
@@ -1211,6 +1224,7 @@ export class Combat {
     }
     if (atk.action) { this.enemyAct(atk); return null; }
     this.enemyAttacks += 1;
+    if (atk.pfad) this.log.push(pfadZeile(this.enemy, atk));
     if (this.rules?.uhr === 'monster' && this.enemyAttacks === 1) this.state.sfx?.('s4uh_monster_angriff_gezaehlt'); // DS: Pflichtangriff gezählt
     return this.prepareAttack(atk);
   }
@@ -1237,13 +1251,13 @@ export class Combat {
       const before = this.enemy.hp;
       this.enemy.hp = Math.min(this.enemy.maxHp, this.enemy.hp + (atk.heal ?? 0) + stolen * (atk.heal_per_ap ?? 0));
       text ||= `-${stolen} Konzentration, +${this.enemy.hp - before} Leben.`;
-      this.lastAction = { name: atk.name, action: 'drain', value: stolen, healed: this.enemy.hp - before, text };
-      this.log.push(`${atk.name}: ${text}`);
+      this.lastAction = { name: atk.name, action: 'drain', value: stolen, healed: this.enemy.hp - before, text, pfad: !!atk.pfad };
+      this.log.push(atk.pfad ? `${pfadZeile(this.enemy, atk)}: ${text}` : `${atk.name}: ${text}`);
       return this.lastAction;
     }
     else throw new Error(`Unbekannter Kniff: ${atk.action}`);
-    this.lastAction = { name: atk.name, action: atk.action, value: v, text };
-    this.log.push(`${atk.name}: ${text}`);
+    this.lastAction = { name: atk.name, action: atk.action, value: v, text, pfad: !!atk.pfad };
+    this.log.push(atk.pfad ? `${pfadZeile(this.enemy, atk)}: ${text}` : `${atk.name}: ${text}`);
     return this.lastAction;
   }
 

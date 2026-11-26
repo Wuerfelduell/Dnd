@@ -549,6 +549,34 @@ export class CombatScene extends Phaser.Scene {
     });
   }
 
+  /**
+   * Pfad-Fähigkeit eines Beyonder-Gegners sichtbar machen: Name in Pfadfarbe über dem Gegner,
+   * kurzes Aufglühen der Figur und ein Ring, der sich ausbreitet.
+   */
+  pfadFx(name) {
+    const b = this.combat.enemy?.beyonder;
+    const hex = b?.color ?? '#c8b0e8';
+    const col = Number.parseInt(hex.slice(1), 16);
+    const p = this.enemyCenter();
+    this.ui.combatFloat(name, (p.x / VIEW_W) * 100, ((p.y - 62) / VIEW_H) * 100, 'pfad', null, hex);
+    const e = this.enemy;
+    if (e && !e.downed) {
+      e.setTint(col);
+      this.time.delayedCall(420, () => {
+        if (e.foeTint !== undefined && e.foeTint !== null) e.setTint(e.foeTint);
+        else if (e.baseTint) e.setTint(e.baseTint);
+        else e.clearTint();
+      });
+    }
+    const ring = this.add.graphics().setDepth(49);
+    const fx = { r: 10, a: 0.9 };
+    this.tweens.add({
+      targets: fx, r: 70, a: 0, duration: 520, ease: 'Sine.out',
+      onUpdate: () => { ring.clear(); ring.lineStyle(3, col, fx.a).strokeCircle(p.x, p.y, fx.r); },
+      onComplete: () => ring.destroy(),
+    });
+  }
+
   // --- Ablauf ------------------------------------------------------------------
 
   /**
@@ -809,7 +837,8 @@ export class CombatScene extends Phaser.Scene {
         // Kniff der Sekten: Panzer, Heilung, Schleier, Einschüchterung
         const a = c.lastAction;
         this.sfx(combatSound('act', a));
-        this.ui.combatMessage(`${c.enemy.name}: ${a.name}\n\n${a.text}`);
+        if (a.pfad && !c.rules?.deaf) this.pfadFx(a.name);
+        this.ui.combatMessage(a.pfad && c.enemy.beyonder ? `${c.enemy.name}: ${a.name}\n\n✦ Pfadfähigkeit · ${c.enemy.beyonder.pfad}\n${a.text}` : `${c.enemy.name}: ${a.name}\n\n${a.text}`);
         const float = { guard: [`Panzer +${a.value}`, 'good'], heal: [`+${a.value}`, 'good'], veil: ['Schleier', 'miss'], taunt: [`-${a.value} Nerven`, 'hurt'], drain: [`-${a.value} Konzentration`, 'hurt'] }[a.action];
         if (a.action === 'taunt' || a.action === 'drain') this.focusPlayer(c.target);
         if (float) this.float(float[0], a.action === 'taunt' || a.action === 'drain' ? 'player' : 'enemy', float[1]);
@@ -843,7 +872,10 @@ export class CombatScene extends Phaser.Scene {
       : atk.sweep ? `${help1}\n${help2}` : c.target === 2 ? help2 : help1;
     const whom = !c.duo ? '' : atk.sweep ? ' → beide Spieler' : ` → ${this.who(c.target)}`;
     if (deaf) this.ui.combatMessage(`${c.enemy.name} holt aus. Du hörst nichts, du siehst nur die Welle.`, help);
-    else this.ui.combatMessage(`${c.enemy.name}: ${atk.name}${whom}${atk.hits.length > 1 ? ` (${atk.hits.length} Schläge)` : ''}${tags ? `\n\n${tags}` : ''}${evading ? '\n\nDu weißt schon, wohin er schlägt.' : ''}`, help);
+    else if (atk.pfad && c.enemy.beyonder) {
+      this.pfadFx(atk.name);
+      this.ui.combatMessage(`${c.enemy.name}: ${atk.name}${whom}${atk.hits.length > 1 ? ` (${atk.hits.length} Schläge)` : ''}\n\n✦ Pfadfähigkeit · ${c.enemy.beyonder.pfad}${tags ? `\n${tags}` : ''}${evading ? '\n\nDu weißt schon, wohin er schlägt.' : ''}`, help);
+    } else this.ui.combatMessage(`${c.enemy.name}: ${atk.name}${whom}${atk.hits.length > 1 ? ` (${atk.hits.length} Schläge)` : ''}${tags ? `\n\n${tags}` : ''}${evading ? '\n\nDu weißt schon, wohin er schlägt.' : ''}`, help);
     this.tweens.add({ targets: this.enemy, x: this.enemy.homeX + 8, duration: TELEGRAPH * 0.6, ease: 'Sine.out' });
     if (atk.sweep) this.cameras.main.shake(TELEGRAPH * 0.5, 0.003); // der Boden bebt: gleich trifft es beide
     // Paket-B-Gegner haben zwei Angriffe: mehrteilige Attacken und Flächenangriffe nutzen 'special'

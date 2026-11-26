@@ -3448,7 +3448,8 @@ export class Ui {
     const c = sc.combat;
     const s = this.state;
     const q = (sel) => this.layer.querySelector(sel);
-    q('.cb-enemy .cb-name').innerHTML = `${c.enemy.occult ? uiSprite('hud', 'occult', 1 / 8, 'occult', 'okkult') : ''}${esc(c.enemy.name)} · ${c.enemy.hp}/${c.enemy.maxHp}`;
+    const by = c.enemy.beyonder;
+    q('.cb-enemy .cb-name').innerHTML = `${c.enemy.occult ? uiSprite('hud', 'occult', 1 / 8, 'occult', 'okkult') : ''}${esc(c.enemy.name)} · ${c.enemy.hp}/${c.enemy.maxHp}${by ? `<span class="cb-beyonder" style="color:${esc(by.color)}">✦ Beyonder · ${esc(by.pfad)}${by.seq ? ` · Seq ${by.seq}` : ''}</span>` : ''}`;
     // Paket B: Leisten aus battle_hud.png (sechs Füllstände)
     q('.hudbar.enemy').innerHTML = hudMeter('enemy', c.enemy.hp / c.enemy.maxHp, 1 / 4);
     q('.efill').style.width = `${(c.enemy.hp / c.enemy.maxHp) * 100}%`;
@@ -3466,7 +3467,7 @@ export class Ui {
     // Gegnergruppe: jeder Gegner als kleine Karte (Ziel golden, Gefallene grau); antippen wählt das Ziel
     const foesEl = q('.cb-foes');
     if (foesEl) {
-      foesEl.innerHTML = c.group ? c.foes.map((f, i) => `<button class="cb-foe${i === c.aim ? ' aim' : ''}${i === c.fi && sc.phase === 'enemy' ? ' attacking' : ''}${f.enemy.hp <= 0 ? ' dead' : ''}" data-foe="${i}"><span class="cb-foe-nr">${i + 1}</span><span class="cb-foe-name">${esc(f.enemy.name)}</span><span class="hudbar foe">${hudMeter('enemy', f.enemy.hp / f.enemy.maxHp, 1 / 13)}</span></button>`).join('') : '';
+      foesEl.innerHTML = c.group ? c.foes.map((f, i) => `<button class="cb-foe${i === c.aim ? ' aim' : ''}${i === c.fi && sc.phase === 'enemy' ? ' attacking' : ''}${f.enemy.hp <= 0 ? ' dead' : ''}" data-foe="${i}"><span class="cb-foe-nr">${i + 1}</span><span class="cb-foe-name">${esc(f.enemy.name)}${f.enemy.beyonder ? ` <span style="color:${esc(f.enemy.beyonder.color)}" title="Beyonder · ${esc(f.enemy.beyonder.pfad)}">✦</span>` : ''}</span><span class="hudbar foe">${hudMeter('enemy', f.enemy.hp / f.enemy.maxHp, 1 / 13)}</span></button>`).join('') : '';
       foesEl.querySelectorAll('[data-foe]').forEach((b) => { b.onclick = () => sc.pickTarget(Number(b.dataset.foe)); });
     }
     // Ein Feld pro Spieler; zu zweit leuchtet, wer am Zug ist bzw. angegriffen wird
@@ -3625,7 +3626,7 @@ export class Ui {
     this.combatScene.choose(e.act);
   }
 
-  combatFloat(text, xPct, yPct, cls, tag = null) {
+  combatFloat(text, xPct, yPct, cls, tag = null, color = null) {
     const box = this.$('.floats');
     const el = document.createElement('div');
     el.className = `float ${cls}`;
@@ -3635,6 +3636,7 @@ export class Ui {
     if (row) { el.classList.add('digits'); el.innerHTML = damageDigits(text, row, 1 / 8); } else el.textContent = text;
     el.style.left = `${xPct}%`;
     el.style.top = `${yPct}%`;
+    if (color) el.style.color = color; // Pfad-Fähigkeit eines Beyonder-Gegners: Pfadfarbe
     box.appendChild(el);
     setTimeout(() => el.remove(), 1100);
   }
