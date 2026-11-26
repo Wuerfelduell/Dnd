@@ -117,7 +117,7 @@ export const HALBGOTT_EIGENHEIT = {
   eisen: { key: 'damage_taken', value: 0.85, text: 'Halbgott des Eisens: noch einmal 15 % weniger Schaden.' },
   schluessel: { key: 'money_bonus', value: 1.3, text: 'Halbgott des Schlüssels: +30 % Schilling aus Beute und Belohnungen.' },
   sq_waage: { key: 'damage_taken', value: 0.85, text: 'Halbgott der Waage: noch einmal 15 % weniger Schaden.' },
-  sq_moor: { key: 'heal_bonus', value: 1.5, text: 'Halbgott des Moors: Heilmittel wirken 50 % stärker.' },
+  sq_moor: { key: 'torf_retter', value: 1, text: 'Halbgott des Moors: Einmal je Kampf fängt der Torf einen tödlichen Treffer an dir oder deinem Partner ab. Der Getroffene bleibt mit 1 Leben stehen und erhält Schutz in Höhe eines Viertels seines Lebens.' },
   sq_uhr: { key: 'parry_ap', value: 1, text: 'Halbgott der Uhr: Paraden geben eine Konzentration mehr.' },
 };
 /**
