@@ -256,7 +256,7 @@ export class Combat {
     // Seq-4-Rituale (core/Seq4.js): Regeln der laufenden Prüfung, gelesen beim Prüfling. Solo: Spieler 2 schaut zu;
     // ist der Prüfling Spieler 2, tauschen die Werte für die Dauer des Kampfes (swapped), damit er Kämpfer 1 ist.
     let prover = state.combatBy ?? state.acting ?? 1;
-    const rulesOf = (n) => (enc.practice ? null : state.withPlayer(n, () => state.pfadTaskRules?.(encounterId, enc) ?? state.seq4CombatRules?.(encounterId, enc) ?? state.hochCombatRules?.(encounterId, enc) ?? state.pfadCombatRules?.(encounterId, enc) ?? null, { quiet: true })); // Pfad-Beyonder: Aufgaben mit Sonderregeln
+    const rulesOf = (n) => (enc.practice ? null : state.withPlayer(n, () => state.verdauCombatRules?.(encounterId, enc) ?? state.pfadTaskRules?.(encounterId, enc) ?? state.seq4CombatRules?.(encounterId, enc) ?? state.hochCombatRules?.(encounterId, enc) ?? state.pfadCombatRules?.(encounterId, enc) ?? null, { quiet: true })); // Pfad-Beyonder: Aufgaben mit Sonderregeln
     this.rules = rulesOf(prover);
     // Kartengegner startet die Welt als Spieler 1: steckt nur Spieler 2 in einer Prüfung (Echo taub, Uhr, Maske, Faden), gelten seine Regeln
     if (!this.rules && prover === 1 && state.acting === 1 && state.hasP2?.()) {
@@ -1611,6 +1611,8 @@ export class Combat {
     if (rivale) text += `\n\n${rivale}`;
     const hoch2 = this.duo && !this.swapped ? this.on(2, () => s.hochCombatEnd?.(this, { bystander: true })) : null;
     if (hoch2) text += `\n\nSpieler 2: ${hoch2}`;
+    const vp = s.verdauCombatEnd?.(this); // Prüfstein im Pfadviertel (core/VerdauProbe.js)
+    if (vp) text += `\n\n${vp}`;
     const ph = s.pfadCombatEnd?.(this); // Pfad-Beyonder (core/PfadHandel.js)
     if (ph) text += `\n\n${ph}`;
     if (this.swapped) { s.swapPersonal(); this.swapped = false; }
