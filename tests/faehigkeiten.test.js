@@ -23,15 +23,20 @@ function beyonder(pid, seq, s = new GameState(content)) {
   return s;
 }
 
+const OHNE_WELT = new Set(['faden 6', 'sq_waage 3']);
+
 test('Jede Sequenz jedes Pfades hat zwei Kampffertigkeiten und eine Welt-Fähigkeit, alle Ids eindeutig', () => {
   const ids = new Set();
   for (const [pid, p] of Object.entries(content.pathways)) {
     for (const [n, sd] of Object.entries(p.seqs)) {
       assert.ok(sd.skill?.id, `${pid} ${n}: skill`);
       assert.ok(sd.skill2?.id && sd.skill2.name && sd.skill2.desc && sd.skill2.cost >= 1, `${pid} ${n}: skill2`);
-      assert.ok(sd.talent?.id && sd.talent.name && sd.talent.desc && sd.talent.cooldown >= 60, `${pid} ${n}: talent`);
-      for (const id of [sd.skill.id, sd.skill2.id, sd.talent.id]) { assert.ok(!ids.has(id), `doppelt: ${id}`); ids.add(id); }
+      // Ohne Welt-Fähigkeit nur, wo die Ansehens-Fähigkeit gestrichen wurde (Faden 6 Netz spannen, Waage 3 Saldenhut)
+      if (!sd.talent) { assert.ok(OHNE_WELT.has(`${pid} ${n}`), `${pid} ${n}: talent fehlt`); }
+      else assert.ok(sd.talent.id && sd.talent.name && sd.talent.desc && sd.talent.cooldown >= 60, `${pid} ${n}: talent`);
+      for (const id of [sd.skill.id, sd.skill2.id, sd.talent?.id].filter(Boolean)) { assert.ok(!ids.has(id), `doppelt: ${id}`); ids.add(id); }
       for (const k of Object.keys(sd.skill2)) assert.ok(KAMPF_KEYS.has(k), `${pid} ${n}: unbekanntes Kampffeld ${k}`);
+      if (!sd.talent) continue;
       for (const k of Object.keys(sd.talent)) assert.ok(WELT_KEYS.has(k), `${pid} ${n}: unbekanntes Weltfeld ${k}`);
       // Nicht übermächtig: zweite Fertigkeit kostet höchstens so viel wie die erste und hat nie mehr als 4 Konzentration
       assert.ok(sd.skill2.cost <= Math.max(sd.skill.cost, 4), `${pid} ${n}: ${sd.skill2.id} zu teuer`);
@@ -43,7 +48,7 @@ test('Jede Sequenz jedes Pfades hat zwei Kampffertigkeiten und eine Welt-Fähigk
   }
   const all = faehigkeitenIds(raw);
   assert.equal(all.kampf.length, 90);
-  assert.equal(all.welt.length, 91); // + Schattengestalt (welt_50 Schlüssel Seq 5)
+  assert.equal(all.welt.length, 89); // 88 + Schattengestalt (welt_50 Schlüssel Seq 5)
   // Geliehene Effekte zeigen auf bestehende Fertigkeiten des eigenen Pfades
   for (const [pid, p] of Object.entries(content.pathways)) {
     const own = new Set(Object.values(p.seqs).map((sd) => sd.skill.id));
@@ -356,4 +361,16 @@ test('Schlüssel Seq 5: ab 50 % Verdauung wird „Jede Tür“ zur Schattengesta
   assert.equal(s.withPlayer(2, () => s.useTalent('schattengestalt')).ok, true);
   assert.equal(s.inShadow(2), true);
   assert.equal(s.inShadow(1), false);
+});
+
+test('Keine Welt-Fähigkeit hat mehr mit Ansehen zu tun', () => {
+  const ANSEHEN = new Set(['lock_bonus', 'honor_loss', 'conclusion_honor']);
+  for (const [pid, p] of Object.entries(content.pathways)) {
+    for (const [n, sd] of Object.entries(p.seqs)) {
+      for (const t of [sd.talent, sd.talent_50].filter(Boolean)) {
+        for (const b of [t.buff, t.buff2].filter(Boolean)) assert.ok(!ANSEHEN.has(b.key), `${pid} ${n}: ${t.id} ${b.key}`);
+        assert.doesNotMatch(t.desc, /Ansehen/, `${pid} ${n}: ${t.id}`);
+      }
+    }
+  }
 });

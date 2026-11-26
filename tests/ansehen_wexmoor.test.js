@@ -43,22 +43,11 @@ test('Schlussfolgerungen bringen mit Ansehens-Passiv ab Wexmoor Schilling, in Ke
   assert.equal(plain.money, p, 'ohne Passiv kein Geld');
 });
 
-test('Netz spannen erhöht den Schilling-Lohn je Schlussfolgerung', () => {
-  const s = wexmoor('faden', 6);
-  const base = s.passive('conclusion_honor');
-  assert.ok(s.useTalent('netz_spannen').ok);
-  assert.equal(s.passive('conclusion_honor'), base + 2);
-  const before = s.money;
-  s.addConclusion(conclusionIn('kapitel2'));
-  assert.equal(s.money - before, (base + 2) * CONCLUSION_SCHILLING);
-});
-
 test('Maske: Grauspäher brauchen länger, Seq-4-Nachteile machen schneller erkannt', () => {
   const plain = wexmoor('eisen', 7).policeCone(0);
   const maske = wexmoor('maske', 7).policeCone(0); // honor_loss 0.5
   assert.ok(Math.abs(maske.catchSec - plain.catchSec * 2) < 1e-9, 'halber Ansehensverlust = doppelte Erkennungszeit');
   const deep = wexmoor('maske', 4);
-  assert.ok(deep.useTalent('mietgesicht').ok);
   assert.ok(deep.policeCone(0).catchSec <= plain.catchSec * RECOGNIZE_MULT[1] + 1e-9, 'gedeckelt');
   const faden4 = wexmoor('faden', 4); // Nahtträger: honor_loss 1.2
   assert.ok(faden4.passive('honor_loss') > 1 && faden4.policeCone(0).catchSec < plain.catchSec);
@@ -82,5 +71,4 @@ test('Schlüssel: Fahndung sinkt schneller, Schlossflüstern senkt sie sofort um
   assert.ok(res.ok, res.text);
   assert.equal(s.wanted, 2);
   assert.match(res.text, /Fahndung -1/);
-  assert.ok(s.wantedDecaySec() < wexmoor('schluessel', 8).wantedDecaySec(), 'Buff beschleunigt weiter');
 });
