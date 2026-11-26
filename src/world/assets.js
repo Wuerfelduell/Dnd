@@ -1179,6 +1179,8 @@ const AG_ICONS = (id) => AF_ARTIFACTS.includes(id) || /^sq_zutat_\w+_\d$/.test(i
 /** Bild-Id eines Items (früher Leihbild für Tränke/Formeln der neuen Pfade, inzwischen alle eigen). */
 const standinIcon = (id) => {
   if (AG_ICONS(id)) return id; // Paket AG: eigene Bilder für Zutaten und Artefakte
+  if (/^trank_.+_\d_rest$/.test(id)) return id.replace(/_rest$/, ''); // Beyonder-Rest: Trank aus einem Rest sieht aus wie der normale
+  if (/^rest_.+_\d$/.test(id)) return 'schattenrest'; // Beyonder-Rest: Leihbild, bis es ein eigenes gibt
   return id; // Tränke und Formeln haben für alle Pfade und Sequenzen 9–1 eigene Bilder (16 und 32)
 };
 /** Codex DT (Batch ritualicons2): eigene Icons in 16 und 32 für die Wurfflaschen der Seq-4-Rituale und die seltenen Wexmoor-Funde (Codex DR). */

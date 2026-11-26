@@ -26,6 +26,7 @@ import { cityOf } from '../core/Travel.js';
 import { Combat } from '../core/Combat.js';
 import { p2View } from '../core/Split.js';
 import { FORM_SEQ, formReif } from '../core/Pathways.js';
+import { hatNarbe } from '../core/Narbe.js';
 
 export const VIEW_W = 480;
 export const VIEW_H = 270;
@@ -820,6 +821,7 @@ export class WorldScene extends Phaser.Scene {
     this.aura = null;
     this.auras = {};
     this.machtLichter = {};
+    this.narben = {};
     this.machtStand = {};
     this.cracks = null;
 
@@ -1621,6 +1623,7 @@ export class WorldScene extends Phaser.Scene {
     if (this.formAura?.follow) this.formAura.setPosition(this.formAura.follow.x, this.formAura.follow.y + 1).setDepth(this.formAura.follow.depth - 1);
     this.gearOverlay?.sync();
     this.tickMacht(this.game.loop.delta);
+    this.tickNarbe();
     // Ständige Aura ab Seq 4: Stärke (50 % Verdauung) und Sichtbarkeit etwa jede Sekunde nachziehen
     if (this.time.now > (this.auraCheck ?? 0)) { this.auraCheck = this.time.now + 1000; this.updateAura(); }
     this.updateCamTarget();
@@ -1966,6 +1969,28 @@ export class WorldScene extends Phaser.Scene {
     if (Math.abs((who.machtGroesse ?? 0) - ziel) < 0.001) return;
     who.machtGroesse = ziel;
     this.tweens.add({ targets: who, scaleX: ziel, scaleY: ziel, duration: 500, ease: 'Back.easeOut' });
+  }
+
+  /**
+   * Narbe aus Licht (Kapitel 6, core/Narbe.js): wer oben verbrannt wurde, trägt einen schwachen Lichtstrich quer über der Brust.
+   * Er pulsiert leise und glüht in der Himmelsstadt hell auf. Nur Code, keine Grafik (Platzhalter bis zum Grafik-Werkzeug).
+   */
+  tickNarbe() {
+    const an = hatNarbe(this.state);
+    this.narben ??= {};
+    const oben = this.state.content.maps[this.state.map]?.city === 'himmel';
+    for (const n of [1, 2]) {
+      const who = n === 2 ? this.p2 : this.player;
+      let g = this.narben[n];
+      if (!an || !who || !who.visible || (n === 2 && !this.state.p2)) { g?.setVisible(false); continue; }
+      if (!g) {
+        g = this.narben[n] = this.add.graphics().setBlendMode(Phaser.BlendModes.ADD);
+        g.fillStyle(0xfff2c8, 1).fillRect(-3, 0, 2, 1).fillRect(-1, 1, 2, 1).fillRect(1, 2, 2, 1);
+      }
+      const puls = 0.5 + 0.5 * Math.sin(this.time.now / (oben ? 180 : 900) + n);
+      const sc = who.scaleX || 1;
+      g.setVisible(true).setScale(sc).setPosition(who.x, who.y - 14 * sc).setDepth(who.depth + 0.5).setAlpha(oben ? 0.6 + 0.4 * puls : 0.18 + 0.22 * puls);
+    }
   }
 
   /**

@@ -18,6 +18,7 @@ import { rollLoot, takeLoot } from './Loot.js';
 import { FIGHT_DIGEST_MULT, ZONE_DIGEST_STEP } from './Pathways.js';
 import { SCHATTEN_ATTACKE, PERFECT_DODGE, UHR as UHR4 } from './Seq4.js';
 import { NEBELNACHT } from './Wetter.js';
+import { narbeMult } from './Narbe.js';
 
 export const WINDOW = { parry: 80, dodge: 140 }; // ± Millisekunden um den Einschlag
 export const ELITE_PARRY = 65; // Eliten und Bosse: noch engeres Parierfenster
@@ -975,7 +976,7 @@ export class Combat {
   hurtEnemy(n, { pierce = false } = {}) {
     // Ritual des Kessels: nur Flaschen (Wurf, Gift) richten Schaden an; Konter und Gegenschläge prallen ab
     if (this.rules?.potionOnly && !this.itemHit && !this.burnTick) return 0;
-    if (n > 0) n = Math.max(1, Math.round(n * this.wardMult()));
+    if (n > 0) n = Math.max(1, Math.round(n * this.wardMult() * narbeMult(this.state, this.enc, 'schaden'))); // Narbe: Wesen von oben (Kapitel 6)
     if (this.armor && !pierce && n > 0) n = Math.max(1, n - this.armor);
     const absorbed = Math.min(this.enemyGuard, n);
     this.enemyGuard -= absorbed;
@@ -1117,7 +1118,7 @@ export class Combat {
     // Feld `ramp`: der Gegner wird mit jeder Runde stärker (gegen endloses Abwarten hinter Schilden)
     const ramp = 1 + this.rampRate() * Math.max(0, this.round - 1);
     const weak = this.weakened?.rounds > 0 ? this.weakened.mult : 1;
-    const dmgMult = (this.enc.practice ? 1 : ENEMY_DMG_MULT * (rage ? 1.2 : 1) * (tough0 ? ELITE_DMG_MULT : 1) * (this.duo && !this.duoFull ? DUO_DMG_MULT : 1) * (this.sweep ? SWEEP_DMG_MULT : 1) * ramp * this.dmgMult * (this.foes[this.fi]?.dmgShare ?? 1) * this.wetterFoeMult()) * weak; // höhere Wesen und Wexmoor (duo_full) schlagen zu zweit nicht schwächer
+    const dmgMult = (this.enc.practice ? 1 : ENEMY_DMG_MULT * (rage ? 1.2 : 1) * (tough0 ? ELITE_DMG_MULT : 1) * (this.duo && !this.duoFull ? DUO_DMG_MULT : 1) * (this.sweep ? SWEEP_DMG_MULT : 1) * ramp * this.dmgMult * (this.foes[this.fi]?.dmgShare ?? 1) * this.wetterFoeMult()) * weak * narbeMult(this.state, this.enc, 'erlitten'); // höhere Wesen und Wexmoor (duo_full) schlagen zu zweit nicht schwächer
     const slowed = this.slowed;
     this.slowed = false;
     const readable = this.readNext;
@@ -1326,6 +1327,7 @@ export class Combat {
       const first = !s.flags.has(firstFlag);
       s.applyEffects({ ...enc.on_win, sets_flags: [...(enc.on_win?.sets_flags ?? []), firstFlag, ...(enc.sieg_flag ? Object.keys(this.fighters).filter((n) => !this.fighters[n].down).map((n) => `${enc.sieg_flag}_p${this.swapped ? 2 : n}`) : [])] });
       if (first && enc.first_win) s.applyEffects(enc.first_win);
+      if (enc.kopfgeldjaeger) s.kgjSieg?.(this.id); // Kopfgeldjäger: heute kommt keiner mehr
       if (!enc.practice) s.erfolgKampf?.(); // Codex DL: „Hundert Kämpfe“
       if (!enc.practice) {
         loot = noLoot ? null : this.rollLoot(first); // BQ: Schreinwachen geben keine eigene Beute, erst der Abbau

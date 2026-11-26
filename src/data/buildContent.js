@@ -13,12 +13,15 @@ import { applySeqHoch, addRitualformeln } from './seqHoch.js';
 import { applyAufstieg, gateStarlingHinweise } from './aufstieg.js';
 import { applyCalderwickStory } from './calderwickStory.js';
 import { applyBriarholtStory } from './briarholtStory.js';
+import { applyZweiterAufstieg } from './zweiterAufstieg.js';
 import { applyPfadviertel } from './pfadviertel.js';
 import { applyMarloweTelegramm } from './marloweTelegramm.js';
 import { withFaehigkeiten } from './faehigkeiten.js';
 import { withHalbgottFertigkeiten } from './halbgottFertigkeiten.js';
 import { withFlaechenFaehigkeiten } from './flaechenFaehigkeiten.js';
 import { applyGegnerBeyonder } from './gegnerBeyonder.js';
+import { applyBeyonderRest } from './beyonderRest.js';
+import { applyKopfgeldjaeger } from './kopfgeldjaeger.js';
 import { applyMoods } from './moods.js';
 import { applyRelations } from './relations.js';
 import { applySchmuggel } from './schmuggel.js';
@@ -131,6 +134,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyDunscarHaendler(content); // Dunscar: Waffen, Kleidung, Kräuter und Ankauf am Kalkmarkt (kein Zurück in alte Städte)
   applyBenannte(content); // Codex DJ: benannte Gegner auf den Grundgegnern, nachts in ihren Gebieten
   applyBriarholtStory(content); // Kapitel 5 ausgebaut: Kur der Gefallenen, Briarholt auf Seq 3, Sammler der Linie (nach den benannten Gegnern)
+  applyZweiterAufstieg(content); // Kapitel 6: Bürgen in Calderwick, Schaffner ohne Gesicht, zweite Himmelsstadt, Starling, Thron (nach Briarholt)
   applyAltbeute(content); // Wexmoor-Monster tragen ab und zu Kettlegater Beute (kein Zurück dorthin)
   applyZutatDrops(content); // Hauptzutaten: je genau ein Monster (Kettlegate Seq 7 8 %, Wexmoor Seq 6 8 %/Elite 18 % / Seq 5 1 %)
   applyDunscarGebietsbosse(content); // Dunscar: je Gefahrengebiet ein frei stehender Gebietsboss wie in Wexmoor
@@ -145,6 +149,8 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyZirkelAuftraege(content); // Dunscar: Zirkelmitglieder vergeben Aufträge (Monster, Polizisten)
   applyDunscarAnschlag(content); // Dunscar: Anschlagbrett (Jagden, Lieferungen, Spur des Alten) mit fester Verdauung für Seq 5→4
   applyGegnerBeyonder(content); // Kopfgeld-Ziele sind Beyonder ohne Zirkel: Pfad-Fertigkeiten ihrer Sequenz, seltene Formel als Beute
+  applyKopfgeldjaeger(content); // Kopfgeld auf den Spieler: Kopfgeldjäger (Beyonder, Boss-Rang) ab Dunscar, je Stadt höchstens einer pro Spieltag
+  applyBeyonderRest(content); // Beyonder-Rest: gefallene Beyonder lassen selten ihren Rest fallen (Ersatz-Hauptzutat, Trank schlägt öfter fehl)
   applyUebergaenge(content); // Kapitelübergänge: Abschied, Reise und Ankunft Kettlegate→Wexmoor→Dunscar
   applyDunscarAusbau(content); // Dunscar: Gasthaus, Kalkapotheke, starke Heil-/Nerven-/Ruhemittel, möblierte Innenräume
   applyPreisAbgleich(content); // Preise, Heilung, Nerven, Konzentration und Artefakte je Kapitel (nach Dunscar-Ausbau)
