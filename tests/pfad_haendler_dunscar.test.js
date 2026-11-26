@@ -121,3 +121,20 @@ test('Dunscar: Einzelgänger tragen ein Schild, eigene Farben und stehen ab der 
   s.flags.add('k3_arrived');
   assert.equal(knownPeople(s).filter((p) => DS_PH_LONERS.includes(p.id)).length, 5);
 });
+
+test('Dunscar: Nachbarpfad-Käufer kämpfen ohne Heilung statt taub / ohne Ausweichen / mit Moorwasser', () => {
+  for (const [own, other, npc, name] of [['echo', 'maske', 'ez_ds_walzenstimme', 'Atempause'], ['eisen', 'sq_waage', 'ez_ds_rangierer', 'Tragende Niete'], ['sq_moor', 'kessel', 'ez_ds_schrankenkind', 'Schichtname']]) {
+    const o = DS_PH_OFFERS.find((x) => x.npc === npc && x.kind === 'aufgabe');
+    const s = at(other, 5, npc);
+    menu(s, npc, [name, 'Ich mache es']);
+    assert.equal(talk(s, npc, ['Über Zutaten', 'Ruf ihn']).at(-1), `ph_${o.id}_kampf_n`);
+    const c = new Combat(s, o.fight);
+    assert.equal(c.rules?.noHeal, true, other);
+    assert.ok(!c.rules?.deaf && !c.rules?.noDodge && !c.rules?.moorwater, other);
+    const s2 = at(own, 5, npc);
+    s2.addItem('moorwasser', 30);
+    menu(s2, npc, [name, 'Ich mache es']);
+    menu(s2, npc, ['Ruf ihn']);
+    assert.equal(new Combat(s2, o.fight).rules?.[Object.keys(o.rules)[0]], true, own);
+  }
+});
