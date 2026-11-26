@@ -1182,6 +1182,7 @@ const standinIcon = (id) => {
   if (AG_ICONS(id)) return id; // Paket AG: eigene Bilder für Zutaten und Artefakte
   if (/^trank_.+_\d_rest$/.test(id)) return id.replace(/_rest$/, ''); // Beyonder-Rest: Trank aus einem Rest sieht aus wie der normale
   if (/^rest_.+_\d$/.test(id)) return 'schattenrest'; // Beyonder-Rest: Leihbild, bis es ein eigenes gibt
+  if (/^char_seq1_/.test(id)) return `trank_${id.slice(10)}_1`; // Charakteristik Seq 1 (für Seq 0): Leihbild des Seq-1-Tranks
   return id; // Tränke und Formeln haben für alle Pfade und Sequenzen 9–1 eigene Bilder (16 und 32)
 };
 /** Codex DT (Batch ritualicons2): eigene Icons in 16 und 32 für die Wurfflaschen der Seq-4-Rituale und die seltenen Wexmoor-Funde (Codex DR). */

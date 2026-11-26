@@ -108,7 +108,7 @@ export function pfadAngriffe(content, pid, seq, enc) {
  * Ein Kniff (Heilen, Panzer, Schleier, Nerven, Raub) kommt als eigener Zug dazu, höchstens einer je Beyonder.
  * So ändern die Fertigkeiten, WIE ein Beyonder kämpft, kaum, wie hart der Ort ist.
  */
-function einmischen(list, extra) {
+export function einmischen(list, extra) {
   const out = (list ?? []).filter((a) => !a.pfad);
   const slots = out.map((a, i) => (a.action ? -1 : i)).filter((i) => i >= 0);
   let kniff = null;
