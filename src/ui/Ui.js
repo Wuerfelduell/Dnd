@@ -3355,7 +3355,7 @@ export class Ui {
         <div class="cb-bottom">
           <div class="cb-players">${Object.keys(scene.combat.fighters).map((n) => `
           <div class="cb-player" data-p="${n}">
-            <div class="cb-name">${turnFace(n === '2' ? this.state.p2Look() : 'player')}${scene.combat.duo ? `Spieler ${n}` : 'Du'} <span class="muted cb-weapon"></span> <span class="cb-status"></span></div>
+            <div class="cb-name">${turnFace(n === '2' ? this.state.p2Look() : 'player')}${scene.combat.duo ? `Spieler ${n}` : 'Du'} <span class="cb-status"></span></div>
             <div class="meter"><span>Leben</span><div class="bar"><div class="pfill"></div></div><span class="hudbar hp"></span><em class="cb-hp"></em></div>
             <div class="meter"><span>Nerven</span><div class="bar"><div class="nfill"></div></div><span class="hudbar nerves"></span></div>
             <div class="cb-ap"><span>Konzentration</span> <span class="pips"></span></div>
@@ -3422,7 +3422,6 @@ export class Ui {
       b('.pfill').classList.toggle('low', v.hp / v.maxHp < 0.3);
       b('.cb-hp').textContent = `${v.hp}/${v.maxHp}`;
       b('.nfill').style.width = `${(v.composure / v.maxComposure) * 100}%`;
-      b('.cb-weapon').textContent = v.weapon.name;
       // Paket B: Leisten und Konzentration aus battle_hud.png
       b('.hudbar.hp').innerHTML = uiSprite('hud', `hp${pctStep(v.hp / v.maxHp, 6)}`, 1 / 6);
       b('.hudbar.nerves').innerHTML = uiSprite('hud', `nerves${pctStep(v.composure / v.maxComposure, 6)}`, 1 / 6);
