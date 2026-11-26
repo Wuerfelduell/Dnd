@@ -429,7 +429,10 @@ function withMenu(c, dialogue, npc, offers) {
     choices: [...choices, ds ? { text: 'Zurück.', next: 'start' } : back(npc)],
   };
   // Zugang: im Hub (ab Beziehung PH_BOND) und bei Freunden
-  const entry = { text: 'Über Zutaten für höhere Sequenzen reden.', next: menu, requires_bond: { [npc]: PH_BOND } };
+  // Seb (2026-11-26): die Option ist immer sichtbar; ohne genug Beziehung sagt der Einzelgänger, was fehlt
+  const entry = { text: 'Über Zutaten für höhere Sequenzen reden.', next: [{ node: menu, requires_bond: { [npc]: PH_BOND } }, { node: 'ph_zu_frueh' }] };
+  nodes.ph_zu_frueh = { text: `„Über so etwas rede ich nicht mit jedem.“\n\n(Dafür braucht ihr Beziehung +${PH_BOND}. Freundliche Antworten im Gespräch, Aufträge und Geschenke helfen.)`,
+    choices: [{ text: 'Verstehe.', next: ds || npc === 'wx_pfandleiherin' ? 'start' : [{ node: 'freund', requires_flags: [`${npc}_freund`] }, { node: 'hub' }] }] };
   for (const key of ['hub', 'freund', 'start']) {
     const node = nodes[key];
     if (!node || nodes[key].choices.some((ch) => ch.next === menu)) continue;

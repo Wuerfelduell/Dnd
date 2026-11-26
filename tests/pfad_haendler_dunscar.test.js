@@ -55,7 +55,7 @@ test('Dunscar: eigener Pfad und Nachbarpfad dürfen kaufen, erst ab Seq 5 und Be
   const sf = at('eisen', 5, o.npc); sf.money = 20000;
   assert.throws(() => menu(sf, o.npc, ['Zollbart']), /Zollbart/);
   const sb = at('schluessel', 5, o.npc); sb.bonds[o.npc] = PH_BOND - 1;
-  assert.throws(() => menu(sb, o.npc, []), /Über Zutaten/);
+  assert.throws(() => menu(sb, o.npc, ['Zollbart']), /Zollbart/);
 });
 
 test('Dunscar Wucher: Laterne-Spieler kauft den Zollbart (Nachbar) für 9000', () => {
@@ -93,5 +93,15 @@ test('Dunscar Aufgaben: der Einzelgänger ruft einen verstärkten Boss mit Regel
     assert.ok(s.flags.has(`ph_${o.id}_fertig`), o.id);
     menu(s, o.npc, [`${itemName(o)}: Erledigt`]);
     assert.equal(s.itemCount(o.item), 1, o.id);
+  }
+});
+
+test('Dunscar: Zutaten-Option immer sichtbar; unter Beziehung +2 sagt der Einzelgänger, was fehlt', () => {
+  for (const npc of DS_PH_LONERS) {
+    const s = at('eisen', 5, npc);
+    s.bonds[npc] = 0;
+    assert.equal(talk(s, npc, ['Über Zutaten']).at(-1), 'ph_zu_frueh', npc);
+    s.bonds[npc] = PH_BOND;
+    assert.equal(talk(s, npc, ['Über Zutaten']).at(-1), 'ph_menu', npc);
   }
 });
