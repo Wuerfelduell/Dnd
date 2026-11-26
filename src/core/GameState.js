@@ -668,6 +668,7 @@ export class GameState {
   }
 
   isOverloaded() {
+    if (this.testmodus) return false; // Testmodus: keine Tragkraftgrenze
     return this.carryWeight() > this.carryCapacity() || this.cocoonActive?.(); // Seq-5-Ritual des Fadens: im Kokon läuft man schwer
   }
 
@@ -879,6 +880,7 @@ export class GameState {
     this.seq4Tick?.();
     this.hochTick?.(dtSeconds);
     this.gildeTick?.(); // Seq 3: Gilden des Pfades ab Calderwick
+    this.testTick(dtSeconds); // Testmodus: Zutaten und Formeln nachfüllen
     this.splitTick(); // Kapitel 4: Splitscreen in Calderwick, bis beide Seq 3 haben
     if (this.hasP2?.()) this.withPlayer(2, () => { this.seq5Tick?.(); this.seq4Tick?.(); this.hochTick?.(dtSeconds); }, { quiet: true }); // Koop: Prüfungen von Spieler 2
   }
@@ -1019,6 +1021,7 @@ export class GameState {
     this.calderwickOffen(); // Kapitel 4: Calderwick ohne Akte, alle Viertel offen
     if (!this.content.maps[this.map]) { this.map = this.content.start.map; this.position = null; }
     this.map = this.variantOf(this.map); // CH: Briarholt kalt oder warm, je nach Ventilkreis
+    this.testAuffuellen(); // Testmodus: Zutaten und Formeln liegen bereit
     return true;
   }
 }

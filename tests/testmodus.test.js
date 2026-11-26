@@ -39,3 +39,27 @@ test('Ohne Testmodus bleibt alles wie es war', () => {
   assert.equal(s.testmodus, false);
   assert.equal(s.serialize().testmodus, undefined);
 });
+
+test('Testmodus: alle Zutaten und Formeln im Inventar, keine Tragkraftgrenze, keine Unruhe', () => {
+  const s = new GameState(content);
+  const zutaten = Object.keys(content.items).filter((id) => content.items[id].kind === 'ingredient');
+  const formeln = Object.keys(content.items).filter((id) => content.items[id].kind === 'formula');
+  s.pathway = { id: 'laterne', seq: 9, digestion: 0 };
+  s.setUnruhe(50);
+  assert.ok(s.unruhe > 0);
+  s.startTestmodus();
+  assert.ok(zutaten.every((id) => s.itemCount(id) >= 10));
+  assert.ok(formeln.every((id) => s.itemCount(id) >= 1));
+  assert.equal(s.unruhe, 0);
+  assert.ok(s.carryWeight() > s.carryCapacity());
+  assert.equal(s.isOverloaded(), false);
+  s.setUnruhe(90);
+  s.tickPathway(5);
+  assert.equal(s.unruhe, 0);
+  s.inventory[zutaten[0]] = 0;
+  s.tick(5);
+  assert.equal(s.itemCount(zutaten[0]), 10);
+  const t = new GameState(content);
+  assert.ok(t.load(JSON.parse(JSON.stringify(s.serialize()))));
+  assert.ok(formeln.every((id) => t.itemCount(id) >= 1));
+});
