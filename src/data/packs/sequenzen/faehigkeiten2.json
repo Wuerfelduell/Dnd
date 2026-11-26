@@ -305,6 +305,20 @@
         "weak": true,
         "fx": "fangnetz",
         "desc": "Ein Faden quer über den Weg. Normaler Schaden, die Schwachstelle liegt offen, und der nächste Angriff des Gegners kommt langsam."
+      },
+      "welt": {
+        "id": "netz_spannen",
+        "name": "Netz spannen",
+        "nerves": 10,
+        "unruhe": 3,
+        "cooldown": 360,
+        "buff": {
+          "key": "conclusion_money",
+          "value": 2,
+          "seconds": 300
+        },
+        "hint": true,
+        "desc": "Du spannst Fäden zwischen allem, was du weißt. Du siehst den nächsten offenen Schritt, und 5 Minuten lang zahlen Informanten +80 Schilling je Schlussfolgerung."
       }
     },
     "5": {
@@ -545,7 +559,12 @@
         "unruhe": 4,
         "cooldown": 420,
         "wanted": -1,
-        "desc": "Jede Tür hält dich für geladen. Fahndung sinkt um 1 Stufe."
+        "desc": "Jede Tür hält dich für geladen. Fahndung sinkt um 1 Stufe. 2,5 Minuten lang brauchen Grauspäher deutlich länger, bis sie dich erkennen.",
+        "buff": {
+          "key": "recognize",
+          "value": 0.6,
+          "seconds": 150
+        }
       }
     },
     "4": {
@@ -567,7 +586,12 @@
         "unruhe": 4,
         "cooldown": 420,
         "wanted": -2,
-        "desc": "Ein geliehenes Gesicht trägt die Schuld. Fahndung sinkt um 2 Stufen."
+        "desc": "Ein geliehenes Gesicht trägt die Schuld. Fahndung sinkt um 2 Stufen, 6 Minuten lang brauchen Grauspäher mehr als doppelt so lange, bis sie dich erkennen.",
+        "buff": {
+          "key": "recognize",
+          "value": 0.45,
+          "seconds": 360
+        }
       }
     },
     "3": {
@@ -1368,7 +1392,12 @@
         "unruhe": 2,
         "cooldown": 300,
         "wanted": -1,
-        "desc": "Du fragst das Schloss, wie es aufgehen will. Fahndung sinkt um 1 Stufe."
+        "desc": "Du fragst das Schloss, wie es aufgehen will. Fahndung sinkt um 1 Stufe. 2,5 Minuten lang knacken deine Finger jedes knackbare Schloss leichter, und die Wache verliert deine Spur schneller.",
+        "buff": {
+          "key": "lock_skill",
+          "value": 24,
+          "seconds": 150
+        }
       }
     },
     "7": {
@@ -1441,7 +1470,12 @@
         "cooldown": 420,
         "reveal": 30,
         "wanted": -1,
-        "desc": "Kein Riegel hält. Fahndung sinkt um 1 Stufe, 30 Sekunden lang zeigen sich verborgene Spuren."
+        "desc": "Kein Riegel hält. Fahndung sinkt um 1 Stufe. 3,5 Minuten lang knackst du Schlösser mühelos und die Fahndung sinkt schneller, 30 Sekunden lang zeigen sich verborgene Spuren.",
+        "buff": {
+          "key": "lock_skill",
+          "value": 42,
+          "seconds": 210
+        }
       },
       "welt_50": {
         "id": "schattengestalt",
@@ -1534,7 +1568,12 @@
           "seconds": 600
         },
         "wanted": -1,
-        "desc": "Du stehst immer auf der abgewandten Seite. 10 Minuten lang kannst du aus jedem Kampf fliehen. Fahndung sinkt sofort um 1 Stufe."
+        "desc": "Du stehst immer auf der abgewandten Seite. 10 Minuten lang kannst du aus jedem Kampf fliehen, 6 Minuten lang knackst du Schlösser mühelos und die Fahndung sinkt mehr als doppelt so schnell. Fahndung sinkt sofort um 1 Stufe.",
+        "buff2": {
+          "key": "lock_skill",
+          "value": 48,
+          "seconds": 360
+        }
       }
     },
     "1": {
@@ -1562,7 +1601,12 @@
         ],
         "reveal": 60,
         "wanted": -1,
-        "desc": "Nichts ist dir verwehrt. Fahndung sinkt um 1 Stufe, 30 bis 60 Schilling, eine Minute lang alle verborgenen Spuren."
+        "desc": "Nichts ist dir verwehrt. Fahndung sinkt um 1 Stufe. 6 Minuten lang öffnet sich jedes knackbare Schloss und die Wache verliert deine Spur fast sofort, 30 bis 60 Schilling, eine Minute lang alle verborgenen Spuren.",
+        "buff": {
+          "key": "lock_skill",
+          "value": 96,
+          "seconds": 360
+        }
       }
     }
   },
@@ -1734,6 +1778,24 @@
         "nerves_gain": 14,
         "fx": "waage_hoch_3",
         "desc": "Deine Stimme senkt sich, und der Gegner spürt seine Schuld. Schutz 18 für jeden Stehenden, 2 Runden lang 30 % weniger Schaden von ihm, 14 Nerven zurück."
+      },
+      "welt": {
+        "id": "waage_saldenhut",
+        "name": "Saldenhut",
+        "nerves": 12,
+        "unruhe": 4,
+        "cooldown": 480,
+        "buff": {
+          "key": "conclusion_money",
+          "value": 2,
+          "seconds": 300
+        },
+        "buff2": {
+          "key": "recognize",
+          "value": 0.45,
+          "seconds": 300
+        },
+        "desc": "Jede Zusage wird gewogen. 5 Minuten lang +80 Schilling je Schlussfolgerung, und Grauspäher brauchen mehr als doppelt so lange, bis sie dich erkennen."
       }
     },
     "2": {

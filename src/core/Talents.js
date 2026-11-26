@@ -21,6 +21,8 @@ import { digestSlowdown, fmtDigest, TALENT_DIGEST_PER_NERVES, TALENT_DIGEST_SPAN
 
 /** Ab Wexmoor (Flag kapitel1_done): Schilling je Punkt `conclusion_honor` und Schlussfolgerung (Ansehen zählt dort nicht mehr). */
 export const CONCLUSION_SCHILLING = 30;
+/** Schilling je Punkt `conclusion_money` und Schlussfolgerung, in jeder Stadt (Pfad-Fähigkeiten ohne Ansehen, ersetzt conclusion_honor). */
+export const CONCLUSION_GELD = 40;
 
 /** Lesbare Beschreibung eines zeitweiligen Passivs (für Pfad-Tab und Meldungen). */
 export const BUFF_LABELS = {
@@ -29,6 +31,9 @@ export const BUFF_LABELS = {
   price: (v) => `Händler verlangen ${Math.round((1 - v) * 100)} % weniger`,
   sell: (v) => `Verkauf bringt ${Math.round((v - 1) * 100)} % mehr`,
   lock_bonus: (v) => `Schlösser öffnen sich mit ${v} Ansehen weniger, Fahndung sinkt ${Math.round(v * DECAY_PER_LOCK * 100)} % schneller`,
+  lock_skill: (v) => `Geübte Finger knacken Schlösser, die Fahndung sinkt ${Math.round(v * DECAY_PER_LOCK * 100)} % schneller`,
+  recognize: (v) => `Grauspäher brauchen ${Math.round((1 / v - 1) * 100)} % länger, bis sie dich erkennen`,
+  conclusion_money: (v) => `+${v * CONCLUSION_GELD} Schilling je Schlussfolgerung`,
   money_bonus: (v) => `+${Math.round((v - 1) * 100)} % Schilling aus Beute und Belohnungen`,
   dodge_window: (v) => `Ausweichfenster +${Math.round((v - 1) * 100)} %`,
   damage_taken: (v) => `${Math.round((1 - v) * 100)} % weniger Schaden`,

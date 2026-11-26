@@ -218,7 +218,7 @@ export const TALENT_DIGEST_PER_NERVES = 10;
 export const TALENT_DIGEST_SPAN = [0.5, 2.5];
 /** Handlungen, die nur den Pfad dessen verdauen, der sie selbst tut. Alles andere verdaut beide Spieler. */
 export const PERSONAL_DIGEST = new Set(['parry', 'vision', 'use_item', 'brew', 'talent', 'ritual']);
-const MULT_KEYS = new Set(['vision_cost', 'composure_regen', 'heal_bonus', 'price', 'sell', 'honor_loss', 'occult_mult',
+const MULT_KEYS = new Set(['vision_cost', 'composure_regen', 'heal_bonus', 'price', 'sell', 'honor_loss', 'recognize', 'occult_mult',
   'money_bonus', 'skill_composure', 'calm_decay', 'dodge_window', 'damage_taken', 'digest_mult', 'dmg_mult', 'hurry_cost', 'unruhe_gain']);
 
 
@@ -726,9 +726,17 @@ export const pathwayMethods = {
     return (this.picks ?? 0) + (this.flags.has('k2_zelle_geknackt') ? 1 : 0);
   },
 
+  /**
+   * Geübte Finger: `lock_skill` (Pfad des Schlüssels, ohne Ansehen) plus `lock_bonus` (Gegenstände, senkt zusätzlich die
+   * Ansehens-Schwelle von Amtsschlössern, siehe meetsLock). Zählt fürs Knacken, den Zellenausbruch und das Abklingen der Fahndung.
+   */
+  lockSkill() {
+    return Math.max(0, this.passive('lock_bonus')) + Math.max(0, this.passive('lock_skill'));
+  },
+
   /** Wer kann ein knackbares Schloss (`lock.pick`) öffnen: der Pfad des Schlüssels, oder wer Brecheisen oder Haarnadel dabeihat. */
   canPick() {
-    return this.passive('lock_bonus') > 0 || this.itemCount('brecheisen') > 0 || this.itemCount('haarnadel') > 0;
+    return this.lockSkill() > 0 || this.itemCount('brecheisen') > 0 || this.itemCount('haarnadel') > 0;
   },
 
   /** Wie man dieses Schloss knacken würde (für die Sperrmeldung). */
@@ -742,9 +750,9 @@ export const pathwayMethods = {
    */
   tryPick(lock, key) {
     if (!lock?.pick || !this.canPick()) return null;
-    const how = this.passive('lock_bonus') > 0 ? 'Deine Finger finden die Zuhaltungen von selbst.' : this.itemCount('brecheisen') ? 'Das Brecheisen knirscht, das Schloss gibt nach.' : 'Die Haarnadel biegt sich, dann klickt es.';
+    const how = this.lockSkill() > 0 ? 'Deine Finger finden die Zuhaltungen von selbst.' : this.itemCount('brecheisen') ? 'Das Brecheisen knirscht, das Schloss gibt nach.' : 'Die Haarnadel biegt sich, dann klickt es.';
     // DS: Dietrich (geübte Finger oder Haarnadel) mit Riegel, oder das Brecheisen hebelt
-    if (this.passive('lock_bonus') > 0 || !this.itemCount('brecheisen')) { this.sfx?.('schloss_dietrich'); this.sfx?.('schloss_auf', { delay: 750 }); } else this.sfx?.('schloss_brecheisen');
+    if (this.lockSkill() > 0 || !this.itemCount('brecheisen')) { this.sfx?.('schloss_dietrich'); this.sfx?.('schloss_auf', { delay: 750 }); } else this.sfx?.('schloss_brecheisen');
     const first = key && !this.pickedLocks.has(key);
     if (first) {
       this.pickedLocks.add(key);
@@ -752,7 +760,7 @@ export const pathwayMethods = {
       this.act('lock');
       this.emit('changed');
     }
-    const tool = this.passive('lock_bonus') > 0 ? 'pfad' : this.itemCount('brecheisen') ? 'brecheisen' : 'haarnadel'; // Codex DQ: passende Schloss-Animation
+    const tool = this.lockSkill() > 0 ? 'pfad' : this.itemCount('brecheisen') ? 'brecheisen' : 'haarnadel'; // Codex DQ: passende Schloss-Animation
     return { ok: true, first, tool, text: `Schloss geknackt. ${how}` };
   },
 
