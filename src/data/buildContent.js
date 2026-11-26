@@ -14,6 +14,7 @@ import { applyPendelzugPlatz, applyAufstieg, gateStarlingHinweise } from './aufs
 import { applyCalderwickStory } from './calderwickStory.js';
 import { applyBriarholtStory } from './briarholtStory.js';
 import { applyZweiterAufstieg } from './zweiterAufstieg.js';
+import { applySeq1Beyonder } from './seq1Beyonder.js';
 import { applyPfadviertel } from './pfadviertel.js';
 import { applyVerdauProbe } from './verdauProbe.js';
 import { applyMarloweTelegramm } from './marloweTelegramm.js';
@@ -140,6 +141,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyBenannte(content); // Codex DJ: benannte Gegner auf den Grundgegnern, nachts in ihren Gebieten
   applyBriarholtStory(content); // Kapitel 5 ausgebaut: Kur der Gefallenen, Briarholt auf Seq 3, Sammler der Linie (nach den benannten Gegnern)
   applyZweiterAufstieg(content); // Kapitel 6: Bürgen in Calderwick, Schaffner ohne Gesicht, zweite Himmelsstadt, Starling, Thron (nach Briarholt)
+  applySeq1Beyonder(content); // Seb 2026-11-26: je Pfad ein Seq-1-Beyonder in Briarholt (min_seq 1, Beute: Charakteristik für das spätere Seq 0)
   applyAltbeute(content); // Wexmoor-Monster tragen ab und zu Kettlegater Beute (kein Zurück dorthin)
   applyZutatDrops(content); // Hauptzutaten: je genau ein Monster (Kettlegate Seq 7 8 %, Wexmoor Seq 6 8 %/Elite 18 % / Seq 5 1 %)
   applyDunscarGebietsbosse(content); // Dunscar: je Gefahrengebiet ein frei stehender Gebietsboss wie in Wexmoor
