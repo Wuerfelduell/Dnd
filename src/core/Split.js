@@ -45,6 +45,25 @@ export const splitMethods = {
     return false;
   },
 
+  /**
+   * Seb 2026-11-26: Nie getrennt in zwei Städten. Reist einer im Splitscreen in eine andere Stadt (Pendelzug, Lastenzug),
+   * fahren beide: Spieler 1 bekommt das Ziel, Spieler 2 kommt mit, das Bild wird eins. Der Aufrufer (WorldScene.travelTo) meldet 'split'.
+   */
+  splitStadtwechsel(mapId, spawn) {
+    if (!this.splitOn || cityOf(this, mapId) === cityOf(this, this.map) && cityOf(this, mapId) === cityOf(this, this.p2?.map ?? this.map)) return false;
+    Object.assign(this, { map: mapId, spawn: spawn ?? 'default', position: null });
+    this.splitOn = false;
+    for (const k of SPLIT_KEYS) delete this.p2?.[k];
+    return true;
+  },
+
+  /** Beim Laden: Spieler 2 in einer anderen Stadt als Spieler 1 (gespaltener Stand) → er steht wieder bei Spieler 1. */
+  splitReparieren() {
+    if (!this.p2?.map || cityOf(this, this.p2.map) === cityOf(this, this.map)) return;
+    this.splitOn = false;
+    for (const k of SPLIT_KEYS) delete this.p2[k];
+  },
+
   /** Seq 3 bei beiden: der Splitscreen endet. Spieler 1 und 2 aus Sicht des Spielstands (ohne Tausch). */
   splitBeideSeq3() {
     return seqOf(this.pathway) <= 3 && seqOf(this.p2?.pathway) <= 3;
@@ -56,11 +75,6 @@ export const splitMethods = {
     if (this.hasP2?.() && this.flags.has('k4_arrived') && !this.flags.has(SPLIT_ENDE_FLAG) && this.splitBeideSeq3()) {
       this.flags.add(SPLIT_ENDE_FLAG);
       if (this.splitOn) this.emit('notice', 'Ihr habt beide das Ritual der dritten Sequenz geschafft. Ihr seid Heilige, und der Bildschirm wird wieder eins.');
-    }
-    // Seb 2026-11-26: Reist Spieler 2 im Splitscreen in eine andere Stadt (Pendelzug, Lastenzug), kommt Spieler 1 mit.
-    // Nie getrennt in zwei Städten. Repariert auch Spielstände, in denen einer in Dunscar und einer in Calderwick steht.
-    if (this.hasP2?.() && this.p2?.map && this.content.maps[this.p2.map] && cityOf(this, this.p2.map) !== cityOf(this, this.map) && cityOf(this, this.map) === SPLIT_STADT) {
-      Object.assign(this, { map: this.p2.map, spawn: this.p2.spawn ?? 'default', position: this.p2.position ?? null });
     }
     const soll = this.splitSoll();
     if (soll === !!this.splitOn) return false;

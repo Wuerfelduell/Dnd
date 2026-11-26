@@ -2290,6 +2290,15 @@ export class WorldScene extends Phaser.Scene {
     if (hold && !this.state.pendingTravel) { this.ui.toast?.(hold, 'warn'); return; }
     if (!this.state.content.maps[mapId]) throw new Error(`Unbekannter Ort: ${mapId}`);
     mapId = this.state.variantOf?.(mapId) ?? mapId; // CH: Briarholt kalt oder warm
+    // Splitscreen, einer fährt in eine andere Stadt: beide fahren, das Bild wird eins (core/Split.js). 'split' baut die Hauptwelt neu, world2 hört auf.
+    if (this.realState.splitOn && this.realState.splitStadtwechsel?.(mapId, spawn)) {
+      const toCity = this.state.content.maps[mapId]?.city ?? 'kettlegate';
+      this.ui.showLoading?.(toCity);
+      this.realState.setSpiritVision?.(false);
+      this.realState.emit('travel', mapId);
+      this.realState.emit('split', false);
+      return;
+    }
     // Pfadviertel in Calderwick (core/Split.js): im gemeinsamen Bild geht nur der hinein, der die Tür benutzt; der Bildschirm teilt sich
     if (this.splitRole === 1 && !this.realState.splitOn && this.state.hasP2?.()) {
       const by = this.state.acting;
