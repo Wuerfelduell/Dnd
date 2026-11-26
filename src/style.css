@@ -1010,12 +1010,54 @@ img.scene.koop2trennung { display: block; width: 15em; height: auto; margin: 0 a
 .ascension .rings i { position: absolute; left: 0; top: 0; width: 1em; height: 1em; margin: -0.5em; border-radius: 50%; border: 3px solid white; opacity: 0; box-shadow: 0 0 1.2em var(--c), 0 0 2em white inset; animation: ascRing 2.4s ease-out forwards; }
 .ascension .rings i:nth-child(2) { animation-delay: 0.45s; }
 .ascension .rings i:nth-child(3) { animation-delay: 0.9s; }
+.ascension .rings i:nth-child(4) { animation-delay: 1.25s; }
+.ascension .rings i:nth-child(5) { animation-delay: 1.6s; }
+.ascension .rings i:nth-child(6) { animation-delay: 1.95s; }
+.ascension .rings i:nth-child(7) { animation-delay: 2.3s; }
+.ascension .rings i:nth-child(8) { animation-delay: 2.65s; }
+.ascension .rings i:nth-child(9) { animation-delay: 3.0s; }
+.ascension .rings i:nth-child(10) { animation-delay: 3.35s; }
+.ascension .rings i:nth-child(11) { animation-delay: 3.7s; }
+.ascension .rings i:nth-child(12) { animation-delay: 4.05s; }
 .ascension .words { position: relative; text-align: center; color: #fff8e8; text-shadow: 0 0 0.3em var(--c), 0 0 1.2em var(--c), 0 2px 0 #000; animation: ascWords 4.3s ease-out forwards; }
 .ascension .words .rank { display: block; font-size: 1.1em; letter-spacing: 0.4em; opacity: 0.85; }
 .ascension .words strong { display: block; font-size: 4.2em; line-height: 1.1; letter-spacing: 0.18em; margin: 0.1em 0; }
 .ascension .words .name { display: block; font-size: 1.3em; font-style: italic; }
 @keyframes ascFlood { 0% { opacity: 0; } 10% { opacity: 1; } 100% { opacity: 1; } }
 @keyframes ascRing { 0% { transform: scale(1); opacity: 0.9; } 100% { transform: scale(90); opacity: 0; } }
+/* Aufstiegs-Stufen (Seb 2026-11-26): Heiliger > Halbgott, Engel > Heiliger, Engelskönig das Extremste */
+.ascension { animation-duration: var(--dauer, 4.3s); }
+.ascension .words { animation-duration: var(--dauer, 4.3s); }
+.ascension .risse { position: absolute; left: 50%; top: 55%; width: 0; height: 0; }
+.ascension .risse b { position: absolute; left: 0; top: -2px; height: 4px; width: 0; transform-origin: 0 50%; transform: rotate(var(--w));
+  background: linear-gradient(90deg, white, var(--c) 40%, transparent); box-shadow: 0 0 0.6em var(--c), 0 0 1.4em white; opacity: 0;
+  animation: ascRiss 1.1s cubic-bezier(.2,.9,.2,1) var(--d) forwards; }
+@keyframes ascRiss { 0% { width: 0; opacity: 1; } 60% { width: 140vmax; opacity: 1; } 100% { width: 140vmax; opacity: 0.35; } }
+/* Heiliger: zweiter Lichtstoß, glühende Lettern */
+.asc-s2 { animation-name: ascFlood2; }
+.asc-s2 .words strong { font-size: 4.8em; animation: ascGlut 0.9s ease-in-out infinite alternate; }
+@keyframes ascFlood2 { 0% { opacity: 0; } 6% { opacity: 1; filter: brightness(3); } 14% { filter: brightness(1); } 38% { filter: brightness(2.4); } 46% { filter: brightness(1); } 100% { opacity: 1; } }
+@keyframes ascGlut { from { text-shadow: 0 0 0.3em var(--c), 0 0 1.2em var(--c), 0 2px 0 #000; } to { text-shadow: 0 0 0.5em white, 0 0 2.4em var(--c), 0 0 4em var(--c), 0 2px 0 #000; } }
+/* Engel: Blutrot und Schwarz flackern, die Lettern zittern */
+.asc-s3 { background: radial-gradient(circle at 50% 55%, white 0%, var(--c) 16%, #5a0008 40%, rgba(0, 0, 0, 0.96) 70%); animation-name: ascFlood3; }
+.asc-s3 .words strong { font-size: 5.4em; letter-spacing: 0.22em; animation: ascGlut 0.5s ease-in-out infinite alternate, ascZitter 0.09s steps(2) infinite; }
+@keyframes ascFlood3 { 0% { opacity: 0; } 5% { opacity: 1; filter: brightness(4); } 10% { filter: brightness(0.2); } 16% { filter: brightness(3); } 24% { filter: brightness(1) hue-rotate(0deg); }
+  50% { filter: brightness(1.6) saturate(2); } 56% { filter: brightness(0.3); } 62% { filter: brightness(1.4); } 100% { opacity: 1; filter: none; } }
+@keyframes ascZitter { 0% { transform: translate(1px, -1px); } 50% { transform: translate(-2px, 1px); } 100% { transform: translate(1px, 2px); } }
+/* Engelskönig: Schwarz, Weltriss, Farbumkehr, Lettern in Rot und Cyan versetzt */
+.asc-s4 { background: radial-gradient(circle at 50% 55%, white 0%, var(--c) 12%, #7a0010 30%, #000 62%); animation-name: ascFlood4; }
+.asc-s4 .words strong { font-size: 6.4em; letter-spacing: 0.26em; text-shadow: -4px 0 #ff1840, 4px 0 #18e8ff, 0 0 1em white, 0 0 3em var(--c);
+  animation: ascZitter 0.06s steps(2) infinite, ascRiesig 9s ease-out forwards; }
+.asc-s4 .words .rank, .asc-s4 .words .name { animation: ascZitter 0.11s steps(2) infinite; }
+@keyframes ascRiesig { 0% { transform: scale(3); filter: blur(6px); } 25% { transform: scale(1); filter: blur(0); } 100% { transform: scale(1.12); } }
+@keyframes ascFlood4 { 0% { opacity: 1; background: #000; } 8% { opacity: 1; filter: brightness(0); } 12% { filter: brightness(5) invert(1); } 15% { filter: brightness(0); } 20% { filter: brightness(4); }
+  26% { filter: invert(1) hue-rotate(180deg); } 30% { filter: none; } 52% { filter: brightness(2) saturate(3); } 55% { filter: invert(1); } 58% { filter: brightness(0.2); } 64% { filter: brightness(3); } 70% { filter: none; } 100% { opacity: 1; } }
+/* Das ganze Spielbild bebt mit (ab Heiliger) */
+.asc-beben2 { animation: ascBeben 0.12s linear 12; }
+.asc-beben3 { animation: ascBeben 0.08s linear 45; }
+.asc-beben4 { animation: ascBebenHart 0.06s linear 120; }
+@keyframes ascBeben { 0% { transform: translate(0, 0); } 25% { transform: translate(3px, -2px); } 50% { transform: translate(-3px, 2px); } 75% { transform: translate(2px, 3px); } 100% { transform: translate(0, 0); } }
+@keyframes ascBebenHart { 0% { transform: translate(0, 0) rotate(0); } 25% { transform: translate(7px, -5px) rotate(0.4deg); } 50% { transform: translate(-8px, 4px) rotate(-0.5deg); } 75% { transform: translate(5px, 7px) rotate(0.3deg); } 100% { transform: translate(0, 0); } }
 @keyframes ascWords { 0% { opacity: 0; transform: scale(0.6); letter-spacing: 0.6em; } 30% { opacity: 0; } 55% { opacity: 1; transform: scale(1); } 100% { opacity: 1; transform: scale(1.04); } }
 
 /* Flucht vor starken Gegnern: der laufende Rückzug muss ins Auge springen */

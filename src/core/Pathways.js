@@ -163,6 +163,12 @@ export const formReif = (p) => !!p && (p.seq < FORM_SEQ || (p.seq === FORM_SEQ &
 export const FORM_MARGIN = 2; // so viele Sequenzen muss ein Monster unter dir liegen
 /** Worte für die großen Tränke: Halbgott (4) und Engel (2). Die Oberfläche spielt dazu die Aufstiegs-Szene. */
 export const ASCENSION_TEXT = {
+  3: {
+    title: 'Heiliger',
+    intro: 'Der Trank brennt nicht. Er schneidet. Er legt dich auseinander wie ein Uhrmacher ein Werk, Teil für Teil, und setzt dich wieder zusammen, nur dass einige Teile jetzt aus Licht sind. Die Luft um dich glüht. Die Menschen auf der Straße drehen sich weg, ohne zu wissen, warum.',
+    rank: 'Man nennt diese Stufe Heiliger. Halbgötter sehen zu dir auf. In der Himmelsstadt darfst du jetzt beten, und deine Gebete sind Befehle.',
+    outro: 'Dein Schatten fällt nicht mehr ganz so, wie das Licht es will. Wo du stehst, wird es still. Der Chor in deinem Kopf hat jetzt einen Dirigenten, und manchmal bist das nicht du.',
+  },
   4: {
     title: 'Halbgott',
     intro: 'Der Trank schlägt nicht ein. Er bleibt. Er füllt dich aus wie Wasser ein Gefäß, bis das Gefäß nicht mehr das Maß ist. Die Wände rücken weg. Das Licht wird dünn und durchsichtig, und dahinter siehst du die Stadt, wie sie wirklich ist: ein Gewirr aus Fäden, Flammen und Atem, und jeder Faden kennt deinen Namen.',
@@ -175,7 +181,16 @@ export const ASCENSION_TEXT = {
     rank: 'Man nennt diese Stufe Engel. Die Alten in Dunscar schreiben das Wort nicht aus. Es gibt in dieser Welt kaum noch etwas, das dir im Weg stehen kann, außer dir selbst.',
     outro: 'Deine Schritte lassen den Nebel zur Seite weichen. Was dich trifft, trifft kaum noch. Und doch: Die Stimmen, die mit jedem Trank lauter wurden, sind jetzt ein Chor. Halte deinen Grundsatz fest. Er ist das Einzige, was zwischen dir und dem Kontrollverlust steht.',
   },
+  1: {
+    title: 'Engelskönig',
+    intro: 'Die Welt reißt. Nicht um dich herum, sondern an dir entlang, wie Stoff an einer Naht. Für einen langen Augenblick ist da kein Himmel, kein Boden, kein Nebel, nur dein Grundsatz, so groß, dass er die Stadt verdeckt. Irgendwo schreien Menschen, weil sie dich gesehen haben. Dann setzt der Herzschlag wieder ein, und er ist nicht mehr deiner allein.',
+    rank: 'Man nennt diese Stufe Engelskönig. Engel beugen das Knie vor dir. Über dir gibt es nur noch das, was keinen Namen hat.',
+    outro: 'Wo du gehst, verändert sich die Welt ein kleines Stück und vergisst, dass sie je anders war. Nichts kann dich mehr brechen, außer der Stille zwischen zwei Gedanken. Dort wartet der Kontrollverlust. Er ist geduldig. Du musst es auch sein.',
+  },
 };
+/** Aufstiegs-Szene: jede Stufe wird brutaler (Seb 2026-11-26). Stufe 1 = Halbgott … 4 = Engelskönig, Dauer der Szene in ms. */
+export const ASCENSION_STUFE = { 4: 1, 3: 2, 2: 3, 1: 4 };
+export const ASCENSION_DAUER = { 1: 4300, 2: 5600, 3: 7000, 4: 9000 };
 export const UNRUHE_MAX = 100;
 export const UNRUHE_DECAY_PER_SEC = 0.25;
 export const UNRUHE_VISION_PER_SEC = 0.35;
@@ -636,9 +651,9 @@ export const pathwayMethods = {
         ? `${asc.intro}\n\nDu bist jetzt Sequenz ${it.seq}: ${sd.name}. ${asc.rank}\n\n${sd.desc}\n\n${asc.outro}\n\n${gains}${it.seq === FORM_SEQ ? `\n\nAb ${FORM_MIN_DIGEST} % Verdauung kannst du im Pfad-Tab deine mythische Gestalt annehmen. Menschen ohne Pfad und schwächere Wesen brechen vor ihr zusammen.` : ''}`
         : `Der Trank schlägt ein wie ein Blitz. Als er abklingt, bist du jemand anderes. Ein bisschen.\n\nDu bist jetzt Sequenz ${sd ? it.seq : ''}: ${sd.name}.\n\n${sd.desc}\n\n${gains}`);
     this.emit('unruhe', this.unruhe);
-    this.emit('ascend', { pathway: it.pathway, seq: it.seq, player: this.acting ?? 1, ascension: asc ? { ...asc, seq: it.seq, color: pd.color } : null });
+    this.emit('ascend', { pathway: it.pathway, seq: it.seq, player: this.acting ?? 1, ascension: asc ? { ...asc, seq: it.seq, color: pd.color, stufe: ASCENSION_STUFE[it.seq], dauer: ASCENSION_DAUER[ASCENSION_STUFE[it.seq]] } : null });
     this.emit('changed');
-    return { ok: true, text, ascension: asc ? { ...asc, seq: it.seq, color: pd.color, name: sd.name } : null };
+    return { ok: true, text, ascension: asc ? { ...asc, seq: it.seq, color: pd.color, name: sd.name, stufe: ASCENSION_STUFE[it.seq], dauer: ASCENSION_DAUER[ASCENSION_STUFE[it.seq]] } : null };
   },
 
   /** Rechnet Leben und Nerven neu (nach Aufstieg oder Artefaktwechsel). Mehr Höchstwert heilt um die Differenz. */

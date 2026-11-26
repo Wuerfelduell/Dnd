@@ -1650,8 +1650,10 @@ export class WorldScene extends Phaser.Scene {
   }
 
   /**
-   * Aufstieg zum Halbgott (Sequenz 4) oder Engel (Sequenz 2): weißer Blitz, die Kamera zieht an die Figur heran und
-   * zittert, drei Lichtringe in der Pfadfarbe laufen über die Karte, ein Lichtkegel steht Sekunden über der Figur.
+   * Aufstiegs-Szene in der Welt, jede Stufe brutaler (asc.stufe: 1 Halbgott, 2 Heiliger, 3 Engel, 4 Engelskönig; Seb 2026-11-26).
+   * Halbgott: weißer Blitz, Zoom, drei Lichtringe, Lichtkegel. Heiliger: mehr Ringe, zweiter Blitz, Lichtsplitter, Lichtsäule.
+   * Engel: dazu Blitzschläge vom Himmel, Blutrot über der Karte, Kamera kippt, Schockwellen schleudern Funken. Engelskönig:
+   * Schwarz, dann Weltriss: Dauerbeben, Blitzgewitter, Farbumkehr-Stöße, gewaltige Lichtsäule, zwölf Wellen, Kamera dreht sich.
    * Die Oberfläche legt dazu ihre Lichtflut mit dem Wort darüber (Ui.playAscension).
    */
   playAscension(asc, player = 1) {
@@ -1659,6 +1661,11 @@ export class WorldScene extends Phaser.Scene {
     if (!who) return;
     const cam = this.cameras.main;
     const color = Number.parseInt((asc.color ?? '#e8c070').slice(1), 16);
+    const st = Math.max(1, Math.min(4, asc.stufe ?? 1));
+    const dauer = asc.dauer ?? 4300;
+    const at = (ms, fn) => this.time.delayedCall(ms, fn);
+    const fx = []; // alles, was am Ende sicher weg muss
+    const g0 = (blend = Phaser.BlendModes.ADD, depth = DEPTH.vision + 1) => { const g = this.add.graphics().setDepth(depth).setBlendMode(blend); fx.push(g); return g; };
     // Paket CO: das Aufstiegs-Vollbild (240x135, acht Frames) liegt bildschirmfüllend hinter der Lichtflut der Oberfläche
     const sheet = `HG_aufstieg_${asc.seq}`;
     if (this.textures.exists(sheet)) {
@@ -1666,19 +1673,101 @@ export class WorldScene extends Phaser.Scene {
       if (!playSheetAnim(full, sheet, 'ascend', () => this.tweens.add({ targets: full, alpha: 0, duration: 700, onComplete: () => full.destroy() }))) full.destroy();
     }
     cam.flash(900, 255, 255, 255);
-    cam.shake(1200, 0.006);
+    cam.shake([1200, 2600, 4200, dauer - 600][st - 1], [0.006, 0.011, 0.018, 0.03][st - 1]);
     const zoom0 = cam.zoom;
-    this.tweens.add({ targets: cam, zoom: zoom0 * 1.5, duration: 1400, ease: 'Sine.easeInOut', yoyo: true, hold: 1200 });
+    const zoomTw = this.tweens.add({ targets: cam, zoom: zoom0 * [1.5, 1.7, 1.9, 2.3][st - 1], duration: 1400, ease: 'Sine.easeInOut', yoyo: true, hold: [1200, 2300, 3400, 5000][st - 1] });
     let lit = true;
-    this.lighting?.add({ follow: { get x() { return who.x; }, get y() { return who.y - 12; } }, radius: 120, intensity: 1, color, glowAlpha: 0.5, flicker: 0.05, active: () => lit });
-    for (let i = 0; i < 3; i++) {
-      const g = this.add.graphics().setDepth(DEPTH.vision + 1).setBlendMode(Phaser.BlendModes.ADD);
+    this.lighting?.add({ follow: { get x() { return who.x; }, get y() { return who.y - 12; } }, radius: [120, 170, 230, 320][st - 1], intensity: 1, color, glowAlpha: [0.5, 0.65, 0.8, 1][st - 1], flicker: [0.05, 0.1, 0.2, 0.35][st - 1], active: () => lit });
+    // Lichtringe: 3 / 5 / 8 / 12, immer weiter und dicker
+    const nRing = [3, 5, 8, 12][st - 1];
+    const rMax = [220, 300, 420, 600][st - 1];
+    for (let i = 0; i < nRing; i++) {
+      const g = g0();
       const ring = { r: 4 };
-      this.tweens.add({ targets: ring, r: 220, delay: 300 + i * 450, duration: 1800, ease: 'Cubic.easeOut',
-        onUpdate: () => { g.clear(); g.lineStyle(3, color, Math.max(0, 1 - ring.r / 220)).strokeCircle(who.x, who.y - 10, ring.r); },
+      const dick = 3 + st + (i % 3);
+      const c = st >= 3 && i % 2 ? 0xff2030 : color;
+      this.tweens.add({ targets: ring, r: rMax, delay: 300 + i * [450, 380, 330, 300][st - 1], duration: 1800, ease: 'Cubic.easeOut',
+        onUpdate: () => { g.clear(); g.lineStyle(dick, c, Math.max(0, 1 - ring.r / rMax)).strokeCircle(who.x, who.y - 10, ring.r); },
         onComplete: () => g.destroy() });
     }
-    this.time.delayedCall(4300, () => { lit = false; this.updateForm(); });
+    if (st >= 2) {
+      // Heiliger: zweiter Blitz, Lichtsäule über der Figur, Lichtsplitter fliegen weg
+      at(1300, () => cam.flash(500, (color >> 16) & 255, (color >> 8) & 255, color & 255));
+      const saeule = g0();
+      const sp = { w: 0, a: 0 };
+      const breit = [0, 18, 34, 70][st - 1];
+      this.tweens.add({ targets: sp, w: breit, a: 0.85, duration: 600, delay: 200, ease: 'Back.easeOut',
+        onUpdate: () => { saeule.clear(); saeule.fillStyle(color, sp.a * 0.5).fillRect(who.x - sp.w, who.y - 900, sp.w * 2, 900); saeule.fillStyle(0xffffff, sp.a).fillRect(who.x - sp.w / 3, who.y - 900, (sp.w * 2) / 3, 900); } });
+      at(dauer - 1200, () => this.tweens.add({ targets: sp, a: 0, w: 0, duration: 900, onUpdate: () => { saeule.clear(); saeule.fillStyle(color, sp.a * 0.5).fillRect(who.x - sp.w, who.y - 900, sp.w * 2, 900); }, onComplete: () => saeule.destroy() }));
+      const splitter = (n, weit, farbe) => {
+        for (let i = 0; i < n; i++) {
+          const w = Math.random() * Math.PI * 2;
+          const d = weit * (0.4 + Math.random() * 0.6);
+          const s = this.add.rectangle(who.x, who.y - 12, 2 + Math.random() * (st + 1), 2 + Math.random() * (st + 1), Math.random() < 0.3 ? 0xffffff : farbe)
+            .setDepth(DEPTH.vision + 1).setBlendMode(Phaser.BlendModes.ADD).setAngle(Math.random() * 90);
+          fx.push(s);
+          this.tweens.add({ targets: s, x: who.x + Math.cos(w) * d, y: who.y - 12 + Math.sin(w) * d, angle: s.angle + 360, alpha: 0, scale: 0.3,
+            duration: 900 + Math.random() * 900, ease: 'Cubic.easeOut', onComplete: () => s.destroy() });
+        }
+      };
+      splitter([0, 40, 80, 140][st - 1], [0, 140, 220, 340][st - 1], color);
+      if (st >= 3) at(2400, () => splitter(st === 4 ? 160 : 70, st === 4 ? 420 : 260, 0xff2030));
+      if (st === 4) [3600, 5200, 6600].forEach((t) => at(t, () => splitter(120, 380, t % 2 ? color : 0xffffff)));
+    }
+    if (st >= 3) {
+      // Engel: Blitzschläge vom Himmel in die Figur, Blutrot über der Karte, die Kamera kippt
+      const blitz = () => {
+        const g = g0(Phaser.BlendModes.ADD, DEPTH.vision + 3);
+        const x0 = who.x + (Math.random() - 0.5) * 260;
+        const y0 = cam.worldView.y - 20;
+        const pts = [[x0, y0]];
+        const n = 9;
+        for (let i = 1; i < n; i++) pts.push([x0 + (who.x - x0) * (i / n) + (Math.random() - 0.5) * 40, y0 + (who.y - 14 - y0) * (i / n)]);
+        pts.push([who.x, who.y - 14]);
+        const zeichne = (a) => { g.clear(); for (const [w, c] of [[7, color], [3, 0xffffff]]) { g.lineStyle(w, c, a); g.beginPath(); g.moveTo(pts[0][0], pts[0][1]); pts.slice(1).forEach(([x, y]) => g.lineTo(x, y)); g.strokePath(); } };
+        zeichne(1);
+        const t = { a: 1 };
+        this.tweens.add({ targets: t, a: 0, duration: 380, onUpdate: () => zeichne(t.a), onComplete: () => g.destroy() });
+        cam.shake(180, 0.02);
+      };
+      const nBlitz = st === 4 ? 26 : 9;
+      for (let i = 0; i < nBlitz; i++) at(500 + i * ((dauer - 1800) / nBlitz) + Math.random() * 150, blitz);
+      const rot = this.add.rectangle(VIEW_W / 2, VIEW_H / 2, VIEW_W, VIEW_H, st === 4 ? 0x300008 : 0x8a0010).setScrollFactor(0).setDepth(DEPTH.vision).setAlpha(0).setBlendMode(st === 4 ? Phaser.BlendModes.MULTIPLY : Phaser.BlendModes.ADD);
+      fx.push(rot);
+      this.tweens.add({ targets: rot, alpha: st === 4 ? 0.85 : 0.35, duration: 250, yoyo: true, hold: 120, repeat: st === 4 ? 9 : 4, repeatDelay: 380 });
+      this.tweens.add({ targets: cam, rotation: st === 4 ? 0.09 : 0.04, duration: st === 4 ? 140 : 220, yoyo: true, repeat: st === 4 ? 24 : 6, delay: 900, ease: 'Sine.easeInOut', onComplete: () => cam.setRotation(0) });
+    }
+    if (st === 4) {
+      // Engelskönig: erst Schwarz, dann reißt die Welt auf, Farbumkehr-Stöße, Boden bricht in Rissen
+      const schwarz = this.add.rectangle(VIEW_W / 2, VIEW_H / 2, VIEW_W, VIEW_H, 0x000000).setScrollFactor(0).setDepth(DEPTH.vision + 4);
+      fx.push(schwarz);
+      this.tweens.add({ targets: schwarz, alpha: 0, delay: 650, duration: 120, onComplete: () => schwarz.destroy() });
+      const weiss = this.add.rectangle(VIEW_W / 2, VIEW_H / 2, VIEW_W, VIEW_H, 0xffffff).setScrollFactor(0).setDepth(DEPTH.vision + 4).setAlpha(0);
+      fx.push(weiss);
+      [800, 1900, 3100, 4700, 6200, 7600].forEach((t) => at(t, () => { weiss.setAlpha(0.9); at(90, () => weiss.setAlpha(0)); at(160, () => weiss.setAlpha(0.9)); at(230, () => weiss.setAlpha(0)); }));
+      const risse = g0(Phaser.BlendModes.ADD, DEPTH.vision + 1);
+      const strahlen = Array.from({ length: 14 }, () => { const w = Math.random() * Math.PI * 2; const pts = [[who.x, who.y - 6]]; let x = who.x; let y = who.y - 6;
+        for (let i = 0; i < 8; i++) { x += Math.cos(w) * 45 + (Math.random() - 0.5) * 30; y += Math.sin(w) * 45 + (Math.random() - 0.5) * 30; pts.push([x, y]); } return pts; });
+      const r = { n: 0, a: 1 };
+      const zeichneRisse = () => {
+        risse.clear();
+        for (const pts of strahlen) for (const [w, c] of [[5, 0xff2030], [2, 0xffffff]]) {
+          risse.lineStyle(w, c, r.a); risse.beginPath(); risse.moveTo(pts[0][0], pts[0][1]);
+          for (let i = 1; i <= Math.floor(r.n); i++) risse.lineTo(pts[i][0], pts[i][1]); risse.strokePath();
+        }
+      };
+      this.tweens.add({ targets: r, n: 8, duration: 1400, delay: 700, ease: 'Cubic.easeOut', onUpdate: zeichneRisse });
+      at(dauer - 1500, () => this.tweens.add({ targets: r, a: 0, duration: 1200, onUpdate: zeichneRisse }));
+      at(dauer - 900, () => { cam.flash(1200, 255, 255, 255); cam.shake(900, 0.04); });
+    }
+    this.time.delayedCall(dauer, () => {
+      lit = false;
+      fx.forEach((o) => o.active && o.destroy());
+      cam.setRotation(0);
+      if (zoomTw.isPlaying?.()) zoomTw.stop();
+      cam.setZoom(zoom0);
+      this.updateForm();
+    });
   }
 
   /** Mythische Gestalt: die Figur wächst, leuchtet in der Pfadfarbe und trägt ihre Aura auch ohne Geistsicht. */

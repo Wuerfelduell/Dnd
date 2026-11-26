@@ -2718,20 +2718,27 @@ export class Ui {
   }
 
   /**
-   * Aufstiegs-Szene für Halbgott (Sequenz 4) und Engel (Sequenz 2): Lichtflut in der Pfadfarbe über dem ganzen Bild,
-   * Ringe, dann das Wort in großen Lettern und der Name der Stufe. Die Welt spielt dazu ihre eigenen Funken (WorldScene).
-   * Tasten sind so lange gesperrt; danach folgt das Trankfenster.
+   * Aufstiegs-Szene Halbgott (4), Heiliger (3), Engel (2), Engelskönig (1): Lichtflut in der Pfadfarbe über dem ganzen Bild,
+   * Ringe, dann das Wort in großen Lettern und der Name der Stufe. Jede Stufe ist brutaler (asc.stufe 1–4, Seb 2026-11-26):
+   * mehr Ringe, Risse, Bildschütteln, Blutrot und Schwarz ab dem Engel, beim Engelskönig ein Weltriss mit Umkehr der Farben.
+   * Die Welt spielt dazu ihre eigenen Effekte (WorldScene). Tasten sind so lange gesperrt; danach folgt das Trankfenster.
    */
   playAscension(asc, then) {
     const color = asc.color ?? '#e8c070';
+    const stufe = asc.stufe ?? 1;
+    const dauer = asc.dauer ?? 4300;
     const el = document.createElement('div');
-    el.className = 'ascension';
+    el.className = `ascension asc-s${stufe}`;
     el.style.setProperty('--c', color);
-    el.innerHTML = `<div class="rings"><i></i><i></i><i></i></div><div class="words"><span class="rank">Sequenz ${asc.seq}</span><strong>${esc(asc.title)}</strong><span class="name">${esc(asc.name ?? '')}</span></div>`;
+    el.style.setProperty('--dauer', `${dauer}ms`);
+    const ringe = '<i></i>'.repeat([3, 5, 8, 12][stufe - 1] ?? 3);
+    const risse = stufe >= 2 ? `<div class="risse">${Array.from({ length: [0, 6, 10, 16][stufe - 1] }, (_, i) => `<b style="--w:${(i * 137) % 360}deg;--d:${(0.25 + (i % 5) * 0.18).toFixed(2)}s"></b>`).join('')}</div>` : '';
+    el.innerHTML = `${risse}<div class="rings">${ringe}</div><div class="words"><span class="rank">Sequenz ${asc.seq}</span><strong>${esc(asc.title)}</strong><span class="name">${esc(asc.name ?? '')}</span></div>`;
     this.root.appendChild(el);
-    this.keysBlockedUntil = performance.now() + 4200;
-    setTimeout(() => el.classList.add('fade'), 3600);
-    setTimeout(() => { el.remove(); then?.(); }, 4300);
+    if (stufe >= 2) this.root.classList.add(`asc-beben${stufe}`);
+    this.keysBlockedUntil = performance.now() + dauer - 100;
+    setTimeout(() => el.classList.add('fade'), dauer - 700);
+    setTimeout(() => { el.remove(); this.root.classList.remove(`asc-beben${stufe}`); then?.(); }, dauer);
   }
 
   /** Braukessel: wer ihn bedient (Spieler 2 per Enter), braut aus seiner eigenen Tasche. */
