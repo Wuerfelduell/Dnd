@@ -34,7 +34,7 @@ import { canHurry, hurryCost, travelSafe, travelFast, afterHurryFight, travelDes
 import { questTarget, leadTarget, personPlaces, advice } from '../core/Guide.js';
 import { WETTER, NEBELNACHT, SEASON_NAMES } from '../core/Wetter.js';
 import { installTestmodus, testPauseButton, bindTestPause, closeTestReise } from './TestUi.js';
-import { RIVALE_REGELN, rivaleText } from '../data/rivale.js';
+import { RIVALE_REGELN } from '../data/rivale.js';
 import { hatNarbe, NARBE } from '../core/Narbe.js';
 
 /** Spielstand für Icons, die vom Spieler abhängen (Relikt des Verfalls: Bild nach seiner stärksten Eigenschaft, Codex DP). */
@@ -2502,7 +2502,8 @@ export class Ui {
 
   /** Rivale auf dem eigenen Pfad (core/Rivale.js): Stand im Pfad-Tab. */
   rivaleHtml(s) {
-    const list = (s.rivaleUebersicht?.() ?? []).filter((r) => r.pid === s.pathway?.id);
+    const r0 = s.rivaleUebersicht?.();
+    const list = r0 ? [r0] : [];
     if (!list.length) return '';
     const status = { rivale: 'Rivale', ruht: 'Hält sich zurück', verbuendet: 'Verbündet' };
     return `<h4>Rivale auf deinem Pfad</h4><ul class="steps">${list.map((r) => (r.getroffen
@@ -2511,20 +2512,20 @@ export class Ui {
   }
 
   /** Rivale auf dem eigenen Pfad: Begegnung auf der Straße oder einem Treffen (Kämpfen, Bestehlen, Bündnis, Weitergehen). */
-  openRivale(pid, treffen = false) {
+  openRivale(nr, treffen = false) {
     const s = this.state;
-    const lage = s.rivaleTreffen?.(pid, { treffen });
+    const lage = s.rivaleTreffen?.(nr, { treffen });
     if (!lage) return;
     const labels = { kampf: 'Kämpfen', stehlen: 'Bestehlen', buendnis: 'Bündnis anbieten', gehen: 'Weitergehen' };
-    const siege = s.rivalen?.[pid]?.siege ?? 0;
+    const siege = s.rivalen?.[`p${nr}`]?.siege ?? 0;
     const notes = {
       stehlen: lage.stehlChance ? `Chance: ${Math.round(lage.stehlChance * 100)} %` : '',
       buendnis: siege < RIVALE_REGELN.buendnis_siege ? `Ab ${RIVALE_REGELN.buendnis_siege} Siegen` : '',
     };
-    this.rivaleUi = { pid, name: lage.name, optionen: lage.optionen };
+    this.rivaleUi = { nr, name: lage.name, optionen: lage.optionen };
     this.sfx(uiSound('dialogue', 'dialog'), { volume: 0.7 });
     const el = this.open('rivale', `
-      <div class="speaker">${esc(lage.name)} <span class="role">Rivale auf deinem Pfad · </span><span class="role">Sequenz ${lage.seq}</span></div>
+      <div class="speaker">${esc(lage.name)} ${s.hasP2() ? `<span class="role">Spieler ${nr}</span> ` : ''}<span class="role">Rivale auf deinem Pfad · </span><span class="role">Sequenz ${lage.seq}</span></div>
       <div class="text">${paragraphs(lage.text)}</div>
       ${lage.beute ? `<div class="footer">${esc(lage.beute)}</div>` : ''}
       <ol class="choices">${lage.optionen.map((o, i) => `<li><button data-rv="${i}"><span class="key">${i + 1}</span> ${esc(labels[o])}${notes[o] ? `<span class="lockinfo note">${esc(notes[o])}</span>` : ''}</button></li>`).join('')}</ol>`, 'dialogue');
@@ -2538,8 +2539,8 @@ export class Ui {
     const s = this.state;
     this.rivaleUi = null;
     if (o === 'gehen') { this.close(); return; }
-    if (o === 'kampf') { s.rivaleKampf(ui.pid); this.close(); return; } // der Kampf startet, sobald das Fenster zu ist
-    const r = o === 'stehlen' ? s.rivaleStehlen(ui.pid) : s.rivaleBuendnis(ui.pid);
+    if (o === 'kampf') { s.rivaleKampf(ui.nr); this.close(); return; } // der Kampf startet, sobald das Fenster zu ist
+    const r = o === 'stehlen' ? s.rivaleStehlen(ui.nr) : s.rivaleBuendnis(ui.nr);
     this.showMessage(ui.name, r.text, { footer: r.beute ?? (r.fight ? 'Ein Kampf steht bevor.' : '') });
   }
 
@@ -2954,7 +2955,7 @@ export class Ui {
     const el = this.open('shop', `
       <h3>${esc(m.name)} <span class="muted">${esc(m.title)}</span>${s.hasP2() ? ` <button class="badge keybtn" data-key="g">für Spieler ${s.acting} · <span class="key">G</span> wechseln</button>` : ''}</h3>
       <p class="lead">„${esc(this.seasonGreeting() ?? m.greeting)}“</p>
-      ${rivaleHier ? `<p class="curse">${esc(rivaleText('markt', s.pathway?.id))}</p>` : ''}
+      ${rivaleHier ? `<p class="curse">${esc(s.rivaleMarktText())}</p>` : ''}
       ${m.buys ? `<div class="tabs"><button class="tab ${mode === 'buy' ? 'sel' : ''}" data-mode="buy">${uiSprite('shop', 'buy', 1 / 16, 'tabico')}Kaufen</button><button class="tab ${mode === 'sell' ? 'sel' : ''}" data-mode="sell">${uiSprite('shop', 'sell', 1 / 16, 'tabico')}Verkaufen</button> <span class="muted">Wechseln mit <span class="key">V</span></span></div>` : ''}
       <ul class="items shoplist">${rows}</ul>
       <div class="feedback">${feedback}</div>

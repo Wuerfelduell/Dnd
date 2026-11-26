@@ -18,7 +18,6 @@ import { NACHBARPFADE } from '../data/nachbarpfade.js';
 import { REST_RISIKO, restId, restTrankId, hauptzutat } from '../data/beyonderRest.js';
 import { MACKE_TRANK_RISIKO } from '../data/macken.js';
 import { cleanMacken } from './Macken.js';
-import { rivaleText } from '../data/rivale.js';
 
 /**
  * Seb (2026-11-12): Pfadwechsel. Wer Sequenz 4 erreicht hat, darf statt der eigenen dritten Stufe einmal den
@@ -964,7 +963,7 @@ export const pathwayMethods = {
     const e = this.shopStock(merchantId).find((x) => x.item === itemId);
     if (!e) return { ok: false, text: 'Das führt dieser Händler nicht.' };
     if (e.locked) return { ok: false, text: e.locked };
-    if (e.rivale) return { ok: false, text: rivaleText('markt', this.pathway?.id) };
+    if (e.rivale) return { ok: false, text: this.rivaleMarktText() };
     if (e.soldOut) return { ok: false, text: 'Davon ist auf diesem Treffen nichts mehr übrig.' };
     if (e.owned) return { ok: false, text: 'Diese Formel besitzt du schon.' };
     if (!this.spendMoney(e.price)) return { ok: false, text: 'Dafür reichen deine Schilling nicht.' };

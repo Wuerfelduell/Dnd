@@ -1,19 +1,23 @@
 // Rivale auf dem eigenen Pfad (Daten und Regeln in data/rivale.js).
-// Zustand `rivalen` (gemeinsam für beide Spieler, je Pfad einer): { [pfad]: { seq, tag, status, siege, niederlagen, … } }.
-// Alles, was würfelt, würfelt mit festem Startwert je Spieltag (bzw. je Treffen), damit Neuladen nichts ändert.
+// Jeder Spieler hat seinen eigenen Rivalen (Seb 2026-11-26: im Koop zwei Rivalen, auch auf demselben Pfad,
+// sonst hätte ein Spieler Vorteile). Zustand `rivalen`: { p1: {...}, p2: {...} } mit Pfad, Sequenz, Status usw.
+// Alles, was würfelt, würfelt mit festem Startwert je Spieltag (bzw. je Treffen) und Spieler, damit Neuladen nichts ändert.
 import { seeded } from './Gatherings.js';
 import { DAY_SECONDS } from './Clock.js';
-import { RIVALEN, RIVALE_REGELN as R, rivaleEncId, rivaleText } from '../data/rivale.js';
+import { RIVALEN, RIVALE_REGELN as R, rivaleEncId, rivaleName, rivaleText } from '../data/rivale.js';
 
 const TAG_FELDER = ['tag', 'ruhe_bis', 'stahl_tag', 'treff_tag', 'kreis_frei', 'kreis_besetzt', 'kreis_kampf'];
+const KEY = { 1: 'p1', 2: 'p2' };
 
 /** Gespeicherte Rivalen säubern (alte Stände haben keine). */
 export function cleanRivalen(data) {
   const out = {};
-  for (const [pid, r] of Object.entries(data ?? {})) {
-    if (!RIVALEN[pid] || !r || typeof r !== 'object') continue;
+  for (const key of Object.values(KEY)) {
+    const r = data?.[key];
+    if (!r || typeof r !== 'object' || !RIVALEN[r.pid]) continue;
     const n = (v, d) => (Number.isFinite(v) ? v : d);
-    out[pid] = {
+    out[key] = {
+      pid: r.pid,
       seq: Math.min(9, Math.max(1, n(r.seq, 9))),
       status: r.status === 'verbuendet' ? 'verbuendet' : 'rivale',
       siege: Math.max(0, n(r.siege, 0)),
@@ -30,61 +34,65 @@ export const rivaleMethods = {
     return Math.floor((this.playTime ?? 0) / DAY_SECONDS);
   },
 
-  /** Pfade der Spieler (Spieler 2 nur, wenn er mitspielt), ohne doppelte. */
-  rivalePfade() {
+  /** Pfad von Spieler n (1 oder 2), egal wer gerade handelt. */
+  rivalePfadVon(n) {
+    if (n === 2 && !this.p2?.active) return null;
+    const pw = n === (this.acting ?? 1) ? this.pathway : this.p2?.pathway;
+    return pw?.id && RIVALEN[pw.id] && pw.seq ? pw : null;
+  },
+
+  /** Spieler mit Rivalen (ab Wexmoor): [1] oder [1, 2]. */
+  rivaleSpieler() {
     if (!this.flags.has(R.ab_flag)) return [];
-    const pws = [this.pathway, this.p2?.active ? this.p2.pathway : null].filter((pw) => pw?.id && RIVALEN[pw.id] && pw.seq);
-    return [...new Set(pws.map((pw) => pw.id))];
+    return [1, 2].filter((n) => this.rivalePfadVon(n));
   },
 
-  /** Niedrigste (also weiteste) Sequenz der Spieler auf diesem Pfad, sonst null. */
-  rivaleSpielerSeq(pid) {
-    const seqs = [this.pathway, this.p2?.active ? this.p2.pathway : null].filter((pw) => pw?.id === pid && pw.seq).map((pw) => pw.seq);
-    return seqs.length ? Math.min(...seqs) : null;
+  /** Führt fn als Spieler n aus. */
+  rivaleAls(n, fn) {
+    return n === (this.acting ?? 1) || !this.p2 ? fn() : this.withPartner(fn);
   },
 
-  /** Der Rivale dieses Pfades, auf den heutigen Spieltag gebracht (oder null vor Wexmoor / ohne Spieler auf dem Pfad). */
-  rivaleDaten(pid) {
-    if (!RIVALEN[pid] || !this.flags.has(R.ab_flag)) return null;
-    const ps = this.rivaleSpielerSeq(pid);
-    if (ps === null) return null;
+  /** Der Rivale von Spieler n, auf den heutigen Spieltag gebracht (oder null vor Wexmoor / ohne Pfad). */
+  rivaleDaten(n = this.acting ?? 1) {
+    if (!this.flags.has(R.ab_flag)) return null;
+    const pw = this.rivalePfadVon(n);
+    if (!pw) return null;
+    const ps = pw.seq;
     const tag = this.rivaleTagNr();
     this.rivalen ??= {};
-    let r = this.rivalen[pid];
-    if (!r) {
-      r = cleanRivalen({ [pid]: { seq: ps } })[pid];
+    let r = this.rivalen[KEY[n]];
+    if (!r || r.pid !== pw.id) { // neu, oder Pfadwechsel: der Rivale des neuen Pfades
+      r = cleanRivalen({ [KEY[n]]: { pid: pw.id, seq: ps } })[KEY[n]];
       r.tag = tag;
-      this.rivalen[pid] = r;
+      this.rivalen[KEY[n]] = r;
     }
     // Parallel aufsteigen: hinterher → je Tag eine Sequenz auf; gleichauf → manchmal eine voraus (nie mehr als eine)
     if (r.tag < tag - 60) r.tag = tag - 60; // lange Pausen nicht Tag für Tag nachrechnen
     while (r.tag < tag) {
       r.tag++;
       if (r.seq > ps) r.seq--;
-      else if (r.seq > Math.max(1, ps - 1) && seeded(`${this.seed ?? ''}|rv|${pid}|${r.tag}`)() < R.vorsprung) r.seq--;
+      else if (r.seq > Math.max(1, ps - 1) && seeded(`${this.seed ?? ''}|rv|${n}|${r.pid}|${r.tag}`)() < R.vorsprung) r.seq--;
     }
     r.seq = Math.max(r.seq, Math.max(1, ps - 1));
     return r;
   },
 
-  /** Arbeitet der Rivale heute gegen dich (kein Bündnis, nicht frisch geschlagen)? */
-  rivaleAktiv(pid) {
-    const r = this.rivaleDaten(pid);
+  /** Arbeitet der Rivale von Spieler n heute gegen ihn (kein Bündnis, nicht frisch geschlagen)? */
+  rivaleAktiv(n = this.acting ?? 1) {
+    const r = this.rivaleDaten(n);
     if (!r || r.status !== 'rivale' || this.rivaleTagNr() <= r.ruhe_bis) return null;
     return r;
   },
 
-  /** Zutaten des nächsten Tranks dieses Pfades (Spieler auf dem Pfad), ohne die Hauptzutat. */
-  rivaleNebenzutaten(pid) {
-    const ps = this.rivaleSpielerSeq(pid);
-    const f = ps ? this.item(`formel_${pid}_${ps - 1}`) : null;
-    return Object.keys(f?.ingredients ?? {}).slice(1).filter((id) => this.item(id));
+  rivaleText(key, n) {
+    return rivaleText(key, this.rivalen?.[KEY[n]]?.pid, n);
   },
 
-  /** Auf dem Markt oder einem Treffen: hat der Rivale dieses Angebot heute (bzw. auf diesem Treffen) weggekauft? */
+  /** Auf dem Markt oder einem Treffen: hat der Rivale des handelnden Spielers dieses Angebot weggekauft? */
   rivaleWeggekauft(merchantId, e) {
+    const n = this.acting ?? 1;
     const pid = this.pathway?.id;
-    if (!pid || !e?.item || e.locked || e.owned || !this.rivaleAktiv(pid)) return false;
+    if (!pid || !e?.item || e.locked || e.owned || !this.rivaleAktiv(n)) return false;
     const f = this.item(`formel_${pid}_${this.pathway.seq - 1}`);
     if (!f?.ingredients || !(e.item in f.ingredients)) return false;
     const m = this.merchant(merchantId);
@@ -92,35 +100,41 @@ export const rivaleMethods = {
     const relevant = [...new Set(this.merchantStock(merchantId).map((x) => x.item).filter((id) => id in f.ingredients))].sort();
     if (!relevant.length) return false;
     const runde = m.gathering ? `t${this.marketCycle()}` : `d${this.rivaleTagNr()}`;
-    const rng = seeded(`${this.seed ?? ''}|rvm|${pid}|${merchantId}|${runde}`);
+    const rng = seeded(`${this.seed ?? ''}|rvm|${n}|${pid}|${merchantId}|${runde}`);
     if (rng() >= (m.gathering ? R.treffen : R.markt)) return false;
     return relevant[Math.floor(rng() * relevant.length)] === e.item;
   },
 
+  /** Meldung im Laden: wessen Rivale war hier? */
+  rivaleMarktText() {
+    return this.rivaleText('markt', this.acting ?? 1);
+  },
+
   /**
-   * Ritual (Pathways.performRitual, wenn alles bereitsteht): Ist der Rivale gleichauf oder voraus, steht er manchmal
-   * schon im Kreis. Ergebnis wie performRitual ({ ok: false, fight, text }) oder null, wenn er nicht stört.
+   * Ritual (Pathways.performRitual, wenn alles bereitsteht): Ist der Rivale des handelnden Spielers gleichauf oder voraus,
+   * steht er manchmal schon im Kreis. Ergebnis wie performRitual ({ ok: false, fight, text }) oder null.
    */
   rivaleImKreis(pid, seq) {
     if (this.testmodus) return null;
-    const r = this.rivaleAktiv(pid);
-    if (!r) return null;
+    const n = this.acting ?? 1;
+    const r = this.rivaleAktiv(n);
+    if (!r || r.pid !== pid) return null;
     const tag = this.rivaleTagNr();
     if (r.kreis_frei === tag) return null;
-    if (r.kreis_besetzt === tag) return { ok: false, text: rivaleText('ritual_besetzt', pid) };
+    if (r.kreis_besetzt === tag) return { ok: false, text: this.rivaleText('ritual_besetzt', n) };
     if (r.seq > seq + 1) return null; // noch hinter dir: kein Grund, dir zuvorzukommen
-    if (seeded(`${this.seed ?? ''}|rvk|${pid}|${tag}`)() >= R.ritual) return null;
-    const id = rivaleEncId(pid, r.seq);
+    if (seeded(`${this.seed ?? ''}|rvk|${n}|${pid}|${tag}`)() >= R.ritual) return null;
+    const id = rivaleEncId(pid, r.seq, n);
     if (!this.content.encounters[id]) return null;
     r.kreis_kampf = tag;
     this.startCombat(id);
-    return { ok: false, fight: id, text: rivaleText('ritual', pid) };
+    return { ok: false, fight: id, text: this.rivaleText('ritual', n) };
   },
 
-  /** Combat.finish: Sieg, Niederlage oder Flucht gegen den Rivalen. Gibt einen Zusatztext zurück. */
+  /** Combat.finish: Sieg, Niederlage oder Flucht gegen einen Rivalen. Gibt einen Zusatztext zurück. */
   rivaleKampfEnde(combat) {
-    const pid = combat?.enc?.rivale;
-    const r = pid ? this.rivalen?.[pid] : null;
+    const n = combat?.enc?.rivale_nr;
+    const r = n ? this.rivalen?.[KEY[n]] : null;
     if (!r) return null;
     const tag = this.rivaleTagNr();
     const imKreis = r.kreis_kampf === tag;
@@ -129,50 +143,50 @@ export const rivaleMethods = {
     if (combat.outcome === 'won') {
       r.siege++;
       r.ruhe_bis = tag + R.ruhe_tage;
-      if (imKreis) { r.kreis_frei = tag; out.push(rivaleText('ritual_frei', pid)); }
-      if (r.status === 'rivale' && r.siege === R.buendnis_siege) out.push(rivaleText('sieg_respekt', pid));
+      if (imKreis) { r.kreis_frei = tag; out.push(this.rivaleText('ritual_frei', n)); }
+      if (r.status === 'rivale' && r.siege === R.buendnis_siege) out.push(this.rivaleText('sieg_respekt', n));
     } else {
       if (combat.outcome === 'lost') r.niederlagen++;
-      if (imKreis) { r.kreis_besetzt = tag; out.push(rivaleText('ritual_besetzt', pid)); }
+      if (imKreis) { r.kreis_besetzt = tag; out.push(this.rivaleText('ritual_besetzt', n)); }
     }
     this.emit('changed');
     return out.join('\n\n') || null;
   },
 
-  /** Begegnung beim Betreten einer Straße (ab Wexmoor, höchstens einmal am Tag je Rivale). { pid, treffen } oder null. */
+  /** Begegnung beim Betreten einer Straße (ab Wexmoor, je Rivale höchstens einmal am Tag). { nr, treffen } oder null. */
   rivaleBegegnung(mapId, rng = Math.random) {
     const m = this.content.maps?.[mapId];
     if (!m?.city || m.city === 'kettlegate' || m.danger) return null;
     const treffen = mapId.startsWith('treffen_');
     if (!treffen && !(m.patrols || m.passanten || m.facades || m.police)) return null;
     const tag = this.rivaleTagNr();
-    for (const pid of this.rivalePfade()) {
-      const r = this.rivaleDaten(pid);
+    for (const n of this.rivaleSpieler()) {
+      const r = this.rivaleDaten(n);
       if (!r || r.treff_tag === tag) continue;
       const chance = !r.getroffen ? 1 : treffen ? R.begegnung_treffen : R.begegnung;
-      if (rng() < chance) return { pid, treffen };
+      if (rng() < chance) return { nr: n, treffen };
     }
     return null;
   },
 
   /** Die Begegnung findet statt: Text und Möglichkeiten. Merkt den Tag (einmal am Tag). */
-  rivaleTreffen(pid, { treffen = false } = {}) {
-    const r = this.rivaleDaten(pid);
+  rivaleTreffen(n = 1, { treffen = false } = {}) {
+    const r = this.rivaleDaten(n);
     if (!r) return null;
     const tag = this.rivaleTagNr();
     const erste = !r.getroffen;
     r.getroffen = true;
     r.treff_tag = tag;
-    const ps = this.rivaleSpielerSeq(pid);
+    const ps = this.rivalePfadVon(n).seq;
     const ruht = tag <= r.ruhe_bis;
     let key = r.seq < ps ? 'voraus' : r.seq > ps ? 'hinter' : 'gleich';
     if (treffen) key = 'treffen';
     if (ruht) key = 'geschlagen';
     if (erste) key = 'erste';
-    const lage = { pid, name: RIVALEN[pid].name, seq: r.seq, status: r.status, text: rivaleText(key, pid), optionen: [] };
+    const lage = { nr: n, pid: r.pid, name: rivaleName(r.pid, n), seq: r.seq, status: r.status, text: this.rivaleText(key, n), optionen: [] };
     if (r.status === 'verbuendet') {
-      const g = this.rivaleGeschenk(pid, seeded(`${this.seed ?? ''}|rvg|${pid}|${tag}`));
-      lage.text = `${rivaleText('verbuendet', pid)}\n\n${g.text}`;
+      const g = this.rivaleGeschenk(n, seeded(`${this.seed ?? ''}|rvg|${n}|${r.pid}|${tag}`));
+      lage.text = `${this.rivaleText('verbuendet', n)}\n\n${g.text}`;
       lage.beute = g.beute;
       lage.optionen = ['gehen'];
       return lage;
@@ -180,31 +194,26 @@ export const rivaleMethods = {
     if (!ruht) lage.optionen.push('kampf');
     if (r.stahl_tag !== tag) lage.optionen.push('stehlen');
     lage.optionen.push('buendnis', 'gehen');
-    lage.stehlChance = this.rivaleStehlChance(pid);
+    lage.stehlChance = this.rivaleStehlChance(n);
     this.emit('changed');
     return lage;
   },
 
-  rivaleStehlChance(pid) {
-    const r = this.rivalen?.[pid];
-    const ps = this.rivaleSpielerSeq(pid);
-    if (!r || ps === null) return 0;
-    const c = R.stehlen_basis + R.stehlen_je_seq * (r.seq - ps) + (['schluessel', 'maske'].includes(pid) ? R.stehlen_pfad : 0);
+  rivaleStehlChance(n) {
+    const r = this.rivalen?.[KEY[n]];
+    const pw = this.rivalePfadVon(n);
+    if (!r || !pw) return 0;
+    const c = R.stehlen_basis + R.stehlen_je_seq * (r.seq - pw.seq) + (['schluessel', 'maske'].includes(r.pid) ? R.stehlen_pfad : 0);
     return Math.min(R.stehlen_max, Math.max(R.stehlen_min, c));
   },
 
-  /** Führt fn als der Spieler aus, der diesen Pfad geht (im Koop vielleicht Spieler 2). */
-  rivaleAlsSpieler(pid, fn) {
-    if (this.pathway?.id !== pid && this.p2?.active && this.p2.pathway?.id === pid) return this.withPartner(fn);
-    return fn();
-  },
-
-  /** Eine Nebenzutat des nächsten Tranks in die Tasche: die, von der am meisten fehlt. */
-  rivaleZutatGeben(pid) {
-    return this.rivaleAlsSpieler(pid, () => {
-      const f = this.item(`formel_${pid}_${(this.pathway?.seq ?? 0) - 1}`);
-      const ids = this.rivaleNebenzutaten(pid);
-      if (!f || !ids.length) return null;
+  /** Eine Nebenzutat (nie die Hauptzutat) des nächsten Tranks für Spieler n: die, von der am meisten fehlt. */
+  rivaleZutatGeben(n) {
+    return this.rivaleAls(n, () => {
+      const pw = this.pathway;
+      const f = pw ? this.item(`formel_${pw.id}_${pw.seq - 1}`) : null;
+      const ids = Object.keys(f?.ingredients ?? {}).slice(1).filter((id) => this.item(id));
+      if (!ids.length) return null;
       const id = [...ids].sort((a, b) => (f.ingredients[b] - this.itemCount(b)) - (f.ingredients[a] - this.itemCount(a)))[0];
       this.addItem(id);
       return id;
@@ -212,61 +221,60 @@ export const rivaleMethods = {
   },
 
   /** Bestehlen: einmal am Tag. Gelingt es, gibt es eine Zutat deines nächsten Tranks; sonst beginnt der Kampf. */
-  rivaleStehlen(pid, rng = Math.random) {
-    const r = this.rivaleDaten(pid);
+  rivaleStehlen(n = 1, rng = Math.random) {
+    const r = this.rivaleDaten(n);
     const tag = this.rivaleTagNr();
     if (!r) return { ok: false, text: '' };
-    if (r.stahl_tag === tag) return { ok: false, text: rivaleText('stehlen_heute', pid) };
+    if (r.stahl_tag === tag) return { ok: false, text: this.rivaleText('stehlen_heute', n) };
     r.stahl_tag = tag;
-    if (rng() < this.rivaleStehlChance(pid)) {
-      const id = this.rivaleZutatGeben(pid);
-      if (id) { this.emit('changed'); return { ok: true, text: rivaleText('stehlen_ok', pid), beute: this.item(id).name }; }
+    if (rng() < this.rivaleStehlChance(n)) {
+      const id = this.rivaleZutatGeben(n);
+      if (id) { this.emit('changed'); return { ok: true, text: this.rivaleText('stehlen_ok', n), beute: this.item(id).name }; }
       const geld = (10 - r.seq) * R.geld_je_seq;
-      this.addMoney(geld, { loot: true, reason: RIVALEN[pid].name });
-      return { ok: true, text: rivaleText('stehlen_nichts', pid), beute: `+${geld} Schilling` };
+      this.rivaleAls(n, () => this.addMoney(geld, { loot: true, reason: rivaleName(r.pid, n) }));
+      return { ok: true, text: this.rivaleText('stehlen_nichts', n), beute: `+${geld} Schilling` };
     }
-    const id = rivaleEncId(pid, r.seq);
-    if (this.content.encounters[id]) this.startCombat(id);
+    const id = rivaleEncId(r.pid, r.seq, n);
+    if (this.content.encounters[id]) this.rivaleAls(n, () => this.startCombat(id));
     this.emit('changed');
-    return { ok: false, fight: id, text: rivaleText('stehlen_fehl', pid) };
+    return { ok: false, fight: id, text: this.rivaleText('stehlen_fehl', n) };
   },
 
-  /** Kampf aus der Begegnung heraus. */
-  rivaleKampf(pid) {
-    const r = this.rivaleDaten(pid);
-    const id = r ? rivaleEncId(pid, r.seq) : null;
+  /** Kampf aus der Begegnung heraus (der Spieler, dessen Rivale es ist, löst ihn aus). */
+  rivaleKampf(n = 1) {
+    const r = this.rivaleDaten(n);
+    const id = r ? rivaleEncId(r.pid, r.seq, n) : null;
     if (!id || !this.content.encounters[id]) return null;
-    this.startCombat(id);
+    this.rivaleAls(n, () => this.startCombat(id));
     return id;
   },
 
   /** Bündnis anbieten: nimmt er an, kauft er nichts mehr weg, stört kein Ritual und legt manchmal etwas zurück. */
-  rivaleBuendnis(pid) {
-    const r = this.rivaleDaten(pid);
+  rivaleBuendnis(n = 1) {
+    const r = this.rivaleDaten(n);
     if (!r) return { ok: false, text: '' };
-    if (r.status === 'verbuendet') return { ok: true, text: rivaleText('verbuendet', pid) };
-    if (r.siege < R.buendnis_siege) return { ok: false, text: rivaleText('buendnis_nein', pid) };
+    if (r.status === 'verbuendet') return { ok: true, text: this.rivaleText('verbuendet', n) };
+    if (r.siege < R.buendnis_siege) return { ok: false, text: this.rivaleText('buendnis_nein', n) };
     r.status = 'verbuendet';
     this.emit('changed');
-    return { ok: true, text: rivaleText('buendnis_ja', pid) };
+    return { ok: true, text: this.rivaleText('buendnis_ja', n) };
   },
 
   /** Als Verbündeter: manchmal eine Zutat deines nächsten Tranks. */
-  rivaleGeschenk(pid, rng = Math.random) {
-    if (rng() >= R.geschenk) return { text: rivaleText('kein_geschenk', pid) };
-    const id = this.rivaleZutatGeben(pid);
-    if (!id) return { text: rivaleText('kein_geschenk', pid) };
+  rivaleGeschenk(n, rng = Math.random) {
+    if (rng() >= R.geschenk) return { text: this.rivaleText('kein_geschenk', n) };
+    const id = this.rivaleZutatGeben(n);
+    if (!id) return { text: this.rivaleText('kein_geschenk', n) };
     this.emit('changed');
-    return { text: rivaleText('geschenk', pid), beute: this.item(id).name };
+    return { text: this.rivaleText('geschenk', n), beute: this.item(id).name };
   },
 
-  /** Für das Notizbuch: alle Rivalen der Spieler. */
-  rivaleUebersicht() {
-    return this.rivalePfade().map((pid) => {
-      const r = this.rivaleDaten(pid);
-      const ruht = r && this.rivaleTagNr() <= r.ruhe_bis;
-      return { pid, name: RIVALEN[pid].name, seq: r?.seq, getroffen: !!r?.getroffen, siege: r?.siege ?? 0, niederlagen: r?.niederlagen ?? 0, status: r?.status === 'verbuendet' ? 'verbuendet' : ruht ? 'ruht' : 'rivale' };
-    });
+  /** Für das Notizbuch: der Rivale des handelnden Spielers. */
+  rivaleUebersicht(n = this.acting ?? 1) {
+    const r = this.rivaleDaten(n);
+    if (!r) return null;
+    const ruht = this.rivaleTagNr() <= r.ruhe_bis;
+    return { nr: n, pid: r.pid, name: rivaleName(r.pid, n), seq: r.seq, getroffen: r.getroffen, siege: r.siege, niederlagen: r.niederlagen, status: r.status === 'verbuendet' ? 'verbuendet' : ruht ? 'ruht' : 'rivale' };
   },
 
   serializeRivalen() {

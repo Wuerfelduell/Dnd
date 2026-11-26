@@ -12,18 +12,18 @@
 import { machBeyonder } from './gegnerBeyonder.js';
 import { restId } from './beyonderRest.js';
 
-/** Je Pfad ein Rivale (Namen gelten in beiden Sprachen). */
+/** Je Pfad ein Rivale (Namen gelten in beiden Sprachen). Im Koop hat Spieler 2 einen eigenen (name2), auch auf demselben Pfad. */
 export const RIVALEN = {
-  laterne: { name: 'Corvin Ashby' },
-  faden: { name: 'Mirela Thorn' },
-  maske: { name: 'Silas Morrel' },
-  echo: { name: 'Ines Halloway' },
-  kessel: { name: 'Bram Sutter' },
-  eisen: { name: 'Garrick Holm' },
-  schluessel: { name: 'Nell Quist' },
-  sq_waage: { name: 'Ottoline Brack' },
-  sq_moor: { name: 'Fenna Rook' },
-  sq_uhr: { name: 'Tobias Merrin' },
+  laterne: { name: 'Corvin Ashby', name2: 'Ada Vellacott' },
+  faden: { name: 'Mirela Thorn', name2: 'Rupert Glass' },
+  maske: { name: 'Silas Morrel', name2: 'Liesl Varga' },
+  echo: { name: 'Ines Halloway', name2: 'Emmerich Dahl' },
+  kessel: { name: 'Bram Sutter', name2: 'Clara Penhallow' },
+  eisen: { name: 'Garrick Holm', name2: 'Hedda Krone' },
+  schluessel: { name: 'Nell Quist', name2: 'Felix Wren' },
+  sq_waage: { name: 'Ottoline Brack', name2: 'Julius Arkwright' },
+  sq_moor: { name: 'Fenna Rook', name2: 'Oskar Mire' },
+  sq_uhr: { name: 'Tobias Merrin', name2: 'Wilma Tock' },
 };
 
 export const RIVALE_REGELN = {
@@ -62,7 +62,9 @@ const BASIS = {
 /** Felder der Vorlage, die zu ihrer Geschichte gehören (Flags, Orte, Laufen auf der Karte). */
 const WEG = ['roam', 'on_win', 'first_win', 'lose_to', 'win_text', 'flee_text', 'zone', 'id', 'pathway', 'wild', 'city', 'boss', 'sieg_flag', 'phase2', 'benannt', 'on_lose', 'on_flee', 'mittelboss'];
 
-export const rivaleEncId = (pid, seq) => `rivale_${pid}_${seq}`;
+/** Gegner-Id; nr 2 = Rivale von Spieler 2 (eigener Name). */
+export const rivaleEncId = (pid, seq, nr = 1) => `${nr === 2 ? 'rivale2' : 'rivale'}_${pid}_${seq}`;
+export const rivaleName = (pid, nr = 1) => (nr === 2 ? RIVALEN[pid]?.name2 : RIVALEN[pid]?.name) ?? '?';
 
 /**
  * Texte mit Platzhaltern: {name} (Name des Rivalen), Zahlen stehen direkt im Text (I18n ersetzt sie selbst).
@@ -138,16 +140,16 @@ export const RIVALE_UI = {
 };
 
 /** Text für einen Rivalen. */
-export function rivaleText(key, pid) {
+export function rivaleText(key, pid, nr = 1) {
   const t = RIVALE_TEXTE[key]?.[0] ?? key;
-  return t.replaceAll('{name}', RIVALEN[pid]?.name ?? '?');
+  return t.replaceAll('{name}', rivaleName(pid, nr));
 }
 
 /** Englisches Wörterbuch (alle Texte für alle Rivalen). */
 export function rivaleWoerterbuch() {
   const out = { ...RIVALE_UI };
   for (const r of Object.values(RIVALEN)) {
-    for (const [de, en] of Object.values(RIVALE_TEXTE)) out[de.replaceAll('{name}', r.name)] = en.replaceAll('{name}', r.name);
+    for (const name of [r.name, r.name2]) for (const [de, en] of Object.values(RIVALE_TEXTE)) out[de.replaceAll('{name}', name)] = en.replaceAll('{name}', name);
   }
   out['Siege: {0}, Niederlagen: {1}'] = 'Wins: {0}, defeats: {1}';
   out['Sequenz {0}'] = 'Sequence {0}';
@@ -161,11 +163,11 @@ export function rivaleWoerterbuch() {
 export function applyRivale(content) {
   for (const pid of Object.keys(RIVALEN)) {
     if (!content.pathways?.[pid]) continue;
-    for (const [k, [vorlage, f]] of Object.entries(BASIS)) {
+    for (const [k, [vorlage, f]] of Object.entries(BASIS)) for (const nr of [1, 2]) {
       const seq = Number(k);
       const base = content.encounters[vorlage];
       if (!base || !content.pathways[pid].seqs?.[seq]) continue;
-      const id = rivaleEncId(pid, seq);
+      const id = rivaleEncId(pid, seq, nr);
       const dm = Math.sqrt(f);
       const scale = (list) => list?.map((a) => (a.damage ? { ...a, damage: Math.round(a.damage * dm) } : { ...a }));
       const rest = { ...base };
@@ -173,7 +175,7 @@ export function applyRivale(content) {
       const { phase2 } = base;
       content.encounters[id] = {
         ...rest,
-        name: rivaleText('gegner', pid),
+        name: rivaleText('gegner', pid, nr),
         sheet: seq <= 4 && content.pathways[pid] ? `hg_battle_${pid}` : rest.sheet,
         hp: Math.round(base.hp * f),
         attacks: scale(base.attacks),
@@ -181,11 +183,12 @@ export function applyRivale(content) {
         elite: true,
         fleeable: true,
         rivale: pid,
+        rivale_nr: nr,
         lose_money: 0.08,
-        intro: rivaleText('intro', pid),
-        win_text: rivaleText('sieg', pid),
-        lose_text: rivaleText('niederlage', pid),
-        flee_text: rivaleText('flucht', pid),
+        intro: rivaleText('intro', pid, nr),
+        win_text: rivaleText('sieg', pid, nr),
+        lose_text: rivaleText('niederlage', pid, nr),
+        flee_text: rivaleText('flucht', pid, nr),
       };
       content.loot[id] = { repeat: true, money: content.loot[vorlage]?.money ?? [20, 40], drops: [] };
       machBeyonder(content, id, pid, seq);
