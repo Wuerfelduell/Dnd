@@ -336,7 +336,7 @@ test('Moor: fünf Dinge zersetzen, Relikt mit Eigenschaften, Wächter mit Moorwa
   for (const id of things) assert.equal(s.decayItem(id).ok, true, id);
   assert.ok(s.pathway.relikt.boons.length >= 1);
   assert.equal(s.itemCount(RELIKT), 1);
-  assert.ok(s.artifactEffects().some((l) => l === s.pathway.relikt.boons), 'das Relikt wirkt mit seinen eigenen Eigenschaften');
+  assert.ok(s.artifactEffects().some((l) => l === s.reliktWirkung().boons && l.length > s.pathway.relikt.boons.length), 'das Relikt wirkt mit seinen eigenen, verstärkten Eigenschaften');
   assert.equal(s.summonMoor().ok, false, 'ohne Moorwasser nicht');
   s.addItem('moorwasser', 2);
   assert.equal(s.summonMoor().ok, true);

@@ -20,6 +20,60 @@
  */
 export const SEQ4_ART = { seq: 4, free: 5, light: 6, light_tick: 0.1, curse_light: 0.5 };
 
+/**
+ * Relikt des Verfalls (Moor Seq 4, Seb 2026-11-26: „richtig stark“). Wirkt immer über reliktEffects(), auch für
+ * Relikte aus alten Spielständen: Moor-Eigenschaften ×3, geerbte Eigenschaften der zersetzten Dinge ×1,5,
+ * Flüche halb so stark, dazu ein fester Moorkern (Schaden, Schutz, Leben, Heilung, Rundenheilung + Moorgift im Kampf).
+ */
+export const RELIKT_STAERKE = {
+  moor: 3, erbe: 1.5, fluch: 0.5,
+  heal: 0.06, heal_partner: 0.03, gift: 0.025, gift_gross: 0.012, gift_runden: 3,
+  kern: [
+    { key: 'dmg_mult', value: 1.25, text: 'Moorkern: +25 % Schaden.' },
+    { key: 'damage_taken', value: 0.8, text: 'Moorkern: 20 % weniger erlittener Schaden.' },
+    { key: 'max_hp', value: 100, text: 'Moorkern: +100 maximales Leben.' },
+    { key: 'heal_bonus', value: 1.5, text: 'Moorkern: Heilmittel wirken 50 % stärker.' },
+    { key: 'moor_relikt', value: 1, text: 'Moorkern: Jede Kampfrunde heilt dich das Relikt um 6 % deiner Leben (den Partner um 3 %) und vergiftet jeden Gegner ohne Gift mit Moorgift.' },
+  ],
+};
+const R_MULT = new Set(['vision_cost', 'composure_regen', 'heal_bonus', 'price', 'sell', 'honor_loss', 'recognize', 'occult_mult',
+  'money_bonus', 'skill_composure', 'calm_decay', 'dodge_window', 'damage_taken', 'digest_mult', 'dmg_mult', 'hurry_cost', 'unruhe_gain', 'dodge_cost']);
+const R_UNTEN = { damage_taken: 0.5, vision_cost: 0.3, price: 0.6, dodge_cost: 0.3, digest_mult: 0.3, honor_loss: 0.3, hurry_cost: 0.3, unruhe_gain: 0.3 };
+const pctTxt = (v) => String(Math.round(Math.abs(v - 1) * 100));
+const R_TEXT = {
+  dmg_mult: (v) => `+${pctTxt(v)} % Schaden`, occult_mult: (v) => `+${pctTxt(v)} % Schaden gegen Okkultes`,
+  damage_taken: (v) => `${pctTxt(v)} % weniger erlittener Schaden`, composure_regen: (v) => `Nerven erholen sich ${pctTxt(v)} % schneller`,
+  heal_bonus: (v) => `Heilmittel wirken ${pctTxt(v)} % stärker`, vision_cost: (v) => `Geistsicht kostet ${pctTxt(v)} % weniger`,
+  dodge_window: (v) => `Ausweichfenster +${pctTxt(v)} %`, atk: (v) => `+${v} Angriff`, max_hp: (v) => `+${v} maximales Leben`,
+  max_nerves: (v) => `+${v} maximale Nerven`, round_nerves: (v) => `+${v} Nerven je Kampfrunde`, ap_start: (v) => `+${v} Konzentration zu Kampfbeginn`,
+  ap_max: (v) => `+${v} Höchstkonzentration`, ap_round: (v) => `+${v} Konzentration je Runde`,
+};
+
+/** Eine Eigenschaft um `f` verstärken (Fluch: f < 1 schwächt). Ja/Nein-Schalter bleiben, wie sie sind. */
+function reliktScale(p, f, fluch = false) {
+  if (typeof p.value !== 'number') return p;
+  let value;
+  if (R_MULT.has(p.key)) {
+    value = 1 + (p.value - 1) * f;
+    if (!fluch && R_UNTEN[p.key] != null) value = Math.max(R_UNTEN[p.key], value);
+    value = Math.round(value * 100) / 100;
+  } else {
+    value = p.value * f;
+    value = Math.abs(value) >= 3 ? Math.round(value) : Math.round(value * 10) / 10;
+  }
+  const t = R_TEXT[p.key];
+  const text = t && !fluch ? `${p.name ? `${p.name}: ` : ''}${t(value)}.` : fluch ? `${p.text} (Halb so stark.)` : `${p.text} (Im Relikt verstärkt.)`;
+  return { ...p, value, text };
+}
+
+/** Wirkung eines Relikts des Verfalls: verstärkte Eigenschaften plus Moorkern. */
+export function reliktEffects(relikt) {
+  if (!relikt) return { boons: [], curses: [] };
+  const boons = (relikt.boons ?? []).map((b) => reliktScale(b, b.kat || b.name ? RELIKT_STAERKE.moor : RELIKT_STAERKE.erbe));
+  const curses = (relikt.curses ?? []).map((c) => reliktScale(c, RELIKT_STAERKE.fluch, true));
+  return { boons: [...boons, ...RELIKT_STAERKE.kern], curses };
+}
+
 export const artifactMethods = {
   resetArtifacts() {
     this.borrowed = []; // vom Revier geliehen (ids)
@@ -48,10 +102,18 @@ export const artifactMethods = {
     const out = [];
     for (const id of this.activeArtifacts()) {
       const it = this.item(id);
-      if (id === 's4mo_relikt') { out.push(this.pathway?.relikt?.boons ?? [], this.pathway?.relikt?.curses ?? []); continue; } // Seq 4 (Moor): Eigenschaften je Spieler
+      if (id === 's4mo_relikt') { const r = this.reliktWirkung(); out.push(r.boons, r.curses); continue; } // Seq 4 (Moor): Eigenschaften je Spieler
       if (it) out.push(it.boons ?? [], it.curses ?? []);
     }
     return out;
+  },
+
+  /** Relikt des Verfalls dieses Spielers samt Verstärkung und Moorkern (zwischengespeichert je Relikt). */
+  reliktWirkung() {
+    const r = this.pathway?.relikt;
+    if (!r) return { boons: [], curses: [] };
+    if (this._reliktCache?.r !== r) this._reliktCache = { r, w: reliktEffects(r) };
+    return this._reliktCache.w;
   },
 
   /** Ab Sequenz 4 (Halbgott, Seb 2026-11-12) trägt man mehr Artefakte gelassen. */

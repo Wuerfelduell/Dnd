@@ -607,7 +607,17 @@ export class GameState {
 
   // --- Leben & Inventar ----------------------------------------------------------------
   item(id) {
+    if (id === 's4mo_relikt' && this.pathway?.relikt) return this.reliktItem(); // Relikt des Verfalls: Wirkung je Spieler
     return this.content.items[id];
+  }
+
+  reliktItem() {
+    const base = this.content.items.s4mo_relikt;
+    const w = this.reliktWirkung();
+    if (this._reliktItem?.w !== w || this._reliktItem?.base !== base) {
+      this._reliktItem = { w, base, it: { ...base, boons: w.boons, curses: w.curses, desc: this.pathway.relikt.desc || base?.desc } };
+    }
+    return this._reliktItem.it;
   }
 
   itemCount(id) {
