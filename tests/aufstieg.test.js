@@ -167,17 +167,19 @@ test('Calderwick: zehn verdorbene Pfadgebiete mit Gildensitz, je zwei benannte B
   assert.ok(alt.flags.has('cwa_akt4_done'));
 });
 
-test('Koop im Splitscreen: reist Spieler 2 nach Dunscar, kommt Spieler 1 mit (nie zwei Städte)', () => {
+test('Splitscreen: Stadtwechsel nimmt beide mit; gespaltene Stände werden beim Laden repariert', () => {
   const s = fresh();
   s.applyEffects({ sets_flags: ['k3_arrived', 'k4_arrived', 'auf_verbrannt'] });
-  s.pathway = { id: 'eisen', seq: 4, digestion: 0 };
   s.addP2();
-  s.withPlayer(2, () => { s.pathway = { id: 'faden', seq: 4, digestion: 0 }; });
-  s.map = 'o3_eisen';
-  s.splitTick();
-  assert.ok(s.splitOn);
-  Object.assign(s.p2, { map: 'ds_endbahnhof', spawn: 'default', position: null }); // gespaltener Spielstand
-  s.splitTick();
-  assert.equal(s.map, 'ds_endbahnhof');
-  assert.ok(!s.splitOn && !s.p2.map, 'Bild wieder eins, beide in Dunscar');
+  s.map = 'cw_gleisfuss';
+  s.splitOn = true; Object.assign(s.p2, { map: 'o3_laterne', spawn: 'default', position: null });
+  assert.equal(s.splitStadtwechsel('cw_kronenarchiv', 'default'), false, 'innerhalb von Calderwick bleibt der Split');
+  assert.ok(s.splitStadtwechsel('ds_endbahnhof', 'default'));
+  assert.ok(s.map === 'ds_endbahnhof' && !s.splitOn && !s.p2.map);
+  const t = fresh();
+  t.applyEffects({ sets_flags: ['k3_arrived', 'k4_arrived'] });
+  t.addP2();
+  t.map = 'ds_endbahnhof'; Object.assign(t.p2, { map: 'cw_gleisfuss', spawn: 'default', position: null }); t.splitOn = true;
+  t.splitReparieren();
+  assert.ok(!t.splitOn && !t.p2.map);
 });

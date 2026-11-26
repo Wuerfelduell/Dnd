@@ -1047,6 +1047,7 @@ export class GameState {
     this.dunscarOffen(); // Seb 2026-11-12: Hör-Fährte gestrichen, Schichtbund offen
     this.calderwickOffen(); // Kapitel 4: Calderwick ohne Akte, alle Viertel offen
     if (!this.content.maps[this.map]) { this.map = this.content.start.map; this.position = null; }
+    this.splitReparieren(); // Seb 2026-11-26: nie in zwei Städten
     this.map = this.variantOf(this.map); // CH: Briarholt kalt oder warm, je nach Ventilkreis
     this.testAuffuellen(); // Testmodus: Zutaten und Formeln liegen bereit
     return true;
