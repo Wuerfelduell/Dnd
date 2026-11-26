@@ -224,7 +224,7 @@ export const DIGEST_LABELS = {
   parry: 'Schlag pariert', vision: 'Geistsicht (pro Sekunde)', dialogue: 'neues Gespräch geführt',
   trade: 'gehandelt', brew: 'Trank gebraut', use_item: 'Heilmittel benutzt', lock: 'Verschlossenes geöffnet',
   loot: 'Belohnung eingestrichen', heal_partner: 'Partner im Kampf geheilt',
-  moor_heal: 'im Kampf geheilt (Moor ab Seq 4)', moor_shield: 'Schaden mit Moor-Schutz abgefangen',
+  moor_heal: 'im Kampf geheilt (max. 5× je Kampf)', moor_shield: 'Schaden mit eigenem Schutz abgefangen (max. 6× je Kampf)',
   boss_win: 'Boss besiegt', elite_win: 'Elitegegner besiegt', talent: 'Welt-Fähigkeit eingesetzt (je 10 Nerven)',
   ritual: 'Ritual vollzogen', gathering: 'Zuschlag auf einem geheimen Treffen', tat: 'große Tat in Dunscar',
 };
@@ -237,6 +237,12 @@ export const COMMON_DIGEST = { boss_win: 30, elite_win: 8, talent: 6, ritual: 25
 export const FIGHT_DIGEST_MULT = { boss: 4, elite: 2 };
 /** Jeder besiegte Boss verdaut auf jeder Sequenz mindestens so viele Prozent, unabhängig von DIGEST_RATE (Seb 2026-11-26). */
 export const BOSS_DIGEST_FIXED = 3;
+/**
+ * Seb (2026-11-26): Ab Seq 4 verdaut das Moor fest über seine Pfadhandlung. Jede Heilung, die wirklich Leben zurückgibt
+ * (sich selbst oder den Partner), bringt `heal` Prozent; jeder Moor-Schutz, der wirklich Schaden abfängt, `shield` Prozent
+ * dem, der ihn gewirkt hat. Spam-Schutz: je Kampf und Spieler höchstens `cap` Heilungen bzw. Abfänge, nicht im Übungskampf.
+ */
+export const MOOR_DIGEST = { path: 'sq_moor', fromSeq: 4, heal: 0.2, shield: 0.05, cap: { heal: 5, shield: 6 } };
 /** Ab dieser Sequenz zählen die pfadeigenen Handlungen (eigene `digest`-Tabelle, Grundsatz) mehrfach (Seb 2026-11-26). */
 export const PATH_DIGEST_HIGH_SEQ = 4;
 export const PATH_DIGEST_HIGH_MULT = 3;
@@ -545,8 +551,13 @@ export const pathwayMethods = {
     const rate = (DIGEST_RATE[this.pathway.seq] ?? DIGEST_RATE[1]) * this.passive('digest_mult');
     const own = this.pathwayDef()?.digest ?? {};
     const pm = pathDigestMult(this.pathway.seq);
+    // Moor ab Seq 4: Heilung und Schutz verdauen fest (MOOR_DIGEST), statt der Partnerheilung aus der Tabelle
+    const moorHigh = this.pathway.id === MOOR_DIGEST.path && this.pathway.seq <= MOOR_DIGEST.fromSeq;
+    const fixed = moorHigh ? [['moor_heal', MOOR_DIGEST.heal], ['moor_shield', MOOR_DIGEST.shield]] : [];
     return Object.entries(this.digestWeights())
+      .filter(([kind]) => !(moorHigh && kind === 'heal_partner'))
       .map(([kind, v]) => { let pts = v * rate * (own[kind] ? pm : 1); if (kind === 'boss_win') pts = Math.max(pts, BOSS_DIGEST_FIXED); return [kind, pts]; })
+      .concat(fixed)
       .map(([kind, pts]) => ({ kind, label: DIGEST_LABELS[kind] ?? kind, points: pts, text: fmtDigest(pts) }))
       .sort((a, b) => b.points - a.points);
   },
