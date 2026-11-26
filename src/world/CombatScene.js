@@ -39,8 +39,8 @@ const FOE_SLOTS = {
 };
 
 export class CombatScene extends Phaser.Scene {
-  constructor() {
-    super('combat');
+  constructor(key = 'combat') {
+    super(key);
   }
 
   /** Sprite des Gegners, für den die Kampfwerte gerade gelten (Gruppen: Ziel bzw. Angreifer). */
@@ -66,6 +66,7 @@ export class CombatScene extends Phaser.Scene {
     this.onDone = data.onDone;
     this.deferLoot = !!data.deferLoot; // Gegner auf der Karte: Beute fällt als Behälter auf den Boden
     this.noLoot = !!data.noLoot; // BQ: Schreinwachen ohne eigene Beute
+    this.uiFor = data.ui ?? null;
     this.splitHalf = data.splitHalf ?? 0; // Splitscreen im Pfadviertel: Kampf nur in der Hälfte dieses Spielers (1 links, 2 rechts)
     this.pack = data.pack ?? []; // Gegnergruppe: Begleiter des Anführers (Encounter-Ids)
     this.transformed = false;
@@ -75,7 +76,7 @@ export class CombatScene extends Phaser.Scene {
     this.realState = this.registry.get('state');
     // Splitscreen: Spieler 2 kämpft auf seiner eigenen Sicht (kein Tausch), damit Spieler 1 links weiterspielen kann
     this.state = this.splitHalf === 2 ? p2View(this.realState) : this.realState;
-    this.ui = this.registry.get('ui');
+    this.ui = this.uiFor ?? this.registry.get('ui'); // Splitscreen: Fensterebene der eigenen Hälfte
     this.combat = new Combat(this.state, this.encounterId, { pack: this.pack });
     // Die ganze Kampfbühne verkleinert in der eigenen Bildhälfte; die andere Hälfte läuft weiter
     if (this.splitHalf) this.cameras.main.setViewport(this.splitHalf === 2 ? VIEW_W / 2 : 0, 0, VIEW_W / 2, VIEW_H).setZoom(0.5).centerOn(VIEW_W / 2, VIEW_H / 2).setBackgroundColor('#040408');
@@ -1120,5 +1121,12 @@ export class CombatScene extends Phaser.Scene {
       }
       if (this.hits.every((h) => Object.values(h.by).every((d) => d.applied))) this.finishEnemyTurn();
     }
+  }
+}
+
+/** Splitscreen im Pfadviertel: zweite Kampfszene, damit beide Spieler gleichzeitig in ihrer Hälfte kämpfen können. */
+export class CombatScene2 extends CombatScene {
+  constructor() {
+    super('combat2');
   }
 }

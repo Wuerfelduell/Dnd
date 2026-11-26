@@ -104,11 +104,13 @@ export function p2View(state) {
   return new Proxy(state, {
     get(t, k, r) {
       if (k === 'acting') return 2;
+      if (k === 'combatBy') return 2; // Splitscreen: Kämpfe dieser Sicht führt immer Spieler 2 (der Kampf links bleibt bei 1)
       if (k === 'isP2View') return true;
       if (own(t, k)) return t.p2[k];
       return Reflect.get(t, k, r);
     },
     set(t, k, v) {
+      if (k === 'combatBy') return true;
       if (own(t, k)) t.p2[k] = v;
       else t[k] = v;
       return true;

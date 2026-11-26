@@ -799,7 +799,10 @@ export class WorldScene extends Phaser.Scene {
     // Splitscreen (core/Split.js): die rechte Welt sieht den Spielstand dauerhaft als Spieler 2
     this.state = this.splitRole === 2 ? p2View(this.realState) : this.realState;
     this.split = !!this.realState.splitOn;
-    this.ui = this.registry.get('ui');
+    this.uiBase = this.registry.get('ui');
+    // Splitscreen: jede Hälfte hat ihre eigene Fensterebene (Ui.half), Kampf je Hälfte in 'combat' bzw. 'combat2'
+    this.ui = this.split ? this.uiBase.half(this.splitRole) : this.uiBase;
+    this.combatKey = this.split && this.splitRole === 2 ? 'combat2' : 'combat';
     const hausGedanke = this.state.hausBetreten?.(this.state.map); // Codex DG: Gast, Trophäen, Heimkehrgedanke
     if (hausGedanke) this.time.delayedCall(600, () => this.state.emit('notice', hausGedanke));
     // Rivale auf dem eigenen Pfad (core/Rivale.js): ab Wexmoor manchmal auf der Straße oder auf einem Treffen
@@ -878,8 +881,9 @@ export class WorldScene extends Phaser.Scene {
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.cleanups.forEach((fn) => fn()));
     this.cameras.main.fadeIn(350, 0, 0, 0);
     this.layoutSplit();
-    if (this.splitRole === 2) this.ui.scene2 = this;
-    else this.ui.onSceneReady(this);
+    if (this.splitRole === 2) this.uiBase.scene2 = this;
+    else this.uiBase.onSceneReady(this);
+    if (this.ui !== this.uiBase) this.ui.scene = this;
   }
 
   /**
@@ -903,12 +907,6 @@ export class WorldScene extends Phaser.Scene {
       if (!running && this.scene.get('world2')) this.scene.launch('world2');
     } else if (running) this.scene.stop('world2');
     this.ui.setSplit?.(this.split);
-  }
-
-  /** Splitscreen: kämpft gerade der andere Spieler in seiner Hälfte (und hier ist nur der Kampf offen)? Dann läuft diese Hälfte weiter. */
-  kampfDrueben() {
-    const k = this.realState?.splitKampf;
-    return !!k && this.split && k !== this.splitRole && this.ui.modal === 'combat';
   }
 
   /** Die andere Hälfte des Splitscreens (oder null). */
@@ -1510,19 +1508,18 @@ export class WorldScene extends Phaser.Scene {
   }
 
   update(time, delta) {
-    const frei = this.kampfDrueben(); // Splitscreen: in der anderen Hälfte wird gekämpft, hier läuft man weiter
-    const blocked = (this.ui.isBlocking() && !frei) || this.leaving;
-    if (!blocked && !frei && this.splitRole !== 2) this.state.tick(delta / 1000); // die Uhr steht, solange gekämpft wird // im Splitscreen tickt nur die Hauptwelt
+    const blocked = this.ui.isBlocking() || this.leaving;
+    if (!blocked && this.splitRole !== 2) this.state.tick(delta / 1000); // im Splitscreen tickt nur die Hauptwelt // im Splitscreen tickt nur die Hauptwelt
     // Codex DL: Erfolge alle 1,5 s prüfen (die erste Prüfung trägt still nach)
     this.erfTimer = (this.erfTimer ?? 0) + delta;
-    if (this.erfTimer > 1500 && this.splitRole !== 2 && !frei) { this.erfTimer = 0; this.state.checkPost?.(); this.state.checkErfolge?.(); }
+    if (this.erfTimer > 1500 && this.splitRole !== 2) { this.erfTimer = 0; this.state.checkPost?.(); this.state.checkErfolge?.(); }
     this.updateMovement(blocked);
     this.updateTier(delta);
     // Schlüssel Seq 5: die Schattengestalt ist durchscheinend
     this.playerSprites().forEach((q, i) => q.setAlpha(this.state.inShadow?.(i + 1) ? 0.4 : 1));
     const frozen = !!this.hg?.freezesWorld(); // Laternennacht: nur ihre eigenen Wesen bewegen sich
-    this.roamers.update(time, delta, blocked || this.leaving || frozen || frei);
-    this.patrols.update(time, delta, blocked || this.leaving || frozen || frei);
+    this.roamers.update(time, delta, blocked || this.leaving || frozen);
+    this.patrols.update(time, delta, blocked || this.leaving || frozen);
     this.critters.update(time, delta, blocked);
     this.updateNpcRoam(delta, blocked || frozen);
     this.wexLife?.update(delta);
@@ -2168,7 +2165,6 @@ export class WorldScene extends Phaser.Scene {
 
   /** Taste 1–9 / Ziffernblock / Gamepad-X: Welt-Fähigkeit aus der Schnellleiste. */
   useTalentKey(n, slot) {
-    if (this.kampfDrueben()) return;
     this.ui.useTalentSlot(n, slot === 'sel' ? 'sel' : Number(slot));
   }
 
@@ -2181,7 +2177,6 @@ export class WorldScene extends Phaser.Scene {
 
   interact(it) {
     const def = it.def;
-    if (this.kampfDrueben()) { this.ui.toast?.(`Warte kurz: Spieler ${this.realState.splitKampf} kämpft gerade.`, 'warn'); return; }
     const refused = this.koop?.refuse(it, this.state.acting);
     if (refused) { this.ui.showMessage(def.title ?? def.prompt, refused); return; }
     // Ab Fall 5 bleibt Lagerhaus 7 auch in bestehenden Spielständen zugänglich.
@@ -2418,7 +2413,7 @@ export class WorldScene extends Phaser.Scene {
 
   /** Pausiert die Welt und startet den Kampfbildschirm. `after(result)` läuft nach dem Kampf, `roamer` ist ein Gegner auf der Karte. */
   startCombat(id, after = null, { roamer = null, noLoot = false, pack = [] } = {}) {
-    if (this.leaving || this.scene.isActive('combat')) return;
+    if (this.leaving || this.scene.isActive(this.combatKey)) return;
     // Ein vorgemerkter Kampf aus einem Gespräch (z. B. Widerstand gegen die Streife) kann sich eine Nacharbeit wünschen
     if (!after && this.combatHook) { after = this.combatHook; }
     this.combatHook = null;
@@ -2461,15 +2456,16 @@ export class WorldScene extends Phaser.Scene {
     const other = splitHalf ? null : this.splitOther();
     other?.scene.pause();
     this.scene.pause();
-    if (splitHalf) this.realState.splitKampf = splitHalf;
-    this.scene.launch('combat', {
+    if (splitHalf) this.realState.splitKampf = (this.realState.splitKampf ?? 0) | splitHalf; // Bits: 1 links, 2 rechts
+    this.scene.launch(this.combatKey, {
       id,
       splitHalf,
+      ui: this.ui,
       deferLoot: !!roamer,
       noLoot,
       pack: pack.map((p) => p.id), // Gegnergruppe: Begleiter des Anführers
       onDone: (result) => {
-        if (splitHalf) this.realState.splitKampf = 0;
+        if (splitHalf) this.realState.splitKampf = (this.realState.splitKampf ?? 0) & ~splitHalf;
         this.scene.resume();
         if (other?.sys?.isPaused()) other.scene.resume();
         if (roamer) this.roamers.afterCombat(roamer, result);

@@ -209,11 +209,13 @@ button.small { font-size: 0.8em; padding: 0.1em 0.5em; }
 .items .item { display: flex; justify-content: space-between; align-items: center; gap: 1em; padding: 0.3em 0.5em; border: 0.125em solid #2a2630; }
 .items .desc { color: var(--muted); font-size: 0.85em; }
 
-#ui.in-combat .hud, #ui.in-combat:not(.cb-half) .prompt, #ui.in-combat:not(.cb-half) .toasts { display: none; }
-/* Splitscreen im Pfadviertel: Kampf als verkleinerte Bühne in der Hälfte des Kämpfers (Kamera-Zoom 0.5 in CombatScene) */
-#ui.cb-half .combat, #ui.cb-half .floats { inset: 25% 50% 25% 0; font-size: 0.5em; }
-#ui.cb-half.cb-half-2 .combat, #ui.cb-half.cb-half-2 .floats { inset: 25% 0 25% 50%; }
-#ui.cb-half .layer:has(.combat) { pointer-events: none; }
+#ui.in-combat .hud, #ui.in-combat .prompt, #ui.in-combat .toasts { display: none; }
+/* Splitscreen im Pfadviertel: jede Hälfte hat ihre eigene Fensterebene (Ui.half) als verkleinerte Kopie der ganzen Oberfläche;
+   der Kampf passt genau auf die Kampfbühne (Kamera-Zoom 0.5 in CombatScene). */
+.half-ui { position: absolute; top: 25%; height: 50%; width: 50%; left: 0; font-size: 0.5em; pointer-events: none; }
+.half-ui.half-2 { left: 50%; }
+.half-ui .layer:empty { pointer-events: none; }
+#ui.cb1 .hud-left, #ui.cb2 .hud-p2 { visibility: hidden; } /* die Werte stehen im Kampfmenü der Hälfte */
 .combat { position: absolute; inset: 0; pointer-events: none; }
 .combat button { pointer-events: auto; font: inherit; color: var(--ink); padding: 0.15em 0.4em; border: 0.125em solid transparent; cursor: pointer; }
 .combat button:hover:not(:disabled) { border-color: var(--brass); background: #2c2532; }
