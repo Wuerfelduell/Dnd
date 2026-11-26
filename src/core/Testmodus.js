@@ -2,6 +2,11 @@
 // Verborgener Testmodus. Kein Knopf, kein Hinweis, keine Übersetzung: wer ihn kennt, schaltet ihn frei.
 // Im Testmodus: alle Gebiete erreichbar, Monster laufen weg, Zirkel immer offen ohne Wartezeit,
 // Geschichte erledigt, Bosse aber noch am Leben (keine won_*-Flags).
+// Für Sequenz-Tests: alle Zutaten und alle Formeln (alle Pfade, alle Sequenzen) liegen immer im Inventar
+// (beider Spieler), keine Tragkraftgrenze, keine Unruhe.
+
+const TEST_ZUTATEN = 10; // so viele von jeder Zutat werden immer wieder aufgefüllt
+const TEST_FUELL_SEK = 3; // Abstand der Auffüllung in Sekunden
 
 // Nur der Hash steht im Code (das Spiel ist öffentlich).
 const SALT = 'nebelakten-test:';
@@ -45,6 +50,7 @@ export const testmodusMethods = {
   startTestmodus() {
     this.testmodus = true;
     this.testStoryFertig();
+    this.testAuffuellen();
     this.emit('changed');
   },
 
@@ -71,6 +77,29 @@ export const testmodusMethods = {
     for (const f of flags) if (!f.startsWith('won_')) this.flags.add(f);
     for (const id of Object.keys(c.quests ?? {})) this.quests[id] = 'done';
     this.tracked = null;
+  },
+
+  /** Füllt alle Zutaten (je TEST_ZUTATEN) und alle Formeln (je 1) auf, bei beiden Spielern. Unruhe bleibt 0. */
+  testAuffuellen() {
+    if (!this.testmodus) return;
+    const fuell = (inv) => {
+      for (const [id, it] of Object.entries(this.content.items ?? {})) {
+        const soll = it.kind === 'ingredient' ? TEST_ZUTATEN : it.kind === 'formula' ? 1 : 0;
+        if (soll && (inv[id] ?? 0) < soll) inv[id] = soll;
+      }
+    };
+    fuell(this.inventory);
+    if (this.p2?.inventory) { fuell(this.p2.inventory); this.p2.unruhe = 0; }
+    if (this.unruhe) { this.unruhe = 0; this.emit('unruhe', 0); }
+  },
+
+  /** Aus tick(): regelmäßig nachfüllen, damit verbrauchte Zutaten gleich wieder da sind. */
+  testTick(dt) {
+    if (!this.testmodus) return;
+    this.testFuellUhr = (this.testFuellUhr ?? 0) - dt;
+    if (this.testFuellUhr > 0) return;
+    this.testFuellUhr = TEST_FUELL_SEK;
+    this.testAuffuellen();
   },
 
   /** Sichtbarkeit eines Kartenobjekts. Im Testmodus stehen alle Bosse da, bis sie besiegt sind. */

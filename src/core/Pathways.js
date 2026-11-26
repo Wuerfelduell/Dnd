@@ -521,6 +521,7 @@ export const pathwayMethods = {
 
   setUnruhe(v) {
     const before = this.unruhe;
+    if (this.testmodus) v = 0; // Testmodus: keine Unruhe
     if (v > before) v = before + (v - before) * this.unruheGainMult();
     this.unruhe = Math.max(0, Math.min(UNRUHE_MAX, v));
     if (Math.round(this.unruhe) !== Math.round(before)) this.emit('unruhe', this.unruhe);
@@ -625,7 +626,7 @@ export const pathwayMethods = {
     this.pathway = { id: it.pathway, seq: it.seq, digestion: 0, ...(relikt ? { relikt } : {}), ...wechsel };
     if (wechsel.wechsel && vorher.id !== it.pathway) this.flags.add(`pfadwechsel_${it.pathway}`);
     if (HOCH_DURCHBRUCH[it.seq]) this.flags.add(`seq${it.seq}_erreicht`); // für Zeitung und Gerede (Paket CP)
-    this.unruhe = Math.min(UNRUHE_MAX - 1, this.unruhe + (20 + premature * 0.4) * this.unruheGainMult());
+    this.unruhe = this.testmodus ? 0 : Math.min(UNRUHE_MAX - 1, this.unruhe + (20 + premature * 0.4) * this.unruheGainMult());
     this.updateMaxHp();
     const pd = this.pathwayDef();
     // Aufstiegsmeldung: was der Körper dazugewonnen hat (Leben, Nerven, Tragkraft)
