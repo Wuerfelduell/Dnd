@@ -4,6 +4,7 @@
 // bleibt automatisch beim Platzhalter.
 import { PATHWAY_STANDIN } from '../data/sequenzen.js';
 import { BH_DACH_TEXTUREN } from '../data/briarholtKulisse.js';
+import { CW_KULISSE_BLAETTER } from '../data/calderwickKulisse.js';
 import { preloadRitualArt } from './ritualArt.js';
 import { DS_ZIRKEL_ICONS, DS_ZIRKEL_FIGUREN } from '../data/dunscarZirkel.js';
 import { VS_ICONS } from '../data/vorratStuecke.js';
@@ -1313,7 +1314,7 @@ export function playSheetAnim(sprite, sheet, name, then) {
   const key = `${sheet}-${name}`;
   if (!scene.anims.exists(key)) {
     const id = MANIFEST_IDS[sheet] ?? sheet;
-    const def = ['manifestPfade', 'manifestWelt', 'manifestJournal', 'manifestSpieler2', 'manifestSequenzen3', 'manifestKontrollverlust', 'manifestSekten', 'manifestHalbgott', 'manifestFasserin2', 'manifestBriarholt1'].map((m) => scene.cache.json.get(m)?.assets?.find((a) => a.id === id)?.animations?.[name]).find(Boolean);
+    const def = ['manifestPfade', 'manifestWelt', 'manifestJournal', 'manifestSpieler2', 'manifestSequenzen3', 'manifestKontrollverlust', 'manifestSekten', 'manifestHalbgott', 'manifestFasserin2', 'manifestBriarholt1', 'manifestCalderwick1'].map((m) => scene.cache.json.get(m)?.assets?.find((a) => a.id === id)?.animations?.[name]).find(Boolean);
     if (!def) return false;
     scene.anims.create({ key, frames: def.frames.map((frame) => ({ key: sheet, frame })), frameRate: def.frameRate, repeat: def.repeat });
   }
@@ -2873,6 +2874,9 @@ for (const [theme, { sheet = theme, ...rest }] of Object.entries(CW_THEME_SPECS)
 /** CE1: Gleis- und Fundamentblatt zusätzlich als Spritesheets (16x16-Zellen als Deko: Schienen am Gleisfuß, leuchtende Namensnischen). */
 ANIM_SHEETS.cwt_gleis = ['tilesets/cw_gleis.png', 16, 16];
 ANIM_SHEETS.cwt_fundament = ['tilesets/cw_fundament.png', 16, 16];
+/** Calderwick-Kulisse (data/calderwickKulisse.js): die übrigen CE1-Blätter ebenso als Einzelzellen (Häuser, Möbelblöcke, Rohrpost). */
+for (const [key, file] of Object.entries(CW_KULISSE_BLAETTER)) ANIM_SHEETS[key] = [file, 16, 16];
+MANIFEST_IDS.cwt_fundament = 'cw_fundament'; // Animation namensnische (türkis glimmende Namensnische)
 /** Karte → Thema (CD-Orte; Gefahrengebiete: Setzerei = Druckerei, Sortiergrube = Blechgang, Nullfundament = Fundament). */
 export const CW_MAP_THEMES = { cw_gleisfuss: 'cw_terrasse', cw_setzergasse: 'cw_terrasse', cw_quittungsmarkt: 'cw_terrasse', cw_roehrenhof: 'cw_terrasse', cw_witwenterrasse: 'cw_terrasse',
   cw_kronenarchiv: 'cw_terrasse', cw_buchbinderei: 'cw_druckerei', cw_gepaeckhalle: 'cw_sortierhalle', cw_pfandhaus: 'cw_druckerei', cw_sortierhalle: 'cw_sortierhalle', cw_kueche: 'cw_kueche',

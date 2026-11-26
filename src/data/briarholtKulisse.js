@@ -140,6 +140,13 @@ export function applyBriarholtKulisse(content) {
   }
 }
 
+/** Für die Pfadviertel in Calderwick (o3_*), die auf Briarholt-Blättern liegen: dieselbe Kulisse ohne ortsfeste Requisiten. */
+export function briarholtKulisseFuer(m) {
+  const warm = m.tiles.endsWith('_warm');
+  const set = SET_OF[m.tiles.replace(/_(kalt|warm)$/, '')];
+  if (set) kulisse(m, set, warm, m.id);
+}
+
 function kulisse(m, set, warm, base) {
   const rows = m.rows;
   const H = rows.length;
@@ -267,7 +274,7 @@ function kulisse(m, set, warm, base) {
 }
 
 /** Erreicht man von der Ankunft aus jedes Objekt (oder ein Nachbarfeld), auch wenn `neu` zusätzlich blockiert? */
-function erreichbarMit(m, { W, H, boden, fest, neu }) {
+export function erreichbarMit(m, { W, H, boden, fest, neu }) {
   const zu = new Set([...fest, ...neu]);
   const start = m.spawns?.default ?? Object.values(m.spawns ?? {})[0];
   if (!start) return true;
