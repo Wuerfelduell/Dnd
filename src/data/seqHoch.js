@@ -4,10 +4,8 @@
  *
  * Standard wie bei Sequenz 4: ortsunabhängig, solo, Fehlschlag −17 % Verdauung und +10 Unruhe, beliebig wiederholbar.
  * Jedes Ritual ist mindestens doppelt so schwer wie das vorige und funktioniert anders, nur das Thema bleibt.
- * - Sequenz 3: Kampfketten unter einer Pfadregel (Gegner aus Monstergebieten ab Dunscar, im Ritual gestärkt).
- * - Sequenz 2: ein Weltwandel, der für immer bleibt (alle Gegner stärker, Fahndung, Farbe der Welt, Gerede),
- *   dann ein Mittelschritt und am Ende der brutale Grenzwächter des Pfades.
- * - Sequenz 1: fünfmal so schwer wie 2, aber ohne einen einzigen Gegner (Zeit, Proben, Opfer).
+ * Seb 2026-11-26 („immer nach oben“, Aufbau siehe HOCH): 3 Kette + Pfadschritt + Heiligenwächter, 2 Weltwandel + Kette +
+ * Pfadschritt + Grenzwächter, 1 nahezu unmöglich: langer Schritt ohne Kampf + Kette + Grenz- und Engelswächter am Stück.
  *
  * Sequenz 3 (Seb 2026-11-12, nach #411 umgebaut): Trankformel und Ritualformel getrennt, beide selten (Zirkel-Los 15 000,
  * sehr seltene Monster-Beute). Man tritt der Gilde seines Pfades bei (Sitz o3_<pfad>), die Kernzutat 3 gibt nur ihr Oberhaupt.
@@ -15,6 +13,7 @@
  */
 import { seeded } from '../core/Gatherings.js';
 import { NACHBARPFADE } from './nachbarpfade.js';
+import { pfadAngriffe, beyonderSatz } from './gegnerBeyonder.js';
 
 /** Kernzutat eines Pfades für Sequenz n (Paket AF: sq_zutat_<pfad ohne sq_>_<n>). */
 export const kernzutat = (pid, n) => `sq_zutat_${pid.replace(/^sq_/, '')}_${n}`;
@@ -32,95 +31,213 @@ export function addRitualformeln(content) {
 export const gildeFlag = (pid, what) => `gilde_${pid}_${what}`; // bekannt, mitglied, chef, chef_tot
 
 /** Seb (2026-11-12): Seq 3 und 2 passen, Seq 1 ist noch nicht abgestimmt und bleibt bis dahin versiegelt. */
-export const HOCH_SEQ1_VERSIEGELT = true;
+export const HOCH_SEQ1_VERSIEGELT = false; // Seb 2026-11-26: Seq 1 neu gebaut und freigegeben
 export const HOCH_FAIL_PCT = 17;
 export const HOCH_FAIL_UNRUHE = 10;
 /** Gegner im Ritual der Sequenz 3 (gestärkt) und Grenzwächter der Sequenz 2 (brutal). */
-export const HOCH_SCALE = { 3: { hp: 2.6, dmg: 1.9 }, 2: { hp: 3.4, dmg: 2.1 } }; // Seb 2026-11-12: ab Seq 3 noch schwerer
-export const GRENZ_SCALE = { hp: 10, dmg: 1.8 };
+export const HOCH_SCALE = { 3: { hp: 2.6, dmg: 1.9 }, 2: { hp: 3.4, dmg: 2.1 }, 1: { hp: 4.4, dmg: 2.4 } }; // Seb 2026-11-12/26: je Stufe schwerer
+export const GRENZ_SCALE = { hp: 5.5, dmg: 1.1 }; // Seb 2026-11-26: schwer, aber nicht unmöglich (vorher 10/1,8)
+/** Seq 1: derselbe Grenzwächter, aber härter, weil gleich danach der Engelswächter kommt. */
+export const GRENZ_SCALE_1 = { hp: 12, dmg: 2 };
+/**
+ * Wächter der Rituale 3 bis 1 (Seb 2026-11-26): Körper vom Schwellen- bzw. Grenzwächter (data/sequenzen.js), kämpfen mit
+ * den Fertigkeiten deines Pfades (machBeyonder). `scale` wirkt im Ritual auf die Daten des Körpers.
+ */
+export const HOCH_WAECHTER = {
+  heilig: { id: (pid) => `hg_heiligenwaechter_${pid}`, from: 'hg_schwellenwaechter', titel: 'Heiligenwächter', seq: 3, scale: { hp: 3.2, dmg: 1.6 } },
+  grenz: { id: (pid) => `hg_grenzwaechter_${pid}`, from: 'hg_grenzwaechter', titel: 'Grenzwächter', seq: 2, scale: GRENZ_SCALE },
+  engel: { id: (pid) => `hg_engelswaechter_${pid}`, from: 'hg_grenzwaechter', titel: 'Engelswächter', seq: 1, scale: { hp: 15, dmg: 2.3 } },
+};
 /** Spuren zum Ort: Chance je Sieg in einem Monstergebiet ab Kapitel 3, so viele braucht man. */
 export const SPUR_CHANCE = 0.2;
 export const SPUREN = 3;
 /** Seq-2-Weltwandel: je aktivem Wandel werden alle Gegner so viel stärker (bleibt für immer). */
 export const WELT_MULT = { hp: 0.3, dmg: 0.2 };
 
-const K = (n, ziel, rules, text) => ({ type: 'kampf', n, ziel, rules, text });
-const Z = (sek, need, forbid, text) => ({ type: 'zeit', sek, need, forbid, text });
+const K = (n, ziel, rules, text, extra = {}) => ({ type: 'kampf', n, ziel, rules, text, ...extra });
+const Z = (sek, need, forbid, text, extra = {}) => ({ type: 'zeit', sek, need, forbid, text, ...extra });
 const P = (kind, n, text) => ({ type: 'probe', kind, n, text });
 const O = (what, text) => ({ type: 'opfer', ...what, text });
 const W = (text) => ({ type: 'welt', text });
-const G = (rules, text) => ({ type: 'waechter', rules, text });
+/** Wächter: `w` heilig (Seq 3), grenz (Seq 2 und 1), engel (Seq 1). Jeder kämpft mit den Fertigkeiten deines eigenen Pfades. */
+const G = (w, rules, text, extra = {}) => ({ type: 'waechter', w, rules, text, ...extra });
 
 /**
- * Die Rituale. Schritte laufen nacheinander. Kampfregeln (Combat.js): noItems, noParry, noDodge, noHeal, spare,
- * maxRounds, minKillRound, startHp, decayPct, minItems, endMin {hp, nerves}. Zeitbedingungen (need: Timer läuft nur dann,
- * forbid: bricht die Prüfung): danger, vision, form, noArtifacts, load, unruhe, maps; forbid combat.
+ * Seb (2026-11-26): Seq 3 bis 1 neu, „immer nach oben“. Jede Stufe hat mehr Schritte, größere Ketten, stärkere Gegner
+ * und am Ende Wächter, die mit deinem eigenen Pfad kämpfen. Alles in jedem Monstergebiet ab Dunscar ausführbar
+ * (Dunscar, Calderwick, Briarholt, Gildensitze), keine Bindung an einen Ort.
+ * - Sequenz 3 (schwer, machbar): Kampfkette gegen Zweiergruppen unter der Pfadregel, Pfadschritt, Heiligenwächter.
+ * - Sequenz 2 (schwerer, machbar): Weltwandel, Kette gegen Dreiergruppen, Pfadschritt, Grenzwächter.
+ * - Sequenz 1 (nahezu unmöglich): langer Schritt ohne Kampf, doppelter Pfadschritt, lange Kette gegen Dreiergruppen,
+ *   dann Grenzwächter und Engelswächter hintereinander, ohne Heilung dazwischen.
+ * Gruppen: `gruppe: n` gibt dem Gegner n Begleiter (Combat, PR #547). Kampfregeln (Combat.js): noItems, noParry, noDodge,
+ * noHeal, spare, maxRounds, minKillRound, startHp, decayPct, minItems, endMin {hp, nerves}, gruppe. Zeitbedingungen
+ * (need: Timer läuft nur dann, forbid: bricht die Prüfung): danger, vision, form, noArtifacts, load, unruhe; forbid combat.
+ * Schrittzusatz noHealAll: keine Heilung, auch außerhalb des Kampfes.
  */
 export const HOCH = {
   laterne: {
-    3: { name: 'Das Licht, das nur Okkultes trifft', steps: [K(12, 'okkult', { noItems: true, noParry: true }, 'Zwölf okkulte Wesen besiegen, ohne Gegenstände und ohne Parade')] },
+    3: { name: 'Das Licht, das nur Okkultes trifft', steps: [
+      K(8, 'okkult', { noItems: true, noParry: true, gruppe: 1 }, 'Acht okkulte Zweiergruppen besiegen, ohne Gegenstände und ohne Parade'),
+      Z(180, ['danger', 'vision'], [], '180 Sekunden Geistsicht in Monstergebieten'),
+      G('heilig', { noItems: true }, 'Den Heiligenwächter besiegen, ohne Gegenstände')] },
     2: { name: 'Die ewige Dämmerung', welt: { titel: 'Ewige Dämmerung', farbe: 0x3a2a10, alpha: 0.16, wanted: 1, text: 'Über allen Städten hängt ein bernsteinfarbenes Zwielicht. Die Sonne geht nicht mehr ganz auf, und was im Dunkeln lebt, wird mutiger.', gerede: 'Seit dem Tag mit dem bernsteinfarbenen Himmel wird es nicht mehr richtig hell. Die Laternenanzünder arbeiten jetzt rund um die Uhr.' },
-      steps: [W('Die ewige Dämmerung über die Welt legen'), Z(600, ['danger', 'vision'], [], '600 Sekunden Geistsicht in Monstergebieten'), G({ noItems: true }, 'Den Grenzwächter besiegen, ohne Gegenstände')] },
-    1: { name: 'Das Licht ohne Schatten', steps: [Z(1500, ['danger', 'vision'], ['combat'], '1500 Sekunden Geistsicht in Monstergebieten, ohne einen einzigen Kampf')] },
+      steps: [W('Die ewige Dämmerung über die Welt legen'),
+        K(8, 'okkult', { noItems: true, noParry: true, gruppe: 2 }, 'Acht okkulte Dreiergruppen besiegen, ohne Gegenstände und ohne Parade'),
+        Z(600, ['danger', 'vision'], [], '600 Sekunden Geistsicht in Monstergebieten'),
+        G('grenz', { noItems: true, noParry: true }, 'Den Grenzwächter besiegen, ohne Gegenstände und ohne Parade')] },
+    1: { name: 'Das Licht ohne Schatten', steps: [
+      Z(1500, ['danger', 'vision'], ['combat'], '1500 Sekunden Geistsicht in Monstergebieten, ohne einen einzigen Kampf'),
+      K(15, 'okkult', { noItems: true, noParry: true, gruppe: 2 }, 'Fünfzehn okkulte Dreiergruppen in Folge, ohne Gegenstände und ohne Parade'),
+      G('grenz', { noItems: true, noParry: true }, 'Den Grenzwächter besiegen, ohne Gegenstände und ohne Parade', { noHealAll: true, scale: GRENZ_SCALE_1 }),
+      G('engel', { noItems: true, noParry: true }, 'Sofort danach den Engelswächter, ohne Heilung dazwischen', { noHealAll: true })] },
   },
   faden: {
-    3: { name: 'Der Faden reißt nicht zurück', steps: [K(10, 'wild', { noHeal: true }, 'Zehn Kämpfe in Folge gewinnen, ohne jede Heilung, auch nicht dazwischen', { noHealAll: true })] },
+    3: { name: 'Der Faden reißt nicht zurück', steps: [
+      K(6, 'wild', { noHeal: true, gruppe: 1 }, 'Sechs Zweiergruppen in Folge besiegen, ohne jede Heilung, auch nicht dazwischen', { noHealAll: true }),
+      P('faden', 5, 'Fünf Fadenproben ohne einen Fehler'),
+      G('heilig', { noDodge: true }, 'Den Heiligenwächter besiegen, ohne auszuweichen')] },
     2: { name: 'Das gespannte Netz', welt: { titel: 'Gespanntes Netz', farbe: 0x4a2a5a, alpha: 0.12, wanted: 1, text: 'Über alle Gassen spannen sich unsichtbare Fäden. Menschen stolpern über Entscheidungen, die sie nie getroffen haben, und Wesen finden ihre Beute schneller.', gerede: 'Alle reden von Zufällen, die keine sind. Mein Nachbar hat dreimal am selben Tag denselben Fremden getroffen.' },
-      steps: [W('Das Netz über die Welt spannen'), P('faden', 10, 'Zehn Fadenproben ohne einen Fehler'), G({ noDodge: true }, 'Den Grenzwächter besiegen, ohne auszuweichen')] },
-    1: { name: 'Das Garn aller Leben', steps: [P('faden', 25, 'Fünfundzwanzig Fadenproben ohne einen Fehler')] },
+      steps: [W('Das Netz über die Welt spannen'),
+        K(6, 'wild', { noHeal: true, gruppe: 2 }, 'Sechs Dreiergruppen in Folge, ohne jede Heilung, auch nicht dazwischen', { noHealAll: true }),
+        P('faden', 10, 'Zehn Fadenproben ohne einen Fehler'),
+        G('grenz', { noDodge: true }, 'Den Grenzwächter besiegen, ohne auszuweichen')] },
+    1: { name: 'Das Garn aller Leben', steps: [
+      P('faden', 25, 'Fünfundzwanzig Fadenproben ohne einen Fehler'),
+      K(10, 'wild', { noHeal: true, gruppe: 2 }, 'Zehn Dreiergruppen in Folge, ohne jede Heilung, auch nicht dazwischen', { noHealAll: true }),
+      G('grenz', { noDodge: true, noHeal: true }, 'Den Grenzwächter besiegen, ohne auszuweichen und ohne Heilung', { noHealAll: true, scale: GRENZ_SCALE_1 }),
+      G('engel', { noDodge: true, noHeal: true }, 'Sofort danach den Engelswächter, ohne Heilung dazwischen', { noHealAll: true })] },
   },
   maske: {
-    3: { name: 'Hundert Gesichter, kein Toter', steps: [K(10, 'wild', { spare: true, noDodge: true }, 'Zehn Gegner unter 15 % Leben verschonen statt töten, ohne Ausweichen')] },
+    3: { name: 'Hundert Gesichter, kein Toter', steps: [
+      K(12, 'wild', { spare: true, noDodge: true }, 'Zwölf Gegner unter 15 % Leben verschonen statt töten, ohne Ausweichen'),
+      Z(300, ['danger', 'noArtifacts'], ['combat'], '300 Sekunden in Monstergebieten ohne Artefakt und ohne Kampf'),
+      G('heilig', { noParry: true }, 'Den Heiligenwächter besiegen, ohne Parade')] },
     2: { name: 'Die Welt ohne Gesicht', welt: { titel: 'Welt ohne Gesicht', farbe: 0x5a4a5a, alpha: 0.12, wanted: 2, text: 'Niemand erkennt mehr ganz sicher den anderen. Die Wachen misstrauen jedem Gesicht und greifen härter durch.', gerede: 'Meine eigene Schwester stand vor der Tür, und ich war mir nicht sicher, ob sie es ist. Die Wache kontrolliert jetzt jeden.' },
-      steps: [W('Allen Gesichtern die Sicherheit nehmen'), Z(480, ['form'], [], '480 Sekunden in deiner mythischen Gestalt'), G({ noParry: true }, 'Den Grenzwächter besiegen, ohne Parade')] },
-    1: { name: 'Niemand', steps: [Z(1200, ['danger', 'noArtifacts'], ['combat'], '1200 Sekunden in Monstergebieten ohne Artefakt und ohne Kampf')] },
+      steps: [W('Allen Gesichtern die Sicherheit nehmen'),
+        K(16, 'wild', { spare: true, noDodge: true }, 'Sechzehn Gegner unter 15 % Leben verschonen statt töten, ohne Ausweichen'),
+        Z(90, ['form'], [], '90 Sekunden am Stück in deiner mythischen Gestalt'),
+        G('grenz', { noParry: true }, 'Den Grenzwächter besiegen, ohne Parade')] },
+    1: { name: 'Niemand', steps: [
+      Z(1200, ['danger', 'noArtifacts'], ['combat'], '1200 Sekunden in Monstergebieten ohne Artefakt und ohne Kampf'),
+      K(25, 'wild', { spare: true, noDodge: true, noParry: true }, 'Fünfundzwanzig Gegner verschonen, ohne Ausweichen und ohne Parade'),
+      G('grenz', { noParry: true, noDodge: true }, 'Den Grenzwächter besiegen, ohne Parade und ohne Ausweichen', { noHealAll: true, scale: GRENZ_SCALE_1 }),
+      G('engel', { noParry: true }, 'Sofort danach den Engelswächter, ohne Heilung dazwischen', { noHealAll: true })] },
   },
   echo: {
-    3: { name: 'Der letzte Ton', steps: [K(10, 'wild', { maxRounds: 4 }, 'Zehn Kämpfe in Folge, jeder in höchstens vier Runden gewonnen')] },
+    3: { name: 'Der letzte Ton', steps: [
+      K(8, 'wild', { maxRounds: 5, gruppe: 1 }, 'Acht Zweiergruppen in Folge, jede in höchstens fünf Runden besiegt'),
+      P('echo', 5, 'Fünf Stimmenprüfungen ohne einen Fehler'),
+      G('heilig', { maxRounds: 30 }, 'Den Heiligenwächter in höchstens 30 Runden besiegen')] },
     2: { name: 'Die laute Welt', welt: { titel: 'Laute Welt', farbe: 0x203a4a, alpha: 0.12, wanted: 1, text: 'Jedes Geräusch trägt doppelt so weit. Wesen hören dich kommen, und in den Städten schläft niemand mehr ruhig.', gerede: 'Man hört das Flüstern drei Straßen weiter. Die Hunde bellen die ganze Nacht.' },
-      steps: [W('Den Klang der Welt aufreißen'), P('echo', 10, 'Zehn Stimmenprüfungen ohne einen Fehler'), G({ maxRounds: 25 }, 'Den Grenzwächter in höchstens 25 Runden besiegen')] },
-    1: { name: 'Das Echo aller Stimmen', steps: [P('echo', 25, 'Fünfundzwanzig Stimmenprüfungen ohne einen Fehler')] },
+      steps: [W('Den Klang der Welt aufreißen'),
+        K(8, 'wild', { maxRounds: 5, gruppe: 2 }, 'Acht Dreiergruppen in Folge, jede in höchstens fünf Runden besiegt'),
+        P('echo', 10, 'Zehn Stimmenprüfungen ohne einen Fehler'),
+        G('grenz', { maxRounds: 25 }, 'Den Grenzwächter in höchstens 25 Runden besiegen')] },
+    1: { name: 'Das Echo aller Stimmen', steps: [
+      P('echo', 25, 'Fünfundzwanzig Stimmenprüfungen ohne einen Fehler'),
+      K(15, 'wild', { maxRounds: 4, gruppe: 2 }, 'Fünfzehn Dreiergruppen in Folge, jede in höchstens vier Runden besiegt'),
+      G('grenz', { maxRounds: 20 }, 'Den Grenzwächter in höchstens 20 Runden besiegen', { noHealAll: true, scale: GRENZ_SCALE_1 }),
+      G('engel', { maxRounds: 25 }, 'Sofort danach den Engelswächter in höchstens 25 Runden, ohne Heilung dazwischen', { noHealAll: true })] },
   },
   kessel: {
-    3: { name: 'Der lebende Kessel', steps: [K(10, 'wild', { minItems: 3 }, 'Zehn Kämpfe in Folge, in jedem mindestens drei Gegenstände benutzt')] },
+    3: { name: 'Der lebende Kessel', steps: [
+      K(8, 'wild', { minItems: 3, gruppe: 1 }, 'Acht Zweiergruppen in Folge, in jedem Kampf mindestens drei Gegenstände benutzt'),
+      O({ items: { wurf_spreng: 5, wurf_saeure: 5, wurf_gift: 5 } }, 'Fünfzehn Wurfflaschen in den Kessel geben (je 5 Spreng, Säure, Gift)'),
+      G('heilig', { minItems: 4 }, 'Den Heiligenwächter besiegen und dabei mindestens vier Gegenstände benutzen')] },
     2: { name: 'Der vergiftete Brunnen', welt: { titel: 'Vergifteter Brunnen', farbe: 0x2a4a1a, alpha: 0.14, wanted: 1, text: 'Ein grüner Schimmer liegt auf jedem Wasser. Wer trinkt, wird gereizt, und die Wesen der Gebiete fressen sich stark.', gerede: 'Das Wasser schmeckt nach Kupfer und Kräutern. Der Apotheker verkauft keine Tropfen mehr, sagt, er traut seinen eigenen nicht.' },
-      steps: [W('Das Wasser der Welt vergiften'), O({ items: { wurf_spreng: 10, wurf_saeure: 10, wurf_gift: 10 } }, 'Dreißig Wurfflaschen in den Kessel geben (je 10 Spreng, Säure, Gift)'), G({ noHeal: true }, 'Den Grenzwächter besiegen, ohne Heilung')] },
-    1: { name: 'Der Kessel der Welt', steps: [O({ items: { wurf_spreng: 25, wurf_saeure: 25, wurf_gift: 25 } }, 'Fünfundsiebzig Wurfflaschen in den Kessel geben'), Z(600, ['unruhe'], ['combat'], '600 Sekunden mit Unruhe 60 oder mehr, ohne Kampf und ohne die Kontrolle zu verlieren')] },
+      steps: [W('Das Wasser der Welt vergiften'),
+        K(8, 'wild', { minItems: 3, gruppe: 2 }, 'Acht Dreiergruppen in Folge, in jedem Kampf mindestens drei Gegenstände benutzt'),
+        O({ items: { wurf_spreng: 10, wurf_saeure: 10, wurf_gift: 10 } }, 'Dreißig Wurfflaschen in den Kessel geben (je 10 Spreng, Säure, Gift)'),
+        G('grenz', { noHeal: true }, 'Den Grenzwächter besiegen, ohne Heilung')] },
+    1: { name: 'Der Kessel der Welt', steps: [
+      O({ items: { wurf_spreng: 25, wurf_saeure: 25, wurf_gift: 25 } }, 'Fünfundsiebzig Wurfflaschen in den Kessel geben'),
+      Z(600, ['unruhe'], ['combat'], '600 Sekunden mit Unruhe 60 oder mehr, ohne Kampf und ohne die Kontrolle zu verlieren'),
+      K(15, 'wild', { minItems: 4, gruppe: 2 }, 'Fünfzehn Dreiergruppen in Folge, in jedem Kampf mindestens vier Gegenstände benutzt'),
+      G('grenz', { noHeal: true }, 'Den Grenzwächter besiegen, ohne Heilung', { noHealAll: true, scale: GRENZ_SCALE_1 }),
+      G('engel', { noHeal: true }, 'Sofort danach den Engelswächter, ohne Heilung dazwischen', { noHealAll: true })] },
   },
   eisen: {
-    3: { name: 'Der Amboss', steps: [K(10, 'wild', { startHp: 0.2, noHeal: true }, 'Zehn Kämpfe, jeder mit 20 % Leben begonnen, ohne Heilung im Kampf')] },
+    3: { name: 'Der Amboss', steps: [
+      K(6, 'wild', { startHp: 0.25, noHeal: true, gruppe: 1 }, 'Sechs Zweiergruppen, jeder Kampf mit 25 % Leben begonnen, ohne Heilung im Kampf'),
+      O({ artefakte: 2 }, 'Zwei Artefakte im Feuer opfern (für immer weg)'),
+      G('heilig', { minKillRound: 10, noDodge: true }, 'Den Heiligenwächter besiegen: er fällt nicht vor Runde 10, kein Ausweichen')] },
     2: { name: 'Die eiserne Ordnung', welt: { titel: 'Eiserne Ordnung', farbe: 0x3a3a3a, alpha: 0.14, wanted: 2, text: 'Die Städte verhärten. Mehr Wachen, schwerere Strafen, und selbst die Wesen tragen Panzer aus Rost.', gerede: 'Ausgangssperre ab der zehnten Stunde. Wer ohne Papiere gefunden wird, verschwindet.' },
-      steps: [W('Die Welt unter eiserne Ordnung zwingen'), O({ artefakte: 5 }, 'Fünf Artefakte im Feuer opfern (für immer weg)'), G({ minKillRound: 15, noDodge: true }, 'Den Grenzwächter besiegen: er fällt nicht vor Runde 15, kein Ausweichen')] },
-    1: { name: 'Die Last der Welt', steps: [Z(1500, ['danger', 'load'], ['combat'], '1500 Sekunden mit doppelter Last in Monstergebieten, ohne Kampf')] },
+      steps: [W('Die Welt unter eiserne Ordnung zwingen'),
+        K(6, 'wild', { startHp: 0.2, noHeal: true, gruppe: 2 }, 'Sechs Dreiergruppen, jeder Kampf mit 20 % Leben begonnen, ohne Heilung im Kampf'),
+        O({ artefakte: 5 }, 'Fünf Artefakte im Feuer opfern (für immer weg)'),
+        G('grenz', { minKillRound: 15, noDodge: true }, 'Den Grenzwächter besiegen: er fällt nicht vor Runde 15, kein Ausweichen')] },
+    1: { name: 'Die Last der Welt', steps: [
+      Z(1500, ['danger', 'load'], ['combat'], '1500 Sekunden mit doppelter Last in Monstergebieten, ohne Kampf'),
+      K(10, 'wild', { startHp: 0.15, noHeal: true, gruppe: 2 }, 'Zehn Dreiergruppen, jeder Kampf mit 15 % Leben begonnen, ohne Heilung im Kampf'),
+      G('grenz', { minKillRound: 15, noDodge: true }, 'Den Grenzwächter besiegen: er fällt nicht vor Runde 15, kein Ausweichen', { noHealAll: true, scale: GRENZ_SCALE_1 }),
+      G('engel', { minKillRound: 20, noDodge: true }, 'Sofort danach den Engelswächter: er fällt nicht vor Runde 20, ohne Heilung dazwischen', { noHealAll: true })] },
   },
   schluessel: {
-    3: { name: 'Tausend Türen', steps: [Z(480, ['danger'], ['combat'], '480 Sekunden unbemerkt in Monstergebieten (kein Kampf)'), K(8, 'wild', { noParry: true, noItems: true }, 'Danach acht Siege ohne Parade und ohne Gegenstände')] },
+    3: { name: 'Tausend Türen', steps: [
+      Z(480, ['danger'], ['combat'], '480 Sekunden unbemerkt in Monstergebieten (kein Kampf)'),
+      K(8, 'wild', { noParry: true, noItems: true, gruppe: 1 }, 'Danach acht Zweiergruppen ohne Parade und ohne Gegenstände'),
+      G('heilig', { noItems: true }, 'Den Heiligenwächter besiegen, ohne Gegenstände')] },
     2: { name: 'Alle Schlösser offen', welt: { titel: 'Offene Schlösser', farbe: 0x1a1a3a, alpha: 0.16, wanted: 2, text: 'In einer Nacht springen überall die Schlösser auf. Diebe werden dreist, Wachen nervös, und nichts ist mehr verschlossen, was dich aufhalten könnte.', gerede: 'Alle Türen der Straße standen heute Morgen offen. Nichts fehlte, aber jeder hat seither Angst.' },
-      steps: [W('Alle Schlösser der Welt öffnen'), O({ money: 50000 }, '50 000 Schilling an die Schatten zahlen'), G({ noParry: true, noItems: true }, 'Den Grenzwächter besiegen, ohne Parade und ohne Gegenstände')] },
-    1: { name: 'Die letzte Tür', steps: [Z(1500, ['danger'], ['combat'], '1500 Sekunden in Monstergebieten ohne Kampf, dabei fünf verschiedene Gebiete betreten', { maps: 5 })] },
+      steps: [W('Alle Schlösser der Welt öffnen'),
+        K(8, 'wild', { noParry: true, noItems: true, gruppe: 2 }, 'Acht Dreiergruppen ohne Parade und ohne Gegenstände'),
+        O({ money: 50000 }, '50 000 Schilling an die Schatten zahlen'),
+        G('grenz', { noParry: true, noItems: true }, 'Den Grenzwächter besiegen, ohne Parade und ohne Gegenstände')] },
+    1: { name: 'Die letzte Tür', steps: [
+      Z(1500, ['danger'], ['combat'], '1500 Sekunden in Monstergebieten ohne Kampf, dabei fünf verschiedene Gebiete betreten', { maps: 5 }),
+      K(15, 'wild', { noParry: true, noItems: true, gruppe: 2 }, 'Fünfzehn Dreiergruppen in Folge, ohne Parade und ohne Gegenstände'),
+      G('grenz', { noParry: true, noItems: true }, 'Den Grenzwächter besiegen, ohne Parade und ohne Gegenstände', { noHealAll: true, scale: GRENZ_SCALE_1 }),
+      G('engel', { noParry: true, noItems: true }, 'Sofort danach den Engelswächter, ohne Heilung dazwischen', { noHealAll: true })] },
   },
   sq_waage: {
-    3: { name: 'Das Gleichgewicht', steps: [O({ money: 25000 }, '25 000 Schilling auf die Waage legen'), K(10, 'wild', { endMin: { hp: 0.5, nerves: 0.5 } }, 'Zehn Siege, jeder mit mindestens halbem Leben und halben Nerven beendet')] },
+    3: { name: 'Das Gleichgewicht', steps: [
+      O({ money: 25000 }, '25 000 Schilling auf die Waage legen'),
+      K(8, 'wild', { endMin: { hp: 0.5, nerves: 0.5 }, gruppe: 1 }, 'Acht Zweiergruppen, jeder Sieg mit mindestens halbem Leben und halben Nerven beendet'),
+      G('heilig', { endMin: { hp: 0.4, nerves: 0 } }, 'Den Heiligenwächter besiegen und dabei über 40 % Leben bleiben')] },
     2: { name: 'Der Preis der Welt', welt: { titel: 'Teure Welt', farbe: 0x4a3a10, alpha: 0.12, wanted: 1, text: 'Jeder Preis kippt. Brot kostet wie Silber, und wer Geld hat, wird gejagt. Die Wesen werden gieriger und stärker.', gerede: 'Ein Laib Brot für den Wochenlohn. Wer jetzt noch Geld hat, sollte es nicht zeigen.' },
-      steps: [W('Die Preise der Welt kippen'), O({ money: 50000 }, '50 000 Schilling auf die Waage legen'), G({ endMin: { hp: 0.5, nerves: 0 } }, 'Den Grenzwächter besiegen und dabei über halbem Leben bleiben')] },
-    1: { name: 'Die leere Waagschale', steps: [O({ money: 100000 }, '100 000 Schilling auf die Waage legen')] },
+      steps: [W('Die Preise der Welt kippen'),
+        O({ money: 50000 }, '50 000 Schilling auf die Waage legen'),
+        K(8, 'wild', { endMin: { hp: 0.5, nerves: 0.5 }, gruppe: 2 }, 'Acht Dreiergruppen, jeder Sieg mit mindestens halbem Leben und halben Nerven beendet'),
+        G('grenz', { endMin: { hp: 0.5, nerves: 0 } }, 'Den Grenzwächter besiegen und dabei über halbem Leben bleiben')] },
+    1: { name: 'Die leere Waagschale', steps: [
+      O({ money: 100000 }, '100 000 Schilling auf die Waage legen'),
+      K(15, 'wild', { endMin: { hp: 0.6, nerves: 0.6 }, gruppe: 2 }, 'Fünfzehn Dreiergruppen, jeder Sieg mit mindestens 60 % Leben und Nerven beendet'),
+      G('grenz', { endMin: { hp: 0.5, nerves: 0 } }, 'Den Grenzwächter besiegen und über halbem Leben bleiben', { noHealAll: true, scale: GRENZ_SCALE_1 }),
+      G('engel', { endMin: { hp: 0.25, nerves: 0 } }, 'Sofort danach den Engelswächter, über 25 % Leben, ohne Heilung dazwischen', { noHealAll: true })] },
   },
   sq_moor: {
-    3: { name: 'Alles verrottet', steps: [K(10, 'wild', { decayPct: 0.08 }, 'Zehn Siege in Folge, jede Runde zerfallen 8 % deines Lebens')] },
+    3: { name: 'Alles verrottet', steps: [
+      K(8, 'wild', { decayPct: 0.06, gruppe: 1 }, 'Acht Zweiergruppen in Folge, jede Runde zerfallen 6 % deines Lebens'),
+      P('moor', 5, 'Fünf Namensproben ohne einen Fehler'),
+      G('heilig', { decayPct: 0.02 }, 'Den Heiligenwächter besiegen, jede Runde zerfallen 2 % deines Lebens')] },
     2: { name: 'Das steigende Moor', welt: { titel: 'Steigendes Moor', farbe: 0x1a2a1a, alpha: 0.16, wanted: 1, text: 'Das Moor kriecht in die Städte. Keller laufen voll, Holz fault in Tagen, und was im Torf schlief, wacht auf.', gerede: 'Unser Keller ist voll Torfwasser. Der Pfarrer sagt, das Moor holt sich zurück, was ihm gehört.' },
-      steps: [W('Das Moor in die Welt steigen lassen'), P('moor', 10, 'Zehn Namensproben ohne einen Fehler'), G({ decayPct: 0.03 }, 'Den Grenzwächter besiegen, jede Runde zerfallen 3 % deines Lebens')] },
-    1: { name: 'Das Gedächtnis des Moores', steps: [P('moor', 25, 'Fünfundzwanzig Namensproben ohne einen Fehler')] },
+      steps: [W('Das Moor in die Welt steigen lassen'),
+        K(8, 'wild', { decayPct: 0.08, gruppe: 2 }, 'Acht Dreiergruppen in Folge, jede Runde zerfallen 8 % deines Lebens'),
+        P('moor', 10, 'Zehn Namensproben ohne einen Fehler'),
+        G('grenz', { decayPct: 0.03 }, 'Den Grenzwächter besiegen, jede Runde zerfallen 3 % deines Lebens')] },
+    1: { name: 'Das Gedächtnis des Moores', steps: [
+      P('moor', 25, 'Fünfundzwanzig Namensproben ohne einen Fehler'),
+      K(15, 'wild', { decayPct: 0.1, gruppe: 2 }, 'Fünfzehn Dreiergruppen in Folge, jede Runde zerfallen 10 % deines Lebens'),
+      G('grenz', { decayPct: 0.03 }, 'Den Grenzwächter besiegen, jede Runde zerfallen 3 % deines Lebens', { noHealAll: true, scale: GRENZ_SCALE_1 }),
+      G('engel', { decayPct: 0.04 }, 'Sofort danach den Engelswächter, 4 % Zerfall je Runde, ohne Heilung dazwischen', { noHealAll: true })] },
   },
   sq_uhr: {
-    3: { name: 'Die stehende Stunde', steps: [K(10, 'wild', { minKillRound: 6, maxRounds: 8 }, 'Zehn Siege, jeder genau in Runde 6 bis 8')] },
+    3: { name: 'Die stehende Stunde', steps: [
+      K(8, 'wild', { minKillRound: 6, maxRounds: 8, gruppe: 1 }, 'Acht Zweiergruppen, jede genau in Runde 6 bis 8 besiegt'),
+      P('uhr', 5, 'Fünf Fristproben ohne einen Fehler'),
+      G('heilig', { minKillRound: 10, maxRounds: 14 }, 'Den Heiligenwächter genau in Runde 10 bis 14 besiegen')] },
     2: { name: 'Die verrückte Zeit', welt: { titel: 'Verrückte Zeit', farbe: 0x2a2a4a, alpha: 0.12, wanted: 1, text: 'Alle Uhren der Welt gehen falsch. Wachen kommen zu früh, Züge zu spät, und die Wesen sind schneller als ihre Schatten.', gerede: 'Die Rathausuhr hat heute dreimal Mitternacht geschlagen. Keiner weiß mehr, wann die Wache wechselt.' },
-      steps: [W('Die Zeit der Welt verrücken'), P('uhr', 10, 'Zehn Fristproben ohne einen Fehler'), G({ minKillRound: 12, maxRounds: 15 }, 'Den Grenzwächter genau in Runde 12 bis 15 besiegen')] },
-    1: { name: 'Die Uhr ohne Zeiger', steps: [P('uhr', 25, 'Fünfundzwanzig Fristproben ohne einen Fehler')] },
+      steps: [W('Die Zeit der Welt verrücken'),
+        K(8, 'wild', { minKillRound: 6, maxRounds: 8, gruppe: 2 }, 'Acht Dreiergruppen, jede genau in Runde 6 bis 8 besiegt'),
+        P('uhr', 10, 'Zehn Fristproben ohne einen Fehler'),
+        G('grenz', { minKillRound: 12, maxRounds: 15 }, 'Den Grenzwächter genau in Runde 12 bis 15 besiegen')] },
+    1: { name: 'Die Uhr ohne Zeiger', steps: [
+      P('uhr', 25, 'Fünfundzwanzig Fristproben ohne einen Fehler'),
+      K(15, 'wild', { minKillRound: 7, maxRounds: 7, gruppe: 2 }, 'Fünfzehn Dreiergruppen, jede genau in Runde 7 besiegt'),
+      G('grenz', { minKillRound: 12, maxRounds: 15 }, 'Den Grenzwächter genau in Runde 12 bis 15 besiegen', { noHealAll: true, scale: GRENZ_SCALE_1 }),
+      G('engel', { minKillRound: 18, maxRounds: 20 }, 'Sofort danach den Engelswächter genau in Runde 18 bis 20, ohne Heilung dazwischen', { noHealAll: true })] },
   },
 };
-// Zusätze, die nicht in die Kurzschreibweise passen
-HOCH.faden[3].steps[0].noHealAll = true;
-HOCH.schluessel[1].steps[0].maps = 5;
 
 /**
  * Seb (2026-11-12): für Sequenz 3 tritt man der Gilde (Sekte) seines Pfades bei, zehn Gilden ab Dunscar, je eine pro Pfad.
@@ -264,6 +381,29 @@ export function applySeqHoch(content) {
     pathways[pid] = { ...p, seqs };
   }
   content.pathways = pathways;
+  // Wächter der Rituale 3 bis 1: eigene Kämpfe aus den Körpern der Schwellen-/Grenzwächter, mit den Fertigkeiten des Pfades
+  for (const pid of Object.keys(HOCH)) {
+    const p = content.pathways[pid];
+    if (!p) continue;
+    for (const w of Object.values(HOCH_WAECHTER)) {
+      const id = w.id(pid);
+      const body = content.encounters[`${w.from}_${pid}`];
+      if (!body) continue;
+      if (id !== `${w.from}_${pid}`) {
+        const was = p.name.replace('Pfad der', 'der').replace('Pfad des', 'des');
+        content.encounters[id] = { ...body, id, name: `${w.titel} ${was}`,
+          intro: `${body.intro ?? ''}\n\nDer ${w.titel} steht eine Stufe über allem, was du bisher gesehen hast.` };
+      }
+      // Pfad-Fertigkeiten kommen zu den eigenen Angriffen dazu (Welle und Zorn-Phase des Körpers bleiben)
+      const e = content.encounters[id];
+      if (e.beyonder) continue;
+      const extra = pfadAngriffe(content, pid, w.seq, e);
+      const mit = (list) => [...(list ?? []).filter((a) => !a.pfad), ...extra];
+      content.encounters[id] = { ...e, beyonder: true, beyonder_pfad: pid, beyonder_seq: w.seq, attacks: mit(e.attacks),
+        ...(e.phase2?.attacks ? { phase2: { ...e.phase2, attacks: mit(e.phase2.attacks) } } : {}),
+        intro: `${e.intro ?? ''}\n\n${beyonderSatz(content, pid, w.seq)}` };
+    }
+  }
   // Orte
   const maps = { ...content.maps };
   const encounters = { ...content.encounters };
