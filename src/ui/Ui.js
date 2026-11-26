@@ -1096,19 +1096,12 @@ export class Ui {
       <div class="build-stamp" style="font-size:9px;opacity:.55">Stand ${esc(typeof __BUILD__ !== 'undefined' ? __BUILD__ : 'dev')}</div>
       <div class="saveslots">${slots.map(({ n, save: d }) => this.slotRow(n, d, n === active)).join('')}</div>
       <div class="controls touch-only">
-        <div>Tippen: hinlaufen · auf Personen und Dinge tippen: sprechen / untersuchen</div>
-        <div>Finger halten und ziehen: die Figur folgt dem Finger</div>
-        <div>Knöpfe oben rechts: Notizbuch, Inventar, Pfad, Geistsicht, Menü</div>
-        <div>Leiste unten links: Welt-Fähigkeiten antippen</div>
-        <div>Kampf: tippen für den Takt · Knöpfe für Ausweichen und Parieren</div>
+        <div>Tippen: laufen, sprechen, untersuchen</div>
+        <div>Knöpfe oben rechts: Notizbuch, Menü und mehr</div>
       </div>
       <div class="controls no-touch">
-        <div><span class="key">WASD</span> / <span class="key">Pfeile</span> laufen · oder hinklicken</div>
-        <div><span class="key">E</span> untersuchen / sprechen</div>
-        <div><span class="key">Q</span> Geistsicht (kostet Nerven)</div>
-        <div><span class="key">1</span>–<span class="key">9</span> Welt-Fähigkeiten (Leiste unten links)</div>
-        <div><span class="key">J</span> Notizbuch: Aufträge, Quellen, Schlussfolgerungen</div>
-        <div><span class="key">Esc</span> Menü: Spieler 2 hinzufügen oder entfernen</div>
+        <div><span class="key">WASD</span> laufen · <span class="key">E</span> sprechen · <span class="key">Q</span> Geistsicht</div>
+        <div><span class="key">J</span> Notizbuch · <span class="key">1</span>–<span class="key">9</span> Fähigkeiten · <span class="key">Esc</span> Menü</div>
       </div>
       ${card}
       <div class="actions center">
