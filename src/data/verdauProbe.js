@@ -60,7 +60,7 @@ export function applyVerdauProbe(content) {
       on_win: {},
     };
     const near = map.spawns.default;
-    map.interactables.push({ id: `o3_${pid}_pruefstein`, kind: 'read', tile: freieKachel(map, { near: [near[0] - 3, near[1] + 2] }), prompt: 'Der Prüfstein des Viertels', marker: true,
+    map.interactables.push({ id: `o3_${pid}_pruefstein`, kind: 'read', tile: freieKachel(map, { near: [near[0] + 7, near[1] + 1] }), prompt: 'Der Prüfstein des Viertels', marker: true, label: 'Prüfstein (Verdauung)', // gut sichtbar rechts vom Eingang, nicht unter der Anzeige am linken Rand
       title: `Prüfstein: ${def.name}`, visible_if: { requires_flags: ['k4_arrived'], requires_pathway: [pid, 4] }, effects: { verdau_probe: pid },
       text: `Ein Stein, der warm ist wie eine Hand. Wer diesen Pfad geht, kann sich ihm einmal am Tag stellen.\n\n${def.regel}\n\nBestanden: 15 % deines Tranks sofort verdaut. Misslungen: 1 bis 5 %. Allein, ein Versuch je Spieltag.` });
   }
