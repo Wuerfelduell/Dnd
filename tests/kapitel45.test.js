@@ -171,23 +171,15 @@ test('Balance Kapitel 4/5: mit Ausrüstung der Stufe 4 und Sequenz 4 (Halbgott) 
     s.hp = s.maxHp;
     return s;
   };
-  const normal = Object.entries(content.encounters).filter(([, e]) => e.wild && e.chapter >= 4 && !e.boss && !e.elite);
-  assert.ok(normal.length >= 20);
-  let won = 0;
-  for (const [id, e] of normal) {
-    // Briarholt ist seit dem Ausbau (2026-11-15) Gebiet für Sequenz 3 (bh_seq3)
-    const { result } = fight(geared(e.bh_seq3 ? 3 : 4), id, { defend: EXPERT, skill: 'double', healBelow: 20 });
-    if (result.outcome === 'won') won++;
-  }
-  assert.ok(won >= normal.length * 0.8, `nur ${won} von ${normal.length} Siege`);
-  const { result } = fight(geared(), 'vg_cw_boss_bleisammler', { defend: (i) => (i % 2 ? 'miss' : 'dodge') });
+  // Seb 2026-11-26: Calderwick/Briarholt tragen Koop-Leben 10.000–35.000 (gegnerlebenSpaet.js); Siege prüft die einfache Solo-Simulation
+  // darum nicht mehr, sondern wie viel Leben Sequenz 4 gegenüber Sequenz 5 in 20 Runden abträgt (Halbgott-Sprung)
+  const normal = Object.entries(content.encounters).filter(([id, e]) => e.wild && e.chapter >= 4 && !e.boss && !e.elite && /^vg_(cw|all)_/.test(id));
+  assert.ok(normal.length >= 10, `${normal.length}`);
+  const dealt = (seq) => normal.reduce((sum, [id]) => { const { combat } = fight(geared(seq), id, { defend: EXPERT, skill: 'double', healBelow: 20, maxRounds: 20 }); return sum + (combat.enemy.maxHp - combat.enemy.hp); }, 0);
+  const d4 = dealt(4), d5 = dealt(5);
+  assert.ok(d4 > d5 * 1.3, `Sequenz 4 trägt ${d4} ab, Sequenz 5 ${d5}`);
+  const { result } = fight(geared(), 'vg_cw_boss_bleisammler', { defend: (i) => (i % 2 ? 'miss' : 'dodge'), maxRounds: 200 });
   assert.equal(result.outcome, 'lost');
-  // Ohne den Halbgott-Sprung (Sequenz 5) sind die Calderwicker Gegner eine Nummer zu groß
-  let wonSeq5 = 0;
-  for (const [id] of normal.filter(([i]) => /^vg_(cw|all)_/.test(i))) {
-    if (fight(geared(5), id, { defend: EXPERT, skill: 'double', healBelow: 20 }).result.outcome === 'won') wonSeq5++;
-  }
-  assert.ok(wonSeq5 <= normal.length * 0.5, `Sequenz 5 gewinnt ${wonSeq5} von ${normal.length}`);
 });
 
 test('Feste-Leben (CK): Buden, Gäste und Auftrag nur am Festtag; Saisonwirkungen liegen einmal je Jahreszeit auf den Märkten; kein Stiller Abend', () => {
