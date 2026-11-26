@@ -100,7 +100,7 @@ export function withHalbgottFertigkeiten(pathways) {
     const seqs = { ...p.seqs };
     for (const [n, s] of Object.entries(seqs)) {
       if (+n > HG_SKILL_SEQ || !s) continue;
-      seqs[n] = { ...s, ...(s.skill ? { skill: convert(s.skill) } : {}), ...(s.skill2 ? { skill2: convert(s.skill2) } : {}) };
+      seqs[n] = { ...s, ...(s.skill ? { skill: convert(s.skill) } : {}), ...(s.skill2 ? { skill2: convert(s.skill2) } : {}), ...(s.skill3 ? { skill3: convert(s.skill3) } : {}) };
     }
     out[pid] = { ...p, seqs };
   }

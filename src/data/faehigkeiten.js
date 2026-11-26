@@ -16,6 +16,7 @@ export function faehigkeitenIds(data) {
     if (typeof seqs !== 'object' || Array.isArray(seqs)) continue;
     for (const sd of Object.values(seqs)) {
       if (sd?.kampf?.id) out.kampf.push(sd.kampf.id);
+      if (sd?.kampf3?.id) out.kampf.push(sd.kampf3.id);
       if (sd?.welt?.id) out.welt.push(sd.welt.id);
       if (sd?.welt_50?.id) out.welt.push(sd.welt_50.id);
     }
@@ -36,6 +37,7 @@ export function withFaehigkeiten(pathways, data) {
       seqs[n] = {
         ...seqs[n],
         ...(extra.kampf ? { skill2: { ...extra.kampf } } : {}),
+        ...(extra.kampf3 ? { skill3: { ...extra.kampf3 } } : {}), // dritte Kampffertigkeit (bisher nur Moor Seq 4)
         ...(extra.welt ? { talent: { ...extra.welt } } : {}),
         ...(extra.welt_50 ? { talent_50: { ...extra.welt_50 } } : {}), // ersetzt `talent` ab 50 % Verdauung dieser Sequenz
       };

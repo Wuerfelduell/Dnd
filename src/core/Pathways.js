@@ -117,7 +117,7 @@ export const HALBGOTT_EIGENHEIT = {
   eisen: { key: 'damage_taken', value: 0.85, text: 'Halbgott des Eisens: noch einmal 15 % weniger Schaden.' },
   schluessel: { key: 'money_bonus', value: 1.3, text: 'Halbgott des Schlüssels: +30 % Schilling aus Beute und Belohnungen.' },
   sq_waage: { key: 'damage_taken', value: 0.85, text: 'Halbgott der Waage: noch einmal 15 % weniger Schaden.' },
-  sq_moor: { key: 'torf_retter', value: 1, text: 'Halbgott des Moors: Einmal je Kampf fängt der Torf einen tödlichen Treffer an dir oder deinem Partner ab. Der Getroffene bleibt mit 1 Leben stehen und erhält Schutz in Höhe eines Viertels seines Lebens.' },
+  sq_moor: { key: 'shield_mult', value: 1.25, text: 'Halbgott des Moors: Dein Schutz fällt 25 % stärker aus.' },
   sq_uhr: { key: 'parry_ap', value: 1, text: 'Halbgott der Uhr: Paraden geben eine Konzentration mehr.' },
 };
 /**
@@ -292,7 +292,7 @@ const TRADE_SELL_MAX = 1.6;
 const TRADE_SELL_OF_BUY = 0.8;
 
 const MULT_KEYS = new Set(['vision_cost', 'composure_regen', 'heal_bonus', 'price', 'sell', 'honor_loss', 'recognize', 'occult_mult',
-  'money_bonus', 'skill_composure', 'calm_decay', 'dodge_window', 'damage_taken', 'digest_mult', 'dmg_mult', 'hurry_cost', 'unruhe_gain']);
+  'money_bonus', 'shield_mult', 'skill_composure', 'calm_decay', 'dodge_window', 'damage_taken', 'digest_mult', 'dmg_mult', 'hurry_cost', 'unruhe_gain']);
 
 
 export const pathwayMethods = {
@@ -449,6 +449,7 @@ export const pathwayMethods = {
     for (const s of this.reachedSeqs()) {
       if (s.skill) out[s.skill.id] = { ...pick(s.skill), pathway: s.pid, seq: s.seq };
       if (s.skill2) out[s.skill2.id] = { ...pick(s.skill2), pathway: s.pid, seq: s.seq, second: true };
+      if (s.skill3) out[s.skill3.id] = { ...pick(s.skill3), pathway: s.pid, seq: s.seq, second: true, third: true };
     }
     return out;
   },
