@@ -43,6 +43,7 @@ import { applyBenannte } from './benannte.js';
 import { applyDunscarSchlacke } from './dunscarSchlacke.js';
 import { applyDunscarStimmen } from './dunscarStimmen.js';
 import { applyKapitelAusgleich, applySpaetBeute } from './kapitelAusgleich.js';
+import { applyGegnerlebenSpaet } from './gegnerlebenSpaet.js';
 import { applyHaendlerAbgleich } from './haendlerAbgleich.js';
 import { applyKettlegateZirkel } from './kettlegateZirkel.js';
 import { applyPreisAbgleich } from './preisAbgleich.js';
@@ -172,6 +173,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyCalderwickKulisse(content); // Calderwick: Häuser, Möbelblöcke, Fassaden, Rohrpost, Laternen, Licht und Nebel; Pfadviertel mit Verderbnis-Glimmen
   applyGeistessenz(content); // Geisteressenz ab Dunscar: jeder Gegner 8 %, Elite 15 %, Boss 35 % (nach allen Beute-Umbauten)
   applySpaetBeute(content); // Trophäen Kapitel 4/5 ×15 (Kauf und Verkauf, nach allen Händlern)
+  applyGegnerlebenSpaet(content); // Seb 2026-11-26: Calderwick 10–25k, Briarholt 15–35k Leben (Koop), Schaden ×1,3
   gateStarlingHinweise(content); // Seb 2026-11-18: Starling-Gerüchte erst im Fall „Finde Starling“ (ganz zuletzt)
   return content;
 }

@@ -1498,11 +1498,13 @@ export class Combat {
         if (!deferLoot && loot) takeLoot(s, loot, enc.name);
         // Verdauung: Bosse und Elite zählen mehrfach, gefährliche Gebiete obendrauf; der Boss selbst verdaut jeden Pfad
         const zoneMult = 1 + Math.max(0, (this.zoneTier ?? 1) - 1) * ZONE_DIGEST_STEP;
-        const fightMult = (enc.boss ? FIGHT_DIGEST_MULT.boss : enc.elite ? FIGHT_DIGEST_MULT.elite : 1) * zoneMult;
+        // `verdau_mult`: Seb 2026-11-26, Calderwick-Siege ×10 (Boss-Fixwert boss_win bleibt unberührt)
+        const vm = enc.verdau_mult ?? 1;
+        const fightMult = (enc.boss ? FIGHT_DIGEST_MULT.boss : enc.elite ? FIGHT_DIGEST_MULT.elite : 1) * zoneMult * vm;
         s.act('combat_win', fightMult);
         if (enc.occult) s.act('occult_win', fightMult);
         if (enc.boss) s.act('boss_win', zoneMult);
-        else if (enc.elite) s.act('elite_win', zoneMult);
+        else if (enc.elite) s.act('elite_win', zoneMult * vm);
         // Begleiter einer Gruppe: eigene Beute (Wiederholungstabelle) und ein Teil der Verdauung je Gegner
         for (let i = 1; i < this.foes.length; i++) this.withFoe(i, () => {
           s.flags.add(`won_${this.id}`);
@@ -1514,7 +1516,7 @@ export class Combat {
             for (const [id, n] of Object.entries(extra.items)) loot.items[id] = (loot.items[id] ?? 0) + n;
           }
           const tier = 1 + Math.max(0, (this.zoneTier ?? 1) - 1) * ZONE_DIGEST_STEP;
-          const mult = GROUP_REWARD * (this.enc.elite ? FIGHT_DIGEST_MULT.elite : 1) * tier;
+          const mult = GROUP_REWARD * (this.enc.elite ? FIGHT_DIGEST_MULT.elite : 1) * tier * (this.enc.verdau_mult ?? 1);
           s.act('combat_win', mult);
           if (this.enc.occult) s.act('occult_win', mult);
         });
