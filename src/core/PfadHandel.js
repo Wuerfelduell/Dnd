@@ -84,7 +84,9 @@ export const pfadHandelMethods = {
     }
     if (e.pfand) for (const id of this.phArtifacts().slice(0, e.pfand)) this.removeItem(id, 1);
     if (e.fight) {
-      all.pending = { fight: e.fight, step: e.step ?? null };
+      // Dunscar: wer den Kampf ruft und nicht auf dem Pfad der Zutat ist, kämpft unter rules_nachbar
+      const o = this.content.pfadHandel?.offers.find((x) => x.fight === e.fight);
+      all.pending = { fight: e.fight, step: e.step ?? null, ...(o?.rules_nachbar && this.pathway?.id !== o.pathway ? { nachbar: true } : {}) };
       this.startCombat(e.fight);
     } else if (e.step) this.phRecord(...e.step);
   },
@@ -93,7 +95,8 @@ export const pfadHandelMethods = {
   pfadTaskRules(id, enc) {
     if (!enc || enc.practice || this.phState().pending?.fight !== id) return null;
     const o = this.content.pfadHandel?.offers.find((x) => x.fight === id || x.fights?.some((f) => f.id === id));
-    return o?.rules ? { ...o.rules, pfad: true } : null;
+    const rules = o?.rules_nachbar && this.phState().pending?.nachbar ? o.rules_nachbar : o?.rules;
+    return rules ? { ...rules, pfad: true } : null;
   },
 
   /** Kampfregeln der Serien-Aufgaben (Combat fragt, wenn keine Seq-4-Prüfung Regeln setzt). */

@@ -153,10 +153,13 @@ export const PH_OFFERS = [
  * darf kaufen, auch Spieler 2 (requires_pfad_einer). Wucher auf Dunscar-Niveau oder ein verstärkter Dunscar-Boss mit
  * Regel, den der Einzelgänger selbst ruft (direct). Formeln nie.
  */
+/** Regel für Käufer vom Nachbarpfad (rules_nachbar): ohne Heilung statt der Pfadregel (taub, kein Ausweichen, Moorwasser). */
+const NACHBAR_HINWEIS = '„Du gehst nicht meinen Pfad. Dann gilt für dich etwas anderes: Du kämpfst ohne jede Heilung.“';
+const NACHBAR_KAMPF = 'Es kommt. Für dich gilt die Regel des Nachbarn: keine Heilung, kein Trank, kein Verband.';
 export const DS_PH_LONERS = ['ez_ds_rangierer', 'ez_ds_kalkbrennerin', 'ez_ds_streckenlaeufer', 'ez_ds_walzenstimme', 'ez_ds_schrankenkind'];
 export const DS_PH_OFFERS = [
   // Holm Varley, der Rangierer (Eisen): Eisen + Waage
-  { id: 'ds_eisen4', npc: 'ez_ds_rangierer', pathway: 'eisen', seq: 4, kind: 'aufgabe', item: Z('eisen', 4), task: 'kampf', fight: 'ph_ds_prellbock', rules: { noDodge: true }, direct: true, nachbar: true,
+  { id: 'ds_eisen4', npc: 'ez_ds_rangierer', pathway: 'eisen', seq: 4, kind: 'aufgabe', item: Z('eisen', 4), task: 'kampf', fight: 'ph_ds_prellbock', rules: { noDodge: true }, rules_nachbar: { noHeal: true }, direct: true, nachbar: true,
     ask: '„Am Prellbock der Rangierwüste steht ein Vorhauer, den keiner bestellt hat. Er hält den letzten Wagen fest, und in dessen Kupplung steckt eine Niete, die einen ganzen Zug getragen hat. Ich rufe ihn. Du besiegst ihn, ohne auszuweichen. Wer ausweicht, ist kein Puffer.“',
     fightText: 'Holm schlägt mit dem Hemmschuh gegen die Schiene. Von weit her antwortet ein Hammer, und dann steht er da: der Vorhauer, breiter als jede Tür. Ausweichen gibt es nicht.',
     done: 'Holm bricht die Niete aus der Kupplung und legt sie dir in die Hand. „Tragende Niete. Die hält, was keiner bestellt hat.“' },
@@ -180,7 +183,7 @@ export const DS_PH_OFFERS = [
     fightText: 'Der Streckenläufer zieht am Draht. Irgendwo im Bruch klirrt es, und der Vorhauer kommt, den Draht um die Arme gewickelt wie eine Spule. Heilen kannst du hier nicht.',
     done: 'Der Streckenläufer wickelt den Draht von einer kleinen Spule ab und gibt sie dir. „Lückenspule. Was fehlt, hält sie fest.“' },
   // Jory Pell, die Walzenstimme (Echo): Echo + Maske
-  { id: 'ds_echo4', npc: 'ez_ds_walzenstimme', pathway: 'echo', seq: 4, kind: 'aufgabe', item: Z('echo', 4), task: 'kampf', fight: 'ph_ds_vielrufer', rules: { deaf: true }, direct: true, nachbar: true,
+  { id: 'ds_echo4', npc: 'ez_ds_walzenstimme', pathway: 'echo', seq: 4, kind: 'aufgabe', item: Z('echo', 4), task: 'kampf', fight: 'ph_ds_vielrufer', rules: { deaf: true }, rules_nachbar: { noHeal: true }, direct: true, nachbar: true,
     ask: '„Der Vielrufer in der Rufschlucht hat alle Stimmen der Schicht gefressen. Ich singe ihn her. Aber wenn er kommt, hörst du nichts mehr, keinen Ruf, keine Warnung. Besiege ihn taub, dann gibt er eine Pause her.“',
     fightText: 'Jory singt einen Ton, der zu tief für einen Menschen ist. Die Schlucht antwortet mit hundert Stimmen, und dann wird es still. Der Vielrufer ist da, und du hörst nichts mehr.',
     done: 'Jory hält ein leeres Fläschchen an die Lippen des Besiegten und verkorkt es. „Atempause. Die letzte, die er hatte.“' },
@@ -188,7 +191,7 @@ export const DS_PH_OFFERS = [
     ask: '„Rückseitenwachs? Damit versiegeln sie die Walzen, auf denen die Stimmen der Toten liegen. Hinten drauf bleibt ein Gesicht. 8500 Schilling und ein Klumpen Schichtgold. Ich singe nicht umsonst.“',
     done: 'Jory schabt das Wachs von einer alten Walze. Auf der Rückseite ist ein Gesicht eingedrückt, das dich ansieht. „Rückseitenwachs. Trag es, wie du willst.“' },
   // Wenna, das Schrankenkind (Moor): Moor + Schlüssel (die Schranke)
-  { id: 'ds_moor4', npc: 'ez_ds_schrankenkind', pathway: 'sq_moor', seq: 4, kind: 'aufgabe', item: Z('moor', 4), task: 'kampf', fight: 'ph_ds_grundwasser', rules: { moorwater: true }, direct: true, nachbar: true,
+  { id: 'ds_moor4', npc: 'ez_ds_schrankenkind', pathway: 'sq_moor', seq: 4, kind: 'aufgabe', item: Z('moor', 4), task: 'kampf', fight: 'ph_ds_grundwasser', rules: { moorwater: true }, rules_nachbar: { noHeal: true }, direct: true, nachbar: true,
     ask: '„Unter dem Endbahnhof steht Grundwasser, und darin liegt die Unterschicht. Sie hat einen Namen verschluckt, ganz tief. Ich rufe sie hoch. Du trinkst jede Runde Moorwasser, sonst lässt das Wasser dich los. Nimm genug mit.“',
     fightText: 'Wenna legt die Hand auf die Schranke und flüstert einen Namen. Das Pflaster wird nass, dann steigt die Unterschicht aus dem Grundwasser. Jede Runde musst du Moorwasser trinken.',
     done: 'Wenna fischt ein schlammiges Täfelchen aus der Pfütze. „Schichtname. Er gehört jetzt dir. Pass gut auf ihn auf.“' },
@@ -390,6 +393,13 @@ function offerNodes(c, o, menu) {
       // Dunscar: der Einzelgänger ruft den Gegner selbst
       choices.push({ text: `${item}: Ich bin bereit. Ruf ihn.`, next: `${base}_kampf`, requires_flags: [active], hide_if_flags: [fertig] });
       nodes[`${base}_kampf`] = { text: o.fightText, pfad: { fight: o.fight }, choices: [{ text: 'Kämpfen.' }] };
+      if (o.rules_nachbar) {
+        // Seb (2026-11-26): Wer die Zutat für den Nachbarpfad holt, kämpft unter einer Regel, die zu jedem Pfad passt
+        nodes[`${base}_frage`].text = `${o.ask}\n\n${NACHBAR_HINWEIS}`;
+        nodes[`${base}_frage2`].text = nodes[`${base}_frage`].text;
+        choices.at(-1).next = [{ node: `${base}_kampf`, requires_pathway: [o.pathway, 9] }, { node: `${base}_kampf_n` }];
+        nodes[`${base}_kampf_n`] = { text: NACHBAR_KAMPF, pfad: { fight: o.fight }, choices: [{ text: 'Kämpfen.' }] };
+      }
     }
     nodes[`${base}_lohn`] = { text: o.done, ...reward, ...(o.needs ? { takes_items: o.needs } : {}), choices: [toMenu] };
   }
