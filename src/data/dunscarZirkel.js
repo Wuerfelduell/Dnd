@@ -11,6 +11,7 @@
  * Ausrufpreise (Startgebot = 60 %). Seb (2026-11-12): alte Gegenstände zu alten Preisen (wie auf den Wexmoorer
  * Treffen, data/sequenzen.js TREFFEN/ZUTAT_TREFFEN), nur die neuen, wertvolleren dsz_*-Stücke kosten Tausende.
  */
+import { ZIRKEL_RAEUME } from './dunscarZirkelRaeume.js';
 export const DS_LOS = {
   formel: { 6: 640, 5: 900, 4: 4000, 3: 15000 }, // Seq 3 (Seb 2026-11-12): 1 % je Treffen, 15.000
   formel3Chance: 0.01,
@@ -248,6 +249,7 @@ const FLICKERIN_DIALOG = { start: 'start', nodes: { start: {
 const SEATS = [[12, 4], [5, 7], [12, 8], [19, 7], [8, 5], [16, 5], [8, 10], [16, 10]];
 
 function room(id, z) {
+  const r = ZIRKEL_RAEUME[id] ?? {};
   return {
     id: `treffen_${id}`,
     name: z.mapName,
@@ -257,9 +259,10 @@ function room(id, z) {
     spawns: { default: [3, 11] },
     lights: [{ tile: [12, 6], radius: 100, intensity: 0.7, color: z.light }],
     ambient: { night: 0.62, fog: 0 },
+    ...r,
     npcs: [...[z.host, ...z.members.map((m) => m.id)].map((n, i) => ({ id: n, tile: SEATS[i] })), { id: FLICKERIN, tile: FLICKERIN_PLATZ }],
     interactables: [{ id: `dsz_${id}_ausgang`, kind: 'door', tile: [3, 12], to: z.exit, spawn: 'default', prompt: 'Hinaus nach Dunscar', marker: true }],
-    decor: [],
+    decor: [...(r.decor ?? [])],
   };
 }
 
@@ -373,7 +376,8 @@ export function applyDunscarZirkel(content) {
       ...Object.entries(SCHICHTBUND_LEUTE).filter(([, d]) => d.zirkel === 'schichtbund').map(([id]) => ({ id, offers: [], wants: [] }))];
     circles.schichtbund = { ...sb, ...WAAGE.circle, host: WAAGE.host, members };
     if (bundMap) {
-      content.maps[sb.map] = { ...bundMap, name: WAAGE.mapName,
+      const r = ZIRKEL_RAEUME.schichtbund;
+      content.maps[sb.map] = { ...bundMap, ...r, decor: [...(bundMap.decor ?? []), ...r.decor], lights: [...(bundMap.lights ?? []), ...r.lights], name: WAAGE.mapName,
         npcs: [...[WAAGE.host, ...members.map((m) => m.id)].map((id, i) => ({ id, tile: SEATS[i] })), { id: FLICKERIN, tile: FLICKERIN_PLATZ }] };
     }
     content.travel = (content.travel ?? []).map((t) => (t.map === sb.map ? { ...t, name: WAAGE.circle.name, desc: `${WAAGE.desc} Nur während eines offenen Treffens.` } : t));

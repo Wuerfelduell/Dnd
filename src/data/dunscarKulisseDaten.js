@@ -96,3 +96,81 @@ export const DS_KULISSE = {
     streu: [['dst_bruch', [4, 5, 31], 0.05], ['dst_bruch', [6, 7], 0.02]],
   },
 };
+
+/**
+ * Monstergebiete mit mehr Liebe zum Detail (Seb 2026-11-26): zusammenhängende Bodenflecken, kleine Szenen aus
+ * mehreren Requisiten (Lorenlager, Steinmetzplatz, Kohlenhalde, Gräber der Verschütteten), Glut- und Horchlichter, Nebel.
+ * Was auf Gegnern, Lagern oder Wegen läge, lässt kulisse() wie immer weg.
+ */
+const LORE = 'o_russ_props_coal_cart';
+const KALK_A = 's_salz_props_salt_a';
+const KALK_B = 's_salz_props_salt_b';
+const GLUT = '#ff6a3a';
+const HORCH = '#6fe0d0';
+const KALKLICHT = '#e8e0c8';
+const mehr = (id, extra) => {
+  const k = DS_KULISSE[id] ?? (DS_KULISSE[id] = {});
+  k.ausweichen = true;
+  for (const [f, v] of Object.entries(extra)) k[f] = Array.isArray(v) ? [...(k[f] ?? []), ...v] : v;
+};
+
+mehr('ds_rangierwueste', {
+  flecken: [['dst_bahn', [47], 9, 2], ['dst_bahn', [45, 46], 7, 2.5]],
+  props: P([
+    // Lorenlager und Werkbank am Westgleis, Kohlenhalde mit Wasserkran in der Mitte, Abstellgleis mit Radsätzen im Osten
+    [LORE, 6, 9], [LORE, 9, 9], ['dsp_schwellenring_mechanic_workbench', 6, 16],
+    ['dsp_schwellenring_coal_heap', 22, 6], ['dsp_schwellenring_coal_heap', 26, 6], ['dsp_schwellenring_water_crane', 18, 13],
+    ['dsp_schwellenring_locomotive_wheel', 38, 9], ['dsp_schwellenring_locomotive_wheel', 41, 9], ['dsp_schwellenring_locomotive_wheel', 34, 23],
+    ['dsp_endbahnhof_waiting_bench', 14, 27], ['dsp_endbahnhof_luggage_trolley', 6, 27], [LORE, 28, 23], ['dsp_schwellenring_signal', 44, 20],
+  ], (s) => (/signal|wheel/.test(s) ? {} : fest)),
+  lichter: [[24, 7, GLUT, 40, 0.45], [7, 16, '#ffb860', 36, 0.5], [39, 23, GLUT, 30, 0.35]],
+  fog: 0.12,
+});
+
+mehr('ds_klopfbruch', {
+  flecken: [['dst_bahn', [47], 7, 1.6]],
+  props: P([
+    // Steinmetzplatz mit rohen Blöcken, Kalkhalden, Lorenzug am oberen Gleis
+    ['dsp_kalkmarkt_stonemason_workshop', 10, 9], ['dsp_kalkmarkt_blank_gravestone_square', 13, 10], ['dsp_kalkmarkt_blank_gravestone_square', 7, 10],
+    [KALK_A, 24, 9], [KALK_B, 28, 10], [KALK_A, 40, 25], [KALK_B, 15, 26],
+    [LORE, 22, 4], [LORE, 25, 4], [LORE, 36, 21], ['dsp_bruchsignal_survey_theodolite', 30, 17], ['dsp_bruchsignal_scaffold', 42, 17],
+  ], (s) => (/theodolite/.test(s) ? {} : fest)),
+  lichter: [[24, 8, KALKLICHT, 50, 0.4], [40, 24, KALKLICHT, 46, 0.35]],
+  fog: 0.16,
+});
+
+mehr('ds_rufschlucht', {
+  props: P([
+    // Horchposten mit Signalhütte, Messgerät und verlassenen Kalkhaufen der Vermesser
+    ['dsp_bruchsignal_signal_cabin', 18, 14], ['dsp_bruchsignal_survey_theodolite', 15, 14], ['dsp_bruchsignal_listening', 44, 10],
+    ['dsp_bruchsignal_listening', 30, 27], ['dsp_bruchsignal_survey_theodolite', 33, 9], [KALK_A, 7, 25], [KALK_B, 42, 20], [KALK_A, 31, 3],
+    ['dsp_endbahnhof_telegraph_desk', 21, 14],
+  ], (s) => (/listening/.test(s) ? { solid: true, light: HORCH } : /cabin|telegraph|salt/.test(s) ? fest : {})),
+  lichter: [[16, 12, HORCH, 40, 0.4], [33, 7, HORCH, 34, 0.35], [8, 18, HORCH, 50, 0.3], [40, 4, HORCH, 50, 0.3]],
+  fog: 0.2,
+});
+
+mehr('ds_unterschicht', {
+  flecken: [['dst_bahn', [47], 9, 1.8]],
+  props: P([
+    // Gräber der Verschütteten, Käfiglift, abgestellte Loren, Ofen der Nachtschicht
+    ['dsp_kalkmarkt_blank_gravestone_cross', 6, 8], ['dsp_kalkmarkt_blank_gravestone_round', 9, 8], ['dsp_kalkmarkt_blank_gravestone_pointed', 12, 8],
+    ['o_russ_props_cage', 20, 8], [LORE, 30, 9], [LORE, 33, 9], ['o_russ_props_stove', 40, 15], ['dsp_schwellenring_coal_heap', 44, 15],
+    [LORE, 17, 23], ['dsp_kalkmarkt_blank_gravestone_square', 36, 27], [KALK_B, 6, 22], ['dsp_bruchsignal_scaffold', 28, 16],
+  ], (s) => (/gravestone/.test(s) ? {} : fest)),
+  lichter: [[9, 7, '#9fb8d0', 40, 0.35], [40, 14, GLUT, 54, 0.6], [20, 7, '#ffb860', 30, 0.35]],
+  fog: 0.22,
+});
+
+DS_KULISSE.ds_schlackengrube = {
+  ausweichen: true,
+  flecken: [['dst_bahn', [47], 14, 2.2]],
+  props: P([
+    // Schlackenhalden, glühende Öfen, Lorenzüge, Käfig und Werkbank der Vorhauer
+    ['dsp_schwellenring_coal_heap', 10, 6], ['dsp_schwellenring_coal_heap', 14, 6], ['o_russ_props_stove', 20, 6], [LORE, 26, 6], [LORE, 29, 6],
+    ['dsp_schwellenring_coal_heap', 36, 12], ['o_russ_props_stove', 40, 12], ['o_russ_props_cage', 8, 22], ['dsp_schwellenring_mechanic_workbench', 18, 24],
+    [LORE, 30, 26], [LORE, 33, 26], ['o_russ_props_stove', 42, 25], ['dsp_schwellenring_coal_heap', 24, 18],
+  ], fest),
+  lichter: [[20, 5, GLUT, 56, 0.7], [40, 11, GLUT, 56, 0.7], [42, 24, GLUT, 56, 0.7], [12, 5, GLUT, 36, 0.4], [24, 17, GLUT, 36, 0.4], [36, 11, GLUT, 34, 0.35]],
+  fog: 0.24,
+};
