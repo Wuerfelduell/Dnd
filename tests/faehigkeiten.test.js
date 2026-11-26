@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
 import { TALENT_NERVES_MULT } from '../src/core/Pathways.js';
-import { Combat, SLOW_MULT, ENEMY_DMG_MULT } from '../src/core/Combat.js';
+import { Combat, SLOW_MULT, ENEMY_DMG_MULT, SHIELD_HP_REF } from '../src/core/Combat.js';
 import { hurryCost, canHurry } from '../src/core/Travel.js';
 import { faehigkeitenIds } from '../src/data/faehigkeiten.js';
 import { loadContent, seeded } from './helpers.js';
@@ -79,7 +79,7 @@ test('Kampf: Konzentration zurück, Nerven zurück, Schutz und Heilung für alle
   const before = s.composure;
   const cost2 = c.composureCost(c.skillDef('chorschild'));
   c.useSkill('chorschild', []);
-  assert.equal(c.shield, 10);
+  assert.equal(c.shield, Math.round(10 * Math.max(1, s.maxHp / SHIELD_HP_REF)));
   assert.equal(s.composure, before - cost2 + 10);
   // Riechsalz (Kessel) als Beispiel für cleanse/ap_gain: Spieler wechseln
   const k = beyonder('kessel', 9);
@@ -103,7 +103,7 @@ test('Kampf: Konzentration zurück, Nerven zurück, Schutz und Heilung für alle
   cm.useSkill('moor_uferhalt', []);
   assert.equal(m.hp, 10 + cm.on(1, () => cm.skillHeal(12)), 'Moor: 12 plus Anteil am Höchstleben');
   assert.ok(m.hp > 22);
-  assert.equal(cm.shield, 6);
+  assert.equal(cm.shield, Math.round(6 * Math.max(1, m.maxHp / SHIELD_HP_REF)));
 });
 
 test('Kampf: weaken dämpft den Gegner für n Runden, slow dehnt seinen Angriff, read macht ihn parierbar', () => {
