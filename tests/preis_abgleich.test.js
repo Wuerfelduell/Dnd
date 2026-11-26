@@ -84,6 +84,6 @@ test('Pfirsichkern-Amulett: Unruhe steigt 30 % langsamer', () => {
 
 test('Vermesser-Zylinder wirkt auch auf den Treffen', async () => {
   const src = (await import('node:fs')).readFileSync(new URL('../src/core/Auction.js', import.meta.url), 'utf8');
-  assert.ok(src.includes("req.price = Math.round(req.price * (this.passive?.('sell')"));
+  assert.ok(src.includes("req.price = Math.round(req.price * (this.sellMult?.()"));
   assert.ok(/e\.value \* \(lo \+ rng\(\) \* \(hi - lo\)\) \* sell/.test(src));
 });

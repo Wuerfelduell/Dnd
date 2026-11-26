@@ -245,6 +245,11 @@ export const TALENT_DIGEST_PER_NERVES = 10;
 export const TALENT_DIGEST_SPAN = [0.5, 2.5];
 /** Handlungen, die nur den Pfad dessen verdauen, der sie selbst tut. Alles andere verdaut beide Spieler. */
 export const PERSONAL_DIGEST = new Set(['parry', 'vision', 'use_item', 'brew', 'talent', 'ritual']);
+// Händler-Exploit (Seb 2026-11-26): Rabatt höchstens 40 %, Erlös höchstens +60 %, Ankauf höchstens 80 % des billigsten Kaufpreises
+const TRADE_PRICE_MIN = 0.6;
+const TRADE_SELL_MAX = 1.6;
+const TRADE_SELL_OF_BUY = 0.8;
+
 const MULT_KEYS = new Set(['vision_cost', 'composure_regen', 'heal_bonus', 'price', 'sell', 'honor_loss', 'recognize', 'occult_mult',
   'money_bonus', 'skill_composure', 'calm_decay', 'dodge_window', 'damage_taken', 'digest_mult', 'dmg_mult', 'hurry_cost', 'unruhe_gain']);
 
@@ -882,7 +887,7 @@ export const pathwayMethods = {
     const visible = this.merchantStock(merchantId).filter((e) => !e.requires_pathway || fits(e) || nb(e));
     return visible.map((e) => {
       const it = this.item(e.item);
-      const price = Math.max(1, Math.round(e.price * this.passive('price') * this.relationPriceFactor(merchantId))); // Stimmung des Händlers
+      const price = this.buyPriceAt(merchantId, e.price); // Stimmung des Händlers, Rabatt gedeckelt
       let locked = null;
       if (e.requires_pathway) {
         const [pid, seq] = e.requires_pathway;
@@ -892,6 +897,34 @@ export const pathwayMethods = {
       const owned = e.once && this.itemCount(e.item) > 0;
       return this.gatheringEntry(merchantId, { ...e, name: it.name, desc: it.desc, kind: it.kind, price, locked, owned });
     });
+  },
+
+  /** Rabatt-Faktor aus Fähigkeiten, Ausrüstung, Suden usw. – gedeckelt (Händler-Exploit, Seb 2026-11-26). */
+  buyMult() {
+    return Math.max(TRADE_PRICE_MIN, this.passive('price'));
+  },
+
+  /** Erlös-Faktor aus Fähigkeiten, Ausrüstung usw. – gedeckelt; gilt auch für Treffen-Gebote und Gesuche. */
+  sellMult() {
+    return Math.min(TRADE_SELL_MAX, this.passive('sell'));
+  },
+
+  /** Kaufpreis eines Angebots bei einem Händler mit allen Boni. */
+  buyPriceAt(merchantId, listPrice) {
+    return Math.max(1, Math.round(listPrice * this.buyMult() * this.relationPriceFactor(merchantId)));
+  },
+
+  /** Billigster Kaufpreis eines Gegenstands bei irgendeinem Händler (volles Sortiment, auch Restposten), sonst null. */
+  cheapestBuyPrice(itemId) {
+    let best = null;
+    for (const [mid, m] of Object.entries(this.content.market?.merchants ?? {})) {
+      for (const e of m.stock ?? []) {
+        if (e.item !== itemId || !e.price) continue;
+        const p = this.buyPriceAt(mid, e.price);
+        if (best === null || p < best) best = p;
+      }
+    }
+    return best;
   },
 
   buy(merchantId, itemId) {
@@ -915,7 +948,11 @@ export const pathwayMethods = {
     if (this.borrowed?.includes(itemId)) return null; // Revier-Eigentum
     const base = this.content.market?.sell_prices?.[itemId] ?? it.price;
     if (!base) return null;
-    return Math.max(1, Math.round(base * 0.5 * this.passive('sell')));
+    const price = Math.max(1, Math.round(base * 0.5 * this.sellMult()));
+    // Ankauf bleibt immer klar unter dem billigsten Kaufpreis – sonst Kaufen/Verkaufen als Gelddruckmaschine
+    const buy = this.cheapestBuyPrice(itemId);
+    if (buy === null) return price;
+    return Math.max(1, Math.min(price, Math.floor(buy * TRADE_SELL_OF_BUY)));
   },
 
   sell(itemId, merchantId = 'gorse') {
