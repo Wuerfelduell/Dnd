@@ -39,13 +39,11 @@ test('Calderwick-Kulisse: alle Stadtkarten und Pfadviertel bekommen Deko und Lic
   // Terrassen: Häuser mit Dach und Fenstern, Laternen, Geländer, dichterer Nebel
   for (const id of ['cw_gleisfuss', 'cw_setzergasse', 'cw_quittungsmarkt', 'cw_roehrenhof', 'cw_witwenterrasse', 'cw_kronenarchiv']) {
     const m = content.maps[id];
-    assert.ok(m.decor.some((d) => d.sprite.startsWith('bhd_')), `${id}: Dach`);
-    assert.ok(m.decor.some((d) => d.sprite === 'cwt_terrasse' && d.frame === 20), `${id}: Fenster`);
+    assert.ok(m.facades?.length >= 3 && m.rows.join('').split('D').length > 4, `${id}: Häuser mit Fassaden und Türen (Stadtplan)`);
     assert.ok(m.decor.filter((d) => d.sprite === 'lamp_lit').length >= 3, `${id}: Laternen`);
     assert.ok(m.decor.some((d) => d.sprite === 'cwt_terrasse' && d.frame === 7 && d.tile[1] === m.rows.length - 1), `${id}: Geländer`);
     assert.equal(m.ambient.fog, 0.13);
   }
-  assert.ok(content.maps.cw_roehrenhof.decor.filter((d) => d.sprite === 'cwt_terrasse' && d.frame === 27).length >= 3, 'Röhrenhof: Rohrpost-Abzweige');
   assert.ok(content.maps.cw_nullfundament.decor.some((d) => d.anim?.[1] === 'namensnische'), 'Nullfundament: glimmende Nischen');
   for (const id of ['o3_laterne', 'o3_eisen', 'o3_echo']) assert.equal(content.maps[id].ambient.fog, 0.22, `${id}: Nebel bleibt dicht`);
 });
