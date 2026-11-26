@@ -254,7 +254,10 @@ export class Combat {
     this.wetter = state.kampfWetter?.(enc, { ritual: !!this.rules }) ?? null;
     this.swapped = false;
     if ((this.rules?.solo || state.splitOn) && prover === 2 && state.acting === 1 && state.p2) { state.swapPersonal(); this.swapped = true; } // Splitscreen: jeder kämpft allein auf seiner Karte
-    if (this.rules?.scale) enc = { ...enc, hp: Math.round(enc.hp * this.rules.scale.hp), attacks: enc.attacks.map((a) => (a.action ? a : { ...a, damage: Math.max(1, Math.round(a.damage * this.rules.scale.dmg)) })) };
+    if (this.rules?.scale) {
+      const sc = (list) => list.map((a) => (a.action ? a : { ...a, damage: Math.max(1, Math.round(a.damage * this.rules.scale.dmg)) }));
+      enc = { ...enc, hp: Math.round(enc.hp * this.rules.scale.hp), attacks: sc(enc.attacks), ...(enc.phase2?.attacks ? { phase2: { ...enc.phase2, attacks: sc(enc.phase2.attacks) } } : {}) }; // Zorn-Phase gleich mit
+    }
     const ritualEnc = enc; // Gruppen im Ritual: Begleiter mit denselben Ritualwerten
     // Seq-5-Ritual der Laterne: ein Spiegelgegner (`mirror`) ist so stark wie der, der ihn gerufen hat.
     // Leben als Vielfaches seines Höchstlebens, Schaden je Angriff als Vielfaches seiner Schlagkraft (ohne die üblichen Zuschläge).
