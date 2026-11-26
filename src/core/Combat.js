@@ -20,6 +20,7 @@ export { MOOR_DIGEST };
 import { SCHATTEN_ATTACKE, PERFECT_DODGE, UHR as UHR4 } from './Seq4.js';
 import { NEBELNACHT } from './Wetter.js';
 import { narbeMult } from './Narbe.js';
+import { KOOP_GELD_SPAET } from '../data/kapitelAusgleich.js';
 
 export const WINDOW = { parry: 80, dodge: 140 }; // ± Millisekunden um den Einschlag
 export const ELITE_PARRY = 65; // Eliten und Bosse: noch engeres Parierfenster
@@ -1589,7 +1590,8 @@ export class Combat {
     if (table && (first || table.repeat)) {
       const nn = this.wetter?.nebelnacht;
       const grp = 1 + GROUP_LOOT_BONUS * Math.max(0, this.foes.length - 1); // Gruppenkampf: reichere Beute
-      const rolled = rollLoot(table, this.rng, { luck: (nn ? NEBELNACHT.luck : 1) * grp, moneyMult: (nn ? NEBELNACHT.money : 1) * grp }); // Nebelnacht: reichere Beute
+      const koop = this.duo && (this.enc.chapter ?? 0) >= 4 ? KOOP_GELD_SPAET : 1; // Koop ab Kapitel 4: gemeinsame Kasse, zwei Formeln
+      const rolled = rollLoot(table, this.rng, { luck: (nn ? NEBELNACHT.luck : 1) * grp, moneyMult: (nn ? NEBELNACHT.money : 1) * grp * koop }); // Nebelnacht: reichere Beute
       loot.money = rolled.money;
       loot.items = rolled.items;
       if (first) for (const [id, n] of Object.entries(table.items ?? {})) loot.items[id] = (loot.items[id] ?? 0) + n;
