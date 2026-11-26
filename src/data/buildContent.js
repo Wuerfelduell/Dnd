@@ -20,6 +20,7 @@ import { withHalbgottFertigkeiten } from './halbgottFertigkeiten.js';
 import { withFlaechenFaehigkeiten } from './flaechenFaehigkeiten.js';
 import { applyGegnerBeyonder } from './gegnerBeyonder.js';
 import { applyBeyonderRest } from './beyonderRest.js';
+import { applyKopfgeldjaeger } from './kopfgeldjaeger.js';
 import { applyMoods } from './moods.js';
 import { applyRelations } from './relations.js';
 import { applySchmuggel } from './schmuggel.js';
@@ -145,6 +146,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyZirkelAuftraege(content); // Dunscar: Zirkelmitglieder vergeben Aufträge (Monster, Polizisten)
   applyDunscarAnschlag(content); // Dunscar: Anschlagbrett (Jagden, Lieferungen, Spur des Alten) mit fester Verdauung für Seq 5→4
   applyGegnerBeyonder(content); // Kopfgeld-Ziele sind Beyonder ohne Zirkel: Pfad-Fertigkeiten ihrer Sequenz, seltene Formel als Beute
+  applyKopfgeldjaeger(content); // Kopfgeld auf den Spieler: Kopfgeldjäger (Beyonder, Boss-Rang) ab Dunscar, je Stadt höchstens einer pro Spieltag
   applyBeyonderRest(content); // Beyonder-Rest: gefallene Beyonder lassen selten ihren Rest fallen (Ersatz-Hauptzutat, Trank schlägt öfter fehl)
   applyUebergaenge(content); // Kapitelübergänge: Abschied, Reise und Ankunft Kettlegate→Wexmoor→Dunscar
   applyDunscarAusbau(content); // Dunscar: Gasthaus, Kalkapotheke, starke Heil-/Nerven-/Ruhemittel, möblierte Innenräume

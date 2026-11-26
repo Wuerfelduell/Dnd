@@ -49,6 +49,7 @@ export class Roamers {
       if (def.boss && !def.respawn && this.state.flags.has(`won_${def.encounter}`)) continue; // Bosse bleiben besiegt (Gebietsbosse mit `respawn` kommen wieder)
       if (festplatz && encs[def.encounter]?.city && !def.boss) continue;
       if (!this.state.sichtbar(def)) continue;
+      if (def.kgj && !this.state.kgjErscheint?.(def.encounter, s.mapDef.id)) continue; // Kopfgeldjäger: ab Kopfgeld, je Stadt höchstens einer pro Spieltag
       if (def.bn && !this.state.bnErscheint?.(def.encounter, s.mapDef.id)) continue; // Codex DJ: benannte Gegner nur nachts, ab Seq 6, 10 % je Tag // Stadtgegner: erst ab einem Fall, Kopfgeld-Ziele nur mit Auftrag
       const eliteId = `${def.encounter}_elite`;
       // Gegner, die schon in den Daten Elite sind (Schlackengrube), gelten immer als Elite

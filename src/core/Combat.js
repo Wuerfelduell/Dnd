@@ -1321,6 +1321,7 @@ export class Combat {
       const first = !s.flags.has(firstFlag);
       s.applyEffects({ ...enc.on_win, sets_flags: [...(enc.on_win?.sets_flags ?? []), firstFlag, ...(enc.sieg_flag ? Object.keys(this.fighters).filter((n) => !this.fighters[n].down).map((n) => `${enc.sieg_flag}_p${this.swapped ? 2 : n}`) : [])] });
       if (first && enc.first_win) s.applyEffects(enc.first_win);
+      if (enc.kopfgeldjaeger) s.kgjSieg?.(this.id); // Kopfgeldjäger: heute kommt keiner mehr
       if (!enc.practice) s.erfolgKampf?.(); // Codex DL: „Hundert Kämpfe“
       if (!enc.practice) {
         loot = noLoot ? null : this.rollLoot(first); // BQ: Schreinwachen geben keine eigene Beute, erst der Abbau
