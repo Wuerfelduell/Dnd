@@ -272,7 +272,7 @@ export class Combat {
     const rulesOf = (n) => (enc.practice ? null : state.withPlayer(n, () => state.verdauCombatRules?.(encounterId, enc) ?? state.pfadTaskRules?.(encounterId, enc) ?? state.seq4CombatRules?.(encounterId, enc) ?? state.hochCombatRules?.(encounterId, enc) ?? state.pfadCombatRules?.(encounterId, enc) ?? null, { quiet: true })); // Pfad-Beyonder: Aufgaben mit Sonderregeln
     this.rules = rulesOf(prover);
     // Kartengegner startet die Welt als Spieler 1: steckt nur Spieler 2 in einer Prüfung (Echo taub, Uhr, Maske, Faden), gelten seine Regeln
-    if (!this.rules && prover === 1 && state.acting === 1 && state.hasP2?.()) {
+    if (!this.rules && prover === 1 && state.acting === 1 && state.hasP2?.() && !state.splitOn) { // im Splitscreen kämpft jeder für sich
       const r2 = rulesOf(2);
       if (r2) { this.rules = r2; prover = 2; }
     }

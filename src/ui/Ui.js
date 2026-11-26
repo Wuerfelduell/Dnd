@@ -36,6 +36,7 @@ import { WETTER, NEBELNACHT, SEASON_NAMES } from '../core/Wetter.js';
 import { installTestmodus, testPauseButton, bindTestPause, closeTestReise } from './TestUi.js';
 import { RIVALE_REGELN } from '../data/rivale.js';
 import { hatNarbe, NARBE } from '../core/Narbe.js';
+import { p2View } from '../core/Split.js';
 
 /** Spielstand für Icons, die vom Spieler abhängen (Relikt des Verfalls: Bild nach seiner stärksten Eigenschaft, Codex DP). */
 let iconState = null;
@@ -827,7 +828,44 @@ export class Ui {
   }
 
   isBlocking() {
-    return this.modal !== null || performance.now() < this.blockedUntil;
+    return this.modal !== null || performance.now() < this.blockedUntil || (!!this.isHalf && this.base.isBlocking()); // Hälfte: auch ein Fenster über beiden blockiert
+  }
+
+  /**
+   * Splitscreen im Pfadviertel (Seb 2026-11-26): jede Bildhälfte hat ihre eigene Fensterebene für Gespräche, Läden, Beute und
+   * Kampf, als verkleinerte Kopie der ganzen Oberfläche. So kann einer kämpfen, während der andere redet, handelt oder selbst
+   * kämpft. Die Hälfte ist ein Objekt mit Ui als Prototyp: alle Methoden gelten, aber Fenster, Kampf und Spielstand
+   * (rechts: p2View, dauerhaft Spieler 2) gehören ihr. HUD, Hinweise und Meldungen bleiben gemeinsam.
+   */
+  half(n) {
+    if (this.isHalf) return this.base.half(n);
+    this.halves ??= {};
+    if (this.halves[n]) return this.halves[n];
+    const box = document.createElement('div');
+    box.className = `half-ui half-${n}`;
+    box.innerHTML = '<div class="layer"></div><div class="floats"></div>';
+    this.root.appendChild(box);
+    const h = Object.create(this);
+    Object.assign(h, {
+      isHalf: n, base: this, box, layer: box.querySelector('.layer'), floatsBox: box.querySelector('.floats'),
+      modal: null, combatScene: null, combatMenuOpen: null, blockedUntil: 0, keysBlockedUntil: 0, clickHold: 0, actor: n,
+      state: n === 2 ? p2View(this.state) : this.state,
+    });
+    if (n === 2) h.setPrompt = (text, _key, kind) => Ui.prototype.setPrompt2.call(h, text, 'Enter', kind); // rechts: eigener Hinweis
+    this.halves[n] = h;
+    return h;
+  }
+
+  /** Splitscreen vorbei: die Fensterebenen der Hälften verschwinden. */
+  dropHalves() {
+    for (const h of Object.values(this.halves ?? {})) h.box.remove();
+    this.root.classList.remove('cb1', 'cb2');
+    this.halves = null;
+  }
+
+  /** Splitscreen: Taste für Spieler 2 (rechts: Enter, Pfeile, Ziffernblock)? */
+  static p2Key(e) {
+    return e.key === 'Enter' || !!e.key?.startsWith('Arrow') || !!e.code?.startsWith('Numpad');
   }
 
   // --- HUD ------------------------------------------------------------------
@@ -980,8 +1018,9 @@ export class Ui {
 
   /** Kapitel 4: Splitscreen an/aus (Hinweise links und rechts statt in der Mitte). */
   setSplit(on) {
+    if (this.isHalf) return this.base.setSplit(on);
     this.root?.classList?.toggle('split', !!on);
-    if (!on) { this.scene2 = null; this.setPrompt2(null); }
+    if (!on) { this.scene2 = null; this.setPrompt2(null); this.dropHalves(); }
   }
 
   /** Welt, in der ein Spieler gerade handelt (im Splitscreen hat Spieler 2 seine eigene). */
@@ -1055,7 +1094,6 @@ export class Ui {
 
   open(kind, html, cls = '') {
     // Splitscreen-Kampf: die andere Hälfte darf das Kampfmenü nicht überdecken (sollte durch die Sperren gar nicht vorkommen)
-    if (this.combatHalf && this.modal === 'combat') { const el = document.createElement('div'); el.className = `panel ${cls}`; el.innerHTML = html; return el; }
     this.rememberScroll();
     // Y: ein Fenster klingt beim Öffnen (Karte entfalten, Notizbuch blättern, Schublade), nicht bei jedem Neuaufbau
     if (this.modal !== kind) { this.sfx(this.nextOpenSound ?? uiSound(kind)); }
@@ -3417,14 +3455,11 @@ export class Ui {
   openCombat(scene) {
     this.combatScene = scene;
     // Splitscreen im Pfadviertel: Kampfmenü nur in der Hälfte des Kämpfers; kämpft Spieler 2, liest es seine Werte (p2View)
-    this.combatHalf = scene.splitHalf ?? 0;
-    if (this.combatHalf === 2) { this.stateVorKampf = this.state; this.state = scene.state; }
-    this.root.classList.toggle('cb-half', !!this.combatHalf);
-    this.root.classList.toggle('cb-half-2', this.combatHalf === 2);
     this.combatMenuOpen = null;
     this.modal = 'combat';
     this.setPrompt(null);
-    this.root.classList.add('in-combat');
+    if (this.isHalf) { this.box.classList.add('in-combat'); this.root.classList.add(`cb${this.isHalf}`); } // Splitscreen: nur diese Hälfte zeigt den Kampf
+    else this.root.classList.add('in-combat');
     this.layer.innerHTML = `
       <div class="combat">
         <div class="cb-enemy">${turnFace(scene.encounterId)}<div class="cb-name"></div><div class="bar big"><div class="efill"></div></div><div class="hudbar enemy"></div><div class="cb-tags"></div><div class="cb-foes"></div></div>
@@ -3530,7 +3565,7 @@ export class Ui {
   combatMessage(text, help = '', scene = null) {
     const el = this.layer.querySelector('.cb-text');
     if (!el) return;
-    if (this.combatHalf === 2) help = help.replace('mit E', 'mit Enter'); // Splitscreen: Spieler 2 bestätigt mit Enter
+    if (this.isHalf === 2) help = help.replace('mit E', 'mit Enter'); // Splitscreen: Spieler 2 bestätigt mit Enter
     if (this.touch) {
       const t = (x) => x.replace('Weiter mit E', 'Weiter: irgendwo tippen')
         .replace('Drücke E oder Leertaste', 'Tippe irgendwo auf den Bildschirm')
@@ -3643,7 +3678,7 @@ export class Ui {
   }
 
   combatFloat(text, xPct, yPct, cls, tag = null, color = null) {
-    const box = this.$('.floats');
+    const box = this.floatsBox ?? this.$('.floats');
     const el = document.createElement('div');
     el.className = `float ${cls}`;
     if (tag) el.dataset.who = tag; // Koop: wen es getroffen hat
@@ -3678,10 +3713,9 @@ export class Ui {
 
   closeCombat(result, enc) {
     this.combatScene = null;
-    if (this.stateVorKampf) { this.state = this.stateVorKampf; this.stateVorKampf = null; }
-    this.combatHalf = 0;
-    this.root.classList.remove('in-combat', 'cb-half', 'cb-half-2');
-    this.$('.floats').innerHTML = '';
+    if (this.isHalf) { this.box.classList.remove('in-combat'); this.root.classList.remove(`cb${this.isHalf}`); }
+    else this.root.classList.remove('in-combat');
+    (this.floatsBox ?? this.$('.floats')).innerHTML = '';
     this.modal = null;
     this.layer.innerHTML = '';
     this.updateHp();
@@ -3719,6 +3753,17 @@ export class Ui {
   // --- Tastatur ---------------------------------------------------------------
 
   onKey(e) {
+    // Splitscreen: offene Fenster einer Hälfte bekommen die Tasten ihres Spielers (rechts wird Enter zu E, Ziffernblock 0 zu Esc)
+    if (!this.isHalf && this.halves && !this.modal) {
+      const p2 = Ui.p2Key(e);
+      const h = this.halves[p2 ? 2 : 1];
+      if (h?.modal) {
+        const nd = /^Numpad([0-9])$/.exec(e.code ?? '')?.[1]; // Ziffernblock auch ohne NumLock
+        const key = !p2 ? e.key : e.key === 'Enter' ? 'e' : nd === '0' ? 'Escape' : nd ?? e.key;
+        h.onKey(p2 ? { key, code: e.code, repeat: e.repeat, shiftKey: e.shiftKey, target: e.target, preventDefault: () => e.preventDefault(), stopPropagation: () => e.stopPropagation() } : e);
+        return;
+      }
+    }
     if (e.target?.classList?.contains('beast-search') || e.target?.classList?.contains('testcode')) return; // Suchfeld im Bestiarium: Tasten gehören dem Textfeld
     if (!this.modal) {
       // Esc in der Welt: Pausemenü (Spieler 2 hinzufügen oder entfernen)
@@ -3787,14 +3832,6 @@ export class Ui {
   onCombatKey(e, k) {
     const sc = this.combatScene;
     if (!sc) return;
-    // Splitscreen: die andere Hälfte spielt weiter, ihre Tasten gehören ihr (links WASD/E/Leertaste/F/1–9, rechts Pfeile/Enter/Ziffernblock)
-    if (this.combatHalf) {
-      const numpad = e.code?.startsWith('Numpad');
-      const p2Key = k === 'enter' || k.startsWith('arrow') || numpad;
-      if (this.combatHalf === 2 ? !p2Key : p2Key) return;
-      if (this.combatHalf === 2 && k === 'enter') k = 'e';
-      if (this.combatHalf === 2 && e.code === 'Numpad0') k = 'escape'; // Ziffernblock 0: im Menü zurück
-    }
     let handled = false;
     const num = /^[1-9]$/.test(k) ? Number(k) - 1 : -1;
     if (sc.phase === 'menu' && this.combatMenuOpen) {

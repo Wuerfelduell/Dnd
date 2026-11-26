@@ -4,7 +4,7 @@ import { content } from './data/index.js';
 import { GameState } from './core/GameState.js';
 import { WorldScene, WorldScene2, VIEW_W, VIEW_H } from './world/WorldScene.js';
 import { Ui } from './ui/Ui.js';
-import { CombatScene } from './world/CombatScene.js';
+import { CombatScene, CombatScene2 } from './world/CombatScene.js';
 import { Audio } from './core/Audio.js';
 import { wireSounds, updateRitualSounds } from './core/sounds.js';
 import { MusicDirector } from './core/MusicDirector.js';
@@ -146,7 +146,7 @@ game = new Phaser.Game({
   physics: { default: 'arcade', arcade: { debug: false } },
   input: { gamepad: true }, // Gamepad steuert Spieler 2 (lokaler Koop)
   scale: { mode: Phaser.Scale.NONE },
-  scene: [WorldScene, WorldScene2, CombatScene], // WorldScene2: rechte Hälfte des Splitscreens (Kapitel 4)
+  scene: [WorldScene, WorldScene2, CombatScene, CombatScene2], // WorldScene2: rechte Hälfte des Splitscreens (Kapitel 4)
   callbacks: {
     preBoot: (g) => {
       g.registry.set('state', state);
