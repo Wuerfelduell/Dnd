@@ -49,7 +49,8 @@ test('Alle zehn Pfade: Rituale 3/2/1 werden je Stufe größer, enden mit Wächte
     assert.ok(m && ORTE[pid], pid);
     for (const r of m.roamers) assert.notEqual(m.rows[r.tile[1]][r.tile[0]], 'I', `${pid}: ${r.id} in der Wand`);
     for (const it of m.interactables) assert.notEqual(m.rows[it.tile[1]][it.tile[0]], 'I', `${pid}: ${it.id} in der Wand`);
-    for (const n of [2, 1]) assert.ok(m.interactables.some((i) => i.effects?.gives_items?.[`formel_${pid}_${n}`]), `${pid}: Formel ${n}`);
+    assert.ok(m.interactables.some((i) => i.effects?.gives_items?.[`formel_${pid}_2`]), `${pid}: Formel 2`);
+    assert.deepEqual(content.encounters[`o3_${pid}_herz`]?.first_win?.gives_items, { [`formel_${pid}_1`]: 1 }, `${pid}: Formel 1 vom Herz des Viertels`);
     assert.ok(!m.interactables.some((i) => i.effects?.gives_items?.[`formel_${pid}_3`]), `${pid}: Formel 3 nicht am Sitz`);
     const kern = m.interactables.filter((i) => i.effects?.gives_items?.[kernzutat(pid, 3)]);
     assert.equal(kern.length, 2, `${pid}: töten oder Oberhaupt werden`);

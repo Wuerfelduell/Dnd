@@ -1707,8 +1707,9 @@ export class Ui {
       this.sfx(worldSound('travel', { direct: true, to: d.map }));
       if (d.dialogue) { this.close(); this.openDialogue({ name: d.name, role: 'Abreise', dialogue: d.dialogue }); return; } // Kapitelübergang: Bahnsteig, Fahrt, Einfahrt
       const sc = this.actScene();
+      const by = this.actor;
       this.close();
-      sc.travelTo(d.map, d.spawn);
+      sc.travelTo(d.map, d.spawn, by);
       return;
     }
     this.travelPick = d;
@@ -1742,7 +1743,8 @@ export class Ui {
     const fee = s.sektenReiseAufschlag?.(this.travelFrom) ?? 0;
     if (fee) { s.addMoney(-fee); this.toast(`Aufschlag an der Sperre: −${fee} Schilling`, 'warn'); }
     const sc = this.actScene();
-    const go = () => sc.travelTo(d.map, d.spawn);
+    const by = this.actor; // wer die Stadtkarte bedient: der geht ins Pfadviertel (core/Split.js)
+    const go = () => sc.travelTo(d.map, d.spawn, by);
     this.sfx(worldSound('travel', { mode, city: cityOf(s, s.map) })); // Y: Kutsche rumpelt, in Wexmoor rudert man die Abkürzung
     if (mode === 'sicher') {
       const r = this.as(() => travelSafe(s));

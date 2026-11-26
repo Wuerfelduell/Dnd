@@ -155,8 +155,10 @@ test('Calderwick: zehn verdorbene Pfadgebiete mit Gildensitz, je zwei benannte B
   const s = fresh();
   s.applyEffects({ sets_flags: ['k4_arrived', ...['cwa_ankunft_sicher', 'cwa_werkstatt', 'cwa_akt1_done', 'cwa_akt2_done', 'cwa_akt3_done', 'cwa_akt4_done']] });
   s.map = 'cw_gleisfuss';
+  s.pathway = { ...(s.pathway ?? {}), id: 'eisen', seq: 4 }; // Seb 2026-11-26: nur das eigene Viertel ab Seq 4
   const ziele = travelDestinations(s, s.map).map((t) => t.map);
-  for (const id of ['cw_kronenarchiv', 'cw_witwenterrasse', 'o3_eisen', 'o3_laterne']) assert.ok(ziele.includes(id), id);
+  for (const id of ['cw_kronenarchiv', 'cw_witwenterrasse', 'o3_eisen']) assert.ok(ziele.includes(id), id);
+  assert.ok(!ziele.includes('o3_laterne'), 'fremdes Viertel gesperrt');
   // Alte Stände in Calderwick: Akte weg, neues Kapitelziel
   const alt = fresh();
   alt.flags.add('k4_arrived');

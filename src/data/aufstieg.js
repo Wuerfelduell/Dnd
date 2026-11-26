@@ -359,7 +359,8 @@ function calderwickGebiete(content) {
     map.roamers = [...(map.roamers ?? []), ...Array.from({ length: more }, (_, i) => ({ id: `${o3}_cw${i + 1}`, encounter: normal[i % normal.length], tile: pick(), elite_chance: 0 })).filter((r) => r.tile)];
     // Reisen: nur noch aus Calderwick, ab dem Sturz
     content.travel = content.travel.filter((t) => t.map !== o3);
-    content.travel.push({ map: o3, spawn: 'default', city: 'calderwick', name: cw.viertel, desc: `Gefahr ${CW_GEBIET_DANGER}. ${cw.verderbnis}`, requires_flags: ['k4_arrived'] });
+    // Seb 2026-11-26: nur wer auf diesem Pfad Seq 4 oder besser ist, kommt hinein (je Spieler: die Stadtkarte prüft den, der sie öffnet)
+    content.travel.push({ map: o3, spawn: 'default', city: 'calderwick', name: cw.viertel, desc: `Gefahr ${CW_GEBIET_DANGER}. ${cw.verderbnis}`, requires_flags: ['k4_arrived'], requires_pathway: [pid, 4] });
     for (const [cid, c] of Object.entries(content.travelRules?.cities ?? {})) if (cid !== 'calderwick' && c.pins?.[o3]) delete c.pins[o3];
     if (cwPins) cwPins[o3] = [24 + 43 * Object.keys(CW_GEBIETE).indexOf(pid), 262];
   }
