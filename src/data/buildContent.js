@@ -23,6 +23,7 @@ import { withHalbgottFertigkeiten } from './halbgottFertigkeiten.js';
 import { withFlaechenFaehigkeiten } from './flaechenFaehigkeiten.js';
 import { applyGegnerBeyonder, applyWildeBeyonder } from './gegnerBeyonder.js';
 import { applyBeyonderRest } from './beyonderRest.js';
+import { applyCalderwickZirkel } from './calderwickZirkel.js';
 import { applyRivale } from './rivale.js';
 import { applyKopfgeldjaeger } from './kopfgeldjaeger.js';
 import { applyMoods } from './moods.js';
@@ -176,6 +177,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyKettlegateZirkel(content); // Kettlegater Zirkel: nur Zutaten 7/6, Formeln, Artefakte; keine Trophäen-Gesuche (zuletzt)
   applyNebelnacht(content); // Nebelnächte: Nebelkrämerin auf dem Markt jeder Stadt (nach allen Kulissen)
   applyCalderwickKulisse(content); // Calderwick: Häuser, Möbelblöcke, Fassaden, Rohrpost, Laternen, Licht und Nebel; Pfadviertel mit Verderbnis-Glimmen
+  applyCalderwickZirkel(content); // Calderwick: eigene Zirkel (Bleisatz: Waffen/Rüstungen, Pfandrunde: Artefakte), Aufnahme über Bürgen
   applyGeistessenz(content); // Geisteressenz ab Dunscar: jeder Gegner 8 %, Elite 15 %, Boss 35 % (nach allen Beute-Umbauten)
   applySpaetBeute(content); // Trophäen Kapitel 4/5 ×15 (Kauf und Verkauf, nach allen Händlern)
   applyGegnerlebenSpaet(content); // Seb 2026-11-26: Calderwick 10–25k, Briarholt 15–35k Leben (Koop), Schaden ×1,3

@@ -7,6 +7,7 @@ import { BH_DACH_TEXTUREN } from '../data/briarholtKulisse.js';
 import { CW_KULISSE_BLAETTER } from '../data/calderwickKulisse.js';
 import { preloadRitualArt } from './ritualArt.js';
 import { DS_ZIRKEL_ICONS, DS_ZIRKEL_FIGUREN } from '../data/dunscarZirkel.js';
+import { CWZ_ICONS, CWZ_SHEETS } from '../data/calderwickZirkel.js';
 import { VS_ICONS } from '../data/vorratStuecke.js';
 import { FA2_FIGUREN } from '../data/fahrendeAuktion.js';
 import { HAUS_MOEBEL } from '../data/eigenesHaus.js';
@@ -2310,6 +2311,9 @@ SHEETS.wx_schneiderin = 'characters/wx_schneiderin_walk.png';
 CHARACTER_SHEETS.npc_wx_schneiderin = 'wx_schneiderin';
 /** Händlerinnen am Kalkmarkt in Dunscar (Waffen, Kleidung, Kräuter): umgefärbte Figuren cwn_e_griffmacherin, cwn_e_waescherin, cwn_e_marktfrau, bis eigene Grafik kommt. */
 /** Zirkel in Dunscar (Kalter Ofen, Stummes Stellwerk): umgefärbte Vorratsfiguren ds_einwohner_* / k3e_*, bis eigene Grafik kommt. */
+/** Calderwicker Zirkel: Leih-Sheets der Calderwicker Einwohner (cs_*), Leihbilder aus dem Vorrat, bis eigene Grafik kommt. */
+for (const [id, sheet] of Object.entries(CWZ_SHEETS)) CHARACTER_SHEETS[`npc_${id}`] = sheet;
+Object.assign(ITEM_ICON_ALIASES, CWZ_ICONS);
 for (const id of DS_ZIRKEL_FIGUREN) {
   SHEETS[id] = `characters/${id}_walk.png`;
   CHARACTER_SHEETS[`npc_${id}`] = id;
@@ -2516,6 +2520,8 @@ export const BE_MAP_MARKERS = { treffen_schichtbund: [BE_SCHICHTBUND_URL, 72, 16
 BE_MAP_MARKERS.treffen_kalkofen = BE_MAP_MARKERS.treffen_schichtbund;
 BE_MAP_MARKERS.treffen_stellwerk = BE_MAP_MARKERS.treffen_schichtbund;
 BE_MAP_MARKERS.treffen_salzds = BE_MAP_MARKERS.treffen_schichtbund;
+BE_MAP_MARKERS.treffen_cw_bleisatz = BE_MAP_MARKERS.treffen_schichtbund; // Calderwicker Zirkel: Leihmarker, bis eigene Grafik kommt
+BE_MAP_MARKERS.treffen_cw_pfandrunde = BE_MAP_MARKERS.treffen_schichtbund;
 /** Drei Werkstätten der Händler als ganze Props. */
 for (const id of ['BE_troedelstand', 'BE_steinmetzwerkbank', 'BE_schaltbuden_theke', 'BE_lichtkegel']) {
   WHOLE_PROPS[id] = `props/${id}.png`;

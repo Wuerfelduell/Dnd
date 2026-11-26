@@ -4,7 +4,7 @@
 // beim Verkaufen warnt der Laden. Bereits erreichte Sequenzen zählen nicht, ein schon gebrauter Trank
 // bzw. ein vollzogenes Ritual auch nicht mehr.
 import { ritualformel } from '../data/seqHoch.js';
-import { restTrankId } from '../data/beyonderRest.js';
+import { restTrankId, restId } from '../data/beyonderRest.js';
 
 /** So viele kommende Sequenzen werden markiert (die nächste und die übernächste). */
 export const BEDARF_SEQS = 2;
@@ -31,6 +31,9 @@ export const bedarfMethods = {
       const brewed = this.itemCount(`trank_${p.id}_${seq}`) || this.itemCount(restTrankId(p.id, seq));
       if (!brewed) Object.entries(sd.ingredients ?? {}).forEach(([id, n], i) => add(id, n, seq, 'trank', i === 0 || /zutat/.test(id)));
       if (!brewed && seq === 3) add(`formel_${p.id}_3`, 1, seq, 'trank'); // Seb 2026-11-26: Trankformel 3 auf Zirkeln markieren
+      // Beyonder-Rest des eigenen Pfads taugt als Hauptzutat: markieren und vor dem Verkauf warnen, solange die echte fehlt
+      const haupt = Object.entries(sd.ingredients ?? {})[0];
+      if (!brewed && haupt && this.itemCount(haupt[0]) < haupt[1]) add(restId(p.id, seq), 1, seq, 'trank', true);
       const r = sd.ritual;
       if (!r || this.ritualDone(p.id, seq)) continue;
       for (const [id, n] of Object.entries(r.consumes ?? {})) add(id, n, seq, 'ritual');

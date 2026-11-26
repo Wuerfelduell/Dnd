@@ -3174,12 +3174,13 @@ export class Ui {
       acts.push({ label: have ? 'Behalten' : 'Habe ich nicht dabei', fn: () => s.declineRequest() });
     } else if (a.phase === 'own') {
       const list = s.ownOfferables();
-      stage = `<div class="speaker">Dein Angebot <span class="role">Artefakte und Formeln</span></div>
-        ${list.length ? '<p class="lead">Was legst du auf den Tisch?</p>' : '<p class="lead">Du hast keine Artefakte oder Formeln dabei, die du anbieten könntest.</p>'}
-        ${list.length ? `<ul class="offers">${list.slice(0, 8).map((o) => `<li>${itemIcon(o.id)}<strong>${esc(o.name)}</strong> <span class="muted">etwa ${o.value} Sch.</span>${offerHtml(s, o.id)}</li>`).join('')}</ul>` : ''}
+      const need = s.pfadBedarfAlle?.();
+      stage = `<div class="speaker">Dein Angebot <span class="role">Artefakte, Formeln und Reste</span></div>
+        ${list.length ? '<p class="lead">Was legst du auf den Tisch?</p>' : '<p class="lead">Du hast keine Artefakte, Formeln oder Reste dabei, die du anbieten könntest.</p>'}
+        ${list.length ? `<ul class="offers">${list.slice(0, 10).map((o) => `<li>${itemIcon(o.id)}<strong>${esc(o.name)}</strong> <span class="muted">etwa ${o.value} Sch.</span>${bedarfHtml(need, o.id, { players: s.hasP2() })}${offerHtml(s, o.id)}</li>`).join('')}</ul>` : ''}
         ${a.artisan ? `<p class="lead muted">${esc(s.artisanName())} sitzt abseits und nimmt starke Beutestücke in Auftrag.</p>` : ''}`;
       if (a.artisan) acts.push({ label: `Zu ${s.artisanName()}: Beute fassen lassen`, fn: () => s.openArtisan() });
-      for (const o of list.slice(0, 8)) acts.push({ label: `${o.name} anbieten`, fn: () => s.offerOwn(o.id), icon: o.id });
+      for (const o of list.slice(0, 10)) acts.push({ label: `${o.name} anbieten`, fn: () => this.offerOwnChecked(o.id), icon: o.id });
       acts.push({ label: 'Runde beenden', fn: () => this.finishAuction() });
     } else if (a.phase === 'artisan') {
       const recipes = s.artisanRecipes(a.circle, a.cycle);
@@ -3249,8 +3250,23 @@ export class Ui {
     if (r?.ended) { this.close(); this.showMessage('Vor die Tür gesetzt', r.text, { footer: 'Bis zum nächsten Treffen.', aside: `<div class="probe-ende-wrap">${artAnim('waage_falsch_beschuldigt', 'play', 1 / 4, 'waagefx')}</div>` }); this.waageFx = null; return; }
     if (r?.ended) { this.close(); this.showMessage('Vor die Tür gesetzt', r.text, { footer: 'Bis zum nächsten Treffen.' }); return; } // falsche Anschuldigung (Waage)
     if (!this.state.auction) return;
-    this.renderAuction(r?.text ? esc(r.text) : '');
+    this.renderAuction(r?.html ?? (r?.text ? esc(r.text) : ''));
     this.waageFx = null;
+  }
+
+  /** Eigenes Los mit Pfad-Bedarf-Warnung (PR #574): Wer etwas anbietet, das er oder der Partner noch braucht, klickt zweimal. */
+  offerOwnChecked(id) {
+    const s = this.state;
+    if (this.auctionConfirm !== id) {
+      const warn = s.verkaufWarnung?.(id) ?? [];
+      if (warn.length) {
+        this.auctionConfirm = id;
+        const who = warn.map((w) => `<span class="curse">★ Vorsicht! ${w.player === (s.acting ?? 1) ? 'Du brauchst das noch für deinen Pfad' : `Spieler ${w.player} braucht das noch für den eigenen Pfad`} (Seq ${w.seq} ${w.kind === 'ritual' ? 'Ritual' : 'Trank'}).</span>`).join(' ');
+        return { ok: true, html: `${who} <span class="muted">Nochmal klicken, um es trotzdem anzubieten.</span>` };
+      }
+    }
+    this.auctionConfirm = null;
+    return s.offerOwn(id);
   }
 
   finishAuction() {
