@@ -25,7 +25,8 @@ export const isRestTrank = (id) => /^trank_.+_\d_rest$/.test(id ?? '');
 export const grundTrank = (id) => (isRestTrank(id) ? id.replace(/_rest$/, '') : id);
 
 /** Beute-Eintrag für den Rest eines Beyonders (für weitere Gegner, z. B. den Rivalen). */
-export function restDrop(pid, seq, chance = REST_CHANCE[seq] ?? 0.01) {
+export function restDrop(pid, seq, chance) {
+  chance ??= REST_CHANCE[seq] ?? 0.01;
   return { item: restId(pid, seq), chance };
 }
 
@@ -72,7 +73,7 @@ export function applyBeyonderRest(content) {
     if (!r || !content.items[r.item]) continue;
     const loot = content.loot[id] ?? {};
     const drops = (loot.drops ?? []).filter((d) => !content.items[d.item]?.rest);
-    drops.push(restDrop(r.pid, r.seq));
+    drops.push(restDrop(r.pid, r.seq, enc.rest_chance)); // Kopfgeldjäger: deutlich öfter
     content.loot[id] = { ...loot, drops };
   }
   return content;
