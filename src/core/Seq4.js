@@ -52,9 +52,10 @@ export const PERFECT_DODGE = 45; // ± ms um den Einschlag: perfektes Ausweichen
 /**
  * Wächter unter harten Einschränkungen (Sim tools/sim/seq4_waechter.mjs, 2026-11-26): mit vollen 3500 Leben war er für Maske
  * (nur Angriff), Faden (nach dem Traum, ohne Heilung) und Schlüssel (Schatten mit 40 % Leben) auch geübt nicht zu schaffen.
- * So gewinnt ein sehr geübter Seq-5-Spieler knapp, ein geübter nicht. Eisen, Kessel, Moor, Echo, Waage: volle Stärke.
+ * Erste Dämpfung (Maske 0,4/0,6) war zu weich: Seb schaffte die Maske mit Artefakten in 10 Runden (2026-11-26). Ziel jetzt
+ * 20–30 Runden für einen geübten Spieler mit Artefakten (Leben ×2,5 gegenüber der ersten Dämpfung). Eisen, Kessel, Moor, Echo, Waage: volle Stärke.
  */
-export const WAECHTER_SCALE = { maske: { hp: 0.4, dmg: 0.6 }, faden: { hp: 0.35, dmg: 0.5 }, schluessel: { hp: 0.25, dmg: 0.3 } };
+export const WAECHTER_SCALE = { maske: { hp: 1, dmg: 0.8 }, faden: { hp: 0.85, dmg: 0.75 }, schluessel: { hp: 0.6, dmg: 0.45 } };
 export const ESSENZ_BONUS = 0.1; // je getrunkener Essenz +10 % Flaschenschaden im Kampf gegen den Wächter des Kessels
 
 const HINTS = {
