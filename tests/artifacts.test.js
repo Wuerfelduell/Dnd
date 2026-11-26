@@ -92,7 +92,7 @@ test('Jeder Pfad lässt sich bis Sequenz 1 brauen und trinken, Leben und Nerven 
       lastNerves = s.maxComposure();
     }
     // Alle Fähigkeiten im Kampf verfügbar: je Sequenz zwei (skill und skill2)
-    assert.equal(Object.keys(s.pathwaySkills()).length, 18, pid);
+    assert.equal(Object.keys(s.pathwaySkills()).length, pid === 'sq_moor' ? 19 : 18, pid); // Moor Seq 4 hat eine dritte (Torf-Retter)
     const c = new Combat(s, 'moorleiche');
     c.ap = 6;
     for (const id of Object.keys(s.pathwaySkills())) assert.ok(c.skillDef(id), id);

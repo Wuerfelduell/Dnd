@@ -1855,7 +1855,9 @@ export const SKILL_ICONS_NEU_URL = `${BASE}ui/skill_icons_neu.png`;
 const SKILL_ATLASES = [[SKILL_ICONS, SKILL_ICONS_URL, 7], [SKILL_ICONS_2, SKILL_ICONS_2_URL, 7], [SKILL_ICONS_3, SKILL_ICONS_3_URL, 10],
   [SKILL_ICONS_HOCH, SKILL_ICONS_HOCH_URL, 10], [SKILL_ICONS_NEU, SKILL_ICONS_NEU_URL, 3]];
 /** Icon einer Kampffertigkeit: [Bild-URL, Zelle, Spalten] oder null. */
-export const skillIconOf = (id) => {
+const SKILL_ICON_ALIAS = { moor_torfretter: 'moor_uferhalt' }; // dritte Moor-Fertigkeit Seq 4 leiht sich das Uferhalt-Icon
+export const skillIconOf = (id0) => {
+  const id = SKILL_ICON_ALIAS[id0] ?? id0;
   for (const [table, url, cols] of SKILL_ATLASES) if (table[id] !== undefined) return [url, table[id], cols];
   return null;
 };

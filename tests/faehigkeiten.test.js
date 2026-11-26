@@ -12,7 +12,7 @@ import { readFileSync } from 'node:fs';
 const content = loadContent();
 const raw = JSON.parse(readFileSync(new URL('../src/data/packs/sequenzen/faehigkeiten2.json', import.meta.url), 'utf8'));
 const KAMPF_KEYS = new Set(['id', 'name', 'aoe', 'precise', 'waffenfrei', 'hg', 'cost', 'hits', 'flat', 'mult', 'holy', 'sure', 'pierce', 'stun', 'weak', 'evade', 'confuse', 'shield', 'heal', 'drain', 'burn', 'composure', 'desc', 'fx',
-  'ap_gain', 'nerves_gain', 'calm', 'weaken', 'slow', 'armor_break', 'guard_break', 'steal', 'cleanse', 'read', 'focus', 'shield_all', 'heal_all', 'extend_burn', 'bury']);
+  'ap_gain', 'nerves_gain', 'calm', 'weaken', 'slow', 'armor_break', 'guard_break', 'steal', 'cleanse', 'read', 'focus', 'shield_all', 'heal_all', 'extend_burn', 'bury', 'overheal_shield', 'torf_ward', 'once']);
 const WELT_KEYS = new Set(['id', 'name', 'nerves', 'unruhe', 'cooldown', 'desc', 'buff', 'buff2', 'calm', 'nerves_gain', 'heal_pct', 'heal_partner', 'hint', 'review', 'reveal', 'scare', 'clock', 'digest', 'wanted', 'money', 'scout', 'gimmick']);
 
 /** Spieler mit Pfad auf Sequenz seq (ohne Trinken). */
@@ -30,7 +30,8 @@ test('Jede Sequenz jedes Pfades hat zwei Kampffertigkeiten und eine Welt-Fähigk
       assert.ok(sd.skill?.id, `${pid} ${n}: skill`);
       assert.ok(sd.skill2?.id && sd.skill2.name && sd.skill2.desc && sd.skill2.cost >= 1, `${pid} ${n}: skill2`);
       assert.ok(sd.talent?.id && sd.talent.name && sd.talent.desc && sd.talent.cooldown >= 60, `${pid} ${n}: talent`);
-      for (const id of [sd.skill.id, sd.skill2.id, sd.talent.id]) { assert.ok(!ids.has(id), `doppelt: ${id}`); ids.add(id); }
+      for (const id of [sd.skill.id, sd.skill2.id, sd.skill3?.id, sd.talent.id].filter(Boolean)) { assert.ok(!ids.has(id), `doppelt: ${id}`); ids.add(id); }
+      for (const k of Object.keys(sd.skill3 ?? {})) assert.ok(KAMPF_KEYS.has(k), `${pid} ${n}: unbekanntes Kampffeld ${k}`);
       for (const k of Object.keys(sd.skill2)) assert.ok(KAMPF_KEYS.has(k), `${pid} ${n}: unbekanntes Kampffeld ${k}`);
       for (const k of Object.keys(sd.talent)) assert.ok(WELT_KEYS.has(k), `${pid} ${n}: unbekanntes Weltfeld ${k}`);
       // Nicht übermächtig: zweite Fertigkeit kostet höchstens so viel wie die erste und hat nie mehr als 4 Konzentration
@@ -42,7 +43,7 @@ test('Jede Sequenz jedes Pfades hat zwei Kampffertigkeiten und eine Welt-Fähigk
     }
   }
   const all = faehigkeitenIds(raw);
-  assert.equal(all.kampf.length, 90);
+  assert.equal(all.kampf.length, 91); // 90 zweite Fertigkeiten + dritte Moor-Fertigkeit Seq 4
   assert.equal(all.welt.length, 91); // + Schattengestalt (welt_50 Schlüssel Seq 5)
   // Geliehene Effekte zeigen auf bestehende Fertigkeiten des eigenen Pfades
   for (const [pid, p] of Object.entries(content.pathways)) {
