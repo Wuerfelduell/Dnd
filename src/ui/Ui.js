@@ -188,6 +188,8 @@ const skillIcon = (id) => { const ic = skillIconOf(id); return ic ? atlasIcon(ic
 /** Icon einer Welt-Fähigkeit (BZ: ui/talent_icons.png), sonst das Sonnenzeichen. */
 const talentIcon = (id) => { const ic = talentIconOf(id); return ic ? atlasIcon(ic[0], ic[1], ic[2]) : '☉ '; };
 /** Welt-Fähigkeit in der Schnellleiste: 16er-Zelle auf 1.75em, sonst das Sonnenzeichen. */
+/** Merker in skillHidden (je Spieler, im Spielstand): mythische Gestalt nicht in der Schnellleiste. */
+const FORM_BAR_ID = 'hg_form_bar';
 const talentIconHud = (id) => {
   const ic = talentIconOf(id);
   if (!ic) return '<span class="ticon sun">☉</span>';
@@ -931,7 +933,7 @@ export class Ui {
       const b = e.target.closest?.('[data-tslot]');
       if (!b || !this.root.contains(b)) return;
       e.preventDefault();
-      this.useTalentSlot(Number(b.dataset.tplayer), Number(b.dataset.tslot));
+      this.useTalentSlot(Number(b.dataset.tplayer), b.dataset.tslot === 'form' ? 'form' : Number(b.dataset.tslot));
     });
     // Ereignisse kommen oft mitten aus withPlayer(2): erst danach zeichnen, sonst stünden die Werte vertauscht
     const later = () => { if (!this.talentBarTimer) this.talentBarTimer = setTimeout(() => { this.talentBarTimer = null; this.updateTalentBar(); }, 0); };
@@ -947,18 +949,42 @@ export class Ui {
     return this.as(() => this.state.talents?.() ?? [], n);
   }
 
+  /**
+   * Mythische Gestalt als letzter Platz der Leiste (Seb): Taste 0, Spieler 2 Ziffernblock-Komma oder am Gamepad per LB/RB wählen.
+   * Nur sobald die Gestalt freigeschaltet ist und solange sie im Pfad-Tab nicht aus der Leiste genommen wurde. Sonst null.
+   */
+  formSlot(n) {
+    if (n === 2 && !this.state.hasP2()) return null;
+    return this.as(() => {
+      const s = this.state;
+      if (!s.formUnlocked?.() || s.skillHiddenInCombat(FORM_BAR_ID)) return null;
+      const active = s.formActive();
+      return { active, block: active ? null : s.formBlock(), name: s.formDef()?.name ?? 'Mythische Gestalt' };
+    }, n);
+  }
+
   updateTalentBar() {
     for (const n of [1, 2]) {
       const el = this.$(`[data-tbar="${n}"]`);
       if (!el) continue;
       const list = this.talentSlots(n);
-      if (n === 2 && this.talentSel2 >= list.length) this.talentSel2 = 0;
-      const html = list.map((t, i) => this.talentSlotHtml(t, i, n)).join('');
+      const form = this.formSlot(n);
+      if (n === 2 && this.talentSel2 >= list.length + (form ? 1 : 0)) this.talentSel2 = 0;
+      const html = list.map((t, i) => this.talentSlotHtml(t, i, n)).join('') + (form ? this.formSlotHtml(form, list.length, n) : '');
       if (el.dataset.html === html) continue;
       el.dataset.html = html;
       el.innerHTML = html;
-      el.classList.toggle('hidden', !list.length);
+      el.classList.toggle('hidden', !list.length && !form);
     }
+  }
+
+  formSlotHtml(f, i, n) {
+    const state = f.active ? 'ready active' : f.block ? 'nonerves' : 'ready';
+    const key = n === 2 ? 'Num ,' : '0';
+    const title = `${f.name} (Taste ${key}): ${f.active ? 'Gestalt ablegen' : 'Gestalt annehmen'}${f.block ? ` – ${f.block}` : ''}`;
+    const sel = n === 2 && this.talentSel2 === i ? ' sel' : '';
+    const icon = uiSprite('hghud32', f.active ? 'form_an' : f.block ? 'verdauung_gesperrt' : 'form_aus', TILE_ICON_EM / 32, 'ticon');
+    return `<button class="tslot form ${state}${sel}" data-tslot="form" data-tplayer="${n}" title="${esc(title)}">${icon}<span class="key">${n === 2 ? ',' : '0'}</span></button>`;
   }
 
   talentSlotHtml(t, i, n) {
@@ -975,7 +1001,7 @@ export class Ui {
 
   /** Spieler 2 am Gamepad: Auswahl in der Leiste verschieben (LB/RB). */
   moveTalentSel2(d) {
-    const len = this.talentSlots(2).length;
+    const len = this.talentSlots(2).length + (this.formSlot(2) ? 1 : 0);
     if (!len) return;
     this.talentSel2 = (this.talentSel2 + d + len) % len;
     this.updateTalentBar();
@@ -987,6 +1013,7 @@ export class Ui {
     if (idx === 'sel') idx = this.talentSel2 ?? 0;
     const list = this.talentSlots(n);
     const who = n === 2 ? 'Spieler 2: ' : '';
+    if (idx === 'form' || (idx === list.length && this.formSlot(n))) return this.useFormSlot(n, who);
     const t = list[idx];
     if (!t) {
       if (n === 2 && !this.state.hasP2()) return null;
@@ -995,6 +1022,20 @@ export class Ui {
     }
     const r = this.as(() => this.state.useTalent(t.id), n);
     this.toast(`${who}${r.text}`, r.ok ? 'good' : 'warn');
+    this.updateTalentBar();
+    return r;
+  }
+
+  /** Mythische Gestalt über die Schnellleiste annehmen oder ablegen. */
+  useFormSlot(n, who = n === 2 ? 'Spieler 2: ' : '') {
+    if (!this.formSlot(n)) {
+      if (n === 2 && !this.state.hasP2()) return null;
+      const why = this.as(() => (this.state.formUnlocked?.() ? 'Die mythische Gestalt ist aus der Schnellleiste genommen (Pfad-Tab).' : this.state.formBlock?.()), n);
+      if (why) this.toast(`${who}${why}`, 'warn');
+      return null;
+    }
+    const r = this.as(() => this.state.toggleForm(), n);
+    this.toast(`${who}${r.ok ? (r.active ? 'Mythische Gestalt angenommen.' : 'Mythische Gestalt abgelegt.') : r.text}`, r.ok ? 'good' : 'warn');
     this.updateTalentBar();
     return r;
   }
@@ -2669,7 +2710,14 @@ export class Ui {
         ? `Menschen ohne Pfad und Wesen, die deutlich unter dir stehen, brechen beim Anblick zusammen (Sieg samt Beute, ohne Kampf). Deine Pfadfertigkeiten treffen jetzt waffenunabhängig und weit stärker. ${s.formUnruheRate() ? `Kostet ${FORM_NERVES_PER_SEC} Nerven und ${String(s.formUnruheRate()).replace('.', ',')} Unruhe je Sekunde; diese Unruhe senkt kein Tee und kein Mittel.` : `Kostet ${FORM_NERVES_PER_SEC} Nerven je Sekunde; Unruhe macht sie dir nicht mehr.`} Fällt ab, wenn die Nerven unter ${FORM_MIN_NERVES} sinken. Bosse und höhere Wesen bleiben.`
         : `Ab ${FORM_MIN_DIGEST} % Verdauung auf Sequenz ${FORM_SEQ}: die wahre Gestalt des Pfades. Nicht-Beyonder und schwächere Monster fallen vor ihr um, deine Pfadfertigkeiten treffen in ihr waffenunabhängig und weit stärker. Annehmen nur unter ${FORM_MAX_UNRUHE} % Unruhe. Auf Sequenz 4 und 3 treibt sie die Unruhe hoch, und kein Tee senkt diese; ab Sequenz 2 beherrschst du sie.`}</p>
       <p class="muted">${formReif(s.pathway) ? 'Halb verdaut: Deine Fähigkeiten wirken dauerhaft 10 % stärker, auch ohne Gestalt.' : 'Ab 50 % Verdauung wirken deine Fähigkeiten dauerhaft 10 % stärker, auch ohne Gestalt.'}</p>
-      <button class="small ${block ? '' : 'primary'}" data-form="1" ${block ? 'disabled' : ''}>${active ? 'Gestalt ablegen' : 'Gestalt annehmen'}</button> ${block ? `<span class="muted">${esc(block)}</span>` : ''}</div>`;
+      <button class="small ${block ? '' : 'primary'}" data-form="1" ${block ? 'disabled' : ''}>${active ? 'Gestalt ablegen' : 'Gestalt annehmen'}</button> ${block ? `<span class="muted">${esc(block)}</span>` : ''}
+      ${s.formUnlocked() ? this.formBarBtn(s) : ''}</div>`;
+  }
+
+  /** Häkchen-Knopf: Gestalt in der Schnellleiste zeigen (Taste 0, Spieler 2 Ziffernblock-Komma) oder ausblenden. */
+  formBarBtn(s) {
+    const hidden = s.skillHiddenInCombat(FORM_BAR_ID);
+    return `<button class="small skillvis${hidden ? '' : ' primary'}" data-skillvis="${FORM_BAR_ID}" title="In der Schnellleiste zeigen oder ausblenden">${hidden ? '☐ aus der Schnellleiste ausgeblendet' : '☑ in der Schnellleiste'}</button>${hidden || this.touch ? '' : ' <span class="muted">Taste <span class="key">0</span>, Spieler 2 Ziffernblock <span class="key">,</span></span>'}`;
   }
 
   /** Ritual für den nächsten Trank (ab Sequenz 6): Zutaten, Bedingungen, Knopf. */
