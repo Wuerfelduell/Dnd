@@ -21,9 +21,14 @@ test('Splitscreen: erst zu zweit in Calderwick, Spieler 2 hat dann eigene Karte,
   s.splitTick();
   assert.equal(s.splitOn, false, 'ohne Ankunft nicht');
   s.flags.add('k4_arrived');
+  assert.equal(s.splitTick(), false, 'draußen in Calderwick gemeinsames Bild');
+  assert.equal(s.splitOn, false);
+  s.map = 'o3_eisen'; // Spieler 1 geht in sein Pfadviertel
+  s.flags.add('o3_rueck:cw_gleisfuss');
   assert.equal(s.splitTick(), true);
   assert.equal(s.splitOn, true);
-  assert.equal(s.p2.map, 'cw_gleisfuss');
+  assert.equal(s.p2.map, 'cw_gleisfuss', 'Spieler 2 bleibt draußen');
+  s.map = 'cw_gleisfuss';
   s.p2.map = 'o3_laterne';
   assert.equal(s.withPlayer(2, () => s.map, { quiet: true }), 'o3_laterne');
   assert.equal(s.map, 'cw_gleisfuss');
@@ -47,8 +52,10 @@ test('Splitscreen: erst zu zweit in Calderwick, Spieler 2 hat dann eigene Karte,
 test('Splitscreen: Kämpfe allein; Spieler 2 kämpft mit seinen Werten auf seiner Karte', () => {
   const s = duo();
   s.flags.add('k4_arrived');
-  s.splitTick();
   s.p2.map = 'o3_laterne';
+  assert.equal(s.splitBetreten(2, 'o3_laterne', 'default', null), true);
+  s.splitTick();
+  assert.equal(s.splitOn, true);
   s.combatBy = 2;
   const c = new Combat(s, 'o3_laterne_g1');
   assert.equal(c.duo, false);
@@ -63,7 +70,9 @@ test('Splitscreen: Kämpfe allein; Spieler 2 kämpft mit seinen Werten auf seine
 test('Splitscreen endet für immer, wenn beide Seq 3 haben', () => {
   const s = duo();
   s.flags.add('k4_arrived');
+  s.map = 'o3_eisen';
   s.splitTick();
+  assert.equal(s.splitOn, true);
   s.pathway.seq = 3;
   s.splitTick();
   assert.equal(s.splitOn, true, 'einer allein reicht nicht');
@@ -75,4 +84,34 @@ test('Splitscreen endet für immer, wenn beide Seq 3 haben', () => {
   s.pathway.seq = 4;
   s.splitTick();
   assert.equal(s.splitOn, false);
+});
+
+test('Splitscreen nur in Pfadvierteln: wer hineingeht, teilt das Bild; sind beide draußen, wird es wieder eins', () => {
+  const s = duo();
+  s.flags.add('k4_arrived');
+  s.map = 'cw_kronenarchiv';
+  s.splitTick();
+  assert.equal(s.splitOn, false, 'andere Calderwick-Orte: gemeinsames Bild');
+  // Spieler 2 benutzt im gemeinsamen Bild die Tür zu seinem Viertel: nur er geht hinein
+  assert.equal(s.splitBetreten(2, 'o3_laterne', 'default', null), true);
+  s.splitTick();
+  assert.equal(s.splitOn, true);
+  assert.equal(s.map, 'cw_kronenarchiv');
+  assert.equal(s.p2.map, 'o3_laterne');
+  // Spieler 1 geht woandershin in Calderwick: weiter geteilt, Spieler 2 ist noch im Viertel
+  s.map = 'cw_gleisfuss';
+  s.splitTick();
+  assert.equal(s.splitOn, true);
+  // Spieler 2 kommt heraus: gemeinsames Bild bei Spieler 1
+  s.p2.map = 'cw_kronenarchiv';
+  assert.equal(s.splitTick(), true);
+  assert.equal(s.splitOn, false);
+  assert.equal(s.p2.map, undefined);
+  // Spieler 1 geht hinein: Spieler 2 bleibt an seiner Stelle draußen
+  assert.equal(s.splitBetreten(1, 'o3_eisen', 'default', [40, 50]), false);
+  s.map = 'o3_eisen';
+  s.splitTick();
+  assert.equal(s.splitOn, true);
+  assert.equal(s.p2.map, 'cw_gleisfuss');
+  assert.deepEqual(s.p2.position, [40, 50]);
 });

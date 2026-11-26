@@ -173,7 +173,7 @@ test('Koop im Splitscreen: reist Spieler 2 nach Dunscar, kommt Spieler 1 mit (ni
   s.pathway = { id: 'eisen', seq: 4, digestion: 0 };
   s.addP2();
   s.withPlayer(2, () => { s.pathway = { id: 'faden', seq: 4, digestion: 0 }; });
-  s.map = 'cw_gleisfuss';
+  s.map = 'o3_eisen';
   s.splitTick();
   assert.ok(s.splitOn);
   Object.assign(s.p2, { map: 'ds_endbahnhof', spawn: 'default', position: null }); // gespaltener Spielstand

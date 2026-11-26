@@ -2290,6 +2290,17 @@ export class WorldScene extends Phaser.Scene {
     if (hold && !this.state.pendingTravel) { this.ui.toast?.(hold, 'warn'); return; }
     if (!this.state.content.maps[mapId]) throw new Error(`Unbekannter Ort: ${mapId}`);
     mapId = this.state.variantOf?.(mapId) ?? mapId; // CH: Briarholt kalt oder warm
+    // Pfadviertel in Calderwick (core/Split.js): im gemeinsamen Bild geht nur der hinein, der die Tür benutzt; der Bildschirm teilt sich
+    if (this.splitRole === 1 && !this.realState.splitOn && this.state.hasP2?.()) {
+      const by = this.state.acting;
+      const pos2 = this.p2 ? [Math.round(this.p2.x), Math.round(this.p2.y)] : null;
+      if (this.state.splitBetreten?.(by, mapId, spawn, pos2)) {
+        for (const f of [...this.state.flags]) if (f.startsWith('o3_rueck:')) this.state.flags.delete(f);
+        this.state.flags.add(`o3_rueck:${this.state.map}`);
+        this.state.position = this.player ? this.playerPosition() : null;
+        return; // splitTick schaltet gleich um und baut die Szene neu
+      }
+    }
     this.leaving = true;
     this.state.cancelPrivateAnswer?.(1); // BN: offene Namensantwort verfällt beim Kartenwechsel
     this.state.cancelPrivateAnswer?.(2);

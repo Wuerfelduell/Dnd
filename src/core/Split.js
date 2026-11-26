@@ -1,5 +1,6 @@
 // Kapitel 4 (Seb, 2026-11-12): In Calderwick muss jeder Spieler in das Gebiet seines eigenen Pfades. Darum teilt sich zu zweit
-// zum ersten Mal der Bildschirm: zwei Kameras, beide Spieler auf verschiedenen Karten gleichzeitig. Der Splitscreen endet für
+// zum ersten Mal der Bildschirm. Seb 2026-11-26: nur in den Pfadvierteln (o3_<pfad>); sobald beide wieder draußen sind, ist das Bild
+// wieder gemeinsam: zwei Kameras, beide Spieler auf verschiedenen Karten gleichzeitig. Der Splitscreen endet für
 // immer, wenn BEIDE ihr Seq-3-Ritual geschafft haben (beide auf Sequenz 3 oder höher); dann wird das Bild wieder eins.
 //
 // Technik: Solange der Splitscreen läuft (splitOn), hat Spieler 2 eine eigene Karte, eine eigene Ankunftsstelle und eine eigene
@@ -14,12 +15,34 @@ export const SPLIT_STADT = 'calderwick';
 
 const cityOf = (s, map) => s.content.maps[map]?.city ?? 'kettlegate';
 const seqOf = (p) => p?.seq ?? 9;
+/** Pfadviertel (Gildensitz o3_<pfad>) in Calderwick: nur dort teilt sich der Bildschirm (Seb 2026-11-26). */
+export const imPfadviertel = (s, map) => !!map && map.startsWith('o3_') && !!s.content.maps[map] && cityOf(s, map) === SPLIT_STADT;
 
 export const splitMethods = {
-  /** Soll der Bildschirm gerade geteilt sein? Zu zweit, in Calderwick, bis beide Seq 3 erreicht haben. */
+  /** Darf der Bildschirm sich überhaupt teilen? Zu zweit, nach der Ankunft in Calderwick, bis beide Seq 3 erreicht haben. */
+  splitMoeglich() {
+    return !!this.hasP2?.() && this.flags.has('k4_arrived') && !this.flags.has(SPLIT_ENDE_FLAG);
+  },
+
+  /** Soll der Bildschirm gerade geteilt sein? Seb 2026-11-26: nur solange einer von beiden in einem Pfadviertel steht, sonst gemeinsames Bild. */
   splitSoll() {
-    if (!this.hasP2?.() || !this.flags.has('k4_arrived') || this.flags.has(SPLIT_ENDE_FLAG)) return false;
-    return cityOf(this, this.map) === SPLIT_STADT;
+    if (!this.splitMoeglich() || cityOf(this, this.map) !== SPLIT_STADT) return false;
+    return imPfadviertel(this, this.map) || imPfadviertel(this, this.p2?.map);
+  },
+
+  /**
+   * Gemeinsames Bild, einer geht durch die Tür eines Pfadviertels: nur er geht hinein, der andere bleibt draußen stehen, und der
+   * Bildschirm teilt sich. by = wer die Tür benutzt hat, pos2 = Stelle von Spieler 2 draußen. Gibt true zurück, wenn Spieler 2
+   * allein hineingeht (Spieler 1 bleibt dann auf seiner Karte, die Szene wechselt nicht).
+   */
+  splitBetreten(by, mapId, spawn, pos2) {
+    if (this.splitOn || !this.splitMoeglich() || !imPfadviertel(this, mapId) || imPfadviertel(this, this.map)) return false;
+    if (by === 2) {
+      Object.assign(this.p2, { map: mapId, spawn: spawn ?? 'default', position: null });
+      return true;
+    }
+    Object.assign(this.p2, { map: this.map, spawn: this.spawn, position: pos2 ?? null });
+    return false;
   },
 
   /** Seq 3 bei beiden: der Splitscreen endet. Spieler 1 und 2 aus Sicht des Spielstands (ohne Tausch). */
@@ -42,10 +65,12 @@ export const splitMethods = {
     const soll = this.splitSoll();
     if (soll === !!this.splitOn) return false;
     if (soll) {
-      // Spieler 2 beginnt dort, wo Spieler 1 gerade steht
-      Object.assign(this.p2, { map: this.p2.map && this.content.maps[this.p2.map] ? this.p2.map : this.map, spawn: this.p2.spawn ?? this.spawn, position: this.p2.position ?? null });
+      // Spieler 2 bleibt draußen (splitBetreten hat seine Stelle gemerkt); sonst vor dem Eingang, durch den Spieler 1 kam
+      const rueck = [...this.flags].find((f) => f.startsWith('o3_rueck:'))?.slice(9);
+      const draussen = rueck && this.content.maps[rueck] ? rueck : 'cw_gleisfuss';
+      if (!this.p2.map || !this.content.maps[this.p2.map]) Object.assign(this.p2, { map: draussen, spawn: 'default', position: null });
       this.splitOn = true;
-      this.emit('notice', 'Calderwick trennt euch: Jeder muss in das Gebiet seines eigenen Pfades. Der Bildschirm teilt sich (Spieler 1 links mit WASD und E, Spieler 2 rechts mit Pfeilen und Enter).');
+      this.emit('notice', 'Ein Pfadviertel trennt euch: Jeder kämpft in seinem eigenen Gebiet. Der Bildschirm teilt sich, bis ihr beide wieder draußen seid (Spieler 1 links mit WASD und E, Spieler 2 rechts mit Pfeilen und Enter).');
     } else {
       this.splitOn = false;
       for (const k of SPLIT_KEYS) delete this.p2?.[k];
