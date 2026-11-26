@@ -37,6 +37,7 @@ import { applyNebelseite } from './nebelseite.js';
 import { applyDunscarHaendler } from './dunscarHaendler.js';
 import { applyDunscarKulisse } from './dunscarKulisse.js';
 import { applyBriarholtKulisse } from './briarholtKulisse.js';
+import { applyCalderwickKulisse } from './calderwickKulisse.js';
 import { applyDunscarAusbau, applyDunscarStaende } from './dunscarAusbau.js';
 import { applyBenannte } from './benannte.js';
 import { applyDunscarSchlacke } from './dunscarSchlacke.js';
@@ -168,6 +169,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyMarloweTelegramm(content); // Tipps nur von Marlowe: Telegrammschalter in jeder späteren Stadt
   applyKettlegateZirkel(content); // Kettlegater Zirkel: nur Zutaten 7/6, Formeln, Artefakte; keine Trophäen-Gesuche (zuletzt)
   applyNebelnacht(content); // Nebelnächte: Nebelkrämerin auf dem Markt jeder Stadt (nach allen Kulissen)
+  applyCalderwickKulisse(content); // Calderwick: Häuser, Möbelblöcke, Fassaden, Rohrpost, Laternen, Licht und Nebel; Pfadviertel mit Verderbnis-Glimmen
   gateStarlingHinweise(content); // Seb 2026-11-18: Starling-Gerüchte erst im Fall „Finde Starling“ (ganz zuletzt)
   return content;
 }

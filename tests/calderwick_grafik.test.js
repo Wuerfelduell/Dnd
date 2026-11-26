@@ -62,6 +62,7 @@ test('CE1: Deko aus den sieben Props-Blättern steht auf Boden und nennt nur vor
     const m = content.maps[id];
     for (const d of m.decor) {
       decor += 1;
+      if (d.kulisse) continue; // Calderwick-Kulisse (eigener Test)
       if (d.sprite === 'cwt_gleis' || d.sprite.startsWith('cwo_')) continue; // CS: Minas Stand kommt aus dem Nachzügler-Paket
       assert.ok(known.has(d.sprite), `${id}: ${d.sprite}`);
       assert.match(m.rows[d.tile[1]][d.tile[0]], /[.swg]/, `${id}: ${d.sprite} auf ${d.tile}`);
@@ -70,7 +71,7 @@ test('CE1: Deko aus den sieben Props-Blättern steht auf Boden und nennt nur vor
   }
   assert.ok(decor > 80);
   assert.deepEqual(ANIM_SHEETS.cwt_gleis, ['tilesets/cw_gleis.png', 16, 16]);
-  const rails = content.maps.cw_gleisfuss.decor.filter((d) => d.sprite === 'cwt_gleis');
+  const rails = content.maps.cw_gleisfuss.decor.filter((d) => d.sprite === 'cwt_gleis' && !d.kulisse);
   assert.ok(rails.length >= 20 && rails.every((d) => d.tile[1] === 20));
   assert.ok(content.maps.cw_gleisfuss.decor.some((d) => d.sprite === 'cwp_gleisfuss_gueterwaggon_offen' && d.tile[1] === 20));
 });
