@@ -639,6 +639,20 @@ export function tileIndexFor(rows, x, y, theme = null, facade = null) {
   }
 }
 
+/**
+ * Ständige Aura und Gestalt je Sequenz (Seb 2026-11-26): mit jeder Stufe ab Seq 4 brutaler, damit sich ein Aufstieg anfühlt.
+ * scale/alpha der Aura, puls (Atmen), funken je Sekunde, rot = Anteil blutroter Funken, licht = Radius, welle = ms zwischen
+ * Bodenwellen, gestalt = Größe der mythischen Gestalt.
+ */
+export const MACHT = {
+  4: { scale: 1, alpha: 1, puls: 0.06, funken: 0.6, rot: 0, licht: 0, welle: 0, gestalt: 1 },
+  3: { scale: 1.3, alpha: 1.3, puls: 0.15, funken: 3, rot: 0, licht: 55, welle: 0, gestalt: 1.15 },
+  2: { scale: 1.65, alpha: 1.6, puls: 0.28, funken: 7, rot: 0.35, licht: 85, welle: 2600, gestalt: 1.32 },
+  1: { scale: 2.1, alpha: 1.9, puls: 0.42, funken: 14, rot: 0.6, licht: 125, welle: 1300, gestalt: 1.5 },
+};
+const MACHT_LEER = { scale: 1, alpha: 1, puls: 0, funken: 0, rot: 0, licht: 0, welle: 0, gestalt: 1 };
+export const machtOf = (seq) => MACHT[seq] ?? (seq < 1 ? MACHT[1] : MACHT_LEER);
+
 export class WorldScene extends Phaser.Scene {
   /** Kapitel 4: 'world2' ist die rechte Hälfte des Splitscreens in Calderwick, dort läuft Spieler 2 auf seiner eigenen Karte. */
   constructor(key = 'world') {
@@ -770,6 +784,9 @@ export class WorldScene extends Phaser.Scene {
     this.focus2 = null;
     this.pending2 = null;
     this.aura = null;
+    this.auras = {};
+    this.machtLichter = {};
+    this.machtStand = {};
     this.cracks = null;
 
     createTextures(this);
@@ -1555,9 +1572,7 @@ export class WorldScene extends Phaser.Scene {
     this.player.setDepth(100 + this.player.y);
     if (this.formAura?.follow) this.formAura.setPosition(this.formAura.follow.x, this.formAura.follow.y + 1).setDepth(this.formAura.follow.depth - 1);
     this.gearOverlay?.sync();
-    if (this.aura) {
-      this.aura.setPosition(this.player.x, this.player.y + 2);
-    }
+    this.tickMacht(this.game.loop.delta);
     // Ständige Aura ab Seq 4: Stärke (50 % Verdauung) und Sichtbarkeit etwa jede Sekunde nachziehen
     if (this.time.now > (this.auraCheck ?? 0)) { this.auraCheck = this.time.now + 1000; this.updateAura(); }
     this.updateCamTarget();
@@ -1797,7 +1812,7 @@ export class WorldScene extends Phaser.Scene {
       }
     }
     if (active) {
-      who.setScale(own ? 1 : 1.3);
+      who.machtGroesse = 0; // updateAura zieht die Größe je Sequenz nach (updateMachtGroesse)
       if (color && !own) who.setTint(Number.parseInt(color.slice(1), 16));
       if (!this.formLight) {
         // Das Licht bleibt an der Figur, solange die Gestalt steht (active fragt den Spielstand)
@@ -1806,6 +1821,7 @@ export class WorldScene extends Phaser.Scene {
       }
     } else {
       who.setScale(1);
+      who.machtGroesse = 0;
       if (who === this.p2 && this.p2Key === 'player') who.setTint(P2_TINT); else who.clearTint();
     }
     this.updateAura();
@@ -1840,26 +1856,119 @@ export class WorldScene extends Phaser.Scene {
     if (kind === 'unrest') this.time.delayedCall(2000, () => this.tweens.add({ targets: fx, alpha: 0, duration: 400, onComplete: end }));
   }
 
-  /** Pfad-Aura um die Figur, sichtbar mit Geistsicht. */
+  /** Pfad-Aura um die Figur, sichtbar mit Geistsicht; ab Seq 4 ständig und mit jeder Sequenz brutaler (MACHT). Beide Spieler. */
   updateAura() {
-    const pid = this.state.pathway?.id;
-    const seq = this.state.pathway?.seq ?? 9;
-    const hell = this.state.spiritVision || this.state.formActive?.();
-    // Ab Seq 4 umhüllt die Pfad-Aura die Figur ständig: schwach, ab 50 % Verdauung (bzw. unter Seq 4) etwas stärker
-    const staendig = seq <= FORM_SEQ;
-    const show = pid && (hell || staendig) && this.textures.exists('aura_pfade');
-    if (!show) { this.aura?.setVisible(false); return; }
-    const alpha = hell ? 0.7 : formReif(this.state.pathway) ? 0.45 : 0.25;
-    if (!this.aura) this.aura = this.add.sprite(0, 0, 'aura_pfade').setOrigin(0.5, 1).setBlendMode(Phaser.BlendModes.ADD).setDepth(DEPTH.dark + 1); // über der Dunkelheit, wie ein Leuchten
-    // Paket AG: Waage, Moor und Uhr haben eine eigene Aura (48x64), sonst die eines Bestandspfads
-    const own = pid.startsWith('sq_') ? `sq_aura_${pid.slice(3)}` : null;
-    if (own && this.textures.exists(own)) {
-      if (this.aura.anims.currentAnim?.key !== `${own}-loop`) playSheetAnim(this.aura, own, 'loop');
-    } else {
-      const art = pathwayArt(pid);
-      if (this.aura.anims.currentAnim?.key !== `aura_pfade-${art}`) playSheetAnim(this.aura, 'aura_pfade', art);
+    this.auras ??= {};
+    for (const n of [1, 2]) {
+      const who = n === 2 ? this.p2 : this.player;
+      const info = who && (n === 1 || this.state.p2) ? this.state.withPlayer(n, () => ({
+        pid: this.state.pathway?.id, seq: this.state.pathway?.seq ?? 9,
+        hell: this.state.spiritVision || this.state.formActive?.(), reif: formReif(this.state.pathway), form: !!this.state.formActive?.(),
+      }), { quiet: true }) : null;
+      let aura = this.auras[n];
+      const staendig = info && info.seq <= FORM_SEQ;
+      const show = info?.pid && (info.hell || staendig) && this.textures.exists('aura_pfade');
+      this.machtStand ??= {};
+      this.machtStand[n] = info && staendig ? { seq: info.seq, form: info.form, pid: info.pid } : null;
+      this.updateMachtGroesse(n, who, info);
+      if (!show) { aura?.setVisible(false); continue; }
+      const m = machtOf(info.seq);
+      const alpha = Math.min(1, (info.hell ? 0.7 : info.reif ? 0.45 : 0.25) * m.alpha);
+      if (!aura) aura = this.auras[n] = this.add.sprite(0, 0, 'aura_pfade').setOrigin(0.5, 1).setBlendMode(Phaser.BlendModes.ADD).setDepth(DEPTH.dark + 1); // über der Dunkelheit, wie ein Leuchten
+      // Paket AG: Waage, Moor und Uhr haben eine eigene Aura (48x64), sonst die eines Bestandspfads
+      const own = info.pid.startsWith('sq_') ? `sq_aura_${info.pid.slice(3)}` : null;
+      if (own && this.textures.exists(own)) {
+        if (aura.anims.currentAnim?.key !== `${own}-loop`) playSheetAnim(aura, own, 'loop');
+      } else {
+        const art = pathwayArt(info.pid);
+        if (aura.anims.currentAnim?.key !== `aura_pfade-${art}`) playSheetAnim(aura, 'aura_pfade', art);
+      }
+      aura.machtAlpha = alpha;
+      aura.machtScale = m.scale * (info.form ? m.gestalt : 1);
+      aura.setVisible(true).setAlpha(alpha).setScale(aura.machtScale).setPosition(who.x, who.y + 2);
     }
-    this.aura.setVisible(true).setAlpha(alpha).setPosition(this.player.x, this.player.y + 2);
+    this.aura = this.auras[1] ?? null;
+  }
+
+  /**
+   * Mythische Gestalt wächst mit jeder Sequenz (Seb 2026-11-26): Seq 4 Grundgröße, Seq 3/2/1 deutlich größer.
+   * Ohne eigenes Formen-Sheet bleibt der alte Zuschlag ×1.3 obendrauf.
+   */
+  updateMachtGroesse(n, who, info) {
+    if (!who) return;
+    const busy = n === 2 ? this.p2Busy : this.playerBusy;
+    if (busy) return;
+    if (!info?.form) { if (who.machtGroesse) { who.setScale(1); who.machtGroesse = 0; } return; }
+    const own = !!this.formKey(n);
+    const ziel = (own ? 1 : 1.3) * machtOf(info.seq).gestalt;
+    if (Math.abs((who.machtGroesse ?? 0) - ziel) < 0.001) return;
+    who.machtGroesse = ziel;
+    this.tweens.add({ targets: who, scaleX: ziel, scaleY: ziel, duration: 500, ease: 'Back.easeOut' });
+  }
+
+  /**
+   * Jede Frame: Aura pulsiert, ab Seq 3 steigen Funken auf (ab Engel blutrot), ab Engel bebt der Boden in Wellen,
+   * der Engelskönig zieht Blitzzacken und Risse um sich. Stärke aus MACHT, Stand aus updateAura (jede Sekunde).
+   */
+  tickMacht(delta) {
+    const t = this.time.now;
+    this.machtLichter ??= {};
+    for (const n of [1, 2]) {
+      const who = n === 2 ? this.p2 : this.player;
+      const st = this.machtStand?.[n];
+      const aura = this.auras?.[n];
+      if (aura?.visible) {
+        aura.setPosition(who?.x ?? aura.x, (who?.y ?? aura.y) + 2);
+        const m = machtOf(st?.seq ?? 9);
+        if (m.puls) {
+          const w = Math.sin(t / (st.seq <= 1 ? 90 : st.seq === 2 ? 140 : 220));
+          aura.setAlpha(Math.min(1, aura.machtAlpha * (1 + m.puls * w))).setScale(aura.machtScale * (1 + m.puls * 0.25 * w));
+        }
+      }
+      if (!who || !st) continue;
+      const m = machtOf(st.seq);
+      const color = Number.parseInt((this.state.content.pathways[st.pid]?.color ?? '#e8c070').slice(1), 16);
+      // Licht um die Figur, wächst mit der Stufe
+      if (m.licht) {
+        if (!this.machtLichter[n]) this.machtLichter[n] = this.lighting?.add({ follow: who, offsetY: -12, radius: m.licht, intensity: 0.8, color, glowAlpha: 0.35, flicker: m.puls * 0.6,
+          active: () => !!this.machtStand?.[n] && machtOf(this.machtStand[n].seq).licht > 0 });
+        const l = this.machtLichter[n];
+        if (l) { l.radius = m.licht * (st.form ? 1.4 : 1); l.color = color; l.glow?.setTint(color); l.flicker = m.puls * 0.6; }
+      }
+      // Funken
+      who.machtFunken = (who.machtFunken ?? 0) + (delta / 1000) * m.funken * (st.form ? 1.6 : 1);
+      while (who.machtFunken >= 1) {
+        who.machtFunken -= 1;
+        const rot = Math.random() < m.rot;
+        const f = this.add.rectangle(who.x + (Math.random() - 0.5) * 22 * m.scale, who.y - Math.random() * 26, rot ? 2 : 1 + (Math.random() < 0.4 ? 1 : 0), rot ? 2 : 1 + (Math.random() < 0.4 ? 1 : 0), rot ? 0xff2030 : Math.random() < 0.3 ? 0xffffff : color)
+          .setDepth(DEPTH.dark + 1).setBlendMode(Phaser.BlendModes.ADD);
+        this.tweens.add({ targets: f, y: f.y - 20 - Math.random() * 30 * m.scale, x: f.x + (Math.random() - 0.5) * 12, alpha: 0, duration: 700 + Math.random() * 700, onComplete: () => f.destroy() });
+      }
+      // Bodenwellen (Engel, Engelskönig) und Blitzzacken (Engelskönig)
+      if (m.welle && t > (who.machtWelle ?? 0)) {
+        who.machtWelle = t + m.welle * (0.7 + Math.random() * 0.6) / (st.form ? 1.5 : 1);
+        const g = this.add.graphics().setDepth(who.depth - 2).setBlendMode(Phaser.BlendModes.ADD);
+        const r = { r: 4 };
+        const rMax = st.seq <= 1 ? 70 : 45;
+        const c = st.seq <= 1 && Math.random() < 0.5 ? 0xff2030 : color;
+        const x0 = who.x;
+        const y0 = who.y;
+        this.tweens.add({ targets: r, r: rMax, duration: 900, ease: 'Cubic.easeOut',
+          onUpdate: () => { g.clear(); g.lineStyle(2, c, 0.8 * (1 - r.r / rMax)).strokeEllipse(x0, y0, r.r * 2, r.r * 0.8); }, onComplete: () => g.destroy() });
+        if (st.seq <= 1) {
+          const z = this.add.graphics().setDepth(DEPTH.dark + 1).setBlendMode(Phaser.BlendModes.ADD);
+          for (let k = 0; k < 2; k++) {
+            const w = Math.random() * Math.PI * 2;
+            let x = who.x;
+            let y = who.y - 14;
+            z.lineStyle(k ? 1 : 2, k ? 0xffffff : 0xff2030, 1).beginPath().moveTo(x, y);
+            for (let i = 0; i < 4; i++) { x += Math.cos(w) * 9 + (Math.random() - 0.5) * 10; y += Math.sin(w) * 9 + (Math.random() - 0.5) * 10; z.lineTo(x, y); }
+            z.strokePath();
+          }
+          this.tweens.add({ targets: z, alpha: 0, duration: 260, onComplete: () => z.destroy() });
+        }
+      }
+    }
   }
 
   /** Risse am Bildrand, wenn die Unruhe hoch ist (ab 50). */
