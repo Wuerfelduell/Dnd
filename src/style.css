@@ -1172,3 +1172,8 @@ html.touch .talentbar .tslot { width: 3.2em; height: 3.2em; }
 .saveslot .slotbtns { display: flex; gap: 0.3em; }
 .saveslot .slotbtns button { padding: 0.2em 0.6em; font-size: 0.85em; }
 @media (max-width: 640px) { .saveslot { grid-template-columns: 1fr auto; } .saveslot .slotinfo { grid-column: 1 / -1; grid-row: 2; } }
+
+/* Pfad-Bedarf (core/Bedarf.js): Stücke, die man für kommende Sequenzen noch braucht */
+.badge.need { color: #d8b45a; margin-left: 0.25em; }
+.badge.need.main { color: #f0d070; background: rgba(240, 208, 112, 0.12); }
+.pricetag.warn { outline: 0.15em solid #c8826a; }

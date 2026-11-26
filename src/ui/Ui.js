@@ -286,6 +286,20 @@ const uiSprite = (sheet, region, k = 1 / 8, cls = '', title = '') => {
 };
 /** Paket BP: Korruptionsabzeichen (Knoten) bzw. gereinigt/beiseitegelegt aus ui/BP_korruption.png. */
 const korrIcon = (name = 'corrupted', title = 'korrumpiert') => uiSprite('bpkorr', name, 1 / 6, 'korricon', title);
+/** Pfad-Bedarf (core/Bedarf.js): Marke „★ Seq 5 Hauptzutat / Trank / Ritual“ je Spieler, der das Stück noch braucht. */
+function bedarfHtml(alle, id, { players = false } = {}) {
+  return Object.entries(alle ?? {}).map(([n, map]) => {
+    const e = map.get(id);
+    if (!e) return '';
+    const seqs = [...new Set(e.reasons.map((r) => r.seq))].sort((a, b) => b - a);
+    return seqs.map((seq) => {
+      const rs = e.reasons.filter((r) => r.seq === seq);
+      const main = rs.some((r) => r.main && r.kind === 'trank');
+      const label = main ? 'Hauptzutat' : rs.length > 1 ? 'Trank + Ritual' : rs[0].kind === 'ritual' ? 'Ritual' : 'Trank';
+      return ` <span class="badge need${main ? ' main' : ''}" title="Brauchst du noch für deinen Pfad">★ ${players ? `Sp. ${n}: ` : ''}Seq ${seq} ${label}</span>`;
+    }).join('');
+  }).join('');
+}
 const korrBadge = () => `<span class="badge refuted korr">${korrIcon()}korrumpiert</span>`;
 /** Paket AE: gezeichneter Touch-Knopf (32x32, nur im Touch-Modus sichtbar) und Einstellungs-Symbol (16x16). */
 const touchIcon = (name) => uiSprite('aetouch', name, 1 / 16, 'touch-only aeicon');
@@ -2260,6 +2274,7 @@ export class Ui {
     const list = cat.kinds ? all.filter((it) => cat.kinds.includes(it.kind)) : all;
     const subtabs = `<div class="tabs subtabs">${cats.map((c) => `<button class="tab ${c.id === this.itemCat ? 'sel' : ''}" data-itemcat="${c.id}" ${c.n ? '' : 'disabled'}>${esc(c.title)} <span class="muted">${c.n}</span></button>`).join('')}<span class="muted subkeys"><button class="keybtn" data-key="ArrowLeft"><span class="key">←</span></button><button class="keybtn" data-key="ArrowRight"><span class="key">→</span></button></span></div>`;
     const w = s.weaponStats();
+    const need = { [s.acting ?? 1]: s.pfadBedarf() };
     const rows = list.map((it) => {
       let action = '';
       const tainted = s.isCorrupted(it.id);
@@ -2288,7 +2303,7 @@ export class Ui {
         : it.kind === 'gear' ? ` <span class="muted">${GEAR_SLOT_NAMES[it.slot]}</span>` : '';
       const effects = it.kind === 'artifact' || it.kind === 'gear' ? artifactEffectsHtml(it) : '';
       const taint = tainted ? corruptionHtml(s, it.id) : '';
-      return `<li class="item${tainted ? ' tainted' : ''}"><div>${it.kind === 'potion' || it.kind === 'formula' ? itemIconBig(it.id) : itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${stat}${tainted ? ` ${korrBadge()}` : ''}<br><span class="desc">${esc(it.desc)}</span>${effects}${taint}</div><div>${action}</div></li>`;
+      return `<li class="item${tainted ? ' tainted' : ''}"><div>${it.kind === 'potion' || it.kind === 'formula' ? itemIconBig(it.id) : itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${stat}${tainted ? ` ${korrBadge()}` : ''}${bedarfHtml(need, it.id)}<br><span class="desc">${esc(it.desc)}</span>${effects}${taint}</div><div>${action}</div></li>`;
     }).join('');
     const carried = s.activeArtifacts();
     const maxArt = s.artifactMaxActive();
@@ -2948,22 +2963,25 @@ export class Ui {
     const s = this.state;
     const m = s.merchant(merchantId);
     if (!m) throw new Error(`Händler fehlt: ${merchantId}`);
-    this.shop = { id: merchantId, mode };
+    this.shop = { id: merchantId, mode, confirm: mode === 'sell' ? this.shopConfirm ?? null : null }; // Verkaufswarnung gilt nur fürs nächste Bild
+    this.shopConfirm = null;
     let rows;
     let rivaleHier = false; // Rivale auf dem eigenen Pfad hat hier heute etwas weggekauft
     if (mode === 'buy') {
       const stock = s.shopStock(merchantId);
+      const need = s.pfadBedarfAlle();
       rivaleHier = stock.some((e) => e.rivale);
       this.shop.entries = stock.map((e) => ({ id: e.item, disabled: !!e.locked || e.owned || s.money < e.price }));
       // Paket A: Ladenfächer, Schlösser und Preisschilder (A_10_shop.png)
-      rows = stock.map((e, i) => `<li class="item ${e.locked ? 'lockedrow' : ''}"><div><span class="shopslot ${e.locked ? 'locked' : e.owned ? 'sold' : ''}">${itemIconBig(e.item)}</span><strong>${esc(e.name)}</strong>${s.itemCount(e.item) ? ` <span class="muted">(hast ${s.itemCount(e.item)})</span>` : ''}<br>
+      rows = stock.map((e, i) => `<li class="item ${e.locked ? 'lockedrow' : ''}"><div><span class="shopslot ${e.locked ? 'locked' : e.owned ? 'sold' : ''}">${itemIconBig(e.item)}</span><strong>${esc(e.name)}</strong>${s.itemCount(e.item) ? ` <span class="muted">(hast ${s.itemCount(e.item)})</span>` : ''}${bedarfHtml(need, e.item, { players: s.hasP2() })}<br>
         <span class="desc">${e.locked ? uiSprite('shop', /Rang|Ansehen/.test(e.locked) ? 'locked_rank' : 'locked_pathway', 1 / 12, 'shopico') : ''}${esc(e.locked ?? e.desc)}</span>${e.locked ? '' : offerHtml(s, e.item)}</div>
         <div>${e.owned ? `<span class="badge likely">${uiSprite('shop', 'only_once', 1 / 16, 'shopico')}${e.rivale ? 'Weggekauft' : e.soldOut ? 'vergriffen' : 'gekauft'}</span>` : `${e.left ? `<span class="muted">noch ${e.left}</span> ` : ''}<button class="small pricetag" data-buy="${i}" ${this.shop.entries[i].disabled ? 'disabled' : ''}>${i < 9 ? `<span class="key">${i + 1}</span> ` : ''}${e.price} Sch.</button>`}</div></li>`).join('');
     } else {
       const sellable = s.items().filter((it) => s.sellPrice(it.id) !== null);
+      const need = s.pfadBedarfAlle();
       this.shop.entries = sellable.map((it) => ({ id: it.id }));
-      rows = sellable.map((it, i) => `<li class="item"><div><span class="shopslot">${itemIconBig(it.id)}</span><strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}<br><span class="desc">${esc(it.desc)}</span>${offerHtml(s, it.id)}</div>
-        <div><button class="small pricetag" data-sell="${i}">${i < 9 ? `<span class="key">${i + 1}</span> ` : ''}${s.sellPrice(it.id)} Sch.</button></div></li>`).join('') || `<li class="empty">Nichts, was ${esc(m.name)} haben will.</li>`;
+      rows = sellable.map((it, i) => `<li class="item"><div><span class="shopslot">${itemIconBig(it.id)}</span><strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${bedarfHtml(need, it.id, { players: s.hasP2() })}<br><span class="desc">${esc(it.desc)}</span>${offerHtml(s, it.id)}</div>
+        <div><button class="small pricetag${this.shop.confirm === it.id ? ' warn' : ''}" data-sell="${i}">${i < 9 ? `<span class="key">${i + 1}</span> ` : ''}${s.sellPrice(it.id)} Sch.</button></div></li>`).join('') || `<li class="empty">Nichts, was ${esc(m.name)} haben will.</li>`;
     }
     const el = this.open('shop', `
       <h3>${esc(m.name)} <span class="muted">${esc(m.title)}</span>${s.hasP2() ? ` <button class="badge keybtn" data-key="g">für Spieler ${s.acting} · <span class="key">G</span> wechseln</button>` : ''}</h3>
@@ -3083,6 +3101,16 @@ export class Ui {
     const sh = this.shop;
     const e = sh?.entries[i];
     if (!e) return;
+    // Pfad-Bedarf: Wer etwas verkauft, das er (oder der Partner) noch für den Pfad braucht, muss zweimal klicken
+    if (sh.mode === 'sell' && sh.confirm !== e.id) {
+      const warn = this.as(() => this.state.verkaufWarnung(e.id));
+      if (warn.length) {
+        this.shopConfirm = e.id;
+        const who = warn.map((w) => `<span class="curse">★ Vorsicht! ${w.player === this.actor ? 'Du brauchst das noch für deinen Pfad' : `Spieler ${w.player} braucht das noch für den eigenen Pfad`} (Seq ${w.seq} ${w.kind === 'ritual' ? 'Ritual' : 'Trank'}).</span>`).join(' ');
+        this.openShop(sh.id, sh.mode, `${who} <span class="muted">Nochmal klicken, um trotzdem zu verkaufen.</span>`);
+        return;
+      }
+    }
     const r = this.as(() => (sh.mode === 'buy' ? this.state.buy(sh.id, e.id) : this.state.sell(e.id, sh.id)));
     this.openShop(sh.id, sh.mode, `<span class="${r.ok ? 'good' : ''}">${esc(r.text)}</span>`);
   }
