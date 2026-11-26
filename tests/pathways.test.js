@@ -207,7 +207,7 @@ test('Pfad-Fähigkeiten im Kampf: Schutz, Ausweichen, Verwirrung, Gift, Heilung,
   assert.equal(c.resolveHit(a2, 'miss').result, 'miss', 'nur für einen Angriff');
 });
 
-test('Passive: Schmeichler zahlt weniger, Schlossflüsterer öffnet Akten früher', () => {
+test('Passive: Schmeichler zahlt weniger, Schlossflüsterer senkt keine Ansehens-Schwelle mehr', () => {
   const s = new GameState(content);
   s.drink(brewPotion(s, 'maske', 9), never);
   const price = s.shopStock('gorse').find((e) => e.item === 'tonikum').price;
@@ -220,7 +220,8 @@ test('Passive: Schmeichler zahlt weniger, Schlossflüsterer öffnet Akten frühe
   k.honor = 36;
   const lock = content.maps.revier.interactables.find((i) => i.id === 'archive_b').lock;
   assert.equal(k.meets(lock), false);
-  assert.equal(k.meetsLock(lock), true);
+  assert.equal(k.meetsLock(lock), false, 'Pfad-Fähigkeiten haben nichts mehr mit Ansehen zu tun');
+  assert.ok(k.canPick(), 'geübte Finger knacken weiter');
 });
 
 test('Speichern und Laden behält Schilling, Pfad und Unruhe', () => {

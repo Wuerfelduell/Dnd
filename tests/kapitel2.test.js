@@ -176,14 +176,15 @@ test('Pfad des Schlüssels hilft beim Ausbruch, nimmt aber das Risiko nicht', ()
   s.map = 'wx_bahnhof';
   s.pathway = { id: 'schluessel', seq: 6, digestion: 0 };
   s.arrest();
-  // Nachtschleicher: Haken immer dabei, Schloss 15 % + 25 Schlossbonus, Mauer als Schattengänger 90 % minus Fahndung
+  // Nachtschleicher: Haken immer dabei, Schloss 15 % + 30 geübte Finger (lock_skill), Mauer als Schattengänger 90 % minus Fahndung
+  const near = (a, b) => assert.ok(Math.abs(a - b) < 1e-9, `${a} statt ${b}`);
   assert.equal(talk(s, 'wx_zelle', ['Pritsche']).at(-1), 'werkzeug_pfad');
-  assert.equal(s.escapeChance('zelle_schloss'), 0.4);
+  near(s.escapeChance('zelle_schloss'), 0.45);
   assert.equal(s.escapeChance('zelle_mauer'), 0.8);
   s.pathway.seq = 5;
-  assert.equal(s.escapeChance('zelle_schloss'), 0.55);
+  near(s.escapeChance('zelle_schloss'), 0.63);
   s.pathway.seq = 8;
-  assert.equal(s.escapeChance('zelle_schloss'), 0.3);
+  near(s.escapeChance('zelle_schloss'), 0.33);
   assert.equal(s.escapeChance('zelle_mauer'), 0.5, 'ohne Schattengänger die normale Mauer');
   // Auch der Schlüsselpfad scheitert mit Pech und weckt den Wächter
   s.random = () => 0.99;

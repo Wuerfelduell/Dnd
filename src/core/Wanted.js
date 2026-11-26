@@ -64,13 +64,13 @@ export const wantedMethods = {
    * Sie brauchen länger, bis sie dich erkennen. Nachteile (`honor_loss` > 1) machen dich schneller erkannt.
    */
   recognizeMult() {
-    const v = this.passive('honor_loss');
+    const v = this.passive('honor_loss') * this.passive('recognize'); // `recognize`: Unauffälligkeit der Pfade ohne Ansehens-Teil
     return v > 0 ? Math.max(RECOGNIZE_MULT[0], Math.min(RECOGNIZE_MULT[1], 1 / v)) : RECOGNIZE_MULT[1];
   },
 
   /** Schlösser-Fähigkeiten (`lock_bonus`): Wer jede Hintertür kennt, aus dessen Spur verliert die Wache schneller (+25 % je 10). */
   wantedDecaySec(r = this.policeRules()) {
-    return r.decay_sec / (1 + Math.max(0, this.passive('lock_bonus')) * DECAY_PER_LOCK);
+    return r.decay_sec / (1 + this.lockSkill() * DECAY_PER_LOCK);
   },
 
   /** Getragene Verkleidung (Flag k2_wear_<id>, gesetzt am Kleiderhaken im Unterschlupf) oder null. */
@@ -140,7 +140,7 @@ export const wantedMethods = {
     const e = this.policeRules()?.escape ?? {};
     const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
     if (kind === 'zelle_werkzeug') return e.tool_chance ?? 0.5;
-    if (kind === 'zelle_schloss') return clamp((e.pick_base ?? 0.15) + this.passive('lock_bonus') * (e.pick_per_lock ?? 0.01), 0.05, e.pick_max ?? 0.75);
+    if (kind === 'zelle_schloss') return clamp((e.pick_base ?? 0.15) + this.lockSkill() * (e.pick_per_lock ?? 0.01), 0.05, e.pick_max ?? 0.75);
     if (kind === 'zelle_mauer') return clamp((this.passive('always_flee') ? e.wall_flee ?? 0.9 : e.wall_base ?? 0.6) - (e.wall_per_wanted ?? 0.1) * this.wanted, 0.1, 0.95);
     throw new Error(`Unbekannte Chance: ${kind}`);
   },
