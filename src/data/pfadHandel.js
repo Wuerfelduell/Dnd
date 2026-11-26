@@ -10,6 +10,7 @@
  * Läuft in buildContent nach applySeq4 (die Kampfregeln stehen in core/PfadHandel.js).
  */
 import { NIGHT_FLAG, DAY_B_FLAG } from '../core/Clock.js';
+import { NACHBARPFADE } from './nachbarpfade.js';
 
 /** Ab dieser Beziehung reden die Einzelgänger über Zutaten. */
 export const PH_BOND = 2;
@@ -146,6 +147,56 @@ export const PH_OFFERS = [
     done: 'Corvin klappt seine Uhr auf. Zwischen zwei Sekunden steckt etwas. Er zieht es heraus wie einen Splitter. „Zwischensekunde. Die Nacht war lang genug.“' },
 ];
 
+/**
+ * Pfad-Beyonder in Dunscar (Seb, 2026-11-26): Die fünf Dunscarer Einzelgänger (k3_handel) handeln ab Beziehung +2 mit
+ * Seq-4-Kernzutaten, je zwei Nachbarpfade (Formel 4 braucht die eigene und die des Nachbarn). Jeder Pfad dieses Paars
+ * darf kaufen, auch Spieler 2 (requires_pfad_einer). Wucher auf Dunscar-Niveau oder ein verstärkter Dunscar-Boss mit
+ * Regel, den der Einzelgänger selbst ruft (direct). Formeln nie.
+ */
+export const DS_PH_LONERS = ['ez_ds_rangierer', 'ez_ds_kalkbrennerin', 'ez_ds_streckenlaeufer', 'ez_ds_walzenstimme', 'ez_ds_schrankenkind'];
+export const DS_PH_OFFERS = [
+  // Holm Varley, der Rangierer (Eisen): Eisen + Waage
+  { id: 'ds_eisen4', npc: 'ez_ds_rangierer', pathway: 'eisen', seq: 4, kind: 'aufgabe', item: Z('eisen', 4), task: 'kampf', fight: 'ph_ds_prellbock', rules: { noDodge: true }, direct: true, nachbar: true,
+    ask: '„Am Prellbock der Rangierwüste steht ein Vorhauer, den keiner bestellt hat. Er hält den letzten Wagen fest, und in dessen Kupplung steckt eine Niete, die einen ganzen Zug getragen hat. Ich rufe ihn. Du besiegst ihn, ohne auszuweichen. Wer ausweicht, ist kein Puffer.“',
+    fightText: 'Holm schlägt mit dem Hemmschuh gegen die Schiene. Von weit her antwortet ein Hammer, und dann steht er da: der Vorhauer, breiter als jede Tür. Ausweichen gibt es nicht.',
+    done: 'Holm bricht die Niete aus der Kupplung und legt sie dir in die Hand. „Tragende Niete. Die hält, was keiner bestellt hat.“' },
+  { id: 'ds_waage4', npc: 'ez_ds_rangierer', pathway: 'sq_waage', seq: 4, kind: 'wucher', item: Z('waage', 4), price: 9000, needs: { ds_beute_schichtgold: 2 }, nachbar: true,
+    ask: '„Gleichfristblei. Das liegt als Gegengewicht unter der alten Drehscheibe. Ich hole es dir, aber das kostet: 9000 Schilling und zwei Klumpen Schichtgold, damit die Scheibe nicht kippt.“',
+    done: 'Holm legt das Gold unter die Drehscheibe und zieht das Blei hervor. „Gewicht gegen Gewicht. So bleibt sie stehen.“' },
+  // Senta Quill, die Kalkbrennerin (Kessel): Kessel + Laterne (Kalklicht)
+  { id: 'ds_kessel4', npc: 'ez_ds_kalkbrennerin', pathway: 'kessel', seq: 4, kind: 'wucher', item: Z('kessel', 4), price: 8000, needs: { ds_beute_signalsilber: 3 }, nachbar: true,
+    ask: '„Fehlchargensalz? Mein Ofen macht jede Woche eine Fehlcharge. Aber die richtige, die eine Stadt hätte retten können, die kostet. 8000 Schilling und drei Stück Signalsilber für den Ofenrost.“',
+    done: 'Senta kratzt einen grauen Belag aus dem Ofen und wickelt ihn in Packpapier. „Fehlchargensalz. Atme es nicht ein.“' },
+  { id: 'ds_laterne4', npc: 'ez_ds_kalkbrennerin', pathway: 'laterne', seq: 4, kind: 'aufgabe', item: Z('laterne', 4), task: 'kampf', fight: 'ph_ds_kalklicht', rules: { noHeal: true }, direct: true, nachbar: true,
+    ask: '„Kalklicht ist das hellste Licht, das ein Mensch machen kann. Ich zünde einen Docht darin an, und das bringt den Schwellenhund aus der Rangierwüste her. Besiege ihn, solange der Docht brennt, ohne dich zu heilen. Dann hat der Docht etwas gesehen, das er nie vergisst.“',
+    fightText: 'Senta hält den Docht ins Kalklicht. Es wird so hell, dass du die Augen schließt, und als du sie öffnest, steht der Schwellenhund vor dir, weiß vor Kalk. Heilen kannst du in diesem Licht nicht.',
+    done: 'Senta löscht den Docht zwischen zwei Fingern und gibt ihn dir. „Zeugendocht. Er hat dich kämpfen sehen.“' },
+  // Der Streckenläufer (Uhr): Uhr + Faden
+  { id: 'ds_uhr4', npc: 'ez_ds_streckenlaeufer', pathway: 'sq_uhr', seq: 4, kind: 'wucher', item: Z('uhr', 4), price: 9000, needs: { ds_beute_schichtgold: 1 }, nachbar: true,
+    ask: '„Zwischen dem letzten Signal und dem ersten Zug steckt eine Sekunde, die niemandem gehört. Ich habe eine abgezweigt. 9000 Schilling und ein Klumpen Schichtgold, für die Weichenwärter, die nichts gesehen haben.“',
+    done: 'Der Streckenläufer klappt die Uhr auf, zieht etwas zwischen zwei Zeigern hervor und legt es dir in die Hand. „Zwischensekunde. Pünktlich geliefert.“' },
+  { id: 'ds_faden4', npc: 'ez_ds_streckenlaeufer', pathway: 'faden', seq: 4, kind: 'aufgabe', item: Z('faden', 4), task: 'kampf', fight: 'ph_ds_bruchfaden', rules: { noHeal: true }, direct: true, nachbar: true,
+    ask: '„Im Klopfbruch hängt ein Signaldraht, der nirgends mehr hinführt. Der Vorhauer hat sich darin verfangen und wickelt alles auf, was fehlt. Ich ziehe am Draht, er kommt. Du besiegst ihn ohne jede Heilung, sonst wickelt er dich mit auf.“',
+    fightText: 'Der Streckenläufer zieht am Draht. Irgendwo im Bruch klirrt es, und der Vorhauer kommt, den Draht um die Arme gewickelt wie eine Spule. Heilen kannst du hier nicht.',
+    done: 'Der Streckenläufer wickelt den Draht von einer kleinen Spule ab und gibt sie dir. „Lückenspule. Was fehlt, hält sie fest.“' },
+  // Jory Pell, die Walzenstimme (Echo): Echo + Maske
+  { id: 'ds_echo4', npc: 'ez_ds_walzenstimme', pathway: 'echo', seq: 4, kind: 'aufgabe', item: Z('echo', 4), task: 'kampf', fight: 'ph_ds_vielrufer', rules: { deaf: true }, direct: true, nachbar: true,
+    ask: '„Der Vielrufer in der Rufschlucht hat alle Stimmen der Schicht gefressen. Ich singe ihn her. Aber wenn er kommt, hörst du nichts mehr, keinen Ruf, keine Warnung. Besiege ihn taub, dann gibt er eine Pause her.“',
+    fightText: 'Jory singt einen Ton, der zu tief für einen Menschen ist. Die Schlucht antwortet mit hundert Stimmen, und dann wird es still. Der Vielrufer ist da, und du hörst nichts mehr.',
+    done: 'Jory hält ein leeres Fläschchen an die Lippen des Besiegten und verkorkt es. „Atempause. Die letzte, die er hatte.“' },
+  { id: 'ds_maske4', npc: 'ez_ds_walzenstimme', pathway: 'maske', seq: 4, kind: 'wucher', item: Z('maske', 4), price: 8500, needs: { ds_beute_schichtgold: 1 }, nachbar: true,
+    ask: '„Rückseitenwachs? Damit versiegeln sie die Walzen, auf denen die Stimmen der Toten liegen. Hinten drauf bleibt ein Gesicht. 8500 Schilling und ein Klumpen Schichtgold. Ich singe nicht umsonst.“',
+    done: 'Jory schabt das Wachs von einer alten Walze. Auf der Rückseite ist ein Gesicht eingedrückt, das dich ansieht. „Rückseitenwachs. Trag es, wie du willst.“' },
+  // Wenna, das Schrankenkind (Moor): Moor + Schlüssel (die Schranke)
+  { id: 'ds_moor4', npc: 'ez_ds_schrankenkind', pathway: 'sq_moor', seq: 4, kind: 'aufgabe', item: Z('moor', 4), task: 'kampf', fight: 'ph_ds_grundwasser', rules: { moorwater: true }, direct: true, nachbar: true,
+    ask: '„Unter dem Endbahnhof steht Grundwasser, und darin liegt die Unterschicht. Sie hat einen Namen verschluckt, ganz tief. Ich rufe sie hoch. Du trinkst jede Runde Moorwasser, sonst lässt das Wasser dich los. Nimm genug mit.“',
+    fightText: 'Wenna legt die Hand auf die Schranke und flüstert einen Namen. Das Pflaster wird nass, dann steigt die Unterschicht aus dem Grundwasser. Jede Runde musst du Moorwasser trinken.',
+    done: 'Wenna fischt ein schlammiges Täfelchen aus der Pfütze. „Schichtname. Er gehört jetzt dir. Pass gut auf ihn auf.“' },
+  { id: 'ds_schluessel4', npc: 'ez_ds_schrankenkind', pathway: 'schluessel', seq: 4, kind: 'wucher', item: Z('schluessel', 4), price: 9000, nachbar: true,
+    ask: '„Ich mache die Schranke auf und zu, für jeden, der durch will. Manche lassen dafür einen Schlüssel da. Einer davon hat einen Zollbart, der jede Grenze öffnet. 9000 Schilling. Das ist der Preis für die ganze Strecke.“',
+    done: 'Wenna holt einen Schlüssel aus dem Schrankenhäuschen und legt ihn dir in die Hand. „Zollbart. Mach damit nichts auf, was zu bleiben soll.“' },
+];
+
 export const PH_ITEMS = {
   ph_torfprobe: { name: 'Torfprobe aus dem Vergessmoor', kind: 'trophy', price: 4, weight: 0.3, desc: 'Ein Klumpen Torf aus dem Leib eines Moorwesens. Hagen Wisp will fünf davon.' },
   ph_hales_siegel: { name: 'Hales Siegel', kind: 'trophy', price: 0, weight: 0.2, desc: 'Das Dienstsiegel des Hauptmanns. Ambrose Fell will es haben.' },
@@ -159,6 +210,12 @@ const PH_COPIES = {
   ph_ertrunkener_1: { from: 'nebelfischer_elite', hp: 1.6, dmg: 1.3, name: 'Der ertrunkene Lotse', intro: 'Er kommt ohne Laut. Unter Wasser gibt es keine Warnung.' },
   ph_ertrunkener_2: { from: 'nebelfischer_elite', hp: 1.6, dmg: 1.3, name: 'Die ertrunkene Netzflickerin', intro: 'Ihre Nadel bewegt sich, ohne dass du sie hörst.' },
   ph_ertrunkener_3: { from: 'nebelfischer_elite', hp: 1.7, dmg: 1.35, name: 'Der ertrunkene Glöckner', intro: 'Er schwingt eine Glocke, die keinen Ton gibt.' },
+  // Dunscar (Seq-4-Zutaten): verstärkte Dunscarer Bosse
+  ph_ds_prellbock: { from: 'vorhauer', hp: 1.7, dmg: 1.4, name: 'Der Vorhauer am Prellbock', intro: 'Er hält den letzten Wagen mit einer Hand fest. Ausweichen ist verboten: Ein Eisen steht.' },
+  ph_ds_kalklicht: { from: 'schwellenhund', hp: 1.8, dmg: 1.45, name: 'Der Schwellenhund im Kalklicht', intro: 'Weiß vor Kalk, blind vor Licht. In diesem Licht heilt nichts.' },
+  ph_ds_bruchfaden: { from: 'vorhauer', hp: 1.7, dmg: 1.4, name: 'Der Vorhauer im Signaldraht', intro: 'Der Draht um seine Arme saugt jede Wunde fest. Heilen kannst du hier nicht.' },
+  ph_ds_vielrufer: { from: 'vielrufer', hp: 1.6, dmg: 1.35, name: 'Der stumme Vielrufer', intro: 'Hundert Münder, kein Laut. Du hörst keine Warnung.' },
+  ph_ds_grundwasser: { from: 'unterschicht', hp: 1.7, dmg: 1.4, name: 'Die Unterschicht im Grundwasser', intro: 'Sie steigt aus dem Wasser unter dem Bahnhof. Jede Runde trinkst du Moorwasser.' },
 };
 
 /** Einzelgänger-Kämpfe der drei neuen (Verrat oder Feindschaft), nach dem Muster der sieben aus wexmoor.json. */
@@ -291,7 +348,9 @@ function withMaud(d) {
 }
 
 // --- Angebotsknoten --------------------------------------------------------------------------------------------------
-const itemName = (c, id) => c.items[id]?.name ?? id;
+/** Dunscar-Beute kommt erst nach applyPfadHandel in den Inhalt (buildContent), daher hier ihre Namen. */
+const LATE_NAMES = { ds_beute_schichtgold: 'Schichtgold', ds_beute_signalsilber: 'Signalsilber' };
+const itemName = (c, id) => c.items[id]?.name ?? LATE_NAMES[id] ?? id;
 const needsText = (c, needs) => Object.entries(needs ?? {}).map(([i, n]) => `${n}× ${itemName(c, i)}`).join(', ');
 
 /** Knoten und Auswahlpunkte eines Angebots. Gibt { nodes, choices } für das Zutaten-Menü. */
@@ -301,7 +360,8 @@ function offerNodes(c, o, menu) {
   const fertig = `${base}_fertig`;
   const done = `${base}_done`;
   const item = itemName(c, o.item);
-  const path = { requires_pathway: [o.pathway, o.seq + 1] };
+  // Dunscar: der Pfad oder sein Nachbar, bei einem der beiden Spieler (Koop)
+  const path = o.nachbar ? { requires_pfad_einer: [[o.pathway, NACHBARPFADE[o.pathway]].filter(Boolean), o.seq + 1] } : { requires_pathway: [o.pathway, o.seq + 1] };
   const nodes = {};
   const choices = [];
   const toMenu = { text: 'Zurück.', next: menu };
@@ -326,6 +386,11 @@ function offerNodes(c, o, menu) {
     choices.push({ text: `${item}: Erledigt.`, next: `${base}_lohn`, requires_flags: [active, ...(turnIn.requires_flags ?? [])], ...(o.needs ? { requires_item_counts: o.needs } : {}) });
     choices.push({ text: `${item}: Was war noch mal zu tun?`, next: `${base}_frage2`, requires_flags: [active], hide_if_flags: [fertig] });
     nodes[`${base}_frage2`] = { text: o.ask, choices: [toMenu] };
+    if (o.direct) {
+      // Dunscar: der Einzelgänger ruft den Gegner selbst
+      choices.push({ text: `${item}: Ich bin bereit. Ruf ihn.`, next: `${base}_kampf`, requires_flags: [active], hide_if_flags: [fertig] });
+      nodes[`${base}_kampf`] = { text: o.fightText, pfad: { fight: o.fight }, choices: [{ text: 'Kämpfen.' }] };
+    }
     nodes[`${base}_lohn`] = { text: o.done, ...reward, ...(o.needs ? { takes_items: o.needs } : {}), choices: [toMenu] };
   }
   return { nodes, choices };
@@ -355,18 +420,23 @@ function withMenu(c, dialogue, npc, offers) {
     // Solange die Schuld offen ist, bleibt das Seq-4-Angebot zu
     for (const ch of choices) if (ch.text.includes('(Sequenz 4)')) ch.hide_if_flags = [...(ch.hide_if_flags ?? []), debtFlag];
   }
+  const ds = DS_PH_LONERS.includes(npc);
+  const pids = [...new Set(offers.map((o) => o.pathway))];
   nodes[menu] = {
-    text: `Was ich habe, taugt nur für den ${pathName(c, pid)}, und nur, wenn du schon weit bist: ab Sequenz 6 für die Zutat der 5, ab Sequenz 5 für die Zutat der 4. Formeln verkaufe ich nicht. Die gibt es nur bei den Zirkeln.`,
-    choices: [...choices, back(npc)],
+    text: ds
+      ? `Ich habe Kernzutaten der Sequenz 4 für den ${pids.map((p) => pathName(c, p)).join(' und den ')}. Wer auf Sequenz 5 steht und diesen Pfad oder seinen Nachbarpfad geht, kann mit mir reden. Formeln verkaufe ich nicht.`
+      : `Was ich habe, taugt nur für den ${pathName(c, pid)}, und nur, wenn du schon weit bist: ab Sequenz 6 für die Zutat der 5, ab Sequenz 5 für die Zutat der 4. Formeln verkaufe ich nicht. Die gibt es nur bei den Zirkeln.`,
+    choices: [...choices, ds ? { text: 'Zurück.', next: 'start' } : back(npc)],
   };
   // Zugang: im Hub (ab Beziehung PH_BOND) und bei Freunden
   const entry = { text: 'Über Zutaten für höhere Sequenzen reden.', next: menu, requires_bond: { [npc]: PH_BOND } };
   for (const key of ['hub', 'freund', 'start']) {
     const node = nodes[key];
     if (!node || nodes[key].choices.some((ch) => ch.next === menu)) continue;
-    if (key === 'start' && npc !== 'wx_pfandleiherin') continue;
+    const viaStart = npc === 'wx_pfandleiherin' || ds;
+    if (key === 'start' && !viaStart) continue;
     const list = [...node.choices];
-    list.splice(Math.max(0, list.length - 1), 0, { ...entry, ...(npc === 'wx_pfandleiherin' ? { hide_if_flags: [`${npc}_feind`] } : {}) });
+    list.splice(Math.max(0, list.length - 1), 0, { ...entry, ...(viaStart ? { hide_if_flags: [`${npc}_feind`] } : {}) });
     nodes[key] = { ...node, choices: list };
   }
   // „Zurück“ landet bei Maud im Startknoten
@@ -486,6 +556,7 @@ export function applyPfadHandel(content) {
   const enc = { ...content.encounters, ...NEW_FIGHTS };
   for (const [id, cp] of Object.entries(PH_COPIES)) {
     const src = content.encounters[cp.from];
+    if (!src && id.startsWith('ph_ds_')) continue; // ohne Dunscar
     if (!src) throw new Error(`Pfad-Beyonder: Vorlage ${cp.from} fehlt`);
     enc[id] = {
       ...src, name: cp.name, intro: cp.intro, hp: Math.round(src.hp * cp.hp), elite: true, fleeable: true,
@@ -509,7 +580,8 @@ export function applyPfadHandel(content) {
   const dialogues = { ...content.dialogues, ...NEW_DIALOGUES };
   dialogues.wx_pfandleiherin = withMaud(dialogues.wx_pfandleiherin);
   const byNpc = {};
-  for (const o of PH_OFFERS) (byNpc[o.npc] ??= []).push(o);
+  const offers = [...PH_OFFERS, ...(content.maps.ds_endbahnhof ? DS_PH_OFFERS : [])];
+  for (const o of offers) (byNpc[o.npc] ??= []).push(o);
   for (const [npc, offers] of Object.entries(byNpc)) {
     if (!dialogues[npc]) throw new Error(`Pfad-Beyonder: Dialog ${npc} fehlt`);
     dialogues[npc] = withMenu(content, dialogues[npc], npc, offers);
@@ -522,6 +594,6 @@ export function applyPfadHandel(content) {
   }
   content.dialogues = dialogues;
   scheduleNpcs(content);
-  content.pfadHandel = { offers: PH_OFFERS };
+  content.pfadHandel = { offers };
   return content;
 }

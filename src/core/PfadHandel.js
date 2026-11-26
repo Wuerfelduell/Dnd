@@ -36,11 +36,17 @@ export const pfadHandelMethods = {
     return !!st && this.phWindowOk(task, st) && (st.set ?? []).includes(n);
   },
 
-  /** Für meets(): requires_item_counts, requires_artifacts, requires_ph_step. */
+  /** Für meets(): requires_item_counts, requires_artifacts, requires_ph_step, requires_pfad_einer. */
   meetsPfad(o) {
     for (const [id, n] of Object.entries(o.requires_item_counts ?? {})) if (this.itemCount(id) < n) return false;
     if (o.requires_artifacts !== undefined && this.phArtifacts().length < o.requires_artifacts) return false;
     if (o.requires_ph_step && !this.phStepDone(...o.requires_ph_step)) return false;
+    // Dunscar: [[pfade], seq] erfüllt, wenn Spieler 1 oder (im Koop) Spieler 2 einen dieser Pfade mit Sequenz seq oder besser geht
+    if (o.requires_pfad_einer) {
+      const [pids, max] = o.requires_pfad_einer;
+      const pws = [this.pathway, this.hasP2?.() ? this.p2?.pathway : null];
+      if (!pws.some((pw) => pw && pids.includes(pw.id) && pw.seq <= max)) return false;
+    }
     return true;
   },
 
