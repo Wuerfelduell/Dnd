@@ -366,7 +366,7 @@ export class Roamers {
     const now = s.time.now;
     const seq = this.state.pathway?.seq;
     const near = this.list
-      .filter((o) => o !== r && o.alive && !solo(o.enc, o.def) && o.stunUntil <= now && !fearsPlayer(seq, o.def, s.mapDef)
+      .filter((o) => o !== r && o.alive && !o.spared && !solo(o.enc, o.def) && o.stunUntil <= now && !fearsPlayer(seq, o.def, s.mapDef)
         && Phaser.Math.Distance.Between(o.body.x, o.body.y, r.body.x, r.body.y) <= PACK_RADIUS)
       .sort((a, b) => Phaser.Math.Distance.Between(a.body.x, a.body.y, r.body.x, r.body.y) - Phaser.Math.Distance.Between(b.body.x, b.body.y, r.body.x, r.body.y))
       .slice(0, PACK_MAX)
@@ -388,6 +388,14 @@ export class Roamers {
       if (result.loot && !isEmptyLoot(result.loot)) this.dropLoot(r.body.x, r.body.y + 2, result.loot, r.enc.name);
     } else if (result.outcome === 'escaped') {
       this.kill(r); // BD: der Gegner hat sich entzogen; beim nächsten Besuch steht er wieder da
+      this.graceUntil = now + GRACE_MS;
+    } else if (result.outcome === 'spared') {
+      // Seq-4-Ritual der Maske (Seb 2026-11-26): der Verschonte lebt weiter, liegt kurz benommen und greift nicht mehr an
+      r.spared = true;
+      r.peaceUntil = Infinity;
+      r.stunUntil = now + STUN_MS;
+      r.mode = 'wander';
+      r.target = null;
       this.graceUntil = now + GRACE_MS;
     } else if (result.outcome === 'fled') {
       r.stunUntil = now + STUN_MS;
