@@ -1300,7 +1300,7 @@ export class Ui {
     // Beziehung: Geschenke im Menü einer Figur (Start- oder Hub-Knoten), vor der letzten Option
     const menu = nodeId === (tree.nodes.start ? 'start' : tree.start && tree.nodes[tree.start] ? tree.start : 'hub');
     if (menu && npc.id && !npc.item && s.content.npcs[npc.id] && !node.ending && !node.combat && (node.choices ?? []).length) {
-      choices.splice(Math.max(0, choices.length - 1), 0, { text: 'Etwas schenken …', gift: true });
+      if (s.giftMatters(npc.id)) choices.splice(Math.max(0, choices.length - 1), 0, { text: 'Etwas schenken …', gift: true }); // nur wo es etwas bringt
       // Seq-5-Rituale: dem Bürger eine Erinnerung nehmen (Moor), als gestohlene Identität auftreten (Maske)
       if (this.as(() => s.canTakeMemory(npc.id))) choices.splice(Math.max(0, choices.length - 1), 0, { text: 'Eine Erinnerung nehmen …', moor: true });
       if (this.as(() => s.canImpersonate(npc.id))) choices.splice(Math.max(0, choices.length - 1), 0, { text: `Als ${this.as(() => s.maskeIdentity())?.name ?? '…'} auftreten …`, maske: true });
