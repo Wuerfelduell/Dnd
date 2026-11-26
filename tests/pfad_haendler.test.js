@@ -93,7 +93,7 @@ test('Laufplan: jeder ist zu jeder Tageszeit an genau einer Stelle, über mindes
 test('Zutaten-Menü erst ab Beziehung +2 und nur für den eigenen Pfad ab der passenden Sequenz', () => {
   const s = at('laterne', 6, null);
   talk(s, 'ez_brennerin', ['']);
-  assert.throws(() => menu(s, 'ez_brennerin', []), /Über Zutaten/);
+  assert.throws(() => menu(s, 'ez_brennerin', ['Lichtperle']), /Lichtperle/, 'unter Beziehung +2 sagt sie nur, was fehlt');
   s.bonds.ez_brennerin = 2;
   assert.throws(() => menu(s, 'ez_brennerin', ['Zeugendocht']), /Zeugendocht/, 'Seq-4-Zutat erst ab Sequenz 5');
   menu(s, 'ez_brennerin', ['Lichtperle']);
