@@ -223,6 +223,13 @@ export const HEAL_TARGET_PATHS = new Set(['sq_moor']);
 export const HEAL_SCALE_PATHS = new Set(['sq_moor']);
 export const HEAL_HP_PCT = 0.08;
 export const HEAL_GRADE_MULT = { meister: 1.3, perfect: 1.15 };
+/**
+ * Seb (2026-11-26): Schutz-Fertigkeiten (shield, shield_all) wachsen mit dem Leben des Wirkenden mit,
+ * sonst fangen sie ab Dunscar kaum einen Bruchteil eines Schlags ab. Die Datenwerte gelten bis SHIELD_HP_REF Leben
+ * (etwa Seq 7/6); darüber steigt der Schutz im selben Verhältnis wie das Höchstleben. Gestapelt höchstens SHIELD_CAP_PCT des Lebens.
+ */
+export const SHIELD_HP_REF = 80;
+export const SHIELD_CAP_PCT = 0.75;
 
 export class Combat {
   constructor(state, encounterId, { pack = [] } = {}) {
@@ -644,6 +651,18 @@ export class Combat {
     return Math.round((base + this.state.maxHp * HEAL_HP_PCT) * (HEAL_GRADE_MULT[best] ?? 1));
   }
 
+  /** Schutzmenge einer Fertigkeit für den Handelnden (in on(actor) aufrufen): wächst ab SHIELD_HP_REF mit dem Höchstleben. */
+  skillShield(base) {
+    return Math.round(base * Math.max(1, this.state.maxHp / SHIELD_HP_REF));
+  }
+
+  /** Schutz aufstocken, gedeckelt auf SHIELD_CAP_PCT des Höchstlebens des Geschützten (n; ohne n der Handelnde). */
+  addShield(current, amount, n = null) {
+    const maxHp = n == null ? this.state.maxHp : this.state.withPlayer(n, () => this.state.maxHp, { quiet: true });
+    const cap = Math.max(amount, Math.round(maxHp * SHIELD_CAP_PCT));
+    return Math.max(current, Math.min(cap, current + amount));
+  }
+
   /** Moor (Seb 2026-11-17): Den Partner im Kampf zu heilen verdaut den eigenen Trank (nur der Heiler, wie Parieren gewichtet). */
   digestPartnerHeal() {
     if (this.enc.practice) return;
@@ -783,14 +802,18 @@ export class Combat {
       else effects.push(`+${this.state.heal(amount)} Leben`);
     }
     if (sk.drain && total) effects.push(`+${this.state.heal(Math.round(total * sk.drain))} Leben`);
-    if (sk.shield) { this.shield += sk.shield; effects.push(`Schutz ${this.shield}`); }
+    if (sk.shield) { this.shield = this.addShield(this.shield, this.skillShield(sk.shield)); effects.push(`Schutz ${this.shield}`); }
     if (sk.evade) { this.evading = true; effects.push('nächster Angriff geht ins Leere'); }
     // Zweite Pfadfertigkeiten: Tempo, Nerven, Deckung für alle
     if (sk.ap_gain) { this.gainAp(sk.ap_gain); effects.push(`+${sk.ap_gain} Konzentration`); }
     if (sk.nerves_gain) { const before = this.state.composure; this.state.setComposure(before + sk.nerves_gain); effects.push(`+${Math.round(this.state.composure - before)} Nerven`); }
     if (sk.calm && this.state.unruhe > 0) { const got = this.state.calmUnruhe(sk.calm); if (got > 0) effects.push(`-${Math.round(got)} Unruhe`); }
     if (sk.cleanse && this.bleed) { this.bleed = null; effects.push('Blutung versiegt'); }
-    if (sk.shield_all) { for (const n of this.standing()) this.fighters[n].shield += sk.shield_all; effects.push(`Schutz ${sk.shield_all} für ${this.standing().length > 1 ? 'alle' : 'dich'}`); }
+    if (sk.shield_all) {
+      const amount = this.skillShield(sk.shield_all);
+      for (const n of this.standing()) this.fighters[n].shield = this.addShield(this.fighters[n].shield, amount, n);
+      effects.push(`Schutz ${amount} für ${this.standing().length > 1 ? 'alle' : 'dich'}`);
+    }
     if (sk.heal_all) {
       // Wir stehen schon in on(actor): der andere Spieler ist der Partner (withPartner), egal ob er 1 oder 2 ist
       const amount = this.skillHeal(sk.heal_all, graded);

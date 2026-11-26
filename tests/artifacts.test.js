@@ -2,7 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
-import { Combat } from '../src/core/Combat.js';
+import { Combat, SHIELD_HP_REF } from '../src/core/Combat.js';
 import { SEQ_MAX, ordealFlag } from '../src/core/Pathways.js';
 import { loadContent, talk, passTrial } from './helpers.js';
 
@@ -125,7 +125,8 @@ test('Hammerfall und Unbeugsam funktionieren im Kampf', () => {
   const c = new Combat(s, 'moorleiche');
   c.ap = 6;
   const r = c.useSkill('unbeugsam', []);
-  assert.equal(c.shield, 30);
+  assert.equal(c.shield, Math.round(30 * Math.max(1, s.maxHp / SHIELD_HP_REF))); // Schutz wächst mit dem Leben
+  assert.ok(c.shield > 30);
   assert.ok(r.effects.some((e) => e.includes('Schutz')));
   c.ap = 6;
   const h = c.useSkill('hammerfall', ['good', 'good']);
