@@ -231,6 +231,13 @@ export const DIGEST_LABELS = {
 export const COMMON_DIGEST = { boss_win: 30, elite_win: 8, talent: 6, ritual: 25, gathering: 3 };
 /** Bosse und Elitegegner zählen für die pfadeigenen Kampf-Handlungen (combat_win, occult_win, parry) mehrfach. */
 export const FIGHT_DIGEST_MULT = { boss: 4, elite: 2 };
+/** Jeder besiegte Boss verdaut auf jeder Sequenz mindestens so viele Prozent, unabhängig von DIGEST_RATE (Seb 2026-11-26). */
+export const BOSS_DIGEST_FIXED = 3;
+/** Ab dieser Sequenz zählen die pfadeigenen Handlungen (eigene `digest`-Tabelle, Grundsatz) mehrfach (Seb 2026-11-26). */
+export const PATH_DIGEST_HIGH_SEQ = 4;
+export const PATH_DIGEST_HIGH_MULT = 3;
+/** Faktor für pfadeigene Handlungen auf Sequenz `seq` (1 oder PATH_DIGEST_HIGH_MULT). */
+export function pathDigestMult(seq) { return seq != null && seq <= PATH_DIGEST_HIGH_SEQ ? PATH_DIGEST_HIGH_MULT : 1; }
 /** Gefahrenstufe des Gebiets: jede Stufe über 1 bringt 25 % mehr Verdauung aus dem Kampf. */
 export const ZONE_DIGEST_STEP = 0.25;
 /** Welt-Fähigkeit: Verdauung je 10 Nerven Einsatz, mindestens das Halbe, höchstens das Zweieinhalbfache. */
@@ -471,6 +478,8 @@ export const pathwayMethods = {
     const base = this.digestWeights()[kind];
     if (!base) return 0;
     let pts = base * amount * (DIGEST_RATE[p.seq] ?? DIGEST_RATE[1]) * this.passive('digest_mult');
+    if (this.pathwayDef()?.digest?.[kind]) pts *= pathDigestMult(p.seq); // Grundsatz des Pfads ab Seq 4 dreifach
+    if (kind === 'boss_win') pts = Math.max(pts, BOSS_DIGEST_FIXED); // Bosse: feste Verdauung auf allen Sequenzen
     if (kind === 'vision') {
       if (this.visionDigest.map !== this.map) this.visionDigest = { map: this.map, total: 0 };
       pts = Math.min(pts, Math.max(0, VISION_DIGEST_CAP - this.visionDigest.total));
@@ -524,8 +533,11 @@ export const pathwayMethods = {
   digestTable() {
     if (!this.pathway) return [];
     const rate = (DIGEST_RATE[this.pathway.seq] ?? DIGEST_RATE[1]) * this.passive('digest_mult');
+    const own = this.pathwayDef()?.digest ?? {};
+    const pm = pathDigestMult(this.pathway.seq);
     return Object.entries(this.digestWeights())
-      .map(([kind, v]) => ({ kind, label: DIGEST_LABELS[kind] ?? kind, points: v * rate, text: fmtDigest(v * rate) }))
+      .map(([kind, v]) => { let pts = v * rate * (own[kind] ? pm : 1); if (kind === 'boss_win') pts = Math.max(pts, BOSS_DIGEST_FIXED); return [kind, pts]; })
+      .map(([kind, pts]) => ({ kind, label: DIGEST_LABELS[kind] ?? kind, points: pts, text: fmtDigest(pts) }))
       .sort((a, b) => b.points - a.points);
   },
 
