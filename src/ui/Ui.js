@@ -12,7 +12,7 @@ import { SPINNENFADEN } from '../data/seq5.js';
 import { SUD_MAX_ZUTATEN, LEERES_GEFAESS, sudEffectText } from '../data/sude.js';
 import { CARRY_PER_STEP } from '../core/GameState.js';
 import { GEAR_SLOT_NAMES } from '../core/Gear.js';
-import { isPrecise, AOE_DMG_MULT } from '../core/Combat.js';
+import { isPrecise, AOE_DMG_MULT, SKILLS } from '../core/Combat.js';
 import { lootList, itemRarity, RARITY_NAMES, lootPreview, chanceWord, hiddenLoot } from '../core/Loot.js';
 import {
   itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, moneyIconUrl, UI_SKINS, UI_SHEETS, UI_REGIONS, DAMAGE_FONT, STATUS_ICONS, STATUS_ICONS_URL,
@@ -2477,6 +2477,7 @@ export class Ui {
       return `
         <p class="lead">Du hast noch keinen Trank getrunken. Auf dem <strong>Nachtmarkt</strong> unter der Krähenbrücke erklärt dir Sabeth Orr die Pfade, Cornelius Kittering verkauft Formeln, Nell Rauhfuß die Zutaten. Gebraut wird am Kessel.</p>
         <ul class="paths">${Object.entries(all).map(([pid, p]) => `<li>${emblem(pid, 32)}<strong style="color:${p.color}">${esc(p.name)}</strong> <span class="muted">${Object.keys(p.seqs).sort((a, b) => b - a).map((k) => `${k}: ${esc(p.seqs[k].name)}`).join(' · ')}</span><br><em>„${esc(p.principle)}“</em> ${esc(p.digest_hint)}</li>`).join('')}</ul>
+        ${this.basicSkillsHtml(s)}
         ${this.recipesHtml(false)}`;
     }
     const p = s.pathwayDef();
@@ -2517,6 +2518,7 @@ export class Ui {
       <h4>Was deinen Trank verdaut</h4>
       <ul class="digestlist">${s.digestTable().map((r) => `<li><span>${esc(r.label)}</span> <strong>+${r.text} %</strong></li>`).join('')}
         <li class="muted">Alles andere verdaut diesen Pfad nicht. Bosse zählen vierfach, Elitegegner doppelt, gefährliche Gebiete bringen je Stufe ein Viertel mehr. Ab Sequenz 6 verdaut jede Stufe zehnmal so langsam wie die davor.</li></ul>
+      ${this.basicSkillsHtml(s)}
       <ul class="seqs">${rows}</ul>
       ${this.recipesHtml(false)}`;
   }
@@ -2573,6 +2575,15 @@ export class Ui {
   }
 
   /** Häkchen-Knopf: Kampffertigkeit im Kampfmenü zeigen oder ausblenden (gegen eine zu volle Kampfleiste). */
+  /** Grundfertigkeiten (Doppelschlag, Laternenblende, Bannwort): ebenfalls im Kampfmenü ausblendbar */
+  basicSkillsHtml(s) {
+    const items = ['double', 'blind', 'ward'].map((id) => {
+      const sk = SKILLS[id];
+      return `<li>${skillIcon(id) || '⚔ '}<strong>${esc(sk.name)}</strong> <span class="muted">(${sk.cost} K)</span> ${esc(sk.desc)} ${this.skillVisBtn(s, id)}</li>`;
+    }).join('');
+    return `<h4>Grundfertigkeiten</h4><ul class="basicskills">${items}</ul>`;
+  }
+
   skillVisBtn(s, id) {
     const hidden = s.skillHiddenInCombat(id);
     return `<button class="small skillvis${hidden ? '' : ' primary'}" data-skillvis="${id}" title="Im Kampfmenü zeigen oder ausblenden">${hidden ? '☐ im Kampf ausgeblendet' : '☑ im Kampf zeigen'}</button>`;
