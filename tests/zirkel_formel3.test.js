@@ -34,7 +34,7 @@ test('Unter Seq 4 keine Seq-3-Formel, ab Seq 4 in jedem Zirkel genau eine je Tre
   }
   assert.ok([...seen].some((id) => id.startsWith('ritualformel_')) && [...seen].some((id) => id.startsWith('formel_')), 'Trank- und Ritualformeln');
   assert.ok(new Set([...seen].map((id) => id.replace(/^(ritual)?formel_|_3$/g, ''))).size >= 6, 'Pfad zufällig');
-  assert.ok(eigen / n > 0.1, `eigener Pfad bevorzugt: ${eigen}/${n}`);
+  assert.ok(eigen / n < 0.2, `eigener Pfad nicht bevorzugt: ${eigen}/${n}`);
 });
 
 test('Gilt auch, wenn nur Spieler 2 Seq 4 ist', () => {

@@ -20,12 +20,11 @@ export const FRAUD_MARKUP = { min: 1.8, max: 2.5 };
 const FORMULA_VALUE = { 9: 25, 8: 60, 7: 140, 6: 260, 5: 420, 3: 20000 };
 /**
  * Seb (2026-11-26): Sobald irgendein Spieler (Sp. 1 oder Sp. 2) Sequenz 4 oder höher ist, legt in JEDEM geheimen Zirkel
- * genau ein Mitglied je Treffen eine Seq-3-Formel auf (Trank- oder Ritualformel, Pfad zufällig, der eigene Pfad beider
- * Spieler wiegt dreifach). Ersetzt die alte 1-%-Regel. Ausrufwert 20.000: Start 12.000, Mitbieter gehen bis 15.000–29.000,
+ * genau ein Mitglied je Treffen eine Seq-3-Formel auf (Trank- oder Ritualformel; alle Pfade gleich wahrscheinlich, unabhängig
+ * vom eigenen Pfad). Ersetzt die alte 1-%-Regel. Ausrufwert 20.000: Start 12.000, Mitbieter gehen bis 15.000–29.000,
  * meist landet sie bei 22.000–27.000. Also immer etwas günstiger als beim Gildenkrämer (30.000), dafür nicht wählbar.
  */
 export const ZIRKEL_FORMEL3_PREIS = 20000;
-export const ZIRKEL_FORMEL3_EIGEN = 3;
 /** Seb (2026-11-12): eine Seq-3-Formel bringt beim Versteigern immer mindestens 10.000, und jemand bietet immer. */
 export const SEQ3_MIN_ERLOES = 10000;
 
@@ -129,14 +128,12 @@ export const auctionMethods = {
     if (!mems.length) return null;
     const pfade = this.spielerPfade();
     if (!pfade.some((p) => p.seq <= 4)) return null;
-    const eigen = new Set(pfade.map((p) => p.id));
-    const pool = Object.keys(this.content.pathways ?? {}).flatMap((pid) => [`formel_${pid}_3`, `ritualformel_${pid}_3`]
-      .filter((id) => this.content.items[id]).map((id) => ({ id, w: eigen.has(pid) ? ZIRKEL_FORMEL3_EIGEN : 1 })));
+    // Seb 2026-11-26: jeder Pfad gleich wahrscheinlich, der eigene Pfad wird NICHT bevorzugt
+    const pool = Object.keys(this.content.pathways ?? {}).flatMap((pid) => [`formel_${pid}_3`, `ritualformel_${pid}_3`]).filter((id) => this.content.items[id]);
     if (!pool.length) return null;
     const rng = this.sessionRng(circleId, cycle, 'formel3');
     const member = mems[Math.floor(rng() * mems.length)].id;
-    let roll = rng() * pool.reduce((sum, e) => sum + e.w, 0);
-    return { member, item: (pool.find((e) => (roll -= e.w) < 0) ?? pool[pool.length - 1]).id };
+    return { member, item: pool[Math.floor(rng() * pool.length)] };
   },
 
   /** Das Gesuch eines Mitglieds in dieser Runde: { member, item, price } oder null. */
