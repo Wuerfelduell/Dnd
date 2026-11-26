@@ -17,6 +17,8 @@
 import { rollLoot, takeLoot } from './Loot.js';
 import { FIGHT_DIGEST_MULT, ZONE_DIGEST_STEP } from './Pathways.js';
 import { SCHATTEN_ATTACKE, PERFECT_DODGE, UHR as UHR4 } from './Seq4.js';
+import { NEBELNACHT } from './Wetter.js';
+import { narbeMult } from './Narbe.js';
 
 export const WINDOW = { parry: 80, dodge: 140 }; // ± Millisekunden um den Einschlag
 export const ELITE_PARRY = 65; // Eliten und Bosse: noch engeres Parierfenster
@@ -241,6 +243,8 @@ export class Combat {
       const r2 = rulesOf(2);
       if (r2) { this.rules = r2; prover = 2; }
     }
+    // Wetter (core/Wetter.js): nur draußen, nie in Übungen und Ritualen; Nebelnacht macht Gegner zäher und die Beute reicher
+    this.wetter = state.kampfWetter?.(enc, { ritual: !!this.rules }) ?? null;
     this.swapped = false;
     if ((this.rules?.solo || state.splitOn) && prover === 2 && state.acting === 1 && state.p2) { state.swapPersonal(); this.swapped = true; } // Splitscreen: jeder kämpft allein auf seiner Karte
     if (this.rules?.scale) enc = { ...enc, hp: Math.round(enc.hp * this.rules.scale.hp), attacks: enc.attacks.map((a) => (a.action ? a : { ...a, damage: Math.max(1, Math.round(a.damage * this.rules.scale.dmg)) })) };
@@ -273,7 +277,7 @@ export class Combat {
     // ap, shield, evading, bleed, actions, itemUsed lesen sich über Zugriffe beim gerade betroffenen Kämpfer.
     // Ab Sequenz 7 beginnt man den Kampf mit mehr Konzentration (Passiv ap_start)
     const fighter = (hp, n) => ({
-      ap: Math.max(0, Math.min(this.apMaxOf(n), AP_START + state.withPlayer(n, () => state.passive('ap_start'), { quiet: true }))), shield: 0, evading: false, bleed: null, actions: 0, itemUsed: false, down: false, hpBefore: hp, bleedTick: 0, focused: false,
+      ap: Math.max(0, Math.min(this.apMaxOf(n), AP_START + (this.wetter?.def?.ap ?? 0) + state.withPlayer(n, () => state.passive('ap_start'), { quiet: true }))), shield: 0, evading: false, bleed: null, actions: 0, itemUsed: false, down: false, hpBefore: hp, bleedTick: 0, focused: false,
       focusTick: 0, focusGain: 0, // Konzentrations-Artefakte: Leben, das Flüche am Rundenende kosten, und Konzentration zum Rundenstart
     });
     this.fighters = { 1: fighter(state.hp, 1) };
@@ -364,7 +368,7 @@ export class Combat {
     this.maxRoundDmg = enc.practice ? 0 : enc.max_round_dmg ?? byRank(zone?.max_round_dmg) ?? 0;
     const soloHp = enc.hp * ENEMY_HP_MULT * (enc.elite ? ELITE_HP_MULT : 1) * this.hpMult;
     const floor = hpFloor(enc) * (this.rules?.scale?.hp ?? 1) * (enc.hp_floor_mult ?? 1); // `hp_floor_mult`: benannte Ziele (Anschlagbrett) über der Untergrenze; // Ritualgegner mit eigener Stärke behalten ihren Vorsprung
-    const hp = enc.practice ? enc.hp : Math.max(1, Math.round(Math.max(soloHp, floor) * this.duoHpMult * (welt?.hp ?? 1) * share)); // Weltwandel nach der Untergrenze
+    const hp = enc.practice ? enc.hp : Math.max(1, Math.round(Math.max(soloHp, floor) * this.duoHpMult * (welt?.hp ?? 1) * share * (this.wetter?.nebelnacht ? NEBELNACHT.hp : 1))); // Weltwandel nach der Untergrenze
     // Panzer wächst mit der Gefahrenstufe des Gebiets (Marsch 1, ...), Bosse eine Stufe mehr
     const tier = zone?.tier ?? 2;
     this.zoneTier = tier;
@@ -707,6 +711,8 @@ export class Combat {
         } else {
           damage = Math.max(1, Math.round(this.hitDamage(sk.mult, grade, gradeMult) * aoeMult));
         }
+        const wm = this.wetterSkillMult();
+        if (wm !== 1 && damage) damage = Math.max(1, Math.round(damage * wm));
         return { grade, damage };
       });
       if (this.veiled && hits.length) {
@@ -970,7 +976,7 @@ export class Combat {
   hurtEnemy(n, { pierce = false } = {}) {
     // Ritual des Kessels: nur Flaschen (Wurf, Gift) richten Schaden an; Konter und Gegenschläge prallen ab
     if (this.rules?.potionOnly && !this.itemHit && !this.burnTick) return 0;
-    if (n > 0) n = Math.max(1, Math.round(n * this.wardMult()));
+    if (n > 0) n = Math.max(1, Math.round(n * this.wardMult() * narbeMult(this.state, this.enc, 'schaden'))); // Narbe: Wesen von oben (Kapitel 6)
     if (this.armor && !pierce && n > 0) n = Math.max(1, n - this.armor);
     const absorbed = Math.min(this.enemyGuard, n);
     this.enemyGuard -= absorbed;
@@ -1112,12 +1118,12 @@ export class Combat {
     // Feld `ramp`: der Gegner wird mit jeder Runde stärker (gegen endloses Abwarten hinter Schilden)
     const ramp = 1 + this.rampRate() * Math.max(0, this.round - 1);
     const weak = this.weakened?.rounds > 0 ? this.weakened.mult : 1;
-    const dmgMult = (this.enc.practice ? 1 : ENEMY_DMG_MULT * (rage ? 1.2 : 1) * (tough0 ? ELITE_DMG_MULT : 1) * (this.duo && !this.duoFull ? DUO_DMG_MULT : 1) * (this.sweep ? SWEEP_DMG_MULT : 1) * ramp * this.dmgMult * (this.foes[this.fi]?.dmgShare ?? 1)) * weak; // höhere Wesen und Wexmoor (duo_full) schlagen zu zweit nicht schwächer
+    const dmgMult = (this.enc.practice ? 1 : ENEMY_DMG_MULT * (rage ? 1.2 : 1) * (tough0 ? ELITE_DMG_MULT : 1) * (this.duo && !this.duoFull ? DUO_DMG_MULT : 1) * (this.sweep ? SWEEP_DMG_MULT : 1) * ramp * this.dmgMult * (this.foes[this.fi]?.dmgShare ?? 1) * this.wetterFoeMult()) * weak * narbeMult(this.state, this.enc, 'erlitten'); // höhere Wesen und Wexmoor (duo_full) schlagen zu zweit nicht schwächer
     const slowed = this.slowed;
     this.slowed = false;
     const readable = this.readNext;
     this.readNext = false;
-    const speed = (rage ? 0.85 : 1) * (slowed ? SLOW_MULT : 1);
+    const speed = (rage ? 0.85 : 1) * (slowed ? SLOW_MULT : 1) * (this.wetter?.def?.slow ?? 1); // Frost dehnt jeden Angriff
     const hits = [];
     const src = [...atk.hits];
     // Eliten und Bosse setzen manchmal nach
@@ -1273,7 +1279,7 @@ export class Combat {
     for (const i of this.livingFoes()) this.withFoe(i, () => {
       if (!this.burn || this.outcome) return;
       this.burnTick = !!this.burn.item; // Gift aus der Flasche zählt im Ritual des Kessels
-      const dmg = this.hurtEnemy(this.burn.damage);
+      const dmg = this.hurtEnemy(Math.max(1, Math.round(this.burn.damage * (this.wetter?.def?.burn ?? 1)))); // Regen dämpft Brand und Gift
       this.burnTick = false;
       if (this.burn) { this.burn.rounds -= 1; if (this.burn.rounds <= 0) this.burn = null; }
       if (dmg) this.dots.push({ i, dmg });
@@ -1321,6 +1327,7 @@ export class Combat {
       const first = !s.flags.has(firstFlag);
       s.applyEffects({ ...enc.on_win, sets_flags: [...(enc.on_win?.sets_flags ?? []), firstFlag, ...(enc.sieg_flag ? Object.keys(this.fighters).filter((n) => !this.fighters[n].down).map((n) => `${enc.sieg_flag}_p${this.swapped ? 2 : n}`) : [])] });
       if (first && enc.first_win) s.applyEffects(enc.first_win);
+      if (enc.kopfgeldjaeger) s.kgjSieg?.(this.id); // Kopfgeldjäger: heute kommt keiner mehr
       if (!enc.practice) s.erfolgKampf?.(); // Codex DL: „Hundert Kämpfe“
       if (!enc.practice) {
         loot = noLoot ? null : this.rollLoot(first); // BQ: Schreinwachen geben keine eigene Beute, erst der Abbau
@@ -1414,11 +1421,34 @@ export class Combat {
    * Beute dieses Sieges (Tabelle `loot` aus market.json/wilds.json):
    * Geld und Drops beim ersten Sieg oder immer (repeat), feste Items nur beim ersten Sieg.
    */
+  /** Wetter: Fertigkeitsschaden je Pfad des Handelnden. */
+  wetterSkillMult() {
+    const path = this.wetter?.def?.path;
+    if (!path) return 1;
+    return path[this.on(this.actor, () => this.state.pathway?.id)] ?? 1;
+  }
+
+  /** Wetter und Nebelnacht: Schaden der Gegner. */
+  wetterFoeMult() {
+    return (this.wetter?.def?.foe_dmg ?? 1) * (this.wetter?.nebelnacht ? NEBELNACHT.dmg : 1);
+  }
+
+  /** Zeile für den Kampfbeginn: Wetter und Wirkung (oder null). */
+  wetterText() {
+    const w = this.wetter;
+    if (!w) return null;
+    const parts = [];
+    if (w.nebelnacht) parts.push(NEBELNACHT.wirkung);
+    if (w.def && w.art !== 'klar') parts.push(`Wetter ${w.def.name}: ${w.def.wirkung}`);
+    return parts.join('\n\n');
+  }
+
   rollLoot(first) {
     const table = this.state.content.loot?.[this.id];
     const loot = { money: 0, items: {} };
     if (table && (first || table.repeat)) {
-      const rolled = rollLoot(table, this.rng);
+      const nn = this.wetter?.nebelnacht;
+      const rolled = rollLoot(table, this.rng, nn ? { luck: NEBELNACHT.luck, moneyMult: NEBELNACHT.money } : {}); // Nebelnacht: reichere Beute
       loot.money = rolled.money;
       loot.items = rolled.items;
       if (first) for (const [id, n] of Object.entries(table.items ?? {})) loot.items[id] = (loot.items[id] ?? 0) + n;

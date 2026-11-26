@@ -969,6 +969,7 @@ for (const id of E_CHARACTERS) {
   CHARACTER_SHEETS[`npc_${id}`] = `e_${id}`;
   PORTRAITS[id] = `E_${id}_emotions.png`;
 }
+CHARACTER_SHEETS.npc_nebel_kraemerin = 'e_wahrsagerin'; // Nebelkrämerin (data/nebelnacht.js) im Mantel der Wahrsagerin
 
 /**
  * Zusätzliche Portrait-Streifen für Fall 4: Figur → [Datei, { Stimmung → Spalte }].

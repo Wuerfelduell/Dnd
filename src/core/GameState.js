@@ -13,6 +13,7 @@ import { signalMethods } from './Signals.js';
 import { claimMethods } from './Claims.js';
 import { signalRouteMethods } from './SignalRoutes.js';
 import { claimEinbauMethods } from './ClaimsEinbau.js';
+import { wetterMethods } from './Wetter.js';
 import { clockMethods, NIGHT_FLAG, VOLATILE_FLAGS, OBSOLETE_FLAG } from './Clock.js';
 import { bondMethods } from './Bonds.js';
 import { pfadHandelMethods } from './PfadHandel.js';
@@ -37,6 +38,7 @@ import { seqHochMethods } from './SeqHoch.js';
 import { splitMethods } from './Split.js';
 import { mackenMethods } from './Macken.js';
 import { rivaleMethods } from './Rivale.js';
+import { kopfgeldjaegerMethods } from './Kopfgeldjaeger.js';
 import { CALDERWICK_WELT_FLAGS, SUCHE_FLAG, SUCHE_QUEST, SUCHE_EFFECTS } from '../data/aufstieg.js';
 
 /** Tragkraft in Pfund. Gegenstände ohne eigenes "weight" wiegen je nach Art so viel. */
@@ -86,6 +88,7 @@ export class GameState {
     this.testmodus = false;
     this.rivalen = {}; // Rivale auf dem eigenen Pfad (core/Rivale.js)
     this.tiere = { owned: {}, aktiv: null, fundTag: -1 }; // Codex DF: Tiergefährten
+    this.loadWetter(null); // Schlaf-Abklingzeit und Traumnacht
     this.loadPost(null);
     this.map = s.map;
     this.spawn = s.spawn;
@@ -534,6 +537,8 @@ export class GameState {
     const neu = CALDERWICK_WELT_FLAGS.filter((f) => !this.flags.has(f));
     if (neu.length) this.applyEffects({ sets_flags: neu });
     if (this.quest('k4_aufstieg') && this.quests.k4_aufstieg === undefined && !this.flags.has('kapitel4_done')) this.startQuest('k4_aufstieg');
+    // Kapitel 6 (data/zweiterAufstieg.js): alte Stände, die die Leitung in Briarholt schon abgedreht haben, bekommen den zweiten Aufstieg
+    if (this.flags.has('k5s_leitung_kalt') && this.quest('k6_aufstieg2') && this.quests.k6_aufstieg2 === undefined) this.startQuest('k6_aufstieg2');
   }
 
   /** Bonusakte nach Kapitel 2: zeigt je nach Ende, wo die Nachricht nach Dunscar liegt. */
@@ -862,6 +867,7 @@ export class GameState {
     this.tickTalents(dtSeconds);
     this.tierTick?.(); // Codex DF: Tagesfund des Katers
     this.nsTick?.(dtSeconds); // Codex DH: Nebelseite
+    this.wetterTick(); // Wetter und Nebelnacht folgen der Spielzeit
     this.fa2Tick?.(); // Codex DE: Fahrende Auktion hält 2 von 5 Spieltagen
     this.tickSekten(); // BQ: Fristen und per Dialog aufgelöste Ereignisse
     const before = this.composure;
@@ -953,6 +959,7 @@ export class GameState {
       ...this.serializeSude(),
       ...this.serializePfadHandel(),
       ...this.serializeRivalen(),
+      ...this.serializeWetter(),
     };
   }
 
@@ -1017,6 +1024,7 @@ export class GameState {
     this.loadSekten(data); // BQ: Umtriebe-Stufen und laufende Ereignisse
     this.loadSude(data);
     this.loadPfadHandel(data);
+    this.loadWetter(data);
     this.syncClock(); // Tag/Nacht folgt der Spielzeit, nicht dem Spielstand
     if (this.flags.has('kapitel1_done') && !this.flags.has('k2_arrived') && this.quest('k1_abreise') && this.quests.k1_abreise === undefined) this.startQuest('k1_abreise'); // alte Stände: Wegweiser zum Zug
     // alte Stände: Kapitel 1 vorbei, aber die Fahrkarte fehlt (z. B. bei Spieler 2 gelandet) → ohne sie gibt es keinen Zug nach Wexmoor
@@ -1037,4 +1045,4 @@ export class GameState {
 /** Fortschrittsflags der verlängerten Akt-V-Fassung (AP), in Spielreihenfolge. */
 export const K2_AKT5_STEPS = ['k2v_boot_bereit', 'k2v_keller_passiert', 'k2v_aufstieg_passiert', 'k2v_abschied_done'];
 
-Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods, sudeMethods, seq5Methods, seq4Methods, seqHochMethods, splitMethods, pfadHandelMethods, erfolgeMethods, postMethods, benannteMethods, tiereMethods, fahrendeAuktionMethods, hausMethods, nebelseiteMethods, testmodusMethods, mackenMethods, rivaleMethods);
+Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods, sudeMethods, seq5Methods, seq4Methods, seqHochMethods, splitMethods, pfadHandelMethods, erfolgeMethods, postMethods, benannteMethods, tiereMethods, fahrendeAuktionMethods, hausMethods, nebelseiteMethods, testmodusMethods, mackenMethods, kopfgeldjaegerMethods, wetterMethods, rivaleMethods);

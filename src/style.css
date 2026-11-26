@@ -62,7 +62,7 @@ body { display: grid; place-items: center; }
 .fill.low { background: #b85a4a; }
 .hud-right { position: absolute; right: 0.75em; top: 0.6em; font-size: 0.8em; color: var(--muted); text-shadow: 0 0.125em 0 #000; }
 .vision-tag {
-  position: absolute; left: 50%; top: 0.6em; transform: translateX(-50%);
+  position: absolute; left: 50%; top: 2.8em; transform: translateX(-50%);
   color: var(--occult); letter-spacing: 0.15em; font-size: 0.9em; opacity: 0; transition: opacity 0.3s;
   text-shadow: 0 0 0.5em var(--occult);
 }
@@ -139,6 +139,14 @@ body { display: grid; place-items: center; }
 
 /* --- Ansehen, Quellen, Aufträge (v2) --- */
 .place { font-size: 0.9em; color: var(--muted); text-shadow: 0 0.125em 0 #000; }
+.wetter { font-size: 0.75em; color: var(--muted); text-shadow: 0 0.125em 0 #000; margin-bottom: 0.2em; }
+.wetter.nebelnacht { color: #9fd0b0; }
+.uhr { position: absolute; left: 50%; top: 0.4em; transform: translateX(-50%); padding: 0.15em 0.6em; border: 0.125em solid #3a4a68; background: rgba(12, 16, 28, 0.7);
+  font-size: 0.8em; color: #e8dcc0; text-shadow: 0 0.125em 0 #000; white-space: nowrap; pointer-events: none; text-align: center; line-height: 1.15; }
+.uhr .zeit { font-weight: bold; letter-spacing: 0.05em; }
+.uhr .sub { color: var(--muted); font-size: 0.75em; }
+.uhr.nacht .zeit { color: #9ab8ff; }
+.uhr.nebelnacht .zeit { color: #9fd0b0; }
 .meter.honor .rank { color: var(--gold); min-width: 0; }
 .meter.honor .bar { width: 5em; }
 .hfill { height: 100%; width: 0; background: var(--gold); transition: width 0.4s; }

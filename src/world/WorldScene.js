@@ -2,6 +2,8 @@ import { HalbgottRitual } from './HalbgottRitual.js';
 import { ritualFx } from './ritualArt.js';
 import Phaser from 'phaser';
 import { questTarget, leadTarget, nextHop } from '../core/Guide.js';
+import { NAP_HEAL } from '../core/Wetter.js';
+import { WetterFx } from './WetterFx.js';
 import { createTextures, createCharacterSheet, hash2, TILE, TILE_INDEX, SOLID_KEYS } from './textures.js';
 import { Lighting, DEPTH } from './Lighting.js';
 import { WexmoorLife, preloadWexmoorLife, speechBubble } from './WexmoorLife.js';
@@ -24,6 +26,7 @@ import { cityOf } from '../core/Travel.js';
 import { Combat } from '../core/Combat.js';
 import { p2View } from '../core/Split.js';
 import { FORM_SEQ, formReif } from '../core/Pathways.js';
+import { hatNarbe } from '../core/Narbe.js';
 
 export const VIEW_W = 480;
 export const VIEW_H = 270;
@@ -728,7 +731,7 @@ export class WorldScene extends Phaser.Scene {
   updateWeatherLoop() {
     const audio = this.registry.get('audio');
     if (!audio || this.splitRole === 2) return;
-    const id = weatherLoop({ mapId: this.state.map, outdoor: this.outdoor, season: this.state.season?.(), fest: this.state.festAktiv?.(cityOf(this.state, this.state.map)) ?? null });
+    const id = weatherLoop({ mapId: this.state.map, outdoor: this.outdoor, season: this.state.season?.(), fest: this.state.festAktiv?.(cityOf(this.state, this.state.map)) ?? null, wetter: this.state.wetter?.() });
     if (audio.weather === id) return;
     if (audio.weather) audio.stopLoop(audio.weather, 800);
     audio.weather = id;
@@ -821,6 +824,7 @@ export class WorldScene extends Phaser.Scene {
     this.aura = null;
     this.auras = {};
     this.machtLichter = {};
+    this.narben = {};
     this.machtStand = {};
     this.cracks = null;
 
@@ -868,6 +872,8 @@ export class WorldScene extends Phaser.Scene {
     this.bindState();
     this.refreshVisibility();
     this.buildGoalMarker();
+    this.wetterFx = new WetterFx(this, VIEW_W, VIEW_H); // Wetter und Nebelnacht über der Karte
+    this.updateWetterFx();
 
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.cleanups.forEach((fn) => fn()));
     this.cameras.main.fadeIn(350, 0, 0, 0);
@@ -1391,8 +1397,14 @@ export class WorldScene extends Phaser.Scene {
    * Tageswechsel (BD): Einwohner stehen über das Nachtflag an ihren Tag-/Nachtplätzen, Gegner, Aufseher und
    * Tiere werden neu aufgestellt. Läuft nur außerhalb von Dialogen und Fenstern (Kämpfe halten die Uhr ohnehin an).
    */
+  updateWetterFx() {
+    this.wetterFx?.set(this.state.wetter(), { outdoor: this.outdoor ?? isOutdoorMap(this.mapDef), nebelnacht: this.state.nebelnacht() });
+    this.ui.updateWetter?.();
+  }
+
   applyClock() {
     this.clockDirty = false;
+    this.updateWetterFx();
     this.refreshVisibility();
     this.roamers?.rebuild();
     this.patrols?.rebuild();
@@ -1505,6 +1517,7 @@ export class WorldScene extends Phaser.Scene {
     this.passanten?.update(delta, blocked || frozen);
     this.kgLife?.update(delta);
     if (this.clockDirty && !blocked) { this.applyClock(); this.updateWeatherLoop(); }
+    this.wetterFx?.update(delta);
     if (!blocked && this.splitRole !== 2) this.updateRandomSounds(delta);
     this.koop?.update(delta, blocked);
     this.feste?.update(delta, blocked);
@@ -1613,6 +1626,7 @@ export class WorldScene extends Phaser.Scene {
     if (this.formAura?.follow) this.formAura.setPosition(this.formAura.follow.x, this.formAura.follow.y + 1).setDepth(this.formAura.follow.depth - 1);
     this.gearOverlay?.sync();
     this.tickMacht(this.game.loop.delta);
+    this.tickNarbe();
     // Ständige Aura ab Seq 4: Stärke (50 % Verdauung) und Sichtbarkeit etwa jede Sekunde nachziehen
     if (this.time.now > (this.auraCheck ?? 0)) { this.auraCheck = this.time.now + 1000; this.updateAura(); }
     this.updateCamTarget();
@@ -1961,6 +1975,28 @@ export class WorldScene extends Phaser.Scene {
   }
 
   /**
+   * Narbe aus Licht (Kapitel 6, core/Narbe.js): wer oben verbrannt wurde, trägt einen schwachen Lichtstrich quer über der Brust.
+   * Er pulsiert leise und glüht in der Himmelsstadt hell auf. Nur Code, keine Grafik (Platzhalter bis zum Grafik-Werkzeug).
+   */
+  tickNarbe() {
+    const an = hatNarbe(this.state);
+    this.narben ??= {};
+    const oben = this.state.content.maps[this.state.map]?.city === 'himmel';
+    for (const n of [1, 2]) {
+      const who = n === 2 ? this.p2 : this.player;
+      let g = this.narben[n];
+      if (!an || !who || !who.visible || (n === 2 && !this.state.p2)) { g?.setVisible(false); continue; }
+      if (!g) {
+        g = this.narben[n] = this.add.graphics().setBlendMode(Phaser.BlendModes.ADD);
+        g.fillStyle(0xfff2c8, 1).fillRect(-3, 0, 2, 1).fillRect(-1, 1, 2, 1).fillRect(1, 2, 2, 1);
+      }
+      const puls = 0.5 + 0.5 * Math.sin(this.time.now / (oben ? 180 : 900) + n);
+      const sc = who.scaleX || 1;
+      g.setVisible(true).setScale(sc).setPosition(who.x, who.y - 14 * sc).setDepth(who.depth + 0.5).setAlpha(oben ? 0.6 + 0.4 * puls : 0.18 + 0.22 * puls);
+    }
+  }
+
+  /**
    * Jede Frame: Aura pulsiert, ab Seq 3 steigen Funken auf (ab Engel blutrot), ab Engel bebt der Boden in Wellen,
    * der Engelskönig zieht Blitzzacken und Risse um sich. Stärke aus MACHT, Stand aus updateAura (jede Sekunde).
    */
@@ -2195,14 +2231,24 @@ export class WorldScene extends Phaser.Scene {
         this.roamers.open(it);
         break;
       case 'rest': {
+        // Schlafen (core/Wetter.js): nachts einmal je Nacht, tagsüber nur ein Nickerchen mit Abklingzeit
+        const st = this.state.schlafStatus();
+        if (!st.kind) { this.ui.showMessage(def.title, st.text); break; }
+        const nap = st.kind === 'nickerchen';
         this.playPlayerAction('rest');
         this.sfx(worldSound('rest'));
-        const healed = this.state.heal(this.state.maxHp);
-        this.state.setComposure(100);
+        this.state.schlafMerken(st.kind);
+        const healed = this.state.heal(Math.round(this.state.maxHp * (nap ? NAP_HEAL : 1)));
+        this.state.setComposure(nap ? Math.max(this.state.composure, 60) : 100);
         if (this.state.cityPolice()) this.state.restWanted(); // Untertauchen senkt die Fahndung (Wexmoor, nach Fall 9 auch Kettlegate)
         const calm = this.state.kahnRestBonus(); // Paket AB: Waschtisch im Kahn
         const dream = this.state.seq4Rest?.(); // Seq 4 (Faden): mit fünf Fäden zieht der Schlaf in den Traum
-        this.ui.showMessage(def.title, dream ? `${def.text}\n\n${dream}` : def.text, { footer: (healed > 0 ? `+${healed} Leben, Nerven beruhigt.` : 'Du bist ausgeruht.') + (calm ? ` Am Waschtisch: -${calm} Unruhe.` : '') });
+        // Träume: höchstens einer je Nacht, Hinweis zum verfolgten Fall oder ein Wesen des Pfads
+        const main = this.state.tracked && this.state.content.quests[this.state.tracked]?.kind === 'main' ? this.state.tracked : Object.keys(this.state.quests).find((q) => this.state.quests[q] === 'active' && this.state.content.quests[q]?.kind === 'main');
+        const traum = !dream && !nap ? this.state.traeumen({ hint: main ? questTarget(this.state, main)?.step ?? null : null }) : null;
+        const text = [nap ? 'Du döst eine Weile, richtig schlafen kannst du erst nachts.' : def.text, dream, traum?.text].filter(Boolean).join('\n\n');
+        const footer = (healed > 0 ? `+${healed} Leben, Nerven beruhigt.` : 'Du bist ausgeruht.') + (calm ? ` Am Waschtisch: -${calm} Unruhe.` : '');
+        this.ui.showMessage(traum && traum.kind !== 'ruhig' ? (traum.kind === 'albtraum' ? 'Albtraum' : 'Ein Traum') : def.title, text, { footer });
         break;
       }
       case 'nebel': // Codex DH: Übergang zur Nebelseite (keine Straßentür)
