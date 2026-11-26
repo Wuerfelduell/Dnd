@@ -148,6 +148,11 @@ export function applyCalderwickStadtplan(content) {
   // Rückwege aus Innenräumen und Gefahrengebieten: wer herauskommt, steht vor der Tür, durch die er hineinging
   const rueck = [];
   for (const id of CW_TERRASSEN) if (maps[id] && PLAENE[id]) rueck.push(...umbauen(maps, maps[id], PLAENE[id]));
+  // Braukessel in der Gemeinschaftsküche: Seq 3–1 lassen sich in Calderwick brauen, ohne nach Dunscar zu fahren
+  const kueche = maps.cw_kueche;
+  if (kueche && !kueche.interactables.some((i) => i.kind === 'brew')) {
+    kueche.interactables.push({ id: 'cw_braukessel', kind: 'brew', tile: [16, 10], prompt: 'Am Braukessel brauen', sprite: 'cauldron', marker: false, solid: [14, 10], title: 'Braukessel der Küche' });
+  }
   for (const [von, nach, spawn] of rueck) {
     for (const i of maps[von]?.interactables ?? []) if (i.kind === 'door' && i.to === nach && (i.spawn ?? 'default') === 'default') i.spawn = spawn;
   }
@@ -233,7 +238,7 @@ function umbauen(maps, m, plan) {
       const anWand = '#W'.includes(g[y - 1][x]);
       if (art === 'wand' && !anWand) continue;
       if (art === 'deko' && !(boden(g, x - 1, y) && boden(g, x + 1, y) && boden(g, x, y - 1))) continue;
-      if ((art === 'figur' || art === 'frei') && (anWand || 'RD'.includes(g[y - 1][x]) || x < 2 || y < 2 || x > W - 3 || y > H - 3)) continue;
+      if ((art === 'figur' || art === 'frei') && (anWand || 'RD'.includes(g[y - 1][x]) || x < 2 || y < 5 || x > W - 3 || y > H - 3)) continue;
       const d = gesetzt.length ? Math.min(...gesetzt.map(([gx, gy]) => Math.hypot(gx - x, gy - y))) : 99;
       const dd = d + hash2(x, y, 700 + gesetzt.length) * 1.2;
       if (dd > bestD) { bestD = dd; best = [x, y]; }
