@@ -29,6 +29,27 @@ const DRAWN_KINDS = ['consumable', 'trophy', 'gear', 'ingredient', 'potion'];
 /** Wert eines Geschenks ohne Preis, je Art (Schilling). */
 const KIND_VALUE = { consumable: 6, potion: 25, ingredient: 5, trophy: 10, gear: 15, weapon: 20, artifact: 40 };
 
+/** Figuren, deren Beziehung irgendwo eine Bedingung ist (requires_relation/_max, requires_mood, hide_if_mood), je Inhalt einmal gesucht. */
+const REL_KEYS = ['requires_relation', 'requires_relation_max', 'requires_mood', 'hide_if_mood'];
+const relationUsers = new WeakMap();
+function findRelationUsers(content) {
+  let set = relationUsers.get(content);
+  if (set) return set;
+  set = new Set();
+  const seen = new WeakSet();
+  const walk = (o) => {
+    if (!o || typeof o !== 'object' || seen.has(o)) return;
+    seen.add(o);
+    if (Array.isArray(o)) { for (const x of o) walk(x); return; }
+    // Reine Zufallssätze je Stimmung (zufall/chance, z. B. Dunscar-Stimmen) bringen nichts, zählen nicht
+    if (!('zufall' in o) && !('chance' in o)) for (const k of REL_KEYS) if (o[k] && typeof o[k] === 'object') for (const id of Object.keys(o[k])) set.add(id);
+    for (const v of Object.values(o)) walk(v);
+  };
+  for (const [k, v] of Object.entries(content)) if (k !== 'relations' && k !== 'maps') walk(v);
+  relationUsers.set(content, set);
+  return set;
+}
+
 /** Kleiner fester Streuwert, damit jede Figur immer denselben allgemeinen Satz benutzt. */
 const hash = (s) => [...s].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
 
@@ -112,6 +133,17 @@ export const relationMethods = {
     if (own) return own;
     const pool = this.content.relations?.allgemein?.[mood] ?? [];
     return pool.length ? pool[hash(id) % pool.length] : null;
+  },
+
+  /**
+   * Bringt ein Geschenk bei dieser Figur etwas? (Seb 2026-11-26: „Etwas schenken“ nur, wo es wirkt.)
+   * Ja bei Einzelgängern/Gefährten (Vertrauen, Bürgen), Händlern (Nachlass) und Figuren, deren Beziehung
+   * in einer Bedingung vorkommt (Gesprächsoptionen, Aufträge).
+   */
+  giftMatters(id) {
+    if (!this.content.npcs?.[id]) return false;
+    if (this.usesBond(id) || this.content.market?.merchants?.[id]) return true;
+    return findRelationUsers(this.content).has(id);
   },
 
   /** Preisfaktor eines Händlers nach Stimmung (1 = normal). */

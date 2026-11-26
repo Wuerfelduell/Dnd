@@ -233,3 +233,14 @@ test('Alle Beziehungs-Bedingungen in den Dialogen nennen bekannte Figuren', () =
   const s = fresh();
   assert.ok(talk(s, 'pimm').length >= 1);
 });
+
+test('„Etwas schenken“ nur bei Figuren, bei denen die Beziehung etwas bewirkt (Seb 2026-11-26)', () => {
+  const s = fresh();
+  const merchant = Object.keys(content.market.merchants).find((id) => content.npcs[id]);
+  assert.ok(merchant && s.giftMatters(merchant), 'Händler: Nachlass');
+  assert.ok(s.giftMatters('zunder'), 'Gefährte: Vertrauen');
+  assert.ok(s.giftMatters('holt'), 'Bedingung an Gesprächsoptionen');
+  const ohne = Object.keys(content.npcs).filter((id) => !s.giftMatters(id));
+  assert.ok(ohne.length > 0, 'manche Figuren haben nichts davon');
+  assert.equal(s.giftMatters('gibt_es_nicht'), false);
+});
