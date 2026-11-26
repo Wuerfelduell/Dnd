@@ -905,6 +905,12 @@ export class WorldScene extends Phaser.Scene {
     this.ui.setSplit?.(this.split);
   }
 
+  /** Splitscreen: kämpft gerade der andere Spieler in seiner Hälfte (und hier ist nur der Kampf offen)? Dann läuft diese Hälfte weiter. */
+  kampfDrueben() {
+    const k = this.realState?.splitKampf;
+    return !!k && this.split && k !== this.splitRole && this.ui.modal === 'combat';
+  }
+
   /** Die andere Hälfte des Splitscreens (oder null). */
   splitOther() {
     if (!this.split) return null;
@@ -1504,18 +1510,19 @@ export class WorldScene extends Phaser.Scene {
   }
 
   update(time, delta) {
-    const blocked = this.ui.isBlocking() || this.leaving;
-    if (!blocked && this.splitRole !== 2) this.state.tick(delta / 1000); // im Splitscreen tickt nur die Hauptwelt
+    const frei = this.kampfDrueben(); // Splitscreen: in der anderen Hälfte wird gekämpft, hier läuft man weiter
+    const blocked = (this.ui.isBlocking() && !frei) || this.leaving;
+    if (!blocked && !frei && this.splitRole !== 2) this.state.tick(delta / 1000); // die Uhr steht, solange gekämpft wird // im Splitscreen tickt nur die Hauptwelt
     // Codex DL: Erfolge alle 1,5 s prüfen (die erste Prüfung trägt still nach)
     this.erfTimer = (this.erfTimer ?? 0) + delta;
-    if (this.erfTimer > 1500 && this.splitRole !== 2) { this.erfTimer = 0; this.state.checkPost?.(); this.state.checkErfolge?.(); }
+    if (this.erfTimer > 1500 && this.splitRole !== 2 && !frei) { this.erfTimer = 0; this.state.checkPost?.(); this.state.checkErfolge?.(); }
     this.updateMovement(blocked);
     this.updateTier(delta);
     // Schlüssel Seq 5: die Schattengestalt ist durchscheinend
     this.playerSprites().forEach((q, i) => q.setAlpha(this.state.inShadow?.(i + 1) ? 0.4 : 1));
     const frozen = !!this.hg?.freezesWorld(); // Laternennacht: nur ihre eigenen Wesen bewegen sich
-    this.roamers.update(time, delta, blocked || this.leaving || frozen);
-    this.patrols.update(time, delta, blocked || this.leaving || frozen);
+    this.roamers.update(time, delta, blocked || this.leaving || frozen || frei);
+    this.patrols.update(time, delta, blocked || this.leaving || frozen || frei);
     this.critters.update(time, delta, blocked);
     this.updateNpcRoam(delta, blocked || frozen);
     this.wexLife?.update(delta);
@@ -2161,6 +2168,7 @@ export class WorldScene extends Phaser.Scene {
 
   /** Taste 1–9 / Ziffernblock / Gamepad-X: Welt-Fähigkeit aus der Schnellleiste. */
   useTalentKey(n, slot) {
+    if (this.kampfDrueben()) return;
     this.ui.useTalentSlot(n, slot === 'sel' ? 'sel' : Number(slot));
   }
 
@@ -2173,6 +2181,7 @@ export class WorldScene extends Phaser.Scene {
 
   interact(it) {
     const def = it.def;
+    if (this.kampfDrueben()) { this.ui.toast?.(`Warte kurz: Spieler ${this.realState.splitKampf} kämpft gerade.`, 'warn'); return; }
     const refused = this.koop?.refuse(it, this.state.acting);
     if (refused) { this.ui.showMessage(def.title ?? def.prompt, refused); return; }
     // Ab Fall 5 bleibt Lagerhaus 7 auch in bestehenden Spielständen zugänglich.
@@ -2431,15 +2440,20 @@ export class WorldScene extends Phaser.Scene {
     this.p2?.setVelocity(0, 0);
     this.p2?.anims.stop();
     if (this.split) this.state.combatBy = this.splitRole; // Splitscreen: wer auf seiner Hälfte angegriffen wird, kämpft allein
-    const other = this.splitOther();
+    // Seb 2026-11-26: im Splitscreen (Pfadviertel) läuft der Kampf nur in der eigenen Hälfte, die andere spielt weiter
+    const splitHalf = this.split ? this.splitRole : 0;
+    const other = splitHalf ? null : this.splitOther();
     other?.scene.pause();
     this.scene.pause();
+    if (splitHalf) this.realState.splitKampf = splitHalf;
     this.scene.launch('combat', {
       id,
+      splitHalf,
       deferLoot: !!roamer,
       noLoot,
       pack: pack.map((p) => p.id), // Gegnergruppe: Begleiter des Anführers
       onDone: (result) => {
+        if (splitHalf) this.realState.splitKampf = 0;
         this.scene.resume();
         if (other?.sys?.isPaused()) other.scene.resume();
         if (roamer) this.roamers.afterCombat(roamer, result);

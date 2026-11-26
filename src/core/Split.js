@@ -52,7 +52,7 @@ export const splitMethods = {
 
   /** Einmal je Tick, nur ohne laufenden Tausch: Splitscreen an- oder ausschalten. Gibt true zurück, wenn sich etwas geändert hat. */
   splitTick() {
-    if (this.acting !== 1) return false;
+    if (this.acting !== 1 || this.splitKampf) return false; // während ein Spieler in seiner Hälfte kämpft, bleibt das Bild, wie es ist
     if (this.hasP2?.() && this.flags.has('k4_arrived') && !this.flags.has(SPLIT_ENDE_FLAG) && this.splitBeideSeq3()) {
       this.flags.add(SPLIT_ENDE_FLAG);
       if (this.splitOn) this.emit('notice', 'Ihr habt beide das Ritual der dritten Sequenz geschafft. Ihr seid Heilige, und der Bildschirm wird wieder eins.');

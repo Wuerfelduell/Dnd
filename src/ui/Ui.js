@@ -1054,6 +1054,8 @@ export class Ui {
   }
 
   open(kind, html, cls = '') {
+    // Splitscreen-Kampf: die andere Hälfte darf das Kampfmenü nicht überdecken (sollte durch die Sperren gar nicht vorkommen)
+    if (this.combatHalf && this.modal === 'combat') { const el = document.createElement('div'); el.className = `panel ${cls}`; el.innerHTML = html; return el; }
     this.rememberScroll();
     // Y: ein Fenster klingt beim Öffnen (Karte entfalten, Notizbuch blättern, Schublade), nicht bei jedem Neuaufbau
     if (this.modal !== kind) { this.sfx(this.nextOpenSound ?? uiSound(kind)); }
@@ -3395,6 +3397,11 @@ export class Ui {
 
   openCombat(scene) {
     this.combatScene = scene;
+    // Splitscreen im Pfadviertel: Kampfmenü nur in der Hälfte des Kämpfers; kämpft Spieler 2, liest es seine Werte (p2View)
+    this.combatHalf = scene.splitHalf ?? 0;
+    if (this.combatHalf === 2) { this.stateVorKampf = this.state; this.state = scene.state; }
+    this.root.classList.toggle('cb-half', !!this.combatHalf);
+    this.root.classList.toggle('cb-half-2', this.combatHalf === 2);
     this.combatMenuOpen = null;
     this.modal = 'combat';
     this.setPrompt(null);
@@ -3503,6 +3510,7 @@ export class Ui {
   combatMessage(text, help = '', scene = null) {
     const el = this.layer.querySelector('.cb-text');
     if (!el) return;
+    if (this.combatHalf === 2) help = help.replace('mit E', 'mit Enter'); // Splitscreen: Spieler 2 bestätigt mit Enter
     if (this.touch) {
       const t = (x) => x.replace('Weiter mit E', 'Weiter: irgendwo tippen')
         .replace('Drücke E oder Leertaste', 'Tippe irgendwo auf den Bildschirm')
@@ -3649,7 +3657,9 @@ export class Ui {
 
   closeCombat(result, enc) {
     this.combatScene = null;
-    this.root.classList.remove('in-combat');
+    if (this.stateVorKampf) { this.state = this.stateVorKampf; this.stateVorKampf = null; }
+    this.combatHalf = 0;
+    this.root.classList.remove('in-combat', 'cb-half', 'cb-half-2');
     this.$('.floats').innerHTML = '';
     this.modal = null;
     this.layer.innerHTML = '';
@@ -3756,6 +3766,14 @@ export class Ui {
   onCombatKey(e, k) {
     const sc = this.combatScene;
     if (!sc) return;
+    // Splitscreen: die andere Hälfte spielt weiter, ihre Tasten gehören ihr (links WASD/E/Leertaste/F/1–9, rechts Pfeile/Enter/Ziffernblock)
+    if (this.combatHalf) {
+      const numpad = e.code?.startsWith('Numpad');
+      const p2Key = k === 'enter' || k.startsWith('arrow') || numpad;
+      if (this.combatHalf === 2 ? !p2Key : p2Key) return;
+      if (this.combatHalf === 2 && k === 'enter') k = 'e';
+      if (this.combatHalf === 2 && e.code === 'Numpad0') k = 'escape'; // Ziffernblock 0: im Menü zurück
+    }
     let handled = false;
     const num = /^[1-9]$/.test(k) ? Number(k) - 1 : -1;
     if (sc.phase === 'menu' && this.combatMenuOpen) {
@@ -3771,7 +3789,7 @@ export class Ui {
         else if (k === 'arrowleft') { kind = 'dodge'; who = 2; } else if (k === 'arrowright') { kind = 'parry'; who = 2; }
       }
       // Splitscreen/Solo-Prüfung: kämpft Spieler 2 allein, gelten auch seine Tasten (Enter, ←, →, Ziffernblock fürs Menü)
-      else if (sc.combat?.swapped) {
+      else if (sc.combat?.alsP2) {
         if (k === 'arrowleft') kind = 'dodge'; else if (k === 'arrowright') kind = 'parry';
       }
       if (kind) handled = sc.onKey(kind, who);

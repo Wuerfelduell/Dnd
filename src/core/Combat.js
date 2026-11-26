@@ -520,6 +520,11 @@ export class Combat {
   }
 
   /** Führt fn für Spieler n aus: Leben, Inventar, Waffe und Kampfwerte gehören dann ihm. */
+  /** Kämpft Spieler 2 allein (Solo-Prüfung mit Tausch oder Splitscreen-Kampf auf seiner eigenen Sicht p2View)? */
+  get alsP2() {
+    return this.swapped || (!!this.state.isP2View && !this.duo);
+  }
+
   on(n, fn) {
     const prev = this.cur;
     this.cur = n;
@@ -1488,7 +1493,7 @@ export class Combat {
     if (this.outcome !== 'lost') each((f) => { if (f.down || s.hp <= 0) s.hp = Math.max(1, Math.round(s.maxHp * 0.25)); });
     if (this.outcome === 'won') {
       const first = !s.flags.has(firstFlag);
-      s.applyEffects({ ...enc.on_win, sets_flags: [...(enc.on_win?.sets_flags ?? []), firstFlag, ...(enc.sieg_flag ? Object.keys(this.fighters).filter((n) => !this.fighters[n].down).map((n) => `${enc.sieg_flag}_p${this.swapped ? 2 : n}`) : [])] });
+      s.applyEffects({ ...enc.on_win, sets_flags: [...(enc.on_win?.sets_flags ?? []), firstFlag, ...(enc.sieg_flag ? Object.keys(this.fighters).filter((n) => !this.fighters[n].down).map((n) => `${enc.sieg_flag}_p${this.alsP2 ? 2 : n}`) : [])] });
       if (first && enc.first_win) s.applyEffects(enc.first_win);
       if (enc.kopfgeldjaeger) s.kgjSieg?.(this.id); // Kopfgeldjäger: heute kommt keiner mehr
       if (!enc.practice) s.erfolgKampf?.(); // Codex DL: „Hundert Kämpfe“

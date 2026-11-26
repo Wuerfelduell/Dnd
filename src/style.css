@@ -209,7 +209,11 @@ button.small { font-size: 0.8em; padding: 0.1em 0.5em; }
 .items .item { display: flex; justify-content: space-between; align-items: center; gap: 1em; padding: 0.3em 0.5em; border: 0.125em solid #2a2630; }
 .items .desc { color: var(--muted); font-size: 0.85em; }
 
-#ui.in-combat .hud, #ui.in-combat .prompt, #ui.in-combat .toasts { display: none; }
+#ui.in-combat .hud, #ui.in-combat:not(.cb-half) .prompt, #ui.in-combat:not(.cb-half) .toasts { display: none; }
+/* Splitscreen im Pfadviertel: Kampf als verkleinerte Bühne in der Hälfte des Kämpfers (Kamera-Zoom 0.5 in CombatScene) */
+#ui.cb-half .combat, #ui.cb-half .floats { inset: 25% 50% 25% 0; font-size: 0.5em; }
+#ui.cb-half.cb-half-2 .combat, #ui.cb-half.cb-half-2 .floats { inset: 25% 0 25% 50%; }
+#ui.cb-half .layer:has(.combat) { pointer-events: none; }
 .combat { position: absolute; inset: 0; pointer-events: none; }
 .combat button { pointer-events: auto; font: inherit; color: var(--ink); padding: 0.15em 0.4em; border: 0.125em solid transparent; cursor: pointer; }
 .combat button:hover:not(:disabled) { border-color: var(--brass); background: #2c2532; }
