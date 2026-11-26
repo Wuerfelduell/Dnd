@@ -3,6 +3,7 @@
 // denselben Texture-Keys. Alles, was hier nicht zugeordnet ist (oder nicht lädt),
 // bleibt automatisch beim Platzhalter.
 import { PATHWAY_STANDIN } from '../data/sequenzen.js';
+import { BH_DACH_TEXTUREN } from '../data/briarholtKulisse.js';
 import { preloadRitualArt } from './ritualArt.js';
 import { DS_ZIRKEL_ICONS, DS_ZIRKEL_FIGUREN } from '../data/dunscarZirkel.js';
 import { VS_ICONS } from '../data/vorratStuecke.js';
@@ -154,7 +155,7 @@ export const TILE_CELLS = {
  */
 const BH_THEME_SPECS = {
   bh_promenade: { fallback: 'cobble0', floor: [0, 1], stain: [2], wet: [4], wallTop: [8], wallFace: [9], window: [12] },
-  bh_kessel: { fallback: 'cobble0', floor: [0, 1, 2], wet: [3], wallTop: [24], wallFace: [25], window: [26] },
+  bh_kessel: { fallback: 'cobble0', floor: [1, 38], wet: [3], wallTop: [24], wallFace: [25], window: [26] }, // ruhiges Kopfsteinpflaster; Werkstattboden und Kohlenstaub streut die Kulisse
   bh_glas: { fallback: 'stone', floor: [0, 1], debris: [36], wallTop: [8], wallFace: [9], window: [10] },
   bh_stille: { fallback: 'stone', floor: [0, 5], wear: [1], wallTop: [8], wallFace: [9], window: [12, 13] },
   bh_klinik: { fallback: 'stone', floor: [0], wear: [1], wallTop: [11], wallFace: [12], window: [10] },
@@ -1309,7 +1310,7 @@ export function playSheetAnim(sprite, sheet, name, then) {
   const key = `${sheet}-${name}`;
   if (!scene.anims.exists(key)) {
     const id = MANIFEST_IDS[sheet] ?? sheet;
-    const def = ['manifestPfade', 'manifestWelt', 'manifestJournal', 'manifestSpieler2', 'manifestSequenzen3', 'manifestKontrollverlust', 'manifestSekten', 'manifestHalbgott', 'manifestFasserin2'].map((m) => scene.cache.json.get(m)?.assets?.find((a) => a.id === id)?.animations?.[name]).find(Boolean);
+    const def = ['manifestPfade', 'manifestWelt', 'manifestJournal', 'manifestSpieler2', 'manifestSequenzen3', 'manifestKontrollverlust', 'manifestSekten', 'manifestHalbgott', 'manifestFasserin2', 'manifestBriarholt1'].map((m) => scene.cache.json.get(m)?.assets?.find((a) => a.id === id)?.animations?.[name]).find(Boolean);
     if (!def) return false;
     scene.anims.create({ key, frames: def.frames.map((frame) => ({ key: sheet, frame })), frameRate: def.frameRate, repeat: def.repeat });
   }
@@ -2817,6 +2818,13 @@ for (const n of BH_PROP_SHEETS) {
 }
 SHEETS.bhp_waerme = 'fx/bh_waerme.png';
 REGION_SHEETS.bhp_waerme = ['manifestBriarholt1', 'bh_waerme'];
+/** Briarholt-Kulisse (data/briarholtKulisse.js): die CI-Tilesets zusätzlich als 16er-Blätter für Einzelzellen (`bht_<blatt>_<kalt|warm>`, Animationen
+ *  wie im Manifest, z. B. dampf/reif_dampf), dazu Dachkacheln aus dem Vorrat future200. */
+for (const t of ['promenade', 'kessel', 'glas', 'stille', 'klinik', 'wurzel']) for (const v of ['kalt', 'warm']) {
+  ANIM_SHEETS[`bht_${t}_${v}`] = [`tilesets/bh_${t}_${v}.png`, 16, 16];
+  MANIFEST_IDS[`bht_${t}_${v}`] = `bh_${t}_${v}`;
+}
+for (const [key, file] of Object.entries(BH_DACH_TEXTUREN)) ANIM_SHEETS[key] = [file, 16, 16];
 /** Kampfkulissen der Viertel (Kesselgrund und Glasgärten je kalt/warm); Innenräume nehmen die Kulisse ihres Viertels, der Bügelraum die warme des Kesselgrunds. */
 const BH_BATTLE = { bh_kutschenhof: 'bg_bh_kutschenhof', bh_kutschenhalle: 'bg_bh_kutschenhof', bh_kesselgrund: 'bg_bh_kesselgrund_kalt', bh_buegelraum: 'bg_bh_kesselgrund_warm',
   bh_winterpromenade: 'bg_bh_promenade', bh_pavillon: 'bg_bh_promenade', bh_glasgaerten: 'bg_bh_glasgaerten_kalt', bh_verkaufshalle: 'bg_bh_glasgaerten_kalt',
