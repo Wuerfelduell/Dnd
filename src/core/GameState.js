@@ -531,6 +531,8 @@ export class GameState {
     const neu = CALDERWICK_WELT_FLAGS.filter((f) => !this.flags.has(f));
     if (neu.length) this.applyEffects({ sets_flags: neu });
     if (this.quest('k4_aufstieg') && this.quests.k4_aufstieg === undefined && !this.flags.has('kapitel4_done')) this.startQuest('k4_aufstieg');
+    // Kapitel 6 (data/zweiterAufstieg.js): alte Stände, die die Leitung in Briarholt schon abgedreht haben, bekommen den zweiten Aufstieg
+    if (this.flags.has('k5s_leitung_kalt') && this.quest('k6_aufstieg2') && this.quests.k6_aufstieg2 === undefined) this.startQuest('k6_aufstieg2');
   }
 
   /** Bonusakte nach Kapitel 2: zeigt je nach Ende, wo die Nachricht nach Dunscar liegt. */

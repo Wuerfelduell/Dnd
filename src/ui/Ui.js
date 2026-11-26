@@ -33,6 +33,7 @@ import { isSolved, knownPeople, journalQuestVisible } from '../core/journal.js';
 import { canHurry, hurryCost, travelSafe, travelFast, afterHurryFight, travelDestinations, cityOf } from '../core/Travel.js';
 import { questTarget, leadTarget, personPlaces, advice } from '../core/Guide.js';
 import { installTestmodus, testPauseButton, bindTestPause, closeTestReise } from './TestUi.js';
+import { hatNarbe, NARBE } from '../core/Narbe.js';
 
 /** Spielstand für Icons, die vom Spieler abhängen (Relikt des Verfalls: Bild nach seiner stärksten Eigenschaft, Codex DP). */
 let iconState = null;
@@ -2444,6 +2445,7 @@ export class Ui {
       ${s.corruptionDrain().count ? `<p class="curse">Korruption: ${s.corruptionDrain().count} Stück an dir zehrt an Leben und Nerven (siehe Inventar). Bei 100 Unruhe wachsen die Tentakel erneut und treffen alles, was du dann trägst.</p>` : '<p class="muted">Bei 100 Unruhe verlierst du die Kontrolle: Tentakel korrumpieren Waffe, Kleidung und Artefakte am Leib, die dich danach Leben und Nerven kosten, solange du sie trägst.</p>'}
       ${this.buffsHtml(s)}
       ${this.formHtml(s)}
+      ${this.narbeHtml(s)}
       ${this.ritualHtml()}
       <h4>Was deinen Trank verdaut</h4>
       <ul class="digestlist">${s.digestTable().map((r) => `<li><span>${esc(r.label)}</span> <strong>+${r.text} %</strong></li>`).join('')}
@@ -2473,6 +2475,12 @@ export class Ui {
     const world = [s.revealUntil > s.talentTime ? 'verborgene Spuren sichtbar' : '', s.scaresEnemies() ? 'Gegner weichen' : '', s.clockStopped() ? 'die Uhr der Stadt steht' : ''].filter(Boolean);
     if (!list.length && !world.length) return `<p class="muted">☉ Welt-Fähigkeiten setzt du hier im Pfad-Tab ein oder in der Welt über die Leiste unten links${this.touch ? '' : ' (Tasten <span class="key">1</span>–<span class="key">9</span>, Spieler 2 Ziffernblock)'}, nicht im Kampf. Sie kosten Nerven und brauchen danach eine Pause.</p>`;
     return `<p class="buffs">☉ Wirkt gerade: ${[...list.map((b) => `${esc(buffLabel(b))} <span class="muted">(${b.remainingText})</span>`), ...world.map(esc)].join(' · ')}</p>`;
+  }
+
+  /** Die Narbe aus Licht (Kapitel 6): wer oben verbrannt wurde, trägt sie für immer (core/Narbe.js). */
+  narbeHtml(s) {
+    if (!hatNarbe(s)) return '';
+    return `<div class="gestalt"><h4>Narbe aus Licht</h4><p class="desc">Oben wurdest du verbrannt. Die Narbe bleibt. Die Wesen der Himmelsstadt erkennen sie: Du triffst sie um ${Math.round((NARBE.schaden - 1) * 100)} % härter, sie dich um ${Math.round((NARBE.erlitten - 1) * 100)} %.</p></div>`;
   }
 
   /** Mythische Gestalt (ab Sequenz 4 und halb verdautem Trank): Knopf zum Annehmen und Ablegen. */

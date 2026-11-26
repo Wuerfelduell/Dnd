@@ -13,6 +13,7 @@ import { applySeqHoch, addRitualformeln } from './seqHoch.js';
 import { applyAufstieg, gateStarlingHinweise } from './aufstieg.js';
 import { applyCalderwickStory } from './calderwickStory.js';
 import { applyBriarholtStory } from './briarholtStory.js';
+import { applyZweiterAufstieg } from './zweiterAufstieg.js';
 import { applyPfadviertel } from './pfadviertel.js';
 import { applyMarloweTelegramm } from './marloweTelegramm.js';
 import { withFaehigkeiten } from './faehigkeiten.js';
@@ -130,6 +131,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyDunscarHaendler(content); // Dunscar: Waffen, Kleidung, Kräuter und Ankauf am Kalkmarkt (kein Zurück in alte Städte)
   applyBenannte(content); // Codex DJ: benannte Gegner auf den Grundgegnern, nachts in ihren Gebieten
   applyBriarholtStory(content); // Kapitel 5 ausgebaut: Kur der Gefallenen, Briarholt auf Seq 3, Sammler der Linie (nach den benannten Gegnern)
+  applyZweiterAufstieg(content); // Kapitel 6: Bürgen in Calderwick, Schaffner ohne Gesicht, zweite Himmelsstadt, Starling, Thron (nach Briarholt)
   applyAltbeute(content); // Wexmoor-Monster tragen ab und zu Kettlegater Beute (kein Zurück dorthin)
   applyZutatDrops(content); // Hauptzutaten: je genau ein Monster (Kettlegate Seq 7 8 %, Wexmoor Seq 6 8 %/Elite 18 % / Seq 5 1 %)
   applyDunscarGebietsbosse(content); // Dunscar: je Gefahrengebiet ein frei stehender Gebietsboss wie in Wexmoor
