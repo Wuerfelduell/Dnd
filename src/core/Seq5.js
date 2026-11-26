@@ -562,7 +562,7 @@ export const seq5Methods = {
   /** Warum der Trank der Sequenz 5 gerade nicht geht (Kessel: Wirkung muss laufen; Uhr: Frist). Sonst null. */
   seq5DrinkBlock(pid, seq, now = Date.now()) {
     const r = this.ritualDef(pid, seq);
-    if (!r?.trial) return null;
+    if (!r?.trial || this.testmodus) return null; // Testmodus: Rituale gelten als vollzogen, auch die Bedingung beim Trinken entfällt
     if (r.trial === 'kessel' && !this.activeSudBuff?.()) return 'Die Wirkung deines eigenen Suds muss anhalten, während du trinkst.';
     if (r.trial === 'uhr') {
       const st = this.seq5();
@@ -577,7 +577,7 @@ export const seq5Methods = {
     if (!p) return;
     const seq = p.seq - 1;
     const r = this.ritualDef(p.id, seq);
-    if (r?.trial !== 'kessel' || !this.ritualDone(p.id, seq)) return;
+    if (r?.trial !== 'kessel' || this.testmodus || !this.ritualDone(p.id, seq)) return;
     const st = this.seq5();
     if (!st.armed) return;
     if (this.activeSudBuff?.()) return;

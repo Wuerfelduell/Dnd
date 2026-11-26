@@ -81,3 +81,25 @@ test('Testmodus: Rituale vollzogen, Wächter mit 1 Leben', () => {
   assert.equal(new Combat(s, 'hg_schwellenwaechter_eisen').enemy.hp, 1);
   assert.equal(new Combat(s, 'hg_grenzwaechter_eisen').enemy.hp, 1);
 });
+
+test('Testmodus: jeder Trank jedes Pfads lässt sich trinken (auch Kessel 5 ohne Sud), für beide Spieler', () => {
+  const s = new GameState(content);
+  s.testmodus = true;
+  s.addP2();
+  for (const pl of [1, 2]) {
+    s.withPlayer(pl, () => {
+      for (const pid of Object.keys(content.pathways)) {
+        for (const seq of [8, 7, 6, 5, 4, 3, 2, 1]) {
+          if (!content.items[`trank_${pid}_${seq}`]) continue;
+          s.pathway = { id: pid, seq: seq + 1, digestion: 100 };
+          s.addItem(`trank_${pid}_${seq}`);
+          const c = s.drinkCheck(`trank_${pid}_${seq}`);
+          assert.ok(c.ok, `Spieler ${pl}, ${pid} ${seq}: ${c.reason}`);
+        }
+      }
+      s.pathway = { id: 'kessel', seq: 6, digestion: 100 };
+      assert.equal(s.drink('trank_kessel_5', () => 0.99).ok, true);
+      assert.equal(s.pathway.seq, 5);
+    });
+  }
+});
