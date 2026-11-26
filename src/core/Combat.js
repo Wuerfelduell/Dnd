@@ -131,9 +131,9 @@ export const CONFUSE_LOCK = { elite: 1, boss: 2 };
 // so viele Runden lang frei, bevor es wieder greift (wie die Verwirrung). Bei mehreren Gegnern springt das Gift des
 // Begrabenen auf den nächsten Gegner über, der keines (oder ein schwächeres) trägt.
 export const BURY_LOCK = { elite: 1, boss: 2 };
-// Torfschicht (Moor ab Seq 4, Passiv `torfschicht`): Überheilung aus Fertigkeiten wird zu Schutz für den Geheilten.
-// Torf-Retter (Halbgott-Eigenheit des Moors, Passiv `torf_retter`): einmal je Kampf und Moor-Spieler fängt der Torf
-// einen tödlichen Treffer am Moor-Spieler oder seinem Partner ab: 1 Leben, dazu Schutz in Höhe von TORF_RETTER_SHIELD des Höchstlebens.
+// Moor Seq 4 hat drei Kampffertigkeiten (Seb 2026-11-26): Torfschicht (Hauptfertigkeit, `overheal_shield`: Überheilung wird
+// Schutz für den Geheilten), Begraben (`bury`) und Torf-Retter (`torf_ward`, `once`: einmal je Kampf gewirkt, legt sich auf jeden
+// Stehenden; der erste tödliche Treffer an ihm wird abgefangen: 1 Leben, dazu Schutz in Höhe von TORF_RETTER_SHIELD des Höchstlebens).
 export const TORF_RETTER_SHIELD = 0.25;
 export const GRADE_UP = { miss: 'good', good: 'perfect', perfect: 'perfect', meister: 'meister' };
 /**
@@ -554,17 +554,14 @@ export class Combat {
    * mit 1 Leben und Schutz stehen. Gibt true zurück, wenn der Torf gehalten hat (rescued merkt sich, wen, für die Anzeige).
    */
   torfRetter(n) {
-    if (this.enc.practice || !this.fighters[n]) return false;
-    this.torfUsed ??= {};
-    const by = [n, ...Object.keys(this.fighters).map(Number).filter((m) => m !== n && !this.fighters[m].down)]
-      .find((m) => !this.torfUsed[m] && this.asPlayer(m, () => this.state.passive('torf_retter')) > 0);
+    const by = this.fighters[n]?.torfWard;
     if (by == null) return false;
-    this.torfUsed[by] = true;
+    this.fighters[n].torfWard = null;
     this.asPlayer(n, () => {
       this.state.hp = Math.max(1, this.state.hp); // auch dort, wo nichts heilen darf
       this.state.emit?.('hp', { value: this.state.hp, delta: 1 });
       const f = this.fighters[n];
-      f.shield = this.addShield(f.shield, Math.round(this.state.maxHp * TORF_RETTER_SHIELD), n);
+      f.shield = this.addShield(f.shield, Math.round(this.state.maxHp * TORF_RETTER_SHIELD * this.asPlayer(by, () => this.state.passive('shield_mult'))), n);
       f.shieldFrom = by;
     });
     this.rescued = { n, by };
@@ -580,9 +577,9 @@ export class Combat {
   }
 
   /** Torfschicht: was über das Höchstleben hinaus geheilt würde, wird Schutz für den Geheilten (in on(actor) aufrufen). */
-  torfschicht(amount, got, n) {
+  torfschicht(sk, amount, got, n) {
     const over = amount - got;
-    if (over <= 0 || this.enc.practice || !(this.state.passive('torfschicht') > 0)) return 0;
+    if (over <= 0 || this.enc.practice || !sk.overheal_shield) return 0;
     const f = this.fighters[n];
     if (!f || f.down) return 0;
     const before = f.shield;
@@ -637,7 +634,8 @@ export class Combat {
     if (this.rules?.shadow) all = { attack: SCHATTEN_ATTACKE, ...(this.roundSkill && all[this.roundSkill] ? { [this.roundSkill]: all[this.roundSkill] } : {}) };
     return Object.entries(all).map(([id, sk]) => ({
       id, ...sk, composure: this.composureCost(sk), forbidden: !this.ruleAllows(id, sk),
-      usable: this.ap >= sk.cost && this.state.composure >= this.composureCost(sk) && this.ruleAllows(id, sk),
+      usable: this.ap >= sk.cost && this.state.composure >= this.composureCost(sk) && this.ruleAllows(id, sk) && !(sk.once && this.onceUsed?.[`${this.cur ?? this.actor}:${id}`]),
+      spent: !!(sk.once && this.onceUsed?.[`${this.cur ?? this.actor}:${id}`]),
     }));
   }
 
@@ -718,7 +716,7 @@ export class Combat {
 
   /** Schutzmenge einer Fertigkeit für den Handelnden (in on(actor) aufrufen): wächst ab SHIELD_HP_REF mit dem Höchstleben. */
   skillShield(base) {
-    return Math.round(base * Math.max(1, this.state.maxHp / SHIELD_HP_REF));
+    return Math.round(base * Math.max(1, this.state.maxHp / SHIELD_HP_REF) * this.state.passive('shield_mult'));
   }
 
   /** Schutz aufstocken, gedeckelt auf SHIELD_CAP_PCT des Höchstlebens des Geschützten (n; ohne n der Handelnde). */
@@ -902,12 +900,12 @@ export class Combat {
         const got = this.state.withPartner(() => this.state.heal(amount)) ?? 0;
         effects.push(`+${got} Leben für Spieler ${this.healTarget}`);
         this.digestHeal(0, got);
-        const sh = this.torfschicht(amount, got, this.healTarget);
+        const sh = this.torfschicht(sk, amount, got, this.healTarget);
         if (sh) effects.push(`Torfschicht: Schutz +${sh} für Spieler ${this.healTarget}`);
       }
       else {
         const got = this.state.heal(amount); effects.push(`+${got} Leben`); this.digestHeal(got, 0);
-        const sh = this.torfschicht(amount, got, this.actor);
+        const sh = this.torfschicht(sk, amount, got, this.actor);
         if (sh) effects.push(`Torfschicht: Schutz +${sh}`);
       }
     }
@@ -929,12 +927,12 @@ export class Combat {
       // Wir stehen schon in on(actor): der andere Spieler ist der Partner (withPartner), egal ob er 1 oder 2 ist
       const amount = this.skillHeal(sk.heal_all, graded);
       let got = this.state.heal(amount);
-      let layer = this.torfschicht(amount, got, this.actor);
+      let layer = this.torfschicht(sk, amount, got, this.actor);
       let partnerGot = 0;
       for (const n of this.standing()) if (n !== this.actor) {
         const g = this.state.withPartner(() => this.state.heal(amount)) ?? 0;
         partnerGot += g;
-        layer += this.torfschicht(amount, g, n);
+        layer += this.torfschicht(sk, amount, g, n);
       }
       this.digestHeal(got, partnerGot);
       got += partnerGot;
@@ -942,6 +940,11 @@ export class Combat {
       if (layer) effects.push(`Torfschicht: Schutz +${layer}`);
     }
     if (sk.focus) { this.focused = true; effects.push('nächste Fertigkeit im Fokus'); }
+    if (sk.once) { this.onceUsed ??= {}; this.onceUsed[`${this.actor}:${skillId}`] = true; }
+    if (sk.torf_ward) {
+      for (const n of this.standing()) this.fighters[n].torfWard = this.actor;
+      effects.push(this.standing().length > 1 ? 'Torf-Retter liegt auf euch beiden' : 'Torf-Retter liegt auf dir');
+    }
     this.log.push(`${sk.name}: ${total} Schaden`);
     return { hits, total, stunned, stunMissed, precise, effects: [...new Set(effects)], per, aoe: !!sk.aoe && targets.length > 1, main };
   }

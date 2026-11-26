@@ -2490,13 +2490,14 @@ export class Ui {
       const reached = n >= cur.seq;
       // Paket A: Sockel der Pfad-Leiter (leer = als Nächstes, verriegelt = später, Riss bei hoher Unruhe)
       const socket = uiSprite('ladder', !reached ? (n === cur.seq - 1 ? 'empty' : 'locked') : n === cur.seq && s.unruhe >= 60 ? 'cracked' : 'unlocked', 1 / 12, 'socket');
-      if (!reached) return `<li class="seq locked">${socket}<strong>Sequenz ${n}: ${esc(sd.name)}</strong> <span class="muted">noch nicht erreicht${sd.skill2 || sd.talent ? ` · bringt ${[sd.skill.name, sd.skill2?.name, sd.talent?.name].filter(Boolean).map(esc).join(', ')}` : ''}</span></li>`;
+      if (!reached) return `<li class="seq locked">${socket}<strong>Sequenz ${n}: ${esc(sd.name)}</strong> <span class="muted">noch nicht erreicht${sd.skill2 || sd.talent ? ` · bringt ${[sd.skill.name, sd.skill2?.name, sd.skill3?.name, sd.talent?.name].filter(Boolean).map(esc).join(', ')}` : ''}</span></li>`;
       const talent = sd.talent ? this.talentRowHtml(s, sd.talent) : '';
       const hgScene = (n === 4 || n === 2) && n === cur.seq ? sceneImg(`hg_seq${n}_${cur.id}`) : ''; // Paket CO: Sequenzbild der großen Stufen
       return `<li class="seq${sd.durchbruch ? ' durchbruch' : ''}">${socket}<strong>Sequenz ${n}: ${esc(sd.name)}</strong> ${sd.durchbruch ? `<span class="badge halbgott">${esc(sd.durchbruch)}</span>` : ''}${n === cur.seq ? '<span class="badge likely">aktuell</span>' : ''}${hgScene}<br>
         <span class="desc">${esc(sd.desc)}</span><br>
         ${skillIcon(sd.skill.id) || '⚔ '}<strong>${esc(sd.skill.name)}</strong> <span class="muted">(${sd.skill.cost} K${s.skillComposureCost({ ...sd.skill, seq: n }) ? ` · ${s.skillComposureCost({ ...sd.skill, seq: n })} Nerven` : ''})</span> ${esc(sd.skill.desc)}${aoeNote(sd.skill)} ${this.skillVisBtn(s, sd.skill.id)}
         ${sd.skill2 ? `<br>${skillIcon(sd.skill2.id) || '⚔ '}<strong>${esc(sd.skill2.name)}</strong> <span class="muted">(${sd.skill2.cost} K${s.skillComposureCost({ ...sd.skill2, seq: n }) ? ` · ${s.skillComposureCost({ ...sd.skill2, seq: n })} Nerven` : ''})</span> ${esc(sd.skill2.desc)}${aoeNote(sd.skill2)} ${this.skillVisBtn(s, sd.skill2.id)}` : ''}
+        ${sd.skill3 ? `<br>${skillIcon(sd.skill3.id) || '⚔ '}<strong>${esc(sd.skill3.name)}</strong> <span class="muted">(${sd.skill3.cost} K${s.skillComposureCost({ ...sd.skill3, seq: n }) ? ` · ${s.skillComposureCost({ ...sd.skill3, seq: n })} Nerven` : ''})</span> ${esc(sd.skill3.desc)}${aoeNote(sd.skill3)} ${this.skillVisBtn(s, sd.skill3.id)}` : ''}
         ${talent}
         ${(sd.passives ?? []).map((x) => `<br>✧ ${esc(x.text)}`).join('')}</li>`;
     }).join('');
@@ -3561,7 +3562,7 @@ export class Ui {
       const shown = (k) => c.rules?.shadow || !mine(() => this.state.skillHiddenInCombat(k.id));
       const all = c.skills().filter((k) => k.id !== 'attack');
       entries = all.filter(shown).map((k) => ({
-        text: k.name, skill: k.id, info: `${k.cost} K${k.composure ? ` · ${k.composure} Nerven` : ''}${isPrecise(k) ? ' · ◎ präzise' : ''}${k.aoe ? ' · ✹ Fläche' : ''}`, aoe: !!k.aoe,
+        text: k.name, skill: k.id, info: `${k.cost} K${k.composure ? ` · ${k.composure} Nerven` : ''}${isPrecise(k) ? ' · ◎ präzise' : ''}${k.aoe ? ' · ✹ Fläche' : ''}${k.spent ? ' · in diesem Kampf verbraucht' : k.once ? ' · 1× je Kampf' : ''}`, aoe: !!k.aoe,
         desc: `${k.desc ?? ''}${healNote(k)}${isPrecise(k) ? ` ◎ Präzise: volle Wirkung${k.stun ? ' und Betäubung' : ''} nur bei perfektem Takt, das goldene Fenster ist winzig.` : ''}`, act: { type: 'skill', id: k.id }, disabled: !k.usable,
       }));
       if (!entries.length && all.length) entries = [{ text: 'Alle Fertigkeiten ausgeblendet', disabled: true, desc: 'Im Notizbuch unter „Pfad“ kannst du sie wieder einblenden.' }];

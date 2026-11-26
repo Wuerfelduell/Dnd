@@ -22,16 +22,20 @@ const duo = (seq1, seq2, pid2 = 'eisen') => {
   return s;
 };
 
-test('Daten: Begraben statt Verlangsamen, Torfschicht auf Seq 4, Eigenheit Torf-Retter', () => {
+test('Daten: drei Kampffertigkeiten auf Seq 4 (Torfschicht, Begraben, Torf-Retter), im Kampfmenü', () => {
   const sd = content.pathways.sq_moor.seqs[4];
+  assert.equal(sd.skill.name, 'Torfschicht');
+  assert.ok(sd.skill.overheal_shield);
   assert.equal(sd.skill2.name, 'Begraben');
   assert.ok(sd.skill2.bury && !sd.skill2.slow);
-  assert.ok(sd.passives.some((p) => p.key === 'torfschicht'));
-  assert.ok(sd.passives.some((p) => p.key === 'torf_retter'));
+  assert.equal(sd.skill3.name, 'Torf-Retter');
+  assert.ok(sd.skill3.torf_ward && sd.skill3.once);
   assert.ok(!sd.passives.some((p) => p.key === 'heal_bonus'));
-  assert.equal(hero(5).passive('torfschicht'), 0);
-  assert.equal(hero(4).passive('torfschicht'), 1);
-  assert.equal(hero(3).passive('torf_retter'), 1, 'bleibt nach dem Aufstieg');
+  assert.equal(hero(4).passive('shield_mult'), 1.25);
+  const ids = new Combat(hero(4), 'rook_fight').skills().map((k) => k.id);
+  for (const id of ['moor_hoch_4', 'moor_schichtdruck', 'moor_torfretter']) assert.ok(ids.includes(id), id);
+  assert.ok(!new Combat(hero(5), 'rook_fight').skills().some((k) => k.id === 'moor_torfretter'));
+  assert.ok(new Combat(hero(3), 'rook_fight').skills().some((k) => k.id === 'moor_torfretter'), 'bleibt nach dem Aufstieg');
 });
 
 test('Torfschicht: Überheilung wird Schutz, auf Seq 5 nicht', () => {
@@ -40,8 +44,7 @@ test('Torfschicht: Überheilung wird Schutz, auf Seq 5 nicht', () => {
     s.hp = s.maxHp - 1;
     const c = new Combat(s, 'rook_fight');
     c.ap = 20;
-    const id = Object.keys(s.pathwaySkills()).find((k) => s.pathwaySkills()[k].heal && s.pathwaySkills()[k].cost <= 6 && k.startsWith('moor_hoch_4')) ?? `moor_stufe_${seq}`;
-    c.useSkill(id, ['good', 'good']);
+    c.useSkill(seq === 4 ? 'moor_hoch_4' : 'moor_stufe_5', ['good', 'good']);
     assert.equal(c.fighters[1].shield > 0, want, `Seq ${seq}`);
     if (want) assert.equal(c.fighters[1].shieldFrom, 1);
   }
@@ -88,9 +91,13 @@ test('Begraben: Gift des Ziels springt auf den nächsten Gegner über', () => {
   assert.equal(c.foes[2].burn, null, 'nur auf einen');
 });
 
-test('Torf-Retter: einmal je Kampf, auch für den Partner', () => {
+test('Torf-Retter: gewirkt einmal je Kampf, fängt je Spieler einen tödlichen Treffer', () => {
   const s = duo(4, 7);
   const c = new Combat(s, 'fog_hound');
+  c.ap = 20;
+  c.useSkill('moor_torfretter', []);
+  assert.equal(c.canUse('moor_torfretter'), false, 'nur einmal je Kampf');
+  assert.ok(c.skills().find((k) => k.id === 'moor_torfretter').spent);
   c.on(2, () => { s.hp = 1; });
   const r = c.resolveHit({ damage: 9999 }, 'none', 2);
   assert.ok(!r.down && r.rescued?.n === 2 && r.rescued.by === 1);
@@ -101,11 +108,14 @@ test('Torf-Retter: einmal je Kampf, auch für den Partner', () => {
   assert.ok(r2.down, 'zweites Mal fällt er');
   s.hp = 1;
   const r3 = c.resolveHit({ damage: 9999 }, 'none', 1);
-  assert.ok(r3.down, 'Retter je Moor-Spieler nur einmal');
+  assert.ok(!r3.down && r3.rescued?.n === 1, 'der Wirker trägt ihn auch');
+  s.hp = 1;
+  c.fighters[1].shield = 0;
+  assert.ok(c.resolveHit({ damage: 9999 }, 'none', 1).down);
 });
 
-test('Torf-Retter: Moor auf Seq 5 und andere Pfade retten nicht', () => {
-  const s = hero(5);
+test('Torf-Retter: ohne Wirken rettet nichts', () => {
+  const s = hero(4);
   const c = new Combat(s, 'fog_hound');
   s.hp = 1;
   assert.ok(c.resolveHit({ damage: 9999 }, 'none', 1).down);
