@@ -799,6 +799,9 @@ export class WorldScene extends Phaser.Scene {
     this.ui = this.registry.get('ui');
     const hausGedanke = this.state.hausBetreten?.(this.state.map); // Codex DG: Gast, Trophäen, Heimkehrgedanke
     if (hausGedanke) this.time.delayedCall(600, () => this.state.emit('notice', hausGedanke));
+    // Rivale auf dem eigenen Pfad (core/Rivale.js): ab Wexmoor manchmal auf der Straße oder auf einem Treffen
+    const rivale = this.splitRole === 2 ? null : this.state.rivaleBegegnung?.(this.state.map);
+    if (rivale) this.time.delayedCall(900, () => { if (!this.ui.isBlocking() && !this.scene.isActive('combat') && !this.leaving) this.ui.openRivale?.(rivale.pid, rivale.treffen); });
     this.mapDef = this.state.content.maps[this.state.map];
     this.interactables = [];
     this.conditional = []; // Objekte mit visible_if
