@@ -336,6 +336,19 @@ function cropSkins(root) {
 }
 /** Notizbuch-Reiter → Symbol aus 07_03_icons.png (Fallakten: Lupe). */
 const TAB_ICONS = { erfolge: 'notebook', quests: 'ausruf', items: 'schluessel', pfad: 'auge', personen: 'sprechen', bestiar: 'spuren', archiv: 'notebook', kulte: 'spuren' };
+/**
+ * Kampfleiste aus battle_hud.png pixelgenau: leerer Rahmen (Frame 5) unten, voller Frame 0 darüber,
+ * auf die Füllung (x 7..58, 52 Pixel) zugeschnitten. So sinkt der Balken Pixel für Pixel statt in Sechsteln.
+ */
+const HUD_FILL_X = 7, HUD_FILL_W = 52, HUD_BAR_W = 64;
+const hudMeter = (prefix, frac, k) => {
+  const f = Math.max(0, Math.min(1, Number(frac) || 0));
+  let px = Math.round(f * HUD_FILL_W);
+  if (f > 0 && px === 0) px = 1; // noch am Leben: mindestens ein Pixel
+  if (f < 1 && px === HUD_FILL_W) px = HUD_FILL_W - 1; // angekratzt: sichtbar weniger als voll
+  const clip = px >= HUD_FILL_W ? HUD_BAR_W : HUD_FILL_X + px;
+  return `<span class="hudmeter">${uiSprite('hud', `${prefix}5`, k)}<span class="hudclip" style="width:${clip * k}em">${uiSprite('hud', `${prefix}0`, k)}</span></span>`;
+};
 const pctStep = (frac, n) => Math.max(0, Math.min(n - 1, Math.round((1 - Math.max(0, Math.min(1, frac))) * (n - 1))));
 const moneyIcon = (n) => `<img class="coin" src="${moneyIconUrl(n)}" alt="" width="16" height="16" onerror="this.remove()">`;
 /** Beute als Liste mit Icon, Anzahl und Seltenheit (Farbe). */
@@ -3388,7 +3401,7 @@ export class Ui {
     const q = (sel) => this.layer.querySelector(sel);
     q('.cb-enemy .cb-name').innerHTML = `${c.enemy.occult ? uiSprite('hud', 'occult', 1 / 8, 'occult', 'okkult') : ''}${esc(c.enemy.name)} · ${c.enemy.hp}/${c.enemy.maxHp}`;
     // Paket B: Leisten aus battle_hud.png (sechs Füllstände)
-    q('.hudbar.enemy').innerHTML = uiSprite('hud', `enemy${pctStep(c.enemy.hp / c.enemy.maxHp, 6)}`, 1 / 4);
+    q('.hudbar.enemy').innerHTML = hudMeter('enemy', c.enemy.hp / c.enemy.maxHp, 1 / 4);
     q('.efill').style.width = `${(c.enemy.hp / c.enemy.maxHp) * 100}%`;
     const burn = c.burn ? { giftphiole: ['gift', 'Gift'], aetzwolke: ['zerfressen', 'Ätzend'] }[c.burn.source] ?? ['brennen', 'Brand'] : null;
     q('.cb-tags').innerHTML = [c.enemy.occult ? '<span class="badge refuted">okkult</span>' : '', c.weak ? `<span class="badge likely">${statusIcon('schwachstelle')}Schwachstelle bekannt</span>` : '', c.enc.practice ? '<span class="badge suspected">Übung</span>' : '',
@@ -3404,7 +3417,7 @@ export class Ui {
     // Gegnergruppe: jeder Gegner als kleine Karte (Ziel golden, Gefallene grau); antippen wählt das Ziel
     const foesEl = q('.cb-foes');
     if (foesEl) {
-      foesEl.innerHTML = c.group ? c.foes.map((f, i) => `<button class="cb-foe${i === c.aim ? ' aim' : ''}${i === c.fi && sc.phase === 'enemy' ? ' attacking' : ''}${f.enemy.hp <= 0 ? ' dead' : ''}" data-foe="${i}"><span class="cb-foe-nr">${i + 1}</span><span class="cb-foe-name">${esc(f.enemy.name)}</span><span class="bar"><span class="efill" style="width:${(f.enemy.hp / f.enemy.maxHp) * 100}%"></span></span></button>`).join('') : '';
+      foesEl.innerHTML = c.group ? c.foes.map((f, i) => `<button class="cb-foe${i === c.aim ? ' aim' : ''}${i === c.fi && sc.phase === 'enemy' ? ' attacking' : ''}${f.enemy.hp <= 0 ? ' dead' : ''}" data-foe="${i}"><span class="cb-foe-nr">${i + 1}</span><span class="cb-foe-name">${esc(f.enemy.name)}</span><span class="hudbar foe">${hudMeter('enemy', f.enemy.hp / f.enemy.maxHp, 1 / 13)}</span></button>`).join('') : '';
       foesEl.querySelectorAll('[data-foe]').forEach((b) => { b.onclick = () => sc.pickTarget(Number(b.dataset.foe)); });
     }
     // Ein Feld pro Spieler; zu zweit leuchtet, wer am Zug ist bzw. angegriffen wird
@@ -3423,8 +3436,8 @@ export class Ui {
       b('.cb-hp').textContent = `${v.hp}/${v.maxHp}`;
       b('.nfill').style.width = `${(v.composure / v.maxComposure) * 100}%`;
       // Paket B: Leisten und Konzentration aus battle_hud.png
-      b('.hudbar.hp').innerHTML = uiSprite('hud', `hp${pctStep(v.hp / v.maxHp, 6)}`, 1 / 6);
-      b('.hudbar.nerves').innerHTML = uiSprite('hud', `nerves${pctStep(v.composure / v.maxComposure, 6)}`, 1 / 6);
+      b('.hudbar.hp').innerHTML = hudMeter('hp', v.hp / v.maxHp, 1 / 6);
+      b('.hudbar.nerves').innerHTML = hudMeter('nerves', v.composure / v.maxComposure, 1 / 6);
       const apMax = c.apMaxOf(Number(n)); // Konzentrations-Artefakte können den Höchstwert verschieben
       b('.pips').innerHTML = Array.from({ length: apMax }, (_, i) => uiSprite('hud', i >= f.ap ? 'conc_empty' : f.ap >= apMax ? 'conc_glow' : 'conc_full', 1 / 6, 'pip')).join('');
     }

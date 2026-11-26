@@ -661,6 +661,10 @@ button.small.give { color: #9ab8ff; }
 .combat .bar { display: none; }
 .combat .hudbar { display: inline-block; line-height: 0; }
 .cb-enemy .hudbar.enemy { display: block; margin-top: 0.2em; text-align: right; }
+.hudmeter { position: relative; display: inline-block; line-height: 0; }
+.hudmeter .hudclip { position: absolute; left: 0; top: 0; height: 100%; overflow: hidden; white-space: nowrap; }
+.hudmeter .hudclip .auk { max-width: none; }
+.cb-foe .hudbar.foe { display: block; margin-top: 0.15em; }
 .cb-enemy .cb-name .occult { margin-right: 0.3em; vertical-align: -0.35em; }
 .pips .pip { margin-right: 0.15em; }
 .cb-menu .cbicon { margin-right: 0.3em; vertical-align: -0.5em; }
