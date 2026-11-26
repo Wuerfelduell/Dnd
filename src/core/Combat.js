@@ -842,6 +842,8 @@ export class Combat {
     this.actions += 1;
     this.state.removeItem(id);
     const parts = this.state.applyConsumable(it);
+    // Moorwasser von Hand getrunken: im Ritual des Moores deckt der Schluck die nächste Runde
+    if (id === 'moorwasser' && this.rules?.moorwater && !this.moorPrepaid) { this.moorPrepaid = true; parts.push('zählt für die nächste Runde'); this.state.sfx?.('s4mo_moorwasser_trinken'); }
     if (it.damage) {
       this.itemHit = true;
       const dmg = this.hurtEnemy(it.damage * (this.enemy.occult ? 2 : 1) * (this.rules?.itemMult ?? 1));
@@ -913,6 +915,7 @@ export class Combat {
   /** Seq-4-Ritual des Moores: zu Beginn jeder Runde eine Flasche Moorwasser, sonst ist es vorbei. */
   drinkMoor() {
     if (this.outcome) return;
+    if (this.moorPrepaid) { this.moorPrepaid = false; this.moorDrunk = (this.moorDrunk ?? 0) + 1; return; } // schon von Hand getrunken
     if (this.state.itemCount('moorwasser') > 0) { this.state.removeItem('moorwasser'); this.moorDrunk = (this.moorDrunk ?? 0) + 1; this.state.sfx?.('s4mo_moorwasser_trinken'); return; }
     this.state.sfx?.('s4mo_moorwasser_leer');
     this.breakRule('Kein Moorwasser mehr. Das Moor lässt dich los.');
