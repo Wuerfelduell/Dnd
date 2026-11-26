@@ -251,7 +251,7 @@ test('Knackbare Schlösser: Lagerhaus 7, die vier Truhen im Wilden, Asservatensc
 });
 
 test('Knacken: Schlüssel-Pfad, Brecheisen oder Haarnadel öffnen; jedes Schloss zählt einmal', () => {
-  const s = at('schluessel', 9); // Seq 9 hat noch keinen lock_bonus
+  const s = at('schluessel', 9); // Seq 9 hat noch keine geübten Finger (lock_skill)
   s.pathway = null;
   const door = content.maps.docks.interactables.find((i) => i.id === 'door7');
   assert.ok(!s.meetsLock(door.lock));
@@ -274,7 +274,7 @@ test('Knacken: Schlüssel-Pfad, Brecheisen oder Haarnadel öffnen; jedes Schloss
   assert.ok(s2.canPick());
   // Der Pfad des Schlüssels braucht nichts
   const s3 = at('schluessel', 7);
-  assert.ok(s3.passive('lock_bonus') > 0);
+  assert.ok(s3.lockSkill() > 0);
   assert.ok(s3.canPick());
   assert.equal(s3.tryPick(door.lock, 'docks:door7').first, true);
   assert.ok(s3.ritualSteps('schluessel', 6).find((x) => /Schloss geknackt/.test(x.text)).done);
