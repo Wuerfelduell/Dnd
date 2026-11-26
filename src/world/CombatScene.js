@@ -991,7 +991,7 @@ export class CombatScene extends Phaser.Scene {
       this.bark(close ? 'koop_knapper_sieg' : 'koop_sieg', null, true);
     } else if (c.outcome === 'fled') this.bark('koop_flucht', null, true);
     if (c.outcome === 'escaped') this.tweens.add({ targets: this.enemy, alpha: 0, x: '-=40', duration: 600 }); // BD: der Gegner macht sich davon
-    if (c.outcome === 'spared') this.tweens.add({ targets: this.enemy, alpha: 0.5, y: '+=6', duration: 700 });
+    if (c.outcome === 'spared') this.tweens.add({ targets: this.enemy, y: '+=6', angle: -8, duration: 700 }); // verschont: sackt zusammen, bleibt sichtbar (er lebt)
     const title = { won: 'Sieg', lost: 'Ohnmacht', fled: 'Rückzug', escaped: 'Entkommen', spared: 'Verschont' }[c.outcome];
     this.ui.combatOver(title);
   }
