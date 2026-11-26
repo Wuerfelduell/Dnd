@@ -15,8 +15,8 @@
 //   no_flee (keine Flucht), no_items (keine Gegenstände im Kampf). Lebensverlust durch Flüche tötet nie (mindestens 1 Leben).
 
 import { rollLoot, takeLoot } from './Loot.js';
-import { FIGHT_DIGEST_MULT, ZONE_DIGEST_STEP, MOOR_DIGEST } from './Pathways.js';
-export { MOOR_DIGEST };
+import { FIGHT_DIGEST_MULT, ZONE_DIGEST_STEP, MOOR_DIGEST, PATH_ACTION_DIGEST, pathActions } from './Pathways.js';
+export { MOOR_DIGEST, PATH_ACTION_DIGEST };
 import { SCHATTEN_ATTACKE, PERFECT_DODGE, UHR as UHR4 } from './Seq4.js';
 import { NEBELNACHT } from './Wetter.js';
 import { narbeMult } from './Narbe.js';
@@ -743,15 +743,33 @@ export class Combat {
 
   /** Moor ab Seq 5: feste Verdauung für Spieler n (kind 'heal' oder 'shield'), je Kampf gedeckelt. Gibt den Zuwachs zurück. */
   moorDigest(kind, n = this.actor) {
-    if (!this.moorHigh(n)) return 0;
-    this.moorDigestCount ??= {};
-    const key = `${n}:${kind}`;
-    if ((this.moorDigestCount[key] ?? 0) >= MOOR_DIGEST.cap[kind]) return 0;
-    this.moorDigestCount[key] = (this.moorDigestCount[key] ?? 0) + 1;
-    return this.state.withPlayer(n, () => this.state.addDigestion(MOOR_DIGEST[kind], kind === 'heal' ? 'moor_heal' : 'moor_shield')) ?? 0;
+    return this.pathAct(kind === 'heal' ? 'moor_heal' : 'moor_shield', n);
   }
 
-  /** Heilung verdauen: ab Seq 4 fest (moorDigest), darunter wie bisher nur Partnerheilung über die Pfad-Tabelle. */
+  /** Feste Pfadhandlungen von Spieler n ab Seq 4 (PATH_ACTION_DIGEST), oder null. */
+  pathActs(n = this.actor) {
+    if (this.enc.practice || !n) return null;
+    return pathActions(this.state.withPlayer(n, () => this.state.pathway, { quiet: true }));
+  }
+
+  /** Feste Pfadhandlung `kind` für Spieler n verdauen, je Kampf gedeckelt. Gibt den Zuwachs zurück (0, wenn nicht sein Pfad). */
+  pathAct(kind, n = this.actor) {
+    const a = this.pathActs(n)?.[kind];
+    if (!a) return 0;
+    this.pathDigestCount ??= {};
+    const key = `${n}:${kind}`;
+    if ((this.pathDigestCount[key] ?? 0) >= a.cap) return 0;
+    this.pathDigestCount[key] = (this.pathDigestCount[key] ?? 0) + 1;
+    return this.state.withPlayer(n, () => this.state.addDigestion(a.pct, kind)) ?? 0;
+  }
+
+  /** Verdaut der Schutz von Spieler n beim Abfangen (Moor, Waage)? */
+  shieldDigests(n = this.actor) {
+    const a = this.pathActs(n);
+    return !!(a?.moor_shield || a?.waage_schutz);
+  }
+
+  /** Heilung verdauen: Moor ab Seq 5 fest (moorDigest), darunter wie bisher nur Partnerheilung über die Pfad-Tabelle. */
   digestHeal(selfGot, partnerGot) {
     if (this.moorHigh()) { if (selfGot + partnerGot > 0) this.moorDigest('heal'); return; }
     if (partnerGot > 0) this.digestPartnerHeal();
@@ -814,6 +832,7 @@ export class Combat {
     let stunMissed = false;
     let anyLanded = false;
     let total = 0;
+    const acts = new Set(); // feste Pfadhandlungen dieser Fertigkeit (PATH_ACTION_DIGEST), je Fertigkeit höchstens einmal
     for (const i of targets) this.withFoe(i, () => {
       if (i !== main && this.enemy.hp <= 0) return;
       const hits = graded.slice(0, sk.hits).map((grade) => {
@@ -849,17 +868,20 @@ export class Combat {
       const landed = sk.hits === 0 || hits.some((h) => h.grade !== 'miss' && h.damage);
       anyLanded ||= landed;
       const done = this.outcome || this.enemy.hp <= 0;
+      if (landed && dealt > 0 && (sk.holy || skillId === 'ward')) acts.add('laterne_licht');
+      if (landed && (this.armor || this.enemyGuard) && (sk.pierce || sk.guard_break || sk.armor_break)) acts.add('schluessel_aufbrechen');
+      if (sk.weak && landed) acts.add('faden_schwachstelle');
       // Betäuben gelingt nur mit einem präzisen Takt; sonst bleibt der Gegner wach
       if (sk.stun && !done) {
         if (this.unshakable()) { stunMissed = true; effects.push(`${this.enemy.name} lässt sich nicht betäuben`); }
-        else if (graded.some(isPerfectGrade)) { this.stunned = true; stunned = true; } else { stunMissed = true; effects.push('nur ein präziser Treffer hätte betäubt'); }
+        else if (graded.some(isPerfectGrade)) { this.stunned = true; stunned = true; acts.add('echo_verstummt'); } else { stunMissed = true; effects.push('nur ein präziser Treffer hätte betäubt'); }
       }
       if (sk.weak && landed && !this.weak) { this.weak = true; effects.push('Schwachstelle erkannt'); }
       if (sk.confuse && landed) {
         const lock = this.enc.practice ? 0 : this.enc.boss ? CONFUSE_LOCK.boss : this.enc.elite ? CONFUSE_LOCK.elite : 0;
         if (this.unshakable()) effects.push(`${this.enemy.name} lässt sich nicht verwirren`);
         else if (this.confuseLock > 0) effects.push(`${this.enemy.name} durchschaut die Täuschung noch`);
-        else { this.confused = true; this.confuseLock = lock ? lock + 1 : 0; effects.push('Gegner verwirrt'); }
+        else { this.confused = true; this.confuseLock = lock ? lock + 1 : 0; effects.push('Gegner verwirrt'); acts.add('maske_verwirrt'); }
       }
       if (sk.bury && landed && !done) {
         const lock = this.enc.practice ? 0 : this.enc.boss ? BURY_LOCK.boss : this.enc.elite ? BURY_LOCK.elite : 0;
@@ -871,15 +893,15 @@ export class Combat {
         // Ein stärkerer oder längerer Brand ersetzt den alten, ein schwächerer verlängert ihn nur (extend_burn)
         const dmg = Math.max(1, Math.round(sk.burn[0] * aoeMult));
         const old = this.burn;
-        if (!old || old.damage <= dmg) { this.burn = { damage: dmg, rounds: Math.max(sk.burn[1], old?.rounds ?? 0), source: skillId }; effects.push(`${this.burn.rounds} Runden je ${dmg} Schaden`); }
+        if (!old || old.damage <= dmg) { this.burn = { damage: dmg, rounds: Math.max(sk.burn[1], old?.rounds ?? 0), source: skillId }; effects.push(`${this.burn.rounds} Runden je ${dmg} Schaden`); acts.add('laterne_brand').add('kessel_brand'); }
       }
       if (sk.extend_burn && this.burn && !done) { this.burn.rounds += sk.extend_burn; effects.push(`Brand hält ${sk.extend_burn} ${sk.extend_burn === 1 ? 'Runde' : 'Runden'} länger`); }
-      if (sk.read) { this.readNext = true; effects.push('nächster Angriff lesbar'); }
-      if (sk.slow && !done) { this.slowed = true; effects.push('Gegner wird langsam'); }
-      if (sk.weaken && (landed || sk.hits === 0) && !done) { this.weakened = { mult: sk.weaken[0], rounds: sk.weaken[1] }; effects.push(`Gegner ${Math.round((1 - sk.weaken[0]) * 100)} % schwächer (${sk.weaken[1]} Runden)`); }
+      if (sk.read) { this.readNext = true; effects.push('nächster Angriff lesbar'); acts.add('faden_fokus').add('uhr_vorhersage'); }
+      if (sk.slow && !done) { this.slowed = true; effects.push('Gegner wird langsam'); acts.add('uhr_vorhersage'); }
+      if (sk.weaken && (landed || sk.hits === 0) && !done) { this.weakened = { mult: sk.weaken[0], rounds: sk.weaken[1] }; effects.push(`Gegner ${Math.round((1 - sk.weaken[0]) * 100)} % schwächer (${sk.weaken[1]} Runden)`); acts.add('waage_schuld'); }
       if (sk.guard_break && this.enemyGuard) { effects.push(`Panzer ${this.enemyGuard} gebrochen`); this.enemyGuard = 0; }
       if (sk.armor_break && this.armor) { const cut = Math.min(this.armor, sk.armor_break); this.armor -= cut; effects.push(`Rüstung -${cut}`); }
-      if (sk.steal && landed && i === main && !this.enc.practice && !this.enemy.occult) { const got = this.state.addMoney(sk.steal, { loot: true, reason: sk.name }); this.stolen += got; effects.push(`+${got} Schilling`); }
+      if (sk.steal && landed && i === main && !this.enc.practice && !this.enemy.occult) { const got = this.state.addMoney(sk.steal, { loot: true, reason: sk.name }); this.stolen += got; effects.push(`+${got} Schilling`); if (got > 0) acts.add('schluessel_stehlen'); }
     });
     const hits = per.find((p) => p.i === main)?.hits ?? [];
     if (sk.bury && anyLanded) this.spreadPoison(main, effects);
@@ -911,8 +933,8 @@ export class Combat {
         if (sh) effects.push(`Torfschicht: Schutz +${sh}`);
       }
     }
-    if (sk.drain && total) effects.push(`+${this.state.heal(Math.round(total * sk.drain))} Leben`);
-    if (sk.shield) { this.shield = this.addShield(this.shield, this.skillShield(sk.shield)); if (this.moorHigh()) this.fighter().shieldFrom = this.actor; effects.push(`Schutz ${this.shield}`); }
+    if (sk.drain && total) { effects.push(`+${this.state.heal(Math.round(total * sk.drain))} Leben`); acts.add('echo_entzug'); }
+    if (sk.shield) { this.shield = this.addShield(this.shield, this.skillShield(sk.shield)); if (this.shieldDigests()) this.fighter().shieldFrom = this.actor; effects.push(`Schutz ${this.shield}`); }
     if (sk.evade) { this.evading = true; effects.push('nächster Angriff geht ins Leere'); }
     // Zweite Pfadfertigkeiten: Tempo, Nerven, Deckung für alle
     if (sk.ap_gain) { this.gainAp(sk.ap_gain); effects.push(`+${sk.ap_gain} Konzentration`); }
@@ -921,7 +943,7 @@ export class Combat {
     if (sk.cleanse && this.bleed) { this.bleed = null; effects.push('Blutung versiegt'); }
     if (sk.shield_all) {
       const amount = this.skillShield(sk.shield_all);
-      const moor = this.moorHigh();
+      const moor = this.shieldDigests();
       for (const n of this.standing()) { this.fighters[n].shield = this.addShield(this.fighters[n].shield, amount, n); if (moor) this.fighters[n].shieldFrom = this.actor; }
       effects.push(`Schutz ${amount} für ${this.standing().length > 1 ? 'alle' : 'dich'}`);
     }
@@ -941,7 +963,8 @@ export class Combat {
       effects.push(`+${got} Leben${this.standing().length > 1 ? ' (alle)' : ''}`);
       if (layer) effects.push(`Torfschicht: Schutz +${layer}`);
     }
-    if (sk.focus) { this.focused = true; effects.push('nächste Fertigkeit im Fokus'); }
+    if (sk.focus) { this.focused = true; effects.push('nächste Fertigkeit im Fokus'); acts.add('faden_fokus'); }
+    for (const kind of acts) this.pathAct(kind);
     this.log.push(`${sk.name}: ${total} Schaden`);
     return { hits, total, stunned, stunMissed, precise, effects: [...new Set(effects)], per, aoe: !!sk.aoe && targets.length > 1, main };
   }
@@ -970,13 +993,14 @@ export class Combat {
     // Wurfgift: Brand oder Gift über Runden (zählt im Ritual des Kessels als Flaschenschaden)
     if (it.burn && !this.outcome) {
       const old = this.burn;
-      if (!old || old.damage <= it.burn[0]) this.burn = { damage: it.burn[0], rounds: Math.max(it.burn[1], old?.rounds ?? 0), source: id, item: true };
+      if (!old || old.damage <= it.burn[0]) { this.burn = { damage: it.burn[0], rounds: Math.max(it.burn[1], old?.rounds ?? 0), source: id, item: true }; this.pathAct('kessel_brand'); }
       parts.push(`${it.burn[1]} Runden je ${it.burn[0]} Gift`);
     }
     // Blitzpulver: grelles Licht, der Gegner setzt eine Runde aus
     if (it.stun && !this.outcome) { this.stunned = true; parts.push('geblendet'); }
     // Konzentration aus Verbrauchsgütern (Rangiererkaffee, Terrassentee; Preisabgleich 2026-11-13)
     if (it.ap && !this.outcome) { this.gainAp(it.ap); parts.push(`+${it.ap} Konzentration`); }
+    this.pathAct('kessel_flasche'); // Kessel ab Seq 4: jede Flasche im Kampf verdaut fest
     const text = `${it.name}: ${parts.join(', ')}`;
     this.log.push(text);
     return { text };
@@ -1325,19 +1349,24 @@ export class Combat {
       else this.state.setComposure(this.state.composure - cost);
     }
     if (result === 'parry') {
+      this.pathAct('eisen_parade', n);
       if (!this.enc.practice) this.state.act('parry', this.enc.boss ? FIGHT_DIGEST_MULT.boss : this.enc.elite ? FIGHT_DIGEST_MULT.elite : 1);
       this.state.setComposure(this.state.composure + Math.max(0, PARRY_GAIN + this.state.passive('parry_nerves')));
       this.gainAp(1 + this.state.passive('parry_ap'));
       const counter = this.hurtEnemy(this.hitDamage(COUNTER_MULT, 'good'));
       return { damage: 0, counter, result };
     }
-    if (result === 'dodge') return { damage: 0, counter: 0, result };
+    if (result === 'dodge') {
+      if (perfect && given === 'dodge') this.pathAct('uhr_perfekt', n);
+      if (this.evading && given === 'miss') this.pathAct('maske_ins_leere', n); // Täuschung (evade) lockt den Schlag ins Leere
+      return { damage: 0, counter: 0, result };
+    }
     let incoming = attack.damage;
     const absorbed = Math.min(this.shield, incoming);
     this.shield -= absorbed;
     incoming -= absorbed;
     // Moor ab Seq 5: abgefangener Schaden verdaut den Trank dessen, der den Schutz gewirkt hat
-    if (absorbed > 0 && this.fighters[n].shieldFrom) this.moorDigest('shield', this.fighters[n].shieldFrom);
+    if (absorbed > 0 && this.fighters[n].shieldFrom) { this.pathAct('moor_shield', this.fighters[n].shieldFrom); this.pathAct('waage_schutz', this.fighters[n].shieldFrom); }
     if (this.tierSchutz === n && incoming > 0) { incoming = Math.max(1, Math.floor(incoming * 0.5)); this.tierSchutz = null; } // Codex DF: Hund
     const damage = this.state.damage(incoming);
     if (damage && attack.bleed) this.bleed = { damage: attack.bleed[0], rounds: attack.bleed[1] };
@@ -1346,6 +1375,7 @@ export class Combat {
     if (damage && shock) this.state.setComposure(this.state.composure - shock);
     this.rescued = null;
     if (this.state.hp === 0) this.knockOut(n);
+    else if (damage > 0) this.pathAct('eisen_standhaft', n); // Eisen ab Seq 4: Treffer eingesteckt und stehen geblieben
     return { damage, counter: 0, result, absorbed, note, down: this.fighters[n].down, rescued: this.rescued };
   }
 

@@ -225,6 +225,15 @@ export const DIGEST_LABELS = {
   trade: 'gehandelt', brew: 'Trank gebraut', use_item: 'Heilmittel benutzt', lock: 'Verschlossenes geöffnet',
   loot: 'Belohnung eingestrichen', heal_partner: 'Partner im Kampf geheilt',
   moor_heal: 'im Kampf geheilt (max. 5× je Kampf)', moor_shield: 'Schaden mit eigenem Schutz abgefangen (max. 6× je Kampf)',
+  laterne_licht: 'heilige Fertigkeit trifft (max. 5× je Kampf)', laterne_brand: 'Gegner in Brand gesetzt (max. 3× je Kampf)',
+  faden_schwachstelle: 'Schwachstelle erkannt (max. 4× je Kampf)', faden_fokus: 'Faden gelesen: Fokus oder Angriff vorhergesehen (max. 3× je Kampf)',
+  maske_verwirrt: 'Gegner getäuscht und verwirrt (max. 4× je Kampf)', maske_ins_leere: 'Angriff mit einer Täuschung ins Leere gelockt (max. 4× je Kampf)',
+  echo_entzug: 'Lebenskraft entzogen (max. 5× je Kampf)', echo_verstummt: 'Gegner zum Verstummen gebracht (max. 3× je Kampf)',
+  kessel_flasche: 'Flasche im Kampf benutzt (max. 4× je Kampf)', kessel_brand: 'Gegner vergiftet oder in Brand gesetzt (max. 3× je Kampf)',
+  eisen_parade: 'Schlag pariert (max. 6× je Kampf)', eisen_standhaft: 'Treffer eingesteckt und stehen geblieben (max. 6× je Kampf)',
+  schluessel_stehlen: 'im Kampf gestohlen (max. 3× je Kampf)', schluessel_aufbrechen: 'Panzer oder Rüstung aufgebrochen (max. 4× je Kampf)',
+  waage_schutz: 'Schaden mit eigenem Schutz abgefangen (max. 6× je Kampf)', waage_schuld: 'Gegner geschwächt: Schuld gewogen (max. 3× je Kampf)',
+  uhr_perfekt: 'im perfekten Augenblick ausgewichen (max. 6× je Kampf)', uhr_vorhersage: 'Ablauf vorhergesehen oder verlangsamt (max. 3× je Kampf)',
   boss_win: 'Boss besiegt', elite_win: 'Elitegegner besiegt', talent: 'Welt-Fähigkeit eingesetzt (je 10 Nerven)',
   ritual: 'Ritual vollzogen', gathering: 'Zuschlag auf einem geheimen Treffen', tat: 'große Tat in Dunscar',
 };
@@ -243,6 +252,28 @@ export const BOSS_DIGEST_FIXED = 3;
  * dem, der ihn gewirkt hat. Spam-Schutz: je Kampf und Spieler höchstens `cap` Heilungen bzw. Abfänge, nicht im Übungskampf.
  */
 export const MOOR_DIGEST = { path: 'sq_moor', fromSeq: 5, heal: 0.2, shield: 0.05, cap: { heal: 5, shield: 6 } };
+/**
+ * Seb (2026-11-26): Ab Seq 4 hat jeder Pfad eigene, aktiv nutzbare Handlungen im Kampf, die fest verdauen (wie das Moor):
+ * `pct` Prozent je Handlung, je Kampf und Spieler höchstens `cap`-mal, nicht im Übungskampf, P1 und P2 gleich.
+ * Größenordnung je Kampf voll ausgereizt etwa 1–1,5 %. Das Moor behält seine Werte ab Seq 5 (MOOR_DIGEST).
+ */
+export const PATH_ACTION_DIGEST = {
+  laterne: { fromSeq: 4, acts: { laterne_licht: { pct: 0.2, cap: 5 }, laterne_brand: { pct: 0.1, cap: 3 } } },
+  faden: { fromSeq: 4, acts: { faden_schwachstelle: { pct: 0.25, cap: 4 }, faden_fokus: { pct: 0.1, cap: 3 } } },
+  maske: { fromSeq: 4, acts: { maske_verwirrt: { pct: 0.25, cap: 4 }, maske_ins_leere: { pct: 0.1, cap: 4 } } },
+  echo: { fromSeq: 4, acts: { echo_entzug: { pct: 0.2, cap: 5 }, echo_verstummt: { pct: 0.1, cap: 3 } } },
+  kessel: { fromSeq: 4, acts: { kessel_flasche: { pct: 0.25, cap: 4 }, kessel_brand: { pct: 0.1, cap: 3 } } },
+  eisen: { fromSeq: 4, acts: { eisen_parade: { pct: 0.15, cap: 6 }, eisen_standhaft: { pct: 0.05, cap: 6 } } },
+  schluessel: { fromSeq: 4, acts: { schluessel_stehlen: { pct: 0.25, cap: 3 }, schluessel_aufbrechen: { pct: 0.1, cap: 4 } } },
+  sq_waage: { fromSeq: 4, acts: { waage_schutz: { pct: 0.1, cap: 6 }, waage_schuld: { pct: 0.15, cap: 3 } } },
+  sq_moor: { fromSeq: MOOR_DIGEST.fromSeq, acts: { moor_heal: { pct: MOOR_DIGEST.heal, cap: MOOR_DIGEST.cap.heal }, moor_shield: { pct: MOOR_DIGEST.shield, cap: MOOR_DIGEST.cap.shield } } },
+  sq_uhr: { fromSeq: 4, acts: { uhr_perfekt: { pct: 0.15, cap: 6 }, uhr_vorhersage: { pct: 0.1, cap: 3 } } },
+};
+/** Feste Pfadhandlungen für `pathway` ({id, seq}) auf seiner Sequenz, sonst null. */
+export function pathActions(pathway) {
+  const d = pathway && PATH_ACTION_DIGEST[pathway.id];
+  return d && pathway.seq <= d.fromSeq ? d.acts : null;
+}
 /** Ab dieser Sequenz zählen die pfadeigenen Handlungen (eigene `digest`-Tabelle, Grundsatz) mehrfach (Seb 2026-11-26). */
 export const PATH_DIGEST_HIGH_SEQ = 4;
 export const PATH_DIGEST_HIGH_MULT = 3;
@@ -551,9 +582,9 @@ export const pathwayMethods = {
     const rate = (DIGEST_RATE[this.pathway.seq] ?? DIGEST_RATE[1]) * this.passive('digest_mult');
     const own = this.pathwayDef()?.digest ?? {};
     const pm = pathDigestMult(this.pathway.seq);
-    // Moor ab Seq 5: Heilung und Schutz verdauen fest (MOOR_DIGEST), statt der Partnerheilung aus der Tabelle
+    // Ab Seq 4 (Moor ab Seq 5): feste Pfadhandlungen (PATH_ACTION_DIGEST); das Moor ersetzt damit die Partnerheilung der Tabelle
     const moorHigh = this.pathway.id === MOOR_DIGEST.path && this.pathway.seq <= MOOR_DIGEST.fromSeq;
-    const fixed = moorHigh ? [['moor_heal', MOOR_DIGEST.heal], ['moor_shield', MOOR_DIGEST.shield]] : [];
+    const fixed = Object.entries(pathActions(this.pathway) ?? {}).map(([kind, a]) => [kind, a.pct]);
     return Object.entries(this.digestWeights())
       .filter(([kind]) => !(moorHigh && kind === 'heal_partner'))
       .map(([kind, v]) => { let pts = v * rate * (own[kind] ? pm : 1); if (kind === 'boss_win') pts = Math.max(pts, BOSS_DIGEST_FIXED); return [kind, pts]; })
