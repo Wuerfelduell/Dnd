@@ -266,6 +266,17 @@ export function applyAufstieg(content) {
   return content;
 }
 
+/**
+ * Seb 2026-11-26: Der Pendelzug muss man sofort finden. Die Dunscar-Kulisse baut den Endbahnhof neu und schiebt Objekte weg,
+ * darum hier ganz am Ende: direkt über der Ankunftsstelle, zwischen Stadtkarte und Viertelstafel, mit Schild.
+ */
+export function applyPendelzugPlatz(content) {
+  const ds = content.maps.ds_endbahnhof?.interactables?.find((i) => i.id === 'auf_pendel_cw');
+  if (ds) Object.assign(ds, { tile: [22, 10], label: 'Pendelzug nach Calderwick' });
+  const cw = content.maps[STURZ_ZIEL.map]?.interactables?.find((i) => i.id === 'auf_pendel_ds');
+  if (cw) cw.label = 'Pendelzug nach Dunscar';
+}
+
 // ---------------------------------------------------------------------------------------------------------------------
 // Schritt 2: Calderwick, die Stadt der Gefallenen (Seb 2026-11-12)
 // - Die Detektivgeschichte um Wetherby und Bellcross fliegt raus: keine Akte-Stationen (cwa_*), alle Terrassen offen ab dem Sturz.
