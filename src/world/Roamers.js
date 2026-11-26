@@ -148,17 +148,31 @@ export class Roamers {
       const b = r.body.body;
       if (blocked) { b.setVelocity(0, 0); this.sync(r, time); continue; }
       const p = this.visiblePlayer(r.body.x, r.body.y); // zu zweit: wer näher ist; die Schattengestalt sieht keiner
+      const pn = p ? this.playerNo(p) : 1;
       const dx = p ? p.x - r.body.x : 0;
       const dy = p ? (p.y - 3) - r.body.y : 0;
       const d = p ? Math.hypot(dx, dy) : Infinity;
       const roam = r.roam;
-      const aggro = (roam.aggro ?? 72) * (r.elite ? 1.15 : 1) * (s.state.spiritVision ? 1.25 : 1);
+      const aggro = (roam.aggro ?? 72) * (r.elite ? 1.15 : 1) * (s.state.spiritVision ? 1.25 : 1) * (p && s.state.buffOf?.('lautlos', pn) ? 0.3 : 1); // Echo: lautlos
       const home = Math.hypot(r.body.x - r.home.x, r.body.y - r.home.y);
       const graced = time < this.graceUntil;
-      const afraid = s.state.testmodus || fearsPlayer(s.state.pathway?.seq, r.def, s.mapDef) || (s.state.scaresEnemies?.() && !r.boss); // Welt-Fähigkeiten: gewöhnliche Gegner weichen
+      const shielded = !!p && !r.boss && !!s.state.buffOf?.('lichtschranke', pn); // Laterne: Lichtschranke hält gewöhnliche Gegner fern
+      const afraid = s.state.testmodus || fearsPlayer(s.state.pathway?.seq, r.def, s.mapDef) || (s.state.scaresEnemies?.() && !r.boss) || shielded; // Welt-Fähigkeiten: gewöhnliche Gegner weichen
       if (time < r.stunUntil) {
         b.setVelocity(0, 0);
         r.mode = 'wander';
+      } else if (r.lure && time < r.lure.until) {
+        // Welt-Fähigkeit (Echo, Maske): läuft zum Köder und sucht dort, statt zu jagen
+        const lx = r.lure.x - r.body.x;
+        const ly = r.lure.y - r.body.y;
+        if (Math.hypot(lx, ly) < 6) b.setVelocity(0, 0);
+        else { const v = new Phaser.Math.Vector2(lx, ly).normalize().scale(Math.max(roam.speed ?? 26, 30) * 1.4); if (r.stuck > 400) v.rotate(r.stuckDir ?? Math.PI / 2); b.setVelocity(v.x, v.y); }
+        r.mode = 'return';
+        r.target = null;
+      } else if (time < (r.peaceUntil ?? 0)) {
+        // Waage: Schutzgeld bezahlt, er lässt dich in Ruhe
+        if (r.mode === 'chase' || r.mode === 'flee') { r.mode = 'return'; r.target = { ...r.home }; }
+        this.wander(r, delta);
       } else if (!graced && d < aggro * 1.1 && s.state.awes?.(r.id)) {
         // Mythische Gestalt: wer dich sieht und dir nichts entgegenzusetzen hat, bricht zusammen (WorldScene.startCombat)
         b.setVelocity(0, 0);
@@ -173,7 +187,7 @@ export class Roamers {
         const v = new Phaser.Math.Vector2(-dx, -dy).normalize().scale(speed);
         if (r.stuck > 400) v.rotate(r.stuckDir ?? Math.PI / 2);
         b.setVelocity(v.x, v.y);
-        if (d < CONTACT && !graced) { this.engage(r); return; }
+        if (d < CONTACT && !graced && !shielded) { if (this.touch(r, pn, time)) return; }
       } else if (!afraid && !graced && (d < aggro || (r.mode === 'chase' && d < aggro * LEASH && home < aggro * 4))) {
         if (r.mode !== 'chase') this.notice(r, time);
         r.mode = 'chase';
@@ -182,11 +196,13 @@ export class Roamers {
         // Festgefahren an einer Kante? Seitlich ausweichen
         if (r.stuck > 400) v.rotate(r.stuckDir ?? Math.PI / 2);
         b.setVelocity(v.x, v.y);
-        if (d < CONTACT) { this.engage(r); return; }
+        if (d < CONTACT) { if (this.touch(r, pn, time)) return; }
       } else {
         if (r.mode === 'chase' || r.mode === 'flee') { r.mode = 'return'; r.target = { ...r.home }; }
         this.wander(r, delta);
       }
+      // Moor: Gegner in der Nähe eines Spielers mit Moorgrund waten halb so schnell
+      if (this.inMoor(r)) b.setVelocity(b.velocity.x * 0.45, b.velocity.y * 0.45);
       // Festhängen erkennen
       const moved = Math.hypot(r.body.x - r.lastPos.x, r.body.y - r.lastPos.y);
       const wants = Math.hypot(b.velocity.x, b.velocity.y) > 1;
@@ -200,13 +216,41 @@ export class Roamers {
     }
   }
 
+  /** Spielernummer (1/2) einer Figur auf dieser Karte. */
+  playerNo(q) {
+    const i = (this.scene.playerSprites?.() ?? [this.scene.player]).indexOf(q);
+    return i < 0 ? 1 : i + 1;
+  }
+
+  /** Moorgrund (Moor ab Seq 4): steht ein Spieler mit dem Buff höchstens 5 Felder entfernt? */
+  inMoor(r) {
+    const s = this.scene;
+    return (s.playerSprites?.() ?? [s.player]).some((q, i) => s.state.buffOf?.('moorgrund', i + 1) && Math.hypot(q.x - r.body.x, q.y - r.body.y) < 5 * TILE);
+  }
+
+  /**
+   * Berührung: sonst Kampf. Eisen (ironskin): gewöhnliche Gegner prallen ab (1) oder zerbrechen (2).
+   * true = diese Runde der Schleife ist für den Gegner erledigt.
+   */
+  touch(r, n, time) {
+    const skin = !r.boss && !r.elite ? this.scene.state.buffOf?.('ironskin', n) : null;
+    if (!skin) { this.engage(r); return true; }
+    if (skin >= 2 && this.scene.weltInstantWin?.(r, 'zerbricht an deinem Widerlager')) return true;
+    r.stunUntil = time + 3000;
+    r.mode = 'wander';
+    r.target = null;
+    const p = (this.scene.playerSprites?.() ?? [this.scene.player])[n - 1] ?? this.scene.player;
+    this.scene.weltPush?.(r, p, 2.5);
+    return true;
+  }
+
   /** Nächster Spieler, den Gegner sehen können (Schlüssel Seq 5: Schattengestalt macht unsichtbar), oder null. */
   visiblePlayer(x, y) {
     const s = this.scene;
     let best = null;
     let bd = Infinity;
     (s.playerSprites?.() ?? [s.player]).forEach((q, i) => {
-      if (s.state.inShadow?.(i + 1)) return;
+      if (s.state.inShadow?.(i + 1) || s.state.buffOf?.('gegnergesicht', i + 1)) return; // Maske: Fremdes Gesicht
       const d = Math.hypot(q.x - x, q.y - y);
       if (d < bd) { bd = d; best = q; }
     });

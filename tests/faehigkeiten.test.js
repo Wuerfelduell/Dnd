@@ -13,7 +13,7 @@ const content = loadContent();
 const raw = JSON.parse(readFileSync(new URL('../src/data/packs/sequenzen/faehigkeiten2.json', import.meta.url), 'utf8'));
 const KAMPF_KEYS = new Set(['id', 'name', 'precise', 'waffenfrei', 'cost', 'hits', 'flat', 'mult', 'holy', 'sure', 'pierce', 'stun', 'weak', 'evade', 'confuse', 'shield', 'heal', 'drain', 'burn', 'composure', 'desc', 'fx',
   'ap_gain', 'nerves_gain', 'calm', 'weaken', 'slow', 'armor_break', 'guard_break', 'steal', 'cleanse', 'read', 'focus', 'shield_all', 'heal_all', 'extend_burn']);
-const WELT_KEYS = new Set(['id', 'name', 'nerves', 'unruhe', 'cooldown', 'desc', 'buff', 'buff2', 'calm', 'nerves_gain', 'heal_pct', 'heal_partner', 'hint', 'review', 'reveal', 'scare', 'clock', 'digest', 'wanted', 'money', 'scout']);
+const WELT_KEYS = new Set(['id', 'name', 'nerves', 'unruhe', 'cooldown', 'desc', 'buff', 'buff2', 'calm', 'nerves_gain', 'heal_pct', 'heal_partner', 'hint', 'review', 'reveal', 'scare', 'clock', 'digest', 'wanted', 'money', 'scout', 'gimmick']);
 
 /** Spieler mit Pfad auf Sequenz seq (ohne Trinken). */
 function beyonder(pid, seq, s = new GameState(content)) {
@@ -38,7 +38,7 @@ test('Jede Sequenz jedes Pfades hat zwei Kampffertigkeiten und eine Welt-Fähigk
       // Keine Fertigkeit zahlt sich selbst: Konzentration zurück immer weniger als die Kosten (sonst endlos wiederholbar)
       if (sd.skill2.ap_gain) assert.ok(sd.skill2.ap_gain < sd.skill2.cost, `${pid} ${n}: ${sd.skill2.id} netto umsonst`);
       // Welt-Fähigkeit hat mindestens eine Wirkung
-      assert.ok(['buff', 'calm', 'nerves_gain', 'heal_pct', 'hint', 'review', 'reveal', 'scare', 'clock', 'digest', 'wanted', 'money', 'scout'].some((k) => sd.talent[k] !== undefined), `${pid} ${n}: ${sd.talent.id} ohne Wirkung`);
+      assert.ok(['buff', 'calm', 'nerves_gain', 'heal_pct', 'hint', 'review', 'reveal', 'scare', 'clock', 'digest', 'wanted', 'money', 'scout', 'gimmick'].some((k) => sd.talent[k] !== undefined), `${pid} ${n}: ${sd.talent.id} ohne Wirkung`);
     }
   }
   const all = faehigkeitenIds(raw);

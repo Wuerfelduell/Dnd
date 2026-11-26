@@ -13,6 +13,11 @@
 // - clock s: Uhr der Stadt steht s Sekunden (Treffen, Fahndung, Tageszeit; Gatherings/Wanted fragen state.clockStopped())
 // - digest n: Verdauung +n · wanted n: Fahndung n Stufen (negativ) · money [min, max]: Schilling
 // - scout: die Karte zählt ihre Gegner (Ereignis 'talent', die WorldScene antwortet mit einer Meldung)
+// - gimmick {…}: eigene Kniffe ab Seq 4 (Seb 2026-11-26). Auf der Karte wirkt world/WeltGimmicks.js
+//   (smite, freeze, lure, rob, blink, rewind, knockback, infight, harvest, tether, forget, tribute),
+//   hier im Spielstand: balance (Leben/Nerven ausgleichen), brew n (Heilmittel aus dem Kessel).
+//   Persönliche Buffs mit Wirkung auf der Karte: move_speed, gegnergesicht, patrol_blind, lichtschranke, lautlos,
+//   ironskin (1 abprallen, 2 zerbrechen), moorgrund – abgefragt über state.buffOf(key, n).
 //
 // Abklingzeiten und Buffs gehören jedem Spieler selbst (talentCd, buffs in Party.PERSONAL); Sichtbarkeit,
 // Furcht und die stehende Uhr gelten für die ganze Karte.
@@ -50,6 +55,13 @@ export const BUFF_LABELS = {
   ap_start: (v) => `Kämpfe beginnen mit +${v} Konzentration`,
   always_flee: () => 'aus jedem Kampf fliehen',
   schattengestalt: () => 'Schattengestalt: Gegner und Streifen sehen dich nicht',
+  move_speed: (v) => `Du läufst ${Math.round((v - 1) * 100)} % schneller`,
+  gegnergesicht: () => 'Fremdes Gesicht: Kartengegner halten dich für einen der ihren',
+  patrol_blind: () => 'Streifen und Aufseher übersehen dich',
+  lichtschranke: () => 'Lichtschranke: gewöhnliche Gegner kommen nicht an dich heran',
+  lautlos: () => 'Lautlos: Gegner bemerken dich erst aus nächster Nähe',
+  ironskin: (v) => (v >= 2 ? 'Widerlager: gewöhnliche Gegner zerbrechen an dir' : 'Eiserne Haut: gewöhnliche Gegner prallen an dir ab'),
+  moorgrund: () => 'Moorgrund: Gegner in deiner Nähe waten halb so schnell',
 };
 export const buffLabel = (b) => (BUFF_LABELS[b.key] ? BUFF_LABELS[b.key](b.value) : `${b.key} ${b.value}`);
 
@@ -106,7 +118,7 @@ export const talentMethods = {
     if (t.nerves) this.setComposure(this.composure - t.nerves);
     if (t.unruhe) this.setUnruhe(this.unruhe + t.unruhe);
     const parts = [];
-    for (const b of [t.buff, t.buff2].filter(Boolean)) {
+    for (const b of [t.buff, t.buff2, ...(t.buffs ?? [])].filter(Boolean)) {
       // Dieselbe Wirkung derselben Quelle wird erneuert, nicht gestapelt
       this.buffs = this.buffs.filter((x) => !(x.source === id && x.key === b.key));
       this.buffs.push({ key: b.key, value: b.value, until: this.talentTime + b.seconds, source: id });
@@ -147,6 +159,11 @@ export const talentMethods = {
       parts.push(open.length ? `Vermutung: „${this.fact(open[Math.floor(rng() * open.length)]).text}“ (eine zweite Quelle fehlt noch)` : 'Keine offene Vermutung: Alles, was du weißt, ist bestätigt oder widerlegt.');
     }
     if (t.scout) this.emit('talent', { id, effect: 'scout', player: this.acting ?? 1 });
+    const g = t.gimmick;
+    if (g?.balance) parts.push(this.weltBalance());
+    if (g?.brew) parts.push(this.weltBrew(g.brew, rng));
+    // Alles, was auf der Karte wirkt, erledigt die WorldScene (world/WeltGimmicks.js) und meldet das Ergebnis selbst
+    if (g) this.emit('talent', { id, effect: 'gimmick', gimmick: g, name: t.name, player: this.acting ?? 1 });
     this.emit('talent', { id, effect: 'used', player: this.acting ?? 1 });
     this.emit('changed');
     return { ok: true, text: `${t.name}: ${parts.join(' · ')}`, parts };
@@ -177,6 +194,43 @@ export const talentMethods = {
   inShadow(n = 1) {
     const own = n === (this.acting ?? 1) ? this.buffs : this.p2?.buffs;
     return (own ?? []).some((b) => b.key === 'schattengestalt' && b.until > (this.talentTime ?? 0));
+  },
+
+  /** Wert eines laufenden persönlichen Buffs von Spieler n (oder null). Buffs gehören jedem Spieler selbst. */
+  buffOf(key, n = 1) {
+    const own = n === (this.acting ?? 1) ? this.buffs : this.p2?.buffs;
+    return (own ?? []).find((b) => b.key === key && b.until > (this.talentTime ?? 0))?.value ?? null;
+  },
+
+  /** Waage (gimmick balance): Leben und Nerven beider Spieler steigen auf den Mittelwert ihrer Anteile, nichts sinkt. */
+  weltBalance() {
+    const read = () => ({ hp: this.hp / Math.max(1, this.maxHp), nv: this.composure / Math.max(1, this.maxComposure()) });
+    const duo = !!this.hasP2?.();
+    const vals = [read(), ...(duo ? [this.withPartner(read)] : [])];
+    const all = vals.flatMap((v) => [v.hp, v.nv]);
+    const mean = all.reduce((a, b) => a + b, 0) / all.length;
+    const lift = () => {
+      let hp = 0;
+      let nv = 0;
+      if (this.hp / this.maxHp < mean) hp = this.heal(Math.round(mean * this.maxHp) - this.hp);
+      const c = this.composure;
+      if (c / this.maxComposure() < mean) { this.setComposure(Math.round(mean * this.maxComposure())); nv = Math.round(this.composure - c); }
+      return { hp, nv };
+    };
+    const me = lift();
+    const other = duo ? this.withPartner(lift) ?? { hp: 0, nv: 0 } : { hp: 0, nv: 0 };
+    const got = me.hp + me.nv + other.hp + other.nv;
+    return got ? `Die Waage steht bei ${Math.round(mean * 100)} %: +${me.hp + other.hp} Leben, +${me.nv + other.nv} Nerven` : `Die Waage steht schon im Gleichgewicht (${Math.round(mean * 100)} %)`;
+  },
+
+  /** Kessel (gimmick brew): n Heilmittel aus den drei stärksten Verbrauchsgütern des Spiels. */
+  weltBrew(n, rng = Math.random) {
+    const items = this.content?.items ?? {};
+    const pool = Object.entries(items).filter(([, it]) => it.kind === 'consumable' && it.heal > 0).sort((a, b) => b[1].heal - a[1].heal).slice(0, 3).map(([id]) => id);
+    if (!pool.length) return 'Der Kessel bleibt leer';
+    const got = {};
+    for (let i = 0; i < n; i++) { const id = pool[Math.floor(rng() * pool.length)]; this.addItem(id, 1); got[id] = (got[id] ?? 0) + 1; }
+    return `Gebraut: ${Object.entries(got).map(([id, k]) => `${k}× ${items[id].name}`).join(', ')}`;
   },
 
   /** Steht die Uhr der Stadt (Treffen, Fahndung, Tageszeit)? */
