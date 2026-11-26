@@ -2,7 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
-import { Combat, GROUP_HP_SHARE, AOE_DMG_MULT, MAX_FOES } from '../src/core/Combat.js';
+import { Combat, GROUP_HP_SHARE, AOE_DMG_MULT, MAX_FOES, GROUP_LOOT_BONUS } from '../src/core/Combat.js';
 import { AOE_SKILLS } from '../src/data/flaechenFaehigkeiten.js';
 import { loadContent, seeded } from './helpers.js';
 
@@ -116,4 +116,26 @@ test('Prüfungen und Übungen bleiben Einzelkämpfe', () => {
   const practice = Object.keys(content.encounters).find((k) => content.encounters[k].practice);
   const c = new Combat(s, practice, { pack: ['moorleiche'] });
   assert.equal(c.foes.length, 1);
+});
+
+test('Gruppenbeute: jeder Begleiter bringt eigene Beute, dazu Gruppenbonus auf Geld', () => {
+  const geld = (pack) => {
+    let sum = 0;
+    for (let k = 0; k < 40; k++) {
+      const s = beyonder('eisen', 7);
+      s.flags.add('won_moorleiche');
+      const c = new Combat(s, 'moorleiche', { pack });
+      c.rng = seeded(k + 1);
+      c.outcome = 'won';
+      const before = s.money;
+      c.finish();
+      sum += s.money - before;
+    }
+    return sum;
+  };
+  const solo = geld([]);
+  assert.ok(solo > 0);
+  const trio = geld(['moorleiche', 'moorleiche']);
+  // zwei Begleiter: dreimal Beute, jede ×(1 + 2·GROUP_LOOT_BONUS)
+  assert.ok(trio > solo * 3 * (1 + GROUP_LOOT_BONUS) , `${trio} vs ${solo}`);
 });

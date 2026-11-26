@@ -135,6 +135,8 @@ export const MAX_FOES = 3;
 export const GROUP_HP_SHARE = 0.5;
 export const GROUP_DMG_SHARE = 0.55;
 export const GROUP_REWARD = 0.5;
+/** Gruppenbonus (Seb 2026-11-26): je Begleiter +25 % Geld und Beutechance auf jede Beute der Gruppe, zusätzlich zur eigenen Beute jedes Begleiters. */
+export const GROUP_LOOT_BONUS = 0.25;
 /**
  * Flächenfertigkeiten (`aoe: true`, data/flaechenFaehigkeiten.js): treffen alle stehenden Gegner, dafür richten sie
  * immer (auch gegen einen einzelnen Gegner) nur AOE_DMG_MULT ihres Schadens an, Brand eingeschlossen.
@@ -1477,7 +1479,8 @@ export class Combat {
     const loot = { money: 0, items: {} };
     if (table && (first || table.repeat)) {
       const nn = this.wetter?.nebelnacht;
-      const rolled = rollLoot(table, this.rng, nn ? { luck: NEBELNACHT.luck, moneyMult: NEBELNACHT.money } : {}); // Nebelnacht: reichere Beute
+      const grp = 1 + GROUP_LOOT_BONUS * Math.max(0, this.foes.length - 1); // Gruppenkampf: reichere Beute
+      const rolled = rollLoot(table, this.rng, { luck: (nn ? NEBELNACHT.luck : 1) * grp, moneyMult: (nn ? NEBELNACHT.money : 1) * grp }); // Nebelnacht: reichere Beute
       loot.money = rolled.money;
       loot.items = rolled.items;
       if (first) for (const [id, n] of Object.entries(table.items ?? {})) loot.items[id] = (loot.items[id] ?? 0) + n;
