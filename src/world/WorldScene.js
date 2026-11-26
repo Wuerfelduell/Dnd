@@ -2293,8 +2293,15 @@ export class WorldScene extends Phaser.Scene {
     }
   }
 
-  travelTo(mapId, spawn) {
+  travelTo(mapId, spawn, byPlayer) {
     if (this.leaving) return;
+    const wer = this.splitRole === 2 ? 2 : (byPlayer ?? this.state.acting ?? 1);
+    // Seb 2026-11-26: ins Pfadviertel nur, wer auf diesem Pfad Seq 4 oder besser ist (je Spieler, data/aufstieg.js)
+    const tor = this.state.content.travel.find((t) => t.map === mapId && t.requires_pathway && mapId.startsWith('o3_'));
+    if (tor && !this.state.testmodus && !this.realState.withPlayer(wer, () => this.realState.meetsPathway(tor.requires_pathway), { quiet: true })) {
+      this.ui.toast?.('Dieses Pfadviertel lässt nur Beyonder seines eigenen Pfades ab Sequenz 4 ein.', 'warn');
+      return;
+    }
     const hold = this.hg?.blocksTravel(); // Seq 4: Laternennacht und Schatten halten dich auf der Karte
     if (hold && !this.state.pendingTravel) { this.ui.toast?.(hold, 'warn'); return; }
     if (!this.state.content.maps[mapId]) throw new Error(`Unbekannter Ort: ${mapId}`);
@@ -2310,7 +2317,7 @@ export class WorldScene extends Phaser.Scene {
     }
     // Pfadviertel in Calderwick (core/Split.js): im gemeinsamen Bild geht nur der hinein, der die Tür benutzt; der Bildschirm teilt sich
     if (this.splitRole === 1 && !this.realState.splitOn && this.state.hasP2?.()) {
-      const by = this.state.acting;
+      const by = wer;
       const pos2 = this.p2 ? [Math.round(this.p2.x), Math.round(this.p2.y)] : null;
       if (this.state.splitBetreten?.(by, mapId, spawn, pos2)) {
         for (const f of [...this.state.flags]) if (f.startsWith('o3_rueck:')) this.state.flags.delete(f);

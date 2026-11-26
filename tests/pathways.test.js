@@ -49,7 +49,8 @@ test('Zehn Pfade (sieben + Waage, Moor, Uhr aus Paket AF) mit je Sequenz 9 bis 1
     if (!['ingredient', 'formula'].includes(it.kind)) continue;
     if (it.rest) continue; // Beyonder-Rest: nur Beute gefallener Beyonder
     if (/^sq_zutat_\w+_[1-4]$/.test(id)) assert.ok(given.has(id), `${id} gibt es nirgends`);
-    else if (/^formel_\w+_[12]$/.test(id)) assert.ok(Object.values(content.maps).some((m) => m.id?.startsWith('o3_') && (m.interactables ?? []).some((i) => i.effects?.gives_items?.[id])), `${id} liegt an keinem Ort`);
+    else if (/^formel_\w+_[12]$/.test(id)) assert.ok(Object.values(content.maps).some((m) => m.id?.startsWith('o3_') && (m.interactables ?? []).some((i) => i.effects?.gives_items?.[id]))
+      || Object.values(content.encounters).some((e) => e.zone?.startsWith('o3_') && e.first_win?.gives_items?.[id]), `${id} liegt an keinem Ort`); // Formel 1: Herz des Viertels
     else assert.ok(sold.has(id), `${id} wird nirgends verkauft`);
   }
   for (const m of Object.values(content.market.merchants)) for (const e of m.stock) assert.ok(content.items[e.item], `Händlerware ${e.item}`);

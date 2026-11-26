@@ -4,12 +4,16 @@
  *
  * Je Viertel (o3_<pfad>, data/aufstieg.js CW_GEBIETE):
  * - Eine Kette „Das Herz des Viertels“: sechs Verderbnisherde, jeder stärker als der vorige, dazwischen Spuren, am Ende das Herz der
- *   Verderbnis (Boss, auf Sequenz 3 zugeschnitten). Herd 4 gibt die Kernzutat 2, das Herz die Kernzutat 1 dieses Pfades.
+ *   Verderbnis (Boss, auf Sequenz 3 zugeschnitten). Herd 4 gibt die Kernzutat 2, das Herz die Formel der ersten Sequenz dieses Pfades.
  * - Ein Krämer der Gilde: Grundzutaten der hohen Tränke (Nebeltau, Silberstaub; Geisteressenz nur als Beute) und die Formeln der dritten Sequenz
  *   dieses Pfades, Trank- und Ritualformel je 30.000 Schilling (Seb 2026-11-26; vorher 15.000).
  * - Die Viertel-Monster lassen die Grundzutaten fallen.
- * Damit liegt alles für die Tränke 3/2/1 im eigenen Viertel: Kernzutat 3 (Oberhaupt, data/seqHoch.js), 2 und 1 (diese Kette),
- * Formeln 3 (Krämer), 2 (Archiv), 1 (Inschriften), Grundzutaten (Krämer, Beute).
+ * Seb 2026-11-26: Calderwick ist Seq-3-Gebiet. Im eigenen Viertel ist alles für Seq 3 und Seq 2 erreichbar, auch durch Farmen
+ * (Kernzutat 3: Oberhaupt + seltene Beute; Kernzutat 2: Herd 4 + seltene Beute; Formel 3/Ritualformel 3: Krämer; Formel 2: Archiv +
+ * seltene Beute; Grundzutaten: Krämer, Beute; Kessel: Wurfflaschen beim Krämer; Eisen: Artefakte als seltene Beute).
+ * Von Seq 1 gibt es hier nur noch die Formel (das Herz, sicher beim ersten Sieg). Die Kernzutat 1 liegt nicht mehr im Viertel
+ * (bleibt über die Ersatzquelle cwo_kern_1 am Nullfundament), die Inschriften geben keine Formel 1 mehr.
+ * Betreten nur, wer auf diesem Pfad Seq 4 oder besser ist (data/aufstieg.js, je Spieler, auch im Koop).
  *
  * Außerdem behoben: Die Codex-Ersatzquellen cwo_kern_1/2/3 fragten nach `sq_laterne` usw. statt der echten Pfad-Ids.
  */
@@ -27,6 +31,10 @@ export const HERDE = [
 ];
 export const HERZ = { hp: 12000, dmg: 104 }; // Kernzutat 1: auf Seq 3 nur sehr geübt, eigentlich etwas für Seq 2 (tools/sim/kapitel4.mjs)
 const KERN2_AB = 4;
+/** Seltene Beute der normalen Viertel-Monster (immer wieder), damit Seq 3 und 2 farmbar sind. */
+export const VIERTEL_SELTEN = { kern3: 0.01, kern2: 0.01, formel2: 0.01, artefakt: 0.015 };
+const EISEN_ARTEFAKTE = ['vs_seelenlaterne', 'vs_geisterglocke', 'vs_fluestermuschel', 'vs_ascheurne'];
+const KESSEL_WURF = ['wurf_spreng', 'wurf_saeure', 'wurf_gift'];
 
 /** Je Pfad: Namen der sechs Herde, das Herz und was man an den Spuren findet. */
 export const VIERTEL = {
@@ -96,7 +104,9 @@ function herzKampf(content, pid, cw) {
 function kraemer(content, pid, cw) {
   const stock = [...GRUNDZUTATEN.map(([item, price]) => ({ item, price })),
     ...(content.items[`formel_${pid}_3`] ? [{ item: `formel_${pid}_3`, price: FORMEL3_PREIS }] : []),
-    ...(content.items[ritualformel(pid)] ? [{ item: ritualformel(pid), price: FORMEL3_PREIS }] : [])];
+    ...(content.items[ritualformel(pid)] ? [{ item: ritualformel(pid), price: FORMEL3_PREIS }] : []),
+    // Opfer der Seq-3/2-Rituale des Kessels: Wurfflaschen
+    ...(pid === 'kessel' ? KESSEL_WURF.filter((w) => content.items[w]).map((item) => ({ item, price: content.items[item].price ?? 60 })) : [])];
   content.market.merchants[kraemerId(pid)] = { name: `Krämer im ${cw.viertel.replace(/^Das /, '')}`, title: `Gildenkrämer: ${cw.viertel}`, greeting: 'Was die Gilde nicht braucht, verkaufe ich. Was sie braucht, auch, nur teurer.', stock };
   content.dialogues[kraemerId(pid)] = {
     start: 'start',
@@ -115,7 +125,11 @@ export function applyPfadviertel(content) {
     // Grundzutaten fallen bei den Viertel-Monstern
     for (const id of Object.keys(content.encounters).filter((x) => new RegExp(`^o3_${pid}_g\\d+$`).test(x))) {
       const l = content.loot[id] ?? { money: [0, 0], drops: [] };
-      content.loot[id] = { ...l, drops: [...(l.drops ?? []).filter((d) => !BEUTE_ZUTATEN.includes(d.item)), { item: 'nebeltau', chance: 0.25 }, { item: 'geisteressenz', chance: 0.2 }, { item: 'silberstaub', chance: 0.2 }] };
+      const selten = [[kernzutat(pid, 3), VIERTEL_SELTEN.kern3], [kernzutat(pid, 2), VIERTEL_SELTEN.kern2], [`formel_${pid}_2`, VIERTEL_SELTEN.formel2],
+        ...(pid === 'eisen' ? EISEN_ARTEFAKTE.map((a) => [a, VIERTEL_SELTEN.artefakt]) : [])].filter(([item]) => content.items[item]);
+      const weg = new Set([...BEUTE_ZUTATEN, ...selten.map(([item]) => item)]);
+      content.loot[id] = { ...l, drops: [...(l.drops ?? []).filter((d) => !weg.has(d.item)), { item: 'nebeltau', chance: 0.25 }, { item: 'geisteressenz', chance: 0.2 }, { item: 'silberstaub', chance: 0.2 },
+        ...selten.map(([item, chance]) => ({ item, chance }))] };
     }
     // Herde und Herz
     for (let i = 1; i <= HERDE.length; i++) {
@@ -140,17 +154,19 @@ export function applyPfadviertel(content) {
         visible_if: { requires_flags: [spurFlag(pid, i)], hide_if_flags: [`won_${herdId(pid, i)}`] } };
       map.interactables.push(herd);
     }
-    // Kernzutat 2 nach dem 4. Herd, Kernzutat 1 im Herz
+    // Kernzutat 2 nach dem 4. Herd, Formel 1 im Herz (Seb 2026-11-26: der Boss gibt die Seq-1-Formel, die Kernzutat 1 nicht mehr)
     content.encounters[herdId(pid, KERN2_AB)].first_win = { gives_items: { [kernzutat(pid, 2)]: 1 } };
     content.encounters[herdId(pid, KERN2_AB)].win_text += ` In der Asche liegt ${content.items[kernzutat(pid, 2)]?.name ?? 'eine Kernzutat'}: die Kernzutat der zweiten Sequenz dieses Pfades.`;
-    content.encounters[herzId(pid)].first_win = { gives_items: { [kernzutat(pid, 1)]: 1 } };
-    content.encounters[herzId(pid)].win_text += ` ${content.items[kernzutat(pid, 1)]?.name ?? 'Die Kernzutat'}, die Kernzutat der ersten Sequenz.`;
+    content.encounters[herzId(pid)].first_win = { gives_items: { [`formel_${pid}_1`]: 1 } };
+    content.encounters[herzId(pid)].win_text += ` ${content.items[`formel_${pid}_1`]?.name ?? 'Eine Formel'}: die Formel der ersten Sequenz.`;
+    // Seq 1 sonst nicht im Viertel: die Inschriften geben keine Formel 1 mehr (data/seqHoch.js, letzter Schrein)
+    map.interactables = map.interactables.filter((x) => x.id !== `o3_${pid}_schrein1`);
     map.interactables.push({ id: herzId(pid), kind: 'combat', encounter: herzId(pid), tile: freieKachel(map, { seed: `o3|${pid}|herz`, minDist: 26 }), prompt: v.herz, marker: true,
       visible_if: { requires_flags: [`won_${herdId(pid, HERDE.length)}`], hide_if_flags: [`won_${herzId(pid)}`] } });
     // Auftrag im Notizbuch
     content.quests[`o3_${pid}_herzkette`] = {
       title: `Das Herz des ${cw.viertel.replace(/^Das /, '')}s`, kind: 'side', case: 'kapitel4_aufstieg',
-      summary: `${cw.verderbnis} Sechs Herde halten die Verderbnis am Leben, und darunter schlägt ein Herz. Wer sie ausbrennt, findet die Kernzutaten der zweiten und ersten Sequenz für den ${content.pathways[pid].name}.`,
+      summary: `${cw.verderbnis} Sechs Herde halten die Verderbnis am Leben, und darunter schlägt ein Herz. Wer sie ausbrennt, findet die Kernzutat der zweiten und die Formel der ersten Sequenz für den ${content.pathways[pid].name}.`,
       steps: [...HERDE.map((_, k) => ({ text: `${k + 1}. Herd: ${v.herde[k]}`, done: { requires_flags: [`won_${herdId(pid, k + 1)}`] }, target: { map: `o3_${pid}`, id: `o3_${pid}_spur${k + 1}`, label: cw.viertel } })),
         { text: `Das Herz: ${v.herz}`, done: { requires_flags: [`won_${herzId(pid)}`] }, target: { map: `o3_${pid}`, id: herzId(pid), label: cw.viertel } }],
     };
