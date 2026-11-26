@@ -11,7 +11,7 @@ import { readFileSync } from 'node:fs';
 
 const content = loadContent();
 const raw = JSON.parse(readFileSync(new URL('../src/data/packs/sequenzen/faehigkeiten2.json', import.meta.url), 'utf8'));
-const KAMPF_KEYS = new Set(['id', 'name', 'precise', 'waffenfrei', 'hg', 'cost', 'hits', 'flat', 'mult', 'holy', 'sure', 'pierce', 'stun', 'weak', 'evade', 'confuse', 'shield', 'heal', 'drain', 'burn', 'composure', 'desc', 'fx',
+const KAMPF_KEYS = new Set(['id', 'name', 'aoe', 'precise', 'waffenfrei', 'hg', 'cost', 'hits', 'flat', 'mult', 'holy', 'sure', 'pierce', 'stun', 'weak', 'evade', 'confuse', 'shield', 'heal', 'drain', 'burn', 'composure', 'desc', 'fx',
   'ap_gain', 'nerves_gain', 'calm', 'weaken', 'slow', 'armor_break', 'guard_break', 'steal', 'cleanse', 'read', 'focus', 'shield_all', 'heal_all', 'extend_burn']);
 const WELT_KEYS = new Set(['id', 'name', 'nerves', 'unruhe', 'cooldown', 'desc', 'buff', 'buff2', 'calm', 'nerves_gain', 'heal_pct', 'heal_partner', 'hint', 'review', 'reveal', 'scare', 'clock', 'digest', 'wanted', 'money', 'scout', 'gimmick']);
 
@@ -176,8 +176,8 @@ test('Kampf: focus hebt die Bewertung der nächsten Fertigkeit, Panzer und Schil
   const cl = new Combat(l, 'archive_rats');
   cl.rng = seeded(5);
   cl.ap = 6;
-  cl.useSkill('funkenregen', ['good', 'good', 'good']); // Brand 3 Schaden, 2 Runden
-  assert.deepEqual([cl.burn.damage, cl.burn.rounds], [3, 2]);
+  cl.useSkill('funkenregen', ['good', 'good', 'good']); // Flächenfertigkeit: Brand 3 × 0,75 → 2 Schaden, 2 Runden
+  assert.deepEqual([cl.burn.damage, cl.burn.rounds], [2, 2]);
   cl.useSkill('glutnadel', ['good']); // gleich starker Brand: Runden bleiben, dann +1
   assert.deepEqual([cl.burn.damage, cl.burn.rounds], [3, 3]);
   // Stehlen: Mensch ja, Okkultes nein, Übung nein

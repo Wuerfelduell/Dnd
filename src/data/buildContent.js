@@ -17,6 +17,7 @@ import { applyPfadviertel } from './pfadviertel.js';
 import { applyMarloweTelegramm } from './marloweTelegramm.js';
 import { withFaehigkeiten } from './faehigkeiten.js';
 import { withHalbgottFertigkeiten } from './halbgottFertigkeiten.js';
+import { withFlaechenFaehigkeiten } from './flaechenFaehigkeiten.js';
 import { applyGegnerBeyonder } from './gegnerBeyonder.js';
 import { applyMoods } from './moods.js';
 import { applyRelations } from './relations.js';
@@ -51,6 +52,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   // Paket AF: neue Pfade, Zutaten und Artefakte gehören vor der Erzeugung der Trank-/Formel-Items dazu
   const sq = withSequenzen(pathways, sequenzen);
   pathways = withFaehigkeiten(sq.pathways, sequenzen?.faehigkeiten); // zweite Kampffertigkeit und Welt-Fähigkeit je Sequenz
+  pathways = withFlaechenFaehigkeiten(pathways); // Flächenfertigkeiten treffen alle Gegner einer Gruppe, dafür schwächer
   pathways = withHalbgottFertigkeiten(pathways); // ab Seq 4: Fertigkeiten waffenunabhängig mit hohem Grundschaden
   ({ gatherings, pathways, wexmoor } = withPackTreffen(packs, gatherings, pathways, wexmoor));
   const merge = (list, key) => Object.assign({}, ...list.map((x) => x[key] ?? {}));

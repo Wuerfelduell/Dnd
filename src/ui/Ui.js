@@ -12,7 +12,7 @@ import { SPINNENFADEN } from '../data/seq5.js';
 import { SUD_MAX_ZUTATEN, LEERES_GEFAESS, sudEffectText } from '../data/sude.js';
 import { CARRY_PER_STEP } from '../core/GameState.js';
 import { GEAR_SLOT_NAMES } from '../core/Gear.js';
-import { isPrecise } from '../core/Combat.js';
+import { isPrecise, AOE_DMG_MULT } from '../core/Combat.js';
 import { lootList, itemRarity, RARITY_NAMES, lootPreview, chanceWord, hiddenLoot } from '../core/Loot.js';
 import {
   itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, moneyIconUrl, UI_SKINS, UI_SHEETS, UI_REGIONS, DAMAGE_FONT, STATUS_ICONS, STATUS_ICONS_URL,
@@ -36,6 +36,9 @@ import { installTestmodus, testPauseButton, bindTestPause, closeTestReise } from
 
 /** Spielstand für Icons, die vom Spieler abhängen (Relikt des Verfalls: Bild nach seiner stärksten Eigenschaft, Codex DP). */
 let iconState = null;
+// Flächenfertigkeiten (data/flaechenFaehigkeiten.js): Hinweis neben der Beschreibung
+const AOE_NOTE = `✹ Fläche: trifft alle Gegner, dafür ${Math.round((1 - AOE_DMG_MULT) * 100)} % weniger Schaden.`;
+const aoeNote = (sk) => (sk?.aoe ? ` <span class="aoe-note">${AOE_NOTE}</span>` : '');
 const iconId = (id) => (id === 's4mo_relikt' ? reliktIcon(iconState?.pathway?.relikt?.look) : id);
 /** 16x16-Icon vor einem Item-Namen. Lädt es nicht, verschwindet es einfach. */
 const itemIcon = (id) => (PULSE_ICONS[id] ? `<span class="item-icon pulse" style="background-image:url(${PULSE_ICONS[id]})"></span>` : `<img class="item-icon" src="${itemIconUrl(iconId(id))}" alt="" width="16" height="16" onerror="this.remove()">`);
@@ -2423,8 +2426,8 @@ export class Ui {
       const hgScene = (n === 4 || n === 2) && n === cur.seq ? sceneImg(`hg_seq${n}_${cur.id}`) : ''; // Paket CO: Sequenzbild der großen Stufen
       return `<li class="seq${sd.durchbruch ? ' durchbruch' : ''}">${socket}<strong>Sequenz ${n}: ${esc(sd.name)}</strong> ${sd.durchbruch ? `<span class="badge halbgott">${esc(sd.durchbruch)}</span>` : ''}${n === cur.seq ? '<span class="badge likely">aktuell</span>' : ''}${hgScene}<br>
         <span class="desc">${esc(sd.desc)}</span><br>
-        ${skillIcon(sd.skill.id) || '⚔ '}<strong>${esc(sd.skill.name)}</strong> <span class="muted">(${sd.skill.cost} K${s.skillComposureCost({ ...sd.skill, seq: n }) ? ` · ${s.skillComposureCost({ ...sd.skill, seq: n })} Nerven` : ''})</span> ${esc(sd.skill.desc)} ${this.skillVisBtn(s, sd.skill.id)}
-        ${sd.skill2 ? `<br>${skillIcon(sd.skill2.id) || '⚔ '}<strong>${esc(sd.skill2.name)}</strong> <span class="muted">(${sd.skill2.cost} K${s.skillComposureCost({ ...sd.skill2, seq: n }) ? ` · ${s.skillComposureCost({ ...sd.skill2, seq: n })} Nerven` : ''})</span> ${esc(sd.skill2.desc)} ${this.skillVisBtn(s, sd.skill2.id)}` : ''}
+        ${skillIcon(sd.skill.id) || '⚔ '}<strong>${esc(sd.skill.name)}</strong> <span class="muted">(${sd.skill.cost} K${s.skillComposureCost({ ...sd.skill, seq: n }) ? ` · ${s.skillComposureCost({ ...sd.skill, seq: n })} Nerven` : ''})</span> ${esc(sd.skill.desc)}${aoeNote(sd.skill)} ${this.skillVisBtn(s, sd.skill.id)}
+        ${sd.skill2 ? `<br>${skillIcon(sd.skill2.id) || '⚔ '}<strong>${esc(sd.skill2.name)}</strong> <span class="muted">(${sd.skill2.cost} K${s.skillComposureCost({ ...sd.skill2, seq: n }) ? ` · ${s.skillComposureCost({ ...sd.skill2, seq: n })} Nerven` : ''})</span> ${esc(sd.skill2.desc)}${aoeNote(sd.skill2)} ${this.skillVisBtn(s, sd.skill2.id)}` : ''}
         ${talent}
         ${(sd.passives ?? []).map((x) => `<br>✧ ${esc(x.text)}`).join('')}</li>`;
     }).join('');
@@ -3244,7 +3247,7 @@ export class Ui {
     this.root.classList.add('in-combat');
     this.layer.innerHTML = `
       <div class="combat">
-        <div class="cb-enemy">${turnFace(scene.encounterId)}<div class="cb-name"></div><div class="bar big"><div class="efill"></div></div><div class="hudbar enemy"></div><div class="cb-tags"></div></div>
+        <div class="cb-enemy">${turnFace(scene.encounterId)}<div class="cb-name"></div><div class="bar big"><div class="efill"></div></div><div class="hudbar enemy"></div><div class="cb-tags"></div><div class="cb-foes"></div></div>
         <div class="cb-turn"></div><div class="cb-target hidden">${uiSprite('hud', 'target0', 1 / 6, 'reticle')}</div>
         <div class="cb-msg"><div class="cb-text"></div><div class="cb-help"></div></div>
         <div class="cb-bottom">
@@ -3296,6 +3299,12 @@ export class Ui {
       c.enemyGuard ? `<span class="badge refuted">${statusIcon('eisenhaut')}Panzer ${c.enemyGuard}</span>` : '',
       c.veiled ? `<span class="badge refuted">${statusIcon('schatten')}verschleiert</span>` : '',
       c.enc.faction ? `<span class="badge"><span class="emblem16" style="background-image:url(${factionEmblemUrl(c.enc.faction)})"></span>${c.state.content.factions?.[c.enc.faction]?.name ?? ''}</span>` : ''].join(' ');
+    // Gegnergruppe: jeder Gegner als kleine Karte (Ziel golden, Gefallene grau); antippen wählt das Ziel
+    const foesEl = q('.cb-foes');
+    if (foesEl) {
+      foesEl.innerHTML = c.group ? c.foes.map((f, i) => `<button class="cb-foe${i === c.aim ? ' aim' : ''}${i === c.fi && sc.phase === 'enemy' ? ' attacking' : ''}${f.enemy.hp <= 0 ? ' dead' : ''}" data-foe="${i}"><span class="cb-foe-nr">${i + 1}</span><span class="cb-foe-name">${esc(f.enemy.name)}</span><span class="bar"><span class="efill" style="width:${(f.enemy.hp / f.enemy.maxHp) * 100}%"></span></span></button>`).join('') : '';
+      foesEl.querySelectorAll('[data-foe]').forEach((b) => { b.onclick = () => sc.pickTarget(Number(b.dataset.foe)); });
+    }
     // Ein Feld pro Spieler; zu zweit leuchtet, wer am Zug ist bzw. angegriffen wird
     const focus = sc.phase === 'enemy' ? c.targets ?? [c.target] : [c.actor]; // Flächenangriff: beide leuchten
     for (const [n, f] of Object.entries(c.fighters)) {
@@ -3382,7 +3391,7 @@ export class Ui {
       else this.combatTurn('player');
       this.layer.querySelector('.cb-text').innerHTML = fleeNote + (c.actions
         ? `<p>${esc(c.log.at(-1) ?? '')}.</p><p>Runde ${c.round}: ${c.duo ? `Spieler ${c.actor} ist` : 'Du bist'} noch am Zug (${c.ap} Konzentration). Fertigkeiten kosten Konzentration, ein Gegenstand pro Zug.</p>`
-        : `<p>Runde ${c.round}. ${turn}Was tust du? Solange die Konzentration reicht, kannst du mehrere Fertigkeiten nacheinander einsetzen.</p>`);
+        : `<p>Runde ${c.round}. ${turn}Was tust du? Solange die Konzentration reicht, kannst du mehrere Fertigkeiten nacheinander einsetzen.</p>`) + (c.group ? `<p class="muted">${this.touch ? 'Ziel wechseln: Gegner antippen.' : 'Ziel wechseln: Tab oder ↑ ↓, oder Gegner anklicken.'}</p>` : '');
       this.layer.querySelector('.cb-help').textContent = '';
     } else if (sub === 'skills') {
       // Moor: Heilung wächst mit dem Leben, die echte Menge steht hinter der Beschreibung
@@ -3391,7 +3400,7 @@ export class Ui {
       const shown = (k) => c.rules?.shadow || !mine(() => this.state.skillHiddenInCombat(k.id));
       const all = c.skills().filter((k) => k.id !== 'attack');
       entries = all.filter(shown).map((k) => ({
-        text: k.name, skill: k.id, info: `${k.cost} K${k.composure ? ` · ${k.composure} Nerven` : ''}${isPrecise(k) ? ' · ◎ präzise' : ''}`,
+        text: k.name, skill: k.id, info: `${k.cost} K${k.composure ? ` · ${k.composure} Nerven` : ''}${isPrecise(k) ? ' · ◎ präzise' : ''}${k.aoe ? ' · ✹ Fläche' : ''}`, aoe: !!k.aoe,
         desc: `${k.desc ?? ''}${healNote(k)}${isPrecise(k) ? ` ◎ Präzise: volle Wirkung${k.stun ? ' und Betäubung' : ''} nur bei perfektem Takt, das goldene Fenster ist winzig.` : ''}`, act: { type: 'skill', id: k.id }, disabled: !k.usable,
       }));
       if (!entries.length && all.length) entries = [{ text: 'Alle Fertigkeiten ausgeblendet', disabled: true, desc: 'Im Notizbuch unter „Pfad“ kannst du sie wieder einblenden.' }];
@@ -3412,7 +3421,7 @@ export class Ui {
     }
     if (sub !== 'main') entries.push({ text: 'Zurück', back: sub === 'target' ? 'skills' : true });
     this.combatMenuOpen = { sub, entries };
-    this.layer.querySelector('.cb-target')?.classList.remove('hidden');
+    this.layer.querySelector('.cb-target')?.classList.toggle('hidden', !!c.group); // Gruppen: die Zielmarke steht auf der Bühne über dem Ziel
     const menu = this.layer.querySelector('.cb-menu');
     menu.classList.toggle('tiles', sub !== 'main');
     const key = (e, i) => (e.back ? 'Esc' : i < 9 ? i + 1 : '');
@@ -3435,7 +3444,8 @@ export class Ui {
     const help = this.layer.querySelector('.cb-help');
     menu.querySelectorAll('[data-i]').forEach((b) => {
       b.onclick = () => this.combatPick(Number(b.dataset.i));
-      b.onmouseenter = () => { (menu.querySelector('.cb-desc') ?? help).textContent = entries[Number(b.dataset.i)].desc ?? ''; };
+      // Flächenfertigkeiten: der Hinweis steht als eigener Satz daneben (eigener Textknoten, damit die Übersetzung greift)
+      b.onmouseenter = () => { const e = entries[Number(b.dataset.i)]; const el = menu.querySelector('.cb-desc') ?? help; el.innerHTML = `<span>${esc(e.desc ?? '')}</span>${e.aoe ? ` <span class="aoe-note">${AOE_NOTE}</span>` : ''}`; };
     });
   }
 
@@ -3480,7 +3490,7 @@ export class Ui {
 
   combatOver(title) {
     const c = this.combatScene.combat;
-    const text = { won: `${c.enemy.name} ist besiegt.`, lost: 'Deine Beine geben nach.', fled: 'Du bringst dich in Sicherheit.', escaped: `${c.enemy.name} entzieht sich.`, spared: `${c.enemy.name} lebt und schweigt.` }[c.outcome];
+    const text = { won: c.group ? 'Die ganze Gruppe ist besiegt.' : `${c.enemy.name} ist besiegt.`, lost: 'Deine Beine geben nach.', fled: 'Du bringst dich in Sicherheit.', escaped: `${c.enemy.name} entzieht sich.`, spared: `${c.enemy.name} lebt und schweigt.` }[c.outcome];
     this.combatMessage(`${title}! ${text}`, 'Weiter mit E');
   }
 
@@ -3595,6 +3605,7 @@ export class Ui {
     const num = /^[1-9]$/.test(k) ? Number(k) - 1 : -1;
     if (sc.phase === 'menu' && this.combatMenuOpen) {
       if (num >= 0) { this.combatPick(num); handled = true; }
+      else if (k === 'tab' || k === 'arrowup' || k === 'arrowdown') handled = sc.cycleTarget?.(k === 'arrowup' || (k === 'tab' && e.shiftKey) ? -1 : 1) ?? false; // Gruppen: Ziel wechseln
       else if ((k === 'escape' || k === 'backspace') && this.combatMenuOpen.sub !== 'main') { this.combatMenu(this.combatMenuOpen.sub === 'target' ? 'skills' : 'main'); handled = true; }
     } else {
       // Zu zweit: Spieler 1 E/Leertaste/F, Spieler 2 Enter/←/→

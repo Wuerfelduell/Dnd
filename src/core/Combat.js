@@ -123,6 +123,25 @@ export const LATERNE_PROFAN_SEQ = 8;
 // Eliten und Bosse durchschauen die Täuschung danach so viele Runden lang, bevor sie wieder greift.
 export const CONFUSE_LOCK = { elite: 1, boss: 2 };
 export const GRADE_UP = { miss: 'good', good: 'perfect', perfect: 'perfect', meister: 'meister' };
+/**
+ * Gegnergruppen (Seb 2026-11-26): ein Kampf kann gegen 1 bis 3 Gegner gehen. Der erste ist der Anführer (seine Daten
+ * bestimmen Kulisse, Flucht, Gebiet und Prüfungsregeln), die übrigen sind Begleiter. Begleiter haben nur einen Teil
+ * ihres Lebens und Schadens und greifen je Runde einmal an (der Anführer zu zweit wie gewohnt jeden Spieler).
+ * Beute würfelt jeder Gegner selbst, Verdauung zählt Begleiter zu GROUP_REWARD.
+ */
+export const MAX_FOES = 3;
+export const GROUP_HP_SHARE = 0.5;
+export const GROUP_DMG_SHARE = 0.55;
+export const GROUP_REWARD = 0.5;
+/**
+ * Flächenfertigkeiten (`aoe: true`, data/flaechenFaehigkeiten.js): treffen alle stehenden Gegner, dafür richten sie
+ * immer (auch gegen einen einzelnen Gegner) nur AOE_DMG_MULT ihres Schadens an, Brand eingeschlossen.
+ */
+export const AOE_DMG_MULT = 0.75;
+// Werte, die jeder Gegner für sich hat (Gruppen); lesen und schreiben sich über `this.fi` (aktueller Gegner).
+const PER_FOE = ['id', 'enc', 'enemy', 'armor', 'unparryable', 'weak', 'stunned', 'confused', 'confuseLock', 'burn', 'enemyGuard', 'veiled',
+  'weakened', 'slowed', 'readNext', 'attackIndex', 'phase2', 'phased', 'phaseNote', 'roundDmg', 'capped', 'selfHit', 'struck',
+  'hpMult', 'dmgMult', 'duoFull', 'maxRoundDmg', 'share', 'zoneTier'];
 
 export const SKILLS = {
   attack: { name: 'Angriff', cost: 0, hits: 1, mult: 1, desc: 'Ein Schlag im Takt. +1 Konzentration, +2 bei präzisem Treffer.' },
@@ -204,10 +223,13 @@ export const HEAL_HP_PCT = 0.08;
 export const HEAL_GRADE_MULT = { meister: 1.3, perfect: 1.15 };
 
 export class Combat {
-  constructor(state, encounterId) {
+  constructor(state, encounterId, { pack = [] } = {}) {
     let enc = state.content.encounters[encounterId];
     if (!enc) throw new Error(`Unbekannter Kampf: ${encounterId}`);
     this.state = state;
+    this.foes = [{ struck: [] }]; // Gegnergruppe: Anführer zuerst, Begleiter dahinter
+    this.fi = 0; // für welchen Gegner die Werte gerade gelten
+    this.aimIdx = 0; // wen die Spieler anvisieren
     this.id = encounterId;
     // Seq-4-Rituale (core/Seq4.js): Regeln der laufenden Prüfung, gelesen beim Prüfling. Solo: Spieler 2 schaut zu;
     // ist der Prüfling Spieler 2, tauschen die Werte für die Dauer des Kampfes (swapped), damit er Kämpfer 1 ist.
@@ -230,52 +252,22 @@ export class Combat {
       const maxHp = state.withPlayer(by, () => state.maxHp, { quiet: true });
       enc = { ...enc, hp: Math.max(10, Math.round(maxHp * (enc.mirror.hp ?? 1) / ENEMY_HP_MULT)), attacks: enc.attacks.map((a) => ({ ...a, damage: Math.max(1, Math.round(a.damage * power * (enc.mirror.dmg ?? 1) / ENEMY_DMG_MULT)) })) };
     }
-    // Seq 2 (core/SeqHoch.js): jeder Weltwandel macht alle Gegner der Welt dauerhaft stärker
-    const welt = enc.practice ? null : state.weltMult?.();
-    if (welt && welt.dmg > 1) enc = { ...enc, attacks: enc.attacks.map((a) => (a.action ? a : { ...a, damage: Math.max(1, Math.round(a.damage * welt.dmg)) })) };
-    this.enc = enc;
     const duo = !!state.hasP2?.() && !this.rules?.solo && !state.splitOn;
     this.duoHpMult = duo ? enc.duo_hp_mult ?? duoHpMult(state) : 1; // `duo_hp_mult`: fester Koop-Aufschlag, ein schwacher Partner macht den Gegner nicht leichter
+    this.rng = state.rng ?? Math.random;
+    this.initFoe(enc, encounterId);
+    enc = this.enc;
     const zone = state.content.zones?.[enc.zone];
-    // Härte des Gebiets (Kapitel 2, Wexmoor): `hp_mult` / `dmg_mult` auf Gegner oder Gebiet skalieren Leben und Schaden,
-    // `duo_full` lässt den Gegner zu zweit ohne Abschlag zuschlagen (sonst DUO_DMG_MULT)
-    // Gebietswerte gelten je Rang, wenn sie als { normal, elite, boss } angegeben sind
     const rank = enc.boss ? 'boss' : enc.elite ? 'elite' : 'normal';
     const byRank = (v) => (v && typeof v === 'object' ? v[rank] : v);
-    this.hpMult = enc.practice ? 1 : enc.hp_mult ?? byRank(zone?.hp_mult) ?? 1;
-    const late = hpFloor(enc) > 0;
-    this.dmgMult = enc.practice ? 1 : enc.dmg_mult ?? zone?.dmg_mult ?? (late ? byRank(LATE_DMG_MULT[enc.chapter]) ?? 1 : 1);
-    this.duoFull = !!(enc.min_seq || (enc.duo_full ?? zone?.duo_full ?? late));
-    // Schadensgrenze je Runde: am Gegner `max_round_dmg` (Anteil der Leben), sonst am Gebiet je Rang.
-    // In Wexmoor nicht mehr gesetzt: dort tanken die Gegner über mehr Leben (hp_mult), der Spieler macht vollen Schaden.
-    this.maxRoundDmg = enc.practice ? 0 : enc.max_round_dmg ?? byRank(zone?.max_round_dmg) ?? 0;
     // Flucht: starke Gegner (Elite, Boss) halten dich noch FLEE_ROUNDS_TOUGH Runden fest, Daten können es überschreiben
     this.fleeRounds = enc.practice ? 0 : enc.flee_rounds ?? byRank(zone?.flee_rounds) ?? (enc.boss || enc.elite ? FLEE_ROUNDS_TOUGH : 0);
     this.fleeing = null; // { left, by }: Rückzug läuft, noch so viele Runden durchhalten (zu zweit gemeinsam)
-    const soloHp = enc.hp * ENEMY_HP_MULT * (enc.elite ? ELITE_HP_MULT : 1) * this.hpMult;
-    const floor = hpFloor(enc) * (this.rules?.scale?.hp ?? 1) * (enc.hp_floor_mult ?? 1); // `hp_floor_mult`: benannte Ziele (Anschlagbrett) über der Untergrenze; // Ritualgegner mit eigener Stärke behalten ihren Vorsprung
-    const hp = enc.practice ? enc.hp : Math.round(Math.max(soloHp, floor) * this.duoHpMult * (welt?.hp ?? 1)); // Weltwandel nach der Untergrenze
-    // Panzer wächst mit der Gefahrenstufe des Gebiets (Marsch 1, ...), Bosse eine Stufe mehr
-    const tier = zone?.tier ?? 2;
-    this.zoneTier = tier;
     // Kapitel 2 (Wexmoor): das Gebiet zehrt an den Nerven (`drain` pro Runde) und lauert auf (`ambush`: Chance, dass der Gegner zuerst zuschlägt)
     this.drain = enc.practice ? 0 : enc.drain ?? zone?.drain ?? 0;
     this.ambushChance = enc.practice ? 0 : enc.ambush ?? zone?.ambush ?? 0;
     this.ambushed = null; // wird beim ersten ambush() entschieden (nach dem Setzen von rng)
     this.drainTick = 0;
-    this.armor = enc.practice ? 0 : enc.armor ?? (enc.boss ? Math.min(ARMOR.boss, tier) : enc.elite ? Math.min(ARMOR.elite, tier - 1) : 0);
-    const testHp = state.testmodus && /^hg_(schwellen|grenz)waechter_/.test(this.id ?? '') ? 1 : hp; // Testmodus: Wächter mit 1 Leben
-    this.enemy = { name: enc.name, hp: testHp, maxHp: testHp, occult: !!enc.occult };
-    this.rng = state.rng ?? Math.random;
-    // BQ: Haupt einer Sekte wechselt bei halben Leben einmal die Angriffe (`phase2`: attacks, meldung), ohne Heilung oder Extra-Beute
-    this.phase2 = enc.phase2 ?? null;
-    this.phased = false;
-    this.phaseNote = null;
-    // Die härteste Einzelattacke kann man nicht parieren, nur ausweichen (außer die Daten sagen es anders)
-    const flagged = enc.attacks.some((a) => a.unparryable !== undefined);
-    const heavy = enc.attacks.filter((a) => a.hits?.length === 1).sort((a, b) => b.damage - a.damage)[0];
-    this.unparryable = new Set(enc.attacks.filter((a) => (flagged ? a.unparryable : a === heavy && enc.attacks.length > 2)).map((a) => a.name));
-    this.weak = !!enc.weak_if && state.meets(enc.weak_if);
     // Kämpfer: Spieler 1 und (lokaler Koop) Spieler 2, jeder mit eigener Konzentration, Schutz, Blutung, Zug.
     // ap, shield, evading, bleed, actions, itemUsed lesen sich über Zugriffe beim gerade betroffenen Kämpfer.
     // Ab Sequenz 7 beginnt man den Kampf mit mehr Konzentration (Passiv ap_start)
@@ -298,9 +290,11 @@ export class Combat {
     if (this.wardMult() < 1) this.log.push(`${enc.name} ist zu mächtig für dich: Ohne Sequenz ${enc.min_seq} prallt fast alles an ${enc.name.startsWith('Die ') ? 'ihr' : 'ihm'} ab.`);
     this.confused = false; // nächster gegnerischer Angriff trifft den Gegner selbst
     this.confuseLock = 0; // Eliten/Bosse: Runden, in denen eine neue Verwirrung nicht greift (CONFUSE_LOCK)
+    // Gegnergruppe: Begleiter dazu (nie in Übungen, Prüfungen oder gegen Spiegelbilder)
+    if (!enc.practice && !this.rules && !enc.mirror) for (const id of pack ?? []) this.addFoe(id);
     // Kurglocke (Kapitel 4): gewöhnliche Gegner schlafen zu Beginn und setzen ihren ersten Zug aus.
     if (!enc.boss && !enc.practice && [1, 2].some((n) => this.fighters[n] && state.withPlayer(n, () => state.passive('opening_stun'), { quiet: true }))) {
-      this.stunned = true;
+      for (const f of this.foes) if (!f.enc.boss) f.stunned = true;
       this.log.push(`${enc.name} schläft beim ersten Ton der Glocke ein.`);
     }
     this.burn = null; // { damage, rounds, source } Brand oder Gift
@@ -339,6 +333,124 @@ export class Combat {
     this.itemsUsedTotal = 0;
     this.roundDmg = 0; // Schaden am Gegner in dieser Runde (für max_round_dmg)
     this.capped = 0; // davon abgeprallt, für die Meldung der nächsten Aktion
+  }
+
+  /**
+   * Richtet den aktuellen Gegner (`this.fi`) ein: Gebietshärte, Leben, Panzer, Kniffe. share < 1 bei Begleitern einer Gruppe.
+   */
+  initFoe(enc, encounterId, share = 1) {
+    const state = this.state;
+    this.id = encounterId;
+    // Seq 2 (core/SeqHoch.js): jeder Weltwandel macht alle Gegner der Welt dauerhaft stärker
+    const welt = enc.practice ? null : state.weltMult?.();
+    if (welt && welt.dmg > 1) enc = { ...enc, attacks: enc.attacks.map((a) => (a.action ? a : { ...a, damage: Math.max(1, Math.round(a.damage * welt.dmg)) })) };
+    this.enc = enc;
+    this.share = share;
+    const zone = state.content.zones?.[enc.zone];
+    // Härte des Gebiets (Kapitel 2, Wexmoor): `hp_mult` / `dmg_mult` auf Gegner oder Gebiet skalieren Leben und Schaden,
+    // `duo_full` lässt den Gegner zu zweit ohne Abschlag zuschlagen (sonst DUO_DMG_MULT)
+    // Gebietswerte gelten je Rang, wenn sie als { normal, elite, boss } angegeben sind
+    const rank = enc.boss ? 'boss' : enc.elite ? 'elite' : 'normal';
+    const byRank = (v) => (v && typeof v === 'object' ? v[rank] : v);
+    this.hpMult = enc.practice ? 1 : enc.hp_mult ?? byRank(zone?.hp_mult) ?? 1;
+    const late = hpFloor(enc) > 0;
+    this.dmgMult = enc.practice ? 1 : enc.dmg_mult ?? zone?.dmg_mult ?? (late ? byRank(LATE_DMG_MULT[enc.chapter]) ?? 1 : 1);
+    this.duoFull = !!(enc.min_seq || (enc.duo_full ?? zone?.duo_full ?? late));
+    // Schadensgrenze je Runde: am Gegner `max_round_dmg` (Anteil der Leben), sonst am Gebiet je Rang.
+    // In Wexmoor nicht mehr gesetzt: dort tanken die Gegner über mehr Leben (hp_mult), der Spieler macht vollen Schaden.
+    this.maxRoundDmg = enc.practice ? 0 : enc.max_round_dmg ?? byRank(zone?.max_round_dmg) ?? 0;
+    const soloHp = enc.hp * ENEMY_HP_MULT * (enc.elite ? ELITE_HP_MULT : 1) * this.hpMult;
+    const floor = hpFloor(enc) * (this.rules?.scale?.hp ?? 1) * (enc.hp_floor_mult ?? 1); // `hp_floor_mult`: benannte Ziele (Anschlagbrett) über der Untergrenze; // Ritualgegner mit eigener Stärke behalten ihren Vorsprung
+    const hp = enc.practice ? enc.hp : Math.max(1, Math.round(Math.max(soloHp, floor) * this.duoHpMult * (welt?.hp ?? 1) * share)); // Weltwandel nach der Untergrenze
+    // Panzer wächst mit der Gefahrenstufe des Gebiets (Marsch 1, ...), Bosse eine Stufe mehr
+    const tier = zone?.tier ?? 2;
+    this.zoneTier = tier;
+    this.armor = enc.practice ? 0 : enc.armor ?? (enc.boss ? Math.min(ARMOR.boss, tier) : enc.elite ? Math.min(ARMOR.elite, tier - 1) : 0);
+    const testHp = state.testmodus && /^hg_(schwellen|grenz)waechter_/.test(encounterId ?? '') ? 1 : hp; // Testmodus: Wächter mit 1 Leben
+    this.enemy = { name: enc.name, hp: testHp, maxHp: testHp, occult: !!enc.occult };
+    // BQ: Haupt einer Sekte wechselt bei halben Leben einmal die Angriffe (`phase2`: attacks, meldung), ohne Heilung oder Extra-Beute
+    this.phase2 = enc.phase2 ?? null;
+    this.phased = false;
+    this.phaseNote = null;
+    // Die härteste Einzelattacke kann man nicht parieren, nur ausweichen (außer die Daten sagen es anders)
+    const flagged = enc.attacks.some((a) => a.unparryable !== undefined);
+    const heavy = enc.attacks.filter((a) => a.hits?.length === 1).sort((a, b) => b.damage - a.damage)[0];
+    this.unparryable = new Set(enc.attacks.filter((a) => (flagged ? a.unparryable : a === heavy && enc.attacks.length > 2)).map((a) => a.name));
+    this.weak = !!enc.weak_if && state.meets(enc.weak_if);
+    this.struck = [];
+    this.stunned = false;
+    this.confused = false;
+    this.confuseLock = 0;
+    this.burn = null;
+    this.enemyGuard = 0;
+    this.veiled = false;
+    this.weakened = null;
+    this.slowed = false;
+    this.readNext = false;
+    this.attackIndex = 0;
+    this.roundDmg = 0;
+    this.capped = 0;
+    this.selfHit = 0;
+  }
+
+  /** Nimmt einen Begleiter in die Gruppe auf (höchstens MAX_FOES Gegner). */
+  addFoe(encounterId) {
+    const enc = this.state.content.encounters[encounterId];
+    if (!enc || this.foes.length >= MAX_FOES) return false;
+    this.foes.push({});
+    this.withFoe(this.foes.length - 1, () => this.initFoe(enc, encounterId, GROUP_HP_SHARE));
+    this.foes.at(-1).dmgShare = GROUP_DMG_SHARE;
+    return true;
+  }
+
+  // --- Gegnergruppen -----------------------------------------------------------
+  /** Mehr als ein Gegner? */
+  get group() {
+    return this.foes.length > 1;
+  }
+
+  /** Führt fn für Gegner i aus (Leben, Panzer, Zustände gehören dann ihm). */
+  withFoe(i, fn) {
+    const prev = this.fi;
+    this.fi = i;
+    try {
+      return fn();
+    } finally {
+      this.fi = prev;
+    }
+  }
+
+  /** Indizes der noch stehenden Gegner. */
+  livingFoes() {
+    return this.foes.map((f, i) => (f.enemy.hp > 0 ? i : -1)).filter((i) => i >= 0);
+  }
+
+  /** Wen die Spieler gerade anvisieren (immer ein stehender Gegner, solange einer steht). */
+  get aim() {
+    if (this.foes[this.aimIdx]?.enemy.hp > 0) return this.aimIdx;
+    return this.livingFoes()[0] ?? 0;
+  }
+
+  /** Ziel wählen (Index eines stehenden Gegners). true, wenn es geklappt hat. */
+  setAim(i) {
+    if (!(this.foes[i]?.enemy.hp > 0)) return false;
+    this.aimIdx = i;
+    this.fi = i;
+    return true;
+  }
+
+  /** Nächstes stehendes Ziel (dir: +1 / -1). */
+  cycleAim(dir = 1) {
+    const live = this.livingFoes();
+    if (live.length < 2) return false;
+    const k = live.indexOf(this.aim);
+    return this.setAim(live[(k + dir + live.length) % live.length]);
+  }
+
+  /** Werte (Name, Leben, Zustände) zeigen wieder das Ziel der Spieler. */
+  focusAim() {
+    this.aimIdx = this.aim;
+    this.fi = this.aimIdx;
   }
 
   // --- Zwei Spieler -----------------------------------------------------------
@@ -481,7 +593,7 @@ export class Combat {
   /** Neue Runde: alle Spieler dürfen wieder handeln, Spieler 1 beginnt (wenn er steht). */
   startTurn() {
     for (const f of Object.values(this.fighters)) { f.actions = 0; f.itemUsed = false; }
-    this.struck = [];
+    for (const f of this.foes) f.struck = [];
     this.actor = this.fighters[1].down && this.duo ? 2 : 1;
   }
 
@@ -567,34 +679,79 @@ export class Combat {
     const focused = this.focused && skillBars(sk) > 0;
     if (focused) this.focused = false;
     const graded = grades.slice(0, skillBars(sk)).map((g0) => { const g = focused ? GRADE_UP[g0] ?? g0 : g0; return sk.sure && g === 'miss' ? 'good' : g; });
-    const hits = graded.slice(0, sk.hits).map((grade) => {
-      let damage;
-      if (sk.flat) {
-        const holy = sk.holy || skillId === 'ward';
-        damage = sk.flat * gradeMult[grade] * (this.enemy.occult && holy ? 2 : 1) * (this.weak ? WEAK_MULT : 1);
-        damage *= this.occultFactor();
-        damage *= this.state.passive('dmg_mult');
-        damage = Math.max(1, Math.round(damage));
-      } else {
-        damage = this.hitDamage(sk.mult, grade, gradeMult);
-      }
-      return { grade, damage };
-    });
     const effects = [...priceEffects];
     if (focused) effects.push('im Fokus getroffen');
-    if (this.veiled && hits.length) {
-      // Schleier: nur präzise Treffer finden das echte Gesicht
-      this.veiled = false;
-      let lost = false;
-      for (const h of hits) if (!isPerfectGrade(h.grade) && h.damage) { h.damage = 0; lost = true; }
-      if (lost) effects.push('der Schleier schluckt jeden ungenauen Treffer');
-    }
-    const raw = hits.reduce((n, h) => n + h.damage, 0);
-    this.curSkill = { id: skillId, holy: !!(sk.holy || skillId === 'ward') };
-    const total = this.hurtEnemy(raw, { pierce: !!sk.pierce });
-    this.curSkill = null;
-    if (this.capped) { effects.push(`mehr steckt ${this.enc.name} in dieser Runde nicht weg (${this.capped} prallen ab)`); this.capped = 0; }
-    else if (raw > total) effects.push(`Panzer fängt ${raw - total} ab`);
+    // Flächenfertigkeit: trifft jeden stehenden Gegner (dafür AOE_DMG_MULT), sonst nur das Ziel
+    const aoeMult = sk.aoe ? AOE_DMG_MULT : 1;
+    const main = this.fi;
+    const targets = sk.aoe ? this.livingFoes() : [main];
+    if (!targets.includes(main)) targets.unshift(main);
+    const per = [];
+    let stunned = false;
+    let stunMissed = false;
+    let anyLanded = false;
+    let total = 0;
+    for (const i of targets) this.withFoe(i, () => {
+      if (i !== main && this.enemy.hp <= 0) return;
+      const hits = graded.slice(0, sk.hits).map((grade) => {
+        let damage;
+        if (sk.flat) {
+          const holy = sk.holy || skillId === 'ward';
+          damage = sk.flat * gradeMult[grade] * (this.enemy.occult && holy ? 2 : 1) * (this.weak ? WEAK_MULT : 1);
+          damage *= this.occultFactor();
+          damage *= this.state.passive('dmg_mult') * aoeMult;
+          damage = Math.max(1, Math.round(damage));
+        } else {
+          damage = Math.max(1, Math.round(this.hitDamage(sk.mult, grade, gradeMult) * aoeMult));
+        }
+        return { grade, damage };
+      });
+      if (this.veiled && hits.length) {
+        // Schleier: nur präzise Treffer finden das echte Gesicht
+        this.veiled = false;
+        let lost = false;
+        for (const h of hits) if (!isPerfectGrade(h.grade) && h.damage) { h.damage = 0; lost = true; }
+        if (lost) effects.push('der Schleier schluckt jeden ungenauen Treffer');
+      }
+      const raw = hits.reduce((n, h) => n + h.damage, 0);
+      this.curSkill = { id: skillId, holy: !!(sk.holy || skillId === 'ward') };
+      const dealt = this.hurtEnemy(raw, { pierce: !!sk.pierce });
+      this.curSkill = null;
+      total += dealt;
+      per.push({ i, hits, total: dealt });
+      if (this.capped) { effects.push(`mehr steckt ${this.enc.name} in dieser Runde nicht weg (${this.capped} prallen ab)`); this.capped = 0; }
+      else if (raw > dealt) effects.push(`Panzer fängt ${raw - dealt} ab`);
+      const landed = sk.hits === 0 || hits.some((h) => h.grade !== 'miss' && h.damage);
+      anyLanded ||= landed;
+      const done = this.outcome || this.enemy.hp <= 0;
+      // Betäuben gelingt nur mit einem präzisen Takt; sonst bleibt der Gegner wach
+      if (sk.stun && !done) {
+        if (this.unshakable()) { stunMissed = true; effects.push(`${this.enemy.name} lässt sich nicht betäuben`); }
+        else if (graded.some(isPerfectGrade)) { this.stunned = true; stunned = true; } else { stunMissed = true; effects.push('nur ein präziser Treffer hätte betäubt'); }
+      }
+      if (sk.weak && landed && !this.weak) { this.weak = true; effects.push('Schwachstelle erkannt'); }
+      if (sk.confuse && landed) {
+        const lock = this.enc.practice ? 0 : this.enc.boss ? CONFUSE_LOCK.boss : this.enc.elite ? CONFUSE_LOCK.elite : 0;
+        if (this.unshakable()) effects.push(`${this.enemy.name} lässt sich nicht verwirren`);
+        else if (this.confuseLock > 0) effects.push(`${this.enemy.name} durchschaut die Täuschung noch`);
+        else { this.confused = true; this.confuseLock = lock ? lock + 1 : 0; effects.push('Gegner verwirrt'); }
+      }
+      if (sk.burn && landed && !done) {
+        // Ein stärkerer oder längerer Brand ersetzt den alten, ein schwächerer verlängert ihn nur (extend_burn)
+        const dmg = Math.max(1, Math.round(sk.burn[0] * aoeMult));
+        const old = this.burn;
+        if (!old || old.damage <= dmg) { this.burn = { damage: dmg, rounds: Math.max(sk.burn[1], old?.rounds ?? 0), source: skillId }; effects.push(`${this.burn.rounds} Runden je ${dmg} Schaden`); }
+      }
+      if (sk.extend_burn && this.burn && !done) { this.burn.rounds += sk.extend_burn; effects.push(`Brand hält ${sk.extend_burn} ${sk.extend_burn === 1 ? 'Runde' : 'Runden'} länger`); }
+      if (sk.read) { this.readNext = true; effects.push('nächster Angriff lesbar'); }
+      if (sk.slow && !done) { this.slowed = true; effects.push('Gegner wird langsam'); }
+      if (sk.weaken && (landed || sk.hits === 0) && !done) { this.weakened = { mult: sk.weaken[0], rounds: sk.weaken[1] }; effects.push(`Gegner ${Math.round((1 - sk.weaken[0]) * 100)} % schwächer (${sk.weaken[1]} Runden)`); }
+      if (sk.guard_break && this.enemyGuard) { effects.push(`Panzer ${this.enemyGuard} gebrochen`); this.enemyGuard = 0; }
+      if (sk.armor_break && this.armor) { const cut = Math.min(this.armor, sk.armor_break); this.armor -= cut; effects.push(`Rüstung -${cut}`); }
+      if (sk.steal && landed && i === main && !this.enc.practice && !this.enemy.occult) { const got = this.state.addMoney(sk.steal, { loot: true, reason: sk.name }); this.stolen += got; effects.push(`+${got} Schilling`); }
+    });
+    const hits = per.find((p) => p.i === main)?.hits ?? [];
+    if (sk.aoe && targets.length > 1) effects.unshift(`trifft ${targets.length} Gegner`);
     if (skillId === 'attack') {
       this.gainAp((isPerfectGrade(hits[0]?.grade) ? 2 : 1) + this.state.passive('attack_ap'));
       // Atem holen: Wer nicht nur Fertigkeiten spammt, sondern im Takt schlägt, sammelt Nerven zurück
@@ -604,16 +761,7 @@ export class Combat {
       if (this.state.composure > before) effects.push(`+${this.state.composure - before} Nerven`);
     }
     if (blood) effects.push(`${blood} Leben für die Konzentration`);
-    const landed = sk.hits === 0 || hits.some((h) => h.grade !== 'miss' && h.damage);
-    // Betäuben gelingt nur mit einem präzisen Takt; sonst bleibt der Gegner wach
-    let stunned = false;
-    let stunMissed = false;
-    if (sk.stun && !this.outcome) {
-      if (this.unshakable()) { stunMissed = true; effects.push(`${this.enemy.name} lässt sich nicht betäuben`); }
-      else if (graded.some(isPerfectGrade)) { this.stunned = true; stunned = true; } else { stunMissed = true; effects.push('nur ein präziser Treffer hätte betäubt'); }
-    }
     if (precise && !stunned && !stunMissed && hits.length && !graded.some(isPerfectGrade)) effects.push('ungenau, nur ein Bruchteil der Wucht');
-    if (sk.weak && landed && !this.weak) { this.weak = true; effects.push('Schwachstelle erkannt'); }
     if (sk.heal) {
       const amount = this.skillHeal(sk.heal, graded);
       // Moor im Koop: Heilung auf den Partner gelenkt (healTarget aus der Zielwahl im Menü)
@@ -628,19 +776,7 @@ export class Combat {
     if (sk.drain && total) effects.push(`+${this.state.heal(Math.round(total * sk.drain))} Leben`);
     if (sk.shield) { this.shield += sk.shield; effects.push(`Schutz ${this.shield}`); }
     if (sk.evade) { this.evading = true; effects.push('nächster Angriff geht ins Leere'); }
-    if (sk.confuse && landed) {
-      const lock = this.enc.practice ? 0 : this.enc.boss ? CONFUSE_LOCK.boss : this.enc.elite ? CONFUSE_LOCK.elite : 0;
-      if (this.unshakable()) effects.push(`${this.enemy.name} lässt sich nicht verwirren`);
-      else if (this.confuseLock > 0) effects.push(`${this.enemy.name} durchschaut die Täuschung noch`);
-      else { this.confused = true; this.confuseLock = lock ? lock + 1 : 0; effects.push('Gegner verwirrt'); }
-    }
-    if (sk.burn && landed) {
-      // Ein stärkerer oder längerer Brand ersetzt den alten, ein schwächerer verlängert ihn nur (extend_burn)
-      const old = this.burn;
-      if (!old || old.damage <= sk.burn[0]) { this.burn = { damage: sk.burn[0], rounds: Math.max(sk.burn[1], old?.rounds ?? 0), source: skillId }; effects.push(`${this.burn.rounds} Runden je ${sk.burn[0]} Schaden`); }
-    }
-    if (sk.extend_burn && this.burn && !this.outcome) { this.burn.rounds += sk.extend_burn; effects.push(`Brand hält ${sk.extend_burn} ${sk.extend_burn === 1 ? 'Runde' : 'Runden'} länger`); }
-    // Zweite Pfadfertigkeiten: Tempo, Nerven, Deckung für alle, Kniffe gegen den Gegner
+    // Zweite Pfadfertigkeiten: Tempo, Nerven, Deckung für alle
     if (sk.ap_gain) { this.gainAp(sk.ap_gain); effects.push(`+${sk.ap_gain} Konzentration`); }
     if (sk.nerves_gain) { const before = this.state.composure; this.state.setComposure(before + sk.nerves_gain); effects.push(`+${Math.round(this.state.composure - before)} Nerven`); }
     if (sk.calm && this.state.unruhe > 0) { const got = this.state.calmUnruhe(sk.calm); if (got > 0) effects.push(`-${Math.round(got)} Unruhe`); }
@@ -657,14 +793,8 @@ export class Combat {
       effects.push(`+${got} Leben${this.standing().length > 1 ? ' (alle)' : ''}`);
     }
     if (sk.focus) { this.focused = true; effects.push('nächste Fertigkeit im Fokus'); }
-    if (sk.read) { this.readNext = true; effects.push('nächster Angriff lesbar'); }
-    if (sk.slow && !this.outcome) { this.slowed = true; effects.push('Gegner wird langsam'); }
-    if (sk.weaken && (landed || sk.hits === 0) && !this.outcome) { this.weakened = { mult: sk.weaken[0], rounds: sk.weaken[1] }; effects.push(`Gegner ${Math.round((1 - sk.weaken[0]) * 100)} % schwächer (${sk.weaken[1]} Runden)`); }
-    if (sk.guard_break && this.enemyGuard) { effects.push(`Panzer ${this.enemyGuard} gebrochen`); this.enemyGuard = 0; }
-    if (sk.armor_break && this.armor) { const cut = Math.min(this.armor, sk.armor_break); this.armor -= cut; effects.push(`Rüstung -${cut}`); }
-    if (sk.steal && landed && !this.enc.practice && !this.enemy.occult) { const got = this.state.addMoney(sk.steal, { loot: true, reason: sk.name }); this.stolen += got; effects.push(`+${got} Schilling`); }
     this.log.push(`${sk.name}: ${total} Schaden`);
-    return { hits, total, stunned, stunMissed, precise, effects };
+    return { hits, total, stunned, stunMissed, precise, effects: [...new Set(effects)], per, aoe: !!sk.aoe && targets.length > 1, main };
   }
 
   /** Gegenstand im Kampf. Ergebnis: { text } oder null, wenn nicht möglich. */
@@ -853,7 +983,9 @@ export class Combat {
     if (this.rules?.minKillRound && this.round < this.rules.minKillRound && dmg >= this.enemy.hp) { dmg = Math.max(0, this.enemy.hp - 1); this.state.sfx?.('s4r_waechter_immun', { throttle: 800 }); }
     if (this.enc.unbesiegbar) dmg = Math.min(dmg, Math.max(0, this.enemy.hp - Math.ceil(this.enemy.maxHp * 0.5))); // Himmelsstadt: oben fällt niemand (Kapitel 4)
     this.enemy.hp = Math.max(0, this.enemy.hp - dmg);
-    if (this.enemy.hp === 0 && !this.outcome) { this.outcome = 'won'; this.killedBy = this.curSkill ?? null; }
+    if (this.enemy.hp === 0) { this.burn = null; this.stunned = false; this.confused = false; }
+    // Gruppe: gewonnen ist erst, wenn der letzte Gegner fällt
+    if (this.enemy.hp === 0 && !this.outcome && this.foes.every((f) => f.enemy.hp <= 0)) { this.outcome = 'won'; this.killedBy = this.curSkill ?? null; }
     if (this.enemy.hp > 0 && this.enemy.hp <= this.enemy.maxHp * 0.1 && this.state.isBeyonderFoe?.(this.id)) this.voiceWindow = true;
     if (this.phase2 && !this.phased && this.enemy.hp > 0 && this.enemy.hp <= this.enemy.maxHp * 0.5) {
       this.phased = true;
@@ -870,11 +1002,15 @@ export class Combat {
     this.lastAction = null;
     // Zu zweit greift der Gegner jeden stehenden Spieler einmal pro Runde an, in zufälliger Reihenfolge
     const up = this.standing();
+    // Gruppe: der nächste stehende Gegner, der in dieser Runde noch jemanden angreifen darf, ist dran
+    const next = this.livingFoes().find((i) => up.some((n) => !this.foes[i].struck.includes(n)));
+    this.fi = next ?? this.livingFoes()[0] ?? 0;
     const fresh = up.filter((n) => !this.struck.includes(n));
     const pool = fresh.length ? fresh : up;
     this.target = pool.length > 1 ? pool[Math.floor(this.rng() * pool.length)] : pool[0] ?? 1;
     this.targets = [this.target];
     this.struck.push(this.target);
+    if (this.fi > 0) this.struck = [...up]; // Begleiter greifen je Runde nur einmal an
     // Geblendet oder verwirrt: die ganze Runde ist für den Gegner vorbei
     if (this.stunned) { this.stunned = false; this.struck = [...up]; return null; }
     const list = this.enc.attacks;
@@ -953,7 +1089,9 @@ export class Combat {
 
   /** Zu zweit: greift der Gegner in dieser Runde noch einen anderen Spieler an? */
   moreStrikes() {
-    return this.duo && !this.outcome && this.standing().some((n) => !this.struck.includes(n));
+    if (this.outcome) return false;
+    const up = this.standing();
+    return this.livingFoes().some((i) => up.some((n) => !this.foes[i].struck.includes(n)));
   }
 
   /** Ist der Gegner in Rage (wenig Leben)? */
@@ -971,7 +1109,7 @@ export class Combat {
     // Feld `ramp`: der Gegner wird mit jeder Runde stärker (gegen endloses Abwarten hinter Schilden)
     const ramp = 1 + this.rampRate() * Math.max(0, this.round - 1);
     const weak = this.weakened?.rounds > 0 ? this.weakened.mult : 1;
-    const dmgMult = (this.enc.practice ? 1 : ENEMY_DMG_MULT * (rage ? 1.2 : 1) * (tough0 ? ELITE_DMG_MULT : 1) * (this.duo && !this.duoFull ? DUO_DMG_MULT : 1) * (this.sweep ? SWEEP_DMG_MULT : 1) * ramp * this.dmgMult) * weak; // höhere Wesen und Wexmoor (duo_full) schlagen zu zweit nicht schwächer
+    const dmgMult = (this.enc.practice ? 1 : ENEMY_DMG_MULT * (rage ? 1.2 : 1) * (tough0 ? ELITE_DMG_MULT : 1) * (this.duo && !this.duoFull ? DUO_DMG_MULT : 1) * (this.sweep ? SWEEP_DMG_MULT : 1) * ramp * this.dmgMult * (this.foes[this.fi]?.dmgShare ?? 1)) * weak; // höhere Wesen und Wexmoor (duo_full) schlagen zu zweit nicht schwächer
     const slowed = this.slowed;
     this.slowed = false;
     const readable = this.readNext;
@@ -1082,11 +1220,14 @@ export class Combat {
     this.round += 1;
     // DS (Eisen): jede der ersten fünf Runden schlägt eine Niete ein, mit Runde 6 springt der Ring
     if (this.rules?.minKillRound && !this.outcome) this.state.sfx?.(this.round === this.rules.minKillRound ? 's4ei_waechter_frei' : this.round < this.rules.minKillRound ? 's4ei_runde_ueberstanden' : null);
-    this.roundDmg = 0;
-    this.capped = 0;
+    for (const f of this.foes) {
+      f.roundDmg = 0;
+      f.capped = 0;
+      if (f.weakened && --f.weakened.rounds <= 0) f.weakened = null;
+      if (f.confuseLock > 0) f.confuseLock -= 1;
+    }
     for (const f of Object.values(this.fighters)) { f.bleedTick = 0; f.focusTick = 0; f.focusGain = 0; }
-    if (this.weakened && --this.weakened.rounds <= 0) this.weakened = null;
-    if (this.confuseLock > 0) this.confuseLock -= 1;
+    this.dots = [];
     // Rückzug vor einem starken Gegner: eine Runde überstanden, nach der letzten ist man weg
     if (!this.outcome && this.fleeing && --this.fleeing.left <= 0) this.outcome = 'fled';
     // BD: Gegner mit `flees_after` entziehen sich nach so vielen vollständigen Runden ohne Spielersieg (kein Sieg, keine Beute)
@@ -1124,13 +1265,18 @@ export class Combat {
     if (this.rules?.shadow) this.pickRoundSkill();
     if (this.rules?.moorwater) this.drinkMoor();
     if (this.outcome) return 0;
-    if (!this.burn) return 0;
-    this.burnTick = !!this.burn.item; // Gift aus der Flasche zählt im Ritual des Kessels
-    const dmg = this.hurtEnemy(this.burn.damage);
-    this.burnTick = false;
-    this.burn.rounds -= 1;
-    if (this.burn.rounds <= 0) this.burn = null;
-    return dmg;
+    // Brand und Gift wirken auf jeden stehenden Gegner; `dots` sagt der Oberfläche, wen es wie hart traf
+    let sum = 0;
+    for (const i of this.livingFoes()) this.withFoe(i, () => {
+      if (!this.burn || this.outcome) return;
+      this.burnTick = !!this.burn.item; // Gift aus der Flasche zählt im Ritual des Kessels
+      const dmg = this.hurtEnemy(this.burn.damage);
+      this.burnTick = false;
+      if (this.burn) { this.burn.rounds -= 1; if (this.burn.rounds <= 0) this.burn = null; }
+      if (dmg) this.dots.push({ i, dmg });
+      sum += dmg;
+    });
+    return sum;
   }
 
   /**
@@ -1157,6 +1303,7 @@ export class Combat {
    * - Übungskämpfe: Leben wie vorher, keine Folgen.
    */
   finish({ deferLoot = false, noLoot = false } = {}) {
+    this.fi = 0; // Folgen, Flaggen und Prüfungen gehören dem Anführer
     const s = this.state;
     const enc = this.enc;
     const firstFlag = `won_${this.id}`;
@@ -1183,8 +1330,23 @@ export class Combat {
         if (enc.occult) s.act('occult_win', fightMult);
         if (enc.boss) s.act('boss_win', zoneMult);
         else if (enc.elite) s.act('elite_win', zoneMult);
+        // Begleiter einer Gruppe: eigene Beute (Wiederholungstabelle) und ein Teil der Verdauung je Gegner
+        for (let i = 1; i < this.foes.length; i++) this.withFoe(i, () => {
+          s.flags.add(`won_${this.id}`);
+          const extra = noLoot ? null : this.rollLoot(false);
+          if (extra) {
+            if (!deferLoot) takeLoot(s, extra, this.enc.name);
+            loot ??= { money: 0, items: {} };
+            loot.money += extra.money;
+            for (const [id, n] of Object.entries(extra.items)) loot.items[id] = (loot.items[id] ?? 0) + n;
+          }
+          const tier = 1 + Math.max(0, (this.zoneTier ?? 1) - 1) * ZONE_DIGEST_STEP;
+          const mult = GROUP_REWARD * (this.enc.elite ? FIGHT_DIGEST_MULT.elite : 1) * tier;
+          s.act('combat_win', mult);
+          if (this.enc.occult) s.act('occult_win', mult);
+        });
       }
-      text = enc.win_text ?? `${enc.name} ist besiegt.`;
+      text = enc.win_text ?? (this.group ? 'Die ganze Gruppe ist besiegt.' : `${enc.name} ist besiegt.`);
       if (!enc.practice) { // BG: persönliche Kernzutat aus der Hüterbeute für jeden Beteiligten
         const claimed = s.claimAfterWin?.(this.id, Object.keys(this.fighters).map(Number)) ?? [];
         if (claimed.length) text += `\n\n${claimed.join('\n')}`;
@@ -1261,6 +1423,14 @@ export class Combat {
     if (this.duo && !this.swapped) this.on(2, () => this.state.seq5ExtraLoot?.(this, loot)); // Koop: auch für Spieler 2
     return loot;
   }
+}
+
+// Gegnerwerte: gehören dem gerade betroffenen Gegner (this.fi)
+for (const key of PER_FOE) {
+  Object.defineProperty(Combat.prototype, key, {
+    get() { return (this.foes[this.fi] ?? this.foes[0])[key]; },
+    set(v) { (this.foes[this.fi] ?? this.foes[0])[key] = v; },
+  });
 }
 
 // ap, shield, evading, bleed, actions, itemUsed: gehören dem gerade betroffenen Kämpfer
