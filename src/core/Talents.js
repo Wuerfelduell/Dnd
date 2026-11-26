@@ -22,7 +22,7 @@
 // Abklingzeiten und Buffs gehören jedem Spieler selbst (talentCd, buffs in Party.PERSONAL); Sichtbarkeit,
 // Furcht und die stehende Uhr gelten für die ganze Karte.
 import { DECAY_PER_LOCK } from './Wanted.js';
-import { digestSlowdown, fmtDigest, TALENT_DIGEST_PER_NERVES, TALENT_DIGEST_SPAN } from './Pathways.js';
+import { digestSlowdown, pathDigestMult, fmtDigest, TALENT_DIGEST_PER_NERVES, TALENT_DIGEST_SPAN } from './Pathways.js';
 
 /** Ab Wexmoor (Flag kapitel1_done): Schilling je Punkt `conclusion_honor` und Schlussfolgerung (Ansehen zählt dort nicht mehr). */
 export const CONCLUSION_SCHILLING = 30;
@@ -142,7 +142,7 @@ export const talentMethods = {
       const p = this.pathway;
       const before = p.digestion;
       // Fähigkeiten verdauen auf tiefen Sequenzen genauso gebremst wie Handlungen (siehe DIGEST_RATE)
-      p.digestion = Math.min(100, p.digestion + t.digest * digestSlowdown(p.seq));
+      p.digestion = Math.min(100, p.digestion + t.digest * digestSlowdown(p.seq) * pathDigestMult(p.seq)); // Pfad-Fähigkeit: ab Seq 4 dreifach
       if (p.digestion > before) { parts.push(`+${fmtDigest(p.digestion - before)} % verdaut`); this.emit('digest', { value: p.digestion, delta: p.digestion - before, kind: 'talent', player: this.acting ?? 1 }); }
       if (before < 100 && p.digestion >= 100) this.emit('digested', { ...p, player: this.acting ?? 1 });
     }
