@@ -30,10 +30,34 @@ const now = () => performance.now();
 const P2_TINT = 0x9ab8ff; // Spieler 2: gleiche Figur, kühler Mantel
 // Zu zweit stehen die Spieler versetzt: Spieler 1 vorn, Spieler 2 dahinter
 const DUO_HOMES = { 1: { x: PLAYER_X + 12, y: GROUND_Y + 10 }, 2: { x: PLAYER_X - 46, y: GROUND_Y + 20 } };
+// Gegnergruppen: Plätze je Gruppengröße (dx/dy zur gewohnten Gegnerposition), der Anführer steht vorn
+const FOE_SLOTS = {
+  1: [{ dx: 0, dy: 0 }],
+  2: [{ dx: -18, dy: 4 }, { dx: 62, dy: -8 }],
+  3: [{ dx: -28, dy: 6 }, { dx: 38, dy: -10 }, { dx: 92, dy: 8 }],
+};
 
 export class CombatScene extends Phaser.Scene {
   constructor() {
     super('combat');
+  }
+
+  /** Sprite des Gegners, für den die Kampfwerte gerade gelten (Gruppen: Ziel bzw. Angreifer). */
+  get enemy() {
+    return this.enemies?.[this.combat?.fi ?? 0] ?? this.enemies?.[0];
+  }
+
+  /** Kampf-Sheet bzw. Tönung des aktuellen Gegners. */
+  get enemySheet() {
+    return this.enemy?.foeSheet ?? null;
+  }
+
+  set enemySheet(v) {
+    if (this.enemy) this.enemy.foeSheet = v;
+  }
+
+  get enemyTint() {
+    return this.enemy?.foeTint ?? null;
   }
 
   init(data) {
@@ -41,13 +65,14 @@ export class CombatScene extends Phaser.Scene {
     this.onDone = data.onDone;
     this.deferLoot = !!data.deferLoot; // Gegner auf der Karte: Beute fällt als Behälter auf den Boden
     this.noLoot = !!data.noLoot; // BQ: Schreinwachen ohne eigene Beute
+    this.pack = data.pack ?? []; // Gegnergruppe: Begleiter des Anführers (Encounter-Ids)
     this.transformed = false;
   }
 
   create() {
     this.state = this.registry.get('state');
     this.ui = this.registry.get('ui');
-    this.combat = new Combat(this.state, this.encounterId);
+    this.combat = new Combat(this.state, this.encounterId, { pack: this.pack });
     this.phase = 'intro';
     this.leaving = false; // Szenen-Objekt wird wiederverwendet: Zustand jedes Mal zurücksetzen
     this.attack = null;
@@ -58,6 +83,7 @@ export class CombatScene extends Phaser.Scene {
     this.gfx = this.add.graphics().setDepth(50);
     // Gamepad (Spieler 2): A Takt/Aktion, X ausweichen, B parieren
     this.padHandler = (pad, button) => {
+      if ((button.index === 4 || button.index === 5) && this.cycleTarget(button.index === 5 ? 1 : -1)) return; // Gruppen: Schultertasten wechseln das Ziel
       const kind = { 0: 'confirm', 2: 'dodge', 1: 'parry' }[button.index];
       const solo2 = !this.combat.duo && this.combat.swapped; // Spieler 2 kämpft allein (Splitscreen, Solo-Prüfung): sein Gamepad gilt
       if (!kind || (!this.combat.duo && !solo2)) return;
@@ -68,7 +94,9 @@ export class CombatScene extends Phaser.Scene {
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.input.gamepad?.off('down', this.padHandler));
     this.ui.openCombat(this);
     const ward = this.combat.wardMult() < 1 ? `\n\n${this.combat.log[0]}` : ''; // Sequenz-Schranke
-    this.ui.combatMessage(this.combat.enc.intro + (this.combat.weak ? `\n\n${this.combat.enc.weak_text}` : '') + ward, 'Weiter mit E', this.combat.enc.scene);
+    const more = this.combat.foes.length - 1; // Gegnergruppe
+    const pack = more === 1 ? '\n\nNicht allein: Ein weiterer Gegner tritt dazu.' : more > 1 ? `\n\nNicht allein: ${more} weitere Gegner treten dazu.` : '';
+    this.ui.combatMessage(this.combat.enc.intro + (this.combat.weak ? `\n\n${this.combat.enc.weak_text}` : '') + ward + pack, 'Weiter mit E', this.combat.enc.scene);
     // transition_out deckt auf (Schwarz → Bild), transition_in deckt zu
     this.playTransition('transition_out', () => this.bossIntro()) || (this.cameras.main.fadeIn(250, 0, 0, 0), this.bossIntro());
   }
@@ -160,7 +188,7 @@ export class CombatScene extends Phaser.Scene {
 
   /** Treffer-Effekt am Ziel: blunt, slash, parry, dodge, critical, heal, nerves, item, miss. */
   hitFx(kind, who) {
-    const p = who === 'enemy' ? this.enemyCenter() : this.playerCenter();
+    const p = typeof who === 'number' ? this.enemyCenter(who) : who === 'enemy' ? this.enemyCenter() : this.playerCenter();
     // Paket Y: passender Klang zum Treffer
     const sound = combatSound('hit', { id: this.encounterId, kind, who }) // CM: gepolsterte Treffer im Fest-Boxring
       ?? { miss: 'verfehlt', critical: 'treffer_krit', parry: 'parade', dodge: 'ausweichen', heal: 'heilen', item: 'trank', nerves: 'nerven' }[kind]
@@ -171,14 +199,17 @@ export class CombatScene extends Phaser.Scene {
   }
 
   /** Effekt einer Pfad-Fähigkeit, am Spieler oder am Gegner. */
-  skillFx(skillId) {
+  skillFx(skillId, foes = null) {
     const def = this.combat?.skillDef(skillId);
     skillId = this.fxId(skillId);
     if (!SKILL_FX[skillId]) return;
     // Paket AG: Stufen ohne Treffer (Schutz, Heilung, Ruhe) wirken am Spieler
     const self = SELF_FX.includes(skillId) || (AG_SKILL_FX.includes(skillId) && def && !def.hits);
-    const p = self ? this.playerCenter() : this.enemyCenter();
-    this.playFx(`fx_${skillId}`, 'cast', p.x, p.y);
+    // Flächenfertigkeiten: der Effekt erscheint an jedem getroffenen Gegner
+    for (const i of self ? [null] : foes ?? [null]) {
+      const p = self ? this.playerCenter() : this.enemyCenter(i);
+      this.playFx(`fx_${skillId}`, 'cast', p.x, p.y);
+    }
   }
 
   /** Effekt-Id einer Fähigkeit: neue Fähigkeiten leihen sich bis zur eigenen Grafik einen Effekt (fx). */
@@ -267,44 +298,87 @@ export class CombatScene extends Phaser.Scene {
     }
     this.player = this.players[1];
 
-    const spr = this.combat.enc.sprite;
-    const battleSheet = [this.combat.enc.sheet, ENCOUNTER_SHEETS[this.encounterId], ENEMY_BATTLE_SHEETS[spr]].find((k) => k && this.textures.exists(k));
-    this.enemySheet = battleSheet ?? null;
+    // Gegner: einer oder eine Gruppe (Anführer vorn, Begleiter dahinter)
+    const c = this.combat;
+    const slots = FOE_SLOTS[c.foes.length] ?? FOE_SLOTS[1];
+    this.enemies = c.foes.map((f, i) => this.buildFoe(f.enc, i ? f.id : this.encounterId, ENEMY_X + slots[i].dx, GROUND_Y + 14 + slots[i].dy, i));
+    this.ritualArt = new RitualCombat(this);
+    this.events.once('shutdown', () => this.ritualArt?.destroy());
+    this.ritualArt.start();
+  }
+
+  /** Baut die Figur eines Gegners (i: Platz in der Gruppe) samt Schatten, Aura und Siegel. */
+  buildFoe(enc, encId, x, y, i) {
+    const spr = enc.sprite;
+    const battleSheet = [enc.sheet, ENCOUNTER_SHEETS[encId], ENEMY_BATTLE_SHEETS[spr]].find((k) => k && this.textures.exists(k));
+    let e;
     if (battleSheet) {
-      this.enemy = this.add.sprite(ENEMY_X, GROUND_Y + 14, battleSheet, 0).setOrigin(0.5, this.sheetOriginY(battleSheet)).setScale(1.5);
-      this.idle(this.enemy);
+      e = this.add.sprite(x, y, battleSheet, 0).setOrigin(0.5, this.sheetOriginY(battleSheet)).setScale(1.5);
     } else if (spr.startsWith('npc:')) {
       const id = spr.slice(4);
       createCharacterSheet(this, `npc_${id}`, this.state.content.npcs[id].palette);
-      this.enemy = this.add.sprite(ENEMY_X, GROUND_Y + 14, `npc_${id}`, 4).setOrigin(0.5, 1).setScale(2);
+      e = this.add.sprite(x, y, `npc_${id}`, 4).setOrigin(0.5, 1).setScale(2);
     } else {
-      this.enemy = this.add.image(ENEMY_X, GROUND_Y + 18, spr).setOrigin(0.5, 1).setScale(1.35);
-      this.tweens.add({ targets: this.enemy, y: GROUND_Y + 15, duration: 1200, yoyo: true, repeat: -1, ease: 'Sine.inOut' });
+      e = this.add.image(x, y + 4, spr).setOrigin(0.5, 1).setScale(1.35);
+      this.tweens.add({ targets: e, y: y + 1, duration: 1200, yoyo: true, repeat: -1, ease: 'Sine.inOut' });
     }
-    this.enemy.setDepth(10);
+    e.foeSheet = battleSheet ?? null;
+    e.foeIndex = i;
+    e.homeX = x;
+    e.homeY = y;
+    e.setDepth(i ? 9.5 - i * 0.1 + (y > GROUND_Y + 14 ? 0.6 : 0) : 10);
+    if (battleSheet) this.idle(e);
     // Gefahrengebiete: Platzhalter-Sheets werden getönt, Elite und Boss sind größer
-    const enc = this.combat.enc;
-    this.enemyTint = enc.elite ? 0xff9080 : enc.tint ? Number.parseInt(enc.tint.slice(1), 16) : null;
-    if (this.enemyTint !== null) this.enemy.setTint(this.enemyTint);
-    if (enc.elite || enc.boss) this.enemy.setScale(this.enemy.scaleX * (enc.boss ? 1.35 : 1.18));
-    if (battleSheet && BATTLE_SHEET_SCALE[battleSheet]) this.enemy.setScale(BATTLE_SHEET_SCALE[battleSheet]);
-    if (battleSheet && ENTER_ANIMS[battleSheet]) this.anim(this.enemy, ENTER_ANIMS[battleSheet]); // BS: Starling fährt als Sternsammler ein
-    // Paket CO: der Schwellen-/Grenzwächter trägt das Siegel des geprüften Pfades vor der Brust (eigenes Overlay, 32x32)
-    this.siegel = null;
-    if (enc.waechter && this.textures.exists('hg_siegel') && HG_PATHS.includes(enc.pathway)) {
-      this.siegel = this.add.image(this.enemy.x, this.enemy.y, 'hg_siegel', HG_PATHS.indexOf(enc.pathway)).setDepth(11).setScale(0.75);
-      this.siegelOffset = -Math.round(this.enemy.displayHeight * 0.55);
+    e.foeTint = enc.elite ? 0xff9080 : enc.tint ? Number.parseInt(enc.tint.slice(1), 16) : null;
+    if (e.foeTint !== null) e.setTint(e.foeTint);
+    if (enc.elite || enc.boss) e.setScale(e.scaleX * (enc.boss ? 1.35 : 1.18));
+    if (battleSheet && BATTLE_SHEET_SCALE[battleSheet]) e.setScale(BATTLE_SHEET_SCALE[battleSheet]);
+    if (battleSheet && ENTER_ANIMS[battleSheet]) this.anim(e, ENTER_ANIMS[battleSheet]); // BS: Starling fährt als Sternsammler ein
+    if (i === 0) {
+      // Paket CO: der Schwellen-/Grenzwächter trägt das Siegel des geprüften Pfades vor der Brust (eigenes Overlay, 32x32)
+      this.siegel = null;
+      if (enc.waechter && this.textures.exists('hg_siegel') && HG_PATHS.includes(enc.pathway)) {
+        this.siegel = this.add.image(e.x, e.y, 'hg_siegel', HG_PATHS.indexOf(enc.pathway)).setDepth(11).setScale(0.75);
+        this.siegelOffset = -Math.round(e.displayHeight * 0.55);
+      }
+      this.buildStageExtras();
     }
-    this.buildStageExtras();
-    this.ritualArt = new RitualCombat(this);
-    this.events.once('shutdown', () => this.ritualArt?.destroy());
-    this.add.ellipse(ENEMY_X, GROUND_Y + 14, 50, 10, 0x000000, 0.35).setDepth(9);
-    if (this.combat.enemy.occult) {
-      const aura = this.add.image(ENEMY_X, GROUND_Y - 30, 'glow').setScale(2.5).setTint(0x6fe0d0).setAlpha(0.25).setDepth(8);
-      aura.setBlendMode(Phaser.BlendModes.ADD);
-      this.tweens.add({ targets: aura, alpha: 0.4, duration: 900, yoyo: true, repeat: -1 });
+    e.shadow = this.add.ellipse(x, y, 50, 10, 0x000000, 0.35).setDepth(e.depth - 1);
+    if (enc.occult) {
+      e.aura = this.add.image(x, y - 44, 'glow').setScale(2.5).setTint(0x6fe0d0).setAlpha(0.25).setDepth(8);
+      e.aura.setBlendMode(Phaser.BlendModes.ADD);
+      this.tweens.add({ targets: e.aura, alpha: 0.4, duration: 900, yoyo: true, repeat: -1 });
     }
-    this.ritualArt.start();
+    // Gruppen: Gegner anklicken bzw. antippen wählt das Ziel
+    if (this.combat.group) e.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.pickTarget(i));
+    return e;
+  }
+
+  /** Gruppen: Ziel wählen (nur im Menü). */
+  pickTarget(i) {
+    if (this.phase !== 'menu' || !this.combat.setAim(i)) return;
+    this.ui.combatRefresh();
+  }
+
+  /** Gruppen: Ziel weiterschalten (Tab, Pfeiltasten, Schultertasten). */
+  cycleTarget(dir = 1) {
+    if (this.phase !== 'menu' || !this.combat.cycleAim(dir)) return false;
+    this.ui.combatRefresh();
+    return true;
+  }
+
+  /** Ein Gegner der Gruppe fällt (letzter Sieg: über(); vorher mitten im Kampf). */
+  foeDown(e) {
+    if (!e || e.downed) return;
+    e.downed = true;
+    e.disableInteractive?.();
+    const f = this.combat.foes[e.foeIndex];
+    const human = e.foeSheet ? !FADING_SHEETS.includes(e.foeSheet) : f.enc.sprite.startsWith('npc:');
+    this.sfx(combatSound('defeated', { id: f.id, sheet: e.foeSheet ?? f.enc.sprite, human }));
+    const fade = [e.shadow, e.aura].filter(Boolean);
+    if (playBattleAnim(e, 'defeated', null, e.foeSheet ?? e.texture.key)) { if (!human || this.combat.outcome !== 'won') this.tweens.add({ targets: [e, ...fade], alpha: 0, delay: 900, duration: 700 }); }
+    else this.tweens.add({ targets: [e, ...fade], alpha: 0, y: '+=10', duration: 700 });
+    if (!this.combat.outcome) this.float('Besiegt!', e.foeIndex, 'good');
   }
 
   /** BS: Kuppel-Overlay, Bodenstreifen, Sternen-HUD und Koop-Marken für Begegnungen mit eigener Bühne (ENCOUNTER_STAGE). */
@@ -365,7 +439,7 @@ export class CombatScene extends Phaser.Scene {
   /** Grund-Sheet einer Figur (Zusatz-Sheets wie Waffen oder Zauber kehren hierher zurück). */
   baseSheet(sprite) {
     if (Object.values(this.players ?? {}).includes(sprite)) return this.sheetsOf(sprite).base;
-    return this.enemySheet ?? sprite.texture.key;
+    return sprite.foeSheet ?? sprite.texture.key;
   }
 
   /**
@@ -431,13 +505,16 @@ export class CombatScene extends Phaser.Scene {
     return this.combat.duo ? `Spieler ${n}` : 'Du';
   }
 
-  enemyCenter() {
-    return { x: ENEMY_X, y: GROUND_Y - 30 };
+  /** Mitte eines Gegners (i: Platz in der Gruppe, sonst der aktuelle). */
+  enemyCenter(i = null) {
+    const e = i === null ? this.enemy : this.enemies?.[i];
+    return { x: e?.homeX ?? ENEMY_X, y: (e?.homeY ?? GROUND_Y + 14) - 44 };
   }
 
+  /** who: 'enemy' (aktueller Gegner), eine Zahl (Gegner dieses Platzes) oder sonst der Spieler im Mittelpunkt. */
   float(text, who, cls = '') {
-    if (who === 'enemy') {
-      const p = this.enemyCenter();
+    if (who === 'enemy' || typeof who === 'number') {
+      const p = this.enemyCenter(typeof who === 'number' ? who : null);
       this.ui.combatFloat(text, (p.x / VIEW_W) * 100, ((p.y - 30) / VIEW_H) * 100, cls);
       return;
     }
@@ -453,7 +530,7 @@ export class CombatScene extends Phaser.Scene {
     if (this.phase !== 'over' && !target.downed) this.anim(target, 'hurt');
     target.setTintFill(0xffffff);
     this.time.delayedCall(80, () => {
-      if (target === this.enemy && this.enemyTint !== null) target.setTint(this.enemyTint);
+      if (target.foeTint !== undefined && target.foeTint !== null) target.setTint(target.foeTint);
       else if (target.baseTint) target.setTint(target.baseTint);
       else target.clearTint();
     });
@@ -492,6 +569,7 @@ export class CombatScene extends Phaser.Scene {
   }
 
   toMenu() {
+    this.combat.focusAim(); // Gruppen: Werte und Anzeige zeigen wieder das Ziel
     this.phase = 'menu';
     this.focusPlayer(this.combat.actor);
     this.ui.combatMenu();
@@ -601,33 +679,38 @@ export class CombatScene extends Phaser.Scene {
     const r = c.useSkill(skillId, grades);
     this.ritualArt?.skill(skillId);
     this.sfx(ritualSkillSound(skillId, sk, c.rules) ?? skillSound(sk, c.on(c.actor, () => this.state.pathway?.id))); // Y: Pfadklang (Licht, Salz, Glocke, Geist, Feuer, Schwächung); DS: Schattenattacke, Faust der Maske
+    const struck = r.per.map((p) => p.i); // getroffene Gegner (Flächenfertigkeit: alle)
+    const stunNote = r.stunned ? (r.aoe ? ' Die Gegner setzen eine Runde aus.' : ` ${c.enemy.name} setzt eine Runde aus.`) : '';
     if (!sk.hits) {
       if (!this.castAnim()) this.flash(this.player);
-      this.skillFx(skillId);
+      this.skillFx(skillId, r.aoe ? struck : null);
       if (sk.heal) this.hitFx('heal', 'player');
       this.float(sk.name, 'player', isPerfectGrade(grades[0]) ? 'perfect' : 'good');
-      if (r.stunned) this.flash(this.enemy);
-      this.ui.combatMessage(`${sk.name}: ${r.effects.join(', ') || 'wirkt'}.${r.stunned ? ` ${c.enemy.name} setzt eine Runde aus.` : ''}`);
+      if (r.stunned || r.aoe) for (const i of struck) this.flash(this.enemies[i]);
+      this.ui.combatMessage(`${sk.name}: ${r.effects.join(', ') || 'wirkt'}.${stunNote}`);
       this.ui.combatRefresh();
       this.time.delayedCall(700, () => this.afterAction(c.endsTurn(skillId)));
       return;
     }
-    if (SKILL_FX[this.fxId(skillId)]) { this.castAnim(); this.skillFx(skillId); } else this.attackAnim();
+    if (SKILL_FX[this.fxId(skillId)]) { this.castAnim(); this.skillFx(skillId, r.aoe ? struck : null); } else this.attackAnim();
     const blade = c.on(c.actor, () => this.state.weapon) === 'stockdegen';
+    const main = this.enemies[r.main] ?? this.enemy;
     this.tweens.add({
-      targets: this.player, x: ENEMY_X - 50, duration: 160, yoyo: true, ease: 'Quad.out',
+      targets: this.player, x: main.homeX - 50, duration: 160, yoyo: true, ease: 'Quad.out',
       onYoyo: () => {
-        r.hits.forEach((h, i) => this.time.delayedCall(i * 140, () => {
-          this.flash(this.enemy);
-          this.hitFx(h.grade === 'miss' ? 'miss' : isPerfectGrade(h.grade) ? 'critical' : blade ? 'slash' : 'blunt', 'enemy');
-          this.float(`-${h.damage}`, 'enemy', isPerfectGrade(h.grade) ? 'crit' : 'dmg');
-        }));
-        this.cameras.main.shake(90, 0.006);
+        for (const p of r.per) {
+          p.hits.forEach((h, k) => this.time.delayedCall(k * 140, () => {
+            this.flash(this.enemies[p.i]);
+            this.hitFx(h.grade === 'miss' ? 'miss' : isPerfectGrade(h.grade) ? 'critical' : blade ? 'slash' : 'blunt', p.i);
+            this.float(`-${h.damage}`, p.i, isPerfectGrade(h.grade) ? 'crit' : 'dmg');
+          }));
+        }
+        this.cameras.main.shake(r.aoe ? 140 : 90, r.aoe ? 0.008 : 0.006);
       },
     });
     let msg = `${sk.name}: ${r.total} Schaden.`;
     if (r.effects.length) msg += ` ${r.effects.join(', ')}.`;
-    if (r.stunned) msg += ` ${c.enemy.name} ${skillId === 'blind' ? 'ist geblendet und ' : ''}setzt aus.`;
+    if (r.stunned) msg += r.aoe ? stunNote : ` ${c.enemy.name} ${skillId === 'blind' ? 'ist geblendet und ' : ''}setzt aus.`;
     if (skillId === 'blind' && r.stunMissed) msg += ' Die Blende verfehlt ihr Ziel.';
     this.ui.combatMessage(msg);
     this.ui.combatRefresh();
@@ -652,6 +735,11 @@ export class CombatScene extends Phaser.Scene {
 
   /** Paket I: Sektenoberhäupter verwandeln sich in Rage in ihre große Gestalt. Liefert die Dauer in ms. */
   transform() {
+    // Gruppen: Phasenwechsel und Verwandlung gehören dem Gegner, der sie auslöst (Verwandlung nur der stehende Anführer)
+    const c = this.combat;
+    const phased = c.foes.findIndex((f) => f.phaseNote);
+    if (phased >= 0) c.fi = phased;
+    else if (c.group) { if (c.foes[0].enemy.hp <= 0) return 0; c.fi = 0; }
     // Codex DR: Zwischenruf des Schwellenwächters (beim Echo nur, was man sieht)
     if (this.combat.rufNote && !this.combat.phaseNote) {
       const note = this.combat.rufNote;
@@ -743,7 +831,7 @@ export class CombatScene extends Phaser.Scene {
     const whom = !c.duo ? '' : atk.sweep ? ' → beide Spieler' : ` → ${this.who(c.target)}`;
     if (deaf) this.ui.combatMessage(`${c.enemy.name} holt aus. Du hörst nichts, du siehst nur die Welle.`, help);
     else this.ui.combatMessage(`${c.enemy.name}: ${atk.name}${whom}${atk.hits.length > 1 ? ` (${atk.hits.length} Schläge)` : ''}${tags ? `\n\n${tags}` : ''}${evading ? '\n\nDu weißt schon, wohin er schlägt.' : ''}`, help);
-    this.tweens.add({ targets: this.enemy, x: ENEMY_X + 8, duration: TELEGRAPH * 0.6, ease: 'Sine.out' });
+    this.tweens.add({ targets: this.enemy, x: this.enemy.homeX + 8, duration: TELEGRAPH * 0.6, ease: 'Sine.out' });
     if (atk.sweep) this.cameras.main.shake(TELEGRAPH * 0.5, 0.003); // der Boden bebt: gleich trifft es beide
     // Paket-B-Gegner haben zwei Angriffe: mehrteilige Attacken und Flächenangriffe nutzen 'special'
     if (!((atk.hits.length > 1 || atk.sweep) && this.anim(this.enemy, 'special'))) this.anim(this.enemy, 'attack');
@@ -819,7 +907,7 @@ export class CombatScene extends Phaser.Scene {
     // Wer alle Schläge pariert hat, setzt zum Gegenschlag an (Flächenangriff: jeder für sich)
     const parried = c.targets.filter((n) => !c.fighters[n].down && this.hits.every((h) => h.by[n]?.result === 'parry'));
     c.endEnemyTurn();
-    this.tweens.add({ targets: this.enemy, x: ENEMY_X, duration: 200 });
+    this.tweens.add({ targets: this.enemy, x: this.enemy.homeX, duration: 200 });
     if (parried.length && !c.outcome) {
       const dmgs = parried.map((n) => c.riposte(n));
       const total = dmgs.reduce((a, b) => a + b, 0);
@@ -830,7 +918,7 @@ export class CombatScene extends Phaser.Scene {
         this.player = spr;
         this.attackAnim(n);
         this.tweens.add({
-          targets: spr, x: ENEMY_X - 50 - i * 18, duration: 140, yoyo: true, delay: i * 160,
+          targets: spr, x: this.enemy.homeX - 50 - i * 18, duration: 140, yoyo: true, delay: i * 160,
           onYoyo: () => { this.flash(this.enemy); this.hitFx('critical', 'enemy'); this.float(`-${dmgs[i]}`, 'enemy', 'crit'); this.cameras.main.shake(120, 0.008); },
         });
       });
@@ -867,9 +955,9 @@ export class CombatScene extends Phaser.Scene {
       if (f.down) this.knockedOut(this.player);
     }
     if (dot || bleed) {
-      if (dot) { this.flash(this.enemy); this.float(`-${dot}`, 'enemy', 'dmg'); }
+      for (const d of this.combat.dots ?? []) { this.flash(this.enemies[d.i]); this.float(`-${d.dmg}`, d.i, 'dmg'); }
       this.ui.combatRefresh();
-      this.ui.combatMessage([dot ? `${this.combat.enemy.name} leidet unter Brand und Gift: ${dot} Schaden.` : '', bleed ? `${this.combat.duo ? 'Wunden bluten' : 'Deine Wunde blutet'}: ${bleed} Schaden.` : ''].filter(Boolean).join('\n\n'));
+      this.ui.combatMessage([dot ? (this.combat.dots?.length > 1 ? `Brand und Gift fressen an den Gegnern: ${dot} Schaden.` : `${this.combat.withFoe(this.combat.dots?.[0]?.i ?? this.combat.fi, () => this.combat.enemy.name)} leidet unter Brand und Gift: ${dot} Schaden.`) : '', bleed ? `${this.combat.duo ? 'Wunden bluten' : 'Deine Wunde blutet'}: ${bleed} Schaden.` : ''].filter(Boolean).join('\n\n'));
       this.time.delayedCall(700, () => (this.combat.outcome ? this.over() : this.toMenu()));
       return;
     }
@@ -881,13 +969,9 @@ export class CombatScene extends Phaser.Scene {
     const c = this.combat;
     this.sfx(combatSound('over', { id: this.encounterId, outcome: c.outcome }));
     this.registry.get('music')?.cue?.(combatCue(c.outcome, c.enc)); // Z: Bosssieg und Flucht als Ereignisstück
-    if (c.outcome === 'won') {
-      // Menschen (z. B. Holt beim Training) geben auf und bleiben stehen, Wesen vergehen.
-      const human = this.enemySheet ? !FADING_SHEETS.includes(this.enemySheet) : this.combat.enc.sprite.startsWith('npc:');
-      this.sfx(combatSound('defeated', { id: this.encounterId, sheet: this.enemySheet ?? this.combat.enc.sprite, human }));
-      if (this.anim(this.enemy, 'defeated', false)) { if (!human) this.tweens.add({ targets: this.enemy, alpha: 0, delay: 900, duration: 700 }); }
-      else this.tweens.add({ targets: this.enemy, alpha: 0, y: '+=10', duration: 700 });
-    }
+    // Menschen (z. B. Holt beim Training) geben auf und bleiben stehen, Wesen vergehen (foeDown); in Gruppen jeder, der noch stand
+    if (c.outcome === 'won') for (const e of this.enemies) this.foeDown(e);
+    c.fi = 0; // Siegesfolgen und Effekte gehören dem Anführer
     if (c.outcome === 'won') for (const n of c.standing()) playBattleAnim(this.players[n], 'victory', null, this.sheetsOf(this.players[n]).weapons);
     if (c.outcome === 'won') {
       const efx = ENCOUNTER_FX[this.encounterId];
@@ -922,6 +1006,21 @@ export class CombatScene extends Phaser.Scene {
 
   // --- Zeichnen & Timing ---------------------------------------------------------
 
+  /** Gruppen: gefallene Gegner abräumen, Zielmarke (Gold) im Menü und Takt, Angreifermarke (Rot) im Gegnerzug. */
+  drawFoeMarks(g) {
+    const c = this.combat;
+    this.enemies.forEach((e, i) => {
+      if (c.foes[i].enemy.hp <= 0 && !e.downed && this.phase !== 'over') this.foeDown(e);
+      e.shadow?.setPosition(e.x, e.homeY);
+    });
+    const mark = this.phase === 'menu' || this.phase === 'qte' ? [c.aim, 0xffd890] : this.phase === 'enemy' ? [c.fi, 0xe05050] : null;
+    const e = mark && this.enemies[mark[0]];
+    if (!e || e.downed) return;
+    const top = e.homeY - 88 + Math.sin(this.time.now * 0.008) * 2; // über dem Kopf (Sheets haben viel Leerraum, darum fest)
+    g.fillStyle(0x000000, 0.6).fillTriangle(e.homeX - 6, top - 7, e.homeX + 6, top - 7, e.homeX, top + 1);
+    g.fillStyle(mark[1], 1).fillTriangle(e.homeX - 4, top - 6, e.homeX + 4, top - 6, e.homeX, top - 1);
+  }
+
   update(time, delta) {
     // Die Spielzeit läuft im Kampf weiter (Seb 2026-11-12); nur im Pausenmenü o. Ä. steht sie
     if (this.ui.modal === 'combat' && delta > 0) this.state.tickClock(Math.min(delta, 250) / 1000);
@@ -929,8 +1028,10 @@ export class CombatScene extends Phaser.Scene {
     const g = this.gfx;
     g.clear();
     this.fog.tilePositionX += 0.15;
-    if (this.siegel && this.enemy) this.siegel.setPosition(this.enemy.x, this.enemy.y + this.siegelOffset).setAlpha(this.enemy.alpha).setVisible(this.enemy.visible);
+    const lead = this.enemies?.[0];
+    if (this.siegel && lead) this.siegel.setPosition(lead.x, lead.y + this.siegelOffset).setAlpha(lead.alpha).setVisible(lead.visible);
     if (this.stars && this.combat.round !== this.starRound) this.updateStars();
+    if (this.combat.group) this.drawFoeMarks(g);
 
     if (this.phase === 'qte' && this.qte?.bar) {
       const b = this.qte.bar;

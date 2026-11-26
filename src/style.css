@@ -209,6 +209,18 @@ button.small { font-size: 0.8em; padding: 0.1em 0.5em; }
 .cb-enemy .bar.big { width: 100%; height: 0.8em; margin-top: 0.2em; }
 .efill { height: 100%; background: #c84a4a; transition: width 0.3s ease-out; }
 .cb-tags { margin-top: 0.3em; font-size: 0.85em; }
+/* Gegnergruppen: kleine Karte je Gegner unter der großen Anzeige (Ziel golden, Angreifer rot, Gefallene grau) */
+.cb-foes { display: flex; gap: 0.3em; justify-content: flex-end; margin-top: 0.3em; pointer-events: auto; }
+.cb-foes:empty { display: none; }
+.cb-foe { display: flex; flex-direction: column; align-items: stretch; width: 5.6em; padding: 0.15em 0.3em; font-size: 0.7em; text-align: left; background: rgba(20, 22, 34, 0.85); border: 1px solid #444a60; color: #d8d0c0; cursor: pointer; position: relative; }
+.cb-foe .cb-foe-nr { position: absolute; top: -0.2em; left: -0.3em; font-weight: bold; color: #e8c070; }
+.cb-foe .cb-foe-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cb-foe .bar { display: block; height: 0.35em; margin-top: 0.15em; background: #2a2c38; }
+.cb-foe .efill { display: block; height: 100%; background: #c04040; }
+.cb-foe.aim { border-color: #ffd890; box-shadow: 0 0 0.3em rgba(255, 216, 144, 0.6); }
+.cb-foe.attacking { border-color: #e05050; }
+.cb-foe.dead { opacity: 0.4; text-decoration: line-through; cursor: default; }
+.aoe-note { color: #e8c070; }
 .cb-msg {
   position: absolute; left: 1em; top: 0.8em; width: 26em;
   background: var(--panel); border: 0.125em solid var(--brass); padding: 0.4em 0.7em; font-size: 0.9em;

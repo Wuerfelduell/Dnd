@@ -19,6 +19,13 @@ const LEASH = 2.4; // jagt bis zum Vielfachen seines Wahrnehmungsradius
 const FLEE_SPEED = 50; // Höchsttempo beim Zurückweichen (du läufst 72, holst sie also ein)
 const FLEE_RANGE = 1.3; // weicht aus, solange du näher als das Vielfache seines Wahrnehmungsradius bist
 const hex = (c) => Number.parseInt(c.slice(1), 16);
+// Gegnergruppen (Seb 2026-11-26): wer in der Nähe streift, kämpft mit (bis zu zwei Begleiter). In Gefahrengebieten
+// kommt sonst manchmal Verstärkung aus dem Nebel, gezogen aus den Gegnern derselben Karte.
+const PACK_RADIUS = 72; // Pixel um den angreifenden Gegner
+const PACK_MAX = 2; // Begleiter (core/Combat.js: MAX_FOES - 1)
+const PACK_CHANCE = 0.3; // Verstärkung, wenn niemand in der Nähe ist
+const PACK_CHANCE_SECOND = 0.35; // davon noch ein zweiter
+const solo = (enc, def = {}) => !enc || def.boss || def.bn || enc.boss || enc.benannt || enc.mittelboss || enc.min_seq || enc.flees_after || enc.waechter || enc.practice;
 
 export class Roamers {
   constructor(scene) {
@@ -348,7 +355,27 @@ export class Roamers {
 
   engage(r) {
     r.body.body.setVelocity(0, 0);
-    this.scene.startCombat(r.id, null, { roamer: r });
+    this.scene.startCombat(r.id, null, { roamer: r, pack: this.packFor(r) });
+  }
+
+  /** Begleiter für einen Kampf: nahe Gegner auf der Karte, sonst manchmal Verstärkung. Liste aus { id, roamer? }. */
+  packFor(r) {
+    if (solo(r.enc, r.def)) return [];
+    const s = this.scene;
+    const now = s.time.now;
+    const seq = this.state.pathway?.seq;
+    const near = this.list
+      .filter((o) => o !== r && o.alive && !solo(o.enc, o.def) && o.stunUntil <= now && !fearsPlayer(seq, o.def, s.mapDef)
+        && Phaser.Math.Distance.Between(o.body.x, o.body.y, r.body.x, r.body.y) <= PACK_RADIUS)
+      .sort((a, b) => Phaser.Math.Distance.Between(a.body.x, a.body.y, r.body.x, r.body.y) - Phaser.Math.Distance.Between(b.body.x, b.body.y, r.body.x, r.body.y))
+      .slice(0, PACK_MAX)
+      .map((o) => ({ id: o.id, roamer: o }));
+    if (near.length || r.elite || !r.enc.zone || Math.random() >= PACK_CHANCE) return near;
+    const encs = this.state.content.encounters;
+    const pool = (s.mapDef.roamers ?? []).filter((d) => encs[d.encounter]?.zone && !solo(encs[d.encounter], d) && this.state.sichtbar(d) && !fearsPlayer(seq, d, s.mapDef)).map((d) => d.encounter);
+    if (!pool.length) return near;
+    const pick = () => ({ id: pool[Math.floor(Math.random() * pool.length)] });
+    return Math.random() < PACK_CHANCE_SECOND ? [pick(), pick()] : [pick()];
   }
 
   /** Ergebnis eines Kampfes gegen einen Gegner auf der Karte. */

@@ -2326,7 +2326,7 @@ export class WorldScene extends Phaser.Scene {
   }
 
   /** Pausiert die Welt und startet den Kampfbildschirm. `after(result)` läuft nach dem Kampf, `roamer` ist ein Gegner auf der Karte. */
-  startCombat(id, after = null, { roamer = null, noLoot = false } = {}) {
+  startCombat(id, after = null, { roamer = null, noLoot = false, pack = [] } = {}) {
     if (this.leaving || this.scene.isActive('combat')) return;
     // Ein vorgemerkter Kampf aus einem Gespräch (z. B. Widerstand gegen die Streife) kann sich eine Nacharbeit wünschen
     if (!after && this.combatHook) { after = this.combatHook; }
@@ -2372,10 +2372,12 @@ export class WorldScene extends Phaser.Scene {
       id,
       deferLoot: !!roamer,
       noLoot,
+      pack: pack.map((p) => p.id), // Gegnergruppe: Begleiter des Anführers
       onDone: (result) => {
         this.scene.resume();
         if (other?.sys?.isPaused()) other.scene.resume();
         if (roamer) this.roamers.afterCombat(roamer, result);
+        for (const p of pack) if (p.roamer?.alive) this.roamers.afterCombat(p.roamer, { ...result, loot: null }); // Beute der Gruppe liegt beim Anführer
         this.refreshVisibility();
         if (result.travel) this.travelTo(result.travel.map, result.travel.spawn);
         after?.(result);
