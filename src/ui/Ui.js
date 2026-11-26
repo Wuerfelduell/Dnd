@@ -3142,7 +3142,7 @@ export class Ui {
       const it = s.item(l.item);
       const next = s.nextBid();
       stage = `${portrait(l.seller)}<div class="speaker">${esc(s.memberName(l.seller))} <span class="role">${esc(s.content.npcs[l.seller]?.role ?? '')}</span></div>
-        <div class="lot">${itemIconBig(l.item)}<strong>${esc(it.name)}</strong>${s.itemCount(l.item) ? ` <span class="muted">(hast ${s.itemCount(l.item)})</span>` : ''}<br><span class="desc">${esc(it.desc ?? '')}</span>${offerHtml(s, l.item)}</div>
+        <div class="lot">${itemIconBig(l.item)}<strong>${esc(it.name)}</strong>${s.itemCount(l.item) ? ` <span class="muted">(hast ${s.itemCount(l.item)})</span>` : ''}${bedarfHtml(s.pfadBedarfAlle?.(), l.item, { players: s.hasP2() })}<br><span class="desc">${esc(it.desc ?? '')}</span>${offerHtml(s, l.item)}</div>
         ${l.appraisal ? `<p class="bidline waage">${artIcon('waage_schaetzwert', 'schaetzwert', 1 / 8)}Schätzwert: <b>${l.appraisal} Sch.</b> · Ausruf: <b>${l.start ?? l.price} Sch.</b></p>` : ''}
         <p class="bidline">${l.leader && l.leader !== 'player' ? headFace(l.leader, s.memberName(l.leader)) : ''}Gebot: <b>${l.price} Sch.</b> · führt: ${who(l.leader)}</p>`;
       if (l.leader !== 'player') acts.push({ label: `${l.leader ? 'Überbieten' : 'Bieten'}: ${next} Sch.`, fn: () => s.bid(), off: s.money < next });

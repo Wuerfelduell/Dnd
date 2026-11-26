@@ -17,7 +17,15 @@ export const FRAUD_WRONG = { nerves: 15, unruhe: 10 };
 /** Aufschlag des überteuerten Loses auf den Schätzwert (ehrliche Lose starten bei 60 %). */
 export const FRAUD_MARKUP = { min: 1.8, max: 2.5 };
 
-const FORMULA_VALUE = { 9: 25, 8: 60, 7: 140, 6: 260, 5: 420, 3: 15000 };
+const FORMULA_VALUE = { 9: 25, 8: 60, 7: 140, 6: 260, 5: 420, 3: 20000 };
+/**
+ * Seb (2026-11-26): Sobald irgendein Spieler (Sp. 1 oder Sp. 2) Sequenz 4 oder höher ist, legt in JEDEM geheimen Zirkel
+ * genau ein Mitglied je Treffen eine Seq-3-Formel auf (Trank- oder Ritualformel, Pfad zufällig, der eigene Pfad beider
+ * Spieler wiegt dreifach). Ersetzt die alte 1-%-Regel. Ausrufwert 20.000: Start 12.000, Mitbieter gehen bis 15.000–29.000,
+ * meist landet sie bei 22.000–27.000. Also immer etwas günstiger als beim Gildenkrämer (30.000), dafür nicht wählbar.
+ */
+export const ZIRKEL_FORMEL3_PREIS = 20000;
+export const ZIRKEL_FORMEL3_EIGEN = 3;
 /** Seb (2026-11-12): eine Seq-3-Formel bringt beim Versteigern immer mindestens 10.000, und jemand bietet immer. */
 export const SEQ3_MIN_ERLOES = 10000;
 
@@ -89,6 +97,8 @@ export const auctionMethods = {
    * für den eigenen Pfad ist also selten (fremde lassen sich am Ende weiterversteigern).
    */
   memberLot(circleId, cycle, memberId) {
+    const f3 = this.zirkelFormel3(circleId, cycle);
+    if (f3?.member === memberId) return { item: f3.item, price: ZIRKEL_FORMEL3_PREIS };
     const mem = this.circleMembers(circleId).find((m) => m.id === memberId);
     const rng = this.sessionRng(circleId, cycle, `lot:${memberId}`);
     const pool = mem.offers.filter((e) => rng() < (e.chance ?? 1));
@@ -100,6 +110,33 @@ export const auctionMethods = {
     const weight = (e) => (/^formel_/.test(e.item) && mine.has(/^formel_(.+)_\d$/.exec(e.item)?.[1]) ? OWN_FORMULA_WEIGHT : 1);
     let roll = rng() * pool.reduce((sum, e) => sum + weight(e), 0);
     return { ...(pool.find((e) => (roll -= weight(e)) < 0) ?? pool[pool.length - 1]) };
+  },
+
+  /** Pfade beider Spieler (Koop: auch der Partner), egal wer gerade handelt. */
+  spielerPfade() {
+    const own = [this.pathway];
+    if (this.hasP2?.()) own.push(this.withPartner ? this.withPartner(() => this.pathway) : this.p2?.pathway);
+    return own.filter((p) => p?.id);
+  },
+
+  /**
+   * Die feste Seq-3-Formel dieses Treffens: { member, item } oder null. Nur wenn ein Spieler Sequenz 4 oder besser ist,
+   * nur in geheimen Zirkeln (nicht bei der Fahrenden Auktion).
+   */
+  zirkelFormel3(circleId, cycle) {
+    const circle = this.content.gatherings?.circles?.[circleId];
+    const mems = circle?.members ?? [];
+    if (!mems.length) return null;
+    const pfade = this.spielerPfade();
+    if (!pfade.some((p) => p.seq <= 4)) return null;
+    const eigen = new Set(pfade.map((p) => p.id));
+    const pool = Object.keys(this.content.pathways ?? {}).flatMap((pid) => [`formel_${pid}_3`, `ritualformel_${pid}_3`]
+      .filter((id) => this.content.items[id]).map((id) => ({ id, w: eigen.has(pid) ? ZIRKEL_FORMEL3_EIGEN : 1 })));
+    if (!pool.length) return null;
+    const rng = this.sessionRng(circleId, cycle, 'formel3');
+    const member = mems[Math.floor(rng() * mems.length)].id;
+    let roll = rng() * pool.reduce((sum, e) => sum + e.w, 0);
+    return { member, item: (pool.find((e) => (roll -= e.w) < 0) ?? pool[pool.length - 1]).id };
   },
 
   /** Das Gesuch eines Mitglieds in dieser Runde: { member, item, price } oder null. */

@@ -6,7 +6,7 @@
  * - Eine Kette „Das Herz des Viertels“: sechs Verderbnisherde, jeder stärker als der vorige, dazwischen Spuren, am Ende das Herz der
  *   Verderbnis (Boss, auf Sequenz 3 zugeschnitten). Herd 4 gibt die Kernzutat 2, das Herz die Kernzutat 1 dieses Pfades.
  * - Ein Krämer der Gilde: Grundzutaten der hohen Tränke (Nebeltau, Silberstaub; Geisteressenz nur als Beute) und die Formeln der dritten Sequenz
- *   dieses Pfades, Trank- und Ritualformel je 15.000 Schilling (Vormerkung Seb 2026-11-12: Seq-3-Formel ca. 15.000, nur dort).
+ *   dieses Pfades, Trank- und Ritualformel je 30.000 Schilling (Seb 2026-11-26; vorher 15.000).
  * - Die Viertel-Monster lassen die Grundzutaten fallen.
  * Damit liegt alles für die Tränke 3/2/1 im eigenen Viertel: Kernzutat 3 (Oberhaupt, data/seqHoch.js), 2 und 1 (diese Kette),
  * Formeln 3 (Krämer), 2 (Archiv), 1 (Inschriften), Grundzutaten (Krämer, Beute).
@@ -17,7 +17,7 @@ import { CW_GEBIETE } from './aufstieg.js';
 import { freieKachel, schlag } from './calderwickStory.js';
 import { kernzutat, ritualformel } from './seqHoch.js';
 
-export const FORMEL3_PREIS = 15000;
+export const FORMEL3_PREIS = 30000; // Seb 2026-11-26: 30.000 statt 15.000, dafür ab Seq 4 eine zufällige Seq-3-Formel je Zirkeltreffen
 // Geisteressenz bleibt marktfrei (tests/treffen.test.js: ab Seq 7 nur Treffen/Beute), sie fällt bei Viertel-Monstern und Herden
 const GRUNDZUTATEN = [['nebeltau', 30], ['silberstaub', 90]];
 const BEUTE_ZUTATEN = ['nebeltau', 'geisteressenz', 'silberstaub'];
@@ -101,7 +101,7 @@ function kraemer(content, pid, cw) {
   content.dialogues[kraemerId(pid)] = {
     start: 'start',
     nodes: {
-      start: { text: `Zwischen zwei verdorbenen Häusern hat jemand einen Stand aufgebaut, als wäre nichts. „Nebeltau und Silberstaub. Geisteressenz musst du dir aus den Monstern schneiden. Und die Formeln der dritten Sequenz für diesen Pfad, Trank und Ritual, je ${FORMEL3_PREIS.toLocaleString('de-DE')} Schilling. Billiger bekommst du sie nirgends, weil du sie sonst nirgends bekommst.“`,
+      start: { text: `Zwischen zwei verdorbenen Häusern hat jemand einen Stand aufgebaut, als wäre nichts. „Nebeltau und Silberstaub. Geisteressenz musst du dir aus den Monstern schneiden. Und die Formeln der dritten Sequenz für diesen Pfad, Trank und Ritual, je ${FORMEL3_PREIS.toLocaleString('de-DE')} Schilling. Auf den Zirkeln taucht mal eine auf, aber welche, entscheidet das Glück.“`,
         choices: [{ text: 'Waren und Preise ansehen.', shop: kraemerId(pid) }, { text: 'Für heute genug.' }] },
     },
   };

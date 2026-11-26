@@ -30,6 +30,7 @@ export const bedarfMethods = {
       if (!sd) continue;
       const brewed = this.itemCount(`trank_${p.id}_${seq}`) || this.itemCount(restTrankId(p.id, seq));
       if (!brewed) Object.entries(sd.ingredients ?? {}).forEach(([id, n], i) => add(id, n, seq, 'trank', i === 0 || /zutat/.test(id)));
+      if (!brewed && seq === 3) add(`formel_${p.id}_3`, 1, seq, 'trank'); // Seb 2026-11-26: Trankformel 3 auf Zirkeln markieren
       const r = sd.ritual;
       if (!r || this.ritualDone(p.id, seq)) continue;
       for (const [id, n] of Object.entries(r.consumes ?? {})) add(id, n, seq, 'ritual');
