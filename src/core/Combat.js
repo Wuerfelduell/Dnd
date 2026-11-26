@@ -15,7 +15,8 @@
 //   no_flee (keine Flucht), no_items (keine Gegenstände im Kampf). Lebensverlust durch Flüche tötet nie (mindestens 1 Leben).
 
 import { rollLoot, takeLoot } from './Loot.js';
-import { FIGHT_DIGEST_MULT, ZONE_DIGEST_STEP } from './Pathways.js';
+import { FIGHT_DIGEST_MULT, ZONE_DIGEST_STEP, MOOR_DIGEST } from './Pathways.js';
+export { MOOR_DIGEST };
 import { SCHATTEN_ATTACKE, PERFECT_DODGE, UHR as UHR4 } from './Seq4.js';
 import { NEBELNACHT } from './Wetter.js';
 import { narbeMult } from './Narbe.js';
@@ -225,12 +226,6 @@ export const HEAL_TARGET_PATHS = new Set(['sq_moor']);
 export const HEAL_SCALE_PATHS = new Set(['sq_moor']);
 export const HEAL_HP_PCT = 0.08;
 export const HEAL_GRADE_MULT = { meister: 1.3, perfect: 1.15 };
-/**
- * Seb (2026-11-26): Ab Seq 4 verdaut das Moor fest über seine Pfadhandlung. Jede Heilung, die wirklich Leben zurückgibt
- * (sich selbst oder den Partner), bringt `heal` Prozent; jeder Moor-Schutz, der wirklich Schaden abfängt, `shield` Prozent
- * dem, der ihn gewirkt hat. Spam-Schutz: je Kampf und Spieler höchstens `cap` Heilungen bzw. Abfänge, nicht im Übungskampf.
- */
-export const MOOR_DIGEST = { path: 'sq_moor', fromSeq: 4, heal: 0.2, shield: 0.05, cap: { heal: 5, shield: 6 } };
 /**
  * Seb (2026-11-26): Schutz-Fertigkeiten (shield, shield_all) wachsen mit dem Leben des Wirkenden mit,
  * sonst fangen sie ab Dunscar kaum einen Bruchteil eines Schlags ab. Die Datenwerte gelten bis SHIELD_HP_REF Leben
