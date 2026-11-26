@@ -517,7 +517,7 @@ function applyDunscarDichte(content) {
 }
 
 /** Seb 2026-11-12: Dunscar zahlt mehr als Wexmoor (dort Gegnergeld ×3, Kopfgelder 150–800). */
-export const DS_MONEY_MULT = 7; // Seb 2026-11-12: ×4 war zu wenig; 2026-11-13: ×10 zu viel (30.000 in 30 Min)
+export const DS_MONEY_MULT = 7 * 1.15; // Seb 2026-11-12: ×4 zu wenig; 2026-11-13: ×10 zu viel; 2026-11-26: +15 % als Ausgleich für den Händler-Fix
 export const DS_KOPFGELD_MULT = 15; // 45–80 → 675–1200 Schilling
 function applyDunscarGeld(content) {
   const loot = { ...content.loot };
