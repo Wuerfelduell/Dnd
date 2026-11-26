@@ -93,7 +93,9 @@ export function knownPeople(state) {
   for (const [id, npc] of Object.entries(content.npcs ?? {})) {
     if (leftKettlegate(state) && !Object.values(content.maps ?? {}).some((m) => (m.city ?? 'kettlegate') !== 'kettlegate' && (m.npcs ?? []).some((n) => n.id === id))) continue;
     const dlg = npc.dialogue;
-    if (!dlg || !seen.some((k) => k.startsWith(`${dlg}.`))) continue;
+    // Wegweiser-Figuren (Dunscarer Pfad-Beyonder) stehen schon drin, sobald sie irgendwo zu sehen sind
+    const sichtbar = () => npc.wegweiser && Object.values(content.maps ?? {}).some((m) => (m.npcs ?? []).some((n) => n.id === id && state.meets(n.visible_if)));
+    if (!dlg || !(seen.some((k) => k.startsWith(`${dlg}.`)) || sichtbar())) continue;
     const tree = content.dialogues?.[dlg];
     const questIds = new Set();
     for (const node of Object.values(tree?.nodes ?? {})) {

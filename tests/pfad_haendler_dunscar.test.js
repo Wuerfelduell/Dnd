@@ -105,3 +105,19 @@ test('Dunscar: Zutaten-Option immer sichtbar; unter Beziehung +2 sagt der Einzel
     assert.equal(talk(s, npc, ['Über Zutaten']).at(-1), 'ph_menu', npc);
   }
 });
+
+test('Dunscar: Einzelgänger tragen ein Schild, eigene Farben und stehen ab der Ankunft im Personen-Wegweiser', async () => {
+  const { knownPeople } = await import('../src/core/journal.js');
+  const coats = new Set();
+  for (const id of DS_PH_LONERS) {
+    const place = Object.values(content.maps).flatMap((m) => m.npcs ?? []).find((n) => n.id === id);
+    assert.ok(place.label?.startsWith(content.npcs[id].name), id);
+    assert.ok(content.npcs[id].wegweiser, id);
+    coats.add(content.npcs[id].palette.coat);
+  }
+  assert.equal(coats.size, DS_PH_LONERS.length, 'jeder sieht anders aus');
+  const s = new GameState(content);
+  assert.equal(knownPeople(s).filter((p) => DS_PH_LONERS.includes(p.id)).length, 0, 'vor Dunscar nicht');
+  s.flags.add('k3_arrived');
+  assert.equal(knownPeople(s).filter((p) => DS_PH_LONERS.includes(p.id)).length, 5);
+});
