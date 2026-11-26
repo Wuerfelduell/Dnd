@@ -3,7 +3,7 @@
 // Im Testmodus: alle Gebiete erreichbar, Monster laufen weg, Zirkel immer offen ohne Wartezeit,
 // Geschichte erledigt, Bosse aber noch am Leben (keine won_*-Flags).
 // Für Sequenz-Tests: alle Zutaten und alle Formeln (alle Pfade, alle Sequenzen) liegen immer im Inventar
-// (beider Spieler), keine Tragkraftgrenze, keine Unruhe.
+// (beider Spieler), Verdauung immer 100 %, keine Tragkraftgrenze, keine Unruhe.
 
 const TEST_ZUTATEN = 10; // so viele von jeder Zutat werden immer wieder aufgefüllt
 const TEST_FUELL_SEK = 3; // Abstand der Auffüllung in Sekunden
@@ -79,7 +79,7 @@ export const testmodusMethods = {
     this.tracked = null;
   },
 
-  /** Füllt alle Zutaten (je TEST_ZUTATEN) und alle Formeln (je 1) auf, bei beiden Spielern. Unruhe bleibt 0. */
+  /** Füllt alle Zutaten (je TEST_ZUTATEN) und alle Formeln (je 1) auf, bei beiden Spielern. Verdauung 100 %, Unruhe 0. */
   testAuffuellen() {
     if (!this.testmodus) return;
     const fuell = (inv) => {
@@ -90,6 +90,9 @@ export const testmodusMethods = {
     };
     fuell(this.inventory);
     if (this.p2?.inventory) { fuell(this.p2.inventory); this.p2.unruhe = 0; }
+    // Verdauung immer voll, bei beiden Spielern (über addDigestion, damit „vollständig verdaut“ greift)
+    if (this.pathway && this.pathway.digestion < 100) this.withPlayer(1, () => this.addDigestion(100 - this.pathway.digestion, 'test'));
+    if (this.hasP2?.() && this.p2?.pathway && this.p2.pathway.digestion < 100) this.withPlayer(2, () => this.addDigestion(100 - this.pathway.digestion, 'test'), { quiet: true });
     if (this.unruhe) { this.unruhe = 0; this.emit('unruhe', 0); }
   },
 
