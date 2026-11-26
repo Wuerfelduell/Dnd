@@ -1511,6 +1511,9 @@ export class Combat {
       loot.money = rolled.money;
       loot.items = rolled.items;
       if (first) for (const [id, n] of Object.entries(table.items ?? {})) loot.items[id] = (loot.items[id] ?? 0) + n;
+      // Koop: Geisteressenz brauchen beide, darum würfelt Spieler 2 sie noch einmal (data/zutatDrops.js applyGeistessenz)
+      const ge = this.duo && table.drops?.find((d) => d.item === 'geisteressenz');
+      if (ge && this.rng() < Math.min(1, (ge.chance ?? 1) * (nn ? NEBELNACHT.luck : 1) * grp)) loot.items.geisteressenz = (loot.items.geisteressenz ?? 0) + 1;
     }
     this.state.pfadExtraLoot?.(this, loot); // Pfad-Beyonder: Hinweis-Beute, Torfproben, Seq-4-Formel bei Eliten
     this.state.seq5ExtraLoot?.(this, loot); // violette Spinnenfäden, solange der Kokon gesucht wird

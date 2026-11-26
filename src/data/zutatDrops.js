@@ -50,3 +50,25 @@ export function applyZutatDrops(content) {
   }
   return content;
 }
+
+// Geisteressenz ab Dunscar (Seb 2026-11-26: „muss immer wieder mal droppen“). Vorher nur Viertel-Monster (20 %) und Herden in Calderwick.
+// Alle Gegner der Gebiete nach Wexmoor bekommen eine Grundchance; vorhandene höhere Chancen bleiben. Boss-Phasen (_phase2/3) zählen nicht doppelt.
+// Koop: core/Combat.js würfelt die Geisteressenz für Spieler 2 ein zweites Mal (beide brauchen sie).
+export const GEIST_ZONES = ['ds_', 'cw_', 'bh_', 'reise_landstrasse', 'o3_'];
+export const GEIST_CHANCE = { normal: 0.08, elite: 0.15, boss: 0.35 };
+
+export function applyGeistessenz(content) {
+  if (!content.items?.geisteressenz) return content;
+  for (const [id, e] of Object.entries(content.encounters)) {
+    const zone = String(e.zone ?? '');
+    if (!GEIST_ZONES.some((p) => zone.startsWith(p)) || /_phase\d+$/.test(id) || e.practice) continue;
+    const chance = GEIST_CHANCE[e.boss ? 'boss' : e.elite ? 'elite' : 'normal'];
+    const table = content.loot[id] ?? { repeat: true };
+    const drops = [...(table.drops ?? [])];
+    const i = drops.findIndex((d) => d.item === 'geisteressenz');
+    if (i < 0) drops.push({ item: 'geisteressenz', chance });
+    else if ((drops[i].chance ?? 1) < chance) drops[i] = { ...drops[i], chance };
+    content.loot[id] = { ...table, drops };
+  }
+  return content;
+}
