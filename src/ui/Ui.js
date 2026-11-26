@@ -37,6 +37,7 @@ import { installTestmodus, testPauseButton, bindTestPause, closeTestReise } from
 import { RIVALE_REGELN } from '../data/rivale.js';
 import { hatNarbe, NARBE } from '../core/Narbe.js';
 import { p2View } from '../core/Split.js';
+import { aufstiegHinweise, wichtigeOrte, wegbeschreibung, zielName } from '../data/aufstiegHinweise.js';
 
 /** Spielstand für Icons, die vom Spieler abhängen (Relikt des Verfalls: Bild nach seiner stärksten Eigenschaft, Codex DP). */
 let iconState = null;
@@ -741,6 +742,9 @@ export class Ui {
   goalText(t) {
     if (!t) return '';
     if (t.notebook) return `${t.notebook} (J)`;
+    // Calderwick (Seb 2026-11-26): kleine Wegbeschreibung zu Personen und Orten
+    const weg = t.map && t.id ? wegbeschreibung(this.state.content, t.map, t.id) : null;
+    if (weg) return `${zielName(this.state.content, t.map, t.id, t.name)} · ${weg}`;
     const where = t.map === this.state.map ? 'hier' : (this.state.content.maps[t.district]?.name ?? t.mapName);
     const text = `${t.name} · ${t.map === t.district || t.map === this.state.map ? where : `${t.mapName}, ${where}`}`;
     return t.locked ? `${text} (gesperrt, ${t.locked.how})` : text;
@@ -2200,7 +2204,9 @@ export class Ui {
       const tracked = s.tracked === id;
       const steps = active ? `<ul class="steps">${s.questSteps(id).map((x) => `<li class="${x.done ? 'done' : ''}">${x.done ? '✓' : '○'} ${esc(x.text)}</li>`).join('')}</ul>` : '';
       const t = active ? questTarget(s, id) : null;
-      const goal = active ? `<div class="qgoal">➤ ${t ? esc(this.goalText(t)) : 'Kein fester Ort bekannt'}</div>` : '';
+      const offen = active ? s.questSteps(id).find((x) => !x.done) : null;
+      const seqSchritt = active && !t && /Sequenz \d/.test(offen?.text ?? '');
+      const goal = active ? (seqSchritt ? `<div class="qgoal">➤ ${this.aufstiegHtml({ orte: false })}</div>` : `<div class="qgoal">➤ ${t ? esc(this.goalText(t)) : 'Kein fester Ort bekannt'}</div>`) : '';
       const caseLink = s.content.cases.some((c) => c.id === q.case)
         ? `<button class="small" data-quest-case="${esc(q.case)}" aria-label="${esc(q.title)}: Schlüsse ziehen">Schlüsse ziehen</button>` : '';
       return `<li class="quest ${st} ${tracked ? 'tracked' : ''}" ${active ? `data-track="${id}"` : ''}><div class="qtitle">${uiSprite('qstatus', !active ? 'q1' : tracked ? 'q6' : q.kind === 'main' ? 'q5' : 'q2', 1 / 12, 'qico')}<span class="qkind">${q.kind === 'main' ? 'Hauptfall' : 'Nebenauftrag'}</span> ${esc(q.title)} ${!active ? '<span class="badge likely">erledigt</span>' : ''}${tracked ? '<span class="badge track">verfolgt</span>' : ''}</div>
@@ -2553,6 +2559,16 @@ export class Ui {
 
   // --- Pfad, Tränke, Händler, Kessel --------------------------------------------
 
+  /** Seb 2026-11-26: Was fehlt für die nächsten Sequenzen und wo gibt es das; dazu Wegbeschreibungen in Calderwick. */
+  aufstiegHtml({ orte = true } = {}) {
+    const s = this.state;
+    if (!s.flags?.has?.('k4_arrived') && !(s.pathway?.seq <= 4)) return '';
+    const blocks = aufstiegHinweise(s).map((b) => `<div class="aufstieg"><strong>${esc(b.titel)}</strong><ul class="steps">${b.zeilen.map((z) => `<li class="${z.ok ? 'done' : ''}">${z.ok ? '✓' : '○'} ${esc(z.text)}${z.wo ? `<br><span class="muted">→ ${esc(z.wo)}</span>` : ''}</li>`).join('')}</ul></div>`).join('');
+    const o = orte && s.flags?.has?.('k4_arrived') ? wichtigeOrte(s) : [];
+    const ol = o.length ? `<h4>Wichtige Orte in Calderwick</h4><ul class="steps">${o.map((x) => `<li><strong>${esc(x.name)}</strong><br><span class="muted">${esc(x.wo)}</span></li>`).join('')}</ul>` : '';
+    return blocks || ol ? `<h4>Was du für den Aufstieg brauchst</h4>${blocks}${ol}` : '';
+  }
+
   pathwayHtml() {
     const s = this.state;
     const all = s.content.pathways;
@@ -2591,6 +2607,7 @@ export class Ui {
         <div class="meter vialm">${uiSprite('vial', `v${pctStep(s.composure / s.maxComposure(), 6)}`, 1 / 24, 'vial', 'Nerven')}<span>Nerven</span><em>${Math.round(s.composure)}/${s.maxComposure()}</em></div>
       </div>
       <p class="lead"><em>„${esc(p.principle)}“</em> ${esc(p.digest_hint)}</p>
+      ${this.aufstiegHtml()}
       <p class="muted">Jede Sequenz dieses Pfades: +${s.growth().hp} Leben, +${s.growth().nerves} Nerven, +${CARRY_PER_STEP} Pfund Tragkraft, die Durchbrüche 7 und 6 das Doppelte. Gerade: ${s.maxHp} Leben, ${s.maxComposure()} Nerven, ${esc(s.carryBreakdown())} = ${fmtLb(s.carryCapacity())} Pfund Tragkraft.</p>
       ${s.corruptionDrain().count ? `<p class="curse">Korruption: ${s.corruptionDrain().count} Stück an dir zehrt an Leben und Nerven (siehe Inventar). Bei 100 Unruhe wachsen die Tentakel erneut und treffen alles, was du dann trägst.</p>` : '<p class="muted">Bei 100 Unruhe verlierst du die Kontrolle: Tentakel korrumpieren Waffe, Kleidung und Artefakte am Leib, die dich danach Leben und Nerven kosten, solange du sie trägst.</p>'}
       ${this.buffsHtml(s)}

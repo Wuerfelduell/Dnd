@@ -42,6 +42,8 @@ import { applyDunscarKulisse } from './dunscarKulisse.js';
 import { applyBriarholtKulisse } from './briarholtKulisse.js';
 import { applyCalderwickKulisse } from './calderwickKulisse.js';
 import { applyCalderwickStadtplan } from './calderwickStadtplan.js';
+import { applyCalderwickBeute } from './calderwickBeute.js';
+import { applyCalderwickErkunden } from './calderwickErkunden.js';
 import { applyDunscarAusbau, applyDunscarStaende } from './dunscarAusbau.js';
 import { applyBenannte } from './benannte.js';
 import { applyDunscarSchlacke } from './dunscarSchlacke.js';
@@ -178,9 +180,11 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyKettlegateZirkel(content); // Kettlegater Zirkel: nur Zutaten 7/6, Formeln, Artefakte; keine Trophäen-Gesuche (zuletzt)
   applyNebelnacht(content); // Nebelnächte: Nebelkrämerin auf dem Markt jeder Stadt (nach allen Kulissen)
   applyCalderwickStadtplan(content); // Calderwick: eigene Stadtpläne je Terrasse (Häuser, Gassen, Plätze), Objekte an sinnvollen Stellen
+  applyCalderwickErkunden(content); // Calderwick: Verstecke mit Wächtern, verbrannte Briefe, zwei Nebenaufträge
   applyCalderwickKulisse(content); // Calderwick: Häuser, Möbelblöcke, Fassaden, Rohrpost, Laternen, Licht und Nebel; Pfadviertel mit Verderbnis-Glimmen
   applyCalderwickZirkel(content); // Calderwick: eigene Zirkel (Bleisatz: Waffen/Rüstungen, Pfandrunde: Artefakte), Aufnahme über Bürgen
   applyGeistessenz(content); // Geisteressenz ab Dunscar: jeder Gegner 8 %, Elite 15 %, Boss 35 % (nach allen Beute-Umbauten)
+  applyCalderwickBeute(content); // Seb 2026-11-26: Calderwicker Gegner mit eigenem Fund-Topf (Zutaten 4/3, Kleidung, Waffen, Artefakte)
   applySpaetBeute(content); // Trophäen Kapitel 4/5 ×15 (Kauf und Verkauf, nach allen Händlern)
   applyGegnerlebenSpaet(content); // Seb 2026-11-26: Calderwick 10–25k, Briarholt 15–35k Leben (Koop), Schaden ×1,3
   applyPendelzugPlatz(content); // Seb 2026-11-26: Pendelzug Dunscar ↔ Calderwick gut sichtbar (nach allen Kulissen)
