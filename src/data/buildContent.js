@@ -41,6 +41,7 @@ import { applyDunscarHaendler } from './dunscarHaendler.js';
 import { applyDunscarKulisse } from './dunscarKulisse.js';
 import { applyBriarholtKulisse } from './briarholtKulisse.js';
 import { applyCalderwickKulisse } from './calderwickKulisse.js';
+import { applyCalderwickStadtplan } from './calderwickStadtplan.js';
 import { applyDunscarAusbau, applyDunscarStaende } from './dunscarAusbau.js';
 import { applyBenannte } from './benannte.js';
 import { applyDunscarSchlacke } from './dunscarSchlacke.js';
@@ -176,6 +177,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyMarloweTelegramm(content); // Tipps nur von Marlowe: Telegrammschalter in jeder späteren Stadt
   applyKettlegateZirkel(content); // Kettlegater Zirkel: nur Zutaten 7/6, Formeln, Artefakte; keine Trophäen-Gesuche (zuletzt)
   applyNebelnacht(content); // Nebelnächte: Nebelkrämerin auf dem Markt jeder Stadt (nach allen Kulissen)
+  applyCalderwickStadtplan(content); // Calderwick: eigene Stadtpläne je Terrasse (Häuser, Gassen, Plätze), Objekte an sinnvollen Stellen
   applyCalderwickKulisse(content); // Calderwick: Häuser, Möbelblöcke, Fassaden, Rohrpost, Laternen, Licht und Nebel; Pfadviertel mit Verderbnis-Glimmen
   applyCalderwickZirkel(content); // Calderwick: eigene Zirkel (Bleisatz: Waffen/Rüstungen, Pfandrunde: Artefakte), Aufnahme über Bürgen
   applyGeistessenz(content); // Geisteressenz ab Dunscar: jeder Gegner 8 %, Elite 15 %, Boss 35 % (nach allen Beute-Umbauten)

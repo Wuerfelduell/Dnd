@@ -39,17 +39,17 @@ const TUERKIS = '#6fe0d0';
 const L = { licht: LAMPE, lampe: true }; // Straßenlaterne (lamp_lit, 16x48)
 /** Terrassen: Dach, Rohrpost (0 = keine, 1 = normal, 2 = dicht), Streu, Requisiten [Sprite, Anzahl, { licht, fest, lampe }]. */
 const TERRASSEN = {
-  cw_gleisfuss: { dach: 'bhd_schiefer', rohr: 0, streu: [['gleis', 21, 0.012], ['gleis', 22, 0.006]],
+  cw_gleisfuss: { dach: 'bhd_schiefer', rohr: 0, streu: [['gleis', 21, 0.004]],
     req: [['lamp_lit', 4, L], ['cwp_gleisfuss_stationsschild_3', 1, { fest: true }]] },
-  cw_setzergasse: { dach: 'bhd_ziegel', rohr: 1, streu: [['', T.rinne, 0.01]],
+  cw_setzergasse: { dach: 'bhd_ziegel', rohr: 1, streu: [['', T.rinne, 0.004]],
     req: [['lamp_lit', 4, L], ['cwp_setzergasse_papierballen', 2, { fest: true }], ['cwp_setzergasse_brotdose', 1, {}]] },
-  cw_quittungsmarkt: { dach: 'bhd_kupfer', rohr: 1, streu: [['', T.rinne, 0.012]],
+  cw_quittungsmarkt: { dach: 'bhd_kupfer', rohr: 1, streu: [['', T.rinne, 0.004]],
     req: [['lamp_lit', 4, L], ['cwp_quittungsmarkt_herkunftskiste', 2, { fest: true }], ['cwp_buchbinderei_kiste', 2, { fest: true }]] },
-  cw_roehrenhof: { dach: 'bhd_schiefer', rohr: 2, streu: [['', T.klappe, 0.006], ['', T.rinne, 0.008]],
+  cw_roehrenhof: { dach: 'bhd_schiefer', rohr: 2, streu: [['', T.klappe, 0.003], ['', T.rinne, 0.003]],
     req: [['lamp_lit', 4, L], ['cwp_roehrenhof_rohrpost', 2, { fest: true }], ['cwp_buchbinderei_kiste', 1, { fest: true }]] },
-  cw_witwenterrasse: { dach: 'bhd_ziegel', rohr: 1, streu: [['', T.beet_trocken, 0.012]],
+  cw_witwenterrasse: { dach: 'bhd_ziegel', rohr: 1, streu: [['', T.beet_trocken, 0.005]],
     req: [['lamp_lit', 3, L], ['cwp_witwenterrasse_waescheleine', 2, { fest: true }], ['cwp_witwenterrasse_heizungsrohr', 1, { fest: true }]] },
-  cw_kronenarchiv: { dach: 'bhd_kupfer', rohr: 1, streu: [['', T.rinne, 0.008]],
+  cw_kronenarchiv: { dach: 'bhd_kupfer', rohr: 1, streu: [['', T.rinne, 0.003]],
     req: [['lamp_lit', 6, L], ['cwp_kronenarchiv_statue', 2, { fest: true }]] },
 };
 /** Innenräume und Gefahrengebiete: zusätzliche Requisiten. */

@@ -169,7 +169,7 @@ const THEMES = {
   })])),
   // Paket CE1 (Calderwick): Terrassenpflaster mit Gully und trockenem Beet, Druckerei mit verstreuten Lettern, Amt, Blechgang, Teppich, Küche, Nullfundament
   ...Object.fromEntries(CW_THEME_KEYS.map((t) => [t, dsTheme(t, {
-    mix: { cw_terrasse: [['wet', 0.03], ['debris', 0.02]], cw_gleis: [], cw_druckerei: [['debris', 0.08]], cw_amt: [['wear', 0.05]], cw_sortierhalle: [['debris', 0.08], ['wear', 0.03]],
+    mix: { cw_terrasse: [['wet', 0.006], ['debris', 0.01]], cw_gleis: [], cw_druckerei: [['debris', 0.08]], cw_amt: [['wear', 0.05]], cw_sortierhalle: [['debris', 0.08], ['wear', 0.03]],
       cw_archivsaal: [['edge', 0.1]], cw_kueche: [['wear', 0.08]], cw_fundament: [['debris', 0.1]] }[t],
     accent: 'window',
     cap: true,
