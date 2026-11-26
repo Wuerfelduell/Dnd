@@ -99,8 +99,9 @@ export class KettlegateLife {
     if (!pool.length || !ensureFrames(s, KGL_KEYS.wetter, KGL_WETTER)) return;
     const r = this.roll();
     // Nebel: dünn oder dicht sind Alternativen (dicht eher nachts), nie beide
-    const dicht = pool.includes('kgl_nebel_dicht') && r.fog < (night ? 0.5 : 0.3);
-    const duenn = !dicht && pool.includes('kgl_nebel_duenn') && r.fog < 0.8;
+    const w = s.state.wetter?.(); // Wetterzyklus (core/Wetter.js): Nebel dicht bei Nebel, sonst dünn nach Zufall, bei klarem Wetter keiner
+    const dicht = pool.includes('kgl_nebel_dicht') && (w ? w === 'nebel' : r.fog < (night ? 0.5 : 0.3));
+    const duenn = !dicht && pool.includes('kgl_nebel_duenn') && w !== 'klar' && r.fog < 0.8;
     if (dicht || duenn) {
       for (const [i, speed] of (dicht ? [5, -3] : [4]).entries()) {
         const t = s.add.tileSprite(0, 0, VIEW_W, VIEW_H, KGL_KEYS.wetter, 'kgl_nebel_dicht_0').setOrigin(0).setScrollFactor(0)
@@ -113,8 +114,10 @@ export class KettlegateLife {
     }
     // Niederschlag: Niesel (mit Pfützen) oder Rußschnee, nur wo die Karte kein eigenes Wetter hat
     const own = s.mapDef.weather ?? MAP_WEATHER[s.mapDef.id];
-    const kinds = ['kgl_nieselregen', 'kgl_russschnee'].filter((k) => pool.includes(k));
-    if (!own && kinds.length && r.rain < 0.45) {
+    // Wetterzyklus: Niesel bei Regen und Sturm, Rußschnee bei Frost
+    const want = !w ? null : w === 'regen' || w === 'sturm' ? 'kgl_nieselregen' : w === 'frost' ? 'kgl_russschnee' : 'keins';
+    const kinds = ['kgl_nieselregen', 'kgl_russschnee'].filter((k) => pool.includes(k) && (!want || k === want));
+    if (!own && kinds.length && (want ? true : r.rain < 0.45)) {
       const kind = kinds[Math.floor(r.kind * kinds.length)];
       for (let gy = 0; gy < Math.ceil(VIEW_H / 64); gy++) {
         for (let gx = 0; gx < Math.ceil(VIEW_W / 64); gx++) {

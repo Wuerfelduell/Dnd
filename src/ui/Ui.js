@@ -32,6 +32,7 @@ import { RITUAL_ART, artCss } from '../world/ritualArt.js';
 import { isSolved, knownPeople, journalQuestVisible } from '../core/journal.js';
 import { canHurry, hurryCost, travelSafe, travelFast, afterHurryFight, travelDestinations, cityOf } from '../core/Travel.js';
 import { questTarget, leadTarget, personPlaces, advice } from '../core/Guide.js';
+import { WETTER, NEBELNACHT, SEASON_NAMES } from '../core/Wetter.js';
 import { installTestmodus, testPauseButton, bindTestPause, closeTestReise } from './TestUi.js';
 import { hatNarbe, NARBE } from '../core/Narbe.js';
 
@@ -397,6 +398,7 @@ export class Ui {
       <div class="hud">
         <div class="hud-left">
           <div class="place"></div>
+          <div class="wetter"></div>
           <div class="meter life"><span>Leben</span><div class="bar"><div class="lfill"></div></div><em class="hpnum"></em></div>
           <div class="meter"><span>Nerven</span><div class="bar"><div class="fill"></div></div></div>
           <div class="meter honor"><span class="rank"></span><div class="bar"><div class="hfill"></div></div><span class="repbar"></span></div>
@@ -425,6 +427,7 @@ export class Ui {
             <div class="p2load hidden"></div>
           </div>
         </div>
+        <div class="uhr"></div>
         <div class="vision-tag">Geistsicht</div>
         <div class="talentbar hidden" data-tbar="1"></div>
         <div class="talentbar p2 hidden" data-tbar="2"></div>
@@ -529,7 +532,7 @@ export class Ui {
       if (this.modal === 'combat') return;
       this.toast(text, open ? 'gold' : 'warn');
     });
-    this.gatheringTimer = setInterval(() => this.updateGathering(), 1000);
+    this.gatheringTimer = setInterval(() => { this.updateGathering(); this.updateUhr(); }, 1000);
     state.on('ascend', () => { this.updateUnruhe(); this.updateHp(); });
     state.on('lostcontrol', ({ text, player = 1, corrupted = [] }) => {
       this.updateHp();
@@ -659,11 +662,38 @@ export class Ui {
       .catch(() => {});
   }
 
+  /** Kleine Uhr oben in der Bildmitte (Seb 2026-11-26): Uhrzeit des Spieltags, Jahreszeit und Tag, Wettersymbol. */
+  updateUhr() {
+    const el = this.$('.uhr');
+    const s = this.state;
+    if (!el || !s.uhrzeit) return;
+    const { h, m } = s.uhrzeit();
+    const nn = s.nebelnacht();
+    const w = WETTER[nn ? 'nebel' : s.wetter()];
+    const html = `<span class="zeit">${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}</span> <span>${w.icon}</span> <div class="sub"><span>${SEASON_NAMES[s.season()] ?? ''}</span> · <span>Tag ${s.seasonDay()}</span></div>`;
+    if (html !== this.uhrHtml) { this.uhrHtml = html; el.innerHTML = html; }
+    el.classList.toggle('nacht', s.isNight());
+    el.classList.toggle('nebelnacht', nn);
+  }
+
+  /** Tag/Nacht und Wetter (core/Wetter.js) unter dem Ortsnamen; Wirkung im Kampf als Tooltip. */
+  updateWetter() {
+    const el = this.$('.wetter');
+    const s = this.state;
+    if (!el || !s.wetterHud) return;
+    const nn = s.nebelnacht();
+    const w = WETTER[nn ? 'nebel' : s.wetter()];
+    el.innerHTML = nn ? `<span>${w.icon}</span> <span>Nebelnacht</span>` : `<span>${s.isNight() ? 'Nacht' : 'Tag'}</span> · <span>${w.icon}</span> <span>${w.name}</span>`; // einzelne Wörter für das Wörterbuch
+    el.classList.toggle('nebelnacht', nn);
+    el.title = nn ? NEBELNACHT.wirkung : WETTER[s.wetter()].wirkung;
+  }
+
   onSceneReady(scene) {
     this.scene = scene;
     const map = this.state.content.maps[this.state.map];
     this.$('.place').innerHTML = map.danger ? `${dangerIcon(map.danger)}${esc(map.name)} · Gefahr ${'☠'.repeat(map.danger)}` : esc(map.name);
     this.$('.place').classList.toggle('danger', !!map.danger);
+    this.updateWetter();
     if (map.danger && this.lastZone !== map.id) this.zoneBanner(map);
     this.lastZone = map.danger ? map.id : null;
     this.updateHonor();

@@ -69,10 +69,13 @@ const RAIN_MAPS = ['wx_bahnhof', 'wx_torfstich', 'wx_pfahldorf', 'wx_torfbrueche
  * CM: zweite Schleife neben der Ortsatmo, für Wetter und Feste. ctx: { mapId, outdoor, season, fest, city }.
  * Nur eine Wetterlage zugleich; drinnen schweigt sie.
  */
-export function weatherLoop({ mapId = '', outdoor = false, season = null, fest = null } = {}) {
+export function weatherLoop({ mapId = '', outdoor = false, season = null, fest = null, wetter = null } = {}) {
   if (fest && FEST_CROWD.includes(mapId)) return 'fest_menge';
   if (fest && FEST_LAUGH.includes(mapId)) return 'fest_lachen';
   if (!outdoor) return null;
+  if (wetter === 'regen' || wetter === 'sturm') return 'atmo_regen'; // Wetterzyklus (core/Wetter.js)
+  if (wetter === 'frost') return 'saison_schnee';
+  if (wetter === 'klar' && RAIN_MAPS.includes(mapId)) return null;
   if (RAIN_MAPS.includes(mapId)) return 'atmo_regen';
   if (season === 'winter') return 'saison_schnee';
   if (season === 'sommer' && /^(ds_|cw_)/.test(mapId)) return 'saison_hitze';
