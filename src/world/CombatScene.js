@@ -12,6 +12,7 @@ import { koopBark, koopStartEvent } from '../core/Koop.js';
 import { combatSound, skillSound, ritualSkillSound, kesselWurfSound } from '../core/sounds.js';
 import { combatCue } from '../core/musicCues.js';
 import { speechBubble } from './WexmoorLife.js';
+import { p2View } from '../core/Split.js';
 
 // Kampfbildschirm in Seitenansicht: Spieler links, Gegner rechts, Bodenstreifen unten.
 // Die Regeln stecken in core/Combat.js, hier nur Timing, Eingabe und Animation.
@@ -65,14 +66,20 @@ export class CombatScene extends Phaser.Scene {
     this.onDone = data.onDone;
     this.deferLoot = !!data.deferLoot; // Gegner auf der Karte: Beute fällt als Behälter auf den Boden
     this.noLoot = !!data.noLoot; // BQ: Schreinwachen ohne eigene Beute
+    this.splitHalf = data.splitHalf ?? 0; // Splitscreen im Pfadviertel: Kampf nur in der Hälfte dieses Spielers (1 links, 2 rechts)
     this.pack = data.pack ?? []; // Gegnergruppe: Begleiter des Anführers (Encounter-Ids)
     this.transformed = false;
   }
 
   create() {
-    this.state = this.registry.get('state');
+    this.realState = this.registry.get('state');
+    // Splitscreen: Spieler 2 kämpft auf seiner eigenen Sicht (kein Tausch), damit Spieler 1 links weiterspielen kann
+    this.state = this.splitHalf === 2 ? p2View(this.realState) : this.realState;
     this.ui = this.registry.get('ui');
     this.combat = new Combat(this.state, this.encounterId, { pack: this.pack });
+    // Die ganze Kampfbühne verkleinert in der eigenen Bildhälfte; die andere Hälfte läuft weiter
+    if (this.splitHalf) this.cameras.main.setViewport(this.splitHalf === 2 ? VIEW_W / 2 : 0, 0, VIEW_W / 2, VIEW_H).setZoom(0.5).centerOn(VIEW_W / 2, VIEW_H / 2).setBackgroundColor('#040408');
+    else this.cameras.main.setViewport(0, 0, VIEW_W, VIEW_H).setZoom(1).centerOn(VIEW_W / 2, VIEW_H / 2).setBackgroundColor('rgba(0,0,0,0)');
     this.phase = 'intro';
     this.leaving = false; // Szenen-Objekt wird wiederverwendet: Zustand jedes Mal zurücksetzen
     this.attack = null;
@@ -85,7 +92,7 @@ export class CombatScene extends Phaser.Scene {
     this.padHandler = (pad, button) => {
       if ((button.index === 4 || button.index === 5) && this.cycleTarget(button.index === 5 ? 1 : -1)) return; // Gruppen: Schultertasten wechseln das Ziel
       const kind = { 0: 'confirm', 2: 'dodge', 1: 'parry' }[button.index];
-      const solo2 = !this.combat.duo && this.combat.swapped; // Spieler 2 kämpft allein (Splitscreen, Solo-Prüfung): sein Gamepad gilt
+      const solo2 = !this.combat.duo && this.combat.alsP2; // Spieler 2 kämpft allein (Splitscreen, Solo-Prüfung): sein Gamepad gilt
       if (!kind || (!this.combat.duo && !solo2)) return;
       if (this.phase === 'menu' && kind === 'confirm' && (this.combat.actor === 2 || solo2)) { this.ui.combatPadPick?.(); return; }
       this.onKey(kind, solo2 ? 1 : 2);
@@ -642,7 +649,7 @@ export class CombatScene extends Phaser.Scene {
     const precise = isPrecise(sk);
     // `window` in den Fertigkeitsdaten vergrößert das ganze Fenster (Gold + Silber), z. B. Kehlschnitt 1.1
     this.qte = { skillId, grades: [], total: bars, bar: null, precise, win: sk.window || 1 };
-    const keys = !this.combat.duo ? (this.combat.swapped ? 'Enter oder E' : 'E oder Leertaste') : this.combat.actor === 2 ? 'Enter (Gamepad A)' : 'E oder Leertaste';
+    const keys = !this.combat.duo ? (this.combat.alsP2 ? (this.splitHalf ? 'Enter' : 'Enter oder E') : 'E oder Leertaste') : this.combat.actor === 2 ? 'Enter (Gamepad A)' : 'E oder Leertaste';
     this.ui.combatMessage(`${this.combat.duo ? `${this.who(this.combat.actor)}, ` : ''}${sk.name}: Drücke ${keys}, wenn der Zeiger im goldenen Bereich ist, im roten Kern trifft es meisterhaft.${precise ? ` Nur ein präziser Treffer ${sk.stun ? 'betäubt' : 'entfaltet die volle Wucht'}.` : ''}`);
     this.nextBar();
   }
@@ -832,7 +839,7 @@ export class CombatScene extends Phaser.Scene {
     const dodge = (n) => c.on(n, () => c.dodgeCost());
     const help1 = `Spieler 1 · Leertaste: ausweichen (${dodge(1)} Nerven) · F: parieren`;
     const help2 = `Spieler 2 · ←: ausweichen (${dodge(2)} Nerven) · →: parieren (Gamepad X / B)`;
-    const help = !c.duo ? (c.swapped ? `Leertaste oder ←: ausweichen (${dodge(1)} Nerven) · F oder →: parieren` : `Leertaste: ausweichen (${dodge(1)} Nerven) · F: parieren`)
+    const help = !c.duo ? (c.alsP2 ? (this.splitHalf ? `←: ausweichen (${dodge(1)} Nerven) · →: parieren` : `Leertaste oder ←: ausweichen (${dodge(1)} Nerven) · F oder →: parieren`) : `Leertaste: ausweichen (${dodge(1)} Nerven) · F: parieren`)
       : atk.sweep ? `${help1}\n${help2}` : c.target === 2 ? help2 : help1;
     const whom = !c.duo ? '' : atk.sweep ? ' → beide Spieler' : ` → ${this.who(c.target)}`;
     if (deaf) this.ui.combatMessage(`${c.enemy.name} holt aus. Du hörst nichts, du siehst nur die Welle.`, help);

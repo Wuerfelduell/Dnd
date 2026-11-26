@@ -115,3 +115,26 @@ test('Splitscreen nur in Pfadvierteln: wer hineingeht, teilt das Bild; sind beid
   assert.equal(s.p2.map, 'cw_gleisfuss');
   assert.deepEqual(s.p2.position, [40, 50]);
 });
+
+test('Splitscreen-Kampf in der eigenen Hälfte: Spieler 2 kämpft auf seiner Sicht, ohne Tausch, Spieler 1 bleibt unberührt', () => {
+  const s = duo();
+  s.flags.add('k4_arrived');
+  s.map = 'o3_eisen';
+  s.splitTick();
+  s.p2.map = 'o3_laterne';
+  s.combatBy = 2;
+  const c = new Combat(p2View(s), 'o3_laterne_g1');
+  assert.equal(c.duo, false);
+  assert.equal(c.swapped, false, 'kein Tausch: Spieler 1 spielt links weiter');
+  assert.equal(c.alsP2, true);
+  assert.equal(s.pathway.id, 'eisen');
+  assert.equal(s.map, 'o3_eisen');
+  s.splitKampf = 2;
+  s.p2.map = 'cw_gleisfuss';
+  assert.equal(s.splitTick(), false, 'während des Kampfes bleibt das Bild geteilt');
+  s.splitKampf = 0;
+  c.outcome = 'won';
+  c.finish();
+  assert.equal(s.pathway.id, 'eisen');
+  assert.equal(s.map, 'o3_eisen');
+});
