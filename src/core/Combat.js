@@ -1404,6 +1404,8 @@ export class Combat {
     if (hg) text += `\n\n${hg}`;
     const hoch = s.hochCombatEnd?.(this); // Seq 3 bis 1 (core/SeqHoch.js) und Spuren zum Ort
     if (hoch) text += `\n\n${hoch}`;
+    const rivale = s.rivaleKampfEnde?.(this); // Rivale auf dem eigenen Pfad (core/Rivale.js)
+    if (rivale) text += `\n\n${rivale}`;
     const hoch2 = this.duo && !this.swapped ? this.on(2, () => s.hochCombatEnd?.(this, { bystander: true })) : null;
     if (hoch2) text += `\n\nSpieler 2: ${hoch2}`;
     const ph = s.pfadCombatEnd?.(this); // Pfad-Beyonder (core/PfadHandel.js)

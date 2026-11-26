@@ -34,6 +34,7 @@ import { canHurry, hurryCost, travelSafe, travelFast, afterHurryFight, travelDes
 import { questTarget, leadTarget, personPlaces, advice } from '../core/Guide.js';
 import { WETTER, NEBELNACHT, SEASON_NAMES } from '../core/Wetter.js';
 import { installTestmodus, testPauseButton, bindTestPause, closeTestReise } from './TestUi.js';
+import { RIVALE_REGELN } from '../data/rivale.js';
 import { hatNarbe, NARBE } from '../core/Narbe.js';
 
 /** Spielstand für Icons, die vom Spieler abhängen (Relikt des Verfalls: Bild nach seiner stärksten Eigenschaft, Codex DP). */
@@ -2481,6 +2482,7 @@ export class Ui {
       ${s.corruptionDrain().count ? `<p class="curse">Korruption: ${s.corruptionDrain().count} Stück an dir zehrt an Leben und Nerven (siehe Inventar). Bei 100 Unruhe wachsen die Tentakel erneut und treffen alles, was du dann trägst.</p>` : '<p class="muted">Bei 100 Unruhe verlierst du die Kontrolle: Tentakel korrumpieren Waffe, Kleidung und Artefakte am Leib, die dich danach Leben und Nerven kosten, solange du sie trägst.</p>'}
       ${this.buffsHtml(s)}
       ${this.mackenHtml(s)}
+      ${this.rivaleHtml(s)}
       ${this.formHtml(s)}
       ${this.narbeHtml(s)}
       ${this.ritualHtml()}
@@ -2496,6 +2498,50 @@ export class Ui {
     const list = s.mackenList?.() ?? [];
     if (!list.length) return '';
     return `<h4>Bleibende Macken</h4><ul class="steps">${list.map((m) => `<li><strong>${esc(m.name)}</strong>: ${esc(m.text)} <span class="muted">${m.effects.map((e) => esc(e.text)).join(' ')}</span></li>`).join('')}</ul>`;
+  }
+
+  /** Rivale auf dem eigenen Pfad (core/Rivale.js): Stand im Pfad-Tab. */
+  rivaleHtml(s) {
+    const r0 = s.rivaleUebersicht?.();
+    const list = r0 ? [r0] : [];
+    if (!list.length) return '';
+    const status = { rivale: 'Rivale', ruht: 'Hält sich zurück', verbuendet: 'Verbündet' };
+    return `<h4>Rivale auf deinem Pfad</h4><ul class="steps">${list.map((r) => (r.getroffen
+      ? `<li><strong>${esc(r.name)}</strong> · <span>Sequenz ${r.seq}</span> · <span class="badge ${r.status === 'verbuendet' ? 'likely' : ''}">${esc(status[r.status])}</span><br><span class="muted">Siege: ${r.siege}, Niederlagen: ${r.niederlagen}</span></li>`
+      : '<li class="muted">Noch nicht begegnet. Ab Wexmoor geht jemand denselben Pfad wie du.</li>')).join('')}</ul>`;
+  }
+
+  /** Rivale auf dem eigenen Pfad: Begegnung auf der Straße oder einem Treffen (Kämpfen, Bestehlen, Bündnis, Weitergehen). */
+  openRivale(nr, treffen = false) {
+    const s = this.state;
+    const lage = s.rivaleTreffen?.(nr, { treffen });
+    if (!lage) return;
+    const labels = { kampf: 'Kämpfen', stehlen: 'Bestehlen', buendnis: 'Bündnis anbieten', gehen: 'Weitergehen' };
+    const siege = s.rivalen?.[`p${nr}`]?.siege ?? 0;
+    const notes = {
+      stehlen: lage.stehlChance ? `Chance: ${Math.round(lage.stehlChance * 100)} %` : '',
+      buendnis: siege < RIVALE_REGELN.buendnis_siege ? `Ab ${RIVALE_REGELN.buendnis_siege} Siegen` : '',
+    };
+    this.rivaleUi = { nr, name: lage.name, optionen: lage.optionen };
+    this.sfx(uiSound('dialogue', 'dialog'), { volume: 0.7 });
+    const el = this.open('rivale', `
+      <div class="speaker">${esc(lage.name)} ${s.hasP2() ? `<span class="role">Spieler ${nr}</span> ` : ''}<span class="role">Rivale auf deinem Pfad · </span><span class="role">Sequenz ${lage.seq}</span></div>
+      <div class="text">${paragraphs(lage.text)}</div>
+      ${lage.beute ? `<div class="footer">${esc(lage.beute)}</div>` : ''}
+      <ol class="choices">${lage.optionen.map((o, i) => `<li><button data-rv="${i}"><span class="key">${i + 1}</span> ${esc(labels[o])}${notes[o] ? `<span class="lockinfo note">${esc(notes[o])}</span>` : ''}</button></li>`).join('')}</ol>`, 'dialogue');
+    el.querySelectorAll('[data-rv]').forEach((b) => { b.onclick = () => this.rivalePick(Number(b.dataset.rv)); });
+  }
+
+  rivalePick(i) {
+    const ui = this.rivaleUi;
+    const o = ui?.optionen?.[i];
+    if (!o) return;
+    const s = this.state;
+    this.rivaleUi = null;
+    if (o === 'gehen') { this.close(); return; }
+    if (o === 'kampf') { s.rivaleKampf(ui.nr); this.close(); return; } // der Kampf startet, sobald das Fenster zu ist
+    const r = o === 'stehlen' ? s.rivaleStehlen(ui.nr) : s.rivaleBuendnis(ui.nr);
+    this.showMessage(ui.name, r.text, { footer: r.beute ?? (r.fight ? 'Ein Kampf steht bevor.' : '') });
   }
 
   /** Häkchen-Knopf: Kampffertigkeit im Kampfmenü zeigen oder ausblenden (gegen eine zu volle Kampfleiste). */
@@ -2891,13 +2937,15 @@ export class Ui {
     if (!m) throw new Error(`Händler fehlt: ${merchantId}`);
     this.shop = { id: merchantId, mode };
     let rows;
+    let rivaleHier = false; // Rivale auf dem eigenen Pfad hat hier heute etwas weggekauft
     if (mode === 'buy') {
       const stock = s.shopStock(merchantId);
+      rivaleHier = stock.some((e) => e.rivale);
       this.shop.entries = stock.map((e) => ({ id: e.item, disabled: !!e.locked || e.owned || s.money < e.price }));
       // Paket A: Ladenfächer, Schlösser und Preisschilder (A_10_shop.png)
       rows = stock.map((e, i) => `<li class="item ${e.locked ? 'lockedrow' : ''}"><div><span class="shopslot ${e.locked ? 'locked' : e.owned ? 'sold' : ''}">${itemIconBig(e.item)}</span><strong>${esc(e.name)}</strong>${s.itemCount(e.item) ? ` <span class="muted">(hast ${s.itemCount(e.item)})</span>` : ''}<br>
         <span class="desc">${e.locked ? uiSprite('shop', /Rang|Ansehen/.test(e.locked) ? 'locked_rank' : 'locked_pathway', 1 / 12, 'shopico') : ''}${esc(e.locked ?? e.desc)}</span>${e.locked ? '' : offerHtml(s, e.item)}</div>
-        <div>${e.owned ? `<span class="badge likely">${uiSprite('shop', 'only_once', 1 / 16, 'shopico')}${e.soldOut ? 'vergriffen' : 'gekauft'}</span>` : `${e.left ? `<span class="muted">noch ${e.left}</span> ` : ''}<button class="small pricetag" data-buy="${i}" ${this.shop.entries[i].disabled ? 'disabled' : ''}>${i < 9 ? `<span class="key">${i + 1}</span> ` : ''}${e.price} Sch.</button>`}</div></li>`).join('');
+        <div>${e.owned ? `<span class="badge likely">${uiSprite('shop', 'only_once', 1 / 16, 'shopico')}${e.rivale ? 'Weggekauft' : e.soldOut ? 'vergriffen' : 'gekauft'}</span>` : `${e.left ? `<span class="muted">noch ${e.left}</span> ` : ''}<button class="small pricetag" data-buy="${i}" ${this.shop.entries[i].disabled ? 'disabled' : ''}>${i < 9 ? `<span class="key">${i + 1}</span> ` : ''}${e.price} Sch.</button>`}</div></li>`).join('');
     } else {
       const sellable = s.items().filter((it) => s.sellPrice(it.id) !== null);
       this.shop.entries = sellable.map((it) => ({ id: it.id }));
@@ -2907,6 +2955,7 @@ export class Ui {
     const el = this.open('shop', `
       <h3>${esc(m.name)} <span class="muted">${esc(m.title)}</span>${s.hasP2() ? ` <button class="badge keybtn" data-key="g">für Spieler ${s.acting} · <span class="key">G</span> wechseln</button>` : ''}</h3>
       <p class="lead">„${esc(this.seasonGreeting() ?? m.greeting)}“</p>
+      ${rivaleHier ? `<p class="curse">${esc(s.rivaleMarktText())}</p>` : ''}
       ${m.buys ? `<div class="tabs"><button class="tab ${mode === 'buy' ? 'sel' : ''}" data-mode="buy">${uiSprite('shop', 'buy', 1 / 16, 'tabico')}Kaufen</button><button class="tab ${mode === 'sell' ? 'sel' : ''}" data-mode="sell">${uiSprite('shop', 'sell', 1 / 16, 'tabico')}Verkaufen</button> <span class="muted">Wechseln mit <span class="key">V</span></span></div>` : ''}
       <ul class="items shoplist">${rows}</ul>
       <div class="feedback">${feedback}</div>
@@ -3616,6 +3665,8 @@ export class Ui {
     else if (this.modal === 'gift' && (k === 'escape' || k === 'e')) this.closeGift();
     else if (this.modal === 'gift' && k === 'g' && this.state.hasP2()) { this.actor = this.actor === 1 ? 2 : 1; this.openGift(); }
     else if (this.modal === 'moor' && num >= 0 && num < (this.moorCount ?? 0)) this.moorPick(num);
+    else if (this.modal === 'rivale' && num >= 0) this.rivalePick(num);
+    else if (this.modal === 'rivale' && k === 'escape') { this.rivaleUi = null; this.close(); }
     else if (this.modal === 'moor' && (k === 'escape' || k === 'e')) this.closeGift();
     else if (this.modal === 'maske' && num >= 0 && this.maskeOptions?.[num] !== undefined) this.maskePick(num);
     else if (this.modal === 'maske' && (k === 'escape' || k === 'e')) this.cancelMaske();

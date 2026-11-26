@@ -842,6 +842,8 @@ export const pathwayMethods = {
       return { ok: false, fight: id, text: `${r.name}\n\nDer Kreis ist gezogen, der Tribut liegt bereit. Dann wird es still. Aus dem Nebel tritt ${this.content.encounters[id].name}: dein eigener Grundsatz, der wissen will, ob du ihn tragen kannst.` };
     }
     if (open.length) return { ok: false, text: `Es fehlt noch: ${open.map((x) => x.text).join(', ')}.` };
+    const rivale = this.rivaleImKreis?.(p.id, seq); // Rivale auf dem eigenen Pfad: steht manchmal schon im Kreis
+    if (rivale) return rivale;
     const paid = r.trial && !!this.seq5().paid;
     if (!paid) for (const [id, n] of Object.entries(r.consumes ?? {})) this.removeItem(id, n);
     if (r.tribute) this.addMoney(-r.tribute, { reason: 'Tribut' });
@@ -923,7 +925,9 @@ export const pathwayMethods = {
       }
       if (!locked && e.requires_honor !== undefined && this.honor < e.requires_honor) locked = `Rang ${this.rank(e.requires_honor).name} (Ansehen ${e.requires_honor}) nötig`;
       const owned = e.once && this.itemCount(e.item) > 0;
-      return this.gatheringEntry(merchantId, { ...e, name: it.name, desc: it.desc, kind: it.kind, price, locked, owned });
+      const out = this.gatheringEntry(merchantId, { ...e, name: it.name, desc: it.desc, kind: it.kind, price, locked, owned });
+      // Rivale auf dem eigenen Pfad (core/Rivale.js): heute (bzw. auf diesem Treffen) schon weggekauft
+      return this.rivaleWeggekauft?.(merchantId, out) ? { ...out, owned: true, soldOut: true, rivale: true } : out;
     });
   },
 
@@ -959,6 +963,7 @@ export const pathwayMethods = {
     const e = this.shopStock(merchantId).find((x) => x.item === itemId);
     if (!e) return { ok: false, text: 'Das führt dieser Händler nicht.' };
     if (e.locked) return { ok: false, text: e.locked };
+    if (e.rivale) return { ok: false, text: this.rivaleMarktText() };
     if (e.soldOut) return { ok: false, text: 'Davon ist auf diesem Treffen nichts mehr übrig.' };
     if (e.owned) return { ok: false, text: 'Diese Formel besitzt du schon.' };
     if (!this.spendMoney(e.price)) return { ok: false, text: 'Dafür reichen deine Schilling nicht.' };

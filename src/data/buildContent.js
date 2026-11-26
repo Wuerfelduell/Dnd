@@ -21,6 +21,7 @@ import { withHalbgottFertigkeiten } from './halbgottFertigkeiten.js';
 import { withFlaechenFaehigkeiten } from './flaechenFaehigkeiten.js';
 import { applyGegnerBeyonder } from './gegnerBeyonder.js';
 import { applyBeyonderRest } from './beyonderRest.js';
+import { applyRivale } from './rivale.js';
 import { applyKopfgeldjaeger } from './kopfgeldjaeger.js';
 import { applyMoods } from './moods.js';
 import { applyRelations } from './relations.js';
@@ -151,6 +152,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyGegnerBeyonder(content); // Kopfgeld-Ziele sind Beyonder ohne Zirkel: Pfad-Fertigkeiten ihrer Sequenz, seltene Formel als Beute
   applyKopfgeldjaeger(content); // Kopfgeld auf den Spieler: Kopfgeldjäger (Beyonder, Boss-Rang) ab Dunscar, je Stadt höchstens einer pro Spieltag
   applyBeyonderRest(content); // Beyonder-Rest: gefallene Beyonder lassen selten ihren Rest fallen (Ersatz-Hauptzutat, Trank schlägt öfter fehl)
+  applyRivale(content); // Rivale auf dem eigenen Pfad (ab Wexmoor): Gegner je Pfad und Sequenz, Rest als Beute
   applyUebergaenge(content); // Kapitelübergänge: Abschied, Reise und Ankunft Kettlegate→Wexmoor→Dunscar
   applyDunscarAusbau(content); // Dunscar: Gasthaus, Kalkapotheke, starke Heil-/Nerven-/Ruhemittel, möblierte Innenräume
   applyPreisAbgleich(content); // Preise, Heilung, Nerven, Konzentration und Artefakte je Kapitel (nach Dunscar-Ausbau)

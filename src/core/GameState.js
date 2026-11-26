@@ -37,6 +37,7 @@ import { benannteMethods } from './Benannte.js';
 import { seqHochMethods } from './SeqHoch.js';
 import { splitMethods } from './Split.js';
 import { mackenMethods } from './Macken.js';
+import { rivaleMethods } from './Rivale.js';
 import { kopfgeldjaegerMethods } from './Kopfgeldjaeger.js';
 import { CALDERWICK_WELT_FLAGS, SUCHE_FLAG, SUCHE_QUEST, SUCHE_EFFECTS } from '../data/aufstieg.js';
 
@@ -85,6 +86,7 @@ export class GameState {
     const s = this.content.start;
     this.erfolgZaehler = {};
     this.testmodus = false;
+    this.rivalen = {}; // Rivale auf dem eigenen Pfad (core/Rivale.js)
     this.tiere = { owned: {}, aktiv: null, fundTag: -1 }; // Codex DF: Tiergefährten
     this.loadWetter(null); // Schlaf-Abklingzeit und Traumnacht
     this.loadPost(null);
@@ -956,6 +958,7 @@ export class GameState {
       ...this.serializeSekten(),
       ...this.serializeSude(),
       ...this.serializePfadHandel(),
+      ...this.serializeRivalen(),
       ...this.serializeWetter(),
     };
   }
@@ -1008,6 +1011,7 @@ export class GameState {
     this.loadTalents(data);
     this.loadCorruption(data);
     this.loadGatherings(data);
+    this.loadRivalen(data);
     this.loadWanted(data);
     this.loadBonds(data.bonds);
     this.loadRelations(data);
@@ -1041,4 +1045,4 @@ export class GameState {
 /** Fortschrittsflags der verlängerten Akt-V-Fassung (AP), in Spielreihenfolge. */
 export const K2_AKT5_STEPS = ['k2v_boot_bereit', 'k2v_keller_passiert', 'k2v_aufstieg_passiert', 'k2v_abschied_done'];
 
-Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods, sudeMethods, seq5Methods, seq4Methods, seqHochMethods, splitMethods, pfadHandelMethods, erfolgeMethods, postMethods, benannteMethods, tiereMethods, fahrendeAuktionMethods, hausMethods, nebelseiteMethods, testmodusMethods, mackenMethods, kopfgeldjaegerMethods, wetterMethods);
+Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods, sudeMethods, seq5Methods, seq4Methods, seqHochMethods, splitMethods, pfadHandelMethods, erfolgeMethods, postMethods, benannteMethods, tiereMethods, fahrendeAuktionMethods, hausMethods, nebelseiteMethods, testmodusMethods, mackenMethods, kopfgeldjaegerMethods, wetterMethods, rivaleMethods);
