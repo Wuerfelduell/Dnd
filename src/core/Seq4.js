@@ -65,7 +65,7 @@ const HINTS = {
 
 /** Kreaturen für den Schicksalsfaden: Monster der Gebiete, okkulte Wesen und Beyonder. */
 function markable(id, enc) {
-  if (!enc || enc.practice || enc.mirror || id === TRAUM_ID || /^hg_(schwellen|grenz)waechter_/.test(id)) return false;
+  if (!enc || enc.practice || enc.mirror || id === TRAUM_ID || /^hg_\w+waechter_/.test(id)) return false;
   return !!(enc.zone || enc.occult || isBeyonderFoe(id, enc));
 }
 

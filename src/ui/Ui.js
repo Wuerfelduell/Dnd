@@ -2538,7 +2538,7 @@ export class Ui {
       more += arts.length ? `<p class="muted">Opfern: ${arts.map((id) => btn(`art:${id}`, s.item(id).name)).join(' ')}</p>` : '<p class="muted">Kein Artefakt im Gepäck.</p>';
     } else if (step?.type === 'opfer') acts.push(btn('opfer', 'Opfern'));
     if (step?.type === 'welt') acts.push(btn('welt', `${h.welt?.titel ?? 'Weltwandel'} wirken`));
-    if (step?.type === 'waechter') acts.push(btn('waechter', 'Den Grenzwächter rufen'));
+    if (step?.type === 'waechter') acts.push(btn('waechter', `Den ${s.hochWaechter()?.titel ?? 'Grenzwächter'} rufen`));
     if (st.active) acts.push('<button class="small" data-hoch="abbrechen">Prüfung abbrechen</button>');
     const welt = h.welt ? `<p class="muted"><strong>Weltwandel „${esc(h.welt.titel)}“:</strong> ${esc(h.welt.text)} Er bleibt für immer und macht alle Gegner der Welt stärker.</p>` : '';
     return `<div class="seq5 seq4">${spurHtml}${welt}${more}<p>${acts.join(' ')} <span class="muted">Solo: Spieler 2 kann nicht helfen. Kämpfe zählen nur in Folge, verlieren oder fliehen heißt scheitern. Gescheitert: −17 % Verdauung, +10 Unruhe.</span></p></div>`;

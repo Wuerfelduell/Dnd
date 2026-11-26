@@ -244,6 +244,7 @@ export class Combat {
     this.swapped = false;
     if ((this.rules?.solo || state.splitOn) && prover === 2 && state.acting === 1 && state.p2) { state.swapPersonal(); this.swapped = true; } // Splitscreen: jeder kämpft allein auf seiner Karte
     if (this.rules?.scale) enc = { ...enc, hp: Math.round(enc.hp * this.rules.scale.hp), attacks: enc.attacks.map((a) => (a.action ? a : { ...a, damage: Math.max(1, Math.round(a.damage * this.rules.scale.dmg)) })) };
+    const ritualEnc = enc; // Gruppen im Ritual: Begleiter mit denselben Ritualwerten
     // Seq-5-Ritual der Laterne: ein Spiegelgegner (`mirror`) ist so stark wie der, der ihn gerufen hat.
     // Leben als Vielfaches seines Höchstlebens, Schaden je Angriff als Vielfaches seiner Schlagkraft (ohne die üblichen Zuschläge).
     if (enc.mirror) {
@@ -292,6 +293,8 @@ export class Combat {
     this.confuseLock = 0; // Eliten/Bosse: Runden, in denen eine neue Verwirrung nicht greift (CONFUSE_LOCK)
     // Gegnergruppe: Begleiter dazu (nie in Übungen, Prüfungen oder gegen Spiegelbilder)
     if (!enc.practice && !this.rules && !enc.mirror) for (const id of pack ?? []) this.addFoe(id);
+    // Seq 3 bis 1 (core/SeqHoch.js, Seb 2026-11-26): Ritualketten gegen Gruppen, Begleiter gleich stark gestärkt wie der Anführer
+    if (this.rules?.gruppe && !enc.practice && !enc.mirror) for (let i = 0; i < this.rules.gruppe; i++) this.addFoe(encounterId, ritualEnc);
     // Kurglocke (Kapitel 4): gewöhnliche Gegner schlafen zu Beginn und setzen ihren ersten Zug aus.
     if (!enc.boss && !enc.practice && [1, 2].some((n) => this.fighters[n] && state.withPlayer(n, () => state.passive('opening_stun'), { quiet: true }))) {
       for (const f of this.foes) if (!f.enc.boss) f.stunned = true;
@@ -366,7 +369,7 @@ export class Combat {
     const tier = zone?.tier ?? 2;
     this.zoneTier = tier;
     this.armor = enc.practice ? 0 : enc.armor ?? (enc.boss ? Math.min(ARMOR.boss, tier) : enc.elite ? Math.min(ARMOR.elite, tier - 1) : 0);
-    const testHp = state.testmodus && /^hg_(schwellen|grenz)waechter_/.test(encounterId ?? '') ? 1 : hp; // Testmodus: Wächter mit 1 Leben
+    const testHp = state.testmodus && /^hg_\w+waechter_/.test(encounterId ?? '') ? 1 : hp; // Testmodus: Wächter mit 1 Leben
     this.enemy = { name: enc.name, hp: testHp, maxHp: testHp, occult: !!enc.occult };
     // BQ: Haupt einer Sekte wechselt bei halben Leben einmal die Angriffe (`phase2`: attacks, meldung), ohne Heilung oder Extra-Beute
     this.phase2 = enc.phase2 ?? null;
@@ -394,8 +397,8 @@ export class Combat {
   }
 
   /** Nimmt einen Begleiter in die Gruppe auf (höchstens MAX_FOES Gegner). */
-  addFoe(encounterId) {
-    const enc = this.state.content.encounters[encounterId];
+  addFoe(encounterId, encOverride = null) {
+    const enc = encOverride ?? this.state.content.encounters[encounterId];
     if (!enc || this.foes.length >= MAX_FOES) return false;
     this.foes.push({});
     this.withFoe(this.foes.length - 1, () => this.initFoe(enc, encounterId, GROUP_HP_SHARE));

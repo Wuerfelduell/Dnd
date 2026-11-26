@@ -5,8 +5,7 @@
 // Schritte: kampf (n Siege unter Regeln, Kette), zeit (echte Sekunden unter Bedingungen), probe (n Proben ohne Fehler),
 // opfer (Geld, Gegenstände, Artefakte), welt (Seq 2: Weltwandel, bleibt für immer), waechter (Seq 2: brutaler Grenzwächter).
 // Dazu die Spuren zum Ort der Sequenz 3: ab Sequenz 4 bringt ein Sieg in einem Monstergebiet ab Kapitel 3 manchmal eine Spur.
-import { ordealId } from './Pathways.js';
-import { ritualformel, gildeFlag, HOCH_SEQ1_VERSIEGELT, HOCH, HOCH_FAIL_PCT, HOCH_FAIL_UNRUHE, HOCH_SCALE, GRENZ_SCALE, WELT_MULT, ORTE } from '../data/seqHoch.js';
+import { ritualformel, gildeFlag, HOCH_SEQ1_VERSIEGELT, HOCH, HOCH_FAIL_PCT, HOCH_FAIL_UNRUHE, HOCH_SCALE, HOCH_WAECHTER, WELT_MULT, ORTE } from '../data/seqHoch.js';
 import { PROBE_NAMEN } from './Proben.js';
 import { NACHBARPFADE } from '../data/nachbarpfade.js';
 import { CW_GEBIETE } from '../data/aufstieg.js';
@@ -57,7 +56,6 @@ export const seqHochMethods = {
     // Seq 3: Ritualformel und Mitgliedschaft in der Gilde (Seb 2026-11-12)
     const pre = h.seq === 3 ? [
       { text: 'Ritualformel der dritten Sequenz dabei (getrennt von der Trankformel)', done: done || !!this.itemCount(ritualformel(h.pid)) },
-      { text: `Mitglied von ${ORTE[h.pid]?.gilde ?? 'der Gilde deines Pfades'}`, done: done || this.gildeMitglied(h.pid) },
     ] : [];
     return [...pre, ...h.steps.map((s, i) => {
       let text = s.text;
@@ -80,7 +78,7 @@ export const seqHochMethods = {
     if (!h) return { ok: false, text: 'Dein nächstes Ritual hat keine solche Prüfung.' };
     if (this.hochPassed(h.pid, h.seq)) return { ok: false, text: 'Die Prüfung ist bestanden. Vollzieh das Ritual.' };
     if (h.seq === 3 && !this.itemCount(ritualformel(h.pid))) return { ok: false, text: `Ohne die Ritualformel der dritten Sequenz geht es nicht. Sie ist so selten wie die Trankformel: Zirkel-Lose in Dunscar (15 000) oder sehr seltene Monster-Beute.` };
-    if (h.seq === 3 && !this.gildeMitglied(h.pid)) return { ok: false, text: `Erst ${ORTE[h.pid]?.gilde ?? 'der Gilde deines Pfades'} beitreten (Stadtkarte ab Dunscar).` };
+    // Seb 2026-11-26: in Dunscar wie in Briarholt ausführbar, deshalb ohne Gildenbeitritt (die Kernzutat 3 gibt es weiter nur bei der Gilde)
     if (HOCH_SEQ1_VERSIEGELT && h.seq === 1) return { ok: false, text: 'Noch versiegelt: Das Ritual der ersten Sequenz ist noch nicht freigegeben.' }; // Seb 2026-11-12: Seq 1 erst nach Abstimmung
     const st = this.hochState();
     if (st.active) return { ok: false, text: 'Die Prüfung läuft schon.' };
@@ -200,21 +198,27 @@ export const seqHochMethods = {
     return { color: w.farbe, alpha: Math.min(0.3, w.alpha + 0.03 * (list.length - 1)) };
   },
 
+  /** Wächter dieses Schritts (Seq 3 Heiligen-, Seq 2 Grenz-, Seq 1 Grenz- und Engelswächter). */
+  hochWaechter(s = this.hochStep(), h = this.hochRitual()) {
+    if (s?.type !== 'waechter' || !h) return null;
+    const w = HOCH_WAECHTER[s.w ?? 'grenz'];
+    return { ...w, id: w.id(h.pid) };
+  },
+
   hochGuardian() {
     const s = this.hochStep();
-    const h = this.hochRitual();
-    if (s?.type !== 'waechter') return { ok: false, text: 'Der Grenzwächter kommt erst am Ende.' };
-    const id = ordealId(h.pid, 2);
-    if (!this.content.encounters[id]) return { ok: false, text: 'Der Grenzwächter dieses Pfades fehlt.' };
+    const w = this.hochWaechter(s);
+    if (!w) return { ok: false, text: 'Der Wächter kommt erst am Ende.' };
+    if (!this.content.encounters[w.id]) return { ok: false, text: `Der ${w.titel} dieses Pfades fehlt.` };
     this.hochState().guardian = true;
-    this.startCombat(id);
+    this.startCombat(w.id);
     this.emit('changed');
-    return { ok: true, fight: id, text: `Die Welt hält den Atem an. Aus dem Nebel tritt ${this.content.encounters[id].name}, größer als alles, was du je gesehen hast. ${s.text}.` };
+    return { ok: true, fight: w.id, text: `Die Welt hält den Atem an. Aus dem Nebel tritt ${this.content.encounters[w.id].name}, größer als alles, was du je gesehen hast. Er kämpft mit deinem eigenen Pfad. ${s.text}.` };
   },
 
   // --- Kampf ----------------------------------------------------------------------------------------
   hochTarget(id, enc, s) {
-    if (!enc || enc.practice || enc.mirror || /^hg_(schwellen|grenz)waechter_/.test(id)) return false;
+    if (!enc || enc.practice || enc.mirror || /^hg_\w+waechter_/.test(id)) return false;
     if (!enc.zone || !LATE.test(enc.zone)) return false;
     if (s.ziel === 'okkult' && !enc.occult) return false;
     return true;
@@ -226,7 +230,8 @@ export const seqHochMethods = {
     if (!s) return null;
     const h = this.hochRitual();
     if (s.type === 'kampf' && this.hochTarget(id, enc, s)) return { solo: true, hoch: 'kampf', scale: HOCH_SCALE[h.seq] ?? HOCH_SCALE[3], ...s.rules };
-    if (s.type === 'waechter' && id === ordealId(h.pid, 2) && this.hochState().guardian) return { solo: true, hoch: 'waechter', scale: GRENZ_SCALE, ...s.rules };
+    const w = this.hochWaechter(s, h);
+    if (w && id === w.id && this.hochState().guardian) return { solo: true, hoch: 'waechter', scale: s.scale ?? w.scale, ...s.rules };
     return null;
   },
 
@@ -254,7 +259,7 @@ export const seqHochMethods = {
       if (this.hp < this.maxHp * (rules.endMin.hp ?? 0)) return this.hochFail('Die Waage kippt: zu wenig Leben am Ende.');
       if (this.composure < this.maxComposure() * (rules.endMin.nerves ?? 0)) return this.hochFail('Die Waage kippt: zu wenig Nerven am Ende.');
     }
-    if (rules.hoch === 'waechter') return this.hochAdvance(`${combat.enc.name} ist gefallen.`);
+    if (rules.hoch === 'waechter') { this.hochState().guardian = false; return this.hochAdvance(`${combat.enc.name} ist gefallen.`); }
     const st = this.hochState();
     st.n = (st.n ?? 0) + 1;
     this.sfx?.('s4r_bedingung_erfuellt');

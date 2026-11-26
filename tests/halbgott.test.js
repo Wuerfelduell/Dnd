@@ -57,7 +57,7 @@ test('Rituale 4 bis 1: Tribut, Siege, Schlussfolgerungen, Nerven; 4 und 2 verlan
       } else { // Seq 3 bis 1 (core/SeqHoch.js): Prüfung aus Schritten, ortsunabhängig, ohne Fallbedingung
         assert.ok(r.hoch?.steps?.length && !r.map && !r.requires.requires_flags, `${pid} ${n}: Prüfung ohne Ort und Fall`);
         if (n === 2) assert.ok(r.hoch.steps.some((s) => s.type === 'waechter') && r.hoch.welt, `${pid} 2: Weltwandel und Grenzwächter`);
-        if (n === 1) assert.ok(!r.hoch.steps.some((s) => ['kampf', 'waechter'].includes(s.type)), `${pid} 1: ohne Gegner`);
+        if (n === 1) assert.equal(r.hoch.steps.at(-1).w, 'engel', `${pid} 1: endet mit dem Engelswächter (Seb 2026-11-26)`);
       }
       if (n === 2) {
         const enc = content.encounters[ordealId(pid, n)];
