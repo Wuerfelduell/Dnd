@@ -1884,10 +1884,24 @@ export class WorldScene extends Phaser.Scene {
         if (aura.anims.currentAnim?.key !== `aura_pfade-${art}`) playSheetAnim(aura, 'aura_pfade', art);
       }
       aura.machtAlpha = alpha;
-      aura.machtScale = m.scale * (info.form ? m.gestalt : 1);
-      aura.setVisible(true).setAlpha(alpha).setScale(aura.machtScale).setPosition(who.x, who.y + 2);
+      // Normale Figur: Aura wächst nur gedämpft mit und bleibt um die Körpermitte zentriert (Seb 2026-11-26);
+      // in der Gestalt volle Größe, Fußpunkt unten wie bisher.
+      aura.machtScale = info.form ? m.scale * m.gestalt : 1 + (m.scale - 1) * 0.35;
+      aura.machtForm = info.form;
+      aura.setVisible(true).setAlpha(alpha).setScale(aura.machtScale);
+      this.placeAura(aura, who, aura.machtScale);
     }
     this.aura = this.auras[1] ?? null;
+  }
+
+  /**
+   * Aura-Lage: Fußpunkt (Origin unten) bei who.y + 2. Ohne Gestalt wird beim Vergrößern so nach unten geschoben,
+   * dass die Mitte der Aura dort bleibt, wo sie bei Größe 1 liegt (also um den Körper statt hoch über den Kopf).
+   */
+  placeAura(aura, who, sc) {
+    const h = aura.frame?.height ?? 0;
+    const dy = aura.machtForm ? 0 : ((sc - 1) * h) / 2;
+    aura.setPosition(who.x, who.y + 2 + dy);
   }
 
   /**
@@ -1918,11 +1932,13 @@ export class WorldScene extends Phaser.Scene {
       const st = this.machtStand?.[n];
       const aura = this.auras?.[n];
       if (aura?.visible) {
-        aura.setPosition(who?.x ?? aura.x, (who?.y ?? aura.y) + 2);
+        if (who) this.placeAura(aura, who, aura.machtScale ?? 1);
         const m = machtOf(st?.seq ?? 9);
         if (m.puls) {
           const w = Math.sin(t / (st.seq <= 1 ? 90 : st.seq === 2 ? 140 : 220));
-          aura.setAlpha(Math.min(1, aura.machtAlpha * (1 + m.puls * w))).setScale(aura.machtScale * (1 + m.puls * 0.25 * w));
+          const sc = aura.machtScale * (1 + m.puls * 0.25 * w);
+          aura.setAlpha(Math.min(1, aura.machtAlpha * (1 + m.puls * w))).setScale(sc);
+          if (who) this.placeAura(aura, who, sc);
         }
       }
       if (!who || !st) continue;
