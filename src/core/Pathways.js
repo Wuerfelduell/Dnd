@@ -18,6 +18,7 @@ import { NACHBARPFADE } from '../data/nachbarpfade.js';
 import { REST_RISIKO, restId, restTrankId, hauptzutat } from '../data/beyonderRest.js';
 import { MACKE_TRANK_RISIKO } from '../data/macken.js';
 import { RIVALE_REGELN } from '../data/rivale.js';
+import { SEQ1_VERZICHT_TEXT } from '../data/seqHoch.js';
 import { cleanMacken } from './Macken.js';
 import { cleanLaunen } from '../data/launen.js';
 import { VIERTEL_VERDAU, nachhallPct } from '../data/seq3Weg.js';
@@ -691,6 +692,7 @@ export const pathwayMethods = {
     }
     if (it.seq >= p.seq) return { ok: false, reason: 'Diese Stufe hast du längst erreicht.' };
     if (it.seq !== p.seq - 1) return { ok: false, reason: 'Du kannst keine Stufe überspringen.' };
+    if (it.seq === 1 && this.seq1Verschlossen?.()) return { ok: false, reason: SEQ1_VERZICHT_TEXT }; // Seb 2026-11-27: Verzicht in Varrowmouth
     // Beim Pfadwechsel zählt das Ritual der eigenen Schwelle (oder das des Nachbarpfads, falls schon vollzogen)
     const rit = this.ritualDef(p.id, it.seq) ?? this.ritualDef(it.pathway, it.seq);
     if (rit && !this.ritualDone(p.id, it.seq) && !(wechsel && this.ritualDone(it.pathway, it.seq))) return { ok: false, reason: `Ohne Ritual zerreißt dich dieser Trank. Vollziehe zuerst „${rit.name}“ (siehe Pfad).`, ritual: true };
@@ -890,6 +892,7 @@ export const pathwayMethods = {
     const seq = (p?.seq ?? 0) - 1;
     const r = p && this.ritualDef(p.id, seq);
     if (!r) return { ok: false, text: 'Für deinen nächsten Trank brauchst du kein Ritual.' };
+    if (seq === 1 && this.seq1Verschlossen?.()) return { ok: false, text: SEQ1_VERZICHT_TEXT };
     if (this.ritualDone(p.id, seq)) return { ok: false, text: 'Das Ritual ist schon vollzogen. Trink den Trank.' };
     const open = this.ritualSteps(p.id, seq).filter((x) => !x.done);
     // Die schweren Rituale (4 und 2): Steht alles andere, tritt der Schwellenwächter des Pfades aus dem Nebel

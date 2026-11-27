@@ -19,7 +19,7 @@ export const KGJ_GRUPPEN = {
     jaeger: [
       ['kgj_ds_harrow', 'k3k_staubschmuggler_elite', 'eisen', 'Mara Harrow', 'Sie trägt deinen Steckbrief am Gürtel, gefaltet wie einen Liebesbrief.'],
       ['kgj_ds_quill', 'k3k_signalbrecher', 'maske', 'Silas Quill', 'Er lächelt mit einem Gesicht, das gestern noch jemand anderem gehört hat.'],
-      ['kgj_ds_brandt', 'k3k_kupferdieb', 'laterne', 'Ilka Brandt', 'Ihre Laterne leuchtet dir genau ins Gesicht, damit sie es mit dem Steckbrief vergleichen kann.'],
+      ['kgj_ds_brandt', 'k3k_kupferdieb', 'laterne', 'Ilka Barlow', 'Ihre Laterne leuchtet dir genau ins Gesicht, damit sie es mit dem Steckbrief vergleichen kann.'],
       ['kgj_ds_vos', 'k3k_walzenhehler', 'sq_uhr', 'Jonas Vos', 'Er zählt laut die Sekunden, die dir noch bleiben.'],
       ['kgj_ds_marr', 'k3k_lohnfaelscher', 'kessel', 'Odile Marr', 'An ihrem Gürtel klirren Phiolen. In einer davon schwimmt etwas, das einmal ein Beyonder war.'],
     ],

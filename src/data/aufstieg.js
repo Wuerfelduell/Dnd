@@ -298,7 +298,7 @@ export const CW_GEBIETE = {
   kessel: { viertel: 'Das Sudviertel', oberhaupt: 'Brannagh Sud', vize: 'Oswin Schaum', verderbnis: 'Aus den Gullys steigt grüner Dampf. Die Pfützen kochen, und was darin schwimmt, war einmal ein Nachbar.' },
   eisen: { viertel: 'Das Nietenviertel', oberhaupt: 'Gerwin Amboss', vize: 'Hedda Niet', verderbnis: 'Rost wächst wie Moos über alles, auch über Menschen. Jeder Schritt wiegt doppelt, und die Wände rücken nachts zusammen.' },
   schluessel: { viertel: 'Das Türenviertel', oberhaupt: 'Quirin Bart', vize: 'Lotte Falz', verderbnis: 'Jede Tür führt woandershin als gestern. Manche Bewohner suchen seit Jahren den Weg zurück in ihre eigene Küche.' },
-  sq_waage: { viertel: 'Das Gewichtsviertel', oberhaupt: 'Edmund Lot', vize: 'Saskia Gran', verderbnis: 'Alles hat hier einen Preis, auch ein Atemzug. Wer nicht zahlt, wird leichter, bis der Wind ihn mitnimmt.' },
+  sq_waage: { viertel: 'Das Gewichtsviertel', oberhaupt: 'Barnabas Lot', vize: 'Saskia Gran', verderbnis: 'Alles hat hier einen Preis, auch ein Atemzug. Wer nicht zahlt, wird leichter, bis der Wind ihn mitnimmt.' },
   sq_moor: { viertel: 'Das Faulviertel', oberhaupt: 'Mutter Torva', vize: 'Jorin Ried', verderbnis: 'Torf quillt aus den Kellern. Die Straßen erinnern sich an jeden, der sie betreten hat, und manche halten ihn fest.' },
   sq_uhr: { viertel: 'Das Stillviertel', oberhaupt: 'Severin Unruh', vize: 'Klara Hemmung', verderbnis: 'Die Zeit läuft hier in Stücken. Ein Schritt dauert eine Stunde, der nächste einen Herzschlag. Die Monster sind schneller als ihre Schatten.' },
 };

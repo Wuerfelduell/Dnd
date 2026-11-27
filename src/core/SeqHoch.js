@@ -5,7 +5,7 @@
 // Schritte: kampf (n Siege unter Regeln, Kette), zeit (echte Sekunden unter Bedingungen), probe (n Proben ohne Fehler),
 // opfer (Geld, Gegenstände, Artefakte), welt (Seq 2: Weltwandel, bleibt für immer), waechter (Seq 2: brutaler Grenzwächter).
 // Dazu die Spuren zum Ort der Sequenz 3: ab Sequenz 4 bringt ein Sieg in einem Monstergebiet ab Kapitel 3 manchmal eine Spur.
-import { ritualformel, gildeFlag, HOCH_SEQ1_VERSIEGELT, HOCH, HOCH_FAIL_PCT, HOCH_FAIL_UNRUHE, HOCH_SCALE, HOCH_WAECHTER, WELT_MULT, ORTE } from '../data/seqHoch.js';
+import { ritualformel, gildeFlag, HOCH_SEQ1_VERSIEGELT, SEQ1_VERZICHT_FLAG, SEQ1_VERZICHT_TEXT, HOCH, HOCH_FAIL_PCT, HOCH_FAIL_UNRUHE, HOCH_SCALE, HOCH_WAECHTER, WELT_MULT, ORTE } from '../data/seqHoch.js';
 import { PROBE_NAMEN } from './Proben.js';
 import { NACHBARPFADE } from '../data/nachbarpfade.js';
 import { CW_GEBIETE } from '../data/aufstieg.js';
@@ -68,6 +68,11 @@ export const seqHochMethods = {
     })];
   },
 
+  /** Seb 2026-11-27: Verzicht auf Sequenz 1 in Varrowmouth ist ein harter Riegel (kein Ritual, keine Prüfung, kein Trank). */
+  seq1Verschlossen() {
+    return this.flags.has(SEQ1_VERZICHT_FLAG);
+  },
+
   hochRunning() {
     return !!this.hochState().active;
   },
@@ -76,6 +81,7 @@ export const seqHochMethods = {
   startHoch() {
     const h = this.hochRitual();
     if (!h) return { ok: false, text: 'Dein nächstes Ritual hat keine solche Prüfung.' };
+    if (h.seq === 1 && this.seq1Verschlossen()) return { ok: false, text: SEQ1_VERZICHT_TEXT };
     if (this.hochPassed(h.pid, h.seq)) return { ok: false, text: 'Die Prüfung ist bestanden. Vollzieh das Ritual.' };
     if (h.seq === 3 && !this.itemCount(ritualformel(h.pid))) return { ok: false, text: `Ohne die Ritualformel der dritten Sequenz geht es nicht. Der Gildenkrämer im Pfadviertel verkauft sie für 30.000, ab Sequenz 4 legt jedes Zirkeltreffen eine zufällige Seq-3-Formel auf, selten fällt eine als Beute.` };
     // Seb 2026-11-26: in Dunscar wie in Briarholt ausführbar, deshalb ohne Gildenbeitritt (die Kernzutat 3 gibt es weiter nur bei der Gilde)

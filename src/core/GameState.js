@@ -408,6 +408,8 @@ export class GameState {
       const seqs = [this.pathway, ...(this.hasP2?.() ? [this.p2?.pathway] : [])].map((p) => p?.seq ?? 9);
       if (!seqs.every((q) => q <= o.requires_alle_seq)) return false;
     }
+    // Seb 2026-11-27: Verzicht auf Seq 1 (Varrowmouth) nur, solange noch niemand Sequenz n erreicht hat
+    if (o.hide_if_einer_seq !== undefined && Math.min(...[this.pathway, ...(this.hasP2?.() ? [this.p2?.pathway] : [])].map((p) => p?.seq ?? 9)) <= o.hide_if_einer_seq) return false;
     if (o.requires_einer_unter_seq !== undefined) {
       const seqs = [this.pathway, ...(this.hasP2?.() ? [this.p2?.pathway] : [])].map((p) => p?.seq ?? 9);
       if (!seqs.some((q) => q > o.requires_einer_unter_seq)) return false;

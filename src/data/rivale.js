@@ -16,14 +16,14 @@ import { bogenWoerterbuch } from './rivaleBogen.js';
 /** Je Pfad ein Rivale (Namen gelten in beiden Sprachen). Im Koop hat Spieler 2 einen eigenen (name2), auch auf demselben Pfad. */
 export const RIVALEN = {
   laterne: { name: 'Corvin Ashby', name2: 'Ada Vellacott' },
-  faden: { name: 'Mirela Thorn', name2: 'Rupert Glass' },
+  faden: { name: 'Mirela Stroud', name2: 'Rupert Glass' },
   maske: { name: 'Silas Morrel', name2: 'Liesl Varga' },
-  echo: { name: 'Ines Halloway', name2: 'Emmerich Dahl' },
+  echo: { name: 'Petra Sandor', name2: 'Emmerich Dahl' },
   kessel: { name: 'Bram Sutter', name2: 'Clara Penhallow' },
   eisen: { name: 'Garrick Holm', name2: 'Hedda Krone' },
-  schluessel: { name: 'Nell Quist', name2: 'Felix Wren' },
+  schluessel: { name: 'Nell Quist', name2: 'Elmer Seely' },
   sq_waage: { name: 'Ottoline Brack', name2: 'Julius Arkwright' },
-  sq_moor: { name: 'Fenna Rook', name2: 'Oskar Mire' },
+  sq_moor: { name: 'Fenna Caddow', name2: 'Oskar Mire' },
   sq_uhr: { name: 'Tobias Merrin', name2: 'Wilma Tock' },
 };
 
