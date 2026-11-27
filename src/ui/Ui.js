@@ -2177,7 +2177,7 @@ export class Ui {
       const caseLink = s.content.cases.some((c) => c.id === q.case)
         ? `<button class="small" data-quest-case="${esc(q.case)}" aria-label="${esc(q.title)}: Schlüsse ziehen">Schlüsse ziehen</button>` : '';
       return `<li class="quest ${st} ${tracked ? 'tracked' : ''}" ${active ? `data-track="${id}"` : ''}><div class="qtitle">${uiSprite('qstatus', !active ? 'q1' : tracked ? 'q6' : q.kind === 'main' ? 'q5' : 'q2', 1 / 12, 'qico')}<span class="qkind">${q.kind === 'main' ? 'Hauptfall' : 'Nebenauftrag'}</span> ${esc(q.title)} ${!active ? '<span class="badge likely">erledigt</span>' : ''}${tracked ? '<span class="badge track">verfolgt</span>' : ''}</div>
-        ${active ? `<div class="qsum">${q.wanted ? wantedImg(q.wanted, false) : ''}${esc(q.summary)}</div>` : ''}${steps}${goal}${caseLink}</li>`;
+        ${active && (q.summary || q.wanted) ? `<div class="qsum">${q.wanted ? wantedImg(q.wanted, false) : ''}${esc(q.summary ?? '')}</div>` : ''}${steps}${goal}${caseLink}</li>`;
     };
     // Offene Spuren: Aufträge, die noch abgeholt werden müssen (z. B. Fall 8 bei Nan Kettle am Nachtmarkt)
     const leadRow = (l) => {
@@ -3775,7 +3775,7 @@ export class Ui {
       <div class="sub">${esc(caseTitle)}</div>
       <h1>${esc(end.title)}</h1>
       <div class="text">${paragraphs(end.text)}</div>
-      <div class="footer">Ansehen ${(s.lastEndingHonor ?? end.honor) > 0 ? '+' : ''}${s.lastEndingHonor ?? end.honor} · Rang: ${esc(s.rank().name)}</div>
+      <div class="footer">${(s.lastEndingHonor ?? end.honor) != null ? `Ansehen ${(s.lastEndingHonor ?? end.honor) > 0 ? '+' : ''}${s.lastEndingHonor ?? end.honor} · ` : ''}Rang: ${esc(s.rank().name)}</div>
       <button class="primary" data-act="ok">Weiter <span class="key">E</span></button>`, `ending ending-${end.honor >= 15 ? 'good' : 'bad'}`);
     // Schlussbild als Hintergrund (480x270)
     // Paket CI: „Ein Leben ohne Schmerz“ zeigt Turm und Garten nebeneinander, wenn Kapitel 2 mit dem Lichtmeister endete

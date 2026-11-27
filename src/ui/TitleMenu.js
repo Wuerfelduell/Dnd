@@ -105,7 +105,7 @@ export function showTitleMenu(ui, view = 'main', { sel = 0, focus = null, notice
     <footer class="tm-foot">
       <span class="no-touch"><span class="key">↑</span><span class="key">↓</span> wählen · <span class="key">Enter</span> bestätigen · <span class="key">Esc</span> zurück · Gamepad: <span class="key">A</span> / <span class="key">B</span></span>
       <span class="touch-only">Tippen zum Wählen</span>
-      <span class="tm-stamp">Stand ${esc(typeof __BUILD__ !== 'undefined' ? __BUILD__ : 'dev')}</span>
+      <span class="tm-stamp">Stand <span data-no-tr>${esc(typeof __BUILD__ !== 'undefined' ? __BUILD__ : 'dev')}</span></span>
     </footer>`, 'title titlemenu');
   // Kulisse: Stadt des letzten Spielstands; ganz ohne Spielstand der Kanal mit den Gaslaternen. Beim Wechsel der Ansicht bleibt sie stehen.
   if (ui.titleSceneOn) ui.attachTitleScene(ui.titleSceneOn);
