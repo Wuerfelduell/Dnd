@@ -39,6 +39,7 @@ import { verdauProbeMethods } from './VerdauProbe.js';
 import { heimkehrMethods } from './Heimkehr.js';
 import { HEIMKEHR_SEQ } from '../data/seq3Weg.js';
 import { bedarfMethods } from './Bedarf.js';
+import { bestiarMethods } from './Bestiar.js';
 import { splitMethods } from './Split.js';
 import { mackenMethods } from './Macken.js';
 import { rivaleMethods } from './Rivale.js';
@@ -92,6 +93,7 @@ export class GameState {
     this.testmodus = false;
     this.rivalen = {}; // Rivale auf dem eigenen Pfad (core/Rivale.js)
     this.tiere = { owned: {}, aktiv: null, fundTag: -1 }; // Codex DF: Tiergefährten
+    this.bestiar = {}; // Bestiarium: Begegnungen und Siege je Gegnerart (core/Bestiar.js)
     this.loadWetter(null); // Schlaf-Abklingzeit und Traumnacht
     this.loadPost(null);
     this.map = s.map;
@@ -961,6 +963,7 @@ export class GameState {
       ...(this.testmodus ? { testmodus: true } : {}),
       ...this.serializePost(),
       ...this.serializeTiere(),
+      ...this.serializeBestiar(),
       ...this.serializePathway(),
       ...this.serializeTalents(),
       ...this.serializeCorruption(),
@@ -999,6 +1002,7 @@ export class GameState {
     this.erfolgZaehler = data.erfolgZaehler ?? {};
     this.loadPost(data);
     this.loadTiere(data);
+    this.loadBestiar(data);
     // Freischaltungen aus erreichten Enden nachtragen (z. B. der Kanalhafen nach dem falschen Ende von Fall 3,
     // das ihn in älteren Ständen nicht freigeschaltet hat). Ortsfreigaben werden nie zurückgenommen.
     for (const id of Object.values(this.endings)) {
@@ -1065,4 +1069,4 @@ export class GameState {
 /** Fortschrittsflags der verlängerten Akt-V-Fassung (AP), in Spielreihenfolge. */
 export const K2_AKT5_STEPS = ['k2v_boot_bereit', 'k2v_keller_passiert', 'k2v_aufstieg_passiert', 'k2v_abschied_done'];
 
-Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods, sudeMethods, seq5Methods, seq4Methods, seqHochMethods, bedarfMethods, splitMethods, pfadHandelMethods, erfolgeMethods, postMethods, benannteMethods, tiereMethods, fahrendeAuktionMethods, hausMethods, nebelseiteMethods, testmodusMethods, mackenMethods, kopfgeldjaegerMethods, wetterMethods, rivaleMethods, verdauProbeMethods, heimkehrMethods);
+Object.assign(GameState.prototype, bestiarMethods, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods, sudeMethods, seq5Methods, seq4Methods, seqHochMethods, bedarfMethods, splitMethods, pfadHandelMethods, erfolgeMethods, postMethods, benannteMethods, tiereMethods, fahrendeAuktionMethods, hausMethods, nebelseiteMethods, testmodusMethods, mackenMethods, kopfgeldjaegerMethods, wetterMethods, rivaleMethods, verdauProbeMethods, heimkehrMethods);
