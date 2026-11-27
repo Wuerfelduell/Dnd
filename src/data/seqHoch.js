@@ -273,6 +273,9 @@ const INSCHRIFTEN = [
 export const ortMap = (pid) => `o3_${pid}`;
 export const ortFlag = (pid) => `o3_${pid}_gefunden`;
 
+/** Eigene Fassung des geliehenen Stadtmonsters je Pfad (Skript-Grafik, assets.js O3_VARIANTEN); ohne eigenes Sheet bleibt alles beim Alten. */
+const o3Sheet = (e, pid, oberhaupt = false) => (e.sheet ? { sheet: `${e.sheet}__o3${oberhaupt ? 't' : ''}_${pid}` } : {});
+
 /** Gegner eines Ortes: Grundgegner des Quellgebiets, umbenannt und gestärkt, dazu Siegelhüter und Tiefenhüter. */
 function ortEncounters(content, pid, o) {
   const src = Object.entries(content.encounters).filter(([, e]) => e.zone === o.from && !e.practice && !/_phase\d$/.test(e.id ?? ''));
@@ -290,18 +293,18 @@ function ortEncounters(content, pid, o) {
   const loot = {};
   normal.forEach(([id, e], i) => {
     const nid = `o3_${pid}_g${i + 1}`;
-    out[nid] = { ...scale(base(e), 1.4, 1.3), id: nid, name: `${o.adj} ${e.name}`, boss: false, elite: false, roam: e.roam ?? { speed: 26, chase: 54, aggro: 78 } };
+    out[nid] = { ...scale(base(e), 1.4, 1.3), id: nid, name: `${o.adj} ${e.name}`, boss: false, elite: false, ...o3Sheet(e, pid), roam: e.roam ?? { speed: 26, chase: 54, aggro: 78 } };
     loot[nid] = { repeat: true, money: [120, 260], drops: [] };
   });
   for (let i = 0; i < SIEGEL; i++) {
     const [, e] = normal[i % normal.length];
     const nid = `o3_${pid}_siegel${i + 1}`;
-    out[nid] = { ...scale(base(e), 3.2, 1.6), id: nid, name: `${i + 1}. Rangprüfung: ${o.adj} ${e.name}`, elite: true, boss: false, fleeable: true,
+    out[nid] = { ...scale(base(e), 3.2, 1.6), id: nid, name: `${i + 1}. Rangprüfung: ${o.adj} ${e.name}`, elite: true, boss: false, ...o3Sheet(e, pid), fleeable: true,
       intro: `${o.gilde}: Wer aufsteigen will, besteht den ${i + 1}. Rang gegen das, was die Gilde hütet. ${o.text}`, win_text: `Der ${i + 1}. Rang ist dein.` };
     loot[nid] = { money: [400, 700], drops: [] };
   }
   const [, b] = strongest;
-  out[`o3_${pid}_tiefe`] = { ...scale(base(b), 7, 1.9), id: `o3_${pid}_tiefe`, name: `${o.chef} der ${o.gilde.replace(/^(Der|Die|Das) /, '')}`, boss: true, elite: false, fleeable: true, max_round_dmg: 0.15,
+  out[`o3_${pid}_tiefe`] = { ...scale(base(b), 7, 1.9), id: `o3_${pid}_tiefe`, ...o3Sheet(b, pid, true), name: `${o.chef} der ${o.gilde.replace(/^(Der|Die|Das) /, '')}`, boss: true, elite: false, fleeable: true, max_round_dmg: 0.15,
     intro: `${o.chef} der Gilde erhebt sich. Wer das Oberhaupt besiegt, hält die Kernzutat der dritten Sequenz in der Hand, ob als Mörder oder als Nachfolger.`, win_text: `${o.chef} liegt am Boden. Jetzt entscheidest du: töten oder selbst Oberhaupt werden.` };
   loot[`o3_${pid}_tiefe`] = { money: [2000, 3000], drops: [] };
   return { encounters: out, loot, normal: Object.keys(out).filter((k) => /_g\d$/.test(k)) };
