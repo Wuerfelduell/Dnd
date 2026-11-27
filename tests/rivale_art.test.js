@@ -92,3 +92,21 @@ test('Bündnis: Tratsch, gemeinsame Jagd 1× am Tag, Wache halbiert Ritualkosten
 test('gemeinsame Jagd: Gegner je Sequenz', () => {
   for (let q = 9; q >= 1; q--) assert.ok(content.encounters[`rivale_jagd_${q}`]?.beyonder, `jagd ${q}`);
 });
+
+test('Eskalation ab Seq 4: Gefolge, mythische Gestalt, Hass mit verdorbenem Ritual', () => {
+  const e4 = content.encounters.rivale_eisen_4;
+  assert.equal(e4.begleiter.length, 1);
+  assert.equal(content.encounters.rivale_eisen_3.begleiter.length, 2);
+  assert.ok(!content.encounters.rivale_eisen_5.begleiter);
+  assert.ok(e4.phase2.attacks.length && /mythische Gestalt/.test(e4.phase2.meldung));
+  assert.ok(content.encounters.rivale_gefolge_4);
+  const s = spieler('eisen', 4);
+  const r = s.rivalen.p1;
+  r.seq = 4; r.siege = 2; r.niederlagen = 1;
+  assert.ok(s.rivaleHass(r));
+  r.kreis_kampf = s.rivaleTagNr();
+  const u = s.unruhe;
+  const t = s.rivaleKampfEnde({ outcome: 'lost', enc: content.encounters[`rivale_eisen_${r.seq}`] });
+  assert.match(t, /verdorben/);
+  assert.ok(s.unruhe > u);
+});

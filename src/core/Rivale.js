@@ -129,13 +129,19 @@ export const rivaleMethods = {
     const tag = this.rivaleTagNr();
     if (r.kreis_frei === tag) return null;
     if (r.kreis_besetzt === tag) return { ok: false, text: this.rivaleText('ritual_besetzt', n) };
-    if (r.seq > seq + 1) return null; // noch hinter dir: kein Grund, dir zuvorzukommen
-    if (seeded(`${this.seed ?? ''}|rvk|${n}|${pid}|${tag}`)() >= R.ritual) return null;
+    const hass = this.rivaleHass(r);
+    if (r.seq > seq + 1 && !hass) return null; // noch hinter dir: kein Grund, dir zuvorzukommen (außer er hasst dich)
+    if (seeded(`${this.seed ?? ''}|rvk|${n}|${pid}|${tag}`)() >= (hass ? R.ritual_hass : R.ritual)) return null;
     const id = rivaleEncId(pid, r.seq, n);
     if (!this.content.encounters[id]) return null;
     r.kreis_kampf = tag;
     this.startCombat(id);
     return { ok: false, fight: id, text: this.rivaleText('ritual', n) };
+  },
+
+  /** Etappe 3: Feind ab Sequenz 4 nach vielen Kämpfen: will deinen Aufstieg verhindern. */
+  rivaleHass(r) {
+    return !!r && r.status === 'rivale' && r.seq <= 4 && r.siege + r.niederlagen >= R.hass_kaempfe;
   },
 
   /** Combat.finish: Sieg, Niederlage oder Flucht gegen einen Rivalen. Gibt einen Zusatztext zurück. */
@@ -164,6 +170,10 @@ export const rivaleMethods = {
     } else {
       if (combat.outcome === 'lost') r.niederlagen++;
       if (imKreis) { r.kreis_besetzt = tag; out.push(this.rivaleText('ritual_besetzt', n)); }
+      if (imKreis && combat.outcome === 'lost' && this.rivaleHass(r)) { // verdorbenes Ritual
+        this.rivaleAls(n, () => this.setUnruhe(this.unruhe + R.hass_unruhe));
+        out.push(this.rivaleText('ritual_verdorben', n));
+      }
     }
     this.emit('changed');
     return out.join('\n\n') || null;
@@ -209,6 +219,7 @@ export const rivaleMethods = {
       lage.optionen = [...(r.jagd_tag !== tag ? ['jagd'] : []), 'gehen'];
       return lage;
     }
+    if (!erste && !ruht && !verrat && r.status === 'rivale' && r.seq <= 4) lage.text += `\n\n${this.rivaleText(this.rivaleHass(r) ? 'hass' : 'gefolge', n)}`;
     if (!erste && !ruht && !verrat) lage.text += `\n\n${rivaleArtText('spruch', r.pid, n)}`;
     const akt = !erste && !ruht && !verrat && seeded(`${this.seed ?? ''}|rva|${n}|${r.pid}|${tag}`)() < R.aktion ? this.rivaleAktion(n) : null;
     if (akt) { lage.text += `\n\n${akt.text}`; lage.aktion = akt.art; if (akt.folge) lage.beute = akt.folge; }
@@ -367,7 +378,7 @@ export const rivaleMethods = {
     if (!r) return null;
     const ruht = this.rivaleTagNr() <= r.ruhe_bis;
     return { nr: n, pid: r.pid, name: rivaleName(r.pid, n), seq: r.seq, getroffen: r.getroffen, siege: r.siege, niederlagen: r.niederlagen, status: r.status === 'verbuendet' ? 'verbuendet' : ruht ? 'ruht' : 'rivale',
-      wesen: rivaleArtText('wesen', r.pid, n), ziel: rivaleArtText('ziel', r.pid, n), aktion: r.aktion_tag >= 0 ? rivaleArtText('aktion', r.pid, n) : '' };
+      hass: this.rivaleHass(r), wesen: rivaleArtText('wesen', r.pid, n), ziel: rivaleArtText('ziel', r.pid, n), aktion: r.aktion_tag >= 0 ? rivaleArtText('aktion', r.pid, n) : '' };
   },
 
   serializeRivalen() {

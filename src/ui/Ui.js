@@ -2653,7 +2653,7 @@ export class Ui {
     if (!list.length) return '';
     const status = { rivale: 'Feindlich', ruht: 'Hält sich zurück', verbuendet: 'Verbündet' };
     return `<h4>Rivale auf deinem Pfad</h4><ul class="steps">${list.map((r) => (r.getroffen
-      ? `<li>${list.length > 1 ? `<span class="role">Spieler ${r.nr}</span> ` : ''}<strong>${esc(r.name)}</strong> · <span>Sequenz ${r.seq}</span> · <span class="badge ${r.status === 'verbuendet' ? 'likely' : ''}">${esc(status[r.status])}</span> · <span class="muted">Siege: ${r.siege}, Niederlagen: ${r.niederlagen}</span>`
+      ? `<li>${list.length > 1 ? `<span class="role">Spieler ${r.nr}</span> ` : ''}<strong>${esc(r.name)}</strong> · <span>Sequenz ${r.seq}</span> · <span class="badge ${r.status === 'verbuendet' ? 'likely' : ''}">${esc(status[r.status])}</span>${r.hass ? ' · <span class="badge">Will deinen Aufstieg verhindern</span>' : ''} · <span class="muted">Siege: ${r.siege}, Niederlagen: ${r.niederlagen}</span>`
         + `<br><span class="muted"><strong>Wesen</strong>: ${esc(r.wesen)}</span><br><span class="muted"><strong>Ziel</strong>: ${esc(r.ziel)}</span>${r.aktion ? `<br><span class="muted">${esc(r.aktion)}</span>` : ''}</li>`
       : '<li class="muted">Noch nicht begegnet. Ab Wexmoor geht jemand denselben Pfad wie du.</li>')).join('')}</ul>`;
   }

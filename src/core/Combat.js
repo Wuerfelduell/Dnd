@@ -332,7 +332,7 @@ export class Combat {
     this.confused = false; // nächster gegnerischer Angriff trifft den Gegner selbst
     this.confuseLock = 0; // Eliten/Bosse: Runden, in denen eine neue Verwirrung nicht greift (CONFUSE_LOCK)
     // Gegnergruppe: Begleiter dazu (nie in Übungen, Prüfungen oder gegen Spiegelbilder)
-    if (!enc.practice && !this.rules && !enc.mirror) for (const id of pack ?? []) this.addFoe(id);
+    if (!enc.practice && !this.rules && !enc.mirror) for (const id of (pack?.length ? pack : enc.begleiter ?? [])) this.addFoe(id); // begleiter: feste Begleiter (Rivale ab Seq 4)
     // Seq 3 bis 1 (core/SeqHoch.js, Seb 2026-11-26): Ritualketten gegen Gruppen, Begleiter gleich stark gestärkt wie der Anführer
     if (this.rules?.gruppe && !enc.practice && !enc.mirror) for (let i = 0; i < this.rules.gruppe; i++) this.addFoe(encounterId, ritualEnc);
     // Kurglocke (Kapitel 4): gewöhnliche Gegner schlafen zu Beginn und setzen ihren ersten Zug aus.
