@@ -52,7 +52,7 @@ export function schwelleEncounter(pid, p, seq) {
   const [a, b, c] = w.dmg;
   return {
     name: `${w.titel} ${p.name.replace('Pfad der', 'der').replace('Pfad des', 'des')}`,
-    sprite: 'wild', sheet: w.sheet, waechter: w.waechter, pathway: pid, boss: true, occult: true, fleeable: true, hp: w.hp, armor: w.armor, max_round_dmg: 0.2, ramp: 0.02, chapter: w.chapter,
+    sprite: 'wild', sheet: `${w.sheet}__w_${pid}`, waechter: w.waechter, pathway: pid, boss: true, occult: true, fleeable: true, hp: w.hp, armor: w.armor, max_round_dmg: 0.2, ramp: 0.02, chapter: w.chapter,
     intro: `${w.bild} Aus dem Nebel spricht es mit deiner Stimme: „${p.principle}“ – „Zeigen Sie mir, was Sie selbst verantworten.“`,
     attacks: [
       { name: `${w.schlag} ${was}: zwei Schläge`, damage: a, hits: [1100, 1800] },
