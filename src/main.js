@@ -109,6 +109,12 @@ const ui = new Ui(uiRoot, state, {
     restartWorld();
     saveSoon();
   },
+  // Pausemenü „Zum Hauptmenü“: speichern und neu laden, so startet das Hauptmenü mit sauberem Zustand
+  onQuitToTitle: () => {
+    writeSave();
+    started = false;
+    location.reload();
+  },
   onContinue: (n = slot, { koop = false } = {}) => {
     setSlot(n);
     if (!state.load(readSave())) state.reset();

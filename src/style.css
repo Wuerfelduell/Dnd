@@ -1308,15 +1308,16 @@ html.touch .talentbar .tslot { width: 3.2em; height: 3.2em; }
 .skin-ui_AE_regler_png .tm-knob { width: 1em; height: 1em; border-radius: 0; background: var(--regler-knob) 0 0 / 100% 100%; image-rendering: pixelated; }
 .tm-pct { font-size: 0.6em; color: var(--muted); text-align: right; }
 
-.tm-credits { position: absolute; inset: 0; z-index: 3; background: url(./sprites/ui/abspann_rahmen.png) 0 0 / 100% 100%, radial-gradient(ellipse, rgba(10, 10, 18, 0.95), rgba(4, 4, 8, 0.99)); image-rendering: pixelated; cursor: pointer; animation: tm-fadein 0.6s ease-out; }
-.tm-credits-win { position: absolute; left: 14%; right: 14%; top: 13%; bottom: 14%; overflow: hidden;
-  -webkit-mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent); mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent); }
-.tm-credits-roll { text-align: center; animation: tm-roll 34s linear infinite; image-rendering: auto; }
+.tm-credits { position: absolute; inset: 0; z-index: 3; background: url(./sprites/ui/abspann_rahmen.png) 0 0 / 100% 100%, radial-gradient(ellipse, #0b0b14, #040408); image-rendering: pixelated; cursor: pointer; animation: tm-fadein 0.6s ease-out; }
+.tm-credits-win { position: absolute; left: 14%; right: 14%; top: 13%; bottom: 14%; overflow: hidden; }
+/* Abspann läuft in ganzen Spielpixeln (JS in TitleMenu.js), damit die Pixelschrift beim Rollen nicht flimmert */
+.layer:has(.tm-credits) .tm-left, .layer:has(.tm-credits) .titlescene { visibility: hidden; }
+.tm-credits-roll { text-align: center; will-change: transform; }
 .tm-credits-roll h2 { margin: 0 0 0.6em; font-size: 2.4em; color: var(--gold); }
 .tm-credits-roll h4 { margin: 0.2em 0 0.3em; color: var(--brass); font-size: 0.8em; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 400; }
 .tm-credits-roll div { font-size: 1.1em; margin: 0.15em 0; }
 .tm-trenner { display: block; width: 16em; height: 2em; margin: 1.2em auto 0.6em; background: url(./sprites/ui/abspann_trenner.png) 0 0 / 600% 100%; image-rendering: pixelated; }
-.tm-credits-hint { position: absolute; left: 0; right: 0; bottom: 3.2em; text-align: center; font-size: 0.65em; color: var(--muted); }
+.tm-credits-hint { position: absolute; left: 0; right: 0; bottom: 15.5%; z-index: 1; text-align: center; font-size: 0.65em; color: var(--muted); }
 @keyframes tm-roll { from { transform: translateY(21em); } to { transform: translateY(-100%); } }
 @keyframes tm-fadein { from { opacity: 0; } to { opacity: 1; } }
 
@@ -1342,7 +1343,6 @@ html.touch .talentbar .tslot { width: 3.2em; height: 3.2em; }
 @keyframes tm-curtain { from { opacity: 1; } to { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) {
   .tm-mote, .titlescene .tl.glow, .titlescene .tl.water, .titlescene .tl.window, .panel h1.tm-title::after { animation: none; }
-  .tm-credits-roll { animation: none; }
   .tm-credits-win { overflow: auto; }
 }
 
