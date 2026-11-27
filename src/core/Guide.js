@@ -366,3 +366,22 @@ export function advice(state, speaker = null) {
   }
   return lines;
 }
+
+/**
+ * Aktuelles Ziel für Wegweiser, Pfeil und Stadtkarte (Seb 2026-11-26: „die Calderwick-Hauptquest braucht bessere Wegweiser“):
+ * der verfolgte Auftrag; ohne einen (oder wenn er kein Ziel hat) der laufende Hauptauftrag; sonst die nächste offene Spur.
+ */
+export function aktuellesZiel(state) {
+  const tracked = state.tracked && state.quests[state.tracked] === 'active' ? questTarget(state, state.tracked) : null;
+  if (tracked) return tracked;
+  if (!state.tracked) {
+    const main = Object.keys(state.quests).find((q) => state.quests[q] === 'active' && state.content.quests[q]?.kind === 'main' && questTarget(state, q));
+    if (main) return questTarget(state, main);
+  }
+  // Schritt „Werde stärker: Sequenz N“ hat keinen Ort: auf die Hinweisliste im Notizbuch zeigen
+  const q = state.tracked && state.quests[state.tracked] === 'active' ? state.tracked
+    : Object.keys(state.quests).find((id) => state.quests[id] === 'active' && state.content.quests[id]?.kind === 'main');
+  const step = q ? (state.content.quests[q]?.steps ?? []).find((st) => !state.meets(st.done)) : null;
+  if (step?.done?.requires_seq) return { quest: q, step: step.text, notebook: 'Notizbuch → Pfad: Was du für den Aufstieg brauchst' };
+  return leadTarget(state, state.openLeads()[0]);
+}

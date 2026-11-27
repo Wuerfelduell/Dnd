@@ -44,6 +44,7 @@ import { applyCalderwickKulisse } from './calderwickKulisse.js';
 import { applyCalderwickStadtplan } from './calderwickStadtplan.js';
 import { applyCalderwickBeute } from './calderwickBeute.js';
 import { applyCalderwickErkunden } from './calderwickErkunden.js';
+import { applyCalderwickLeben } from './calderwickLeben.js';
 import { applyPfadviertelPlan } from './pfadviertelPlan.js';
 import { applyDunscarAusbau, applyDunscarStaende } from './dunscarAusbau.js';
 import { applyBenannte } from './benannte.js';
@@ -184,6 +185,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyCalderwickErkunden(content); // Calderwick: Verstecke mit Wächtern, verbrannte Briefe, zwei Nebenaufträge
   applyPfadviertelPlan(content); // Pfadviertel: Gildenhof, Gildenhalle mit Oberhaupt, Gassen mit Herden, Herz-Arena, Wegweiser
   applyCalderwickKulisse(content); // Calderwick: Häuser, Möbelblöcke, Fassaden, Rohrpost, Laternen, Licht und Nebel; Pfadviertel mit Verderbnis-Glimmen
+  applyCalderwickLeben(content); // Seb 2026-11-27: Calderwick belebt – Passanten, Gemurmel, Tratsch, Rohrpost und Fallglocke (nach der Kulisse)
   applyCalderwickZirkel(content); // Calderwick: eigene Zirkel (Bleisatz: Waffen/Rüstungen, Pfandrunde: Artefakte), Aufnahme über Bürgen
   applyGeistessenz(content); // Geisteressenz ab Dunscar: jeder Gegner 8 %, Elite 15 %, Boss 35 % (nach allen Beute-Umbauten)
   applyCalderwickBeute(content); // Seb 2026-11-26: Calderwicker Gegner mit eigenem Fund-Topf (Zutaten 4/3, Kleidung, Waffen, Artefakte)
