@@ -7,6 +7,7 @@ import {
   BATTLE_SHEET_SCALE, ENTER_ANIMS, ENCOUNTER_STAGE, STARLING2_HUD, ritualBattleSheet,
 } from './assets.js';
 import { RitualCombat, ritualBackground, ritualLook } from './RitualCombat.js';
+import { SkillFx, skillVariant, PFAD_STIL } from './SkillFx.js';
 import { VIEW_W, VIEW_H, PLAYER_PALETTE } from './WorldScene.js';
 import { koopBark, koopStartEvent } from '../core/Koop.js';
 import { combatSound, skillSound, ritualSkillSound, kesselWurfSound } from '../core/sounds.js';
@@ -184,9 +185,10 @@ export class CombatScene extends Phaser.Scene {
   }
 
   /** Effekt-Streifen an einer Position abspielen und danach entfernen. */
-  playFx(sheet, anim, x, y, scale = 1.5) {
+  playFx(sheet, anim, x, y, scale = 1.5, { tint = null, flip = false } = {}) {
     if (!this.textures.exists(sheet)) return false;
-    const fx = this.add.sprite(x, y, sheet, 0).setScale(scale).setDepth(30);
+    const fx = this.add.sprite(x, y, sheet, 0).setScale(scale).setDepth(30).setFlipX(flip);
+    if (tint !== null) fx.setTint(tint);
     if (!playBattleAnim(fx, anim, () => fx.destroy())) { fx.destroy(); return false; }
     return true;
   }
@@ -214,16 +216,30 @@ export class CombatScene extends Phaser.Scene {
 
   /** Effekt einer Pfad-Fähigkeit, am Spieler oder am Gegner. */
   skillFx(skillId, foes = null) {
-    const def = this.combat?.skillDef(skillId);
-    skillId = this.fxId(skillId);
-    if (!SKILL_FX[skillId]) return;
-    // Paket AG: Stufen ohne Treffer (Schutz, Heilung, Ruhe) wirken am Spieler
-    const self = SELF_FX.includes(skillId) || (AG_SKILL_FX.includes(skillId) && def && !def.hits);
-    // Flächenfertigkeiten: der Effekt erscheint an jedem getroffenen Gegner
-    for (const i of self ? [null] : foes ?? [null]) {
-      const p = self ? this.playerCenter() : this.enemyCenter(i);
-      this.playFx(`fx_${skillId}`, 'cast', p.x, p.y);
+    const c = this.combat;
+    const def = c?.skillDef(skillId);
+    const fid = this.fxId(skillId);
+    const variant = skillVariant(def);
+    const has = !!SKILL_FX[fid];
+    if (!has && !def?.pathway && !['double', 'blind', 'ward'].includes(skillId)) return; // Grundangriff: Waffenschlag genügt
+    // Paket AG: Stufen ohne Treffer (Schutz, Heilung, Ruhe) wirken am Spieler; zweite Fertigkeiten richten sich nach sich selbst
+    const self = variant ? !def?.hits : has ? SELF_FX.includes(fid) || (AG_SKILL_FX.includes(fid) && def && !def.hits) : !def?.hits;
+    const spots = self ? [null] : foes ?? [null];
+    // Zweite/dritte Fertigkeit: geliehener Streifen getönt, gespiegelt und größer, damit sie sich von der ersten abhebt
+    const st = PFAD_STIL[def?.pathway];
+    const look = variant ? { tint: st?.alt ?? null, flip: true } : {};
+    if (has) {
+      for (const i of spots) {
+        const p = self ? this.playerCenter() : this.enemyCenter(i);
+        this.time.delayedCall(variant ? 90 : 0, () => this.playFx(`fx_${fid}`, 'cast', p.x, p.y, variant ? 1.75 : 1.5, look));
+      }
     }
+    // Flächenfertigkeiten: die Signatur erscheint an jedem getroffenen Gegner
+    const form = !!c.on(c.actor, () => this.state.pathway?.form) && !!def?.hg;
+    this.skillArt?.play({
+      pid: def?.pathway, def, variant, form, grund: def?.pathway ? null : skillId,
+      from: this.playerCenter(), targets: self ? [] : spots.map((i) => this.enemyCenter(i)),
+    });
   }
 
   /** Effekt-Id einer Fähigkeit: neue Fähigkeiten leihen sich bis zur eigenen Grafik einen Effekt (fx). */
@@ -317,6 +333,7 @@ export class CombatScene extends Phaser.Scene {
     const slots = FOE_SLOTS[c.foes.length] ?? FOE_SLOTS[1];
     this.enemies = c.foes.map((f, i) => this.buildFoe(f.enc, i ? f.id : this.encounterId, ENEMY_X + slots[i].dx, GROUND_Y + 14 + slots[i].dy, i));
     this.ritualArt = new RitualCombat(this);
+    this.skillArt = new SkillFx(this); // Pfad-Signaturen zu jeder Fertigkeit
     this.events.once('shutdown', () => this.ritualArt?.destroy());
     this.ritualArt.start();
   }
@@ -554,8 +571,9 @@ export class CombatScene extends Phaser.Scene {
    * Pfad-Fähigkeit eines Beyonder-Gegners sichtbar machen: Name in Pfadfarbe über dem Gegner,
    * kurzes Aufglühen der Figur und ein Ring, der sich ausbreitet.
    */
-  pfadFx(name) {
+  pfadFx(name, onPlayer = false) {
     const b = this.combat.enemy?.beyonder;
+    this.foeSkillFx(b, name, onPlayer);
     const hex = b?.color ?? '#c8b0e8';
     const col = Number.parseInt(hex.slice(1), 16);
     const p = this.enemyCenter();
@@ -576,6 +594,19 @@ export class CombatScene extends Phaser.Scene {
       onUpdate: () => { ring.clear(); ring.lineStyle(3, col, fx.a).strokeCircle(p.x, p.y, fx.r); },
       onComplete: () => ring.destroy(),
     });
+  }
+
+  /** Beyonder-Gegner: Effekt-Streifen und Pfad-Signatur seiner Fertigkeit, gespiegelt (vom Gegner zum Spieler). */
+  foeSkillFx(b, name, onPlayer) {
+    const seq = this.state.content.pathways?.[b?.pid]?.seqs?.[b?.seq];
+    if (!seq || !this.skillArt) return;
+    const def = [seq.skill, seq.skill2, seq.skill3].find((sk) => sk?.name === name);
+    if (!def) return;
+    const fid = AG_SKILL_FX.includes(def.id) ? def.id : def.fx ?? def.id;
+    const targets = onPlayer ? (onPlayer === 'all' && this.combat.duo ? Object.keys(this.players ?? {}).map((n) => this.playerCenter(Number(n))) : [this.playerCenter()]) : [];
+    const at = targets[0] ?? this.enemyCenter();
+    if (SKILL_FX[fid]) this.time.delayedCall(onPlayer ? 380 : 0, () => this.playFx(`fx_${fid}`, 'cast', at.x, at.y, 1.5, { flip: true }));
+    this.skillArt.play({ pid: b.pid, def: onPlayer ? { ...def, hits: def.hits || 1 } : { ...def, hits: 0 }, variant: def === seq.skill ? 0 : 1, from: this.enemyCenter(), targets });
   }
 
   // --- Ablauf ------------------------------------------------------------------
@@ -734,7 +765,8 @@ export class CombatScene extends Phaser.Scene {
       this.time.delayedCall(700, () => this.afterAction(c.endsTurn(skillId)));
       return;
     }
-    if (SKILL_FX[this.fxId(skillId)]) { this.castAnim(); this.skillFx(skillId, r.aoe ? struck : null); } else this.attackAnim();
+    if (SKILL_FX[this.fxId(skillId)]) this.castAnim(); else this.attackAnim();
+    this.skillFx(skillId, r.aoe ? struck : null);
     const blade = c.on(c.actor, () => this.state.weapon) === 'stockdegen';
     const main = this.enemies[r.main] ?? this.enemy;
     this.tweens.add({
@@ -838,7 +870,7 @@ export class CombatScene extends Phaser.Scene {
         // Kniff der Sekten: Panzer, Heilung, Schleier, Einschüchterung
         const a = c.lastAction;
         this.sfx(combatSound('act', a));
-        if (a.pfad && !c.rules?.deaf) this.pfadFx(a.name);
+        if (a.pfad && !c.rules?.deaf) this.pfadFx(a.name, a.action === 'taunt' || a.action === 'drain');
         this.ui.combatMessage(a.pfad && c.enemy.beyonder ? `${c.enemy.name}: ${a.name}\n\n✦ Pfadfähigkeit · ${c.enemy.beyonder.pfad}\n${a.text}` : `${c.enemy.name}: ${a.name}\n\n${a.text}`);
         const float = { guard: [`Panzer +${a.value}`, 'good'], heal: [`+${a.value}`, 'good'], veil: ['Schleier', 'miss'], taunt: [`-${a.value} Nerven`, 'hurt'], drain: [`-${a.value} Konzentration`, 'hurt'] }[a.action];
         if (a.action === 'taunt' || a.action === 'drain') this.focusPlayer(c.target);
@@ -874,7 +906,7 @@ export class CombatScene extends Phaser.Scene {
     const whom = !c.duo ? '' : atk.sweep ? ' → beide Spieler' : ` → ${this.who(c.target)}`;
     if (deaf) this.ui.combatMessage(`${c.enemy.name} holt aus. Du hörst nichts, du siehst nur die Welle.`, help);
     else if (atk.pfad && c.enemy.beyonder) {
-      this.pfadFx(atk.name);
+      this.pfadFx(atk.name, atk.sweep ? 'all' : true);
       this.ui.combatMessage(`${c.enemy.name}: ${atk.name}${whom}${atk.hits.length > 1 ? ` (${atk.hits.length} Schläge)` : ''}\n\n✦ Pfadfähigkeit · ${c.enemy.beyonder.pfad}${tags ? `\n${tags}` : ''}${evading ? '\n\nDu weißt schon, wohin er schlägt.' : ''}`, help);
     } else this.ui.combatMessage(`${c.enemy.name}: ${atk.name}${whom}${atk.hits.length > 1 ? ` (${atk.hits.length} Schläge)` : ''}${tags ? `\n\n${tags}` : ''}${evading ? '\n\nDu weißt schon, wohin er schlägt.' : ''}`, help);
     this.tweens.add({ targets: this.enemy, x: this.enemy.homeX + 8, duration: TELEGRAPH * 0.6, ease: 'Sine.out' });
