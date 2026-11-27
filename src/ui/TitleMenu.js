@@ -164,7 +164,28 @@ function creditsHtml(title) {
   const parts = CREDITS.map(([h, names], i) => `<span class="tm-trenner" style="background-position:${(i % 6) * 20}% 0"></span><h4>${h}</h4>${names.map((x) => `<div>${esc(x)}</div>`).join('')}`).join('');
   return `<div class="tm-credits"><div class="tm-credits-win"><div class="tm-credits-roll">
     <h2>${esc(title)}</h2>${parts}<span class="tm-trenner" style="background-position:100% 0"></span><p class="muted">Danke fürs Spielen.</p>
-  </div></div><div class="tm-credits-hint">Tippen oder Esc: zurück</div></div>`;
+  </div></div></div>`;
+}
+
+/** Abspann nach oben rollen, immer um ganze Spielpixel (1em = 8 px), sonst flimmert die Pixelschrift. */
+function rollCredits(ui, roll) {
+  if (!roll) return;
+  const win = roll.parentNode;
+  const still = globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+  if (still) { win.style.overflow = 'auto'; return; }
+  const t0 = performance.now();
+  const step = (t) => {
+    if (!roll.isConnected) return;
+    const px = parseFloat(getComputedStyle(roll).fontSize); // CSS-Pixel je em (= 8 Spielpixel)
+    const start = (win.clientHeight / px) * 8 * 0.55; // in Spielpixeln: knapp unter der Mitte des Fensters beginnen
+    const end = -(roll.offsetHeight / px) * 8;
+    const dist = (win.clientHeight / px) * 8 - end; // nach dem ersten Durchlauf von ganz unten
+    const run = ((t - t0) / 1000) * 14; // 14 Spielpixel je Sekunde
+    const y = Math.round(run < start - end ? start - run : (win.clientHeight / px) * 8 - ((run - (start - end)) % dist));
+    roll.style.transform = `translateY(${y / 8}em)`;
+    requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
 }
 
 function bind(ui, el, { slots = [], saved = null, active = 1, view, re = (v, opts) => showTitleMenu(ui, v, opts), extra = null }) {
@@ -193,6 +214,7 @@ function bind(ui, el, { slots = [], saved = null, active = 1, view, re = (v, opt
     else if (a === 'new2') ui.titleNew(undefined, { koop: true });
     else if (a === 'load') start(ui, () => { ui.close(); ui.onContinue(n); });
     else if (a === 'slotnew') { if (has) armed(btn, () => ui.titleNew(n)); else ui.titleNew(n); }
+    else if (a === 'quit') armed(btn, () => { ui.layer.classList.add('tm-out'); ui.titleLeaving = true; setTimeout(() => ui.onQuitToTitle(), 450); });
     else if (a === 'delete') armed(btn, () => { ui.onDeleteSlot(n); re('slots', { sel: 0 }); });
     else if (a === 'fullscreen') { ui.toggleFullscreen(); setTimeout(() => { const l = btn.querySelector('.tm-label'); if (l) l.textContent = ui.fullscreenLabel(); }, 300); }
     else if (a === 'lang') { setLang(getLang() === 'en' ? 'de' : 'en'); re(view, { sel: items().indexOf(btn) }); }
@@ -226,7 +248,10 @@ function bind(ui, el, { slots = [], saved = null, active = 1, view, re = (v, opt
   };
   items().forEach(wire);
   ui.titleAct = act;
-  if (view === 'credits') el.querySelector('.tm-credits')?.addEventListener('click', () => act(el.querySelector('[data-act=back]')));
+  if (view === 'credits') {
+    el.querySelector('.tm-credits')?.addEventListener('click', () => act(el.querySelector('[data-act=back]')));
+    rollCredits(ui, el.querySelector('.tm-credits-roll'));
+  }
 }
 
 function focusItem(ui, i, quiet = false) {
@@ -337,6 +362,7 @@ export function showPauseMenu(ui, feedback = '', { view = 'main', focus = null, 
       ${item('p2', p2label, { sub: on ? 'Ihr spielt zu zweit an diesem Rechner' : 'Zu zweit an einem Rechner' })}
       ${item('controls', 'Steuerung')}
       ${item('options', 'Optionen')}
+      ${ui.onQuitToTitle ? item('quit', 'Zum Hauptmenü', { sub: 'Der Spielstand wird vorher gespeichert', attrs: 'data-label="Zum Hauptmenü"' }) : ''}
       ${ui.state.testmodus ? item('testreise', 'Testreise', { attrs: 'data-no-tr' }) : ''}`;
     side = `${feedback ? `<div class="pm-feedback">${feedback}</div>` : ''}
       ${on ? ui.p2LookPicker() : ''}

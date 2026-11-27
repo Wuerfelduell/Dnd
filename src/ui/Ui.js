@@ -416,7 +416,7 @@ const ITEM_CATS = [
 ];
 
 export class Ui {
-  constructor(root, state, { onNewGame, onContinue, slots, activeSlot, onDeleteSlot }) {
+  constructor(root, state, { onNewGame, onContinue, slots, activeSlot, onDeleteSlot, onQuitToTitle }) {
     this.root = root;
     root.style.setProperty('--artui', `url(${new URL(ARTIFACT_UI_URL, document.baseURI).href})`);
     for (const [v, path] of Object.entries(UI_SKINS)) root.style.setProperty(`--${v}`, `url(${new URL(SPRITE_BASE + path, document.baseURI).href})`);
@@ -425,6 +425,7 @@ export class Ui {
     iconState = state;
     this.onNewGame = onNewGame;
     this.onContinue = onContinue;
+    this.onQuitToTitle = onQuitToTitle; // Pausemenü: speichern und zurück ins Hauptmenü
     this.slots = slots;
     this.activeSlot = activeSlot;
     this.onDeleteSlot = onDeleteSlot;
