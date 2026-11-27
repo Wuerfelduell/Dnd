@@ -31,7 +31,7 @@ import { STATION_NAMES, DIRECTION_NAMES } from '../data/k3Ruf.js';
 import { RITUAL_ART, artCss } from '../world/ritualArt.js';
 import { isSolved, knownPeople, journalQuestVisible } from '../core/journal.js';
 import { canHurry, hurryCost, travelSafe, travelFast, afterHurryFight, travelDestinations, cityOf } from '../core/Travel.js';
-import { questTarget, leadTarget, personPlaces, advice } from '../core/Guide.js';
+import { questTarget, leadTarget, personPlaces, advice, aktuellesZiel } from '../core/Guide.js';
 import { WETTER, NEBELNACHT, SEASON_NAMES } from '../core/Wetter.js';
 import { installTestmodus, testPauseButton, bindTestPause, closeTestReise } from './TestUi.js';
 import { RIVALE_REGELN } from '../data/rivale.js';
@@ -755,7 +755,7 @@ export class Ui {
     if (!el) return;
     const s = this.state;
     // Ohne verfolgten Auftrag zeigt der Wegweiser die nächste offene Spur (z. B. Nan Kettle für Fall 8).
-    const t = s.tracked && journalQuestVisible(s, s.tracked) ? questTarget(s, s.tracked) : leadTarget(s, s.openLeads()[0]);
+    const t = aktuellesZiel(s);
     el.classList.toggle('hidden', !t);
     if (t) el.innerHTML = `<span class="arrow">➤</span> ${esc(this.goalText(t))}<span class="gstep">${esc(t.lead ? `Neue Spur: ${s.quest(t.quest).title}` : t.step)}</span>`;
   }
@@ -1621,7 +1621,7 @@ export class Ui {
     this.travelFrom = current;
     const pins = rules.pins ?? {};
     this.travelPins = pins;
-    const goal = s.tracked && journalQuestVisible(s, s.tracked) ? questTarget(s, s.tracked) : leadTarget(s, s.openLeads()[0]);
+    const goal = aktuellesZiel(s);
     const goalMap = goal?.district ?? null;
     const meetMap = s.gatheringTarget?.()?.district ?? null;
     this.personMap = null;

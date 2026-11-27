@@ -1,7 +1,7 @@
 import { HalbgottRitual } from './HalbgottRitual.js';
 import { ritualFx } from './ritualArt.js';
 import Phaser from 'phaser';
-import { questTarget, leadTarget, nextHop } from '../core/Guide.js';
+import { questTarget, leadTarget, nextHop, aktuellesZiel } from '../core/Guide.js';
 import { NAP_HEAL } from '../core/Wetter.js';
 import { WetterFx } from './WetterFx.js';
 import { createTextures, createCharacterSheet, hash2, TILE, TILE_INDEX, SOLID_KEYS } from './textures.js';
@@ -2503,7 +2503,7 @@ export class WorldScene extends Phaser.Scene {
   findGoalPosition() {
     const s = this.state;
     // Ein laufendes geheimes Treffen hat Vorrang (es dauert nur ein paar Minuten)
-    const t = s.gatheringTarget?.() ?? (s.tracked ? questTarget(s, s.tracked) : leadTarget(s, s.openLeads()[0]));
+    const t = s.gatheringTarget?.() ?? aktuellesZiel(s);
     if (!t || !t.map) return null;
     const id = t.map === s.map ? t.id : nextHop(s.content, s.map, t.map)?.via;
     if (!id) return null;

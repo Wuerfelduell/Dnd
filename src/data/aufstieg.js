@@ -373,7 +373,10 @@ function calderwickGebiete(content) {
     // Seb 2026-11-26: nur wer auf diesem Pfad Seq 4 oder besser ist, kommt hinein (je Spieler: die Stadtkarte prüft den, der sie öffnet)
     content.travel.push({ map: o3, spawn: 'default', city: 'calderwick', name: cw.viertel, desc: `Gefahr ${CW_GEBIET_DANGER}. ${cw.verderbnis}`, requires_flags: ['k4_arrived'], requires_pathway: [pid, 4] });
     for (const [cid, c] of Object.entries(content.travelRules?.cities ?? {})) if (cid !== 'calderwick' && c.pins?.[o3]) delete c.pins[o3];
-    if (cwPins) cwPins[o3] = [24 + 43 * Object.keys(CW_GEBIETE).indexOf(pid), 262];
+    // Seb 2026-11-26: unten verschwanden die Viertel hinter der Textzeile; jetzt je fünf am linken und rechten Kartenrand
+    const n = Object.keys(CW_GEBIETE).indexOf(pid);
+    if (cwPins) cwPins[o3] = [n < 5 ? 14 : 466, 96 + 30 * (n % 5)];
+    if (cwPins?.cw_nullfundament?.[1] > 240) cwPins.cw_nullfundament = [40, 234];
   }
 }
 const kernzutatId = (pid, n) => `sq_zutat_${pid.replace(/^sq_/, '')}_${n}`;

@@ -6,6 +6,7 @@ import { RASTER } from '../data/dunscarKulisse.js';
 import {
   DICHTE, FIGUREN, FARBSTICH, PALETTEN, ROLLEN, RICHTUNG, TRATSCH, EREIGNISSE, TAKT, tagesabschnitt, gemurmelFuer,
 } from '../data/dunscarPassanten.js';
+import { CW_DICHTE, CW_FARBSTICH, CW_ROLLEN, CW_TRATSCH, CW_EREIGNISSE, cwGemurmelFuer } from '../data/calderwickLeben.js';
 
 // Passanten in Dunscars Vierteln (Daten: data/dunscarPassanten.js). Reine Kulisse ohne Physik:
 // Wege laufen nur über das Straßenkreuz des Viertel-Rasters (Reihen 10/11, Spalten 21/22), Haustüren und Straßenenden
@@ -29,12 +30,16 @@ export class DunscarPassanten {
     this.eventT = rnd(...TAKT.ereignis) * 500; // erstes Ereignis etwas früher
     this.abschnitt = null;
     this.ends = null;
+    this.cw = this.def?.stadt === 'calderwick'; // Calderwick: eigene Texte, Wege frei über die Terrasse (data/calderwickLeben.js)
   }
+
+  get ereignisse() { return this.cw ? CW_EREIGNISSE : EREIGNISSE; }
 
   get aktiv() { return !!this.def && this.scene.splitRole !== 2; }
 
   build() {
     if (!this.aktiv) return;
+    if (this.def.frei) this.raster = this.begehbar();
     this.ends = this.endpunkte();
     if (this.ends.rand.length + this.ends.tuer.length < 2) { this.def = null; return; }
     this.abschnitt = tagesabschnitt(this.state.playTime);
@@ -49,7 +54,7 @@ export class DunscarPassanten {
   }
 
   ziel() {
-    const d = DICHTE[this.def.art] ?? DICHTE.wohnen;
+    const d = (this.cw ? CW_DICHTE : DICHTE)[this.def.art] ?? DICHTE.wohnen;
     return d[this.abschnitt] ?? 4;
   }
 
@@ -57,6 +62,12 @@ export class DunscarPassanten {
   endpunkte() {
     const free = (t) => { const { x, y } = px(t); return s.critters?.free(x, y - 2); };
     const s = this.scene;
+    if (this.def.frei) { // Calderwick: Ränder und Türen kommen aus den Kartendaten, erreichbar über freie Kacheln
+      const ok = (e) => free(e.tile) && this.raster?.has(e.tile.join(','));
+      const rand = (this.def.raender ?? []).filter(ok);
+      const tuer = (this.def.tueren ?? []).filter(ok);
+      return { rand, tuer };
+    }
     const [y0] = RASTER.strasseY;
     const [x0] = RASTER.strasseX;
     // Straßenenden: Leute kommen vom Kartenrand (meist außerhalb des Bildes) und gehen dorthin
@@ -72,8 +83,41 @@ export class DunscarPassanten {
     return { rand, tuer };
   }
 
+  /** Freie Kacheln der Karte (einmal je Betreten), für die Wegsuche ohne Straßenkreuz. */
+  begehbar() {
+    const s = this.scene;
+    const rows = s.mapDef.rows ?? [];
+    const set = new Set();
+    rows.forEach((row, y) => { for (let x = 0; x < row.length; x++) { const { x: wx, y: wy } = px([x, y]); if (s.critters?.free(wx, wy - 2)) set.add(`${x},${y}`); } });
+    return set;
+  }
+
+  /** Breitensuche über freie Kacheln; zurück kommen nur die Eckpunkte. */
+  wegFrei(a, b) {
+    const ziel = b.tile.join(',');
+    const von = new Map([[a.tile.join(','), null]]);
+    const q = [a.tile];
+    while (q.length) {
+      const [x, y] = q.shift();
+      if (`${x},${y}` === ziel) break;
+      for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+        const k = `${x + dx},${y + dy}`;
+        if (von.has(k) || !this.raster.has(k)) continue;
+        von.set(k, [x, y]);
+        q.push([x + dx, y + dy]);
+      }
+    }
+    if (!von.has(ziel)) return null;
+    const pfad = [];
+    for (let t = b.tile; t; t = von.get(t.join(','))) pfad.unshift(t);
+    const ecken = pfad.filter((t, i) => i === 0 || i === pfad.length - 1
+      || (pfad[i - 1][0] - t[0]) !== (t[0] - pfad[i + 1][0]) || (pfad[i - 1][1] - t[1]) !== (t[1] - pfad[i + 1][1]));
+    return ecken.map(px);
+  }
+
   /** Weg in Kacheln von a nach b über das Straßenkreuz, mit Spur je Richtung. */
   weg(a, b) {
+    if (this.def.frei) return this.wegFrei(a, b);
     const [y0, y1] = RASTER.strasseY;
     const [x0, x1] = RASTER.strasseX;
     const onRow = (e) => e.seite === 'W' || e.seite === 'E' || e.seite === 'H';
@@ -106,6 +150,7 @@ export class DunscarPassanten {
     if (r === 'raus' && tuer.length && rand.length && Math.random() < 0.7) { a = pick(tuer); b = pick(rand); }
     else if (r === 'heim' && tuer.length && rand.length && Math.random() < 0.7) { a = pick(rand); b = pick(tuer); }
     else { a = pick(alle); b = pick(alle.filter((e) => e !== a)); }
+    this.letztesZiel = b;
     return b ? this.weg(a, b) : null;
   }
 
@@ -113,7 +158,7 @@ export class DunscarPassanten {
   look(rolle) {
     const s = this.scene;
     const blaetter = FIGUREN.filter((f) => f.rollen.includes(rolle) && s.textures.exists(f.sheet));
-    if (blaetter.length) return { key: pick(blaetter).sheet, tint: pick(FARBSTICH) };
+    if (blaetter.length) return { key: pick(blaetter).sheet, tint: pick(this.cw ? CW_FARBSTICH : FARBSTICH) };
     // nur falls keine Lauf-Blätter geladen sind: Arbeitskleidung aus dem Zeichner
     const pal = PALETTEN.filter((p) => p.rollen.includes(rolle));
     const i = PALETTEN.indexOf(pick(pal.length ? pal : PALETTEN));
@@ -126,7 +171,8 @@ export class DunscarPassanten {
     const s = this.scene;
     const pts = pfad ?? this.route();
     if (!pts || pts.length < 2) return null;
-    const r = rolle ?? pick(ROLLEN[this.abschnitt] ?? ROLLEN.mittag);
+    const rl = this.cw ? CW_ROLLEN : ROLLEN;
+    const r = rolle ?? pick(rl[this.abschnitt] ?? rl.mittag);
     const { key, tint } = this.look(r);
     let seg = 0;
     let start = { ...pts[0] };
@@ -140,6 +186,7 @@ export class DunscarPassanten {
     const speed = langsam ? rnd(9, 12) : r === 'kind' ? rnd(30, 38) : this.abschnitt === 'morgen' ? rnd(22, 30) : rnd(14, 22);
     const p = { spr, key, pts, seg: seg + 1, speed, wait: 0, murmelt: false, rolle: r, rufe, wobble: langsam, facing: 'down', licht: null, fertig: false };
     if (licht && s.lighting) p.licht = s.lighting.add({ x: start.x, y: start.y, follow: spr, offsetY: -18, radius: 46, intensity: 0.9, color: 0xffc070, glowAlpha: 0.3, flicker: 0.15 });
+    if (!pfad) p.zuTuer = this.letztesZiel?.seite === 'H';
     this.list.push(p);
     return p;
   }
@@ -197,7 +244,7 @@ export class DunscarPassanten {
     const jetzt = tagesabschnitt(this.state.playTime);
     if (jetzt !== this.abschnitt) {
       this.abschnitt = jetzt;
-      if (jetzt === 'morgen' || jetzt === 'abend') this.ereignis('schichtglocke'); // Schichtbeginn und Feierabend
+      if (!this.cw && (jetzt === 'morgen' || jetzt === 'abend')) this.ereignis('schichtglocke'); // Schichtbeginn und Feierabend
     }
     // Leute laufen ihren Weg ab
     for (const p of this.list) {
@@ -212,12 +259,13 @@ export class DunscarPassanten {
         p.spr.setPosition(t.x, t.y);
         p.seg++;
         if (p.seg >= p.pts.length) {
-          if (p.pts.length > 2 && t.y <= (RASTER.hausY + 1) * TILE + 15 && this.sichtbar(p.spr)) s.sfx?.('tuer_zu', { volume: 0.3 }); // geht ins Haus
+          const insHaus = this.def.frei ? p.zuTuer : p.pts.length > 2 && t.y <= (RASTER.hausY + 1) * TILE + 15;
+          if (insHaus && this.sichtbar(p.spr)) s.sfx?.('tuer_zu', { volume: 0.3 }); // geht ins Haus
           this.entferne(p);
           continue;
         }
         // an der Kreuzung bleibt mancher kurz stehen und schaut sich um
-        if (Math.random() < 0.12) { p.wait = rnd(900, 2600); this.face(p, pick(DIRS)); }
+        if (Math.random() < (this.def.frei ? 0.04 : 0.12)) { p.wait = rnd(900, 2600); this.face(p, pick(DIRS)); }
       } else {
         this.walkAnim(p, Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 'right' : 'left') : (dy > 0 ? 'down' : 'up'));
         p.spr.anims?.resume();
@@ -235,7 +283,7 @@ export class DunscarPassanten {
     if (this.eventT <= 0) {
       this.eventT = rnd(...TAKT.ereignis);
       const art = this.def.art;
-      const passend = Object.entries(EREIGNISSE).filter(([id, e]) => id !== 'schichtglocke' && e.wann.includes(this.abschnitt) && (!e.arten.length || e.arten.includes(art)));
+      const passend = Object.entries(this.ereignisse).filter(([id, e]) => id !== 'schichtglocke' && e.wann.includes(this.abschnitt) && (!e.arten.length || e.arten.includes(art)));
       if (passend.length) this.ereignis(pick(passend)[0]);
     }
   }
@@ -251,7 +299,7 @@ export class DunscarPassanten {
       const nah = spieler.find((pl) => Math.hypot(pl.x - p.spr.x, pl.y - p.spr.y) < TAKT.gemurmelReichweite);
       if (!nah) continue;
       p.murmelt = true;
-      const { normal, bedingt } = gemurmelFuer(this.state, this.def.art, this.abschnitt);
+      const { normal, bedingt } = (this.cw ? cwGemurmelFuer : gemurmelFuer)(this.state, this.def.art, this.abschnitt);
       const text = bedingt.length && Math.random() < 0.45 ? pick(bedingt) : pick(normal);
       this.face(p, Math.abs(nah.x - p.spr.x) > Math.abs(nah.y - p.spr.y) ? (nah.x > p.spr.x ? 'right' : 'left') : (nah.y > p.spr.y ? 'down' : 'up'));
       p.wait = 1400;
@@ -272,7 +320,7 @@ export class DunscarPassanten {
         if (Math.hypot(a.spr.x - b.spr.x, a.spr.y - b.spr.y) > 18) continue;
         a.getratscht = b.getratscht = true;
         if (Math.random() > TAKT.tratschChance) continue;
-        this.gespraech(a, b, pick(TRATSCH));
+        this.gespraech(a, b, pick(this.cw ? CW_TRATSCH : TRATSCH));
         return;
       }
     }
@@ -290,13 +338,20 @@ export class DunscarPassanten {
 
   /** Straßenereignisse. Liefert true, wenn etwas passiert ist. */
   ereignis(id) {
-    const e = EREIGNISSE[id];
+    const e = this.ereignisse[id];
     const s = this.scene;
     if (!e || !this.ends) return false;
     if (e.ton) s.sfx?.(e.ton, { volume: 0.5 });
     const rufe = Array.isArray(e.rufe) ? e.rufe : e.rufe?.[this.abschnitt] ?? [];
     const naechster = () => this.list.filter((p) => !p.fertig && this.sichtbar(p.spr)).sort((a, b) => Math.hypot(a.spr.x - s.player.x, a.spr.y - s.player.y) - Math.hypot(b.spr.x - s.player.x, b.spr.y - s.player.y))[0];
-    switch (id) {
+    switch (e.typ ?? id) {
+      case 'ausruf': { // Calderwick: Rohrpost, Fallglocke, Zug oben – alle schauen kurz auf, einer ruft
+        if (e.wackeln) s.cameras.main.shake(900, 0.001);
+        for (const p of this.list.filter((q) => !q.fertig && this.sichtbar(q.spr)).slice(0, 4)) { p.wait = 1600; this.face(p, 'up'); }
+        const p = naechster();
+        if (p) s.time.delayedCall(600, () => this.sag(p.spr, pick(rufe)));
+        return !!p;
+      }
       case 'schichtglocke': {
         for (let i = 0; i < 4; i++) s.time.delayedCall(i * 700, () => this.spawn({ rolle: 'arbeiter' }));
         const p = naechster();
@@ -325,8 +380,13 @@ export class DunscarPassanten {
       }
       case 'streit': {
         const zeilen = pick(e.zeilen);
-        const [y0] = RASTER.strasseY;
-        const mx = Phaser.Math.Clamp(Math.floor(s.player.x / TILE), 3, RASTER.W - 4);
+        let y0 = RASTER.strasseY[0];
+        let mx = Phaser.Math.Clamp(Math.floor(s.player.x / TILE), 3, RASTER.W - 4);
+        if (this.def.frei) { // Calderwick: auf der Reihe des Spielers, wenn dort fünf Felder frei sind
+          mx = Math.floor(s.player.x / TILE);
+          y0 = Math.floor((s.player.y - 2) / TILE);
+          for (let dx = -2; dx <= 2; dx++) if (!this.raster.has(`${mx + dx},${y0}`)) return false;
+        }
         const a = this.spawn({ pfad: [px([mx - 2, y0]), px([mx - 1, y0])], rolle: 'arbeiter' });
         const b = this.spawn({ pfad: [px([mx + 2, y0]), px([mx + 1, y0])], rolle: 'markt' });
         if (!a || !b) { for (const p of [a, b]) if (p) this.entferne(p, true); return false; }
@@ -336,7 +396,7 @@ export class DunscarPassanten {
           this.gespraech(a, b, zeilen);
           // danach gehen beide getrennt weiter
           s.time.delayedCall(zeilen.length * TAKT.tratschZeile + 400, () => {
-            for (const p of [a, b]) if (!p.fertig) { const r = this.route(); if (r) { p.pts = [{ x: p.spr.x, y: p.spr.y }, ...r.slice(1)]; p.seg = 1; } }
+            for (const p of [a, b]) if (!p.fertig) { if (this.def.frei) { this.entferne(p); continue; } const r = this.route(); if (r) { p.pts = [{ x: p.spr.x, y: p.spr.y }, ...r.slice(1)]; p.seg = 1; } }
           });
         });
         return true;
