@@ -7,6 +7,8 @@ import { DAY_SECONDS } from './Clock.js';
 import { RIVALEN, RIVALE_REGELN as R, RIVALE_ART, rivaleArtText, rivaleEncId, rivaleName, rivaleText } from '../data/rivale.js';
 import { pvgFlag } from '../data/pfadviertelGeschichte.js';
 import { aufstiegHinweise } from '../data/aufstiegHinweise.js';
+import { BOGEN_SEQ, RIVALE_BOGEN, bogenText } from '../data/rivaleBogen.js';
+import { restId } from '../data/beyonderRest.js';
 
 const TAG_FELDER = ['tag', 'ruhe_bis', 'stahl_tag', 'treff_tag', 'kreis_frei', 'kreis_besetzt', 'kreis_kampf', 'aktion_tag', 'verrat_tag', 'jagd_tag', 'jagd_kampf'];
 const KEY = { 1: 'p1', 2: 'p2' };
@@ -21,7 +23,8 @@ export function cleanRivalen(data) {
     out[key] = {
       pid: r.pid,
       seq: Math.min(9, Math.max(1, n(r.seq, 9))),
-      status: r.status === 'verbuendet' ? 'verbuendet' : 'rivale',
+      status: ['verbuendet', 'erledigt', 'fort'].includes(r.status) ? r.status : 'rivale',
+      bogen: Math.min(4, Math.max(0, n(r.bogen, 0))), // Etappe 4: 0–2 Schritte gesehen, 3 = Finale offen, 4 = Finale entschieden
       siege: Math.max(0, n(r.siege, 0)),
       niederlagen: Math.max(0, n(r.niederlagen, 0)),
       getroffen: !!r.getroffen,
@@ -72,7 +75,7 @@ export const rivaleMethods = {
     if (r.tag < tag - 60) r.tag = tag - 60; // lange Pausen nicht Tag für Tag nachrechnen
     while (r.tag < tag) {
       r.tag++;
-      if (r.status === 'verbuendet' && r.seq < ps && seeded(`${this.seed ?? ''}|rvv|${n}|${r.pid}|${r.tag}`)() < R.verrat) { // zu weit hinten: Verrat
+      if (r.status === 'verbuendet' && r.bogen < 4 && r.seq < ps && seeded(`${this.seed ?? ''}|rvv|${n}|${r.pid}|${r.tag}`)() < R.verrat) { // zu weit hinten: Verrat
         r.status = 'rivale';
         r.siege = 0;
         r.verrat_tag = r.tag;
@@ -129,13 +132,19 @@ export const rivaleMethods = {
     const tag = this.rivaleTagNr();
     if (r.kreis_frei === tag) return null;
     if (r.kreis_besetzt === tag) return { ok: false, text: this.rivaleText('ritual_besetzt', n) };
-    if (r.seq > seq + 1) return null; // noch hinter dir: kein Grund, dir zuvorzukommen
-    if (seeded(`${this.seed ?? ''}|rvk|${n}|${pid}|${tag}`)() >= R.ritual) return null;
+    const hass = this.rivaleHass(r);
+    if (r.seq > seq + 1 && !hass) return null; // noch hinter dir: kein Grund, dir zuvorzukommen (außer er hasst dich)
+    if (seeded(`${this.seed ?? ''}|rvk|${n}|${pid}|${tag}`)() >= (hass ? R.ritual_hass : R.ritual)) return null;
     const id = rivaleEncId(pid, r.seq, n);
     if (!this.content.encounters[id]) return null;
     r.kreis_kampf = tag;
     this.startCombat(id);
     return { ok: false, fight: id, text: this.rivaleText('ritual', n) };
+  },
+
+  /** Etappe 3: Feind ab Sequenz 4 nach vielen Kämpfen: will deinen Aufstieg verhindern. */
+  rivaleHass(r) {
+    return !!r && r.status === 'rivale' && r.seq <= 4 && r.siege + r.niederlagen >= R.hass_kaempfe;
   },
 
   /** Combat.finish: Sieg, Niederlage oder Flucht gegen einen Rivalen. Gibt einen Zusatztext zurück. */
@@ -155,6 +164,15 @@ export const rivaleMethods = {
     const out = [];
     const viertel = r.viertel;
     r.viertel = null;
+    const finale = r.finale;
+    r.finale = false;
+    if (finale && combat.outcome === 'won') {
+      r.bogen = 4;
+      r.status = 'erledigt';
+      if (this.content.items[restId(r.pid, r.seq)]) this.rivaleAls(n, () => this.addItem(restId(r.pid, r.seq)));
+      this.emit('changed');
+      return bogenText('finale_sieg', r.pid, rivaleName(r.pid, n));
+    }
     if (combat.outcome === 'won') {
       r.siege++;
       if (viertel) { this.flags.add(pvgFlag(viertel, 'rivale')); out.push(this.rivaleText('viertel_sieg', n)); }
@@ -164,6 +182,10 @@ export const rivaleMethods = {
     } else {
       if (combat.outcome === 'lost') r.niederlagen++;
       if (imKreis) { r.kreis_besetzt = tag; out.push(this.rivaleText('ritual_besetzt', n)); }
+      if (imKreis && combat.outcome === 'lost' && this.rivaleHass(r)) { // verdorbenes Ritual
+        this.rivaleAls(n, () => this.setUnruhe(this.unruhe + R.hass_unruhe));
+        out.push(this.rivaleText('ritual_verdorben', n));
+      }
     }
     this.emit('changed');
     return out.join('\n\n') || null;
@@ -178,7 +200,7 @@ export const rivaleMethods = {
     const tag = this.rivaleTagNr();
     for (const n of this.rivaleSpieler()) {
       const r = this.rivaleDaten(n);
-      if (!r || r.treff_tag === tag) continue;
+      if (!r || r.treff_tag === tag || ['erledigt', 'fort'].includes(r.status)) continue;
       const chance = !r.getroffen ? 1 : treffen ? R.begegnung_treffen : R.begegnung;
       if (rng() < chance) return { nr: n, treffen };
     }
@@ -202,13 +224,28 @@ export const rivaleMethods = {
     const verrat = r.verrat_tag >= 0;
     if (verrat) { key = 'verrat'; r.verrat_tag = -1; }
     const lage = { nr: n, pid: r.pid, name: rivaleName(r.pid, n), seq: r.seq, status: r.status, text: this.rivaleText(key, n), optionen: [] };
+    // Etappe 4: persönlicher Bogen (Schritt 1 ab Seq 5, Schritt 2 ab Seq 4, Finale ab Seq 3 des Spielers)
+    const stufe = r.bogen + 1;
+    if (!erste && !verrat && stufe <= 3 && RIVALE_BOGEN[r.pid] && ps <= BOGEN_SEQ[stufe]) {
+      if (stufe < 3) { r.bogen = stufe; lage.text = `${bogenText(`s${stufe}`, r.pid, lage.name)}`; lage.bogen = stufe; }
+      else {
+        r.bogen = 3;
+        lage.text = bogenText('s3', r.pid, lage.name);
+        lage.bogen = 3;
+        lage.optionen = ['finale_kampf', 'finale_bund', 'finale_dritter', 'gehen'];
+        lage.dritterLabel = bogenText('dritter_label', r.pid, lage.name);
+        this.emit('changed');
+        return lage;
+      }
+    }
     if (r.status === 'verbuendet') {
       const g = this.rivaleGeschenk(n, seeded(`${this.seed ?? ''}|rvg|${n}|${r.pid}|${tag}`));
-      lage.text = `${this.rivaleText('verbuendet', n)}\n\n${g.text}\n\n${this.rivaleTratsch(n)}`;
+      lage.text = `${lage.bogen ? `${lage.text}\n\n` : ''}${this.rivaleText('verbuendet', n)}\n\n${g.text}\n\n${this.rivaleTratsch(n)}`;
       lage.beute = g.beute;
       lage.optionen = [...(r.jagd_tag !== tag ? ['jagd'] : []), 'gehen'];
       return lage;
     }
+    if (!erste && !ruht && !verrat && r.status === 'rivale' && r.seq <= 4) lage.text += `\n\n${this.rivaleText(this.rivaleHass(r) ? 'hass' : 'gefolge', n)}`;
     if (!erste && !ruht && !verrat) lage.text += `\n\n${rivaleArtText('spruch', r.pid, n)}`;
     const akt = !erste && !ruht && !verrat && seeded(`${this.seed ?? ''}|rva|${n}|${r.pid}|${tag}`)() < R.aktion ? this.rivaleAktion(n) : null;
     if (akt) { lage.text += `\n\n${akt.text}`; lage.aktion = akt.art; if (akt.folge) lage.beute = akt.folge; }
@@ -283,6 +320,44 @@ export const rivaleMethods = {
     this.rivaleAls(n, () => this.startCombat(id));
     this.emit('changed');
     return id;
+  },
+
+  /** Finale des Bogens: Kampf (mit Gefolge und Gestalt wie gewohnt). */
+  rivaleFinaleKampf(n = 1) {
+    const r = this.rivaleDaten(n);
+    if (!r || r.bogen !== 3) return null;
+    const id = this.rivaleKampf(n);
+    if (id) r.finale = true;
+    return id;
+  },
+
+  /** Finale des Bogens ohne Kampf: 'bund' (Bündnis für immer, braucht einen Sieg oder ein Bündnis) oder 'dritter' (kostet etwas). */
+  rivaleFinale(n, wahl) {
+    const r = this.rivaleDaten(n);
+    if (!r || r.bogen !== 3) return { ok: false, text: '' };
+    const name = rivaleName(r.pid, n);
+    if (wahl === 'bund') {
+      if (r.status !== 'verbuendet' && r.siege < 1) return { ok: false, text: bogenText('finale_nein', r.pid, name) };
+      r.status = 'verbuendet';
+      r.bogen = 4;
+      this.emit('changed');
+      return { ok: true, text: bogenText('finale_buendnis', r.pid, name) };
+    }
+    const k = RIVALE_BOGEN[r.pid]?.kosten ?? {};
+    const ok = this.rivaleAls(n, () => {
+      if (k.money && this.money < k.money) return false;
+      if (k.items && Object.entries(k.items).some(([id, c]) => this.itemCount(id) < c)) return false;
+      if (k.money) this.addMoney(-k.money);
+      if (k.items) for (const [id, c] of Object.entries(k.items)) this.removeItem(id, c);
+      if (k.honor) this.applyEffects({ honor: k.honor, honor_reason: name });
+      if (k.unruhe) this.setUnruhe(this.unruhe + k.unruhe);
+      return true;
+    });
+    if (!ok) return { ok: false, text: bogenText('finale_kosten', r.pid, name) };
+    r.status = 'fort';
+    r.bogen = 4;
+    this.emit('changed');
+    return { ok: true, text: bogenText('dritter_text', r.pid, name) };
   },
 
   /** Eisen: wer nach dem Stoß geht, gilt als feige (Nerven). */
@@ -366,8 +441,8 @@ export const rivaleMethods = {
     const r = this.rivaleDaten(n);
     if (!r) return null;
     const ruht = this.rivaleTagNr() <= r.ruhe_bis;
-    return { nr: n, pid: r.pid, name: rivaleName(r.pid, n), seq: r.seq, getroffen: r.getroffen, siege: r.siege, niederlagen: r.niederlagen, status: r.status === 'verbuendet' ? 'verbuendet' : ruht ? 'ruht' : 'rivale',
-      wesen: rivaleArtText('wesen', r.pid, n), ziel: rivaleArtText('ziel', r.pid, n), aktion: r.aktion_tag >= 0 ? rivaleArtText('aktion', r.pid, n) : '' };
+    return { nr: n, pid: r.pid, name: rivaleName(r.pid, n), seq: r.seq, getroffen: r.getroffen, siege: r.siege, niederlagen: r.niederlagen, status: ['verbuendet', 'erledigt', 'fort'].includes(r.status) ? r.status : ruht ? 'ruht' : 'rivale',
+      bogen: r.bogen, hass: this.rivaleHass(r), wesen: rivaleArtText('wesen', r.pid, n), ziel: rivaleArtText('ziel', r.pid, n), aktion: r.aktion_tag >= 0 ? rivaleArtText('aktion', r.pid, n) : '' };
   },
 
   serializeRivalen() {

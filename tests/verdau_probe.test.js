@@ -106,3 +106,24 @@ test('Koop: Spieler 2 hat eigenen Versuch und eigene Verdauung', () => {
   s.applyEffects({ verdau_probe: 'echo' });
   assert.equal(s.pendingCombat, verdauEncId('echo'), 'Spieler 1 hat seinen eigenen Tagesversuch');
 });
+
+test('Prüfstein wird nach jedem Sieg stärker; Stufe bleibt im Spielstand und wird angezeigt', () => {
+  const s = hero('faden');
+  s.applyEffects({ verdau_probe: 'faden' });
+  const a = new Combat(s, verdauEncId('faden'));
+  assert.equal(a.rules.verdauStufe, 1);
+  assert.ok(a.log.some((l) => /Stufe 1/.test(l)));
+  const { res } = fight(s, 'faden', 'won');
+  assert.match(res.text, /Stufe 2/);
+  assert.equal(s.pathway.verdauSiege, 1);
+  s.pendingCombat = null;
+  s.playTime = (s.playTime ?? 0) + DAY_SECONDS;
+  s.applyEffects({ verdau_probe: 'faden' });
+  const b = new Combat(s, verdauEncId('faden'));
+  assert.equal(b.rules.verdauStufe, 2);
+  assert.ok(b.enemy.maxHp > a.enemy.maxHp * 1.2, `${b.enemy.maxHp} vs ${a.enemy.maxHp}`);
+  assert.ok(b.rules.scale.dmg > a.rules.scale.dmg * 1.1);
+  const t = new GameState(content);
+  t.loadPathway(s.serializePathway());
+  assert.equal(t.pathway.verdauSiege, 1);
+});

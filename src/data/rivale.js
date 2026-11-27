@@ -11,6 +11,7 @@
  */
 import { machBeyonder } from './gegnerBeyonder.js';
 import { restId } from './beyonderRest.js';
+import { bogenWoerterbuch } from './rivaleBogen.js';
 
 /** Je Pfad ein Rivale (Namen gelten in beiden Sprachen). Im Koop hat Spieler 2 einen eigenen (name2), auch auf demselben Pfad. */
 export const RIVALEN = {
@@ -42,6 +43,11 @@ export const RIVALE_REGELN = {
   jagd_hp: 1.2, // Gemeinsame Jagd (1× je Tag als Verbündeter): fremder Beyonder, so stark wie ein Rivale × das
   jagd_geld: 3, // Beute der Jagd: Geld × das (gegenüber einem Rivalen)
   jagd_essenz: 0.6, // Chance auf Geisteressenz
+  gefolge: { 4: 1, 3: 2, 2: 2, 1: 2 }, // Etappe 3: ab Sequenz 4 kommt der Rivale mit Gefolge (Begleiter im Kampf)
+  gestalt: 1.35, // ab Sequenz 4: mythische Gestalt bei halben Leben, Angriffe × das
+  hass_kaempfe: 3, // so viele Kämpfe (Siege + Niederlagen) als Feind ab Sequenz 4: Er will deinen Aufstieg verhindern
+  ritual_hass: 0.6, // dann steht er so oft im Ritualkreis, egal wie weit er ist
+  hass_unruhe: 15, // verlorener Kampf im Kreis: verdorbenes Ritual, Unruhe +
   aktion: 0.4, // je Begegnung (feindlich, nicht die erste): seine eigene Pfad-Aktion (RIVALE_ART)
   aktion_schaden: 0.12, // Gift/Stoß: Anteil der maximalen Leben
   aktion_gebuehr: 0.05, // Waage: Anteil deines Geldes (höchstens 5000)
@@ -132,6 +138,15 @@ export const RIVALE_TEXTE = {
     '{name} is already waiting and holds out the last piece to you. "I found it before the others did. For you. An alliance is an alliance."'],
   viertel_sieg: ['{name} lässt fallen, was hier gefunden wurde, und verschwindet in den Gassen. Das letzte Stück gehört dir.',
     '{name} drops what was found here and vanishes into the alleys. The last piece is yours.'],
+  // Etappe 3: Eskalation ab Sequenz 4
+  gestalt: ['{name} reißt sich die menschliche Haut vom Leib: die mythische Gestalt eures gemeinsamen Pfades, größer, fremder, hungriger. „Jetzt siehst du, was du werden könntest.“',
+    '{name} tears off their human skin: the mythical form of your shared pathway, larger, stranger, hungrier. "Now you see what you could become."'],
+  gefolge: ['{name} kommt nicht mehr allein. Hinter {name} treten Gestalten aus dem Nebel, Gefolge, das {name} auf dem Pfad gesammelt hat.',
+    '{name} no longer comes alone. Figures step out of the fog behind {name}, followers {name} has gathered along the pathway.'],
+  hass: ['{name} lächelt nicht mehr. „Du bist mir zu oft in die Quere gekommen. Ab jetzt sorge ich dafür, dass du nie wieder eine Sequenz trinkst.“',
+    '{name} no longer smiles. "You have crossed me too often. From now on I will make sure you never drink another Sequence."'],
+  ritual_verdorben: ['{name} hat Asche in deinen Kreis gestreut, bevor du gefallen bist. Das Ritual ist verdorben, die Stimmen in deinem Kopf werden lauter.',
+    '{name} scattered ash into your circle before you fell. The ritual is spoiled, the voices in your head grow louder.'],
   // Etappe 2: Bündnis mit mehr Nutzen
   tratsch: ['{name} beugt sich zu dir: „Ich höre mehr als du. Hier, was dir für den nächsten Trank fehlt und wo es liegt:“',
     '{name} leans towards you: "I hear more than you do. Here is what you are missing for your next potion and where it is:"'],
@@ -229,6 +244,12 @@ export const RIVALE_UI = {
   'Ein Kampf steht bevor.': 'A fight is coming.',
   Später: 'Later',
   'Gemeinsame Jagd': 'Hunt together',
+  'Bogen: {0}/3': 'Story: {0}/3',
+  'Bündnis für immer': 'Alliance for good',
+  Erledigt: 'Finished',
+  'Hat den Pfad verlassen': 'Has left the pathway',
+  'Gefolge des Rivalen': 'Rival\'s follower',
+  'Will deinen Aufstieg verhindern': 'Wants to stop your ascent',
   'Wilder Beyonder (gemeinsame Jagd)': 'Wild Beyonder (joint hunt)',
   Wesen: 'Nature',
   Ziel: 'Agenda',
@@ -251,6 +272,7 @@ export function rivaleWoerterbuch() {
   for (const [pid, a] of Object.entries(RIVALE_ART)) {
     for (const name of [RIVALEN[pid].name, RIVALEN[pid].name2]) for (const f of ['wesen', 'ziel', 'spruch', 'aktion']) out[a[f][0].replaceAll('{name}', name)] = a[f][1].replaceAll('{name}', name);
   }
+  Object.assign(out, bogenWoerterbuch(RIVALEN));
   out['Siege: {0}, Niederlagen: {1}'] = 'Wins: {0}, defeats: {1}';
   out['Sequenz {0}'] = 'Sequence {0}';
   out['Chance: {0} %'] = 'Chance: {0} %';
@@ -281,6 +303,9 @@ export function applyRivale(content) {
         hp: Math.round(base.hp * f),
         attacks: scale(base.attacks),
         ...(phase2 ? { phase2: { ...phase2, attacks: scale(phase2.attacks) } } : {}),
+        // Etappe 3: ab Sequenz 4 mythische Gestalt bei halben Leben und Gefolge
+        ...(seq <= 4 ? { phase2: { attacks: scale(base.attacks)?.map((a) => (a.damage ? { ...a, damage: Math.round(a.damage * RIVALE_REGELN.gestalt) } : a)), meldung: rivaleText('gestalt', pid, nr) },
+          begleiter: Array.from({ length: RIVALE_REGELN.gefolge[seq] ?? 0 }, () => `rivale_gefolge_${seq}`) } : {}),
         elite: true,
         fleeable: true,
         rivale: pid,
@@ -295,6 +320,19 @@ export function applyRivale(content) {
       machBeyonder(content, id, pid, seq);
       if (content.items[restId(pid, seq)]) content.loot[id].drops.push({ item: restId(pid, seq), chance: RIVALE_REGELN.rest });
     }
+  }
+  // Gefolge (Etappe 3): Begleiter des Rivalen ab Sequenz 4
+  for (const seq of Object.keys(RIVALE_REGELN.gefolge)) {
+    const [vorlage, f] = BASIS[seq] ?? [];
+    const base = content.encounters[vorlage];
+    if (!base) continue;
+    const id = `rivale_gefolge_${seq}`;
+    const rest = { ...base };
+    for (const key of WEG) delete rest[key];
+    delete rest.phase2;
+    const dm = Math.sqrt(f);
+    content.encounters[id] = { ...rest, name: 'Gefolge des Rivalen', hp: Math.round(base.hp * f), attacks: base.attacks?.map((a) => (a.damage ? { ...a, damage: Math.round(a.damage * dm) } : { ...a })), elite: false, boss: false };
+    content.loot[id] = { repeat: true, money: content.loot[vorlage]?.money ?? [20, 40], drops: [] };
   }
   // Gemeinsame Jagd (Etappe 2): je Sequenz ein wilder Beyonder, gegen den der verbündete Rivale mitkämpft
   for (const [k, [vorlage, f]] of Object.entries(BASIS)) {

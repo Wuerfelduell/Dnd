@@ -92,3 +92,69 @@ test('Bündnis: Tratsch, gemeinsame Jagd 1× am Tag, Wache halbiert Ritualkosten
 test('gemeinsame Jagd: Gegner je Sequenz', () => {
   for (let q = 9; q >= 1; q--) assert.ok(content.encounters[`rivale_jagd_${q}`]?.beyonder, `jagd ${q}`);
 });
+
+test('Eskalation ab Seq 4: Gefolge, mythische Gestalt, Hass mit verdorbenem Ritual', () => {
+  const e4 = content.encounters.rivale_eisen_4;
+  assert.equal(e4.begleiter.length, 1);
+  assert.equal(content.encounters.rivale_eisen_3.begleiter.length, 2);
+  assert.ok(!content.encounters.rivale_eisen_5.begleiter);
+  assert.ok(e4.phase2.attacks.length && /mythische Gestalt/.test(e4.phase2.meldung));
+  assert.ok(content.encounters.rivale_gefolge_4);
+  const s = spieler('eisen', 4);
+  const r = s.rivalen.p1;
+  r.seq = 4; r.siege = 2; r.niederlagen = 1;
+  assert.ok(s.rivaleHass(r));
+  r.kreis_kampf = s.rivaleTagNr();
+  const u = s.unruhe;
+  const t = s.rivaleKampfEnde({ outcome: 'lost', enc: content.encounters[`rivale_eisen_${r.seq}`] });
+  assert.match(t, /verdorben/);
+  assert.ok(s.unruhe > u);
+});
+
+test('Bogen: Schritte ab Seq 5/4, Finale ab Seq 3 mit Kampf, Bündnis oder drittem Weg', async () => {
+  const { RIVALE_BOGEN, bogenText } = await import('../src/data/rivaleBogen.js');
+  const en = rivaleWoerterbuch();
+  for (const pid of Object.keys(RIVALEN)) {
+    assert.ok(RIVALE_BOGEN[pid], pid);
+    for (const f of ['s1', 's2', 's3', 'dritter_label', 'dritter_text']) assert.ok(en[bogenText(f, pid, RIVALEN[pid].name2)], `${pid} ${f}`);
+  }
+  let tag = 100;
+  const s = spieler('sq_waage', 5);
+  s.rivaleTagNr = () => tag;
+  const r = s.rivalen.p1;
+  r.getroffen = true;
+  assert.equal(s.rivaleTreffen(1).bogen, 1);
+  tag++;
+  assert.ok(!s.rivaleTreffen(1).bogen, 'Schritt 2 erst ab Seq 4');
+  s.pathway.seq = 4; tag++;
+  assert.equal(s.rivaleTreffen(1).bogen, 2);
+  s.pathway.seq = 3; tag++;
+  const fin = s.rivaleTreffen(1);
+  assert.deepEqual(fin.optionen, ['finale_kampf', 'finale_bund', 'finale_dritter', 'gehen']);
+  assert.match(fin.dritterLabel, /10\.000/);
+  s.money = 5000;
+  assert.equal(s.rivaleFinale(1, 'dritter').ok, false);
+  s.money = 20000;
+  assert.equal(s.rivaleFinale(1, 'dritter').ok, true);
+  assert.equal(s.money, 10000);
+  assert.equal(r.status, 'fort');
+  assert.equal(s.rivaleBegegnung('cw_gleisfuss', () => 0), null);
+  // Finale-Kampf gewinnen: erledigt, Rest sicher
+  const t = spieler('eisen', 3);
+  t.rivaleTagNr = () => tag;
+  const q = t.rivalen.p1;
+  q.bogen = 3;
+  let id = null;
+  t.startCombat = (x) => { id = x; };
+  assert.ok(t.rivaleFinaleKampf(1));
+  const txt = t.rivaleKampfEnde({ outcome: 'won', enc: content.encounters[id] });
+  assert.equal(q.status, 'erledigt');
+  assert.match(txt, /erledigt/);
+  // Bündnis für immer: kein Verrat mehr
+  const u = spieler('maske', 3);
+  u.rivalen.p1.bogen = 3;
+  assert.equal(u.rivaleFinale(1, 'bund').ok, false);
+  u.rivalen.p1.siege = 1;
+  assert.equal(u.rivaleFinale(1, 'bund').ok, true);
+  assert.equal(u.rivalen.p1.bogen, 4);
+});

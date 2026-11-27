@@ -1,4 +1,4 @@
-import { getLang, setLang } from '../core/I18n.js';
+import { getLang, setLang, NAME_MAX } from '../core/I18n.js';
 import { HOCH_SEQ1_VERSIEGELT } from '../data/seqHoch.js';
 import { TIER_KAMPF } from '../core/Tiere.js';
 import { NEWSPAPERS } from '../data/lore.js';
@@ -1970,7 +1970,18 @@ export class Ui {
     el.querySelectorAll('[data-cleanse]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(inv(() => this.state.cleanseWithSalt(b.dataset.cleanse)).text)); });
     el.querySelectorAll('[data-wear]').forEach((b) => { b.onclick = () => { if (inv(() => this.state.wear(b.dataset.wear))) this.sfx(worldSound('wear', { slot: this.state.item(b.dataset.wear)?.slot })); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-takeoff]').forEach((b) => { b.onclick = () => { if (inv(() => this.state.takeOff(b.dataset.takeoff))) this.sfx(worldSound('wear', { slot: b.dataset.takeoff })); this.renderNotebook(''); }; });
-    el.querySelectorAll('[data-invplayer]').forEach((b) => { b.onclick = () => { this.invPlayer = Number(b.dataset.invplayer); this.renderNotebook(''); }; });
+    el.querySelectorAll('[data-invplayer]').forEach((b) => { b.onclick = () => { this.invPlayer = Number(b.dataset.invplayer); this.renamingPlayer = 0; this.renderNotebook(''); }; });
+    // Seb: Spieler umbenennen (max. 9 Zeichen), gilt überall, wo „Spieler 1/2“ steht
+    el.querySelector('[data-pname-edit]')?.addEventListener('click', () => { this.renamingPlayer = this.renamingPlayer === this.invPlayer ? 0 : this.invPlayer; this.renderNotebook(''); });
+    const pname = el.querySelector('.pname-input');
+    if (pname) {
+      const apply = (v) => { const n = this.invPlayer; const got = this.state.setPlayerName(n, v); this.renamingPlayer = 0; this.renderNotebook(got ? `Neuer Name: <b>${esc(got)}</b>.` : 'Name auf Standard zurückgesetzt.'); };
+      pname.onkeydown = (e) => { e.stopPropagation(); if (e.key === 'Enter') apply(pname.value); else if (e.key === 'Escape') { this.renamingPlayer = 0; this.renderNotebook(''); } };
+      pname.onkeyup = (e) => e.stopPropagation();
+      el.querySelector('[data-pname-ok]').onclick = () => apply(pname.value);
+      el.querySelector('[data-pname-reset]').onclick = () => apply('');
+      setTimeout(() => { pname.focus?.(); pname.select?.(); }, 0);
+    }
     el.querySelectorAll('[data-give]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(this.state.giveItem(b.dataset.give, this.invPlayer).text)); });
     // Wegwerfen braucht einen zweiten Klick, damit nichts aus Versehen verschwindet
     el.querySelectorAll('[data-drop]').forEach((b) => {
@@ -2247,7 +2258,11 @@ export class Ui {
   /** Umschaltung (G) zwischen Spieler 1 und 2 für Inventar und Pfad. */
   playerTabsHtml() {
     const who = this.invPlayer;
-    return `<div class="tabs playertabs">${[1, 2].map((n) => `<button class="tab ${n === who ? 'sel' : ''}" data-invplayer="${n}">Spieler ${n}${n === 1 ? ' · Ermittler' : ''}</button>`).join('')}<button class="muted subkeys keybtn" data-key="g">wechseln <span class="key">G</span></button></div>`;
+    const cur = this.state.playerNames?.[who - 1] ?? '';
+    const rename = this.renamingPlayer === who
+      ? `<div class="pname-row"><label>Name für Spieler ${who}: <input type="text" class="pname-input" maxlength="${NAME_MAX}" value="${esc(cur)}" placeholder="max. ${NAME_MAX} Zeichen" aria-label="Neuer Name" data-no-tr></label> <button class="btn" data-pname-ok>Übernehmen</button> <button class="btn" data-pname-reset>Standard</button></div>`
+      : '';
+    return `<div class="tabs playertabs">${[1, 2].map((n) => `<button class="tab ${n === who ? 'sel' : ''}" data-invplayer="${n}">Spieler ${n}${n === 1 ? ' · Ermittler' : ''}</button>`).join('')}<button class="muted subkeys keybtn" data-key="g">wechseln <span class="key">G</span></button><button class="muted subkeys" data-pname-edit>✎ umbenennen</button></div>${rename}`;
   }
 
   /** Inventar-Reiter: mit Spieler 2 gibt es oben eine Umschaltung (G) zwischen beiden Taschen. */
@@ -2651,9 +2666,9 @@ export class Ui {
   rivaleHtml(s) {
     const list = (s.hasP2?.() ? [1, 2] : [1]).map((n) => s.rivaleUebersicht?.(n)).filter(Boolean);
     if (!list.length) return '';
-    const status = { rivale: 'Feindlich', ruht: 'Hält sich zurück', verbuendet: 'Verbündet' };
+    const status = { rivale: 'Feindlich', ruht: 'Hält sich zurück', verbuendet: 'Verbündet', erledigt: 'Erledigt', fort: 'Hat den Pfad verlassen' };
     return `<h4>Rivale auf deinem Pfad</h4><ul class="steps">${list.map((r) => (r.getroffen
-      ? `<li>${list.length > 1 ? `<span class="role">Spieler ${r.nr}</span> ` : ''}<strong>${esc(r.name)}</strong> · <span>Sequenz ${r.seq}</span> · <span class="badge ${r.status === 'verbuendet' ? 'likely' : ''}">${esc(status[r.status])}</span> · <span class="muted">Siege: ${r.siege}, Niederlagen: ${r.niederlagen}</span>`
+      ? `<li>${list.length > 1 ? `<span class="role">Spieler ${r.nr}</span> ` : ''}<strong>${esc(r.name)}</strong> · <span>Sequenz ${r.seq}</span> · <span class="badge ${r.status === 'verbuendet' ? 'likely' : ''}">${esc(status[r.status])}</span>${r.hass ? ' · <span class="badge">Will deinen Aufstieg verhindern</span>' : ''} · <span class="muted">Siege: ${r.siege}, Niederlagen: ${r.niederlagen}</span>${r.bogen ? ` · <span class="muted">Bogen: ${Math.min(3, r.bogen)}/3</span>` : ''}`
         + `<br><span class="muted"><strong>Wesen</strong>: ${esc(r.wesen)}</span><br><span class="muted"><strong>Ziel</strong>: ${esc(r.ziel)}</span>${r.aktion ? `<br><span class="muted">${esc(r.aktion)}</span>` : ''}</li>`
       : '<li class="muted">Noch nicht begegnet. Ab Wexmoor geht jemand denselben Pfad wie du.</li>')).join('')}</ul>`;
   }
@@ -2663,7 +2678,7 @@ export class Ui {
     const s = this.state;
     const lage = s.rivaleTreffen?.(nr, { treffen });
     if (!lage) return;
-    const labels = { kampf: 'Kämpfen', stehlen: 'Bestehlen', buendnis: 'Bündnis anbieten', gehen: 'Weitergehen', jagd: 'Gemeinsame Jagd' };
+    const labels = { kampf: 'Kämpfen', stehlen: 'Bestehlen', buendnis: 'Bündnis anbieten', gehen: 'Weitergehen', jagd: 'Gemeinsame Jagd', finale_kampf: 'Kämpfen', finale_bund: 'Bündnis für immer', finale_dritter: lage.dritterLabel ?? '' };
     const siege = s.rivalen?.[`p${nr}`]?.siege ?? 0;
     const notes = {
       stehlen: lage.stehlChance ? `Chance: ${Math.round(lage.stehlChance * 100)} %` : '',
@@ -2704,6 +2719,8 @@ export class Ui {
     this.rivaleUi = null;
     if (o === 'gehen') { if (ui.feige) s.rivaleFeigeGehen?.(ui.nr); this.close(); return; }
     if (o === 'kampf') { s.rivaleKampf(ui.nr, ui.viertel); this.close(); return; }
+    if (o === 'finale_kampf') { s.rivaleFinaleKampf(ui.nr); this.close(); return; }
+    if (o === 'finale_bund' || o === 'finale_dritter') { const f = s.rivaleFinale(ui.nr, o === 'finale_bund' ? 'bund' : 'dritter'); this.showMessage(ui.name, f.text); return; }
     if (o === 'jagd') { const t = s.rivaleText('jagd_intro', ui.nr); s.rivaleJagd(ui.nr); this.showMessage(ui.name, t, { footer: 'Ein Kampf steht bevor.' }); return; } // der Kampf startet, sobald das Fenster zu ist
     const r = o === 'stehlen' ? s.rivaleStehlen(ui.nr) : s.rivaleBuendnis(ui.nr);
     this.showMessage(ui.name, r.text, { footer: r.beute ?? (r.fight ? 'Ein Kampf steht bevor.' : '') });
@@ -3641,8 +3658,9 @@ export class Ui {
       b('.cb-hp').textContent = `${v.hp}/${v.maxHp}`;
       b('.nfill').style.width = `${(v.composure / v.maxComposure) * 100}%`;
       // Paket B: Leisten und Konzentration aus battle_hud.png
-      b('.hudbar.hp').innerHTML = hudMeter('hp', v.hp / v.maxHp, 1 / 6);
-      b('.hudbar.nerves').innerHTML = hudMeter('nerves', v.composure / v.maxComposure, 1 / 6);
+      const hk = c.duo ? 1 / 8 : 1 / 6; // zu zweit schmalere Leisten, damit Zahlen und zweites Feld nicht überlappen
+      b('.hudbar.hp').innerHTML = hudMeter('hp', v.hp / v.maxHp, hk);
+      b('.hudbar.nerves').innerHTML = hudMeter('nerves', v.composure / v.maxComposure, hk);
       const apMax = c.apMaxOf(Number(n)); // Konzentrations-Artefakte können den Höchstwert verschieben
       b('.pips').innerHTML = Array.from({ length: apMax }, (_, i) => uiSprite('hud', i >= f.ap ? 'conc_empty' : f.ap >= apMax ? 'conc_glow' : 'conc_full', 1 / 6, 'pip')).join('');
     }
@@ -3695,7 +3713,7 @@ export class Ui {
       const items = mine(() => this.state.items().filter((i) => i.kind === 'consumable' && !i.cleanse).length);
       entries = [
         { text: c.rules?.shadow ? 'Schattenattacke' : 'Angriff', ui: 'attack', art: c.rules?.shadow ? artIcon('schattenattacke', 0, 1 / 8, 'cbicon') : '', info: c.canUse('attack') ? `+${1 + mine(() => this.state.passive('attack_ap'))} K · beendet den Zug` : 'die Prüfung verbietet es', act: { type: 'skill', id: 'attack' }, disabled: !c.canUse('attack') },
-        { text: 'Fertigkeiten', ui: 'skill', info: `${c.ap}/${c.apMax} K`, sub: 'skills' },
+        { text: 'Fertigkeiten', ui: 'skill', info: `${c.ap}/${c.apMax}\u00a0K`, sub: 'skills' },
         { text: 'Gegenstände', ui: 'item', info: c.canUseItem() ? `${items}` : c.itemBlockedText(), sub: 'items', disabled: !c.canUseItem() },
         // Starke Gegner: Fliehen startet nur den Rückzug, man muss noch Runden durchhalten; läuft er, zeigt der Eintrag den Stand
         { text: 'Fliehen', ui: 'flee', info: c.fleeing ? `Rückzug läuft · ${c.fleeStatus()}` : c.canFlee() ? (c.fleeRounds > 0 ? `${c.fleeRounds} Runden durchhalten` : '') : 'unmöglich', act: { type: 'flee' }, disabled: !c.canFlee(),
@@ -3785,12 +3803,21 @@ export class Ui {
     const box = this.floatsBox ?? this.$('.floats');
     const el = document.createElement('div');
     el.className = `float ${cls}`;
+    if (typeof tag === 'number') { el.dataset.p = String(tag); tag = this.state.playerNames?.[tag - 1] || `Sp. ${tag}`; } // Koop: Spielernummer → eigener Name
     if (tag) el.dataset.who = tag; // Koop: wen es getroffen hat
     // Paket B: Zahlen in der Schadensschrift (damage_font.png), Text bleibt Text
     const row = /^[+-]?\d+$/.test(text) ? (text.startsWith('+') ? 'healing' : { crit: 'critical', hurt: 'player_damage', nerves: 'nerves' }[cls] ?? 'damage') : null;
     if (row) { el.classList.add('digits'); el.innerHTML = damageDigits(text, row, 1 / 8); } else el.textContent = text;
     el.style.left = `${xPct}%`;
     el.style.top = `${yPct}%`;
+    // Seb 2026-11-27: Meldungen am selben Fleck (z. B. „Zu früh“ und der Schaden kurz danach) stapeln sich nach oben statt
+    // übereinander; zu zweit rücken die Zahlen der beiden Spieler auseinander (Spieler 2 steht links hinter Spieler 1).
+    const now = performance.now();
+    this.floatSlots = (this.floatSlots ?? []).filter((f) => now - f.t < 750 && f.box === box);
+    const stack = this.floatSlots.filter((f) => Math.abs(f.x - xPct) < 9 && Math.abs(f.y - yPct) < 8).length;
+    this.floatSlots.push({ x: xPct, y: yPct, t: now, box });
+    const side = tag && this.combatScene?.combat?.duo ? (el.dataset.p === '2' ? -70 : -30) : -50;
+    if (stack || side !== -50) el.style.transform = `translate(${side}%, ${-stack * 1.5}em)`;
     if (color) el.style.color = color; // Pfad-Fähigkeit eines Beyonder-Gegners: Pfadfarbe
     box.appendChild(el);
     setTimeout(() => el.remove(), 1100);
@@ -3868,7 +3895,7 @@ export class Ui {
         return;
       }
     }
-    if (e.target?.classList?.contains('beast-search') || e.target?.classList?.contains('testcode')) return; // Suchfeld im Bestiarium: Tasten gehören dem Textfeld
+    if (e.target?.classList?.contains('beast-search') || e.target?.classList?.contains('testcode') || e.target?.classList?.contains('pname-input')) return; // Suchfeld im Bestiarium: Tasten gehören dem Textfeld
     if (!this.modal) {
       // Esc in der Welt: Pausemenü (Spieler 2 hinzufügen oder entfernen)
       if (e.key === 'Escape' && !e.repeat && this.scene && !this.combatScene && performance.now() >= this.blockedUntil) {

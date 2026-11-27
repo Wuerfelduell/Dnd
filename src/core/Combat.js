@@ -328,13 +328,12 @@ export class Combat {
     this.attackIndex = 0;
     this.outcome = null; // 'won' | 'lost' | 'fled'
     this.log = [];
+    if (this.rules?.verdauStufe) this.log.push(state.verdauStufeText(this.rules.verdauStufe)); // Prüfstein: aktuelle Stufe zeigen
     if (this.wardMult() < 1) this.log.push(`${enc.name} ist zu mächtig für dich: Ohne Sequenz ${enc.min_seq} prallt fast alles an ${enc.name.startsWith('Die ') ? 'ihr' : 'ihm'} ab.`);
     this.confused = false; // nächster gegnerischer Angriff trifft den Gegner selbst
     this.confuseLock = 0; // Eliten/Bosse: Runden, in denen eine neue Verwirrung nicht greift (CONFUSE_LOCK)
     // Gegnergruppe: Begleiter dazu (nie in Übungen, Prüfungen oder gegen Spiegelbilder)
-    // `begleiter`: feste Begleiter eines Bosses (Kapitel 7: die Wrackmutter mit zwei Tauwerken), wenn keine Gruppe mitkommt
-    const extra = pack?.length ? pack : (enc.begleiter ?? []);
-    if (!enc.practice && !this.rules && !enc.mirror) for (const id of extra) this.addFoe(id);
+    if (!enc.practice && !this.rules && !enc.mirror) for (const id of (pack?.length ? pack : enc.begleiter ?? [])) this.addFoe(id); // begleiter: feste Begleiter (Rivale ab Seq 4, Wrackmutter in Kapitel 7)
     // Seq 3 bis 1 (core/SeqHoch.js, Seb 2026-11-26): Ritualketten gegen Gruppen, Begleiter gleich stark gestärkt wie der Anführer
     if (this.rules?.gruppe && !enc.practice && !enc.mirror) for (let i = 0; i < this.rules.gruppe; i++) this.addFoe(encounterId, ritualEnc);
     // Kurglocke (Kapitel 4): gewöhnliche Gegner schlafen zu Beginn und setzen ihren ersten Zug aus.
