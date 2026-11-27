@@ -37,6 +37,9 @@ export const RIVALE_REGELN = {
   ruhe_tage: 1, // nach einer Niederlage hält er sich so viele Spieltage (dazu der laufende) zurück
   buendnis_siege: 2, // so oft muss man ihn geschlagen haben, bevor er ein Bündnis annimmt
   rest: 0.3, // Chance auf seinen Beyonder-Rest
+  aktion: 0.4, // je Begegnung (feindlich, nicht die erste): seine eigene Pfad-Aktion (RIVALE_ART)
+  aktion_schaden: 0.12, // Gift/Stoß: Anteil der maximalen Leben
+  aktion_gebuehr: 0.05, // Waage: Anteil deines Geldes (höchstens 5000)
   stehlen_basis: 0.45,
   stehlen_je_seq: 0.12, // je Sequenz, die du ihm voraus bist (bzw. minus, wenn er voraus ist)
   stehlen_pfad: 0.15, // Schlüssel und Maske stehlen leichter
@@ -129,6 +132,68 @@ export const RIVALE_TEXTE = {
     '{name} blocks your way. The same pathway, and only one can arrive first.'],
 };
 
+/**
+ * Etappe 1 (Seb 2026-11-27): jeder Rivale ist eine Figur mit eigenem Wesen, Ziel, Spruch und einer eigenen Aktion.
+ * art: Effekt-Art (core/Rivale.js rivaleAktion). Texte [de, en] mit {name}; wesen/ziel stehen im Pfad-Tab.
+ */
+export const RIVALE_ART = {
+  laterne: { art: 'bloss',
+    wesen: ['Eitel und laut. Will gesehen werden und dich im Dunkeln lassen.', 'Vain and loud. Wants to be seen and to keep you in the dark.'],
+    ziel: ['Dich bloßstellen, bis dich die Streife kennt.', 'Expose you until the patrols know your face.'],
+    spruch: ['„Lächeln, bitte. Gleich sehen dich alle.“', '"Smile, please. Everyone is about to see you."'],
+    aktion: ['{name} zeigt laut auf dich: „Da! Der da hat mit Beyondern zu tun!“ Leute drehen sich um, irgendwo pfeift eine Streife.', '{name} points at you loudly: "There! That one deals with Beyonders!" People turn, somewhere a patrol whistles.'] },
+  faden: { art: 'spur',
+    wesen: ['Geduldig und verschlagen. Webt Lügen in die Wahrheit.', 'Patient and devious. Weaves lies into the truth.'],
+    ziel: ['Dich mit falschen Spuren verwirren.', 'Confuse you with false leads.'],
+    spruch: ['„Hast du deine Notizen heute schon gelesen? Bist du sicher, dass es deine sind?“', '"Have you read your notes today? Are you sure they are yours?"'],
+    aktion: ['{name} hat dir eine falsche Spur in die Tasche gesteckt. Du merkst es erst, als du ihr eine Stunde lang gefolgt bist. Kopfschmerzen, und das Gefühl, dass etwas in deinem Kopf nicht dir gehört.', '{name} slipped a false lead into your pocket. You only notice after following it for an hour. A headache, and the feeling that something in your head is not yours.'] },
+  maske: { art: 'ruf',
+    wesen: ['Charmant und falsch. Trägt gern dein Gesicht.', 'Charming and false. Likes to wear your face.'],
+    ziel: ['Deinen Ruf ruinieren, mit deinem eigenen Gesicht.', 'Ruin your reputation, with your own face.'],
+    spruch: ['„Gestern war ich du. Die Leute fanden dich ziemlich unhöflich.“', '"Yesterday I was you. People found you rather rude."'],
+    aktion: ['Gestern hat jemand mit deinem Gesicht einen Händler betrogen. Heute sehen dich die Leute schief an, und {name} winkt dir von der anderen Straßenseite zu.', 'Yesterday someone with your face cheated a merchant. Today people look at you askance, and {name} waves at you from across the street.'] },
+  echo: { art: 'fluestern',
+    wesen: ['Leise und hartnäckig. Wiederholt deine Gedanken, bis sie fremd klingen.', 'Quiet and persistent. Repeats your thoughts until they sound foreign.'],
+    ziel: ['Die Stimmen in deinem Kopf lauter machen.', 'Make the voices in your head louder.'],
+    spruch: ['„Hörst du das auch? Nein? Dann hör genauer hin.“', '"Do you hear that too? No? Then listen closer."'],
+    aktion: ['{name} flüstert dir etwas zu, und es kommt dreimal zurück, jedes Mal lauter. Die Stimmen in deinem Kopf haben einen neuen Chor.', '{name} whispers something to you, and it comes back three times, louder each time. The voices in your head have a new choir.'] },
+  kessel: { art: 'gift',
+    wesen: ['Gastfreundlich und gefährlich. Teilt gern einen Becher.', 'Hospitable and dangerous. Likes to share a cup.'],
+    ziel: ['Dich schwächen, Schluck für Schluck.', 'Weaken you, sip by sip.'],
+    spruch: ['„Durstig? Ich habe extra für dich gebraut.“', '"Thirsty? I brewed this especially for you."'],
+    aktion: ['{name} hat dir im Vorbeigehen etwas in den Becher getan. Dein Magen krampft, und {name} lacht: „Nur ein Gruß unter Kollegen.“', '{name} slipped something into your cup in passing. Your stomach cramps, and {name} laughs: "Just a greeting between colleagues."'] },
+  eisen: { art: 'stoss',
+    wesen: ['Direkt und stur. Achtet nur Stärke.', 'Blunt and stubborn. Respects only strength.'],
+    ziel: ['Dich auf offener Straße niederschlagen, immer wieder.', 'Knock you down in the open street, again and again.'],
+    spruch: ['„Reden ist was für Leute, die verlieren. Fäuste hoch.“', '"Talking is for people who lose. Fists up."'],
+    aktion: ['{name} rammt dich ohne ein Wort gegen die Hauswand. „Wegrennen gilt nicht. Heute nur Kämpfen oder Gehen, und wer geht, ist feige.“', '{name} slams you into the wall without a word. "No running. Today it\'s fight or walk away, and whoever walks is a coward."'] },
+  schluessel: { art: 'aussperren',
+    wesen: ['Flink und frech. Kein Schloss hält, keine Tür bleibt offen.', 'Nimble and cheeky. No lock holds, no door stays open.'],
+    ziel: ['Dir jede Tür vor der Nase zuschließen, auch die zu deinem Ritual.', 'Lock every door in your face, including the one to your ritual.'],
+    spruch: ['„Suchst du was? Ich hab abgeschlossen.“', '"Looking for something? I locked it."'],
+    aktion: ['{name} klimpert mit einem Schlüssel, der dir bekannt vorkommt. „Dein Ritualplatz ist heute abgeschlossen. Versuch es morgen.“', '{name} jingles a key that looks familiar. "Your ritual spot is locked today. Try tomorrow."'] },
+  sq_waage: { art: 'gebuehr',
+    wesen: ['Kühl und genau. Führt über alles Buch, auch über dich.', 'Cool and precise. Keeps a ledger on everything, including you.'],
+    ziel: ['Dich für jeden Schritt auf dem gemeinsamen Pfad bezahlen lassen.', 'Make you pay for every step on the shared pathway.'],
+    spruch: ['„Der Pfad gehört mir. Wer ihn benutzt, zahlt.“', '"The pathway is mine. Whoever uses it pays."'],
+    aktion: ['{name} legt dir eine Rechnung in die Hand, und dein Geldbeutel wird leichter, ehe du protestieren kannst. „Wegegeld. Steht alles im Buch.“', '{name} presses a bill into your hand, and your purse grows lighter before you can protest. "Toll. It\'s all in the ledger."'] },
+  sq_moor: { art: 'versinken',
+    wesen: ['Langsam und unerbittlich. Hält fest, was einmal gegriffen ist.', 'Slow and relentless. Holds on to whatever it has grasped.'],
+    ziel: ['Dir nehmen, was du sammelst, und es im Torf versenken.', 'Take what you gather and sink it in the peat.'],
+    spruch: ['„Alles sinkt irgendwann. Deine Vorräte zuerst.“', '"Everything sinks eventually. Your supplies first."'],
+    aktion: ['Der Boden unter dir wird weich. Als du dich freigezogen hast, fehlt etwas in deiner Tasche, und {name} wischt sich Torf von den Fingern.', 'The ground beneath you turns soft. When you have pulled yourself free, something is missing from your bag, and {name} wipes peat from their fingers.'] },
+  sq_uhr: { art: 'zeit',
+    wesen: ['Ungeduldig und berechnend. Stiehlt Zeit wie andere Geld.', 'Impatient and calculating. Steals time the way others steal money.'],
+    ziel: ['Dir die Zeit stehlen und damit vorauslaufen.', 'Steal your time and run ahead with it.'],
+    spruch: ['„Du bist spät dran. Schon wieder.“', '"You\'re late. Again."'],
+    aktion: ['Für einen Herzschlag bleibt alles stehen, nur {name} bewegt sich. Danach fehlt dir ein ganzer Tag, und {name} ist auf dem Pfad ein Stück weiter.', 'For one heartbeat everything stops, only {name} moves. Afterwards a whole day is missing for you, and {name} is a little further along the pathway.'] },
+};
+
+/** Text aus RIVALE_ART (wesen, ziel, spruch, aktion) für einen Rivalen. */
+export function rivaleArtText(feld, pid, nr = 1) {
+  return (RIVALE_ART[pid]?.[feld]?.[0] ?? '').replaceAll('{name}', rivaleName(pid, nr));
+}
+
 /** Feste Texte ohne Namen. */
 export const RIVALE_UI = {
   'Rivale auf deinem Pfad': 'Rival on your pathway',
@@ -145,6 +210,10 @@ export const RIVALE_UI = {
   'Diebesgut': 'Loot',
   'Ein Kampf steht bevor.': 'A fight is coming.',
   Später: 'Later',
+  Wesen: 'Nature',
+  Ziel: 'Agenda',
+  Feindlich: 'Hostile',
+  'Spieler {0}': 'Player {0}',
 };
 
 /** Text für einen Rivalen. */
@@ -159,11 +228,15 @@ export function rivaleWoerterbuch() {
   for (const r of Object.values(RIVALEN)) {
     for (const name of [r.name, r.name2]) for (const [de, en] of Object.values(RIVALE_TEXTE)) out[de.replaceAll('{name}', name)] = en.replaceAll('{name}', name);
   }
+  for (const [pid, a] of Object.entries(RIVALE_ART)) {
+    for (const name of [RIVALEN[pid].name, RIVALEN[pid].name2]) for (const f of ['wesen', 'ziel', 'spruch', 'aktion']) out[a[f][0].replaceAll('{name}', name)] = a[f][1].replaceAll('{name}', name);
+  }
   out['Siege: {0}, Niederlagen: {1}'] = 'Wins: {0}, defeats: {1}';
   out['Sequenz {0}'] = 'Sequence {0}';
   out['Chance: {0} %'] = 'Chance: {0} %';
   out['Ab {0} Siegen'] = 'From {0} wins';
   out['+{0} Schilling'] = '+{0} shillings';
+  out['-{0} Schilling'] = '-{0} shillings';
   return out;
 }
 

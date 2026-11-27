@@ -4,10 +4,10 @@
 // Alles, was würfelt, würfelt mit festem Startwert je Spieltag (bzw. je Treffen) und Spieler, damit Neuladen nichts ändert.
 import { seeded } from './Gatherings.js';
 import { DAY_SECONDS } from './Clock.js';
-import { RIVALEN, RIVALE_REGELN as R, rivaleEncId, rivaleName, rivaleText } from '../data/rivale.js';
+import { RIVALEN, RIVALE_REGELN as R, RIVALE_ART, rivaleArtText, rivaleEncId, rivaleName, rivaleText } from '../data/rivale.js';
 import { pvgFlag } from '../data/pfadviertelGeschichte.js';
 
-const TAG_FELDER = ['tag', 'ruhe_bis', 'stahl_tag', 'treff_tag', 'kreis_frei', 'kreis_besetzt', 'kreis_kampf'];
+const TAG_FELDER = ['tag', 'ruhe_bis', 'stahl_tag', 'treff_tag', 'kreis_frei', 'kreis_besetzt', 'kreis_kampf', 'aktion_tag'];
 const KEY = { 1: 'p1', 2: 'p2' };
 
 /** Gespeicherte Rivalen säubern (alte Stände haben keine). */
@@ -195,12 +195,57 @@ export const rivaleMethods = {
       lage.optionen = ['gehen'];
       return lage;
     }
+    if (!erste && !ruht) lage.text += `\n\n${rivaleArtText('spruch', r.pid, n)}`;
+    const akt = !erste && !ruht && seeded(`${this.seed ?? ''}|rva|${n}|${r.pid}|${tag}`)() < R.aktion ? this.rivaleAktion(n) : null;
+    if (akt) { lage.text += `\n\n${akt.text}`; lage.aktion = akt.art; if (akt.folge) lage.beute = akt.folge; }
     if (!ruht) lage.optionen.push('kampf');
+    if (akt?.art === 'stoss') { lage.optionen.push('gehen'); lage.feige = true; this.emit('changed'); return lage; } // Eisen: nur Kämpfen oder (feige) Gehen
     if (r.stahl_tag !== tag) lage.optionen.push('stehlen');
     lage.optionen.push('buendnis', 'gehen');
     lage.stehlChance = this.rivaleStehlChance(n);
     this.emit('changed');
     return lage;
+  },
+
+  /** Die eigene Pfad-Aktion des Rivalen (RIVALE_ART). Wirkt auf Spieler n; gibt { art, text, folge } zurück. */
+  rivaleAktion(n) {
+    const r = this.rivalen?.[KEY[n]];
+    const def = r && RIVALE_ART[r.pid];
+    if (!def) return null;
+    const tag = this.rivaleTagNr();
+    let folge = '';
+    this.rivaleAls(n, () => {
+      const ps = this.pathway?.seq ?? r.seq;
+      switch (def.art) {
+        case 'bloss': this.applyEffects({ wanted: 1, wanted_reason: rivaleName(r.pid, n), nerves: -1 }); break;
+        case 'spur': this.applyEffects({ nerves: -2, unruhe: 5 }); break;
+        case 'ruf': this.applyEffects({ honor: -2, honor_reason: rivaleName(r.pid, n) }); break;
+        case 'fluestern': this.applyEffects({ unruhe: 8 }); break;
+        case 'gift': case 'stoss': this.applyEffects({ damage: Math.max(1, Math.round((this.maxHp ?? 100) * R.aktion_schaden)) }); break;
+        case 'aussperren': r.kreis_besetzt = tag; break;
+        case 'gebuehr': {
+          const g = Math.min(5000, Math.floor((this.money ?? 0) * R.aktion_gebuehr));
+          if (g > 0) { this.applyEffects({ takes_money: g }); folge = `-${g} Schilling`; }
+          break;
+        }
+        case 'versinken': {
+          const f = this.pathway ? this.item(`formel_${this.pathway.id}_${this.pathway.seq - 1}`) : null;
+          const id = Object.keys(f?.ingredients ?? {}).slice(1).find((i) => this.itemCount(i) > 0);
+          if (id) { this.removeItem(id); folge = `-1 ${this.item(id).name}`; } else this.applyEffects({ nerves: -1 });
+          break;
+        }
+        case 'zeit': if (r.seq > Math.max(1, ps - 1)) r.seq--; else this.applyEffects({ nerves: -1 }); break;
+        default: break;
+      }
+    });
+    r.aktion_tag = tag;
+    this.emit('changed');
+    return { art: def.art, text: rivaleArtText('aktion', r.pid, n), folge };
+  },
+
+  /** Eisen: wer nach dem Stoß geht, gilt als feige (Nerven). */
+  rivaleFeigeGehen(n) {
+    this.rivaleAls(n, () => this.applyEffects({ nerves: -2 }));
   },
 
   rivaleStehlChance(n) {
@@ -279,7 +324,8 @@ export const rivaleMethods = {
     const r = this.rivaleDaten(n);
     if (!r) return null;
     const ruht = this.rivaleTagNr() <= r.ruhe_bis;
-    return { nr: n, pid: r.pid, name: rivaleName(r.pid, n), seq: r.seq, getroffen: r.getroffen, siege: r.siege, niederlagen: r.niederlagen, status: r.status === 'verbuendet' ? 'verbuendet' : ruht ? 'ruht' : 'rivale' };
+    return { nr: n, pid: r.pid, name: rivaleName(r.pid, n), seq: r.seq, getroffen: r.getroffen, siege: r.siege, niederlagen: r.niederlagen, status: r.status === 'verbuendet' ? 'verbuendet' : ruht ? 'ruht' : 'rivale',
+      wesen: rivaleArtText('wesen', r.pid, n), ziel: rivaleArtText('ziel', r.pid, n), aktion: r.aktion_tag >= 0 ? rivaleArtText('aktion', r.pid, n) : '' };
   },
 
   serializeRivalen() {

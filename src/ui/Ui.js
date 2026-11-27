@@ -2649,12 +2649,12 @@ export class Ui {
 
   /** Rivale auf dem eigenen Pfad (core/Rivale.js): Stand im Pfad-Tab. */
   rivaleHtml(s) {
-    const r0 = s.rivaleUebersicht?.();
-    const list = r0 ? [r0] : [];
+    const list = (s.hasP2?.() ? [1, 2] : [1]).map((n) => s.rivaleUebersicht?.(n)).filter(Boolean);
     if (!list.length) return '';
-    const status = { rivale: 'Rivale', ruht: 'Hält sich zurück', verbuendet: 'Verbündet' };
+    const status = { rivale: 'Feindlich', ruht: 'Hält sich zurück', verbuendet: 'Verbündet' };
     return `<h4>Rivale auf deinem Pfad</h4><ul class="steps">${list.map((r) => (r.getroffen
-      ? `<li><strong>${esc(r.name)}</strong> · <span>Sequenz ${r.seq}</span> · <span class="badge ${r.status === 'verbuendet' ? 'likely' : ''}">${esc(status[r.status])}</span><br><span class="muted">Siege: ${r.siege}, Niederlagen: ${r.niederlagen}</span></li>`
+      ? `<li>${list.length > 1 ? `<span class="role">Spieler ${r.nr}</span> ` : ''}<strong>${esc(r.name)}</strong> · <span>Sequenz ${r.seq}</span> · <span class="badge ${r.status === 'verbuendet' ? 'likely' : ''}">${esc(status[r.status])}</span> · <span class="muted">Siege: ${r.siege}, Niederlagen: ${r.niederlagen}</span>`
+        + `<br><span class="muted"><strong>Wesen</strong>: ${esc(r.wesen)}</span><br><span class="muted"><strong>Ziel</strong>: ${esc(r.ziel)}</span>${r.aktion ? `<br><span class="muted">${esc(r.aktion)}</span>` : ''}</li>`
       : '<li class="muted">Noch nicht begegnet. Ab Wexmoor geht jemand denselben Pfad wie du.</li>')).join('')}</ul>`;
   }
 
@@ -2669,7 +2669,7 @@ export class Ui {
       stehlen: lage.stehlChance ? `Chance: ${Math.round(lage.stehlChance * 100)} %` : '',
       buendnis: siege < RIVALE_REGELN.buendnis_siege ? `Ab ${RIVALE_REGELN.buendnis_siege} Siegen` : '',
     };
-    this.rivaleUi = { nr, name: lage.name, optionen: lage.optionen };
+    this.rivaleUi = { nr, name: lage.name, optionen: lage.optionen, feige: !!lage.feige };
     this.sfx(uiSound('dialogue', 'dialog'), { volume: 0.7 });
     const el = this.open('rivale', `
       <div class="speaker">${esc(lage.name)} ${s.hasP2() ? `<span class="role">Spieler ${nr}</span> ` : ''}<span class="role">Rivale auf deinem Pfad · </span><span class="role">Sequenz ${lage.seq}</span></div>
@@ -2702,7 +2702,7 @@ export class Ui {
     if (!o) return;
     const s = this.state;
     this.rivaleUi = null;
-    if (o === 'gehen') { this.close(); return; }
+    if (o === 'gehen') { if (ui.feige) s.rivaleFeigeGehen?.(ui.nr); this.close(); return; }
     if (o === 'kampf') { s.rivaleKampf(ui.nr, ui.viertel); this.close(); return; } // der Kampf startet, sobald das Fenster zu ist
     const r = o === 'stehlen' ? s.rivaleStehlen(ui.nr) : s.rivaleBuendnis(ui.nr);
     this.showMessage(ui.name, r.text, { footer: r.beute ?? (r.fight ? 'Ein Kampf steht bevor.' : '') });
