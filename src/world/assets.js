@@ -1207,7 +1207,10 @@ const AG_ICONS = (id) => AF_ARTIFACTS.includes(id) || /^sq_zutat_\w+_\d$/.test(i
 const standinIcon = (id) => {
   if (AG_ICONS(id)) return id; // Paket AG: eigene Bilder für Zutaten und Artefakte
   if (/^trank_.+_\d_rest$/.test(id)) return id.replace(/_rest$/, ''); // Beyonder-Rest: Trank aus einem Rest sieht aus wie der normale
-  if (/^rest_.+_\d$/.test(id)) return id.replace(/_\d$/, ''); // Beyonder-Rest: ein Bild je Pfad (rest_<pfad>, per Skript, tools/art/claude_code)
+  if (/^rest_.+_\d$/.test(id)) { // Beyonder-Rest: je Pfad drei Stufen (Seq 9–7 klein, 6–4 mittel, 3–1 groß; tools/art/claude_code/icons_rest.py)
+    const seq = Number(id.slice(-1));
+    return `${id.slice(0, -2)}${seq >= 7 ? '_k' : seq <= 3 ? '_g' : ''}`;
+  }
   if (/^char_seq1_/.test(id)) return id; // Charakteristik Seq 1 (für Seq 0): eigenes Bild je Pfad (per Skript, tools/art/claude_code)
   return id; // Tränke und Formeln haben für alle Pfade und Sequenzen 9–1 eigene Bilder (16 und 32)
 };
@@ -1239,7 +1242,7 @@ const ICON32 = ['stimmphiole', 'verlorenes_gesangbuch', 'spiegelscherbe', ...F_E
   ...DS_ZIRKEL_ICONS, ...VS_ICONS];
 export const itemIcon32Url = (id) => {
   const k = ITEM_ICON_ALIASES[id] ?? id;
-  return k.startsWith('trank_') || ICON32.includes(k) || AG_ICONS(k) ? `${BASE}items/32/${standinIcon(k)}.png` : null;
+  return k.startsWith('trank_') || /^rest_.+_\d$/.test(k) || ICON32.includes(k) || AG_ICONS(k) ? `${BASE}items/32/${standinIcon(k)}.png` : null;
 };
 
 const srcKey = (sheet) => `src_${sheet}`;
