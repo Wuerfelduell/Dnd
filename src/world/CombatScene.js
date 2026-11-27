@@ -554,7 +554,7 @@ export class CombatScene extends Phaser.Scene {
     const x = spr?.homeX ?? PLAYER_X;
     const top = (spr?.homeY ?? GROUND_Y + 14) - (spr?.displayHeight || 72) - 6;
     const n = Number(Object.keys(this.players ?? {}).find((k) => this.players[k] === spr)) || 1;
-    this.ui.combatFloat(text, (x / VIEW_W) * 100, (top / VIEW_H) * 100, cls, this.combat.duo ? `Sp. ${n}` : null);
+    this.ui.combatFloat(text, (x / VIEW_W) * 100, (top / VIEW_H) * 100, cls, this.combat.duo ? n : null);
   }
 
   flash(target) {
