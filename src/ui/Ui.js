@@ -1,4 +1,4 @@
-import { getLang, setLang, NAME_MAX } from '../core/I18n.js';
+import { getLang, setLang, NAME_MAX, tr } from '../core/I18n.js';
 import { HOCH_SEQ1_VERSIEGELT } from '../data/seqHoch.js';
 import { TIER_KAMPF } from '../core/Tiere.js';
 import { NEWSPAPERS } from '../data/lore.js';
@@ -11,7 +11,7 @@ import { FAIL_PCT, FAIL_UNRUHE, LATERNEN, LAMPENOEL, KOKON_FAEDEN, SUD_MIN_SEC }
 import { SPINNENFADEN } from '../data/seq5.js';
 import { SUD_MAX_ZUTATEN, LEERES_GEFAESS, sudEffectText } from '../data/sude.js';
 import { CARRY_PER_STEP } from '../core/GameState.js';
-import { GEAR_SLOT_NAMES } from '../core/Gear.js';
+import { GEAR_SLOT_NAMES, GEAR_SET_NAMES } from '../core/Gear.js';
 import { vergleichWert } from '../core/Vergleich.js';
 import { isPrecise, AOE_DMG_MULT, SKILLS } from '../core/Combat.js';
 import { lootList, itemRarity, RARITY_NAMES, lootPreview, chanceWord, hiddenLoot } from '../core/Loot.js';
@@ -131,6 +131,20 @@ const paperDoll = (s) => {
   const worn = [...DOLL_SLOTS.map(([slot]) => slot).filter((x) => x !== 'waffe').map((slot) => s.gear?.[slot]).filter((id) => id && s.itemCount(id))];
   const list = worn.length ? worn.map((id) => `<li>${itemIcon(id)}<strong>${esc(s.item(id).name)}</strong>${artifactEffectsHtml(s.item(id))}</li>`).join('') : '<li class="muted">Noch nichts angelegt. Hüte, Mäntel und Amulette wirken nur, solange du sie trägst.</li>';
   return `<div class="paperdoll"><div class="doll">${uiSprite('equip', 'doll', k)}${slots}</div><ul class="worn">${list}</ul></div>`;
+};
+/** Seb: Ausrüstungs-Sets (Kampf/Tragen) unter der Figur: anlegen, speichern, Taste zum Wechseln. */
+const gearSetsHtml = (s) => {
+  const sets = s.gearSetList();
+  const keys = s.acting === 2 ? '<span class="key">Ziffernblock +</span> / <span class="key">Select</span>' : '<span class="key">R</span>';
+  const rows = GEAR_SET_NAMES.map((name, i) => {
+    const set = sets[i];
+    const parts = set ? ['weapon', 'hut', 'mantel', 'amulett'].map((k) => set[k]).filter(Boolean) : [];
+    const icons = parts.length ? parts.map((id) => `<span class="gs-part${s.itemCount(id) ? '' : ' missing'}" title="${esc(s.item(id)?.name ?? id)}${s.itemCount(id) ? '' : ' (nicht dabei)'}">${itemIcon(id)}</span>`).join('') : `<span class="muted">${set ? 'nichts angelegt' : 'leer'}</span>`;
+    const worn = s.gearSetWorn(i);
+    return `<li class="gearset${worn ? ' worn' : ''}"><strong>${esc(name)}</strong>${worn ? ' <span class="badge likely">angelegt</span>' : ''}<span class="gs-parts">${icons}</span>
+      <span class="gs-btns">${set && !worn ? `<button class="small" data-gearset-apply="${i}">Anlegen</button>` : ''}<button class="small" data-gearset-save="${i}" title="Merkt sich Waffe, Hut, Mantel und Amulett, die du gerade trägst">Speichern</button></span></li>`;
+  }).join('');
+  return `<div class="gearsets"><div class="gs-head"><strong>Ausrüstungs-Sets</strong> <span class="muted">Wechseln mit ${keys}</span></div><ul>${rows}</ul></div>`;
 };
 const emblem = (pid, size = 16) => `<img class="emblem" src="${pathwayEmblemUrl(pid, size)}" alt="" width="${size}" height="${size}" onerror="this.remove()">`;
 /** 16x16-Zelle aus einem Icon-Atlas (Fähigkeiten: 7 Spalten, Zustände: 12 Spalten). */
@@ -1083,6 +1097,17 @@ export class Ui {
     return r;
   }
 
+  /** Seb: Taste R (Spieler 2: Ziffernblock + / Gamepad Select) wechselt zwischen den gespeicherten Ausrüstungs-Sets. */
+  cycleGearSet(n) {
+    if (!this.scene || this.combatScene || this.isBlocking()) return null;
+    if (n === 2 && !this.state.hasP2()) return null;
+    const who = n === 2 ? 'Spieler 2: ' : '';
+    const r = this.as(() => this.state.cycleGearSet(), n);
+    if (r.ok) this.sfx(worldSound('equip'));
+    this.toast(`${who}${r.text}`, r.ok && !r.missing?.length ? 'good' : 'warn');
+    return r;
+  }
+
   /** Mythische Gestalt über die Schnellleiste annehmen oder ablegen. */
   useFormSlot(n, who = n === 2 ? 'Spieler 2: ' : '') {
     if (!this.formSlot(n)) {
@@ -1906,7 +1931,9 @@ export class Ui {
     const el = this.open('notebook', `
       <div class="tabs">${tabs.map((t, i) => `<button class="tab ${t.id === this.tab ? 'sel' : ''}" data-tab="${t.id}"><span class="key">${i + 1}</span> ${uiSprite('icons', TAB_ICONS[t.id] ?? 'lupe', 1 / 16, 'tabico')}${esc(t.title)}</button>`).join('')}
         <span class="rankinfo">${uiSprite('ranks', `r${Math.max(0, Math.min(4, this.state.content.ranks.indexOf(this.state.rank())))}`, 1 / 16, 'rankbadge')}<span>${esc(this.state.rank().name)}</span> · <span>Ansehen ${this.state.honor}</span></span></div>
-      ${body}
+      <div class="nb-searchbar">${uiSprite('icons', 'lupe', 1 / 16, 'tabico')}<input type="search" class="nb-search" placeholder="Personen, Hinweise, Gegenstände suchen …" value="${esc(this.nbQuery ?? '')}" aria-label="Notizbuch durchsuchen"><span class="key">F</span><span class="muted nb-count"></span></div>
+      <div class="nb-results" hidden></div>
+      <div class="nb-body">${body}</div>
       <div class="feedback">${feedback}</div>
       <div class="actions">
         ${isCase ? `<button class="primary" data-act="combine" ${this.selected.length === 2 ? '' : 'disabled'}>Verknüpfen <span class="key">V</span></button>` : ''}
@@ -1914,6 +1941,7 @@ export class Ui {
         <button data-act="close">Schließen <span class="key">J</span></button>
       </div>`, 'notebook journal');
     this.notebookTabs = tabs;
+    this.bindNotebookSearch(el);
     el.querySelectorAll('[data-tab]').forEach((b) => { b.onclick = () => { if (this.tab !== b.dataset.tab) this.sfx(uiSound('notebook', 'tab')); this.tab = b.dataset.tab; this.selected = []; this.forgetScroll(); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-itemcat]').forEach((b) => { b.onclick = () => { if (this.itemCat !== b.dataset.itemcat) this.sfx(uiSound('notebook', 'page')); this.itemCat = b.dataset.itemcat; this.forgetScroll('notebook', /^UL\./); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-fact]').forEach((b) => { b.onclick = () => this.toggleFact(b.dataset.fact); });
@@ -1959,6 +1987,10 @@ export class Ui {
     el.querySelectorAll('[data-cleanse]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(inv(() => this.state.cleanseWithSalt(b.dataset.cleanse)).text)); });
     el.querySelectorAll('[data-wear]').forEach((b) => { b.onclick = () => { if (inv(() => this.state.wear(b.dataset.wear))) this.sfx(worldSound('wear', { slot: this.state.item(b.dataset.wear)?.slot })); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-takeoff]').forEach((b) => { b.onclick = () => { if (inv(() => this.state.takeOff(b.dataset.takeoff))) this.sfx(worldSound('wear', { slot: b.dataset.takeoff })); this.renderNotebook(''); }; });
+    el.querySelectorAll('[data-gearset-save]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(inv(() => this.state.saveGearSet(Number(b.dataset.gearsetSave))).text)); });
+    el.querySelectorAll('[data-gearset-apply]').forEach((b) => {
+      b.onclick = () => { const r = inv(() => this.state.applyGearSet(Number(b.dataset.gearsetApply))); if (r.ok) this.sfx(worldSound('equip')); this.renderNotebook(esc(r.text)); };
+    });
     el.querySelectorAll('[data-invplayer]').forEach((b) => { b.onclick = () => { this.invPlayer = Number(b.dataset.invplayer); this.renamingPlayer = 0; this.renderNotebook(''); }; });
     // Seb: Spieler umbenennen (max. 9 Zeichen), gilt überall, wo „Spieler 1/2“ steht
     el.querySelector('[data-pname-edit]')?.addEventListener('click', () => { this.renamingPlayer = this.renamingPlayer === this.invPlayer ? 0 : this.invPlayer; this.renderNotebook(''); });
@@ -2144,6 +2176,111 @@ export class Ui {
     }).join('');
     st.erfolgeGesehen();
     return `<div class="erfakte"><p><b>Akte des Ermittlers</b> · ${frei}/${defs.length}</p>${st.erfolgeSeitentext().map((t) => `<p class="dim">${esc(t)}</p>`).join('')}${rows}</div>`;
+  }
+
+  // --- Suche im Notizbuch (Seb 2026-11-27) ------------------------------------------
+  // Ein Feld über allen Reitern: findet Personen, Hinweise (Informationen samt Quellen) und Gegenstände
+  // (beide Spieler und das Büro-Lager). Ein Treffer springt in den passenden Reiter und hebt die Stelle hervor.
+
+  bindNotebookSearch(el) {
+    const input = el.querySelector('.nb-search');
+    if (!input) return;
+    const refresh = () => {
+      const q = (this.nbQuery ?? '').trim();
+      const res = el.querySelector('.nb-results');
+      const bodyEl = el.querySelector('.nb-body');
+      const on = q.length >= 2;
+      if (!res || !bodyEl) return;
+      res.hidden = !on;
+      bodyEl.hidden = on;
+      const r = on ? this.notebookSearch(q) : null;
+      res.innerHTML = r ? r.html : '';
+      const count = el.querySelector('.nb-count');
+      if (count) count.textContent = r ? (r.n ? `${r.n} Treffer` : 'nichts gefunden') : '';
+      res.querySelectorAll?.('[data-hit]').forEach((b) => { b.onclick = () => this.jumpToHit(b.dataset.hit); });
+    };
+    input.oninput = () => { this.nbQuery = input.value; refresh(); };
+    input.onkeydown = (e) => {
+      e.stopPropagation(); // Tippen darf weder Notizbuch-Tasten noch die Laufsteuerung (WASD) auslösen
+      if (e.key === 'Escape') { if (input.value) { input.value = ''; this.nbQuery = ''; refresh(); } else input.blur(); }
+      else if (e.key === 'Enter') el.querySelector('.nb-results [data-hit]')?.click();
+    };
+    input.onkeyup = (e) => e.stopPropagation();
+    refresh();
+    if (this.nbFocus) { input.focus?.(); const n = input.value.length; input.setSelectionRange?.(n, n); }
+    input.onfocus = () => { this.nbFocus = true; };
+    input.onblur = () => { this.nbFocus = false; };
+    // Sprung aus einem Treffer: Stelle zeigen und kurz aufleuchten lassen
+    if (this.searchFocus) {
+      const t = el.querySelector(this.searchFocus);
+      this.searchFocus = null;
+      if (t) { t.classList.add('search-hit'); setTimeout(() => t.scrollIntoView?.({ block: 'center' }), 0); }
+    }
+  }
+
+  /** Treffer für die Notizbuch-Suche. Alle Wörter müssen vorkommen; Groß-/Kleinschreibung und Akzente egal, im Englischen auch die Übersetzung. */
+  notebookSearch(query) {
+    const s = this.state;
+    const norm = (t) => String(t ?? '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ß/g, 'ss');
+    const terms = norm(query).split(/\s+/).filter(Boolean);
+    const en = getLang() === 'en';
+    const hay = (...parts) => norm(parts.filter(Boolean).flatMap((p) => (en ? [p, tr(p)] : [p])).join(' \n '));
+    const hit = (...parts) => { const h = hay(...parts); return terms.every((t) => h.includes(t)); };
+    const MAX = 25;
+    const group = (title, list) => !list.length ? '' : `<h4>${esc(title)} <span class="muted">${list.length}</span></h4><ul class="nb-hits">${list.slice(0, MAX).join('')}</ul>${list.length > MAX ? `<p class="muted">… und ${list.length - MAX} weitere. Genauer suchen hilft.</p>` : ''}`;
+    // Personen
+    const people = knownPeople(s).filter((p) => hit(p.name, p.role, ...p.quests)).map((p) => {
+      const places = personPlaces(s, p.id);
+      const where = places.length ? places.map((x) => x.mapName).join(', ') : 'unterwegs';
+      return `<li><button class="nb-hit" data-hit="person|${p.id}">${headFace(p.id, esc(p.name))}<div><strong>${esc(p.name)}</strong> <span class="muted">${esc(p.role)}</span><br><span class="where">${esc(where)}</span></div></button></li>`;
+    });
+    // Hinweise: Informationen der Fälle samt der Quellen, aus denen sie stammen
+    const cases = this.visibleCases();
+    const caseTitle = (id) => s.content.cases.find((c) => c.id === id)?.title.split(':')[0] ?? 'Fallakte';
+    const facts = s.knownFacts().filter((f) => {
+      const clues = s.factSources(f).map((c) => s.clue(c));
+      return hit(s.fact(f).text, caseTitle(s.fact(f).case), ...clues.flatMap((c) => [c?.source, c?.text]));
+    }).map((f) => {
+      const fact = s.fact(f);
+      const st = s.factStatus(f);
+      const open = cases.some((c) => c.id === fact.case);
+      const src = s.factSources(f).map((c) => s.clue(c)).find((c) => c && hit(c.source, c.text) && !hit(fact.text));
+      const body = `${this.badge(st)} ${esc(fact.text)}<br><span class="muted">${esc(caseTitle(fact.case))}${src ? ` · ${esc(src.source)}: „${esc(src.text)}“` : ''}</span>`;
+      return `<li>${open ? `<button class="nb-hit" data-hit="fact|${f}"><div>${body}</div></button>` : `<div class="nb-hit">${body}</div>`}</li>`;
+    });
+    // Gegenstände: was man trägt (beide Spieler) und was im Büro liegt
+    const owners = s.hasP2() ? [1, 2] : [1];
+    const items = [];
+    for (const n of owners) {
+      const list = s.withPlayer(n, () => s.items(), { quiet: true });
+      for (const it of list) {
+        if (!hit(it.name, it.desc)) continue;
+        const who = s.hasP2() ? `Spieler ${n}` : 'bei dir';
+        items.push(`<li><button class="nb-hit" data-hit="item|${n}|${it.id}">${itemIcon(it.id)}<div><strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''} <span class="muted">${esc(who)}</span><br><span class="desc">${esc(it.desc ?? '')}</span></div></button></li>`);
+      }
+    }
+    for (const it of s.storedItems?.() ?? []) {
+      if (!hit(it.name, it.desc)) continue;
+      items.push(`<li><div class="nb-hit">${itemIcon(it.id)}<div><strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''} <span class="muted">im Büro eingelagert</span><br><span class="desc">${esc(it.desc ?? '')}</span></div></div></li>`);
+    }
+    const n = people.length + facts.length + items.length;
+    const html = n
+      ? group('Personen', people) + group('Hinweise', facts) + group('Gegenstände', items)
+      : '<p class="empty">Nichts gefunden. Gesucht wird in Personen, Hinweisen und Gegenständen.</p>';
+    return { n, html };
+  }
+
+  /** Treffer anklicken: in den Reiter springen, Suche leeren, Stelle hervorheben. */
+  jumpToHit(ref) {
+    const [kind, a, b] = ref.split('|');
+    this.nbQuery = '';
+    this.nbFocus = false;
+    this.forgetScroll();
+    this.sfx(uiSound('notebook', 'page'));
+    if (kind === 'person') { this.tab = 'personen'; this.selected = []; this.searchFocus = `[data-person="${a}"]`; }
+    else if (kind === 'fact') { this.tab = this.state.fact(a).case; this.selected = [a]; this.searchFocus = `[data-fact="${a}"]`; }
+    else if (kind === 'item') { this.tab = 'items'; this.selected = []; this.invPlayer = Number(a) || 1; this.itemCat = 'alle'; this.searchFocus = `[data-itemrow="${b}"]`; }
+    this.renderNotebook('');
   }
 
   bestiaryHtml(ids) {
@@ -2488,7 +2625,7 @@ export class Ui {
       const effects = (it.kind === 'artifact' || it.kind === 'gear' ? artifactEffectsHtml(it) : '') + vergleichHtml(s, it.id);
       const taint = tainted ? corruptionHtml(s, it.id) : '';
       const laune = it.kind === 'artifact' && !s.isSetAside(it.id) ? launeHtml(s, it.id) : '';
-      return `<li class="item${tainted ? ' tainted' : ''}"><div>${it.kind === 'potion' || it.kind === 'formula' ? itemIconBig(it.id) : itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${stat}${tainted ? ` ${korrBadge()}` : ''}${bedarfHtml(need, it.id)}<br><span class="desc">${esc(it.desc)}</span>${effects}${laune}${taint}</div><div>${action}</div></li>`;
+      return `<li class="item${tainted ? ' tainted' : ''}" data-itemrow="${it.id}"><div>${it.kind === 'potion' || it.kind === 'formula' ? itemIconBig(it.id) : itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${stat}${tainted ? ` ${korrBadge()}` : ''}${bedarfHtml(need, it.id)}<br><span class="desc">${esc(it.desc)}</span>${effects}${laune}${taint}</div><div>${action}</div></li>`;
     }).join('');
     const carried = s.activeArtifacts();
     const maxArt = s.artifactMaxActive();
@@ -2501,7 +2638,7 @@ export class Ui {
     return `
       ${carryHtml(s)}${taintBox}
       <div class="status">Leben <strong>${s.hp}/${s.maxHp}</strong> · Nerven <strong>${Math.round(s.composure)}/${s.maxComposure()}</strong> · Waffe <strong>${esc(w.name)}</strong> (Angriff ${w.atk}) · ${coin}<strong>${s.money}</strong> Schilling</div>
-      ${cat.id === 'alle' || cat.id === 'waffen' || cat.id === 'kleidung' ? paperDoll(s) : ''}
+      ${cat.id === 'alle' || cat.id === 'waffen' || cat.id === 'kleidung' ? paperDoll(s) + gearSetsHtml(s) : ''}
       ${cat.id === 'alle' || cat.id === 'artefakte' ? arts : ''}
       ${subtabs}
       <ul class="items">${rows || '<li class="empty">Deine Taschen sind leer.</li>'}</ul>`;
@@ -3925,7 +4062,7 @@ export class Ui {
         return;
       }
     }
-    if (e.target?.classList?.contains('beast-search') || e.target?.classList?.contains('testcode') || e.target?.classList?.contains('pname-input')) return; // Suchfeld im Bestiarium: Tasten gehören dem Textfeld
+    if (e.target?.classList?.contains('beast-search') || e.target?.classList?.contains('nb-search') || e.target?.classList?.contains('testcode') || e.target?.classList?.contains('pname-input')) return; // Suchfeld im Bestiarium: Tasten gehören dem Textfeld
     if (!this.modal) {
       // Esc in der Welt: Pausemenü (Spieler 2 hinzufügen oder entfernen)
       if (e.key === 'Escape' && !e.repeat && this.scene && !this.combatScene && performance.now() >= this.blockedUntil) {
@@ -3976,6 +4113,7 @@ export class Ui {
       this.actor = this.actor === 1 ? 2 : 1;
       if (this.modal === 'shop') this.openShop(this.shop.id, this.shop.mode); else this.openStorage('', ...this.storageArgs);
     } else if (this.modal === 'notebook' && k === 'g' && (this.tab === 'items' || this.tab === 'pfad') && this.state.hasP2()) { this.invPlayer = this.invPlayer === 1 ? 2 : 1; this.renderNotebook(''); }
+    else if (this.modal === 'notebook' && k === 'f' && this.$('.nb-search')) { e.preventDefault(); this.$('.nb-search').focus(); }
     else if (this.modal === 'notebook' && k === 'v') this.combine();
     else if (this.modal === 'notebook' && k === 'a') this.autoCombine();
     else if (this.modal === 'notebook' && this.tab === 'items' && (k === 'arrowleft' || k === 'arrowright') && this.itemCats?.length) {
