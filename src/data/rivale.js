@@ -11,6 +11,7 @@
  */
 import { machBeyonder } from './gegnerBeyonder.js';
 import { restId } from './beyonderRest.js';
+import { bogenWoerterbuch } from './rivaleBogen.js';
 
 /** Je Pfad ein Rivale (Namen gelten in beiden Sprachen). Im Koop hat Spieler 2 einen eigenen (name2), auch auf demselben Pfad. */
 export const RIVALEN = {
@@ -243,6 +244,10 @@ export const RIVALE_UI = {
   'Ein Kampf steht bevor.': 'A fight is coming.',
   Später: 'Later',
   'Gemeinsame Jagd': 'Hunt together',
+  'Bogen: {0}/3': 'Story: {0}/3',
+  'Bündnis für immer': 'Alliance for good',
+  Erledigt: 'Finished',
+  'Hat den Pfad verlassen': 'Has left the pathway',
   'Gefolge des Rivalen': 'Rival\'s follower',
   'Will deinen Aufstieg verhindern': 'Wants to stop your ascent',
   'Wilder Beyonder (gemeinsame Jagd)': 'Wild Beyonder (joint hunt)',
@@ -267,6 +272,7 @@ export function rivaleWoerterbuch() {
   for (const [pid, a] of Object.entries(RIVALE_ART)) {
     for (const name of [RIVALEN[pid].name, RIVALEN[pid].name2]) for (const f of ['wesen', 'ziel', 'spruch', 'aktion']) out[a[f][0].replaceAll('{name}', name)] = a[f][1].replaceAll('{name}', name);
   }
+  Object.assign(out, bogenWoerterbuch(RIVALEN));
   out['Siege: {0}, Niederlagen: {1}'] = 'Wins: {0}, defeats: {1}';
   out['Sequenz {0}'] = 'Sequence {0}';
   out['Chance: {0} %'] = 'Chance: {0} %';
