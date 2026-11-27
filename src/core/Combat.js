@@ -413,6 +413,7 @@ export class Combat {
     this.zoneTier = tier;
     this.armor = enc.practice ? 0 : enc.armor ?? (enc.boss ? Math.min(ARMOR.boss, tier) : enc.elite ? Math.min(ARMOR.elite, tier - 1) : 0);
     const testHp = state.testmodus && /^hg_\w+waechter_/.test(encounterId ?? '') ? 1 : hp; // Testmodus: Wächter mit 1 Leben
+    state.bestiarBegegnet?.(encounterId); // Bestiarium: ab jetzt mit Name und Ort
     this.enemy = { name: enc.name, hp: testHp, maxHp: testHp, occult: !!enc.occult, beyonder: beyonderInfo(state.content, enc) };
     // BQ: Haupt einer Sekte wechselt bei halben Leben einmal die Angriffe (`phase2`: attacks, meldung), ohne Heilung oder Extra-Beute
     this.phase2 = enc.phase2 ?? null;
@@ -1555,6 +1556,7 @@ export class Combat {
       if (first && enc.first_win) s.applyEffects(enc.first_win);
       if (enc.kopfgeldjaeger) s.kgjSieg?.(this.id); // Kopfgeldjäger: heute kommt keiner mehr
       if (!enc.practice) s.erfolgKampf?.(); // Codex DL: „Hundert Kämpfe“
+      s.bestiarSieg?.(this.id); // Bestiarium: Siege schalten Beschreibung, Beute und Schwächen frei
       if (!enc.practice) {
         loot = noLoot ? null : this.rollLoot(first); // BQ: Schreinwachen geben keine eigene Beute, erst der Abbau
         // Bei Gegnern auf der Karte landet die Beute in einem Behälter am Boden (WorldScene)
@@ -1572,6 +1574,7 @@ export class Combat {
         // Begleiter einer Gruppe: eigene Beute (Wiederholungstabelle) und ein Teil der Verdauung je Gegner
         for (let i = 1; i < this.foes.length; i++) this.withFoe(i, () => {
           s.flags.add(`won_${this.id}`);
+          s.bestiarSieg?.(this.id);
           const extra = noLoot ? null : this.rollLoot(false);
           if (extra) {
             if (!deferLoot) takeLoot(s, extra, this.enc.name);

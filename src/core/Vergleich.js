@@ -97,14 +97,15 @@ export const vergleichMethods = {
       let best = 0;
       for (const a of this.activeArtifacts()) {
         if (a === 's4mo_relikt') continue;
-        const n = [...werte(this.item(a)).keys()].filter((k) => eigene.has(k)).length;
+        const n = [...werte(this.launeWirkung?.(a) ?? this.item(a)).keys()].filter((k) => eigene.has(k)).length;
         if (n > best) { best = n; altId = a; }
       }
       gegen = altId ? this.item(altId).name : null;
       if (!altId) art = 'dazu';
     } else return null;
     const neuW = werte(it);
-    const altW = werte(altId ? this.item(altId) : null);
+    // Mitgeführte Artefakte mit ihrer jetzigen Wirkung (Launen.js: Bindung stärkt, Groll schwächt)
+    const altW = werte(!altId ? null : it.kind === 'artifact' ? this.launeWirkung?.(altId) ?? this.item(altId) : this.item(altId));
     for (const key of new Set([...neuW.keys(), ...altW.keys()])) {
       const n = neuW.get(key);
       const a = altW.get(key);

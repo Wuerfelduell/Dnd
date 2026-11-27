@@ -197,6 +197,118 @@ const SCHREIN_TEXT = {
     'Your wanted poster, a dozen times over. The face has been scratched out on every one. Not out of hatred, says a note beside them: "You shouldn\'t look at it. It looks back."')],
 };
 
+
+// --- Gebete: Leute beten zu dir und bitten um Hilfe (Seb 2026-11-27) ------------------------------------------------------------
+
+/**
+ * Seb: „Die Leute, denen du schon mal geholfen hast, beten und fragen dich um Hilfe. Du hörst leises Flüstern, kannst aber erst ab
+ * Seq 3 wieder helfen. Ab Seq 3 hörst du Stimmen aus Wexmoor, ab Seq 2 aus Dunscar.“
+ * [id, Gebet, Ziel-Karte, Ziel-Prompt, Ziel-Text]. Hören: Kettlegate ab Seq 4, Wexmoor ab Seq 3, Dunscar ab Seq 2 (ein Spieler reicht).
+ * Helfen: an Ort und Stelle, sobald man dort sein kann (Heimkehr ab Seq 3; Dunscar erst, wenn man die Stimmen hört).
+ * Lohn moderat: 3000 Schilling und ein Nachhall (Seq 3 +2 %). Folgen fürs Ignorieren gibt es (noch) nicht.
+ */
+export const GEBET_HOEREN = { kettlegate: 4, wexmoor: 3, dunscar: 2 };
+export const GEBETE = [
+  ['kg_krypta',     L('Pater Ambrose senkt die Stimme. „Seit du fort bist, schreit etwas in der Krypta. Nachts, immer um drei. Ich habe gebetet, ich habe geräuchert, ich habe die Tür vermauern lassen. Es schreit durch die Mauer. Du bist das Einzige in dieser Stadt, vor dem es vielleicht Angst hat.“',
+      'Father Ambrose lowers his voice. "Since you left, something screams in the crypt. At night, always at three. I prayed, I burned incense, I had the door walled up. It screams through the wall. You are the only thing in this city it might be afraid of."'),
+    'crypt', L('Der Schrei in der Krypta', 'The scream in the crypt'),
+    L('Hinter der vermauerten Tür kauert ein Echo, das sich an einem alten Grab festgebissen hat. Es schreit dich an, dann erkennt es dich und verstummt mitten im Ton. Du sagst ihm, dass es gehen darf. Es geht. Die Krypta ist zum ersten Mal seit Monaten still.',
+      'Behind the walled-up door crouches an echo that has sunk its teeth into an old grave. It screams at you, then recognises you and falls silent mid-note. You tell it that it may go. It goes. For the first time in months the crypt is quiet.')],
+  ['kg_reliquien',     L('Nell schiebt dir ein Fläschchen hin: „Haar des Halbgotts, echt, gesegnet“. „Im Lagerhaus am Hafen füllt einer solches Zeug ab und verkauft es an Leute, die sich vor dir fürchten. Manche trinken es. Zwei liegen im Hospital. Ich fass das nicht an. Du schon.“',
+      'Nell pushes a vial towards you: "Hair of the Demigod, genuine, blessed". "Someone in the harbour warehouse is bottling this stuff and selling it to people who are afraid of you. Some drink it. Two are in hospital. I\'m not touching it. You can."'),
+    'warehouse', L('Die falschen Reliquien', 'The false relics'),
+    L('Zwischen den Kisten stehen Hunderte Fläschchen mit grauem Sud und einem Etikett mit deinem Gesicht. Der Abfüller ist längst geflohen, als er hörte, wer kommt. Du zerschlägst die Ware, Kiste für Kiste. Auf das letzte Etikett schreibst du: „Nicht trinken.“',
+      'Between the crates stand hundreds of vials of grey brew with a label bearing your face. The bottler fled long ago when he heard who was coming. You smash the stock, crate by crate. On the last label you write: "Do not drink."')],
+  ['wx_moorkinder',     L('Mutter Sedge hält dich am Ärmel fest. „Das Moor nimmt Kinder, seit du fort bist. Nicht viele. Eins im Monat. Sie gehen nachts zum Torfstich und kommen nicht wieder. Wir hören sie singen. Geh hin. Bitte.“',
+      'Mother Sedge holds you by the sleeve. "The moor has been taking children since you left. Not many. One a month. They go to the peat cutting at night and don\'t come back. We hear them singing. Go there. Please."'),
+    'wx_torfstich', L('Das Singen im Torf', 'The singing in the peat'),
+    L('Unter dem Torf singt etwas mit Kinderstimmen. Als du dich hinkniest, hört es auf. Du gräbst mit den Händen, und der Torf gibt nach wie Stoff. Drei Kinder schlafen darunter, kalt, aber lebendig. Das Moor lässt sie los, als hätte es sie dir nur aufbewahrt.',
+      'Beneath the peat something sings with children\'s voices. When you kneel, it stops. You dig with your hands, and the peat gives way like cloth. Three children sleep beneath it, cold but alive. The moor lets them go as though it had only been keeping them for you.')],
+  ['wx_lake',     L('Hesper wischt sich die Hände an der Schürze ab. „Die Lake im Bojenhafen spricht. Sie sagt Namen. Wer seinen Namen hört, steht am nächsten Morgen im Wasser und weiß nicht, wie er hingekommen ist. Mein Neffe hat seinen Namen gestern gehört.“',
+      'Hesper wipes her hands on her apron. "The brine in the Buoy Harbour talks. It says names. Whoever hears their name is standing in the water the next morning and doesn\'t know how they got there. My nephew heard his name yesterday."'),
+    'wx_bojenhafen', L('Die Lake, die Namen sagt', 'The brine that speaks names'),
+    L('Die Lake flüstert, und dann flüstert sie deinen Namen. Du antwortest. Nicht mit Worten. Das Wasser zieht sich zurück, als hätte es sich verbrannt, und am Grund liegt eine verrostete Glocke, die niemand mehr läuten wird.',
+      'The brine whispers, and then it whispers your name. You answer. Not with words. The water draws back as if it had burned itself, and on the bottom lies a rusted bell that no one will ever ring again.')],
+  ['ds_verschuettet',     L('Esther Brindle legt den Finger auf drei Namen. „Verschüttet. Im Bruch, unter den Stufen. Die Aufseher sagen, da ist nichts mehr zu machen. Die Aufseher sagen das immer. Wir hören sie noch klopfen.“',
+      'Esther Brindle lays her finger on three names. "Buried. In the quarry, under the steps. The overseers say nothing can be done. The overseers always say that. We can still hear them knocking."'),
+    'ds_bruchstufen', L('Das Klopfen unter den Stufen', 'The knocking under the steps'),
+    L('Du legst die Hand auf den Kalk. Er gibt nach, Stein für Stein, als würde der Berg sich an etwas erinnern, das er dir schuldet. Drei Männer kriechen ins Licht, grau wie Statuen. Einer fragt, ob er jetzt tot ist. Du sagst: noch nicht.',
+      'You lay your hand on the lime. It yields, stone by stone, as though the mountain remembered something it owed you. Three men crawl into the light, grey as statues. One asks whether he is dead now. You say: not yet.')],
+  ['ds_signalkinder',     L('Mabel stellt die Kanne ab. „Die Signalkinder. Nachts laufen sie zum Signalhang und stellen sich auf die Schienen. Sie sagen, eine Stimme verspricht ihnen einen Zug nach oben. So wie deinen.“',
+      'Mabel sets the pot down. "The signal children. At night they run to the Signal Slope and stand on the rails. They say a voice promises them a train going up. Like yours."'),
+    'ds_signalhang', L('Der Zug, der nicht kommt', 'The train that doesn\'t come'),
+    L('Am Signalhang steht ein Signal auf Fahrt, obwohl kein Zug kommt. Die Stimme darin ist dünn und gierig. Du stellst das Signal mit der bloßen Hand auf Halt und hältst es fest, bis die Stimme aufgibt. Die Kinder gehen nach Hause. Eins winkt.',
+      'On the Signal Slope a signal stands at clear although no train is coming. The voice inside it is thin and greedy. You pull the signal to stop with your bare hand and hold it until the voice gives up. The children go home. One waves.')],
+];
+const BITTE_LOHN = 3000;
+/** Wem du hilfst, der wird dein Gläubiger (Seb 2026-11-27: wichtig für spätere Rituale Seq 1/0). Flag glaeubiger_<id>. */
+export const GLAEUBIGER = { kg_krypta: 'Pater Ambrose', kg_reliquien: 'Nell Rauhfuß', wx_moorkinder: 'Mutter Sedge', wx_lake: 'Hesper Quell', ds_verschuettet: 'Esther Brindle', ds_signalkinder: 'Mabel Caskett' };
+export const GLAEUBIGER_TEXT = L('{0} glaubt jetzt an dich. Ein Gläubiger mehr.', '{0} now believes in you. One more believer.');
+export const GEBET_FLUESTERN = L('Du hörst ein leises Flüstern. Jemand betet zu dir.', 'You hear a faint whisper. Someone is praying to you.');
+const GEBET_STADT = { kettlegate: L('Ein Gebet aus Kettlegate', 'A prayer from Kettlegate'), wexmoor: L('Eine Stimme aus Wexmoor', 'A voice from Wexmoor'), dunscar: L('Eine Stimme aus Dunscar', 'A voice from Dunscar') };
+const GEBET_WARTEN = L('Hinfahren und helfen (Fernzug ab Sequenz 3)', 'Go there and help (long-distance train from Sequence 3)');
+
+// --- Rache: alte Feinde haben gewartet ------------------------------------------------------------------------------
+
+/** Je Stadt ein Trupp und ein Anführer (Boss, für Seq 3 gebaut). Vorlage = vorhandener Gegner (Bild). */
+export const RACHE = {
+  kettlegate: {
+    map: 'ankerhof',
+    trupp: { vorlage: 'rost_schmied', sheet: 'enemy_schlachtergehilfe', name: L('Die letzten Rostbrüder', 'The last Rust Brothers'),
+      intro: L('Sie haben die Kapelle wieder aufgebaut, Niet für Niet, und dabei jeden Tag deinen Namen auf den Amboss geschlagen. „Als du ein Mensch warst, hast du uns zerschlagen. Jetzt bist du nicht mal mehr ein Mensch. Das macht es leichter.“',
+        'They rebuilt the chapel rivet by rivet, beating your name into the anvil every day. "When you were human, you broke us. Now you\'re not even human. That makes it easier."') },
+    boss: { vorlage: 'schleier_mutter', sheet: 'enemy_chorfanatiker', name: L('Mutter Ysoldes Rache', 'Mother Ysolde\'s Revenge'),
+      intro: L('Aus dem Nebel am Anker tritt eine Frau im grauen Schleier, und hinter ihr zwanzig weitere. „Du hast meine Schwestern in alle Winde zerstreut. Jede von ihnen hat seitdem ein Gesicht gestohlen. Heute geben wir sie dir alle zurück.“',
+        'From the fog by the anchor steps a woman in a grey veil, and behind her twenty more. "You scattered my sisters to every wind. Each of them has stolen a face since. Today we give them all back to you."') },
+  },
+  wexmoor: {
+    map: 'wx_lichtamt',
+    trupp: { vorlage: 'wx_grauspaeher_fight', name: L('Das letzte Kommando der Grauspäher', 'The Grey Scouts\' last squad'),
+      intro: L('Nicht alle Grauspäher halten sich an den Erlass. Ein Dutzend wartet im Lichtamt, die Lampen auf volle Flamme gedreht. „Die Akte ist geschlossen“, sagt ihr Anführer. „Wir nicht.“',
+        'Not every Grey Scout follows the decree. A dozen wait in the Office of Light, their lamps turned to full flame. "The file is closed," says their leader. "We are not."') },
+    boss: { vorlage: 'ph_leuchtfeuer_elite', name: L('Die Erben des Leuchtfeuers', 'The Heirs of the Beacon'),
+      intro: L('Die Wärter des alten Leuchtfeuers haben gesammelt, was nach seinem Erlöschen übrig blieb: Glut, Gebete, Hass. Jetzt brennt es in ihnen. „Du hast unser Licht gelöscht. Wir zeigen dir, wie es sich anfühlt, im Dunkeln zu stehen.“',
+        'The keepers of the old Beacon have gathered what remained after it went out: embers, prayers, hatred. Now it burns in them. "You put out our light. We\'ll show you what it feels like to stand in the dark."') },
+  },
+  dunscar: {
+    map: 'ds_runddepot',
+    trupp: { vorlage: 'kgj_ds_harrow', name: L('Die Kopfgeldrotte', 'The bounty pack'),
+      intro: L('Fünf Kopfgeldjäger, die das Kopfgeld auf dich nie abgehängt haben. Inzwischen ist es hoch genug, um dafür zu sterben. „Halbgott oder nicht“, sagt einer und lädt nach, „bezahlt ist bezahlt.“',
+        'Five bounty hunters who never took down the bounty on you. By now it is high enough to die for. "Demigod or not," says one, reloading, "paid is paid."') },
+    boss: { vorlage: 'auf_schaffner', name: L('Die Bremser des Schaffners', 'The Conductor\'s Brakemen'),
+      intro: L('Du hast den Schaffner des Alten besiegt. Seine Bremser haben ihn begraben, unter der Drehscheibe, und seitdem gewartet. Ihre Gesichter sind verrußt, ihre Augen leer wie Tunnel. „Der Alte hat nichts vergessen. Wir auch nicht.“',
+        'You defeated the Old One\'s Conductor. His brakemen buried him under the turntable and have waited ever since. Their faces are sooted, their eyes as empty as tunnels. "The Old One has forgotten nothing. Neither have we."') },
+  },
+};
+const RACHE_WERTE = { trupp: { hp: 6000, dmg: 72, money: 4000 }, boss: { hp: 7500, dmg: 78, money: 9000 } }; // Sim: etwa wie Wetherby (Seq 3 gewinnt meist)
+const RACHE_TITEL = L('Alte Feinde', 'Old enemies');
+const RACHE_TEXT = L('Nicht alle haben vergessen, was du ihnen angetan hast. In jeder alten Stadt warten Leute, die Rache wollen.', 'Not everyone has forgotten what you did to them. In every old city there are people who want revenge.');
+const RACHE_SIEG = L('Sie liegen im Staub. Niemand hier wird es noch einmal versuchen.', 'They lie in the dust. No one here will try again.');
+const RACHE_NIEDERLAGE = L('Du kommst zu dir. Sie sind fort, aber sie kommen wieder.', 'You come to. They are gone, but they will come back.');
+const RACHE_FLUCHT = L('Du ziehst dich zurück. Sie lachen. Sie warten.', 'You withdraw. They laugh. They wait.');
+const SCHRITT_STADT = { kettlegate: 'Kettlegate', wexmoor: 'Wexmoor', dunscar: 'Dunscar' };
+const RACHE_SCHRITT = { kettlegate: L('Rache in Kettlegate', 'Revenge in Kettlegate'), wexmoor: L('Rache in Wexmoor', 'Revenge in Wexmoor'), dunscar: L('Rache in Dunscar', 'Revenge in Dunscar') };
+
+const RACHE_ANGRIFF = [L('Alter Groll', 'Old grudge'), L('Viele Hände', 'Many hands'), L('Sie schließen den Kreis', 'They close the circle'),
+  L('Sie schließen den Kreis um dich: +8 Abwehr.', 'They close the circle around you: +8 defence.'), L('Alles, was sie haben', 'Everything they have')];
+
+function racheKampf(content, city, art, r) {
+  const v = RACHE_WERTE[art];
+  const base = content.encounters[r.vorlage] ?? {};
+  const id = `hkr_${city}_${art}`;
+  return {
+    id, name: r.name, sprite: base.sprite ?? 'wild', ...(r.sheet ?? base.sheet ? { sheet: r.sheet ?? base.sheet } : {}), occult: true, chapter: 5, boss: true, elite: false, tier_seq: 3,
+    hp: v.hp, armor: 8, dmg_mult: 1, max_round_dmg: 0.2, fleeable: true, duo_hp_mult: 2.2, heimkehr_rache: true,
+    attacks: [
+      { name: RACHE_ANGRIFF[0], damage: v.dmg, hits: [900, 1500] },
+      { name: RACHE_ANGRIFF[1], damage: Math.round(v.dmg * 0.6), hits: [600, 1000, 1400, 1800] },
+      { name: RACHE_ANGRIFF[2], action: 'guard', value: 8, text: RACHE_ANGRIFF[3] },
+      { name: RACHE_ANGRIFF[4], damage: Math.round(v.dmg * 1.4), hits: [1700], unparryable: true },
+    ],
+    intro: r.intro, win_text: RACHE_SIEG, lose_text: RACHE_NIEDERLAGE, flee_text: RACHE_FLUCHT, lose_money: 0, on_win: {},
+  };
+}
+
 // --- Einbau ---------------------------------------------------------------------------------------------------------
 
 const STADT_SCHRITT = { kettlegate: L('Nachhall in Kettlegate (6 Orte)', 'Echoes in Kettlegate (6 places)'), wexmoor: L('Nachhall in Wexmoor (6 Orte)', 'Echoes in Wexmoor (6 places)'), dunscar: L('Nachhall in Dunscar (6 Orte)', 'Echoes in Dunscar (6 places)') };
@@ -231,6 +343,7 @@ export function applyHeimkehr(content) {
       visible_if: { ...HK, hide_if_flags: [`hk_${id}`] }, effects: { sets_flags: [`hk_${id}`], nachhall: id } });
   }
   content.heimkehr = { nachhall: ids };
+
   // Stimmen
   for (const [npc, text] of Object.entries(STIMMEN)) {
     const d = content.dialogues[content.npcs?.[npc]?.dialogue ?? npc];
@@ -253,6 +366,39 @@ export function applyHeimkehr(content) {
     const [title, text] = SCHREIN_TEXT[sprite];
     map.interactables.push({ id: `hk_schrein_${mapId}_${seed}`, kind: 'read', tile, prompt: title, title, text, visible_if: HK });
   }
+  // Gebete: hören (core/Heimkehr.js gebeteTick startet den Auftrag), helfen am Ort
+  const gebete = [];
+  for (const [id, bitte, map, zielPrompt, zielText] of GEBETE) {
+    const m = content.maps[map];
+    if (!m) continue;
+    const city = stadt(map);
+    const hoer = GEBET_HOEREN[city] ?? 3;
+    const fertig = `hkg_${id}`;
+    gebete.push({ id, quest: fertig, hoer, city, name: GLAEUBIGER[id] });
+    m.interactables.push({ id: `${fertig}_ziel`, kind: 'read', tile: freieKachel(m, { seed: `hk|gebet|${id}`, minDist: 5 }), prompt: zielPrompt, title: zielPrompt, marker: true, text: zielText,
+      visible_if: { ...HK, requires_quests_active: [fertig], ...(hoer < 3 ? { requires_einer_seq: hoer } : {}) },
+      effects: { sets_flags: [fertig], nachhall: `gebet_${id}`, gives_money: BITTE_LOHN, complete_quests: [fertig], glaeubiger: id } });
+    content.quests[fertig] = { title: GEBET_STADT[city], kind: 'side', case: 'kapitel4_aufstieg', summary: bitte,
+      steps: [{ text: hoer >= 3 ? GEBET_WARTEN : zielPrompt, done: { requires_flags: [fertig] }, target: { map, id: `${fertig}_ziel`, label: zielPrompt } }] };
+  }
+  // Rache: Trupp, danach der Anführer
+  for (const [city, r] of Object.entries(RACHE)) {
+    const m = content.maps[r.map];
+    if (!m) continue;
+    for (const art of ['trupp', 'boss']) {
+      const enc = racheKampf(content, city, art, r[art]);
+      enc.lose_to = { map: r.map, spawn: 'default' };
+      content.encounters[enc.id] = enc;
+      const v = RACHE_WERTE[art];
+      content.loot[enc.id] = { money: [v.money, v.money], drops: [{ item: 'geisteressenz', chance: 1 }, { item: 'silberstaub', chance: 1 }, { item: 'nebeltau', chance: 0.5 }].filter((x) => content.items[x.item]) };
+      const vor = art === 'trupp' ? [] : ['won_hkr_' + city + '_trupp'];
+      m.interactables.push({ id: enc.id, kind: 'combat', encounter: enc.id, tile: freieKachel(m, { seed: `hk|rache|${city}|${art}`, minDist: 6 }), prompt: r[art].name, marker: true,
+        visible_if: { ...HK, requires_flags: vor, hide_if_flags: [`won_${enc.id}`] } });
+    }
+  }
+  content.quests.hkr_rache = { title: RACHE_TITEL, kind: 'side', case: 'kapitel4_aufstieg', summary: RACHE_TEXT,
+    steps: Object.entries(RACHE).filter(([, r]) => content.maps[r.map]).map(([city, r]) => ({ text: RACHE_SCHRITT[city], done: { requires_flags: [`won_hkr_${city}_boss`] }, target: { map: r.map, id: `hkr_${city}_trupp`, label: SCHRITT_STADT[city] } })) };
+  content.heimkehr.gebete = gebete;
   // Auftrag im Notizbuch: Fahrplan am Gleisfuß
   const steps = Object.entries(NACHHALL).map(([city, liste]) => {
     const of = liste.map(([id]) => `hk_${id}`).filter((f) => ids.includes(f.slice(3)));
@@ -267,7 +413,7 @@ export function applyHeimkehr(content) {
   const fuss = content.maps.cw_gleisfuss;
   if (fuss) {
     fuss.interactables.push({ id: 'hk_fahrplan', kind: 'read', tile: freieKachel(fuss, { near: [6, 22], seed: 'hk_fahrplan' }), prompt: FAHRPLAN[0], marker: true,
-      title: FAHRPLAN[1], visible_if: { ...HK, hide_if_quests: [HK_QUEST] }, effects: { start_quests: [HK_QUEST] }, text: FAHRPLAN[2] });
+      title: FAHRPLAN[1], visible_if: { ...HK, hide_if_quests: [HK_QUEST] }, effects: { start_quests: [HK_QUEST, 'hkr_rache'] }, text: FAHRPLAN[2] });
   }
   return content;
 }

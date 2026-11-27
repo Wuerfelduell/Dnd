@@ -19,6 +19,7 @@ import { REST_RISIKO, restId, restTrankId, hauptzutat } from '../data/beyonderRe
 import { MACKE_TRANK_RISIKO } from '../data/macken.js';
 import { RIVALE_REGELN } from '../data/rivale.js';
 import { cleanMacken } from './Macken.js';
+import { cleanLaunen } from '../data/launen.js';
 import { VIERTEL_VERDAU, nachhallPct } from '../data/seq3Weg.js';
 
 /**
@@ -316,6 +317,7 @@ export const pathwayMethods = {
     this.picks = 0; // geknackte Schlösser (Ritual des Schlüssels)
     this.pickedLocks = new Set(); // welche Schlösser schon geknackt sind (Karte:Objekt)
     this.macken = cleanMacken(null); // Bleibende Macken (core/Macken.js)
+    this.launen = cleanLaunen(null); // Launische Artefakte (core/Launen.js)
     this.resetArtifacts();
   },
 
@@ -523,9 +525,10 @@ export const pathwayMethods = {
    */
   act(kind, amount = 1) {
     if (kind === 'combat_win') this.wins = (this.wins ?? 0) + 1;
+    this.launeNote?.(kind, amount); // Launische Artefakte: was heute geschieht, füttert ihre Forderungen
     const gained = this.digestOwn(kind, amount);
-    // Zu zweit: was beide gemeinsam erleben, verdaut auch den Trank des anderen Spielers
-    if (this.hasP2?.() && !PERSONAL_DIGEST.has(kind)) this.withPartner(() => this.digestOwn(kind, amount));
+    // Zu zweit: was beide gemeinsam erleben, verdaut auch den Trank des anderen Spielers (und füttert seine Artefakte)
+    if (this.hasP2?.() && !PERSONAL_DIGEST.has(kind)) this.withPartner(() => { this.launeNote?.(kind, amount); this.digestOwn(kind, amount); });
     return gained;
   },
 
@@ -651,6 +654,7 @@ export const pathwayMethods = {
 
   /** Wird von tick() aufgerufen. */
   tickPathway(dt) {
+    this.launeTick?.(dt); // Launische Artefakte: Tragezeit und Tageswechsel
     this.tickCorruption(dt);
     this.tickForm(dt);
     const pull = this.artifactUnruhe();
@@ -1233,7 +1237,7 @@ export const pathwayMethods = {
   },
 
   serializePathway() {
-    return { money: this.money, pathway: this.pathway, unruhe: Math.round(this.unruhe), seenNodes: [...this.seenNodes], wins: this.wins, picks: this.picks ?? 0, pickedLocks: [...(this.pickedLocks ?? [])], formShown: this.formShown ?? 0, macken: cleanMacken(this.macken), ...this.serializeArtifacts() };
+    return { money: this.money, pathway: this.pathway, unruhe: Math.round(this.unruhe), seenNodes: [...this.seenNodes], wins: this.wins, picks: this.picks ?? 0, pickedLocks: [...(this.pickedLocks ?? [])], formShown: this.formShown ?? 0, macken: cleanMacken(this.macken), launen: cleanLaunen(this.launen), ...this.serializeArtifacts() };
   },
 
   loadPathway(data) {
@@ -1247,6 +1251,7 @@ export const pathwayMethods = {
     this.pickedLocks = new Set(data.pickedLocks ?? []);
     this.formShown = data.formShown ?? 0;
     this.macken = cleanMacken(data.macken); // alte Stände: keine Macken
+    this.launen = cleanLaunen(data.launen); // alte Stände: keine Bindungen
     this.loadArtifacts(data);
     this.maxHp = this.calcMaxHp();
     this.hp = Math.max(1, Math.min(this.maxHp, data.hp ?? this.maxHp));
