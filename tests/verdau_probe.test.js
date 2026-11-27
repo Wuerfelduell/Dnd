@@ -62,8 +62,11 @@ test('Fehlschlag (verloren, Regel gebrochen, zu früh): Trostpreis 1 bis 5 %', (
     s.applyEffects({ verdau_probe: pid });
     const { res } = fight(s, pid, outcome, round);
     assert.match(res.text, /misslungen/);
+    // Trostpreis 1–5 %; ein (zu früher) Sieg verdaut zusätzlich wie jeder Kampfsieg, darum nur nach unten fest prüfen
+    const trost = Number(/Trostpreis: \+(\d+) %/.exec(res.text)?.[1]);
+    assert.ok(trost >= 1 && trost <= 5, `${pid} ${outcome}: Trostpreis ${trost}`);
     const d = s.pathway.digestion - 20;
-    assert.ok(d >= 1 && d <= 5.0001, `${pid} ${outcome}: ${d}`);
+    assert.ok(d >= trost - 0.0001 && (outcome === 'won' || d <= 5.0001), `${pid} ${outcome}: ${d}`);
   }
 });
 
