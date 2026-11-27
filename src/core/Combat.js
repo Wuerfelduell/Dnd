@@ -252,9 +252,9 @@ export function beyonderInfo(content, enc) {
   return { pid: enc.beyonder_pfad, seq, pfad: p?.name ?? enc.beyonder_pfad, rang: p?.seqs?.[seq]?.name ?? '', color: p?.color ?? '#c8b0e8' };
 }
 
-/** Kampfprotokoll: „Name: Fertigkeit (Pfad der …)“. */
+/** Kampfprotokoll: „Name: Fertigkeit“ (Seb 2026-11-27: den Pfad verrät nur ein Gespräch, nicht der Kampf). */
 export function pfadZeile(enemy, atk) {
-  return `${enemy?.name ?? '?'}: ${atk.name}${enemy?.beyonder ? ` (${enemy.beyonder.pfad})` : ''}`;
+  return `${enemy?.name ?? '?'}: ${atk.name}`;
 }
 
 export class Combat {

@@ -340,8 +340,8 @@ export class SkillFx {
         if (v) this.sheet('kfx_stempel', to.x, to.y, { scale: 1.3 });
         this.clock(to.x, to.y, col, { back: !!v, r: 16 * big });
         break;
-      default:
-        this.burst(to.x, to.y, col, { n: 10, r });
+      default: // neutral (Beyonder-Gegner): Geschoss und Aufprall ohne Pfadfarbe
+        this.bolt(from, to, col, { size: 3, onArrive: () => this.burst(to.x, to.y, col, { n: 10, r }) });
     }
     if (aoe && stil !== 'eisen') this.shock(to.x, to.y, col, { r1: 54, delay: 120 });
   }

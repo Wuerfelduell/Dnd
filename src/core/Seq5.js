@@ -95,6 +95,44 @@ export const seq5Methods = {
     return Object.values(this.content.gatherings?.circles ?? {}).some((c) => (c.members ?? []).some((m) => m.id === id));
   },
 
+  /**
+   * Pfad einer Beyonder-Figur (Seb 2026-11-27: erst im Gespräch zu erfahren). Einzelgänger haben ihn in den Daten,
+   * Zirkelmitglieder, die nur Formeln eines Pfades führen, folgen diesem; sonst fest aus der Kennung gewürfelt.
+   */
+  npcPfad(id) {
+    if (!this.isBeyonderNpc(id)) return null;
+    const paths = Object.keys(this.content.pathways ?? {});
+    const own = this.loner?.(id)?.pathway;
+    if (own && paths.includes(own)) return own;
+    for (const c of Object.values(this.content.gatherings?.circles ?? {})) {
+      const m = (c.members ?? []).find((x) => x.id === id);
+      const found = new Set((m?.offers ?? []).map((o) => /^formel_(.+)_\d$/.exec(o.item ?? '')?.[1]).filter((x) => paths.includes(x)));
+      if (found.size === 1) return [...found][0];
+    }
+    if (!paths.length) return null;
+    let h = 0;
+    for (const ch of id) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+    return paths[h % paths.length];
+  },
+
+  npcPfadBekannt(id) {
+    return this.flags.has(`pfad_erkannt_${id}`) ? this.npcPfad(id) : null;
+  },
+
+  /** Im Gespräch nach dem Pfad fragen: nur mit Geistsicht (man muss die Aura gesehen haben), einmal je Figur. */
+  canAskPfad(id) {
+    return !!this.spiritVision && this.isBeyonderNpc(id) && !this.flags.has(`pfad_erkannt_${id}`) && !!this.npcPfad(id);
+  },
+
+  askPfad(id) {
+    const pid = this.npcPfad(id);
+    if (!pid) return { ok: false, text: '' };
+    this.flags.add(`pfad_erkannt_${id}`);
+    this.emit('changed');
+    const pfad = this.content.pathways?.[pid]?.name ?? pid;
+    return { ok: true, pid, text: `Die Aura sinkt nicht, als du hinsiehst. „Du siehst es also.“ Ein kurzes Nicken, dann ein einziges Wort.\n\n${pfad}` };
+  },
+
   isBeyonderFoe(id) {
     return isBeyonderFoe(id, this.content.encounters[id]);
   },

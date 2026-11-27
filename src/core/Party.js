@@ -190,8 +190,17 @@ export const partyMethods = {
   tickParty(dt) {
     if (!this.hasP2() || this.acting !== 1) return;
     this.withPlayer(2, () => {
-      const calmMind = this.unruhe >= 60 ? 0.5 : 1;
-      this.composure = Math.min(this.maxComposure(), this.composure + P2_COMPOSURE_REGEN * this.passive('composure_regen') * calmMind * dt);
+      if (this.spiritVision) { // Geistsicht zehrt auch bei Spieler 2 an den Nerven
+        this.composure = Math.max(0, this.composure - this.visionDrainPerSec() * dt);
+        if (this.composure === 0) {
+          this.setSpiritVision(false);
+          this.emit('notice', 'Spieler 2: Ein stechender Kopfschmerz reißt dich aus der Geistsicht.');
+          if (this.pathway) this.setUnruhe(this.unruhe + 15);
+        }
+      } else {
+        const calmMind = this.unruhe >= 60 ? 0.5 : 1;
+        this.composure = Math.min(this.maxComposure(), this.composure + P2_COMPOSURE_REGEN * this.passive('composure_regen') * calmMind * dt);
+      }
       this.tickPathway(dt);
     }, { quiet: true });
   },

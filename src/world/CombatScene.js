@@ -572,9 +572,8 @@ export class CombatScene extends Phaser.Scene {
    * kurzes Aufglühen der Figur und ein Ring, der sich ausbreitet.
    */
   pfadFx(name, onPlayer = false) {
-    const b = this.combat.enemy?.beyonder;
-    this.foeSkillFx(b, name, onPlayer);
-    const hex = b?.color ?? '#c8b0e8';
+    this.foeSkillFx(this.combat.enemy?.beyonder, name, onPlayer);
+    const hex = '#c8b0e8'; // ohne Pfadfarbe: welcher Pfad, erfährt man nur im Gespräch
     const col = Number.parseInt(hex.slice(1), 16);
     const p = this.enemyCenter();
     this.ui.combatFloat(name, (p.x / VIEW_W) * 100, ((p.y - 62) / VIEW_H) * 100, 'pfad', null, hex);
@@ -596,17 +595,17 @@ export class CombatScene extends Phaser.Scene {
     });
   }
 
-  /** Beyonder-Gegner: Effekt-Streifen und Pfad-Signatur seiner Fertigkeit, gespiegelt (vom Gegner zum Spieler). */
+  /**
+   * Beyonder-Gegner: neutrale Signatur seiner Fertigkeit (Geschoss bzw. Schutz), ohne Pfadfarbe und ohne
+   * den Pfad-Streifen, damit man den Pfad weiterhin nur im Gespräch erfährt.
+   */
   foeSkillFx(b, name, onPlayer) {
     const seq = this.state.content.pathways?.[b?.pid]?.seqs?.[b?.seq];
     if (!seq || !this.skillArt) return;
     const def = [seq.skill, seq.skill2, seq.skill3].find((sk) => sk?.name === name);
     if (!def) return;
-    const fid = AG_SKILL_FX.includes(def.id) ? def.id : def.fx ?? def.id;
     const targets = onPlayer ? (onPlayer === 'all' && this.combat.duo ? Object.keys(this.players ?? {}).map((n) => this.playerCenter(Number(n))) : [this.playerCenter()]) : [];
-    const at = targets[0] ?? this.enemyCenter();
-    if (SKILL_FX[fid]) this.time.delayedCall(onPlayer ? 380 : 0, () => this.playFx(`fx_${fid}`, 'cast', at.x, at.y, 1.5, { flip: true }));
-    this.skillArt.play({ pid: b.pid, def: onPlayer ? { ...def, hits: def.hits || 1 } : { ...def, hits: 0 }, variant: def === seq.skill ? 0 : 1, from: this.enemyCenter(), targets });
+    this.skillArt.play({ pid: 'grund', def: onPlayer ? { ...def, hits: def.hits || 1 } : { ...def, hits: 0 }, from: this.enemyCenter(), targets });
   }
 
   // --- Ablauf ------------------------------------------------------------------
@@ -871,7 +870,7 @@ export class CombatScene extends Phaser.Scene {
         const a = c.lastAction;
         this.sfx(combatSound('act', a));
         if (a.pfad && !c.rules?.deaf) this.pfadFx(a.name, a.action === 'taunt' || a.action === 'drain');
-        this.ui.combatMessage(a.pfad && c.enemy.beyonder ? `${c.enemy.name}: ${a.name}\n\n✦ Pfadfähigkeit · ${c.enemy.beyonder.pfad}\n${a.text}` : `${c.enemy.name}: ${a.name}\n\n${a.text}`);
+        this.ui.combatMessage(a.pfad && c.enemy.beyonder ? `${c.enemy.name}: ${a.name}\n\n✦ Pfadfähigkeit\n${a.text}` : `${c.enemy.name}: ${a.name}\n\n${a.text}`);
         const float = { guard: [`Panzer +${a.value}`, 'good'], heal: [`+${a.value}`, 'good'], veil: ['Schleier', 'miss'], taunt: [`-${a.value} Nerven`, 'hurt'], drain: [`-${a.value} Konzentration`, 'hurt'] }[a.action];
         if (a.action === 'taunt' || a.action === 'drain') this.focusPlayer(c.target);
         if (float) this.float(float[0], a.action === 'taunt' || a.action === 'drain' ? 'player' : 'enemy', float[1]);
@@ -907,7 +906,7 @@ export class CombatScene extends Phaser.Scene {
     if (deaf) this.ui.combatMessage(`${c.enemy.name} holt aus. Du hörst nichts, du siehst nur die Welle.`, help);
     else if (atk.pfad && c.enemy.beyonder) {
       this.pfadFx(atk.name, atk.sweep ? 'all' : true);
-      this.ui.combatMessage(`${c.enemy.name}: ${atk.name}${whom}${atk.hits.length > 1 ? ` (${atk.hits.length} Schläge)` : ''}\n\n✦ Pfadfähigkeit · ${c.enemy.beyonder.pfad}${tags ? `\n${tags}` : ''}${evading ? '\n\nDu weißt schon, wohin er schlägt.' : ''}`, help);
+      this.ui.combatMessage(`${c.enemy.name}: ${atk.name}${whom}${atk.hits.length > 1 ? ` (${atk.hits.length} Schläge)` : ''}\n\n✦ Pfadfähigkeit${tags ? `\n${tags}` : ''}${evading ? '\n\nDu weißt schon, wohin er schlägt.' : ''}`, help);
     } else this.ui.combatMessage(`${c.enemy.name}: ${atk.name}${whom}${atk.hits.length > 1 ? ` (${atk.hits.length} Schläge)` : ''}${tags ? `\n\n${tags}` : ''}${evading ? '\n\nDu weißt schon, wohin er schlägt.' : ''}`, help);
     this.tweens.add({ targets: this.enemy, x: this.enemy.homeX + 8, duration: TELEGRAPH * 0.6, ease: 'Sine.out' });
     if (atk.sweep) this.cameras.main.shake(TELEGRAPH * 0.5, 0.003); // der Boden bebt: gleich trifft es beide
