@@ -31,7 +31,7 @@ Gelesene Vorlagen: `docs/story/k5_orte/npcs.json` ist am Ausgangsstand ein leere
 | `vmn_rat_3` | Edren Pell | Zollherr des Registeramts |
 | `vmn_rat_4` | Orven Tebb | Zollherr des Hafenamts |
 | `vmn_rat_5` | Bessa Kelm | Zollherrin des Zunftamts |
-| `vmn_rat_6` | Hester Rill | Zollherrin des Kirchenamts |
+| `vmn_rat_6` | Morna Ostrey | Zollherrin des Kirchenamts |
 | `vmn_rat_7` | Jorin Fane | Zollherr des Armenhausamts |
 | `vmn_zollschreiber` | Iven Dorr | Zollschreiber, stumm |
 | `vmn_fischerin` | Marda Sennick | Stegmarkt-Fischerin |

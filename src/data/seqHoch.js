@@ -32,6 +32,9 @@ export const gildeFlag = (pid, what) => `gilde_${pid}_${what}`; // bekannt, mitg
 
 /** Seb (2026-11-12): Seq 3 und 2 passen, Seq 1 ist noch nicht abgestimmt und bleibt bis dahin versiegelt. */
 export const HOCH_SEQ1_VERSIEGELT = false; // Seb 2026-11-26: Seq 1 neu gebaut und freigegeben
+/** Seb 2026-11-27: Wer in Varrowmouth auf Sequenz 1 verzichtet (k6_ende_verbrennen/k6_ende_teilen), dem bleibt sie für immer verschlossen. */
+export const SEQ1_VERZICHT_FLAG = 'k6_seq1_verzicht';
+export const SEQ1_VERZICHT_TEXT = 'Du hast in Varrowmouth auf die erste Sequenz verzichtet. Dieser Weg ist für immer verschlossen.';
 export const HOCH_FAIL_PCT = 17;
 export const HOCH_FAIL_UNRUHE = 10;
 /** Gegner im Ritual der Sequenz 3 (gestärkt) und Grenzwächter der Sequenz 2 (brutal). */

@@ -1,5 +1,5 @@
 import { getLang, setLang, NAME_MAX, tr } from '../core/I18n.js';
-import { HOCH_SEQ1_VERSIEGELT } from '../data/seqHoch.js';
+import { HOCH_SEQ1_VERSIEGELT, SEQ1_VERZICHT_TEXT } from '../data/seqHoch.js';
 import { TIER_KAMPF } from '../core/Tiere.js';
 import { NEWSPAPERS } from '../data/lore.js';
 import { uiSound, worldSound, sudZutatVariant, sudSounds, ruleBlockSound } from '../core/sounds.js';
@@ -3031,6 +3031,7 @@ export class Ui {
     if (!h) return '';
     const g = h.seq === 3 ? s.gildeStand(h.pid) : null;
     const spurHtml = g ? `<p class="muted"><strong>${esc(g.gilde)}:</strong> ${g.mitglied ? 'Du bist Mitglied.' : g.bekannt ? `Noch nicht beigetreten. Sitz: ${esc(g.ort)} (Stadtkarte).` : 'Ab Dunscar meldet sich die Gilde deines Pfades bei dir.'} ${g.kern ? `Kernzutat 3 erhalten (${g.kern === 'chef' ? 'du bist jetzt Oberhaupt' : 'Oberhaupt getötet'}).` : `Die Kernzutat 3 gibt es nur hier: ${esc(g.chef)} besiegen, dann töten oder selbst Oberhaupt werden.`} Die Formel 3 ist selten: Zirkel-Lose und sehr seltene Monster-Beute.</p>` : '';
+    if (h.seq === 1 && s.seq1Verschlossen()) return `${spurHtml}<p class="muted"><strong>Für immer verschlossen.</strong> ${esc(SEQ1_VERZICHT_TEXT)}</p>`;
     if (s.hochPassed(h.pid, h.seq)) return spurHtml;
     const st = s.hochState();
     const step = s.hochStep();

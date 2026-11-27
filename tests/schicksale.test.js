@@ -90,3 +90,23 @@ test('Rivale: nach dem Bogen-Finale wartet er nicht mehr im Pfadviertel', () => 
     assert.ok(s.rivaleText('viertel_fort', 1)?.length > 20, pid);
   }
 });
+
+test('Varrowmouth: Verzicht auf Sequenz 1 ist ein harter Riegel (Seb 2026-11-27)', () => {
+  const held = (...flags) => { const s = stand(...flags); s.pathway = { id: 'eisen', seq: 2, digestion: 100 }; s.inventory.trank_eisen_1 = 1; return s; };
+  const frei = held();
+  assert.ok(frei.startHoch().ok, 'ohne Verzicht beginnt die Prüfung der ersten Sequenz');
+  const zu = held('k6_seq1_verzicht');
+  assert.equal(zu.seq1Verschlossen(), true);
+  assert.match(zu.startHoch().text, /für immer verschlossen/);
+  assert.match(zu.performRitual().text, /für immer verschlossen/);
+  zu.testmodus = true; // selbst wenn das Ritual als vollzogen gilt: kein Trank
+  assert.match(zu.drinkCheck('trank_eisen_1').reason, /für immer verschlossen/);
+  // Wer schon Sequenz 1 ist, kann nicht mehr darauf verzichten
+  const nodes = content.dialogues.k6_ende.nodes;
+  const wahl = nodes.k6_ende_start.choices.find((c) => c.next === 'k6_ende_verbrennen_vorschau');
+  const bereit = ['k6_akt5_done', 'k6_pegelherrin_geloest', 'k6_raeumung_bereit'];
+  const s1 = stand(...bereit); s1.pathway = { id: 'eisen', seq: 1, digestion: 0 };
+  assert.equal(s1.meets(wahl), false);
+  assert.ok(held(...bereit).meets(wahl));
+  assert.match(nodes.k6_ende_verbrennen_vorschau.text, /für immer verschlossen/);
+});
