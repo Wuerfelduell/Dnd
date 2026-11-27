@@ -1110,6 +1110,11 @@ img.scene.koop2trennung { display: block; width: 15em; height: auto; margin: 0 a
 .talentbar .tslot.cd .ticon, .talentbar .tslot.nonerves .ticon { filter: grayscale(1) brightness(0.55); }
 .talentbar .tslot.nonerves { border-color: #6a3a3a; }
 .talentbar .tslot.form.active { border-color: var(--gold); box-shadow: 0 0 0.4em var(--gold); }
+.talentbar .tslot.form .formface { filter: drop-shadow(0 0 0.15em rgba(232, 184, 96, 0.55)); }
+.talentbar .tslot.form.active .formface { animation: formpulse 1.6s ease-in-out infinite; }
+.talentbar .tslot.form.nonerves .formface { filter: grayscale(1) brightness(0.55); }
+.formface.on { filter: drop-shadow(0 0 0.2em var(--gold)); }
+@keyframes formpulse { 0%, 100% { filter: drop-shadow(0 0 0.15em var(--gold)); } 50% { filter: drop-shadow(0 0 0.5em var(--gold)) brightness(1.2); } }
 .talentbar .tslot.sel { outline: 0.125em solid var(--gold); outline-offset: 0.06em; }
 .talentbar .ticon { margin: 0; }
 .talentbar .ticon.atlas-icon { width: 1.75em; height: 1.75em; vertical-align: middle; }
