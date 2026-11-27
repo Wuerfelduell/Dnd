@@ -2564,7 +2564,8 @@ export class WorldScene extends Phaser.Scene {
       this.cameras.main.flash(250, 255, 240, 200);
       // Paket CP/CO: Reaktion nach Klasse (Bürger, Polizei, Händler, Tiere, schwache Beyonder) mit Furcht-Zeichen und Umfallen
       const fear = this.state.formFearReaction?.(id);
-      this.ui.toast?.(fear?.text ? `${c.enc.name}: ${fear.text}` : `${c.enc.name} bricht vor deiner Gestalt zusammen.`, 'good');
+      const heim = !this.state.pathway?.form && this.state.heimkehrHier?.(); // Heimkehrer ab Seq 3 (core/Heimkehr.js)
+      this.ui.toast?.(heim ? `${c.enc.name} erkennt, wer zurückgekehrt ist, und bricht zusammen.` : fear?.text ? `${c.enc.name}: ${fear.text}` : `${c.enc.name} bricht vor deiner Gestalt zusammen.`, 'good');
       if (roamer?.body) {
         const { x, y } = roamer.body;
         if (this.textures.exists('HG_furcht')) {

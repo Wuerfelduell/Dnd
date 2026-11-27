@@ -32,7 +32,8 @@ export function lockedCities(state) {
   if (state.testmodus) return [];
   // Kapitel 4: nach dem Sturz keine Himmelsstadt (erst beim zweiten Aufstieg). Dunscar bleibt per Bahn ab Gleisfuß erreichbar (Seb 2026-11-26).
   // Ausnahme auf_rueckweg: zu früh Gestürzte sind per Lastenzug zurück in Dunscar, bis sie am Schaffner vorbeikommen (data/aufstieg.js).
-  return [...(state.flags.has('k2_arrived') ? ['kettlegate'] : []), ...(state.flags.has('k4_arrived') ? (state.flags.has('auf_rueckweg') ? ['himmel', 'calderwick'] : ['himmel']) : [])];
+  // Seb 2026-11-27: ab Seq 3 (ein Spieler reicht) ist Kettlegate wieder offen, siehe core/Heimkehr.js
+  return [...(state.flags.has('k2_arrived') && !state.heimkehr?.() ? ['kettlegate'] : []), ...(state.flags.has('k4_arrived') ? (state.flags.has('auf_rueckweg') ? ['himmel', 'calderwick'] : ['himmel']) : [])];
 }
 
 export function cityLocked(state, city) {

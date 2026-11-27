@@ -101,6 +101,7 @@ const FRAMES = [
   [/^(.+) herausfordern$/, (a) => `Challenge ${a}`],
   [/^Mit (.+) sprechen$/, (a) => `Talk to ${a}`],
   [/^(.+) \(Taste (\d+)\)$/, (a, m) => `${a} (key ${m[2]})`],
+  [/^(.+) erkennt, wer zurückgekehrt ist, und bricht zusammen\.$/, (a) => `${a} recognises who has returned and collapses.`],
   [/^Fernzug (.+) prüfen$/, (a) => `Check remote pull: ${a}`],
   [/^Fernzug (.+)$/, (a) => `Remote pull: ${a}`],
   [/^(.+) hält inne, als du näherkommst\.$/, (a) => `${a} pauses as you approach.`],
