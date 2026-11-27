@@ -102,7 +102,7 @@ function kopfgeldKampf(k) {
 // ---------------------------------------------------------------------------------------------------------------------
 // Figuren: neue Rollen und Gespräche
 
-/** Rolle, Gruß und zwei Themen je Figur (die alten Akte-Themen fliegen raus, Nebenaufträge cwn_* und Handel bleiben). */
+/** Rolle, Gruß und zwei Themen je Figur (Allerwelts-Themen fliegen raus; Nebenakte cwa_*, Nebenaufträge cwn_* und Handel bleiben). */
 const FIGUREN = {
   cw_darnell: { role: 'Schreiberin des Fallbuchs am Gleisfuß. Fiel vor neun Jahren als Halbgott.', gruss: '„Name, Pfad, Sequenz, Uhrzeit des Aufschlags. Hinter die Linie, bitte. Auch Gefallene stehen in einer Schlange.“',
     themen: [['Was ist das Fallbuch?', '„Jeder, der von oben fällt, steht hier drin. Seit zweihundert Jahren. Wer gestorben ist, bekommt ein Kreuz. Wer wieder hinaufkam, einen Strich nach oben. Das sind sehr wenige Striche.“'],
@@ -257,7 +257,7 @@ export function applyCalderwickStory(content) {
     const story = STORY_NODES[id] ?? { choices: [], nodes: {} };
     Object.assign(d.nodes, story.nodes);
     f.themen.forEach(([frage, antwort], i) => { d.nodes[`k4s_thema${i + 1}`] = { text: antwort, choices: [{ text: 'Noch eine Frage.', next: 'hub' }, { text: 'Danke.', next: 'abschied' }] }; });
-    const alt = d.nodes.hub.choices.filter((c) => !c.next || !/^(thema_|pfad$|bitte|cwa_)/.test(c.next));
+    const alt = d.nodes.hub.choices.filter((c) => !c.next || !/^(thema_|pfad$|bitte)/.test(c.next)); // cwa_: Nebenakte (calderwickAkte.js) bleibt
     const abschied = alt.filter((c) => c.next === 'abschied');
     d.nodes.hub.choices = [...story.choices, ...f.themen.map(([frage], i) => ({ text: frage, next: `k4s_thema${i + 1}` })), ...alt.filter((c) => c.next !== 'abschied'), ...abschied];
   }
@@ -267,7 +267,9 @@ export function applyCalderwickStory(content) {
     content.dialogues.k4s_ida = idaDialog();
     content.npcs.cw_ida_bellcross.dialogue = 'k4s_ida';
   }
-  for (const m of Object.values(content.maps)) if (m.city === 'calderwick' && m.npcs) m.npcs = m.npcs.filter((n) => n.id !== 'cw_ida_bellcross');
+  // (Seb 2026-11-27: außer hinter Glas in der Nebenakte, Sortierhalle und Archivsaal; dort steht sie, solange sie gefangen ist)
+  const gefangen = (n) => (n.visible_if?.requires_flags ?? []).some((f) => f === 'cwa_akt1_done' || f === 'cwa_ida_im_archiv');
+  for (const m of Object.values(content.maps)) if (m.city === 'calderwick' && m.npcs) m.npcs = m.npcs.filter((n) => n.id !== 'cw_ida_bellcross' || gefangen(n));
   const kueche = content.maps.cw_kueche;
   if (kueche) {
     const noel = kueche.npcs.find((n) => n.id === 'cw_noel_bellcross');

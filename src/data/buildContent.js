@@ -13,6 +13,7 @@ import { applySeq4 } from './seq4.js';
 import { applySeqHoch, addRitualformeln } from './seqHoch.js';
 import { applyPendelzugPlatz, applyAufstieg, gateStarlingHinweise } from './aufstieg.js';
 import { applyCalderwickStory } from './calderwickStory.js';
+import { applyCalderwickAkte } from './calderwickAkte.js';
 import { applyBriarholtStory } from './briarholtStory.js';
 import { applyZweiterAufstieg } from './zweiterAufstieg.js';
 import { applySeq1Beyonder } from './seq1Beyonder.js';
@@ -142,6 +143,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applySeqHoch(content); // Seq 3 bis 1: Rituale, Orte der Sequenz 3 mit den Formeln 3/2/1, Weltwandel-Gerede
   applyAufstieg(content); // Kapitel 4: Zug nach oben, Himmelsstadt (immer verbrannt), Sturz nach Calderwick
   applyCalderwickStory(content); // Kapitel 4 ausgebaut: Die Ernte der Gefallenen, Wetherby, Linie nach Briarholt
+  applyCalderwickAkte(content); // Seb 2026-11-27: Nebenakte „Die Stadt ohne Unterschrift“ (alte Kapitel-4-Akte), angeschlossen an die Hauptstory
   applyPfadviertel(content); // Calderwick-Pfadviertel: Herzkette je Pfad, Kernzutaten 2/1, Krämer mit Formel 3 (30.000) und Grundzutaten
   applyVerdauProbe(content); // Prüfstein je Pfadviertel: Verdauungs-Herausforderung 1× je Spieltag (core/VerdauProbe.js)
   applyPfadHandel(content); // Pfad-Beyonder in Wexmoor: Zutaten für Seq 5/4, drei neue Einzelgänger, Laufplan

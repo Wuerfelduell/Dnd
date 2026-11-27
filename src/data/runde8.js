@@ -1,13 +1,16 @@
 /**
  * Codex-Runde 8: Vorratspakete (BH Gegner, BJ Figuren, BL Items), Kapitel 4 Calderwick (CC/CD/CF),
  * Kapitel 5 Briarholt (CG/CH/CJ) und Feste-Leben (CK) als Pakete für buildContent.
- * Reine Datenfunktionen ohne Imports, damit src/data/index.js und tests/helpers.js dieselbe Zusammenstellung nutzen.
+ * Reine Datenfunktionen (importiert nur reine Datenmodule), damit src/data/index.js und tests/helpers.js dieselbe Zusammenstellung nutzen.
  *
  * Die Gefahrengebiete der Kapitel liefern keine eigenen Gegner: `zonen_bindung.json` (tools/packs/runde8_sync.mjs)
  * nennt je Gebiet das Vorratsgebiet und die Gegner und Bosse, die hier aus dem Vorrat eingesetzt werden; wildContent
  * macht daraus wie überall Eliten, Beute und Niederlagen. Briarholts Orte haben eine warme Zwillingskarte `<id>__warm`;
  * Figuren, Objekte und Lesestücke der Akte und Nebenaufträge stehen auf beiden Fassungen.
+ * Kapitel 4: Die Akte (CC) ist eine Nebenakte, die Orte (CD) hängen nicht an ihr (nebenakteCw.js, Seb 2026-11-27).
  */
+import { nebenakteK4, nebenquestsZurAkte, orteOhneAkte } from './nebenakteCw.js';
+
 const STD = ['quests', 'items', 'encounters', 'dialogues', 'npcs', 'case', 'dialog_zusaetze', 'platzierung'];
 const std = (name, d) => {
   const arts = d.artifacts?.list ?? d.artefakte?.list ?? {};
@@ -21,7 +24,7 @@ export function runde8Packs(f) {
   const vg = f.vorrat_gegner;
   const vorrat = { encounters: vg.encounters, bosses: vg.bosses, phasen: vg.phasen, zonen: vg.zonen_vorschlag };
   const used = new Set();
-  const k4Orte = ortePack('k4_orte', f.k4_orte, vorrat, used);
+  const k4Orte = ortePack('k4_orte', orteOhneAkte(f.k4_orte), vorrat, used);
   const k5Orte = ortePack('k5_orte', f.k5_orte, vorrat, used);
   // Gegner, die kein Gebiet eingesetzt hat (Marktschreier u. a.), stehen roh bereit: ohne Gebiet, aber mit Beute
   const rest = Object.fromEntries(Object.entries(vg.encounters).filter(([id]) => !used.has(id)));
@@ -30,8 +33,9 @@ export function runde8Packs(f) {
   const vorratFiguren = std('vorrat_figuren', f.vorrat_figuren);
   const vi = f.vorrat_items;
   const vorratItems = { ...std('vorrat_items', vi), dialogues: { ...vi.dialogues, ...vi.fundstuecke }, artifacts: vi.artifacts, haendler: vi.handel };
-  const k4Akte = { ...std('k4_akte', f.k4_akte), faelle: f.k4_akte.faelle, zeitung: f.k4_akte.zeitung, boss_texte: f.k4_akte.boss_texte, epiloge: f.k4_akte.epiloge };
-  const k4Neben = nebenPack('k4_nebenquests', f.k4_nebenquests);
+  const akte = nebenakteK4(f.k4_akte);
+  const k4Akte = { ...std('k4_akte', akte), faelle: akte.faelle, zeitung: akte.zeitung, boss_texte: akte.boss_texte, epiloge: akte.epiloge };
+  const k4Neben = nebenPack('k4_nebenquests', nebenquestsZurAkte(f.k4_nebenquests));
   const warm = new Set(k5Orte.maps.filter((m) => m.id.endsWith(WARM)).map((m) => m.id));
   const k5Akte = mirrorWarm({ ...std('k5_akte', f.k5_akte), faelle: f.k5_akte.faelle, zeitung: f.k5_akte.zeitung, boss_texte: f.k5_akte.boss_texte, epiloge: f.k5_akte.epiloge }, warm);
   const k5Neben = mirrorWarm(nebenPack('k5_nebenquests', f.k5_nebenquests), warm);

@@ -46,7 +46,7 @@ import { mackenMethods } from './Macken.js';
 import { launenMethods } from './Launen.js';
 import { rivaleMethods } from './Rivale.js';
 import { kopfgeldjaegerMethods } from './Kopfgeldjaeger.js';
-import { CALDERWICK_WELT_FLAGS, SUCHE_FLAG, SUCHE_QUEST, SUCHE_EFFECTS } from '../data/aufstieg.js';
+import { CALDERWICK_WELT_FLAGS, ALTE_AKTE_FLAGS, SUCHE_FLAG, SUCHE_QUEST, SUCHE_EFFECTS } from '../data/aufstieg.js';
 
 /** Tragkraft in Pfund. Gegenstände ohne eigenes "weight" wiegen je nach Art so viel. */
 export const BASE_CARRY = 40;
@@ -546,12 +546,17 @@ export class GameState {
   }
 
   /**
-   * Kapitel 4 (Seb, 2026-11-12): Calderwick ohne die Detektivgeschichte. Wer schon dort ist (alte Stände), bekommt die offenen Viertel,
-   * verliert laufende Akte (cwa_*) und bekommt das neue Kapitelziel.
+   * Kapitel 4 (Seb, 2026-11-12): Calderwick ohne die Detektivgeschichte als Hauptstory. Wer schon dort ist (alte Stände), bekommt die
+   * offenen Viertel und das neue Kapitelziel; die Akte selbst ist seit 2026-11-27 eine Nebenakte (data/calderwickAkte.js).
    */
   calderwickOffen() {
     if (!this.flags.has('k4_arrived')) return;
-    for (const q of Object.keys(this.quests)) if (q.startsWith('cwa_') && this.quests[q] === 'active') { delete this.quests[q]; if (this.tracked === q) this.tracked = null; }
+    // Seb 2026-11-27: Die Akte ist als Nebenakte zurück. Stände von vorher bekamen ihre Akt-Flags beim Sturz geschenkt und hätten
+    // sonst Akt I bis IV übersprungen; einmalig zurücknehmen (alte, liegengebliebene cwa_-Aufträge gleich mit).
+    if (!this.flags.has('cwa_nebenakte_v1')) {
+      for (const f of ALTE_AKTE_FLAGS) this.flags.delete(f);
+      for (const q of Object.keys(this.quests)) if (q.startsWith('cwa_')) { delete this.quests[q]; if (this.tracked === q) this.tracked = null; }
+    }
     const neu = CALDERWICK_WELT_FLAGS.filter((f) => !this.flags.has(f));
     if (neu.length) this.applyEffects({ sets_flags: neu });
     if (this.quest('k4_aufstieg') && this.quests.k4_aufstieg === undefined && !this.flags.has('kapitel4_done')) this.startQuest('k4_aufstieg');

@@ -115,7 +115,8 @@ test('CE2: Kapitel-4-Karte, Aufzug/Teller/Sortierkabine an den Gesprächen, Schl
   assert.ok(CHAPTER_CARDS.includes('kapitel4_karte'));
   for (const id of ['kapitel4_karte', ...CW_SCENES]) assert.ok(existsSync(pub(sceneUrl(id))), id);
   const d = content.dialogues;
-  assert.equal(d.cwa_ankunft.nodes.cwa_ankunft_zone.scene, 'cw_aufzug');
+  // Seb 2026-11-27: Die Akte ist eine Nebenakte, ihre Ankunftsszene (Aufzug) fällt weg; Noel startet sie mit den zwei Tellern
+  assert.equal(d[content.npcs.cw_noel_bellcross.dialogue].nodes.cwa_neben_start.scene, 'cw_zwei_teller');
   assert.equal(d.cwa_12_dialog.nodes.cwa_12_start.scene, 'cw_zwei_teller');
   assert.equal(d.cwa_24_dialog.nodes.cwa_24_schluss.scene, 'cw_sortierkabine');
   for (const id of ['cwa_widerspruch', 'cwa_amtsinhaber', 'cwa_buecher', 'cwa_ordnung']) {
