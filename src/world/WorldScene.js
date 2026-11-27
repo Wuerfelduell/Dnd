@@ -1127,6 +1127,8 @@ export class WorldScene extends Phaser.Scene {
         const pc = () => { const pid = this.state.npcPfadBekannt?.(def.id); const c = pid && this.state.content.pathways?.[pid]?.color; return c ? Number.parseInt(c.slice(1), 16) : null; };
         this.beyAuras.add(sprite, pc);
       }
+      // Vorrat BK: Figuren mit eigenem Handlungs-Streifen spielen ihn ab und zu (Hesk hebt ein Paket, Vera blättert im Fallbuch …)
+      if (this.textures.exists(`extra_${key}`)) item.extra = { key: `extra_${key}`, wait: 3000 + Math.random() * 7000, busy: false };
       if (def.roam) item.roam = { home: [tx, ty], speed: def.roam.speed ?? 12, radius: def.roam.radius ?? 3, wait: 1500 + Math.random() * 3000, target: null, key };
       this.interactables.push(item);
       this.registerVisibility(item, def, item.parts);
@@ -1177,6 +1179,32 @@ export class WorldScene extends Phaser.Scene {
       it.y = it.sprite.y - 4;
       it.blocker.setPosition(it.sprite.x, it.sprite.y - 3);
       it.blocker.body.updateFromGameObject();
+    }
+  }
+
+  /** Handlungs-Streifen der Vorrat-Figuren: alle 8–16 s einmal abspielen, nur sichtbar, nicht beim Gehen oder im Gespräch. */
+  updateNpcExtras(delta, blocked) {
+    for (const it of this.interactables) {
+      const e = it.extra;
+      if (!e || e.busy || blocked || !it.active || !it.sprite.visible || it.roam?.target) continue;
+      e.wait -= delta;
+      if (e.wait > 0) continue;
+      e.wait = 8000 + Math.random() * 8000;
+      const v = this.cameras.main.worldView;
+      if (!v.contains(it.sprite.x, it.sprite.y - 8)) continue;
+      const anim = `${e.key}-action`;
+      if (!this.anims.exists(anim)) this.anims.create({ key: anim, frames: this.anims.generateFrameNumbers(e.key, { start: 0, end: 3 }), frameRate: 5, repeat: 0 });
+      const back = it.sprite.texture.key;
+      e.busy = true;
+      it.sprite.play(anim);
+      it.sprite.once(`animationcomplete-${anim}`, () => {
+        this.time.delayedCall(500, () => {
+          e.busy = false;
+          if (!it.sprite.active) return;
+          if (it.sprite.texture.key === e.key) it.sprite.setTexture(back);
+          it.sprite.setFrame(DIRS.indexOf(it.facing) * 4);
+        });
+      });
     }
   }
 
@@ -1535,6 +1563,7 @@ export class WorldScene extends Phaser.Scene {
     this.patrols.update(time, delta, blocked || this.leaving || frozen);
     this.critters.update(time, delta, blocked);
     this.updateNpcRoam(delta, blocked || frozen);
+    this.updateNpcExtras(delta, blocked || frozen);
     this.wexLife?.update(delta);
     this.dsLife?.update(delta);
     this.passanten?.update(delta, blocked || frozen);

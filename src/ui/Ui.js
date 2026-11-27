@@ -223,6 +223,7 @@ const statusIcon = (id, title) => atlasIcon(STATUS_ICONS_URL, STATUS_ICONS[id], 
 const portrait = (id, mood) => {
   const p = portraitFor(id, mood);
   if (!p) return '';
+  if (p.single) return `<div class="portrait" style="background-image:url(${p.url});background-size:100% 100%;background-position:0 0"></div>`;
   return `<div class="portrait" style="background-image:url(${p.url});background-position:${(p.col / 3) * 100}% 0"></div>`;
 };
 /** Zwischensequenzbild (240x135) über einem Text. */

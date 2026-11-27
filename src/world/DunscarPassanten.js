@@ -6,7 +6,7 @@ import { RASTER } from '../data/dunscarKulisse.js';
 import {
   DICHTE, FIGUREN, FARBSTICH, PALETTEN, ROLLEN, RICHTUNG, TRATSCH, EREIGNISSE, TAKT, tagesabschnitt, gemurmelFuer,
 } from '../data/dunscarPassanten.js';
-import { CW_DICHTE, CW_FARBSTICH, CW_ROLLEN, CW_TRATSCH, CW_EREIGNISSE, cwGemurmelFuer } from '../data/calderwickLeben.js';
+import { CW_FIGUREN, CW_DICHTE, CW_FARBSTICH, CW_ROLLEN, CW_TRATSCH, CW_EREIGNISSE, cwGemurmelFuer } from '../data/calderwickLeben.js';
 
 // Passanten in Dunscars Vierteln (Daten: data/dunscarPassanten.js). Reine Kulisse ohne Physik:
 // Wege laufen nur über das Straßenkreuz des Viertel-Rasters (Reihen 10/11, Spalten 21/22), Haustüren und Straßenenden
@@ -157,7 +157,7 @@ export class DunscarPassanten {
   /** Figur wählen: Lauf-Blatt aus alten Gebieten, in Dunscar immer eingefärbt (Kalk, Ruß, Rost). */
   look(rolle) {
     const s = this.scene;
-    const blaetter = FIGUREN.filter((f) => f.rollen.includes(rolle) && s.textures.exists(f.sheet));
+    const blaetter = (this.cw ? [...FIGUREN, ...CW_FIGUREN, ...CW_FIGUREN] : FIGUREN).filter((f) => f.rollen.includes(rolle) && s.textures.exists(f.sheet));
     if (blaetter.length) return { key: pick(blaetter).sheet, tint: pick(this.cw ? CW_FARBSTICH : FARBSTICH) };
     // nur falls keine Lauf-Blätter geladen sind: Arbeitskleidung aus dem Zeichner
     const pal = PALETTEN.filter((p) => p.rollen.includes(rolle));

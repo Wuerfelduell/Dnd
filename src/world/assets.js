@@ -8,6 +8,7 @@ import { CW_KULISSE_BLAETTER } from '../data/calderwickKulisse.js';
 import { preloadRitualArt } from './ritualArt.js';
 import { DS_ZIRKEL_ICONS, DS_ZIRKEL_FIGUREN } from '../data/dunscarZirkel.js';
 import { CWZ_ICONS, CWZ_SHEETS } from '../data/calderwickZirkel.js';
+import { CWF_ICONS, CW_VORRAT_PORTRAETS } from '../data/calderwickFunde.js';
 import { VS_ICONS } from '../data/vorratStuecke.js';
 import { FA2_FIGUREN } from '../data/fahrendeAuktion.js';
 import { HAUS_MOEBEL } from '../data/eigenesHaus.js';
@@ -1001,6 +1002,7 @@ export function portraitFor(id, mood) {
   }
   if (AK_FIGURES.has(id) && AK_MOODS_DE[mood] !== undefined) return { url: akUrl(id), col: AK_MOODS_DE[mood] };
   const url = portraitUrl(id);
+  if (!url && CW_VORRAT_PORTRAETS[id]) return { url: `${BASE}future200/portraits/future200_${CW_VORRAT_PORTRAETS[id]}.png`, col: 0, single: true }; // Vorrat Future200: ein Bild, keine Stimmungen
   return url ? { url, col: PORTRAIT_MOODS[mood] ?? 0 } : null;
 }
 
@@ -2313,7 +2315,7 @@ CHARACTER_SHEETS.npc_wx_schneiderin = 'wx_schneiderin';
 /** Zirkel in Dunscar (Kalter Ofen, Stummes Stellwerk): umgefärbte Vorratsfiguren ds_einwohner_* / k3e_*, bis eigene Grafik kommt. */
 /** Calderwicker Zirkel: Leih-Sheets der Calderwicker Einwohner (cs_*), Leihbilder aus dem Vorrat, bis eigene Grafik kommt. */
 for (const [id, sheet] of Object.entries(CWZ_SHEETS)) CHARACTER_SHEETS[`npc_${id}`] = sheet;
-Object.assign(ITEM_ICON_ALIASES, CWZ_ICONS);
+Object.assign(ITEM_ICON_ALIASES, CWZ_ICONS, CWF_ICONS);
 for (const id of DS_ZIRKEL_FIGUREN) {
   SHEETS[id] = `characters/${id}_walk.png`;
   CHARACTER_SHEETS[`npc_${id}`] = id;
@@ -2792,6 +2794,8 @@ for (const id of BK_FIGURES) {
   HEADS.push(id);
   AK_FIGURES.add(id);
 }
+/** Vorrat BK: Handlungs-Streifen je Figur (characters/<id>_extra.png, 4 Bilder 16x32), in der Welt ab und zu gespielt (Hesk hebt ein Paket …). */
+for (const id of BK_FIGURES) ANIM_SHEETS[`extra_npc_${id}`] = [`characters/${id}_extra.png`, 16, 32];
 /** BM: Kleidung, Waffen, Artefakte und Schlüsselstücke des Vorrats auch in 32px. */
 ICON32.push(...['vi_hut_setzerkappe', 'vi_hut_kurhaube', 'vi_hut_zylinder_vermesser', 'vi_hut_fuhrmannshut', 'vi_mantel_druckerschurz', 'vi_mantel_dampfmantel', 'vi_mantel_reisepelerine',
   'vi_mantel_archivrobe', 'vi_amulett_bleiletter', 'vi_amulett_pfirsichkern', 'vi_amulett_grenzsteinsplitter', 'vi_amulett_rohrpostkapsel', 'vi_waffe_setzhaken', 'vi_waffe_bleihammer',
