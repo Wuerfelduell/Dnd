@@ -14,7 +14,7 @@ import { freieKachel } from './calderwickStory.js';
 export const HIMMEL = 'hs_himmelsstadt';
 export const STURZ_ZIEL = { map: 'cw_gleisfuss', spawn: 'default' };
 /** Was die Verbrennung setzt: Kapitel 3 ist vorbei, Calderwick erreicht, Kapitel 4 beginnt. */
-export const STURZ_FLAGS = ['auf_verbrannt', 'k4_arrived', 'kapitel3_done', 'cwa_ankunft_sicher', 'cwa_werkstatt', 'cwa_akt1_done', 'cwa_akt2_done', 'cwa_akt3_done', 'cwa_akt4_done'];
+export const STURZ_FLAGS = ['auf_verbrannt', 'k4_arrived', 'kapitel3_done', 'cwa_werkstatt', 'cwa_nebenakte_v1'];
 export const STURZ_EFFECTS = { sets_flags: STURZ_FLAGS, complete_quests: ['k3_rache', 'k3_starling'], start_quests: ['k4_aufstieg'] };
 /**
  * Kapitel 3 in zwei Fällen (Seb 2026-11-18): Erst „Steige zum Halbgott auf“ (k3_rache, nur Sequenz 5 und 4, keine Hinweise,
@@ -279,14 +279,21 @@ export function applyPendelzugPlatz(content) {
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Schritt 2: Calderwick, die Stadt der Gefallenen (Seb 2026-11-12)
-// - Die Detektivgeschichte um Wetherby und Bellcross fliegt raus: keine Akte-Stationen (cwa_*), alle Terrassen offen ab dem Sturz.
+// - Die Detektivgeschichte um Wetherby und Bellcross ist keine Hauptstory mehr, alle Terrassen offen ab dem Sturz.
+//   Seb 2026-11-27: Sie kommt als Nebenakte zurück (calderwickAkte.js).
 // - 10 verdorbene Pfadgebiete, je eins pro Pfad. Sie sind die bisherigen Gildensitze der Sequenz 3 (o3_<pfad>, PR #416), die von Dunscar
 //   nach Calderwick ziehen. Je Gebiet 2 benannte Beyonder: das Gildenoberhaupt (Seq 3, Heiliger) und der Stellvertreter (Seq 4, Halbgott).
 //   Alles andere sind Monster mit Halbgott-Stärke.
 // - Sequenz 0 als Gerede und Kreideschrift; irgendwo fährt der nächste Zug nach oben (zweiter Aufstieg, noch nicht gebaut).
 
-/** Was in Calderwick ohne dich passiert ist (die gestrichene Akte gilt als gelaufen, damit Viertel und Nebenaufträge offen sind). */
-export const CALDERWICK_WELT_FLAGS = ['cwa_ankunft_sicher', 'cwa_werkstatt', 'cwa_akt1_done', 'cwa_akt2_done', 'cwa_akt3_done', 'cwa_akt4_done'];
+/**
+ * Was in Calderwick ab dem Sturz gilt: Klammers Werkstatt ist deine Bleibe. Seb 2026-11-27: Die Akte „Die Stadt ohne Unterschrift“ ist
+ * wieder spielbar, als Nebenakte (nebenakteCw.js, calderwickAkte.js); ihre Akt-Flags gelten nicht mehr als gelaufen.
+ * `cwa_nebenakte_v1` markiert Stände, die das schon wissen (GameState.calderwickOffen räumt ältere auf).
+ */
+export const CALDERWICK_WELT_FLAGS = ['cwa_werkstatt', 'cwa_nebenakte_v1'];
+/** Akt-Flags, die alte Stände (PR #422 bis heute) beim Sturz geschenkt bekamen. */
+export const ALTE_AKTE_FLAGS = ['cwa_ankunft_sicher', 'cwa_akt1_done', 'cwa_akt2_done', 'cwa_akt3_done', 'cwa_akt4_done'];
 export const CW_GEBIET_DANGER = 8;
 
 /** Je Pfad: Name des verdorbenen Viertels, Verderbnis, Oberhaupt (Seq 3) und Stellvertreter (Seq 4). */
@@ -382,19 +389,15 @@ function calderwickGebiete(content) {
 const kernzutatId = (pid, n) => `sq_zutat_${pid.replace(/^sq_/, '')}_${n}`;
 const chefGilde = (content, pid) => content.maps[`o3_${pid}`]?.interactables?.find((i) => i.id === `o3_${pid}_bote`)?.title?.replace(/^Ein Mitglied von /, '') ?? '';
 
-/** Akte raus, Stadt offen, Sequenz 0, der nächste Zug nach oben. */
+/** Stadt offen, Sequenz 0, der nächste Zug nach oben. (Die Akte bleibt stehen: als Nebenakte, calderwickAkte.js.) */
 function calderwickOffen(content) {
-  for (const m of Object.values(content.maps)) {
-    if (m.city !== 'calderwick' || !m.interactables) continue;
-    m.interactables = m.interactables.filter((i) => !i.id.startsWith('cwa_'));
-  }
   const fuss = content.maps.cw_gleisfuss;
   if (fuss) fuss.interactables.push({ id: 'auf_cw_seq0', kind: 'read', tile: [8, 18], prompt: 'Kreideschrift an der Wand', title: 'Sequenz 0', marker: false, visible_if: { requires_flags: ['k4_arrived'] }, done_flag: 'auf_seq0_gelesen', text: SEQ0_TEXT });
   const archiv = content.maps.cw_kronenarchiv;
   if (archiv) archiv.interactables.push({ id: 'auf_cw_zug2', kind: 'read', tile: [30, 13], prompt: 'Ein Gleis, das in den Himmel führt', title: 'Der nächste Zug nach oben', marker: true, visible_if: { requires_flags: ['k4_arrived'] }, done_flag: 'auf_zug2_gesehen',
     text: 'Über dem Kronenarchiv endet ein Gleis in der Luft. Ein Schaffner ohne Gesicht wartet daneben, seit Jahren, sagen die Leute.\n\n„Der Zug nach oben fährt wieder“, sagt er. „Nicht für dich. Nicht so, wie du jetzt bist. Wer oben bestehen will, kommt als Heiliger oder gar nicht.“\n\n(Der zweite Aufstieg ist noch nicht gebaut.)' });
   const gossip = content.gossip?.calderwick;
-  if (gossip) for (const map of Object.keys(gossip)) gossip[map] = [...gossip[map].filter((g) => !g.requires_flags?.some((f) => /^cwa_akt|^cwa_end/.test(f))),
+  if (gossip) for (const map of Object.keys(gossip)) gossip[map] = [...gossip[map],
     { text: 'Sequenz 0. Darüber redet hier jeder, und keiner war da. Ein Gott werden, wie der Alte. Dafür sind wir alle hier unten.', requires_flags: ['k4_arrived'] },
     { text: 'Jede Woche fällt einer von oben. Die meisten bleiben. Die wenigsten werden stark genug für den zweiten Zug.', requires_flags: ['k4_arrived'] }];
   const q = content.quests.k4_aufstieg;

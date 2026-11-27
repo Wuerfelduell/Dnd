@@ -150,10 +150,12 @@ test('Calderwick: zehn verdorbene Pfadgebiete mit Gildensitz, je zwei benannte B
     // Alle Viertel gleich stark, egal welcher Pfad (Seb 2026-11-13: Stillviertel hatte nur 800 Leben)
     for (const id of Object.keys(content.encounters).filter((x) => x.startsWith(`o3_${pid}_g`))) assert.ok(content.encounters[id].hp >= 1700, id);
   }
-  for (const m of Object.values(content.maps).filter((x) => x.city === 'calderwick')) assert.ok(!m.interactables?.some((i) => i.id.startsWith('cwa_')), m.id);
+  // Seb 2026-11-27: Die Akte ist als Nebenakte zurück (tests/nebenakte_k4.test.js); nach dem Sturz ist davon noch nichts sichtbar
+  const nachSturz = fresh(); nachSturz.flags.add('k4_arrived');
+  for (const m of Object.values(content.maps).filter((x) => x.city === 'calderwick')) assert.ok(!m.interactables?.some((i) => i.id.startsWith('cwa_') && nachSturz.meets(i.visible_if)), m.id);
   // Nach dem Sturz sind alle Viertel offen
   const s = fresh();
-  s.applyEffects({ sets_flags: ['k4_arrived', ...['cwa_ankunft_sicher', 'cwa_werkstatt', 'cwa_akt1_done', 'cwa_akt2_done', 'cwa_akt3_done', 'cwa_akt4_done']] });
+  s.applyEffects({ sets_flags: ['k4_arrived', 'cwa_werkstatt'] });
   s.map = 'cw_gleisfuss';
   s.pathway = { ...(s.pathway ?? {}), id: 'eisen', seq: 4 }; // Seb 2026-11-26: nur das eigene Viertel ab Seq 4
   const ziele = travelDestinations(s, s.map).map((t) => t.map);
@@ -166,7 +168,7 @@ test('Calderwick: zehn verdorbene Pfadgebiete mit Gildensitz, je zwei benannte B
   alt.calderwickOffen();
   assert.equal(alt.quests.cwa_akt1, undefined);
   assert.equal(alt.quests.k4_aufstieg, 'active');
-  assert.ok(alt.flags.has('cwa_akt4_done'));
+  assert.ok(!alt.flags.has('cwa_akt4_done') && alt.flags.has('cwa_werkstatt'), 'Akte nicht mehr geschenkt, Werkstatt bleibt');
 });
 
 test('Splitscreen: Stadtwechsel nimmt beide mit; gespaltene Stände werden beim Laden repariert', () => {
