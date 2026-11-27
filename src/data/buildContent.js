@@ -448,6 +448,7 @@ function withPackTreffen(packs, gatherings, pathways, wexmoor) {
 function withPackBosses(content, pack) {
   for (const [id, e] of Object.entries({ ...(pack.bosses ?? {}), ...(pack.phasen ?? {}) })) {
     if (!content.encounters[id]) content.encounters[id] = e;
+    if (pack.loot?.[id] && !content.loot[id]) content.loot[id] = pack.loot[id]; // Kapitel 7: Beute gleich mitgeliefert
   }
   for (const [id, t] of Object.entries(pack.boss_texte ?? {})) {
     if (!content.encounters[id]) throw new Error(`${pack.name}: Kampftext für unbekannten Kampf ${id}`);

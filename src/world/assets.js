@@ -1150,7 +1150,7 @@ export const BESTIARY = [...Object.keys(TURN_PORTRAITS).filter((id) => id !== 'p
 /** Paket → Präfix der Bestiariumsseite (Rest: F). */
 const BESTIARY_PACK = {};
 export const BESTIARY_FILES = {}; // Seiten ohne Paket-Präfix im Dateinamen (Paket AJ)
-export const bestiaryUrl = (id) => (/^bn_/.test(id) ? `${BASE}ui/bestiar/${id}.png` : BESTIARY_FILES[id] ? `${BASE}ui/bestiary/${BESTIARY_FILES[id]}.png` : `${BASE}ui/bestiary/${BESTIARY_PACK[id] ?? (G_MONSTERS[id] ? 'G' : 'F')}_${id}.png`);
+export const bestiaryUrl = (id) => (/^(bn_|vme_)/.test(id) ? `${BASE}ui/bestiar/${id}.png` : BESTIARY_FILES[id] ? `${BASE}ui/bestiary/${BESTIARY_FILES[id]}.png` : `${BASE}ui/bestiary/${BESTIARY_PACK[id] ?? (G_MONSTERS[id] ? 'G' : 'F')}_${id}.png`);
 /** Ausrüstung aus Paket F: Items mit 16er- und 32er-Icon unter items/ (Werte kommen mit den Daten). */
 export const F_EQUIPMENT = ['mantel_wolle', 'mantel_gewachst', 'mantel_polizei', 'mantel_samt', 'mantel_flicken', 'mantel_leder', 'mantel_chor',
   'mantel_nebel', 'hut_schirmmuetze', 'hut_melone', 'hut_zylinder', 'hut_helm', 'hut_kapuze', 'hut_schutzbrille', 'hut_witwenschleier', 'hut_maske',
@@ -1281,6 +1281,7 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestPfadbeyonder')) scene.load.json('manifestPfadbeyonder', `${BASE}manifest-pfadbeyonder.json`);
   if (!scene.cache.json.exists('manifestGebietsbosse')) scene.load.json('manifestGebietsbosse', `${BASE}manifest-gebietsbosse.json`);
   if (!scene.cache.json.exists('manifestAnschlag')) scene.load.json('manifestAnschlag', `${BASE}manifest-anschlag.json`);
+  if (!scene.cache.json.exists('manifestVarrowmouth4')) scene.load.json('manifestVarrowmouth4', `${BASE}manifest-varrowmouth4.json`);
   if (!scene.cache.json.exists('manifestDunscar5')) scene.load.json('manifestDunscar5', `${BASE}manifest-dunscar5.json`);
   if (!scene.cache.json.exists('manifestStarling2')) scene.load.json('manifestStarling2', `${BASE}manifest-starling2.json`);
   if (!scene.cache.json.exists('manifestSekten')) scene.load.json('manifestSekten', `${BASE}manifest-sekten.json`);
@@ -1342,7 +1343,7 @@ function battleAnimDef(scene, sheet, name) {
   return null;
 }
 /** Manifeste mit Kampf-Sheets; spätere Pakete nennen ihre Einträge nicht nach dem Sheet, darum auch über die Datei. */
-export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3', 'manifestGebietsbosse', 'manifestPfadbeyonder', 'manifestEngel', 'manifestSeq31a', 'manifestHeilige', 'manifestDunscar5', 'manifestStarling2', 'manifestSekten', 'manifestVorrat1', 'manifestVorrat2', 'manifestHalbgott', 'manifestFasserin2', 'manifestFigurenNachzuegler', 'manifestSeq4rit1', 'manifestSchatten', 'manifestRituale56', 'manifestBenannte', 'manifestNebelseite', 'manifestAnschlag'];
+export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3', 'manifestGebietsbosse', 'manifestPfadbeyonder', 'manifestEngel', 'manifestSeq31a', 'manifestHeilige', 'manifestDunscar5', 'manifestStarling2', 'manifestSekten', 'manifestVorrat1', 'manifestVorrat2', 'manifestHalbgott', 'manifestFasserin2', 'manifestFigurenNachzuegler', 'manifestSeq4rit1', 'manifestSchatten', 'manifestRituale56', 'manifestBenannte', 'manifestNebelseite', 'manifestAnschlag', 'manifestVarrowmouth4'];
 export function battleSheetDef(scene, sheet) {
   const file = BATTLE_SHEETS[sheet]?.[0];
   for (const m of BATTLE_MANIFESTS) {
@@ -2940,7 +2941,19 @@ for (const theme of VM_THEME_KEYS) {
   for (const t of list) TILE_CELLS[t.key] = [t.sheet, t.region, t.base];
 }
 /** CW: Kampfkulissen (Ebbe). */
-Object.assign(BATTLE_BACKGROUNDS, { vm_zollhafen: 'bg_vm_zollhafen_ebbe', vm_stegviertel: 'bg_vm_stege_flut', vm_schlickgassen: 'bg_vm_schlick_ebbe', vm_oberstrasse: 'bg_vm_oberstrasse' });
+Object.assign(BATTLE_BACKGROUNDS, { vm_zollhafen: 'bg_vm_zollhafen_ebbe', vm_stegviertel: 'bg_vm_stege_flut', vm_schlickgassen: 'bg_vm_schlick_ebbe', vm_oberstrasse: 'bg_vm_oberstrasse', vm_wrackfeld: 'bg_vm_wrackfeld_ebbe' });
+/** DA: Gegner der Ebbe (Kampf 48er/64er 6x5, Lauf 16x32, Krähen 32x32, Köpfe, Bestiarium ui/bestiar) und die Wrackmutter (128x96, 6x6). */
+export const VM_GEGNER_IDS = ['vme_zollgeist', 'vme_gezeitenlaeufer', 'vme_salzkruste', 'vme_salzkruste_rest', 'vme_tauwerk', 'vme_hafenkraehe', 'vme_pegelknecht'];
+const VM_GEGNER_ZELLE = { vme_zollgeist: 48, vme_salzkruste: 48, vme_salzkruste_rest: 48 };
+for (const id of VM_GEGNER_IDS) {
+  BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, VM_GEGNER_ZELLE[id] ?? 64];
+  ANIM_ALIASES[`enemy_${id}`] ??= { attack: 'attack1', special: 'attack2', cast: 'attack2' };
+  OVERWORLD_SHEETS[id] = [`characters/${id}.png`, id === 'vme_hafenkraehe' ? 32 : 16, 32];
+  HEADS.push(id);
+  HEAD_FILES[id] = `portraits/heads/${id}.png`;
+}
+BATTLE_SHEETS.enemy_wrackmutter = ['battle/enemy_wrackmutter.png', 128, 96];
+ANIM_ALIASES.enemy_wrackmutter = { attack: 'attack1', heavy: 'attack2', cast: 'special' };
 /** CY: 23 Figuren mit Lauf-Sheet, Emotionsportrait (erste Reihe: neutral, misstrauisch, erschrocken, lächelnd) und Kopf. Vier Dateien heißen anders als die Figur. */
 export const VM_FIGUREN = ['vmn_tam_verrin', 'vmn_osric_dale', 'vmn_nell_quarrie', 'vmn_pegelherrin', 'vmn_rat_1', 'vmn_rat_2', 'vmn_rat_3', 'vmn_rat_4', 'vmn_rat_5', 'vmn_rat_6', 'vmn_rat_7',
   'vmn_zollschreiber', 'vmn_fischerin', 'vmn_kantinenwirt', 'vmn_apothekerin', 'vmn_faehrmann', 'vmn_kielwirtin', 'vmn_mutter', 'vmn_mechaniker', 'vmn_zollknecht', 'vmn_taucherin',

@@ -1,11 +1,11 @@
-// Sammelt die deutschen Texte von Kapitel 7 Varrowmouth (Etappe 1: Anreise, Karten, Akt I, Läden, Hauptgespräche), die von Hand ins
+// Sammelt die deutschen Texte von Kapitel 7 Varrowmouth (Etappe 1: Anreise, Karten, Akt I, Läden, Hauptgespräche; Etappe 2: Akt II, Wrackfeld, Gegner), die von Hand ins
 // EN-Wörterbuch gehören. Alltagsgerede der Figuren (CX) übersetzt die Chrome-Übersetzung.
 // node tools/i18n-varrowmouth.mjs → listet fehlende Einträge in src/i18n/en/varrowmouth.json
 import { readFileSync } from 'node:fs';
 import { loadContent } from '../tests/helpers.js';
 import { VM_LAEDEN } from '../src/data/varrowmouth.js';
 
-const HAUPT = /^k6_(1\d|bilanz1|anreise|tam|zoll|szene_ankunft|szene_wartungsgang)/;
+const HAUPT = /^k6_(1\d|2\d|bilanz[12]|anreise|tam|zoll|nell|kampf_wrackmutter|szene_ankunft|szene_wartungsgang|szene_kielraum)/;
 
 export function varrowmouthTexte(content = loadContent()) {
   const out = new Set();
@@ -19,11 +19,18 @@ export function varrowmouthTexte(content = loadContent()) {
   }
   for (const i of content.maps.bh_buegelraum.interactables.filter((x) => x.id.startsWith('k6_'))) { add(i.prompt); add(i.title); }
   for (const t of content.travel.filter((x) => x.map.startsWith('vm_'))) { add(t.name); add(t.desc); }
-  const q = content.quests.k6_akt1;
-  add(q.title); add(q.summary); for (const s of q.steps) { add(s.text); add(s.target?.label); }
-  for (const [id, c] of Object.entries(content.clues)) if (/^k6_1\d_/.test(id)) { add(c.name); add(c.text); }
-  for (const [id, f] of Object.entries(content.facts)) if (/^k6_1\d_/.test(id)) add(f.text);
-  for (const d of content.deductions) if (/^k6_1\d_/.test(d.id)) { add(d.name); add(d.text); }
+  for (const q of [content.quests.k6_akt1, content.quests.k6_akt2]) { add(q.title); add(q.summary); for (const s of q.steps) { add(s.text); add(s.target?.label); } }
+  const AKT = /^k6_[12]\d_/;
+  for (const [id, c] of Object.entries(content.clues)) if (AKT.test(id)) { add(c.name); add(c.text); }
+  for (const [id, f] of Object.entries(content.facts)) if (AKT.test(id)) add(f.text);
+  for (const d of content.deductions) if (AKT.test(d.id)) { add(d.name); add(d.text); }
+  for (const [id, e] of Object.entries(content.encounters)) {
+    if (!/^(vme_|wrackmutter$)/.test(id)) continue;
+    for (const k of ['name', 'win_text', 'lose_text', 'flee_text']) add(e[k]);
+    if (!e.elite) add(e.intro); // Eliten hängen die Beyonder-Zeile an (gegner_beyonder.json)
+    for (const a of [...e.attacks, ...(e.phase2?.attacks ?? [])]) if (!a.pfad && !e.elite) { add(a.name); add(a.text); } // Pfad-Fertigkeiten übersetzt gegner_beyonder
+    add(e.phase2?.meldung);
+  }
   for (const c of content.cases) if (c.id === 'kapitel6') add(c.title);
   for (const [id, it] of Object.entries(content.items)) if (id.startsWith('vmi_')) { add(it.name); add(it.desc); }
   for (const [id, l] of Object.entries(VM_LAEDEN)) { add(l.title); add(l.greeting); add(content.npcs[l.npc].role); }

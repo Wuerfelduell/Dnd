@@ -61,7 +61,7 @@ rect(g, 42, 11, 46, 12, '=')         # Steg nach Osten (Wrackfeld, noch gesperrt
 rect(g, 22, 30, 23, 30, '=')
 for (x, y) in [(0, 11), (0, 12)]: g[y][x] = 'I'
 g[11][1] = '.'; g[12][1] = '.'
-karten['vm_stegviertel'] = dict(rows=rows(g), spawns={'default': [3, 11], 'von_zollhafen': [2, 11], 'von_schlickgassen': [22, 28]},
+karten['vm_stegviertel'] = dict(rows=rows(g), spawns={'default': [3, 11], 'von_zollhafen': [2, 11], 'von_schlickgassen': [22, 28], 'von_wrackfeld': [44, 11]},
     anker={'tuer_zollhafen': [1, 11], 'tuer_schlickgassen': [22, 30], 'steg_ost': [45, 11], 'lotsenkammer': [37, 7], 'markt': [20, 16],
            'markt_ost': [28, 18], 'nordhaus': [7, 7], 'taucherhaus': [33, 28], 'flickerei': [8, 24], 'kreuzung': [23, 12]})
 
@@ -92,6 +92,26 @@ g[14][46] = '.'
 karten['vm_oberstrasse'] = dict(rows=rows(g), spawns={'default': [44, 14], 'von_zollhafen': [44, 14]},
     anker={'tuer_zollhafen': [46, 14], 'rat': [23, 10], 'rat_west': [17, 11], 'rat_ost': [30, 11], 'apotheke': [6, 20], 'archiv': [26, 20],
            'keller': [27, 10], 'grenze': [40, 7], 'platz': [23, 15], 'reeder': [13, 7]})
+
+# --- Wrackfeld (Etappe 2): nur bei Ebbe, Schlickebene mit Prielen und Wrackrümpfen, die Wrackmutter im Osten -------------
+random.seed(11)
+g = leer(fill=',')
+for (x0, y0, x1, y1) in [(1, 1, 46, 2), (1, 29, 46, 30)]:
+    rect(g, x0, y0, x1, y1, '~')
+for (x0, y0, x1, y1) in [(10, 3, 12, 9), (19, 14, 21, 26), (27, 3, 29, 8), (30, 23, 33, 28), (8, 17, 10, 23), (44, 3, 46, 9), (44, 22, 46, 28)]:
+    rect(g, x0, y0, x1, y1, '~')     # Priele
+for (x0, y0, x1, y1) in [(14, 4, 18, 6), (5, 25, 11, 27), (24, 18, 28, 20), (33, 4, 37, 6), (13, 20, 16, 22)]:
+    rect(g, x0, y0, x1, y1, 'I')     # kleine Wracks
+rect(g, 37, 11, 44, 17, 'I')         # Rumpf der Wrackmutter
+rect(g, 1, 11, 9, 12, '=')           # Steg vom Stegviertel
+rect(g, 10, 11, 12, 12, '=')         # über den Priel
+rect(g, 19, 11, 21, 12, '=')
+rect(g, 19, 27, 21, 28, ',')
+rect(g, 28, 9, 28, 10, '=')
+for (x, y) in [(0, 11), (0, 12)]: g[y][x] = 'I'
+karten['vm_wrackfeld'] = dict(rows=rows(g), spawns={'default': [2, 11], 'von_stegviertel': [2, 11]},
+    anker={'tuer_stegviertel': [1, 11], 'rippen': [16, 8], 'priel': [24, 10], 'wrack': [35, 14], 'wrack_sued': [36, 20], 'kielraum': [40, 19],
+           'sued': [15, 25], 'nord': [32, 8], 'ost': [42, 24], 'mitte': [26, 15]})
 
 out = os.path.join(os.path.dirname(__file__), '..', '..', 'src', 'data', 'packs', 'k6_orte', 'vm_karten.json')
 os.makedirs(os.path.dirname(out), exist_ok=True)
