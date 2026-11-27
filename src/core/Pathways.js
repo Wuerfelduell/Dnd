@@ -17,6 +17,7 @@ import { PROBE_NAMEN } from './Proben.js';
 import { NACHBARPFADE } from '../data/nachbarpfade.js';
 import { REST_RISIKO, restId, restTrankId, hauptzutat } from '../data/beyonderRest.js';
 import { MACKE_TRANK_RISIKO } from '../data/macken.js';
+import { RIVALE_REGELN } from '../data/rivale.js';
 import { cleanMacken } from './Macken.js';
 
 /**
@@ -894,9 +895,11 @@ export const pathwayMethods = {
     if (!paid) for (const [id, n] of Object.entries(r.consumes ?? {})) this.removeItem(id, n);
     if (r.tribute) this.addMoney(-r.tribute, { reason: 'Tribut' });
     const rules = this.content.ritualRules ?? { unruhe: 20, nerves: 20 };
+    const wache = this.rivaleWache?.(); // verbündeter Rivale hält Wache: halbe Kosten
+    const kosten = wache ? RIVALE_REGELN.wache : 1;
     this.flags.add(this.ritualFlag(p.id, seq));
-    this.setComposure(this.composure - (rules.nerves ?? 20));
-    this.setUnruhe(this.unruhe + (rules.unruhe ?? 20));
+    this.setComposure(this.composure - (rules.nerves ?? 20) * kosten);
+    this.setUnruhe(this.unruhe + (rules.unruhe ?? 20) * kosten);
     this.act('ritual'); // das Ritual selbst ist ein Schritt auf dem Pfad
     if (r.trial) { // Prüfungsstand räumen; der Kessel bleibt scharf, bis der Trank getrunken ist (oder die Wirkung verfliegt)
       const st = this.seq5();
@@ -905,7 +908,7 @@ export const pathwayMethods = {
     }
     this.emit('ritual', { pathway: p.id, seq, player: this.acting ?? 1 });
     this.emit('changed');
-    return { ok: true, text: `${r.name}\n\n${r.desc}\n\nDas Ritual ist vollzogen. Die Luft um dich summt. Jetzt kannst du den Trank der Sequenz ${seq} trinken.` };
+    return { ok: true, text: `${r.name}\n\n${r.desc}\n\nDas Ritual ist vollzogen. Die Luft um dich summt. Jetzt kannst du den Trank der Sequenz ${seq} trinken.${wache ? `\n\n${wache}` : ''}` };
   },
 
   // --- Brauen ---------------------------------------------------------------------------

@@ -37,6 +37,11 @@ export const RIVALE_REGELN = {
   ruhe_tage: 1, // nach einer Niederlage hält er sich so viele Spieltage (dazu der laufende) zurück
   buendnis_siege: 2, // so oft muss man ihn geschlagen haben, bevor er ein Bündnis annimmt
   rest: 0.3, // Chance auf seinen Beyonder-Rest
+  wache: 0.5, // Bündnis: Kosten des Rituals (Nerven, Unruhe) mit dem Rivalen als Wache am Kreis
+  verrat: 0.15, // Bündnis: je Spieltag, an dem er dir eine Sequenz voraus ist, verrät er dich (Siege zählen wieder von vorn)
+  jagd_hp: 1.2, // Gemeinsame Jagd (1× je Tag als Verbündeter): fremder Beyonder, so stark wie ein Rivale × das
+  jagd_geld: 3, // Beute der Jagd: Geld × das (gegenüber einem Rivalen)
+  jagd_essenz: 0.6, // Chance auf Geisteressenz
   aktion: 0.4, // je Begegnung (feindlich, nicht die erste): seine eigene Pfad-Aktion (RIVALE_ART)
   aktion_schaden: 0.12, // Gift/Stoß: Anteil der maximalen Leben
   aktion_gebuehr: 0.05, // Waage: Anteil deines Geldes (höchstens 5000)
@@ -127,6 +132,19 @@ export const RIVALE_TEXTE = {
     '{name} is already waiting and holds out the last piece to you. "I found it before the others did. For you. An alliance is an alliance."'],
   viertel_sieg: ['{name} lässt fallen, was hier gefunden wurde, und verschwindet in den Gassen. Das letzte Stück gehört dir.',
     '{name} drops what was found here and vanishes into the alleys. The last piece is yours.'],
+  // Etappe 2: Bündnis mit mehr Nutzen
+  tratsch: ['{name} beugt sich zu dir: „Ich höre mehr als du. Hier, was dir für den nächsten Trank fehlt und wo es liegt:“',
+    '{name} leans towards you: "I hear more than you do. Here is what you are missing for your next potion and where it is:"'],
+  tratsch_nichts: ['{name} grinst: „Dir fehlt nichts mehr? Dann trink endlich, ich warte nicht ewig.“',
+    '{name} grins: "You are not missing anything? Then drink already, I won\'t wait forever."'],
+  wache: ['{name} steht am Rand des Kreises und hält Wache. Kein fremder Beyonder kommt heute an euch vorbei, und das Ritual zehrt nur halb so sehr an dir.',
+    '{name} stands at the edge of the circle and keeps watch. No stranger Beyonder gets past the two of you today, and the ritual takes only half as much out of you.'],
+  verrat: ['{name} sieht dich an wie einen Fremden. „Du bist zu langsam. Ein Bündnis mit jemandem, der hinterherläuft, kostet mich nur.“ Das Bündnis ist vorbei.',
+    '{name} looks at you like a stranger. "You are too slow. An alliance with someone who lags behind only costs me." The alliance is over.'],
+  jagd_intro: ['{name} zeigt in eine Seitengasse. „Da drin wartet ein wilder Beyonder, fremder Pfad, fette Beute. Allein schafft das keiner von uns. Zusammen schon.“ {name} kämpft an deiner Seite und hält dir den Rücken frei.',
+    '{name} points into a side alley. "A wild Beyonder waits in there, foreign pathway, rich pickings. Neither of us can take it alone. Together we can." {name} fights at your side and covers your back.'],
+  jagd_sieg: ['Der fremde Beyonder fällt. {name} teilt die Beute ehrlich, fast zu ehrlich. „Das machen wir wieder.“',
+    'The foreign Beyonder falls. {name} splits the loot fairly, almost too fairly. "Let\'s do this again."'],
   gegner: ['{name}, Rivale auf deinem Pfad', '{name}, rival on your pathway'],
   intro: ['{name} stellt sich dir in den Weg. Derselbe Pfad, nur einer kann zuerst ankommen.',
     '{name} blocks your way. The same pathway, and only one can arrive first.'],
@@ -210,6 +228,8 @@ export const RIVALE_UI = {
   'Diebesgut': 'Loot',
   'Ein Kampf steht bevor.': 'A fight is coming.',
   Später: 'Later',
+  'Gemeinsame Jagd': 'Hunt together',
+  'Wilder Beyonder (gemeinsame Jagd)': 'Wild Beyonder (joint hunt)',
   Wesen: 'Nature',
   Ziel: 'Agenda',
   Feindlich: 'Hostile',
@@ -275,6 +295,22 @@ export function applyRivale(content) {
       machBeyonder(content, id, pid, seq);
       if (content.items[restId(pid, seq)]) content.loot[id].drops.push({ item: restId(pid, seq), chance: RIVALE_REGELN.rest });
     }
+  }
+  // Gemeinsame Jagd (Etappe 2): je Sequenz ein wilder Beyonder, gegen den der verbündete Rivale mitkämpft
+  for (const [k, [vorlage, f]] of Object.entries(BASIS)) {
+    const base = content.encounters[vorlage];
+    if (!base) continue;
+    const id = `rivale_jagd_${k}`;
+    const rest = { ...base };
+    for (const key of WEG) delete rest[key];
+    delete rest.phase2;
+    const dm = Math.sqrt(f);
+    content.encounters[id] = { ...rest, name: 'Wilder Beyonder (gemeinsame Jagd)', hp: Math.round(base.hp * f * RIVALE_REGELN.jagd_hp),
+      attacks: base.attacks?.map((a) => (a.damage ? { ...a, damage: Math.round(a.damage * dm) } : { ...a })), elite: true, fleeable: true, rivale_jagd: true };
+    const m = content.loot[vorlage]?.money ?? [20, 40];
+    content.loot[id] = { repeat: true, money: m.map((x) => Math.round(x * RIVALE_REGELN.jagd_geld)), drops: content.items.geisteressenz ? [{ item: 'geisteressenz', chance: RIVALE_REGELN.jagd_essenz }] : [] };
+    const pids = Object.keys(RIVALEN).filter((p) => content.pathways?.[p]?.seqs?.[Number(k)]);
+    if (pids.length) machBeyonder(content, id, pids[Number(k) % pids.length], Number(k));
   }
   return content;
 }
