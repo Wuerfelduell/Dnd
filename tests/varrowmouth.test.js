@@ -41,15 +41,33 @@ test('Tam und der Zollschreiber tragen die Hauptakte als „Zur Sache.“', () =
   }
 });
 
-test('Akt I öffnet Akt II, Akt II startet Akt III noch nicht', () => {
+test('Akte I–III hängen aneinander, Akt III startet Akt IV noch nicht', () => {
   const ja = content.dialogues.k6_bilanz1.nodes.k6_bilanz1_ja;
   assert.deepEqual(ja.sets_flags, ['k6_akt1_done']);
   assert.deepEqual(ja.start_quests, ['k6_akt2']);
-  assert.ok(content.quests.k6_akt2);
-  const ja2 = content.dialogues.k6_bilanz2.nodes.k6_bilanz2_ja;
-  assert.deepEqual(ja2.complete_quests, ['k6_akt2']);
-  assert.equal(ja2.start_quests, undefined);
-  assert.equal(content.quests.k6_akt3, undefined);
+  assert.deepEqual(content.dialogues.k6_bilanz2.nodes.k6_bilanz2_ja.start_quests, ['k6_akt3']);
+  const ja3 = content.dialogues.k6_bilanz3.nodes.k6_bilanz3_ja;
+  assert.deepEqual(ja3.complete_quests, ['k6_akt3']);
+  assert.equal(ja3.start_quests, undefined);
+  assert.equal(content.quests.k6_akt4, undefined);
+  for (const id of ['k6_31_station', 'k6_32_station', 'k6_33_station', 'k6_34_station', 'k6_vertrauen_station']) {
+    assert.ok(content.maps.vm_oberstrasse.interactables.some((i) => i.id === id), id);
+  }
+});
+
+test('Gezeiten: Flut beendet Kämpfe der Ebbe ohne Sieg, Schlickgassen nur bei Ebbe', () => {
+  const s = new GameState(content);
+  s.flags.add('gezeit_ebbe');
+  const c = new Combat(s, 'vme_salzkruste');
+  s.flags.delete('gezeit_ebbe');
+  s.flags.add('gezeit_flut');
+  c.endRound();
+  assert.equal(c.outcome, 'fled');
+  assert.equal(s.flags.has('won_vme_salzkruste'), false);
+  assert.equal(content.encounters.vme_gezeitenlaeufer.gezeit, 'flut');
+  assert.ok(content.maps.vm_wrackfeld.flut_raus && content.maps.vm_schlickgassen.flut_raus);
+  const leiter = content.maps.vm_stegviertel.interactables.find((i) => i.kind === 'door' && i.to === 'vm_schlickgassen');
+  assert.ok(leiter.visible_if.requires_flags.includes('gezeit_ebbe'));
 });
 
 test('Wrackfeld: Oststeg erst mit Akt II und nur bei Ebbe', () => {

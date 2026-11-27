@@ -98,6 +98,7 @@ const ui = new Ui(uiRoot, state, {
       state.map = 'bh_buegelraum';
       if (vm === 'hafen') { state.applyEffects({ sets_flags: ['k6_anreise_wahl', 'k6_arrived'], start_quests: ['k6_akt1'] }); state.map = 'vm_zollhafen'; }
       // ?varrowmouth=wrack → Akt II, im Wrackfeld (Ebbe kommt mit der Uhr)
+      if (new URLSearchParams(location.search).has('flut')) state.playTime = 370; // &flut → gleich bei Flut (Gezeit wechselt alle 360 s)
       if (vm === 'wrack') { state.applyEffects({ sets_flags: ['k6_anreise_wahl', 'k6_arrived', 'k6_tam_weg', 'k6_akt1_done'], start_quests: ['k6_akt1', 'k6_akt2'] }); state.map = 'vm_wrackfeld'; }
     }
     started = true;

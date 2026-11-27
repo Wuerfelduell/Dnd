@@ -2929,8 +2929,9 @@ SHEETS.cw_abgleich = 'fx/cw_abgleich.png';
 export const VM_THEME_KEYS = ['vm_hafen', 'vm_stege', 'vm_schlick', 'vm_oberstrasse', 'vm_wrack', 'vm_leuchtbank', 'vm_innen'];
 const VM_SPEC = { fallback: 'cobble0', floor: [1, 1, 7], wear: [0, 6], mud: [8, 9, 10, 11, 12, 13, 14, 15],
   water: Array.from({ length: 16 }, (_, i) => 16 + i), bridge: [36, 37], wallFace: [42, 43, 42, 46], door: [44], wallTop: [48, 49, 48, 49, 48, 49, 48, 50, 49, 51] };
-for (const theme of VM_THEME_KEYS) {
-  const sheet = `${theme}_ebbe`;
+/** Gezeiten (Etappe 3): jedes Thema gibt es zweimal, `vm_hafen` (Ebbe) und `vm_hafen_flut` mit dem Flut-Blatt. */
+export const VM_FLUT = (theme) => `${theme}_flut`;
+for (const [theme, sheet] of VM_THEME_KEYS.flatMap((t) => [[t, `${t}_ebbe`], [VM_FLUT(t), `${t}_flut`]])) {
   if (!SHEETS[sheet]) SHEETS[sheet] = `tilesets/${sheet}.png`;
   const spec = (THEME_TILES[theme] = { ...VM_SPEC, sheet });
   const list = Object.entries(spec).filter(([, v]) => Array.isArray(v)).flatMap(([group, regions]) => [...new Set(regions)].map((region) => ({

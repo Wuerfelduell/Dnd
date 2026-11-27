@@ -14,7 +14,7 @@ import { DunscarPassanten } from './DunscarPassanten.js';
 import { KettlegateLife, preloadKettlegateLife } from './KettlegateLife.js';
 import { KoopLife } from './Koop.js';
 import { SektenLife } from './SektenLife.js';
-import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, facadeAtNight, buildingFacades, WX2_TILE_ANIMS, PROP_ORIGINS, MAP_WEATHER, DISGUISE_SHEETS, pathwayArt, P2_LOOKS, skinKeyOf , leseSceneOf, BH_THEME_KEYS, CW_THEME_KEYS, VM_THEME_KEYS, HG_PATHS, HG_FURCHT } from './assets.js';
+import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, facadeAtNight, buildingFacades, WX2_TILE_ANIMS, PROP_ORIGINS, MAP_WEATHER, DISGUISE_SHEETS, pathwayArt, P2_LOOKS, skinKeyOf , leseSceneOf, BH_THEME_KEYS, CW_THEME_KEYS, VM_THEME_KEYS, VM_FLUT, HG_PATHS, HG_FURCHT } from './assets.js';
 import { Roamers } from './Roamers.js';
 import { installWeltGimmicks, applyGimmick } from './WeltGimmicks.js';
 import { Critters } from './Critters.js';
@@ -162,7 +162,11 @@ function vmTheme(theme) {
   return (ch, at, v, x, y) => {
     const k = (g, seed = 0) => pickKey(themeKeys(theme, g), x, y, seed);
     if (ch === '.') return hash2(x, y, 91) > 0.88 ? k('wear', 1) : k('floor');
-    if (ch === ',') return hash2(x, y, 92) > 0.7 ? k('mud', 2) : themeKeys(theme, 'mud')[hash2(x, y, 93) > 0.5 ? 1 : 0];
+    if (ch === ',') { // ruhiger Schlick: meist die glatte Zelle, selten Steine, Reste oder eine Pfütze
+      const mud = themeKeys(theme, 'mud');
+      const r = hash2(x, y, 92);
+      return mud[r > 0.97 ? 1 : r > 0.93 ? 5 : r > 0.89 ? 4 : 0];
+    }
     if (ch === '=') {
       const quer = at(-1, 0) === '=' || at(1, 0) === '=';
       const laengs = at(0, -1) === '=' || at(0, 1) === '=';
@@ -206,7 +210,7 @@ const THEMES = {
     cap: true,
   })])),
   // Kapitel 7 (CV): Varrowmouth
-  ...Object.fromEntries(VM_THEME_KEYS.map((t) => [t, vmTheme(t)])),
+  ...Object.fromEntries(VM_THEME_KEYS.flatMap((t) => [[t, vmTheme(t)], [VM_FLUT(t), vmTheme(VM_FLUT(t))]])),
   warehouse: roomTheme('warehouse', {
     floorMix: (x, y) => (hash2(x, y, 31) > 0.95 ? themeKeys('warehouse', 'debris')[0] : pickKey(themeKeys('warehouse', 'floor'), x, y, 0)),
   }),
@@ -960,7 +964,10 @@ export class WorldScene extends Phaser.Scene {
     const night = this.state?.isNight?.() ?? false;
     const perHouse = buildingFacades(rows, this.mapDef.facades);
     const facadeAt = (x, y) => { const f = perHouse.get(`${x},${y}`) ?? this.mapDef.facade; return f && night ? facadeAtNight(f) : f; };
-    const data = rows.map((row, y) => [...row].map((_, x) => tileIndexFor(rows, x, y, this.mapDef.tiles, facadeAt(x, y))));
+    // Kapitel 7: Varrowmouth zeigt bei Flut das Flut-Blatt (Schlick und Priele stehen unter Wasser)
+    this.flutBild = this.mapDef.city === 'varrowmouth' && this.state.flags.has('gezeit_flut');
+    const theme = this.flutBild ? VM_FLUT(this.mapDef.tiles) : this.mapDef.tiles;
+    const data = rows.map((row, y) => [...row].map((_, x) => tileIndexFor(rows, x, y, theme, facadeAt(x, y))));
     const map = this.make.tilemap({ data, tileWidth: TILE, tileHeight: TILE });
     const tileset = map.addTilesetImage('tiles', 'tiles', TILE, TILE, 0, 0);
     this.groundLayer = map.createLayer(0, tileset, 0, 0).setDepth(0);
@@ -1443,6 +1450,7 @@ export class WorldScene extends Phaser.Scene {
       s.on('changed', refresh),
       s.on('conclusion', refresh),
       s.on('clock', () => { this.clockDirty = true; }), // BD: Tageswechsel erst, wenn kein Gespräch/Fenster offen ist
+      s.on('gezeit', () => { this.gezeitDirty = true; }), // Kapitel 7: Gezeitenwechsel in Varrowmouth
       s.on('signal_route', (r) => this.showSignalRoute(r)), // BN: Ruflinie, Nischen, Suchzone
       s.on('signal_alarm_end', () => this.roamers?.alarmEnd()),
       s.on('signal_lock', () => this.roamers?.alarmEnd()),
@@ -1601,6 +1609,7 @@ export class WorldScene extends Phaser.Scene {
     this.passanten?.update(delta, blocked || frozen);
     this.kgLife?.update(delta);
     if (this.clockDirty && !blocked) { this.applyClock(); this.updateWeatherLoop(); }
+    if (this.gezeitDirty && !blocked && !this.leaving) this.gezeitWechsel();
     this.wetterFx?.update(delta);
     if (!blocked && this.splitRole !== 2) this.updateRandomSounds(delta);
     this.koop?.update(delta, blocked);
@@ -2365,6 +2374,28 @@ export class WorldScene extends Phaser.Scene {
         if (!isNew && !clue) throw new Error(`Hinweis fehlt: ${def.clue}`);
       }
     }
+  }
+
+  /**
+   * Kapitel 7: Ebbe und Flut wechseln (core/Clock.js, alle 6 Minuten). In Varrowmouth wird die Karte mit dem anderen Blatt neu gebaut.
+   * Bei Flut läuft das Wrackfeld voll und die Schlickgassen werden zu Prielen: Tam holt dich ins Stegviertel.
+   */
+  gezeitWechsel() {
+    this.gezeitDirty = false;
+    if (this.mapDef.city !== 'varrowmouth') return;
+    const flut = this.state.flags.has('gezeit_flut');
+    const raus = flut && this.mapDef.flut_raus;
+    if (raus) {
+      this.ui.toast?.(raus.text, 'warn');
+      this.travelTo('vm_stegviertel', raus.spawn);
+      return;
+    }
+    if (flut === !!this.flutBild) return;
+    this.ui.toast?.(flut ? 'Die Flut kommt. Das Wasser steigt in die Gassen.' : 'Ebbe. Das Wasser zieht sich zurück und gibt den Schlick frei.', 'info');
+    this.leaving = true;
+    this.state.position = this.player ? this.playerPosition() : null;
+    this.cameras.main.fadeOut(400, 0, 0, 0);
+    this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => this.scene.restart());
   }
 
   travelTo(mapId, spawn, byPlayer) {
