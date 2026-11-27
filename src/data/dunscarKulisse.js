@@ -22,6 +22,7 @@
 import { DS_KULISSE } from './dunscarKulisseDaten.js';
 import { DS_ORTSKUNDIGE } from './dunscarOrtskundige.js';
 import { DS_ZIRKEL } from './dunscarZirkel.js';
+import { STAND, STANDPLAETZE } from './dunscarAusbau.js';
 
 /** Stadtkarten-Pins (k3_orte/city.json) plus Orte ohne eigenen Pin. */
 const EXTRA_PINS = { ds_letzter_bahnsteig: [440, 150] };
@@ -46,9 +47,11 @@ export const RASTER = {
   haeuser: [8, 14, 29, 35], hausY: 4,
   ausgang: { W: [[1, 10], [1, 6], [1, 15]], E: [[42, 10], [42, 6], [42, 15]], N: [[21, 1], [22, 1]], S: [[21, 20], [14, 20], [29, 20]] },
   stadtkarte: [19, 9], tafel: [24, 9], ortskundig: [24, 12], ankunft: [21, 12],
-  zonen: { NW: [2, 5, 18, 8], NE: [25, 5, 41, 8], SW: [2, 13, 18, 17], SE: [25, 13, 41, 17] },
+  zonen: { NW: [2, 5, 18, 8], NE: [25, 5, 41, 8], SW: [2, 13, 18, 16], SE: [25, 13, 41, 16] }, // Reihe 17–20 bleibt der Kulisse (Bahnsteig, Bänke)
   streifen: [[6, 19], [16, 19], [28, 19], [38, 19]],
 };
+/** Höchstens so viele Gruppen (gleiche alte Kachel) je Zone, bevor die nächste Zone drankommt. */
+const ZONE_MAX = { lesen: 9, leute: 6, haendler: 6 };
 const BAHN_ZONEN = { haendler: ['SW', 'SE', 'NE', 'NW'], leute: ['NE', 'SE', 'SW', 'NW'], lesen: ['NW', 'SW', 'SE', 'NE'] };
 
 const key = (x, y) => `${x},${y}`;
@@ -85,11 +88,11 @@ function kategorie(content, o, isNpc) {
   return o.kind === 'read' || o.kind === 'clue' ? 'lesen' : 'leute';
 }
 
-/** Freie Plätze einer Zone: Leute jede zweite Reihe, Lesestellen jede Reihe, immer jede zweite Spalte. */
+/** Freie Plätze einer Zone: jede Reihe, jede zweite Spalte (Leute nie direkt übereinander, siehe naechster). */
 function zonenPlaetze(rect, leute) {
   const [x0, y0, x1, y1] = rect;
   const out = [];
-  for (let y = y0; y <= y1; y += leute ? 2 : 1) for (let x = x0 + (x0 % 2); x <= x1; x += 2) out.push([x, y]);
+  for (let y = y0; y <= y1; y++) for (let x = x0 + (x0 % 2); x <= x1; x += 2) out.push([x, y]);
   return out;
 }
 
@@ -138,20 +141,40 @@ function viertel(content, id, m, pins, schilder, fest) {
     ...rest.map((o) => ({ o, npc: false })),
   ].sort((a, b) => a.o.tile[1] - b.o.tile[1] || a.o.tile[0] - b.o.tile[0]);
   const neu = new Map(); // `${kat}|${alte Kachel}` → neue Kachel
-  const plaetze = {};
-  const naechster = (kat) => {
+  // Händler mit Marktstand bekommen gleich ihren Standplatz (applyDunscarStaende stellt den Stand dahinter)
+  const standFrei = STANDPLAETZE.filter(([x, y]) => !taken.has(key(x, y)) && !taken.has(key(x, y - 1)));
+  const hatStand = (o, npc) => npc && STAND[o.id] !== undefined && content.market?.merchants?.[o.id];
+  const markt = items.some(({ o, npc }) => hatStand(o, npc)); // Südwest gehört dann den Ständen
+  for (const { o, npc } of items) if (hatStand(o, npc) && standFrei.length) { const t = standFrei.shift(); neu.set(`stand|${o.id}`, t); nimm(t); nimm([t[0], t[1] - 1]); }
+  // Seb 2026-11-27: „manche Orte zu voll, manche sehr leer“. Früher füllte jede Kategorie ihre Zone Platz für Platz von
+  // links oben (Lesestellen als dichtes Raster im Nordwesten, Leute in einer Reihe im Nordosten, der Süden blieb leer).
+  // Jetzt: je Zone höchstens ZONE_MAX Gruppen, und jede neue Gruppe nimmt den freien Platz, der am weitesten von allem
+  // liegt, was schon steht (ab 4 Feldern gestreut). Läuft eine Zone voll, geht es in der nächsten weiter.
+  const punkte = [...taken].map((k) => k.split(',').map(Number)).filter(([x, y]) => !RASTER.strasseY.includes(y) && !RASTER.strasseX.includes(x));
+  const proZone = {};
+  const abstand = ([x, y]) => punkte.reduce((d, [px, py]) => Math.min(d, Math.hypot((px - x) * 0.8, py - y)), 99);
+  const naechster = (kat, ohneDeckel = false) => {
+    const leute = kat !== 'lesen';
     for (const z of BAHN_ZONEN[kat]) {
-      const leute = kat !== 'lesen';
-      const list = (plaetze[`${z}|${leute}`] ??= zonenPlaetze(RASTER.zonen[z], leute));
-      while (list.length) {
-        const t = list.shift();
+      if (markt && z === 'SW' && kat !== 'haendler' && !ohneDeckel) continue;
+      if (!ohneDeckel && (proZone[z] ?? 0) >= ZONE_MAX[kat]) continue;
+      let best = null;
+      let bd = -1;
+      for (const t of zonenPlaetze(RASTER.zonen[z], leute)) {
         if (taken.has(key(...t))) continue;
         // Figuren nicht direkt übereinander stapeln
         if (leute && (taken.has(key(t[0], t[1] - 1)) || taken.has(key(t[0], t[1] + 1)))) continue;
-        nimm(t);
-        return t;
+        // ab 4 Feldern Abstand ist jeder Platz gleich gut: dann entscheidet ein fester Zufall (gestreut statt Gitter oder Randlinie)
+        const d = Math.min(abstand(t), 4) + (Math.abs(Math.sin(t[0] * 12.9898 + t[1] * 78.233) * 43758.5453) % 1) * 1.5;
+        if (d > bd + 0.01) { bd = d; best = t; }
       }
+      if (!best) continue;
+      nimm(best);
+      punkte.push(best);
+      proZone[z] = (proZone[z] ?? 0) + 1;
+      return best;
     }
+    if (!ohneDeckel) return naechster(kat, true);
     // Notfall: irgendeine freie Bodenkachel
     for (let y = 5; y < RASTER.H - 2; y++) for (let x = 2; x < RASTER.W - 2; x++) if (!taken.has(key(x, y))) { nimm([x, y]); return [x, y]; }
     return RASTER.ankunft;
@@ -159,7 +182,7 @@ function viertel(content, id, m, pins, schilder, fest) {
   const npcs = (old.npcs ?? []).filter(bleibt);
   for (const { o, npc } of items) {
     const kat = kategorie(content, o, npc);
-    const k = `${kat}|${o.tile}`;
+    const k = neu.has(`stand|${o.id}`) ? `stand|${o.id}` : `${kat}|${o.tile}`;
     if (!neu.has(k)) neu.set(k, naechster(kat));
     (npc ? npcs : inter).push({ ...o, tile: neu.get(k) });
   }
@@ -354,6 +377,15 @@ function kulisse(m, k, taken) {
     for (const [fx, fy] of foot) taken.add(key(fx, fy));
     m.decor.push({ sprite, tile: [x, y], offset: [0, 8], origin: [0.5, 1], alpha: 1, ysort: true, ...(opt.solid ? { solid: [40, 8, 0, -4] } : {}), ...(opt.anim ? { anim: opt.anim } : {}) });
     if (opt.light) m.lights.push({ tile: [x, y - 2], radius: 50, intensity: 0.6, color: opt.light, flicker: 0.08 });
+  }
+  // Szenen für leere Ecken (Seb 2026-11-27): nur, wo rundherum nichts steht (keine Figur, Lesestelle, Laterne), sonst fallen sie weg
+  const lampe = new Set((k.lampen ?? []).map(([x, y]) => key(x, y)));
+  const luftig = (x, y) => passt(x, y) && [-2, -1, 0, 1, 2].every((dx) => [-3, -2, -1, 0, 1].every((dy) => !taken.has(key(x + dx, y + dy)) && !lampe.has(key(x + dx, y + dy))));
+  for (const [sprite, x, y, opt = {}] of k.szenen ?? []) {
+    if (!luftig(x, y)) continue;
+    for (const dx of [-1, 0, 1]) taken.add(key(x + dx, y));
+    m.decor.push({ sprite, tile: [x, y], offset: [0, 8], origin: [0.5, 1], alpha: 1, ysort: true, ...(opt.solid ? { solid: [40, 8, 0, -4] } : {}) });
+    if (opt.light) m.lights.push({ tile: [x, y - 2], radius: 46, intensity: 0.5, color: opt.light, flicker: 0.1 });
   }
   // Streugut: einzelne Bodenzellen (Schutt, Kalkpfützen), fest je Kachel ausgewürfelt
   for (const [sheet, frames, anteil] of k.streu ?? []) {
