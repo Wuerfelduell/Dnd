@@ -79,7 +79,7 @@ export class CombatScene extends Phaser.Scene {
     this.ui = this.uiFor ?? this.registry.get('ui'); // Splitscreen: Fensterebene der eigenen Hälfte
     this.combat = new Combat(this.state, this.encounterId, { pack: this.pack });
     // Die ganze Kampfbühne verkleinert in der eigenen Bildhälfte; die andere Hälfte läuft weiter
-    if (this.splitHalf) this.cameras.main.setViewport(this.splitHalf === 2 ? VIEW_W / 2 : 0, 0, VIEW_W / 2, VIEW_H).setZoom(0.5).centerOn(VIEW_W / 2, VIEW_H / 2).setBackgroundColor('#040408');
+    if (this.splitHalf) this.cameras.main.setViewport(this.splitHalf === 2 ? VIEW_W / 2 : 0, VIEW_H / 4, VIEW_W / 2, VIEW_H / 2).setZoom(0.5).centerOn(VIEW_W / 2, VIEW_H / 2).setBackgroundColor('#040408');
     else this.cameras.main.setViewport(0, 0, VIEW_W, VIEW_H).setZoom(1).centerOn(VIEW_W / 2, VIEW_H / 2).setBackgroundColor('rgba(0,0,0,0)');
     this.phase = 'intro';
     this.leaving = false; // Szenen-Objekt wird wiederverwendet: Zustand jedes Mal zurücksetzen
