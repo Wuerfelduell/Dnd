@@ -1205,8 +1205,8 @@ const AG_ICONS = (id) => AF_ARTIFACTS.includes(id) || /^sq_zutat_\w+_\d$/.test(i
 const standinIcon = (id) => {
   if (AG_ICONS(id)) return id; // Paket AG: eigene Bilder für Zutaten und Artefakte
   if (/^trank_.+_\d_rest$/.test(id)) return id.replace(/_rest$/, ''); // Beyonder-Rest: Trank aus einem Rest sieht aus wie der normale
-  if (/^rest_.+_\d$/.test(id)) return 'schattenrest'; // Beyonder-Rest: Leihbild, bis es ein eigenes gibt
-  if (/^char_seq1_/.test(id)) return `trank_${id.slice(10)}_1`; // Charakteristik Seq 1 (für Seq 0): Leihbild des Seq-1-Tranks
+  if (/^rest_.+_\d$/.test(id)) return id.replace(/_\d$/, ''); // Beyonder-Rest: ein Bild je Pfad (rest_<pfad>, per Skript, tools/art/claude_code)
+  if (/^char_seq1_/.test(id)) return id; // Charakteristik Seq 1 (für Seq 0): eigenes Bild je Pfad (per Skript, tools/art/claude_code)
   return id; // Tränke und Formeln haben für alle Pfade und Sequenzen 9–1 eigene Bilder (16 und 32)
 };
 /** Codex DT (Batch ritualicons2): eigene Icons in 16 und 32 für die Wurfflaschen der Seq-4-Rituale und die seltenen Wexmoor-Funde (Codex DR). */
@@ -3023,6 +3023,12 @@ for (const id of CS_FIGURES) {
   SHEETS[`cs_${id}`] = `characters/${id}.png`;
   CHARACTER_SHEETS[`npc_${id}`] = `cs_${id}`;
   if (id !== 'cwo_marktstand') { HEADS.push(id); HEAD_FILES[id] = `portraits/heads/${id}.png`; } // Mina hat laut Auftrag keinen Kopf
+}
+/** Seq-1-Beyonder in Briarholt (data/seq1Beyonder.js): Lauf-Sheets per Skript aus Codex-Figuren umgefärbt (tools/art/claude_code/s1b_figuren.py). */
+export const S1B_FIGURES = ['laterne', 'faden', 'maske', 'echo', 'kessel', 'eisen', 'schluessel', 'sq_waage', 'sq_moor', 'sq_uhr'];
+for (const pid of S1B_FIGURES) {
+  SHEETS[`s1b_${pid}`] = `characters/s1b_${pid}_walk.png`;
+  CHARACTER_SHEETS[`npc_s1b_${pid}`] = `s1b_${pid}`;
 }
 /** Maud Keel und die drei Wexmoorer Auftraggeber: Lauf-Sheets ersetzt (AL/#277 bleiben als Keys), dazu Kopf und Porträtleiste (4 Stimmungen). */
 export const CS_PORTRAIT_MOODS = { neutral: 0, freundlich: 1, friendly: 1, smile: 1, faint_smile: 1, approving: 1, bidding: 1, misstrauisch: 2, suspicious: 2, skeptical: 2, erschrocken: 3, shocked: 3, scared: 3, angry: 2 };
