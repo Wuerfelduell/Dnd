@@ -3358,3 +3358,11 @@ for (const [neu, base] of Object.entries(GEGNER_VARIANTEN)) {
   if (ANIM_ALIASES[base]) ANIM_ALIASES[neu] = ANIM_ALIASES[base];
   if (BATTLE_SHEET_SCALE[base]) BATTLE_SHEET_SCALE[neu] = BATTLE_SHEET_SCALE[base];
 }
+
+// --- Skript-Grafik Runde 5 (tools/art/claude_code/icons_r5.py): eigene Icons in 16 und 32 statt Leihbildern aus reserve200/future200/nebel200 ---
+/** Dunscar-Vorräte, Post-Beilagen und Calderwicker Fundstücke; überschreibt die Leihbild-Zuordnungen aus DSH_ICONS, CWF_ICONS und den Post-Aliasen. */
+export const R5_ICONS = ['dsh_verbandrolle', 'dsh_schichttonikum', 'dsh_kalkelixier', 'dsh_honigtopf', 'dsh_bruchriechsalz', 'dsh_wachtrank', 'dsh_stellwerktee',
+  'dsh_stillschlaf', 'dsh_geisterblume', 'dsh_reisebrot', 'dsh_hartkaese', 'dsh_kaffee', 'post_schluessel_ohne_schloss', 'post_leseblatt', 'post_fragen_vor_der_erklaerung',
+  ...Object.keys(CWF_ICONS)];
+for (const id of R5_ICONS) ITEM_ICON_ALIASES[id] = id;
+ICON32.push(...R5_ICONS);
