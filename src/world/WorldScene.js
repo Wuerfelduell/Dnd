@@ -85,6 +85,8 @@ function cBahnhof(theme, ch, at, v, x, y) {
   const water = (c) => '~Q='.includes(c ?? '~');
   if (ch === 'P' && !water(at(0, 1)) && !water(at(0, -1))) return k('rails', 7);
   if (ch === '.' && at(0, 1) === 'P') return k('edge', 8);
+  // Seb 2026-11-27: Wexmoor-Güterbahnhof ruhiger – die Bodenkacheln des Blatts zeigen Bänke, Kisten und Fassadenreste und wirkten wie Müll; ruhiges Pflaster statt dessen
+  if ((ch === '.' || ch === ',') && theme === 'c_bahnhof_wx') return pickKey(themeKeys('r_wexmoor', 'path'), x, y, 9);
   if (ch === '.' || ch === ',') return k('floor', 9);
   return THEMES.r_wexmoor(ch, at, v, x, y);
 }
@@ -436,9 +438,16 @@ const THEMES = {
   // Paket BT: derselbe Bahnhof auf dem Wexmoor-Blatt (Holzrampen, nasse Kohle)
   c_bahnhof_wx: (ch, at, v, x, y) => cBahnhof('c_bahnhof_wx', ch, at, v, x, y),
   r_wexmoor: rWexmoor((ch, k) => (ch === '.' ? k('floor') : k('wood', 2))),
-  r_salzmarkt: rWexmoor((ch, k, x, y) => (ch === '.' ? (hash2(x, y, 62) > 0.8 ? k('sand', 2, 'r_salzmarkt') : k('floor')) : k('wood', 2))),
+  // Seb 2026-11-27: Salzhaufen nur noch vereinzelt (vorher jedes fünfte Feld, der Markt wirkte vollgemüllt)
+  r_salzmarkt: rWexmoor((ch, k, x, y) => (ch === '.' ? (hash2(x, y, 62) > 0.965 ? k('sand', 2, 'r_salzmarkt') : k('floor')) : k('wood', 2))),
   r_oberstadt(ch, at, v, x, y) {
-    if ('.,L'.includes(ch)) return pickKey(themeKeys('r_oberstadt', 'floor'), x, y, ch === '.' ? 0 : 2);
+    // Seb 2026-11-27: ruhigeres Pflaster – der Gullydeckel (Kachel 50) und die helle Platte (51) nur noch vereinzelt; Gärten mit Moorwiese
+    if ('.,L'.includes(ch)) {
+      const [p48, p49, p50, p51] = themeKeys('r_oberstadt', 'floor');
+      const r = hash2(x, y, ch === '.' ? 68 : 69);
+      return r < 0.5 ? p48 : r < 0.94 ? p49 : r < 0.97 ? p51 : p50;
+    }
+    if (ch === 'g') return hash2(x, y, 70) < 0.75 ? themeKeys('g_marsch', 'floor')[0] : themeKeys('g_marsch', 'floor')[2];
     return null;
   },
   r_torf(ch, at, v, x, y) {
@@ -447,16 +456,24 @@ const THEMES = {
     if (ch === 'P') return pickKey(themeKeys('r_wexmoor', at(-1, 0) === 'P' || at(1, 0) === 'P' ? 'floor' : 'wood'), x, y, 1);
     if (ch === '~' && ['P'].some((c) => [at(0, -1), at(0, 1), at(-1, 0), at(1, 0)].includes(c))) return THEMES.r_wexmoor(ch, at, v, x, y);
     if (ch === '~' && !['g', 'p', 'Y', 'r'].some((c) => [at(0, -1), at(0, 1)].includes(c))) return pickKey(themeKeys('r_wexmoor', 'water'), x, y, 6);
+    if (ch === 'g') { // Seb 2026-11-27: ruhigere Moorwiese statt Flickenteppich aus hellen und dunklen Kacheln
+      const [k24, k25, k28, k30] = themeKeys('g_marsch', 'floor'); // Blattkacheln 24, 25, 28, 30 (die dunklen 48–51 fallen weg)
+      const r = hash2(x, y, 67);
+      return r < 0.6 ? k24 : r < 0.8 ? k28 : r < 0.95 ? k25 : k30;
+    }
     return THEMES.g_marsch(ch, at, v, x, y);
   },
   r_akademie: roomTheme('r_akademie', { floorChars: 'wO.' }),
   r_lucent: roomTheme('r_lucent', { floorChars: 'wO.' }),
-  r_wachhaus: roomTheme('r_wachhaus', { floorChars: 'wO.', extra: (ch) => (ch === 'H' ? themeKeys('r_zelle', 'bars')[0] : null) }),
+  // Seb 2026-11-27: Gitterrost (vierte Bodenkachel) nur noch vereinzelt statt auf jedem vierten Feld (Wachhaus, Lichtamt)
+  r_wachhaus: roomTheme('r_wachhaus', { floorChars: 'wO.', extra: (ch) => (ch === 'H' ? themeKeys('r_zelle', 'bars')[0] : null),
+    floorMix: (x, y) => { const f = themeKeys('r_wachhaus', 'floor'); return hash2(x, y, 71) < 0.96 ? pickKey(f.slice(0, 3), x, y, 0) : f[3]; } }),
   r_zelle: roomTheme('r_zelle', { floorChars: 'wO.', extra: (ch) => (ch === 'H' ? themeKeys('r_zelle', 'bars')[0] : null) }),
   r_vergessmoor(ch, at, v, x, y) {
     const k = (g, seed = 0) => pickKey(themeKeys('r_vergessmoor', g), x, y, seed);
     if (ch === 'P') return k('floor');
     if (ch === '~') return hash2(x, y, 64) > 0.95 ? k('ghost', 1) : k('water', 1);
+    if (ch === 'g') return THEMES.r_torf(ch, at, v, x, y); // Seb 2026-11-27: dieselbe ruhige Moorwiese wie im Torfstich
     return THEMES.g_marsch(ch, at, v, x, y);
   },
   r_leuchtturm(ch, at, v, x, y) {
@@ -493,7 +510,7 @@ const THEMES = {
   s_salzwatt(ch, at, v, x, y) {
     const k = (g, seed = 0) => pickKey(themeKeys('s_salzwatt', g), x, y, seed);
     switch (ch) {
-      case 'g': { const r = hash2(x, y, 71); return r > 0.93 ? k('debris', 1) : r > 0.78 ? k('sand', 1) : k('floor'); }
+      case 'g': { const r = hash2(x, y, 71); return r > 0.975 ? k('debris', 1) : r > 0.9 ? k('sand', 1) : k('floor'); } // Seb 2026-11-27: weniger Salzflecken und Treibgut
       case 'P': return k('path', 2);
       case 'Y': return k('stakes', 3);
       case '~': {
