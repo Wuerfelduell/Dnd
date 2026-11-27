@@ -1213,3 +1213,150 @@ html.touch .talentbar .tslot { width: 3.2em; height: 3.2em; }
 /* Seb: Spieler umbenennen im Inventar */
 .pname-row { margin: 0 0 0.4em; display: flex; align-items: center; gap: 0.4em; flex-wrap: wrap; }
 .pname-input { font: inherit; width: 7em; padding: 0.1em 0.3em; color: var(--ink); background: #120f16; border: 0.125em solid var(--brass); }
+
+/* --- Hauptmenü (src/ui/TitleMenu.js): Kulisse, Schriftzug, Menü, Spielstände, Optionen, Mitwirkende --- */
+.layer.tm-layer { padding: 0; align-items: stretch; justify-content: stretch; }
+.layer.tm-layer.has-titlescene:has(.title) { background: none; }
+.panel.titlemenu { position: absolute; inset: 0; max-width: none; width: auto; padding: 0; background: none; border: 0; border-image: none; box-shadow: none; text-align: left; }
+.titlescene .tl.fog2 { opacity: 0.45; }
+.titlescene .drift.rev { animation-direction: reverse; }
+.titlescene::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 62% 45%, transparent 50%, rgba(2, 2, 6, 0.6) 100%); }
+.titlescene .tl.glow { inset: auto; background: radial-gradient(circle, rgba(255, 205, 120, 0.42) 0%, rgba(255, 180, 90, 0.16) 38%, transparent 68%); mix-blend-mode: screen; animation: tm-flicker 3.7s ease-in-out infinite; }
+.titlescene .tl.glow.g2 { animation-duration: 4.3s; animation-delay: -1.2s; }
+.titlescene .tl.glow.g3 { animation-duration: 2.9s; animation-delay: -0.4s; }
+.titlescene .tl.glow.g4 { animation-duration: 5.1s; animation-delay: -2s; }
+.titlescene .tl.window { inset: auto; background: radial-gradient(ellipse, rgba(255, 190, 100, 0.28), transparent 70%); mix-blend-mode: screen; animation: tm-window 9s ease-in-out infinite; }
+.titlescene .tl.window.w2 { animation-delay: -4s; }
+.titlescene .tl.water { inset: auto; mix-blend-mode: screen; opacity: 0.6;
+  background: repeating-linear-gradient(0deg, transparent 0 0.25em, rgba(255, 214, 150, 0.09) 0.25em 0.375em, transparent 0.375em 0.75em);
+  -webkit-mask-image: radial-gradient(ellipse at 40% 50%, #000 30%, transparent 70%); mask-image: radial-gradient(ellipse at 40% 50%, #000 30%, transparent 70%);
+  animation: tm-water 3s steps(6) infinite; }
+@keyframes tm-flicker { 0%, 100% { opacity: 0.85; } 12% { opacity: 1; } 20% { opacity: 0.78; } 23% { opacity: 0.95; } 55% { opacity: 0.88; } 70% { opacity: 1; } }
+@keyframes tm-window { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } 52% { opacity: 0.55; } 56% { opacity: 0.95; } }
+@keyframes tm-water { from { background-position: 0 0; } to { background-position: 0 0.75em; } }
+.tm-motes { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.tm-mote { position: absolute; bottom: -1%; width: 0.125em; height: 0.125em; background: #6fe0d0; box-shadow: 0 0 0.35em #6fe0d0; opacity: 0; animation: tm-mote linear infinite; }
+.tm-mote.amber { background: #f0c070; box-shadow: 0 0 0.35em #f0a040; }
+@keyframes tm-mote { 0% { transform: translate(0, 0); opacity: 0; } 12% { opacity: 0.75; } 50% { transform: translate(1.2em, -16em); } 85% { opacity: 0.45; } 100% { transform: translate(-0.6em, -34em); opacity: 0; } }
+
+.tm-left { position: absolute; left: 0; top: 0; bottom: 0; width: 25em; padding: 2em 1.4em 2.6em 2.6em; display: flex; flex-direction: column;
+  background: linear-gradient(90deg, rgba(6, 6, 12, 0.9) 0%, rgba(6, 6, 12, 0.72) 62%, rgba(6, 6, 12, 0) 100%); }
+.tm-left:not(.tm-view-main) { width: 31em; }
+.tm-logo { position: relative; margin-bottom: 1.2em; }
+.tm-kicker { display: block; font-size: 0.75em; letter-spacing: 0.32em; text-transform: uppercase; color: var(--brass); margin-left: 0.15em; }
+.panel h1.tm-title { position: relative; display: inline-block; white-space: nowrap; padding-right: 0.08em; margin: 0.05em 0 0; font-size: 3.5em; line-height: 1; letter-spacing: 0.04em; font-weight: 700; color: #f2d488;
+  background: linear-gradient(180deg, #fbe7a8 0%, #eac072 48%, #b4772f 52%, #d79a4c 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0.0625em 0 #3a2410) drop-shadow(0 0.0625em 0 #120a06) drop-shadow(0 0 0.35em rgba(240, 180, 90, 0.35)); }
+.panel h1.tm-title::after { content: attr(data-text); position: absolute; left: 0.04em; top: 0; background: none; -webkit-text-fill-color: #6fe0d0; color: #6fe0d0; opacity: 0; animation: tm-ghost 9s steps(1) infinite; pointer-events: none; }
+@keyframes tm-ghost { 0%, 100% { opacity: 0; transform: none; } 91% { opacity: 0.35; transform: translateX(0.06em); } 92% { opacity: 0; } 93% { opacity: 0.25; transform: translateX(-0.05em); } 94% { opacity: 0; } }
+.tm-left:not(.tm-view-main) h1.tm-title { font-size: 2.8em; }
+.tm-left:not(.tm-view-main) .tm-logo { margin-bottom: 0.5em; }
+.tm-orn { display: block; width: 16em; height: 2em; margin-top: 0.2em; background: url(./sprites/ui/abspann_trenner.png) 0 0 / 600% 100%; image-rendering: pixelated; opacity: 0.9; }
+.tm-left:not(.tm-view-main) .tm-orn { display: none; }
+.tm-body { flex: 1; min-height: 0; display: flex; flex-direction: column; animation: tm-view 0.35s ease-out; }
+@keyframes tm-view { from { opacity: 0; transform: translateX(-0.6em); } to { opacity: 1; transform: none; } }
+.tm-menu { display: flex; flex-direction: column; gap: 0.1em; }
+.tm-menu.tm-row { margin-top: auto; }
+.panel.titlemenu .tm-item { position: relative; display: block; width: 100%; text-align: left; background: none; border: 0; padding: 0.22em 0 0.22em 1.5em; font-size: 1.3em; color: var(--ink); opacity: 0.78;
+  transition: transform 0.18s ease-out, color 0.18s, opacity 0.18s; }
+.panel.titlemenu .tm-item:hover:not(:disabled) { background: none; border: 0; }
+.panel.titlemenu .tm-item.sel { opacity: 1; color: var(--gold); transform: translateX(0.35em); text-shadow: 0 0 0.45em rgba(240, 170, 70, 0.5); }
+.panel.titlemenu .tm-item.tm-primary:not(.sel) { opacity: 0.92; }
+.tm-flame { position: absolute; left: 0.35em; top: 0.62em; width: 0.4em; height: 0.4em; background: #ffcf70; transform: rotate(45deg) scale(0); box-shadow: 0 0 0.4em 0.1em rgba(255, 170, 60, 0.75); transition: transform 0.18s; }
+.tm-item.sel .tm-flame { transform: rotate(45deg) scale(1); animation: tm-flame 1.1s ease-in-out infinite; }
+@keyframes tm-flame { 0%, 100% { box-shadow: 0 0 0.4em 0.1em rgba(255, 170, 60, 0.75); } 40% { box-shadow: 0 0 0.6em 0.2em rgba(255, 190, 80, 0.9); } 70% { box-shadow: 0 0 0.3em 0.05em rgba(255, 150, 50, 0.6); } }
+.tm-sub { display: block; font-size: 0.55em; color: var(--muted); margin-top: 0.1em; letter-spacing: 0.02em; text-shadow: none; }
+.tm-item.sel .tm-sub { color: #c8b892; }
+.tm-head { font-size: 1.3em; color: var(--gold); margin: 0.1em 0 0.5em; padding-bottom: 0.25em; border-bottom: 0.0625em solid rgba(176, 138, 82, 0.45); }
+.panel .tm-head { font-size: 1.3em; }
+.tm-text { font-size: 0.85em; line-height: 1.4; margin: 0 0 0.7em; color: #d4cab4; }
+.tm-small { font-size: 0.7em; margin-top: 0.8em; }
+.tm-notice { font-size: 0.8em; color: #f0b070; margin: 0 0 0.5em; }
+
+.tm-slots { display: flex; flex-direction: column; gap: 0.35em; overflow: auto; }
+.tm-slot { display: flex; gap: 0.7em; align-items: center; padding: 0.35em 0.5em; background: rgba(22, 20, 30, 0.85); border: 0.125em solid rgba(176, 138, 82, 0.55); }
+.skin-ui_spielstand_rahmen_png .tm-slot { border: 0.75em solid transparent; border-image: var(--save-frame) 8 fill / 0.75em; background: none; padding: 0; image-rendering: pixelated; }
+.tm-slot.active { filter: drop-shadow(0 0 0.3em rgba(240, 180, 90, 0.45)); }
+.tm-slotpic { flex: none; width: 6em; height: 3.375em; image-rendering: pixelated; box-shadow: 0 0 0 0.0625em #000; }
+.tm-slotpic.tm-empty { background: repeating-linear-gradient(135deg, #1d1b26 0 0.25em, #23202d 0.25em 0.5em); }
+.tm-slotmain { flex: 1; min-width: 0; }
+.tm-slotname { display: flex; align-items: center; gap: 0.3em; color: var(--gold); font-size: 0.95em; }
+.tm-slotinfo { font-size: 0.7em; color: #cbbfa6; margin: 0.1em 0 0.25em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tm-mark { display: inline-block; width: 1.25em; height: 1.25em; background: url(./sprites/ui/spielstand_marken.png) 0 0 / 1200% 100%; image-rendering: pixelated; }
+.tm-slotbtns { display: flex; gap: 0.3em; }
+.panel.titlemenu .tm-item.tm-btn { width: auto; display: inline-block; font-size: 0.75em; padding: 0.1em 0.6em; border: 0.125em solid rgba(176, 138, 82, 0.45); background: rgba(10, 9, 14, 0.6); opacity: 0.85; }
+.panel.titlemenu .tm-item.tm-btn.sel { transform: none; border-color: var(--gold); background: rgba(232, 192, 112, 0.14); }
+.panel.titlemenu .tm-item.tm-btn[data-armed] { border-color: #e07050; color: #f0a080; }
+.tm-empty .tm-slotname, .tm-slot.empty .tm-slotname { color: var(--muted); }
+
+.panel.titlemenu .tm-item.tm-slider { display: grid; grid-template-columns: 6.2em 1fr 2.6em; align-items: center; gap: 0.5em; }
+.tm-rail { position: relative; height: 0.75em; background-color: #17151e; box-shadow: inset 0 0 0 0.09em #5a4830; }
+.skin-ui_AE_regler_png .tm-rail { background: var(--regler-rail) 0 0 / 100% 100%; box-shadow: none; image-rendering: pixelated; }
+.tm-fill { position: absolute; left: 0; top: 0; bottom: 0; background: linear-gradient(#f5c66e, #b97a2e); transition: width 0.15s; }
+.skin-ui_AE_regler_png .tm-fill { background: var(--regler-fill) 0 0 / 12em 100%; image-rendering: pixelated; }
+.tm-knob { position: absolute; top: 50%; width: 0.9em; height: 0.9em; transform: translate(-50%, -50%); background: #e8c070; border-radius: 50%; transition: left 0.15s; }
+.skin-ui_AE_regler_png .tm-knob { width: 1em; height: 1em; border-radius: 0; background: var(--regler-knob) 0 0 / 100% 100%; image-rendering: pixelated; }
+.tm-pct { font-size: 0.6em; color: var(--muted); text-align: right; }
+
+.tm-credits { position: absolute; inset: 0; z-index: 3; background: url(./sprites/ui/abspann_rahmen.png) 0 0 / 100% 100%, radial-gradient(ellipse, rgba(10, 10, 18, 0.95), rgba(4, 4, 8, 0.99)); image-rendering: pixelated; cursor: pointer; animation: tm-fadein 0.6s ease-out; }
+.tm-credits-win { position: absolute; left: 14%; right: 14%; top: 13%; bottom: 14%; overflow: hidden;
+  -webkit-mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent); mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent); }
+.tm-credits-roll { text-align: center; animation: tm-roll 34s linear infinite; image-rendering: auto; }
+.tm-credits-roll h2 { margin: 0 0 0.6em; font-size: 2.4em; color: var(--gold); }
+.tm-credits-roll h4 { margin: 0.2em 0 0.3em; color: var(--brass); font-size: 0.8em; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 400; }
+.tm-credits-roll div { font-size: 1.1em; margin: 0.15em 0; }
+.tm-trenner { display: block; width: 16em; height: 2em; margin: 1.2em auto 0.6em; background: url(./sprites/ui/abspann_trenner.png) 0 0 / 600% 100%; image-rendering: pixelated; }
+.tm-credits-hint { position: absolute; left: 0; right: 0; bottom: 3.2em; text-align: center; font-size: 0.65em; color: var(--muted); }
+@keyframes tm-roll { from { transform: translateY(21em); } to { transform: translateY(-100%); } }
+@keyframes tm-fadein { from { opacity: 0; } to { opacity: 1; } }
+
+.tm-foot { position: absolute; left: 2.6em; right: 1em; bottom: 0.7em; z-index: 4; display: flex; justify-content: space-between; align-items: center; gap: 1em; font-size: 0.65em; color: var(--muted); pointer-events: none; }
+.tm-foot .key { font-size: 0.9em; }
+.tm-stamp { opacity: 0.55; font-size: 0.85em; }
+.panel.titlemenu .savecard { top: 1.2em; right: 1.2em; }
+
+/* Ein- und Ausblenden */
+.tm-intro .titlescene { animation: tm-fadein 1.8s ease-out; }
+.tm-intro .tm-logo { animation: tm-logo 1.6s ease-out both; }
+.tm-intro .tm-item { animation: tm-item 0.55s ease-out both; }
+.tm-intro .tm-item:nth-child(1) { animation-delay: 0.7s; } .tm-intro .tm-item:nth-child(2) { animation-delay: 0.78s; }
+.tm-intro .tm-item:nth-child(3) { animation-delay: 0.86s; } .tm-intro .tm-item:nth-child(4) { animation-delay: 0.94s; }
+.tm-intro .tm-item:nth-child(5) { animation-delay: 1.02s; } .tm-intro .tm-item:nth-child(6) { animation-delay: 1.1s; }
+.tm-intro .tm-item:nth-child(7) { animation-delay: 1.18s; }
+.tm-intro .tm-body { animation: none; }
+@keyframes tm-logo { from { opacity: 0; transform: translateY(-0.4em); letter-spacing: 0.2em; } to { opacity: 1; transform: none; } }
+@keyframes tm-item { from { opacity: 0; transform: translateX(-1em); } }
+.layer.tm-out { background: #040408 !important; }
+.layer.tm-out > * { opacity: 0; transition: opacity 0.5s ease-in; }
+.tm-curtain { position: absolute; inset: 0; z-index: 60; background: #040408; pointer-events: none; animation: tm-curtain 0.9s ease-out forwards; }
+@keyframes tm-curtain { from { opacity: 1; } to { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .tm-mote, .titlescene .tl.glow, .titlescene .tl.water, .titlescene .tl.window, .panel h1.tm-title::after { animation: none; }
+  .tm-credits-roll { animation: none; }
+  .tm-credits-win { overflow: auto; }
+}
+
+/* Pausemenü im Stil des Hauptmenüs */
+.layer.pm-layer { background: linear-gradient(90deg, rgba(4, 4, 8, 0.55), rgba(4, 4, 8, 0.25)); -webkit-backdrop-filter: blur(0.15em) saturate(0.7); backdrop-filter: blur(0.15em) saturate(0.7); }
+.layer.pm-layer .titlescene { display: none; }
+.pm-left { width: 24em; }
+.pm-left.tm-view-sub { width: 30em; }
+.pm-left .tm-logo { margin-bottom: 0.9em; }
+.panel.pausemenu2 h1.tm-title { font-size: 3em; }
+.pm-side { position: absolute; right: 1.6em; top: 2.2em; width: 28em; max-height: calc(100% - 5em); overflow: auto; padding: 0.9em 1em; background: rgba(12, 11, 18, 0.88); border: 0.125em solid rgba(176, 138, 82, 0.6); box-shadow: 0 0 0 0.125em #000, 0 0.5em 1.5em rgba(0, 0, 0, 0.6); animation: tm-view 0.35s ease-out; }
+.skin-ui_spielstand_rahmen_png .pm-side { border: 0.75em solid transparent; border-image: var(--save-frame) 8 fill / 0.75em; background: none; box-shadow: none; padding: 0.3em 0.4em; image-rendering: pixelated; }
+.pm-side.wide { width: 31em; }
+.pm-feedback { margin-bottom: 0.7em; color: var(--ink); line-height: 1.4; }
+.pm-feedback .scene { max-width: 100%; }
+.pm-lead { font-size: 0.85em; color: #cbbfa6; line-height: 1.4; margin: 0; }
+.pm-controls { font-size: 0.8em; }
+.pm-side .p2looks { margin: 0 0 0.6em; }
+.panel.titlemenu .p2lookbtns .tm-item.tm-btn { display: flex; font-size: 0.8em; }
+.pm-intro .tm-left { animation: pm-in 0.35s ease-out; }
+.pm-intro .pm-side { animation: tm-fadein 0.45s ease-out; }
+.layer.pm-intro { animation: tm-fadein 0.3s ease-out; }
+@keyframes pm-in { from { opacity: 0; transform: translateX(-1.2em); } to { opacity: 1; transform: none; } }
+.pm-side .p2looks { flex-direction: column; align-items: stretch; }
+.pm-side .p2looks .p2wahl { width: 100%; height: auto; }
+.pm-side .p2lookbtns { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4em; }
+.pm-side .p2lookbtns small { display: none; }

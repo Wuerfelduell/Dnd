@@ -38,6 +38,7 @@ import { RIVALE_REGELN, rivaleName } from '../data/rivale.js';
 import { PVG_UI } from '../data/pfadviertelGeschichte.js';
 import { hatNarbe, NARBE } from '../core/Narbe.js';
 import { p2View } from '../core/Split.js';
+import { showTitleMenu, showPauseMenu, titleKey } from './TitleMenu.js';
 import { aufstiegHinweise, wichtigeOrte, wegbeschreibung, zielName } from '../data/aufstiegHinweise.js';
 
 /** Spielstand für Icons, die vom Spieler abhängen (Relikt des Verfalls: Bild nach seiner stärksten Eigenschaft, Codex DP). */
@@ -339,9 +340,11 @@ const CROPS = {
   'equip-slot': ['equip', [112, 0, 20, 20]], 'equip-filled': ['equip', [112, 32, 20, 20]],
   // Paket AE: Zeitungsseite (9-Slice, 16px-Ränder) und Kopfleisten der beiden Blätter
   'paper-page': ['aezeitung', [0, 0, 48, 48]], 'paper-kopf-kurier': ['aezeitung', [0, 48, 160, 24]], 'paper-kopf-bote': ['aezeitung', [160, 48, 160, 24]],
+  // Hauptmenü: Spielstand-Rahmen (DM, 9-Slice) und Schieberegler (AE: Schiene, Füllung, Knopf)
+  'save-frame': ['spielrahmen', [0, 0, 48, 48]], 'regler-rail': ['regler', [0, 0, 48, 16]], 'regler-fill': ['regler', [48, 0, 48, 16]], 'regler-knob': ['regler', [96, 0, 16, 16]],
 };
 function cropSkins(root) {
-  const sheets = { ...Object.fromEntries(Object.entries(UI_SHEETS).map(([k, [p]]) => [k, p])), logstrips: 'ui/C_07_log_strips.png' };
+  const sheets = { ...Object.fromEntries(Object.entries(UI_SHEETS).map(([k, [p]]) => [k, p])), logstrips: 'ui/C_07_log_strips.png', spielrahmen: 'ui/spielstand_rahmen.png', regler: 'ui/AE_regler.png' };
   const byFile = {};
   for (const [name, [sheet, r]] of Object.entries(CROPS)) (byFile[sheets[sheet]] ??= []).push([name, r]);
   for (const [path, list] of Object.entries(byFile)) {
@@ -1151,7 +1154,7 @@ export class Ui {
     if (this.modal !== kind) { this.sfx(this.nextOpenSound ?? uiSound(kind)); }
     this.nextOpenSound = null;
     this.modal = kind;
-    this.layer.classList.remove('has-titlescene');
+    this.layer.classList.remove('has-titlescene', 'tm-layer', 'pm-layer');
     this.layer.onpointermove = null;
     this.layer.innerHTML = `<div class="panel ${cls}">${html}</div>`;
     this.setPrompt(null);
@@ -1201,7 +1204,7 @@ export class Ui {
     this.modal = null;
     const by = this.actor; // Splitscreen: Reise oder Kampf danach in der Hälfte dessen, der das Fenster bedient hat
     this.actor = 1;
-    this.layer.classList.remove('has-titlescene');
+    this.layer.classList.remove('has-titlescene', 'tm-layer', 'pm-layer');
     this.layer.onpointermove = null;
     this.layer.innerHTML = '';
     this.blockedUntil = performance.now() + 150;
@@ -1241,102 +1244,37 @@ export class Ui {
     }
   }
 
-  showTitle() {
-    const c = this.state.content;
-    // Drei lokale Speicherplätze; der zuletzt benutzte bestimmt Titelbild und Spielstand-Karte
-    const slots = this.slots();
-    const active = this.activeSlot();
-    const saved = slots.find((x) => x.n === active)?.save ?? null;
-    const save = !!saved;
-    const city = saved?.map ? (c.maps[saved.map]?.city ?? 'kettlegate') : null;
-    const card = city && spielstandUrl(city) ? `<div class="savecard"><img src="${spielstandUrl(city)}" alt="" onerror="this.parentNode.remove()"><span>${esc(c.maps[saved.map]?.name ?? '')}</span></div>` : '';
-    const el = this.open('title', `
-      <h1>${esc(c.title)}</h1>
-      <h2>Ein Mystery in Kettlegate</h2>
-      <div class="build-stamp" style="font-size:9px;opacity:.55">Stand ${esc(typeof __BUILD__ !== 'undefined' ? __BUILD__ : 'dev')}</div>
-      <div class="saveslots">${slots.map(({ n, save: d }) => this.slotRow(n, d, n === active)).join('')}</div>
-      <div class="controls touch-only">
-        <div>Tippen: laufen, sprechen, untersuchen</div>
-        <div>Knöpfe oben rechts: Notizbuch, Menü und mehr</div>
-      </div>
-      <div class="controls no-touch">
-        <div><span class="key">WASD</span> laufen · <span class="key">E</span> sprechen · <span class="key">Q</span> Geistsicht</div>
-        <div><span class="key">J</span> Notizbuch · <span class="key">1</span>–<span class="key">9</span> Fähigkeiten · <span class="key">Esc</span> Menü</div>
-      </div>
-      ${card}
-      <div class="actions center">
-        <button data-act="fullscreen">${this.fullscreenLabel()}</button>
-        ${this.langButton()}
-      </div>`, 'title');
-    this.titleScene(dmTitleLayers(city, { warm: /__warm$/.test(saved?.map ?? '') }) ?? TITLE_LAYERS);
-    el.querySelector('[data-act=fullscreen]').onclick = () => this.toggleFullscreen();
-    this.bindLang(el);
-    // E: zuletzt benutzten Platz fortsetzen (leer: dort neu beginnen) · N: neues Spiel im ersten freien Platz
-    this.titleContinue = save ? () => { this.close(); this.onContinue(active); } : null;
-    const free = slots.find((x) => !x.save)?.n ?? null;
-    this.titleNew = (n = save ? free : active) => {
-      if (n == null) return; // alle Plätze belegt: erst einen löschen oder per Knopf überschreiben
-      this.testArmed = true;
-      this.close();
-      this.onNewGame(n);
-      this.showMessage(c.start.intro_title, c.start.intro, { scene: 'kapitel1_karte', footer: this.touch ? 'Tipp: Im Notizbuch (Knopf oben rechts) siehst du deine Aufträge.' : 'Tipp: Im Notizbuch (J) siehst du deine Aufträge.' });
-    };
-    // Überschreiben und Löschen brauchen einen zweiten Klick
-    const armed = (btn, run) => () => {
-      if (btn.dataset.armed) return run();
-      el.querySelectorAll('[data-armed]').forEach((b) => { delete b.dataset.armed; b.textContent = b.dataset.label; });
-      btn.dataset.armed = '1';
-      btn.textContent = 'Sicher? Nochmal klicken';
-    };
-    el.querySelectorAll('.saveslot').forEach((row) => {
-      const n = Number(row.dataset.slot);
-      const has = !!slots.find((x) => x.n === n)?.save;
-      row.querySelector('[data-act=load]')?.addEventListener('click', () => { this.close(); this.onContinue(n); });
-      const nb = row.querySelector('[data-act=new]');
-      nb.onclick = has ? armed(nb, () => this.titleNew(n)) : () => this.titleNew(n);
-      const db = row.querySelector('[data-act=delete]');
-      if (db) db.onclick = armed(db, () => { this.onDeleteSlot(n); this.showTitle(); });
-    });
-  }
-
-  /** Eine Zeile im Titelmenü: Platz n mit Ort, Sequenz und Spielzeit, dazu Laden / Neu / Löschen. */
-  slotRow(n, d, active) {
-    const c = this.state.content;
-    let info = '<span class="slotinfo muted">leer</span>';
-    if (d) {
-      const ort = c.maps[d.map]?.name ?? '';
-      const pfad = d.pathway?.id ? `<span>${esc(c.pathways?.[d.pathway.id]?.name ?? '')}</span> <span>Seq ${d.pathway.seq}</span>` : '';
-      const min = Math.floor((d.playTime ?? 0) / 60);
-      const zeit = `<span>${Math.floor(min / 60)} Std ${min % 60} Min</span>`;
-      info = `<span class="slotinfo">${ort ? `<span>${esc(ort)}</span> · ` : ''}${pfad ? `${pfad} · ` : ''}${zeit}</span>`;
-    }
-    const btn = (act, label, cls = '') => `<button class="${cls}" data-act="${act}" data-label="${label}">${label}</button>`;
-    return `<div class="saveslot${active ? ' active' : ''}" data-slot="${n}">
-      <span class="slotname">Platz ${n}</span>${info}
-      <span class="slotbtns">${d ? btn('load', 'Laden', active ? 'primary' : '') : ''}${btn('new', 'Neu', d ? '' : (active ? 'primary' : ''))}${d ? btn('delete', 'Löschen') : ''}</span>
-    </div>`;
-  }
+  /** Hauptmenü (src/ui/TitleMenu.js): Kulisse, Schriftzug, Menü mit Spielständen, Koop, Optionen, Mitwirkenden. */
+  showTitle(view = 'main', opts = {}) { showTitleMenu(this, view, opts); }
 
   /**
    * Paket AE: Titelbild in Ebenen hinter dem Titelfenster. Mond, Fenster, Laterne und Regen laufen als Streifen,
    * der Nebel zieht langsam, und die Häuser verschieben sich leicht mit der Maus (Parallax).
    */
-  titleScene(layers = TITLE_LAYERS) {
+  titleScene(layers = TITLE_LAYERS, { extra = '' } = {}) {
     const box = (l) => (l.box ? `left:${(l.box[0] / 480) * 100}%;top:${(l.box[1] / 270) * 100}%;width:${(l.box[2] / 480) * 100}%;height:${(l.box[3] / 270) * 100}%;right:auto;bottom:auto` : '');
-    const layer = (l) => `<div class="tl${l.depth ? ` d${l.depth}` : ''}" style="${box(l)}">${l.drift
-      ? `<div class="drift" style="animation-duration:${l.drift}s"><img src="${l.url}" alt=""><img src="${l.url}" alt=""></div>`
-      : `<img src="${l.url}" alt="" class="${l.frames ? `f${l.frames}` : ''}" style="${l.frames ? `width:${l.frames * 100}%;animation-duration:${l.sec}s` : ''}">`}</div>`;
+    const layer = (l) => `<div class="tl${l.depth ? ` d${l.depth}` : ''}${l.cls ? ` ${l.cls}` : ''}" style="${box(l)}">${l.drift
+      ? `<div class="drift${l.reverse ? ' rev' : ''}" style="animation-duration:${l.drift}s"><img src="${l.url}" alt=""><img src="${l.url}" alt=""></div>`
+      : l.url ? `<img src="${l.url}" alt="" class="${l.frames ? `f${l.frames}` : ''}" style="${l.frames ? `width:${l.frames * 100}%;animation-duration:${l.sec}s` : ''}">` : ''}</div>`;
     const scene = document.createElement('div');
     scene.className = 'titlescene';
-    scene.innerHTML = layers.map(layer).join('');
+    scene.innerHTML = layers.map(layer).join('') + extra;
     // Fehlt eine Ebene, bleibt das alte Titelbild sichtbar
-    scene.querySelector('img')?.addEventListener('load', () => this.layer.classList.add('has-titlescene'), { once: true });
+    scene.querySelector('img')?.addEventListener('load', () => { if (scene.parentNode === this.layer) this.layer.classList.add('has-titlescene'); scene.dataset.ok = '1'; }, { once: true });
+    this.attachTitleScene(scene);
+    return scene;
+  }
+
+  /** Kulisse (wieder) hinter das offene Fenster legen; die Häuser verschieben sich leicht mit der Maus (Parallax). */
+  attachTitleScene(scene) {
     this.layer.prepend(scene);
+    if (scene.dataset.ok) this.layer.classList.add('has-titlescene');
     this.layer.onpointermove = (e) => {
       const r = this.layer.getBoundingClientRect();
       scene.style.setProperty('--px', ((e.clientX - r.left) / r.width - 0.5).toFixed(3));
     };
   }
+
 
   /** Codex DM: Ladebild der Zielstadt beim Stadtwechsel (kurz über dem Abblenden). */
   showLoading(city) {
@@ -3490,48 +3428,12 @@ export class Ui {
 
   // --- Pausemenü und Spieler 2 ---------------------------------------------------
 
-  openPause(feedback = '') {
-    const s = this.state;
-    const on = s.hasP2();
-    const label = on ? 'Spieler 2 entfernen' : s.p2 ? 'Spieler 2 wieder hinzufügen' : 'Spieler 2 hinzufügen';
-    const pad = typeof navigator !== 'undefined' && [...(navigator.getGamepads?.() ?? [])].some(Boolean);
-    const el = this.open('pause', `
-      <h3>Pause</h3>
-      <div class="pausemenu">
-        <button class="primary" data-act="resume">${setIcon('weiter')}<span class="key">Esc</span> Weiter</button>
-        <button data-act="p2">${uiSprite('ahkoop', on ? 'verlassen' : 'beitreten', 1 / 12, 'aeicon')}<span class="key">2</span> ${label}</button>
-        <button data-act="fullscreen">${setIcon(this.isFullscreen() ? 'fenster' : 'vollbild')}${this.fullscreenLabel()}</button>
-        <button data-act="sound">${setIcon((this.audio?.master ?? 0) <= 0 ? 'stumm' : 'lautstaerke')}${this.soundLabel()}</button>
-        ${this.langButton()}
-        ${testPauseButton(this)}
-      </div>
-      <div class="feedback">${feedback}</div>
-      ${on ? this.p2LookPicker() : ''}
-      <p class="lead">${on ? 'Ihr spielt zu zweit an diesem Rechner. Die Kamera hält euch beide im Bild, jeder hat sein eigenes Inventar. Geld, Ansehen und Fälle teilt ihr.' : 'Zu zweit an einem Rechner: Spieler 2 läuft als Begleiter mit über denselben Bildschirm, mit eigenem Leben und eigenem Inventar.'}</p>
-      <div class="controls2">
-        <div><h4>Spieler 1 · Ermittler</h4>
-          <div><span class="key">WASD</span> laufen${on ? '' : ' (allein auch <span class="key">Pfeile</span>)'}</div>
-          <div><span class="key">E</span> untersuchen / sprechen</div>
-          <div><span class="key">Q</span> Geistsicht · <span class="key">J</span> Notizbuch · <span class="key">I</span> Inventar</div>
-          <div><span class="key">1</span>–<span class="key">9</span> Welt-Fähigkeiten</div>
-          <div>Kampf: <span class="key">E</span> Takt · <span class="key">Leertaste</span> ausweichen · <span class="key">F</span> parieren</div>
-        </div>
-        <div><h4>Spieler 2 · Begleiter</h4>
-          <div><span class="key">Pfeile</span> laufen</div>
-          <div><span class="key">Enter</span> untersuchen / sprechen / aufheben</div>
-          <div><span class="key">I</span> dann <span class="key">G</span> eigenes Inventar</div>
-          <div>Ziffernblock <span class="key">1</span>–<span class="key">9</span> Welt-Fähigkeiten</div>
-          <div>Kampf: <span class="key">Enter</span> Takt · <span class="key">←</span> ausweichen · <span class="key">→</span> parieren</div>
-          <div class="muted">Gamepad${pad ? ' (erkannt)' : ''}: Stick laufen · A Aktion/Takt · X ausweichen · B parieren · Y Inventar · LB/RB Fähigkeit wählen, X einsetzen</div>
-        </div>
-      </div>`, 'pause');
-    el.querySelector('[data-act=resume]').onclick = () => this.close();
+  /** Pausemenü (Esc), gebaut in src/ui/TitleMenu.js im Stil des Hauptmenüs. */
+  openPause(feedback = '', opts = {}) {
+    if (this.modal !== 'pause') this.pauseFresh = true;
+    const el = showPauseMenu(this, feedback, opts);
     bindTestPause(this, el);
-    el.querySelector('[data-act=p2]').onclick = () => this.togglePlayer2();
-    el.querySelectorAll('[data-look]').forEach((b) => { b.onclick = () => { this.state.setP2Look(b.dataset.look); this.openPause(`Spieler 2 spielt jetzt mit ${P2_LOOKS[b.dataset.look].name}.`); }; });
-    el.querySelector('[data-act=fullscreen]').onclick = () => this.toggleFullscreen();
-    el.querySelector('[data-act=sound]').onclick = (e) => { this.cycleSound(); e.currentTarget.textContent = this.soundLabel(); };
-    this.bindLang(el);
+    return el;
   }
 
   /** Sprachwahl Deutsch / Englisch (Knopf selbst wird nicht übersetzt). */
@@ -3912,10 +3814,9 @@ export class Ui {
     const confirm = k === 'e' || k === ' ' || k === 'enter';
     const num = /^[1-9]$/.test(k) ? Number(k) - 1 : -1;
     let handled = true;
-    if (this.modal === 'title' && confirm) (this.titleContinue ?? this.titleNew)();
-    else if (this.modal === 'title' && k === 'n') this.titleNew();
+    if (this.modal === 'title') handled = titleKey(this, k);
     else if ((this.modal === 'message' || this.modal === 'ending') && (confirm || k === 'escape')) this.close();
-    else if (this.modal === 'pause' && (k === 'escape' || confirm)) this.close();
+    else if (this.modal === 'pause' && k !== '2') handled = titleKey(this, k);
     else if (this.modal === 'testreise' && k === 'escape') closeTestReise(this);
     else if (this.modal === 'pause' && k === '2') this.togglePlayer2();
     else if (this.modal === 'dialogue' && num >= 0) this.choose(this.dialogue.keyMap[num]);
