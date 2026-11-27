@@ -65,7 +65,7 @@ const ui = new Ui(uiRoot, state, {
   slots: () => SLOTS.map((n) => ({ n, save: validSave(n) })),
   activeSlot: () => slot,
   onDeleteSlot: (n) => clearSave(n),
-  onNewGame: (n = slot) => {
+  onNewGame: (n = slot, { koop = false } = {}) => {
     setSlot(n);
     clearSave();
     state.reset();
@@ -102,15 +102,17 @@ const ui = new Ui(uiRoot, state, {
       if (new URLSearchParams(location.search).has('flut')) state.playTime = 370; // &flut → gleich bei Flut (Gezeit wechselt alle 360 s)
       if (vm === 'wrack') { state.applyEffects({ sets_flags: ['k6_anreise_wahl', 'k6_arrived', 'k6_tam_weg', 'k6_akt1_done'], start_quests: ['k6_akt1', 'k6_akt2'] }); state.map = 'vm_wrackfeld'; }
     }
+    if (koop && !state.hasP2()) state.addP2(); // Hauptmenü „Zu zweit spielen“
     // Schnellstarts überspringen das Pflicht-Kampftraining mit Holt; ?training=aus überspringt es auch beim normalen Start
     if (probe || hoch || auf || vm || ['aus', '0', 'nein', 'off'].includes(new URLSearchParams(location.search).get('training'))) skipTraining(state);
     started = true;
     restartWorld();
     saveSoon();
   },
-  onContinue: (n = slot) => {
+  onContinue: (n = slot, { koop = false } = {}) => {
     setSlot(n);
     if (!state.load(readSave())) state.reset();
+    if (koop && !state.hasP2()) state.addP2();
     started = true;
     restartWorld();
   },
@@ -137,6 +139,7 @@ setInterval(() => {
     ritual: ritualMusic(state, combat?.encounterId ?? null), // DS: Laternennacht, Traum, Schattenseite
     spuren: siege ? laternenFaktoren(siege.lit().length, siege.lanterns.length) : null,
     title: !started,
+    titleTrack: ui.titleMusic ?? null, // Hauptmenü: ab Varrowmouth die Titelfassung mit dem Pegel-Puls
     combat: combat?.combat ? { id: combat.encounterId, enc: combat.combat.enc } : null,
     vision: state.spiritVision,
     map: state.map,

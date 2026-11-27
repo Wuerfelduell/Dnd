@@ -36,7 +36,7 @@ const variant = (entry, night) => (entry && typeof entry === 'object' ? entry[ni
  * auch vor dem gewöhnlichen Kampf (Schattenkämpfe); Kämpfe mit eigenem Stück (Wächter, Traumgeflecht) behalten ihres.
  */
 export function pickTrack(z, ctx) {
-  if (ctx.title) return z.ereignisse?.titel ?? 'titel';
+  if (ctx.title) return ctx.titleTrack ?? z.ereignisse?.titel ?? 'titel';
   if (ctx.stinger && (z.ereignisse?.[ctx.stinger] || ctx.stingerTrack)) return z.ereignisse?.[ctx.stinger] ?? ctx.stingerTrack; // auch ein Kartenstück (ds_ankunft) kann als Stinger dienen
   const night = isNightAt(ctx.playTime);
   if (ctx.combat) {
@@ -129,6 +129,7 @@ export class MusicDirector {
     this.synth.spurFaktor = ctx.spuren ?? null; // DS: Laternenmusik dünnt mit jeder erloschenen Laterne aus
     if (this.stinger && this.now() >= this.stinger.until) this.stinger = null;
     const id = pickTrack(this.synth.zuordnung, this.stinger ? { ...ctx, stinger: this.stinger.id, stingerTrack: this.stinger.track } : ctx);
+    if (id && !this.synth.tracks.has(id) && ctx.title) return this.update({ ...ctx, titleTrack: null }); // Titelfassung fehlt: normales Titelstück
     if (!id || id === this.current || !this.synth.tracks.has(id)) return;
     this.current = id;
     this.synth.spiele(id, { blende: 1.5 }).catch((e) => console.warn('Musik', id, e));

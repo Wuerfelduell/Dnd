@@ -510,14 +510,30 @@ export const TITLE_LAYERS = [
   { file: 'ebene_0_himmel' }, { file: 'ebene_1_mond', frames: 2, sec: 3.3 }, { file: 'ebene_2_ferne', depth: 1 },
   { file: 'ebene_3_nebel', drift: 70 }, { file: 'ebene_4_stadt', depth: 2 }, { file: 'ebene_4_fenster', frames: 4, sec: 10, depth: 2 },
   { file: 'ebene_5_vorne', depth: 3 }, { file: 'ebene_5_laterne', frames: 4, sec: 0.5, depth: 3, box: [64, 96, 16, 16] }, { file: 'ebene_6_regen', frames: 4, sec: 0.4 },
-].map((l) => ({ ...l, url: `${BASE}ui/AE_titel/${l.file}.png` }));
+].map((l) => ({ ...l, url: `${BASE}ui/AE_titel/${l.file}.png` })).concat([
+  // Hauptmenü: Lichthof um die Laterne und eine zweite, gegenläufige Nebelbank
+  { cls: 'glow', depth: 3, box: [44, 76, 56, 56] }, { url: `${BASE}ui/AE_titel/ebene_3_nebel.png`, drift: 110, reverse: true, cls: 'fog2' },
+]);
+/**
+ * Hauptmenü ohne Spielstand: der Kanal mit den Gaslaternen (Grundpaket 07_06). Die Laternen glimmen, zwei Nebelbänke
+ * ziehen gegeneinander, Regen aus AE fällt, und auf dem nassen Pflaster flimmern die Spiegelungen.
+ */
+export const CANAL_TITLE_LAYERS = [
+  { url: `${BASE}ui/07_06_title.png` },
+  { cls: 'glow', box: [45, 72, 56, 56] }, { cls: 'glow g2', box: [124, 142, 36, 36] }, { cls: 'glow g3', box: [159, 171, 24, 24] }, { cls: 'glow g4', box: [182, 190, 14, 14] },
+  { cls: 'window', box: [4, 8, 22, 70] }, { cls: 'window w2', box: [456, 112, 22, 44] },
+  { cls: 'water', box: [130, 232, 300, 38] },
+  { url: `${BASE}ui/AE_titel/ebene_3_nebel.png`, drift: 80 }, { url: `${BASE}ui/AE_titel/ebene_3_nebel.png`, drift: 120, reverse: true, cls: 'fog2' },
+  { url: `${BASE}ui/AE_titel/ebene_6_regen.png`, frames: 4, sec: 0.4 },
+];
 /** Codex DM: Titelbild je Kapitel (Himmel, Stadt, Nebel, Vordergrund) für die Stadt des Spielstands; Kettlegate behält AE. */
 export const DM_CITIES = ['kettlegate', 'wexmoor', 'dunscar', 'calderwick', 'briarholt', 'varrowmouth'];
 export const dmTitleLayers = (city, { warm = false } = {}) => {
   const k = DM_CITIES.indexOf(city) + 1;
-  if (k < 2 || k > 5) return null;
+  if (k < 2 || k > 6) return null;
   const f = (n) => `${BASE}ui/titel_k${k}_${n}.png`;
-  return [{ url: f('himmel') }, { url: f('stadt'), depth: 1 }, { url: f('nebel'), drift: 70 }, { url: f(warm && k === 5 ? 'vordergrund_warm' : 'vordergrund'), depth: 3 }];
+  return [{ url: f('himmel') }, { url: f('stadt'), depth: 1 }, { url: f('nebel'), drift: 70 }, { url: f(warm && k === 5 ? 'vordergrund_warm' : 'vordergrund'), depth: 3 },
+    { url: f('nebel'), drift: 115, reverse: true, cls: 'fog2' }];
 };
 /** Codex DM: Mini-Bild der Stadt für die Spielstand-Karte (96x54). */
 export const spielstandUrl = (city) => (DM_CITIES.includes(city) ? `${BASE}ui/spielstand_${city}.png` : null);
