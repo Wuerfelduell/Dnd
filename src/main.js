@@ -89,6 +89,15 @@ const ui = new Ui(uiRoot, state, {
         state.withPlayer(2, () => { state.updateMaxHp(); state.hp = state.maxHp; }, { quiet: true });
       }
     }
+    // Kapitel 7: ?varrowmouth=1 (&pfad=eisen) → Seq 2 nach dem Thron im Bügelraum (Anreise); ?varrowmouth=hafen → gleich am Zollhafen
+    const vm = new URLSearchParams(location.search).get('varrowmouth');
+    if (vm) {
+      state.hochProbeStart(new URLSearchParams(location.search).get('pfad') ?? 'eisen', 2);
+      state.applyEffects(STURZ_EFFECTS);
+      for (const f of ['kapitel4_done', 'k5_arrived', 'kapitel5_done', 'bha_end_wahl', 'kapitel6_done', 'k6_thron']) state.flags.add(f);
+      state.map = 'bh_buegelraum';
+      if (vm === 'hafen') { state.applyEffects({ sets_flags: ['k6_anreise_wahl', 'k6_arrived'], start_quests: ['k6_akt1'] }); state.map = 'vm_zollhafen'; }
+    }
     started = true;
     restartWorld();
     saveSoon();

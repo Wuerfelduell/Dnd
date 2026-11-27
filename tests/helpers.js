@@ -13,6 +13,7 @@ import { tierePack, TIERE_FILES } from '../src/data/tiere.js';
 import { fahrendeAuktionPack, FA2_FILES } from '../src/data/fahrendeAuktion.js';
 import { eigenesHausPack, HAUS_FILES } from '../src/data/eigenesHaus.js';
 import { nebelseitePack, NS_FILES } from '../src/data/nebelseite.js';
+import { varrowmouthPack, VM_FILES } from '../src/data/varrowmouth.js';
 
 const load = (p) => JSON.parse(readFileSync(new URL(`../src/data/${p}`, import.meta.url), 'utf8'));
 
@@ -83,6 +84,7 @@ export function loadContent({ sequenzen = true, without = [] } = {}) {
         dialog_zusaetze: load('packs/sekten/dialog_zusaetze.json'), platzierung: load('packs/sekten/platzierung.json'), zeitung: load('packs/sekten/zeitung.json'), gerede: load('packs/sekten/gerede.json'), geplauder: load('packs/sekten/geplauder.json'), sekten: load('packs/sekten/daten.json') }; })()]),
     // Codex-Runde 8: Vorrat, Kapitel 4 und 5, Feste-Leben (Zusammenstellung in src/data/runde8.js)
     ...(without.includes('runde8') ? [] : runde8Packs(Object.fromEntries(Object.entries(RUNDE8_FILES).map(([pack, files]) => [pack, Object.fromEntries(files.map((f) => [f, load(`packs/${pack}/${f}.json`)]))])))),
+    ...(without.includes('varrowmouth') ? [] : [varrowmouthPack(Object.fromEntries(Object.entries(VM_FILES).map(([pack, files]) => [pack, Object.fromEntries(files.map((f) => [f, load(`packs/${pack}/${f}.json`)]))])))]),
     ...(without.includes('seq4_dr') ? [] : [seq4DrPack(Object.fromEntries(SEQ4_DR_FILES.map((f) => [f, load(`packs/seq4_dr/${f}.json`)])))]),
     ...(without.includes('koop_beute') ? [] : [{ name: 'koop_beute', dialog_zusaetze: load('packs/koop_beute/dialog_zusaetze.json'), ansprueche: load('packs/koop_beute/ansprueche.json'), ersatz: load('packs/koop_beute/ersatz.json'), texte: load('packs/koop_beute/texte.json') }])],
     beziehungen: load('beziehungen.json'),

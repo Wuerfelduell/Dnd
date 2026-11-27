@@ -445,6 +445,20 @@ import r8_kg_leben_gerede from './packs/kg_leben/gerede.json';
 import r8_kg_leben_zeitung from './packs/kg_leben/zeitung.json';
 import r8_kg_leben_geplauder from './packs/kg_leben/geplauder.json';
 import r8_kg_leben_streifen from './packs/kg_leben/streifen.json';
+import { varrowmouthPack } from './varrowmouth.js';
+import vm_k6_orte_city from './packs/k6_orte/city.json';
+import vm_k6_orte_items from './packs/k6_orte/items.json';
+import vm_k6_orte_vm_karten from './packs/k6_orte/vm_karten.json';
+import vm_k6_akte_case from './packs/k6_akte/case.json';
+import vm_k6_akte_quests from './packs/k6_akte/quests.json';
+import vm_k6_akte_dialogues from './packs/k6_akte/dialogues.json';
+import vm_k6_akte_faelle from './packs/k6_akte/faelle.json';
+import vm_k6_akte_anreise from './packs/k6_akte/anreise.json';
+import vm_k6_akte_sprecher_bindung from './packs/k6_akte/sprecher_bindung.json';
+import vm_k6_akte_platzierung from './packs/k6_akte/platzierung.json';
+import vm_k6_figuren_npcs from './packs/k6_figuren/npcs.json';
+import vm_k6_figuren_dialogues from './packs/k6_figuren/dialogues.json';
+const varrowmouth = varrowmouthPack({ k6_orte: { city: vm_k6_orte_city, items: vm_k6_orte_items, vm_karten: vm_k6_orte_vm_karten }, k6_akte: { case: vm_k6_akte_case, quests: vm_k6_akte_quests, dialogues: vm_k6_akte_dialogues, faelle: vm_k6_akte_faelle, anreise: vm_k6_akte_anreise, sprecher_bindung: vm_k6_akte_sprecher_bindung, platzierung: vm_k6_akte_platzierung }, k6_figuren: { npcs: vm_k6_figuren_npcs, dialogues: vm_k6_figuren_dialogues } });
 const runde8 = runde8Packs({
   vorrat_gegner: { quests: r8_vorrat_gegner_quests, items: r8_vorrat_gegner_items, encounters: r8_vorrat_gegner_encounters, dialogues: r8_vorrat_gegner_dialogues, npcs: r8_vorrat_gegner_npcs, case: r8_vorrat_gegner_case, dialog_zusaetze: r8_vorrat_gegner_dialog_zusaetze, platzierung: r8_vorrat_gegner_platzierung, bosses: r8_vorrat_gegner_bosses, phasen: r8_vorrat_gegner_phasen, bestiarium: r8_vorrat_gegner_bestiarium, zonen_vorschlag: r8_vorrat_gegner_zonen_vorschlag },
   vorrat_figuren: { quests: r8_vorrat_figuren_quests, items: r8_vorrat_figuren_items, encounters: r8_vorrat_figuren_encounters, dialogues: r8_vorrat_figuren_dialogues, npcs: r8_vorrat_figuren_npcs, case: r8_vorrat_figuren_case, dialog_zusaetze: r8_vorrat_figuren_dialog_zusaetze, platzierung: r8_vorrat_figuren_platzierung },
@@ -556,7 +570,7 @@ export const content = buildContent({
   gatherings,
   city,
   wexmoor,
-  packs: [k1Finale, kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen, k3Handel, dunscarZirkelPack(), vorratStueckePack(), tierePack({ tiere: tr_tiere, beziehung: tr_beziehung, lesestuecke: tr_lese, zeitung: tr_zeitung }), nebelseitePack({ karten: ns_karten, stilles_wesen: ns_still, wesen: ns_wesen, uebergaenge: ns_ueb, gerede: ns_gerede, lesestuecke: ns_lese, zeitung: ns_zeitung }), eigenesHausPack({ haus: dg_haus, gaeste: dg_gaeste, gedanken: dg_gedanken, gerede: dg_gerede, zeitung: dg_zeitung }, dg_manifest), fahrendeAuktionPack({ vance: fa2_vance, bieter: fa2_bieter, lose: fa2_lose, gerede: fa2_gerede, lesestuecke: fa2_lese, zeitung: fa2_zeitung }), k3Leben, koopK3, koopBeute, k3Ruf, beziehungenPack, fasserinPack, fasserinAuftrag, halbgott, festePack, sektenPack, seq4Dr, erfolgePack({ erfolge: erf_erfolge, bedingungen: erf_bedingungen, meldungen: erf_meldungen }), postPack({ briefe: post_briefe, beilagen: post_beilagen, post: post_post }), benanntePack({ gegner: bn_gegner, bestiarium: bn_bestiarium, auftritt: bn_auftritt, beute: bn_beute }), ...runde8],
+  packs: [k1Finale, kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen, k3Handel, dunscarZirkelPack(), vorratStueckePack(), tierePack({ tiere: tr_tiere, beziehung: tr_beziehung, lesestuecke: tr_lese, zeitung: tr_zeitung }), nebelseitePack({ karten: ns_karten, stilles_wesen: ns_still, wesen: ns_wesen, uebergaenge: ns_ueb, gerede: ns_gerede, lesestuecke: ns_lese, zeitung: ns_zeitung }), eigenesHausPack({ haus: dg_haus, gaeste: dg_gaeste, gedanken: dg_gedanken, gerede: dg_gerede, zeitung: dg_zeitung }, dg_manifest), fahrendeAuktionPack({ vance: fa2_vance, bieter: fa2_bieter, lose: fa2_lose, gerede: fa2_gerede, lesestuecke: fa2_lese, zeitung: fa2_zeitung }), k3Leben, koopK3, koopBeute, k3Ruf, beziehungenPack, fasserinPack, fasserinAuftrag, halbgott, festePack, sektenPack, seq4Dr, erfolgePack({ erfolge: erf_erfolge, bedingungen: erf_bedingungen, meldungen: erf_meldungen }), postPack({ briefe: post_briefe, beilagen: post_beilagen, post: post_post }), benanntePack({ gegner: bn_gegner, bestiarium: bn_bestiarium, auftritt: bn_auftritt, beute: bn_beute }), ...runde8, varrowmouth],
   lore: { bestiarium: lore_bestiarium, gerede: lore_gerede, item_texte: lore_item_texte, lesestuecke: lore_lesestuecke, zeitungen: lore_zeitungen },
   beziehungen,
   sequenzen: { neue_pfade: sq_neue_pfade, seq_4_bis_1: sq_seq_4_bis_1, zutaten: sq_zutaten, artefakte: sq_artefakte, rituale: k3p_rituale, faehigkeiten: sq_faehigkeiten },

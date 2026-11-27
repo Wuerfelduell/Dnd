@@ -14,7 +14,7 @@ import { DunscarPassanten } from './DunscarPassanten.js';
 import { KettlegateLife, preloadKettlegateLife } from './KettlegateLife.js';
 import { KoopLife } from './Koop.js';
 import { SektenLife } from './SektenLife.js';
-import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, facadeAtNight, buildingFacades, WX2_TILE_ANIMS, PROP_ORIGINS, MAP_WEATHER, DISGUISE_SHEETS, pathwayArt, P2_LOOKS, skinKeyOf , leseSceneOf, BH_THEME_KEYS, CW_THEME_KEYS, HG_PATHS, HG_FURCHT } from './assets.js';
+import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, facadeAtNight, buildingFacades, WX2_TILE_ANIMS, PROP_ORIGINS, MAP_WEATHER, DISGUISE_SHEETS, pathwayArt, P2_LOOKS, skinKeyOf , leseSceneOf, BH_THEME_KEYS, CW_THEME_KEYS, VM_THEME_KEYS, HG_PATHS, HG_FURCHT } from './assets.js';
 import { Roamers } from './Roamers.js';
 import { installWeltGimmicks, applyGimmick } from './WeltGimmicks.js';
 import { Critters } from './Critters.js';
@@ -154,6 +154,36 @@ function dsTheme(theme, { floorChars = '.sgw', walls = theme, mix = [], accent =
   };
 }
 
+/**
+ * Kapitel 7 (Varrowmouth, CV): Planken und Pflaster mit Abnutzung, Schlick, Stege, Wasser als Ecken-Wang
+ * (eine Ecke ist Wasser, wenn alle vier Zellen daran Wasser oder Steg sind), Mauern mit Fenstern und Türen, Dächer darüber.
+ */
+function vmTheme(theme) {
+  return (ch, at, v, x, y) => {
+    const k = (g, seed = 0) => pickKey(themeKeys(theme, g), x, y, seed);
+    if (ch === '.') return hash2(x, y, 91) > 0.88 ? k('wear', 1) : k('floor');
+    if (ch === ',') return hash2(x, y, 92) > 0.7 ? k('mud', 2) : themeKeys(theme, 'mud')[hash2(x, y, 93) > 0.5 ? 1 : 0];
+    if (ch === '=') {
+      const quer = at(-1, 0) === '=' || at(1, 0) === '=';
+      const laengs = at(0, -1) === '=' || at(0, 1) === '=';
+      return themeKeys(theme, 'bridge')[laengs && !quer ? 1 : 0];
+    }
+    if (ch === '~') {
+      const nass = (dx, dy) => { const c = at(dx, dy); return c === undefined || c === '~' || c === '=' || c === 'I'; };
+      let m = 0;
+      if (nass(-1, 0) && nass(0, -1) && nass(-1, -1)) m |= 1;
+      if (nass(1, 0) && nass(0, -1) && nass(1, -1)) m |= 2;
+      if (nass(1, 0) && nass(0, 1) && nass(1, 1)) m |= 4;
+      if (nass(-1, 0) && nass(0, 1) && nass(-1, 1)) m |= 8;
+      return themeKeys(theme, 'water')[m || 15];
+    }
+    if (ch !== 'I') return null;
+    const unten = at(0, 1);
+    if (unten !== undefined && unten !== 'I') return hash2(x, y, 94) > 0.9 ? k('door', 4) : k('wallFace', 3);
+    return k('wallTop', 5);
+  };
+}
+
 const THEMES = {
   ds_stadt: dsTheme('ds_stadt', { mix: [['debris', 0.03]], accent: 'window' }), // ruhiger Boden: keine hellen Kalkkacheln mehr im Raster (Kulisse streut sie vereinzelt)
   ds_bahn: dsTheme('ds_bahn', { walls: 'ds_stadt', mix: [['debris', 0.03]] }),
@@ -175,6 +205,8 @@ const THEMES = {
     accent: 'window',
     cap: true,
   })])),
+  // Kapitel 7 (CV): Varrowmouth
+  ...Object.fromEntries(VM_THEME_KEYS.map((t) => [t, vmTheme(t)])),
   warehouse: roomTheme('warehouse', {
     floorMix: (x, y) => (hash2(x, y, 31) > 0.95 ? themeKeys('warehouse', 'debris')[0] : pickKey(themeKeys('warehouse', 'floor'), x, y, 0)),
   }),

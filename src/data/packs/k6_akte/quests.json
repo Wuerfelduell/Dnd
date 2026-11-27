@@ -1,0 +1,367 @@
+{
+  "k6_akt1": {
+    "title": "Akt 1: Der Eintrag",
+    "kind": "main",
+    "case": "kapitel6",
+    "summary": "Wie steht dein Name hier, bevor du selbst angekommen bist?",
+    "steps": [
+      {
+        "text": "Der Zollstempel",
+        "done": {
+          "requires_flags": [
+            "k6_11_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "vm_zollhafen",
+          "id": "k6_11_station",
+          "label": "Der Zollstempel"
+        }
+      },
+      {
+        "text": "Ein Datum ohne Reise",
+        "done": {
+          "requires_flags": [
+            "k6_12_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "vm_zollhafen",
+          "id": "k6_12_station",
+          "label": "Ein Datum ohne Reise"
+        }
+      },
+      {
+        "text": "Eine gestohlene Lotsenmarke",
+        "done": {
+          "requires_flags": [
+            "k6_13_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "vm_stegviertel",
+          "id": "k6_13_station",
+          "label": "Eine gestohlene Lotsenmarke"
+        }
+      },
+      {
+        "text": "Der stumme Schreiber",
+        "done": {
+          "requires_flags": [
+            "k6_14_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "vm_zollhafen",
+          "id": "k6_14_station",
+          "label": "Der stumme Schreiber"
+        }
+      },
+      {
+        "text": "Den Akt gemeinsam bilanzieren.",
+        "done": {
+          "requires_flags": [
+            "k6_akt1_done"
+          ]
+        },
+        "target": {
+          "map": "vm_stegviertel",
+          "id": "k6_bilanz1_station",
+          "label": "Bilanz"
+        }
+      }
+    ]
+  },
+  "k6_akt2": {
+    "title": "Akt 2: Ebbe",
+    "kind": "main",
+    "case": "kapitel6",
+    "summary": "Was verschwindet, wenn ein Name vergessen wird?",
+    "steps": [
+      {
+        "text": "Namen im Schlick",
+        "done": {
+          "requires_flags": [
+            "k6_21_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "vm_schlickgassen",
+          "id": "k6_21_station",
+          "label": "Namen im Schlick"
+        }
+      },
+      {
+        "text": "Die Seite im Wrack",
+        "done": {
+          "requires_flags": [
+            "k6_22_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "vm_wrackfeld",
+          "id": "k6_22_station",
+          "label": "Die Seite im Wrack"
+        }
+      },
+      {
+        "text": "Nells Lücke",
+        "done": {
+          "requires_flags": [
+            "k6_23_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "vm_schlickgassen",
+          "id": "k6_23_station",
+          "label": "Nells Lücke"
+        }
+      },
+      {
+        "text": "Die Wrackmutter",
+        "done": {
+          "requires_flags": [
+            "k6_24_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "vm_wrackfeld",
+          "id": "k6_24_station",
+          "label": "Die Wrackmutter"
+        }
+      },
+      {
+        "text": "Den Akt gemeinsam bilanzieren.",
+        "done": {
+          "requires_flags": [
+            "k6_akt2_done"
+          ]
+        },
+        "target": {
+          "map": "vm_stegviertel",
+          "id": "k6_bilanz2_station",
+          "label": "Bilanz"
+        }
+      }
+    ]
+  },
+  "k6_akt3": {
+    "title": "Akt 3: Der Pegelrat",
+    "kind": "main",
+    "case": "kapitel6",
+    "summary": "Wer verwaltet hier die Wahrheit und wer hält dir eine Tür offen?",
+    "steps": [
+      {
+        "text": "Die Einladung des Zollamts",
+        "done": {
+          "requires_flags": [
+            "k6_31_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "vm_oberstrasse",
+          "id": "k6_31_station",
+          "label": "Die Einladung des Zollamts"
+        }
+      },
+      {
+        "text": "Die glatte Pegelkurve",
+        "done": {
+          "requires_flags": [
+            "k6_32_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "vm_oberstrasse",
+          "id": "k6_32_station",
+          "label": "Die glatte Pegelkurve"
+        }
+      },
+      {
+        "text": "Ein Amt ohne Puls",
+        "done": {
+          "requires_flags": [
+            "k6_33_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "vm_oberstrasse",
+          "id": "k6_33_station",
+          "label": "Ein Amt ohne Puls"
+        }
+      },
+      {
+        "text": "Das Protokoll des Hafens",
+        "done": {
+          "requires_flags": [
+            "k6_34_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "vm_oberstrasse",
+          "id": "k6_34_station",
+          "label": "Das Protokoll des Hafens"
+        }
+      },
+      {
+        "text": "Den Akt gemeinsam bilanzieren.",
+        "done": {
+          "requires_flags": [
+            "k6_akt3_done"
+          ]
+        },
+        "target": {
+          "map": "vm_stegviertel",
+          "id": "k6_bilanz3_station",
+          "label": "Bilanz"
+        }
+      }
+    ]
+  },
+  "k6_akt4": {
+    "title": "Akt 4: Das alte Leuchtfeuer",
+    "kind": "main",
+    "case": "kapitel6",
+    "summary": "Ist die Gefangenschaft noch nötig, um die Flut aufzuhalten?",
+    "steps": [
+      {
+        "text": "Osrics Schreibbuch",
+        "done": {
+          "requires_flags": [
+            "k6_41_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "vm_leuchtbank",
+          "id": "k6_41_station",
+          "label": "Osrics Schreibbuch"
+        }
+      },
+      {
+        "text": "Die Glocke der Leuchtbank",
+        "done": {
+          "requires_flags": [
+            "k6_42_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "vm_leuchtbank",
+          "id": "k6_42_station",
+          "label": "Die Glocke der Leuchtbank"
+        }
+      },
+      {
+        "text": "Die Ertrunkenenliste",
+        "done": {
+          "requires_flags": [
+            "k6_43_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "vm_leuchtbank",
+          "id": "k6_43_station",
+          "label": "Die Ertrunkenenliste"
+        }
+      },
+      {
+        "text": "Kommt die Flut?",
+        "done": {
+          "requires_flags": [
+            "k6_44_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "vm_leuchtbank",
+          "id": "k6_44_station",
+          "label": "Kommt die Flut?"
+        }
+      },
+      {
+        "text": "Den Akt gemeinsam bilanzieren.",
+        "done": {
+          "requires_flags": [
+            "k6_akt4_done"
+          ]
+        },
+        "target": {
+          "map": "vm_stegviertel",
+          "id": "k6_bilanz4_station",
+          "label": "Bilanz"
+        }
+      }
+    ]
+  },
+  "k6_akt5": {
+    "title": "Akt 5: Das Register schließen",
+    "kind": "main",
+    "case": "kapitel6",
+    "summary": "Wer darf die Namen tragen, nachdem Harrows Herrschaft endet?",
+    "steps": [
+      {
+        "text": "Das lebende Register",
+        "done": {
+          "requires_flags": [
+            "k6_51_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "vm_registerkeller",
+          "id": "k6_51_station",
+          "label": "Das lebende Register"
+        }
+      },
+      {
+        "text": "Der Zeuge an der Schwelle",
+        "done": {
+          "requires_flags": [
+            "k6_52_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "vm_registerkeller",
+          "id": "k6_52_station",
+          "label": "Der Zeuge an der Schwelle"
+        }
+      },
+      {
+        "text": "Nells Antwort",
+        "done": {
+          "requires_flags": [
+            "k6_53_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "vm_registerkeller",
+          "id": "k6_53_station",
+          "label": "Nells Antwort"
+        }
+      },
+      {
+        "text": "Die letzte Zeile",
+        "done": {
+          "requires_flags": [
+            "k6_54_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "vm_registerkeller",
+          "id": "k6_54_station",
+          "label": "Die letzte Zeile"
+        }
+      },
+      {
+        "text": "Den Akt gemeinsam bilanzieren.",
+        "done": {
+          "requires_flags": [
+            "k6_akt5_done"
+          ]
+        },
+        "target": {
+          "map": "vm_registerkeller",
+          "id": "k6_bilanz5_station",
+          "label": "Bilanz"
+        }
+      }
+    ]
+  }
+}
