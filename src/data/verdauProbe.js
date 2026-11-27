@@ -10,7 +10,13 @@ import { freieKachel } from './calderwickStory.js';
 import { HOCH_SCALE } from './seqHoch.js';
 
 export const verdauEncId = (pid) => `o3_${pid}_verdau`;
-const BASIS = { hp: 3600, dmg: 66 }; // 4. Herd: für Seq 4 schon zäh, mit der Pfadregel richtig schwer
+const BASIS = { hp: 3600, dmg: 66 }; // 4. Herd
+// Seb 2026-11-27: viel schwerer, und nach jedem Sieg schwerer. Grundaufschlag auf alle Stufen, dazu je bisherigem Sieg
+// (pro Spieler und Spielstand, pathway.verdauSiege) +30 % Leben und +15 % Schaden, linear.
+export const VERDAU_HART = { hp: 1.8, dmg: 1.4 };
+export const VERDAU_JE_SIEG = { hp: 0.3, dmg: 0.15 };
+/** Faktor der Stufe (1 = noch kein Sieg). */
+export const verdauStufeMult = (stufe) => ({ hp: VERDAU_HART.hp * (1 + VERDAU_JE_SIEG.hp * (stufe - 1)), dmg: VERDAU_HART.dmg * (1 + VERDAU_JE_SIEG.dmg * (stufe - 1)) });
 const S = (hp, dmg) => ({ 4: { hp, dmg }, 3: { hp: hp * HOCH_SCALE[3].hp, dmg: dmg * HOCH_SCALE[3].dmg }, 2: { hp: hp * HOCH_SCALE[2].hp, dmg: dmg * HOCH_SCALE[2].dmg }, 1: { hp: hp * HOCH_SCALE[1].hp, dmg: dmg * HOCH_SCALE[1].dmg } });
 
 /** Je Pfad: Name, Gegner, Regeltext (für Prüfstein und Liste) und Regeln. */
@@ -62,7 +68,7 @@ export function applyVerdauProbe(content) {
     const near = map.spawns.default;
     map.interactables.push({ id: `o3_${pid}_pruefstein`, kind: 'read', tile: freieKachel(map, { near: [near[0] + 7, near[1] + 1] }), prompt: 'Der Prüfstein des Viertels', marker: true, label: 'Prüfstein (Verdauung)', // gut sichtbar rechts vom Eingang, nicht unter der Anzeige am linken Rand
       title: `Prüfstein: ${def.name}`, visible_if: { requires_flags: ['k4_arrived'], requires_pathway: [pid, 4] }, effects: { verdau_probe: pid },
-      text: `Ein Stein, der warm ist wie eine Hand. Wer diesen Pfad geht, kann sich ihm einmal am Tag stellen.\n\n${def.regel}\n\nBestanden: 15 % deines Tranks sofort verdaut. Misslungen: 1 bis 5 %. Allein, ein Versuch je Spieltag.` });
+      text: `Ein Stein, der warm ist wie eine Hand. Wer diesen Pfad geht, kann sich ihm einmal am Tag stellen.\n\n${def.regel}\n\nBestanden: 15 % deines Tranks sofort verdaut. Misslungen: 1 bis 5 %. Allein, ein Versuch je Spieltag. Mit jedem Sieg wird der Prüfstein stärker.` });
   }
   return content;
 }

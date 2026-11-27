@@ -708,7 +708,7 @@ export const pathwayMethods = {
     const relikt = this.pathway?.relikt; // Seq 4 (Moor): das Relikt des Verfalls bleibt nach dem Aufstieg
     const vorher = this.pathway;
     const wechsel = vorher && vorher.id !== it.pathway ? { wechsel: { von: vorher.id, ab: it.seq } } : keepWechsel(vorher); // Pfadwechsel ab Seq 4
-    this.pathway = { id: it.pathway, seq: it.seq, digestion: 0, ...(relikt ? { relikt } : {}), ...wechsel };
+    this.pathway = { id: it.pathway, seq: it.seq, digestion: 0, ...(relikt ? { relikt } : {}), ...(vorher?.verdauSiege ? { verdauSiege: vorher.verdauSiege } : {}), ...wechsel }; // Prüfstein-Stufe bleibt über den Aufstieg
     if (wechsel.wechsel && vorher.id !== it.pathway) this.flags.add(`pfadwechsel_${it.pathway}`);
     if (HOCH_DURCHBRUCH[it.seq]) this.flags.add(`seq${it.seq}_erreicht`); // für Zeitung und Gerede (Paket CP)
     const unruheVorher = this.unruhe;
@@ -1225,7 +1225,7 @@ export const pathwayMethods = {
   loadPathway(data) {
     this.money = data.money ?? this.money;
     const p = data.pathway;
-    this.pathway = p && this.seqDef(p.id, p.seq) ? { id: p.id, seq: p.seq, digestion: p.digestion ?? 0, ...(p.form ? { form: true } : {}), ...(p.seq5 && typeof p.seq5 === 'object' ? { seq5: p.seq5 } : {}), ...(p.hoch && typeof p.hoch === 'object' ? { hoch: p.hoch } : {}), ...keepWechsel(p) } : null;
+    this.pathway = p && this.seqDef(p.id, p.seq) ? { id: p.id, seq: p.seq, digestion: p.digestion ?? 0, ...(p.form ? { form: true } : {}), ...(p.seq5 && typeof p.seq5 === 'object' ? { seq5: p.seq5 } : {}), ...(p.hoch && typeof p.hoch === 'object' ? { hoch: p.hoch } : {}), ...(p.verdauSiege > 0 ? { verdauSiege: Math.floor(p.verdauSiege) } : {}), ...keepWechsel(p) } : null;
     this.unruhe = Math.max(0, Math.min(UNRUHE_MAX - 1, data.unruhe ?? 0));
     this.seenNodes = new Set(data.seenNodes ?? []);
     this.wins = data.wins ?? 0;

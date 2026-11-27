@@ -5,7 +5,7 @@
 // Abklingzeit: ein Versuch je Spieltag (30 Minuten Spielzeit) und Spieler. 15 % sind auf Seq 4 so viel wie dutzende Bosse,
 // darum kein Spam; einmal am Tag hält es als feste Gewohnheit neben der Jagd, ohne die langsame Verdauung auszuhebeln.
 // Funktioniert im Splitscreen: der Versuch hängt am Pfad des Spielers, der den Prüfstein berührt (Combat.combatBy).
-import { VERDAU_PROBE, verdauEncId } from '../data/verdauProbe.js';
+import { VERDAU_PROBE, verdauEncId, verdauStufeMult } from '../data/verdauProbe.js';
 
 const tagId = (p2, pid) => `verdau_${p2 ? 'p2_' : ''}${pid}`;
 
@@ -24,6 +24,7 @@ export const verdauProbeMethods = {
     const why = this.verdauProbeBlock(pid);
     if (why) { this.emit('notice', `${this.acting === 2 ? 'Spieler 2: ' : ''}${why}`); return false; }
     this.markDaily(tagId(this.acting === 2, pid));
+    this.emit('notice', `${this.acting === 2 ? 'Spieler 2: ' : ''}${this.verdauStufeText(this.verdauStufe())}`);
     this.pathway.verdauPending = verdauEncId(pid);
     this.startCombat(verdauEncId(pid));
     return true;
@@ -34,8 +35,20 @@ export const verdauProbeMethods = {
     if (!this.pathway || this.pathway.verdauPending !== id) return null;
     const def = VERDAU_PROBE[this.pathway.id];
     if (!def) return null;
-    const scale = def.scale[this.pathway.seq] ?? def.scale[4];
-    return { solo: true, verdau: true, scale, ...def.rules };
+    const base = def.scale[this.pathway.seq] ?? def.scale[4];
+    const stufe = this.verdauStufe();
+    const m = verdauStufeMult(stufe);
+    return { solo: true, verdau: true, verdauStufe: stufe, scale: { hp: base.hp * m.hp, dmg: base.dmg * m.dmg }, ...def.rules };
+  },
+
+  /** Stufe des Prüfsteins für den handelnden Spieler: 1 + bisherige Siege (gilt für alle Viertel gemeinsam). */
+  verdauStufe() {
+    return 1 + (this.pathway?.verdauSiege ?? 0);
+  },
+
+  verdauStufeText(stufe) {
+    const m = verdauStufeMult(stufe);
+    return `Prüfstein Stufe ${stufe}: Gegner mit ${Math.round(m.hp * 100)} % Leben und ${Math.round(m.dmg * 100)} % Schaden.`;
   },
 
   /** Nach dem Kampf (Combat.finish, im Splitscreen schon mit dem Stand des Prüflings): auswerten. */
@@ -55,8 +68,9 @@ export const verdauProbeMethods = {
     else if (r.endMin && this.composure < this.maxComposure() * (r.endMin.nerves ?? 0)) fail = 'Zu wenig Nerven am Ende.';
     if (!fail) {
       this.addDigestion(VERDAU_PROBE_WIN, 'verdau_probe');
+      p.verdauSiege = (p.verdauSiege ?? 0) + 1;
       this.sfx?.('probe_bestanden');
-      return `${def?.name ?? 'Prüfstein'}: bestanden. +${VERDAU_PROBE_WIN} % Verdauung.`;
+      return `${def?.name ?? 'Prüfstein'}: bestanden. +${VERDAU_PROBE_WIN} % Verdauung. Der Prüfstein wächst: nächstes Mal Stufe ${p.verdauSiege + 1}.`;
     }
     const trost = 1 + Math.floor(rng() * 5);
     this.addDigestion(trost, 'verdau_trost');
