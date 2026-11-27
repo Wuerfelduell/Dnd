@@ -174,7 +174,11 @@ def saum(out, f, pid):
 
 
 def bauen(pid, rolle, basis, fw, fh, bdir):
-    im = Image.open(os.path.join(bdir, basis + '.png')).convert('RGBA')
+    return bauen_datei(pid, rolle, os.path.join(bdir, basis + '.png'), fw, fh)
+
+
+def bauen_datei(pid, rolle, pfad, fw, fh):
+    im = Image.open(pfad).convert('RGBA')
     out = im.copy()
     stark = rolle == 't'
     for y0 in range(0, im.height - fh + 1, fh):
@@ -194,6 +198,26 @@ def bauen(pid, rolle, basis, fw, fh, bdir):
             saum(out, f, pid)
     return out
 
+
+def kartengegner(cdir, ow_json):
+    """Kartenfiguren (OVERWORLD_SHEETS) derselben Gegner: gleiche Wirkung je Frame. ow_json: id -> [datei, w, h]."""
+    ow = json.load(open(ow_json))
+    n = 0
+    for pid, rolle, basis, _, _ in PAARE:
+        e = ow.get(basis.replace('enemy_', ''))
+        if not e:
+            continue
+        datei, w, h = e
+        src = os.path.join(cdir, os.path.basename(datei))
+        ziel = src.replace('.png', f"__o3{'t' if rolle == 't' else ''}_{pid}.png")
+        bauen_datei(pid, rolle, src, w, h).save(ziel)
+        n += 1
+    return n
+
+
+if __name__ == '__main__' and len(sys.argv) > 1 and sys.argv[1] == '--karte':
+    print(kartengegner(sys.argv[2], sys.argv[3]))
+    sys.exit(0)
 
 if __name__ == '__main__':
     bdir = sys.argv[1]

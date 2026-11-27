@@ -794,7 +794,9 @@ export const overworldIdFor = (encId, enc) => {
   if (OVERWORLD_SHEETS[encId]) return encId;
   const sheet = enc?.sheet ?? ENCOUNTER_SHEETS[encId];
   const id = sheet?.replace(/^enemy_/, '');
-  return id && OVERWORLD_SHEETS[id] ? id : null;
+  if (id && OVERWORLD_SHEETS[id]) return id;
+  const basis = id?.split('__')[0]; // Skript-Variante ohne eigene Kartenfigur: die des Basisgegners
+  return basis && OVERWORLD_SHEETS[basis] ? basis : null;
 };
 /** Beutebehälter am Boden (props/G_loot_<behaelter>.png, 16x16, Frame 0 zu, Frame 1 offen). Fehlt einer, gibt es ein gezeichnetes Symbol. */
 export const LOOT_SHEETS = {};
@@ -3346,6 +3348,11 @@ export const O3_VARIANTEN = {
   enemy_vorhauer__o3t_sq_uhr: 'enemy_vorhauer',
 };
 Object.assign(GEGNER_VARIANTEN, O3_VARIANTEN);
+// Kartenfiguren derselben Gegner: characters/<basis>__o3_<pfad>.png neben dem Basisbild
+for (const [neu, base] of Object.entries(O3_VARIANTEN)) {
+  const ow = OVERWORLD_SHEETS[base.replace(/^enemy_/, '')];
+  if (ow) OVERWORLD_SHEETS[neu.replace(/^enemy_/, '')] = [ow[0].replace(/\.png$/, `__${neu.split('__')[1]}.png`), ow[1], ow[2]];
+}
 for (const [neu, base] of Object.entries(GEGNER_VARIANTEN)) {
   BATTLE_SHEETS[neu] = [`battle/${neu}.png`, ...BATTLE_SHEETS[base].slice(1)];
   if (ANIM_ALIASES[base]) ANIM_ALIASES[neu] = ANIM_ALIASES[base];
