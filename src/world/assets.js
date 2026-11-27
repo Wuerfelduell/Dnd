@@ -3309,6 +3309,43 @@ export const GEGNER_VARIANTEN = {
   enemy_wx_pfandleiherin: 'enemy_ez_ds_walzenstimme',
   enemy_k5s_sammler: 'enemy_starling',
 };
+/** Pfadviertel-Gegner je Pfad (tools/art/claude_code/o3_varianten.py): <basis>__o3_<pfad>, Oberhaupt <basis>__o3t_<pfad>. Gesetzt in data/seqHoch.js. */
+export const O3_VARIANTEN = {
+  enemy_vg_bh_glasmotte__o3_laterne: 'enemy_vg_bh_glasmotte',
+  enemy_vg_bh_bluetenkopf__o3_laterne: 'enemy_vg_bh_bluetenkopf',
+  enemy_vg_bh_boss_glasgaertner__o3t_laterne: 'enemy_vg_bh_boss_glasgaertner',
+  enemy_vg_cw_rohrpostwespe__o3_faden: 'enemy_vg_cw_rohrpostwespe',
+  enemy_vg_cw_durchschlag__o3_faden: 'enemy_vg_cw_durchschlag',
+  enemy_vg_cw_leerfracht__o3_faden: 'enemy_vg_cw_leerfracht',
+  enemy_vg_cw_boss_blinder_zusteller__o3t_faden: 'enemy_vg_cw_boss_blinder_zusteller',
+  enemy_vg_cw_letternlaeufer__o3_maske: 'enemy_vg_cw_letternlaeufer',
+  enemy_vg_cw_stempelhand__o3_maske: 'enemy_vg_cw_stempelhand',
+  enemy_vg_cw_registerratte__o3_maske: 'enemy_vg_cw_registerratte',
+  enemy_vg_cw_boss_bleisammler__o3t_maske: 'enemy_vg_cw_boss_bleisammler',
+  enemy_signalkraehe__o3_echo: 'enemy_signalkraehe',
+  enemy_geruestklang__o3_echo: 'enemy_geruestklang',
+  enemy_vielrufer__o3t_echo: 'enemy_vielrufer',
+  enemy_vg_bh_rohrwurm__o3_kessel: 'enemy_vg_bh_rohrwurm',
+  enemy_vg_bh_waeschegeist__o3_kessel: 'enemy_vg_bh_waeschegeist',
+  enemy_vg_bh_boss_waescherei__o3t_kessel: 'enemy_vg_bh_boss_waescherei',
+  enemy_vg_cw_seilbahnwaechter__o3_eisen: 'enemy_vg_cw_seilbahnwaechter',
+  enemy_vg_cw_tintenschatten__o3_eisen: 'enemy_vg_cw_tintenschatten',
+  enemy_vg_cw_boss_nullfundament__o3t_eisen: 'enemy_vg_cw_boss_nullfundament',
+  enemy_knochenwurm__o3_schluessel: 'enemy_knochenwurm',
+  enemy_kerzenfresser__o3_schluessel: 'enemy_kerzenfresser',
+  enemy_schaedelschwarm__o3_schluessel: 'enemy_schaedelschwarm',
+  enemy_ossuarwaechter__o3t_schluessel: 'enemy_ossuarwaechter',
+  enemy_lohnlistenmotte__o3_sq_waage: 'enemy_lohnlistenmotte',
+  enemy_kalkstaubgeist__o3_sq_waage: 'enemy_kalkstaubgeist',
+  enemy_nachhall__o3_sq_waage: 'enemy_nachhall',
+  enemy_nachhall__o3t_sq_waage: 'enemy_nachhall',
+  enemy_vg_bh_wurzelgaenger__o3_sq_moor: 'enemy_vg_bh_wurzelgaenger',
+  enemy_vg_bh_sudtraeger__o3_sq_moor: 'enemy_vg_bh_sudtraeger',
+  enemy_vg_bh_boss_mutterwurzel__o3t_sq_moor: 'enemy_vg_bh_boss_mutterwurzel',
+  enemy_schichtgaenger__o3_sq_uhr: 'enemy_schichtgaenger',
+  enemy_vorhauer__o3t_sq_uhr: 'enemy_vorhauer',
+};
+Object.assign(GEGNER_VARIANTEN, O3_VARIANTEN);
 for (const [neu, base] of Object.entries(GEGNER_VARIANTEN)) {
   BATTLE_SHEETS[neu] = [`battle/${neu}.png`, ...BATTLE_SHEETS[base].slice(1)];
   if (ANIM_ALIASES[base]) ANIM_ALIASES[neu] = ANIM_ALIASES[base];
