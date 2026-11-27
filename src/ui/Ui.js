@@ -12,6 +12,7 @@ import { SPINNENFADEN } from '../data/seq5.js';
 import { SUD_MAX_ZUTATEN, LEERES_GEFAESS, sudEffectText } from '../data/sude.js';
 import { CARRY_PER_STEP } from '../core/GameState.js';
 import { GEAR_SLOT_NAMES, GEAR_SET_NAMES } from '../core/Gear.js';
+import { vergleichWert } from '../core/Vergleich.js';
 import { isPrecise, AOE_DMG_MULT, SKILLS } from '../core/Combat.js';
 import { lootList, itemRarity, RARITY_NAMES, lootPreview, chanceWord, hiddenLoot } from '../core/Loot.js';
 import {
@@ -97,7 +98,23 @@ const offerHtml = (s, id) => {
   const slot = it.kind === 'gear' ? `<span class="muted">${GEAR_SLOT_NAMES[it.slot]}</span>` : '';
   const notes = info.notes.map((t) => `<span class="muted note">${esc(t)}</span>`).join('');
   const effects = info.boons.length || info.curses.length ? artifactEffectsHtml(it) : '';
-  return slot || notes || effects ? `<span class="offerinfo">${slot}${notes}${effects}</span>` : '';
+  const cmp = vergleichHtml(s, id);
+  return slot || notes || effects || cmp ? `<span class="offerinfo">${slot}${notes}${effects}${cmp}</span>` : '';
+};
+/**
+ * Ausrüstungsvergleich (core/Vergleich.js): je Wert ein grüner Pfeil nach oben (besser) oder ein roter nach unten
+ * (schlechter) gegenüber dem, was der schauende Spieler gerade trägt. Wörter und Zahlen in eigenen Spans (Wörterbuch).
+ */
+const vergleichHtml = (s, id) => {
+  const v = s.vergleich?.(id);
+  if (!v) return '';
+  const head = v.gegen ? `<span class="muted">statt</span> <strong>${esc(v.gegen)}</strong>`
+    : v.art === 'dazu' ? '<span class="muted">Kommt zu deinen Artefakten dazu</span>' : '<span class="muted">Nichts angelegt</span>';
+  const pfeil = (gut) => `<i class="cmppfeil ${gut ? 'hoch' : 'runter'}"></i>`;
+  const rows = v.zeilen.map((z) => (z.text
+    ? `<span class="cmp ${z.besser ? 'gut' : 'schlecht'}">${pfeil(z.besser)}${z.weg ? '<span>fällt weg:</span> ' : ''}<span>${esc(z.label)}</span></span>`
+    : `<span class="cmp ${z.besser ? 'gut' : 'schlecht'}">${pfeil(z.besser)}<span>${esc(z.label)}</span> <b>${vergleichWert(z.key, z.neu)}</b> <span class="muted">(</span><span class="muted">vorher</span> <span class="muted">${vergleichWert(z.key, z.alt)}</span><span class="muted">)</span></span>`)).join('');
+  return `<span class="vergleich">${head}${rows || '<span class="cmp muted">gleichwertig</span>'}</span>`;
 };
 /** Ausrüstung (F_07): Figur mit vier Plätzen; ein Klick auf ein angelegtes Stück legt es ab. Plätze in Pixeln des Bogens. */
 const DOLL_SLOTS = [['hut', 69, 4], ['amulett', 69, 30], ['mantel', 69, 55], ['waffe', 73, 82]];
@@ -2605,7 +2622,7 @@ export class Ui {
       if (s.canDrop(it.id) && !(it.kind === 'weapon' && s.weapon === it.id)) action += ` <button class="small drop" data-drop="${it.id}" title="Wegwerfen (eins)">×</button>`;
       const stat = it.kind === 'weapon' ? ` <span class="muted">Angriff ${it.atk}${it.occult ? ', stark gegen Okkultes' : ''}</span>`
         : it.kind === 'gear' ? ` <span class="muted">${GEAR_SLOT_NAMES[it.slot]}</span>` : '';
-      const effects = it.kind === 'artifact' || it.kind === 'gear' ? artifactEffectsHtml(it) : '';
+      const effects = (it.kind === 'artifact' || it.kind === 'gear' ? artifactEffectsHtml(it) : '') + vergleichHtml(s, it.id);
       const taint = tainted ? corruptionHtml(s, it.id) : '';
       const laune = it.kind === 'artifact' && !s.isSetAside(it.id) ? launeHtml(s, it.id) : '';
       return `<li class="item${tainted ? ' tainted' : ''}" data-itemrow="${it.id}"><div>${it.kind === 'potion' || it.kind === 'formula' ? itemIconBig(it.id) : itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${stat}${tainted ? ` ${korrBadge()}` : ''}${bedarfHtml(need, it.id)}<br><span class="desc">${esc(it.desc)}</span>${effects}${laune}${taint}</div><div>${action}</div></li>`;
