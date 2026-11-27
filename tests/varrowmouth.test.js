@@ -11,8 +11,8 @@ import { varrowmouthTexte } from '../tools/i18n-varrowmouth.mjs';
 const content = loadContent();
 const VM = Object.keys(content.maps).filter((m) => m.startsWith('vm_'));
 
-test('Varrowmouth: fünf Karten, kein Weg zurück in frühere Städte', () => {
-  assert.deepEqual(VM.sort(), ['vm_oberstrasse', 'vm_schlickgassen', 'vm_stegviertel', 'vm_wrackfeld', 'vm_zollhafen']);
+test('Varrowmouth: acht Karten, kein Weg zurück in frühere Städte', () => {
+  assert.deepEqual(VM.sort(), ['vm_grenzzaun', 'vm_leuchtbank', 'vm_oberstrasse', 'vm_registerkeller', 'vm_schlickgassen', 'vm_stegviertel', 'vm_wrackfeld', 'vm_zollhafen']);
   for (const m of VM) for (const i of content.maps[m].interactables) if (i.kind === 'door') assert.ok(i.to.startsWith('vm_'), `${m}: Tür nach ${i.to}`);
   for (const t of content.travel.filter((x) => x.city === 'varrowmouth')) assert.ok(t.map.startsWith('vm_'));
 });
@@ -41,33 +41,29 @@ test('Tam und der Zollschreiber tragen die Hauptakte als „Zur Sache.“', () =
   }
 });
 
-test('Akte I–III hängen aneinander, Akt III startet Akt IV noch nicht', () => {
+test('Die fünf Akte hängen aneinander, Bilanz V öffnet das Ende „Die Namen tragen“', () => {
   const ja = content.dialogues.k6_bilanz1.nodes.k6_bilanz1_ja;
   assert.deepEqual(ja.sets_flags, ['k6_akt1_done']);
   assert.deepEqual(ja.start_quests, ['k6_akt2']);
   assert.deepEqual(content.dialogues.k6_bilanz2.nodes.k6_bilanz2_ja.start_quests, ['k6_akt3']);
-  const ja3 = content.dialogues.k6_bilanz3.nodes.k6_bilanz3_ja;
-  assert.deepEqual(ja3.complete_quests, ['k6_akt3']);
-  assert.equal(ja3.start_quests, undefined);
-  assert.equal(content.quests.k6_akt4, undefined);
-  for (const id of ['k6_31_station', 'k6_32_station', 'k6_33_station', 'k6_34_station', 'k6_vertrauen_station']) {
-    assert.ok(content.maps.vm_oberstrasse.interactables.some((i) => i.id === id), id);
-  }
+  assert.deepEqual(content.dialogues.k6_bilanz3.nodes.k6_bilanz3_ja.start_quests, ['k6_akt4']);
+  assert.deepEqual(content.dialogues.k6_bilanz4.nodes.k6_bilanz4_ja.start_quests, ['k6_akt5']);
+  assert.ok(content.dialogues.k6_bilanz5.nodes.k6_bilanz5_ja.sets_flags.includes('k6_traeger_festgelegt'));
+  for (const id of ['k6_31_station', 'k6_vertrauen_station']) assert.ok(content.maps.vm_oberstrasse.interactables.some((i) => i.id === id), id);
+  for (const id of ['k6_41_station', 'k6_44_station', 'k6_kampf_leuchtfeuerwaechter_station']) assert.ok(content.maps.vm_leuchtbank.interactables.some((i) => i.id === id), id);
+  for (const id of ['k6_51_station', 'k6_54_station', 'k6_bilanz5_station', 'k6_ende_station', 'k6_zeuge_station']) assert.ok(content.maps.vm_registerkeller.interactables.some((i) => i.id === id), id);
+  assert.ok(content.maps.vm_registerkeller.npcs.some((n) => n.id === 'vmn_pegelherrin'));
+  assert.ok(content.maps.vm_leuchtbank.npcs.some((n) => n.id === 'vmn_osric_dale'));
 });
 
-test('Gezeiten: Flut beendet Kämpfe der Ebbe ohne Sieg, Schlickgassen nur bei Ebbe', () => {
+test('Kapitelende: jedes Ende setzt kapitel7_done, Bosse auf Kapitel-7-Niveau', () => {
+  for (const id of ['k6_ende_schliessen', 'k6_ende_verbrennen', 'k6_ende_uebergeben', 'k6_ende_teilen']) assert.ok(content.endings[id].sets_flags.includes('kapitel7_done'), id);
   const s = new GameState(content);
-  s.flags.add('gezeit_ebbe');
-  const c = new Combat(s, 'vme_salzkruste');
-  s.flags.delete('gezeit_ebbe');
-  s.flags.add('gezeit_flut');
-  c.endRound();
-  assert.equal(c.outcome, 'fled');
-  assert.equal(s.flags.has('won_vme_salzkruste'), false);
-  assert.equal(content.encounters.vme_gezeitenlaeufer.gezeit, 'flut');
-  assert.ok(content.maps.vm_wrackfeld.flut_raus && content.maps.vm_schlickgassen.flut_raus);
-  const leiter = content.maps.vm_stegviertel.interactables.find((i) => i.kind === 'door' && i.to === 'vm_schlickgassen');
-  assert.ok(leiter.visible_if.requires_flags.includes('gezeit_ebbe'));
+  s.setEnding('k6_ende_schliessen');
+  assert.ok(s.flags.has('kapitel7_done') && s.flags.has('k6_done'));
+  assert.ok(s.epilogue('k6_ende_schliessen').length > 0);
+  for (const [id, min] of [['leuchtfeuerwaechter', 16000], ['pegelherrin', 18000], ['pegelherrin_register', 20000]]) assert.ok(content.encounters[id].hp >= min && content.encounters[id].boss, id);
+  assert.equal(new Combat(new GameState(content), 'pegelherrin_register').foes.length, 3);
 });
 
 test('Wrackfeld: Oststeg erst mit Akt II und nur bei Ebbe', () => {

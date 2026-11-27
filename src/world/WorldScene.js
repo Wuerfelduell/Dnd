@@ -2387,7 +2387,7 @@ export class WorldScene extends Phaser.Scene {
     const raus = flut && this.mapDef.flut_raus;
     if (raus) {
       this.ui.toast?.(raus.text, 'warn');
-      this.travelTo('vm_stegviertel', raus.spawn);
+      this.travelTo(raus.map ?? 'vm_stegviertel', raus.spawn);
       return;
     }
     if (flut === !!this.flutBild) return;
