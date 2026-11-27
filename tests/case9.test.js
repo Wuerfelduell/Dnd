@@ -131,6 +131,12 @@ test('Fall 9: mit nur einer Quelle schickt Marlowe einen zurück, vorschnell und
 
   const t = afterCase8();
   brief(t);
+  // Sitzt Vey seit Fall 5 in Haft, kann man sie nicht mehr anklagen (tools/schicksale.mjs); sonst ist sie die falsche Spur
+  if (t.flags.has('vey_arrested')) {
+    assert.throws(() => talk(t, 'marlowe', ['hinter allen Fällen', 'Miriam Vey']), /keine verfügbare Option/);
+    t.flags.delete('vey_arrested');
+    t.flags.add('vey_fled');
+  }
   talk(t, 'marlowe', ['hinter allen Fällen', 'Miriam Vey']);
   assert.equal(t.endings.case_09, 'c9_vey');
   assert.ok(t.flags.has('kapitel1_done'));

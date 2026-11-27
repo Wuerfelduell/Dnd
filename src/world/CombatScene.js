@@ -111,7 +111,9 @@ export class CombatScene extends Phaser.Scene {
       const label = w.nebelnacht ? '≋ Nebelnacht' : `${w.def.icon} ${w.def.name}`;
       this.add.text(VIEW_W - 4, 4, label, { fontFamily: 'monospace', fontSize: '9px', color: w.nebelnacht ? '#9fd0b0' : '#c8d0e0', stroke: '#1a1c2c', strokeThickness: 3 }).setOrigin(1, 0).setDepth(80);
     }
-    this.ui.combatMessage(this.combat.enc.intro + (this.combat.weak ? `\n\n${this.combat.enc.weak_text}` : '') + ward + pack + (wt ? `\n\n${wt}` : ''), 'Weiter mit E', this.combat.enc.scene);
+    // intro_varianten [{ text, ...Bedingungen }]: andere Begrüßung, wenn die Geschichte anders lief (z. B. Heimkehr-Rache nach Kapitel-2-Ende)
+    const intro = (this.combat.enc.intro_varianten ?? []).find((v) => this.combat.state.meets(v))?.text ?? this.combat.enc.intro;
+    this.ui.combatMessage(intro + (this.combat.weak ? `\n\n${this.combat.enc.weak_text}` : '') + ward + pack + (wt ? `\n\n${wt}` : ''), 'Weiter mit E', this.combat.enc.scene);
     // transition_out deckt auf (Schwarz → Bild), transition_in deckt zu
     this.playTransition('transition_out', () => this.bossIntro()) || (this.cameras.main.fadeIn(250, 0, 0, 0), this.bossIntro());
   }

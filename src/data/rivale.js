@@ -136,6 +136,9 @@ export const RIVALE_TEXTE = {
     '{name} is already standing there, the last piece of this story in hand. "A whole quarter full of secrets, and you thought you were the only one on our pathway searching here?" Whoever wants it has to take it from {name}.'],
   viertel_verbuendet: ['{name} wartet schon und hält dir das letzte Stück hin. „Ich hab es vor den anderen gefunden. Für dich. Bündnis ist Bündnis.“',
     '{name} is already waiting and holds out the last piece to you. "I found it before the others did. For you. An alliance is an alliance."'],
+  // Rivale erledigt oder fort (Bogen-Finale): Er taucht im Pfadviertel nicht mehr auf (tools/schicksale.mjs)
+  viertel_fort: ['Am letzten Hof liegt das letzte Stück, darauf {name}s Zeichen. Die Spur stammt noch aus der Zeit, bevor ihr euch zum letzten Mal gegenübergestanden habt. Niemand holt es mehr ab.',
+    'In the last courtyard lies the last piece, marked with {name}\'s sign. The trail dates from before the two of you faced each other for the last time. No one will come for it now.'],
   viertel_sieg: ['{name} lässt fallen, was hier gefunden wurde, und verschwindet in den Gassen. Das letzte Stück gehört dir.',
     '{name} drops what was found here and vanishes into the alleys. The last piece is yours.'],
   // Etappe 3: Eskalation ab Sequenz 4

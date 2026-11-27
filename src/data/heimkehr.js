@@ -38,7 +38,8 @@ const VON = ['kettlegate', 'wexmoor', 'dunscar', 'calderwick']; // Briarholt: Li
 // --- Nachhall: sechs Orte je Stadt ------------------------------------------------------------------------------
 
 const prompt = L('Nachhall', 'Echo');
-/** [id, Karte, Titel, Text] — der Text erzählt, was dort damals war und was heute davon übrig ist. */
+/** [id, Karte, Titel, Text, Varianten?] — der Text erzählt, was dort damals war und was heute davon übrig ist.
+ * Varianten [{ flag, title?, text }]: Hat die Geschichte anders geendet (Kapitel-2-Ende), steht dort ein anderer Text. */
 export const NACHHALL = {
   kettlegate: [
     ['kg_revier', 'revier', L('Dein alter Schreibtisch', 'Your old desk'),
@@ -66,13 +67,22 @@ export const NACHHALL = {
         'On the platform the imprint of your suitcase is still in the soot, as if no one had swept it away. Back then you came as a wanted person, with a ticket and nothing else. The telegraphist looks up, recognises you and forgets to finish tapping the telegram.')],
     ['wx_kahn', 'wx_kahn', L('Der Unterschlupf', 'The hideout'),
       L('Im Kahn hängt noch deine Decke über der Pritsche. Zunder hat sie nie abgenommen. Auf dem Tisch liegt ein Zettel in ihrer Schrift: „Falls du zurückkommst: Der Kessel ist noch warm. Falls nicht: auch.“',
-        'Your blanket still hangs over the bunk in the barge. Tinder never took it down. A note in her hand lies on the table: "If you come back: the kettle is still warm. If you don\'t: same."')],
+        'Your blanket still hangs over the bunk in the barge. Tinder never took it down. A note in her hand lies on the table: "If you come back: the kettle is still warm. If you don\'t: same."'),
+      // Varianten nach dem Ende von Kapitel 2 (tools/schicksale.mjs): erstes passendes Flag gewinnt
+      [{ flag: 'k2_end_lichtmeister', text: L('Im Kahn ist deine Pritsche abgezogen, die Decke liegt gefaltet am Fußende. Zunder war seit deinem Amtsantritt nicht mehr hier. Auf dem Tisch liegt ein Zettel in ihrer Schrift, schon vergilbt: „Ich verkauf dir immer noch kein Öl.“ Darunter, mit anderer Tinte und später dazugeschrieben: „Der Kessel ist trotzdem warm.“',
+        'In the barge your bunk has been stripped, the blanket folded at its foot. Tinder hasn\'t been here since you took office. On the table lies a note in her hand, already yellowed: "I still won\'t sell you oil." Below it, in different ink and added later: "The kettle is warm anyway."') },
+      { flag: 'k2_end_meer', text: L('Der Kahn liegt verlassen am Kai. Seit du mit Kit und Zunder aufs Meer geflohen bist, hat ihn niemand betreten. Deine Decke hängt noch über der Pritsche, steif vom Salz. Auf dem Tisch steht ein leerer Ölkanister mit einem Zettel in Zunders Schrift: „Falls du zurückkommst: Wir sind auf See. Falls nicht: auch.“',
+        'The barge lies abandoned at the quay. Since you fled to sea with Kit and Tinder, no one has set foot in it. Your blanket still hangs over the bunk, stiff with salt. On the table stands an empty oil can with a note in Tinder\'s hand: "If you come back: we\'re at sea. If you don\'t: same."') }]],
     ['wx_salzmarkt', 'wx_salzmarkt', L('Der Stand, an dem man dich verraten hat', 'The stall where you were betrayed'),
       L('An diesem Stand hat dich jemand an die Grauspäher verkauft, für einen Sack Salz. Der Stand ist leer, das Schild abgeschraubt. Die Leute machen einen Bogen darum, als wäre der Boden heiß.',
         'At this stall someone sold you to the Grey Scouts for a sack of salt. The stall is empty, the sign unscrewed. People give it a wide berth, as if the ground were hot.')],
     ['wx_leuchtturm', 'wx_leuchtturm', L('Das erloschene Feuer', 'The extinguished fire'),
       L('Das Leuchtfeuer brennt nicht mehr so, wie es damals gebrannt hat. Es ist ein gewöhnliches Licht geworden, für Schiffe, nicht für Seelen. Auf den Stufen liegen Muscheln, Kerzenstümpfe und ein Zettel: „Danke.“',
-        'The beacon no longer burns the way it did back then. It has become an ordinary light, for ships, not for souls. On the steps lie shells, candle stubs and a note: "Thank you."')],
+        'The beacon no longer burns the way it did back then. It has become an ordinary light, for ships, not for souls. On the steps lie shells, candle stubs and a note: "Thank you."'),
+      [{ flag: 'k2_end_meer', title: L('Das Feuer, das noch brennt', 'The fire that still burns'), text: L('Das Leuchtfeuer brennt noch wie damals, und oben an der Linse steht Brandt. Als du die Stufen hinaufsiehst, dreht sich das Feuer weg, zum ersten Mal in dreihundert Jahren, und sucht woanders. Auf den Stufen liegen Muscheln und ein Zettel: „Hol uns hier raus.“',
+        'The Beacon still burns as it did back then, and Brandt stands at the lens above. When you look up the steps, the fire turns away, for the first time in three hundred years, and searches elsewhere. On the steps lie shells and a note: "Get us out of here."') },
+      { flag: 'k2_end_lichtmeister', title: L('Dein Feuer', 'Your fire'), text: L('Das Leuchtfeuer erkennt dich, bevor du die Tür öffnest. Es legt sich vor dir hin wie ein Hund vor seinem Herrn, und die Täfelchen an den Wänden klappern. Auf den Stufen liegen keine Muscheln, sondern Bittschriften, adressiert an den Lichtmeister. An dich.',
+        'The Beacon recognises you before you open the door. It lies down before you like a dog before its master, and the tablets on the walls rattle. On the steps lie no shells but petitions, addressed to the Light Master. To you.') }]],
     ['wx_akademie', 'wx_akademie', L('Dein Name im Hörsaal', 'Your name in the lecture hall'),
       L('Auf der Tafel im Hörsaal steht dein Name, halb weggewischt, darunter eine Frage in Wyles Schrift: „Wie viel Mensch bleibt bei Sequenz 3?“ Niemand hat sie beantwortet. Du nimmst die Kreide und lässt sie wieder sinken.',
         'Your name is on the blackboard in the lecture hall, half wiped away, and beneath it a question in Wyle\'s hand: "How much of a person remains at Sequence 3?" No one has answered it. You pick up the chalk and lower it again.')],
@@ -107,8 +117,8 @@ export const NACHHALL = {
 /** NPC-Id → erster Satz bei der Heimkehr (ersetzt den Begrüßungstext, solange die Gruppe heimkehren darf). */
 export const STIMMEN = {
   // Kettlegate
-  pimm: L('Miss Pimm lässt den Stempel fallen. „Sie …“ Sie fasst sich. „Die Inspektorin ist nicht mehr hier. Aber Ihr Stuhl. Den hat keiner nehmen wollen.“',
-    'Miss Pimm drops her stamp. "You …" She composes herself. "The Inspector isn\'t here any more. But your chair is. Nobody wanted to take it."'),
+  pimm: L('Miss Pimm lässt den Stempel fallen. „Sie …“ Sie fasst sich. „Die Inspektorin hat gesagt, Sie kommen wieder. Ich hab ihr nicht geglaubt. Aber Ihr Stuhl steht noch. Den hat keiner nehmen wollen.“',
+    'Miss Pimm drops her stamp. "You …" She composes herself. "The Inspector said you would come back. I didn\'t believe her. But your chair is still here. Nobody wanted to take it."'),
   halloway: L('Halloway weicht hinter den Tresen zurück, bis das Regal klirrt. „Ich hab den Keller zugenagelt. Ich schwöre, ich hab ihn zugenagelt.“',
     'Halloway backs behind the counter until the shelf rattles. "I nailed the cellar shut. I swear I nailed it shut."'),
   price: L('Constable Price legt die Hand an den Knüppel, sieht dir in die Augen und nimmt sie wieder weg. „Ich habe Befehl, Sie festzunehmen“, sagt er leise. „Ich habe außerdem Kinder.“',
@@ -255,11 +265,18 @@ export const RACHE = {
   kettlegate: {
     map: 'ankerhof',
     trupp: { vorlage: 'rost_schmied', sheet: 'enemy_schlachtergehilfe', name: L('Die letzten Rostbrüder', 'The last Rust Brothers'),
-      intro: L('Sie haben die Kapelle wieder aufgebaut, Niet für Niet, und dabei jeden Tag deinen Namen auf den Amboss geschlagen. „Als du ein Mensch warst, hast du uns zerschlagen. Jetzt bist du nicht mal mehr ein Mensch. Das macht es leichter.“',
+      intro: L('Die Rostbrüder vom Ankerhof haben auf dich gewartet. Damals warst du für sie nur ein Schnüffler, der zu viele Fragen über die Chorfrau gestellt hat. Inzwischen weiß die ganze Stadt, was aus dir geworden ist, und sie schlagen jeden Tag deinen Namen auf den Amboss. „Ein Halbgott. Dann lohnt sich die Mühe wenigstens.“',
+        'The Rust Brothers of the Anchor Yard have been waiting for you. Back then you were just a snoop to them, asking too many questions about the choir woman. By now the whole city knows what you have become, and every day they beat your name into the anvil. "A demigod. Then at least it\'s worth the trouble."'),
+      // Varianten je nachdem, wie es mit ihnen damals ausging (tools/schicksale.mjs): erstes passendes Flag gewinnt
+      varianten: [{ flag: 'rost_broken', text: L('Sie haben die Kapelle wieder aufgebaut, Niet für Niet, und dabei jeden Tag deinen Namen auf den Amboss geschlagen. „Als du ein Mensch warst, hast du uns zerschlagen. Jetzt bist du nicht mal mehr ein Mensch. Das macht es leichter.“',
         'They rebuilt the chapel rivet by rivet, beating your name into the anvil every day. "When you were human, you broke us. Now you\'re not even human. That makes it easier."') },
+      { flag: 'c5_wrong', text: L('Damals hast du Price und zwanzig Mann in die Seilerkapelle geschickt, für eine Glocke, die nie dort war. Seitdem schlagen die Rostbrüder jeden Tag deinen Namen auf den Amboss. „Du hast uns verraten, als du noch ein Mensch warst. Jetzt bist du nicht mal mehr einer. Das macht es leichter.“',
+        'Back then you sent Price and twenty men into the rope chapel, for a bell that was never there. Ever since, the Rust Brothers have beaten your name into the anvil every day. "You betrayed us when you were still human. Now you\'re not even that. That makes it easier."') }] },
     boss: { vorlage: 'schleier_mutter', sheet: 'enemy_chorfanatiker', name: L('Mutter Ysoldes Rache', 'Mother Ysolde\'s Revenge'),
-      intro: L('Aus dem Nebel am Anker tritt eine Frau im grauen Schleier, und hinter ihr zwanzig weitere. „Du hast meine Schwestern in alle Winde zerstreut. Jede von ihnen hat seitdem ein Gesicht gestohlen. Heute geben wir sie dir alle zurück.“',
-        'From the fog by the anchor steps a woman in a grey veil, and behind her twenty more. "You scattered my sisters to every wind. Each of them has stolen a face since. Today we give them all back to you."') },
+      intro: L('Aus dem Nebel am Anker tritt eine Frau im grauen Schleier, und hinter ihr zwanzig weitere. „Mutter Ysolde lässt grüßen. Wir sehen dir zu, seit du mit einer Laterne durch Kettlegate gelaufen bist, und jede von uns hat seitdem ein Gesicht gestohlen. Heute geben wir sie dir alle zurück.“',
+        'From the fog by the anchor steps a woman in a grey veil, and behind her twenty more. "Mother Ysolde sends her regards. We have watched you since you walked through Kettlegate with a lantern, and each of us has stolen a face since. Today we give them all back to you."'),
+      varianten: [{ flag: 'ysolde_resolved', text: L('Aus dem Nebel am Anker tritt eine Frau im grauen Schleier, und hinter ihr zwanzig weitere. „Du hast meine Schwestern in alle Winde zerstreut. Jede von ihnen hat seitdem ein Gesicht gestohlen. Heute geben wir sie dir alle zurück.“',
+        'From the fog by the anchor steps a woman in a grey veil, and behind her twenty more. "You scattered my sisters to every wind. Each of them has stolen a face since. Today we give them all back to you."') }] },
   },
   wexmoor: {
     map: 'wx_lichtamt',
@@ -268,7 +285,11 @@ export const RACHE = {
         'Not every Grey Scout follows the decree. A dozen wait in the Office of Light, their lamps turned to full flame. "The file is closed," says their leader. "We are not."') },
     boss: { vorlage: 'ph_leuchtfeuer_elite', name: L('Die Erben des Leuchtfeuers', 'The Heirs of the Beacon'),
       intro: L('Die Wärter des alten Leuchtfeuers haben gesammelt, was nach seinem Erlöschen übrig blieb: Glut, Gebete, Hass. Jetzt brennt es in ihnen. „Du hast unser Licht gelöscht. Wir zeigen dir, wie es sich anfühlt, im Dunkeln zu stehen.“',
-        'The keepers of the old Beacon have gathered what remained after it went out: embers, prayers, hatred. Now it burns in them. "You put out our light. We\'ll show you what it feels like to stand in the dark."') },
+        'The keepers of the old Beacon have gathered what remained after it went out: embers, prayers, hatred. Now it burns in them. "You put out our light. We\'ll show you what it feels like to stand in the dark."'),
+      varianten: [{ flag: 'k2_end_meer', text: L('Die Wärter des Leuchtfeuers haben dich nie vergessen: den Fremden, der ihnen über das Meer entkommen ist. Brandt hat sie geschickt, mit Glut in den Händen und Namen auf den Lippen. „Das Feuer hat dich damals nicht bekommen. Heute holen wir nach, was es versäumt hat.“',
+        'The keepers of the Beacon never forgot you: the stranger who escaped them across the sea. Brandt has sent them, with embers in their hands and names on their lips. "The fire didn\'t get you back then. Today we make up for what it missed."') },
+      { flag: 'k2_end_lichtmeister', text: L('Die Wärter des Leuchtfeuers knien nicht mehr vor dir. Sie haben das Feuer in Laternen abgefüllt und sich eingeredet, dass es ihnen gehorcht und nicht dir. „Ein Lichtmeister, der davonläuft, ist kein Lichtmeister. Wir holen uns das Feuer zurück.“',
+        'The keepers of the Beacon no longer kneel before you. They have bottled the fire in lanterns and convinced themselves it obeys them and not you. "A Light Master who runs away is no Light Master. We\'re taking the fire back."') }] },
   },
   dunscar: {
     map: 'ds_runddepot',
@@ -305,7 +326,7 @@ function racheKampf(content, city, art, r) {
       { name: RACHE_ANGRIFF[2], action: 'guard', value: 8, text: RACHE_ANGRIFF[3] },
       { name: RACHE_ANGRIFF[4], damage: Math.round(v.dmg * 1.4), hits: [1700], unparryable: true },
     ],
-    intro: r.intro, win_text: RACHE_SIEG, lose_text: RACHE_NIEDERLAGE, flee_text: RACHE_FLUCHT, lose_money: 0, on_win: {},
+    intro: r.intro, intro_varianten: (r.varianten ?? []).map((v) => ({ requires_flags: [v.flag], text: v.text })), win_text: RACHE_SIEG, lose_text: RACHE_NIEDERLAGE, flee_text: RACHE_FLUCHT, lose_money: 0, on_win: {},
   };
 }
 
@@ -333,14 +354,17 @@ export function applyHeimkehr(content) {
   if (pins?.wx_bahnhof) for (const z of Object.values(ZIELE)) pins[z.map] ??= pins.wx_bahnhof;
   // Nachhall
   const ids = [];
-  for (const [city, liste] of Object.entries(NACHHALL)) for (const [id, mapId, title, text] of liste) {
+  for (const [city, liste] of Object.entries(NACHHALL)) for (const [id, mapId, title, text, varianten = []] of liste) {
     const map = content.maps[mapId];
     if (!map || stadt(mapId) !== city) continue;
     const tile = freieKachel(map, { seed: `hk|${id}`, minDist: 5 });
     if (!tile) continue;
     ids.push(id);
+    const effects = { sets_flags: [`hk_${id}`], nachhall: id };
     map.interactables.push({ id: `hk_${id}`, kind: 'read', tile, prompt, title, marker: true, text,
-      visible_if: { ...HK, hide_if_flags: [`hk_${id}`] }, effects: { sets_flags: [`hk_${id}`], nachhall: id } });
+      visible_if: { ...HK, hide_if_flags: [`hk_${id}`, ...varianten.map((v) => v.flag)] }, effects });
+    varianten.forEach((v, i) => map.interactables.push({ id: `hk_${id}__${v.flag}`, kind: 'read', tile, prompt, title: v.title ?? title, marker: true, text: v.text,
+      visible_if: { ...HK, requires_flags: [v.flag], hide_if_flags: [`hk_${id}`, ...varianten.slice(0, i).map((w) => w.flag)] }, effects }));
   }
   content.heimkehr = { nachhall: ids };
 
