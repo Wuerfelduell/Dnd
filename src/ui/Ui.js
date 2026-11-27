@@ -39,6 +39,7 @@ import { PVG_UI } from '../data/pfadviertelGeschichte.js';
 import { hatNarbe, NARBE } from '../core/Narbe.js';
 import { p2View } from '../core/Split.js';
 import { showTitleMenu, showPauseMenu, titleKey } from './TitleMenu.js';
+import { GROLL_WIRKUNG as LAUNE_GROLL_WIRKUNG } from '../data/launen.js';
 import { aufstiegHinweise, wichtigeOrte, wegbeschreibung, zielName } from '../data/aufstiegHinweise.js';
 
 /** Spielstand für Icons, die vom Spieler abhängen (Relikt des Verfalls: Bild nach seiner stärksten Eigenschaft, Codex DP). */
@@ -62,6 +63,28 @@ const corruptionHtml = (s, id) => {
   return `<span class="arteffects"><span class="curse"><i class="artmark minus"></i>Korrumpiert${n > 1 ? ` (${n}×)` : ''}: ${using ? `kostet gerade ${fmtRate(r.hp_per_sec)} Leben und ${fmtRate(r.nerves_per_sec)} Nerven pro Sekunde` : 'ruht, solange du es nicht trägst'}</span></span>`;
 };
 const artifactEffectsHtml = (it) => `<span class="arteffects">${(it.boons ?? []).map((x) => `<span class="boon"><i class="artmark plus"></i>${esc(x.text)}</span>`).join('')}${(it.curses ?? []).map((x) => `<span class="curse"><i class="artmark minus"></i>${esc(x.text)}</span>`).join('')}</span>`;
+/**
+ * Launische Artefakte (core/Launen.js): Bindung, Wesen, heutige Forderung und Groll eines mitgeführten Artefakts.
+ * Jedes Stück Text steht in einem eigenen Knoten, damit die Übersetzung (I18n) Satz für Satz greift.
+ */
+const fmtX = (f) => String(Math.round(f * 100) / 100).replace('.', ',');
+const launeHtml = (s, id) => {
+  const info = s.launeInfo?.(id);
+  if (!info) return '';
+  const { stufe, groll, wesen, bisNaechste, faktor, forderung } = info;
+  const parts = [`<span class="laune-stufe s${stufe.stufe}">Bindung: ${esc(stufe.name)}</span>`];
+  if (bisNaechste) parts.push(`<span class="muted">noch ${bisNaechste.tage} Spieltage bis ${esc(bisNaechste.name)}</span>`);
+  if (faktor.boon !== 1) parts.push(faktor.boon > 0 ? `<span class="${faktor.boon > 1 ? 'boon' : 'curse'}">Vorteile ×${fmtX(faktor.boon)}</span>` : '<span class="curse">Vorteile ruhen</span>');
+  if (faktor.curse !== 1) parts.push(`<span class="curse">Flüche ×${fmtX(faktor.curse)}</span>`);
+  const lines = [parts.join(' · ')];
+  if (stufe.stufe >= 1 || forderung.length) lines.push(`<span class="muted">Wesen: ${esc(wesen.name)}</span>${forderung.length ? '' : ` · <span class="muted">${esc(wesen.text)}</span>`}`);
+  for (const f of forderung) {
+    const label = f.art === 'pfad' ? 'Pfad' : 'Heute';
+    lines.push(`<span class="${f.done ? 'boon' : 'curse'}">${label}: ${f.have}/${f.need} ${esc(f.will)}${f.done ? ' ✓' : ''}</span>`);
+  }
+  if (groll.groll > 0) lines.push(`<span class="curse">Groll: ${esc(groll.name)}</span> · <span class="curse">${esc(LAUNE_GROLL_WIRKUNG[groll.groll])}</span>`);
+  return `<span class="laune">${lines.map((l) => `<span class="laune-zeile">${l}</span>`).join('')}</span>`;
+};
 /**
  * Was ein Angebot taugt, bevor man zahlt (Treffen, Läden, Fasserin): Segen und Flüche von Artefakten
  * und Kleidung, Pfad und Sequenz von Formeln, Angriff von Waffen (core/Auction.js offerInfo).
@@ -2363,12 +2386,13 @@ export class Ui {
         : it.kind === 'gear' ? ` <span class="muted">${GEAR_SLOT_NAMES[it.slot]}</span>` : '';
       const effects = it.kind === 'artifact' || it.kind === 'gear' ? artifactEffectsHtml(it) : '';
       const taint = tainted ? corruptionHtml(s, it.id) : '';
-      return `<li class="item${tainted ? ' tainted' : ''}"><div>${it.kind === 'potion' || it.kind === 'formula' ? itemIconBig(it.id) : itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${stat}${tainted ? ` ${korrBadge()}` : ''}${bedarfHtml(need, it.id)}<br><span class="desc">${esc(it.desc)}</span>${effects}${taint}</div><div>${action}</div></li>`;
+      const laune = it.kind === 'artifact' && !s.isSetAside(it.id) ? launeHtml(s, it.id) : '';
+      return `<li class="item${tainted ? ' tainted' : ''}"><div>${it.kind === 'potion' || it.kind === 'formula' ? itemIconBig(it.id) : itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${stat}${tainted ? ` ${korrBadge()}` : ''}${bedarfHtml(need, it.id)}<br><span class="desc">${esc(it.desc)}</span>${effects}${laune}${taint}</div><div>${action}</div></li>`;
     }).join('');
     const carried = s.activeArtifacts();
     const maxArt = s.artifactMaxActive();
     const arts = carried.length
-      ? `<div class="status"><span class="artslots">${artifactSlots(carried, maxArt, carried.length > maxArt || s.unruhe >= 60)}</span>Artefakte dabei <strong>${carried.length}</strong>${s.artifactUnruhe() ? ` · <span class="curse">Unruhe +${Math.round(s.artifactUnruhe() * s.unruheGainMult() * 100) / 100} pro Sekunde</span>` : ''} · Alles, was du bei dir trägst, wirkt: Vorteile wie Flüche. Was du nicht brauchst, lagere im Büro ein.${carried.length > maxArt ? ` <span class="curse">Mehr als ${maxArt} zerren heftig aneinander.</span>` : ''}</div>` : '';
+      ? `<div class="status"><span class="artslots">${artifactSlots(carried, maxArt, carried.length > maxArt || s.unruhe >= 60)}</span>Artefakte dabei <strong>${carried.length}</strong>${s.artifactUnruhe() ? ` · <span class="curse">Unruhe +${Math.round(s.artifactUnruhe() * s.unruheGainMult() * 100) / 100} pro Sekunde</span>` : ''} · Alles, was du bei dir trägst, wirkt: Vorteile wie Flüche. Was du nicht brauchst, lagere im Büro ein. <span class="laune-hinweis">Lange getragene Artefakte binden sich an dich: Sie werden stärker, wollen ab „Gebunden“ aber jeden Spieltag etwas und grollen, wenn sie es nicht bekommen.</span>${carried.length > maxArt ? ` <span class="curse">Mehr als ${maxArt} zerren heftig aneinander.</span>` : ''}</div>` : '';
     const drain = s.corruptionDrain();
     const taintBox = drain.count
       ? `<div class="status taintbox">${korrIcon('pulse1', 'Korruption')}<strong>${drain.count}</strong> korrumpierte${drain.count === 1 ? 's Stück zehrt' : ' Stücke zehren'} an dir: <span class="curse">−${fmtRate(drain.hp)} Leben, −${fmtRate(drain.nerves)} Nerven pro Sekunde</span>. Ablegen hilft sofort, reinigen Dr. Varga im Revier oder Läutersalz (Nell).</div>`
