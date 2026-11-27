@@ -70,7 +70,7 @@ test('Fehlschlag (verloren, Regel gebrochen, zu früh): Trostpreis 1 bis 5 %', (
   }
 });
 
-test('Nur der eigene Pfad ab Seq 4; Seq 3 kämpft gegen einen stärkeren Gegner; Liste zeigt die Quelle', () => {
+test('Nur der eigene Pfad auf genau Seq 4 (Seb 2026-11-27: ab Seq 3 nicht mehr); Liste zeigt die Quelle', () => {
   const s = hero('laterne', 5);
   s.applyEffects({ verdau_probe: 'laterne' });
   assert.equal(s.pendingCombat, null);
@@ -79,11 +79,14 @@ test('Nur der eigene Pfad ab Seq 4; Seq 3 kämpft gegen einen stärkeren Gegner;
   assert.equal(t.pendingCombat, null);
   const u = hero('maske', 3);
   u.applyEffects({ verdau_probe: 'maske' });
-  const c3 = new Combat(u, verdauEncId('maske'));
+  assert.equal(u.pendingCombat, null, 'Seq 3: Prüfstein schweigt');
+  assert.ok(!u.digestTable().some((r) => r.kind === 'verdau_probe'));
+  const stein = content.maps.o3_maske.interactables.find((x) => x.id === 'o3_maske_pruefstein');
+  assert.equal(u.meets(stein.visible_if), false, 'Seq 3 sieht den Prüfstein nicht mehr');
   const v = hero('maske');
+  assert.equal(v.meets(stein.visible_if), true);
   v.applyEffects({ verdau_probe: 'maske' });
-  const c4 = new Combat(v, verdauEncId('maske'));
-  assert.ok(c3.enemy.maxHp > c4.enemy.maxHp);
+  assert.equal(v.pendingCombat, verdauEncId('maske'));
   assert.ok(v.digestTable().some((r) => r.kind === 'verdau_probe' && r.points === 15));
 });
 

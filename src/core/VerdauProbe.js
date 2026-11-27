@@ -6,14 +6,29 @@
 // darum kein Spam; einmal am Tag hält es als feste Gewohnheit neben der Jagd, ohne die langsame Verdauung auszuhebeln.
 // Funktioniert im Splitscreen: der Versuch hängt am Pfad des Spielers, der den Prüfstein berührt (Combat.combatBy).
 import { VERDAU_PROBE, verdauEncId, verdauStufeMult } from '../data/verdauProbe.js';
+import { VIERTEL_VERDAU, viertelArt } from '../data/seq3Weg.js';
 
 const tagId = (p2, pid) => `verdau_${p2 ? 'p2_' : ''}${pid}`;
 
 export const verdauProbeMethods = {
+  /**
+   * Viertel-Resonanz (data/seq3Weg.js, Seb 2026-11-27): Sieg im eigenen Pfadviertel auf Seq 4 verdaut fest, Herde, Rangprüfungen
+   * und Bosse beim ersten Sieg deutlich mehr. Gilt für den Spieler, dessen Werte gerade gelten (Combat ruft es je Kämpfer).
+   */
+  viertelVerdau(encId, enc, first) {
+    const p = this.pathway;
+    if (!p || p.seq !== 4 || !enc || enc.practice || enc.verdau_probe) return 0;
+    if (!encId.startsWith(`o3_${p.id}_`)) return 0;
+    const art = viertelArt(encId);
+    const pct = VIERTEL_VERDAU.sieg + (first && art ? VIERTEL_VERDAU.erst[art] : 0);
+    return this.addDigestion(pct, first && art ? 'viertel_erst' : 'viertel_sieg');
+  },
+
   /** Kann dieser Spieler heute die Prüfung des Viertels `pid` ablegen? Gibt null oder den Grund. */
   verdauProbeBlock(pid) {
     const p = this.pathway;
     if (!p || p.id !== pid || p.seq > 4) return 'Der Prüfstein schweigt. Er antwortet nur Beyondern dieses Pfades ab der vierten Sequenz.';
+    if (p.seq < 4) return 'Der Prüfstein schweigt. Ab der dritten Sequenz hat er dir nichts mehr zu geben.'; // Seb 2026-11-27: nur Seq 4
     if (p.digestion >= 100) return 'Dein Trank ist schon vollständig verdaut. Der Prüfstein hat dir nichts mehr zu geben.';
     if (this.dailyDone(tagId(this.acting === 2, pid))) return 'Der Prüfstein ist noch kalt von deinem letzten Versuch. Morgen wieder.';
     return null;

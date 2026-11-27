@@ -36,6 +36,8 @@ import { nebelseiteMethods } from './Nebelseite.js';
 import { benannteMethods } from './Benannte.js';
 import { seqHochMethods } from './SeqHoch.js';
 import { verdauProbeMethods } from './VerdauProbe.js';
+import { heimkehrMethods } from './Heimkehr.js';
+import { HEIMKEHR_SEQ } from '../data/seq3Weg.js';
 import { bedarfMethods } from './Bedarf.js';
 import { splitMethods } from './Split.js';
 import { mackenMethods } from './Macken.js';
@@ -372,6 +374,7 @@ export class GameState {
       (o.requires_gatherings_unlocked === undefined || this.gatheringsUnlocked() === o.requires_gatherings_unlocked) &&
       this.meetsPathway(o.requires_pathway) &&
       (o.requires_seq === undefined || (!!this.pathway && this.pathway.seq <= o.requires_seq)) && // Halbgott-Prüfung: Sequenz N oder besser, egal welcher Pfad
+      (o.requires_seq_ab === undefined || (!!this.pathway && this.pathway.seq >= o.requires_seq_ab)) && // nur bis Sequenz N (z. B. Prüfstein nur Seq 4)
       (o.requires_wanted === undefined || this.wanted >= o.requires_wanted) && // Zelle: ab dieser Fahndungsstufe
       (o.max_wanted === undefined || this.wanted < o.max_wanted) &&
       this.meetsSignal(o) &&
@@ -381,7 +384,8 @@ export class GameState {
       this.meetsSignalRoutes(o) && // Paket BN: requires_route, requires_pattern, requires_binding
       this.meetsDaily(o) && // DR: requires_daily / hide_if_daily (einmal je Spieltag)
       this.meetsPfad(o) && // Pfad-Beyonder: requires_item_counts, requires_artifacts, requires_ph_step
-      this.meetsAufstieg(o) // Zug nach oben: requires_alle_flag, hide_if_alle_flag, requires_einer_unter_seq
+      this.meetsAufstieg(o) && // Zug nach oben: requires_alle_flag, hide_if_alle_flag, requires_einer_unter_seq
+      (o.requires_heimkehr === undefined || this.heimkehr() === o.requires_heimkehr) // Rückreise ab Seq 3 (data/heimkehr.js)
     );
   }
 
@@ -478,6 +482,7 @@ export class GameState {
     if (e.combat) this.startCombat(e.combat);
     if (e.digest_pct) this.digestFixed(e.digest_pct); // feste Verdauung aus großen Taten (Dunscar-Anschläge)
     if (e.verdau_probe) this.startVerdauProbe(e.verdau_probe); // Prüfstein im Pfadviertel (core/VerdauProbe.js)
+    if (e.nachhall) this.nachhall(e.nachhall); // Nachhall in den alten Städten (data/heimkehr.js)
     if (e.pfad) this.pfadEffect(e.pfad); // Pfad-Beyonder (Wexmoor): Aufgaben, Schritte, Pfand
     // Fahndung: Zahl ≥ 0 = Mindeststufe (Ausbruch, Flucht), negative Zahl = um so viele Stufen senken (Paket AB)
     if (Number.isFinite(e.wanted) && this.policeRules()) this.setWanted(e.wanted < 0 ? Math.max(0, this.wanted + e.wanted) : Math.max(this.wanted, e.wanted), e.wanted_reason ?? '');
@@ -1004,7 +1009,8 @@ export class GameState {
     if (this.flags.has('won_leuchtfeuer') || this.flags.has('kapitel2_done')) for (const f of K2_AKT5_STEPS) this.flags.add(f);
     else if (this.flags.has('k2_am_turm')) this.flags.add('k2v_boot_bereit');
     // Kein Zurück nach Kettlegate: Stände, die nach der Ankunft in Wexmoor noch dort stehen (alter Nachtzug), wachen im Unterschlupf auf
-    if (!this.testmodus && this.flags.has('k2_arrived') && (this.content.maps[this.map]?.city ?? 'kettlegate') === 'kettlegate') {
+    if (!this.testmodus && this.flags.has('k2_arrived') && (this.content.maps[this.map]?.city ?? 'kettlegate') === 'kettlegate'
+      && !(this.flags.has('k4_arrived') && [data.pathway?.seq, data.p2?.pathway?.seq].some((q) => q != null && q <= HEIMKEHR_SEQ))) { // ab Seq 3 darf man zurück (data/heimkehr.js)
       this.map = this.content.maps.wx_kahn ? 'wx_kahn' : this.map;
       this.spawn = 'default';
       this.position = null;
@@ -1059,4 +1065,4 @@ export class GameState {
 /** Fortschrittsflags der verlängerten Akt-V-Fassung (AP), in Spielreihenfolge. */
 export const K2_AKT5_STEPS = ['k2v_boot_bereit', 'k2v_keller_passiert', 'k2v_aufstieg_passiert', 'k2v_abschied_done'];
 
-Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods, sudeMethods, seq5Methods, seq4Methods, seqHochMethods, bedarfMethods, splitMethods, pfadHandelMethods, erfolgeMethods, postMethods, benannteMethods, tiereMethods, fahrendeAuktionMethods, hausMethods, nebelseiteMethods, testmodusMethods, mackenMethods, kopfgeldjaegerMethods, wetterMethods, rivaleMethods, verdauProbeMethods);
+Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods, sudeMethods, seq5Methods, seq4Methods, seqHochMethods, bedarfMethods, splitMethods, pfadHandelMethods, erfolgeMethods, postMethods, benannteMethods, tiereMethods, fahrendeAuktionMethods, hausMethods, nebelseiteMethods, testmodusMethods, mackenMethods, kopfgeldjaegerMethods, wetterMethods, rivaleMethods, verdauProbeMethods, heimkehrMethods);

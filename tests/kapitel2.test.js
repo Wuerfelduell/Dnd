@@ -52,7 +52,7 @@ test('Ankunft: Steckbrief, Zunder, Unterschlupf und die erste Schlussfolgerung',
   // Unterschlupf
   s.flags.add('k2_hideout');
   assert.ok(!names(s, 'wx_torfstich').includes('docks'), 'kein Nachtzug zurück nach Kettlegate');
-  assert.ok(!s.content.travel.some((t) => (t.city ?? 'kettlegate') === 'wexmoor' && cityOf(s, t.map) === 'kettlegate'), 'keine Reise von Wexmoor nach Kettlegate');
+  assert.ok(!s.content.travel.some((t) => (t.city ?? 'kettlegate') === 'wexmoor' && cityOf(s, t.map) === 'kettlegate' && !t.requires_heimkehr), 'keine Reise von Wexmoor nach Kettlegate (außer Heimkehr ab Seq 3)');
   // Der Unterschlupf hat einen eigenen Braukessel (gleiche Funktion wie auf dem Nachtmarkt)
   const kessel = s.content.maps.wx_kahn.interactables.find((i) => i.kind === 'brew');
   assert.ok(kessel && kessel.sprite === 'cauldron', 'Braukessel im Kahn');

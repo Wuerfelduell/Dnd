@@ -1568,6 +1568,7 @@ export class Combat {
         if (enc.occult) s.act('occult_win', fightMult);
         if (enc.boss) s.act('boss_win', zoneMult);
         else if (enc.elite) s.act('elite_win', zoneMult * vm);
+        each(() => s.viertelVerdau?.(this.id, enc, first)); // Seq 4 im eigenen Pfadviertel (data/seq3Weg.js)
         // Begleiter einer Gruppe: eigene Beute (Wiederholungstabelle) und ein Teil der Verdauung je Gegner
         for (let i = 1; i < this.foes.length; i++) this.withFoe(i, () => {
           s.flags.add(`won_${this.id}`);
