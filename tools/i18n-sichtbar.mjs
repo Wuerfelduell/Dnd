@@ -1,7 +1,7 @@
 // Prüft im laufenden Spiel (Englisch), welche sichtbaren Texte noch ohne Übersetzung sind.
 // Aufruf: npx vite --port 5179 & node tools/i18n-sichtbar.mjs [http://localhost:5179/]
 // Rendert Notizbuch (alle Reiter, Pfad-Reiter jedes Pfades auf mehreren Sequenzen, alle Fälle mit allen
-// Hinweisen), Enden, Fallwand und Meldungen und prüft die Untersuchungstexte an allen Orten.
+// Hinweisen), Enden, Fallwand und Meldungen und prüft die Untersuchungstexte an allen Orten sowie alle Dialoge.
 // Ausgabe: fehlende Texte, Exit-Code 1 wenn etwas fehlt.
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
@@ -38,13 +38,18 @@ const r = await p.evaluate(async () => {
     add(mid, m.name);
     for (const o of m.interactables ?? []) { for (const k of ['title', 'text', 'prompt', 'name', 'label']) add(mid, o[k]); for (const x of [].concat(o.lines ?? [], o.pages ?? [])) add(mid, typeof x === 'string' ? x : x?.text); }
   }
-  return { miss: Object.keys(miss), orte, errs };
+  // Dialoge: Sprecher, Knotentexte und Antworten
+  const dlg = {};
+  const addD = (did, s) => { if (typeof s !== 'string' || !/[A-Za-zÄÖÜäöüß]{2,}/.test(s)) return; for (const para of s.split(/\n+/)) { const t = para.trim(); if (t && L(t) == null) dlg[t] = did; } };
+  for (const [did, d] of Object.entries(content.dialogues)) { addD(did, d.speaker); addD(did, d.name); for (const n of Object.values(d.nodes ?? {})) { addD(did, n.speaker); addD(did, n.text); for (const ch of n.choices ?? []) { addD(did, ch.text); addD(did, ch.label); } } }
+  return { miss: Object.keys(miss), orte, dlg, errs };
 });
 await b.close();
 const ignor = /^k\dk_[a-z_]+$/; // interne Begegnungs-Kennungen
-const ui = r.miss.filter((s) => !ignor.test(s)); const orte = Object.entries(r.orte).filter(([s]) => !ignor.test(s));
+const ui = r.miss.filter((s) => !ignor.test(s)); const orte = Object.entries(r.orte).filter(([s]) => !ignor.test(s)); const dlg = Object.entries(r.dlg);
 for (const e of r.errs) console.log('Fehler:', e);
 for (const s of ui) console.log('Oberfläche:', s);
 for (const [s, mid] of orte) console.log(`Ort ${mid}:`, s);
-console.log(`\n${ui.length} fehlende Oberflächentexte, ${orte.length} fehlende Ortstexte, ${r.errs.length} Fehler`);
-process.exit(ui.length || orte.length || r.errs.length ? 1 : 0);
+for (const [s, did] of dlg) console.log(`Dialog ${did}:`, s);
+console.log(`\n${ui.length} fehlende Oberflächentexte, ${orte.length} fehlende Ortstexte, ${dlg.length} fehlende Dialogtexte, ${r.errs.length} Fehler`);
+process.exit(ui.length || orte.length || dlg.length || r.errs.length ? 1 : 0);
