@@ -328,6 +328,7 @@ export class Combat {
     this.attackIndex = 0;
     this.outcome = null; // 'won' | 'lost' | 'fled'
     this.log = [];
+    if (this.rules?.verdauStufe) this.log.push(state.verdauStufeText(this.rules.verdauStufe)); // Prüfstein: aktuelle Stufe zeigen
     if (this.wardMult() < 1) this.log.push(`${enc.name} ist zu mächtig für dich: Ohne Sequenz ${enc.min_seq} prallt fast alles an ${enc.name.startsWith('Die ') ? 'ihr' : 'ihm'} ab.`);
     this.confused = false; // nächster gegnerischer Angriff trifft den Gegner selbst
     this.confuseLock = 0; // Eliten/Bosse: Runden, in denen eine neue Verwirrung nicht greift (CONFUSE_LOCK)
