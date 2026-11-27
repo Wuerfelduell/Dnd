@@ -2,6 +2,7 @@
 // Die PNGs ersetzen die prozedural gezeichneten Platzhalter aus textures.js unter
 // denselben Texture-Keys. Alles, was hier nicht zugeordnet ist (oder nicht lädt),
 // bleibt automatisch beim Platzhalter.
+import { SKRIPT_SHEETS } from '../data/skriptSheets.js';
 import { PATHWAY_STANDIN } from '../data/sequenzen.js';
 import { KFX_SHEETS } from './SkillFx.js';
 import { BH_DACH_TEXTUREN } from '../data/briarholtKulisse.js';
@@ -3358,6 +3359,9 @@ Object.assign(GEGNER_VARIANTEN, WAECHTER_VARIANTEN);
 /** Gestalt-Kampfblätter je Pfad (tools/art/claude_code/hgb_varianten.py): __vh Halbgott des Vorhofs, __vz Stellvertretung, __s1 Seq-1-Beyonder. */
 export const HGB_VARIANTEN = Object.fromEntries(HG_PATHS.flatMap((p) => ['vh', 'vz', 's1'].map((a) => [`hg_battle_${p}__${a}`, `hg_battle_${p}`])));
 Object.assign(GEGNER_VARIANTEN, HGB_VARIANTEN);
+/** Letzte Leihgruppen (tools/art/claude_code/themen_varianten.py): enemy_<basis>__<begegnung>, gesetzt in data/skriptSheets.js. */
+export const THEMEN_VARIANTEN = Object.fromEntries(Object.values(SKRIPT_SHEETS).map((s) => [s, s.split('__')[0]]));
+Object.assign(GEGNER_VARIANTEN, THEMEN_VARIANTEN);
 // Kartenfiguren derselben Gegner: characters/<basis>__o3_<pfad>.png neben dem Basisbild
 for (const [neu, base] of Object.entries(O3_VARIANTEN)) {
   const ow = OVERWORLD_SHEETS[base.replace(/^enemy_/, '')];
