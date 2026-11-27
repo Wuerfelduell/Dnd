@@ -2341,6 +2341,7 @@ CHARACTER_SHEETS.npc_wx_schneiderin = 'wx_schneiderin';
 /** Calderwicker Zirkel: Leih-Sheets der Calderwicker Einwohner (cs_*), Leihbilder aus dem Vorrat, bis eigene Grafik kommt. */
 for (const [id, sheet] of Object.entries(CWZ_SHEETS)) CHARACTER_SHEETS[`npc_${id}`] = sheet;
 Object.assign(ITEM_ICON_ALIASES, CWZ_ICONS, CWF_ICONS);
+ICON32.push(...Object.keys(CWZ_ICONS)); // Calderwick-Zirkelstücke haben auch 32er-Bilder
 for (const id of DS_ZIRKEL_FIGUREN) {
   SHEETS[id] = `characters/${id}_walk.png`;
   CHARACTER_SHEETS[`npc_${id}`] = id;
