@@ -106,4 +106,4 @@ if __name__ == '__main__':
     os.makedirs(out, exist_ok=True)
     for pid in PFADE:
         charakteristik(pid).save(os.path.join(out, f'char_seq1_{pid}.png'))
-        rest(pid).save(os.path.join(out, f'rest_{pid}.png'))
+        # Rest-Icons kommen seit Runde 6 aus icons_rest.py (drei Stufen, 16 und 32)
