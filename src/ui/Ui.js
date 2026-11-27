@@ -2651,9 +2651,9 @@ export class Ui {
   rivaleHtml(s) {
     const list = (s.hasP2?.() ? [1, 2] : [1]).map((n) => s.rivaleUebersicht?.(n)).filter(Boolean);
     if (!list.length) return '';
-    const status = { rivale: 'Feindlich', ruht: 'Hält sich zurück', verbuendet: 'Verbündet' };
+    const status = { rivale: 'Feindlich', ruht: 'Hält sich zurück', verbuendet: 'Verbündet', erledigt: 'Erledigt', fort: 'Hat den Pfad verlassen' };
     return `<h4>Rivale auf deinem Pfad</h4><ul class="steps">${list.map((r) => (r.getroffen
-      ? `<li>${list.length > 1 ? `<span class="role">Spieler ${r.nr}</span> ` : ''}<strong>${esc(r.name)}</strong> · <span>Sequenz ${r.seq}</span> · <span class="badge ${r.status === 'verbuendet' ? 'likely' : ''}">${esc(status[r.status])}</span>${r.hass ? ' · <span class="badge">Will deinen Aufstieg verhindern</span>' : ''} · <span class="muted">Siege: ${r.siege}, Niederlagen: ${r.niederlagen}</span>`
+      ? `<li>${list.length > 1 ? `<span class="role">Spieler ${r.nr}</span> ` : ''}<strong>${esc(r.name)}</strong> · <span>Sequenz ${r.seq}</span> · <span class="badge ${r.status === 'verbuendet' ? 'likely' : ''}">${esc(status[r.status])}</span>${r.hass ? ' · <span class="badge">Will deinen Aufstieg verhindern</span>' : ''} · <span class="muted">Siege: ${r.siege}, Niederlagen: ${r.niederlagen}</span>${r.bogen ? ` · <span class="muted">Bogen: ${Math.min(3, r.bogen)}/3</span>` : ''}`
         + `<br><span class="muted"><strong>Wesen</strong>: ${esc(r.wesen)}</span><br><span class="muted"><strong>Ziel</strong>: ${esc(r.ziel)}</span>${r.aktion ? `<br><span class="muted">${esc(r.aktion)}</span>` : ''}</li>`
       : '<li class="muted">Noch nicht begegnet. Ab Wexmoor geht jemand denselben Pfad wie du.</li>')).join('')}</ul>`;
   }
@@ -2663,7 +2663,7 @@ export class Ui {
     const s = this.state;
     const lage = s.rivaleTreffen?.(nr, { treffen });
     if (!lage) return;
-    const labels = { kampf: 'Kämpfen', stehlen: 'Bestehlen', buendnis: 'Bündnis anbieten', gehen: 'Weitergehen', jagd: 'Gemeinsame Jagd' };
+    const labels = { kampf: 'Kämpfen', stehlen: 'Bestehlen', buendnis: 'Bündnis anbieten', gehen: 'Weitergehen', jagd: 'Gemeinsame Jagd', finale_kampf: 'Kämpfen', finale_bund: 'Bündnis für immer', finale_dritter: lage.dritterLabel ?? '' };
     const siege = s.rivalen?.[`p${nr}`]?.siege ?? 0;
     const notes = {
       stehlen: lage.stehlChance ? `Chance: ${Math.round(lage.stehlChance * 100)} %` : '',
@@ -2704,6 +2704,8 @@ export class Ui {
     this.rivaleUi = null;
     if (o === 'gehen') { if (ui.feige) s.rivaleFeigeGehen?.(ui.nr); this.close(); return; }
     if (o === 'kampf') { s.rivaleKampf(ui.nr, ui.viertel); this.close(); return; }
+    if (o === 'finale_kampf') { s.rivaleFinaleKampf(ui.nr); this.close(); return; }
+    if (o === 'finale_bund' || o === 'finale_dritter') { const f = s.rivaleFinale(ui.nr, o === 'finale_bund' ? 'bund' : 'dritter'); this.showMessage(ui.name, f.text); return; }
     if (o === 'jagd') { const t = s.rivaleText('jagd_intro', ui.nr); s.rivaleJagd(ui.nr); this.showMessage(ui.name, t, { footer: 'Ein Kampf steht bevor.' }); return; } // der Kampf startet, sobald das Fenster zu ist
     const r = o === 'stehlen' ? s.rivaleStehlen(ui.nr) : s.rivaleBuendnis(ui.nr);
     this.showMessage(ui.name, r.text, { footer: r.beute ?? (r.fight ? 'Ein Kampf steht bevor.' : '') });
