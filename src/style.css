@@ -1381,6 +1381,32 @@ html.touch .talentbar .tslot { width: 3.2em; height: 3.2em; }
 .panel.notebook.journal > .feedback:empty { min-height: 0; margin: 0; }
 .build-stamp { font-size: 0.55em; opacity: 0.55; }
 
+/* Bestiarium als Wegweiser (core/Bestiar.js): Fundorte, Stufen, Schwächen, „Für deinen Pfad gesucht“ */
+.bestiary .lockico { margin-right: 0.3em; vertical-align: -0.25em; }
+.bestiary .beast-orte { margin: 0.1em 0; font-size: 0.85em; line-height: 1.3; }
+.bestiary .beast-orte b { color: var(--gold); font-weight: normal; }
+.bestiary .beast-angriffe { margin: 0.15em 0; font-size: 0.85em; }
+.bestiary .beast-next { margin: 0.35em 0 0; font-size: 0.8em; color: var(--muted); border-top: 0.0625em dashed var(--line); padding-top: 0.25em; }
+.bestiary li.beast-unbekannt > img { filter: brightness(0.35) saturate(0.4); }
+.bestiary ul.beast-weak { margin: 0.1em 0 0; padding-left: 1em; font-size: 0.85em; line-height: 1.3; }
+.bestiary ul.beast-weak li { list-style: square; }
+.bestiary ul.beast-weak li.beast-tip { margin: 0.15em 0 0; }
+.beast-regel { margin: 0 0 0.4em; font-size: 0.8em; }
+.beast-wegweiser { margin: 0 0 0.5em; border: 0.125em solid var(--gold); background: rgba(214, 178, 92, 0.07); padding: 0.25em 0.5em; }
+.beast-wegweiser summary { cursor: pointer; color: var(--gold); }
+.beast-wegweiser .lockico { margin-right: 0.3em; vertical-align: -0.25em; }
+.beast-wegweiser .ww-list { list-style: none; margin: 0.3em 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.3em 0.8em; max-height: 11em; overflow-y: auto; }
+.beast-wegweiser .ww-item { padding: 0.15em 0.25em; border: 0.0625em solid transparent; }
+.beast-wegweiser .ww-item.klick { cursor: pointer; }
+.beast-wegweiser .ww-item.klick:hover { border-color: var(--gold); }
+.beast-wegweiser .ww-head { display: flex; align-items: center; gap: 0.3em; flex-wrap: wrap; font-size: 0.9em; }
+.beast-wegweiser .ww-main { color: var(--gold); }
+.beast-wegweiser .ww-srcs { list-style: none; margin: 0.05em 0 0 1.4em; padding: 0; font-size: 0.8em; line-height: 1.3; }
+.beast-wegweiser .ww-src.known b { color: #a8e0a0; }
+.beast-wegweiser .ww-src.unknown { color: var(--muted); }
+.beast-wegweiser .rar { margin-left: 0.3em; color: var(--muted); }
+@media (max-width: 700px) { .beast-wegweiser .ww-list { grid-template-columns: 1fr; } }
+
 /* Launische Artefakte (core/Launen.js) */
 .laune { display: block; margin-top: 0.25em; font-size: 0.88em; border-left: 2px solid #6a5a8a; padding-left: 0.4em; }
 .laune-zeile { display: block; }

@@ -31,6 +31,7 @@ import { STATION_NAMES, DIRECTION_NAMES } from '../data/k3Ruf.js';
 import { RITUAL_ART, artCss } from '../world/ritualArt.js';
 import { isSolved, knownPeople, journalQuestVisible } from '../core/journal.js';
 import { canHurry, hurryCost, travelSafe, travelFast, afterHurryFight, travelDestinations, cityOf } from '../core/Travel.js';
+import { beastPlaces, beastSchwaechen, beastBase, BEAST_STUFEN, stadtVon } from '../core/Bestiar.js';
 import { questTarget, leadTarget, personPlaces, advice, aktuellesZiel } from '../core/Guide.js';
 import { WETTER, NEBELNACHT, SEASON_NAMES } from '../core/Wetter.js';
 import { installTestmodus, testPauseButton, bindTestPause, closeTestReise } from './TestUi.js';
@@ -1905,6 +1906,14 @@ export class Ui {
       search.oninput = () => { this.beastQuery = search.value; this.filterBestiary(el); };
       // Tippen darf weder Notizbuch-Tasten noch die Laufsteuerung (WASD) auslösen; Esc verlässt das Feld
       search.onkeydown = (e) => { e.stopPropagation(); if (e.key === 'Escape') search.blur(); };
+      el.querySelectorAll('[data-ww-item]').forEach((b) => { b.onclick = () => {
+        this.beastQuery = this.beastQuery === b.dataset.wwItem ? '' : b.dataset.wwItem;
+        search.value = this.beastQuery;
+        this.sfx(uiSound('notebook', 'page'));
+        this.filterBestiary(el);
+      }; });
+      const ww = el.querySelector('.beast-wegweiser');
+      if (ww) ww.ontoggle = () => { this.beastWwZu = !ww.open; };
     }
     el.querySelectorAll('[data-quest-case]').forEach((b) => { b.onclick = (event) => {
       event.stopPropagation();
@@ -2045,15 +2054,14 @@ export class Ui {
     });
   }
 
-  /** Besiegte Gegner: mit Bestiariumsseite oder mit Beute (Elite-Varianten zählen zum Grundgegner). */
+  /** Bekannte Gegner: schon begegnet (Kampf begonnen) oder besiegt, mit Bestiariumsseite, Beute oder Beschreibung. Elite und Phasen zählen zum Grundgegner. */
   knownBeasts() {
-    const { flags } = this.state;
     const { encounters, loot } = this.state.content;
     const hasLoot = (id) => (loot?.[id]?.drops ?? []).length || Object.keys(loot?.[id]?.items ?? {}).length || loot?.[id]?.money;
-    const won = (id) => flags.has(`won_${id}`) || flags.has(`won_${id}_elite`);
     const lore = this.state.content.bestiaryTexts ?? {};
-    const extra = Object.keys(encounters).filter((id) => !id.endsWith('_elite') && !BESTIARY.includes(id) && (hasLoot(id) || lore[id]));
-    return [...BESTIARY, ...extra].filter((id) => encounters[id] && won(id));
+    const known = (id) => this.state.bestiarEintrag(id).seen;
+    const extra = Object.keys(encounters).filter((id) => beastBase(id) === id && !encounters[id].practice && !BESTIARY.includes(id) && (hasLoot(id) || lore[id] || hasLoot(`${id}_elite`)));
+    return [...BESTIARY, ...extra].filter((id) => encounters[id] && !encounters[id].practice && known(id));
   }
 
   /** Codex DI: Postfach – links die Briefe (neueste oben), rechts der geöffnete mit Antworten und Beilage. */
@@ -2123,18 +2131,94 @@ export class Ui {
 
   bestiaryHtml(ids) {
     const { encounters: encs, loot, items } = this.state.content;
+    const teilName = { info: 'Beschreibung', beute: 'Beute', schwaechen: 'Schwächen' };
     const card = (id) => {
       const e = encs[id];
+      const st = this.state.bestiarStufe(id);
       const eliteWon = this.state.flags.has(`won_${id}_elite`);
-      return `<li data-beast="${esc(e.name.toLowerCase())}"><img src="${bestiaryUrl(id)}" alt="" onerror="this.remove()"><div class="beast-info">
-        <strong>${esc(e.name)}</strong><span class="muted">${e.occult ? 'Okkult · ' : ''}${e.hp} Leben${eliteWon ? ' · Elite besiegt' : ''}</span>
-        ${this.beastLoreHtml(id)}
-        ${this.beastLootHtml(loot?.[id], items, eliteWon ? loot?.[`${id}_elite`] : null)}</div></li>`;
+      const lootTable = loot?.[id], eliteTable = eliteWon ? loot?.[`${id}_elite`] : null;
+      // Suchbar ist nur, was schon erforscht ist: Name immer, Beute erst mit der Beute-Stufe
+      const next = st.next ? `<p class="beast-next">${uiSprite('icons', 'schluessel', 1 / 16, 'lockico')}${esc(teilName[st.next.teil])}: ${Math.min(st.wins, st.next.wins)}/${st.next.wins} Siege</p>` : '';
+      const wins = st.wins ? `${st.wins} ${st.wins === 1 ? 'Sieg' : 'Siege'}` : 'noch nicht besiegt';
+      return `<li data-beast="${esc(e.name.toLowerCase())}" class="${st.info ? '' : 'beast-unbekannt'}"><img src="${bestiaryUrl(id)}" alt="" onerror="this.remove()"><div class="beast-info">
+        <strong>${esc(e.name)}</strong><span class="muted">${e.occult ? 'Okkult · ' : ''}${st.info ? `${e.hp} Leben · ` : ''}${wins}${eliteWon ? ' · Elite besiegt' : ''}</span>
+        ${this.beastPlacesHtml(id)}
+        ${st.info ? this.beastLoreHtml(id, false) + this.beastAttacksHtml(e) : ''}
+        ${st.beute ? this.beastLootHtml(lootTable, items, eliteTable) : ''}
+        ${st.schwaechen ? this.beastWeakHtml(id) : ''}
+        ${next}</div></li>`;
     };
     const q = this.beastQuery ?? '';
-    return `<div class="beast-searchbar"><input type="search" class="beast-search" placeholder="Gegner oder Beute suchen …" value="${esc(q)}" aria-label="Bestiarium durchsuchen">
+    return `${this.beastWegweiserHtml()}<div class="beast-searchbar"><input type="search" class="beast-search" placeholder="Gegner oder Beute suchen …" value="${esc(q)}" aria-label="Bestiarium durchsuchen">
       <span class="muted beast-count"></span></div>
+      <p class="muted beast-regel">Begegnung: Name und Fundort · ${BEAST_STUFEN.info} Sieg: Beschreibung · ${BEAST_STUFEN.beute} Siege: Beute · ${BEAST_STUFEN.schwaechen} Siege: Schwächen. Bosse zeigen alles nach dem ersten Sieg.</p>
       <ul class="bestiary">${ids.map(card).join('')}</ul><p class="empty beast-none" hidden>Kein bekannter Gegner lässt das fallen.</p>`;
+  }
+
+  /** Fundorte eines Gegners: Karten, nach Stadt gruppiert. */
+  beastPlacesHtml(id) {
+    const places = beastPlaces(this.state.content, id);
+    if (!places.length) return '<p class="beast-orte muted">Fundort unbekannt.</p>';
+    const byCity = new Map();
+    for (const p of places) {
+      const k = p.cityName ?? '';
+      byCity.set(k, [...(byCity.get(k) ?? []), p.name].filter(Boolean));
+    }
+    const parts = [...byCity].map(([city, names]) => {
+      const shown = names.slice(0, 4).map(esc).join(', ');
+      const rest = names.length > 4 ? `<span class="muted"> +${names.length - 4}</span>` : '';
+      return city ? `<b>${esc(city)}${shown ? ':' : ''}</b>${shown ? ` ${shown}` : ''}${rest}` : `${shown}${rest}`;
+    });
+    return `<p class="beast-orte">${uiSprite('icons', 'karte', 1 / 16, 'lockico')}${parts.join(' · ')}</p>`;
+  }
+
+  /** Angriffe eines Gegners (Namen, Mehrfachtreffer). */
+  beastAttacksHtml(enc) {
+    const list = (enc.attacks ?? []).filter((a) => !a.action && a.name);
+    if (!list.length) return '';
+    return `<p class="beast-angriffe"><b>Angriffe:</b> ${list.map((a) => `${esc(a.name)}${(a.hits?.length ?? 1) > 1 ? ` ×${a.hits.length}` : ''}`).join(', ')}</p>`;
+  }
+
+  /** Schwächen aus den Kampfdaten plus Kampftipp (Paket AD). */
+  beastWeakHtml(id) {
+    const list = beastSchwaechen(this.state.content, id);
+    const tip = this.state.content.bestiaryTexts?.[id]?.hinweis;
+    if (!list.length && !tip) return '';
+    return `<h5>Schwächen</h5><ul class="beast-weak">${list.map((t) => `<li>${esc(t)}</li>`).join('')}${tip ? `<li class="beast-tip"><b>Tipp:</b> ${esc(tip)}</li>` : ''}</ul>`;
+  }
+
+  /** Wegweiser: noch fehlende Pfad-Zutaten und welche Gegner sie fallen lassen. Klick sucht das Stück im Bestiarium. */
+  beastWegweiserHtml() {
+    const list = this.state.bestiarWegweiser?.() ?? [];
+    if (!list.length) return '';
+    const koop = list.some((w) => w.player === 2);
+    const src = (s) => {
+      const chance = s.first ? 'erster Sieg' : chanceWord(s.chance);
+      if (s.known) {
+        const orte = s.places.slice(0, 3).map((p) => p.name).filter(Boolean).join(', ');
+        return `<li class="ww-src known"><b>${esc(s.name)}</b>${s.elite ? ' (Elite)' : ''} <span class="rar">${esc(chance)}</span>${orte ? `<span class="muted"> · ${esc(orte)}</span>` : ''}</li>`;
+      }
+      return `<li class="ww-src seen"><b>${esc(s.name)}</b>${s.elite ? ' (Elite)' : ''}<span class="muted"> · Beute noch unerforscht (${Math.min(s.wins, s.needWins)}/${s.needWins} Siege)</span></li>`;
+    };
+    // Unerforschte Quellen in einer Zeile: nur die Städte, in denen solche Gegner leben (Gebiet ja, Gegner nein)
+    const unknown = (list) => {
+      if (!list.length) return '';
+      const hier = stadtVon(this.state.map, this.state.content.maps[this.state.map]);
+      const all = list.flatMap((s) => s.places);
+      const cities = [...new Set([...all.filter((p) => p.city === hier), ...all].map((p) => p.cityName).filter(Boolean))]; // eigene Stadt zuerst
+      const shown = cities.slice(0, 3).join(', ') + (cities.length > 3 ? ' …' : '');
+      return `<li class="ww-src unknown">${list.length === 1 ? 'Unbekannter Gegner' : `${list.length} unbekannte Gegner`}${cities.length ? `<span class="muted"> · Spuren in:</span> <span>${esc(shown)}</span>` : ''}</li>`;
+    };
+    // Anklickbar (sucht im Bestiarium) nur, wenn ein Gegner mit erforschter Beute das Stück fallen lässt
+    const rows = list.map((w) => `<li class="ww-item${w.sources.some((x) => x.known) ? ' klick" data-ww-item="' + esc(w.name) + '" title="Im Bestiarium suchen' : ''}">
+      <div class="ww-head">${itemIcon(w.item)}<b class="${w.main ? 'ww-main' : ''}">${esc(w.name)}</b>
+        <span class="muted">${koop ? `Spieler ${w.player} · ` : ''}Seq ${w.seq} ${w.kind === 'ritual' ? 'Ritual' : w.main ? 'Hauptzutat' : 'Trank'} · ${w.have}/${w.need}</span></div>
+      <ul class="ww-srcs">${(() => {
+        const bekannt = w.sources.filter((x) => x.known || x.seen);
+        return bekannt.slice(0, 3).map(src).join('') + (bekannt.length > 3 ? `<li class="muted">+${bekannt.length - 3} weitere</li>` : '') + unknown(w.sources.filter((x) => !x.known && !x.seen));
+      })()}</ul></li>`).join('');
+    return `<details class="beast-wegweiser" ${this.beastWwZu ? '' : 'open'}><summary>${uiSprite('icons', 'auge', 1 / 16, 'lockico')}Für deinen Pfad gesucht <span class="muted">(${list.length})</span></summary>
+      <ul class="ww-list">${rows}</ul></details>`;
   }
 
   /** Suchleiste im Bestiarium: zeigt nur Gegner, deren Name oder Beute passt, und hebt passende Beute hervor. */
@@ -2155,9 +2239,9 @@ export class Ui {
   }
 
   /** Paket AD: Beschreibung und Kampftipp im Bestiarium. */
-  beastLoreHtml(id) {
+  beastLoreHtml(id, tip = true) {
     const t = this.state.content.bestiaryTexts?.[id];
-    return t ? `<p class="beast-text">${esc(t.text)}</p><p class="beast-tip"><b>Tipp:</b> ${esc(t.hinweis)}</p>` : '';
+    return t ? `<p class="beast-text">${esc(t.text)}</p>${tip && t.hinweis ? `<p class="beast-tip"><b>Tipp:</b> ${esc(t.hinweis)}</p>` : ''}` : '';
   }
 
   /** Paket AD: erschienene Zeitungsausgaben, neueste zuerst. */
