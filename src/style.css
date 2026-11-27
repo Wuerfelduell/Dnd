@@ -1414,3 +1414,26 @@ html.touch .talentbar .tslot { width: 3.2em; height: 3.2em; }
 .laune-stufe.s2 { color: #d8a8f0; }
 .laune-stufe.s3 { color: #f0a0d0; font-weight: bold; }
 .laune-hinweis { display: block; margin-top: 0.2em; opacity: 0.85; }
+
+/* --- Ausrüstungs-Sets (Seb 2026-11-27) --- */
+.gearsets { margin: -0.3em 0 0.8em; padding: 0.4em 0.6em; background: rgba(255, 240, 210, 0.05); border: 0.125em solid #4a4252; }
+.gearsets .gs-head { margin-bottom: 0.3em; }
+.gearsets ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4em 1.2em; }
+.gearsets .gearset { display: flex; align-items: center; gap: 0.5em; flex-wrap: wrap; }
+.gearsets .gearset.worn > strong { color: var(--gold); }
+.gearsets .gs-parts { display: inline-flex; gap: 0.15em; align-items: center; }
+.gearsets .gs-part.missing { opacity: 0.35; filter: grayscale(1); }
+.gearsets .gs-btns { display: inline-flex; gap: 0.3em; }
+
+/* --- Suche im Notizbuch (Seb 2026-11-27) --- */
+.nb-searchbar { display: flex; align-items: center; gap: 0.5em; margin: 0.2em 0 0.5em; }
+.nb-search { flex: 1; max-width: 26em; font: inherit; padding: 0.25em 0.5em; background: #15131a; color: inherit; border: 0.125em solid #4a4252; }
+.nb-search:focus { outline: none; border-color: var(--gold); }
+.nb-results h4 { margin: 0.6em 0 0.3em; }
+.nb-hits { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.3em; }
+.nb-hits .nb-hit { display: flex; gap: 0.6em; align-items: flex-start; width: 100%; text-align: left; padding: 0.35em 0.5em; background: rgba(255, 240, 210, 0.04); border: 0.125em solid #3a3442; color: inherit; font: inherit; }
+.nb-hits button.nb-hit { cursor: pointer; }
+.nb-hits button.nb-hit:hover { background: rgba(255, 240, 210, 0.1); border-color: var(--gold); }
+.nb-hits .nb-hit .desc { font-size: 0.9em; opacity: 0.8; }
+.search-hit { animation: searchHit 1.6s ease-out 2; outline: 0.15em solid var(--gold); outline-offset: 0.1em; }
+@keyframes searchHit { 0% { box-shadow: 0 0 0 0.3em rgba(230, 190, 90, 0.6); } 100% { box-shadow: 0 0 0 0 rgba(230, 190, 90, 0); } }

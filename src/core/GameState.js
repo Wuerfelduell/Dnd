@@ -20,7 +20,7 @@ import { pfadHandelMethods } from './PfadHandel.js';
 import { relationMethods } from './Relations.js';
 import { artifactMethods } from './Artifacts.js';
 import { partyMethods } from './Party.js';
-import { gearMethods } from './Gear.js';
+import { gearMethods, emptyGearSets } from './Gear.js';
 import { corruptionMethods } from './Corruption.js';
 import { talentMethods, CONCLUSION_SCHILLING, CONCLUSION_GELD } from './Talents.js';
 import { sektenMethods } from './Sekten.js';
@@ -118,6 +118,7 @@ export class GameState {
     this.stashes = {}; // weitere Verstecke (z. B. der Torfkahn in Wexmoor): ort -> { id -> Anzahl }
     this.weapon = s.weapon ?? null;
     this.gear = { hut: null, mantel: null, amulett: null }; // angelegte Kleidung (Gear.js)
+    this.gearSets = emptyGearSets(); // Ausrüstungs-Sets Kampf/Tragen (Gear.js)
     this.pendingCombat = null;
     this.tracked = null; // verfolgter Auftrag (Journal-Wegweiser)
     this.random = Math.random; // in Tests austauschbar
@@ -962,6 +963,7 @@ export class GameState {
       stashes: this.stashes,
       weapon: this.weapon,
       gear: this.gear,
+      gearSets: this.gearSets,
       tracked: this.tracked,
       erfolgZaehler: this.erfolgZaehler ?? {},
       ...(this.testmodus ? { testmodus: true } : {}),
@@ -1030,6 +1032,7 @@ export class GameState {
       this.inventory = Object.fromEntries(Object.entries(data.inventory ?? {}).filter(([i, n]) => this.item(i) && n > 0));
       this.weapon = this.inventory[data.weapon] ? data.weapon : null;
       this.gear = this.cleanGear(data.gear, this.inventory);
+      this.gearSets = this.cleanGearSets(data.gearSets);
       this.storage = Object.fromEntries(Object.entries(data.storage ?? {}).filter(([i, n]) => this.item(i) && n > 0));
       this.stashes = Object.fromEntries(Object.entries(data.stashes ?? {}).map(([w, st]) => [w, Object.fromEntries(Object.entries(st ?? {}).filter(([i, n]) => this.item(i) && n > 0))]));
     }

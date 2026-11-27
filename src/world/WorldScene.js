@@ -1423,8 +1423,10 @@ export class WorldScene extends Phaser.Scene {
     this.input.keyboard.on('keydown-TAB', queue('notebook'));
     this.input.keyboard.on('keydown-I', queue('inventory'));
     this.input.keyboard.on('keydown-P', queue('pathway'));
+    this.input.keyboard.on('keydown-R', queue('gearset')); // Seb: Ausrüstungs-Set wechseln (Kampf ↔ Tragen)
     // Welt-Fähigkeiten: Zahlenreihe 1–9 für Spieler 1, Ziffernblock für Spieler 2 (allein auch für Spieler 1)
     this.input.keyboard.on('keydown', (e) => {
+      if (e.code === 'NumpadAdd' && !e.repeat && (this.p2 || this.splitRole === 2)) { this.pending2 = 'gearset'; return; } // Spieler 2: Ausrüstungs-Set wechseln
       if (e.code === 'Numpad0' && !e.repeat && (this.p2 || this.splitRole === 2)) { this.pending2 = 'vision'; return; } // Seb: Ziffernblock 0 = Geistsicht von Spieler 2
       if ((e.code === 'Digit0' || e.code === 'NumpadDecimal') && !e.repeat) { // Seb: mythische Gestalt (Taste 0, Spieler 2 Ziffernblock-Komma)
         if (e.code === 'NumpadDecimal' && (this.p2 || this.splitRole === 2)) this.pending2 = 'talent:form'; else this.pending = 'talent:form';
@@ -1450,6 +1452,7 @@ export class WorldScene extends Phaser.Scene {
       else if (button.index === 3) this.pending2 = 'inventory'; // Y
       else if (button.index === 2) this.pending2 = 'talent:sel'; // X: gewählte Welt-Fähigkeit
       else if (button.index === 4 || button.index === 5) this.ui.moveTalentSel2(button.index === 4 ? -1 : 1); // LB/RB
+      else if (button.index === 8) this.pending2 = 'gearset'; // Select/Back: Ausrüstungs-Set wechseln
     });
   }
 
@@ -2245,6 +2248,7 @@ export class WorldScene extends Phaser.Scene {
       if (a2 === 'interact' && this.focus) this.interactAs2(this.focus);
       else if (a2 === 'vision') this.state.setSpiritVision(!this.state.spiritVision);
       else if (a2 === 'inventory') this.ui.openNotebook('items', 2);
+      else if (a2 === 'gearset') this.ui.cycleGearSet(2);
       else if (a2.startsWith('talent:')) this.useTalentKey(2, a2.slice(7));
       return;
     }
@@ -2252,6 +2256,7 @@ export class WorldScene extends Phaser.Scene {
       if (a2 === 'interact' && this.focus2) this.interactAs2(this.focus2);
       else if (a2 === 'vision') this.state.withPlayer(2, () => this.state.setSpiritVision(!this.state.spiritVision));
       else if (a2 === 'inventory') this.ui.openNotebook('items', 2);
+      else if (a2 === 'gearset') this.ui.cycleGearSet(2);
       else if (a2.startsWith('talent:')) this.useTalentKey(2, a2.slice(7));
     }
     const action = this.pending;
@@ -2264,6 +2269,7 @@ export class WorldScene extends Phaser.Scene {
     else if (action === 'notebook') this.ui.openNotebook();
     else if (action === 'inventory') this.ui.openNotebook('items');
     else if (action === 'pathway') this.ui.openNotebook('pfad');
+    else if (action === 'gearset') this.ui.cycleGearSet(1);
     else if (action.startsWith('talent:')) this.useTalentKey(1, action.slice(7));
   }
 
