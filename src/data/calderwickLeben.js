@@ -140,6 +140,21 @@ export const CW_EREIGNISSE = {
   },
 };
 
+/**
+ * Zusätzliche Lauf-Blätter nur für Calderwick: die Landstraßen-Figuren aus dem Codex-Vorrat BK (vn_*), die sonst kaum zu sehen sind.
+ * Zusammen mit den Dunscar-Figuren (FIGUREN) und dem blassen Stich wirkt die Menge bunter.
+ */
+export const CW_FIGUREN = [
+  { sheet: 'npc_vn_kutscherin', rollen: ['arbeiter', 'nacht'] },
+  { sheet: 'npc_vn_zoellner', rollen: ['arbeiter', 'markt'] },
+  { sheet: 'npc_vn_hausiererin', rollen: ['markt', 'wohnen'] },
+  { sheet: 'npc_vn_landarzt', rollen: ['wohnen', 'markt'] },
+  { sheet: 'npc_vn_wanderprediger', rollen: ['nacht', 'wohnen'] },
+  { sheet: 'npc_vn_kartenzeichnerin', rollen: ['markt', 'arbeiter'] },
+  { sheet: 'npc_vn_fahrender_richter', rollen: ['wohnen', 'nacht'] },
+  { sheet: 'npc_vn_waisenjunge', rollen: ['kind'] },
+];
+
 export const CW_ROLLEN = {
   morgen: ['arbeiter', 'arbeiter', 'markt', 'wohnen', 'kind'],
   mittag: ['markt', 'markt', 'wohnen', 'arbeiter', 'kind'],

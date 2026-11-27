@@ -8,6 +8,7 @@
  * Formeln und die Kernzutaten 2/1 bleiben draußen (Formeln: Krämer, Zirkel, Herde; Seb: Seq-4-Formel nie hier).
  */
 import { kernzutat } from './seqHoch.js';
+import { cwFundTopf } from './calderwickFunde.js';
 
 export const CW_BEUTE_CHANCE = { normal: 0.3, elite: 0.55, boss: 1 };
 const GEFAHR = ['cw_alte_setzerei', 'cw_sortiergrube', 'cw_nullfundament'];
@@ -34,6 +35,7 @@ export function cwBeuteTopf(content) {
     else if (it.kind === 'weapon') add(id, 1);
     else if (it.kind === 'artifact' && id.startsWith('vi_art_')) add(id, 0.6);
   }
+  for (const e of cwFundTopf(content)) add(e.item, e.w); // Habseligkeiten der Gefallenen (Codex-Vorrat Reserve200/Future200)
   return [...pool].map(([item, w]) => ({ item, w }));
 }
 
