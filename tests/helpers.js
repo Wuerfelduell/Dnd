@@ -1,5 +1,7 @@
 import { readFileSync } from 'node:fs';
-import { Combat, isPrecise, skillBars } from '../src/core/Combat.js';
+import { Combat, isPrecise, skillBars, TAKT } from '../src/core/Combat.js';
+
+TAKT.seed = 20261127; // Takt und Aufladeschläge in Tests reproduzierbar
 import { buildK3Ruf } from '../src/data/k3Ruf.js';
 import { buildContent } from '../src/data/buildContent.js';
 import { runde8Packs, RUNDE8_FILES } from '../src/data/runde8.js';
