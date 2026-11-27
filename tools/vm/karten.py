@@ -37,7 +37,7 @@ rect(g, 22, 17, 23, 28, '=')         # Fähranleger
 rect(g, 21, 27, 24, 28, '=')
 rect(g, 36, 17, 37, 24, '=')         # Bootssteg zur Leuchtbank
 rect(g, 10, 22, 21, 22, '=')         # Querbalken
-karten['vm_zollhafen'] = dict(rows=rows(g), spawns={'default': [22, 27], 'von_oberstrasse': [2, 11], 'von_stegviertel': [45, 11]},
+karten['vm_zollhafen'] = dict(rows=rows(g), spawns={'default': [22, 27], 'von_oberstrasse': [2, 11], 'von_stegviertel': [45, 11], 'von_leuchtbank': [36, 22]},
     anker={'tuer_oberstrasse': [1, 11], 'tuer_stegviertel': [46, 11], 'zollschalter': [10, 7], 'pegeluhr': [21, 8], 'kantine': [32, 7],
            'faehre': [23, 26], 'bootssteg': [36, 24], 'fischersteg': [9, 25], 'kai_west': [6, 12], 'kai_mitte': [24, 12], 'kai_ost': [40, 12], 'post': [14, 9]})
 for (x, y) in [(1, 11), (46, 11)]: g[y][x] = '.'
@@ -89,7 +89,7 @@ rect(g, 1, 28, 46, 30, 'I')
 for (x0, x1) in [(3, 10), (13, 19), (23, 30), (34, 41)]: rect(g, x0, 21, x1, 23, 'I')   # Häuser Süd (Apotheke, Archiv)
 rect(g, 20, 14, 27, 16, '.')
 g[14][46] = '.'
-karten['vm_oberstrasse'] = dict(rows=rows(g), spawns={'default': [44, 14], 'von_zollhafen': [44, 14]},
+karten['vm_oberstrasse'] = dict(rows=rows(g), spawns={'default': [44, 14], 'von_zollhafen': [44, 14], 'von_registerkeller': [27, 11], 'von_grenzzaun': [40, 8]},
     anker={'tuer_zollhafen': [46, 14], 'rat': [23, 10], 'rat_west': [17, 11], 'rat_ost': [30, 11], 'apotheke': [6, 20], 'archiv': [26, 20],
            'keller': [27, 10], 'grenze': [40, 7], 'platz': [23, 15], 'reeder': [13, 7],
            'zollamt': [6, 10], 'pegel': [36, 10], 'hafenamt': [38, 18], 'protokoll': [15, 17]})
@@ -113,6 +113,49 @@ for (x, y) in [(0, 11), (0, 12)]: g[y][x] = 'I'
 karten['vm_wrackfeld'] = dict(rows=rows(g), spawns={'default': [2, 11], 'von_stegviertel': [2, 11]},
     anker={'tuer_stegviertel': [1, 11], 'rippen': [16, 8], 'priel': [24, 10], 'wrack': [35, 14], 'wrack_sued': [36, 20], 'kielraum': [40, 19],
            'sued': [15, 25], 'nord': [32, 8], 'ost': [42, 24], 'mitte': [26, 15]})
+
+# --- Leuchtbank (Akt IV): Sandbank im Meer, altes Leuchtfeuer im Nordosten, Osrics Haus, Glocke, Ertrunkenenliste ---------
+g = leer(fill='~')
+rect(g, 4, 6, 43, 27, ',')           # Sandbank (bei Flut nass)
+rect(g, 8, 9, 40, 24, '.')           # trockener Kern
+rect(g, 30, 3, 40, 10, '.')          # Felsnase mit Turm
+rect(g, 33, 3, 38, 7, 'I')           # Leuchtturm
+rect(g, 10, 10, 16, 13, 'I')         # Osrics Haus
+rect(g, 22, 12, 24, 13, 'I')         # Glockenstuhl
+for (x0, y0, x1, y1) in [(18, 19, 19, 21), (26, 20, 27, 21), (34, 18, 35, 19)]:
+    rect(g, x0, y0, x1, y1, 'I')     # Grabsteine der Ertrunkenen
+rect(g, 2, 24, 7, 25, '=')           # Anleger
+rect(g, 1, 24, 1, 25, '=')
+karten['vm_leuchtbank'] = dict(rows=rows(g), spawns={'default': [3, 24], 'von_zollhafen': [3, 24]},
+    anker={'tuer_zollhafen': [1, 24], 'osric_haus': [13, 15], 'glocke': [23, 15], 'liste': [24, 22], 'kueste': [40, 22], 'turm': [35, 9],
+           'rad': [38, 11], 'mitte': [28, 17], 'west': [9, 20], 'nord': [20, 8]})
+
+# --- Registerkeller (Akt V): unter dem Ratsgebäude, Regalreihen, Wasser in den Fugen, das lebende Register am Ende ---------
+g = leer()
+for x0 in [5, 13, 21, 29, 37]:
+    rect(g, x0, 4, x0 + 4, 9, 'I')   # Regale Nord
+    rect(g, x0, 18, x0 + 4, 23, 'I') # Regale Süd
+rect(g, 1, 13, 3, 14, '.')
+for (x0, y0, x1, y1) in [(10, 12, 11, 12), (26, 15, 28, 15), (18, 26, 20, 27), (42, 11, 44, 12)]:
+    rect(g, x0, y0, x1, y1, '~')     # Pfützen
+rect(g, 42, 24, 45, 28, 'I')
+karten['vm_registerkeller'] = dict(rows=rows(g), spawns={'default': [2, 13], 'von_oberstrasse': [2, 13]},
+    anker={'tuer_oberstrasse': [1, 13], 'regal_west': [8, 11], 'schwelle': [16, 14], 'nische': [27, 26], 'pult': [40, 15], 'harrow': [44, 15],
+           'treppe': [5, 14], 'mitte': [24, 13], 'sued': [12, 26], 'nord': [33, 2]})
+g[13][0] = 'I'
+karten['vm_registerkeller']['rows'] = rows(g)
+
+# --- Grenzzaun (Akt V): die Stadtgrenze, ein Zaun aus Pegelstangen, ein Tor, dahinter nichts als Watt ---------------------
+g = leer(fill=',')
+rect(g, 1, 1, 46, 8, '.')            # Straße und Zollplatz
+rect(g, 3, 2, 10, 4, 'I'); rect(g, 36, 2, 44, 4, 'I')   # Zollbuden
+rect(g, 1, 15, 46, 15, 'I')          # der Zaun
+rect(g, 22, 15, 25, 15, '.')         # das Tor
+rect(g, 1, 9, 46, 14, '.')
+rect(g, 1, 24, 46, 30, '~')          # Watt und Meer
+g[14][46] = '.'
+karten['vm_grenzzaun'] = dict(rows=rows(g), spawns={'default': [45, 12], 'von_oberstrasse': [45, 12]},
+    anker={'tuer_oberstrasse': [46, 12], 'tor': [23, 13], 'bude_west': [7, 6], 'bude_ost': [40, 6], 'watt': [23, 20], 'platz': [30, 10]})
 
 out = os.path.join(os.path.dirname(__file__), '..', '..', 'src', 'data', 'packs', 'k6_orte', 'vm_karten.json')
 os.makedirs(os.path.dirname(out), exist_ok=True)

@@ -24,7 +24,9 @@ test('DJ: 20 benannte Gegner auf ihren Grundgegnern, stärker, mit Beute und Kar
     assert.ok(content.items[Object.keys(r.needs)[0]] && content.items[r.artifact], r.id);
     assert.ok(file(itemIconUrl(r.artifact)), r.artifact);
   }
-  assert.ok(!content.encounters.bn_der_zollgeist_mit_gesicht, 'Varrowmouth erst mit Kapitel 6');
+  // Kapitel 7: Der Zollgeist mit Gesicht lebt auf einer Varrowmouth-Karte, mit dem Blatt seiner Grundlage
+  const zg = content.encounters.bn_der_zollgeist_mit_gesicht;
+  assert.ok(zg && /^vm_/.test(zg.zone) && zg.sheet === content.encounters.vme_zollgeist.sheet, 'Zollgeist mit Gesicht in Varrowmouth');
 });
 
 test('DJ: erscheint nur nachts, ab Seq 6, unbesiegt, und nur in einem Gebiet', () => {
