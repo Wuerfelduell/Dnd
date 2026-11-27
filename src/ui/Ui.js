@@ -3436,22 +3436,6 @@ export class Ui {
     return el;
   }
 
-  /** Sprachwahl Deutsch / Englisch (Knopf selbst wird nicht übersetzt). */
-  langButton() {
-    const en = getLang() === 'en';
-    return `<button data-act="lang" data-no-tr title="Sprache / Language">🌐 ${en ? '<span class="muted">Deutsch</span> · <b class="lang-on">English</b>' : '<b class="lang-on">Deutsch</b> · <span class="muted">English</span>'}</button>`;
-  }
-
-  bindLang(el) {
-    const b = el.querySelector('[data-act=lang]');
-    if (!b) return;
-    b.onclick = () => {
-      setLang(getLang() === 'en' ? 'de' : 'en');
-      b.outerHTML = this.langButton();
-      this.bindLang(el);
-    };
-  }
-
   /** Paket AH: Auswahl der Figur von Spieler 2 (Auswahlbild mit beiden Figuren). */
   p2LookPicker() {
     const cur = this.state.p2Look();

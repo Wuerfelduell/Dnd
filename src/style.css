@@ -1357,6 +1357,6 @@ html.touch .talentbar .tslot { width: 3.2em; height: 3.2em; }
 .layer.pm-intro { animation: tm-fadein 0.3s ease-out; }
 @keyframes pm-in { from { opacity: 0; transform: translateX(-1.2em); } to { opacity: 1; transform: none; } }
 .pm-side .p2looks { flex-direction: column; align-items: stretch; }
-.pm-side .p2looks .p2wahl { width: 100%; height: auto; }
+.pm-side .p2looks .p2wahl { width: 100%; height: auto; max-height: 11em; object-fit: contain; }
 .pm-side .p2lookbtns { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4em; }
 .pm-side .p2lookbtns small { display: none; }
