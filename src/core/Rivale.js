@@ -6,8 +6,9 @@ import { seeded } from './Gatherings.js';
 import { DAY_SECONDS } from './Clock.js';
 import { RIVALEN, RIVALE_REGELN as R, RIVALE_ART, rivaleArtText, rivaleEncId, rivaleName, rivaleText } from '../data/rivale.js';
 import { pvgFlag } from '../data/pfadviertelGeschichte.js';
+import { aufstiegHinweise } from '../data/aufstiegHinweise.js';
 
-const TAG_FELDER = ['tag', 'ruhe_bis', 'stahl_tag', 'treff_tag', 'kreis_frei', 'kreis_besetzt', 'kreis_kampf', 'aktion_tag'];
+const TAG_FELDER = ['tag', 'ruhe_bis', 'stahl_tag', 'treff_tag', 'kreis_frei', 'kreis_besetzt', 'kreis_kampf', 'aktion_tag', 'verrat_tag', 'jagd_tag', 'jagd_kampf'];
 const KEY = { 1: 'p1', 2: 'p2' };
 
 /** Gespeicherte Rivalen säubern (alte Stände haben keine). */
@@ -71,6 +72,11 @@ export const rivaleMethods = {
     if (r.tag < tag - 60) r.tag = tag - 60; // lange Pausen nicht Tag für Tag nachrechnen
     while (r.tag < tag) {
       r.tag++;
+      if (r.status === 'verbuendet' && r.seq < ps && seeded(`${this.seed ?? ''}|rvv|${n}|${r.pid}|${r.tag}`)() < R.verrat) { // zu weit hinten: Verrat
+        r.status = 'rivale';
+        r.siege = 0;
+        r.verrat_tag = r.tag;
+      }
       if (r.seq > ps) r.seq--;
       else if (r.seq > Math.max(1, ps - 1) && seeded(`${this.seed ?? ''}|rv|${n}|${r.pid}|${r.tag}`)() < R.vorsprung) r.seq--;
     }
@@ -134,6 +140,12 @@ export const rivaleMethods = {
 
   /** Combat.finish: Sieg, Niederlage oder Flucht gegen einen Rivalen. Gibt einen Zusatztext zurück. */
   rivaleKampfEnde(combat) {
+    if (combat?.enc?.rivale_jagd) { // Gemeinsame Jagd: Text des Verbündeten
+      const nj = [1, 2].find((k) => this.rivalen?.[KEY[k]]?.jagd_kampf === this.rivaleTagNr());
+      if (!nj) return null;
+      this.rivalen[KEY[nj]].jagd_kampf = -1;
+      return combat.outcome === 'won' ? this.rivaleText('jagd_sieg', nj) : null;
+    }
     const n = combat?.enc?.rivale_nr;
     const r = n ? this.rivalen?.[KEY[n]] : null;
     if (!r) return null;
@@ -187,16 +199,18 @@ export const rivaleMethods = {
     if (treffen) key = 'treffen';
     if (ruht) key = 'geschlagen';
     if (erste) key = 'erste';
+    const verrat = r.verrat_tag >= 0;
+    if (verrat) { key = 'verrat'; r.verrat_tag = -1; }
     const lage = { nr: n, pid: r.pid, name: rivaleName(r.pid, n), seq: r.seq, status: r.status, text: this.rivaleText(key, n), optionen: [] };
     if (r.status === 'verbuendet') {
       const g = this.rivaleGeschenk(n, seeded(`${this.seed ?? ''}|rvg|${n}|${r.pid}|${tag}`));
-      lage.text = `${this.rivaleText('verbuendet', n)}\n\n${g.text}`;
+      lage.text = `${this.rivaleText('verbuendet', n)}\n\n${g.text}\n\n${this.rivaleTratsch(n)}`;
       lage.beute = g.beute;
-      lage.optionen = ['gehen'];
+      lage.optionen = [...(r.jagd_tag !== tag ? ['jagd'] : []), 'gehen'];
       return lage;
     }
-    if (!erste && !ruht) lage.text += `\n\n${rivaleArtText('spruch', r.pid, n)}`;
-    const akt = !erste && !ruht && seeded(`${this.seed ?? ''}|rva|${n}|${r.pid}|${tag}`)() < R.aktion ? this.rivaleAktion(n) : null;
+    if (!erste && !ruht && !verrat) lage.text += `\n\n${rivaleArtText('spruch', r.pid, n)}`;
+    const akt = !erste && !ruht && !verrat && seeded(`${this.seed ?? ''}|rva|${n}|${r.pid}|${tag}`)() < R.aktion ? this.rivaleAktion(n) : null;
     if (akt) { lage.text += `\n\n${akt.text}`; lage.aktion = akt.art; if (akt.folge) lage.beute = akt.folge; }
     if (!ruht) lage.optionen.push('kampf');
     if (akt?.art === 'stoss') { lage.optionen.push('gehen'); lage.feige = true; this.emit('changed'); return lage; } // Eisen: nur Kämpfen oder (feige) Gehen
@@ -241,6 +255,34 @@ export const rivaleMethods = {
     r.aktion_tag = tag;
     this.emit('changed');
     return { art: def.art, text: rivaleArtText('aktion', r.pid, n), folge };
+  },
+
+  /** Bündnis: der Rivale verrät dir, was für den nächsten Trank fehlt und wo es liegt (aus den Aufstiegs-Hinweisen). */
+  rivaleTratsch(n) {
+    const fehlt = this.rivaleAls(n, () => (aufstiegHinweise(this)[0]?.zeilen ?? []).filter((z) => !z.ok && z.wo).slice(0, 2));
+    if (!fehlt?.length) return this.rivaleText('tratsch_nichts', n);
+    return `${this.rivaleText('tratsch', n)}\n${fehlt.map((z) => `• ${z.text}: ${z.wo}`).join('\n')}`;
+  },
+
+  /** Bündnis: Wache am Ritualkreis (performRitual halbiert dann Nerven und Unruhe). Text oder null. */
+  rivaleWache(n = this.acting ?? 1) {
+    const r = this.rivaleDaten(n);
+    return r?.status === 'verbuendet' ? this.rivaleText('wache', n) : null;
+  },
+
+  /** Bündnis: gemeinsame Jagd auf einen wilden Beyonder (1× je Tag). Gibt die Kampf-Id zurück. */
+  rivaleJagd(n = 1) {
+    const r = this.rivaleDaten(n);
+    if (!r || r.status !== 'verbuendet') return null;
+    const tag = this.rivaleTagNr();
+    if (r.jagd_tag === tag) return null;
+    const id = `rivale_jagd_${r.seq}`;
+    if (!this.content.encounters[id]) return null;
+    r.jagd_tag = tag;
+    r.jagd_kampf = tag;
+    this.rivaleAls(n, () => this.startCombat(id));
+    this.emit('changed');
+    return id;
   },
 
   /** Eisen: wer nach dem Stoß geht, gilt als feige (Nerven). */

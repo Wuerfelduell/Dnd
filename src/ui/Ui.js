@@ -2663,7 +2663,7 @@ export class Ui {
     const s = this.state;
     const lage = s.rivaleTreffen?.(nr, { treffen });
     if (!lage) return;
-    const labels = { kampf: 'Kämpfen', stehlen: 'Bestehlen', buendnis: 'Bündnis anbieten', gehen: 'Weitergehen' };
+    const labels = { kampf: 'Kämpfen', stehlen: 'Bestehlen', buendnis: 'Bündnis anbieten', gehen: 'Weitergehen', jagd: 'Gemeinsame Jagd' };
     const siege = s.rivalen?.[`p${nr}`]?.siege ?? 0;
     const notes = {
       stehlen: lage.stehlChance ? `Chance: ${Math.round(lage.stehlChance * 100)} %` : '',
@@ -2703,7 +2703,8 @@ export class Ui {
     const s = this.state;
     this.rivaleUi = null;
     if (o === 'gehen') { if (ui.feige) s.rivaleFeigeGehen?.(ui.nr); this.close(); return; }
-    if (o === 'kampf') { s.rivaleKampf(ui.nr, ui.viertel); this.close(); return; } // der Kampf startet, sobald das Fenster zu ist
+    if (o === 'kampf') { s.rivaleKampf(ui.nr, ui.viertel); this.close(); return; }
+    if (o === 'jagd') { const t = s.rivaleText('jagd_intro', ui.nr); s.rivaleJagd(ui.nr); this.showMessage(ui.name, t, { footer: 'Ein Kampf steht bevor.' }); return; } // der Kampf startet, sobald das Fenster zu ist
     const r = o === 'stehlen' ? s.rivaleStehlen(ui.nr) : s.rivaleBuendnis(ui.nr);
     this.showMessage(ui.name, r.text, { footer: r.beute ?? (r.fight ? 'Ein Kampf steht bevor.' : '') });
   }

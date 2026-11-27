@@ -61,3 +61,34 @@ test('Eisen: nach dem Stoß nur Kämpfen oder feige Gehen', () => {
   }
   assert.fail('kein Stoß in 40 Tagen');
 });
+
+test('Bündnis: Tratsch, gemeinsame Jagd 1× am Tag, Wache halbiert Ritualkosten, Verrat wenn zu weit hinten', () => {
+  const s = spieler('laterne', 6);
+  const r = s.rivalen.p1;
+  r.status = 'verbuendet';
+  r.getroffen = true;
+  let kampf = null;
+  s.startCombat = (id) => { kampf = id; };
+  const lage = s.rivaleTreffen(1);
+  assert.ok(lage.optionen.includes('jagd'));
+  assert.match(lage.text, /beugt sich|grinst/);
+  assert.ok(s.rivaleJagd(1));
+  assert.equal(kampf, `rivale_jagd_${r.seq}`);
+  assert.ok(content.encounters[kampf].rivale_jagd);
+  assert.equal(s.rivaleJagd(1), null, 'nur einmal am Tag');
+  assert.match(s.rivaleKampfEnde({ outcome: 'won', enc: content.encounters[kampf] }), /Beute/);
+  assert.ok(s.rivaleWache(1));
+  // Verrat: Rivale eine Sequenz voraus, viele Tage
+  r.seq = 5;
+  let tag = s.rivaleTagNr();
+  s.rivaleTagNr = () => tag;
+  for (let i = 0; i < 60 && r.status === 'verbuendet'; i++) { tag++; r.seq = 5; s.rivaleDaten(1); }
+  assert.equal(r.status, 'rivale');
+  assert.equal(r.siege, 0);
+  r.treff_tag = -1;
+  assert.match(s.rivaleTreffen(1).text, /Bündnis ist vorbei/);
+});
+
+test('gemeinsame Jagd: Gegner je Sequenz', () => {
+  for (let q = 9; q >= 1; q--) assert.ok(content.encounters[`rivale_jagd_${q}`]?.beyonder, `jagd ${q}`);
+});
