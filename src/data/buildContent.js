@@ -60,6 +60,7 @@ import { applyKettlegateZirkel } from './kettlegateZirkel.js';
 import { applyPreisAbgleich } from './preisAbgleich.js';
 import { applyRitual6Vorrat } from './ritual6Vorrat.js';
 import { applyRitual4Vorrat } from './ritual4Vorrat.js';
+import { applyWexmoorOrdnung } from './wexmoorOrdnung.js';
 // Fügt alle Inhaltsdateien zu einem Objekt zusammen (ohne JSON-Imports, damit Node-Tests es nutzen können).
 // Hinweise, Informationen, Schlussfolgerungen und Dialoge teilen sich jeweils einen Namensraum über alle Fälle.
 // factions.json (Sekten) bringt eigene Figuren, Reiseziele, Gegner, Beute, Aufträge und Hinweise mit.
@@ -183,6 +184,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyDunscarPassanten(content); // Dunscar: Passanten mit Tagesablauf, Gemurmel und Straßenereignissen in den Vierteln
   applyMarloweTelegramm(content); // Tipps nur von Marlowe: Telegrammschalter in jeder späteren Stadt
   applyKettlegateZirkel(content); // Kettlegater Zirkel: nur Zutaten 7/6, Formeln, Artefakte; keine Trophäen-Gesuche (zuletzt)
+  applyWexmoorOrdnung(content); // Seb 2026-11-27: Wexmoor-Orte harmonischer – leere Orte bekommen Requisiten auf freien Feldern (nach allen Platzierungen)
   applyNebelnacht(content); // Nebelnächte: Nebelkrämerin auf dem Markt jeder Stadt (nach allen Kulissen)
   applyKettlegateKulisse(content); // Seb 2026-11-27: Kettlegate harmonischer – Überladenes ausdünnen, Leeres füllen, Einwohner verteilen, Nachtmarkt breiter
   applyCalderwickStadtplan(content); // Calderwick: eigene Stadtpläne je Terrasse (Häuser, Gassen, Plätze), Objekte an sinnvollen Stellen
