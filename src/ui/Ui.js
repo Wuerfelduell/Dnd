@@ -1254,7 +1254,7 @@ export class Ui {
     const el = this.open('title', `
       <h1>${esc(c.title)}</h1>
       <h2>Ein Mystery in Kettlegate</h2>
-      <div class="build-stamp" style="font-size:9px;opacity:.55">Stand ${esc(typeof __BUILD__ !== 'undefined' ? __BUILD__ : 'dev')}</div>
+      <div class="build-stamp">Stand ${esc(typeof __BUILD__ !== 'undefined' ? __BUILD__ : 'dev')}</div>
       <div class="saveslots">${slots.map(({ n, save: d }) => this.slotRow(n, d, n === active)).join('')}</div>
       <div class="controls touch-only">
         <div>Tippen: laufen, sprechen, untersuchen</div>
@@ -1925,14 +1925,14 @@ export class Ui {
     const isCase = !!caseId;
     const el = this.open('notebook', `
       <div class="tabs">${tabs.map((t, i) => `<button class="tab ${t.id === this.tab ? 'sel' : ''}" data-tab="${t.id}"><span class="key">${i + 1}</span> ${uiSprite('icons', TAB_ICONS[t.id] ?? 'lupe', 1 / 16, 'tabico')}${esc(t.title)}</button>`).join('')}
-        <span class="rankinfo">${uiSprite('ranks', `r${Math.max(0, Math.min(4, this.state.content.ranks.indexOf(this.state.rank())))}`, 1 / 16, 'rankbadge')}${esc(this.state.rank().name)} · Ansehen ${this.state.honor}</span></div>
+        <span class="rankinfo">${uiSprite('ranks', `r${Math.max(0, Math.min(4, this.state.content.ranks.indexOf(this.state.rank())))}`, 1 / 16, 'rankbadge')}<span>${esc(this.state.rank().name)}</span> · <span>Ansehen ${this.state.honor}</span></span></div>
       ${body}
       <div class="feedback">${feedback}</div>
       <div class="actions">
         ${isCase ? `<button class="primary" data-act="combine" ${this.selected.length === 2 ? '' : 'disabled'}>Verknüpfen <span class="key">V</span></button>` : ''}
         ${isCase && this.state.autoLinkFrei() ? `<button data-act="autocombine" title="Zieht alle Verbindungen, deren Informationen schon im Notizbuch stehen">Auto-Verknüpfen <span class="key">A</span></button>` : ''}
         <button data-act="close">Schließen <span class="key">J</span></button>
-      </div>`, 'notebook');
+      </div>`, 'notebook journal');
     this.notebookTabs = tabs;
     el.querySelectorAll('[data-tab]').forEach((b) => { b.onclick = () => { if (this.tab !== b.dataset.tab) this.sfx(uiSound('notebook', 'tab')); this.tab = b.dataset.tab; this.selected = []; this.forgetScroll(); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-itemcat]').forEach((b) => { b.onclick = () => { if (this.itemCat !== b.dataset.itemcat) this.sfx(uiSound('notebook', 'page')); this.itemCat = b.dataset.itemcat; this.forgetScroll('notebook', /^UL\./); this.renderNotebook(''); }; });
@@ -2497,7 +2497,8 @@ export class Ui {
   /** Der Fall, der gerade im Notizbuch offen ist (auch im Archiv), sonst null. */
   currentCase() {
     if (this.tab === 'archiv') return this.archiveCase ?? null;
-    return ['quests', 'items', 'pfad', 'personen', 'bestiar'].includes(this.tab) ? null : this.tab;
+    // Nur echte Fall-Reiter haben Verknüpfen (vorher standen die Knöpfe auch unter Kulte, Zeitung, Post, Tiere und Akte)
+    return this.visibleCases().some((c) => c.id === this.tab) ? this.tab : null;
   }
 
   /** Archiv: gelöste Fälle mit ihrem Ende; ein Klick öffnet die alten Informationen. */
@@ -3054,7 +3055,7 @@ export class Ui {
       ${this.recipesHtml(true)}
       ${this.sudHtml()}
       <div class="feedback">${feedback}</div>
-      <div class="actions"><button data-act="close">Fertig <span class="key">Esc</span></button></div>`, 'notebook brew');
+      <div class="actions"><button data-act="close">Schließen <span class="key">Esc</span></button></div>`, 'notebook brew');
     el.querySelectorAll('[data-brew]').forEach((b) => { b.onclick = () => this.brew(b.dataset.brew); });
     el.querySelectorAll('[data-brew-rest]').forEach((b) => { b.onclick = () => this.brew(b.dataset.brewRest, { useRest: true }); });
     el.querySelectorAll('[data-sud-add]').forEach((b) => { b.onclick = () => {
@@ -3710,7 +3711,10 @@ export class Ui {
       help = t(help);
     }
     el.innerHTML = (scene ? sceneImg(scene) : '') + paragraphs(text); // BS: Sequenzbild vor dem Kampfbeginn
-    this.layer.querySelector('.cb-help').textContent = help;
+    // Tastenhinweis wie überall sonst als Taste: „Weiter [E]“ statt „Weiter mit E“
+    const weiter = /^Weiter mit (E|Enter)$/.exec(help);
+    if (weiter) this.layer.querySelector('.cb-help').innerHTML = `Weiter <span class="key">${weiter[1]}</span>`;
+    else this.layer.querySelector('.cb-help').textContent = help;
     this.layer.querySelector('.cb-menu').innerHTML = '';
     this.layer.querySelector('.cb-target')?.classList.add('hidden');
     this.combatMenuOpen = null;
