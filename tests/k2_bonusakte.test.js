@@ -51,7 +51,7 @@ test('Alte Spielstände nach Kapitel 2 bekommen die Bonusakte beim Laden', () =>
 test('Kapitel 3: „Der Ruf durch die Wand“ lässt sich bei Pfiff überspringen', () => {
   const s = new GameState(content);
   s.flags.add('k3_arrived');
-  s.startQuest('k3a_akt1');
+  s.startQuest('k3z_akt1');
   s.applyEffects(content.dialogues.k3a_14_dialog.nodes.k3a_14_ueberspringen);
   assert.ok(s.flags.has('k3a_14_geschlossen'));
   assert.ok(s.hasConclusion('k3a_14_d'));
@@ -61,7 +61,7 @@ test('Kapitel 3: „Der Ruf durch die Wand“ lässt sich bei Pfiff überspringe
 test('Kapitel 3: Horchstelle an der Drehscheibe lässt sich überspringen', () => {
   const s = new GameState(content);
   s.flags.add('k3_arrived');
-  s.startQuest('k3a_akt1');
+  s.startQuest('k3z_akt1');
   const before = s.signal.charges;
   assert.ok(s.skipStation('k3o_horch_drehscheibe').ok);
   assert.ok(s.flags.has('k3a_14_geschlossen'));
@@ -74,7 +74,7 @@ test('Dunscar: alle Gebiete offen, Hör-Fährte gestrichen, Schichtbund offen (a
   for (const t of content.travel.filter((x) => x.city === 'dunscar')) {
     assert.ok(!(t.requires_flags ?? []).some((f) => /^k3a_akt\d_done$|^kapitel3_done$/.test(f)), `${t.map} noch gesperrt`);
   }
-  assert.ok(!content.quests.k3a_akt1.steps.some((st) => JSON.stringify(st.done).includes('k3a_14')));
+  assert.ok(!content.quests.k3z_akt1.steps.some((st) => JSON.stringify(st.done).includes('k3a_14')));
   const s = new GameState(content);
   s.flags.add('k3_arrived');
   s.dunscarOffen();
@@ -97,10 +97,12 @@ test('Dunscar: Trichter-/Drehscheiben-Aufträge sind gestrichen, laufende versch
 });
 
 test('Dunscar: Zug-/Hör-Story raus, Kapitelziel Rache an Starling (Seb 2026-11-12)', () => {
-  // keine Fährten-Stationen mehr auf den Karten
-  for (const m of Object.values(content.maps)) for (const i of m.interactables ?? []) assert.ok(!/^k3a_\d\d_/.test(i.id) && i.id !== 'k3a_urteil_station', i.id);
+  // Seb 2026-11-27: die Fährten kommen als freiwillige Nebengeschichte zurück, aber nur, wenn man sie bei Pfiff annimmt
+  for (const m of Object.values(content.maps)) for (const i of m.interactables ?? []) {
+    if (/^k3a_\d\d_/.test(i.id) || i.id === 'k3a_urteil_station') assert.ok((i.visible_if?.requires_flags ?? []).some((f) => /^k3z_/.test(f)), i.id);
+  }
   const pfiff = content.dialogues.k3a_pfiff.nodes.k3a_start.choices;
-  assert.ok(!pfiff.some((c) => (c.next ?? '').startsWith('k3a_abschluss')));
+  assert.ok(pfiff.filter((c) => (c.next ?? '').startsWith('k3a_abschluss')).every((c) => c.requires_flags.includes('k3z_aktiv')));
   // Ankunft startet das neue Ziel statt Akt 1
   const ank = content.maps.ds_endbahnhof.interactables.find((i) => i.id === 'k3a_ankunft');
   assert.deepEqual(ank.effects.start_quests, ['k3_rache']);

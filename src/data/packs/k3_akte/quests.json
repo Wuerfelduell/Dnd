@@ -1,9 +1,9 @@
 {
-  "k3a_akt1": {
-    "title": "Akt 1: Der unbestellte Fahrgast",
-    "kind": "main",
-    "case": "kapitel3",
-    "summary": "Prüfe vier Fährten, verbinde ihre Fakten und besprich die Folgen mit Pfiff.",
+  "k3z_akt1": {
+    "title": "Der letzte Zug 1/5: Der unbestellte Fahrgast",
+    "kind": "side",
+    "case": "k3_nachtzug",
+    "summary": "Der Schalter am Endbahnhof hat ein Billett auf deinen Namen ausgegeben, für eine Strecke, die seit siebzig Jahren stillliegt. Prüfe die Fährten und besprich sie mit Pfiff.",
     "steps": [
       {
         "text": "Das unmögliche Billett",
@@ -48,7 +48,7 @@
         "text": "Mit Pfiff den nächsten Schritt bestätigen.",
         "done": {
           "requires_flags": [
-            "k3a_akt1_done"
+            "k3z_akt1_done"
           ]
         },
         "target": {
@@ -57,13 +57,32 @@
           "label": "Pfiff"
         }
       }
-    ]
+    ],
+    "reward": {
+      "gives_money": 1200,
+      "honor": 2
+    },
+    "lead": {
+      "requires_flags": [
+        "k3_arrived"
+      ],
+      "hide_if_flags": [
+        "k3z_aktiv",
+        "k3a_akt5_done"
+      ],
+      "text": "Pfiff im Speisewagen hat etwas über den Nachtzug zu erzählen, der nachts durch Dunscar fährt. (Nebengeschichte, freiwillig)",
+      "target": {
+        "map": "ds_speisewagen",
+        "id": "k3_pfiff",
+        "label": "Pfiff"
+      }
+    }
   },
-  "k3a_akt2": {
-    "title": "Akt 2: Die offene Schicht",
-    "kind": "main",
-    "case": "kapitel3",
-    "summary": "Prüfe vier Fährten, verbinde ihre Fakten und besprich die Folgen mit Pfiff.",
+  "k3z_akt2": {
+    "title": "Der letzte Zug 2/5: Die offene Schicht",
+    "kind": "side",
+    "case": "k3_nachtzug",
+    "summary": "Der Nachtzug fährt, weil Lebende ihn am Laufen halten. Finde heraus, wen er sucht.",
     "steps": [
       {
         "text": "Niemand ist abgereist",
@@ -121,7 +140,7 @@
         "text": "Mit Pfiff den nächsten Schritt bestätigen.",
         "done": {
           "requires_flags": [
-            "k3a_akt2_done"
+            "k3z_akt2_done"
           ]
         },
         "target": {
@@ -130,13 +149,17 @@
           "label": "Pfiff"
         }
       }
-    ]
+    ],
+    "reward": {
+      "gives_money": 1600,
+      "honor": 2
+    }
   },
-  "k3a_akt3": {
-    "title": "Akt 3: Was antwortet",
-    "kind": "main",
-    "case": "kapitel3",
-    "summary": "Prüfe vier Fährten, verbinde ihre Fakten und besprich die Folgen mit Pfiff.",
+  "k3z_akt3": {
+    "title": "Der letzte Zug 3/5: Was antwortet",
+    "kind": "side",
+    "case": "k3_nachtzug",
+    "summary": "Vertraute Stimmen, gekaufte Stimmen, ein Fahrmeister, der nicht weiß, dass er tot ist. Finde heraus, was im Zug antwortet.",
     "steps": [
       {
         "text": "Die Stimme der Mutter",
@@ -194,7 +217,7 @@
         "text": "Mit Pfiff den nächsten Schritt bestätigen.",
         "done": {
           "requires_flags": [
-            "k3a_akt3_done"
+            "k3z_akt3_done"
           ]
         },
         "target": {
@@ -203,13 +226,17 @@
           "label": "Pfiff"
         }
       }
-    ]
+    ],
+    "reward": {
+      "gives_money": 2000,
+      "honor": 3
+    }
   },
-  "k3a_akt4": {
-    "title": "Akt 4: Eine Antwort zu viel",
-    "kind": "main",
-    "case": "kapitel3",
-    "summary": "Prüfe vier Fährten, verbinde ihre Fakten und besprich die Folgen mit Pfiff.",
+  "k3z_akt4": {
+    "title": "Der letzte Zug 4/5: Eine Antwort zu viel",
+    "kind": "side",
+    "case": "k3_nachtzug",
+    "summary": "Die alte Leitung hat die Verschollenen vertuscht, und die Schlucht wächst mit jedem Ruf. Finde heraus, wie der Rundruf geschaltet ist.",
     "steps": [
       {
         "text": "Der unterzeichnete Verschluss",
@@ -267,7 +294,7 @@
         "text": "Mit Pfiff den nächsten Schritt bestätigen.",
         "done": {
           "requires_flags": [
-            "k3a_akt4_done"
+            "k3z_akt4_done"
           ]
         },
         "target": {
@@ -276,13 +303,17 @@
           "label": "Pfiff"
         }
       }
-    ]
+    ],
+    "reward": {
+      "gives_money": 2400,
+      "honor": 3
+    }
   },
-  "k3a_akt5": {
-    "title": "Akt 5: Feierabend",
-    "kind": "main",
-    "case": "kapitel3",
-    "summary": "Prüfe vier Fährten, verbinde ihre Fakten und besprich die Folgen mit Pfiff.",
+  "k3z_akt5": {
+    "title": "Der letzte Zug 5/5: Feierabend",
+    "kind": "side",
+    "case": "k3_nachtzug",
+    "summary": "Hol die Lebenden heraus, sammle, was du für dein Urteil brauchst, und entscheide am letzten Bahnsteig über den Nachtzug.",
     "steps": [
       {
         "text": "Die eigene Aussage",

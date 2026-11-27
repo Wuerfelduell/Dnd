@@ -79,6 +79,7 @@ export const DEFAULT_HP = 40;
 /** Von Seb gestrichene Aufträge (2026-11-12): Trichter und Drehscheibe in Dunscar. */
 // Seb 2026-11-12: Zug-/Hör-Story in Dunscar gestrichen (k3a_akt1–5, Koop-Schleuse); Kapitel 3 = Rache an Starling (k3_rache)
 export const GESTRICHENE_AUFTRAEGE = ['k3n_drehscheibe', 'koop_ds_horchen', 'koop_ds_schleuse', 'k3a_akt1', 'k3a_akt2', 'k3a_akt3', 'k3a_akt4', 'k3a_akt5'];
+// Seb 2026-11-27: die Zug-Geschichte ist als freiwillige Nebengeschichte zurück (k3z_akt1–5, Start bei Pfiff, Fallakte k3_nachtzug, kein Kapitelende)
 /** Flags, die Dunscars Welt so stellen, als liefe die Zug-Geschichte ohne dich weiter (öffnet Prüfungen, Aufträge, Gerede). */
 export const DUNSCAR_WELT_FLAGS = ['k3a_akt1_done', 'k3a_akt2_done', 'k3a_akt3_done', 'k3a_akt4_done'];
 
