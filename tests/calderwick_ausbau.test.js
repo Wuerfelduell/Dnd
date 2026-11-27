@@ -46,3 +46,14 @@ test('Ziele: Hinweise nennen Quellen, Wegbeschreibungen nennen Ort und Lage', ()
   assert.ok(h[0].zeilen.every((z) => z.ok || z.wo), 'jede fehlende Zeile sagt, wo');
   assert.ok(wichtigeOrte(state).some((o) => /krämer/i.test(o.name) && /Nietenviertel/.test(o.wo)));
 });
+
+test('Pfadviertel: klarer Aufbau, alles auf Boden, Wegweiser, Bosse beschriftet', () => {
+  for (const m of Object.values(content.maps).filter((x) => x.id.startsWith('o3_') && x.city === 'calderwick')) {
+    assert.equal(m.rows.length, 34, m.id);
+    for (const o of [...m.interactables, ...(m.roamers ?? [])]) assert.equal(m.rows[o.tile[1]][o.tile[0]], '.', `${m.id}: ${o.id ?? o.encounter} auf ${o.tile}`);
+    for (const w of ['weg_hof', 'weg_halle', 'weg_gassen', 'weg_herz', 'weg_saal']) assert.ok(m.interactables.some((i) => i.id === `${m.id}_${w}`), `${m.id}: ${w}`);
+    assert.equal(m.interactables.find((i) => i.id === `${m.id}_herz`)?.label, 'Herz des Viertels');
+    assert.equal(m.interactables.find((i) => i.id === `${m.id}_herd3`)?.label, 'Zwischenboss');
+    assert.ok(m.interactables.find((i) => i.id === `${m.id}_herz`).tile[0] > 46, 'Herz in der Arena rechts');
+  }
+});
