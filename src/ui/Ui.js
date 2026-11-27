@@ -2903,8 +2903,9 @@ export class Ui {
     const r = s.rivaleDaten?.(nr);
     const fertig = (text) => { s.applyEffects({ sets_flags: [def.done_flag] }); this.showMessage(r ? rivaleName(r.pid, nr) : PVG_UI.rivale[0], text); };
     if (!r) { fertig(PVG_UI.ohne_rivale[0]); return; }
-    r.getroffen = true;
+    if (!['erledigt', 'fort'].includes(r.status)) r.getroffen = true;
     if (r.status === 'verbuendet') { fertig(s.rivaleText('viertel_verbuendet', nr)); return; }
+    if (['erledigt', 'fort'].includes(r.status)) { fertig(s.rivaleText('viertel_fort', nr)); return; } // nach dem Bogen-Finale kein Rivale mehr
     this.rivaleUi = { nr, name: rivaleName(r.pid, nr), optionen: ['kampf', 'gehen'], viertel: def.viertel };
     this.sfx(uiSound('dialogue', 'dialog'), { volume: 0.7 });
     const el = this.open('rivale', `

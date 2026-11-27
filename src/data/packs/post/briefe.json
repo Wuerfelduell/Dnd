@@ -10,6 +10,9 @@
         "k2_arrived",
         "post_kontakt_ivy"
       ],
+      "hide_if_flags": [
+        "c2_wrong"
+      ],
       "tage_nach": 0,
       "beziehung_min": 0,
       "zeitanker": "post_ankunft_2"
@@ -45,6 +48,9 @@
         "post_kontakt_ivy",
         "post_antwort_ivy_1_1"
       ],
+      "hide_if_flags": [
+        "c2_wrong"
+      ],
       "tage_nach": 1,
       "beziehung_min": 0,
       "zeitanker": "post_ivy_1_beantwortet"
@@ -78,6 +84,9 @@
       "requires_flags": [
         "k6_arrived",
         "post_kontakt_ivy"
+      ],
+      "hide_if_flags": [
+        "c2_wrong"
       ],
       "tage_nach": 1,
       "beziehung_min": 0,
@@ -131,6 +140,9 @@
         "k2_arrived",
         "post_kontakt_holt"
       ],
+      "hide_if_flags": [
+        "holt_suspended"
+      ],
       "tage_nach": 0,
       "beziehung_min": 0,
       "zeitanker": "post_ankunft_2"
@@ -166,6 +178,9 @@
         "post_kontakt_holt",
         "post_antwort_holt_1_1"
       ],
+      "hide_if_flags": [
+        "holt_suspended"
+      ],
       "tage_nach": 1,
       "beziehung_min": 0,
       "zeitanker": "post_holt_1_beantwortet"
@@ -199,6 +214,9 @@
       "requires_flags": [
         "k5_arrived",
         "post_kontakt_holt"
+      ],
+      "hide_if_flags": [
+        "holt_suspended"
       ],
       "tage_nach": 1,
       "beziehung_min": 0,
@@ -252,6 +270,9 @@
         "k2_arrived",
         "post_kontakt_gouvernante"
       ],
+      "hide_if_flags": [
+        "wren_arrested"
+      ],
       "tage_nach": 0,
       "beziehung_min": 0,
       "zeitanker": "post_ankunft_2"
@@ -287,6 +308,9 @@
         "post_kontakt_gouvernante",
         "post_antwort_gouvernante_1_1"
       ],
+      "hide_if_flags": [
+        "wren_arrested"
+      ],
       "tage_nach": 1,
       "beziehung_min": 0,
       "zeitanker": "post_gouvernante_1_beantwortet"
@@ -320,6 +344,9 @@
       "requires_flags": [
         "k6_arrived",
         "post_kontakt_gouvernante"
+      ],
+      "hide_if_flags": [
+        "wren_arrested"
       ],
       "tage_nach": 1,
       "beziehung_min": 0,
@@ -625,7 +652,7 @@
       "zeitanker": "post_ankunft_2"
     },
     "betreff": "Vier Bretter für ein Bett",
-    "text": "Miss Wren sagt, auf Briefe an Erwachsene gehört Sie. Also schreibe ich Ihnen. Meine Puppe hat jetzt ein Bett aus vier Brettern. Das fünfte Brett fehlt, deshalb rutscht sie nachts durch. Nan sagt, ich soll eine Schachtel nehmen. Die Schachtel riecht aber nach Seife, und ich will kein Bett, das jemand vorher weggeworfen hat. Können Sie mir schreiben, ob ein Stück Stoff als Boden reicht? Ich kann selber nähen, wenn mir jemand den Anfang zeigt. Bitte schicken Sie keine große neue Puppe. Meine kennt die fehlende Stelle schon und passt genau zwischen die Bretter.",
+    "text": "Nan sagt, auf Briefe an Erwachsene gehört Sie. Also schreibe ich Ihnen. Meine Puppe hat jetzt ein Bett aus vier Brettern. Das fünfte Brett fehlt, deshalb rutscht sie nachts durch. Sie sagt auch, ich soll eine Schachtel nehmen. Die Schachtel riecht aber nach Seife, und ich will kein Bett, das jemand vorher weggeworfen hat. Können Sie mir schreiben, ob ein Stück Stoff als Boden reicht? Ich kann selber nähen, wenn mir jemand den Anfang zeigt. Bitte schicken Sie keine große neue Puppe. Meine kennt die fehlende Stelle schon und passt genau zwischen die Bretter.",
     "beilage": {},
     "antworten": [
       {
@@ -660,7 +687,7 @@
       "zeitanker": "post_molly_1_beantwortet"
     },
     "betreff": "Die Puppe schläft quer",
-    "text": "Der Stoff hält. Ich habe ihn dreimal angenäht, weil die erste Naht wie eine Treppe aussah. Nun schläft die Puppe quer. Das ist keine Vorschrift, nur ihre beste Lage. Ein anderes Kind möchte das Bett haben. Ich habe gesagt, es darf es ansehen. Es sagt, Teilen heißt Hergeben. Stimmt das? Miss Wren hat gemeint, ich soll selbst antworten. Darum frage ich Sie vorher. Wenn ich ein zweites Bett bauen helfe, ist das dann auch Teilen? Vier neue Bretter liegen schon bereit. Ich habe diesmal nach einem Boden gesucht, bevor ich mit den Seiten anfange.",
+    "text": "Der Stoff hält. Ich habe ihn dreimal angenäht, weil die erste Naht wie eine Treppe aussah. Nun schläft die Puppe quer. Das ist keine Vorschrift, nur ihre beste Lage. Ein anderes Kind möchte das Bett haben. Ich habe gesagt, es darf es ansehen. Es sagt, Teilen heißt Hergeben. Stimmt das? Die Hausmutter hat gemeint, ich soll selbst antworten. Darum frage ich Sie vorher. Wenn ich ein zweites Bett bauen helfe, ist das dann auch Teilen? Vier neue Bretter liegen schon bereit. Ich habe diesmal nach einem Boden gesucht, bevor ich mit den Seiten anfange.",
     "beilage": {},
     "antworten": [
       {
@@ -942,7 +969,7 @@
       "zeitanker": "post_pip_2_beantwortet"
     },
     "betreff": "Heute ohne falschen Namen",
-    "text": "Unter der Berichtigung steht Benji. Der Setzer fand den Namen zu kurz für die Zeile. Ich fand ihn lang genug für meinen Fehler. Die Frau kann wieder die Tür öffnen, ohne ihre eigene Rückkehr bestätigen zu müssen. Ich liefere ihr das Blatt jetzt mit der Schrift nach innen. Heute gibt es Regen, Kohlenpreise und einen verlorenen Handschuh. Keine gute Ausgabe, sagt mein Chef. Mir ist eine langweilige Ausgabe recht, solange ich niemanden hineinlügen muss. Falls Sie mir schreiben, vermerke ich auf dem Umschlag privat. Das ist neu bei mir. Ich übe noch, den Vermerk auch zu beachten.",
+    "text": "Unter der Berichtigung steht Pip. Der Setzer fand den Namen zu kurz für die Zeile. Ich fand ihn lang genug für meinen Fehler. Die Frau kann wieder die Tür öffnen, ohne ihre eigene Rückkehr bestätigen zu müssen. Ich liefere ihr das Blatt jetzt mit der Schrift nach innen. Heute gibt es Regen, Kohlenpreise und einen verlorenen Handschuh. Keine gute Ausgabe, sagt mein Chef. Mir ist eine langweilige Ausgabe recht, solange ich niemanden hineinlügen muss. Falls Sie mir schreiben, vermerke ich auf dem Umschlag privat. Das ist neu bei mir. Ich übe noch, den Vermerk auch zu beachten.",
     "beilage": {},
     "antworten": [
       {

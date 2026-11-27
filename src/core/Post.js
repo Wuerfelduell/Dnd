@@ -56,6 +56,7 @@ export const postMethods = {
     const a = b.ausloeser ?? {};
     if ((a.requires_flags ?? []).some((f) => !this.flags.has(f))) return false;
     if (a.requires_any_flags?.length && !a.requires_any_flags.some((f) => this.flags.has(f))) return false;
+    if ((a.hide_if_flags ?? []).some((f) => this.flags.has(f))) return false; // Absender verhaftet, suspendiert, nie gefunden (tools/schicksale.mjs)
     const anker = this.post.anker[a.zeitanker];
     if (anker === undefined) return false;
     if (this.postTag() - anker < (a.tage_nach ?? 0)) return false;
