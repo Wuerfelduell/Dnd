@@ -3,6 +3,7 @@
 // denselben Texture-Keys. Alles, was hier nicht zugeordnet ist (oder nicht lädt),
 // bleibt automatisch beim Platzhalter.
 import { PATHWAY_STANDIN } from '../data/sequenzen.js';
+import { KFX_SHEETS } from './SkillFx.js';
 import { BH_DACH_TEXTUREN } from '../data/briarholtKulisse.js';
 import { CW_KULISSE_BLAETTER } from '../data/calderwickKulisse.js';
 import { preloadRitualArt } from './ritualArt.js';
@@ -1682,6 +1683,8 @@ ICON32.push(...J_ITEMS);
 INSPECT_VIEWS.push('lilians_spieluhr', 'veys_tagebuch', 'stimmgabel_silber');
 for (const id of ['c5_perfect', 'c5_good', 'c5_early', 'c5_rust']) ENDING_IMAGES[id] = id;
 ANIM_SHEETS.j_hinweise = ['props/J_fall5_hinweise.png', 16, 16];
+// Kampfanimationen je Pfad (SkillFx.js): bisher ungenutzte Effekt-Streifen
+for (const [k, [path, w, h]] of Object.entries(KFX_SHEETS)) ANIM_SHEETS[k] = [path, w, h];
 // Frames von j_hinweise in Reihenfolge: bronze_shaving, chalk_bell, burned_score, white_lily, cracked_phial, robe_threads,
 // sand_handprint, candle_ring, bronze_dust, tally_door.
 
