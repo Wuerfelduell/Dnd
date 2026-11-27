@@ -30,9 +30,12 @@ export const FESTE = {
 /** Fest einer Stadt am Festtag ihrer Jahreszeit (den ganzen Tag), sonst null. */
 export const festAt = (playTime, city) => (seasonDayAt(playTime) === FEST_DAY
   ? Object.entries(FESTE).find(([, f]) => f.city === city && f.season === seasonAt(playTime))?.[0] ?? null : null);
+/** Kapitel 7 (Varrowmouth, CU): Ebbe und Flut wechseln alle 360 s Spielzeit; die Flags gelten überall, Varrowmouth liest sie. */
+export const GEZEIT_SECONDS = 360;
+export const gezeitAt = (playTime) => (Math.floor((playTime ?? 0) / GEZEIT_SECONDS) % 2 === 0 ? 'ebbe' : 'flut');
 const FS_SEASON = new Set(SEASONS.map((s) => `fs_${s}`));
 export const VOLATILE_FLAGS = (f) => f === NIGHT_FLAG || f.startsWith('saison_') || f.startsWith('fest_aktiv_') || FS_SEASON.has(f)
-  || /^fs_fest_\w+_aktiv$/.test(f) || /^fs_\w+_(ankuendigung|nachlese)$/.test(f) || f === DAY_B_FLAG
+  || f === 'gezeit_ebbe' || f === 'gezeit_flut' || /^fs_fest_\w+_aktiv$/.test(f) || /^fs_\w+_(ankuendigung|nachlese)$/.test(f) || f === DAY_B_FLAG
   || WETTER_FLAG(f);
 /** Wetter (core/Wetter.js) folgt nur der Spielzeit; seine Flags pflegt wetterTick. */
 export const WETTER_FLAG = (f) => f === 'nebelnacht' || f.startsWith('wetter_');
@@ -48,6 +51,7 @@ export function clockFlagsAt(playTime) {
   const day = seasonDayAt(playTime);
   const want = new Set([`saison_${season}`, `fs_${season}`]);
   if (day % 2 === 0) want.add(DAY_B_FLAG);
+  want.add(`gezeit_${gezeitAt(playTime)}`);
   for (const [id, f] of Object.entries(FESTE)) {
     if (festAt(playTime, f.city) === id) { want.add(`fest_aktiv_${id}`); want.add(`fs_fest_${id}_aktiv`); }
     if (f.season !== season) continue;
@@ -91,8 +95,9 @@ export const clockMethods = {
     const season = this.season();
     const want = clockFlagsAt(this.playTime);
     let changed = false;
-    for (const f of [...this.flags]) if (VOLATILE_FLAGS(f) && f !== NIGHT_FLAG && !WETTER_FLAG(f) && !want.has(f)) { this.flags.delete(f); changed = true; }
-    for (const f of want) if (!this.flags.has(f)) { this.flags.add(f); changed = true; }
+    const still = (f) => f.startsWith('gezeit_'); // Gezeitenwechsel melden sich nicht als neue Jahreszeit
+    for (const f of [...this.flags]) if (VOLATILE_FLAGS(f) && f !== NIGHT_FLAG && !WETTER_FLAG(f) && !want.has(f)) { this.flags.delete(f); changed ||= !still(f); }
+    for (const f of want) if (!this.flags.has(f)) { this.flags.add(f); changed ||= !still(f); }
     // Die Saison-Marke bleibt im Spielstand: wechselt die Jahreszeit (auch zwischen Speichern und Laden), sind die Saisonwirkungen wieder frei
     const mark = `${SEASON_MARK}${season}`;
     if (!this.flags.has(mark)) {

@@ -4,8 +4,8 @@
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
-/** Markierungen, die der Code zur Laufzeit aus Mustern baut: Nacht (Clock.NIGHT_FLAG), Rituale (Pathways.ritualFlag), Siege je Spieler (aufstieg.js). */
-export const DYNAMIC_FLAG = /^(k3h_nacht|(p2_)?ritual_[a-z_]+_\d|\w+_p[12])$/;
+/** Markierungen, die der Code zur Laufzeit aus Mustern baut: Nacht (Clock.NIGHT_FLAG), Gezeiten (Clock.gezeitAt), Rituale (Pathways.ritualFlag), Siege je Spieler (aufstieg.js). */
+export const DYNAMIC_FLAG = /^(k3h_nacht|gezeit_ebbe|gezeit_flut|(p2_)?ritual_[a-z_]+_\d|\w+_p[12])$/;
 
 export function analyse(content, { codeFlags = [], dynamicFlag = DYNAMIC_FLAG } = {}) {
   const R = { clue: new Set(), flag: new Set(codeFlags), item: new Set(), qs: new Set(), qd: new Set(), concl: new Set(), map: new Set([content.start.map]), ending: new Set(), dlg: new Set() };

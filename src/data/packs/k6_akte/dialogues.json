@@ -1,0 +1,3108 @@
+{
+  "k6_11_dialog": {
+    "start": "k6_11_start",
+    "nodes": {
+      "k6_11_start": {
+        "text": "Wie steht dein Name hier, bevor du selbst angekommen bist?",
+        "choices": [
+          {
+            "text": "Den belegten Schluss festhalten.",
+            "next": "k6_11_schluss",
+            "requires_flags": [
+              "k6_arrived"
+            ],
+            "requires_conclusions": [
+              "k6_11_d"
+            ],
+            "requires_clues": [
+              "k6_11_c1",
+              "k6_11_c2",
+              "k6_11_c3"
+            ],
+            "hide_if_flags": [
+              "k6_11_geschlossen"
+            ]
+          },
+          {
+            "text": "Weiter ermitteln."
+          }
+        ]
+      },
+      "k6_11_schluss": {
+        "text": "Der Stempel belegt die Annahme eines Namens, nicht deine frühere Anwesenheit.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_11_geschlossen"
+        ]
+      }
+    }
+  },
+  "k6_12_dialog": {
+    "start": "k6_12_start",
+    "nodes": {
+      "k6_12_start": {
+        "text": "Wie steht dein Name hier, bevor du selbst angekommen bist?",
+        "choices": [
+          {
+            "text": "Den belegten Schluss festhalten.",
+            "next": "k6_12_schluss",
+            "requires_flags": [
+              "k6_arrived"
+            ],
+            "requires_conclusions": [
+              "k6_12_d"
+            ],
+            "requires_clues": [
+              "k6_12_c1",
+              "k6_12_c2",
+              "k6_12_c3"
+            ],
+            "hide_if_flags": [
+              "k6_12_geschlossen"
+            ]
+          },
+          {
+            "text": "Weiter ermitteln."
+          }
+        ]
+      },
+      "k6_12_schluss": {
+        "text": "Ein Brief aus Fall 9 brachte deinen Namen nach Varrowmouth; du bist nicht heimlich schon hier gewesen.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_12_geschlossen"
+        ]
+      }
+    }
+  },
+  "k6_13_dialog": {
+    "start": "k6_13_start",
+    "nodes": {
+      "k6_13_start": {
+        "text": "Wie steht dein Name hier, bevor du selbst angekommen bist?",
+        "choices": [
+          {
+            "text": "Den belegten Schluss festhalten.",
+            "next": "k6_13_schluss",
+            "requires_flags": [
+              "k6_arrived"
+            ],
+            "requires_conclusions": [
+              "k6_13_d"
+            ],
+            "requires_clues": [
+              "k6_13_c1",
+              "k6_13_c2",
+              "k6_13_c3"
+            ],
+            "hide_if_flags": [
+              "k6_13_geschlossen"
+            ]
+          },
+          {
+            "text": "Weiter ermitteln."
+          }
+        ]
+      },
+      "k6_13_schluss": {
+        "text": "Tam nutzt eine gestohlene Kennung, weil sie keinen eigenen Eintrag besitzt. Ihr Durchlass ist eine technische Lücke.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_13_geschlossen"
+        ]
+      }
+    }
+  },
+  "k6_14_dialog": {
+    "start": "k6_14_start",
+    "nodes": {
+      "k6_14_start": {
+        "text": "Wie steht dein Name hier, bevor du selbst angekommen bist?",
+        "choices": [
+          {
+            "text": "Den belegten Schluss festhalten.",
+            "next": "k6_14_schluss",
+            "requires_flags": [
+              "k6_arrived",
+              "k6_zoll_gehoert"
+            ],
+            "requires_conclusions": [
+              "k6_14_d"
+            ],
+            "requires_clues": [
+              "k6_14_c1",
+              "k6_14_c2",
+              "k6_14_c3"
+            ],
+            "hide_if_flags": [
+              "k6_14_geschlossen"
+            ]
+          },
+          {
+            "text": "Weiter ermitteln."
+          }
+        ]
+      },
+      "k6_14_schluss": {
+        "text": "Der Schreiber ist kein freier Urheber der Sperre. Das Register erneuert seine Bindung, selbst wenn er widerspricht.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_14_geschlossen"
+        ]
+      }
+    }
+  },
+  "k6_bilanz1": {
+    "start": "k6_bilanz1",
+    "nodes": {
+      "k6_bilanz1": {
+        "text": "Wie steht dein Name hier, bevor du selbst angekommen bist?",
+        "choices": [
+          {
+            "text": "Die vier Schlüsse zusammenführen.",
+            "next": "k6_bilanz1_ja",
+            "requires_flags": [
+              "k6_11_geschlossen",
+              "k6_12_geschlossen",
+              "k6_13_geschlossen",
+              "k6_14_geschlossen",
+              "k6_tam_weg"
+            ],
+            "hide_if_flags": [
+              "k6_akt1_done"
+            ]
+          },
+          {
+            "text": "Noch nicht."
+          }
+        ]
+      },
+      "k6_bilanz1_ja": {
+        "text": "Ein Brief kann eine Person binden, ohne sie herzubringen. Tam führt dich unter dem Zollsteg hindurch; der eigene Eintrag bleibt als Beweis erhalten.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_akt1_done"
+        ],
+        "complete_quests": [
+          "k6_akt1"
+        ],
+        "start_quests": [
+          "k6_akt2"
+        ],
+        "gives_money": 20
+      }
+    }
+  },
+  "k6_21_dialog": {
+    "start": "k6_21_start",
+    "nodes": {
+      "k6_21_start": {
+        "text": "Was verschwindet, wenn ein Name vergessen wird?",
+        "choices": [
+          {
+            "text": "Den belegten Schluss festhalten.",
+            "next": "k6_21_schluss",
+            "requires_flags": [
+              "k6_akt1_done"
+            ],
+            "requires_conclusions": [
+              "k6_21_d"
+            ],
+            "requires_clues": [
+              "k6_21_c1",
+              "k6_21_c2",
+              "k6_21_c3"
+            ],
+            "hide_if_flags": [
+              "k6_21_geschlossen"
+            ]
+          },
+          {
+            "text": "Weiter ermitteln."
+          }
+        ]
+      },
+      "k6_21_schluss": {
+        "text": "Vergessenwerden löst einen Registerzugriff, aber es löscht weder Menschen noch ihre Bedürfnisse.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_21_geschlossen"
+        ]
+      }
+    }
+  },
+  "k6_22_dialog": {
+    "start": "k6_22_start",
+    "nodes": {
+      "k6_22_start": {
+        "text": "Was verschwindet, wenn ein Name vergessen wird?",
+        "choices": [
+          {
+            "text": "Den belegten Schluss festhalten.",
+            "next": "k6_22_schluss",
+            "requires_flags": [
+              "k6_akt1_done"
+            ],
+            "requires_conclusions": [
+              "k6_22_d"
+            ],
+            "requires_clues": [
+              "k6_22_c1",
+              "k6_22_c2",
+              "k6_22_c3"
+            ],
+            "hide_if_flags": [
+              "k6_22_geschlossen"
+            ]
+          },
+          {
+            "text": "Weiter ermitteln."
+          }
+        ]
+      },
+      "k6_22_schluss": {
+        "text": "Die Seiten sind Abgaben aus einer lebenden Quelle. Sie bilden nicht das eigentliche Register.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_22_geschlossen"
+        ]
+      }
+    }
+  },
+  "k6_23_dialog": {
+    "start": "k6_23_start",
+    "nodes": {
+      "k6_23_start": {
+        "text": "Was verschwindet, wenn ein Name vergessen wird?",
+        "choices": [
+          {
+            "text": "Den belegten Schluss festhalten.",
+            "next": "k6_23_schluss",
+            "requires_flags": [
+              "k6_akt1_done"
+            ],
+            "requires_conclusions": [
+              "k6_23_d"
+            ],
+            "requires_clues": [
+              "k6_23_c1",
+              "k6_23_c2",
+              "k6_23_c3"
+            ],
+            "hide_if_flags": [
+              "k6_23_geschlossen"
+            ]
+          },
+          {
+            "text": "Weiter ermitteln."
+          }
+        ]
+      },
+      "k6_23_schluss": {
+        "text": "Nell unterbricht das Auffinden durch das Register. Sie verliert dabei nicht automatisch ihre Erinnerung an den Menschen.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_23_geschlossen"
+        ]
+      }
+    }
+  },
+  "k6_24_dialog": {
+    "start": "k6_24_start",
+    "nodes": {
+      "k6_24_start": {
+        "text": "Was verschwindet, wenn ein Name vergessen wird?",
+        "choices": [
+          {
+            "text": "Den belegten Schluss festhalten.",
+            "next": "k6_24_schluss",
+            "requires_flags": [
+              "k6_akt1_done",
+              "won_wrackmutter",
+              "k6_nell_gerettet"
+            ],
+            "requires_conclusions": [
+              "k6_24_d"
+            ],
+            "requires_clues": [
+              "k6_24_c1",
+              "k6_24_c2",
+              "k6_24_c3"
+            ],
+            "hide_if_flags": [
+              "k6_24_geschlossen"
+            ]
+          },
+          {
+            "text": "Weiter ermitteln."
+          }
+        ]
+      },
+      "k6_24_schluss": {
+        "text": "Die Wrackmutter bewachte verstreute Registerteile. Ihr Ende öffnet den Kielraum, beendet aber nicht die Macht über die Stadt.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_24_geschlossen"
+        ]
+      }
+    }
+  },
+  "k6_bilanz2": {
+    "start": "k6_bilanz2",
+    "nodes": {
+      "k6_bilanz2": {
+        "text": "Was verschwindet, wenn ein Name vergessen wird?",
+        "choices": [
+          {
+            "text": "Die vier Schlüsse zusammenführen.",
+            "next": "k6_bilanz2_ja",
+            "requires_flags": [
+              "k6_21_geschlossen",
+              "k6_22_geschlossen",
+              "k6_23_geschlossen",
+              "k6_24_geschlossen"
+            ],
+            "hide_if_flags": [
+              "k6_akt2_done"
+            ]
+          },
+          {
+            "text": "Noch nicht."
+          }
+        ]
+      },
+      "k6_bilanz2_ja": {
+        "text": "Nell ist in Sicherheit, die Wrackmutter überwunden. Die freien Seiten verweisen auf eine lebende Quelle; im Rat muss jemand wissen, wer sie speist.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_akt2_done"
+        ],
+        "complete_quests": [
+          "k6_akt2"
+        ],
+        "start_quests": [
+          "k6_akt3"
+        ],
+        "gives_money": 20
+      }
+    }
+  },
+  "k6_31_dialog": {
+    "start": "k6_31_start",
+    "nodes": {
+      "k6_31_start": {
+        "text": "Wer verwaltet hier die Wahrheit und wer hält dir eine Tür offen?",
+        "choices": [
+          {
+            "text": "Den belegten Schluss festhalten.",
+            "next": "k6_31_schluss",
+            "requires_flags": [
+              "k6_akt2_done",
+              "k6_rat_1_q3"
+            ],
+            "requires_conclusions": [
+              "k6_31_d"
+            ],
+            "requires_clues": [
+              "k6_31_c1",
+              "k6_31_c2",
+              "k6_31_c3"
+            ],
+            "hide_if_flags": [
+              "k6_31_geschlossen"
+            ]
+          },
+          {
+            "text": "Weiter ermitteln."
+          }
+        ]
+      },
+      "k6_31_schluss": {
+        "text": "Der Zollrat lügt über die Uhrzeit, um deinen Eintritt und Tams Hilfe zu decken.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_31_geschlossen"
+        ]
+      }
+    }
+  },
+  "k6_32_dialog": {
+    "start": "k6_32_start",
+    "nodes": {
+      "k6_32_start": {
+        "text": "Wer verwaltet hier die Wahrheit und wer hält dir eine Tür offen?",
+        "choices": [
+          {
+            "text": "Den belegten Schluss festhalten.",
+            "next": "k6_32_schluss",
+            "requires_flags": [
+              "k6_akt2_done",
+              "k6_rat_2_q3"
+            ],
+            "requires_conclusions": [
+              "k6_32_d"
+            ],
+            "requires_clues": [
+              "k6_32_c1",
+              "k6_32_c2",
+              "k6_32_c3"
+            ],
+            "hide_if_flags": [
+              "k6_32_geschlossen"
+            ]
+          },
+          {
+            "text": "Weiter ermitteln."
+          }
+        ]
+      },
+      "k6_32_schluss": {
+        "text": "Die ruhige Kurve dokumentiert dauernde Gegenarbeit. Sie beweist kein ungefährliches Meer.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_32_geschlossen"
+        ]
+      }
+    }
+  },
+  "k6_33_dialog": {
+    "start": "k6_33_start",
+    "nodes": {
+      "k6_33_start": {
+        "text": "Wer verwaltet hier die Wahrheit und wer hält dir eine Tür offen?",
+        "choices": [
+          {
+            "text": "Den belegten Schluss festhalten.",
+            "next": "k6_33_schluss",
+            "requires_flags": [
+              "k6_akt2_done",
+              "k6_rat_3_q3"
+            ],
+            "requires_conclusions": [
+              "k6_33_d"
+            ],
+            "requires_clues": [
+              "k6_33_c1",
+              "k6_33_c2",
+              "k6_33_c3"
+            ],
+            "hide_if_flags": [
+              "k6_33_geschlossen"
+            ]
+          },
+          {
+            "text": "Weiter ermitteln."
+          }
+        ]
+      },
+      "k6_33_schluss": {
+        "text": "Das Registeramt ist an die alte Aufnahme gebunden. Sein Träger handelt noch als Amtsperson, ohne seinen veränderten Zustand zu verstehen.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_33_geschlossen"
+        ]
+      }
+    }
+  },
+  "k6_34_dialog": {
+    "start": "k6_34_start",
+    "nodes": {
+      "k6_34_start": {
+        "text": "Wer verwaltet hier die Wahrheit und wer hält dir eine Tür offen?",
+        "choices": [
+          {
+            "text": "Den belegten Schluss festhalten.",
+            "next": "k6_34_schluss",
+            "requires_flags": [
+              "k6_akt2_done",
+              "k6_rat_4_q3"
+            ],
+            "requires_conclusions": [
+              "k6_34_d"
+            ],
+            "requires_clues": [
+              "k6_34_c1",
+              "k6_34_c2",
+              "k6_34_c3"
+            ],
+            "hide_if_flags": [
+              "k6_34_geschlossen"
+            ]
+          },
+          {
+            "text": "Weiter ermitteln."
+          }
+        ]
+      },
+      "k6_34_schluss": {
+        "text": "Eine befristete Rettung wurde zur dauerhaften Herrschaft. Der Rat kannte die fehlende Zustimmung.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_34_geschlossen"
+        ]
+      }
+    }
+  },
+  "k6_bilanz3": {
+    "start": "k6_bilanz3",
+    "nodes": {
+      "k6_bilanz3": {
+        "text": "Wer verwaltet hier die Wahrheit und wer hält dir eine Tür offen?",
+        "choices": [
+          {
+            "text": "Die vier Schlüsse zusammenführen.",
+            "next": "k6_bilanz3_ja",
+            "requires_flags": [
+              "k6_31_geschlossen",
+              "k6_32_geschlossen",
+              "k6_33_geschlossen",
+              "k6_34_geschlossen",
+              "k6_vertrauen_gewaehlt"
+            ],
+            "hide_if_flags": [
+              "k6_akt3_done"
+            ]
+          },
+          {
+            "text": "Noch nicht."
+          }
+        ]
+      },
+      "k6_bilanz3_ja": {
+        "text": "Die sieben Ämter haben keine gemeinsame Unschuld. Du wählst einen namentlich festgehaltenen Zeugen, nicht einen neuen Besitzer der Stadt.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_akt3_done"
+        ],
+        "complete_quests": [
+          "k6_akt3"
+        ],
+        "start_quests": [
+          "k6_akt4"
+        ],
+        "gives_money": 20
+      }
+    }
+  },
+  "k6_41_dialog": {
+    "start": "k6_41_start",
+    "nodes": {
+      "k6_41_start": {
+        "text": "Ist die Gefangenschaft noch nötig, um die Flut aufzuhalten?",
+        "choices": [
+          {
+            "text": "Den belegten Schluss festhalten.",
+            "next": "k6_41_schluss",
+            "requires_flags": [
+              "k6_akt3_done",
+              "k6_osric_gesteht"
+            ],
+            "requires_conclusions": [
+              "k6_41_d"
+            ],
+            "requires_clues": [
+              "k6_41_c1",
+              "k6_41_c2",
+              "k6_41_c3"
+            ],
+            "hide_if_flags": [
+              "k6_41_geschlossen"
+            ]
+          },
+          {
+            "text": "Weiter ermitteln."
+          }
+        ]
+      },
+      "k6_41_schluss": {
+        "text": "Osric half bei der Rettung und erkannte später den Missbrauch. Das alte Verfahren kennt eine wirksame Entlassung.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_41_geschlossen"
+        ]
+      }
+    }
+  },
+  "k6_42_dialog": {
+    "start": "k6_42_start",
+    "nodes": {
+      "k6_42_start": {
+        "text": "Ist die Gefangenschaft noch nötig, um die Flut aufzuhalten?",
+        "choices": [
+          {
+            "text": "Den belegten Schluss festhalten.",
+            "next": "k6_42_schluss",
+            "requires_flags": [
+              "k6_akt3_done"
+            ],
+            "requires_conclusions": [
+              "k6_42_d"
+            ],
+            "requires_clues": [
+              "k6_42_c1",
+              "k6_42_c2",
+              "k6_42_c3"
+            ],
+            "hide_if_flags": [
+              "k6_42_geschlossen"
+            ]
+          },
+          {
+            "text": "Weiter ermitteln."
+          }
+        ]
+      },
+      "k6_42_schluss": {
+        "text": "Ein einzelner Schlussklang beendet die Aufnahme. Er zerstört nicht von selbst den Küstenschutz.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_42_geschlossen"
+        ]
+      }
+    }
+  },
+  "k6_43_dialog": {
+    "start": "k6_43_start",
+    "nodes": {
+      "k6_43_start": {
+        "text": "Ist die Gefangenschaft noch nötig, um die Flut aufzuhalten?",
+        "choices": [
+          {
+            "text": "Den belegten Schluss festhalten.",
+            "next": "k6_43_schluss",
+            "requires_flags": [
+              "k6_akt3_done"
+            ],
+            "requires_conclusions": [
+              "k6_43_d"
+            ],
+            "requires_clues": [
+              "k6_43_c1",
+              "k6_43_c2",
+              "k6_43_c3"
+            ],
+            "hide_if_flags": [
+              "k6_43_geschlossen"
+            ]
+          },
+          {
+            "text": "Weiter ermitteln."
+          }
+        ]
+      },
+      "k6_43_schluss": {
+        "text": "Die Herrschaft beruht auf vermischten Kategorien. Das Vorlesen muss Tote und Lebende unterscheiden, statt alle pauschal freizugeben.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_43_geschlossen"
+        ]
+      }
+    }
+  },
+  "k6_44_dialog": {
+    "start": "k6_44_start",
+    "nodes": {
+      "k6_44_start": {
+        "text": "Ist die Gefangenschaft noch nötig, um die Flut aufzuhalten?",
+        "choices": [
+          {
+            "text": "Den belegten Schluss festhalten.",
+            "next": "k6_44_schluss",
+            "requires_flags": [
+              "k6_akt3_done",
+              "k6_leuchtfeuer_gesichert"
+            ],
+            "requires_conclusions": [
+              "k6_44_d"
+            ],
+            "requires_clues": [
+              "k6_44_c1",
+              "k6_44_c2",
+              "k6_44_c3"
+            ],
+            "hide_if_flags": [
+              "k6_44_geschlossen"
+            ]
+          },
+          {
+            "text": "Weiter ermitteln."
+          }
+        ]
+      },
+      "k6_44_schluss": {
+        "text": "Geordnete Übergabe und Zerstörung haben verschiedene Folgen. Das Meer kommt bei Entlassung später, bei Vernichtung sofort.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_44_geschlossen"
+        ]
+      }
+    }
+  },
+  "k6_bilanz4": {
+    "start": "k6_bilanz4",
+    "nodes": {
+      "k6_bilanz4": {
+        "text": "Ist die Gefangenschaft noch nötig, um die Flut aufzuhalten?",
+        "choices": [
+          {
+            "text": "Die vier Schlüsse zusammenführen.",
+            "next": "k6_bilanz4_ja",
+            "requires_flags": [
+              "k6_41_geschlossen",
+              "k6_42_geschlossen",
+              "k6_43_geschlossen",
+              "k6_44_geschlossen"
+            ],
+            "hide_if_flags": [
+              "k6_akt4_done"
+            ]
+          },
+          {
+            "text": "Noch nicht."
+          }
+        ]
+      },
+      "k6_bilanz4_ja": {
+        "text": "Osrics Verfahren unterscheidet einen geordneten Abschluss von der Zerstörung. Du kennst nun sowohl den langen Küstenschutz als auch die Gefahr eines sofortigen Bruchs.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_akt4_done"
+        ],
+        "complete_quests": [
+          "k6_akt4"
+        ],
+        "start_quests": [
+          "k6_akt5"
+        ],
+        "gives_money": 20
+      }
+    }
+  },
+  "k6_51_dialog": {
+    "start": "k6_51_start",
+    "nodes": {
+      "k6_51_start": {
+        "text": "Wer darf die Namen tragen, nachdem Harrows Herrschaft endet?",
+        "choices": [
+          {
+            "text": "Den belegten Schluss festhalten.",
+            "next": "k6_51_schluss",
+            "requires_flags": [
+              "k6_akt4_done"
+            ],
+            "requires_conclusions": [
+              "k6_51_d"
+            ],
+            "requires_clues": [
+              "k6_51_c1",
+              "k6_51_c2",
+              "k6_51_c3"
+            ],
+            "hide_if_flags": [
+              "k6_51_geschlossen"
+            ]
+          },
+          {
+            "text": "Weiter ermitteln."
+          }
+        ]
+      },
+      "k6_51_schluss": {
+        "text": "Ismay Harrow selbst ist das Register. Die Bücher vervielfältigen ihre Bindungen, tragen sie aber nicht.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_51_geschlossen"
+        ]
+      }
+    }
+  },
+  "k6_52_dialog": {
+    "start": "k6_52_start",
+    "nodes": {
+      "k6_52_start": {
+        "text": "Wer darf die Namen tragen, nachdem Harrows Herrschaft endet?",
+        "choices": [
+          {
+            "text": "Den belegten Schluss festhalten.",
+            "next": "k6_52_schluss",
+            "requires_flags": [
+              "k6_akt4_done",
+              "k6_zeuge_bereit"
+            ],
+            "requires_conclusions": [
+              "k6_52_d"
+            ],
+            "requires_clues": [
+              "k6_52_c1",
+              "k6_52_c2",
+              "k6_52_c3"
+            ],
+            "hide_if_flags": [
+              "k6_52_geschlossen"
+            ]
+          },
+          {
+            "text": "Weiter ermitteln."
+          }
+        ]
+      },
+      "k6_52_schluss": {
+        "text": "Ein bestätigter Ratszeuge begrenzt Harrows Zugriff. Sein früheres Amt macht ihn nicht zum Besitzer deiner Fähigkeiten.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_52_geschlossen"
+        ]
+      }
+    }
+  },
+  "k6_53_dialog": {
+    "start": "k6_53_start",
+    "nodes": {
+      "k6_53_start": {
+        "text": "Wer darf die Namen tragen, nachdem Harrows Herrschaft endet?",
+        "choices": [
+          {
+            "text": "Den belegten Schluss festhalten.",
+            "next": "k6_53_schluss",
+            "requires_flags": [
+              "k6_akt4_done",
+              "k6_nell_gefragt"
+            ],
+            "requires_conclusions": [
+              "k6_53_d"
+            ],
+            "requires_clues": [
+              "k6_53_c1",
+              "k6_53_c2",
+              "k6_53_c3"
+            ],
+            "hide_if_flags": [
+              "k6_53_geschlossen"
+            ]
+          },
+          {
+            "text": "Weiter ermitteln."
+          }
+        ]
+      },
+      "k6_53_schluss": {
+        "text": "Nells Gabe ist keine automatische Zustimmung. Übergabe verlangt ihre ausdrückliche Antwort und deine Bereitschaft, als Schreiber zu bleiben.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_53_geschlossen"
+        ]
+      }
+    }
+  },
+  "k6_54_dialog": {
+    "start": "k6_54_start",
+    "nodes": {
+      "k6_54_start": {
+        "text": "Wer darf die Namen tragen, nachdem Harrows Herrschaft endet?",
+        "choices": [
+          {
+            "text": "Den belegten Schluss festhalten.",
+            "next": "k6_54_schluss",
+            "requires_flags": [
+              "k6_akt4_done",
+              "k6_pegelherrin_geloest"
+            ],
+            "requires_conclusions": [
+              "k6_54_d"
+            ],
+            "requires_clues": [
+              "k6_54_c1",
+              "k6_54_c2",
+              "k6_54_c3"
+            ],
+            "hide_if_flags": [
+              "k6_54_geschlossen"
+            ]
+          },
+          {
+            "text": "Weiter ermitteln."
+          }
+        ]
+      },
+      "k6_54_schluss": {
+        "text": "Der Sieg entscheidet nicht über das Ende. Registerwahl und späterer Aufstieg oder Verzicht müssen ausdrücklich bestätigt werden.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_54_geschlossen"
+        ]
+      }
+    }
+  },
+  "k6_bilanz5": {
+    "start": "k6_bilanz5",
+    "nodes": {
+      "k6_bilanz5": {
+        "text": "Wer darf die Namen tragen, nachdem Harrows Herrschaft endet?",
+        "choices": [
+          {
+            "text": "Die vier Schlüsse zusammenführen.",
+            "next": "k6_bilanz5_ja",
+            "requires_flags": [
+              "k6_51_geschlossen",
+              "k6_52_geschlossen",
+              "k6_53_geschlossen",
+              "k6_54_geschlossen"
+            ],
+            "hide_if_flags": [
+              "k6_akt5_done"
+            ]
+          },
+          {
+            "text": "Noch nicht."
+          }
+        ]
+      },
+      "k6_bilanz5_ja": {
+        "text": "Harrow hat die alleinige Verfügung verloren. Kein Sieg schreibt vor, was du mit der offenen Zeile tun musst.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_akt5_done"
+        ],
+        "complete_quests": [
+          "k6_akt5"
+        ]
+      }
+    }
+  },
+  "k6_anreise_wahl": {
+    "start": "k6_anreise_wahl_start",
+    "nodes": {
+      "k6_anreise_wahl_start": {
+        "text": "Die Weiterreise führt nach Varrowmouth. Von dort gibt es keine Rückfahrt in die früheren Städte.",
+        "choices": [
+          {
+            "text": "Weiterreise bestätigen.",
+            "next": "k6_anreise_wahl_lesen",
+            "requires_flags": [
+              "kapitel5_done",
+              "bha_end_wahl"
+            ],
+            "hide_if_flags": [
+              "k6_arrived"
+            ]
+          },
+          {
+            "text": "Noch nicht."
+          }
+        ]
+      },
+      "k6_anreise_wahl_lesen": {
+        "text": "Du verlässt Briarholt mit einzeln beschrifteten Abschriften.\nNiemand hat dir ein allgemeines Heilversprechen mitgegeben.\nDie Küstenbahn trägt noch den Geruch warmer Erde.\nAm letzten Bahnhof enden die Rückfahrkarten.\nDu bestätigst die Weiterreise, bevor die Fähre ablegt.\nAuf dem Wasser verlieren die Gleise ihren Lärm.\nIm Nebel erscheint zuerst ein Zeiger, dann der Turm darum.\nDie Pegeluhr steht nicht auf einer Uhrzeit, sondern auf Flut.\nTam Verrin nimmt die Leine ohne deinen Namen zu fragen.\n„Den werden andere früh genug verlangen“, sagt sie.",
+        "choices": [
+          {
+            "text": "Zur Zollkontrolle.",
+            "next": "k6_anreise_wahl_ankunft"
+          }
+        ]
+      },
+      "k6_anreise_wahl_ankunft": {
+        "text": "Tam zeigt auf den trockenen Zugang zum Zollschalter. Hinter der Glasscheibe hebt jemand einen Stempel.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_anreise_wahl",
+          "k6_arrived"
+        ],
+        "start_quests": [
+          "k6_akt1"
+        ],
+        "travel": {
+          "map": "vm_zollhafen",
+          "spawn": "default"
+        }
+      }
+    }
+  },
+  "k6_anreise_winter": {
+    "start": "k6_anreise_winter_start",
+    "nodes": {
+      "k6_anreise_winter_start": {
+        "text": "Die Weiterreise führt nach Varrowmouth. Von dort gibt es keine Rückfahrt in die früheren Städte.",
+        "choices": [
+          {
+            "text": "Weiterreise bestätigen.",
+            "next": "k6_anreise_winter_lesen",
+            "requires_flags": [
+              "kapitel5_done",
+              "bha_end_winter"
+            ],
+            "hide_if_flags": [
+              "k6_arrived"
+            ]
+          },
+          {
+            "text": "Noch nicht."
+          }
+        ]
+      },
+      "k6_anreise_winter_lesen": {
+        "text": "Die Kälte Briarholts steckt noch in deinem Mantel.\nHinter dir bleiben geräumte Räume und gewöhnliche Feuerstellen.\nDie Küstenbahn fährt an Gärten ohne Licht vorbei.\nAm Fähranleger wird deine Fahrkarte einbehalten.\nDu bestätigst die Weiterreise ohne Rückfahrt.\nEin Matrose löst das Brett zwischen Zug und Schiff.\nIm Nebel schlägt eine Glocke zweimal, dann bleibt es still.\nDie Pegeluhr wächst über dem Zollhafen aus dem Grau.\nTam Verrin zeigt dir die obere Stufe des Stegs.\n„Die untere gehört in einer Stunde dem Wasser.“",
+        "choices": [
+          {
+            "text": "Zur Zollkontrolle.",
+            "next": "k6_anreise_winter_ankunft"
+          }
+        ]
+      },
+      "k6_anreise_winter_ankunft": {
+        "text": "Tam zeigt auf den trockenen Zugang zum Zollschalter. Hinter der Glasscheibe hebt jemand einen Stempel.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_anreise_winter",
+          "k6_arrived"
+        ],
+        "start_quests": [
+          "k6_akt1"
+        ],
+        "travel": {
+          "map": "vm_zollhafen",
+          "spawn": "default"
+        }
+      }
+    }
+  },
+  "k6_anreise_verwahrt": {
+    "start": "k6_anreise_verwahrt_start",
+    "nodes": {
+      "k6_anreise_verwahrt_start": {
+        "text": "Die Weiterreise führt nach Varrowmouth. Von dort gibt es keine Rückfahrt in die früheren Städte.",
+        "choices": [
+          {
+            "text": "Weiterreise bestätigen.",
+            "next": "k6_anreise_verwahrt_lesen",
+            "requires_flags": [
+              "kapitel5_done",
+              "bha_end_verwahrt"
+            ],
+            "hide_if_flags": [
+              "k6_arrived"
+            ]
+          },
+          {
+            "text": "Noch nicht."
+          }
+        ]
+      },
+      "k6_anreise_verwahrt_lesen": {
+        "text": "Die versiegelten Bestände bleiben in Briarholt.\nDu trägst nur die Abschrift der Verwahrung bei dir.\nIn der Küstenbahn schlägt das Papier gegen das Fenster.\nAm Anleger endet die Zuständigkeit der bisherigen Stadt.\nDu bestätigst die einfache Fahrt nach Varrowmouth.\nDie Fähre hat keine verschlossenen Abteile.\nTrotzdem prüfst du zweimal, wo der Ausgang liegt.\nVor dem Hafen zeigt die Pegeluhr einen langsam steigenden Strich.\nTam Verrin sieht auf deine verschnürte Mappe.\n„Hier hält man selbst leere Umschläge für einen Anfang.“",
+        "choices": [
+          {
+            "text": "Zur Zollkontrolle.",
+            "next": "k6_anreise_verwahrt_ankunft"
+          }
+        ]
+      },
+      "k6_anreise_verwahrt_ankunft": {
+        "text": "Tam zeigt auf den trockenen Zugang zum Zollschalter. Hinter der Glasscheibe hebt jemand einen Stempel.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_anreise_verwahrt",
+          "k6_arrived"
+        ],
+        "start_quests": [
+          "k6_akt1"
+        ],
+        "travel": {
+          "map": "vm_zollhafen",
+          "spawn": "default"
+        }
+      }
+    }
+  },
+  "k6_anreise_schmerzlos": {
+    "start": "k6_anreise_schmerzlos_start",
+    "nodes": {
+      "k6_anreise_schmerzlos_start": {
+        "text": "Die Weiterreise führt nach Varrowmouth. Von dort gibt es keine Rückfahrt in die früheren Städte.",
+        "choices": [
+          {
+            "text": "Weiterreise bestätigen.",
+            "next": "k6_anreise_schmerzlos_lesen",
+            "requires_flags": [
+              "kapitel5_done",
+              "bha_end_schmerzlos"
+            ],
+            "hide_if_flags": [
+              "k6_arrived"
+            ]
+          },
+          {
+            "text": "Noch nicht."
+          }
+        ]
+      },
+      "k6_anreise_schmerzlos_lesen": {
+        "text": "Briarholt bleibt still hinter dem Zug zurück.\nDie Gleichmäßigkeit seiner Stimmen reist eine Weile mit dir.\nAn der Küste klappert eine lose Scheibe ganz ohne Takt.\nDu merkst erst jetzt, wie sehr dir dieses Geräusch gefehlt hat.\nAm Fähranleger bestätigst du die Weiterreise ohne Rückfahrt.\nEin Fahrgast verbessert seinen eigenen Namen auf dem Gepäckzettel.\nNiemand beruhigt ihn deswegen.\nIm Nebel zeigt die Pegeluhr eine Linie, die weitersteigt.\nTam Verrin hält den Steg mit dem Fuß fest.\n„Vorsicht. Hier passen die Dinge selten zweimal.“",
+        "choices": [
+          {
+            "text": "Zur Zollkontrolle.",
+            "next": "k6_anreise_schmerzlos_ankunft"
+          }
+        ]
+      },
+      "k6_anreise_schmerzlos_ankunft": {
+        "text": "Tam zeigt auf den trockenen Zugang zum Zollschalter. Hinter der Glasscheibe hebt jemand einen Stempel.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_anreise_schmerzlos",
+          "k6_arrived"
+        ],
+        "start_quests": [
+          "k6_akt1"
+        ],
+        "travel": {
+          "map": "vm_zollhafen",
+          "spawn": "default"
+        }
+      }
+    }
+  },
+  "k6_anreise_koop": {
+    "start": "k6_anreise_koop_start",
+    "nodes": {
+      "k6_anreise_koop_start": {
+        "text": "Beide Namen werden getrennt behandelt. Die gemeinsame Ankunft entscheidet noch nicht über die Schlusszeile.",
+        "choices": [
+          {
+            "text": "Beide Einträge ansehen.",
+            "next": "k6_anreise_koop_lesen",
+            "requires_flags": [
+              "k6_arrived",
+              "koop_aktiv"
+            ],
+            "hide_if_flags": [
+              "k6_anreise_koop"
+            ]
+          },
+          {
+            "text": "Noch nicht."
+          }
+        ]
+      },
+      "k6_anreise_koop_lesen": {
+        "text": "Ihr habt beide die letzte Fahrt bestätigt.\nDie Küstenbahn hat für euch zwei Plätze, die Fähre nur eine gemeinsame Bank.\nAuf euren Gepäckzetteln stehen verschiedene Namen.\nAm Zollanleger gibt es trotzdem nur eine Nummer.\nTam Verrin betrachtet erst den Zettel, dann eure Hände.\n„Zwei Einträge“, sagt sie. „Eine Abfertigung ist keine einzelne Person.“\nDie Pegeluhr schlägt über euch, ohne einen von euch vorzuziehen.\nIhr behaltet die beiden Zettel getrennt.\nSpäter wird eine Schlusszeile nur eine Hand aufnehmen können.\nNoch unterschreibt niemand für den anderen.",
+        "choices": [
+          {
+            "text": "Zur Zollkontrolle.",
+            "next": "k6_anreise_koop_ankunft"
+          }
+        ]
+      },
+      "k6_anreise_koop_ankunft": {
+        "text": "Tam zeigt auf den trockenen Zugang zum Zollschalter. Hinter der Glasscheibe hebt jemand einen Stempel.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_anreise_koop"
+        ]
+      }
+    }
+  },
+  "k6_rat_1": {
+    "start": "k6_rat_1_start",
+    "sprecher": "vmn_rat_1",
+    "nodes": {
+      "k6_rat_1_antwort1": {
+        "text": "„Gestern, vor Ihrer Ankunft. Alles geschah auf ordentlichem Dienstweg.“",
+        "choices": [
+          {
+            "text": "Eine weitere Frage.",
+            "next": "k6_rat_1_start"
+          }
+        ],
+        "sets_flags": [
+          "k6_rat_1_q1"
+        ],
+        "luege": true
+      },
+      "k6_rat_1_antwort2": {
+        "text": "„Ich selbst. Ich habe die Uhrzeit verschoben, damit Ihre Lotsin nicht wegen Ihrer Anwesenheit verhaftet wird.“",
+        "choices": [
+          {
+            "text": "Eine weitere Frage.",
+            "next": "k6_rat_1_start"
+          }
+        ],
+        "sets_flags": [
+          "k6_rat_1_q2"
+        ]
+      },
+      "k6_rat_1_antwort3": {
+        "text": "„Ich. Nehmen Sie meinen Abdruck mit. Er verpflichtet mich, nicht Sie.“",
+        "choices": [
+          {
+            "text": "Eine weitere Frage.",
+            "next": "k6_rat_1_start"
+          }
+        ],
+        "sets_flags": [
+          "k6_rat_1_q3"
+        ],
+        "gives_clues": [
+          "k6_31_c3"
+        ]
+      },
+      "k6_rat_1_start": {
+        "text": "Du sprichst mit dem Mitglied des Pegelrats aus dem Zollamt. Du hältst Antworten und Belege getrennt.",
+        "choices": [
+          {
+            "text": "Wann haben Sie mich vorgeladen?",
+            "next": "k6_rat_1_antwort1",
+            "requires_flags": [
+              "k6_akt2_done"
+            ]
+          },
+          {
+            "text": "Wer hat die fehlende Nummer bemerkt?",
+            "next": "k6_rat_1_antwort2",
+            "requires_flags": [
+              "k6_akt2_done",
+              "k6_rat_1_q1"
+            ]
+          },
+          {
+            "text": "Wer bezeugt Ihre Aussage?",
+            "next": "k6_rat_1_antwort3",
+            "requires_flags": [
+              "k6_akt2_done",
+              "k6_rat_1_q2"
+            ]
+          },
+          {
+            "text": "Das Verhör unterbrechen."
+          }
+        ]
+      }
+    }
+  },
+  "k6_rat_2": {
+    "start": "k6_rat_2_start",
+    "sprecher": "vmn_rat_2",
+    "nodes": {
+      "k6_rat_2_antwort1": {
+        "text": "„Seit vierzig Jahren nicht einen. Die Linie zeigt, was war.“",
+        "choices": [
+          {
+            "text": "Eine weitere Frage.",
+            "next": "k6_rat_2_start"
+          }
+        ],
+        "sets_flags": [
+          "k6_rat_2_q1"
+        ],
+        "luege": true
+      },
+      "k6_rat_2_antwort2": {
+        "text": "„Die Ausschläge. Ich nenne sie Rechenfehler, weil ich sonst jeden Tag neu erklären müsste, was uns hält.“",
+        "choices": [
+          {
+            "text": "Eine weitere Frage.",
+            "next": "k6_rat_2_start"
+          }
+        ],
+        "sets_flags": [
+          "k6_rat_2_q2"
+        ]
+      },
+      "k6_rat_2_antwort3": {
+        "text": "„Das ist doch nur die Lampe.“ Der Zollherr dreht die Hand und kehrt zur geglätteten Kurve zurück.",
+        "choices": [
+          {
+            "text": "Eine weitere Frage.",
+            "next": "k6_rat_2_start"
+          }
+        ],
+        "sets_flags": [
+          "k6_rat_2_q3"
+        ],
+        "gives_clues": [
+          "k6_32_c3"
+        ]
+      },
+      "k6_rat_2_start": {
+        "text": "Du sprichst mit dem Mitglied des Pegelrats aus dem Pegelamt. Du hältst Antworten und Belege getrennt.",
+        "choices": [
+          {
+            "text": "Gab es seit der Sturmflut Ausschläge?",
+            "next": "k6_rat_2_antwort1",
+            "requires_flags": [
+              "k6_akt2_done"
+            ]
+          },
+          {
+            "text": "Was liegt unter der Reinschrift?",
+            "next": "k6_rat_2_antwort2",
+            "requires_flags": [
+              "k6_akt2_done",
+              "k6_rat_2_q1"
+            ]
+          },
+          {
+            "text": "Warum steigt Wasser in Ihrer Hand?",
+            "next": "k6_rat_2_antwort3",
+            "requires_flags": [
+              "k6_akt2_done",
+              "k6_rat_2_q2"
+            ]
+          },
+          {
+            "text": "Das Verhör unterbrechen."
+          }
+        ]
+      }
+    }
+  },
+  "k6_rat_3": {
+    "start": "k6_rat_3_start",
+    "sprecher": "vmn_rat_3",
+    "nodes": {
+      "k6_rat_3_antwort1": {
+        "text": "„Gestern Abend. Ich ging wie jeder andere nach Hause.“",
+        "choices": [
+          {
+            "text": "Eine weitere Frage.",
+            "next": "k6_rat_3_start"
+          }
+        ],
+        "sets_flags": [
+          "k6_rat_3_q1"
+        ],
+        "luege": true
+      },
+      "k6_rat_3_antwort2": {
+        "text": "„Der Ausgang fehlt. Ich muss ihn selbst übersehen haben.“ Das Amtssiegel zieht einen feuchten Ring durch das Holz.",
+        "choices": [
+          {
+            "text": "Eine weitere Frage.",
+            "next": "k6_rat_3_start"
+          }
+        ],
+        "sets_flags": [
+          "k6_rat_3_q2"
+        ]
+      },
+      "k6_rat_3_antwort3": {
+        "text": "„Ich werde es Ihnen morgen sagen.“ Die Antwort kommt ohne Scham, aber auch ohne Erinnerung.",
+        "choices": [
+          {
+            "text": "Eine weitere Frage.",
+            "next": "k6_rat_3_start"
+          }
+        ],
+        "sets_flags": [
+          "k6_rat_3_q3"
+        ],
+        "gives_clues": [
+          "k6_33_c3"
+        ]
+      },
+      "k6_rat_3_start": {
+        "text": "Du sprichst mit dem Mitglied des Pegelrats aus dem Registeramt. Du hältst Antworten und Belege getrennt.",
+        "choices": [
+          {
+            "text": "Wann endete Ihre letzte Schicht?",
+            "next": "k6_rat_3_antwort1",
+            "requires_flags": [
+              "k6_akt2_done"
+            ]
+          },
+          {
+            "text": "Wo steht Ihr Ausgang?",
+            "next": "k6_rat_3_antwort2",
+            "requires_flags": [
+              "k6_akt2_done",
+              "k6_rat_3_q1"
+            ]
+          },
+          {
+            "text": "Was essen Sie nach Dienstschluss?",
+            "next": "k6_rat_3_antwort3",
+            "requires_flags": [
+              "k6_akt2_done",
+              "k6_rat_3_q2"
+            ]
+          },
+          {
+            "text": "Das Verhör unterbrechen."
+          }
+        ]
+      }
+    }
+  },
+  "k6_rat_4": {
+    "start": "k6_rat_4_start",
+    "sprecher": "vmn_rat_4",
+    "nodes": {
+      "k6_rat_4_antwort1": {
+        "text": "„Die späteren Seiten lagen meinem Amt nie vor.“",
+        "choices": [
+          {
+            "text": "Eine weitere Frage.",
+            "next": "k6_rat_4_start"
+          }
+        ],
+        "sets_flags": [
+          "k6_rat_4_q1"
+        ],
+        "luege": true
+      },
+      "k6_rat_4_antwort2": {
+        "text": "„Meines. Ich ließ sie passieren. Der Hafen blieb trocken, und ich hielt das für eine ausreichende Antwort.“",
+        "choices": [
+          {
+            "text": "Eine weitere Frage.",
+            "next": "k6_rat_4_start"
+          }
+        ],
+        "sets_flags": [
+          "k6_rat_4_q2"
+        ]
+      },
+      "k6_rat_4_antwort3": {
+        "text": "„Vor ihr, ja. Hinterher eine Bemerkung ins Protokoll zu setzen, ist offenbar leichter und nutzloser.“",
+        "choices": [
+          {
+            "text": "Eine weitere Frage.",
+            "next": "k6_rat_4_start"
+          }
+        ],
+        "sets_flags": [
+          "k6_rat_4_q3"
+        ],
+        "gives_clues": [
+          "k6_34_c3"
+        ]
+      },
+      "k6_rat_4_start": {
+        "text": "Du sprichst mit dem Mitglied des Pegelrats aus dem Hafenamt. Du hältst Antworten und Belege getrennt.",
+        "choices": [
+          {
+            "text": "Haben Sie die Verlängerungen gelesen?",
+            "next": "k6_rat_4_antwort1",
+            "requires_flags": [
+              "k6_akt2_done"
+            ]
+          },
+          {
+            "text": "Wessen Gegenzeichen steht darunter?",
+            "next": "k6_rat_4_antwort2",
+            "requires_flags": [
+              "k6_akt2_done",
+              "k6_rat_4_q1"
+            ]
+          },
+          {
+            "text": "Würden Sie heute widersprechen?",
+            "next": "k6_rat_4_antwort3",
+            "requires_flags": [
+              "k6_akt2_done",
+              "k6_rat_4_q2"
+            ]
+          },
+          {
+            "text": "Das Verhör unterbrechen."
+          }
+        ]
+      }
+    }
+  },
+  "k6_rat_5": {
+    "start": "k6_rat_5_start",
+    "sprecher": "vmn_rat_5",
+    "nodes": {
+      "k6_rat_5_antwort1": {
+        "text": "„Der Küstenschutz schuldet niemandem einen Lohn.“",
+        "choices": [
+          {
+            "text": "Eine weitere Frage.",
+            "next": "k6_rat_5_start"
+          }
+        ],
+        "sets_flags": [
+          "k6_rat_5_q1"
+        ],
+        "luege": true
+      },
+      "k6_rat_5_antwort2": {
+        "text": "„Weil ich die Namen als Beiträge zählen ließ. Eine gebundene Familie konnte ihre Forderung nicht anderswo stellen.“",
+        "choices": [
+          {
+            "text": "Eine weitere Frage.",
+            "next": "k6_rat_5_start"
+          }
+        ],
+        "sets_flags": [
+          "k6_rat_5_q2"
+        ]
+      },
+      "k6_rat_5_antwort3": {
+        "text": "„Das Register verbrennen. Ich weiß, dass das Wasser dann kommt. Deshalb sage ich es hier, wo man mir widersprechen kann.“",
+        "choices": [
+          {
+            "text": "Eine weitere Frage.",
+            "next": "k6_rat_5_start"
+          }
+        ],
+        "sets_flags": [
+          "k6_rat_5_q3"
+        ]
+      },
+      "k6_rat_5_start": {
+        "text": "Du sprichst mit dem Mitglied des Pegelrats aus dem Zunftamt. Du hältst Antworten und Belege getrennt.",
+        "choices": [
+          {
+            "text": "Sind alle Arbeiten bezahlt worden?",
+            "next": "k6_rat_5_antwort1",
+            "requires_flags": [
+              "k6_akt2_done"
+            ]
+          },
+          {
+            "text": "Warum stehen Forderungen im Rand?",
+            "next": "k6_rat_5_antwort2",
+            "requires_flags": [
+              "k6_akt2_done",
+              "k6_rat_5_q1"
+            ]
+          },
+          {
+            "text": "Was würden Sie jetzt tun?",
+            "next": "k6_rat_5_antwort3",
+            "requires_flags": [
+              "k6_akt2_done",
+              "k6_rat_5_q2"
+            ]
+          },
+          {
+            "text": "Das Verhör unterbrechen."
+          }
+        ]
+      }
+    }
+  },
+  "k6_rat_6": {
+    "start": "k6_rat_6_start",
+    "sprecher": "vmn_rat_6",
+    "nodes": {
+      "k6_rat_6_antwort1": {
+        "text": "„Keine Familie hat die Rettung abgelehnt.“",
+        "choices": [
+          {
+            "text": "Eine weitere Frage.",
+            "next": "k6_rat_6_start"
+          }
+        ],
+        "sets_flags": [
+          "k6_rat_6_q1"
+        ],
+        "luege": true
+      },
+      "k6_rat_6_antwort2": {
+        "text": "„Ich habe es so verlesen. Viele konnten weder lesen noch das Haus verlassen. Ihre Stille war meine bequeme Antwort.“",
+        "choices": [
+          {
+            "text": "Eine weitere Frage.",
+            "next": "k6_rat_6_start"
+          }
+        ],
+        "sets_flags": [
+          "k6_rat_6_q2"
+        ]
+      },
+      "k6_rat_6_antwort3": {
+        "text": "„Ihre Namen gehören in ein Gedächtnis, nicht in eine Schranke. Auch das hätte ich früher sagen können.“",
+        "choices": [
+          {
+            "text": "Eine weitere Frage.",
+            "next": "k6_rat_6_start"
+          }
+        ],
+        "sets_flags": [
+          "k6_rat_6_q3"
+        ]
+      },
+      "k6_rat_6_start": {
+        "text": "Du sprichst mit dem Mitglied des Pegelrats aus dem Kirchenamt. Du hältst Antworten und Belege getrennt.",
+        "choices": [
+          {
+            "text": "Haben alle Familien zugestimmt?",
+            "next": "k6_rat_6_antwort1",
+            "requires_flags": [
+              "k6_akt2_done"
+            ]
+          },
+          {
+            "text": "Ist Schweigen eine Zustimmung?",
+            "next": "k6_rat_6_antwort2",
+            "requires_flags": [
+              "k6_akt2_done",
+              "k6_rat_6_q1"
+            ]
+          },
+          {
+            "text": "Was soll mit den Toten geschehen?",
+            "next": "k6_rat_6_antwort3",
+            "requires_flags": [
+              "k6_akt2_done",
+              "k6_rat_6_q2"
+            ]
+          },
+          {
+            "text": "Das Verhör unterbrechen."
+          }
+        ]
+      }
+    }
+  },
+  "k6_rat_7": {
+    "start": "k6_rat_7_start",
+    "sprecher": "vmn_rat_7",
+    "nodes": {
+      "k6_rat_7_antwort1": {
+        "text": "„Jedes, sobald ein Platz außerhalb frei wird.“",
+        "choices": [
+          {
+            "text": "Eine weitere Frage.",
+            "next": "k6_rat_7_start"
+          }
+        ],
+        "sets_flags": [
+          "k6_rat_7_q1"
+        ],
+        "luege": true
+      },
+      "k6_rat_7_antwort2": {
+        "text": "„Innerhalb der Registergrenze. Ich habe Ausgänge angeboten, die keine waren.“",
+        "choices": [
+          {
+            "text": "Eine weitere Frage.",
+            "next": "k6_rat_7_start"
+          }
+        ],
+        "sets_flags": [
+          "k6_rat_7_q2"
+        ]
+      },
+      "k6_rat_7_antwort3": {
+        "text": "„Trockene Decken und freie Betten. Ich verspreche keinen Platz, bevor ich ihn gezählt habe.“",
+        "choices": [
+          {
+            "text": "Eine weitere Frage.",
+            "next": "k6_rat_7_start"
+          }
+        ],
+        "sets_flags": [
+          "k6_rat_7_q3"
+        ]
+      },
+      "k6_rat_7_start": {
+        "text": "Du sprichst mit dem Mitglied des Pegelrats aus dem Armenhausamt. Du hältst Antworten und Belege getrennt.",
+        "choices": [
+          {
+            "text": "Kann jedes Kind das Haus verlassen?",
+            "next": "k6_rat_7_antwort1",
+            "requires_flags": [
+              "k6_akt2_done"
+            ]
+          },
+          {
+            "text": "Wo werden diese Plätze gesucht?",
+            "next": "k6_rat_7_antwort2",
+            "requires_flags": [
+              "k6_akt2_done",
+              "k6_rat_7_q1"
+            ]
+          },
+          {
+            "text": "Was können Sie heute beitragen?",
+            "next": "k6_rat_7_antwort3",
+            "requires_flags": [
+              "k6_akt2_done",
+              "k6_rat_7_q2"
+            ]
+          },
+          {
+            "text": "Das Verhör unterbrechen."
+          }
+        ]
+      }
+    }
+  },
+  "k6_zoll": {
+    "start": "k6_zoll_start",
+    "sprecher": "vmn_zollschreiber",
+    "nodes": {
+      "k6_zoll_start": {
+        "text": "Der Schreiber schiebt dir eine Tafel zu. Darauf steht: „Bitte nennen Sie nur, was ich tatsächlich prüfen kann.“",
+        "choices": [
+          {
+            "text": "Ich war noch nie hier.",
+            "next": "k6_zoll_datum"
+          },
+          {
+            "text": "Kann ein Brief genügen?",
+            "next": "k6_zoll_brief",
+            "requires_clues": [
+              "k6_12_c2"
+            ]
+          },
+          {
+            "text": "Warum sprechen Sie nicht?",
+            "next": "k6_zoll_stumm"
+          },
+          {
+            "text": "Zurücktreten."
+          }
+        ]
+      },
+      "k6_zoll_datum": {
+        "text": "Er schreibt: „Das Datum ist der Eingang. Nicht Ihre Ankunft.“ Dann legt er die beiden Spalten frei.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_zoll_gehoert"
+        ]
+      },
+      "k6_zoll_brief": {
+        "text": "Er schreibt: „Ja. Der Rat verlangt keine Füße an einem Namen.“ Die Feder hält über deiner Zeile an.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "k6_zoll_stumm": {
+        "text": "Er schreibt: „Meine Stimme ist nicht das fehlende Dokument. Bitte lesen Sie den Antrag.“ Du lässt die Frage nach seinem Körper ruhen.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "k6_tam": {
+    "start": "k6_tam_start",
+    "sprecher": "vmn_tam_verrin",
+    "nodes": {
+      "k6_tam_start": {
+        "text": "Tam prüft den Wasserstand an einer Kerbe im Pfahl. „Die Uhr ist öffentlich. Der sichere Tritt leider nicht.“",
+        "choices": [
+          {
+            "text": "Wie komme ich am Zoll vorbei?",
+            "next": "k6_tam_schmuggel",
+            "hide_if_flags": [
+              "k6_tam_weg"
+            ]
+          },
+          {
+            "text": "Ich gebe Ihre Marke nicht weiter.",
+            "next": "k6_tam_marke",
+            "requires_clues": [
+              "k6_13_c1"
+            ],
+            "hide_if_flags": [
+              "k6_tam_marke_geschuetzt"
+            ]
+          },
+          {
+            "text": "Nell hat einen trockenen Platz.",
+            "next": "k6_tam_nell",
+            "requires_flags": [
+              "k6_nell_gerettet"
+            ],
+            "hide_if_flags": [
+              "k6_tam_nell_besprochen"
+            ]
+          },
+          {
+            "text": "Wer sind die Unverzeichneten?",
+            "next": "k6_tam_zirkel",
+            "requires_flags": [
+              "k6_akt1_done"
+            ],
+            "requires_relation": {
+              "vmn_tam_verrin": 3
+            }
+          },
+          {
+            "text": "Wie gelangen wir zur Leuchtbank?",
+            "next": "k6_tam_boot",
+            "requires_flags": [
+              "k6_akt3_done"
+            ]
+          },
+          {
+            "text": "Die Evakuierung vorbereiten.",
+            "next": "k6_tam_raeumung",
+            "requires_flags": [
+              "k6_akt4_done"
+            ],
+            "hide_if_flags": [
+              "k6_raeumung_bereit"
+            ]
+          },
+          {
+            "text": "Vor dem letzten Gang.",
+            "next": "k6_tam_finale",
+            "requires_flags": [
+              "k6_akt4_done"
+            ]
+          },
+          {
+            "text": "Später."
+          }
+        ]
+      },
+      "k6_tam_schmuggel": {
+        "text": "„Unter dem Zollsteg ist ein trockener Wartungsgang. Folgen Sie mir, nicht der Laterne im Wasser.“ Tam bringt dich auf die freie Seite des Drehkreuzes.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_tam_weg"
+        ],
+        "relation": {
+          "vmn_tam_verrin": 1
+        }
+      },
+      "k6_tam_marke": {
+        "text": "„Behalten Sie die Abschrift. Die Marke brauche ich noch.“ Du notierst die Nummer, ohne ihren Zugang weiterzuverkaufen.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_tam_marke_geschuetzt"
+        ],
+        "relation": {
+          "vmn_tam_verrin": 1
+        }
+      },
+      "k6_tam_nell": {
+        "text": "„Dann brauche ich für einmal keinen kleineren Rettungsring.“ Tam legt eine Decke in die Lotsenkammer.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_tam_nell_besprochen"
+        ],
+        "relation": {
+          "vmn_tam_verrin": 1
+        }
+      },
+      "k6_tam_zirkel": {
+        "text": "„Im Kielraum sitzen Menschen, die der Rat nicht mehr zählen kann. Das ist keine Einladung, sie erneut zu erfassen.“ Tam nennt dir die Klopfzeichen; der trockene Zugang öffnet erst nach der Wrackmutter.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_unverzeichnete_zugang"
+        ]
+      },
+      "k6_tam_boot": {
+        "text": "„Für die Ermittlung bringe ich Sie bei Flut zur Leuchtbank. Bei Ebbe nehmen Sie den markierten Weg. Ein privates Boot für jede Gelegenheit ist eine andere Abmachung.“",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "k6_tam_raeumung": {
+        "text": "„Die Boote liegen oberhalb der Rückströmung. Wer schlecht geht, steigt zuerst ein. Einen leeren Kontrollzettel werde ich dafür nicht verlangen.“ Du prüfst die Zahl der Plätze und den Weg zur Oberstraße.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_raeumung_bereit"
+        ]
+      },
+      "k6_tam_finale": {
+        "text": "„Wenn Sie die Last übernehmen, bleibt die Arbeit trotzdem hier. Wenn Sie sie zerstören, brauche ich Ihre Warnung vor dem ersten Schlag.“ Sie bindet eine zweite Leine fest, auch wenn du allein bist.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "k6_nell": {
+    "start": "k6_nell_start",
+    "sprecher": "vmn_nell_quarrie",
+    "nodes": {
+      "k6_nell_start": {
+        "text": "Nell trägt ihre Zollmütze mit der leeren Seite nach vorn. „Du guckst auf dieselbe Stelle wie die anderen. Da war nie meine Nummer.“",
+        "choices": [
+          {
+            "text": "Wir suchen einen trockenen Platz.",
+            "next": "k6_nell_retten",
+            "requires_flags": [
+              "k6_akt1_done"
+            ],
+            "hide_if_flags": [
+              "k6_nell_gerettet"
+            ]
+          },
+          {
+            "text": "Was geschah mit dem ersten Kind?",
+            "next": "k6_nell_kind",
+            "requires_flags": [
+              "k6_akt1_done"
+            ]
+          },
+          {
+            "text": "Du musst niemandem etwas beweisen.",
+            "next": "k6_nell_pause",
+            "requires_flags": [
+              "k6_akt2_done"
+            ]
+          },
+          {
+            "text": "Osric kann dir die Last erklären.",
+            "next": "k6_nell_folgen",
+            "requires_flags": [
+              "k6_akt4_done"
+            ]
+          },
+          {
+            "text": "Abstand lassen."
+          }
+        ]
+      },
+      "k6_nell_retten": {
+        "text": "„Ich gehe selbst. Du hältst nur die Planke.“ Nell erreicht die Lotsenkammer mit trockenen Füßen. Ihr Name bleibt ihre Angelegenheit.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_nell_gerettet"
+        ]
+      },
+      "k6_nell_kind": {
+        "text": "„Das Kind ist noch da. Die Küche wusste nur nicht mehr, wessen Teller es war.“ Nell zählt die Portionen mit einem Finger. „Ich will nicht, dass die Lücke der Beweis wird, dass jemand nichts braucht.“",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "k6_nell_pause": {
+        "text": "„Gut. Dann zeige ich heute nichts.“ Sie setzt sich auf die Kiste und beobachtet das Wasser, bis du zu Ende gesprochen hast.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "k6_nell_folgen": {
+        "text": "Osric erklärt die Bindung an alle Namen. Nell hört zu und sagt: „Du kannst mich fragen. Du kannst die Antwort nicht für mich geben.“",
+        "choices": [
+          {
+            "text": "Deine Ablehnung wird gelten.",
+            "next": "k6_nell_nein"
+          },
+          {
+            "text": "Würdest du es mit mir als Schreiber tragen?",
+            "next": "k6_nell_ja"
+          },
+          {
+            "text": "Noch keine Antwort verlangen."
+          }
+        ],
+        "sets_flags": [
+          "k6_nell_gefragt"
+        ]
+      },
+      "k6_nell_nein": {
+        "text": "„Nein. Ich will weitergehen können.“ Du hältst ihre Antwort fest. Die anderen Ausgänge bleiben offen.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_nell_lehnt_ab"
+        ],
+        "clears_flags": [
+          "k6_nell_stimmt_zu"
+        ]
+      },
+      "k6_nell_ja": {
+        "text": "„Wenn du bleibst und jeden Namen mit mir prüfst, ja. Ich sage nicht, dass es leicht ist.“ Du lässt die Antwort offen für eine spätere Änderung, bis die Übergabe wirklich beginnt.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_nell_stimmt_zu"
+        ],
+        "clears_flags": [
+          "k6_nell_lehnt_ab"
+        ]
+      }
+    }
+  },
+  "k6_osric": {
+    "start": "k6_osric_start",
+    "sprecher": "vmn_osric_dale",
+    "nodes": {
+      "k6_osric_start": {
+        "text": "Osric trocknet die Tinte zwischen seinen Fingern. „Sie wollen ein Datum. Ich fürchte, ich muss Ihnen auch meine Hand dazu nennen.“",
+        "choices": [
+          {
+            "text": "Lesen wir Ihren ersten Eintrag.",
+            "next": "k6_osric_buch",
+            "requires_clues": [
+              "k6_41_c1"
+            ],
+            "hide_if_flags": [
+              "k6_osric_buch_geprueft"
+            ]
+          },
+          {
+            "text": "Welche Namen wurden verwechselt?",
+            "next": "k6_osric_liste",
+            "requires_clues": [
+              "k6_43_c1",
+              "k6_43_c2"
+            ],
+            "hide_if_flags": [
+              "k6_osric_liste_geprueft"
+            ]
+          },
+          {
+            "text": "Sie haben die Verlängerung bemerkt.",
+            "next": "k6_osric_gestaendnis",
+            "requires_clues": [
+              "k6_41_c3"
+            ],
+            "hide_if_flags": [
+              "k6_osric_gesteht"
+            ]
+          },
+          {
+            "text": "Den Schlussklang vorbereiten.",
+            "next": "k6_osric_glocke",
+            "requires_clues": [
+              "k6_42_c1",
+              "k6_42_c2"
+            ]
+          },
+          {
+            "text": "Kann Vorlesen einen Kampf beenden?",
+            "next": "k6_osric_vorlesen",
+            "requires_flags": [
+              "k6_akt4_done"
+            ]
+          },
+          {
+            "text": "Die Mappe schließen."
+          }
+        ]
+      },
+      "k6_osric_buch": {
+        "text": "„Damals strich ich eine Abfahrt durch. Der Mensch war fort, der Eintrag erledigt. Ich hatte das für selbstverständlich gehalten.“ Du kopierst die alte Entlassungsformel ohne seinen Randkommentar zu entfernen.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_osric_buch_geprueft"
+        ],
+        "relation": {
+          "vmn_osric_dale": 1
+        }
+      },
+      "k6_osric_liste": {
+        "text": "„Die Toten wurden nicht durch ihre Namen gerettet. Und die Lebenden wurden nicht durch ihre Namen Eigentum.“ Du trennst beide Listen auf dem Tisch.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_osric_liste_geprueft"
+        ],
+        "relation": {
+          "vmn_osric_dale": 1
+        }
+      },
+      "k6_osric_gestaendnis": {
+        "text": "„Ich schrieb die Einleitung. Später schrieb ich Warnungen und ließ sie hier liegen. Sie dürfen beides nebeneinander aufheben.“ Er legt die unversandten Briefe zu den amtlichen Seiten.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_osric_gesteht"
+        ],
+        "relation": {
+          "vmn_osric_dale": 1
+        }
+      },
+      "k6_osric_glocke": {
+        "text": "„Ein einzelner Schlag nach dem letzten Namen. Nicht vorher, nicht an seiner Stelle.“ Du ziehst am Prüfseil und lässt den eigentlichen Klöppel wieder ruhen.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_glocke_vorbereitet"
+        ]
+      },
+      "k6_osric_vorlesen": {
+        "text": "„Nach dem ersten Widerstand kann sie zuhören. Sie brauchen alle vier belegten Fährten und müssen mir erlauben, die Unterschiede vorzulesen. Ein Zauberwort allein tut es nicht.“",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "k6_vertrauen": {
+    "start": "k6_vertrauen_start",
+    "nodes": {
+      "k6_vertrauen_start": {
+        "text": "Du kannst dem Zollrat die Aufsicht über die Eintragung anvertrauen oder dem Hafenrat die Sicherung der Ausgänge. Beide müssen ihre eigene Lüge eingestehen.",
+        "choices": [
+          {
+            "text": "Den Zollrat als Zeugen wählen.",
+            "next": "k6_vertrauen_1",
+            "requires_flags": [
+              "k6_rat_1_q3",
+              "k6_31_geschlossen"
+            ],
+            "hide_if_flags": [
+              "k6_vertrauen_gewaehlt"
+            ]
+          },
+          {
+            "text": "Den Hafenrat als Zeugen wählen.",
+            "next": "k6_vertrauen_4",
+            "requires_flags": [
+              "k6_rat_4_q3",
+              "k6_34_geschlossen"
+            ],
+            "hide_if_flags": [
+              "k6_vertrauen_gewaehlt"
+            ]
+          },
+          {
+            "text": "Noch niemanden wählen."
+          }
+        ]
+      },
+      "k6_vertrauen_1": {
+        "text": "„Ich widerspreche jeder neu eingetragenen Handlung sofort.“ Der Zollrat nimmt seinen Stempel mit und lässt den amtlichen Rock offen.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_vertrauen_gewaehlt",
+          "k6_vertraut_vmn_rat_1"
+        ]
+      },
+      "k6_vertrauen_4": {
+        "text": "„Ich halte den Ausgang offen und bezeuge, wessen Handlung hier festgehalten wird.“ Der Hafenrat bringt den alten Fluchtplan mit.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_vertrauen_gewaehlt",
+          "k6_vertraut_vmn_rat_4"
+        ]
+      }
+    }
+  },
+  "k6_zeuge": {
+    "start": "k6_zeuge_start",
+    "nodes": {
+      "k6_zeuge_start": {
+        "text": "Der gewählte Zeuge wartet außerhalb des Wasserzeichens. Erst seine ausdrückliche Zusage bereitet den Schutz vor Eintragung vor.",
+        "choices": [
+          {
+            "text": "Den Zollrat an seine Zusage erinnern.",
+            "next": "k6_zeuge_1",
+            "requires_flags": [
+              "k6_vertraut_vmn_rat_1"
+            ]
+          },
+          {
+            "text": "Den Hafenrat an seine Zusage erinnern.",
+            "next": "k6_zeuge_4",
+            "requires_flags": [
+              "k6_vertraut_vmn_rat_4"
+            ]
+          },
+          {
+            "text": "Noch warten."
+          }
+        ]
+      },
+      "k6_zeuge_1": {
+        "text": "„Ihre Handlung gehört Ihnen. Ich bestreite ihre Eintragung jedes Mal neu.“ Er setzt den Abdruck auf die trockene Zeugenzeile.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_zeuge_bereit",
+          "k6_zeuge_eintragung"
+        ]
+      },
+      "k6_zeuge_4": {
+        "text": "„Die Tür bleibt frei. Und ich sehe, wessen Handlung das war.“ Er stellt den Fluchtplan unter eine trockene Lampe.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_zeuge_bereit",
+          "k6_zeuge_ausgang",
+          "k6_raeumung_bereit"
+        ]
+      }
+    }
+  },
+  "k6_kampf_wrackmutter": {
+    "start": "k6_kampf_wrackmutter_start",
+    "nodes": {
+      "k6_kampf_wrackmutter_start": {
+        "text": "Du stehst außerhalb des Wirkbereichs. Prüfe Vorbereitung und Rückweg, bevor du den Kampf beginnst.",
+        "choices": [
+          {
+            "text": "Den vorbereiteten Kampf beginnen.",
+            "next": "k6_kampf_wrackmutter_kampf",
+            "requires_flags": [
+              "k6_akt1_done",
+              "k6_nell_gerettet",
+              "gezeit_ebbe"
+            ],
+            "hide_if_flags": [
+              "won_wrackmutter"
+            ]
+          },
+          {
+            "text": "Den gesicherten Ausgang prüfen.",
+            "next": "k6_kampf_wrackmutter_danach",
+            "requires_flags": [
+              "won_wrackmutter"
+            ]
+          },
+          {
+            "text": "Zurückweichen."
+          }
+        ]
+      },
+      "k6_kampf_wrackmutter_kampf": {
+        "text": "Du überschreitest die markierte Grenze. Ein Gezeitenabbruch zählt nicht als Sieg.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "encounter": "wrackmutter"
+      },
+      "k6_kampf_wrackmutter_danach": {
+        "text": "Die Netze hängen schlaff. Du kannst die Seite im Kielraum sichern.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "k6_kampf_leuchtfeuerwaechter": {
+    "start": "k6_kampf_leuchtfeuerwaechter_start",
+    "nodes": {
+      "k6_kampf_leuchtfeuerwaechter_start": {
+        "text": "Du stehst außerhalb des Wirkbereichs. Prüfe Vorbereitung und Rückweg, bevor du den Kampf beginnst.",
+        "choices": [
+          {
+            "text": "Den vorbereiteten Kampf beginnen.",
+            "next": "k6_kampf_leuchtfeuerwaechter_kampf",
+            "requires_flags": [
+              "k6_akt3_done",
+              "k6_glocke_vorbereitet"
+            ],
+            "hide_if_flags": [
+              "won_leuchtfeuerwaechter"
+            ]
+          },
+          {
+            "text": "Den gesicherten Ausgang prüfen.",
+            "next": "k6_kampf_leuchtfeuerwaechter_danach",
+            "requires_flags": [
+              "won_leuchtfeuerwaechter"
+            ]
+          },
+          {
+            "text": "Zurückweichen."
+          }
+        ]
+      },
+      "k6_kampf_leuchtfeuerwaechter_kampf": {
+        "text": "Du überschreitest die markierte Grenze. Ein Gezeitenabbruch zählt nicht als Sieg.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "encounter": "leuchtfeuerwaechter"
+      },
+      "k6_kampf_leuchtfeuerwaechter_danach": {
+        "text": "Das zerbrochene Linsenrad gibt einen Menschen frei, der keinen Angriff mehr vorbereitet. Du lässt ihn leben und deckst die kalten Schultern zu.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_leuchtfeuer_gesichert"
+        ]
+      }
+    }
+  },
+  "k6_harrow": {
+    "start": [
+      {
+        "node": "k6_harrow_nach",
+        "requires_flags": [
+          "k6_pegelherrin_geloest"
+        ]
+      },
+      {
+        "node": "k6_harrow_zwischen",
+        "requires_flags": [
+          "won_pegelherrin"
+        ]
+      },
+      {
+        "node": "k6_harrow_vor"
+      }
+    ],
+    "sprecher": "vmn_pegelherrin",
+    "nodes": {
+      "k6_harrow_vor": {
+        "text": "„Vierzig Jahre lang habe ich jeden eintreffenden Namen gehalten. Sie nennen das Gefangenschaft. Damals hieß es Rettung.“ Harrow streicht eine Zeile glatt, ohne auf die Wand zu sehen.",
+        "choices": [
+          {
+            "text": "Was wurde aus der Befristung?",
+            "next": "k6_harrow_befristung"
+          },
+          {
+            "text": "Die Gegenwehr ausdrücklich beginnen.",
+            "next": "k6_harrow_phase1",
+            "requires_flags": [
+              "k6_akt4_done",
+              "gezeit_ebbe"
+            ],
+            "hide_if_flags": [
+              "won_pegelherrin"
+            ]
+          },
+          {
+            "text": "Noch Belege prüfen."
+          }
+        ],
+        "haltung": "muede"
+      },
+      "k6_harrow_befristung": {
+        "text": "„Die erste Nacht endete. Die Bitte nicht.“ Du legst ihr das Protokoll vor. Ihre Finger verharren auf dem fehlenden Ablaufdatum.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "haltung": "muede"
+      },
+      "k6_harrow_phase1": {
+        "text": "„Dann treten Sie in die Zeile.“ Das Wasserzeichen schließt sich um ihre Hände, nicht um die Ausgänge.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "encounter": "pegelherrin",
+        "haltung": "kalt"
+      },
+      "k6_harrow_zwischen": {
+        "text": "„Sie haben die Schreiber erreicht. Jetzt sprechen Sie mit dem Register.“ Ihre Stimme kommt aus mehreren Zeilen zugleich. Osric hält das alte Buch geschlossen, bis du ihn bittest.",
+        "choices": [
+          {
+            "text": "Das alte Verfahren vollständig vorlesen.",
+            "next": "k6_harrow_vorlesen",
+            "requires_flags": [
+              "won_pegelherrin",
+              "k6_41_geschlossen",
+              "k6_42_geschlossen",
+              "k6_43_geschlossen",
+              "k6_44_geschlossen"
+            ],
+            "requires_relation": {
+              "vmn_osric_dale": 3
+            }
+          },
+          {
+            "text": "Den zweiten Abschnitt beginnen.",
+            "next": "k6_harrow_phase2",
+            "requires_flags": [
+              "won_pegelherrin",
+              "gezeit_ebbe"
+            ],
+            "hide_if_flags": [
+              "won_pegelherrin_register",
+              "k6_pegelherrin_geloest"
+            ]
+          },
+          {
+            "text": "Den Sieg im zweiten Abschnitt bestätigen.",
+            "next": "k6_harrow_sieg",
+            "requires_flags": [
+              "won_pegelherrin_register"
+            ]
+          },
+          {
+            "text": "Zur Vorbereitung zurück."
+          }
+        ],
+        "haltung": "kalt"
+      },
+      "k6_harrow_phase2": {
+        "text": "Du trittst vor die lebenden Zeilen. Der Ratszeuge hebt, falls bestätigt, seinen Abdruck; er kann ihre Eintragung begrenzen, nicht jeden Zugriff verhindern.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "encounter": "pegelherrin_register",
+        "haltung": "kalt"
+      },
+      "k6_harrow_vorlesen": {
+        "text": "Osric liest zuerst die Toten, dann die Abfahrten und zuletzt die nicht erteilten Vollmachten. Du hältst die vier Belege daneben. Harrow schließt die Hand, und die Zeilen hören auf, neue Namen zu verlangen.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_pegelherrin_geloest",
+          "k6_pegelherrin_friedlich"
+        ],
+        "haltung": "erleichtert"
+      },
+      "k6_harrow_sieg": {
+        "text": "Die zweite Zeile reißt nicht, sie wird still. Harrow kann keine neue Handlung mehr festhalten. Du hast die Gegenwehr beendet, noch nicht das Register.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_pegelherrin_geloest"
+        ],
+        "haltung": "muede"
+      },
+      "k6_harrow_nach": {
+        "text": "„Es ist still genug, dass ich Ihre Antwort hören kann.“ Harrow lässt die Schlusszeile offen. „Sagen Sie nicht Ja, wenn Sie nur nicht mehr kämpfen wollen.“",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "haltung": "erleichtert"
+      }
+    }
+  },
+  "k6_traeger": {
+    "start": "k6_traeger_start",
+    "nodes": {
+      "k6_traeger_start": {
+        "text": "Für eine einzelne Aufnahme muss feststehen, wer die Schlusszeile schreibt. Eine gemeinsame Reise ist keine Zustimmung für den anderen.",
+        "choices": [
+          {
+            "text": "Ich trage die Schlusszeile.",
+            "next": "k6_traeger_p1",
+            "hide_if_flags": [
+              "koop_aktiv",
+              "k6_traeger_festgelegt"
+            ]
+          },
+          {
+            "text": "Spieler 1 übernimmt; gemeinsam bestätigen.",
+            "next": "k6_traeger_p1",
+            "requires_flags": [
+              "koop_aktiv"
+            ],
+            "hide_if_flags": [
+              "k6_traeger_festgelegt"
+            ]
+          },
+          {
+            "text": "Spieler 2 übernimmt; gemeinsam bestätigen.",
+            "next": "k6_traeger_p2",
+            "requires_flags": [
+              "koop_aktiv"
+            ],
+            "hide_if_flags": [
+              "k6_traeger_festgelegt"
+            ]
+          },
+          {
+            "text": "Noch offen lassen."
+          }
+        ]
+      },
+      "k6_traeger_p1": {
+        "text": "Die übernehmende Hand ist benannt. Das setzt noch kein Ende; ihr könnt bis zur endgültigen Bestätigung bei der offenen Zeile bleiben.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_traeger_festgelegt",
+          "k6_schliessender_p1"
+        ]
+      },
+      "k6_traeger_p2": {
+        "text": "Die übernehmende Hand ist benannt. Das setzt noch kein Ende; ihr könnt bis zur endgültigen Bestätigung bei der offenen Zeile bleiben.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_traeger_festgelegt",
+          "k6_schliessender_p2"
+        ]
+      }
+    }
+  },
+  "k6_ende": {
+    "start": "k6_ende_start",
+    "nodes": {
+      "k6_ende_start": {
+        "text": "Vier Folgen liegen offen vor dir. Lies sie getrennt; erst die zweite Bestätigung setzt den Ausgang.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          },
+          {
+            "text": "Die Namen tragen: Folgen lesen.",
+            "next": "k6_ende_schliessen_vorschau",
+            "requires_flags": [
+              "k6_akt5_done",
+              "k6_pegelherrin_geloest",
+              "k6_traeger_festgelegt"
+            ],
+            "hide_if_flags": [
+              "k6_done"
+            ]
+          },
+          {
+            "text": "Das Register vernichten: Folgen lesen.",
+            "next": "k6_ende_verbrennen_vorschau",
+            "requires_flags": [
+              "k6_akt5_done",
+              "k6_pegelherrin_geloest",
+              "k6_raeumung_bereit"
+            ],
+            "hide_if_flags": [
+              "k6_done"
+            ]
+          },
+          {
+            "text": "Nells Schreiber: Folgen lesen.",
+            "next": "k6_ende_uebergeben_vorschau",
+            "requires_flags": [
+              "k6_akt5_done",
+              "k6_pegelherrin_geloest",
+              "k6_nell_stimmt_zu"
+            ],
+            "hide_if_flags": [
+              "k6_done"
+            ]
+          },
+          {
+            "text": "Zwei Hände bleiben: Folgen lesen.",
+            "next": "k6_ende_teilen_vorschau",
+            "requires_flags": [
+              "k6_akt5_done",
+              "k6_pegelherrin_geloest",
+              "koop_aktiv"
+            ],
+            "hide_if_flags": [
+              "k6_done"
+            ]
+          },
+          {
+            "text": "Noch keine Entscheidung."
+          }
+        ]
+      },
+      "k6_ende_schliessen_vorschau": {
+        "text": "Du schließt die Aufnahme und nimmst die Namen auf dich. Die Einwohner dürfen gehen; der Meeresschutz lässt ihnen Jahre für neue Dämme. Der Weg zum Letzten Register öffnet sich, doch erst dessen Prüfung entscheidet über Sequenz 1.",
+        "choices": [
+          {
+            "text": "Diesen Ausgang unwiderruflich bestätigen.",
+            "next": "k6_ende_schliessen_setzen",
+            "requires_flags": [
+              "k6_akt5_done",
+              "k6_pegelherrin_geloest",
+              "k6_traeger_festgelegt"
+            ],
+            "hide_if_flags": [
+              "k6_done"
+            ]
+          },
+          {
+            "text": "Zur offenen Zeile zurück.",
+            "next": "k6_ende_start"
+          }
+        ]
+      },
+      "k6_ende_schliessen_setzen": {
+        "text": "Du schließt die Aufnahme und nimmst die Namen auf dich. Die Einwohner dürfen gehen; der Meeresschutz lässt ihnen Jahre für neue Dämme. Der Weg zum Letzten Register öffnet sich, doch erst dessen Prüfung entscheidet über Sequenz 1.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "ending": "k6_ende_schliessen"
+      },
+      "k6_ende_verbrennen_vorschau": {
+        "text": "Du zerstörst die Bindung. Harrow stirbt, und der aufgestaute Wasserstoß erreicht die vorbereitete Räumung. Du verzichtest auf Sequenz 1; der trockene Ausgang ist eine Aufgabe, kein Siegesbild.",
+        "choices": [
+          {
+            "text": "Diesen Ausgang unwiderruflich bestätigen.",
+            "next": "k6_ende_verbrennen_setzen",
+            "requires_flags": [
+              "k6_akt5_done",
+              "k6_pegelherrin_geloest",
+              "k6_raeumung_bereit"
+            ],
+            "hide_if_flags": [
+              "k6_done"
+            ]
+          },
+          {
+            "text": "Zur offenen Zeile zurück.",
+            "next": "k6_ende_start"
+          }
+        ]
+      },
+      "k6_ende_verbrennen_setzen": {
+        "text": "Du zerstörst die Bindung. Harrow stirbt, und der aufgestaute Wasserstoß erreicht die vorbereitete Räumung. Du verzichtest auf Sequenz 1; der trockene Ausgang ist eine Aufgabe, kein Siegesbild.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "ending": "k6_ende_verbrennen"
+      },
+      "k6_ende_uebergeben_vorschau": {
+        "text": "Nell übernimmt die Last nach ihrer ausgesprochenen Zustimmung. Du bleibst als ihr Schreiber; keine warme Formulierung macht daraus eine leichte Kindheit. Sequenz 1 bleibt später möglich, wenn die Verantwortung neu und tragfähig geordnet ist.",
+        "choices": [
+          {
+            "text": "Diesen Ausgang unwiderruflich bestätigen.",
+            "next": "k6_ende_uebergeben_setzen",
+            "requires_flags": [
+              "k6_akt5_done",
+              "k6_pegelherrin_geloest",
+              "k6_nell_stimmt_zu"
+            ],
+            "hide_if_flags": [
+              "k6_done"
+            ]
+          },
+          {
+            "text": "Zur offenen Zeile zurück.",
+            "next": "k6_ende_start"
+          }
+        ]
+      },
+      "k6_ende_uebergeben_setzen": {
+        "text": "Nell übernimmt die Last nach ihrer ausgesprochenen Zustimmung. Du bleibst als ihr Schreiber; keine warme Formulierung macht daraus eine leichte Kindheit. Sequenz 1 bleibt später möglich, wenn die Verantwortung neu und tragfähig geordnet ist.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "ending": "k6_ende_uebergeben"
+      },
+      "k6_ende_teilen_vorschau": {
+        "text": "Ihr teilt die Last und bindet euch beide an Varrowmouth. Niemand steigt auf Sequenz 1. Ihr haltet die Namen gemeinsam offen, ohne daraus eine Erlaubnis für neue Eintragungen abzuleiten.",
+        "choices": [
+          {
+            "text": "Diesen Ausgang unwiderruflich bestätigen.",
+            "next": "k6_ende_teilen_setzen",
+            "requires_flags": [
+              "k6_akt5_done",
+              "k6_pegelherrin_geloest",
+              "koop_aktiv"
+            ],
+            "hide_if_flags": [
+              "k6_done"
+            ]
+          },
+          {
+            "text": "Zur offenen Zeile zurück.",
+            "next": "k6_ende_start"
+          }
+        ]
+      },
+      "k6_ende_teilen_setzen": {
+        "text": "Ihr teilt die Last und bindet euch beide an Varrowmouth. Niemand steigt auf Sequenz 1. Ihr haltet die Namen gemeinsam offen, ohne daraus eine Erlaubnis für neue Eintragungen abzuleiten.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "ending": "k6_ende_teilen"
+      }
+    }
+  },
+  "k6_szene_ankunft": {
+    "start": "k6_szene_ankunft",
+    "nodes": {
+      "k6_szene_ankunft": {
+        "text": "Die Pegeluhr zeigt auf Flut.\nUnter dem Zifferblatt steht kein Name.\nTam zieht das Gepäck über die obere Stufe.\nDer Schreiber drückt den Stempel auf ein bereits beschriebenes Blatt.\nDu erkennst deinen Namen vor deiner Handschrift.\nEine Welle hebt das leere Fährseil.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_szene_ankunft_gesehen"
+        ]
+      }
+    }
+  },
+  "k6_szene_wartungsgang": {
+    "start": "k6_szene_wartungsgang",
+    "nodes": {
+      "k6_szene_wartungsgang": {
+        "text": "Unter dem Steg ist der Gang trocken.\nÜber dir gehen Menschen über Bretter, die von unten dünner wirken.\nTam verdeckt ihre Marke mit dem Daumen.\nAm Ende steht eine Tür ohne Schloss.\nNur das Drehkreuz verlangt einen Namen.\nDu merkst dir beide Wege.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_szene_wartungsgang_gesehen"
+        ]
+      }
+    }
+  },
+  "k6_szene_portion": {
+    "start": "k6_szene_portion",
+    "nodes": {
+      "k6_szene_portion": {
+        "text": "Am Küchenfenster wartet ein Teller.\nDer Platz auf der Liste ist leer.\nNell setzt einen zweiten Löffel daneben.\nNiemand fragt, ob eine leere Zeile Hunger haben kann.\nDu trägst die Portion zum trockenen Brett.\nDer Dampf bleibt einen Moment über dem Schlick stehen.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_szene_portion_gesehen"
+        ]
+      }
+    }
+  },
+  "k6_szene_kielraum": {
+    "start": "k6_szene_kielraum",
+    "nodes": {
+      "k6_szene_kielraum": {
+        "text": "Die Taue hängen lose über dem Kiel.\nEin Tisch ist aus zwei alten Türen gemacht.\nDarauf liegen Karten ohne Unterschrift.\nTam zählt die Ausgänge, nicht die Anwesenden.\nHinter dem Glas steckt eine Seite, die im Takt der Uhr zuckt.\nDu lässt die übrigen Namen verdeckt.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_szene_kielraum_gesehen"
+        ]
+      }
+    }
+  },
+  "k6_szene_sieben_stuehle": {
+    "start": "k6_szene_sieben_stuehle",
+    "nodes": {
+      "k6_szene_sieben_stuehle": {
+        "text": "Sieben Stühle stehen auf trockenem Parkett.\nUnter zweien liegt eine schmale Wasserlinie.\nNiemand rückt deswegen zur Seite.\nDeine Einladung wurde bereits gelocht.\nEin Zollherr legt den Finger auf die falsche Uhrzeit.\nEr nimmt ihn erst weg, als du nickst.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_szene_sieben_stuehle_gesehen"
+        ]
+      }
+    }
+  },
+  "k6_szene_zeugenwahl": {
+    "start": "k6_szene_zeugenwahl",
+    "nodes": {
+      "k6_szene_zeugenwahl": {
+        "text": "Der gewählte Stempel bleibt auf dem Tisch liegen.\nDie übrigen Ämter sehen ihn an.\nKeiner erklärt die Wahl für einstimmig.\nDu lässt das Wort einstimmig aus deiner Abschrift.\nEin Fenster schlägt gegen den Rahmen.\nZum ersten Mal unterbricht niemand dieses Geräusch.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_szene_zeugenwahl_gesehen"
+        ]
+      }
+    }
+  },
+  "k6_szene_glockenseil": {
+    "start": "k6_szene_glockenseil",
+    "nodes": {
+      "k6_szene_glockenseil": {
+        "text": "Das Seil ist in der Mitte glatt geworden.\nOsric hält es unterhalb deiner Hand fest.\nDer einzelne Schlussklang bleibt noch aus.\nIm Lampenglas steht sein altes Gesicht neben deinem.\nEine Seite raschelt, obwohl kein Fenster offen ist.\nDu legst ein Gewicht auf die richtige Liste.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_szene_glockenseil_gesehen"
+        ]
+      }
+    }
+  },
+  "k6_szene_mensch_im_rad": {
+    "start": "k6_szene_mensch_im_rad",
+    "nodes": {
+      "k6_szene_mensch_im_rad": {
+        "text": "Zwischen den Splittern sitzt ein Mensch.\nDie Hände halten keinen Griff mehr.\nDu legst einen Mantel über die kalten Schultern.\nOsric stellt die Lampe auf den Boden.\nDer Lichtkegel zeigt jetzt die Wand statt eines Zieles.\nDie Liste der Ertrunkenen bleibt geschlossen.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_szene_mensch_im_rad_gesehen"
+        ]
+      }
+    }
+  },
+  "k6_szene_zollzaun": {
+    "start": "k6_szene_zollzaun",
+    "nodes": {
+      "k6_szene_zollzaun": {
+        "text": "Hinter dem Zollzaun beginnt der Grenzbezirk.\nDie Pfosten tragen gewöhnliche Nummern.\nDas Ritual verspricht keinen Ersatz für deine Entscheidung.\nDu prüfst den eigenen Pfad und die vorhandenen Voraussetzungen.\nVom Hafen kommt ein Pegelschlag.\nDie letzte Strecke bleibt in dieser Stadt.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_szene_zollzaun_gesehen"
+        ]
+      }
+    }
+  },
+  "k6_szene_erster_widerstand": {
+    "start": "k6_szene_erster_widerstand",
+    "nodes": {
+      "k6_szene_erster_widerstand": {
+        "text": "Die erste Schicht der Schrift löst sich vom Wasser.\nDarunter liegen keine leeren Seiten.\nHarrow sieht auf deine Hände.\nOsric wartet auf deine Bitte, nicht auf ihr Zeichen.\nDer Zeuge hält seinen Abdruck trocken.\nDer nächste Handgriff gehört wieder dir.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_szene_erster_widerstand_gesehen"
+        ]
+      }
+    }
+  },
+  "k6_szene_stille_zeile": {
+    "start": "k6_szene_stille_zeile",
+    "nodes": {
+      "k6_szene_stille_zeile": {
+        "text": "Die Uhr schlägt oben weiter.\nHier unten verlangt keine Zeile einen neuen Eingang.\nHarrow atmet, ohne eine Abschrift zu erzeugen.\nNell bleibt auf dem trockenen Rand.\nTam hat die Ausgänge vor der Entscheidung geprüft.\nDu lässt die letzte Zeile noch offen.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_szene_stille_zeile_gesehen"
+        ]
+      }
+    }
+  },
+  "k6_szene_nach_der_wahl": {
+    "start": "k6_szene_nach_der_wahl",
+    "nodes": {
+      "k6_szene_nach_der_wahl": {
+        "text": "Das Kapitel ist entschieden.\nDie Menschen sprechen noch nicht alle darüber.\nEine Hand prüft die nächste Stufe des Stegs.\nEine andere deckt ein Namensblatt zu.\nDu hörst Wasser, Holz und eine entfernte Glocke.\nDer Abspann nimmt ihnen diese Arbeit nicht ab.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k6_szene_nach_der_wahl_gesehen"
+        ]
+      }
+    }
+  }
+}

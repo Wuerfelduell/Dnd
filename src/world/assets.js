@@ -474,6 +474,9 @@ export const BH_MAP_IDS = ['bh_kutschenhof', 'bh_kesselgrund', 'bh_winterpromena
   'bh_pavillon', 'bh_verkaufshalle', 'bh_speisesaal', 'bh_aktenraum', 'bh_labor', 'bh_mutterhaus', 'bh_verteilanlage', 'bh_kaltes_palmhaus', 'bh_verlassene_waescherei', 'bh_wurzelkammer'];
 export const BH_MAP_MARKERS = Object.fromEntries(BH_MAP_IDS.flatMap((id, i) => [[id, i], [`${id}__warm`, i]]));
 export const BH_MAP_MARKERS_URL = `${BASE}ui/bh_marker.png`;
+/** Kapitel 7 (CW): Varrowmouth-Pins, ein 16er-Streifen (ui/vm_pins.png, Reihenfolge laut manifest-varrowmouth2.json). */
+export const VM_MAP_MARKERS = Object.fromEntries(['vm_zollhafen', 'vm_stegviertel', 'vm_schlickgassen', 'vm_oberstrasse', 'vm_wrackfeld', 'vm_leuchtbank', 'vm_registerkeller', 'vm_grenzzaun'].map((id, i) => [id, i]));
+export const VM_MAP_MARKERS_URL = `${BASE}ui/vm_pins.png`;
 /** Marker eines Ortes: [Bild-URL, Feld, Spalten im Bild, live, Raster ohne Hervorhebungszeile {rows, row}]. */
 export const mapMarkerOf = (map) => {
   if (map?.startsWith('hs_')) return mapMarkerOf('ds_letzter_bahnsteig'); // Himmelsstadt: Platzhalter bis zu einem eigenen Marker
@@ -485,6 +488,7 @@ export const mapMarkerOf = (map) => {
   if (CW_MAP_MARKERS[map] !== undefined) return [CW_MAP_MARKERS_URL, CW_MAP_MARKERS[map], 6, false, { rows: 3, row: Math.floor(CW_MAP_MARKERS[map] / 6) }];
   if (DS_MAP_MARKERS[map] !== undefined) return [DS_MAP_MARKERS_URL, DS_MAP_MARKERS[map], 6, false, { rows: 3, row: Math.floor(DS_MAP_MARKERS[map] / 6) }];
   if (BH_MAP_MARKERS[map] !== undefined) return [BH_MAP_MARKERS_URL, BH_MAP_MARKERS[map], 6, false, { rows: 3, row: Math.floor(BH_MAP_MARKERS[map] / 6) }];
+  if (VM_MAP_MARKERS[map] !== undefined) return [VM_MAP_MARKERS_URL, VM_MAP_MARKERS[map], 10];
   if (BE_MAP_MARKERS[map]) return BE_MAP_MARKERS[map];
   if (J_MAP_MARKERS[map] !== undefined) return [J_MAP_MARKERS_URL, J_MAP_MARKERS[map], 13];
   return [MAP_MARKERS_URL, MAP_MARKERS[map], 13];
@@ -2911,6 +2915,46 @@ export const CW_ABGLEICH_KEY = 'cw_abgleich';
 export const CW_ABGLEICH = { strasse_gerade: [0, 0, 16, 16, 4, 4], strasse_kurve: [0, 16, 16, 16, 4, 4], strasse_ende: [0, 32, 16, 16, 4, 4], kontakt_gefaehrdet: [0, 48, 16, 16, 4, 4],
   verbindung_stabil: [0, 64, 16, 16, 2, 4], nebel_rueckweg: [0, 80, 48, 48, 6, 8] };
 SHEETS.cw_abgleich = 'fx/cw_abgleich.png';
+
+// --- Kapitel 7: Varrowmouth (CV varrowmouth1 Kacheln, CW varrowmouth2 Kulissen/Icons, CY varrowmouth3 Figuren) --------------
+/**
+ * CV: sieben Kachelblätter je Ebbe und Flut, gleiche Zellenbelegung (16 Spalten, manifest-varrowmouth1.json): Boden 0–7, Schlick 8–15,
+ * Wasser 16–31 als Ecken-Wang (Bit NW 1, NE 2, SE 4, SW 8 = Wasser), Stege 36/37, Mauern 42–47, Dächer 48–51.
+ * Etappe 1 zeigt die Ebbe-Blätter; der Wechsel mit der Flut kommt mit den Gezeiten-Karten.
+ */
+export const VM_THEME_KEYS = ['vm_hafen', 'vm_stege', 'vm_schlick', 'vm_oberstrasse', 'vm_wrack', 'vm_leuchtbank', 'vm_innen'];
+const VM_SPEC = { fallback: 'cobble0', floor: [1, 1, 7], wear: [0, 6], mud: [8, 9, 10, 11, 12, 13, 14, 15],
+  water: Array.from({ length: 16 }, (_, i) => 16 + i), bridge: [36, 37], wallFace: [42, 43, 42, 46], door: [44], wallTop: [48, 49, 48, 49, 48, 49, 48, 50, 49, 51] };
+for (const theme of VM_THEME_KEYS) {
+  const sheet = `${theme}_ebbe`;
+  if (!SHEETS[sheet]) SHEETS[sheet] = `tilesets/${sheet}.png`;
+  const spec = (THEME_TILES[theme] = { ...VM_SPEC, sheet });
+  const list = Object.entries(spec).filter(([, v]) => Array.isArray(v)).flatMap(([group, regions]) => [...new Set(regions)].map((region) => ({
+    key: `${theme}_${group}_${region}`, theme, group, sheet, region, solid: !WALKABLE_GROUPS.includes(group), fallback: GROUP_FALLBACK[group] ?? spec.fallback,
+    base: WALKABLE_GROUPS.includes(group) ? null : `${theme}_floor_${spec.floor[0]}`,
+  })));
+  THEME_TILE_LIST.push(...list);
+  for (const t of list) TILE_CELLS[t.key] = [t.sheet, t.region, t.base];
+}
+/** CW: Kampfkulissen (Ebbe). */
+Object.assign(BATTLE_BACKGROUNDS, { vm_zollhafen: 'bg_vm_zollhafen_ebbe', vm_stegviertel: 'bg_vm_stege_flut', vm_schlickgassen: 'bg_vm_schlick_ebbe', vm_oberstrasse: 'bg_vm_oberstrasse' });
+/** CY: 23 Figuren mit Lauf-Sheet, Emotionsportrait (erste Reihe: neutral, misstrauisch, erschrocken, lächelnd) und Kopf. Vier Dateien heißen anders als die Figur. */
+export const VM_FIGUREN = ['vmn_tam_verrin', 'vmn_osric_dale', 'vmn_nell_quarrie', 'vmn_pegelherrin', 'vmn_rat_1', 'vmn_rat_2', 'vmn_rat_3', 'vmn_rat_4', 'vmn_rat_5', 'vmn_rat_6', 'vmn_rat_7',
+  'vmn_zollschreiber', 'vmn_fischerin', 'vmn_kantinenwirt', 'vmn_apothekerin', 'vmn_faehrmann', 'vmn_kielwirtin', 'vmn_mutter', 'vmn_mechaniker', 'vmn_zollknecht', 'vmn_taucherin',
+  'vmn_zeuge_kettlegate', 'vmn_kurgast'];
+const VM_FIGUR_DATEI = { vmn_kielwirtin: 'vmn_kielraum_wirtin', vmn_kurgast: 'vmn_kurgast_briarholt', vmn_mutter: 'vmn_schlickmutter', vmn_mechaniker: 'vmn_uhrmechaniker' };
+for (const id of VM_FIGUREN) {
+  const f = VM_FIGUR_DATEI[id] ?? id;
+  SHEETS[`vmc_${id}`] = `characters/${f}.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = `vmc_${id}`;
+  PORTRAITS[id] = `${f}_emotions.png`;
+  HEADS.push(id);
+  HEAD_FILES[id] = `portraits/heads/${f}.png`;
+}
+/** CW: Gegenstände der Stadt (16 und 32 px). */
+export const VM_ITEMS = ['vmi_gezeitenkalender', 'vmi_leuchtbank_linse', 'vmi_lotsenmarke', 'vmi_namenlos_ring', 'vmi_pegelglocke', 'vmi_reeder_tinktur', 'vmi_registerseite',
+  'vmi_salzlaterne', 'vmi_schlicksohlen', 'vmi_trockenfisch', 'vmi_zollkantinen_tee', 'vmi_zollsiegel'];
+ICON32.push(...VM_ITEMS);
 
 // --- Paket CN: Kettlegate lebt (manifest-kettlegate-leben.json) ---------------------------------------------------
 /** Zehn Einwohner: Lauf-Sheet, Kopf (24x24 unter portraits/heads/), Sonderpose (16x32, Schlüssel pose_<id>, läuft während des Gesprächs). */
