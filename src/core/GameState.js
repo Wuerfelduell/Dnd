@@ -21,6 +21,7 @@ import { relationMethods } from './Relations.js';
 import { artifactMethods } from './Artifacts.js';
 import { partyMethods } from './Party.js';
 import { gearMethods } from './Gear.js';
+import { vergleichMethods } from './Vergleich.js';
 import { corruptionMethods } from './Corruption.js';
 import { talentMethods, CONCLUSION_SCHILLING, CONCLUSION_GELD } from './Talents.js';
 import { sektenMethods } from './Sekten.js';
@@ -1065,4 +1066,4 @@ export class GameState {
 /** Fortschrittsflags der verlängerten Akt-V-Fassung (AP), in Spielreihenfolge. */
 export const K2_AKT5_STEPS = ['k2v_boot_bereit', 'k2v_keller_passiert', 'k2v_aufstieg_passiert', 'k2v_abschied_done'];
 
-Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods, sudeMethods, seq5Methods, seq4Methods, seqHochMethods, bedarfMethods, splitMethods, pfadHandelMethods, erfolgeMethods, postMethods, benannteMethods, tiereMethods, fahrendeAuktionMethods, hausMethods, nebelseiteMethods, testmodusMethods, mackenMethods, kopfgeldjaegerMethods, wetterMethods, rivaleMethods, verdauProbeMethods, heimkehrMethods);
+Object.assign(GameState.prototype, partyMethods, gearMethods, vergleichMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods, sudeMethods, seq5Methods, seq4Methods, seqHochMethods, bedarfMethods, splitMethods, pfadHandelMethods, erfolgeMethods, postMethods, benannteMethods, tiereMethods, fahrendeAuktionMethods, hausMethods, nebelseiteMethods, testmodusMethods, mackenMethods, kopfgeldjaegerMethods, wetterMethods, rivaleMethods, verdauProbeMethods, heimkehrMethods);

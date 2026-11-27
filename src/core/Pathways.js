@@ -301,7 +301,7 @@ const TRADE_PRICE_MIN = 0.6;
 const TRADE_SELL_MAX = 1.6;
 const TRADE_SELL_OF_BUY = 0.8;
 
-const MULT_KEYS = new Set(['vision_cost', 'composure_regen', 'heal_bonus', 'price', 'sell', 'honor_loss', 'recognize', 'occult_mult',
+export const MULT_KEYS = new Set(['vision_cost', 'composure_regen', 'heal_bonus', 'price', 'sell', 'honor_loss', 'recognize', 'occult_mult',
   'money_bonus', 'shield_mult', 'skill_composure', 'calm_decay', 'dodge_window', 'damage_taken', 'digest_mult', 'dmg_mult', 'hurry_cost', 'unruhe_gain']);
 
 

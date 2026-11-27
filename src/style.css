@@ -529,6 +529,17 @@ img.scene { display: block; width: 30em; height: 16.875em; margin: 0 auto 0.6em;
 .arteffects .boon, .arteffects .curse { display: block; font-size: 0.9em; }
 .offerinfo { display: block; margin-top: 0.15em; }
 .offerinfo .note { display: block; font-size: 0.9em; }
+/* Ausrüstungsvergleich (core/Vergleich.js): Pixelpfeil grün = besser, rot = schlechter, je Wert eine Zeile */
+.vergleich { display: block; margin-top: 0.25em; padding: 0.15em 0.4em; border-left: 2px solid var(--line); font-size: 0.9em; }
+.vergleich .cmp { display: block; }
+.vergleich .cmp.gut { color: var(--good); }
+.vergleich .cmp.schlecht { color: var(--bad); }
+.vergleich .cmp b { font-weight: normal; color: inherit; }
+.vergleich .cmp .muted { font-size: 0.9em; }
+.cmppfeil { display: inline-block; width: 14px; height: 12px; margin-right: 5px; vertical-align: -1px; background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7 6' shape-rendering='crispEdges'%3E%3Cpath d='M3 0h1v1h1v1h1v1h1v1h-2v2h-3v-2h-2v-1h1v-1h1v-1h1z'/%3E%3C/svg%3E") center / 100% 100% no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7 6' shape-rendering='crispEdges'%3E%3Cpath d='M3 0h1v1h1v1h1v1h1v1h-2v2h-3v-2h-2v-1h1v-1h1v-1h1z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  filter: drop-shadow(1px 1px 0 rgba(0, 0, 0, 0.6)); }
+.cmppfeil.runter { -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7 6' shape-rendering='crispEdges'%3E%3Cpath d='M2 0h3v2h2v1h-1v1h-1v1h-1v1h-1v-1h-1v-1h-1v-1h-1v-1h2z'/%3E%3C/svg%3E"); mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7 6' shape-rendering='crispEdges'%3E%3Cpath d='M2 0h3v2h2v1h-1v1h-1v1h-1v1h-1v-1h-1v-1h-1v-1h-1v-1h2z'/%3E%3C/svg%3E"); }
 .auction .offers { list-style: none; margin: 0.3em 0; padding: 0; }
 .auction .offers li { margin: 0.25em 0; }
 .boon { color: #8fd07a; }
