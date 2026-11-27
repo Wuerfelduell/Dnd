@@ -68,5 +68,6 @@ test('Alle neuen Texte haben eine englische Übersetzung im Wörterbuch', () => 
       if (k.startsWith('dsv_')) strings.push(n.text, ...n.choices.map((c) => c.text));
     }
   }
-  for (const t of strings) assert.ok(file[t], `Englisch fehlt: ${t}`);
+  const heim = JSON.parse(readFileSync(new URL('../src/i18n/en/heimkehr.json', import.meta.url), 'utf8')); // Heimkehr-Begrüßungen ab Seq 3
+  for (const t of strings) assert.ok(file[t] || heim[t], `Englisch fehlt: ${t}`);
 });

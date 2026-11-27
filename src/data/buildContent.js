@@ -1,4 +1,5 @@
 import { applyDunscarPassanten } from './dunscarPassanten.js';
+import { applyHeimkehr } from './heimkehr.js';
 import { NIGHT_FLAG } from '../core/Clock.js';
 import { applyQuestPack } from './questPacks.js';
 import { applyDunscarZirkel } from './dunscarZirkel.js';
@@ -200,6 +201,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applySpaetBeute(content); // Trophäen Kapitel 4/5 ×15 (Kauf und Verkauf, nach allen Händlern)
   applyGegnerlebenSpaet(content); // Seb 2026-11-26: Calderwick 10–25k, Briarholt 15–35k Leben (Koop), Schaden ×1,3
   applyPendelzugPlatz(content); // Seb 2026-11-26: Pendelzug Dunscar ↔ Calderwick gut sichtbar (nach allen Kulissen)
+  applyHeimkehr(content); // Seb 2026-11-27: ab Seq 3 Rückreise in die alten Städte, Nachhall, Stimmen, Schreine (nach allen Kulissen)
   gateStarlingHinweise(content); // Seb 2026-11-18: Starling-Gerüchte erst im Fall „Finde Starling“ (ganz zuletzt)
   return content;
 }
