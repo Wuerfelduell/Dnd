@@ -402,6 +402,8 @@ export function applySeqHoch(content) {
       }
       // Pfad-Fertigkeiten kommen zu den eigenen Angriffen dazu (Welle und Zorn-Phase des Körpers bleiben)
       const e = content.encounters[id];
+      // Eigenes Kampfblatt je Pfad (tools/art/claude_code/waechter_varianten.py): Heiligen-/Engelswächter in der geweihten Fassung
+      if (e.sheet === w.from || e.sheet === `${w.from}__w_${pid}`) e.sheet = `${w.from}__w${id !== `${w.from}_${pid}` ? 't' : ''}_${pid}`;
       if (e.beyonder) continue;
       const extra = pfadAngriffe(content, pid, w.seq, e);
       const mit = (list) => [...(list ?? []).filter((a) => !a.pfad), ...extra];

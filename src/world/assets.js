@@ -3351,6 +3351,10 @@ export const O3_VARIANTEN = {
   enemy_vorhauer__o3t_sq_uhr: 'enemy_vorhauer',
 };
 Object.assign(GEGNER_VARIANTEN, O3_VARIANTEN);
+/** Ritualwächter je Pfad (tools/art/claude_code/waechter_varianten.py): __w_<pfad> Schwellen-/Grenzwächter, __wt_<pfad> Heiligen-/Engelswächter. */
+export const WAECHTER_VARIANTEN = Object.fromEntries(['hg_schwellenwaechter', 'hg_grenzwaechter'].flatMap((b) =>
+  HG_PATHS.flatMap((p) => [[`${b}__w_${p}`, b], [`${b}__wt_${p}`, b]])));
+Object.assign(GEGNER_VARIANTEN, WAECHTER_VARIANTEN);
 // Kartenfiguren derselben Gegner: characters/<basis>__o3_<pfad>.png neben dem Basisbild
 for (const [neu, base] of Object.entries(O3_VARIANTEN)) {
   const ow = OVERWORLD_SHEETS[base.replace(/^enemy_/, '')];
