@@ -2180,6 +2180,47 @@
             "next": "start"
           }
         ]
+      },
+      "training_start": {
+        "text": "Ein breiter Mann in Uniform stellt sich dir in den Weg. „Sergeant Holt, Wachhabender. Sie sind der Neue? Bevor Sie zur Inspektorin gehen, gehen Sie mit mir auf die Matte. Hier draußen hat jeder ein Messer, und ich schicke niemanden raus, der sich nicht wehren kann.“\n\n„Ich sag Ihnen jeden Schritt an: zuschlagen, ausweichen, parieren, Fertigkeiten, Gegenstände. Oben im Kampf steht immer, was gerade dran ist.“",
+        "choices": [
+          {
+            "text": "Dann los.",
+            "next": "training_go"
+          }
+        ]
+      },
+      "training_go": {
+        "text": "Holt wirft dir einen Verband zu. „Den brauchen Sie gleich. Fangen Sie an, wann Sie wollen.“",
+        "gives_items": {
+          "verband": 1
+        },
+        "combat": "holt_training",
+        "choices": [
+          {
+            "text": "(Übungskampf beginnen)"
+          }
+        ]
+      },
+      "training_nach": {
+        "text": "Holt klopft sich den Staub von der Hose. „Drei Dinge noch, dann lass ich Sie zu Marlowe.“\n\n„Erstens: Halten Sie die Augen offen. Mit Q schauen Sie genauer hin. Manche nennen das Geistsicht: Sie sehen Spuren, die sonst keiner sieht, und um manche Leute ein Schimmern. Das zehrt an den Nerven, also nicht zu lange.“\n\n„Zweitens: Alles, was Sie finden und hören, landet in Ihrem Notizbuch (J). Dort verknüpfen Sie Hinweise, bis ein Verdacht steht, und erst dann klagen Sie jemanden an. Wer den Falschen beschuldigt, verliert Ansehen.“",
+        "choices": [
+          {
+            "text": "Und drittens?",
+            "next": "training_nach2"
+          }
+        ]
+      },
+      "training_nach2": {
+        "text": "„Drittens, und das bleibt unter uns: In dieser Stadt trinken manche Leute Tränke, die sie verändern. Die nennen sich Beyonder. Wer so einen Trank trinkt, muss ihn verdauen, indem er so handelt, wie es sein Pfad verlangt. Sonst frisst ihn die Unruhe auf. Wenn Ihnen jemals einer so ein Fläschchen anbietet: Erst lesen, dann trinken.“\n\n„Und jetzt ab zu Inspektorin Marlowe, Büro hinten rechts. Wenn Sie wieder üben wollen, ich steh hier.“",
+        "sets_flags": [
+          "training_nach"
+        ],
+        "choices": [
+          {
+            "text": "Danke, Sergeant."
+          }
+        ]
       }
     }
   },

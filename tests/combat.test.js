@@ -154,6 +154,7 @@ test('Balance: Geübte Spieler (Bosse: sehr Geübte) schaffen mit Startausrüstu
   // Wer von drei Schlägen einem ausweicht, einen pariert und unter 15 Leben verbindet, gewinnt.
   // Vor dem Aschewächter gibt Küster Anselm zwei Beutel Bannsalz.
   for (const [id, enc] of Object.entries(content.encounters)) {
+    if (enc.training) continue; // Pflicht-Training mit Holt: eigener Test (lehrstunde.test.js)
     if (enc.wild || enc.benannt || enc.nebelseite || enc.city || enc.loner || enc.chapter >= 2) continue; // Gefahrengebiete, Stadtgegner, Einzelgänger: eigene Balance-Tests (wilds, stadtgegner, einzelgaenger)
     const s = fresh();
     const items = id === 'ash_warden' ? ['bannsalz', 'bannsalz'] : [];

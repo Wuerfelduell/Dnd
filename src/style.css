@@ -260,6 +260,11 @@ button.small { font-size: 0.8em; padding: 0.1em 0.5em; }
 .cb-msg p { margin: 0 0 0.3em; }
 .cb-help { color: var(--gold); font-size: 0.9em; white-space: pre-line; } /* zu zweit: eine Zeile je Spieler */
 .cb-help:empty { display: none; }
+/* Pflicht-Kampftraining mit Holt: Übungsschritt über der Meldung */
+.cb-lehre { margin: -0.1em -0.3em 0.35em; padding: 0.25em 0.4em; font-size: 0.85em; border: 1px dashed var(--gold); background: rgba(60, 48, 20, 0.55); }
+.cb-lehre b { color: var(--gold); display: block; }
+.cb-lehre em { color: #9fd0b0; font-style: normal; display: block; }
+.cb-lehre:empty { display: none; }
 .cb-bottom { position: absolute; left: 0; right: 0; bottom: 0; min-height: 7.6em; display: flex; align-items: flex-end; gap: 0.6em; padding: 0.5em 0.8em; background: linear-gradient(transparent, rgba(4, 4, 8, 0.85) 30%); }
 .cb-player { width: 17em; }
 .cb-player .bar { width: 8em; }
