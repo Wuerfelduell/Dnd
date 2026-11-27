@@ -47,6 +47,9 @@ function freeTile(m, skip = 0) {
   return best?.tile ?? null;
 }
 
+/** Varrowmouth-Benannte (DJ) haben noch kein eigenes Blatt: Sie kämpfen mit dem ihrer Grundlage, warm getönt. */
+const OHNE_BLATT = new Set(['bn_der_zollgeist_mit_gesicht', 'bn_die_witwe_auf_stelzen', 'bn_der_salzmann_im_oelzeug', 'bn_der_knoten_der_nicht_loest']);
+
 /** Nach dem Aufbau aller Gegner: Begegnungen, Beute und Karten-Auftritte anlegen. */
 export function applyBenannte(content) {
   const bn = content.benannte;
@@ -59,9 +62,9 @@ export function applyBenannte(content) {
     const { weak_if, on_win, phase2, elite, boss, ...rest } = base;
     const f = g.faktoren ?? {};
     content.encounters[id] = {
-      ...rest, name: g.name, intro: g.intro, sheet: g.sheet, elite: true, benannt: true, zone: zonen[0],
+      ...rest, name: g.name, intro: g.intro, sheet: OHNE_BLATT.has(id) ? base.sheet : g.sheet, ...(OHNE_BLATT.has(id) ? { tint: '#ffc890' } : {}), elite: true, benannt: true, zone: zonen[0],
       hp: Math.round(base.hp * (f.hp ?? 1.5)),
-      attacks: (base.attacks ?? []).map((a) => ({ ...a, damage: Math.max(1, Math.round(a.damage * (f.damage ?? 1.5))), nerves: Math.max(a.nerves ?? 0, g.nerven_schaden ?? 0) })),
+      attacks: (base.attacks ?? []).map((a) => (a.action || !a.damage ? a : { ...a, damage: Math.max(1, Math.round(a.damage * (f.damage ?? 1.5))), nerves: Math.max(a.nerves ?? 0, g.nerven_schaden ?? 0) })),
       on_win: { sets_flags: g.on_win?.set_flags ?? [`${id}_besiegt`] }, win_text: g.win_text ?? `${g.name} fällt.`,
       eigenheit: g.eigenheit, schwaeche: g.schwaeche,
     };
