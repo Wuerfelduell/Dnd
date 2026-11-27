@@ -35,6 +35,7 @@ import { applyZutatDrops, applyGeistessenz } from './zutatDrops.js';
 import { applyVorratStuecke } from './vorratStuecke.js';
 import { applyFahrendeAuktion } from './fahrendeAuktion.js';
 import { applyNebelnacht } from './nebelnacht.js';
+import { applyKettlegateKulisse } from './kettlegateKulisse.js';
 import { applyEigenesHaus } from './eigenesHaus.js';
 import { applyNebelseite } from './nebelseite.js';
 import { applyDunscarHaendler } from './dunscarHaendler.js';
@@ -183,6 +184,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyMarloweTelegramm(content); // Tipps nur von Marlowe: Telegrammschalter in jeder späteren Stadt
   applyKettlegateZirkel(content); // Kettlegater Zirkel: nur Zutaten 7/6, Formeln, Artefakte; keine Trophäen-Gesuche (zuletzt)
   applyNebelnacht(content); // Nebelnächte: Nebelkrämerin auf dem Markt jeder Stadt (nach allen Kulissen)
+  applyKettlegateKulisse(content); // Seb 2026-11-27: Kettlegate harmonischer – Überladenes ausdünnen, Leeres füllen, Einwohner verteilen, Nachtmarkt breiter
   applyCalderwickStadtplan(content); // Calderwick: eigene Stadtpläne je Terrasse (Häuser, Gassen, Plätze), Objekte an sinnvollen Stellen
   applyCalderwickFunde(content); // Seb 2026-11-27: Habseligkeiten der Gefallenen (Bilder aus den Codex-Vorräten), vor Erkunden und Beute
   applyCalderwickErkunden(content); // Calderwick: Verstecke mit Wächtern, verbrannte Briefe, zwei Nebenaufträge
