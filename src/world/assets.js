@@ -727,7 +727,7 @@ export const WEAPON_POSES = { schlagstock: 'truncheon', stockdegen: 'cane_sword'
 
 /** Begegnung → Kampf-Sheet. Fehlt eine, greift ENEMY_BATTLE_SHEETS über den Sprite-Key. */
 export const ENCOUNTER_SHEETS = {
-  sparring: 'enemy_holt', fog_hound: 'enemy_nebelhund', ash_warden: 'enemy_aschewaechter',
+  sparring: 'enemy_holt', holt_training: 'enemy_holt', fog_hound: 'enemy_nebelhund', ash_warden: 'enemy_aschewaechter',
   archive_rats: 'enemy_aktenfresser', choir_zealots: 'enemy_chorfanatiker', rook_fight: 'enemy_rook',
   silas_fight: 'enemy_silas', mirror_shade: 'enemy_spiegelschatten', schattenpuppe: 'enemy_schattenpuppe',
   grubenkampf: 'enemy_grubenkaempfer',

@@ -237,7 +237,7 @@ export class Feste {
     const seenKey = `fest_${f}_gesehen`;
     if (!this.state.flags.has(seenKey)) {
       this.state.flags.add(seenKey);
-      s.ui.showMessage(FESTE[f].name, FESTE[f].text, { scene: `fest_${f}`, footer: 'Weiter mit E' });
+      s.ui.showMessage(FESTE[f].name, FESTE[f].text, { scene: `fest_${f}` });
     } else if (this.state.festBanner !== `${f}:${cycle}:${this.map.id}`) {
       s.ui.festBanner?.(f, FESTE[f].name);
     }

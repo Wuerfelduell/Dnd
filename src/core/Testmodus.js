@@ -6,6 +6,8 @@
 // (beider Spieler), Verdauung immer 100 %, keine Tragkraftgrenze, keine Unruhe, alle Rituale vollzogen,
 // Schwellen- und Grenzwächter mit 1 Leben (Combat.js).
 
+import { skipTraining } from './Lehrstunde.js';
+
 const TEST_ZUTATEN = 10; // so viele von jeder Zutat werden immer wieder aufgefüllt
 const TEST_FUELL_SEK = 3; // Abstand der Auffüllung in Sekunden
 
@@ -50,6 +52,7 @@ export const testmodusMethods = {
   /** Schaltet den Testmodus für diesen Spielstand ein und erledigt die Geschichte. */
   startTestmodus() {
     this.testmodus = true;
+    skipTraining(this); // kein Pflicht-Kampftraining
     this.testStoryFertig();
     this.testAuffuellen();
     this.emit('changed');

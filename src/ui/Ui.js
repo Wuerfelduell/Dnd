@@ -180,6 +180,7 @@ const relationBadge = (s, id, withLabel = true) => {
 };
 /** Zug-Portrait (16x16, Paket F) neben den Namen im Kampf. */
 const turnFace = (id) => {
+  if (id === 'holt_training') id = 'sparring'; // Pflicht-Training: Holts Gesicht, ohne eigene Bestiariumsseite
   if (TURN_PORTRAITS[id] === undefined) return '';
   const [url, cols] = TURN_PORTRAIT_URLS[id] ?? [TURN_PORTRAITS_URL, 19];
   return `<span class="turnface" style="background-image:url(${url});background-size:${cols * 2}em 2em;background-position:-${TURN_PORTRAITS[id] * 2}em 0"></span>`;
@@ -1862,14 +1863,14 @@ export class Ui {
     const isCase = !!caseId;
     const el = this.open('notebook', `
       <div class="tabs">${tabs.map((t, i) => `<button class="tab ${t.id === this.tab ? 'sel' : ''}" data-tab="${t.id}"><span class="key">${i + 1}</span> ${uiSprite('icons', TAB_ICONS[t.id] ?? 'lupe', 1 / 16, 'tabico')}${esc(t.title)}</button>`).join('')}
-        <span class="rankinfo">${uiSprite('ranks', `r${Math.max(0, Math.min(4, this.state.content.ranks.indexOf(this.state.rank())))}`, 1 / 16, 'rankbadge')}${esc(this.state.rank().name)} · Ansehen ${this.state.honor}</span></div>
+        <span class="rankinfo">${uiSprite('ranks', `r${Math.max(0, Math.min(4, this.state.content.ranks.indexOf(this.state.rank())))}`, 1 / 16, 'rankbadge')}<span>${esc(this.state.rank().name)}</span> · <span>Ansehen ${this.state.honor}</span></span></div>
       ${body}
       <div class="feedback">${feedback}</div>
       <div class="actions">
         ${isCase ? `<button class="primary" data-act="combine" ${this.selected.length === 2 ? '' : 'disabled'}>Verknüpfen <span class="key">V</span></button>` : ''}
         ${isCase && this.state.autoLinkFrei() ? `<button data-act="autocombine" title="Zieht alle Verbindungen, deren Informationen schon im Notizbuch stehen">Auto-Verknüpfen <span class="key">A</span></button>` : ''}
         <button data-act="close">Schließen <span class="key">J</span></button>
-      </div>`, 'notebook');
+      </div>`, 'notebook journal');
     this.notebookTabs = tabs;
     el.querySelectorAll('[data-tab]').forEach((b) => { b.onclick = () => { if (this.tab !== b.dataset.tab) this.sfx(uiSound('notebook', 'tab')); this.tab = b.dataset.tab; this.selected = []; this.forgetScroll(); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-itemcat]').forEach((b) => { b.onclick = () => { if (this.itemCat !== b.dataset.itemcat) this.sfx(uiSound('notebook', 'page')); this.itemCat = b.dataset.itemcat; this.forgetScroll('notebook', /^UL\./); this.renderNotebook(''); }; });
@@ -2434,7 +2435,8 @@ export class Ui {
   /** Der Fall, der gerade im Notizbuch offen ist (auch im Archiv), sonst null. */
   currentCase() {
     if (this.tab === 'archiv') return this.archiveCase ?? null;
-    return ['quests', 'items', 'pfad', 'personen', 'bestiar'].includes(this.tab) ? null : this.tab;
+    // Nur echte Fall-Reiter haben Verknüpfen (vorher standen die Knöpfe auch unter Kulte, Zeitung, Post, Tiere und Akte)
+    return this.visibleCases().some((c) => c.id === this.tab) ? this.tab : null;
   }
 
   /** Archiv: gelöste Fälle mit ihrem Ende; ein Klick öffnet die alten Informationen. */
@@ -2991,7 +2993,7 @@ export class Ui {
       ${this.recipesHtml(true)}
       ${this.sudHtml()}
       <div class="feedback">${feedback}</div>
-      <div class="actions"><button data-act="close">Fertig <span class="key">Esc</span></button></div>`, 'notebook brew');
+      <div class="actions"><button data-act="close">Schließen <span class="key">Esc</span></button></div>`, 'notebook brew');
     el.querySelectorAll('[data-brew]').forEach((b) => { b.onclick = () => this.brew(b.dataset.brew); });
     el.querySelectorAll('[data-brew-rest]').forEach((b) => { b.onclick = () => this.brew(b.dataset.brewRest, { useRest: true }); });
     el.querySelectorAll('[data-sud-add]').forEach((b) => { b.onclick = () => {
@@ -3472,7 +3474,7 @@ export class Ui {
       <div class="combat">
         <div class="cb-enemy">${turnFace(scene.encounterId)}<div class="cb-name"></div><div class="bar big"><div class="efill"></div></div><div class="hudbar enemy"></div><div class="cb-tags"></div><div class="cb-foes"></div></div>
         <div class="cb-turn"></div><div class="cb-target hidden">${uiSprite('hud', 'target0', 1 / 6, 'reticle')}</div>
-        <div class="cb-msg"><div class="cb-text"></div><div class="cb-help"></div></div>
+        <div class="cb-msg"><div class="cb-lehre"></div><div class="cb-text"></div><div class="cb-help"></div></div>
         <div class="cb-bottom">
           <div class="cb-players">${Object.keys(scene.combat.fighters).map((n) => `
           <div class="cb-player" data-p="${n}">
@@ -3550,6 +3552,19 @@ export class Ui {
       const apMax = c.apMaxOf(Number(n)); // Konzentrations-Artefakte können den Höchstwert verschieben
       b('.pips').innerHTML = Array.from({ length: apMax }, (_, i) => uiSprite('hud', i >= f.ap ? 'conc_empty' : f.ap >= apMax ? 'conc_glow' : 'conc_full', 1 / 6, 'pip')).join('');
     }
+    this.combatLehre(c);
+  }
+
+  /** Pflicht-Kampftraining mit Holt: aktueller Übungsschritt oben im Meldungsfeld (core/Lehrstunde.js). */
+  combatLehre(c) {
+    const el = this.layer.querySelector('.cb-lehre');
+    if (!el || !c.lehre) return;
+    const v = c.lehre.view(c.duo);
+    if (el.dataset.step && el.dataset.step !== v.id) this.toast('Übung geschafft!', 'good');
+    el.dataset.step = v.id;
+    let text = v.text;
+    if (this.touch) text = text.replace('Drücke E oder Leertaste', 'Tippe auf den Bildschirm').replace('Drücke die Leertaste', 'Tippe auf „Ausweichen“').replace('F genau', '„Parieren“ genau');
+    el.innerHTML = `<b>${esc(v.title)}</b><span>${esc(text)}</span>${v.duo ? ` <span>${esc(v.duo)}</span>` : ''}${v.open ? `<em>${esc(v.open)}</em>` : ''}`;
   }
 
   /** Gamepad A im Menü (Spieler 2 am Zug): Angriff bzw. erster Eintrag. */
@@ -3582,7 +3597,10 @@ export class Ui {
       help = t(help);
     }
     el.innerHTML = (scene ? sceneImg(scene) : '') + paragraphs(text); // BS: Sequenzbild vor dem Kampfbeginn
-    this.layer.querySelector('.cb-help').textContent = help;
+    // Tastenhinweis wie überall sonst als Taste: „Weiter [E]“ statt „Weiter mit E“
+    const weiter = /^Weiter mit (E|Enter)$/.exec(help);
+    if (weiter) this.layer.querySelector('.cb-help').innerHTML = `Weiter <span class="key">${weiter[1]}</span>`;
+    else this.layer.querySelector('.cb-help').textContent = help;
     this.layer.querySelector('.cb-menu').innerHTML = '';
     this.layer.querySelector('.cb-target')?.classList.add('hidden');
     this.combatMenuOpen = null;

@@ -1,3 +1,4 @@
+import { trainingNode } from '../core/Lehrstunde.js';
 import { HalbgottRitual } from './HalbgottRitual.js';
 import { ritualFx } from './ritualArt.js';
 import Phaser from 'phaser';
@@ -1612,6 +1613,7 @@ export class WorldScene extends Phaser.Scene {
     if (this.gezeitDirty && !blocked && !this.leaving) this.gezeitWechsel();
     this.wetterFx?.update(delta);
     if (!blocked && this.splitRole !== 2) this.updateRandomSounds(delta);
+    if (!blocked && this.splitRole !== 2 && !this.leaving) this.checkTraining();
     this.koop?.update(delta, blocked);
     this.feste?.update(delta, blocked);
     this.hg?.update(delta, blocked || this.leaving);
@@ -2522,6 +2524,14 @@ export class WorldScene extends Phaser.Scene {
   }
 
   /** Pausiert die Welt und startet den Kampfbildschirm. `after(result)` läuft nach dem Kampf, `roamer` ist ein Gegner auf der Karte. */
+  /** Pflicht-Kampftraining mit Holt (core/Lehrstunde.js): startet am Spielanfang von selbst, danach die Nachbesprechung. */
+  checkTraining() {
+    const node = trainingNode(this.state);
+    if (!node || this.scene.isActive(this.combatKey) || this.state.pendingCombat) return;
+    const holt = this.state.content.npcs?.holt ?? {};
+    this.ui.openDialogue({ ...holt, id: 'holt', name: holt.name ?? 'Sergeant Holt', dialogue: 'holt', start: node });
+  }
+
   startCombat(id, after = null, { roamer = null, noLoot = false, pack = [] } = {}) {
     if (this.leaving || this.scene.isActive(this.combatKey)) return;
     // Ein vorgemerkter Kampf aus einem Gespräch (z. B. Widerstand gegen die Streife) kann sich eine Nacharbeit wünschen
