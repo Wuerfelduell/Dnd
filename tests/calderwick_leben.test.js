@@ -27,3 +27,19 @@ test('Calderwick belebt: Ereignisse gültig, jeder Text im englischen Wörterbuc
     if (e.ton) assert.ok(sfx.some((m) => m[e.ton]), e.ton);
   }
 });
+
+test('Vorrat-Einbau: Habseligkeiten der Gefallenen mit Bild, im Fund-Topf und in den Verstecken; Porträts vorhanden', async () => {
+  const { CW_FUNDE, CWF_ICONS, CW_VORRAT_PORTRAETS } = await import('../src/data/calderwickFunde.js');
+  const en = JSON.parse(fs.readFileSync('src/i18n/en/calderwick_funde.json', 'utf8'));
+  for (const [id, name, , , , desc] of CW_FUNDE) {
+    assert.equal(content.items[id]?.kind, 'trophy', id);
+    assert.ok(fs.existsSync(`public/sprites/items/${CWF_ICONS[id]}.png`), id);
+    assert.ok(en[name] && en[desc], id);
+  }
+  const loot = content.loot.vg_cw_setzer_1 ?? Object.entries(content.loot).find(([k]) => content.encounters[k]?.zone === 'cw_alte_setzerei')?.[1];
+  assert.ok(loot.alt.pool.some((e) => e.item.startsWith('cwf_')));
+  const truhen = Object.values(content.maps).flatMap((m) => m.interactables ?? []).filter((i) => /^cwx_.+_versteck$/.test(i.id));
+  assert.ok(truhen.length >= 5 && truhen.every((t) => Object.keys(t.effects.gives_items).some((k) => k.startsWith('cwf_'))));
+  for (const f of Object.values(CW_VORRAT_PORTRAETS)) assert.ok(fs.existsSync(`public/sprites/future200/portraits/future200_${f}.png`), f);
+  for (const id of ['cw_hesk', 'cw_darnell', 'vn_kutscherin']) assert.ok(fs.existsSync(`public/sprites/characters/${id}_extra.png`), id);
+});

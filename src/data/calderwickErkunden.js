@@ -79,7 +79,7 @@ export function applyCalderwickErkunden(content) {
     const n = CW_TERRASSEN.indexOf(id);
     const stueck = (f, k) => { const l = pool.filter((e) => f(content.items[e.item])); return l.length ? l[(n * 7 + k) % l.length].item : null; };
     const gaben = { nebeltau: 2, silberstaub: 2, geisteressenz: 1 };
-    for (const it of [stueck((x) => ['gear', 'weapon', 'artifact'].includes(x.kind), 3), stueck((x) => x.kind === 'ingredient', 5)]) if (it) gaben[it] = (gaben[it] ?? 0) + 1;
+    for (const it of [stueck((x) => ['gear', 'weapon', 'artifact'].includes(x.kind), 3), stueck((x) => x.kind === 'ingredient', 5), stueck((x) => x.cw_fund, 2)]) if (it) gaben[it] = (gaben[it] ?? 0) + 1;
     m.interactables.push({ id: `cwx_${id}_versteck`, kind: 'read', tile: [vx, vy], sprite: 'G_loot_truhe', frame: 0, prompt: 'Durchsuchen', title: v.titel, text: v.text, marker: true,
       done_flag: verstFlag(id), effects: { gives_money: 2400, gives_items: gaben },
       visible_if: { requires_flags: base ? ['k4_arrived', `won_${waechterId(id)}`] : ['k4_arrived'], hide_if_flags: [verstFlag(id)] } });
