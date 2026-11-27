@@ -141,3 +141,47 @@ test('Englisch: Wörterbuch heimkehr.json ist aktuell', () => {
   const en = JSON.parse(readFileSync(new URL('../src/i18n/en/heimkehr.json', import.meta.url), 'utf8'));
   assert.deepEqual(en, heimkehrWoerterbuch());
 });
+
+test('Gebete: Kettlegate ab Seq 4 hören, ab Seq 3 helfen; Wexmoor ab Seq 3; Dunscar ab Seq 2; Helfen macht Gläubige', async () => {
+  const { GEBETE } = await import('../src/data/heimkehr.js');
+  assert.equal(GEBETE.length, 6);
+  const s = held('eisen', 4, 'cw_gleisfuss');
+  s.gebeteTick();
+  assert.equal(s.quests.hkg_kg_krypta, 'active', 'Kettlegate flüstert ab Seq 4');
+  assert.equal(s.quests.hkg_wx_lake, undefined);
+  const ziel = content.maps.crypt.interactables.find((x) => x.id === 'hkg_kg_krypta_ziel');
+  s.map = 'crypt';
+  assert.equal(s.meets(ziel.visible_if), false, 'auf Seq 4 noch nicht helfen');
+  s.pathway.seq = 3;
+  s.gebeteTick();
+  assert.equal(s.quests.hkg_wx_lake, 'active');
+  assert.equal(s.quests.hkg_ds_signalkinder, undefined, 'Dunscar erst ab Seq 2');
+  assert.ok(s.meets(ziel.visible_if));
+  const geld = s.money;
+  s.applyEffects(ziel.effects);
+  assert.ok(s.money > geld);
+  assert.ok(s.flags.has('glaeubiger_kg_krypta'));
+  assert.deepEqual(s.glaeubiger(), { gesamt: 1, kettlegate: ['Pater Ambrose'] });
+  assert.equal(s.quests.hkg_kg_krypta, 'done');
+  const ds = content.maps.ds_signalhang.interactables.find((x) => x.id === 'hkg_ds_signalkinder_ziel');
+  s.map = 'ds_signalhang';
+  s.pathway.seq = 2;
+  s.gebeteTick();
+  assert.equal(s.quests.hkg_ds_signalkinder, 'active');
+  assert.ok(s.meets(ds.visible_if));
+});
+
+test('Rache: je alte Stadt ein Trupp, danach ein Anführer; beide Bosse (fallen nicht vor dem Heimkehrer)', () => {
+  const s = held('eisen', 3, 'ankerhof');
+  for (const city of ['kettlegate', 'wexmoor', 'dunscar']) {
+    for (const art of ['trupp', 'boss']) {
+      const id = `hkr_${city}_${art}`;
+      assert.ok(content.encounters[id]?.boss, id);
+      assert.equal(s.awes(id), false, id);
+    }
+  }
+  const boss = content.maps.ankerhof.interactables.find((x) => x.id === 'hkr_kettlegate_boss');
+  assert.equal(s.meets(boss.visible_if), false);
+  s.flags.add('won_hkr_kettlegate_trupp');
+  assert.ok(s.meets(boss.visible_if));
+});
