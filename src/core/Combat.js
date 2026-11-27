@@ -76,7 +76,49 @@ export const RING_CURVES = {
   langsam_schnell: (u) => u ** 2.6, // trödelt, dann schnappt er zu
   stocken: (u) => (u < 0.35 ? u * 1.6 : u < 0.65 ? 0.56 : 0.56 + (u - 0.65) * (0.44 / 0.35)), // hält in der Mitte an
   finte: (u) => (u < 0.45 ? u * 1.7 : u < 0.7 ? 0.765 - (u - 0.45) * 1.4 : 0.415 + (u - 0.7) * (0.585 / 0.3)), // zuckt zurück
+  // Seb 2026-11-27: mehr Muster
+  letzte_pause: (u) => (u < 0.55 ? u * (0.86 / 0.55) : u < 0.86 ? 0.86 : 0.86 + (u - 0.86) * (0.14 / 0.14)), // rast fast zu, hält kurz vor dem Einschlag still, dann zu
+  spaeter_start: (u) => (u < 0.4 ? 0.04 * Math.sin(u * 40) : (u - 0.4) / 0.6), // lauert offen, dann zieht er durch
+  doppelfinte: (u) => (u < 0.25 ? u * 2.4 : u < 0.4 ? 0.6 - (u - 0.25) * 2.4 : u < 0.6 ? 0.24 + (u - 0.4) * 3 : u < 0.75 ? 0.84 - (u - 0.6) * 3 : 0.39 + (u - 0.75) * (0.61 / 0.25)), // zuckt zweimal zurück
+  pulsieren: (u) => Math.min(1, u + 0.14 * Math.sin(u * Math.PI * 5) * (1 - u)), // atmet ein und aus, während er sich schließt
+  ruck: (u) => { const s = Math.floor(u * 4) / 4; return s + Math.min(1, (u - s) * 4 / 0.3) * 0.25; }, // schließt in vier Rucken
+  ausholen: (u) => (u < 0.45 ? 0 - 0.35 * Math.sin((u / 0.45) * Math.PI / 2) + 0 : -0.35 + ((u - 0.45) / 0.55) ** 1.6 * 1.35), // weitet sich erst, dann stürzt er zu
 };
+
+/**
+ * Takt mehrteiliger Attacken (Seb 2026-11-27: "mal langsam, dann wird's schneller, mal mit Pause"):
+ * verändert je Schlag die Vorlaufzeit (lead ×) und hängt vor einem Schlag eine Pause an (gap in ms).
+ * i: Nummer des Schlags (0 = erster), n: Anzahl Schläge.
+ */
+export const RHYTHMS = {
+  gleich: () => ({ lead: 1, gap: 0 }),
+  anziehen: (i) => ({ lead: Math.max(0.6, 1.3 - 0.28 * i), gap: 0 }), // wird von Schlag zu Schlag schneller
+  bremsen: (i) => ({ lead: Math.min(1.6, 0.75 + 0.3 * i), gap: i ? 60 * i : 0 }), // beginnt hastig, wird zäh
+  zoegern: (i, n) => (i === n - 1 && n > 1 ? { lead: 1.15, gap: 380 } : { lead: 0.9, gap: 0 }), // Pause vor dem letzten Schlag
+  salve: (i) => ({ lead: i ? 0.78 : 1, gap: 0 }), // die Folgeschläge prasseln
+};
+export const RING_LEAD_MIN = 300;
+
+// Aufladeschlag (Seb 2026-11-27): Eliten und Bosse holen sichtbar zu einem großen Angriff aus.
+// Die Aufladung lässt sich NICHT unterbrechen (Betäubung/Verwirrung warten bis danach), man begegnet ihr mit
+// Ausweichen, Parieren, Schutz, Heilung oder Rückzug. Im Koop trifft der Schlag alle Stehenden.
+export const CHARGE_CHANCE = { elite: 0.15, boss: 0.15 }; // je Gegnerzug ab Runde 2 (Daten: `charge`: Zahl oder false)
+export const CHARGE_COOLDOWN = 3; // so viele Runden nach dem Schlag keine neue Aufladung
+export const CHARGE_MULT = 1.8; // Schaden je Schlag der aufgeladenen Attacke
+export const CHARGE_HP_CAP = 0.55; // ein einzelner aufgeladener Schlag nimmt höchstens so viel der maximalen Leben (kein Sofort-K.o. aus vollen Leben)
+export const CHARGE_LEAD = 1100; // langer, gut lesbarer Ring
+// Eigener Zufall für Takt und Aufladung, damit der bisherige Kampfzufall (Ringkurven, Nachsetzen, Flächenangriffe) unverändert bleibt.
+// Tests setzen TAKT.seed für reproduzierbare Abläufe.
+export const TAKT = { seed: null };
+function taktRng(seed) {
+  let a = seed | 0;
+  return () => {
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
 export const DODGE_COST = 3; // Ausweichen kostet Nerven (Artefakte: dodge_cost dazu), Paraden geben welche zurück (parry_nerves dazu)
 export const PARRY_GAIN = 2;
 export const ATTACK_NERVES = 4; // der einfache Angriff lässt dich Atem holen: Nerven zurück, mehr bei präzisem Treffer
@@ -157,7 +199,7 @@ export const AOE_DMG_MULT = 0.75;
 // Werte, die jeder Gegner für sich hat (Gruppen); lesen und schreiben sich über `this.fi` (aktueller Gegner).
 const PER_FOE = ['id', 'enc', 'enemy', 'armor', 'unparryable', 'weak', 'stunned', 'confused', 'confuseLock', 'burn', 'enemyGuard', 'veiled',
   'weakened', 'slowed', 'readNext', 'attackIndex', 'phase2', 'phased', 'phaseNote', 'roundDmg', 'capped', 'selfHit', 'struck',
-  'hpMult', 'dmgMult', 'duoFull', 'maxRoundDmg', 'share', 'zoneTier', 'buryLock'];
+  'hpMult', 'dmgMult', 'duoFull', 'maxRoundDmg', 'share', 'zoneTier', 'buryLock', 'charging', 'chargeCool'];
 
 export const SKILLS = {
   attack: { name: 'Angriff', cost: 0, hits: 1, mult: 1, desc: 'Ein Schlag im Takt. +1 Konzentration, +2 bei präzisem Treffer.' },
@@ -297,6 +339,7 @@ export class Combat {
     const duo = !!state.hasP2?.() && !this.rules?.solo && !state.splitOn;
     this.duoHpMult = duo ? enc.duo_hp_mult ?? duoHpMult(state) : 1; // `duo_hp_mult`: fester Koop-Aufschlag, ein schwacher Partner macht den Gegner nicht leichter
     this.rng = state.rng ?? Math.random;
+    this.taktRng = taktRng(TAKT.seed ?? Math.floor(Math.random() * 2 ** 31));
     this.initFoe(enc, encounterId);
     enc = this.enc;
     const zone = state.content.zones?.[enc.zone];
@@ -438,6 +481,8 @@ export class Combat {
     this.roundDmg = 0;
     this.capped = 0;
     this.selfHit = 0;
+    this.charging = null; // Aufladeschlag: { atk } zwischen Ankündigung und Einschlag
+    this.chargeCool = 0;
   }
 
   /** Nimmt einen Begleiter in die Gruppe auf (höchstens MAX_FOES Gegner). */
@@ -1204,6 +1249,9 @@ export class Combat {
     const next = this.livingFoes().find((i) => up.some((n) => !this.foes[i].struck.includes(n)));
     this.fi = next ?? this.livingFoes()[0] ?? 0;
     const fresh = up.filter((n) => !this.struck.includes(n));
+    const firstOfRound = this.struck.length === 0;
+    // Aufladeschlag: was angekündigt ist, kommt. Betäubung und Verwirrung unterbrechen ihn nicht, sie warten bis danach.
+    if (this.charging && firstOfRound) return this.chargedStrike(up);
     const pool = fresh.length ? fresh : up;
     this.target = pool.length > 1 ? pool[Math.floor(this.rng() * pool.length)] : pool[0] ?? 1;
     this.targets = [this.target];
@@ -1232,7 +1280,56 @@ export class Combat {
     this.enemyAttacks += 1;
     if (atk.pfad) this.log.push(pfadZeile(this.enemy, atk));
     if (this.rules?.uhr === 'monster' && this.enemyAttacks === 1) this.state.sfx?.('s4uh_monster_angriff_gezaehlt'); // DS: Pflichtangriff gezählt
-    return this.prepareAttack(atk);
+    const out = this.prepareAttack(atk);
+    if (firstOfRound && this.startsCharge()) { this.startCharge(); out.chargeStart = true; } // holt während dieses Angriffs schon sichtbar aus
+    return out;
+  }
+
+  /** Darf dieser Gegner jetzt zu einem Aufladeschlag ansetzen? (würfelt nur, wenn er es überhaupt könnte) */
+  startsCharge() {
+    const enc = this.enc;
+    if (enc.practice || enc.mirror || enc.waechter || this.lehre || this.rules || enc.charge === false) return false; // Prüfungen (Wächter, Rituale) haben eigene Mechaniken
+    // Eliten und Bosse; nicht die Straßengegner von Kettlegate (dort lernt man noch das Lesen der Ringe). Daten können es mit `charge` erzwingen.
+    if (typeof enc.charge !== 'number' && (!(enc.elite || enc.boss || enc.mittelboss) || (enc.city && (enc.chapter ?? 1) < 2))) return false;
+    if (this.round < 2 || this.chargeCool > 0 || this.charging || this.confused || this.outcome) return false;
+    const next = enc.attacks[this.attackIndex % enc.attacks.length]; // aufgeladen wird die nächste Attacke seiner Reihe, kein Kniff
+    if (!next || next.action || !next.hits?.length) return false;
+    const chance = typeof enc.charge === 'number' ? enc.charge : enc.boss ? CHARGE_CHANCE.boss : CHARGE_CHANCE.elite;
+    return this.taktRng() < chance;
+  }
+
+  /** Ankündigung: der Gegner beginnt aufzuladen (sichtbar bis zum Einschlag). Nächste Runde schlägt er damit zu. */
+  startCharge() {
+    this.charging = { round: this.round };
+    this.chargeText = this.duo && this.standing().length > 1 ? 'Nächste Runde trifft es euch beide. Weicht aus, pariert oder schützt euch!' : 'Nächste Runde kommt der Schlag mit voller Wucht. Ausweichen, parieren oder schützen!';
+    this.log.push(`${this.enemy.name} holt weit aus: ${this.chargeText}`);
+  }
+
+  /**
+   * Der angekündigte Aufladeschlag: die nächste Attacke seiner Reihe mit voller Wucht (jeder Schlag ×CHARGE_MULT),
+   * der erste Ring kommt langsam und gut lesbar. Im Koop trifft er alle Stehenden. Steht als Nächstes ein Kniff an,
+   * nimmt er seine wuchtigste Attacke.
+   */
+  chargedStrike(up) {
+    this.charging = null;
+    this.chargeCool = CHARGE_COOLDOWN;
+    const list = this.enc.attacks;
+    let atk = list[this.attackIndex % list.length];
+    this.attackIndex += 1;
+    if (atk.action) atk = list.filter((a) => !a.action && a.hits?.length).reduce((b, a) => (a.damage * a.hits.length > b.damage * b.hits.length ? a : b));
+    if (up.length > 1) this.sweeps(atk); // gleicher Zufallsverbrauch wie ein gewöhnlicher Angriff; getroffen werden ohnehin alle
+    this.targets = [...up].sort();
+    this.target = this.targets[0] ?? 1;
+    this.struck = [...up];
+    this.enemyAttacks += 1;
+    const out = this.prepareAttack({ ...atk, charged: true });
+    out.damage = Math.max(1, Math.round(out.damage * CHARGE_MULT));
+    const shift = Math.max(0, CHARGE_LEAD + 150 - out.hits[0]);
+    out.hits = out.hits.map((h) => h + shift);
+    out.rings = [{ curve: 'linear', lead: CHARGE_LEAD }, ...out.rings.slice(1)];
+    out.name = `Aufladeschlag: ${atk.name}`;
+    this.log.push(`${this.enemy.name}: ${out.name}`);
+    return out;
   }
 
   /**
@@ -1323,20 +1420,24 @@ export class Combat {
     // Jeder Ring bekommt ein eigenes Tempo und eine eigene Vorlaufzeit (Übung bleibt gleichmäßig).
     // Folgeschläge einer Kombo haben kürzeren Vorlauf.
     const names = Object.keys(RING_CURVES);
+    // Takt der Kombo: gleichmäßig, anziehend, bremsend, mit Pause vor dem letzten Schlag oder als Salve
+    const rhythmNames = Object.keys(RHYTHMS);
+    const rhythm = this.enc.practice || src.length < 2 || atk.charged ? 'gleich' : rhythmNames[Math.floor(this.taktRng() * rhythmNames.length)];
+    const beat = src.map((_, i) => RHYTHMS[rhythm](i, src.length));
     const rings = src.map((_, i) => (this.enc.practice
       ? { curve: 'linear', lead: i ? RING_FOLLOW_LEAD : 750 }
       : {
         curve: names[Math.floor(this.rng() * names.length)],
-        lead: Math.round((i ? 380 + this.rng() * 180 : 560 + this.rng() * 360) * (slowed ? SLOW_MULT : 1)),
+        lead: Math.max(RING_LEAD_MIN, Math.round((i ? 380 + this.rng() * 180 : 560 + this.rng() * 360) * (slowed ? SLOW_MULT : 1) * beat[i].lead)),
       }));
     for (const [i, h] of src.entries()) {
       let t = h * speed + (this.enc.practice ? 0 : (this.rng() * 2 - 1) * JITTER);
       // Ein Ring erscheint erst, wenn der vorige eingeschlagen hat: keine Überlappung
       const prev = hits.at(-1);
-      t = Math.max(450, t, prev === undefined ? 0 : prev + rings[i].lead + RING_GAP);
+      t = Math.max(450, t, prev === undefined ? 0 : prev + rings[i].lead + RING_GAP + beat[i].gap);
       hits.push(Math.round(t));
     }
-    return { ...atk, damage: Math.max(1, Math.round(atk.damage * dmgMult)), hits, rings, followup, unparryable: this.unparryable.has(atk.name) && !readable, readable, slowed, weakened: weak < 1, enraged: rage, sweep: this.sweep, targets: [...this.targets] };
+    return { ...atk, damage: Math.max(1, Math.round(atk.damage * dmgMult)), hits, rings, rhythm, followup, unparryable: this.unparryable.has(atk.name) && !readable, readable, slowed, weakened: weak < 1, enraged: rage, sweep: this.sweep, targets: [...this.targets] };
   }
 
   /**
@@ -1386,6 +1487,7 @@ export class Combat {
       return { damage: 0, counter: 0, result };
     }
     let incoming = attack.damage;
+    if (attack.charged) incoming = Math.min(incoming, Math.max(1, Math.round(this.state.maxHp * CHARGE_HP_CAP))); // Aufladeschlag: hart, aber kein Sofort-K.o.
     const absorbed = Math.min(this.shield, incoming);
     this.shield -= absorbed;
     incoming -= absorbed;
@@ -1437,6 +1539,7 @@ export class Combat {
       if (f.weakened && --f.weakened.rounds <= 0) f.weakened = null;
       if (f.confuseLock > 0) f.confuseLock -= 1;
       if (f.buryLock > 0) f.buryLock -= 1;
+      if (f.chargeCool > 0) f.chargeCool -= 1;
     }
     for (const f of Object.values(this.fighters)) { f.bleedTick = 0; f.focusTick = 0; f.focusGain = 0; }
     this.dots = [];

@@ -3519,6 +3519,7 @@ export class Ui {
       c.enc.elite ? '<span class="badge refuted">★ Elite</span>' : '', c.enc.boss ? '<span class="badge refuted">☠ Boss</span>' : '',
       this.possibleLoot(c.id),
       burn ? `<span class="badge suspected">${statusIcon(burn[0])}${burn[1]} ${c.burn.rounds}</span>` : '',
+      c.charging ? '<span class="badge refuted charge-badge">⚡ lädt auf</span>' : '',
       c.stunned ? `<span class="badge suspected">${statusIcon('betaeubt')}betäubt</span>` : '',
       c.fleeing ? `<span class="badge likely flee-badge">⏳ Rückzug · ${c.fleeStatus()}</span>` : '',
       c.confused ? `<span class="badge suspected">${statusIcon('verwirrt')}verwirrt</span>` : '',
@@ -3528,7 +3529,7 @@ export class Ui {
     // Gegnergruppe: jeder Gegner als kleine Karte (Ziel golden, Gefallene grau); antippen wählt das Ziel
     const foesEl = q('.cb-foes');
     if (foesEl) {
-      foesEl.innerHTML = c.group ? c.foes.map((f, i) => `<button class="cb-foe${i === c.aim ? ' aim' : ''}${i === c.fi && sc.phase === 'enemy' ? ' attacking' : ''}${f.enemy.hp <= 0 ? ' dead' : ''}" data-foe="${i}"><span class="cb-foe-nr">${i + 1}</span><span class="cb-foe-name">${esc(f.enemy.name)}</span><span class="hudbar foe">${hudMeter('enemy', f.enemy.hp / f.enemy.maxHp, 1 / 13)}</span></button>`).join('') : '';
+      foesEl.innerHTML = c.group ? c.foes.map((f, i) => `<button class="cb-foe${i === c.aim ? ' aim' : ''}${i === c.fi && sc.phase === 'enemy' ? ' attacking' : ''}${f.enemy.hp <= 0 ? ' dead' : ''}" data-foe="${i}"><span class="cb-foe-nr">${i + 1}</span><span class="cb-foe-name">${f.charging ? '⚡ ' : ''}${esc(f.enemy.name)}</span><span class="hudbar foe">${hudMeter('enemy', f.enemy.hp / f.enemy.maxHp, 1 / 13)}</span></button>`).join('') : '';
       foesEl.querySelectorAll('[data-foe]').forEach((b) => { b.onclick = () => sc.pickTarget(Number(b.dataset.foe)); });
     }
     // Ein Feld pro Spieler; zu zweit leuchtet, wer am Zug ist bzw. angegriffen wird

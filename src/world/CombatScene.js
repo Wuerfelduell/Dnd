@@ -385,6 +385,17 @@ export class CombatScene extends Phaser.Scene {
     return e;
   }
 
+  /** Aufladeschlag: pulsierendes rotes Glühen um den Gegner, solange er auflädt. */
+  chargeAura(e, on) {
+    if (!e) return;
+    if (e.chargeGlow) { this.tweens.killTweensOf(e.chargeGlow); e.chargeGlow.destroy(); e.chargeGlow = null; }
+    if (!on || e.downed || !this.textures.exists('glow')) return;
+    const g = this.add.image(e.homeX, e.homeY - 40, 'glow').setScale(3.2).setTint(0xff3020).setAlpha(0.3).setDepth(e.depth - 0.5);
+    g.setBlendMode(Phaser.BlendModes.ADD);
+    this.tweens.add({ targets: g, alpha: 0.65, scale: 3.8, duration: 420, yoyo: true, repeat: -1, ease: 'Sine.inOut' });
+    e.chargeGlow = g;
+  }
+
   /** Gruppen: Ziel wählen (nur im Menü). */
   pickTarget(i) {
     if (this.phase !== 'menu' || !this.combat.setAim(i)) return;
@@ -402,6 +413,7 @@ export class CombatScene extends Phaser.Scene {
   foeDown(e) {
     if (!e || e.downed) return;
     e.downed = true;
+    this.chargeAura(e, false);
     e.disableInteractive?.();
     const f = this.combat.foes[e.foeIndex];
     const human = e.foeSheet ? !FADING_SHEETS.includes(e.foeSheet) : f.enc.sprite.startsWith('npc:');
@@ -888,6 +900,8 @@ export class CombatScene extends Phaser.Scene {
     this.attack = atk;
     this.focusPlayer(c.target);
     this.sfx(combatSound('telegraph')); // Y: Warnsignal, der Gegner holt aus
+    if (atk.charged) { this.chargeAura(this.enemy, false); this.cameras.main.shake(TELEGRAPH * 0.8, 0.006); this.cameras.main.flash(120, 200, 40, 30); }
+    if (atk.chargeStart) { this.chargeAura(this.enemy, true); this.time.delayedCall(250, () => this.float('Lädt auf!', 'enemy', 'crit')); } // nächste Runde kommt der Aufladeschlag
     const t0 = now() + TELEGRAPH;
     // Jeder Schlag hat je Getroffenem ein eigenes Ergebnis (Flächenangriff: beide wehren denselben Ring ab)
     this.hits = atk.hits.map((h, i) => ({
@@ -895,7 +909,7 @@ export class CombatScene extends Phaser.Scene {
       by: Object.fromEntries(c.targets.map((n) => [n, { result: null, applied: false }])),
     }));
     const deaf = !!c.rules?.deaf; // Seq 4 (Echo): keine Ankündigung, kein Hinweis
-    const tags = deaf ? '' : [atk.sweep ? '⚠ Flächenangriff: trifft beide!' : '', atk.unparryable ? '⚠ nicht parierbar, ausweichen!' : '', atk.enraged ? 'in Rage' : '', atk.followup ? 'setzt nach!' : '', atk.bleed ? 'Treffer bluten nach' : '', atk.nerves ? `Treffer kosten ${atk.nerves} Nerven` : ''].filter(Boolean).join(' · ');
+    const tags = deaf ? '' : [atk.charged ? '⚡ Aufladeschlag: volle Wucht!' : '', atk.chargeStart ? '⚡ holt dabei weit aus: nächste Runde kommt der Aufladeschlag!' : '', atk.sweep ? '⚠ Flächenangriff: trifft beide!' : '', atk.unparryable ? '⚠ nicht parierbar, ausweichen!' : '', atk.enraged ? 'in Rage' : '', atk.followup ? 'setzt nach!' : '', atk.bleed ? 'Treffer bluten nach' : '', atk.nerves ? `Treffer kosten ${atk.nerves} Nerven` : ''].filter(Boolean).join(' · ');
     const evading = c.targets.every((n) => c.fighters[n].evading);
     const dodge = (n) => c.on(n, () => c.dodgeCost());
     const help1 = `Spieler 1 · Leertaste: ausweichen (${dodge(1)} Nerven) · F: parieren`;
