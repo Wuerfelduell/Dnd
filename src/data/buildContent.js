@@ -1,4 +1,5 @@
 import { applyDunscarPassanten } from './dunscarPassanten.js';
+import { applySkriptSheets } from './skriptSheets.js';
 import { applyHeimkehr } from './heimkehr.js';
 import { NIGHT_FLAG } from '../core/Clock.js';
 import { applyQuestPack } from './questPacks.js';
@@ -205,6 +206,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyPendelzugPlatz(content); // Seb 2026-11-26: Pendelzug Dunscar ↔ Calderwick gut sichtbar (nach allen Kulissen)
   applyHeimkehr(content); // Seb 2026-11-27: ab Seq 3 Rückreise in die alten Städte, Nachhall, Stimmen, Schreine (nach allen Kulissen)
   gateStarlingHinweise(content); // Seb 2026-11-18: Starling-Gerüchte erst im Fall „Finde Starling“ (ganz zuletzt)
+  applySkriptSheets(content); // Skript-Grafik Runde 9: eigene Kampfblätter statt geliehener
   return content;
 }
 
