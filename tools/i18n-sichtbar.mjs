@@ -1,24 +1,21 @@
 // Prüft im laufenden Spiel (Englisch), welche sichtbaren Texte noch ohne Übersetzung sind.
-// Aufruf: npx vite --port 5179 & node tools/i18n-sichtbar.mjs [http://localhost:5179/] [--alle-orte]
+// Aufruf: npx vite --port 5179 & node tools/i18n-sichtbar.mjs [http://localhost:5179/]
 // Rendert Notizbuch (alle Reiter, Pfad-Reiter jedes Pfades auf mehreren Sequenzen, alle Fälle mit allen
-// Hinweisen), Enden, Fallwand und Meldungen und prüft die Untersuchungstexte an Orten. Ohne --alle-orte
-// werden nur Orte bis Kapitel 3 geprüft (spätere Kapitel sind noch nicht vollständig übersetzt).
+// Hinweisen), Enden, Fallwand und Meldungen und prüft die Untersuchungstexte an allen Orten.
 // Ausgabe: fehlende Texte, Exit-Code 1 wenn etwas fehlt.
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
 const url = process.argv.find((a) => a.startsWith('http')) ?? 'http://localhost:5179/';
-const alleOrte = process.argv.includes('--alle-orte');
-const SPAET = /^(bh_|cw_|o3_|vm_)/;
 
 const b = await chromium.launch(); const p = await b.newPage();
 p.on('pageerror', (e) => console.log('Seitenfehler:', e.message.slice(0, 200)));
 await p.goto(url); await p.evaluate(() => { localStorage.clear(); localStorage.setItem('nebelakten-lang', 'en'); });
 await p.goto(url); await p.waitForTimeout(2500);
 await p.evaluate(() => window.__nebel.ui.titleNew()); await p.waitForTimeout(2500);
-const r = await p.evaluate(async ({ alleOrte, spaet }) => {
+const r = await p.evaluate(async () => {
   const { ui, state, content } = window.__nebel; const wait = (ms) => new Promise((res) => setTimeout(res, ms));
-  const errs = []; const late = new RegExp(spaet);
+  const errs = [];
   const tabs = async () => { for (const t of ['quests', 'items', 'pfad', 'personen', 'kulte', 'bestiar', 'zeitung', 'archiv', 'erfolge', 'post', 'tiere', ...content.cases.map((c) => c.id)]) { try { ui.modal = 'notebook'; ui.tab = t; ui.renderNotebook(''); } catch (e) { errs.push(t + ': ' + e.message); } await wait(30); } };
   await tabs();
   for (const pid of Object.keys(content.pathways)) for (const seq of [9, 7, 5, 4, 3, 1]) { state.pathway = { id: pid, seq, digestion: 60 }; try { ui.modal = 'notebook'; ui.tab = 'pfad'; ui.renderNotebook(''); } catch (e) { errs.push(pid + seq + ': ' + e.message); } await wait(20); }
@@ -38,12 +35,11 @@ const r = await p.evaluate(async ({ alleOrte, spaet }) => {
   const L = window.__i18nLookup; const orte = {};
   const add = (mid, s) => { if (typeof s !== 'string' || !/[A-Za-zÄÖÜäöüß]{2,}/.test(s)) return; for (const para of s.split(/\n+/)) { const t = para.trim(); if (t && L(t) == null) orte[t] = mid; } };
   for (const [mid, m] of Object.entries(content.maps)) {
-    if (!alleOrte && late.test(mid)) continue;
     add(mid, m.name);
     for (const o of m.interactables ?? []) { for (const k of ['title', 'text', 'prompt', 'name', 'label']) add(mid, o[k]); for (const x of [].concat(o.lines ?? [], o.pages ?? [])) add(mid, typeof x === 'string' ? x : x?.text); }
   }
   return { miss: Object.keys(miss), orte, errs };
-}, { alleOrte, spaet: SPAET.source });
+});
 await b.close();
 const ignor = /^k\dk_[a-z_]+$/; // interne Begegnungs-Kennungen
 const ui = r.miss.filter((s) => !ignor.test(s)); const orte = Object.entries(r.orte).filter(([s]) => !ignor.test(s));
