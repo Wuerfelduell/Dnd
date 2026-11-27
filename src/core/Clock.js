@@ -95,6 +95,7 @@ export const clockMethods = {
     const season = this.season();
     const want = clockFlagsAt(this.playTime);
     let changed = false;
+    const tide = this.flags.has('gezeit_flut');
     const still = (f) => f.startsWith('gezeit_'); // Gezeitenwechsel melden sich nicht als neue Jahreszeit
     for (const f of [...this.flags]) if (VOLATILE_FLAGS(f) && f !== NIGHT_FLAG && !WETTER_FLAG(f) && !want.has(f)) { this.flags.delete(f); changed ||= !still(f); }
     for (const f of want) if (!this.flags.has(f)) { this.flags.add(f); changed ||= !still(f); }
@@ -106,6 +107,7 @@ export const clockMethods = {
       changed = true;
     }
     if (changed) this.emit('season', { season, day: this.seasonDay() });
+    if (tide !== this.flags.has('gezeit_flut')) this.emit('gezeit', { flut: !tide }); // Kapitel 7: Varrowmouth wechselt die Karten
     return changed;
   },
 };

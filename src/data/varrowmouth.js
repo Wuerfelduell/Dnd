@@ -6,7 +6,10 @@
  * (tools/vm/karten.py: Zollhafen, Stegviertel, Schlickgassen, Oberstraße), die Menschen der Stadt, Akt I der Hauptakte,
  * drei Läden, Schlafplatz, Kessel und Lager.
  * Etappe 2: Akt II (Ebbe). Das Wrackfeld (nur bei Ebbe über den Oststeg), die CZ-Gegner der Ebbe (Salzkruste, Tauwerk, Hafenkrähe)
- * auf Kapitel-7-Niveau (nach dem Thron, um Sequenz 2) und die Wrackmutter mit zwei Tauwerken. Leuchtbank, Registerkeller und Grenzzaun sind noch zu.
+ * auf Kapitel-7-Niveau (nach dem Thron, um Sequenz 2) und die Wrackmutter mit zwei Tauwerken.
+ * Etappe 3: Akt III (der Pegelrat in der Oberstraße) und die Gezeiten: Flut-Blätter, Flut beendet Kämpfe der Ebbe-Gegner und
+ * räumt Wrackfeld und Schlickgassen (WorldScene.gezeitWechsel), bei Flut streifen Gezeitenläufer über die Stege.
+ * Leuchtbank, Registerkeller und Grenzzaun sind noch zu.
  * Hauptgespräche (CT) hängen als Option „Zur Sache.“ an den Alltagsgesprächen (CX) derselben Figur (sprecher_bindung.json).
  */
 import { freieKachel } from './calderwickStory.js';
@@ -16,6 +19,11 @@ const WALK = new Set([...'.,=']);
 export const VM_ANKUNFT = 'k6_arrived';
 /** Der Oststeg ins Wrackfeld trägt nur bei Ebbe, und erst wenn Tam einen Grund hat (Akt II). */
 export const WRACK_OFFEN = ['k6_akt1_done', 'gezeit_ebbe'];
+/** Bei Flut laufen Wrackfeld und Schlickgassen voll: Wer dort steht, landet im Stegviertel (WorldScene.gezeitWechsel). */
+export const VM_FLUT_RAUS = {
+  vm_wrackfeld: { spawn: 'von_wrackfeld', text: 'Die Flut kommt über das Wrackfeld. Tam wirft dir vom Oststeg ein Tau zu und zieht dich hinauf.' },
+  vm_schlickgassen: { spawn: 'von_schlickgassen', text: 'Die Flut steigt in die Schlickgassen. Du kletterst die Leiter hinauf, bevor das Wasser die untersten Sprossen nimmt.' },
+};
 /** Erst nach dem Thron (Kapitel 6) und einem der vier Briarholt-Enden. */
 export const VM_VORAUS = 'kapitel6_done';
 export const VM_FILES = { k6_orte: ['city', 'items', 'vm_karten'], k6_akte: ['case', 'quests', 'dialogues', 'faelle', 'anreise', 'sprecher_bindung', 'platzierung'], k6_figuren: ['npcs', 'dialogues'], k6_gegner: ['encounters', 'bosses'] };
@@ -28,17 +36,19 @@ const KARTEN = {
   vm_oberstrasse: { name: 'Oberstraße', tiles: 'vm_oberstrasse', fog: 0.12 },
   vm_wrackfeld: { name: 'Wrackfeld', tiles: 'vm_wrack', fog: 0.35, danger: 7 },
 };
-/** Gebaut sind Akt I und II; Stationen der späteren Akte kommen mit ihren Karten und Gegnern. */
-const BIS_AKT2 = (p) => !(p.visible_if?.requires_flags ?? []).some((f) => /^k6_akt[2-5]_done$/.test(f) || (f.startsWith('won_') && f !== 'won_wrackmutter') || f === 'k6_done');
+/** Gebaut sind Akt I bis III; Stationen der späteren Akte kommen mit ihren Karten und Gegnern. */
+const GEBAUT = (p) => !(p.visible_if?.requires_flags ?? []).some((f) => /^k6_akt[3-5]_done$/.test(f) || (f.startsWith('won_') && f !== 'won_wrackmutter') || f === 'k6_done');
 /** Kämpfe, die schon da sind (die übrigen Bosse kommen mit Leuchtbank und Registerkeller). */
 const KAEMPFE = new Set(['wrackmutter']);
 
 /** Wo die Fundstellen und Stationen der Akte ungefähr liegen (Anker aus vm_karten.json). */
 const FUND_ANKER = { k6_11: 'zollschalter', k6_12: 'kai_ost', k6_13: 'markt_ost', k6_14: 'kai_west', k6_bilanz1: 'lotsenkammer', k6_szene_ankunft: 'faehre', k6_szene_wartungsgang: 'kreuzung', k6_anreise_koop: 'faehre',
-  k6_21: 'gasse_west', k6_22: 'rippen', k6_23: 'gasse_ost', k6_24: 'wrack_sued', k6_bilanz2: 'flickerei', k6_kampf_wrackmutter: 'wrack', k6_szene_kielraum: 'kielraum' };
+  k6_21: 'gasse_west', k6_22: 'rippen', k6_23: 'gasse_ost', k6_24: 'wrack_sued', k6_bilanz2: 'flickerei', k6_kampf_wrackmutter: 'wrack', k6_szene_kielraum: 'kielraum',
+  k6_31: 'zollamt', k6_32: 'pegel', k6_33: 'reeder', k6_34: 'hafenamt', k6_vertrauen: 'platz', k6_szene_sieben_stuehle: 'rat', k6_szene_zeugenwahl: 'protokoll', k6_bilanz3: 'taucherhaus' };
 
 /** Zwischenszenen bekommen lesbare Namen statt „Zwischenszene: ankunft“. */
-const SZENE_TITEL = { k6_szene_ankunft: 'Die Pegeluhr über dem Anleger', k6_szene_wartungsgang: 'Der trockene Wartungsgang', k6_kampf_wrackmutter: 'Der Rumpf der Wrackmutter', k6_szene_kielraum: 'Der Kielraum' };
+const SZENE_TITEL = { k6_szene_ankunft: 'Die Pegeluhr über dem Anleger', k6_szene_wartungsgang: 'Der trockene Wartungsgang', k6_kampf_wrackmutter: 'Der Rumpf der Wrackmutter', k6_szene_kielraum: 'Der Kielraum',
+  k6_szene_sieben_stuehle: 'Sieben Stühle im Ratssaal', k6_szene_zeugenwahl: 'Die Wahl des Zeugen', k6_vertrauen: 'Wem vertraust du die Übergabe an?' };
 
 /** Figuren: Karte, Anker, Sichtbarkeit. Tam steht erst am Hafen, nach dem Schmuggelweg im Stegviertel. */
 const FIGUREN = [
@@ -111,7 +121,14 @@ const VM_GEGNER = {
   vme_hafenkraehe: { name: 'Hafenkrähenschwarm', elite: 'Krähenkönigin', hp: 5600, armor: 4, intro: 'Ein Schwarm Krähen hebt von einem Mast ab, und alle sehen dich an. Sie haben gelernt, wer im Schlick stecken bleibt.',
     attacks: [schlag('Sturzflug', 64, [500, 800, 1100, 1400]), schlag('Vorratsraub', 40, [600, 1000], { nerves: 14 }), schlag('Hundert Schnäbel', 110, [1700])],
     drops: [{ item: 'riechsalz', chance: 0.6 }] },
+  // Bei Flut auf den Stegen (CZ: nur Flut, nur draußen)
+  vme_gezeitenlaeufer: { name: 'Gezeitenläufer', elite: 'Springflutläufer', gezeit: 'flut', hp: 6200, armor: 5, sieg: 'versinkt zwischen den Pfählen.',
+    intro: 'Auf langen Stelzen aus Treibholz stakt etwas über das Wasser heran. Wo es hintritt, schwappt die Flut über die Planken.',
+    attacks: [schlag('Schwall', 74, [600, 1000, 1400], { nerves: 8 }), schlag('Stelzentritt', 102, [900, 1500]), schlag('Brecher', 128, [2000], { unparryable: true })],
+    drops: [{ item: 'lampenoel', chance: 0.6 }] },
 };
+const FLUT_TEXT = { ebbe: 'Die Flut kommt. Das Wasser steigt so schnell, dass der Kampf von selbst endet; was dich angegriffen hat, sinkt in den Schlick zurück.',
+  flut: 'Ebbe. Das Wasser fällt unter den Stelzen weg, und das Ding stakt hinaus aufs Meer, bevor es auf dem Trockenen steht.' };
 const VM_ELITE = { hp: 1.5, dmg: 1.2, geld: 1.7 };
 const VM_GELD = [700, 1100];
 
@@ -119,16 +136,17 @@ function vmGegner(cz) {
   const gegner = {};
   const loot = {};
   for (const [id, g] of Object.entries(VM_GEGNER)) {
-    const base = { ...VM_ART, id, name: g.name, sheet: `enemy_${id}`, sprite: 'wild', zone: cz.encounters[id]?.spawn?.maps?.[0], hp: g.hp, armor: g.armor, intro: g.intro, attacks: g.attacks,
-      on_win: {}, win_text: `${g.name} zerfällt im Schlick.` };
+    const gezeit = g.gezeit ?? 'ebbe';
+    const base = { ...VM_ART, id, name: g.name, sheet: `enemy_${id}`, sprite: 'wild', zone: Object.keys(STREIFEN).find((m) => STREIFEN[m].some(([e]) => e === id)) ?? cz.encounters[id]?.spawn?.maps?.[0], hp: g.hp, armor: g.armor, intro: g.intro, attacks: g.attacks, gezeit, flut_text: FLUT_TEXT[gezeit],
+      on_win: {}, win_text: `${g.name} ${g.sieg ?? 'zerfällt im Schlick.'}` };
     gegner[id] = base;
-    gegner[`${id}_elite`] = { ...base, id: `${id}_elite`, name: g.elite, win_text: `${g.elite} zerfällt im Schlick.`, elite: true, tier_seq: 2.5, hp: Math.round(g.hp * VM_ELITE.hp),
+    gegner[`${id}_elite`] = { ...base, id: `${id}_elite`, name: g.elite, win_text: `${g.elite} ${g.sieg ?? 'zerfällt im Schlick.'}`, elite: true, tier_seq: 2.5, hp: Math.round(g.hp * VM_ELITE.hp),
       attacks: g.attacks.map((a) => (a.damage ? { ...a, damage: Math.round(a.damage * VM_ELITE.dmg) } : a)) };
     loot[id] = { repeat: true, money: VM_GELD, drops: g.drops };
     loot[`${id}_elite`] = { repeat: true, money: VM_GELD.map((v) => Math.round(v * VM_ELITE.geld)), drops: g.drops.map((d) => ({ ...d, chance: 1 })) };
   }
   const w = cz.bosses.wrackmutter;
-  gegner.wrackmutter = { ...VM_ART, id: 'wrackmutter', name: 'Die Wrackmutter', sheet: 'enemy_wrackmutter', sprite: 'wild', boss: true, fleeable: false, tier_seq: 2, hp: 15500, armor: 12, max_round_dmg: 0.14,
+  gegner.wrackmutter = { ...VM_ART, gezeit: 'ebbe', flut_text: 'Die Flut kommt über das Wrackfeld. Die Wrackmutter zieht sich in ihren Rumpf zurück, und Tam zieht dich auf den Steg. Bei der nächsten Ebbe wartet sie wieder, ganz.', id: 'wrackmutter', name: 'Die Wrackmutter', sheet: 'enemy_wrackmutter', sprite: 'wild', boss: true, fleeable: false, tier_seq: 2, hp: 15500, armor: 12, max_round_dmg: 0.14,
     begleiter: ['vme_tauwerk', 'vme_tauwerk'],
     intro: 'Der Rumpf atmet. Aus dem Kiel schiebt sich etwas, das aus Netzen, Tauen und den Namen auf alten Planken gemacht ist. Es hält eine Seite an die Brust gedrückt, wie eine Mutter ihr Kind. Zwei Taue lösen sich von ihr und kommen auf dich zu.',
     attacks: [schlag('Tauschlag', 124, [1000, 1600]), schlag('Rumpfstoß', 92, [700, 1200, 1700], { nerves: 10 }),
@@ -143,7 +161,8 @@ function vmGegner(cz) {
 }
 
 /** Streifende Gegner: im Wrackfeld immer, in den Schlickgassen nur bei Ebbe (CZ spawn). */
-const STREIFEN = { vm_wrackfeld: [['vme_salzkruste', 4], ['vme_tauwerk', 4], ['vme_hafenkraehe', 3]], vm_schlickgassen: [['vme_salzkruste', 4]] };
+const STREIFEN = { vm_wrackfeld: [['vme_salzkruste', 4], ['vme_tauwerk', 4], ['vme_hafenkraehe', 3]], vm_schlickgassen: [['vme_salzkruste', 4]], vm_stegviertel: [['vme_gezeitenlaeufer', 3]] };
+const STREIF_SICHT = { vm_schlickgassen: { requires_flags: ['gezeit_ebbe'] }, vm_stegviertel: { requires_flags: ['gezeit_flut', 'k6_akt1_done'] } };
 
 /** Varrowmouth als Paket für buildContent. `f` enthält je Ordner die JSON-Dateien (VM_FILES). */
 export function varrowmouthPack(f) {
@@ -154,7 +173,7 @@ export function varrowmouthPack(f) {
   // Karten
   const maps = Object.entries(KARTEN).map(([id, k]) => ({
     id, name: k.name, city: VM_CITY, tiles: k.tiles, outdoor: true, rows: plan[id].rows, spawns: plan[id].spawns, ...(k.danger ? { danger: k.danger } : {}),
-    ambient: { night: 0.45, fog: k.fog }, lights: [{ tile: plan[id].spawns.default, radius: 64, intensity: 0.6, color: '#e6c58a' }],
+    ...(VM_FLUT_RAUS[id] ? { flut_raus: VM_FLUT_RAUS[id] } : {}), ambient: { night: 0.45, fog: k.fog }, lights: [{ tile: plan[id].spawns.default, radius: 64, intensity: 0.6, color: '#e6c58a' }],
     npcs: [], interactables: [],
   }));
   const map = Object.fromEntries(maps.map((m) => [m.id, m]));
@@ -178,7 +197,11 @@ export function varrowmouthPack(f) {
       // Ins Stegviertel kommt man erst über Tams Schmuggelweg; vorher hält das Drehkreuz
       const zoll = m === 'vm_zollhafen' && to === 'vm_stegviertel';
       const wrack = to === 'vm_wrackfeld';
-      map[m].interactables.push({ id: `${m}_${a}`, kind: 'door', tile: anker(m, a), to, spawn, prompt, visible_if: { requires_flags: [VM_ANKUNFT, ...(zoll ? ['k6_tam_weg'] : []), ...(wrack ? WRACK_OFFEN : [])] } });
+      const schlick = to === 'vm_schlickgassen';
+      map[m].interactables.push({ id: `${m}_${a}`, kind: 'door', tile: anker(m, a), to, spawn, prompt, visible_if: { requires_flags: [VM_ANKUNFT, ...(zoll ? ['k6_tam_weg'] : []), ...(wrack ? WRACK_OFFEN : []), ...(schlick ? ['gezeit_ebbe'] : [])] } });
+      if (schlick) map[m].interactables.push({ id: `${m}_${a}_flut`, kind: 'read', tile: anker(m, a), prompt: 'Leiter zu den Schlickgassen (Flut)', title: 'Flut', marker: false,
+        visible_if: { requires_flags: [VM_ANKUNFT], hide_if_flags: ['gezeit_ebbe'] },
+        text: 'Die Leiter endet im Wasser. Unten treiben Kisten durch die Gassen, auf den Dächern sitzen die Leute und warten. Bei Ebbe geht es wieder hinab.' });
       // Das Wrackfeld: erst mit Akt II, und nur bei Ebbe
       if (wrack) map[m].interactables.push(
         { id: `${m}_${a}_zu`, kind: 'read', tile: anker(m, a), prompt: 'Steg zum Wrackfeld', title: 'Steg zum Wrackfeld', marker: false, visible_if: { requires_flags: [VM_ANKUNFT], hide_if_flags: ['k6_akt1_done'] },
@@ -233,7 +256,7 @@ export function varrowmouthPack(f) {
   // Akt I: Fundstellen und Stationen (CT platzierung, Positionen neu auf den eigenen Grundrissen)
   const platzierung = [];
   for (const p of ct.platzierung ?? []) {
-    if (!p.interactable || !map[p.map] || !BIS_AKT2(p) || gebunden.has(p.interactable?.dialogue)) continue;
+    if (!p.interactable || !map[p.map] || !GEBAUT(p) || gebunden.has(p.interactable?.dialogue)) continue;
     const key = Object.keys(FUND_ANKER).find((k) => p.interactable.id.startsWith(k));
     if (!key) continue;
     const tile = platz(p.map, FUND_ANKER[key]);
@@ -247,12 +270,17 @@ export function varrowmouthPack(f) {
   }
   const b2 = dialogues.k6_bilanz2;
   if (b2) {
-    const { start_quests: _s, ...ja } = b2.nodes.k6_bilanz2_ja;
-    dialogues.k6_bilanz2 = { ...b2, nodes: { ...b2.nodes, k6_bilanz2_ja: { ...ja, gives_money: BILANZ_GELD * 2, text: `${ja.text}\n\nDer Pegelrat tagt in der Oberstraße. Bis er dich vorlässt, vergeht noch eine Weile.` } } };
+    const ja = b2.nodes.k6_bilanz2_ja;
+    dialogues.k6_bilanz2 = { ...b2, nodes: { ...b2.nodes, k6_bilanz2_ja: { ...ja, gives_money: BILANZ_GELD * 2, text: `${ja.text}\n\nDer Pegelrat tagt in der Oberstraße. Diesmal lässt er dich vor.` } } };
+  }
+  const b3 = dialogues.k6_bilanz3;
+  if (b3) {
+    const { start_quests: _s, ...ja } = b3.nodes.k6_bilanz3_ja;
+    dialogues.k6_bilanz3 = { ...b3, nodes: { ...b3.nodes, k6_bilanz3_ja: { ...ja, gives_money: BILANZ_GELD * 3, text: `${ja.text}\n\nDraußen blinkt das alte Leuchtfeuer auf der Bank. Tam sagt, dorthin fahre sie erst, wenn sie weiß, wer das Licht hütet.` } } };
   }
 
   // Gespräche, die spätere Akte starten oder abschließen (Bilanzen III–V, Enden), kommen mit ihren Karten
-  for (const [id, d] of Object.entries(dialogues)) if (/"k6_akt[3-5]"|"ending"/.test(JSON.stringify(d))) delete dialogues[id];
+  for (const [id, d] of Object.entries(dialogues)) if (/"k6_akt[4-5]"|"ending"/.test(JSON.stringify(d))) delete dialogues[id];
   for (const n of Object.values(map)) n.interactables = n.interactables.filter((i) => i.kind !== 'dialogue' || dialogues[i.dialogue]);
 
   // Anreise: vier Briarholt-Herkünfte (CT anreise.json) am Bügelraum, erst nach dem Thron
@@ -279,18 +307,18 @@ export function varrowmouthPack(f) {
     let i = 0;
     for (const [enc, n] of list) for (let j = 0; j < n; j++, i++) {
       const tile = freieKachel(k, { seed: `vm|${m}|${i}`, minDist: 9 });
-      if (tile) k.roamers.push({ id: `${m}_r${i}`, encounter: enc, tile, elite_chance: 0.15, ...(m === 'vm_schlickgassen' ? { visible_if: { requires_flags: ['gezeit_ebbe'] } } : {}) });
+      if (tile) k.roamers.push({ id: `${m}_r${i}`, encounter: enc, tile, elite_chance: 0.15, ...(STREIF_SICHT[m] ? { visible_if: STREIF_SICHT[m] } : {}) });
     }
   }
 
   const pins = { vm_zollhafen: [150, 112], vm_stegviertel: [312, 118], vm_schlickgassen: [228, 206], vm_oberstrasse: [92, 34], vm_wrackfeld: [430, 186] };
   const travel = maps.map((m) => ({ map: m.id, spawn: 'default', name: m.name, desc: cu.pins.find((p) => p.map === m.id) ? cu.desc : '', city: VM_CITY,
-    requires_flags: [VM_ANKUNFT, ...(m.id === 'vm_stegviertel' || m.id === 'vm_schlickgassen' ? ['k6_tam_weg'] : []), ...(m.id === 'vm_wrackfeld' ? WRACK_OFFEN : [])] }));
+    requires_flags: [VM_ANKUNFT, ...(m.id === 'vm_stegviertel' || m.id === 'vm_schlickgassen' ? ['k6_tam_weg'] : []), ...(m.id === 'vm_wrackfeld' ? WRACK_OFFEN : []), ...(m.id === 'vm_schlickgassen' ? ['gezeit_ebbe'] : [])] }));
   for (const t of travel) t.desc = { vm_zollhafen: 'Zollhaus, Pegeluhr und Fähranleger.', vm_stegviertel: 'Pfahlbauten, Stegmarkt und Tams Lotsenkammer.', vm_schlickgassen: 'Bei Ebbe begehbar. Die Ärmsten wohnen am tiefsten.', vm_oberstrasse: 'Trocken, teuer, Sitz des Pegelrats.', vm_wrackfeld: 'Nur bei Ebbe. Schlick, Priele und die Rümpfe alter Schiffe.' }[t.map];
 
   return {
     name: 'varrowmouth', maps, travel, city: { id: VM_CITY, title: 'Stadtkarte von Varrowmouth', map_image: 'ui/vm_stadtkarte_ebbe.png', fog_image: 'ui/vm_nebel.png', pins },
-    npcs, dialogues, items, quests: { k6_akt1: ct.quests.k6_akt1, k6_akt2: ct.quests.k6_akt2 }, case: { facts: ct.case.facts, clues: ct.case.clues, deductions: ct.case.deductions }, faelle: ct.faelle, platzierung, haendler: { merchants },
+    npcs, dialogues, items, quests: { k6_akt1: ct.quests.k6_akt1, k6_akt2: ct.quests.k6_akt2, k6_akt3: ct.quests.k6_akt3 }, case: { facts: ct.case.facts, clues: ct.case.clues, deductions: ct.case.deductions }, faelle: ct.faelle, platzierung, haendler: { merchants },
     bosses: gegner, loot,
   };
 }

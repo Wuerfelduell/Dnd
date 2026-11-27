@@ -1436,6 +1436,8 @@ export class Combat {
     if (!this.outcome && this.fleeing && --this.fleeing.left <= 0) this.outcome = 'fled';
     // BD: Gegner mit `flees_after` entziehen sich nach so vielen vollständigen Runden ohne Spielersieg (kein Sieg, keine Beute)
     if (!this.outcome && this.enc.flees_after && this.round > this.enc.flees_after) this.outcome = 'escaped';
+    // Kapitel 7 (Varrowmouth): Gegner mit `gezeit` kämpfen nur in ihrem Wasserstand. Wechselt er, bricht der Kampf ab: kein Sieg, keine Beute, keine Strafe.
+    if (!this.outcome && this.enc.gezeit && this.state.flags?.has(`gezeit_${this.enc.gezeit === 'ebbe' ? 'flut' : 'ebbe'}`)) { this.outcome = 'fled'; this.flut = true; }
     // Seq 3/2 (core/SeqHoch.js): Rundenfrist und Verfall
     if (!this.outcome && this.rules?.maxRounds && this.round > this.rules.maxRounds) this.breakRule(`Runde ${this.rules.maxRounds} ist vorbei, der Gegner steht noch.`);
     if (!this.outcome && this.rules?.decayPct) this.on(1, () => { this.state.damage(Math.max(1, Math.round(this.state.maxHp * this.rules.decayPct))); if (this.state.hp === 0) this.knockOut(1); });
@@ -1598,7 +1600,7 @@ export class Combat {
       }
     } else if (this.outcome === 'fled') {
       if (!enc.practice && enc.on_flee) s.applyEffects(enc.on_flee); // z. B. Grauspäher: Fahndung steigt
-      text = enc.flee_text ?? 'Du ziehst dich zurück.';
+      text = this.flut ? (enc.flut_text ?? 'Das Wasser wechselt. Der Kampf endet von selbst.') : (enc.flee_text ?? 'Du ziehst dich zurück.');
     } else if (this.outcome === 'escaped') {
       text = enc.escape_text ?? `${enc.name} entzieht sich dir.`;
     } else if (this.outcome === 'spared') {

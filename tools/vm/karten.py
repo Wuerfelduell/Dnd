@@ -91,7 +91,8 @@ rect(g, 20, 14, 27, 16, '.')
 g[14][46] = '.'
 karten['vm_oberstrasse'] = dict(rows=rows(g), spawns={'default': [44, 14], 'von_zollhafen': [44, 14]},
     anker={'tuer_zollhafen': [46, 14], 'rat': [23, 10], 'rat_west': [17, 11], 'rat_ost': [30, 11], 'apotheke': [6, 20], 'archiv': [26, 20],
-           'keller': [27, 10], 'grenze': [40, 7], 'platz': [23, 15], 'reeder': [13, 7]})
+           'keller': [27, 10], 'grenze': [40, 7], 'platz': [23, 15], 'reeder': [13, 7],
+           'zollamt': [6, 10], 'pegel': [36, 10], 'hafenamt': [38, 18], 'protokoll': [15, 17]})
 
 # --- Wrackfeld (Etappe 2): nur bei Ebbe, Schlickebene mit Prielen und Wrackrümpfen, die Wrackmutter im Osten -------------
 random.seed(11)
