@@ -192,6 +192,10 @@ const talentIcon = (id) => { const ic = talentIconOf(id); return ic ? atlasIcon(
 /** Welt-Fähigkeit in der Schnellleiste: 16er-Zelle auf 1.75em, sonst das Sonnenzeichen. */
 /** Merker in skillHidden (je Spieler, im Spielstand): mythische Gestalt nicht in der Schnellleiste. */
 const FORM_BAR_ID = 'hg_form_bar';
+/** Merker in skillHidden: Welt-Fähigkeit nicht in der Schnellleiste (Seb 2026-11-27), Tasten rücken nach. */
+const barHideId = (id) => `bar:${id}`;
+/** Gestalt-Knopf (Seb 2026-11-27): Zugportrait der Kreaturform des eigenen Pfades (ui/hg_zug_<pfad>.png). */
+const formFaceIcon = (pid, k, cls = '') => (pid && UI_REGIONS[`hgzug_${pid}`] ? uiSprite(`hgzug_${pid}`, 'face', k, cls) : '');
 const talentIconHud = (id) => {
   const ic = talentIconOf(id);
   if (!ic) return '<span class="ticon sun">☉</span>';
@@ -951,7 +955,7 @@ export class Ui {
   /** Welt-Fähigkeiten eines Spielers für die Leiste (leer ohne Pfad oder ohne Spieler 2). */
   talentSlots(n) {
     if (n === 2 && !this.state.hasP2()) return [];
-    return this.as(() => this.state.talents?.() ?? [], n);
+    return this.as(() => (this.state.talents?.() ?? []).filter((t) => !this.state.skillHiddenInCombat(barHideId(t.id))), n);
   }
 
   /**
@@ -964,7 +968,7 @@ export class Ui {
       const s = this.state;
       if (!s.formUnlocked?.() || s.skillHiddenInCombat(FORM_BAR_ID)) return null;
       const active = s.formActive();
-      return { active, block: active ? null : s.formBlock(), name: s.formDef()?.name ?? 'Mythische Gestalt' };
+      return { active, block: active ? null : s.formBlock(), name: s.formDef()?.name ?? 'Mythische Gestalt', pid: s.pathway?.id };
     }, n);
   }
 
@@ -988,7 +992,7 @@ export class Ui {
     const key = n === 2 ? 'Num ,' : '0';
     const title = `${f.name} (Taste ${key}): ${f.active ? 'Gestalt ablegen' : 'Gestalt annehmen'}${f.block ? ` – ${f.block}` : ''}`;
     const sel = n === 2 && this.talentSel2 === i ? ' sel' : '';
-    const icon = uiSprite('hghud32', f.active ? 'form_an' : f.block ? 'verdauung_gesperrt' : 'form_aus', TILE_ICON_EM / 32, 'ticon');
+    const icon = formFaceIcon(f.pid, 2.1 / 32, 'ticon formface') || uiSprite('hghud32', f.active ? 'form_an' : f.block ? 'verdauung_gesperrt' : 'form_aus', TILE_ICON_EM / 32, 'ticon');
     return `<button class="tslot form ${state}${sel}" data-tslot="form" data-tplayer="${n}" title="${esc(title)}">${icon}<span class="key">${n === 2 ? ',' : '0'}</span></button>`;
   }
 
@@ -1022,7 +1026,8 @@ export class Ui {
     const t = list[idx];
     if (!t) {
       if (n === 2 && !this.state.hasP2()) return null;
-      this.toast(list.length ? `${who}Auf Taste ${idx + 1} liegt keine Welt-Fähigkeit (du hast ${list.length}).` : `${who}Welt-Fähigkeiten bekommst du mit deinem ersten Trank.`, 'warn');
+      const any = this.as(() => (this.state.talents?.() ?? []).length, n);
+      this.toast(list.length ? `${who}Auf Taste ${idx + 1} liegt keine Welt-Fähigkeit (du hast ${list.length}).` : any ? `${who}Alle Welt-Fähigkeiten sind aus der Schnellleiste genommen (Pfad-Tab).` : `${who}Welt-Fähigkeiten bekommst du mit deinem ersten Trank.`, 'warn');
       return null;
     }
     const r = this.as(() => this.state.useTalent(t.id), n);
@@ -2714,7 +2719,7 @@ export class Ui {
     const cost = [t.nerves ? `${t.nerves} Nerven` : '', def.unruhe ? `+${def.unruhe} Unruhe` : '', `${fmtSec(def.cooldown)} Pause`].filter(Boolean).join(' · ');
     const block = s.talentBlock(def.id);
     const label = t.remaining > 0 ? `bereit in ${t.remainingText}` : block ? 'zu wenig Nerven' : 'Einsetzen';
-    return `<br>${talentIcon(def.id)}<strong>${esc(def.name)}</strong> <span class="muted">(${cost})</span> ${esc(def.desc)} <button class="small talentbtn ${block ? '' : 'primary'}" data-talent="${def.id}" ${block ? 'disabled' : ''}>${label}</button>`;
+    return `<br>${talentIcon(def.id)}<strong>${esc(def.name)}</strong> <span class="muted">(${cost})</span> ${esc(def.desc)} <button class="small talentbtn ${block ? '' : 'primary'}" data-talent="${def.id}" ${block ? 'disabled' : ''}>${label}</button> ${this.barVisBtn(s, barHideId(def.id))}`;
   }
 
   /** Laufende Wirkungen der Welt-Fähigkeiten. */
@@ -2738,7 +2743,7 @@ export class Ui {
     const block = active ? null : s.formBlock();
     const form = s.formDef?.();
     const stufe = s.pathway.seq === 3 || s.pathway.seq <= 1 ? uiSprite('hghudseq31', s.pathway.seq === 3 ? 'seq3' : 'seq1', 1 / 10, 'hgicon') : ''; // GB1
-    const hud = uiSprite('hghud32', active ? 'form_an' : block ? 'verdauung_gesperrt' : 'form_aus', 1 / 10, 'hgicon');
+    const hud = formFaceIcon(s.pathway.id, 1 / 10, `hgicon formface${active ? ' on' : ''}`) || uiSprite('hghud32', active ? 'form_an' : block ? 'verdauung_gesperrt' : 'form_aus', 1 / 10, 'hgicon');
     const cp = form?.beschreibung ? `<p class="desc"><strong>${esc(form.name)}.</strong> ${esc(form.beschreibung)}${form.karte ? ` <span class="muted">${esc(form.karte)}</span>` : ''}</p>` : '';
     return `<div class="gestalt ${active ? 'active' : ''}"><h4>${stufe}${hud}Mythische Gestalt ${active ? '<span class="badge halbgott">angenommen</span>' : ''}</h4>${cp}
       <p class="muted">${active
@@ -2752,7 +2757,13 @@ export class Ui {
   /** Häkchen-Knopf: Gestalt in der Schnellleiste zeigen (Taste 0, Spieler 2 Ziffernblock-Komma) oder ausblenden. */
   formBarBtn(s) {
     const hidden = s.skillHiddenInCombat(FORM_BAR_ID);
-    return `<button class="small skillvis${hidden ? '' : ' primary'}" data-skillvis="${FORM_BAR_ID}" title="In der Schnellleiste zeigen oder ausblenden">${hidden ? '☐ aus der Schnellleiste ausgeblendet' : '☑ in der Schnellleiste'}</button>${hidden || this.touch ? '' : ' <span class="muted">Taste <span class="key">0</span>, Spieler 2 Ziffernblock <span class="key">,</span></span>'}`;
+    return `${this.barVisBtn(s, FORM_BAR_ID)}${hidden || this.touch ? '' : ' <span class="muted">Taste <span class="key">0</span>, Spieler 2 Ziffernblock <span class="key">,</span></span>'}`;
+  }
+
+  /** Häkchen-Knopf: Eintrag (Welt-Fähigkeit oder Gestalt) in der Schnellleiste zeigen oder ausblenden. */
+  barVisBtn(s, key) {
+    const hidden = s.skillHiddenInCombat(key);
+    return `<button class="small skillvis${hidden ? '' : ' primary'}" data-skillvis="${key}" title="In der Schnellleiste zeigen oder ausblenden">${hidden ? '☐ aus der Schnellleiste ausgeblendet' : '☑ in der Schnellleiste'}</button>`;
   }
 
   /** Ritual für den nächsten Trank (ab Sequenz 6): Zutaten, Bedingungen, Knopf. */

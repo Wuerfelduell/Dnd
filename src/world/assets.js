@@ -3060,6 +3060,11 @@ UI_SHEETS.hghud = ['ui/HG_hud.png', 160, 16];
 UI_REGIONS.hghud = Object.fromEntries(HG_HUD.map((n, i) => [n, [i * 16, 0, 16, 16]]));
 UI_SHEETS.hghud32 = ['ui/HG_hud_32.png', 320, 32];
 UI_REGIONS.hghud32 = Object.fromEntries(HG_HUD.map((n, i) => [n, [i * 32, 0, 32, 32]]));
+/** Gestalt-Knopf der Schnellleiste und im Pfad-Tab: Zugportrait der Kreaturform je Pfad (32x32). */
+for (const p of HG_PATHS) {
+  UI_SHEETS[`hgzug_${p}`] = [`ui/hg_zug_${p}.png`, 32, 32];
+  UI_REGIONS[`hgzug_${p}`] = { face: [0, 0, 32, 32] };
+}
 /** GB1: Stufen-Marken Sequenz 3 und 1 (links seq3, rechts seq1). */
 UI_SHEETS.hghudseq31 = ['ui/hg_hud_seq31_32.png', 64, 32];
 UI_REGIONS.hghudseq31 = { seq3: [0, 0, 32, 32], seq1: [32, 0, 32, 32] };
