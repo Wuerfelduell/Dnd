@@ -96,8 +96,11 @@ const FRAMES = [
   [/^(.+) ansehen$/, (a) => `Look at ${a}`],
   [/^(.+) untersuchen$/, (a) => `Examine ${a}`],
   [/^(.+) aufheben$/, (a) => `Pick up ${a}`],
+  [/^(.+) herausfordern$/, (a) => `Challenge ${a}`],
   [/^Mit (.+) sprechen$/, (a) => `Talk to ${a}`],
   [/^(.+) \(Taste (\d+)\)$/, (a, m) => `${a} (key ${m[2]})`],
+  [/^Fernzug (.+) prüfen$/, (a) => `Check remote pull: ${a}`],
+  [/^Fernzug (.+)$/, (a) => `Remote pull: ${a}`],
   [/^In (.+)$/, (a) => `Enter ${a}`],
   [/^Nach (.+)$/, (a) => `To ${a}`],
 ];
