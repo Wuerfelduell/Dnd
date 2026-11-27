@@ -23,6 +23,8 @@ const PLATZ = {
   spur3: [28, 31], herd3: [31, 29], spur4: [28, 26], herd4: [32, 25],
   spur5: [38, 27], herd5: [42, 25], spur6: [38, 30], herd6: [42, 31],
   herz: [52, 22],
+  // Pfadviertel-Geschichte (pfadviertelGeschichte.js)
+  pvg_bitte: [6, 24], pvg_lohn: [6, 24], pvg_fund1: [30, 13], pvg_fund2: [15, 28], pvg_fund3: [33, 32], pvg_rivale: [40, 32],
 };
 /** Wegweiser an den Durchgängen: [Endung, Feld, Beschriftung, Text]. */
 const WEGWEISER = [
