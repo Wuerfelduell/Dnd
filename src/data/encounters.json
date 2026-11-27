@@ -40,6 +40,45 @@
     },
     "win_text": "Holt landet auf dem Hosenboden und lacht. „Nicht schlecht! Wer so pariert, überlebt in Kettlegate eine Nacht länger.“"
   },
+  "holt_training": {
+    "name": "Sergeant Holt",
+    "sprite": "npc:holt",
+    "practice": true,
+    "training": true,
+    "fleeable": false,
+    "hp": 60,
+    "intro": "Holt stellt sich auf die Matte im Hinterhof. „Ich sag Ihnen jeden Schritt an. Oben steht, was als Nächstes kommt. Keine Sorge: Hier geht keiner zu Boden, bevor ich es will.“",
+    "attacks": [
+      {
+        "name": "Gerader Stoß",
+        "damage": 5,
+        "hits": [
+          900
+        ]
+      },
+      {
+        "name": "Doppelschlag",
+        "damage": 4,
+        "hits": [
+          800,
+          1250
+        ]
+      },
+      {
+        "name": "Finte",
+        "damage": 6,
+        "hits": [
+          1500
+        ]
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "training_done"
+      ]
+    },
+    "win_text": "Holt landet auf dem Hosenboden und lacht. „Na also. Jetzt wissen Sie, wie es geht. Kommen Sie, ich erzähl Ihnen noch was.“"
+  },
   "fog_hound": {
     "name": "Nebelhund",
     "sprite": "hound",

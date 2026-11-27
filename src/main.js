@@ -13,6 +13,7 @@ import { isOutdoorMap } from './world/assets.js';
 import { cityOf } from './core/Travel.js';
 import { HIMMEL, STURZ_EFFECTS } from './data/aufstieg.js';
 import { watchDom, patchPhaser } from './core/I18n.js';
+import { skipTraining } from './core/Lehrstunde.js';
 
 // Drei lokale Speicherplätze. Platz 1 nutzt den alten Schlüssel, damit bestehende Spielstände dort bleiben.
 const SLOTS = [1, 2, 3];
@@ -101,6 +102,8 @@ const ui = new Ui(uiRoot, state, {
       if (new URLSearchParams(location.search).has('flut')) state.playTime = 370; // &flut → gleich bei Flut (Gezeit wechselt alle 360 s)
       if (vm === 'wrack') { state.applyEffects({ sets_flags: ['k6_anreise_wahl', 'k6_arrived', 'k6_tam_weg', 'k6_akt1_done'], start_quests: ['k6_akt1', 'k6_akt2'] }); state.map = 'vm_wrackfeld'; }
     }
+    // Schnellstarts überspringen das Pflicht-Kampftraining mit Holt; ?training=aus überspringt es auch beim normalen Start
+    if (probe || hoch || auf || vm || ['aus', '0', 'nein', 'off'].includes(new URLSearchParams(location.search).get('training'))) skipTraining(state);
     started = true;
     restartWorld();
     saveSoon();

@@ -19,6 +19,7 @@ import { FIGHT_DIGEST_MULT, ZONE_DIGEST_STEP, MOOR_DIGEST, PATH_ACTION_DIGEST, p
 export { MOOR_DIGEST, PATH_ACTION_DIGEST };
 import { SCHATTEN_ATTACKE, PERFECT_DODGE, UHR as UHR4 } from './Seq4.js';
 import { NEBELNACHT } from './Wetter.js';
+import { Lehrstunde } from './Lehrstunde.js';
 import { narbeMult } from './Narbe.js';
 import { RELIKT_STAERKE } from './Artifacts.js';
 import { KOOP_GELD_SPAET } from '../data/kapitelAusgleich.js';
@@ -318,6 +319,7 @@ export class Combat {
     });
     this.fighters = { 1: fighter(state.hp, 1) };
     if (duo) this.fighters[2] = fighter(state.p2.hp, 2);
+    this.lehre = enc.training ? new Lehrstunde(Object.keys(this.fighters)) : null; // Pflicht-Kampftraining mit Holt (core/Lehrstunde.js)
     this.actor = 1; // wer am Zug ist
     this.target = 1; // wen der Gegner gerade angreift (bei Flächenangriffen der erste)
     this.targets = [1]; // alle, die der aktuelle Angriff trifft (Flächenangriff: beide)
@@ -814,6 +816,7 @@ export class Combat {
   useSkillNow(skillId, grades) {
     const sk = this.skillDef(skillId);
     if (!this.canUse(skillId)) throw new Error(`Fertigkeit nicht möglich: ${skillId}`);
+    this.lehre?.note(sk.cost > 0 ? 'skill' : 'attack', this.cur ?? this.actor);
     this.ap -= sk.cost;
     this.actions += 1;
     // Fluch ap_blood: jeder ausgegebene Punkt Konzentration kostet Leben
@@ -995,6 +998,7 @@ export class Combat {
     const it = this.state.item(id);
     if (!it || it.kind !== 'consumable' || !this.state.itemCount(id) || this.itemUsed || this.state.passive('no_items') || this.rules?.noItems || !this.itemAllowed(id)) return null;
     this.itemUsed = true;
+    this.lehre?.note('item', this.cur ?? this.actor);
     this.itemsUsedTotal = (this.itemsUsedTotal ?? 0) + 1;
     this.actions += 1;
     this.state.removeItem(id);
@@ -1174,6 +1178,7 @@ export class Combat {
     }
     // Ritual des Eisens: vor Runde 6 fällt der Wächter nicht
     if (this.rules?.minKillRound && this.round < this.rules.minKillRound && dmg >= this.enemy.hp) { dmg = Math.max(0, this.enemy.hp - 1); this.state.sfx?.('s4r_waechter_immun', { throttle: 800 }); }
+    if (this.lehre && !this.lehre.done) dmg = Math.min(dmg, Math.max(0, this.enemy.hp - 1)); // Training: Holt fällt erst nach allen Übungen
     if (this.enc.unbesiegbar) dmg = Math.min(dmg, Math.max(0, this.enemy.hp - Math.ceil(this.enemy.maxHp * 0.5))); // Himmelsstadt: oben fällt niemand (Kapitel 4)
     this.enemy.hp = Math.max(0, this.enemy.hp - dmg);
     if (this.enemy.hp === 0) { this.burn = null; this.stunned = false; this.confused = false; }
@@ -1366,6 +1371,7 @@ export class Combat {
       if (this.state.composure < cost) { result = 'miss'; note = 'exhausted'; }
       else this.state.setComposure(this.state.composure - cost);
     }
+    if (this.lehre && (result === 'parry' || result === 'dodge') && !this.evading) this.lehre.note(result, n);
     if (result === 'parry') {
       this.pathAct('eisen_parade', n);
       if (!this.enc.practice) this.state.act('parry', this.enc.boss ? FIGHT_DIGEST_MULT.boss : this.enc.elite ? FIGHT_DIGEST_MULT.elite : 1);
@@ -1386,6 +1392,7 @@ export class Combat {
     // Moor ab Seq 5: abgefangener Schaden verdaut den Trank dessen, der den Schutz gewirkt hat
     if (absorbed > 0 && this.fighters[n].shieldFrom) { this.pathAct('moor_shield', this.fighters[n].shieldFrom); this.pathAct('waage_schutz', this.fighters[n].shieldFrom); }
     if (this.tierSchutz === n && incoming > 0) { incoming = Math.max(1, Math.floor(incoming * 0.5)); this.tierSchutz = null; } // Codex DF: Hund
+    if (this.lehre) incoming = Math.min(incoming, Math.max(0, this.state.hp - 1)); // Training: niemand geht zu Boden
     const damage = this.state.damage(incoming);
     if (damage && attack.bleed) this.bleed = { damage: attack.bleed[0], rounds: attack.bleed[1] };
     // Treffer kosten Nerven: manche Angriffe von sich aus, manche Artefakte bei jedem Treffer (hit_nerves)
@@ -1399,6 +1406,7 @@ export class Combat {
 
   /** Ende des gegnerischen Zuges: Ausweichen verfällt. */
   endEnemyTurn() {
+    this.lehre?.note('enemyTurn');
     for (const f of Object.values(this.fighters)) f.evading = false;
   }
 
