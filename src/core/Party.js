@@ -11,6 +11,7 @@
 // Gemeinsame Taten (Hinweise, Gespräche, Siege ...) verdauen die Tränke beider Spieler (siehe act()).
 import { keepWechsel } from './Pathways.js';
 import { cleanMacken } from './Macken.js';
+import { cleanName, setPlayerNames } from './I18n.js';
 
 /** Persönliche Werte, die zwischen den Spielern getauscht werden. */
 /** Flüchtige Platz-Flags der Koop-Rätsel (Paket AI). */
@@ -27,6 +28,19 @@ export const partyMethods = {
     this.acting = 1; // wessen Werte gerade in this.hp usw. stehen
     this.splitOn = false; // Kapitel 4: Splitscreen in Calderwick (core/Split.js)
     this.koopSeen = new Set(); // Paket AI: schon gehörtes Geplauder
+    this.playerNames = ['', '']; // Seb: eigene Namen statt „Spieler 1/2“ (leer = Standard)
+    setPlayerNames(this.playerNames);
+  },
+
+  /** Seb: Spieler im Inventar umbenennen (max. 9 Zeichen, leer = wieder „Spieler n“). */
+  setPlayerName(n, name) {
+    if (n !== 1 && n !== 2) return '';
+    const names = [...(this.playerNames ?? ['', ''])];
+    names[n - 1] = cleanName(name);
+    this.playerNames = names;
+    setPlayerNames(names);
+    this.emit?.('changed');
+    return names[n - 1];
   },
 
   /**
@@ -206,11 +220,13 @@ export const partyMethods = {
   },
 
   serializeParty() {
-    return { ...(this.p2 ? { p2: { ...this.p2, inventory: { ...this.p2.inventory }, gear: { ...this.p2.gear } } } : {}), koopSeen: [...this.koopSeen] };
+    return { ...(this.p2 ? { p2: { ...this.p2, inventory: { ...this.p2.inventory }, gear: { ...this.p2.gear } } } : {}), koopSeen: [...this.koopSeen], ...(this.playerNames?.some(Boolean) ? { playerNames: [...this.playerNames] } : {}) };
   },
 
   loadParty(data) {
     this.koopSeen = new Set(data?.koopSeen ?? []);
+    this.playerNames = [cleanName(data?.playerNames?.[0]), cleanName(data?.playerNames?.[1])];
+    setPlayerNames(this.playerNames);
     const p = data?.p2;
     if (!p) { this.syncKoop(); return; }
     const path = p.pathway;

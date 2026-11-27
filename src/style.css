@@ -216,6 +216,7 @@ button.small { font-size: 0.8em; padding: 0.1em 0.5em; }
 .half-ui.half-2 { left: 50%; }
 .half-ui .layer:empty { pointer-events: none; }
 #ui.cb1 .hud-left, #ui.cb1 .talentbar:not(.p2), #ui.cb2 .hud-right, #ui.cb2 .talentbar.p2 { visibility: hidden; } /* die Werte stehen im Kampf der Hälfte */
+#ui.cb1 .uhr, #ui.cb2 .uhr { visibility: hidden; } /* Uhr in der Mitte läge sonst halb unter dem Kampf der Hälfte */
 /* Kampf in der Hälfte (Seb 2026-11-27): oben Leben von Spieler und Gegner, Mitte die Bühne (Kamera-Zoom 0.5 in CombatScene),
    unten Meldung und Fähigkeiten. Die Bühne liegt im mittleren Streifen (25 % bis 75 % der Höhe). */
 .half-ui.in-combat { background: linear-gradient(#0a0a12 25%, transparent 25%, transparent 75%, #0a0a12 75%); }
@@ -257,7 +258,7 @@ button.small { font-size: 0.8em; padding: 0.1em 0.5em; }
   background: var(--panel); border: 0.125em solid var(--brass); padding: 0.4em 0.7em; font-size: 0.9em;
 }
 .cb-msg p { margin: 0 0 0.3em; }
-.cb-help { color: var(--gold); font-size: 0.9em; }
+.cb-help { color: var(--gold); font-size: 0.9em; white-space: pre-line; } /* zu zweit: eine Zeile je Spieler */
 .cb-help:empty { display: none; }
 .cb-bottom { position: absolute; left: 0; right: 0; bottom: 0; min-height: 7.6em; display: flex; align-items: flex-end; gap: 0.6em; padding: 0.5em 0.8em; background: linear-gradient(transparent, rgba(4, 4, 8, 0.85) 30%); }
 .cb-player { width: 17em; }
@@ -670,9 +671,10 @@ button.small.give { color: #9ab8ff; }
 /* Kampf zu zweit: ein Feld je Spieler, wer dran ist, leuchtet */
 .cb-players { display: flex; gap: 0.5em; }
 .cb-players .cb-player { padding: 0.15em 0.3em; border: 0.125em solid transparent; }
-.cb-players .cb-player:nth-child(2) { width: 13em; }
-.cb-players .cb-player:nth-child(2) .bar, .cb-players .cb-player:first-child:not(:only-child) .bar { width: 5.5em; }
-.cb-players .cb-player:first-child:not(:only-child) { width: 13em; }
+.cb-players .cb-player:not(:only-child) .bar { width: 5.5em; }
+/* Zu zweit: Felder wachsen mit dem Inhalt (große Lebenszahlen), statt in das Nachbarfeld oder das Menü zu ragen */
+.cb-players .cb-player:not(:only-child) { width: auto; min-width: 12em; }
+.cb-player .meter, .cb-players .cb-ap { white-space: nowrap; }
 .cb-players .cb-player[data-p="2"] .cb-name { color: #9ab8ff; }
 .cb-player.active { border-color: var(--gold); background: rgba(40, 32, 16, 0.5); }
 .cb-player.down { opacity: 0.5; }
@@ -1208,3 +1210,6 @@ html.touch .talentbar .tslot { width: 3.2em; height: 3.2em; }
 .badge.need { color: #d8b45a; margin-left: 0.25em; }
 .badge.need.main { color: #f0d070; background: rgba(240, 208, 112, 0.12); }
 .pricetag.warn { outline: 0.15em solid #c8826a; }
+/* Seb: Spieler umbenennen im Inventar */
+.pname-row { margin: 0 0 0.4em; display: flex; align-items: center; gap: 0.4em; flex-wrap: wrap; }
+.pname-input { font: inherit; width: 7em; padding: 0.1em 0.3em; color: var(--ink); background: #120f16; border: 0.125em solid var(--brass); }

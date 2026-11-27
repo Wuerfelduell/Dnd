@@ -88,6 +88,10 @@ const HAS_WORD = /[A-Za-zÄÖÜäöüß]{2,}/;
  * Ohne Treffer: automatischer Übersetzer (asynchron, `onLate` wird danach aufgerufen) oder der Originaltext.
  */
 export function tr(s, onLate) {
+  return withNames(trLang(s, onLate && ((t) => onLate(withNames(t)))));
+}
+
+function trLang(s, onLate) {
   if (lang !== 'en' || typeof s !== 'string' || !HAS_WORD.test(s)) return s;
   const m = s.match(/^(\s*)([\s\S]*?)(\s*)$/);
   const core = m[2];
@@ -96,6 +100,27 @@ export function tr(s, onLate) {
   if (MISSES.size < 20000) MISSES.add(core);
   const mt = machine(core, onLate && ((t) => onLate(m[1] + t + m[3])));
   return mt != null ? m[1] + mt + m[3] : s;
+}
+
+// --- Eigene Spielernamen (Seb: im Inventar umbenennbar, max. 9 Zeichen) ---------
+// Statt jede Stelle mit „Spieler 1/2“ umzubauen, ersetzt die Anzeige-Schicht den Text nach der Übersetzung.
+
+export const NAME_MAX = 9;
+let NAMES = ['', ''];
+const NAME_RE = /\b(?:Spieler|Player|player)\s([12])\b/g;
+
+/** Name für Spieler n (leer = Standard „Spieler n“). */
+export function cleanName(v) { return String(v ?? '').replace(/[<>&"\u0000-\u001f]/g, '').replace(/\s+/g, ' ').trim().slice(0, NAME_MAX); }
+export function playerName(n) { return NAMES[n - 1] || `${lang === 'en' ? 'Player' : 'Spieler'} ${n}`; }
+export function setPlayerNames(list) {
+  const next = [cleanName(list?.[0]), cleanName(list?.[1])];
+  if (next[0] === NAMES[0] && next[1] === NAMES[1]) return;
+  NAMES = next;
+  retranslateAll();
+}
+function withNames(s) {
+  if (typeof s !== 'string' || (!NAMES[0] && !NAMES[1])) return s;
+  return s.replace(NAME_RE, (m, n) => NAMES[n - 1] || m);
 }
 
 // --- Automatische Übersetzung (Chrome Translator-API) ---------------------------
@@ -173,7 +198,7 @@ function doText(node) {
   const cur = node.nodeValue;
   if (SHOWN.get(node) === cur) return; // unser eigener Text
   ORIG.set(node, cur);
-  if (lang !== 'en' || skip(node)) { SHOWN.delete(node); return; }
+  if ((lang !== 'en' && !NAMES[0] && !NAMES[1]) || skip(node)) { SHOWN.delete(node); return; }
   const set = (t) => {
     if (ORIG.get(node) !== cur) return; // inzwischen neuer Text
     SHOWN.set(node, t);
@@ -190,7 +215,7 @@ function doAttrs(el) {
     const cur = el.getAttribute(a);
     if (el.getAttribute(`data-en-${a}`) === cur) continue;
     el.setAttribute(key, cur);
-    if (lang !== 'en') continue;
+    if (lang !== 'en' && !NAMES[0] && !NAMES[1]) continue;
     const out = tr(cur, (t) => { if (el.getAttribute(key) === cur) { el.setAttribute(`data-en-${a}`, t); el.setAttribute(a, t); } });
     if (out !== cur) { el.setAttribute(`data-en-${a}`, out); el.setAttribute(a, out); }
   }
