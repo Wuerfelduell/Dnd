@@ -27,6 +27,7 @@ import { Combat } from '../core/Combat.js';
 import { p2View } from '../core/Split.js';
 import { FORM_SEQ, formReif } from '../core/Pathways.js';
 import { hatNarbe } from '../core/Narbe.js';
+import { BeyonderAuras } from './BeyonderAura.js';
 
 export const VIEW_W = 480;
 export const VIEW_H = 270;
@@ -844,6 +845,7 @@ export class WorldScene extends Phaser.Scene {
     this.buildWindows();
     this.buildObjects();
     this.startAmbience();
+    this.beyAuras = new BeyonderAuras(this); // Geistsicht: Aura um alle Beyonder (Figuren und Gegner)
     this.buildNpcs();
     this.buildPlayer();
     this.roamers = new Roamers(this);
@@ -1121,6 +1123,10 @@ export class WorldScene extends Phaser.Scene {
           .setOrigin(0.5, 1).setDepth(4900).setResolution(2);
         item.parts.push(tag);
       }
+      if (this.state.isBeyonderNpc?.(def.id)) {
+        const pc = () => { const pid = this.state.npcPfadBekannt?.(def.id); const c = pid && this.state.content.pathways?.[pid]?.color; return c ? Number.parseInt(c.slice(1), 16) : null; };
+        this.beyAuras.add(sprite, pc);
+      }
       if (def.roam) item.roam = { home: [tx, ty], speed: def.roam.speed ?? 12, radius: def.roam.radius ?? 3, wait: 1500 + Math.random() * 3000, target: null, key };
       this.interactables.push(item);
       this.registerVisibility(item, def, item.parts);
@@ -1288,7 +1294,7 @@ export class WorldScene extends Phaser.Scene {
     if (welt) this.add.rectangle(0, 0, VIEW_W, VIEW_H, welt.color, welt.alpha).setOrigin(0).setScrollFactor(0).setDepth(DEPTH.vision - 1);
     this.visionOverlay = this.add.rectangle(0, 0, VIEW_W, VIEW_H, 0x30c0a8, 0.1)
       .setOrigin(0).setScrollFactor(0).setDepth(DEPTH.vision).setBlendMode(Phaser.BlendModes.ADD).setVisible(false);
-    this.applyVision(this.state.spiritVision);
+    this.applyVision(this.visionOn());
   }
 
   /** Wetter (Paket C): Raster aus 64er-Kacheln über dem Bild, z. B. Regen am Hafen. */
@@ -1355,6 +1361,7 @@ export class WorldScene extends Phaser.Scene {
     this.input.gamepad?.on('down', (pad, button) => {
       if (!this.p2 && this.splitRole !== 2) return;
       if (button.index === 0) { if (!p2Siege()) this.pending2 = 'interact'; } // A
+      else if (button.index === 1) { if (!p2Siege()) this.pending2 = 'vision'; } // B: Geistsicht (Seb: Spieler 2 hatte am Gamepad keine)
       else if (button.index === 3) this.pending2 = 'inventory'; // Y
       else if (button.index === 2) this.pending2 = 'talent:sel'; // X: gewählte Welt-Fähigkeit
       else if (button.index === 4 || button.index === 5) this.ui.moveTalentSel2(button.index === 4 ? -1 : 1); // LB/RB
@@ -1452,6 +1459,7 @@ export class WorldScene extends Phaser.Scene {
   }
 
   applyVision(on) {
+    this.visionNow = on;
     const hiddenOn = on || this.state.seesHidden(); // Welt-Fähigkeiten zeigen Spuren auch ohne Geistsicht
     for (const o of this.hidden) {
       const owner = this.conditional.find((c) => c.parts.includes(o));
@@ -1523,6 +1531,7 @@ export class WorldScene extends Phaser.Scene {
     this.playerSprites().forEach((q, i) => q.setAlpha(this.state.inShadow?.(i + 1) ? 0.4 : 1));
     const frozen = !!this.hg?.freezesWorld(); // Laternennacht: nur ihre eigenen Wesen bewegen sich
     this.roamers.update(time, delta, blocked || this.leaving || frozen);
+    this.beyAuras?.update(time, !!this.visionNow);
     this.patrols.update(time, delta, blocked || this.leaving || frozen);
     this.critters.update(time, delta, blocked);
     this.updateNpcRoam(delta, blocked || frozen);
@@ -2101,7 +2110,7 @@ export class WorldScene extends Phaser.Scene {
     }
     this.focus = best;
     if (this.splitRole === 2) { this.ui.setPrompt2?.(best?.prompt ?? null, 'Enter', best?.kind); return; }
-    this.focus2 = this.p2 && !blocked ? this.nearestInteractable(this.p2.x, this.p2.y - 3) : null;
+    this.focus2 = this.p2 && !blocked ? this.nearestInteractable(this.p2.x, this.p2.y - 3, 2) : null;
     if (best) this.ui.setPrompt(best.prompt, 'E', best.kind);
     else if (this.focus2) this.ui.setPrompt(`Spieler 2: ${this.focus2.prompt}`, 'Enter', this.focus2.kind);
     else this.ui.setPrompt(null);
@@ -2116,11 +2125,13 @@ export class WorldScene extends Phaser.Scene {
     this.state.emit('notice', text);
   }
 
-  nearestInteractable(px, py) {
+  nearestInteractable(px, py, n = 1) {
     let best = null;
     let bestScore = Infinity;
+    // Spieler 2 findet verborgene Spuren mit seiner eigenen Geistsicht (Seb: vorher zählte nur die von Spieler 1)
+    const sees = n === 2 ? !!this.realState.withPlayer(2, () => this.realState.seesHidden(), { quiet: true }) : this.state.seesHidden();
     for (const it of this.interactables) {
-      if (!it.active || (it.hidden && !this.state.seesHidden())) continue;
+      if (!it.active || (it.hidden && !sees)) continue;
       const d = Phaser.Math.Distance.Between(px, py, it.x, it.y);
       if (d < it.reach && d / it.reach < bestScore) { best = it; bestScore = d / it.reach; }
     }

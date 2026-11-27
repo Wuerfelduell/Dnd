@@ -71,6 +71,7 @@ export class Roamers {
         roam: enc.roam ?? {}, phase: Math.random() * 6, lastPos: { x, y }, stuck: 0,
       };
       this.makeSprite(r, def.encounter);
+      if (enc.beyonder_pfad || s.state.isBeyonderFoe?.(id)) s.beyAuras?.add(r.sprite); // Geistsicht: Beyonder unter den Gegnern
       r.shadow = s.add.ellipse(x, y + 1, r.boss ? 26 : 14, r.boss ? 8 : 5, 0x000000, 0.35);
       r.alert = this.makeAlert(x, y - 30, enc.occult);
       // Paket G: Elite und Bosse tragen eine flackernde Aura

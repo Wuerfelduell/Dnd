@@ -18,20 +18,17 @@ test('Wilde Beyonder: ab Dunscar ist jede Elite-Spielart ein Beyonder mit Pfad-F
   }
 });
 
-test('Beyonder-Kennzeichnung: Pfad, Sequenz, Farbe; Protokollzeile nennt den Pfad', () => {
+test('Beyonder-Daten: Pfad, Sequenz, Farbe; Protokollzeile verrät den Pfad nicht', () => {
   const e = c.encounters.schichtgaenger_elite;
   const b = beyonderInfo(c, e);
   assert.equal(b.pid, e.beyonder_pfad);
   assert.equal(b.seq, 5);
   assert.match(b.color, /^#[0-9a-f]{6}$/i);
   const atk = e.attacks.find((a) => a.pfad);
-  assert.equal(pfadZeile({ name: 'X', beyonder: b }, atk), `X: ${atk.name} (${b.pfad})`);
+  assert.equal(pfadZeile({ name: 'X', beyonder: b }, atk), `X: ${atk.name}`);
   assert.equal(beyonderInfo(c, c.encounters.schichtgaenger), null);
 });
 
-test('EN: Kennzeichnung und Ankündigung für alle zehn Pfade im Wörterbuch', () => {
-  for (const p of Object.values(c.pathways)) {
-    assert.ok(en[`✦ Pfadfähigkeit · ${p.name}`], p.name);
-    assert.ok(en[`✦ Beyonder · ${p.name} · Seq {0}`], p.name);
-  }
+test('EN: Ankündigung der Pfadfähigkeit im Wörterbuch', () => {
+  assert.ok(en['✦ Pfadfähigkeit']);
 });
