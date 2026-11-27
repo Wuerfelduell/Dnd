@@ -42,6 +42,7 @@ import { bedarfMethods } from './Bedarf.js';
 import { bestiarMethods } from './Bestiar.js';
 import { splitMethods } from './Split.js';
 import { mackenMethods } from './Macken.js';
+import { launenMethods } from './Launen.js';
 import { rivaleMethods } from './Rivale.js';
 import { kopfgeldjaegerMethods } from './Kopfgeldjaeger.js';
 import { CALDERWICK_WELT_FLAGS, SUCHE_FLAG, SUCHE_QUEST, SUCHE_EFFECTS } from '../data/aufstieg.js';
@@ -387,7 +388,8 @@ export class GameState {
       this.meetsDaily(o) && // DR: requires_daily / hide_if_daily (einmal je Spieltag)
       this.meetsPfad(o) && // Pfad-Beyonder: requires_item_counts, requires_artifacts, requires_ph_step
       this.meetsAufstieg(o) && // Zug nach oben: requires_alle_flag, hide_if_alle_flag, requires_einer_unter_seq
-      (o.requires_heimkehr === undefined || this.heimkehr() === o.requires_heimkehr) // Rückreise ab Seq 3 (data/heimkehr.js)
+      (o.requires_heimkehr === undefined || this.heimkehr() === o.requires_heimkehr) && // Rückreise ab Seq 3 (data/heimkehr.js)
+      (o.requires_einer_seq === undefined || this.besteSeq() <= o.requires_einer_seq) // ein Spieler mindestens Sequenz N (Gebete aus Dunscar ab Seq 2)
     );
   }
 
@@ -485,6 +487,7 @@ export class GameState {
     if (e.digest_pct) this.digestFixed(e.digest_pct); // feste Verdauung aus großen Taten (Dunscar-Anschläge)
     if (e.verdau_probe) this.startVerdauProbe(e.verdau_probe); // Prüfstein im Pfadviertel (core/VerdauProbe.js)
     if (e.nachhall) this.nachhall(e.nachhall); // Nachhall in den alten Städten (data/heimkehr.js)
+    if (e.glaeubiger) this.glaeubigerWerden(e.glaeubiger); // Gebete: wem du hilfst, der glaubt an dich
     if (e.pfad) this.pfadEffect(e.pfad); // Pfad-Beyonder (Wexmoor): Aufgaben, Schritte, Pfand
     // Fahndung: Zahl ≥ 0 = Mindeststufe (Ausbruch, Flucht), negative Zahl = um so viele Stufen senken (Paket AB)
     if (Number.isFinite(e.wanted) && this.policeRules()) this.setWanted(e.wanted < 0 ? Math.max(0, this.wanted + e.wanted) : Math.max(this.wanted, e.wanted), e.wanted_reason ?? '');
@@ -890,6 +893,7 @@ export class GameState {
     this.wetterTick(); // Wetter und Nebelnacht folgen der Spielzeit
     this.fa2Tick?.(); // Codex DE: Fahrende Auktion hält 2 von 5 Spieltagen
     this.tickSekten(); // BQ: Fristen und per Dialog aufgelöste Ereignisse
+    this.gebeteTick?.(); // Gebete an den Halbgott (core/Heimkehr.js)
     const before = this.composure;
     if (this.spiritVision) {
       this.composure = Math.max(0, this.composure - this.visionDrainPerSec() * dtSeconds);
@@ -1069,4 +1073,4 @@ export class GameState {
 /** Fortschrittsflags der verlängerten Akt-V-Fassung (AP), in Spielreihenfolge. */
 export const K2_AKT5_STEPS = ['k2v_boot_bereit', 'k2v_keller_passiert', 'k2v_aufstieg_passiert', 'k2v_abschied_done'];
 
-Object.assign(GameState.prototype, bestiarMethods, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods, sudeMethods, seq5Methods, seq4Methods, seqHochMethods, bedarfMethods, splitMethods, pfadHandelMethods, erfolgeMethods, postMethods, benannteMethods, tiereMethods, fahrendeAuktionMethods, hausMethods, nebelseiteMethods, testmodusMethods, mackenMethods, kopfgeldjaegerMethods, wetterMethods, rivaleMethods, verdauProbeMethods, heimkehrMethods);
+Object.assign(GameState.prototype, bestiarMethods, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods, sudeMethods, seq5Methods, seq4Methods, seqHochMethods, bedarfMethods, splitMethods, pfadHandelMethods, erfolgeMethods, postMethods, benannteMethods, tiereMethods, fahrendeAuktionMethods, hausMethods, nebelseiteMethods, testmodusMethods, mackenMethods, launenMethods, kopfgeldjaegerMethods, wetterMethods, rivaleMethods, verdauProbeMethods, heimkehrMethods);
