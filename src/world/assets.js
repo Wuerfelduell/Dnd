@@ -3355,6 +3355,9 @@ Object.assign(GEGNER_VARIANTEN, O3_VARIANTEN);
 export const WAECHTER_VARIANTEN = Object.fromEntries(['hg_schwellenwaechter', 'hg_grenzwaechter'].flatMap((b) =>
   HG_PATHS.flatMap((p) => [[`${b}__w_${p}`, b], [`${b}__wt_${p}`, b]])));
 Object.assign(GEGNER_VARIANTEN, WAECHTER_VARIANTEN);
+/** Gestalt-Kampfblätter je Pfad (tools/art/claude_code/hgb_varianten.py): __vh Halbgott des Vorhofs, __vz Stellvertretung, __s1 Seq-1-Beyonder. */
+export const HGB_VARIANTEN = Object.fromEntries(HG_PATHS.flatMap((p) => ['vh', 'vz', 's1'].map((a) => [`hg_battle_${p}__${a}`, `hg_battle_${p}`])));
+Object.assign(GEGNER_VARIANTEN, HGB_VARIANTEN);
 // Kartenfiguren derselben Gegner: characters/<basis>__o3_<pfad>.png neben dem Basisbild
 for (const [neu, base] of Object.entries(O3_VARIANTEN)) {
   const ow = OVERWORLD_SHEETS[base.replace(/^enemy_/, '')];

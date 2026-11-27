@@ -162,7 +162,7 @@ function zweiterAufstiegGegner(content) {
     if (!content.pathways[pid]) continue;
     // Vorhof: Halbgötter (Seq 4). Für einen Heiligen ein harter, fairer Kampf
     out[`hs2_halbgott_${pid}`] = himmel2(`hs2_halbgott_${pid}`, `${seqName(pid, 4)} des Vorhofs`, {
-      sheet: `hg_battle_${pid}`, pathway: pid, elite: true, tier_seq: 4, hp: 6500, armor: 8, max_round_dmg: 0.2,
+      sheet: `hg_battle_${pid}__vh`, pathway: pid, elite: true, tier_seq: 4, hp: 6500, armor: 8, max_round_dmg: 0.2,
       attacks: [schlag('Halbgöttlicher Schlag', 70, [900, 1500]), schlag('Wille des Pfades', 46, [600, 900, 1200, 1500]), schlag('Mythische Gestalt', 108, [2100], { unparryable: true })],
       intro: 'Ein Halbgott steht wieder in der Schlange vor den Höfen, so alt wie eine Stadt. Er erkennt deine Narbe. „Du warst schon einmal hier. Damals warst du Asche. Mal sehen, was du jetzt bist.“',
       win_text: 'Der Halbgott fällt auf die Knie. Unter ihm gibt der weiße Stein nach, und er rutscht hinab, durch die Wolken, nach Calderwick. Hier oben fällt man nicht. Man wird nur zu leicht.',

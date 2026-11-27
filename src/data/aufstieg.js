@@ -120,7 +120,7 @@ function himmelsEncounters(content) {
     if (!content.pathways[pid]) return;
     const pn = content.pathways[pid].name;
     out[`hs_halbgott_${pid}`] = himmelsGegner(`hs_halbgott_${pid}`, `${seqName(pid, 4)} des Vorhofs`, {
-      sheet: `hg_battle_${pid}`, pathway: pid, hp: 60000, armor: 30,
+      sheet: `hg_battle_${pid}__vh`, pathway: pid, hp: 60000, armor: 30,
       attacks: [schlag('Halbgöttlicher Schlag', 420, [900, 1500]), schlag('Mythische Gestalt', 780, [2100], { unparryable: true }), schlag('Wille des Pfades', 260, [600, 900, 1200, 1500])],
       intro: `Ein Halbgott des Pfades ${pn}, so alt wie eine Stadt. Er sieht dich an wie einen Gast, der den falschen Eingang genommen hat. „Noch einer von unten. Zeig, was du mitgebracht hast.“`,
     });
@@ -350,7 +350,7 @@ function calderwickGebiete(content) {
     // Stellvertreter (Seq 4, Halbgott): frei herausforderbar, kommt nicht wieder
     const vizeId = `${o3}_vize`;
     content.encounters[vizeId] = {
-      id: vizeId, name: `${cw.vize}, Stellvertretung`, sprite: 'wild', sheet: `hg_battle_${pid}`, pathway: pid, occult: true, chapter: 5, boss: true, elite: false,
+      id: vizeId, name: `${cw.vize}, Stellvertretung`, sprite: 'wild', sheet: `hg_battle_${pid}__vz`, pathway: pid, occult: true, chapter: 5, boss: true, elite: false,
       hp: 12000, armor: 8, max_round_dmg: 0.12, fleeable: true, zone: o3, wild: true,
       attacks: [{ name: 'Halbgöttlicher Schlag', damage: 140, hits: [900, 1500] }, { name: 'Mythische Gestalt', damage: 260, hits: [2200], unparryable: true }, { name: 'Wille des Pfades', damage: 90, hits: [600, 900, 1200, 1500] }],
       intro: `${cw.vize}, Halbgott und Stellvertretung des Oberhaupts, tritt dir in den Weg. „Ein Neuer von oben. Alle fallen hierher, und alle glauben, sie wären die Ausnahme.“`,
