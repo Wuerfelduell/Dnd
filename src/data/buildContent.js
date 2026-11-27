@@ -46,6 +46,7 @@ import { applyCalderwickBeute } from './calderwickBeute.js';
 import { applyCalderwickErkunden } from './calderwickErkunden.js';
 import { applyCalderwickLeben } from './calderwickLeben.js';
 import { applyPfadviertelPlan } from './pfadviertelPlan.js';
+import { applyPfadviertelGeschichte } from './pfadviertelGeschichte.js';
 import { applyDunscarAusbau, applyDunscarStaende } from './dunscarAusbau.js';
 import { applyBenannte } from './benannte.js';
 import { applyDunscarSchlacke } from './dunscarSchlacke.js';
@@ -183,6 +184,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyNebelnacht(content); // Nebelnächte: Nebelkrämerin auf dem Markt jeder Stadt (nach allen Kulissen)
   applyCalderwickStadtplan(content); // Calderwick: eigene Stadtpläne je Terrasse (Häuser, Gassen, Plätze), Objekte an sinnvollen Stellen
   applyCalderwickErkunden(content); // Calderwick: Verstecke mit Wächtern, verbrannte Briefe, zwei Nebenaufträge
+  applyPfadviertelGeschichte(content); // Seb 2026-11-27: kleine Geschichte je Pfadviertel, mit dem eigenen Rivalen am Ende
   applyPfadviertelPlan(content); // Pfadviertel: Gildenhof, Gildenhalle mit Oberhaupt, Gassen mit Herden, Herz-Arena, Wegweiser
   applyCalderwickKulisse(content); // Calderwick: Häuser, Möbelblöcke, Fassaden, Rohrpost, Laternen, Licht und Nebel; Pfadviertel mit Verderbnis-Glimmen
   applyCalderwickLeben(content); // Seb 2026-11-27: Calderwick belebt – Passanten, Gemurmel, Tratsch, Rohrpost und Fallglocke (nach der Kulisse)

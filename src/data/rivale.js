@@ -117,6 +117,13 @@ export const RIVALE_TEXTE = {
     '{name} limps out of the circle. The place is yours.'],
   markt: ['{name} war vor dir hier und hat weggekauft, was du für deinen nächsten Trank brauchst.',
     '{name} was here before you and bought up what you need for your next potion.'],
+  // Pfadviertel-Geschichte (pfadviertelGeschichte.js): am letzten Hof hält der Rivale das letzte Stück
+  viertel: ['{name} steht schon da, das letzte Stück dieser Geschichte in der Hand. „Ein ganzes Viertel voller Geheimnisse, und du dachtest, du bist die einzige Person auf unserem Pfad, die hier sucht?“ Wer es haben will, muss es {name} abnehmen.',
+    '{name} is already standing there, the last piece of this story in hand. "A whole quarter full of secrets, and you thought you were the only one on our pathway searching here?" Whoever wants it has to take it from {name}.'],
+  viertel_verbuendet: ['{name} wartet schon und hält dir das letzte Stück hin. „Ich hab es vor den anderen gefunden. Für dich. Bündnis ist Bündnis.“',
+    '{name} is already waiting and holds out the last piece to you. "I found it before the others did. For you. An alliance is an alliance."'],
+  viertel_sieg: ['{name} lässt fallen, was hier gefunden wurde, und verschwindet in den Gassen. Das letzte Stück gehört dir.',
+    '{name} drops what was found here and vanishes into the alleys. The last piece is yours.'],
   gegner: ['{name}, Rivale auf deinem Pfad', '{name}, rival on your pathway'],
   intro: ['{name} stellt sich dir in den Weg. Derselbe Pfad, nur einer kann zuerst ankommen.',
     '{name} blocks your way. The same pathway, and only one can arrive first.'],
@@ -137,6 +144,7 @@ export const RIVALE_UI = {
   'Noch nicht begegnet. Ab Wexmoor geht jemand denselben Pfad wie du.': 'Not met yet. From Wexmoor on, someone walks the same pathway as you.',
   'Diebesgut': 'Loot',
   'Ein Kampf steht bevor.': 'A fight is coming.',
+  Später: 'Later',
 };
 
 /** Text für einen Rivalen. */

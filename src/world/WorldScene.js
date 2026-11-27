@@ -2236,6 +2236,9 @@ export class WorldScene extends Phaser.Scene {
       case 'casewall':
         this.ui.showCaseWall();
         break;
+      case 'rivale_viertel': // Pfadviertel-Geschichte: der eigene Rivale hält das letzte Stück (data/pfadviertelGeschichte.js)
+        this.ui.openRivaleViertel?.(this.splitRole === 2 ? 2 : 1, def);
+        break;
       case 'combat':
         this.startCombat(def.encounter, def.after ?? null, { noLoot: !!def.no_loot }); // BQ: Schreinwachen ohne Beute, mit Folge
         break;

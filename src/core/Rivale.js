@@ -5,6 +5,7 @@
 import { seeded } from './Gatherings.js';
 import { DAY_SECONDS } from './Clock.js';
 import { RIVALEN, RIVALE_REGELN as R, rivaleEncId, rivaleName, rivaleText } from '../data/rivale.js';
+import { pvgFlag } from '../data/pfadviertelGeschichte.js';
 
 const TAG_FELDER = ['tag', 'ruhe_bis', 'stahl_tag', 'treff_tag', 'kreis_frei', 'kreis_besetzt', 'kreis_kampf'];
 const KEY = { 1: 'p1', 2: 'p2' };
@@ -140,8 +141,11 @@ export const rivaleMethods = {
     const imKreis = r.kreis_kampf === tag;
     r.kreis_kampf = -1;
     const out = [];
+    const viertel = r.viertel;
+    r.viertel = null;
     if (combat.outcome === 'won') {
       r.siege++;
+      if (viertel) { this.flags.add(pvgFlag(viertel, 'rivale')); out.push(this.rivaleText('viertel_sieg', n)); }
       r.ruhe_bis = tag + R.ruhe_tage;
       if (imKreis) { r.kreis_frei = tag; out.push(this.rivaleText('ritual_frei', n)); }
       if (r.status === 'rivale' && r.siege === R.buendnis_siege) out.push(this.rivaleText('sieg_respekt', n));
@@ -241,10 +245,11 @@ export const rivaleMethods = {
   },
 
   /** Kampf aus der Begegnung heraus (der Spieler, dessen Rivale es ist, löst ihn aus). */
-  rivaleKampf(n = 1) {
+  rivaleKampf(n = 1, viertel = null) {
     const r = this.rivaleDaten(n);
     const id = r ? rivaleEncId(r.pid, r.seq, n) : null;
     if (!id || !this.content.encounters[id]) return null;
+    r.viertel = viertel; // Pfadviertel-Geschichte: Sieg gibt das letzte Stück frei
     this.rivaleAls(n, () => this.startCombat(id));
     return id;
   },

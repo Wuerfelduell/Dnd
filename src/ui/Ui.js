@@ -34,7 +34,8 @@ import { canHurry, hurryCost, travelSafe, travelFast, afterHurryFight, travelDes
 import { questTarget, leadTarget, personPlaces, advice, aktuellesZiel } from '../core/Guide.js';
 import { WETTER, NEBELNACHT, SEASON_NAMES } from '../core/Wetter.js';
 import { installTestmodus, testPauseButton, bindTestPause, closeTestReise } from './TestUi.js';
-import { RIVALE_REGELN } from '../data/rivale.js';
+import { RIVALE_REGELN, rivaleName } from '../data/rivale.js';
+import { PVG_UI } from '../data/pfadviertelGeschichte.js';
 import { hatNarbe, NARBE } from '../core/Narbe.js';
 import { p2View } from '../core/Split.js';
 import { aufstiegHinweise, wichtigeOrte, wegbeschreibung, zielName } from '../data/aufstiegHinweise.js';
@@ -2663,6 +2664,23 @@ export class Ui {
     el.querySelectorAll('[data-rv]').forEach((b) => { b.onclick = () => this.rivalePick(Number(b.dataset.rv)); });
   }
 
+  /** Pfadviertel-Geschichte: am letzten Hof wartet der eigene Rivale mit dem letzten Stück (Kampf, als Verbündeter geschenkt). */
+  openRivaleViertel(nr, def) {
+    const s = this.state;
+    const r = s.rivaleDaten?.(nr);
+    const fertig = (text) => { s.applyEffects({ sets_flags: [def.done_flag] }); this.showMessage(r ? rivaleName(r.pid, nr) : PVG_UI.rivale[0], text); };
+    if (!r) { fertig(PVG_UI.ohne_rivale[0]); return; }
+    r.getroffen = true;
+    if (r.status === 'verbuendet') { fertig(s.rivaleText('viertel_verbuendet', nr)); return; }
+    this.rivaleUi = { nr, name: rivaleName(r.pid, nr), optionen: ['kampf', 'gehen'], viertel: def.viertel };
+    this.sfx(uiSound('dialogue', 'dialog'), { volume: 0.7 });
+    const el = this.open('rivale', `
+      <div class="speaker">${esc(this.rivaleUi.name)} ${s.hasP2() ? `<span class="role">Spieler ${nr}</span> ` : ''}<span class="role">Rivale auf deinem Pfad · </span><span class="role">Sequenz ${r.seq}</span></div>
+      <div class="text">${paragraphs(s.rivaleText('viertel', nr))}</div>
+      <ol class="choices">${[['kampf', 'Kämpfen'], ['gehen', 'Später']].map(([, l], i) => `<li><button data-rv="${i}"><span class="key">${i + 1}</span> ${esc(l)}</button></li>`).join('')}</ol>`, 'dialogue');
+    el.querySelectorAll('[data-rv]').forEach((b) => { b.onclick = () => this.rivalePick(Number(b.dataset.rv)); });
+  }
+
   rivalePick(i) {
     const ui = this.rivaleUi;
     const o = ui?.optionen?.[i];
@@ -2670,7 +2688,7 @@ export class Ui {
     const s = this.state;
     this.rivaleUi = null;
     if (o === 'gehen') { this.close(); return; }
-    if (o === 'kampf') { s.rivaleKampf(ui.nr); this.close(); return; } // der Kampf startet, sobald das Fenster zu ist
+    if (o === 'kampf') { s.rivaleKampf(ui.nr, ui.viertel); this.close(); return; } // der Kampf startet, sobald das Fenster zu ist
     const r = o === 'stehlen' ? s.rivaleStehlen(ui.nr) : s.rivaleBuendnis(ui.nr);
     this.showMessage(ui.name, r.text, { footer: r.beute ?? (r.fight ? 'Ein Kampf steht bevor.' : '') });
   }
