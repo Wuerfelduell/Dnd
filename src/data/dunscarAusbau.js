@@ -123,7 +123,10 @@ function moeblieren(content) {
     M(`${SW}stove`, 20, 8, { light: ofenLicht }),
     M(`${SW}table_soup_bowl`, 8, 8), M(`${SW}table_soup_bowl`, 13, 8), M(`${SW}table_soup_bowl`, 16, 12),
     M(`${SW}phonograph`, 9, 12),
-  ]);
+    // Seb 2026-11-27: obere Hälfte war leer – Samowar-Theke und Polsterbänke unter den Aushängen
+    M('i2_speisewagen_samowar_theke', 14, 5, { small: true, half: true }), M('i2_speisewagen_polsterbank', 19, 5, { small: true, half: true }),
+    M('i2_speisewagen_polsterbank2', 10, 5, { small: true, half: true }),
+  ], [{ tile: [14, 5], radius: 40, intensity: 0.45, color: '#ffc782', flicker: 0.06 }]);
   add('ds_pruefhaus', [
     M(`${PH}acoustic_horn`, 8, 8), M(`${PH}wax_cylinder_shelving`, 13, 8), M(`${PH}brass_measuring_instrument`, 18, 8),
     M(`${PH}victorian_headphones`, 14, 12, { solid: false }), M('i2_akademie_lesepult', 10, 12, { small: true, half: true }),
@@ -134,9 +137,14 @@ function moeblieren(content) {
   ]);
   add('ds_runddepot', [
     M('dsp_schwellenring_mechanic_workbench', 10, 8), M('dsp_schwellenring_locomotive_wheel', 15, 8), M('dsp_schwellenring_coal_heap', 20, 8),
-    M('dsp_schwellenring_water_crane', 16, 12),
+    M('dsp_schwellenring_water_crane', 16, 12), M('o_russ_props_coal_cart', 11, 12),
   ]);
-  add('ds_nachtzug_wagen', [M(`${SW}bunk`, 9, 8), M(`${SW}bunk`, 14, 8), M(`${SW}table_soup_bowl`, 19, 8)]);
+  add('ds_nachtzug_wagen', [M(`${SW}bunk`, 9, 8), M(`${SW}bunk`, 14, 8), M(`${SW}table_soup_bowl`, 19, 8),
+    M(`${SW}bunk`, 19, 12, { half: true }), M('i2_speisewagen_gepaecknetz', 12, 12, { small: true, half: true }), M('i2_speisewagen_klapptisch', 15, 12, { small: true, half: true })],
+  [{ tile: [14, 6], radius: 60, intensity: 0.5, color: '#ffc782', flicker: 0.06 }]);
+  // Lok: war bis auf Pfeiler leer – Feuerbüchse mit Glut, Kohle, Lorenwagen und Werkbank des Heizers
+  add('ds_nachtzug_lok', [M(`${SW}stove`, 7, 8, { light: ofenLicht }), M('dsp_schwellenring_coal_heap', 12, 8), M('o_russ_props_coal_cart', 17, 8),
+    M('dsp_schwellenring_mechanic_workbench', 16, 12)], [{ tile: [7, 7], radius: 70, intensity: 0.6, color: '#ff8a40', glow: 0.3, flicker: 0.25 }]);
 }
 
 // --- Neue Häuser ------------------------------------------------------------------------------------------------------
@@ -247,7 +255,7 @@ function apotheke() {
 const NEUE_HAEUSER = [[gasthaus, 'ds_arbeiterbogen'], [apotheke, 'ds_kalkmarkt']];
 
 /** Stände hinter Händlern im Freien (BA_staende: 10 Stände, je offen/geschlossen). */
-const STAND = { ds_waffenhaendlerin: 10, ds_kleiderhaendlerin: 18, ds_kraeuterfrau: 8, k3h_troedlerin: 4, k3h_steinmetz: 6, k3h_lampenwart: 16 };
+export const STAND = { ds_waffenhaendlerin: 10, ds_kleiderhaendlerin: 18, ds_kraeuterfrau: 8, k3h_troedlerin: 4, k3h_steinmetz: 6, k3h_lampenwart: 16 };
 const SCHILD = { k3h_troedlerin: 'Idas Trödel und Ankauf', k3h_lampenwart: 'Licht und Öl' };
 
 /** Vor applyDunscarKulisse: neue Häuser, Läden, Gegenstände. */
@@ -292,7 +300,7 @@ function steinmetzPreise(content) {
 }
 
 /** Marktplätze im Südwesten: zwei Reihen à drei Stände, breit genug für die Schilder. */
-const STANDPLAETZE = [[4, 14], [10, 14], [16, 14], [4, 17], [10, 17], [16, 17]];
+export const STANDPLAETZE = [[4, 14], [10, 14], [16, 14], [4, 17], [10, 17], [16, 17]];
 
 /** Nach applyDunscarKulisse: Händler im Freien in Standreihen, jeder mit Stand und Schild (Plätze stehen erst nach dem Raster fest). */
 export function applyDunscarStaende(content) {

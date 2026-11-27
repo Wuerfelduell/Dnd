@@ -50,12 +50,13 @@ const listeners = new Set();
 const MISSES = new Set();
 export function missingTexts() { return [...MISSES]; }
 if (typeof window !== 'undefined') window.__i18nMissing = () => JSON.stringify(Object.fromEntries([...MISSES].map((s) => [s, ''])), null, 1);
+if (typeof window !== 'undefined') window.__i18nLookup = (s) => lookup(s);
 
 export function getLang() { return lang; }
 export function isEnglish() { return lang === 'en'; }
 export function onLangChange(fn) { listeners.add(fn); return () => listeners.delete(fn); }
 /** Nur für Tests: eigenes Wörterbuch setzen. */
-export function setDict(d) { DICT = splitParagraphs(d); }
+export function setDict(d) { DICT = splitParagraphs(d); memo = new Map(); }
 
 export function setLang(l) {
   lang = l === 'en' ? 'en' : 'de';
@@ -73,12 +74,107 @@ export function lookup(s) {
   if (!s) return null;
   if (Object.prototype.hasOwnProperty.call(DICT, s)) return DICT[s];
   const nums = s.match(NUM);
-  if (!nums) return null;
-  let i = 0;
-  const key = s.replace(NUM, () => `{${i++}}`);
-  const hit = DICT[key];
-  if (hit == null) return null;
-  return hit.replace(/\{(\d+)\}/g, (m, k) => nums[Number(k)] ?? m);
+  if (nums) {
+    let i = 0;
+    const key = s.replace(NUM, () => `{${i++}}`);
+    const hit = DICT[key];
+    if (hit != null) return hit.replace(/\{(\d+)\}/g, (m, k) => nums[Number(k)] ?? m);
+  }
+  return composite(s);
+}
+
+/**
+ * Zusammengesetzte Anzeigen („Neuer Hinweis: <Name>“, „○ Lampenöl ×2 (wird verbraucht)“, „A · 4: B · 3: C“)
+ * bestehen aus Teilen, die einzeln im Wörterbuch stehen. Nur wenn ALLE Teile bekannt sind, gibt es einen Treffer.
+ */
+// Feste Satzanfänge vor einem Namen („freischalten über Inspektorin Marlowe“)
+const LEADS = [['freischalten über ', 'unlock via '], ['Spur prüfen', 'Check trace'], ['bringt ', 'grants ']];
+// Feste Satzrahmen um einen Namen („„X“ lesen“, „X ansehen“, „In X“)
+const FRAMES = [
+  [/^„(.+)“ lesen$/, (a) => `Read “${a}”`],
+  [/^(.+) lesen$/, (a) => `Read ${a}`],
+  [/^(.+) ansehen$/, (a) => `Look at ${a}`],
+  [/^(.+) untersuchen$/, (a) => `Examine ${a}`],
+  [/^(.+) aufheben$/, (a) => `Pick up ${a}`],
+  [/^(.+) herausfordern$/, (a) => `Challenge ${a}`],
+  [/^Mit (.+) sprechen$/, (a) => `Talk to ${a}`],
+  [/^(.+) \(Taste (\d+)\)$/, (a, m) => `${a} (key ${m[2]})`],
+  [/^Fernzug (.+) prüfen$/, (a) => `Check remote pull: ${a}`],
+  [/^Fernzug (.+)$/, (a) => `Remote pull: ${a}`],
+  [/^In (.+)$/, (a) => `Enter ${a}`],
+  [/^Nach (.+)$/, (a) => `To ${a}`],
+];
+const SEPS = [' · ', ' — ', ' – ', ': ', ' | ', ', ', '; '];
+const NO_WORD = /^[^A-Za-zÄÖÜäöüß]*$/;
+let memo = new Map();
+let depth = 0;
+const part = (x) => (NO_WORD.test(x) || !/[A-Za-zÄÖÜäöüß]{2,}/.test(x) ? x : lookup(x));
+function composite(s) {
+  if (depth > 24 || s.length > 800) return null;
+  if (memo.has(s)) return memo.get(s);
+  if (memo.size > 50000) memo = new Map();
+  memo.set(s, null); // gegen Schleifen
+  depth++;
+  let out = null;
+  try { out = compose(s); } finally { depth--; }
+  memo.set(s, out);
+  return out;
+}
+function compose(s) {
+  let m = s.match(/^([^\p{L}\p{N}„“"(\[]+)([\p{L}\p{N}„“"(\[][\s\S]*)$/u); // Zeichen davor („○ “, „✧ +“)
+  if (m) { const a = part(m[2]); return a == null ? null : m[1] + a; }
+  m = s.match(/^([\s\S]*?\S) ×(\d+)$/); // Menge hinten
+  if (m) { const a = part(m[1]); return a == null ? null : `${a} ×${m[2]}`; }
+  m = s.match(/^([\s\S]*?[\p{L}\p{N}“”"')])(\s+[^\p{L}\s„“"(][^\p{L}]*)$/u); // Zeichen dahinter („Kalkmarkt →“, „Klopfbruch ⚠3“)
+  if (m) { const a = part(m[1]); if (a != null) return a + m[2]; }
+  for (const [de, en] of LEADS) if (s.startsWith(de)) { const a = part(s.slice(de.length)); if (a != null) return en + a; }
+  for (const [re, fn] of FRAMES) { m = s.match(re); if (m) { const a = part(m[1]); if (a != null) return fn(a, m); } }
+  m = s.match(/^([\s\S]*[^.!?…])([.:])$/); // Satzzeichen hinten
+  if (m) { const a = lookup(m[1]); if (a != null) return /[.:!?…]$/.test(a) ? a : a + m[2]; }
+  m = s.match(/^„([^„“]+)“$/); // ganz in Anführungszeichen
+  if (m) { const a = part(m[1]); return a == null ? null : `“${a}”`; }
+  m = s.match(/^([\s\S]*?\S) ([(\[])([^()[\]]+)([)\]])([.:]?)$/); // Klammer hinten
+  if (m) { const a = part(m[1]); const b = a == null ? null : part(m[3]); if (b != null) return `${a} ${m[2]}${b}${m[4]}${m[5]}`; }
+  // Sätze: „<bekannter Satz>. <bekannter Satz>.“ (z. B. Hinweistext + feste Schlusszeile)
+  const cuts = [...s.matchAll(/[.!?…“](\s+)(?=[A-ZÄÖÜ„])/g)].slice(0, 12);
+  for (const c of cuts) {
+    const i = c.index + 1;
+    const a = part(s.slice(0, i));
+    if (a == null) continue;
+    const b = part(s.slice(i + c[1].length));
+    if (b != null) return `${a} ${b}`;
+  }
+  for (const sep of SEPS) {
+    for (let i = s.indexOf(sep), n = 0; i > 0 && n < 8; i = s.indexOf(sep, i + 1), n++) {
+      const a = part(s.slice(0, i)) ?? (sep === ': ' ? lookup(`${s.slice(0, i)}:`)?.replace(/:$/, '') : null);
+      if (a == null) continue;
+      const b = part(s.slice(i + sep.length));
+      if (b != null) return a + sep + b;
+    }
+  }
+  return null;
+}
+
+/** Kleinster fehlender Teil eines zusammengesetzten Textes (für die Fehlliste), sonst der Text selbst. */
+function missingPart(s, d = 0) {
+  if (d > 8) return s;
+  const m = s.match(/^[^\p{L}\p{N}„“"(\[]+([\p{L}\p{N}„“"(\[][\s\S]*)$/u);
+  if (m) return missingPart(m[1], d + 1);
+  for (const c of [...s.matchAll(/[.!?…“](\s+)(?=[A-ZÄÖÜ„])/g)].slice(0, 12)) {
+    const a = s.slice(0, c.index + 1);
+    const b = s.slice(c.index + 1 + c[1].length);
+    if (part(a) != null && part(b) == null) return missingPart(b, d + 1);
+    if (part(b) != null && part(a) == null) return missingPart(a, d + 1);
+  }
+  for (const sep of SEPS) {
+    for (let i = s.indexOf(sep), n = 0; i > 0 && n < 8; i = s.indexOf(sep, i + 1), n++) {
+      const a = s.slice(0, i);
+      const b = s.slice(i + sep.length);
+      if (part(a) != null && part(b) == null) return missingPart(b, d + 1);
+      if (part(b) != null && part(a) == null) return missingPart(a, d + 1);
+    }
+  }
+  return s;
 }
 
 const HAS_WORD = /[A-Za-zÄÖÜäöüß]{2,}/;
@@ -97,7 +193,7 @@ function trLang(s, onLate) {
   const core = m[2];
   const hit = lookup(core);
   if (hit != null) return m[1] + hit + m[3];
-  if (MISSES.size < 20000) MISSES.add(core);
+  if (MISSES.size < 20000) MISSES.add(missingPart(core));
   const mt = machine(core, onLate && ((t) => onLate(m[1] + t + m[3])));
   return mt != null ? m[1] + mt + m[3] : s;
 }
