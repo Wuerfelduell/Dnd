@@ -575,7 +575,7 @@ function markDsLoners(content) {
     content.npcs[id] = { ...npc, wegweiser: true, palette: { ...npc.palette, ...look.palette } };
     for (const [mid, m] of Object.entries(content.maps)) {
       if (!(m.npcs ?? []).some((n) => n.id === id)) continue;
-      content.maps[mid] = { ...m, npcs: m.npcs.map((n) => (n.id === id ? { ...n, label: `${npc.name} · ${look.pfad}` } : n)) };
+      content.maps[mid] = { ...m, npcs: m.npcs.map((n) => (n.id === id ? { ...n, label: npc.name } : n)) };
     }
   }
 }

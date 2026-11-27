@@ -1447,6 +1447,7 @@ export class Ui {
       if (g) text = `${g}\n\n${text}`;
     }
     if (node.pathway_report) text += `\n\n${s.pathwayReport()}`;
+    if (this.dialogue.prefix) { text = `${this.dialogue.prefix}\n\n${text}`; this.dialogue.prefix = null; }
     if (node.rank) {
       const r = s.rank();
       const next = s.nextRank();
@@ -1463,6 +1464,8 @@ export class Ui {
       if (s.giftMatters(npc.id)) choices.splice(Math.max(0, choices.length - 1), 0, { text: 'Etwas schenken …', gift: true }); // nur wo es etwas bringt
       // Seq-5-Rituale: dem Bürger eine Erinnerung nehmen (Moor), als gestohlene Identität auftreten (Maske)
       if (this.as(() => s.canTakeMemory(npc.id))) choices.splice(Math.max(0, choices.length - 1), 0, { text: 'Eine Erinnerung nehmen …', moor: true });
+      // Geistsicht (Seb 2026-11-27): wer die Aura sieht, kann nach dem Pfad fragen
+      if (this.as(() => s.canAskPfad?.(npc.id))) choices.splice(Math.max(0, choices.length - 1), 0, { text: 'Nach dem Pfad fragen …', pfad: true });
       if (this.as(() => s.canImpersonate(npc.id))) choices.splice(Math.max(0, choices.length - 1), 0, { text: `Als ${this.as(() => s.maskeIdentity())?.name ?? '…'} auftreten …`, maske: true });
       this.dialogue.menuNode = nodeId;
     }
@@ -1492,6 +1495,12 @@ export class Ui {
     if (choice.gift) { this.openGift(); return; }
     if (choice.moor) { this.openMoor(); return; }
     if (choice.maske) { this.openMaske(); return; }
+    if (choice.pfad) {
+      const r = this.as(() => this.state.askPfad(this.dialogue.npc.id));
+      this.dialogue.prefix = r.text;
+      this.showNode(this.dialogue.menuNode);
+      return;
+    }
     if (choice.repair) { const { onClose } = this.dialogue; this.dialogue = null; onClose?.(); this.openRepair('', choice.repair === 'maud' ? 'maud' : 'flickerin'); return; }
     if (choice.shop || choice.vault || choice.expert || choice.auction || choice.signal_station) {
       const { onClose } = this.dialogue;
@@ -3594,8 +3603,7 @@ export class Ui {
     const c = sc.combat;
     const s = this.state;
     const q = (sel) => this.layer.querySelector(sel);
-    const by = c.enemy.beyonder;
-    q('.cb-enemy .cb-name').innerHTML = `${c.enemy.occult ? uiSprite('hud', 'occult', 1 / 8, 'occult', 'okkult') : ''}${esc(c.enemy.name)} · ${c.enemy.hp}/${c.enemy.maxHp}${by ? `<span class="cb-beyonder" style="color:${esc(by.color)}">✦ Beyonder · ${esc(by.pfad)}${by.seq ? ` · Seq ${by.seq}` : ''}</span>` : ''}`;
+    q('.cb-enemy .cb-name').innerHTML = `${c.enemy.occult ? uiSprite('hud', 'occult', 1 / 8, 'occult', 'okkult') : ''}${esc(c.enemy.name)} · ${c.enemy.hp}/${c.enemy.maxHp}`; // Seb 2026-11-27: kein Beyonder-Abzeichen mehr, Beyonder zeigt die Geistsicht
     // Paket B: Leisten aus battle_hud.png (sechs Füllstände)
     q('.hudbar.enemy').innerHTML = hudMeter('enemy', c.enemy.hp / c.enemy.maxHp, 1 / 4);
     q('.efill').style.width = `${(c.enemy.hp / c.enemy.maxHp) * 100}%`;
@@ -3613,7 +3621,7 @@ export class Ui {
     // Gegnergruppe: jeder Gegner als kleine Karte (Ziel golden, Gefallene grau); antippen wählt das Ziel
     const foesEl = q('.cb-foes');
     if (foesEl) {
-      foesEl.innerHTML = c.group ? c.foes.map((f, i) => `<button class="cb-foe${i === c.aim ? ' aim' : ''}${i === c.fi && sc.phase === 'enemy' ? ' attacking' : ''}${f.enemy.hp <= 0 ? ' dead' : ''}" data-foe="${i}"><span class="cb-foe-nr">${i + 1}</span><span class="cb-foe-name">${esc(f.enemy.name)}${f.enemy.beyonder ? ` <span style="color:${esc(f.enemy.beyonder.color)}" title="Beyonder · ${esc(f.enemy.beyonder.pfad)}">✦</span>` : ''}</span><span class="hudbar foe">${hudMeter('enemy', f.enemy.hp / f.enemy.maxHp, 1 / 13)}</span></button>`).join('') : '';
+      foesEl.innerHTML = c.group ? c.foes.map((f, i) => `<button class="cb-foe${i === c.aim ? ' aim' : ''}${i === c.fi && sc.phase === 'enemy' ? ' attacking' : ''}${f.enemy.hp <= 0 ? ' dead' : ''}" data-foe="${i}"><span class="cb-foe-nr">${i + 1}</span><span class="cb-foe-name">${esc(f.enemy.name)}</span><span class="hudbar foe">${hudMeter('enemy', f.enemy.hp / f.enemy.maxHp, 1 / 13)}</span></button>`).join('') : '';
       foesEl.querySelectorAll('[data-foe]').forEach((b) => { b.onclick = () => sc.pickTarget(Number(b.dataset.foe)); });
     }
     // Ein Feld pro Spieler; zu zweit leuchtet, wer am Zug ist bzw. angegriffen wird
