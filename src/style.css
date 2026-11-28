@@ -1495,3 +1495,17 @@ html.touch .talentbar .tslot { width: 3.2em; height: 3.2em; }
 .nb-hits .nb-hit .desc { font-size: 0.9em; opacity: 0.8; }
 .search-hit { animation: searchHit 1.6s ease-out 2; outline: 0.15em solid var(--gold); outline-offset: 0.1em; }
 @keyframes searchHit { 0% { box-shadow: 0 0 0 0.3em rgba(230, 190, 90, 0.6); } 100% { box-shadow: 0 0 0 0 rgba(230, 190, 90, 0); } }
+
+/* --- Online-Koop (src/net) --------------------------------------------------------------------------------------- */
+.net-guest #game { display: none; }
+.net-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; background: #06070d; image-rendering: pixelated; image-rendering: crisp-edges; pointer-events: none; }
+.net-join { margin: 0.6em 0 0.4em; }
+.net-code-input { width: 7.5em; padding: 0.25em 0.4em; font: inherit; font-size: 1.6em; letter-spacing: 0.3em; text-transform: uppercase; text-align: center;
+  color: #f2d488; background: #121019; border: 0.125em solid #6a5434; box-shadow: inset 0 0.125em 0 #000; outline: none; pointer-events: auto; }
+.net-code-input:focus { border-color: #e8c070; box-shadow: inset 0 0.125em 0 #000, 0 0 0.5em rgba(232, 192, 112, 0.35); }
+.net-code-input::placeholder { color: #5a5040; letter-spacing: 0.3em; }
+.net-code-big { margin: 0.2em 0 0.4em; font-size: 3em; line-height: 1; letter-spacing: 0.25em; font-weight: 600; color: #f2d488; text-shadow: 0 0.0625em 0 #3a2410, 0 0 0.35em rgba(240, 180, 90, 0.35); user-select: all; }
+.net-ended { position: absolute; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; background: rgba(6, 7, 13, 0.75); }
+.net-ended-box { max-width: 26em; padding: 1em 1.4em; text-align: center; background: #15121c; border: 0.125em solid #6a5434; }
+.net-ended-box h3 { margin: 0 0 0.4em; color: #f2d488; }
+.net-ended-box button { margin-top: 0.6em; font: inherit; }

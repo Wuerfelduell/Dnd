@@ -2252,6 +2252,8 @@ export class WorldScene extends Phaser.Scene {
       if (a2 === 'interact' && this.focus) this.interactAs2(this.focus);
       else if (a2 === 'vision') this.state.setSpiritVision(!this.state.spiritVision);
       else if (a2 === 'inventory') this.ui.openNotebook('items', 2);
+      else if (a2 === 'notebook') this.ui.openNotebook(null, 2); // Online-Gast: J / Tab
+      else if (a2 === 'pathway') this.ui.openNotebook('pfad', 2); // Online-Gast: P
       else if (a2 === 'gearset') this.ui.cycleGearSet(2);
       else if (a2.startsWith('talent:')) this.useTalentKey(2, a2.slice(7));
       return;
@@ -2260,6 +2262,8 @@ export class WorldScene extends Phaser.Scene {
       if (a2 === 'interact' && this.focus2) this.interactAs2(this.focus2);
       else if (a2 === 'vision') this.state.withPlayer(2, () => this.state.setSpiritVision(!this.state.spiritVision));
       else if (a2 === 'inventory') this.ui.openNotebook('items', 2);
+      else if (a2 === 'notebook') this.ui.openNotebook(null, 2); // Online-Gast: J / Tab
+      else if (a2 === 'pathway') this.ui.openNotebook('pfad', 2); // Online-Gast: P
       else if (a2 === 'gearset') this.ui.cycleGearSet(2);
       else if (a2.startsWith('talent:')) this.useTalentKey(2, a2.slice(7));
     }

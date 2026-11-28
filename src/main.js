@@ -15,6 +15,8 @@ import { HIMMEL, STURZ_EFFECTS } from './data/aufstieg.js';
 import { watchDom, patchPhaser } from './core/I18n.js';
 import { bootLoader } from './ui/Ladebildschirm.js';
 import { skipTraining } from './core/Lehrstunde.js';
+import { OnlineHost, OnlineGuest } from './net/Online.js';
+import { cleanRoomCode, validRoomCode } from './net/keys.js';
 
 // Drei lokale Speicherplätze. Platz 1 nutzt den alten Schlüssel, damit bestehende Spielstände dort bleiben.
 const SLOTS = [1, 2, 3];
@@ -210,6 +212,16 @@ window.addEventListener('touchstart', () => setTimeout(fit, 0), { once: true, pa
 // Kein Kontextmenü beim langen Drücken (Handy)
 frame.addEventListener('contextmenu', (e) => e.preventDefault());
 window.addEventListener('beforeunload', writeSave);
+// Online-Koop (src/net): Host öffnet im Pausemenü einen Raum, Gast tritt im Hauptmenü mit dem Code bei
+if (typeof RTCPeerConnection !== 'undefined' && typeof HTMLCanvasElement !== 'undefined' && HTMLCanvasElement.prototype.captureStream) {
+  ui.net = {
+    cleanCode: cleanRoomCode,
+    validCode: validRoomCode,
+    makeHost: (onStatus) => new OnlineHost({ game, ui, state }, onStatus),
+    makeGuest: (onStatus) => new OnlineGuest({ game, ui, music, frame }, onStatus),
+  };
+  window.addEventListener('beforeunload', () => { ui.netHost?.close(); ui.netGuestConn?.leave(); });
+}
 fit();
 
 ui.showTitle();

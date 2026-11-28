@@ -71,9 +71,20 @@ export function showTitleMenu(ui, view = 'main', { sel = 0, focus = null, notice
       <nav class="tm-menu">
         ${saved ? item('continue2', 'Fortsetzen zu zweit', { sub: slotInfo(ui, saved), cls: 'tm-primary' }) : ''}
         ${item('new2', 'Neues Spiel zu zweit', { cls: saved ? '' : 'tm-primary' })}
+        ${ui.net ? item('join', 'Online beitreten', { sub: 'Mit dem Raumcode eines Freundes als Spieler 2' }) : ''}
         ${back()}
       </nav>
       <div class="tm-text muted tm-small">Spieler 2: <span class="key">Pfeile</span> laufen · <span class="key">Enter</span> handeln · oder ein Gamepad. Später jederzeit dazuholen oder entfernen mit <span class="key">Esc</span>.</div>`;
+  } else if (view === 'join') {
+    body = `<h3 class="tm-head">Online beitreten</h3>
+      <p class="tm-text">Dein Freund öffnet im Spiel mit Esc → Online zu zweit einen Raum und nennt dir den Code. Du spielst dann Spieler 2 auf seinem Spielstand.</p>
+      <div class="net-join"><input class="net-code-input" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="5" placeholder="CODE" value="${esc(ui.netCode ?? '')}" data-no-tr></div>
+      ${notice ? `<p class="tm-notice net-notice">${esc(notice)}</p>` : ''}
+      <nav class="tm-menu">
+        ${item('netjoin', 'Beitreten', { cls: 'tm-primary' })}
+        ${item('back', 'Zurück', { cls: 'tm-back', attrs: 'data-back="koop"' })}
+      </nav>
+      <div class="tm-text muted tm-small">Steuerung wie Spieler 1: <span class="key">WASD</span> laufen · <span class="key">E</span> handeln · <span class="key">Q</span> Geistsicht · <span class="key">I</span> Inventar · Kampf <span class="key">E</span> <span class="key">Leertaste</span> <span class="key">F</span> · oder ein Gamepad.</div>`;
   } else if (view === 'options') {
     const l = ui.audio?.levels ?? { master: 0.8, musik: 0.65, effekte: 0.8 };
     body = `<h3 class="tm-head">Optionen</h3>
@@ -118,6 +129,7 @@ export function showTitleMenu(ui, view = 'main', { sel = 0, focus = null, notice
   if (ui.titleFirst !== false && !ui.booting) { ui.layer.classList.add('tm-intro'); ui.titleFirst = false; setTimeout(() => ui.layer.classList.remove('tm-intro'), 2600); }
 
   bind(ui, el, { slots, saved, active, view });
+  if (view === 'join') bindJoinInput(ui, el);
   const items = [...el.querySelectorAll('.tm-item')];
   const f = focus ? items.findIndex((b) => b.dataset.act === focus) : -1;
   ui.titleSel = undefined;
@@ -209,7 +221,9 @@ function bind(ui, el, { slots = [], saved = null, active = 1, view, re = (v, opt
     else if (a === 'koop') re('koop');
     else if (a === 'options') re('options');
     else if (a === 'credits') re('credits');
-    else if (a === 'back') re('main', { focus: view });
+    else if (a === 'back') re(btn.dataset.back ?? 'main', { focus: view });
+    else if (a === 'join') re('join', { focus: 'netjoin' });
+    else if (a === 'netjoin') netJoin(ui, el);
     else if (a === 'continue2') start(ui, () => { ui.close(); ui.onContinue(active, { koop: true }); });
     else if (a === 'new2') ui.titleNew(undefined, { koop: true });
     else if (a === 'load') start(ui, () => { ui.close(); ui.onContinue(n); });
@@ -360,6 +374,7 @@ export function showPauseMenu(ui, feedback = '', { view = 'main', focus = null, 
   if (view === 'main') {
     menu = `${item('resume', 'Weiter', { cls: 'tm-primary' })}
       ${item('p2', p2label, { sub: on ? 'Ihr spielt zu zweit an diesem Rechner' : 'Zu zweit an einem Rechner' })}
+      ${ui.net ? item('online', 'Online zu zweit', { sub: ui.netHost?.code && ui.netHost.status !== 'closed' ? netHostLabel(ui.netHost.status, ui.netHost.info) : 'Raum öffnen, ein Freund spielt Spieler 2' }) : ''}
       ${item('controls', 'Steuerung')}
       ${item('options', 'Optionen')}
       ${ui.onQuitToTitle ? item('quit', 'Zum Hauptmenü', { sub: 'Der Spielstand wird vorher gespeichert', attrs: 'data-label="Zum Hauptmenü"' }) : ''}
@@ -372,6 +387,14 @@ export function showPauseMenu(ui, feedback = '', { view = 'main', focus = null, 
     menu = `${ui.canFullscreen?.() !== false ? item('fullscreen', ui.fullscreenLabel()) : ''}
       ${slider('master', 'Lautstärke', l.master)}${slider('musik', 'Musik', l.musik)}${slider('effekte', 'Geräusche', l.effekte)}
       ${lang()}${item('back', 'Zurück', { cls: 'tm-back' })}`;
+  } else if (view === 'online') {
+    const h = ui.netHost && ui.netHost.status !== 'closed' ? ui.netHost : null;
+    const live = h && h.status !== 'error';
+    menu = `${live ? item('netclose', 'Raum schließen') : item('netopen', 'Raum öffnen', { cls: 'tm-primary' })}
+      ${item('back', 'Zurück', { cls: 'tm-back' })}`;
+    side = `${live && h.code ? `<div class="net-code-big" data-no-tr>${esc(h.code)}</div>` : ''}
+      <p class="pm-lead net-status">${h ? esc(netHostLabel(h.status, h.info)) : 'Öffne einen Raum und nenne deinem Freund den Code. Er wählt im Hauptmenü Zu zweit spielen → Online beitreten.'}</p>
+      <p class="pm-lead muted tm-small">Ihr spielt auf deinem Spielstand. Dein Freund steuert Spieler 2 mit eigener Figur, eigenem Inventar und eigenem Pfad. Er sieht dein Bild, Ton gibt es nur bei dir.</p>`;
   } else if (view === 'controls') {
     menu = item('back', 'Zurück', { cls: 'tm-back' });
     side = `<div class="controls2 pm-controls">
@@ -418,6 +441,9 @@ export function showPauseMenu(ui, feedback = '', { view = 'main', focus = null, 
       if (a === 'resume') ui.close();
       else if (a === 'p2') ui.togglePlayer2();
       else if (a === 'controls') showPauseMenu(ui, '', { view: 'controls' });
+      else if (a === 'online') showPauseMenu(ui, '', { view: 'online' });
+      else if (a === 'netopen') netOpen(ui);
+      else if (a === 'netclose') { ui.netHost?.close(); ui.netHost = null; showPauseMenu(ui, '', { view: 'online' }); }
       else if (a === 'options') showPauseMenu(ui, '', { view: 'options' });
       else if (a === 'back') showPauseMenu(ui, '', { focus: view });
       else if (btn.dataset.look) { s.setP2Look(btn.dataset.look); ui.openPause(`Spieler 2 spielt jetzt mit ${P2_LOOKS[btn.dataset.look].name}.`); }
@@ -432,4 +458,70 @@ export function showPauseMenu(ui, feedback = '', { view = 'main', focus = null, 
   focusItem(ui, f >= 0 ? f : sel, true);
   pollGamepad(ui);
   return el;
+}
+
+// --- Online-Koop (src/net) -----------------------------------------------------------------------------------------
+
+/** Anzeige für den Zustand des Raums beim Host. */
+export function netHostLabel(status, info) {
+  return {
+    opening: 'Raum wird geöffnet …',
+    open: 'Warte auf deinen Freund …',
+    connecting: 'Dein Freund verbindet sich …',
+    connected: 'Verbunden: Spieler 2 spielt online mit.',
+    left: 'Dein Freund hat das Spiel verlassen. Der Raum bleibt offen.',
+    error: info === 'p2p' ? 'Keine direkte Verbindung möglich (Router oder Firewall). Versucht es in einem anderen Netz.' : 'Der Treffpunkt ist gerade nicht erreichbar. Prüfe die Internetverbindung.',
+    closed: 'Raum geschlossen.',
+  }[status] ?? '';
+}
+
+function netOpen(ui) {
+  ui.netHost?.close();
+  const host = ui.net.makeHost((status) => {
+    if (ui.modal === 'pause' && ui.titleView === 'online') showPauseMenu(ui, '', { view: 'online', focus: status === 'error' ? 'netopen' : 'netclose' });
+    if (status === 'connected' && ui.modal !== 'pause') ui.toast?.('Spieler 2 ist online verbunden.');
+    if (status === 'left' && ui.modal !== 'pause') ui.toast?.('Spieler 2 hat die Online-Verbindung beendet.');
+  });
+  ui.netHost = host;
+  host.open();
+}
+
+const GUEST_LABEL = {
+  joining: 'Suche den Raum …',
+  connecting: 'Verbinde …',
+  notfound: 'Kein offener Raum mit diesem Code gefunden.',
+  full: 'In diesem Raum spielt schon jemand mit.',
+  ended: 'Die Verbindung wurde beendet.',
+};
+
+function netJoin(ui, el) {
+  const input = el.querySelector('.net-code-input');
+  const code = ui.net.cleanCode(input?.value);
+  ui.netCode = code;
+  if (!ui.net.validCode(code)) { showTitleMenu(ui, 'join', { focus: 'netjoin', notice: 'Der Code hat fünf Zeichen.' }); return; }
+  if (ui.netGuest || ['joining', 'connecting'].includes(ui.netGuestConn?.status)) return;
+  const guest = ui.net.makeGuest((status, info) => {
+    if (status === 'connected' || ui.modal !== 'title' || ui.titleView !== 'join') return;
+    const notice = status === 'error'
+      ? (info === 'p2p' ? 'Keine direkte Verbindung möglich (Router oder Firewall). Versucht es in einem anderen Netz.' : 'Der Treffpunkt ist gerade nicht erreichbar. Prüfe die Internetverbindung.')
+      : GUEST_LABEL[status] ?? '';
+    showTitleMenu(ui, 'join', { focus: 'netjoin', notice });
+  });
+  ui.netGuestConn = guest;
+  guest.join(code);
+}
+
+function bindJoinInput(ui, el) {
+  const input = el.querySelector('.net-code-input');
+  if (!input) return;
+  input.addEventListener('input', () => {
+    const v = ui.net.cleanCode(input.value);
+    if (v !== input.value) input.value = v;
+    ui.netCode = v;
+  });
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); netJoin(ui, el); }
+    else if (e.key === 'Escape') { e.preventDefault(); input.blur(); }
+  });
+  setTimeout(() => input.focus(), 0);
 }
