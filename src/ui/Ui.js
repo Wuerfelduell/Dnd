@@ -1345,15 +1345,39 @@ export class Ui {
 
 
   /** Codex DM: Ladebild der Zielstadt beim Stadtwechsel (kurz über dem Abblenden). */
-  showLoading(city) {
+  /**
+   * Reisebild beim Stadtwechsel: das Ladebild der Zielstadt füllt den ganzen Schirm (leichter Zoom, Nebel, Vignette),
+   * gerahmt wie der Ladebildschirm beim Start; unten links eine Tafel mit schwingender Laterne und dem Ziel.
+   */
+  showLoading(city, mapId = null) {
     const url = ladenUrl(city, Math.floor(Math.random() * 3));
     if (!url) return;
+    this.layer.parentNode?.querySelectorAll(':scope > .ladebild').forEach((x) => x.remove());
+    const cities = this.state.content.cities ?? {};
+    const cityTitle = cities[city]?.title?.replace(/^Stadtkarte von /, '') ?? city[0].toUpperCase() + city.slice(1);
+    const place = mapId ? this.state.content.maps[mapId]?.name : null;
     const el = document.createElement('div');
     el.className = 'ladebild';
-    el.innerHTML = `<img src="${url}" alt="" onerror="this.parentNode.remove()">`;
+    el.innerHTML = `
+      <div class="lb-bild" style="background-image:url(${url})"></div>
+      <div class="lb-nebel"></div>
+      <div class="lb-vign"></div>
+      <div class="lb-rahmen"></div>
+      <div class="lb-tafel">
+        <span class="lb-laterne"></span>
+        <span class="lb-text">
+          <span class="lb-kicker">Unterwegs nach</span>
+          <span class="lb-ziel">${esc(cityTitle)}</span>
+          ${place && place !== cityTitle ? `<span class="lb-ort">${esc(place)}</span>` : ''}
+        </span>
+        <span class="lb-punkte"><i></i><i></i><i></i></span>
+      </div>`;
+    const img = new Image();
+    img.onerror = () => el.querySelector('.lb-bild')?.classList.add('leer'); // ohne Bild bleibt die Tafel auf dunklem Grund
+    img.src = url;
     (this.layer.parentNode ?? this.layer).appendChild(el); // neben dem Fensterlayer, damit ein neues Fenster es nicht löscht
-    setTimeout(() => el.classList.add('out'), 1400);
-    setTimeout(() => el.remove(), 1900);
+    setTimeout(() => el.classList.add('out'), 1700);
+    setTimeout(() => el.remove(), 2300);
   }
 
   /** Dialogportrait als HTML (z. B. für Meldungen außerhalb von Gesprächen). */

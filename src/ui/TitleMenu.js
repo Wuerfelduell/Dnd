@@ -115,7 +115,7 @@ export function showTitleMenu(ui, view = 'main', { sel = 0, focus = null, notice
   }
   ui.titleMusic = city === 'varrowmouth' ? 'titel_k6' : null;
   ui.layer.classList.add('tm-layer');
-  if (ui.titleFirst !== false) { ui.layer.classList.add('tm-intro'); ui.titleFirst = false; setTimeout(() => ui.layer.classList.remove('tm-intro'), 2600); }
+  if (ui.titleFirst !== false && !ui.booting) { ui.layer.classList.add('tm-intro'); ui.titleFirst = false; setTimeout(() => ui.layer.classList.remove('tm-intro'), 2600); }
 
   bind(ui, el, { slots, saved, active, view });
   const items = [...el.querySelectorAll('.tm-item')];
@@ -284,7 +284,7 @@ function start(ui, run) {
 
 /** Tastatur im Hauptmenü. Gibt true zurück, wenn die Taste verbraucht wurde. */
 export function titleKey(ui, k) {
-  if (ui.titleLeaving) return true;
+  if (ui.titleLeaving || ui.booting) return true; // während des Ladebildschirms keine Eingaben
   const items = [...ui.layer.querySelectorAll('.tm-item')];
   const cur = items[ui.titleSel] ?? items[0];
   if (k === 'arrowup' || k === 'w') focusItem(ui, ui.titleSel - 1);

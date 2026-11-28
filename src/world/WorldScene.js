@@ -751,6 +751,7 @@ export class WorldScene extends Phaser.Scene {
   }
 
   preload() {
+    this.registry.get('boot')?.attach(this.load); // Ladebildschirm beim ersten Start: Fortschritt anzeigen
     preloadSprites(this);
     preloadWexmoorLife(this); // Paket AE
     preloadGear(this, this.registry.get('state')); // Paket BU: sichtbare Ausrüstung
@@ -2439,7 +2440,7 @@ export class WorldScene extends Phaser.Scene {
     // Splitscreen, einer fährt in eine andere Stadt: beide fahren, das Bild wird eins (core/Split.js). 'split' baut die Hauptwelt neu, world2 hört auf.
     if (this.realState.splitOn && this.realState.splitStadtwechsel?.(mapId, spawn)) {
       const toCity = this.state.content.maps[mapId]?.city ?? 'kettlegate';
-      this.ui.showLoading?.(toCity);
+      this.ui.showLoading?.(toCity, mapId);
       this.realState.setSpiritVision?.(false);
       this.realState.emit('travel', mapId);
       this.realState.emit('split', false);
@@ -2462,7 +2463,7 @@ export class WorldScene extends Phaser.Scene {
     this.state.setSpiritVision(false);
     const maps = this.state.content.maps;
     const toCity = maps[mapId]?.city ?? 'kettlegate';
-    if (toCity !== (maps[this.state.map]?.city ?? 'kettlegate')) this.ui.showLoading?.(toCity); // Codex DM: Ladebild beim Stadtwechsel
+    if (toCity !== (maps[this.state.map]?.city ?? 'kettlegate')) this.ui.showLoading?.(toCity, mapId); // Codex DM: Ladebild beim Stadtwechsel
     this.cameras.main.fadeOut(300, 0, 0, 0);
     this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
       if (mapId.startsWith('o3_') && !this.state.map.startsWith('o3_')) { // Ort der Sequenz 3: Rückweg merken
