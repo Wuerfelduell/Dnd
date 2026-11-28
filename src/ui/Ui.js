@@ -442,7 +442,7 @@ const tintMeter = (prefix, frac, k) => {
 /** Welt-HUD (Seb 2026-11-28): dieselben Leisten wie im Kampf, ohne Wort und Zahl; der Wert steht im Tooltip. */
 const setHudBar = (el, prefix, frac, title, low = false) => {
   if (!el) return;
-  el.innerHTML = el.classList.contains('unruhe') ? tintMeter(prefix, frac, 1 / 8) : hudMeter(prefix, frac, 1 / 8);
+  el.innerHTML = el.classList.contains('unruhe') || el.classList.contains('digest') ? tintMeter(prefix, frac, 1 / 8) : hudMeter(prefix, frac, 1 / 8);
   el.classList.toggle('low', low);
   el.title = title;
 };
@@ -514,7 +514,7 @@ export class Ui {
           <div class="meter hbar"><span class="hudbar hp p1hp"></span></div>
           <div class="meter hbar"><span class="hudbar nerves p1nv"></span></div>
           <div class="meter honor"><span class="rank"></span><div class="bar"><div class="hfill"></div></div><span class="repbar"></span></div>
-          <div class="meter digest hidden"><span>Verdaut</span><div class="bar"><div class="dfill"></div></div><em class="dnum"></em></div>
+          <div class="meter hbar digest hidden"><span class="hudbar digest p1dg"></span></div>
           <div class="meter hbar unruhe hidden"><span class="hudbar unruhe p1uf"></span></div>
           <div class="money"></div>
           <div class="overload hidden"></div>
@@ -535,7 +535,7 @@ export class Ui {
             <div class="pname p2name"><img class="phead p2head" alt="" width="12" height="12"><b>Spieler 2</b><span class="p2state"></span><span class="pseq p2seq"></span></div>
             <div class="meter hbar"><span class="hudbar hp p2hp"></span></div>
             <div class="meter hbar"><span class="hudbar nerves p2nv"></span></div>
-            <div class="meter digest p2digest hidden"><span>Verdaut</span><div class="bar"><div class="dfill p2dfill"></div></div><em class="p2dnum"></em></div>
+            <div class="meter hbar digest p2digest hidden"><span class="hudbar digest p2dg"></span></div>
             <div class="meter hbar unruhe p2unruhe hidden"><span class="hudbar unruhe p2uf"></span></div>
             <div class="overload p2load hidden"></div>
           </div>
@@ -837,7 +837,7 @@ export class Ui {
     // Ohne verfolgten Auftrag zeigt der Wegweiser die nächste offene Spur (z. B. Nan Kettle für Fall 8).
     const t = aktuellesZiel(s);
     el.classList.toggle('hidden', !t);
-    if (t) el.innerHTML = `<span class="arrow">➤</span> ${esc(this.goalText(t))}<span class="gstep">${esc(t.lead ? `Neue Spur: ${s.quest(t.quest).title}` : t.step)}</span>`;
+    if (t) el.innerHTML = `<span class="gmain"><span class="arrow">➤</span> ${esc(this.goalText(t))}</span><span class="gstep">${esc(t.lead ? `Neue Spur: ${s.quest(t.quest).title}` : t.step)}</span>`;
   }
 
   updateGathering() {
@@ -900,9 +900,9 @@ export class Ui {
     dm.classList.toggle('hidden', !s.isBeyonder());
     if (s.isBeyonder()) {
       const d = Math.floor(s.pathway.digestion);
-      this.$('.meter.digest .dfill').style.width = `${d}%`;
-      this.$('.meter.digest .dfill').classList.toggle('full', d >= 100);
-      this.$('.dnum').textContent = `${s.pathway.seq <= 6 && d < 100 ? fmtDigest(s.pathway.digestion) : d} %`;
+      const dg = this.$('.p1dg');
+      setHudBar(dg, 'nerves', s.pathway.digestion / 100, `Verdaut ${s.pathway.seq <= 6 && d < 100 ? fmtDigest(s.pathway.digestion) : d} %`);
+      dg.classList.toggle('full', d >= 100);
     }
     this.$('.meter.unruhe').classList.toggle('hidden', !s.isBeyonder() && s.unruhe <= 0);
     setHudBar(this.$('.p1uf'), 'nerves', s.unruhe / 100, `Unruhe ${Math.round(s.unruhe)}`, s.unruhe >= 60);
@@ -997,10 +997,9 @@ export class Ui {
     dm.classList.toggle('hidden', !v.pathway);
     if (v.pathway) {
       const d = Math.floor(v.pathway.digestion);
-      const df = this.$('.p2dfill');
-      df.style.width = `${d}%`;
-      df.classList.toggle('full', d >= 100);
-      this.$('.p2dnum').textContent = `${v.pathway.seq <= 6 && d < 100 ? fmtDigest(v.pathway.digestion) : d} %`;
+      const dg = this.$('.p2dg');
+      setHudBar(dg, 'nerves', v.pathway.digestion / 100, `Verdaut ${v.pathway.seq <= 6 && d < 100 ? fmtDigest(v.pathway.digestion) : d} %`);
+      dg.classList.toggle('full', d >= 100);
     }
     this.$('.p2unruhe').classList.toggle('hidden', !v.pathway && v.unruhe <= 0);
     setHudBar(this.$('.p2uf'), 'nerves', v.unruhe / 100, `Unruhe ${Math.round(v.unruhe)}`, v.unruhe >= 60);
