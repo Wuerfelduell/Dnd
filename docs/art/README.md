@@ -2242,3 +2242,11 @@ Geliefert von Grok als Zip mit Patch (Branch `art/nachbesserung2`). Raster und D
 - Heilige: Schlüssel liegt angelehnt, Echo liegt flach (defeated), Waage-Schwert mit Parierstück in Waagenform, Echo mit geradem Glasschwert statt Trompetenklinge: `python3 tools/art/nachbesserung/heilige_nb.py echo schluessel sq_waage`
 - Prompts: `tools/art/nachbesserung/prompts.json` → `nachbesserung2`
 - Vorschauen „Vorlage | alt | neu“ (3x): [Engel](nachbesserung2-preview-bosse.png) · [Heilige](nachbesserung2-preview-heilige.png) (`python3 tools/art/nachbesserung/vorschau.py nachbesserung2`)
+
+## Gestalt auf Sequenz 2 (`gestalt2b`)
+
+30 neue PNGs für alle zehn Pfade: Kartenblätter (4×4), Kampfblätter (6×6) und Zugbilder. Die detaillierten Seq-3-Körper bleiben die Vorlage; jede Pose wird einzeln mit path-motivischen Flügeln, schwebendem Schatten und hellem Kern aufgebaut. Manifest: `public/sprites/manifest-gestalt2b.json`.
+
+- [Stufenvergleich Seq 4 | Seq 3 | Seq 2 | Seq 1](batch-gestalt2b-preview.png) · [Generierung](batch-gestalt2b-generation.json) · [Prüfbericht](batch-gestalt2b-validation.json)
+- Skripte: `python tools/art/gestalt2b/export.py`, `python tools/art/gestalt2b/preview.py`, `python tools/art/gestalt2b/check.py`, `python tools/art/gestalt2b/package.py`
+- ZIP: `gestalt2b.zip` mit PNGs, Manifest, 520 einzelnen 4×-Rohframes, Stufenvergleich und `check.txt`.

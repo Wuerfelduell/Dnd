@@ -1,0 +1,355 @@
+{
+  "batch": "gestalt2b",
+  "ok": true,
+  "assets": 30,
+  "frames": 530,
+  "rawFrames": 520,
+  "sharedColors": 24,
+  "errors": [],
+  "checks": [
+    "30-file inventory and manifest",
+    "exact RGBA size and grid",
+    "colors from the game reference palette; combat 16-32",
+    "binary alpha; no white pixels >240",
+    "no empty cell or pixel on a cell edge",
+    "card directions and walk motion",
+    "hover gap and fixed shadow baseline y=46",
+    "battle fixed shadow and attack1 anticipation hold",
+    "attack1/attack2/special/defeated alpha-mask motion >=800",
+    "attack2 effect reaches right side",
+    "frame sources downsample exactly with Nearest Neighbor",
+    "icons cropped from new battle idle"
+  ],
+  "files": [
+    {
+      "file": "characters/hg_form_laterne_s2.png",
+      "size": [
+        128,
+        192
+      ],
+      "frames": 16,
+      "colors": 21,
+      "sha256": "d41c56a7dae9992fc2174464bd1343631d30f9b32094f1a68618bfa5de77e92e",
+      "ok": true
+    },
+    {
+      "file": "battle/hg_battle_laterne_s2.png",
+      "size": [
+        576,
+        576
+      ],
+      "frames": 36,
+      "colors": 21,
+      "sha256": "1c1f4812ed146e9404f3bf4e6f4a853ba6e3b99b824ddfa2640bae7019a7fd1c",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_zug_laterne_s2.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 1,
+      "colors": 21,
+      "sha256": "2759a44db94d0ad4debfdb2076fc07baf39e8c3ecfe9d9ebec8d0520f6f9cf13",
+      "ok": true
+    },
+    {
+      "file": "characters/hg_form_faden_s2.png",
+      "size": [
+        128,
+        192
+      ],
+      "frames": 16,
+      "colors": 20,
+      "sha256": "2bc1ba61e4f68ddb8b25283d3c0097a4ecadce4de3172827fa7a78a1a177c7b6",
+      "ok": true
+    },
+    {
+      "file": "battle/hg_battle_faden_s2.png",
+      "size": [
+        576,
+        576
+      ],
+      "frames": 36,
+      "colors": 22,
+      "sha256": "743eb19b783c2d8ee29b1050375bb4adc5fb5c4cd0fc81fef4d6b0694d961ec7",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_zug_faden_s2.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 1,
+      "colors": 19,
+      "sha256": "e03b0b1d72a5f94b40684bf895878e259ca2f9d84222791ed041b08f0e075578",
+      "ok": true
+    },
+    {
+      "file": "characters/hg_form_maske_s2.png",
+      "size": [
+        128,
+        192
+      ],
+      "frames": 16,
+      "colors": 18,
+      "sha256": "15a380025b1e7184cfb60d6b005793f2ab76e10554a145b53b4bb6fe013a94b3",
+      "ok": true
+    },
+    {
+      "file": "battle/hg_battle_maske_s2.png",
+      "size": [
+        576,
+        576
+      ],
+      "frames": 36,
+      "colors": 22,
+      "sha256": "9b68c65bc805a586412d4c4e350491b0f0d2dbad57014e72e16898dbf08a8c81",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_zug_maske_s2.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 1,
+      "colors": 18,
+      "sha256": "28f1f8e0f77aec90d263f362fa93d530b465979280681eb35478f015327ec8e2",
+      "ok": true
+    },
+    {
+      "file": "characters/hg_form_echo_s2.png",
+      "size": [
+        128,
+        192
+      ],
+      "frames": 16,
+      "colors": 17,
+      "sha256": "40989cf95a33e0b82268f541e1ff5272539d5c743e9e93c855442b9efbbff615",
+      "ok": true
+    },
+    {
+      "file": "battle/hg_battle_echo_s2.png",
+      "size": [
+        576,
+        576
+      ],
+      "frames": 36,
+      "colors": 21,
+      "sha256": "3bc54c1f766fe786b871ced2c8c6751b214060bc20e5097305d8c8e2aa9b18ab",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_zug_echo_s2.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 1,
+      "colors": 11,
+      "sha256": "f65a35b2a1f570b5c503bf0837355224623518e28e71d2a18d1d4f8406e09a99",
+      "ok": true
+    },
+    {
+      "file": "characters/hg_form_kessel_s2.png",
+      "size": [
+        128,
+        192
+      ],
+      "frames": 16,
+      "colors": 20,
+      "sha256": "eb4645c0f09133c8ccba96e55ede001f7afbac098d22d123fd830addff6c63df",
+      "ok": true
+    },
+    {
+      "file": "battle/hg_battle_kessel_s2.png",
+      "size": [
+        576,
+        576
+      ],
+      "frames": 36,
+      "colors": 23,
+      "sha256": "d5e456e23bd45e910f09fe691a09dc938718fb1fd482ec1c1534f2b0114e2f50",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_zug_kessel_s2.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 1,
+      "colors": 19,
+      "sha256": "e787644ba628111f8b2137f2656cad6501973d518b374c561675d581b981b508",
+      "ok": true
+    },
+    {
+      "file": "characters/hg_form_eisen_s2.png",
+      "size": [
+        128,
+        192
+      ],
+      "frames": 16,
+      "colors": 21,
+      "sha256": "a12f7390916a38e710c71fdbc66ac2c8f23984107fec53de6d767817409bdcee",
+      "ok": true
+    },
+    {
+      "file": "battle/hg_battle_eisen_s2.png",
+      "size": [
+        576,
+        576
+      ],
+      "frames": 36,
+      "colors": 23,
+      "sha256": "25672ca9004a17bc16d6a8f27d72c1e00204a1f6c0b54db12b79c3f269ce17f8",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_zug_eisen_s2.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 1,
+      "colors": 17,
+      "sha256": "6c0674aab96c9ac83340f127febc51bbdeb598e54f37784fb285e25219c2d03f",
+      "ok": true
+    },
+    {
+      "file": "characters/hg_form_schluessel_s2.png",
+      "size": [
+        128,
+        192
+      ],
+      "frames": 16,
+      "colors": 20,
+      "sha256": "764867864b9bb573c9d7fcb1e6a6e6c2194facb9e40f837e482c0f00d3b9d1f9",
+      "ok": true
+    },
+    {
+      "file": "battle/hg_battle_schluessel_s2.png",
+      "size": [
+        576,
+        576
+      ],
+      "frames": 36,
+      "colors": 22,
+      "sha256": "24e5513349e91c37d6dedf2ac80baaec57869b820d9789be8cbe74fb1fe1b234",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_zug_schluessel_s2.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 1,
+      "colors": 17,
+      "sha256": "4310db214859bb01753626e4333b0b7d3cfab0e0e3ea5d35b7d39b66aef9ce9e",
+      "ok": true
+    },
+    {
+      "file": "characters/hg_form_sq_waage_s2.png",
+      "size": [
+        128,
+        192
+      ],
+      "frames": 16,
+      "colors": 20,
+      "sha256": "bbdd41d14750426caeb27c91cec3b549a6d127ec5aa2398360f1036b9d7fc176",
+      "ok": true
+    },
+    {
+      "file": "battle/hg_battle_sq_waage_s2.png",
+      "size": [
+        576,
+        576
+      ],
+      "frames": 36,
+      "colors": 22,
+      "sha256": "c1246621d140387f588510573229461dd663807ab2cf7c0294faf0321c700d38",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_zug_sq_waage_s2.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 1,
+      "colors": 15,
+      "sha256": "fe6f8b0412cad34b0980adf49a6e501b275c2cabd89fde014d5e6d2d85adf9c8",
+      "ok": true
+    },
+    {
+      "file": "characters/hg_form_sq_moor_s2.png",
+      "size": [
+        128,
+        192
+      ],
+      "frames": 16,
+      "colors": 15,
+      "sha256": "aba5be4f79003f44818090bd997fbc687958fadd3e52b275eb9e10637d03d98c",
+      "ok": true
+    },
+    {
+      "file": "battle/hg_battle_sq_moor_s2.png",
+      "size": [
+        576,
+        576
+      ],
+      "frames": 36,
+      "colors": 23,
+      "sha256": "1258014b7f5a335d0d0c33c579ef67ee0589d0c5571ba813e83b6bad6a129f8c",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_zug_sq_moor_s2.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 1,
+      "colors": 16,
+      "sha256": "f7c7c8c4d83eb8850fcecd56e328a0d9354f24cd09de96033f1df93c09079329",
+      "ok": true
+    },
+    {
+      "file": "characters/hg_form_sq_uhr_s2.png",
+      "size": [
+        128,
+        192
+      ],
+      "frames": 16,
+      "colors": 22,
+      "sha256": "bf113ef153a6857cf97755427a5d5f57be83410a6f878aa2fa158020a445d71a",
+      "ok": true
+    },
+    {
+      "file": "battle/hg_battle_sq_uhr_s2.png",
+      "size": [
+        576,
+        576
+      ],
+      "frames": 36,
+      "colors": 23,
+      "sha256": "25def11f2f9e4c07d72a3336297d272a1e2b05770e17fcbd3824c4b88b3240ad",
+      "ok": true
+    },
+    {
+      "file": "ui/hg_zug_sq_uhr_s2.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 1,
+      "colors": 20,
+      "sha256": "8eb30628a3ce1e828b97da2024ea9c3050a067de047c9d1fdda3c2cd03f7be42",
+      "ok": true
+    }
+  ]
+}
