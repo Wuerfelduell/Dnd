@@ -1,5 +1,5 @@
 /**
- * Varrowmouth-Kulissen, Runde 1 (Skript-Grafik, tools/art/vm_kulissen/assets.py; Vergleichsbilder docs/art/agent-runde1/).
+ * Varrowmouth-Kulissen, Runde 1 (Pegeluhr, Glocke, Namenssteine danach aus den fertigen CV-Requisiten; Skript-Grafik, tools/art/vm_kulissen/assets.py; Vergleichsbilder docs/art/agent-runde1/).
  * Befund vor dieser Runde: Kein Varrowmouth-Ort nutzte Kacheln oder Requisiten aus anderen Städten, alle Karten hatten aber
  * null Deko. Leuchtturm, Wracks, Regale, Registerschrank und der Grenzzaun waren nur generische Hauswand-Blöcke (mit Fenstern und Türen).
  * Diese Blöcke heißen jetzt Y (fest, Boden-Optik) bzw. Z (fest, Schlick-Optik, tools/vm/karten.py) und tragen die neuen Requisiten.
@@ -40,7 +40,15 @@ export const VM_KULISSE = {
       // der CV-Turm (vm_fassaden) steht auf dem Rundsockel, immer vor dem Fuß gezeichnet
       { sprite: 'vmf_leuchtfeuer_turm_tag', tile: [35, 5], offset: [8, 10], origin: [0.5, 1], alpha: 1, depth: 229, kulisse: 'vm1',
         light: { dy: -84, radius: 74, intensity: 0.9, color: LAMPE, flicker: 0.1, glow: 0.25 } },
+      // Glockenstuhl und Namenssteine der Ertrunkenen: fertige CV-Requisiten (vm_props), Blockfläche auf Bildgröße verkleinert
+      block('vmp_leuchtbank_glocke', 22, 12, 23, 13),
+      block('vmp_namensstein_1', 18, 20, 19, 21), block('vmp_namensstein_3', 26, 20, 27, 21), block('vmp_namensstein_2', 34, 18, 35, 19),
       nebel(5, 3, 0), nebel(24, 2, 1), nebel(45, 13, 2), nebel(43, 28, 0), nebel(12, 29, 1)],
+  },
+  vm_zollhafen: {
+    // Pegeluhr statt Hausblock (CV vm_props): zeigt Ebbe oder Flut; die Karte wird beim Gezeitenwechsel neu gebaut
+    decor: [block('vmp_pegeluhr_ebbe', 21, 6, 22, 7, { visible_if: { hide_if_flags: ['gezeit_flut'] } }),
+      block('vmp_pegeluhr_flut', 21, 6, 22, 7, { visible_if: { requires_flags: ['gezeit_flut'] } })],
   },
   vm_wrackfeld: {
     decor: [block('vmk_wrackrumpf', 14, 4, 18, 6), block('vmk_wrackrumpf', 33, 4, 37, 6, { flip: true }), block('vmk_wrackrumpf', 24, 18, 28, 20, { flip: true }),

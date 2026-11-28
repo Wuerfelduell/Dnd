@@ -112,6 +112,7 @@ def textur(key):
 
 
 def male_decor(im, decor):
+    decor = [d for d in decor if not d.get('visible_if', {}).get('requires_flags')]  # Vorschau zeigt Ebbe (z. B. Pegeluhr ohne Flut-Bild)
     for d in sorted(decor, key=lambda d: (d.get('depth', 0) if not d.get('ysort') else 100 + d['tile'][1] * 16 + 16, d['tile'][1])):
         f = textur(d['sprite'])[d.get('frame', 0)]
         if d.get('flip'):

@@ -28,7 +28,7 @@ karten = {}
 g = leer()
 rect(g, 1, 1, 46, 3, 'I')            # Häuserzeile am oberen Rand
 rect(g, 4, 4, 15, 6, 'I')            # Zollhaus
-rect(g, 20, 4, 23, 7, 'I')           # Pegeluhrturm
+rect(g, 21, 6, 22, 7, 'Y')           # Pegeluhr (vmp_pegeluhr_ebbe/_flut, 32x64; Fuß 2x2 fest)
 rect(g, 28, 4, 37, 6, 'I')           # Kantine
 rect(g, 41, 4, 46, 5, 'I')
 rect(g, 1, 17, 46, 30, '~')          # Hafenbecken
@@ -123,9 +123,9 @@ rect(g, 8, 9, 40, 24, '.')           # trockener Kern
 rect(g, 30, 3, 40, 10, '.')          # Felsnase mit Turm
 rect(g, 33, 3, 38, 7, 'Y')           # Leuchtturm (vmk_leuchtturm_fuss + CV-Turm)
 rect(g, 10, 10, 16, 13, 'I')         # Osrics Haus
-rect(g, 22, 12, 24, 13, 'I')         # Glockenstuhl
-for (x0, y0, x1, y1) in [(18, 19, 19, 21), (26, 20, 27, 21), (34, 18, 35, 19)]:
-    rect(g, x0, y0, x1, y1, 'I')     # Grabsteine der Ertrunkenen
+rect(g, 22, 12, 23, 13, 'Y')         # Glockenstuhl (vmp_leuchtbank_glocke, 32x48)
+for (x0, y0, x1, y1) in [(18, 20, 19, 21), (26, 20, 27, 21), (34, 18, 35, 19)]:
+    rect(g, x0, y0, x1, y1, 'Y')     # Namenssteine der Ertrunkenen (vmp_namensstein_*, 32x32)
 rect(g, 2, 24, 7, 25, '=')           # Anleger
 rect(g, 1, 24, 1, 25, '=')
 karten['vm_leuchtbank'] = dict(rows=rows(g), spawns={'default': [3, 24], 'von_zollhafen': [3, 24]},
