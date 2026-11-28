@@ -497,6 +497,7 @@ export class Ui {
         <div class="hud-left">
           <div class="place"></div>
           <div class="wetter"></div>
+          <div class="pname p1name hidden"><img class="phead" alt="" width="12" height="12" src="${p2HeadUrl('player')}"><b>Spieler 1</b><span class="pseq"></span></div>
           <div class="meter life"><span>Leben</span><div class="bar"><div class="lfill"></div></div><em class="hpnum"></em></div>
           <div class="meter"><span>Nerven</span><div class="bar"><div class="fill"></div></div></div>
           <div class="meter honor"><span class="rank"></span><div class="bar"><div class="hfill"></div></div><span class="repbar"></span></div>
@@ -518,11 +519,12 @@ export class Ui {
             <button class="hudbtn" data-hud="menu">${setIcon('zahnrad', 'touch-only')}<span class="key">Esc</span> Menü</button>
           </div>
           <div class="hud-p2 hidden">
-            <div class="p2name"><img class="p2head" alt="" width="12" height="12">Spieler 2 <span class="p2state"></span><span class="muted p2weapon"></span></div>
-            <div class="meter life"><span>Leben</span><div class="bar"><div class="p2hp"></div></div><em class="p2hpnum"></em></div>
-            <div class="meter"><span>Nerven</span><div class="bar"><div class="p2nv"></div></div></div>
-            <div class="p2path hidden"></div>
-            <div class="p2load hidden"></div>
+            <div class="pname p2name"><img class="phead p2head" alt="" width="12" height="12"><b>Spieler 2</b><span class="p2state"></span><span class="pseq p2seq"></span></div>
+            <div class="meter life"><span>Leben</span><div class="bar"><div class="lfill p2hp"></div></div><em class="p2hpnum"></em></div>
+            <div class="meter"><span>Nerven</span><div class="bar"><div class="fill p2nv"></div></div></div>
+            <div class="meter digest p2digest hidden"><span>Verdaut</span><div class="bar"><div class="dfill p2dfill"></div></div><em class="p2dnum"></em></div>
+            <div class="meter unruhe p2unruhe hidden"><span>Unruhe</span><div class="bar"><div class="ufill p2ufill"></div></div></div>
+            <div class="overload p2load hidden"></div>
           </div>
         </div>
         <div class="uhr"></div>
@@ -966,6 +968,7 @@ export class Ui {
     const on = this.state.hasP2();
     el.classList.toggle('hidden', !on);
     this.root.classList.toggle('koop', on);
+    this.$('.p1name')?.classList.toggle('hidden', !on);
     if (!on) return;
     const v = this.state.playerView(2);
     const head = this.$('.p2head');
@@ -975,21 +978,41 @@ export class Ui {
     hp.style.width = `${(v.hp / v.maxHp) * 100}%`;
     hp.classList.toggle('low', v.hp / v.maxHp < 0.3);
     this.$('.p2hpnum').textContent = `${v.hp}/${v.maxHp}`;
-    this.$('.p2nv').style.width = `${(v.composure / v.maxComposure) * 100}%`;
-    this.$('.p2weapon').textContent = v.weapon.name;
+    const nv = this.$('.p2nv');
+    const npct = (v.composure / v.maxComposure) * 100;
+    nv.style.width = `${npct}%`;
+    nv.classList.toggle('low', npct < 30);
+    this.$('.p2name').title = v.weapon.name;
     // Paket BU: Zustand als Symbol (im Kampf, gebunden, Anspruch offen, sonst wartet/geht mit)
     const anspruch = Object.values(this.state.claims ?? {}).some((e) => e?.[2] === 'offen');
     const zustand = this.combatScene ? 'im_kampf' : anspruch ? 'anspruch_offen' : this.isBlocking() ? 'wartet' : null;
     const st = this.$('.p2state');
     if (st && st.dataset.z !== (zustand ?? '')) { st.dataset.z = zustand ?? ''; st.innerHTML = zustand ? uiSprite('koop2', `p2_${zustand}`, 1 / 12, 'p2sym', zustand.replace('_', ' ')) : ''; }
 
-    const path = this.$('.p2path');
-    path.classList.toggle('hidden', !v.pathway && v.unruhe <= 0);
-    if (v.pathway) path.innerHTML = `<span style="color:${v.pathway.color}">Seq ${v.pathway.seq} ${esc(v.pathway.seqName)}</span> · ${v.pathway.seq <= 6 && v.pathway.digestion < 100 ? fmtDigest(v.pathway.digestion) : Math.floor(v.pathway.digestion)} % · <span class="${v.unruhe >= 60 ? 'curse' : ''}">Unruhe ${Math.round(v.unruhe)}</span>`;
-    else if (v.unruhe > 0) path.innerHTML = `<span class="${v.unruhe >= 60 ? 'curse' : ''}">Unruhe ${Math.round(v.unruhe)}</span>`;
+    // Seb 2026-11-28: beide Spieler zeigen dieselben Zeilen im selben Stil (Name mit Sequenz, Leben, Nerven, Verdaut, Unruhe, Überladen)
+    const seqText = (pw) => (pw ? `<span style="color:${pw.color}">Seq ${pw.seq} ${esc(pw.seqName)}</span>` : '');
+    const p1 = this.$('.p1name');
+    p1.classList.remove('hidden');
+    const v1 = this.state.playerView(1);
+    p1.querySelector('.pseq').innerHTML = seqText(v1.pathway);
+    p1.title = v1.weapon.name;
+    this.$('.p2seq').innerHTML = seqText(v.pathway);
+    const dm = this.$('.p2digest');
+    dm.classList.toggle('hidden', !v.pathway);
+    if (v.pathway) {
+      const d = Math.floor(v.pathway.digestion);
+      const df = this.$('.p2dfill');
+      df.style.width = `${d}%`;
+      df.classList.toggle('full', d >= 100);
+      this.$('.p2dnum').textContent = `${v.pathway.seq <= 6 && d < 100 ? fmtDigest(v.pathway.digestion) : d} %`;
+    }
+    this.$('.p2unruhe').classList.toggle('hidden', !v.pathway && v.unruhe <= 0);
+    const uf = this.$('.p2ufill');
+    uf.style.width = `${v.unruhe}%`;
+    uf.classList.toggle('low', v.unruhe >= 60);
     const load = this.$('.p2load');
     load.classList.toggle('hidden', !v.overloaded);
-    if (v.overloaded) load.textContent = `Überladen · ${v.carry}`;
+    if (v.overloaded) load.innerHTML = `${uiSprite('loot', 'full', 1 / 16, 'toastico')}Überladen · ${esc(v.carry)}`;
   }
 
   // --- Schnellleiste der Welt-Fähigkeiten -------------------------------------------
