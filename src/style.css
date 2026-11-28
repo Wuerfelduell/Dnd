@@ -675,6 +675,7 @@ button.small.drop.armed { border-color: var(--bad); color: #ffb09a; }
 /* Seb 2026-11-28: beide Spieler-Felder sehen gleich aus (gleiche Zeilen, Balken, Größe); nur Name und Rahmen tragen die Spielerfarbe */
 .hud-p2 { margin-top: 0.5em; font-size: 1.25em; text-align: left; color: var(--muted); } /* 1.25em gleicht die 0.8em von .hud-right aus */
 .pname { display: flex; align-items: center; gap: 0.35em; font-size: 0.9em; margin-top: 0.3em; text-shadow: 0 0.125em 0 #000; white-space: nowrap; }
+.pname.hidden { display: none; }
 .pname b { font-weight: normal; }
 .p1name b { color: var(--p1); }
 .p2name b { color: var(--p2); }
@@ -683,6 +684,14 @@ button.small.drop.armed { border-color: var(--bad); color: #ffb09a; }
 .phead { image-rendering: pixelated; width: 1.2em; height: 1.2em; }
 .koop .hud-left, .koop .hud-p2 { min-width: 15em; }
 .hud-left .meter:not(.honor) > span:first-child, .hud-p2 .meter > span:first-child { min-width: 4.6em; } /* Balken beider Felder beginnen bündig */
+/* Welt-HUD: Leben, Nerven, Unruhe als Kampfleisten (battle_hud.png) ohne Wort und Zahl; Unruhe = Nervenleiste ins Violette gedreht */
+.hud .meter.hbar { margin-top: 0.35em; }
+.hud .hudbar { display: inline-block; line-height: 0; }
+.hud .hudbar.unruhe .hudclip.tint { filter: hue-rotate(90deg) saturate(1.3); }
+.hud .hudbar.unruhe.low .hudclip.tint { filter: hue-rotate(130deg) saturate(1.6) brightness(1.1); }
+.hud .hudbar.unruhe.low { animation: pulse 1s infinite alternate; }
+.hud .hudbar.hp.low { animation: pulse 1s ease-in-out infinite; }
+.hud .hudbar.nerves.low { filter: saturate(0.4) brightness(0.8); }
 .panel.pause { max-width: 40em; }
 .pausemenu { display: flex; gap: 0.6em; flex-wrap: wrap; margin: 0.4em 0 0.6em; }
 .controls2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1em; font-size: 0.85em; color: var(--muted); }
