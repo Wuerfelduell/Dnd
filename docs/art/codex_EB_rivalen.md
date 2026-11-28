@@ -1,8 +1,8 @@
 # Codex-Paket EB: Die zehn Rivalen (Spieler 1)
 
-**Batch-Name:** `rivalen` (Manifest: `public/sprites/manifest-rivalen.json`) · **40 PNGs** · Priorität 3
+**Batch-Name:** `rivalen` (Manifest: `public/sprites/manifest-rivalen.json`) · **30 PNGs** · Priorität 3
 
-Ab Wexmoor hat jeder Spieler einen **Rivalen auf demselben Pfad** (`src/data/rivale.js`, nur lesen). Er taucht auf Straßen auf, kauft Zutaten weg, steht im Ritualkreis, kämpft, kann Verbündeter werden. Bisher hat er **kein eigenes Bild**: auf der Karte gar keine Figur, im Kampf das Blatt eines Gleisplünderers bzw. ab Seq 4 sogar die Gestalt des Spielers. Dieses Paket gibt den zehn Rivalen von Spieler 1 ein Gesicht.
+Ab Wexmoor hat jeder Spieler einen **Rivalen auf demselben Pfad** (`src/data/rivale.js`, nur lesen). Er taucht auf Straßen auf, kauft Zutaten weg, steht im Ritualkreis, kämpft, kann Verbündeter werden. Seit PR #657 kämpft er mit einem Skript-Kampfblatt je Pfad (`battle/enemy_rv_<pfad>.png`, erledigt, **nicht neu machen**). Es fehlen aber weiter **Kartenfigur, Kopf und Porträt**: der Rivale hat kein Gesicht. Dieses Paket gibt den zehn Rivalen von Spieler 1 eins.
 
 ## 0. Gemeinsame Regeln (bitte zuerst lesen, gelten für jedes Bild)
 
@@ -50,15 +50,14 @@ Avoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime 
 - Laufblatt: `public/sprites/characters/fasserin_walk.png` (64x128, Zellen 16x32, 4x4: unten/links/rechts/oben, Fußlinie y=30)
 - Kopf: `public/sprites/portraits/heads/vmn_fischerin.png` (24x24)
 - Porträt mit 4 Stimmungen: `public/sprites/portraits/fasserin_emotions.png` (256x64, vier 64x64-Bilder nebeneinander)
-- Kampf: `public/sprites/battle/enemy_ez_torfmutter.png` (288x240, Zellen 48x48, 6 Spalten x 5 Reihen: idle, attack1, attack2, hurt, defeated; Blick links)
+- Zum Abgleich der Farben: das vorhandene Kampfblatt `public/sprites/battle/enemy_rv_<pfad>.png` (Kleidung und Hauptfarbe passend halten)
 
-## 2. Dateien je Rivale (4 je Rivale, insgesamt 40)
+## 2. Dateien je Rivale (3 je Rivale, insgesamt 30)
 | Datei | Maße |
 |---|---|
 | `characters/rv_<p>_1_walk.png` | 64x128 (16x32, 4x4, Fußlinie y=30) |
 | `portraits/heads/rv_<p>_1.png` | 24x24 |
 | `portraits/rv_<p>_1_emotions.png` | 256x64, Reihenfolge: **neutral, spöttisch, wütend, respektvoll** |
-| `battle/enemy_rv_<p>_1.png` | 288x240 wie Vorlage, Blick links |
 
 ## 3. Die Rivalen
 Alle sind menschliche Beyonder in Alltagskleidung der Zeit (Mantel, Weste, Hut oder Tuch), mit **einem** klaren Erkennungszeichen ihres Pfades. Sie sollen auf der Karte zwischen Passanten auffallen, aber nicht wie Monster wirken. Wesen aus `RIVALE_ART`.
@@ -75,7 +74,6 @@ Alle sind menschliche Beyonder in Alltagskleidung der Zeit (Mantel, Weste, Hut o
 | `rv_sq_moor_1` | Fenna Caddow | Moor | langsam, unerbittlich | große Frau, Ölmantel, schlammige Stiefel, Wollgras im Haar, Torfspaten auf dem Rücken |
 | `rv_sq_uhr_1` | Tobias Merrin | Uhr | ungeduldig, berechnend | hagerer Mann, Weste mit drei Taschenuhrketten, Lupe im Auge, tippt ungeduldig mit dem Fuß (Idle) |
 
-**Kampf:** attack1 Nahangriff mit dem Erkennungszeichen, attack2 Pfadfertigkeit mit kleinem okkultem Effekt (türkis/violett, bleibt in der Zelle), hurt, defeated (geht in die Knie, stirbt nicht sichtbar).
 
 ## 4. Bild-Prompt (Beispiel Laufblatt-Frame)
 ```
@@ -84,6 +82,6 @@ Single 16x32 overworld character frame, transparent background: Corvin Ashby, a 
 ```
 
 ## 5. Abnahme
-☐ 40 Dateien · ☐ Laufblätter exakt 64x128, Fußlinie y=30 · ☐ Porträts 4 Stimmungen in der Reihenfolge · ☐ Kampfblätter 288x240, Blick links · ☐ Alpha binär, ≤ 32 Farben · ☐ jeder Rivale auf Anhieb vom anderen unterscheidbar · ☐ Vorschau + check.txt
+☐ 30 Dateien · ☐ Laufblätter exakt 64x128, Fußlinie y=30 · ☐ Porträts 4 Stimmungen in der Reihenfolge · ☐ Alpha binär, ≤ 32 Farben · ☐ jeder Rivale auf Anhieb vom anderen unterscheidbar · ☐ Vorschau + check.txt
 
-**Einbau (macht nicht Codex):** Rivalen-Begegnung zeigt Figur + Porträt, `rivale_<p>_<seq>` (Spieler 1) bekommt `sheet: enemy_rv_<p>_1` statt Leihblatt.
+**Einbau (macht nicht Codex):** Rivalen-Begegnung zeigt Figur + Porträt (Ui.openRivale), Figur steht auf der Karte.

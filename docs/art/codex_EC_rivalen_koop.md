@@ -1,6 +1,6 @@
 # Codex-Paket EC: Die zehn Koop-Rivalen (Spieler 2)
 
-**Batch-Name:** `rivalen2` (Manifest: `public/sprites/manifest-rivalen2.json`) · **40 PNGs** · Priorität 6 (nur wenn Zeit bleibt; erst nach EB)
+**Batch-Name:** `rivalen2` (Manifest: `public/sprites/manifest-rivalen2.json`) · **30 PNGs** · Priorität 6 (nur wenn Zeit bleibt; erst nach EB)
 
 Im Koop hat Spieler 2 einen **eigenen** Rivalen, auch wenn beide Spieler denselben Pfad gehen. Format und Regeln **genau wie Paket EB** (`docs/art/codex_EB_rivalen.md`, Abschnitte 1, 2, 4, 5), nur mit Endung `_2`. Die Koop-Rivalen sollen sich von den EB-Rivalen desselben Pfades klar unterscheiden (anderes Geschlecht, andere Hauptfarbe), aber dasselbe Pfadzeichen tragen.
 
@@ -46,8 +46,8 @@ Avoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime 
 - **Prüfskript** `tools/art/<batch>/check.py` (Pillow), prüft je Datei: Maße, Zellraster, Farbanzahl ≤ 32, Alpha nur 0/255, keine halbtransparenten oder weißen Randpixel, keine komplett leeren Pflichtzellen, nicht pixelgleich mit der Vorlage. Ausgabe nach `docs/art/batch-<batch>-validation.json` bzw. `check.txt`. **Erst liefern, wenn alles grün ist.**
 - Prompts in `docs/art/batch-<batch>-generation.json`, Vorschau `docs/art/batch-<batch>-preview.png`, eine Zeile in `docs/art/README.md`.
 
-## 1. Dateien je Rivale (4 je Rivale, insgesamt 40)
-`characters/rv_<p>_2_walk.png` (64x128) · `portraits/heads/rv_<p>_2.png` (24x24) · `portraits/rv_<p>_2_emotions.png` (256x64: neutral, spöttisch, wütend, respektvoll) · `battle/enemy_rv_<p>_2.png` (288x240, Blick links). Vorlagen wie EB.
+## 1. Dateien je Rivale (3 je Rivale, insgesamt 30)
+`characters/rv_<p>_2_walk.png` (64x128) · `portraits/heads/rv_<p>_2.png` (24x24) · `portraits/rv_<p>_2_emotions.png` (256x64: neutral, spöttisch, wütend, respektvoll). Vorlagen wie EB.
 
 ## 2. Die Rivalen
 | ID | Name | Pfad | Aussehen |
@@ -64,6 +64,6 @@ Avoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime 
 | `rv_sq_uhr_2` | Wilma Tock | Uhr | Uhrmacherin, Lupenbrille auf der Stirn, Weste voller Zahnräder, Taschenuhr in der Hand |
 
 ## 3. Abnahme
-☐ 40 Dateien · ☐ Maße wie EB · ☐ Alpha binär, ≤ 32 Farben · ☐ jeder Koop-Rivale klar anders als der EB-Rivale desselben Pfades · ☐ Vorschau + check.txt
+☐ 30 Dateien · ☐ Maße wie EB · ☐ Alpha binär, ≤ 32 Farben · ☐ jeder Koop-Rivale klar anders als der EB-Rivale desselben Pfades · ☐ Vorschau + check.txt
 
-**Einbau (macht nicht Codex):** `rivale2_<p>_<seq>` bekommt `sheet: enemy_rv_<p>_2`.
+**Einbau (macht nicht Codex):** Figur + Porträt für den Rivalen von Spieler 2. Kampfblatt gibt es schon je Pfad (PR #657).
