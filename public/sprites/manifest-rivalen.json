@@ -1,0 +1,1369 @@
+{
+ "version": 1,
+ "batch": "rivalen-kampf",
+ "palette": "manifest-halbgott.json",
+ "erzeugt": "python3 tools/art/rivalen/rivalen.py",
+ "hinweis": "Ruhe und Angriff eigens gezeichnet; special/hurt/defeated aus denselben Posen abgeleitet",
+ "assets": [
+  {
+   "id": "enemy_rv_laterne",
+   "file": "battle/enemy_rv_laterne.png",
+   "pfad": "laterne",
+   "figur": "Corvin Ashby",
+   "width": 288,
+   "height": 240,
+   "frameWidth": 48,
+   "frameHeight": 48,
+   "columns": 6,
+   "rows": 5,
+   "animations": {
+    "idle": {
+     "frames": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "frameRate": 6,
+     "repeat": -1
+    },
+    "attack": {
+     "frames": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "special": {
+     "frames": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "hurt": {
+     "frames": [
+      18,
+      19,
+      20
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "defeated": {
+     "frames": [
+      24,
+      25,
+      26,
+      27
+     ],
+     "frameRate": 6,
+     "repeat": 0
+    }
+   },
+   "sha256": "cbff228cdd75918da416eccce4c676f47d3f276241ce202fea0c6f956bfcb673"
+  },
+  {
+   "id": "enemy_kgj_laterne",
+   "file": "battle/enemy_kgj_laterne.png",
+   "pfad": "laterne",
+   "figur": "Kopfgeldjäger-Fassung",
+   "width": 288,
+   "height": 240,
+   "frameWidth": 48,
+   "frameHeight": 48,
+   "columns": 6,
+   "rows": 5,
+   "animations": {
+    "idle": {
+     "frames": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "frameRate": 6,
+     "repeat": -1
+    },
+    "attack": {
+     "frames": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "special": {
+     "frames": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "hurt": {
+     "frames": [
+      18,
+      19,
+      20
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "defeated": {
+     "frames": [
+      24,
+      25,
+      26,
+      27
+     ],
+     "frameRate": 6,
+     "repeat": 0
+    }
+   },
+   "sha256": "f8095cea792f871787b0a9c1efbbd2879983516352d2446676bf3b3b0d86b225"
+  },
+  {
+   "id": "enemy_rv_schluessel",
+   "file": "battle/enemy_rv_schluessel.png",
+   "pfad": "schluessel",
+   "figur": "Nell Quist",
+   "width": 288,
+   "height": 240,
+   "frameWidth": 48,
+   "frameHeight": 48,
+   "columns": 6,
+   "rows": 5,
+   "animations": {
+    "idle": {
+     "frames": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "frameRate": 6,
+     "repeat": -1
+    },
+    "attack": {
+     "frames": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "special": {
+     "frames": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "hurt": {
+     "frames": [
+      18,
+      19,
+      20
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "defeated": {
+     "frames": [
+      24,
+      25,
+      26,
+      27
+     ],
+     "frameRate": 6,
+     "repeat": 0
+    }
+   },
+   "sha256": "313ca1712d1b97a6d99fa2b3fecc7726cd49c910f807e4a7956b54f6a9613952"
+  },
+  {
+   "id": "enemy_kgj_schluessel",
+   "file": "battle/enemy_kgj_schluessel.png",
+   "pfad": "schluessel",
+   "figur": "Kopfgeldjäger-Fassung",
+   "width": 288,
+   "height": 240,
+   "frameWidth": 48,
+   "frameHeight": 48,
+   "columns": 6,
+   "rows": 5,
+   "animations": {
+    "idle": {
+     "frames": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "frameRate": 6,
+     "repeat": -1
+    },
+    "attack": {
+     "frames": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "special": {
+     "frames": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "hurt": {
+     "frames": [
+      18,
+      19,
+      20
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "defeated": {
+     "frames": [
+      24,
+      25,
+      26,
+      27
+     ],
+     "frameRate": 6,
+     "repeat": 0
+    }
+   },
+   "sha256": "b160c3c677ad4c7004bccdd3a8d091a251fc80027f0bc2b09095c451014409e8"
+  },
+  {
+   "id": "enemy_rv_echo",
+   "file": "battle/enemy_rv_echo.png",
+   "pfad": "echo",
+   "figur": "Petra Sandor",
+   "width": 288,
+   "height": 240,
+   "frameWidth": 48,
+   "frameHeight": 48,
+   "columns": 6,
+   "rows": 5,
+   "animations": {
+    "idle": {
+     "frames": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "frameRate": 6,
+     "repeat": -1
+    },
+    "attack": {
+     "frames": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "special": {
+     "frames": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "hurt": {
+     "frames": [
+      18,
+      19,
+      20
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "defeated": {
+     "frames": [
+      24,
+      25,
+      26,
+      27
+     ],
+     "frameRate": 6,
+     "repeat": 0
+    }
+   },
+   "sha256": "aed8bbe9931f161eb605dbc9f628fde59c1a2f14280129cab76b9f8b645450a2"
+  },
+  {
+   "id": "enemy_kgj_echo",
+   "file": "battle/enemy_kgj_echo.png",
+   "pfad": "echo",
+   "figur": "Kopfgeldjäger-Fassung",
+   "width": 288,
+   "height": 240,
+   "frameWidth": 48,
+   "frameHeight": 48,
+   "columns": 6,
+   "rows": 5,
+   "animations": {
+    "idle": {
+     "frames": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "frameRate": 6,
+     "repeat": -1
+    },
+    "attack": {
+     "frames": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "special": {
+     "frames": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "hurt": {
+     "frames": [
+      18,
+      19,
+      20
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "defeated": {
+     "frames": [
+      24,
+      25,
+      26,
+      27
+     ],
+     "frameRate": 6,
+     "repeat": 0
+    }
+   },
+   "sha256": "369d6d28102f26063cf49be1a8c1f2339060f645e33073db755e74be47f728a4"
+  },
+  {
+   "id": "enemy_rv_maske",
+   "file": "battle/enemy_rv_maske.png",
+   "pfad": "maske",
+   "figur": "Silas Morrel",
+   "width": 288,
+   "height": 240,
+   "frameWidth": 48,
+   "frameHeight": 48,
+   "columns": 6,
+   "rows": 5,
+   "animations": {
+    "idle": {
+     "frames": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "frameRate": 6,
+     "repeat": -1
+    },
+    "attack": {
+     "frames": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "special": {
+     "frames": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "hurt": {
+     "frames": [
+      18,
+      19,
+      20
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "defeated": {
+     "frames": [
+      24,
+      25,
+      26,
+      27
+     ],
+     "frameRate": 6,
+     "repeat": 0
+    }
+   },
+   "sha256": "f4690e0b49cb07b385411dd38846318559ee4c2956d874cfd93d512b27b01f76"
+  },
+  {
+   "id": "enemy_kgj_maske",
+   "file": "battle/enemy_kgj_maske.png",
+   "pfad": "maske",
+   "figur": "Kopfgeldjäger-Fassung",
+   "width": 288,
+   "height": 240,
+   "frameWidth": 48,
+   "frameHeight": 48,
+   "columns": 6,
+   "rows": 5,
+   "animations": {
+    "idle": {
+     "frames": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "frameRate": 6,
+     "repeat": -1
+    },
+    "attack": {
+     "frames": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "special": {
+     "frames": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "hurt": {
+     "frames": [
+      18,
+      19,
+      20
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "defeated": {
+     "frames": [
+      24,
+      25,
+      26,
+      27
+     ],
+     "frameRate": 6,
+     "repeat": 0
+    }
+   },
+   "sha256": "4270dfda3502bf0b64c1710c3f7c7432ddccb9c99e44c78cac1838241f8a237a"
+  },
+  {
+   "id": "enemy_rv_faden",
+   "file": "battle/enemy_rv_faden.png",
+   "pfad": "faden",
+   "figur": "Mirela Stroud",
+   "width": 288,
+   "height": 240,
+   "frameWidth": 48,
+   "frameHeight": 48,
+   "columns": 6,
+   "rows": 5,
+   "animations": {
+    "idle": {
+     "frames": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "frameRate": 6,
+     "repeat": -1
+    },
+    "attack": {
+     "frames": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "special": {
+     "frames": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "hurt": {
+     "frames": [
+      18,
+      19,
+      20
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "defeated": {
+     "frames": [
+      24,
+      25,
+      26,
+      27
+     ],
+     "frameRate": 6,
+     "repeat": 0
+    }
+   },
+   "sha256": "d52d4dd4f74b7edb50ef20f6f9996942074e778e60bc6c366daa8293f567d6cd"
+  },
+  {
+   "id": "enemy_kgj_faden",
+   "file": "battle/enemy_kgj_faden.png",
+   "pfad": "faden",
+   "figur": "Kopfgeldjäger-Fassung",
+   "width": 288,
+   "height": 240,
+   "frameWidth": 48,
+   "frameHeight": 48,
+   "columns": 6,
+   "rows": 5,
+   "animations": {
+    "idle": {
+     "frames": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "frameRate": 6,
+     "repeat": -1
+    },
+    "attack": {
+     "frames": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "special": {
+     "frames": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "hurt": {
+     "frames": [
+      18,
+      19,
+      20
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "defeated": {
+     "frames": [
+      24,
+      25,
+      26,
+      27
+     ],
+     "frameRate": 6,
+     "repeat": 0
+    }
+   },
+   "sha256": "4fc6d9923a9b5c2b7dd6e0fc3daef2e145c0e360d6f3a8e434befcc757cdf42c"
+  },
+  {
+   "id": "enemy_rv_sq_uhr",
+   "file": "battle/enemy_rv_sq_uhr.png",
+   "pfad": "sq_uhr",
+   "figur": "Tobias Merrin",
+   "width": 288,
+   "height": 240,
+   "frameWidth": 48,
+   "frameHeight": 48,
+   "columns": 6,
+   "rows": 5,
+   "animations": {
+    "idle": {
+     "frames": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "frameRate": 6,
+     "repeat": -1
+    },
+    "attack": {
+     "frames": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "special": {
+     "frames": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "hurt": {
+     "frames": [
+      18,
+      19,
+      20
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "defeated": {
+     "frames": [
+      24,
+      25,
+      26,
+      27
+     ],
+     "frameRate": 6,
+     "repeat": 0
+    }
+   },
+   "sha256": "90a0ccb2ff38811964502e5488e7f3fa27c4087b2170fabcdb8aeaa106a64d78"
+  },
+  {
+   "id": "enemy_kgj_sq_uhr",
+   "file": "battle/enemy_kgj_sq_uhr.png",
+   "pfad": "sq_uhr",
+   "figur": "Kopfgeldjäger-Fassung",
+   "width": 288,
+   "height": 240,
+   "frameWidth": 48,
+   "frameHeight": 48,
+   "columns": 6,
+   "rows": 5,
+   "animations": {
+    "idle": {
+     "frames": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "frameRate": 6,
+     "repeat": -1
+    },
+    "attack": {
+     "frames": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "special": {
+     "frames": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "hurt": {
+     "frames": [
+      18,
+      19,
+      20
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "defeated": {
+     "frames": [
+      24,
+      25,
+      26,
+      27
+     ],
+     "frameRate": 6,
+     "repeat": 0
+    }
+   },
+   "sha256": "29bfd0f5f101b4dd5633a8bafc28a05b5382577bbdc9e781f40b679b3f5bae60"
+  },
+  {
+   "id": "enemy_rv_sq_waage",
+   "file": "battle/enemy_rv_sq_waage.png",
+   "pfad": "sq_waage",
+   "figur": "Ottoline Brack",
+   "width": 288,
+   "height": 240,
+   "frameWidth": 48,
+   "frameHeight": 48,
+   "columns": 6,
+   "rows": 5,
+   "animations": {
+    "idle": {
+     "frames": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "frameRate": 6,
+     "repeat": -1
+    },
+    "attack": {
+     "frames": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "special": {
+     "frames": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "hurt": {
+     "frames": [
+      18,
+      19,
+      20
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "defeated": {
+     "frames": [
+      24,
+      25,
+      26,
+      27
+     ],
+     "frameRate": 6,
+     "repeat": 0
+    }
+   },
+   "sha256": "ee8bf08bc89f5fa9a344413d54619daa35f8a9d9b0791e041f6c4e4a820c5fdc"
+  },
+  {
+   "id": "enemy_kgj_sq_waage",
+   "file": "battle/enemy_kgj_sq_waage.png",
+   "pfad": "sq_waage",
+   "figur": "Kopfgeldjäger-Fassung",
+   "width": 288,
+   "height": 240,
+   "frameWidth": 48,
+   "frameHeight": 48,
+   "columns": 6,
+   "rows": 5,
+   "animations": {
+    "idle": {
+     "frames": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "frameRate": 6,
+     "repeat": -1
+    },
+    "attack": {
+     "frames": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "special": {
+     "frames": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "hurt": {
+     "frames": [
+      18,
+      19,
+      20
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "defeated": {
+     "frames": [
+      24,
+      25,
+      26,
+      27
+     ],
+     "frameRate": 6,
+     "repeat": 0
+    }
+   },
+   "sha256": "05643f24c42114b8f67ca20853ec7a7b13c27374aa61fa260ee5cb225cf44368"
+  },
+  {
+   "id": "enemy_rv_eisen",
+   "file": "battle/enemy_rv_eisen.png",
+   "pfad": "eisen",
+   "figur": "Garrick Holm",
+   "width": 288,
+   "height": 240,
+   "frameWidth": 48,
+   "frameHeight": 48,
+   "columns": 6,
+   "rows": 5,
+   "animations": {
+    "idle": {
+     "frames": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "frameRate": 6,
+     "repeat": -1
+    },
+    "attack": {
+     "frames": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "special": {
+     "frames": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "hurt": {
+     "frames": [
+      18,
+      19,
+      20
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "defeated": {
+     "frames": [
+      24,
+      25,
+      26,
+      27
+     ],
+     "frameRate": 6,
+     "repeat": 0
+    }
+   },
+   "sha256": "627b903a30baeb1c6bb86c15d8f526bfe24b7b2046b0157af12edd12f6920bfa"
+  },
+  {
+   "id": "enemy_kgj_eisen",
+   "file": "battle/enemy_kgj_eisen.png",
+   "pfad": "eisen",
+   "figur": "Kopfgeldjäger-Fassung",
+   "width": 288,
+   "height": 240,
+   "frameWidth": 48,
+   "frameHeight": 48,
+   "columns": 6,
+   "rows": 5,
+   "animations": {
+    "idle": {
+     "frames": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "frameRate": 6,
+     "repeat": -1
+    },
+    "attack": {
+     "frames": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "special": {
+     "frames": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "hurt": {
+     "frames": [
+      18,
+      19,
+      20
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "defeated": {
+     "frames": [
+      24,
+      25,
+      26,
+      27
+     ],
+     "frameRate": 6,
+     "repeat": 0
+    }
+   },
+   "sha256": "3fb0d529b89f6371f0cd696ebe6aaf568bc1abe9c015a34913613f48ab44d1a9"
+  },
+  {
+   "id": "enemy_rv_kessel",
+   "file": "battle/enemy_rv_kessel.png",
+   "pfad": "kessel",
+   "figur": "Bram Sutter",
+   "width": 288,
+   "height": 240,
+   "frameWidth": 48,
+   "frameHeight": 48,
+   "columns": 6,
+   "rows": 5,
+   "animations": {
+    "idle": {
+     "frames": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "frameRate": 6,
+     "repeat": -1
+    },
+    "attack": {
+     "frames": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "special": {
+     "frames": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "hurt": {
+     "frames": [
+      18,
+      19,
+      20
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "defeated": {
+     "frames": [
+      24,
+      25,
+      26,
+      27
+     ],
+     "frameRate": 6,
+     "repeat": 0
+    }
+   },
+   "sha256": "25a32b070be924bb0ff68f226bed329913103fecb2c129209d222898b455d5b5"
+  },
+  {
+   "id": "enemy_kgj_kessel",
+   "file": "battle/enemy_kgj_kessel.png",
+   "pfad": "kessel",
+   "figur": "Kopfgeldjäger-Fassung",
+   "width": 288,
+   "height": 240,
+   "frameWidth": 48,
+   "frameHeight": 48,
+   "columns": 6,
+   "rows": 5,
+   "animations": {
+    "idle": {
+     "frames": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "frameRate": 6,
+     "repeat": -1
+    },
+    "attack": {
+     "frames": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "special": {
+     "frames": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "hurt": {
+     "frames": [
+      18,
+      19,
+      20
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "defeated": {
+     "frames": [
+      24,
+      25,
+      26,
+      27
+     ],
+     "frameRate": 6,
+     "repeat": 0
+    }
+   },
+   "sha256": "ad9ce45e548a86948925582f113f120c420052ef70970f7b03f0104e6fec72e8"
+  },
+  {
+   "id": "enemy_rv_sq_moor",
+   "file": "battle/enemy_rv_sq_moor.png",
+   "pfad": "sq_moor",
+   "figur": "Fenna Caddow",
+   "width": 288,
+   "height": 240,
+   "frameWidth": 48,
+   "frameHeight": 48,
+   "columns": 6,
+   "rows": 5,
+   "animations": {
+    "idle": {
+     "frames": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "frameRate": 6,
+     "repeat": -1
+    },
+    "attack": {
+     "frames": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "special": {
+     "frames": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "hurt": {
+     "frames": [
+      18,
+      19,
+      20
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "defeated": {
+     "frames": [
+      24,
+      25,
+      26,
+      27
+     ],
+     "frameRate": 6,
+     "repeat": 0
+    }
+   },
+   "sha256": "d827f3b81bf551302b932b741d3ddccf6c0f2a873a9b95563c6a680709468ef4"
+  },
+  {
+   "id": "enemy_kgj_sq_moor",
+   "file": "battle/enemy_kgj_sq_moor.png",
+   "pfad": "sq_moor",
+   "figur": "Kopfgeldjäger-Fassung",
+   "width": 288,
+   "height": 240,
+   "frameWidth": 48,
+   "frameHeight": 48,
+   "columns": 6,
+   "rows": 5,
+   "animations": {
+    "idle": {
+     "frames": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "frameRate": 6,
+     "repeat": -1
+    },
+    "attack": {
+     "frames": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "special": {
+     "frames": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "hurt": {
+     "frames": [
+      18,
+      19,
+      20
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "defeated": {
+     "frames": [
+      24,
+      25,
+      26,
+      27
+     ],
+     "frameRate": 6,
+     "repeat": 0
+    }
+   },
+   "sha256": "83c24818899c56a74de57c91379a9a46af7890ddff74f94ca89fd2b42f5f664b"
+  }
+ ]
+}

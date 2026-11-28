@@ -6,6 +6,8 @@ import { SKRIPT_SHEETS } from '../data/skriptSheets.js';
 import { PATHWAY_STANDIN } from '../data/sequenzen.js';
 import { KFX_SHEETS } from './SkillFx.js';
 import { BH_DACH_TEXTUREN } from '../data/briarholtKulisse.js';
+import { CW_KULISSEN_SPRITES } from '../data/calderwickKlotze.js';
+import { DS_BH_SPRITES } from '../data/dsbhKulissen.js';
 import { CW_KULISSE_BLAETTER } from '../data/calderwickKulisse.js';
 import { preloadRitualArt } from './ritualArt.js';
 import { DS_ZIRKEL_ICONS, DS_ZIRKEL_FIGUREN } from '../data/dunscarZirkel.js';
@@ -256,7 +258,7 @@ export const THEME_TILES = {
   // Paket AV (Kapitel 3, Dunscar): Zellindex im 8er-Raster laut manifest-dunscar1.json
   ds_stadt: { sheet: 'ds_stadt', fallback: 'cobble0', floor: [0, 1], chalk: [4], debris: [5, 6], wallTop: [8], wallFace: [9], window: [12, 13] },
   ds_bahn: { sheet: 'ds_bahn', fallback: 'stone', floor: [9, 45], debris: [31, 46, 47], rails: [0] },
-  ds_bruch: { sheet: 'ds_bruch', fallback: 'stone', floor: [0, 1, 2, 3], debris: [4, 5], wet: [6, 7], wallTop: [8], wallFace: [9] },
+  ds_bruch: { sheet: 'ds_bruch', fallback: 'stone', floor: [0, 1, 2, 3], debris: [4, 5], wet: [6, 7], wallTop: [8], wallFace: [9], kulisse: [0] }, // kulisse: fester Boden unter Kalkbrechern (Y)
   ds_schlucht: { sheet: 'ds_schlucht', fallback: 'stone', floor: [16, 17, 18, 19], debris: [22], wallTop: [20], wallFace: [0, 1], grooves: [2, 3] },
   ds_innen: { sheet: 'ds_innen', fallback: 'wood0', floor: [0, 1, 2, 3], wear: [4, 5], wallTop: [8], wallFace: [9] },
   ds_teesaal: { sheet: 'ds_innen', fallback: 'wood0', floor: [0, 1, 2, 3], carpet: [6, 7], wallTop: [12], wallFace: [13] },
@@ -1306,6 +1308,7 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestVarrowmouth4')) scene.load.json('manifestVarrowmouth4', `${BASE}manifest-varrowmouth4.json`);
   if (!scene.cache.json.exists('manifestVarrowmouth3')) scene.load.json('manifestVarrowmouth3', `${BASE}manifest-varrowmouth3.json`);
   if (!scene.cache.json.exists('manifestVarrowmouth1')) scene.load.json('manifestVarrowmouth1', `${BASE}manifest-varrowmouth1.json`); // Regionen vmf_/vmp_ (Kulissen-Runde 1)
+  if (!scene.cache.json.exists('manifestRivalen')) scene.load.json('manifestRivalen', `${BASE}manifest-rivalen.json`); // Kampfblätter der Rivalen und Kopfgeldjäger
   if (!scene.cache.json.exists('manifestDunscar5')) scene.load.json('manifestDunscar5', `${BASE}manifest-dunscar5.json`);
   if (!scene.cache.json.exists('manifestStarling2')) scene.load.json('manifestStarling2', `${BASE}manifest-starling2.json`);
   if (!scene.cache.json.exists('manifestSekten')) scene.load.json('manifestSekten', `${BASE}manifest-sekten.json`);
@@ -2913,7 +2916,8 @@ const CW_THEME_SPECS = {
 export const CW_THEME_KEYS = Object.keys(CW_THEME_SPECS);
 for (const [theme, { sheet = theme, ...rest }] of Object.entries(CW_THEME_SPECS)) {
   if (!SHEETS[sheet]) SHEETS[sheet] = `tilesets/${sheet}.png`;
-  const spec = (THEME_TILES[theme] = { ...rest, sheet });
+  // kulisse: Bodenzelle, aber fest (Kartenzeichen Y unter den Requisiten aus data/calderwickKlotze.js)
+  const spec = (THEME_TILES[theme] = { ...rest, kulisse: [rest.floor[0]], sheet });
   const list = Object.entries(spec).filter(([, v]) => Array.isArray(v)).flatMap(([group, regions]) => regions.map((region) => ({
     key: `${theme}_${group}_${region}`, theme, group, sheet, region, solid: !WALKABLE_GROUPS.includes(group), fallback: GROUP_FALLBACK[group] ?? spec.fallback,
     base: WALKABLE_GROUPS.includes(group) ? null : `${theme}_floor_${spec.floor[0]}`,
@@ -3396,3 +3400,30 @@ export const R5_ICONS = ['dsh_verbandrolle', 'dsh_schichttonikum', 'dsh_kalkelix
   ...Object.keys(CWF_ICONS)];
 for (const id of R5_ICONS) ITEM_ICON_ALIASES[id] = id;
 ICON32.push(...R5_ICONS);
+
+// --- Eigene Laufblätter statt Leihbildern (tools/art/figuren/figuren.py, manifest-figuren-eigen.json) ----------------------------
+/**
+ * Zehn Figuren trugen bisher umgefärbte oder geteilte Blätter anderer Personen (Ottilie Fenn eine umgefärbte Näherin, die Calderwicker
+ * Zirkel-Mitglieder dieselben Blätter wie Einwohner derselben Stadt, Leda Voss das Blatt von Bess Hagan, Ysolde Grau das der Wahrsagerin).
+ * Gleiches Raster wie die NPC-Blätter: 64x128, Reihen unten/links/rechts/oben, je 4 Schritte. Steht am Dateiende, damit es die Leih-Zuordnungen überschreibt.
+ */
+export const FIGUREN_EIGEN = ['wx_schneiderin', 'cwz_pfandmeister', 'cwz_schneiderin', 'cwz_kassenwart', 'cwz_kesselflicker', 'cwz_aschehaendler',
+  'cwz_bleisetzer', 'cwz_schaetzerin', 'haus_maklerin', 'nebel_kraemerin'];
+for (const id of FIGUREN_EIGEN) {
+  SHEETS['fig_' + id] = 'characters/fig_' + id + '_walk.png';
+  CHARACTER_SHEETS['npc_' + id] = 'fig_' + id;
+}
+
+
+// --- Kampfblätter der Rivalen (Sequenz 9-5) und Kopfgeldjäger je Pfad (tools/art/rivalen/rivalen.py, manifest-rivalen.json) ------------
+/** Bisher kämpften alle Rivalen der Sequenzen 9-5 mit denselben Leihkörpern (Gleisplünderer, Moorhehler, Staubschmuggler), die Jäger mit Leihkörpern
+ * oder Halbgott-Blättern eines falschen Pfads. 48er-Zellen, 6x5 wie die k3k-Körper (idle, attack, special, hurt, defeated). */
+export const RIVALEN_PFADE = ['laterne', 'schluessel', 'echo', 'maske', 'faden', 'sq_uhr', 'sq_waage', 'eisen', 'kessel', 'sq_moor'];
+for (const p of RIVALEN_PFADE) for (const art of ['rv', 'kgj']) BATTLE_SHEETS['enemy_' + art + '_' + p] = ['battle/enemy_' + art + '_' + p + '.png', 48];
+BATTLE_MANIFESTS.push('manifestRivalen');
+
+// --- Calderwick-Requisiten für die Platzhalter-Klötze (tools/art/cw_kulissen/assets.py, data/calderwickKlotze.js) ------------------------
+for (const [key, [w, h]] of Object.entries(CW_KULISSEN_SPRITES)) ANIM_SHEETS[key] = ['props/' + key + '.png', w, h];
+
+// --- Je fünf Requisiten für Dunscar und Briarholt (tools/art/ds_bh_kulissen/assets.py, data/dsbhKulissen.js, data/briarholtKulisse2.js) ---------
+for (const [key, [w, h]] of Object.entries(DS_BH_SPRITES)) ANIM_SHEETS[key] = ['props/' + key + '.png', w, h];

@@ -19,6 +19,13 @@ export const BH_INNEN = {
   bh_mutterhaus: { tausch: [['bhp_stillenhaeuser_teewagen', 'bhk_planschrank', 0], ['bhp_stillenhaeuser_kinderzeichnung', 'bhk_rollenstaender', 0]] },
   bh_aktenraum: { dazu: [['bhk_aktenschrank', 11, 2, { frame: 0, fest: [26, 10] }], ['bhk_aktenschrank', 18, 2, { frame: 1, fest: [26, 10] }], ['bhk_aktenschrank', 21, 9, { frame: 0, fest: [26, 10] }]] },
   // die Stapel sind breiter als die Kohlenkisten: 12 px nach rechts, damit sie nicht über den Bänken liegen (Feld und Kollision bleiben)
+  // Runde 4: Laternen je Viertel statt der Promenaden-Gaslaterne, Probenkisten statt Kohlenkisten, Gepäck statt Kohlenkisten am Kutschenhof
+  bh_glasgaerten: { tausch: [['bhp_promenade_gaslaterne', 'bhk_glashauslaterne', 0]] },
+  bh_kesselgrund: { tausch: [['bhp_promenade_gaslaterne', 'bhk_rohrlaterne', 0]] },
+  bh_wurzelkranz: { tausch: [['bhp_promenade_gaslaterne', 'bhk_rohrlaterne', 0], ['bhp_kesselgrund_kiste', 'bhk_probenkiste', 0]] },
+  bh_stillenhaeuser: { tausch: [['bhp_promenade_gaslaterne', 'bhk_stillenlaterne', 0]] },
+  bh_wurzelkammer: { tausch: [['bhp_kesselgrund_kiste', 'bhk_probenkiste', 0]] },
+  bh_kutschenhof: { tausch: [['bhp_kesselgrund_kiste', 'bhk_gepaeckstapel', 0, 12]] },
   bh_kutschenhalle: { tausch: [['bhp_kesselgrund_kiste', 'bhk_gepaeckstapel', 0, 12]] },
 };
 
