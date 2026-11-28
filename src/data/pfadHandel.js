@@ -243,9 +243,10 @@ function lonerFight(id, name, title, sheet, text, intro) {
 const NEW_FIGHTS = {
   wx_pfandleiherin: lonerFight('wx_pfandleiherin', 'Maud Keel', 'die Pfandleiherin', 'enemy_wx_pfandleiherin', 'Einzelgänger · Pfad der Waage, Sequenz 6: Ausgleichsführer',
     'Maud legt die Lupe weg. „Du hast mich verpfändet. An die Grauspäher.“ Sie hebt eine Hand, und auf einmal ist alles, was du trägst, doppelt so schwer.'),
-  ez_torfmutter: lonerFight('ez_torfmutter', 'Wenna Kolk', 'die Torfmutter', 'enemy_ez_ds_kalkbrennerin', 'Einzelgänger · Pfad des Moores, Sequenz 6: Namensbank',
+  // eigene Kampfbilder (Grok GA Teil 2, assets.js); vorher stand hier das Leihbild und überstimmte ENCOUNTER_SHEETS
+  ez_torfmutter: lonerFight('ez_torfmutter', 'Wenna Kolk', 'die Torfmutter', 'enemy_ez_torfmutter', 'Einzelgänger · Pfad des Moores, Sequenz 6: Namensbank',
     'Wenna steht bis zu den Knien im Wasser. „Du hast ihnen gesagt, wo ich die Namen verwahre.“ Das Moor um sie herum flüstert dir deinen eigenen zu.'),
-  ez_schleusenuhr: lonerFight('ez_schleusenuhr', 'Corvin Hake', 'der Schleusenuhrmacher', 'enemy_ez_ds_rangierer', 'Einzelgänger · Pfad der Uhr, Sequenz 6: Gangbewahrer',
+  ez_schleusenuhr: lonerFight('ez_schleusenuhr', 'Corvin Hake', 'der Schleusenuhrmacher', 'enemy_ez_schleusenuhr', 'Einzelgänger · Pfad der Uhr, Sequenz 6: Gangbewahrer',
     'Corvin klappt seine Uhr zu. „Du hast mich verraten. Das war eine Minute zu früh.“ Um dich herum wird jede Bewegung zäh wie Teer.'),
 };
 

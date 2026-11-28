@@ -39,11 +39,15 @@ import { applyVorratStuecke } from './vorratStuecke.js';
 import { applyFahrendeAuktion } from './fahrendeAuktion.js';
 import { applyNebelnacht } from './nebelnacht.js';
 import { applyKettlegateKulisse } from './kettlegateKulisse.js';
+import { applyKettlegateMaerkte } from './kettlegateMaerkte.js';
+import { applyKampfEigen } from './kampfEigen.js';
+import { applyWexmoorKulissen } from './wexmoorKulissen.js';
 import { applyEigenesHaus } from './eigenesHaus.js';
 import { applyNebelseite } from './nebelseite.js';
 import { applyDunscarHaendler } from './dunscarHaendler.js';
 import { applyDunscarKulisse } from './dunscarKulisse.js';
 import { applyDunscarKlotze, applyDsBhDazu } from './dsbhKulissen.js';
+import { applyInnen2 } from './innen2.js';
 import { applyVarrowmouthKulisse } from './varrowmouthKulisse.js';
 import { applyBriarholtKulisse } from './briarholtKulisse.js';
 import { applyBriarholtKulisse2 } from './briarholtKulisse2.js';
@@ -188,6 +192,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyVarrowmouthKulisse(content); // Varrowmouth: Kulissen-Runde 1 auf den Y/Z-Blöcken (Leuchtturm, Wracks, Regale, Pegelzaun, Nebel)
   applyBriarholtKulisse(content); // Briarholt: Dächer, Fassaden, Wärmenetz, Möbel, Requisiten, Licht und Nebel je Ort (kalt/warm)
   applyBriarholtKulisse2(content); // Briarholt-Kulissen Runde 2: eigene Dachsätze statt future200, Innenräume ohne Leihstücke
+  applyInnen2(content); // Mutterhaus, Labor und Dunscarer Zirkelräume: eigene Möbel statt Leere und Leihmöbeln
   applyDsBhDazu(content); // Dunscar und Briarholt: Prellböcke, Läutewerke, Schlackenkübel, Wärmeschalen auf freien Flächen
   applyNebelseite(content); // Codex DH: Spiegelkarten und verborgene Übergänge
   applyEigenesHaus(content); // Codex DG: Häuser in Wexmoor und Dunscar, Maklerin, Türen (nach der Kulisse, die Dunscar-Karten neu baut)
@@ -199,6 +204,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyWexmoorOrdnung(content); // Seb 2026-11-27: Wexmoor-Orte harmonischer – leere Orte bekommen Requisiten auf freien Feldern (nach allen Platzierungen)
   applyNebelnacht(content); // Nebelnächte: Nebelkrämerin auf dem Markt jeder Stadt (nach allen Kulissen)
   applyKettlegateKulisse(content); // Seb 2026-11-27: Kettlegate harmonischer – Überladenes ausdünnen, Leeres füllen, Einwohner verteilen, Nachtmarkt breiter
+  applyKettlegateMaerkte(content); // Kettlegate: Fisch-, Käse-, Gewürzstand, Karren und Nachtmarkt-Stücke (nach dem Feinschliff)
   applyCalderwickStadtplan(content); // Calderwick: eigene Stadtpläne je Terrasse (Häuser, Gassen, Plätze), Objekte an sinnvollen Stellen
   applyCalderwickKlotze(content); // Calderwick: Requisiten statt Platzhalter-Klötzen (Theken, Pressen, Regale, Sortiermaschinen)
   applyCalderwickFunde(content); // Seb 2026-11-27: Habseligkeiten der Gefallenen (Bilder aus den Codex-Vorräten), vor Erkunden und Beute
@@ -214,8 +220,10 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyGegnerlebenSpaet(content); // Seb 2026-11-26: Calderwick 10–25k, Briarholt 15–35k Leben (Koop), Schaden ×1,3
   applyPendelzugPlatz(content); // Seb 2026-11-26: Pendelzug Dunscar ↔ Calderwick gut sichtbar (nach allen Kulissen)
   applyHeimkehr(content); // Seb 2026-11-27: ab Seq 3 Rückreise in die alten Städte, Nachhall, Stimmen, Schreine (nach allen Kulissen)
+  applyWexmoorKulissen(content); // Wexmoor: Grubenholz, Torfpresse, Karren, Faschinen, Gradierwerk, Solebrunnen, Totenfloß, Särge, Lichtmessbank, Plombenpresse
   gateStarlingHinweise(content); // Seb 2026-11-18: Starling-Gerüchte erst im Fall „Finde Starling“ (ganz zuletzt)
   applySkriptSheets(content); // Skript-Grafik Runde 9: eigene Kampfblätter statt geliehener
+  applyKampfEigen(content); // zehn eigene Kampffiguren für Gegner, die das Bild eines anderen Gegners trugen (zuletzt)
   return content;
 }
 

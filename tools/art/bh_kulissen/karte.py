@@ -25,6 +25,10 @@ def zelle(c):
         return Image.new('RGBA', (T, T), (26, 28, 44, 255))  # generische Füllkachel (im Spiel unter den Dächern)
     out = zelle(c['base']) if c.get('base') else Image.new('RGBA', (T, T))
     s = img(c['file'])
+    if c.get('rectTile'):
+        x, y = c['rectTile']
+        out.alpha_composite(s.crop((x, y, x + T, y + T)))
+        return out
     i = c['index']
     cols = s.width // T
     out.alpha_composite(s.crop(((i % cols) * T, (i // cols) * T, (i % cols) * T + T, (i // cols) * T + T)))

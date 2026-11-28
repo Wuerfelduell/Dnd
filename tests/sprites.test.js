@@ -48,7 +48,8 @@ test('jeder Pfad hat Embleme und eine Karte', () => {
 });
 
 test('Deko auf den Karten nutzt bekannte Sprites', () => {
-  const known = new Set([...Object.keys(PROP_CELLS), ...Object.keys(PROP_ANIMS)]);
+  // ANIM_SHEETS lädt preloadSprites als eigene Texturen; WorldScene.buildObjects zeichnet jede vorhandene Textur (z. B. kgm_* aus kettlegateMaerkte.js)
+  const known = new Set([...Object.keys(PROP_CELLS), ...Object.keys(PROP_ANIMS), ...Object.keys(ANIM_SHEETS)]);
   for (const map of Object.values(content.maps)) {
     if (map.tiles !== 'nachtmarkt') continue;
     for (const d of map.decor) assert.ok(known.has(d.sprite), `${map.id}: ${d.sprite}`);
