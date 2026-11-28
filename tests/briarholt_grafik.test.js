@@ -66,8 +66,10 @@ test('CI: Deko aus den Props-Blättern steht auf Boden, Regionen existieren, war
     const m = content.maps[id];
     for (const d of m.decor) {
       decor += 1;
-      // Briarholt-Kulisse: Einzelzellen der Tilesets (bht_) und Dachkacheln (bhd_) liegen auch auf Wänden
-      if (/^bh[td]_/.test(d.sprite)) { assert.ok(ANIM_SHEETS[d.sprite], `${id}: ${d.sprite}`); continue; }
+      // Briarholt-Kulisse: Einzelzellen der Tilesets (bht_) und Dachkacheln (bhd_, bhk_dach_) liegen auch auf Wänden
+      if (/^bh[td]_/.test(d.sprite) || d.sprite.startsWith('bhk_dach_')) { assert.ok(ANIM_SHEETS[d.sprite], `${id}: ${d.sprite}`); continue; }
+      // Briarholt-Kulissen Runde 2: eigene Requisiten (bhk_) stehen auf Boden
+      if (d.sprite.startsWith('bhk_')) { assert.ok(ANIM_SHEETS[d.sprite], d.sprite); assert.match(m.rows[d.tile[1]][d.tile[0]], /[.swg]/, `${id}: ${d.sprite} auf ${d.tile}`); continue; }
       assert.ok(known.has(d.sprite), `${id}: ${d.sprite}`);
       assert.match(m.rows[d.tile[1]][d.tile[0]], /[.swg]/, `${id}: ${d.sprite} auf ${d.tile}`);
     }

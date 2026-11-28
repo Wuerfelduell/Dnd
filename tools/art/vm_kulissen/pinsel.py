@@ -9,6 +9,14 @@ _M = json.load(open(os.path.join(ROOT, 'public', 'sprites', 'manifest-varrowmout
 PAL = [tuple(int(h[i:i + 2], 16) for i in (1, 3, 5)) for h in _M['palette']]
 assert len(PAL) == 32
 
+
+def palette_aus(manifest):
+    """Palette eines anderen Manifests verwenden (z. B. manifest-briarholt1.json); die Rampen-Konstanten oben gelten dann nicht."""
+    global PAL
+    m = json.load(open(os.path.join(ROOT, 'public', 'sprites', manifest), encoding='utf-8'))
+    PAL = [tuple(int(h[i:i + 2], 16) for i in (1, 3, 5)) for h in m['palette']]
+    return PAL
+
 # Rampen (dunkel -> hell), Indizes in PAL
 OUT = 0
 BLAU = [1, 2, 3, 4, 5, 6, 7, 8, 9]
