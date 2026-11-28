@@ -1,8 +1,8 @@
-# Codex-Paket EE: Kopfgeldjäger und Kopfgeldziele (Calderwick, Briarholt)
+# Codex-Paket EE: Die vier Kopfgeldziele von Calderwick
 
-**Batch-Name:** `kopfgeld` (Manifest: `public/sprites/manifest-kopfgeld.json`) · **12 PNGs** · Priorität 5
+**Batch-Name:** `kopfgeld` (Manifest: `public/sprites/manifest-kopfgeld.json`) · **4 PNGs** · Priorität 5
 
-Zwölf benannte menschliche Gegner kämpfen bisher **mit der mythischen Gestalt des Spielers** (`battle/hg_battle_<pfad>.png`), weil es kein eigenes Blatt gab. Das wirkt im Kampf, als kämpfe man gegen sich selbst. Gesucht: je ein eigenes Kampfblatt im **gleichen Raster wie `hg_battle_<pfad>`**, damit der Einbau nur den Blattnamen tauscht.
+Die Kopfgeldjäger haben seit PR #657 eigene Skript-Blätter (erledigt, **nicht neu machen**). Übrig sind die vier Kopfgeldziele aus Kapitel 4: sie kämpfen bisher **mit der mythischen Gestalt des Spielers** (`battle/hg_battle_<pfad>.png`), weil es kein eigenes Blatt gab. Das wirkt im Kampf, als kämpfe man gegen sich selbst. Gesucht: je ein eigenes Kampfblatt im **gleichen Raster wie `hg_battle_<pfad>`**, damit der Einbau nur den Blattnamen tauscht.
 
 ## 0. Gemeinsame Regeln (bitte zuerst lesen, gelten für jedes Bild)
 
@@ -58,16 +58,8 @@ Avoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime 
 | `battle/enemy_k4s_kg_vell.png` | Ines Vell, die Stimme aus dem Schacht | Echo | hagere Frau in Bergmannsjacke, Grubenlampe, Mund offen / special: Schallring aus dem Boden |
 | `battle/enemy_k4s_kg_dorn.png` | Kaspar Dorn, ohne Gesicht | Maske | Mann im Anzug, Gesicht glatt wie Wachs / special: Gesicht wechselt dreimal |
 | `battle/enemy_k4s_kg_hollin.png` | Marthe Hollin, Wegezoll | Eisen | Zöllnerin, Reitmantel, Schlagbaum-Stange als Waffe / special: Eisenschranke fällt |
-| `battle/enemy_kgj_cw_pell.png` | Rutger Pell | Schlüssel | Kopfgeldjäger, Lederhut, Steckbriefe im Gürtel, Dietrichklinge / special: Tür öffnet sich hinter dem Spieler (in der Zelle angedeutet) |
-| `battle/enemy_kgj_cw_kade.png` | Lysbet Kade | Faden | Frau, Fingerlinge mit Fäden, grauer Reiseumhang / special: Fadennetz |
-| `battle/enemy_kgj_cw_edding.png` | Nils Edding | Moor | Fährtenleser, Torfgeruch, Wolfsfellkragen, Spaten-Hellebarde / special: Torfranken |
-| `battle/enemy_kgj_cw_saar.png` | Wenda Saar | Echo | große Frau, Halstuch, hinter ihr blasse Doppelkonturen / special: zehn Stimmen (Schallwellen) |
-| `battle/enemy_kgj_bh_thorne.png` | Aldo Thorne | Eisen | Wintermantel, Pelzmütze, Eisenkette um den Arm, Raureif im Bart / special: Kettenschlag |
-| `battle/enemy_kgj_bh_lerch.png` | Merit Lerch | Laterne | schlanke Frau, Blendlaterne, Lichtstrahl wie Messer / special: Lichtschnitt |
-| `battle/enemy_kgj_bh_dunmore.png` | Feodor Dunmore | Maske | Mann, der „dein Gesicht“ schlecht trägt: Spielergesicht verzerrt, Haarfarbe wie die Spielerfigur / special: Maskenwurf |
-| `battle/enemy_kgj_bh_wilk.png` | Tilde Wilk | Waage | Buchhalterin mit Rechenschieber, Ärmelschoner / special: Gewichtssteine fallen |
 
 ## 3. Abnahme
-☐ 12 Dateien · ☐ 576x576, 96er Zellen, 6x6 · ☐ Blick links · ☐ Menschen, keine Kreaturen · ☐ Alpha binär, ≤ 32 Farben · ☐ Vorschau + check.txt
+☐ 4 Dateien · ☐ 576x576, 96er Zellen, 6x6 · ☐ Blick links · ☐ Menschen, keine Kreaturen · ☐ Alpha binär, ≤ 32 Farben · ☐ Vorschau + check.txt
 
-**Einbau (macht nicht Codex):** in `src/data/calderwickStory.js` / `kopfgeldjaeger.js` den `sheet` auf `enemy_<id>` stellen, Blätter in `assets.js` registrieren.
+**Einbau (macht nicht Codex):** in `src/data/calderwickStory.js` den `sheet` auf `enemy_<id>` stellen, Blätter in `assets.js` registrieren.
