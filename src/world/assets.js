@@ -1305,6 +1305,7 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestAnschlag')) scene.load.json('manifestAnschlag', `${BASE}manifest-anschlag.json`);
   if (!scene.cache.json.exists('manifestVarrowmouth4')) scene.load.json('manifestVarrowmouth4', `${BASE}manifest-varrowmouth4.json`);
   if (!scene.cache.json.exists('manifestVarrowmouth3')) scene.load.json('manifestVarrowmouth3', `${BASE}manifest-varrowmouth3.json`);
+  if (!scene.cache.json.exists('manifestVarrowmouth1')) scene.load.json('manifestVarrowmouth1', `${BASE}manifest-varrowmouth1.json`); // Regionen vmf_/vmp_ (Kulissen-Runde 1)
   if (!scene.cache.json.exists('manifestDunscar5')) scene.load.json('manifestDunscar5', `${BASE}manifest-dunscar5.json`);
   if (!scene.cache.json.exists('manifestStarling2')) scene.load.json('manifestStarling2', `${BASE}manifest-starling2.json`);
   if (!scene.cache.json.exists('manifestSekten')) scene.load.json('manifestSekten', `${BASE}manifest-sekten.json`);
@@ -2951,7 +2952,8 @@ SHEETS.cw_abgleich = 'fx/cw_abgleich.png';
  * Etappe 1 zeigt die Ebbe-Blätter; der Wechsel mit der Flut kommt mit den Gezeiten-Karten.
  */
 export const VM_THEME_KEYS = ['vm_hafen', 'vm_stege', 'vm_schlick', 'vm_oberstrasse', 'vm_wrack', 'vm_leuchtbank', 'vm_innen'];
-const VM_SPEC = { fallback: 'cobble0', floor: [1, 1, 7], wear: [0, 6], mud: [8, 9, 10, 11, 12, 13, 14, 15],
+// kulisse/kulisseSchlick: dieselben Zellen wie Boden/Schlick, aber fest (Kartenzeichen Y/Z, darauf stehen die Kulissen-Requisiten)
+const VM_SPEC = { fallback: 'cobble0', floor: [1, 1, 7], wear: [0, 6], mud: [8, 9, 10, 11, 12, 13, 14, 15], kulisse: [1, 1, 7], kulisseSchlick: [8],
   water: Array.from({ length: 16 }, (_, i) => 16 + i), bridge: [36, 37], wallFace: [42, 43, 42, 46], door: [44], wallTop: [48, 49, 48, 49, 48, 49, 48, 50, 49, 51] };
 /** Gezeiten (Etappe 3): jedes Thema gibt es zweimal, `vm_hafen` (Ebbe) und `vm_hafen_flut` mit dem Flut-Blatt. */
 export const VM_FLUT = (theme) => `${theme}_flut`;
@@ -2965,6 +2967,16 @@ for (const [theme, sheet] of VM_THEME_KEYS.flatMap((t) => [[t, `${t}_ebbe`], [VM
   THEME_TILE_LIST.push(...list);
   for (const t of list) TILE_CELLS[t.key] = [t.sheet, t.region, t.base];
 }
+/**
+ * Kulissen-Runde 1 (tools/art/vm_kulissen/assets.py, manifest-vm-kulissen.json): zehn skriptgezeichnete Requisiten für die
+ * Platzhalter-Blöcke (Pegelzaun, Zolltor, Leuchtturmfuß, Wracks, Regale, Registerschrank, Nebel). Mehrere Frames = Varianten, keine Animation.
+ * Dazu die Regionen aus CV (vmf_<region> aus vm_fassaden, vmp_<region> aus vm_props), z. B. der Leuchtturm vmf_leuchtfeuer_turm_tag.
+ */
+export const VM_KULISSEN_SHEETS = { vmk_pegelzaun: [16, 32], vmk_zolltor: [96, 48], vmk_leuchtturm_fuss: [96, 80], vmk_wrackrumpf: [80, 64], vmk_wrackrumpf_lang: [112, 64],
+  vmk_wrackheck: [64, 64], vmk_wrackmutter_rumpf: [128, 128], vmk_registerregal: [80, 96], vmk_registerschrank: [64, 80], vmk_nebelschwaden: [64, 32] };
+for (const [key, [w, h]] of Object.entries(VM_KULISSEN_SHEETS)) ANIM_SHEETS[key] = [`props/${key}.png`, w, h];
+Object.assign(REGION_SHEETS, { vmf: ['manifestVarrowmouth1', 'vm_fassaden'], vmp: ['manifestVarrowmouth1', 'vm_props'] });
+Object.assign(SHEETS, { vmf: 'facades/vm_fassaden.png', vmp: 'props/vm_props.png' });
 /** CW: Kampfkulissen (Ebbe). */
 Object.assign(BATTLE_BACKGROUNDS, { vm_zollhafen: 'bg_vm_zollhafen_ebbe', vm_stegviertel: 'bg_vm_stege_flut', vm_schlickgassen: 'bg_vm_schlick_ebbe', vm_oberstrasse: 'bg_vm_oberstrasse', vm_wrackfeld: 'bg_vm_wrackfeld_ebbe',
   vm_leuchtbank: 'bg_vm_leuchtbank_ebbe', vm_registerkeller: 'bg_vm_registerkeller_ebbe', vm_grenzzaun: 'bg_vm_grenzzaun' });

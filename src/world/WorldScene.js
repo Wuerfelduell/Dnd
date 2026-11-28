@@ -160,11 +160,14 @@ function dsTheme(theme, { floorChars = '.sgw', walls = theme, mix = [], accent =
 /**
  * Kapitel 7 (Varrowmouth, CV): Planken und Pflaster mit Abnutzung, Schlick, Stege, Wasser als Ecken-Wang
  * (eine Ecke ist Wasser, wenn alle vier Zellen daran Wasser oder Steg sind), Mauern mit Fenstern und Türen, Dächer darüber.
+ * Y/Z (Kulissen-Runde 1): feste Felder mit Boden- bzw. Schlick-Optik, auf denen Requisiten stehen (varrowmouthKulisse.js).
  */
 function vmTheme(theme) {
   return (ch, at, v, x, y) => {
     const k = (g, seed = 0) => pickKey(themeKeys(theme, g), x, y, seed);
     if (ch === '.') return hash2(x, y, 91) > 0.88 ? k('wear', 1) : k('floor');
+    if (ch === 'Y') return k('kulisse');
+    if (ch === 'Z') return themeKeys(theme, 'kulisseSchlick')[0];
     if (ch === ',') { // ruhiger Schlick: meist die glatte Zelle, selten Steine, Reste oder eine Pfütze
       const mud = themeKeys(theme, 'mud');
       const r = hash2(x, y, 92);
@@ -176,7 +179,7 @@ function vmTheme(theme) {
       return themeKeys(theme, 'bridge')[laengs && !quer ? 1 : 0];
     }
     if (ch === '~') {
-      const nass = (dx, dy) => { const c = at(dx, dy); return c === undefined || c === '~' || c === '=' || c === 'I'; };
+      const nass = (dx, dy) => { const c = at(dx, dy); return c === undefined || c === '~' || c === '=' || c === 'I' || c === 'Y' || c === 'Z'; };
       let m = 0;
       if (nass(-1, 0) && nass(0, -1) && nass(-1, -1)) m |= 1;
       if (nass(1, 0) && nass(0, -1) && nass(1, -1)) m |= 2;

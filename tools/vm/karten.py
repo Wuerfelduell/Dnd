@@ -1,5 +1,7 @@
 """Varrowmouth (Kapitel 7): Grundrisse der Etappe-1-Karten. Schreibt src/data/packs/k6_orte/vm_karten.json.
-Zeichen: I Mauer/Dach, . Pflaster/Planken, , Schlick, ~ Wasser, = Steg (begehbar).
+Zeichen: I Mauer/Dach, . Pflaster/Planken, , Schlick, ~ Wasser, = Steg (begehbar),
+Y feste Kulisse auf Boden, Z feste Kulisse auf Schlick (nicht begehbar wie I, aber ohne Hauswand: dort stehen die
+Requisiten aus src/data/varrowmouthKulisse.js, z. B. Leuchtturm, Wracks, Regale, Pegelzaun).
 Anker (benannte Punkte für Türen, Figuren, Fundstellen) stehen in `anker`. python3 tools/vm/karten.py
 """
 import json, os, random
@@ -102,8 +104,8 @@ for (x0, y0, x1, y1) in [(1, 1, 46, 2), (1, 29, 46, 30)]:
 for (x0, y0, x1, y1) in [(10, 3, 12, 9), (19, 14, 21, 26), (27, 3, 29, 8), (30, 23, 33, 28), (8, 17, 10, 23), (44, 3, 46, 9), (44, 22, 46, 28)]:
     rect(g, x0, y0, x1, y1, '~')     # Priele
 for (x0, y0, x1, y1) in [(14, 4, 18, 6), (5, 25, 11, 27), (24, 18, 28, 20), (33, 4, 37, 6), (13, 20, 16, 22)]:
-    rect(g, x0, y0, x1, y1, 'I')     # kleine Wracks
-rect(g, 37, 11, 44, 17, 'I')         # Rumpf der Wrackmutter
+    rect(g, x0, y0, x1, y1, 'Z')     # kleine Wracks (Kulisse vmk_wrack*)
+rect(g, 37, 11, 44, 17, 'Z')         # Rumpf der Wrackmutter (vmk_wrackmutter_rumpf)
 rect(g, 1, 11, 9, 12, '=')           # Steg vom Stegviertel
 rect(g, 10, 11, 12, 12, '=')         # über den Priel
 rect(g, 19, 11, 21, 12, '=')
@@ -119,7 +121,7 @@ g = leer(fill='~')
 rect(g, 4, 6, 43, 27, ',')           # Sandbank (bei Flut nass)
 rect(g, 8, 9, 40, 24, '.')           # trockener Kern
 rect(g, 30, 3, 40, 10, '.')          # Felsnase mit Turm
-rect(g, 33, 3, 38, 7, 'I')           # Leuchtturm
+rect(g, 33, 3, 38, 7, 'Y')           # Leuchtturm (vmk_leuchtturm_fuss + CV-Turm)
 rect(g, 10, 10, 16, 13, 'I')         # Osrics Haus
 rect(g, 22, 12, 24, 13, 'I')         # Glockenstuhl
 for (x0, y0, x1, y1) in [(18, 19, 19, 21), (26, 20, 27, 21), (34, 18, 35, 19)]:
@@ -133,12 +135,12 @@ karten['vm_leuchtbank'] = dict(rows=rows(g), spawns={'default': [3, 24], 'von_zo
 # --- Registerkeller (Akt V): unter dem Ratsgebäude, Regalreihen, Wasser in den Fugen, das lebende Register am Ende ---------
 g = leer()
 for x0 in [5, 13, 21, 29, 37]:
-    rect(g, x0, 4, x0 + 4, 9, 'I')   # Regale Nord
-    rect(g, x0, 18, x0 + 4, 23, 'I') # Regale Süd
+    rect(g, x0, 4, x0 + 4, 9, 'Y')   # Regale Nord (vmk_registerregal)
+    rect(g, x0, 18, x0 + 4, 23, 'Y') # Regale Süd
 rect(g, 1, 13, 3, 14, '.')
 for (x0, y0, x1, y1) in [(10, 12, 11, 12), (26, 15, 28, 15), (18, 26, 20, 27), (42, 11, 44, 12)]:
     rect(g, x0, y0, x1, y1, '~')     # Pfützen
-rect(g, 42, 24, 45, 28, 'I')
+rect(g, 42, 24, 45, 28, 'Y')         # Registerschrank (vmk_registerschrank)
 karten['vm_registerkeller'] = dict(rows=rows(g), spawns={'default': [2, 13], 'von_oberstrasse': [2, 13]},
     anker={'tuer_oberstrasse': [1, 13], 'regal_west': [8, 11], 'schwelle': [16, 14], 'nische': [27, 26], 'pult': [40, 15], 'harrow': [44, 15],
            'treppe': [5, 14], 'mitte': [24, 13], 'sued': [12, 26], 'nord': [33, 2]})
@@ -149,7 +151,7 @@ karten['vm_registerkeller']['rows'] = rows(g)
 g = leer(fill=',')
 rect(g, 1, 1, 46, 8, '.')            # Straße und Zollplatz
 rect(g, 3, 2, 10, 4, 'I'); rect(g, 36, 2, 44, 4, 'I')   # Zollbuden
-rect(g, 1, 15, 46, 15, 'I')          # der Zaun
+rect(g, 1, 15, 46, 15, 'Z')          # der Zaun aus Pegelstangen (vmk_pegelzaun, Tor vmk_zolltor)
 rect(g, 22, 15, 25, 15, '.')         # das Tor
 rect(g, 1, 9, 46, 14, '.')
 rect(g, 1, 24, 46, 30, '~')          # Watt und Meer
