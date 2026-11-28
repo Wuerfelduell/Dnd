@@ -2242,3 +2242,11 @@ Geliefert von Grok als Zip mit Patch (Branch `art/nachbesserung2`). Raster und D
 - Heilige: Schlüssel liegt angelehnt, Echo liegt flach (defeated), Waage-Schwert mit Parierstück in Waagenform, Echo mit geradem Glasschwert statt Trompetenklinge: `python3 tools/art/nachbesserung/heilige_nb.py echo schluessel sq_waage`
 - Prompts: `tools/art/nachbesserung/prompts.json` → `nachbesserung2`
 - Vorschauen „Vorlage | alt | neu“ (3x): [Engel](nachbesserung2-preview-bosse.png) · [Heilige](nachbesserung2-preview-heilige.png) (`python3 tools/art/nachbesserung/vorschau.py nachbesserung2`)
+
+## Gestalt auf Sequenz 2 (`gestalt2`)
+
+30 PNGs für alle zehn Pfade: Kartenblätter (4×4), Kampfblätter (6×6) und Zugbilder. Jeder Frame wird einzeln auf 4× Raster gezeichnet und mit Nearest Neighbor verkleinert. Manifest: `public/sprites/manifest-gestalt2.json`.
+
+- [Vorschau in 3×](batch-gestalt2-preview.png) · [Generierung](batch-gestalt2-generation.json) · [Prüfbericht](batch-gestalt2-validation.json)
+- Skripte: `python tools/art/gestalt2/export.py`, `python tools/art/gestalt2/preview.py`, `python tools/art/gestalt2/check.py`, `python tools/art/gestalt2/package.py`
+- ZIP: `gestalt2.zip` mit PNGs, Manifest, 520 einzelnen Rohframes, Vorschau und `check.txt`.

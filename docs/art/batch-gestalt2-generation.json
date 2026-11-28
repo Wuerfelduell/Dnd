@@ -1,0 +1,36 @@
+{
+  "batch": "gestalt2",
+  "brief": "docs/art/codex_EA_gestalt_seq2.md",
+  "method": "Procedural pixel drawing: every card and battle pose is drawn as its own transparent 4x RGBA source frame, reduced once with Pillow NEAREST to the target cell, then assembled in row-major order. No sheet is resized as a whole.",
+  "references": {
+    "card": "public/sprites/characters/hg_form_<path>.png",
+    "battle": "public/sprites/battle/hg_battle_<path>.png",
+    "portrait": "public/sprites/ui/hg_zug_<path>.png",
+    "palette": "public/sprites/battle/battle_player.png",
+    "seq3_available": false,
+    "fallback": "Seq 4, as explicitly allowed by section 1"
+  },
+  "style": "Top-down 3/4 pixel art for an atmospheric Victorian mystery game. Crisp hard-edged pixels, no antialiasing, blur, gradients, text or backdrop. One-pixel #1a1c2c outline. Muted game palette, warm amber holy light, turquoise sparingly. Transparent background and binary alpha.",
+  "palette": ["#1a1c2c", "#252b38", "#303b49", "#425360", "#586c78", "#71858b", "#413433", "#58433c", "#715648", "#886332", "#ba8942", "#dbac5d", "#f0ce80", "#cfb18a", "#e0c9a1", "#494b3a", "#686850", "#245b59", "#36817a", "#6fe0d0"],
+  "path_prompts": [
+    {"path":"laterne","prompt":"Keep the dark brass lantern-bodied creature and three-pane silhouette. Make six amber light-ribbon wings, each ending in a small lantern flame; the open central housing contains only a flame, no face."},
+    {"path":"faden","prompt":"Keep the pale stitched puppet body. Fan taut harp strings between long needles as wings; suspend the creature from fine strings that leave the top edge of the cell."},
+    {"path":"maske","prompt":"Keep the clustered mask creature. Fan closed-eye masks into two wings and place a bright blank mirror mask at the center; retain a theatrical dark mantle."},
+    {"path":"echo","prompt":"Keep the bell-like blue-grey body. Form concentric sound-ring wings, an open crown above it, and a small dark bell mouth; add a one-pixel darker echo contour."},
+    {"path":"kessel","prompt":"Keep the copper boiler body and amber interior. Make fixed pixel-cloud steam wings and float the detached crowned lid as a halo."},
+    {"path":"eisen","prompt":"Keep the heavy iron silhouette. Fan riveted blade plates into wings, place a forge ring behind the back, and show restrained amber seams."},
+    {"path":"schluessel","prompt":"Keep the narrow key-bearing figure. Form two luminous open doorframes as wings and orbit small brass keys around the waist."},
+    {"path":"sq_waage","prompt":"Keep the solemn balance creature. Use large balanced dish-wings and a beam across the shoulders as a yoke; blindfold the face."},
+    {"path":"sq_moor","prompt":"Keep the heavy moss-dark bogwater body. Grow reed and cotton-grass wings holding dark water; place a pale light in the chest."},
+    {"path":"sq_uhr","prompt":"Keep the brass clockwork creature. Use two giant clock-hand wings, a gear-ring halo and a column of amber pendulum light below."}
+  ],
+  "frame_plan": {
+    "card": {"canvas":"128x192","cell":"32x48","grid":"4x4; down, left, right, up","baseline":46,"poses":"Four independently drawn hover/walk poses per facing; the shadow stays on y=46."},
+    "battle": {"canvas":"576x576","cell":"96x96","grid":"6x6; idle, attack1, attack2, special, hurt, defeated","facing":"right","hold_frames":[7,8,13,14],"poses":{"idle":"slow hover; fixed shadow","attack1":"path-wing close strike","attack2":"path material/light reaches right","special":"full wing spread and bright core","hurt":"wings contract and body recoils","defeated":"body and wings break into path material"}},
+    "zugbild": "32x32 crop of the new battle idle upper body"
+  },
+  "export": "python tools/art/gestalt2/export.py",
+  "preview": "python tools/art/gestalt2/preview.py",
+  "check": "python tools/art/gestalt2/check.py",
+  "package": "python tools/art/gestalt2/package.py"
+}
