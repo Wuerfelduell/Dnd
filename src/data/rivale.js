@@ -302,7 +302,8 @@ export function applyRivale(content) {
       content.encounters[id] = {
         ...rest,
         name: rivaleText('gegner', pid, nr),
-        sheet: seq <= 4 && content.pathways[pid] ? `hg_battle_${pid}` : rest.sheet,
+        // Sequenz 9-5: eigenes Kampfblatt je Pfad (tools/art/rivalen/rivalen.py), ab 4 die Halbgott-Gestalt
+        sheet: seq <= 4 && content.pathways[pid] ? `hg_battle_${pid}` : `enemy_rv_${pid}`,
         hp: Math.round(base.hp * f),
         attacks: scale(base.attacks),
         ...(phase2 ? { phase2: { ...phase2, attacks: scale(phase2.attacks) } } : {}),

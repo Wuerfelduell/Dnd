@@ -97,6 +97,7 @@ export function applyKopfgeldjaeger(content) {
         rest_chance: REST_CHANCE_JAEGER,
       };
       machBeyonder(content, id, pid, g.seq);
+      content.encounters[id].sheet = `enemy_kgj_${pid}`; // eigenes Kampfblatt je Pfad statt Leihkörper (tools/art/rivalen/rivalen.py)
       const l = content.loot[from] ?? {};
       content.loot[id] = { ...l, repeat: true, money: g.geld ?? (Array.isArray(l.money) ? l.money.map((n) => n * 2) : [200, 400]), drops: [...(content.loot[id]?.drops ?? []), ...(l.drops ?? []).filter((d) => !String(d.item).startsWith('formel_'))] };
       ids.push(id);

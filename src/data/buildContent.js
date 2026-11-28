@@ -43,11 +43,13 @@ import { applyEigenesHaus } from './eigenesHaus.js';
 import { applyNebelseite } from './nebelseite.js';
 import { applyDunscarHaendler } from './dunscarHaendler.js';
 import { applyDunscarKulisse } from './dunscarKulisse.js';
+import { applyDunscarKlotze, applyDsBhDazu } from './dsbhKulissen.js';
 import { applyVarrowmouthKulisse } from './varrowmouthKulisse.js';
 import { applyBriarholtKulisse } from './briarholtKulisse.js';
 import { applyBriarholtKulisse2 } from './briarholtKulisse2.js';
 import { applyCalderwickKulisse } from './calderwickKulisse.js';
 import { applyCalderwickStadtplan } from './calderwickStadtplan.js';
+import { applyCalderwickKlotze } from './calderwickKlotze.js';
 import { applyCalderwickBeute } from './calderwickBeute.js';
 import { applyCalderwickErkunden } from './calderwickErkunden.js';
 import { applyCalderwickLeben } from './calderwickLeben.js';
@@ -181,10 +183,12 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyPreisAbgleich(content); // Preise, Heilung, Nerven, Konzentration und Artefakte je Kapitel (nach Dunscar-Ausbau)
   applyRitual6Vorrat(content); // Seq-6-Ritualzutaten in jeder späteren Stadt zu kaufen (keine Rückreise)
   applyRitual4Vorrat(content); // Seq-4-Rituale in Wexmoor und Dunscar: Kessel-Zutaten, Moorwasser in der Unterschicht
+  applyDunscarKlotze(content); // Dunscar: Kalkbrecher und Kalkkarren statt der Klötze im Klopfbruch (vor der Kulisse)
   applyDunscarKulisse(content); // Dunscar: Ausgänge nach Himmelsrichtung mit Schild, Rückkehr an der passenden Tür, Requisiten je Viertel
   applyVarrowmouthKulisse(content); // Varrowmouth: Kulissen-Runde 1 auf den Y/Z-Blöcken (Leuchtturm, Wracks, Regale, Pegelzaun, Nebel)
   applyBriarholtKulisse(content); // Briarholt: Dächer, Fassaden, Wärmenetz, Möbel, Requisiten, Licht und Nebel je Ort (kalt/warm)
   applyBriarholtKulisse2(content); // Briarholt-Kulissen Runde 2: eigene Dachsätze statt future200, Innenräume ohne Leihstücke
+  applyDsBhDazu(content); // Dunscar und Briarholt: Prellböcke, Läutewerke, Schlackenkübel, Wärmeschalen auf freien Flächen
   applyNebelseite(content); // Codex DH: Spiegelkarten und verborgene Übergänge
   applyEigenesHaus(content); // Codex DG: Häuser in Wexmoor und Dunscar, Maklerin, Türen (nach der Kulisse, die Dunscar-Karten neu baut)
   applyDunscarStaende(content); // Dunscar: Marktstände mit Schild hinter den Händlern
@@ -196,6 +200,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyNebelnacht(content); // Nebelnächte: Nebelkrämerin auf dem Markt jeder Stadt (nach allen Kulissen)
   applyKettlegateKulisse(content); // Seb 2026-11-27: Kettlegate harmonischer – Überladenes ausdünnen, Leeres füllen, Einwohner verteilen, Nachtmarkt breiter
   applyCalderwickStadtplan(content); // Calderwick: eigene Stadtpläne je Terrasse (Häuser, Gassen, Plätze), Objekte an sinnvollen Stellen
+  applyCalderwickKlotze(content); // Calderwick: Requisiten statt Platzhalter-Klötzen (Theken, Pressen, Regale, Sortiermaschinen)
   applyCalderwickFunde(content); // Seb 2026-11-27: Habseligkeiten der Gefallenen (Bilder aus den Codex-Vorräten), vor Erkunden und Beute
   applyCalderwickErkunden(content); // Calderwick: Verstecke mit Wächtern, verbrannte Briefe, zwei Nebenaufträge
   applyPfadviertelGeschichte(content); // Seb 2026-11-27: kleine Geschichte je Pfadviertel, mit dem eigenen Rivalen am Ende

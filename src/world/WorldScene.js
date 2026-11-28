@@ -147,6 +147,7 @@ function dsTheme(theme, { floorChars = '.sgw', walls = theme, mix = [], accent =
       for (const [g, p] of mix) if (r > 1 - (acc += p)) return k(theme, g, 2);
       return k(theme, 'floor');
     }
+    if (ch === 'Y' && themeKeys(theme, 'kulisse').length) return themeKeys(theme, 'kulisse')[0]; // Calderwick: fester Boden unter Requisiten
     if (ch !== 'I') return null;
     const wall = (c) => c === undefined || c === 'I';
     if (!wall(at(0, 1))) return accent && hash2(x, y, 82) > 0.8 ? k(walls, accent, 3) : k(walls, 'wallFace', 3);
