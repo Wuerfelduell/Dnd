@@ -43,6 +43,7 @@ import { applyEigenesHaus } from './eigenesHaus.js';
 import { applyNebelseite } from './nebelseite.js';
 import { applyDunscarHaendler } from './dunscarHaendler.js';
 import { applyDunscarKulisse } from './dunscarKulisse.js';
+import { applyVarrowmouthKulisse } from './varrowmouthKulisse.js';
 import { applyBriarholtKulisse } from './briarholtKulisse.js';
 import { applyCalderwickKulisse } from './calderwickKulisse.js';
 import { applyCalderwickStadtplan } from './calderwickStadtplan.js';
@@ -180,6 +181,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyRitual6Vorrat(content); // Seq-6-Ritualzutaten in jeder späteren Stadt zu kaufen (keine Rückreise)
   applyRitual4Vorrat(content); // Seq-4-Rituale in Wexmoor und Dunscar: Kessel-Zutaten, Moorwasser in der Unterschicht
   applyDunscarKulisse(content); // Dunscar: Ausgänge nach Himmelsrichtung mit Schild, Rückkehr an der passenden Tür, Requisiten je Viertel
+  applyVarrowmouthKulisse(content); // Varrowmouth: Kulissen-Runde 1 auf den Y/Z-Blöcken (Leuchtturm, Wracks, Regale, Pegelzaun, Nebel)
   applyBriarholtKulisse(content); // Briarholt: Dächer, Fassaden, Wärmenetz, Möbel, Requisiten, Licht und Nebel je Ort (kalt/warm)
   applyNebelseite(content); // Codex DH: Spiegelkarten und verborgene Übergänge
   applyEigenesHaus(content); // Codex DG: Häuser in Wexmoor und Dunscar, Maklerin, Türen (nach der Kulisse, die Dunscar-Karten neu baut)

@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { loadContent } from './helpers.js';
 
 const content = loadContent();
-const TILE_CHARS = new Set('.,#WDRf~=LXwOIETBHgpGUcrYsK|APQCV'.split(''));
+const TILE_CHARS = new Set('.,#WDRf~=LXwOIETBHgpGUcrYsK|APQCVZ'.split('')); // Z: feste Kulisse auf Schlick (Varrowmouth)
 const WALKABLE = new Set(['.', ',', '=', 'w', 'g', 'p', 'c', 's', 'P']);
 const CONDITION_KEYS = ['requires_clues', 'requires_any_clues', 'requires_facts', 'requires_likely', 'requires_suspected', 'requires_conclusions',
   'requires_certain', 'requires_flags', 'requires_quests_active', 'requires_quests_done', 'hide_if_clues', 'hide_if_flags', 'hide_if_conclusions', 'hide_if_quests'];
