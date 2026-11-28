@@ -2243,10 +2243,10 @@ Geliefert von Grok als Zip mit Patch (Branch `art/nachbesserung2`). Raster und D
 - Prompts: `tools/art/nachbesserung/prompts.json` → `nachbesserung2`
 - Vorschauen „Vorlage | alt | neu“ (3x): [Engel](nachbesserung2-preview-bosse.png) · [Heilige](nachbesserung2-preview-heilige.png) (`python3 tools/art/nachbesserung/vorschau.py nachbesserung2`)
 
-## Gestalt auf Sequenz 2 (`gestalt2`)
+## Gestalt auf Sequenz 2 (`gestalt2b`)
 
-30 PNGs für alle zehn Pfade: Kartenblätter (4×4), Kampfblätter (6×6) und Zugbilder. Jeder Frame wird einzeln auf 4× Raster gezeichnet und mit Nearest Neighbor verkleinert. Manifest: `public/sprites/manifest-gestalt2.json`.
+30 neue PNGs für alle zehn Pfade: Kartenblätter (4×4), Kampfblätter (6×6) und Zugbilder. Die detaillierten Seq-3-Körper bleiben die Vorlage; jede Pose wird einzeln mit path-motivischen Flügeln, schwebendem Schatten und hellem Kern aufgebaut. Manifest: `public/sprites/manifest-gestalt2b.json`.
 
-- [Vorschau in 3×](batch-gestalt2-preview.png) · [Generierung](batch-gestalt2-generation.json) · [Prüfbericht](batch-gestalt2-validation.json)
-- Skripte: `python tools/art/gestalt2/export.py`, `python tools/art/gestalt2/preview.py`, `python tools/art/gestalt2/check.py`, `python tools/art/gestalt2/package.py`
-- ZIP: `gestalt2.zip` mit PNGs, Manifest, 520 einzelnen Rohframes, Vorschau und `check.txt`.
+- [Stufenvergleich Seq 4 | Seq 3 | Seq 2 | Seq 1](batch-gestalt2b-preview.png) · [Generierung](batch-gestalt2b-generation.json) · [Prüfbericht](batch-gestalt2b-validation.json)
+- Skripte: `python tools/art/gestalt2b/export.py`, `python tools/art/gestalt2b/preview.py`, `python tools/art/gestalt2b/check.py`, `python tools/art/gestalt2b/package.py`
+- ZIP: `gestalt2b.zip` mit PNGs, Manifest, 520 einzelnen 4×-Rohframes, Stufenvergleich und `check.txt`.

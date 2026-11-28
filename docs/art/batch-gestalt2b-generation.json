@@ -1,0 +1,38 @@
+{
+  "batch": "gestalt2b",
+  "brief": "codex_EA2_gestalt_seq2_neu.md",
+  "method": "Every frame is composed independently from its Seq-3 reference cell at native pixel coordinates, with the path-wing layer behind the creature and the core/effects above it. Each frame is rasterized at 4x, saved as a raw RGBA source, reduced once by integer 4x Nearest Neighbor, then placed into the sheet. No sheet is resized as a whole.",
+  "references": {
+    "seq3_source": "tools/art/gestalt2b/sources/seq3/ (the workspace gestalt3.zip delivery; no gestalt3b.zip was present)",
+    "seq4_source": "public/sprites/characters, battle and ui/hg_*_<path>.png",
+    "seq1_source": "public/sprites/characters/hg_form_<path>_still.png and public/sprites/battle/hg_form_<path>_still.png",
+    "palette": "public/sprites/battle/battle_player.png",
+    "seq3_delivery_zip": "C:/Users/sebas/Desktop/mysterie/gestalt3.zip"
+  },
+  "style": "The detailed Seq-3 creature is retained as the body and material reference. Preserve its head, silhouette, main color, texture, and 2-3 shade steps. Add 1px #1a1c2c outlined path-material wings, an amber core, top-left lighting, binary transparency, and only colors from the game player palette. No flat replacement figures, antialiasing, gradients, text, pure white, or cell-edge pixels.",
+  "style_block": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, readable and clean like classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; 2-3 shade steps per material, light from top-left. 1px outline #1a1c2c on the figure.\nPalette: max 32 muted colors matching the reference sprite: slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white (#ebcd8d / #bbae95, never pure white); warm amber only for lamp/holy light; turquoise #6fe0d0 or deep violet only for occult effects, sparingly.\nMood: melancholic, mysterious, dignified, slightly unsettling, never gory, never cute.\nOutput: TRANSPARENT background (real alpha), no text, no watermark.\nAvoid: flat geometric shapes, vector look, 3D render look, painterly style, chibi, anime eyes, references to existing games or franchises.",
+  "palette": "The exact visible RGB colors from battle_player.png (31 colors); source Seq-3 tones are mapped to the nearest color in this palette before any additions.",
+  "path_prompts": [
+    {"path":"laterne","prompt":"Keep the detailed Seq-3 brass lantern body and orbiting shoulder lamps. Open the central housing and show a pure amber flame instead of a face. Add six shaded light-ribbon wings, each ending in a little lantern flame."},
+    {"path":"faden","prompt":"Keep the detailed stitched puppet body and pale fabric. Grow harp-string wings between long needles; let the suspended strings reach to y=2, one pixel before the cell edge."},
+    {"path":"maske","prompt":"Keep the Seq-3 mask head and theater mantle. Expand the mask crown into two fans of closed-eye masks; the central face is a bright blank mirror."},
+    {"path":"echo","prompt":"Keep the blue-grey bell creature. Open the bell into a crown and add concentric sound-ring wings; trail each contour by one darker pixel."},
+    {"path":"kessel","prompt":"Keep the detailed copper boiler and glowing belly. Float the lid-crown as a halo and form steam wings from hard-edged, shaded pixel clouds."},
+    {"path":"eisen","prompt":"Keep the Seq-3 iron creature and its hammer arm. Fan riveted iron plates into blade wings and add a heavy forge ring with brighter amber seams."},
+    {"path":"schluessel","prompt":"Keep the narrow key-bearing creature. Grow two luminous open doorframes from its back shield and orbit small keys around the waist."},
+    {"path":"sq_waage","prompt":"Keep the solemn blindfolded balance creature. Enlarge its balanced scales into disc wings and place the beam over its shoulders as a yoke."},
+    {"path":"sq_moor","prompt":"Keep the dark bogwater body. Extend reeds and cotton-grass into wings with water held in their leaves; change the chest water-eye to a pale light."},
+    {"path":"sq_uhr","prompt":"Keep the exposed Seq-3 clockwork body and blank clock head. Add two enormous clock-hand wings, a shaded brass gear halo, and a column of amber pendulum light below."}
+  ],
+  "frame_plan": {
+    "card": {"canvas":"128x192","cell":"32x48","grid":"4x4: front, left, right, back; 4 moving frames per direction","baseline":46,"shadow":"fixed at y=45-46; body hover ends at or above y=43"},
+    "battle": {"canvas":"576x576","cell":"96x96","grid":"6x6: idle, attack1, attack2, special, hurt, defeated","facing":"right","attack1_hold":"frames 3 and 4 identical","shadow":"fixed at y=93-94","movement":"at least one frame in attack1, attack2, special and defeated changes at least 800 alpha-mask pixels from idle frame 1","attack2_effect":"extends to x=93-94"},
+    "zugbild":"32x32 crop from the new battle idle upper body; transparent one-pixel border"
+  },
+  "commands": {
+    "export":"python tools/art/gestalt2b/export.py",
+    "preview":"python tools/art/gestalt2b/preview.py",
+    "check":"python tools/art/gestalt2b/check.py",
+    "package":"python tools/art/gestalt2b/package.py"
+  }
+}
