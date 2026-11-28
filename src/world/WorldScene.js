@@ -26,7 +26,7 @@ import { isOutdoorMap } from './assets.js';
 import { cityOf } from '../core/Travel.js';
 import { Combat } from '../core/Combat.js';
 import { p2View } from '../core/Split.js';
-import { FORM_SEQ, formReif } from '../core/Pathways.js';
+import { FORM_SEQ, formReif, formStageKeys } from '../core/Pathways.js';
 import { hatNarbe } from '../core/Narbe.js';
 import { BeyonderAuras } from './BeyonderAura.js';
 
@@ -1278,7 +1278,7 @@ export class WorldScene extends Phaser.Scene {
     // Paket CO: die zehn Kreaturformen (32x48) laufen mit demselben Schlüsselschema, etwas langsamer (6 fps)
     // Codex DN/DO: Zivilistengestalt der Maske und der Schatten des Schlüssels, je Spielfigur
     const ritualSkins = ['player', ...Object.keys(P2_LOOKS)].flatMap((b) => [`s4ma_zivil_${b}`, `schatten_${b}`]);
-    for (const key of [...['player', ...Object.keys(P2_LOOKS)].flatMap((b) => [b, ...worn.map((w) => skinKeyOf(b, w))]), ...HG_PATHS.flatMap((p) => [`hg_form_${p}`, `hg_form_${p}_still`]), ...ritualSkins]) {
+    for (const key of [...['player', ...Object.keys(P2_LOOKS)].flatMap((b) => [b, ...worn.map((w) => skinKeyOf(b, w))]), ...HG_PATHS.flatMap((p) => formStageKeys(p, 1, 'map')), ...ritualSkins]) {
       if (!this.textures.exists(key)) continue;
       DIRS.forEach((dir, row) => {
         if (this.anims.exists(`${key}-walk-${dir}`)) return;
@@ -1676,10 +1676,9 @@ export class WorldScene extends Phaser.Scene {
   /** Paket CO: Sheet der Kreaturform (hg_form_<pfad>), wenn dieser Spieler seine Gestalt trägt und das Sheet geladen ist; sonst null. */
   formKey(n) {
     const pid = this.state.withPlayer(n, () => (this.state.formActive?.() ? this.state.pathway?.id : null), { quiet: true });
-    const still = pid && this.state.withPlayer(n, () => this.state.pathway?.seq === 1, { quiet: true }) && `hg_form_${pid}_still`; // Seq 1: stille Endgestalt
-    if (still && this.textures.exists(still)) return still;
-    const key = pid && `hg_form_${pid}`;
-    return key && this.textures.exists(key) ? key : null;
+    if (!pid) return null;
+    const seq = this.state.withPlayer(n, () => this.state.pathway?.seq, { quiet: true });
+    return formStageKeys(pid, seq, 'map').find((k) => this.textures.exists(k)) ?? null; // Seq 3/2 gewachsen, Seq 1 still
   }
 
   /** Kollisionskörper je nach Sheetgröße: Figuren 16x32, Kreaturformen 32x48 (Fußpunkt bleibt derselbe). */
