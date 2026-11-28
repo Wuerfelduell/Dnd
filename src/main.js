@@ -13,6 +13,7 @@ import { isOutdoorMap } from './world/assets.js';
 import { cityOf } from './core/Travel.js';
 import { HIMMEL, STURZ_EFFECTS } from './data/aufstieg.js';
 import { watchDom, patchPhaser } from './core/I18n.js';
+import { bootLoader } from './ui/Ladebildschirm.js';
 import { skipTraining } from './core/Lehrstunde.js';
 
 // Drei lokale Speicherplätze. Platz 1 nutzt den alten Schlüssel, damit bestehende Spielstände dort bleiben.
@@ -29,7 +30,7 @@ const frame = document.getElementById('frame');
 const uiRoot = document.getElementById('ui');
 // Sprachwahl: angezeigte Texte (DOM + Phaser) werden bei Englisch übersetzt
 patchPhaser(Phaser);
-watchDom(uiRoot, document.getElementById('rotate'));
+watchDom(uiRoot, document.getElementById('rotate'), document.getElementById('boot'));
 
 // --- Spielstand (localStorage, Fehler werden still ignoriert) ---------------------
 function readSave(n = slot) {
@@ -65,7 +66,7 @@ const ui = new Ui(uiRoot, state, {
   slots: () => SLOTS.map((n) => ({ n, save: validSave(n) })),
   activeSlot: () => slot,
   onDeleteSlot: (n) => clearSave(n),
-  onNewGame: (n = slot) => {
+  onNewGame: (n = slot, { koop = false } = {}) => {
     setSlot(n);
     clearSave();
     state.reset();
@@ -102,21 +103,31 @@ const ui = new Ui(uiRoot, state, {
       if (new URLSearchParams(location.search).has('flut')) state.playTime = 370; // &flut → gleich bei Flut (Gezeit wechselt alle 360 s)
       if (vm === 'wrack') { state.applyEffects({ sets_flags: ['k6_anreise_wahl', 'k6_arrived', 'k6_tam_weg', 'k6_akt1_done'], start_quests: ['k6_akt1', 'k6_akt2'] }); state.map = 'vm_wrackfeld'; }
     }
+    if (koop && !state.hasP2()) state.addP2(); // Hauptmenü „Zu zweit spielen“
     // Schnellstarts überspringen das Pflicht-Kampftraining mit Holt; ?training=aus überspringt es auch beim normalen Start
     if (probe || hoch || auf || vm || ['aus', '0', 'nein', 'off'].includes(new URLSearchParams(location.search).get('training'))) skipTraining(state);
     started = true;
     restartWorld();
     saveSoon();
   },
-  onContinue: (n = slot) => {
+  // Pausemenü „Zum Hauptmenü“: speichern und neu laden, so startet das Hauptmenü mit sauberem Zustand
+  onQuitToTitle: () => {
+    writeSave();
+    started = false;
+    location.reload();
+  },
+  onContinue: (n = slot, { koop = false } = {}) => {
     setSlot(n);
     if (!state.load(readSave())) state.reset();
+    if (koop && !state.hasP2()) state.addP2();
     started = true;
     restartWorld();
   },
 });
 
 ui.audio = audio;
+// Ladebildschirm (Gerüst in index.html) zeigt den Fortschritt der ersten Ladeliste und gibt danach das Titelmenü frei
+const boot = bootLoader(ui);
 
 // Paket Z: Musik aus Notendaten (Web Audio), startet mit der ersten Eingabe
 const music = new MusicDirector({ audio });
@@ -137,6 +148,7 @@ setInterval(() => {
     ritual: ritualMusic(state, combat?.encounterId ?? null), // DS: Laternennacht, Traum, Schattenseite
     spuren: siege ? laternenFaktoren(siege.lit().length, siege.lanterns.length) : null,
     title: !started,
+    titleTrack: ui.titleMusic ?? null, // Hauptmenü: ab Varrowmouth die Titelfassung mit dem Pegel-Puls
     combat: combat?.combat ? { id: combat.encounterId, enc: combat.combat.enc } : null,
     vision: state.spiritVision,
     map: state.map,
@@ -168,6 +180,7 @@ game = new Phaser.Game({
       g.registry.set('ui', ui);
       g.registry.set('music', music);
       g.registry.set('audio', audio);
+      g.registry.set('boot', boot);
     },
   },
 });

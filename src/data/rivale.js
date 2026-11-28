@@ -16,14 +16,14 @@ import { bogenWoerterbuch } from './rivaleBogen.js';
 /** Je Pfad ein Rivale (Namen gelten in beiden Sprachen). Im Koop hat Spieler 2 einen eigenen (name2), auch auf demselben Pfad. */
 export const RIVALEN = {
   laterne: { name: 'Corvin Ashby', name2: 'Ada Vellacott' },
-  faden: { name: 'Mirela Thorn', name2: 'Rupert Glass' },
+  faden: { name: 'Mirela Stroud', name2: 'Rupert Glass' },
   maske: { name: 'Silas Morrel', name2: 'Liesl Varga' },
-  echo: { name: 'Ines Halloway', name2: 'Emmerich Dahl' },
+  echo: { name: 'Petra Sandor', name2: 'Emmerich Dahl' },
   kessel: { name: 'Bram Sutter', name2: 'Clara Penhallow' },
   eisen: { name: 'Garrick Holm', name2: 'Hedda Krone' },
-  schluessel: { name: 'Nell Quist', name2: 'Felix Wren' },
+  schluessel: { name: 'Nell Quist', name2: 'Elmer Seely' },
   sq_waage: { name: 'Ottoline Brack', name2: 'Julius Arkwright' },
-  sq_moor: { name: 'Fenna Rook', name2: 'Oskar Mire' },
+  sq_moor: { name: 'Fenna Caddow', name2: 'Oskar Mire' },
   sq_uhr: { name: 'Tobias Merrin', name2: 'Wilma Tock' },
 };
 
@@ -136,6 +136,9 @@ export const RIVALE_TEXTE = {
     '{name} is already standing there, the last piece of this story in hand. "A whole quarter full of secrets, and you thought you were the only one on our pathway searching here?" Whoever wants it has to take it from {name}.'],
   viertel_verbuendet: ['{name} wartet schon und hält dir das letzte Stück hin. „Ich hab es vor den anderen gefunden. Für dich. Bündnis ist Bündnis.“',
     '{name} is already waiting and holds out the last piece to you. "I found it before the others did. For you. An alliance is an alliance."'],
+  // Rivale erledigt oder fort (Bogen-Finale): Er taucht im Pfadviertel nicht mehr auf (tools/schicksale.mjs)
+  viertel_fort: ['Am letzten Hof liegt das letzte Stück, darauf {name}s Zeichen. Die Spur stammt noch aus der Zeit, bevor ihr euch zum letzten Mal gegenübergestanden habt. Niemand holt es mehr ab.',
+    'In the last courtyard lies the last piece, marked with {name}\'s sign. The trail dates from before the two of you faced each other for the last time. No one will come for it now.'],
   viertel_sieg: ['{name} lässt fallen, was hier gefunden wurde, und verschwindet in den Gassen. Das letzte Stück gehört dir.',
     '{name} drops what was found here and vanishes into the alleys. The last piece is yours.'],
   // Etappe 3: Eskalation ab Sequenz 4
@@ -299,7 +302,8 @@ export function applyRivale(content) {
       content.encounters[id] = {
         ...rest,
         name: rivaleText('gegner', pid, nr),
-        sheet: seq <= 4 && content.pathways[pid] ? `hg_battle_${pid}` : rest.sheet,
+        // Sequenz 9-5: eigenes Kampfblatt je Pfad (tools/art/rivalen/rivalen.py), ab 4 die Halbgott-Gestalt
+        sheet: seq <= 4 && content.pathways[pid] ? `hg_battle_${pid}` : `enemy_rv_${pid}`,
         hp: Math.round(base.hp * f),
         attacks: scale(base.attacks),
         ...(phase2 ? { phase2: { ...phase2, attacks: scale(phase2.attacks) } } : {}),

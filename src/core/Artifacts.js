@@ -103,7 +103,7 @@ export const artifactMethods = {
     for (const id of this.activeArtifacts()) {
       const it = this.item(id);
       if (id === 's4mo_relikt') { const r = this.reliktWirkung(); out.push(r.boons, r.curses); continue; } // Seq 4 (Moor): Eigenschaften je Spieler
-      if (it) out.push(it.boons ?? [], it.curses ?? []);
+      if (it) { const w = this.launeWirkung?.(id, it) ?? it; out.push(w.boons ?? [], w.curses ?? []); } // Launische Artefakte: Bindung und Groll
     }
     return out;
   },
@@ -130,6 +130,7 @@ export const artifactMethods = {
   artifactUnruhe() {
     const n = this.activeArtifacts().length;
     if (!n) return Math.max(0, this.passive('unruhe_tick')); // BN: Bindung wirkt auch ohne Artefakt
+    const groll = this.launeUnruhe?.() ?? 0; // Launische Artefakte: Groll zerrt zusätzlich
     const rules = this.artifactRules();
     let clash;
     let over;
@@ -145,7 +146,7 @@ export const artifactMethods = {
       clash = (rules.clash_tick ?? 0.2) * Math.max(0, n - 1);
       over = (rules.overload_tick ?? 0.6) * Math.max(0, n - (rules.max_active ?? 3));
     }
-    return Math.max(0, tick + clash + over);
+    return Math.max(0, tick + clash + over + groll);
   },
 
   /** Wird aufgerufen, wenn ein Artefakt neu ins Inventar kommt. */
@@ -168,6 +169,7 @@ export const artifactMethods = {
     // Eingelagert bleibt es Revier-Eigentum; nur wenn es ganz weg ist, endet die Ausleihe.
     const kept = this.storedCount?.(id, 'buero') > 0 || Object.values(this.stashes ?? {}).some((st) => (st?.[id] ?? 0) > 0);
     if (!kept) this.borrowed = this.borrowed.filter((b) => b !== id);
+    if (!kept) this.launeVergessen?.(id); // Launische Artefakte: Wer es hergibt, verliert die Bindung
   },
 
   // --- Asservatenkammer ------------------------------------------------------------

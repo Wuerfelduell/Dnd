@@ -37,3 +37,14 @@ test('Wörterbuch-Dateien: gültiges JSON, Platzhalter passen', () => {
     }
   }
 });
+
+test('Zusammengesetzte Texte: Präfixe, Rahmen, Trenner, Symbole', () => {
+  setDict({ 'Neuer Hinweis:': 'New clue:', 'Der Brief': 'The letter', 'Kalkmarkt': 'Lime Market', 'Nietkoloss': 'Rivet colossus', 'Erster Satz.': 'First sentence.', 'Zweiter Satz.': 'Second sentence.' });
+  assert.equal(lookup('Neuer Hinweis: Der Brief'), 'New clue: The letter');
+  assert.equal(lookup('„Der Brief“ lesen'), 'Read “The letter”');
+  assert.equal(lookup('Kalkmarkt →'), 'Lime Market →');
+  assert.equal(lookup('○ Kalkmarkt · Der Brief'), '○ Lime Market · The letter');
+  assert.equal(lookup('Nietkoloss (Taste 0)'), 'Rivet colossus (key 0)');
+  assert.equal(lookup('Erster Satz. Zweiter Satz.'), 'First sentence. Second sentence.');
+  assert.equal(lookup('Neuer Hinweis: Unbekannt'), null);
+});

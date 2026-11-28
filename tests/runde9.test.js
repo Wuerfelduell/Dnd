@@ -135,7 +135,8 @@ test('CO/CP: Kreaturformen mit Texten und Sheets, Wächter mit CO-Blatt, Siegel,
       assert.ok(s.hgDrinkText(pid, seq)?.trinken, `${pid} ${seq}: Trinktext`);
       assert.ok(file(sceneUrl(`hg_seq${seq}_${pid}`)), `${pid} ${seq}: Sequenzbild`);
       const enc = content.encounters[ordealId(pid, seq)];
-      assert.equal(enc.sheet, SCHWELLE[seq].sheet);
+      assert.equal(enc.sheet, `${SCHWELLE[seq].sheet}__w_${pid}`); // eigenes Blatt je Pfad (Runde 7)
+      assert.ok(file(`/sprites/battle/${enc.sheet}.png`), `${pid} ${seq}: Wächterblatt je Pfad`);
       assert.equal(enc.hp, seq === 4 ? 2500 : 1850, 'Leben nach CP (Seq 2 angehoben wegen Halbgott-Schaden)');
       assert.ok(enc.phase2?.attacks?.length >= 2 && enc.phase2.meldung, 'Zorn-Phase'); // Seq 2: dazu die Pfad-Fertigkeiten (Seb 2026-11-26)
       assert.ok(enc.phase2.attacks.some((a) => a.nerves > 0), 'die Welle senkt Nerven');

@@ -2,14 +2,16 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync } from 'node:fs';
-import { DM_CITIES, dmTitleLayers, spielstandUrl, ladenUrl, itemIconUrl } from '../src/world/assets.js';
+import { DM_CITIES, dmTitleLayers, spielstandUrl, ladenUrl, itemIconUrl, CANAL_TITLE_LAYERS } from '../src/world/assets.js';
 
 const file = (url) => existsSync(new URL(String(url).replace(/^.*\/sprites\//, '../public/sprites/'), import.meta.url));
 
-test('DM: Titel-Ebenen für Kapitel 2–5, Kettlegate behält AE', () => {
+test('DM: Titel-Ebenen für Kapitel 2–6, Kettlegate behält AE, Hauptmenü ohne Spielstand zeigt den Kanal', () => {
   assert.equal(dmTitleLayers('kettlegate'), null);
-  for (const c of ['wexmoor', 'dunscar', 'calderwick', 'briarholt']) for (const l of dmTitleLayers(c)) assert.ok(file(l.url), l.url);
-  assert.match(dmTitleLayers('briarholt', { warm: true }).at(-1).url, /vordergrund_warm/);
+  for (const c of ['wexmoor', 'dunscar', 'calderwick', 'briarholt', 'varrowmouth']) for (const l of dmTitleLayers(c)) assert.ok(file(l.url), l.url);
+  assert.ok(dmTitleLayers('briarholt', { warm: true }).some((l) => /vordergrund_warm/.test(l.url)));
+  for (const l of CANAL_TITLE_LAYERS.filter((x) => x.url)) assert.ok(file(l.url), l.url);
+  for (const f of ['abspann_rahmen', 'abspann_trenner', 'spielstand_rahmen', 'spielstand_marken', 'AE_regler']) assert.ok(file(`./sprites/ui/${f}.png`), f);
 });
 
 test('DM: Spielstand-Karte und drei Ladebilder je Stadt, Post-Fotos mit eigenem Bild', () => {

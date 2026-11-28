@@ -74,15 +74,8 @@ export const CWZ_ARTEFAKTE = {
     [b('unruhe_tick', 0.7, '+0,7 Unruhe pro Sekunde.'), b('honor_loss', 2, 'Ansehensverluste wiegen doppelt.')]),
 };
 
-/** Bilder: Leihbilder aus dem Vorrat (vi_*), bis eigene Grafik kommt (assets.js). */
-export const CWZ_ICONS = {
-  cwz_setzerbeil: 'vi_waffe_setzhaken', cwz_quittungsdegen: 'vi_waffe_veredelungsschere', cwz_archivlanze: 'vi_waffe_richterstab',
-  cwz_gleishammer: 'vi_waffe_bleihammer', cwz_verbranntes_zepter: 'vi_waffe_dampfrohr',
-  cwz_aschemantel: 'vi_mantel_dampfmantel', cwz_quittungsrobe: 'vi_mantel_archivrobe', cwz_fallhut: 'vi_hut_fuhrmannshut',
-  cwz_setzerzylinder: 'vi_hut_zylinder_vermesser', cwz_kassenamulett: 'vi_amulett_rohrpostkapsel', cwz_glutsiegel: 'vi_amulett_bleiletter',
-  cwz_kronsplitter: 'dsz_signalzunge', cwz_aschequittung: 'dsz_lohnbuch', cwz_fallfeder: 'dsz_rohrpost', cwz_kassenbuch: 'dsz_lohnbuch',
-  cwz_zweiter_fahrschein: 'dsz_weichenuhr', cwz_sturzherz: 'dsz_lohnherz',
-};
+/** Bilder: eigene Icons in 16 und 32 je Stück (per Skript, tools/art/claude_code/icons_cwz.py); früher Leihbilder aus dem Vorrat. */
+export const CWZ_ICONS = Object.fromEntries(Object.keys({ ...CWZ_WAFFEN, ...CWZ_RUESTUNG, ...CWZ_ARTEFAKTE }).map((id) => [id, id]));
 
 /** Seq-4-Kernzutaten am Rand (Dunscar: 2000; hier selten und teurer), ab Seq 5 des Pfades. */
 export const CWZ_ZUTAT4 = { price: 3000, chance: 0.12 };

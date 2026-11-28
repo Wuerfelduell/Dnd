@@ -19,7 +19,7 @@ export const KGJ_GRUPPEN = {
     jaeger: [
       ['kgj_ds_harrow', 'k3k_staubschmuggler_elite', 'eisen', 'Mara Harrow', 'Sie trägt deinen Steckbrief am Gürtel, gefaltet wie einen Liebesbrief.'],
       ['kgj_ds_quill', 'k3k_signalbrecher', 'maske', 'Silas Quill', 'Er lächelt mit einem Gesicht, das gestern noch jemand anderem gehört hat.'],
-      ['kgj_ds_brandt', 'k3k_kupferdieb', 'laterne', 'Ilka Brandt', 'Ihre Laterne leuchtet dir genau ins Gesicht, damit sie es mit dem Steckbrief vergleichen kann.'],
+      ['kgj_ds_brandt', 'k3k_kupferdieb', 'laterne', 'Ilka Barlow', 'Ihre Laterne leuchtet dir genau ins Gesicht, damit sie es mit dem Steckbrief vergleichen kann.'],
       ['kgj_ds_vos', 'k3k_walzenhehler', 'sq_uhr', 'Jonas Vos', 'Er zählt laut die Sekunden, die dir noch bleiben.'],
       ['kgj_ds_marr', 'k3k_lohnfaelscher', 'kessel', 'Odile Marr', 'An ihrem Gürtel klirren Phiolen. In einer davon schwimmt etwas, das einmal ein Beyonder war.'],
     ],
@@ -97,6 +97,7 @@ export function applyKopfgeldjaeger(content) {
         rest_chance: REST_CHANCE_JAEGER,
       };
       machBeyonder(content, id, pid, g.seq);
+      content.encounters[id].sheet = `enemy_kgj_${pid}`; // eigenes Kampfblatt je Pfad statt Leihkörper (tools/art/rivalen/rivalen.py)
       const l = content.loot[from] ?? {};
       content.loot[id] = { ...l, repeat: true, money: g.geld ?? (Array.isArray(l.money) ? l.money.map((n) => n * 2) : [200, 400]), drops: [...(content.loot[id]?.drops ?? []), ...(l.drops ?? []).filter((d) => !String(d.item).startsWith('formel_'))] };
       ids.push(id);

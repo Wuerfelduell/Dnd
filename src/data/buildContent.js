@@ -1,4 +1,6 @@
 import { applyDunscarPassanten } from './dunscarPassanten.js';
+import { applySkriptSheets } from './skriptSheets.js';
+import { applyHeimkehr } from './heimkehr.js';
 import { NIGHT_FLAG } from '../core/Clock.js';
 import { applyQuestPack } from './questPacks.js';
 import { applyDunscarZirkel } from './dunscarZirkel.js';
@@ -12,6 +14,7 @@ import { applySeq4 } from './seq4.js';
 import { applySeqHoch, addRitualformeln } from './seqHoch.js';
 import { applyPendelzugPlatz, applyAufstieg, gateStarlingHinweise } from './aufstieg.js';
 import { applyCalderwickStory } from './calderwickStory.js';
+import { applyCalderwickAkte } from './calderwickAkte.js';
 import { applyBriarholtStory } from './briarholtStory.js';
 import { applyZweiterAufstieg } from './zweiterAufstieg.js';
 import { applySeq1Beyonder } from './seq1Beyonder.js';
@@ -35,13 +38,18 @@ import { applyZutatDrops, applyGeistessenz } from './zutatDrops.js';
 import { applyVorratStuecke } from './vorratStuecke.js';
 import { applyFahrendeAuktion } from './fahrendeAuktion.js';
 import { applyNebelnacht } from './nebelnacht.js';
+import { applyKettlegateKulisse } from './kettlegateKulisse.js';
 import { applyEigenesHaus } from './eigenesHaus.js';
 import { applyNebelseite } from './nebelseite.js';
 import { applyDunscarHaendler } from './dunscarHaendler.js';
 import { applyDunscarKulisse } from './dunscarKulisse.js';
+import { applyDunscarKlotze, applyDsBhDazu } from './dsbhKulissen.js';
+import { applyVarrowmouthKulisse } from './varrowmouthKulisse.js';
 import { applyBriarholtKulisse } from './briarholtKulisse.js';
+import { applyBriarholtKulisse2 } from './briarholtKulisse2.js';
 import { applyCalderwickKulisse } from './calderwickKulisse.js';
 import { applyCalderwickStadtplan } from './calderwickStadtplan.js';
+import { applyCalderwickKlotze } from './calderwickKlotze.js';
 import { applyCalderwickBeute } from './calderwickBeute.js';
 import { applyCalderwickErkunden } from './calderwickErkunden.js';
 import { applyCalderwickLeben } from './calderwickLeben.js';
@@ -59,6 +67,7 @@ import { applyKettlegateZirkel } from './kettlegateZirkel.js';
 import { applyPreisAbgleich } from './preisAbgleich.js';
 import { applyRitual6Vorrat } from './ritual6Vorrat.js';
 import { applyRitual4Vorrat } from './ritual4Vorrat.js';
+import { applyWexmoorOrdnung } from './wexmoorOrdnung.js';
 // Fügt alle Inhaltsdateien zu einem Objekt zusammen (ohne JSON-Imports, damit Node-Tests es nutzen können).
 // Hinweise, Informationen, Schlussfolgerungen und Dialoge teilen sich jeweils einen Namensraum über alle Fälle.
 // factions.json (Sekten) bringt eigene Figuren, Reiseziele, Gegner, Beute, Aufträge und Hinweise mit.
@@ -139,6 +148,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applySeqHoch(content); // Seq 3 bis 1: Rituale, Orte der Sequenz 3 mit den Formeln 3/2/1, Weltwandel-Gerede
   applyAufstieg(content); // Kapitel 4: Zug nach oben, Himmelsstadt (immer verbrannt), Sturz nach Calderwick
   applyCalderwickStory(content); // Kapitel 4 ausgebaut: Die Ernte der Gefallenen, Wetherby, Linie nach Briarholt
+  applyCalderwickAkte(content); // Seb 2026-11-27: Nebenakte „Die Stadt ohne Unterschrift“ (alte Kapitel-4-Akte), angeschlossen an die Hauptstory
   applyPfadviertel(content); // Calderwick-Pfadviertel: Herzkette je Pfad, Kernzutaten 2/1, Krämer mit Formel 3 (30.000) und Grundzutaten
   applyVerdauProbe(content); // Prüfstein je Pfadviertel: Verdauungs-Herausforderung 1× je Spieltag (core/VerdauProbe.js)
   applyPfadHandel(content); // Pfad-Beyonder in Wexmoor: Zutaten für Seq 5/4, drei neue Einzelgänger, Laufplan
@@ -173,8 +183,12 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyPreisAbgleich(content); // Preise, Heilung, Nerven, Konzentration und Artefakte je Kapitel (nach Dunscar-Ausbau)
   applyRitual6Vorrat(content); // Seq-6-Ritualzutaten in jeder späteren Stadt zu kaufen (keine Rückreise)
   applyRitual4Vorrat(content); // Seq-4-Rituale in Wexmoor und Dunscar: Kessel-Zutaten, Moorwasser in der Unterschicht
+  applyDunscarKlotze(content); // Dunscar: Kalkbrecher und Kalkkarren statt der Klötze im Klopfbruch (vor der Kulisse)
   applyDunscarKulisse(content); // Dunscar: Ausgänge nach Himmelsrichtung mit Schild, Rückkehr an der passenden Tür, Requisiten je Viertel
+  applyVarrowmouthKulisse(content); // Varrowmouth: Kulissen-Runde 1 auf den Y/Z-Blöcken (Leuchtturm, Wracks, Regale, Pegelzaun, Nebel)
   applyBriarholtKulisse(content); // Briarholt: Dächer, Fassaden, Wärmenetz, Möbel, Requisiten, Licht und Nebel je Ort (kalt/warm)
+  applyBriarholtKulisse2(content); // Briarholt-Kulissen Runde 2: eigene Dachsätze statt future200, Innenräume ohne Leihstücke
+  applyDsBhDazu(content); // Dunscar und Briarholt: Prellböcke, Läutewerke, Schlackenkübel, Wärmeschalen auf freien Flächen
   applyNebelseite(content); // Codex DH: Spiegelkarten und verborgene Übergänge
   applyEigenesHaus(content); // Codex DG: Häuser in Wexmoor und Dunscar, Maklerin, Türen (nach der Kulisse, die Dunscar-Karten neu baut)
   applyDunscarStaende(content); // Dunscar: Marktstände mit Schild hinter den Händlern
@@ -182,8 +196,11 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applyDunscarPassanten(content); // Dunscar: Passanten mit Tagesablauf, Gemurmel und Straßenereignissen in den Vierteln
   applyMarloweTelegramm(content); // Tipps nur von Marlowe: Telegrammschalter in jeder späteren Stadt
   applyKettlegateZirkel(content); // Kettlegater Zirkel: nur Zutaten 7/6, Formeln, Artefakte; keine Trophäen-Gesuche (zuletzt)
+  applyWexmoorOrdnung(content); // Seb 2026-11-27: Wexmoor-Orte harmonischer – leere Orte bekommen Requisiten auf freien Feldern (nach allen Platzierungen)
   applyNebelnacht(content); // Nebelnächte: Nebelkrämerin auf dem Markt jeder Stadt (nach allen Kulissen)
+  applyKettlegateKulisse(content); // Seb 2026-11-27: Kettlegate harmonischer – Überladenes ausdünnen, Leeres füllen, Einwohner verteilen, Nachtmarkt breiter
   applyCalderwickStadtplan(content); // Calderwick: eigene Stadtpläne je Terrasse (Häuser, Gassen, Plätze), Objekte an sinnvollen Stellen
+  applyCalderwickKlotze(content); // Calderwick: Requisiten statt Platzhalter-Klötzen (Theken, Pressen, Regale, Sortiermaschinen)
   applyCalderwickFunde(content); // Seb 2026-11-27: Habseligkeiten der Gefallenen (Bilder aus den Codex-Vorräten), vor Erkunden und Beute
   applyCalderwickErkunden(content); // Calderwick: Verstecke mit Wächtern, verbrannte Briefe, zwei Nebenaufträge
   applyPfadviertelGeschichte(content); // Seb 2026-11-27: kleine Geschichte je Pfadviertel, mit dem eigenen Rivalen am Ende
@@ -196,7 +213,9 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   applySpaetBeute(content); // Trophäen Kapitel 4/5 ×15 (Kauf und Verkauf, nach allen Händlern)
   applyGegnerlebenSpaet(content); // Seb 2026-11-26: Calderwick 10–25k, Briarholt 15–35k Leben (Koop), Schaden ×1,3
   applyPendelzugPlatz(content); // Seb 2026-11-26: Pendelzug Dunscar ↔ Calderwick gut sichtbar (nach allen Kulissen)
+  applyHeimkehr(content); // Seb 2026-11-27: ab Seq 3 Rückreise in die alten Städte, Nachhall, Stimmen, Schreine (nach allen Kulissen)
   gateStarlingHinweise(content); // Seb 2026-11-18: Starling-Gerüchte erst im Fall „Finde Starling“ (ganz zuletzt)
+  applySkriptSheets(content); // Skript-Grafik Runde 9: eigene Kampfblätter statt geliehener
   return content;
 }
 

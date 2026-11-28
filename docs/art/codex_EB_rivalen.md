@@ -65,14 +65,14 @@ Alle sind menschliche Beyonder in Alltagskleidung der Zeit (Mantel, Weste, Hut o
 | ID | Name | Pfad | Wesen | Aussehen |
 |---|---|---|---|---|
 | `rv_laterne_1` | Corvin Ashby | Laterne | eitel und laut | Mann um 30, langer heller Mantel mit Messingknöpfen, gepflegter Schnurrbart, trägt eine kleine Taschenlaterne an der Brust, Kinn hoch |
-| `rv_faden_1` | Mirela Thorn | Faden | geduldig, verschlagen | Frau um 40, schwarzes Spitzenkleid, Nadelkissen am Handgelenk, ein roter Faden um die Finger gewickelt, schmales Lächeln |
+| `rv_faden_1` | Mirela Stroud | Faden | geduldig, verschlagen | Frau um 40, schwarzes Spitzenkleid, Nadelkissen am Handgelenk, ein roter Faden um die Finger gewickelt, schmales Lächeln |
 | `rv_maske_1` | Silas Morrel | Maske | charmant und falsch | Mann um 35, eleganter Gehrock, Halbmaske aus Porzellan am Gürtel, gewinnendes Gesicht, Hut schief |
-| `rv_echo_1` | Ines Halloway | Echo | leise, hartnäckig | junge Frau, grauer Kapuzenmantel, Hörrohr aus Messing an einer Schnur, Blick nach unten |
+| `rv_echo_1` | Petra Sandor | Echo | leise, hartnäckig | junge Frau, grauer Kapuzenmantel, Hörrohr aus Messing an einer Schnur, Blick nach unten |
 | `rv_kessel_1` | Bram Sutter | Kessel | gastfreundlich, gefährlich | kräftiger Mann um 50, Schürze über der Weste, Flachmann und kleiner Kupferbecher, rote Wangen, breites Grinsen |
 | `rv_eisen_1` | Garrick Holm | Eisen | direkt, stur | breiter Mann, kurz geschoren, Arbeiterjacke, Nietenhandschuh an einer Hand, Narbe über der Braue |
 | `rv_schluessel_1` | Nell Quist | Schlüssel | flink, frech | junge Frau, Schiebermütze, Dietrichrolle am Gürtel, viele Taschen, verschmitzt |
 | `rv_sq_waage_1` | Ottoline Brack | Waage | kühl, genau | Frau um 45, strenges Kostüm, Zwicker, Kontobuch unter dem Arm, kleine Goldwaage an der Uhrkette |
-| `rv_sq_moor_1` | Fenna Rook | Moor | langsam, unerbittlich | große Frau, Ölmantel, schlammige Stiefel, Wollgras im Haar, Torfspaten auf dem Rücken |
+| `rv_sq_moor_1` | Fenna Caddow | Moor | langsam, unerbittlich | große Frau, Ölmantel, schlammige Stiefel, Wollgras im Haar, Torfspaten auf dem Rücken |
 | `rv_sq_uhr_1` | Tobias Merrin | Uhr | ungeduldig, berechnend | hagerer Mann, Weste mit drei Taschenuhrketten, Lupe im Auge, tippt ungeduldig mit dem Fuß (Idle) |
 
 **Kampf:** attack1 Nahangriff mit dem Erkennungszeichen, attack2 Pfadfertigkeit mit kleinem okkultem Effekt (türkis/violett, bleibt in der Zelle), hurt, defeated (geht in die Knie, stirbt nicht sichtbar).

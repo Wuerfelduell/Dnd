@@ -14,7 +14,7 @@ import { freieKachel } from './calderwickStory.js';
 export const HIMMEL = 'hs_himmelsstadt';
 export const STURZ_ZIEL = { map: 'cw_gleisfuss', spawn: 'default' };
 /** Was die Verbrennung setzt: Kapitel 3 ist vorbei, Calderwick erreicht, Kapitel 4 beginnt. */
-export const STURZ_FLAGS = ['auf_verbrannt', 'k4_arrived', 'kapitel3_done', 'cwa_ankunft_sicher', 'cwa_werkstatt', 'cwa_akt1_done', 'cwa_akt2_done', 'cwa_akt3_done', 'cwa_akt4_done'];
+export const STURZ_FLAGS = ['auf_verbrannt', 'k4_arrived', 'kapitel3_done', 'cwa_werkstatt', 'cwa_nebenakte_v1'];
 export const STURZ_EFFECTS = { sets_flags: STURZ_FLAGS, complete_quests: ['k3_rache', 'k3_starling'], start_quests: ['k4_aufstieg'] };
 /**
  * Kapitel 3 in zwei Fällen (Seb 2026-11-18): Erst „Steige zum Halbgott auf“ (k3_rache, nur Sequenz 5 und 4, keine Hinweise,
@@ -120,7 +120,7 @@ function himmelsEncounters(content) {
     if (!content.pathways[pid]) return;
     const pn = content.pathways[pid].name;
     out[`hs_halbgott_${pid}`] = himmelsGegner(`hs_halbgott_${pid}`, `${seqName(pid, 4)} des Vorhofs`, {
-      sheet: `hg_battle_${pid}`, pathway: pid, hp: 60000, armor: 30,
+      sheet: `hg_battle_${pid}__vh`, pathway: pid, hp: 60000, armor: 30,
       attacks: [schlag('Halbgöttlicher Schlag', 420, [900, 1500]), schlag('Mythische Gestalt', 780, [2100], { unparryable: true }), schlag('Wille des Pfades', 260, [600, 900, 1200, 1500])],
       intro: `Ein Halbgott des Pfades ${pn}, so alt wie eine Stadt. Er sieht dich an wie einen Gast, der den falschen Eingang genommen hat. „Noch einer von unten. Zeig, was du mitgebracht hast.“`,
     });
@@ -279,14 +279,21 @@ export function applyPendelzugPlatz(content) {
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Schritt 2: Calderwick, die Stadt der Gefallenen (Seb 2026-11-12)
-// - Die Detektivgeschichte um Wetherby und Bellcross fliegt raus: keine Akte-Stationen (cwa_*), alle Terrassen offen ab dem Sturz.
+// - Die Detektivgeschichte um Wetherby und Bellcross ist keine Hauptstory mehr, alle Terrassen offen ab dem Sturz.
+//   Seb 2026-11-27: Sie kommt als Nebenakte zurück (calderwickAkte.js).
 // - 10 verdorbene Pfadgebiete, je eins pro Pfad. Sie sind die bisherigen Gildensitze der Sequenz 3 (o3_<pfad>, PR #416), die von Dunscar
 //   nach Calderwick ziehen. Je Gebiet 2 benannte Beyonder: das Gildenoberhaupt (Seq 3, Heiliger) und der Stellvertreter (Seq 4, Halbgott).
 //   Alles andere sind Monster mit Halbgott-Stärke.
 // - Sequenz 0 als Gerede und Kreideschrift; irgendwo fährt der nächste Zug nach oben (zweiter Aufstieg, noch nicht gebaut).
 
-/** Was in Calderwick ohne dich passiert ist (die gestrichene Akte gilt als gelaufen, damit Viertel und Nebenaufträge offen sind). */
-export const CALDERWICK_WELT_FLAGS = ['cwa_ankunft_sicher', 'cwa_werkstatt', 'cwa_akt1_done', 'cwa_akt2_done', 'cwa_akt3_done', 'cwa_akt4_done'];
+/**
+ * Was in Calderwick ab dem Sturz gilt: Klammers Werkstatt ist deine Bleibe. Seb 2026-11-27: Die Akte „Die Stadt ohne Unterschrift“ ist
+ * wieder spielbar, als Nebenakte (nebenakteCw.js, calderwickAkte.js); ihre Akt-Flags gelten nicht mehr als gelaufen.
+ * `cwa_nebenakte_v1` markiert Stände, die das schon wissen (GameState.calderwickOffen räumt ältere auf).
+ */
+export const CALDERWICK_WELT_FLAGS = ['cwa_werkstatt', 'cwa_nebenakte_v1'];
+/** Akt-Flags, die alte Stände (PR #422 bis heute) beim Sturz geschenkt bekamen. */
+export const ALTE_AKTE_FLAGS = ['cwa_ankunft_sicher', 'cwa_akt1_done', 'cwa_akt2_done', 'cwa_akt3_done', 'cwa_akt4_done'];
 export const CW_GEBIET_DANGER = 8;
 
 /** Je Pfad: Name des verdorbenen Viertels, Verderbnis, Oberhaupt (Seq 3) und Stellvertreter (Seq 4). */
@@ -298,7 +305,7 @@ export const CW_GEBIETE = {
   kessel: { viertel: 'Das Sudviertel', oberhaupt: 'Brannagh Sud', vize: 'Oswin Schaum', verderbnis: 'Aus den Gullys steigt grüner Dampf. Die Pfützen kochen, und was darin schwimmt, war einmal ein Nachbar.' },
   eisen: { viertel: 'Das Nietenviertel', oberhaupt: 'Gerwin Amboss', vize: 'Hedda Niet', verderbnis: 'Rost wächst wie Moos über alles, auch über Menschen. Jeder Schritt wiegt doppelt, und die Wände rücken nachts zusammen.' },
   schluessel: { viertel: 'Das Türenviertel', oberhaupt: 'Quirin Bart', vize: 'Lotte Falz', verderbnis: 'Jede Tür führt woandershin als gestern. Manche Bewohner suchen seit Jahren den Weg zurück in ihre eigene Küche.' },
-  sq_waage: { viertel: 'Das Gewichtsviertel', oberhaupt: 'Edmund Lot', vize: 'Saskia Gran', verderbnis: 'Alles hat hier einen Preis, auch ein Atemzug. Wer nicht zahlt, wird leichter, bis der Wind ihn mitnimmt.' },
+  sq_waage: { viertel: 'Das Gewichtsviertel', oberhaupt: 'Barnabas Lot', vize: 'Saskia Gran', verderbnis: 'Alles hat hier einen Preis, auch ein Atemzug. Wer nicht zahlt, wird leichter, bis der Wind ihn mitnimmt.' },
   sq_moor: { viertel: 'Das Faulviertel', oberhaupt: 'Mutter Torva', vize: 'Jorin Ried', verderbnis: 'Torf quillt aus den Kellern. Die Straßen erinnern sich an jeden, der sie betreten hat, und manche halten ihn fest.' },
   sq_uhr: { viertel: 'Das Stillviertel', oberhaupt: 'Severin Unruh', vize: 'Klara Hemmung', verderbnis: 'Die Zeit läuft hier in Stücken. Ein Schritt dauert eine Stunde, der nächste einen Herzschlag. Die Monster sind schneller als ihre Schatten.' },
 };
@@ -343,7 +350,7 @@ function calderwickGebiete(content) {
     // Stellvertreter (Seq 4, Halbgott): frei herausforderbar, kommt nicht wieder
     const vizeId = `${o3}_vize`;
     content.encounters[vizeId] = {
-      id: vizeId, name: `${cw.vize}, Stellvertretung`, sprite: 'wild', sheet: `hg_battle_${pid}`, pathway: pid, occult: true, chapter: 5, boss: true, elite: false,
+      id: vizeId, name: `${cw.vize}, Stellvertretung`, sprite: 'wild', sheet: `hg_battle_${pid}__vz`, pathway: pid, occult: true, chapter: 5, boss: true, elite: false,
       hp: 12000, armor: 8, max_round_dmg: 0.12, fleeable: true, zone: o3, wild: true,
       attacks: [{ name: 'Halbgöttlicher Schlag', damage: 140, hits: [900, 1500] }, { name: 'Mythische Gestalt', damage: 260, hits: [2200], unparryable: true }, { name: 'Wille des Pfades', damage: 90, hits: [600, 900, 1200, 1500] }],
       intro: `${cw.vize}, Halbgott und Stellvertretung des Oberhaupts, tritt dir in den Weg. „Ein Neuer von oben. Alle fallen hierher, und alle glauben, sie wären die Ausnahme.“`,
@@ -382,19 +389,15 @@ function calderwickGebiete(content) {
 const kernzutatId = (pid, n) => `sq_zutat_${pid.replace(/^sq_/, '')}_${n}`;
 const chefGilde = (content, pid) => content.maps[`o3_${pid}`]?.interactables?.find((i) => i.id === `o3_${pid}_bote`)?.title?.replace(/^Ein Mitglied von /, '') ?? '';
 
-/** Akte raus, Stadt offen, Sequenz 0, der nächste Zug nach oben. */
+/** Stadt offen, Sequenz 0, der nächste Zug nach oben. (Die Akte bleibt stehen: als Nebenakte, calderwickAkte.js.) */
 function calderwickOffen(content) {
-  for (const m of Object.values(content.maps)) {
-    if (m.city !== 'calderwick' || !m.interactables) continue;
-    m.interactables = m.interactables.filter((i) => !i.id.startsWith('cwa_'));
-  }
   const fuss = content.maps.cw_gleisfuss;
   if (fuss) fuss.interactables.push({ id: 'auf_cw_seq0', kind: 'read', tile: [8, 18], prompt: 'Kreideschrift an der Wand', title: 'Sequenz 0', marker: false, visible_if: { requires_flags: ['k4_arrived'] }, done_flag: 'auf_seq0_gelesen', text: SEQ0_TEXT });
   const archiv = content.maps.cw_kronenarchiv;
   if (archiv) archiv.interactables.push({ id: 'auf_cw_zug2', kind: 'read', tile: [30, 13], prompt: 'Ein Gleis, das in den Himmel führt', title: 'Der nächste Zug nach oben', marker: true, visible_if: { requires_flags: ['k4_arrived'] }, done_flag: 'auf_zug2_gesehen',
     text: 'Über dem Kronenarchiv endet ein Gleis in der Luft. Ein Schaffner ohne Gesicht wartet daneben, seit Jahren, sagen die Leute.\n\n„Der Zug nach oben fährt wieder“, sagt er. „Nicht für dich. Nicht so, wie du jetzt bist. Wer oben bestehen will, kommt als Heiliger oder gar nicht.“\n\n(Der zweite Aufstieg ist noch nicht gebaut.)' });
   const gossip = content.gossip?.calderwick;
-  if (gossip) for (const map of Object.keys(gossip)) gossip[map] = [...gossip[map].filter((g) => !g.requires_flags?.some((f) => /^cwa_akt|^cwa_end/.test(f))),
+  if (gossip) for (const map of Object.keys(gossip)) gossip[map] = [...gossip[map],
     { text: 'Sequenz 0. Darüber redet hier jeder, und keiner war da. Ein Gott werden, wie der Alte. Dafür sind wir alle hier unten.', requires_flags: ['k4_arrived'] },
     { text: 'Jede Woche fällt einer von oben. Die meisten bleiben. Die wenigsten werden stark genug für den zweiten Zug.', requires_flags: ['k4_arrived'] }];
   const q = content.quests.k4_aufstieg;

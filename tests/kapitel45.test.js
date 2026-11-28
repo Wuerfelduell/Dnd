@@ -52,38 +52,24 @@ test('Vorrat BH: zehn Gefahrengebiete tragen Gegner, Eliten, Bosse und Beute aus
   }
 });
 
-test('Kapitel 4: Anreise aus Dunscar, Terrassen hinter k4_arrived, vier Enden setzen kapitel4_done und zeigen Epiloge', () => {
+test('Kapitel 4: Terrassen ab dem Sturz offen, die alte Akte ist eine Nebenakte, ihre vier Enden zeigen Epiloge ohne Kapitelende', () => {
+  // Seb 2026-11-27: keine Anreise aus Dunscar mehr (nach Calderwick kommt man durch den Sturz), Terrassen hängen nicht an der Akte
+  assert.ok(!Object.keys(content.dialogues.k3a_pfiff?.nodes ?? {}).some((id) => id.startsWith('cwa_anreise_')));
   const s = fresh();
-  s.map = 'ds_speisewagen';
-  for (const f of ['kapitel3_done', 'k3a_end_feierabend']) s.flags.add(f);
-  // Pfiffs Abfahrt nach Calderwick (CC-Zusatz an k3a_pfiff)
-  const nodes = content.dialogues.k3a_pfiff.nodes;
-  const abfahrt = Object.entries(nodes).find(([id]) => id === 'cwa_anreise_feierabend_abfahrt')[1];
-  s.applyEffects(abfahrt);
-  assert.ok(s.flags.has('cwa_reise_freigegeben') && s.pendingTravel?.map === 'cw_gleisfuss');
-  // Ankunft am Gleisfuß: Rettung setzt k4_arrived, dann öffnen sich die Terrassen
+  s.flags.add('k4_arrived'); s.flags.add('cwa_werkstatt');
   s.map = 'cw_gleisfuss';
-  assert.deepEqual(travelDestinations(s, 'cw_gleisfuss').map((t) => t.map), ['reise_landstrasse'], 'vor der Ankunft nur die Landstraße zurück');
-  s.applyEffects(content.dialogues.cwa_ankunft.nodes.cwa_ankunft_rettung);
-  assert.ok(s.flags.has('k4_arrived'));
-  assert.ok(travelDestinations(s, 'cw_gleisfuss').some((t) => t.map === 'cw_alte_setzerei'), 'mit der Ankunft öffnet sich das erste Gebiet');
-  // Die Terrassen folgen den Akten: Werkstatt (Setzergasse), Akt 1 (Quittungsmarkt, Röhrenhof), Akt 2 (Witwenterrasse), Akt 3 (Kronenarchiv)
-  for (const [flag, map] of [['cwa_werkstatt', 'cw_setzergasse'], ['cwa_akt1_done', 'cw_quittungsmarkt'], ['cwa_akt2_done', 'cw_witwenterrasse'], ['cwa_akt3_done', 'cw_kronenarchiv']]) {
-    assert.ok(!travelDestinations(s, 'cw_gleisfuss').some((t) => t.map === map), `${map} zu früh`);
-    s.flags.add(flag);
-    assert.ok(travelDestinations(s, 'cw_gleisfuss').some((t) => t.map === map), map);
-  }
+  for (const map of ['cw_setzergasse', 'cw_quittungsmarkt', 'cw_roehrenhof', 'cw_witwenterrasse', 'cw_kronenarchiv', 'cw_alte_setzerei']) assert.ok(travelDestinations(s, 'cw_gleisfuss').some((t) => t.map === map), map);
   assert.ok(content.travelRules.cities.calderwick?.pins.cw_gleisfuss, 'Stadtkarte Calderwick');
   for (const t of content.travel.filter((x) => x.city === 'calderwick')) assert.ok(mapMarkerOf(t.map)[1] !== undefined, `Marker ${t.map}`);
   // Jede Calderwicker Karte hat einen Bezirk auf der Stadtkarte
   for (const id of Object.keys(content.maps).filter((m) => m.startsWith('cw_'))) assert.ok(districtOf(content, id), `${id}: Bezirk`);
-  // Akte 1 bis 5 und die Enden
+  // Akte 1 bis 5 (als Nebenaufträge) und die Enden
   assert.deepEqual(Object.keys(content.quests).filter((q) => /^cwa_akt\d$/.test(q)), ['cwa_akt1', 'cwa_akt2', 'cwa_akt3', 'cwa_akt4', 'cwa_akt5']);
   assert.ok(content.cases.some((c) => c.id === 'cwa_kapitel4'));
   for (const end of ['cwa_widerspruch', 'cwa_amtsinhaber', 'cwa_buecher', 'cwa_ordnung']) {
     const t = fresh();
     t.setEnding(end);
-    assert.ok(t.flags.has('kapitel4_done') && t.flags.has(`cwa_end_${end.slice(4)}`), end);
+    assert.ok(!t.flags.has('kapitel4_done') && t.flags.has('cwa_akte_fertig') && t.flags.has(`cwa_end_${end.slice(4)}`), end);
     assert.ok(t.epilogue(end).length >= 3, `${end}: Epilog`);
     assert.ok(content.newspapers.some((n) => n.zeitung === 'calderwicker_anzeiger'));
   }
@@ -97,7 +83,10 @@ test('Kapitel 5: Briefe nach den Calderwick-Enden, Ankunft im Bügelraum, Ventil
   const s = fresh();
   s.flags.add('cwa_end_widerspruch');
   const brief = content.maps.cw_buchbinderei.interactables.find((i) => i.id === 'bha_anreise_widerspruch_brief');
-  assert.ok(brief && s.meets(brief.visible_if));
+  // Seb 2026-11-27: Die Calderwick-Akte ist eine Nebenakte; die Reise nach Briarholt gehört der Hauptstory, der Brief kommt erst danach
+  assert.ok(brief && !s.meets(brief.visible_if), 'Nebenakte überspringt Kapitel 4 nicht');
+  s.flags.add('kapitel4_done');
+  assert.ok(s.meets(brief.visible_if));
   s.applyEffects(content.dialogues.bha_anreise_widerspruch.nodes.bha_anreise_widerspruch_reisen);
   assert.ok(s.flags.has('bha_reise_frei') && s.pendingTravel?.map === 'reise_landstrasse');
   s.applyEffects(content.dialogues.bha_ankunft.nodes.bha_ankunft_frost);

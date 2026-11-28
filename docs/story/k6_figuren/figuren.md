@@ -90,9 +90,9 @@ Sprechweise: Sie fragt nach Arbeitsschritten und unterbricht abstrakte Reden. Zw
 
 Von 6 bis 10 Uhr gilt die Vorbereitung, von 10 bis 18 Uhr der Dienst und von 18 bis 24 Uhr das Aufräumen. Bei Ebbe findest du diese Figur auf `vm_stegviertel`, bei Flut auf `vm_oberstrasse`. Ein steigender Pegel beendet den laufenden Weg vor dem Kartenwechsel. Nachts bleibt die Arbeit liegen; ein Gespräch kann am nächsten Morgen fortgesetzt werden.
 
-## Hester Rill · vmn_rat_6
+## Morna Ostrey · vmn_rat_6
 
-Hester Rill ist 61 Jahre alt; Beruf: Zollherrin des Kirchenamts. Herkunft: Wexmoor, seit dreißig Jahren in Varrowmouth. Sie trägt ein kreideweißes Halstuch zu einem taubenblauen Kleid. Am Handgelenk sitzt ein einfacher Ring aus dunklem Holz statt eines Amtszeichens.
+Morna Ostrey ist 61 Jahre alt; Beruf: Zollherrin des Kirchenamts. Herkunft: Wexmoor, seit dreißig Jahren in Varrowmouth. Sie trägt ein kreideweißes Halstuch zu einem taubenblauen Kleid. Am Handgelenk sitzt ein einfacher Ring aus dunklem Holz statt eines Amtszeichens.
 
 Sie hält die Erinnerung an Vermisste für wichtig, aber nicht deren ewige Festschreibung. Geheimnis: Sie hat Osrics damalige Abschriften gesegnet, ohne sie zu lesen, und schämt sich dafür. Sie hört Verlustberichte an und lässt freie Stellen auf der Gedenkliste.
 

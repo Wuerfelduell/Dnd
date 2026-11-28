@@ -20,7 +20,8 @@ import { pfadHandelMethods } from './PfadHandel.js';
 import { relationMethods } from './Relations.js';
 import { artifactMethods } from './Artifacts.js';
 import { partyMethods } from './Party.js';
-import { gearMethods } from './Gear.js';
+import { gearMethods, emptyGearSets } from './Gear.js';
+import { vergleichMethods } from './Vergleich.js';
 import { corruptionMethods } from './Corruption.js';
 import { talentMethods, CONCLUSION_SCHILLING, CONCLUSION_GELD } from './Talents.js';
 import { sektenMethods } from './Sekten.js';
@@ -36,12 +37,16 @@ import { nebelseiteMethods } from './Nebelseite.js';
 import { benannteMethods } from './Benannte.js';
 import { seqHochMethods } from './SeqHoch.js';
 import { verdauProbeMethods } from './VerdauProbe.js';
+import { heimkehrMethods } from './Heimkehr.js';
+import { HEIMKEHR_SEQ } from '../data/seq3Weg.js';
 import { bedarfMethods } from './Bedarf.js';
+import { bestiarMethods } from './Bestiar.js';
 import { splitMethods } from './Split.js';
 import { mackenMethods } from './Macken.js';
+import { launenMethods } from './Launen.js';
 import { rivaleMethods } from './Rivale.js';
 import { kopfgeldjaegerMethods } from './Kopfgeldjaeger.js';
-import { CALDERWICK_WELT_FLAGS, SUCHE_FLAG, SUCHE_QUEST, SUCHE_EFFECTS } from '../data/aufstieg.js';
+import { CALDERWICK_WELT_FLAGS, ALTE_AKTE_FLAGS, SUCHE_FLAG, SUCHE_QUEST, SUCHE_EFFECTS } from '../data/aufstieg.js';
 
 /** Tragkraft in Pfund. Gegenstände ohne eigenes "weight" wiegen je nach Art so viel. */
 export const BASE_CARRY = 40;
@@ -74,6 +79,7 @@ export const DEFAULT_HP = 40;
 /** Von Seb gestrichene Aufträge (2026-11-12): Trichter und Drehscheibe in Dunscar. */
 // Seb 2026-11-12: Zug-/Hör-Story in Dunscar gestrichen (k3a_akt1–5, Koop-Schleuse); Kapitel 3 = Rache an Starling (k3_rache)
 export const GESTRICHENE_AUFTRAEGE = ['k3n_drehscheibe', 'koop_ds_horchen', 'koop_ds_schleuse', 'k3a_akt1', 'k3a_akt2', 'k3a_akt3', 'k3a_akt4', 'k3a_akt5'];
+// Seb 2026-11-27: die Zug-Geschichte ist als freiwillige Nebengeschichte zurück (k3z_akt1–5, Start bei Pfiff, Fallakte k3_nachtzug, kein Kapitelende)
 /** Flags, die Dunscars Welt so stellen, als liefe die Zug-Geschichte ohne dich weiter (öffnet Prüfungen, Aufträge, Gerede). */
 export const DUNSCAR_WELT_FLAGS = ['k3a_akt1_done', 'k3a_akt2_done', 'k3a_akt3_done', 'k3a_akt4_done'];
 
@@ -90,6 +96,7 @@ export class GameState {
     this.testmodus = false;
     this.rivalen = {}; // Rivale auf dem eigenen Pfad (core/Rivale.js)
     this.tiere = { owned: {}, aktiv: null, fundTag: -1 }; // Codex DF: Tiergefährten
+    this.bestiar = {}; // Bestiarium: Begegnungen und Siege je Gegnerart (core/Bestiar.js)
     this.loadWetter(null); // Schlaf-Abklingzeit und Traumnacht
     this.loadPost(null);
     this.map = s.map;
@@ -113,6 +120,7 @@ export class GameState {
     this.stashes = {}; // weitere Verstecke (z. B. der Torfkahn in Wexmoor): ort -> { id -> Anzahl }
     this.weapon = s.weapon ?? null;
     this.gear = { hut: null, mantel: null, amulett: null }; // angelegte Kleidung (Gear.js)
+    this.gearSets = emptyGearSets(); // Ausrüstungs-Sets Kampf/Tragen (Gear.js)
     this.pendingCombat = null;
     this.tracked = null; // verfolgter Auftrag (Journal-Wegweiser)
     this.random = Math.random; // in Tests austauschbar
@@ -372,6 +380,7 @@ export class GameState {
       (o.requires_gatherings_unlocked === undefined || this.gatheringsUnlocked() === o.requires_gatherings_unlocked) &&
       this.meetsPathway(o.requires_pathway) &&
       (o.requires_seq === undefined || (!!this.pathway && this.pathway.seq <= o.requires_seq)) && // Halbgott-Prüfung: Sequenz N oder besser, egal welcher Pfad
+      (o.requires_seq_ab === undefined || (!!this.pathway && this.pathway.seq >= o.requires_seq_ab)) && // nur bis Sequenz N (z. B. Prüfstein nur Seq 4)
       (o.requires_wanted === undefined || this.wanted >= o.requires_wanted) && // Zelle: ab dieser Fahndungsstufe
       (o.max_wanted === undefined || this.wanted < o.max_wanted) &&
       this.meetsSignal(o) &&
@@ -381,7 +390,9 @@ export class GameState {
       this.meetsSignalRoutes(o) && // Paket BN: requires_route, requires_pattern, requires_binding
       this.meetsDaily(o) && // DR: requires_daily / hide_if_daily (einmal je Spieltag)
       this.meetsPfad(o) && // Pfad-Beyonder: requires_item_counts, requires_artifacts, requires_ph_step
-      this.meetsAufstieg(o) // Zug nach oben: requires_alle_flag, hide_if_alle_flag, requires_einer_unter_seq
+      this.meetsAufstieg(o) && // Zug nach oben: requires_alle_flag, hide_if_alle_flag, requires_einer_unter_seq
+      (o.requires_heimkehr === undefined || this.heimkehr() === o.requires_heimkehr) && // Rückreise ab Seq 3 (data/heimkehr.js)
+      (o.requires_einer_seq === undefined || this.besteSeq() <= o.requires_einer_seq) // ein Spieler mindestens Sequenz N (Gebete aus Dunscar ab Seq 2)
     );
   }
 
@@ -398,6 +409,8 @@ export class GameState {
       const seqs = [this.pathway, ...(this.hasP2?.() ? [this.p2?.pathway] : [])].map((p) => p?.seq ?? 9);
       if (!seqs.every((q) => q <= o.requires_alle_seq)) return false;
     }
+    // Seb 2026-11-27: Verzicht auf Seq 1 (Varrowmouth) nur, solange noch niemand Sequenz n erreicht hat
+    if (o.hide_if_einer_seq !== undefined && Math.min(...[this.pathway, ...(this.hasP2?.() ? [this.p2?.pathway] : [])].map((p) => p?.seq ?? 9)) <= o.hide_if_einer_seq) return false;
     if (o.requires_einer_unter_seq !== undefined) {
       const seqs = [this.pathway, ...(this.hasP2?.() ? [this.p2?.pathway] : [])].map((p) => p?.seq ?? 9);
       if (!seqs.some((q) => q > o.requires_einer_unter_seq)) return false;
@@ -478,6 +491,8 @@ export class GameState {
     if (e.combat) this.startCombat(e.combat);
     if (e.digest_pct) this.digestFixed(e.digest_pct); // feste Verdauung aus großen Taten (Dunscar-Anschläge)
     if (e.verdau_probe) this.startVerdauProbe(e.verdau_probe); // Prüfstein im Pfadviertel (core/VerdauProbe.js)
+    if (e.nachhall) this.nachhall(e.nachhall); // Nachhall in den alten Städten (data/heimkehr.js)
+    if (e.glaeubiger) this.glaeubigerWerden(e.glaeubiger); // Gebete: wem du hilfst, der glaubt an dich
     if (e.pfad) this.pfadEffect(e.pfad); // Pfad-Beyonder (Wexmoor): Aufgaben, Schritte, Pfand
     // Fahndung: Zahl ≥ 0 = Mindeststufe (Ausbruch, Flucht), negative Zahl = um so viele Stufen senken (Paket AB)
     if (Number.isFinite(e.wanted) && this.policeRules()) this.setWanted(e.wanted < 0 ? Math.max(0, this.wanted + e.wanted) : Math.max(this.wanted, e.wanted), e.wanted_reason ?? '');
@@ -531,12 +546,17 @@ export class GameState {
   }
 
   /**
-   * Kapitel 4 (Seb, 2026-11-12): Calderwick ohne die Detektivgeschichte. Wer schon dort ist (alte Stände), bekommt die offenen Viertel,
-   * verliert laufende Akte (cwa_*) und bekommt das neue Kapitelziel.
+   * Kapitel 4 (Seb, 2026-11-12): Calderwick ohne die Detektivgeschichte als Hauptstory. Wer schon dort ist (alte Stände), bekommt die
+   * offenen Viertel und das neue Kapitelziel; die Akte selbst ist seit 2026-11-27 eine Nebenakte (data/calderwickAkte.js).
    */
   calderwickOffen() {
     if (!this.flags.has('k4_arrived')) return;
-    for (const q of Object.keys(this.quests)) if (q.startsWith('cwa_') && this.quests[q] === 'active') { delete this.quests[q]; if (this.tracked === q) this.tracked = null; }
+    // Seb 2026-11-27: Die Akte ist als Nebenakte zurück. Stände von vorher bekamen ihre Akt-Flags beim Sturz geschenkt und hätten
+    // sonst Akt I bis IV übersprungen; einmalig zurücknehmen (alte, liegengebliebene cwa_-Aufträge gleich mit).
+    if (!this.flags.has('cwa_nebenakte_v1')) {
+      for (const f of ALTE_AKTE_FLAGS) this.flags.delete(f);
+      for (const q of Object.keys(this.quests)) if (q.startsWith('cwa_')) { delete this.quests[q]; if (this.tracked === q) this.tracked = null; }
+    }
     const neu = CALDERWICK_WELT_FLAGS.filter((f) => !this.flags.has(f));
     if (neu.length) this.applyEffects({ sets_flags: neu });
     if (this.quest('k4_aufstieg') && this.quests.k4_aufstieg === undefined && !this.flags.has('kapitel4_done')) this.startQuest('k4_aufstieg');
@@ -883,6 +903,7 @@ export class GameState {
     this.wetterTick(); // Wetter und Nebelnacht folgen der Spielzeit
     this.fa2Tick?.(); // Codex DE: Fahrende Auktion hält 2 von 5 Spieltagen
     this.tickSekten(); // BQ: Fristen und per Dialog aufgelöste Ereignisse
+    this.gebeteTick?.(); // Gebete an den Halbgott (core/Heimkehr.js)
     const before = this.composure;
     if (this.spiritVision) {
       this.composure = Math.max(0, this.composure - this.visionDrainPerSec() * dtSeconds);
@@ -951,11 +972,13 @@ export class GameState {
       stashes: this.stashes,
       weapon: this.weapon,
       gear: this.gear,
+      gearSets: this.gearSets,
       tracked: this.tracked,
       erfolgZaehler: this.erfolgZaehler ?? {},
       ...(this.testmodus ? { testmodus: true } : {}),
       ...this.serializePost(),
       ...this.serializeTiere(),
+      ...this.serializeBestiar(),
       ...this.serializePathway(),
       ...this.serializeTalents(),
       ...this.serializeCorruption(),
@@ -994,6 +1017,7 @@ export class GameState {
     this.erfolgZaehler = data.erfolgZaehler ?? {};
     this.loadPost(data);
     this.loadTiere(data);
+    this.loadBestiar(data);
     // Freischaltungen aus erreichten Enden nachtragen (z. B. der Kanalhafen nach dem falschen Ende von Fall 3,
     // das ihn in älteren Ständen nicht freigeschaltet hat). Ortsfreigaben werden nie zurückgenommen.
     for (const id of Object.values(this.endings)) {
@@ -1004,7 +1028,8 @@ export class GameState {
     if (this.flags.has('won_leuchtfeuer') || this.flags.has('kapitel2_done')) for (const f of K2_AKT5_STEPS) this.flags.add(f);
     else if (this.flags.has('k2_am_turm')) this.flags.add('k2v_boot_bereit');
     // Kein Zurück nach Kettlegate: Stände, die nach der Ankunft in Wexmoor noch dort stehen (alter Nachtzug), wachen im Unterschlupf auf
-    if (!this.testmodus && this.flags.has('k2_arrived') && (this.content.maps[this.map]?.city ?? 'kettlegate') === 'kettlegate') {
+    if (!this.testmodus && this.flags.has('k2_arrived') && (this.content.maps[this.map]?.city ?? 'kettlegate') === 'kettlegate'
+      && !(this.flags.has('k4_arrived') && [data.pathway?.seq, data.p2?.pathway?.seq].some((q) => q != null && q <= HEIMKEHR_SEQ))) { // ab Seq 3 darf man zurück (data/heimkehr.js)
       this.map = this.content.maps.wx_kahn ? 'wx_kahn' : this.map;
       this.spawn = 'default';
       this.position = null;
@@ -1016,6 +1041,7 @@ export class GameState {
       this.inventory = Object.fromEntries(Object.entries(data.inventory ?? {}).filter(([i, n]) => this.item(i) && n > 0));
       this.weapon = this.inventory[data.weapon] ? data.weapon : null;
       this.gear = this.cleanGear(data.gear, this.inventory);
+      this.gearSets = this.cleanGearSets(data.gearSets);
       this.storage = Object.fromEntries(Object.entries(data.storage ?? {}).filter(([i, n]) => this.item(i) && n > 0));
       this.stashes = Object.fromEntries(Object.entries(data.stashes ?? {}).map(([w, st]) => [w, Object.fromEntries(Object.entries(st ?? {}).filter(([i, n]) => this.item(i) && n > 0))]));
     }
@@ -1059,4 +1085,4 @@ export class GameState {
 /** Fortschrittsflags der verlängerten Akt-V-Fassung (AP), in Spielreihenfolge. */
 export const K2_AKT5_STEPS = ['k2v_boot_bereit', 'k2v_keller_passiert', 'k2v_aufstieg_passiert', 'k2v_abschied_done'];
 
-Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods, sudeMethods, seq5Methods, seq4Methods, seqHochMethods, bedarfMethods, splitMethods, pfadHandelMethods, erfolgeMethods, postMethods, benannteMethods, tiereMethods, fahrendeAuktionMethods, hausMethods, nebelseiteMethods, testmodusMethods, mackenMethods, kopfgeldjaegerMethods, wetterMethods, rivaleMethods, verdauProbeMethods);
+Object.assign(GameState.prototype, bestiarMethods, partyMethods, gearMethods, vergleichMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, probeMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods, sektenMethods, sudeMethods, seq5Methods, seq4Methods, seqHochMethods, bedarfMethods, splitMethods, pfadHandelMethods, erfolgeMethods, postMethods, benannteMethods, tiereMethods, fahrendeAuktionMethods, hausMethods, nebelseiteMethods, testmodusMethods, mackenMethods, launenMethods, kopfgeldjaegerMethods, wetterMethods, rivaleMethods, verdauProbeMethods, heimkehrMethods);

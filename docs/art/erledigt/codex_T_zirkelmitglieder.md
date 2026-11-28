@@ -84,7 +84,7 @@ Ablage: `public/sprites/characters/T_<id>_walk.png`, `public/sprites/portraits/T
 ## 3. Der Kreidezirkel (Formeln, Hinterzimmer am Altmarkt)
 | ID | Name, Rolle | `[BESCHREIBUNG]` |
 |---|---|---|
-| `tm_sallow` | Professor Edmund Sallow, entlassener Dozent | an elderly scholar in a worn brown tweed coat with a dark red scarf, grey-white hair and mutton chops, chalk dust on his sleeves, a stack of papers under one arm, a proud bitter look |
+| `tm_sallow` | Professor Cyprian Sallow, entlassener Dozent | an elderly scholar in a worn brown tweed coat with a dark red scarf, grey-white hair and mutton chops, chalk dust on his sleeves, a stack of papers under one arm, a proud bitter look |
 | `tm_corve` | Schwester Ines Corve, ehemalige Ordensfrau | a woman in her forties in a dark blue-grey dress with a white starched collar and a plain white coif, dark hair underneath, a rosary of plain wooden beads without a symbol, a steady cool gaze |
 | `tm_ashdown` | Lord Tobiah Ashdown, Erbe mit Schulden | a young lord in his twenties in a wine-red velvet coat and a gold cravat, golden-blond curls, a signet ring, a slightly frayed cuff, a charming smile with worry behind it |
 | `tm_pemberley` | Kit Pemberley, Schreiberin im Grundbuchamt | a young woman clerk in a slate-blue jacket and skirt, auburn hair in a practical knot, ink-stained fingers, a pencil behind her ear, a ledger clutched to her chest, sharp curious eyes |

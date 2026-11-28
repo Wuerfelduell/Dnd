@@ -3,6 +3,7 @@ import { DEPTH } from './Lighting.js';
 import { TILE, hash2 } from './textures.js';
 import { SPRITE_BASE as BASE, FEST_MAPS, FEST_GEREDE, SEASON_FACADE, isOutdoorMap } from './assets.js';
 import { FESTE, SEASONS, SEASON_SECONDS } from '../core/Clock.js';
+import { KETTLEGATE_STREU } from '../data/kettlegateKulisse.js';
 
 // Paket BV: Jahreszeiten und Feste (manifest-feste.json). Draußen liegt je nach Jahreszeit Deko auf dem Boden
 // (Laub, Reif, Moos, Staub), Partikel ziehen übers Bild, über den Türen hängen Girlanden, Schneehauben, Blumenkästen
@@ -81,8 +82,9 @@ export class Feste {
     const s = this.scene;
     const names = ensureRegions(s, `bv_saison_${this.season}`, `feste_saison_${this.season}`);
     if (names.length) {
+      const streu = this.city === 'kettlegate' ? KETTLEGATE_STREU : 0.955; // Kettlegate: weniger Laub/Reif auf dem Pflaster
       this.rows.forEach((row, y) => [...row].forEach((ch, x) => {
-        if (!'.,pPw'.includes(ch) || hash2(x, y, 77) < 0.955) return;
+        if (!'.,pPw'.includes(ch) || hash2(x, y, 77) < streu) return;
         const name = names[Math.floor(hash2(x, y, 78) * Math.min(DECAL_COUNT, names.length))];
         s.add.image(x * TILE + 8, y * TILE + 8, `bv_saison_${this.season}`, name).setDepth(1).setAlpha(0.9);
       }));
@@ -237,7 +239,7 @@ export class Feste {
     const seenKey = `fest_${f}_gesehen`;
     if (!this.state.flags.has(seenKey)) {
       this.state.flags.add(seenKey);
-      s.ui.showMessage(FESTE[f].name, FESTE[f].text, { scene: `fest_${f}`, footer: 'Weiter mit E' });
+      s.ui.showMessage(FESTE[f].name, FESTE[f].text, { scene: `fest_${f}` });
     } else if (this.state.festBanner !== `${f}:${cycle}:${this.map.id}`) {
       s.ui.festBanner?.(f, FESTE[f].name);
     }

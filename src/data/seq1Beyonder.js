@@ -101,7 +101,7 @@ function kampf(content, pid) {
   const id = `s1b_${pid}`;
   const n = seq1Namen(content, pid);
   const base = {
-    id, name: n.name[0], sprite: 'wild', sheet: `hg_battle_${pid}`, tint: '#fff6d0', pathway: pid, occult: true, chapter: 5,
+    id, name: n.name[0], sprite: 'wild', sheet: `hg_battle_${pid}__s1`, pathway: pid, occult: true, chapter: 5,
     boss: true, elite: false, beyonder: true, tier_seq: 1, min_seq: 1, hp: SEQ1_HP, armor: 16, dmg_mult: 1, max_round_dmg: 0.16,
     fleeable: true, duo_hp_mult: SEQ1_DUO_HP_MULT, spaet_leben: true, on_win: {},
     attacks: [schlag(S(0), 170, [1000, 1600]), schlag(S(1), 96, [700, 1200, 1700, 2200], { nerves: 14 }),

@@ -174,3 +174,20 @@ DS_KULISSE.ds_schlackengrube = {
   lichter: [[20, 5, GLUT, 56, 0.7], [40, 11, GLUT, 56, 0.7], [42, 24, GLUT, 56, 0.7], [12, 5, GLUT, 36, 0.4], [24, 17, GLUT, 36, 0.4], [36, 11, GLUT, 34, 0.35]],
   fog: 0.24,
 };
+
+/**
+ * Szenen für leere Ecken der Viertel (Seb 2026-11-27: „manche Orte zu crowded, manche sehr leer“). Je Zone zwei
+ * Plätze mitten in der Fläche; kulisse() stellt ein Stück nur hin, wenn im Umkreis nichts steht. Volle Viertel
+ * (Kalkmarkt) bekommen so kaum etwas dazu, leere (Letzter Bahnsteig, Signalhang) ihre Ecken gefüllt.
+ */
+const SZENEN_PLAETZE = [[7, 7], [14, 7], [29, 7], [37, 7], [7, 16], [14, 16], [29, 16], [37, 16]];
+const szenen = (id, stuecke, opt = {}) => {
+  DS_KULISSE[id].szenen = SZENEN_PLAETZE.map(([x, y], i) => [stuecke[i % stuecke.length], x, y, typeof opt === 'function' ? opt(stuecke[i % stuecke.length]) : opt]);
+};
+szenen('ds_endbahnhof', ['dsp_endbahnhof_luggage_trolley', 'dsp_endbahnhof_waiting_bench', 'dsp_endbahnhof_waiting_bench', 'dsp_endbahnhof_telegraph_desk']);
+szenen('ds_letzter_bahnsteig', ['dsp_endbahnhof_waiting_bench', 'dsp_endbahnhof_luggage_trolley', 'dsp_endbahnhof_telegraph_desk', 'dsp_endbahnhof_waiting_bench', 'dsp_endbahnhof_luggage_trolley', 'dsp_endbahnhof_waiting_bench', 'dsp_endbahnhof_station_clock_without_numerals', 'dsp_endbahnhof_luggage_trolley']);
+szenen('ds_signalhang', ['dsp_bruchsignal_survey_theodolite', 'dsp_schwellenring_signal', 'dsp_bruchsignal_listening', 'dsp_endbahnhof_telegraph_desk'], (s) => (/listening/.test(s) ? { light: '#6fe0d0' } : {}));
+szenen('ds_kalkmarkt', ['dsp_kalkmarkt_blank_gravestone_round', 'dsp_kalkmarkt_blank_gravestone_square', 'dsp_kalkmarkt_flea_stall_memory_plaques', 'dsp_kalkmarkt_blank_gravestone_cross']);
+szenen('ds_bruchstufen', [LORE, 'dsp_bruchsignal_survey_theodolite', KALK_A, KALK_B]);
+szenen('ds_schwellenring', ['dsp_schwellenring_locomotive_wheel', LORE, 'dsp_schwellenring_coal_heap', 'dsp_schwellenring_mechanic_workbench']);
+szenen('ds_arbeiterbogen', ['dsp_arbeiterbogen_windblown_picnic_table', 'dsp_arbeiterbogen_washing_line', 'dsp_arbeiterbogen_stone_well', 'dsp_arbeiterbogen_washing_line']);

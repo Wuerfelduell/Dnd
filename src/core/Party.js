@@ -11,12 +11,14 @@
 // Gemeinsame Taten (Hinweise, Gespräche, Siege ...) verdauen die Tränke beider Spieler (siehe act()).
 import { keepWechsel } from './Pathways.js';
 import { cleanMacken } from './Macken.js';
+import { cleanLaunen } from '../data/launen.js';
 import { cleanName, setPlayerNames } from './I18n.js';
+import { emptyGearSets } from './Gear.js';
 
 /** Persönliche Werte, die zwischen den Spielern getauscht werden. */
 /** Flüchtige Platz-Flags der Koop-Rätsel (Paket AI). */
 export const KOOP_ROLE_FLAG = /^koop_[a-z_]+_p[12]$/;
-export const PERSONAL = ['hp', 'maxHp', 'inventory', 'weapon', 'gear', 'composure', 'pathway', 'unruhe', 'spiritVision', 'visionDigest', 'corrupted', 'setAside', 'corruptionAcc', 'talentCd', 'buffs', 'skillHidden', 'macken'];
+export const PERSONAL = ['hp', 'maxHp', 'inventory', 'weapon', 'gear', 'gearSets', 'composure', 'pathway', 'unruhe', 'spiritVision', 'visionDigest', 'corrupted', 'setAside', 'corruptionAcc', 'talentCd', 'buffs', 'skillHidden', 'macken', 'launen'];
 
 export const P2_COMPOSURE_REGEN = 6; // pro Sekunde
 
@@ -67,9 +69,9 @@ export const partyMethods = {
       const hp = s.hp ?? P2_START.hp;
       this.p2 = {
         active: true, hp, maxHp: hp, inventory: items,
-        weapon: this.content.party?.weapon ?? (items[P2_START.weapon] ? P2_START.weapon : null), gear: { hut: null, mantel: null, amulett: null },
+        weapon: this.content.party?.weapon ?? (items[P2_START.weapon] ? P2_START.weapon : null), gear: { hut: null, mantel: null, amulett: null }, gearSets: emptyGearSets(),
         composure: 100, pathway: null, unruhe: 0, spiritVision: false, visionDigest: { map: null, total: 0 }, look: 'p2a',
-        corrupted: {}, setAside: [], corruptionAcc: 0, talentCd: {}, buffs: [], skillHidden: [], macken: cleanMacken(null),
+        corrupted: {}, setAside: [], corruptionAcc: 0, talentCd: {}, buffs: [], skillHidden: [], macken: cleanMacken(null), launen: cleanLaunen(null),
       };
     }
     this.p2.active = true;
@@ -220,7 +222,7 @@ export const partyMethods = {
   },
 
   serializeParty() {
-    return { ...(this.p2 ? { p2: { ...this.p2, inventory: { ...this.p2.inventory }, gear: { ...this.p2.gear } } } : {}), koopSeen: [...this.koopSeen], ...(this.playerNames?.some(Boolean) ? { playerNames: [...this.playerNames] } : {}) };
+    return { ...(this.p2 ? { p2: { ...this.p2, inventory: { ...this.p2.inventory }, gear: { ...this.p2.gear }, gearSets: this.p2.gearSets ?? emptyGearSets() } } : {}), koopSeen: [...this.koopSeen], ...(this.playerNames?.some(Boolean) ? { playerNames: [...this.playerNames] } : {}) };
   },
 
   loadParty(data) {
@@ -233,12 +235,12 @@ export const partyMethods = {
     const inventory = Object.fromEntries(Object.entries(p.inventory ?? {}).filter(([i, n]) => this.item(i) && n > 0));
     this.p2 = {
       active: !!p.active, hp: Math.max(1, p.hp ?? 40), maxHp: p.maxHp ?? 40, inventory,
-      weapon: inventory[p.weapon] ? p.weapon : null, gear: this.cleanGear(p.gear, inventory), composure: p.composure ?? 100,
+      weapon: inventory[p.weapon] ? p.weapon : null, gear: this.cleanGear(p.gear, inventory), gearSets: this.cleanGearSets(p.gearSets), composure: p.composure ?? 100,
       pathway: path && this.seqDef(path.id, path.seq) ? { id: path.id, seq: path.seq, digestion: path.digestion ?? 0, ...(path.seq5 && typeof path.seq5 === 'object' ? { seq5: path.seq5 } : {}), ...keepWechsel(path) } : null,
       unruhe: Math.max(0, Math.min(99, p.unruhe ?? 0)), spiritVision: false, visionDigest: { map: null, total: 0 },
       look: p.look === 'p2b' ? 'p2b' : 'p2a',
       corrupted: Object.fromEntries(Object.entries(p.corrupted ?? {}).filter(([i, n]) => inventory[i] && n > 0)), setAside: [], corruptionAcc: 0,
-      talentCd: { ...(p.talentCd ?? {}) }, buffs: [...(p.buffs ?? [])], skillHidden: [...(p.skillHidden ?? [])], macken: cleanMacken(p.macken),
+      talentCd: { ...(p.talentCd ?? {}) }, buffs: [...(p.buffs ?? [])], skillHidden: [...(p.skillHidden ?? [])], macken: cleanMacken(p.macken), launen: cleanLaunen(p.launen),
       ...(p.map && this.content.maps[p.map] ? { map: p.map, spawn: p.spawn ?? 'default', position: p.position ?? null } : {}), // Kapitel 4: Splitscreen
     };
     this.splitOn = !!this.p2.map;

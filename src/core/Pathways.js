@@ -18,7 +18,10 @@ import { NACHBARPFADE } from '../data/nachbarpfade.js';
 import { REST_RISIKO, restId, restTrankId, hauptzutat } from '../data/beyonderRest.js';
 import { MACKE_TRANK_RISIKO } from '../data/macken.js';
 import { RIVALE_REGELN } from '../data/rivale.js';
+import { SEQ1_VERZICHT_TEXT } from '../data/seqHoch.js';
 import { cleanMacken } from './Macken.js';
+import { cleanLaunen } from '../data/launen.js';
+import { VIERTEL_VERDAU, nachhallPct } from '../data/seq3Weg.js';
 
 /**
  * Seb (2026-11-12): Pfadwechsel. Wer Sequenz 4 erreicht hat, darf statt der eigenen dritten Stufe einmal den
@@ -237,7 +240,7 @@ export const DIGEST_LABELS = {
   uhr_perfekt: 'im perfekten Augenblick ausgewichen (max. 6× je Kampf)', uhr_vorhersage: 'Ablauf vorhergesehen oder verlangsamt (max. 3× je Kampf)',
   boss_win: 'Boss besiegt', elite_win: 'Elitegegner besiegt', talent: 'Welt-Fähigkeit eingesetzt (je 10 Nerven)',
   ritual: 'Ritual vollzogen', gathering: 'Zuschlag auf einem geheimen Treffen', tat: 'große Tat in Dunscar',
-  verdau_probe: 'Prüfstein im Pfadviertel bestanden (1× je Spieltag)', verdau_trost: 'Prüfstein im Pfadviertel: Trostpreis',
+  verdau_probe: 'Prüfstein im Pfadviertel bestanden (1× je Spieltag, nur Seq 4)', viertel_sieg: 'Sieg im eigenen Pfadviertel (Seq 4; Herde, Rangprüfungen, Bosse beim ersten Mal mehr)', viertel_erst: 'Erster Sieg über einen Herd, eine Rangprüfung oder einen Boss im eigenen Pfadviertel', nachhall: 'Nachhall in Kettlegate, Wexmoor oder Dunscar gefunden (je Ort einmal, ab Seq 3)', verdau_trost: 'Prüfstein im Pfadviertel: Trostpreis',
 };
 /**
  * Was jeden Pfad verdaut, ganz gleich nach welchem Grundsatz: die großen Prüfungen und das Wirken der eigenen Kraft.
@@ -274,8 +277,15 @@ export const PATH_ACTION_DIGEST = {
 /** Feste Pfadhandlungen für `pathway` ({id, seq}) auf seiner Sequenz, sonst null. */
 export function pathActions(pathway) {
   const d = pathway && PATH_ACTION_DIGEST[pathway.id];
-  return d && pathway.seq <= d.fromSeq ? d.acts : null;
+  if (!d || pathway.seq > d.fromSeq) return null;
+  const m = PATH_ACTION_SEQ_MULT[pathway.seq] ?? 1;
+  return m === 1 ? d.acts : Object.fromEntries(Object.entries(d.acts).map(([k, a]) => [k, { ...a, pct: a.pct * m }]));
 }
+/**
+ * Seb 2026-11-27: Ab Seq 3 geht die Verdauung wieder stockend voran. Die festen Pfadhandlungen bringen ab Seq 3 nur noch einen
+ * Bruchteil (Seq 4 und darüber unverändert). Den Rest liefern Inhalte: Bosse (fest 3 %) und der Nachhall in den alten Städten.
+ */
+export const PATH_ACTION_SEQ_MULT = { 3: 0.2, 2: 0.05, 1: 0.02 };
 /** Ab dieser Sequenz zählen die pfadeigenen Handlungen (eigene `digest`-Tabelle, Grundsatz) mehrfach (Seb 2026-11-26). */
 export const PATH_DIGEST_HIGH_SEQ = 4;
 export const PATH_DIGEST_HIGH_MULT = 3;
@@ -293,7 +303,7 @@ const TRADE_PRICE_MIN = 0.6;
 const TRADE_SELL_MAX = 1.6;
 const TRADE_SELL_OF_BUY = 0.8;
 
-const MULT_KEYS = new Set(['vision_cost', 'composure_regen', 'heal_bonus', 'price', 'sell', 'honor_loss', 'recognize', 'occult_mult',
+export const MULT_KEYS = new Set(['vision_cost', 'composure_regen', 'heal_bonus', 'price', 'sell', 'honor_loss', 'recognize', 'occult_mult',
   'money_bonus', 'shield_mult', 'skill_composure', 'calm_decay', 'dodge_window', 'damage_taken', 'digest_mult', 'dmg_mult', 'hurry_cost', 'unruhe_gain']);
 
 
@@ -308,6 +318,7 @@ export const pathwayMethods = {
     this.picks = 0; // geknackte Schlösser (Ritual des Schlüssels)
     this.pickedLocks = new Set(); // welche Schlösser schon geknackt sind (Karte:Objekt)
     this.macken = cleanMacken(null); // Bleibende Macken (core/Macken.js)
+    this.launen = cleanLaunen(null); // Launische Artefakte (core/Launen.js)
     this.resetArtifacts();
   },
 
@@ -515,9 +526,10 @@ export const pathwayMethods = {
    */
   act(kind, amount = 1) {
     if (kind === 'combat_win') this.wins = (this.wins ?? 0) + 1;
+    this.launeNote?.(kind, amount); // Launische Artefakte: was heute geschieht, füttert ihre Forderungen
     const gained = this.digestOwn(kind, amount);
-    // Zu zweit: was beide gemeinsam erleben, verdaut auch den Trank des anderen Spielers
-    if (this.hasP2?.() && !PERSONAL_DIGEST.has(kind)) this.withPartner(() => this.digestOwn(kind, amount));
+    // Zu zweit: was beide gemeinsam erleben, verdaut auch den Trank des anderen Spielers (und füttert seine Artefakte)
+    if (this.hasP2?.() && !PERSONAL_DIGEST.has(kind)) this.withPartner(() => { this.launeNote?.(kind, amount); this.digestOwn(kind, amount); });
     return gained;
   },
 
@@ -592,7 +604,8 @@ export const pathwayMethods = {
       .filter(([kind]) => !(moorHigh && kind === 'heal_partner'))
       .map(([kind, v]) => { let pts = v * rate * (own[kind] ? pm : 1); if (kind === 'boss_win') pts = Math.max(pts, BOSS_DIGEST_FIXED); return [kind, pts]; })
       .concat(fixed)
-      .concat(this.content?.encounters?.[`o3_${this.pathway.id}_verdau`] && this.pathway.seq <= 4 ? [['verdau_probe', 15]] : []) // Prüfstein im Pfadviertel (core/VerdauProbe.js)
+      .concat(this.content?.encounters?.[`o3_${this.pathway.id}_verdau`] && this.pathway.seq === 4 ? [['verdau_probe', 15], ['viertel_sieg', VIERTEL_VERDAU.sieg]] : []) // Prüfstein + Viertel-Resonanz nur auf Seq 4 (Seb 2026-11-27)
+      .concat(this.pathway.seq <= 3 ? [['nachhall', nachhallPct(this.pathway.seq)]] : []) // Nachhall in den alten Städten (data/heimkehr.js) // Prüfstein im Pfadviertel (core/VerdauProbe.js)
       .map(([kind, pts]) => ({ kind, label: DIGEST_LABELS[kind] ?? kind, points: pts, text: fmtDigest(pts) }))
       .sort((a, b) => b.points - a.points);
   },
@@ -642,6 +655,7 @@ export const pathwayMethods = {
 
   /** Wird von tick() aufgerufen. */
   tickPathway(dt) {
+    this.launeTick?.(dt); // Launische Artefakte: Tragezeit und Tageswechsel
     this.tickCorruption(dt);
     this.tickForm(dt);
     const pull = this.artifactUnruhe();
@@ -678,6 +692,7 @@ export const pathwayMethods = {
     }
     if (it.seq >= p.seq) return { ok: false, reason: 'Diese Stufe hast du längst erreicht.' };
     if (it.seq !== p.seq - 1) return { ok: false, reason: 'Du kannst keine Stufe überspringen.' };
+    if (it.seq === 1 && this.seq1Verschlossen?.()) return { ok: false, reason: SEQ1_VERZICHT_TEXT }; // Seb 2026-11-27: Verzicht in Varrowmouth
     // Beim Pfadwechsel zählt das Ritual der eigenen Schwelle (oder das des Nachbarpfads, falls schon vollzogen)
     const rit = this.ritualDef(p.id, it.seq) ?? this.ritualDef(it.pathway, it.seq);
     if (rit && !this.ritualDone(p.id, it.seq) && !(wechsel && this.ritualDone(it.pathway, it.seq))) return { ok: false, reason: `Ohne Ritual zerreißt dich dieser Trank. Vollziehe zuerst „${rit.name}“ (siehe Pfad).`, ritual: true };
@@ -877,6 +892,7 @@ export const pathwayMethods = {
     const seq = (p?.seq ?? 0) - 1;
     const r = p && this.ritualDef(p.id, seq);
     if (!r) return { ok: false, text: 'Für deinen nächsten Trank brauchst du kein Ritual.' };
+    if (seq === 1 && this.seq1Verschlossen?.()) return { ok: false, text: SEQ1_VERZICHT_TEXT };
     if (this.ritualDone(p.id, seq)) return { ok: false, text: 'Das Ritual ist schon vollzogen. Trink den Trank.' };
     const open = this.ritualSteps(p.id, seq).filter((x) => !x.done);
     // Die schweren Rituale (4 und 2): Steht alles andere, tritt der Schwellenwächter des Pfades aus dem Nebel
@@ -1215,14 +1231,16 @@ export const pathwayMethods = {
   awes(encounterId) {
     const p = this.pathway;
     const enc = this.content.encounters[encounterId];
-    if (!p?.form || !enc) return false;
-    if (enc.boss || enc.min_seq || enc.practice || enc.mirror) return false;
+    if (!enc || enc.boss || enc.min_seq || enc.practice || enc.mirror) return false;
+    // Seb 2026-11-27: Heimkehrer ab Seq 3 in Kettlegate, Wexmoor, Dunscar: gewöhnliche Gegner dort fallen ohne Kampf (core/Heimkehr.js)
+    if (this.heimkehrHier?.()) return true;
+    if (!p?.form) return false;
     if (!enc.occult) return true; // Nicht-Beyonder: Menschen, die dir nichts entgegenzusetzen haben
     return encounterSeq(enc, this.content) - p.seq >= FORM_MARGIN;
   },
 
   serializePathway() {
-    return { money: this.money, pathway: this.pathway, unruhe: Math.round(this.unruhe), seenNodes: [...this.seenNodes], wins: this.wins, picks: this.picks ?? 0, pickedLocks: [...(this.pickedLocks ?? [])], formShown: this.formShown ?? 0, macken: cleanMacken(this.macken), ...this.serializeArtifacts() };
+    return { money: this.money, pathway: this.pathway, unruhe: Math.round(this.unruhe), seenNodes: [...this.seenNodes], wins: this.wins, picks: this.picks ?? 0, pickedLocks: [...(this.pickedLocks ?? [])], formShown: this.formShown ?? 0, macken: cleanMacken(this.macken), launen: cleanLaunen(this.launen), ...this.serializeArtifacts() };
   },
 
   loadPathway(data) {
@@ -1236,6 +1254,7 @@ export const pathwayMethods = {
     this.pickedLocks = new Set(data.pickedLocks ?? []);
     this.formShown = data.formShown ?? 0;
     this.macken = cleanMacken(data.macken); // alte Stände: keine Macken
+    this.launen = cleanLaunen(data.launen); // alte Stände: keine Bindungen
     this.loadArtifacts(data);
     this.maxHp = this.calcMaxHp();
     this.hp = Math.max(1, Math.min(this.maxHp, data.hp ?? this.maxHp));

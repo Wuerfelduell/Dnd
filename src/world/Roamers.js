@@ -166,7 +166,7 @@ export class Roamers {
       const home = Math.hypot(r.body.x - r.home.x, r.body.y - r.home.y);
       const graced = time < this.graceUntil;
       const shielded = !!p && !r.boss && !!s.state.buffOf?.('lichtschranke', pn); // Laterne: Lichtschranke hält gewöhnliche Gegner fern
-      const afraid = s.state.testmodus || fearsPlayer(s.state.pathway?.seq, r.def, s.mapDef) || (s.state.scaresEnemies?.() && !r.boss) || shielded; // Welt-Fähigkeiten: gewöhnliche Gegner weichen
+      const afraid = s.state.testmodus || s.state.heimkehrHier?.() || fearsPlayer(s.state.pathway?.seq, r.def, s.mapDef) || (s.state.scaresEnemies?.() && !r.boss) || shielded; // Welt-Fähigkeiten: gewöhnliche Gegner weichen
       if (time < r.stunUntil) {
         b.setVelocity(0, 0);
         r.mode = 'wander';

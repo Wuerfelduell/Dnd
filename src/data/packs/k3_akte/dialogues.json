@@ -10,10 +10,112 @@
             "next": "k3r_starling"
           },
           {
-            "text": "Das Signalgerät füllen und an der Schallschleuse warten.",
+            "text": "Was hat es mit dem Nachtzug auf sich?",
+            "next": "k3z_einstieg",
+            "hide_if_flags": [
+              "k3z_aktiv",
+              "k3a_akt5_done"
+            ]
+          },
+          {
+            "text": "Nachtzug, Akt 1: Die drei Fährten besprechen.",
+            "next": "k3a_abschluss1",
+            "requires_flags": [
+              "k3z_aktiv",
+              "k3a_11_geschlossen",
+              "k3a_12_geschlossen",
+              "k3a_13_geschlossen"
+            ],
+            "hide_if_flags": [
+              "k3z_akt1_done"
+            ]
+          },
+          {
+            "text": "Nachtzug, Akt 2: Die vier Fährten besprechen.",
+            "next": "k3a_abschluss2",
+            "requires_flags": [
+              "k3z_aktiv",
+              "k3z_akt1_done",
+              "k3a_21_geschlossen",
+              "k3a_22_geschlossen",
+              "k3a_23_geschlossen",
+              "k3a_24_geschlossen"
+            ],
+            "hide_if_flags": [
+              "k3z_akt2_done"
+            ]
+          },
+          {
+            "text": "Nachtzug, Akt 3: Die vier Fährten besprechen.",
+            "next": "k3a_abschluss3",
+            "requires_flags": [
+              "k3z_aktiv",
+              "k3z_akt2_done",
+              "k3a_31_geschlossen",
+              "k3a_32_geschlossen",
+              "k3a_33_geschlossen",
+              "k3a_34_geschlossen"
+            ],
+            "hide_if_flags": [
+              "k3z_akt3_done"
+            ]
+          },
+          {
+            "text": "Nachtzug, Akt 4: Die vier Fährten besprechen.",
+            "next": "k3a_abschluss4",
+            "requires_flags": [
+              "k3z_aktiv",
+              "k3z_akt3_done",
+              "k3a_41_geschlossen",
+              "k3a_42_geschlossen",
+              "k3a_43_geschlossen",
+              "k3a_44_geschlossen"
+            ],
+            "hide_if_flags": [
+              "k3z_akt4_done"
+            ]
+          },
+          {
+            "text": "Nachtzug, Akt 5: Die vier Fährten besprechen.",
+            "next": "k3a_abschluss5",
+            "requires_flags": [
+              "k3z_aktiv",
+              "k3z_akt4_done",
+              "k3a_51_geschlossen",
+              "k3a_52_geschlossen",
+              "k3a_53_geschlossen",
+              "k3a_54_geschlossen"
+            ],
+            "hide_if_flags": [
+              "k3a_bilanz5"
+            ]
+          },
+          {
+            "text": "Was kostet mich die Gegenstimme?",
+            "next": "k3a_anker_warnung",
+            "requires_conclusions": [
+              "k3a_43_d",
+              "k3a_52_d"
+            ],
+            "hide_if_flags": [
+              "k3a_akt5_done"
+            ],
+            "requires_flags": [
+              "k3z_aktiv"
+            ]
+          },
+          {
+            "text": "Die Rufbindung hinter der Schallschleuse lösen.",
             "next": "k3a_nachfuellen",
             "requires_flags": [
-              "k3a_speisewagen_sicher"
+              "k3a_privatruf_gebunden"
+            ]
+          },
+          {
+            "text": "Das Signalgerät füllen und an der Schallschleuse warten.",
+            "next": "k3a_signal_fuellen",
+            "requires_items": [
+              "k3a_signalgeraet"
             ]
           },
           {
@@ -22,7 +124,7 @@
         ]
       },
       "k3a_abschluss1": {
-        "text": "„Eine alte Lok, neue Arbeit und ein Wartungsweg“, sagt Pfiff. „Das ist schon mehr als ein Gespenst.“ Er legt dir das Signalgerät hin und zeigt auf die freie Koje. Lager, Fallwand und Ofen stehen dir offen.",
+        "text": "„Eine alte Lok, neue Arbeit und lebende Füße im Kalk“, sagt Pfiff. „Das ist schon mehr als ein Gespenst.“ Er heftet deine Abschriften an die Fallwand neben seinem Ofen.",
         "choices": [
           {
             "text": "Den bestätigten nächsten Schritt gehen.",
@@ -34,25 +136,21 @@
         ]
       },
       "k3a_abschluss1_ja": {
-        "text": "Pfiff heftet eure Abschriften an die Fallwand. Erst mit deiner Bestätigung wird die nächste Fahrt vorbereitet; die Untersuchung hat keine unsichtbare Uhr.",
+        "text": "Pfiff heftet eure Abschriften an die Fallwand. Erst wenn du so weit bist, geht es weiter; der Nachtzug hat keine unsichtbare Uhr.",
         "choices": [
           {
             "text": "Für jetzt genug."
           }
         ],
         "sets_flags": [
-          "k3a_akt1_done",
-          "k3a_speisewagen_sicher"
+          "k3z_akt1_done"
         ],
         "complete_quests": [
-          "k3a_akt1"
+          "k3z_akt1"
         ],
         "start_quests": [
-          "k3a_akt2"
-        ],
-        "gives_items": {
-          "k3a_signalgeraet": 1
-        }
+          "k3z_akt2"
+        ]
       },
       "k3a_abschluss2": {
         "text": "„Oren hielt den Zug am Laufen, Nellie hat seine Regel gefunden“, sagt Pfiff. „Und die Walze verlangt Antworten von den Falschen.“ Er schiebt dir die Depotmarke zu. Reparaturen sollen künftig niemanden an eine Nachtschicht binden.",
@@ -67,20 +165,20 @@
         ]
       },
       "k3a_abschluss2_ja": {
-        "text": "Pfiff heftet eure Abschriften an die Fallwand. Erst mit deiner Bestätigung wird die nächste Fahrt vorbereitet; die Untersuchung hat keine unsichtbare Uhr.",
+        "text": "Pfiff heftet eure Abschriften an die Fallwand. Erst wenn du so weit bist, geht es weiter; der Nachtzug hat keine unsichtbare Uhr.",
         "choices": [
           {
             "text": "Für jetzt genug."
           }
         ],
         "sets_flags": [
-          "k3a_akt2_done"
+          "k3z_akt2_done"
         ],
         "complete_quests": [
-          "k3a_akt2"
+          "k3z_akt2"
         ],
         "start_quests": [
-          "k3a_akt3"
+          "k3z_akt3"
         ],
         "gives_items": {
           "k3a_depotmarke": 1
@@ -99,20 +197,20 @@
         ]
       },
       "k3a_abschluss3_ja": {
-        "text": "Pfiff heftet eure Abschriften an die Fallwand. Erst mit deiner Bestätigung wird die nächste Fahrt vorbereitet; die Untersuchung hat keine unsichtbare Uhr.",
+        "text": "Pfiff heftet eure Abschriften an die Fallwand. Erst wenn du so weit bist, geht es weiter; der Nachtzug hat keine unsichtbare Uhr.",
         "choices": [
           {
             "text": "Für jetzt genug."
           }
         ],
         "sets_flags": [
-          "k3a_akt3_done"
+          "k3z_akt3_done"
         ],
         "complete_quests": [
-          "k3a_akt3"
+          "k3z_akt3"
         ],
         "start_quests": [
-          "k3a_akt4"
+          "k3z_akt4"
         ],
         "bond": {
           "k3_pfiff": 2
@@ -131,20 +229,20 @@
         ]
       },
       "k3a_abschluss4_ja": {
-        "text": "Pfiff heftet eure Abschriften an die Fallwand. Erst mit deiner Bestätigung wird die nächste Fahrt vorbereitet; die Untersuchung hat keine unsichtbare Uhr.",
+        "text": "Pfiff heftet eure Abschriften an die Fallwand. Erst wenn du so weit bist, geht es weiter; der Nachtzug hat keine unsichtbare Uhr.",
         "choices": [
           {
             "text": "Für jetzt genug."
           }
         ],
         "sets_flags": [
-          "k3a_akt4_done"
+          "k3z_akt4_done"
         ],
         "complete_quests": [
-          "k3a_akt4"
+          "k3z_akt4"
         ],
         "start_quests": [
-          "k3a_akt5"
+          "k3z_akt5"
         ],
         "gives_items": {
           "k3a_leitungspruefer": 1
@@ -163,7 +261,7 @@
         ]
       },
       "k3a_abschluss5_ja": {
-        "text": "Pfiff heftet eure Abschriften an die Fallwand. Erst mit deiner Bestätigung wird die nächste Fahrt vorbereitet; die Untersuchung hat keine unsichtbare Uhr.",
+        "text": "Pfiff heftet eure Abschriften an die Fallwand. Erst wenn du so weit bist, geht es weiter; der Nachtzug hat keine unsichtbare Uhr.",
         "choices": [
           {
             "text": "Für jetzt genug."
@@ -197,16 +295,16 @@
         ]
       },
       "k3a_nachfuellen": {
-        "text": "Pfiff füllt alle drei Kammern kostenlos. Hinter der Schallschleuse erreicht dich kein persönlicher Ruf mehr. Jede Station hält außerdem eine einzelne Notladung bereit. Horchen kostet nie etwas.",
+        "text": "Pfiff schließt die Schallschleuse hinter dir. Der Satz aus dem Zug wird leiser und bricht ab. „Dein Name gehört wieder dir“, sagt er. „Gib ihn nicht noch mal her, nur weil eine Stimme vertraut klingt.“",
         "choices": [
           {
-            "text": "Für jetzt genug."
+            "text": "Danke.",
+            "next": "k3a_start"
           }
         ],
         "clears_flags": [
           "k3a_privatruf_gebunden"
-        ],
-        "signal": "fill"
+        ]
       },
       "k3r_starling": {
         "text": "Pfiff senkt die Stimme. „Ein Mann in hellem Mantel ist vor Wochen mit dem letzten Zug durch. Er hat nichts bezahlt, und der Schalter hat ihn trotzdem durchgelassen. Die Alten unten im Bruch sagen, es gibt da einen, der war schon vor den Städten da. Der Alte unter dem Fels, sagen sie, und mehr Namen hat er nicht. Wer ihm dient, den rührt man nicht an. Wenn du deinen Starling willst, musst du stärker sein als das, was ihn trägt.“",
@@ -219,6 +317,46 @@
         "sets_flags": [
           "k3r_gott_gehoert"
         ]
+      },
+      "k3z_einstieg": {
+        "text": "Pfiff stellt den Becher ab. „Jede Nacht fährt ein schwarzer Schichtzug durch das stillgelegte Gelände. Er hält an Haltestellen, die es seit siebzig Jahren nicht mehr gibt, und Leute steigen ein, die morgens mit Kalk an den Stiefeln zurückkommen.“ Er schiebt ein Billett über den Tisch. Altes Papier, frischer Stempel, und vorn steht dein Name. „Das lag heute früh im Schalter. Der Schalter hat keine Billette mehr. Mit deinem Starling hat das nichts zu tun, glaube ich. Aber es ist deine Fahrkarte.“",
+        "choices": [
+          {
+            "text": "Ich sehe mir das an.",
+            "next": "k3z_einstieg_ja"
+          },
+          {
+            "text": "Später. Ich habe anderes zu tun.",
+            "next": "k3a_start"
+          }
+        ]
+      },
+      "k3z_einstieg_ja": {
+        "text": "„Dann fang am Endbahnhof an“, sagt Pfiff. „Nellie am Schalter, das Depot, der Arbeiterbogen. Ich höre gern zu, wenn du zurückkommst. Und keine Eile: Der Zug wartet auf Antworten, nicht auf die Uhr.“",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k3z_aktiv"
+        ],
+        "start_quests": [
+          "k3z_akt1"
+        ]
+      },
+      "k3a_signal_fuellen": {
+        "text": "Pfiff füllt alle drei Kammern kostenlos. Hinter der Schallschleuse erreicht dich kein persönlicher Ruf mehr.",
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "k3a_start"
+          }
+        ],
+        "clears_flags": [
+          "k3a_privatruf_gebunden"
+        ],
+        "signal": "fill"
       }
     }
   },
@@ -1732,7 +1870,7 @@
             "text": "Für jetzt genug."
           }
         ],
-        "encounter": "schwellenhund"
+        "combat": "schwellenhund"
       },
       "k3a_24_horchen_sieg": {
         "text": "Nach dem Kampf wird der Zugang frei. Das Suchlicht wendet sich zur leeren Rampe. Du birgst die Walze, zwischen den ruhenden Schwellen.",
@@ -2293,7 +2431,7 @@
             "text": "Für jetzt genug."
           }
         ],
-        "encounter": "vorhauer"
+        "combat": "vorhauer"
       },
       "k3a_33_horchen_sieg": {
         "text": "Nach dem Kampf wird der Zugang frei. Der Vorhauer beendet die alte Schlagfolge. Sein Steinleib weicht vor dem Ausfahrtssignal zur Seite.",
@@ -2875,7 +3013,7 @@
         ]
       },
       "k3a_43_schluss": {
-        "text": "Der Weg zu Sequenz 4 kann über eine selbst erzeugte Antwort führen, nicht über den Besitz einer fremden Stimme.\n\nDu schreibst Hedda Quists Namen neben den Vermerk. Formeln, Zutaten und Prüfungen bleiben ihre eigene Untersuchung; die Hauptakte verlangt keine davon.",
+        "text": "Der Weg zu Sequenz 4 kann über eine selbst erzeugte Antwort führen, nicht über den Besitz einer fremden Stimme.\n\nDu schreibst Hedda Quists Namen neben den Vermerk. Formeln, Zutaten und Prüfungen bleiben ihre eigene Untersuchung; der Nachtzug verlangt keine davon.",
         "choices": [
           {
             "text": "Den Befund festhalten.",
@@ -2884,7 +3022,7 @@
         ]
       },
       "k3a_43_festhalten": {
-        "text": "Du schreibst Hedda Quists Namen neben den Vermerk. Formeln, Zutaten und Prüfungen bleiben ihre eigene Untersuchung; die Hauptakte verlangt keine davon.",
+        "text": "Du schreibst Hedda Quists Namen neben den Vermerk. Formeln, Zutaten und Prüfungen bleiben ihre eigene Untersuchung; der Nachtzug verlangt keine davon.",
         "choices": [
           {
             "text": "Zur Untersuchung zurück.",
@@ -3404,7 +3542,7 @@
             "text": "Für jetzt genug."
           }
         ],
-        "encounter": "vielrufer"
+        "combat": "vielrufer"
       },
       "k3a_52_horchen_sieg": {
         "text": "Nach dem Kampf wird der Zugang frei. Du schließt den Eingang und öffnest sechs Rückwege einzeln. Der Vielrufer verliert seine gemeinsame Antwort, die Leitungen bleiben getrennt.",
@@ -3566,7 +3704,7 @@
             "text": "Für jetzt genug."
           }
         ],
-        "encounter": "gallowmere"
+        "combat": "gallowmere"
       },
       "k3a_gallowmere_sieg": {
         "text": "Der Entwerter fällt auf den Bahnsteig. Gallowmeres Stimme bleibt an der Schwelle zurück, doch sie kann dir den Weg nicht mehr versperren.",
@@ -3774,7 +3912,7 @@
               "k3a_52_d"
             ],
             "hide_if_flags": [
-              "kapitel3_done"
+              "k3a_akt5_done"
             ]
           },
           {
@@ -3782,13 +3920,13 @@
             "next": "k3a_urteil_stilllegung",
             "requires_flags": [
               "k3a_lebende_draussen",
-              "k3a_akt4_done"
+              "k3z_akt4_done"
             ],
             "requires_conclusions": [
               "k3a_44_d"
             ],
             "hide_if_flags": [
-              "kapitel3_done"
+              "k3a_akt5_done"
             ]
           },
           {
@@ -3797,27 +3935,27 @@
             "requires_flags": [
               "k3a_lebende_draussen",
               "k3a_anker_einwilligung",
-              "k3a_akt4_done"
+              "k3z_akt4_done"
             ],
             "requires_conclusions": [
               "k3a_43_d",
               "k3a_52_d"
             ],
             "hide_if_flags": [
-              "kapitel3_done"
+              "k3a_akt5_done"
             ]
           },
           {
             "text": "Die Schicht ist vollzählig",
             "next": "k3a_urteil_vollzaehlig",
             "requires_flags": [
-              "k3a_akt4_done"
+              "k3z_akt4_done"
             ],
             "requires_conclusions": [
               "k3a_44_d"
             ],
             "hide_if_flags": [
-              "kapitel3_done"
+              "k3a_akt5_done"
             ]
           },
           {
@@ -3842,7 +3980,7 @@
               "k3a_52_d"
             ],
             "hide_if_flags": [
-              "kapitel3_done"
+              "k3a_akt5_done"
             ]
           },
           {
@@ -3868,13 +4006,13 @@
             "next": "k3a_urteil_stilllegung_ja",
             "requires_flags": [
               "k3a_lebende_draussen",
-              "k3a_akt4_done"
+              "k3z_akt4_done"
             ],
             "requires_conclusions": [
               "k3a_44_d"
             ],
             "hide_if_flags": [
-              "kapitel3_done"
+              "k3a_akt5_done"
             ]
           },
           {
@@ -3901,14 +4039,14 @@
             "requires_flags": [
               "k3a_lebende_draussen",
               "k3a_anker_einwilligung",
-              "k3a_akt4_done"
+              "k3z_akt4_done"
             ],
             "requires_conclusions": [
               "k3a_43_d",
               "k3a_52_d"
             ],
             "hide_if_flags": [
-              "kapitel3_done"
+              "k3a_akt5_done"
             ]
           },
           {
@@ -3933,13 +4071,13 @@
             "text": "Dieses Ende endgültig bestätigen.",
             "next": "k3a_urteil_vollzaehlig_ja",
             "requires_flags": [
-              "k3a_akt4_done"
+              "k3z_akt4_done"
             ],
             "requires_conclusions": [
               "k3a_44_d"
             ],
             "hide_if_flags": [
-              "kapitel3_done"
+              "k3a_akt5_done"
             ]
           },
           {

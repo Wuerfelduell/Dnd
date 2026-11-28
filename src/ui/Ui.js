@@ -1,5 +1,5 @@
-import { getLang, setLang, NAME_MAX } from '../core/I18n.js';
-import { HOCH_SEQ1_VERSIEGELT } from '../data/seqHoch.js';
+import { getLang, setLang, NAME_MAX, tr } from '../core/I18n.js';
+import { HOCH_SEQ1_VERSIEGELT, SEQ1_VERZICHT_TEXT } from '../data/seqHoch.js';
 import { TIER_KAMPF } from '../core/Tiere.js';
 import { NEWSPAPERS } from '../data/lore.js';
 import { uiSound, worldSound, sudZutatVariant, sudSounds, ruleBlockSound } from '../core/sounds.js';
@@ -11,7 +11,8 @@ import { FAIL_PCT, FAIL_UNRUHE, LATERNEN, LAMPENOEL, KOKON_FAEDEN, SUD_MIN_SEC }
 import { SPINNENFADEN } from '../data/seq5.js';
 import { SUD_MAX_ZUTATEN, LEERES_GEFAESS, sudEffectText } from '../data/sude.js';
 import { CARRY_PER_STEP } from '../core/GameState.js';
-import { GEAR_SLOT_NAMES } from '../core/Gear.js';
+import { GEAR_SLOT_NAMES, GEAR_SET_NAMES } from '../core/Gear.js';
+import { vergleichWert } from '../core/Vergleich.js';
 import { isPrecise, AOE_DMG_MULT, SKILLS } from '../core/Combat.js';
 import { lootList, itemRarity, RARITY_NAMES, lootPreview, chanceWord, hiddenLoot } from '../core/Loot.js';
 import {
@@ -31,6 +32,7 @@ import { STATION_NAMES, DIRECTION_NAMES } from '../data/k3Ruf.js';
 import { RITUAL_ART, artCss } from '../world/ritualArt.js';
 import { isSolved, knownPeople, journalQuestVisible } from '../core/journal.js';
 import { canHurry, hurryCost, travelSafe, travelFast, afterHurryFight, travelDestinations, cityOf } from '../core/Travel.js';
+import { beastPlaces, beastSchwaechen, beastBase, BEAST_STUFEN, stadtVon } from '../core/Bestiar.js';
 import { questTarget, leadTarget, personPlaces, advice, aktuellesZiel } from '../core/Guide.js';
 import { WETTER, NEBELNACHT, SEASON_NAMES } from '../core/Wetter.js';
 import { installTestmodus, testPauseButton, bindTestPause, closeTestReise } from './TestUi.js';
@@ -38,6 +40,8 @@ import { RIVALE_REGELN, rivaleName } from '../data/rivale.js';
 import { PVG_UI } from '../data/pfadviertelGeschichte.js';
 import { hatNarbe, NARBE } from '../core/Narbe.js';
 import { p2View } from '../core/Split.js';
+import { showTitleMenu, showPauseMenu, titleKey } from './TitleMenu.js';
+import { GROLL_WIRKUNG as LAUNE_GROLL_WIRKUNG } from '../data/launen.js';
 import { aufstiegHinweise, wichtigeOrte, wegbeschreibung, zielName } from '../data/aufstiegHinweise.js';
 
 /** Spielstand für Icons, die vom Spieler abhängen (Relikt des Verfalls: Bild nach seiner stärksten Eigenschaft, Codex DP). */
@@ -62,6 +66,28 @@ const corruptionHtml = (s, id) => {
 };
 const artifactEffectsHtml = (it) => `<span class="arteffects">${(it.boons ?? []).map((x) => `<span class="boon"><i class="artmark plus"></i>${esc(x.text)}</span>`).join('')}${(it.curses ?? []).map((x) => `<span class="curse"><i class="artmark minus"></i>${esc(x.text)}</span>`).join('')}</span>`;
 /**
+ * Launische Artefakte (core/Launen.js): Bindung, Wesen, heutige Forderung und Groll eines mitgeführten Artefakts.
+ * Jedes Stück Text steht in einem eigenen Knoten, damit die Übersetzung (I18n) Satz für Satz greift.
+ */
+const fmtX = (f) => String(Math.round(f * 100) / 100).replace('.', ',');
+const launeHtml = (s, id) => {
+  const info = s.launeInfo?.(id);
+  if (!info) return '';
+  const { stufe, groll, wesen, bisNaechste, faktor, forderung } = info;
+  const parts = [`<span class="laune-stufe s${stufe.stufe}">Bindung: ${esc(stufe.name)}</span>`];
+  if (bisNaechste) parts.push(`<span class="muted">noch ${bisNaechste.tage} Spieltage bis ${esc(bisNaechste.name)}</span>`);
+  if (faktor.boon !== 1) parts.push(faktor.boon > 0 ? `<span class="${faktor.boon > 1 ? 'boon' : 'curse'}">Vorteile ×${fmtX(faktor.boon)}</span>` : '<span class="curse">Vorteile ruhen</span>');
+  if (faktor.curse !== 1) parts.push(`<span class="curse">Flüche ×${fmtX(faktor.curse)}</span>`);
+  const lines = [parts.join(' · ')];
+  if (stufe.stufe >= 1 || forderung.length) lines.push(`<span class="muted">Wesen: ${esc(wesen.name)}</span>${forderung.length ? '' : ` · <span class="muted">${esc(wesen.text)}</span>`}`);
+  for (const f of forderung) {
+    const label = f.art === 'pfad' ? 'Pfad' : 'Heute';
+    lines.push(`<span class="${f.done ? 'boon' : 'curse'}">${label}: ${f.have}/${f.need} ${esc(f.will)}${f.done ? ' ✓' : ''}</span>`);
+  }
+  if (groll.groll > 0) lines.push(`<span class="curse">Groll: ${esc(groll.name)}</span> · <span class="curse">${esc(LAUNE_GROLL_WIRKUNG[groll.groll])}</span>`);
+  return `<span class="laune">${lines.map((l) => `<span class="laune-zeile">${l}</span>`).join('')}</span>`;
+};
+/**
  * Was ein Angebot taugt, bevor man zahlt (Treffen, Läden, Fasserin): Segen und Flüche von Artefakten
  * und Kleidung, Pfad und Sequenz von Formeln, Angriff von Waffen (core/Auction.js offerInfo).
  */
@@ -72,7 +98,23 @@ const offerHtml = (s, id) => {
   const slot = it.kind === 'gear' ? `<span class="muted">${GEAR_SLOT_NAMES[it.slot]}</span>` : '';
   const notes = info.notes.map((t) => `<span class="muted note">${esc(t)}</span>`).join('');
   const effects = info.boons.length || info.curses.length ? artifactEffectsHtml(it) : '';
-  return slot || notes || effects ? `<span class="offerinfo">${slot}${notes}${effects}</span>` : '';
+  const cmp = vergleichHtml(s, id);
+  return slot || notes || effects || cmp ? `<span class="offerinfo">${slot}${notes}${effects}${cmp}</span>` : '';
+};
+/**
+ * Ausrüstungsvergleich (core/Vergleich.js): je Wert ein grüner Pfeil nach oben (besser) oder ein roter nach unten
+ * (schlechter) gegenüber dem, was der schauende Spieler gerade trägt. Wörter und Zahlen in eigenen Spans (Wörterbuch).
+ */
+const vergleichHtml = (s, id) => {
+  const v = s.vergleich?.(id);
+  if (!v) return '';
+  const head = v.gegen ? `<span class="muted">statt</span> <strong>${esc(v.gegen)}</strong>`
+    : v.art === 'dazu' ? '<span class="muted">Kommt zu deinen Artefakten dazu</span>' : '<span class="muted">Nichts angelegt</span>';
+  const pfeil = (gut) => `<i class="cmppfeil ${gut ? 'hoch' : 'runter'}"></i>`;
+  const rows = v.zeilen.map((z) => (z.text
+    ? `<span class="cmp ${z.besser ? 'gut' : 'schlecht'}">${pfeil(z.besser)}${z.weg ? '<span>fällt weg:</span> ' : ''}<span>${esc(z.label)}</span></span>`
+    : `<span class="cmp ${z.besser ? 'gut' : 'schlecht'}">${pfeil(z.besser)}<span>${esc(z.label)}</span> <b>${vergleichWert(z.key, z.neu)}</b> <span class="muted">(</span><span class="muted">vorher</span> <span class="muted">${vergleichWert(z.key, z.alt)}</span><span class="muted">)</span></span>`)).join('');
+  return `<span class="vergleich">${head}${rows || '<span class="cmp muted">gleichwertig</span>'}</span>`;
 };
 /** Ausrüstung (F_07): Figur mit vier Plätzen; ein Klick auf ein angelegtes Stück legt es ab. Plätze in Pixeln des Bogens. */
 const DOLL_SLOTS = [['hut', 69, 4], ['amulett', 69, 30], ['mantel', 69, 55], ['waffe', 73, 82]];
@@ -89,6 +131,20 @@ const paperDoll = (s) => {
   const worn = [...DOLL_SLOTS.map(([slot]) => slot).filter((x) => x !== 'waffe').map((slot) => s.gear?.[slot]).filter((id) => id && s.itemCount(id))];
   const list = worn.length ? worn.map((id) => `<li>${itemIcon(id)}<strong>${esc(s.item(id).name)}</strong>${artifactEffectsHtml(s.item(id))}</li>`).join('') : '<li class="muted">Noch nichts angelegt. Hüte, Mäntel und Amulette wirken nur, solange du sie trägst.</li>';
   return `<div class="paperdoll"><div class="doll">${uiSprite('equip', 'doll', k)}${slots}</div><ul class="worn">${list}</ul></div>`;
+};
+/** Seb: Ausrüstungs-Sets (Kampf/Tragen) unter der Figur: anlegen, speichern, Taste zum Wechseln. */
+const gearSetsHtml = (s) => {
+  const sets = s.gearSetList();
+  const keys = s.acting === 2 ? '<span class="key">Ziffernblock +</span> / <span class="key">Select</span>' : '<span class="key">R</span>';
+  const rows = GEAR_SET_NAMES.map((name, i) => {
+    const set = sets[i];
+    const parts = set ? ['weapon', 'hut', 'mantel', 'amulett'].map((k) => set[k]).filter(Boolean) : [];
+    const icons = parts.length ? parts.map((id) => `<span class="gs-part${s.itemCount(id) ? '' : ' missing'}" title="${esc(s.item(id)?.name ?? id)}${s.itemCount(id) ? '' : ' (nicht dabei)'}">${itemIcon(id)}</span>`).join('') : `<span class="muted">${set ? 'nichts angelegt' : 'leer'}</span>`;
+    const worn = s.gearSetWorn(i);
+    return `<li class="gearset${worn ? ' worn' : ''}"><strong>${esc(name)}</strong>${worn ? ' <span class="badge likely">angelegt</span>' : ''}<span class="gs-parts">${icons}</span>
+      <span class="gs-btns">${set && !worn ? `<button class="small" data-gearset-apply="${i}">Anlegen</button>` : ''}<button class="small" data-gearset-save="${i}" title="Merkt sich Waffe, Hut, Mantel und Amulett, die du gerade trägst">Speichern</button></span></li>`;
+  }).join('');
+  return `<div class="gearsets"><div class="gs-head"><strong>Ausrüstungs-Sets</strong> <span class="muted">Wechseln mit ${keys}</span></div><ul>${rows}</ul></div>`;
 };
 const emblem = (pid, size = 16) => `<img class="emblem" src="${pathwayEmblemUrl(pid, size)}" alt="" width="${size}" height="${size}" onerror="this.remove()">`;
 /** 16x16-Zelle aus einem Icon-Atlas (Fähigkeiten: 7 Spalten, Zustände: 12 Spalten). */
@@ -340,9 +396,11 @@ const CROPS = {
   'equip-slot': ['equip', [112, 0, 20, 20]], 'equip-filled': ['equip', [112, 32, 20, 20]],
   // Paket AE: Zeitungsseite (9-Slice, 16px-Ränder) und Kopfleisten der beiden Blätter
   'paper-page': ['aezeitung', [0, 0, 48, 48]], 'paper-kopf-kurier': ['aezeitung', [0, 48, 160, 24]], 'paper-kopf-bote': ['aezeitung', [160, 48, 160, 24]],
+  // Hauptmenü: Spielstand-Rahmen (DM, 9-Slice) und Schieberegler (AE: Schiene, Füllung, Knopf)
+  'save-frame': ['spielrahmen', [0, 0, 48, 48]], 'regler-rail': ['regler', [0, 0, 48, 16]], 'regler-fill': ['regler', [48, 0, 48, 16]], 'regler-knob': ['regler', [96, 0, 16, 16]],
 };
 function cropSkins(root) {
-  const sheets = { ...Object.fromEntries(Object.entries(UI_SHEETS).map(([k, [p]]) => [k, p])), logstrips: 'ui/C_07_log_strips.png' };
+  const sheets = { ...Object.fromEntries(Object.entries(UI_SHEETS).map(([k, [p]]) => [k, p])), logstrips: 'ui/C_07_log_strips.png', spielrahmen: 'ui/spielstand_rahmen.png', regler: 'ui/AE_regler.png' };
   const byFile = {};
   for (const [name, [sheet, r]] of Object.entries(CROPS)) (byFile[sheets[sheet]] ??= []).push([name, r]);
   for (const [path, list] of Object.entries(byFile)) {
@@ -373,6 +431,20 @@ const hudMeter = (prefix, frac, k) => {
   if (f < 1 && px === HUD_FILL_W) px = HUD_FILL_W - 1; // angekratzt: sichtbar weniger als voll
   const clip = px >= HUD_FILL_W ? HUD_BAR_W : HUD_FILL_X + px;
   return `<span class="hudmeter">${uiSprite('hud', `${prefix}5`, k)}<span class="hudclip" style="width:${clip * k}em">${uiSprite('hud', `${prefix}0`, k)}</span></span>`;
+};
+/** Wie hudMeter, aber die Füllung liegt allein (ohne Rahmenkappe) im Clip, damit ein CSS-Filter nur sie umfärbt (Unruhe). */
+const tintMeter = (prefix, frac, k) => {
+  const f = Math.max(0, Math.min(1, Number(frac) || 0));
+  let px = Math.round(f * HUD_FILL_W);
+  if (f > 0 && px === 0) px = 1;
+  return `<span class="hudmeter">${uiSprite('hud', `${prefix}5`, k)}<span class="hudclip tint" style="left:${HUD_FILL_X * k}em;top:${2 * k}em;height:${4 * k}em;width:${px * k}em"><span style="display:inline-block;margin:-${2 * k}em 0 0 -${HUD_FILL_X * k}em">${uiSprite('hud', `${prefix}0`, k)}</span></span></span>`;
+};
+/** Welt-HUD (Seb 2026-11-28): dieselben Leisten wie im Kampf, ohne Wort und Zahl; der Wert steht im Tooltip. */
+const setHudBar = (el, prefix, frac, title, low = false) => {
+  if (!el) return;
+  el.innerHTML = el.classList.contains('unruhe') ? tintMeter(prefix, frac, 1 / 8) : hudMeter(prefix, frac, 1 / 8);
+  el.classList.toggle('low', low);
+  el.title = title;
 };
 const pctStep = (frac, n) => Math.max(0, Math.min(n - 1, Math.round((1 - Math.max(0, Math.min(1, frac))) * (n - 1))));
 const moneyIcon = (n) => `<img class="coin" src="${moneyIconUrl(n)}" alt="" width="16" height="16" onerror="this.remove()">`;
@@ -413,7 +485,7 @@ const ITEM_CATS = [
 ];
 
 export class Ui {
-  constructor(root, state, { onNewGame, onContinue, slots, activeSlot, onDeleteSlot }) {
+  constructor(root, state, { onNewGame, onContinue, slots, activeSlot, onDeleteSlot, onQuitToTitle }) {
     this.root = root;
     root.style.setProperty('--artui', `url(${new URL(ARTIFACT_UI_URL, document.baseURI).href})`);
     for (const [v, path] of Object.entries(UI_SKINS)) root.style.setProperty(`--${v}`, `url(${new URL(SPRITE_BASE + path, document.baseURI).href})`);
@@ -422,6 +494,7 @@ export class Ui {
     iconState = state;
     this.onNewGame = onNewGame;
     this.onContinue = onContinue;
+    this.onQuitToTitle = onQuitToTitle; // Pausemenü: speichern und zurück ins Hauptmenü
     this.slots = slots;
     this.activeSlot = activeSlot;
     this.onDeleteSlot = onDeleteSlot;
@@ -437,12 +510,12 @@ export class Ui {
       <div class="hud">
         <div class="hud-left">
           <div class="place"></div>
-          <div class="wetter"></div>
-          <div class="meter life"><span>Leben</span><div class="bar"><div class="lfill"></div></div><em class="hpnum"></em></div>
-          <div class="meter"><span>Nerven</span><div class="bar"><div class="fill"></div></div></div>
+          <div class="pname p1name hidden"><img class="phead" alt="" width="12" height="12" src="${p2HeadUrl('player')}"><b>Spieler 1</b><span class="pseq"></span></div>
+          <div class="meter hbar"><span class="hudbar hp p1hp"></span></div>
+          <div class="meter hbar"><span class="hudbar nerves p1nv"></span></div>
           <div class="meter honor"><span class="rank"></span><div class="bar"><div class="hfill"></div></div><span class="repbar"></span></div>
           <div class="meter digest hidden"><span>Verdaut</span><div class="bar"><div class="dfill"></div></div><em class="dnum"></em></div>
-          <div class="meter unruhe hidden"><span>Unruhe</span><div class="bar"><div class="ufill"></div></div></div>
+          <div class="meter hbar unruhe hidden"><span class="hudbar unruhe p1uf"></span></div>
           <div class="money"></div>
           <div class="overload hidden"></div>
           <div class="fahndung hidden"></div>
@@ -452,18 +525,19 @@ export class Ui {
         </div>
         <div class="hud-right">
           <div class="hudbtns">
-            <button class="hudbtn" data-hud="notebook">${touchIcon('notizbuch')}<span class="key">J</span> Notizbuch</button>
+            <button class="hudbtn touch-only" data-hud="notebook">${touchIcon('notizbuch')}<span class="key">J</span> Notizbuch</button>
             <button class="hudbtn" data-hud="inventory">${touchIcon('inventar')}<span class="key">I</span> Inventar</button>
-            <button class="hudbtn" data-hud="pathway">${touchIcon('faehigkeit')}<span class="key">P</span> Pfad</button>
-            <button class="hudbtn" data-hud="vision">${touchIcon('geistsicht')}<span class="key">Q</span> Geistsicht</button>
+            <button class="hudbtn touch-only" data-hud="pathway">${touchIcon('faehigkeit')}<span class="key">P</span> Pfad</button>
+            <button class="hudbtn touch-only" data-hud="vision">${touchIcon('geistsicht')}<span class="key">Q</span> Geistsicht</button>
             <button class="hudbtn" data-hud="menu">${setIcon('zahnrad', 'touch-only')}<span class="key">Esc</span> Menü</button>
           </div>
           <div class="hud-p2 hidden">
-            <div class="p2name"><img class="p2head" alt="" width="12" height="12">Spieler 2 <span class="p2state"></span><span class="muted p2weapon"></span></div>
-            <div class="meter life"><span>Leben</span><div class="bar"><div class="p2hp"></div></div><em class="p2hpnum"></em></div>
-            <div class="meter"><span>Nerven</span><div class="bar"><div class="p2nv"></div></div></div>
-            <div class="p2path hidden"></div>
-            <div class="p2load hidden"></div>
+            <div class="pname p2name"><img class="phead p2head" alt="" width="12" height="12"><b>Spieler 2</b><span class="p2state"></span><span class="pseq p2seq"></span></div>
+            <div class="meter hbar"><span class="hudbar hp p2hp"></span></div>
+            <div class="meter hbar"><span class="hudbar nerves p2nv"></span></div>
+            <div class="meter digest p2digest hidden"><span>Verdaut</span><div class="bar"><div class="dfill p2dfill"></div></div><em class="p2dnum"></em></div>
+            <div class="meter hbar unruhe p2unruhe hidden"><span class="hudbar unruhe p2uf"></span></div>
+            <div class="overload p2load hidden"></div>
           </div>
         </div>
         <div class="uhr"></div>
@@ -716,15 +790,14 @@ export class Ui {
   }
 
   /** Tag/Nacht und Wetter (core/Wetter.js) unter dem Ortsnamen; Wirkung im Kampf als Tooltip. */
+  /** Seb 2026-11-28: Tag/Wetter stehen nur noch in der Uhr; die Wirkung des Wetters zeigt ihr Tooltip. */
   updateWetter() {
-    const el = this.$('.wetter');
+    const el = this.$('.uhr');
     const s = this.state;
     if (!el || !s.wetterHud) return;
     const nn = s.nebelnacht();
     const w = WETTER[nn ? 'nebel' : s.wetter()];
-    el.innerHTML = nn ? `<span>${w.icon}</span> <span>Nebelnacht</span>` : `<span>${s.isNight() ? 'Nacht' : 'Tag'}</span> · <span>${w.icon}</span> <span>${w.name}</span>`; // einzelne Wörter für das Wörterbuch
-    el.classList.toggle('nebelnacht', nn);
-    el.title = nn ? NEBELNACHT.wirkung : WETTER[s.wetter()].wirkung;
+    el.title = `${nn ? 'Nebelnacht' : w.name}: ${nn ? NEBELNACHT.wirkung : w.wirkung}`;
   }
 
   onSceneReady(scene) {
@@ -775,11 +848,9 @@ export class Ui {
     el.classList.toggle('open', !!st?.open);
     if (!st) return;
     const g = st.open ?? st.next;
-    const [, inv] = ZIRKEL_ICONS[g.id] ?? [];
     const frac = st.open ? (g.end - this.state.playTime) / Math.max(1, g.end - g.start) : 1;
     const timer = st.open ? atlasIcon(ZIRKEL_URL, 24 + Math.min(7, Math.max(0, Math.floor((1 - frac) * 8))), 8) : '';
-    const sInv = S_ZIRKEL[g.id] && regionIcon(S_ZIRKEL_URL, S_ZIRKEL[g.id].invite, 128, 64, 'invite', 1 / 16);
-    el.innerHTML = `${inv !== undefined ? atlasIcon(ZIRKEL_URL, 16 + inv, 8) : sInv || (st.open ? '◆' : '◇')}${timer} ${esc(st.text)}`;
+    el.innerHTML = `${timer}${timer ? ' ' : ''}${esc(st.text)}`; // Seb 2026-11-28: kein Einladungs-Symbol mehr davor, nur die Uhr, solange offen
   }
 
   /** HUD-Hinweis nur bei Überlast, damit die Anzeige sonst ruhig bleibt. */
@@ -833,11 +904,8 @@ export class Ui {
       this.$('.meter.digest .dfill').classList.toggle('full', d >= 100);
       this.$('.dnum').textContent = `${s.pathway.seq <= 6 && d < 100 ? fmtDigest(s.pathway.digestion) : d} %`;
     }
-    const el = this.$('.meter.unruhe');
-    el.classList.toggle('hidden', !s.isBeyonder() && s.unruhe <= 0);
-    const fill = this.$('.ufill');
-    fill.style.width = `${s.unruhe}%`;
-    fill.classList.toggle('low', s.unruhe >= 60);
+    this.$('.meter.unruhe').classList.toggle('hidden', !s.isBeyonder() && s.unruhe <= 0);
+    setHudBar(this.$('.p1uf'), 'nerves', s.unruhe / 100, `Unruhe ${Math.round(s.unruhe)}`, s.unruhe >= 60);
   }
 
   isBlocking() {
@@ -885,19 +953,14 @@ export class Ui {
 
   updateComposure(v) {
     if (this.state.acting === 2) return;
-    const fill = this.$('.fill');
-    const pct = (v / this.state.maxComposure()) * 100;
-    fill.style.width = `${pct}%`;
-    fill.classList.toggle('low', pct < 30);
+    const max = this.state.maxComposure();
+    setHudBar(this.$('.p1nv'), 'nerves', v / max, `Nerven ${Math.round(v)}/${max}`, v / max < 0.3);
   }
 
   updateHp() {
     const s = this.state;
     if (s.acting === 2) return;
-    const fill = this.$('.lfill');
-    fill.style.width = `${(s.hp / s.maxHp) * 100}%`;
-    fill.classList.toggle('low', s.hp / s.maxHp < 0.3);
-    this.$('.hpnum').textContent = `${s.hp}/${s.maxHp}`;
+    setHudBar(this.$('.p1hp'), 'hp', s.hp / s.maxHp, `Leben ${s.hp}/${s.maxHp}`, s.hp / s.maxHp < 0.3);
   }
 
   /** HUD von Spieler 2 (rechts oben), nur wenn er mitspielt. */
@@ -907,30 +970,43 @@ export class Ui {
     const on = this.state.hasP2();
     el.classList.toggle('hidden', !on);
     this.root.classList.toggle('koop', on);
+    this.$('.p1name')?.classList.toggle('hidden', !on);
     if (!on) return;
     const v = this.state.playerView(2);
     const head = this.$('.p2head');
     const look = this.state.p2Look();
     if (head && head.dataset.look !== look) { head.dataset.look = look; head.src = p2HeadUrl(look); }
-    const hp = this.$('.p2hp');
-    hp.style.width = `${(v.hp / v.maxHp) * 100}%`;
-    hp.classList.toggle('low', v.hp / v.maxHp < 0.3);
-    this.$('.p2hpnum').textContent = `${v.hp}/${v.maxHp}`;
-    this.$('.p2nv').style.width = `${(v.composure / v.maxComposure) * 100}%`;
-    this.$('.p2weapon').textContent = v.weapon.name;
+    setHudBar(this.$('.p2hp'), 'hp', v.hp / v.maxHp, `Leben ${v.hp}/${v.maxHp}`, v.hp / v.maxHp < 0.3);
+    setHudBar(this.$('.p2nv'), 'nerves', v.composure / v.maxComposure, `Nerven ${Math.round(v.composure)}/${v.maxComposure}`, v.composure / v.maxComposure < 0.3);
+    this.$('.p2name').title = v.weapon.name;
     // Paket BU: Zustand als Symbol (im Kampf, gebunden, Anspruch offen, sonst wartet/geht mit)
     const anspruch = Object.values(this.state.claims ?? {}).some((e) => e?.[2] === 'offen');
     const zustand = this.combatScene ? 'im_kampf' : anspruch ? 'anspruch_offen' : this.isBlocking() ? 'wartet' : null;
     const st = this.$('.p2state');
     if (st && st.dataset.z !== (zustand ?? '')) { st.dataset.z = zustand ?? ''; st.innerHTML = zustand ? uiSprite('koop2', `p2_${zustand}`, 1 / 12, 'p2sym', zustand.replace('_', ' ')) : ''; }
 
-    const path = this.$('.p2path');
-    path.classList.toggle('hidden', !v.pathway && v.unruhe <= 0);
-    if (v.pathway) path.innerHTML = `<span style="color:${v.pathway.color}">Seq ${v.pathway.seq} ${esc(v.pathway.seqName)}</span> · ${v.pathway.seq <= 6 && v.pathway.digestion < 100 ? fmtDigest(v.pathway.digestion) : Math.floor(v.pathway.digestion)} % · <span class="${v.unruhe >= 60 ? 'curse' : ''}">Unruhe ${Math.round(v.unruhe)}</span>`;
-    else if (v.unruhe > 0) path.innerHTML = `<span class="${v.unruhe >= 60 ? 'curse' : ''}">Unruhe ${Math.round(v.unruhe)}</span>`;
+    // Seb 2026-11-28: beide Spieler zeigen dieselben Zeilen im selben Stil (Name mit Sequenz, Leben, Nerven, Verdaut, Unruhe, Überladen)
+    const seqText = (pw) => (pw ? `<span style="color:${pw.color}">Seq ${pw.seq} ${esc(pw.seqName)}</span>` : '');
+    const p1 = this.$('.p1name');
+    p1.classList.remove('hidden');
+    const v1 = this.state.playerView(1);
+    p1.querySelector('.pseq').innerHTML = seqText(v1.pathway);
+    p1.title = v1.weapon.name;
+    this.$('.p2seq').innerHTML = seqText(v.pathway);
+    const dm = this.$('.p2digest');
+    dm.classList.toggle('hidden', !v.pathway);
+    if (v.pathway) {
+      const d = Math.floor(v.pathway.digestion);
+      const df = this.$('.p2dfill');
+      df.style.width = `${d}%`;
+      df.classList.toggle('full', d >= 100);
+      this.$('.p2dnum').textContent = `${v.pathway.seq <= 6 && d < 100 ? fmtDigest(v.pathway.digestion) : d} %`;
+    }
+    this.$('.p2unruhe').classList.toggle('hidden', !v.pathway && v.unruhe <= 0);
+    setHudBar(this.$('.p2uf'), 'nerves', v.unruhe / 100, `Unruhe ${Math.round(v.unruhe)}`, v.unruhe >= 60);
     const load = this.$('.p2load');
     load.classList.toggle('hidden', !v.overloaded);
-    if (v.overloaded) load.textContent = `Überladen · ${v.carry}`;
+    if (v.overloaded) load.innerHTML = `${uiSprite('loot', 'full', 1 / 16, 'toastico')}Überladen · ${esc(v.carry)}`;
   }
 
   // --- Schnellleiste der Welt-Fähigkeiten -------------------------------------------
@@ -1035,6 +1111,17 @@ export class Ui {
     const r = this.as(() => this.state.useTalent(t.id), n);
     this.toast(`${who}${r.text}`, r.ok ? 'good' : 'warn');
     this.updateTalentBar();
+    return r;
+  }
+
+  /** Seb: Taste R (Spieler 2: Ziffernblock + / Gamepad Select) wechselt zwischen den gespeicherten Ausrüstungs-Sets. */
+  cycleGearSet(n) {
+    if (!this.scene || this.combatScene || this.isBlocking()) return null;
+    if (n === 2 && !this.state.hasP2()) return null;
+    const who = n === 2 ? 'Spieler 2: ' : '';
+    const r = this.as(() => this.state.cycleGearSet(), n);
+    if (r.ok) this.sfx(worldSound('equip'));
+    this.toast(`${who}${r.text}`, r.ok && !r.missing?.length ? 'good' : 'warn');
     return r;
   }
 
@@ -1152,7 +1239,7 @@ export class Ui {
     if (this.modal !== kind) { this.sfx(this.nextOpenSound ?? uiSound(kind)); }
     this.nextOpenSound = null;
     this.modal = kind;
-    this.layer.classList.remove('has-titlescene');
+    this.layer.classList.remove('has-titlescene', 'tm-layer', 'pm-layer');
     this.layer.onpointermove = null;
     this.layer.innerHTML = `<div class="panel ${cls}">${html}</div>`;
     this.setPrompt(null);
@@ -1202,7 +1289,7 @@ export class Ui {
     this.modal = null;
     const by = this.actor; // Splitscreen: Reise oder Kampf danach in der Hälfte dessen, der das Fenster bedient hat
     this.actor = 1;
-    this.layer.classList.remove('has-titlescene');
+    this.layer.classList.remove('has-titlescene', 'tm-layer', 'pm-layer');
     this.layer.onpointermove = null;
     this.layer.innerHTML = '';
     this.blockedUntil = performance.now() + 150;
@@ -1242,113 +1329,72 @@ export class Ui {
     }
   }
 
-  showTitle() {
-    const c = this.state.content;
-    // Drei lokale Speicherplätze; der zuletzt benutzte bestimmt Titelbild und Spielstand-Karte
-    const slots = this.slots();
-    const active = this.activeSlot();
-    const saved = slots.find((x) => x.n === active)?.save ?? null;
-    const save = !!saved;
-    const city = saved?.map ? (c.maps[saved.map]?.city ?? 'kettlegate') : null;
-    const card = city && spielstandUrl(city) ? `<div class="savecard"><img src="${spielstandUrl(city)}" alt="" onerror="this.parentNode.remove()"><span>${esc(c.maps[saved.map]?.name ?? '')}</span></div>` : '';
-    const el = this.open('title', `
-      <h1>${esc(c.title)}</h1>
-      <h2>Ein Mystery in Kettlegate</h2>
-      <div class="build-stamp" style="font-size:9px;opacity:.55">Stand ${esc(typeof __BUILD__ !== 'undefined' ? __BUILD__ : 'dev')}</div>
-      <div class="saveslots">${slots.map(({ n, save: d }) => this.slotRow(n, d, n === active)).join('')}</div>
-      <div class="controls touch-only">
-        <div>Tippen: laufen, sprechen, untersuchen</div>
-        <div>Knöpfe oben rechts: Notizbuch, Menü und mehr</div>
-      </div>
-      <div class="controls no-touch">
-        <div><span class="key">WASD</span> laufen · <span class="key">E</span> sprechen · <span class="key">Q</span> Geistsicht</div>
-        <div><span class="key">J</span> Notizbuch · <span class="key">1</span>–<span class="key">9</span> Fähigkeiten · <span class="key">Esc</span> Menü</div>
-      </div>
-      ${card}
-      <div class="actions center">
-        <button data-act="fullscreen">${this.fullscreenLabel()}</button>
-        ${this.langButton()}
-      </div>`, 'title');
-    this.titleScene(dmTitleLayers(city, { warm: /__warm$/.test(saved?.map ?? '') }) ?? TITLE_LAYERS);
-    el.querySelector('[data-act=fullscreen]').onclick = () => this.toggleFullscreen();
-    this.bindLang(el);
-    // E: zuletzt benutzten Platz fortsetzen (leer: dort neu beginnen) · N: neues Spiel im ersten freien Platz
-    this.titleContinue = save ? () => { this.close(); this.onContinue(active); } : null;
-    const free = slots.find((x) => !x.save)?.n ?? null;
-    this.titleNew = (n = save ? free : active) => {
-      if (n == null) return; // alle Plätze belegt: erst einen löschen oder per Knopf überschreiben
-      this.testArmed = true;
-      this.close();
-      this.onNewGame(n);
-      this.showMessage(c.start.intro_title, c.start.intro, { scene: 'kapitel1_karte', footer: this.touch ? 'Tipp: Im Notizbuch (Knopf oben rechts) siehst du deine Aufträge.' : 'Tipp: Im Notizbuch (J) siehst du deine Aufträge.' });
-    };
-    // Überschreiben und Löschen brauchen einen zweiten Klick
-    const armed = (btn, run) => () => {
-      if (btn.dataset.armed) return run();
-      el.querySelectorAll('[data-armed]').forEach((b) => { delete b.dataset.armed; b.textContent = b.dataset.label; });
-      btn.dataset.armed = '1';
-      btn.textContent = 'Sicher? Nochmal klicken';
-    };
-    el.querySelectorAll('.saveslot').forEach((row) => {
-      const n = Number(row.dataset.slot);
-      const has = !!slots.find((x) => x.n === n)?.save;
-      row.querySelector('[data-act=load]')?.addEventListener('click', () => { this.close(); this.onContinue(n); });
-      const nb = row.querySelector('[data-act=new]');
-      nb.onclick = has ? armed(nb, () => this.titleNew(n)) : () => this.titleNew(n);
-      const db = row.querySelector('[data-act=delete]');
-      if (db) db.onclick = armed(db, () => { this.onDeleteSlot(n); this.showTitle(); });
-    });
-  }
-
-  /** Eine Zeile im Titelmenü: Platz n mit Ort, Sequenz und Spielzeit, dazu Laden / Neu / Löschen. */
-  slotRow(n, d, active) {
-    const c = this.state.content;
-    let info = '<span class="slotinfo muted">leer</span>';
-    if (d) {
-      const ort = c.maps[d.map]?.name ?? '';
-      const pfad = d.pathway?.id ? `<span>${esc(c.pathways?.[d.pathway.id]?.name ?? '')}</span> <span>Seq ${d.pathway.seq}</span>` : '';
-      const min = Math.floor((d.playTime ?? 0) / 60);
-      const zeit = `<span>${Math.floor(min / 60)} Std ${min % 60} Min</span>`;
-      info = `<span class="slotinfo">${ort ? `<span>${esc(ort)}</span> · ` : ''}${pfad ? `${pfad} · ` : ''}${zeit}</span>`;
-    }
-    const btn = (act, label, cls = '') => `<button class="${cls}" data-act="${act}" data-label="${label}">${label}</button>`;
-    return `<div class="saveslot${active ? ' active' : ''}" data-slot="${n}">
-      <span class="slotname">Platz ${n}</span>${info}
-      <span class="slotbtns">${d ? btn('load', 'Laden', active ? 'primary' : '') : ''}${btn('new', 'Neu', d ? '' : (active ? 'primary' : ''))}${d ? btn('delete', 'Löschen') : ''}</span>
-    </div>`;
-  }
+  /** Hauptmenü (src/ui/TitleMenu.js): Kulisse, Schriftzug, Menü mit Spielständen, Koop, Optionen, Mitwirkenden. */
+  showTitle(view = 'main', opts = {}) { showTitleMenu(this, view, opts); }
 
   /**
    * Paket AE: Titelbild in Ebenen hinter dem Titelfenster. Mond, Fenster, Laterne und Regen laufen als Streifen,
    * der Nebel zieht langsam, und die Häuser verschieben sich leicht mit der Maus (Parallax).
    */
-  titleScene(layers = TITLE_LAYERS) {
+  titleScene(layers = TITLE_LAYERS, { extra = '' } = {}) {
     const box = (l) => (l.box ? `left:${(l.box[0] / 480) * 100}%;top:${(l.box[1] / 270) * 100}%;width:${(l.box[2] / 480) * 100}%;height:${(l.box[3] / 270) * 100}%;right:auto;bottom:auto` : '');
-    const layer = (l) => `<div class="tl${l.depth ? ` d${l.depth}` : ''}" style="${box(l)}">${l.drift
-      ? `<div class="drift" style="animation-duration:${l.drift}s"><img src="${l.url}" alt=""><img src="${l.url}" alt=""></div>`
-      : `<img src="${l.url}" alt="" class="${l.frames ? `f${l.frames}` : ''}" style="${l.frames ? `width:${l.frames * 100}%;animation-duration:${l.sec}s` : ''}">`}</div>`;
+    const layer = (l) => `<div class="tl${l.depth ? ` d${l.depth}` : ''}${l.cls ? ` ${l.cls}` : ''}" style="${box(l)}">${l.drift
+      ? `<div class="drift${l.reverse ? ' rev' : ''}" style="animation-duration:${l.drift}s"><img src="${l.url}" alt=""><img src="${l.url}" alt=""></div>`
+      : l.url ? `<img src="${l.url}" alt="" class="${l.frames ? `f${l.frames}` : ''}" style="${l.frames ? `width:${l.frames * 100}%;animation-duration:${l.sec}s` : ''}">` : ''}</div>`;
     const scene = document.createElement('div');
     scene.className = 'titlescene';
-    scene.innerHTML = layers.map(layer).join('');
+    scene.innerHTML = layers.map(layer).join('') + extra;
     // Fehlt eine Ebene, bleibt das alte Titelbild sichtbar
-    scene.querySelector('img')?.addEventListener('load', () => this.layer.classList.add('has-titlescene'), { once: true });
+    scene.querySelector('img')?.addEventListener('load', () => { if (scene.parentNode === this.layer) this.layer.classList.add('has-titlescene'); scene.dataset.ok = '1'; }, { once: true });
+    this.attachTitleScene(scene);
+    return scene;
+  }
+
+  /** Kulisse (wieder) hinter das offene Fenster legen; die Häuser verschieben sich leicht mit der Maus (Parallax). */
+  attachTitleScene(scene) {
     this.layer.prepend(scene);
+    if (scene.dataset.ok) this.layer.classList.add('has-titlescene');
     this.layer.onpointermove = (e) => {
       const r = this.layer.getBoundingClientRect();
       scene.style.setProperty('--px', ((e.clientX - r.left) / r.width - 0.5).toFixed(3));
     };
   }
 
+
   /** Codex DM: Ladebild der Zielstadt beim Stadtwechsel (kurz über dem Abblenden). */
-  showLoading(city) {
+  /**
+   * Reisebild beim Stadtwechsel: das Ladebild der Zielstadt füllt den ganzen Schirm (leichter Zoom, Nebel, Vignette),
+   * gerahmt wie der Ladebildschirm beim Start; unten links eine Tafel mit schwingender Laterne und dem Ziel.
+   */
+  showLoading(city, mapId = null) {
     const url = ladenUrl(city, Math.floor(Math.random() * 3));
     if (!url) return;
+    this.layer.parentNode?.querySelectorAll(':scope > .ladebild').forEach((x) => x.remove());
+    const cities = this.state.content.cities ?? {};
+    const cityTitle = cities[city]?.title?.replace(/^Stadtkarte von /, '') ?? city[0].toUpperCase() + city.slice(1);
+    const place = mapId ? this.state.content.maps[mapId]?.name : null;
     const el = document.createElement('div');
     el.className = 'ladebild';
-    el.innerHTML = `<img src="${url}" alt="" onerror="this.parentNode.remove()">`;
+    el.innerHTML = `
+      <div class="lb-bild" style="background-image:url(${url})"></div>
+      <div class="lb-nebel"></div>
+      <div class="lb-vign"></div>
+      <div class="lb-rahmen"></div>
+      <div class="lb-tafel">
+        <span class="lb-laterne"></span>
+        <span class="lb-text">
+          <span class="lb-kicker">Unterwegs nach</span>
+          <span class="lb-ziel">${esc(cityTitle)}</span>
+          ${place && place !== cityTitle ? `<span class="lb-ort">${esc(place)}</span>` : ''}
+        </span>
+        <span class="lb-punkte"><i></i><i></i><i></i></span>
+      </div>`;
+    const img = new Image();
+    img.onerror = () => el.querySelector('.lb-bild')?.classList.add('leer'); // ohne Bild bleibt die Tafel auf dunklem Grund
+    img.src = url;
     (this.layer.parentNode ?? this.layer).appendChild(el); // neben dem Fensterlayer, damit ein neues Fenster es nicht löscht
-    setTimeout(() => el.classList.add('out'), 1400);
-    setTimeout(() => el.remove(), 1900);
+    setTimeout(() => el.classList.add('out'), 1700);
+    setTimeout(() => el.remove(), 2300);
   }
 
   /** Dialogportrait als HTML (z. B. für Meldungen außerhalb von Gesprächen). */
@@ -1925,15 +1971,18 @@ export class Ui {
     const isCase = !!caseId;
     const el = this.open('notebook', `
       <div class="tabs">${tabs.map((t, i) => `<button class="tab ${t.id === this.tab ? 'sel' : ''}" data-tab="${t.id}"><span class="key">${i + 1}</span> ${uiSprite('icons', TAB_ICONS[t.id] ?? 'lupe', 1 / 16, 'tabico')}${esc(t.title)}</button>`).join('')}
-        <span class="rankinfo">${uiSprite('ranks', `r${Math.max(0, Math.min(4, this.state.content.ranks.indexOf(this.state.rank())))}`, 1 / 16, 'rankbadge')}${esc(this.state.rank().name)} · Ansehen ${this.state.honor}</span></div>
-      ${body}
+        <span class="rankinfo">${uiSprite('ranks', `r${Math.max(0, Math.min(4, this.state.content.ranks.indexOf(this.state.rank())))}`, 1 / 16, 'rankbadge')}<span>${esc(this.state.rank().name)}</span> · <span>Ansehen ${this.state.honor}</span></span></div>
+      <div class="nb-searchbar">${uiSprite('icons', 'lupe', 1 / 16, 'tabico')}<input type="search" class="nb-search" placeholder="Personen, Hinweise, Gegenstände suchen …" value="${esc(this.nbQuery ?? '')}" aria-label="Notizbuch durchsuchen"><span class="key">F</span><span class="muted nb-count"></span></div>
+      <div class="nb-results" hidden></div>
+      <div class="nb-body">${body}</div>
       <div class="feedback">${feedback}</div>
       <div class="actions">
         ${isCase ? `<button class="primary" data-act="combine" ${this.selected.length === 2 ? '' : 'disabled'}>Verknüpfen <span class="key">V</span></button>` : ''}
         ${isCase && this.state.autoLinkFrei() ? `<button data-act="autocombine" title="Zieht alle Verbindungen, deren Informationen schon im Notizbuch stehen">Auto-Verknüpfen <span class="key">A</span></button>` : ''}
         <button data-act="close">Schließen <span class="key">J</span></button>
-      </div>`, 'notebook');
+      </div>`, 'notebook journal');
     this.notebookTabs = tabs;
+    this.bindNotebookSearch(el);
     el.querySelectorAll('[data-tab]').forEach((b) => { b.onclick = () => { if (this.tab !== b.dataset.tab) this.sfx(uiSound('notebook', 'tab')); this.tab = b.dataset.tab; this.selected = []; this.forgetScroll(); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-itemcat]').forEach((b) => { b.onclick = () => { if (this.itemCat !== b.dataset.itemcat) this.sfx(uiSound('notebook', 'page')); this.itemCat = b.dataset.itemcat; this.forgetScroll('notebook', /^UL\./); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-fact]').forEach((b) => { b.onclick = () => this.toggleFact(b.dataset.fact); });
@@ -1943,6 +1992,14 @@ export class Ui {
       search.oninput = () => { this.beastQuery = search.value; this.filterBestiary(el); };
       // Tippen darf weder Notizbuch-Tasten noch die Laufsteuerung (WASD) auslösen; Esc verlässt das Feld
       search.onkeydown = (e) => { e.stopPropagation(); if (e.key === 'Escape') search.blur(); };
+      el.querySelectorAll('[data-ww-item]').forEach((b) => { b.onclick = () => {
+        this.beastQuery = this.beastQuery === b.dataset.wwItem ? '' : b.dataset.wwItem;
+        search.value = this.beastQuery;
+        this.sfx(uiSound('notebook', 'page'));
+        this.filterBestiary(el);
+      }; });
+      const ww = el.querySelector('.beast-wegweiser');
+      if (ww) ww.ontoggle = () => { this.beastWwZu = !ww.open; };
     }
     el.querySelectorAll('[data-quest-case]').forEach((b) => { b.onclick = (event) => {
       event.stopPropagation();
@@ -1971,6 +2028,10 @@ export class Ui {
     el.querySelectorAll('[data-cleanse]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(inv(() => this.state.cleanseWithSalt(b.dataset.cleanse)).text)); });
     el.querySelectorAll('[data-wear]').forEach((b) => { b.onclick = () => { if (inv(() => this.state.wear(b.dataset.wear))) this.sfx(worldSound('wear', { slot: this.state.item(b.dataset.wear)?.slot })); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-takeoff]').forEach((b) => { b.onclick = () => { if (inv(() => this.state.takeOff(b.dataset.takeoff))) this.sfx(worldSound('wear', { slot: b.dataset.takeoff })); this.renderNotebook(''); }; });
+    el.querySelectorAll('[data-gearset-save]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(inv(() => this.state.saveGearSet(Number(b.dataset.gearsetSave))).text)); });
+    el.querySelectorAll('[data-gearset-apply]').forEach((b) => {
+      b.onclick = () => { const r = inv(() => this.state.applyGearSet(Number(b.dataset.gearsetApply))); if (r.ok) this.sfx(worldSound('equip')); this.renderNotebook(esc(r.text)); };
+    });
     el.querySelectorAll('[data-invplayer]').forEach((b) => { b.onclick = () => { this.invPlayer = Number(b.dataset.invplayer); this.renamingPlayer = 0; this.renderNotebook(''); }; });
     // Seb: Spieler umbenennen (max. 9 Zeichen), gilt überall, wo „Spieler 1/2“ steht
     el.querySelector('[data-pname-edit]')?.addEventListener('click', () => { this.renamingPlayer = this.renamingPlayer === this.invPlayer ? 0 : this.invPlayer; this.renderNotebook(''); });
@@ -2083,15 +2144,14 @@ export class Ui {
     });
   }
 
-  /** Besiegte Gegner: mit Bestiariumsseite oder mit Beute (Elite-Varianten zählen zum Grundgegner). */
+  /** Bekannte Gegner: schon begegnet (Kampf begonnen) oder besiegt, mit Bestiariumsseite, Beute oder Beschreibung. Elite und Phasen zählen zum Grundgegner. */
   knownBeasts() {
-    const { flags } = this.state;
     const { encounters, loot } = this.state.content;
     const hasLoot = (id) => (loot?.[id]?.drops ?? []).length || Object.keys(loot?.[id]?.items ?? {}).length || loot?.[id]?.money;
-    const won = (id) => flags.has(`won_${id}`) || flags.has(`won_${id}_elite`);
     const lore = this.state.content.bestiaryTexts ?? {};
-    const extra = Object.keys(encounters).filter((id) => !id.endsWith('_elite') && !BESTIARY.includes(id) && (hasLoot(id) || lore[id]));
-    return [...BESTIARY, ...extra].filter((id) => encounters[id] && won(id));
+    const known = (id) => this.state.bestiarEintrag(id).seen;
+    const extra = Object.keys(encounters).filter((id) => beastBase(id) === id && !encounters[id].practice && !BESTIARY.includes(id) && (hasLoot(id) || lore[id] || hasLoot(`${id}_elite`)));
+    return [...BESTIARY, ...extra].filter((id) => encounters[id] && !encounters[id].practice && known(id));
   }
 
   /** Codex DI: Postfach – links die Briefe (neueste oben), rechts der geöffnete mit Antworten und Beilage. */
@@ -2159,20 +2219,201 @@ export class Ui {
     return `<div class="erfakte"><p><b>Akte des Ermittlers</b> · ${frei}/${defs.length}</p>${st.erfolgeSeitentext().map((t) => `<p class="dim">${esc(t)}</p>`).join('')}${rows}</div>`;
   }
 
+  // --- Suche im Notizbuch (Seb 2026-11-27) ------------------------------------------
+  // Ein Feld über allen Reitern: findet Personen, Hinweise (Informationen samt Quellen) und Gegenstände
+  // (beide Spieler und das Büro-Lager). Ein Treffer springt in den passenden Reiter und hebt die Stelle hervor.
+
+  bindNotebookSearch(el) {
+    const input = el.querySelector('.nb-search');
+    if (!input) return;
+    const refresh = () => {
+      const q = (this.nbQuery ?? '').trim();
+      const res = el.querySelector('.nb-results');
+      const bodyEl = el.querySelector('.nb-body');
+      const on = q.length >= 2;
+      if (!res || !bodyEl) return;
+      res.hidden = !on;
+      bodyEl.hidden = on;
+      const r = on ? this.notebookSearch(q) : null;
+      res.innerHTML = r ? r.html : '';
+      const count = el.querySelector('.nb-count');
+      if (count) count.textContent = r ? (r.n ? `${r.n} Treffer` : 'nichts gefunden') : '';
+      res.querySelectorAll?.('[data-hit]').forEach((b) => { b.onclick = () => this.jumpToHit(b.dataset.hit); });
+    };
+    input.oninput = () => { this.nbQuery = input.value; refresh(); };
+    input.onkeydown = (e) => {
+      e.stopPropagation(); // Tippen darf weder Notizbuch-Tasten noch die Laufsteuerung (WASD) auslösen
+      if (e.key === 'Escape') { if (input.value) { input.value = ''; this.nbQuery = ''; refresh(); } else input.blur(); }
+      else if (e.key === 'Enter') el.querySelector('.nb-results [data-hit]')?.click();
+    };
+    input.onkeyup = (e) => e.stopPropagation();
+    refresh();
+    if (this.nbFocus) { input.focus?.(); const n = input.value.length; input.setSelectionRange?.(n, n); }
+    input.onfocus = () => { this.nbFocus = true; };
+    input.onblur = () => { this.nbFocus = false; };
+    // Sprung aus einem Treffer: Stelle zeigen und kurz aufleuchten lassen
+    if (this.searchFocus) {
+      const t = el.querySelector(this.searchFocus);
+      this.searchFocus = null;
+      if (t) { t.classList.add('search-hit'); setTimeout(() => t.scrollIntoView?.({ block: 'center' }), 0); }
+    }
+  }
+
+  /** Treffer für die Notizbuch-Suche. Alle Wörter müssen vorkommen; Groß-/Kleinschreibung und Akzente egal, im Englischen auch die Übersetzung. */
+  notebookSearch(query) {
+    const s = this.state;
+    const norm = (t) => String(t ?? '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ß/g, 'ss');
+    const terms = norm(query).split(/\s+/).filter(Boolean);
+    const en = getLang() === 'en';
+    const hay = (...parts) => norm(parts.filter(Boolean).flatMap((p) => (en ? [p, tr(p)] : [p])).join(' \n '));
+    const hit = (...parts) => { const h = hay(...parts); return terms.every((t) => h.includes(t)); };
+    const MAX = 25;
+    const group = (title, list) => !list.length ? '' : `<h4>${esc(title)} <span class="muted">${list.length}</span></h4><ul class="nb-hits">${list.slice(0, MAX).join('')}</ul>${list.length > MAX ? `<p class="muted">… und ${list.length - MAX} weitere. Genauer suchen hilft.</p>` : ''}`;
+    // Personen
+    const people = knownPeople(s).filter((p) => hit(p.name, p.role, ...p.quests)).map((p) => {
+      const places = personPlaces(s, p.id);
+      const where = places.length ? places.map((x) => x.mapName).join(', ') : 'unterwegs';
+      return `<li><button class="nb-hit" data-hit="person|${p.id}">${headFace(p.id, esc(p.name))}<div><strong>${esc(p.name)}</strong> <span class="muted">${esc(p.role)}</span><br><span class="where">${esc(where)}</span></div></button></li>`;
+    });
+    // Hinweise: Informationen der Fälle samt der Quellen, aus denen sie stammen
+    const cases = this.visibleCases();
+    const caseTitle = (id) => s.content.cases.find((c) => c.id === id)?.title.split(':')[0] ?? 'Fallakte';
+    const facts = s.knownFacts().filter((f) => {
+      const clues = s.factSources(f).map((c) => s.clue(c));
+      return hit(s.fact(f).text, caseTitle(s.fact(f).case), ...clues.flatMap((c) => [c?.source, c?.text]));
+    }).map((f) => {
+      const fact = s.fact(f);
+      const st = s.factStatus(f);
+      const open = cases.some((c) => c.id === fact.case);
+      const src = s.factSources(f).map((c) => s.clue(c)).find((c) => c && hit(c.source, c.text) && !hit(fact.text));
+      const body = `${this.badge(st)} ${esc(fact.text)}<br><span class="muted">${esc(caseTitle(fact.case))}${src ? ` · ${esc(src.source)}: „${esc(src.text)}“` : ''}</span>`;
+      return `<li>${open ? `<button class="nb-hit" data-hit="fact|${f}"><div>${body}</div></button>` : `<div class="nb-hit">${body}</div>`}</li>`;
+    });
+    // Gegenstände: was man trägt (beide Spieler) und was im Büro liegt
+    const owners = s.hasP2() ? [1, 2] : [1];
+    const items = [];
+    for (const n of owners) {
+      const list = s.withPlayer(n, () => s.items(), { quiet: true });
+      for (const it of list) {
+        if (!hit(it.name, it.desc)) continue;
+        const who = s.hasP2() ? `Spieler ${n}` : 'bei dir';
+        items.push(`<li><button class="nb-hit" data-hit="item|${n}|${it.id}">${itemIcon(it.id)}<div><strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''} <span class="muted">${esc(who)}</span><br><span class="desc">${esc(it.desc ?? '')}</span></div></button></li>`);
+      }
+    }
+    for (const it of s.storedItems?.() ?? []) {
+      if (!hit(it.name, it.desc)) continue;
+      items.push(`<li><div class="nb-hit">${itemIcon(it.id)}<div><strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''} <span class="muted">im Büro eingelagert</span><br><span class="desc">${esc(it.desc ?? '')}</span></div></div></li>`);
+    }
+    const n = people.length + facts.length + items.length;
+    const html = n
+      ? group('Personen', people) + group('Hinweise', facts) + group('Gegenstände', items)
+      : '<p class="empty">Nichts gefunden. Gesucht wird in Personen, Hinweisen und Gegenständen.</p>';
+    return { n, html };
+  }
+
+  /** Treffer anklicken: in den Reiter springen, Suche leeren, Stelle hervorheben. */
+  jumpToHit(ref) {
+    const [kind, a, b] = ref.split('|');
+    this.nbQuery = '';
+    this.nbFocus = false;
+    this.forgetScroll();
+    this.sfx(uiSound('notebook', 'page'));
+    if (kind === 'person') { this.tab = 'personen'; this.selected = []; this.searchFocus = `[data-person="${a}"]`; }
+    else if (kind === 'fact') { this.tab = this.state.fact(a).case; this.selected = [a]; this.searchFocus = `[data-fact="${a}"]`; }
+    else if (kind === 'item') { this.tab = 'items'; this.selected = []; this.invPlayer = Number(a) || 1; this.itemCat = 'alle'; this.searchFocus = `[data-itemrow="${b}"]`; }
+    this.renderNotebook('');
+  }
+
   bestiaryHtml(ids) {
     const { encounters: encs, loot, items } = this.state.content;
+    const teilName = { info: 'Beschreibung', beute: 'Beute', schwaechen: 'Schwächen' };
     const card = (id) => {
       const e = encs[id];
+      const st = this.state.bestiarStufe(id);
       const eliteWon = this.state.flags.has(`won_${id}_elite`);
-      return `<li data-beast="${esc(e.name.toLowerCase())}"><img src="${bestiaryUrl(id)}" alt="" onerror="this.remove()"><div class="beast-info">
-        <strong>${esc(e.name)}</strong><span class="muted">${e.occult ? 'Okkult · ' : ''}${e.hp} Leben${eliteWon ? ' · Elite besiegt' : ''}</span>
-        ${this.beastLoreHtml(id)}
-        ${this.beastLootHtml(loot?.[id], items, eliteWon ? loot?.[`${id}_elite`] : null)}</div></li>`;
+      const lootTable = loot?.[id], eliteTable = eliteWon ? loot?.[`${id}_elite`] : null;
+      // Suchbar ist nur, was schon erforscht ist: Name immer, Beute erst mit der Beute-Stufe
+      const next = st.next ? `<p class="beast-next">${uiSprite('icons', 'schluessel', 1 / 16, 'lockico')}${esc(teilName[st.next.teil])}: ${Math.min(st.wins, st.next.wins)}/${st.next.wins} Siege</p>` : '';
+      const wins = st.wins ? `${st.wins} ${st.wins === 1 ? 'Sieg' : 'Siege'}` : 'noch nicht besiegt';
+      return `<li data-beast="${esc(e.name.toLowerCase())}" class="${st.info ? '' : 'beast-unbekannt'}"><img src="${bestiaryUrl(id)}" alt="" onerror="this.remove()"><div class="beast-info">
+        <strong>${esc(e.name)}</strong><span class="muted">${e.occult ? 'Okkult · ' : ''}${st.info ? `${e.hp} Leben · ` : ''}${wins}${eliteWon ? ' · Elite besiegt' : ''}</span>
+        ${this.beastPlacesHtml(id)}
+        ${st.info ? this.beastLoreHtml(id, false) + this.beastAttacksHtml(e) : ''}
+        ${st.beute ? this.beastLootHtml(lootTable, items, eliteTable) : ''}
+        ${st.schwaechen ? this.beastWeakHtml(id) : ''}
+        ${next}</div></li>`;
     };
     const q = this.beastQuery ?? '';
-    return `<div class="beast-searchbar"><input type="search" class="beast-search" placeholder="Gegner oder Beute suchen …" value="${esc(q)}" aria-label="Bestiarium durchsuchen">
+    return `${this.beastWegweiserHtml()}<div class="beast-searchbar"><input type="search" class="beast-search" placeholder="Gegner oder Beute suchen …" value="${esc(q)}" aria-label="Bestiarium durchsuchen">
       <span class="muted beast-count"></span></div>
+      <p class="muted beast-regel">Begegnung: Name und Fundort · ${BEAST_STUFEN.info} Sieg: Beschreibung · ${BEAST_STUFEN.beute} Siege: Beute · ${BEAST_STUFEN.schwaechen} Siege: Schwächen. Bosse zeigen alles nach dem ersten Sieg.</p>
       <ul class="bestiary">${ids.map(card).join('')}</ul><p class="empty beast-none" hidden>Kein bekannter Gegner lässt das fallen.</p>`;
+  }
+
+  /** Fundorte eines Gegners: Karten, nach Stadt gruppiert. */
+  beastPlacesHtml(id) {
+    const places = beastPlaces(this.state.content, id);
+    if (!places.length) return '<p class="beast-orte muted">Fundort unbekannt.</p>';
+    const byCity = new Map();
+    for (const p of places) {
+      const k = p.cityName ?? '';
+      byCity.set(k, [...(byCity.get(k) ?? []), p.name].filter(Boolean));
+    }
+    const parts = [...byCity].map(([city, names]) => {
+      const shown = names.slice(0, 4).map(esc).join(', ');
+      const rest = names.length > 4 ? `<span class="muted"> +${names.length - 4}</span>` : '';
+      return city ? `<b>${esc(city)}${shown ? ':' : ''}</b>${shown ? ` ${shown}` : ''}${rest}` : `${shown}${rest}`;
+    });
+    return `<p class="beast-orte">${uiSprite('icons', 'karte', 1 / 16, 'lockico')}${parts.join(' · ')}</p>`;
+  }
+
+  /** Angriffe eines Gegners (Namen, Mehrfachtreffer). */
+  beastAttacksHtml(enc) {
+    const list = (enc.attacks ?? []).filter((a) => !a.action && a.name);
+    if (!list.length) return '';
+    return `<p class="beast-angriffe"><b>Angriffe:</b> ${list.map((a) => `${esc(a.name)}${(a.hits?.length ?? 1) > 1 ? ` ×${a.hits.length}` : ''}`).join(', ')}</p>`;
+  }
+
+  /** Schwächen aus den Kampfdaten plus Kampftipp (Paket AD). */
+  beastWeakHtml(id) {
+    const list = beastSchwaechen(this.state.content, id);
+    const tip = this.state.content.bestiaryTexts?.[id]?.hinweis;
+    if (!list.length && !tip) return '';
+    return `<h5>Schwächen</h5><ul class="beast-weak">${list.map((t) => `<li>${esc(t)}</li>`).join('')}${tip ? `<li class="beast-tip"><b>Tipp:</b> ${esc(tip)}</li>` : ''}</ul>`;
+  }
+
+  /** Wegweiser: noch fehlende Pfad-Zutaten und welche Gegner sie fallen lassen. Klick sucht das Stück im Bestiarium. */
+  beastWegweiserHtml() {
+    const list = this.state.bestiarWegweiser?.() ?? [];
+    if (!list.length) return '';
+    const koop = list.some((w) => w.player === 2);
+    const src = (s) => {
+      const chance = s.first ? 'erster Sieg' : chanceWord(s.chance);
+      if (s.known) {
+        const orte = s.places.slice(0, 3).map((p) => p.name).filter(Boolean).join(', ');
+        return `<li class="ww-src known"><b>${esc(s.name)}</b>${s.elite ? ' (Elite)' : ''} <span class="rar">${esc(chance)}</span>${orte ? `<span class="muted"> · ${esc(orte)}</span>` : ''}</li>`;
+      }
+      return `<li class="ww-src seen"><b>${esc(s.name)}</b>${s.elite ? ' (Elite)' : ''}<span class="muted"> · Beute noch unerforscht (${Math.min(s.wins, s.needWins)}/${s.needWins} Siege)</span></li>`;
+    };
+    // Unerforschte Quellen in einer Zeile: nur die Städte, in denen solche Gegner leben (Gebiet ja, Gegner nein)
+    const unknown = (list) => {
+      if (!list.length) return '';
+      const hier = stadtVon(this.state.map, this.state.content.maps[this.state.map]);
+      const all = list.flatMap((s) => s.places);
+      const cities = [...new Set([...all.filter((p) => p.city === hier), ...all].map((p) => p.cityName).filter(Boolean))]; // eigene Stadt zuerst
+      const shown = cities.slice(0, 3).join(', ') + (cities.length > 3 ? ' …' : '');
+      return `<li class="ww-src unknown">${list.length === 1 ? 'Unbekannter Gegner' : `${list.length} unbekannte Gegner`}${cities.length ? `<span class="muted"> · Spuren in:</span> <span>${esc(shown)}</span>` : ''}</li>`;
+    };
+    // Anklickbar (sucht im Bestiarium) nur, wenn ein Gegner mit erforschter Beute das Stück fallen lässt
+    const rows = list.map((w) => `<li class="ww-item${w.sources.some((x) => x.known) ? ' klick" data-ww-item="' + esc(w.name) + '" title="Im Bestiarium suchen' : ''}">
+      <div class="ww-head">${itemIcon(w.item)}<b class="${w.main ? 'ww-main' : ''}">${esc(w.name)}</b>
+        <span class="muted">${koop ? `Spieler ${w.player} · ` : ''}Seq ${w.seq} ${w.kind === 'ritual' ? 'Ritual' : w.main ? 'Hauptzutat' : 'Trank'} · ${w.have}/${w.need}</span></div>
+      <ul class="ww-srcs">${(() => {
+        const bekannt = w.sources.filter((x) => x.known || x.seen);
+        return bekannt.slice(0, 3).map(src).join('') + (bekannt.length > 3 ? `<li class="muted">+${bekannt.length - 3} weitere</li>` : '') + unknown(w.sources.filter((x) => !x.known && !x.seen));
+      })()}</ul></li>`).join('');
+    return `<details class="beast-wegweiser" ${this.beastWwZu ? '' : 'open'}><summary>${uiSprite('icons', 'auge', 1 / 16, 'lockico')}Für deinen Pfad gesucht <span class="muted">(${list.length})</span></summary>
+      <ul class="ww-list">${rows}</ul></details>`;
   }
 
   /** Suchleiste im Bestiarium: zeigt nur Gegner, deren Name oder Beute passt, und hebt passende Beute hervor. */
@@ -2193,9 +2434,9 @@ export class Ui {
   }
 
   /** Paket AD: Beschreibung und Kampftipp im Bestiarium. */
-  beastLoreHtml(id) {
+  beastLoreHtml(id, tip = true) {
     const t = this.state.content.bestiaryTexts?.[id];
-    return t ? `<p class="beast-text">${esc(t.text)}</p><p class="beast-tip"><b>Tipp:</b> ${esc(t.hinweis)}</p>` : '';
+    return t ? `<p class="beast-text">${esc(t.text)}</p>${tip && t.hinweis ? `<p class="beast-tip"><b>Tipp:</b> ${esc(t.hinweis)}</p>` : ''}` : '';
   }
 
   /** Paket AD: erschienene Zeitungsausgaben, neueste zuerst. */
@@ -2238,7 +2479,7 @@ export class Ui {
       const caseLink = s.content.cases.some((c) => c.id === q.case)
         ? `<button class="small" data-quest-case="${esc(q.case)}" aria-label="${esc(q.title)}: Schlüsse ziehen">Schlüsse ziehen</button>` : '';
       return `<li class="quest ${st} ${tracked ? 'tracked' : ''}" ${active ? `data-track="${id}"` : ''}><div class="qtitle">${uiSprite('qstatus', !active ? 'q1' : tracked ? 'q6' : q.kind === 'main' ? 'q5' : 'q2', 1 / 12, 'qico')}<span class="qkind">${q.kind === 'main' ? 'Hauptfall' : 'Nebenauftrag'}</span> ${esc(q.title)} ${!active ? '<span class="badge likely">erledigt</span>' : ''}${tracked ? '<span class="badge track">verfolgt</span>' : ''}</div>
-        ${active ? `<div class="qsum">${q.wanted ? wantedImg(q.wanted, false) : ''}${esc(q.summary)}</div>` : ''}${steps}${goal}${caseLink}</li>`;
+        ${active && (q.summary || q.wanted) ? `<div class="qsum">${q.wanted ? wantedImg(q.wanted, false) : ''}${esc(q.summary ?? '')}</div>` : ''}${steps}${goal}${caseLink}</li>`;
     };
     // Offene Spuren: Aufträge, die noch abgeholt werden müssen (z. B. Fall 8 bei Nan Kettle am Nachtmarkt)
     const leadRow = (l) => {
@@ -2422,14 +2663,15 @@ export class Ui {
       if (s.canDrop(it.id) && !(it.kind === 'weapon' && s.weapon === it.id)) action += ` <button class="small drop" data-drop="${it.id}" title="Wegwerfen (eins)">×</button>`;
       const stat = it.kind === 'weapon' ? ` <span class="muted">Angriff ${it.atk}${it.occult ? ', stark gegen Okkultes' : ''}</span>`
         : it.kind === 'gear' ? ` <span class="muted">${GEAR_SLOT_NAMES[it.slot]}</span>` : '';
-      const effects = it.kind === 'artifact' || it.kind === 'gear' ? artifactEffectsHtml(it) : '';
+      const effects = (it.kind === 'artifact' || it.kind === 'gear' ? artifactEffectsHtml(it) : '') + vergleichHtml(s, it.id);
       const taint = tainted ? corruptionHtml(s, it.id) : '';
-      return `<li class="item${tainted ? ' tainted' : ''}"><div>${it.kind === 'potion' || it.kind === 'formula' ? itemIconBig(it.id) : itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${stat}${tainted ? ` ${korrBadge()}` : ''}${bedarfHtml(need, it.id)}<br><span class="desc">${esc(it.desc)}</span>${effects}${taint}</div><div>${action}</div></li>`;
+      const laune = it.kind === 'artifact' && !s.isSetAside(it.id) ? launeHtml(s, it.id) : '';
+      return `<li class="item${tainted ? ' tainted' : ''}" data-itemrow="${it.id}"><div>${it.kind === 'potion' || it.kind === 'formula' ? itemIconBig(it.id) : itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${stat}${tainted ? ` ${korrBadge()}` : ''}${bedarfHtml(need, it.id)}<br><span class="desc">${esc(it.desc)}</span>${effects}${laune}${taint}</div><div>${action}</div></li>`;
     }).join('');
     const carried = s.activeArtifacts();
     const maxArt = s.artifactMaxActive();
     const arts = carried.length
-      ? `<div class="status"><span class="artslots">${artifactSlots(carried, maxArt, carried.length > maxArt || s.unruhe >= 60)}</span>Artefakte dabei <strong>${carried.length}</strong>${s.artifactUnruhe() ? ` · <span class="curse">Unruhe +${Math.round(s.artifactUnruhe() * s.unruheGainMult() * 100) / 100} pro Sekunde</span>` : ''} · Alles, was du bei dir trägst, wirkt: Vorteile wie Flüche. Was du nicht brauchst, lagere im Büro ein.${carried.length > maxArt ? ` <span class="curse">Mehr als ${maxArt} zerren heftig aneinander.</span>` : ''}</div>` : '';
+      ? `<div class="status"><span class="artslots">${artifactSlots(carried, maxArt, carried.length > maxArt || s.unruhe >= 60)}</span>Artefakte dabei <strong>${carried.length}</strong>${s.artifactUnruhe() ? ` · <span class="curse">Unruhe +${Math.round(s.artifactUnruhe() * s.unruheGainMult() * 100) / 100} pro Sekunde</span>` : ''} · Alles, was du bei dir trägst, wirkt: Vorteile wie Flüche. Was du nicht brauchst, lagere im Büro ein. <span class="laune-hinweis">Lange getragene Artefakte binden sich an dich: Sie werden stärker, wollen ab „Gebunden“ aber jeden Spieltag etwas und grollen, wenn sie es nicht bekommen.</span>${carried.length > maxArt ? ` <span class="curse">Mehr als ${maxArt} zerren heftig aneinander.</span>` : ''}</div>` : '';
     const drain = s.corruptionDrain();
     const taintBox = drain.count
       ? `<div class="status taintbox">${korrIcon('pulse1', 'Korruption')}<strong>${drain.count}</strong> korrumpierte${drain.count === 1 ? 's Stück zehrt' : ' Stücke zehren'} an dir: <span class="curse">−${fmtRate(drain.hp)} Leben, −${fmtRate(drain.nerves)} Nerven pro Sekunde</span>. Ablegen hilft sofort, reinigen Dr. Varga im Revier oder Läutersalz (Nell).</div>`
@@ -2437,7 +2679,7 @@ export class Ui {
     return `
       ${carryHtml(s)}${taintBox}
       <div class="status">Leben <strong>${s.hp}/${s.maxHp}</strong> · Nerven <strong>${Math.round(s.composure)}/${s.maxComposure()}</strong> · Waffe <strong>${esc(w.name)}</strong> (Angriff ${w.atk}) · ${coin}<strong>${s.money}</strong> Schilling</div>
-      ${cat.id === 'alle' || cat.id === 'waffen' || cat.id === 'kleidung' ? paperDoll(s) : ''}
+      ${cat.id === 'alle' || cat.id === 'waffen' || cat.id === 'kleidung' ? paperDoll(s) + gearSetsHtml(s) : ''}
       ${cat.id === 'alle' || cat.id === 'artefakte' ? arts : ''}
       ${subtabs}
       <ul class="items">${rows || '<li class="empty">Deine Taschen sind leer.</li>'}</ul>`;
@@ -2497,7 +2739,8 @@ export class Ui {
   /** Der Fall, der gerade im Notizbuch offen ist (auch im Archiv), sonst null. */
   currentCase() {
     if (this.tab === 'archiv') return this.archiveCase ?? null;
-    return ['quests', 'items', 'pfad', 'personen', 'bestiar'].includes(this.tab) ? null : this.tab;
+    // Nur echte Fall-Reiter haben Verknüpfen (vorher standen die Knöpfe auch unter Kulte, Zeitung, Post, Tiere und Akte)
+    return this.visibleCases().some((c) => c.id === this.tab) ? this.tab : null;
   }
 
   /** Archiv: gelöste Fälle mit ihrem Ende; ein Klick öffnet die alten Informationen. */
@@ -2701,8 +2944,9 @@ export class Ui {
     const r = s.rivaleDaten?.(nr);
     const fertig = (text) => { s.applyEffects({ sets_flags: [def.done_flag] }); this.showMessage(r ? rivaleName(r.pid, nr) : PVG_UI.rivale[0], text); };
     if (!r) { fertig(PVG_UI.ohne_rivale[0]); return; }
-    r.getroffen = true;
+    if (!['erledigt', 'fort'].includes(r.status)) r.getroffen = true;
     if (r.status === 'verbuendet') { fertig(s.rivaleText('viertel_verbuendet', nr)); return; }
+    if (['erledigt', 'fort'].includes(r.status)) { fertig(s.rivaleText('viertel_fort', nr)); return; } // nach dem Bogen-Finale kein Rivale mehr
     this.rivaleUi = { nr, name: rivaleName(r.pid, nr), optionen: ['kampf', 'gehen'], viertel: def.viertel };
     this.sfx(uiSound('dialogue', 'dialog'), { volume: 0.7 });
     const el = this.open('rivale', `
@@ -2828,6 +3072,7 @@ export class Ui {
     if (!h) return '';
     const g = h.seq === 3 ? s.gildeStand(h.pid) : null;
     const spurHtml = g ? `<p class="muted"><strong>${esc(g.gilde)}:</strong> ${g.mitglied ? 'Du bist Mitglied.' : g.bekannt ? `Noch nicht beigetreten. Sitz: ${esc(g.ort)} (Stadtkarte).` : 'Ab Dunscar meldet sich die Gilde deines Pfades bei dir.'} ${g.kern ? `Kernzutat 3 erhalten (${g.kern === 'chef' ? 'du bist jetzt Oberhaupt' : 'Oberhaupt getötet'}).` : `Die Kernzutat 3 gibt es nur hier: ${esc(g.chef)} besiegen, dann töten oder selbst Oberhaupt werden.`} Die Formel 3 ist selten: Zirkel-Lose und sehr seltene Monster-Beute.</p>` : '';
+    if (h.seq === 1 && s.seq1Verschlossen()) return `${spurHtml}<p class="muted"><strong>Für immer verschlossen.</strong> ${esc(SEQ1_VERZICHT_TEXT)}</p>`;
     if (s.hochPassed(h.pid, h.seq)) return spurHtml;
     const st = s.hochState();
     const step = s.hochStep();
@@ -3054,7 +3299,7 @@ export class Ui {
       ${this.recipesHtml(true)}
       ${this.sudHtml()}
       <div class="feedback">${feedback}</div>
-      <div class="actions"><button data-act="close">Fertig <span class="key">Esc</span></button></div>`, 'notebook brew');
+      <div class="actions"><button data-act="close">Schließen <span class="key">Esc</span></button></div>`, 'notebook brew');
     el.querySelectorAll('[data-brew]').forEach((b) => { b.onclick = () => this.brew(b.dataset.brew); });
     el.querySelectorAll('[data-brew-rest]').forEach((b) => { b.onclick = () => this.brew(b.dataset.brewRest, { useRest: true }); });
     el.querySelectorAll('[data-sud-add]').forEach((b) => { b.onclick = () => {
@@ -3491,64 +3736,12 @@ export class Ui {
 
   // --- Pausemenü und Spieler 2 ---------------------------------------------------
 
-  openPause(feedback = '') {
-    const s = this.state;
-    const on = s.hasP2();
-    const label = on ? 'Spieler 2 entfernen' : s.p2 ? 'Spieler 2 wieder hinzufügen' : 'Spieler 2 hinzufügen';
-    const pad = typeof navigator !== 'undefined' && [...(navigator.getGamepads?.() ?? [])].some(Boolean);
-    const el = this.open('pause', `
-      <h3>Pause</h3>
-      <div class="pausemenu">
-        <button class="primary" data-act="resume">${setIcon('weiter')}<span class="key">Esc</span> Weiter</button>
-        <button data-act="p2">${uiSprite('ahkoop', on ? 'verlassen' : 'beitreten', 1 / 12, 'aeicon')}<span class="key">2</span> ${label}</button>
-        <button data-act="fullscreen">${setIcon(this.isFullscreen() ? 'fenster' : 'vollbild')}${this.fullscreenLabel()}</button>
-        <button data-act="sound">${setIcon((this.audio?.master ?? 0) <= 0 ? 'stumm' : 'lautstaerke')}${this.soundLabel()}</button>
-        ${this.langButton()}
-        ${testPauseButton(this)}
-      </div>
-      <div class="feedback">${feedback}</div>
-      ${on ? this.p2LookPicker() : ''}
-      <p class="lead">${on ? 'Ihr spielt zu zweit an diesem Rechner. Die Kamera hält euch beide im Bild, jeder hat sein eigenes Inventar. Geld, Ansehen und Fälle teilt ihr.' : 'Zu zweit an einem Rechner: Spieler 2 läuft als Begleiter mit über denselben Bildschirm, mit eigenem Leben und eigenem Inventar.'}</p>
-      <div class="controls2">
-        <div><h4>Spieler 1 · Ermittler</h4>
-          <div><span class="key">WASD</span> laufen${on ? '' : ' (allein auch <span class="key">Pfeile</span>)'}</div>
-          <div><span class="key">E</span> untersuchen / sprechen</div>
-          <div><span class="key">Q</span> Geistsicht · <span class="key">J</span> Notizbuch · <span class="key">I</span> Inventar</div>
-          <div><span class="key">1</span>–<span class="key">9</span> Welt-Fähigkeiten</div>
-          <div>Kampf: <span class="key">E</span> Takt · <span class="key">Leertaste</span> ausweichen · <span class="key">F</span> parieren</div>
-        </div>
-        <div><h4>Spieler 2 · Begleiter</h4>
-          <div><span class="key">Pfeile</span> laufen</div>
-          <div><span class="key">Enter</span> untersuchen / sprechen / aufheben</div>
-          <div><span class="key">I</span> dann <span class="key">G</span> eigenes Inventar</div>
-          <div>Ziffernblock <span class="key">1</span>–<span class="key">9</span> Welt-Fähigkeiten</div>
-          <div>Kampf: <span class="key">Enter</span> Takt · <span class="key">←</span> ausweichen · <span class="key">→</span> parieren</div>
-          <div class="muted">Gamepad${pad ? ' (erkannt)' : ''}: Stick laufen · A Aktion/Takt · X ausweichen · B parieren · Y Inventar · LB/RB Fähigkeit wählen, X einsetzen</div>
-        </div>
-      </div>`, 'pause');
-    el.querySelector('[data-act=resume]').onclick = () => this.close();
+  /** Pausemenü (Esc), gebaut in src/ui/TitleMenu.js im Stil des Hauptmenüs. */
+  openPause(feedback = '', opts = {}) {
+    if (this.modal !== 'pause') this.pauseFresh = true;
+    const el = showPauseMenu(this, feedback, opts);
     bindTestPause(this, el);
-    el.querySelector('[data-act=p2]').onclick = () => this.togglePlayer2();
-    el.querySelectorAll('[data-look]').forEach((b) => { b.onclick = () => { this.state.setP2Look(b.dataset.look); this.openPause(`Spieler 2 spielt jetzt mit ${P2_LOOKS[b.dataset.look].name}.`); }; });
-    el.querySelector('[data-act=fullscreen]').onclick = () => this.toggleFullscreen();
-    el.querySelector('[data-act=sound]').onclick = (e) => { this.cycleSound(); e.currentTarget.textContent = this.soundLabel(); };
-    this.bindLang(el);
-  }
-
-  /** Sprachwahl Deutsch / Englisch (Knopf selbst wird nicht übersetzt). */
-  langButton() {
-    const en = getLang() === 'en';
-    return `<button data-act="lang" data-no-tr title="Sprache / Language">🌐 ${en ? '<span class="muted">Deutsch</span> · <b class="lang-on">English</b>' : '<b class="lang-on">Deutsch</b> · <span class="muted">English</span>'}</button>`;
-  }
-
-  bindLang(el) {
-    const b = el.querySelector('[data-act=lang]');
-    if (!b) return;
-    b.onclick = () => {
-      setLang(getLang() === 'en' ? 'de' : 'en');
-      b.outerHTML = this.langButton();
-      this.bindLang(el);
-    };
+    return el;
   }
 
   /** Paket AH: Auswahl der Figur von Spieler 2 (Auswahlbild mit beiden Figuren). */
@@ -3631,6 +3824,7 @@ export class Ui {
       c.enc.elite ? '<span class="badge refuted">★ Elite</span>' : '', c.enc.boss ? '<span class="badge refuted">☠ Boss</span>' : '',
       this.possibleLoot(c.id),
       burn ? `<span class="badge suspected">${statusIcon(burn[0])}${burn[1]} ${c.burn.rounds}</span>` : '',
+      c.charging ? '<span class="badge refuted charge-badge">⚡ lädt auf</span>' : '',
       c.stunned ? `<span class="badge suspected">${statusIcon('betaeubt')}betäubt</span>` : '',
       c.fleeing ? `<span class="badge likely flee-badge">⏳ Rückzug · ${c.fleeStatus()}</span>` : '',
       c.confused ? `<span class="badge suspected">${statusIcon('verwirrt')}verwirrt</span>` : '',
@@ -3640,7 +3834,7 @@ export class Ui {
     // Gegnergruppe: jeder Gegner als kleine Karte (Ziel golden, Gefallene grau); antippen wählt das Ziel
     const foesEl = q('.cb-foes');
     if (foesEl) {
-      foesEl.innerHTML = c.group ? c.foes.map((f, i) => `<button class="cb-foe${i === c.aim ? ' aim' : ''}${i === c.fi && sc.phase === 'enemy' ? ' attacking' : ''}${f.enemy.hp <= 0 ? ' dead' : ''}" data-foe="${i}"><span class="cb-foe-nr">${i + 1}</span><span class="cb-foe-name">${esc(f.enemy.name)}</span><span class="hudbar foe">${hudMeter('enemy', f.enemy.hp / f.enemy.maxHp, 1 / 13)}</span></button>`).join('') : '';
+      foesEl.innerHTML = c.group ? c.foes.map((f, i) => `<button class="cb-foe${i === c.aim ? ' aim' : ''}${i === c.fi && sc.phase === 'enemy' ? ' attacking' : ''}${f.enemy.hp <= 0 ? ' dead' : ''}" data-foe="${i}"><span class="cb-foe-nr">${i + 1}</span><span class="cb-foe-name">${f.charging ? '⚡ ' : ''}${esc(f.enemy.name)}</span><span class="hudbar foe">${hudMeter('enemy', f.enemy.hp / f.enemy.maxHp, 1 / 13)}</span></button>`).join('') : '';
       foesEl.querySelectorAll('[data-foe]').forEach((b) => { b.onclick = () => sc.pickTarget(Number(b.dataset.foe)); });
     }
     // Ein Feld pro Spieler; zu zweit leuchtet, wer am Zug ist bzw. angegriffen wird
@@ -3710,7 +3904,10 @@ export class Ui {
       help = t(help);
     }
     el.innerHTML = (scene ? sceneImg(scene) : '') + paragraphs(text); // BS: Sequenzbild vor dem Kampfbeginn
-    this.layer.querySelector('.cb-help').textContent = help;
+    // Tastenhinweis wie überall sonst als Taste: „Weiter [E]“ statt „Weiter mit E“
+    const weiter = /^Weiter mit (E|Enter)$/.exec(help);
+    if (weiter) this.layer.querySelector('.cb-help').innerHTML = `Weiter <span class="key">${weiter[1]}</span>`;
+    else this.layer.querySelector('.cb-help').textContent = help;
     this.layer.querySelector('.cb-menu').innerHTML = '';
     this.layer.querySelector('.cb-target')?.classList.add('hidden');
     this.combatMenuOpen = null;
@@ -3884,7 +4081,7 @@ export class Ui {
       <div class="sub">${esc(caseTitle)}</div>
       <h1>${esc(end.title)}</h1>
       <div class="text">${paragraphs(end.text)}</div>
-      <div class="footer">Ansehen ${(s.lastEndingHonor ?? end.honor) > 0 ? '+' : ''}${s.lastEndingHonor ?? end.honor} · Rang: ${esc(s.rank().name)}</div>
+      <div class="footer">${(s.lastEndingHonor ?? end.honor) != null ? `Ansehen ${(s.lastEndingHonor ?? end.honor) > 0 ? '+' : ''}${s.lastEndingHonor ?? end.honor} · ` : ''}Rang: ${esc(s.rank().name)}</div>
       <button class="primary" data-act="ok">Weiter <span class="key">E</span></button>`, `ending ending-${end.honor >= 15 ? 'good' : 'bad'}`);
     // Schlussbild als Hintergrund (480x270)
     // Paket CI: „Ein Leben ohne Schmerz“ zeigt Turm und Garten nebeneinander, wenn Kapitel 2 mit dem Lichtmeister endete
@@ -3909,7 +4106,7 @@ export class Ui {
         return;
       }
     }
-    if (e.target?.classList?.contains('beast-search') || e.target?.classList?.contains('testcode') || e.target?.classList?.contains('pname-input')) return; // Suchfeld im Bestiarium: Tasten gehören dem Textfeld
+    if (e.target?.classList?.contains('beast-search') || e.target?.classList?.contains('nb-search') || e.target?.classList?.contains('testcode') || e.target?.classList?.contains('pname-input')) return; // Suchfeld im Bestiarium: Tasten gehören dem Textfeld
     if (!this.modal) {
       // Esc in der Welt: Pausemenü (Spieler 2 hinzufügen oder entfernen)
       if (e.key === 'Escape' && !e.repeat && this.scene && !this.combatScene && performance.now() >= this.blockedUntil) {
@@ -3926,10 +4123,9 @@ export class Ui {
     const confirm = k === 'e' || k === ' ' || k === 'enter';
     const num = /^[1-9]$/.test(k) ? Number(k) - 1 : -1;
     let handled = true;
-    if (this.modal === 'title' && confirm) (this.titleContinue ?? this.titleNew)();
-    else if (this.modal === 'title' && k === 'n') this.titleNew();
+    if (this.modal === 'title') handled = titleKey(this, k);
     else if ((this.modal === 'message' || this.modal === 'ending') && (confirm || k === 'escape')) this.close();
-    else if (this.modal === 'pause' && (k === 'escape' || confirm)) this.close();
+    else if (this.modal === 'pause' && k !== '2') handled = titleKey(this, k);
     else if (this.modal === 'testreise' && k === 'escape') closeTestReise(this);
     else if (this.modal === 'pause' && k === '2') this.togglePlayer2();
     else if (this.modal === 'dialogue' && num >= 0) this.choose(this.dialogue.keyMap[num]);
@@ -3961,6 +4157,7 @@ export class Ui {
       this.actor = this.actor === 1 ? 2 : 1;
       if (this.modal === 'shop') this.openShop(this.shop.id, this.shop.mode); else this.openStorage('', ...this.storageArgs);
     } else if (this.modal === 'notebook' && k === 'g' && (this.tab === 'items' || this.tab === 'pfad') && this.state.hasP2()) { this.invPlayer = this.invPlayer === 1 ? 2 : 1; this.renderNotebook(''); }
+    else if (this.modal === 'notebook' && k === 'f' && this.$('.nb-search')) { e.preventDefault(); this.$('.nb-search').focus(); }
     else if (this.modal === 'notebook' && k === 'v') this.combine();
     else if (this.modal === 'notebook' && k === 'a') this.autoCombine();
     else if (this.modal === 'notebook' && this.tab === 'items' && (k === 'arrowleft' || k === 'arrowright') && this.itemCats?.length) {

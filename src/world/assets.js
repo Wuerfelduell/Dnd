@@ -2,9 +2,12 @@
 // Die PNGs ersetzen die prozedural gezeichneten Platzhalter aus textures.js unter
 // denselben Texture-Keys. Alles, was hier nicht zugeordnet ist (oder nicht lädt),
 // bleibt automatisch beim Platzhalter.
+import { SKRIPT_SHEETS } from '../data/skriptSheets.js';
 import { PATHWAY_STANDIN } from '../data/sequenzen.js';
 import { KFX_SHEETS } from './SkillFx.js';
 import { BH_DACH_TEXTUREN } from '../data/briarholtKulisse.js';
+import { CW_KULISSEN_SPRITES } from '../data/calderwickKlotze.js';
+import { DS_BH_SPRITES } from '../data/dsbhKulissen.js';
 import { CW_KULISSE_BLAETTER } from '../data/calderwickKulisse.js';
 import { preloadRitualArt } from './ritualArt.js';
 import { DS_ZIRKEL_ICONS, DS_ZIRKEL_FIGUREN } from '../data/dunscarZirkel.js';
@@ -255,7 +258,7 @@ export const THEME_TILES = {
   // Paket AV (Kapitel 3, Dunscar): Zellindex im 8er-Raster laut manifest-dunscar1.json
   ds_stadt: { sheet: 'ds_stadt', fallback: 'cobble0', floor: [0, 1], chalk: [4], debris: [5, 6], wallTop: [8], wallFace: [9], window: [12, 13] },
   ds_bahn: { sheet: 'ds_bahn', fallback: 'stone', floor: [9, 45], debris: [31, 46, 47], rails: [0] },
-  ds_bruch: { sheet: 'ds_bruch', fallback: 'stone', floor: [0, 1, 2, 3], debris: [4, 5], wet: [6, 7], wallTop: [8], wallFace: [9] },
+  ds_bruch: { sheet: 'ds_bruch', fallback: 'stone', floor: [0, 1, 2, 3], debris: [4, 5], wet: [6, 7], wallTop: [8], wallFace: [9], kulisse: [0] }, // kulisse: fester Boden unter Kalkbrechern (Y)
   ds_schlucht: { sheet: 'ds_schlucht', fallback: 'stone', floor: [16, 17, 18, 19], debris: [22], wallTop: [20], wallFace: [0, 1], grooves: [2, 3] },
   ds_innen: { sheet: 'ds_innen', fallback: 'wood0', floor: [0, 1, 2, 3], wear: [4, 5], wallTop: [8], wallFace: [9] },
   ds_teesaal: { sheet: 'ds_innen', fallback: 'wood0', floor: [0, 1, 2, 3], carpet: [6, 7], wallTop: [12], wallFace: [13] },
@@ -510,14 +513,30 @@ export const TITLE_LAYERS = [
   { file: 'ebene_0_himmel' }, { file: 'ebene_1_mond', frames: 2, sec: 3.3 }, { file: 'ebene_2_ferne', depth: 1 },
   { file: 'ebene_3_nebel', drift: 70 }, { file: 'ebene_4_stadt', depth: 2 }, { file: 'ebene_4_fenster', frames: 4, sec: 10, depth: 2 },
   { file: 'ebene_5_vorne', depth: 3 }, { file: 'ebene_5_laterne', frames: 4, sec: 0.5, depth: 3, box: [64, 96, 16, 16] }, { file: 'ebene_6_regen', frames: 4, sec: 0.4 },
-].map((l) => ({ ...l, url: `${BASE}ui/AE_titel/${l.file}.png` }));
+].map((l) => ({ ...l, url: `${BASE}ui/AE_titel/${l.file}.png` })).concat([
+  // Hauptmenü: Lichthof um die Laterne und eine zweite, gegenläufige Nebelbank
+  { cls: 'glow', depth: 3, box: [44, 76, 56, 56] }, { url: `${BASE}ui/AE_titel/ebene_3_nebel.png`, drift: 110, reverse: true, cls: 'fog2' },
+]);
+/**
+ * Hauptmenü ohne Spielstand: der Kanal mit den Gaslaternen (Grundpaket 07_06). Die Laternen glimmen, zwei Nebelbänke
+ * ziehen gegeneinander, Regen aus AE fällt, und auf dem nassen Pflaster flimmern die Spiegelungen.
+ */
+export const CANAL_TITLE_LAYERS = [
+  { url: `${BASE}ui/07_06_title.png` },
+  { cls: 'glow', box: [45, 72, 56, 56] }, { cls: 'glow g2', box: [124, 142, 36, 36] }, { cls: 'glow g3', box: [159, 171, 24, 24] }, { cls: 'glow g4', box: [182, 190, 14, 14] },
+  { cls: 'window', box: [4, 8, 22, 70] }, { cls: 'window w2', box: [456, 112, 22, 44] },
+  { cls: 'water', box: [130, 232, 300, 38] },
+  { url: `${BASE}ui/AE_titel/ebene_3_nebel.png`, drift: 80 }, { url: `${BASE}ui/AE_titel/ebene_3_nebel.png`, drift: 120, reverse: true, cls: 'fog2' },
+  { url: `${BASE}ui/AE_titel/ebene_6_regen.png`, frames: 4, sec: 0.4 },
+];
 /** Codex DM: Titelbild je Kapitel (Himmel, Stadt, Nebel, Vordergrund) für die Stadt des Spielstands; Kettlegate behält AE. */
 export const DM_CITIES = ['kettlegate', 'wexmoor', 'dunscar', 'calderwick', 'briarholt', 'varrowmouth'];
 export const dmTitleLayers = (city, { warm = false } = {}) => {
   const k = DM_CITIES.indexOf(city) + 1;
-  if (k < 2 || k > 5) return null;
+  if (k < 2 || k > 6) return null;
   const f = (n) => `${BASE}ui/titel_k${k}_${n}.png`;
-  return [{ url: f('himmel') }, { url: f('stadt'), depth: 1 }, { url: f('nebel'), drift: 70 }, { url: f(warm && k === 5 ? 'vordergrund_warm' : 'vordergrund'), depth: 3 }];
+  return [{ url: f('himmel') }, { url: f('stadt'), depth: 1 }, { url: f('nebel'), drift: 70 }, { url: f(warm && k === 5 ? 'vordergrund_warm' : 'vordergrund'), depth: 3 },
+    { url: f('nebel'), drift: 115, reverse: true, cls: 'fog2' }];
 };
 /** Codex DM: Mini-Bild der Stadt für die Spielstand-Karte (96x54). */
 export const spielstandUrl = (city) => (DM_CITIES.includes(city) ? `${BASE}ui/spielstand_${city}.png` : null);
@@ -778,7 +797,9 @@ export const overworldIdFor = (encId, enc) => {
   if (OVERWORLD_SHEETS[encId]) return encId;
   const sheet = enc?.sheet ?? ENCOUNTER_SHEETS[encId];
   const id = sheet?.replace(/^enemy_/, '');
-  return id && OVERWORLD_SHEETS[id] ? id : null;
+  if (id && OVERWORLD_SHEETS[id]) return id;
+  const basis = id?.split('__')[0]; // Skript-Variante ohne eigene Kartenfigur: die des Basisgegners
+  return basis && OVERWORLD_SHEETS[basis] ? basis : null;
 };
 /** Beutebehälter am Boden (props/G_loot_<behaelter>.png, 16x16, Frame 0 zu, Frame 1 offen). Fehlt einer, gibt es ein gezeichnetes Symbol. */
 export const LOOT_SHEETS = {};
@@ -1189,8 +1210,11 @@ const AG_ICONS = (id) => AF_ARTIFACTS.includes(id) || /^sq_zutat_\w+_\d$/.test(i
 const standinIcon = (id) => {
   if (AG_ICONS(id)) return id; // Paket AG: eigene Bilder für Zutaten und Artefakte
   if (/^trank_.+_\d_rest$/.test(id)) return id.replace(/_rest$/, ''); // Beyonder-Rest: Trank aus einem Rest sieht aus wie der normale
-  if (/^rest_.+_\d$/.test(id)) return 'schattenrest'; // Beyonder-Rest: Leihbild, bis es ein eigenes gibt
-  if (/^char_seq1_/.test(id)) return `trank_${id.slice(10)}_1`; // Charakteristik Seq 1 (für Seq 0): Leihbild des Seq-1-Tranks
+  if (/^rest_.+_\d$/.test(id)) { // Beyonder-Rest: je Pfad drei Stufen (Seq 9–7 klein, 6–4 mittel, 3–1 groß; tools/art/claude_code/icons_rest.py)
+    const seq = Number(id.slice(-1));
+    return `${id.slice(0, -2)}${seq >= 7 ? '_k' : seq <= 3 ? '_g' : ''}`;
+  }
+  if (/^char_seq1_/.test(id)) return id; // Charakteristik Seq 1 (für Seq 0): eigenes Bild je Pfad (per Skript, tools/art/claude_code)
   return id; // Tränke und Formeln haben für alle Pfade und Sequenzen 9–1 eigene Bilder (16 und 32)
 };
 /** Codex DT (Batch ritualicons2): eigene Icons in 16 und 32 für die Wurfflaschen der Seq-4-Rituale und die seltenen Wexmoor-Funde (Codex DR). */
@@ -1221,7 +1245,7 @@ const ICON32 = ['stimmphiole', 'verlorenes_gesangbuch', 'spiegelscherbe', ...F_E
   ...DS_ZIRKEL_ICONS, ...VS_ICONS];
 export const itemIcon32Url = (id) => {
   const k = ITEM_ICON_ALIASES[id] ?? id;
-  return k.startsWith('trank_') || ICON32.includes(k) || AG_ICONS(k) ? `${BASE}items/32/${standinIcon(k)}.png` : null;
+  return k.startsWith('trank_') || /^rest_.+_\d$/.test(k) || ICON32.includes(k) || AG_ICONS(k) ? `${BASE}items/32/${standinIcon(k)}.png` : null;
 };
 
 const srcKey = (sheet) => `src_${sheet}`;
@@ -1283,6 +1307,8 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestAnschlag')) scene.load.json('manifestAnschlag', `${BASE}manifest-anschlag.json`);
   if (!scene.cache.json.exists('manifestVarrowmouth4')) scene.load.json('manifestVarrowmouth4', `${BASE}manifest-varrowmouth4.json`);
   if (!scene.cache.json.exists('manifestVarrowmouth3')) scene.load.json('manifestVarrowmouth3', `${BASE}manifest-varrowmouth3.json`);
+  if (!scene.cache.json.exists('manifestVarrowmouth1')) scene.load.json('manifestVarrowmouth1', `${BASE}manifest-varrowmouth1.json`); // Regionen vmf_/vmp_ (Kulissen-Runde 1)
+  if (!scene.cache.json.exists('manifestRivalen')) scene.load.json('manifestRivalen', `${BASE}manifest-rivalen.json`); // Kampfblätter der Rivalen und Kopfgeldjäger
   if (!scene.cache.json.exists('manifestDunscar5')) scene.load.json('manifestDunscar5', `${BASE}manifest-dunscar5.json`);
   if (!scene.cache.json.exists('manifestStarling2')) scene.load.json('manifestStarling2', `${BASE}manifest-starling2.json`);
   if (!scene.cache.json.exists('manifestSekten')) scene.load.json('manifestSekten', `${BASE}manifest-sekten.json`);
@@ -2325,6 +2351,7 @@ CHARACTER_SHEETS.npc_wx_schneiderin = 'wx_schneiderin';
 /** Calderwicker Zirkel: Leih-Sheets der Calderwicker Einwohner (cs_*), Leihbilder aus dem Vorrat, bis eigene Grafik kommt. */
 for (const [id, sheet] of Object.entries(CWZ_SHEETS)) CHARACTER_SHEETS[`npc_${id}`] = sheet;
 Object.assign(ITEM_ICON_ALIASES, CWZ_ICONS, CWF_ICONS);
+ICON32.push(...Object.keys(CWZ_ICONS)); // Calderwick-Zirkelstücke haben auch 32er-Bilder
 for (const id of DS_ZIRKEL_FIGUREN) {
   SHEETS[id] = `characters/${id}_walk.png`;
   CHARACTER_SHEETS[`npc_${id}`] = id;
@@ -2851,6 +2878,10 @@ for (const t of ['promenade', 'kessel', 'glas', 'stille', 'klinik', 'wurzel']) f
   MANIFEST_IDS[`bht_${t}_${v}`] = `bh_${t}_${v}`;
 }
 for (const [key, file] of Object.entries(BH_DACH_TEXTUREN)) ANIM_SHEETS[key] = [file, 16, 16];
+/** Briarholt-Kulissen Runde 2 (tools/art/bh_kulissen/assets.py, manifest-bh-kulissen.json): Dachsätze (16er, 11 Kacheln, Zeile 0 kalt, 1 warm) und Innenraum-Stücke. */
+export const BH_KULISSEN_SHEETS = { bhk_dach_kupfer: [16, 16], bhk_dach_schiefer: [16, 16], bhk_dach_ziegel: [16, 16], bhk_dach_basalt: [16, 16], bhk_labortisch: [48, 40],
+  bhk_laborregal: [32, 48], bhk_planschrank: [48, 32], bhk_rollenstaender: [16, 32], bhk_aktenschrank: [32, 48], bhk_gepaeckstapel: [32, 32] };
+for (const [key, [w, h]] of Object.entries(BH_KULISSEN_SHEETS)) ANIM_SHEETS[key] = [`props/${key}.png`, w, h];
 /** Kampfkulissen der Viertel (Kesselgrund und Glasgärten je kalt/warm); Innenräume nehmen die Kulisse ihres Viertels, der Bügelraum die warme des Kesselgrunds. */
 const BH_BATTLE = { bh_kutschenhof: 'bg_bh_kutschenhof', bh_kutschenhalle: 'bg_bh_kutschenhof', bh_kesselgrund: 'bg_bh_kesselgrund_kalt', bh_buegelraum: 'bg_bh_kesselgrund_warm',
   bh_winterpromenade: 'bg_bh_promenade', bh_pavillon: 'bg_bh_promenade', bh_glasgaerten: 'bg_bh_glasgaerten_kalt', bh_verkaufshalle: 'bg_bh_glasgaerten_kalt',
@@ -2885,7 +2916,8 @@ const CW_THEME_SPECS = {
 export const CW_THEME_KEYS = Object.keys(CW_THEME_SPECS);
 for (const [theme, { sheet = theme, ...rest }] of Object.entries(CW_THEME_SPECS)) {
   if (!SHEETS[sheet]) SHEETS[sheet] = `tilesets/${sheet}.png`;
-  const spec = (THEME_TILES[theme] = { ...rest, sheet });
+  // kulisse: Bodenzelle, aber fest (Kartenzeichen Y unter den Requisiten aus data/calderwickKlotze.js)
+  const spec = (THEME_TILES[theme] = { ...rest, kulisse: [rest.floor[0]], sheet });
   const list = Object.entries(spec).filter(([, v]) => Array.isArray(v)).flatMap(([group, regions]) => regions.map((region) => ({
     key: `${theme}_${group}_${region}`, theme, group, sheet, region, solid: !WALKABLE_GROUPS.includes(group), fallback: GROUP_FALLBACK[group] ?? spec.fallback,
     base: WALKABLE_GROUPS.includes(group) ? null : `${theme}_floor_${spec.floor[0]}`,
@@ -2928,7 +2960,8 @@ SHEETS.cw_abgleich = 'fx/cw_abgleich.png';
  * Etappe 1 zeigt die Ebbe-Blätter; der Wechsel mit der Flut kommt mit den Gezeiten-Karten.
  */
 export const VM_THEME_KEYS = ['vm_hafen', 'vm_stege', 'vm_schlick', 'vm_oberstrasse', 'vm_wrack', 'vm_leuchtbank', 'vm_innen'];
-const VM_SPEC = { fallback: 'cobble0', floor: [1, 1, 7], wear: [0, 6], mud: [8, 9, 10, 11, 12, 13, 14, 15],
+// kulisse/kulisseSchlick: dieselben Zellen wie Boden/Schlick, aber fest (Kartenzeichen Y/Z, darauf stehen die Kulissen-Requisiten)
+const VM_SPEC = { fallback: 'cobble0', floor: [1, 1, 7], wear: [0, 6], mud: [8, 9, 10, 11, 12, 13, 14, 15], kulisse: [1, 1, 7], kulisseSchlick: [8],
   water: Array.from({ length: 16 }, (_, i) => 16 + i), bridge: [36, 37], wallFace: [42, 43, 42, 46], door: [44], wallTop: [48, 49, 48, 49, 48, 49, 48, 50, 49, 51] };
 /** Gezeiten (Etappe 3): jedes Thema gibt es zweimal, `vm_hafen` (Ebbe) und `vm_hafen_flut` mit dem Flut-Blatt. */
 export const VM_FLUT = (theme) => `${theme}_flut`;
@@ -2942,6 +2975,16 @@ for (const [theme, sheet] of VM_THEME_KEYS.flatMap((t) => [[t, `${t}_ebbe`], [VM
   THEME_TILE_LIST.push(...list);
   for (const t of list) TILE_CELLS[t.key] = [t.sheet, t.region, t.base];
 }
+/**
+ * Kulissen-Runde 1 (tools/art/vm_kulissen/assets.py, manifest-vm-kulissen.json): zehn skriptgezeichnete Requisiten für die
+ * Platzhalter-Blöcke (Pegelzaun, Zolltor, Leuchtturmfuß, Wracks, Regale, Registerschrank, Nebel). Mehrere Frames = Varianten, keine Animation.
+ * Dazu die Regionen aus CV (vmf_<region> aus vm_fassaden, vmp_<region> aus vm_props), z. B. der Leuchtturm vmf_leuchtfeuer_turm_tag.
+ */
+export const VM_KULISSEN_SHEETS = { vmk_pegelzaun: [16, 32], vmk_zolltor: [96, 48], vmk_leuchtturm_fuss: [96, 80], vmk_wrackrumpf: [80, 64], vmk_wrackrumpf_lang: [112, 64],
+  vmk_wrackheck: [64, 64], vmk_wrackmutter_rumpf: [128, 128], vmk_registerregal: [80, 96], vmk_registerschrank: [64, 80], vmk_nebelschwaden: [64, 32] };
+for (const [key, [w, h]] of Object.entries(VM_KULISSEN_SHEETS)) ANIM_SHEETS[key] = [`props/${key}.png`, w, h];
+Object.assign(REGION_SHEETS, { vmf: ['manifestVarrowmouth1', 'vm_fassaden'], vmp: ['manifestVarrowmouth1', 'vm_props'] });
+Object.assign(SHEETS, { vmf: 'facades/vm_fassaden.png', vmp: 'props/vm_props.png' });
 /** CW: Kampfkulissen (Ebbe). */
 Object.assign(BATTLE_BACKGROUNDS, { vm_zollhafen: 'bg_vm_zollhafen_ebbe', vm_stegviertel: 'bg_vm_stege_flut', vm_schlickgassen: 'bg_vm_schlick_ebbe', vm_oberstrasse: 'bg_vm_oberstrasse', vm_wrackfeld: 'bg_vm_wrackfeld_ebbe',
   vm_leuchtbank: 'bg_vm_leuchtbank_ebbe', vm_registerkeller: 'bg_vm_registerkeller_ebbe', vm_grenzzaun: 'bg_vm_grenzzaun' });
@@ -3007,6 +3050,12 @@ for (const id of CS_FIGURES) {
   SHEETS[`cs_${id}`] = `characters/${id}.png`;
   CHARACTER_SHEETS[`npc_${id}`] = `cs_${id}`;
   if (id !== 'cwo_marktstand') { HEADS.push(id); HEAD_FILES[id] = `portraits/heads/${id}.png`; } // Mina hat laut Auftrag keinen Kopf
+}
+/** Seq-1-Beyonder in Briarholt (data/seq1Beyonder.js): Lauf-Sheets per Skript aus Codex-Figuren umgefärbt (tools/art/claude_code/s1b_figuren.py). */
+export const S1B_FIGURES = ['laterne', 'faden', 'maske', 'echo', 'kessel', 'eisen', 'schluessel', 'sq_waage', 'sq_moor', 'sq_uhr'];
+for (const pid of S1B_FIGURES) {
+  SHEETS[`s1b_${pid}`] = `characters/s1b_${pid}_walk.png`;
+  CHARACTER_SHEETS[`npc_s1b_${pid}`] = `s1b_${pid}`;
 }
 /** Maud Keel und die drei Wexmoorer Auftraggeber: Lauf-Sheets ersetzt (AL/#277 bleiben als Keys), dazu Kopf und Porträtleiste (4 Stimmungen). */
 export const CS_PORTRAIT_MOODS = { neutral: 0, freundlich: 1, friendly: 1, smile: 1, faint_smile: 1, approving: 1, bidding: 1, misstrauisch: 2, suspicious: 2, skeptical: 2, erschrocken: 3, shocked: 3, scared: 3, angry: 2 };
@@ -3286,8 +3335,95 @@ export const GEGNER_VARIANTEN = {
   enemy_wx_pfandleiherin: 'enemy_ez_ds_walzenstimme',
   enemy_k5s_sammler: 'enemy_starling',
 };
+/** Pfadviertel-Gegner je Pfad (tools/art/claude_code/o3_varianten.py): <basis>__o3_<pfad>, Oberhaupt <basis>__o3t_<pfad>. Gesetzt in data/seqHoch.js. */
+export const O3_VARIANTEN = {
+  enemy_vg_bh_glasmotte__o3_laterne: 'enemy_vg_bh_glasmotte',
+  enemy_vg_bh_bluetenkopf__o3_laterne: 'enemy_vg_bh_bluetenkopf',
+  enemy_vg_bh_boss_glasgaertner__o3t_laterne: 'enemy_vg_bh_boss_glasgaertner',
+  enemy_vg_cw_rohrpostwespe__o3_faden: 'enemy_vg_cw_rohrpostwespe',
+  enemy_vg_cw_durchschlag__o3_faden: 'enemy_vg_cw_durchschlag',
+  enemy_vg_cw_leerfracht__o3_faden: 'enemy_vg_cw_leerfracht',
+  enemy_vg_cw_boss_blinder_zusteller__o3t_faden: 'enemy_vg_cw_boss_blinder_zusteller',
+  enemy_vg_cw_letternlaeufer__o3_maske: 'enemy_vg_cw_letternlaeufer',
+  enemy_vg_cw_stempelhand__o3_maske: 'enemy_vg_cw_stempelhand',
+  enemy_vg_cw_registerratte__o3_maske: 'enemy_vg_cw_registerratte',
+  enemy_vg_cw_boss_bleisammler__o3t_maske: 'enemy_vg_cw_boss_bleisammler',
+  enemy_signalkraehe__o3_echo: 'enemy_signalkraehe',
+  enemy_geruestklang__o3_echo: 'enemy_geruestklang',
+  enemy_vielrufer__o3t_echo: 'enemy_vielrufer',
+  enemy_vg_bh_rohrwurm__o3_kessel: 'enemy_vg_bh_rohrwurm',
+  enemy_vg_bh_waeschegeist__o3_kessel: 'enemy_vg_bh_waeschegeist',
+  enemy_vg_bh_boss_waescherei__o3t_kessel: 'enemy_vg_bh_boss_waescherei',
+  enemy_vg_cw_seilbahnwaechter__o3_eisen: 'enemy_vg_cw_seilbahnwaechter',
+  enemy_vg_cw_tintenschatten__o3_eisen: 'enemy_vg_cw_tintenschatten',
+  enemy_vg_cw_boss_nullfundament__o3t_eisen: 'enemy_vg_cw_boss_nullfundament',
+  enemy_knochenwurm__o3_schluessel: 'enemy_knochenwurm',
+  enemy_kerzenfresser__o3_schluessel: 'enemy_kerzenfresser',
+  enemy_schaedelschwarm__o3_schluessel: 'enemy_schaedelschwarm',
+  enemy_ossuarwaechter__o3t_schluessel: 'enemy_ossuarwaechter',
+  enemy_lohnlistenmotte__o3_sq_waage: 'enemy_lohnlistenmotte',
+  enemy_kalkstaubgeist__o3_sq_waage: 'enemy_kalkstaubgeist',
+  enemy_nachhall__o3_sq_waage: 'enemy_nachhall',
+  enemy_nachhall__o3t_sq_waage: 'enemy_nachhall',
+  enemy_vg_bh_wurzelgaenger__o3_sq_moor: 'enemy_vg_bh_wurzelgaenger',
+  enemy_vg_bh_sudtraeger__o3_sq_moor: 'enemy_vg_bh_sudtraeger',
+  enemy_vg_bh_boss_mutterwurzel__o3t_sq_moor: 'enemy_vg_bh_boss_mutterwurzel',
+  enemy_schichtgaenger__o3_sq_uhr: 'enemy_schichtgaenger',
+  enemy_vorhauer__o3t_sq_uhr: 'enemy_vorhauer',
+};
+Object.assign(GEGNER_VARIANTEN, O3_VARIANTEN);
+/** Ritualwächter je Pfad (tools/art/claude_code/waechter_varianten.py): __w_<pfad> Schwellen-/Grenzwächter, __wt_<pfad> Heiligen-/Engelswächter. */
+export const WAECHTER_VARIANTEN = Object.fromEntries(['hg_schwellenwaechter', 'hg_grenzwaechter'].flatMap((b) =>
+  HG_PATHS.flatMap((p) => [[`${b}__w_${p}`, b], [`${b}__wt_${p}`, b]])));
+Object.assign(GEGNER_VARIANTEN, WAECHTER_VARIANTEN);
+/** Gestalt-Kampfblätter je Pfad (tools/art/claude_code/hgb_varianten.py): __vh Halbgott des Vorhofs, __vz Stellvertretung, __s1 Seq-1-Beyonder. */
+export const HGB_VARIANTEN = Object.fromEntries(HG_PATHS.flatMap((p) => ['vh', 'vz', 's1'].map((a) => [`hg_battle_${p}__${a}`, `hg_battle_${p}`])));
+Object.assign(GEGNER_VARIANTEN, HGB_VARIANTEN);
+/** Letzte Leihgruppen (tools/art/claude_code/themen_varianten.py): enemy_<basis>__<begegnung>, gesetzt in data/skriptSheets.js. */
+export const THEMEN_VARIANTEN = Object.fromEntries(Object.values(SKRIPT_SHEETS).map((s) => [s, s.split('__')[0]]));
+Object.assign(GEGNER_VARIANTEN, THEMEN_VARIANTEN);
+// Kartenfiguren derselben Gegner: characters/<basis>__o3_<pfad>.png neben dem Basisbild
+for (const [neu, base] of Object.entries(O3_VARIANTEN)) {
+  const ow = OVERWORLD_SHEETS[base.replace(/^enemy_/, '')];
+  if (ow) OVERWORLD_SHEETS[neu.replace(/^enemy_/, '')] = [ow[0].replace(/\.png$/, `__${neu.split('__')[1]}.png`), ow[1], ow[2]];
+}
 for (const [neu, base] of Object.entries(GEGNER_VARIANTEN)) {
   BATTLE_SHEETS[neu] = [`battle/${neu}.png`, ...BATTLE_SHEETS[base].slice(1)];
   if (ANIM_ALIASES[base]) ANIM_ALIASES[neu] = ANIM_ALIASES[base];
   if (BATTLE_SHEET_SCALE[base]) BATTLE_SHEET_SCALE[neu] = BATTLE_SHEET_SCALE[base];
 }
+
+// --- Skript-Grafik Runde 5 (tools/art/claude_code/icons_r5.py): eigene Icons in 16 und 32 statt Leihbildern aus reserve200/future200/nebel200 ---
+/** Dunscar-Vorräte, Post-Beilagen und Calderwicker Fundstücke; überschreibt die Leihbild-Zuordnungen aus DSH_ICONS, CWF_ICONS und den Post-Aliasen. */
+export const R5_ICONS = ['dsh_verbandrolle', 'dsh_schichttonikum', 'dsh_kalkelixier', 'dsh_honigtopf', 'dsh_bruchriechsalz', 'dsh_wachtrank', 'dsh_stellwerktee',
+  'dsh_stillschlaf', 'dsh_geisterblume', 'dsh_reisebrot', 'dsh_hartkaese', 'dsh_kaffee', 'post_schluessel_ohne_schloss', 'post_leseblatt', 'post_fragen_vor_der_erklaerung',
+  ...Object.keys(CWF_ICONS)];
+for (const id of R5_ICONS) ITEM_ICON_ALIASES[id] = id;
+ICON32.push(...R5_ICONS);
+
+// --- Eigene Laufblätter statt Leihbildern (tools/art/figuren/figuren.py, manifest-figuren-eigen.json) ----------------------------
+/**
+ * Zehn Figuren trugen bisher umgefärbte oder geteilte Blätter anderer Personen (Ottilie Fenn eine umgefärbte Näherin, die Calderwicker
+ * Zirkel-Mitglieder dieselben Blätter wie Einwohner derselben Stadt, Leda Voss das Blatt von Bess Hagan, Ysolde Grau das der Wahrsagerin).
+ * Gleiches Raster wie die NPC-Blätter: 64x128, Reihen unten/links/rechts/oben, je 4 Schritte. Steht am Dateiende, damit es die Leih-Zuordnungen überschreibt.
+ */
+export const FIGUREN_EIGEN = ['wx_schneiderin', 'cwz_pfandmeister', 'cwz_schneiderin', 'cwz_kassenwart', 'cwz_kesselflicker', 'cwz_aschehaendler',
+  'cwz_bleisetzer', 'cwz_schaetzerin', 'haus_maklerin', 'nebel_kraemerin'];
+for (const id of FIGUREN_EIGEN) {
+  SHEETS['fig_' + id] = 'characters/fig_' + id + '_walk.png';
+  CHARACTER_SHEETS['npc_' + id] = 'fig_' + id;
+}
+
+
+// --- Kampfblätter der Rivalen (Sequenz 9-5) und Kopfgeldjäger je Pfad (tools/art/rivalen/rivalen.py, manifest-rivalen.json) ------------
+/** Bisher kämpften alle Rivalen der Sequenzen 9-5 mit denselben Leihkörpern (Gleisplünderer, Moorhehler, Staubschmuggler), die Jäger mit Leihkörpern
+ * oder Halbgott-Blättern eines falschen Pfads. 48er-Zellen, 6x5 wie die k3k-Körper (idle, attack, special, hurt, defeated). */
+export const RIVALEN_PFADE = ['laterne', 'schluessel', 'echo', 'maske', 'faden', 'sq_uhr', 'sq_waage', 'eisen', 'kessel', 'sq_moor'];
+for (const p of RIVALEN_PFADE) for (const art of ['rv', 'kgj']) BATTLE_SHEETS['enemy_' + art + '_' + p] = ['battle/enemy_' + art + '_' + p + '.png', 48];
+BATTLE_MANIFESTS.push('manifestRivalen');
+
+// --- Calderwick-Requisiten für die Platzhalter-Klötze (tools/art/cw_kulissen/assets.py, data/calderwickKlotze.js) ------------------------
+for (const [key, [w, h]] of Object.entries(CW_KULISSEN_SPRITES)) ANIM_SHEETS[key] = ['props/' + key + '.png', w, h];
+
+// --- Je fünf Requisiten für Dunscar und Briarholt (tools/art/ds_bh_kulissen/assets.py, data/dsbhKulissen.js, data/briarholtKulisse2.js) ---------
+for (const [key, [w, h]] of Object.entries(DS_BH_SPRITES)) ANIM_SHEETS[key] = ['props/' + key + '.png', w, h];

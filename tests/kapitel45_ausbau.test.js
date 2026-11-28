@@ -16,10 +16,13 @@ const choice = (s, npc, text) => node(npc, 'hub').choices.find((c) => c.text.sta
 test('Calderwick: Figuren haben neue Rollen, keine Akte-Zweige mehr, alle Sprünge im Gespräch führen ins Leere nicht', () => {
   for (const id of ['cw_darnell', 'cw_hesk', 'cw_noel_bellcross', 'cw_malliver', 'cw_crayford', 'cw_wetherby', 'cw_pritch', 'cw_bexley', 'cw_wicksend']) {
     const d = content.dialogues[content.npcs[id].dialogue];
-    assert.ok(!d.nodes.hub.choices.some((c) => /^(cwa_|thema_|bitte)/.test(c.next ?? '')), `${id}: alte Zweige`);
+    assert.ok(!d.nodes.hub.choices.some((c) => /^(thema_|bitte)/.test(c.next ?? '')), `${id}: alte Zweige`);
+    // Nebenakte (Seb 2026-11-27): ihre Zweige bleiben, sind aber nach dem Sturz noch zu
+    assert.ok(!d.nodes.hub.choices.some((c) => /^cwa_/.test(c.next ?? '') && gestuerzt().meets(c)), `${id}: Akte-Zweig schon offen`);
     for (const [k, n] of Object.entries(d.nodes)) for (const c of n.choices ?? []) if (c.next) assert.ok(d.nodes[c.next], `${id}.${k} → ${c.next}`);
   }
-  assert.equal(content.dialogues.k4s_ida.nodes.start.choices.length, 3);
+  const frei = gestuerzt(); frei.flags.add('k4s_ida');
+  assert.equal(content.dialogues.k4s_ida.nodes.start.choices.filter((c) => frei.meets(c)).length, 3);
 });
 
 test('Kapitel 4: Fallbuch, Hesk, Ida, Seiten, Akte, Wetherby, Linie nach Briarholt', () => {
