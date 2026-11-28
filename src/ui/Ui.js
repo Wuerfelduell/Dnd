@@ -432,6 +432,20 @@ const hudMeter = (prefix, frac, k) => {
   const clip = px >= HUD_FILL_W ? HUD_BAR_W : HUD_FILL_X + px;
   return `<span class="hudmeter">${uiSprite('hud', `${prefix}5`, k)}<span class="hudclip" style="width:${clip * k}em">${uiSprite('hud', `${prefix}0`, k)}</span></span>`;
 };
+/** Wie hudMeter, aber die Füllung liegt allein (ohne Rahmenkappe) im Clip, damit ein CSS-Filter nur sie umfärbt (Unruhe). */
+const tintMeter = (prefix, frac, k) => {
+  const f = Math.max(0, Math.min(1, Number(frac) || 0));
+  let px = Math.round(f * HUD_FILL_W);
+  if (f > 0 && px === 0) px = 1;
+  return `<span class="hudmeter">${uiSprite('hud', `${prefix}5`, k)}<span class="hudclip tint" style="left:${HUD_FILL_X * k}em;top:${2 * k}em;height:${4 * k}em;width:${px * k}em"><span style="display:inline-block;margin:-${2 * k}em 0 0 -${HUD_FILL_X * k}em">${uiSprite('hud', `${prefix}0`, k)}</span></span></span>`;
+};
+/** Welt-HUD (Seb 2026-11-28): dieselben Leisten wie im Kampf, ohne Wort und Zahl; der Wert steht im Tooltip. */
+const setHudBar = (el, prefix, frac, title, low = false) => {
+  if (!el) return;
+  el.innerHTML = el.classList.contains('unruhe') ? tintMeter(prefix, frac, 1 / 8) : hudMeter(prefix, frac, 1 / 8);
+  el.classList.toggle('low', low);
+  el.title = title;
+};
 const pctStep = (frac, n) => Math.max(0, Math.min(n - 1, Math.round((1 - Math.max(0, Math.min(1, frac))) * (n - 1))));
 const moneyIcon = (n) => `<img class="coin" src="${moneyIconUrl(n)}" alt="" width="16" height="16" onerror="this.remove()">`;
 /** Beute als Liste mit Icon, Anzahl und Seltenheit (Farbe). */
@@ -496,12 +510,12 @@ export class Ui {
       <div class="hud">
         <div class="hud-left">
           <div class="place"></div>
-          <div class="wetter"></div>
-          <div class="meter life"><span>Leben</span><div class="bar"><div class="lfill"></div></div><em class="hpnum"></em></div>
-          <div class="meter"><span>Nerven</span><div class="bar"><div class="fill"></div></div></div>
+          <div class="pname p1name hidden"><img class="phead" alt="" width="12" height="12" src="${p2HeadUrl('player')}"><b>Spieler 1</b><span class="pseq"></span></div>
+          <div class="meter hbar"><span class="hudbar hp p1hp"></span></div>
+          <div class="meter hbar"><span class="hudbar nerves p1nv"></span></div>
           <div class="meter honor"><span class="rank"></span><div class="bar"><div class="hfill"></div></div><span class="repbar"></span></div>
           <div class="meter digest hidden"><span>Verdaut</span><div class="bar"><div class="dfill"></div></div><em class="dnum"></em></div>
-          <div class="meter unruhe hidden"><span>Unruhe</span><div class="bar"><div class="ufill"></div></div></div>
+          <div class="meter hbar unruhe hidden"><span class="hudbar unruhe p1uf"></span></div>
           <div class="money"></div>
           <div class="overload hidden"></div>
           <div class="fahndung hidden"></div>
@@ -511,18 +525,19 @@ export class Ui {
         </div>
         <div class="hud-right">
           <div class="hudbtns">
-            <button class="hudbtn" data-hud="notebook">${touchIcon('notizbuch')}<span class="key">J</span> Notizbuch</button>
+            <button class="hudbtn touch-only" data-hud="notebook">${touchIcon('notizbuch')}<span class="key">J</span> Notizbuch</button>
             <button class="hudbtn" data-hud="inventory">${touchIcon('inventar')}<span class="key">I</span> Inventar</button>
-            <button class="hudbtn" data-hud="pathway">${touchIcon('faehigkeit')}<span class="key">P</span> Pfad</button>
-            <button class="hudbtn" data-hud="vision">${touchIcon('geistsicht')}<span class="key">Q</span> Geistsicht</button>
+            <button class="hudbtn touch-only" data-hud="pathway">${touchIcon('faehigkeit')}<span class="key">P</span> Pfad</button>
+            <button class="hudbtn touch-only" data-hud="vision">${touchIcon('geistsicht')}<span class="key">Q</span> Geistsicht</button>
             <button class="hudbtn" data-hud="menu">${setIcon('zahnrad', 'touch-only')}<span class="key">Esc</span> Menü</button>
           </div>
           <div class="hud-p2 hidden">
-            <div class="p2name"><img class="p2head" alt="" width="12" height="12">Spieler 2 <span class="p2state"></span><span class="muted p2weapon"></span></div>
-            <div class="meter life"><span>Leben</span><div class="bar"><div class="p2hp"></div></div><em class="p2hpnum"></em></div>
-            <div class="meter"><span>Nerven</span><div class="bar"><div class="p2nv"></div></div></div>
-            <div class="p2path hidden"></div>
-            <div class="p2load hidden"></div>
+            <div class="pname p2name"><img class="phead p2head" alt="" width="12" height="12"><b>Spieler 2</b><span class="p2state"></span><span class="pseq p2seq"></span></div>
+            <div class="meter hbar"><span class="hudbar hp p2hp"></span></div>
+            <div class="meter hbar"><span class="hudbar nerves p2nv"></span></div>
+            <div class="meter digest p2digest hidden"><span>Verdaut</span><div class="bar"><div class="dfill p2dfill"></div></div><em class="p2dnum"></em></div>
+            <div class="meter hbar unruhe p2unruhe hidden"><span class="hudbar unruhe p2uf"></span></div>
+            <div class="overload p2load hidden"></div>
           </div>
         </div>
         <div class="uhr"></div>
@@ -775,15 +790,14 @@ export class Ui {
   }
 
   /** Tag/Nacht und Wetter (core/Wetter.js) unter dem Ortsnamen; Wirkung im Kampf als Tooltip. */
+  /** Seb 2026-11-28: Tag/Wetter stehen nur noch in der Uhr; die Wirkung des Wetters zeigt ihr Tooltip. */
   updateWetter() {
-    const el = this.$('.wetter');
+    const el = this.$('.uhr');
     const s = this.state;
     if (!el || !s.wetterHud) return;
     const nn = s.nebelnacht();
     const w = WETTER[nn ? 'nebel' : s.wetter()];
-    el.innerHTML = nn ? `<span>${w.icon}</span> <span>Nebelnacht</span>` : `<span>${s.isNight() ? 'Nacht' : 'Tag'}</span> · <span>${w.icon}</span> <span>${w.name}</span>`; // einzelne Wörter für das Wörterbuch
-    el.classList.toggle('nebelnacht', nn);
-    el.title = nn ? NEBELNACHT.wirkung : WETTER[s.wetter()].wirkung;
+    el.title = `${nn ? 'Nebelnacht' : w.name}: ${nn ? NEBELNACHT.wirkung : w.wirkung}`;
   }
 
   onSceneReady(scene) {
@@ -834,11 +848,9 @@ export class Ui {
     el.classList.toggle('open', !!st?.open);
     if (!st) return;
     const g = st.open ?? st.next;
-    const [, inv] = ZIRKEL_ICONS[g.id] ?? [];
     const frac = st.open ? (g.end - this.state.playTime) / Math.max(1, g.end - g.start) : 1;
     const timer = st.open ? atlasIcon(ZIRKEL_URL, 24 + Math.min(7, Math.max(0, Math.floor((1 - frac) * 8))), 8) : '';
-    const sInv = S_ZIRKEL[g.id] && regionIcon(S_ZIRKEL_URL, S_ZIRKEL[g.id].invite, 128, 64, 'invite', 1 / 16);
-    el.innerHTML = `${inv !== undefined ? atlasIcon(ZIRKEL_URL, 16 + inv, 8) : sInv || (st.open ? '◆' : '◇')}${timer} ${esc(st.text)}`;
+    el.innerHTML = `${timer}${timer ? ' ' : ''}${esc(st.text)}`; // Seb 2026-11-28: kein Einladungs-Symbol mehr davor, nur die Uhr, solange offen
   }
 
   /** HUD-Hinweis nur bei Überlast, damit die Anzeige sonst ruhig bleibt. */
@@ -892,11 +904,8 @@ export class Ui {
       this.$('.meter.digest .dfill').classList.toggle('full', d >= 100);
       this.$('.dnum').textContent = `${s.pathway.seq <= 6 && d < 100 ? fmtDigest(s.pathway.digestion) : d} %`;
     }
-    const el = this.$('.meter.unruhe');
-    el.classList.toggle('hidden', !s.isBeyonder() && s.unruhe <= 0);
-    const fill = this.$('.ufill');
-    fill.style.width = `${s.unruhe}%`;
-    fill.classList.toggle('low', s.unruhe >= 60);
+    this.$('.meter.unruhe').classList.toggle('hidden', !s.isBeyonder() && s.unruhe <= 0);
+    setHudBar(this.$('.p1uf'), 'nerves', s.unruhe / 100, `Unruhe ${Math.round(s.unruhe)}`, s.unruhe >= 60);
   }
 
   isBlocking() {
@@ -944,19 +953,14 @@ export class Ui {
 
   updateComposure(v) {
     if (this.state.acting === 2) return;
-    const fill = this.$('.fill');
-    const pct = (v / this.state.maxComposure()) * 100;
-    fill.style.width = `${pct}%`;
-    fill.classList.toggle('low', pct < 30);
+    const max = this.state.maxComposure();
+    setHudBar(this.$('.p1nv'), 'nerves', v / max, `Nerven ${Math.round(v)}/${max}`, v / max < 0.3);
   }
 
   updateHp() {
     const s = this.state;
     if (s.acting === 2) return;
-    const fill = this.$('.lfill');
-    fill.style.width = `${(s.hp / s.maxHp) * 100}%`;
-    fill.classList.toggle('low', s.hp / s.maxHp < 0.3);
-    this.$('.hpnum').textContent = `${s.hp}/${s.maxHp}`;
+    setHudBar(this.$('.p1hp'), 'hp', s.hp / s.maxHp, `Leben ${s.hp}/${s.maxHp}`, s.hp / s.maxHp < 0.3);
   }
 
   /** HUD von Spieler 2 (rechts oben), nur wenn er mitspielt. */
@@ -966,30 +970,43 @@ export class Ui {
     const on = this.state.hasP2();
     el.classList.toggle('hidden', !on);
     this.root.classList.toggle('koop', on);
+    this.$('.p1name')?.classList.toggle('hidden', !on);
     if (!on) return;
     const v = this.state.playerView(2);
     const head = this.$('.p2head');
     const look = this.state.p2Look();
     if (head && head.dataset.look !== look) { head.dataset.look = look; head.src = p2HeadUrl(look); }
-    const hp = this.$('.p2hp');
-    hp.style.width = `${(v.hp / v.maxHp) * 100}%`;
-    hp.classList.toggle('low', v.hp / v.maxHp < 0.3);
-    this.$('.p2hpnum').textContent = `${v.hp}/${v.maxHp}`;
-    this.$('.p2nv').style.width = `${(v.composure / v.maxComposure) * 100}%`;
-    this.$('.p2weapon').textContent = v.weapon.name;
+    setHudBar(this.$('.p2hp'), 'hp', v.hp / v.maxHp, `Leben ${v.hp}/${v.maxHp}`, v.hp / v.maxHp < 0.3);
+    setHudBar(this.$('.p2nv'), 'nerves', v.composure / v.maxComposure, `Nerven ${Math.round(v.composure)}/${v.maxComposure}`, v.composure / v.maxComposure < 0.3);
+    this.$('.p2name').title = v.weapon.name;
     // Paket BU: Zustand als Symbol (im Kampf, gebunden, Anspruch offen, sonst wartet/geht mit)
     const anspruch = Object.values(this.state.claims ?? {}).some((e) => e?.[2] === 'offen');
     const zustand = this.combatScene ? 'im_kampf' : anspruch ? 'anspruch_offen' : this.isBlocking() ? 'wartet' : null;
     const st = this.$('.p2state');
     if (st && st.dataset.z !== (zustand ?? '')) { st.dataset.z = zustand ?? ''; st.innerHTML = zustand ? uiSprite('koop2', `p2_${zustand}`, 1 / 12, 'p2sym', zustand.replace('_', ' ')) : ''; }
 
-    const path = this.$('.p2path');
-    path.classList.toggle('hidden', !v.pathway && v.unruhe <= 0);
-    if (v.pathway) path.innerHTML = `<span style="color:${v.pathway.color}">Seq ${v.pathway.seq} ${esc(v.pathway.seqName)}</span> · ${v.pathway.seq <= 6 && v.pathway.digestion < 100 ? fmtDigest(v.pathway.digestion) : Math.floor(v.pathway.digestion)} % · <span class="${v.unruhe >= 60 ? 'curse' : ''}">Unruhe ${Math.round(v.unruhe)}</span>`;
-    else if (v.unruhe > 0) path.innerHTML = `<span class="${v.unruhe >= 60 ? 'curse' : ''}">Unruhe ${Math.round(v.unruhe)}</span>`;
+    // Seb 2026-11-28: beide Spieler zeigen dieselben Zeilen im selben Stil (Name mit Sequenz, Leben, Nerven, Verdaut, Unruhe, Überladen)
+    const seqText = (pw) => (pw ? `<span style="color:${pw.color}">Seq ${pw.seq} ${esc(pw.seqName)}</span>` : '');
+    const p1 = this.$('.p1name');
+    p1.classList.remove('hidden');
+    const v1 = this.state.playerView(1);
+    p1.querySelector('.pseq').innerHTML = seqText(v1.pathway);
+    p1.title = v1.weapon.name;
+    this.$('.p2seq').innerHTML = seqText(v.pathway);
+    const dm = this.$('.p2digest');
+    dm.classList.toggle('hidden', !v.pathway);
+    if (v.pathway) {
+      const d = Math.floor(v.pathway.digestion);
+      const df = this.$('.p2dfill');
+      df.style.width = `${d}%`;
+      df.classList.toggle('full', d >= 100);
+      this.$('.p2dnum').textContent = `${v.pathway.seq <= 6 && d < 100 ? fmtDigest(v.pathway.digestion) : d} %`;
+    }
+    this.$('.p2unruhe').classList.toggle('hidden', !v.pathway && v.unruhe <= 0);
+    setHudBar(this.$('.p2uf'), 'nerves', v.unruhe / 100, `Unruhe ${Math.round(v.unruhe)}`, v.unruhe >= 60);
     const load = this.$('.p2load');
     load.classList.toggle('hidden', !v.overloaded);
-    if (v.overloaded) load.textContent = `Überladen · ${v.carry}`;
+    if (v.overloaded) load.innerHTML = `${uiSprite('loot', 'full', 1 / 16, 'toastico')}Überladen · ${esc(v.carry)}`;
   }
 
   // --- Schnellleiste der Welt-Fähigkeiten -------------------------------------------
