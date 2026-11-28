@@ -148,6 +148,21 @@ export const HG_FORMS = {
   sq_moor: { id: 'hg_form_sq_moor', name: 'Torfleib' }, sq_uhr: { id: 'hg_form_sq_uhr', name: 'Pendelgestalt' },
 };
 /**
+ * Die Gestalt wächst mit der Sequenz (Seb 2026-11-26, Codex DZ/EA): Seq 4 Grundform, Seq 3 „_s3“, Seq 2 „_s2“,
+ * Seq 1 stille Endgestalt. Fehlt eine Stufe, greift die nächstniedrigere Stufe (Seq 2 ohne eigenes Blatt → Seq 3 → Grundform).
+ * kind: 'map' (Kartenblatt 32x48), 'battle' (Kampfblatt 96x96) oder 'face' (Zugbild 32x32, UI-Sheet). Liefert die
+ * Schlüssel in Vorzugsreihenfolge; der Aufrufer nimmt den ersten, dessen Textur geladen ist.
+ */
+export const formStageKeys = (pid, seq, kind = 'map') => {
+  if (!pid) return [];
+  const stages = [seq <= 1 && 'still', seq <= 2 && 's2', seq <= 3 && 's3', ''].filter((x) => x !== false);
+  return stages.map((st) => {
+    if (kind === 'battle') return st === 'still' ? `hg_form_${pid}_still_battle` : `hg_battle_${pid}${st && `_${st}`}`;
+    if (kind === 'face') return st === 'still' ? null : `hgzug_${pid}${st && `_${st}`}`;
+    return `hg_form_${pid}${st && `_${st}`}`;
+  }).filter(Boolean);
+};
+/**
  * Mythische Gestalt (Seb, 2026-11-11): ab Sequenz 4 und 50 % Verdauung kann man die wahre Gestalt des Pfades
  * annehmen. Nicht-Beyonder (Menschen ohne Pfad) und Monster, die deutlich unter der eigenen Stufe liegen,
  * brechen beim bloßen Anblick zusammen (kein Kampf, aber Sieg mit Beute und Verdauung). Die Gestalt zehrt an

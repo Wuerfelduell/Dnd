@@ -4,7 +4,7 @@ import { TIER_KAMPF } from '../core/Tiere.js';
 import { NEWSPAPERS } from '../data/lore.js';
 import { uiSound, worldSound, sudZutatVariant, sudSounds, ruleBlockSound } from '../core/sounds.js';
 import { FESTE } from '../core/Clock.js';
-import { DIGEST_LABELS, digestSlowdown, fmtDigest, FORM_SEQ, FORM_MIN_DIGEST, formReif, FORM_NERVES_PER_SEC, FORM_MAX_UNRUHE, FORM_MIN_NERVES } from '../core/Pathways.js';
+import { DIGEST_LABELS, digestSlowdown, fmtDigest, FORM_SEQ, FORM_MIN_DIGEST, formReif, FORM_NERVES_PER_SEC, FORM_MAX_UNRUHE, FORM_MIN_NERVES, formStageKeys } from '../core/Pathways.js';
 import { buffLabel, fmtSec } from '../core/Talents.js';
 import { PROBE_FAIL } from '../core/Proben.js';
 import { FAIL_PCT, FAIL_UNRUHE, LATERNEN, LAMPENOEL, KOKON_FAEDEN, SUD_MIN_SEC } from '../core/Seq5.js';
@@ -252,7 +252,7 @@ const FORM_BAR_ID = 'hg_form_bar';
 /** Merker in skillHidden: Welt-Fähigkeit nicht in der Schnellleiste (Seb 2026-11-27), Tasten rücken nach. */
 const barHideId = (id) => `bar:${id}`;
 /** Gestalt-Knopf (Seb 2026-11-27): Zugportrait der Kreaturform des eigenen Pfades (ui/hg_zug_<pfad>.png). */
-const formFaceIcon = (pid, k, cls = '') => (pid && UI_REGIONS[`hgzug_${pid}`] ? uiSprite(`hgzug_${pid}`, 'face', k, cls) : '');
+const formFaceIcon = (pid, k, cls = '', seq = 4) => { const id = formStageKeys(pid, seq, 'face').find((x) => UI_REGIONS[x]); return id ? uiSprite(id, 'face', k, cls) : ''; }; // Seq 3/2: gewachsene Gestalt
 const talentIconHud = (id) => {
   const ic = talentIconOf(id);
   if (!ic) return '<span class="ticon sun">☉</span>';
@@ -1046,7 +1046,7 @@ export class Ui {
       const s = this.state;
       if (!s.formUnlocked?.() || s.skillHiddenInCombat(FORM_BAR_ID)) return null;
       const active = s.formActive();
-      return { active, block: active ? null : s.formBlock(), name: s.formDef()?.name ?? 'Mythische Gestalt', pid: s.pathway?.id };
+      return { active, block: active ? null : s.formBlock(), name: s.formDef()?.name ?? 'Mythische Gestalt', pid: s.pathway?.id, seq: s.pathway?.seq };
     }, n);
   }
 
@@ -1070,7 +1070,7 @@ export class Ui {
     const key = n === 2 ? 'Num ,' : '0';
     const title = `${f.name} (Taste ${key}): ${f.active ? 'Gestalt ablegen' : 'Gestalt annehmen'}${f.block ? ` – ${f.block}` : ''}`;
     const sel = n === 2 && this.talentSel2 === i ? ' sel' : '';
-    const icon = formFaceIcon(f.pid, 2.1 / 32, 'ticon formface') || uiSprite('hghud32', f.active ? 'form_an' : f.block ? 'verdauung_gesperrt' : 'form_aus', TILE_ICON_EM / 32, 'ticon');
+    const icon = formFaceIcon(f.pid, 2.1 / 32, 'ticon formface', f.seq) || uiSprite('hghud32', f.active ? 'form_an' : f.block ? 'verdauung_gesperrt' : 'form_aus', TILE_ICON_EM / 32, 'ticon');
     return `<button class="tslot form ${state}${sel}" data-tslot="form" data-tplayer="${n}" title="${esc(title)}">${icon}<span class="key">${n === 2 ? ',' : '0'}</span></button>`;
   }
 
@@ -3016,7 +3016,7 @@ export class Ui {
     const block = active ? null : s.formBlock();
     const form = s.formDef?.();
     const stufe = s.pathway.seq === 3 || s.pathway.seq <= 1 ? uiSprite('hghudseq31', s.pathway.seq === 3 ? 'seq3' : 'seq1', 1 / 10, 'hgicon') : ''; // GB1
-    const hud = formFaceIcon(s.pathway.id, 1 / 10, `hgicon formface${active ? ' on' : ''}`) || uiSprite('hghud32', active ? 'form_an' : block ? 'verdauung_gesperrt' : 'form_aus', 1 / 10, 'hgicon');
+    const hud = formFaceIcon(s.pathway.id, 1 / 10, `hgicon formface${active ? ' on' : ''}`, s.pathway.seq) || uiSprite('hghud32', active ? 'form_an' : block ? 'verdauung_gesperrt' : 'form_aus', 1 / 10, 'hgicon');
     const cp = form?.beschreibung ? `<p class="desc"><strong>${esc(form.name)}.</strong> ${esc(form.beschreibung)}${form.karte ? ` <span class="muted">${esc(form.karte)}</span>` : ''}</p>` : '';
     return `<div class="gestalt ${active ? 'active' : ''}"><h4>${stufe}${hud}Mythische Gestalt ${active ? '<span class="badge halbgott">angenommen</span>' : ''}</h4>${cp}
       <p class="muted">${active

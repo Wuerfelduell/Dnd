@@ -14,6 +14,7 @@ import { combatSound, skillSound, ritualSkillSound, kesselWurfSound } from '../c
 import { combatCue } from '../core/musicCues.js';
 import { speechBubble } from './WexmoorLife.js';
 import { p2View } from '../core/Split.js';
+import { formStageKeys } from '../core/Pathways.js';
 
 // Kampfbildschirm in Seitenansicht: Spieler links, Gegner rechts, Bodenstreifen unten.
 // Die Regeln stecken in core/Combat.js, hier nur Timing, Eingabe und Animation.
@@ -305,8 +306,8 @@ export class CombatScene extends Phaser.Scene {
       const look = n === 2 ? this.state.p2Look?.() : null;
       // Paket CO: wer seine Kreaturform trägt, kämpft mit ihrem 96er-Blatt (hg_battle_<pfad>), ohne eigene Posen-Sheets
       const formPid = this.state.withPlayer?.(n, () => (this.state.formActive?.() ? this.state.pathway?.id : null), { quiet: true });
-      const stillKey = formPid && this.state.withPlayer?.(n, () => this.state.pathway?.seq === 1, { quiet: true }) && `hg_form_${formPid}_still_battle`; // Seq 1: stille Endgestalt
-      const formSheet = stillKey && this.textures.exists(stillKey) ? stillKey : formPid && this.textures.exists(`hg_battle_${formPid}`) ? `hg_battle_${formPid}` : null;
+      const formSeq = formPid && this.state.withPlayer?.(n, () => this.state.pathway?.seq, { quiet: true });
+      const formSheet = formStageKeys(formPid, formSeq, 'battle').find((k) => this.textures.exists(k)) ?? null; // Seq 3/2 gewachsen, Seq 1 still
       // Codex DN/DO: in der Maskenprüfung kämpft der Zivilist, beim Schlüssel der Schatten (eigene 6x9-Blätter je Figur)
       const ritualSheet = ritualBattleSheet(ritualLook(this.state, this.combat, n), n === 2 ? look ?? 'p2a' : 'player');
       const sheets = ritualSheet && this.textures.exists(ritualSheet) ? { base: ritualSheet, skills: ritualSheet, weapons: ritualSheet, own: true, ritual: true }

@@ -3158,6 +3158,14 @@ for (const p of HG_PATHS) {
   BATTLE_SHEETS[`hg_form_${p}_still_battle`] = [`battle/hg_form_${p}_still.png`, 96];
   ANIM_ALIASES[`hg_form_${p}_still_battle`] = ANIM_ALIASES[`hg_battle_${p}`];
 }
+/** Codex DZ (manifest-gestalt3.json): die Gestalt auf Seq 3, gewachsen (Raster wie die CO-Formen). Seq 2 (EA) fehlt noch → Seq 3 gilt weiter. */
+for (const p of HG_PATHS) {
+  ANIM_SHEETS[`hg_form_${p}_s3`] = [`characters/hg_form_${p}_s3.png`, 32, 48];
+  BATTLE_SHEETS[`hg_battle_${p}_s3`] = [`battle/hg_battle_${p}_s3.png`, 96];
+  ANIM_ALIASES[`hg_battle_${p}_s3`] = ANIM_ALIASES[`hg_battle_${p}`];
+  UI_SHEETS[`hgzug_${p}_s3`] = [`ui/hg_zug_${p}_s3.png`, 32, 32];
+  UI_REGIONS[`hgzug_${p}_s3`] = { face: [0, 0, 32, 32] };
+}
 /** Grok GA Teil 5 (manifest-heilige.json): Heilige der Höfe (Seq 3), Raster wie hg_battle_<pfad>, nach links schauend wie alle Gegner. */
 for (const p of HG_PATHS) {
   BATTLE_SHEETS[`enemy_hs_heiliger_${p}`] = [`battle/enemy_hs_heiliger_${p}.png`, 96];
