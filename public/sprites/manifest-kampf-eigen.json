@@ -1,0 +1,732 @@
+{
+ "version": 1,
+ "batch": "kampf-eigen",
+ "palette": "manifest-halbgott.json",
+ "erzeugt": "python3 tools/art/kampf_eigen/figuren.py",
+ "hinweis": "Ruhe und Angriff eigens gezeichnet; special/hurt/defeated aus denselben Posen abgeleitet",
+ "assets": [
+  {
+   "id": "enemy_ke_thorne",
+   "file": "battle/enemy_ke_thorne.png",
+   "figur": "Aldo Thorne, Kopfgeldjäger (Eisen): Pelzmütze, Pelzkragen, Setzhammer",
+   "begegnungen": [
+    "kgj_bh_thorne"
+   ],
+   "bisher": "enemy_kgj_eisen",
+   "bisher_mit": "Mara Harrow",
+   "width": 288,
+   "height": 240,
+   "frameWidth": 48,
+   "frameHeight": 48,
+   "columns": 6,
+   "rows": 5,
+   "animations": {
+    "idle": {
+     "frames": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "frameRate": 6,
+     "repeat": -1
+    },
+    "attack": {
+     "frames": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "special": {
+     "frames": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "hurt": {
+     "frames": [
+      18,
+      19,
+      20
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "defeated": {
+     "frames": [
+      24,
+      25,
+      26,
+      27
+     ],
+     "frameRate": 6,
+     "repeat": 0
+    }
+   },
+   "sha256": "4edf0f72b165e3d123065b18cd35de6655980bd7488561a42bef7324183142f5"
+  },
+  {
+   "id": "enemy_ke_dunmore",
+   "file": "battle/enemy_ke_dunmore.png",
+   "figur": "Feodor Dunmore, Kopfgeldjäger (Maske): trägt dein Gesicht als Maske, Zylinder, Stilett",
+   "begegnungen": [
+    "kgj_bh_dunmore"
+   ],
+   "bisher": "enemy_kgj_maske",
+   "bisher_mit": "Silas Quill",
+   "width": 288,
+   "height": 240,
+   "frameWidth": 48,
+   "frameHeight": 48,
+   "columns": 6,
+   "rows": 5,
+   "animations": {
+    "idle": {
+     "frames": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "frameRate": 6,
+     "repeat": -1
+    },
+    "attack": {
+     "frames": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "special": {
+     "frames": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "hurt": {
+     "frames": [
+      18,
+      19,
+      20
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "defeated": {
+     "frames": [
+      24,
+      25,
+      26,
+      27
+     ],
+     "frameRate": 6,
+     "repeat": 0
+    }
+   },
+   "sha256": "1e49ca0df7fdd205415632809a5cb945e000563957c82de831bbea14a1e45f25"
+  },
+  {
+   "id": "enemy_ke_lerch",
+   "file": "battle/enemy_ke_lerch.png",
+   "figur": "Merit Lerch, Kopfgeldjägerin (Laterne): Ölzeug, Blendlaterne, Lichtkeil",
+   "begegnungen": [
+    "kgj_bh_lerch"
+   ],
+   "bisher": "enemy_kgj_laterne",
+   "bisher_mit": "Ilka Barlow",
+   "width": 288,
+   "height": 240,
+   "frameWidth": 48,
+   "frameHeight": 48,
+   "columns": 6,
+   "rows": 5,
+   "animations": {
+    "idle": {
+     "frames": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "frameRate": 6,
+     "repeat": -1
+    },
+    "attack": {
+     "frames": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "special": {
+     "frames": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "hurt": {
+     "frames": [
+      18,
+      19,
+      20
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "defeated": {
+     "frames": [
+      24,
+      25,
+      26,
+      27
+     ],
+     "frameRate": 6,
+     "repeat": 0
+    }
+   },
+   "sha256": "edbea3b0e08258bf4292af7143643fd5ab345a9735690950386c59123d5bb01b"
+  },
+  {
+   "id": "enemy_ke_kopfgeldrotte",
+   "file": "battle/enemy_ke_kopfgeldrotte.png",
+   "figur": "Die Kopfgeldrotte: Jäger mit Gewehr, ein zweiter dahinter",
+   "begegnungen": [
+    "hkr_dunscar_trupp"
+   ],
+   "bisher": "enemy_kgj_eisen",
+   "bisher_mit": "Mara Harrow, Aldo Thorne",
+   "width": 288,
+   "height": 240,
+   "frameWidth": 48,
+   "frameHeight": 48,
+   "columns": 6,
+   "rows": 5,
+   "animations": {
+    "idle": {
+     "frames": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "frameRate": 6,
+     "repeat": -1
+    },
+    "attack": {
+     "frames": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "special": {
+     "frames": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "hurt": {
+     "frames": [
+      18,
+      19,
+      20
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "defeated": {
+     "frames": [
+      24,
+      25,
+      26,
+      27
+     ],
+     "frameRate": 6,
+     "repeat": 0
+    }
+   },
+   "sha256": "a4e291dfe94bc7f90c1563dc99f8584ee2ea957b3ff757b653428230df8d5e45"
+  },
+  {
+   "id": "enemy_ke_rostbrueder",
+   "file": "battle/enemy_ke_rostbrueder.png",
+   "figur": "Die letzten Rostbrüder: alter Rostbruder in Kutte, Enterhaken an der Kette",
+   "begegnungen": [
+    "hkr_kettlegate_trupp"
+   ],
+   "bisher": "enemy_schlachtergehilfe",
+   "bisher_mit": "Knox, der Schlachtergehilfe",
+   "width": 288,
+   "height": 240,
+   "frameWidth": 48,
+   "frameHeight": 48,
+   "columns": 6,
+   "rows": 5,
+   "animations": {
+    "idle": {
+     "frames": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "frameRate": 6,
+     "repeat": -1
+    },
+    "attack": {
+     "frames": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "special": {
+     "frames": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "hurt": {
+     "frames": [
+      18,
+      19,
+      20
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "defeated": {
+     "frames": [
+      24,
+      25,
+      26,
+      27
+     ],
+     "frameRate": 6,
+     "repeat": 0
+    }
+   },
+   "sha256": "23e410e4ce497050ab7c49a294963ce869b0ff018ba36387c2d4f3a694d907c5"
+  },
+  {
+   "id": "enemy_ke_gefolge",
+   "file": "battle/enemy_ke_gefolge.png",
+   "figur": "Gefolge des Rivalen: Leibwächter mit Melone und Schlagring",
+   "begegnungen": [
+    "rivale_gefolge_1",
+    "rivale_gefolge_2",
+    "rivale_gefolge_3",
+    "rivale_gefolge_4"
+   ],
+   "bisher": "hg_battle_kessel",
+   "bisher_mit": "Kessel-Halbgott der Rivalen, Gerold Aschmann",
+   "width": 288,
+   "height": 240,
+   "frameWidth": 48,
+   "frameHeight": 48,
+   "columns": 6,
+   "rows": 5,
+   "animations": {
+    "idle": {
+     "frames": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "frameRate": 6,
+     "repeat": -1
+    },
+    "attack": {
+     "frames": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "special": {
+     "frames": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "hurt": {
+     "frames": [
+      18,
+      19,
+      20
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "defeated": {
+     "frames": [
+      24,
+      25,
+      26,
+      27
+     ],
+     "frameRate": 6,
+     "repeat": 0
+    }
+   },
+   "sha256": "8485d5c4eefd54fcc8ad05193252b2a8ae9c05691002bf037b91063d8b071575"
+  },
+  {
+   "id": "enemy_ke_grauer_schleier",
+   "file": "battle/enemy_ke_grauer_schleier.png",
+   "figur": "Grauer Schleier: Blumenverkäuferin der Schleierschwestern, Porzellan unter dem Schleier",
+   "begegnungen": [
+    "schleier_schatten"
+   ],
+   "bisher": "enemy_schleier_messerin",
+   "bisher_mit": "Fräulein Grau, Messerin",
+   "width": 288,
+   "height": 240,
+   "frameWidth": 48,
+   "frameHeight": 48,
+   "columns": 6,
+   "rows": 5,
+   "animations": {
+    "idle": {
+     "frames": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "frameRate": 6,
+     "repeat": -1
+    },
+    "attack": {
+     "frames": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "special": {
+     "frames": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "hurt": {
+     "frames": [
+      18,
+      19,
+      20
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "defeated": {
+     "frames": [
+      24,
+      25,
+      26,
+      27
+     ],
+     "frameRate": 6,
+     "repeat": 0
+    }
+   },
+   "sha256": "d06f5612493d26524d9c3dd55b7be12cbe26a817d2015b3b2de08d51e7ddd24d"
+  },
+  {
+   "id": "enemy_ke_aschenweberin",
+   "file": "battle/enemy_ke_aschenweberin.png",
+   "figur": "Aschenweberin: Motte aus Asche mit Glutaugen, hält Ascheschleier",
+   "begegnungen": [
+    "sg_aschenweberin"
+   ],
+   "bisher": "enemy_lohnlistenmotte",
+   "bisher_mit": "Lohnlistenmotte",
+   "width": 288,
+   "height": 240,
+   "frameWidth": 48,
+   "frameHeight": 48,
+   "columns": 6,
+   "rows": 5,
+   "animations": {
+    "idle": {
+     "frames": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "frameRate": 6,
+     "repeat": -1
+    },
+    "attack": {
+     "frames": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "special": {
+     "frames": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "hurt": {
+     "frames": [
+      18,
+      19,
+      20
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "defeated": {
+     "frames": [
+      24,
+      25,
+      26,
+      27
+     ],
+     "frameRate": 6,
+     "repeat": 0
+    }
+   },
+   "sha256": "db1b8c56ea5e5ad71d54fdc1df6dec7fa102d3033a3cf9ac0b37cc7497124b67"
+  },
+  {
+   "id": "enemy_ke_aussaatschwarm",
+   "file": "battle/enemy_ke_aussaatschwarm.png",
+   "figur": "Aussaatschwarm: drei offene Samenschoten der Mutterwurzel",
+   "begegnungen": [
+    "bha_aussaat_schwarm"
+   ],
+   "bisher": "enemy_vg_bh_boss_mutterwurzel",
+   "bisher_mit": "Blütenmund der Mutterwurzel (Boss)",
+   "width": 288,
+   "height": 240,
+   "frameWidth": 48,
+   "frameHeight": 48,
+   "columns": 6,
+   "rows": 5,
+   "animations": {
+    "idle": {
+     "frames": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "frameRate": 6,
+     "repeat": -1
+    },
+    "attack": {
+     "frames": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "special": {
+     "frames": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "hurt": {
+     "frames": [
+      18,
+      19,
+      20
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "defeated": {
+     "frames": [
+      24,
+      25,
+      26,
+      27
+     ],
+     "frameRate": 6,
+     "repeat": 0
+    }
+   },
+   "sha256": "56c666703afc32a7c28fce30e2ac3e0b36431fddfdde365597966927926843f0"
+  },
+  {
+   "id": "enemy_ke_registerleib_rest",
+   "file": "battle/enemy_ke_registerleib_rest.png",
+   "figur": "Registerleib, verbliebener Druck: gebückter Rest aus Blattlagen, Stempelarm",
+   "begegnungen": [
+    "cwa_registerleib_rest"
+   ],
+   "bisher": "enemy_vg_cw_boss_nullfundament",
+   "bisher_mit": "Registerleib des Nullfundaments (Boss)",
+   "width": 288,
+   "height": 240,
+   "frameWidth": 48,
+   "frameHeight": 48,
+   "columns": 6,
+   "rows": 5,
+   "animations": {
+    "idle": {
+     "frames": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "frameRate": 6,
+     "repeat": -1
+    },
+    "attack": {
+     "frames": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "special": {
+     "frames": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "hurt": {
+     "frames": [
+      18,
+      19,
+      20
+     ],
+     "frameRate": 8,
+     "repeat": 0
+    },
+    "defeated": {
+     "frames": [
+      24,
+      25,
+      26,
+      27
+     ],
+     "frameRate": 6,
+     "repeat": 0
+    }
+   },
+   "sha256": "4d150bb00ed20be5683e0fed463dcb2322ae2af19575b4b687af24b3ed512b8a"
+  }
+ ]
+}

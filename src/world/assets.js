@@ -8,6 +8,10 @@ import { KFX_SHEETS } from './SkillFx.js';
 import { BH_DACH_TEXTUREN } from '../data/briarholtKulisse.js';
 import { CW_KULISSEN_SPRITES } from '../data/calderwickKlotze.js';
 import { DS_BH_SPRITES } from '../data/dsbhKulissen.js';
+import { INNEN2_SPRITES } from '../data/innen2.js';
+import { KG_MAERKTE_SPRITES } from '../data/kettlegateMaerkte.js';
+import { KAMPF_EIGEN } from '../data/kampfEigen.js';
+import { WX_KULISSEN_SPRITES } from '../data/wexmoorKulissen.js';
 import { CW_KULISSE_BLAETTER } from '../data/calderwickKulisse.js';
 import { preloadRitualArt } from './ritualArt.js';
 import { DS_ZIRKEL_ICONS, DS_ZIRKEL_FIGUREN } from '../data/dunscarZirkel.js';
@@ -1309,6 +1313,7 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestVarrowmouth3')) scene.load.json('manifestVarrowmouth3', `${BASE}manifest-varrowmouth3.json`);
   if (!scene.cache.json.exists('manifestVarrowmouth1')) scene.load.json('manifestVarrowmouth1', `${BASE}manifest-varrowmouth1.json`); // Regionen vmf_/vmp_ (Kulissen-Runde 1)
   if (!scene.cache.json.exists('manifestRivalen')) scene.load.json('manifestRivalen', `${BASE}manifest-rivalen.json`); // Kampfblätter der Rivalen und Kopfgeldjäger
+  if (!scene.cache.json.exists('manifestKampfEigen')) scene.load.json('manifestKampfEigen', `${BASE}manifest-kampf-eigen.json`); // eigene Kampffiguren statt geteilter Bilder
   if (!scene.cache.json.exists('manifestDunscar5')) scene.load.json('manifestDunscar5', `${BASE}manifest-dunscar5.json`);
   if (!scene.cache.json.exists('manifestStarling2')) scene.load.json('manifestStarling2', `${BASE}manifest-starling2.json`);
   if (!scene.cache.json.exists('manifestSekten')) scene.load.json('manifestSekten', `${BASE}manifest-sekten.json`);
@@ -3435,3 +3440,21 @@ for (const [key, [w, h]] of Object.entries(CW_KULISSEN_SPRITES)) ANIM_SHEETS[key
 
 // --- Je fünf Requisiten für Dunscar und Briarholt (tools/art/ds_bh_kulissen/assets.py, data/dsbhKulissen.js, data/briarholtKulisse2.js) ---------
 for (const [key, [w, h]] of Object.entries(DS_BH_SPRITES)) ANIM_SHEETS[key] = ['props/' + key + '.png', w, h];
+
+// --- Mutterhaus, Labor und Dunscarer Zirkelräume (tools/art/innen2/assets.py, data/innen2.js) ---------------------------------------------
+for (const [key, [w, h]] of Object.entries(INNEN2_SPRITES)) ANIM_SHEETS[key] = ['props/' + key + '.png', w, h];
+
+// --- Kettlegate-Märkte (tools/art/kg_maerkte/assets.py, data/kettlegateMaerkte.js) ----------------------------------------------------
+for (const [key, [w, h]] of Object.entries(KG_MAERKTE_SPRITES)) ANIM_SHEETS[key] = ['props/' + key + '.png', w, h];
+
+// --- Eigene Kampffiguren für Gegner, die das Bild eines anderen Gegners trugen (tools/art/kampf_eigen/figuren.py, data/kampfEigen.js) -------
+for (const key of Object.keys(KAMPF_EIGEN)) BATTLE_SHEETS[key] = ['battle/' + key + '.png', 48];
+BATTLE_MANIFESTS.push('manifestKampfEigen');
+
+// --- Nebelseiten-Fundstücke mit eigenen Icons in 16 und 32 (tools/art/nsi_icons/icons.py, manifest-nsi-icons.json) ----------------------
+/** Neun Bilder waren paarweise auf 18 Fundstücke verteilt und passten nicht zum Text; zehn davon haben jetzt eigene Bilder (16er ersetzt, 32er neu). */
+export const NSI_ICONS = ['nsi_altmarkt_1', 'nsi_altmarkt_2', 'nsi_torfbrueche_1', 'nsi_sternwarte_1', 'nsi_sternwarte_2', 'nsi_katakomben_1', 'nsi_schwellenring_1', 'nsi_schwellenring_2', 'nsi_salzmarkt_2', 'nsi_flossfriedhof_1'];
+ICON32.push(...NSI_ICONS);
+
+// --- Wexmoor-Requisiten: Torf, Moor, Salz, Friedhof, Lichtamt (tools/art/wx_kulissen/assets.py, data/wexmoorKulissen.js) ----------------
+for (const [key, [w, h]] of Object.entries(WX_KULISSEN_SPRITES)) ANIM_SHEETS[key] = ['props/' + key + '.png', w, h];
