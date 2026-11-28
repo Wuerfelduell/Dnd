@@ -690,6 +690,11 @@ button.small.drop.armed { border-color: var(--bad); color: #ffb09a; }
 .hud .hudbar.unruhe .hudclip.tint { filter: hue-rotate(90deg) saturate(1.3); }
 .hud .hudbar.unruhe.low .hudclip.tint { filter: hue-rotate(130deg) saturate(1.6) brightness(1.1); }
 .hud .hudbar.unruhe.low { animation: pulse 1s infinite alternate; }
+.hud .hudbar.digest .hudclip.tint { filter: sepia(1) saturate(2.4) brightness(1.05); } /* Verdaut: Nerven-Füllung golden */
+.hud .hudbar.digest.full .hudclip.tint { filter: sepia(1) saturate(3) hue-rotate(50deg) brightness(1.1); animation: pulse 1s infinite alternate; } /* voll verdaut: grün */
+/* Seb 2026-11-28: Ortsschilder der Welt laufen nicht mehr durch die HUD-Texte; Ziel-Zeile bleibt einzeilig */
+.hud-left, .hud-p2 { background: rgba(10, 8, 14, 0.55); padding: 0.3em 0.5em; }
+.goal .gmain { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .hud .hudbar.hp.low { animation: pulse 1s ease-in-out infinite; }
 .hud .hudbar.nerves.low { filter: saturate(0.4) brightness(0.8); }
 .panel.pause { max-width: 40em; }
@@ -1074,7 +1079,7 @@ html.touch .cb-def .aeicon { display: block; margin: 0 auto 0.2em; font-size: 16
 
 /* Paket BU: Koop-Rahmen (ui/koop2_rahmen.png, 9-Slice 8px; je Spieler eine Hälfte) um beide HUD-Felder, Zustandssymbol von Spieler 2, Trennungsbild */
 .koop .hud-left, .koop .hud-p2 { border: 0.5em solid transparent; border-image: url("./sprites/ui/koop2_rahmen_p1.png") 8 fill / 0.5em stretch; padding: 0.25em 0.4em; image-rendering: pixelated; }
-.koop .hud-p2 { border-image-source: url("./sprites/ui/koop2_rahmen_p2.png"); background: none; }
+.koop .hud-p2 { border-image-source: url("./sprites/ui/koop2_rahmen_p2.png"); }
 .p2state { display: inline-block; vertical-align: middle; margin: 0 0.3em; }
 img.scene.koop2trennung { display: block; width: 15em; height: auto; margin: 0 auto 0.5em; image-rendering: pixelated; }
 
