@@ -13,6 +13,7 @@ import { isOutdoorMap } from './world/assets.js';
 import { cityOf } from './core/Travel.js';
 import { HIMMEL, STURZ_EFFECTS } from './data/aufstieg.js';
 import { watchDom, patchPhaser } from './core/I18n.js';
+import { bootLoader } from './ui/Ladebildschirm.js';
 import { skipTraining } from './core/Lehrstunde.js';
 
 // Drei lokale Speicherplätze. Platz 1 nutzt den alten Schlüssel, damit bestehende Spielstände dort bleiben.
@@ -29,7 +30,7 @@ const frame = document.getElementById('frame');
 const uiRoot = document.getElementById('ui');
 // Sprachwahl: angezeigte Texte (DOM + Phaser) werden bei Englisch übersetzt
 patchPhaser(Phaser);
-watchDom(uiRoot, document.getElementById('rotate'));
+watchDom(uiRoot, document.getElementById('rotate'), document.getElementById('boot'));
 
 // --- Spielstand (localStorage, Fehler werden still ignoriert) ---------------------
 function readSave(n = slot) {
@@ -125,6 +126,8 @@ const ui = new Ui(uiRoot, state, {
 });
 
 ui.audio = audio;
+// Ladebildschirm (Gerüst in index.html) zeigt den Fortschritt der ersten Ladeliste und gibt danach das Titelmenü frei
+const boot = bootLoader(ui);
 
 // Paket Z: Musik aus Notendaten (Web Audio), startet mit der ersten Eingabe
 const music = new MusicDirector({ audio });
@@ -177,6 +180,7 @@ game = new Phaser.Game({
       g.registry.set('ui', ui);
       g.registry.set('music', music);
       g.registry.set('audio', audio);
+      g.registry.set('boot', boot);
     },
   },
 });
