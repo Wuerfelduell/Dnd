@@ -2875,6 +2875,10 @@ for (const t of ['promenade', 'kessel', 'glas', 'stille', 'klinik', 'wurzel']) f
   MANIFEST_IDS[`bht_${t}_${v}`] = `bh_${t}_${v}`;
 }
 for (const [key, file] of Object.entries(BH_DACH_TEXTUREN)) ANIM_SHEETS[key] = [file, 16, 16];
+/** Briarholt-Kulissen Runde 2 (tools/art/bh_kulissen/assets.py, manifest-bh-kulissen.json): Dachsätze (16er, 11 Kacheln, Zeile 0 kalt, 1 warm) und Innenraum-Stücke. */
+export const BH_KULISSEN_SHEETS = { bhk_dach_kupfer: [16, 16], bhk_dach_schiefer: [16, 16], bhk_dach_ziegel: [16, 16], bhk_dach_basalt: [16, 16], bhk_labortisch: [48, 40],
+  bhk_laborregal: [32, 48], bhk_planschrank: [48, 32], bhk_rollenstaender: [16, 32], bhk_aktenschrank: [32, 48], bhk_gepaeckstapel: [32, 32] };
+for (const [key, [w, h]] of Object.entries(BH_KULISSEN_SHEETS)) ANIM_SHEETS[key] = [`props/${key}.png`, w, h];
 /** Kampfkulissen der Viertel (Kesselgrund und Glasgärten je kalt/warm); Innenräume nehmen die Kulisse ihres Viertels, der Bügelraum die warme des Kesselgrunds. */
 const BH_BATTLE = { bh_kutschenhof: 'bg_bh_kutschenhof', bh_kutschenhalle: 'bg_bh_kutschenhof', bh_kesselgrund: 'bg_bh_kesselgrund_kalt', bh_buegelraum: 'bg_bh_kesselgrund_warm',
   bh_winterpromenade: 'bg_bh_promenade', bh_pavillon: 'bg_bh_promenade', bh_glasgaerten: 'bg_bh_glasgaerten_kalt', bh_verkaufshalle: 'bg_bh_glasgaerten_kalt',
