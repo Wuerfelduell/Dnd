@@ -4094,6 +4094,7 @@ export class Ui {
   // --- Tastatur ---------------------------------------------------------------
 
   onKey(e) {
+    if (this.netGuest) return; // Online-Gast: Tasten gehen zum Host (src/net/Online.js)
     // Splitscreen: offene Fenster einer Hälfte bekommen die Tasten ihres Spielers (rechts wird Enter zu E, Ziffernblock 0 zu Esc)
     if (!this.isHalf && this.halves && !this.modal) {
       const p2 = Ui.p2Key(e);
@@ -4101,11 +4102,11 @@ export class Ui {
       if (h?.modal) {
         const nd = /^Numpad([0-9])$/.exec(e.code ?? '')?.[1]; // Ziffernblock auch ohne NumLock
         const key = !p2 ? e.key : e.key === 'Enter' ? 'e' : nd === '0' ? 'Escape' : nd ?? e.key;
-        h.onKey(p2 ? { key, code: e.code, repeat: e.repeat, shiftKey: e.shiftKey, target: e.target, preventDefault: () => e.preventDefault(), stopPropagation: () => e.stopPropagation() } : e);
+        h.onKey(p2 ? { key, code: e.code, repeat: e.repeat, shiftKey: e.shiftKey, target: e.target, fromGuest: e.fromGuest, preventDefault: () => e.preventDefault(), stopPropagation: () => e.stopPropagation() } : e);
         return;
       }
     }
-    if (e.target?.classList?.contains('beast-search') || e.target?.classList?.contains('nb-search') || e.target?.classList?.contains('testcode') || e.target?.classList?.contains('pname-input')) return; // Suchfeld im Bestiarium: Tasten gehören dem Textfeld
+    if (e.target?.classList?.contains('beast-search') || e.target?.classList?.contains('nb-search') || e.target?.classList?.contains('testcode') || e.target?.classList?.contains('pname-input') || e.target?.classList?.contains('net-code-input')) return; // Suchfeld im Bestiarium: Tasten gehören dem Textfeld
     if (!this.modal) {
       // Esc in der Welt: Pausemenü (Spieler 2 hinzufügen oder entfernen)
       if (e.key === 'Escape' && !e.repeat && this.scene && !this.combatScene && performance.now() >= this.blockedUntil) {
@@ -4175,8 +4176,11 @@ export class Ui {
     if (!sc) return;
     let handled = false;
     const num = /^[1-9]$/.test(k) ? Number(k) - 1 : -1;
+    // Online-Koop: Spieler 2 sitzt am anderen Rechner, der Host wählt nicht für ihn
+    const remoteTurn = this.onlineP2 && !e.fromGuest && sc.combat?.duo && sc.combat.actor === 2;
     if (sc.phase === 'menu' && this.combatMenuOpen) {
-      if (num >= 0) { this.combatPick(num); handled = true; }
+      if (num >= 0 && remoteTurn) handled = true;
+      else if (num >= 0) { this.combatPick(num); handled = true; }
       else if (k === 'tab' || k === 'arrowup' || k === 'arrowdown') handled = sc.cycleTarget?.(k === 'arrowup' || (k === 'tab' && e.shiftKey) ? -1 : 1) ?? false; // Gruppen: Ziel wechseln
       else if ((k === 'escape' || k === 'backspace') && this.combatMenuOpen.sub !== 'main') { this.combatMenu(this.combatMenuOpen.sub === 'target' ? 'skills' : 'main'); handled = true; }
     } else {
@@ -4191,6 +4195,7 @@ export class Ui {
       else if (sc.combat?.alsP2) {
         if (k === 'arrowleft') kind = 'dodge'; else if (k === 'arrowright') kind = 'parry';
       }
+      if (kind && who === 2 && this.onlineP2 && !e.fromGuest) { kind = null; handled = true; } // Spieler 2 spielt online
       if (kind) handled = sc.onKey(kind, who);
     }
     if (handled || k === ' ' || k === 'tab') { e.preventDefault(); e.stopPropagation(); }
